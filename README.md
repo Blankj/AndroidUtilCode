@@ -51,8 +51,10 @@
 	- 切换键盘显示与否状态
 - [正则相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_regular.md)
 	- 正则工具类
+- [加解密相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_encrypt.md)
+	- MD5加密
+	- SHA加密
 - [未归类](https://github.com/Blankj/AndroidUtilCode/blob/master/unclassified.md)
 	- 获取服务是否开启
-	- MD5加密
 
 期待你的Star和完善...
