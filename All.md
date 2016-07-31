@@ -1,110 +1,57 @@
-Îª·½±ã²éÕÒ£¬ÒÑ½øĞĞ´óÖÂ¹éÀà£¬Æä´ó¸ÙÈçÏÂËùÊ¾£º 
-> - [1 ³ß´çÏà¹Ø](#1)
->    - [1.1 dpÓëpx×ª»»](#1.1)
->    - [1.2 spÓëpx×ª»»](#1.2)
->    - [1.3 ¸÷ÖÖµ¥Î»×ª»»](#1.3)
->    - [1.4 ÔÚonCreate()¼´¿É»ñÈ¡ViewµÄ¿í¸ß](#1.4)
->    - [1.5 ListViewÖĞÌáÇ°²âÁ¿View³ß´ç](#1.5)
-> - [2 ÊÖ»úÏà¹Ø](#2)
->    - [2.1 ÅĞ¶ÏÉè±¸ÊÇ·ñÊÇÊÖ»ú](#2.1)
->    - [2.2 »ñÈ¡µ±Ç°Éè±¸µÄIMIE£¬ĞèÓëÉÏÃæµÄisPhoneÒ»ÆğÊ¹ÓÃ](#2.2)
->    - [2.3 »ñÈ¡ÊÖ»ú×´Ì¬ĞÅÏ¢](#2.3)
->    - [2.4 ÊÇ·ñÓĞSD¿¨](#2.4)
->    - [2.5 »ñÈ¡MACµØÖ·](#2.5)
->    - [2.6 »ñÈ¡ÊÖ»ú³§ÉÌ£¬ÈçXiaomi](#2.6)
->    - [2.7 »ñÈ¡ÊÖ»úĞÍºÅ£¬ÈçMI2SC](#2.7)
->    - [2.8 Ìø×ªÖÁ²¦ºÅ½çÃæ](#2.8)
->    - [2.9 ²¦´òµç»°](#2.9)
->    - [2.10 ·¢ËÍ¶ÌĞÅ](#2.10)
->    - [2.11 »ñÈ¡ÊÖ»úÁªÏµÈË](#2.11)
->    - [2.12 Ö±½Ó´ò¿ªÊÖ»úÁªÏµÈË½çÃæ£¬²¢»ñÈ¡ÁªÏµÈËºÅÂë](#2.12)
->    - [2.13 »ñÈ¡ÊÖ»ú¶ÌĞÅ²¢±£´æµ½xmlÖĞ](#2.13)
-> - [3 ÍøÂçÏà¹Ø](#3)
->    - [3.1 ´ò¿ªÍøÂçÉèÖÃ½çÃæ](#3.1)
->    - [3.2 ÅĞ¶ÏÊÇ·ñÍøÂçÁ¬½Ó](#3.2)
->    - [3.3 ÅĞ¶ÏwifiÊÇ·ñÁ¬½Ó×´Ì¬](#3.1)
->    - [3.4 »ñÈ¡ÒÆ¶¯ÍøÂçÔËÓªÉÌÃû³Æ£¬ÈçÖĞ¹úÁªÍ¨¡¢ÖĞ¹úÒÆ¶¯¡¢ÖĞ¹úµçĞÅ](#3.4)
->    - [3.5 ·µ»ØÒÆ¶¯ÖÕ¶ËÀàĞÍ](#3.5)
->    - [3.6 ÅĞ¶ÏÊÖ»úÁ¬½ÓµÄÍøÂçÀàĞÍ(2G,3G,4G)](#3.6)
->    - [3.7 ÅĞ¶Ïµ±Ç°ÊÖ»úµÄÍøÂçÀàĞÍ(WIFI»¹ÊÇ2,3,4G)](#3.7)
-> - [4 AppÏà¹Ø](#4)
->    - [4.1 °²×°Ö¸¶¨Â·¾¶ÏÂµÄApk](#4.1)
->    - [4.2 Ğ¶ÔØÖ¸¶¨°üÃûµÄApp](#4.2)
->    - [4.3 »ñÈ¡AppÃû³Æ](#4.3)
->    - [4.4 »ñÈ¡µ±Ç°App°æ±¾ºÅ](#4.4)
->    - [4.5 ´ò¿ªÖ¸¶¨°üÃûµÄApp](#4.5)
->    - [4.6 ´ò¿ªÖ¸¶¨°üÃûµÄAppÓ¦ÓÃĞÅÏ¢½çÃæ](#4.6)
->    - [4.7 ·ÖÏíApkĞÅÏ¢](#4.7)
->    - [4.8 »ñÈ¡AppĞÅÏ¢µÄÒ»¸ö·â×°Àà(°üÃû¡¢°æ±¾ºÅ¡¢Ó¦ÓÃĞÅÏ¢¡¢Í¼±ê¡¢Ãû³ÆµÈ)](#4.8)
->    - [4.9 ÅĞ¶Ïµ±Ç°App´¦ÓÚÇ°Ì¨»¹ÊÇºóÌ¨](#4.9)
-> - [5 ÆÁÄ»Ïà¹Ø](#5)
->    - [5.1 »ñÈ¡ÊÖ»ú·Ö±æÂÊ](#5.1)
->    - [5.2 »ñÈ¡×´Ì¬À¸¸ß¶È](#5.2)
->    - [5.3 »ñÈ¡×´Ì¬À¸¸ß¶È£«±êÌâÀ¸(ActionBar)¸ß¶È](#5.3)
->    - [5.4 »ñÈ¡ÆÁÄ»½ØÍ¼](#5.4)
->    - [5.5 ÉèÖÃÍ¸Ã÷×´Ì¬À¸£¬ĞèÔÚsetContentViewÖ®Ç°µ÷ÓÃ](#5.5)
-> - [6 ¼üÅÌÏà¹Ø](#6)
->    - [6.1 ±ÜÃâÊäÈë·¨Ãæ°åÕÚµ²](#6.1)
->    - [6.2 ¶¯Ì¬Òş²ØÈí¼üÅÌ](#6.2)
->    - [6.3 µã»÷ÆÁÄ»¿Õ°×ÇøÓòÒş²ØÈí¼üÅÌ](#6.3)
->    - [6.4 ¶¯Ì¬ÏÔÊ¾Èí¼üÅÌ](#6.4)
->    - [6.5 ÇĞ»»¼üÅÌÏÔÊ¾Óë·ñ×´Ì¬](#6.5)
-> - [7 ÕıÔòÏà¹Ø](#7)
->    - [7.1 ÕıÔò¹¤¾ßÀà](#7.1)
-> - [8 ¼Ó½âÃÜÏà¹Ø](#8)
->    - [8.1 MD5¼ÓÃÜ](#8.1)
->    - [8.2 SHA¼ÓÃÜ](#8.2)
-> - [x Î´¹éÀà](#x)
->    - [x.1 »ñÈ¡·şÎñÊÇ·ñ¿ªÆô](#x.1)
-> - [¸üĞÂLog](#log)
+<p>ä¸ºæ–¹ä¾¿æŸ¥æ‰¾ï¼Œå·²è¿›è¡Œå¤§è‡´å½’ç±»ï¼Œå…¶å¤§çº²å¦‚ä¸‹æ‰€ç¤ºï¼š </p>
 
-´ó²¿·Ö´úÂëÒÑÑéÖ¤¹ı¿ÉĞĞ£¬ÈçÓĞ´íÎó£¬Çë¼°Ê±¸æÖ®¡£  
-·ÖÀàÒÑÉÏ´«ÖÁGithub£¬´«ËÍÃÅ¡ú[ÆÚ´ıÄãµÄStarºÍÍêÉÆ](https://github.com/Blankj/AndroidUtilCode)  
+<blockquote><ul><li><a href="#1">1 å°ºå¯¸ç›¸å…³</a><ul><li><a href="#1.1">1.1 dpä¸pxè½¬æ¢</a></li><li><a href="#1.2">1.2 spä¸pxè½¬æ¢</a></li><li><a href="#1.3">1.3 å„ç§å•ä½è½¬æ¢</a></li><li><a href="#1.4">1.4 åœ¨onCreate()å³å¯è·å–Viewçš„å®½é«˜</a></li><li><a href="#1.5">1.5 ListViewä¸­æå‰æµ‹é‡Viewå°ºå¯¸</a></li></ul></li><li><a href="#2">2 æ‰‹æœºç›¸å…³</a><ul><li><a href="#2.1">2.1 åˆ¤æ–­è®¾å¤‡æ˜¯å¦æ˜¯æ‰‹æœº</a></li><li><a href="#2.2">2.2 è·å–å½“å‰è®¾å¤‡çš„IMIEï¼Œéœ€ä¸ä¸Šé¢çš„isPhoneä¸€èµ·ä½¿ç”¨</a></li><li><a href="#2.3">2.3 è·å–æ‰‹æœºçŠ¶æ€ä¿¡æ¯</a></li><li><a href="#2.4">2.4 æ˜¯å¦æœ‰SDå¡</a></li><li><a href="#2.5">2.5 è·å–MACåœ°å€</a></li><li><a href="#2.6">2.6 è·å–æ‰‹æœºå‚å•†ï¼Œå¦‚Xiaomi</a></li><li><a href="#2.7">2.7 è·å–æ‰‹æœºå‹å·ï¼Œå¦‚MI2SC</a></li><li><a href="#2.8">2.8 è·³è½¬è‡³æ‹¨å·ç•Œé¢</a></li><li><a href="#2.9">2.9 æ‹¨æ‰“ç”µè¯</a></li><li><a href="#2.10">2.10 å‘é€çŸ­ä¿¡</a></li><li><a href="#2.11">2.11 è·å–æ‰‹æœºè”ç³»äºº</a></li><li><a href="#2.12">2.12 ç›´æ¥æ‰“å¼€æ‰‹æœºè”ç³»äººç•Œé¢ï¼Œå¹¶è·å–è”ç³»äººå·ç </a></li><li><a href="#2.13">2.13 è·å–æ‰‹æœºçŸ­ä¿¡å¹¶ä¿å­˜åˆ°xmlä¸­</a></li></ul></li><li><a href="#3">3 ç½‘ç»œç›¸å…³</a><ul><li><a href="#3.1">3.1 æ‰“å¼€ç½‘ç»œè®¾ç½®ç•Œé¢</a></li><li><a href="#3.2">3.2 åˆ¤æ–­æ˜¯å¦ç½‘ç»œè¿æ¥</a></li><li><a href="#3.1">3.3 åˆ¤æ–­wifiæ˜¯å¦è¿æ¥çŠ¶æ€</a></li><li><a href="#3.4">3.4 è·å–ç§»åŠ¨ç½‘ç»œè¿è¥å•†åç§°ï¼Œå¦‚ä¸­å›½è”é€šã€ä¸­å›½ç§»åŠ¨ã€ä¸­å›½ç”µä¿¡</a></li><li><a href="#3.5">3.5 è¿”å›ç§»åŠ¨ç»ˆç«¯ç±»å‹</a></li><li><a href="#3.6">3.6 åˆ¤æ–­æ‰‹æœºè¿æ¥çš„ç½‘ç»œç±»å‹(2G,3G,4G)</a></li><li><a href="#3.7">3.7 åˆ¤æ–­å½“å‰æ‰‹æœºçš„ç½‘ç»œç±»å‹(WIFIè¿˜æ˜¯2,3,4G)</a></li></ul></li><li><a href="#4">4 Appç›¸å…³</a><ul><li><a href="#4.1">4.1 å®‰è£…æŒ‡å®šè·¯å¾„ä¸‹çš„Apk</a></li><li><a href="#4.2">4.2 å¸è½½æŒ‡å®šåŒ…åçš„App</a></li><li><a href="#4.3">4.3 è·å–Appåç§°</a></li><li><a href="#4.4">4.4 è·å–å½“å‰Appç‰ˆæœ¬å·</a></li><li><a href="#4.5">4.5 æ‰“å¼€æŒ‡å®šåŒ…åçš„App</a></li><li><a href="#4.6">4.6 æ‰“å¼€æŒ‡å®šåŒ…åçš„Appåº”ç”¨ä¿¡æ¯ç•Œé¢</a></li><li><a href="#4.7">4.7 åˆ†äº«Apkä¿¡æ¯</a></li><li><a href="#4.8">4.8 è·å–Appä¿¡æ¯çš„ä¸€ä¸ªå°è£…ç±»(åŒ…åã€ç‰ˆæœ¬å·ã€åº”ç”¨ä¿¡æ¯ã€å›¾æ ‡ã€åç§°ç­‰)</a></li><li><a href="#4.9">4.9 åˆ¤æ–­å½“å‰Appå¤„äºå‰å°è¿˜æ˜¯åå°</a></li></ul></li><li><a href="#5">5 å±å¹•ç›¸å…³</a><ul><li><a href="#5.1">5.1 è·å–æ‰‹æœºåˆ†è¾¨ç‡</a></li><li><a href="#5.2">5.2 è·å–çŠ¶æ€æ é«˜åº¦</a></li><li><a href="#5.3">5.3 è·å–çŠ¶æ€æ é«˜åº¦ï¼‹æ ‡é¢˜æ (ActionBar)é«˜åº¦</a></li><li><a href="#5.4">5.4 è·å–å±å¹•æˆªå›¾</a></li><li><a href="#5.5">5.5 è®¾ç½®é€æ˜çŠ¶æ€æ ï¼Œéœ€åœ¨setContentViewä¹‹å‰è°ƒç”¨</a></li></ul></li><li><a href="#6">6 é”®ç›˜ç›¸å…³</a><ul><li><a href="#6.1">6.1 é¿å…è¾“å…¥æ³•é¢æ¿é®æŒ¡</a></li><li><a href="#6.2">6.2 åŠ¨æ€éšè—è½¯é”®ç›˜</a></li><li><a href="#6.3">6.3 ç‚¹å‡»å±å¹•ç©ºç™½åŒºåŸŸéšè—è½¯é”®ç›˜</a></li><li><a href="#6.4">6.4 åŠ¨æ€æ˜¾ç¤ºè½¯é”®ç›˜</a></li><li><a href="#6.5">6.5 åˆ‡æ¢é”®ç›˜æ˜¾ç¤ºä¸å¦çŠ¶æ€</a></li></ul></li><li><a href="#7">7 æ­£åˆ™ç›¸å…³</a><ul><li><a href="#7.1">7.1 æ­£åˆ™å·¥å…·ç±»</a></li></ul></li><li><a href="#8">8 åŠ è§£å¯†ç›¸å…³</a><ul><li><a href="#8.1">8.1 MD5åŠ å¯†</a></li><li><a href="#8.2">8.2 SHAåŠ å¯†</a></li></ul></li><li><a href="#x">x æœªå½’ç±»</a><ul><li><a href="#x.1">x.1 è·å–æœåŠ¡æ˜¯å¦å¼€å¯</a></li></ul></li><li><a href="#log">æ›´æ–°Log</a></li></ul></blockquote>
 
-# <span id = "1"/>1 ³ß´çÏà¹Ø
-### <span id = "1.1"/>1.1 dpÓëpx×ª»»
-``` java
+<p>å¤§éƒ¨åˆ†ä»£ç å·²éªŒè¯è¿‡å¯è¡Œï¼Œå¦‚æœ‰é”™è¯¯ï¼Œè¯·åŠæ—¶å‘Šä¹‹ã€‚<br/>åˆ†ç±»å·²ä¸Šä¼ è‡³Githubï¼Œä¼ é€é—¨â†’<a href="https://github.com/Blankj/AndroidUtilCode">æœŸå¾…ä½ çš„Starå’Œå®Œå–„</a>  </p>
+
+<h1>&lt;span id = &quot;1&quot;/&gt;1 å°ºå¯¸ç›¸å…³</h1>
+
+<h3>&lt;span id = &quot;1.1&quot;/&gt;1.1 dpä¸pxè½¬æ¢</h3>
+
+<p><code></code>` java
 /**
-* dp×ªpx
-*/
+<em> dpè½¬px
+</em>/
 public static int dp2px(Context context, float dpValue) {
     final float scale = context.getResources().getDisplayMetrics().density;
     return (int) (dpValue * scale + 0.5f);
-}
+}</p>
 
-/**
-* px×ªdp
-*/
+<p>/**
+<em> pxè½¬dp
+</em>/
 public static int px2dp(Context context, float pxValue) {
     final float scale = context.getResources().getDisplayMetrics().density;
     return (int) (pxValue / scale + 0.5f);
 }
-```
- 
-### <span id = "1.2"/>1.2 spÓëpx×ª»»
-``` java
+<code></code>`</p>
+
+<h3>&lt;span id = &quot;1.2&quot;/&gt;1.2 spä¸pxè½¬æ¢</h3>
+
+<p><code></code>` java
 /**
-* sp×ªpx
-*/
+<em> spè½¬px
+</em>/
 public static int sp2px(Context context, float spValue) {
     final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
     return (int) (spValue * fontScale + 0.5f);
-}
+}</p>
 
-/**
-* px×ªsp
-*/
+<p>/**
+<em> pxè½¬sp
+</em>/
 public static int px2sp(Context context, float pxValue) {
     final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
     return (int) (pxValue / fontScale + 0.5f);
 }
-```
+<code></code>`</p>
 
-### <span id = "1.3"/>1.3 ¸÷ÖÖµ¥Î»×ª»»
-``` java
-// ¸Ã·½·¨´æÔÚÓÚTypedValue
+<h3>&lt;span id = &quot;1.3&quot;/&gt;1.3 å„ç§å•ä½è½¬æ¢</h3>
+
+<p><code> java
+// è¯¥æ–¹æ³•å­˜åœ¨äºTypedValue
 /**
-* ¸÷ÖÖµ¥Î»×ª»»
+* å„ç§å•ä½è½¬æ¢
 */
 public static float applyDimension(int unit, float value, DisplayMetrics metrics) {
     switch (unit) {
@@ -123,12 +70,13 @@ public static float applyDimension(int unit, float value, DisplayMetrics metrics
     }
     return 0;
 }
-```
+</code></p>
 
-### <span id = "1.4"/>1.4 ÔÚonCreate()¼´¿É»ñÈ¡ViewµÄ¿í¸ß
-``` java
+<h3>&lt;span id = &quot;1.4&quot;/&gt;1.4 åœ¨onCreate()å³å¯è·å–Viewçš„å®½é«˜</h3>
+
+<p><code> java
 /**
-* ÔÚonCreate()¼´¿É»ñÈ¡ViewµÄ¿í¸ß
+* åœ¨onCreate()å³å¯è·å–Viewçš„å®½é«˜
 */
 public static int[] getViewMeasure(View view) {
     int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
@@ -136,13 +84,14 @@ public static int[] getViewMeasure(View view) {
     view.measure(widthMeasureSpec, heightMeasureSpec);
     return new int[]{view.getMeasuredWidth(), view.getMeasuredHeight()};
 }
-```
+</code></p>
 
-### <span id = "1.5"/>1.5 ListViewÖĞÌáÇ°²âÁ¿View³ß´ç
-``` java
-// Í¨Öª¸¸²¼¾Ö£¬Õ¼ÓÃµÄ¿í£¬¸ß£»
+<h3>&lt;span id = &quot;1.5&quot;/&gt;1.5 ListViewä¸­æå‰æµ‹é‡Viewå°ºå¯¸</h3>
+
+<p><code> java
+// é€šçŸ¥çˆ¶å¸ƒå±€ï¼Œå ç”¨çš„å®½ï¼Œé«˜ï¼›
 /**
-* ListViewÖĞÌáÇ°²âÁ¿View³ß´ç£¬ÈçheaderView
+* ListViewä¸­æå‰æµ‹é‡Viewå°ºå¯¸ï¼Œå¦‚headerView
 */
 private void measureView(View view) {
     ViewGroup.LayoutParams p = view.getLayoutParams();
@@ -153,7 +102,7 @@ private void measureView(View view) {
     int width = ViewGroup.getChildMeasureSpec(0, 0, p.width);
     int height;
     int tempHeight = p.height;
-    if (tempHeight > 0) {
+    if (tempHeight &gt; 0) {
         height = MeasureSpec.makeMeasureSpec(tempHeight,
                 MeasureSpec.EXACTLY);
     } else {
@@ -161,25 +110,29 @@ private void measureView(View view) {
     }
     view.measure(width, height);
 }
-```
+</code></p>
 
-********************************************************************************************
-# <span id = "2"/>2 ÊÖ»úÏà¹Ø
-### <span id = "2.1"/>2.1 ÅĞ¶ÏÉè±¸ÊÇ·ñÊÇÊÖ»ú
-``` java
+<hr/>
+
+<h1>&lt;span id = &quot;2&quot;/&gt;2 æ‰‹æœºç›¸å…³</h1>
+
+<h3>&lt;span id = &quot;2.1&quot;/&gt;2.1 åˆ¤æ–­è®¾å¤‡æ˜¯å¦æ˜¯æ‰‹æœº</h3>
+
+<p><code> java
 /**
-* ÅĞ¶ÏÉè±¸ÊÇ·ñÊÇÊÖ»ú
+* åˆ¤æ–­è®¾å¤‡æ˜¯å¦æ˜¯æ‰‹æœº
 */
 public static boolean isPhone(Context context) {
     TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
     return telephony.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE;
 }
-```
+</code></p>
 
-### <span id = "2.2"/>2.2 »ñÈ¡µ±Ç°Éè±¸µÄIMIE£¬ĞèÓëÉÏÃæµÄisPhoneÒ»ÆğÊ¹ÓÃ
-``` java
+<h3>&lt;span id = &quot;2.2&quot;/&gt;2.2 è·å–å½“å‰è®¾å¤‡çš„IMIEï¼Œéœ€ä¸ä¸Šé¢çš„isPhoneä¸€èµ·ä½¿ç”¨</h3>
+
+<p><code> java
 /**
-* »ñÈ¡µ±Ç°Éè±¸µÄIMIE£¬ĞèÓëÉÏÃæµÄisPhoneÒ»ÆğÊ¹ÓÃ
+* è·å–å½“å‰è®¾å¤‡çš„IMIEï¼Œéœ€ä¸ä¸Šé¢çš„isPhoneä¸€èµ·ä½¿ç”¨
 */
 public static String getDeviceIMEI(Context context) {
     String deviceId;
@@ -191,26 +144,27 @@ public static String getDeviceIMEI(Context context) {
     }
     return deviceId;
 }
-```
+</code></p>
 
-### <span id = "2.3"/>2.3 »ñÈ¡ÊÖ»ú×´Ì¬ĞÅÏ¢
-``` java
-// ĞèÌí¼ÓÈ¨ÏŞ<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+<h3>&lt;span id = &quot;2.3&quot;/&gt;2.3 è·å–æ‰‹æœºçŠ¶æ€ä¿¡æ¯</h3>
+
+<p><code> java
+// éœ€æ·»åŠ æƒé™&lt;uses-permission android:name=&quot;android.permission.READ_PHONE_STATE&quot;/&gt;
 /**
-* »ñÈ¡ÊÖ»ú×´Ì¬ĞÅÏ¢
+* è·å–æ‰‹æœºçŠ¶æ€ä¿¡æ¯
 *
-* ·µ»ØÈçÏÂ
+* è¿”å›å¦‚ä¸‹
 * DeviceId(IMEI) = 99000311726612
 * DeviceSoftwareVersion = 00
 * Line1Number =
 * NetworkCountryIso = cn
 * NetworkOperator = 46003
-* NetworkOperatorName = ÖĞ¹úµçĞÅ
+* NetworkOperatorName = ä¸­å›½ç”µä¿¡
 * NetworkType = 6
 * honeType = 2
 * SimCountryIso = cn
 * SimOperator = 46003
-* SimOperatorName = ÖĞ¹úµçĞÅ
+* SimOperatorName = ä¸­å›½ç”µä¿¡
 * SimSerialNumber = 89860315045710604022
 * SimState = 5
 * SubscriberId(IMSI) = 460030419724900
@@ -219,41 +173,43 @@ public static String getDeviceIMEI(Context context) {
 public static String getPhoneStatus(Context context) {
     TelephonyManager tm = (TelephonyManager) context
             .getSystemService(Context.TELEPHONY_SERVICE);
-    String str = "";
-    str += "DeviceId(IMEI) = " + tm.getDeviceId() + "\n";
-    str += "DeviceSoftwareVersion = " + tm.getDeviceSoftwareVersion() + "\n";
-    str += "Line1Number = " + tm.getLine1Number() + "\n";
-    str += "NetworkCountryIso = " + tm.getNetworkCountryIso() + "\n";
-    str += "NetworkOperator = " + tm.getNetworkOperator() + "\n";
-    str += "NetworkOperatorName = " + tm.getNetworkOperatorName() + "\n";
-    str += "NetworkType = " + tm.getNetworkType() + "\n";
-    str += "honeType = " + tm.getPhoneType() + "\n";
-    str += "SimCountryIso = " + tm.getSimCountryIso() + "\n";
-    str += "SimOperator = " + tm.getSimOperator() + "\n";
-    str += "SimOperatorName = " + tm.getSimOperatorName() + "\n";
-    str += "SimSerialNumber = " + tm.getSimSerialNumber() + "\n";
-    str += "SimState = " + tm.getSimState() + "\n";
-    str += "SubscriberId(IMSI) = " + tm.getSubscriberId() + "\n";
-    str += "VoiceMailNumber = " + tm.getVoiceMailNumber() + "\n";
+    String str = &quot;&quot;;
+    str += &quot;DeviceId(IMEI) = &quot; + tm.getDeviceId() + &quot;\n&quot;;
+    str += &quot;DeviceSoftwareVersion = &quot; + tm.getDeviceSoftwareVersion() + &quot;\n&quot;;
+    str += &quot;Line1Number = &quot; + tm.getLine1Number() + &quot;\n&quot;;
+    str += &quot;NetworkCountryIso = &quot; + tm.getNetworkCountryIso() + &quot;\n&quot;;
+    str += &quot;NetworkOperator = &quot; + tm.getNetworkOperator() + &quot;\n&quot;;
+    str += &quot;NetworkOperatorName = &quot; + tm.getNetworkOperatorName() + &quot;\n&quot;;
+    str += &quot;NetworkType = &quot; + tm.getNetworkType() + &quot;\n&quot;;
+    str += &quot;honeType = &quot; + tm.getPhoneType() + &quot;\n&quot;;
+    str += &quot;SimCountryIso = &quot; + tm.getSimCountryIso() + &quot;\n&quot;;
+    str += &quot;SimOperator = &quot; + tm.getSimOperator() + &quot;\n&quot;;
+    str += &quot;SimOperatorName = &quot; + tm.getSimOperatorName() + &quot;\n&quot;;
+    str += &quot;SimSerialNumber = &quot; + tm.getSimSerialNumber() + &quot;\n&quot;;
+    str += &quot;SimState = &quot; + tm.getSimState() + &quot;\n&quot;;
+    str += &quot;SubscriberId(IMSI) = &quot; + tm.getSubscriberId() + &quot;\n&quot;;
+    str += &quot;VoiceMailNumber = &quot; + tm.getVoiceMailNumber() + &quot;\n&quot;;
     return str;
 }
-```
+</code></p>
 
-### <span id = "2.4"/>2.4 ÊÇ·ñÓĞSD¿¨
-``` java
+<h3>&lt;span id = &quot;2.4&quot;/&gt;2.4 æ˜¯å¦æœ‰SDå¡</h3>
+
+<p><code> java
 /**
-* ÊÇ·ñÓĞSD¿¨
+* æ˜¯å¦æœ‰SDå¡
 */
 public static boolean haveSDCard() {
     return android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
 }
-```
+</code></p>
 
-### <span id = "2.5"/>2.5 »ñÈ¡MACµØÖ·
-``` java
-// ĞèÌí¼ÓÈ¨ÏŞ<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+<h3>&lt;span id = &quot;2.5&quot;/&gt;2.5 è·å–MACåœ°å€</h3>
+
+<p><code> java
+// éœ€æ·»åŠ æƒé™&lt;uses-permission android:name=&quot;android.permission.ACCESS_WIFI_STATE&quot;/&gt;
 /**
-* »ñÈ¡MACµØÖ·
+* è·å–MACåœ°å€
 */
 public static String getMacAddress(Context context) {
     String macAddress;
@@ -262,143 +218,150 @@ public static String getMacAddress(Context context) {
     WifiInfo info = wifi.getConnectionInfo();
     macAddress = info.getMacAddress();
     if (null == macAddress) {
-        return "";
+        return &quot;&quot;;
     }
-    macAddress = macAddress.replace(":", "");
+    macAddress = macAddress.replace(&quot;:&quot;, &quot;&quot;);
     return macAddress;
 }
-```
+</code></p>
 
-### <span id = "2.6"/>2.6 »ñÈ¡ÊÖ»ú³§ÉÌ£¬ÈçXiaomi
-``` java
+<h3>&lt;span id = &quot;2.6&quot;/&gt;2.6 è·å–æ‰‹æœºå‚å•†ï¼Œå¦‚Xiaomi</h3>
+
+<p><code> java
 /**
-* »ñÈ¡ÊÖ»ú³§ÉÌ£¬ÈçXiaomi
+* è·å–æ‰‹æœºå‚å•†ï¼Œå¦‚Xiaomi
 */
 public static String getOsName() {
     String MANUFACTURER = Build.MANUFACTURER;
     return MANUFACTURER;
 }
-```
+</code></p>
 
-### <span id = "2.7"/>2.7 »ñÈ¡ÊÖ»úĞÍºÅ£¬ÈçMI2SC
-``` java
+<h3>&lt;span id = &quot;2.7&quot;/&gt;2.7 è·å–æ‰‹æœºå‹å·ï¼Œå¦‚MI2SC</h3>
+
+<p><code> java
 /**
-* »ñÈ¡ÊÖ»úĞÍºÅ£¬ÈçMI2SC
+* è·å–æ‰‹æœºå‹å·ï¼Œå¦‚MI2SC
 */
 private String getModel() {
     String model = android.os.Build.MODEL;
     if (model != null) {
-        model = model.trim().replaceAll("\\s*", "");
+        model = model.trim().replaceAll(&quot;\\s*&quot;, &quot;&quot;);
     } else {
-        model = "";
+        model = &quot;&quot;;
     }
     return model;
 }
-```
+</code></p>
 
-### <span id = "2.8"/>2.8 Ìø×ªÖÁ²¦ºÅ½çÃæ
-``` java
+<h3>&lt;span id = &quot;2.8&quot;/&gt;2.8 è·³è½¬è‡³æ‹¨å·ç•Œé¢</h3>
+
+<p><code> java
 /**
-* Ìø×ªÖÁ²¦ºÅ½çÃæ
+* è·³è½¬è‡³æ‹¨å·ç•Œé¢
 */
 public static void callDial(Context context, String phoneNumber) {
-    context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber)));
+    context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(&quot;tel:&quot; + phoneNumber)));
 }
-```
+</code></p>
 
-### <span id = "2.9"/>2.9 ²¦´òµç»°
-``` java
+<h3>&lt;span id = &quot;2.9&quot;/&gt;2.9 æ‹¨æ‰“ç”µè¯</h3>
+
+<p><code> java
 /**
-* ²¦´òµç»°
+* æ‹¨æ‰“ç”µè¯
 */
 public static void call(Context context, String phoneNumber) {
-    context.startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber)));
+    context.startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(&quot;tel:&quot; + phoneNumber)));
 }
-```
+</code></p>
 
-### <span id = "2.10"/>2.10 ·¢ËÍ¶ÌĞÅ
-``` java
+<h3>&lt;span id = &quot;2.10&quot;/&gt;2.10 å‘é€çŸ­ä¿¡</h3>
+
+<p><code> java
 /**
-* ·¢ËÍ¶ÌĞÅ
+* å‘é€çŸ­ä¿¡
 */
 public static void sendSms(Context context, String phoneNumber, String content) {
-    Uri uri = Uri.parse("smsto:" + (TextUtils.isEmpty(phoneNumber) ? "" : phoneNumber));
+    Uri uri = Uri.parse(&quot;smsto:&quot; + (TextUtils.isEmpty(phoneNumber) ? &quot;&quot; : phoneNumber));
     Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-    intent.putExtra("sms_body", TextUtils.isEmpty(content) ? "" : content);
+    intent.putExtra(&quot;sms_body&quot;, TextUtils.isEmpty(content) ? &quot;&quot; : content);
     context.startActivity(intent);
 }
-```
+</code></p>
 
-### <span id = "2.11"/>2.11 »ñÈ¡ÊÖ»úÁªÏµÈË
-``` java
+<h3>&lt;span id = &quot;2.11&quot;/&gt;2.11 è·å–æ‰‹æœºè”ç³»äºº</h3>
+
+<p><code> java
 /**
-* »ñÈ¡ÊÖ»úÁªÏµÈË
+* è·å–æ‰‹æœºè”ç³»äºº
 */
-public static List<HashMap<String, String>> getAllContactInfo(Context context) {
+public static List&lt;HashMap&lt;String, String&gt;&gt; getAllContactInfo(Context context) {
     SystemClock.sleep(3000);
-    ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-    // 1.»ñÈ¡ÄÚÈİ½âÎöÕß
+    ArrayList&lt;HashMap&lt;String, String&gt;&gt; list = new ArrayList&lt;HashMap&lt;String, String&gt;&gt;();
+    // 1.è·å–å†…å®¹è§£æè€…
     ContentResolver resolver = context.getContentResolver();
-    // 2.»ñÈ¡ÄÚÈİÌá¹©ÕßµÄµØÖ·:com.android.contacts
-    // raw_contacts±íµÄµØÖ· :raw_contacts
-    // view_data±íµÄµØÖ· : data
-    // 3.Éú³É²éÑ¯µØÖ·
-    Uri raw_uri = Uri.parse("content://com.android.contacts/raw_contacts");
-    Uri date_uri = Uri.parse("content://com.android.contacts/data");
-    // 4.²éÑ¯²Ù×÷,ÏÈ²éÑ¯raw_contacts,²éÑ¯contact_id
-    // projection : ²éÑ¯µÄ×Ö¶Î
-    Cursor cursor = resolver.query(raw_uri, new String[] { "contact_id" },
+    // 2.è·å–å†…å®¹æä¾›è€…çš„åœ°å€:com.android.contacts
+    // raw_contactsè¡¨çš„åœ°å€ :raw_contacts
+    // view_dataè¡¨çš„åœ°å€ : data
+    // 3.ç”ŸæˆæŸ¥è¯¢åœ°å€
+    Uri raw_uri = Uri.parse(&quot;content://com.android.contacts/raw_contacts&quot;);
+    Uri date_uri = Uri.parse(&quot;content://com.android.contacts/data&quot;);
+    // 4.æŸ¥è¯¢æ“ä½œ,å…ˆæŸ¥è¯¢raw_contacts,æŸ¥è¯¢contact_id
+    // projection : æŸ¥è¯¢çš„å­—æ®µ
+    Cursor cursor = resolver.query(raw_uri, new String[] { &quot;contact_id&quot; },
             null, null, null);
-    // 5.½âÎöcursor
+    // 5.è§£æcursor
     while (cursor.moveToNext()) {
-        // 6.»ñÈ¡²éÑ¯µÄÊı¾İ
+        // 6.è·å–æŸ¥è¯¢çš„æ•°æ®
         String contact_id = cursor.getString(0);
-        // cursor.getString(cursor.getColumnIndex("contact_id"));//getColumnIndex
-        // : ²éÑ¯×Ö¶ÎÔÚcursorÖĞË÷ÒıÖµ,Ò»°ã¶¼ÊÇÓÃÔÚ²éÑ¯×Ö¶Î±È½Ï¶àµÄÊ±ºò
-        // ÅĞ¶Ïcontact_idÊÇ·ñÎª¿Õ
-        if (!TextUtils.isEmpty(contact_id)) {//null   ""
-            // 7.¸ù¾İcontact_id²éÑ¯view_data±íÖĞµÄÊı¾İ
-            // selection : ²éÑ¯Ìõ¼ş
-            // selectionArgs :²éÑ¯Ìõ¼şµÄ²ÎÊı
-            // sortOrder : ÅÅĞò
-            // ¿ÕÖ¸Õë: 1.null.·½·¨ 2.²ÎÊıÎªnull
-            Cursor c = resolver.query(date_uri, new String[] { "data1",
-                            "mimetype" }, "raw_contact_id=?",
+        // cursor.getString(cursor.getColumnIndex(&quot;contact_id&quot;));//getColumnIndex
+        // : æŸ¥è¯¢å­—æ®µåœ¨cursorä¸­ç´¢å¼•å€¼,ä¸€èˆ¬éƒ½æ˜¯ç”¨åœ¨æŸ¥è¯¢å­—æ®µæ¯”è¾ƒå¤šçš„æ—¶å€™
+        // åˆ¤æ–­contact_idæ˜¯å¦ä¸ºç©º
+        if (!TextUtils.isEmpty(contact_id)) {//null   &quot;&quot;
+            // 7.æ ¹æ®contact_idæŸ¥è¯¢view_dataè¡¨ä¸­çš„æ•°æ®
+            // selection : æŸ¥è¯¢æ¡ä»¶
+            // selectionArgs :æŸ¥è¯¢æ¡ä»¶çš„å‚æ•°
+            // sortOrder : æ’åº
+            // ç©ºæŒ‡é’ˆ: 1.null.æ–¹æ³• 2.å‚æ•°ä¸ºnull
+            Cursor c = resolver.query(date_uri, new String[] { &quot;data1&quot;,
+                            &quot;mimetype&quot; }, &quot;raw_contact_id=?&quot;,
                     new String[] { contact_id }, null);
-            HashMap<String, String> map = new HashMap<String, String>();
-            // 8.½âÎöc
+            HashMap&lt;String, String&gt; map = new HashMap&lt;String, String&gt;();
+            // 8.è§£æc
             while (c.moveToNext()) {
-                // 9.»ñÈ¡Êı¾İ
+                // 9.è·å–æ•°æ®
                 String data1 = c.getString(0);
                 String mimetype = c.getString(1);
-                // 10.¸ù¾İÀàĞÍÈ¥ÅĞ¶Ï»ñÈ¡µÄdata1Êı¾İ²¢±£´æ
-                if (mimetype.equals("vnd.android.cursor.item/phone_v2")) {
-                    // µç»°
-                    map.put("phone", data1);
-                } else if (mimetype.equals("vnd.android.cursor.item/name")) {
-                    // ĞÕÃû
-                    map.put("name", data1);
+                // 10.æ ¹æ®ç±»å‹å»åˆ¤æ–­è·å–çš„data1æ•°æ®å¹¶ä¿å­˜
+                if (mimetype.equals(&quot;vnd.android.cursor.item/phone_v2&quot;)) {
+                    // ç”µè¯
+                    map.put(&quot;phone&quot;, data1);
+                } else if (mimetype.equals(&quot;vnd.android.cursor.item/name&quot;)) {
+                    // å§“å
+                    map.put(&quot;name&quot;, data1);
                 }
             }
-            // 11.Ìí¼Óµ½¼¯ºÏÖĞÊı¾İ
+            // 11.æ·»åŠ åˆ°é›†åˆä¸­æ•°æ®
             list.add(map);
-            // 12.¹Ø±Õcursor
+            // 12.å…³é—­cursor
             c.close();
         }
     }
-    // 12.¹Ø±Õcursor
+    // 12.å…³é—­cursor
     cursor.close();
     return list;
 }
-```
+</code></p>
 
-### <span id = "2.12"/>2.12 Ö±½Ó´ò¿ªÊÖ»úÁªÏµÈË½çÃæ£¬²¢»ñÈ¡ÁªÏµÈËºÅÂë
-``` java
-// ÔÚ°´Å¥µã»÷ÊÂ¼şÖĞÉèÖÃIntent£¬
+<h3>&lt;span id = &quot;2.12&quot;/&gt;2.12 ç›´æ¥æ‰“å¼€æ‰‹æœºè”ç³»äººç•Œé¢ï¼Œå¹¶è·å–è”ç³»äººå·ç </h3>
+
+<p><code> java
+// åœ¨æŒ‰é’®ç‚¹å‡»äº‹ä»¶ä¸­è®¾ç½®Intentï¼Œ
 Intent intent = new Intent();
-intent.setAction("android.intent.action.PICK");
-intent.addCategory("android.intent.category.DEFAULT");
-intent.setType("vnd.android.cursor.dir/phone_v2");
+intent.setAction(&quot;android.intent.action.PICK&quot;);
+intent.addCategory(&quot;android.intent.category.DEFAULT&quot;);
+intent.setType(&quot;vnd.android.cursor.dir/phone_v2&quot;);
 startActivityForResult(intent, 1);
 @Override
 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -406,165 +369,174 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (data != null) {
         Uri uri = data.getData();
         String num = null;
-        // ´´½¨ÄÚÈİ½âÎöÕß
+        // åˆ›å»ºå†…å®¹è§£æè€…
         ContentResolver contentResolver = getContentResolver();
         Cursor cursor = contentResolver.query(uri,
                 null, null, null, null);
         while (cursor.moveToNext()) {
-            num = cursor.getString(cursor.getColumnIndex("data1"));
+            num = cursor.getString(cursor.getColumnIndex(&quot;data1&quot;));
         }
         cursor.close();
-        num = num.replaceAll("-", "");//Ìæ»»µÄ²Ù×÷,555-6 -> 5556
+        num = num.replaceAll(&quot;-&quot;, &quot;&quot;);//æ›¿æ¢çš„æ“ä½œ,555-6 -&gt; 5556
     }
 }
-```
+</code></p>
 
-### <span id = "2.13"/>2.13 »ñÈ¡ÊÖ»ú¶ÌĞÅ²¢±£´æµ½xmlÖĞ
-``` java
+<h3>&lt;span id = &quot;2.13&quot;/&gt;2.13 è·å–æ‰‹æœºçŸ­ä¿¡å¹¶ä¿å­˜åˆ°xmlä¸­</h3>
+
+<p><code> java
 /**
-* »ñÈ¡ÊÖ»ú¶ÌĞÅ²¢±£´æµ½xmlÖĞ
+* è·å–æ‰‹æœºçŸ­ä¿¡å¹¶ä¿å­˜åˆ°xmlä¸­
 */
 public static void getAllSMS(Context context) {
-    //1.»ñÈ¡¶ÌĞÅ
-    //1.1»ñÈ¡ÄÚÈİ½âÎöÕß
+    //1.è·å–çŸ­ä¿¡
+    //1.1è·å–å†…å®¹è§£æè€…
     ContentResolver resolver = context.getContentResolver();
-    //1.2»ñÈ¡ÄÚÈİÌá¹©ÕßµØÖ·   sms,sms±íµÄµØÖ·:null  ²»Ğ´
-    //1.3»ñÈ¡²éÑ¯Â·¾¶
-    Uri uri = Uri.parse("content://sms");
-    //1.4.²éÑ¯²Ù×÷
-    //projection : ²éÑ¯µÄ×Ö¶Î
-    //selection : ²éÑ¯µÄÌõ¼ş
-    //selectionArgs : ²éÑ¯Ìõ¼şµÄ²ÎÊı
-    //sortOrder : ÅÅĞò
-    Cursor cursor = resolver.query(uri, new String[]{"address", "date", "type", "body"}, null, null, null);
-    //ÉèÖÃ×î´ó½ø¶È
-    int count = cursor.getCount();//»ñÈ¡¶ÌĞÅµÄ¸öÊı
-    //2.±¸·İ¶ÌĞÅ
-    //2.1»ñÈ¡xmlĞòÁĞÆ÷
+    //1.2è·å–å†…å®¹æä¾›è€…åœ°å€   sms,smsè¡¨çš„åœ°å€:null  ä¸å†™
+    //1.3è·å–æŸ¥è¯¢è·¯å¾„
+    Uri uri = Uri.parse(&quot;content://sms&quot;);
+    //1.4.æŸ¥è¯¢æ“ä½œ
+    //projection : æŸ¥è¯¢çš„å­—æ®µ
+    //selection : æŸ¥è¯¢çš„æ¡ä»¶
+    //selectionArgs : æŸ¥è¯¢æ¡ä»¶çš„å‚æ•°
+    //sortOrder : æ’åº
+    Cursor cursor = resolver.query(uri, new String[]{&quot;address&quot;, &quot;date&quot;, &quot;type&quot;, &quot;body&quot;}, null, null, null);
+    //è®¾ç½®æœ€å¤§è¿›åº¦
+    int count = cursor.getCount();//è·å–çŸ­ä¿¡çš„ä¸ªæ•°
+    //2.å¤‡ä»½çŸ­ä¿¡
+    //2.1è·å–xmlåºåˆ—å™¨
     XmlSerializer xmlSerializer = Xml.newSerializer();
     try {
-        //2.2ÉèÖÃxmlÎÄ¼ş±£´æµÄÂ·¾¶
-        //os : ±£´æµÄÎ»ÖÃ
-        //encoding : ±àÂë¸ñÊ½
-        xmlSerializer.setOutput(new FileOutputStream(new File("/mnt/sdcard/backupsms.xml")), "utf-8");
-        //2.3ÉèÖÃÍ·ĞÅÏ¢
-        //standalone : ÊÇ·ñ¶ÀÁ¢±£´æ
-        xmlSerializer.startDocument("utf-8", true);
-        //2.4ÉèÖÃ¸ù±êÇ©
-        xmlSerializer.startTag(null, "smss");
-        //1.5.½âÎöcursor
+        //2.2è®¾ç½®xmlæ–‡ä»¶ä¿å­˜çš„è·¯å¾„
+        //os : ä¿å­˜çš„ä½ç½®
+        //encoding : ç¼–ç æ ¼å¼
+        xmlSerializer.setOutput(new FileOutputStream(new File(&quot;/mnt/sdcard/backupsms.xml&quot;)), &quot;utf-8&quot;);
+        //2.3è®¾ç½®å¤´ä¿¡æ¯
+        //standalone : æ˜¯å¦ç‹¬ç«‹ä¿å­˜
+        xmlSerializer.startDocument(&quot;utf-8&quot;, true);
+        //2.4è®¾ç½®æ ¹æ ‡ç­¾
+        xmlSerializer.startTag(null, &quot;smss&quot;);
+        //1.5.è§£æcursor
         while (cursor.moveToNext()) {
             SystemClock.sleep(1000);
-            //2.5ÉèÖÃ¶ÌĞÅµÄ±êÇ©
-            xmlSerializer.startTag(null, "sms");
-            //2.6ÉèÖÃÎÄ±¾ÄÚÈİµÄ±êÇ©
-            xmlSerializer.startTag(null, "address");
+            //2.5è®¾ç½®çŸ­ä¿¡çš„æ ‡ç­¾
+            xmlSerializer.startTag(null, &quot;sms&quot;);
+            //2.6è®¾ç½®æ–‡æœ¬å†…å®¹çš„æ ‡ç­¾
+            xmlSerializer.startTag(null, &quot;address&quot;);
             String address = cursor.getString(0);
-            //2.7ÉèÖÃÎÄ±¾ÄÚÈİ
+            //2.7è®¾ç½®æ–‡æœ¬å†…å®¹
             xmlSerializer.text(address);
-            xmlSerializer.endTag(null, "address");
-            xmlSerializer.startTag(null, "date");
+            xmlSerializer.endTag(null, &quot;address&quot;);
+            xmlSerializer.startTag(null, &quot;date&quot;);
             String date = cursor.getString(1);
             xmlSerializer.text(date);
-            xmlSerializer.endTag(null, "date");
-            xmlSerializer.startTag(null, "type");
+            xmlSerializer.endTag(null, &quot;date&quot;);
+            xmlSerializer.startTag(null, &quot;type&quot;);
             String type = cursor.getString(2);
             xmlSerializer.text(type);
-            xmlSerializer.endTag(null, "type");
-            xmlSerializer.startTag(null, "body");
+            xmlSerializer.endTag(null, &quot;type&quot;);
+            xmlSerializer.startTag(null, &quot;body&quot;);
             String body = cursor.getString(3);
             xmlSerializer.text(body);
-            xmlSerializer.endTag(null, "body");
-            xmlSerializer.endTag(null, "sms");
-            System.out.println("address:" + address + "   date:" + date + "  type:" + type + "  body:" + body);
+            xmlSerializer.endTag(null, &quot;body&quot;);
+            xmlSerializer.endTag(null, &quot;sms&quot;);
+            System.out.println(&quot;address:&quot; + address + &quot;   date:&quot; + date + &quot;  type:&quot; + type + &quot;  body:&quot; + body);
         }
-        xmlSerializer.endTag(null, "smss");
+        xmlSerializer.endTag(null, &quot;smss&quot;);
         xmlSerializer.endDocument();
-        //2.8½«Êı¾İË¢ĞÂµ½ÎÄ¼şÖĞ
+        //2.8å°†æ•°æ®åˆ·æ–°åˆ°æ–‡ä»¶ä¸­
         xmlSerializer.flush();
     } catch (Exception e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
     }
 }
-```
+</code></p>
 
-********************************************************************************************
-# <span id = "3"/>3 ÍøÂçÏà¹Ø
-### <span id = "3.1"/>3.1 ´ò¿ªÍøÂçÉèÖÃ½çÃæ
-``` java
+<hr/>
+
+<h1>&lt;span id = &quot;3&quot;/&gt;3 ç½‘ç»œç›¸å…³</h1>
+
+<h3>&lt;span id = &quot;3.1&quot;/&gt;3.1 æ‰“å¼€ç½‘ç»œè®¾ç½®ç•Œé¢</h3>
+
+<p><code> java
 /**
-* ´ò¿ªÍøÂçÉèÖÃ½çÃæ
+* æ‰“å¼€ç½‘ç»œè®¾ç½®ç•Œé¢
 */
 public static void openSetting(Activity activity) {
-    Intent intent = new Intent("/");
-    ComponentName cm = new ComponentName("com.android.settings",
-            "com.android.settings.WirelessSettings");
+    Intent intent = new Intent(&quot;/&quot;);
+    ComponentName cm = new ComponentName(&quot;com.android.settings&quot;,
+            &quot;com.android.settings.WirelessSettings&quot;);
     intent.setComponent(cm);
-    intent.setAction("android.intent.action.VIEW");
+    intent.setAction(&quot;android.intent.action.VIEW&quot;);
     activity.startActivityForResult(intent, 0);
 }
-```
+</code></p>
 
-### <span id = "3.2"/>3.2 ÅĞ¶ÏÊÇ·ñÍøÂçÁ¬½Ó
-``` java
+<h3>&lt;span id = &quot;3.2&quot;/&gt;3.2 åˆ¤æ–­æ˜¯å¦ç½‘ç»œè¿æ¥</h3>
+
+<p><code> java
 /**
-* ÅĞ¶ÏÊÇ·ñÍøÂçÁ¬½Ó
+* åˆ¤æ–­æ˜¯å¦ç½‘ç»œè¿æ¥
 */
 public static boolean isOnline(Context context) {
     ConnectivityManager manager = (ConnectivityManager) context
             .getSystemService(Activity.CONNECTIVITY_SERVICE);
     NetworkInfo info = manager.getActiveNetworkInfo();
-    if (info != null && info.isConnected()) {
+    if (info != null &amp;&amp; info.isConnected()) {
         return true;
     }
     return false;
 }
-```
+</code></p>
 
-### <span id = "3.3"/>3.3 ÅĞ¶ÏwifiÊÇ·ñÁ¬½Ó×´Ì¬
-``` java
+<h3>&lt;span id = &quot;3.3&quot;/&gt;3.3 åˆ¤æ–­wifiæ˜¯å¦è¿æ¥çŠ¶æ€</h3>
+
+<p><code> java
 /**
-* ÅĞ¶ÏwifiÊÇ·ñÁ¬½Ó×´Ì¬
+* åˆ¤æ–­wifiæ˜¯å¦è¿æ¥çŠ¶æ€
 */
 public static boolean isWifi(Context context) {
     ConnectivityManager cm = (ConnectivityManager) context
             .getSystemService(Context.CONNECTIVITY_SERVICE);
-    return cm != null && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
+    return cm != null &amp;&amp; cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
 }
-```
+</code></p>
 
-### <span id = "3.4"/>3.4 »ñÈ¡ÒÆ¶¯ÍøÂçÔËÓªÉÌÃû³Æ£¬ÈçÖĞ¹úÁªÍ¨¡¢ÖĞ¹úÒÆ¶¯¡¢ÖĞ¹úµçĞÅ
-``` java
+<h3>&lt;span id = &quot;3.4&quot;/&gt;3.4 è·å–ç§»åŠ¨ç½‘ç»œè¿è¥å•†åç§°ï¼Œå¦‚ä¸­å›½è”é€šã€ä¸­å›½ç§»åŠ¨ã€ä¸­å›½ç”µä¿¡</h3>
+
+<p><code> java
 /**
-* »ñÈ¡ÒÆ¶¯ÍøÂçÔËÓªÉÌÃû³Æ£¬ÈçÖĞ¹úÁªÍ¨¡¢ÖĞ¹úÒÆ¶¯¡¢ÖĞ¹úµçĞÅ
+* è·å–ç§»åŠ¨ç½‘ç»œè¿è¥å•†åç§°ï¼Œå¦‚ä¸­å›½è”é€šã€ä¸­å›½ç§»åŠ¨ã€ä¸­å›½ç”µä¿¡
 */
 public static String getNetworkOperatorName(Context context) {
     TelephonyManager telephonyManager = (TelephonyManager) context
             .getSystemService(Context.TELEPHONY_SERVICE);
     return telephonyManager.getNetworkOperatorName();
 }
-```
+</code></p>
 
-### <span id = "3.5"/>3.5 ·µ»ØÒÆ¶¯ÖÕ¶ËÀàĞÍ
-``` java
-// PHONE_TYPE_NONE :0 ÊÖ»úÖÆÊ½Î´Öª
-// PHONE_TYPE_GSM :1 ÊÖ»úÖÆÊ½ÎªGSM£¬ÒÆ¶¯ºÍÁªÍ¨
-// PHONE_TYPE_CDMA :2 ÊÖ»úÖÆÊ½ÎªCDMA£¬µçĞÅ
+<h3>&lt;span id = &quot;3.5&quot;/&gt;3.5 è¿”å›ç§»åŠ¨ç»ˆç«¯ç±»å‹</h3>
+
+<p><code> java
+// PHONE_TYPE_NONE :0 æ‰‹æœºåˆ¶å¼æœªçŸ¥
+// PHONE_TYPE_GSM :1 æ‰‹æœºåˆ¶å¼ä¸ºGSMï¼Œç§»åŠ¨å’Œè”é€š
+// PHONE_TYPE_CDMA :2 æ‰‹æœºåˆ¶å¼ä¸ºCDMAï¼Œç”µä¿¡
 // PHONE_TYPE_SIP:3
 /**
-* ·µ»ØÒÆ¶¯ÖÕ¶ËÀàĞÍ
+* è¿”å›ç§»åŠ¨ç»ˆç«¯ç±»å‹
 */
 public static int getPhoneType(Context context) {
     TelephonyManager telephonyManager = (TelephonyManager) context
             .getSystemService(Context.TELEPHONY_SERVICE);
     return telephonyManager.getPhoneType();
 }
-```
+</code></p>
 
-### <span id = "3.6"/>3.6 ÅĞ¶ÏÊÖ»úÁ¬½ÓµÄÍøÂçÀàĞÍ(2G,3G,4G)
-``` java
-// ÁªÍ¨µÄ3GÎªUMTS»òHSDPA£¬ÒÆ¶¯ºÍÁªÍ¨µÄ2GÎªGPRS»òEGDE£¬µçĞÅµÄ2GÎªCDMA£¬µçĞÅµÄ3GÎªEVDO
+<h3>&lt;span id = &quot;3.6&quot;/&gt;3.6 åˆ¤æ–­æ‰‹æœºè¿æ¥çš„ç½‘ç»œç±»å‹(2G,3G,4G)</h3>
+
+<p><code> java
+// è”é€šçš„3Gä¸ºUMTSæˆ–HSDPAï¼Œç§»åŠ¨å’Œè”é€šçš„2Gä¸ºGPRSæˆ–EGDEï¼Œç”µä¿¡çš„2Gä¸ºCDMAï¼Œç”µä¿¡çš„3Gä¸ºEVDO
 public class Constants {
     /**
      * Unknown network class
@@ -575,20 +547,20 @@ public class Constants {
      */
     public static final int NETWORK_WIFI = 1;
     /**
-     * "2G" networks
+     * &quot;2G&quot; networks
      */
     public static final int NETWORK_CLASS_2_G = 2;
     /**
-     * "3G" networks
+     * &quot;3G&quot; networks
      */
     public static final int NETWORK_CLASS_3_G = 3;
     /**
-     * "4G" networks
+     * &quot;4G&quot; networks
      */
     public static final int NETWORK_CLASS_4_G = 4;
 }
 /**
-* ÅĞ¶ÏÊÖ»úÁ¬½ÓµÄÍøÂçÀàĞÍ(2G,3G,4G)
+* åˆ¤æ–­æ‰‹æœºè¿æ¥çš„ç½‘ç»œç±»å‹(2G,3G,4G)
 */
 public static int getNetWorkClass(Context context) {
     TelephonyManager telephonyManager = (TelephonyManager) context
@@ -616,19 +588,20 @@ public static int getNetWorkClass(Context context) {
             return Constants.NETWORK_CLASS_UNKNOWN;
     }
 }
-```
+</code></p>
 
-### <span id = "3.7"/>3.7 ÅĞ¶Ïµ±Ç°ÊÖ»úµÄÍøÂçÀàĞÍ(WIFI»¹ÊÇ2,3,4G)
-``` java
+<h3>&lt;span id = &quot;3.7&quot;/&gt;3.7 åˆ¤æ–­å½“å‰æ‰‹æœºçš„ç½‘ç»œç±»å‹(WIFIè¿˜æ˜¯2,3,4G)</h3>
+
+<p><code> java
 /**
-* ÅĞ¶Ïµ±Ç°ÊÖ»úµÄÍøÂçÀàĞÍ(WIFI»¹ÊÇ2,3,4G)£¬ĞèÒªÓÃµ½ÉÏÃæµÄ·½·¨
+* åˆ¤æ–­å½“å‰æ‰‹æœºçš„ç½‘ç»œç±»å‹(WIFIè¿˜æ˜¯2,3,4G)ï¼Œéœ€è¦ç”¨åˆ°ä¸Šé¢çš„æ–¹æ³•
 */
 public static int getNetWorkStatus(Context context) {
     int netWorkType = Constants.NETWORK_CLASS_UNKNOWN;
     ConnectivityManager connectivityManager = (ConnectivityManager) context
             .getSystemService(Context.CONNECTIVITY_SERVICE);
     NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-    if (networkInfo != null && networkInfo.isConnected()) {
+    if (networkInfo != null &amp;&amp; networkInfo.isConnected()) {
         int type = networkInfo.getType();
         if (type == ConnectivityManager.TYPE_WIFI) {
             netWorkType = Constants.NETWORK_WIFI;
@@ -638,42 +611,47 @@ public static int getNetWorkStatus(Context context) {
     }
     return netWorkType;
 }
-```
+</code></p>
 
-********************************************************************************************
-# <span id = "4"/>4 AppÏà¹Ø
-### <span id = "4.1"/>4.1 °²×°Ö¸¶¨Â·¾¶ÏÂµÄApk
-``` java
+<hr/>
+
+<h1>&lt;span id = &quot;4&quot;/&gt;4 Appç›¸å…³</h1>
+
+<h3>&lt;span id = &quot;4.1&quot;/&gt;4.1 å®‰è£…æŒ‡å®šè·¯å¾„ä¸‹çš„Apk</h3>
+
+<p><code> java
 /**
-* °²×°Ö¸¶¨Â·¾¶ÏÂµÄApk
+* å®‰è£…æŒ‡å®šè·¯å¾„ä¸‹çš„Apk
 */
 public void installApk(String filePath) {
     Intent intent = new Intent();
-    intent.setAction("android.intent.action.VIEW");
-    intent.addCategory("android.intent.category.DEFAULT");
-    intent.setDataAndType(Uri.fromFile(new File(filePath)), "application/vnd.android.package-archive");
+    intent.setAction(&quot;android.intent.action.VIEW&quot;);
+    intent.addCategory(&quot;android.intent.category.DEFAULT&quot;);
+    intent.setDataAndType(Uri.fromFile(new File(filePath)), &quot;application/vnd.android.package-archive&quot;);
     startActivityForResult(intent, 0);
 }
-```
+</code></p>
 
-### <span id = "4.2"/>4.2 Ğ¶ÔØÖ¸¶¨°üÃûµÄApp
-``` java
+<h3>&lt;span id = &quot;4.2&quot;/&gt;4.2 å¸è½½æŒ‡å®šåŒ…åçš„App</h3>
+
+<p><code> java
 /**
-* Ğ¶ÔØÖ¸¶¨°üÃûµÄApp
+* å¸è½½æŒ‡å®šåŒ…åçš„App
 */
 public void uninstallApp(String packageName) {
     Intent intent = new Intent();
-    intent.setAction("android.intent.action.DELETE");
-    intent.addCategory("android.intent.category.DEFAULT");
-    intent.setData(Uri.parse("package:" + packageName));
+    intent.setAction(&quot;android.intent.action.DELETE&quot;);
+    intent.addCategory(&quot;android.intent.category.DEFAULT&quot;);
+    intent.setData(Uri.parse(&quot;package:&quot; + packageName));
     startActivityForResult(intent, 0);
 }
-```
+</code></p>
 
-### <span id = "4.3"/>4.3 »ñÈ¡AppÃû³Æ
-```
+<h3>&lt;span id = &quot;4.3&quot;/&gt;4.3 è·å–Appåç§°</h3>
+
+<p><code>
 /**
-* »ñÈ¡AppÃû³Æ
+* è·å–Appåç§°
 */
 public static String getAppName(Context context) {
     try {
@@ -687,13 +665,13 @@ public static String getAppName(Context context) {
     }
     return null;
 }
-```
+</code></p>
 
+<h3>&lt;span id = &quot;4.4&quot;/&gt;4.4 è·å–å½“å‰Appç‰ˆæœ¬å·</h3>
 
-### <span id = "4.4"/>4.4 »ñÈ¡µ±Ç°App°æ±¾ºÅ
-``` java
+<p><code> java
 /**
-* »ñÈ¡µ±Ç°App°æ±¾ºÅ
+* è·å–å½“å‰Appç‰ˆæœ¬å·
 */
 public static String getVersonName(Context context) {
     String versionName = null;
@@ -709,12 +687,13 @@ public static String getVersonName(Context context) {
     }
     return versionName;
 }
-```
+</code></p>
 
-### <span id = "4.5"/>4.5 ´ò¿ªÖ¸¶¨°üÃûµÄApp
-```
+<h3>&lt;span id = &quot;4.5&quot;/&gt;4.5 æ‰“å¼€æŒ‡å®šåŒ…åçš„App</h3>
+
+<p><code>
 /**
-* ´ò¿ªÖ¸¶¨°üÃûµÄApp
+* æ‰“å¼€æŒ‡å®šåŒ…åçš„App
 */
 public void openOtherApp(String packageName){
     PackageManager manager = getPackageManager();
@@ -723,133 +702,138 @@ public void openOtherApp(String packageName){
         startActivity(launchIntentForPackage);
     }
 }
-```
+</code></p>
 
-### <span id = "4.6"/>4.6 ´ò¿ªÖ¸¶¨°üÃûµÄAppÓ¦ÓÃĞÅÏ¢½çÃæ
-``` java
+<h3>&lt;span id = &quot;4.6&quot;/&gt;4.6 æ‰“å¼€æŒ‡å®šåŒ…åçš„Appåº”ç”¨ä¿¡æ¯ç•Œé¢</h3>
+
+<p><code> java
 /**
-* ´ò¿ªÖ¸¶¨°üÃûµÄAppÓ¦ÓÃĞÅÏ¢½çÃæ
+* æ‰“å¼€æŒ‡å®šåŒ…åçš„Appåº”ç”¨ä¿¡æ¯ç•Œé¢
 */
 public void showAppInfo(String packageName) {
     Intent intent = new Intent();
-    intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
-    intent.setData(Uri.parse("package:" + packageName));
+    intent.setAction(&quot;android.settings.APPLICATION_DETAILS_SETTINGS&quot;);
+    intent.setData(Uri.parse(&quot;package:&quot; + packageName));
     startActivity(intent);
 }
-```
+</code></p>
 
-### <span id = "4.7"/>4.7 ·ÖÏíApkĞÅÏ¢
-``` java
+<h3>&lt;span id = &quot;4.7&quot;/&gt;4.7 åˆ†äº«Apkä¿¡æ¯</h3>
+
+<p><code> java
 /**
-* ·ÖÏíApkĞÅÏ¢
+* åˆ†äº«Apkä¿¡æ¯
 */
 public void shareApkInfo(String info) {
     Intent intent = new Intent();
-    intent.setAction("android.intent.action.SEND");
-    intent.addCategory("android.intent.category.DEFAULT");
-    intent.setType("text/plain");
+    intent.setAction(&quot;android.intent.action.SEND&quot;);
+    intent.addCategory(&quot;android.intent.category.DEFAULT&quot;);
+    intent.setType(&quot;text/plain&quot;);
     intent.putExtra(Intent.EXTRA_TEXT, info);
     startActivity(intent);
 }
-```
+</code></p>
 
-### <span id = "4.8"/>4.8 »ñÈ¡AppĞÅÏ¢µÄÒ»¸ö·â×°Àà(°üÃû¡¢°æ±¾ºÅ¡¢Ó¦ÓÃĞÅÏ¢¡¢Í¼±ê¡¢Ãû³ÆµÈ)
-``` java
+<h3>&lt;span id = &quot;4.8&quot;/&gt;4.8 è·å–Appä¿¡æ¯çš„ä¸€ä¸ªå°è£…ç±»(åŒ…åã€ç‰ˆæœ¬å·ã€åº”ç”¨ä¿¡æ¯ã€å›¾æ ‡ã€åç§°ç­‰)</h3>
+
+<p><code></code>` java
 /**
-* »ñÈ¡AppĞÅÏ¢µÄÒ»¸ö·â×°Àà(°üÃû¡¢°æ±¾ºÅ¡¢Ó¦ÓÃĞÅÏ¢¡¢Í¼±ê¡¢Ãû³ÆµÈ)
-*/
+<em> è·å–Appä¿¡æ¯çš„ä¸€ä¸ªå°è£…ç±»(åŒ…åã€ç‰ˆæœ¬å·ã€åº”ç”¨ä¿¡æ¯ã€å›¾æ ‡ã€åç§°ç­‰)
+</em>/
 public class AppEnging {
-    public static List<AppInfo> getAppInfos(Context context) {
-        List<AppInfo> list = new ArrayList<AppInfo>();
-        //»ñÈ¡Ó¦ÓÃ³ÌĞòĞÅÏ¢
-        //°üµÄ¹ÜÀíÕß
+    public static List&lt;AppInfo&gt; getAppInfos(Context context) {
+        List&lt;AppInfo&gt; list = new ArrayList&lt;AppInfo&gt;();
+        //è·å–åº”ç”¨ç¨‹åºä¿¡æ¯
+        //åŒ…çš„ç®¡ç†è€…
         PackageManager pm = context.getPackageManager();
-        //»ñÈ¡ÏµÍ³ÖĞ°²×°µ½ËùÓĞÈí¼şĞÅÏ¢
-        List<PackageInfo> installedPackages = pm.getInstalledPackages(0);
+        //è·å–ç³»ç»Ÿä¸­å®‰è£…åˆ°æ‰€æœ‰è½¯ä»¶ä¿¡æ¯
+        List&lt;PackageInfo&gt; installedPackages = pm.getInstalledPackages(0);
         for (PackageInfo packageInfo : installedPackages) {
-            //»ñÈ¡°üÃû
+            //è·å–åŒ…å
             String packageName = packageInfo.packageName;
-            //»ñÈ¡°æ±¾ºÅ
+            //è·å–ç‰ˆæœ¬å·
             String versionName = packageInfo.versionName;
-            //»ñÈ¡application
+            //è·å–application
             ApplicationInfo applicationInfo = packageInfo.applicationInfo;
             int uid = applicationInfo.uid;
-            //»ñÈ¡Ó¦ÓÃ³ÌĞòµÄÍ¼±ê
+            //è·å–åº”ç”¨ç¨‹åºçš„å›¾æ ‡
             Drawable icon = applicationInfo.loadIcon(pm);
-            //»ñÈ¡Ó¦ÓÃ³ÌĞòµÄÃû³Æ
+            //è·å–åº”ç”¨ç¨‹åºçš„åç§°
             String name = applicationInfo.loadLabel(pm).toString();
-            //ÊÇ·ñÊÇÓÃ»§³ÌĞò
-            //»ñÈ¡Ó¦ÓÃ³ÌĞòÖĞÏà¹ØĞÅÏ¢,ÊÇ·ñÊÇÏµÍ³³ÌĞòºÍÊÇ·ñ°²×°µ½SD¿¨
+            //æ˜¯å¦æ˜¯ç”¨æˆ·ç¨‹åº
+            //è·å–åº”ç”¨ç¨‹åºä¸­ç›¸å…³ä¿¡æ¯,æ˜¯å¦æ˜¯ç³»ç»Ÿç¨‹åºå’Œæ˜¯å¦å®‰è£…åˆ°SDå¡
             boolean isUser;
             int flags = applicationInfo.flags;
-            if ((applicationInfo.FLAG_SYSTEM & flags) == applicationInfo.FLAG_SYSTEM) {
-                //ÏµÍ³³ÌĞò
+            if ((applicationInfo.FLAG<em>SYSTEM &amp; flags) == applicationInfo.FLAG</em>SYSTEM) {
+                //ç³»ç»Ÿç¨‹åº
                 isUser = false;
             } else {
-                //ÓÃ»§³ÌĞò
+                //ç”¨æˆ·ç¨‹åº
                 isUser = true;
             }
-            //ÊÇ·ñ°²×°µ½SD¿¨
+            //æ˜¯å¦å®‰è£…åˆ°SDå¡
             boolean isSD;
-            if ((applicationInfo.FLAG_EXTERNAL_STORAGE & flags) == applicationInfo.FLAG_EXTERNAL_STORAGE) {
-                //°²×°µ½ÁËSD¿¨
+            if ((applicationInfo.FLAG<em>EXTERNAL</em>STORAGE &amp; flags) == applicationInfo.FLAG<em>EXTERNAL</em>STORAGE) {
+                //å®‰è£…åˆ°äº†SDå¡
                 isSD = true;
             } else {
-                //°²×°µ½ÊÖ»úÖĞ
+                //å®‰è£…åˆ°æ‰‹æœºä¸­
                 isSD = false;
             }
-            //Ìí¼Óµ½beanÖĞ
+            //æ·»åŠ åˆ°beanä¸­
             AppInfo appInfo = new AppInfo(name, icon, packageName, versionName, isSD, isUser);
-            //½«bean´æ·Åµ½list¼¯ºÏ
+            //å°†beanå­˜æ”¾åˆ°listé›†åˆ
             list.add(appInfo);
         }
         return list;
     }
-}
- 
-// ·â×°Èí¼şĞÅÏ¢µÄbeanÀà
-class AppInfo {
-    //Ãû³Æ
-    private String name;
-    //Í¼±ê
-    private Drawable icon;
-    //°üÃû
-    private String packagName;
-    //°æ±¾ºÅ
-    private String versionName;
-    //ÊÇ·ñ°²×°µ½SD¿¨
-    private boolean isSD;
-    //ÊÇ·ñÊÇÓÃ»§³ÌĞò
-    private boolean isUser;
- 
-    public AppInfo() {
-        super();
-    }
- 
-    public AppInfo(String name, Drawable icon, String packagName,
-                   String versionName, boolean isSD, boolean isUser) {
-        super();
-        this.name = name;
-        this.icon = icon;
-        this.packagName = packagName;
-        this.versionName = versionName;
-        this.isSD = isSD;
-        this.isUser = isUser;
-    }
-}
-```
+}</p>
 
-### <span id = "4.9"/>4.9 ÅĞ¶Ïµ±Ç°App´¦ÓÚÇ°Ì¨»¹ÊÇºóÌ¨
-``` java
-// ĞèÌí¼Ó<uses-permission android:name="android.permission.GET_TASKS"/>
-// ²¢ÇÒ±ØĞëÊÇÏµÍ³Ó¦ÓÃ¸Ã·½·¨²ÅÓĞĞ§
+<p>// å°è£…è½¯ä»¶ä¿¡æ¯çš„beanç±»
+class AppInfo {
+    //åç§°
+    private String name;
+    //å›¾æ ‡
+    private Drawable icon;
+    //åŒ…å
+    private String packagName;
+    //ç‰ˆæœ¬å·
+    private String versionName;
+    //æ˜¯å¦å®‰è£…åˆ°SDå¡
+    private boolean isSD;
+    //æ˜¯å¦æ˜¯ç”¨æˆ·ç¨‹åº
+    private boolean isUser;</p>
+
+<pre><code>public AppInfo() {
+    super();
+}
+
+public AppInfo(String name, Drawable icon, String packagName,
+               String versionName, boolean isSD, boolean isUser) {
+    super();
+    this.name = name;
+    this.icon = icon;
+    this.packagName = packagName;
+    this.versionName = versionName;
+    this.isSD = isSD;
+    this.isUser = isUser;
+}</code></pre>
+
+<p>}
+<code></code>`</p>
+
+<h3>&lt;span id = &quot;4.9&quot;/&gt;4.9 åˆ¤æ–­å½“å‰Appå¤„äºå‰å°è¿˜æ˜¯åå°</h3>
+
+<p><code> java
+// éœ€æ·»åŠ &lt;uses-permission android:name=&quot;android.permission.GET_TASKS&quot;/&gt;
+// å¹¶ä¸”å¿…é¡»æ˜¯ç³»ç»Ÿåº”ç”¨è¯¥æ–¹æ³•æ‰æœ‰æ•ˆ
 /**
-* ÅĞ¶Ïµ±Ç°App´¦ÓÚÇ°Ì¨»¹ÊÇºóÌ¨
+* åˆ¤æ–­å½“å‰Appå¤„äºå‰å°è¿˜æ˜¯åå°
 */
 public static boolean isApplicationBackground(final Context context) {
     ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-    @SuppressWarnings("deprecation")
-    List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
+    @SuppressWarnings(&quot;deprecation&quot;)
+    List&lt;ActivityManager.RunningTaskInfo&gt; tasks = am.getRunningTasks(1);
     if (!tasks.isEmpty()) {
         ComponentName topActivity = tasks.get(0).topActivity;
         if (!topActivity.getPackageName().equals(context.getPackageName())) {
@@ -858,63 +842,69 @@ public static boolean isApplicationBackground(final Context context) {
     }
     return false;
 }
-```
+</code></p>
 
-********************************************************************************************
-# <span id = "5"/>5 ÆÁÄ»Ïà¹Ø
-### <span id = "5.1"/>5.1 »ñÈ¡ÊÖ»ú·Ö±æÂÊ
-``` java
+<hr/>
+
+<h1>&lt;span id = &quot;5&quot;/&gt;5 å±å¹•ç›¸å…³</h1>
+
+<h3>&lt;span id = &quot;5.1&quot;/&gt;5.1 è·å–æ‰‹æœºåˆ†è¾¨ç‡</h3>
+
+<p><code></code>` java
 /**
-* »ñÈ¡ÆÁÄ»µÄ¿í¶Èpx
-*/
+<em> è·å–å±å¹•çš„å®½åº¦px
+</em>/
 public static int getDeviceWidth(Context context) {
     WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-    DisplayMetrics outMetrics = new DisplayMetrics();// ´´½¨ÁËÒ»ÕÅ°×Ö½
-    windowManager.getDefaultDisplay().getMetrics(outMetrics);// ¸ø°×Ö½ÉèÖÃ¿í¸ß
+    DisplayMetrics outMetrics = new DisplayMetrics();// åˆ›å»ºäº†ä¸€å¼ ç™½çº¸
+    windowManager.getDefaultDisplay().getMetrics(outMetrics);// ç»™ç™½çº¸è®¾ç½®å®½é«˜
     return outMetrics.widthPixels;
-}
+}</p>
 
-/**
-* »ñÈ¡ÆÁÄ»µÄ¸ß¶Èpx
-*/
+<p>/**
+<em> è·å–å±å¹•çš„é«˜åº¦px
+</em>/
 public static int getDeviceHeight(Context context) {
     WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-    DisplayMetrics outMetrics = new DisplayMetrics();// ´´½¨ÁËÒ»ÕÅ°×Ö½
-    windowManager.getDefaultDisplay().getMetrics(outMetrics);// ¸ø°×Ö½ÉèÖÃ¿í¸ß
+    DisplayMetrics outMetrics = new DisplayMetrics();// åˆ›å»ºäº†ä¸€å¼ ç™½çº¸
+    windowManager.getDefaultDisplay().getMetrics(outMetrics);// ç»™ç™½çº¸è®¾ç½®å®½é«˜
     return outMetrics.heightPixels;
 }
-```
+<code></code>`</p>
 
-### <span id = "5.2"/>5.2 »ñÈ¡×´Ì¬À¸¸ß¶È
-```
+<h3>&lt;span id = &quot;5.2&quot;/&gt;5.2 è·å–çŠ¶æ€æ é«˜åº¦</h3>
+
+<p><code>
 /**
-* »ñÈ¡×´Ì¬À¸¸ß¶È
+* è·å–çŠ¶æ€æ é«˜åº¦
 */
 public int getStatusBarHeight() {
     int result = 0;
-    int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-    if (resourceId > 0) {
+    int resourceId = getResources().getIdentifier(&quot;status_bar_height&quot;, &quot;dimen&quot;, &quot;android&quot;);
+    if (resourceId &gt; 0) {
         result = getResources().getDimensionPixelSize(resourceId);
     }
     return result;
 }
-```
+</code></p>
 
-### <span id = "5.3"/>5.3 »ñÈ¡×´Ì¬À¸¸ß¶È£«±êÌâÀ¸(ActionBar)¸ß¶È
-``` java
+<h3>&lt;span id = &quot;5.3&quot;/&gt;5.3 è·å–çŠ¶æ€æ é«˜åº¦ï¼‹æ ‡é¢˜æ (ActionBar)é«˜åº¦</h3>
+
+<p><code> java
 /**
-* »ñÈ¡×´Ì¬À¸¸ß¶È£«±êÌâÀ¸(ActionBar)¸ß¶È
+* è·å–çŠ¶æ€æ é«˜åº¦ï¼‹æ ‡é¢˜æ (ActionBar)é«˜åº¦
 */
 public static int getTopBarHeight(Activity activity) {
     return activity.getWindow().findViewById(Window.ID_ANDROID_CONTENT).getTop();
 }
-```
+</code></p>
 
-### <span id = "5.4"/>5.4 »ñÈ¡ÆÁÄ»½ØÍ¼
-``` java
+<h3>&lt;span id = &quot;5.4&quot;/&gt;5.4 è·å–å±å¹•æˆªå›¾</h3>
+
+<p><code></code>` java
 /**
-* »ñÈ¡µ±Ç°ÆÁÄ»½ØÍ¼£¬°üº¬×´Ì¬À¸
-*/
+<em> è·å–å½“å‰å±å¹•æˆªå›¾ï¼ŒåŒ…å«çŠ¶æ€æ 
+</em>/
 public static Bitmap snapShotWithStatusBar(Activity activity) {
     View view = activity.getWindow().getDecorView();
     view.setDrawingCacheEnabled(true);
@@ -926,11 +916,11 @@ public static Bitmap snapShotWithStatusBar(Activity activity) {
     bp = Bitmap.createBitmap(bmp, 0, 0, width, height);
     view.destroyDrawingCache();
     return bp;
-}
+}</p>
 
-/**
-* »ñÈ¡µ±Ç°ÆÁÄ»½ØÍ¼£¬²»°üº¬×´Ì¬À¸
-*/
+<p>/**
+<em> è·å–å½“å‰å±å¹•æˆªå›¾ï¼Œä¸åŒ…å«çŠ¶æ€æ 
+</em>/
 public static Bitmap snapShotWithoutStatusBar(Activity activity) {
     View view = activity.getWindow().getDecorView();
     view.setDrawingCacheEnabled(true);
@@ -947,71 +937,77 @@ public static Bitmap snapShotWithoutStatusBar(Activity activity) {
     view.destroyDrawingCache();
     return bp;
 }
-```
+<code></code>`</p>
 
-### <span id = "5.5"/>5.5 ÉèÖÃÍ¸Ã÷×´Ì¬À¸£¬ĞèÔÚsetContentViewÖ®Ç°µ÷ÓÃ
-``` java
-if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-    //Í¸Ã÷×´Ì¬À¸
-    getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-    //Í¸Ã÷µ¼º½À¸
-    getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-}
+<h3>&lt;span id = &quot;5.5&quot;/&gt;5.5 è®¾ç½®é€æ˜çŠ¶æ€æ ï¼Œéœ€åœ¨setContentViewä¹‹å‰è°ƒç”¨</h3>
 
-// ĞèÔÚ¶¥²¿¿Ø¼ş²¼¾ÖÖĞ¼ÓÈëÒÔÏÂÊôĞÔÈÃÄÚÈİ³öÏÖÔÚ×´Ì¬À¸Ö®ÏÂ
-android:clipToPadding="true" 
-android:fitsSystemWindows="true"
-```
+<p><code></code>` java
+if(Build.VERSION.SDK<em>INT &gt;= Build.VERSION</em>CODES.KITKAT) {
+    //é€æ˜çŠ¶æ€æ 
+    getWindow().addFlags(WindowManager.LayoutParams.FLAG<em>TRANSLUCENT</em>STATUS);
+    //é€æ˜å¯¼èˆªæ 
+    getWindow().addFlags(WindowManager.LayoutParams.FLAG<em>TRANSLUCENT</em>NAVIGATION);
+}</p>
 
-********************************************************************************************
-# <span id = "6"/>6 ¼üÅÌÏà¹Ø
-### <span id = "6.1"/>6.1 ±ÜÃâÊäÈë·¨Ãæ°åÕÚµ²
-``` java
-// ÔÚmanifest.xmlÖĞactivityÖĞÉèÖÃ
-android:windowSoftInputMode="stateVisible|adjustResize"
-```
+<p>// éœ€åœ¨é¡¶éƒ¨æ§ä»¶å¸ƒå±€ä¸­åŠ å…¥ä»¥ä¸‹å±æ€§è®©å†…å®¹å‡ºç°åœ¨çŠ¶æ€æ ä¹‹ä¸‹
+android:clipToPadding=&quot;true&quot; 
+android:fitsSystemWindows=&quot;true&quot;
+<code></code>`</p>
 
-### <span id = "6.2"/>6.2 ¶¯Ì¬Òş²ØÈí¼üÅÌ
-``` java
+<hr/>
+
+<h1>&lt;span id = &quot;6&quot;/&gt;6 é”®ç›˜ç›¸å…³</h1>
+
+<h3>&lt;span id = &quot;6.1&quot;/&gt;6.1 é¿å…è¾“å…¥æ³•é¢æ¿é®æŒ¡</h3>
+
+<p><code> java
+// åœ¨manifest.xmlä¸­activityä¸­è®¾ç½®
+android:windowSoftInputMode=&quot;stateVisible|adjustResize&quot;
+</code></p>
+
+<h3>&lt;span id = &quot;6.2&quot;/&gt;6.2 åŠ¨æ€éšè—è½¯é”®ç›˜</h3>
+
+<p><code></code>` java
 /**
-* ¶¯Ì¬Òş²ØÈí¼üÅÌ
-*/
+<em> åŠ¨æ€éšè—è½¯é”®ç›˜
+</em>/
 public static void hideSoftInput(Activity activity) {
     View view = activity.getWindow().peekDecorView();
     if (view != null) {
         InputMethodManager inputmanger = (InputMethodManager) activity
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
+                .getSystemService(Context.INPUT<em>METHOD</em>SERVICE);
         inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
-}
+}</p>
 
-/**
-* ¶¯Ì¬Òş²ØÈí¼üÅÌ
-*/
+<p>/**
+<em> åŠ¨æ€éšè—è½¯é”®ç›˜
+</em>/
 public static void hideSoftInput(Context context, EditText edit) {
     edit.clearFocus();
     InputMethodManager inputmanger = (InputMethodManager) context
-            .getSystemService(Context.INPUT_METHOD_SERVICE);
+            .getSystemService(Context.INPUT<em>METHOD</em>SERVICE);
     inputmanger.hideSoftInputFromWindow(edit.getWindowToken(), 0);
 }
-```
+<code></code>`</p>
 
-### <span id = "6.3"/>6.3 µã»÷ÆÁÄ»¿Õ°×ÇøÓòÒş²ØÈí¼üÅÌ
-``` java
-// ·½·¨1£ºÔÚonTouchÖĞ´¦Àí£¬Î´»ñ½¹µãÔòÒş²Ø
+<h3>&lt;span id = &quot;6.3&quot;/&gt;6.3 ç‚¹å‡»å±å¹•ç©ºç™½åŒºåŸŸéšè—è½¯é”®ç›˜</h3>
+
+<p><code></code>` java
+// æ–¹æ³•1ï¼šåœ¨onTouchä¸­å¤„ç†ï¼Œæœªè·ç„¦ç‚¹åˆ™éšè—
 /**
-* ÔÚonTouchÖĞ´¦Àí£¬Î´»ñ½¹µãÔòÒş²Ø
-*/
+<em> åœ¨onTouchä¸­å¤„ç†ï¼Œæœªè·ç„¦ç‚¹åˆ™éšè—
+</em>/
 @Override
 public boolean onTouchEvent(MotionEvent event) {
     if (null != this.getCurrentFocus()) {
-        InputMethodManager mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        InputMethodManager mInputMethodManager = (InputMethodManager) getSystemService(INPUT<em>METHOD</em>SERVICE);
         return mInputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
     }
     return super.onTouchEvent(event);
-}
+}</p>
 
-// ·½·¨2£º¸ù¾İEditTextËùÔÚ×ø±êºÍÓÃ»§µã»÷µÄ×ø±êÏà¶Ô±È£¬À´ÅĞ¶ÏÊÇ·ñÒş²Ø¼üÅÌ£¬ĞèÖØĞ´dispatchTouchEvent
+<p>// æ–¹æ³•2ï¼šæ ¹æ®EditTextæ‰€åœ¨åæ ‡å’Œç”¨æˆ·ç‚¹å‡»çš„åæ ‡ç›¸å¯¹æ¯”ï¼Œæ¥åˆ¤æ–­æ˜¯å¦éšè—é”®ç›˜ï¼Œéœ€é‡å†™dispatchTouchEvent
 @Override
 public boolean dispatchTouchEvent(MotionEvent ev) {
     if (ev.getAction() == MotionEvent.ACTION_DOWN) {
@@ -1021,40 +1017,41 @@ public boolean dispatchTouchEvent(MotionEvent ev) {
         }
     }
     return super.dispatchTouchEvent(ev);
-}
+}</p>
 
-/**
-* ¸ù¾İEditTextËùÔÚ×ø±êºÍÓÃ»§µã»÷µÄ×ø±êÏà¶Ô±È£¬À´ÅĞ¶ÏÊÇ·ñÒş²Ø¼üÅÌ
-*/
+<p>/**
+<em> æ ¹æ®EditTextæ‰€åœ¨åæ ‡å’Œç”¨æˆ·ç‚¹å‡»çš„åæ ‡ç›¸å¯¹æ¯”ï¼Œæ¥åˆ¤æ–­æ˜¯å¦éšè—é”®ç›˜
+</em>/
 private boolean isShouldHideKeyboard(View v, MotionEvent event) {
-    if (v != null && (v instanceof EditText)) {
+    if (v != null &amp;&amp; (v instanceof EditText)) {
         int[] l = {0, 0};
         v.getLocationInWindow(l);
         int left = l[0],
                 top = l[1],
                 bottom = top + v.getHeight(),
                 right = left + v.getWidth();
-        return !(event.getX() > left && event.getX() < right
-                && event.getY() > top && event.getY() < bottom);
+        return !(event.getX() &gt; left &amp;&amp; event.getX() &lt; right
+                &amp;&amp; event.getY() &gt; top &amp;&amp; event.getY() &lt; bottom);
     }
     return false;
-}
+}</p>
 
-/**
-* »ñÈ¡InputMethodManager£¬Òş²ØÈí¼üÅÌ
-*/
+<p>/**
+<em> è·å–InputMethodManagerï¼Œéšè—è½¯é”®ç›˜
+</em>/
 private void hideKeyboard(IBinder token) {
     if (token != null) {
-        InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
+        InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT<em>METHOD</em>SERVICE);
+        im.hideSoftInputFromWindow(token, InputMethodManager.HIDE<em>NOT</em>ALWAYS);
     }
 }
-```
+<code></code>`</p>
 
-### <span id = "6.4"/>6.4 ¶¯Ì¬ÏÔÊ¾Èí¼üÅÌ
-``` java
+<h3>&lt;span id = &quot;6.4&quot;/&gt;6.4 åŠ¨æ€æ˜¾ç¤ºè½¯é”®ç›˜</h3>
+
+<p><code> java
 /**
-* ¶¯Ì¬ÏÔÊ¾Èí¼üÅÌ
+* åŠ¨æ€æ˜¾ç¤ºè½¯é”®ç›˜
 */
 public static void showSoftInput(Context context, EditText edit) {
     edit.setFocusable(true);
@@ -1064,12 +1061,13 @@ public static void showSoftInput(Context context, EditText edit) {
             .getSystemService(Context.INPUT_METHOD_SERVICE);
     inputManager.showSoftInput(edit, 0);
 }
-```
+</code></p>
 
-### <span id = "6.5"/>6.5 ÇĞ»»¼üÅÌÏÔÊ¾Óë·ñ×´Ì¬
-``` java
+<h3>&lt;span id = &quot;6.5&quot;/&gt;6.5 åˆ‡æ¢é”®ç›˜æ˜¾ç¤ºä¸å¦çŠ¶æ€</h3>
+
+<p><code> java
 /**
-* ÇĞ»»¼üÅÌÏÔÊ¾Óë·ñ×´Ì¬
+* åˆ‡æ¢é”®ç›˜æ˜¾ç¤ºä¸å¦çŠ¶æ€
 */
 public static void toggleSoftInput(Context context, EditText edit) {
     edit.setFocusable(true);
@@ -1079,141 +1077,155 @@ public static void toggleSoftInput(Context context, EditText edit) {
             .getSystemService(Context.INPUT_METHOD_SERVICE);
     inputManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 }
-```
+</code></p>
 
-********************************************************************************************
-# <span id = "7"/>7 ÕıÔòÏà¹Ø
-### <span id = "7.1"/>7.1 ÕıÔò¹¤¾ßÀà
-``` java
+<hr/>
+
+<h1>&lt;span id = &quot;7&quot;/&gt;7 æ­£åˆ™ç›¸å…³</h1>
+
+<h3>&lt;span id = &quot;7.1&quot;/&gt;7.1 æ­£åˆ™å·¥å…·ç±»</h3>
+
+<p><code></code>` java
 public class RegularUtils {
-    //ÑéÖ¤ÊÖ»úºÅ
-    private static final String REGEX_MOBILE = "^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$";
-    //ÑéÖ¤×ù»úºÅ,ÕıÈ·¸ñÊ½£ºxxx/xxxx-xxxxxxx/xxxxxxxx
-    private static final String REGEX_TEL = "^0\\d{2,3}[- ]?\\d{7,8}";
-    //ÑéÖ¤ÓÊÏä
-    private static final String REGEX_EMAIL = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
-    //ÑéÖ¤url
-    private static final String REGEX_URL = "http(s)?://([\\w-]+\\.)+[\\w-]+(/[\\w-./?%&=]*)?";
-    //ÑéÖ¤ºº×Ö
-    private static final String REGEX_CHZ = "^[\\u4e00-\\u9fa5]+$";
-    //ÑéÖ¤ÓÃ»§Ãû,È¡Öµ·¶Î§Îªa-z,A-Z,0-9,"_",ºº×Ö£¬²»ÄÜÒÔ"_"½áÎ²,ÓÃ»§Ãû±ØĞëÊÇ6-20Î»
-    private static final String REGEX_USERNAME = "^[\\w\\u4e00-\\u9fa5]{6,20}(?<!_)$";
-    //ÑéÖ¤IPµØÖ·
-    private static final String REGEX_IP = "((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)";
+    //éªŒè¯æ‰‹æœºå·
+    private static final String REGEX<em>MOBILE = &quot;^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$&quot;;
+    //éªŒè¯åº§æœºå·,æ­£ç¡®æ ¼å¼ï¼šxxx/xxxx-xxxxxxx/xxxxxxxx
+    private static final String REGEX</em>TEL = &quot;^0\d{2,3}[- ]?\d{7,8}&quot;;
+    //éªŒè¯é‚®ç®±
+    private static final String REGEX_EMAIL = &quot;^\w+([-+.]\w+)<em>@\w+([-.]\w+)</em>\.\w+([-.]\w+)*$&quot;;
+    //éªŒè¯url
+    private static final String REGEX<em>URL = &quot;http(s)?://([\w-]+\.)+[\w-]+(/[\w-./?%&amp;=]*)?&quot;;
+    //éªŒè¯æ±‰å­—
+    private static final String REGEX</em>CHZ = &quot;^[\u4e00-\u9fa5]+$&quot;;
+    //éªŒè¯ç”¨æˆ·å,å–å€¼èŒƒå›´ä¸ºa-z,A-Z,0-9,&quot;<em>&quot;,æ±‰å­—ï¼Œä¸èƒ½ä»¥&quot;</em>&quot;ç»“å°¾,ç”¨æˆ·åå¿…é¡»æ˜¯6-20ä½
+    private static final String REGEX<em>USERNAME = &quot;^[\w\u4e00-\u9fa5]{6,20}(?&lt;!</em>)$&quot;;
+    //éªŒè¯IPåœ°å€
+    private static final String REGEX_IP = &quot;((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)&quot;;</p>
 
-    //If u want more please visit http://toutiao.com/i6231678548520731137/
- 
-    /**
-     * @param string ´ıÑéÖ¤ÎÄ±¾
-     * @return ÊÇ·ñ·ûºÏÊÖ»úºÅ¸ñÊ½
-     */
-    public static boolean isMobile(String string) {
-        return isMatch(REGEX_MOBILE, string);
-    }
- 
-    /**
-     * @param string ´ıÑéÖ¤ÎÄ±¾
-     * @return ÊÇ·ñ·ûºÏ×ù»úºÅÂë¸ñÊ½
-     */
-    public static boolean isTel(String string) {
-        return isMatch(REGEX_TEL, string);
-    }
- 
-    /**
-     * @param string ´ıÑéÖ¤ÎÄ±¾
-     * @return ÊÇ·ñ·ûºÏÓÊÏä¸ñÊ½
-     */
-    public static boolean isEmail(String string) {
-        return isMatch(REGEX_EMAIL, string);
-    }
- 
-    /**
-     * @param string ´ıÑéÖ¤ÎÄ±¾
-     * @return ÊÇ·ñ·ûºÏÍøÖ·¸ñÊ½
-     */
-    public static boolean isURL(String string) {
-        return isMatch(REGEX_URL, string);
-    }
- 
-    /**
-     * @param string ´ıÑéÖ¤ÎÄ±¾
-     * @return ÊÇ·ñ·ûºÏºº×Ö
-     */
-    public static boolean isChz(String string) {
-        return isMatch(REGEX_CHZ, string);
-    }
- 
-    /**
-     * @param string ´ıÑéÖ¤ÎÄ±¾
-     * @return ÊÇ·ñ·ûºÏÓÃ»§Ãû
-     */
-    public static boolean isUsername(String string) {
-        return isMatch(REGEX_USERNAME, string);
-    }
- 
-    /**
-     * @param regex  ÕıÔò±í´ïÊ½×Ö·û´®
-     * @param string ÒªÆ¥ÅäµÄ×Ö·û´®
-     * @return Èç¹ûstr ·ûºÏ regexµÄÕıÔò±í´ïÊ½¸ñÊ½,·µ»Øtrue, ·ñÔò·µ»Ø false;
-     */
-    public static boolean isMatch(String regex, String string) {
-        return !TextUtils.isEmpty(string) && Pattern.matches(regex, string);
-    }
-}
-```
+<pre><code>//If u want more please visit http://toutiao.com/i6231678548520731137/
 
-********************************************************************************************
-# <span id = "8"/>8 ¼Ó½âÃÜÏà¹Ø
-### <span id = "8.1"/>8.1 MD5¼ÓÃÜ
-``` java
 /**
-* MD5¼ÓÃÜ
+ * @param string å¾…éªŒè¯æ–‡æœ¬
+ * @return æ˜¯å¦ç¬¦åˆæ‰‹æœºå·æ ¼å¼
+ */
+public static boolean isMobile(String string) {
+    return isMatch(REGEX_MOBILE, string);
+}
+
+/**
+ * @param string å¾…éªŒè¯æ–‡æœ¬
+ * @return æ˜¯å¦ç¬¦åˆåº§æœºå·ç æ ¼å¼
+ */
+public static boolean isTel(String string) {
+    return isMatch(REGEX_TEL, string);
+}
+
+/**
+ * @param string å¾…éªŒè¯æ–‡æœ¬
+ * @return æ˜¯å¦ç¬¦åˆé‚®ç®±æ ¼å¼
+ */
+public static boolean isEmail(String string) {
+    return isMatch(REGEX_EMAIL, string);
+}
+
+/**
+ * @param string å¾…éªŒè¯æ–‡æœ¬
+ * @return æ˜¯å¦ç¬¦åˆç½‘å€æ ¼å¼
+ */
+public static boolean isURL(String string) {
+    return isMatch(REGEX_URL, string);
+}
+
+/**
+ * @param string å¾…éªŒè¯æ–‡æœ¬
+ * @return æ˜¯å¦ç¬¦åˆæ±‰å­—
+ */
+public static boolean isChz(String string) {
+    return isMatch(REGEX_CHZ, string);
+}
+
+/**
+ * @param string å¾…éªŒè¯æ–‡æœ¬
+ * @return æ˜¯å¦ç¬¦åˆç”¨æˆ·å
+ */
+public static boolean isUsername(String string) {
+    return isMatch(REGEX_USERNAME, string);
+}
+
+/**
+ * @param regex  æ­£åˆ™è¡¨è¾¾å¼å­—ç¬¦ä¸²
+ * @param string è¦åŒ¹é…çš„å­—ç¬¦ä¸²
+ * @return å¦‚æœstr ç¬¦åˆ regexçš„æ­£åˆ™è¡¨è¾¾å¼æ ¼å¼,è¿”å›true, å¦åˆ™è¿”å› false;
+ */
+public static boolean isMatch(String regex, String string) {
+    return !TextUtils.isEmpty(string) &amp;&amp; Pattern.matches(regex, string);
+}</code></pre>
+
+<p>}
+<code></code>`</p>
+
+<hr/>
+
+<h1>&lt;span id = &quot;8&quot;/&gt;8 åŠ è§£å¯†ç›¸å…³</h1>
+
+<h3>&lt;span id = &quot;8.1&quot;/&gt;8.1 MD5åŠ å¯†</h3>
+
+<p><code> java
+/**
+* MD5åŠ å¯†
 */
 public static String encryptMD5(String data) throws Exception {
-    MessageDigest md5 = MessageDigest.getInstance("MD5");
+    MessageDigest md5 = MessageDigest.getInstance(&quot;MD5&quot;);
     return new BigInteger(md5.digest(data.getBytes())).toString(16);
 }
-```
+</code></p>
 
-### <span id = "8.2"/>8.2 SHA¼ÓÃÜ
-```
+<h3>&lt;span id = &quot;8.2&quot;/&gt;8.2 SHAåŠ å¯†</h3>
+
+<p><code>
 /**
-* SHA¼ÓÃÜ
+* SHAåŠ å¯†
 */
 public static String encryptSHA(String data) throws Exception {
-    MessageDigest sha = MessageDigest.getInstance("SHA");
+    MessageDigest sha = MessageDigest.getInstance(&quot;SHA&quot;);
     return new BigInteger(sha.digest(data.getBytes())).toString(32);
 }
-```
+</code></p>
 
-********************************************************************************************
-# <span id = "x"/>x Î´¹éÀà
-### <span id = "x.1"/>x.1 »ñÈ¡·şÎñÊÇ·ñ¿ªÆô
-```
+<hr/>
+
+<h1>&lt;span id = &quot;x&quot;/&gt;x æœªå½’ç±»</h1>
+
+<h3>&lt;span id = &quot;x.1&quot;/&gt;x.1 è·å–æœåŠ¡æ˜¯å¦å¼€å¯</h3>
+
+<p><code>
 /**
-* »ñÈ¡·şÎñÊÇ·ñ¿ªÆô
+* è·å–æœåŠ¡æ˜¯å¦å¼€å¯
 */
 public static boolean isRunningService(String className, Context context) {
-    //½ø³ÌµÄ¹ÜÀíÕß,»î¶¯µÄ¹ÜÀíÕß
+    //è¿›ç¨‹çš„ç®¡ç†è€…,æ´»åŠ¨çš„ç®¡ç†è€…
     ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-    //»ñÈ¡ÕıÔÚÔËĞĞµÄ·şÎñ
-    List<RunningServiceInfo> runningServices = activityManager.getRunningServices(1000);//maxNum ·µ»ØÕıÔÚÔËĞĞµÄ·şÎñµÄÉÏÏŞ¸öÊı,×î¶à·µ»Ø¶àÉÙ¸ö·şÎñ
-    //±éÀú¼¯ºÏ
+    //è·å–æ­£åœ¨è¿è¡Œçš„æœåŠ¡
+    List&lt;RunningServiceInfo&gt; runningServices = activityManager.getRunningServices(1000);//maxNum è¿”å›æ­£åœ¨è¿è¡Œçš„æœåŠ¡çš„ä¸Šé™ä¸ªæ•°,æœ€å¤šè¿”å›å¤šå°‘ä¸ªæœåŠ¡
+    //éå†é›†åˆ
     for (RunningServiceInfo runningServiceInfo : runningServices) {
-        //»ñÈ¡¿Ø¼şµÄ±êÊ¾
+        //è·å–æ§ä»¶çš„æ ‡ç¤º
         ComponentName service = runningServiceInfo.service;
-        //»ñÈ¡ÕıÔÚÔËĞĞµÄ·şÎñµÄÈ«ÀàÃû
+        //è·å–æ­£åœ¨è¿è¡Œçš„æœåŠ¡çš„å…¨ç±»å
         String className2 = service.getClassName();
-        //½«»ñÈ¡µ½µÄÕıÔÚÔËĞĞµÄ·şÎñµÄÈ«ÀàÃûºÍ´«µİ¹ıÀ´µÄ·şÎñµÄÈ«ÀàÃû±È½Ï,Ò»Ö±±íÊ¾·şÎñÕıÔÚÔËĞĞ  ·µ»Øtrue,²»Ò»ÖÂ±íÊ¾·şÎñÃ»ÓĞÔËĞĞ  ·µ»Øfalse
+        //å°†è·å–åˆ°çš„æ­£åœ¨è¿è¡Œçš„æœåŠ¡çš„å…¨ç±»åå’Œä¼ é€’è¿‡æ¥çš„æœåŠ¡çš„å…¨ç±»åæ¯”è¾ƒ,ä¸€ç›´è¡¨ç¤ºæœåŠ¡æ­£åœ¨è¿è¡Œ  è¿”å›true,ä¸ä¸€è‡´è¡¨ç¤ºæœåŠ¡æ²¡æœ‰è¿è¡Œ  è¿”å›false
         if (className.equals(className2)) {
             return true;
         }
     }
     return false;
 }
-```
+</code></p>
 
-********************************************************************************************
-# <span id = "log"/> ¸üĞÂLog
-### 2016/7/31 ĞÂÔöµã»÷ÆÁÄ»¿Õ°×ÇøÓòÒş²ØÈí¼üÅÌ
-### 2016/7/31 ĞÂÔöÄ¿Â¼Ìø×ª¹¦ÄÜ
+<hr/>
+
+<h1>&lt;span id = &quot;log&quot;/&gt; æ›´æ–°Log</h1>
+
+<h3>2016/7/31 æ–°å¢ç‚¹å‡»å±å¹•ç©ºç™½åŒºåŸŸéšè—è½¯é”®ç›˜</h3>
+
+<h3>2016/7/31 æ–°å¢ç›®å½•è·³è½¬åŠŸèƒ½</h3>
