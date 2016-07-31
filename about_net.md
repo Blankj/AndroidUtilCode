@@ -1,8 +1,8 @@
-# ÍøÂçÏà¹Ø
-### ´ò¿ªÍøÂçÉèÖÃ½çÃæ
+# ç½‘ç»œç›¸å…³
+### æ‰“å¼€ç½‘ç»œè®¾ç½®ç•Œé¢
 ``` java
 /**
-* ´ò¿ªÍøÂçÉèÖÃ½çÃæ
+* æ‰“å¼€ç½‘ç»œè®¾ç½®ç•Œé¢
 */
 public static void openSetting(Activity activity) {
     Intent intent = new Intent("/");
@@ -14,10 +14,10 @@ public static void openSetting(Activity activity) {
 }
 ```
 
-### ÅĞ¶ÏÊÇ·ñÍøÂçÁ¬½Ó
+### åˆ¤æ–­æ˜¯å¦ç½‘ç»œè¿æ¥
 ``` java
 /**
-* ÅĞ¶ÏÊÇ·ñÍøÂçÁ¬½Ó
+* åˆ¤æ–­æ˜¯å¦ç½‘ç»œè¿æ¥
 */
 public static boolean isOnline(Context context) {
     ConnectivityManager manager = (ConnectivityManager) context
@@ -30,10 +30,10 @@ public static boolean isOnline(Context context) {
 }
 ```
 
-### ÅĞ¶ÏwifiÊÇ·ñÁ¬½Ó×´Ì¬
+### åˆ¤æ–­wifiæ˜¯å¦è¿æ¥çŠ¶æ€
 ``` java
 /**
-* ÅĞ¶ÏwifiÊÇ·ñÁ¬½Ó×´Ì¬
+* åˆ¤æ–­wifiæ˜¯å¦è¿æ¥çŠ¶æ€
 */
 public static boolean isWifi(Context context) {
     ConnectivityManager cm = (ConnectivityManager) context
@@ -42,10 +42,10 @@ public static boolean isWifi(Context context) {
 }
 ```
 
-### »ñÈ¡ÒÆ¶¯ÍøÂçÔËÓªÉÌÃû³Æ£¬ÈçÖĞ¹úÁªÍ¨¡¢ÖĞ¹úÒÆ¶¯¡¢ÖĞ¹úµçĞÅ
+### è·å–ç§»åŠ¨ç½‘ç»œè¿è¥å•†åç§°ï¼Œå¦‚ä¸­å›½è”é€šã€ä¸­å›½ç§»åŠ¨ã€ä¸­å›½ç”µä¿¡
 ``` java
 /**
-* »ñÈ¡ÒÆ¶¯ÍøÂçÔËÓªÉÌÃû³Æ£¬ÈçÖĞ¹úÁªÍ¨¡¢ÖĞ¹úÒÆ¶¯¡¢ÖĞ¹úµçĞÅ
+* è·å–ç§»åŠ¨ç½‘ç»œè¿è¥å•†åç§°ï¼Œå¦‚ä¸­å›½è”é€šã€ä¸­å›½ç§»åŠ¨ã€ä¸­å›½ç”µä¿¡
 */
 public static String getNetworkOperatorName(Context context) {
     TelephonyManager telephonyManager = (TelephonyManager) context
@@ -54,14 +54,14 @@ public static String getNetworkOperatorName(Context context) {
 }
 ```
 
-### ·µ»ØÒÆ¶¯ÖÕ¶ËÀàĞÍ
+### è¿”å›ç§»åŠ¨ç»ˆç«¯ç±»å‹
 ``` java
-// PHONE_TYPE_NONE :0 ÊÖ»úÖÆÊ½Î´Öª
-// PHONE_TYPE_GSM :1 ÊÖ»úÖÆÊ½ÎªGSM£¬ÒÆ¶¯ºÍÁªÍ¨
-// PHONE_TYPE_CDMA :2 ÊÖ»úÖÆÊ½ÎªCDMA£¬µçĞÅ
+// PHONE_TYPE_NONE :0 æ‰‹æœºåˆ¶å¼æœªçŸ¥
+// PHONE_TYPE_GSM :1 æ‰‹æœºåˆ¶å¼ä¸ºGSMï¼Œç§»åŠ¨å’Œè”é€š
+// PHONE_TYPE_CDMA :2 æ‰‹æœºåˆ¶å¼ä¸ºCDMAï¼Œç”µä¿¡
 // PHONE_TYPE_SIP:3
 /**
-* ·µ»ØÒÆ¶¯ÖÕ¶ËÀàĞÍ
+* è¿”å›ç§»åŠ¨ç»ˆç«¯ç±»å‹
 */
 public static int getPhoneType(Context context) {
     TelephonyManager telephonyManager = (TelephonyManager) context
@@ -70,9 +70,9 @@ public static int getPhoneType(Context context) {
 }
 ```
 
-### ÅĞ¶ÏÊÖ»úÁ¬½ÓµÄÍøÂçÀàĞÍ(2G,3G,4G)
+### åˆ¤æ–­æ‰‹æœºè¿æ¥çš„ç½‘ç»œç±»å‹(2G,3G,4G)
 ``` java
-// ÁªÍ¨µÄ3GÎªUMTS»òHSDPA£¬ÒÆ¶¯ºÍÁªÍ¨µÄ2GÎªGPRS»òEGDE£¬µçĞÅµÄ2GÎªCDMA£¬µçĞÅµÄ3GÎªEVDO
+// è”é€šçš„3Gä¸ºUMTSæˆ–HSDPAï¼Œç§»åŠ¨å’Œè”é€šçš„2Gä¸ºGPRSæˆ–EGDEï¼Œç”µä¿¡çš„2Gä¸ºCDMAï¼Œç”µä¿¡çš„3Gä¸ºEVDO
 public class Constants {
     /**
      * Unknown network class
@@ -96,7 +96,7 @@ public class Constants {
     public static final int NETWORK_CLASS_4_G = 4;
 }
 /**
-* ÅĞ¶ÏÊÖ»úÁ¬½ÓµÄÍøÂçÀàĞÍ(2G,3G,4G)
+* åˆ¤æ–­æ‰‹æœºè¿æ¥çš„ç½‘ç»œç±»å‹(2G,3G,4G)
 */
 public static int getNetWorkClass(Context context) {
     TelephonyManager telephonyManager = (TelephonyManager) context
@@ -126,10 +126,10 @@ public static int getNetWorkClass(Context context) {
 }
 ```
 
-### ÅĞ¶Ïµ±Ç°ÊÖ»úµÄÍøÂçÀàĞÍ(WIFI»¹ÊÇ2,3,4G)
+### åˆ¤æ–­å½“å‰æ‰‹æœºçš„ç½‘ç»œç±»å‹(WIFIè¿˜æ˜¯2,3,4G)
 ``` java
 /**
-* ÅĞ¶Ïµ±Ç°ÊÖ»úµÄÍøÂçÀàĞÍ(WIFI»¹ÊÇ2,3,4G)£¬ĞèÒªÓÃµ½ÉÏÃæµÄ·½·¨
+* åˆ¤æ–­å½“å‰æ‰‹æœºçš„ç½‘ç»œç±»å‹(WIFIè¿˜æ˜¯2,3,4G)ï¼Œéœ€è¦ç”¨åˆ°ä¸Šé¢çš„æ–¹æ³•
 */
 public static int getNetWorkStatus(Context context) {
     int netWorkType = Constants.NETWORK_CLASS_UNKNOWN;

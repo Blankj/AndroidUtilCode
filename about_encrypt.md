@@ -1,8 +1,8 @@
-# ¼Ó½âÃÜÏà¹Ø
-### MD5¼ÓÃÜ
+# åŠ è§£å¯†ç›¸å…³
+### MD5åŠ å¯†
 ``` java
 /**
-* MD5¼ÓÃÜ
+* MD5åŠ å¯†
 */
 public static String encryptMD5(String data) throws Exception {
     MessageDigest md5 = MessageDigest.getInstance("MD5");
@@ -10,10 +10,10 @@ public static String encryptMD5(String data) throws Exception {
 }
 ```
 
-### SHA¼ÓÃÜ
+### SHAåŠ å¯†
 ```
 /**
-* SHA¼ÓÃÜ
+* SHAåŠ å¯†
 */
 public static String encryptSHA(String data) throws Exception {
     MessageDigest sha = MessageDigest.getInstance("SHA");

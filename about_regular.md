@@ -1,76 +1,76 @@
-# ÕıÔòÏà¹Ø
-### ÕıÔò¹¤¾ßÀà
+# æ­£åˆ™ç›¸å…³
+### æ­£åˆ™å·¥å…·ç±»
 ``` java
 public class RegularUtils {
-    //ÑéÖ¤ÊÖ»úºÅ
+    //éªŒè¯æ‰‹æœºå·
     private static final String REGEX_MOBILE = "^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$";
-    //ÑéÖ¤×ù»úºÅ,ÕıÈ·¸ñÊ½£ºxxx/xxxx-xxxxxxx/xxxxxxxx
+    //éªŒè¯åº§æœºå·,æ­£ç¡®æ ¼å¼ï¼šxxx/xxxx-xxxxxxx/xxxxxxxx
     private static final String REGEX_TEL = "^0\\d{2,3}[- ]?\\d{7,8}";
-    //ÑéÖ¤ÓÊÏä
+    //éªŒè¯é‚®ç®±
     private static final String REGEX_EMAIL = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
-    //ÑéÖ¤url
+    //éªŒè¯url
     private static final String REGEX_URL = "http(s)?://([\\w-]+\\.)+[\\w-]+(/[\\w-./?%&=]*)?";
-    //ÑéÖ¤ºº×Ö
+    //éªŒè¯æ±‰å­—
     private static final String REGEX_CHZ = "^[\\u4e00-\\u9fa5]+$";
-    //ÑéÖ¤ÓÃ»§Ãû,È¡Öµ·¶Î§Îªa-z,A-Z,0-9,"_",ºº×Ö£¬²»ÄÜÒÔ"_"½áÎ²,ÓÃ»§Ãû±ØĞëÊÇ6-20Î»
+    //éªŒè¯ç”¨æˆ·å,å–å€¼èŒƒå›´ä¸ºa-z,A-Z,0-9,"_",æ±‰å­—ï¼Œä¸èƒ½ä»¥"_"ç»“å°¾,ç”¨æˆ·åå¿…é¡»æ˜¯6-20ä½
     private static final String REGEX_USERNAME = "^[\\w\\u4e00-\\u9fa5]{6,20}(?<!_)$";
-    //ÑéÖ¤IPµØÖ·
+    //éªŒè¯IPåœ°å€
     private static final String REGEX_IP = "((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)";
 
     //If u want more please visit http://toutiao.com/i6231678548520731137/
  
     /**
-     * @param string ´ıÑéÖ¤ÎÄ±¾
-     * @return ÊÇ·ñ·ûºÏÊÖ»úºÅ¸ñÊ½
+     * @param string å¾…éªŒè¯æ–‡æœ¬
+     * @return æ˜¯å¦ç¬¦åˆæ‰‹æœºå·æ ¼å¼
      */
     public static boolean isMobile(String string) {
         return isMatch(REGEX_MOBILE, string);
     }
  
     /**
-     * @param string ´ıÑéÖ¤ÎÄ±¾
-     * @return ÊÇ·ñ·ûºÏ×ù»úºÅÂë¸ñÊ½
+     * @param string å¾…éªŒè¯æ–‡æœ¬
+     * @return æ˜¯å¦ç¬¦åˆåº§æœºå·ç æ ¼å¼
      */
     public static boolean isTel(String string) {
         return isMatch(REGEX_TEL, string);
     }
  
     /**
-     * @param string ´ıÑéÖ¤ÎÄ±¾
-     * @return ÊÇ·ñ·ûºÏÓÊÏä¸ñÊ½
+     * @param string å¾…éªŒè¯æ–‡æœ¬
+     * @return æ˜¯å¦ç¬¦åˆé‚®ç®±æ ¼å¼
      */
     public static boolean isEmail(String string) {
         return isMatch(REGEX_EMAIL, string);
     }
  
     /**
-     * @param string ´ıÑéÖ¤ÎÄ±¾
-     * @return ÊÇ·ñ·ûºÏÍøÖ·¸ñÊ½
+     * @param string å¾…éªŒè¯æ–‡æœ¬
+     * @return æ˜¯å¦ç¬¦åˆç½‘å€æ ¼å¼
      */
     public static boolean isURL(String string) {
         return isMatch(REGEX_URL, string);
     }
  
     /**
-     * @param string ´ıÑéÖ¤ÎÄ±¾
-     * @return ÊÇ·ñ·ûºÏºº×Ö
+     * @param string å¾…éªŒè¯æ–‡æœ¬
+     * @return æ˜¯å¦ç¬¦åˆæ±‰å­—
      */
     public static boolean isChz(String string) {
         return isMatch(REGEX_CHZ, string);
     }
  
     /**
-     * @param string ´ıÑéÖ¤ÎÄ±¾
-     * @return ÊÇ·ñ·ûºÏÓÃ»§Ãû
+     * @param string å¾…éªŒè¯æ–‡æœ¬
+     * @return æ˜¯å¦ç¬¦åˆç”¨æˆ·å
      */
     public static boolean isUsername(String string) {
         return isMatch(REGEX_USERNAME, string);
     }
  
     /**
-     * @param regex  ÕıÔò±í´ïÊ½×Ö·û´®
-     * @param string ÒªÆ¥ÅäµÄ×Ö·û´®
-     * @return Èç¹ûstr ·ûºÏ regexµÄÕıÔò±í´ïÊ½¸ñÊ½,·µ»Øtrue, ·ñÔò·µ»Ø false;
+     * @param regex  æ­£åˆ™è¡¨è¾¾å¼å­—ç¬¦ä¸²
+     * @param string è¦åŒ¹é…çš„å­—ç¬¦ä¸²
+     * @return å¦‚æœstr ç¬¦åˆ regexçš„æ­£åˆ™è¡¨è¾¾å¼æ ¼å¼,è¿”å›true, å¦åˆ™è¿”å› false;
      */
     public static boolean isMatch(String regex, String string) {
         return !TextUtils.isEmpty(string) && Pattern.matches(regex, string);

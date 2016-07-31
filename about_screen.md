@@ -1,31 +1,31 @@
-# ÆÁÄ»Ïà¹Ø
-### »ñÈ¡ÊÖ»ú·Ö±æÂÊ
+# å±å¹•ç›¸å…³
+### è·å–æ‰‹æœºåˆ†è¾¨ç‡
 ``` java
 /**
-* »ñÈ¡ÆÁÄ»µÄ¿í¶Èpx
+* è·å–å±å¹•çš„å®½åº¦px
 */
 public static int getDeviceWidth(Context context) {
     WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-    DisplayMetrics outMetrics = new DisplayMetrics();// ´´½¨ÁËÒ»ÕÅ°×Ö½
-    windowManager.getDefaultDisplay().getMetrics(outMetrics);// ¸ø°×Ö½ÉèÖÃ¿í¸ß
+    DisplayMetrics outMetrics = new DisplayMetrics();// åˆ›å»ºäº†ä¸€å¼ ç™½çº¸
+    windowManager.getDefaultDisplay().getMetrics(outMetrics);// ç»™ç™½çº¸è®¾ç½®å®½é«˜
     return outMetrics.widthPixels;
 }
 
 /**
-* »ñÈ¡ÆÁÄ»µÄ¸ß¶Èpx
+* è·å–å±å¹•çš„é«˜åº¦px
 */
 public static int getDeviceHeight(Context context) {
     WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-    DisplayMetrics outMetrics = new DisplayMetrics();// ´´½¨ÁËÒ»ÕÅ°×Ö½
-    windowManager.getDefaultDisplay().getMetrics(outMetrics);// ¸ø°×Ö½ÉèÖÃ¿í¸ß
+    DisplayMetrics outMetrics = new DisplayMetrics();// åˆ›å»ºäº†ä¸€å¼ ç™½çº¸
+    windowManager.getDefaultDisplay().getMetrics(outMetrics);// ç»™ç™½çº¸è®¾ç½®å®½é«˜
     return outMetrics.heightPixels;
 }
 ```
 
-### »ñÈ¡×´Ì¬À¸¸ß¶È
+### è·å–çŠ¶æ€æ é«˜åº¦
 ```
 /**
-* »ñÈ¡×´Ì¬À¸¸ß¶È
+* è·å–çŠ¶æ€æ é«˜åº¦
 */
 public int getStatusBarHeight() {
     int result = 0;
@@ -37,20 +37,20 @@ public int getStatusBarHeight() {
 }
 ```
 
-### »ñÈ¡×´Ì¬À¸¸ß¶È£«±êÌâÀ¸(ActionBar)¸ß¶È
+### è·å–çŠ¶æ€æ é«˜åº¦ï¼‹æ ‡é¢˜æ (ActionBar)é«˜åº¦
 ``` java
 /**
-* »ñÈ¡×´Ì¬À¸¸ß¶È£«±êÌâÀ¸(ActionBar)¸ß¶È
+* è·å–çŠ¶æ€æ é«˜åº¦ï¼‹æ ‡é¢˜æ (ActionBar)é«˜åº¦
 */
 public static int getTopBarHeight(Activity activity) {
     return activity.getWindow().findViewById(Window.ID_ANDROID_CONTENT).getTop();
 }
 ```
 
-### »ñÈ¡ÆÁÄ»½ØÍ¼
+### è·å–å±å¹•æˆªå›¾
 ``` java
 /**
-* »ñÈ¡µ±Ç°ÆÁÄ»½ØÍ¼£¬°üº¬×´Ì¬À¸
+* è·å–å½“å‰å±å¹•æˆªå›¾ï¼ŒåŒ…å«çŠ¶æ€æ 
 */
 public static Bitmap snapShotWithStatusBar(Activity activity) {
     View view = activity.getWindow().getDecorView();
@@ -66,7 +66,7 @@ public static Bitmap snapShotWithStatusBar(Activity activity) {
 }
 
 /**
-* »ñÈ¡µ±Ç°ÆÁÄ»½ØÍ¼£¬²»°üº¬×´Ì¬À¸
+* è·å–å½“å‰å±å¹•æˆªå›¾ï¼Œä¸åŒ…å«çŠ¶æ€æ 
 */
 public static Bitmap snapShotWithoutStatusBar(Activity activity) {
     View view = activity.getWindow().getDecorView();
@@ -86,16 +86,16 @@ public static Bitmap snapShotWithoutStatusBar(Activity activity) {
 }
 ```
 
-### ÉèÖÃÍ¸Ã÷×´Ì¬À¸£¬ĞèÔÚsetContentViewÖ®Ç°µ÷ÓÃ
+### è®¾ç½®é€æ˜çŠ¶æ€æ ï¼Œéœ€åœ¨setContentViewä¹‹å‰è°ƒç”¨
 ``` java
 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-    //Í¸Ã÷×´Ì¬À¸
+    //é€æ˜çŠ¶æ€æ 
     getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-    //Í¸Ã÷µ¼º½À¸
+    //é€æ˜å¯¼èˆªæ 
     getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 }
 
-// ĞèÔÚ¶¥²¿¿Ø¼ş²¼¾ÖÖĞ¼ÓÈëÒÔÏÂÊôĞÔÈÃÄÚÈİ³öÏÖÔÚ×´Ì¬À¸Ö®ÏÂ
+// éœ€åœ¨é¡¶éƒ¨æ§ä»¶å¸ƒå±€ä¸­åŠ å…¥ä»¥ä¸‹å±æ€§è®©å†…å®¹å‡ºç°åœ¨çŠ¶æ€æ ä¹‹ä¸‹
 android:clipToPadding="true" 
 android:fitsSystemWindows="true"
 ```

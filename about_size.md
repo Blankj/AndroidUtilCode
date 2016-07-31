@@ -1,8 +1,8 @@
-# ³ß´çÏà¹Ø
-### dpÓëpx×ª»»
+# å°ºå¯¸ç›¸å…³
+### dpä¸pxè½¬æ¢
 ``` java
 /**
-* dp×ªpx
+* dpè½¬px
 */
 public static int dp2px(Context context, float dpValue) {
     final float scale = context.getResources().getDisplayMetrics().density;
@@ -10,7 +10,7 @@ public static int dp2px(Context context, float dpValue) {
 }
 
 /**
-* px×ªdp
+* pxè½¬dp
 */
 public static int px2dp(Context context, float pxValue) {
     final float scale = context.getResources().getDisplayMetrics().density;
@@ -18,10 +18,10 @@ public static int px2dp(Context context, float pxValue) {
 }
 ```
  
-### spÓëpx×ª»»
+### spä¸pxè½¬æ¢
 ``` java
 /**
-* sp×ªpx
+* spè½¬px
 */
 public static int sp2px(Context context, float spValue) {
     final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
@@ -29,7 +29,7 @@ public static int sp2px(Context context, float spValue) {
 }
 
 /**
-* px×ªsp
+* pxè½¬sp
 */
 public static int px2sp(Context context, float pxValue) {
     final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
@@ -37,11 +37,11 @@ public static int px2sp(Context context, float pxValue) {
 }
 ```
 
-### ¸÷ÖÖµ¥Î»×ª»»
+### å„ç§å•ä½è½¬æ¢
 ``` java
-// ¸Ã·½·¨´æÔÚÓÚTypedValue
+// è¯¥æ–¹æ³•å­˜åœ¨äºTypedValue
 /**
-* ¸÷ÖÖµ¥Î»×ª»»
+* å„ç§å•ä½è½¬æ¢
 */
 public static float applyDimension(int unit, float value, DisplayMetrics metrics) {
     switch (unit) {
@@ -62,10 +62,10 @@ public static float applyDimension(int unit, float value, DisplayMetrics metrics
 }
 ```
 
-### ÔÚonCreate()¼´¿É»ñÈ¡ViewµÄ¿í¸ß
+### åœ¨onCreate()å³å¯è·å–Viewçš„å®½é«˜
 ``` java
 /**
-* ÔÚonCreate()¼´¿É»ñÈ¡ViewµÄ¿í¸ß
+* åœ¨onCreate()å³å¯è·å–Viewçš„å®½é«˜
 */
 public static int[] getViewMeasure(View view) {
     int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
@@ -75,11 +75,11 @@ public static int[] getViewMeasure(View view) {
 }
 ```
 
-### ListViewÖĞÌáÇ°²âÁ¿View³ß´ç
+### ListViewä¸­æå‰æµ‹é‡Viewå°ºå¯¸
 ``` java
-// Í¨Öª¸¸²¼¾Ö£¬Õ¼ÓÃµÄ¿í£¬¸ß£»
+// é€šçŸ¥çˆ¶å¸ƒå±€ï¼Œå ç”¨çš„å®½ï¼Œé«˜ï¼›
 /**
-* ListViewÖĞÌáÇ°²âÁ¿View³ß´ç£¬ÈçheaderView
+* ListViewä¸­æå‰æµ‹é‡Viewå°ºå¯¸ï¼Œå¦‚headerView
 */
 private void measureView(View view) {
     ViewGroup.LayoutParams p = view.getLayoutParams();

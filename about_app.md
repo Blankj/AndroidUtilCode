@@ -1,8 +1,8 @@
-# AppÏà¹Ø
-### °²×°Ö¸¶¨Â·¾¶ÏÂµÄApk
+# Appç›¸å…³
+### å®‰è£…æŒ‡å®šè·¯å¾„ä¸‹çš„Apk
 ``` java
 /**
-* °²×°Ö¸¶¨Â·¾¶ÏÂµÄApk
+* å®‰è£…æŒ‡å®šè·¯å¾„ä¸‹çš„Apk
 */
 public void installApk(String filePath) {
     Intent intent = new Intent();
@@ -13,10 +13,10 @@ public void installApk(String filePath) {
 }
 ```
 
-### Ğ¶ÔØÖ¸¶¨°üÃûµÄApp
+### å¸è½½æŒ‡å®šåŒ…åçš„App
 ``` java
 /**
-* Ğ¶ÔØÖ¸¶¨°üÃûµÄApp
+* å¸è½½æŒ‡å®šåŒ…åçš„App
 */
 public void uninstallApp(String packageName) {
     Intent intent = new Intent();
@@ -27,10 +27,10 @@ public void uninstallApp(String packageName) {
 }
 ```
 
-### »ñÈ¡AppÃû³Æ
+### è·å–Appåç§°
 ```
 /**
-* »ñÈ¡AppÃû³Æ
+* è·å–Appåç§°
 */
 public static String getAppName(Context context) {
     try {
@@ -47,10 +47,10 @@ public static String getAppName(Context context) {
 ```
 
 
-### »ñÈ¡µ±Ç°App°æ±¾ºÅ
+### è·å–å½“å‰Appç‰ˆæœ¬å·
 ``` java
 /**
-* »ñÈ¡µ±Ç°App°æ±¾ºÅ
+* è·å–å½“å‰Appç‰ˆæœ¬å·
 */
 public static String getVersonName(Context context) {
     String versionName = null;
@@ -68,10 +68,10 @@ public static String getVersonName(Context context) {
 }
 ```
 
-### ´ò¿ªÖ¸¶¨°üÃûµÄApp
+### æ‰“å¼€æŒ‡å®šåŒ…åçš„App
 ```
 /**
-* ´ò¿ªÖ¸¶¨°üÃûµÄApp
+* æ‰“å¼€æŒ‡å®šåŒ…åçš„App
 */
 public void openOtherApp(String packageName){
     PackageManager manager = getPackageManager();
@@ -82,10 +82,10 @@ public void openOtherApp(String packageName){
 }
 ```
 
-### ´ò¿ªÖ¸¶¨°üÃûµÄAppÓ¦ÓÃĞÅÏ¢½çÃæ
+### æ‰“å¼€æŒ‡å®šåŒ…åçš„Appåº”ç”¨ä¿¡æ¯ç•Œé¢
 ``` java
 /**
-* ´ò¿ªÖ¸¶¨°üÃûµÄAppÓ¦ÓÃĞÅÏ¢½çÃæ
+* æ‰“å¼€æŒ‡å®šåŒ…åçš„Appåº”ç”¨ä¿¡æ¯ç•Œé¢
 */
 public void showAppInfo(String packageName) {
     Intent intent = new Intent();
@@ -95,10 +95,10 @@ public void showAppInfo(String packageName) {
 }
 ```
 
-### ·ÖÏíApkĞÅÏ¢
+### åˆ†äº«Apkä¿¡æ¯
 ``` java
 /**
-* ·ÖÏíApkĞÅÏ¢
+* åˆ†äº«Apkä¿¡æ¯
 */
 public void shareApkInfo(String info) {
     Intent intent = new Intent();
@@ -110,73 +110,73 @@ public void shareApkInfo(String info) {
 }
 ```
 
-### »ñÈ¡AppĞÅÏ¢µÄÒ»¸ö·â×°Àà(°üÃû¡¢°æ±¾ºÅ¡¢Ó¦ÓÃĞÅÏ¢¡¢Í¼±ê¡¢Ãû³ÆµÈ)
+### è·å–Appä¿¡æ¯çš„ä¸€ä¸ªå°è£…ç±»(åŒ…åã€ç‰ˆæœ¬å·ã€åº”ç”¨ä¿¡æ¯ã€å›¾æ ‡ã€åç§°ç­‰)
 ``` java
 /**
-* »ñÈ¡AppĞÅÏ¢µÄÒ»¸ö·â×°Àà(°üÃû¡¢°æ±¾ºÅ¡¢Ó¦ÓÃĞÅÏ¢¡¢Í¼±ê¡¢Ãû³ÆµÈ)
+* è·å–Appä¿¡æ¯çš„ä¸€ä¸ªå°è£…ç±»(åŒ…åã€ç‰ˆæœ¬å·ã€åº”ç”¨ä¿¡æ¯ã€å›¾æ ‡ã€åç§°ç­‰)
 */
 public class AppEnging {
     public static List<AppInfo> getAppInfos(Context context) {
         List<AppInfo> list = new ArrayList<AppInfo>();
-        //»ñÈ¡Ó¦ÓÃ³ÌĞòĞÅÏ¢
-        //°üµÄ¹ÜÀíÕß
+        //è·å–åº”ç”¨ç¨‹åºä¿¡æ¯
+        //åŒ…çš„ç®¡ç†è€…
         PackageManager pm = context.getPackageManager();
-        //»ñÈ¡ÏµÍ³ÖĞ°²×°µ½ËùÓĞÈí¼şĞÅÏ¢
+        //è·å–ç³»ç»Ÿä¸­å®‰è£…åˆ°æ‰€æœ‰è½¯ä»¶ä¿¡æ¯
         List<PackageInfo> installedPackages = pm.getInstalledPackages(0);
         for (PackageInfo packageInfo : installedPackages) {
-            //»ñÈ¡°üÃû
+            //è·å–åŒ…å
             String packageName = packageInfo.packageName;
-            //»ñÈ¡°æ±¾ºÅ
+            //è·å–ç‰ˆæœ¬å·
             String versionName = packageInfo.versionName;
-            //»ñÈ¡application
+            //è·å–application
             ApplicationInfo applicationInfo = packageInfo.applicationInfo;
             int uid = applicationInfo.uid;
-            //»ñÈ¡Ó¦ÓÃ³ÌĞòµÄÍ¼±ê
+            //è·å–åº”ç”¨ç¨‹åºçš„å›¾æ ‡
             Drawable icon = applicationInfo.loadIcon(pm);
-            //»ñÈ¡Ó¦ÓÃ³ÌĞòµÄÃû³Æ
+            //è·å–åº”ç”¨ç¨‹åºçš„åç§°
             String name = applicationInfo.loadLabel(pm).toString();
-            //ÊÇ·ñÊÇÓÃ»§³ÌĞò
-            //»ñÈ¡Ó¦ÓÃ³ÌĞòÖĞÏà¹ØĞÅÏ¢,ÊÇ·ñÊÇÏµÍ³³ÌĞòºÍÊÇ·ñ°²×°µ½SD¿¨
+            //æ˜¯å¦æ˜¯ç”¨æˆ·ç¨‹åº
+            //è·å–åº”ç”¨ç¨‹åºä¸­ç›¸å…³ä¿¡æ¯,æ˜¯å¦æ˜¯ç³»ç»Ÿç¨‹åºå’Œæ˜¯å¦å®‰è£…åˆ°SDå¡
             boolean isUser;
             int flags = applicationInfo.flags;
             if ((applicationInfo.FLAG_SYSTEM & flags) == applicationInfo.FLAG_SYSTEM) {
-                //ÏµÍ³³ÌĞò
+                //ç³»ç»Ÿç¨‹åº
                 isUser = false;
             } else {
-                //ÓÃ»§³ÌĞò
+                //ç”¨æˆ·ç¨‹åº
                 isUser = true;
             }
-            //ÊÇ·ñ°²×°µ½SD¿¨
+            //æ˜¯å¦å®‰è£…åˆ°SDå¡
             boolean isSD;
             if ((applicationInfo.FLAG_EXTERNAL_STORAGE & flags) == applicationInfo.FLAG_EXTERNAL_STORAGE) {
-                //°²×°µ½ÁËSD¿¨
+                //å®‰è£…åˆ°äº†SDå¡
                 isSD = true;
             } else {
-                //°²×°µ½ÊÖ»úÖĞ
+                //å®‰è£…åˆ°æ‰‹æœºä¸­
                 isSD = false;
             }
-            //Ìí¼Óµ½beanÖĞ
+            //æ·»åŠ åˆ°beanä¸­
             AppInfo appInfo = new AppInfo(name, icon, packageName, versionName, isSD, isUser);
-            //½«bean´æ·Åµ½list¼¯ºÏ
+            //å°†beanå­˜æ”¾åˆ°listé›†åˆ
             list.add(appInfo);
         }
         return list;
     }
 }
  
-// ·â×°Èí¼şĞÅÏ¢µÄbeanÀà
+// å°è£…è½¯ä»¶ä¿¡æ¯çš„beanç±»
 class AppInfo {
-    //Ãû³Æ
+    //åç§°
     private String name;
-    //Í¼±ê
+    //å›¾æ ‡
     private Drawable icon;
-    //°üÃû
+    //åŒ…å
     private String packagName;
-    //°æ±¾ºÅ
+    //ç‰ˆæœ¬å·
     private String versionName;
-    //ÊÇ·ñ°²×°µ½SD¿¨
+    //æ˜¯å¦å®‰è£…åˆ°SDå¡
     private boolean isSD;
-    //ÊÇ·ñÊÇÓÃ»§³ÌĞò
+    //æ˜¯å¦æ˜¯ç”¨æˆ·ç¨‹åº
     private boolean isUser;
  
     public AppInfo() {
@@ -196,12 +196,12 @@ class AppInfo {
 }
 ```
 
-### ÅĞ¶Ïµ±Ç°App´¦ÓÚÇ°Ì¨»¹ÊÇºóÌ¨
+### åˆ¤æ–­å½“å‰Appå¤„äºå‰å°è¿˜æ˜¯åå°
 ``` java
-// ĞèÌí¼Ó<uses-permission android:name="android.permission.GET_TASKS"/>
-// ²¢ÇÒ±ØĞëÊÇÏµÍ³Ó¦ÓÃ¸Ã·½·¨²ÅÓĞĞ§
+// éœ€æ·»åŠ <uses-permission android:name="android.permission.GET_TASKS"/>
+// å¹¶ä¸”å¿…é¡»æ˜¯ç³»ç»Ÿåº”ç”¨è¯¥æ–¹æ³•æ‰æœ‰æ•ˆ
 /**
-* ÅĞ¶Ïµ±Ç°App´¦ÓÚÇ°Ì¨»¹ÊÇºóÌ¨
+* åˆ¤æ–­å½“å‰Appå¤„äºå‰å°è¿˜æ˜¯åå°
 */
 public static boolean isApplicationBackground(final Context context) {
     ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);

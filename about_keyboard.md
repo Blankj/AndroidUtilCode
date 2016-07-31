@@ -1,14 +1,14 @@
-# ¼üÅÌÏà¹Ø
-### ±ÜÃâÊäÈë·¨Ãæ°åÕÚµ²
+# é”®ç›˜ç›¸å…³
+### é¿å…è¾“å…¥æ³•é¢æ¿é®æŒ¡
 ``` java
-// ÔÚmanifest.xmlÖĞactivityÖĞÉèÖÃ
+// åœ¨manifest.xmlä¸­activityä¸­è®¾ç½®
 android:windowSoftInputMode="stateVisible|adjustResize"
 ```
 
-### ¶¯Ì¬Òş²ØÈí¼üÅÌ
+### åŠ¨æ€éšè—è½¯é”®ç›˜
 ``` java
 /**
-* ¶¯Ì¬Òş²ØÈí¼üÅÌ
+* åŠ¨æ€éšè—è½¯é”®ç›˜
 */
 public static void hideSoftInput(Activity activity) {
     View view = activity.getWindow().peekDecorView();
@@ -20,7 +20,7 @@ public static void hideSoftInput(Activity activity) {
 }
 
 /**
-* ¶¯Ì¬Òş²ØÈí¼üÅÌ
+* åŠ¨æ€éšè—è½¯é”®ç›˜
 */
 public static void hideSoftInput(Context context, EditText edit) {
     edit.clearFocus();
@@ -30,11 +30,11 @@ public static void hideSoftInput(Context context, EditText edit) {
 }
 ```
 
-###  µã»÷ÆÁÄ»¿Õ°×ÇøÓòÒş²ØÈí¼üÅÌ
+###  ç‚¹å‡»å±å¹•ç©ºç™½åŒºåŸŸéšè—è½¯é”®ç›˜
 ``` java
-// ·½·¨1£ºÔÚonTouchÖĞ´¦Àí£¬Î´»ñ½¹µãÔòÒş²Ø
+// æ–¹æ³•1ï¼šåœ¨onTouchä¸­å¤„ç†ï¼Œæœªè·ç„¦ç‚¹åˆ™éšè—
 /**
-* ÔÚonTouchÖĞ´¦Àí£¬Î´»ñ½¹µãÔòÒş²Ø
+* åœ¨onTouchä¸­å¤„ç†ï¼Œæœªè·ç„¦ç‚¹åˆ™éšè—
 */
 @Override
 public boolean onTouchEvent(MotionEvent event) {
@@ -45,7 +45,7 @@ public boolean onTouchEvent(MotionEvent event) {
     return super.onTouchEvent(event);
 }
 
-// ·½·¨2£º¸ù¾İEditTextËùÔÚ×ø±êºÍÓÃ»§µã»÷µÄ×ø±êÏà¶Ô±È£¬À´ÅĞ¶ÏÊÇ·ñÒş²Ø¼üÅÌ£¬ĞèÖØĞ´dispatchTouchEvent
+// æ–¹æ³•2ï¼šæ ¹æ®EditTextæ‰€åœ¨åæ ‡å’Œç”¨æˆ·ç‚¹å‡»çš„åæ ‡ç›¸å¯¹æ¯”ï¼Œæ¥åˆ¤æ–­æ˜¯å¦éšè—é”®ç›˜ï¼Œéœ€é‡å†™dispatchTouchEvent
 @Override
 public boolean dispatchTouchEvent(MotionEvent ev) {
     if (ev.getAction() == MotionEvent.ACTION_DOWN) {
@@ -58,7 +58,7 @@ public boolean dispatchTouchEvent(MotionEvent ev) {
 }
 
 /**
-* ¸ù¾İEditTextËùÔÚ×ø±êºÍÓÃ»§µã»÷µÄ×ø±êÏà¶Ô±È£¬À´ÅĞ¶ÏÊÇ·ñÒş²Ø¼üÅÌ
+* æ ¹æ®EditTextæ‰€åœ¨åæ ‡å’Œç”¨æˆ·ç‚¹å‡»çš„åæ ‡ç›¸å¯¹æ¯”ï¼Œæ¥åˆ¤æ–­æ˜¯å¦éšè—é”®ç›˜
 */
 private boolean isShouldHideKeyboard(View v, MotionEvent event) {
     if (v != null && (v instanceof EditText)) {
@@ -75,7 +75,7 @@ private boolean isShouldHideKeyboard(View v, MotionEvent event) {
 }
 
 /**
-* »ñÈ¡InputMethodManager£¬Òş²ØÈí¼üÅÌ
+* è·å–InputMethodManagerï¼Œéšè—è½¯é”®ç›˜
 */
 private void hideKeyboard(IBinder token) {
     if (token != null) {
@@ -85,10 +85,10 @@ private void hideKeyboard(IBinder token) {
 }
 ```
 
-### ¶¯Ì¬ÏÔÊ¾Èí¼üÅÌ
+### åŠ¨æ€æ˜¾ç¤ºè½¯é”®ç›˜
 ``` java
 /**
-* ¶¯Ì¬ÏÔÊ¾Èí¼üÅÌ
+* åŠ¨æ€æ˜¾ç¤ºè½¯é”®ç›˜
 */
 public static void showSoftInput(Context context, EditText edit) {
     edit.setFocusable(true);
@@ -100,10 +100,10 @@ public static void showSoftInput(Context context, EditText edit) {
 }
 ```
 
-### ÇĞ»»¼üÅÌÏÔÊ¾Óë·ñ×´Ì¬
+### åˆ‡æ¢é”®ç›˜æ˜¾ç¤ºä¸å¦çŠ¶æ€
 ``` java
 /**
-* ÇĞ»»¼üÅÌÏÔÊ¾Óë·ñ×´Ì¬
+* åˆ‡æ¢é”®ç›˜æ˜¾ç¤ºä¸å¦çŠ¶æ€
 */
 public static void toggleSoftInput(Context context, EditText edit) {
     edit.setFocusable(true);
