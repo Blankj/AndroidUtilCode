@@ -32,14 +32,30 @@ public static String getDeviceIMEI(Context context) {
 // 需添加权限<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 /**
 * 获取手机状态信息
+*
+* 返回如下
+* DeviceId(IMEI) = 99000311726612
+* DeviceSoftwareVersion = 00
+* Line1Number =
+* NetworkCountryIso = cn
+* NetworkOperator = 46003
+* NetworkOperatorName = 中国电信
+* NetworkType = 6
+* honeType = 2
+* SimCountryIso = cn
+* SimOperator = 46003
+* SimOperatorName = 中国电信
+* SimSerialNumber = 89860315045710604022
+* SimState = 5
+* SubscriberId(IMSI) = 460030419724900
+* VoiceMailNumber = *86
 */
 public static String getPhoneStatus(Context context) {
     TelephonyManager tm = (TelephonyManager) context
-            .getSystemService(Context.TELEPHONY_SERVICE);//
+            .getSystemService(Context.TELEPHONY_SERVICE);
     String str = "";
     str += "DeviceId(IMEI) = " + tm.getDeviceId() + "\n";
-    str += "DeviceSoftwareVersion = " + tm.getDeviceSoftwareVersion()
-            + "\n";
+    str += "DeviceSoftwareVersion = " + tm.getDeviceSoftwareVersion() + "\n";
     str += "Line1Number = " + tm.getLine1Number() + "\n";
     str += "NetworkCountryIso = " + tm.getNetworkCountryIso() + "\n";
     str += "NetworkOperator = " + tm.getNetworkOperator() + "\n";

@@ -47,6 +47,7 @@
 - [键盘相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_keyboard.md)
 	- 避免输入法面板遮挡
 	- 动态隐藏软键盘
+	- 点击屏幕空白区域隐藏软键盘
 	- 动态显示软键盘
 	- 切换键盘显示与否状态
 - [正则相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_regular.md)
@@ -57,4 +58,5 @@
 - [未归类](https://github.com/Blankj/AndroidUtilCode/blob/master/unclassified.md)
 	- 获取服务是否开启
 
+大部分代码已验证过可行，如有错误，请及时告之。  
 期待你的Star和完善...
