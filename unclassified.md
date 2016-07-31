@@ -1,21 +1,21 @@
-# Î´¹éÀà
-### »ñÈ¡·şÎñÊÇ·ñ¿ªÆô
+# æœªå½’ç±»
+### è·å–æœåŠ¡æ˜¯å¦å¼€å¯
 ```
 /**
-* »ñÈ¡·şÎñÊÇ·ñ¿ªÆô
+* è·å–æœåŠ¡æ˜¯å¦å¼€å¯
 */
 public static boolean isRunningService(String className, Context context) {
-    //½ø³ÌµÄ¹ÜÀíÕß,»î¶¯µÄ¹ÜÀíÕß
+    //è¿›ç¨‹çš„ç®¡ç†è€…,æ´»åŠ¨çš„ç®¡ç†è€…
     ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-    //»ñÈ¡ÕıÔÚÔËĞĞµÄ·şÎñ
-    List<RunningServiceInfo> runningServices = activityManager.getRunningServices(1000);//maxNum ·µ»ØÕıÔÚÔËĞĞµÄ·şÎñµÄÉÏÏŞ¸öÊı,×î¶à·µ»Ø¶àÉÙ¸ö·şÎñ
-    //±éÀú¼¯ºÏ
+    //è·å–æ­£åœ¨è¿è¡Œçš„æœåŠ¡
+    List<RunningServiceInfo> runningServices = activityManager.getRunningServices(1000);//maxNum è¿”å›æ­£åœ¨è¿è¡Œçš„æœåŠ¡çš„ä¸Šé™ä¸ªæ•°,æœ€å¤šè¿”å›å¤šå°‘ä¸ªæœåŠ¡
+    //éå†é›†åˆ
     for (RunningServiceInfo runningServiceInfo : runningServices) {
-        //»ñÈ¡¿Ø¼şµÄ±êÊ¾
+        //è·å–æ§ä»¶çš„æ ‡ç¤º
         ComponentName service = runningServiceInfo.service;
-        //»ñÈ¡ÕıÔÚÔËĞĞµÄ·şÎñµÄÈ«ÀàÃû
+        //è·å–æ­£åœ¨è¿è¡Œçš„æœåŠ¡çš„å…¨ç±»å
         String className2 = service.getClassName();
-        //½«»ñÈ¡µ½µÄÕıÔÚÔËĞĞµÄ·şÎñµÄÈ«ÀàÃûºÍ´«µİ¹ıÀ´µÄ·şÎñµÄÈ«ÀàÃû±È½Ï,Ò»Ö±±íÊ¾·şÎñÕıÔÚÔËĞĞ  ·µ»Øtrue,²»Ò»ÖÂ±íÊ¾·şÎñÃ»ÓĞÔËĞĞ  ·µ»Øfalse
+        //å°†è·å–åˆ°çš„æ­£åœ¨è¿è¡Œçš„æœåŠ¡çš„å…¨ç±»åå’Œä¼ é€’è¿‡æ¥çš„æœåŠ¡çš„å…¨ç±»åæ¯”è¾ƒ,ä¸€ç›´è¡¨ç¤ºæœåŠ¡æ­£åœ¨è¿è¡Œ  è¿”å›true,ä¸ä¸€è‡´è¡¨ç¤ºæœåŠ¡æ²¡æœ‰è¿è¡Œ  è¿”å›false
         if (className.equals(className2)) {
             return true;
         }
