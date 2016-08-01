@@ -108,7 +108,7 @@ public static String getMacAddress(Context context) {
 /**
 * 获取手机厂商，如Xiaomi
 */
-public static String getOsName() {
+public static String getManufacturer() {
     String MANUFACTURER = Build.MANUFACTURER;
     return MANUFACTURER;
 }
@@ -130,22 +130,13 @@ private String getModel() {
 }
 ```
 
-### 跳转至拨号界面
-``` java
-/**
-* 跳转至拨号界面
-*/
-public static void callDial(Context context, String phoneNumber) {
-    context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber)));
-}
-```
-
 ### 拨打电话
 ``` java
+// 需添加权限<uses-permission android:name="android.permission.CALL_PHONE"/>
 /**
 * 拨打电话
 */
-public static void call(Context context, String phoneNumber) {
+public static void callDial(Context context, String phoneNumber) {
     context.startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber)));
 }
 ```

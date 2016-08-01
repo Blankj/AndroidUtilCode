@@ -1,4 +1,4 @@
-# App相关
+﻿# App相关
 ### 安装指定路径下的Apk
 ``` java
 /**
@@ -65,6 +65,27 @@ public static String getVersonName(Context context) {
         versionName = info.versionName;
     }
     return versionName;
+}
+```
+
+### 获取当前App版本Code
+/**
+* 获取当前App版本Code
+*/
+``` java
+public static int getVersionCode(Context context) {
+    int versionCode = 0;
+    PackageManager pm = context.getPackageManager();
+    PackageInfo info = null;
+    try {
+        info = pm.getPackageInfo(context.getApplicationContext().getPackageName(), 0);
+    } catch (PackageManager.NameNotFoundException e) {
+        e.printStackTrace();
+    }
+    if (info != null) {
+        versionCode = info.versionCode;
+    }
+    return versionCode;
 }
 ```
 
