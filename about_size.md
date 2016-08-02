@@ -32,17 +32,17 @@ public static int sp2px(Context context, float spValue) {
 * px转sp
 */
 public static int px2sp(Context context, float pxValue) {
-    final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+	final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
     return (int) (pxValue / fontScale + 0.5f);
 }
 ```
 
 ### 各种单位转换
 ``` java
-// 该方法存在于TypedValue
 /**
-* 各种单位转换
-*/
+ * 各种单位转换
+ * 该方法存在于TypedValue
+ */
 public static float applyDimension(int unit, float value, DisplayMetrics metrics) {
     switch (unit) {
         case TypedValue.COMPLEX_UNIT_PX:
@@ -62,14 +62,16 @@ public static float applyDimension(int unit, float value, DisplayMetrics metrics
 }
 ```
 
-### 在onCreate()即可获取View的宽高
+### 在onCreate()即可强行获取View的尺寸
 ``` java
 /**
-* 在onCreate()即可获取View的宽高
-*/
-public static int[] getViewMeasure(View view) {
-    int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-    int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+ * 在onCreate()即可获取View的尺寸
+ *
+ * @return 返回数组的第0个是宽，第1个是高，不要越界哦
+ */
+public static int[] forceGetViewSize(View view) {
+    int widthMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
+    int heightMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
     view.measure(widthMeasureSpec, heightMeasureSpec);
     return new int[]{view.getMeasuredWidth(), view.getMeasuredHeight()};
 }
@@ -77,11 +79,14 @@ public static int[] getViewMeasure(View view) {
 
 ### ListView中提前测量View尺寸
 ``` java
-// 通知父布局，占用的宽，高；
 /**
-* ListView中提前测量View尺寸，如headerView
-*/
-private void measureView(View view) {
+ * ListView中提前测量View尺寸，如headerView
+ * 用的时候去掉注释拷贝到ListView中即可
+ * 参照以下注释代码
+ */
+public static void measureViewInLV(View view) {
+    Log.i("tips", "U should copy the follow code.");
+    /*
     ViewGroup.LayoutParams p = view.getLayoutParams();
     if (p == null) {
         p = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -97,5 +102,6 @@ private void measureView(View view) {
         height = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
     }
     view.measure(width, height);
+    */
 }
 ```

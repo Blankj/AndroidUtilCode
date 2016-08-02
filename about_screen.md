@@ -37,50 +37,49 @@ public int getStatusBarHeight() {
 }
 ```
 
-### 获取状态栏高度＋标题栏(ActionBar)高度
+### 获取ActionBar高度
 ``` java
 /**
-* 获取状态栏高度＋标题栏(ActionBar)高度
-*/
-public static int getTopBarHeight(Activity activity) {
-    return activity.getWindow().findViewById(Window.ID_ANDROID_CONTENT).getTop();
+ * 获取ActionBar高度
+ */
+public static int getActionBarHeight(Activity activity) {
+    TypedValue tv = new TypedValue();
+    if (activity.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+        return TypedValue.complexToDimensionPixelSize(tv.data, activity.getResources().getDisplayMetrics());
+    }
+    return 0;
 }
 ```
 
 ### 获取屏幕截图
 ``` java
 /**
-* 获取当前屏幕截图，包含状态栏
-*/
-public static Bitmap snapShotWithStatusBar(Activity activity) {
+ * 获取当前屏幕截图，包含状态栏
+ */
+public static Bitmap captureWithStatusBar(Activity activity) {
     View view = activity.getWindow().getDecorView();
     view.setDrawingCacheEnabled(true);
     view.buildDrawingCache();
     Bitmap bmp = view.getDrawingCache();
     int width = getScreenWidth(activity);
     int height = getScreenHeight(activity);
-    Bitmap bp = null;
-    bp = Bitmap.createBitmap(bmp, 0, 0, width, height);
+    Bitmap bp = Bitmap.createBitmap(bmp, 0, 0, width, height);
     view.destroyDrawingCache();
     return bp;
 }
-
 /**
-* 获取当前屏幕截图，不包含状态栏
-*/
-public static Bitmap snapShotWithoutStatusBar(Activity activity) {
+ * 获取当前屏幕截图，不包含状态栏
+ * 需要用到上面获取状态栏高度的方法
+ */
+public static Bitmap captureWithoutStatusBar(Activity activity) {
     View view = activity.getWindow().getDecorView();
     view.setDrawingCacheEnabled(true);
     view.buildDrawingCache();
     Bitmap bmp = view.getDrawingCache();
-    Rect frame = new Rect();
-    activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
-    int statusBarHeight = frame.top;
+    int statusBarHeight = getStatusBarHeight(activity);
     int width = getScreenWidth(activity);
     int height = getScreenHeight(activity);
-    Bitmap bp = null;
-    bp = Bitmap.createBitmap(bmp, 0, statusBarHeight, width, height
-            - statusBarHeight);
+    Bitmap bp = Bitmap.createBitmap(bmp, 0, statusBarHeight, width, height - statusBarHeight);
     view.destroyDrawingCache();
     return bp;
 }

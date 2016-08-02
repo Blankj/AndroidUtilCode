@@ -2,24 +2,25 @@
 ### 判断设备是否是手机
 ``` java
 /**
-* 判断设备是否是手机
-*/
+ * 判断设备是否是手机
+ */
 public static boolean isPhone(Context context) {
-    TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-    return telephony.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE;
+    TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+    return tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE;
 }
 ```
 
-### 获取当前设备的IMIE，需与上面的isPhone一起使用
+### 获取手机的IMIE
 ``` java
 /**
-* 获取当前设备的IMIE，需与上面的isPhone一起使用
-*/
+ * 获取当前设备的IMIE，需与上面的isPhone一起使用
+ * 需添加权限<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+ */
 public static String getDeviceIMEI(Context context) {
     String deviceId;
     if (isPhone(context)) {
-        TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        deviceId = telephony.getDeviceId();
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        deviceId = tm.getDeviceId();
     } else {
         deviceId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
@@ -29,27 +30,26 @@ public static String getDeviceIMEI(Context context) {
 
 ### 获取手机状态信息
 ``` java
-// 需添加权限<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 /**
-* 获取手机状态信息
-*
-* 返回如下
-* DeviceId(IMEI) = 99000311726612
-* DeviceSoftwareVersion = 00
-* Line1Number =
-* NetworkCountryIso = cn
-* NetworkOperator = 46003
-* NetworkOperatorName = 中国电信
-* NetworkType = 6
-* honeType = 2
-* SimCountryIso = cn
-* SimOperator = 46003
-* SimOperatorName = 中国电信
-* SimSerialNumber = 89860315045710604022
-* SimState = 5
-* SubscriberId(IMSI) = 460030419724900
-* VoiceMailNumber = *86
-*/
+ * 获取手机状态信息
+ * 需添加权限<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+ * 返回如下
+ * DeviceId(IMEI) = 99000311726612
+ * DeviceSoftwareVersion = 00
+ * Line1Number =
+ * NetworkCountryIso = cn
+ * NetworkOperator = 46003
+ * NetworkOperatorName = 中国电信
+ * NetworkType = 6
+ * honeType = 2
+ * SimCountryIso = cn
+ * SimOperator = 46003
+ * SimOperatorName = 中国电信
+ * SimSerialNumber = 89860315045710604022
+ * SimState = 5
+ * SubscriberId(IMSI) = 460030419724900
+ * VoiceMailNumber = *86
+ */
 public static String getPhoneStatus(Context context) {
     TelephonyManager tm = (TelephonyManager) context
             .getSystemService(Context.TELEPHONY_SERVICE);
@@ -70,63 +70,6 @@ public static String getPhoneStatus(Context context) {
     str += "SubscriberId(IMSI) = " + tm.getSubscriberId() + "\n";
     str += "VoiceMailNumber = " + tm.getVoiceMailNumber() + "\n";
     return str;
-}
-```
-
-### 是否有SD卡
-``` java
-/**
-* 是否有SD卡
-*/
-public static boolean haveSDCard() {
-    return android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
-}
-```
-
-### 获取MAC地址
-``` java
-// 需添加权限<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-/**
-* 获取MAC地址
-*/
-public static String getMacAddress(Context context) {
-    String macAddress;
-    WifiManager wifi = (WifiManager) context
-            .getSystemService(Context.WIFI_SERVICE);
-    WifiInfo info = wifi.getConnectionInfo();
-    macAddress = info.getMacAddress();
-    if (null == macAddress) {
-        return "";
-    }
-    macAddress = macAddress.replace(":", "");
-    return macAddress;
-}
-```
-
-### 获取手机厂商，如Xiaomi
-``` java
-/**
-* 获取手机厂商，如Xiaomi
-*/
-public static String getManufacturer() {
-    String MANUFACTURER = Build.MANUFACTURER;
-    return MANUFACTURER;
-}
-```
-
-### 获取手机型号，如MI2SC
-``` java
-/**
-* 获取手机型号，如MI2SC
-*/
-private String getModel() {
-    String model = android.os.Build.MODEL;
-    if (model != null) {
-        model = model.trim().replaceAll("\\s*", "");
-    } else {
-        model = "";
-    }
-    return model;
 }
 ```
 
@@ -157,8 +100,10 @@ public static void sendSms(Context context, String phoneNumber, String content) 
 ### 获取手机联系人
 ``` java
 /**
-* 获取手机联系人
-*/
+ * 获取手机联系人
+ * 需添加权限<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+ * 需添加权限<uses-permission android:name="android.permission.READ_CONTACTS" />
+ */
 public static List<HashMap<String, String>> getAllContactInfo(Context context) {
     SystemClock.sleep(3000);
     ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
@@ -217,38 +162,47 @@ public static List<HashMap<String, String>> getAllContactInfo(Context context) {
 }
 ```
 
-### 直接打开手机联系人界面，并获取联系人号码
+### 打开手机联系人界面点击联系人后便获取该号码
 ``` java
-// 在按钮点击事件中设置Intent，
-Intent intent = new Intent();
-intent.setAction("android.intent.action.PICK");
-intent.addCategory("android.intent.category.DEFAULT");
-intent.setType("vnd.android.cursor.dir/phone_v2");
-startActivityForResult(intent, 1);
-@Override
-protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-    if (data != null) {
-        Uri uri = data.getData();
-        String num = null;
-        // 创建内容解析者
-        ContentResolver contentResolver = getContentResolver();
-        Cursor cursor = contentResolver.query(uri,
-                null, null, null, null);
-        while (cursor.moveToNext()) {
-            num = cursor.getString(cursor.getColumnIndex("data1"));
+/**
+ * 打开手机联系人界面点击联系人后便获取该号码
+ * 参照以下注释代码
+ */
+public static void getContantNum() {
+    Log.i("tips", "U should copy the follow code.");
+    /*
+    Intent intent = new Intent();
+    intent.setAction("android.intent.action.PICK");
+    intent.setType("vnd.android.cursor.dir/phone_v2");
+    startActivityForResult(intent, 0);
+    @Override
+    protected void onActivityResult ( int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            Uri uri = data.getData();
+            String num = null;
+            // 创建内容解析者
+            ContentResolver contentResolver = getContentResolver();
+            Cursor cursor = contentResolver.query(uri,
+                    null, null, null, null);
+            while (cursor.moveToNext()) {
+                num = cursor.getString(cursor.getColumnIndex("data1"));
+            }
+            cursor.close();
+            num = num.replaceAll("-", "");//替换的操作,555-6 -> 5556
         }
-        cursor.close();
-        num = num.replaceAll("-", "");//替换的操作,555-6 -> 5556
     }
+    */
 }
 ```
 
 ### 获取手机短信并保存到xml中
 ``` java
 /**
-* 获取手机短信并保存到xml中
-*/
+ * 获取手机短信并保存到xml中
+ * 需添加权限<uses-permission android:name="android.permission.READ_SMS"/>
+ * 需添加权限<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+ */
 public static void getAllSMS(Context context) {
     //1.获取短信
     //1.1获取内容解析者
