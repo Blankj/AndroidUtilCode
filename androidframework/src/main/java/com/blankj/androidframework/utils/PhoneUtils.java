@@ -97,7 +97,7 @@ public class PhoneUtils {
     }
 
     /**
-     * 拨打电话
+     * 跳至填充好phoneNumber的拨号界面
      */
     public static void callDial(Context context, String phoneNumber) {
         context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber)));

@@ -15,8 +15,8 @@ public class RegularUtils {
         throw new UnsupportedOperationException("u can't fuck me...");
     }
 
-    // 验证手机号
-    private static final String REGEX_MOBILE = "^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$";
+    // 验证手机号（现在手机号码水太深，来个短小粗暴点了只能）
+    private static final String REGEX_MOBILE = "^[1]\\d{10}$";
     // 验证座机号,正确格式：xxx/xxxx-xxxxxxx/xxxxxxxx
     private static final String REGEX_TEL = "^0\\d{2,3}[- ]?\\d{7,8}";
     // 验证邮箱
