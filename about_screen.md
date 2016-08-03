@@ -67,6 +67,7 @@ public static Bitmap captureWithStatusBar(Activity activity) {
     view.destroyDrawingCache();
     return bp;
 }
+
 /**
  * 获取当前屏幕截图，不包含状态栏
  * 需要用到上面获取状态栏高度的方法
@@ -85,16 +86,21 @@ public static Bitmap captureWithoutStatusBar(Activity activity) {
 }
 ```
 
-### 设置透明状态栏，需在setContentView之前调用
+### 设置透明状态栏(api >= 19方可使用)
 ``` java
-if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-    //透明状态栏
-    getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-    //透明导航栏
-    getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+/**
+* 设置透明状态栏(api >= 19方可使用)
+* 可在Activity的onCreat()中调用
+* 需在顶部控件布局中加入以下属性让内容出现在状态栏之下
+* android:clipToPadding="true"
+* android:fitsSystemWindows="true"
+*/
+public static void setTransparentStatusBar(Activity activity) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        //透明状态栏
+        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //透明导航栏
+        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+    }
 }
-
-// 需在顶部控件布局中加入以下属性让内容出现在状态栏之下
-android:clipToPadding="true" 
-android:fitsSystemWindows="true"
 ```

@@ -5,7 +5,6 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.View.MeasureSpec;
 
 /*********************************************
  * author: Blankj on 2016/8/1 19:12
@@ -17,6 +16,8 @@ public class SizeUtils {
     private SizeUtils() {
         throw new UnsupportedOperationException("u can't fuck me...");
     }
+
+    private static int[] size;
 
     /**
      * dp转px
@@ -72,16 +73,29 @@ public class SizeUtils {
         return 0;
     }
 
+    public interface OnGetSizeListener {
+        int[] onGetSize();
+    }
+
+    public static OnGetSizeListener mListener;
     /**
      * 在onCreate()即可获取View的尺寸
      *
      * @return 返回数组的第0个是宽，第1个是高，不要越界哦
      */
-    public static int[] forceGetViewSize(View view) {
-        int widthMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
-        int heightMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
-        view.measure(widthMeasureSpec, heightMeasureSpec);
-        return new int[]{view.getMeasuredWidth(), view.getMeasuredHeight()};
+    public static int[] forceGetViewSize(final View view) {
+        size = new int[2];
+        view.post(new Runnable() {
+            @Override
+            public void run() {
+                size[0] = view.getWidth();
+                size[1] = view.getHeight();
+                mListener.onGetSize();
+                Log.d("cmj", size[0] + " " + size[1]);
+            }
+        });
+        Log.d("cmj", size[0] + " " + size[1]);
+        return size;
     }
 
     /**
