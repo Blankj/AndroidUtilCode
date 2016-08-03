@@ -17,8 +17,6 @@ public class SizeUtils {
         throw new UnsupportedOperationException("u can't fuck me...");
     }
 
-    private static int[] size;
-
     /**
      * dp转px
      */
@@ -73,30 +71,39 @@ public class SizeUtils {
         return 0;
     }
 
-    public interface OnGetSizeListener {
-        int[] onGetSize();
-    }
-
-    public static OnGetSizeListener mListener;
     /**
-     * 在onCreate()即可获取View的尺寸
-     *
-     * @return 返回数组的第0个是宽，第1个是高，不要越界哦
+     * 在onCreate()即可强行获取View的尺寸
+     * 需回调onGetSizeListener接口，在onGetSize中获取view宽高
+     * 用法示例如下所示
+     * SizeUtils.forceGetViewSize(view);
+     * SizeUtils.setListener(new SizeUtils.onGetSizeListener() {
+     *     @Override
+     *     public void onGetSize(View view) {
+     *         Log.d("tag", view.getWidth() + " " + view.getHeight());
+     *     }
+     * });
      */
-    public static int[] forceGetViewSize(final View view) {
-        size = new int[2];
+    public static void forceGetViewSize(final View view) {
         view.post(new Runnable() {
             @Override
             public void run() {
-                size[0] = view.getWidth();
-                size[1] = view.getHeight();
-                mListener.onGetSize();
-                Log.d("cmj", size[0] + " " + size[1]);
+                if (mListener != null) {
+                    mListener.onGetSize(view);
+                }
             }
         });
-        Log.d("cmj", size[0] + " " + size[1]);
-        return size;
     }
+
+    /**
+     * 获取到View尺寸的监听
+     */
+    public interface onGetSizeListener {
+        void onGetSize(View view);
+    }
+    public static void setListener(onGetSizeListener listener) {
+        mListener = listener;
+    }
+    private static onGetSizeListener mListener;
 
     /**
      * ListView中提前测量View尺寸，如headerView

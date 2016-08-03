@@ -65,16 +65,40 @@ public static float applyDimension(int unit, float value, DisplayMetrics metrics
 ### 在onCreate()即可强行获取View的尺寸
 ``` java
 /**
- * 在onCreate()即可获取View的尺寸
- *
- * @return 返回数组的第0个是宽，第1个是高，不要越界哦
- */
-public static int[] forceGetViewSize(View view) {
-    int widthMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
-    int heightMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
-    view.measure(widthMeasureSpec, heightMeasureSpec);
-    return new int[]{view.getMeasuredWidth(), view.getMeasuredHeight()};
+* 在onCreate()即可强行获取View的尺寸
+* 需回调onGetSizeListener接口，在onGetSize中获取view宽高
+* 用法示例如下所示
+* SizeUtils.forceGetViewSize(view);
+* SizeUtils.setListener(new SizeUtils.onGetSizeListener() {
+ *     @Override
+ *     public void onGetSize(View view) {
+ *         Log.d("tag", view.getWidth() + " " + view.getHeight());
+ *     }
+* });
+*/
+public static void forceGetViewSize(final View view) {
+    view.post(new Runnable() {
+        @Override
+        public void run() {
+            if (mListener != null) {
+                mListener.onGetSize(view);
+            }
+        }
+    });
 }
+
+/**
+* 获取到View尺寸的监听
+*/
+public interface onGetSizeListener {
+    void onGetSize(View view);
+}
+
+public static void setListener(onGetSizeListener listener) {
+    mListener = listener;
+}
+
+private static onGetSizeListener mListener;
 ```
 
 ### ListView中提前测量View尺寸
