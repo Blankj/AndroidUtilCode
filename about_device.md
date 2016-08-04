@@ -3,19 +3,18 @@
 ``` java
 /**
  * 获取设备MAC地址
- * 需添加权限<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+ * <p>需添加权限<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
  */
 public static String getMacAddress(Context context) {
-    String macAddress = null;
+    String macAddress;
     WifiManager wifi = (WifiManager) context
             .getSystemService(Context.WIFI_SERVICE);
     WifiInfo info = wifi.getConnectionInfo();
-    if (null != info ) {
-        macAddress = info.getMacAddress();
-        if (null != macAddress) {
-            macAddress = macAddress.replace(":", "");
-        }
+    macAddress = info.getMacAddress();
+    if (null == macAddress) {
+        return "";
     }
+    macAddress = macAddress.replace(":", "");
     return macAddress;
 }
 ```
@@ -61,6 +60,7 @@ public static boolean isSDCardEnable() {
 ```
 /**
  * 获取设备SD卡路径
+ * <p>一般是/storage/emulated/0/
  */
 public static String getSDCardPath() {
     return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator;

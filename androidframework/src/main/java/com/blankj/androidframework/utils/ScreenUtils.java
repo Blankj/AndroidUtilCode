@@ -1,6 +1,7 @@
 package com.blankj.androidframework.utils;
 
 import android.app.Activity;
+import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -10,6 +11,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.WindowManager.LayoutParams;
 
 /*********************************************
  * author: Blankj on 2016/8/2 12:33
@@ -44,32 +46,32 @@ public class ScreenUtils {
 
     /**
      * 设置透明状态栏(api >= 19方可使用)
-     * 可在Activity的onCreat()中调用
-     * 需在顶部控件布局中加入以下属性让内容出现在状态栏之下
-     * android:clipToPadding="true"
-     * android:fitsSystemWindows="true"
+     * <p>可在Activity的onCreat()中调用
+     * <p>需在顶部控件布局中加入以下属性让内容出现在状态栏之下
+     * <p>android:clipToPadding="true"
+     * <p>android:fitsSystemWindows="true"
      */
     public static void setTransparentStatusBar(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             //透明状态栏
-            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            activity.getWindow().addFlags(LayoutParams.FLAG_TRANSLUCENT_STATUS);
             //透明导航栏
-            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            activity.getWindow().addFlags(LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
     }
 
     /**
      * 隐藏状态栏
-     * 也就是设置全屏，一定要在setContentView之前调用，否则报错
-     * 此方法Activity可以继承AppCompatActivity
-     * 启动的时候状态栏会显示一下再隐藏，比如QQ的欢迎界面
-     * 在配置文件中Activity加属性android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-     * 如加了以上配置Activity不能继承AppCompatActivity，会报错
+     * <p>也就是设置全屏，一定要在setContentView之前调用，否则报错
+     * <p>此方法Activity可以继承AppCompatActivity
+     * <p>启动的时候状态栏会显示一下再隐藏，比如QQ的欢迎界面
+     * <p>在配置文件中Activity加属性android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+     * <p>如加了以上配置Activity不能继承AppCompatActivity，会报错
      */
     public static void hideStatusBar(Activity activity) {
         activity.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        activity.getWindow().setFlags(LayoutParams.FLAG_FULLSCREEN,
+                LayoutParams.FLAG_FULLSCREEN);
     }
 
     /**
@@ -98,10 +100,10 @@ public class ScreenUtils {
 
     /**
      * 设置屏幕为横屏
-     * 还有一种就是在Activity中加属性android:screenOrientation="landscape"
-     * 不设置Activity的android:configChanges时，切屏会重新调用各个生命周期，切横屏时会执行一次，切竖屏时会执行两次
-     * 设置Activity的android:configChanges="orientation"时，切屏还是会重新调用各个生命周期，切横、竖屏时只会执行一次
-     * 设置Activity的android:configChanges="orientation|keyboardHidden|screenSize"（4.0以上必须带最后一个参数）时
+     * <p>还有一种就是在Activity中加属性android:screenOrientation="landscape"
+     * <p>不设置Activity的android:configChanges时，切屏会重新调用各个生命周期，切横屏时会执行一次，切竖屏时会执行两次
+     * <p>设置Activity的android:configChanges="orientation"时，切屏还是会重新调用各个生命周期，切横、竖屏时只会执行一次
+     * <p>设置Activity的android:configChanges="orientation|keyboardHidden|screenSize"（4.0以上必须带最后一个参数）时
      * 切屏不会重新调用各个生命周期，只会执行onConfigurationChanged方法
      */
     public static void setLandscape(Activity activity) {
@@ -125,7 +127,7 @@ public class ScreenUtils {
 
     /**
      * 获取当前屏幕截图，不包含状态栏
-     * 需要用到上面获取状态栏高度的方法
+     * <p>需要用到上面获取状态栏高度的方法
      */
     public static Bitmap captureWithoutStatusBar(Activity activity) {
         View view = activity.getWindow().getDecorView();
@@ -140,4 +142,12 @@ public class ScreenUtils {
         return bp;
     }
 
+    /**
+     * 判断是否锁屏
+     */
+    public static boolean isScreenLock(Context context) {
+        KeyguardManager km = (KeyguardManager) context
+                .getSystemService(Context.KEYGUARD_SERVICE);
+        return km.inKeyguardRestrictedInputMode();
+    }
 }

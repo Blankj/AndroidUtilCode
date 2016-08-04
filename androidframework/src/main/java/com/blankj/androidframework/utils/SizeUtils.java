@@ -51,7 +51,7 @@ public class SizeUtils {
 
     /**
      * 各种单位转换
-     * 该方法存在于TypedValue
+     * <p>该方法存在于TypedValue
      */
     public static float applyDimension(int unit, float value, DisplayMetrics metrics) {
         switch (unit) {
@@ -73,7 +73,7 @@ public class SizeUtils {
 
     /**
      * 在onCreate()即可强行获取View的尺寸
-     * 需回调onGetSizeListener接口，在onGetSize中获取view宽高
+     * <p>需回调onGetSizeListener接口，在onGetSize中获取view宽高
      * 用法示例如下所示
      * SizeUtils.forceGetViewSize(view);
      * SizeUtils.setListener(new SizeUtils.onGetSizeListener() {
@@ -107,8 +107,8 @@ public class SizeUtils {
 
     /**
      * ListView中提前测量View尺寸，如headerView
-     * 用的时候去掉注释拷贝到ListView中即可
-     * 参照以下注释代码
+     * <p>用的时候去掉注释拷贝到ListView中即可
+     * <p>参照以下注释代码
      */
     public static void measureViewInLV(View view) {
         Log.i("tips", "U should copy the following code.");

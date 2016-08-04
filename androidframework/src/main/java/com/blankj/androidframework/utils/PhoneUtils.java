@@ -40,8 +40,9 @@ public class PhoneUtils {
     }
 
     /**
-     * 获取当前设备的IMIE，需与上面的isPhone一起使用
-     * 需添加权限<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+     * 获取当前设备的IMIE
+     * <p>需与上面的isPhone一起使用
+     * <p>需添加权限<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
      */
     public static String getDeviceIMEI(Context context) {
         String deviceId;
@@ -56,8 +57,9 @@ public class PhoneUtils {
 
     /**
      * 获取手机状态信息
-     * 需添加权限<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-     * 返回如下
+     * <p>需添加权限<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+     * <p>返回如下
+     * <pre>
      * DeviceId(IMEI) = 99000311726612
      * DeviceSoftwareVersion = 00
      * Line1Number =
@@ -73,6 +75,7 @@ public class PhoneUtils {
      * SimState = 5
      * SubscriberId(IMSI) = 460030419724900
      * VoiceMailNumber = *86
+     * <pre/>
      */
     public static String getPhoneStatus(Context context) {
         TelephonyManager tm = (TelephonyManager) context
@@ -99,8 +102,16 @@ public class PhoneUtils {
     /**
      * 跳至填充好phoneNumber的拨号界面
      */
-    public static void callDial(Context context, String phoneNumber) {
+    public static void dial(Context context, String phoneNumber) {
         context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber)));
+    }
+
+    /**
+     * 拨打phoneNumber
+     * <p>需添加权限<uses-permission android:name="android.permission.CALL_PHONE"/>
+     */
+    public static void call(Context context, String phoneNumber) {
+        context.startActivity(new Intent("android.intent.action.CALL", Uri.parse("tel:" + phoneNumber)));
     }
 
     /**
@@ -115,8 +126,8 @@ public class PhoneUtils {
 
     /**
      * 获取手机联系人
-     * 需添加权限<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-     * 需添加权限<uses-permission android:name="android.permission.READ_CONTACTS" />
+     * <p>需添加权限<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+     * <p>需添加权限<uses-permission android:name="android.permission.READ_CONTACTS" />
      */
     public static List<HashMap<String, String>> getAllContactInfo(Context context) {
         SystemClock.sleep(3000);
@@ -177,7 +188,7 @@ public class PhoneUtils {
 
     /**
      * 打开手机联系人界面点击联系人后便获取该号码
-     * 参照以下注释代码
+     * <p>参照以下注释代码
      */
     public static void getContantNum() {
         Log.i("tips", "U should copy the following code.");
@@ -209,8 +220,8 @@ public class PhoneUtils {
 
     /**
      * 获取手机短信并保存到xml中
-     * 需添加权限<uses-permission android:name="android.permission.READ_SMS"/>
-     * 需添加权限<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+     * <p>需添加权限<uses-permission android:name="android.permission.READ_SMS"/>
+     * <p>需添加权限<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
      */
     public static void getAllSMS(Context context) {
         //1.获取短信

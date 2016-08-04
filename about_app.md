@@ -3,9 +3,9 @@
 ``` java
 /**
  * 安装指定路径下的Apk
- * 根据路径名是否符合和文件是否存在判断是否安装成功
- * 更好的做法应该是startActivityForResult回调判断是否安装成功比较妥当
- * 这里做不了回调，后续自己做处理
+ * <p>根据路径名是否符合和文件是否存在判断是否安装成功
+ * <p>更好的做法应该是startActivityForResult回调判断是否安装成功比较妥当
+ * <p>这里做不了回调，后续自己做处理
  */
 public static boolean installApp(Context context, String filePath) {
     if (filePath != null && filePath.length() > 4
@@ -27,9 +27,9 @@ public static boolean installApp(Context context, String filePath) {
 ``` java
 /**
  * 卸载指定包名的App
- * 这里卸载成不成功只判断了packageName是否为空
- * 如果要根据是否卸载成功应该用startActivityForResult回调判断是否还存在比较妥当
- * 这里做不了回调，后续自己做处理
+ * <p>这里卸载成不成功只判断了packageName是否为空
+ * <p>如果要根据是否卸载成功应该用startActivityForResult回调判断是否还存在比较妥当
+ * <p>这里做不了回调，后续自己做处理
  */
 public boolean uninstallApp(Context context, String packageName) {
     if (!TextUtils.isEmpty(packageName)) {
@@ -133,10 +133,22 @@ public static class AppInfo {
         this.setSD(isSD);
         this.setUser(isUser);
     }
+
+    /*@Override
+    public String toString() {
+        return getName() + "\n"
+                + getIcon() + "\n"
+                + getPackagName() + "\n"
+                + getVersionName() + "\n"
+                + getVersionCode() + "\n"
+                + isSD() + "\n"
+                + isUser() + "\n";
+    }*/
 }
+
 /**
  * 获取当前App信息
- * AppInfo（名称，图标，包名，版本号，版本Code，是否安装在SD卡，是否是用户程序）
+ * <p>AppInfo（名称，图标，包名，版本号，版本Code，是否安装在SD卡，是否是用户程序）
  */
 public static AppInfo getAppInfo(Context context) {
     PackageManager pm = context.getPackageManager();
@@ -154,7 +166,7 @@ public static AppInfo getAppInfo(Context context) {
  */
 private static AppInfo getBean(PackageManager pm, PackageInfo pi) {
     ApplicationInfo ai = pi.applicationInfo;
-    String name = pi.packageName;
+    String name = ai.loadLabel(pm).toString();
     Drawable icon = ai.loadIcon(pm);
     String packageName = pi.packageName;
     String versionName = pi.versionName;
@@ -169,8 +181,8 @@ private static AppInfo getBean(PackageManager pm, PackageInfo pi) {
 ```
 /**
  * 获取所有已安装App信息
- * AppInfo（名称，图标，包名，版本号，版本Code，是否安装在SD卡，是否是用户程序）
- * 依赖上面的getBean方法
+ * <p>AppInfo（名称，图标，包名，版本号，版本Code，是否安装在SD卡，是否是用户程序）
+ * <p>依赖上面的getBean方法
  */
 public static List<AppInfo> getAllAppsInfo(Context context) {
     List<AppInfo> list = new ArrayList<>();
@@ -240,8 +252,8 @@ public static void shareAppInfo(Context context, String info) {
 ``` java
 /**
  * 判断当前App处于前台还是后台
- * 需添加<uses-permission android:name="android.permission.GET_TASKS"/>
- * 并且必须是系统应用该方法才有效
+ * <p>需添加<uses-permission android:name="android.permission.GET_TASKS"/>
+ * <p>并且必须是系统应用该方法才有效
  */
 public static boolean isAppBackground(Context context) {
     ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);

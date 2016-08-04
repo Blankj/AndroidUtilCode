@@ -42,8 +42,8 @@ public class KeyboardUtils {
 
     /**
      * 点击屏幕空白区域隐藏软键盘（方法1）
-     * 在onTouch中处理，未获焦点则隐藏
-     * 参照以下注释代码
+     * <p>在onTouch中处理，未获焦点则隐藏
+     * <p>参照以下注释代码
      */
     public static void clickBlankArea2HideSoftInput0() {
         Log.i("tips", "U should copy the following code.");
@@ -61,9 +61,9 @@ public class KeyboardUtils {
 
     /**
      * 点击屏幕空白区域隐藏软键盘（方法2）
-     * 根据EditText所在坐标和用户点击的坐标相对比，来判断是否隐藏键盘
-     * 需重写dispatchTouchEvent
-     * 参照以下注释代码
+     * <p>根据EditText所在坐标和用户点击的坐标相对比，来判断是否隐藏键盘
+     * <p>需重写dispatchTouchEvent
+     * <p>参照以下注释代码
      */
     public static void clickBlankArea2HideSoftInput1() {
         Log.i("tips", "U should copy the following code.");
