@@ -56,7 +56,6 @@
 >    - 设置透明状态栏(api >= 19方可使用) *setTransparentStatusBar*
 >    - 隐藏状态栏(注释萌萌哒) *hideStatusBar*
 >    - 获取状态栏高度 *getStatusBarHeight*
->    - 判断状态栏是否存在*isExistStatusBar*
 >    - 获取ActionBar高度 *getActionBarHeight*
 >    - 设置屏幕为横屏(注释萌萌哒) *setLandscape*
 >    - 获取屏幕截图 *snapShotWithStatusBar*、*snapShotWithoutStatusBar*
