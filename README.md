@@ -1,4 +1,4 @@
-# Android开发人员不得不收集的代码(不断更新)  
+# Android开发人员不得不收集的代码(持续更新中)  
 为方便查找，已进行大致归类，其目录如下所示：  
 > - [App相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_app.md)→[AppUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/androidframework/src/main/java/com/blankj/androidframework/utils/AppUtils.java)
 >    - 安装指定路径下的Apk *installApp*
@@ -30,12 +30,13 @@
 
 > - [网络相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_network.md)→[NetworkUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/androidframework/src/main/java/com/blankj/androidframework/utils/NetworkUtils.java)
 >    - 打开网络设置界面 *openWirelessSettings*
->    - 判断是否网络连接 *isConnected*
+>    - 判断网络是否可用 *isAvailable*
+>    - 判断网络是否连接 *isConnected*
+>    - 判断网络是否是4G *is4G*
 >    - 判断wifi是否连接状态 *isWifiConnected*
 >    - 获取移动网络运营商名称 *getNetworkOperatorName*
 >    - 获取移动终端类型 *getPhoneType*
->    - 获取连接的网络类型(2G,3G,4G) *getCurNetworkType*
->    - 获取当前手机的网络类型(WIFI,2G,3G,4G) *getNetWorkStatus*
+>    - 获取当前的网络类型(WIFI,2G,3G,4G) *getNetWorkType* *getNetWorkTypeName*
 
 > - [手机相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_phone.md)→[PhoneUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/androidframework/src/main/java/com/blankj/androidframework/utils/PhoneUtils.java)
 >    - 判断设备是否是手机 *isPhone*
@@ -99,6 +100,7 @@
 #### 2016/08/02 新增隐藏状态栏，注释更加全面，工具类已封装，写的时候真的是一个一个测试过去的，宝宝心里苦
 #### 2016/08/03 修复在onCreate中获取view尺寸的bug，MD5和SHA的Bug修复完成（在此感谢ssyijiu）
 #### 2016/08/04 新增时间工具类（在此感谢yi520000给的补充），手机正则分简单和精确（在此感谢MIkeeJY），新增判断是否锁屏,注释使用<p>分段落，目录按首字母排序
+#### 2016/08/05 加密新增MD5盐加密，完善NetworkUtils
 
   
 ##[关于Blankj](http://blankj.com/about)
