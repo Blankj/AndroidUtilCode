@@ -1,4 +1,25 @@
 # 设备相关
+
+### 判断设备是否 root
+``` java
+/**
+ * 判断设备是否 root
+ * @return the boolean
+ */
+public static boolean isDeviceRooted() {
+     String su = "su";
+     String[] locations = {"/sbin/", "/system/bin/", "/system/xbin/", "/system/sd/xbin/", "/system/bin/failsafe/",
+                     "/data/local/xbin/", "/data/local/bin/", "/data/local/"};
+     for (String location: locations) {
+           if (new File(location + su).exists()) {
+                 return true;
+           }
+     }
+
+     return false;
+}
+```
+
 ### 获取设备MAC地址
 ``` java
 /**
