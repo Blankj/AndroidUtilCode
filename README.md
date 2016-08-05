@@ -57,6 +57,7 @@
 >    - 设置透明状态栏(api >= 19方可使用) *setTransparentStatusBar*
 >    - 隐藏状态栏(注释萌萌哒) *hideStatusBar*
 >    - 获取状态栏高度 *getStatusBarHeight*
+>    - 判断状态栏是否存在 *isStatusBarExists*
 >    - 获取ActionBar高度 *getActionBarHeight*
 >    - 设置屏幕为横屏(注释萌萌哒) *setLandscape*
 >    - 获取屏幕截图 *snapShotWithStatusBar*、*snapShotWithoutStatusBar*
@@ -100,7 +101,7 @@
 #### 2016/08/02 新增隐藏状态栏，注释更加全面，工具类已封装，写的时候真的是一个一个测试过去的，宝宝心里苦
 #### 2016/08/03 修复在onCreate中获取view尺寸的bug，MD5和SHA的Bug修复完成（在此感谢ssyijiu）
 #### 2016/08/04 新增时间工具类（在此感谢yi520000给的补充），手机正则分简单和精确（在此感谢MIkeeJY），新增判断是否锁屏，注释分段落，目录按首字母排序
-#### 2016/08/05 加密新增MD5盐加密，完善NetworkUtils
+#### 2016/08/05 加密新增MD5盐加密，完善NetworkUtils，新增判断状态栏是否存在（在此感谢tiandawu）
 
   
 ##[关于Blankj](http://blankj.com/about)
