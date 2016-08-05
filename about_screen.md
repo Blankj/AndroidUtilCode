@@ -74,6 +74,26 @@ public static int getStatusBarHeight(Context context) {
 }
 ```
 
+
+### 判断状态栏是否存在
+```
+ /**
+     * 判断是否存在状态栏
+     *
+     * @param activity
+     * @return false: 不存在  ；true: 存在
+     */
+    public static boolean isExistStatusBar(Activity activity) {
+        WindowManager.LayoutParams params = activity.getWindow().getAttributes();
+        if ((params.flags & WindowManager.LayoutParams.FLAG_FULLSCREEN)
+                == WindowManager.LayoutParams.FLAG_FULLSCREEN) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+```
+
 ### 获取ActionBar高度
 ``` java
 /**
