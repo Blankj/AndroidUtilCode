@@ -37,4 +37,19 @@ public class UnclassifiedUtils {
         }
         return false;
     }
+    
+    /**
+     * 获取浮点数保留几位小数后的字符串
+     * @param number 原始数字，如float, double 等类型的数字
+     * @param place 保留的位数
+     */
+    public static String getNumberString(Object number, int place) {
+        try {
+            return String.format("%." + place + "f", number);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+    
 }
