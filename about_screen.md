@@ -74,24 +74,22 @@ public static int getStatusBarHeight(Context context) {
 }
 ```
 
-
 ### 判断状态栏是否存在
-```
- /**
-     * 判断是否存在状态栏
-     *
-     * @param activity
-     * @return false: 不存在  ；true: 存在
-     */
-    public static boolean isExistStatusBar(Activity activity) {
-        WindowManager.LayoutParams params = activity.getWindow().getAttributes();
-        if ((params.flags & WindowManager.LayoutParams.FLAG_FULLSCREEN)
-                == WindowManager.LayoutParams.FLAG_FULLSCREEN) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+``` java
+/**
+* 判断状态栏是否存在
+*
+* @param activity
+* @return <ul>
+* <li>true: 存在 </li>
+* <li>false: 不存在</li>
+* </ul>
+*/
+public static boolean isStatusBarExists(Activity activity) {
+    WindowManager.LayoutParams params = activity.getWindow().getAttributes();
+    return (params.flags & LayoutParams.FLAG_FULLSCREEN) != LayoutParams.FLAG_FULLSCREEN;
+}
+
 ```
 
 ### 获取ActionBar高度
@@ -169,3 +167,25 @@ public static boolean isScreenLock(Context context) {
     return km.inKeyguardRestrictedInputMode();
 }
 ```
+
+***
+# 尺寸相关
+### dp与px转换
+``` java
+/**
+* dp转px
+*/
+public static int dp2px(Context context, float dpValue) {
+    final float scale = context.getResources().getDisplayMetrics().density;
+    return (int) (dpValue * scale + 0.5f);
+}
+
+/**
+* px转dp
+*/
+public static int px2dp(Context context, float pxValue) {
+    final float scale = context.getResources().getDisplayMetrics().density;
+    return (int) (pxValue / scale + 0.5f);
+}
+```
+ 

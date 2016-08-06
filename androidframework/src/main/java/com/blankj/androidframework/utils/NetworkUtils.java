@@ -80,7 +80,7 @@ public class NetworkUtils {
      * 获取手机连接的网络类型(2G,3G,4G)
      * <p>联通的3G为UMTS或HSDPA，移动和联通的2G为GPRS或EGDE，电信的2G为CDMA，电信的3G为EVDO
      */
-    public static int getNetworkType(Context context) {
+    public static int getNetworkTpye(Context context) {
         TelephonyManager tm = (TelephonyManager) context
                 .getSystemService(Context.TELEPHONY_SERVICE);
         switch (tm.getNetworkType()) {

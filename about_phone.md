@@ -17,7 +17,7 @@ public static boolean isPhone(Context context) {
  * <p>需与上面的isPhone一起使用
  * <p>需添加权限<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
  */
-public static String getDeviceIMEI(Context context) {
+public static String getPhoneIMEI(Context context) {
     String deviceId;
     if (isPhone(context)) {
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
