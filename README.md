@@ -1,6 +1,6 @@
 # Android开发人员不得不收集的代码(持续更新中)  
 为方便查找，已进行大致归类，其目录如下所示：  
-> - [App相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_app.md)→[AppUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utils/AppUtils.java)
+> - [App相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_app.md)→[AppUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/AppUtils.java)
 >    - 安装指定路径下的Apk *installApp*
 >    - 卸载指定包名的App *uninstallApp*
 >    - 获取当前App信息 *getAppInfo*
@@ -10,25 +10,25 @@
 >    - 可用来做App信息分享 *shareAppInfo*
 >    - 判断当前App处于前台还是后台 *isApplicationBackground*
 
-> - [设备相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_device.md)→[DeviceUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utils/DeviceUtils.java)
+> - [设备相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_device.md)→[DeviceUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/DeviceUtils.java)
 >    - 获取设备MAC地址 *getMacAddress*
 >    - 获取设备厂商，如Xiaomi *getManufacturer*
 >    - 获取设备型号，如MI2SC *getModel*
 >    - 获取设备SD卡是否可用 *isSDCardEnable*
 >    - 获取设备SD卡路径 *getSDCardPath*
 
-> - [加解密相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_encrypt.md)→[EncryptUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utils/EncryptUtils.java)
+> - [加解密相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_encrypt.md)→[EncryptUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/EncryptUtils.java)
 >    - MD5加密 *getMD5* *encryptMD5* *getMD5File*
 >    - SHA加密 *getSHA* *encryptSHA*
 
-> - [键盘相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_keyboard.md)→[KeyboardUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utils/KeyboardUtils.java)
+> - [键盘相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_keyboard.md)→[KeyboardUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/KeyboardUtils.java)
 >    - 避免输入法面板遮挡
 >    - 动态隐藏软键盘 *hideSoftInput*
 >    - 点击屏幕空白区域隐藏软键盘(注释萌萌哒) *clickBlankArea2HideSoftInput0*
 >    - 动态显示软键盘 *showSoftInput*
 >    - 切换键盘显示与否状态 *toggleSoftInput*
 
-> - [网络相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_network.md)→[NetworkUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utils/NetworkUtils.java)
+> - [网络相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_network.md)→[NetworkUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/NetworkUtils.java)
 >    - 打开网络设置界面 *openWirelessSettings*
 >    - 判断网络是否可用 *isAvailable*
 >    - 判断网络是否连接 *isConnected*
@@ -38,7 +38,7 @@
 >    - 获取移动终端类型 *getPhoneType*
 >    - 获取当前的网络类型(WIFI,2G,3G,4G) *getNetWorkType* *getNetWorkTypeName*
 
-> - [手机相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_phone.md)→[PhoneUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utils/PhoneUtils.java)
+> - [手机相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_phone.md)→[PhoneUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/PhoneUtils.java)
 >    - 判断设备是否是手机 *isPhone*
 >    - 获取手机的IMIE *getDeviceIMEI*
 >    - 获取手机状态信息 *getPhoneStatus*
@@ -49,10 +49,10 @@
 >    - 打开手机联系人界面点击联系人后便获取该号码(注释萌萌哒) *getContantNum*
 >    - 获取手机短信并保存到xml中 *getAllSMS*
 
-> - [正则相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_regular.md)→[RegularUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utils/RegularUtils.java)
+> - [正则相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_regular.md)→[RegularUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/RegularUtils.java)
 >    - 正则工具类
 
-> - [屏幕相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_screen.md)→[ScreenUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utils/ScreenUtils.java)
+> - [屏幕相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_screen.md)→[ScreenUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ScreenUtils.java)
 >    - 获取手机分辨率 *getDeviceWidth*、*getDeviceHeight*
 >    - 设置透明状态栏(api >= 19方可使用) *setTransparentStatusBar*
 >    - 隐藏状态栏(注释萌萌哒) *hideStatusBar*
@@ -63,14 +63,14 @@
 >    - 获取屏幕截图 *snapShotWithStatusBar*、*snapShotWithoutStatusBar*
 >    - 判断是否锁屏 *isScreenLock*
 
-> - [尺寸相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_size.md)→[SizeUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utils/SizeUtils.java)
+> - [尺寸相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_size.md)→[SizeUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SizeUtils.java)
 >    - dp与px转换 *dp2px*、*px2dp*
 >    - sp与px转换 *sp2px*、*px2sp*
 >    - 各种单位转换 *applyDimension*
 >    - 在onCreate()即可强行获取View的尺寸 *forceGetViewSize*
 >    - ListView中提前测量View尺寸(注释萌萌哒) *measureView*
 
-> -	[时间相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_time.md)→[TimeUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utils/TimeUtils.java)
+> -	[时间相关](https://github.com/Blankj/AndroidUtilCode/blob/master/about_time.md)→[TimeUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/TimeUtils.java)
 >	 - 将时间戳转为时间字符串 *milliseconds2String*
 >	 - 将时间字符串转为时间戳 *string2Milliseconds*
 >	 - 将时间字符串转为Date类型 *string2Date*
@@ -83,7 +83,7 @@
 >	 - 获取与当前时间的差（单位：unit） *getIntervalByNow*
 >	 - 判断闰年 *isLeapYear*
 
-> - [未归类](https://github.com/Blankj/AndroidUtilCode/blob/master/unclassified.md)→[UnclassifiedUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utils/UnclassifiedUtils.java)
+> - [未归类](https://github.com/Blankj/AndroidUtilCode/blob/master/unclassified.md)→[UnclassifiedUtils.java](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/UnclassifiedUtils.java)
 >    - 获取服务是否开启 *isRunningService*
 > - [更新Log](https://github.com/Blankj/AndroidUtilCode/blob/master/update_log.md)
 
