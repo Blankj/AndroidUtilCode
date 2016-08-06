@@ -22,6 +22,48 @@ public static int getDeviceHeight(Context context) {
 }
 ```
 
+### 反射打开、关闭通知栏(api >= 8方可使用)
+``` java
+/**
+ * 打开系统消息中心，api16之后状态栏增加设置一栏
+ * @param mContext
+ * @param isSettingPanel true,打开设置，false 打开通知
+ */
+public static void openStatusBar(Context mContext, boolean isSettingPanel) {
+    // 判断系统版本号
+    String methodName = (Build.VERSION.SDK_INT <= 16) ? "expand"
+            : (isSettingPanel ? "expandSettingsPanel" : "expandNotificationsPanel");
+    doInStatusBar(mContext, methodName);
+}
+
+/**
+ * 反射打开通知栏
+ * @param mContext
+ * @param methodName
+ */
+private static void doInStatusBar(Context mContext, String methodName) {
+    try {
+        Object service = mContext.getSystemService("statusbar");
+        Class<?> statusBarManager = Class.forName("android.app.StatusBarManager");
+        Method expand = statusBarManager.getMethod(methodName);
+        expand.invoke(service);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+/**
+ * 关闭通知栏
+ */
+public static void closeStatusBar(Context mContext) {
+    // 判断系统版本号
+    String methodName = (Build.VERSION.SDK_INT <= 16) ? "collapse" : "collapsePanels";
+    doInStatusBar(mContext, methodName);
+}
+```
+
+
+
 ### 设置透明状态栏(api >= 19方可使用)
 ``` java
 /**
