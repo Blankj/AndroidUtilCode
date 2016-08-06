@@ -89,6 +89,7 @@ public static boolean isStatusBarExists(Activity activity) {
     WindowManager.LayoutParams params = activity.getWindow().getAttributes();
     return (params.flags & LayoutParams.FLAG_FULLSCREEN) != LayoutParams.FLAG_FULLSCREEN;
 }
+
 ```
 
 ### 获取ActionBar高度
