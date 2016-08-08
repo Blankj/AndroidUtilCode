@@ -117,14 +117,14 @@
   
 **做这份整理只是想把它作为Android的一本小字典，当遇到一些琐碎问题时，不用再面向百度或者谷歌查询API的使用，费时费力，这里有的话，大家尽管撸走。希望它能逐日壮大起来，期待你的Star和完善，用途的话大家想把它们整理成工具类或者什么的话都可以，之后我也会封装工具类并分享之，但本篇只是提供查阅，毕竟看md比看类文件要爽多了，其中好多代码我也是各种搜刮来的，也要谢谢各位的总结，大部分代码已验证过可行，如有错误，请及时告之，开设QQ群提供讨论，群号：74721490**  
 
-Download
+### Download
 ***
-Gradle:
+Gradle:(还没过审核)
 ``` groovy
 compile 'com.blankj:utilcode:1.0'
 ```
 
-Proguard
+### Proguard
 ***
 ``` xml
 -keep class com.blankj.utilcode.** { *; }
@@ -132,7 +132,7 @@ Proguard
 -dontwarn com.blankj.utilcode.**
 ```
 
-License
+### License
 ***
 	Copyright 2016 Blankj
 
