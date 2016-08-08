@@ -114,16 +114,16 @@
 
 ***
   
-　　**做这份整理只是想把它作为Android的一本小字典，当遇到一些琐碎问题时，不用再面向百度或者谷歌查询API的使用，费时费力，这里有的话，大家尽管撸走。希望它能逐日壮大起来，期待你的Star和完善，用途的话大家想把它们整理成工具类或者什么的话都可以，之后我也会封装工具类并分享之，但本篇只是提供查阅，毕竟看md比看类文件要爽多了，其中好多代码我也是各种搜刮来的，也要谢谢各位的总结，大部分代码已验证过可行，如有错误，请及时告之，开设QQ群提供讨论，群号：74721490**  
+**做这份整理只是想把它作为Android的一本小字典，当遇到一些琐碎问题时，不用再面向百度或者谷歌查询API的使用，费时费力，这里有的话，大家尽管撸走。希望它能逐日壮大起来，期待你的Star和完善，用途的话大家想把它们整理成工具类或者什么的话都可以，之后我也会封装工具类并分享之，但本篇只是提供查阅，毕竟看md比看类文件要爽多了，其中好多代码我也是各种搜刮来的，也要谢谢各位的总结，大部分代码已验证过可行，如有错误，请及时告之，开设QQ群提供讨论，群号：74721490**  
 
-## Download
+Download
 ------
 Gradle:
 ``` groovy
 compile 'com.blankj:utilcode:1.0'
 ```
 
-## Proguard
+Proguard
 ------
 ``` xml
 -keep class com.blankj.utilcode.** { *; }
@@ -131,7 +131,7 @@ compile 'com.blankj:utilcode:1.0'
 -dontwarn com.blankj.utilcode.**
 ```
 
-## License
+License
 ------
 	Copyright 2016 Blankj
 
@@ -147,52 +147,35 @@ compile 'com.blankj:utilcode:1.0'
 	See the License for the specific language governing permissions and
 	limitations under the License.
 
-  
-## 更新Log
-------
-#### 16/08/08 新增Shell工具类，已传jcenter()遇到好多坑，javaDoc惹的祸，注释一定要规范
-#### 16/08/07 新增6.0获取Mac地址方法，新增对HTML转义，新增编码解码工具类,新增SP工具类
-#### 16/08/06 重命名包名，新增加密相关的单元测试，MD5加密新增文件加密重载。
-#### 16/08/05 加密新增MD5盐加密，完善NetworkUtils，新增判断状态栏是否存在（在此感谢tiandawu）
-#### 16/08/04 新增时间工具类（在此感谢yi520000给的补充），手机正则分简单和精确（在此感谢MIkeeJY），新增判断是否锁屏，注释分段落，目录按首字母排序
-#### 16/08/03 修复在onCreate中获取view尺寸的bug，MD5和SHA的Bug修复完成（在此感谢ssyijiu）
-#### 16/08/02 wifi设置界面bug修复，注释排版还在修改，获取mac地址增加判空，新增QQ群：74721490，欢迎加入新增隐藏状态栏，注释更加全面，工具类已封装，写的时候真的是一个一个测试过去的，宝宝心里苦
-#### 16/08/01 新增获取SD卡路径，手机和设备进行分类，代码bug修改部分，小修排版，正在封装类，新增目录中显示方法名，新增获取当前App版本Code
-#### 16/07/31 新增点击屏幕空白区域隐藏软键盘，未能成功增加本页目录跳转功能（不支持）
 
 
-  
-##[关于Blankj][blankj]
-
-
-[app.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/about_app.md
+[app.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_app.md
 [app.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/AppUtils.java
-[device.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/about_device.md
+[device.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_device.md
 [device.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/DeviceUtils.java
-[encode.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/about_encode.md
+[encode.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_encode.md
 [encode.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/EncodeUtils.java
-[encrypt.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/about_encrypt.md
+[encrypt.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_encrypt.md
 [encrypt.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/EncryptUtils.java
-[keyboard.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/about_keyboard.md
+[keyboard.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_keyboard.md
 [keyboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/KeyboardUtils.java
-[network.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/about_network.md
+[network.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_network.md
 [network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/NetworkUtils.java
-[phone.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/about_phone.md
+[phone.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_phone.md
 [phone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/PhonekUtils.java
-[regular.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/about_regular.md
+[regular.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_regular.md
 [regular.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/RegularUtils.java
-[screen.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/about_screen.md
+[screen.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_screen.md
 [screen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ScreenUtils.java
-[shell.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/about_shell.md
+[shell.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_shell.md
 [shell.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ShellUtils.java
-[size.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/about_size.md
+[size.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_size.md
 [size.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SizeUtils.java
-[sp.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/about_sp.md
+[sp.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_sp.md
 [sp.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SPUtils.java
-[time.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/about_time.md
+[time.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_time.md
 [time.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/TimeUtils.java
-[unclassified.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/unclassified.md
+[unclassified.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/unclassified.md
 [unclassified.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/UnclassifiedUtils.java
-[update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/update_log.md
+[update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/update_log.md
 
-[blankj]: http://blankj.com/about
