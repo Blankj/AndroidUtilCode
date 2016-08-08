@@ -37,4 +37,22 @@ public class UnclassifiedUtils {
         }
         return false;
     }
+    
+    /**
+     * 复制内容至系统粘贴板
+     */
+    public static void copy(String content) {
+        if (content == null) return;
+        try {
+            // Gets a handle to the clipboard service.
+            ClipboardManager clipboard = (ClipboardManager)
+                    App.getInstance().getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
+            // Creates a new text clip to put on the clipboard
+            ClipData clip = ClipData.newPlainText("simple text", content);
+            clipboard.setPrimaryClip(clip);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
 }
