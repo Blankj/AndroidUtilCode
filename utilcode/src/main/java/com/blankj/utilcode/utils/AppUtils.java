@@ -271,5 +271,26 @@ public class AppUtils {
         }
         return false;
     }
+    
+        /**
+     * 是否安装了某个应用
+     *
+     * @param packageName
+     * @return
+     * @author YOLANDA
+     */
+    public static boolean isAInstallPackage(String packageName) {
+        final PackageManager packageManager = App.getInstance().getPackageManager();// 获取packagemanager
+        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
+        List<String> packages = new ArrayList<String>();// 用于存储所有已安装程序的包名
+        if (pinfo != null) {
+            for (int i = 0; i < pinfo.size(); i++) {
+                String pn = pinfo.get(i).packageName;
+                packages.add(pn);
+            }
+        }
+        return packages.contains(packageName);// 判断pName中是否有目标程序的包名，有TRUE，没有FALSE
+    }
+    
 }
 
