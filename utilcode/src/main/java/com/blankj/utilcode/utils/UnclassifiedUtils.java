@@ -7,11 +7,14 @@ import android.content.Context;
 
 import java.util.List;
 
-/*********************************************
- * author: Blankj on 2016/8/2 21:24
- * blog:   http://blankj.com
- * e-mail: blankj@qq.com
- *********************************************/
+/**
+ * <pre>
+ *     author: Blankj
+ *     blog  : http://blankj.com
+ *     time  : 2016/8/2
+ *     desc  : 未归类的工具类
+ * </pre>
+ */
 public class UnclassifiedUtils {
 
     private UnclassifiedUtils() {
@@ -20,9 +23,12 @@ public class UnclassifiedUtils {
 
     /**
      * 获取服务是否开启
+     *
+     * @param context   上下文
      * @param className 完整包名的服务类名
+     * @return true: 是<br>false: 否
      */
-    public static boolean isRunningService(String className, Context context) {
+    public static boolean isRunningService(Context context, String className) {
         // 进程的管理者,活动的管理者
         ActivityManager activityManager = (ActivityManager)
                 context.getSystemService(Context.ACTIVITY_SERVICE);
@@ -36,5 +42,22 @@ public class UnclassifiedUtils {
             }
         }
         return false;
+    }
+
+    /**
+     * HTML字符转义
+     * <p>对输入参数中的敏感字符进行过滤替换,防止用户利用JavaScript等方式输入恶意代码</p>
+     *
+     * @param html html文本
+     * @return 过滤后的文本
+     */
+    public static String htmlEscape(String html) {
+        return html.replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll(" ", "&nbsp;")
+                .replaceAll("'", "&#39;")
+                .replaceAll("\"", "&quot;")
+                .replaceAll("\n", "<br/>");
     }
 }

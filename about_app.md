@@ -252,7 +252,7 @@ public static void shareAppInfo(Context context, String info) {
 ``` java
 /**
  * 判断当前App处于前台还是后台
- * <p>需添加<uses-permission android:name="android.permission.GET_TASKS"/>
+ * <p>需添加权限 android.permission.GET_TASKS
  * <p>并且必须是系统应用该方法才有效
  */
 public static boolean isAppBackground(Context context) {

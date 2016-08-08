@@ -105,6 +105,33 @@ public static int getActionBarHeight(Activity activity) {
 }
 ```
 
+### 显示通知栏
+``` java
+/**
+ * 显示通知栏
+ * 需添加权限 android.permission.EXPAND_STATUS_BAR
+ *
+ * @param isSettingPanel true,打开设置，false 打开通知
+ */
+public static void showNotificationBar(Context context, boolean isSettingPanel) {
+    String methodName = (Build.VERSION.SDK_INT <= 16) ? "expand"
+            : (isSettingPanel ? "expandSettingsPanel" : "expandNotificationsPanel");
+    invokePanels(context, methodName);
+}
+```
+
+### 隐藏通知栏
+``` java
+/**
+ * 隐藏通知栏
+ * 需添加权限 android.permission.EXPAND_STATUS_BAR
+ */
+public static void hideNotificationBar(Context context) {
+    String methodName = (Build.VERSION.SDK_INT <= 16) ? "collapse" : "collapsePanels";
+    invokePanels(context, methodName);
+}
+```
+
 ### 设置屏幕为横屏
 ```
 /**

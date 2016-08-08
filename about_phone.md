@@ -15,7 +15,7 @@ public static boolean isPhone(Context context) {
 /**
  * 获取当前设备的IMIE
  * <p>需与上面的isPhone一起使用
- * <p>需添加权限<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+ * <p>需添加权限 android.permission.READ_PHONE_STATE
  */
 public static String getPhoneIMEI(Context context) {
     String deviceId;
@@ -33,7 +33,7 @@ public static String getPhoneIMEI(Context context) {
 ``` java
 /**
  * 获取手机状态信息
- * <p>需添加权限<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+ * <p>需添加权限 android.permission.READ_PHONE_STATE
  * <p>返回如下
  * <pre>
  * DeviceId(IMEI) = 99000311726612
@@ -90,7 +90,7 @@ public static void dial(Context context, String phoneNumber) {
 ``` java
 /**
  * 拨打phoneNumber
- * <p>需添加权限<uses-permission android:name="android.permission.CALL_PHONE"/>
+ * <p>需添加权限 android.permission.CALL_PHONE
  */
 public static void call(Context context, String phoneNumber) {
     context.startActivity(new Intent("android.intent.action.CALL", Uri.parse("tel:" + phoneNumber)));
@@ -114,8 +114,8 @@ public static void sendSms(Context context, String phoneNumber, String content) 
 ``` java
 /**
  * 获取手机联系人
- * <p>需添加权限<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
- * <p>需添加权限<uses-permission android:name="android.permission.READ_CONTACTS" />
+ * <p>需添加权限 android.permission.READ_EXTERNAL_STORAGE
+ * <p>需添加权限 android.permission.READ_CONTACTS
  */
 public static List<HashMap<String, String>> getAllContactInfo(Context context) {
     SystemClock.sleep(3000);
@@ -213,8 +213,8 @@ public static void getContantNum() {
 ``` java
 /**
  * 获取手机短信并保存到xml中
- * <p>需添加权限<uses-permission android:name="android.permission.READ_SMS"/>
- * <p>需添加权限<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+ * <p>需添加权限 android.permission.READ_SMS
+ * <p>需添加权限 android.permission.WRITE_EXTERNAL_STORAGE
  */
 public static void getAllSMS(Context context) {
     //1.获取短信

@@ -3,7 +3,7 @@
 ``` java
 /**
  * 获取设备MAC地址
- * <p>需添加权限<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+ * <p>需添加权限 android.permission.ACCESS_WIFI_STATE
  */
 public static String getMacAddress(Context context) {
     String macAddress;

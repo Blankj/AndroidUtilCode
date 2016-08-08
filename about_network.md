@@ -27,7 +27,7 @@ private static NetworkInfo getActiveNetworkInfo(Context context) {
 
 /**
  * 判断网络是否可用
- * <p>需添加权限<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+ * <p>需添加权限 android.permission.ACCESS_NETWORK_STATE
  */
 public static boolean isAvailable(Context context) {
     NetworkInfo info = getActiveNetworkInfo(context);
@@ -39,7 +39,7 @@ public static boolean isAvailable(Context context) {
 ``` java
 /**
  * 判断网络是否连接
- * <p>需添加权限<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+ * <p>需添加权限 android.permission.ACCESS_NETWORK_STATE
  */
 public static boolean isConnected(Context context) {
     NetworkInfo info = getActiveNetworkInfo(context);
@@ -51,7 +51,7 @@ public static boolean isConnected(Context context) {
 ``` java
 /**
  * 判断网络是否是4G
- * <p>需添加权限<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+ * <p>需添加权限 android.permission.ACCESS_NETWORK_STATE
  */
 public static boolean is4G(Context context) {
     NetworkInfo info = getActiveNetworkInfo(context);
@@ -63,7 +63,7 @@ public static boolean is4G(Context context) {
 ``` java
 /**
  * 判断wifi是否连接状态
- * <p>需添加权限<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+ * <p>需添加权限 android.permission.ACCESS_NETWORK_STATE
  */
 public static boolean isWifiConnected(Context context) {
     ConnectivityManager cm = (ConnectivityManager) context
@@ -109,7 +109,7 @@ public static int getPhoneType(Context context) {
 ``` java
 /**
  * 获取当前的网络类型(WIFI,2G,3G,4G)
- * <p>需添加权限<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+ * <p>需添加权限 android.permission.ACCESS_NETWORK_STATE
  *
  * @return 网络类型
  * <ul>

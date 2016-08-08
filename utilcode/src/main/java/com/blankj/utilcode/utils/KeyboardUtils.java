@@ -7,11 +7,14 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-/*********************************************
- * author: Blankj on 2016/8/2 21:18
- * blog:   http://blankj.com
- * e-mail: blankj@qq.com
- *********************************************/
+/**
+ * <pre>
+ *     author: Blankj
+ *     blog  : http://blankj.com
+ *     time  : 2016/8/2
+ *     desc  : 键盘相关的工具类
+ * </pre>
+ */
 public class KeyboardUtils {
 
     private KeyboardUtils() {
@@ -20,6 +23,8 @@ public class KeyboardUtils {
 
     /**
      * 动态隐藏软键盘
+     *
+     * @param activity activity
      */
     public static void hideSoftInput(Activity activity) {
         View view = activity.getWindow().peekDecorView();
@@ -32,6 +37,9 @@ public class KeyboardUtils {
 
     /**
      * 动态隐藏软键盘
+     *
+     * @param context 上下文
+     * @param edit    输入框
      */
     public static void hideSoftInput(Context context, EditText edit) {
         edit.clearFocus();
@@ -42,8 +50,8 @@ public class KeyboardUtils {
 
     /**
      * 点击屏幕空白区域隐藏软键盘（方法1）
-     * <p>在onTouch中处理，未获焦点则隐藏
-     * <p>参照以下注释代码
+     * <p>在onTouch中处理，未获焦点则隐藏</p>
+     * <p>参照以下注释代码</p>
      */
     public static void clickBlankArea2HideSoftInput0() {
         Log.i("tips", "U should copy the following code.");
@@ -61,9 +69,9 @@ public class KeyboardUtils {
 
     /**
      * 点击屏幕空白区域隐藏软键盘（方法2）
-     * <p>根据EditText所在坐标和用户点击的坐标相对比，来判断是否隐藏键盘
-     * <p>需重写dispatchTouchEvent
-     * <p>参照以下注释代码
+     * <p>根据EditText所在坐标和用户点击的坐标相对比，来判断是否隐藏键盘</p>
+     * <p>需重写dispatchTouchEvent</p>
+     * <p>参照以下注释代码</p>
      */
     public static void clickBlankArea2HideSoftInput1() {
         Log.i("tips", "U should copy the following code.");
@@ -106,6 +114,9 @@ public class KeyboardUtils {
 
     /**
      * 动态显示软键盘
+     *
+     * @param context 上下文
+     * @param edit    输入框
      */
     public static void showSoftInput(Context context, EditText edit) {
         edit.setFocusable(true);
@@ -118,6 +129,9 @@ public class KeyboardUtils {
 
     /**
      * 切换键盘显示与否状态
+     *
+     * @param context 上下文
+     * @param edit 输入框
      */
     public static void toggleSoftInput(Context context, EditText edit) {
         edit.setFocusable(true);

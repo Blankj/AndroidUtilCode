@@ -9,17 +9,19 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.text.TextUtils;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-/*********************************************
- * author: Blankj on 2016/8/2 1:53
- * blog:   http://blankj.com
- * e-mail: blankj@qq.com
- *********************************************/
+/**
+ * <pre>
+ *     author: Blankj
+ *     blog  : http://blankj.com
+ *     time  : 2016/8/2
+ *     desc  : App相关的工具类
+ * </pre>
+ */
 public class AppUtils {
 
     private AppUtils() {
@@ -27,41 +29,41 @@ public class AppUtils {
     }
 
     /**
-     * 安装指定路径下的Apk
-     * <p>根据路径名是否符合和文件是否存在判断是否安装成功
-     * <p>更好的做法应该是startActivityForResult回调判断是否安装成功比较妥当
-     * <p>这里做不了回调，后续自己做处理
+     * 安装App
+     * <p>根据路径安装App</p>
+     *
+     * @param context  上下文
+     * @param filePath 文件路径
      */
-    public static boolean installApp(Context context, String filePath) {
-        if (filePath != null && filePath.length() > 4
-                && filePath.toLowerCase().substring(filePath.length() - 4).equals(".apk")) {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            File file = new File(filePath);
-            if (file.exists() && file.isFile() && file.length() > 0) {
-                intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-                return true;
-            }
-        }
-        return false;
+    public static void installApp(Context context, String filePath) {
+        installApp(context, new File(filePath));
+    }
+
+    /**
+     * 安装App
+     * <p>根据文件安装App</p>
+     *
+     * @param context 上下文
+     * @param file    文件
+     */
+    public static void installApp(Context context, File file) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 
     /**
      * 卸载指定包名的App
-     * <p>这里卸载成不成功只判断了packageName是否为空
-     * <p>如果要根据是否卸载成功应该用startActivityForResult回调判断是否还存在比较妥当
-     * <p>这里做不了回调，后续自己做处理
+     *
+     * @param context     上下文
+     * @param packageName 包名
      */
-    public boolean uninstallApp(Context context, String packageName) {
-        if (!TextUtils.isEmpty(packageName)) {
-            Intent intent = new Intent(Intent.ACTION_DELETE);
-            intent.setData(Uri.parse("package:" + packageName));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
-            return true;
-        }
-        return false;
+    public void uninstallApp(Context context, String packageName) {
+        Intent intent = new Intent(Intent.ACTION_DELETE);
+        intent.setData(Uri.parse("package:" + packageName));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 
     /**
@@ -71,7 +73,7 @@ public class AppUtils {
 
         private String name;
         private Drawable icon;
-        private String packagName;
+        private String packageName;
         private String versionName;
         private int versionCode;
         private boolean isSD;
@@ -109,12 +111,12 @@ public class AppUtils {
             this.name = name;
         }
 
-        public String getPackagName() {
-            return packagName;
+        public String getPackageName() {
+            return packageName;
         }
 
-        public void setPackagName(String packagName) {
-            this.packagName = packagName;
+        public void setPackageName(String packagName) {
+            this.packageName = packagName;
         }
 
         public int getVersionCode() {
@@ -136,17 +138,17 @@ public class AppUtils {
         /**
          * @param name        名称
          * @param icon        图标
-         * @param packagName  包名
+         * @param packageName 包名
          * @param versionName 版本号
          * @param versionCode 版本Code
          * @param isSD        是否安装在SD卡
          * @param isUser      是否是用户程序
          */
-        public AppInfo(String name, Drawable icon, String packagName,
+        public AppInfo(String name, Drawable icon, String packageName,
                        String versionName, int versionCode, boolean isSD, boolean isUser) {
             this.setName(name);
             this.setIcon(icon);
-            this.setPackagName(packagName);
+            this.setPackageName(packageName);
             this.setVersionName(versionName);
             this.setVersionCode(versionCode);
             this.setSD(isSD);
@@ -167,7 +169,10 @@ public class AppUtils {
 
     /**
      * 获取当前App信息
-     * <p>AppInfo（名称，图标，包名，版本号，版本Code，是否安装在SD卡，是否是用户程序）
+     * <p>AppInfo（名称，图标，包名，版本号，版本Code，是否安装在SD卡，是否是用户程序）</p>
+     *
+     * @param context 上下文
+     * @return 当前应用的AppInfo
      */
     public static AppInfo getAppInfo(Context context) {
         PackageManager pm = context.getPackageManager();
@@ -182,6 +187,10 @@ public class AppUtils {
 
     /**
      * 得到AppInfo的Bean
+     *
+     * @param pm 包的管理
+     * @param pi 包的信息
+     * @return AppInfo类
      */
     private static AppInfo getBean(PackageManager pm, PackageInfo pi) {
         ApplicationInfo ai = pi.applicationInfo;
@@ -197,8 +206,11 @@ public class AppUtils {
 
     /**
      * 获取所有已安装App信息
-     * <p>AppInfo（名称，图标，包名，版本号，版本Code，是否安装在SD卡，是否是用户程序）
-     * <p>依赖上面的getBean方法
+     * <p>AppInfo（名称，图标，包名，版本号，版本Code，是否安装在SD卡，是否是用户程序）</p>
+     * <p>依赖上面的getBean方法</p>
+     *
+     * @param context 上下文
+     * @return 所有已安装的AppInfo列表
      */
     public static List<AppInfo> getAllAppsInfo(Context context) {
         List<AppInfo> list = new ArrayList<>();
@@ -214,28 +226,37 @@ public class AppUtils {
     }
 
     /**
-     * 打开指定包名的App
+     * 根据包名获取意图
+     *
+     * @param context     上下文
+     * @param packageName 包名
+     * @return 意图
      */
-    public static boolean openAppByPackageName(Context context, String packageName) {
-        if (!TextUtils.isEmpty(packageName)) {
-            PackageManager pm = context.getPackageManager();
-            Intent launchIntentForPackage = pm.getLaunchIntentForPackage(packageName);
-            if (launchIntentForPackage != null) {
-                context.startActivity(launchIntentForPackage);
-                return true;
-            }
-        }
-        return false;
+    private static Intent getIntentByPackageName(Context context, String packageName) {
+        return context.getPackageManager().getLaunchIntentForPackage(packageName);
     }
 
     /**
-     * 打开指定包名的App应用信息界面
+     * 根据包名判断App是否安装
+     *
+     * @param context     上下文
+     * @param packageName 包名
+     * @return true: 已安装<br>false: 未安装
      */
-    public static boolean openAppInfo(Context context, String packageName) {
-        if (!TextUtils.isEmpty(packageName)) {
-            Intent intent = new Intent();
-            intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
-            intent.setData(Uri.parse("package:" + packageName));
+    public static boolean isInstallApp(Context context, String packageName) {
+        return getIntentByPackageName(context, packageName) != null;
+    }
+
+    /**
+     * 打开指定包名的App
+     *
+     * @param context     上下文
+     * @param packageName 包名
+     * @return true: 打开成功<br>false: 打开失败
+     */
+    public static boolean openAppByPackageName(Context context, String packageName) {
+        Intent intent = getIntentByPackageName(context, packageName);
+        if (intent != null) {
             context.startActivity(intent);
             return true;
         }
@@ -243,21 +264,38 @@ public class AppUtils {
     }
 
     /**
+     * 打开指定包名的App应用信息界面
+     *
+     * @param context     上下文
+     * @param packageName 包名
+     */
+    public static void openAppInfo(Context context, String packageName) {
+        Intent intent = new Intent();
+        intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+        intent.setData(Uri.parse("package:" + packageName));
+        context.startActivity(intent);
+    }
+
+    /**
      * 可用来做App信息分享
+     *
+     * @param context 上下文
+     * @param info    分享信息
      */
     public static void shareAppInfo(Context context, String info) {
-        if (!TextUtils.isEmpty(info)) {
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_TEXT, info);
-            context.startActivity(intent);
-        }
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, info);
+        context.startActivity(intent);
     }
 
     /**
      * 判断当前App处于前台还是后台
-     * <p>需添加<uses-permission android:name="android.permission.GET_TASKS"/>
-     * <p>并且必须是系统应用该方法才有效
+     * <p>需添加权限 android.permission.GET_TASKS</p>
+     * <p>并且必须是系统应用该方法才有效</p>
+     *
+     * @param context 上下文
+     * @return true: 后台<br>false: 前台
      */
     public static boolean isAppBackground(Context context) {
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
@@ -272,4 +310,3 @@ public class AppUtils {
         return false;
     }
 }
-

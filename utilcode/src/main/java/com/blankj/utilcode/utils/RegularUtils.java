@@ -4,11 +4,14 @@ import android.text.TextUtils;
 
 import java.util.regex.Pattern;
 
-/*********************************************
- * author: Blankj on 2016/8/2 21:19
- * blog:   http://blankj.com
- * e-mail: blankj@qq.com
- *********************************************/
+/**
+ * <pre>
+ *     author: Blankj
+ *     blog  : http://blankj.com
+ *     time  : 2016/8/2
+ *     desc  : 正则相关的工具类
+ * </pre>
+ */
 public class RegularUtils {
 
     private RegularUtils() {
@@ -21,7 +24,7 @@ public class RegularUtils {
     private static final String REGEX_MOBILE_SIMPLE = "^[1]\\d{10}$";
     /**
      * 验证手机号（精确）
-     * <p>
+     * <p/>
      * <p>移动：134(0-8)、135、136、137、138、139、147、150、151、152、157、158、159、178、182、183、184、187、188
      * <p>联通：130、131、132、145、155、156、175、176、185、186
      * <p>电信：133、153、173、177、180、181、189

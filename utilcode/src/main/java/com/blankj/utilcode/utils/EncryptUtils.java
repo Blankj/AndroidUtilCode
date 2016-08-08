@@ -8,11 +8,14 @@ import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-/*********************************************
- * author: Blankj on 2016/8/2 21:22
- * blog:   http://blankj.com
- * e-mail: blankj@qq.com
- *********************************************/
+/**
+ * <pre>
+ *     author: Blankj
+ *     blog  : http://blankj.com
+ *     time  : 2016/8/2
+ *     desc  : 加密相关的工具类
+ * </pre>
+ */
 public class EncryptUtils {
 
     private EncryptUtils() {
@@ -158,9 +161,12 @@ public class EncryptUtils {
 
     /**
      * 一个byte转为2个hex字符
+     *
+     * @param src byte数组
+     * @return 16进制大写字符串
      */
     public static String bytes2Hex(byte[] src) {
-        char[] res = new char[src.length * 2];
+        char[] res = new char[src.length << 1];
         final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
         for (int i = 0, j = 0; i < src.length; i++) {
             res[j++] = hexDigits[src[i] >>> 4 & 0x0f];

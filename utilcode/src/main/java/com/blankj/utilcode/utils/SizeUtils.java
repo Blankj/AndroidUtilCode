@@ -6,11 +6,14 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
-/*********************************************
- * author: Blankj on 2016/8/1 19:12
- * blog:   http://blankj.com
- * e-mail: blankj@qq.com
- *********************************************/
+/**
+ * <pre>
+ *     author: Blankj
+ *     blog  : http://blankj.com
+ *     time  : 2016/8/2
+ *     desc  : 尺寸相关的工具类
+ * </pre>
+ */
 public class SizeUtils {
 
     private SizeUtils() {
@@ -19,6 +22,10 @@ public class SizeUtils {
 
     /**
      * dp转px
+     *
+     * @param context 上下文
+     * @param dpValue dp值
+     * @return px值
      */
     public static int dp2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
@@ -27,6 +34,10 @@ public class SizeUtils {
 
     /**
      * px转dp
+     *
+     * @param context 上下文
+     * @param pxValue px值
+     * @return dp值
      */
     public static int px2dp(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
@@ -35,6 +46,10 @@ public class SizeUtils {
 
     /**
      * sp转px
+     *
+     * @param context 上下文
+     * @param spValue sp值
+     * @return px值
      */
     public static int sp2px(Context context, float spValue) {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
@@ -43,6 +58,10 @@ public class SizeUtils {
 
     /**
      * px转sp
+     *
+     * @param context 上下文
+     * @param pxValue px值
+     * @return sp值
      */
     public static int px2sp(Context context, float pxValue) {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
@@ -51,7 +70,12 @@ public class SizeUtils {
 
     /**
      * 各种单位转换
-     * <p>该方法存在于TypedValue
+     * <p>该方法存在于TypedValue</p>
+     *
+     * @param unit    单位
+     * @param value   值
+     * @param metrics DisplayMetrics
+     * @return 转换结果
      */
     public static float applyDimension(int unit, float value, DisplayMetrics metrics) {
         switch (unit) {
@@ -73,15 +97,19 @@ public class SizeUtils {
 
     /**
      * 在onCreate()即可强行获取View的尺寸
-     * <p>需回调onGetSizeListener接口，在onGetSize中获取view宽高
-     * 用法示例如下所示
+     * <p>需回调onGetSizeListener接口，在onGetSize中获取view宽高</p>
+     * <p>用法示例如下所示</p>
+     * <pre>
      * SizeUtils.forceGetViewSize(view);
      * SizeUtils.setListener(new SizeUtils.onGetSizeListener() {
-     *     @Override
+     *     <br>@Override
      *     public void onGetSize(View view) {
      *         Log.d("tag", view.getWidth() + " " + view.getHeight());
      *     }
      * });
+     * </pre>
+     *
+     * @param view 视图
      */
     public static void forceGetViewSize(final View view) {
         view.post(new Runnable() {
@@ -100,15 +128,19 @@ public class SizeUtils {
     public interface onGetSizeListener {
         void onGetSize(View view);
     }
+
     public static void setListener(onGetSizeListener listener) {
         mListener = listener;
     }
+
     private static onGetSizeListener mListener;
 
     /**
      * ListView中提前测量View尺寸，如headerView
-     * <p>用的时候去掉注释拷贝到ListView中即可
-     * <p>参照以下注释代码
+     * <p>用的时候去掉注释拷贝到ListView中即可</p>
+     * <p>参照以下注释代码</p>
+     *
+     * @param view 视图
      */
     public static void measureViewInLV(View view) {
         Log.i("tips", "U should copy the following code.");
