@@ -1,11 +1,12 @@
-# Android开发人员不得不收集的代码(持续更新中)  
-------
+# Android开发人员不得不收集的代码(持续更新中)
+***
 为方便查找，已进行大致归类，其目录如下所示：  
 > - [App相关][app.md]→[AppUtils.java][app.java]
 >    - 安装指定路径下的Apk *installApp*
 >    - 卸载指定包名的App *uninstallApp*
 >    - 获取当前App信息 *getAppInfo*
 >    - 获取所有已安装App信息 *getAllAppsInfo*
+>	 - 根据包名判断App是否安装 *isInstallApp*
 >    - 打开指定包名的App *openAppByPackageName*
 >    - 打开指定包名的App应用信息界面 *openAppInfo*
 >    - 可用来做App信息分享 *shareAppInfo*
@@ -117,14 +118,14 @@
 **做这份整理只是想把它作为Android的一本小字典，当遇到一些琐碎问题时，不用再面向百度或者谷歌查询API的使用，费时费力，这里有的话，大家尽管撸走。希望它能逐日壮大起来，期待你的Star和完善，用途的话大家想把它们整理成工具类或者什么的话都可以，之后我也会封装工具类并分享之，但本篇只是提供查阅，毕竟看md比看类文件要爽多了，其中好多代码我也是各种搜刮来的，也要谢谢各位的总结，大部分代码已验证过可行，如有错误，请及时告之，开设QQ群提供讨论，群号：74721490**  
 
 Download
-------
+***
 Gradle:
 ``` groovy
 compile 'com.blankj:utilcode:1.0'
 ```
 
 Proguard
-------
+***
 ``` xml
 -keep class com.blankj.utilcode.** { *; }
 -keepclassmembers class com.blankj.utilcode.** { *; }
@@ -132,14 +133,14 @@ Proguard
 ```
 
 License
-------
+***
 	Copyright 2016 Blankj
 
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
 
-	 http://www.apache.org/licenses/LICENSE-2.0
+		http://www.apache.org/licenses/LICENSE-2.0
 
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
