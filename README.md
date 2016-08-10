@@ -1,4 +1,4 @@
-# Android开发人员不得不收集的代码(持续更新中)
+## Android开发人员不得不收集的代码(持续更新中)
 ***
 为方便查找，已进行大致归类，其目录如下所示：  
 > - [App相关][app.md]→[AppUtils.java][app.java]
@@ -96,7 +96,7 @@
 >  - SP中写入boolean类型value *putBoolean*
 >  - SP中读取boolean *getBoolean*
 
->   [时间相关][time.md]→[TimeUtils.java][time.java]
+> - [时间相关][time.md]→[TimeUtils.java][time.java]
 >  - 将时间戳转为时间字符串 *milliseconds2String*
 >  - 将时间字符串转为时间戳 *string2Milliseconds*
 >  - 将时间字符串转为Date类型 *string2Date*

@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 
-group='com.github.icodeu'
+group = 'com.github.icodeu'
 
 android {
     compileSdkVersion 23
@@ -22,8 +22,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    provided 'com.android.support:appcompat-v7:23.3.0'
     testCompile 'junit:junit:4.12'
+    testCompile 'org.robolectric:robolectric:3.1.2'
 }
 apply from: "https://raw.githubusercontent.com/xiaopansky/android-library-publish-to-jcenter/master/bintrayUpload.gradle"
