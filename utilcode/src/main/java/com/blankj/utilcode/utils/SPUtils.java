@@ -207,4 +207,6 @@ public class SPUtils {
     private static SharedPreferences getSP(Context context) {
         return context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
     }
+
+
 }

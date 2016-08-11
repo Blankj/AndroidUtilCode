@@ -1,4 +1,5 @@
 ### 更新Log
+#### 16/08/11 新增SDCardUtils，UnitUtils，单元测试慢慢完善中
 #### 16/08/09 目录排版更新，新增Download，Proguard和License。
 #### 16/08/08 新增Shell工具类，已传jcenter()遇到好多坑，javaDoc惹的祸，注释一定要规范
 #### 16/08/07 新增6.0获取Mac地址方法，新增对HTML转义，新增编码解码工具类,新增SP工具类

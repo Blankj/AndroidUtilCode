@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static com.blankj.utilcode.utils.UnitUtils.*;
+
 /**
  * <pre>
  *     author: Blankj
@@ -162,14 +164,7 @@ public class TimeUtils {
      * </pre>
      */
     public static final SimpleDateFormat DEFAULT_SDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    /**
-     * 各时间单位与毫秒的倍数
-     */
-    public static final int UNIT_MSEC = 1;
-    public static final int UNIT_SEC = 1000;
-    public static final int UNIT_MIN = 60000;
-    public static final int UNIT_HOUR = 3600000;
-    public static final int UNIT_DAY = 86400000;
+
 
     /**
      * 将时间戳转为时间字符串
@@ -293,21 +288,21 @@ public class TimeUtils {
      *
      * @param milliseconds 毫秒时间戳
      * @param unit         <ul>
-     *                     <li>UNIT_MSEC:毫秒</li>
-     *                     <li>UNIT_SEC :秒</li>
-     *                     <li>UNIT_MIN :分</li>
-     *                     <li>UNIT_HOUR:小时</li>
-     *                     <li>UNIT_DAY :天</li>
+     *                     <li>MSEC:毫秒</li>
+     *                     <li>SEC :秒</li>
+     *                     <li>MIN :分</li>
+     *                     <li>HOUR:小时</li>
+     *                     <li>DAY :天</li>
      *                     </ul>
      * @return unit时间戳
      */
     private static long milliseconds2Unit(long milliseconds, int unit) {
         switch (unit) {
-            case UNIT_MSEC:
-            case UNIT_SEC:
-            case UNIT_MIN:
-            case UNIT_HOUR:
-            case UNIT_DAY:
+            case MSEC:
+            case SEC:
+            case MIN:
+            case HOUR:
+            case DAY:
                 return Math.abs(milliseconds) / unit;
         }
         return -1;
@@ -320,11 +315,11 @@ public class TimeUtils {
      * @param time1 时间字符串1
      * @param time2 时间字符串2
      * @param unit  <ul>
-     *              <li>UNIT_MSEC:毫秒</li>
-     *              <li>UNIT_SEC :秒</li>
-     *              <li>UNIT_MIN :分</li>
-     *              <li>UNIT_HOUR:小时</li>
-     *              <li>UNIT_DAY :天</li>
+     *              <li>MSEC:毫秒</li>
+     *              <li>SEC :秒</li>
+     *              <li>MIN :分</li>
+     *              <li>HOUR:小时</li>
+     *              <li>DAY :天</li>
      *              </ul>
      * @return unit时间戳
      */
@@ -339,11 +334,11 @@ public class TimeUtils {
      * @param time1  时间字符串1
      * @param time2  时间字符串2
      * @param unit   <ul>
-     *               <li>UNIT_MSEC:毫秒</li>
-     *               <li>UNIT_SEC :秒</li>
-     *               <li>UNIT_MIN :分</li>
-     *               <li>UNIT_HOUR:小时</li>
-     *               <li>UNIT_DAY :天</li>
+     *               <li>MSEC:毫秒</li>
+     *               <li>SEC :秒</li>
+     *               <li>MIN :分</li>
+     *               <li>HOUR:小时</li>
+     *               <li>DAY :天</li>
      *               </ul>
      * @param format 时间格式
      * @return unit时间戳
@@ -360,11 +355,11 @@ public class TimeUtils {
      * @param time1 Date类型时间1
      * @param time2 Date类型时间2
      * @param unit  <ul>
-     *              <li>UNIT_MSEC:毫秒</li>
-     *              <li>UNIT_SEC :秒</li>
-     *              <li>UNIT_MIN :分</li>
-     *              <li>UNIT_HOUR:小时</li>
-     *              <li>UNIT_DAY :天</li>
+     *              <li>MSEC:毫秒</li>
+     *              <li>SEC :秒</li>
+     *              <li>MIN :分</li>
+     *              <li>HOUR:小时</li>
+     *              <li>DAY :天</li>
      *              </ul>
      * @return unit时间戳
      */
@@ -418,11 +413,11 @@ public class TimeUtils {
      *
      * @param time 时间字符串
      * @param unit <ul>
-     *             <li>UNIT_MSEC:毫秒</li>
-     *             <li>UNIT_SEC :秒</li>
-     *             <li>UNIT_MIN :分</li>
-     *             <li>UNIT_HOUR:小时</li>
-     *             <li>UNIT_DAY :天</li>
+     *             <li>MSEC:毫秒</li>
+     *             <li>SEC :秒</li>
+     *             <li>MIN :分</li>
+     *             <li>HOUR:小时</li>
+     *             <li>DAY :天</li>
      *             </ul>
      * @return unit时间戳
      */
@@ -436,11 +431,11 @@ public class TimeUtils {
      *
      * @param time   时间字符串
      * @param unit   <ul>
-     *               <li>UNIT_MSEC:毫秒</li>
-     *               <li>UNIT_SEC :秒</li>
-     *               <li>UNIT_MIN :分</li>
-     *               <li>UNIT_HOUR:小时</li>
-     *               <li>UNIT_DAY :天</li>
+     *               <li>MSEC:毫秒</li>
+     *               <li>SEC :秒</li>
+     *               <li>MIN :分</li>
+     *               <li>HOUR:小时</li>
+     *               <li>DAY :天</li>
      *               </ul>
      * @param format 时间格式
      * @return unit时间戳
@@ -455,11 +450,11 @@ public class TimeUtils {
      *
      * @param time Date类型时间
      * @param unit <ul>
-     *             <li>UNIT_MSEC:毫秒</li>
-     *             <li>UNIT_SEC :秒</li>
-     *             <li>UNIT_MIN :分</li>
-     *             <li>UNIT_HOUR:小时</li>
-     *             <li>UNIT_DAY :天</li>
+     *             <li>MSEC:毫秒</li>
+     *             <li>SEC :秒</li>
+     *             <li>MIN :分</li>
+     *             <li>HOUR:小时</li>
+     *             <li>DAY :天</li>
      *             </ul>
      * @return unit时间戳
      */
