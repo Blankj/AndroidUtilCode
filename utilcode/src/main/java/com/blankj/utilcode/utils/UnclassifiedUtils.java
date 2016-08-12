@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.ComponentName;
 import android.content.Context;
+import android.util.Base64;
 
 import java.util.List;
 

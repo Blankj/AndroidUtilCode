@@ -1,11 +1,6 @@
 package com.blankj.utilcode.utils;
 
-import android.text.TextUtils;
-import android.util.Log;
-
-import org.junit.Before;
 import org.junit.Test;
-import org.robolectric.shadows.ShadowLog;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -19,13 +14,8 @@ import static com.google.common.truth.Truth.assertThat;
  */
 public class EncryptUtilsTest {
 
-    @Before
-    public void setUp() throws Exception {
-        ShadowLog.stream = System.out;
-    }
-
-    static String blankjMD5 = "AAC25CD336E01C8655F4EC7875445A60";
-    static String blankjSHA = "C606ACCB1FEB669E19D080ADDDDBB8E6CDA5F43C";
+    String blankjMD5 = "AAC25CD336E01C8655F4EC7875445A60";
+    String blankjSHA = "C606ACCB1FEB669E19D080ADDDDBB8E6CDA5F43C";
 
     @Test
     public void testGetMD5() throws Exception {
@@ -42,7 +32,7 @@ public class EncryptUtilsTest {
 
     @Test
     public void testGetMD5File() throws Exception {
-        System.out.println(TextUtils.htmlEncode(""));
+
     }
 
     @Test

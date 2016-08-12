@@ -1,5 +1,11 @@
 package com.blankj.utilcode.utils;
 
+import android.annotation.TargetApi;
+import android.os.Build;
+import android.text.Html;
+import android.text.TextUtils;
+import android.util.Base64;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -20,56 +26,131 @@ public class EncodeUtils {
 
     /**
      * URL编码
-     * <p>若想自己指定字符集,可以使用{@link #urlEncode(String string, String charset)}方法</p>
+     * <p>若想自己指定字符集,可以使用{@link #urlEncode(String input, String charset)}方法</p>
      *
-     * @param string 要编码的字符
+     * @param input 要编码的字符
      * @return 编码为UTF-8的字符串
      */
-    public static String urlEncode(String string) {
-        return urlEncode(string, "UTF-8");
+    public static String urlEncode(String input) {
+        return urlEncode(input, "UTF-8");
     }
 
     /**
      * URL编码
-     * <p>若系统不支持指定的编码字符集,则直接将string原样返回</p>
+     * <p>若系统不支持指定的编码字符集,则直接将input原样返回</p>
      *
-     * @param string  要编码的字符
+     * @param input   要编码的字符
      * @param charset 字符集
      * @return 编码为字符集的字符串
      */
-    public static String urlEncode(String string, String charset) {
+    public static String urlEncode(String input, String charset) {
         try {
-            return URLEncoder.encode(string, charset);
+            return URLEncoder.encode(input, charset);
         } catch (UnsupportedEncodingException e) {
-            return string;
+            return input;
         }
     }
 
     /**
      * URL解码
-     * <p>若想自己指定字符集,可以使用 {@link #urlDecode(String string, String charset)}方法</p>
+     * <p>若想自己指定字符集,可以使用 {@link #urlDecode(String input, String charset)}方法</p>
      *
-     * @param string 要解码的字符串
+     * @param input 要解码的字符串
      * @return URL解码后的字符串
      */
-    public static String urlDecode(String string) {
-        return urlDecode(string, "UTF-8");
+    public static String urlDecode(String input) {
+        return urlDecode(input, "UTF-8");
     }
 
     /**
      * URL解码
-     * <p>若系统不支持指定的解码字符集,则直接将string原样返回</p>
+     * <p>若系统不支持指定的解码字符集,则直接将input原样返回</p>
      *
-     * @param string  要解码的字符串
+     * @param input   要解码的字符串
      * @param charset 字符集
      * @return URL解码为指定字符集的字符串
      */
-    public static String urlDecode(String string, String charset) {
+    public static String urlDecode(String input, String charset) {
         try {
-            return URLDecoder.decode(string, charset);
+            return URLDecoder.decode(input, charset);
         } catch (UnsupportedEncodingException e) {
-            return string;
+            return input;
         }
     }
 
+    /**
+     * Base64编码.
+     */
+    public static String base64Encode(String input) {
+        return Base64.encodeToString(input.getBytes(), Base64.DEFAULT);
+    }
+
+    /**
+     * Base64解码.
+     */
+    public static String base64Decode(String input) {
+        return new String(Base64.decode(input, Base64.DEFAULT));
+    }
+
+    /**
+     * Base64URL安全编码
+     * <p>将Base64中的URL非法字符�?,/=转为其他字符, 见RFC3548</p>
+     */
+    public static String base64UrlSafeEncode(String input) {
+        return Base64.encodeToString(input.getBytes(), Base64.URL_SAFE);
+    }
+
+    /**
+     * Html编码
+     *
+     * @param input
+     * @return Html编码后的字符串
+     */
+    public static String htmlEncode(String input) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            return Html.escapeHtml(input);
+        } else {
+            StringBuilder out = new StringBuilder();
+            for (int i = 0, len = input.length(); i < len; i++) {
+                char c = input.charAt(i);
+                if (c == '<') {
+                    out.append("&lt;");
+                } else if (c == '>') {
+                    out.append("&gt;");
+                } else if (c == '&') {
+                    out.append("&amp;");
+                } else if (c >= 0xD800 && c <= 0xDFFF) {
+                    if (c < 0xDC00 && i + 1 < len) {
+                        char d = input.charAt(i + 1);
+                        if (d >= 0xDC00 && d <= 0xDFFF) {
+                            i++;
+                            int codepoint = 0x010000 | (int) c - 0xD800 << 10 | (int) d - 0xDC00;
+                            out.append("&#").append(codepoint).append(";");
+                        }
+                    }
+                } else if (c > 0x7E || c < ' ') {
+                    out.append("&#").append((int) c).append(";");
+                } else if (c == ' ') {
+                    while (i + 1 < len && input.charAt(i + 1) == ' ') {
+                        out.append("&nbsp;");
+                        i++;
+                    }
+                    out.append(' ');
+                } else {
+                    out.append(c);
+                }
+            }
+            return out.toString();
+        }
+    }
+
+    /**
+     * Html解码
+     *
+     * @param input 待解码的字符串
+     * @return Html解码后的字符串
+     */
+    public static String htmlDecode(String input) {
+        return Html.fromHtml(input).toString();
+    }
 }
