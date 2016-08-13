@@ -21,7 +21,7 @@ public class SPUtils {
      * SP的name值
      * <p>可通过修改PREFERENCE_NAME变量修改SP的name值</p>
      */
-    public static String PREFERENCE_NAME = "ANCROID_UTIL_CODE";
+    public static String PREFERENCE_NAME = "ANDROID_UTIL_CODE";
 
     /**
      * SP中写入String类型value
