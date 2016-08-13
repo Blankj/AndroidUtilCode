@@ -16,18 +16,26 @@
 >  - 获取设备MAC地址 *getMacAddress*
 >  - 获取设备厂商，如Xiaomi *getManufacturer*
 >  - 获取设备型号，如MI2SC *getModel*
+
 >  - 获取设备SD卡是否可用 *isSDCardEnable*
 >  - 获取设备SD卡路径 *getSDCardPath*
 
 > - [编码解码相关][encode.md]→[EncodeUtils.java][encode.java]
->  - 以UTF-8编码字符串 *encodeUTF8*
->  - 字符编码 *encode*
->  - 以UTF-8解码字符串 *decodeUTF8*
->  - 字符解码 *decode*
+>  - URL编码 *urlEncode*
+>  - URL解码 *urlDecode*
+>  - Base64编码 *base64Encode*
+>  - Base64解码 *base64Decode*
+>  - Base64URL安全编码 *base64UrlSafeEncode*
+>  - Html编码 *htmlEncode*
+>  - Html解码 *htmlDecode*
 
 > - [加解密相关][encrypt.md]→[EncryptUtils.java][encrypt.java]
->  - MD5加密 *getMD5* *encryptMD5* *getMD5File*
+>  - MD5加密 *getMD5* *encryptMD5*
+>  - 获取文件的MD5校验码 *getMD5File*
 >  - SHA加密 *getSHA* *encryptSHA*
+
+> - [文件相关][file.md]→[FileUtils.java][file.java]
+>  - 这几天完善ing
 
 > - [键盘相关][keyboard.md]→[KeyboardUtils.java][keyboard.java]
 >  - 避免输入法面板遮挡

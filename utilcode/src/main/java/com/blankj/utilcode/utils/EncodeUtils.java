@@ -1,9 +1,7 @@
 package com.blankj.utilcode.utils;
 
-import android.annotation.TargetApi;
 import android.os.Build;
 import android.text.Html;
-import android.text.TextUtils;
 import android.util.Base64;
 
 import java.io.UnsupportedEncodingException;
@@ -79,14 +77,30 @@ public class EncodeUtils {
     }
 
     /**
-     * Base64编码.
+     * Base64编码
+     *
+     * @param input 要编码的字符串
+     * @return Base64编码后的字符串
      */
     public static String base64Encode(String input) {
-        return Base64.encodeToString(input.getBytes(), Base64.DEFAULT);
+        return base64Encode(input.getBytes());
     }
 
     /**
-     * Base64解码.
+     * Base64编码
+     *
+     * @param input 要编码的字节数组
+     * @return Base64编码后的字符串
+     */
+    public static String base64Encode(byte[] input) {
+        return Base64.encodeToString(input, Base64.DEFAULT);
+    }
+
+    /**
+     * Base64解码
+     *
+     * @param input 要解码的字符串
+     * @return Base64解码后的字符串
      */
     public static String base64Decode(String input) {
         return new String(Base64.decode(input, Base64.DEFAULT));
@@ -95,6 +109,9 @@ public class EncodeUtils {
     /**
      * Base64URL安全编码
      * <p>将Base64中的URL非法字符�?,/=转为其他字符, 见RFC3548</p>
+     *
+     * @param input 要Base64URL安全编码的字符串
+     * @return Base64URL安全编码后的字符串
      */
     public static String base64UrlSafeEncode(String input) {
         return Base64.encodeToString(input.getBytes(), Base64.URL_SAFE);
@@ -103,13 +120,14 @@ public class EncodeUtils {
     /**
      * Html编码
      *
-     * @param input
+     * @param input 要Html编码的字符串
      * @return Html编码后的字符串
      */
     public static String htmlEncode(String input) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             return Html.escapeHtml(input);
         } else {
+            // 参照Html.escapeHtml()中代码
             StringBuilder out = new StringBuilder();
             for (int i = 0, len = input.length(); i < len; i++) {
                 char c = input.charAt(i);

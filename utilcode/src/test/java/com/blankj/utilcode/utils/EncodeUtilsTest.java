@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import static com.blankj.utilcode.utils.EncodeUtils.*;
 import static com.google.common.truth.Truth.assertThat;
 
 /**
@@ -33,33 +34,33 @@ public class EncodeUtilsTest {
 
     @Test
     public void testUrlEncode() throws Exception {
-        assertThat(EncodeUtils.urlEncode("哈哈哈")).isEqualTo(urlEncodeString);
-        assertThat(EncodeUtils.urlEncode("哈哈哈", "UTF-8")).isEqualTo(urlEncodeString);
+        assertThat(urlEncode("哈哈哈")).isEqualTo(urlEncodeString);
+        assertThat(urlEncode("哈哈哈", "UTF-8")).isEqualTo(urlEncodeString);
     }
 
     @Test
     public void testUrlDecode() throws Exception {
-        assertThat(EncodeUtils.urlDecode(urlEncodeString)).isEqualTo("哈哈哈");
-        assertThat(EncodeUtils.urlDecode(urlEncodeString, "UTF-8")).isEqualTo("哈哈哈");
+        assertThat(urlDecode(urlEncodeString)).isEqualTo("哈哈哈");
+        assertThat(urlDecode(urlEncodeString, "UTF-8")).isEqualTo("哈哈哈");
     }
 
     @Test
     public void testBase64Encode() throws Exception {
-        assertThat(EncodeUtils.base64Encode("blankj")).isEqualTo("Ymxhbmtq");
+        assertThat(base64Encode("blankj")).isEqualTo("Ymxhbmtq");
     }
 
     @Test
     public void testBase64Decode() throws Exception {
-        assertThat(EncodeUtils.base64Decode("Ymxhbmtq")).isEqualTo("blankj");
+        assertThat(base64Decode("Ymxhbmtq")).isEqualTo("blankj");
     }
 
     @Test
     public void testHtmlEncode() throws Exception {
-        assertThat(EncodeUtils.htmlEncode(html)).isEqualTo(encodeHtml);
+        assertThat(htmlEncode(html)).isEqualTo(encodeHtml);
     }
 
     @Test
     public void testHtmlDecode() throws Exception {
-        assertThat(EncodeUtils.htmlDecode(encodeHtml)).isEqualTo(html);
+        assertThat(htmlDecode(encodeHtml)).isEqualTo(html);
     }
 }

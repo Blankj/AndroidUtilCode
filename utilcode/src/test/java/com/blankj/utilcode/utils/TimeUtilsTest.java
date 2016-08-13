@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import static com.blankj.utilcode.utils.TimeUtils.*;
 import static com.google.common.truth.Truth.assertThat;
 
 
@@ -33,55 +34,55 @@ public class TimeUtilsTest {
 
     @Test
     public void testMilliseconds2String() throws Exception {
-        assertThat(TimeUtils.milliseconds2String(milliseconds)).isEqualTo(timeString);
-        assertThat(TimeUtils.milliseconds2String(milliseconds, myFormat)).isEqualTo(myTimeString);
+        assertThat(milliseconds2String(milliseconds)).isEqualTo(timeString);
+        assertThat(milliseconds2String(milliseconds, myFormat)).isEqualTo(myTimeString);
     }
 
     @Test
     public void testString2Milliseconds() throws Exception {
-        assertThat(TimeUtils.string2Milliseconds(timeString)).isEqualTo(milliseconds);
-        assertThat(TimeUtils.string2Milliseconds(myTimeString, myFormat)).isEqualTo(milliseconds);
+        assertThat(string2Milliseconds(timeString)).isEqualTo(milliseconds);
+        assertThat(string2Milliseconds(myTimeString, myFormat)).isEqualTo(milliseconds);
     }
 
     @Test
     public void testString2Date() throws Exception {
-        assertThat(TimeUtils.string2Date(timeString)).isEqualTo(timeDate);
-        assertThat(TimeUtils.string2Date(myTimeString, myFormat)).isEqualTo(timeDate);
+        assertThat(string2Date(timeString)).isEqualTo(timeDate);
+        assertThat(string2Date(myTimeString, myFormat)).isEqualTo(timeDate);
     }
 
     @Test
     public void testDate2String() throws Exception {
-        assertThat(TimeUtils.date2String(timeDate)).isEqualTo(timeString);
-        assertThat(TimeUtils.date2String(timeDate, myFormat)).isEqualTo(myTimeString);
+        assertThat(date2String(timeDate)).isEqualTo(timeString);
+        assertThat(date2String(timeDate, myFormat)).isEqualTo(myTimeString);
     }
 
     @Test
     public void testDate2Milliseconds() throws Exception {
-        assertThat(TimeUtils.date2Milliseconds(timeDate)).isEqualTo(milliseconds);
+        assertThat(date2Milliseconds(timeDate)).isEqualTo(milliseconds);
     }
 
     @Test
     public void testMilliseconds2Date() throws Exception {
-        assertThat(TimeUtils.milliseconds2Date(milliseconds)).isEqualTo(timeDate);
+        assertThat(milliseconds2Date(milliseconds)).isEqualTo(timeDate);
     }
 
     @Test
     public void testGetIntervalTime() throws Exception {
-        assertThat(TimeUtils.getIntervalTime(timeString0, timeString1, UnitUtils.SEC)).isEqualTo(4210);
-        assertThat(TimeUtils.getIntervalTime(myTimeString0, myTimeString1, UnitUtils.SEC, myFormat)).isEqualTo(4210);
-        assertThat(TimeUtils.getIntervalTime(new Date(4210000), new Date(0), UnitUtils.SEC)).isEqualTo(4210);
+        assertThat(getIntervalTime(timeString0, timeString1, UnitUtils.SEC)).isEqualTo(4210);
+        assertThat(getIntervalTime(myTimeString0, myTimeString1, UnitUtils.SEC, myFormat)).isEqualTo(4210);
+        assertThat(getIntervalTime(new Date(4210000), new Date(0), UnitUtils.SEC)).isEqualTo(4210);
     }
 
     @Test
     public void testGetCurTimeMills() throws Exception {
-        long interval = TimeUtils.getCurTimeMills() - System.currentTimeMillis();
+        long interval = getCurTimeMills() - System.currentTimeMillis();
         assertThat(interval).isLessThan(10L);
     }
 
     @Test
     public void testGetCurTimeString() throws Exception {
-        System.out.println(TimeUtils.getCurTimeString());
-        System.out.println(TimeUtils.getCurTimeString(myFormat));
+        System.out.println(getCurTimeString());
+        System.out.println(getCurTimeString(myFormat));
     }
 
     @Test
@@ -96,8 +97,8 @@ public class TimeUtilsTest {
 
     @Test
     public void testIsLeapYear() throws Exception {
-        assertThat(TimeUtils.isLeapYear(2012)).isEqualTo(true);
-        assertThat(TimeUtils.isLeapYear(2000)).isEqualTo(true);
-        assertThat(TimeUtils.isLeapYear(1900)).isEqualTo(false);
+        assertThat(isLeapYear(2012)).isEqualTo(true);
+        assertThat(isLeapYear(2000)).isEqualTo(true);
+        assertThat(isLeapYear(1900)).isEqualTo(false);
     }
 }

@@ -1,5 +1,7 @@
 package com.blankj.utilcode.utils;
 
+import android.os.Build;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -7,6 +9,16 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
+import static com.blankj.utilcode.utils.ConvertUtils.bytes2HexString;
+import static com.blankj.utilcode.utils.ConvertUtils.hexString2Bytes;
 
 /**
  * <pre>
@@ -20,6 +32,36 @@ public class EncryptUtils {
 
     private EncryptUtils() {
         throw new UnsupportedOperationException("u can't fuck me...");
+    }
+
+    /**
+     * MD2加密
+     *
+     * @param data 明文字符串
+     * @return 密文
+     */
+    public static String getMD2(String data) {
+        return getMD2(data.getBytes());
+    }
+
+    /**
+     * MD2加密
+     *
+     * @param data 明文字节数组
+     * @return 密文
+     */
+    public static String getMD2(byte[] data) {
+        return bytes2HexString(encryptMD2(data));
+    }
+
+    /**
+     * MD2加密
+     *
+     * @param data 明文字节数组
+     * @return 密文字节数组
+     */
+    public static byte[] encryptMD2(byte[] data) {
+        return encryptAlgorithm(data, "MD2");
     }
 
     /**
@@ -40,7 +82,7 @@ public class EncryptUtils {
      * @return 密文
      */
     public static String getMD5(String data, String salt) {
-        return bytes2Hex(encryptMD5((data + salt).getBytes()));
+        return bytes2HexString(encryptMD5((data + salt).getBytes()));
     }
 
     /**
@@ -50,7 +92,7 @@ public class EncryptUtils {
      * @return 密文
      */
     public static String getMD5(byte[] data) {
-        return bytes2Hex(encryptMD5(data));
+        return bytes2HexString(encryptMD5(data));
     }
 
     /**
@@ -64,7 +106,7 @@ public class EncryptUtils {
         byte[] dataSalt = new byte[data.length + salt.length];
         System.arraycopy(data, 0, dataSalt, 0, data.length);
         System.arraycopy(salt, 0, dataSalt, data.length, salt.length);
-        return bytes2Hex(encryptMD5(dataSalt));
+        return bytes2HexString(encryptMD5(dataSalt));
     }
 
     /**
@@ -74,8 +116,169 @@ public class EncryptUtils {
      * @return 密文字节数组
      */
     public static byte[] encryptMD5(byte[] data) {
+        return encryptAlgorithm(data, "MD5");
+    }
+
+    /**
+     * SHA1加密
+     *
+     * @param data 明文字符串
+     * @return 密文
+     */
+    public static String getSHA1(String data) {
+        return getSHA1(data.getBytes());
+    }
+
+    /**
+     * SHA1加密
+     *
+     * @param data 明文字节数组
+     * @return 密文
+     */
+    public static String getSHA1(byte[] data) {
+        return bytes2HexString(encryptSHA1(data));
+    }
+
+    /**
+     * SHA1加密
+     *
+     * @param data 明文字节数组
+     * @return 密文字节数组
+     */
+    public static byte[] encryptSHA1(byte[] data) {
+        return encryptAlgorithm(data, "SHA-1");
+    }
+
+    /**
+     * SHA224加密
+     *
+     * @param data 明文字符串
+     * @return 密文
+     */
+    public static String getSHA224(String data) {
+        return getSHA224(data.getBytes());
+    }
+
+    /**
+     * SHA224加密
+     *
+     * @param data 明文字节数组
+     * @return 密文
+     */
+    public static String getSHA224(byte[] data) {
+        return bytes2HexString(encryptSHA224(data));
+    }
+
+    /**
+     * SHA224加密
+     *
+     * @param data 明文字节数组
+     * @return 密文字节数组
+     */
+    public static byte[] encryptSHA224(byte[] data) {
+        return encryptAlgorithm(data, "SHA-224");
+    }
+
+    /**
+     * SHA256加密
+     *
+     * @param data 明文字符串
+     * @return 密文
+     */
+    public static String getSHA256(String data) {
+        return getSHA256(data.getBytes());
+    }
+
+    /**
+     * SHA256加密
+     *
+     * @param data 明文字节数组
+     * @return 密文
+     */
+    public static String getSHA256(byte[] data) {
+        return bytes2HexString(encryptSHA256(data));
+    }
+
+    /**
+     * SHA256加密
+     *
+     * @param data 明文字节数组
+     * @return 密文字节数组
+     */
+    public static byte[] encryptSHA256(byte[] data) {
+        return encryptAlgorithm(data, "SHA-256");
+    }
+
+    /**
+     * SHA384加密
+     *
+     * @param data 明文字符串
+     * @return 密文
+     */
+    public static String getSHA384(String data) {
+        return getSHA384(data.getBytes());
+    }
+
+    /**
+     * SHA384加密
+     *
+     * @param data 明文字节数组
+     * @return 密文
+     */
+    public static String getSHA384(byte[] data) {
+        return bytes2HexString(encryptSHA384(data));
+    }
+
+    /**
+     * SHA384加密
+     *
+     * @param data 明文字节数组
+     * @return 密文字节数组
+     */
+    public static byte[] encryptSHA384(byte[] data) {
+        return encryptAlgorithm(data, "SHA-384");
+    }
+
+    /**
+     * SHA512加密
+     *
+     * @param data 明文字符串
+     * @return 密文
+     */
+    public static String getSHA512(String data) {
+        return getSHA512(data.getBytes());
+    }
+
+    /**
+     * SHA512加密
+     *
+     * @param data 明文字节数组
+     * @return 密文
+     */
+    public static String getSHA512(byte[] data) {
+        return bytes2HexString(encryptSHA512(data));
+    }
+
+    /**
+     * SHA512加密
+     *
+     * @param data 明文字节数组
+     * @return 密文字节数组
+     */
+    public static byte[] encryptSHA512(byte[] data) {
+        return encryptAlgorithm(data, "SHA-512");
+    }
+
+    /**
+     * 对data进行algorithm算法加密
+     *
+     * @param data      明文字节数组
+     * @param algorithm 加密算法
+     * @return 密文字节数组
+     */
+    private static byte[] encryptAlgorithm(byte[] data, String algorithm) {
         try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
+            MessageDigest md = MessageDigest.getInstance(algorithm);
             md.update(data);
             return md.digest();
         } catch (NoSuchAlgorithmException e) {
@@ -108,7 +311,7 @@ public class EncryptUtils {
             MappedByteBuffer buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, file.length());
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(buffer);
-            return bytes2Hex(md.digest());
+            return bytes2HexString(md.digest());
         } catch (NoSuchAlgorithmException | IOException e) {
             e.printStackTrace();
         } finally {
@@ -122,56 +325,117 @@ public class EncryptUtils {
         return "";
     }
 
+
+
+    private static byte[] iv = {1,2,3,4,5,6,7,8};
+    public static String encryptDES(String encryptString, String encryptKey) throws Exception {
+        IvParameterSpec zeroIv = new IvParameterSpec(iv);
+        SecretKeySpec key = new SecretKeySpec(encryptKey.getBytes(), "DES");
+        Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
+        cipher.init(Cipher.ENCRYPT_MODE, key, zeroIv);
+        byte[] encryptedData = cipher.doFinal(encryptString.getBytes());
+        return new String(encryptedData);
+    }
+    public static String decryptDES(String decryptString, String decryptKey) throws Exception {
+        byte[] byteMi = decryptString.getBytes();
+        IvParameterSpec zeroIv = new IvParameterSpec(iv);
+        SecretKeySpec key = new SecretKeySpec(decryptKey.getBytes(), "DES");
+        Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
+        cipher.init(Cipher.DECRYPT_MODE, key, zeroIv);
+        byte decryptedData[] = cipher.doFinal(byteMi);
+        return new String(decryptedData);
+    }
+
+
+
+
     /**
-     * SHA加密
+     * 加密
      *
-     * @param data 明文字符串
-     * @return 密文
+     * @param key
+     *            密钥
+     * @param src
+     *            加密文本
+     * @return
+     * @throws Exception
      */
-    public static String getSHA(String data) {
-        return getSHA(data.getBytes());
+    public static String encrypt(String key, String src) throws Exception {
+        byte[] rawKey = getRawKey(key.getBytes());
+        byte[] result = encrypt(rawKey, src.getBytes());
+        return bytes2HexString(result);
     }
 
     /**
-     * SHA加密
+     * 解密
      *
-     * @param data 明文字节数组
-     * @return 密文
+     * @param key
+     *            密钥
+     * @param encrypted
+     *            待揭秘文本
+     * @return
+     * @throws Exception
      */
-    public static String getSHA(byte[] data) {
-        return bytes2Hex(encryptSHA(data));
+    public static String decrypt(String key, String encrypted) throws Exception {
+        byte[] rawKey = getRawKey(key.getBytes());
+        byte[] enc = hexString2Bytes(encrypted);
+        byte[] result = decrypt(rawKey, enc);
+        return new String(result);
     }
 
     /**
-     * SHA加密
+     * 获取256位的加密密钥
      *
-     * @param data 明文字节数组
-     * @return 密文字节数组
+     * @param seed
+     * @return
+     * @throws Exception
      */
-    public static byte[] encryptSHA(byte[] data) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA");
-            md.update(data);
-            return md.digest();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+    private static byte[] getRawKey(byte[] seed) throws Exception {
+        KeyGenerator kgen = KeyGenerator.getInstance("AES");
+        SecureRandom sr = null;
+        // 在4.2以上版本中，SecureRandom获取方式发生了改变
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+            sr = SecureRandom.getInstance("SHA1PRNG", "Crypto");
+        } else {
+            sr = SecureRandom.getInstance("SHA1PRNG");
         }
-        return new byte[0];
+        sr.setSeed(seed);
+        // 256 bits or 128 bits,192bits
+        kgen.init(256, sr);
+        SecretKey skey = kgen.generateKey();
+        byte[] raw = skey.getEncoded();
+        return raw;
     }
 
     /**
-     * 一个byte转为2个hex字符
+     * 真正的加密过程
      *
-     * @param src byte数组
-     * @return 16进制大写字符串
+     * @param key
+     * @param src
+     * @return
+     * @throws Exception
      */
-    public static String bytes2Hex(byte[] src) {
-        char[] res = new char[src.length << 1];
-        final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-        for (int i = 0, j = 0; i < src.length; i++) {
-            res[j++] = hexDigits[src[i] >>> 4 & 0x0f];
-            res[j++] = hexDigits[src[i] & 0x0f];
-        }
-        return new String(res);
+    private static byte[] encrypt(byte[] key, byte[] src) throws Exception {
+        SecretKeySpec skeySpec = new SecretKeySpec(key, "AES");
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
+        byte[] encrypted = cipher.doFinal(src);
+        return encrypted;
+    }
+
+    /**
+     * 真正的解密过程
+     *
+     * @param key
+     * @param encrypted
+     * @return
+     * @throws Exception
+     */
+    private static byte[] decrypt(byte[] key, byte[] encrypted)
+            throws Exception {
+        SecretKeySpec skeySpec = new SecretKeySpec(key, "AES");
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.DECRYPT_MODE, skeySpec);
+        byte[] decrypted = cipher.doFinal(encrypted);
+        return decrypted;
     }
 }

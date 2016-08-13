@@ -12,7 +12,7 @@ import java.io.ByteArrayOutputStream;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/8/12
- *     desc  :
+ *     desc  : 图片相关工具类
  * </pre>
  */
 public class ImageUtils {

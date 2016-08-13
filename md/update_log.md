@@ -1,5 +1,6 @@
 ### 更新Log
-#### 16/08/12 新增Base64和Html编码解码及他们的单元测试，新增TimeUtils单元测试
+#### 16/08/13 新增MD2，SHA224，SHA256，SHA384，SHA512加密及单元测试，正折腾DES加密
+#### 16/08/12 新增Base64和Html编码解码及他们的单元测试，新增TimeUtils单元测试，更新md
 #### 16/08/11 新增SDCardUtils，UnitUtils，单元测试慢慢完善中
 #### 16/08/09 目录排版更新，新增Download，Proguard和License
 #### 16/08/08 新增Shell工具类，已传jcenter()遇到好多坑，javaDoc惹的祸，注释一定要规范
