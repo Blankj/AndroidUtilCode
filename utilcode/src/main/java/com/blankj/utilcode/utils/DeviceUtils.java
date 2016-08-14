@@ -48,13 +48,20 @@ public class DeviceUtils {
      */
     public static String getMacAddress() {
         String macAddress = null;
+        LineNumberReader reader = null;
         try {
             Process pp = Runtime.getRuntime().exec("cat /sys/class/net/wlan0/address");
             InputStreamReader ir = new InputStreamReader(pp.getInputStream());
-            LineNumberReader reader = new LineNumberReader(ir);
+            reader = new LineNumberReader(ir);
             macAddress = reader.readLine().replace(":", "");
         } catch (IOException ex) {
             ex.printStackTrace();
+        } finally {
+            try {
+                if (reader != null) reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return macAddress == null ? "" : macAddress;
     }
