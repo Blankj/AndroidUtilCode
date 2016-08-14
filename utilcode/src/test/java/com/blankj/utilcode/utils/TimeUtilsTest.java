@@ -68,9 +68,9 @@ public class TimeUtilsTest {
 
     @Test
     public void testGetIntervalTime() throws Exception {
-        assertThat(getIntervalTime(timeString0, timeString1, UnitUtils.SEC)).isEqualTo(4210);
-        assertThat(getIntervalTime(myTimeString0, myTimeString1, UnitUtils.SEC, myFormat)).isEqualTo(4210);
-        assertThat(getIntervalTime(new Date(4210000), new Date(0), UnitUtils.SEC)).isEqualTo(4210);
+        assertThat(getIntervalTime(timeString0, timeString1, ConstUtils.SEC)).isEqualTo(4210);
+        assertThat(getIntervalTime(myTimeString0, myTimeString1, ConstUtils.SEC, myFormat)).isEqualTo(4210);
+        assertThat(getIntervalTime(new Date(4210000), new Date(0), ConstUtils.SEC)).isEqualTo(4210);
     }
 
     @Test

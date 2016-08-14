@@ -82,7 +82,7 @@ public class EncodeUtils {
      * @param input 要编码的字符串
      * @return Base64编码后的字符串
      */
-    public static String base64Encode(String input) {
+    public static byte[] base64Encode(String input) {
         return base64Encode(input.getBytes());
     }
 
@@ -92,8 +92,18 @@ public class EncodeUtils {
      * @param input 要编码的字节数组
      * @return Base64编码后的字符串
      */
-    public static String base64Encode(byte[] input) {
-        return Base64.encodeToString(input, Base64.DEFAULT);
+    public static byte[] base64Encode(byte[] input) {
+        return Base64.encode(input, Base64.NO_WRAP);
+    }
+
+    /**
+     * Base64编码
+     *
+     * @param input 要编码的字节数组
+     * @return Base64编码后的字符串
+     */
+    public static String base64Encode2String(byte[] input) {
+        return Base64.encodeToString(input, Base64.NO_WRAP);
     }
 
     /**
@@ -102,8 +112,18 @@ public class EncodeUtils {
      * @param input 要解码的字符串
      * @return Base64解码后的字符串
      */
-    public static String base64Decode(String input) {
-        return new String(Base64.decode(input, Base64.DEFAULT));
+    public static byte[] base64Decode(String input) {
+        return Base64.decode(input, Base64.NO_WRAP);
+    }
+
+    /**
+     * Base64解码
+     *
+     * @param input 要解码的字符串
+     * @return Base64解码后的字符串
+     */
+    public static byte[] base64Decode(byte[] input) {
+        return Base64.decode(input, Base64.NO_WRAP);
     }
 
     /**
@@ -114,7 +134,7 @@ public class EncodeUtils {
      * @return Base64URL安全编码后的字符串
      */
     public static String base64UrlSafeEncode(String input) {
-        return Base64.encodeToString(input.getBytes(), Base64.URL_SAFE);
+        return new String(Base64.encode(input.getBytes(), Base64.URL_SAFE));
     }
 
     /**

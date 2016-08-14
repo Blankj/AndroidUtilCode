@@ -116,31 +116,29 @@ public class EncryptUtilsTest {
     String data = "0008DB3345AB0223";
     String key = "6801020304050607";
     String des = "1F7962581118F360";
+    byte[] bytesData = hexString2Bytes(data);
+    byte[] bytesKey = hexString2Bytes(key);
+    byte[] byteDes = hexString2Bytes(des);
 
     @Test
-    public void testGetDES() throws Exception {
-        byte[] bytes = hexString2Bytes(data);
-        System.out.print((char) (0));
-        System.out.print((char) (8));
-        System.out.print((char) (219));
-        System.out.print((char) (51));
-        System.out.print((char) (69));
-        System.out.print((char) (171));
-        System.out.print((char) (2));
-        System.out.print((char) (35));
-        System.out.println();
-        for (int i = 0; i < bytes.length; i++) {
-            System.out.print((0xff & bytes[i]) + " ");
-        }
-        //00 08 DB 33 45 AB 02 23
-        //20 08 5F 33 45 5F 02 23
-        //00 08 219 51 69 171 2 35
-        System.out.println();
-        String d = new String(bytes);
-        String k = new String(hexString2Bytes(key));
-        System.out.println(d);
-        System.out.println(k);
-        assertThat(bytes2HexString(encryptDES(d, k).getBytes())).isEqualTo(new String(hexString2Bytes(des)));
+    public void testEncryptDESWithBase64() throws Exception {
+        assertThat(encryptDESWithBase64(bytesData, bytesKey, ConstUtils.DES_ECB_NO_PADDING))
+                .isEqualTo(EncodeUtils.base64Encode(byteDes));
     }
 
+    @Test
+    public void testDecryptDESWithBase64() throws Exception {
+        assertThat(decryptDESWithBase64(EncodeUtils.base64Encode(byteDes), bytesKey, ConstUtils.DES_ECB_NO_PADDING))
+                .isEqualTo(bytesData);
+    }
+
+    @Test
+    public void testEncryptDES() throws Exception {
+        assertThat(encryptDES(bytesData, bytesKey, ConstUtils.DES_ECB_NO_PADDING)).isEqualTo(byteDes);
+    }
+
+    @Test
+    public void testDecryptDES() throws Exception {
+        assertThat(decryptDES(byteDes, bytesKey, ConstUtils.DES_ECB_NO_PADDING)).isEqualTo(bytesData);
+    }
 }

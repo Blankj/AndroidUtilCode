@@ -45,13 +45,15 @@ public class EncodeUtilsTest {
     }
 
     @Test
-    public void testBase64Encode() throws Exception {
-        assertThat(base64Encode("blankj")).isEqualTo("Ymxhbmtq");
-    }
-
-    @Test
-    public void testBase64Decode() throws Exception {
-        assertThat(base64Decode("Ymxhbmtq")).isEqualTo("blankj");
+    public void testBase64EncodeAndDecode() throws Exception {
+        assertThat(base64Decode(base64Encode("blankj")))
+                .isEqualTo("blankj".getBytes());
+        assertThat(base64Decode(base64Encode2String("blankj".getBytes())))
+                .isEqualTo("blankj".getBytes());
+        assertThat(base64Encode2String("blankj".getBytes()))
+                .isEqualTo("Ymxhbmtq");
+        assertThat(base64Encode("blankj".getBytes()))
+                .isEqualTo("Ymxhbmtq".getBytes());
     }
 
     @Test

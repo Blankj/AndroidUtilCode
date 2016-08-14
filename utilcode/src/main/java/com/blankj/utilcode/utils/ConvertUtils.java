@@ -43,7 +43,7 @@ public class ConvertUtils {
             throw new IllegalArgumentException("长度不是偶数");
         }
         char[] hexBytes = hexString.toUpperCase().toCharArray();
-        byte[] res = new byte[len / 2];
+        byte[] res = new byte[len >>> 1];
         for (int i = 0; i < len; i += 2) {
             res[i >> 1] = (byte) (hex2Dec(hexBytes[i]) << 4 | hex2Dec(hexBytes[i + 1]));
         }
@@ -59,10 +59,34 @@ public class ConvertUtils {
     private static int hex2Dec(char hexChar) {
         if (hexChar >= '0' && hexChar <= '9') {
             return hexChar - '0';
-        } else if (hexChar >= 'A' && hexChar <= 'E') {
+        } else if (hexChar >= 'A' && hexChar <= 'F') {
             return hexChar - 'A' + 10;
         } else {
             throw new IllegalArgumentException();
         }
+    }
+
+    /**
+     * char转byte
+     */
+    public static byte[] getBytes(char[] chars) {
+        int len = chars.length;
+        byte[] bytes = new byte[len];
+        for (int i = 0; i < len; i++) {
+            bytes[i] = (byte) (chars[i]);
+        }
+        return bytes;
+    }
+
+    /**
+     * byte转char
+     */
+    public static char[] getChars(byte[] bytes) {
+        int len = bytes.length;
+        char[] chars = new char[len];
+        for (int i = 0; i < len; i++) {
+            chars[i] = (char) (bytes[i] & 0xff);
+        }
+        return chars;
     }
 }

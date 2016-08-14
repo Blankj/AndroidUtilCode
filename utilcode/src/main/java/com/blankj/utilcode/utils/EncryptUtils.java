@@ -1,7 +1,5 @@
 package com.blankj.utilcode.utils;
 
-import android.os.Build;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,13 +10,12 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import static com.blankj.utilcode.utils.ConvertUtils.bytes2HexString;
-import static com.blankj.utilcode.utils.ConvertUtils.hexString2Bytes;
 
 /**
  * <pre>
@@ -34,6 +31,7 @@ public class EncryptUtils {
         throw new UnsupportedOperationException("u can't fuck me...");
     }
 
+    /*********************** 哈希加密相关 ***********************/
     /**
      * MD2加密
      *
@@ -325,117 +323,150 @@ public class EncryptUtils {
         return "";
     }
 
-
-
-    private static byte[] iv = {1,2,3,4,5,6,7,8};
-    public static String encryptDES(String encryptString, String encryptKey) throws Exception {
-        IvParameterSpec zeroIv = new IvParameterSpec(iv);
-        SecretKeySpec key = new SecretKeySpec(encryptKey.getBytes(), "DES");
-        Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
-        cipher.init(Cipher.ENCRYPT_MODE, key, zeroIv);
-        byte[] encryptedData = cipher.doFinal(encryptString.getBytes());
-        return new String(encryptedData);
-    }
-    public static String decryptDES(String decryptString, String decryptKey) throws Exception {
-        byte[] byteMi = decryptString.getBytes();
-        IvParameterSpec zeroIv = new IvParameterSpec(iv);
-        SecretKeySpec key = new SecretKeySpec(decryptKey.getBytes(), "DES");
-        Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
-        cipher.init(Cipher.DECRYPT_MODE, key, zeroIv);
-        byte decryptedData[] = cipher.doFinal(byteMi);
-        return new String(decryptedData);
-    }
-
-
-
-
+    /*********************** DES加密相关 ***********************/
     /**
-     * 加密
+     * 生成密钥key对象
      *
-     * @param key
-     *            密钥
-     * @param src
-     *            加密文本
-     * @return
+     * @param key 秘钥字节数组
+     * @return 秘钥对象
      * @throws Exception
      */
-    public static String encrypt(String key, String src) throws Exception {
-        byte[] rawKey = getRawKey(key.getBytes());
-        byte[] result = encrypt(rawKey, src.getBytes());
-        return bytes2HexString(result);
+    private static SecretKey keyGenerator(byte[] key) throws Exception {
+        DESKeySpec desKey = new DESKeySpec(key);
+        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+        return keyFactory.generateSecret(desKey);
     }
 
     /**
-     * 解密
+     * DES加密后再经Base64编码
      *
-     * @param key
-     *            密钥
-     * @param encrypted
-     *            待揭秘文本
-     * @return
-     * @throws Exception
+     * @param data           明文
+     * @param key            秘钥
+     * @param transformation 算法名称/加密模式/填充方式，详见ConstUtils之DES加密相关常量
+     * @return 经Base64编码后的密文
      */
-    public static String decrypt(String key, String encrypted) throws Exception {
-        byte[] rawKey = getRawKey(key.getBytes());
-        byte[] enc = hexString2Bytes(encrypted);
-        byte[] result = decrypt(rawKey, enc);
-        return new String(result);
+    public static byte[] encryptDESWithBase64(byte[] data, byte[] key, String transformation) {
+        return EncodeUtils.base64Encode(encryptDES(data, key, transformation));
     }
 
     /**
-     * 获取256位的加密密钥
+     * DES加密
      *
-     * @param seed
-     * @return
-     * @throws Exception
+     * @param data           明文
+     * @param key            秘钥
+     * @param transformation 算法名称/加密模式/填充方式，详见ConstUtils之DES加密相关常量
+     * @return 密文
      */
-    private static byte[] getRawKey(byte[] seed) throws Exception {
-        KeyGenerator kgen = KeyGenerator.getInstance("AES");
-        SecureRandom sr = null;
-        // 在4.2以上版本中，SecureRandom获取方式发生了改变
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
-            sr = SecureRandom.getInstance("SHA1PRNG", "Crypto");
-        } else {
-            sr = SecureRandom.getInstance("SHA1PRNG");
+    public static byte[] encryptDES(byte[] data, byte[] key, String transformation) {
+        try {
+            SecretKey secretKey = keyGenerator(key);
+            Cipher cipher = Cipher.getInstance(transformation);
+            SecureRandom random = new SecureRandom();
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey, random);
+            return cipher.doFinal(data);
+        } catch (Throwable e) {
+            e.printStackTrace();
         }
-        sr.setSeed(seed);
-        // 256 bits or 128 bits,192bits
-        kgen.init(256, sr);
-        SecretKey skey = kgen.generateKey();
-        byte[] raw = skey.getEncoded();
-        return raw;
+        return null;
     }
 
     /**
-     * 真正的加密过程
+     * DES解密带有Base64编码后的DES密文
      *
-     * @param key
-     * @param src
-     * @return
-     * @throws Exception
+     * @param data           带有Base64编码后的DES密文
+     * @param key            秘钥
+     * @param transformation 算法名称/加密模式/填充方式，详见ConstUtils之DES加密相关常量
+     * @return 明文
      */
-    private static byte[] encrypt(byte[] key, byte[] src) throws Exception {
-        SecretKeySpec skeySpec = new SecretKeySpec(key, "AES");
+    public static byte[] decryptDESWithBase64(byte[] data, byte[] key, String transformation) {
+        return decryptDES(EncodeUtils.base64Decode(data), key, transformation);
+    }
+
+    /**
+     * DES解密
+     *
+     * @param data           密文
+     * @param key            秘钥
+     * @param transformation 算法名称/加密模式/填充方式，详见ConstUtils之DES加密相关常量
+     * @return 明文
+     */
+    public static byte[] decryptDES(byte[] data, byte[] key, String transformation) {
+        try {
+            SecretKey secretKey = keyGenerator(key);
+            Cipher cipher = Cipher.getInstance(transformation);
+            cipher.init(Cipher.DECRYPT_MODE, secretKey);
+            return cipher.doFinal(data);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /*********************** AES加密相关 ***********************/
+
+    public static byte[] decrypt(byte[] sSrc, String sKey) throws Exception {
+        try {
+            // 判断Key是否正确
+            if (sKey == null) {
+                System.out.print("Key为空null");
+                return null;
+            }
+            // 判断Key是否为16位
+            if (sKey.length() != 16) {
+                System.out.print("Key长度不是16位");
+                return null;
+            }
+            byte[] raw = sKey.getBytes("ASCII");
+            SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(Cipher.DECRYPT_MODE, skeySpec);
+            byte[] encrypted1 = sSrc;
+            try {
+                byte[] original = cipher.doFinal(encrypted1);
+                return original;
+            } catch (Exception e) {
+                System.out.println(e.toString());
+                return null;
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+            return null;
+        }
+    }
+
+    // 判断Key是否正确
+    public static byte[] encrypt(byte[] sSrc, String sKey) throws Exception {
+        if (sKey == null) {
+            System.out.print("Key为空null");
+            return null;
+        }
+        // 判断Key是否为16位
+        if (sKey.length() != 16) {
+            System.out.print("Key长度不是16位");
+            return null;
+        }
+        byte[] raw = sKey.getBytes("ASCII");
+        SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
-        byte[] encrypted = cipher.doFinal(src);
+        byte[] encrypted = cipher.doFinal(sSrc);
         return encrypted;
     }
 
-    /**
-     * 真正的解密过程
-     *
-     * @param key
-     * @param encrypted
-     * @return
-     * @throws Exception
-     */
-    private static byte[] decrypt(byte[] key, byte[] encrypted)
-            throws Exception {
-        SecretKeySpec skeySpec = new SecretKeySpec(key, "AES");
-        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.DECRYPT_MODE, skeySpec);
-        byte[] decrypted = cipher.doFinal(encrypted);
-        return decrypted;
+    public static byte[] parseHexStr2Byte(String strhex) {
+        if (strhex == null) {
+            return null;
+        }
+        int l = strhex.length();
+        if (l % 2 == 1) {
+            return null;
+        }
+        byte[] b = new byte[l / 2];
+        for (int i = 0; i != l / 2; i++) {
+            b[i] = (byte) Integer.parseInt(strhex.substring(i * 2, i * 2 + 2),
+                    16);
+        }
+        return b;
     }
+
 }
