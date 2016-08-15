@@ -2,7 +2,7 @@
 ***
 为方便查找，已进行大致归类，其目录如下所示：  
 > - [App相关][app.md]→[AppUtils.java][app.java]
->  - 安装指定路径下的Apk *installApp*
+>  - 安装App *installApp*
 >  - 卸载指定包名的App *uninstallApp*
 >  - 获取当前App信息 *getAppInfo*
 >  - 获取所有已安装App信息 *getAllAppsInfo*
@@ -12,30 +12,63 @@
 >  - 可用来做App信息分享 *shareAppInfo*
 >  - 判断当前App处于前台还是后台 *isApplicationBackground*
 
+> - [常量相关][const.md]→[ConstUtils.java][const.java]
+>  - 存储相关常量
+>  - 时间相关常量
+
+> - [转换相关][vonvert.md]→[ConvertUtils.java][vonvert.java]
+>  - 每1个byte转为2个hex字符 *bytes2HexString*
+>  - 每2个hex字符转为1个byte *hexString2Bytes*
+>  - charArr转byteArr *chars2Bytes*
+>  - byteArr转charArr *bytes2Chars*
+
 > - [设备相关][device.md]→[DeviceUtils.java][device.java]
 >  - 获取设备MAC地址 *getMacAddress*
 >  - 获取设备厂商，如Xiaomi *getManufacturer*
 >  - 获取设备型号，如MI2SC *getModel*
 
->  - 获取设备SD卡是否可用 *isSDCardEnable*
->  - 获取设备SD卡路径 *getSDCardPath*
-
 > - [编码解码相关][encode.md]→[EncodeUtils.java][encode.java]
 >  - URL编码 *urlEncode*
 >  - URL解码 *urlDecode*
->  - Base64编码 *base64Encode*
+>  - Base64编码 *base64Encode* *base64Encode2String*
 >  - Base64解码 *base64Decode*
 >  - Base64URL安全编码 *base64UrlSafeEncode*
 >  - Html编码 *htmlEncode*
 >  - Html解码 *htmlDecode*
 
-> - [加解密相关][encrypt.md]→[EncryptUtils.java][encrypt.java]
->  - MD5加密 *getMD5* *encryptMD5*
->  - 获取文件的MD5校验码 *getMD5File*
->  - SHA加密 *getSHA* *encryptSHA*
+> - [加密解密相关][encrypt.md]→[EncryptUtils.java][encrypt.java]
+>  - MD2加密 *encryptMD2ToString* *encryptMD2*
+>  - MD5加密 *encryptMD5ToString* *encryptMD5*
+>  - SHA1加密 *encryptSHA1ToString* *encryptSHA1*
+>  - SHA224加密 *encryptSHA224ToString* *encryptSHA224*
+>  - SHA256加密 *encryptSHA256ToString* *encryptSHA256*
+>  - SHA384加密 *encryptSHA384ToString* *encryptSHA384*
+>  - SHA512加密 *encryptSHA512ToString* *encryptSHA512*
+>  - 获取文件的MD5校验码 *encryptMD5File2String* *encryptMD5File*
+>  - DES加密后转为Base64编码 *encryptDES2Base64*
+>  - DES加密后转为16进制 *encryptDES2HexString*
+>  - DES加密 *encryptDES*
+>  - DES解密Base64编码密文 *decryptBase64DES*
+>  - DES解密16进制密文 *decryptHexStringDES*
+>  - DES解密 *decryptDES*
+>  - 3DES加密后转为Base64编码 *encrypt3DES2Base64*
+>  - 3DES加密后转为16进制 *encrypt3DES2HexString*
+>  - 3DES加密 *encrypt3DES*
+>  - 3DES解密Base64编码密文 *decryptBase64_3DES*
+>  - 3DES解密16进制密文 *decryptHexString3DES*
+>  - 3DES解密 *decrypt3DES*
+>  - AES加密后转为Base64编码 *encryptAES2Base64*
+>  - AES加密后转为16进制 *encryptAES2HexString*
+>  - AES加密 *encryptAES*
+>  - AES解密Base64编码密文 *decryptBase64AES*
+>  - AES解密16进制密文 *decryptHexStringAES*
+>  - AES解密 *decryptAES*
 
 > - [文件相关][file.md]→[FileUtils.java][file.java]
->  - 这几天完善ing
+>  - 完善ing
+
+> - [图片相关][image.md]→[ImageUtils.java][image.java]
+>  - 完善ing
 
 > - [键盘相关][keyboard.md]→[KeyboardUtils.java][keyboard.java]
 >  - 避免输入法面板遮挡
@@ -56,7 +89,7 @@
 
 > - [手机相关][phone.md]→[PhoneUtils.java][phone.java]
 >  - 判断设备是否是手机 *isPhone*
->  - 获取手机的IMIE *getDeviceIMEI*
+>  - 获取手机的IMIE *getPhoneIMEI*
 >  - 获取手机状态信息 *getPhoneStatus*
 >  - 跳至填充好phoneNumber的拨号界面 *dial*
 >  - 拨打phoneNumber *call*
@@ -70,7 +103,7 @@
 
 > - [屏幕相关][screen.md]→[ScreenUtils.java][screen.java]
 >  - 获取手机分辨率 *getDeviceWidth*、*getDeviceHeight*
->  - 设置透明状态栏(api >= 19方可使用) *setTransparentStatusBar*
+>  - 设置透明状态栏(api大于19方可使用) *setTransparentStatusBar*
 >  - 隐藏状态栏(注释萌萌哒) *hideStatusBar*
 >  - 获取状态栏高度 *getStatusBarHeight*
 >  - 判断状态栏是否存在 *isStatusBarExists*
@@ -80,6 +113,11 @@
 >  - 设置屏幕为横屏(注释萌萌哒) *setLandscape*
 >  - 获取屏幕截图 *snapShotWithStatusBar*、*snapShotWithoutStatusBar*
 >  - 判断是否锁屏 *isScreenLock*
+
+> - [SD卡相关][sdcard.md]→[SDCardUtils.java][sdcard.java]
+>  - 获取设备SD卡是否可用 *isSDCardEnable*
+>  - 获取设备SD卡路径 *getSDCardPath*
+>  - 完善ing
 
 > - [Shell相关][shell.md]→[ShellUtils.java][shell.java]
 >  - 判断设备是否root *isRoot*
@@ -160,12 +198,20 @@ limitations under the License.
 
 [app.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_app.md
 [app.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/AppUtils.java
+[const.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_const.md
+[const.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ConstUtils.java
+[convert.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_convert.md
+[convert.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ConvertUtils.java
 [device.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_device.md
 [device.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/DeviceUtils.java
 [encode.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_encode.md
 [encode.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/EncodeUtils.java
 [encrypt.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_encrypt.md
 [encrypt.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/EncryptUtils.java
+[file.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_file.md
+[file.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/FileUtils.java
+[image.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_image.md
+[image.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ImageUtils.java
 [keyboard.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_keyboard.md
 [keyboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/KeyboardUtils.java
 [network.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_network.md
@@ -176,6 +222,8 @@ limitations under the License.
 [regular.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/RegularUtils.java
 [screen.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_screen.md
 [screen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ScreenUtils.java
+[sdcard.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_sdcard.md
+[sdcard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SDCUtils.java
 [shell.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_shell.md
 [shell.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ShellUtils.java
 [size.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_size.md

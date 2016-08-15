@@ -46,14 +46,14 @@ public class PhoneUtils {
     }
 
     /**
-     * 获取当前设备的IMIE
+     * 获取手机的IMIE
      * <p>需与上面的isPhone一起使用</p>
      * <p>需添加权限 android.permission.READ_PHONE_STATE</p>
      *
      * @param context 上下文
      * @return IMIE码
      */
-    public static String getDeviceIMEI(Context context) {
+    public static String getPhoneIMEI(Context context) {
         String deviceId;
         if (isPhone(context)) {
             TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);

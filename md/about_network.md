@@ -46,7 +46,7 @@ public class NetworkUtils {
     }
 
     /**
-     * 获取活动网路信息
+     * 获取活动网络信息
      *
      * @param context 上下文
      * @return NetworkInfo

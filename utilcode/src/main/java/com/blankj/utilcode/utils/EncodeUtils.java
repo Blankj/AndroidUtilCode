@@ -133,8 +133,8 @@ public class EncodeUtils {
      * @param input 要Base64URL安全编码的字符串
      * @return Base64URL安全编码后的字符串
      */
-    public static String base64UrlSafeEncode(String input) {
-        return new String(Base64.encode(input.getBytes(), Base64.URL_SAFE));
+    public static byte[] base64UrlSafeEncode(String input) {
+        return Base64.encode(input.getBytes(), Base64.URL_SAFE);
     }
 
     /**

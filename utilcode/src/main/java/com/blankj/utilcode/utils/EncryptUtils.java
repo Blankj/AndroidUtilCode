@@ -10,19 +10,16 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import static com.blankj.utilcode.utils.ConvertUtils.bytes2HexString;
+import static com.blankj.utilcode.utils.ConvertUtils.*;
 
 /**
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/8/2
- *     desc  : 加密相关的工具类
+ *     desc  : 加密解密相关的工具类
  * </pre>
  */
 public class EncryptUtils {
@@ -36,19 +33,19 @@ public class EncryptUtils {
      * MD2加密
      *
      * @param data 明文字符串
-     * @return 密文
+     * @return 16进制密文
      */
-    public static String getMD2(String data) {
-        return getMD2(data.getBytes());
+    public static String encryptMD2ToString(String data) {
+        return encryptMD2ToString(data.getBytes());
     }
 
     /**
      * MD2加密
      *
      * @param data 明文字节数组
-     * @return 密文
+     * @return 16进制密文
      */
-    public static String getMD2(byte[] data) {
+    public static String encryptMD2ToString(byte[] data) {
         return bytes2HexString(encryptMD2(data));
     }
 
@@ -66,10 +63,10 @@ public class EncryptUtils {
      * MD5加密
      *
      * @param data 明文字符串
-     * @return 密文
+     * @return 16进制密文
      */
-    public static String getMD5(String data) {
-        return getMD5(data.getBytes());
+    public static String encryptMD5ToString(String data) {
+        return encryptMD5ToString(data.getBytes());
     }
 
     /**
@@ -77,9 +74,9 @@ public class EncryptUtils {
      *
      * @param data 明文字符串
      * @param salt 盐
-     * @return 密文
+     * @return 16进制加盐密文
      */
-    public static String getMD5(String data, String salt) {
+    public static String encryptMD5ToString(String data, String salt) {
         return bytes2HexString(encryptMD5((data + salt).getBytes()));
     }
 
@@ -87,9 +84,9 @@ public class EncryptUtils {
      * MD5加密
      *
      * @param data 明文字节数组
-     * @return 密文
+     * @return 16进制密文
      */
-    public static String getMD5(byte[] data) {
+    public static String encryptMD5ToString(byte[] data) {
         return bytes2HexString(encryptMD5(data));
     }
 
@@ -98,9 +95,9 @@ public class EncryptUtils {
      *
      * @param data 明文字节数组
      * @param salt 盐字节数组
-     * @return 密文
+     * @return 16进制加盐密文
      */
-    public static String getMD5(byte[] data, byte[] salt) {
+    public static String encryptMD5ToString(byte[] data, byte[] salt) {
         byte[] dataSalt = new byte[data.length + salt.length];
         System.arraycopy(data, 0, dataSalt, 0, data.length);
         System.arraycopy(salt, 0, dataSalt, data.length, salt.length);
@@ -121,19 +118,19 @@ public class EncryptUtils {
      * SHA1加密
      *
      * @param data 明文字符串
-     * @return 密文
+     * @return 16进制密文
      */
-    public static String getSHA1(String data) {
-        return getSHA1(data.getBytes());
+    public static String encryptSHA1ToString(String data) {
+        return encryptSHA1ToString(data.getBytes());
     }
 
     /**
      * SHA1加密
      *
      * @param data 明文字节数组
-     * @return 密文
+     * @return 16进制密文
      */
-    public static String getSHA1(byte[] data) {
+    public static String encryptSHA1ToString(byte[] data) {
         return bytes2HexString(encryptSHA1(data));
     }
 
@@ -151,19 +148,19 @@ public class EncryptUtils {
      * SHA224加密
      *
      * @param data 明文字符串
-     * @return 密文
+     * @return 16进制密文
      */
-    public static String getSHA224(String data) {
-        return getSHA224(data.getBytes());
+    public static String encryptSHA224ToString(String data) {
+        return encryptSHA224ToString(data.getBytes());
     }
 
     /**
      * SHA224加密
      *
      * @param data 明文字节数组
-     * @return 密文
+     * @return 16进制密文
      */
-    public static String getSHA224(byte[] data) {
+    public static String encryptSHA224ToString(byte[] data) {
         return bytes2HexString(encryptSHA224(data));
     }
 
@@ -181,19 +178,19 @@ public class EncryptUtils {
      * SHA256加密
      *
      * @param data 明文字符串
-     * @return 密文
+     * @return 16进制密文
      */
-    public static String getSHA256(String data) {
-        return getSHA256(data.getBytes());
+    public static String encryptSHA256ToString(String data) {
+        return encryptSHA256ToString(data.getBytes());
     }
 
     /**
      * SHA256加密
      *
      * @param data 明文字节数组
-     * @return 密文
+     * @return 16进制密文
      */
-    public static String getSHA256(byte[] data) {
+    public static String encryptSHA256ToString(byte[] data) {
         return bytes2HexString(encryptSHA256(data));
     }
 
@@ -211,19 +208,19 @@ public class EncryptUtils {
      * SHA384加密
      *
      * @param data 明文字符串
-     * @return 密文
+     * @return 16进制密文
      */
-    public static String getSHA384(String data) {
-        return getSHA384(data.getBytes());
+    public static String encryptSHA384ToString(String data) {
+        return encryptSHA384ToString(data.getBytes());
     }
 
     /**
      * SHA384加密
      *
      * @param data 明文字节数组
-     * @return 密文
+     * @return 16进制密文
      */
-    public static String getSHA384(byte[] data) {
+    public static String encryptSHA384ToString(byte[] data) {
         return bytes2HexString(encryptSHA384(data));
     }
 
@@ -241,19 +238,19 @@ public class EncryptUtils {
      * SHA512加密
      *
      * @param data 明文字符串
-     * @return 密文
+     * @return 16进制密文
      */
-    public static String getSHA512(String data) {
-        return getSHA512(data.getBytes());
+    public static String encryptSHA512ToString(String data) {
+        return encryptSHA512ToString(data.getBytes());
     }
 
     /**
      * SHA512加密
      *
      * @param data 明文字节数组
-     * @return 密文
+     * @return 16进制密文
      */
-    public static String getSHA512(byte[] data) {
+    public static String encryptSHA512ToString(byte[] data) {
         return bytes2HexString(encryptSHA512(data));
     }
 
@@ -289,10 +286,30 @@ public class EncryptUtils {
      * 获取文件的MD5校验码
      *
      * @param filePath 文件路径
+     * @return 文件的16进制密文
+     */
+    public static String encryptMD5File2String(String filePath) {
+        return encryptMD5File2String(new File(filePath));
+    }
+
+    /**
+     * 获取文件的MD5校验码
+     *
+     * @param filePath 文件路径
      * @return 文件的MD5校验码
      */
-    public static String getMD5File(String filePath) {
-        return getMD5File(new File(filePath));
+    public static byte[] encryptMD5File(String filePath) {
+        return encryptMD5File(new File(filePath));
+    }
+
+    /**
+     * 获取文件的MD5校验码
+     *
+     * @param file 文件
+     * @return 文件的16进制密文
+     */
+    public static String encryptMD5File2String(File file) {
+        return encryptMD5File(file) != null ? bytes2HexString(encryptMD5File(file)) : "";
     }
 
     /**
@@ -301,7 +318,7 @@ public class EncryptUtils {
      * @param file 文件
      * @return 文件的MD5校验码
      */
-    public static String getMD5File(File file) {
+    public static byte[] encryptMD5File(File file) {
         FileInputStream in = null;
         try {
             in = new FileInputStream(file);
@@ -309,7 +326,7 @@ public class EncryptUtils {
             MappedByteBuffer buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, file.length());
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(buffer);
-            return bytes2HexString(md.digest());
+            return md.digest();
         } catch (NoSuchAlgorithmException | IOException e) {
             e.printStackTrace();
         } finally {
@@ -320,153 +337,257 @@ public class EncryptUtils {
                 }
             }
         }
-        return "";
+        return null;
     }
 
-    /*********************** DES加密相关 ***********************/
+    /************************ DES加密相关 ***********************/
     /**
-     * 生成密钥key对象
-     *
-     * @param key 秘钥字节数组
-     * @return 秘钥对象
-     * @throws Exception
+     * DES转变
+     * <p>法算法名称/加密模式/填充方式</p>
+     * <p>加密模式有：电子密码本模式ECB、加密块链模式CBC、加密反馈模式CFB、输出反馈模式OFB</p>
+     * <p>填充方式有：NoPadding、ZerosPadding、PKCS5Padding</p>
      */
-    private static SecretKey keyGenerator(byte[] key) throws Exception {
-        DESKeySpec desKey = new DESKeySpec(key);
-        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
-        return keyFactory.generateSecret(desKey);
-    }
+    public static String DES_Transformation = "DES/ECB/NoPadding";
+    public static String DES_Algorithm = "DES";
 
     /**
-     * DES加密后再经Base64编码
-     *
-     * @param data           明文
+     * @param data           数据
      * @param key            秘钥
-     * @param transformation 算法名称/加密模式/填充方式，详见ConstUtils之DES加密相关常量
-     * @return 经Base64编码后的密文
+     * @param algorithm      采用何种DES算法
+     * @param transformation 转变
+     * @param isEncrypt      是否加密
+     * @return 密文或者明文，适用于DES，3DES，AES
      */
-    public static byte[] encryptDESWithBase64(byte[] data, byte[] key, String transformation) {
-        return EncodeUtils.base64Encode(encryptDES(data, key, transformation));
+    public static byte[] DESTemplet(byte[] data, byte[] key, String algorithm, String transformation, boolean isEncrypt) {
+        try {
+            SecretKeySpec keySpec = new SecretKeySpec(key, algorithm);
+            Cipher cipher = Cipher.getInstance(transformation);
+            SecureRandom random = new SecureRandom();
+            cipher.init(isEncrypt ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE, keySpec, random);
+            return cipher.doFinal(data);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * DES加密后转为Base64编码
+     *
+     * @param data 明文
+     * @param key  8字节秘钥
+     * @return Base64密文
+     */
+    public static byte[] encryptDES2Base64(byte[] data, byte[] key) {
+        return EncodeUtils.base64Encode(encryptDES(data, key));
+    }
+
+    /**
+     * DES加密后转为16进制
+     *
+     * @param data 明文
+     * @param key  8字节秘钥
+     * @return 16进制密文
+     */
+    public static String encryptDES2HexString(byte[] data, byte[] key) {
+        return bytes2HexString(encryptDES(data, key));
     }
 
     /**
      * DES加密
      *
-     * @param data           明文
-     * @param key            秘钥
-     * @param transformation 算法名称/加密模式/填充方式，详见ConstUtils之DES加密相关常量
+     * @param data 明文
+     * @param key  8字节秘钥
      * @return 密文
      */
-    public static byte[] encryptDES(byte[] data, byte[] key, String transformation) {
-        try {
-            SecretKey secretKey = keyGenerator(key);
-            Cipher cipher = Cipher.getInstance(transformation);
-            SecureRandom random = new SecureRandom();
-            cipher.init(Cipher.ENCRYPT_MODE, secretKey, random);
-            return cipher.doFinal(data);
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-        return null;
+    public static byte[] encryptDES(byte[] data, byte[] key) {
+        return DESTemplet(data, key, DES_Algorithm, DES_Transformation, true);
     }
 
     /**
-     * DES解密带有Base64编码后的DES密文
+     * DES解密Base64编码密文
      *
-     * @param data           带有Base64编码后的DES密文
-     * @param key            秘钥
-     * @param transformation 算法名称/加密模式/填充方式，详见ConstUtils之DES加密相关常量
+     * @param data Base64编码密文
+     * @param key  8字节秘钥
      * @return 明文
      */
-    public static byte[] decryptDESWithBase64(byte[] data, byte[] key, String transformation) {
-        return decryptDES(EncodeUtils.base64Decode(data), key, transformation);
+    public static byte[] decryptBase64DES(byte[] data, byte[] key) {
+        return decryptDES(EncodeUtils.base64Decode(data), key);
+    }
+
+    /**
+     * DES解密16进制密文
+     *
+     * @param data 16进制密文
+     * @param key  8字节秘钥
+     * @return 明文
+     */
+    public static byte[] decryptHexStringDES(String data, byte[] key) {
+        return decryptDES(hexString2Bytes(data), key);
     }
 
     /**
      * DES解密
      *
-     * @param data           密文
-     * @param key            秘钥
-     * @param transformation 算法名称/加密模式/填充方式，详见ConstUtils之DES加密相关常量
+     * @param data 密文
+     * @param key  8字节秘钥
      * @return 明文
      */
-    public static byte[] decryptDES(byte[] data, byte[] key, String transformation) {
-        try {
-            SecretKey secretKey = keyGenerator(key);
-            Cipher cipher = Cipher.getInstance(transformation);
-            cipher.init(Cipher.DECRYPT_MODE, secretKey);
-            return cipher.doFinal(data);
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-        return null;
+    public static byte[] decryptDES(byte[] data, byte[] key) {
+        return DESTemplet(data, key, DES_Algorithm, DES_Transformation, false);
     }
 
-    /*********************** AES加密相关 ***********************/
+    /************************ 3DES加密相关 ***********************/
+    /**
+     * 3DES转变
+     * <p>法算法名称/加密模式/填充方式</p>
+     * <p>加密模式有：电子密码本模式ECB、加密块链模式CBC、加密反馈模式CFB、输出反馈模式OFB</p>
+     * <p>填充方式有：NoPadding、ZerosPadding、PKCS5Padding</p>
+     */
+    public static String TripleDES_Transformation = "DESede/ECB/NoPadding";
+    public static String TripleDES_Algorithm = "DESede";
 
-    public static byte[] decrypt(byte[] sSrc, String sKey) throws Exception {
-        try {
-            // 判断Key是否正确
-            if (sKey == null) {
-                System.out.print("Key为空null");
-                return null;
-            }
-            // 判断Key是否为16位
-            if (sKey.length() != 16) {
-                System.out.print("Key长度不是16位");
-                return null;
-            }
-            byte[] raw = sKey.getBytes("ASCII");
-            SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
-            Cipher cipher = Cipher.getInstance("AES");
-            cipher.init(Cipher.DECRYPT_MODE, skeySpec);
-            byte[] encrypted1 = sSrc;
-            try {
-                byte[] original = cipher.doFinal(encrypted1);
-                return original;
-            } catch (Exception e) {
-                System.out.println(e.toString());
-                return null;
-            }
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-            return null;
-        }
+
+    /**
+     * 3DES加密后转为Base64编码
+     *
+     * @param data 明文
+     * @param key  24字节秘钥
+     * @return Base64密文
+     */
+    public static byte[] encrypt3DES2Base64(byte[] data, byte[] key) {
+        return EncodeUtils.base64Encode(encrypt3DES(data, key));
     }
 
-    // 判断Key是否正确
-    public static byte[] encrypt(byte[] sSrc, String sKey) throws Exception {
-        if (sKey == null) {
-            System.out.print("Key为空null");
-            return null;
-        }
-        // 判断Key是否为16位
-        if (sKey.length() != 16) {
-            System.out.print("Key长度不是16位");
-            return null;
-        }
-        byte[] raw = sKey.getBytes("ASCII");
-        SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
-        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
-        byte[] encrypted = cipher.doFinal(sSrc);
-        return encrypted;
+    /**
+     * 3DES加密后转为16进制
+     *
+     * @param data 明文
+     * @param key  24字节秘钥
+     * @return 16进制密文
+     */
+    public static String encrypt3DES2HexString(byte[] data, byte[] key) {
+        return bytes2HexString(encrypt3DES(data, key));
     }
 
-    public static byte[] parseHexStr2Byte(String strhex) {
-        if (strhex == null) {
-            return null;
-        }
-        int l = strhex.length();
-        if (l % 2 == 1) {
-            return null;
-        }
-        byte[] b = new byte[l / 2];
-        for (int i = 0; i != l / 2; i++) {
-            b[i] = (byte) Integer.parseInt(strhex.substring(i * 2, i * 2 + 2),
-                    16);
-        }
-        return b;
+    /**
+     * 3DES加密
+     *
+     * @param data 明文
+     * @param key  24字节密钥
+     * @return 密文
+     */
+    public static byte[] encrypt3DES(byte[] data, byte[] key) {
+        return DESTemplet(data, key, TripleDES_Algorithm, TripleDES_Transformation, true);
     }
 
+    /**
+     * 3DES解密Base64编码密文
+     *
+     * @param data Base64编码密文
+     * @param key  24字节秘钥
+     * @return 明文
+     */
+    public static byte[] decryptBase64_3DES(byte[] data, byte[] key) {
+        return decrypt3DES(EncodeUtils.base64Decode(data), key);
+    }
+
+    /**
+     * 3DES解密16进制密文
+     *
+     * @param data 16进制密文
+     * @param key  24字节秘钥
+     * @return 明文
+     */
+    public static byte[] decryptHexString3DES(String data, byte[] key) {
+        return decrypt3DES(hexString2Bytes(data), key);
+    }
+
+    /**
+     * 3DES解密
+     *
+     * @param data 密文
+     * @param key  24字节密钥
+     * @return 明文
+     */
+    public static byte[] decrypt3DES(byte[] data, byte[] key) {
+        return DESTemplet(data, key, TripleDES_Algorithm, TripleDES_Transformation, false);
+    }
+
+    /************************ AES加密相关 ***********************/
+    /**
+     * AES转变
+     * <p>法算法名称/加密模式/填充方式</p>
+     * <p>加密模式有：电子密码本模式ECB、加密块链模式CBC、加密反馈模式CFB、输出反馈模式OFB</p>
+     * <p>填充方式有：NoPadding、ZerosPadding、PKCS5Padding</p>
+     */
+    public static String AES_Transformation = "AES/ECB/NoPadding";
+    public static String AES_Algorithm = "AES";
+
+
+    /**
+     * AES加密后转为Base64编码
+     *
+     * @param data 明文
+     * @param key  16、24、32字节秘钥
+     * @return Base64密文
+     */
+    public static byte[] encryptAES2Base64(byte[] data, byte[] key) {
+        return EncodeUtils.base64Encode(encryptAES(data, key));
+    }
+
+    /**
+     * AES加密后转为16进制
+     *
+     * @param data 明文
+     * @param key  16、24、32字节秘钥
+     * @return 16进制密文
+     */
+    public static String encryptAES2HexString(byte[] data, byte[] key) {
+        return bytes2HexString(encryptAES(data, key));
+    }
+
+    /**
+     * AES加密
+     *
+     * @param data 明文
+     * @param key  16、24、32字节秘钥
+     * @return 密文
+     */
+    public static byte[] encryptAES(byte[] data, byte[] key) {
+        return DESTemplet(data, key, AES_Algorithm, AES_Transformation, true);
+    }
+
+    /**
+     * AES解密Base64编码密文
+     *
+     * @param data Base64编码密文
+     * @param key  16、24、32字节秘钥
+     * @return 明文
+     */
+    public static byte[] decryptBase64AES(byte[] data, byte[] key) {
+        return decryptAES(EncodeUtils.base64Decode(data), key);
+    }
+
+    /**
+     * AES解密16进制密文
+     *
+     * @param data 16进制密文
+     * @param key  16、24、32字节秘钥
+     * @return 明文
+     */
+    public static byte[] decryptHexStringAES(String data, byte[] key) {
+        return decryptAES(hexString2Bytes(data), key);
+    }
+
+    /**
+     * AES解密
+     *
+     * @param data 密文
+     * @param key  16、24、32字节秘钥
+     * @return 明文
+     */
+    public static byte[] decryptAES(byte[] data, byte[] key) {
+        return DESTemplet(data, key, AES_Algorithm, AES_Transformation, false);
+    }
 }

@@ -32,7 +32,7 @@ public class ConvertUtils {
     /**
      * 每2个hex字符转为1个byte
      * <p>例如：</p>
-     * bytes2HexString("00A8") returns { 0, (byte) 0xA8 }
+     * hexString2Bytes("00A8") returns { 0, (byte) 0xA8 }
      *
      * @param hexString 十六进制字符串
      * @return byte数组
@@ -67,9 +67,12 @@ public class ConvertUtils {
     }
 
     /**
-     * char转byte
+     * charArr转byteArr
+     *
+     * @param chars 待转的char数组
+     * @return byte数组
      */
-    public static byte[] getBytes(char[] chars) {
+    public static byte[] chars2Bytes(char[] chars) {
         int len = chars.length;
         byte[] bytes = new byte[len];
         for (int i = 0; i < len; i++) {
@@ -79,9 +82,12 @@ public class ConvertUtils {
     }
 
     /**
-     * byte转char
+     * byteArr转charArr
+     *
+     * @param bytes 待转的byte数组
+     * @return char数组
      */
-    public static char[] getChars(byte[] bytes) {
+    public static char[] bytes2Chars(byte[] bytes) {
         int len = bytes.length;
         char[] chars = new char[len];
         for (int i = 0; i < len; i++) {
