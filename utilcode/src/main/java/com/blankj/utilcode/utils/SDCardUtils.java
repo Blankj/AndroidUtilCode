@@ -6,6 +6,7 @@ import android.os.StatFs;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * <pre>
@@ -138,17 +139,23 @@ public class SDCardUtils {
      */
     public static byte[] readFileFromSDCard(String filePath, String fileName) {
         byte[] buffer = null;
+        FileInputStream fin = null;
         try {
             if (isSDCardEnable()) {
                 String filePaht = filePath + "/" + fileName;
-                FileInputStream fin = new FileInputStream(filePaht);
+                fin = new FileInputStream(filePaht);
                 int length = fin.available();
                 buffer = new byte[length];
                 fin.read(buffer);
-                fin.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (fin != null) fin.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return buffer;
     }
