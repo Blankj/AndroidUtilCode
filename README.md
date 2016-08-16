@@ -10,7 +10,7 @@
 >  - 打开指定包名的App *openAppByPackageName*
 >  - 打开指定包名的App应用信息界面 *openAppInfo*
 >  - 可用来做App信息分享 *shareAppInfo*
->  - 判断当前App处于前台还是后台 *isApplicationBackground*
+>  - 判断当前App处于前台还是后台 *isAppBackground*
 
 > - [常量相关][const.md]→[ConstUtils.java][const.java]
 >  - 存储相关常量
@@ -99,7 +99,18 @@
 >  - 获取手机短信并保存到xml中 *getAllSMS*
 
 > - [正则相关][regular.md]→[RegularUtils.java][regular.java]
->  - 正则工具类
+>  - 验证手机号（简单） *isMobileSimple*
+>  - 验证手机号（精确） *isMobileExact*
+>  - 验证电话号码 *isTel*
+>  - 验证身份证号码15位 *isIDCard15*
+>  - 验证身份证号码18位 *isIDCard18*
+>  - 验证邮箱 *isEmail*
+>  - 验证URL *isURL*
+>  - 验证汉字 *isChz*
+>  - 验证用户名 *isUsername*
+>  - 验证yyyy-MM-dd格式的日期校验，已考虑平闰年 *isDate*
+>  - 验证IP地址 *isIP*
+>  - string是否匹配regex *isMatch*
 
 > - [屏幕相关][screen.md]→[ScreenUtils.java][screen.java]
 >  - 获取手机分辨率 *getDeviceWidth*、*getDeviceHeight*
@@ -141,6 +152,16 @@
 >  - SP中读取float *getFloat*
 >  - SP中写入boolean类型value *putBoolean*
 >  - SP中读取boolean *getBoolean*
+
+> - [字符串相关][string.md]→[StringUtils.java][string.java]
+>  - 判断字符串是否为null或长度为0 *isEmpty*
+>  - 判断字符串是否为null或全为空格 *isSpace*
+>  - null转为长度为0的字符串 *null2Length0*
+>  - 返回字符串长度 *length*
+>  - 首字母大写 *upperFirstLetter*
+>  - 首字母小写 *lowerFirstLetter*
+>  - 转化为半角字符 *toDBC*
+>  - 转化为全角字符 *toSBC*
 
 > - [时间相关][time.md]→[TimeUtils.java][time.java]
 >  - 将时间戳转为时间字符串 *milliseconds2String*
@@ -230,6 +251,8 @@ limitations under the License.
 [size.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SizeUtils.java
 [sp.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_sp.md
 [sp.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SPUtils.java
+[string.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_string.md
+[string.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/StringUtils.java
 [time.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_time.md
 [time.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/TimeUtils.java
 [unclassified.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/unclassified.md
