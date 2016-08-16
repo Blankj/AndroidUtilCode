@@ -3,6 +3,9 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+
+import static com.blankj.utilcode.utils.ConstUtils.*;
 
 /**
  * <pre>
@@ -27,7 +30,7 @@ public class TimeUtils {
      * </p>
      * 定义了以下模式字母（所有其他字符 'A' 到 'Z' 和 'a' 到 'z' 都被保留）： <br>
      * <table border="1" cellspacing="1" cellpadding="1" summary="Chart shows pattern letters, date/time component, presentation, and examples.">
-     * <tr bgcolor="#ccccff">
+     * <tr>
      * <th align="left">字母</th>
      * <th align="left">日期或时间元素</th>
      * <th align="left">表示</th>
@@ -39,7 +42,7 @@ public class TimeUtils {
      * <td>Text</td>
      * <td><code>AD</code></td>
      * </tr>
-     * <tr bgcolor="#eeeeff">
+     * <tr>
      * <td><code>y</code> </td>
      * <td>年 </td>
      * <td>Year </td>
@@ -51,7 +54,7 @@ public class TimeUtils {
      * <td>Month </td>
      * <td><code>July</code>; <code>Jul</code>; <code>07</code> </td>
      * </tr>
-     * <tr bgcolor="#eeeeff">
+     * <tr>
      * <td><code>w</code> </td>
      * <td>年中的周数 </td>
      * <td>Number </td>
@@ -63,7 +66,7 @@ public class TimeUtils {
      * <td>Number </td>
      * <td><code>2</code> </td>
      * </tr>
-     * <tr bgcolor="#eeeeff">
+     * <tr>
      * <td><code>D</code> </td>
      * <td>年中的天数 </td>
      * <td>Number </td>
@@ -75,7 +78,7 @@ public class TimeUtils {
      * <td>Number </td>
      * <td><code>10</code> </td>
      * </tr>
-     * <tr bgcolor="#eeeeff">
+     * <tr>
      * <td><code>F</code> </td>
      * <td>月份中的星期 </td>
      * <td>Number </td>
@@ -87,7 +90,7 @@ public class TimeUtils {
      * <td>Text </td>
      * <td><code>Tuesday</code>; <code>Tue</code> </td>
      * </tr>
-     * <tr bgcolor="#eeeeff">
+     * <tr>
      * <td><code>a</code> </td>
      * <td>Am/pm 标记 </td>
      * <td>Text </td>
@@ -99,7 +102,7 @@ public class TimeUtils {
      * <td>Number </td>
      * <td><code>0</code> </td>
      * </tr>
-     * <tr bgcolor="#eeeeff">
+     * <tr>
      * <td><code>k</code> </td>
      * <td>一天中的小时数（1-24） </td>
      * <td>Number </td>
@@ -111,7 +114,7 @@ public class TimeUtils {
      * <td>Number </td>
      * <td><code>0</code> </td>
      * </tr>
-     * <tr bgcolor="#eeeeff">
+     * <tr>
      * <td><code>h</code> </td>
      * <td>am/pm 中的小时数（1-12） </td>
      * <td>Number </td>
@@ -123,7 +126,7 @@ public class TimeUtils {
      * <td>Number </td>
      * <td><code>30</code> </td>
      * </tr>
-     * <tr bgcolor="#eeeeff">
+     * <tr>
      * <td><code>s</code> </td>
      * <td>分钟中的秒数 </td>
      * <td>Number </td>
@@ -135,7 +138,7 @@ public class TimeUtils {
      * <td>Number </td>
      * <td><code>978</code> </td>
      * </tr>
-     * <tr bgcolor="#eeeeff">
+     * <tr>
      * <td><code>z</code> </td>
      * <td>时区 </td>
      * <td>General time zone </td>
@@ -149,27 +152,32 @@ public class TimeUtils {
      * </tr>
      * </table>
      * <pre>
-     *                     yyyy-MM-dd 1969-12-31
-     *                     yyyy-MM-dd 1970-01-01
-     *               yyyy-MM-dd HH:mm 1969-12-31 16:00
-     *               yyyy-MM-dd HH:mm 1970-01-01 00:00
-     *              yyyy-MM-dd HH:mmZ 1969-12-31 16:00-0800
-     *              yyyy-MM-dd HH:mmZ 1970-01-01 00:00+0000
-     *       yyyy-MM-dd HH:mm:ss.SSSZ 1969-12-31 16:00:00.000-0800
-     *       yyyy-MM-dd HH:mm:ss.SSSZ 1970-01-01 00:00:00.000+0000
-     *     yyyy-MM-dd'T'HH:mm:ss.SSSZ 1969-12-31T16:00:00.000-0800
-     *     yyyy-MM-dd'T'HH:mm:ss.SSSZ 1970-01-01T00:00:00.000+0000
+     *                          HH:mm    15:44
+     *                         h:mm a    3:44 下午
+     *                        HH:mm z    15:44 CST
+     *                        HH:mm Z    15:44 +0800
+     *                     HH:mm zzzz    15:44 中国标准时间
+     *                       HH:mm:ss    15:44:40
+     *                     yyyy-MM-dd    2016-08-12
+     *               yyyy-MM-dd HH:mm    2016-08-12 15:44
+     *            yyyy-MM-dd HH:mm:ss    2016-08-12 15:44:40
+     *       yyyy-MM-dd HH:mm:ss zzzz    2016-08-12 15:44:40 中国标准时间
+     *  EEEE yyyy-MM-dd HH:mm:ss zzzz    星期五 2016-08-12 15:44:40 中国标准时间
+     *       yyyy-MM-dd HH:mm:ss.SSSZ    2016-08-12 15:44:40.461+0800
+     *     yyyy-MM-dd'T'HH:mm:ss.SSSZ    2016-08-12T15:44:40.461+0800
+     *   yyyy.MM.dd G 'at' HH:mm:ss z    2016.08.12 公元 at 15:44:40 CST
+     *                         K:mm a    3:44 下午
+     *               EEE, MMM d, ''yy    星期五, 八月 12, '16
+     *          hh 'o''clock' a, zzzz    03 o'clock 下午, 中国标准时间
+     *   yyyyy.MMMMM.dd GGG hh:mm aaa    02016.八月.12 公元 03:44 下午
+     *     EEE, d MMM yyyy HH:mm:ss Z    星期五, 12 八月 2016 15:44:40 +0800
+     *                  yyMMddHHmmssZ    160812154440+0800
+     *     yyyy-MM-dd'T'HH:mm:ss.SSSZ    2016-08-12T15:44:40.461+0800
+     * EEEE 'DATE('yyyy-MM-dd')' 'TIME('HH:mm:ss')' zzzz    星期五 DATE(2016-08-12) TIME(15:44:40) 中国标准时间
      * </pre>
      */
-    public static final SimpleDateFormat DEFAULT_SDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    /**
-     * 各时间单位与毫秒的倍数
-     */
-    public static final int UNIT_MSEC = 1;
-    public static final int UNIT_SEC = 1000;
-    public static final int UNIT_MIN = 60000;
-    public static final int UNIT_HOUR = 3600000;
-    public static final int UNIT_DAY = 86400000;
+    public static final SimpleDateFormat DEFAULT_SDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+
 
     /**
      * 将时间戳转为时间字符串
@@ -293,22 +301,22 @@ public class TimeUtils {
      *
      * @param milliseconds 毫秒时间戳
      * @param unit         <ul>
-     *                     <li>UNIT_MSEC:毫秒</li>
-     *                     <li>UNIT_SEC :秒</li>
-     *                     <li>UNIT_MIN :分</li>
-     *                     <li>UNIT_HOUR:小时</li>
-     *                     <li>UNIT_DAY :天</li>
+     *                     <li>MSEC:毫秒</li>
+     *                     <li>SEC :秒</li>
+     *                     <li>MIN :分</li>
+     *                     <li>HOUR:小时</li>
+     *                     <li>DAY :天</li>
      *                     </ul>
      * @return unit时间戳
      */
     private static long milliseconds2Unit(long milliseconds, int unit) {
         switch (unit) {
-            case UNIT_MSEC:
-            case UNIT_SEC:
-            case UNIT_MIN:
-            case UNIT_HOUR:
-            case UNIT_DAY:
-                return Math.abs(milliseconds) / unit;
+            case MSEC:
+            case SEC:
+            case MIN:
+            case HOUR:
+            case DAY:
+                return milliseconds / unit;
         }
         return -1;
     }
@@ -317,59 +325,60 @@ public class TimeUtils {
      * 获取两个时间差（单位：unit）
      * <p>time1和time2格式都为yyyy-MM-dd HH:mm:ss</p>
      *
-     * @param time1 时间字符串1
-     * @param time2 时间字符串2
+     * @param time0 时间字符串1
+     * @param time1 时间字符串2
      * @param unit  <ul>
-     *              <li>UNIT_MSEC:毫秒</li>
-     *              <li>UNIT_SEC :秒</li>
-     *              <li>UNIT_MIN :分</li>
-     *              <li>UNIT_HOUR:小时</li>
-     *              <li>UNIT_DAY :天</li>
+     *              <li>MSEC:毫秒</li>
+     *              <li>SEC :秒</li>
+     *              <li>MIN :分</li>
+     *              <li>HOUR:小时</li>
+     *              <li>DAY :天</li>
      *              </ul>
      * @return unit时间戳
      */
-    public static long getIntervalTime(String time1, String time2, int unit) {
-        return getIntervalTime(time1, time2, unit, DEFAULT_SDF);
+    public static long getIntervalTime(String time0, String time1, int unit) {
+        return getIntervalTime(time0, time1, unit, DEFAULT_SDF);
     }
 
     /**
      * 获取两个时间差（单位：unit）
      * <p>time1和time2格式都为format</p>
      *
-     * @param time1  时间字符串1
-     * @param time2  时间字符串2
+     * @param time0  时间字符串1
+     * @param time1  时间字符串2
      * @param unit   <ul>
-     *               <li>UNIT_MSEC:毫秒</li>
-     *               <li>UNIT_SEC :秒</li>
-     *               <li>UNIT_MIN :分</li>
-     *               <li>UNIT_HOUR:小时</li>
-     *               <li>UNIT_DAY :天</li>
+     *               <li>MSEC:毫秒</li>
+     *               <li>SEC :秒</li>
+     *               <li>MIN :分</li>
+     *               <li>HOUR:小时</li>
+     *               <li>DAY :天</li>
      *               </ul>
      * @param format 时间格式
      * @return unit时间戳
      */
-    public static long getIntervalTime(String time1, String time2, int unit, SimpleDateFormat format) {
-        return milliseconds2Unit(string2Milliseconds(time1, format)
-                - string2Milliseconds(time2, format), unit);
+    public static long getIntervalTime(String time0, String time1, int unit, SimpleDateFormat format) {
+        return Math.abs(milliseconds2Unit(string2Milliseconds(time0, format)
+                - string2Milliseconds(time1, format), unit));
     }
 
     /**
      * 获取两个时间差（单位：unit）
      * <p>time1和time2都为Date类型</p>
      *
-     * @param time1 Date类型时间1
-     * @param time2 Date类型时间2
+     * @param time0 Date类型时间1
+     * @param time1 Date类型时间2
      * @param unit  <ul>
-     *              <li>UNIT_MSEC:毫秒</li>
-     *              <li>UNIT_SEC :秒</li>
-     *              <li>UNIT_MIN :分</li>
-     *              <li>UNIT_HOUR:小时</li>
-     *              <li>UNIT_DAY :天</li>
+     *              <li>MSEC:毫秒</li>
+     *              <li>SEC :秒</li>
+     *              <li>MIN :分</li>
+     *              <li>HOUR:小时</li>
+     *              <li>DAY :天</li>
      *              </ul>
      * @return unit时间戳
      */
-    public static long getIntervalTime(Date time1, Date time2, int unit) {
-        return milliseconds2Unit(date2Milliseconds(time2) - date2Milliseconds(time1), unit);
+    public static long getIntervalTime(Date time0, Date time1, int unit) {
+        return Math.abs(milliseconds2Unit(date2Milliseconds(time1)
+                - date2Milliseconds(time0), unit));
     }
 
     /**
@@ -388,7 +397,7 @@ public class TimeUtils {
      * @return 时间字符串
      */
     public static String getCurTimeString() {
-        return milliseconds2String(getCurTimeMills());
+        return date2String(new Date());
     }
 
     /**
@@ -399,7 +408,7 @@ public class TimeUtils {
      * @return 时间字符串
      */
     public static String getCurTimeString(SimpleDateFormat format) {
-        return milliseconds2String(getCurTimeMills(), format);
+        return date2String(new Date(), format);
     }
 
     /**
@@ -418,11 +427,11 @@ public class TimeUtils {
      *
      * @param time 时间字符串
      * @param unit <ul>
-     *             <li>UNIT_MSEC:毫秒</li>
-     *             <li>UNIT_SEC :秒</li>
-     *             <li>UNIT_MIN :分</li>
-     *             <li>UNIT_HOUR:小时</li>
-     *             <li>UNIT_DAY :天</li>
+     *             <li>MSEC:毫秒</li>
+     *             <li>SEC :秒</li>
+     *             <li>MIN :分</li>
+     *             <li>HOUR:小时</li>
+     *             <li>DAY :天</li>
      *             </ul>
      * @return unit时间戳
      */
@@ -436,11 +445,11 @@ public class TimeUtils {
      *
      * @param time   时间字符串
      * @param unit   <ul>
-     *               <li>UNIT_MSEC:毫秒</li>
-     *               <li>UNIT_SEC :秒</li>
-     *               <li>UNIT_MIN :分</li>
-     *               <li>UNIT_HOUR:小时</li>
-     *               <li>UNIT_DAY :天</li>
+     *               <li>MSEC:毫秒</li>
+     *               <li>SEC :秒</li>
+     *               <li>MIN :分</li>
+     *               <li>HOUR:小时</li>
+     *               <li>DAY :天</li>
      *               </ul>
      * @param format 时间格式
      * @return unit时间戳
@@ -455,11 +464,11 @@ public class TimeUtils {
      *
      * @param time Date类型时间
      * @param unit <ul>
-     *             <li>UNIT_MSEC:毫秒</li>
-     *             <li>UNIT_SEC :秒</li>
-     *             <li>UNIT_MIN :分</li>
-     *             <li>UNIT_HOUR:小时</li>
-     *             <li>UNIT_DAY :天</li>
+     *             <li>MSEC:毫秒</li>
+     *             <li>SEC :秒</li>
+     *             <li>MIN :分</li>
+     *             <li>HOUR:小时</li>
+     *             <li>DAY :天</li>
      *             </ul>
      * @return unit时间戳
      */
@@ -476,6 +485,5 @@ public class TimeUtils {
     public static boolean isLeapYear(int year) {
         return year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
     }
-
 }
 ```

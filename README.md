@@ -188,7 +188,7 @@
 ***
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.0'
+compile 'com.blankj:utilcode:1.1.0'
 ```
 
 ### Proguard

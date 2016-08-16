@@ -30,7 +30,7 @@ public class TimeUtils {
      * </p>
      * 定义了以下模式字母（所有其他字符 'A' 到 'Z' 和 'a' 到 'z' 都被保留）： <br>
      * <table border="1" cellspacing="1" cellpadding="1" summary="Chart shows pattern letters, date/time component, presentation, and examples.">
-     * <tr bgcolor="#ccccff">
+     * <tr>
      * <th align="left">字母</th>
      * <th align="left">日期或时间元素</th>
      * <th align="left">表示</th>
@@ -42,7 +42,7 @@ public class TimeUtils {
      * <td>Text</td>
      * <td><code>AD</code></td>
      * </tr>
-     * <tr bgcolor="#eeeeff">
+     * <tr>
      * <td><code>y</code> </td>
      * <td>年 </td>
      * <td>Year </td>
@@ -54,7 +54,7 @@ public class TimeUtils {
      * <td>Month </td>
      * <td><code>July</code>; <code>Jul</code>; <code>07</code> </td>
      * </tr>
-     * <tr bgcolor="#eeeeff">
+     * <tr>
      * <td><code>w</code> </td>
      * <td>年中的周数 </td>
      * <td>Number </td>
@@ -66,7 +66,7 @@ public class TimeUtils {
      * <td>Number </td>
      * <td><code>2</code> </td>
      * </tr>
-     * <tr bgcolor="#eeeeff">
+     * <tr>
      * <td><code>D</code> </td>
      * <td>年中的天数 </td>
      * <td>Number </td>
@@ -78,7 +78,7 @@ public class TimeUtils {
      * <td>Number </td>
      * <td><code>10</code> </td>
      * </tr>
-     * <tr bgcolor="#eeeeff">
+     * <tr>
      * <td><code>F</code> </td>
      * <td>月份中的星期 </td>
      * <td>Number </td>
@@ -90,7 +90,7 @@ public class TimeUtils {
      * <td>Text </td>
      * <td><code>Tuesday</code>; <code>Tue</code> </td>
      * </tr>
-     * <tr bgcolor="#eeeeff">
+     * <tr>
      * <td><code>a</code> </td>
      * <td>Am/pm 标记 </td>
      * <td>Text </td>
@@ -102,7 +102,7 @@ public class TimeUtils {
      * <td>Number </td>
      * <td><code>0</code> </td>
      * </tr>
-     * <tr bgcolor="#eeeeff">
+     * <tr>
      * <td><code>k</code> </td>
      * <td>一天中的小时数（1-24） </td>
      * <td>Number </td>
@@ -114,7 +114,7 @@ public class TimeUtils {
      * <td>Number </td>
      * <td><code>0</code> </td>
      * </tr>
-     * <tr bgcolor="#eeeeff">
+     * <tr>
      * <td><code>h</code> </td>
      * <td>am/pm 中的小时数（1-12） </td>
      * <td>Number </td>
@@ -126,7 +126,7 @@ public class TimeUtils {
      * <td>Number </td>
      * <td><code>30</code> </td>
      * </tr>
-     * <tr bgcolor="#eeeeff">
+     * <tr>
      * <td><code>s</code> </td>
      * <td>分钟中的秒数 </td>
      * <td>Number </td>
@@ -138,7 +138,7 @@ public class TimeUtils {
      * <td>Number </td>
      * <td><code>978</code> </td>
      * </tr>
-     * <tr bgcolor="#eeeeff">
+     * <tr>
      * <td><code>z</code> </td>
      * <td>时区 </td>
      * <td>General time zone </td>
@@ -485,6 +485,4 @@ public class TimeUtils {
     public static boolean isLeapYear(int year) {
         return year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
     }
-
 }
-

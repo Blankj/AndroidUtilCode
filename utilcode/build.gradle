@@ -1,7 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-
-group = 'com.github.blankj'
 
 android {
     compileSdkVersion 23
@@ -26,3 +23,5 @@ dependencies {
     testCompile 'org.robolectric:robolectric:3.1.2'
     testCompile 'com.google.truth:truth:0.29'
 }
+apply from: "https://raw.githubusercontent.com/xiaopansky/android-library-publish-to-jcenter/master/bintrayUpload.gradle"
+// gradlew bintrayUpload
