@@ -22,6 +22,12 @@ public class KeyboardUtils {
     }
 
     /**
+     * 避免输入法面板遮挡
+     * <p>在manifest.xml中activity中设置</p>
+     * <p>android:windowSoftInputMode="stateVisible|adjustResize"</p>
+     */
+
+    /**
      * 动态隐藏软键盘
      *
      * @param activity activity
@@ -131,7 +137,7 @@ public class KeyboardUtils {
      * 切换键盘显示与否状态
      *
      * @param context 上下文
-     * @param edit 输入框
+     * @param edit    输入框
      */
     public static void toggleSoftInput(Context context, EditText edit) {
         edit.setFocusable(true);

@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.ComponentName;
 import android.content.Context;
+import android.util.Base64;
 
 import java.util.List;
 
@@ -42,22 +43,5 @@ public class UnclassifiedUtils {
             }
         }
         return false;
-    }
-
-    /**
-     * HTML字符转义
-     * <p>对输入参数中的敏感字符进行过滤替换,防止用户利用JavaScript等方式输入恶意代码</p>
-     *
-     * @param html html文本
-     * @return 过滤后的文本
-     */
-    public static String htmlEscape(String html) {
-        return html.replaceAll("&", "&amp;")
-                .replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;")
-                .replaceAll(" ", "&nbsp;")
-                .replaceAll("'", "&#39;")
-                .replaceAll("\"", "&quot;")
-                .replaceAll("\n", "<br/>");
     }
 }

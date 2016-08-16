@@ -5,15 +5,16 @@ package com.blankj.utilcode.utils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/8/11
- *     desc  : 单位相关工具类
+ *     desc  : 常量相关工具类
  * </pre>
  */
-public class UnitUtils {
+public class ConstUtils {
 
-    private UnitUtils() {
+    private ConstUtils() {
         throw new UnsupportedOperationException("u can't fuck me...");
     }
 
+    /******************** 存储相关常量 ********************/
     /**
      * Byte与Byte的倍数
      */
@@ -31,8 +32,7 @@ public class UnitUtils {
      */
     public static final long GB = 1073741824;
 
-
-
+    /******************** 时间相关常量 ********************/
     /**
      * 毫秒与毫秒的倍数
      */

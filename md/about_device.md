@@ -48,13 +48,20 @@ public class DeviceUtils {
      */
     public static String getMacAddress() {
         String macAddress = null;
+        LineNumberReader reader = null;
         try {
             Process pp = Runtime.getRuntime().exec("cat /sys/class/net/wlan0/address");
             InputStreamReader ir = new InputStreamReader(pp.getInputStream());
-            LineNumberReader reader = new LineNumberReader(ir);
+            reader = new LineNumberReader(ir);
             macAddress = reader.readLine().replace(":", "");
         } catch (IOException ex) {
             ex.printStackTrace();
+        } finally {
+            try {
+                if (reader != null) reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return macAddress == null ? "" : macAddress;
     }
@@ -65,8 +72,7 @@ public class DeviceUtils {
      * @return 设备厂商
      */
     public static String getManufacturer() {
-        String MANUFACTURER = Build.MANUFACTURER;
-        return MANUFACTURER;
+        return Build.MANUFACTURER;
     }
 
     /**
@@ -82,25 +88,6 @@ public class DeviceUtils {
             model = "";
         }
         return model;
-    }
-
-    /**
-     * 获取设备SD卡是否可用
-     *
-     * @return true : 可用<br>false : 不可用
-     */
-    public static boolean isSDCardEnable() {
-        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
-    }
-
-    /**
-     * 获取设备SD卡路径
-     * <p>一般是/storage/emulated/0/</p>
-     *
-     * @return SD卡路径
-     */
-    public static String getSDCardPath() {
-        return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator;
     }
 }
 ```
