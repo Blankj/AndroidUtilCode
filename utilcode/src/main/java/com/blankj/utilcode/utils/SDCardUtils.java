@@ -38,6 +38,34 @@ public class SDCardUtils {
     }
 
 //    /**
+//     * 计算SD卡的剩余空间
+//     *
+//     * @return 返回-1，说明没有安装sd卡
+//     */
+//    public static long getFreeBytes(int unit) {
+//        long freeSpace = 0;
+//        if (isSDCardEnable()) {
+//            try {
+//                File path = Environment.getExternalStorageDirectory();
+//                StatFs stat = new StatFs(path.getPath());
+//                long blockSize = 0;
+//                long availableBlocks = 0;
+//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//                    blockSize = stat.getBlockSizeLong();
+//                    availableBlocks = stat.getAvailableBlocksLong();
+//                }
+//                freeSpace = (availableBlocks * blockSize) / unit;
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        } else {
+//            return -1;
+//        }
+//        return (freeSpace);
+//    }
+
+
+//    /**
 //     * 获取SD卡的剩余容量 单位byte
 //     *
 //     * @return
