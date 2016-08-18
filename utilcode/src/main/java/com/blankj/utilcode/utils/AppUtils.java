@@ -206,7 +206,7 @@ public class AppUtils {
 
     /**
      * 获取所有已安装App信息
-     * <p>AppInfo（名称，图标，包名，版本号，版本Code，是否安装在SD卡，是否是用户程序）</p>
+     * <p>{@see #app}（名称，图标，包名，版本号，版本Code，是否安装在SD卡，是否是用户程序）</p>
      * <p>依赖上面的getBean方法</p>
      *
      * @param context 上下文
@@ -291,7 +291,7 @@ public class AppUtils {
 
     /**
      * 判断当前App处于前台还是后台
-     * <p>需添加权限 android.permission.GET_TASKS</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.GET_TASKS"/>}</p>
      * <p>并且必须是系统应用该方法才有效</p>
      *
      * @param context 上下文

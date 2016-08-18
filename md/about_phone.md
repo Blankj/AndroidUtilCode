@@ -46,8 +46,8 @@ public class PhoneUtils {
 
     /**
      * 获取手机的IMIE
-     * <p>需与上面的isPhone一起使用</p>
-     * <p>需添加权限 android.permission.READ_PHONE_STATE</p>
+     * <p>需与{@link #isPhone(Context)}一起使用</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_PHONE_STATE"/>}</p>
      *
      * @param context 上下文
      * @return IMIE码
@@ -65,7 +65,7 @@ public class PhoneUtils {
 
     /**
      * 获取手机状态信息
-     * <p>需添加权限 android.permission.READ_PHONE_STATE</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_PHONE_STATE"/>}</p>
      *
      * @param context 上下文
      * @return DeviceId(IMEI) = 99000311726612<br>
@@ -118,7 +118,7 @@ public class PhoneUtils {
 
     /**
      * 拨打phoneNumber
-     * <p>需添加权限 android.permission.CALL_PHONE</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.CALL_PHONE"/>}</p>
      *
      * @param context     上下文
      * @param phoneNumber 电话号码
@@ -143,8 +143,8 @@ public class PhoneUtils {
 
     /**
      * 获取手机联系人
-     * <p>需添加权限 android.permission.READ_EXTERNAL_STORAGE</p>
-     * <p>需添加权限 android.permission.READ_CONTACTS</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_CONTACTS"/>}</p>
      *
      * @param context 上下文;
      * @return 联系人链表
@@ -240,8 +240,8 @@ public class PhoneUtils {
 
     /**
      * 获取手机短信并保存到xml中
-     * <p>需添加权限 android.permission.READ_SMS</p>
-     * <p>需添加权限 android.permission.WRITE_EXTERNAL_STORAGE</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_SMS"/>}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>}</p>
      *
      * @param context 上下文
      */

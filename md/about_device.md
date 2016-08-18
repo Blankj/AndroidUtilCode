@@ -27,7 +27,7 @@ public class DeviceUtils {
 
     /**
      * 获取设备MAC地址
-     * <p>需添加权限 android.permission.ACCESS_WIFI_STATE</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>}</p>
      *
      * @param context 上下文
      * @return MAC地址
@@ -42,7 +42,8 @@ public class DeviceUtils {
 
     /**
      * 获取设备MAC地址
-     * <p>需添加权限 android.permission.ACCESS_WIFI_STATE</p>
+     *
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>}</p>
      *
      * @return MAC地址
      */

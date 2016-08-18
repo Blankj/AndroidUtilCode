@@ -132,7 +132,7 @@ public class ScreenUtils {
 
     /**
      * 显示通知栏
-     * <p>需添加权限 android.permission.EXPAND_STATUS_BAR</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.EXPAND_STATUS_BAR"/>}</p>
      *
      * @param context        上下文
      * @param isSettingPanel true: 打开设置<br>false: 打开通知
@@ -145,7 +145,7 @@ public class ScreenUtils {
 
     /**
      * 隐藏通知栏
-     * <p>需添加权限 android.permission.EXPAND_STATUS_BAR</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.EXPAND_STATUS_BAR"/>}</p>
      *
      * @param context 上下文
      */

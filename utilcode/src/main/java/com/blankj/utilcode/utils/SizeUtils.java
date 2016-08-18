@@ -102,7 +102,7 @@ public class SizeUtils {
      * <pre>
      * SizeUtils.forceGetViewSize(view);
      * SizeUtils.setListener(new SizeUtils.onGetSizeListener() {
-     *     <span></span>@Override
+     *    {@code @Override}
      *     public void onGetSize(View view) {
      *         Log.d("tag", view.getWidth() + " " + view.getHeight());
      *     }

@@ -23,7 +23,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testIsBlank() throws Exception {
+    public void testIsSpace() throws Exception {
         assertThat(isSpace("")).isTrue();
         assertThat(isSpace(null)).isTrue();
         assertThat(isSpace(" ")).isTrue();
