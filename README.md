@@ -17,7 +17,7 @@
 >  - 时间相关常量
 >  - 正则相关常量
 
-> - **转换相关→[ConvertUtils.java][convert.java]→[单元测试][convert.test]**
+> - **转换相关→[ConvertUtils.java][convert.java]→[Test][convert.test]**
 >  - 每1个byte转为2个hex字符 *bytes2HexString*
 >  - 每2个hex字符转为1个byte *hexString2Bytes*
 >  - charArr转byteArr *chars2Bytes*
@@ -28,7 +28,7 @@
 >  - 获取设备厂商，如Xiaomi *getManufacturer*
 >  - 获取设备型号，如MI2SC *getModel*
 
-> - **编码解码相关→[EncodeUtils.java][encode.java]→[单元测试][encode.test]**
+> - **编码解码相关→[EncodeUtils.java][encode.java]→[Test][encode.test]**
 >  - URL编码 *urlEncode*
 >  - URL解码 *urlDecode*
 >  - Base64编码 *base64Encode* *base64Encode2String*
@@ -37,7 +37,7 @@
 >  - Html编码 *htmlEncode*
 >  - Html解码 *htmlDecode*
 
-> - **加密解密相关→[EncryptUtils.java][encrypt.java]→[单元测试][encrypt.test]**
+> - **加密解密相关→[EncryptUtils.java][encrypt.java]→[Test][encrypt.test]**
 >  - MD2加密 *encryptMD2ToString* *encryptMD2*
 >  - MD5加密 *encryptMD5ToString* *encryptMD5*
 >  - SHA1加密 *encryptSHA1ToString* *encryptSHA1*
@@ -65,7 +65,7 @@
 >  - AES解密16进制密文 *decryptHexStringAES*
 >  - AES解密 *decryptAES*
 
-> - **文件相关→[FileUtils.java][file.java]→[单元测试][file.test]**
+> - **文件相关→[FileUtils.java][file.java]→[Test][file.test]**
 >  - 根据文件路径获取文件 *getFileByPath*
 >  - 判断文件是否存在 *isFileExists*
 >  - 判断是否是目录 *isDir*
@@ -123,7 +123,7 @@
 >  - 打开手机联系人界面点击联系人后便获取该号码(注释萌萌哒) *getContantNum*
 >  - 获取手机短信并保存到xml中 *getAllSMS*
 
-> - **正则相关→[RegularUtils.java][regular.java]→[单元测试][regular.test]**
+> - **正则相关→[RegularUtils.java][regular.java]→[Test][regular.test]**
 >  - 验证手机号（简单） *isMobileSimple*
 >  - 验证手机号（精确） *isMobileExact*
 >  - 验证电话号码 *isTel*
@@ -178,7 +178,7 @@
 >  - SP中写入boolean类型value *putBoolean*
 >  - SP中读取boolean *getBoolean*
 
-> - **字符串相关→[StringUtils.java][string.java]→[单元测试][string.test]**
+> - **字符串相关→[StringUtils.java][string.java]→[Test][string.test]**
 >  - 判断字符串是否为null或长度为0 *isEmpty*
 >  - 判断字符串是否为null或全为空格 *isSpace*
 >  - null转为长度为0的字符串 *null2Length0*
@@ -188,7 +188,7 @@
 >  - 转化为半角字符 *toDBC*
 >  - 转化为全角字符 *toSBC*
 
-> - **时间相关→[TimeUtils.java][time.java]→[单元测试][time.test]**
+> - **时间相关→[TimeUtils.java][time.java]→[Test][time.test]**
 >  - 将时间戳转为时间字符串 *milliseconds2String*
 >  - 将时间字符串转为时间戳 *string2Milliseconds*
 >  - 将时间字符串转为Date类型 *string2Date*
@@ -208,7 +208,7 @@
 
 ***
   
-**做这份整理只是想把它作为Android的一本小字典，当遇到一些琐碎问题时，不用再面向百度或者谷歌查询API的使用，费时费力，这里有的话，大家尽管撸走。希望它能逐日壮大起来，期待你的Star和完善，用途的话大家想把它们整理成工具类或者什么的话都可以，之后我也会封装工具类并分享之，但本篇只是提供查阅，毕竟看md比看类文件要爽多了，其中好多代码我也是各种搜刮来的，也要谢谢各位的总结，大部分代码已验证过可行，如有错误，请及时告之，开设QQ群提供讨论，群号：74721490，至于验证问题对大家来说肯定都是小case。**  
+**做这份整理是想把它作为Android开发的小字典，当遇到一些琐碎问题时，不用再面向百度或者谷歌查询API的使用，费时费力，这里有的话，大家尽管撸走；同时也希望它能逐日壮大起来，期待大家的Star和完善，当然我也会一直更新发布版本和日志，为了方便大家导入，现已上传jcenter；其中很多代码也是汇四方之精华，谢谢前辈们的提供，当然最终还是要通过单元测试的，如有错误，请及时告之；开设QQ群提供讨论，群号：74721490，至于验证问题对大家来说肯定都是小case；**  
 
 ### Download
 ***

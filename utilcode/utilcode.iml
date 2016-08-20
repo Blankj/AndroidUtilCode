@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id=":utilcode" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" external.system.module.group="com.blankj" external.system.module.version="1.1.0" type="JAVA_MODULE" version="4">
+<module external.linked.project.id=":utilcode" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" external.system.module.group="com.blankj" external.system.module.version="1.1.1" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
@@ -101,24 +101,24 @@
       <excludeFolder url="file://$MODULE_DIR$/build/poms" />
       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 23 Platform (2)" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" scope="TEST" name="maven-ant-tasks-2.1.3" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="backport-util-concurrent-3.1" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="maven-ant-tasks-2.1.3" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="maven-profile-2.2.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="ant-1.8.0" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="xercesMinimal-1.9.6.2" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="maven-settings-2.2.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="hamcrest-library-1.3" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="ant-launcher-1.8.0" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="asm-commons-5.0.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="accessibility-test-framework-2.1" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="asm-commons-5.0.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="xpp3_min-1.1.4c" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="nekohtml-1.9.6.2" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="wagon-http-lightweight-1.0-beta-6" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="nekohtml-1.9.6.2" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="asm-5.0.1" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="maven-error-diagnostics-2.2.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="wagon-file-1.0-beta-6" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="maven-error-diagnostics-2.2.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="maven-repository-metadata-2.2.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="wagon-provider-api-1.0-beta-6" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="xstream-1.4.8" level="project" />
@@ -127,29 +127,29 @@
     <orderEntry type="library" exported="" scope="TEST" name="wagon-http-shared-1.0-beta-6" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="maven-model-2.2.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="xmlpull-1.1.3.1" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="error_prone_annotations-2.0.8" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="maven-artifact-2.2.1" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="truth-0.29" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="error_prone_annotations-2.0.8" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="guava-19.0" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="truth-0.29" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="robolectric-annotations-3.1.2" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="icu4j-53.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="robolectric-utils-3.1.2" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="robolectric-3.1.2" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="asm-tree-5.0.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="sqlite4java-0.282" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="asm-tree-5.0.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="plexus-utils-1.5.15" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="maven-plugin-registry-2.2.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="asm-analysis-5.0.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="robolectric-resources-3.1.2" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="protobuf-java-2.6.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="maven-project-2.2.1" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="hamcrest-core-1.3" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="vtd-xml-2.11" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="hamcrest-core-1.3" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="plexus-container-default-1.0-alpha-9-stable-1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="junit-4.12" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="classworlds-1.1-alpha-2" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="plexus-interpolation-1.11" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="maven-artifact-manager-2.2.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="shadows-core-v23-3.1.2" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="plexus-interpolation-1.11" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="classworlds-1.1-alpha-2" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="maven-artifact-manager-2.2.1" level="project" />
   </component>
 </module>
