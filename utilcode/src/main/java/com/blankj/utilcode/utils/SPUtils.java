@@ -29,7 +29,7 @@ public class SPUtils {
      * @param context 上下文
      * @param key     键
      * @param value   值
-     * @return true: 写入成功<br>false: 写入失败
+     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
      */
     public static boolean putString(Context context, String key, String value) {
         return getSP(context).edit().putString(key, value).commit();
@@ -64,7 +64,7 @@ public class SPUtils {
      * @param context 上下文
      * @param key     键
      * @param value   值
-     * @return true: 写入成功<br>false: 写入失败
+     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
      */
     public static boolean putInt(Context context, String key, int value) {
         return getSP(context).edit().putInt(key, value).commit();
@@ -99,7 +99,7 @@ public class SPUtils {
      * @param context 上下文
      * @param key     键
      * @param value   值
-     * @return true: 写入成功<br>false: 写入失败
+     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
      */
     public static boolean putLong(Context context, String key, long value) {
         return getSP(context).edit().putLong(key, value).commit();
@@ -134,7 +134,7 @@ public class SPUtils {
      * @param context 上下文
      * @param key     键
      * @param value   值
-     * @return true: 写入成功<br>false: 写入失败
+     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
      */
     public static boolean putFloat(Context context, String key, float value) {
         return getSP(context).edit().putFloat(key, value).commit();
@@ -169,7 +169,7 @@ public class SPUtils {
      * @param context 上下文
      * @param key     键
      * @param value   值
-     * @return true: 写入成功<br>false: 写入失败
+     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
      */
     public static boolean putBoolean(Context context, String key, boolean value) {
         return getSP(context).edit().putBoolean(key, value).commit();

@@ -74,6 +74,7 @@ public class AppUtils {
         private String name;
         private Drawable icon;
         private String packageName;
+        private String packagePath;
         private String versionName;
         private int versionCode;
         private boolean isSD;
@@ -119,6 +120,14 @@ public class AppUtils {
             this.packageName = packagName;
         }
 
+        public String getPackagePath() {
+            return packagePath;
+        }
+
+        public void setPackagePath(String packagePath) {
+            this.packagePath = packagePath;
+        }
+
         public int getVersionCode() {
             return versionCode;
         }
@@ -139,32 +148,35 @@ public class AppUtils {
          * @param name        名称
          * @param icon        图标
          * @param packageName 包名
+         * @param packagePath 包路径
          * @param versionName 版本号
          * @param versionCode 版本Code
          * @param isSD        是否安装在SD卡
          * @param isUser      是否是用户程序
          */
-        public AppInfo(String name, Drawable icon, String packageName,
+        public AppInfo(String name, Drawable icon, String packageName, String packagePath,
                        String versionName, int versionCode, boolean isSD, boolean isUser) {
             this.setName(name);
             this.setIcon(icon);
             this.setPackageName(packageName);
+            this.setPackagePath(packagePath);
             this.setVersionName(versionName);
             this.setVersionCode(versionCode);
             this.setSD(isSD);
             this.setUser(isUser);
         }
 
-    /*@Override
-    public String toString() {
-        return getName() + "\n"
-                + getIcon() + "\n"
-                + getPackagName() + "\n"
-                + getVersionName() + "\n"
-                + getVersionCode() + "\n"
-                + isSD() + "\n"
-                + isUser() + "\n";
-    }*/
+//        @Override
+//        public String toString() {
+//            return getName() + "\n"
+//                    + getIcon() + "\n"
+//                    + getPackageName() + "\n"
+//                    + getPackagePath() + "\n"
+//                    + getVersionName() + "\n"
+//                    + getVersionCode() + "\n"
+//                    + isSD() + "\n"
+//                    + isUser() + "\n";
+//        }
     }
 
     /**
@@ -197,16 +209,17 @@ public class AppUtils {
         String name = ai.loadLabel(pm).toString();
         Drawable icon = ai.loadIcon(pm);
         String packageName = pi.packageName;
+        String packagePath = ai.sourceDir;
         String versionName = pi.versionName;
         int versionCode = pi.versionCode;
         boolean isSD = (ApplicationInfo.FLAG_SYSTEM & ai.flags) != ApplicationInfo.FLAG_SYSTEM;
         boolean isUser = (ApplicationInfo.FLAG_SYSTEM & ai.flags) != ApplicationInfo.FLAG_SYSTEM;
-        return new AppInfo(name, icon, packageName, versionName, versionCode, isSD, isUser);
+        return new AppInfo(name, icon, packageName, packagePath, versionName, versionCode, isSD, isUser);
     }
 
     /**
      * 获取所有已安装App信息
-     * <p>{@see #app}（名称，图标，包名，版本号，版本Code，是否安装在SD卡，是否是用户程序）</p>
+     * <p>{@link #getBean(PackageManager, PackageInfo)}（名称，图标，包名，包路径，版本号，版本Code，是否安装在SD卡，是否是用户程序）</p>
      * <p>依赖上面的getBean方法</p>
      *
      * @param context 上下文
@@ -241,7 +254,7 @@ public class AppUtils {
      *
      * @param context     上下文
      * @param packageName 包名
-     * @return true: 已安装<br>false: 未安装
+     * @return {@code true}: 已安装<br>{@code false}: 未安装
      */
     public static boolean isInstallApp(Context context, String packageName) {
         return getIntentByPackageName(context, packageName) != null;
@@ -252,7 +265,7 @@ public class AppUtils {
      *
      * @param context     上下文
      * @param packageName 包名
-     * @return true: 打开成功<br>false: 打开失败
+     * @return {@code true}: 打开成功<br>{@code false}: 打开失败
      */
     public static boolean openAppByPackageName(Context context, String packageName) {
         Intent intent = getIntentByPackageName(context, packageName);
@@ -295,7 +308,7 @@ public class AppUtils {
      * <p>并且必须是系统应用该方法才有效</p>
      *
      * @param context 上下文
-     * @return true: 后台<br>false: 前台
+     * @return {@code true}: 后台<br>{@code false}: 前台
      */
     public static boolean isAppBackground(Context context) {
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);

@@ -5,6 +5,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.io.File;
+
 import static com.blankj.utilcode.utils.ConvertUtils.*;
 import static com.blankj.utilcode.utils.EncodeUtils.*;
 import static com.blankj.utilcode.utils.EncryptUtils.*;
@@ -140,5 +142,13 @@ public class EncryptUtilsTest {
         assertThat(decryptAES(bytesResAES, bytesKeyAES)).isEqualTo(bytesDataAES);
         assertThat(decryptHexStringAES(resAES, bytesKeyAES)).isEqualTo(bytesDataAES);
         assertThat(decryptBase64AES(base64Encode(bytesResAES), bytesKeyAES)).isEqualTo(bytesDataAES);
+    }
+
+    String path = System.getProperty("user.dir") + "\\src\\test\\res\\";
+    String md5 = "7F138A09169B250E9DCB378140907378";
+
+    @Test
+    public void testEncryptMD5File() throws Exception {
+        assertThat(encryptMD5File2String(new File(path + File.separator + "MD5.txt"))).isEqualTo(md5);
     }
 }

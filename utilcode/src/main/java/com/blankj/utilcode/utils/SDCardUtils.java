@@ -142,7 +142,7 @@ public class SDCardUtils {
 //        if (isSDCardEnable()) {
 //            File dir = new File(filePath);
 //            if (!dir.exists()) {
-//                dir.mkdir();
+//                dir.mkdirs();
 //            }
 //            File file = new File(filePath, filename);
 //            FileOutputStream outStream = new FileOutputStream(file);
@@ -182,17 +182,5 @@ public class SDCardUtils {
 //            }
 //        }
 //        return buffer;
-//    }
-//
-//    /**
-//     * Delete file
-//     *
-//     * @param filePath 文件路径
-//     * @param fileName 文件名
-//     * @return true: 成功<br>false: 失败
-//     */
-//    public static boolean deleteSDFile(String filePath, String fileName) {
-//        File file = new File(filePath + "/" + fileName);
-//        return !(!file.exists() || file.isDirectory()) && file.delete();
 //    }
 }

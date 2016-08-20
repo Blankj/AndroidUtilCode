@@ -62,7 +62,7 @@ public class NetworkUtils {
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
      *
      * @param context 上下文
-     * @return true: 可用<br>false: 不可用
+     * @return {@code true}: 可用<br>{@code false}: 不可用
      */
     public static boolean isAvailable(Context context) {
         NetworkInfo info = getActiveNetworkInfo(context);
@@ -74,7 +74,7 @@ public class NetworkUtils {
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
      *
      * @param context 上下文
-     * @return true: 是<br>false: 否
+     * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isConnected(Context context) {
         NetworkInfo info = getActiveNetworkInfo(context);
@@ -86,7 +86,7 @@ public class NetworkUtils {
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
      *
      * @param context 上下文
-     * @return true: 是<br>false: 不是
+     * @return {@code true}: 是<br>{@code false}: 不是
      */
     public static boolean is4G(Context context) {
         NetworkInfo info = getActiveNetworkInfo(context);
@@ -98,7 +98,7 @@ public class NetworkUtils {
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
      *
      * @param context 上下文
-     * @return true: 连接<br>false: 未连接
+     * @return {@code true}: 连接<br>{@code false}: 未连接
      */
     public static boolean isWifiConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context

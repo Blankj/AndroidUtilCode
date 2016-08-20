@@ -1,7 +1,7 @@
 ## Android开发人员不得不收集的代码(持续更新中)
 ***
 为方便查找，已进行大致归类，其目录如下所示：  
-> - [App相关][app.md]→[AppUtils.java][app.java]
+> - **App相关→[AppUtils.java][app.java]**
 >  - 安装App *installApp*
 >  - 卸载指定包名的App *uninstallApp*
 >  - 获取当前App信息 *getAppInfo*
@@ -12,22 +12,23 @@
 >  - 可用来做App信息分享 *shareAppInfo*
 >  - 判断当前App处于前台还是后台 *isAppBackground*
 
-> - [常量相关][const.md]→[ConstUtils.java][const.java]
+> - **常量相关→[ConstUtils.java][const.java]**
 >  - 存储相关常量
 >  - 时间相关常量
+>  - 正则相关常量
 
-> - [转换相关][convert.md]→[ConvertUtils.java][convert.java]
+> - **转换相关→[ConvertUtils.java][convert.java]→[单元测试][convert.test]**
 >  - 每1个byte转为2个hex字符 *bytes2HexString*
 >  - 每2个hex字符转为1个byte *hexString2Bytes*
 >  - charArr转byteArr *chars2Bytes*
 >  - byteArr转charArr *bytes2Chars*
 
-> - [设备相关][device.md]→[DeviceUtils.java][device.java]
+> - **设备相关→[DeviceUtils.java][device.java]**
 >  - 获取设备MAC地址 *getMacAddress*
 >  - 获取设备厂商，如Xiaomi *getManufacturer*
 >  - 获取设备型号，如MI2SC *getModel*
 
-> - [编码解码相关][encode.md]→[EncodeUtils.java][encode.java]
+> - **编码解码相关→[EncodeUtils.java][encode.java]→[单元测试][encode.test]**
 >  - URL编码 *urlEncode*
 >  - URL解码 *urlDecode*
 >  - Base64编码 *base64Encode* *base64Encode2String*
@@ -36,7 +37,7 @@
 >  - Html编码 *htmlEncode*
 >  - Html解码 *htmlDecode*
 
-> - [加密解密相关][encrypt.md]→[EncryptUtils.java][encrypt.java]
+> - **加密解密相关→[EncryptUtils.java][encrypt.java]→[单元测试][encrypt.test]**
 >  - MD2加密 *encryptMD2ToString* *encryptMD2*
 >  - MD5加密 *encryptMD5ToString* *encryptMD5*
 >  - SHA1加密 *encryptSHA1ToString* *encryptSHA1*
@@ -64,20 +65,37 @@
 >  - AES解密16进制密文 *decryptHexStringAES*
 >  - AES解密 *decryptAES*
 
-> - [文件相关][file.md]→[FileUtils.java][file.java]
+> - **文件相关→[FileUtils.java][file.java]→[单元测试][file.test]**
+>  - 根据文件路径获取文件 *getFileByPath*
+>  - 判断文件是否存在 *isFileExists*
+>  - 判断是否是目录 *isDir*
+>  - 判断是否是文件 *isFile*
+>  - 判断目录是否存在，不存在则判断是否创建成功 *createOrExistsDir*
+>  - 判断文件是否存在，不存在则判断是否创建成功 *createOrExistsFile*
+>  - 判断文件是否存在，存在则在创建之前删除 *createFileByDeleteOldFile*
+>  - 复制目录 *copyDir*
+>  - 复制文件 *copyFile*
+>  - 移动目录 *moveDir*
+>  - 移动文件 *moveFile*
+>  - 删除目录 *deleteDir*
+>  - 删除文件 *deleteFile*
+>  - 将输入流写入文件 *writeFileFromIS*
+>  - 将字符串写入文件 *writeFileFromString*
+>  - 简单获取文件编码格式 *getFileCharsetSimple*
+>  - 
+
+
+> - **图片相关→[ImageUtils.java][image.java]**
 >  - 完善ing
 
-> - [图片相关][image.md]→[ImageUtils.java][image.java]
->  - 完善ing
-
-> - [键盘相关][keyboard.md]→[KeyboardUtils.java][keyboard.java]
+> - **键盘相关→[KeyboardUtils.java][keyboard.java]**
 >  - 避免输入法面板遮挡
 >  - 动态隐藏软键盘 *hideSoftInput*
 >  - 点击屏幕空白区域隐藏软键盘(注释萌萌哒) *clickBlankArea2HideSoftInput0*
 >  - 动态显示软键盘 *showSoftInput*
 >  - 切换键盘显示与否状态 *toggleSoftInput*
 
-> - [网络相关][network.md]→[NetworkUtils.java][network.java]
+> - **网络相关→[NetworkUtils.java][network.java]**
 >  - 打开网络设置界面 *openWirelessSettings*
 >  - 判断网络是否可用 *isAvailable*
 >  - 判断网络是否连接 *isConnected*
@@ -87,7 +105,7 @@
 >  - 获取移动终端类型 *getPhoneType*
 >  - 获取当前的网络类型(WIFI,2G,3G,4G) *getNetWorkType* *getNetWorkTypeName*
 
-> - [手机相关][phone.md]→[PhoneUtils.java][phone.java]
+> - **手机相关→[PhoneUtils.java][phone.java]**
 >  - 判断设备是否是手机 *isPhone*
 >  - 获取手机的IMIE *getPhoneIMEI*
 >  - 获取手机状态信息 *getPhoneStatus*
@@ -98,7 +116,7 @@
 >  - 打开手机联系人界面点击联系人后便获取该号码(注释萌萌哒) *getContantNum*
 >  - 获取手机短信并保存到xml中 *getAllSMS*
 
-> - [正则相关][regular.md]→[RegularUtils.java][regular.java]
+> - **正则相关→[RegularUtils.java][regular.java]→[单元测试][regular.test]**
 >  - 验证手机号（简单） *isMobileSimple*
 >  - 验证手机号（精确） *isMobileExact*
 >  - 验证电话号码 *isTel*
@@ -112,7 +130,7 @@
 >  - 验证IP地址 *isIP*
 >  - string是否匹配regex *isMatch*
 
-> - [屏幕相关][screen.md]→[ScreenUtils.java][screen.java]
+> - **屏幕相关→[ScreenUtils.java][screen.java]**
 >  - 获取手机分辨率 *getDeviceWidth*、*getDeviceHeight*
 >  - 设置透明状态栏(api大于19方可使用) *setTransparentStatusBar*
 >  - 隐藏状态栏(注释萌萌哒) *hideStatusBar*
@@ -125,23 +143,23 @@
 >  - 获取屏幕截图 *snapShotWithStatusBar*、*snapShotWithoutStatusBar*
 >  - 判断是否锁屏 *isScreenLock*
 
-> - [SD卡相关][sdcard.md]→[SDCardUtils.java][sdcard.java]
+> - **SD卡相关→[SDCardUtils.java][sdcard.java]**
 >  - 获取设备SD卡是否可用 *isSDCardEnable*
 >  - 获取设备SD卡路径 *getSDCardPath*
 >  - 完善ing
 
-> - [Shell相关][shell.md]→[ShellUtils.java][shell.java]
+> - **Shell相关→[ShellUtils.java][shell.java]**
 >  - 判断设备是否root *isRoot*
 >  - 是否是在root下执行命令 *execCmd*
 
-> - [尺寸相关][size.md]→[SizeUtils.java][size.java]
+> - **尺寸相关→[SizeUtils.java][size.java]**
 >  - dp与px转换 *dp2px*、*px2dp*
 >  - sp与px转换 *sp2px*、*px2sp*
 >  - 各种单位转换 *applyDimension*
 >  - 在onCreate()即可强行获取View的尺寸 *forceGetViewSize*
 >  - ListView中提前测量View尺寸(注释萌萌哒) *measureView*
 
-> - [SP相关][sp.md]→[SPUtils.java][sp.java]
+> - **SP相关→[SPUtils.java][sp.java]**
 >  - SP中写入String类型value *putString*
 >  - SP中读取String *getString*
 >  - SP中写入int类型value *putInt*
@@ -153,7 +171,7 @@
 >  - SP中写入boolean类型value *putBoolean*
 >  - SP中读取boolean *getBoolean*
 
-> - [字符串相关][string.md]→[StringUtils.java][string.java]
+> - **字符串相关→[StringUtils.java][string.java]→[单元测试][string.test]**
 >  - 判断字符串是否为null或长度为0 *isEmpty*
 >  - 判断字符串是否为null或全为空格 *isSpace*
 >  - null转为长度为0的字符串 *null2Length0*
@@ -163,7 +181,7 @@
 >  - 转化为半角字符 *toDBC*
 >  - 转化为全角字符 *toSBC*
 
-> - [时间相关][time.md]→[TimeUtils.java][time.java]
+> - **时间相关→[TimeUtils.java][time.java]→[单元测试][time.test]**
 >  - 将时间戳转为时间字符串 *milliseconds2String*
 >  - 将时间字符串转为时间戳 *string2Milliseconds*
 >  - 将时间字符串转为Date类型 *string2Date*
@@ -176,9 +194,10 @@
 >  - 获取与当前时间的差（单位：unit） *getIntervalByNow*
 >  - 判断闰年 *isLeapYear*
 
-> - [未归类][unclassified.md]→[UnclassifiedUtils.java][unclassified.java]
+> - **未归类→[UnclassifiedUtils.java][unclassified.java]**
 >  - 获取服务是否开启 *isRunningService*
-> - [更新Log][update_log.md]
+
+> - **更新Log→[update_log.md][update_log.md]**
 
 ***
   
@@ -217,45 +236,51 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
-[app.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_app.md
 [app.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/AppUtils.java
-[const.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_const.md
-[const.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ConstUtils.java
-[convert.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_convert.md
-[convert.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ConvertUtils.java
-[device.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_device.md
-[device.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/DeviceUtils.java
-[encode.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_encode.md
-[encode.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/EncodeUtils.java
-[encrypt.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_encrypt.md
-[encrypt.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/EncryptUtils.java
-[file.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_file.md
-[file.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/FileUtils.java
-[image.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_image.md
-[image.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ImageUtils.java
-[keyboard.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_keyboard.md
-[keyboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/KeyboardUtils.java
-[network.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_network.md
-[network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/NetworkUtils.java
-[phone.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_phone.md
-[phone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/PhonekUtils.java
-[regular.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_regular.md
-[regular.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/RegularUtils.java
-[screen.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_screen.md
-[screen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ScreenUtils.java
-[sdcard.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_sdcard.md
-[sdcard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SDCUtils.java
-[shell.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_shell.md
-[shell.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ShellUtils.java
-[size.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_size.md
-[size.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SizeUtils.java
-[sp.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_sp.md
-[sp.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SPUtils.java
-[string.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_string.md
-[string.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/StringUtils.java
-[time.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/about_time.md
-[time.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/TimeUtils.java
-[unclassified.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/unclassified.md
-[unclassified.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/UnclassifiedUtils.java
-[update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/update_log.md
 
+[const.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ConstUtils.java
+
+[convert.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ConvertUtils.java
+[convert.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/ConvertUtilsTest.java
+
+[device.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/DeviceUtils.java
+
+[encode.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/EncodeUtils.java
+[encode.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/EncodeUtilsTest.java
+
+[encrypt.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/EncryptUtils.java
+[encrypt.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/EncryptUtilsTest.java
+
+[file.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/FileUtils.java
+[file.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/FileUtilsTest.java
+
+[image.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ImageUtils.java
+
+[keyboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/KeyboardUtils.java
+
+[network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/NetworkUtils.java
+
+[phone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/PhonekUtils.java
+
+[regular.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/RegularUtils.java
+[regular.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/RegularUtilsTest.java
+
+[screen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ScreenUtils.java
+
+[sdcard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SDCUtils.java
+
+[shell.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ShellUtils.java
+
+[size.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SizeUtils.java
+
+[sp.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SPUtils.java
+
+[string.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/StringUtils.java
+[string.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/StringUtilsTest.java
+
+[time.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/TimeUtils.java
+[time.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/TimeUtilsTest.java
+
+[unclassified.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/UnclassifiedUtils.java
+
+[update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/update_log.md

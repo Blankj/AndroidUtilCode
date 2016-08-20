@@ -37,7 +37,7 @@ public class PhoneUtils {
      * 判断设备是否是手机
      *
      * @param context 上下文
-     * @return true: 是<br>false: 否
+     * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isPhone(Context context) {
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);

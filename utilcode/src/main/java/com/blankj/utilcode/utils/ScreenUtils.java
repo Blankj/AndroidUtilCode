@@ -109,7 +109,7 @@ public class ScreenUtils {
      * 判断状态栏是否存在
      *
      * @param activity activity
-     * @return true: 存在<br>false: 不存在
+     * @return {@code true}: 存在<br>{@code false}: 不存在
      */
     public static boolean isStatusBarExists(Activity activity) {
         LayoutParams params = activity.getWindow().getAttributes();
@@ -135,7 +135,7 @@ public class ScreenUtils {
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.EXPAND_STATUS_BAR"/>}</p>
      *
      * @param context        上下文
-     * @param isSettingPanel true: 打开设置<br>false: 打开通知
+     * @param isSettingPanel {@code true}: 打开设置<br>{@code false}: 打开通知
      */
     public static void showNotificationBar(Context context, boolean isSettingPanel) {
         String methodName = (Build.VERSION.SDK_INT <= 16) ? "expand"
@@ -227,7 +227,7 @@ public class ScreenUtils {
      * 判断是否锁屏
      *
      * @param context 上下文
-     * @return true: 是<br>false: 否
+     * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isScreenLock(Context context) {
         KeyguardManager km = (KeyguardManager) context

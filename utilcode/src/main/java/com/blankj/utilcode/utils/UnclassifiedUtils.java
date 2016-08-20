@@ -4,7 +4,6 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.ComponentName;
 import android.content.Context;
-import android.util.Base64;
 
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class UnclassifiedUtils {
      *
      * @param context   上下文
      * @param className 完整包名的服务类名
-     * @return true: 是<br>false: 否
+     * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isRunningService(Context context, String className) {
         // 进程的管理者,活动的管理者

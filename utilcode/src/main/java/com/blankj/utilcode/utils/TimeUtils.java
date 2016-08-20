@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.blankj.utilcode.utils.ConstUtils.*;
 
 /**
  * <pre>
@@ -301,21 +300,21 @@ public class TimeUtils {
      *
      * @param milliseconds 毫秒时间戳
      * @param unit         <ul>
-     *                     <li>MSEC:毫秒</li>
-     *                     <li>SEC :秒</li>
-     *                     <li>MIN :分</li>
-     *                     <li>HOUR:小时</li>
-     *                     <li>DAY :天</li>
+     *                     <li>ConstUtils.MSEC:毫秒</li>
+     *                     <li>ConstUtils.SEC :秒</li>
+     *                     <li>ConstUtils.MIN :分</li>
+     *                     <li>ConstUtils.HOUR:小时</li>
+     *                     <li>ConstUtils.DAY :天</li>
      *                     </ul>
      * @return unit时间戳
      */
     private static long milliseconds2Unit(long milliseconds, int unit) {
         switch (unit) {
-            case MSEC:
-            case SEC:
-            case MIN:
-            case HOUR:
-            case DAY:
+            case ConstUtils.MSEC:
+            case ConstUtils.SEC:
+            case ConstUtils.MIN:
+            case ConstUtils.HOUR:
+            case ConstUtils.DAY:
                 return milliseconds / unit;
         }
         return -1;
@@ -328,11 +327,11 @@ public class TimeUtils {
      * @param time0 时间字符串1
      * @param time1 时间字符串2
      * @param unit  <ul>
-     *              <li>MSEC:毫秒</li>
-     *              <li>SEC :秒</li>
-     *              <li>MIN :分</li>
-     *              <li>HOUR:小时</li>
-     *              <li>DAY :天</li>
+     *              <li>ConstUtils.MSEC:毫秒</li>
+     *              <li>ConstUtils.SEC :秒</li>
+     *              <li>ConstUtils.MIN :分</li>
+     *              <li>ConstUtils.HOUR:小时</li>
+     *              <li>ConstUtils.DAY :天</li>
      *              </ul>
      * @return unit时间戳
      */
@@ -347,11 +346,11 @@ public class TimeUtils {
      * @param time0  时间字符串1
      * @param time1  时间字符串2
      * @param unit   <ul>
-     *               <li>MSEC:毫秒</li>
-     *               <li>SEC :秒</li>
-     *               <li>MIN :分</li>
-     *               <li>HOUR:小时</li>
-     *               <li>DAY :天</li>
+     *               <li>ConstUtils.MSEC:毫秒</li>
+     *               <li>ConstUtils.SEC :秒</li>
+     *               <li>ConstUtils.MIN :分</li>
+     *               <li>ConstUtils.HOUR:小时</li>
+     *               <li>ConstUtils.DAY :天</li>
      *               </ul>
      * @param format 时间格式
      * @return unit时间戳
@@ -368,11 +367,11 @@ public class TimeUtils {
      * @param time0 Date类型时间1
      * @param time1 Date类型时间2
      * @param unit  <ul>
-     *              <li>MSEC:毫秒</li>
-     *              <li>SEC :秒</li>
-     *              <li>MIN :分</li>
-     *              <li>HOUR:小时</li>
-     *              <li>DAY :天</li>
+     *              <li>ConstUtils.MSEC:毫秒</li>
+     *              <li>ConstUtils.SEC :秒</li>
+     *              <li>ConstUtils.MIN :分</li>
+     *              <li>ConstUtils.HOUR:小时</li>
+     *              <li>ConstUtils.DAY :天</li>
      *              </ul>
      * @return unit时间戳
      */
@@ -427,11 +426,11 @@ public class TimeUtils {
      *
      * @param time 时间字符串
      * @param unit <ul>
-     *             <li>MSEC:毫秒</li>
-     *             <li>SEC :秒</li>
-     *             <li>MIN :分</li>
-     *             <li>HOUR:小时</li>
-     *             <li>DAY :天</li>
+     *             <li>ConstUtils.MSEC:毫秒</li>
+     *             <li>ConstUtils.SEC :秒</li>
+     *             <li>ConstUtils.MIN :分</li>
+     *             <li>ConstUtils.HOUR:小时</li>
+     *             <li>ConstUtils.DAY :天</li>
      *             </ul>
      * @return unit时间戳
      */
@@ -445,11 +444,11 @@ public class TimeUtils {
      *
      * @param time   时间字符串
      * @param unit   <ul>
-     *               <li>MSEC:毫秒</li>
-     *               <li>SEC :秒</li>
-     *               <li>MIN :分</li>
-     *               <li>HOUR:小时</li>
-     *               <li>DAY :天</li>
+     *               <li>ConstUtils.MSEC:毫秒</li>
+     *               <li>ConstUtils.SEC :秒</li>
+     *               <li>ConstUtils.MIN :分</li>
+     *               <li>ConstUtils.HOUR:小时</li>
+     *               <li>ConstUtils.DAY :天</li>
      *               </ul>
      * @param format 时间格式
      * @return unit时间戳
@@ -464,11 +463,11 @@ public class TimeUtils {
      *
      * @param time Date类型时间
      * @param unit <ul>
-     *             <li>MSEC:毫秒</li>
-     *             <li>SEC :秒</li>
-     *             <li>MIN :分</li>
-     *             <li>HOUR:小时</li>
-     *             <li>DAY :天</li>
+     *             <li>ConstUtils.MSEC:毫秒</li>
+     *             <li>ConstUtils.SEC :秒</li>
+     *             <li>ConstUtils.MIN :分</li>
+     *             <li>ConstUtils.HOUR:小时</li>
+     *             <li>ConstUtils.DAY :天</li>
      *             </ul>
      * @return unit时间戳
      */
@@ -480,7 +479,7 @@ public class TimeUtils {
      * 判断闰年
      *
      * @param year 年份
-     * @return true: 闰年<br>false: 平年
+     * @return {@code true}: 闰年<br>{@code false}: 平年
      */
     public static boolean isLeapYear(int year) {
         return year % 4 == 0 && year % 100 != 0 || year % 400 == 0;

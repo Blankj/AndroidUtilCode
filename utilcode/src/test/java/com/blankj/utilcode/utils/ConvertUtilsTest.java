@@ -28,4 +28,19 @@ public class ConvertUtilsTest {
     public void testHexString2Bytes() throws Exception {
         assertThat(ConvertUtils.hexString2Bytes(hexString)).isEqualTo(mBytes);
     }
+
+    char[] mChars1 = new char[]{'0', '1', '2'};
+    byte[] mBytes1 = new byte[]{48, 49, 50};
+
+    @Test
+    public void testChars2Bytes() throws Exception {
+        assertThat(ConvertUtils.chars2Bytes(mChars1)).isEqualTo(mBytes1);
+    }
+
+    @Test
+    public void testBytes2Chars() throws Exception {
+        assertThat(ConvertUtils.bytes2Chars(mBytes1)).isEqualTo(mChars1);
+    }
+
+
 }
