@@ -1,6 +1,7 @@
 package com.blankj.utilcode.utils;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.File;
@@ -433,7 +434,7 @@ public class FileUtils {
         if (!createOrExistsFile(file)) return false;
         OutputStream os = null;
         try {
-            os = new FileOutputStream(file, append);
+            os = new BufferedOutputStream(new FileOutputStream(file, append));
             byte data[] = new byte[KB];
             while (is.read(data) != -1) os.write(data);
             return true;
@@ -500,14 +501,14 @@ public class FileUtils {
      */
     public static String getFileCharsetSimple(File file) {
         int p = 0;
-        BufferedInputStream bin = null;
+        InputStream is = null;
         try {
-            bin = new BufferedInputStream(new FileInputStream(file));
-            p = (bin.read() << 8) + bin.read();
+            is = new BufferedInputStream(new FileInputStream(file));
+            p = (is.read() << 8) + is.read();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            closeIO(bin);
+            closeIO(is);
         }
         switch (p) {
             case 0xefbb:
@@ -558,35 +559,67 @@ public class FileUtils {
     }
 
     /**
-     * 按行读取文件
+     * 指定编码按行读取文件到List
      *
-     * @param file 文件
-     * @return 行链表
+     * @param filePath    文件路径
+     * @param charsetName 编码格式
+     * @return 文件行链表
      */
-    public static List<String> readFileByLine(File file) {
-        return readFileByLine(file, null);
+    public static List<String> readFile2List(String filePath, String charsetName) {
+        return readFile2List(getFileByPath(filePath), charsetName);
     }
 
     /**
-     * 按行读取文件
+     * 指定编码按行读取文件到List
      *
      * @param file        文件
-     * @param charsetName 字符编码格式
-     * @return 行链表
+     * @param charsetName 编码格式
+     * @return 文件行链表
      */
-    public static List<String> readFileByLine(File file, String charsetName) {
+    public static List<String> readFile2List(File file, String charsetName) {
+        return readFile2List(file, 0, 0x7FFFFFFF, charsetName);
+    }
+
+    /**
+     * 指定编码按行读取文件到List
+     *
+     * @param filePath    文件路径
+     * @param start       需要读取的开始行数
+     * @param end         需要读取的结束行数
+     * @param charsetName 编码格式
+     * @return 包含制定行的list
+     */
+    public static List<String> readFile2List(String filePath, int start, int end, String charsetName) {
+        return readFile2List(getFileByPath(filePath), start, end, charsetName);
+    }
+
+    /**
+     * 指定编码按行读取文件到List
+     *
+     * @param file        文件
+     * @param start       需要读取的开始行数
+     * @param end         需要读取的结束行数
+     * @param charsetName 编码格式
+     * @return 包含制定行的list
+     */
+    public static List<String> readFile2List(File file, int start, int end, String charsetName) {
         if (file == null) return null;
-        List<String> list = new ArrayList<>();
+        if (start > end) return null;
+        List<String> list = null;
         BufferedReader reader = null;
         try {
-            if (charsetName == null) {
+            String line;
+            int curLine = 1;
+            list = new ArrayList<>();
+            if (StringUtils.isSpace(charsetName)) {
                 reader = new BufferedReader(new FileReader(file));
             } else {
                 reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charsetName));
             }
-            String line;
             while ((line = reader.readLine()) != null) {
-                list.add(line);
+                if (curLine > end) break;
+                if (start <= curLine && curLine <= end) list.add(line);
+                ++curLine;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -597,98 +630,41 @@ public class FileUtils {
     }
 
     /**
-     * 读取前几行数据
+     * 指定编码按行读取文件到StringBuilder中
      *
-     * @param file       文件
-     * @param endLineNum 需要读取的行数
-     * @return 包含制定行的list
+     * @param filePath    文件路径
+     * @param charsetName 编码格式
+     * @return StringBuilder对象
      */
-    public static List<String> readFileByLine(File file, int endLineNum) {
+    public static StringBuilder readFile2SB(String filePath, String charsetName) {
+        return readFile2SB(getFileByPath(filePath), charsetName);
+    }
+
+    /**
+     * 指定编码按行读取文件到StringBuilder中
+     *
+     * @param file        文件
+     * @param charsetName 编码格式
+     * @return StringBuilder对象
+     */
+    public static StringBuilder readFile2SB(File file, String charsetName) {
         if (file == null) return null;
-        List<String> list = new ArrayList<>();
+        StringBuilder sb = null;
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new FileReader(file));
+            sb = new StringBuilder();
+            reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charsetName));
             String line;
             while ((line = reader.readLine()) != null) {
-                list.add(line);
-                if (list.size() == endLineNum) {
-                    break;
-                }
+                sb.append(line);
+                sb.append("\r\n");// windows系统换行为\r\n，Linux为\n
             }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             closeIO(reader);
-        }
-        return list;
-    }
-
-    public static StringBuilder readFile(String filePath, String charsetName) {
-        File file = new File(filePath);
-        if (!file.isFile()) return null;
-        return readFile(file, charsetName);
-    }
-
-    public static StringBuilder readFile(File file, String charsetName) {
-        StringBuilder sb = new StringBuilder("");
-        BufferedReader reader = null;
-        try {
-            InputStreamReader is = new InputStreamReader(new FileInputStream(file), charsetName);
-            reader = new BufferedReader(is);
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (!sb.toString().equals("")) {
-                    sb.append("\r\n");
-                }
-                sb.append(line);
-            }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return sb;
-    }
-
-
-    /**
-     * @param filePath
-     * @param charsetName
-     * @return
-     */
-    public static List<String> readFileToList(String filePath, String charsetName) {
-        File file = new File(filePath);
-        if (!file.isFile()) return null;
-        List<String> fileContent = new ArrayList<>();
-        BufferedReader reader = null;
-        try {
-            InputStreamReader is = new InputStreamReader(new FileInputStream(file), charsetName);
-            reader = new BufferedReader(is);
-            String line;
-            while ((line = reader.readLine()) != null) {
-                fileContent.add(line);
-            }
-            reader.close();
-            return fileContent;
-        } catch (IOException e) {
-            throw new RuntimeException("IOException occurred. ", e);
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     /**
@@ -750,10 +726,10 @@ public class FileUtils {
     }
 
     /**
-     * 获取文件路径的父级目录
+     * 根据全路径获取最长目录
      *
-     * @param filePath
-     * @return
+     * @param filePath 文件路径
+     * @return filePath最长目录
      */
     public static String getDirName(String filePath) {
         if (StringUtils.isSpace(filePath)) return filePath;
@@ -761,12 +737,24 @@ public class FileUtils {
         return lastSep == -1 ? "" : filePath.substring(0, lastSep + 1);
     }
 
+    /**
+     * 根据全路径获取文件名
+     *
+     * @param filePath 文件路径
+     * @return 文件名
+     */
     public static String getFileName(String filePath) {
         if (StringUtils.isSpace(filePath)) return filePath;
         int lastSep = filePath.lastIndexOf(File.separator);
         return lastSep == -1 ? filePath : filePath.substring(lastSep + 1);
     }
 
+    /**
+     * 根据全路径获取文件名不带拓展名
+     *
+     * @param filePath 文件路径
+     * @return 文件名不带拓展名
+     */
     public static String getFileNameNoExtension(String filePath) {
         if (StringUtils.isSpace(filePath)) return filePath;
         int lastPoi = filePath.lastIndexOf('.');
@@ -780,6 +768,12 @@ public class FileUtils {
         return filePath.substring(lastSep + 1, lastPoi);
     }
 
+    /**
+     * 根据全路径获取文件拓展名
+     *
+     * @param filePath 文件路径
+     * @return 文件拓展名
+     */
     public static String getFileExtension(String filePath) {
         if (StringUtils.isSpace(filePath)) return filePath;
         int lastPoi = filePath.lastIndexOf('.');

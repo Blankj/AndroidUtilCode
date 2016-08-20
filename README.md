@@ -82,6 +82,15 @@
 >  - 将输入流写入文件 *writeFileFromIS*
 >  - 将字符串写入文件 *writeFileFromString*
 >  - 简单获取文件编码格式 *getFileCharsetSimple*
+>  - 获取文件行数 *getFileLines*
+>  - 指定编码按行读取文件到List *readFile2List*
+>  - 指定编码按行读取文件到StringBuilder中 *readFile2SB*
+>  - byte单位转换（单位：unit） *byte2Unit*
+>  - 获取文件大小 *getFileSize*
+>  - 根据全路径获取最长目录 *getDirName*
+>  - 根据全路径获取文件名 *getFileName*
+>  - 根据全路径获取文件名不带拓展名 *getFileNameNoExtension*
+>  - 根据全路径获取文件拓展名 *getFileExtension*
 
 > - **图片相关→[ImageUtils.java][image.java]**
 >  - 完善ing
@@ -205,7 +214,7 @@
 ***
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.1.0'
+compile 'com.blankj:utilcode:1.1.1'
 ```
 
 ### Proguard
