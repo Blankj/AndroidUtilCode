@@ -290,4 +290,4 @@ limitations under the License.
 
 [unclassified.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/UnclassifiedUtils.java
 
-[update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/md/update_log.md
+[update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/update_log.md
