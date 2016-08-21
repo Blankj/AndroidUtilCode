@@ -1,6 +1,7 @@
 ### 更新Log
-#### 16/08/19 更新目录，继续完善FileUtils
-#### 16/08/19 继续完善FileUtils及单元测试
+#### 16/08/21 FileUtils单元测试完毕，修复FileUtils的bug，发布版本1.1.2
+#### 16/08/20 更新目录，继续完善FileUtils单元测试，发布版本1.1.1
+#### 16/08/19 继续完善FileUtils及单元测试，及其他小修小补（在此感谢vpop的三次Pr）
 #### 16/08/18 完善FileUtils及单元测试，完善ImageUtils
 #### 16/08/17 完善FileUtils
 #### 16/08/16 新增StringUtils及单元测试，完善正则工具类，版本更新1.1.0

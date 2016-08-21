@@ -34,9 +34,11 @@ public class FileUtils {
     }
 
     /**
+     * 关闭IO
+     *
      * @param closeable closeable
      */
-    private static void closeIO(Closeable closeable) {
+    public static void closeIO(Closeable closeable) {
         if (closeable == null) return;
         try {
             closeable.close();
@@ -132,7 +134,8 @@ public class FileUtils {
      * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
      */
     public static boolean createOrExistsDir(File file) {
-        return file != null && (file.exists() && file.isDirectory() || file.mkdirs());
+        // 如果存在，是目录则返回true，是文件则返回false，不存在则返回是否创建成功
+        return file != null && (file.exists() ? file.isDirectory() : file.mkdirs());
     }
 
     /**
@@ -153,7 +156,8 @@ public class FileUtils {
      */
     public static boolean createOrExistsFile(File file) {
         if (file == null) return false;
-        if (file.exists() && file.isFile()) return true;
+        // 如果存在，是文件则返回true，是目录则返回false
+        if (file.exists()) return file.isFile();
         if (!createOrExistsDir(file.getParentFile())) return false;
         try {
             return file.createNewFile();
@@ -215,22 +219,29 @@ public class FileUtils {
      */
     private static boolean copyOrMoveDir(File srcDir, File destDir, boolean isMove) {
         if (srcDir == null || destDir == null) return false;
+        // 如果目标目录在源目录中则返回false，看不懂的话好好想想递归怎么结束
+        // srcPath : F:\\MyGithub\\AndroidUtilCode\\utilcode\\src\\test\\res
+        // destPath: F:\\MyGithub\\AndroidUtilCode\\utilcode\\src\\test\\res1
+        // 为防止以上这种情况出现出现误判，须分别在后面加个路径分隔符
+        String srcPath = srcDir.getPath() + File.separator;
+        String destPath = destDir.getPath() + File.separator;
+        if (destPath.contains(srcPath)) return false;
         // 源文件不存在或者不是目录则返回false
         if (!srcDir.exists() || !srcDir.isDirectory()) return false;
         // 目标目录不存在返回false
         if (!createOrExistsDir(destDir)) return false;
-        File[] srcDirFiles = srcDir.listFiles();
-        for (File srcDirFile : srcDirFiles) {
-            File oneDestFile = new File(destDir.getPath() + File.separator
-                    + srcDirFile.getName());
-            if (srcDirFile.isFile()) {
-                copyOrMoveFile(srcDirFile, oneDestFile, isMove);
-            } else if (srcDirFile.isDirectory()) {
-                copyOrMoveDir(srcDirFile, oneDestFile, isMove);
+        File[] files = srcDir.listFiles();
+        for (File file : files) {
+            File oneDestFile = new File(destPath + file.getName());
+            if (file.isFile()) {
+                // 如果操作失败返回false
+                if (!copyOrMoveFile(file, oneDestFile, isMove)) return false;
+            } else if (file.isDirectory()) {
+                // 如果操作失败返回false
+                if (!copyOrMoveDir(file, oneDestFile, isMove)) return false;
             }
-            if (isMove && !deleteFile(srcDirFile)) return false;
         }
-        return true;
+        return !isMove || deleteDir(srcDir);
     }
 
     /**
@@ -262,7 +273,8 @@ public class FileUtils {
         // 目标目录不存在返回false
         if (!createOrExistsDir(destFile.getParentFile())) return false;
         try {
-            return writeFileFromIS(destFile, new FileInputStream(srcFile), false) && !(isMove && !deleteFile(srcFile));
+            return writeFileFromIS(destFile, new FileInputStream(srcFile), false)
+                    && !(isMove && !deleteFile(srcFile));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return false;
@@ -276,8 +288,8 @@ public class FileUtils {
      * @param destDirPath 目标目录路径
      * @return {@code true}: 复制成功<br>{@code false}: 复制失败
      */
-    public boolean copyDir(String srcDirPath, String destDirPath) {
-        return moveDir(getFileByPath(srcDirPath), getFileByPath(destDirPath));
+    public static boolean copyDir(String srcDirPath, String destDirPath) {
+        return copyDir(getFileByPath(srcDirPath), getFileByPath(destDirPath));
     }
 
     /**
@@ -296,7 +308,7 @@ public class FileUtils {
      *
      * @param srcFilePath  源文件路径
      * @param destFilePath 目标文件路径
-     * @return {@code true}: 复制拷贝成功<br>{@code false}: 复制失败
+     * @return {@code true}: 复制成功<br>{@code false}: 复制失败
      */
     public static boolean copyFile(String srcFilePath, String destFilePath) {
         return copyFile(getFileByPath(srcFilePath), getFileByPath(destFilePath));
@@ -320,7 +332,7 @@ public class FileUtils {
      * @param destDirPath 目标目录路径
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
      */
-    public boolean moveDir(String srcDirPath, String destDirPath) {
+    public static boolean moveDir(String srcDirPath, String destDirPath) {
         return moveDir(getFileByPath(srcDirPath), getFileByPath(destDirPath));
     }
 
@@ -363,7 +375,7 @@ public class FileUtils {
      * @param dirPath 目录路径
      * @return {@code true}: 删除成功<br>{@code false}: 删除失败
      */
-    public boolean deleteDir(String dirPath) {
+    public static boolean deleteDir(String dirPath) {
         return deleteDir(getFileByPath(dirPath));
     }
 
@@ -373,9 +385,11 @@ public class FileUtils {
      * @param dir 目录
      * @return {@code true}: 删除成功<br>{@code false}: 删除失败
      */
-    public boolean deleteDir(File dir) {
+    public static boolean deleteDir(File dir) {
         if (dir == null) return false;
+        // 目录不存在返回true
         if (!dir.exists()) return true;
+        // 不是目录返回false
         if (!dir.isDirectory()) return false;
         // 现在文件存在且是文件夹
         File[] files = dir.listFiles();
@@ -436,7 +450,10 @@ public class FileUtils {
         try {
             os = new BufferedOutputStream(new FileOutputStream(file, append));
             byte data[] = new byte[KB];
-            while (is.read(data) != -1) os.write(data);
+            int len;
+            while ((len = is.read(data)) != -1) {
+                os.write(data, 0, len);
+            }
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -589,7 +606,8 @@ public class FileUtils {
      * @param charsetName 编码格式
      * @return 包含制定行的list
      */
-    public static List<String> readFile2List(String filePath, int start, int end, String charsetName) {
+    public static List<String> readFile2List(String filePath, int start, int end, String
+            charsetName) {
         return readFile2List(getFileByPath(filePath), start, end, charsetName);
     }
 
@@ -653,7 +671,12 @@ public class FileUtils {
         BufferedReader reader = null;
         try {
             sb = new StringBuilder();
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charsetName));
+            if (StringUtils.isSpace(charsetName)) {
+                reader = new BufferedReader(new FileReader(file));
+            } else {
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream(file),
+                        charsetName));
+            }
             String line;
             while ((line = reader.readLine()) != null) {
                 sb.append(line);

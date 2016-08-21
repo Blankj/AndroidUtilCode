@@ -29,8 +29,10 @@ public class EncryptUtilsTest {
     String blankjSHA1 = "C606ACCB1FEB669E19D080ADDDDBB8E6CDA5F43C";
     String blankjSHA224 = "F4C5C0E8CF56CAC4D06DB6B523F67621859A9D79BDA4B2AC03097D5F";
     String blankjSHA256 = "8BD80AE90DFBA112786367BEBDDEE60A638EF5B82682EDF8F3D3CA8E6BFEF648";
-    String blankjSHA384 = "BF831E5221FC108D6A72ACB888BA3EB0C030A5F01BA2F739856BE70681D86F992B85E0D461101C74BAEDA895BD422557";
-    String blankjSHA512 = "D59D31067F614ED3586F85A31FEFDB7F33096316DA26EBE0FF440B241C8560D96650F100D78C512560C976949EFA89CB5D5589DCF68C7FAADE98F03BCFEC2B45";
+    String blankjSHA384 =
+            "BF831E5221FC108D6A72ACB888BA3EB0C030A5F01BA2F739856BE70681D86F992B85E0D461101C74BAEDA895BD422557";
+    String blankjSHA512 =
+            "D59D31067F614ED3586F85A31FEFDB7F33096316DA26EBE0FF440B241C8560D96650F100D78C512560C976949EFA89CB5D5589DCF68C7FAADE98F03BCFEC2B45";
 
     @Test
     public void testEncryptMD2() throws Exception {
@@ -92,14 +94,16 @@ public class EncryptUtilsTest {
     public void testEncryptDES() throws Exception {
         assertThat(encryptDES(bytesDataDES, bytesKeyDES)).isEqualTo(bytesResDES);
         assertThat(encryptDES2HexString(bytesDataDES, bytesKeyDES)).isEqualTo(resDES);
-        assertThat(encryptDES2Base64(bytesDataDES, bytesKeyDES)).isEqualTo(base64Encode(bytesResDES));
+        assertThat(encryptDES2Base64(bytesDataDES, bytesKeyDES)).isEqualTo(base64Encode
+                (bytesResDES));
     }
 
     @Test
     public void testDecryptDES() throws Exception {
         assertThat(decryptDES(bytesResDES, bytesKeyDES)).isEqualTo(bytesDataDES);
         assertThat(decryptHexStringDES(resDES, bytesKeyDES)).isEqualTo(bytesDataDES);
-        assertThat(decryptBase64DES(base64Encode(bytesResDES), bytesKeyDES)).isEqualTo(bytesDataDES);
+        assertThat(decryptBase64DES(base64Encode(bytesResDES), bytesKeyDES)).isEqualTo
+                (bytesDataDES);
     }
 
     String data3DES = "1111111111111111";
@@ -113,14 +117,16 @@ public class EncryptUtilsTest {
     public void testEncrypt3DES() throws Exception {
         assertThat(encrypt3DES(bytesDataDES3, bytesKeyDES3)).isEqualTo(bytesResDES3);
         assertThat(encrypt3DES2HexString(bytesDataDES3, bytesKeyDES3)).isEqualTo(res3DES);
-        assertThat(encrypt3DES2Base64(bytesDataDES3, bytesKeyDES3)).isEqualTo(base64Encode(bytesResDES3));
+        assertThat(encrypt3DES2Base64(bytesDataDES3, bytesKeyDES3)).isEqualTo(base64Encode
+                (bytesResDES3));
     }
 
     @Test
     public void testDecrypt3DES() throws Exception {
         assertThat(decrypt3DES(bytesResDES3, bytesKeyDES3)).isEqualTo(bytesDataDES3);
         assertThat(decryptHexString3DES(res3DES, bytesKeyDES3)).isEqualTo(bytesDataDES3);
-        assertThat(decryptBase64_3DES(base64Encode(bytesResDES3), bytesKeyDES3)).isEqualTo(bytesDataDES3);
+        assertThat(decryptBase64_3DES(base64Encode(bytesResDES3), bytesKeyDES3)).isEqualTo
+                (bytesDataDES3);
     }
 
     String dataAES = "11111111111111111111111111111111";
@@ -134,21 +140,23 @@ public class EncryptUtilsTest {
     public void testEncryptAES() throws Exception {
         assertThat(encryptAES(bytesDataAES, bytesKeyAES)).isEqualTo(bytesResAES);
         assertThat(encryptAES2HexString(bytesDataAES, bytesKeyAES)).isEqualTo(resAES);
-        assertThat(encryptAES2Base64(bytesDataAES, bytesKeyAES)).isEqualTo(base64Encode(bytesResAES));
+        assertThat(encryptAES2Base64(bytesDataAES, bytesKeyAES)).isEqualTo(base64Encode
+                (bytesResAES));
     }
 
     @Test
     public void testDecryptAES() throws Exception {
         assertThat(decryptAES(bytesResAES, bytesKeyAES)).isEqualTo(bytesDataAES);
         assertThat(decryptHexStringAES(resAES, bytesKeyAES)).isEqualTo(bytesDataAES);
-        assertThat(decryptBase64AES(base64Encode(bytesResAES), bytesKeyAES)).isEqualTo(bytesDataAES);
+        assertThat(decryptBase64AES(base64Encode(bytesResAES), bytesKeyAES)).isEqualTo
+                (bytesDataAES);
     }
 
-    String path = System.getProperty("user.dir") + "\\src\\test\\res\\";
+    String path = TestUtils.BASEPATH + "encrypt" + TestUtils.SEP;
     String md5 = "7F138A09169B250E9DCB378140907378";
 
     @Test
     public void testEncryptMD5File() throws Exception {
-        assertThat(encryptMD5File2String(new File(path + File.separator + "MD5.txt"))).isEqualTo(md5);
+        assertThat(encryptMD5File2String(new File(path + "MD5.txt"))).isEqualTo(md5);
     }
 }

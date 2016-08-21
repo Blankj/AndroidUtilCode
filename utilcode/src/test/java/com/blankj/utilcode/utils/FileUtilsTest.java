@@ -2,7 +2,11 @@ package com.blankj.utilcode.utils;
 
 import org.junit.Test;
 
+import java.io.FileInputStream;
+
 import static com.blankj.utilcode.utils.FileUtils.*;
+import static com.blankj.utilcode.utils.TestUtils.BASEPATH;
+import static com.blankj.utilcode.utils.TestUtils.SEP;
 import static com.google.common.truth.Truth.assertThat;
 
 /**
@@ -15,7 +19,14 @@ import static com.google.common.truth.Truth.assertThat;
  */
 public class FileUtilsTest {
 
-    String path = System.getProperty("user.dir") + "\\src\\test\\res\\";
+
+    String path = BASEPATH + "file" + SEP;
+
+    @Test
+    public void testGetFileByPath() throws Exception {
+        assertThat(getFileByPath(" ")).isNull();
+        assertThat(getFileByPath("c:")).isNotNull();
+    }
 
     @Test
     public void testIsFileExists() throws Exception {
@@ -24,7 +35,7 @@ public class FileUtilsTest {
     }
 
     @Test
-    public void testIsDirectory() throws Exception {
+    public void testIsDir() throws Exception {
         assertThat(isDir(path + "UTF8.txt")).isFalse();
         assertThat(isDir(path)).isTrue();
     }
@@ -43,13 +54,128 @@ public class FileUtilsTest {
 
     @Test
     public void testCreateOrExistsFile() throws Exception {
-        assertThat(createOrExistsFile(path + "new Dir")).isTrue();
+        assertThat(createOrExistsFile(path + "new File")).isTrue();
         assertThat(createOrExistsFile(path)).isFalse();
     }
 
     @Test
     public void testCreateFileByDeleteOldFile() throws Exception {
-        assertThat(createFileByDeleteOldFile(path + "new Dir")).isTrue();
+        assertThat(createFileByDeleteOldFile(path + "new File")).isTrue();
         assertThat(createFileByDeleteOldFile(path)).isFalse();
+    }
+
+    String path1 = BASEPATH + "file1" + SEP;
+
+    @Test
+    public void testCopyDir() throws Exception {
+        assertThat(copyDir(path, path)).isFalse();
+        assertThat(copyDir(path, path + "new Dir")).isFalse();
+        assertThat(copyDir(path, path1)).isTrue();
+    }
+
+    @Test
+    public void testCopyFile() throws Exception {
+        assertThat(copyFile(path + "GBK.txt", path + "GBK.txt")).isFalse();
+        assertThat(copyFile(path + "GBK.txt", path + "new Dir" + SEP + "GBK.txt")).isTrue();
+        assertThat(copyFile(path + "GBK.txt", path1 + "GBK.txt")).isTrue();
+    }
+
+    @Test
+    public void testMoveDir() throws Exception {
+        assertThat(moveDir(path, path)).isFalse();
+        assertThat(moveDir(path, path + "new Dir")).isFalse();
+        assertThat(moveDir(path, path1)).isTrue();
+        assertThat(moveDir(path1, path)).isTrue();
+    }
+
+    @Test
+    public void testMoveFile() throws Exception {
+        assertThat(moveFile(path + "GBK.txt", path + "GBK.txt")).isFalse();
+        assertThat(moveFile(path + "GBK.txt", path1 + "GBK.txt")).isTrue();
+        assertThat(moveFile(path1 + "GBK.txt", path + "GBK.txt")).isTrue();
+    }
+
+    @Test
+    public void testDeleteDir() throws Exception {
+        assertThat(deleteDir(path + "GBK.txt")).isFalse();
+        assertThat(deleteDir(path + "del")).isTrue();
+    }
+
+    @Test
+    public void testDeleteFile() throws Exception {
+        assertThat(deleteFile(path)).isFalse();
+        assertThat(deleteFile(path + "GBK1.txt")).isTrue();
+        assertThat(deleteFile(path + "del.txt")).isTrue();
+    }
+
+    @Test
+    public void testWriteFileFromIS() throws Exception {
+        assertThat(writeFileFromIS(path + "NEW.txt", new FileInputStream(path + "UTF8.txt"), false))
+                .isTrue();
+        assertThat(writeFileFromIS(path + "NEW.txt", new FileInputStream(path + "UTF8.txt"), true))
+                .isTrue();
+    }
+
+    @Test
+    public void testWriteFileFromString() throws Exception {
+        assertThat(writeFileFromString(path + "NEW.txt", "这是新的", false)).isTrue();
+        assertThat(writeFileFromString(path + "NEW.txt", "\r\n这是追加的", true)).isTrue();
+    }
+
+    @Test
+    public void testGetFileCharsetSimple() throws Exception {
+        assertThat(getFileCharsetSimple(path + "GBK.txt")).isEqualTo("GBK");
+        assertThat(getFileCharsetSimple(path + "Unicode.txt")).isEqualTo("Unicode");
+        assertThat(getFileCharsetSimple(path + "UTF8.txt")).isEqualTo("UTF-8");
+        assertThat(getFileCharsetSimple(path + "UTF16BE.txt")).isEqualTo("UTF-16BE");
+    }
+
+    @Test
+    public void testGetFileLines() throws Exception {
+        assertThat(getFileLines(path + "UTF8.txt")).isEqualTo(7);
+    }
+
+    @Test
+    public void testReadFile2List() throws Exception {
+        System.out.println(readFile2List(path + "UTF8.txt", "").toString());
+        System.out.println(readFile2List(path + "UTF8.txt", "UTF-8").toString());
+        System.out.println(readFile2List(path + "UTF8.txt", "GBK").toString());
+    }
+
+    @Test
+    public void testReadFile2SB() throws Exception {
+        System.out.println(readFile2SB(path + "UTF8.txt", "").toString());
+        System.out.println(readFile2SB(path + "UTF8.txt", "UTF-8").toString());
+        System.out.println(readFile2SB(path + "UTF8.txt", "GBK").toString());
+    }
+
+    @Test
+    public void testByte2Unit() throws Exception {
+        assertThat(byte2Unit(ConstUtils.GB, ConstUtils.MB) - 1024).isWithin(0.001);
+    }
+
+    @Test
+    public void testGetFileSize() throws Exception {
+        assertThat(getFileSize(path + "UTF8.txt", ConstUtils.BYTE) - 25).isWithin(0.001);
+    }
+
+    @Test
+    public void testGetDirName() throws Exception {
+        assertThat(getDirName(path + "UTF8.txt")).isEqualTo(path);
+    }
+
+    @Test
+    public void testGetFileName() throws Exception {
+        assertThat(getFileName(path + "UTF8.txt")).isEqualTo("UTF8.txt");
+    }
+
+    @Test
+    public void testGetFileNameNoExtension() throws Exception {
+        assertThat(getFileNameNoExtension(path + "UTF8.txt")).isEqualTo("UTF8");
+    }
+
+    @Test
+    public void testGetFileExtension() throws Exception {
+        assertThat(getFileExtension(path + "UTF8.txt")).isEqualTo("txt");
     }
 }

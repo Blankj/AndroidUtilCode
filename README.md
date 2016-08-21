@@ -66,6 +66,7 @@
 >  - AES解密 *decryptAES*
 
 > - **文件相关→[FileUtils.java][file.java]→[Test][file.test]**
+>  - 关闭IO *closeIO*
 >  - 根据文件路径获取文件 *getFileByPath*
 >  - 判断文件是否存在 *isFileExists*
 >  - 判断是否是目录 *isDir*
@@ -214,7 +215,7 @@
 ***
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.1.1'
+compile 'com.blankj:utilcode:1.1.2'
 ```
 
 ### Proguard
