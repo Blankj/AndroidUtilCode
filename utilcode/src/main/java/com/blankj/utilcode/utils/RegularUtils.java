@@ -9,7 +9,7 @@ import static com.blankj.utilcode.utils.ConstUtils.*;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/8/2
- *     desc  : 正则相关的工具类
+ *     desc  : 正则相关工具类
  * </pre>
  */
 public class RegularUtils {

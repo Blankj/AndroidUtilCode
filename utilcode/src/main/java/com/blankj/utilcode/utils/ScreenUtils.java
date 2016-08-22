@@ -20,7 +20,7 @@ import java.lang.reflect.Method;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/8/2
- *     desc  : 屏幕相关的工具类
+ *     desc  : 屏幕相关工具类
  * </pre>
  */
 public class ScreenUtils {

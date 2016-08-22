@@ -10,11 +10,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.blankj.utilcode.utils.ConstUtils.KB;
@@ -24,27 +26,13 @@ import static com.blankj.utilcode.utils.ConstUtils.KB;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/8/11
- *     desc  : 文件相关的工具类
+ *     desc  : 文件相关工具类
  * </pre>
  */
 public class FileUtils {
 
     private FileUtils() {
         throw new UnsupportedOperationException("u can't fuck me...");
-    }
-
-    /**
-     * 关闭IO
-     *
-     * @param closeable closeable
-     */
-    public static void closeIO(Closeable closeable) {
-        if (closeable == null) return;
-        try {
-            closeable.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -61,7 +49,7 @@ public class FileUtils {
      * 判断文件是否存在
      *
      * @param filePath 文件路径
-     * @return {@code false}: 存在<br>{@code false}: 不存在
+     * @return {@code true}: 存在<br>{@code false}: 不存在
      */
     public static boolean isFileExists(String filePath) {
         return isFileExists(getFileByPath(filePath));
@@ -71,7 +59,7 @@ public class FileUtils {
      * 判断文件是否存在
      *
      * @param file 文件
-     * @return {@code false}: 存在<br>{@code false}: 不存在
+     * @return {@code true}: 存在<br>{@code false}: 不存在
      */
     public static boolean isFileExists(File file) {
         return file != null && file.exists();
@@ -81,7 +69,7 @@ public class FileUtils {
      * 判断是否是目录
      *
      * @param dirPath 目录路径
-     * @return {@code false}: 是<br>{@code false}: 否
+     * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isDir(String dirPath) {
         return isDir(getFileByPath(dirPath));
@@ -424,6 +412,213 @@ public class FileUtils {
     }
 
     /**
+     * 获取目录下所有文件
+     *
+     * @param dirPath     目录路径
+     * @param isRecursive 是否递归进子目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDir(String dirPath, boolean isRecursive) {
+        return listFilesInDir(getFileByPath(dirPath), isRecursive);
+    }
+
+    /**
+     * 获取目录下所有文件
+     *
+     * @param dir         目录
+     * @param isRecursive 是否递归进子目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDir(File dir, boolean isRecursive) {
+        if (isRecursive) return listFilesInDir(dir);
+        if (dir == null || !isDir(dir)) return null;
+        List<File> list = new ArrayList<>();
+        File[] files = dir.listFiles();
+        Collections.addAll(list, files);
+        return list;
+    }
+
+    /**
+     * 获取目录下所有文件包括子目录
+     *
+     * @param dir 目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDir(File dir) {
+        if (dir == null || !isDir(dir)) return null;
+        List<File> list = new ArrayList<>();
+        File[] files = dir.listFiles();
+        for (File file : files) {
+            list.add(file);
+            if (file.isDirectory()) {
+                list.addAll(listFilesInDir(file));
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 获取目录下所有后缀名为suffix的文件
+     * <p>大小写忽略</p>
+     *
+     * @param dirPath     目录路径
+     * @param isRecursive 是否递归进子目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDirWithFilter(String dirPath, String suffix, boolean isRecursive) {
+        return listFilesInDirWithFilter(getFileByPath(dirPath), suffix, isRecursive);
+    }
+
+    /**
+     * 获取目录下所有后缀名为suffix的文件
+     * <p>大小写忽略</p>
+     *
+     * @param dir         目录
+     * @param isRecursive 是否递归进子目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDirWithFilter(File dir, String suffix, boolean isRecursive) {
+        if (isRecursive) return listFilesInDirWithFilter(dir, suffix);
+        if (dir == null || !isDir(dir)) return null;
+        List<File> list = new ArrayList<>();
+        File[] files = dir.listFiles();
+        for (File file : files) {
+            if (file.getName().toUpperCase().endsWith(suffix.toUpperCase())) {
+                list.add(file);
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 获取目录下所有后缀名为suffix的文件包括子目录
+     * <p>大小写忽略</p>
+     *
+     * @param dirPath 目录路径
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDirWithFilter(String dirPath, String suffix) {
+        return listFilesInDirWithFilter(getFileByPath(dirPath), suffix);
+    }
+
+    /**
+     * 获取目录下所有后缀名为suffix的文件包括子目录
+     * <p>大小写忽略</p>
+     *
+     * @param dir 目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDirWithFilter(File dir, String suffix) {
+        if (dir == null || !isDir(dir)) return null;
+        List<File> list = new ArrayList<>();
+        File[] files = dir.listFiles();
+        for (File file : files) {
+            if (file.getName().toUpperCase().endsWith(suffix.toUpperCase())) {
+                list.add(file);
+            }
+            if (file.isDirectory()) {
+                list.addAll(listFilesInDirWithFilter(file, suffix));
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 获取目录下所有符合filter的文件
+     *
+     * @param dirPath     目录路径
+     * @param isRecursive 是否递归进子目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDirWithFilter(String dirPath, FilenameFilter filter, boolean isRecursive) {
+        return listFilesInDirWithFilter(getFileByPath(dirPath), filter, isRecursive);
+    }
+
+    /**
+     * 获取目录下所有符合filter的文件
+     *
+     * @param dir         目录
+     * @param isRecursive 是否递归进子目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDirWithFilter(File dir, FilenameFilter filter, boolean isRecursive) {
+        if (isRecursive) return listFilesInDirWithFilter(dir, filter);
+        if (dir == null || !isDir(dir)) return null;
+        List<File> list = new ArrayList<>();
+        File[] files = dir.listFiles();
+        for (File file : files) {
+            if (filter.accept(file.getParentFile(), file.getName())) {
+                list.add(file);
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 获取目录下所有符合filter的文件包括子目录
+     *
+     * @param dirPath 目录路径
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDirWithFilter(String dirPath, FilenameFilter filter) {
+        return listFilesInDirWithFilter(getFileByPath(dirPath), filter);
+    }
+
+    /**
+     * 获取目录下所有符合filter的文件包括子目录
+     *
+     * @param dir 目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDirWithFilter(File dir, FilenameFilter filter) {
+        if (dir == null || !isDir(dir)) return null;
+        List<File> list = new ArrayList<>();
+        File[] files = dir.listFiles();
+        for (File file : files) {
+            if (filter.accept(file.getParentFile(), file.getName())) {
+                list.add(file);
+            }
+            if (file.isDirectory()) {
+                list.addAll(listFilesInDirWithFilter(file, filter));
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 获取目录下指定文件名的文件包括子目录
+     * <p>大小写忽略</p>
+     *
+     * @param dirPath 目录路径
+     * @return 文件链表
+     */
+    public static List<File> searchFileInDir(String dirPath, String fileName) {
+        return searchFileInDir(getFileByPath(dirPath), fileName);
+    }
+
+    /**
+     * 获取目录下指定文件名的文件包括子目录
+     * <p>大小写忽略</p>
+     *
+     * @param dir 目录
+     * @return 文件链表
+     */
+    public static List<File> searchFileInDir(File dir, String fileName) {
+        if (dir == null || !isDir(dir)) return null;
+        List<File> list = new ArrayList<>();
+        File[] files = dir.listFiles();
+        for (File file : files) {
+            if (file.getName().toUpperCase().equals(fileName.toUpperCase())) {
+                list.add(file);
+            }
+            if (file.isDirectory()) {
+                list.addAll(listFilesInDirWithFilter(file, fileName));
+            }
+        }
+        return list;
+    }
+
+    /**
      * 将输入流写入文件
      *
      * @param filePath 路径
@@ -695,10 +890,10 @@ public class FileUtils {
      *
      * @param size 大小
      * @param unit <ul>
-     *             <li>ConstUtils.BYTE:字节</li>
-     *             <li>ConstUtils.KB  :千字节</li>
-     *             <li>ConstUtils.MB  :兆</li>
-     *             <li>ConstUtils.GB  :GB</li>
+     *             <li>{@link ConstUtils#BYTE}: 字节</li>
+     *             <li>{@link ConstUtils#KB}  : 千字节</li>
+     *             <li>{@link ConstUtils#MB}  : 兆</li>
+     *             <li>{@link ConstUtils#GB}  : GB</li>
      *             </ul>
      * @return 大小以unit为单位
      */
@@ -719,10 +914,10 @@ public class FileUtils {
      *
      * @param filePath 文件路径
      * @param unit     <ul>
-     *                 <li>ConstUtils.BYTE:字节</li>
-     *                 <li>ConstUtils.KB  :千字节</li>
-     *                 <li>ConstUtils.MB  :兆</li>
-     *                 <li>ConstUtils.GB  :GB</li>
+     *                 <li>{@link ConstUtils#BYTE}: 字节</li>
+     *                 <li>{@link ConstUtils#KB}  : 千字节</li>
+     *                 <li>{@link ConstUtils#MB}  : 兆</li>
+     *                 <li>{@link ConstUtils#GB}  : GB</li>
      *                 </ul>
      * @return 文件大小以unit为单位
      */
@@ -736,10 +931,10 @@ public class FileUtils {
      *
      * @param file 文件
      * @param unit <ul>
-     *             <li>ConstUtils.BYTE:字节</li>
-     *             <li>ConstUtils.KB  :千字节</li>
-     *             <li>ConstUtils.MB  :兆</li>
-     *             <li>ConstUtils.GB  :GB</li>
+     *             <li>{@link ConstUtils#BYTE}: 字节</li>
+     *             <li>{@link ConstUtils#KB}  : 千字节</li>
+     *             <li>{@link ConstUtils#MB}  : 兆</li>
+     *             <li>{@link ConstUtils#GB}  : GB</li>
      *             </ul>
      * @return 文件大小以unit为单位
      */
@@ -749,7 +944,32 @@ public class FileUtils {
     }
 
     /**
-     * 根据全路径获取最长目录
+     * 关闭IO
+     *
+     * @param closeable closeable
+     */
+    public static void closeIO(Closeable closeable) {
+        if (closeable == null) return;
+        try {
+            closeable.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 获取全路径中的最长目录
+     *
+     * @param file 文件
+     * @return filePath最长目录
+     */
+    public static String getDirName(File file) {
+        if (!isFileExists(file)) return "";
+        return getDirName(file.getPath());
+    }
+
+    /**
+     * 获取全路径中的最长目录
      *
      * @param filePath 文件路径
      * @return filePath最长目录
@@ -761,7 +981,18 @@ public class FileUtils {
     }
 
     /**
-     * 根据全路径获取文件名
+     * 获取全路径中的文件名
+     *
+     * @param file 文件
+     * @return 文件名
+     */
+    public static String getFileName(File file) {
+        if (!isFileExists(file)) return "";
+        return getFileName(file.getPath());
+    }
+
+    /**
+     * 获取全路径中的文件名
      *
      * @param filePath 文件路径
      * @return 文件名
@@ -773,10 +1004,21 @@ public class FileUtils {
     }
 
     /**
-     * 根据全路径获取文件名不带拓展名
+     * 获取全路径中的不带拓展名的文件名
+     *
+     * @param file 文件
+     * @return 不带拓展名的文件名
+     */
+    public static String getFileNameNoExtension(File file) {
+        if (!isFileExists(file)) return "";
+        return getFileNameNoExtension(file.getPath());
+    }
+
+    /**
+     * 获取全路径中的不带拓展名的文件名
      *
      * @param filePath 文件路径
-     * @return 文件名不带拓展名
+     * @return 不带拓展名的文件名
      */
     public static String getFileNameNoExtension(String filePath) {
         if (StringUtils.isSpace(filePath)) return filePath;
@@ -791,8 +1033,20 @@ public class FileUtils {
         return filePath.substring(lastSep + 1, lastPoi);
     }
 
+
     /**
-     * 根据全路径获取文件拓展名
+     * 获取全路径中的文件拓展名
+     *
+     * @param file 文件
+     * @return 文件拓展名
+     */
+    public static String getFileExtension(File file) {
+        if (!isFileExists(file)) return "";
+        return getFileExtension(file.getPath());
+    }
+
+    /**
+     * 获取全路径中的文件拓展名
      *
      * @param filePath 文件路径
      * @return 文件拓展名

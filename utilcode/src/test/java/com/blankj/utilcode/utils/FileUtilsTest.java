@@ -2,7 +2,9 @@ package com.blankj.utilcode.utils;
 
 import org.junit.Test;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FilenameFilter;
 
 import static com.blankj.utilcode.utils.FileUtils.*;
 import static com.blankj.utilcode.utils.TestUtils.BASEPATH;
@@ -109,6 +111,32 @@ public class FileUtilsTest {
     }
 
     @Test
+    public void testListFilesInDir() throws Exception {
+        System.out.println(listFilesInDir(path, false).toString());
+        System.out.println(listFilesInDir(path, true).toString());
+    }
+
+    FilenameFilter filter = new FilenameFilter() {
+        public boolean accept(File dir, String name) {
+            return name.endsWith("k.txt");
+        }
+    };
+
+    @Test
+    public void testListFilesInDirWithFiltere() throws Exception {
+        System.out.println(listFilesInDirWithFilter(path, "k.txt", false).toString());
+        System.out.println(listFilesInDirWithFilter(path, "k.txt", true).toString());
+        System.out.println(listFilesInDirWithFilter(path, filter, false).toString());
+        System.out.println(listFilesInDirWithFilter(path, filter, true).toString());
+    }
+
+    @Test
+    public void testSearchFile() throws Exception {
+        System.out.println(searchFileInDir(path, "GBK.txt").toString());
+        System.out.println(searchFileInDir(path, "child").toString());
+    }
+
+    @Test
     public void testWriteFileFromIS() throws Exception {
         assertThat(writeFileFromIS(path + "NEW.txt", new FileInputStream(path + "UTF8.txt"), false))
                 .isTrue();
@@ -139,6 +167,7 @@ public class FileUtilsTest {
     public void testReadFile2List() throws Exception {
         System.out.println(readFile2List(path + "UTF8.txt", "").toString());
         System.out.println(readFile2List(path + "UTF8.txt", "UTF-8").toString());
+        System.out.println(readFile2List(path + "UTF8.txt", 2, 5, "UTF-8").toString());
         System.out.println(readFile2List(path + "UTF8.txt", "GBK").toString());
     }
 
@@ -161,21 +190,26 @@ public class FileUtilsTest {
 
     @Test
     public void testGetDirName() throws Exception {
+        assertThat(getDirName(new File(path + "UTF8.txt"))).isEqualTo(path);
         assertThat(getDirName(path + "UTF8.txt")).isEqualTo(path);
     }
 
     @Test
     public void testGetFileName() throws Exception {
+        assertThat(getFileName(new File(path + "UTF8.txt"))).isEqualTo("UTF8.txt");
         assertThat(getFileName(path + "UTF8.txt")).isEqualTo("UTF8.txt");
     }
 
     @Test
     public void testGetFileNameNoExtension() throws Exception {
+        assertThat(getFileNameNoExtension(new File(path + "UTF8.txt"))).isEqualTo("UTF8");
         assertThat(getFileNameNoExtension(path + "UTF8.txt")).isEqualTo("UTF8");
     }
 
     @Test
     public void testGetFileExtension() throws Exception {
+        assertThat(getFileExtension(new File(path + "UTF8.txt"))).isEqualTo("txt");
         assertThat(getFileExtension(path + "UTF8.txt")).isEqualTo("txt");
+        System.out.println(new File(path).getName().endsWith("file"));
     }
 }

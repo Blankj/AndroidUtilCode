@@ -12,7 +12,7 @@ import java.util.List;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/8/2
- *     desc  : 未归类的工具类
+ *     desc  : 未归类工具类
  * </pre>
  */
 public class UnclassifiedUtils {

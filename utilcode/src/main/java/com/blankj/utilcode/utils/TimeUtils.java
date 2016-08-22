@@ -11,7 +11,7 @@ import java.util.Locale;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/8/2
- *     desc  : 时间相关的工具类
+ *     desc  : 时间相关工具类
  * </pre>
  */
 public class TimeUtils {
@@ -300,11 +300,11 @@ public class TimeUtils {
      *
      * @param milliseconds 毫秒时间戳
      * @param unit         <ul>
-     *                     <li>ConstUtils.MSEC:毫秒</li>
-     *                     <li>ConstUtils.SEC :秒</li>
-     *                     <li>ConstUtils.MIN :分</li>
-     *                     <li>ConstUtils.HOUR:小时</li>
-     *                     <li>ConstUtils.DAY :天</li>
+     *                     <li>{@link ConstUtils#MSEC}: 毫秒</li>
+     *                     <li>{@link ConstUtils#SEC }: 秒</li>
+     *                     <li>{@link ConstUtils#MIN }: 分</li>
+     *                     <li>{@link ConstUtils#HOUR}: 小时</li>
+     *                     <li>{@link ConstUtils#DAY }: 天</li>
      *                     </ul>
      * @return unit时间戳
      */
@@ -327,11 +327,11 @@ public class TimeUtils {
      * @param time0 时间字符串1
      * @param time1 时间字符串2
      * @param unit  <ul>
-     *              <li>ConstUtils.MSEC:毫秒</li>
-     *              <li>ConstUtils.SEC :秒</li>
-     *              <li>ConstUtils.MIN :分</li>
-     *              <li>ConstUtils.HOUR:小时</li>
-     *              <li>ConstUtils.DAY :天</li>
+     *              <li>{@link ConstUtils#MSEC}: 毫秒</li>
+     *              <li>{@link ConstUtils#SEC }: 秒</li>
+     *              <li>{@link ConstUtils#MIN }: 分</li>
+     *              <li>{@link ConstUtils#HOUR}: 小时</li>
+     *              <li>{@link ConstUtils#DAY }: 天</li>
      *              </ul>
      * @return unit时间戳
      */
@@ -346,11 +346,11 @@ public class TimeUtils {
      * @param time0  时间字符串1
      * @param time1  时间字符串2
      * @param unit   <ul>
-     *               <li>ConstUtils.MSEC:毫秒</li>
-     *               <li>ConstUtils.SEC :秒</li>
-     *               <li>ConstUtils.MIN :分</li>
-     *               <li>ConstUtils.HOUR:小时</li>
-     *               <li>ConstUtils.DAY :天</li>
+     *               <li>{@link ConstUtils#MSEC}: 毫秒</li>
+     *               <li>{@link ConstUtils#SEC }: 秒</li>
+     *               <li>{@link ConstUtils#MIN }: 分</li>
+     *               <li>{@link ConstUtils#HOUR}: 小时</li>
+     *               <li>{@link ConstUtils#DAY }: 天</li>
      *               </ul>
      * @param format 时间格式
      * @return unit时间戳
@@ -367,11 +367,11 @@ public class TimeUtils {
      * @param time0 Date类型时间1
      * @param time1 Date类型时间2
      * @param unit  <ul>
-     *              <li>ConstUtils.MSEC:毫秒</li>
-     *              <li>ConstUtils.SEC :秒</li>
-     *              <li>ConstUtils.MIN :分</li>
-     *              <li>ConstUtils.HOUR:小时</li>
-     *              <li>ConstUtils.DAY :天</li>
+     *              <li>{@link ConstUtils#MSEC}: 毫秒</li>
+     *              <li>{@link ConstUtils#SEC }: 秒</li>
+     *              <li>{@link ConstUtils#MIN }: 分</li>
+     *              <li>{@link ConstUtils#HOUR}: 小时</li>
+     *              <li>{@link ConstUtils#DAY }: 天</li>
      *              </ul>
      * @return unit时间戳
      */
@@ -426,11 +426,11 @@ public class TimeUtils {
      *
      * @param time 时间字符串
      * @param unit <ul>
-     *             <li>ConstUtils.MSEC:毫秒</li>
-     *             <li>ConstUtils.SEC :秒</li>
-     *             <li>ConstUtils.MIN :分</li>
-     *             <li>ConstUtils.HOUR:小时</li>
-     *             <li>ConstUtils.DAY :天</li>
+     *             <li>{@link ConstUtils#MSEC}:毫秒</li>
+     *             <li>{@link ConstUtils#SEC }:秒</li>
+     *             <li>{@link ConstUtils#MIN }:分</li>
+     *             <li>{@link ConstUtils#HOUR}:小时</li>
+     *             <li>{@link ConstUtils#DAY }:天</li>
      *             </ul>
      * @return unit时间戳
      */
@@ -444,11 +444,11 @@ public class TimeUtils {
      *
      * @param time   时间字符串
      * @param unit   <ul>
-     *               <li>ConstUtils.MSEC:毫秒</li>
-     *               <li>ConstUtils.SEC :秒</li>
-     *               <li>ConstUtils.MIN :分</li>
-     *               <li>ConstUtils.HOUR:小时</li>
-     *               <li>ConstUtils.DAY :天</li>
+     *               <li>{@link ConstUtils#MSEC}: 毫秒</li>
+     *               <li>{@link ConstUtils#SEC }: 秒</li>
+     *               <li>{@link ConstUtils#MIN }: 分</li>
+     *               <li>{@link ConstUtils#HOUR}: 小时</li>
+     *               <li>{@link ConstUtils#DAY }: 天</li>
      *               </ul>
      * @param format 时间格式
      * @return unit时间戳
@@ -463,11 +463,11 @@ public class TimeUtils {
      *
      * @param time Date类型时间
      * @param unit <ul>
-     *             <li>ConstUtils.MSEC:毫秒</li>
-     *             <li>ConstUtils.SEC :秒</li>
-     *             <li>ConstUtils.MIN :分</li>
-     *             <li>ConstUtils.HOUR:小时</li>
-     *             <li>ConstUtils.DAY :天</li>
+     *             <li>{@link ConstUtils#MSEC}: 毫秒</li>
+     *             <li>{@link ConstUtils#SEC }: 秒</li>
+     *             <li>{@link ConstUtils#MIN }: 分</li>
+     *             <li>{@link ConstUtils#HOUR}: 小时</li>
+     *             <li>{@link ConstUtils#DAY }: 天</li>
      *             </ul>
      * @return unit时间戳
      */

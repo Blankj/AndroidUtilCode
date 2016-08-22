@@ -1,5 +1,12 @@
 package com.blankj.utilcode.utils;
 
+import android.content.Context;
+
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowApplication;
+
 import java.io.File;
 
 /**
@@ -10,6 +17,8 @@ import java.io.File;
  *     desc  : 单元测试工具类
  * </pre>
  */
+@RunWith(RobolectricTestRunner.class)
+@Config(manifest = Config.NONE)
 public class TestUtils {
 
     private TestUtils() {
@@ -20,4 +29,8 @@ public class TestUtils {
 
     public static final String BASEPATH = System.getProperty("user.dir")
             + SEP + "src" + SEP + "test" + SEP + "res" + SEP;
+
+    public static Context getContext() {
+        return ShadowApplication.getInstance().getApplicationContext();
+    }
 }

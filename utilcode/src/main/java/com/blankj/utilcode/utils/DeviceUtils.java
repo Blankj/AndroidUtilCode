@@ -16,7 +16,7 @@ import java.io.LineNumberReader;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/8/1
- *     desc  : 设备相关的工具类
+ *     desc  : 设备相关工具类
  * </pre>
  */
 public class DeviceUtils {

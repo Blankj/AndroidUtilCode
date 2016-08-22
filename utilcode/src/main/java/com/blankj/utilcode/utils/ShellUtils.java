@@ -11,7 +11,7 @@ import java.util.List;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/8/7
- *     desc  : Shell操作工具类
+ *     desc  : Shell相关工具类
  * </pre>
  */
 public class ShellUtils {
