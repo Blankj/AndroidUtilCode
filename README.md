@@ -1,4 +1,4 @@
-## Android开发人员不得不收集的代码(持续更新中)
+## Android开发人员不得不收集的代码([持续更新中][update_log.md])
 ***
 为方便查找，已进行大致归类，其目录如下所示：  
 > - **App相关→[AppUtils.java][app.java]**
@@ -66,7 +66,6 @@
 >  - AES解密 *decryptAES*
 
 > - **文件相关→[FileUtils.java][file.java]→[Test][file.test]**
->  - 关闭IO *closeIO*
 >  - 根据文件路径获取文件 *getFileByPath*
 >  - 判断文件是否存在 *isFileExists*
 >  - 判断是否是目录 *isDir*
@@ -88,6 +87,7 @@
 >  - 指定编码按行读取文件到StringBuilder中 *readFile2SB*
 >  - byte单位转换（单位：unit） *byte2Unit*
 >  - 获取文件大小 *getFileSize*
+>  - 关闭IO *closeIO*
 >  - 根据全路径获取最长目录 *getDirName*
 >  - 根据全路径获取文件名 *getFileName*
 >  - 根据全路径获取文件名不带拓展名 *getFileNameNoExtension*
@@ -167,7 +167,8 @@
 >  - 在onCreate()即可强行获取View的尺寸 *forceGetViewSize*
 >  - ListView中提前测量View尺寸(注释萌萌哒) *measureView*
 
-> - **SP相关→[SPUtils.java][sp.java]**
+> - **SP相关→[SPUtils.java][sp.java]→[Test][sp.test]**
+>  - SPUtils构造函数 *SPUtils*
 >  - SP中写入String类型value *putString*
 >  - SP中读取String *getString*
 >  - SP中写入int类型value *putInt*
@@ -178,6 +179,10 @@
 >  - SP中读取float *getFloat*
 >  - SP中写入boolean类型value *putBoolean*
 >  - SP中读取boolean *getBoolean*
+>  - 获取sp中所有键值对 *getAll*
+>  - 从sp中移除该key *remove*
+>  - 判断sp中是否存在该key *contains*
+>  - 清除所有数据 *clear*
 
 > - **字符串相关→[StringUtils.java][string.java]→[Test][string.test]**
 >  - 判断字符串是否为null或长度为0 *isEmpty*
@@ -282,6 +287,7 @@ limitations under the License.
 [size.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SizeUtils.java
 
 [sp.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SPUtils.java
+[sp.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/SPUtilsTest.java
 
 [string.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/StringUtils.java
 [string.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/StringUtilsTest.java

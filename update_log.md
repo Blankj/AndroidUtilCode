@@ -1,4 +1,5 @@
-### 更新Log
+###
+#### 16/08/22 SPUtils将commit改为apply提高效率，将SPUtils改为构造函数法创建，
 #### 16/08/21 FileUtils单元测试完毕，修复FileUtils的bug，发布版本1.1.2
 #### 16/08/20 更新目录，继续完善FileUtils单元测试，发布版本1.1.1
 #### 16/08/19 继续完善FileUtils及单元测试，及其他小修小补（在此感谢vpop的三次Pr）
