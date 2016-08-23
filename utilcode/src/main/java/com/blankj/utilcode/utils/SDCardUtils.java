@@ -1,5 +1,6 @@
 package com.blankj.utilcode.utils;
 
+import android.content.Context;
 import android.os.Environment;
 
 import java.io.File;
@@ -35,6 +36,10 @@ public class SDCardUtils {
      */
     public static String getSDCardPath() {
         return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator;
+    }
+
+    public static String getSDCardCacheDir(Context context){
+        return context.getExternalCacheDir().getPath();
     }
 
 //    /**
