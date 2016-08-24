@@ -1,4 +1,5 @@
 ###
+#### 16/08/24 ConvertUtils新增InputStream与byte[]和String相互转换，应用在FileUtils中读文件
 #### 16/08/23 小修bug，接下来完善SDCardUtils和ImageUtils
 #### 16/08/22 SPUtils将commit改为apply提高效率，将SPUtils改为构造函数法创建，FileUtils新增查找函数，规范JavaDoc
 #### 16/08/21 FileUtils单元测试完毕，修复FileUtils的bug，发布版本1.1.2
