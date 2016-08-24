@@ -3,9 +3,14 @@ package com.blankj.utilcode.utils;
 
 import org.junit.Test;
 
-import static com.blankj.utilcode.utils.ConvertUtils.*;
-import static com.blankj.utilcode.utils.TestUtils.BASEPATH;
-import static com.blankj.utilcode.utils.TestUtils.SEP;
+import static com.blankj.utilcode.utils.ConvertUtils.bytes2Chars;
+import static com.blankj.utilcode.utils.ConvertUtils.bytes2HexString;
+import static com.blankj.utilcode.utils.ConvertUtils.bytes2InputStream;
+import static com.blankj.utilcode.utils.ConvertUtils.chars2Bytes;
+import static com.blankj.utilcode.utils.ConvertUtils.hexString2Bytes;
+import static com.blankj.utilcode.utils.ConvertUtils.inputStream2Bytes;
+import static com.blankj.utilcode.utils.ConvertUtils.inputStream2String;
+import static com.blankj.utilcode.utils.ConvertUtils.string2InputStream;
 import static com.google.common.truth.Truth.assertThat;
 
 
@@ -19,8 +24,6 @@ import static com.google.common.truth.Truth.assertThat;
  */
 public class ConvertUtilsTest {
 
-
-    String path = BASEPATH + "convert" + SEP;
     byte[] mBytes = new byte[]{0x00, 0x08, (byte) 0xdb, 0x33, 0x45, (byte) 0xab, 0x02, 0x23};
     String hexString = "0008DB3345AB0223";
 
