@@ -796,34 +796,33 @@ public class FileUtils {
      * 指定编码按行读取文件到List
      *
      * @param filePath    文件路径
-     * @param start       需要读取的开始行数
+     * @param st          需要读取的开始行数
      * @param end         需要读取的结束行数
      * @param charsetName 编码格式
      * @return 包含制定行的list
      */
-    public static List<String> readFile2List(String filePath, int start, int end, String
+    public static List<String> readFile2List(String filePath, int st, int end, String
             charsetName) {
-        return readFile2List(getFileByPath(filePath), start, end, charsetName);
+        return readFile2List(getFileByPath(filePath), st, end, charsetName);
     }
 
     /**
      * 指定编码按行读取文件到List
      *
      * @param file        文件
-     * @param start       需要读取的开始行数
+     * @param st          需要读取的开始行数
      * @param end         需要读取的结束行数
      * @param charsetName 编码格式
-     * @return 包含制定行的list
+     * @return 包含从start行到end行的list
      */
-    public static List<String> readFile2List(File file, int start, int end, String charsetName) {
+    public static List<String> readFile2List(File file, int st, int end, String charsetName) {
         if (file == null) return null;
-        if (start > end) return null;
-        List<String> list = null;
+        if (st > end) return null;
         BufferedReader reader = null;
         try {
             String line;
             int curLine = 1;
-            list = new ArrayList<>();
+            List<String> list = new ArrayList<>();
             if (StringUtils.isSpace(charsetName)) {
                 reader = new BufferedReader(new FileReader(file));
             } else {
@@ -831,58 +830,70 @@ public class FileUtils {
             }
             while ((line = reader.readLine()) != null) {
                 if (curLine > end) break;
-                if (start <= curLine && curLine <= end) list.add(line);
+                if (st <= curLine && curLine <= end) list.add(line);
                 ++curLine;
             }
+            return list;
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         } finally {
             closeIO(reader);
         }
-        return list;
     }
 
     /**
-     * 指定编码按行读取文件到StringBuilder中
+     * 指定编码按行读取文件到字符串中
      *
      * @param filePath    文件路径
      * @param charsetName 编码格式
-     * @return StringBuilder对象
+     * @return 字符串
      */
-    public static StringBuilder readFile2SB(String filePath, String charsetName) {
-        return readFile2SB(getFileByPath(filePath), charsetName);
+    public static String readFile2String(String filePath, String charsetName) {
+        return readFile2String(getFileByPath(filePath), charsetName);
     }
 
     /**
-     * 指定编码按行读取文件到StringBuilder中
+     * 指定编码按行读取文件到字符串中
      *
      * @param file        文件
      * @param charsetName 编码格式
+     * @return 字符串
+     */
+    public static String readFile2String(File file, String charsetName) {
+        if (file == null) return null;
+        try {
+            return ConvertUtils.inputStream2String(new FileInputStream(file), charsetName);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 指定编码按行读取文件到字符串中
+     *
+     * @param filePath 文件路径
      * @return StringBuilder对象
      */
-    public static StringBuilder readFile2SB(File file, String charsetName) {
+    public static byte[] readFile2Bytes(String filePath) {
+        return readFile2Bytes(getFileByPath(filePath));
+    }
+
+    /**
+     * 指定编码按行读取文件到字符串中
+     *
+     * @param file 文件
+     * @return StringBuilder对象
+     */
+    public static byte[] readFile2Bytes(File file) {
         if (file == null) return null;
-        StringBuilder sb = null;
-        BufferedReader reader = null;
         try {
-            sb = new StringBuilder();
-            if (StringUtils.isSpace(charsetName)) {
-                reader = new BufferedReader(new FileReader(file));
-            } else {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream(file),
-                        charsetName));
-            }
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-                sb.append("\r\n");// windows系统换行为\r\n，Linux为\n
-            }
-        } catch (IOException e) {
+            return ConvertUtils.inputStream2Bytes(new FileInputStream(file));
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            closeIO(reader);
+            return null;
         }
-        return sb;
     }
 
     /**

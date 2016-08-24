@@ -172,10 +172,16 @@ public class FileUtilsTest {
     }
 
     @Test
-    public void testReadFile2SB() throws Exception {
-        System.out.println(readFile2SB(path + "UTF8.txt", "").toString());
-        System.out.println(readFile2SB(path + "UTF8.txt", "UTF-8").toString());
-        System.out.println(readFile2SB(path + "UTF8.txt", "GBK").toString());
+    public void testReadFile2String() throws Exception {
+        System.out.println(readFile2String(path + "UTF8.txt", ""));
+        System.out.println(readFile2String(path + "UTF8.txt", "UTF-8"));
+        System.out.println(readFile2String(path + "UTF8.txt", "GBK"));
+    }
+
+
+    @Test
+    public void testReadFile2Bytes() throws Exception {
+        System.out.println(new String(readFile2Bytes(path + "UTF8.txt")) );
     }
 
     @Test
