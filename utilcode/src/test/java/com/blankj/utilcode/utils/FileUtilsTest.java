@@ -26,6 +26,7 @@ public class FileUtilsTest {
 
     @Test
     public void testGetFileByPath() throws Exception {
+        System.out.println(new byte[0].length);
         assertThat(getFileByPath(" ")).isNull();
         assertThat(getFileByPath("c:")).isNotNull();
     }
@@ -186,12 +187,12 @@ public class FileUtilsTest {
 
     @Test
     public void testByte2Unit() throws Exception {
-        assertThat(byte2Unit(ConstUtils.GB, ConstUtils.MB) - 1024).isWithin(0.001);
+        assertThat(byte2Unit(ConstUtils.GB, ConstUtils.MemoryUnit.MB) - 1024).isWithin(0.001);
     }
 
     @Test
     public void testGetFileSize() throws Exception {
-        assertThat(getFileSize(path + "UTF8.txt", ConstUtils.BYTE) - 25).isWithin(0.001);
+        assertThat(getFileSize(path + "UTF8.txt", ConstUtils.MemoryUnit.BYTE) - 25).isWithin(0.001);
     }
 
     @Test

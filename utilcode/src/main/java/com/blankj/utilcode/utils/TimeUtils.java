@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import static com.blankj.utilcode.utils.ConstUtils.*;
+
 
 /**
  * <pre>
@@ -28,7 +30,8 @@ public class TimeUtils {
      * 表示单引号。所有其他字符均不解释；只是在格式化时将它们简单复制到输出字符串，或者在分析时与输入字符串进行匹配。
      * </p>
      * 定义了以下模式字母（所有其他字符 'A' 到 'Z' 和 'a' 到 'z' 都被保留）： <br>
-     * <table border="1" cellspacing="1" cellpadding="1" summary="Chart shows pattern letters, date/time component, presentation, and examples.">
+     * <table border="1" cellspacing="1" cellpadding="1" summary="Chart shows pattern letters, date/time component,
+     * presentation, and examples.">
      * <tr>
      * <th align="left">字母</th>
      * <th align="left">日期或时间元素</th>
@@ -300,22 +303,26 @@ public class TimeUtils {
      *
      * @param milliseconds 毫秒时间戳
      * @param unit         <ul>
-     *                     <li>{@link ConstUtils#MSEC}: 毫秒</li>
-     *                     <li>{@link ConstUtils#SEC }: 秒</li>
-     *                     <li>{@link ConstUtils#MIN }: 分</li>
-     *                     <li>{@link ConstUtils#HOUR}: 小时</li>
-     *                     <li>{@link ConstUtils#DAY }: 天</li>
+     *                     <li>{@link TimeUnit#MSEC}: 毫秒</li>
+     *                     <li>{@link TimeUnit#SEC }: 秒</li>
+     *                     <li>{@link TimeUnit#MIN }: 分</li>
+     *                     <li>{@link TimeUnit#HOUR}: 小时</li>
+     *                     <li>{@link TimeUnit#DAY }: 天</li>
      *                     </ul>
      * @return unit时间戳
      */
-    private static long milliseconds2Unit(long milliseconds, int unit) {
+    private static long milliseconds2Unit(long milliseconds, TimeUnit unit) {
         switch (unit) {
-            case ConstUtils.MSEC:
-            case ConstUtils.SEC:
-            case ConstUtils.MIN:
-            case ConstUtils.HOUR:
-            case ConstUtils.DAY:
-                return milliseconds / unit;
+            case MSEC:
+                return milliseconds / MSEC;
+            case SEC:
+                return milliseconds / SEC;
+            case MIN:
+                return milliseconds / MIN;
+            case HOUR:
+                return milliseconds / HOUR;
+            case DAY:
+                return milliseconds / DAY;
         }
         return -1;
     }
@@ -327,15 +334,15 @@ public class TimeUtils {
      * @param time0 时间字符串1
      * @param time1 时间字符串2
      * @param unit  <ul>
-     *              <li>{@link ConstUtils#MSEC}: 毫秒</li>
-     *              <li>{@link ConstUtils#SEC }: 秒</li>
-     *              <li>{@link ConstUtils#MIN }: 分</li>
-     *              <li>{@link ConstUtils#HOUR}: 小时</li>
-     *              <li>{@link ConstUtils#DAY }: 天</li>
+     *              <li>{@link TimeUnit#MSEC}: 毫秒</li>
+     *              <li>{@link TimeUnit#SEC }: 秒</li>
+     *              <li>{@link TimeUnit#MIN }: 分</li>
+     *              <li>{@link TimeUnit#HOUR}: 小时</li>
+     *              <li>{@link TimeUnit#DAY }: 天</li>
      *              </ul>
      * @return unit时间戳
      */
-    public static long getIntervalTime(String time0, String time1, int unit) {
+    public static long getIntervalTime(String time0, String time1, TimeUnit unit) {
         return getIntervalTime(time0, time1, unit, DEFAULT_SDF);
     }
 
@@ -346,16 +353,16 @@ public class TimeUtils {
      * @param time0  时间字符串1
      * @param time1  时间字符串2
      * @param unit   <ul>
-     *               <li>{@link ConstUtils#MSEC}: 毫秒</li>
-     *               <li>{@link ConstUtils#SEC }: 秒</li>
-     *               <li>{@link ConstUtils#MIN }: 分</li>
-     *               <li>{@link ConstUtils#HOUR}: 小时</li>
-     *               <li>{@link ConstUtils#DAY }: 天</li>
+     *               <li>{@link TimeUnit#MSEC}: 毫秒</li>
+     *               <li>{@link TimeUnit#SEC }: 秒</li>
+     *               <li>{@link TimeUnit#MIN }: 分</li>
+     *               <li>{@link TimeUnit#HOUR}: 小时</li>
+     *               <li>{@link TimeUnit#DAY }: 天</li>
      *               </ul>
      * @param format 时间格式
      * @return unit时间戳
      */
-    public static long getIntervalTime(String time0, String time1, int unit, SimpleDateFormat format) {
+    public static long getIntervalTime(String time0, String time1, TimeUnit unit, SimpleDateFormat format) {
         return Math.abs(milliseconds2Unit(string2Milliseconds(time0, format)
                 - string2Milliseconds(time1, format), unit));
     }
@@ -367,15 +374,15 @@ public class TimeUtils {
      * @param time0 Date类型时间1
      * @param time1 Date类型时间2
      * @param unit  <ul>
-     *              <li>{@link ConstUtils#MSEC}: 毫秒</li>
-     *              <li>{@link ConstUtils#SEC }: 秒</li>
-     *              <li>{@link ConstUtils#MIN }: 分</li>
-     *              <li>{@link ConstUtils#HOUR}: 小时</li>
-     *              <li>{@link ConstUtils#DAY }: 天</li>
+     *              <li>{@link TimeUnit#MSEC}: 毫秒</li>
+     *              <li>{@link TimeUnit#SEC }: 秒</li>
+     *              <li>{@link TimeUnit#MIN }: 分</li>
+     *              <li>{@link TimeUnit#HOUR}: 小时</li>
+     *              <li>{@link TimeUnit#DAY }: 天</li>
      *              </ul>
      * @return unit时间戳
      */
-    public static long getIntervalTime(Date time0, Date time1, int unit) {
+    public static long getIntervalTime(Date time0, Date time1, TimeUnit unit) {
         return Math.abs(milliseconds2Unit(date2Milliseconds(time1)
                 - date2Milliseconds(time0), unit));
     }
@@ -426,15 +433,15 @@ public class TimeUtils {
      *
      * @param time 时间字符串
      * @param unit <ul>
-     *             <li>{@link ConstUtils#MSEC}:毫秒</li>
-     *             <li>{@link ConstUtils#SEC }:秒</li>
-     *             <li>{@link ConstUtils#MIN }:分</li>
-     *             <li>{@link ConstUtils#HOUR}:小时</li>
-     *             <li>{@link ConstUtils#DAY }:天</li>
+     *             <li>{@link TimeUnit#MSEC}:毫秒</li>
+     *             <li>{@link TimeUnit#SEC }:秒</li>
+     *             <li>{@link TimeUnit#MIN }:分</li>
+     *             <li>{@link TimeUnit#HOUR}:小时</li>
+     *             <li>{@link TimeUnit#DAY }:天</li>
      *             </ul>
      * @return unit时间戳
      */
-    public static long getIntervalByNow(String time, int unit) {
+    public static long getIntervalByNow(String time, TimeUnit unit) {
         return getIntervalByNow(time, unit, DEFAULT_SDF);
     }
 
@@ -444,16 +451,16 @@ public class TimeUtils {
      *
      * @param time   时间字符串
      * @param unit   <ul>
-     *               <li>{@link ConstUtils#MSEC}: 毫秒</li>
-     *               <li>{@link ConstUtils#SEC }: 秒</li>
-     *               <li>{@link ConstUtils#MIN }: 分</li>
-     *               <li>{@link ConstUtils#HOUR}: 小时</li>
-     *               <li>{@link ConstUtils#DAY }: 天</li>
+     *               <li>{@link TimeUnit#MSEC}: 毫秒</li>
+     *               <li>{@link TimeUnit#SEC }: 秒</li>
+     *               <li>{@link TimeUnit#MIN }: 分</li>
+     *               <li>{@link TimeUnit#HOUR}: 小时</li>
+     *               <li>{@link TimeUnit#DAY }: 天</li>
      *               </ul>
      * @param format 时间格式
      * @return unit时间戳
      */
-    public static long getIntervalByNow(String time, int unit, SimpleDateFormat format) {
+    public static long getIntervalByNow(String time, TimeUnit unit, SimpleDateFormat format) {
         return getIntervalTime(getCurTimeString(), time, unit, format);
     }
 
@@ -463,15 +470,15 @@ public class TimeUtils {
      *
      * @param time Date类型时间
      * @param unit <ul>
-     *             <li>{@link ConstUtils#MSEC}: 毫秒</li>
-     *             <li>{@link ConstUtils#SEC }: 秒</li>
-     *             <li>{@link ConstUtils#MIN }: 分</li>
-     *             <li>{@link ConstUtils#HOUR}: 小时</li>
-     *             <li>{@link ConstUtils#DAY }: 天</li>
+     *             <li>{@link TimeUnit#MSEC}: 毫秒</li>
+     *             <li>{@link TimeUnit#SEC }: 秒</li>
+     *             <li>{@link TimeUnit#MIN }: 分</li>
+     *             <li>{@link TimeUnit#HOUR}: 小时</li>
+     *             <li>{@link TimeUnit#DAY }: 天</li>
      *             </ul>
      * @return unit时间戳
      */
-    public static long getIntervalByNow(Date time, int unit) {
+    public static long getIntervalByNow(Date time, TimeUnit unit) {
         return getIntervalTime(getCurTimeDate(), time, unit);
     }
 
