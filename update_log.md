@@ -1,4 +1,6 @@
-###
+
+#### 16/08/26 ThreadPoolUtils线程池相关工具类完善完毕
+#### 16/08/25 ConstUtils时间和存储相关常量新增枚举，传参改为枚举更为友好，新增ThreadPoolUtils线程池相关工具类
 #### 16/08/24 ConvertUtils新增InputStream与byte[]和String相互转换，应用在FileUtils中读文件
 #### 16/08/23 小修bug，接下来完善SDCardUtils和ImageUtils
 #### 16/08/22 SPUtils将commit改为apply提高效率，将SPUtils改为构造函数法创建，FileUtils新增查找函数，规范JavaDoc

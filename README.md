@@ -35,21 +35,21 @@
 > - **编码解码相关→[EncodeUtils.java][encode.java]→[Test][encode.test]**
 >  - URL编码 *urlEncode*
 >  - URL解码 *urlDecode*
->  - Base64编码 *base64Encode* *base64Encode2String*
+>  - Base64编码 *base64Encode*、*base64Encode2String*
 >  - Base64解码 *base64Decode*
 >  - Base64URL安全编码 *base64UrlSafeEncode*
 >  - Html编码 *htmlEncode*
 >  - Html解码 *htmlDecode*
 
 > - **加密解密相关→[EncryptUtils.java][encrypt.java]→[Test][encrypt.test]**
->  - MD2加密 *encryptMD2ToString* *encryptMD2*
->  - MD5加密 *encryptMD5ToString* *encryptMD5*
->  - SHA1加密 *encryptSHA1ToString* *encryptSHA1*
->  - SHA224加密 *encryptSHA224ToString* *encryptSHA224*
->  - SHA256加密 *encryptSHA256ToString* *encryptSHA256*
->  - SHA384加密 *encryptSHA384ToString* *encryptSHA384*
->  - SHA512加密 *encryptSHA512ToString* *encryptSHA512*
->  - 获取文件的MD5校验码 *encryptMD5File2String* *encryptMD5File*
+>  - MD2加密 *encryptMD2ToString*、*encryptMD2*
+>  - MD5加密 *encryptMD5ToString*、*encryptMD5*
+>  - SHA1加密 *encryptSHA1ToString*、*encryptSHA1*
+>  - SHA224加密 *encryptSHA224ToString*、*encryptSHA224*
+>  - SHA256加密 *encryptSHA256ToString*、*encryptSHA256*
+>  - SHA384加密 *encryptSHA384ToString*、*encryptSHA384*
+>  - SHA512加密 *encryptSHA512ToString*、*encryptSHA512*
+>  - 获取文件的MD5校验码 *encryptMD5File2String*、*encryptMD5File*
 >  - DES加密后转为Base64编码 *encryptDES2Base64*
 >  - DES加密后转为16进制 *encryptDES2HexString*
 >  - DES加密 *encryptDES*
@@ -122,7 +122,7 @@
 >  - 判断wifi是否连接状态 *isWifiConnected*
 >  - 获取移动网络运营商名称 *getNetworkOperatorName*
 >  - 获取移动终端类型 *getPhoneType*
->  - 获取当前的网络类型(WIFI,2G,3G,4G) *getNetWorkType* *getNetWorkTypeName*
+>  - 获取当前的网络类型(WIFI,2G,3G,4G) *getNetWorkType*、*getNetWorkTypeName*
 
 > - **手机相关→[PhoneUtils.java][phone.java]**
 >  - 判断设备是否是手机 *isPhone*
@@ -205,6 +205,22 @@
 >  - 转化为半角字符 *toDBC*
 >  - 转化为全角字符 *toSBC*
 
+> - 线程池相关工具类→[ThreadPoolUtils.java][thread_pool.java]
+>  - ThreadPoolUtils构造函数 *ThreadPoolUtils*
+>  - 在未来某个时间执行给定的命令 *execute*
+>  - 在未来某个时间执行给定的命令链表 *execute*
+>  - 待以前提交的任务执行完毕后关闭线程池 *shutDown*
+>  - 试图停止所有正在执行的活动任务 *shutDownNow*
+>  - 判断线程池是否已关闭 *isShutDown*
+>  - 关闭线程池后判断所有任务是否都已完成 *isTerminated*
+>  - 请求关闭、发生超时或者当前线程中断 *awaitTermination*
+>  - 提交一个Callable任务用于执行 *submit*
+>  - 提交一个Runnable任务用于执行 *submit*
+>  - 执行给定的任务 *invokeAll*、*invokeAny*
+>  - 延迟执行Runnable命令 *schedule*
+>  - 延迟执行Callable命令 *schedule*
+>  - 延迟并循环执行命令 *scheduleWithFixedRate*、*scheduleWithFixedDelay*
+
 > - **时间相关→[TimeUtils.java][time.java]→[Test][time.test]**
 >  - 将时间戳转为时间字符串 *milliseconds2String*
 >  - 将时间字符串转为时间戳 *string2Milliseconds*
@@ -214,7 +230,7 @@
 >  - 将时间戳转为Date类型 *milliseconds2Date*
 >  - 毫秒时间戳单位转换（单位：unit） *milliseconds2Unit*
 >  - 获取两个时间差（单位：unit） *getIntervalTime*
->  - 获取当前时间 *getCurTimeMills* *getCurTimeString* *getCurTimeDate*
+>  - 获取当前时间 *getCurTimeMills*、*getCurTimeString*、*getCurTimeDate*
 >  - 获取与当前时间的差（单位：unit） *getIntervalByNow*
 >  - 判断闰年 *isLeapYear*
 
@@ -302,6 +318,8 @@ limitations under the License.
 
 [string.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/StringUtils.java
 [string.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/StringUtilsTest.java
+
+[thread_pool.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ThreadPoolUtils.java
 
 [time.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/TimeUtils.java
 [time.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/TimeUtilsTest.java
