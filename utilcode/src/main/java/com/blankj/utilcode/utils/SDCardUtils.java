@@ -1,7 +1,7 @@
 package com.blankj.utilcode.utils;
 
-import android.content.Context;
 import android.os.Environment;
+import android.os.StatFs;
 
 import java.io.File;
 
@@ -20,7 +20,7 @@ public class SDCardUtils {
     }
 
     /**
-     * 获取设备SD卡是否可用
+     * 判断SD卡是否可用
      *
      * @return true : 可用<br>false : 不可用
      */
@@ -29,64 +29,67 @@ public class SDCardUtils {
     }
 
     /**
-     * 获取设备SD卡路径
+     * 获取SD卡路径
      * <p>一般是/storage/emulated/0/</p>
      *
      * @return SD卡路径
      */
     public static String getSDCardPath() {
-        return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator;
+        return Environment.getExternalStorageDirectory().getPath() + File.separator;
     }
 
-    public static String getSDCardCacheDir(Context context){
-        return context.getExternalCacheDir().getPath();
+    /**
+     * 获取SD卡Data路径
+     *
+     * @return Data路径
+     */
+    public static String getDataPath() {
+        return Environment.getDataDirectory().getPath();
+
     }
 
-//    /**
-//     * 计算SD卡的剩余空间
-//     *
-//     * @return 返回-1，说明没有安装sd卡
-//     */
-//    public static long getFreeBytes(int unit) {
-//        long freeSpace = 0;
-//        if (isSDCardEnable()) {
-//            try {
-//                File path = Environment.getExternalStorageDirectory();
-//                StatFs stat = new StatFs(path.getPath());
-//                long blockSize = 0;
-//                long availableBlocks = 0;
-//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
-//                    blockSize = stat.getBlockSizeLong();
-//                    availableBlocks = stat.getAvailableBlocksLong();
-//                }
-//                freeSpace = (availableBlocks * blockSize) / unit;
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        } else {
-//            return -1;
-//        }
-//        return (freeSpace);
-//    }
+    /**
+     * 获取系统存储路径
+     *
+     * @return 系统存储路径
+     */
+    public static String getRootDirectoryPath() {
+        return Environment.getRootDirectory().getAbsolutePath();
+    }
 
+    /**
+     * 计算SD卡的剩余空间
+     *
+     * @param unit <ul>
+     *             <li>{@link ConstUtils#BYTE}: 字节</li>
+     *             <li>{@link ConstUtils#KB}  : 千字节</li>
+     *             <li>{@link ConstUtils#MB}  : 兆</li>
+     *             <li>{@link ConstUtils#GB}  : GB</li>
+     *             </ul>
+     * @return 返回-1，说明SD卡不可用，否则返回SD卡剩余空间
+     */
+    public static double getFreeSpace(int unit) {
+        if (isSDCardEnable()) {
+            try {
+                StatFs stat = new StatFs(getSDCardPath());
+                long blockSize, availableBlocks;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                    availableBlocks = stat.getAvailableBlocksLong();
+                    blockSize = stat.getBlockSizeLong();
+                } else {
+                    availableBlocks = stat.getAvailableBlocks();
+                    blockSize = stat.getBlockSize();
+                }
+                return FileUtils.byte2Unit(availableBlocks * blockSize, unit);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return -1.0;
+            }
+        } else {
+            return -1.0;
+        }
+    }
 
-//    /**
-//     * 获取SD卡的剩余容量 单位byte
-//     *
-//     * @return
-//     */
-//    public static long getSDCardAllSize() {
-//        if (isSDCardEnable()) {
-//            StatFs stat = new StatFs(getSDCardPath());
-//            // 获取空闲的数据块的数量
-//            long availableBlocks = (long) stat.getAvailableBlocks() - 4;
-//            // 获取单个数据块的大小（byte）
-//            long freeBlocks = stat.getAvailableBlocks();
-//            return freeBlocks * availableBlocks;
-//        }
-//        return 0;
-//    }
-//
 //    /**
 //     * 获取指定路径所在空间的剩余可用容量字节数，单位byte
 //     *
