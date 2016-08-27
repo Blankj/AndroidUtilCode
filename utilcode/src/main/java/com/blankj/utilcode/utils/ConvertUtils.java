@@ -1,5 +1,11 @@
 package com.blankj.utilcode.utils;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -21,24 +27,24 @@ public class ConvertUtils {
     static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     /**
-     * 每1个byte转为2个hex字符
+     * byteArr转hexString
      * <p>例如：</p>
      * bytes2HexString(new byte[] { 0, (byte) 0xa8 }) returns 00A8
      *
-     * @param src byte数组
+     * @param bytes byte数组
      * @return 16进制大写字符串
      */
-    public static String bytes2HexString(byte[] src) {
-        char[] res = new char[src.length << 1];
-        for (int i = 0, j = 0; i < src.length; i++) {
-            res[j++] = hexDigits[src[i] >>> 4 & 0x0f];
-            res[j++] = hexDigits[src[i] & 0x0f];
+    public static String bytes2HexString(byte[] bytes) {
+        char[] res = new char[bytes.length << 1];
+        for (int i = 0, j = 0; i < bytes.length; i++) {
+            res[j++] = hexDigits[bytes[i] >>> 4 & 0x0f];
+            res[j++] = hexDigits[bytes[i] & 0x0f];
         }
         return new String(res);
     }
 
     /**
-     * 每2个hex字符转为1个byte
+     * hexString转byteArr
      * <p>例如：</p>
      * hexString2Bytes("00A8") returns { 0, (byte) 0xA8 }
      *
@@ -59,7 +65,7 @@ public class ConvertUtils {
     }
 
     /**
-     * 单个hex字符转为10进制
+     * hexChar转int
      *
      * @param hexChar hex单个字节
      * @return 0..15
@@ -105,7 +111,7 @@ public class ConvertUtils {
     }
 
     /**
-     * 将输入流转为字节数组
+     * inputStream转byteArr
      *
      * @param is 输入流
      * @return 字节数组
@@ -129,7 +135,7 @@ public class ConvertUtils {
     }
 
     /**
-     * 将字节数组转为输入流
+     * byteArr转inputStream
      *
      * @param bytes 字节数组
      * @return 输入流
@@ -139,7 +145,7 @@ public class ConvertUtils {
     }
 
     /**
-     * 指定编码将输入流转为字符串
+     * inputStream转string按编码
      *
      * @param is          输入流
      * @param charsetName 编码格式
@@ -170,7 +176,7 @@ public class ConvertUtils {
     }
 
     /**
-     * 指定编码将字符串转为输入流
+     * string转inputStream按编码
      *
      * @param string      字符串
      * @param charsetName 编码格式
@@ -184,5 +190,50 @@ public class ConvertUtils {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * bitmap转byteArr
+     *
+     * @param bitmap bitmap对象
+     * @param format 图片格式
+     * @return 字节数组
+     */
+    public static byte[] bitmap2Bytes(Bitmap bitmap, Bitmap.CompressFormat format) {
+        if (bitmap == null) return null;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(format, 100, baos);
+        return baos.toByteArray();
+    }
+
+    /**
+     * byteArr转bitmap
+     *
+     * @param bytes 字节数组
+     * @return bitmap对象
+     */
+    public static Bitmap bytes2Bitmap(byte[] bytes) {
+        return (bytes == null || bytes.length == 0) ? null : BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    }
+
+    /**
+     * drawable转bitmap
+     *
+     * @param drawable drawable对象
+     * @return bitmap对象
+     */
+    public static Bitmap drawable2Bitmap(Drawable drawable) {
+        return drawable == null ? null : ((BitmapDrawable) drawable).getBitmap();
+    }
+
+    /**
+     * bitmap转drawable
+     *
+     * @param resources resources对象
+     * @param bitmap    bitmap对象
+     * @return drawable对象
+     */
+    public static Drawable bitmap2Drawable(Resources resources, Bitmap bitmap) {
+        return bitmap == null ? null : new BitmapDrawable(resources, bitmap);
     }
 }

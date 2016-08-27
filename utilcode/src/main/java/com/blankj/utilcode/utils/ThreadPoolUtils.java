@@ -76,6 +76,7 @@ public class ThreadPoolUtils {
 
     /**
      * 在未来某个时间执行给定的命令链表
+     * <p>该命令可能在新的线程、已入池的线程或者正调用的线程中执行，这由 Executor 实现决定。</p>
      *
      * @param commands 命令链表
      */

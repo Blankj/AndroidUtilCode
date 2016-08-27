@@ -655,8 +655,7 @@ public class FileUtils {
             e.printStackTrace();
             return false;
         } finally {
-            closeIO(is);
-            closeIO(os);
+            closeIO(is, os);
         }
     }
 
@@ -961,12 +960,16 @@ public class FileUtils {
     /**
      * 关闭IO
      *
-     * @param closeable closeable
+     * @param closeables closeable
      */
-    public static void closeIO(Closeable closeable) {
-        if (closeable == null) return;
+    public static void closeIO(Closeable... closeables) {
+        if (closeables == null) return;
         try {
-            closeable.close();
+            for (Closeable closeable : closeables) {
+                if (closeable != null) {
+                    closeable.close();
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

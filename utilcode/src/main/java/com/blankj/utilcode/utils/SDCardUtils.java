@@ -5,6 +5,8 @@ import android.os.StatFs;
 
 import java.io.File;
 
+import static com.blankj.utilcode.utils.ConstUtils.*;
+
 /**
  * <pre>
  *     author: Blankj
@@ -61,14 +63,14 @@ public class SDCardUtils {
      * 计算SD卡的剩余空间
      *
      * @param unit <ul>
-     *             <li>{@link ConstUtils#BYTE}: 字节</li>
-     *             <li>{@link ConstUtils#KB}  : 千字节</li>
-     *             <li>{@link ConstUtils#MB}  : 兆</li>
-     *             <li>{@link ConstUtils#GB}  : GB</li>
+     *             <li>{@link MemoryUnit#BYTE}: 字节</li>
+     *             <li>{@link MemoryUnit#KB}  : 千字节</li>
+     *             <li>{@link MemoryUnit#MB}  : 兆</li>
+     *             <li>{@link MemoryUnit#GB}  : GB</li>
      *             </ul>
      * @return 返回-1，说明SD卡不可用，否则返回SD卡剩余空间
      */
-    public static double getFreeSpace(int unit) {
+    public static double getFreeSpace(MemoryUnit unit) {
         if (isSDCardEnable()) {
             try {
                 StatFs stat = new StatFs(getSDCardPath());

@@ -18,14 +18,18 @@
 >  - 正则相关常量
 
 > - **转换相关→[ConvertUtils.java][convert.java]→[Test][convert.test]**
->  - 每1个byte转为2个hex字符 *bytes2HexString*
->  - 每2个hex字符转为1个byte *hexString2Bytes*
+>  - byteArr转hexString *bytes2HexString*
+>  - hexString转byteArr *hexString2Bytes*
 >  - charArr转byteArr *chars2Bytes*
 >  - byteArr转charArr *bytes2Chars*
->  - 将输入流转为字节数组 *inputStream2Bytes*
->  - 将字节数组转为输入流 *bytes2InputStream*
->  - 指定编码将输入流转为字符串 *inputStream2String*
->  - 指定编码将字符串转为输入流 *string2InputStream*
+>  - inputStream转byteArr *inputStream2Bytes*
+>  - byteArr转inputStream *bytes2InputStream*
+>  - inputStream转string按编码 *inputStream2String*
+>  - string转inputStream按编码 *string2InputStream*
+>  - bitmap转byteArr *bitmap2Bytes*
+>  - byteArr转bitmap *bytes2Bitmap*
+>  - drawable转bitmap *drawable2Bitmap*
+>  - bitmap转drawable *bitmap2Drawable*
 
 > - **设备相关→[DeviceUtils.java][device.java]**
 >  - 获取设备MAC地址 *getMacAddress*
