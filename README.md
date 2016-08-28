@@ -267,7 +267,7 @@
 ***
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.1.3'
+compile 'com.blankj:utilcode:1.1.4'
 ```
 
 ### Proguard
@@ -345,5 +345,7 @@ limitations under the License.
 [time.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/TimeUtilsTest.java
 
 [unclassified.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/UnclassifiedUtils.java
+
+[zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ZipUtils.java
 
 [update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/update_log.md
