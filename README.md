@@ -18,18 +18,15 @@
 >  - 正则相关常量
 
 > - **转换相关→[ConvertUtils.java][convert.java]→[Test][convert.test]**
->  - byteArr转hexString *bytes2HexString*
->  - hexString转byteArr *hexString2Bytes*
->  - charArr转byteArr *chars2Bytes*
->  - byteArr转charArr *bytes2Chars*
->  - inputStream转byteArr *inputStream2Bytes*
->  - byteArr转inputStream *bytes2InputStream*
->  - inputStream转string按编码 *inputStream2String*
->  - string转inputStream按编码 *string2InputStream*
->  - bitmap转byteArr *bitmap2Bytes*
->  - byteArr转bitmap *bytes2Bitmap*
->  - drawable转bitmap *drawable2Bitmap*
->  - bitmap转drawable *bitmap2Drawable*
+>  - byteArr与hexString互转 *bytes2HexString*、*hexString2Bytes*
+>  - charArr与byteArr互转 *chars2Bytes*、*bytes2Chars*
+>  - inputStream与byteArr互转 *inputStream2Bytes*、*bytes2InputStream*
+>  - inputStream与string按编码互转 *inputStream2String*、*string2InputStream*
+>  - bitmap与byteArr互转 *bitmap2Bytes*、*bytes2Bitmap*
+>  - drawable与bitmap互转 *drawable2Bitmap*、*bitmap2Drawable*
+>  - drawable与byteArr互转 *drawable2Bytes*、*bytes2Drawable*
+>  - dp与px互转 *dp2px*、*px2dp*
+>  - sp与px互转 *sp2px*、*px2sp*
 
 > - **设备相关→[DeviceUtils.java][device.java]**
 >  - 获取设备MAC地址 *getMacAddress*
@@ -109,7 +106,15 @@
 >  - 根据全路径获取文件拓展名 *getFileExtension*
 
 > - **图片相关→[ImageUtils.java][image.java]**
->  - 完善ing
+>  - bitmap与byteArr互转 *bitmap2Bytes*、*bytes2Bitmap*
+>  - drawable与bitmap互转 *drawable2Bitmap*、*bitmap2Drawable*
+>  - drawable与byteArr互转 *drawable2Bytes*、*bytes2Drawable*
+>  - 缩放图片 *scaleImage*
+>  - 转为圆形图片 *toRound*
+>  - 转为圆角图片 *toRoundCorner*
+>  - 转为模糊图片 *toBlur*
+>  - 添加颜色边框 *addFrame*
+>  - 创建倒影图片 *toFeflected*
 
 > - **键盘相关→[KeyboardUtils.java][keyboard.java]**
 >  - 避免输入法面板遮挡
@@ -167,9 +172,10 @@
 >  - 判断是否锁屏 *isScreenLock*
 
 > - **SD卡相关→[SDCardUtils.java][sdcard.java]**
->  - 获取设备SD卡是否可用 *isSDCardEnable*
->  - 获取设备SD卡路径 *getSDCardPath*
->  - 完善ing
+>  - 判断SD卡是否可用 *isSDCardEnable*
+>  - 获取SD卡路径 *getSDCardPath*
+>  - 获取SD卡Data路径 *getDataPath*
+>  - 计算SD卡的剩余空间 *getFreeSpace*
 
 > - **Shell相关→[ShellUtils.java][shell.java]**
 >  - 判断设备是否root *isRoot*
@@ -240,6 +246,16 @@
 
 > - **未归类→[UnclassifiedUtils.java][unclassified.java]**
 >  - 获取服务是否开启 *isRunningService*
+
+> - **压缩相关工具类→[ZipUtils.java][zip.java]**
+>  - 批量压缩文件 *zipFiles*
+>  - 压缩文件 **
+>  - 解压缩一个文件 *upZipFile*
+>  - 解压文件名包含传入文字的文件 *upZipSelectedFile*
+>  - 获得压缩文件内文件列表 *getEntriesNames*
+>  - 获得压缩文件内压缩文件对象以取得其属性 *getEntriesEnumeration*
+>  - 取得压缩文件对象的注释 *getEntryComment*
+>  - 取得压缩文件对象的名称 *getEntryName*
 
 > - **更新Log→[update_log.md][update_log.md]**
 
