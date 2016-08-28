@@ -254,8 +254,8 @@
 >  - 解压文件名包含传入文字的文件 *upZipSelectedFile*
 >  - 获得压缩文件内文件列表 *getEntriesNames*
 >  - 获得压缩文件内压缩文件对象以取得其属性 *getEntriesEnumeration*
->  - 取得压缩文件对象的注释 *getEntryComment*
->  - 取得压缩文件对象的名称 *getEntryName*
+>  - 获得压缩文件对象的注释 *getEntryComment*
+>  - 获得压缩文件对象的名称 *getEntryName*
 
 > - **更新Log→[update_log.md][update_log.md]**
 
