@@ -250,7 +250,7 @@ public class ImageUtils {
     }
 
     /**
-     * 创建倒影图片
+     * 转为倒影图片
      *
      * @param src              源图片的
      * @param reflectionHeight 图片倒影的高度

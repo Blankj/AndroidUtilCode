@@ -114,7 +114,7 @@
 >  - 转为圆角图片 *toRoundCorner*
 >  - 转为模糊图片 *toBlur*
 >  - 添加颜色边框 *addFrame*
->  - 创建倒影图片 *toFeflected*
+>  - 转为倒影图片 *toFeflected*
 
 > - **键盘相关→[KeyboardUtils.java][keyboard.java]**
 >  - 避免输入法面板遮挡
