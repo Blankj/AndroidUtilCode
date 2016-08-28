@@ -51,15 +51,6 @@ public class SDCardUtils {
     }
 
     /**
-     * 获取系统存储路径
-     *
-     * @return 系统存储路径
-     */
-    public static String getRootDirectoryPath() {
-        return Environment.getRootDirectory().getAbsolutePath();
-    }
-
-    /**
      * 计算SD卡的剩余空间
      *
      * @param unit <ul>
