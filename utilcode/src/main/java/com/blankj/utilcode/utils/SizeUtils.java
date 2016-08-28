@@ -99,14 +99,13 @@ public class SizeUtils {
      * 在onCreate()即可强行获取View的尺寸
      * <p>需回调onGetSizeListener接口，在onGetSize中获取view宽高</p>
      * <p>用法示例如下所示</p>
-     * <pre>
+     * <pre>{@code
      * SizeUtils.forceGetViewSize(view);
      * SizeUtils.setListener(new SizeUtils.onGetSizeListener() {
-     *    {@code @Override}
      *     public void onGetSize(View view) {
      *         Log.d("tag", view.getWidth() + " " + view.getHeight());
      *     }
-     * });
+     * });}
      * </pre>
      *
      * @param view 视图

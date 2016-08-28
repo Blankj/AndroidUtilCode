@@ -242,6 +242,4 @@ public class ZipUtils {
     public static String getEntryName(ZipEntry entry) throws UnsupportedEncodingException {
         return new String(entry.getName().getBytes("GB2312"), "8859_1");
     }
-
-
 }
