@@ -862,11 +862,25 @@ public class FileUtils {
      */
     public static String readFile2String(File file, String charsetName) {
         if (file == null) return null;
+        BufferedReader reader = null;
         try {
-            return ConvertUtils.inputStream2String(new FileInputStream(file), charsetName);
-        } catch (FileNotFoundException e) {
+            StringBuilder sb = new StringBuilder();
+            if (StringUtils.isSpace(charsetName)) {
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+            } else {
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charsetName));
+            }
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append("\r\n");// windows系统换行为\r\n，Linux为\n
+            }
+            // 要去除最后的换行符
+            return sb.delete(sb.length() - 2, sb.length()).toString();
+        } catch (IOException e) {
             e.printStackTrace();
             return null;
+        } finally {
+            closeIO(reader);
         }
     }
 
@@ -982,7 +996,7 @@ public class FileUtils {
      * @return filePath最长目录
      */
     public static String getDirName(File file) {
-        if (!isFileExists(file)) return "";
+        if (file == null) return null;
         return getDirName(file.getPath());
     }
 
@@ -1005,7 +1019,7 @@ public class FileUtils {
      * @return 文件名
      */
     public static String getFileName(File file) {
-        if (!isFileExists(file)) return "";
+        if (file == null) return null;
         return getFileName(file.getPath());
     }
 
@@ -1028,7 +1042,7 @@ public class FileUtils {
      * @return 不带拓展名的文件名
      */
     public static String getFileNameNoExtension(File file) {
-        if (!isFileExists(file)) return "";
+        if (file == null) return null;
         return getFileNameNoExtension(file.getPath());
     }
 
@@ -1059,7 +1073,7 @@ public class FileUtils {
      * @return 文件拓展名
      */
     public static String getFileExtension(File file) {
-        if (!isFileExists(file)) return "";
+        if (file == null) return null;
         return getFileExtension(file.getPath());
     }
 
@@ -1074,6 +1088,6 @@ public class FileUtils {
         int lastPoi = filePath.lastIndexOf('.');
         int lastSep = filePath.lastIndexOf(File.separator);
         if (lastPoi == -1 || lastSep >= lastPoi) return "";
-        return filePath.substring(lastPoi + 1);
+        return filePath.substring(lastPoi);
     }
 }

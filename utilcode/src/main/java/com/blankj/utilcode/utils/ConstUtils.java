@@ -15,12 +15,6 @@ public class ConstUtils {
     }
 
     /******************** 存储相关常量 ********************/
-    public enum MemoryUnit {
-        BYTE,
-        KB,
-        MB,
-        GB,
-    }
     /**
      * Byte与Byte的倍数
      */
@@ -38,14 +32,14 @@ public class ConstUtils {
      */
     public static final int GB = 1073741824;
 
-    /******************** 时间相关常量 ********************/
-    public enum TimeUnit {
-        MSEC,
-        SEC,
-        MIN,
-        HOUR,
-        DAY
+    public enum MemoryUnit {
+        BYTE,
+        KB,
+        MB,
+        GB
     }
+
+    /******************** 时间相关常量 ********************/
     /**
      * 毫秒与毫秒的倍数
      */
@@ -66,6 +60,14 @@ public class ConstUtils {
      * 天与毫秒的倍数
      */
     public static final int DAY = 86400000;
+
+    public enum TimeUnit {
+        MSEC,
+        SEC,
+        MIN,
+        HOUR,
+        DAY
+    }
 
     /******************** 正则相关常量 ********************/
     /**

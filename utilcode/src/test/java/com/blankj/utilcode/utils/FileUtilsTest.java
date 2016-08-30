@@ -215,8 +215,7 @@ public class FileUtilsTest {
 
     @Test
     public void testGetFileExtension() throws Exception {
-        assertThat(getFileExtension(new File(path + "UTF8.txt"))).isEqualTo("txt");
-        assertThat(getFileExtension(path + "UTF8.txt")).isEqualTo("txt");
-        System.out.println(new File(path).getName().endsWith("file"));
+        assertThat(getFileExtension(new File(path + "UTF8.txt"))).isEqualTo(".txt");
+        assertThat(getFileExtension(path + "UTF8.txt")).isEqualTo(".txt");
     }
 }
