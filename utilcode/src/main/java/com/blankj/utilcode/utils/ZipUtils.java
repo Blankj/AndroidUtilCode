@@ -117,10 +117,14 @@ public class ZipUtils {
         ZipFile zf = new ZipFile(zipFile);
         for (Enumeration<?> entries = zf.entries(); entries.hasMoreElements(); ) {
             ZipEntry entry = ((ZipEntry) entries.nextElement());
-            InputStream in = zf.getInputStream(entry);
             String str = folderPath + File.separator + entry.getName();
             str = new String(str.getBytes("8859_1"), "GB2312");
             File desFile = new File(str);
+            if (entry.isDirectory()) {
+                desFile.mkdir();
+                continue;
+            }
+            InputStream in = zf.getInputStream(entry);
             if (!desFile.exists()) {
                 File fileParentDir = desFile.getParentFile();
                 if (!fileParentDir.exists()) {
@@ -161,12 +165,16 @@ public class ZipUtils {
         for (Enumeration<?> entries = zf.entries(); entries.hasMoreElements(); ) {
             ZipEntry entry = ((ZipEntry) entries.nextElement());
             if (entry.getName().contains(nameContains)) {
-                InputStream in = zf.getInputStream(entry);
                 String str = folderPath + File.separator + entry.getName();
                 str = new String(str.getBytes("8859_1"), "GB2312");
                 // str.getBytes("GB2312"),"8859_1" 输出
                 // str.getBytes("8859_1"),"GB2312" 输入
                 File desFile = new File(str);
+                if (entry.isDirectory()) {
+                    desFile.mkdir();
+                    continue;
+                }
+                InputStream in = zf.getInputStream(entry);
                 if (!desFile.exists()) {
                     File fileParentDir = desFile.getParentFile();
                     if (!fileParentDir.exists()) {
