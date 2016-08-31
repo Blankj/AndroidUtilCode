@@ -1,4 +1,7 @@
 ### 更新日志
+#### 16/08/31 ImageUtils单元测试中，之后7天鸡儿岭放假，停更
+#### 16/08/30 ImageUtils单元测试中（获取保存图片有问题，卡卡卡住了）
+#### 16/08/29 完善ImageUtils，新增stack模糊算法和快速模糊
 #### 16/08/28 完善ImageUtils
 #### 16/08/27 完善ConvertUtils，新增ZipUtils
 #### 16/08/26 ThreadPoolUtils线程池相关工具类完善完毕

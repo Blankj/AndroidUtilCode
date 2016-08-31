@@ -20,8 +20,11 @@
 > - **转换相关→[ConvertUtils.java][convert.java]→[Test][convert.test]**
 >  - byteArr与hexString互转 *bytes2HexString*、*hexString2Bytes*
 >  - charArr与byteArr互转 *chars2Bytes*、*bytes2Chars*
+>  - inputStream与outputStream互转 *input2OutputStream*、*output2InputStream*
 >  - inputStream与byteArr互转 *inputStream2Bytes*、*bytes2InputStream*
+>  - outputStream与byteArr互转 *outputStream2Bytes*、*bytes2OutputStream*
 >  - inputStream与string按编码互转 *inputStream2String*、*string2InputStream*
+>  - outputStream与string按编码互转 *outputStream2String*、*string2OutputStream*
 >  - bitmap与byteArr互转 *bitmap2Bytes*、*bytes2Bitmap*
 >  - drawable与bitmap互转 *drawable2Bitmap*、*bitmap2Drawable*
 >  - drawable与byteArr互转 *drawable2Bytes*、*bytes2Drawable*
@@ -97,7 +100,8 @@
 >  - 获取文件行数 *getFileLines*
 >  - 指定编码按行读取文件到List *readFile2List*
 >  - 指定编码按行读取文件到StringBuilder中 *readFile2SB*
->  - byte单位转换（单位：unit） *byte2Unit*
+>  - 字节数转以unit为单位的size *byte2Size*
+>  - 以unit为单位的size转字节数 *size2Byte*
 >  - 获取文件大小 *getFileSize*
 >  - 关闭IO *closeIO*
 >  - 根据全路径获取最长目录 *getDirName*
@@ -112,9 +116,16 @@
 >  - 缩放图片 *scaleImage*
 >  - 转为圆形图片 *toRound*
 >  - 转为圆角图片 *toRoundCorner*
->  - 转为模糊图片 *toBlur*
->  - 添加颜色边框 *addFrame*
->  - 转为倒影图片 *toFeflected*
+>  - 快速模糊 *fastBlur*
+>  - renderScript模糊图片 *renderScriptBlur*
+>  - stack模糊图片 *stackBlur*
+>  -  添加颜色边框 *addFrame*
+>  - 添加倒影 *addReflection*
+>  - 添加水印文字 *addText*
+>  - 压缩图片 *compress*
+>  - 保存图片 *save*
+>  - 判断文件是否为图片 *isImage*
+>  - 获取图片类型 *getImageType*
 
 > - **键盘相关→[KeyboardUtils.java][keyboard.java]**
 >  - 避免输入法面板遮挡
@@ -249,7 +260,7 @@
 
 > - **压缩相关工具类→[ZipUtils.java][zip.java]**
 >  - 批量压缩文件 *zipFiles*
->  - 压缩文件 **
+>  - 压缩文件 *zipFile*
 >  - 解压缩一个文件 *upZipFile*
 >  - 解压文件名包含传入文字的文件 *upZipSelectedFile*
 >  - 获得压缩文件内文件列表 *getEntriesNames*
@@ -267,7 +278,7 @@
 ***
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.1.4'
+compile 'com.blankj:utilcode:1.1.5'
 ```
 
 ### Proguard
