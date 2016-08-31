@@ -73,7 +73,7 @@ public class SDCardUtils {
                     availableBlocks = stat.getAvailableBlocks();
                     blockSize = stat.getBlockSize();
                 }
-                return FileUtils.byte2Unit(availableBlocks * blockSize, unit);
+                return FileUtils.byte2Size(availableBlocks * blockSize, unit);
             } catch (Exception e) {
                 e.printStackTrace();
                 return -1.0;

@@ -911,7 +911,33 @@ public class FileUtils {
     }
 
     /**
-     * byte单位转换（单位：unit）
+     * 字节数转以unit为单位的size
+     *
+     * @param byteNum 大小
+     * @param unit <ul>
+     *             <li>{@link MemoryUnit#BYTE}: 字节</li>
+     *             <li>{@link MemoryUnit#KB}  : 千字节</li>
+     *             <li>{@link MemoryUnit#MB}  : 兆</li>
+     *             <li>{@link MemoryUnit#GB}  : GB</li>
+     *             </ul>
+     * @return 以unit为单位的size
+     */
+    public static double byte2Size(long byteNum, MemoryUnit unit) {
+        switch (unit) {
+            default:
+            case BYTE:
+                return (double) byteNum / BYTE;
+            case KB:
+                return (double) byteNum / KB;
+            case MB:
+                return (double) byteNum / MB;
+            case GB:
+                return (double) byteNum / GB;
+        }
+    }
+
+    /**
+     * 以unit为单位的size转字节数
      *
      * @param size 大小
      * @param unit <ul>
@@ -920,20 +946,20 @@ public class FileUtils {
      *             <li>{@link MemoryUnit#MB}  : 兆</li>
      *             <li>{@link MemoryUnit#GB}  : GB</li>
      *             </ul>
-     * @return 大小以unit为单位
+     * @return 字节数
      */
-    public static double byte2Unit(long size, MemoryUnit unit) {
+    public static long size2Byte(long size, MemoryUnit unit) {
         switch (unit) {
+            default:
             case BYTE:
-                return (double) size / BYTE;
+                return size * BYTE;
             case KB:
-                return (double) size / KB;
+                return size * KB;
             case MB:
-                return (double) size / MB;
+                return size * MB;
             case GB:
-                return (double) size / GB;
+                return size * GB;
         }
-        return -1;
     }
 
     /**
@@ -968,7 +994,7 @@ public class FileUtils {
      */
     public static double getFileSize(File file, MemoryUnit unit) {
         if (!isFileExists(file)) return -1;
-        return byte2Unit(file.length(), unit);
+        return byte2Size(file.length(), unit);
     }
 
     /**
