@@ -28,14 +28,15 @@ import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * <pre>
@@ -121,32 +122,25 @@ public class ImageUtils {
     /**
      * 根据文件路径获取bitmap
      *
-     * @param filePath 文件路径
-     * @return bitmap
-     */
-    public static Bitmap getBitmapByFile(String filePath) {
-        return getBitmapByFile(FileUtils.getFileByPath(filePath));
-    }
-
-    /**
-     * 根据文件路径获取bitmap
-     *
      * @param file 文件路径
      * @return bitmap
      */
     public static Bitmap getBitmapByFile(File file) {
         if (file == null) return null;
-        try {
-            return BitmapFactory.decodeStream(new FileInputStream(file));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return getBitmapByFile(file.getPath());
     }
 
     /**
      * 根据文件路径获取bitmap
      *
+     * @param filePath 文件路径
+     * @return bitmap
+     */
+    public static Bitmap getBitmapByFile(String filePath) {
+        return BitmapFactory.decodeFile(filePath);
+    }
+
+    /**
      * @param filePath 文件路径
      * @return bitmap
      */
@@ -166,23 +160,18 @@ public class ImageUtils {
         final int height = options.outHeight;
         final int width = options.outWidth;
         int inSampleSize = 1;
-
         if (height > reqHeight || width > reqWidth) {
-
             final int halfHeight = height / 2;
             final int halfWidth = width / 2;
-
             // Calculate the largest inSampleSize value that is a power of 2 and keeps both
             // height and width larger than the requested height and width.
             while ((halfHeight / inSampleSize) > reqHeight
                     && (halfWidth / inSampleSize) > reqWidth) {
-                inSampleSize *= 2;
+                inSampleSize <<= 1;
             }
         }
-
         return inSampleSize;
     }
-
 
     /**
      * 缩放图片
@@ -735,17 +724,17 @@ public class ImageUtils {
      * @return {@code true}: 成功<br>{@code false}: 失败
      */
     public static boolean save(Bitmap src, File file, CompressFormat format) {
-        if (isEmptyBitmap(src) || file == null) return false;
-        System.out.println(src.getWidth() + "," + src.getHeight());
-        FileOutputStream fos = null;
+        if (isEmptyBitmap(src) || !FileUtils.createOrExistsFile(file)) return false;
+        System.out.println(src.getWidth() + ", " + src.getHeight());
+        OutputStream os = null;
         try {
-            fos = new FileOutputStream(file);
-            return src.compress(format, 100, fos);
+            os = new BufferedOutputStream(new FileOutputStream(file));
+            return src.compress(format, 100, os);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         } finally {
-            FileUtils.closeIO(fos);
+            FileUtils.closeIO(os);
         }
     }
 

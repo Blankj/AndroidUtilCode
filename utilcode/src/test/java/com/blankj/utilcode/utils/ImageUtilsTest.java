@@ -26,9 +26,8 @@ public class ImageUtilsTest {
 
     @Test
     public void testBitmap2Bytes() throws Exception {
-        FileUtils.createOrExistsFile(path + "new1.png");
         Bitmap bitmap = ImageUtils.getBitmapByFile(path + "lena.png");
-        System.out.println(ImageUtils.save(bitmap, path + "new1.png", Bitmap.CompressFormat.PNG));
+        System.out.println(ImageUtils.save(bitmap, path + "new.png", Bitmap.CompressFormat.PNG));
     }
 
     @Test
