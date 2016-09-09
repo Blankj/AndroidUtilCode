@@ -223,6 +223,7 @@
 >  - 返回字符串长度 *length*
 >  - 首字母大写 *upperFirstLetter*
 >  - 首字母小写 *lowerFirstLetter*
+>  - 反转字符串 *reverse*
 >  - 转化为半角字符 *toDBC*
 >  - 转化为全角字符 *toSBC*
 
