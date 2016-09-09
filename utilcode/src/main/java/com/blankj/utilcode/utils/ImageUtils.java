@@ -141,12 +141,23 @@ public class ImageUtils {
     }
 
     /**
+     * 根据文件路径获取bitmap
+     *
+     * @param res 资源对象
+     * @param id  资源id
+     * @return bitmap
+     */
+    public static Bitmap getBitmapByResource(Resources res, int id) {
+        return BitmapFactory.decodeResource(res, id);
+    }
+
+    /**
      * @param filePath 文件路径
      * @return bitmap
      */
     public static Bitmap getBitmapByFile(String filePath, int reqWidth, int reqHeight) {
         if (StringUtils.isSpace(filePath)) return null;
-        final BitmapFactory.Options options = new BitmapFactory.Options();
+        BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(filePath, options);
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
@@ -154,17 +165,13 @@ public class ImageUtils {
         return BitmapFactory.decodeFile(filePath, options);
     }
 
-    public static int calculateInSampleSize(
-            BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        // Raw height and width of image
+    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         final int height = options.outHeight;
         final int width = options.outWidth;
         int inSampleSize = 1;
         if (height > reqHeight || width > reqWidth) {
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
+            int halfHeight = height >> 1;
+            int halfWidth = width >> 1;
             while ((halfHeight / inSampleSize) > reqHeight
                     && (halfWidth / inSampleSize) > reqWidth) {
                 inSampleSize <<= 1;

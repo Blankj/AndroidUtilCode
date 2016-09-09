@@ -57,6 +57,14 @@ public class StringUtilsTest {
     }
 
     @Test
+    public void testReverse() throws Exception {
+        assertThat(reverse("blankj")).isEqualTo("jknalb");
+        assertThat(reverse("blank")).isEqualTo("knalb");
+        assertThat(reverse("测试中文")).isEqualTo("文中试测");
+        assertThat(reverse(null)).isNull();
+    }
+
+    @Test
     public void testToDBC() throws Exception {
         assertThat(toDBC("　，．＆")).isEqualTo(" ,.&");
     }

@@ -1,11 +1,15 @@
 package com.blankj.utilcode.utils;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowBitmap;
 
 import static com.blankj.utilcode.utils.TestUtils.BASEPATH;
 import static com.blankj.utilcode.utils.TestUtils.SEP;
@@ -25,7 +29,7 @@ public class ImageUtilsTest {
     String path = BASEPATH + "image" + SEP;
 
     @Test
-    public void testBitmap2Bytes() throws Exception {
+    public void testSaveBitmap() throws Exception {
         Bitmap bitmap = ImageUtils.getBitmapByFile(path + "lena.png");
         System.out.println(ImageUtils.save(bitmap, path + "new.png", Bitmap.CompressFormat.PNG));
     }
@@ -97,11 +101,6 @@ public class ImageUtilsTest {
 
     @Test
     public void testAddReflection() throws Exception {
-
-    }
-
-    @Test
-    public void testSaveBitmap() throws Exception {
 
     }
 }
