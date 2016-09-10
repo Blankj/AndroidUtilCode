@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.blankj.utilcode.utils.ConstUtils.*;
-import static com.blankj.utilcode.utils.ConstUtils.KB;
 
 /**
  * <pre>
@@ -434,9 +433,18 @@ public class FileUtils {
         if (isRecursive) return listFilesInDir(dir);
         if (dir == null || !isDir(dir)) return null;
         List<File> list = new ArrayList<>();
-        File[] files = dir.listFiles();
-        Collections.addAll(list, files);
+        Collections.addAll(list, dir.listFiles());
         return list;
+    }
+
+    /**
+     * 获取目录下所有文件包括子目录
+     *
+     * @param dirPath 目录路径
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDir(String dirPath) {
+        return listFilesInDir(getFileByPath(dirPath));
     }
 
     /**
@@ -463,6 +471,7 @@ public class FileUtils {
      * <p>大小写忽略</p>
      *
      * @param dirPath     目录路径
+     * @param suffix      后缀名
      * @param isRecursive 是否递归进子目录
      * @return 文件链表
      */
@@ -475,6 +484,7 @@ public class FileUtils {
      * <p>大小写忽略</p>
      *
      * @param dir         目录
+     * @param suffix      后缀名
      * @param isRecursive 是否递归进子目录
      * @return 文件链表
      */
@@ -496,6 +506,7 @@ public class FileUtils {
      * <p>大小写忽略</p>
      *
      * @param dirPath 目录路径
+     * @param suffix  后缀名
      * @return 文件链表
      */
     public static List<File> listFilesInDirWithFilter(String dirPath, String suffix) {
@@ -506,7 +517,8 @@ public class FileUtils {
      * 获取目录下所有后缀名为suffix的文件包括子目录
      * <p>大小写忽略</p>
      *
-     * @param dir 目录
+     * @param dir    目录
+     * @param suffix 后缀名
      * @return 文件链表
      */
     public static List<File> listFilesInDirWithFilter(File dir, String suffix) {
@@ -528,6 +540,7 @@ public class FileUtils {
      * 获取目录下所有符合filter的文件
      *
      * @param dirPath     目录路径
+     * @param filter      过滤器
      * @param isRecursive 是否递归进子目录
      * @return 文件链表
      */
@@ -539,6 +552,7 @@ public class FileUtils {
      * 获取目录下所有符合filter的文件
      *
      * @param dir         目录
+     * @param filter      过滤器
      * @param isRecursive 是否递归进子目录
      * @return 文件链表
      */
@@ -559,6 +573,7 @@ public class FileUtils {
      * 获取目录下所有符合filter的文件包括子目录
      *
      * @param dirPath 目录路径
+     * @param filter  过滤器
      * @return 文件链表
      */
     public static List<File> listFilesInDirWithFilter(String dirPath, FilenameFilter filter) {
@@ -568,7 +583,8 @@ public class FileUtils {
     /**
      * 获取目录下所有符合filter的文件包括子目录
      *
-     * @param dir 目录
+     * @param dir    目录
+     * @param filter 过滤器
      * @return 文件链表
      */
     public static List<File> listFilesInDirWithFilter(File dir, FilenameFilter filter) {
@@ -590,7 +606,8 @@ public class FileUtils {
      * 获取目录下指定文件名的文件包括子目录
      * <p>大小写忽略</p>
      *
-     * @param dirPath 目录路径
+     * @param dirPath  目录路径
+     * @param fileName 文件名
      * @return 文件链表
      */
     public static List<File> searchFileInDir(String dirPath, String fileName) {
@@ -601,7 +618,8 @@ public class FileUtils {
      * 获取目录下指定文件名的文件包括子目录
      * <p>大小写忽略</p>
      *
-     * @param dir 目录
+     * @param dir      目录
+     * @param fileName 文件名
      * @return 文件链表
      */
     public static List<File> searchFileInDir(File dir, String fileName) {
@@ -914,12 +932,12 @@ public class FileUtils {
      * 字节数转以unit为单位的size
      *
      * @param byteNum 大小
-     * @param unit <ul>
-     *             <li>{@link MemoryUnit#BYTE}: 字节</li>
-     *             <li>{@link MemoryUnit#KB}  : 千字节</li>
-     *             <li>{@link MemoryUnit#MB}  : 兆</li>
-     *             <li>{@link MemoryUnit#GB}  : GB</li>
-     *             </ul>
+     * @param unit    <ul>
+     *                <li>{@link MemoryUnit#BYTE}: 字节</li>
+     *                <li>{@link MemoryUnit#KB}  : 千字节</li>
+     *                <li>{@link MemoryUnit#MB}  : 兆</li>
+     *                <li>{@link MemoryUnit#GB}  : GB</li>
+     *                </ul>
      * @return 以unit为单位的size
      */
     public static double byte2Size(long byteNum, MemoryUnit unit) {

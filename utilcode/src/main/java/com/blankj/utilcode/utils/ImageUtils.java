@@ -10,6 +10,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.Paint;
@@ -189,7 +191,7 @@ public class ImageUtils {
      * @return 缩放后的图片
      */
     public static Bitmap scaleImage(Bitmap src, int newWidth, int newHeight) {
-        return scaleImage(src, (float) newWidth / src.getWidth(), (float) newHeight / src.getHeight());
+        return Bitmap.createScaledBitmap(src, newWidth, newHeight, true);
     }
 
     /**
@@ -237,6 +239,7 @@ public class ImageUtils {
                     ExifInterface.TAG_ORIENTATION,
                     ExifInterface.ORIENTATION_NORMAL);
             switch (orientation) {
+                default:
                 case ExifInterface.ORIENTATION_ROTATE_90:
                     degree = 90;
                     break;
@@ -246,8 +249,6 @@ public class ImageUtils {
                 case ExifInterface.ORIENTATION_ROTATE_270:
                     degree = 270;
                     break;
-                default:
-                    degree = 0;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -711,6 +712,38 @@ public class ImageUtils {
     }
 
     /**
+     * 转为灰度图像
+     *
+     * @param src 源图片
+     * @return 灰度图
+     */
+    public static Bitmap toGray(Bitmap src) {
+        return toGray(src, false);
+    }
+
+    /**
+     * 转为灰度图像
+     *
+     * @param src     源图片
+     * @param recycle 是否回收
+     * @return 灰度图
+     */
+    public static Bitmap toGray(Bitmap src, boolean recycle) {
+        if (isEmptyBitmap(src)) return null;
+        Bitmap grayBitmap = Bitmap.createBitmap(src.getWidth(),
+                src.getHeight(), Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(grayBitmap);
+        Paint paint = new Paint();
+        ColorMatrix colorMatrix = new ColorMatrix();
+        colorMatrix.setSaturation(0);
+        ColorMatrixColorFilter colorMatrixColorFilter = new ColorMatrixColorFilter(colorMatrix);
+        paint.setColorFilter(colorMatrixColorFilter);
+        canvas.drawBitmap(src, 0, 0, paint);
+        if (recycle && !src.isRecycled()) src.recycle();
+        return grayBitmap;
+    }
+
+    /**
      * 保存图片
      *
      * @param src      源图片
@@ -731,22 +764,50 @@ public class ImageUtils {
      * @return {@code true}: 成功<br>{@code false}: 失败
      */
     public static boolean save(Bitmap src, File file, CompressFormat format) {
-        if (isEmptyBitmap(src) || !FileUtils.createOrExistsFile(file)) return false;
-        System.out.println(src.getWidth() + ", " + src.getHeight());
-        OutputStream os = null;
-        try {
-            os = new BufferedOutputStream(new FileOutputStream(file));
-            return src.compress(format, 100, os);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            FileUtils.closeIO(os);
-        }
+        return save(src, file, format, false);
     }
 
     /**
-     * 判断文件是否为图片
+     * 保存图片
+     *
+     * @param src      源图片
+     * @param filePath 要保存到的文件路径
+     * @param format   格式
+     * @param recycle  是否回收
+     * @return {@code true}: 成功<br>{@code false}: 失败
+     */
+    public static boolean save(Bitmap src, String filePath, CompressFormat format, boolean recycle) {
+        return save(src, FileUtils.getFileByPath(filePath), format, recycle);
+    }
+
+    /**
+     * 保存图片
+     *
+     * @param src     源图片
+     * @param file    要保存到的文件
+     * @param format  格式
+     * @param recycle 是否回收
+     * @return {@code true}: 成功<br>{@code false}: 失败
+     */
+    public static boolean save(Bitmap src, File file, CompressFormat format, boolean recycle) {
+        if (isEmptyBitmap(src) || !FileUtils.createOrExistsFile(file)) return false;
+        System.out.println(src.getWidth() + ", " + src.getHeight());
+        OutputStream os = null;
+        boolean res = false;
+        try {
+            os = new BufferedOutputStream(new FileOutputStream(file));
+            res = src.compress(format, 100, os);
+            if (recycle && !src.isRecycled()) src.recycle();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            FileUtils.closeIO(os);
+        }
+        return res;
+    }
+
+    /**
+     * 根据文件名判断文件是否为图片
      *
      * @param file 　文件
      */
@@ -755,14 +816,15 @@ public class ImageUtils {
     }
 
     /**
-     * 判断文件是否为图片
+     * 根据文件名判断文件是否为图片
      *
      * @param filePath 　文件路径
      */
     public static boolean isImage(String filePath) {
         String path = filePath.toUpperCase();
-        return path.endsWith(".PNG") || path.endsWith(".JPG") ||
-                path.endsWith(".JPEG") || path.endsWith(".BMP");
+        return path.endsWith(".PNG") || path.endsWith(".JPG")
+                || path.endsWith(".JPEG") || path.endsWith(".BMP")
+                || path.endsWith(".GIF");
     }
 
     /**
@@ -779,10 +841,10 @@ public class ImageUtils {
      * 获取图片类型
      *
      * @param file 文件
-     * @return 文件类型
+     * @return 图片类型
      */
     public static String getImageType(File file) {
-        if (file == null || !file.exists()) return null;
+        if (file == null) return null;
         InputStream is = null;
         try {
             is = new FileInputStream(file);
@@ -795,31 +857,34 @@ public class ImageUtils {
         }
     }
 
+    /**
+     * 流获取图片类型
+     *
+     * @param is 图片输入流
+     * @return 图片类型
+     */
     public static String getImageType(InputStream is) {
         if (is == null) return null;
         try {
             byte[] bytes = new byte[8];
-            is.read(bytes);
-            return getImageType(bytes);
+            return is.read(bytes) != -1 ? getImageType(bytes) : null;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
 
+    /**
+     * 获取图片类型
+     *
+     * @param bytes bitmap的前8字节
+     * @return 图片类型
+     */
     public static String getImageType(byte[] bytes) {
-        if (isJPEG(bytes)) {
-            return "JPEG";
-        }
-        if (isGIF(bytes)) {
-            return "GIF";
-        }
-        if (isPNG(bytes)) {
-            return "PNG";
-        }
-        if (isBMP(bytes)) {
-            return "BMP";
-        }
+        if (isJPEG(bytes)) return "JPEG";
+        if (isGIF(bytes)) return "GIF";
+        if (isPNG(bytes)) return "PNG";
+        if (isBMP(bytes)) return "BMP";
         return null;
     }
 
@@ -847,7 +912,6 @@ public class ImageUtils {
         return b.length >= 2
                 && (b[0] == 0x42) && (b[1] == 0x4d);
     }
-
 
     /**
      * 判断bitmap对象是否为空

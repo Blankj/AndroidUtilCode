@@ -207,7 +207,6 @@ public class FileUtilsTest {
         System.out.println(readFile2String(path + "UTF8.txt", "GBK"));
     }
 
-
     @Test
     public void testReadFile2Bytes() throws Exception {
         System.out.println(new String(readFile2Bytes(path + "UTF8.txt")) );
