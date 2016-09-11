@@ -63,9 +63,14 @@ public class ImageUtils {
      */
     public static byte[] bitmap2Bytes(Bitmap bitmap, CompressFormat format) {
         if (bitmap == null) return null;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(format, 100, baos);
-        return baos.toByteArray();
+        ByteArrayOutputStream baos = null;
+        try {
+            baos = new ByteArrayOutputStream();
+            bitmap.compress(format, 100, baos);
+            return baos.toByteArray();
+        } finally {
+            FileUtils.closeIO(baos);
+        }
     }
 
     /**
@@ -699,7 +704,9 @@ public class ImageUtils {
      * @param unit     最大值单位
      * @return 压缩过的图片
      */
-    private Bitmap compress(Bitmap src, CompressFormat format, long topLimit, ConstUtils.MemoryUnit unit) {
+    private Bitmap compress(Bitmap src, CompressFormat format, long topLimit, ConstUtils.MemoryUnit unit, boolean
+            recycle) {
+        if (format == CompressFormat.PNG) return src;
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         src.compress(format, 100, os);
         long upperSize = FileUtils.size2Byte(topLimit, unit);
@@ -707,7 +714,7 @@ public class ImageUtils {
             os.reset();
             src.compress(format, 50, os);
         }
-        if (!src.isRecycled()) src.recycle();
+        if (recycle && !src.isRecycled()) src.recycle();
         return BitmapFactory.decodeStream(new ByteArrayInputStream(os.toByteArray()));
     }
 

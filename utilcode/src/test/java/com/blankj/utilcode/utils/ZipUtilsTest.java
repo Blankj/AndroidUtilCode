@@ -3,6 +3,7 @@ package com.blankj.utilcode.utils;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.List;
 
 import static com.blankj.utilcode.utils.TestUtils.BASEPATH;
 import static com.blankj.utilcode.utils.TestUtils.SEP;
@@ -17,21 +18,24 @@ import static com.blankj.utilcode.utils.TestUtils.SEP;
  */
 public class ZipUtilsTest {
 
-    String path = BASEPATH + "zip" + SEP;
+    String zipPath = BASEPATH + "zip" + SEP + "testZip" + SEP;
+    String zipFiles = BASEPATH + "zip" + SEP + "ZipFiles.zip";
+    String zipFile = BASEPATH + "zip" + SEP + "ZipFile.zip";
 
     @Test
     public void testZipFiles() throws Exception {
-
+        List<File> files = FileUtils.listFilesInDir(zipPath, false);
+        ZipUtils.zipFiles(files, new File(zipFiles));
     }
 
     @Test
-    public void testZipFiles1() throws Exception {
-
+    public void testZipFile() throws Exception {
+        ZipUtils.zipFile(new File(zipPath), new File(zipFile), "测试zip");
     }
 
     @Test
     public void testUpZipFile() throws Exception {
-        System.out.println(FileUtils.listFilesInDir(path));
+
     }
 
     @Test

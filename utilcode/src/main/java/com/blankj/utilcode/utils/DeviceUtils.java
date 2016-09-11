@@ -4,9 +4,7 @@ import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
-import android.os.Environment;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
@@ -33,36 +31,38 @@ public class DeviceUtils {
      * @return MAC地址
      */
     public static String getMacAddress(Context context) {
-        WifiManager wifi = (WifiManager) context
-                .getSystemService(Context.WIFI_SERVICE);
+        WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         WifiInfo info = wifi.getConnectionInfo();
-        String macAddress = info.getMacAddress().replace(":", "");
-        return macAddress == null ? "" : macAddress;
+        if (info != null) {
+            String macAddress = info.getMacAddress();
+            if (macAddress != null) {
+                return macAddress.replace(":", "");
+            }
+        }
+        return null;
     }
 
     /**
      * 获取设备MAC地址
-     *
+     * <p/>
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>}</p>
      *
      * @return MAC地址
      */
+
     public static String getMacAddress() {
         String macAddress = null;
-        LineNumberReader reader = null;
+        LineNumberReader lnr = null;
+        InputStreamReader isr = null;
         try {
             Process pp = Runtime.getRuntime().exec("cat /sys/class/net/wlan0/address");
-            InputStreamReader ir = new InputStreamReader(pp.getInputStream());
-            reader = new LineNumberReader(ir);
-            macAddress = reader.readLine().replace(":", "");
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            isr = new InputStreamReader(pp.getInputStream());
+            lnr = new LineNumberReader(isr);
+            macAddress = lnr.readLine().replace(":", "");
+        } catch (IOException e) {
+            e.printStackTrace();
         } finally {
-            try {
-                if (reader != null) reader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            FileUtils.closeIO(lnr, isr);
         }
         return macAddress == null ? "" : macAddress;
     }

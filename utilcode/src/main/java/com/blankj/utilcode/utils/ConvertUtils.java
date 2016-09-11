@@ -273,9 +273,14 @@ public class ConvertUtils {
      */
     public static byte[] bitmap2Bytes(Bitmap bitmap, Bitmap.CompressFormat format) {
         if (bitmap == null) return null;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(format, 100, baos);
-        return baos.toByteArray();
+        ByteArrayOutputStream baos = null;
+        try {
+            baos = new ByteArrayOutputStream();
+            bitmap.compress(format, 100, baos);
+            return baos.toByteArray();
+        } finally {
+            FileUtils.closeIO(baos);
+        }
     }
 
     /**
