@@ -4,6 +4,7 @@ import android.content.Context;
 
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowApplication;
 
@@ -31,6 +32,6 @@ public class TestUtils {
             + SEP + "src" + SEP + "test" + SEP + "res" + SEP;
 
     public static Context getContext() {
-        return ShadowApplication.getInstance().getApplicationContext();
+        return RuntimeEnvironment.application;
     }
 }

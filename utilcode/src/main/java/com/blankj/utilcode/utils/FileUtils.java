@@ -665,7 +665,7 @@ public class FileUtils {
             os = new BufferedOutputStream(new FileOutputStream(file, append));
             byte data[] = new byte[KB];
             int len;
-            while ((len = is.read(data)) != -1) {
+            while ((len = is.read(data, 0, KB)) != -1) {
                 os.write(data, 0, len);
             }
             return true;
@@ -775,7 +775,7 @@ public class FileUtils {
             is = new BufferedInputStream(new FileInputStream(file));
             byte[] buffer = new byte[KB];
             int readChars;
-            while ((readChars = is.read(buffer)) != -1) {
+            while ((readChars = is.read(buffer, 0, KB)) != -1) {
                 for (int i = 0; i < readChars; ++i) {
                     if (buffer[i] == '\n') ++count;
                 }

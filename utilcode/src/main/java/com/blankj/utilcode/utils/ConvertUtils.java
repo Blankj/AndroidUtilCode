@@ -14,6 +14,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 
+import static com.blankj.utilcode.utils.ConstUtils.KB;
+
 /**
  * <pre>
  *     author: Blankj
@@ -120,9 +122,9 @@ public class ConvertUtils {
         if (is == null) return null;
         try {
             ByteArrayOutputStream os = new ByteArrayOutputStream();
-            byte[] b = new byte[ConstUtils.KB];
+            byte[] b = new byte[KB];
             int len;
-            while ((len = is.read(b)) != -1) {
+            while ((len = is.read(b, 0, KB)) != -1) {
                 os.write(b, 0, len);
             }
             return os;
