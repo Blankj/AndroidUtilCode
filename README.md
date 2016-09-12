@@ -259,7 +259,7 @@
 > - **未归类→[UnclassifiedUtils.java][unclassified.java]**
 >  - 获取服务是否开启 *isRunningService*
 
-> - **压缩相关工具类→[ZipUtils.java][zip.java]**
+> - **压缩相关工具类→[ZipUtils.java][zip.java]→[Test][zip.test]**
 >  - 批量压缩文件 *zipFiles*
 >  - 压缩文件 *zipFile*
 >  - 批量解压文件 *unzipFiles*
