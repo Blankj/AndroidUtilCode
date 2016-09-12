@@ -262,12 +262,12 @@
 > - **压缩相关工具类→[ZipUtils.java][zip.java]**
 >  - 批量压缩文件 *zipFiles*
 >  - 压缩文件 *zipFile*
->  - 解压缩一个文件 *upZipFile*
->  - 解压文件名包含传入文字的文件 *upZipSelectedFile*
->  - 获得压缩文件内文件列表 *getEntriesNames*
->  - 获得压缩文件内压缩文件对象以取得其属性 *getEntriesEnumeration*
->  - 获得压缩文件对象的注释 *getEntryComment*
->  - 获得压缩文件对象的名称 *getEntryName*
+>  - 批量解压文件 *unzipFiles*
+>  - 解压文件 *unzipFile*
+>  - 解压带有关键字的文件 *unzipFileByKeyword*
+>  - 获取压缩文件中的文件路径链表 *getFilePathInZip*
+>  - 获取压缩文件中的注释链表 *getComments*
+>  - 获取压缩文件中的文件对象 *getEntries*
 
 > - **更新Log→[update_log.md][update_log.md]**
 
@@ -359,5 +359,6 @@ limitations under the License.
 [unclassified.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/UnclassifiedUtils.java
 
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ZipUtils.java
+[zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/ZipUtilsTest.java
 
 [update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/update_log.md
