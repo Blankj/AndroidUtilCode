@@ -2,7 +2,7 @@ package com.blankj.utilcode.utils;
 
 import org.junit.Test;
 
-import static com.blankj.utilcode.utils.RegularUtils.*;
+import static com.blankj.utilcode.utils.RegexUtils.*;
 import static com.google.common.truth.Truth.assertThat;
 
 /**
@@ -13,7 +13,7 @@ import static com.google.common.truth.Truth.assertThat;
  *     desc  : RegularUtils单元测试
  * </pre>
  */
-public class RegularUtilsTest {
+public class RegexUtilsTest {
 
     @Test
     public void testIsMobileSimple() throws Exception {

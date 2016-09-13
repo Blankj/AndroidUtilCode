@@ -23,6 +23,7 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.hardware.camera2.params.BlackLevelPattern;
 import android.media.ExifInterface;
 import android.os.Build;
 import android.renderscript.Allocation;
@@ -30,11 +31,13 @@ import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -62,15 +65,7 @@ public class ImageUtils {
      * @return 字节数组
      */
     public static byte[] bitmap2Bytes(Bitmap bitmap, CompressFormat format) {
-        if (bitmap == null) return null;
-        ByteArrayOutputStream baos = null;
-        try {
-            baos = new ByteArrayOutputStream();
-            bitmap.compress(format, 100, baos);
-            return baos.toByteArray();
-        } finally {
-            FileUtils.closeIO(baos);
-        }
+        return ConvertUtils.bitmap2Bytes(bitmap, format);
     }
 
     /**
@@ -80,7 +75,7 @@ public class ImageUtils {
      * @return bitmap对象
      */
     public static Bitmap bytes2Bitmap(byte[] bytes) {
-        return (bytes == null || bytes.length == 0) ? null : BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        return ConvertUtils.bytes2Bitmap(bytes);
     }
 
     /**
@@ -90,18 +85,18 @@ public class ImageUtils {
      * @return bitmap对象
      */
     public static Bitmap drawable2Bitmap(Drawable drawable) {
-        return drawable == null ? null : ((BitmapDrawable) drawable).getBitmap();
+        return ConvertUtils.drawable2Bitmap(drawable);
     }
 
     /**
      * bitmap转drawable
      *
-     * @param resources resources对象
-     * @param bitmap    bitmap对象
+     * @param res    resources对象
+     * @param bitmap bitmap对象
      * @return drawable对象
      */
-    public static Drawable bitmap2Drawable(Resources resources, Bitmap bitmap) {
-        return bitmap == null ? null : new BitmapDrawable(resources, bitmap);
+    public static Drawable bitmap2Drawable(Resources res, Bitmap bitmap) {
+        return ConvertUtils.bitmap2Drawable(res, bitmap);
     }
 
     /**
@@ -112,77 +107,175 @@ public class ImageUtils {
      * @return 字节数组
      */
     public static byte[] drawable2Bytes(Drawable drawable, CompressFormat format) {
-        return bitmap2Bytes(drawable2Bitmap(drawable), format);
+        return ConvertUtils.drawable2Bytes(drawable, format);
     }
 
     /**
      * byteArr转drawable
      *
-     * @param resources resources对象
-     * @param bytes     字节数组
+     * @param res   resources对象
+     * @param bytes 字节数组
      * @return drawable对象
      */
-    public static Drawable bytes2Drawable(Resources resources, byte[] bytes) {
-        return bitmap2Drawable(resources, bytes2Bitmap(bytes));
+    public static Drawable bytes2Drawable(Resources res, byte[] bytes) {
+        return ConvertUtils.bytes2Drawable(res, bytes);
     }
 
     /**
-     * 根据文件路径获取bitmap
+     * 获取bitmap
      *
-     * @param file 文件路径
+     * @param file 文件
      * @return bitmap
      */
-    public static Bitmap getBitmapByFile(File file) {
+    public static Bitmap getBitmap(File file) {
         if (file == null) return null;
-        return getBitmapByFile(file.getPath());
+        InputStream is = null;
+        try {
+            is = new BufferedInputStream(new FileInputStream(file));
+            return BitmapFactory.decodeStream(is);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            FileUtils.closeIO(is);
+        }
     }
 
     /**
-     * 根据文件路径获取bitmap
+     * 获取bitmap
+     *
+     * @param file      文件
+     * @param maxWidth  最大宽度
+     * @param maxHeight 最大高度
+     * @return bitmap
+     */
+    private static Bitmap getBitmap(File file, int maxWidth, int maxHeight) {
+        if (file == null) return null;
+        InputStream is = null;
+        try {
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            is = new BufferedInputStream(new FileInputStream(file));
+            BitmapFactory.decodeStream(is, null, options);
+            options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
+            options.inJustDecodeBounds = false;
+            return BitmapFactory.decodeStream(is, null, options);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            FileUtils.closeIO(is);
+        }
+    }
+
+    /**
+     * 获取bitmap
      *
      * @param filePath 文件路径
      * @return bitmap
      */
-    public static Bitmap getBitmapByFile(String filePath) {
+    public static Bitmap getBitmap(String filePath) {
+        if (StringUtils.isSpace(filePath)) return null;
         return BitmapFactory.decodeFile(filePath);
     }
 
     /**
-     * 根据文件路径获取bitmap
+     * 获取bitmap
+     *
+     * @param filePath  文件路径
+     * @param maxWidth  最大宽度
+     * @param maxHeight 最大高度
+     * @return bitmap
+     */
+    private static Bitmap getBitmap(String filePath, int maxWidth, int maxHeight) {
+        if (StringUtils.isSpace(filePath)) return null;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(filePath, options);
+        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(filePath, options);
+    }
+
+    /**
+     * 获取bitmap
+     *
+     * @param context 上下文
+     * @param resId   资源id
+     * @return bitmap
+     */
+    private Bitmap getBitmap(Context context, int resId) {
+        if (context == null) return null;
+        InputStream is = context.getResources().openRawResource(resId);
+        return BitmapFactory.decodeStream(is);
+    }
+
+    /**
+     * 获取bitmap
+     *
+     * @param context   上下文
+     * @param resId     资源id
+     * @param maxWidth  最大宽度
+     * @param maxHeight 最大高度
+     * @return bitmap
+     */
+    private static Bitmap getBitmap(Context context, int resId, int maxWidth, int maxHeight) {
+        if (context == null) return null;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        InputStream is = context.getResources().openRawResource(resId);
+        BitmapFactory.decodeStream(is, null, options);
+        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeStream(is, null, options);
+    }
+
+    /**
+     * 获取bitmap
      *
      * @param res 资源对象
      * @param id  资源id
      * @return bitmap
      */
-    public static Bitmap getBitmapByResource(Resources res, int id) {
+    private Bitmap getBitmap(Resources res, int id) {
+        if (res == null) return null;
         return BitmapFactory.decodeResource(res, id);
     }
 
     /**
-     * @param filePath 文件路径
+     * 获取bitmap
+     *
+     * @param res       资源对象
+     * @param id        资源id
+     * @param maxWidth  最大宽度
+     * @param maxHeight 最大高度
      * @return bitmap
      */
-    public static Bitmap getBitmapByFile(String filePath, int reqWidth, int reqHeight) {
-        if (StringUtils.isSpace(filePath)) return null;
+    private static Bitmap getBitmap(Resources res, int id, int maxWidth, int maxHeight) {
+        if (res == null) return null;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(filePath, options);
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+        BitmapFactory.decodeResource(res, id, options);
+        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
         options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeFile(filePath, options);
+        return BitmapFactory.decodeResource(res, id, options);
     }
 
-    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        final int height = options.outHeight;
-        final int width = options.outWidth;
+    /**
+     * 计算采样大小
+     *
+     * @param options   选项
+     * @param maxWidth  最大宽度
+     * @param maxHeight 最大高度
+     * @return 采样大小
+     */
+    private static int calculateInSampleSize(BitmapFactory.Options options, int maxWidth, int maxHeight) {
+        if (maxWidth == 0 || maxHeight == 0) return 1;
+        int height = options.outHeight;
+        int width = options.outWidth;
         int inSampleSize = 1;
-        if (height > reqHeight || width > reqWidth) {
-            int halfHeight = height >> 1;
-            int halfWidth = width >> 1;
-            while ((halfHeight / inSampleSize) > reqHeight
-                    && (halfWidth / inSampleSize) > reqWidth) {
-                inSampleSize <<= 1;
-            }
+        while ((height >>= 1) >= maxHeight && (width >>= 1) >= maxWidth) {
+            inSampleSize <<= 1;
         }
         return inSampleSize;
     }
@@ -195,25 +288,145 @@ public class ImageUtils {
      * @param newHeight 新高度
      * @return 缩放后的图片
      */
-    public static Bitmap scaleImage(Bitmap src, int newWidth, int newHeight) {
-        return Bitmap.createScaledBitmap(src, newWidth, newHeight, true);
+    public static Bitmap scale(Bitmap src, int newWidth, int newHeight) {
+        return scale(src, newWidth, newHeight, false);
+    }
+
+    /**
+     * 缩放图片
+     *
+     * @param src       源图片
+     * @param newWidth  新宽度
+     * @param newHeight 新高度
+     * @return 缩放后的图片
+     */
+    public static Bitmap scale(Bitmap src, int newWidth, int newHeight, boolean recycle) {
+        if (isEmptyBitmap(src)) return null;
+        if (recycle && !src.isRecycled()) src.recycle();
+        Bitmap ret = Bitmap.createScaledBitmap(src, newWidth, newHeight, true);
+        if (recycle && !src.isRecycled()) src.recycle();
+        return ret;
     }
 
     /**
      * 缩放图片
      *
      * @param src         源图片
-     * @param scaleWidth  缩放宽度比
-     * @param scaleHeight 缩放高度比
+     * @param scaleWidth  缩放宽度倍数
+     * @param scaleHeight 缩放高度倍数
      * @return 缩放后的图片
      */
-    public static Bitmap scaleImage(Bitmap src, float scaleWidth, float scaleHeight) {
-        if (src == null) return null;
+    public static Bitmap scale(Bitmap src, float scaleWidth, float scaleHeight) {
+        return scale(src, scaleWidth, scaleHeight, false);
+    }
+
+    /**
+     * 缩放图片
+     *
+     * @param src         源图片
+     * @param scaleWidth  缩放宽度倍数
+     * @param scaleHeight 缩放高度倍数
+     * @param recycle     是否回收
+     * @return 缩放后的图片
+     */
+    public static Bitmap scale(Bitmap src, float scaleWidth, float scaleHeight, boolean recycle) {
+        if (isEmptyBitmap(src)) return null;
         Matrix matrix = new Matrix();
-        matrix.postScale(scaleWidth, scaleHeight);
-        Bitmap res = Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), matrix, true);
-        if (!src.isRecycled()) src.recycle();
-        return res;
+        matrix.setScale(scaleWidth, scaleHeight);
+        Bitmap ret = Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), matrix, true);
+        if (recycle && !src.isRecycled()) src.recycle();
+        return ret;
+    }
+
+    /**
+     * 裁剪图片
+     *
+     * @param src    源图片
+     * @param x      开始坐标x
+     * @param y      开始坐标y
+     * @param width  裁剪宽度
+     * @param height 裁剪高度
+     * @return 裁剪后的图片
+     */
+    public Bitmap clip(Bitmap src, int x, int y, int width, int height) {
+        return clip(src, x, y, width, height, false);
+    }
+
+    /**
+     * 裁剪图片
+     *
+     * @param src     源图片
+     * @param x       开始坐标x
+     * @param y       开始坐标y
+     * @param width   裁剪宽度
+     * @param height  裁剪高度
+     * @param recycle 是否回收
+     * @return 裁剪后的图片
+     */
+    public Bitmap clip(Bitmap src, int x, int y, int width, int height, boolean recycle) {
+        if (isEmptyBitmap(src)) return null;
+        Bitmap ret = Bitmap.createBitmap(src, x, y, width, height);
+        if (recycle && !src.isRecycled()) src.recycle();
+        return ret;
+    }
+
+    /**
+     * 倾斜图片
+     *
+     * @param src 源图片
+     * @param kx  倾斜因子x
+     * @param ky  倾斜因子y
+     * @return 倾斜后的图片
+     */
+    public Bitmap skew(Bitmap src, float kx, float ky) {
+        return skew(src, kx, ky, 0, 0, false);
+    }
+
+    /**
+     * 倾斜图片
+     *
+     * @param src     源图片
+     * @param kx      倾斜因子x
+     * @param ky      倾斜因子y
+     * @param recycle 是否回收
+     * @return 倾斜后的图片
+     */
+    public Bitmap skew(Bitmap src, float kx, float ky, boolean recycle) {
+        return skew(src, kx, ky, 0, 0, recycle);
+    }
+
+    /**
+     * 倾斜图片
+     *
+     * @param src 源图片
+     * @param kx  倾斜因子x
+     * @param ky  倾斜因子y
+     * @param px  平移因子x
+     * @param py  平移因子y
+     * @return 倾斜后的图片
+     */
+    public Bitmap skew(Bitmap src, float kx, float ky, float px, float py) {
+        return skew(src, kx, ky, 0, 0, false);
+    }
+
+    /**
+     * 倾斜图片
+     *
+     * @param src     源图片
+     * @param kx      倾斜因子x
+     * @param ky      倾斜因子y
+     * @param px      平移因子x
+     * @param py      平移因子y
+     * @param recycle 是否回收
+     * @return 倾斜后的图片
+     */
+    public Bitmap skew(Bitmap src, float kx, float ky, float px, float py, boolean recycle) {
+        if (isEmptyBitmap(src)) return null;
+        Matrix matrix = new Matrix();
+        matrix.setSkew(kx, ky, px, py);
+        Bitmap ret = Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), matrix, true);
+        if (recycle && !src.isRecycled()) src.recycle();
+        return ret;
     }
 
     /**
@@ -221,25 +434,43 @@ public class ImageUtils {
      *
      * @param src     源图片
      * @param degrees 旋转角度
+     * @param px      旋转点横坐标
+     * @param py      旋转点纵坐标
+     * @return 旋转后的图片
      */
-    public static Bitmap rotateBitmap(Bitmap src, int degrees) {
-        if (src == null || degrees == 0) return src;
+    public static Bitmap rotate(Bitmap src, int degrees, float px, float py) {
+        return rotate(src, degrees, px, py, false);
+    }
+
+    /**
+     * 旋转图片
+     *
+     * @param src     源图片
+     * @param degrees 旋转角度
+     * @param px      旋转点横坐标
+     * @param py      旋转点纵坐标
+     * @param recycle 是否回收
+     * @return 旋转后的图片
+     */
+    public static Bitmap rotate(Bitmap src, int degrees, float px, float py, boolean recycle) {
+        if (isEmptyBitmap(src) || degrees == 0) return null;
         Matrix matrix = new Matrix();
-        matrix.setRotate(degrees, src.getWidth() / 2, src.getHeight() / 2);
-        Bitmap res = Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), matrix, true);
-        if (!src.isRecycled()) src.recycle();
-        return res;
+        matrix.setRotate(degrees, px, py);
+        Bitmap ret = Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), matrix, true);
+        if (recycle && !src.isRecycled()) src.recycle();
+        return ret;
     }
 
     /**
      * 获取图片旋转角度
      *
-     * @param path 路径
+     * @param filePath 文件路径
+     * @return 旋转角度
      */
-    public static int getRotateDegree(String path) {
+    public static int getRotateDegree(String filePath) {
         int degree = 0;
         try {
-            ExifInterface exifInterface = new ExifInterface(path);
+            ExifInterface exifInterface = new ExifInterface(filePath);
             int orientation = exifInterface.getAttributeInt(
                     ExifInterface.TAG_ORIENTATION,
                     ExifInterface.ORIENTATION_NORMAL);
@@ -345,9 +576,9 @@ public class ImageUtils {
             scaled = stackBlur(scaled, (int) radius, true);
         }
         if (scale == 1) return scaled;
-        Bitmap res = Bitmap.createScaledBitmap(scaled, width, height, true);
+        Bitmap ret = Bitmap.createScaledBitmap(scaled, width, height, true);
         if (scaled != null && !scaled.isRecycled()) scaled.recycle();
-        return res;
+        return ret;
     }
 
     /**
@@ -633,7 +864,7 @@ public class ImageUtils {
      *
      * @param src              源图片的
      * @param reflectionHeight 倒影高度
-     * @return 倒影图
+     * @return 带倒影图片
      */
     public static Bitmap addReflection(Bitmap src, int reflectionHeight) {
         if (isEmptyBitmap(src)) return null;
@@ -670,56 +901,117 @@ public class ImageUtils {
     }
 
     /**
-     * 添加水印文字
+     * 添加文字水印
      *
      * @param src      源图片
-     * @param text     文本
-     * @param textSize 字体大小
-     * @param color    颜色
+     * @param content  水印文本
+     * @param textSize 水印字体大小
+     * @param color    水印字体颜色
+     * @param alpha    水印字体透明度
      * @param x        起始坐标x
      * @param y        起始坐标y
-     * @return 带有水印文字的图片
+     * @return 带有文字水印的图片
      */
-    public static Bitmap addText(Bitmap src, String text, int textSize, int color, float x, float y) {
-        android.graphics.Bitmap.Config bitmapConfig = src.getConfig();
-        if (bitmapConfig == null) bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
-        src = src.copy(bitmapConfig, true);
-        Canvas canvas = new Canvas(src);
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(color);
-        paint.setTextSize(textSize);
-        paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
-        Rect bounds = new Rect();
-        paint.getTextBounds(text, 0, text.length(), bounds);
-        canvas.drawText(text, x, y, paint);
-        return src;
+    public static Bitmap addTextWatermark(Bitmap src, String content, int textSize, int color, int alpha, float x, float y) {
+        return addTextWatermark(src, content, textSize, color, alpha, x, y, false);
     }
 
     /**
-     * 压缩图片
+     * 添加文字水印
      *
      * @param src      源图片
-     * @param format   格式
-     * @param topLimit 允许最大值
-     * @param unit     最大值单位
-     * @return 压缩过的图片
+     * @param content  水印文本
+     * @param textSize 水印字体大小
+     * @param color    水印字体颜色
+     * @param alpha    水印字体透明度
+     * @param x        起始坐标x
+     * @param y        起始坐标y
+     * @param recycle  是否回收
+     * @return 带有文字水印的图片
      */
-    private Bitmap compress(Bitmap src, CompressFormat format, long topLimit, ConstUtils.MemoryUnit unit, boolean
-            recycle) {
-        if (format == CompressFormat.PNG) return src;
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        src.compress(format, 100, os);
-        long upperSize = FileUtils.size2Byte(topLimit, unit);
-        while (os.toByteArray().length > upperSize) {
-            os.reset();
-            src.compress(format, 50, os);
-        }
+    public static Bitmap addTextWatermark(Bitmap src, String content, int textSize, int color, int alpha, float x, float y, boolean recycle) {
+        if (isEmptyBitmap(src) || content == null) return null;
+        Config config = src.getConfig();
+        if (config == null) config = Config.ARGB_8888;
+        Bitmap ret = src.copy(config, true);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        Canvas canvas = new Canvas(ret);
+        paint.setAlpha(alpha);
+        paint.setColor(color);
+        paint.setTextSize(textSize);
+        Rect bounds = new Rect();
+        paint.getTextBounds(content, 0, content.length(), bounds);
+        canvas.drawText(content, x, y, paint);
         if (recycle && !src.isRecycled()) src.recycle();
-        return BitmapFactory.decodeStream(new ByteArrayInputStream(os.toByteArray()));
+        return ret;
     }
 
     /**
-     * 转为灰度图像
+     * 添加图片水印
+     *
+     * @param src       源图片
+     * @param watermark 图片水印
+     * @param x         起始坐标x
+     * @param y         起始坐标y
+     * @param alpha     透明度
+     * @return 带有图片水印的图片
+     */
+    private Bitmap addImageWatermark(Bitmap src, Bitmap watermark, int x, int y, int alpha) {
+        return addImageWatermark(src, watermark, x, y, alpha, false);
+    }
+
+    /**
+     * 添加图片水印
+     *
+     * @param src       源图片
+     * @param watermark 图片水印
+     * @param x         起始坐标x
+     * @param y         起始坐标y
+     * @param alpha     透明度
+     * @param recycle   是否回收
+     * @return 带有图片水印的图片
+     */
+    private Bitmap addImageWatermark(Bitmap src, Bitmap watermark, int x, int y, int alpha, boolean recycle) {
+        if (isEmptyBitmap(src)) return null;
+        Config config = src.getConfig();
+        if (config == null) config = Config.ARGB_8888;
+        Bitmap ret = src.copy(config, true);
+        if (!isEmptyBitmap(watermark)) {
+            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            Canvas canvas = new Canvas(ret);
+            paint.setAlpha(alpha);
+            canvas.drawBitmap(watermark, x, y, paint);
+        }
+        if (recycle && !src.isRecycled()) src.recycle();
+        return ret;
+    }
+
+    /**
+     * 转为alpha位图
+     *
+     * @param src 源图片
+     * @return alpha位图
+     */
+    public static Bitmap toAlpha(Bitmap src) {
+        return toAlpha(src);
+    }
+
+    /**
+     * 转为alpha位图
+     *
+     * @param src     源图片
+     * @param recycle 是否回收
+     * @return alpha位图
+     */
+    public static Bitmap toAlpha(Bitmap src, Boolean recycle) {
+        if (isEmptyBitmap(src)) return null;
+        Bitmap ret = src.extractAlpha();
+        if (recycle && !src.isRecycled()) src.recycle();
+        return ret;
+    }
+
+    /**
+     * 转为灰度图片
      *
      * @param src 源图片
      * @return 灰度图
@@ -729,7 +1021,7 @@ public class ImageUtils {
     }
 
     /**
-     * 转为灰度图像
+     * 转为灰度图片
      *
      * @param src     源图片
      * @param recycle 是否回收
@@ -759,7 +1051,7 @@ public class ImageUtils {
      * @return {@code true}: 成功<br>{@code false}: 失败
      */
     public static boolean save(Bitmap src, String filePath, CompressFormat format) {
-        return save(src, FileUtils.getFileByPath(filePath), format);
+        return save(src, FileUtils.getFileByPath(filePath), format, false);
     }
 
     /**
@@ -800,17 +1092,17 @@ public class ImageUtils {
         if (isEmptyBitmap(src) || !FileUtils.createOrExistsFile(file)) return false;
         System.out.println(src.getWidth() + ", " + src.getHeight());
         OutputStream os = null;
-        boolean res = false;
+        boolean ret = false;
         try {
             os = new BufferedOutputStream(new FileOutputStream(file));
-            res = src.compress(format, 100, os);
+            ret = src.compress(format, 100, os);
             if (recycle && !src.isRecycled()) src.recycle();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             FileUtils.closeIO(os);
         }
-        return res;
+        return ret;
     }
 
     /**
@@ -928,5 +1220,152 @@ public class ImageUtils {
      */
     private static boolean isEmptyBitmap(Bitmap src) {
         return src == null || src.getWidth() == 0 || src.getHeight() == 0;
+    }
+
+    /******************************~~~~~~~~~ 下方和压缩有关 ~~~~~~~~~******************************/
+
+    /**
+     * 按缩放压缩
+     *
+     * @param src       源图片
+     * @param newWidth  新宽度
+     * @param newHeight 新高度
+     * @return 缩放压缩后的图片
+     */
+    public static Bitmap compressByScale(Bitmap src, int newWidth, int newHeight) {
+        return scale(src, newWidth, newHeight, false);
+    }
+
+    /**
+     * 按缩放压缩
+     *
+     * @param src       源图片
+     * @param newWidth  新宽度
+     * @param newHeight 新高度
+     * @return 缩放压缩后的图片
+     */
+    public static Bitmap compressByScale(Bitmap src, int newWidth, int newHeight, boolean recycle) {
+        return scale(src, newWidth, newHeight, recycle);
+    }
+
+    /**
+     * 按缩放压缩
+     *
+     * @param src         源图片
+     * @param scaleWidth  缩放宽度倍数
+     * @param scaleHeight 缩放高度倍数
+     * @return 缩放压缩后的图片
+     */
+    public static Bitmap compressByScale(Bitmap src, float scaleWidth, float scaleHeight) {
+        return scale(src, scaleWidth, scaleHeight, false);
+    }
+
+    /**
+     * 按缩放压缩
+     *
+     * @param src         源图片
+     * @param scaleWidth  缩放宽度倍数
+     * @param scaleHeight 缩放高度倍数
+     * @param recycle     是否回收
+     * @return 缩放压缩后的图片
+     */
+    public static Bitmap compressByScale(Bitmap src, float scaleWidth, float scaleHeight, boolean recycle) {
+        return scale(src, scaleWidth, scaleHeight, recycle);
+    }
+
+    /**
+     * 按质量压缩
+     *
+     * @param src     源图片
+     * @param quality 质量
+     * @return 质量压缩后的图片
+     */
+    public static Bitmap compressByQuality(Bitmap src, int quality) {
+        return compressByQuality(src, quality, false);
+    }
+
+    /**
+     * 按质量压缩
+     *
+     * @param src     源图片
+     * @param quality 质量
+     * @param recycle 是否回收
+     * @return 质量压缩后的图片
+     */
+    public static Bitmap compressByQuality(Bitmap src, int quality, boolean recycle) {
+        if (isEmptyBitmap(src) || quality < 0 || quality > 100) return null;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        src.compress(Bitmap.CompressFormat.JPEG, quality, baos);
+        byte[] bytes = baos.toByteArray();
+        if (recycle && !src.isRecycled()) src.recycle();
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    }
+
+    /**
+     * 按质量压缩
+     *
+     * @param src     源图片
+     * @param topSize 允许最大值
+     * @param unit    topSize单位
+     * @return 质量压缩压缩过的图片
+     */
+    private Bitmap compressByQuality(Bitmap src, long topSize, ConstUtils.MemoryUnit unit) {
+        return compressByQuality(src, topSize, unit, false);
+    }
+
+    /**
+     * 按质量压缩
+     *
+     * @param src     源图片
+     * @param topSize 允许最大值
+     * @param unit    topSize单位
+     * @param recycle 是否回收
+     * @return 质量压缩压缩过的图片
+     */
+    private Bitmap compressByQuality(Bitmap src, long topSize, ConstUtils.MemoryUnit unit, boolean recycle) {
+        if (isEmptyBitmap(src) || topSize <= 0) return null;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        long upperSize = FileUtils.size2Byte(topSize, unit);
+        int quality = 100;
+        src.compress(CompressFormat.PNG, 100, baos);
+        while (baos.toByteArray().length > upperSize && quality >= 0) {
+            baos.reset();
+            quality -= 5;
+            src.compress(CompressFormat.JPEG, quality, baos);
+        }
+        if (quality < 0) return null;
+        byte[] bytes = baos.toByteArray();
+        if (recycle && !src.isRecycled()) src.recycle();
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    }
+
+    /**
+     * 按采样大小压缩
+     *
+     * @param src        源图片
+     * @param sampleSize 采样率大小
+     * @return 按采样率压缩后的图片
+     */
+    public static Bitmap compressBySampleSize(Bitmap src, int sampleSize) {
+        return compressBySampleSize(src, sampleSize, false);
+    }
+
+    /**
+     * 按采样大小压缩
+     *
+     * @param src        源图片
+     * @param sampleSize 采样率大小
+     * @param recycle    是否回收
+     * @return 按采样率压缩后的图片
+     */
+    public static Bitmap compressBySampleSize(Bitmap src, int sampleSize, boolean recycle) {
+        if (isEmptyBitmap(src)) return null;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = sampleSize;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        src.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] bytes = baos.toByteArray();
+        if (recycle && !src.isRecycled()) src.recycle();
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
     }
 }

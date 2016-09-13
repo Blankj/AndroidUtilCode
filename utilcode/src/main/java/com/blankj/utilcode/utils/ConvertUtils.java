@@ -37,12 +37,12 @@ public class ConvertUtils {
      * @return 16进制大写字符串
      */
     public static String bytes2HexString(byte[] bytes) {
-        char[] res = new char[bytes.length << 1];
+        char[] ret = new char[bytes.length << 1];
         for (int i = 0, j = 0; i < bytes.length; i++) {
-            res[j++] = hexDigits[bytes[i] >>> 4 & 0x0f];
-            res[j++] = hexDigits[bytes[i] & 0x0f];
+            ret[j++] = hexDigits[bytes[i] >>> 4 & 0x0f];
+            ret[j++] = hexDigits[bytes[i] & 0x0f];
         }
-        return new String(res);
+        return new String(ret);
     }
 
     /**
@@ -59,11 +59,11 @@ public class ConvertUtils {
             throw new IllegalArgumentException("长度不是偶数");
         }
         char[] hexBytes = hexString.toUpperCase().toCharArray();
-        byte[] res = new byte[len >>> 1];
+        byte[] ret = new byte[len >>> 1];
         for (int i = 0; i < len; i += 2) {
-            res[i >> 1] = (byte) (hex2Dec(hexBytes[i]) << 4 | hex2Dec(hexBytes[i + 1]));
+            ret[i >> 1] = (byte) (hex2Dec(hexBytes[i]) << 4 | hex2Dec(hexBytes[i + 1]));
         }
-        return res;
+        return ret;
     }
 
     /**
@@ -308,12 +308,12 @@ public class ConvertUtils {
     /**
      * bitmap转drawable
      *
-     * @param resources resources对象
-     * @param bitmap    bitmap对象
+     * @param res    resources对象
+     * @param bitmap bitmap对象
      * @return drawable对象
      */
-    public static Drawable bitmap2Drawable(Resources resources, Bitmap bitmap) {
-        return bitmap == null ? null : new BitmapDrawable(resources, bitmap);
+    public static Drawable bitmap2Drawable(Resources res, Bitmap bitmap) {
+        return bitmap == null ? null : new BitmapDrawable(res, bitmap);
     }
 
     /**
@@ -330,12 +330,12 @@ public class ConvertUtils {
     /**
      * byteArr转drawable
      *
-     * @param resources resources对象
-     * @param bytes     字节数组
+     * @param res   resources对象
+     * @param bytes 字节数组
      * @return drawable对象
      */
-    public static Drawable bytes2Drawable(Resources resources, byte[] bytes) {
-        return bitmap2Drawable(resources, bytes2Bitmap(bytes));
+    public static Drawable bytes2Drawable(Resources res, byte[] bytes) {
+        return bitmap2Drawable(res, bytes2Bitmap(bytes));
     }
 
     /**
