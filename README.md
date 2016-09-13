@@ -1,5 +1,6 @@
 ## Android developers should collect the following utils
 **[中文版README][readme.ch]**
+***
 Directory is shown below：  
 > - **About App→[AppUtils.java][app.java]**
 >  - *installApp*
