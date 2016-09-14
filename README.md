@@ -16,11 +16,13 @@ Directory is shown below：
 > - **About Const→[ConstUtils.java][const.java]**
 >  - *Memory Const*
 >  - *Time Const*
->  - *RegEx Const*
+>  - *Regex Const*
 
 > - **About Convert→[ConvertUtils.java][convert.java]→[Test][convert.test]**
 >  - *bytes2HexString*、*hexString2Bytes*
 >  - *chars2Bytes*、*bytes2Chars*
+>  - *byte2Size*、*size2Byte*
+>  - *byte2FitSize*
 >  - *input2OutputStream*、*output2InputStream*
 >  - *inputStream2Bytes*、*bytes2InputStream*
 >  - *outputStream2Bytes*、*bytes2OutputStream*
@@ -101,8 +103,6 @@ Directory is shown below：
 >  - *getFileLines*
 >  - *readFile2List*
 >  - *readFile2SB*
->  - *byte2Size*
->  - *size2Byte*
 >  - *getFileSize*
 >  - *closeIO*
 >  - *getDirName*
@@ -275,7 +275,7 @@ Directory is shown below：
 >  - *unzipFiles*
 >  - *unzipFile*
 >  - *unzipFileByKeyword*
->  - *getFilePathInZip*
+>  - *getFilesPath*
 >  - *getComments*
 >  - *getEntries*
 

@@ -1,7 +1,7 @@
 ## Android开发人员不得不收集的代码([持续更新中][update_log.md])
 为方便查找，已进行大致归类，其目录如下所示：  
 > - **App相关→[AppUtils.java][app.java]**
->  - 安装App *installApp*
+>  - 安装App(支持6.0以上) *installApp*
 >  - 卸载指定包名的App *uninstallApp*
 >  - 获取当前App信息 *getAppInfo*
 >  - 获取所有已安装App信息 *getAllAppsInfo*
@@ -19,6 +19,8 @@
 > - **转换相关→[ConvertUtils.java][convert.java]→[Test][convert.test]**
 >  - byteArr与hexString互转 *bytes2HexString*、*hexString2Bytes*
 >  - charArr与byteArr互转 *chars2Bytes*、*bytes2Chars*
+>  - 字节数与unit为单位的size互转 *byte2Size*、*size2Byte*
+>  - 字节数转合适大小 *byte2FitSize*
 >  - inputStream与outputStream互转 *input2OutputStream*、*output2InputStream*
 >  - inputStream与byteArr互转 *inputStream2Bytes*、*bytes2InputStream*
 >  - outputStream与byteArr互转 *outputStream2Bytes*、*bytes2OutputStream*
@@ -99,8 +101,6 @@
 >  - 获取文件行数 *getFileLines*
 >  - 指定编码按行读取文件到List *readFile2List*
 >  - 指定编码按行读取文件到StringBuilder中 *readFile2SB*
->  - 字节数转以unit为单位的size *byte2Size*
->  - 以unit为单位的size转字节数 *size2Byte*
 >  - 获取文件大小 *getFileSize*
 >  - 关闭IO *closeIO*
 >  - 根据全路径获取最长目录 *getDirName*
@@ -220,10 +220,10 @@
 >  - SP中读取float *getFloat*
 >  - SP中写入boolean类型value *putBoolean*
 >  - SP中读取boolean *getBoolean*
->  - 获取SP中所有键值对 *getAll*
->  - 从SP中移除该key *remove*
->  - 判断SP中是否存在该key *contains*
->  - 清除SP中所有数据 *clear*
+>  - SP中获取所有键值对 *getAll*
+>  - SP中移除该key *remove*
+>  - SP中是否存在该key *contains*
+>  - SP中清除所有数据 *clear*
 
 > - **字符串相关→[StringUtils.java][string.java]→[Test][string.test]**
 >  - 判断字符串是否为null或长度为0 *isEmpty*
@@ -274,7 +274,7 @@
 >  - 批量解压文件 *unzipFiles*
 >  - 解压文件 *unzipFile*
 >  - 解压带有关键字的文件 *unzipFileByKeyword*
->  - 获取压缩文件中的文件路径链表 *getFilePathInZip*
+>  - 获取压缩文件中的文件路径链表 *getFilesPath*
 >  - 获取压缩文件中的注释链表 *getComments*
 >  - 获取压缩文件中的文件对象 *getEntries*
 
