@@ -44,7 +44,6 @@ public class DeviceUtils {
 
     /**
      * 获取设备MAC地址
-     * <p/>
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>}</p>
      *
      * @return MAC地址

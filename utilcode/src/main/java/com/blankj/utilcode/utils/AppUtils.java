@@ -11,7 +11,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.webkit.MimeTypeMap;
-import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,20 +31,22 @@ public class AppUtils {
     }
 
     /**
-     * 安装App(支持6.0以上)
+     * 获取安装App(支持6.0以上)的意图
      *
      * @param context  上下文
      * @param filePath 文件路径
+     * @return 意图
      */
-    public static void installApp(Context context, String filePath) {
-        installApp(context, FileUtils.getFileByPath(filePath));
+    public static Intent installApp(Context context, String filePath) {
+        return installApp(context, FileUtils.getFileByPath(filePath));
     }
 
     /**
-     * 安装App(支持6.0以上)
+     * 获取安装App(支持6.0以上)的意图
      *
      * @param context 上下文
      * @param file    文件
+     * @return 意图
      */
     public static Intent installApp(Context context, File file) {
         if (file == null) return null;
@@ -62,10 +63,11 @@ public class AppUtils {
     }
 
     /**
-     * 卸载指定包名的App
+     * 获取卸载指定包名的App的意图
      *
      * @param context     上下文
      * @param packageName 包名
+     * @return 意图
      */
     public Intent uninstallApp(Context context, String packageName) {
         Intent intent = new Intent(Intent.ACTION_DELETE);
@@ -251,7 +253,7 @@ public class AppUtils {
      *
      * @param context     上下文
      * @param packageName 包名
-     * @return 意图
+     * @return Intent
      */
     private static Intent getIntentByPackageName(Context context, String packageName) {
         return context.getPackageManager().getLaunchIntentForPackage(packageName);
@@ -269,21 +271,22 @@ public class AppUtils {
     }
 
     /**
-     * 打开指定包名的App
+     * 获取打开指定包名App的意图
      *
      * @param context     上下文
      * @param packageName 包名
-     * @return {@code true}: 打开成功<br>{@code false}: 打开失败
+     * @return 意图
      */
     public static Intent openAppByPackageName(Context context, String packageName) {
         return getIntentByPackageName(context, packageName);
     }
 
     /**
-     * 打开指定包名的App应用信息界面
+     * 获取打开指定包名的App应用信息的意图
      *
      * @param context     上下文
      * @param packageName 包名
+     * @return 意图
      */
     public static Intent openAppInfo(Context context, String packageName) {
         Intent intent = new Intent();
@@ -293,10 +296,11 @@ public class AppUtils {
     }
 
     /**
-     * 可用来做App信息分享
+     * 获取App信息分享的意图
      *
      * @param context 上下文
      * @param info    分享信息
+     * @return 意图
      */
     public static Intent shareAppInfo(Context context, String info) {
         Intent intent = new Intent(Intent.ACTION_SEND);
