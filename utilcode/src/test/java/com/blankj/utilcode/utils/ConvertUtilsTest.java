@@ -3,14 +3,7 @@ package com.blankj.utilcode.utils;
 
 import org.junit.Test;
 
-import static com.blankj.utilcode.utils.ConvertUtils.bytes2Chars;
-import static com.blankj.utilcode.utils.ConvertUtils.bytes2HexString;
-import static com.blankj.utilcode.utils.ConvertUtils.bytes2InputStream;
-import static com.blankj.utilcode.utils.ConvertUtils.chars2Bytes;
-import static com.blankj.utilcode.utils.ConvertUtils.hexString2Bytes;
-import static com.blankj.utilcode.utils.ConvertUtils.inputStream2Bytes;
-import static com.blankj.utilcode.utils.ConvertUtils.inputStream2String;
-import static com.blankj.utilcode.utils.ConvertUtils.string2InputStream;
+import static com.blankj.utilcode.utils.ConvertUtils.*;
 import static com.google.common.truth.Truth.assertThat;
 
 
@@ -48,6 +41,16 @@ public class ConvertUtilsTest {
     @Test
     public void testBytes2Chars() throws Exception {
         assertThat(bytes2Chars(mBytes1)).isEqualTo(mChars1);
+    }
+
+    @Test
+    public void testByte2Unit() throws Exception {
+        assertThat(byte2Size(ConstUtils.GB, ConstUtils.MemoryUnit.MB) - 1024).isWithin(0.001);
+    }
+
+    @Test
+    public void testByte2FitSize() throws Exception {
+        assertThat(byte2FitSize(1024 * 1024 * 3 + 1024 * 100)).isEqualTo("3.098MB");
     }
 
     @Test

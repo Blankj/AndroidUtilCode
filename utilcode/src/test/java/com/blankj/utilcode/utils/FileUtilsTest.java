@@ -6,35 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FilenameFilter;
 
-import static com.blankj.utilcode.utils.FileUtils.byte2Size;
-import static com.blankj.utilcode.utils.FileUtils.copyDir;
-import static com.blankj.utilcode.utils.FileUtils.copyFile;
-import static com.blankj.utilcode.utils.FileUtils.createFileByDeleteOldFile;
-import static com.blankj.utilcode.utils.FileUtils.createOrExistsDir;
-import static com.blankj.utilcode.utils.FileUtils.createOrExistsFile;
-import static com.blankj.utilcode.utils.FileUtils.deleteDir;
-import static com.blankj.utilcode.utils.FileUtils.deleteFile;
-import static com.blankj.utilcode.utils.FileUtils.getDirName;
-import static com.blankj.utilcode.utils.FileUtils.getFileByPath;
-import static com.blankj.utilcode.utils.FileUtils.getFileCharsetSimple;
-import static com.blankj.utilcode.utils.FileUtils.getFileExtension;
-import static com.blankj.utilcode.utils.FileUtils.getFileLines;
-import static com.blankj.utilcode.utils.FileUtils.getFileName;
-import static com.blankj.utilcode.utils.FileUtils.getFileNameNoExtension;
-import static com.blankj.utilcode.utils.FileUtils.getFileSize;
-import static com.blankj.utilcode.utils.FileUtils.isDir;
-import static com.blankj.utilcode.utils.FileUtils.isFile;
-import static com.blankj.utilcode.utils.FileUtils.isFileExists;
-import static com.blankj.utilcode.utils.FileUtils.listFilesInDir;
-import static com.blankj.utilcode.utils.FileUtils.listFilesInDirWithFilter;
-import static com.blankj.utilcode.utils.FileUtils.moveDir;
-import static com.blankj.utilcode.utils.FileUtils.moveFile;
-import static com.blankj.utilcode.utils.FileUtils.readFile2Bytes;
-import static com.blankj.utilcode.utils.FileUtils.readFile2List;
-import static com.blankj.utilcode.utils.FileUtils.readFile2String;
-import static com.blankj.utilcode.utils.FileUtils.searchFileInDir;
-import static com.blankj.utilcode.utils.FileUtils.writeFileFromIS;
-import static com.blankj.utilcode.utils.FileUtils.writeFileFromString;
+import static com.blankj.utilcode.utils.FileUtils.*;
 import static com.blankj.utilcode.utils.TestUtils.BASEPATH;
 import static com.blankj.utilcode.utils.TestUtils.SEP;
 import static com.google.common.truth.Truth.assertThat;
@@ -209,17 +181,12 @@ public class FileUtilsTest {
 
     @Test
     public void testReadFile2Bytes() throws Exception {
-        System.out.println(new String(readFile2Bytes(path + "UTF8.txt")) );
-    }
-
-    @Test
-    public void testByte2Unit() throws Exception {
-        assertThat(byte2Size(ConstUtils.GB, ConstUtils.MemoryUnit.MB) - 1024).isWithin(0.001);
+        System.out.println(new String(readFile2Bytes(path + "UTF8.txt")));
     }
 
     @Test
     public void testGetFileSize() throws Exception {
-        assertThat(getFileSize(path + "UTF8.txt", ConstUtils.MemoryUnit.BYTE) - 25).isWithin(0.001);
+        assertThat(getFileSize(path + "UTF8.txt")).isEqualTo("25B");
     }
 
     @Test

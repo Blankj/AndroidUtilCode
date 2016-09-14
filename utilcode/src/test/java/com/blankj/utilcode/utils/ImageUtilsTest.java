@@ -39,12 +39,6 @@ public class ImageUtilsTest {
     @Test
     public void testBytes2Bitmap() throws Exception {
 
-        int a = 15, b = a;
-        int i = 1;
-        while ((a >>= 1) >= 2 && (b >>= 1) >= 2) {
-            i <<= 1;
-            System.out.println(a + ", " + b + ", "+i);
-        }
     }
 
     @Test

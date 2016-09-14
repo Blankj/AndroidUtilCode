@@ -8,6 +8,7 @@ import java.util.List;
 
 import static com.blankj.utilcode.utils.TestUtils.BASEPATH;
 import static com.blankj.utilcode.utils.TestUtils.SEP;
+import static com.blankj.utilcode.utils.ZipUtils.*;
 import static com.google.common.truth.Truth.*;
 
 /**
@@ -29,18 +30,18 @@ public class ZipUtilsTest {
     public void testZipFiles() throws Exception {
         List<File> files = FileUtils.listFilesInDir(testZip, false);
         FileUtils.createOrExistsFile(testZipFiles);
-        ZipUtils.zipFiles(files, testZipFiles);
+        zipFiles(files, testZipFiles);
     }
 
     @Test
     public void testZipFile() throws Exception {
-        ZipUtils.zipFile(testZip, testZipFile, "测试zip");
+        zipFile(testZip, testZipFile, "测试zip");
     }
 
     @Test
     public void testUpZipFile() throws Exception {
-        assertThat(ZipUtils.unzipFile(testZipFile, unzipFile)).isTrue();
-        assertThat(ZipUtils.unzipFile(testZipFiles, unzipFile)).isTrue();
+        assertThat(unzipFile(testZipFile, unzipFile)).isTrue();
+        assertThat(unzipFile(testZipFiles, unzipFile)).isTrue();
     }
 
     @Test
@@ -48,21 +49,21 @@ public class ZipUtilsTest {
         List<File> files = new ArrayList<>();
         files.add(new File(testZipFile));
         files.add(new File(testZipFiles));
-        assertThat(ZipUtils.unzipFiles(files, unzipFile)).isTrue();
+        assertThat(unzipFiles(files, unzipFile)).isTrue();
     }
 
     @Test
     public void testUnzipFileByKeyword() throws Exception {
-        System.out.println((ZipUtils.unzipFileByKeyword(testZipFile, unzipFile, ".txt")).toString());
+        System.out.println((unzipFileByKeyword(testZipFile, unzipFile, ".txt")).toString());
     }
 
     @Test
     public void testGetFileNamesInZip() throws Exception {
-        System.out.println(ZipUtils.getFilesPath(testZipFile));
+        System.out.println(getFilesPath(testZipFile));
     }
 
     @Test
     public void testGetComments() throws Exception {
-        System.out.println(ZipUtils.getComments(testZipFile));
+        System.out.println(getComments(testZipFile));
     }
 }

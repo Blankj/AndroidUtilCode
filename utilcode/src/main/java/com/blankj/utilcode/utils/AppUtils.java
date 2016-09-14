@@ -9,6 +9,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
+import android.webkit.MimeTypeMap;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -29,28 +32,33 @@ public class AppUtils {
     }
 
     /**
-     * 安装App
-     * <p>根据路径安装App</p>
+     * 安装App(支持6.0以上)
      *
      * @param context  上下文
      * @param filePath 文件路径
      */
     public static void installApp(Context context, String filePath) {
-        installApp(context, new File(filePath));
+        installApp(context, FileUtils.getFileByPath(filePath));
     }
 
     /**
-     * 安装App
-     * <p>根据文件安装App</p>
+     * 安装App(支持6.0以上)
      *
      * @param context 上下文
      * @param file    文件
      */
-    public static void installApp(Context context, File file) {
+    public static Intent installApp(Context context, File file) {
+        if (file == null) return null;
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        String type;
+        if (Build.VERSION.SDK_INT < 23) {
+            type = "application/vnd.android.package-archive";
+        } else {
+            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(FileUtils.getFileExtension(file));
+        }
+        intent.setDataAndType(Uri.fromFile(file), type);
+        return intent;
     }
 
     /**
@@ -59,11 +67,11 @@ public class AppUtils {
      * @param context     上下文
      * @param packageName 包名
      */
-    public void uninstallApp(Context context, String packageName) {
+    public Intent uninstallApp(Context context, String packageName) {
         Intent intent = new Intent(Intent.ACTION_DELETE);
         intent.setData(Uri.parse("package:" + packageName));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        return intent;
     }
 
     /**
@@ -267,13 +275,8 @@ public class AppUtils {
      * @param packageName 包名
      * @return {@code true}: 打开成功<br>{@code false}: 打开失败
      */
-    public static boolean openAppByPackageName(Context context, String packageName) {
-        Intent intent = getIntentByPackageName(context, packageName);
-        if (intent != null) {
-            context.startActivity(intent);
-            return true;
-        }
-        return false;
+    public static Intent openAppByPackageName(Context context, String packageName) {
+        return getIntentByPackageName(context, packageName);
     }
 
     /**
@@ -282,11 +285,11 @@ public class AppUtils {
      * @param context     上下文
      * @param packageName 包名
      */
-    public static void openAppInfo(Context context, String packageName) {
+    public static Intent openAppInfo(Context context, String packageName) {
         Intent intent = new Intent();
         intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
         intent.setData(Uri.parse("package:" + packageName));
-        context.startActivity(intent);
+        return intent;
     }
 
     /**
@@ -295,11 +298,11 @@ public class AppUtils {
      * @param context 上下文
      * @param info    分享信息
      */
-    public static void shareAppInfo(Context context, String info) {
+    public static Intent shareAppInfo(Context context, String info) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TEXT, info);
-        context.startActivity(intent);
+        return intent;
     }
 
     /**

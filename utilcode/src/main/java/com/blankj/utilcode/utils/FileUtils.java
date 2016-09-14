@@ -929,72 +929,13 @@ public class FileUtils {
     }
 
     /**
-     * 字节数转以unit为单位的size
-     *
-     * @param byteNum 大小
-     * @param unit    <ul>
-     *                <li>{@link MemoryUnit#BYTE}: 字节</li>
-     *                <li>{@link MemoryUnit#KB}  : 千字节</li>
-     *                <li>{@link MemoryUnit#MB}  : 兆</li>
-     *                <li>{@link MemoryUnit#GB}  : GB</li>
-     *                </ul>
-     * @return 以unit为单位的size
-     */
-    public static double byte2Size(long byteNum, MemoryUnit unit) {
-        switch (unit) {
-            default:
-            case BYTE:
-                return (double) byteNum / BYTE;
-            case KB:
-                return (double) byteNum / KB;
-            case MB:
-                return (double) byteNum / MB;
-            case GB:
-                return (double) byteNum / GB;
-        }
-    }
-
-    /**
-     * 以unit为单位的size转字节数
-     *
-     * @param size 大小
-     * @param unit <ul>
-     *             <li>{@link MemoryUnit#BYTE}: 字节</li>
-     *             <li>{@link MemoryUnit#KB}  : 千字节</li>
-     *             <li>{@link MemoryUnit#MB}  : 兆</li>
-     *             <li>{@link MemoryUnit#GB}  : GB</li>
-     *             </ul>
-     * @return 字节数
-     */
-    public static long size2Byte(long size, MemoryUnit unit) {
-        switch (unit) {
-            default:
-            case BYTE:
-                return size * BYTE;
-            case KB:
-                return size * KB;
-            case MB:
-                return size * MB;
-            case GB:
-                return size * GB;
-        }
-    }
-
-    /**
      * 获取文件大小
-     * <p>例如：getFileSize(filePath, ConstUtils.MB); 返回文件大小单位为MB</p>
      *
      * @param filePath 文件路径
-     * @param unit     <ul>
-     *                 <li>{@link MemoryUnit#BYTE}: 字节</li>
-     *                 <li>{@link MemoryUnit#KB}  : 千字节</li>
-     *                 <li>{@link MemoryUnit#MB}  : 兆</li>
-     *                 <li>{@link MemoryUnit#GB}  : GB</li>
-     *                 </ul>
-     * @return 文件大小以unit为单位
+     * @return 文件大小
      */
-    public static double getFileSize(String filePath, MemoryUnit unit) {
-        return getFileSize(getFileByPath(filePath), unit);
+    public static String getFileSize(String filePath) {
+        return getFileSize(getFileByPath(filePath));
     }
 
     /**
@@ -1002,17 +943,11 @@ public class FileUtils {
      * <p>例如：getFileSize(file, ConstUtils.MB); 返回文件大小单位为MB</p>
      *
      * @param file 文件
-     * @param unit <ul>
-     *             <li>{@link MemoryUnit#BYTE}: 字节</li>
-     *             <li>{@link MemoryUnit#KB}  : 千字节</li>
-     *             <li>{@link MemoryUnit#MB}  : 兆</li>
-     *             <li>{@link MemoryUnit#GB}  : GB</li>
-     *             </ul>
-     * @return 文件大小以unit为单位
+     * @return 文件大小
      */
-    public static double getFileSize(File file, MemoryUnit unit) {
-        if (!isFileExists(file)) return -1;
-        return byte2Size(file.length(), unit);
+    public static String getFileSize(File file) {
+        if (!isFileExists(file)) return "";
+        return ConvertUtils.byte2FitSize(file.length());
     }
 
     /**

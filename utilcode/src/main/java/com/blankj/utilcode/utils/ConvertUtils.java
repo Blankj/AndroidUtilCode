@@ -1,5 +1,6 @@
 package com.blankj.utilcode.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -13,8 +14,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.Locale;
 
+import static com.blankj.utilcode.utils.ConstUtils.BYTE;
+import static com.blankj.utilcode.utils.ConstUtils.GB;
 import static com.blankj.utilcode.utils.ConstUtils.KB;
+import static com.blankj.utilcode.utils.ConstUtils.MB;
 
 /**
  * <pre>
@@ -110,6 +115,81 @@ public class ConvertUtils {
             chars[i] = (char) (bytes[i] & 0xff);
         }
         return chars;
+    }
+
+    /**
+     * 字节数转以unit为单位的size
+     *
+     * @param byteNum 字节数
+     * @param unit    <ul>
+     *                <li>{@link ConstUtils.MemoryUnit#BYTE}: 字节</li>
+     *                <li>{@link ConstUtils.MemoryUnit#KB}  : 千字节</li>
+     *                <li>{@link ConstUtils.MemoryUnit#MB}  : 兆</li>
+     *                <li>{@link ConstUtils.MemoryUnit#GB}  : GB</li>
+     *                </ul>
+     * @return 以unit为单位的size
+     */
+    public static double byte2Size(long byteNum, ConstUtils.MemoryUnit unit) {
+        if (byteNum < 0) return -1;
+        switch (unit) {
+            default:
+            case BYTE:
+                return (double) byteNum / BYTE;
+            case KB:
+                return (double) byteNum / KB;
+            case MB:
+                return (double) byteNum / MB;
+            case GB:
+                return (double) byteNum / GB;
+        }
+    }
+
+    /**
+     * 以unit为单位的size转字节数
+     *
+     * @param size 大小
+     * @param unit <ul>
+     *             <li>{@link ConstUtils.MemoryUnit#BYTE}: 字节</li>
+     *             <li>{@link ConstUtils.MemoryUnit#KB}  : 千字节</li>
+     *             <li>{@link ConstUtils.MemoryUnit#MB}  : 兆</li>
+     *             <li>{@link ConstUtils.MemoryUnit#GB}  : GB</li>
+     *             </ul>
+     * @return 字节数
+     */
+    public static long size2Byte(long size, ConstUtils.MemoryUnit unit) {
+        if (size < 0) return -1;
+        switch (unit) {
+            default:
+            case BYTE:
+                return size * BYTE;
+            case KB:
+                return size * KB;
+            case MB:
+                return size * MB;
+            case GB:
+                return size * GB;
+        }
+    }
+
+    /**
+     * 字节数转合适大小
+     * <p>保留3位小数</p>
+     *
+     * @param byteNum 字节数
+     * @return 1...1024 unit
+     */
+    public static String byte2FitSize(long byteNum) {
+        if (byteNum < 0) {
+            return "shouldn't be less than zero!";
+        } else if (byteNum < KB) {
+            return String.format(Locale.getDefault(), "%.3fB", (double) byteNum);
+        } else if (byteNum < MB) {
+            return String.format(Locale.getDefault(), "%.3fKB", (double) byteNum / KB);
+        } else if (byteNum < GB) {
+            return String.format(Locale.getDefault(), "%.3fMB", (double) byteNum / MB);
+        } else {
+            return String.format(Locale.getDefault(), "%.3fGB", (double) byteNum / GB);
+        }
     }
 
     /**
