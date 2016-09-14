@@ -1,14 +1,14 @@
 ## Android开发人员不得不收集的代码([持续更新中][update_log.md])
 为方便查找，已进行大致归类，其目录如下所示：  
 > - **App相关→[AppUtils.java][app.java]**
->  - 安装App(支持6.0以上) *installApp*
->  - 卸载指定包名的App *uninstallApp*
+>  - 获取安装App(支持6.0以上)的意图 *installApp*
+>  - 获取卸载指定包名的App的意图 *uninstallApp*
 >  - 获取当前App信息 *getAppInfo*
 >  - 获取所有已安装App信息 *getAllAppsInfo*
 >  - 根据包名判断App是否安装 *isInstallApp*
->  - 打开指定包名的App *openAppByPackageName*
->  - 打开指定包名的App应用信息界面 *openAppInfo*
->  - 可用来做App信息分享 *shareAppInfo*
+>  - 获取打开指定包名App的意图 *openAppByPackageName*
+>  - 获取打开指定包名的App应用信息的意图 *openAppInfo*
+>  - 获取App信息分享的意图 *shareAppInfo*
 >  - 判断当前App处于前台还是后台 *isAppBackground*
 
 > - **常量相关→[ConstUtils.java][const.java]**
