@@ -1,6 +1,5 @@
 package com.blankj.utilcode.utils;
 
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -334,9 +333,9 @@ public class ZipUtils {
      * @return 压缩文件中的文件路径链表
      * @throws IOException IO错误时抛出
      */
-    public static List<String> getFilePathInZip(String zipFilePath)
+    public static List<String> getFilesPath(String zipFilePath)
             throws IOException {
-        return getFilePathInZip(FileUtils.getFileByPath(zipFilePath));
+        return getFilesPath(FileUtils.getFileByPath(zipFilePath));
     }
 
     /**
@@ -346,7 +345,7 @@ public class ZipUtils {
      * @return 压缩文件中的文件路径链表
      * @throws IOException IO错误时抛出
      */
-    public static List<String> getFilePathInZip(File zipFile)
+    public static List<String> getFilesPath(File zipFile)
             throws IOException {
         if (zipFile == null) return null;
         List<String> paths = new ArrayList<>();

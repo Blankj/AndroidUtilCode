@@ -58,7 +58,7 @@ public class ZipUtilsTest {
 
     @Test
     public void testGetFileNamesInZip() throws Exception {
-        System.out.println(ZipUtils.getFilePathInZip(testZipFile));
+        System.out.println(ZipUtils.getFilesPath(testZipFile));
     }
 
     @Test

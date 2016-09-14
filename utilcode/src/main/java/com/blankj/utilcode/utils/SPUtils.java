@@ -186,7 +186,7 @@ public class SPUtils {
     }
 
     /**
-     * 获取SP中所有键值对
+     * SP中获取所有键值对
      *
      * @return Map对象
      */
@@ -195,7 +195,7 @@ public class SPUtils {
     }
 
     /**
-     * 从SP中移除该key
+     * SP中移除该key
      *
      * @param key 键
      */
@@ -204,7 +204,7 @@ public class SPUtils {
     }
 
     /**
-     * 判断SP中是否存在该key
+     * SP中是否存在该key
      *
      * @param key 键
      * @return {@code true}: 存在<br>{@code false}: 不存在
@@ -214,11 +214,9 @@ public class SPUtils {
     }
 
     /**
-     * 清除SP中所有数据
+     * SP中清除所有数据
      */
     public void clear() {
         editor.clear().apply();
     }
-
-
 }
