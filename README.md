@@ -289,7 +289,7 @@ Directory is shown below：
 ***
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.1.5'
+compile 'com.blankj:utilcode:1.2.0'
 ```
 
 ### Proguard
