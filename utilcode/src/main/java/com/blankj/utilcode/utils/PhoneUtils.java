@@ -238,6 +238,72 @@ public class PhoneUtils {
         */
     }
 
+
+    /**
+     * 跳转至联系人选择界面
+     *
+     * @param context    上下文
+     * @param requestCode 请求返回区分代码
+     */
+    public static void toChooseContactsList(Activity context, int requestCode) {
+        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        context.startActivityForResult(intent, requestCode);
+    }
+
+
+    /**
+     * 获取选择的联系人的手机号码
+     *
+     * @param mContext   上下文
+     * @param resultCode 请求返回Result状态区分代码
+     * @param data       onActivityResult返回的Intent
+     * @return
+     */
+    public static String getChoosedPhoneNumber(Activity mContext, int resultCode, Intent data) {
+        // 返回结果
+        String phoneResult = "";
+        if (Activity.RESULT_OK == resultCode) {
+            Uri uri = data.getData();
+            Cursor mCursor = mContext.managedQuery(uri, null, null, null, null);
+            mCursor.moveToFirst();
+
+            int phoneColumn = mCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER);
+            int phoneNum = mCursor.getInt(phoneColumn);
+            if (phoneNum > 0) {
+                // 获得联系人的ID号
+                int idColumn = mCursor.getColumnIndex(ContactsContract.Contacts._ID);
+                String contactId = mCursor.getString(idColumn);
+                // 获得联系人的电话号码的cursor;
+                Cursor phones =
+                        mContext.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                                null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null,
+                                null);
+                if (phones.moveToFirst()) {
+                    // 遍历所有的电话号码
+                    for (; !phones.isAfterLast(); phones.moveToNext()) {
+                        int index = phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+                        int typeindex = phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE);
+                        int phone_type = phones.getInt(typeindex);
+                        String phoneNumber = phones.getString(index);
+                        switch (phone_type) {
+                            case 2:
+                                phoneResult = phoneNumber;
+                                break;
+                        }
+                    }
+                    if (!phones.isClosed()) {
+                        phones.close();
+                    }
+                }
+            }
+            // 关闭游标
+            mCursor.close();
+        }
+
+        return phoneResult;
+    }
+
+
     /**
      * 获取手机短信并保存到xml中
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_SMS"/>}</p>
