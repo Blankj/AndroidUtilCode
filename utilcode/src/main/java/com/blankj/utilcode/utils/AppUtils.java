@@ -31,24 +31,22 @@ public class AppUtils {
     }
 
     /**
-     * 获取安装App(支持6.0以上)的意图
+     * 获取安装App(支持6.0)的意图
      *
-     * @param context  上下文
      * @param filePath 文件路径
      * @return 意图
      */
-    public static Intent installApp(Context context, String filePath) {
-        return installApp(context, FileUtils.getFileByPath(filePath));
+    public static Intent getInstallAppIntent(String filePath) {
+        return getInstallAppIntent(FileUtils.getFileByPath(filePath));
     }
 
     /**
-     * 获取安装App(支持6.0以上)的意图
+     * 获取安装App(支持6.0)的意图
      *
-     * @param context 上下文
-     * @param file    文件
+     * @param file 文件
      * @return 意图
      */
-    public static Intent installApp(Context context, File file) {
+    public static Intent getInstallAppIntent(File file) {
         if (file == null) return null;
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -58,22 +56,75 @@ public class AppUtils {
         } else {
             type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(FileUtils.getFileExtension(file));
         }
-        intent.setDataAndType(Uri.fromFile(file), type);
-        return intent;
+        return intent.setDataAndType(Uri.fromFile(file), type);
     }
 
     /**
-     * 获取卸载指定包名的App的意图
+     * 获取卸载App的意图
+     *
+     * @param packageName 包名
+     * @return 意图
+     */
+    public Intent getUninstallAppIntent(String packageName) {
+        Intent intent = new Intent(Intent.ACTION_DELETE);
+        intent.setData(Uri.parse("package:" + packageName));
+        return intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    }
+
+    /**
+     * 获取打开App的意图
      *
      * @param context     上下文
      * @param packageName 包名
      * @return 意图
      */
-    public Intent uninstallApp(Context context, String packageName) {
-        Intent intent = new Intent(Intent.ACTION_DELETE);
-        intent.setData(Uri.parse("package:" + packageName));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        return intent;
+    public static Intent getOpenAppItent(Context context, String packageName) {
+        return getIntentByPackageName(context, packageName);
+    }
+
+    /**
+     * 获取App信息的意图
+     *
+     * @param packageName 包名
+     * @return 意图
+     */
+    public static Intent getAppInfoIntent(String packageName) {
+        Intent intent = new Intent("android.settings.APPLICATION_DETAILS_SETTINGS");
+        return intent.setData(Uri.parse("package:" + packageName));
+    }
+
+    /**
+     * 获取App信息分享的意图
+     *
+     * @param info 分享信息
+     * @return 意图
+     */
+    public static Intent getShareInfoIntent(String info) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        return intent.putExtra(Intent.EXTRA_TEXT, info);
+    }
+
+    /**
+     * 判断App是否安装
+     *
+     * @param context     上下文
+     * @param packageName 包名
+     * @return {@code true}: 已安装<br>{@code false}: 未安装
+     */
+    public static boolean isInstallApp(Context context, String packageName) {
+        return getIntentByPackageName(context, packageName) != null;
+    }
+
+    /**
+     * 根据包名获取意图
+     *
+     * @param context     上下文
+     * @param packageName 包名
+     * @return Intent
+     */
+    private static Intent getIntentByPackageName(Context context, String packageName) {
+        return context.getPackageManager().getLaunchIntentForPackage(packageName);
     }
 
     /**
@@ -246,67 +297,6 @@ public class AppUtils {
             }
         }
         return list;
-    }
-
-    /**
-     * 根据包名获取意图
-     *
-     * @param context     上下文
-     * @param packageName 包名
-     * @return Intent
-     */
-    private static Intent getIntentByPackageName(Context context, String packageName) {
-        return context.getPackageManager().getLaunchIntentForPackage(packageName);
-    }
-
-    /**
-     * 根据包名判断App是否安装
-     *
-     * @param context     上下文
-     * @param packageName 包名
-     * @return {@code true}: 已安装<br>{@code false}: 未安装
-     */
-    public static boolean isInstallApp(Context context, String packageName) {
-        return getIntentByPackageName(context, packageName) != null;
-    }
-
-    /**
-     * 获取打开指定包名App的意图
-     *
-     * @param context     上下文
-     * @param packageName 包名
-     * @return 意图
-     */
-    public static Intent openAppByPackageName(Context context, String packageName) {
-        return getIntentByPackageName(context, packageName);
-    }
-
-    /**
-     * 获取打开指定包名的App应用信息的意图
-     *
-     * @param context     上下文
-     * @param packageName 包名
-     * @return 意图
-     */
-    public static Intent openAppInfo(Context context, String packageName) {
-        Intent intent = new Intent();
-        intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
-        intent.setData(Uri.parse("package:" + packageName));
-        return intent;
-    }
-
-    /**
-     * 获取App信息分享的意图
-     *
-     * @param context 上下文
-     * @param info    分享信息
-     * @return 意图
-     */
-    public static Intent shareAppInfo(Context context, String info) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, info);
-        return intent;
     }
 
     /**

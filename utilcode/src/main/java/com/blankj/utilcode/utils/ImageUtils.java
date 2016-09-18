@@ -389,6 +389,7 @@ public class ImageUtils {
      * @param src       源图片
      * @param newWidth  新宽度
      * @param newHeight 新高度
+     * @param recycle   是否回收
      * @return 缩放后的图片
      */
     public static Bitmap scale(Bitmap src, int newWidth, int newHeight, boolean recycle) {
@@ -1250,6 +1251,7 @@ public class ImageUtils {
      * 根据文件名判断文件是否为图片
      *
      * @param file 　文件
+     * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isImage(File file) {
         return file != null && isImage(file.getPath());
@@ -1259,6 +1261,7 @@ public class ImageUtils {
      * 根据文件名判断文件是否为图片
      *
      * @param filePath 　文件路径
+     * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isImage(String filePath) {
         String path = filePath.toUpperCase();
@@ -1383,6 +1386,7 @@ public class ImageUtils {
      * @param src       源图片
      * @param newWidth  新宽度
      * @param newHeight 新高度
+     * @param recycle   是否回收
      * @return 缩放压缩后的图片
      */
     public static Bitmap compressByScale(Bitmap src, int newWidth, int newHeight, boolean recycle) {

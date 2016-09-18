@@ -951,6 +951,26 @@ public class FileUtils {
     }
 
     /**
+     * 获取文件的MD5校验码
+     *
+     * @param filePath 文件
+     * @return 文件的MD5校验码
+     */
+    public static String getFileMD5(String filePath) {
+        return getFileMD5(getFileByPath(filePath));
+    }
+
+    /**
+     * 获取文件的MD5校验码
+     *
+     * @param file 文件
+     * @return 文件的MD5校验码
+     */
+    public static String getFileMD5(File file) {
+        return EncryptUtils.encryptMD5File2String(file);
+    }
+
+    /**
      * 关闭IO
      *
      * @param closeables closeable
@@ -1043,7 +1063,6 @@ public class FileUtils {
         }
         return filePath.substring(lastSep + 1, lastPoi);
     }
-
 
     /**
      * 获取全路径中的文件拓展名

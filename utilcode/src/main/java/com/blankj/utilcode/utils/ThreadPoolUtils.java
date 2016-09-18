@@ -133,6 +133,7 @@ public class ThreadPoolUtils {
      * @param timeout 最长等待时间
      * @param unit    时间单位
      * @return {@code true}: 请求成功<br>{@code false}: 请求超时
+     * @throws InterruptedException 终端异常
      */
     public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
         return exec.awaitTermination(timeout, unit);
@@ -143,6 +144,7 @@ public class ThreadPoolUtils {
      * <p>如果想立即阻塞任务的等待，则可以使用{@code result = exec.submit(aCallable).get();}形式的构造。</p>
      *
      * @param task 任务
+     * @param <T>  泛型
      * @return 表示任务等待完成的Future, 该Future的{@code get}方法在成功完成时将会返回该任务的结果。
      */
     public <T> Future<T> submit(Callable<T> task) {
@@ -154,6 +156,7 @@ public class ThreadPoolUtils {
      *
      * @param task   任务
      * @param result 返回的结果
+     * @param <T>    泛型
      * @return 表示任务等待完成的Future, 该Future的{@code get}方法在成功完成时将会返回该任务的结果。
      */
     public <T> Future<T> submit(Runnable task, T result) {
@@ -178,6 +181,7 @@ public class ThreadPoolUtils {
      * 如果正在进行此操作时修改了给定的 collection，则此方法的结果是不确定的。</p>
      *
      * @param tasks 任务集合
+     * @param <T>   泛型
      * @return 表示任务的 Future 列表，列表顺序与给定任务列表的迭代器所生成的顺序相同，每个任务都已完成。
      * @throws InterruptedException 如果等待时发生中断，在这种情况下取消尚未完成的任务。
      */
@@ -196,6 +200,7 @@ public class ThreadPoolUtils {
      * @param tasks   任务集合
      * @param timeout 最长等待时间
      * @param unit    时间单位
+     * @param <T>     泛型
      * @return 表示任务的 Future 列表，列表顺序与给定任务列表的迭代器所生成的顺序相同。如果操作未超时，则已完成所有任务。如果确实超时了，则某些任务尚未完成。
      * @throws InterruptedException 如果等待时发生中断，在这种情况下取消尚未完成的任务
      */
@@ -211,6 +216,7 @@ public class ThreadPoolUtils {
      * 如果此操作正在进行时修改了给定的collection，则此方法的结果是不确定的。</p>
      *
      * @param tasks 任务集合
+     * @param <T>   泛型
      * @return 某个任务返回的结果
      * @throws InterruptedException 如果等待时发生中断
      * @throws ExecutionException   如果没有任务成功完成
@@ -228,6 +234,7 @@ public class ThreadPoolUtils {
      * @param tasks   任务集合
      * @param timeout 最长等待时间
      * @param unit    时间单位
+     * @param <T>     泛型
      * @return 某个任务返回的结果
      * @throws InterruptedException 如果等待时发生中断
      * @throws ExecutionException   如果没有任务成功完成
@@ -256,6 +263,7 @@ public class ThreadPoolUtils {
      * @param callable 命令
      * @param delay    延迟时间
      * @param unit     时间单位
+     * @param <V>      泛型
      * @return 可用于提取结果或取消的ScheduledFuture
      */
     public <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit) {
