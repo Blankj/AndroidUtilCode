@@ -1,14 +1,14 @@
 ## Android开发人员不得不收集的代码([持续更新中][update_log.md])
 为方便查找，已进行大致归类，其目录如下所示：  
 > - **App相关→[AppUtils.java][app.java]**
->  - 获取安装App(支持6.0以上)的意图 *installApp*
->  - 获取卸载指定包名的App的意图 *uninstallApp*
+>  - 获取安装App(支持6.0)的意图 *getInstallAppIntent*
+>  - 获取卸载App的意图 *getUninstallAppIntent*
+>  - 获取打开App的意图 *getOpenAppItent*
+>  - 获取App信息的意图 *getAppInfoIntent*
+>  - 获取App信息分享的意图 *getShareInfoIntent*
+>  - 判断App是否安装 *isInstallApp*
 >  - 获取当前App信息 *getAppInfo*
 >  - 获取所有已安装App信息 *getAllAppsInfo*
->  - 根据包名判断App是否安装 *isInstallApp*
->  - 获取打开指定包名App的意图 *openAppByPackageName*
->  - 获取打开指定包名的App应用信息的意图 *openAppInfo*
->  - 获取App信息分享的意图 *shareAppInfo*
 >  - 判断当前App处于前台还是后台 *isAppBackground*
 
 > - **常量相关→[ConstUtils.java][const.java]**
@@ -49,12 +49,12 @@
 > - **加密解密相关→[EncryptUtils.java][encrypt.java]→[Test][encrypt.test]**
 >  - MD2加密 *encryptMD2ToString*、*encryptMD2*
 >  - MD5加密 *encryptMD5ToString*、*encryptMD5*
+>  - MD5加密文件 *encryptMD5File2String*、*encryptMD5File*
 >  - SHA1加密 *encryptSHA1ToString*、*encryptSHA1*
 >  - SHA224加密 *encryptSHA224ToString*、*encryptSHA224*
 >  - SHA256加密 *encryptSHA256ToString*、*encryptSHA256*
 >  - SHA384加密 *encryptSHA384ToString*、*encryptSHA384*
 >  - SHA512加密 *encryptSHA512ToString*、*encryptSHA512*
->  - 获取文件的MD5校验码 *encryptMD5File2String*、*encryptMD5File*
 >  - DES加密后转为Base64编码 *encryptDES2Base64*
 >  - DES加密后转为16进制 *encryptDES2HexString*
 >  - DES加密 *encryptDES*
@@ -102,6 +102,7 @@
 >  - 指定编码按行读取文件到List *readFile2List*
 >  - 指定编码按行读取文件到StringBuilder中 *readFile2SB*
 >  - 获取文件大小 *getFileSize*
+>  - 获取文件的MD5校验码 *getFileMD5*
 >  - 关闭IO *closeIO*
 >  - 根据全路径获取最长目录 *getDirName*
 >  - 根据全路径获取文件名 *getFileName*
@@ -288,7 +289,7 @@
 ***
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.2.0'
+compile 'com.blankj:utilcode:1.2.1'
 ```
 
 ### Proguard

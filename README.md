@@ -3,14 +3,14 @@
 ***
 Directory is shown below：  
 > - **About App→[AppUtils.java][app.java]**
->  - *installApp*
->  - *uninstallApp*
+>  - *getInstallAppIntent*
+>  - *getUninstallAppIntent*
+>  - *getOpenAppItent*
+>  - *getAppInfoIntent*
+>  - *getShareInfoIntent*
+>  - *isInstallApp*
 >  - *getAppInfo*
 >  - *getAllAppsInfo*
->  - *isInstallApp*
->  - *openAppByPackageName*
->  - *openAppInfo*
->  - *shareAppInfo*
 >  - *isAppBackground*
 
 > - **About Const→[ConstUtils.java][const.java]**
@@ -104,6 +104,7 @@ Directory is shown below：
 >  - *readFile2List*
 >  - *readFile2SB*
 >  - *getFileSize*
+>  - *getFileMD5*
 >  - *closeIO*
 >  - *getDirName*
 >  - *getFileName*
@@ -289,7 +290,7 @@ Directory is shown below：
 ***
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.2.0'
+compile 'com.blankj:utilcode:1.2.1'
 ```
 
 ### Proguard
