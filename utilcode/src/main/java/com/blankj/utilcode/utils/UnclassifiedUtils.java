@@ -4,6 +4,9 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ResolveInfo;
+import android.os.Bundle;
 
 import java.util.List;
 
@@ -42,5 +45,56 @@ public class UnclassifiedUtils {
             }
         }
         return false;
+    }
+
+    /**
+     * 判断是否存在指定的Activity
+     *
+     * @param mContext    上下文
+     * @param packageName 包名
+     * @param className   activity全路径类名
+     * @return
+     */
+    public static boolean isExistActivity(Context mContext, String packageName, String className) {
+
+        Boolean result = true;
+        Intent intent = new Intent();
+        intent.setClassName(packageName, className);
+
+        if (mContext.getPackageManager().resolveActivity(intent, 0) == null) {
+            result = false;
+        } else if (intent.resolveActivity(mContext.getPackageManager()) == null) {
+            result = false;
+        } else {
+            List<ResolveInfo> list = mContext.getPackageManager().queryIntentActivities(intent, 0);
+            if (list.size() == 0) {
+                result = false;
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * 打开某App的指定Activity
+     *
+     * @param context      上下文
+     * @param packageName  包名
+     * @param activityName 全类名
+     */
+    public static void launchAppAct(Context context, String packageName, String activityName) {
+        launchAppAct(context, packageName, activityName, null);
+    }
+
+    public static void launchAppAct(Context context, String packageName, String activityName, Bundle b) {
+        Intent intent = new Intent();
+        if (b != null)
+            intent.putExtras(b);
+
+        ComponentName comp = new ComponentName(packageName, activityName);
+        intent.setComponent(comp);
+        intent.setAction("android.intent.action.VIEW");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 }

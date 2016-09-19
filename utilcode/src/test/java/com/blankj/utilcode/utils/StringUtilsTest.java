@@ -73,4 +73,9 @@ public class StringUtilsTest {
     public void testToSBC() throws Exception {
         assertThat(toSBC(" ,.&")).isEqualTo("　，．＆");
     }
+
+    @Test
+    public void test() throws Exception {
+//        assertThat(toSBC(" ,.&")).isEqualTo("　，．＆");
+    }
 }

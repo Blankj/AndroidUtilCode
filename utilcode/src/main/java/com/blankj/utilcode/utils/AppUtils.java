@@ -78,7 +78,7 @@ public class AppUtils {
      * @param packageName 包名
      * @return 意图
      */
-    public static Intent getOpenAppItent(Context context, String packageName) {
+    public static Intent getLaunchAppItent(Context context, String packageName) {
         return getIntentByPackageName(context, packageName);
     }
 
