@@ -283,7 +283,7 @@
 
 ***
   
-**做这份整理是想把它作为Android开发的小字典，当遇到一些琐碎问题时，不用再面向百度或者谷歌查询API的使用，费时费力，这里有的话，大家尽管撸走；同时也希望它能逐日壮大起来，期待大家的Star和完善，当然我也会一直更新发布版本和日志，为了方便大家导入，现已上传jcenter；其中很多代码也是汇四方之精华，谢谢前辈们的提供，当然最终还是要通过单元测试的，如有错误，请及时告之；开设QQ群提供讨论，群号：74721490，至于验证问题对大家来说肯定都是小case；**  
+**做这份整理是想把它作为Android开发的小字典，当遇到一些琐碎问题时，不用再面向百度或者谷歌查询API的使用，费时费力，这里有的话，大家尽管撸走；同时也希望它能逐日壮大起来，期待大家的Star和完善，当然我也会一直更新发布版本和日志，为了方便大家导入，现已上传jcenter；其中很多代码也是汇四方之精华，谢谢前辈们的提供，当然最终还是要通过单元测试的，如有错误，请及时告之；开设QQ群提供讨论，群号：74721490，至于验证问题对大家来说肯定都是小case；最近在玩微博，玩的话向大家求个[关注][weibo]**  
 
 ### Download
 ***
@@ -372,3 +372,5 @@ limitations under the License.
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/ZipUtilsTest.java
 
 [update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/update_log.md
+
+[weibo]: http://weibo.com/blankcmj

@@ -1,5 +1,5 @@
 ## Android developers should collect the following utils
-**[中文版README][readme.ch]**
+**[中文版README][readme.cn]**
 ***
 Directory is shown below：  
 > - **About App→[AppUtils.java][app.java]**
@@ -319,7 +319,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
-[readme.ch]: https://github.com/Blankj/AndroidUtilCode/blob/master/README-CH.md
+[readme.cn]: https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md
 
 [app.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/AppUtils.java
 
