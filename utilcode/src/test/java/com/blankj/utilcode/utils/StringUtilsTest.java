@@ -76,6 +76,7 @@ public class StringUtilsTest {
 
     @Test
     public void test() throws Exception {
-//        assertThat(toSBC(" ,.&")).isEqualTo("　，．＆");
+        System.out.println(StringUtils.getPYFirstLetter("c"));
+        System.out.println(StringUtils.cn2PY("测试转拼音"));
     }
 }
