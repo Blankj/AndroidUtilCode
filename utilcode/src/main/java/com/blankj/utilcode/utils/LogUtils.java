@@ -1,17 +1,16 @@
 package com.blankj.utilcode.utils;
 
+import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * <pre>
@@ -23,219 +22,169 @@ import java.util.Locale;
  */
 public class LogUtils {
 
-    public static final String CACHE_DIR_NAME = "MyLog";
-    public static final String TAG = "Frame";
-    public static boolean isDebugModel = true;// 是否输出日志
-    public static boolean isSaveDebugInfo = true;// 是否保存调试日志
-    public static boolean isSaveCrashInfo = true;// 是否保存报错日志
+    private static Boolean LOG_SWITCH = true; // 日志文件总开关
+    private static Boolean LOG_TO_FILE = false; // 日志写入文件开关
+    private static String LOG_TAG = "TAG"; // 默认的tag
+    private static char LOG_TYPE = 'v';// 输入日志类型，v代表输出所有信息,w则只输出警告...
+    private static int LOG_SAVE_DAYS = 7;// sd卡中日志文件的最多保存天数
 
-    public static void v(final String tag, final String msg) {
-        if (isDebugModel) {
-            Log.v(tag, "--> " + msg);
-        }
+    private final static SimpleDateFormat LOG_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 日志的输出格式
+    private final static SimpleDateFormat FILE_SUFFIX = new SimpleDateFormat("yyyy-MM-dd");// 日志文件格式
+    private static String LOG_FILE_PATH; // 日志文件保存路径
+    private static String LOG_FILE_NAME;// 日志文件保存名称
+
+    public static void init(Context context) { // 在Application中初始化
+        LOG_FILE_PATH = Environment.getExternalStorageDirectory().getPath() + File.separator + context.getPackageName();
+        LOG_FILE_NAME = "Log";
     }
 
-    public static void d(final String tag, final String msg) {
-        if (isDebugModel) {
-            Log.d(tag, "--> " + msg);
-        }
-        if (isSaveDebugInfo) {
-            new Thread() {
-                public void run() {
-                    write(time() + tag + " --> " + msg + "\n");
-                }
-            }.start();
-        }
+    /****************************
+     * Warn
+     *********************************/
+    public static void w(Object msg) {
+        w(LOG_TAG, msg);
     }
 
-    public static void i(final String tag, final String msg) {
-        if (isDebugModel) {
-            Log.i(tag, "--> " + msg);
-        }
+    public static void w(String tag, Object msg) {
+        w(tag, msg, null);
     }
 
-    public static void w(final String tag, final String msg) {
-        if (isDebugModel) {
-            Log.w(tag, "--> " + msg);
-        }
+    public static void w(String tag, Object msg, Throwable tr) {
+        log(tag, msg.toString(), tr, 'w');
+    }
+
+    /***************************
+     * Error
+     ********************************/
+    public static void e(Object msg) {
+        e(LOG_TAG, msg);
+    }
+
+    public static void e(String tag, Object msg) {
+        e(tag, msg, null);
+    }
+
+    public static void e(String tag, Object msg, Throwable tr) {
+        log(tag, msg.toString(), tr, 'e');
+    }
+
+    /***************************
+     * Debug
+     ********************************/
+    public static void d(Object msg) {
+        d(LOG_TAG, msg);
+    }
+
+    public static void d(String tag, Object msg) {// 调试信息
+        d(tag, msg, null);
+    }
+
+    public static void d(String tag, Object msg, Throwable tr) {
+        log(tag, msg.toString(), tr, 'd');
+    }
+
+    /****************************
+     * Info
+     *********************************/
+    public static void i(Object msg) {
+        i(LOG_TAG, msg);
+    }
+
+    public static void i(String tag, Object msg) {
+        i(tag, msg, null);
+    }
+
+    public static void i(String tag, Object msg, Throwable tr) {
+        log(tag, msg.toString(), tr, 'i');
+    }
+
+    /**************************
+     * Verbose
+     ********************************/
+    public static void v(Object msg) {
+        v(LOG_TAG, msg);
+    }
+
+    public static void v(String tag, Object msg) {
+        v(tag, msg, null);
+    }
+
+    public static void v(String tag, Object msg, Throwable tr) {
+        log(tag, msg.toString(), tr, 'v');
     }
 
     /**
-     * 调试日志，便于开发跟踪。
+     * 根据tag, msg和等级，输出日志
      *
      * @param tag
      * @param msg
+     * @param level
      */
-    public static void e(final String tag, final String msg) {
-        if (isDebugModel) {
-            Log.e(tag, " [CRASH] --> " + msg);
-        }
-
-        if (isSaveCrashInfo) {
-            new Thread() {
-                public void run() {
-                    write(time() + tag + " [CRASH] --> " + msg + "\n");
-                }
-            }.start();
-        }
-    }
-
-    /**
-     * try catch 时使用，上线产品可上传反馈。
-     *
-     * @param tag
-     * @param tr
-     */
-    public static void e(final String tag, final Throwable tr) {
-        if (isSaveCrashInfo) {
-            new Thread() {
-                public void run() {
-                    write(time() + tag + " [CRASH] --> " + getStackTraceString(tr) + "\n");
-                }
-            }.start();
-        }
-    }
-
-    public static void v(String msg) {
-        if (isDebugModel) {
-            Log.v(TAG, "--> " + msg);
-        }
-    }
-
-    public static void d(final String msg) {
-        if (isDebugModel) {
-            Log.d(TAG, "--> " + msg);
-        }
-        if (isSaveDebugInfo) {
-            new Thread() {
-                public void run() {
-                    write(time() + TAG + " --> " + msg + "\n");
-                }
-            }.start();
-        }
-    }
-
-    public static void i(String msg) {
-        if (isDebugModel) {
-            Log.i(TAG, "--> " + msg);
-        }
-    }
-
-    public static void w(String msg) {
-        if (isDebugModel) {
-            Log.w(TAG, "--> " + msg);
-        }
-    }
-
-    /**
-     * 调试日志，便于开发跟踪。
-     *
-     * @param msg
-     */
-    public static void e(final String msg) {
-        if (isDebugModel) {
-            Log.e(TAG, " [CRASH] --> " + msg);
-        }
-
-        if (isSaveCrashInfo) {
-            new Thread() {
-                public void run() {
-                    write(time() + TAG + "[CRASH] --> " + msg + "\n");
-                }
-            }.start();
-        }
-    }
-
-    /**
-     * try catch 时使用，上线产品可上传反馈。
-     *
-     * @param tr
-     */
-    public static void e(final Throwable tr) {
-        if (isSaveCrashInfo) {
-            new Thread() {
-                public void run() {
-                    write(time() + TAG + " [CRASH] --> " + getStackTraceString(tr) + "\n");
-                }
-            }.start();
-        }
-    }
-
-    /**
-     * 获取捕捉到的异常的字符串
-     *
-     * @param tr
-     * @return
-     */
-    public static String getStackTraceString(Throwable tr) {
-        if (tr == null) {
-            return "";
-        }
-
-        Throwable t = tr;
-        while (t != null) {
-            if (t instanceof UnknownHostException) {
-                return "";
+    private static void log(String tag, String msg, Throwable tr, char level) {
+        if (LOG_SWITCH) {
+            if ('e' == level && ('e' == LOG_TYPE || 'v' == LOG_TYPE)) { // 输出错误信息
+                Log.e(tag, msg, tr);
+            } else if ('w' == level && ('w' == LOG_TYPE || 'v' == LOG_TYPE)) {
+                Log.w(tag, msg, tr);
+            } else if ('d' == level && ('d' == LOG_TYPE || 'v' == LOG_TYPE)) {
+                Log.d(tag, msg, tr);
+            } else if ('i' == level && ('d' == LOG_TYPE || 'v' == LOG_TYPE)) {
+                Log.i(tag, msg, tr);
+            } else {
+                Log.v(tag, msg, tr);
             }
-            t = t.getCause();
+            if (LOG_TO_FILE)
+                log2File(String.valueOf(level), tag, msg + tr == null ? "" : "\n" + Log.getStackTraceString(tr));
         }
-
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
-        tr.printStackTrace(pw);
-        return sw.toString();
     }
 
     /**
-     * 标识每条日志产生的时间
+     * 打开日志文件并写入日志
      *
      * @return
-     */
-    private static String time() {
-        return "[" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date(System.currentTimeMillis())) + "] ";
-    }
-
-    /**
-     * 以年月日作为日志文件名称
-     *
-     * @return
-     */
-    private static String date() {
-        return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date(System.currentTimeMillis()));
-    }
-
-    /**
-     * 保存到日志文件
-     *
-     * @param content
-     */
-    public static synchronized void write(String content) {
+     **/
+    private synchronized static void log2File(String mylogtype, String tag, String text) {
+        Date nowtime = new Date();
+        String date = FILE_SUFFIX.format(nowtime);
+        String dateLogContent = LOG_FORMAT.format(nowtime) + ":" + mylogtype + ":" + tag + ":" + text; // 日志输出格式
+        File destDir = new File(LOG_FILE_PATH);
+        if (!destDir.exists()) {
+            destDir.mkdirs();
+        }
+        File file = new File(LOG_FILE_PATH, LOG_FILE_NAME + date);
         try {
-            FileWriter writer = new FileWriter(getFile(), true);
-            writer.write(content);
-            writer.close();
+            FileWriter filerWriter = new FileWriter(file, true);
+            BufferedWriter bufWriter = new BufferedWriter(filerWriter);
+            bufWriter.write(dateLogContent);
+            bufWriter.newLine();
+            bufWriter.close();
+            filerWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * 获取日志文件路径
+     * 删除指定的日志文件
+     */
+    public static void delFile() {// 删除日志文件
+        String needDelFiel = FILE_SUFFIX.format(getDateBefore());
+        File file = new File(LOG_FILE_PATH, needDelFiel + LOG_FILE_NAME);
+        if (file.exists()) {
+            file.delete();
+        }
+    }
+
+    /**
+     * 得到LOG_SAVE_DAYS天前的日期
      *
      * @return
      */
-    public static String getFile() {
-        File sdDir = null;
-
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
-            sdDir = Environment.getExternalStorageDirectory();
-
-        File cacheDir = new File(sdDir + File.separator + CACHE_DIR_NAME);
-        if (!cacheDir.exists())
-            cacheDir.mkdir();
-
-        File filePath = new File(cacheDir + File.separator + date() + ".log");
-
-        return filePath.toString();
+    private static Date getDateBefore() {
+        Date nowtime = new Date();
+        Calendar now = Calendar.getInstance();
+        now.setTime(nowtime);
+        now.set(Calendar.DATE, now.get(Calendar.DATE) - LOG_SAVE_DAYS);
+        return now.getTime();
     }
 }

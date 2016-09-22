@@ -37,6 +37,7 @@ public class SDCardUtils {
      * @return SD卡路径
      */
     public static String getSDCardPath() {
+        if (!isSDCardEnable()) return "sdcard unable!";
         return Environment.getExternalStorageDirectory().getPath() + File.separator;
     }
 
@@ -46,8 +47,8 @@ public class SDCardUtils {
      * @return Data路径
      */
     public static String getDataPath() {
+        if (!isSDCardEnable()) return "sdcard unable!";
         return Environment.getDataDirectory().getPath();
-
     }
 
     /**
