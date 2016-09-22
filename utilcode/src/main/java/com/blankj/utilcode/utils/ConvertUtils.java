@@ -459,4 +459,16 @@ public class ConvertUtils {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
+
+    /**
+     * Converts an integer to a unique color code
+     *
+     * @param i
+     * @return
+     */
+    public static String intToARGB(int i) {
+        return Integer.toHexString(((i >> 16) & 0xFF)) +
+                Integer.toHexString(((i >> 8) & 0xFF)) +
+                Integer.toHexString((i & 0xFF));
+    }
 }
