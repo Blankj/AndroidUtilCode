@@ -714,81 +714,6 @@ public class FileUtils {
     }
 
     /**
-     * 简单获取文件编码格式
-     *
-     * @param filePath 文件路径
-     * @return 文件编码
-     */
-    public static String getFileCharsetSimple(String filePath) {
-        return getFileCharsetSimple(getFileByPath(filePath));
-    }
-
-    /**
-     * 简单获取文件编码格式
-     *
-     * @param file 文件
-     * @return 文件编码
-     */
-    public static String getFileCharsetSimple(File file) {
-        int p = 0;
-        InputStream is = null;
-        try {
-            is = new BufferedInputStream(new FileInputStream(file));
-            p = (is.read() << 8) + is.read();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            closeIO(is);
-        }
-        switch (p) {
-            case 0xefbb:
-                return "UTF-8";
-            case 0xfffe:
-                return "Unicode";
-            case 0xfeff:
-                return "UTF-16BE";
-            default:
-                return "GBK";
-        }
-    }
-
-    /**
-     * 获取文件行数
-     *
-     * @param filePath 文件路径
-     * @return 文件行数
-     */
-    public static int getFileLines(String filePath) {
-        return getFileLines(getFileByPath(filePath));
-    }
-
-    /**
-     * 获取文件行数
-     *
-     * @param file 文件
-     * @return 文件行数
-     */
-    public static int getFileLines(File file) {
-        int count = 1;
-        InputStream is = null;
-        try {
-            is = new BufferedInputStream(new FileInputStream(file));
-            byte[] buffer = new byte[KB];
-            int readChars;
-            while ((readChars = is.read(buffer, 0, KB)) != -1) {
-                for (int i = 0; i < readChars; ++i) {
-                    if (buffer[i] == '\n') ++count;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            closeIO(is);
-        }
-        return count;
-    }
-
-    /**
      * 指定编码按行读取文件到List
      *
      * @param filePath    文件路径
@@ -903,7 +828,7 @@ public class FileUtils {
     }
 
     /**
-     * 指定编码按行读取文件到字符串中
+     * 指定编码按行读取文件到字符数组中
      *
      * @param filePath 文件路径
      * @return StringBuilder对象
@@ -913,7 +838,7 @@ public class FileUtils {
     }
 
     /**
-     * 指定编码按行读取文件到字符串中
+     * 指定编码按行读取文件到字符数组中
      *
      * @param file 文件
      * @return StringBuilder对象
@@ -926,6 +851,81 @@ public class FileUtils {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * 简单获取文件编码格式
+     *
+     * @param filePath 文件路径
+     * @return 文件编码
+     */
+    public static String getFileCharsetSimple(String filePath) {
+        return getFileCharsetSimple(getFileByPath(filePath));
+    }
+
+    /**
+     * 简单获取文件编码格式
+     *
+     * @param file 文件
+     * @return 文件编码
+     */
+    public static String getFileCharsetSimple(File file) {
+        int p = 0;
+        InputStream is = null;
+        try {
+            is = new BufferedInputStream(new FileInputStream(file));
+            p = (is.read() << 8) + is.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            closeIO(is);
+        }
+        switch (p) {
+            case 0xefbb:
+                return "UTF-8";
+            case 0xfffe:
+                return "Unicode";
+            case 0xfeff:
+                return "UTF-16BE";
+            default:
+                return "GBK";
+        }
+    }
+
+    /**
+     * 获取文件行数
+     *
+     * @param filePath 文件路径
+     * @return 文件行数
+     */
+    public static int getFileLines(String filePath) {
+        return getFileLines(getFileByPath(filePath));
+    }
+
+    /**
+     * 获取文件行数
+     *
+     * @param file 文件
+     * @return 文件行数
+     */
+    public static int getFileLines(File file) {
+        int count = 1;
+        InputStream is = null;
+        try {
+            is = new BufferedInputStream(new FileInputStream(file));
+            byte[] buffer = new byte[KB];
+            int readChars;
+            while ((readChars = is.read(buffer, 0, KB)) != -1) {
+                for (int i = 0; i < readChars; ++i) {
+                    if (buffer[i] == '\n') ++count;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            closeIO(is);
+        }
+        return count;
     }
 
     /**

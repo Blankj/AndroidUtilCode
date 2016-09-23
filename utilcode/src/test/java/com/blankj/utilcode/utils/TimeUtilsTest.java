@@ -86,11 +86,6 @@ public class TimeUtilsTest {
     }
 
     @Test
-    public void testGetCurTimeDate() throws Exception {
-
-    }
-
-    @Test
     public void testGetIntervalByNow() throws Exception {
 
     }
