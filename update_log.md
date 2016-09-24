@@ -1,4 +1,5 @@
 ###
+#### 16/09/23 完善AppUtils
 #### 16/09/23 整理工具类，新增ActivityUtils、BarUtils、IntentUtils
 #### 16/09/22 完善LogUtils中
 #### 16/09/21 新增LogUtils
