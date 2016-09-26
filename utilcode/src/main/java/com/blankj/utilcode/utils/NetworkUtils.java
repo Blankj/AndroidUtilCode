@@ -5,6 +5,13 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * <pre>
@@ -30,6 +37,45 @@ public class NetworkUtils {
     private static final int NETWORK_TYPE_GSM = 16;
     private static final int NETWORK_TYPE_TD_SCDMA = 17;
     private static final int NETWORK_TYPE_IWLAN = 18;
+   
+    /**
+     * 通过域名获取ip
+     * @param host
+     * @return
+     */
+    public static String getIpAddress(String host) {
+        try {
+            ExecutorService exec = Executors.newCachedThreadPool();
+            Future<String> fs = exec.submit(new GetIPAddressTask(host));
+            return fs.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    private static class GetIPAddressTask implements Callable<String> {
+        String host;
+
+        GetIPAddressTask(String host) {
+            this.host = host;
+        }
+
+        @Override
+        public String call() throws Exception {
+            InetAddress inetAddress;
+            try {
+                inetAddress = InetAddress.getByName(host);
+                return inetAddress.getHostAddress();
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+    }
 
     /**
      * 打开网络设置界面
