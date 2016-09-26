@@ -1,6 +1,7 @@
 ###
-#### 16/09/24 新增ClipboardUtils
-#### 16/09/23 完善AppUtils
+#### 16/09/26 新增根据域名获取ip地址（在此感谢jp1017），新增ClipboardUtils单元测试，对ImageUtils进行了bug修复
+#### 16/09/25 新增ClipboardUtils
+#### 16/09/24 完善AppUtils
 #### 16/09/23 整理工具类，新增ActivityUtils、BarUtils、IntentUtils
 #### 16/09/22 完善LogUtils中
 #### 16/09/21 新增LogUtils
