@@ -1086,6 +1086,6 @@ public class FileUtils {
         int lastPoi = filePath.lastIndexOf('.');
         int lastSep = filePath.lastIndexOf(File.separator);
         if (lastPoi == -1 || lastSep >= lastPoi) return "";
-        return filePath.substring(lastPoi);
+        return filePath.substring(lastPoi+1);
     }
 }
