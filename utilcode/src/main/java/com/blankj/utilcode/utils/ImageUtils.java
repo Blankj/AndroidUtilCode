@@ -5,9 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
-import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
-import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
@@ -21,19 +19,17 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.hardware.camera2.params.BlackLevelPattern;
 import android.media.ExifInterface;
 import android.os.Build;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
+import android.view.View;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
@@ -43,7 +39,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Date;
 
 /**
  * <pre>
@@ -74,7 +69,7 @@ public class ImageUtils {
      * byteArr转bitmap
      *
      * @param bytes 字节数组
-     * @return bitmap对象
+     * @return bitmap
      */
     public static Bitmap bytes2Bitmap(byte[] bytes) {
         return ConvertUtils.bytes2Bitmap(bytes);
@@ -84,7 +79,7 @@ public class ImageUtils {
      * drawable转bitmap
      *
      * @param drawable drawable对象
-     * @return bitmap对象
+     * @return bitmap
      */
     public static Bitmap drawable2Bitmap(Drawable drawable) {
         return ConvertUtils.drawable2Bitmap(drawable);
@@ -95,7 +90,7 @@ public class ImageUtils {
      *
      * @param res    resources对象
      * @param bitmap bitmap对象
-     * @return drawable对象
+     * @return drawable
      */
     public static Drawable bitmap2Drawable(Resources res, Bitmap bitmap) {
         return ConvertUtils.bitmap2Drawable(res, bitmap);
@@ -117,10 +112,20 @@ public class ImageUtils {
      *
      * @param res   resources对象
      * @param bytes 字节数组
-     * @return drawable对象
+     * @return drawable
      */
     public static Drawable bytes2Drawable(Resources res, byte[] bytes) {
         return ConvertUtils.bytes2Drawable(res, bytes);
+    }
+
+    /**
+     * view转Bitmap
+     *
+     * @param view 视图
+     * @return bitmap
+     */
+    public static Bitmap view2Bitmap(View view) {
+        return ConvertUtils.view2Bitmap(view);
     }
 
     /**
@@ -276,39 +281,6 @@ public class ImageUtils {
         options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeByteArray(data, offset, data.length, options);
-    }
-
-    /**
-     * 获取bitmap
-     *
-     * @param context 上下文
-     * @param resId   资源id
-     * @return bitmap
-     */
-    public static Bitmap getBitmap(Context context, int resId) {
-        if (context == null) return null;
-        InputStream is = context.getResources().openRawResource(resId);
-        return BitmapFactory.decodeStream(is);
-    }
-
-    /**
-     * 获取bitmap
-     *
-     * @param context   上下文
-     * @param resId     资源id
-     * @param maxWidth  最大宽度
-     * @param maxHeight 最大高度
-     * @return bitmap
-     */
-    public static Bitmap getBitmap(Context context, int resId, int maxWidth, int maxHeight) {
-        if (context == null) return null;
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        InputStream is = context.getResources().openRawResource(resId);
-        BitmapFactory.decodeStream(is, null, options);
-        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeStream(is, null, options);
     }
 
     /**
@@ -606,15 +578,14 @@ public class ImageUtils {
         int width = src.getWidth();
         int height = src.getHeight();
         int radius = Math.min(width, height) >> 1;
-        Bitmap ret = src.copy(src.getConfig(), true);
+        Bitmap ret = Bitmap.createBitmap(width, height, src.getConfig());
         Paint paint = new Paint();
         Canvas canvas = new Canvas(ret);
         Rect rect = new Rect(0, 0, width, height);
         paint.setAntiAlias(true);
-        paint.setColor(Color.TRANSPARENT);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawARGB(0, 0, 0, 0);
         canvas.drawCircle(width >> 1, height >> 1, radius, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(src, rect, rect, paint);
         if (recycle && !src.isRecycled()) src.recycle();
         return ret;
@@ -643,15 +614,15 @@ public class ImageUtils {
         if (null == src) return null;
         int width = src.getWidth();
         int height = src.getHeight();
-        Bitmap ret = src.copy(src.getConfig(), true);
-        BitmapShader bitmapShader = new BitmapShader(src,
-                Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        Bitmap ret = Bitmap.createBitmap(width, height, src.getConfig());
         Paint paint = new Paint();
         Canvas canvas = new Canvas(ret);
-        RectF rectf = new RectF(0, 0, width, height);
+        Rect rect = new Rect(0, 0, width, height);
         paint.setAntiAlias(true);
-        paint.setShader(bitmapShader);
-        canvas.drawRoundRect(rectf, radius, radius, paint);
+        canvas.drawARGB(0, 0, 0, 0);
+        canvas.drawRoundRect(new RectF(rect), radius, radius, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(src, rect, rect, paint);
         if (recycle && !src.isRecycled()) src.recycle();
         return ret;
     }
@@ -671,7 +642,7 @@ public class ImageUtils {
     }
 
     /**
-     * 快速模糊
+     * 快速模糊图片
      * <p>先缩小原图，对小图进行模糊，再放大回原先尺寸</p>
      *
      * @param context 上下文
@@ -699,7 +670,7 @@ public class ImageUtils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             scaleBitmap = renderScriptBlur(context, scaleBitmap, radius);
         } else {
-            scaleBitmap = stackBlur(scaleBitmap, (int) radius, true);
+            scaleBitmap = stackBlur(scaleBitmap, (int) radius, recycle);
         }
         if (scale == 1) return scaleBitmap;
         Bitmap ret = Bitmap.createScaledBitmap(scaleBitmap, width, height, true);
@@ -714,7 +685,7 @@ public class ImageUtils {
      *
      * @param context 上下文
      * @param src     源图片
-     * @param radius  模糊度(0...25)
+     * @param radius  模糊度(1...25)
      * @return 模糊后的图片
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -751,7 +722,7 @@ public class ImageUtils {
      * @param src     源图片
      * @param radius  模糊半径
      * @param recycle 是否回收
-     * @return stackBlur模糊图片
+     * @return stack模糊后的图片
      */
     public static Bitmap stackBlur(Bitmap src, int radius, boolean recycle) {
         Bitmap ret;
@@ -762,7 +733,7 @@ public class ImageUtils {
         }
 
         if (radius < 1) {
-            return (null);
+            return null;
         }
 
         int w = ret.getWidth();
@@ -954,7 +925,7 @@ public class ImageUtils {
             }
         }
         ret.setPixels(pix, 0, w, 0, 0, w, h);
-        return (ret);
+        return ret;
     }
 
     /**
@@ -966,7 +937,7 @@ public class ImageUtils {
      * @return 带颜色边框图
      */
     public static Bitmap addFrame(Bitmap src, int borderWidth, int color) {
-        return addFrame(src, borderWidth, color);
+        return addFrame(src, borderWidth, color, false);
     }
 
     /**
@@ -980,16 +951,18 @@ public class ImageUtils {
      */
     public static Bitmap addFrame(Bitmap src, int borderWidth, int color, boolean recycle) {
         if (isEmptyBitmap(src)) return null;
-        int newWidth = src.getWidth() + borderWidth >> 1;
-        int newHeight = src.getHeight() + borderWidth >> 1;
+        int doubleBorder = borderWidth << 1;
+        int newWidth = src.getWidth() + doubleBorder;
+        int newHeight = src.getHeight() + doubleBorder;
         Bitmap ret = Bitmap.createBitmap(newWidth, newHeight, src.getConfig());
         Canvas canvas = new Canvas(ret);
-        Rect rec = canvas.getClipBounds();
+        Rect rect = new Rect(0, 0, newWidth, newHeight);
         Paint paint = new Paint();
         paint.setColor(color);
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(borderWidth);
-        canvas.drawRect(rec, paint);
+        // setStrokeWidth是居中画的，所以要两倍的宽度才能画，否则有一半的宽度是空的
+        paint.setStrokeWidth(doubleBorder);
+        canvas.drawRect(rect, paint);
         canvas.drawBitmap(src, borderWidth, borderWidth, null);
         if (recycle && !src.isRecycled()) src.recycle();
         return ret;
@@ -1053,13 +1026,13 @@ public class ImageUtils {
      * @param content  水印文本
      * @param textSize 水印字体大小
      * @param color    水印字体颜色
-     * @param alpha    水印字体透明度
      * @param x        起始坐标x
      * @param y        起始坐标y
      * @return 带有文字水印的图片
      */
-    public static Bitmap addTextWatermark(Bitmap src, String content, int textSize, int color, int alpha, float x, float y) {
-        return addTextWatermark(src, content, textSize, color, alpha, x, y, false);
+    public static Bitmap addTextWatermark(Bitmap src, String content, int textSize, int color, float x,
+                                          float y) {
+        return addTextWatermark(src, content, textSize, color, x, y, false);
     }
 
     /**
@@ -1069,23 +1042,22 @@ public class ImageUtils {
      * @param content  水印文本
      * @param textSize 水印字体大小
      * @param color    水印字体颜色
-     * @param alpha    水印字体透明度
      * @param x        起始坐标x
      * @param y        起始坐标y
      * @param recycle  是否回收
      * @return 带有文字水印的图片
      */
-    public static Bitmap addTextWatermark(Bitmap src, String content, int textSize, int color, int alpha, float x, float y, boolean recycle) {
+    public static Bitmap addTextWatermark(Bitmap src, String content, float textSize, int color, float x,
+                                          float y, boolean recycle) {
         if (isEmptyBitmap(src) || content == null) return null;
         Bitmap ret = src.copy(src.getConfig(), true);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         Canvas canvas = new Canvas(ret);
-        paint.setAlpha(alpha);
         paint.setColor(color);
         paint.setTextSize(textSize);
         Rect bounds = new Rect();
         paint.getTextBounds(content, 0, content.length(), bounds);
-        canvas.drawText(content, x, y, paint);
+        canvas.drawText(content, x, y + textSize, paint);
         if (recycle && !src.isRecycled()) src.recycle();
         return ret;
     }
@@ -1135,7 +1107,7 @@ public class ImageUtils {
      * @return alpha位图
      */
     public static Bitmap toAlpha(Bitmap src) {
-        return toAlpha(src);
+        return toAlpha(src, false);
     }
 
     /**
