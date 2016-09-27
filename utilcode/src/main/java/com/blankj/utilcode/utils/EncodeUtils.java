@@ -19,7 +19,7 @@ import java.net.URLEncoder;
 public class EncodeUtils {
 
     private EncodeUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**

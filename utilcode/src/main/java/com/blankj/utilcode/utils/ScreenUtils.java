@@ -22,7 +22,7 @@ import android.view.WindowManager;
 public class ScreenUtils {
 
     private ScreenUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**
@@ -33,9 +33,9 @@ public class ScreenUtils {
      */
     public static int getScreenWidth(Context context) {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics outMetrics = new DisplayMetrics();// 创建了一张白纸
-        windowManager.getDefaultDisplay().getMetrics(outMetrics);// 给白纸设置宽高
-        return outMetrics.widthPixels;
+        DisplayMetrics dm = new DisplayMetrics();// 创建了一张白纸
+        windowManager.getDefaultDisplay().getMetrics(dm);// 给白纸设置宽高
+        return dm.widthPixels;
     }
 
     /**
@@ -46,9 +46,9 @@ public class ScreenUtils {
      */
     public static int getScreenHeight(Context context) {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics outMetrics = new DisplayMetrics();// 创建了一张白纸
-        windowManager.getDefaultDisplay().getMetrics(outMetrics);// 给白纸设置宽高
-        return outMetrics.heightPixels;
+        DisplayMetrics dm = new DisplayMetrics();// 创建了一张白纸
+        windowManager.getDefaultDisplay().getMetrics(dm);// 给白纸设置宽高
+        return dm.heightPixels;
     }
 
     /**
@@ -125,16 +125,15 @@ public class ScreenUtils {
         view.setDrawingCacheEnabled(true);
         view.buildDrawingCache();
         Bitmap bmp = view.getDrawingCache();
-        int width = getScreenWidth(activity);
-        int height = getScreenHeight(activity);
-        Bitmap ret = Bitmap.createBitmap(bmp, 0, 0, width, height);
+        DisplayMetrics dm = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        Bitmap ret = Bitmap.createBitmap(bmp, 0, 0, dm.widthPixels, dm.heightPixels);
         view.destroyDrawingCache();
         return ret;
     }
 
     /**
      * 获取当前屏幕截图，不包含状态栏
-     * <p>需要用到上面获取状态栏高度getStatusBarHeight的方法</p>
      *
      * @param activity activity
      * @return Bitmap
@@ -145,9 +144,9 @@ public class ScreenUtils {
         view.buildDrawingCache();
         Bitmap bmp = view.getDrawingCache();
         int statusBarHeight = BarUtils.getStatusBarHeight(activity);
-        int width = getScreenWidth(activity);
-        int height = getScreenHeight(activity);
-        Bitmap ret = Bitmap.createBitmap(bmp, 0, statusBarHeight, width, height - statusBarHeight);
+        DisplayMetrics dm = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        Bitmap ret = Bitmap.createBitmap(bmp, 0, statusBarHeight, dm.widthPixels, dm.heightPixels - statusBarHeight);
         view.destroyDrawingCache();
         return ret;
     }

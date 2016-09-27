@@ -20,6 +20,7 @@ public class SPUtils {
 
     /**
      * SPUtils构造函数
+     * <p>在Application中初始化</p>
      *
      * @param context 上下文
      * @param spName  spName

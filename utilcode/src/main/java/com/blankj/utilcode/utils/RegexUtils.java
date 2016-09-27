@@ -15,7 +15,7 @@ import static com.blankj.utilcode.utils.ConstUtils.*;
 public class RegexUtils {
 
     private RegexUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**

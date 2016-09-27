@@ -15,7 +15,7 @@ import android.os.Bundle;
 public class ActivityUtils {
 
     private ActivityUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**
@@ -54,6 +54,6 @@ public class ActivityUtils {
      * @param bundle      bundle
      */
     public static void launchActivity(Context context, String packageName, String className, Bundle bundle) {
-        context.startActivity(IntentUtils.getComponentNameIntent(packageName, className, bundle));
+        context.startActivity(IntentUtils.getComponentIntent(packageName, className, bundle));
     }
 }

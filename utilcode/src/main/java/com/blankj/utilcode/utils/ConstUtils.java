@@ -11,7 +11,7 @@ package com.blankj.utilcode.utils;
 public class ConstUtils {
 
     private ConstUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /******************** 存储相关常量 ********************/

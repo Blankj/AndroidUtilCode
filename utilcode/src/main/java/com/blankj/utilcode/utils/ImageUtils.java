@@ -51,7 +51,7 @@ import java.io.OutputStream;
 public class ImageUtils {
 
     private ImageUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**

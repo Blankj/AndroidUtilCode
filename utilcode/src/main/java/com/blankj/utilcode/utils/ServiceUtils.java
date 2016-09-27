@@ -21,7 +21,7 @@ import java.util.List;
 public class ServiceUtils {
 
     private ServiceUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**

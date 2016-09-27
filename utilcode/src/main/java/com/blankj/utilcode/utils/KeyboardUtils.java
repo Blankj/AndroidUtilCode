@@ -18,7 +18,7 @@ import android.widget.EditText;
 public class KeyboardUtils {
 
     private KeyboardUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**
@@ -119,6 +119,18 @@ public class KeyboardUtils {
     }
 
     /**
+     * 显示键盘
+     *
+     * @param view
+     * @return
+     */
+    public static boolean showSoftInput(View view) {
+        InputMethodManager imm = (InputMethodManager) view.getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        return imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
+    }
+
+    /**
      * 动态显示软键盘
      *
      * @param context 上下文
@@ -137,14 +149,21 @@ public class KeyboardUtils {
      * 切换键盘显示与否状态
      *
      * @param context 上下文
-     * @param edit    输入框
      */
-    public static void toggleSoftInput(Context context, EditText edit) {
-        edit.setFocusable(true);
-        edit.setFocusableInTouchMode(true);
-        edit.requestFocus();
-        InputMethodManager inputManager = (InputMethodManager) context
+    public static void toggleSoftInput(Context context) {
+        InputMethodManager imm = (InputMethodManager) context
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+    }
+
+    /**
+     * 判断键盘是否显示
+     *
+     * @param context 上下文
+     * @return {@code true}: 显示<br>{@code false}: 不显示
+     */
+    public static boolean isShowSoftInput(Context context) {
+        return ((InputMethodManager) context
+                .getSystemService(Context.INPUT_METHOD_SERVICE)).isActive();
     }
 }

@@ -13,7 +13,7 @@ import java.io.UnsupportedEncodingException;
 public class StringUtils {
 
     private StringUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**

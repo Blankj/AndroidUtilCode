@@ -32,7 +32,7 @@ import static com.blankj.utilcode.utils.ConstUtils.*;
 public class FileUtils {
 
     private FileUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**
@@ -828,20 +828,20 @@ public class FileUtils {
     }
 
     /**
-     * 指定编码按行读取文件到字符数组中
+     * 读取文件到字符数组中
      *
      * @param filePath 文件路径
-     * @return StringBuilder对象
+     * @return 字符数组
      */
     public static byte[] readFile2Bytes(String filePath) {
         return readFile2Bytes(getFileByPath(filePath));
     }
 
     /**
-     * 指定编码按行读取文件到字符数组中
+     * 读取文件到字符数组中
      *
      * @param file 文件
-     * @return StringBuilder对象
+     * @return 字符数组
      */
     public static byte[] readFile2Bytes(File file) {
         if (file == null) return null;
@@ -1086,6 +1086,6 @@ public class FileUtils {
         int lastPoi = filePath.lastIndexOf('.');
         int lastSep = filePath.lastIndexOf(File.separator);
         if (lastPoi == -1 || lastSep >= lastPoi) return "";
-        return filePath.substring(lastPoi+1);
+        return filePath.substring(lastPoi + 1);
     }
 }

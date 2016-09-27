@@ -22,6 +22,10 @@ import java.util.Date;
  */
 public class LogUtils {
 
+    private LogUtils() {
+        throw new UnsupportedOperationException("u can't instantiate me...");
+    }
+
     private static Boolean LOG_SWITCH = true; // 日志文件总开关
     private static Boolean LOG_TO_FILE = false; // 日志写入文件开关
     private static String LOG_TAG = "TAG"; // 默认的tag

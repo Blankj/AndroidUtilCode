@@ -19,7 +19,7 @@ import static com.blankj.utilcode.utils.ConstUtils.*;
 public class TimeUtils {
 
     private TimeUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**

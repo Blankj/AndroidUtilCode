@@ -22,6 +22,10 @@ import java.util.concurrent.TimeoutException;
  */
 public class ThreadPoolUtils {
 
+    private ThreadPoolUtils() {
+        throw new UnsupportedOperationException("u can't instantiate me...");
+    }
+
     public enum Type {
         FixedThread,
         CachedThread,

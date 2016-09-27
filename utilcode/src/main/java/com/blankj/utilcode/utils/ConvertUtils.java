@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.view.View;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -29,6 +32,10 @@ import static com.blankj.utilcode.utils.ConstUtils.MB;
  * </pre>
  */
 public class ConvertUtils {
+
+    private ConvertUtils() {
+        throw new UnsupportedOperationException("u can't instantiate me...");
+    }
 
     static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
@@ -363,7 +370,7 @@ public class ConvertUtils {
      * byteArr转bitmap
      *
      * @param bytes 字节数组
-     * @return bitmap对象
+     * @return bitmap
      */
     public static Bitmap bytes2Bitmap(byte[] bytes) {
         return (bytes == null || bytes.length == 0) ? null : BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
@@ -373,7 +380,7 @@ public class ConvertUtils {
      * drawable转bitmap
      *
      * @param drawable drawable对象
-     * @return bitmap对象
+     * @return bitmap
      */
     public static Bitmap drawable2Bitmap(Drawable drawable) {
         return drawable == null ? null : ((BitmapDrawable) drawable).getBitmap();
@@ -384,7 +391,7 @@ public class ConvertUtils {
      *
      * @param res    resources对象
      * @param bitmap bitmap对象
-     * @return drawable对象
+     * @return drawable
      */
     public static Drawable bitmap2Drawable(Resources res, Bitmap bitmap) {
         return bitmap == null ? null : new BitmapDrawable(res, bitmap);
@@ -406,10 +413,30 @@ public class ConvertUtils {
      *
      * @param res   resources对象
      * @param bytes 字节数组
-     * @return drawable对象
+     * @return drawable
      */
     public static Drawable bytes2Drawable(Resources res, byte[] bytes) {
         return bitmap2Drawable(res, bytes2Bitmap(bytes));
+    }
+
+    /**
+     * view转Bitmap
+     *
+     * @param view 视图
+     * @return bitmap
+     */
+    public static Bitmap view2Bitmap(View view) {
+        if (view == null) return null;
+        Bitmap ret = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(ret);
+        Drawable bgDrawable = view.getBackground();
+        if (bgDrawable != null) {
+            bgDrawable.draw(canvas);
+        }else {
+            canvas.drawColor(Color.WHITE);
+        }
+        view.draw(canvas);
+        return ret;
     }
 
     /**

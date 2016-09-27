@@ -1,5 +1,6 @@
 package com.blankj.utilcode.utils;
 
+import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.SystemClock;
 import android.provider.Settings;
+import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.Xml;
@@ -30,7 +32,7 @@ import java.util.List;
 public class PhoneUtils {
 
     private PhoneUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**
@@ -45,22 +47,24 @@ public class PhoneUtils {
     }
 
     /**
-     * 获取手机的IMIE
-     * <p>需与{@link #isPhone(Context)}一起使用</p>
+     * 获取IMIE码
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_PHONE_STATE"/>}</p>
      *
      * @param context 上下文
      * @return IMIE码
      */
-    public static String getPhoneIMEI(Context context) {
-        String deviceId;
-        if (isPhone(context)) {
-            TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            deviceId = tm.getDeviceId();
-        } else {
-            deviceId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        }
-        return deviceId;
+    public static String getIMEI(Context context) {
+        return ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+    }
+
+    /**
+     * 获取IMSI码
+     *<p>需添加权限 {@code <uses-permission android:name="android.permission.READ_PHONE_STATE"/>}</p>
+     * @param context 上下文
+     * @return IMSI码
+     */
+    public static String getIMSI(Context context) {
+        return ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getSubscriberId();
     }
 
     /**
@@ -131,14 +135,36 @@ public class PhoneUtils {
      * 发送短信
      *
      * @param context     上下文
-     * @param phoneNumber 电话号码
-     * @param content     内容
+     * @param phoneNumber 接收号码
+     * @param content     短信内容
      */
     public static void sendSms(Context context, String phoneNumber, String content) {
         Uri uri = Uri.parse("smsto:" + (StringUtils.isEmpty(phoneNumber) ? "" : phoneNumber));
         Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
         intent.putExtra("sms_body", StringUtils.isEmpty(content) ? "" : content);
         context.startActivity(intent);
+    }
+
+    /**
+     * 发送短信
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.SEND_SMS"/>}</p>
+     *
+     * @param context     上下文
+     * @param phoneNumber 接收号码
+     * @param content     短信内容
+     */
+    public static void sendSmsSilent(Context context, String phoneNumber, String content) {
+        if (StringUtils.isEmpty(content)) return;
+        PendingIntent sentIntent = PendingIntent.getBroadcast(context, 0, new Intent(), 0);
+        SmsManager smsManager = SmsManager.getDefault();
+        if (content.length() >= 70) {
+            List<String> ms = smsManager.divideMessage(content);
+            for (String str : ms) {
+                smsManager.sendTextMessage(phoneNumber, null, str, sentIntent, null);
+            }
+        } else {
+            smsManager.sendTextMessage(phoneNumber, null, content, sentIntent, null);
+        }
     }
 
     /**

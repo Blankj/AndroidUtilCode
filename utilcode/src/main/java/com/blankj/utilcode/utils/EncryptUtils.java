@@ -25,7 +25,7 @@ import static com.blankj.utilcode.utils.ConvertUtils.*;
 public class EncryptUtils {
 
     private EncryptUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /*********************** 哈希加密相关 ***********************/

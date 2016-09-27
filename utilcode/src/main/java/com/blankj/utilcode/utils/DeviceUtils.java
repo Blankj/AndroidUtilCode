@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.provider.Settings;
+import android.telephony.TelephonyManager;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,7 +22,25 @@ import java.io.LineNumberReader;
 public class DeviceUtils {
 
     private DeviceUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
+    }
+
+    /**
+     * 获取系统版本号
+     */
+    public static int getSDK() {
+        return android.os.Build.VERSION.SDK_INT;
+    }
+
+
+    /**
+     * 获取AndroidID
+     *
+     * @param context 上下文
+     * @return AndroidID
+     */
+    public static String getAndroidID(Context context) {
+        return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
     /**

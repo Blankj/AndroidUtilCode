@@ -22,7 +22,7 @@ import java.io.File;
 public class TestUtils {
 
     private TestUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     public static final char SEP = File.separatorChar;

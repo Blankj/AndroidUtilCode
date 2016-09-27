@@ -6,6 +6,14 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 /**
  * <pre>
  *     author: Blankj
@@ -17,7 +25,7 @@ import android.telephony.TelephonyManager;
 public class NetworkUtils {
 
     private NetworkUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     public static final int NETWORK_WIFI = 1;    // wifi network
@@ -30,6 +38,11 @@ public class NetworkUtils {
     private static final int NETWORK_TYPE_GSM = 16;
     private static final int NETWORK_TYPE_TD_SCDMA = 17;
     private static final int NETWORK_TYPE_IWLAN = 18;
+
+    private static final String CMCC_ISP = "46000"; //中国移动
+    private static final String CMCC2_ISP = "46002";//中国移动
+    private static final String CU_ISP = "46001";   //中国联通
+    private static final String CT_ISP = "46003";   //中国电信
 
     /**
      * 打开网络设置界面
@@ -109,7 +122,7 @@ public class NetworkUtils {
 
     /**
      * 获取移动网络运营商名称
-     * <p>如中国联通、中国移动、中国电信</p>
+     * <p>中国移动、如中国联通、中国电信</p>
      *
      * @param context 上下文
      * @return 移动网络运营商名称
@@ -117,7 +130,18 @@ public class NetworkUtils {
     public static String getNetworkOperatorName(Context context) {
         TelephonyManager tm = (TelephonyManager) context
                 .getSystemService(Context.TELEPHONY_SERVICE);
-        return tm != null ? tm.getNetworkOperatorName() : null;
+        String np = tm != null ? tm.getNetworkOperatorName() : null;
+        String teleCompany = "unknown";
+        if (np != null) {
+            if (np.equals(CMCC_ISP) || np.equals(CMCC2_ISP)) {
+                teleCompany = "中国移动";
+            } else if (np.startsWith(CU_ISP)) {
+                teleCompany = "中国联通";
+            } else if (np.startsWith(CT_ISP)) {
+                teleCompany = "中国电信";
+            }
+        }
+        return teleCompany;
     }
 
     /**
@@ -238,6 +262,35 @@ public class NetworkUtils {
                 return "NETWORK_NO";
             default:
                 return "NETWORK_UNKNOWN";
+        }
+    }
+
+    /**
+     * 根据域名获取ip地址
+     *
+     * @param domain 域名
+     * @return ip地址
+     */
+    public static String getIpAddress(final String domain) {
+        try {
+            ExecutorService exec = Executors.newCachedThreadPool();
+            Future<String> fs = exec.submit(new Callable<String>() {
+                @Override
+                public String call() throws Exception {
+                    InetAddress inetAddress;
+                    try {
+                        inetAddress = InetAddress.getByName(domain);
+                        return inetAddress.getHostAddress();
+                    } catch (UnknownHostException e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+            });
+            return fs.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

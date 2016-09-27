@@ -17,7 +17,7 @@ import java.util.List;
 public class ShellUtils {
 
     private ShellUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     public static final String COMMAND_SU = "su";

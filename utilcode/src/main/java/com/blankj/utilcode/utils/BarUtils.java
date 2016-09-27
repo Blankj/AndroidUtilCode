@@ -19,7 +19,7 @@ import java.lang.reflect.Method;
  */
 public class BarUtils {
     private BarUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**

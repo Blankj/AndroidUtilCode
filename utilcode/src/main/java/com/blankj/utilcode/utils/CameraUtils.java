@@ -23,7 +23,7 @@ import java.io.IOException;
 public class CameraUtils {
 
     private CameraUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**

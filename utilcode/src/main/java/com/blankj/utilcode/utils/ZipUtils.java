@@ -29,7 +29,7 @@ import static com.blankj.utilcode.utils.ConstUtils.KB;
 public class ZipUtils {
 
     private ZipUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**

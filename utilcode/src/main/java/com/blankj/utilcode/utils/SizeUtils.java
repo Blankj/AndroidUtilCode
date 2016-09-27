@@ -17,7 +17,7 @@ import android.view.View;
 public class SizeUtils {
 
     private SizeUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**
@@ -100,22 +100,23 @@ public class SizeUtils {
      * <p>需回调onGetSizeListener接口，在onGetSize中获取view宽高</p>
      * <p>用法示例如下所示</p>
      * <pre>{@code
-     * SizeUtils.forceGetViewSize(view);
-     * SizeUtils.setListener(new SizeUtils.onGetSizeListener() {
+     * SizeUtils.forceGetViewSize(view, new SizeUtils.onGetSizeListener() {
+     *     @ Override
      *     public void onGetSize(View view) {
-     *         Log.d("tag", view.getWidth() + " " + view.getHeight());
+     *         view.getWidth();
      *     }
-     * });}
+     * });
+     * }
      * </pre>
      *
      * @param view 视图
      */
-    public static void forceGetViewSize(final View view) {
+    public static void forceGetViewSize(final View view, final onGetSizeListener listener) {
         view.post(new Runnable() {
             @Override
             public void run() {
-                if (mListener != null) {
-                    mListener.onGetSize(view);
+                if (listener != null) {
+                    listener.onGetSize(view);
                 }
             }
         });
