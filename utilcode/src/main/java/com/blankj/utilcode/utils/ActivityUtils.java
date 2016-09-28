@@ -9,7 +9,7 @@ import android.os.Bundle;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/9/23
- *     desc  : Activity工具类
+ *     desc  : Activity相关工具类
  * </pre>
  */
 public class ActivityUtils {
@@ -19,7 +19,7 @@ public class ActivityUtils {
     }
 
     /**
-     * 判断是否存在指定Activity
+     * 判断是否存在Activity
      *
      * @param context     上下文
      * @param packageName 包名
@@ -35,7 +35,7 @@ public class ActivityUtils {
     }
 
     /**
-     * 打开指定的Activity
+     * 打开Activity
      *
      * @param context     上下文
      * @param packageName 包名
@@ -46,7 +46,7 @@ public class ActivityUtils {
     }
 
     /**
-     * 打开指定的Activity
+     * 打开Activity
      *
      * @param context     上下文
      * @param packageName 包名
