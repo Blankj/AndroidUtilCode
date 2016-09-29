@@ -112,6 +112,11 @@ public class FileUtilsTest {
     }
 
     @Test
+    public void testDeleteFilesInDir() throws Exception {
+        assertThat(deleteFilesInDir(path + "child")).isTrue();
+    }
+
+    @Test
     public void testListFilesInDir() throws Exception {
         System.out.println(listFilesInDir(path, false).toString());
         System.out.println(listFilesInDir(path, true).toString());

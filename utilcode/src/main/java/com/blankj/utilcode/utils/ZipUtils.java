@@ -157,7 +157,6 @@ public class ZipUtils {
             return zipFile(resFile, "", zos, comment);
         } finally {
             if (zos != null) {
-                zos.finish();
                 FileUtils.closeIO(zos);
             }
         }
@@ -179,7 +178,7 @@ public class ZipUtils {
         if (resFile.isDirectory()) {
             File[] fileList = resFile.listFiles();
             // 如果是空文件夹那么创建它，我把'/'换为File.separator测试就不成功，eggPain
-            if (fileList.length <= 0) {
+            if (fileList == null || fileList.length <= 0) {
                 ZipEntry entry = new ZipEntry(rootPath + '/');
                 if (!StringUtils.isEmpty(comment)) entry.setComment(comment);
                 zos.putNextEntry(entry);
@@ -367,7 +366,6 @@ public class ZipUtils {
             throws IOException {
         return getComments(FileUtils.getFileByPath(zipFilePath));
     }
-
 
     /**
      * 获取压缩文件中的注释链表

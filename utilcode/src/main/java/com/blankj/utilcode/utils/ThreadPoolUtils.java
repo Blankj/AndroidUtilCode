@@ -48,8 +48,7 @@ public class ThreadPoolUtils {
         switch (type) {
             case FixedThread:
                 // 构造一个固定线程数目的线程池
-                // ThreadPoolExecutor(corePoolSize, corePoolSize, 0L, TimeUnit.MILLISECONDS, new
-                // LinkedBlockingQueue<Runnable>());
+                // ThreadPoolExecutor(corePoolSize, corePoolSize, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
                 exec = Executors.newFixedThreadPool(corePoolSize);
                 break;
             case SingleThread:

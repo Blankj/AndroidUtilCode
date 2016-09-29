@@ -381,11 +381,13 @@ public class FileUtils {
         if (!dir.isDirectory()) return false;
         // 现在文件存在且是文件夹
         File[] files = dir.listFiles();
-        for (File file : files) {
-            if (file.isFile()) {
-                if (!deleteFile(file)) return false;
-            } else if (file.isDirectory()) {
-                if (!deleteDir(file)) return false;
+        if (files != null && files.length != 0) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    if (!deleteFile(file)) return false;
+                } else if (file.isDirectory()) {
+                    if (!deleteDir(file)) return false;
+                }
             }
         }
         return dir.delete();
@@ -409,6 +411,42 @@ public class FileUtils {
      */
     public static boolean deleteFile(File file) {
         return file != null && (!file.exists() || file.isFile() && file.delete());
+    }
+
+    /**
+     * 删除目录下的所有文件
+     *
+     * @param dirPath 目录路径
+     * @return {@code true}: 删除成功<br>{@code false}: 删除失败
+     */
+    public static boolean deleteFilesInDir(String dirPath) {
+        return deleteFilesInDir(getFileByPath(dirPath));
+    }
+
+    /**
+     * 删除目录下的所有文件
+     *
+     * @param dir 目录
+     * @return {@code true}: 删除成功<br>{@code false}: 删除失败
+     */
+    public static boolean deleteFilesInDir(File dir) {
+        if (dir == null) return false;
+        // 目录不存在返回true
+        if (!dir.exists()) return true;
+        // 不是目录返回false
+        if (!dir.isDirectory()) return false;
+        // 现在文件存在且是文件夹
+        File[] files = dir.listFiles();
+        if (files != null && files.length != 0) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    if (!deleteFile(file)) return false;
+                } else if (file.isDirectory()) {
+                    if (!deleteDir(file)) return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
@@ -457,10 +495,12 @@ public class FileUtils {
         if (dir == null || !isDir(dir)) return null;
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
-        for (File file : files) {
-            list.add(file);
-            if (file.isDirectory()) {
-                list.addAll(listFilesInDir(file));
+        if (files != null && files.length != 0) {
+            for (File file : files) {
+                list.add(file);
+                if (file.isDirectory()) {
+                    list.addAll(listFilesInDir(file));
+                }
             }
         }
         return list;
@@ -493,9 +533,11 @@ public class FileUtils {
         if (dir == null || !isDir(dir)) return null;
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
-        for (File file : files) {
-            if (file.getName().toUpperCase().endsWith(suffix.toUpperCase())) {
-                list.add(file);
+        if (files != null && files.length != 0) {
+            for (File file : files) {
+                if (file.getName().toUpperCase().endsWith(suffix.toUpperCase())) {
+                    list.add(file);
+                }
             }
         }
         return list;
@@ -525,12 +567,14 @@ public class FileUtils {
         if (dir == null || !isDir(dir)) return null;
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
-        for (File file : files) {
-            if (file.getName().toUpperCase().endsWith(suffix.toUpperCase())) {
-                list.add(file);
-            }
-            if (file.isDirectory()) {
-                list.addAll(listFilesInDirWithFilter(file, suffix));
+        if (files != null && files.length != 0) {
+            for (File file : files) {
+                if (file.getName().toUpperCase().endsWith(suffix.toUpperCase())) {
+                    list.add(file);
+                }
+                if (file.isDirectory()) {
+                    list.addAll(listFilesInDirWithFilter(file, suffix));
+                }
             }
         }
         return list;
@@ -561,9 +605,11 @@ public class FileUtils {
         if (dir == null || !isDir(dir)) return null;
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
-        for (File file : files) {
-            if (filter.accept(file.getParentFile(), file.getName())) {
-                list.add(file);
+        if (files != null && files.length != 0) {
+            for (File file : files) {
+                if (filter.accept(file.getParentFile(), file.getName())) {
+                    list.add(file);
+                }
             }
         }
         return list;
@@ -591,12 +637,14 @@ public class FileUtils {
         if (dir == null || !isDir(dir)) return null;
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
-        for (File file : files) {
-            if (filter.accept(file.getParentFile(), file.getName())) {
-                list.add(file);
-            }
-            if (file.isDirectory()) {
-                list.addAll(listFilesInDirWithFilter(file, filter));
+        if (files != null && files.length != 0) {
+            for (File file : files) {
+                if (filter.accept(file.getParentFile(), file.getName())) {
+                    list.add(file);
+                }
+                if (file.isDirectory()) {
+                    list.addAll(listFilesInDirWithFilter(file, filter));
+                }
             }
         }
         return list;
@@ -626,12 +674,14 @@ public class FileUtils {
         if (dir == null || !isDir(dir)) return null;
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
-        for (File file : files) {
-            if (file.getName().toUpperCase().equals(fileName.toUpperCase())) {
-                list.add(file);
-            }
-            if (file.isDirectory()) {
-                list.addAll(listFilesInDirWithFilter(file, fileName));
+        if (files != null && files.length != 0) {
+            for (File file : files) {
+                if (file.getName().toUpperCase().equals(fileName.toUpperCase())) {
+                    list.add(file);
+                }
+                if (file.isDirectory()) {
+                    list.addAll(searchFileInDir(file, fileName));
+                }
             }
         }
         return list;

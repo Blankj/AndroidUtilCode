@@ -2,12 +2,16 @@ package com.blankj.utilcode.utils;
 
 import android.content.Context;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.io.File;
+
+import static com.blankj.utilcode.utils.TimeUtils.milliseconds2String;
+import static com.google.common.truth.Truth.assertThat;
 
 /**
  * <pre>
@@ -21,10 +25,6 @@ import java.io.File;
 @Config(manifest = Config.NONE)
 public class TestUtils {
 
-    private TestUtils() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
-    }
-
     public static final char SEP = File.separatorChar;
 
     public static final String BASEPATH = System.getProperty("user.dir")
@@ -32,5 +32,10 @@ public class TestUtils {
 
     public static Context getContext() {
         return RuntimeEnvironment.application;
+    }
+
+    @Test
+    public void test() throws Exception {
+
     }
 }

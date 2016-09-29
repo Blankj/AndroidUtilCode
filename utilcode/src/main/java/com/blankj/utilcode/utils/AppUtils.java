@@ -2,7 +2,6 @@ package com.blankj.utilcode.utils;
 
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -36,8 +35,7 @@ public class AppUtils {
      * @return {@code true}: 已安装<br>{@code false}: 未安装
      */
     public static boolean isInstallApp(Context context, String packageName) {
-        return !StringUtils.isSpace(packageName)
-                && context.getPackageManager().getLaunchIntentForPackage(packageName) != null;
+        return !StringUtils.isSpace(packageName) && IntentUtils.getLaunchAppIntent(context, packageName) != null;
     }
 
     /**
@@ -335,21 +333,21 @@ public class AppUtils {
     }
 
     /**
-     * 判断是否是系统App
+     * 判断App是否是系统应用
      *
      * @param context 上下文
-     * @return {@code true}: 是<br>{@code false}: 不是
+     * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isSystemApp(Context context) {
         return isSystemApp(context, context.getPackageName());
     }
 
     /**
-     * 判断是否是系统App
+     * 判断App是否是系统应用
      *
      * @param context     上下文
      * @param packageName 包名
-     * @return {@code true}: 是<br>{@code false}: 不是
+     * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isSystemApp(Context context, String packageName) {
         if (StringUtils.isSpace(packageName)) return false;
@@ -361,6 +359,33 @@ public class AppUtils {
             e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * 判断App是否处于前台
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.GET_TASKS"/>}</p>
+     * <p>并且必须是系统应用该方法才有效</p>
+     *
+     * @param context 上下文
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean isAppForeground(Context context) {
+        return isAppForeground(context, context.getPackageName());
+    }
+
+    /**
+     * 判断App是否处于前台
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.GET_TASKS"/>}</p>
+     * <p>并且必须是系统应用该方法才有效</p>
+     *
+     * @param context 上下文
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean isAppForeground(Context context, String packageName) {
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        @SuppressWarnings("deprecation")
+        List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
+        return !tasks.isEmpty() && tasks.get(0).topActivity.getPackageName().equals(packageName);
     }
 
     /**
@@ -521,7 +546,7 @@ public class AppUtils {
      * @param context 上下文
      * @return 所有已安装的AppInfo列表
      */
-    public static List<AppInfo> getAllAppsInfo(Context context) {
+    public static List<AppInfo> getAppsInfo(Context context) {
         List<AppInfo> list = new ArrayList<>();
         PackageManager pm = context.getPackageManager();
         // 获取系统中安装的所有软件信息
@@ -535,23 +560,35 @@ public class AppUtils {
     }
 
     /**
-     * 判断当前App处于前台还是后台
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.GET_TASKS"/>}</p>
-     * <p>并且必须是系统应用该方法才有效</p>
+     * 清除App所有数据
+     *
+     * @param context  上下文
+     * @param dirPaths 目录路径
+     */
+    public static boolean cleanAppData(Context context, String... dirPaths) {
+        File[] dirs = new File[dirPaths.length];
+        int i = 0;
+        for (String dirPath : dirPaths) {
+            dirs[i++] = new File(dirPath);
+        }
+        return cleanAppData(context, dirs);
+    }
+
+    /**
+     * 清除App所有数据
      *
      * @param context 上下文
-     * @return {@code true}: 后台<br>{@code false}: 前台
+     * @param dirs    目录
      */
-    public static boolean isAppBackground(Context context) {
-        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        @SuppressWarnings("deprecation")
-        List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
-        if (!tasks.isEmpty()) {
-            ComponentName topActivity = tasks.get(0).topActivity;
-            if (!topActivity.getPackageName().equals(context.getPackageName())) {
-                return true;
-            }
+    public static boolean cleanAppData(Context context, File... dirs) {
+        boolean isSuccess = CleanUtils.cleanInternalCache(context);
+        isSuccess &= CleanUtils.cleanInternalDbs(context);
+        isSuccess &= CleanUtils.cleanInternalSP(context);
+        isSuccess &= CleanUtils.cleanInternalFiles(context);
+        isSuccess &= CleanUtils.cleanExternalCache(context);
+        for (File dir : dirs) {
+            isSuccess &= CleanUtils.cleanCustomCache(dir);
         }
-        return false;
+        return isSuccess;
     }
 }

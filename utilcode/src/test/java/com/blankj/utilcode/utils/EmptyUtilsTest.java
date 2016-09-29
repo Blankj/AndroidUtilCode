@@ -22,11 +22,11 @@ import static com.google.common.truth.Truth.assertThat;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/9/28
- *     desc  :
+ *     desc  : EmptyUtils单元测试
  * </pre>
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE , sdk = 21)
+@Config(manifest = Config.NONE , sdk = 23)
 public class EmptyUtilsTest {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
@@ -42,6 +42,7 @@ public class EmptyUtilsTest {
         SparseBooleanArray sba = new SparseBooleanArray();
         SparseIntArray sia = new SparseIntArray();
         SparseLongArray sla = new SparseLongArray();
+
         assertThat(EmptyUtils.isEmpty(string)).isTrue();
         assertThat(EmptyUtils.isEmpty(string1)).isFalse();
         assertThat(EmptyUtils.isEmpty(arr)).isTrue();
@@ -52,5 +53,16 @@ public class EmptyUtilsTest {
         assertThat(EmptyUtils.isEmpty(sba)).isTrue();
         assertThat(EmptyUtils.isEmpty(sia)).isTrue();
         assertThat(EmptyUtils.isEmpty(sla)).isTrue();
+
+        assertThat(!EmptyUtils.isNotEmpty(string)).isTrue();
+        assertThat(!EmptyUtils.isNotEmpty(string1)).isFalse();
+        assertThat(!EmptyUtils.isNotEmpty(arr)).isTrue();
+        assertThat(!EmptyUtils.isNotEmpty(arr1)).isTrue();
+        assertThat(!EmptyUtils.isNotEmpty(list)).isTrue();
+        assertThat(!EmptyUtils.isNotEmpty(map)).isTrue();
+        assertThat(!EmptyUtils.isNotEmpty(sa)).isTrue();
+        assertThat(!EmptyUtils.isNotEmpty(sba)).isTrue();
+        assertThat(!EmptyUtils.isNotEmpty(sia)).isTrue();
+        assertThat(!EmptyUtils.isNotEmpty(sla)).isTrue();
     }
 }
