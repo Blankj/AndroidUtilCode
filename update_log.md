@@ -1,4 +1,5 @@
 ###
+#### 16/09/30 完善CraseUtil
 #### 16/09/29 CleanUtils测试完毕
 #### 16/09/28 新增EmptyUtils，完善AppUtils完毕
 #### 16/09/27 新增CleanUtils，完善AppUtils
