@@ -1,4 +1,7 @@
 ###
+#### 16/10/04 更新Readme
+#### 16/10/03 修复ConvertUtils
+#### 16/10/02 CrashUtils完善完毕
 #### 16/10/01 Happy National Day!
 #### 16/09/30 完善CrashUtils
 #### 16/09/29 CleanUtils测试完毕
