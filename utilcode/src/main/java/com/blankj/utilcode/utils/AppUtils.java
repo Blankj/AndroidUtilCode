@@ -9,7 +9,11 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +59,7 @@ public class AppUtils {
      * @param file    文件
      */
     public static void installApp(Context context, File file) {
-        if (file == null) return;
+        if (!FileUtils.isFileExists(file)) return;
         context.startActivity(IntentUtils.getInstallAppIntent(file));
     }
 
@@ -78,8 +82,24 @@ public class AppUtils {
      * @param requestCode 请求值
      */
     public static void installApp(Activity activity, File file, int requestCode) {
-        if (file == null) return;
+        if (!FileUtils.isFileExists(file)) return;
         activity.startActivityForResult(IntentUtils.getInstallAppIntent(file), requestCode);
+    }
+
+    /**
+     * 静默安装App
+     * <p>非root需添加权限 {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
+     *
+     * @param context  上下文
+     * @param filePath 文件路径
+     * @return {@code true}: 安装成功<br>{@code false}: 安装失败
+     */
+    public static boolean installAppSilent(Context context, String filePath) {
+        File file = FileUtils.getFileByPath(filePath);
+        if (!FileUtils.isFileExists(file)) return false;
+        String command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib pm install " + filePath;
+        ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, !isSystemApp(context), true);
+        return commandResult.successMsg != null && commandResult.successMsg.toLowerCase().contains("success");
     }
 
     /**
@@ -103,6 +123,22 @@ public class AppUtils {
     public static void uninstallApp(Activity activity, String packageName, int requestCode) {
         if (StringUtils.isSpace(packageName)) return;
         activity.startActivityForResult(IntentUtils.getUninstallAppIntent(packageName), requestCode);
+    }
+
+    /**
+     * 静默卸载App
+     * <p>非root需添加权限 {@code <uses-permission android:name="android.permission.DELETE_PACKAGES" />}</p>
+     *
+     * @param context     上下文
+     * @param packageName 包名
+     * @param isKeepData  是否保留数据
+     * @return {@code true}: 卸载成功<br>{@code false}: 卸载成功
+     */
+    public static boolean uninstallAppSilent(Context context, String packageName, boolean isKeepData) {
+        if (StringUtils.isSpace(packageName)) return false;
+        String command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib pm uninstall " + (isKeepData ? "-k " : "") + packageName;
+        ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, !isSystemApp(context), true);
+        return commandResult.successMsg != null && commandResult.successMsg.toLowerCase().contains("success");
     }
 
     /**
@@ -385,7 +421,8 @@ public class AppUtils {
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         @SuppressWarnings("deprecation")
         List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
-        return !tasks.isEmpty() && tasks.get(0).topActivity.getPackageName().equals(packageName);
+        return tasks != null && !tasks.isEmpty()
+                && tasks.get(0).topActivity.getPackageName().equals(packageName);
     }
 
     /**

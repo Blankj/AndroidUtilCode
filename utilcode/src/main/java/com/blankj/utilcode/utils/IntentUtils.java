@@ -168,6 +168,17 @@ public class IntentUtils {
     }
 
     /**
+     * 获取关机的意图
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.SHUTDOWN"/>}</p>
+     *
+     * @return intent
+     */
+    public static Intent getShutdownIntnet() {
+        Intent intent = new Intent(Intent.ACTION_SHUTDOWN);
+        return intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    }
+
+    /**
      * 获取拍照的意图
      *
      * @param outUri 输出的uri
@@ -178,25 +189,25 @@ public class IntentUtils {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outUri);
         return intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
     }
-
-    /**
+/*
+    *//**
      * 获取选择照片的Intent
      *
      * @return
-     */
+     *//*
     public static Intent getPickIntentWithGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK);
-        return intent.setType("image/*");
+        return intent.setType("image*//*");
     }
 
-    /**
+    *//**
      * 获取从文件中选择照片的Intent
      *
      * @return
-     */
+     *//*
     public static Intent getPickIntentWithDocuments() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        return intent.setType("image/*");
+        return intent.setType("image*//*");
     }
 
 
@@ -213,7 +224,7 @@ public class IntentUtils {
             intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
         }
-        intent.setType("image/*");
+        intent.setType("image*//*");
         intent.putExtra("output", saveTo);
         intent.putExtra("aspectX", aspectX);
         intent.putExtra("aspectY", aspectY);
@@ -232,7 +243,7 @@ public class IntentUtils {
     public static Intent buildImageCropIntent(Uri uriFrom, Uri uriTo, int aspectX, int aspectY,
                                               int outputX, int outputY, boolean returnData) {
         Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uriFrom, "image/*");
+        intent.setDataAndType(uriFrom, "image*//*");
         intent.putExtra("crop", "true");
         intent.putExtra("output", uriTo);
         intent.putExtra("aspectX", aspectX);
@@ -249,5 +260,5 @@ public class IntentUtils {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         return intent;
-    }
+    }*/
 }
