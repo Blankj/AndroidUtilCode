@@ -273,8 +273,6 @@ public class LogUtils {
                 Log.d(tag, msg, tr);
             } else if ('i' == type && ('d' == logFilter || 'v' == logFilter)) {
                 Log.i(tag, msg, tr);
-            } else {
-                Log.v(tag, msg, tr);
             }
             if (log2FileSwitch) {
                 log2File(type, tag, msg + '\n' + Log.getStackTraceString(tr));
