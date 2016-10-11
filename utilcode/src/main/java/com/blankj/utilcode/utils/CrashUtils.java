@@ -1,23 +1,16 @@
 package com.blankj.utilcode.utils;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
-import android.util.Log;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.lang.Thread.UncaughtExceptionHandler;
-import java.nio.channels.NonWritableChannelException;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * <pre>
@@ -34,12 +27,12 @@ public class CrashUtils implements Thread.UncaughtExceptionHandler {
     private UncaughtExceptionHandler mHandler;
     private boolean mInitialized;
 
-    private CrashUtils(){
-
+    private CrashUtils() {
     }
 
     /**
      * 获取单例
+     * <p>在Application中初始化{@code CrashUtils.getInstance().getBuilder(this);}</p>
      *
      * @return 单例
      */
@@ -88,7 +81,7 @@ public class CrashUtils implements Thread.UncaughtExceptionHandler {
                 cause = cause.getCause();
             }
         } finally {
-            FileUtils.closeIO(pw);
+            CloseUtils.closeIO(pw);
         }
         sb.append(writer.toString());
         FileUtils.writeFileFromString(fullPath, sb.toString(), false);
@@ -102,7 +95,7 @@ public class CrashUtils implements Thread.UncaughtExceptionHandler {
      *
      * @return 崩溃头
      */
-    public StringBuilder getCrashHead() {
+    private StringBuilder getCrashHead() {
         StringBuilder sb = new StringBuilder();
         try {
             PackageInfo pi = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);

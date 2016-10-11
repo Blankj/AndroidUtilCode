@@ -1,5 +1,6 @@
 package com.blankj.utilcode.utils;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -53,6 +54,7 @@ public class PhoneUtils {
      * @param context 上下文
      * @return IMIE码
      */
+    @SuppressLint("HardwareIds")
     public static String getIMEI(Context context) {
         return ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
     }
@@ -63,6 +65,7 @@ public class PhoneUtils {
      * @param context 上下文
      * @return IMSI码
      */
+    @SuppressLint("HardwareIds")
     public static String getIMSI(Context context) {
         return ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getSubscriberId();
     }

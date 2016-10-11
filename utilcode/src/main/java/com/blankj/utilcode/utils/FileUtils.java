@@ -3,7 +3,7 @@ package com.blankj.utilcode.utils;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.Closeable;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -723,7 +723,7 @@ public class FileUtils {
             e.printStackTrace();
             return false;
         } finally {
-            closeIO(is, os);
+            CloseUtils.closeIO(is, os);
         }
     }
 
@@ -750,16 +750,16 @@ public class FileUtils {
     public static boolean writeFileFromString(File file, String content, boolean append) {
         if (file == null || content == null) return false;
         if (!createOrExistsFile(file)) return false;
-        FileWriter fileWriter = null;
+        BufferedWriter bw = null;
         try {
-            fileWriter = new FileWriter(file, append);
-            fileWriter.write(content);
+            bw = new BufferedWriter(new FileWriter(file, append));
+            bw.write(content);
             return true;
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         } finally {
-            closeIO(fileWriter);
+            CloseUtils.closeIO(bw);
         }
     }
 
@@ -831,7 +831,7 @@ public class FileUtils {
             e.printStackTrace();
             return null;
         } finally {
-            closeIO(reader);
+            CloseUtils.closeIO(reader);
         }
     }
 
@@ -873,7 +873,7 @@ public class FileUtils {
             e.printStackTrace();
             return null;
         } finally {
-            closeIO(reader);
+            CloseUtils.closeIO(reader);
         }
     }
 
@@ -928,7 +928,7 @@ public class FileUtils {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            closeIO(is);
+            CloseUtils.closeIO(is);
         }
         switch (p) {
             case 0xefbb:
@@ -973,7 +973,7 @@ public class FileUtils {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            closeIO(is);
+            CloseUtils.closeIO(is);
         }
         return count;
     }
@@ -990,7 +990,6 @@ public class FileUtils {
 
     /**
      * 获取文件大小
-     * <p>例如：getFileSize(file, ConstUtils.MB); 返回文件大小单位为MB</p>
      *
      * @param file 文件
      * @return 文件大小
@@ -1018,24 +1017,6 @@ public class FileUtils {
      */
     public static String getFileMD5(File file) {
         return EncryptUtils.encryptMD5File2String(file);
-    }
-
-    /**
-     * 关闭IO
-     *
-     * @param closeables closeable
-     */
-    public static void closeIO(Closeable... closeables) {
-        if (closeables == null) return;
-        try {
-            for (Closeable closeable : closeables) {
-                if (closeable != null) {
-                    closeable.close();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**

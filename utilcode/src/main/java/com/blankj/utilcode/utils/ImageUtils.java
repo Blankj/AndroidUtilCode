@@ -163,7 +163,7 @@ public class ImageUtils {
             e.printStackTrace();
             return null;
         } finally {
-            FileUtils.closeIO(is);
+            CloseUtils.closeIO(is);
         }
     }
 
@@ -190,7 +190,7 @@ public class ImageUtils {
             e.printStackTrace();
             return null;
         } finally {
-            FileUtils.closeIO(is);
+            CloseUtils.closeIO(is);
         }
     }
 
@@ -1214,7 +1214,7 @@ public class ImageUtils {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            FileUtils.closeIO(os);
+            CloseUtils.closeIO(os);
         }
         return ret;
     }
@@ -1268,7 +1268,7 @@ public class ImageUtils {
             e.printStackTrace();
             return null;
         } finally {
-            FileUtils.closeIO(is);
+            CloseUtils.closeIO(is);
         }
     }
 

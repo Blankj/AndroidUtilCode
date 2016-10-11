@@ -9,6 +9,9 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.io.File;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.regex.Pattern;
 
 import static com.blankj.utilcode.utils.TimeUtils.milliseconds2String;
 import static com.google.common.truth.Truth.assertThat;
@@ -36,6 +39,7 @@ public class TestUtils {
 
     @Test
     public void test() throws Exception {
-
+        byte[] bytes = new byte[0];
+        System.out.println(bytes.length);
     }
 }

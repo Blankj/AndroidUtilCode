@@ -17,7 +17,7 @@ import java.io.File;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/9/23
- *     desc  : Intent相关工具类
+ *     desc  : 意图相关工具类
  * </pre>
  */
 public class IntentUtils {

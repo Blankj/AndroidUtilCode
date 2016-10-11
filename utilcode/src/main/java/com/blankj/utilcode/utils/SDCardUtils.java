@@ -82,7 +82,7 @@ public class SDCardUtils {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            FileUtils.closeIO(bufferedReader);
+            CloseUtils.closeIO(bufferedReader);
         }
         return Environment.getExternalStorageDirectory().getPath() + File.separator;
     }

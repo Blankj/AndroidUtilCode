@@ -44,12 +44,15 @@ public class ConvertUtils {
      * <p>例如：</p>
      * bytes2HexString(new byte[] { 0, (byte) 0xa8 }) returns 00A8
      *
-     * @param bytes byte数组
+     * @param bytes 字节数组
      * @return 16进制大写字符串
      */
     public static String bytes2HexString(byte[] bytes) {
-        char[] ret = new char[bytes.length << 1];
-        for (int i = 0, j = 0; i < bytes.length; i++) {
+        if (bytes == null) return null;
+        int len = bytes.length;
+        if (len <= 0) return null;
+        char[] ret = new char[len << 1];
+        for (int i = 0, j = 0; i < len; i++) {
             ret[j++] = hexDigits[bytes[i] >>> 4 & 0x0f];
             ret[j++] = hexDigits[bytes[i] & 0x0f];
         }
@@ -65,8 +68,9 @@ public class ConvertUtils {
      * @return 字节数组
      */
     public static byte[] hexString2Bytes(String hexString) {
+        if (StringUtils.isSpace(hexString)) return null;
         int len = hexString.length();
-        if(len % 2 !=0){
+        if (len % 2 != 0) {
             hexString = "0" + hexString;
             len = len + 1;
         }
@@ -101,6 +105,7 @@ public class ConvertUtils {
      * @return 字节数组
      */
     public static byte[] chars2Bytes(char[] chars) {
+        if (chars == null || chars.length <= 0) return null;
         int len = chars.length;
         byte[] bytes = new byte[len];
         for (int i = 0; i < len; i++) {
@@ -116,7 +121,9 @@ public class ConvertUtils {
      * @return 字符数组
      */
     public static char[] bytes2Chars(byte[] bytes) {
+        if (bytes == null) return null;
         int len = bytes.length;
+        if (len <= 0) return null;
         char[] chars = new char[len];
         for (int i = 0; i < len; i++) {
             chars[i] = (char) (bytes[i] & 0xff);
@@ -200,6 +207,48 @@ public class ConvertUtils {
     }
 
     /**
+     * bytes转bits
+     *
+     * @param bytes 字节数组
+     * @return bits
+     */
+    public static String bytes2Bits(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+        for (byte aByte : bytes) {
+            for (int j = 7; j >= 0; --j) {
+                sb.append(((aByte >> j) & 0x01) == 0 ? '0' : '1');
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * bits转bytes
+     *
+     * @param bits 二进制
+     * @return bytes
+     */
+    public static byte[] bits2Bytes(String bits) {
+        int lenMod = bits.length() % 8;
+        int byteLen = bits.length() / 8;
+        // 不是8的倍数前面补0
+        if (lenMod != 0) {
+            for (int i = lenMod; i < 8; i++) {
+                bits = "0" + bits;
+            }
+            byteLen++;
+        }
+        byte[] bytes = new byte[byteLen];
+        for (int i = 0; i < byteLen; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                bytes[i] <<= 1;
+                bytes[i] |= bits.charAt(i * 8 + j) - '0';
+            }
+        }
+        return bytes;
+    }
+
+    /**
      * inputStream转outputStream
      *
      * @param is 输入流
@@ -219,7 +268,7 @@ public class ConvertUtils {
             e.printStackTrace();
             return null;
         } finally {
-            FileUtils.closeIO(is);
+            CloseUtils.closeIO(is);
         }
     }
 
@@ -241,6 +290,7 @@ public class ConvertUtils {
      * @return 字节数组
      */
     public static byte[] inputStream2Bytes(InputStream is) {
+        if (is == null) return null;
         return input2OutputStream(is).toByteArray();
     }
 
@@ -251,6 +301,7 @@ public class ConvertUtils {
      * @return 输入流
      */
     public static InputStream bytes2InputStream(byte[] bytes) {
+        if (bytes == null || bytes.length <= 0) return null;
         return new ByteArrayInputStream(bytes);
     }
 
@@ -272,6 +323,7 @@ public class ConvertUtils {
      * @return 字节数组
      */
     public static OutputStream bytes2OutputStream(byte[] bytes) {
+        if (bytes == null || bytes.length <= 0) return null;
         ByteArrayOutputStream os = null;
         try {
             os = new ByteArrayOutputStream();
@@ -281,7 +333,7 @@ public class ConvertUtils {
             e.printStackTrace();
             return null;
         } finally {
-            FileUtils.closeIO(os);
+            CloseUtils.closeIO(os);
         }
     }
 
@@ -327,7 +379,7 @@ public class ConvertUtils {
      * @return 字符串
      */
     public static String outputStream2String(OutputStream out, String charsetName) {
-        if (out == null) return null;
+        if (out == null || StringUtils.isSpace(charsetName)) return null;
         try {
             return new String(outputStream2Bytes(out), charsetName);
         } catch (UnsupportedEncodingException e) {
@@ -406,7 +458,7 @@ public class ConvertUtils {
      * @return 字节数组
      */
     public static byte[] drawable2Bytes(Drawable drawable, Bitmap.CompressFormat format) {
-        return bitmap2Bytes(drawable2Bitmap(drawable), format);
+        return drawable == null ? null : bitmap2Bytes(drawable2Bitmap(drawable), format);
     }
 
     /**
@@ -417,7 +469,7 @@ public class ConvertUtils {
      * @return drawable
      */
     public static Drawable bytes2Drawable(Resources res, byte[] bytes) {
-        return bitmap2Drawable(res, bytes2Bitmap(bytes));
+        return res == null ? null : bitmap2Drawable(res, bytes2Bitmap(bytes));
     }
 
     /**
@@ -433,7 +485,7 @@ public class ConvertUtils {
         Drawable bgDrawable = view.getBackground();
         if (bgDrawable != null) {
             bgDrawable.draw(canvas);
-        }else {
+        } else {
             canvas.drawColor(Color.WHITE);
         }
         view.draw(canvas);

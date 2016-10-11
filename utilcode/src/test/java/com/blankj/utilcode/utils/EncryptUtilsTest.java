@@ -21,7 +21,7 @@ import static com.google.common.truth.Truth.assertThat;
  * </pre>
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE)
+@Config(manifest = Config.NONE ,sdk = 23)
 public class EncryptUtilsTest {
 
     String blankjMD2 = "15435017570D8A73449E25C4622E17A4";
@@ -82,6 +82,60 @@ public class EncryptUtilsTest {
         assertThat(encryptSHA512ToString("blankj".getBytes())).isEqualTo(blankjSHA512);
         assertThat(encryptSHA512("blankj".getBytes())).isEqualTo(hexString2Bytes(blankjSHA512));
     }
+
+    //use this site to test https://www.freeformatter.com/hmac-generator.html
+    String blankjHmacMD5 = "2BA3FDABEE222522044BEC0CE5D6B490";
+    String blankjHmacSHA1 = "88E83EFD915496860C83739BE2CF4752B2AC105F";
+    String blankjHmacSHA224 = "E392D83D1030323FB2E062E8165A3AD38366E53DF19EA3290961E153";
+    String blankjHmacSHA256 = "A59675F13FC9A6E06D8DC90D4DC01DB9C991B0B95749D2471E588BF311DA2C67";
+    String blankjHmacSHA384 =
+            "9FC2F49C7EDE698EA59645B3BEFBBE67DCC7D6623E03D4D03CDA1324F7B6445BC428AB42F6A962CF79AFAD1302C3223D";
+    String blankjHmacSHA512 =
+            "FC55AD54B95F55A8E32EA1BAD7748C157F80679F5561EC95A3EAD975316BA85363CB4AF6462D695F742F469EDC2D577272BE359A7F9E9C7018FDF4C921E1B3CF";
+    String blankjHmackey = "blankj";
+
+    @Test
+    public void testEncryptHmacMD5() throws Exception {
+        assertThat(encryptHmacMD5ToString("blankj", blankjHmackey)).isEqualTo(blankjHmacMD5);
+        assertThat(encryptHmacMD5ToString("blankj".getBytes(), blankjHmackey.getBytes())).isEqualTo(blankjHmacMD5);
+        assertThat(encryptHmacMD5("blankj".getBytes(), blankjHmackey.getBytes())).isEqualTo(hexString2Bytes(blankjHmacMD5));
+    }
+
+    @Test
+    public void testEncryptHmacSHA1() throws Exception {
+        assertThat(encryptHmacSHA1ToString("blankj", blankjHmackey)).isEqualTo(blankjHmacSHA1);
+        assertThat(encryptHmacSHA1ToString("blankj".getBytes(), blankjHmackey.getBytes())).isEqualTo(blankjHmacSHA1);
+        assertThat(encryptHmacSHA1("blankj".getBytes(), blankjHmackey.getBytes())).isEqualTo(hexString2Bytes(blankjHmacSHA1));
+    }
+
+    @Test
+    public void testEncryptHmacSHA224() throws Exception {
+        assertThat(encryptHmacSHA224ToString("blankj", blankjHmackey)).isEqualTo(blankjHmacSHA224);
+        assertThat(encryptHmacSHA224ToString("blankj".getBytes(), blankjHmackey.getBytes())).isEqualTo(blankjHmacSHA224);
+        assertThat(encryptHmacSHA224("blankj".getBytes(), blankjHmackey.getBytes())).isEqualTo(hexString2Bytes(blankjHmacSHA224));
+    }
+
+    @Test
+    public void testEncryptHmacSHA256() throws Exception {
+        assertThat(encryptHmacSHA256ToString("blankj", blankjHmackey)).isEqualTo(blankjHmacSHA256);
+        assertThat(encryptHmacSHA256ToString("blankj".getBytes(), blankjHmackey.getBytes())).isEqualTo(blankjHmacSHA256);
+        assertThat(encryptHmacSHA256("blankj".getBytes(), blankjHmackey.getBytes())).isEqualTo(hexString2Bytes(blankjHmacSHA256));
+    }
+
+    @Test
+    public void testEncryptHmacSHA384() throws Exception {
+        assertThat(encryptHmacSHA384ToString("blankj", blankjHmackey)).isEqualTo(blankjHmacSHA384);
+        assertThat(encryptHmacSHA384ToString("blankj".getBytes(), blankjHmackey.getBytes())).isEqualTo(blankjHmacSHA384);
+        assertThat(encryptHmacSHA384("blankj".getBytes(), blankjHmackey.getBytes())).isEqualTo(hexString2Bytes(blankjHmacSHA384));
+    }
+
+    @Test
+    public void testEncryptHmacSHA512() throws Exception {
+        assertThat(encryptHmacSHA512ToString("blankj", blankjHmackey)).isEqualTo(blankjHmacSHA512);
+        assertThat(encryptHmacSHA512ToString("blankj".getBytes(), blankjHmackey.getBytes())).isEqualTo(blankjHmacSHA512);
+        assertThat(encryptHmacSHA512("blankj".getBytes(), blankjHmackey.getBytes())).isEqualTo(hexString2Bytes(blankjHmacSHA512));
+    }
+
 
     String dataDES = "0008DB3345AB0223";
     String keyDES = "6801020304050607";

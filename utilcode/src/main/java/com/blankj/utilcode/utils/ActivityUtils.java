@@ -1,8 +1,11 @@
 package com.blankj.utilcode.utils;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import java.util.List;
 
 /**
  * <pre>

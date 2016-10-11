@@ -5,7 +5,6 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.provider.Settings;
-import android.telephony.TelephonyManager;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,15 +25,24 @@ public class DeviceUtils {
     }
 
     /**
-     * 获取系统版本号
+     * 判断设备是否root
+     *
+     * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static int getSDK() {
+    public static boolean isRoot() {
+        return ShellUtils.execCmd("echo root", true, false).result == 0;
+    }
+
+    /**
+     * 获取设备系统版本号
+     */
+    public static int getSDKVersion() {
         return android.os.Build.VERSION.SDK_INT;
     }
 
 
     /**
-     * 获取AndroidID
+     * 获取设备AndroidID
      *
      * @param context 上下文
      * @return AndroidID
@@ -81,7 +89,7 @@ public class DeviceUtils {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            FileUtils.closeIO(lnr, isr);
+            CloseUtils.closeIO(lnr, isr);
         }
         return macAddress == null ? "" : macAddress;
     }

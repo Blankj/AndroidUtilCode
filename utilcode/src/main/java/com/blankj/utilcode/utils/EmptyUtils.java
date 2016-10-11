@@ -33,21 +33,29 @@ public class EmptyUtils {
     public static boolean isEmpty(Object obj) {
         if (obj == null) {
             return true;
-        } else if (obj instanceof String && obj.toString().length() == 0) {
+        }
+        if (obj instanceof String && obj.toString().length() == 0) {
             return true;
-        } else if (obj.getClass().isArray() && Array.getLength(obj) == 0) {
+        }
+        if (obj.getClass().isArray() && Array.getLength(obj) == 0) {
             return true;
-        } else if (obj instanceof Collection && ((Collection) obj).isEmpty()) {
+        }
+        if (obj instanceof Collection && ((Collection) obj).isEmpty()) {
             return true;
-        } else if (obj instanceof Map && ((Map) obj).isEmpty()) {
+        }
+        if (obj instanceof Map && ((Map) obj).isEmpty()) {
             return true;
-        } else if (obj instanceof SparseArray && ((SparseArray) obj).size() == 0) {
+        }
+        if (obj instanceof SparseArray && ((SparseArray) obj).size() == 0) {
             return true;
-        } else if (obj instanceof SparseBooleanArray && ((SparseBooleanArray) obj).size() == 0) {
+        }
+        if (obj instanceof SparseBooleanArray && ((SparseBooleanArray) obj).size() == 0) {
             return true;
-        } else if (obj instanceof SparseIntArray && ((SparseIntArray) obj).size() == 0) {
+        }
+        if (obj instanceof SparseIntArray && ((SparseIntArray) obj).size() == 0) {
             return true;
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             if (obj instanceof SparseLongArray && ((SparseLongArray) obj).size() == 0) {
                 return true;
             }
@@ -57,33 +65,11 @@ public class EmptyUtils {
 
     /**
      * 判断对象是否非空
-     * <p>不要问我为什么不直接调用{@code !isEmpty(obj);}</p>
      *
      * @param obj 对象
      * @return {@code true}: 非空<br>{@code false}: 空
      */
     public static boolean isNotEmpty(Object obj) {
-        if (obj == null) {
-            return false;
-        } else if (obj instanceof String && obj.toString().length() == 0) {
-            return false;
-        } else if (obj.getClass().isArray() && Array.getLength(obj) == 0) {
-            return false;
-        } else if (obj instanceof Collection && ((Collection) obj).isEmpty()) {
-            return false;
-        } else if (obj instanceof Map && ((Map) obj).isEmpty()) {
-            return false;
-        } else if (obj instanceof SparseArray && ((SparseArray) obj).size() == 0) {
-            return false;
-        } else if (obj instanceof SparseBooleanArray && ((SparseBooleanArray) obj).size() == 0) {
-            return false;
-        } else if (obj instanceof SparseIntArray && ((SparseIntArray) obj).size() == 0) {
-            return false;
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            if (obj instanceof SparseLongArray && ((SparseLongArray) obj).size() == 0) {
-                return false;
-            }
-        }
-        return true;
+        return !isEmpty(obj);
     }
 }

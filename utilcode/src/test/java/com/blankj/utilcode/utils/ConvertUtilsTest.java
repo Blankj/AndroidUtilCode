@@ -54,6 +54,16 @@ public class ConvertUtilsTest {
     }
 
     @Test
+    public void testBytes2Bits() throws Exception {
+        System.out.println(bytes2Bits(new byte[]{0x7F, (byte) 0xFA}));
+    }
+
+    @Test
+    public void testBits2Bytes() throws Exception {
+        System.out.println(bytes2HexString(bits2Bytes("111111111111010")));
+    }
+
+    @Test
     public void testInputStream2BytesAndBytes2InputStream() throws Exception {
         String string = "this is test string";
         assertThat(new String(inputStream2Bytes(

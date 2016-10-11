@@ -15,7 +15,7 @@ import java.util.List;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/8/2
- *     desc  : 服务工具类
+ *     desc  : 服务相关工具类
  * </pre>
  */
 public class ServiceUtils {
@@ -32,17 +32,11 @@ public class ServiceUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isRunningService(Context context, String className) {
-        // 进程的管理者,活动的管理者
-        ActivityManager activityManager = (ActivityManager)
-                context.getSystemService(Context.ACTIVITY_SERVICE);
-        // 获取正在运行的服务，最多获取1000个
-        List<RunningServiceInfo> runningServices = activityManager.getRunningServices(1000);
-        // 遍历集合
-        for (RunningServiceInfo runningServiceInfo : runningServices) {
-            ComponentName service = runningServiceInfo.service;
-            if (className.equals(service.getClassName())) {
-                return true;
-            }
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<RunningServiceInfo> infoList = activityManager.getRunningServices(0x7FFFFFFF);
+        if (infoList == null || infoList.size() == 0) return false;
+        for (RunningServiceInfo info : infoList) {
+            if (className.equals(info.service.getClassName())) return true;
         }
         return false;
     }

@@ -21,12 +21,18 @@ public class ToastUtils {
 
     private static Toast sToast;
     private static Handler sHandler = new Handler(Looper.getMainLooper());
+    private static boolean sIsCancel;
+
     /**
-     * <p>当连续弹出吐司时，是要弹出新吐司还是只修改文本内容</p>
-     * <p>{@code true}: 弹出新吐司<br>{@code false}: 只修改文本内容</p>
-     * <p>如果为{@code false}的话可用来做显示任意时长的吐司</p>
+     * 吐司初始化
+     *
+     * @param isCancel 当连续弹出吐司时，是要弹出新吐司还是只修改文本内容
+     *                 <p>{@code true}: 弹出新吐司<br>{@code false}: 只修改文本内容</p>
+     *                 <p>如果为{@code false}的话可用来做显示任意时长的吐司</p>
      */
-    public static boolean sIsCancel;
+    public static void init(boolean isCancel) {
+        sIsCancel = isCancel;
+    }
 
     /**
      * 安全地显示短时吐司
