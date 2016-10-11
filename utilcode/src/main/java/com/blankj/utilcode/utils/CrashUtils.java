@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.lang.ref.WeakReference;
 
 /**
  * <pre>
@@ -23,16 +24,18 @@ import java.lang.Thread.UncaughtExceptionHandler;
 public class CrashUtils implements Thread.UncaughtExceptionHandler {
 
     private volatile static CrashUtils mInstance;
-    private Context mContext;
     private UncaughtExceptionHandler mHandler;
     private boolean mInitialized;
+    private static String dir;
+    private String versionName;
+    private int versionCode;
 
     private CrashUtils() {
     }
 
     /**
      * 获取单例
-     * <p>在Application中初始化{@code CrashUtils.getInstance().getBuilder(this);}</p>
+     * <p>在Application中初始化{@code CrashUtils.getInstance().init(this);}</p>
      *
      * @return 单例
      */
@@ -50,22 +53,28 @@ public class CrashUtils implements Thread.UncaughtExceptionHandler {
      *
      * @param context 上下文
      */
-    public void init(Context context) {
-        if (mInitialized) return;
-        mInitialized = true;
-        mContext = context;
+    public boolean init(Context context) {
+        if (mInitialized) return true;
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+            dir = context.getExternalCacheDir().getPath();
+        } else {
+            dir = context.getCacheDir().getPath();
+        }
+        try {
+            PackageInfo pi = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            versionName = pi.versionName;
+            versionCode = pi.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
         mHandler = Thread.getDefaultUncaughtExceptionHandler();
         Thread.setDefaultUncaughtExceptionHandler(this);
+        return mInitialized = true;
     }
 
     @Override
     public void uncaughtException(Thread thread, Throwable throwable) {
-        String dir;
-        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            dir = mContext.getExternalCacheDir().getPath();
-        } else {
-            dir = mContext.getCacheDir().getPath();
-        }
         String fullPath = dir + File.separator + "crash_" + TimeUtils.getCurTimeString() + ".txt";
         if (!FileUtils.createOrExistsFile(fullPath)) return;
         StringBuilder sb = new StringBuilder();
@@ -97,19 +106,14 @@ public class CrashUtils implements Thread.UncaughtExceptionHandler {
      */
     private StringBuilder getCrashHead() {
         StringBuilder sb = new StringBuilder();
-        try {
-            PackageInfo pi = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
-            sb.append("\n************* Crash Log Head ****************");
-            sb.append("\nDevice Manufacturer: ").append(Build.MANUFACTURER);// 设备厂商
-            sb.append("\nDevice Model       : ").append(Build.MODEL);// 设备型号
-            sb.append("\nAndroid Version    : ").append(Build.VERSION.RELEASE);// 系统版本
-            sb.append("\nAndroid SDK        : ").append(Build.VERSION.SDK_INT);// SDK版本
-            sb.append("\nApp VersionName    : ").append(pi.versionName);
-            sb.append("\nApp VersionCode    : ").append(pi.versionCode);
-            sb.append("\n************* Crash Log Head ****************\n\n");
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+        sb.append("\n************* Crash Log Head ****************");
+        sb.append("\nDevice Manufacturer: ").append(Build.MANUFACTURER);// 设备厂商
+        sb.append("\nDevice Model       : ").append(Build.MODEL);// 设备型号
+        sb.append("\nAndroid Version    : ").append(Build.VERSION.RELEASE);// 系统版本
+        sb.append("\nAndroid SDK        : ").append(Build.VERSION.SDK_INT);// SDK版本
+        sb.append("\nApp VersionName    : ").append(versionName);
+        sb.append("\nApp VersionCode    : ").append(versionCode);
+        sb.append("\n************* Crash Log Head ****************\n\n");
         return sb;
     }
 }
