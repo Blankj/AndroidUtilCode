@@ -2,10 +2,16 @@ package com.blankj.utilcode.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.blankj.utilcode.utils.ConstUtils.*;
+import static com.blankj.utilcode.utils.ConstUtils.DAY;
+import static com.blankj.utilcode.utils.ConstUtils.HOUR;
+import static com.blankj.utilcode.utils.ConstUtils.MIN;
+import static com.blankj.utilcode.utils.ConstUtils.MSEC;
+import static com.blankj.utilcode.utils.ConstUtils.SEC;
+import static com.blankj.utilcode.utils.ConstUtils.TimeUnit;
 
 
 /**
@@ -177,6 +183,7 @@ public class TimeUtils {
      *     yyyy-MM-dd'T'HH:mm:ss.SSSZ    2016-08-12T15:44:40.461+0800
      * EEEE 'DATE('yyyy-MM-dd')' 'TIME('HH:mm:ss')' zzzz    星期五 DATE(2016-08-12) TIME(15:44:40) 中国标准时间
      * </pre>
+     * 注意SimpleDateFormat不是线程安全的
      */
     public static final SimpleDateFormat DEFAULT_SDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
@@ -363,8 +370,8 @@ public class TimeUtils {
      * @return unit时间戳
      */
     public static long getIntervalTime(String time0, String time1, TimeUnit unit, SimpleDateFormat format) {
-        return Math.abs(milliseconds2Unit(string2Milliseconds(time0, format)
-                - string2Milliseconds(time1, format), unit));
+        return milliseconds2Unit(Math.abs(string2Milliseconds(time0, format)
+                - string2Milliseconds(time1, format)), unit);
     }
 
     /**
@@ -383,8 +390,8 @@ public class TimeUtils {
      * @return unit时间戳
      */
     public static long getIntervalTime(Date time0, Date time1, TimeUnit unit) {
-        return Math.abs(milliseconds2Unit(date2Milliseconds(time1)
-                - date2Milliseconds(time0), unit));
+        return milliseconds2Unit(Math.abs(date2Milliseconds(time1)
+                - date2Milliseconds(time0)), unit);
     }
 
     /**
@@ -490,5 +497,154 @@ public class TimeUtils {
      */
     public static boolean isLeapYear(int year) {
         return year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
+    }
+
+    /**
+     * 获取星期
+     * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
+     *
+     * @param time 时间字符串
+     * @return 星期
+     */
+    public static String getWeek(String time) {
+        return new SimpleDateFormat("EEEE", Locale.getDefault()).format(string2Date(time));
+    }
+
+    /**
+     * 获取星期
+     *
+     * @param time   时间字符串
+     * @param format 时间格式
+     * @return 星期
+     */
+    public static String getWeek(String time, SimpleDateFormat format) {
+        return new SimpleDateFormat("EEEE", Locale.getDefault()).format(string2Date(time, format));
+    }
+
+    /**
+     * 获取星期
+     *
+     * @param time Date类型时间
+     * @return 星期
+     */
+    public static String getWeek(Date time) {
+        return new SimpleDateFormat("EEEE", Locale.getDefault()).format(time);
+    }
+
+    /**
+     * 获取星期
+     * <p>注意：周日的Index才是1，周六为7</p>
+     * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
+     *
+     * @param time 时间字符串
+     * @return 1...5
+     */
+    public static int getWeekIndex(String time) {
+        Date date = string2Date(time);
+        return getWeekIndex(date);
+    }
+
+    /**
+     * 获取星期
+     * <p>注意：周日的Index才是1，周六为7</p>
+     *
+     * @param time   时间字符串
+     * @param format 时间格式
+     * @return 1...7
+     */
+    public static int getWeekIndex(String time, SimpleDateFormat format) {
+        Date date = string2Date(time, format);
+        return getWeekIndex(date);
+    }
+
+    /**
+     * 获取星期
+     * <p>注意：周日的Index才是1，周六为7</p>
+     *
+     * @param time Date类型时间
+     * @return 1...7
+     */
+    public static int getWeekIndex(Date time) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(time);
+        return cal.get(Calendar.DAY_OF_WEEK);
+    }
+
+    /**
+     * 获取月份中的第几周
+     * <p>注意：国外周日才是新的一周的开始</p>
+     * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
+     *
+     * @param time 时间字符串
+     * @return 1...5
+     */
+    public static int getWeekOfMonth(String time) {
+        Date date = string2Date(time);
+        return getWeekOfMonth(date);
+    }
+
+    /**
+     * 获取月份中的第几周
+     * <p>注意：国外周日才是新的一周的开始</p>
+     *
+     * @param time   时间字符串
+     * @param format 时间格式
+     * @return 1...5
+     */
+    public static int getWeekOfMonth(String time, SimpleDateFormat format) {
+        Date date = string2Date(time, format);
+        return getWeekOfMonth(date);
+    }
+
+    /**
+     * 获取月份中的第几周
+     * <p>注意：国外周日才是新的一周的开始</p>
+     *
+     * @param time Date类型时间
+     * @return 1...5
+     */
+    public static int getWeekOfMonth(Date time) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(time);
+        return cal.get(Calendar.WEEK_OF_MONTH);
+    }
+
+    /**
+     * 获取年份中的第几周
+     * <p>注意：国外周日才是新的一周的开始</p>
+     * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
+     *
+     * @param time 时间字符串
+     * @return 1...54
+     */
+    public static int getWeekOfYear(String time) {
+        Date date = string2Date(time);
+        return getWeekOfYear(date);
+    }
+
+    /**
+     * 获取年份中的第几周
+     * <p>注意：国外周日才是新的一周的开始</p>
+     *
+     * @param time   时间字符串
+     * @param format 时间格式
+     * @return 1...54
+     */
+    public static int getWeekOfYear(String time, SimpleDateFormat format) {
+        Date date = string2Date(time, format);
+        return getWeekOfYear(date);
+    }
+
+    /**
+     * 获取年份中的第几周
+     * <p>注意：国外周日才是新的一周的开始</p>
+     *
+     * @param time Date类型时间
+     * @return 1...54
+     */
+    public static int getWeekOfYear(Date time) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(time);
+        return cal.get(Calendar.WEEK_OF_YEAR);
     }
 }

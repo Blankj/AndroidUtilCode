@@ -23,7 +23,7 @@ import java.lang.ref.WeakReference;
  */
 public class CrashUtils implements Thread.UncaughtExceptionHandler {
 
-    private volatile static CrashUtils mInstance;
+    private static CrashUtils mInstance = new CrashUtils();
     private UncaughtExceptionHandler mHandler;
     private boolean mInitialized;
     private static String dir;
@@ -40,11 +40,6 @@ public class CrashUtils implements Thread.UncaughtExceptionHandler {
      * @return 单例
      */
     public static CrashUtils getInstance() {
-        synchronized (CrashUtils.class) {
-            if (null == mInstance) {
-                mInstance = new CrashUtils();
-            }
-        }
         return mInstance;
     }
 
@@ -52,6 +47,7 @@ public class CrashUtils implements Thread.UncaughtExceptionHandler {
      * 初始化
      *
      * @param context 上下文
+     * @return {@code true}: 成功<br>{@code false}: 失败
      */
     public boolean init(Context context) {
         if (mInitialized) return true;

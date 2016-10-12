@@ -3,6 +3,7 @@ package com.blankj.utilcode.utils;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -95,5 +96,25 @@ public class TimeUtilsTest {
         assertThat(isLeapYear(2012)).isEqualTo(true);
         assertThat(isLeapYear(2000)).isEqualTo(true);
         assertThat(isLeapYear(1900)).isEqualTo(false);
+    }
+
+    @Test
+    public void testGetWeek() throws Exception {
+        assertThat(getWeek(timeString)).isEqualTo("星期五");
+    }
+
+    @Test
+    public void testGetWeekIndex() throws Exception {
+        assertThat(getWeekIndex(timeString)).isEqualTo(6);
+    }
+
+    @Test
+    public void testGetOfMonth() throws Exception {
+        assertThat(getWeekOfMonth(timeString)).isEqualTo(2);
+    }
+
+    @Test
+    public void testGetOfYear() throws Exception {
+        assertThat(getWeekOfYear(timeString)).isEqualTo(33);
     }
 }

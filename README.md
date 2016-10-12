@@ -2,16 +2,61 @@
 **[中文版README][readme.cn]**
 ***
 Directory is shown below：  
+> - **About Activity→[ActivityUtils.java][activity.java]**
+>  - *isExistActivity*
+>  - *launchActivity*
+
 > - **About App→[AppUtils.java][app.java]**
->  - *getInstallAppIntent*
->  - *getUninstallAppIntent*
->  - *getOpenAppItent*
->  - *getAppInfoIntent*
->  - *getShareInfoIntent*
 >  - *isInstallApp*
+>  - *installApp*
+>  - *installAppSilent*
+>  - *uninstallApp*
+>  - *uninstallAppSilent*
+>  - *launchApp*
+>  - *getAppPackageName*
+>  - *getAppDetailsSettings*
+>  - *getAppName*
+>  - *getAppIcon*
+>  - *getAppPath*
+>  - *getAppVersionName*
+>  - *getAppVersionCode*
+>  - *getAppSignature*
+>  - *getAppSignatureSHA1*
+>  - *isSystemApp*
+>  - *isAppForeground*
 >  - *getAppInfo*
->  - *getAllAppsInfo*
->  - *isAppBackground*
+>  - *getAppsInfo*
+>  - *cleanAppData*
+
+> - **About Bar→[BarUtils.java][bar.java]**
+>  - *setTransparentStatusBar*
+>  - *hideStatusBar*
+>  - *getStatusBarHeight*
+>  - *isStatusBarExists*
+>  - *getActionBarHeight*
+>  - *showNotificationBar*
+>  - *hideNotificationBar*
+
+> - **About Clean→[CleanUtils.java][clean.java]**
+>  - *cleanInternalCache*
+>  - *cleanInternalFiles*
+>  - *cleanInternalDbs*
+>  - *cleanInternalDbByName*
+>  - *cleanInternalSP*
+>  - *cleanExternalCache*
+>  - *cleanCustomCache*
+
+> - **About Clipboard→[ClipboardUtils.java][clipboard.java]**
+>  - *copyText*
+>  - *getText*
+>  - *copyUri*
+>  - *getUri*
+>  - *copyIntent*
+>  - *getIntent*
+
+> - **About Close→[CloseUtils.java][close.java]**
+>  - *closeIO*
+>  - *closeIOQuietly*
 
 > - **About Const→[ConstUtils.java][const.java]**
 >  - *Memory Const*
@@ -23,6 +68,7 @@ Directory is shown below：
 >  - *chars2Bytes*、*bytes2Chars*
 >  - *byte2Size*、*size2Byte*
 >  - *byte2FitSize*
+>  - *bytes2Bits*、*bits2Bytes*
 >  - *input2OutputStream*、*output2InputStream*
 >  - *inputStream2Bytes*、*bytes2InputStream*
 >  - *outputStream2Bytes*、*bytes2OutputStream*
@@ -31,13 +77,25 @@ Directory is shown below：
 >  - *bitmap2Bytes*、*bytes2Bitmap*
 >  - *drawable2Bitmap*、*bitmap2Drawable*
 >  - *drawable2Bytes*、*bytes2Drawable*
+>  - *view2Bitmap*
 >  - *dp2px*、*px2dp*
 >  - *sp2px*、*px2sp*
 
+> - **About Crash→[CrashUtils.java][crash.java]**
+>  - *getInstance*
+>  - *init*
+
 > - **About Device→[DeviceUtils.java][device.java]**
+>  - *isRoot*
+>  - *getSDKVersion*
+>  - *getAndroidID*
 >  - *getMacAddress*
 >  - *getManufacturer*
 >  - *getModel*
+
+> - **About Empty→[EmptyUtils.java][empty.java]→[Test][empty.test]**
+>  - *isEmpty*
+>  - *isNotEmpty*
 
 > - **About Encode→[EncodeUtils.java][encode.java]→[Test][encode.test]**
 >  - *urlEncode*
@@ -51,12 +109,18 @@ Directory is shown below：
 > - **About Encrypt→[EncryptUtils.java][encrypt.java]→[Test][encrypt.test]**
 >  - *encryptMD2ToString*、*encryptMD2*
 >  - *encryptMD5ToString*、*encryptMD5*
+>  - *encryptMD5File2String*、*encryptMD5File*
 >  - *encryptSHA1ToString*、*encryptSHA1*
 >  - *encryptSHA224ToString*、*encryptSHA224*
 >  - *encryptSHA256ToString*、*encryptSHA256*
 >  - *encryptSHA384ToString*、*encryptSHA384*
 >  - *encryptSHA512ToString*、*encryptSHA512*
->  - *encryptMD5File2String*、*encryptMD5File*
+>  - *encryptHmacMD5ToString*、*encryptHmacMD5*
+>  - *encryptHmacSHA1ToString*、*encryptHmacSHA1*
+>  - *encryptHmacSHA224ToString*、*encryptHmacSHA224*
+>  - *encryptHmacSHA256ToString*、*encryptHmacSHA256*
+>  - *encryptHmacSHA384ToString*、*encryptHmacSHA384*
+>  - *encryptHmacSHA512ToString*、*encryptHmacSHA512*
 >  - *encryptDES2Base64*
 >  - *encryptDES2HexString*
 >  - *encryptDES*
@@ -105,7 +169,6 @@ Directory is shown below：
 >  - *readFile2SB*
 >  - *getFileSize*
 >  - *getFileMD5*
->  - *closeIO*
 >  - *getDirName*
 >  - *getFileName*
 >  - *getFileNameNoExtension*
@@ -139,11 +202,31 @@ Directory is shown below：
 >  - *compressByQuality*
 >  - *compressBySampleSize*
 
+> - **About Intent→[IntentUtils.java][intent.java]**
+>  - *getInstallAppIntent*
+>  - *getUninstallAppIntent*
+>  - *getLaunchAppIntent*
+>  - *getAppDetailsSettingsIntent*
+>  - *getShareTextIntent*
+>  - *getShareImageIntent*
+>  - *getComponentIntent*
+>  - *getShutdownIntnet*
+>  - *getCaptureIntent*
+
 > - **About Keyboard→[KeyboardUtils.java][keyboard.java]**
 >  - *hideSoftInput*
 >  - *clickBlankArea2HideSoftInput0*
 >  - *showSoftInput*
 >  - *toggleSoftInput*
+
+> - **About Log→[LogUtils.java][log.java]→[Test][log.test]**
+>  - *init*
+>  - *getBuilder*
+>  - *v*
+>  - *d*
+>  - *i*
+>  - *w*
+>  - *e*
 
 > - **About Network→[NetworkUtils.java][network.java]**
 >  - *openWirelessSettings*
@@ -157,7 +240,8 @@ Directory is shown below：
 
 > - **About Phone→[PhoneUtils.java][phone.java]**
 >  - *isPhone*
->  - *getPhoneIMEI*
+>  - *getIMEI*
+>  - *getIMSI*
 >  - *getPhoneStatus*
 >  - *dial*
 >  - *call*
@@ -195,9 +279,13 @@ Directory is shown below：
 
 > - **About SDCard→[SDCardUtils.java][sdcard.java]**
 >  - *isSDCardEnable*
->  - *getSDCardPath*
 >  - *getDataPath*
+>  - *getSDCardPath*
 >  - *getFreeSpace*
+>  - *getSDCardInfo*
+
+> - **About Service→[ServiceUtils.java][service.java]**
+>  - *isRunningService*
 
 > - **About Shell→[ShellUtils.java][shell.java]**
 >  - *isRoot*
@@ -237,6 +325,8 @@ Directory is shown below：
 >  - *reverse*
 >  - *toDBC*
 >  - *toSBC*
+>  - *getPYFirstLetter*
+>  - *cn2PY*
 
 > - **About ThreadPool→[ThreadPoolUtils.java][thread_pool.java]**
 >  - *ThreadPoolUtils*
@@ -266,9 +356,18 @@ Directory is shown below：
 >  - *getCurTimeMills*、*getCurTimeString*、*getCurTimeDate*
 >  - *getIntervalByNow*
 >  - *isLeapYear*
+>  - *getWeek*、*getWeekIndex*
+>  - *getWeek*、*getWeekIndex*
+>  - *getWeekOfMonth*
+>  - *getWeekOfYear*
 
-> - **About Unclassified→[UnclassifiedUtils.java][unclassified.java]**
->  - *isRunningService*
+> - **About Toast→[ToastUtils.java][toast.java]**
+>  - *init*
+>  - *showShortToastSafe*
+>  - *showLongToastSafe*
+>  - *showShortToast*
+>  - *showLongToast*
+>  - *cancelToast*
 
 > - **About Zip→[ZipUtils.java][zip.java]→[Test][zip.test]**
 >  - *zipFiles*
@@ -280,17 +379,17 @@ Directory is shown below：
 >  - *getComments*
 >  - *getEntries*
 
-> - **Update Log→[update_log.md][update_log.md]**
+> - **更新Log→[update_log.md][update_log.md]**
 
 ***
   
-**I'm so sorry for that the code is annotated with Chinese.**  
+**I'm so sorry for that the code is annotated with Chinese.**
 
 ### Download
 ***
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.2.1'
+compile 'com.blankj:utilcode:1.2.2'
 ```
 
 ### Proguard
@@ -319,16 +418,29 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
-[readme.cn]: https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md
+[activity.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ActivityUtils.java
 
 [app.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/AppUtils.java
+
+[bar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/BarUtils.java
+
+[clean.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/CleanUtils.java
+
+[clipboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ClipboardUtils.java
+
+[close.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/CloseUtils.java
 
 [const.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ConstUtils.java
 
 [convert.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ConvertUtils.java
 [convert.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/ConvertUtilsTest.java
 
+[crash.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/CrashUtils.java
+
 [device.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/DeviceUtils.java
+
+[empty.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/EmptyUtils.java
+[empty.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/EmptyUtilsTest.java
 
 [encode.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/EncodeUtils.java
 [encode.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/EncodeUtilsTest.java
@@ -341,7 +453,12 @@ limitations under the License.
 
 [image.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ImageUtils.java
 
+[intent.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/IntentUtils.java
+
 [keyboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/KeyboardUtils.java
+
+[log.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/LogUtils.java
+[log.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/LogUtilsTest.java
 
 [network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/NetworkUtils.java
 
@@ -353,6 +470,8 @@ limitations under the License.
 [screen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ScreenUtils.java
 
 [sdcard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SDCardUtils.java
+
+[service.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ServiceUtils.java
 
 [shell.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ShellUtils.java
 
@@ -369,9 +488,13 @@ limitations under the License.
 [time.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/TimeUtils.java
 [time.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/TimeUtilsTest.java
 
-[unclassified.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/UnclassifiedUtils.java
+[toast.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ToastUtils.java
 
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ZipUtils.java
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/ZipUtilsTest.java
 
 [update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/update_log.md
+
+[weibo]: http://weibo.com/blankcmj
+
+[readme.cn]: https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md

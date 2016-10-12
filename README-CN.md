@@ -1,26 +1,73 @@
 ## Android开发人员不得不收集的代码([持续更新中][update_log.md])
+***
 为方便查找，已进行大致归类，其目录如下所示：  
+> - **Activity相关→[ActivityUtils.java][activity.java]**
+>  - 判断是否存在Activity *isExistActivity*
+>  - 打开Activity *launchActivity*
+
 > - **App相关→[AppUtils.java][app.java]**
->  - 获取安装App(支持6.0)的意图 *getInstallAppIntent*
->  - 获取卸载App的意图 *getUninstallAppIntent*
->  - 获取打开App的意图 *getOpenAppItent*
->  - 获取App信息的意图 *getAppInfoIntent*
->  - 获取App信息分享的意图 *getShareInfoIntent*
 >  - 判断App是否安装 *isInstallApp*
->  - 获取当前App信息 *getAppInfo*
->  - 获取所有已安装App信息 *getAllAppsInfo*
->  - 判断当前App处于前台还是后台 *isAppBackground*
+>  - 安装App(支持6.0) *installApp*
+>  - 静默安装App *installAppSilent*
+>  - 卸载App *uninstallApp*
+>  - 静默卸载App *uninstallAppSilent*
+>  - 打开App *launchApp*
+>  - 获取App包名 *getAppPackageName*
+>  - 获取App具体设置 *getAppDetailsSettings*
+>  - 获取App名称 *getAppName*
+>  - 获取App图标 *getAppIcon*
+>  - 获取App路径 *getAppPath*
+>  - 获取App版本号 *getAppVersionName*
+>  - 获取App版本码 *getAppVersionCode*
+>  - 获取App签名 *getAppSignature*
+>  - 获取应用签名的的SHA1值 *getAppSignatureSHA1*
+>  - 判断App是否是系统应用 *isSystemApp*
+>  - 判断App是否处于前台 *isAppForeground*
+>  - 获取App信息 *getAppInfo*
+>  - 获取所有已安装App信息 *getAppsInfo*
+>  - 清除App所有数据 *cleanAppData*
+
+> - **栏相关→[BarUtils.java][bar.java]**
+>  - 设置透明状态栏(api大于19方可使用) *setTransparentStatusBar*
+>  - 隐藏状态栏 *hideStatusBar*
+>  - 获取状态栏高度 *getStatusBarHeight*
+>  - 判断状态栏是否存在 *isStatusBarExists*
+>  - 获取ActionBar高度 *getActionBarHeight*
+>  - 显示通知栏 *showNotificationBar*
+>  - 隐藏通知栏 *hideNotificationBar*
+
+> - **清除相关→[CleanUtils.java][clean.java]**
+>  - 清除内部缓存 *cleanInternalCache*
+>  - 清除内部文件 *cleanInternalFiles*
+>  - 清除内部数据库 *cleanInternalDbs*
+>  - 根据名称清除数据库 *cleanInternalDbByName*
+>  - 清除内部SP *cleanInternalSP*
+>  - 清除外部缓存 *cleanExternalCache*
+>  - 清除自定义目录下的文件 *cleanCustomCache*
+
+> - **剪贴板相关→[ClipboardUtils.java][clipboard.java]**
+>  - 复制文本到剪贴板 *copyText*
+>  - 获取剪贴板的文本 *getText*
+>  - 复制uri到剪贴板 *copyUri*
+>  - 获取剪贴板的uri *getUri*
+>  - 复制意图到剪贴板 *copyIntent*
+>  - 获取剪贴板的意图 *getIntent*
+
+> - **关闭相关→[CloseUtils.java][close.java]**
+>  - 关闭IO *closeIO*
+>  - 安静关闭IO *closeIOQuietly*
 
 > - **常量相关→[ConstUtils.java][const.java]**
->  - 存储相关常量
->  - 时间相关常量
->  - 正则相关常量
+>  - 存储相关常量 *Memory Const*
+>  - 时间相关常量 *Time Const*
+>  - 正则相关常量 *Regex Const*
 
 > - **转换相关→[ConvertUtils.java][convert.java]→[Test][convert.test]**
 >  - byteArr与hexString互转 *bytes2HexString*、*hexString2Bytes*
 >  - charArr与byteArr互转 *chars2Bytes*、*bytes2Chars*
 >  - 字节数与unit为单位的size互转 *byte2Size*、*size2Byte*
 >  - 字节数转合适大小 *byte2FitSize*
+>  - bytes与bits互转 *bytes2Bits*、*bits2Bytes*
 >  - inputStream与outputStream互转 *input2OutputStream*、*output2InputStream*
 >  - inputStream与byteArr互转 *inputStream2Bytes*、*bytes2InputStream*
 >  - outputStream与byteArr互转 *outputStream2Bytes*、*bytes2OutputStream*
@@ -29,13 +76,25 @@
 >  - bitmap与byteArr互转 *bitmap2Bytes*、*bytes2Bitmap*
 >  - drawable与bitmap互转 *drawable2Bitmap*、*bitmap2Drawable*
 >  - drawable与byteArr互转 *drawable2Bytes*、*bytes2Drawable*
+>  - view转Bitmap *view2Bitmap*
 >  - dp与px互转 *dp2px*、*px2dp*
 >  - sp与px互转 *sp2px*、*px2sp*
 
+> - **崩溃相关→[CrashUtils.java][crash.java]**
+>  - 获取单例 *getInstance*
+>  - 初始化 *init*
+
 > - **设备相关→[DeviceUtils.java][device.java]**
+>  - 判断设备是否root *isRoot*
+>  - 获取设备系统版本号 *getSDKVersion*
+>  - 获取设备AndroidID *getAndroidID*
 >  - 获取设备MAC地址 *getMacAddress*
 >  - 获取设备厂商，如Xiaomi *getManufacturer*
 >  - 获取设备型号，如MI2SC *getModel*
+
+> - **判空相关→[EmptyUtils.java][empty.java]→[Test][empty.test]**
+>  - 判断对象是否为空 *isEmpty*
+>  - 判断对象是否非空 *isNotEmpty*
 
 > - **编码解码相关→[EncodeUtils.java][encode.java]→[Test][encode.test]**
 >  - URL编码 *urlEncode*
@@ -55,6 +114,12 @@
 >  - SHA256加密 *encryptSHA256ToString*、*encryptSHA256*
 >  - SHA384加密 *encryptSHA384ToString*、*encryptSHA384*
 >  - SHA512加密 *encryptSHA512ToString*、*encryptSHA512*
+>  - HmacMD5加密 *encryptHmacMD5ToString*、*encryptHmacMD5*
+>  - HmacSHA1加密 *encryptHmacSHA1ToString*、*encryptHmacSHA1*
+>  - HmacSHA224加密 *encryptHmacSHA224ToString*、*encryptHmacSHA224*
+>  - HmacSHA256加密 *encryptHmacSHA256ToString*、*encryptHmacSHA256*
+>  - HmacSHA384加密 *encryptHmacSHA384ToString*、*encryptHmacSHA384*
+>  - HmacSHA512加密 *encryptHmacSHA512ToString*、*encryptHmacSHA512*
 >  - DES加密后转为Base64编码 *encryptDES2Base64*
 >  - DES加密后转为16进制 *encryptDES2HexString*
 >  - DES加密 *encryptDES*
@@ -103,7 +168,6 @@
 >  - 指定编码按行读取文件到StringBuilder中 *readFile2SB*
 >  - 获取文件大小 *getFileSize*
 >  - 获取文件的MD5校验码 *getFileMD5*
->  - 关闭IO *closeIO*
 >  - 根据全路径获取最长目录 *getDirName*
 >  - 根据全路径获取文件名 *getFileName*
 >  - 根据全路径获取文件名不带拓展名 *getFileNameNoExtension*
@@ -137,12 +201,31 @@
 >  - 按质量压缩 *compressByQuality*
 >  - 按采样大小压缩 *compressBySampleSize*
 
+> - **意图相关→[IntentUtils.java][intent.java]**
+>  - 获取安装App(支持6.0)的意图 *getInstallAppIntent*
+>  - 获取卸载App的意图 *getUninstallAppIntent*
+>  - 获取打开App的意图 *getLaunchAppIntent*
+>  - 获取App具体设置的意图 *getAppDetailsSettingsIntent*
+>  - 获取分享文本的意图 *getShareTextIntent*
+>  - 获取分享图片的意图 *getShareImageIntent*
+>  - 获取其他应用组件的意图 *getComponentIntent*
+>  - 获取关机的意图 *getShutdownIntnet*
+>  - 获取拍照的意图 *getCaptureIntent*
+
 > - **键盘相关→[KeyboardUtils.java][keyboard.java]**
->  - 避免输入法面板遮挡
 >  - 动态隐藏软键盘 *hideSoftInput*
 >  - 点击屏幕空白区域隐藏软键盘(注释萌萌哒) *clickBlankArea2HideSoftInput0*
 >  - 动态显示软键盘 *showSoftInput*
 >  - 切换键盘显示与否状态 *toggleSoftInput*
+
+> - **日志相关→[LogUtils.java][log.java]→[Test][log.test]**
+>  - 初始化函数 *init*
+>  - 获取LogUtils建造者 *getBuilder*
+>  - Verbose日志 *v*
+>  - Debug日志 *d*
+>  - Info日志 *i*
+>  - Warn日志 *w*
+>  - Error日志 *e*
 
 > - **网络相关→[NetworkUtils.java][network.java]**
 >  - 打开网络设置界面 *openWirelessSettings*
@@ -156,7 +239,8 @@
 
 > - **手机相关→[PhoneUtils.java][phone.java]**
 >  - 判断设备是否是手机 *isPhone*
->  - 获取手机的IMIE *getPhoneIMEI*
+>  - 获取IMIE码 *getIMEI*
+>  - 获取IMSI码 *getIMSI*
 >  - 获取手机状态信息 *getPhoneStatus*
 >  - 跳至填充好phoneNumber的拨号界面 *dial*
 >  - 拨打phoneNumber *call*
@@ -194,9 +278,13 @@
 
 > - **SD卡相关→[SDCardUtils.java][sdcard.java]**
 >  - 判断SD卡是否可用 *isSDCardEnable*
->  - 获取SD卡路径 *getSDCardPath*
 >  - 获取SD卡Data路径 *getDataPath*
+>  - 获取SD卡路径 *getSDCardPath*
 >  - 计算SD卡的剩余空间 *getFreeSpace*
+>  - 获取SD卡信息 *getSDCardInfo*
+
+> - **服务相关→[ServiceUtils.java][service.java]**
+>  - 获取服务是否开启 *isRunningService*
 
 > - **Shell相关→[ShellUtils.java][shell.java]**
 >  - 判断设备是否root *isRoot*
@@ -236,6 +324,8 @@
 >  - 反转字符串 *reverse*
 >  - 转化为半角字符 *toDBC*
 >  - 转化为全角字符 *toSBC*
+>  - 获得第一个汉字首字母 *getPYFirstLetter*
+>  - 中文转拼音 *cn2PY*
 
 > - **线程池相关工具类→[ThreadPoolUtils.java][thread_pool.java]**
 >  - ThreadPoolUtils构造函数 *ThreadPoolUtils*
@@ -265,9 +355,18 @@
 >  - 获取当前时间 *getCurTimeMills*、*getCurTimeString*、*getCurTimeDate*
 >  - 获取与当前时间的差（单位：unit） *getIntervalByNow*
 >  - 判断闰年 *isLeapYear*
+>  - 获取星期 *getWeek*、*getWeekIndex*
+>  - 获取星期 *getWeek*、*getWeekIndex*
+>  - 获取月份中的第几周 *getWeekOfMonth*
+>  - 获取年份中的第几周 *getWeekOfYear*
 
-> - **未归类→[UnclassifiedUtils.java][unclassified.java]**
->  - 获取服务是否开启 *isRunningService*
+> - **吐司相关→[ToastUtils.java][toast.java]**
+>  - 吐司初始化 *init*
+>  - 安全地显示短时吐司 *showShortToastSafe*
+>  - 安全地显示长时吐司 *showLongToastSafe*
+>  - 显示短时吐司 *showShortToast*
+>  - 显示长时吐司 *showLongToast*
+>  - 取消吐司显示 *cancelToast*
 
 > - **压缩相关工具类→[ZipUtils.java][zip.java]→[Test][zip.test]**
 >  - 批量压缩文件 *zipFiles*
@@ -289,7 +388,7 @@
 ***
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.2.1'
+compile 'com.blankj:utilcode:1.2.2'
 ```
 
 ### Proguard
@@ -318,14 +417,29 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
+[activity.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ActivityUtils.java
+
 [app.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/AppUtils.java
+
+[bar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/BarUtils.java
+
+[clean.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/CleanUtils.java
+
+[clipboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ClipboardUtils.java
+
+[close.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/CloseUtils.java
 
 [const.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ConstUtils.java
 
 [convert.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ConvertUtils.java
 [convert.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/ConvertUtilsTest.java
 
+[crash.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/CrashUtils.java
+
 [device.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/DeviceUtils.java
+
+[empty.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/EmptyUtils.java
+[empty.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/EmptyUtilsTest.java
 
 [encode.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/EncodeUtils.java
 [encode.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/EncodeUtilsTest.java
@@ -338,7 +452,12 @@ limitations under the License.
 
 [image.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ImageUtils.java
 
+[intent.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/IntentUtils.java
+
 [keyboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/KeyboardUtils.java
+
+[log.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/LogUtils.java
+[log.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/LogUtilsTest.java
 
 [network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/NetworkUtils.java
 
@@ -350,6 +469,8 @@ limitations under the License.
 [screen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ScreenUtils.java
 
 [sdcard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SDCardUtils.java
+
+[service.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ServiceUtils.java
 
 [shell.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ShellUtils.java
 
@@ -366,7 +487,7 @@ limitations under the License.
 [time.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/TimeUtils.java
 [time.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/TimeUtilsTest.java
 
-[unclassified.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/UnclassifiedUtils.java
+[toast.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ToastUtils.java
 
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ZipUtils.java
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/ZipUtilsTest.java
