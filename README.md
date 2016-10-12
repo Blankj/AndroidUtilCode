@@ -206,6 +206,7 @@ Directory is shown below：
 >  - *clickBlankArea2HideSoftInput0*
 >  - *showSoftInput*
 >  - *toggleSoftInput*
+>  - *isShowSoftInput*
 
 > - **About Log→[LogUtils.java][log.java]→[Test][log.test]**
 >  - *init*
@@ -377,7 +378,7 @@ Directory is shown below：
 ***
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.2.2'
+compile 'com.blankj:utilcode:1.3.0'
 ```
 
 ### Proguard

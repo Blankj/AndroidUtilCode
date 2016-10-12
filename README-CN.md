@@ -3,7 +3,7 @@
 为方便查找，已进行大致归类，其目录如下所示：  
 > - **Activity相关→[ActivityUtils.java][activity.java]**
 >  - 判断是否存在Activity *isExistActivity*
->  - 打开Activity *launchActivity*
+>  - 打开Activity *launchActivity* 
 
 > - **App相关→[AppUtils.java][app.java]**
 >  - 判断App是否安装 *isInstallApp*
