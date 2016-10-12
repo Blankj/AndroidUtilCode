@@ -76,7 +76,7 @@ public class CleanUtils {
 
     /**
      * 清除外部缓存
-     * <p>/storage/emulated/0/android/data/com.xxx.xxx/cache<p/>
+     * <p>/storage/emulated/0/android/data/com.xxx.xxx/cache</p>
      *
      * @param context 上下文
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败

@@ -157,6 +157,7 @@ public class IntentUtils {
      *
      * @param packageName 包名
      * @param className   全类名
+     * @param bundle      bundle
      * @return intent
      */
     public static Intent getComponentIntent(String packageName, String className, Bundle bundle) {

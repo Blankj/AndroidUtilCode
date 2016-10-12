@@ -344,6 +344,7 @@ public class EncryptUtils {
      * HmacMD5加密
      *
      * @param data 明文字符串
+     * @param key  秘钥
      * @return 16进制密文
      */
     public static String encryptHmacMD5ToString(String data, String key) {
@@ -354,6 +355,7 @@ public class EncryptUtils {
      * HmacMD5加密
      *
      * @param data 明文字节数组
+     * @param key  秘钥
      * @return 16进制密文
      */
     public static String encryptHmacMD5ToString(byte[] data, byte[] key) {
@@ -364,6 +366,7 @@ public class EncryptUtils {
      * HmacMD5加密
      *
      * @param data 明文字节数组
+     * @param key  秘钥
      * @return 密文字节数组
      */
     public static byte[] encryptHmacMD5(byte[] data, byte[] key) {
@@ -374,6 +377,7 @@ public class EncryptUtils {
      * HmacSHA1加密
      *
      * @param data 明文字符串
+     * @param key  秘钥
      * @return 16进制密文
      */
     public static String encryptHmacSHA1ToString(String data, String key) {
@@ -384,6 +388,7 @@ public class EncryptUtils {
      * HmacSHA1加密
      *
      * @param data 明文字节数组
+     * @param key  秘钥
      * @return 16进制密文
      */
     public static String encryptHmacSHA1ToString(byte[] data, byte[] key) {
@@ -394,6 +399,7 @@ public class EncryptUtils {
      * HmacSHA1加密
      *
      * @param data 明文字节数组
+     * @param key  秘钥
      * @return 密文字节数组
      */
     public static byte[] encryptHmacSHA1(byte[] data, byte[] key) {
@@ -404,6 +410,7 @@ public class EncryptUtils {
      * HmacSHA224加密
      *
      * @param data 明文字符串
+     * @param key  秘钥
      * @return 16进制密文
      */
     public static String encryptHmacSHA224ToString(String data, String key) {
@@ -414,6 +421,7 @@ public class EncryptUtils {
      * HmacSHA224加密
      *
      * @param data 明文字节数组
+     * @param key  秘钥
      * @return 16进制密文
      */
     public static String encryptHmacSHA224ToString(byte[] data, byte[] key) {
@@ -424,6 +432,7 @@ public class EncryptUtils {
      * HmacSHA224加密
      *
      * @param data 明文字节数组
+     * @param key  秘钥
      * @return 密文字节数组
      */
     public static byte[] encryptHmacSHA224(byte[] data, byte[] key) {
@@ -434,6 +443,7 @@ public class EncryptUtils {
      * HmacSHA256加密
      *
      * @param data 明文字符串
+     * @param key  秘钥
      * @return 16进制密文
      */
     public static String encryptHmacSHA256ToString(String data, String key) {
@@ -444,6 +454,7 @@ public class EncryptUtils {
      * HmacSHA256加密
      *
      * @param data 明文字节数组
+     * @param key  秘钥
      * @return 16进制密文
      */
     public static String encryptHmacSHA256ToString(byte[] data, byte[] key) {
@@ -454,6 +465,7 @@ public class EncryptUtils {
      * HmacSHA256加密
      *
      * @param data 明文字节数组
+     * @param key  秘钥
      * @return 密文字节数组
      */
     public static byte[] encryptHmacSHA256(byte[] data, byte[] key) {
@@ -464,6 +476,7 @@ public class EncryptUtils {
      * HmacSHA384加密
      *
      * @param data 明文字符串
+     * @param key  秘钥
      * @return 16进制密文
      */
     public static String encryptHmacSHA384ToString(String data, String key) {
@@ -474,6 +487,7 @@ public class EncryptUtils {
      * HmacSHA384加密
      *
      * @param data 明文字节数组
+     * @param key  秘钥
      * @return 16进制密文
      */
     public static String encryptHmacSHA384ToString(byte[] data, byte[] key) {
@@ -484,6 +498,7 @@ public class EncryptUtils {
      * HmacSHA384加密
      *
      * @param data 明文字节数组
+     * @param key  秘钥
      * @return 密文字节数组
      */
     public static byte[] encryptHmacSHA384(byte[] data, byte[] key) {
@@ -494,6 +509,7 @@ public class EncryptUtils {
      * HmacSHA512加密
      *
      * @param data 明文字符串
+     * @param key  秘钥
      * @return 16进制密文
      */
     public static String encryptHmacSHA512ToString(String data, String key) {
@@ -504,6 +520,7 @@ public class EncryptUtils {
      * HmacSHA512加密
      *
      * @param data 明文字节数组
+     * @param key  秘钥
      * @return 16进制密文
      */
     public static String encryptHmacSHA512ToString(byte[] data, byte[] key) {
@@ -514,6 +531,7 @@ public class EncryptUtils {
      * HmacSHA512加密
      *
      * @param data 明文字节数组
+     * @param key  秘钥
      * @return 密文字节数组
      */
     public static byte[] encryptHmacSHA512(byte[] data, byte[] key) {
@@ -529,16 +547,16 @@ public class EncryptUtils {
      * @return 密文字节数组
      */
     private static byte[] hmacTemplate(byte[] data, byte[] key, String algorithm) {
-        if(data == null || data.length ==0 || key == null || key.length ==0) return null;
-            try {
-                SecretKeySpec secretKey = new SecretKeySpec(key, algorithm);
-                Mac mac = Mac.getInstance(algorithm);
-                mac.init(secretKey);
-                return mac.doFinal(data);
-            } catch (InvalidKeyException | NoSuchAlgorithmException e) {
-                e.printStackTrace();
-                return null;
-            }
+        if (data == null || data.length == 0 || key == null || key.length == 0) return null;
+        try {
+            SecretKeySpec secretKey = new SecretKeySpec(key, algorithm);
+            Mac mac = Mac.getInstance(algorithm);
+            mac.init(secretKey);
+            return mac.doFinal(data);
+        } catch (InvalidKeyException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /************************ DES加密相关 ***********************/
@@ -782,7 +800,7 @@ public class EncryptUtils {
      * @return 密文或者明文，适用于DES，3DES，AES
      */
     public static byte[] desTemplate(byte[] data, byte[] key, String algorithm, String transformation, boolean isEncrypt) {
-        if(data == null || data.length == 0 || key == null || key.length == 0) return null;
+        if (data == null || data.length == 0 || key == null || key.length == 0) return null;
         try {
             SecretKeySpec keySpec = new SecretKeySpec(key, algorithm);
             Cipher cipher = Cipher.getInstance(transformation);

@@ -205,6 +205,7 @@
 >  - 点击屏幕空白区域隐藏软键盘(注释萌萌哒) *clickBlankArea2HideSoftInput0*
 >  - 动态显示软键盘 *showSoftInput*
 >  - 切换键盘显示与否状态 *toggleSoftInput*
+>  - 判断键盘是否显示 *isShowSoftInput*
 
 > - **日志相关→[LogUtils.java][log.java]→[Test][log.test]**
 >  - 初始化函数 *init*
@@ -376,7 +377,7 @@
 ***
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.2.2'
+compile 'com.blankj:utilcode:1.3.0'
 ```
 
 ### Proguard

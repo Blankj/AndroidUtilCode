@@ -386,7 +386,8 @@ public class AppUtils {
      * 获取应用签名的的SHA1值
      * <p>可据此判断高德，百度地图key是否正确</p>
      *
-     * @param context 上下文
+     * @param context     上下文
+     * @param packageName 包名
      * @return 应用签名的SHA1字符串, 比如：53:FD:54:DC:19:0F:11:AC:B5:22:9E:F1:1A:68:88:1B:8B:E8:54:42
      */
     public static String getAppSignatureSHA1(Context context, String packageName) {
@@ -442,7 +443,8 @@ public class AppUtils {
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.GET_TASKS"/>}</p>
      * <p>并且必须是系统应用该方法才有效</p>
      *
-     * @param context 上下文
+     * @param context     上下文
+     * @param packageName 包名
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isAppForeground(Context context, String packageName) {
@@ -569,7 +571,8 @@ public class AppUtils {
      * 获取App信息
      * <p>AppInfo（名称，图标，包名，版本号，版本Code，是否系统应用）</p>
      *
-     * @param context 上下文
+     * @param context     上下文
+     * @param packageName 包名
      * @return 当前应用的AppInfo
      */
     public static AppInfo getAppInfo(Context context, String packageName) {
@@ -629,6 +632,7 @@ public class AppUtils {
      *
      * @param context  上下文
      * @param dirPaths 目录路径
+     * @return {@code true}: 成功<br>{@code false}: 失败
      */
     public static boolean cleanAppData(Context context, String... dirPaths) {
         File[] dirs = new File[dirPaths.length];
@@ -644,6 +648,7 @@ public class AppUtils {
      *
      * @param context 上下文
      * @param dirs    目录
+     * @return {@code true}: 成功<br>{@code false}: 失败
      */
     public static boolean cleanAppData(Context context, File... dirs) {
         boolean isSuccess = CleanUtils.cleanInternalCache(context);
