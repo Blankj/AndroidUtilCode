@@ -1,10 +1,10 @@
 ## Android developers should collect the following utils
-**[中文版README][readme.cn]**
+**[中文版README][readme-cn.md]→[How to get this README from README-CN][trans]**
 ***
 Directory is shown below：  
 > - **About Activity→[ActivityUtils.java][activity.java]**
->  - *isExistActivity*
->  - *launchActivity*
+>  - *isActivityExists*
+>  - *launchActivity* 
 
 > - **About App→[AppUtils.java][app.java]**
 >  - *isInstallApp*
@@ -407,6 +407,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
+[update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/update_log.md
+
+[readme.md]: https://github.com/Blankj/AndroidUtilCode
+[readme-cn.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md
+
+[trans]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/TestUtils.java
+
 [activity.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ActivityUtils.java
 
 [app.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/AppUtils.java
@@ -482,8 +489,4 @@ limitations under the License.
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ZipUtils.java
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/ZipUtilsTest.java
 
-[update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/update_log.md
-
 [weibo]: http://weibo.com/blankcmj
-
-[readme.cn]: https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md

@@ -1,8 +1,9 @@
 ## Android开发人员不得不收集的代码([持续更新中][update_log.md])
+**[README of English][readme.md]→[一键生成英文版README函数][trans]**
 ***
 为方便查找，已进行大致归类，其目录如下所示：  
 > - **Activity相关→[ActivityUtils.java][activity.java]**
->  - 判断是否存在Activity *isExistActivity*
+>  - 判断是否存在Activity *isActivityExists*
 >  - 打开Activity *launchActivity* 
 
 > - **App相关→[AppUtils.java][app.java]**
@@ -316,7 +317,7 @@
 >  - 获得第一个汉字首字母 *getPYFirstLetter*
 >  - 中文转拼音 *cn2PY*
 
-> - **线程池相关工具类→[ThreadPoolUtils.java][thread_pool.java]**
+> - **线程池相关→[ThreadPoolUtils.java][thread_pool.java]**
 >  - ThreadPoolUtils构造函数 *ThreadPoolUtils*
 >  - 在未来某个时间执行给定的命令 *execute*
 >  - 在未来某个时间执行给定的命令链表 *execute*
@@ -357,7 +358,7 @@
 >  - 显示长时吐司 *showLongToast*
 >  - 取消吐司显示 *cancelToast*
 
-> - **压缩相关工具类→[ZipUtils.java][zip.java]→[Test][zip.test]**
+> - **压缩相关→[ZipUtils.java][zip.java]→[Test][zip.test]**
 >  - 批量压缩文件 *zipFiles*
 >  - 压缩文件 *zipFile*
 >  - 批量解压文件 *unzipFiles*
@@ -405,6 +406,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+
+[update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/update_log.md
+
+[readme.md]: https://github.com/Blankj/AndroidUtilCode
+[readme-cn.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md
+
+[trans]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/TestUtils.java
 
 [activity.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ActivityUtils.java
 
@@ -480,7 +488,5 @@ limitations under the License.
 
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ZipUtils.java
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/ZipUtilsTest.java
-
-[update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/update_log.md
 
 [weibo]: http://weibo.com/blankcmj
