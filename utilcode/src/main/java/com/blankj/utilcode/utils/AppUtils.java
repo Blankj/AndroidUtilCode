@@ -9,13 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -343,6 +337,35 @@ public class AppUtils {
     }
 
     /**
+     * 判断App是否是系统应用
+     *
+     * @param context 上下文
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean isSystemApp(Context context) {
+        return isSystemApp(context, context.getPackageName());
+    }
+
+    /**
+     * 判断App是否是系统应用
+     *
+     * @param context     上下文
+     * @param packageName 包名
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean isSystemApp(Context context, String packageName) {
+        if (StringUtils.isSpace(packageName)) return false;
+        try {
+            PackageManager pm = context.getPackageManager();
+            ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
+            return ai != null && (ai.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
      * 获取App签名
      *
      * @param context 上下文
@@ -398,76 +421,18 @@ public class AppUtils {
     }
 
     /**
-     * 判断App是否是系统应用
-     *
-     * @param context 上下文
-     * @return {@code true}: 是<br>{@code false}: 否
-     */
-    public static boolean isSystemApp(Context context) {
-        return isSystemApp(context, context.getPackageName());
-    }
-
-    /**
-     * 判断App是否是系统应用
-     *
-     * @param context     上下文
-     * @param packageName 包名
-     * @return {@code true}: 是<br>{@code false}: 否
-     */
-    public static boolean isSystemApp(Context context, String packageName) {
-        if (StringUtils.isSpace(packageName)) return false;
-        try {
-            PackageManager pm = context.getPackageManager();
-            ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
-            return ai != null && (ai.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    /**
      * 判断App是否处于前台
      *
      * @param context 上下文
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isAppForeground(Context context) {
-        return isApplicationForeground(context, context.getPackageName());
-    }
-
-    /**
-     * 判断App是否处于前台
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.GET_TASKS"/>}</p>
-     * <p>该方法在 API 21 被遗弃，已经不能使用</p>
-     *
-     * @param context     上下文
-     * @param packageName 包名
-     * @return {@code true}: 是<br>{@code false}: 否
-     */
-    @Deprecated
-    public static boolean isAppForeground(Context context, String packageName) {
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        @SuppressWarnings("deprecation")
-        List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
-        return tasks != null && !tasks.isEmpty()
-                && tasks.get(0).topActivity.getPackageName().equals(packageName);
-    }
-    
-    /**
-     * 判断 App 是否处于前台
-     *
-     * @param context     上下文
-     * @param packageName 包名
-     * @return {@code true}: 是<br>{@code false}: 否
-     */
-    public static boolean isApplicationForeground(final Context context, String packageName) {
-        final ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        final List<ActivityManager.RunningAppProcessInfo> processInfos = am.getRunningAppProcesses();
+        List<ActivityManager.RunningAppProcessInfo> processInfos = am.getRunningAppProcesses();
         if (processInfos != null) {
             for (ActivityManager.RunningAppProcessInfo processInfo : processInfos) {
                 if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
-                        && Arrays.asList(processInfo.pkgList).contains(packageName)) {
+                        && Arrays.asList(processInfo.pkgList).contains(context.getPackageName())) {
                     return true;
                 }
             }
@@ -550,10 +515,10 @@ public class AppUtils {
          * @param packageName 包名
          * @param packagePath 包路径
          * @param versionName 版本号
-         * @param versionCode 版本Code
+         * @param versionCode 版本码
          * @param isSystem    是否系统应用
          */
-        public AppInfo(String name, Drawable icon, String packageName, String packagePath,
+        public AppInfo(String packageName, String name, Drawable icon, String packagePath,
                        String versionName, int versionCode, boolean isSystem) {
             this.setName(name);
             this.setIcon(icon);
@@ -564,16 +529,16 @@ public class AppUtils {
             this.setSystem(isSystem);
         }
 
-//        @Override
-//        public String toString() {
-//            return getName() + "\n"
-//                    + getIcon() + "\n"
-//                    + getPackageName() + "\n"
-//                    + getPackagePath() + "\n"
-//                    + getVersionName() + "\n"
-//                    + getVersionCode() + "\n"
-//                    + isSystem() + "\n"
-//        }
+        @Override
+        public String toString() {
+            return "App包名：" + getPackageName() + "\n" +
+                    "App名称：" + getName() + "\n" +
+                    "App图标：" + getIcon() + "\n" +
+                    "App路径：" + getPackagePath() + "\n" +
+                    "App版本号：" + getVersionName() + "\n" +
+                    "App版本码：" + getVersionCode() + "\n" +
+                    "是否系统App：" + isSystem() + "\n";
+        }
     }
 
     /**
@@ -616,14 +581,14 @@ public class AppUtils {
     private static AppInfo getBean(PackageManager pm, PackageInfo pi) {
         if (pm == null || pi == null) return null;
         ApplicationInfo ai = pi.applicationInfo;
+        String packageName = pi.packageName;
         String name = ai.loadLabel(pm).toString();
         Drawable icon = ai.loadIcon(pm);
-        String packageName = pi.packageName;
         String packagePath = ai.sourceDir;
         String versionName = pi.versionName;
         int versionCode = pi.versionCode;
         boolean isSystem = (ApplicationInfo.FLAG_SYSTEM & ai.flags) != 0;
-        return new AppInfo(name, icon, packageName, packagePath, versionName, versionCode, isSystem);
+        return new AppInfo(packageName, name, icon, packagePath, versionName, versionCode, isSystem);
     }
 
     /**

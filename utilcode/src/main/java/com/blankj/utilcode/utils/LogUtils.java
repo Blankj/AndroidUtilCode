@@ -291,9 +291,9 @@ public class LogUtils {
         if (content == null) return;
         Date now = new Date();
         String date = new SimpleDateFormat("MM-dd", Locale.getDefault()).format(now);
-        String time = new SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.getDefault()).format(now);
-        String fullPath = dir + date + ".log";
+        String fullPath = dir + "log_" + date + ".txt";
         if (!FileUtils.createOrExistsFile(fullPath)) return;
+        String time = new SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.getDefault()).format(now);
         String dateLogContent = time + ":" + type + ":" + tag + ":" + content + '\n';
         BufferedWriter bw = null;
         try {

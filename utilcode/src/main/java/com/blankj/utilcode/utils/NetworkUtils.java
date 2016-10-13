@@ -52,9 +52,9 @@ public class NetworkUtils {
      */
     public static void openWirelessSettings(Context context) {
         if (android.os.Build.VERSION.SDK_INT > 10) {
-            context.startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS));
-        } else {
             context.startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS));
+        } else {
+            context.startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS));
         }
     }
 
