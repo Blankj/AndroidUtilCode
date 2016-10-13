@@ -428,31 +428,51 @@ public class AppUtils {
 
     /**
      * 判断App是否处于前台
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.GET_TASKS"/>}</p>
-     * <p>并且必须是系统应用该方法才有效</p>
      *
      * @param context 上下文
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isAppForeground(Context context) {
-        return isAppForeground(context, context.getPackageName());
+        return isApplicationForeground(context, context.getPackageName());
     }
 
     /**
      * 判断App是否处于前台
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.GET_TASKS"/>}</p>
-     * <p>并且必须是系统应用该方法才有效</p>
+     * <p>该方法在 API 21 被遗弃，已经不能使用</p>
      *
      * @param context     上下文
      * @param packageName 包名
      * @return {@code true}: 是<br>{@code false}: 否
      */
+    @Deprecated
     public static boolean isAppForeground(Context context, String packageName) {
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         @SuppressWarnings("deprecation")
         List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
         return tasks != null && !tasks.isEmpty()
                 && tasks.get(0).topActivity.getPackageName().equals(packageName);
+    }
+    
+    /**
+     * 判断 App 是否处于前台
+     *
+     * @param context     上下文
+     * @param packageName 包名
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean isApplicationForeground(final Context context, String packageName) {
+        final ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        final List<ActivityManager.RunningAppProcessInfo> processInfos = am.getRunningAppProcesses();
+        if (processInfos != null) {
+            for (ActivityManager.RunningAppProcessInfo processInfo : processInfos) {
+                if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
+                        && Arrays.asList(processInfo.pkgList).contains(packageName)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
