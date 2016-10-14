@@ -61,7 +61,8 @@ public class PhoneUtils {
 
     /**
      * 获取IMSI码
-     *<p>需添加权限 {@code <uses-permission android:name="android.permission.READ_PHONE_STATE"/>}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_PHONE_STATE"/>}</p>
+     *
      * @param context 上下文
      * @return IMSI码
      */

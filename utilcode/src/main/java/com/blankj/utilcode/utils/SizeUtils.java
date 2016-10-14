@@ -107,6 +107,7 @@ public class SizeUtils {
      *     }
      * });
      * </pre>
+     *
      * @param view     视图
      * @param listener 监听器
      */

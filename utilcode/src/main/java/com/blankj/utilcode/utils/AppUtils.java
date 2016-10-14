@@ -445,13 +445,13 @@ public class AppUtils {
      */
     public static class AppInfo {
 
-        private String name;
+        private String   name;
         private Drawable icon;
-        private String packageName;
-        private String packagePath;
-        private String versionName;
-        private int versionCode;
-        private boolean isSystem;
+        private String   packageName;
+        private String   packagePath;
+        private String   versionName;
+        private int      versionCode;
+        private boolean  isSystem;
 
         public Drawable getIcon() {
             return icon;
