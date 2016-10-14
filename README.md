@@ -1,377 +1,440 @@
 ## Android developers should collect the following utils
-**[中文版README][readme.cn]**
+**[中文版README][readme-cn.md]→[How to get this README from README-CN][trans]**
 ***
 Directory is shown below：  
 > - **About Activity→[ActivityUtils.java][activity.java]**
->  - *isExistActivity*
->  - *launchActivity*
+ ```
+isActivityExists
+launchActivity
+ ```
 
 > - **About App→[AppUtils.java][app.java]**
->  - *isInstallApp*
->  - *installApp*
->  - *installAppSilent*
->  - *uninstallApp*
->  - *uninstallAppSilent*
->  - *launchApp*
->  - *getAppPackageName*
->  - *getAppDetailsSettings*
->  - *getAppName*
->  - *getAppIcon*
->  - *getAppPath*
->  - *getAppVersionName*
->  - *getAppVersionCode*
->  - *getAppSignature*
->  - *getAppSignatureSHA1*
->  - *isSystemApp*
->  - *isAppForeground*
->  - *getAppInfo*
->  - *getAppsInfo*
->  - *cleanAppData*
+ ```
+isInstallApp
+installApp
+installAppSilent
+uninstallApp
+uninstallAppSilent
+launchApp
+getAppPackageName
+getAppDetailsSettings
+getAppName
+getAppIcon
+getAppPath
+getAppVersionName
+getAppVersionCode
+getAppSignature
+getAppSignatureSHA1
+isSystemApp
+isAppForeground
+getAppInfo
+getAppsInfo
+cleanAppData
+ ```
 
 > - **About Bar→[BarUtils.java][bar.java]**
->  - *setTransparentStatusBar*
->  - *hideStatusBar*
->  - *getStatusBarHeight*
->  - *isStatusBarExists*
->  - *getActionBarHeight*
->  - *showNotificationBar*
->  - *hideNotificationBar*
+ ```
+setTransparentStatusBar
+hideStatusBar
+getStatusBarHeight
+isStatusBarExists
+getActionBarHeight
+showNotificationBar
+hideNotificationBar
+ ```
 
 > - **About Clean→[CleanUtils.java][clean.java]**
->  - *cleanInternalCache*
->  - *cleanInternalFiles*
->  - *cleanInternalDbs*
->  - *cleanInternalDbByName*
->  - *cleanInternalSP*
->  - *cleanExternalCache*
->  - *cleanCustomCache*
+ ```
+cleanInternalCache
+cleanInternalFiles
+cleanInternalDbs
+cleanInternalDbByName
+cleanInternalSP
+cleanExternalCache
+cleanCustomCache
+ ```
 
 > - **About Clipboard→[ClipboardUtils.java][clipboard.java]**
->  - *copyText*
->  - *getText*
->  - *copyUri*
->  - *getUri*
->  - *copyIntent*
->  - *getIntent*
+ ```
+copyText
+getText
+copyUri
+getUri
+copyIntent
+getIntent
+ ```
 
 > - **About Close→[CloseUtils.java][close.java]**
->  - *closeIO*
->  - *closeIOQuietly*
+ ```
+closeIO
+closeIOQuietly
+ ```
 
 > - **About Const→[ConstUtils.java][const.java]**
->  - *Memory Const*
->  - *Time Const*
->  - *Regex Const*
+ ```
+MemoryConst
+TimeConst
+RegexConst
+ ```
 
 > - **About Convert→[ConvertUtils.java][convert.java]→[Test][convert.test]**
->  - *bytes2HexString*、*hexString2Bytes*
->  - *chars2Bytes*、*bytes2Chars*
->  - *byte2Size*、*size2Byte*
->  - *byte2FitSize*
->  - *bytes2Bits*、*bits2Bytes*
->  - *input2OutputStream*、*output2InputStream*
->  - *inputStream2Bytes*、*bytes2InputStream*
->  - *outputStream2Bytes*、*bytes2OutputStream*
->  - *inputStream2String*、*string2InputStream*
->  - *outputStream2String*、*string2OutputStream*
->  - *bitmap2Bytes*、*bytes2Bitmap*
->  - *drawable2Bitmap*、*bitmap2Drawable*
->  - *drawable2Bytes*、*bytes2Drawable*
->  - *view2Bitmap*
->  - *dp2px*、*px2dp*
->  - *sp2px*、*px2sp*
+ ```
+bytes2HexString, hexString2Bytes
+chars2Bytes, bytes2Chars
+byte2Size, size2Byte
+byte2FitSize
+bytes2Bits, bits2Bytes
+input2OutputStream, output2InputStream
+inputStream2Bytes, bytes2InputStream
+outputStream2Bytes, bytes2OutputStream
+inputStream2String, string2InputStream
+outputStream2String, string2OutputStream
+bitmap2Bytes, bytes2Bitmap
+drawable2Bitmap, bitmap2Drawable
+drawable2Bytes, bytes2Drawable
+view2Bitmap
+dp2px, px2dp
+sp2px, px2sp
+ ```
 
 > - **About Crash→[CrashUtils.java][crash.java]**
->  - *getInstance*
->  - *init*
+ ```
+getInstance
+init
+ ```
 
 > - **About Device→[DeviceUtils.java][device.java]**
->  - *isRoot*
->  - *getSDKVersion*
->  - *getAndroidID*
->  - *getMacAddress*
->  - *getManufacturer*
->  - *getModel*
+ ```
+isRoot
+getSDKVersion
+getAndroidID
+getMacAddress
+getManufacturer
+getModel
+ ```
 
 > - **About Empty→[EmptyUtils.java][empty.java]→[Test][empty.test]**
->  - *isEmpty*
->  - *isNotEmpty*
+ ```
+isEmpty
+isNotEmpty
+ ```
 
 > - **About Encode→[EncodeUtils.java][encode.java]→[Test][encode.test]**
->  - *urlEncode*
->  - *urlDecode*
->  - *base64Encode*、*base64Encode2String*
->  - *base64Decode*
->  - *base64UrlSafeEncode*
->  - *htmlEncode*
->  - *htmlDecode*
+ ```
+urlEncode
+urlDecode
+base64Encode, base64Encode2String
+base64Decode
+base64UrlSafeEncode
+htmlEncode
+htmlDecode
+ ```
 
 > - **About Encrypt→[EncryptUtils.java][encrypt.java]→[Test][encrypt.test]**
->  - *encryptMD2*、*encryptMD2ToString*
->  - *encryptMD5*、*encryptMD5ToString*
->  - *encryptMD5File*、*encryptMD5File2String*
->  - *encryptSHA1*、*encryptSHA1ToString*
->  - *encryptSHA224**encryptSHA224ToString*
->  - *encryptSHA256*、*encryptSHA256ToString*
->  - *encryptSHA384*、*encryptSHA384ToString*
->  - *encryptSHA512*、*encryptSHA512ToString*
->  - *encryptHmacMD5*、*encryptHmacMD5ToString*
->  - *encryptHmacSHA1*、*encryptHmacSHA1ToString*
->  - *encryptHmacSHA224*、*encryptHmacSHA224ToString*
->  - *encryptHmacSHA256*、*encryptHmacSHA256ToString*
->  - *encryptHmacSHA384*、*encryptHmacSHA384ToString*
->  - *encryptHmacSHA512*、*encryptHmacSHA512ToString*
->  - *encryptDES*、*encryptDES2HexString*、*encryptDES2Base64*
->  - *decryptDES*、*decryptHexStringDES*、*decryptBase64DES*
->  - *encrypt3DES*、*encrypt3DES2HexString*、*encrypt3DES2Base64*
->  - *decrypt3DES*、*decryptHexString3DES*、*decryptBase64_3DES*
->  - *encryptAES*、*encryptAES2HexString*、*encryptAES2Base64*
->  - *decryptAES*、*decryptHexStringAES*、*decryptBase64AES*
+ ```
+encryptMD2, encryptMD2ToString
+encryptMD5, encryptMD5ToString
+encryptMD5File, encryptMD5File2String
+encryptSHA1, encryptSHA1ToString
+encryptSHA224, encryptSHA224ToString
+encryptSHA256, encryptSHA256ToString
+encryptSHA384, encryptSHA384ToString
+encryptSHA512, encryptSHA512ToString
+encryptHmacMD5, encryptHmacMD5ToString
+encryptHmacSHA1, encryptHmacSHA1ToString
+encryptHmacSHA224, encryptHmacSHA224ToString
+encryptHmacSHA256, encryptHmacSHA256ToString
+encryptHmacSHA384, encryptHmacSHA384ToString
+encryptHmacSHA512, encryptHmacSHA512ToString
+encryptDES, encryptDES2HexString, encryptDES2Base64
+decryptDES, decryptHexStringDES, decryptBase64DES
+encrypt3DES, encrypt3DES2HexString, encrypt3DES2Base64
+decrypt3DES, decryptHexString3DES, decryptBase64_3DES
+encryptAES, encryptAES2HexString, encryptAES2Base64
+decryptAES, decryptHexStringAES, decryptBase64AES
+ ```
 
 > - **About File→[FileUtils.java][file.java]→[Test][file.test]**
->  - *getFileByPath*
->  - *isFileExists*
->  - *isDir*
->  - *isFile*
->  - *createOrExistsDir*
->  - *createOrExistsFile*
->  - *createFileByDeleteOldFile*
->  - *copyDir*
->  - *copyFile*
->  - *moveDir*
->  - *moveFile*
->  - *deleteDir*
->  - *deleteFile*
->  - *listFilesInDir*
->  - *listFilesInDir*
->  - *listFilesInDirWithFilter*
->  - *listFilesInDirWithFilter*
->  - *listFilesInDirWithFilter*
->  - *listFilesInDirWithFilter*
->  - *searchFileInDir*
->  - *writeFileFromIS*
->  - *writeFileFromString*
->  - *getFileCharsetSimple*
->  - *getFileLines*
->  - *readFile2List*
->  - *readFile2SB*
->  - *getFileSize*
->  - *getFileMD5*
->  - *getDirName*
->  - *getFileName*
->  - *getFileNameNoExtension*
->  - *getFileExtension*
+ ```
+getFileByPath
+isFileExists
+isDir
+isFile
+createOrExistsDir
+createOrExistsFile
+createFileByDeleteOldFile
+copyDir
+copyFile
+moveDir
+moveFile
+deleteDir
+deleteFile
+listFilesInDir
+listFilesInDir
+listFilesInDirWithFilter
+listFilesInDirWithFilter
+listFilesInDirWithFilter
+listFilesInDirWithFilter
+searchFileInDir
+writeFileFromIS
+writeFileFromString
+getFileCharsetSimple
+getFileLines
+readFile2List
+readFile2SB
+getFileSize
+getFileMD5
+getDirName
+getFileName
+getFileNameNoExtension
+getFileExtension
+ ```
 
 > - **About Image→[ImageUtils.java][image.java]**
->  - *bitmap2Bytes*、*bytes2Bitmap*
->  - *drawable2Bitmap*、*bitmap2Drawable*
->  - *drawable2Bytes*、*bytes2Drawable*
->  - *getBitmap*
->  - *scale*
->  - *clip*
->  - *skew*
->  - *rotate*
->  - *getRotateDegree*
->  - *toRound*
->  - *toRoundCorner*
->  - *fastBlur*
->  - *renderScriptBlur*
->  - *stackBlur*
->  - *addFrame*
->  - *addReflection*
->  - *addTextWatermark*
->  - *addImageWatermark*
->  - *toAlpha*
->  - *toGray*
->  - *save*
->  - *isImage*
->  - *getImageType*
->  - *compressByScale*
->  - *compressByQuality*
->  - *compressBySampleSize*
+ ```
+bitmap2Bytes, bytes2Bitmap
+drawable2Bitmap, bitmap2Drawable
+drawable2Bytes, bytes2Drawable
+getBitmap
+scale
+clip
+skew
+rotate
+getRotateDegree
+toRound
+toRoundCorner
+fastBlur
+renderScriptBlur
+stackBlur
+addFrame
+addReflection
+addTextWatermark
+addImageWatermark
+toAlpha
+toGray
+save
+isImage
+getImageType
+compressByScale
+compressByQuality
+compressBySampleSize
+ ```
 
 > - **About Intent→[IntentUtils.java][intent.java]**
->  - *getInstallAppIntent*
->  - *getUninstallAppIntent*
->  - *getLaunchAppIntent*
->  - *getAppDetailsSettingsIntent*
->  - *getShareTextIntent*
->  - *getShareImageIntent*
->  - *getComponentIntent*
->  - *getShutdownIntnet*
->  - *getCaptureIntent*
+ ```
+getInstallAppIntent
+getUninstallAppIntent
+getLaunchAppIntent
+getAppDetailsSettingsIntent
+getShareTextIntent
+getShareImageIntent
+getComponentIntent
+getShutdownIntent
+getCaptureIntent
+ ```
 
 > - **About Keyboard→[KeyboardUtils.java][keyboard.java]**
->  - *hideSoftInput*
->  - *clickBlankArea2HideSoftInput0*
->  - *showSoftInput*
->  - *toggleSoftInput*
->  - *isShowSoftInput*
+ ```
+hideSoftInput
+clickBlankArea2HideSoftInput0
+showSoftInput
+toggleSoftInput
+isShowSoftInput
+ ```
 
 > - **About Log→[LogUtils.java][log.java]→[Test][log.test]**
->  - *init*
->  - *getBuilder*
->  - *v*
->  - *d*
->  - *i*
->  - *w*
->  - *e*
+ ```
+init
+getBuilder
+v
+d
+i
+w
+e
+ ```
 
 > - **About Network→[NetworkUtils.java][network.java]**
->  - *openWirelessSettings*
->  - *isAvailable*
->  - *isConnected*
->  - *is4G*
->  - *isWifiConnected*
->  - *getNetworkOperatorName*
->  - *getPhoneType*
->  - *getNetWorkType*、*getNetWorkTypeName*
+ ```
+openWirelessSettings
+isAvailable
+isConnected
+is4G
+isWifiConnected
+getNetworkOperatorName
+getPhoneType
+getNetWorkType, getNetWorkTypeName
+ ```
 
 > - **About Phone→[PhoneUtils.java][phone.java]**
->  - *isPhone*
->  - *getIMEI*
->  - *getIMSI*
->  - *getPhoneStatus*
->  - *dial*
->  - *call*
->  - *sendSms*
->  - *getAllContactInfo*
->  - *getContantNum*
->  - *getAllSMS*
+ ```
+isPhone
+getIMEI
+getIMSI
+getPhoneStatus
+dial
+call
+sendSms
+getAllContactInfo
+getContactNum
+getAllSMS
+ ```
 
 > - **About Regex→[RegexUtils.java][regex.java]→[Test][regex.test]**
->  - *isMobileSimple*
->  - *isMobileExact*
->  - *isTel*
->  - *isIDCard15*
->  - *isIDCard18*
->  - *isEmail*
->  - *isURL*
->  - *isChz*
->  - *isUsername*
->  - *isDate*
->  - *isIP*
->  - *isMatch*
+ ```
+isMobileSimple
+isMobileExact
+isTel
+isIDCard15
+isIDCard18
+isEmail
+isURL
+isChz
+isUsername
+isDate
+isIP
+isMatch
+ ```
 
 > - **About Screen→[ScreenUtils.java][screen.java]**
->  - *getDeviceWidth*、*getDeviceHeight*
->  - *setTransparentStatusBar*
->  - *hideStatusBar*
->  - *getStatusBarHeight*
->  - *isStatusBarExists*
->  - *getActionBarHeight*
->  - *showNotificationBar*
->  - *hideNotificationBar*
->  - *setLandscape*
->  - *snapShotWithStatusBar*、*snapShotWithoutStatusBar*
->  - *isScreenLock*
+ ```
+getDeviceWidth, getDeviceHeight
+setTransparentStatusBar
+hideStatusBar
+getStatusBarHeight
+isStatusBarExists
+getActionBarHeight
+showNotificationBar
+hideNotificationBar
+setLandscape
+snapShotWithStatusBar, snapShotWithoutStatusBar
+isScreenLock
+ ```
 
 > - **About SDCard→[SDCardUtils.java][sdcard.java]**
->  - *isSDCardEnable*
->  - *getDataPath*
->  - *getSDCardPath*
->  - *getFreeSpace*
->  - *getSDCardInfo*
+ ```
+isSDCardEnable
+getDataPath
+getSDCardPath
+getFreeSpace
+getSDCardInfo
+ ```
 
 > - **About Service→[ServiceUtils.java][service.java]**
->  - *isRunningService*
+ ```
+isRunningService
+ ```
 
 > - **About Shell→[ShellUtils.java][shell.java]**
->  - *isRoot*
->  - *execCmd*
+ ```
+isRoot
+execCmd
+ ```
 
 > - **About Size→[SizeUtils.java][size.java]**
->  - *dp2px*、*px2dp*
->  - *sp2px*、*px2sp*
->  - *applyDimension*
->  - *forceGetViewSize*
->  - *measureView*
+ ```
+dp2px, px2dp
+sp2px, px2sp
+applyDimension
+forceGetViewSize
+measureView
+ ```
 
 > - **About SP→[SPUtils.java][sp.java]→[Test][sp.test]**
->  - *SPUtils*
->  - *putString*
->  - *getString*
->  - *putInt*
->  - *getInt*
->  - *putLong*
->  - *getLong*
->  - *putFloat*
->  - *getFloat*
->  - *putBoolean*
->  - *getBoolean*
->  - *getAll*
->  - *remove*
->  - *contains*
->  - *clear*
+ ```
+SPUtils
+putString
+getString
+putInt
+getInt
+putLong
+getLong
+putFloat
+getFloat
+putBoolean
+getBoolean
+getAll
+remove
+contains
+clear
+ ```
 
 > - **About String→[StringUtils.java][string.java]→[Test][string.test]**
->  - *isEmpty*
->  - *isSpace*
->  - *null2Length0*
->  - *length*
->  - *upperFirstLetter*
->  - *lowerFirstLetter*
->  - *reverse*
->  - *toDBC*
->  - *toSBC*
->  - *getPYFirstLetter*
->  - *cn2PY*
+ ```
+isEmpty
+isSpace
+null2Length0
+length
+upperFirstLetter
+lowerFirstLetter
+reverse
+toDBC
+toSBC
+getPYFirstLetter
+cn2PY
+ ```
 
 > - **About ThreadPool→[ThreadPoolUtils.java][thread_pool.java]**
->  - *ThreadPoolUtils*
->  - *execute*
->  - *execute*
->  - *shutDown*
->  - *shutDownNow*
->  - *isShutDown*
->  - *isTerminated*
->  - *awaitTermination*
->  - *submit*
->  - *submit*
->  - *invokeAll*、*invokeAny*
->  - *schedule*
->  - *schedule*
->  - *scheduleWithFixedRate*、*scheduleWithFixedDelay*
+ ```
+ThreadPoolUtils
+execute
+execute
+shutDown
+shutDownNow
+isShutDown
+isTerminated
+awaitTermination
+submit
+submit
+invokeAll, invokeAny
+schedule
+schedule
+scheduleWithFixedRate, scheduleWithFixedDelay
+ ```
 
 > - **About Time→[TimeUtils.java][time.java]→[Test][time.test]**
->  - *milliseconds2String*
->  - *string2Milliseconds*
->  - *string2Date*
->  - *date2String*
->  - *date2Milliseconds*
->  - *milliseconds2Date*
->  - *milliseconds2Unit*
->  - *getIntervalTime*
->  - *getCurTimeMills*、*getCurTimeString*、*getCurTimeDate*
->  - *getIntervalByNow*
->  - *isLeapYear*
->  - *getWeek*、*getWeekIndex*
->  - *getWeek*、*getWeekIndex*
->  - *getWeekOfMonth*
->  - *getWeekOfYear*
+ ```
+milliseconds2String
+string2Milliseconds
+string2Date
+date2String
+date2Milliseconds
+milliseconds2Date
+milliseconds2Unit
+getIntervalTime
+getCurTimeMills, getCurTimeString, getCurTimeDate
+getIntervalByNow
+isLeapYear
+getWeek, getWeekIndex
+getWeekOfMonth
+getWeekOfYear
+ ```
 
 > - **About Toast→[ToastUtils.java][toast.java]**
->  - *init*
->  - *showShortToastSafe*
->  - *showLongToastSafe*
->  - *showShortToast*
->  - *showLongToast*
->  - *cancelToast*
+ ```
+init
+showShortToastSafe
+showLongToastSafe
+showShortToast
+showLongToast
+cancelToast
+ ```
 
 > - **About Zip→[ZipUtils.java][zip.java]→[Test][zip.test]**
->  - *zipFiles*
->  - *zipFile*
->  - *unzipFiles*
->  - *unzipFile*
->  - *unzipFileByKeyword*
->  - *getFilesPath*
->  - *getComments*
->  - *getEntries*
+ ```
+zipFiles
+zipFile
+unzipFiles
+unzipFile
+unzipFileByKeyword
+getFilesPath
+getComments
+getEntries
+ ```
 
 > - **更新Log→[update_log.md][update_log.md]**
 
 ***
-  
+
 **I'm so sorry for that the code is annotated with Chinese.**
 
 ### Download
@@ -406,6 +469,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+
+[update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/update_log.md
+
+[readme.md]: https://github.com/Blankj/AndroidUtilCode
+[readme-cn.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md
+
+[trans]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/TestUtils.java
 
 [activity.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ActivityUtils.java
 
@@ -482,8 +552,4 @@ limitations under the License.
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ZipUtils.java
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/ZipUtilsTest.java
 
-[update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/update_log.md
-
 [weibo]: http://weibo.com/blankcmj
-
-[readme.cn]: https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md

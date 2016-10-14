@@ -144,7 +144,7 @@ public class ShellUtils {
         /**
          * 结果码
          **/
-        public int result;
+        public int    result;
         /**
          * 成功信息
          **/

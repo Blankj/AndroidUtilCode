@@ -29,7 +29,7 @@ public class ActivityUtils {
      * @param className   activity全路径类名
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isExistActivity(Context context, String packageName, String className) {
+    public static boolean isActivityExists(Context context, String packageName, String className) {
         Intent intent = new Intent();
         intent.setClassName(packageName, className);
         return !(context.getPackageManager().resolveActivity(intent, 0) == null ||

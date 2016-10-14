@@ -128,9 +128,9 @@ public class SDCardUtils {
 
     private static class SDCardInfo {
         boolean isExist;
-        long totalBlocks;
-        long freeBlocks;
-        long availableBlocks;
+        long    totalBlocks;
+        long    freeBlocks;
+        long    availableBlocks;
 
         long blockByteSize;
 

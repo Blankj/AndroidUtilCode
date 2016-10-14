@@ -27,7 +27,7 @@ public class NetworkUtils {
     private NetworkUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
-    
+
     public static final int NETWORK_WIFI    = 1;    // wifi network
     public static final int NETWORK_4G      = 4;    // "4G" networks
     public static final int NETWORK_3G      = 3;    // "3G" networks
@@ -52,9 +52,9 @@ public class NetworkUtils {
      */
     public static void openWirelessSettings(Context context) {
         if (android.os.Build.VERSION.SDK_INT > 10) {
-            context.startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS));
-        } else {
             context.startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS));
+        } else {
+            context.startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS));
         }
     }
 

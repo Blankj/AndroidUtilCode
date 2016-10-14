@@ -61,7 +61,8 @@ public class PhoneUtils {
 
     /**
      * 获取IMSI码
-     *<p>需添加权限 {@code <uses-permission android:name="android.permission.READ_PHONE_STATE"/>}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_PHONE_STATE"/>}</p>
+     *
      * @param context 上下文
      * @return IMSI码
      */
@@ -239,8 +240,8 @@ public class PhoneUtils {
      * 打开手机联系人界面点击联系人后便获取该号码
      * <p>参照以下注释代码</p>
      */
-    public static void getContantNum() {
-        Log.i("tips", "U should copy the following code.");
+    public static void getContactNum() {
+        Log.d("tips", "U should copy the following code.");
         /*
         Intent intent = new Intent();
         intent.setAction("android.intent.action.PICK");

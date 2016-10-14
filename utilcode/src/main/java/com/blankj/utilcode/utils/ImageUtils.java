@@ -633,7 +633,7 @@ public class ImageUtils {
      *
      * @param context 上下文
      * @param src     源图片
-     * @param scale   缩小倍数(0...1)
+     * @param scale   缩放比例(0...1)
      * @param radius  模糊半径
      * @return 模糊后的图片
      */
@@ -647,7 +647,7 @@ public class ImageUtils {
      *
      * @param context 上下文
      * @param src     源图片
-     * @param scale   缩小倍数(0...1)
+     * @param scale   缩放比例(0...1)
      * @param radius  模糊半径
      * @param recycle 是否回收
      * @return 模糊后的图片
@@ -1144,7 +1144,7 @@ public class ImageUtils {
     public static Bitmap toGray(Bitmap src, boolean recycle) {
         if (isEmptyBitmap(src)) return null;
         Bitmap grayBitmap = Bitmap.createBitmap(src.getWidth(),
-                src.getHeight(), Bitmap.Config.RGB_565);
+                src.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(grayBitmap);
         Paint paint = new Paint();
         ColorMatrix colorMatrix = new ColorMatrix();

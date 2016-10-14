@@ -40,29 +40,76 @@ public class TestUtils {
 
     @Test
     public void readme2Eng() throws Exception {
-        File readme = new File(new File(System.getProperty("user.dir")).getParent() + SEP + "README-CN.md");
+        formatCN();
+        File readmeCN = new File(new File(System.getProperty("user.dir")).getParent() + SEP + "README-CN.md");
         File readmeEng = new File(new File(System.getProperty("user.dir")).getParent() + SEP + "README.md");
-        List<String> list = FileUtils.readFile2List(readme, "UTF-8");
-        StringBuilder sb = new StringBuilder();
-        for (String line : list) {
-            if (line.length() >= 3 && line.startsWith("> -") && line.contains("Utils")) {
+        List<String> list = FileUtils.readFile2List(readmeCN, "UTF-8");
+        StringBuilder sb = new StringBuilder("## Android developers should collect the following utils\r\n" +
+                "**[中文版README][readme-cn.md]→[How to get this README from README-CN][trans]**\r\n" +
+                "***\r\n" +
+                "Directory is shown below：  \r\n");
+        List<String> lines = list.subList(4, list.size());
+        for (String line : lines) {
+            if (line.contains("> -") && line.contains("Utils")) {
                 String utilsName = line.substring(line.indexOf("[") + 1, line.indexOf("Utils"));
                 sb.append("> - **About ").append(utilsName).append(line.substring(line.indexOf("→")));
-            } else if (line.length() >= 3 && line.startsWith(">  ")) {
-                sb.append(">  - ").append(line.substring(line.indexOf("*")));
-            } else if (line.length() >= 3 && line.startsWith("## ")) {
-                sb.append("## Android developers should collect the following utils")
-                        .append("\r\n").append("**[中文版README][readme.cn]**");
-            } else if (line.length() >= 1 && line.startsWith("为")) {
-                sb.append("Directory is shown below：  ");
-            } else if (line.length() >= 2 && line.startsWith("**做")) {
+            } else if (line.contains(" : ")) {
+                sb.append(line.substring(0, line.indexOf(':')).trim());
+            } else if (line.contains("**做")) {
                 sb.append("**I'm so sorry for that the code is annotated with Chinese.**");
             } else {
                 sb.append(line);
             }
             sb.append("\r\n");
         }
-        sb.append("\r\n[readme.cn]: https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md");
         FileUtils.writeFileFromString(readmeEng, sb.toString(), false);
+    }
+
+    @Test
+    public void formatCN() throws Exception {
+        File readmeCN = new File(new File(System.getProperty("user.dir")).getParent() + SEP + "README-CN.md");
+        List<String> list = FileUtils.readFile2List(readmeCN, "UTF-8");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 4; i++) {
+            sb.append(list.get(i)).append("\r\n");
+        }
+        String space = " ";
+        for (int i = 4, len = list.size(); i < len; ++i) {
+            String line = list.get(i);
+            if (line.contains("> -") && line.contains("Utils")) {
+                sb.append(line).append("\r\n");
+                int maxLen = 0;
+                line = list.get(++i);
+                // 获取需填充最大空格数
+                for (int j = i; !line.equals(""); line = list.get(++j)) {
+                    if (line.equals(" ```")) continue;
+                    maxLen = Math.max(maxLen, line.replace(" ", "").replace(",", ", ").indexOf(':'));
+                }
+                line = list.get(i);
+                for (; !line.equals(""); line = list.get(++i)) {
+                    if (line.equals(" ```")) {
+                        sb.append(" ```").append("\r\n");
+                        continue;
+                    }
+                    String noSpaceLine = line.replace(" ", "");
+                    int l = maxLen - line.replace(" ", "").replace(",", ", ").indexOf(':');
+                    String spaces = "";
+                    for (int j = 0; j < l; j++) {
+                        spaces += space;
+                    }
+                    String temp = noSpaceLine.substring(0, noSpaceLine.indexOf(':')) + spaces + " : " + noSpaceLine.substring(noSpaceLine.indexOf(':') + 1) + "\r\n";
+                    sb.append(temp.replace(",", ", "));
+                }
+            } else {
+                sb.append(line);
+            }
+            sb.append("\r\n");
+        }
+        FileUtils.writeFileFromString(readmeCN, sb.toString(), false);
+    }
+
+    @Test
+    public void test() throws Exception {
+
     }
 }
