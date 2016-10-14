@@ -433,13 +433,13 @@ public class AppUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isAppForeground(Context context) {
-        return isApplicationForeground(context, context.getPackageName());
+        return ProcessUtils.isAppForeground(context);
     }
 
     /**
-     * 判断App是否处于前台
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.GET_TASKS"/>}</p>
-     * <p>该方法在 API 21 被遗弃，已经不能使用</p>
+     * 判断某个App是否处于前台（系统应用调用）
+     * <p>API < 21，需要添加 {@code <uses-permission android:name="android.permission.GET_TASKS"/>} 权限</p>
+     * <p>API >= 22，需要添加　{@code <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"/>} 权限</p>
      *
      * @param context     上下文
      * @param packageName 包名
@@ -447,32 +447,19 @@ public class AppUtils {
      */
     @Deprecated
     public static boolean isAppForeground(Context context, String packageName) {
-        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        @SuppressWarnings("deprecation")
-        List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
-        return tasks != null && !tasks.isEmpty()
-                && tasks.get(0).topActivity.getPackageName().equals(packageName);
+        return ProcessUtils.isAppForeground(context, packageName);;
     }
     
     /**
-     * 判断 App 是否处于前台
+     * 获取前台应用包名（系统应用调用）
+     * <p>API < 21，需要添加 {@code <uses-permission android:name="android.permission.GET_TASKS"/>} 权限</p>
+     * <p>API >= 22，需要添加　{@code <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"/>} 权限</p>
      *
-     * @param context     上下文
-     * @param packageName 包名
-     * @return {@code true}: 是<br>{@code false}: 否
+     * @param context 上下文
+     * @return 前台应用包名
      */
-    public static boolean isApplicationForeground(final Context context, String packageName) {
-        final ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        final List<ActivityManager.RunningAppProcessInfo> processInfos = am.getRunningAppProcesses();
-        if (processInfos != null) {
-            for (ActivityManager.RunningAppProcessInfo processInfo : processInfos) {
-                if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
-                        && Arrays.asList(processInfo.pkgList).contains(packageName)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    public String getForegroundApp(Context context) {
+        return ProcessUtils.getForegroundPackage(context);
     }
 
     /**
