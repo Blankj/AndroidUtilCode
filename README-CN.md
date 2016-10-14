@@ -405,7 +405,6 @@ getCurTimeMills, getCurTimeString, getCurTimeDate : 获取当前时间
 getIntervalByNow                                  : 获取与当前时间的差（单位：unit）
 isLeapYear                                        : 判断闰年
 getWeek, getWeekIndex                             : 获取星期
-getWeek, getWeekIndex                             : 获取星期
 getWeekOfMonth                                    : 获取月份中的第几周
 getWeekOfYear                                     : 获取年份中的第几周
  ```

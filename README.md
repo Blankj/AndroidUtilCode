@@ -405,7 +405,6 @@ getCurTimeMills, getCurTimeString, getCurTimeDate
 getIntervalByNow
 isLeapYear
 getWeek, getWeekIndex
-getWeek, getWeekIndex
 getWeekOfMonth
 getWeekOfYear
  ```
