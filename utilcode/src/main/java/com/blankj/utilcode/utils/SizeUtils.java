@@ -142,7 +142,7 @@ public class SizeUtils {
      * @param view 视图
      */
     public static void measureViewInLV(View view) {
-        Log.i("tips", "U should copy the following code.");
+        Log.d("tips", "U should copy the following code.");
         /*
         ViewGroup.LayoutParams p = view.getLayoutParams();
         if (p == null) {

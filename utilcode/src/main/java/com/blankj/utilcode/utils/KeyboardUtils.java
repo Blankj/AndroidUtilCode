@@ -60,7 +60,7 @@ public class KeyboardUtils {
      * <p>参照以下注释代码</p>
      */
     public static void clickBlankArea2HideSoftInput0() {
-        Log.i("tips", "U should copy the following code.");
+        Log.d("tips", "U should copy the following code.");
         /*
         @Override
         public boolean onTouchEvent (MotionEvent event){
@@ -80,7 +80,7 @@ public class KeyboardUtils {
      * <p>参照以下注释代码</p>
      */
     public static void clickBlankArea2HideSoftInput1() {
-        Log.i("tips", "U should copy the following code.");
+        Log.d("tips", "U should copy the following code.");
         /*
         @Override
         public boolean dispatchTouchEvent(MotionEvent ev) {

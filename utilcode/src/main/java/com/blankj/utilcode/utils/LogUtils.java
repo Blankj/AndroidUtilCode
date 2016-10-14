@@ -63,9 +63,9 @@ public class LogUtils {
      */
     public static Builder getBuilder(Context context) {
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            dir = context.getExternalCacheDir().getPath() + File.separator;
+            dir = context.getExternalCacheDir().getPath() + File.separator + "log" + File.separator;
         } else {
-            dir = context.getCacheDir().getPath() + File.separator;
+            dir = context.getCacheDir().getPath() + File.separator + "log" + File.separator;
         }
         return new Builder();
     }
@@ -291,7 +291,7 @@ public class LogUtils {
         if (content == null) return;
         Date now = new Date();
         String date = new SimpleDateFormat("MM-dd", Locale.getDefault()).format(now);
-        String fullPath = dir + "log_" + date + ".txt";
+        String fullPath = dir + date + ".txt";
         if (!FileUtils.createOrExistsFile(fullPath)) return;
         String time = new SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.getDefault()).format(now);
         String dateLogContent = time + ":" + type + ":" + tag + ":" + content + '\n';

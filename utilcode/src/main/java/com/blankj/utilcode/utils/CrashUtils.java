@@ -28,7 +28,7 @@ public class CrashUtils implements Thread.UncaughtExceptionHandler {
     private static CrashUtils mInstance = new CrashUtils();
     private UncaughtExceptionHandler mHandler;
     private boolean mInitialized;
-    private static String dir;
+    private static String crashDir;
     private String versionName;
     private int versionCode;
 
@@ -54,9 +54,9 @@ public class CrashUtils implements Thread.UncaughtExceptionHandler {
     public boolean init(Context context) {
         if (mInitialized) return true;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            dir = context.getExternalCacheDir().getPath() + File.separator;
+            crashDir = context.getExternalCacheDir().getPath() + File.separator + "crash" + File.separator;
         } else {
-            dir = context.getCacheDir().getPath() + File.separator;
+            crashDir = context.getCacheDir().getPath() + File.separator + "crash" + File.separator;
         }
         try {
             PackageInfo pi = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
@@ -74,7 +74,7 @@ public class CrashUtils implements Thread.UncaughtExceptionHandler {
     @Override
     public void uncaughtException(Thread thread, Throwable throwable) {
         String now = new SimpleDateFormat("yy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-        String fullPath = dir + "crash_" + now + ".txt";
+        String fullPath = crashDir + now + ".txt";
         if (!FileUtils.createOrExistsFile(fullPath)) return;
         PrintWriter pw = null;
         try {

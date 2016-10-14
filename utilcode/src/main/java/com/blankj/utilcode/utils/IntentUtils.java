@@ -174,7 +174,7 @@ public class IntentUtils {
      *
      * @return intent
      */
-    public static Intent getShutdownIntnet() {
+    public static Intent getShutdownIntent() {
         Intent intent = new Intent(Intent.ACTION_SHUTDOWN);
         return intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     }
