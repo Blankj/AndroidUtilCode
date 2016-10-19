@@ -23,6 +23,23 @@ public class DeviceUtils {
     private DeviceUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
+    
+        /**
+     * 判断设备是否 root
+     * @return the boolean
+     */
+    public static boolean isDeviceRooted() {
+         String su = "su";
+         String[] locations = {"/sbin/", "/system/bin/", "/system/xbin/", "/system/sd/xbin/", "/system/bin/failsafe/",
+                         "/data/local/xbin/", "/data/local/bin/", "/data/local/"};
+         for (String location: locations) {
+               if (new File(location + su).exists()) {
+                     return true;
+               }
+         }
+
+         return false;
+    }
 
     /**
      * 判断设备是否root
