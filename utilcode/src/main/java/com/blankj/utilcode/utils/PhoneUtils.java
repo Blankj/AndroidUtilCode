@@ -72,6 +72,72 @@ public class PhoneUtils {
     }
 
     /**
+     * 获取移动终端类型
+     *
+     * @param context 上下文
+     * @return 手机制式
+     * <ul>
+     * <li>{@link TelephonyManager#PHONE_TYPE_NONE } : 0 手机制式未知</li>
+     * <li>{@link TelephonyManager#PHONE_TYPE_GSM  } : 1 手机制式为GSM，移动和联通</li>
+     * <li>{@link TelephonyManager#PHONE_TYPE_CDMA } : 2 手机制式为CDMA，电信</li>
+     * <li>{@link TelephonyManager#PHONE_TYPE_SIP  } : 3</li>
+     * </ul>
+     */
+    public static int getPhoneType(Context context) {
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        return tm != null ? tm.getPhoneType() : -1;
+    }
+
+    /**
+     * 获取运营商名称
+     * <p>中国移动、如中国联通、中国电信</p>
+     *
+     * @param context 上下文
+     * @return 运营商名称
+     */
+    public static String getNetworkOperatorName(Context context) {
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        return tm != null ? tm.getNetworkOperatorName() : null;
+    }
+
+    /**
+     * 获取运营商名称
+     * <p>中国移动、如中国联通、中国电信</p>
+     *
+     * @param context 上下文
+     * @return sim卡运营商名称
+     */
+    public static String getSimOperatorName(Context context) {
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        return tm != null ? tm.getSimOperatorName() : null;
+    }
+
+    /**
+     * 获取运营商名称
+     * <p>中国移动、如中国联通、中国电信</p>
+     *
+     * @param context 上下文
+     * @return 移动网络运营商名称
+     */
+    public static String getSimOperatorByMnc(Context context) {
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String operator = tm != null ? tm.getSimOperator() : null;
+        if (operator == null) return null;
+        switch (operator) {
+            case "46000":
+            case "46002":
+            case "46007":
+                return "中国移动";
+            case "46001":
+                return "中国联通";
+            case "46003":
+                return "中国电信";
+            default:
+                return operator;
+        }
+    }
+
+    /**
      * 获取手机状态信息
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_PHONE_STATE"/>}</p>
      *

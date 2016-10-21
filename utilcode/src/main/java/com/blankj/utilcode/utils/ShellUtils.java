@@ -23,7 +23,7 @@ public class ShellUtils {
      * 是否是在root下执行命令
      *
      * @param command 命令
-     * @param isRoot  是否root
+     * @param isRoot  是否需要root权限执行
      * @return CommandResult
      */
     public static CommandResult execCmd(String command, boolean isRoot) {
@@ -34,7 +34,7 @@ public class ShellUtils {
      * 是否是在root下执行命令
      *
      * @param commands 多条命令链表
-     * @param isRoot   是否root
+     * @param isRoot   是否需要root权限执行
      * @return CommandResult
      */
     public static CommandResult execCmd(List<String> commands, boolean isRoot) {
@@ -45,7 +45,7 @@ public class ShellUtils {
      * 是否是在root下执行命令
      *
      * @param commands 多条命令数组
-     * @param isRoot   是否root
+     * @param isRoot   是否需要root权限执行
      * @return CommandResult
      */
     public static CommandResult execCmd(String[] commands, boolean isRoot) {
@@ -56,7 +56,7 @@ public class ShellUtils {
      * 是否是在root下执行命令
      *
      * @param command         命令
-     * @param isRoot          是否root
+     * @param isRoot          是否需要root权限执行
      * @param isNeedResultMsg 是否需要结果消息
      * @return CommandResult
      */
@@ -68,7 +68,7 @@ public class ShellUtils {
      * 是否是在root下执行命令
      *
      * @param commands        命令链表
-     * @param isRoot          是否root
+     * @param isRoot          是否需要root权限执行
      * @param isNeedResultMsg 是否需要结果消息
      * @return CommandResult
      */
@@ -80,7 +80,7 @@ public class ShellUtils {
      * 是否是在root下执行命令
      *
      * @param commands        命令数组
-     * @param isRoot          是否root
+     * @param isRoot          是否需要root权限执行
      * @param isNeedResultMsg 是否需要结果消息
      * @return CommandResult
      */
@@ -99,9 +99,7 @@ public class ShellUtils {
             process = Runtime.getRuntime().exec(isRoot ? "su" : "sh");
             os = new DataOutputStream(process.getOutputStream());
             for (String command : commands) {
-                if (command == null) {
-                    continue;
-                }
+                if (command == null) continue;
                 os.write(command.getBytes());
                 os.writeBytes("\n");
                 os.flush();

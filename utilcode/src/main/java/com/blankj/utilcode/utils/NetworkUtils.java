@@ -4,10 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -39,11 +46,6 @@ public class NetworkUtils {
     private static final int NETWORK_TYPE_TD_SCDMA = 17;
     private static final int NETWORK_TYPE_IWLAN    = 18;
 
-    private static final String CMCC_ISP  = "46000";//中国移动
-    private static final String CMCC2_ISP = "46002";//中国移动
-    private static final String CU_ISP    = "46001";//中国联通
-    private static final String CT_ISP    = "46003";//中国电信
-
     /**
      * 打开网络设置界面
      * <p>3.0以下打开设置界面</p>
@@ -60,6 +62,7 @@ public class NetworkUtils {
 
     /**
      * 获取活动网络信息
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
      *
      * @param context 上下文
      * @return NetworkInfo
@@ -72,14 +75,60 @@ public class NetworkUtils {
 
     /**
      * 判断网络是否可用
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
      *
      * @param context 上下文
      * @return {@code true}: 可用<br>{@code false}: 不可用
      */
-    public static boolean isAvailable(Context context) {
-        NetworkInfo info = getActiveNetworkInfo(context);
-        return info != null && info.isAvailable();
+    public static boolean isAvailableByPing(Context context) {
+        ShellUtils.CommandResult result = ShellUtils.execCmd("ping -c 1 -w 1 123.125.114.144", false);
+        boolean ret = result.result == 0;
+        if (result.errorMsg != null) {
+            LogUtils.d("isAvailableByPing", result.errorMsg);
+        }
+        if (result.successMsg != null) {
+            LogUtils.d("isAvailableByPing", result.successMsg);
+        }
+        return ret;
+    }
+
+    /**
+     * 判断移动数据是否打开
+     * <p>需系统应用 需添加权限{@code <uses-permission android:name="android.permission.MODIFY_PHONE_STATE"/>}</p>
+     *
+     * @param context 上下文
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean getDataEnabled(Context context) {
+        try {
+            TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            Method getMobileDataEnabledMethod = tm.getClass().getDeclaredMethod("getDataEnabled");
+            if (null != getMobileDataEnabledMethod) {
+                return (boolean) getMobileDataEnabledMethod.invoke(tm);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * 打开或关闭移动数据
+     * <p>需系统应用 需添加权限{@code <uses-permission android:name="android.permission.MODIFY_PHONE_STATE"/>}</p>
+     *
+     * @param context 上下文
+     * @param enabled {@code true}: 打开<br>{@code false}: 关闭
+     */
+    private void setDataEnabled(Context context, boolean enabled) {
+        try {
+            TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            Method setMobileDataEnabledMethod = tm.getClass().getDeclaredMethod("setDataEnabled", boolean.class);
+            if (null != setMobileDataEnabledMethod) {
+                setMobileDataEnabledMethod.invoke(tm, enabled);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -121,45 +170,35 @@ public class NetworkUtils {
     }
 
     /**
-     * 获取移动网络运营商名称
-     * <p>中国移动、如中国联通、中国电信</p>
+     * 判断wifi是否打开
+     * <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
      *
      * @param context 上下文
-     * @return 移动网络运营商名称
+     * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static String getNetworkOperatorName(Context context) {
-        TelephonyManager tm = (TelephonyManager) context
-                .getSystemService(Context.TELEPHONY_SERVICE);
-        String np = tm != null ? tm.getNetworkOperatorName() : null;
-        String teleCompany = "unknown";
-        if (np != null) {
-            if (np.equals(CMCC_ISP) || np.equals(CMCC2_ISP)) {
-                teleCompany = "中国移动";
-            } else if (np.startsWith(CU_ISP)) {
-                teleCompany = "中国联通";
-            } else if (np.startsWith(CT_ISP)) {
-                teleCompany = "中国电信";
-            }
-        }
-        return teleCompany;
+    public static boolean getWifiEnabled(Context context) {
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        return wifiManager.isWifiEnabled();
     }
 
     /**
-     * 获取移动终端类型
+     * 打开或关闭wifi
+     * <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
      *
      * @param context 上下文
-     * @return 手机制式
-     * <ul>
-     * <li>{@link TelephonyManager#PHONE_TYPE_NONE } : 0 手机制式未知</li>
-     * <li>{@link TelephonyManager#PHONE_TYPE_GSM  } : 1 手机制式为GSM，移动和联通</li>
-     * <li>{@link TelephonyManager#PHONE_TYPE_CDMA } : 2 手机制式为CDMA，电信</li>
-     * <li>{@link TelephonyManager#PHONE_TYPE_SIP  } : 3</li>
-     * </ul>
+     * @param enabled {@code true}: 打开<br>{@code false}: 关闭
      */
-    public static int getPhoneType(Context context) {
-        TelephonyManager tm = (TelephonyManager) context
-                .getSystemService(Context.TELEPHONY_SERVICE);
-        return tm != null ? tm.getPhoneType() : -1;
+    public static void setWifiEnabled(Context context, boolean enabled) {
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        if (enabled) {
+            if (!wifiManager.isWifiEnabled()) {
+                wifiManager.setWifiEnabled(true);
+            }
+        } else {
+            if (wifiManager.isWifiEnabled()) {
+                wifiManager.setWifiEnabled(false);
+            }
+        }
     }
 
 
@@ -266,12 +305,46 @@ public class NetworkUtils {
     }
 
     /**
-     * 根据域名获取ip地址
+     * 获取IP地址
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
+     *
+     * @param useIPv4 是否用IPv4
+     * @return IP地址
+     */
+    public static String getIPAddress(boolean useIPv4) {
+        try {
+            for (Enumeration<NetworkInterface> nis = NetworkInterface.getNetworkInterfaces(); nis.hasMoreElements(); ) {
+                NetworkInterface ni = nis.nextElement();
+                for (Enumeration<InetAddress> addresses = ni.getInetAddresses(); addresses.hasMoreElements(); ) {
+                    InetAddress inetAddress = addresses.nextElement();
+                    if (!inetAddress.isLoopbackAddress()) {
+                        String hostAddress = inetAddress.getHostAddress();
+                        boolean isIPv4 = hostAddress.indexOf(':') < 0;
+                        if (useIPv4) {
+                            if (isIPv4) return hostAddress;
+                        } else {
+                            if (!isIPv4) {
+                                int index = hostAddress.indexOf('%');
+                                return index < 0 ? hostAddress.toUpperCase() : hostAddress.substring(0, index).toUpperCase();
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 获取域名ip地址
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
      *
      * @param domain 域名
      * @return ip地址
      */
-    public static String getIpAddress(final String domain) {
+    public static String getDomainAddress(final String domain) {
         try {
             ExecutorService exec = Executors.newCachedThreadPool();
             Future<String> fs = exec.submit(new Callable<String>() {

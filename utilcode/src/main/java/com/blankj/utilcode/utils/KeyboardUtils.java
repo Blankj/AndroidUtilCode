@@ -33,44 +33,12 @@ public class KeyboardUtils {
      * @param activity activity
      */
     public static void hideSoftInput(Activity activity) {
-        View view = activity.getWindow().peekDecorView();
-        if (view != null) {
-            InputMethodManager inputmanger = (InputMethodManager) activity
-                    .getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        View view = activity.getCurrentFocus();
+        if (view == null) {
+            view = new View(activity);
         }
-    }
-
-    /**
-     * 动态隐藏软键盘
-     *
-     * @param context 上下文
-     * @param edit    输入框
-     */
-    public static void hideSoftInput(Context context, EditText edit) {
-        edit.clearFocus();
-        InputMethodManager inputmanger = (InputMethodManager) context
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputmanger.hideSoftInputFromWindow(edit.getWindowToken(), 0);
-    }
-
-    /**
-     * 点击屏幕空白区域隐藏软键盘（方法1）
-     * <p>在onTouch中处理，未获焦点则隐藏</p>
-     * <p>参照以下注释代码</p>
-     */
-    public static void clickBlankArea2HideSoftInput0() {
-        Log.d("tips", "U should copy the following code.");
-        /*
-        @Override
-        public boolean onTouchEvent (MotionEvent event){
-            if (null != this.getCurrentFocus()) {
-                InputMethodManager mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                return mInputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
-            }
-            return super.onTouchEvent(event);
-        }
-        */
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     /**
@@ -79,7 +47,7 @@ public class KeyboardUtils {
      * <p>需重写dispatchTouchEvent</p>
      * <p>参照以下注释代码</p>
      */
-    public static void clickBlankArea2HideSoftInput1() {
+    public static void clickBlankArea2HideSoftInput() {
         Log.d("tips", "U should copy the following code.");
         /*
         @Override

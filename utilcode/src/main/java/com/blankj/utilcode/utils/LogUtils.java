@@ -30,7 +30,7 @@ public class LogUtils {
     private static boolean log2FileSwitch = false;
     private static char    logFilter      = 'v';
     private static String  tag            = "TAG";
-    private static String dir;
+    private static String  dir            = null;
 
     /**
      * 初始化函数

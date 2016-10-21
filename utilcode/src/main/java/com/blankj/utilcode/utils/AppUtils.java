@@ -1,5 +1,6 @@
 package com.blankj.utilcode.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
@@ -361,8 +362,37 @@ public class AppUtils {
             return ai != null && (ai.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
+    }
+
+    /**
+     * 判断App是否是Debug版本
+     *
+     * @param context 上下文
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean isAppDebug(Context context) {
+        return isAppDebug(context, context.getPackageName());
+    }
+
+    /**
+     * 判断App是否是Debug版本
+     *
+     * @param context     上下文
+     * @param packageName 包名
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean isAppDebug(Context context, String packageName) {
+        if (StringUtils.isSpace(packageName)) return false;
+        try {
+            PackageManager pm = context.getPackageManager();
+            ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
+            return ai != null && (ai.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**
@@ -382,11 +412,12 @@ public class AppUtils {
      * @param packageName 包名
      * @return App签名
      */
+    @SuppressLint("PackageManagerGetSignatures")
     public static Signature[] getAppSignature(Context context, String packageName) {
         if (StringUtils.isSpace(packageName)) return null;
         try {
             PackageManager pm = context.getPackageManager();
-            PackageInfo pi = pm.getPackageInfo(packageName, 0);
+            PackageInfo pi = pm.getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
             return pi == null ? null : pi.signatures;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -427,33 +458,28 @@ public class AppUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isAppForeground(Context context) {
-        return ProcessUtils.isAppForeground(context);
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> infos = manager.getRunningAppProcesses();
+        if (infos == null || infos.size() == 0) return false;
+        for (ActivityManager.RunningAppProcessInfo info : infos) {
+            if (info.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                return info.processName.equals(context.getPackageName());
+            }
+        }
+        return false;
     }
 
     /**
-     * 判断某个App是否处于前台（系统应用调用）
-     * <p>API < 21，需要添加 {@code <uses-permission android:name="android.permission.GET_TASKS"/>} 权限</p>
-     * <p>API >= 22，需要添加　{@code <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"/>} 权限</p>
+     * 判断App是否处于前台
+     * <p>当不是查看当前App，且SDK >= 22时，
+     * 需添加权限 {@code <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"/>}</p>
      *
      * @param context     上下文
      * @param packageName 包名
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    @Deprecated
     public static boolean isAppForeground(Context context, String packageName) {
-        return ProcessUtils.isAppForeground(context, packageName);;
-    }
-    
-    /**
-     * 获取前台应用包名（系统应用调用）
-     * <p>API < 21，需要添加 {@code <uses-permission android:name="android.permission.GET_TASKS"/>} 权限</p>
-     * <p>API >= 22，需要添加　{@code <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"/>} 权限</p>
-     *
-     * @param context 上下文
-     * @return 前台应用包名
-     */
-    public String getForegroundApp(Context context) {
-        return ProcessUtils.getForegroundPackage(context);
+        return !StringUtils.isSpace(packageName) && packageName.equals(ProcessUtils.getForegroundProcessName(context));
     }
 
     /**
