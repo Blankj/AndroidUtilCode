@@ -1,5 +1,6 @@
 package com.blankj.utilcode.utils;
 
+import android.os.Build;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -43,6 +44,29 @@ public class NetworkUtils {
     private static final String CMCC2_ISP = "46002";//中国移动
     private static final String CU_ISP    = "46001";//中国联通
     private static final String CT_ISP    = "46003";//中国电信
+    
+    /**
+     * 通过反射打开或关闭 GPRS 网络开关
+     * 需要系统权限      <android:sharedUserId="android.uid.system"/>
+     * @param context 上下文
+     * @param isEnable true——打开 GPRS；false——关闭 GPRS
+     * @throws Exception
+     */
+    public static void toggleMobileData(Context context, boolean isEnable) throws Exception {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+            ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            // 反射ConnectivityManager中hide的方法setMobileDataEnabled(5.0以下)，可以开启和关闭GPRS网络
+            Method method = connManager.getClass().getMethod("setMobileDataEnabled", boolean.class);
+            method.invoke(connManager, isEnable);
+        } else {
+            /** 5.0 以上在 {@link TelephonyManager#setDataEnabled(boolean)}*/
+            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            Method method = telephonyManager.getClass().getMethod("setDataEnabled", boolean.class);
+            method.invoke(telephonyManager, isEnable);
+        }
+
+    }
 
     /**
      * 打开网络设置界面
