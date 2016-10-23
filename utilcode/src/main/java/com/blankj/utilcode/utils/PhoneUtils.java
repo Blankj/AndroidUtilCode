@@ -44,7 +44,7 @@ public class PhoneUtils {
      */
     public static boolean isPhone(Context context) {
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        return tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE;
+        return tm != null && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE;
     }
 
     /**
@@ -56,7 +56,8 @@ public class PhoneUtils {
      */
     @SuppressLint("HardwareIds")
     public static String getIMEI(Context context) {
-        return ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        return tm != null ? tm.getDeviceId() : null;
     }
 
     /**
@@ -64,11 +65,12 @@ public class PhoneUtils {
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_PHONE_STATE"/>}</p>
      *
      * @param context 上下文
-     * @return IMSI码
+     * @return IMIE码
      */
     @SuppressLint("HardwareIds")
     public static String getIMSI(Context context) {
-        return ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getSubscriberId();
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        return tm != null ? tm.getSubscriberId() : null;
     }
 
     /**
@@ -89,19 +91,7 @@ public class PhoneUtils {
     }
 
     /**
-     * 获取运营商名称
-     * <p>中国移动、如中国联通、中国电信</p>
-     *
-     * @param context 上下文
-     * @return 运营商名称
-     */
-    public static String getNetworkOperatorName(Context context) {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        return tm != null ? tm.getNetworkOperatorName() : null;
-    }
-
-    /**
-     * 获取运营商名称
+     * 获取Sim卡运营商名称
      * <p>中国移动、如中国联通、中国电信</p>
      *
      * @param context 上下文
@@ -113,7 +103,7 @@ public class PhoneUtils {
     }
 
     /**
-     * 获取运营商名称
+     * 获取Sim卡运营商名称
      * <p>中国移动、如中国联通、中国电信</p>
      *
      * @param context 上下文
@@ -181,7 +171,7 @@ public class PhoneUtils {
     }
 
     /**
-     * 跳至填充好phoneNumber的拨号界面
+     * 跳至拨号界面
      *
      * @param context     上下文
      * @param phoneNumber 电话号码
@@ -191,7 +181,7 @@ public class PhoneUtils {
     }
 
     /**
-     * 拨打phoneNumber
+     * 拨打电话
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.CALL_PHONE"/>}</p>
      *
      * @param context     上下文
@@ -202,7 +192,7 @@ public class PhoneUtils {
     }
 
     /**
-     * 发送短信
+     * 跳至发送短信界面
      *
      * @param context     上下文
      * @param phoneNumber 接收号码
@@ -336,8 +326,8 @@ public class PhoneUtils {
 
     /**
      * 获取手机短信并保存到xml中
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_SMS"/>}</p>
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_SMS"/>}</p>
      *
      * @param context 上下文
      */

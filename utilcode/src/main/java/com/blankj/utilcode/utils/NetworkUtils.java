@@ -7,8 +7,6 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -20,6 +18,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * <pre>
@@ -74,6 +74,18 @@ public class NetworkUtils {
     }
 
     /**
+     * 判断网络是否连接
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
+     *
+     * @param context 上下文
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean isConnected(Context context) {
+        NetworkInfo info = getActiveNetworkInfo(context);
+        return info != null && info.isConnected();
+    }
+
+    /**
      * 判断网络是否可用
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
      *
@@ -94,7 +106,6 @@ public class NetworkUtils {
 
     /**
      * 判断移动数据是否打开
-     * <p>需系统应用 需添加权限{@code <uses-permission android:name="android.permission.MODIFY_PHONE_STATE"/>}</p>
      *
      * @param context 上下文
      * @return {@code true}: 是<br>{@code false}: 否
@@ -119,7 +130,7 @@ public class NetworkUtils {
      * @param context 上下文
      * @param enabled {@code true}: 打开<br>{@code false}: 关闭
      */
-    private void setDataEnabled(Context context, boolean enabled) {
+    public static void setDataEnabled(Context context, boolean enabled) {
         try {
             TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             Method setMobileDataEnabledMethod = tm.getClass().getDeclaredMethod("setDataEnabled", boolean.class);
@@ -129,18 +140,6 @@ public class NetworkUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * 判断网络是否连接
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
-     *
-     * @param context 上下文
-     * @return {@code true}: 是<br>{@code false}: 否
-     */
-    public static boolean isConnected(Context context) {
-        NetworkInfo info = getActiveNetworkInfo(context);
-        return info != null && info.isConnected();
     }
 
     /**
@@ -156,22 +155,8 @@ public class NetworkUtils {
     }
 
     /**
-     * 判断wifi是否连接状态
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
-     *
-     * @param context 上下文
-     * @return {@code true}: 连接<br>{@code false}: 未连接
-     */
-    public static boolean isWifiConnected(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm != null && cm.getActiveNetworkInfo() != null
-                && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
-    }
-
-    /**
      * 判断wifi是否打开
-     * <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>}</p>
      *
      * @param context 上下文
      * @return {@code true}: 是<br>{@code false}: 否
@@ -183,7 +168,7 @@ public class NetworkUtils {
 
     /**
      * 打开或关闭wifi
-     * <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+     * <p>需添加权限 { <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>}</p>
      *
      * @param context 上下文
      * @param enabled {@code true}: 打开<br>{@code false}: 关闭
@@ -201,6 +186,43 @@ public class NetworkUtils {
         }
     }
 
+    /**
+     * 判断wifi是否连接状态
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
+     *
+     * @param context 上下文
+     * @return {@code true}: 连接<br>{@code false}: 未连接
+     */
+    public static boolean isWifiConnected(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm != null && cm.getActiveNetworkInfo() != null
+                && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
+    }
+
+    /**
+     * 判断wifi数据是否可用
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
+     *
+     * @param context 上下文
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean isWifiAvailable(Context context) {
+        return getWifiEnabled(context) && isAvailableByPing(context);
+    }
+
+    /**
+     * 获取网络运营商名称
+     * <p>中国移动、如中国联通、中国电信</p>
+     *
+     * @param context 上下文
+     * @return 运营商名称
+     */
+    public static String getNetworkOperatorName(Context context) {
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        return tm != null ? tm.getNetworkOperatorName() : null;
+    }
 
     /**
      * 获取当前的网络类型(WIFI,2G,3G,4G)
@@ -217,7 +239,7 @@ public class NetworkUtils {
      * <li>{@link #NETWORK_NO     } = -1;</li>
      * </ul>
      */
-    public static int getNetWorkType(Context context) {
+    public static int getNetworkType(Context context) {
         int netType = NETWORK_NO;
         NetworkInfo info = getActiveNetworkInfo(context);
         if (info != null && info.isAvailable()) {
@@ -287,8 +309,8 @@ public class NetworkUtils {
      * <li>NETWORK_NO     </li>
      * </ul>
      */
-    public static String getNetWorkTypeName(Context context) {
-        switch (getNetWorkType(context)) {
+    public static String getNetworkTypeName(Context context) {
+        switch (getNetworkType(context)) {
             case NETWORK_WIFI:
                 return "NETWORK_WIFI";
             case NETWORK_4G:
@@ -356,14 +378,14 @@ public class NetworkUtils {
                         return inetAddress.getHostAddress();
                     } catch (UnknownHostException e) {
                         e.printStackTrace();
-                        return null;
                     }
+                    return null;
                 }
             });
             return fs.get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
-            return null;
         }
+        return null;
     }
 }

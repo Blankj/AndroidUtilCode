@@ -24,7 +24,7 @@ public class KeyboardUtils {
     /**
      * 避免输入法面板遮挡
      * <p>在manifest.xml中activity中设置</p>
-     * <p>android:windowSoftInputMode="stateVisible|adjustResize"</p>
+     * <p>android:windowSoftInputMode="adjustResize"</p>
      */
 
     /**
