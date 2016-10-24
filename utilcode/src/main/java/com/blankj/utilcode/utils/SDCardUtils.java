@@ -34,32 +34,12 @@ public class SDCardUtils {
     }
 
     /**
-     * 获取SD卡Data路径
-     *
-     * @return SD卡Data路径
-     */
-    public static String getDataPath() {
-        if (!isSDCardEnable()) return "sdcard unable!";
-        return Environment.getDataDirectory().getPath() + File.separator;
-    }
-
-    /**
      * 获取SD卡路径
-     * <p>一般是/storage/emulated/0/</p>
+     * <p>先用shell，shell失败再普通方法获取，一般是/storage/emulated/0/</p>
      *
      * @return SD卡路径
      */
     public static String getSDCardPath() {
-        if (!isSDCardEnable()) return "sdcard unable!";
-        return Environment.getExternalStorageDirectory().getPath() + File.separator;
-    }
-
-    /**
-     * 获取SD卡路径
-     *
-     * @return SD卡路径
-     */
-    public static String getSDCardPathByCmd() {
         if (!isSDCardEnable()) return "sdcard unable!";
         String cmd = "cat /proc/mounts";
         Runtime run = Runtime.getRuntime();
@@ -88,6 +68,16 @@ public class SDCardUtils {
     }
 
     /**
+     * 获取SD卡data路径
+     *
+     * @return SD卡data路径
+     */
+    public static String getDataPath() {
+        if (!isSDCardEnable()) return "sdcard unable!";
+        return Environment.getExternalStorageDirectory().getPath() + File.separator + "data" + File.separator;
+    }
+
+    /**
      * 获取SD卡剩余空间
      *
      * @return SD卡剩余空间
@@ -108,48 +98,41 @@ public class SDCardUtils {
      * @return SDCardInfo
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
-    public static SDCardInfo getSDCardInfo() {
+    public static String getSDCardInfo() {
         SDCardInfo sd = new SDCardInfo();
-        String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            sd.isExist = true;
-            File sdcardDir = Environment.getExternalStorageDirectory();
-            StatFs sf = new StatFs(sdcardDir.getPath());
-            sd.totalBlocks = sf.getBlockCountLong();
-            sd.blockByteSize = sf.getBlockSizeLong();
-            sd.availableBlocks = sf.getAvailableBlocksLong();
-            sd.availableBytes = sf.getAvailableBytes();
-            sd.freeBlocks = sf.getFreeBlocksLong();
-            sd.freeBytes = sf.getFreeBytes();
-            sd.totalBytes = sf.getTotalBytes();
-        }
-        return sd;
+        if (!isSDCardEnable()) return "sdcard unable!";
+        sd.isExist = true;
+        StatFs sf = new StatFs(Environment.getExternalStorageDirectory().getPath());
+        sd.totalBlocks = sf.getBlockCountLong();
+        sd.blockByteSize = sf.getBlockSizeLong();
+        sd.availableBlocks = sf.getAvailableBlocksLong();
+        sd.availableBytes = sf.getAvailableBytes();
+        sd.freeBlocks = sf.getFreeBlocksLong();
+        sd.freeBytes = sf.getFreeBytes();
+        sd.totalBytes = sf.getTotalBytes();
+        return sd.toString();
     }
 
-    private static class SDCardInfo {
+    public static class SDCardInfo {
         boolean isExist;
         long    totalBlocks;
         long    freeBlocks;
         long    availableBlocks;
-
-        long blockByteSize;
-
-        long totalBytes;
-        long freeBytes;
-        long availableBytes;
+        long    blockByteSize;
+        long    totalBytes;
+        long    freeBytes;
+        long    availableBytes;
 
         @Override
         public String toString() {
-            return "SDCardInfo{" +
-                    "isExist=" + isExist +
-                    ", totalBlocks=" + totalBlocks +
-                    ", freeBlocks=" + freeBlocks +
-                    ", availableBlocks=" + availableBlocks +
-                    ", blockByteSize=" + blockByteSize +
-                    ", totalBytes=" + totalBytes +
-                    ", freeBytes=" + freeBytes +
-                    ", availableBytes=" + availableBytes +
-                    '}';
+            return "isExist=" + isExist +
+                    "\ntotalBlocks=" + totalBlocks +
+                    "\nfreeBlocks=" + freeBlocks +
+                    "\navailableBlocks=" + availableBlocks +
+                    "\nblockByteSize=" + blockByteSize +
+                    "\ntotalBytes=" + totalBytes +
+                    "\nfreeBytes=" + freeBytes +
+                    "\navailableBytes=" + availableBytes;
         }
     }
 }

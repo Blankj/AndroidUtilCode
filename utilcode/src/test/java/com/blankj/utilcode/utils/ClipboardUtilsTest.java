@@ -38,8 +38,7 @@ public class ClipboardUtilsTest {
 
     @Test
     public void testIntent() throws Exception {
-//        ClipboardUtils.copyIntent(TestUtils.getContext(), IntentUtils.getShareTextIntent("test"));
-//        System.out.println(ClipboardUtils.getText(TestUtils.getContext()));
-        System.out.println(NetworkUtils.getIpAddress("blankjv.com"));
+        ClipboardUtils.copyIntent(TestUtils.getContext(), IntentUtils.getShareTextIntent("test"));
+        System.out.println(ClipboardUtils.getText(TestUtils.getContext()));
     }
 }

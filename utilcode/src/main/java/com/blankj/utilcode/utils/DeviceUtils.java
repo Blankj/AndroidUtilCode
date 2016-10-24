@@ -5,23 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.PowerManager;
 import android.os.Build;
+import android.os.PowerManager;
 import android.provider.Settings;
-import android.text.format.Formatter;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.LineNumberReader;
-import java.net.InetAddress;
 import java.net.NetworkInterface;
-import java.net.SocketException;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.List;
-
-import static android.R.attr.name;
 
 /**
  * <pre>
@@ -36,48 +27,9 @@ public class DeviceUtils {
     private DeviceUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
-    
-    /**
-     * 关闭设备
-     * 需要系统权限      <android:sharedUserId="android.uid.system"/>
-     * @param context
-     */
-    public static void shutDownDevice(Context context) {
-        Intent intent = new Intent(Intent.ACTION_REQUEST_SHUTDOWN);
-        intent.putExtra(Intent.EXTRA_KEY_CONFIRM, false);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
-    }
 
     /**
-     * 重启设备,广播方式 需要系统权限
-     * 需要系统权限      <android:sharedUserId="android.uid.system"/>
-     * @param context
-     */
-    public static void rebootDevice(Context context, String reason) {
-        Intent intent = new Intent(Intent.ACTION_REBOOT);
-        intent.putExtra("nowait", 1);
-        intent.putExtra("interval", 1);
-        intent.putExtra("window", 0);
-        context.sendBroadcast(intent);
-    }
-
-    /**
-     * 重启设备, 电源管理的方式 需要系统权限
-     * 需要系统权限      <android:sharedUserId="android.uid.system"/>
-     * @param context
-     */
-    public static void rebootDevicePM(Context context, String reason) {
-        PowerManager mPowerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        try {
-            mPowerManager.reboot(reason);
-        } catch (Exception e) {
-            KLog.w("重启设备失败: —— " + e.getMessage());
-        }
-    }
-
-    /**
-     * 判断设备是否 root
+     * 判断设备是否root
      *
      * @return {@code true}: 是<br>{@code false}: 否
      */
@@ -86,7 +38,7 @@ public class DeviceUtils {
     }
 
     /**
-     * 根据文件判断设备是否 root
+     * 根据文件判断设备是否root
      *
      * @return the boolean{@code true}: 是<br>{@code false}: 否
      */
@@ -232,7 +184,8 @@ public class DeviceUtils {
     }
 
     /**
-     * 获取设备厂商，如Xiaomi
+     * 获取设备厂商
+     * <p>如Xiaomi</p>
      *
      * @return 设备厂商
      */
@@ -242,7 +195,8 @@ public class DeviceUtils {
     }
 
     /**
-     * 获取设备型号，如MI2SC
+     * 获取设备型号
+     * <p>如MI2SC</p>
      *
      * @return 设备型号
      */
@@ -254,5 +208,64 @@ public class DeviceUtils {
             model = "";
         }
         return model;
+    }
+
+    /**
+     * 关机
+     * <p>需要root权限</p>
+     */
+    public static void shutdown() {
+        ShellUtils.execCmd("reboot -p", true);
+    }
+
+    /**
+     * 关机
+     * <p>需系统权限 {@code <android:sharedUserId="android.uid.system"/>}</p>
+     *
+     * @param context 上下文
+     */
+    public static void shutdown(Context context) {
+        Intent intent = new Intent("android.intent.action.ACTION_REQUEST_SHUTDOWN");
+        intent.putExtra("android.intent.extra.KEY_CONFIRM", false);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 重启
+     * <p>需要root权限</p>
+     */
+    public static void reboot() {
+        ShellUtils.execCmd("reboot", true);
+    }
+
+    /**
+     * 重启
+     * <p>需系统权限 {@code <android:sharedUserId="android.uid.system"/>}</p>
+     *
+     * @param context 上下文
+     */
+    public static void reboot(Context context) {
+        Intent intent = new Intent(Intent.ACTION_REBOOT);
+        intent.putExtra("nowait", 1);
+        intent.putExtra("interval", 1);
+        intent.putExtra("window", 0);
+        context.sendBroadcast(intent);
+    }
+
+    /**
+     * 重启
+     * <p>需系统权限 {@code <android:sharedUserId="android.uid.system"/>}</p>
+     *
+     * @param context 上下文
+     * @param reason  传递给内核来请求特殊的引导模式，如"recovery"
+     */
+    public static void reboot(Context context, String reason) {
+        PowerManager mPowerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        try {
+            mPowerManager.reboot(reason);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
