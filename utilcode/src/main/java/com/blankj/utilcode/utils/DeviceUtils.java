@@ -2,8 +2,10 @@ package com.blankj.utilcode.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.PowerManager;
 import android.os.Build;
 import android.provider.Settings;
 import android.text.format.Formatter;
@@ -33,6 +35,45 @@ public class DeviceUtils {
 
     private DeviceUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
+    }
+    
+    /**
+     * 关闭设备
+     * 需要系统权限      <android:sharedUserId="android.uid.system"/>
+     * @param context
+     */
+    public static void shutDownDevice(Context context) {
+        Intent intent = new Intent(Intent.ACTION_REQUEST_SHUTDOWN);
+        intent.putExtra(Intent.EXTRA_KEY_CONFIRM, false);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 重启设备,广播方式 需要系统权限
+     * 需要系统权限      <android:sharedUserId="android.uid.system"/>
+     * @param context
+     */
+    public static void rebootDevice(Context context, String reason) {
+        Intent intent = new Intent(Intent.ACTION_REBOOT);
+        intent.putExtra("nowait", 1);
+        intent.putExtra("interval", 1);
+        intent.putExtra("window", 0);
+        context.sendBroadcast(intent);
+    }
+
+    /**
+     * 重启设备, 电源管理的方式 需要系统权限
+     * 需要系统权限      <android:sharedUserId="android.uid.system"/>
+     * @param context
+     */
+    public static void rebootDevicePM(Context context, String reason) {
+        PowerManager mPowerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        try {
+            mPowerManager.reboot(reason);
+        } catch (Exception e) {
+            KLog.w("重启设备失败: —— " + e.getMessage());
+        }
     }
 
     /**
