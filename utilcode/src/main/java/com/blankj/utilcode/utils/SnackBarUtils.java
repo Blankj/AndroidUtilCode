@@ -1,6 +1,5 @@
 package com.blankj.utilcode.utils;
 
-import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,187 +19,143 @@ import com.blankj.utilcode.R;
  */
 
 public class SnackbarUtils {
+
     private static Snackbar snackbar;
 
-    public enum SnackbarType {
-        INFO,
-        CONFIRM,
-        WARNING,
-        ALERT
-    }
-
-    private Snackbar mSnackbar;
-
-    public static Snackbar getSnackbar() {
-        return snackbar;
-    }
-
-    public static final int INFO    = 1;
-    public static final int CONFIRM = 2;
-    public static final int WARNING = 3;
-    public static final int ALERT   = 4;
-
-    public static int red    = 0xfff44336;
-    public static int green  = 0xff4caf50;
-    public static int blue   = 0xff2195f3;
-    public static int orange = 0xffffc107;
-
     /**
-     * Snackbar：自定义颜色的短显示
+     * 显示短时snackbar
      *
-     * @param view      视图
+     * @param parent    父视图(CoordinatorLayout或者DecorView)
      * @param text      文本
      * @param textColor 文本颜色
-     * @param bgColor
-     * @return
+     * @param bgColor   背景色
      */
-    public static Snackbar shortSnackbar(View view, CharSequence text, int textColor, int bgColor) {
-        Snackbar snackbar = Snackbar.make(view, text, Snackbar.LENGTH_SHORT);
-        return setSnackBarColor(snackbar, textColor, bgColor);
+    public static void showShortSnackbar(View parent, CharSequence text, int textColor, int bgColor) {
+        showSnackbar(parent, text, Snackbar.LENGTH_SHORT, textColor, bgColor, null, -1, null);
     }
 
     /**
-     * Snackbar：自定义颜色的长显示
+     * 显示短时snackbar
      *
-     * @param view
-     * @param text
-     * @param textColor
-     * @param bgColor
-     * @return
+     * @param parent          父视图(CoordinatorLayout或者DecorView)
+     * @param text            文本
+     * @param textColor       文本颜色
+     * @param bgColor         背景色
+     * @param actionText      事件文本
+     * @param actionTextColor 事件文本颜色
+     * @param listener        监听器
      */
-    public static Snackbar longSnackbar(View view, CharSequence text, int textColor, int bgColor) {
-        Snackbar snackbar = Snackbar.make(view, text, Snackbar.LENGTH_LONG);
-        return setSnackBarColor(snackbar, textColor, bgColor);
-    }
-
-
-    /**
-     * 短显示Snackbar，可选预设类型
-     *
-     * @param view
-     * @param text
-     * @param type
-     * @return
-     */
-    public static Snackbar shortSnackbar(View view, CharSequence text, int type) {
-        Snackbar snackbar = Snackbar.make(view, text, Snackbar.LENGTH_SHORT);
-        switchType(snackbar, type);
-        return snackbar;
+    public static void showShortSnackbar(View parent, CharSequence text, int textColor, int bgColor,
+                                         CharSequence actionText, int actionTextColor, View.OnClickListener listener) {
+        showSnackbar(parent, text, Snackbar.LENGTH_SHORT, textColor, bgColor,
+                actionText, actionTextColor, listener);
     }
 
     /**
-     * 长显示Snackbar，可选预设类型
+     * 显示长时snackbar
      *
-     * @param view
-     * @param text
-     * @param type
-     * @return
+     * @param parent    视图(CoordinatorLayout或者DecorView)
+     * @param text      文本
+     * @param textColor 文本颜色
+     * @param bgColor   背景色
      */
-    public static Snackbar longSnackbar(View view, CharSequence text, int type) {
-        Snackbar snackbar = Snackbar.make(view, text, Snackbar.LENGTH_LONG);
-        switchType(snackbar, type);
-        return snackbar;
-    }
-
-
-    /**
-     * 自定义时常显示Snackbar，自定义颜色
-     *
-     * @param view
-     * @param text
-     * @param textColor
-     * @param bgColor
-     * @return
-     */
-    public static Snackbar IndefiniteSnackbar(View view, CharSequence text, int duration,
-                                              int textColor, int bgColor) {
-        Snackbar snackbar = Snackbar
-                .make(view, text, Snackbar.LENGTH_INDEFINITE)
-                .setDuration(duration);
-        return setSnackBarColor(snackbar, textColor, bgColor);
+    public static void showLongSnackbar(View parent, CharSequence text, int textColor, int bgColor) {
+        showSnackbar(parent, text, Snackbar.LENGTH_LONG, textColor, bgColor, null, -1, null);
     }
 
     /**
-     * 自定义时常显示Snackbar，可选预设类型
+     * 显示长时snackbar
      *
-     * @param view
-     * @param text
-     * @param type
-     * @return
+     * @param parent    视图(CoordinatorLayout或者DecorView)
+     * @param text      文本
+     * @param textColor 文本颜色
+     * @param bgColor   背景色
      */
-    public static Snackbar IndefiniteSnackbar(View view, String text, int duration, int type) {
-        Snackbar snackbar = Snackbar.make(view, text, Snackbar.LENGTH_INDEFINITE).setDuration(duration);
-        switchType(snackbar, type);
-        return snackbar;
+    public static void showLongSnackbar(View parent, CharSequence text, int textColor, int bgColor,
+                                        CharSequence actionText, int actionTextColor, View.OnClickListener listener) {
+        showSnackbar(parent, text, Snackbar.LENGTH_LONG, textColor, bgColor,
+                actionText, actionTextColor, listener);
     }
 
     /**
-     * 设置Snackbar背景颜色
+     * 显示自定义时长snackbar
      *
-     * @param snackbar
-     * @param bgColor
+     * @param parent    父视图(CoordinatorLayout或者DecorView)
+     * @param text      文本
+     * @param duration  自定义时长
+     * @param textColor 文本颜色
+     * @param bgColor   背景色
      */
-    public static Snackbar setSnackBarColor(Snackbar snackbar, int bgColor) {
-        snackbar.getView().setBackgroundColor(bgColor);
-        return snackbar;
+    public static void showIndefiniteSnackbar(View parent, CharSequence text, int duration, int textColor, int bgColor) {
+        showSnackbar(parent, text, duration, textColor, bgColor, null, -1, null);
     }
 
     /**
-     * 设置SnackBar消息的颜色
+     * 显示自定义时长snackbar
      *
-     * @param snackbar
-     * @param textColor
+     * @param parent          父视图(CoordinatorLayout或者DecorView)
+     * @param text            文本
+     * @param duration        自定义时长
+     * @param textColor       文本颜色
+     * @param bgColor         背景色
+     * @param actionText      事件文本
+     * @param actionTextColor 事件文本颜色
+     * @param listener        监听器
      */
-    public static void setSnackBarTextColor(Snackbar snackbar, int textColor) {
-        ((TextView) snackbar.getView().findViewById(R.id.snackbar_text)).setTextColor(textColor);
+    public static void showIndefiniteSnackbar(View parent, CharSequence text, int duration, int textColor, int bgColor,
+                                              CharSequence actionText, int actionTextColor, View.OnClickListener listener) {
+        showSnackbar(parent, text, duration, textColor, bgColor,
+                actionText, actionTextColor, listener);
     }
 
     /**
-     * 设置Snackbar文字和背景颜色
+     * 设置snackbar文字和背景颜色
      *
-     * @param snackbar
-     * @param textColor
-     * @param bgColor
+     * @param parent          父视图(CoordinatorLayout或者DecorView)
+     * @param text            文本
+     * @param duration        显示时长
+     * @param textColor       文本颜色
+     * @param bgColor         背景色
+     * @param actionText      事件文本
+     * @param actionTextColor 事件文本颜色
+     * @param listener        监听器
      */
-    public static Snackbar setSnackBarColor(Snackbar snackbar, int textColor, int bgColor) {
+    private static void showSnackbar(View parent, CharSequence text, int duration, int textColor, int bgColor,
+                                     CharSequence actionText, int actionTextColor, View.OnClickListener listener) {
+        switch (duration) {
+            default:
+            case Snackbar.LENGTH_SHORT:
+            case Snackbar.LENGTH_LONG:
+                snackbar = Snackbar.make(parent, text, duration);
+                break;
+            case Snackbar.LENGTH_INDEFINITE:
+                snackbar = Snackbar.make(parent, text, Snackbar.LENGTH_INDEFINITE).setDuration(duration);
+        }
         View view = snackbar.getView();
-        view.setBackgroundColor(bgColor);
         ((TextView) view.findViewById(R.id.snackbar_text)).setTextColor(textColor);
-        return snackbar;
+        view.setBackgroundColor(bgColor);
+        if (actionText != null && actionText.length() > 0 && listener != null) {
+            snackbar.setActionTextColor(actionTextColor);
+            snackbar.setAction(actionText, listener);
+        }
+        snackbar.show();
     }
 
     /**
      * 为SnackBar添加布局
+     * <p>在show之后调用</p>
      *
-     * @param snackbar SnackBar实例
      * @param layoutId 布局文件
-     * @param index    位置
+     * @param index    位置(the position at which to add the child or -1 to add last)
      */
-    public static void addView(Snackbar snackbar, int layoutId, int index) {
+    public static void addView(int layoutId, int index) {
         View view = snackbar.getView();
         Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) view;
-        View add_view = LayoutInflater.from(view.getContext()).inflate(layoutId, null);
-        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
+        View child = LayoutInflater.from(view.getContext()).inflate(layoutId, null);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-        p.gravity = Gravity.CENTER_VERTICAL;
-        layout.addView(add_view, index, p);
-    }
-
-    private static void switchType(Snackbar snackbar, int type) {
-        switch (type) {
-            case INFO:
-                setSnackBarColor(snackbar, blue);
-                break;
-            case CONFIRM:
-                setSnackBarColor(snackbar, green);
-                break;
-            case WARNING:
-                setSnackBarColor(snackbar, orange);
-                break;
-            case ALERT:
-                setSnackBarColor(snackbar, Color.YELLOW, red);
-                break;
-        }
+        params.gravity = Gravity.CENTER_VERTICAL;
+        layout.addView(child, index, params);
     }
 }
