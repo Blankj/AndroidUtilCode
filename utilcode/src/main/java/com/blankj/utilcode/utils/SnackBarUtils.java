@@ -143,7 +143,7 @@ public class SnackbarUtils {
 
     /**
      * 为SnackBar添加布局
-     * <p>在show之后调用</p>
+     * <p>在show...Snackbar之后调用</p>
      *
      * @param layoutId 布局文件
      * @param index    位置(the position at which to add the child or -1 to add last)
