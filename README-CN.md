@@ -15,7 +15,9 @@ installApp            : 安装App(支持6.0)
 installAppSilent      : 静默安装App
 uninstallApp          : 卸载App
 uninstallAppSilent    : 静默卸载App
+isAppRoot             : 判断App是否有root权限
 launchApp             : 打开App
+closeApp              : 关闭App
 getAppPackageName     : 获取App包名
 getAppDetailsSettings : 获取App具体设置
 getAppName            : 获取App名称
@@ -23,10 +25,12 @@ getAppIcon            : 获取App图标
 getAppPath            : 获取App路径
 getAppVersionName     : 获取App版本号
 getAppVersionCode     : 获取App版本码
+isSystemApp           : 判断App是否是系统应用
+isAppDebug            : 判断App是否是Debug版本
 getAppSignature       : 获取App签名
 getAppSignatureSHA1   : 获取应用签名的的SHA1值
-isSystemApp           : 判断App是否是系统应用
 isAppForeground       : 判断App是否处于前台
+getForegroundApp      : 获取前台应用包名
 getAppInfo            : 获取App信息
 getAppsInfo           : 获取所有已安装App信息
 cleanAppData          : 清除App所有数据
@@ -105,12 +109,14 @@ init        : 初始化
 
 > - **设备相关→[DeviceUtils.java][device.java]**
  ```
-isRoot          : 判断设备是否root
+isDeviceRoot    : 判断设备是否root
 getSDKVersion   : 获取设备系统版本号
 getAndroidID    : 获取设备AndroidID
 getMacAddress   : 获取设备MAC地址
-getManufacturer : 获取设备厂商，如Xiaomi
-getModel        : 获取设备型号，如MI2SC
+getManufacturer : 获取设备厂商
+getModel        : 获取设备型号
+shutdown        : 关机
+reboot          : 重启
  ```
 
 > - **判空相关→[EmptyUtils.java][empty.java]→[Test][empty.test]**
@@ -158,6 +164,7 @@ decryptAES, decryptHexStringAES, decryptBase64AES      : AES解密
  ```
 getFileByPath             : 根据文件路径获取文件
 isFileExists              : 判断文件是否存在
+rename                    : 重命名文件
 isDir                     : 判断是否是目录
 isFile                    : 判断是否是文件
 createOrExistsDir         : 判断目录是否存在，不存在则判断是否创建成功
@@ -235,11 +242,10 @@ getCaptureIntent            : 获取拍照的意图
 
 > - **键盘相关→[KeyboardUtils.java][keyboard.java]**
  ```
-hideSoftInput                 : 动态隐藏软键盘
-clickBlankArea2HideSoftInput0 : 点击屏幕空白区域隐藏软键盘(注释萌萌哒)
-showSoftInput                 : 动态显示软键盘
-toggleSoftInput               : 切换键盘显示与否状态
-isShowSoftInput               : 判断键盘是否显示
+hideSoftInput                : 动态隐藏软键盘
+clickBlankArea2HideSoftInput : 点击屏幕空白区域隐藏软键盘(注释萌萌哒)
+showSoftInput                : 动态显示软键盘
+toggleSoftInput              : 切换键盘显示与否状态
  ```
 
 > - **日志相关→[LogUtils.java][log.java]→[Test][log.test]**
@@ -256,27 +262,42 @@ e          : Error日志
 > - **网络相关→[NetworkUtils.java][network.java]**
  ```
 openWirelessSettings               : 打开网络设置界面
-isAvailable                        : 判断网络是否可用
 isConnected                        : 判断网络是否连接
+isAvailableByPing                  : 判断网络是否可用
+getDataEnabled                     : 判断移动数据是否打开
+setDataEnabled                     : 打开或关闭移动数据
 is4G                               : 判断网络是否是4G
+getWifiEnabled                     : 判断wifi是否打开
+setWifiEnabled                     : 打开或关闭wifi
 isWifiConnected                    : 判断wifi是否连接状态
+isWifiAvailable                    : 判断wifi数据是否可用
 getNetworkOperatorName             : 获取移动网络运营商名称
-getPhoneType                       : 获取移动终端类型
-getNetWorkType, getNetWorkTypeName : 获取当前的网络类型(WIFI, 2G, 3G, 4G)
+getNetworkType, getNetworkTypeName : 获取当前的网络类型(WIFI, 2G, 3G, 4G)
+getIPAddress                       : 获取IP地址
+getDomainAddress                   : 获取域名ip地址
  ```
 
 > - **手机相关→[PhoneUtils.java][phone.java]**
  ```
-isPhone           : 判断设备是否是手机
-getIMEI           : 获取IMIE码
-getIMSI           : 获取IMSI码
-getPhoneStatus    : 获取手机状态信息
-dial              : 跳至填充好phoneNumber的拨号界面
-call              : 拨打phoneNumber
-sendSms           : 发送短信
-getAllContactInfo : 获取手机联系人
-getContactNum     : 打开手机联系人界面点击联系人后便获取该号码(注释萌萌哒)
-getAllSMS         : 获取手机短信并保存到xml中
+isPhone                                 : 判断设备是否是手机
+getIMEI                                 : 获取IMIE码
+getIMSI                                 : 获取IMSI码
+getPhoneType                            : 获取移动终端类型
+getSimOperatorName, getSimOperatorByMnc : 获取Sim卡运营商名称
+getPhoneStatus                          : 获取手机状态信息
+dial                                    : 跳至拨号界面
+call                                    : 拨打phoneNumber
+sendSms                                 : 跳至发送短信界面
+sendSmsSilent                           : 发送短信
+getAllContactInfo                       : 获取手机联系人
+getContactNum                           : 打开手机联系人界面点击联系人后便获取该号码(注释萌萌哒)
+getAllSMS                               : 获取手机短信并保存到xml中
+ ```
+
+> - **进程相关→[ProcessUtils.java][process.java]**
+ ```
+getForegroundProcessName                             : 获取前台线程包名
+cleanAllBackgroundProcesses，cleanBackgroundProcesses : 清理后台服务进程
  ```
 
 > - **正则相关→[RegexUtils.java][regex.java]→[Test][regex.test]**
@@ -313,20 +334,20 @@ isScreenLock                                    : 判断是否锁屏
 > - **SD卡相关→[SDCardUtils.java][sdcard.java]**
  ```
 isSDCardEnable : 判断SD卡是否可用
-getDataPath    : 获取SD卡Data路径
 getSDCardPath  : 获取SD卡路径
+getDataPath    : 获取SD卡Data路径
 getFreeSpace   : 计算SD卡的剩余空间
 getSDCardInfo  : 获取SD卡信息
  ```
 
 > - **服务相关→[ServiceUtils.java][service.java]**
  ```
-isRunningService : 获取服务是否开启
+isServiceRunning : 判断服务是否运行
+stopService      : 停止服务
  ```
 
 > - **Shell相关→[ShellUtils.java][shell.java]**
  ```
-isRoot  : 判断设备是否root
 execCmd : 是否是在root下执行命令
  ```
 
@@ -339,7 +360,17 @@ forceGetViewSize : 在onCreate()即可强行获取View的尺寸
 measureView      : ListView中提前测量View尺寸(注释萌萌哒)
  ```
 
+> - **Snackbar相关→[SnackbarUtils.java][snackbar.java]**
+ ```
+showShortSnackbar      : 显示短时snackbar
+showLongSnackbar       : 显示长时snackbar
+showIndefiniteSnackbar : 显示自定义时长snackbar
+addView                : 为SnackBar添加布局
+ ```
+
 > - **SP相关→[SPUtils.java][sp.java]→[Test][sp.test]**
+
+
  ```
 SPUtils    : SPUtils构造函数
 putString  : SP中写入String类型value
@@ -362,6 +393,7 @@ clear      : SP中清除所有数据
  ```
 isEmpty          : 判断字符串是否为null或长度为0
 isSpace          : 判断字符串是否为null或全为空格
+equals           : 判断两字符串是否相等
 null2Length0     : null转为长度为0的字符串
 length           : 返回字符串长度
 upperFirstLetter : 首字母大写
@@ -535,6 +567,8 @@ limitations under the License.
 [shell.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ShellUtils.java
 
 [size.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SizeUtils.java
+
+[snackbar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SnackbarUtils.java
 
 [sp.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SPUtils.java
 [sp.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/SPUtilsTest.java
