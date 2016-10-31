@@ -369,8 +369,6 @@ addView
  ```
 
 > - **About SP→[SPUtils.java][sp.java]→[Test][sp.test]**
-
-
  ```
 SPUtils
 putString
