@@ -31,7 +31,7 @@ public class ProcessUtils {
     }
 
     /**
-     * 获取前台应用包名
+     * 获取前台线程包名
      * <p>当不是查看当前App，且SDK >= 22时，
      * 需添加权限 {@code <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"/>}</p>
      *
@@ -87,42 +87,45 @@ public class ProcessUtils {
     }
 
     /**
-     * 清除后台进程
+     * 杀死后台服务进程
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>}</p>
      *
      * @param context 上下文
-     * @return 清除后台进程数
+     * @return 杀死后台进程数
      */
-    public static int cleanAllBackgroundProcesses(Context context) {
+    public static int killAllBackgroundProcesses(Context context) {
         int count = 0;
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> infos = am.getRunningAppProcesses();
         if (infos == null || infos.size() == 0) return 0;
-        Set<ActivityManager.RunningAppProcessInfo> set = new HashSet<>();
+        Set<String> set = new HashSet<>();
         for (ActivityManager.RunningAppProcessInfo info : infos) {
-            infos.remove(info);
-            set.add(info);
-            ++count;
+            for (String pkg : info.pkgList) {
+                am.killBackgroundProcesses(pkg);
+                set.add(pkg);
+                ++count;
+            }
         }
         infos = am.getRunningAppProcesses();
         if (infos == null || infos.size() == 0) return count;
         for (ActivityManager.RunningAppProcessInfo info : infos) {
-            set.remove(info);
-            --count;
+            for (String pkg : info.pkgList) {
+                set.remove(pkg);
+                --count;
+            }
         }
-        System.out.println(set);
         return count;
     }
 
     /**
-     * 清除后台进程
+     * 杀死后台服务进程
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>}</p>
      *
      * @param context     上下文
      * @param packageName 包名
-     * @return {@code true}: 清除成功<br>{@code false}: 清除失败
+     * @return {@code true}: 杀死成功<br>{@code false}: 杀死失败
      */
-    public static boolean cleanBackgroundProcesses(Context context, String packageName) {
+    public static boolean killBackgroundProcesses(Context context, String packageName) {
         if (StringUtils.isSpace(packageName)) return false;
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> infos = am.getRunningAppProcesses();

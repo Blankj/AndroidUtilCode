@@ -38,6 +38,11 @@ public class FileUtilsTest {
     }
 
     @Test
+    public void testRename() throws Exception {
+        assertThat(rename(path + "GBK.txt", "GBK1.txt")).isTrue();
+    }
+
+    @Test
     public void testIsDir() throws Exception {
         assertThat(isDir(path + "UTF8.txt")).isFalse();
         assertThat(isDir(path)).isTrue();

@@ -24,7 +24,7 @@ public class KeyboardUtils {
     /**
      * 避免输入法面板遮挡
      * <p>在manifest.xml中activity中设置</p>
-     * <p>android:windowSoftInputMode="adjustResize"</p>
+     * <p>android:windowSoftInputMode="adjustPan"</p>
      */
 
     /**
@@ -55,7 +55,8 @@ public class KeyboardUtils {
             if (ev.getAction() == MotionEvent.ACTION_DOWN) {
                 View v = getCurrentFocus();
                 if (isShouldHideKeyboard(v, ev)) {
-                    hideKeyboard(v.getWindowToken());
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 }
             }
             return super.dispatchTouchEvent(ev);
@@ -74,14 +75,6 @@ public class KeyboardUtils {
                         && event.getY() > top && event.getY() < bottom);
             }
             return false;
-        }
-
-        // 获取InputMethodManager，隐藏软键盘
-        private void hideKeyboard(IBinder token) {
-            if (token != null) {
-                InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
-            }
         }
         */
     }
@@ -110,16 +103,5 @@ public class KeyboardUtils {
         InputMethodManager imm = (InputMethodManager) context
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-    }
-
-    /**
-     * 判断键盘是否显示
-     *
-     * @param context 上下文
-     * @return {@code true}: 显示<br>{@code false}: 不显示
-     */
-    public static boolean isShowSoftInput(Context context) {
-        return ((InputMethodManager) context
-                .getSystemService(Context.INPUT_METHOD_SERVICE)).isActive();
     }
 }

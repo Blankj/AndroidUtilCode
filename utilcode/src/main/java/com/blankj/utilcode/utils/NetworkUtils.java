@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
@@ -96,10 +98,10 @@ public class NetworkUtils {
         ShellUtils.CommandResult result = ShellUtils.execCmd("ping -c 1 -w 1 123.125.114.144", false);
         boolean ret = result.result == 0;
         if (result.errorMsg != null) {
-            LogUtils.d("isAvailableByPing", result.errorMsg);
+            LogUtils.d("isAvailableByPing errorMsg", result.errorMsg);
         }
         if (result.successMsg != null) {
-            LogUtils.d("isAvailableByPing", result.successMsg);
+            LogUtils.d("isAvailableByPing successMsg", result.successMsg);
         }
         return ret;
     }
@@ -337,6 +339,8 @@ public class NetworkUtils {
         try {
             for (Enumeration<NetworkInterface> nis = NetworkInterface.getNetworkInterfaces(); nis.hasMoreElements(); ) {
                 NetworkInterface ni = nis.nextElement();
+                // 防止小米手机返回10.0.2.15
+                if (!ni.isUp()) continue;
                 for (Enumeration<InetAddress> addresses = ni.getInetAddresses(); addresses.hasMoreElements(); ) {
                     InetAddress inetAddress = addresses.nextElement();
                     if (!inetAddress.isLoopbackAddress()) {
@@ -355,6 +359,24 @@ public class NetworkUtils {
             }
         } catch (SocketException e) {
             e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String getIpAdress(Context context) {
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces();
+                 en.hasMoreElements(); ) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress()) {
+                        return inetAddress.getHostAddress();
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         return null;
     }

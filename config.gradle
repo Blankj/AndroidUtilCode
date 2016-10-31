@@ -1,0 +1,32 @@
+ext {
+    signingConfig = [
+            storePassword : "xxx",
+            keyAlias      : "xxx",
+            keyPassword   : "xxx"
+    ]
+
+    android = [
+            compileSdkVersion : 24,
+            buildToolsVersion : "24.0.3",
+            minSdkVersion     : 11,
+            targetSdkVersion  : 24,
+            versionCode       : 10,
+            versionName       : "1.3.1"
+    ]
+
+    depsVersion = [
+            support : "24.0.0"
+    ]
+
+    deps = [
+            // ------------- Android -------------
+            supportV4      : "com.android.support:support-v4:${depsVersion.support}",
+            design         : "com.android.support:design:${depsVersion.support}",
+
+
+            // ------------- Test dependencies -------------
+            junit          : "junit:junit:4.12",
+            truth          : "com.google.truth:truth:0.29",
+            robolectric    : "org.robolectric:robolectric:3.1.2"
+    ]
+}

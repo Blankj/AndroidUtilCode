@@ -110,8 +110,8 @@ public class ShellUtils {
             if (isNeedResultMsg) {
                 successMsg = new StringBuilder();
                 errorMsg = new StringBuilder();
-                successResult = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                errorResult = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                successResult = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
+                errorResult = new BufferedReader(new InputStreamReader(process.getErrorStream(), "UTF-8"));
                 String s;
                 while ((s = successResult.readLine()) != null) {
                     successMsg.append(s);

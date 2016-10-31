@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.blankj.androidutilcode">
+悲剧
+    <!--读写内存-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <!--network-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!--phone-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <!--拨打电话-->
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <!--发送短信-->
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <!--获取手机联系人-->
+    <!--<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>-->
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <!--获取短信-->
+    <!--<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>-->
+    <uses-permission android:name="android.permission.READ_SMS"/>
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/my_app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activities.ActivityActivity"/>
+        <activity android:name=".activities.AppActivity"/>
+        <activity android:name=".activities.CleanActivity"/>
+        <activity android:name=".activities.DeviceActivity"/>
+        <activity android:name=".activities.ImageActivity"/>
+        <activity
+            android:name=".activities.KeyboardActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+        <activity android:name=".activities.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.NetworkActivity"/>
+        <activity android:name=".activities.PhoneActivity"/>
+        <activity android:name=".activities.ProcessActivity"/>
+        <activity android:name=".activities.SDCardActivity"/>
+        <activity android:name=".activities.SnackbarActivity"/>
+        <activity android:name=".activities.ToastActivity"/>
+    </application>
+
+</manifest>

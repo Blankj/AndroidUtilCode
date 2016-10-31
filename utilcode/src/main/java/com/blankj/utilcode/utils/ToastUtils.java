@@ -250,7 +250,6 @@ public class ToastUtils {
      * @param duration 显示时长
      */
     private static void showToast(Context context, CharSequence text, int duration) {
-        LogUtils.d(sToast == null);
         if (isJumpWhenMore) cancelToast();
         if (sToast == null) {
             sToast = Toast.makeText(context, text, duration);

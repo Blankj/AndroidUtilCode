@@ -17,8 +17,11 @@ import com.blankj.utilcode.R;
  *     desc  : SnackBar相关工具类
  * </pre>
  */
-
 public class SnackbarUtils {
+
+    private SnackbarUtils() {
+        throw new UnsupportedOperationException("u can't instantiate me...");
+    }
 
     private static Snackbar snackbar;
 

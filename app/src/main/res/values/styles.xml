@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar"/>
+
+    <style name="Font">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/font_normal</item>
+    </style>
+
+    <style name="BtnFont" parent="Font">
+        <item name="android:textAllCaps" tools:targetApi="ice_cream_sandwich">false</item>
+    </style>
+
+</resources>

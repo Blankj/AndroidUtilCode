@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="my_app_name">AndroidUtilCode</string>
+
+    <string name="test.activity">ActivityUtils Test</string>
+    <string name="test.app">AppUtils Test</string>
+    <string name="test.clean">CleanUtils Test</string>
+    <string name="test.crash">CrashUtils Test</string>
+    <string name="test.device">DeviceUtils Test</string>
+    <string name="test.image">ImageUtils Test</string>
+    <string name="test.keyboard">KeyboardUtils Test</string>
+    <string name="test.network">NetworkUtils Test</string>
+    <string name="test.phone">PhoneUtils Test</string>
+    <string name="test.process">ProcessUtils Test</string>
+    <string name="test.sdcard">SDCardUtils Test</string>
+    <string name="test.snackbar">SnackbarUtils Test</string>
+    <string name="test.toast">ToastUtils Test</string>
+
+    <!--Activity相关-->
+    <string name="activity.start_imageActivity">Start ImageActivity</string>
+
+    <!--App相关-->
+    <string name="app.install">Install App</string>
+    <string name="app.install_silent">Install App Silent</string>
+    <string name="app.uninstall">Uninstall App</string>
+    <string name="app.uninstall_silent">Uninstall App Silent</string>
+    <string name="app.launch">Launch App</string>
+    <string name="app.close">Close App</string>
+    <string name="app.isDebug">Is Debug</string>
+    <string name="app.get_details_settings">Get App Details Settings</string>
+
+    <!--Device相关-->
+    <string name="device.shutdown">Shutdown</string>
+    <string name="device.reboot">Reboot</string>
+
+    <!--Network相关-->
+    <string name="network.open_wireless_settings">Open Wireless Settings</string>
+    <string name="network.set_data_enabled">Set Data Enabled</string>
+    <string name="network.set_wifi_enabled">Set Wifi Enabled</string>
+
+    <!--Keyboard相关-->
+    <string name="keyboard.hide_soft_input">Hide Soft Input</string>
+    <string name="keyboard.show_soft_input">Show Soft Input</string>
+    <string name="keyboard.toggle_soft_input">Toggle Soft Input</string>
+
+    <!--Phone相关-->
+    <string name="phone.dial">Dial</string>
+    <string name="phone.call">Call</string>
+    <string name="phone.send_sms">Send SMS</string>
+    <string name="phone.send_sms_silent">Send SMS Silent</string>
+
+    <!--Process相关-->
+    <string name="process.kill_background">Kill Background Process</string>
+    <string name="process.kill_all_background">Kill All Background Processes</string>
+
+    <!--SnackBar相关工具类-->
+    <string name="snackbar.show_short">Show Short Snackbar</string>
+    <string name="snackbar.show_short_with_action">Show Short Snackbar With Action</string>
+    <string name="snackbar.show_long">Show Short Snackbar</string>
+    <string name="snackbar.show_long_with_action">Show Short Snackbar With Action</string>
+    <string name="snackbar.show_indefinite">Show Indefinite Snackbar</string>
+    <string name="snackbar.show_indefinite_with_action">Show Indefinite Snackbar With Action</string>
+    <string name="snackbar.add_view">Add View</string>
+    <string name="snackbar.add_view_with_action">Add View With Action</string>
+
+    <!--Toast相关-->
+    <string name="toast.toggle_is_jump_when_more">Toggle Is Jump When More</string>
+    <string name="toast.show_short_safe">Show Short Toast Safe</string>
+    <string name="toast.show_long_safe">Show Long Toast Safe</string>
+    <string name="toast.show_short">Show Short Toast</string>
+    <string name="toast.show_long">Show Long Toast</string>
+    <string name="toast.cancel">Cancel Toast</string>
+
+</resources>

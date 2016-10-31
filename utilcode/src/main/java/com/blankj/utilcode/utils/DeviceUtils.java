@@ -31,41 +31,16 @@ public class DeviceUtils {
     /**
      * 判断设备是否root
      *
-     * @return {@code true}: 是<br>{@code false}: 否
-     */
-    public static boolean isRoot() {
-        return isRootByShell() || isRootByFile();
-    }
-
-    /**
-     * 根据文件判断设备是否root
-     *
      * @return the boolean{@code true}: 是<br>{@code false}: 否
      */
-    private static boolean isRootByFile() {
+    public static boolean isDeviceRoot() {
         String su = "su";
-        String[] locations = {"/sbin/", "/system/bin/", "/system/xbin/", "/system/sd/xbin/", "/system/bin/failsafe/",
+        String[] locations = {"/system/bin/", "/system/xbin/", "/sbin/", "/system/sd/xbin/", "/system/bin/failsafe/",
                 "/data/local/xbin/", "/data/local/bin/", "/data/local/"};
         for (String location : locations) {
             if (new File(location + su).exists()) {
                 return true;
             }
-        }
-        return false;
-    }
-
-    /**
-     * 根据shell判断设备是否root
-     *
-     * @return {@code true}: 是<br>{@code false}: 否
-     */
-    private static boolean isRootByShell() {
-        ShellUtils.CommandResult result = ShellUtils.execCmd("echo root", true);
-        if (result.result == 0) {
-            return true;
-        }
-        if (result.errorMsg != null) {
-            LogUtils.d("isRootByShell", result.errorMsg);
         }
         return false;
     }

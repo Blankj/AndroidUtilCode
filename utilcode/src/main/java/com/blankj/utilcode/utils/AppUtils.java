@@ -13,7 +13,9 @@ import android.graphics.drawable.Drawable;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <pre>
@@ -137,6 +139,22 @@ public class AppUtils {
         String command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib pm uninstall " + (isKeepData ? "-k " : "") + packageName;
         ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, !isSystemApp(context), true);
         return commandResult.successMsg != null && commandResult.successMsg.toLowerCase().contains("success");
+    }
+
+    /**
+     * 判断App是否有root权限
+     *
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean isAppRoot() {
+        ShellUtils.CommandResult result = ShellUtils.execCmd("echo root", true);
+        if (result.result == 0) {
+            return true;
+        }
+        if (result.errorMsg != null) {
+            LogUtils.d("isAppRoot", result.errorMsg);
+        }
+        return false;
     }
 
     /**
@@ -573,13 +591,13 @@ public class AppUtils {
 
         @Override
         public String toString() {
-            return "App包名：" + getPackageName() + "\n" +
-                    "App名称：" + getName() + "\n" +
-                    "App图标：" + getIcon() + "\n" +
-                    "App路径：" + getPackagePath() + "\n" +
-                    "App版本号：" + getVersionName() + "\n" +
-                    "App版本码：" + getVersionCode() + "\n" +
-                    "是否系统App：" + isSystem() + "\n";
+            return "App包名：" + getPackageName() +
+                    "\nApp名称：" + getName() +
+                    "\nApp图标：" + getIcon() +
+                    "\nApp路径：" + getPackagePath() +
+                    "\nApp版本号：" + getVersionName() +
+                    "\nApp版本码：" + getVersionCode() +
+                    "\n是否系统App：" + isSystem();
         }
     }
 
