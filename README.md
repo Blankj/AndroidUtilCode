@@ -190,7 +190,7 @@ getFileLines
 readFile2List
 readFile2SB
 getFileSize
-getFileMD5
+getFileMD5, getFileMD5ToString
 getDirName
 getFileName
 getFileNameNoExtension
