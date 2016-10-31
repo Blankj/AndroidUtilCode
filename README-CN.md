@@ -369,8 +369,6 @@ addView                : 为SnackBar添加布局
  ```
 
 > - **SP相关→[SPUtils.java][sp.java]→[Test][sp.test]**
-
-
  ```
 SPUtils    : SPUtils构造函数
 putString  : SP中写入String类型value
@@ -473,7 +471,7 @@ getEntries         : 获取压缩文件中的文件对象
 ***
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.3.0'
+compile 'com.blankj:utilcode:1.3.1'
 ```
 
 ### Proguard
@@ -569,7 +567,7 @@ limitations under the License.
 [size.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SizeUtils.java
 
 [snackbar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SnackbarUtils.java
-
+                 https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SnackBarUtils.java
 [sp.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SPUtils.java
 [sp.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/SPUtilsTest.java
 
