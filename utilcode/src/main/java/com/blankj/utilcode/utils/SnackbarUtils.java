@@ -73,6 +73,9 @@ public class SnackbarUtils {
      * @param text      文本
      * @param textColor 文本颜色
      * @param bgColor   背景色
+     * @param actionText      事件文本
+     * @param actionTextColor 事件文本颜色
+     * @param listener        监听器
      */
     public static void showLongSnackbar(View parent, CharSequence text, int textColor, int bgColor,
                                         CharSequence actionText, int actionTextColor, View.OnClickListener listener) {

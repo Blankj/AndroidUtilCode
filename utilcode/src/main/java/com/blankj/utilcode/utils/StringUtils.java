@@ -41,7 +41,7 @@ public class StringUtils {
      *
      * @param a 待校验字符串a
      * @param b 待校验字符串b
-     * @return @return {@code true}: 相等<br>{@code false}: 不相等
+     * @return {@code true}: 相等<br>{@code false}: 不相等
      */
     public static boolean equals(CharSequence a, CharSequence b) {
         if (a == b) return true;

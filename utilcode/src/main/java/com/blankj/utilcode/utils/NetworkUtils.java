@@ -170,7 +170,7 @@ public class NetworkUtils {
 
     /**
      * 打开或关闭wifi
-     * <p>需添加权限 { <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>}</p>
      *
      * @param context 上下文
      * @param enabled {@code true}: 打开<br>{@code false}: 关闭
