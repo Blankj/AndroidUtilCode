@@ -141,6 +141,7 @@ public class AppUtils {
         return commandResult.successMsg != null && commandResult.successMsg.toLowerCase().contains("success");
     }
 
+
     /**
      * 判断App是否有root权限
      *
@@ -489,7 +490,7 @@ public class AppUtils {
 
     /**
      * 判断App是否处于前台
-     * <p>当不是查看当前App，且SDK >= 22时，
+     * <p>当不是查看当前App，且SDK大于21时，
      * 需添加权限 {@code <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"/>}</p>
      *
      * @param context     上下文
