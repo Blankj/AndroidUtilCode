@@ -3,8 +3,7 @@ package com.blankj.utilcode.utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
+import java.security.DigestInputStream;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -14,7 +13,8 @@ import javax.crypto.Cipher;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-import static com.blankj.utilcode.utils.ConvertUtils.*;
+import static com.blankj.utilcode.utils.ConvertUtils.bytes2HexString;
+import static com.blankj.utilcode.utils.ConvertUtils.hexString2Bytes;
 
 /**
  * <pre>
@@ -124,7 +124,8 @@ public class EncryptUtils {
      * @return 文件的16进制密文
      */
     public static String encryptMD5File2String(String filePath) {
-        return encryptMD5File2String(FileUtils.getFileByPath(filePath));
+        File file =  StringUtils.isSpace(filePath) ? null : new File(filePath);
+        return encryptMD5File2String(file);
     }
 
     /**
@@ -134,7 +135,8 @@ public class EncryptUtils {
      * @return 文件的MD5校验码
      */
     public static byte[] encryptMD5File(String filePath) {
-        return encryptMD5File(FileUtils.getFileByPath(filePath));
+        File file =  StringUtils.isSpace(filePath) ? null : new File(filePath);
+        return encryptMD5File(file);
     }
 
     /**
@@ -156,12 +158,14 @@ public class EncryptUtils {
     public static byte[] encryptMD5File(File file) {
         if (file == null) return null;
         FileInputStream fis = null;
+        DigestInputStream digestInputStream;
         try {
             fis = new FileInputStream(file);
-            FileChannel channel = fis.getChannel();
-            MappedByteBuffer buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, file.length());
             MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(buffer);
+            digestInputStream = new DigestInputStream(fis, md);
+            byte[] buffer = new byte[256 * 1024];
+            while (digestInputStream.read(buffer) > 0);
+            md = digestInputStream.getMessageDigest();
             return md.digest();
         } catch (NoSuchAlgorithmException | IOException e) {
             e.printStackTrace();
@@ -566,8 +570,8 @@ public class EncryptUtils {
      * <p>加密模式有：电子密码本模式ECB、加密块链模式CBC、加密反馈模式CFB、输出反馈模式OFB</p>
      * <p>填充方式有：NoPadding、ZerosPadding、PKCS5Padding</p>
      */
-    public static String DES_Transformation = "DES/ECB/NoPadding";
-    private static final String DES_Algorithm = "DES";
+    public static        String DES_Transformation = "DES/ECB/NoPadding";
+    private static final String DES_Algorithm      = "DES";
 
     /**
      * DES加密后转为Base64编码
@@ -642,8 +646,8 @@ public class EncryptUtils {
      * <p>加密模式有：电子密码本模式ECB、加密块链模式CBC、加密反馈模式CFB、输出反馈模式OFB</p>
      * <p>填充方式有：NoPadding、ZerosPadding、PKCS5Padding</p>
      */
-    public static String TripleDES_Transformation = "DESede/ECB/NoPadding";
-    private static final String TripleDES_Algorithm = "DESede";
+    public static        String TripleDES_Transformation = "DESede/ECB/NoPadding";
+    private static final String TripleDES_Algorithm      = "DESede";
 
 
     /**
@@ -719,8 +723,8 @@ public class EncryptUtils {
      * <p>加密模式有：电子密码本模式ECB、加密块链模式CBC、加密反馈模式CFB、输出反馈模式OFB</p>
      * <p>填充方式有：NoPadding、ZerosPadding、PKCS5Padding</p>
      */
-    public static String AES_Transformation = "AES/ECB/NoPadding";
-    private static final String AES_Algorithm = "AES";
+    public static        String AES_Transformation = "AES/ECB/NoPadding";
+    private static final String AES_Algorithm      = "AES";
 
 
     /**

@@ -190,7 +190,7 @@ getFileLines              : 获取文件行数
 readFile2List             : 指定编码按行读取文件到List
 readFile2SB               : 指定编码按行读取文件到StringBuilder中
 getFileSize               : 获取文件大小
-getFileMD5                : 获取文件的MD5校验码
+getFileMD5, getFileMD5ToString                : 获取文件的MD5校验码
 getDirName                : 根据全路径获取最长目录
 getFileName               : 根据全路径获取文件名
 getFileNameNoExtension    : 根据全路径获取文件名不带拓展名

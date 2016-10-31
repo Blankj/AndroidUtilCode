@@ -200,6 +200,11 @@ public class FileUtilsTest {
     }
 
     @Test
+    public void testGetFileMD5ToString() throws Exception {
+        assertThat(getFileMD5ToString(path + "UTF8.txt")).isEqualTo("249D3E76851DCC56C945994DE9DAC406");
+    }
+
+    @Test
     public void testGetDirName() throws Exception {
         assertThat(getDirName(new File(path + "UTF8.txt"))).isEqualTo(path);
         assertThat(getDirName(path + "UTF8.txt")).isEqualTo(path);

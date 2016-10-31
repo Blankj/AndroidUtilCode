@@ -15,11 +15,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.security.DigestInputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.blankj.utilcode.utils.ConstUtils.*;
+import static com.blankj.utilcode.utils.ConvertUtils.bytes2HexString;
+
 
 /**
  * <pre>
@@ -746,9 +752,9 @@ public class FileUtils {
         OutputStream os = null;
         try {
             os = new BufferedOutputStream(new FileOutputStream(file, append));
-            byte data[] = new byte[KB];
+            byte data[] = new byte[1024];
             int len;
-            while ((len = is.read(data, 0, KB)) != -1) {
+            while ((len = is.read(data, 0, 1024)) != -1) {
                 os.write(data, 0, len);
             }
             return true;
@@ -996,9 +1002,9 @@ public class FileUtils {
         InputStream is = null;
         try {
             is = new BufferedInputStream(new FileInputStream(file));
-            byte[] buffer = new byte[KB];
+            byte[] buffer = new byte[1024];
             int readChars;
-            while ((readChars = is.read(buffer, 0, KB)) != -1) {
+            while ((readChars = is.read(buffer, 0, 1024)) != -1) {
                 for (int i = 0; i < readChars; ++i) {
                     if (buffer[i] == '\n') ++count;
                 }
@@ -1035,11 +1041,23 @@ public class FileUtils {
     /**
      * 获取文件的MD5校验码
      *
-     * @param filePath 文件
+     * @param filePath 文件路径
      * @return 文件的MD5校验码
      */
-    public static String getFileMD5(String filePath) {
-        return getFileMD5(getFileByPath(filePath));
+    public static String getFileMD5ToString(String filePath) {
+        File file = StringUtils.isSpace(filePath) ? null : new File(filePath);
+        return getFileMD5ToString(file);
+    }
+
+    /**
+     * 获取文件的MD5校验码
+     *
+     * @param filePath 文件路径
+     * @return 文件的MD5校验码
+     */
+    public static byte[] getFileMD5(String filePath) {
+        File file = StringUtils.isSpace(filePath) ? null : new File(filePath);
+        return getFileMD5(file);
     }
 
     /**
@@ -1048,8 +1066,33 @@ public class FileUtils {
      * @param file 文件
      * @return 文件的MD5校验码
      */
-    public static String getFileMD5(File file) {
-        return EncryptUtils.encryptMD5File2String(file);
+    public static String getFileMD5ToString(File file) {
+        return bytes2HexString(getFileMD5(file));
+    }
+
+    /**
+     * 获取文件的MD5校验码
+     *
+     * @param file 文件
+     * @return 文件的MD5校验码
+     */
+    public static byte[] getFileMD5(File file) {
+        if (file == null) return null;
+        DigestInputStream dis = null;
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            dis = new DigestInputStream(fis, md);
+            byte[] buffer = new byte[1024 * 256];
+            while (dis.read(buffer) > 0) ;
+            md = dis.getMessageDigest();
+            return md.digest();
+        } catch (NoSuchAlgorithmException | IOException e) {
+            e.printStackTrace();
+        } finally {
+            CloseUtils.closeIO(dis);
+        }
+        return null;
     }
 
     /**
