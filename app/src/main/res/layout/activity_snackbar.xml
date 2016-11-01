@@ -75,5 +75,14 @@
             android:text="@string/snackbar.add_view_with_action"
             />
 
+
+        <Button
+            android:id="@+id/btn_cancel_snackbar"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/snackbar.cancel"
+            />
+
     </LinearLayout>
 </ScrollView>

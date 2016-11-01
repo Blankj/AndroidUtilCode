@@ -26,7 +26,7 @@
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
         android:textSize="14sp"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="#000000"
         android:maxLines="2"
         android:layout_gravity="center_vertical|left|start"
         android:ellipsize="end"
@@ -44,6 +44,6 @@
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
         android:visibility="gone"
-        android:textColor="?attr/colorAccent"
-        style="?attr/borderlessButtonStyle"/>
+        android:textColor="#000000"
+        android:background="@drawable/snackbar_action_bg"/>
 </merge>

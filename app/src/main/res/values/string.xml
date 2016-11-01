@@ -62,6 +62,7 @@
     <string name="snackbar.show_indefinite_with_action">Show Indefinite Snackbar With Action</string>
     <string name="snackbar.add_view">Add View</string>
     <string name="snackbar.add_view_with_action">Add View With Action</string>
+    <string name="snackbar.cancel">Cancel Snackbar</string>
 
     <!--Toast相关-->
     <string name="toast.toggle_is_jump_when_more">Toggle Is Jump When More</string>

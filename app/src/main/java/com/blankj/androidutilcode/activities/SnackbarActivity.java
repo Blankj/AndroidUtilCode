@@ -43,7 +43,7 @@ public class SnackbarActivity extends Activity
                 SnackbarUtils.showShortSnackbar(getWindow().getDecorView(), "short snackbar", Color.WHITE, Color.BLUE);
                 break;
             case R.id.btn_short_snackbar_with_action:
-                SnackbarUtils.showLongSnackbar(getWindow().getDecorView(), "short snackbar", Color.WHITE, Color.BLUE,
+                SnackbarUtils.showShortSnackbar(getWindow().getDecorView(), "short snackbar", Color.WHITE, Color.BLUE,
                         "Short", Color.YELLOW, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -88,6 +88,9 @@ public class SnackbarActivity extends Activity
                             }
                         });
                 SnackbarUtils.addView(R.layout.snackbar_add, 0);
+                break;
+            case R.id.btn_cancel_snackbar:
+                SnackbarUtils.dismissSnackbar();
                 break;
         }
     }

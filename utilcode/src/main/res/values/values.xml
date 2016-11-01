@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!--snackbar-->
-    <attr name="colorAccent" format="color"/>
-    <attr name="borderlessButtonStyle" format="reference"/>
-    <attr name="textColorPrimary" format="reference|color"/>
-</resources>

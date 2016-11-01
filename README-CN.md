@@ -366,6 +366,7 @@ showShortSnackbar      : 显示短时snackbar
 showLongSnackbar       : 显示长时snackbar
 showIndefiniteSnackbar : 显示自定义时长snackbar
 addView                : 为SnackBar添加布局
+dismissSnackbar        : 取消snackbar显示
  ```
 
 > - **SP相关→[SPUtils.java][sp.java]→[Test][sp.test]**
@@ -471,7 +472,7 @@ getEntries         : 获取压缩文件中的文件对象
 ***
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.3.2'
+compile 'com.blankj:utilcode:1.3.3'
 ```
 
 ### Proguard

@@ -148,7 +148,7 @@ public class SnackbarUtils {
     }
 
     /**
-     * 为SnackBar添加布局
+     * 为snackbar添加布局
      * <p>在show...Snackbar之后调用</p>
      *
      * @param layoutId 布局文件
@@ -163,5 +163,15 @@ public class SnackbarUtils {
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.CENTER_VERTICAL;
         layout.addView(child, index, params);
+    }
+
+    /**
+     * 取消snackbar显示
+     */
+    public static void dismissSnackbar() {
+        if (snackbar != null) {
+            snackbar.dismiss();
+            snackbar = null;
+        }
     }
 }

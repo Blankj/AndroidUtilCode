@@ -366,6 +366,7 @@ showShortSnackbar
 showLongSnackbar
 showIndefiniteSnackbar
 addView
+dismissSnackbar
  ```
 
 > - **About SP→[SPUtils.java][sp.java]→[Test][sp.test]**
@@ -471,7 +472,7 @@ getEntries
 ***
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.3.2'
+compile 'com.blankj:utilcode:1.3.3'
 ```
 
 ### Proguard
