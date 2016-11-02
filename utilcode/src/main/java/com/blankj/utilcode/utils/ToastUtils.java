@@ -252,7 +252,7 @@ public class ToastUtils {
     private static void showToast(Context context, CharSequence text, int duration) {
         if (isJumpWhenMore) cancelToast();
         if (sToast == null) {
-            sToast = Toast.makeText(context, text, duration);
+            sToast = Toast.makeText(context.getApplicationContext(), text, duration);
         } else {
             sToast.setText(text);
             sToast.setDuration(duration);

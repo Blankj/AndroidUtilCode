@@ -55,6 +55,14 @@
             style="@style/BtnFont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="handlerClick"
+            android:text="@string/test.handler"
+            />
+
+        <Button
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:onClick="imageClick"
             android:text="@string/test.image"
             />

@@ -43,6 +43,10 @@ public class MainActivity extends Activity {
         startActivity(new Intent(this, DeviceActivity.class));
     }
 
+    public void handlerClick(View view) {
+        startActivity(new Intent(this, HandlerActivity.class));
+    }
+
     public void imageClick(View view) {
         startActivity(new Intent(this, ImageActivity.class));
     }

@@ -7,6 +7,7 @@
     <string name="test.clean">CleanUtils Test</string>
     <string name="test.crash">CrashUtils Test</string>
     <string name="test.device">DeviceUtils Test</string>
+    <string name="test.handler">HandlerUtils Test</string>
     <string name="test.image">ImageUtils Test</string>
     <string name="test.keyboard">KeyboardUtils Test</string>
     <string name="test.network">NetworkUtils Test</string>
@@ -32,6 +33,9 @@
     <!--Device相关-->
     <string name="device.shutdown">Shutdown</string>
     <string name="device.reboot">Reboot</string>
+
+    <!--Handler相关-->
+    <string name="handler.send_msg_after_3s">Send Msg After 3s</string>
 
     <!--Network相关-->
     <string name="network.open_wireless_settings">Open Wireless Settings</string>

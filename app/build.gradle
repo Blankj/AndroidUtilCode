@@ -24,4 +24,8 @@ dependencies {
     compile project(':utilcode')
     compile rootProject.ext.deps.design
     compile rootProject.ext.deps.supportV4
+
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }

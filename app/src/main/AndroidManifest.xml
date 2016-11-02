@@ -39,6 +39,7 @@
         <activity android:name=".activities.AppActivity"/>
         <activity android:name=".activities.CleanActivity"/>
         <activity android:name=".activities.DeviceActivity"/>
+        <activity android:name=".activities.HandlerActivity"/>
         <activity android:name=".activities.ImageActivity"/>
         <activity
             android:name=".activities.KeyboardActivity"

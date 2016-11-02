@@ -12,29 +12,29 @@
 
 
         <Button
-            android:id="@+id/btn_shutdown"
+            android:id="@+id/btn_send_msg_after_3s"
             style="@style/BtnFont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/device.shutdown"
-            />
-
-
-        <Button
-            android:id="@+id/btn_reboot"
-            style="@style/BtnFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/device.reboot"
+            android:text="@string/handler.send_msg_after_3s"
             />
 
         <TextView
-            android:id="@+id/tv_about_device"
+            android:id="@+id/tv_about_handler0"
             style="@style/Font"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             />
+
+        <TextView
+            android:id="@+id/tv_about_handler1"
+            style="@style/Font"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            />
+
 
     </LinearLayout>
 </ScrollView>

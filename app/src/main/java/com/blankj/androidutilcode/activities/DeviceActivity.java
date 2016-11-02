@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.blankj.androidutilcode.App;
 import com.blankj.androidutilcode.R;
 import com.blankj.utilcode.utils.DeviceUtils;
 
@@ -17,7 +18,7 @@ import com.blankj.utilcode.utils.DeviceUtils;
  * </pre>
  */
 public class DeviceActivity extends Activity
-implements View.OnClickListener{
+        implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +32,8 @@ implements View.OnClickListener{
 
         tvAboutDevice.setText("isRoot: " + DeviceUtils.isDeviceRoot() +
                 "\ngetSDKVersion: " + DeviceUtils.getSDKVersion() +
-                "\ngetAndroidID: " + DeviceUtils.getAndroidID(this) +
-                "\ngetMacAddress: " + DeviceUtils.getMacAddress(this)+
+                "\ngetAndroidID: " + DeviceUtils.getAndroidID(App.getInstance()) +
+                "\ngetMacAddress: " + DeviceUtils.getMacAddress(App.getInstance()) +
                 "\ngetManufacturer: " + DeviceUtils.getManufacturer() +
                 "\ngetModel: " + DeviceUtils.getModel()
         );
