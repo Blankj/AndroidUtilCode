@@ -1,6 +1,7 @@
 package com.blankj.utilcode.utils;
 
 import android.content.Context;
+import android.util.SparseArray;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,13 +10,7 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.io.File;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
-
-import static com.blankj.utilcode.utils.TimeUtils.milliseconds2String;
-import static com.google.common.truth.Truth.assertThat;
 
 /**
  * <pre>

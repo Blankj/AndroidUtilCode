@@ -34,6 +34,7 @@ public class SnackbarActivity extends Activity
         findViewById(R.id.btn_indefinite_snackbar_with_action).setOnClickListener(this);
         findViewById(R.id.btn_add_view).setOnClickListener(this);
         findViewById(R.id.btn_add_view_with_action).setOnClickListener(this);
+        findViewById(R.id.btn_cancel_snackbar).setOnClickListener(this);
     }
 
     @Override
