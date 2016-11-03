@@ -360,7 +360,7 @@ forceGetViewSize : 在onCreate()即可强行获取View的尺寸
 measureView      : ListView中提前测量View尺寸(注释萌萌哒)
  ```
 
-> - **Snackbar相关→[SnackbarUtils.java][snackbar.java]**
+> - **Snackbar相关→[SnackbarUtils.java][snackbar.java]→[Demo][snackbar.demo]**
  ```
 showShortSnackbar      : 显示短时snackbar
 showLongSnackbar       : 显示长时snackbar
@@ -568,6 +568,7 @@ limitations under the License.
 [size.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SizeUtils.java
 
 [snackbar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SnackbarUtils.java
+[snackbar.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activities/SnackbarActivity.java
 
 [sp.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SPUtils.java
 [sp.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/SPUtilsTest.java
