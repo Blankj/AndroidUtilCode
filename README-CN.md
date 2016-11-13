@@ -4,9 +4,9 @@
 为方便查找，已进行大致归类，其目录如下所示：
 > - **Activity相关→[ActivityUtils.java][activity.java]**
  ```
-isActivityExists : 判断是否存在Activity
-launchActivity   : 打开Activity
-getLauncherActivity: 获取launcher activity
+isActivityExists    : 判断是否存在Activity
+launchActivity      : 打开Activity
+getLauncherActivity : 获取launcheractivity
  ```
 
 > - **App相关→[AppUtils.java][app.java]**
@@ -110,16 +110,16 @@ init        : 初始化
 
 > - **设备相关→[DeviceUtils.java][device.java]**
  ```
-isDeviceRoot    : 判断设备是否root
-getSDKVersion   : 获取设备系统版本号
-getAndroidID    : 获取设备AndroidID
-getMacAddress   : 获取设备MAC地址
-getManufacturer : 获取设备厂商
-getModel        : 获取设备型号
-shutdown        : 关机
-reboot          : 重启
-reboot2Recovery          : 重启到recovery
-reboot2Bootloader          : 重启到bootloader
+isDeviceRoot      : 判断设备是否root
+getSDKVersion     : 获取设备系统版本号
+getAndroidID      : 获取设备AndroidID
+getMacAddress     : 获取设备MAC地址
+getManufacturer   : 获取设备厂商
+getModel          : 获取设备型号
+shutdown          : 关机
+reboot            : 重启
+reboot2Recovery   : 重启到recovery
+reboot2Bootloader : 重启到bootloader
  ```
 
 > - **判空相关→[EmptyUtils.java][empty.java]→[Test][empty.test]**
@@ -286,6 +286,7 @@ isPhone                                 : 判断设备是否是手机
 getIMEI                                 : 获取IMIE码
 getIMSI                                 : 获取IMSI码
 getPhoneType                            : 获取移动终端类型
+isSimCardReady                          : 判断是否存在sim卡
 getSimOperatorName, getSimOperatorByMnc : 获取Sim卡运营商名称
 getPhoneStatus                          : 获取手机状态信息
 dial                                    : 跳至拨号界面

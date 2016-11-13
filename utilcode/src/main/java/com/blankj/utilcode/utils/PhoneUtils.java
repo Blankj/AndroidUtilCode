@@ -91,6 +91,16 @@ public class PhoneUtils {
     }
 
     /**
+     * 判断sim卡是否准备好
+     *
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean isSimCardReady(Context context) {
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        return tm != null && tm.getSimState() == TelephonyManager.SIM_STATE_READY;
+    }
+
+    /**
      * 获取Sim卡运营商名称
      * <p>中国移动、如中国联通、中国电信</p>
      *

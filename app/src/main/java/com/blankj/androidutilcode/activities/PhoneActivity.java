@@ -3,11 +3,9 @@ package com.blankj.androidutilcode.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.utilcode.utils.AppUtils;
 import com.blankj.utilcode.utils.PhoneUtils;
 
 public class PhoneActivity extends Activity implements
@@ -29,6 +27,7 @@ public class PhoneActivity extends Activity implements
                 "\ngetIMEI: " + PhoneUtils.getIMEI(this) +
                 "\ngetIMSI: " + PhoneUtils.getIMSI(this) +
                 "\ngetPhoneType: " + PhoneUtils.getPhoneType(this) +
+                "\nisSimCardReady: " + PhoneUtils.isSimCardReady(this) +
                 "\ngetSimOperatorName: " + PhoneUtils.getSimOperatorName(this) +
                 "\ngetSimOperatorByMnc: " + PhoneUtils.getSimOperatorByMnc(this) +
                 "\n获取手机状态信息: " + PhoneUtils.getPhoneStatus(this)

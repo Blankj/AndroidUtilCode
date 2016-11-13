@@ -6,6 +6,7 @@ Directory is shown below：
  ```
 isActivityExists
 launchActivity
+getLauncherActivity
  ```
 
 > - **About App→[AppUtils.java][app.java]**
@@ -117,6 +118,8 @@ getManufacturer
 getModel
 shutdown
 reboot
+reboot2Recovery
+reboot2Bootloader
  ```
 
 > - **About Empty→[EmptyUtils.java][empty.java]→[Test][empty.test]**
@@ -283,6 +286,7 @@ isPhone
 getIMEI
 getIMSI
 getPhoneType
+isSimCardReady
 getSimOperatorName, getSimOperatorByMnc
 getPhoneStatus
 dial
