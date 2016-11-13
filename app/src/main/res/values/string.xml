@@ -33,6 +33,8 @@
     <!--Device相关-->
     <string name="device.shutdown">Shutdown</string>
     <string name="device.reboot">Reboot</string>
+    <string name="device.reboot_to_recovery">Reboot To Recovery</string>
+    <string name="device.reboot_to_bootloader">Reboot To Bootloader</string>
 
     <!--Handler相关-->
     <string name="handler.send_msg_after_3s">Send Msg After 3s</string>

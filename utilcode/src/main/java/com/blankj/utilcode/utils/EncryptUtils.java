@@ -124,7 +124,7 @@ public class EncryptUtils {
      * @return 文件的16进制密文
      */
     public static String encryptMD5File2String(String filePath) {
-        File file =  StringUtils.isSpace(filePath) ? null : new File(filePath);
+        File file = StringUtils.isSpace(filePath) ? null : new File(filePath);
         return encryptMD5File2String(file);
     }
 
@@ -135,7 +135,7 @@ public class EncryptUtils {
      * @return 文件的MD5校验码
      */
     public static byte[] encryptMD5File(String filePath) {
-        File file =  StringUtils.isSpace(filePath) ? null : new File(filePath);
+        File file = StringUtils.isSpace(filePath) ? null : new File(filePath);
         return encryptMD5File(file);
     }
 
@@ -164,7 +164,7 @@ public class EncryptUtils {
             MessageDigest md = MessageDigest.getInstance("MD5");
             digestInputStream = new DigestInputStream(fis, md);
             byte[] buffer = new byte[256 * 1024];
-            while (digestInputStream.read(buffer) > 0);
+            while (digestInputStream.read(buffer) > 0) ;
             md = digestInputStream.getMessageDigest();
             return md.digest();
         } catch (NoSuchAlgorithmException | IOException e) {

@@ -28,6 +28,22 @@
             android:text="@string/device.reboot"
             />
 
+        <Button
+            android:id="@+id/btn_reboot_to_recovery"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/device.reboot_to_recovery"
+            />
+
+        <Button
+            android:id="@+id/btn_reboot_to_bootloader"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/device.reboot_to_bootloader"
+            />
+
         <TextView
             android:id="@+id/tv_about_device"
             style="@style/Font"

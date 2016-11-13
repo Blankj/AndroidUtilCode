@@ -3,7 +3,10 @@ package com.blankj.utilcode.utils;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.util.Log;
 
 import java.util.List;
 
@@ -58,5 +61,25 @@ public class ActivityUtils {
      */
     public static void launchActivity(Context context, String packageName, String className, Bundle bundle) {
         context.startActivity(IntentUtils.getComponentIntent(packageName, className, bundle));
+    }
+
+    /**
+     * 获取launcher activity
+     *
+     * @param context     上下文
+     * @param packageName 包名
+     * @return launcher activity
+     */
+    public static String getLauncherActivity(Context context, String packageName) {
+        Intent intent = new Intent(Intent.ACTION_MAIN, null);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        PackageManager pm = context.getPackageManager();
+        List<ResolveInfo> infos = pm.queryIntentActivities(intent, 0);
+        for (ResolveInfo info : infos) {
+            if (info.activityInfo.packageName.equals(packageName)) {
+                return info.activityInfo.name;
+            }
+        }
+        return "no " + packageName;
     }
 }

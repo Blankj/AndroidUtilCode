@@ -29,6 +29,8 @@ public class DeviceActivity extends Activity
 
         findViewById(R.id.btn_shutdown).setOnClickListener(this);
         findViewById(R.id.btn_reboot).setOnClickListener(this);
+        findViewById(R.id.btn_reboot_to_recovery).setOnClickListener(this);
+        findViewById(R.id.btn_reboot_to_bootloader).setOnClickListener(this);
 
         tvAboutDevice.setText("isRoot: " + DeviceUtils.isDeviceRoot() +
                 "\ngetSDKVersion: " + DeviceUtils.getSDKVersion() +
@@ -47,6 +49,10 @@ public class DeviceActivity extends Activity
                 break;
             case R.id.btn_reboot:
                 DeviceUtils.reboot();
+            case R.id.btn_reboot_to_recovery:
+                DeviceUtils.reboot2Recovery();
+            case R.id.btn_reboot_to_bootloader:
+                DeviceUtils.reboot2Bootloader();
                 break;
         }
     }

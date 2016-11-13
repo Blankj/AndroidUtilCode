@@ -7,9 +7,6 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.utilcode.utils.ActivityUtils;
-import com.blankj.utilcode.utils.DeviceUtils;
-import com.blankj.utilcode.utils.IntentUtils;
-import com.blankj.utilcode.utils.ShellUtils;
 
 /**
  * <pre>
@@ -38,8 +35,9 @@ public class ActivityActivity extends Activity
 
         findViewById(R.id.btn_launch_image_activity).setOnClickListener(this);
 
-        boolean isExists = ActivityUtils.isActivityExists(this, packageName, className);
-        tvAboutActivity.setText(String.format("Is ImageActivity Exists: %b", isExists));
+        tvAboutActivity.setText("Is ImageActivity Exists: " + ActivityUtils.isActivityExists(this, packageName, className) +
+                "\ngetLauncherActivity: " + ActivityUtils.getLauncherActivity(this, packageName)
+        );
     }
 
     @Override

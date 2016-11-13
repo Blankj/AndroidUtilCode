@@ -1,4 +1,5 @@
 ###
+#### 16/11/12 最近一直在博客搬家，所以更得有点少，新增重启到recovery和bootloader，新增获取launcher activity
 #### 16/11/04 修复README的缺少process的bug
 #### 16/11/03 SnackbarUtils中Snackbar持有弱引用来消除内存泄漏
 #### 16/11/02 内存泄漏检测中

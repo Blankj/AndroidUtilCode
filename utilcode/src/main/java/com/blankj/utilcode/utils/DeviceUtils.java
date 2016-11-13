@@ -243,4 +243,20 @@ public class DeviceUtils {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 重启到recovery
+     * <p>需要root权限</p>
+     */
+    public static void reboot2Recovery() {
+        ShellUtils.execCmd("reboot recovery", true);
+    }
+
+    /**
+     * 重启到bootloader
+     * <p>需要root权限</p>
+     */
+    public static void reboot2Bootloader() {
+        ShellUtils.execCmd("reboot bootloader", true);
+    }
 }

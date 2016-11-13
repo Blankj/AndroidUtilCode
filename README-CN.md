@@ -6,6 +6,7 @@
  ```
 isActivityExists : 判断是否存在Activity
 launchActivity   : 打开Activity
+getLauncherActivity: 获取launcher activity
  ```
 
 > - **App相关→[AppUtils.java][app.java]**
@@ -117,6 +118,8 @@ getManufacturer : 获取设备厂商
 getModel        : 获取设备型号
 shutdown        : 关机
 reboot          : 重启
+reboot2Recovery          : 重启到recovery
+reboot2Bootloader          : 重启到bootloader
  ```
 
 > - **判空相关→[EmptyUtils.java][empty.java]→[Test][empty.test]**
