@@ -48,6 +48,21 @@ public class ServiceUtils {
     }
 
     /**
+     * 启动服务
+     *
+     * @param context   上下文
+     * @param className 完整包名的服务类名
+     */
+    public static void startService(Context context, String className) {
+        try {
+            Intent intent = new Intent(context, Class.forName(className));
+            context.startService(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * 判断服务是否运行
      *
      * @param context   上下文

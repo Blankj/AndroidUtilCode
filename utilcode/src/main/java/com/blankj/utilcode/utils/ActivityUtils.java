@@ -1,12 +1,10 @@
 package com.blankj.utilcode.utils;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.util.Log;
 
 import java.util.List;
 
