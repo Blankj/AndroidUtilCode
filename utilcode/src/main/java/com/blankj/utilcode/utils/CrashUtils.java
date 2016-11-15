@@ -25,12 +25,13 @@ import java.util.Locale;
  */
 public class CrashUtils implements Thread.UncaughtExceptionHandler {
 
-    private static CrashUtils mInstance = new CrashUtils();
-    private        UncaughtExceptionHandler mHandler;
-    private        boolean                  mInitialized;
-    private static String                   crashDir;
-    private        String                   versionName;
-    private        int                      versionCode;
+    private volatile static CrashUtils mInstance;
+
+    private UncaughtExceptionHandler mHandler;
+    private boolean                  mInitialized;
+    private String                   crashDir;
+    private String                   versionName;
+    private int                      versionCode;
 
     private CrashUtils() {
     }
@@ -42,6 +43,13 @@ public class CrashUtils implements Thread.UncaughtExceptionHandler {
      * @return 单例
      */
     public static CrashUtils getInstance() {
+        if (mInstance == null) {
+            synchronized (CrashUtils.class) {
+                if (mInstance == null) {
+                    mInstance = new CrashUtils();
+                }
+            }
+        }
         return mInstance;
     }
 
