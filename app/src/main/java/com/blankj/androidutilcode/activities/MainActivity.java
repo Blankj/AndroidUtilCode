@@ -12,7 +12,7 @@ import com.blankj.androidutilcode.R;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/9/29
- *     desc  : 吐司工具类测试
+ *     desc  : MainActivity
  * </pre>
  */
 public class MainActivity extends Activity {

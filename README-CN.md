@@ -251,6 +251,11 @@ showSoftInput                : 动态显示软键盘
 toggleSoftInput              : 切换键盘显示与否状态
  ```
 
+> - **定位相关→[LocationUtils.java][location.java]**
+ ```
+
+ ```
+
 > - **日志相关→[LogUtils.java][log.java]→[Test][log.test]**
  ```
 init       : 初始化函数

@@ -2,9 +2,7 @@ package com.blankj.androidutilcode.activities;
 
 import android.app.Activity;
 import android.content.Context;
-import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -13,8 +11,15 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.utilcode.utils.KeyboardUtils;
-import com.blankj.utilcode.utils.NetworkUtils;
 
+/**
+ * <pre>
+ *     author: Blankj
+ *     blog  : http://blankj.com
+ *     time  : 2016/9/27
+ *     desc  : Keyboard工具类测试
+ * </pre>
+ */
 public class KeyboardActivity extends Activity
         implements View.OnClickListener {
 

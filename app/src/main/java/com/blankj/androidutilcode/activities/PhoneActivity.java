@@ -8,6 +8,14 @@ import android.widget.TextView;
 import com.blankj.androidutilcode.R;
 import com.blankj.utilcode.utils.PhoneUtils;
 
+/**
+ * <pre>
+ *     author: Blankj
+ *     blog  : http://blankj.com
+ *     time  : 2016/10/13
+ *     desc  : Phone工具类测试
+ * </pre>
+ */
 public class PhoneActivity extends Activity implements
         View.OnClickListener {
 

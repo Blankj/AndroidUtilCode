@@ -8,9 +8,16 @@ import com.blankj.androidutilcode.R;
 import com.blankj.utilcode.utils.ProcessUtils;
 import com.blankj.utilcode.utils.ToastUtils;
 
+/**
+ * <pre>
+ *     author: Blankj
+ *     blog  : http://blankj.com
+ *     time  : 2016/10/13
+ *     desc  : Process工具类测试
+ * </pre>
+ */
 public class ProcessActivity extends Activity
         implements View.OnClickListener {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

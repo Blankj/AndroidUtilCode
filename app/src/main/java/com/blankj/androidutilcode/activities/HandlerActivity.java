@@ -16,7 +16,7 @@ import com.blankj.utilcode.utils.LogUtils;
  *     author: Blankj
  *     blog : http://blankj.com
  *     time : 2016/9/27
- *     desc : Device工具类测试
+ *     desc : Handler工具类测试
  * </pre>
  */
 public class HandlerActivity extends Activity

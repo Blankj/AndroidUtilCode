@@ -12,7 +12,7 @@ import com.blankj.utilcode.utils.SDCardUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/9/27
- *     desc  : SD卡工具类测试
+ *     desc  : SDCard工具类测试
  * </pre>
  */
 public class SDCardActivity extends Activity {
