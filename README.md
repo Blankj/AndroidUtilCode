@@ -1,5 +1,5 @@
 ## Android developers should collect the following utils
-**[中文版README][readme-cn.md]→[How to get this README from README-CN][trans]**
+**[中文版README][readme-cn.md]**
 ***
 Directory is shown below：  
 > - **About Activity→[ActivityUtils.java][activity.java]**
@@ -298,10 +298,16 @@ getContactNum
 getAllSMS
  ```
 
+> - **About Pinyin→[PinyinUtils.java][pinyin.java]→[Test][pinyin.test]**
+ ```
+getPinyinFirstLetter
+ccs2Pinyin
+ ```
+
 > - **About Process→[ProcessUtils.java][process.java]**
  ```
 getForegroundProcessName
-cleanAllBackgroundProcesses，cleanBackgroundProcesses
+cleanAllBackgroundProcesses, cleanBackgroundProcesses
  ```
 
 > - **About Regex→[RegexUtils.java][regex.java]→[Test][regex.test]**
@@ -313,11 +319,15 @@ isIDCard15
 isIDCard18
 isEmail
 isURL
-isChz
+isZh
 isUsername
 isDate
 isIP
 isMatch
+getMatches
+getSplits
+getReplaceFirst
+getReplaceAll
  ```
 
 > - **About Screen→[ScreenUtils.java][screen.java]**
@@ -397,6 +407,7 @@ clear
 isEmpty
 isSpace
 equals
+equalsIgnoreCase
 null2Length0
 length
 upperFirstLetter
@@ -404,8 +415,6 @@ lowerFirstLetter
 reverse
 toDBC
 toSBC
-getPYFirstLetter
-cn2PY
  ```
 
 > - **About ThreadPool→[ThreadPoolUtils.java][thread_pool.java]**
@@ -510,8 +519,6 @@ limitations under the License.
 [readme.md]: https://github.com/Blankj/AndroidUtilCode
 [readme-cn.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md
 
-[trans]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/TestUtils.java
-
 [activity.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ActivityUtils.java
 
 [app.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/AppUtils.java
@@ -557,6 +564,9 @@ limitations under the License.
 [network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/NetworkUtils.java
 
 [phone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/PhoneUtils.java
+
+[pinyin.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/PinyinUtils.java
+[pinyin.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/PinyinUtilsTest.java
 
 [process.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ProcessUtils.java
 

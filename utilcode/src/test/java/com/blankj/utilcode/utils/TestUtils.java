@@ -10,6 +10,8 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -40,7 +42,7 @@ public class TestUtils {
         File readmeEng = new File(new File(System.getProperty("user.dir")).getParent() + SEP + "README.md");
         List<String> list = FileUtils.readFile2List(readmeCN, "UTF-8");
         StringBuilder sb = new StringBuilder("## Android developers should collect the following utils\r\n" +
-                "**[中文版README][readme-cn.md]→[How to get this README from README-CN][trans]**\r\n" +
+                "**[中文版README][readme-cn.md]**\r\n" +
                 "***\r\n" +
                 "Directory is shown below：  \r\n");
         List<String> lines = list.subList(4, list.size());
@@ -105,6 +107,5 @@ public class TestUtils {
 
     @Test
     public void test() throws Exception {
-
     }
 }

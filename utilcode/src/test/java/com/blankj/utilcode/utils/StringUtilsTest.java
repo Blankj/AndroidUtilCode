@@ -31,6 +31,19 @@ public class StringUtilsTest {
     }
 
     @Test
+    public void testEquals() throws Exception {
+        assertThat(StringUtils.equals("blankj", "blankj")).isEqualTo(true);
+        assertThat(StringUtils.equals("blankj", "Blankj")).isEqualTo(false);
+    }
+
+    @Test
+    public void testEqualsIgnoreCase() throws Exception {
+        assertThat(equalsIgnoreCase("blankj", "Blankj")).isEqualTo(true);
+        assertThat(equalsIgnoreCase("blankj", "blankj")).isEqualTo(true);
+        assertThat(equalsIgnoreCase("blankj", "blank")).isEqualTo(false);
+    }
+
+    @Test
     public void testNull2Length0() throws Exception {
         assertThat(null2Length0(null)).isEqualTo("");
     }
@@ -72,11 +85,5 @@ public class StringUtilsTest {
     @Test
     public void testToSBC() throws Exception {
         assertThat(toSBC(" ,.&")).isEqualTo("　，．＆");
-    }
-
-    @Test
-    public void test() throws Exception {
-        System.out.println(StringUtils.getPYFirstLetter("c"));
-        System.out.println(StringUtils.cn2PY("测试转拼音"));
     }
 }

@@ -48,7 +48,7 @@ public class PhoneUtils {
     }
 
     /**
-     * 获取IMIE码
+     * 获取IMEI码
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_PHONE_STATE"/>}</p>
      *
      * @param context 上下文

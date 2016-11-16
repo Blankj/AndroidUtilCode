@@ -1,12 +1,12 @@
 ## Android开发人员不得不收集的代码([持续更新中][update_log.md])
-**[README of English][readme.md]→[一键生成英文版README函数][trans]**
+**[README of English][readme.md]**
 ***
 为方便查找，已进行大致归类，其目录如下所示：
 > - **Activity相关→[ActivityUtils.java][activity.java]**
  ```
 isActivityExists    : 判断是否存在Activity
 launchActivity      : 打开Activity
-getLauncherActivity : 获取launcheractivity
+getLauncherActivity : 获取入口activity
  ```
 
 > - **App相关→[AppUtils.java][app.java]**
@@ -283,10 +283,10 @@ getDomainAddress                   : 获取域名ip地址
 > - **手机相关→[PhoneUtils.java][phone.java]**
  ```
 isPhone                                 : 判断设备是否是手机
-getIMEI                                 : 获取IMIE码
+getIMEI                                 : 获取IMEI码
 getIMSI                                 : 获取IMSI码
 getPhoneType                            : 获取移动终端类型
-isSimCardReady                          : 判断是否存在sim卡
+isSimCardReady                          : 判断sim卡是否准备好
 getSimOperatorName, getSimOperatorByMnc : 获取Sim卡运营商名称
 getPhoneStatus                          : 获取手机状态信息
 dial                                    : 跳至拨号界面
@@ -298,26 +298,36 @@ getContactNum                           : 打开手机联系人界面点击联�
 getAllSMS                               : 获取手机短信并保存到xml中
  ```
 
+> - **拼音相关→[PinyinUtils.java][pinyin.java]→[Test][pinyin.test]**
+ ```
+getPinyinFirstLetter : 获取第一个汉字首字母
+ccs2Pinyin           : 汉字转拼音
+ ```
+
 > - **进程相关→[ProcessUtils.java][process.java]**
  ```
-getForegroundProcessName                             : 获取前台线程包名
-cleanAllBackgroundProcesses，cleanBackgroundProcesses : 清理后台服务进程
+getForegroundProcessName                              : 获取前台线程包名
+cleanAllBackgroundProcesses, cleanBackgroundProcesses : 清理后台服务进程
  ```
 
 > - **正则相关→[RegexUtils.java][regex.java]→[Test][regex.test]**
  ```
-isMobileSimple : 验证手机号（简单）
-isMobileExact  : 验证手机号（精确）
-isTel          : 验证电话号码
-isIDCard15     : 验证身份证号码15位
-isIDCard18     : 验证身份证号码18位
-isEmail        : 验证邮箱
-isURL          : 验证URL
-isChz          : 验证汉字
-isUsername     : 验证用户名
-isDate         : 验证yyyy-MM-dd格式的日期校验，已考虑平闰年
-isIP           : 验证IP地址
-isMatch        : string是否匹配regex
+isMobileSimple  : 验证手机号（简单）
+isMobileExact   : 验证手机号（精确）
+isTel           : 验证电话号码
+isIDCard15      : 验证身份证号码15位
+isIDCard18      : 验证身份证号码18位
+isEmail         : 验证邮箱
+isURL           : 验证URL
+isZh            : 验证汉字
+isUsername      : 验证用户名
+isDate          : 验证yyyy-MM-dd格式的日期校验，已考虑平闰年
+isIP            : 验证IP地址
+isMatch         : 判断是否匹配正则
+getMatches      : 获取正则匹配的部分
+getSplits       : 获取正则匹配分组
+getReplaceFirst : 替换正则匹配的第一部分
+getReplaceAll   : 替换所有正则匹配的部分
  ```
 
 > - **屏幕相关→[ScreenUtils.java][screen.java]**
@@ -397,6 +407,7 @@ clear      : SP中清除所有数据
 isEmpty          : 判断字符串是否为null或长度为0
 isSpace          : 判断字符串是否为null或全为空格
 equals           : 判断两字符串是否相等
+equalsIgnoreCase : 判断两字符串忽略大小写是否相等
 null2Length0     : null转为长度为0的字符串
 length           : 返回字符串长度
 upperFirstLetter : 首字母大写
@@ -404,8 +415,6 @@ lowerFirstLetter : 首字母小写
 reverse          : 反转字符串
 toDBC            : 转化为半角字符
 toSBC            : 转化为全角字符
-getPYFirstLetter : 获得第一个汉字首字母
-cn2PY            : 中文转拼音
  ```
 
 > - **线程池相关→[ThreadPoolUtils.java][thread_pool.java]**
@@ -510,8 +519,6 @@ limitations under the License.
 [readme.md]: https://github.com/Blankj/AndroidUtilCode
 [readme-cn.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md
 
-[trans]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/TestUtils.java
-
 [activity.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ActivityUtils.java
 
 [app.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/AppUtils.java
@@ -557,6 +564,9 @@ limitations under the License.
 [network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/NetworkUtils.java
 
 [phone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/PhoneUtils.java
+
+[pinyin.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/PinyinUtils.java
+[pinyin.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/PinyinUtilsTest.java
 
 [process.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ProcessUtils.java
 
