@@ -19,8 +19,9 @@ import com.blankj.utilcode.utils.LocationUtils;
  */
 public class LocationActivity extends Activity {
 
-    Context  mContext;
-    TextView tvAboutLocation;
+    Context       mContext;
+    TextView      tvAboutLocation;
+    LocationUtils locationUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +31,15 @@ public class LocationActivity extends Activity {
         tvAboutLocation = (TextView) findViewById(R.id.tv_about_location);
         mContext = this;
 
-        LocationUtils.getInstance(mContext).init(1000, 0, new LocationUtils.OnLocationChangeListener() {
+        locationUtils = new LocationUtils(this);
+        locationUtils.init(100, 0, new LocationUtils.OnLocationChangeListener() {
             @Override
             public void onLocationChanged(Location location) {
-                //得到纬度
                 double latitude = location.getLatitude();
-                //得到经度
                 double longitude = location.getLongitude();
-                tvAboutLocation.setText("getCountryName:" + LocationUtils.getInstance(mContext).getCountryName(latitude, longitude) +
-                        "\ngetLocality:" + LocationUtils.getInstance(mContext).getLocality(latitude, longitude) +
-                        "\ngetStreet:" + LocationUtils.getInstance(mContext).getStreet(latitude, longitude)
+                tvAboutLocation.setText("getCountryName:" + locationUtils.getCountryName(latitude, longitude) +
+                        "\ngetLocality:" + locationUtils.getLocality(latitude, longitude) +
+                        "\ngetStreet:" + locationUtils.getStreet(latitude, longitude)
                 );
             }
 

@@ -251,6 +251,19 @@ showSoftInput
 toggleSoftInput
  ```
 
+> - **About Location→[LocationUtils.java][location.java]**
+ ```
+LocationUtils
+isGpsEnabled
+openGpsSettings
+init
+getAddress
+getCountryName
+getLocality
+getStreet
+removeAndGc
+ ```
+
 > - **About Log→[LogUtils.java][log.java]→[Test][log.test]**
  ```
 init
@@ -557,6 +570,8 @@ limitations under the License.
 [intent.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/IntentUtils.java
 
 [keyboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/KeyboardUtils.java
+
+[location.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/LocationUtils.java
 
 [log.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/LogUtils.java
 [log.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/LogUtilsTest.java

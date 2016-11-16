@@ -28,46 +28,24 @@ import static android.support.v7.widget.StaggeredGridLayoutManager.TAG;
  */
 public class LocationUtils {
 
-    private volatile static LocationUtils uniqueInstance;
-
-    private OnLocationChangeListener mListener;
-
-    private MyLocationListener myLocationListener;
-
-    private LocationManager mLocationManager;
-
     private Context mContext;
+    private OnLocationChangeListener mListener;
+    private MyLocationListener myLocationListener;
+    private LocationManager mLocationManager;
 
     /**
      * LocationUtils构造函数
      *
      * @param context 上下文
      */
-    private LocationUtils(Context context) {
+    public LocationUtils(Context context) {
         mContext = context;
         mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         myLocationListener = new MyLocationListener();
     }
 
     /**
-     * 获取单例
-     *
-     * @param context 上下文
-     * @return LocationUtils对象
-     */
-    public static LocationUtils getInstance(Context context) {
-        if (uniqueInstance == null) {
-            synchronized (LocationUtils.class) {
-                if (uniqueInstance == null) {
-                    uniqueInstance = new LocationUtils(context);
-                }
-            }
-        }
-        return uniqueInstance;
-    }
-
-    /**
-     * 判断Gps是否打开
+     * 判断Gps是否可用
      *
      * @return {@code true}: 是<br>{@code false}: 否
      */
@@ -84,7 +62,7 @@ public class LocationUtils {
 
     /**
      * 初始化
-     * <p>使用完记得调用{@link #remove()}</p>
+     * <p>使用完记得调用{@link #removeAndGc()}</p>
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>}</p>
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>}</p>
@@ -136,7 +114,7 @@ public class LocationUtils {
     }
 
     /**
-     * 根据经纬度获取国家的名字
+     * 根据经纬度获取所在国家
      *
      * @param latitude  纬度
      * @param longitude 经度
@@ -160,7 +138,7 @@ public class LocationUtils {
     }
 
     /**
-     * 根据经纬度获取街道名称
+     * 根据经纬度获取所在街道
      *
      * @param latitude  纬度
      * @param longitude 经度
@@ -169,6 +147,18 @@ public class LocationUtils {
     public String getStreet(double latitude, double longitude) {
         Address address = getAddress(latitude, longitude);
         return address == null ? null : address.getAddressLine(0);
+    }
+
+    /**
+     * 移除并gc
+     */
+    public void removeAndGc() {
+        if (mLocationManager != null) {
+            mLocationManager.removeUpdates(myLocationListener);
+            mLocationManager = null;
+            myLocationListener = null;
+            System.gc();
+        }
     }
 
     private class MyLocationListener
@@ -222,19 +212,6 @@ public class LocationUtils {
          */
         @Override
         public void onProviderDisabled(String provider) {
-        }
-    }
-
-    /**
-     * 移除
-     * <p>销毁时一定要移除，否则会内存泄漏</p>
-     */
-    public void remove() {
-        if (mLocationManager != null) {
-            mLocationManager.removeUpdates(myLocationListener);
-            mLocationManager = null;
-            myLocationListener = null;
-            System.gc();
         }
     }
 

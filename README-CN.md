@@ -253,7 +253,15 @@ toggleSoftInput              : 切换键盘显示与否状态
 
 > - **定位相关→[LocationUtils.java][location.java]**
  ```
-
+LocationUtils   : LocationUtils构造函数
+isGpsEnabled    : 判断Gps是否可用
+openGpsSettings : 打开Gps设置界面
+init            : 初始化
+getAddress      : 根据经纬度获取地理位置
+getCountryName  : 根据经纬度获取所在国家
+getLocality     : 根据经纬度获取所在地
+getStreet       : 根据经纬度获取所在街道
+removeAndGc     : 移除并gc
  ```
 
 > - **日志相关→[LogUtils.java][log.java]→[Test][log.test]**
@@ -562,6 +570,8 @@ limitations under the License.
 [intent.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/IntentUtils.java
 
 [keyboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/KeyboardUtils.java
+
+[location.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/LocationUtils.java
 
 [log.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/LogUtils.java
 [log.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/LogUtilsTest.java
