@@ -2,6 +2,8 @@ package com.blankj.utilcode.utils;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static com.blankj.utilcode.utils.RegexUtils.*;
 import static com.google.common.truth.Truth.assertThat;
 
@@ -67,8 +69,8 @@ public class RegexUtilsTest {
 
     @Test
     public void testIsChz() throws Exception {
-        assertThat(isChz("我")).isTrue();
-        assertThat(isChz("wo")).isFalse();
+        assertThat(isZh("我")).isTrue();
+        assertThat(isZh("wo")).isFalse();
     }
 
     @Test
@@ -96,5 +98,28 @@ public class RegexUtilsTest {
     public void testIsMatch() throws Exception {
         assertThat(isMatch("\\d?", "1")).isTrue();
         assertThat(isMatch("\\d?", "a")).isFalse();
+    }
+
+    @Test
+    public void testGetMatches() throws Exception {
+        // 贪婪
+        System.out.println(getMatches("b.*j", "blankj blankj"));
+        // 懒惰
+        System.out.println(getMatches("b.*?j", "blankj blankj"));
+    }
+
+    @Test
+    public void testGetSplits() throws Exception {
+        System.out.println(Arrays.asList(getSplits("1 2 3", " ")));
+    }
+
+    @Test
+    public void testGetReplace() throws Exception {
+        System.out.println(getReplaceFirst("1 2 3", " ", ", "));
+    }
+
+    @Test
+    public void testGetReplaceAll() throws Exception {
+        System.out.println(getReplaceAll("1 2 3", " ", ", "));
     }
 }
