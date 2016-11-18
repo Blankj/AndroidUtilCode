@@ -24,7 +24,7 @@ public class HandlerActivity extends Activity
 
     private TextView tvAboutHandler0;
     private TextView tvAboutHandler1;
-    HandlerUtils.HandlerHolder handlerHolder;
+    private HandlerUtils.HandlerHolder handlerHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

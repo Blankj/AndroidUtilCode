@@ -79,6 +79,14 @@
             style="@style/BtnFont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="locationClick"
+            android:text="@string/test.location"
+            />
+
+        <Button
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:onClick="networkClick"
             android:text="@string/test.network"
             />

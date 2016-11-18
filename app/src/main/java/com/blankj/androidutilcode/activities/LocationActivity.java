@@ -4,10 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Looper;
+import android.os.Message;
 import android.widget.TextView;
 
+import com.blankj.androidutilcode.App;
 import com.blankj.androidutilcode.R;
+import com.blankj.utilcode.utils.HandlerUtils;
 import com.blankj.utilcode.utils.LocationUtils;
+import com.blankj.utilcode.utils.LogUtils;
 
 /**
  * <pre>
@@ -19,36 +24,40 @@ import com.blankj.utilcode.utils.LocationUtils;
  */
 public class LocationActivity extends Activity {
 
-    Context       mContext;
-    TextView      tvAboutLocation;
-    LocationUtils locationUtils;
+    private TextView                   tvAboutLocation;
+    private LocationUtils              locationUtils;
+    private double                     latitude, longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activity);
+        setContentView(R.layout.activity_location);
 
         tvAboutLocation = (TextView) findViewById(R.id.tv_about_location);
-        mContext = this;
 
-        locationUtils = new LocationUtils(this);
-        locationUtils.init(100, 0, new LocationUtils.OnLocationChangeListener() {
+        locationUtils = new LocationUtils(App.getInstance());
+        locationUtils.init(1000, 0, new LocationUtils.OnLocationChangeListener() {
             @Override
             public void onLocationChanged(Location location) {
-                double latitude = location.getLatitude();
-                double longitude = location.getLongitude();
-                tvAboutLocation.setText("getCountryName:" + locationUtils.getCountryName(latitude, longitude) +
-                        "\ngetLocality:" + locationUtils.getLocality(latitude, longitude) +
-                        "\ngetStreet:" + locationUtils.getStreet(latitude, longitude)
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+                tvAboutLocation.setText("latitude: " + latitude +
+                        "\nlongitude: " + longitude +
+                        "\ngetCountryName: " + locationUtils.getCountryName(latitude, longitude) +
+                        "\ngetLocality: " + locationUtils.getLocality(latitude, longitude) +
+                        "\ngetStreet: " + locationUtils.getStreet(latitude, longitude)
                 );
             }
-
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {
 
             }
         });
+    }
 
-
+    @Override
+    protected void onDestroy() {
+        locationUtils.removeAndGc();
+        super.onDestroy();
     }
 }

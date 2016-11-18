@@ -55,6 +55,10 @@ public class MainActivity extends Activity {
         startActivity(new Intent(this, KeyboardActivity.class));
     }
 
+    public void locationClick(View view) {
+        startActivity(new Intent(this, LocationActivity.class));
+    }
+
     public void networkClick(View view) {
         startActivity(new Intent(this, NetworkActivity.class));
     }
