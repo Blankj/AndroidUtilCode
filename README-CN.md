@@ -380,11 +380,13 @@ execCmd : 是否是在root下执行命令
 
 > - **尺寸相关→[SizeUtils.java][size.java]**
  ```
-dp2px, px2dp     : dp与px转换
-sp2px, px2sp     : sp与px转换
-applyDimension   : 各种单位转换
-forceGetViewSize : 在onCreate()即可强行获取View的尺寸
-measureView      : ListView中提前测量View尺寸(注释萌萌哒)
+dp2px, px2dp      : dp与px转换
+sp2px, px2sp      : sp与px转换
+applyDimension    : 各种单位转换
+forceGetViewSize  : 在onCreate()中获取视图的尺寸
+measureView       : 测量视图尺寸
+getMeasuredWidth  : 获取测量视图宽度
+getMeasuredHeight : 获取测量视图高度
  ```
 
 > - **Snackbar相关→[SnackbarUtils.java][snackbar.java]→[Demo][snackbar.demo]**

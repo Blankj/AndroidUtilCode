@@ -36,6 +36,8 @@ public class LocationActivity extends Activity {
         tvAboutLocation = (TextView) findViewById(R.id.tv_about_location);
 
         locationUtils = new LocationUtils(App.getInstance());
+        //注意：此处更新准确度非常低，推荐在service里面启动一个Thread，在run中sleep(10000);
+        // 然后执行handler.sendMessage(),更新位置
         locationUtils.init(1000, 0, new LocationUtils.OnLocationChangeListener() {
             @Override
             public void onLocationChanged(Location location) {
