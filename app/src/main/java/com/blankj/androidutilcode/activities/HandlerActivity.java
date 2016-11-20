@@ -42,7 +42,7 @@ public class HandlerActivity extends Activity
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_send_msg_after_3s:
-                handlerHolder.sendEmptyMessageDelayed(0, 30000);
+                handlerHolder.sendEmptyMessageDelayed(0, 3000);
                 break;
         }
     }

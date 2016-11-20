@@ -1,5 +1,6 @@
 ###
-#### 16/11/19 SizeUtils
+#### 16/11/20 完善LocationUtils
+#### 16/11/19 完善SizeUtils
 #### 16/11/18 完善LocationUtils
 #### 16/11/17 完善LocationUtils
 #### 16/11/16 拼音工具类单独拎出来做了整理

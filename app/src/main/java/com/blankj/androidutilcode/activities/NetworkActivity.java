@@ -1,10 +1,12 @@
 package com.blankj.androidutilcode.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.blankj.androidutilcode.App;
 import com.blankj.androidutilcode.R;
 import com.blankj.utilcode.utils.NetworkUtils;
 
@@ -19,7 +21,8 @@ import com.blankj.utilcode.utils.NetworkUtils;
 public class NetworkActivity extends Activity
         implements View.OnClickListener {
 
-    TextView tvAboutNetwork;
+    private TextView tvAboutNetwork;
+    private Context  mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,7 @@ public class NetworkActivity extends Activity
         setContentView(R.layout.activity_network);
 
         tvAboutNetwork = (TextView) findViewById(R.id.tv_about_network);
+        mContext = App.getInstance();
 
         findViewById(R.id.btn_open_wireless_settings).setOnClickListener(this);
         findViewById(R.id.btn_set_wifi_enabled).setOnClickListener(this);
@@ -51,15 +55,15 @@ public class NetworkActivity extends Activity
     }
 
     private void setAboutNetwork() {
-        tvAboutNetwork.setText("isConnected: " + NetworkUtils.isConnected(this) +
-                "\nisAvailableByPing: " + NetworkUtils.isAvailableByPing(this) +
-                "\ngetDataEnabled: " + NetworkUtils.getDataEnabled(this) +
-                "\nis4G: " + NetworkUtils.is4G(this) +
-                "\ngetWifiEnabled: " + NetworkUtils.getWifiEnabled(this) +
-                "\nisWifiConnected: " + NetworkUtils.isWifiConnected(this) +
-                "\nisWifiAvailable: " + NetworkUtils.isWifiAvailable(this) +
-                "\ngetNetworkOperatorName: " + NetworkUtils.getNetworkOperatorName(this) +
-                "\ngetNetworkTypeName: " + NetworkUtils.getNetworkTypeName(this) +
+        tvAboutNetwork.setText("isConnected: " + NetworkUtils.isConnected(mContext) +
+                "\nisAvailableByPing: " + NetworkUtils.isAvailableByPing(mContext) +
+                "\ngetDataEnabled: " + NetworkUtils.getDataEnabled(mContext) +
+                "\nis4G: " + NetworkUtils.is4G(mContext) +
+                "\ngetWifiEnabled: " + NetworkUtils.getWifiEnabled(mContext) +
+                "\nisWifiConnected: " + NetworkUtils.isWifiConnected(mContext) +
+                "\nisWifiAvailable: " + NetworkUtils.isWifiAvailable(mContext) +
+                "\ngetNetworkOperatorName: " + NetworkUtils.getNetworkOperatorName(mContext) +
+                "\ngetNetworkTypeName: " + NetworkUtils.getNetworkTypeName(mContext) +
                 "\ngetIPAddress: " + NetworkUtils.getIPAddress(true) +
                 "\ngetDomainAddress: " + NetworkUtils.getDomainAddress("baidu.com")
         );
