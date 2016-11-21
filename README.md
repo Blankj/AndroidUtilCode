@@ -288,7 +288,7 @@ setWifiEnabled
 isWifiConnected
 isWifiAvailable
 getNetworkOperatorName
-getNetworkType, getNetworkTypeName
+getNetworkType
 getIPAddress
 getDomainAddress
  ```
@@ -345,16 +345,15 @@ getReplaceAll
 
 > - **About Screen→[ScreenUtils.java][screen.java]**
  ```
-getDeviceWidth, getDeviceHeight
-setTransparentStatusBar
-hideStatusBar
-getStatusBarHeight
-isStatusBarExists
-getActionBarHeight
-showNotificationBar
-hideNotificationBar
+getScreenWidth
+getScreenHeight
 setLandscape
-snapShotWithStatusBar, snapShotWithoutStatusBar
+setPortrait
+isLandscape
+isPortrait
+getScreenRotation
+captureWithStatusBar
+captureWithoutStatusBar
 isScreenLock
  ```
 
@@ -385,6 +384,8 @@ sp2px, px2sp
 applyDimension
 forceGetViewSize
 measureView
+getMeasuredWidth
+getMeasuredHeight
  ```
 
 > - **About Snackbar→[SnackbarUtils.java][snackbar.java]→[Demo][snackbar.demo]**
@@ -445,7 +446,8 @@ submit
 invokeAll, invokeAny
 schedule
 schedule
-scheduleWithFixedRate, scheduleWithFixedDelay
+scheduleWithFixedRate
+scheduleWithFixedDelay
  ```
 
 > - **About Time→[TimeUtils.java][time.java]→[Test][time.test]**
@@ -458,7 +460,9 @@ date2Milliseconds
 milliseconds2Date
 milliseconds2Unit
 getIntervalTime
-getCurTimeMills, getCurTimeString, getCurTimeDate
+getCurTimeMills
+getCurTimeString
+getCurTimeDate
 getIntervalByNow
 isLeapYear
 getWeek, getWeekIndex

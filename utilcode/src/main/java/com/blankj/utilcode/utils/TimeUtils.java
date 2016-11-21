@@ -309,7 +309,8 @@ public class TimeUtils {
      * 毫秒时间戳单位转换（单位：unit）
      *
      * @param milliseconds 毫秒时间戳
-     * @param unit         <ul>
+     * @param unit         单位类型
+     *                     <ul>
      *                     <li>{@link TimeUnit#MSEC}: 毫秒</li>
      *                     <li>{@link TimeUnit#SEC }: 秒</li>
      *                     <li>{@link TimeUnit#MIN }: 分</li>
@@ -340,7 +341,8 @@ public class TimeUtils {
      *
      * @param time0 时间字符串1
      * @param time1 时间字符串2
-     * @param unit  <ul>
+     * @param unit  单位类型
+     *              <ul>
      *              <li>{@link TimeUnit#MSEC}: 毫秒</li>
      *              <li>{@link TimeUnit#SEC }: 秒</li>
      *              <li>{@link TimeUnit#MIN }: 分</li>
@@ -359,7 +361,8 @@ public class TimeUtils {
      *
      * @param time0  时间字符串1
      * @param time1  时间字符串2
-     * @param unit   <ul>
+     * @param unit   单位类型
+     *               <ul>
      *               <li>{@link TimeUnit#MSEC}: 毫秒</li>
      *               <li>{@link TimeUnit#SEC }: 秒</li>
      *               <li>{@link TimeUnit#MIN }: 分</li>
@@ -380,7 +383,8 @@ public class TimeUtils {
      *
      * @param time0 Date类型时间1
      * @param time1 Date类型时间2
-     * @param unit  <ul>
+     * @param unit  单位类型
+     *              <ul>
      *              <li>{@link TimeUnit#MSEC}: 毫秒</li>
      *              <li>{@link TimeUnit#SEC }: 秒</li>
      *              <li>{@link TimeUnit#MIN }: 分</li>
@@ -395,7 +399,7 @@ public class TimeUtils {
     }
 
     /**
-     * 获取当前时间
+     * 获取当前时间戳
      *
      * @return 毫秒时间戳
      */
@@ -404,7 +408,7 @@ public class TimeUtils {
     }
 
     /**
-     * 获取当前时间
+     * 获取当前时间字符串
      * <p>格式为yyyy-MM-dd HH:mm:ss</p>
      *
      * @return 时间字符串
@@ -414,7 +418,7 @@ public class TimeUtils {
     }
 
     /**
-     * 获取当前时间
+     * 获取当前时间字符串
      * <p>格式为用户自定义</p>
      *
      * @param format 时间格式
@@ -425,7 +429,7 @@ public class TimeUtils {
     }
 
     /**
-     * 获取当前时间
+     * 获取当前时间Date
      * <p>Date类型</p>
      *
      * @return Date类型时间
@@ -439,7 +443,8 @@ public class TimeUtils {
      * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
      *
      * @param time 时间字符串
-     * @param unit <ul>
+     * @param unit 单位类型
+     *             <ul>
      *             <li>{@link TimeUnit#MSEC}:毫秒</li>
      *             <li>{@link TimeUnit#SEC }:秒</li>
      *             <li>{@link TimeUnit#MIN }:分</li>
@@ -457,7 +462,8 @@ public class TimeUtils {
      * <p>time格式为format</p>
      *
      * @param time   时间字符串
-     * @param unit   <ul>
+     * @param unit   单位类型
+     *               <ul>
      *               <li>{@link TimeUnit#MSEC}: 毫秒</li>
      *               <li>{@link TimeUnit#SEC }: 秒</li>
      *               <li>{@link TimeUnit#MIN }: 分</li>
@@ -476,7 +482,8 @@ public class TimeUtils {
      * <p>time为Date类型</p>
      *
      * @param time Date类型时间
-     * @param unit <ul>
+     * @param unit 单位类型
+     *             <ul>
      *             <li>{@link TimeUnit#MSEC}: 毫秒</li>
      *             <li>{@link TimeUnit#SEC }: 秒</li>
      *             <li>{@link TimeUnit#MIN }: 分</li>

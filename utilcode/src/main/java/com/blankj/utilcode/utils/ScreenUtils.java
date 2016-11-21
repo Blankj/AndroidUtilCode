@@ -26,7 +26,7 @@ public class ScreenUtils {
     }
 
     /**
-     * 获取屏幕的宽度px
+     * 获取屏幕的宽度（单位：px）
      *
      * @param context 上下文
      * @return 屏幕宽px
@@ -39,7 +39,7 @@ public class ScreenUtils {
     }
 
     /**
-     * 获取屏幕的高度px
+     * 获取屏幕的高度（单位：px）
      *
      * @param context 上下文
      * @return 屏幕高px

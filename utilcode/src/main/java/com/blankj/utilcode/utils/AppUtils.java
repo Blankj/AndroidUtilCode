@@ -53,7 +53,7 @@ public class AppUtils {
     }
 
     /**
-     * 安装App(支持6.0)
+     * 安装App（支持6.0）
      *
      * @param context 上下文
      * @param file    文件
@@ -64,7 +64,7 @@ public class AppUtils {
     }
 
     /**
-     * 安装App(支持6.0)
+     * 安装App（支持6.0）
      *
      * @param activity    activity
      * @param filePath    文件路径

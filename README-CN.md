@@ -12,7 +12,7 @@ getLauncherActivity : 获取入口activity
 > - **App相关→[AppUtils.java][app.java]**
  ```
 isInstallApp          : 判断App是否安装
-installApp            : 安装App(支持6.0)
+installApp            : 安装App（支持6.0）
 installAppSilent      : 静默安装App
 uninstallApp          : 卸载App
 uninstallAppSilent    : 静默卸载App
@@ -39,7 +39,7 @@ cleanAppData          : 清除App所有数据
 
 > - **栏相关→[BarUtils.java][bar.java]**
  ```
-setTransparentStatusBar : 设置透明状态栏(api大于19方可使用)
+setTransparentStatusBar : 设置透明状态栏（api大于19方可使用）
 hideStatusBar           : 隐藏状态栏
 getStatusBarHeight      : 获取状态栏高度
 isStatusBarExists       : 判断状态栏是否存在
@@ -232,7 +232,7 @@ compressBySampleSize             : 按采样大小压缩
 
 > - **意图相关→[IntentUtils.java][intent.java]**
  ```
-getInstallAppIntent         : 获取安装App(支持6.0)的意图
+getInstallAppIntent         : 获取安装App（支持6.0）的意图
 getUninstallAppIntent       : 获取卸载App的意图
 getLaunchAppIntent          : 获取打开App的意图
 getAppDetailsSettingsIntent : 获取App具体设置的意图
@@ -246,7 +246,7 @@ getCaptureIntent            : 获取拍照的意图
 > - **键盘相关→[KeyboardUtils.java][keyboard.java]**
  ```
 hideSoftInput                : 动态隐藏软键盘
-clickBlankArea2HideSoftInput : 点击屏幕空白区域隐藏软键盘(注释萌萌哒)
+clickBlankArea2HideSoftInput : 点击屏幕空白区域隐藏软键盘
 showSoftInput                : 动态显示软键盘
 toggleSoftInput              : 切换键盘显示与否状态
  ```
@@ -277,20 +277,20 @@ e          : Error日志
 
 > - **网络相关→[NetworkUtils.java][network.java]**
  ```
-openWirelessSettings               : 打开网络设置界面
-isConnected                        : 判断网络是否连接
-isAvailableByPing                  : 判断网络是否可用
-getDataEnabled                     : 判断移动数据是否打开
-setDataEnabled                     : 打开或关闭移动数据
-is4G                               : 判断网络是否是4G
-getWifiEnabled                     : 判断wifi是否打开
-setWifiEnabled                     : 打开或关闭wifi
-isWifiConnected                    : 判断wifi是否连接状态
-isWifiAvailable                    : 判断wifi数据是否可用
-getNetworkOperatorName             : 获取移动网络运营商名称
-getNetworkType, getNetworkTypeName : 获取当前的网络类型(WIFI, 2G, 3G, 4G)
-getIPAddress                       : 获取IP地址
-getDomainAddress                   : 获取域名ip地址
+openWirelessSettings   : 打开网络设置界面
+isConnected            : 判断网络是否连接
+isAvailableByPing      : 判断网络是否可用
+getDataEnabled         : 判断移动数据是否打开
+setDataEnabled         : 打开或关闭移动数据
+is4G                   : 判断网络是否是4G
+getWifiEnabled         : 判断wifi是否打开
+setWifiEnabled         : 打开或关闭wifi
+isWifiConnected        : 判断wifi是否连接状态
+isWifiAvailable        : 判断wifi数据是否可用
+getNetworkOperatorName : 获取移动网络运营商名称
+getNetworkType         : 获取当前网络类型
+getIPAddress           : 获取IP地址
+getDomainAddress       : 获取域名ip地址
  ```
 
 > - **手机相关→[PhoneUtils.java][phone.java]**
@@ -307,7 +307,7 @@ call                                    : 拨打phoneNumber
 sendSms                                 : 跳至发送短信界面
 sendSmsSilent                           : 发送短信
 getAllContactInfo                       : 获取手机联系人
-getContactNum                           : 打开手机联系人界面点击联系人后便获取该号码(注释萌萌哒)
+getContactNum                           : 打开手机联系人界面点击联系人后便获取该号码
 getAllSMS                               : 获取手机短信并保存到xml中
  ```
 
@@ -345,17 +345,16 @@ getReplaceAll   : 替换所有正则匹配的部分
 
 > - **屏幕相关→[ScreenUtils.java][screen.java]**
  ```
-getDeviceWidth, getDeviceHeight                 : 获取手机分辨率
-setTransparentStatusBar                         : 设置透明状态栏(api大于19方可使用)
-hideStatusBar                                   : 隐藏状态栏(注释萌萌哒)
-getStatusBarHeight                              : 获取状态栏高度
-isStatusBarExists                               : 判断状态栏是否存在
-getActionBarHeight                              : 获取ActionBar高度
-showNotificationBar                             : 显示通知栏
-hideNotificationBar                             : 隐藏通知栏
-setLandscape                                    : 设置屏幕为横屏(注释萌萌哒)
-snapShotWithStatusBar, snapShotWithoutStatusBar : 获取屏幕截图
-isScreenLock                                    : 判断是否锁屏
+getScreenWidth          : 获取屏幕的宽度（单位：px）
+getScreenHeight         : 获取屏幕的高度（单位：px）
+setLandscape            : 设置屏幕为横屏
+setPortrait             : 设置屏幕为竖屏
+isLandscape             : 判断是否横屏
+isPortrait              : 判断是否竖屏
+getScreenRotation       : 获取屏幕旋转角度
+captureWithStatusBar    : 获取当前屏幕截图，包含状态栏
+captureWithoutStatusBar : 获取当前屏幕截图，不包含状态栏
+isScreenLock            : 判断是否锁屏
  ```
 
 > - **SD卡相关→[SDCardUtils.java][sdcard.java]**
@@ -383,7 +382,7 @@ execCmd : 是否是在root下执行命令
 dp2px, px2dp      : dp与px转换
 sp2px, px2sp      : sp与px转换
 applyDimension    : 各种单位转换
-forceGetViewSize  : 在onCreate()中获取视图的尺寸
+forceGetViewSize  : 在onCreate中获取视图的尺寸
 measureView       : 测量视图尺寸
 getMeasuredWidth  : 获取测量视图宽度
 getMeasuredHeight : 获取测量视图高度
@@ -434,38 +433,41 @@ toSBC            : 转化为全角字符
 
 > - **线程池相关→[ThreadPoolUtils.java][thread_pool.java]**
  ```
-ThreadPoolUtils                               : ThreadPoolUtils构造函数
-execute                                       : 在未来某个时间执行给定的命令
-execute                                       : 在未来某个时间执行给定的命令链表
-shutDown                                      : 待以前提交的任务执行完毕后关闭线程池
-shutDownNow                                   : 试图停止所有正在执行的活动任务
-isShutDown                                    : 判断线程池是否已关闭
-isTerminated                                  : 关闭线程池后判断所有任务是否都已完成
-awaitTermination                              : 请求关闭、发生超时或者当前线程中断
-submit                                        : 提交一个Callable任务用于执行
-submit                                        : 提交一个Runnable任务用于执行
-invokeAll, invokeAny                          : 执行给定的任务
-schedule                                      : 延迟执行Runnable命令
-schedule                                      : 延迟执行Callable命令
-scheduleWithFixedRate, scheduleWithFixedDelay : 延迟并循环执行命令
+ThreadPoolUtils        : ThreadPoolUtils构造函数
+execute                : 在未来某个时间执行给定的命令
+execute                : 在未来某个时间执行给定的命令链表
+shutDown               : 待以前提交的任务执行完毕后关闭线程池
+shutDownNow            : 试图停止所有正在执行的活动任务
+isShutDown             : 判断线程池是否已关闭
+isTerminated           : 关闭线程池后判断所有任务是否都已完成
+awaitTermination       : 请求关闭、发生超时或者当前线程中断
+submit                 : 提交一个Callable任务用于执行
+submit                 : 提交一个Runnable任务用于执行
+invokeAll, invokeAny   : 执行给定的任务
+schedule               : 延迟执行Runnable命令
+schedule               : 延迟执行Callable命令
+scheduleWithFixedRate  : 延迟并循环执行命令
+scheduleWithFixedDelay : 延迟并以固定休息时间循环执行命令
  ```
 
 > - **时间相关→[TimeUtils.java][time.java]→[Test][time.test]**
  ```
-milliseconds2String                               : 将时间戳转为时间字符串
-string2Milliseconds                               : 将时间字符串转为时间戳
-string2Date                                       : 将时间字符串转为Date类型
-date2String                                       : 将Date类型转为时间字符串
-date2Milliseconds                                 : 将Date类型转为时间戳
-milliseconds2Date                                 : 将时间戳转为Date类型
-milliseconds2Unit                                 : 毫秒时间戳单位转换（单位：unit）
-getIntervalTime                                   : 获取两个时间差（单位：unit）
-getCurTimeMills, getCurTimeString, getCurTimeDate : 获取当前时间
-getIntervalByNow                                  : 获取与当前时间的差（单位：unit）
-isLeapYear                                        : 判断闰年
-getWeek, getWeekIndex                             : 获取星期
-getWeekOfMonth                                    : 获取月份中的第几周
-getWeekOfYear                                     : 获取年份中的第几周
+milliseconds2String   : 将时间戳转为时间字符串
+string2Milliseconds   : 将时间字符串转为时间戳
+string2Date           : 将时间字符串转为Date类型
+date2String           : 将Date类型转为时间字符串
+date2Milliseconds     : 将Date类型转为时间戳
+milliseconds2Date     : 将时间戳转为Date类型
+milliseconds2Unit     : 毫秒时间戳单位转换（单位：unit）
+getIntervalTime       : 获取两个时间差（单位：unit）
+getCurTimeMills       : 获取当前时间戳
+getCurTimeString      : 获取当前时间字符串
+getCurTimeDate        : 获取当前Date
+getIntervalByNow      : 获取与当前时间的差（单位：unit）
+isLeapYear            : 判断闰年
+getWeek, getWeekIndex : 获取星期
+getWeekOfMonth        : 获取月份中的第几周
+getWeekOfYear         : 获取年份中的第几周
  ```
 
 > - **吐司相关→[ToastUtils.java][toast.java]**

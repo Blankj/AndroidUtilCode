@@ -97,7 +97,7 @@ public class SizeUtils {
     }
 
     /**
-     * 在onCreate()中获取视图的尺寸
+     * 在onCreate中获取视图的尺寸
      * <p>需回调onGetSizeListener接口，在onGetSize中获取view宽高</p>
      * <p>用法示例如下所示</p>
      * <pre>

@@ -135,7 +135,8 @@ public class ConvertUtils {
      * 字节数转以unit为单位的size
      *
      * @param byteNum 字节数
-     * @param unit    <ul>
+     * @param unit    单位类型
+     *                <ul>
      *                <li>{@link ConstUtils.MemoryUnit#BYTE}: 字节</li>
      *                <li>{@link ConstUtils.MemoryUnit#KB}  : 千字节</li>
      *                <li>{@link ConstUtils.MemoryUnit#MB}  : 兆</li>
@@ -162,7 +163,8 @@ public class ConvertUtils {
      * 以unit为单位的size转字节数
      *
      * @param size 大小
-     * @param unit <ul>
+     * @param unit 单位类型
+     *             <ul>
      *             <li>{@link ConstUtils.MemoryUnit#BYTE}: 字节</li>
      *             <li>{@link ConstUtils.MemoryUnit#KB}  : 千字节</li>
      *             <li>{@link ConstUtils.MemoryUnit#MB}  : 兆</li>

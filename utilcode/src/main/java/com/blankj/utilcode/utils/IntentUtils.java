@@ -27,7 +27,7 @@ public class IntentUtils {
     }
 
     /**
-     * 获取安装App(支持6.0)的意图
+     * 获取安装App（支持6.0）的意图
      *
      * @param filePath 文件路径
      * @return intent

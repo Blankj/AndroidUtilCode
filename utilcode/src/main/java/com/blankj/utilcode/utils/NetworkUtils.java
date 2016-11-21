@@ -37,16 +37,14 @@ public class NetworkUtils {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
-    public static final int NETWORK_WIFI    = 1;    // wifi network
-    public static final int NETWORK_4G      = 4;    // "4G" networks
-    public static final int NETWORK_3G      = 3;    // "3G" networks
-    public static final int NETWORK_2G      = 2;    // "2G" networks
-    public static final int NETWORK_UNKNOWN = 5;    // unknown network
-    public static final int NETWORK_NO      = -1;   // no network
-
-    private static final int NETWORK_TYPE_GSM      = 16;
-    private static final int NETWORK_TYPE_TD_SCDMA = 17;
-    private static final int NETWORK_TYPE_IWLAN    = 18;
+    public enum NetworkType {
+        NETWORK_WIFI,
+        NETWORK_4G,
+        NETWORK_3G,
+        NETWORK_2G,
+        NETWORK_UNKNOWN,
+        NETWORK_NO
+    }
 
     /**
      * 打开网络设置界面
@@ -226,28 +224,32 @@ public class NetworkUtils {
         return tm != null ? tm.getNetworkOperatorName() : null;
     }
 
+    private static final int NETWORK_TYPE_GSM      = 16;
+    private static final int NETWORK_TYPE_TD_SCDMA = 17;
+    private static final int NETWORK_TYPE_IWLAN    = 18;
+
     /**
-     * 获取当前的网络类型(WIFI,2G,3G,4G)
+     * 获取当前网络类型
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
      *
      * @param context 上下文
      * @return 网络类型
      * <ul>
-     * <li>{@link #NETWORK_WIFI   } = 1;</li>
-     * <li>{@link #NETWORK_4G     } = 4;</li>
-     * <li>{@link #NETWORK_3G     } = 3;</li>
-     * <li>{@link #NETWORK_2G     } = 2;</li>
-     * <li>{@link #NETWORK_UNKNOWN} = 5;</li>
-     * <li>{@link #NETWORK_NO     } = -1;</li>
+     * <li>{@link NetworkUtils.NetworkType#NETWORK_WIFI   } </li>
+     * <li>{@link NetworkUtils.NetworkType#NETWORK_4G     } </li>
+     * <li>{@link NetworkUtils.NetworkType#NETWORK_3G     } </li>
+     * <li>{@link NetworkUtils.NetworkType#NETWORK_2G     } </li>
+     * <li>{@link NetworkUtils.NetworkType#NETWORK_UNKNOWN} </li>
+     * <li>{@link NetworkUtils.NetworkType#NETWORK_NO     } </li>
      * </ul>
      */
-    public static int getNetworkType(Context context) {
-        int netType = NETWORK_NO;
+    public static NetworkType getNetworkType(Context context) {
+        NetworkType netType = NetworkType.NETWORK_NO;
         NetworkInfo info = getActiveNetworkInfo(context);
         if (info != null && info.isAvailable()) {
 
             if (info.getType() == ConnectivityManager.TYPE_WIFI) {
-                netType = NETWORK_WIFI;
+                netType = NetworkType.NETWORK_WIFI;
             } else if (info.getType() == ConnectivityManager.TYPE_MOBILE) {
                 switch (info.getSubtype()) {
 
@@ -257,7 +259,7 @@ public class NetworkUtils {
                     case TelephonyManager.NETWORK_TYPE_EDGE:
                     case TelephonyManager.NETWORK_TYPE_1xRTT:
                     case TelephonyManager.NETWORK_TYPE_IDEN:
-                        netType = NETWORK_2G;
+                        netType = NetworkType.NETWORK_2G;
                         break;
 
                     case NETWORK_TYPE_TD_SCDMA:
@@ -270,12 +272,12 @@ public class NetworkUtils {
                     case TelephonyManager.NETWORK_TYPE_EVDO_B:
                     case TelephonyManager.NETWORK_TYPE_EHRPD:
                     case TelephonyManager.NETWORK_TYPE_HSPAP:
-                        netType = NETWORK_3G;
+                        netType = NetworkType.NETWORK_3G;
                         break;
 
                     case NETWORK_TYPE_IWLAN:
                     case TelephonyManager.NETWORK_TYPE_LTE:
-                        netType = NETWORK_4G;
+                        netType = NetworkType.NETWORK_4G;
                         break;
                     default:
 
@@ -283,49 +285,17 @@ public class NetworkUtils {
                         if (subtypeName.equalsIgnoreCase("TD-SCDMA")
                                 || subtypeName.equalsIgnoreCase("WCDMA")
                                 || subtypeName.equalsIgnoreCase("CDMA2000")) {
-                            netType = NETWORK_3G;
+                            netType = NetworkType.NETWORK_3G;
                         } else {
-                            netType = NETWORK_UNKNOWN;
+                            netType = NetworkType.NETWORK_UNKNOWN;
                         }
                         break;
                 }
             } else {
-                netType = NETWORK_UNKNOWN;
+                netType = NetworkType.NETWORK_UNKNOWN;
             }
         }
         return netType;
-    }
-
-    /**
-     * 获取当前的网络类型(WIFI,2G,3G,4G)
-     * <p>依赖上面的方法</p>
-     *
-     * @param context 上下文
-     * @return 网络类型名称
-     * <ul>
-     * <li>NETWORK_WIFI   </li>
-     * <li>NETWORK_4G     </li>
-     * <li>NETWORK_3G     </li>
-     * <li>NETWORK_2G     </li>
-     * <li>NETWORK_UNKNOWN</li>
-     * <li>NETWORK_NO     </li>
-     * </ul>
-     */
-    public static String getNetworkTypeName(Context context) {
-        switch (getNetworkType(context)) {
-            case NETWORK_WIFI:
-                return "NETWORK_WIFI";
-            case NETWORK_4G:
-                return "NETWORK_4G";
-            case NETWORK_3G:
-                return "NETWORK_3G";
-            case NETWORK_2G:
-                return "NETWORK_2G";
-            case NETWORK_NO:
-                return "NETWORK_NO";
-            default:
-                return "NETWORK_UNKNOWN";
-        }
     }
 
     /**
