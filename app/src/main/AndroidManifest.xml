@@ -49,6 +49,7 @@
             android:name=".activities.KeyboardActivity"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity android:name=".activities.LocationActivity"/>
+        <service android:name=".services.LocationService"/>
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

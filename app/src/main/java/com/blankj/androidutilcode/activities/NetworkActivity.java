@@ -63,7 +63,7 @@ public class NetworkActivity extends Activity
                 "\nisWifiConnected: " + NetworkUtils.isWifiConnected(mContext) +
                 "\nisWifiAvailable: " + NetworkUtils.isWifiAvailable(mContext) +
                 "\ngetNetworkOperatorName: " + NetworkUtils.getNetworkOperatorName(mContext) +
-                "\ngetNetworkTypeName: " + NetworkUtils.getNetworkTypeName(mContext) +
+                "\ngetNetworkTypeName: " + NetworkUtils.getNetworkType(mContext) +
                 "\ngetIPAddress: " + NetworkUtils.getIPAddress(true) +
                 "\ngetDomainAddress: " + NetworkUtils.getDomainAddress("baidu.com")
         );

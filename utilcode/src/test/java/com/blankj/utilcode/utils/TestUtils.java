@@ -5,6 +5,7 @@ import android.util.SparseArray;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runner.notification.Failure;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
@@ -107,5 +108,6 @@ public class TestUtils {
 
     @Test
     public void test() throws Exception {
+
     }
 }

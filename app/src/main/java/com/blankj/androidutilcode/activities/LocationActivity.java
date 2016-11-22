@@ -1,18 +1,16 @@
 package com.blankj.androidutilcode.activities;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
-import android.location.Location;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.Looper;
-import android.os.Message;
+import android.os.IBinder;
 import android.widget.TextView;
 
-import com.blankj.androidutilcode.App;
 import com.blankj.androidutilcode.R;
-import com.blankj.utilcode.utils.HandlerUtils;
-import com.blankj.utilcode.utils.LocationUtils;
-import com.blankj.utilcode.utils.LogUtils;
+import com.blankj.androidutilcode.services.LocationService;
 
 /**
  * <pre>
@@ -24,9 +22,8 @@ import com.blankj.utilcode.utils.LogUtils;
  */
 public class LocationActivity extends Activity {
 
-    private TextView                   tvAboutLocation;
-    private LocationUtils              locationUtils;
-    private double                     latitude, longitude;
+    private TextView        tvAboutLocation;
+    private LocationService mLocationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,31 +32,42 @@ public class LocationActivity extends Activity {
 
         tvAboutLocation = (TextView) findViewById(R.id.tv_about_location);
 
-        locationUtils = new LocationUtils(App.getInstance());
-        //注意：此处更新准确度非常低，推荐在service里面启动一个Thread，在run中sleep(10000);
-        // 然后执行handler.sendMessage(),更新位置
-        locationUtils.init(1000, 0, new LocationUtils.OnLocationChangeListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
-                tvAboutLocation.setText("latitude: " + latitude +
-                        "\nlongitude: " + longitude +
-                        "\ngetCountryName: " + locationUtils.getCountryName(latitude, longitude) +
-                        "\ngetLocality: " + locationUtils.getLocality(latitude, longitude) +
-                        "\ngetStreet: " + locationUtils.getStreet(latitude, longitude)
-                );
-            }
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-        });
+        bindService(new Intent(this, LocationService.class), conn, Context.BIND_AUTO_CREATE);
     }
 
     @Override
     protected void onDestroy() {
-        locationUtils.removeAndGc();
         super.onDestroy();
+        unbindService(conn);
     }
+
+    ServiceConnection conn = new ServiceConnection() {
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            mLocationService = ((LocationService.LocationBinder) service).getService();
+            mLocationService.setOnGetLocationListener(new LocationService.OnGetLocationListener() {
+                @Override
+                public void getLocation(final String lastLatitude, final String lastLongitude, final String latitude, final String longitude, final String country, final String locality, final String street) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tvAboutLocation.setText("lastLatitude: " + lastLatitude +
+                                    "\nlastLongitude: " + lastLongitude +
+                                    "\nlatitude: " + latitude +
+                                    "\nlongitude: " + longitude +
+                                    "\ngetCountryName: " + country +
+                                    "\ngetLocality: " + locality +
+                                    "\ngetStreet: " + street
+                            );
+                        }
+                    });
+                }
+            });
+        }
+    };
 }
