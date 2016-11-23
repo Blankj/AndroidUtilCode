@@ -81,25 +81,30 @@ public class CrashUtils
     }
 
     @Override
-    public void uncaughtException(Thread thread, Throwable throwable) {
+    public void uncaughtException(Thread thread, final Throwable throwable) {
         String now = new SimpleDateFormat("yy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-        String fullPath = crashDir + now + ".txt";
+        final String fullPath = crashDir + now + ".txt";
         if (!FileUtils.createOrExistsFile(fullPath)) return;
-        PrintWriter pw = null;
-        try {
-            pw = new PrintWriter(new FileWriter(fullPath, false));
-            pw.write(getCrashHead());
-            throwable.printStackTrace(pw);
-            Throwable cause = throwable.getCause();
-            while (cause != null) {
-                cause.printStackTrace(pw);
-                cause = cause.getCause();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                PrintWriter pw = null;
+                try {
+                    pw = new PrintWriter(new FileWriter(fullPath, false));
+                    pw.write(getCrashHead());
+                    throwable.printStackTrace(pw);
+                    Throwable cause = throwable.getCause();
+                    while (cause != null) {
+                        cause.printStackTrace(pw);
+                        cause = cause.getCause();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    CloseUtils.closeIO(pw);
+                }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            CloseUtils.closeIO(pw);
-        }
+        }).start();
         if (mHandler != null) {
             mHandler.uncaughtException(thread, throwable);
         }
