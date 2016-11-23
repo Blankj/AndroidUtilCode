@@ -514,7 +514,7 @@ compile 'com.blankj:utilcode:1.3.4'
 ***
 ```
 -keep class com.blankj.utilcode.** { *; }
--keep classmembers class com.blankj.utilcode.** { *; }
+-keepclassmembers class com.blankj.utilcode.** { *; }
 -dontwarn com.blankj.utilcode.**
 ```
 

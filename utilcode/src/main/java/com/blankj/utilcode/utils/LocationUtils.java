@@ -228,14 +228,14 @@ public class LocationUtils {
         }
 
         /**
-         * Provider被enable时触发此函数，比如GPS被打开
+         * provider被enable时触发此函数，比如GPS被打开
          */
         @Override
         public void onProviderEnabled(String provider) {
         }
 
         /**
-         * Provider被disable时触发此函数，比如GPS被关闭
+         * provider被disable时触发此函数，比如GPS被关闭
          */
         @Override
         public void onProviderDisabled(String provider) {
