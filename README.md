@@ -2,14 +2,14 @@
 **[中文版README][readme-cn.md]**
 ***
 Directory is shown below：  
-> - **About Activity→[ActivityUtils.java][activity.java]**
+> - **About Activity→[ActivityUtils.java][activity.java]→[Demo][activity.demo]**
  ```
 isActivityExists
 launchActivity
 getLauncherActivity
  ```
 
-> - **About App→[AppUtils.java][app.java]**
+> - **About App→[AppUtils.java][app.java]→[Demo][app.demo]**
  ```
 isInstallApp
 installApp
@@ -48,7 +48,7 @@ showNotificationBar
 hideNotificationBar
  ```
 
-> - **About Clean→[CleanUtils.java][clean.java]**
+> - **About Clean→[CleanUtils.java][clean.java]→[Demo][clean.demo]**
  ```
 cleanInternalCache
 cleanInternalFiles
@@ -108,7 +108,7 @@ getInstance
 init
  ```
 
-> - **About Device→[DeviceUtils.java][device.java]**
+> - **About Device→[DeviceUtils.java][device.java]→[Demo][device.demo]**
  ```
 isDeviceRoot
 getSDKVersion
@@ -200,7 +200,12 @@ getFileNameNoExtension
 getFileExtension
  ```
 
-> - **About Image→[ImageUtils.java][image.java]**
+> - **About Handler→[HandlerUtils.java][handler.java]→[Demo][handler.demo]**
+ ```
+HandlerHolder
+ ```
+
+> - **About Image→[ImageUtils.java][image.java]→[Demo][image.demo]**
  ```
 bitmap2Bytes, bytes2Bitmap
 drawable2Bitmap, bitmap2Drawable
@@ -243,7 +248,7 @@ getShutdownIntent
 getCaptureIntent
  ```
 
-> - **About Keyboard→[KeyboardUtils.java][keyboard.java]**
+> - **About Keyboard→[KeyboardUtils.java][keyboard.java]→[Demo][keyboard.demo]**
  ```
 hideSoftInput
 clickBlankArea2HideSoftInput
@@ -251,7 +256,7 @@ showSoftInput
 toggleSoftInput
  ```
 
-> - **About Location→[LocationUtils.java][location.java]**
+> - **About Location→[LocationUtils.java][location.java]→[Demo][location.demo]**
  ```
 LocationUtils
 isGpsEnabled
@@ -275,7 +280,7 @@ w
 e
  ```
 
-> - **About Network→[NetworkUtils.java][network.java]**
+> - **About Network→[NetworkUtils.java][network.java]→[Demo][network.demo]**
  ```
 openWirelessSettings
 isConnected
@@ -293,7 +298,7 @@ getIPAddress
 getDomainAddress
  ```
 
-> - **About Phone→[PhoneUtils.java][phone.java]**
+> - **About Phone→[PhoneUtils.java][phone.java]→[Demo][phone.demo]**
  ```
 isPhone
 getIMEI
@@ -317,7 +322,7 @@ getPinyinFirstLetter
 ccs2Pinyin
  ```
 
-> - **About Process→[ProcessUtils.java][process.java]**
+> - **About Process→[ProcessUtils.java][process.java]→[Demo][process.demo]**
  ```
 getForegroundProcessName
 cleanAllBackgroundProcesses, cleanBackgroundProcesses
@@ -357,7 +362,7 @@ captureWithoutStatusBar
 isScreenLock
  ```
 
-> - **About SDCard→[SDCardUtils.java][sdcard.java]**
+> - **About SDCard→[SDCardUtils.java][sdcard.java]→[Demo][sdcard.demo]**
  ```
 isSDCardEnable
 getSDCardPath
@@ -470,7 +475,7 @@ getWeekOfMonth
 getWeekOfYear
  ```
 
-> - **About Toast→[ToastUtils.java][toast.java]**
+> - **About Toast→[ToastUtils.java][toast.java]→[Demo][toast.demo]**
  ```
 init
 showShortToastSafe
@@ -537,12 +542,15 @@ limitations under the License.
 [readme-cn.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md
 
 [activity.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ActivityUtils.java
+[activity.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activities/ActivityActivity.java
 
 [app.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/AppUtils.java
+[app.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activities/AppActivity.java
 
 [bar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/BarUtils.java
 
 [clean.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/CleanUtils.java
+[clean.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activities/CleanActivity.java
 
 [clipboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ClipboardUtils.java
 
@@ -556,6 +564,7 @@ limitations under the License.
 [crash.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/CrashUtils.java
 
 [device.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/DeviceUtils.java
+[device.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activities/DeviceActivity.java
 
 [empty.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/EmptyUtils.java
 [empty.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/EmptyUtilsTest.java
@@ -569,25 +578,34 @@ limitations under the License.
 [file.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/FileUtils.java
 [file.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/FileUtilsTest.java
 
+[handler.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/HandlerUtils.java
+[handler.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activities/HandlerActivity.java
+
 [image.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ImageUtils.java
+[image.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activities/ImageActivity.java
 
 [intent.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/IntentUtils.java
 
 [keyboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/KeyboardUtils.java
+[keyboard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activities/KeyboardActivity.java
 
 [location.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/LocationUtils.java
+[location.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activities/LocationActivity.java
 
 [log.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/LogUtils.java
 [log.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/LogUtilsTest.java
 
 [network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/NetworkUtils.java
+[network.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activities/NetworkActivity.java
 
 [phone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/PhoneUtils.java
+[phone.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activities/PhoneActivity.java
 
 [pinyin.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/PinyinUtils.java
 [pinyin.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/PinyinUtilsTest.java
 
 [process.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ProcessUtils.java
+[process.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activities/ProcessActivity.java
 
 [regex.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/RegexUtils.java
 [regex.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/RegexUtilsTest.java
@@ -595,6 +613,7 @@ limitations under the License.
 [screen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ScreenUtils.java
 
 [sdcard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SDCardUtils.java
+[sdcard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activities/SDCardActivity.java
 
 [service.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ServiceUtils.java
 
@@ -617,6 +636,7 @@ limitations under the License.
 [time.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/TimeUtilsTest.java
 
 [toast.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ToastUtils.java
+[toast.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activities/ToastActivity.java
 
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ZipUtils.java
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/ZipUtilsTest.java

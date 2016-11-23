@@ -23,7 +23,9 @@ public class HandlerUtils {
         WeakReference<OnReceiveMessageListener> mListenerWeakReference;
 
         /**
-         * @param listener 必读：推荐在Activity或者Activity内部持有类中实现该接口，不要使用匿名类，可能会被GC
+         * 使用必读：推荐在Activity或者Activity内部持有类中实现该接口，不要使用匿名类，可能会被GC
+         *
+         * @param listener 收到消息回调接口
          */
         public HandlerHolder(OnReceiveMessageListener listener) {
             mListenerWeakReference = new WeakReference<>(listener);
@@ -37,6 +39,9 @@ public class HandlerUtils {
         }
     }
 
+    /**
+     * 收到消息回调接口
+     */
     public interface OnReceiveMessageListener {
         void handlerMessage(Message msg);
     }
