@@ -32,13 +32,22 @@ public class LocationActivity extends Activity {
 
         tvAboutLocation = (TextView) findViewById(R.id.tv_about_location);
 
+        tvAboutLocation.setText("lastLatitude: unknown" +
+                "\nlastLongitude: unknown" +
+                "\nlatitude: unknown" +
+                "\nlongitude: unknown" +
+                "\ngetCountryName: unknown" +
+                "\ngetLocality: unknown" +
+                "\ngetStreet: unknown"
+        );
+
         bindService(new Intent(this, LocationService.class), conn, Context.BIND_AUTO_CREATE);
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         unbindService(conn);
+        super.onDestroy();
     }
 
     ServiceConnection conn = new ServiceConnection() {

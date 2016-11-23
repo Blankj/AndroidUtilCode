@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 11
         targetSdkVersion 24
-        versionCode 12
-        versionName "1.3.3"
+        versionCode 13
+        versionName "1.3.4"
     }
     buildTypes {
         release {
@@ -25,5 +25,5 @@ dependencies {
     provided 'com.android.support:support-v4:24.0.0'
     provided 'com.android.support:design:24.0.0'
 }
-//apply from: "https://raw.githubusercontent.com/xiaopansky/android-library-publish-to-jcenter/master/bintrayUpload.gradle"
+apply from: "https://raw.githubusercontent.com/xiaopansky/android-library-publish-to-jcenter/master/bintrayUpload.gradle"
 //gradlew bintrayUpload

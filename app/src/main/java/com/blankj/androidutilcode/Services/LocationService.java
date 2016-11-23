@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 
 import com.blankj.androidutilcode.App;
 import com.blankj.utilcode.utils.LocationUtils;
+import com.blankj.utilcode.utils.ThreadPoolUtils;
 import com.blankj.utilcode.utils.ToastUtils;
 
 /**
@@ -23,8 +24,8 @@ import com.blankj.utilcode.utils.ToastUtils;
  */
 public class LocationService extends Service {
 
-    private boolean       isSuccess;
-    private LocationUtils locationUtils;
+    private boolean         isSuccess;
+    private LocationUtils   locationUtils;
     private String lastLatitude  = "loading...";
     private String lastLongitude = "loading...";
     private String latitude      = "loading...";
@@ -33,34 +34,9 @@ public class LocationService extends Service {
     private String locality      = "loading...";
     private String street        = "loading...";
     private OnGetLocationListener mOnGetLocationListener;
-    private Thread                mThread;
 
     public void setOnGetLocationListener(OnGetLocationListener onGetLocationListener) {
         mOnGetLocationListener = onGetLocationListener;
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        mThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Looper.prepare();
-                locationUtils = new LocationUtils(App.getInstance());
-                isSuccess = locationUtils.init(1000, 0, mOnLocationChangeListener);
-
-                if (isSuccess) {
-                    ToastUtils.showShortToastSafe(App.getInstance(), "init success");
-                } else {
-                    ToastUtils.showShortToastSafe(App.getInstance(), "init fail");
-                    if (mOnGetLocationListener != null) {
-                        mOnGetLocationListener.getLocation("unknown", "unknown", "unknown", "unknown", "unknown", "unknown", "unknown");
-                    }
-                }
-                Looper.loop();
-            }
-        });
-        mThread.start();
     }
 
     private LocationUtils.OnLocationChangeListener mOnLocationChangeListener = new LocationUtils.OnLocationChangeListener() {
@@ -80,18 +56,12 @@ public class LocationService extends Service {
             if (mOnGetLocationListener != null) {
                 mOnGetLocationListener.getLocation(lastLatitude, lastLongitude, latitude, longitude, country, locality, street);
             }
-            // 开启新线程来获取地理位置
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
             country = locationUtils.getCountryName(Double.parseDouble(latitude), Double.parseDouble(longitude));
             locality = locationUtils.getLocality(Double.parseDouble(latitude), Double.parseDouble(longitude));
             street = locationUtils.getStreet(Double.parseDouble(latitude), Double.parseDouble(longitude));
             if (mOnGetLocationListener != null) {
                 mOnGetLocationListener.getLocation(lastLatitude, lastLongitude, latitude, longitude, country, locality, street);
             }
-//                }
-//            }).start();
         }
 
         @Override
@@ -99,6 +69,21 @@ public class LocationService extends Service {
 
         }
     };
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        locationUtils = new LocationUtils(App.getInstance());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Looper.prepare();
+                isSuccess = locationUtils.init(1000, 0, mOnLocationChangeListener);
+                if (isSuccess) ToastUtils.showShortToastSafe(App.getInstance(), "init success");
+                Looper.loop();
+            }
+        }).start();
+    }
 
     @Nullable
     @Override
@@ -114,8 +99,10 @@ public class LocationService extends Service {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         locationUtils.removeListener();
+        // 一定要制空，否则内存泄漏
+        mOnGetLocationListener = null;
+        super.onDestroy();
     }
 
     /**

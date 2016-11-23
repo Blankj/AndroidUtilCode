@@ -54,7 +54,9 @@ public class LocationUtils {
      * 打开Gps设置界面
      */
     public void openGpsSettings() {
-        mContext.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
     }
 
     /**
@@ -76,10 +78,6 @@ public class LocationUtils {
         if (!mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
                 && !mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             ToastUtils.showShortToastSafe(mContext, "无法定位，请打开定位服务");
-            openGpsSettings();
-        }
-        if (!mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-                && !mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             return false;
         }
         String provider = mLocationManager.getBestProvider(getCriteria(), true);

@@ -502,7 +502,7 @@ getEntries
 ***
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.3.3'
+compile 'com.blankj:utilcode:1.3.4'
 ```
 
 ### Proguard
