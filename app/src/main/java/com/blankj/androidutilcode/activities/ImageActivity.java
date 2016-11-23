@@ -16,7 +16,7 @@ import com.blankj.utilcode.utils.SizeUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/9/26
- *     desc  : Image工具类测试
+ *     desc  : Image工具类Demo
  * </pre>
  */
 public class ImageActivity extends Activity {

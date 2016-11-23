@@ -13,7 +13,7 @@ import com.blankj.utilcode.utils.PhoneUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/13
- *     desc  : Phone工具类测试
+ *     desc  : Phone工具类Demo
  * </pre>
  */
 public class PhoneActivity extends Activity implements

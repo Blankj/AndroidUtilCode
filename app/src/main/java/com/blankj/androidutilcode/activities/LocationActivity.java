@@ -17,7 +17,7 @@ import com.blankj.androidutilcode.services.LocationService;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/13
- *     desc  : Location工具类测试
+ *     desc  : Location工具类Demo
  * </pre>
  */
 public class LocationActivity extends Activity {

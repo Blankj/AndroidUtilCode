@@ -24,8 +24,7 @@ import com.blankj.utilcode.utils.ToastUtils;
  */
 public class LocationService extends Service {
 
-    private boolean         isSuccess;
-    private LocationUtils   locationUtils;
+    private boolean isSuccess;
     private String lastLatitude  = "loading...";
     private String lastLongitude = "loading...";
     private String latitude      = "loading...";
@@ -56,9 +55,9 @@ public class LocationService extends Service {
             if (mOnGetLocationListener != null) {
                 mOnGetLocationListener.getLocation(lastLatitude, lastLongitude, latitude, longitude, country, locality, street);
             }
-            country = locationUtils.getCountryName(Double.parseDouble(latitude), Double.parseDouble(longitude));
-            locality = locationUtils.getLocality(Double.parseDouble(latitude), Double.parseDouble(longitude));
-            street = locationUtils.getStreet(Double.parseDouble(latitude), Double.parseDouble(longitude));
+            country = LocationUtils.getCountryName(App.getInstance(), Double.parseDouble(latitude), Double.parseDouble(longitude));
+            locality = LocationUtils.getLocality(App.getInstance(), Double.parseDouble(latitude), Double.parseDouble(longitude));
+            street = LocationUtils.getStreet(App.getInstance(), Double.parseDouble(latitude), Double.parseDouble(longitude));
             if (mOnGetLocationListener != null) {
                 mOnGetLocationListener.getLocation(lastLatitude, lastLongitude, latitude, longitude, country, locality, street);
             }
@@ -73,12 +72,11 @@ public class LocationService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        locationUtils = new LocationUtils(App.getInstance());
         new Thread(new Runnable() {
             @Override
             public void run() {
                 Looper.prepare();
-                isSuccess = locationUtils.init(1000, 0, mOnLocationChangeListener);
+                isSuccess = LocationUtils.register(App.getInstance(), 0, 0, mOnLocationChangeListener);
                 if (isSuccess) ToastUtils.showShortToastSafe(App.getInstance(), "init success");
                 Looper.loop();
             }
@@ -99,7 +97,7 @@ public class LocationService extends Service {
 
     @Override
     public void onDestroy() {
-        locationUtils.removeListener();
+        LocationUtils.unregister();
         // 一定要制空，否则内存泄漏
         mOnGetLocationListener = null;
         super.onDestroy();

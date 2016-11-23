@@ -13,7 +13,7 @@ import com.blankj.utilcode.utils.ActivityUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/13
- *     desc  : Activity工具类测试
+ *     desc  : Activity工具类Demo
  * </pre>
  */
 

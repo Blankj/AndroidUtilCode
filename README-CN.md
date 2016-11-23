@@ -258,15 +258,15 @@ toggleSoftInput              : 切换键盘显示与否状态
 
 > - **定位相关→[LocationUtils.java][location.java]→[Demo][location.demo]**
  ```
-LocationUtils   : LocationUtils构造函数
-isGpsEnabled    : 判断Gps是否可用
-openGpsSettings : 打开Gps设置界面
-init            : 初始化
-getAddress      : 根据经纬度获取地理位置
-getCountryName  : 根据经纬度获取所在国家
-getLocality     : 根据经纬度获取所在地
-getStreet       : 根据经纬度获取所在街道
-removeAndGc     : 移除并gc
+isGpsEnabled      : 判断Gps是否可用
+isLocationEnabled : 判断定位是否可用
+openGpsSettings   : 打开Gps设置界面
+register          : 注册
+unregister        : 注销
+getAddress        : 根据经纬度获取地理位置
+getCountryName    : 根据经纬度获取所在国家
+getLocality       : 根据经纬度获取所在地
+getStreet         : 根据经纬度获取所在街道
  ```
 
 > - **日志相关→[LogUtils.java][log.java]→[Test][log.test]**

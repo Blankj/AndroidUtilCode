@@ -16,7 +16,7 @@ import java.io.File;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/9/29
- *     desc  : Clean工具类测试
+ *     desc  : Clean工具类Demo
  * </pre>
  */
 public class CleanActivity extends Activity

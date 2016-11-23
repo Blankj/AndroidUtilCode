@@ -15,7 +15,7 @@ import com.blankj.utilcode.utils.ToastUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/17
- *     desc  : Snackbar工具类测试
+ *     desc  : Snackbar工具类Demo
  * </pre>
  */
 public class SnackbarActivity extends Activity

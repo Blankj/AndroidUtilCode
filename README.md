@@ -258,15 +258,15 @@ toggleSoftInput
 
 > - **About Location→[LocationUtils.java][location.java]→[Demo][location.demo]**
  ```
-LocationUtils
 isGpsEnabled
+isLocationEnabled
 openGpsSettings
-init
+register
+unregister
 getAddress
 getCountryName
 getLocality
 getStreet
-removeAndGc
  ```
 
 > - **About Log→[LogUtils.java][log.java]→[Test][log.test]**

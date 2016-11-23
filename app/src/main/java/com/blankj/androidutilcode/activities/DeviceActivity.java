@@ -14,7 +14,7 @@ import com.blankj.utilcode.utils.DeviceUtils;
  *     author: Blankj
  *     blog : http://blankj.com
  *     time : 2016/9/27
- *     desc : Device工具类测试
+ *     desc : Device工具类Demo
  * </pre>
  */
 public class DeviceActivity extends Activity

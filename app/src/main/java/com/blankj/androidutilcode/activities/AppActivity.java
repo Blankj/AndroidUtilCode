@@ -14,7 +14,7 @@ import com.blankj.utilcode.utils.AppUtils;
  *     author: Blankj
  *     blog : http://blankj.com
  *     time : 2016/10/13
- *     desc : App工具类测试
+ *     desc : App工具类Demo
  * </pre>
  */
 

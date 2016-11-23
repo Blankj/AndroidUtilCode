@@ -15,7 +15,7 @@ import com.blankj.utilcode.utils.ToastUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/9/29
- *     desc  : Toast工具类测试
+ *     desc  : Toast工具类Demo
  * </pre>
  */
 public class ToastActivity extends Activity

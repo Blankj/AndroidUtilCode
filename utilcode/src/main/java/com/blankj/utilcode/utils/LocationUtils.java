@@ -26,19 +26,12 @@ import java.util.Locale;
  */
 public class LocationUtils {
 
-    private Context                  mContext;
-    private OnLocationChangeListener mListener;
-    private MyLocationListener       myLocationListener;
-    private LocationManager          mLocationManager;
+    private static OnLocationChangeListener mListener;
+    private static MyLocationListener       myLocationListener;
+    private static LocationManager          mLocationManager;
 
-    /**
-     * LocationUtils构造函数
-     *
-     * @param context 上下文
-     */
-    public LocationUtils(Context context) {
-        mContext = context;
-        mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+    public LocationUtils() {
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**
@@ -46,42 +39,54 @@ public class LocationUtils {
      *
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public boolean isGpsEnabled() {
-        return mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    public static boolean isGpsEnabled(Context context) {
+        LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        return lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
+    /**
+     * 判断定位是否可用
+     *
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean isLocationEnabled(Context context) {
+        LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        return lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER) || lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
     /**
      * 打开Gps设置界面
      */
-    public void openGpsSettings() {
+    public static void openGpsSettings(Context context) {
         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        mContext.startActivity(intent);
+        context.startActivity(intent);
     }
 
     /**
-     * 初始化
-     * <p>使用完记得调用{@link #removeListener()}</p>
+     * 注册
+     * <p>使用完记得调用{@link #unregister()}</p>
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>}</p>
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>}</p>
-     * <p>如果{@code minDistance}不为0，则以{@code minDistance}为准；{@code minDistance}为0，则通过{@code minTime}来定时更新；两者都为0，则随时刷新</p>
+     * <p>如果{@code minDistance}为0，则通过{@code minTime}来定时更新；</p>
+     * <p>{@code minDistance}不为0，则以{@code minDistance}为准；</p>
+     * <p>两者都为0，则随时刷新。</p>
      *
      * @param minTime     位置信息更新周期（单位：毫秒）
      * @param minDistance 位置变化最小距离：当位置距离变化超过此值时，将更新位置信息（单位：米）
      * @param listener    位置刷新的回调接口
      * @return {@code true}: 初始化成功<br>{@code false}: 初始化失败
      */
-    public boolean init(long minTime, long minDistance, OnLocationChangeListener listener) {
+    public static boolean register(Context context, long minTime, long minDistance, OnLocationChangeListener listener) {
         if (listener == null) return false;
+        mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         mListener = listener;
-        if (!mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-                && !mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            ToastUtils.showShortToastSafe(mContext, "无法定位，请打开定位服务");
+        if (!isLocationEnabled(context)) {
+            ToastUtils.showShortToastSafe(context, "无法定位，请打开定位服务");
             return false;
         }
         String provider = mLocationManager.getBestProvider(getCriteria(), true);
-        if (provider == null) return false;
         Location location = mLocationManager.getLastKnownLocation(provider);
         if (location != null) listener.getLastKnownLocation(location);
         if (myLocationListener == null) myLocationListener = new MyLocationListener();
@@ -89,12 +94,26 @@ public class LocationUtils {
         return true;
     }
 
+
+    /**
+     * 注销
+     */
+    public static void unregister() {
+        if (mLocationManager != null) {
+            if (myLocationListener != null) {
+                mLocationManager.removeUpdates(myLocationListener);
+                myLocationListener = null;
+            }
+            mLocationManager = null;
+        }
+    }
+
     /**
      * 设置定位参数
      *
      * @return {@link Criteria}
      */
-    private Criteria getCriteria() {
+    private static Criteria getCriteria() {
         Criteria criteria = new Criteria();
         //设置定位精确度 Criteria.ACCURACY_COARSE比较粗略，Criteria.ACCURACY_FINE则比较精细
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
@@ -114,12 +133,13 @@ public class LocationUtils {
     /**
      * 根据经纬度获取地理位置
      *
+     * @param context   上下文
      * @param latitude  纬度
      * @param longitude 经度
      * @return {@link Address}
      */
-    public Address getAddress(double latitude, double longitude) {
-        Geocoder geocoder = new Geocoder(mContext, Locale.getDefault());
+    public static Address getAddress(Context context, double latitude, double longitude) {
+        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
             if (addresses.size() > 0) return addresses.get(0);
@@ -132,53 +152,43 @@ public class LocationUtils {
     /**
      * 根据经纬度获取所在国家
      *
+     * @param context   上下文
      * @param latitude  纬度
      * @param longitude 经度
-     * @return {@link Address}
+     * @return 所在国家
      */
-    public String getCountryName(double latitude, double longitude) {
-        Address address = getAddress(latitude, longitude);
+    public static String getCountryName(Context context, double latitude, double longitude) {
+        Address address = getAddress(context, latitude, longitude);
         return address == null ? "unknown" : address.getCountryName();
     }
 
     /**
      * 根据经纬度获取所在地
      *
+     * @param context   上下文
      * @param latitude  纬度
      * @param longitude 经度
-     * @return {@link Address}
+     * @return 所在地
      */
-    public String getLocality(double latitude, double longitude) {
-        Address address = getAddress(latitude, longitude);
+    public static String getLocality(Context context, double latitude, double longitude) {
+        Address address = getAddress(context, latitude, longitude);
         return address == null ? "unknown" : address.getLocality();
     }
 
     /**
      * 根据经纬度获取所在街道
      *
+     * @param context   上下文
      * @param latitude  纬度
      * @param longitude 经度
-     * @return {@link Address}
+     * @return 所在街道
      */
-    public String getStreet(double latitude, double longitude) {
-        Address address = getAddress(latitude, longitude);
+    public static String getStreet(Context context, double latitude, double longitude) {
+        Address address = getAddress(context, latitude, longitude);
         return address == null ? "unknown" : address.getAddressLine(0);
     }
 
-    /**
-     * 移除监听
-     */
-    public void removeListener() {
-        if (mLocationManager != null) {
-            if (myLocationListener != null) {
-                mLocationManager.removeUpdates(myLocationListener);
-                myLocationListener = null;
-            }
-            mLocationManager = null;
-        }
-    }
-
-    private class MyLocationListener
+    private static class MyLocationListener
             implements LocationListener {
         /**
          * 当坐标改变时触发此函数，如果Provider传进相同的坐标，它就不会被触发

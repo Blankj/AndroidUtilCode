@@ -13,7 +13,7 @@ import com.blankj.utilcode.utils.ToastUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/13
- *     desc  : Process工具类测试
+ *     desc  : Process工具类Demo
  * </pre>
  */
 public class ProcessActivity extends Activity

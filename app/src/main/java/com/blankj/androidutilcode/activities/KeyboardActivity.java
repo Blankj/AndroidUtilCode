@@ -17,7 +17,7 @@ import com.blankj.utilcode.utils.KeyboardUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/9/27
- *     desc  : Keyboard工具类测试
+ *     desc  : Keyboard工具类Demo
  * </pre>
  */
 public class KeyboardActivity extends Activity
