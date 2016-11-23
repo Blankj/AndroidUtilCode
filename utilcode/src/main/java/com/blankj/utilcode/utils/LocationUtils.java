@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Criteria;
+import android.location.GpsStatus;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
@@ -29,6 +30,7 @@ public class LocationUtils {
     private static OnLocationChangeListener mListener;
     private static MyLocationListener       myLocationListener;
     private static LocationManager          mLocationManager;
+    private static boolean                  isGPRMCOK;          //gps数据是否有效
 
     public LocationUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -87,11 +89,31 @@ public class LocationUtils {
             return false;
         }
         String provider = mLocationManager.getBestProvider(getCriteria(), true);
+        
+        mLocationManager.addNmeaListener(new GpsStatus.NmeaListener() {
+            @Override
+            public void onNmeaReceived(long timestamp, String nmea) {
+                if (nmea.substring(0, 6).equals("$GPRMC")) {
+                    //一秒调用一次，判断gps数据是否有效, A有效，Ｖ无效
+                    isGPRMCOK = nmea.contains(",A,");
+                    LogUtils.w("GPRMC", "gps有效位: " + isGPRMCOK + ", " + nmea);
+                }
+            }
+        });
+        
         Location location = mLocationManager.getLastKnownLocation(provider);
         if (location != null) listener.getLastKnownLocation(location);
         if (myLocationListener == null) myLocationListener = new MyLocationListener();
         mLocationManager.requestLocationUpdates(provider, minTime, minDistance, myLocationListener);
         return true;
+    }
+    
+    /**
+     * GPS数据是否有效
+     * @return
+     */
+    public static boolean isGPSDataOk() {
+        return isGPRMCOK;
     }
 
 
