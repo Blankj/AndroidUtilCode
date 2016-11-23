@@ -23,11 +23,11 @@ public class SDCardActivity extends Activity {
         setContentView(R.layout.activity_sdcard);
 
         TextView tvAboutSdcard = (TextView) findViewById(R.id.tv_about_sdcard);
-        tvAboutSdcard.setText("isSDCardEnable: " + SDCardUtils.isSDCardEnable() +
-                "\ngetDataPath: " + SDCardUtils.getDataPath() +
-                "\ngetSDCardPath: " + SDCardUtils.getSDCardPath() +
-                "\ngetFreeSpace: " + SDCardUtils.getFreeSpace() +
-                "\ngetSDCardInfo: " + SDCardUtils.getSDCardInfo()
+        tvAboutSdcard.setText("isSDCardEnable: " + SDCardUtils.isSDCardEnable()
+               + "\ngetDataPath: " + SDCardUtils.getDataPath()
+               + "\ngetSDCardPath: " + SDCardUtils.getSDCardPath()
+               + "\ngetFreeSpace: " + SDCardUtils.getFreeSpace()
+               + "\ngetSDCardInfo: " + SDCardUtils.getSDCardInfo()
         );
     }
 }

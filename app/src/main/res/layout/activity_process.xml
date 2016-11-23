@@ -18,5 +18,13 @@
             android:text="@string/process.kill_all_background"
             />
 
+        <TextView
+            android:id="@+id/tv_about_process"
+            style="@style/Font"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            />
+
     </LinearLayout>
 </ScrollView>

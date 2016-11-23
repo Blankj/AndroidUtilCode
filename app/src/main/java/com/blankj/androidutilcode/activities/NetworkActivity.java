@@ -55,17 +55,17 @@ public class NetworkActivity extends Activity
     }
 
     private void setAboutNetwork() {
-        tvAboutNetwork.setText("isConnected: " + NetworkUtils.isConnected(mContext) +
-                "\nisAvailableByPing: " + NetworkUtils.isAvailableByPing(mContext) +
-                "\ngetDataEnabled: " + NetworkUtils.getDataEnabled(mContext) +
-                "\nis4G: " + NetworkUtils.is4G(mContext) +
-                "\ngetWifiEnabled: " + NetworkUtils.getWifiEnabled(mContext) +
-                "\nisWifiConnected: " + NetworkUtils.isWifiConnected(mContext) +
-                "\nisWifiAvailable: " + NetworkUtils.isWifiAvailable(mContext) +
-                "\ngetNetworkOperatorName: " + NetworkUtils.getNetworkOperatorName(mContext) +
-                "\ngetNetworkTypeName: " + NetworkUtils.getNetworkType(mContext) +
-                "\ngetIPAddress: " + NetworkUtils.getIPAddress(true) +
-                "\ngetDomainAddress: " + NetworkUtils.getDomainAddress("baidu.com")
+        tvAboutNetwork.setText("isConnected: " + NetworkUtils.isConnected(mContext)
+                + "\nisAvailableByPing: " + NetworkUtils.isAvailableByPing(mContext)
+                + "\ngetDataEnabled: " + NetworkUtils.getDataEnabled(mContext)
+                + "\nis4G: " + NetworkUtils.is4G(mContext)
+                + "\ngetWifiEnabled: " + NetworkUtils.getWifiEnabled(mContext)
+                + "\nisWifiConnected: " + NetworkUtils.isWifiConnected(mContext)
+                + "\nisWifiAvailable: " + NetworkUtils.isWifiAvailable(mContext)
+                + "\ngetNetworkOperatorName: " + NetworkUtils.getNetworkOperatorName(mContext)
+                + "\ngetNetworkTypeName: " + NetworkUtils.getNetworkType(mContext)
+                + "\ngetIPAddress: " + NetworkUtils.getIPAddress(true)
+                + "\ngetDomainAddress: " + NetworkUtils.getDomainAddress("baidu.com")
         );
     }
 }

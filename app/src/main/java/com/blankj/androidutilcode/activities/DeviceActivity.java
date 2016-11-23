@@ -32,12 +32,12 @@ public class DeviceActivity extends Activity
         findViewById(R.id.btn_reboot_to_recovery).setOnClickListener(this);
         findViewById(R.id.btn_reboot_to_bootloader).setOnClickListener(this);
 
-        tvAboutDevice.setText("isRoot: " + DeviceUtils.isDeviceRoot() +
-                "\ngetSDKVersion: " + DeviceUtils.getSDKVersion() +
-                "\ngetAndroidID: " + DeviceUtils.getAndroidID(App.getInstance()) +
-                "\ngetMacAddress: " + DeviceUtils.getMacAddress(App.getInstance()) +
-                "\ngetManufacturer: " + DeviceUtils.getManufacturer() +
-                "\ngetModel: " + DeviceUtils.getModel()
+        tvAboutDevice.setText("isRoot: " + DeviceUtils.isDeviceRoot()
+                + "\ngetSDKVersion: " + DeviceUtils.getSDKVersion()
+                + "\ngetAndroidID: " + DeviceUtils.getAndroidID(App.getInstance())
+                + "\ngetMacAddress: " + DeviceUtils.getMacAddress(App.getInstance())
+                + "\ngetManufacturer: " + DeviceUtils.getManufacturer()
+                + "\ngetModel: " + DeviceUtils.getModel()
         );
     }
 

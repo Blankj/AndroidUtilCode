@@ -35,8 +35,8 @@ public class ActivityActivity extends Activity
 
         findViewById(R.id.btn_launch_image_activity).setOnClickListener(this);
 
-        tvAboutActivity.setText("Is ImageActivity Exists: " + ActivityUtils.isActivityExists(this, packageName, className) +
-                "\ngetLauncherActivity: " + ActivityUtils.getLauncherActivity(this, packageName)
+        tvAboutActivity.setText("Is ImageActivity Exists: " + ActivityUtils.isActivityExists(this, packageName, className)
+                + "\ngetLauncherActivity: " + ActivityUtils.getLauncherActivity(this, packageName)
         );
     }
 

@@ -39,14 +39,14 @@ public class AppActivity extends Activity
         findViewById(R.id.btn_launch_app).setOnClickListener(this);
         findViewById(R.id.btn_get_app_details_settings).setOnClickListener(this);
 
-        tvAboutApp.setText(AppUtils.getAppInfo(this).toString() +
-                "\nisInstallWeiXin: " + AppUtils.isInstallApp(this, "com.tencent.mm") +
-                "\nisAppRoot: " + AppUtils.isAppRoot() +
-                "\nisAppDebug: " + AppUtils.isAppDebug(this) +
-                "\nisWeiXinAppDebug: " + AppUtils.isAppDebug(this, "com.tencent.mm") +
-                "\nAppSignatureSHA1: " + AppUtils.getAppSignatureSHA1(this) +
-                "\nisAppForeground: " + AppUtils.isAppForeground(this) +
-                "\nisWeiXinForeground: " + AppUtils.isAppForeground(this, "com.tencent.mm")
+        tvAboutApp.setText(AppUtils.getAppInfo(this).toString()
+                + "\nisInstallWeiXin: " + AppUtils.isInstallApp(this, "com.tencent.mm")
+                + "\nisAppRoot: " + AppUtils.isAppRoot()
+                + "\nisAppDebug: " + AppUtils.isAppDebug(this)
+                + "\nisWeiXinAppDebug: " + AppUtils.isAppDebug(this, "com.tencent.mm")
+                + "\nAppSignatureSHA1: " + AppUtils.getAppSignatureSHA1(this)
+                + "\nisAppForeground: " + AppUtils.isAppForeground(this)
+                + "\nisWeiXinForeground: " + AppUtils.isAppForeground(this, "com.tencent.mm")
         );
     }
 

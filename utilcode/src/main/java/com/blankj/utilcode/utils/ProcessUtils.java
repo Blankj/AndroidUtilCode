@@ -11,7 +11,9 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.provider.Settings;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -87,34 +89,46 @@ public class ProcessUtils {
     }
 
     /**
+     * 获取后台服务进程
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>}</p>
+     *
+     * @param context 上下文
+     * @return 后台服务进程
+     */
+    public static Set<String> getAllBackgroundProcesses(Context context) {
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> infos = am.getRunningAppProcesses();
+        Set<String> set = new HashSet<>();
+        for (ActivityManager.RunningAppProcessInfo info : infos) {
+            Collections.addAll(set, info.pkgList);
+        }
+        return set;
+    }
+
+    /**
      * 杀死后台服务进程
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>}</p>
      *
      * @param context 上下文
-     * @return 杀死后台进程数
+     * @return 被暂时杀死的服务集合
      */
-    public static int killAllBackgroundProcesses(Context context) {
-        int count = 0;
+    public static Set<String> killAllBackgroundProcesses(Context context) {
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> infos = am.getRunningAppProcesses();
-        if (infos == null || infos.size() == 0) return 0;
         Set<String> set = new HashSet<>();
         for (ActivityManager.RunningAppProcessInfo info : infos) {
             for (String pkg : info.pkgList) {
                 am.killBackgroundProcesses(pkg);
                 set.add(pkg);
-                ++count;
             }
         }
         infos = am.getRunningAppProcesses();
-        if (infos == null || infos.size() == 0) return count;
         for (ActivityManager.RunningAppProcessInfo info : infos) {
             for (String pkg : info.pkgList) {
                 set.remove(pkg);
-                --count;
             }
         }
-        return count;
+        return set;
     }
 
     /**

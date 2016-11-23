@@ -31,14 +31,14 @@ public class PhoneActivity extends Activity implements
         findViewById(R.id.btn_send_sms).setOnClickListener(this);
         findViewById(R.id.btn_send_sms_silent).setOnClickListener(this);
 
-        tvAboutPhone.setText("isPhone: " + PhoneUtils.isPhone(this) +
-                "\ngetIMEI: " + PhoneUtils.getIMEI(this) +
-                "\ngetIMSI: " + PhoneUtils.getIMSI(this) +
-                "\ngetPhoneType: " + PhoneUtils.getPhoneType(this) +
-                "\nisSimCardReady: " + PhoneUtils.isSimCardReady(this) +
-                "\ngetSimOperatorName: " + PhoneUtils.getSimOperatorName(this) +
-                "\ngetSimOperatorByMnc: " + PhoneUtils.getSimOperatorByMnc(this) +
-                "\n获取手机状态信息: " + PhoneUtils.getPhoneStatus(this)
+        tvAboutPhone.setText("isPhone: " + PhoneUtils.isPhone(this)
+                + "\ngetIMEI: " + PhoneUtils.getIMEI(this)
+                + "\ngetIMSI: " + PhoneUtils.getIMSI(this)
+                + "\ngetPhoneType: " + PhoneUtils.getPhoneType(this)
+                + "\nisSimCardReady: " + PhoneUtils.isSimCardReady(this)
+                + "\ngetSimOperatorName: " + PhoneUtils.getSimOperatorName(this)
+                + "\ngetSimOperatorByMnc: " + PhoneUtils.getSimOperatorByMnc(this)
+                + "\n获取手机状态信息: " + PhoneUtils.getPhoneStatus(this)
         );
     }
 
