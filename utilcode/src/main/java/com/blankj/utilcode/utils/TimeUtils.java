@@ -2,8 +2,16 @@ package com.blankj.utilcode.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import static com.blankj.utilcode.utils.ConstUtils.DAY;
+import static com.blankj.utilcode.utils.ConstUtils.HOUR;
+import static com.blankj.utilcode.utils.ConstUtils.MIN;
+import static com.blankj.utilcode.utils.ConstUtils.MSEC;
+import static com.blankj.utilcode.utils.ConstUtils.SEC;
+import static com.blankj.utilcode.utils.ConstUtils.TimeUnit;
 
 
 /**
@@ -11,13 +19,13 @@ import java.util.Locale;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/8/2
- *     desc  : 时间相关的工具类
+ *     desc  : 时间相关工具类
  * </pre>
  */
 public class TimeUtils {
 
     private TimeUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**
@@ -28,7 +36,8 @@ public class TimeUtils {
      * 表示单引号。所有其他字符均不解释；只是在格式化时将它们简单复制到输出字符串，或者在分析时与输入字符串进行匹配。
      * </p>
      * 定义了以下模式字母（所有其他字符 'A' 到 'Z' 和 'a' 到 'z' 都被保留）： <br>
-     * <table border="1" cellspacing="1" cellpadding="1" summary="Chart shows pattern letters, date/time component, presentation, and examples.">
+     * <table border="1" cellspacing="1" cellpadding="1" summary="Chart shows pattern letters, date/time component,
+     * presentation, and examples.">
      * <tr>
      * <th align="left">字母</th>
      * <th align="left">日期或时间元素</th>
@@ -174,6 +183,7 @@ public class TimeUtils {
      *     yyyy-MM-dd'T'HH:mm:ss.SSSZ    2016-08-12T15:44:40.461+0800
      * EEEE 'DATE('yyyy-MM-dd')' 'TIME('HH:mm:ss')' zzzz    星期五 DATE(2016-08-12) TIME(15:44:40) 中国标准时间
      * </pre>
+     * 注意SimpleDateFormat不是线程安全的
      */
     public static final SimpleDateFormat DEFAULT_SDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
@@ -299,23 +309,28 @@ public class TimeUtils {
      * 毫秒时间戳单位转换（单位：unit）
      *
      * @param milliseconds 毫秒时间戳
-     * @param unit         <ul>
-     *                     <li>ConstUtils.MSEC:毫秒</li>
-     *                     <li>ConstUtils.SEC :秒</li>
-     *                     <li>ConstUtils.MIN :分</li>
-     *                     <li>ConstUtils.HOUR:小时</li>
-     *                     <li>ConstUtils.DAY :天</li>
+     * @param unit         单位类型
+     *                     <ul>
+     *                     <li>{@link TimeUnit#MSEC}: 毫秒</li>
+     *                     <li>{@link TimeUnit#SEC }: 秒</li>
+     *                     <li>{@link TimeUnit#MIN }: 分</li>
+     *                     <li>{@link TimeUnit#HOUR}: 小时</li>
+     *                     <li>{@link TimeUnit#DAY }: 天</li>
      *                     </ul>
      * @return unit时间戳
      */
-    private static long milliseconds2Unit(long milliseconds, int unit) {
+    private static long milliseconds2Unit(long milliseconds, TimeUnit unit) {
         switch (unit) {
-            case ConstUtils.MSEC:
-            case ConstUtils.SEC:
-            case ConstUtils.MIN:
-            case ConstUtils.HOUR:
-            case ConstUtils.DAY:
-                return milliseconds / unit;
+            case MSEC:
+                return milliseconds / MSEC;
+            case SEC:
+                return milliseconds / SEC;
+            case MIN:
+                return milliseconds / MIN;
+            case HOUR:
+                return milliseconds / HOUR;
+            case DAY:
+                return milliseconds / DAY;
         }
         return -1;
     }
@@ -326,16 +341,17 @@ public class TimeUtils {
      *
      * @param time0 时间字符串1
      * @param time1 时间字符串2
-     * @param unit  <ul>
-     *              <li>ConstUtils.MSEC:毫秒</li>
-     *              <li>ConstUtils.SEC :秒</li>
-     *              <li>ConstUtils.MIN :分</li>
-     *              <li>ConstUtils.HOUR:小时</li>
-     *              <li>ConstUtils.DAY :天</li>
+     * @param unit  单位类型
+     *              <ul>
+     *              <li>{@link TimeUnit#MSEC}: 毫秒</li>
+     *              <li>{@link TimeUnit#SEC }: 秒</li>
+     *              <li>{@link TimeUnit#MIN }: 分</li>
+     *              <li>{@link TimeUnit#HOUR}: 小时</li>
+     *              <li>{@link TimeUnit#DAY }: 天</li>
      *              </ul>
      * @return unit时间戳
      */
-    public static long getIntervalTime(String time0, String time1, int unit) {
+    public static long getIntervalTime(String time0, String time1, TimeUnit unit) {
         return getIntervalTime(time0, time1, unit, DEFAULT_SDF);
     }
 
@@ -345,19 +361,20 @@ public class TimeUtils {
      *
      * @param time0  时间字符串1
      * @param time1  时间字符串2
-     * @param unit   <ul>
-     *               <li>ConstUtils.MSEC:毫秒</li>
-     *               <li>ConstUtils.SEC :秒</li>
-     *               <li>ConstUtils.MIN :分</li>
-     *               <li>ConstUtils.HOUR:小时</li>
-     *               <li>ConstUtils.DAY :天</li>
+     * @param unit   单位类型
+     *               <ul>
+     *               <li>{@link TimeUnit#MSEC}: 毫秒</li>
+     *               <li>{@link TimeUnit#SEC }: 秒</li>
+     *               <li>{@link TimeUnit#MIN }: 分</li>
+     *               <li>{@link TimeUnit#HOUR}: 小时</li>
+     *               <li>{@link TimeUnit#DAY }: 天</li>
      *               </ul>
      * @param format 时间格式
      * @return unit时间戳
      */
-    public static long getIntervalTime(String time0, String time1, int unit, SimpleDateFormat format) {
-        return Math.abs(milliseconds2Unit(string2Milliseconds(time0, format)
-                - string2Milliseconds(time1, format), unit));
+    public static long getIntervalTime(String time0, String time1, TimeUnit unit, SimpleDateFormat format) {
+        return milliseconds2Unit(Math.abs(string2Milliseconds(time0, format)
+                - string2Milliseconds(time1, format)), unit);
     }
 
     /**
@@ -366,22 +383,23 @@ public class TimeUtils {
      *
      * @param time0 Date类型时间1
      * @param time1 Date类型时间2
-     * @param unit  <ul>
-     *              <li>ConstUtils.MSEC:毫秒</li>
-     *              <li>ConstUtils.SEC :秒</li>
-     *              <li>ConstUtils.MIN :分</li>
-     *              <li>ConstUtils.HOUR:小时</li>
-     *              <li>ConstUtils.DAY :天</li>
+     * @param unit  单位类型
+     *              <ul>
+     *              <li>{@link TimeUnit#MSEC}: 毫秒</li>
+     *              <li>{@link TimeUnit#SEC }: 秒</li>
+     *              <li>{@link TimeUnit#MIN }: 分</li>
+     *              <li>{@link TimeUnit#HOUR}: 小时</li>
+     *              <li>{@link TimeUnit#DAY }: 天</li>
      *              </ul>
      * @return unit时间戳
      */
-    public static long getIntervalTime(Date time0, Date time1, int unit) {
-        return Math.abs(milliseconds2Unit(date2Milliseconds(time1)
-                - date2Milliseconds(time0), unit));
+    public static long getIntervalTime(Date time0, Date time1, TimeUnit unit) {
+        return milliseconds2Unit(Math.abs(date2Milliseconds(time1)
+                - date2Milliseconds(time0)), unit);
     }
 
     /**
-     * 获取当前时间
+     * 获取当前时间戳
      *
      * @return 毫秒时间戳
      */
@@ -390,7 +408,7 @@ public class TimeUtils {
     }
 
     /**
-     * 获取当前时间
+     * 获取当前时间字符串
      * <p>格式为yyyy-MM-dd HH:mm:ss</p>
      *
      * @return 时间字符串
@@ -400,7 +418,7 @@ public class TimeUtils {
     }
 
     /**
-     * 获取当前时间
+     * 获取当前时间字符串
      * <p>格式为用户自定义</p>
      *
      * @param format 时间格式
@@ -411,7 +429,7 @@ public class TimeUtils {
     }
 
     /**
-     * 获取当前时间
+     * 获取当前时间Date
      * <p>Date类型</p>
      *
      * @return Date类型时间
@@ -425,16 +443,17 @@ public class TimeUtils {
      * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
      *
      * @param time 时间字符串
-     * @param unit <ul>
-     *             <li>ConstUtils.MSEC:毫秒</li>
-     *             <li>ConstUtils.SEC :秒</li>
-     *             <li>ConstUtils.MIN :分</li>
-     *             <li>ConstUtils.HOUR:小时</li>
-     *             <li>ConstUtils.DAY :天</li>
+     * @param unit 单位类型
+     *             <ul>
+     *             <li>{@link TimeUnit#MSEC}:毫秒</li>
+     *             <li>{@link TimeUnit#SEC }:秒</li>
+     *             <li>{@link TimeUnit#MIN }:分</li>
+     *             <li>{@link TimeUnit#HOUR}:小时</li>
+     *             <li>{@link TimeUnit#DAY }:天</li>
      *             </ul>
      * @return unit时间戳
      */
-    public static long getIntervalByNow(String time, int unit) {
+    public static long getIntervalByNow(String time, TimeUnit unit) {
         return getIntervalByNow(time, unit, DEFAULT_SDF);
     }
 
@@ -443,17 +462,18 @@ public class TimeUtils {
      * <p>time格式为format</p>
      *
      * @param time   时间字符串
-     * @param unit   <ul>
-     *               <li>ConstUtils.MSEC:毫秒</li>
-     *               <li>ConstUtils.SEC :秒</li>
-     *               <li>ConstUtils.MIN :分</li>
-     *               <li>ConstUtils.HOUR:小时</li>
-     *               <li>ConstUtils.DAY :天</li>
+     * @param unit   单位类型
+     *               <ul>
+     *               <li>{@link TimeUnit#MSEC}: 毫秒</li>
+     *               <li>{@link TimeUnit#SEC }: 秒</li>
+     *               <li>{@link TimeUnit#MIN }: 分</li>
+     *               <li>{@link TimeUnit#HOUR}: 小时</li>
+     *               <li>{@link TimeUnit#DAY }: 天</li>
      *               </ul>
      * @param format 时间格式
      * @return unit时间戳
      */
-    public static long getIntervalByNow(String time, int unit, SimpleDateFormat format) {
+    public static long getIntervalByNow(String time, TimeUnit unit, SimpleDateFormat format) {
         return getIntervalTime(getCurTimeString(), time, unit, format);
     }
 
@@ -462,16 +482,17 @@ public class TimeUtils {
      * <p>time为Date类型</p>
      *
      * @param time Date类型时间
-     * @param unit <ul>
-     *             <li>ConstUtils.MSEC:毫秒</li>
-     *             <li>ConstUtils.SEC :秒</li>
-     *             <li>ConstUtils.MIN :分</li>
-     *             <li>ConstUtils.HOUR:小时</li>
-     *             <li>ConstUtils.DAY :天</li>
+     * @param unit 单位类型
+     *             <ul>
+     *             <li>{@link TimeUnit#MSEC}: 毫秒</li>
+     *             <li>{@link TimeUnit#SEC }: 秒</li>
+     *             <li>{@link TimeUnit#MIN }: 分</li>
+     *             <li>{@link TimeUnit#HOUR}: 小时</li>
+     *             <li>{@link TimeUnit#DAY }: 天</li>
      *             </ul>
      * @return unit时间戳
      */
-    public static long getIntervalByNow(Date time, int unit) {
+    public static long getIntervalByNow(Date time, TimeUnit unit) {
         return getIntervalTime(getCurTimeDate(), time, unit);
     }
 
@@ -483,5 +504,154 @@ public class TimeUtils {
      */
     public static boolean isLeapYear(int year) {
         return year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
+    }
+
+    /**
+     * 获取星期
+     * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
+     *
+     * @param time 时间字符串
+     * @return 星期
+     */
+    public static String getWeek(String time) {
+        return new SimpleDateFormat("EEEE", Locale.getDefault()).format(string2Date(time));
+    }
+
+    /**
+     * 获取星期
+     *
+     * @param time   时间字符串
+     * @param format 时间格式
+     * @return 星期
+     */
+    public static String getWeek(String time, SimpleDateFormat format) {
+        return new SimpleDateFormat("EEEE", Locale.getDefault()).format(string2Date(time, format));
+    }
+
+    /**
+     * 获取星期
+     *
+     * @param time Date类型时间
+     * @return 星期
+     */
+    public static String getWeek(Date time) {
+        return new SimpleDateFormat("EEEE", Locale.getDefault()).format(time);
+    }
+
+    /**
+     * 获取星期
+     * <p>注意：周日的Index才是1，周六为7</p>
+     * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
+     *
+     * @param time 时间字符串
+     * @return 1...5
+     */
+    public static int getWeekIndex(String time) {
+        Date date = string2Date(time);
+        return getWeekIndex(date);
+    }
+
+    /**
+     * 获取星期
+     * <p>注意：周日的Index才是1，周六为7</p>
+     *
+     * @param time   时间字符串
+     * @param format 时间格式
+     * @return 1...7
+     */
+    public static int getWeekIndex(String time, SimpleDateFormat format) {
+        Date date = string2Date(time, format);
+        return getWeekIndex(date);
+    }
+
+    /**
+     * 获取星期
+     * <p>注意：周日的Index才是1，周六为7</p>
+     *
+     * @param time Date类型时间
+     * @return 1...7
+     */
+    public static int getWeekIndex(Date time) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(time);
+        return cal.get(Calendar.DAY_OF_WEEK);
+    }
+
+    /**
+     * 获取月份中的第几周
+     * <p>注意：国外周日才是新的一周的开始</p>
+     * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
+     *
+     * @param time 时间字符串
+     * @return 1...5
+     */
+    public static int getWeekOfMonth(String time) {
+        Date date = string2Date(time);
+        return getWeekOfMonth(date);
+    }
+
+    /**
+     * 获取月份中的第几周
+     * <p>注意：国外周日才是新的一周的开始</p>
+     *
+     * @param time   时间字符串
+     * @param format 时间格式
+     * @return 1...5
+     */
+    public static int getWeekOfMonth(String time, SimpleDateFormat format) {
+        Date date = string2Date(time, format);
+        return getWeekOfMonth(date);
+    }
+
+    /**
+     * 获取月份中的第几周
+     * <p>注意：国外周日才是新的一周的开始</p>
+     *
+     * @param time Date类型时间
+     * @return 1...5
+     */
+    public static int getWeekOfMonth(Date time) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(time);
+        return cal.get(Calendar.WEEK_OF_MONTH);
+    }
+
+    /**
+     * 获取年份中的第几周
+     * <p>注意：国外周日才是新的一周的开始</p>
+     * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
+     *
+     * @param time 时间字符串
+     * @return 1...54
+     */
+    public static int getWeekOfYear(String time) {
+        Date date = string2Date(time);
+        return getWeekOfYear(date);
+    }
+
+    /**
+     * 获取年份中的第几周
+     * <p>注意：国外周日才是新的一周的开始</p>
+     *
+     * @param time   时间字符串
+     * @param format 时间格式
+     * @return 1...54
+     */
+    public static int getWeekOfYear(String time, SimpleDateFormat format) {
+        Date date = string2Date(time, format);
+        return getWeekOfYear(date);
+    }
+
+    /**
+     * 获取年份中的第几周
+     * <p>注意：国外周日才是新的一周的开始</p>
+     *
+     * @param time Date类型时间
+     * @return 1...54
+     */
+    public static int getWeekOfYear(Date time) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(time);
+        return cal.get(Calendar.WEEK_OF_YEAR);
     }
 }

@@ -5,19 +5,20 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/8/2
- *     desc  : 尺寸相关的工具类
+ *     desc  : 尺寸相关工具类
  * </pre>
  */
 public class SizeUtils {
 
     private SizeUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**
@@ -96,27 +97,27 @@ public class SizeUtils {
     }
 
     /**
-     * 在onCreate()即可强行获取View的尺寸
+     * 在onCreate中获取视图的尺寸
      * <p>需回调onGetSizeListener接口，在onGetSize中获取view宽高</p>
      * <p>用法示例如下所示</p>
      * <pre>
-     * SizeUtils.forceGetViewSize(view);
-     * SizeUtils.setListener(new SizeUtils.onGetSizeListener() {
-     *    {@code @Override}
+     * SizeUtils.forceGetViewSize(view, new SizeUtils.onGetSizeListener() {
+     *     Override
      *     public void onGetSize(View view) {
-     *         Log.d("tag", view.getWidth() + " " + view.getHeight());
+     *         view.getWidth();
      *     }
      * });
      * </pre>
      *
-     * @param view 视图
+     * @param view     视图
+     * @param listener 监听器
      */
-    public static void forceGetViewSize(final View view) {
+    public static void forceGetViewSize(final View view, final onGetSizeListener listener) {
         view.post(new Runnable() {
             @Override
             public void run() {
-                if (mListener != null) {
-                    mListener.onGetSize(view);
+                if (listener != null) {
+                    listener.onGetSize(view);
                 }
             }
         });
@@ -136,30 +137,48 @@ public class SizeUtils {
     private static onGetSizeListener mListener;
 
     /**
-     * ListView中提前测量View尺寸，如headerView
-     * <p>用的时候去掉注释拷贝到ListView中即可</p>
-     * <p>参照以下注释代码</p>
+     * 测量视图尺寸
      *
      * @param view 视图
+     * @return arr[0]: 视图宽度, arr[1]: 视图高度
      */
-    public static void measureViewInLV(View view) {
-        Log.i("tips", "U should copy the following code.");
-        /*
-        ViewGroup.LayoutParams p = view.getLayoutParams();
-        if (p == null) {
-            p = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
+    public static int[] measureView(View view) {
+        ViewGroup.LayoutParams lp = view.getLayoutParams();
+        if (lp == null) {
+            lp = new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
         }
-        int width = ViewGroup.getChildMeasureSpec(0, 0, p.width);
-        int height;
-        int tempHeight = p.height;
-        if (tempHeight > 0) {
-            height = MeasureSpec.makeMeasureSpec(tempHeight,
-                    MeasureSpec.EXACTLY);
+        int widthSpec = ViewGroup.getChildMeasureSpec(0, 0, lp.width);
+        int lpHeight = lp.height;
+        int heightSpec;
+        if (lpHeight > 0) {
+            heightSpec = View.MeasureSpec.makeMeasureSpec(lpHeight, View.MeasureSpec.EXACTLY);
         } else {
-            height = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
+            heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         }
-        view.measure(width, height);
-        */
+        view.measure(widthSpec, heightSpec);
+        return new int[]{view.getMeasuredWidth(), view.getMeasuredHeight()};
+    }
+
+    /**
+     * 获取测量视图宽度
+     *
+     * @param view 视图
+     * @return 视图宽度
+     */
+    public static int getMeasuredWidth(View view) {
+        return measureView(view)[0];
+    }
+
+    /**
+     * 获取测量视图高度
+     *
+     * @param view 视图
+     * @return 视图高度
+     */
+    public static int getMeasuredHeight(View view) {
+        return measureView(view)[1];
     }
 }

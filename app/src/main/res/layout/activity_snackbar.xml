@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_small">
+
+        <Button
+            android:id="@+id/btn_short_snackbar"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/snackbar.show_short"
+            />
+
+        <Button
+            android:id="@+id/btn_short_snackbar_with_action"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/snackbar.show_short_with_action"
+            />
+
+        <Button
+            android:id="@+id/btn_long_snackbar"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/snackbar.show_long"
+            />
+
+        <Button
+            android:id="@+id/btn_long_snackbar_with_action"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/snackbar.show_long_with_action"
+            />
+
+        <Button
+            android:id="@+id/btn_indefinite_snackbar"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/snackbar.show_indefinite"
+            />
+
+        <Button
+            android:id="@+id/btn_indefinite_snackbar_with_action"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/snackbar.show_indefinite_with_action"
+            />
+
+        <Button
+            android:id="@+id/btn_add_view"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/snackbar.add_view"
+            />
+
+        <Button
+            android:id="@+id/btn_add_view_with_action"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/snackbar.add_view_with_action"
+            />
+
+
+        <Button
+            android:id="@+id/btn_cancel_snackbar"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/snackbar.cancel"
+            />
+
+    </LinearLayout>
+</ScrollView>

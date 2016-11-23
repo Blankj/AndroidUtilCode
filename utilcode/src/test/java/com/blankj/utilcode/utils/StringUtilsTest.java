@@ -31,6 +31,19 @@ public class StringUtilsTest {
     }
 
     @Test
+    public void testEquals() throws Exception {
+        assertThat(StringUtils.equals("blankj", "blankj")).isEqualTo(true);
+        assertThat(StringUtils.equals("blankj", "Blankj")).isEqualTo(false);
+    }
+
+    @Test
+    public void testEqualsIgnoreCase() throws Exception {
+        assertThat(equalsIgnoreCase("blankj", "Blankj")).isEqualTo(true);
+        assertThat(equalsIgnoreCase("blankj", "blankj")).isEqualTo(true);
+        assertThat(equalsIgnoreCase("blankj", "blank")).isEqualTo(false);
+    }
+
+    @Test
     public void testNull2Length0() throws Exception {
         assertThat(null2Length0(null)).isEqualTo("");
     }
@@ -54,6 +67,14 @@ public class StringUtilsTest {
         assertThat(lowerFirstLetter("blankj")).isEqualTo("blankj");
         assertThat(lowerFirstLetter("Blankj")).isEqualTo("blankj");
         assertThat(lowerFirstLetter("1blankj")).isEqualTo("1blankj");
+    }
+
+    @Test
+    public void testReverse() throws Exception {
+        assertThat(reverse("blankj")).isEqualTo("jknalb");
+        assertThat(reverse("blank")).isEqualTo("knalb");
+        assertThat(reverse("测试中文")).isEqualTo("文中试测");
+        assertThat(reverse(null)).isNull();
     }
 
     @Test

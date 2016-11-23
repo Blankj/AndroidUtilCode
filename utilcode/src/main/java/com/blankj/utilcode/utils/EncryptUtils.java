@@ -3,16 +3,18 @@ package com.blankj.utilcode.utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
+import java.security.DigestInputStream;
+import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 import javax.crypto.Cipher;
+import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-import static com.blankj.utilcode.utils.ConvertUtils.*;
+import static com.blankj.utilcode.utils.ConvertUtils.bytes2HexString;
+import static com.blankj.utilcode.utils.ConvertUtils.hexString2Bytes;
 
 /**
  * <pre>
@@ -25,7 +27,7 @@ import static com.blankj.utilcode.utils.ConvertUtils.*;
 public class EncryptUtils {
 
     private EncryptUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /*********************** 哈希加密相关 ***********************/
@@ -56,7 +58,7 @@ public class EncryptUtils {
      * @return 密文字节数组
      */
     public static byte[] encryptMD2(byte[] data) {
-        return encryptAlgorithm(data, "MD2");
+        return hashTemplate(data, "MD2");
     }
 
     /**
@@ -98,6 +100,7 @@ public class EncryptUtils {
      * @return 16进制加盐密文
      */
     public static String encryptMD5ToString(byte[] data, byte[] salt) {
+        if (data == null || salt == null) return null;
         byte[] dataSalt = new byte[data.length + salt.length];
         System.arraycopy(data, 0, dataSalt, 0, data.length);
         System.arraycopy(salt, 0, dataSalt, data.length, salt.length);
@@ -111,7 +114,65 @@ public class EncryptUtils {
      * @return 密文字节数组
      */
     public static byte[] encryptMD5(byte[] data) {
-        return encryptAlgorithm(data, "MD5");
+        return hashTemplate(data, "MD5");
+    }
+
+    /**
+     * MD5加密文件
+     *
+     * @param filePath 文件路径
+     * @return 文件的16进制密文
+     */
+    public static String encryptMD5File2String(String filePath) {
+        File file = StringUtils.isSpace(filePath) ? null : new File(filePath);
+        return encryptMD5File2String(file);
+    }
+
+    /**
+     * MD5加密文件
+     *
+     * @param filePath 文件路径
+     * @return 文件的MD5校验码
+     */
+    public static byte[] encryptMD5File(String filePath) {
+        File file = StringUtils.isSpace(filePath) ? null : new File(filePath);
+        return encryptMD5File(file);
+    }
+
+    /**
+     * MD5加密文件
+     *
+     * @param file 文件
+     * @return 文件的16进制密文
+     */
+    public static String encryptMD5File2String(File file) {
+        return bytes2HexString(encryptMD5File(file));
+    }
+
+    /**
+     * MD5加密文件
+     *
+     * @param file 文件
+     * @return 文件的MD5校验码
+     */
+    public static byte[] encryptMD5File(File file) {
+        if (file == null) return null;
+        FileInputStream fis = null;
+        DigestInputStream digestInputStream;
+        try {
+            fis = new FileInputStream(file);
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            digestInputStream = new DigestInputStream(fis, md);
+            byte[] buffer = new byte[256 * 1024];
+            while (digestInputStream.read(buffer) > 0) ;
+            md = digestInputStream.getMessageDigest();
+            return md.digest();
+        } catch (NoSuchAlgorithmException | IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            CloseUtils.closeIO(fis);
+        }
     }
 
     /**
@@ -141,7 +202,7 @@ public class EncryptUtils {
      * @return 密文字节数组
      */
     public static byte[] encryptSHA1(byte[] data) {
-        return encryptAlgorithm(data, "SHA-1");
+        return hashTemplate(data, "SHA1");
     }
 
     /**
@@ -171,7 +232,7 @@ public class EncryptUtils {
      * @return 密文字节数组
      */
     public static byte[] encryptSHA224(byte[] data) {
-        return encryptAlgorithm(data, "SHA-224");
+        return hashTemplate(data, "SHA224");
     }
 
     /**
@@ -201,7 +262,7 @@ public class EncryptUtils {
      * @return 密文字节数组
      */
     public static byte[] encryptSHA256(byte[] data) {
-        return encryptAlgorithm(data, "SHA-256");
+        return hashTemplate(data, "SHA256");
     }
 
     /**
@@ -231,7 +292,7 @@ public class EncryptUtils {
      * @return 密文字节数组
      */
     public static byte[] encryptSHA384(byte[] data) {
-        return encryptAlgorithm(data, "SHA-384");
+        return hashTemplate(data, "SHA384");
     }
 
     /**
@@ -261,83 +322,245 @@ public class EncryptUtils {
      * @return 密文字节数组
      */
     public static byte[] encryptSHA512(byte[] data) {
-        return encryptAlgorithm(data, "SHA-512");
+        return hashTemplate(data, "SHA512");
     }
 
     /**
-     * 对data进行algorithm算法加密
+     * hash加密模板
      *
-     * @param data      明文字节数组
+     * @param data      数据
      * @param algorithm 加密算法
      * @return 密文字节数组
      */
-    private static byte[] encryptAlgorithm(byte[] data, String algorithm) {
+    private static byte[] hashTemplate(byte[] data, String algorithm) {
+        if (data == null || data.length <= 0) return null;
         try {
             MessageDigest md = MessageDigest.getInstance(algorithm);
             md.update(data);
             return md.digest();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
+            return null;
         }
-        return new byte[0];
     }
 
     /**
-     * 获取文件的MD5校验码
+     * HmacMD5加密
      *
-     * @param filePath 文件路径
-     * @return 文件的16进制密文
+     * @param data 明文字符串
+     * @param key  秘钥
+     * @return 16进制密文
      */
-    public static String encryptMD5File2String(String filePath) {
-        return encryptMD5File2String(new File(filePath));
+    public static String encryptHmacMD5ToString(String data, String key) {
+        return encryptHmacMD5ToString(data.getBytes(), key.getBytes());
     }
 
     /**
-     * 获取文件的MD5校验码
+     * HmacMD5加密
      *
-     * @param filePath 文件路径
-     * @return 文件的MD5校验码
+     * @param data 明文字节数组
+     * @param key  秘钥
+     * @return 16进制密文
      */
-    public static byte[] encryptMD5File(String filePath) {
-        return encryptMD5File(new File(filePath));
+    public static String encryptHmacMD5ToString(byte[] data, byte[] key) {
+        return bytes2HexString(encryptHmacMD5(data, key));
     }
 
     /**
-     * 获取文件的MD5校验码
+     * HmacMD5加密
      *
-     * @param file 文件
-     * @return 文件的16进制密文
+     * @param data 明文字节数组
+     * @param key  秘钥
+     * @return 密文字节数组
      */
-    public static String encryptMD5File2String(File file) {
-        return encryptMD5File(file) != null ? bytes2HexString(encryptMD5File(file)) : "";
+    public static byte[] encryptHmacMD5(byte[] data, byte[] key) {
+        return hmacTemplate(data, key, "HmacMD5");
     }
 
     /**
-     * 获取文件的MD5校验码
+     * HmacSHA1加密
      *
-     * @param file 文件
-     * @return 文件的MD5校验码
+     * @param data 明文字符串
+     * @param key  秘钥
+     * @return 16进制密文
      */
-    public static byte[] encryptMD5File(File file) {
-        FileInputStream in = null;
+    public static String encryptHmacSHA1ToString(String data, String key) {
+        return encryptHmacSHA1ToString(data.getBytes(), key.getBytes());
+    }
+
+    /**
+     * HmacSHA1加密
+     *
+     * @param data 明文字节数组
+     * @param key  秘钥
+     * @return 16进制密文
+     */
+    public static String encryptHmacSHA1ToString(byte[] data, byte[] key) {
+        return bytes2HexString(encryptHmacSHA1(data, key));
+    }
+
+    /**
+     * HmacSHA1加密
+     *
+     * @param data 明文字节数组
+     * @param key  秘钥
+     * @return 密文字节数组
+     */
+    public static byte[] encryptHmacSHA1(byte[] data, byte[] key) {
+        return hmacTemplate(data, key, "HmacSHA1");
+    }
+
+    /**
+     * HmacSHA224加密
+     *
+     * @param data 明文字符串
+     * @param key  秘钥
+     * @return 16进制密文
+     */
+    public static String encryptHmacSHA224ToString(String data, String key) {
+        return encryptHmacSHA224ToString(data.getBytes(), key.getBytes());
+    }
+
+    /**
+     * HmacSHA224加密
+     *
+     * @param data 明文字节数组
+     * @param key  秘钥
+     * @return 16进制密文
+     */
+    public static String encryptHmacSHA224ToString(byte[] data, byte[] key) {
+        return bytes2HexString(encryptHmacSHA224(data, key));
+    }
+
+    /**
+     * HmacSHA224加密
+     *
+     * @param data 明文字节数组
+     * @param key  秘钥
+     * @return 密文字节数组
+     */
+    public static byte[] encryptHmacSHA224(byte[] data, byte[] key) {
+        return hmacTemplate(data, key, "HmacSHA224");
+    }
+
+    /**
+     * HmacSHA256加密
+     *
+     * @param data 明文字符串
+     * @param key  秘钥
+     * @return 16进制密文
+     */
+    public static String encryptHmacSHA256ToString(String data, String key) {
+        return encryptHmacSHA256ToString(data.getBytes(), key.getBytes());
+    }
+
+    /**
+     * HmacSHA256加密
+     *
+     * @param data 明文字节数组
+     * @param key  秘钥
+     * @return 16进制密文
+     */
+    public static String encryptHmacSHA256ToString(byte[] data, byte[] key) {
+        return bytes2HexString(encryptHmacSHA256(data, key));
+    }
+
+    /**
+     * HmacSHA256加密
+     *
+     * @param data 明文字节数组
+     * @param key  秘钥
+     * @return 密文字节数组
+     */
+    public static byte[] encryptHmacSHA256(byte[] data, byte[] key) {
+        return hmacTemplate(data, key, "HmacSHA256");
+    }
+
+    /**
+     * HmacSHA384加密
+     *
+     * @param data 明文字符串
+     * @param key  秘钥
+     * @return 16进制密文
+     */
+    public static String encryptHmacSHA384ToString(String data, String key) {
+        return encryptHmacSHA384ToString(data.getBytes(), key.getBytes());
+    }
+
+    /**
+     * HmacSHA384加密
+     *
+     * @param data 明文字节数组
+     * @param key  秘钥
+     * @return 16进制密文
+     */
+    public static String encryptHmacSHA384ToString(byte[] data, byte[] key) {
+        return bytes2HexString(encryptHmacSHA384(data, key));
+    }
+
+    /**
+     * HmacSHA384加密
+     *
+     * @param data 明文字节数组
+     * @param key  秘钥
+     * @return 密文字节数组
+     */
+    public static byte[] encryptHmacSHA384(byte[] data, byte[] key) {
+        return hmacTemplate(data, key, "HmacSHA384");
+    }
+
+    /**
+     * HmacSHA512加密
+     *
+     * @param data 明文字符串
+     * @param key  秘钥
+     * @return 16进制密文
+     */
+    public static String encryptHmacSHA512ToString(String data, String key) {
+        return encryptHmacSHA512ToString(data.getBytes(), key.getBytes());
+    }
+
+    /**
+     * HmacSHA512加密
+     *
+     * @param data 明文字节数组
+     * @param key  秘钥
+     * @return 16进制密文
+     */
+    public static String encryptHmacSHA512ToString(byte[] data, byte[] key) {
+        return bytes2HexString(encryptHmacSHA512(data, key));
+    }
+
+    /**
+     * HmacSHA512加密
+     *
+     * @param data 明文字节数组
+     * @param key  秘钥
+     * @return 密文字节数组
+     */
+    public static byte[] encryptHmacSHA512(byte[] data, byte[] key) {
+        return hmacTemplate(data, key, "HmacSHA512");
+    }
+
+    /**
+     * Hmac加密模板
+     *
+     * @param data      数据
+     * @param key       秘钥
+     * @param algorithm 加密算法
+     * @return 密文字节数组
+     */
+    private static byte[] hmacTemplate(byte[] data, byte[] key, String algorithm) {
+        if (data == null || data.length == 0 || key == null || key.length == 0) return null;
         try {
-            in = new FileInputStream(file);
-            FileChannel channel = in.getChannel();
-            MappedByteBuffer buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, file.length());
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(buffer);
-            return md.digest();
-        } catch (NoSuchAlgorithmException | IOException e) {
+            SecretKeySpec secretKey = new SecretKeySpec(key, algorithm);
+            Mac mac = Mac.getInstance(algorithm);
+            mac.init(secretKey);
+            return mac.doFinal(data);
+        } catch (InvalidKeyException | NoSuchAlgorithmException e) {
             e.printStackTrace();
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException ignored) {
-                }
-            }
+            return null;
         }
-        return null;
     }
 
     /************************ DES加密相关 ***********************/
@@ -347,29 +570,8 @@ public class EncryptUtils {
      * <p>加密模式有：电子密码本模式ECB、加密块链模式CBC、加密反馈模式CFB、输出反馈模式OFB</p>
      * <p>填充方式有：NoPadding、ZerosPadding、PKCS5Padding</p>
      */
-    public static String DES_Transformation = "DES/ECB/NoPadding";
-    private static final String DES_Algorithm = "DES";
-
-    /**
-     * @param data           数据
-     * @param key            秘钥
-     * @param algorithm      采用何种DES算法
-     * @param transformation 转变
-     * @param isEncrypt      是否加密
-     * @return 密文或者明文，适用于DES，3DES，AES
-     */
-    public static byte[] DESTemplet(byte[] data, byte[] key, String algorithm, String transformation, boolean isEncrypt) {
-        try {
-            SecretKeySpec keySpec = new SecretKeySpec(key, algorithm);
-            Cipher cipher = Cipher.getInstance(transformation);
-            SecureRandom random = new SecureRandom();
-            cipher.init(isEncrypt ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE, keySpec, random);
-            return cipher.doFinal(data);
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+    public static        String DES_Transformation = "DES/ECB/NoPadding";
+    private static final String DES_Algorithm      = "DES";
 
     /**
      * DES加密后转为Base64编码
@@ -401,7 +603,7 @@ public class EncryptUtils {
      * @return 密文
      */
     public static byte[] encryptDES(byte[] data, byte[] key) {
-        return DESTemplet(data, key, DES_Algorithm, DES_Transformation, true);
+        return desTemplate(data, key, DES_Algorithm, DES_Transformation, true);
     }
 
     /**
@@ -434,7 +636,7 @@ public class EncryptUtils {
      * @return 明文
      */
     public static byte[] decryptDES(byte[] data, byte[] key) {
-        return DESTemplet(data, key, DES_Algorithm, DES_Transformation, false);
+        return desTemplate(data, key, DES_Algorithm, DES_Transformation, false);
     }
 
     /************************ 3DES加密相关 ***********************/
@@ -444,8 +646,8 @@ public class EncryptUtils {
      * <p>加密模式有：电子密码本模式ECB、加密块链模式CBC、加密反馈模式CFB、输出反馈模式OFB</p>
      * <p>填充方式有：NoPadding、ZerosPadding、PKCS5Padding</p>
      */
-    public static String TripleDES_Transformation = "DESede/ECB/NoPadding";
-    private static final String TripleDES_Algorithm = "DESede";
+    public static        String TripleDES_Transformation = "DESede/ECB/NoPadding";
+    private static final String TripleDES_Algorithm      = "DESede";
 
 
     /**
@@ -478,7 +680,7 @@ public class EncryptUtils {
      * @return 密文
      */
     public static byte[] encrypt3DES(byte[] data, byte[] key) {
-        return DESTemplet(data, key, TripleDES_Algorithm, TripleDES_Transformation, true);
+        return desTemplate(data, key, TripleDES_Algorithm, TripleDES_Transformation, true);
     }
 
     /**
@@ -511,7 +713,7 @@ public class EncryptUtils {
      * @return 明文
      */
     public static byte[] decrypt3DES(byte[] data, byte[] key) {
-        return DESTemplet(data, key, TripleDES_Algorithm, TripleDES_Transformation, false);
+        return desTemplate(data, key, TripleDES_Algorithm, TripleDES_Transformation, false);
     }
 
     /************************ AES加密相关 ***********************/
@@ -521,8 +723,8 @@ public class EncryptUtils {
      * <p>加密模式有：电子密码本模式ECB、加密块链模式CBC、加密反馈模式CFB、输出反馈模式OFB</p>
      * <p>填充方式有：NoPadding、ZerosPadding、PKCS5Padding</p>
      */
-    public static String AES_Transformation = "AES/ECB/NoPadding";
-    private static final String AES_Algorithm = "AES";
+    public static        String AES_Transformation = "AES/ECB/NoPadding";
+    private static final String AES_Algorithm      = "AES";
 
 
     /**
@@ -555,7 +757,7 @@ public class EncryptUtils {
      * @return 密文
      */
     public static byte[] encryptAES(byte[] data, byte[] key) {
-        return DESTemplet(data, key, AES_Algorithm, AES_Transformation, true);
+        return desTemplate(data, key, AES_Algorithm, AES_Transformation, true);
     }
 
     /**
@@ -588,6 +790,30 @@ public class EncryptUtils {
      * @return 明文
      */
     public static byte[] decryptAES(byte[] data, byte[] key) {
-        return DESTemplet(data, key, AES_Algorithm, AES_Transformation, false);
+        return desTemplate(data, key, AES_Algorithm, AES_Transformation, false);
+    }
+
+    /**
+     * DES加密模板
+     *
+     * @param data           数据
+     * @param key            秘钥
+     * @param algorithm      加密算法
+     * @param transformation 转变
+     * @param isEncrypt      {@code true}: 加密 {@code false}: 解密
+     * @return 密文或者明文，适用于DES，3DES，AES
+     */
+    public static byte[] desTemplate(byte[] data, byte[] key, String algorithm, String transformation, boolean isEncrypt) {
+        if (data == null || data.length == 0 || key == null || key.length == 0) return null;
+        try {
+            SecretKeySpec keySpec = new SecretKeySpec(key, algorithm);
+            Cipher cipher = Cipher.getInstance(transformation);
+            SecureRandom random = new SecureRandom();
+            cipher.init(isEncrypt ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE, keySpec, random);
+            return cipher.doFinal(data);
+        } catch (Throwable e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

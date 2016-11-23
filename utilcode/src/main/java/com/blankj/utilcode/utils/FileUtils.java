@@ -3,48 +3,40 @@ package com.blankj.utilcode.utils;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.Closeable;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.security.DigestInputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import static com.blankj.utilcode.utils.ConstUtils.KB;
+import static com.blankj.utilcode.utils.ConvertUtils.bytes2HexString;
+
 
 /**
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/8/11
- *     desc  : 文件相关的工具类
+ *     desc  : 文件相关工具类
  * </pre>
  */
 public class FileUtils {
 
     private FileUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
-    }
-
-    /**
-     * 关闭IO
-     *
-     * @param closeable closeable
-     */
-    public static void closeIO(Closeable closeable) {
-        if (closeable == null) return;
-        try {
-            closeable.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**
@@ -61,7 +53,7 @@ public class FileUtils {
      * 判断文件是否存在
      *
      * @param filePath 文件路径
-     * @return {@code false}: 存在<br>{@code false}: 不存在
+     * @return {@code true}: 存在<br>{@code false}: 不存在
      */
     public static boolean isFileExists(String filePath) {
         return isFileExists(getFileByPath(filePath));
@@ -71,17 +63,50 @@ public class FileUtils {
      * 判断文件是否存在
      *
      * @param file 文件
-     * @return {@code false}: 存在<br>{@code false}: 不存在
+     * @return {@code true}: 存在<br>{@code false}: 不存在
      */
     public static boolean isFileExists(File file) {
         return file != null && file.exists();
     }
 
     /**
+     * 重命名文件
+     *
+     * @param filePath 文件路径
+     * @param newName  新名称
+     * @return {@code true}: 重命名成功<br>{@code false}: 重命名失败
+     */
+    public static boolean rename(String filePath, String newName) {
+        return rename(getFileByPath(filePath), newName);
+    }
+
+    /**
+     * 重命名文件
+     *
+     * @param file    文件
+     * @param newName 新名称
+     * @return {@code true}: 重命名成功<br>{@code false}: 重命名失败
+     */
+    public static boolean rename(File file, String newName) {
+        // 文件为空返回false
+        if (file == null) return false;
+        // 文件不存在返回false
+        if (!file.exists()) return false;
+        // 新的文件名为空返回false
+        if (StringUtils.isSpace(newName)) return false;
+        // 如果文件名没有改变返回true
+        if (newName.equals(file.getName())) return true;
+        File newFile = new File(file.getParent() + File.separator + newName);
+        // 如果重命名的文件已存在返回false
+        return !newFile.exists()
+                && file.renameTo(newFile);
+    }
+
+    /**
      * 判断是否是目录
      *
      * @param dirPath 目录路径
-     * @return {@code false}: 是<br>{@code false}: 否
+     * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isDir(String dirPath) {
         return isDir(getFileByPath(dirPath));
@@ -393,11 +418,13 @@ public class FileUtils {
         if (!dir.isDirectory()) return false;
         // 现在文件存在且是文件夹
         File[] files = dir.listFiles();
-        for (File file : files) {
-            if (file.isFile()) {
-                if (!deleteFile(file)) return false;
-            } else if (file.isDirectory()) {
-                if (!deleteDir(file)) return false;
+        if (files != null && files.length != 0) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    if (!deleteFile(file)) return false;
+                } else if (file.isDirectory()) {
+                    if (!deleteDir(file)) return false;
+                }
             }
         }
         return dir.delete();
@@ -421,6 +448,280 @@ public class FileUtils {
      */
     public static boolean deleteFile(File file) {
         return file != null && (!file.exists() || file.isFile() && file.delete());
+    }
+
+    /**
+     * 删除目录下的所有文件
+     *
+     * @param dirPath 目录路径
+     * @return {@code true}: 删除成功<br>{@code false}: 删除失败
+     */
+    public static boolean deleteFilesInDir(String dirPath) {
+        return deleteFilesInDir(getFileByPath(dirPath));
+    }
+
+    /**
+     * 删除目录下的所有文件
+     *
+     * @param dir 目录
+     * @return {@code true}: 删除成功<br>{@code false}: 删除失败
+     */
+    public static boolean deleteFilesInDir(File dir) {
+        if (dir == null) return false;
+        // 目录不存在返回true
+        if (!dir.exists()) return true;
+        // 不是目录返回false
+        if (!dir.isDirectory()) return false;
+        // 现在文件存在且是文件夹
+        File[] files = dir.listFiles();
+        if (files != null && files.length != 0) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    if (!deleteFile(file)) return false;
+                } else if (file.isDirectory()) {
+                    if (!deleteDir(file)) return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 获取目录下所有文件
+     *
+     * @param dirPath     目录路径
+     * @param isRecursive 是否递归进子目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDir(String dirPath, boolean isRecursive) {
+        return listFilesInDir(getFileByPath(dirPath), isRecursive);
+    }
+
+    /**
+     * 获取目录下所有文件
+     *
+     * @param dir         目录
+     * @param isRecursive 是否递归进子目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDir(File dir, boolean isRecursive) {
+        if (isRecursive) return listFilesInDir(dir);
+        if (dir == null || !isDir(dir)) return null;
+        List<File> list = new ArrayList<>();
+        Collections.addAll(list, dir.listFiles());
+        return list;
+    }
+
+    /**
+     * 获取目录下所有文件包括子目录
+     *
+     * @param dirPath 目录路径
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDir(String dirPath) {
+        return listFilesInDir(getFileByPath(dirPath));
+    }
+
+    /**
+     * 获取目录下所有文件包括子目录
+     *
+     * @param dir 目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDir(File dir) {
+        if (dir == null || !isDir(dir)) return null;
+        List<File> list = new ArrayList<>();
+        File[] files = dir.listFiles();
+        if (files != null && files.length != 0) {
+            for (File file : files) {
+                list.add(file);
+                if (file.isDirectory()) {
+                    list.addAll(listFilesInDir(file));
+                }
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 获取目录下所有后缀名为suffix的文件
+     * <p>大小写忽略</p>
+     *
+     * @param dirPath     目录路径
+     * @param suffix      后缀名
+     * @param isRecursive 是否递归进子目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDirWithFilter(String dirPath, String suffix, boolean isRecursive) {
+        return listFilesInDirWithFilter(getFileByPath(dirPath), suffix, isRecursive);
+    }
+
+    /**
+     * 获取目录下所有后缀名为suffix的文件
+     * <p>大小写忽略</p>
+     *
+     * @param dir         目录
+     * @param suffix      后缀名
+     * @param isRecursive 是否递归进子目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDirWithFilter(File dir, String suffix, boolean isRecursive) {
+        if (isRecursive) return listFilesInDirWithFilter(dir, suffix);
+        if (dir == null || !isDir(dir)) return null;
+        List<File> list = new ArrayList<>();
+        File[] files = dir.listFiles();
+        if (files != null && files.length != 0) {
+            for (File file : files) {
+                if (file.getName().toUpperCase().endsWith(suffix.toUpperCase())) {
+                    list.add(file);
+                }
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 获取目录下所有后缀名为suffix的文件包括子目录
+     * <p>大小写忽略</p>
+     *
+     * @param dirPath 目录路径
+     * @param suffix  后缀名
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDirWithFilter(String dirPath, String suffix) {
+        return listFilesInDirWithFilter(getFileByPath(dirPath), suffix);
+    }
+
+    /**
+     * 获取目录下所有后缀名为suffix的文件包括子目录
+     * <p>大小写忽略</p>
+     *
+     * @param dir    目录
+     * @param suffix 后缀名
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDirWithFilter(File dir, String suffix) {
+        if (dir == null || !isDir(dir)) return null;
+        List<File> list = new ArrayList<>();
+        File[] files = dir.listFiles();
+        if (files != null && files.length != 0) {
+            for (File file : files) {
+                if (file.getName().toUpperCase().endsWith(suffix.toUpperCase())) {
+                    list.add(file);
+                }
+                if (file.isDirectory()) {
+                    list.addAll(listFilesInDirWithFilter(file, suffix));
+                }
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 获取目录下所有符合filter的文件
+     *
+     * @param dirPath     目录路径
+     * @param filter      过滤器
+     * @param isRecursive 是否递归进子目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDirWithFilter(String dirPath, FilenameFilter filter, boolean isRecursive) {
+        return listFilesInDirWithFilter(getFileByPath(dirPath), filter, isRecursive);
+    }
+
+    /**
+     * 获取目录下所有符合filter的文件
+     *
+     * @param dir         目录
+     * @param filter      过滤器
+     * @param isRecursive 是否递归进子目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDirWithFilter(File dir, FilenameFilter filter, boolean isRecursive) {
+        if (isRecursive) return listFilesInDirWithFilter(dir, filter);
+        if (dir == null || !isDir(dir)) return null;
+        List<File> list = new ArrayList<>();
+        File[] files = dir.listFiles();
+        if (files != null && files.length != 0) {
+            for (File file : files) {
+                if (filter.accept(file.getParentFile(), file.getName())) {
+                    list.add(file);
+                }
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 获取目录下所有符合filter的文件包括子目录
+     *
+     * @param dirPath 目录路径
+     * @param filter  过滤器
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDirWithFilter(String dirPath, FilenameFilter filter) {
+        return listFilesInDirWithFilter(getFileByPath(dirPath), filter);
+    }
+
+    /**
+     * 获取目录下所有符合filter的文件包括子目录
+     *
+     * @param dir    目录
+     * @param filter 过滤器
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDirWithFilter(File dir, FilenameFilter filter) {
+        if (dir == null || !isDir(dir)) return null;
+        List<File> list = new ArrayList<>();
+        File[] files = dir.listFiles();
+        if (files != null && files.length != 0) {
+            for (File file : files) {
+                if (filter.accept(file.getParentFile(), file.getName())) {
+                    list.add(file);
+                }
+                if (file.isDirectory()) {
+                    list.addAll(listFilesInDirWithFilter(file, filter));
+                }
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 获取目录下指定文件名的文件包括子目录
+     * <p>大小写忽略</p>
+     *
+     * @param dirPath  目录路径
+     * @param fileName 文件名
+     * @return 文件链表
+     */
+    public static List<File> searchFileInDir(String dirPath, String fileName) {
+        return searchFileInDir(getFileByPath(dirPath), fileName);
+    }
+
+    /**
+     * 获取目录下指定文件名的文件包括子目录
+     * <p>大小写忽略</p>
+     *
+     * @param dir      目录
+     * @param fileName 文件名
+     * @return 文件链表
+     */
+    public static List<File> searchFileInDir(File dir, String fileName) {
+        if (dir == null || !isDir(dir)) return null;
+        List<File> list = new ArrayList<>();
+        File[] files = dir.listFiles();
+        if (files != null && files.length != 0) {
+            for (File file : files) {
+                if (file.getName().toUpperCase().equals(fileName.toUpperCase())) {
+                    list.add(file);
+                }
+                if (file.isDirectory()) {
+                    list.addAll(searchFileInDir(file, fileName));
+                }
+            }
+        }
+        return list;
     }
 
     /**
@@ -449,9 +750,9 @@ public class FileUtils {
         OutputStream os = null;
         try {
             os = new BufferedOutputStream(new FileOutputStream(file, append));
-            byte data[] = new byte[KB];
+            byte data[] = new byte[1024];
             int len;
-            while ((len = is.read(data)) != -1) {
+            while ((len = is.read(data, 0, 1024)) != -1) {
                 os.write(data, 0, len);
             }
             return true;
@@ -459,8 +760,7 @@ public class FileUtils {
             e.printStackTrace();
             return false;
         } finally {
-            closeIO(is);
-            closeIO(os);
+            CloseUtils.closeIO(is, os);
         }
     }
 
@@ -487,16 +787,156 @@ public class FileUtils {
     public static boolean writeFileFromString(File file, String content, boolean append) {
         if (file == null || content == null) return false;
         if (!createOrExistsFile(file)) return false;
-        FileWriter fileWriter = null;
+        BufferedWriter bw = null;
         try {
-            fileWriter = new FileWriter(file, append);
-            fileWriter.write(content);
+            bw = new BufferedWriter(new FileWriter(file, append));
+            bw.write(content);
             return true;
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         } finally {
-            closeIO(fileWriter);
+            CloseUtils.closeIO(bw);
+        }
+    }
+
+    /**
+     * 指定编码按行读取文件到List
+     *
+     * @param filePath    文件路径
+     * @param charsetName 编码格式
+     * @return 文件行链表
+     */
+    public static List<String> readFile2List(String filePath, String charsetName) {
+        return readFile2List(getFileByPath(filePath), charsetName);
+    }
+
+    /**
+     * 指定编码按行读取文件到List
+     *
+     * @param file        文件
+     * @param charsetName 编码格式
+     * @return 文件行链表
+     */
+    public static List<String> readFile2List(File file, String charsetName) {
+        return readFile2List(file, 0, 0x7FFFFFFF, charsetName);
+    }
+
+    /**
+     * 指定编码按行读取文件到List
+     *
+     * @param filePath    文件路径
+     * @param st          需要读取的开始行数
+     * @param end         需要读取的结束行数
+     * @param charsetName 编码格式
+     * @return 包含制定行的list
+     */
+    public static List<String> readFile2List(String filePath, int st, int end, String
+            charsetName) {
+        return readFile2List(getFileByPath(filePath), st, end, charsetName);
+    }
+
+    /**
+     * 指定编码按行读取文件到List
+     *
+     * @param file        文件
+     * @param st          需要读取的开始行数
+     * @param end         需要读取的结束行数
+     * @param charsetName 编码格式
+     * @return 包含从start行到end行的list
+     */
+    public static List<String> readFile2List(File file, int st, int end, String charsetName) {
+        if (file == null) return null;
+        if (st > end) return null;
+        BufferedReader reader = null;
+        try {
+            String line;
+            int curLine = 1;
+            List<String> list = new ArrayList<>();
+            if (StringUtils.isSpace(charsetName)) {
+                reader = new BufferedReader(new FileReader(file));
+            } else {
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charsetName));
+            }
+            while ((line = reader.readLine()) != null) {
+                if (curLine > end) break;
+                if (st <= curLine && curLine <= end) list.add(line);
+                ++curLine;
+            }
+            return list;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            CloseUtils.closeIO(reader);
+        }
+    }
+
+    /**
+     * 指定编码按行读取文件到字符串中
+     *
+     * @param filePath    文件路径
+     * @param charsetName 编码格式
+     * @return 字符串
+     */
+    public static String readFile2String(String filePath, String charsetName) {
+        return readFile2String(getFileByPath(filePath), charsetName);
+    }
+
+    /**
+     * 指定编码按行读取文件到字符串中
+     *
+     * @param file        文件
+     * @param charsetName 编码格式
+     * @return 字符串
+     */
+    public static String readFile2String(File file, String charsetName) {
+        if (file == null) return null;
+        BufferedReader reader = null;
+        try {
+            StringBuilder sb = new StringBuilder();
+            if (StringUtils.isSpace(charsetName)) {
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+            } else {
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charsetName));
+            }
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append("\r\n");// windows系统换行为\r\n，Linux为\n
+            }
+            // 要去除最后的换行符
+            return sb.delete(sb.length() - 2, sb.length()).toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            CloseUtils.closeIO(reader);
+        }
+    }
+
+    /**
+     * 读取文件到字符数组中
+     *
+     * @param filePath 文件路径
+     * @return 字符数组
+     */
+    public static byte[] readFile2Bytes(String filePath) {
+        return readFile2Bytes(getFileByPath(filePath));
+    }
+
+    /**
+     * 读取文件到字符数组中
+     *
+     * @param file 文件
+     * @return 字符数组
+     */
+    public static byte[] readFile2Bytes(File file) {
+        if (file == null) return null;
+        try {
+            return ConvertUtils.inputStream2Bytes(new FileInputStream(file));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
@@ -525,7 +965,7 @@ public class FileUtils {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            closeIO(is);
+            CloseUtils.closeIO(is);
         }
         switch (p) {
             case 0xefbb:
@@ -560,9 +1000,9 @@ public class FileUtils {
         InputStream is = null;
         try {
             is = new BufferedInputStream(new FileInputStream(file));
-            byte[] buffer = new byte[KB];
+            byte[] buffer = new byte[1024];
             int readChars;
-            while ((readChars = is.read(buffer)) != -1) {
+            while ((readChars = is.read(buffer, 0, 1024)) != -1) {
                 for (int i = 0; i < readChars; ++i) {
                     if (buffer[i] == '\n') ++count;
                 }
@@ -570,186 +1010,102 @@ public class FileUtils {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            closeIO(is);
+            CloseUtils.closeIO(is);
         }
         return count;
     }
 
     /**
-     * 指定编码按行读取文件到List
-     *
-     * @param filePath    文件路径
-     * @param charsetName 编码格式
-     * @return 文件行链表
-     */
-    public static List<String> readFile2List(String filePath, String charsetName) {
-        return readFile2List(getFileByPath(filePath), charsetName);
-    }
-
-    /**
-     * 指定编码按行读取文件到List
-     *
-     * @param file        文件
-     * @param charsetName 编码格式
-     * @return 文件行链表
-     */
-    public static List<String> readFile2List(File file, String charsetName) {
-        return readFile2List(file, 0, 0x7FFFFFFF, charsetName);
-    }
-
-    /**
-     * 指定编码按行读取文件到List
-     *
-     * @param filePath    文件路径
-     * @param start       需要读取的开始行数
-     * @param end         需要读取的结束行数
-     * @param charsetName 编码格式
-     * @return 包含制定行的list
-     */
-    public static List<String> readFile2List(String filePath, int start, int end, String
-            charsetName) {
-        return readFile2List(getFileByPath(filePath), start, end, charsetName);
-    }
-
-    /**
-     * 指定编码按行读取文件到List
-     *
-     * @param file        文件
-     * @param start       需要读取的开始行数
-     * @param end         需要读取的结束行数
-     * @param charsetName 编码格式
-     * @return 包含制定行的list
-     */
-    public static List<String> readFile2List(File file, int start, int end, String charsetName) {
-        if (file == null) return null;
-        if (start > end) return null;
-        List<String> list = null;
-        BufferedReader reader = null;
-        try {
-            String line;
-            int curLine = 1;
-            list = new ArrayList<>();
-            if (StringUtils.isSpace(charsetName)) {
-                reader = new BufferedReader(new FileReader(file));
-            } else {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charsetName));
-            }
-            while ((line = reader.readLine()) != null) {
-                if (curLine > end) break;
-                if (start <= curLine && curLine <= end) list.add(line);
-                ++curLine;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            closeIO(reader);
-        }
-        return list;
-    }
-
-    /**
-     * 指定编码按行读取文件到StringBuilder中
-     *
-     * @param filePath    文件路径
-     * @param charsetName 编码格式
-     * @return StringBuilder对象
-     */
-    public static StringBuilder readFile2SB(String filePath, String charsetName) {
-        return readFile2SB(getFileByPath(filePath), charsetName);
-    }
-
-    /**
-     * 指定编码按行读取文件到StringBuilder中
-     *
-     * @param file        文件
-     * @param charsetName 编码格式
-     * @return StringBuilder对象
-     */
-    public static StringBuilder readFile2SB(File file, String charsetName) {
-        if (file == null) return null;
-        StringBuilder sb = null;
-        BufferedReader reader = null;
-        try {
-            sb = new StringBuilder();
-            if (StringUtils.isSpace(charsetName)) {
-                reader = new BufferedReader(new FileReader(file));
-            } else {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream(file),
-                        charsetName));
-            }
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-                sb.append("\r\n");// windows系统换行为\r\n，Linux为\n
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            closeIO(reader);
-        }
-        return sb;
-    }
-
-    /**
-     * byte单位转换（单位：unit）
-     *
-     * @param size 大小
-     * @param unit <ul>
-     *             <li>ConstUtils.BYTE:字节</li>
-     *             <li>ConstUtils.KB  :千字节</li>
-     *             <li>ConstUtils.MB  :兆</li>
-     *             <li>ConstUtils.GB  :GB</li>
-     *             </ul>
-     * @return 大小以unit为单位
-     */
-    public static double byte2Unit(long size, int unit) {
-        switch (unit) {
-            case ConstUtils.BYTE:
-            case ConstUtils.KB:
-            case ConstUtils.MB:
-            case ConstUtils.GB:
-                return (double) size / unit;
-        }
-        return -1;
-    }
-
-    /**
      * 获取文件大小
-     * <p>例如：getFileSize(filePath, ConstUtils.MB); 返回文件大小单位为MB</p>
      *
      * @param filePath 文件路径
-     * @param unit     <ul>
-     *                 <li>ConstUtils.BYTE:字节</li>
-     *                 <li>ConstUtils.KB  :千字节</li>
-     *                 <li>ConstUtils.MB  :兆</li>
-     *                 <li>ConstUtils.GB  :GB</li>
-     *                 </ul>
-     * @return 文件大小以unit为单位
+     * @return 文件大小
      */
-    public static double getFileSize(String filePath, int unit) {
-        return getFileSize(getFileByPath(filePath), unit);
+    public static String getFileSize(String filePath) {
+        return getFileSize(getFileByPath(filePath));
     }
 
     /**
      * 获取文件大小
-     * <p>例如：getFileSize(file, ConstUtils.MB); 返回文件大小单位为MB</p>
      *
      * @param file 文件
-     * @param unit <ul>
-     *             <li>ConstUtils.BYTE:字节</li>
-     *             <li>ConstUtils.KB  :千字节</li>
-     *             <li>ConstUtils.MB  :兆</li>
-     *             <li>ConstUtils.GB  :GB</li>
-     *             </ul>
-     * @return 文件大小以unit为单位
+     * @return 文件大小
      */
-    public static double getFileSize(File file, int unit) {
-        if (!isFileExists(file)) return -1;
-        return byte2Unit(file.length(), unit);
+    public static String getFileSize(File file) {
+        if (!isFileExists(file)) return "";
+        return ConvertUtils.byte2FitSize(file.length());
     }
 
     /**
-     * 根据全路径获取最长目录
+     * 获取文件的MD5校验码
+     *
+     * @param filePath 文件路径
+     * @return 文件的MD5校验码
+     */
+    public static String getFileMD5ToString(String filePath) {
+        File file = StringUtils.isSpace(filePath) ? null : new File(filePath);
+        return getFileMD5ToString(file);
+    }
+
+    /**
+     * 获取文件的MD5校验码
+     *
+     * @param filePath 文件路径
+     * @return 文件的MD5校验码
+     */
+    public static byte[] getFileMD5(String filePath) {
+        File file = StringUtils.isSpace(filePath) ? null : new File(filePath);
+        return getFileMD5(file);
+    }
+
+    /**
+     * 获取文件的MD5校验码
+     *
+     * @param file 文件
+     * @return 文件的MD5校验码
+     */
+    public static String getFileMD5ToString(File file) {
+        return bytes2HexString(getFileMD5(file));
+    }
+
+    /**
+     * 获取文件的MD5校验码
+     *
+     * @param file 文件
+     * @return 文件的MD5校验码
+     */
+    public static byte[] getFileMD5(File file) {
+        if (file == null) return null;
+        DigestInputStream dis = null;
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            dis = new DigestInputStream(fis, md);
+            byte[] buffer = new byte[1024 * 256];
+            while (dis.read(buffer) > 0) ;
+            md = dis.getMessageDigest();
+            return md.digest();
+        } catch (NoSuchAlgorithmException | IOException e) {
+            e.printStackTrace();
+        } finally {
+            CloseUtils.closeIO(dis);
+        }
+        return null;
+    }
+
+    /**
+     * 获取全路径中的最长目录
+     *
+     * @param file 文件
+     * @return filePath最长目录
+     */
+    public static String getDirName(File file) {
+        if (file == null) return null;
+        return getDirName(file.getPath());
+    }
+
+    /**
+     * 获取全路径中的最长目录
      *
      * @param filePath 文件路径
      * @return filePath最长目录
@@ -761,7 +1117,18 @@ public class FileUtils {
     }
 
     /**
-     * 根据全路径获取文件名
+     * 获取全路径中的文件名
+     *
+     * @param file 文件
+     * @return 文件名
+     */
+    public static String getFileName(File file) {
+        if (file == null) return null;
+        return getFileName(file.getPath());
+    }
+
+    /**
+     * 获取全路径中的文件名
      *
      * @param filePath 文件路径
      * @return 文件名
@@ -773,10 +1140,21 @@ public class FileUtils {
     }
 
     /**
-     * 根据全路径获取文件名不带拓展名
+     * 获取全路径中的不带拓展名的文件名
+     *
+     * @param file 文件
+     * @return 不带拓展名的文件名
+     */
+    public static String getFileNameNoExtension(File file) {
+        if (file == null) return null;
+        return getFileNameNoExtension(file.getPath());
+    }
+
+    /**
+     * 获取全路径中的不带拓展名的文件名
      *
      * @param filePath 文件路径
-     * @return 文件名不带拓展名
+     * @return 不带拓展名的文件名
      */
     public static String getFileNameNoExtension(String filePath) {
         if (StringUtils.isSpace(filePath)) return filePath;
@@ -792,7 +1170,18 @@ public class FileUtils {
     }
 
     /**
-     * 根据全路径获取文件拓展名
+     * 获取全路径中的文件拓展名
+     *
+     * @param file 文件
+     * @return 文件拓展名
+     */
+    public static String getFileExtension(File file) {
+        if (file == null) return null;
+        return getFileExtension(file.getPath());
+    }
+
+    /**
+     * 获取全路径中的文件拓展名
      *
      * @param filePath 文件路径
      * @return 文件拓展名
