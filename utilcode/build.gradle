@@ -1,14 +1,14 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion '24.0.3'
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 11
-        targetSdkVersion 24
-        versionCode 13
-        versionName "1.3.4"
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
     }
     buildTypes {
         release {
@@ -19,11 +19,11 @@ android {
 }
 
 dependencies {
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.robolectric:robolectric:3.1.2'
-    testCompile 'com.google.truth:truth:0.29'
-    provided 'com.android.support:support-v4:24.0.0'
-    provided 'com.android.support:design:24.0.0'
+    provided rootProject.ext.deps.design
+    provided rootProject.ext.deps.supportV4
+    testCompile rootProject.ext.deps.junit
+    testCompile rootProject.ext.deps.truth
+    testCompile rootProject.ext.deps.robolectric
 }
 //apply from: "https://raw.githubusercontent.com/xiaopansky/android-library-publish-to-jcenter/master/bintrayUpload.gradle"
 //gradlew bintrayUpload

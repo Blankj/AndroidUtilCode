@@ -25,7 +25,12 @@ dependencies {
     compile rootProject.ext.deps.design
     compile rootProject.ext.deps.supportV4
 
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    // RxAndroid
+    compile rootProject.ext.deps.rxAndroid
+    compile rootProject.ext.deps.rxJava
+
+    // LeakCanary
+    debugCompile rootProject.ext.deps.leakcanaryAndroid
+    releaseCompile rootProject.ext.deps.leakcanaryAndroidNoOp
+    testCompile rootProject.ext.deps.leakcanaryAndroidNoOp
 }

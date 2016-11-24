@@ -20,14 +20,21 @@ ext {
 
     deps = [
             // ------------- Android -------------
-            supportV4      : "com.android.support:support-v4:${depsVersion.support}",
-            supportV7      : "com.android.support:appcompat-v7:${depsVersion.support}",
-            design         : "com.android.support:design:${depsVersion.support}",
+            supportV4   : "com.android.support:support-v4:${depsVersion.support}",
+            appcompatV7 : "com.android.support:appcompat-v7:${depsVersion.support}",
+            design      : "com.android.support:design:${depsVersion.support}",
 
+            // ------------- RxAndroid -------------
+            rxAndroid : 'io.reactivex:rxandroid:1.2.1',
+            rxJava    : 'io.reactivex:rxjava:1.1.6',
+
+            // ------------- LeakCanary -------------
+            leakcanaryAndroid     : 'com.squareup.leakcanary:leakcanary-android:1.5',
+            leakcanaryAndroidNoOp : 'com.squareup.leakcanary:leakcanary-android-no-op:1.5',
 
             // ------------- Test dependencies -------------
-            junit          : "junit:junit:4.12",
-            truth          : "com.google.truth:truth:0.29",
-            robolectric    : "org.robolectric:robolectric:3.1.2"
+            junit       : 'junit:junit:4.12',
+            truth       : 'com.google.truth:truth:0.29',
+            robolectric : 'org.robolectric:robolectric:3.1.2'
     ]
 }
