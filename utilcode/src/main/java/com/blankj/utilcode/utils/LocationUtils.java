@@ -30,7 +30,7 @@ public class LocationUtils {
     private static MyLocationListener       myLocationListener;
     private static LocationManager          mLocationManager;
 
-    public LocationUtils() {
+    private LocationUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
