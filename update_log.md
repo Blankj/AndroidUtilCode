@@ -1,4 +1,3 @@
-###
 #### 16/11/23 LocationUtils测试完毕，发布1.3.4
 #### 16/11/22 查看LocationActivity内存泄漏
 #### 16/11/21 优化README
