@@ -52,9 +52,12 @@ public class TestUtils {
                 String utilsName = line.substring(line.indexOf("[") + 1, line.indexOf("Utils"));
                 sb.append("> - **About ").append(utilsName).append(line.substring(line.indexOf("→")));
             } else if (line.contains(" : ")) {
-                sb.append(line.substring(0, line.indexOf(':')).trim());
-            } else if (line.contains("**做")) {
+                sb.append(line.substring(0, line.indexOf(
+                        ':')).trim());
+            } else if (line.contains("### 关于")) {
                 sb.append("**I'm so sorry for that the code is annotated with Chinese.**");
+            } else if (line.contains("* 做") || line.contains("* QQ") || line.contains("* 我的")) {
+                continue;
             } else {
                 sb.append(line);
             }
