@@ -503,7 +503,7 @@ getEntries         : 获取压缩文件中的文件对象
 
 ### 关于
 * 做这份整理是想把它作为Android开发的小字典，当遇到一些琐碎问题时，不用再面向百度或者谷歌查询API的使用，费时费力，这里有的话，大家尽管撸走；同时也希望它能逐日壮大起来，期待大家的Star和完善，当然我也会一直更新发布版本和日志，为了方便大家导入，现已上传jcenter；其中很多代码也是汇四方之精华，谢谢前辈们的提供，当然最终还是要通过单元测试的，如有错误，请及时告之。
-* QQ群提供讨论，1群：74721490（已满）2群：25206533，至于验证问题对大家来说肯定都是小case。
+* QQ群提供讨论，1群：74721490（已满）2群：25206533，至于验证问题对大家来说肯定都是小case。关于群：[在别人生活里低调地做配角（我和466个程序员的故事）][group]。
 * 我的[微博][weibo],求个关注哈。
 
 ### Download
@@ -644,4 +644,5 @@ limitations under the License.
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ZipUtils.java
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/ZipUtilsTest.java
 
+[group]: http://www.jianshu.com/p/8938015df951
 [weibo]: http://weibo.com/blankcmj
