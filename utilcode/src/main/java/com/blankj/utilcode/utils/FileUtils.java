@@ -145,7 +145,7 @@ public class FileUtils {
     /**
      * 判断目录是否存在，不存在则判断是否创建成功
      *
-     * @param dirPath 文件路径
+     * @param dirPath 目录路径
      * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
      */
     public static boolean createOrExistsDir(String dirPath) {
@@ -505,10 +505,13 @@ public class FileUtils {
      * @return 文件链表
      */
     public static List<File> listFilesInDir(File dir, boolean isRecursive) {
+        if (!isDir(dir)) return null;
         if (isRecursive) return listFilesInDir(dir);
-        if (dir == null || !isDir(dir)) return null;
         List<File> list = new ArrayList<>();
-        Collections.addAll(list, dir.listFiles());
+        File[] files = dir.listFiles();
+        if (files != null && files.length != 0) {
+            Collections.addAll(list, files);
+        }
         return list;
     }
 
@@ -529,7 +532,7 @@ public class FileUtils {
      * @return 文件链表
      */
     public static List<File> listFilesInDir(File dir) {
-        if (dir == null || !isDir(dir)) return null;
+        if (!isDir(dir)) return null;
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
         if (files != null && files.length != 0) {
@@ -1016,6 +1019,27 @@ public class FileUtils {
     }
 
     /**
+     * 获取目录大小
+     *
+     * @param dirPath 目录路径
+     * @return 文件大小
+     */
+    public static String getDirSize(String dirPath) {
+        return getDirSize(getFileByPath(dirPath));
+    }
+
+    /**
+     * 获取目录大小
+     *
+     * @param dir 目录
+     * @return 文件大小
+     */
+    public static String getDirSize(File dir) {
+        long len = getDirLength(dir);
+        return len == -1 ? "" : ConvertUtils.byte2FitSize(len);
+    }
+
+    /**
      * 获取文件大小
      *
      * @param filePath 文件路径
@@ -1032,8 +1056,61 @@ public class FileUtils {
      * @return 文件大小
      */
     public static String getFileSize(File file) {
-        if (!isFileExists(file)) return "";
-        return ConvertUtils.byte2FitSize(file.length());
+        long len = getFileLength(file);
+        return len == -1 ? "" : ConvertUtils.byte2FitSize(len);
+    }
+
+    /**
+     * 获取目录长度
+     *
+     * @param dirPath 目录路径
+     * @return 文件大小
+     */
+    public static long getDirLength(String dirPath) {
+        return getDirLength(getFileByPath(dirPath));
+    }
+
+    /**
+     * 获取目录长度
+     *
+     * @param dir 目录
+     * @return 文件大小
+     */
+    public static long getDirLength(File dir) {
+        if (!isDir(dir)) return -1;
+        long len = 0;
+        File[] files = dir.listFiles();
+        if (files != null && files.length != 0) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    len += getDirLength(file);
+                }else {
+                    len += file.length();
+                }
+            }
+        }
+        return len;
+    }
+
+    /**
+     * 获取文件长度
+     *
+     * @param filePath 文件路径
+     * @return 文件大小
+     */
+    public static long getFileLength(String filePath) {
+        return getFileLength(getFileByPath(filePath));
+    }
+
+    /**
+     * 获取文件长度
+     *
+     * @param file 文件
+     * @return 文件大小
+     */
+    public static long getFileLength(File file) {
+        if (!isFile(file)) return -1;
+        return file.length();
     }
 
     /**

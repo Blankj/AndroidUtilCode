@@ -192,7 +192,10 @@ getFileCharsetSimple
 getFileLines
 readFile2List
 readFile2SB
+getDirSize
 getFileSize
+getDirLength
+getFileLength
 getFileMD5, getFileMD5ToString
 getDirName
 getFileName
@@ -373,8 +376,12 @@ getSDCardInfo
 
 > - **About Service→[ServiceUtils.java][service.java]**
  ```
-isServiceRunning
+getAllRunningService
+startService
 stopService
+bindService
+unbindService
+isServiceRunning
  ```
 
 > - **About Shell→[ShellUtils.java][shell.java]**
@@ -641,4 +648,5 @@ limitations under the License.
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ZipUtils.java
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/ZipUtilsTest.java
 
+[group]: http://www.jianshu.com/p/8938015df951
 [weibo]: http://weibo.com/blankcmj

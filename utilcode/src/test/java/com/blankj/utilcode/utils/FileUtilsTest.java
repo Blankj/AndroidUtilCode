@@ -195,8 +195,23 @@ public class FileUtilsTest {
     }
 
     @Test
+    public void testGetDirSize() throws Exception {
+        assertThat(getDirSize(path)).isEqualTo("73.000B");
+    }
+
+    @Test
+    public void testGetDirLength() throws Exception {
+        assertThat(getDirLength(path)).isEqualTo(73);
+    }
+
+    @Test
     public void testGetFileSize() throws Exception {
-        assertThat(getFileSize(path + "UTF8.txt")).isEqualTo("25B");
+        assertThat(getFileSize(path + "UTF8.txt")).isEqualTo("25.000B");
+    }
+
+    @Test
+    public void testGetFileLength() throws Exception {
+        assertThat(getFileLength(path + "UTF8.txt")).isEqualTo(25);
     }
 
     @Test

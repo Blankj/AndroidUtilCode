@@ -1,5 +1,6 @@
 package com.blankj.utilcode.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;

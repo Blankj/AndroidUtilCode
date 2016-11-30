@@ -192,7 +192,10 @@ getFileCharsetSimple           : 简单获取文件编码格式
 getFileLines                   : 获取文件行数
 readFile2List                  : 指定编码按行读取文件到List
 readFile2SB                    : 指定编码按行读取文件到StringBuilder中
+getDirSize                     : 获取目录大小
 getFileSize                    : 获取文件大小
+getDirLength                   : 获取目录长度
+getFileLength                  : 获取文件长度
 getFileMD5, getFileMD5ToString : 获取文件的MD5校验码
 getDirName                     : 根据全路径获取最长目录
 getFileName                    : 根据全路径获取文件名
@@ -373,8 +376,12 @@ getSDCardInfo  : 获取SD卡信息
 
 > - **服务相关→[ServiceUtils.java][service.java]**
  ```
-isServiceRunning : 判断服务是否运行
-stopService      : 停止服务
+getAllRunningService : 获取所有运行的服务
+startService         : 启动服务
+stopService          : 停止服务
+bindService          : 绑定服务
+unbindService        : 解绑服务
+isServiceRunning     : 判断服务是否运行
  ```
 
 > - **Shell相关→[ShellUtils.java][shell.java]**

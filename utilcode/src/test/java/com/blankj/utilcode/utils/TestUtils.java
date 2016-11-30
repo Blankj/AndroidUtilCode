@@ -1,19 +1,17 @@
 package com.blankj.utilcode.utils;
 
 import android.content.Context;
-import android.util.SparseArray;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runner.notification.Failure;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
+
+import static com.google.common.truth.Truth.assertThat;
 
 /**
  * <pre>
