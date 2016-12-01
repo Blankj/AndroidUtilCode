@@ -23,8 +23,8 @@ public class TimeUtilsTest {
 
 
     SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss zzzz", Locale.getDefault());
-    long milliseconds = 1470991049000L;
-    Date timeDate = new Date(milliseconds);
+    long millis = 1470991049000L;
+    Date timeDate = new Date(millis);
     String timeString = "2016-08-12 16:37:29";
     String myTimeString = "2016-08-12 16:37:29 中国标准时间";
     String timeString0 = "2016-08-12 16:00:00";
@@ -34,15 +34,15 @@ public class TimeUtilsTest {
 
 
     @Test
-    public void testMilliseconds2String() throws Exception {
-        assertThat(milliseconds2String(milliseconds)).isEqualTo(timeString);
-        assertThat(milliseconds2String(milliseconds, myFormat)).isEqualTo(myTimeString);
+    public void testMillis2String() throws Exception {
+        assertThat(millis2String(millis)).isEqualTo(timeString);
+        assertThat(millis2String(millis, myFormat)).isEqualTo(myTimeString);
     }
 
     @Test
-    public void testString2Milliseconds() throws Exception {
-        assertThat(string2Milliseconds(timeString)).isEqualTo(milliseconds);
-        assertThat(string2Milliseconds(myTimeString, myFormat)).isEqualTo(milliseconds);
+    public void testString2Millis() throws Exception {
+        assertThat(string2Millis(timeString)).isEqualTo(millis);
+        assertThat(string2Millis(myTimeString, myFormat)).isEqualTo(millis);
     }
 
     @Test
@@ -58,20 +58,20 @@ public class TimeUtilsTest {
     }
 
     @Test
-    public void testDate2Milliseconds() throws Exception {
-        assertThat(date2Milliseconds(timeDate)).isEqualTo(milliseconds);
+    public void testDate2Millis() throws Exception {
+        assertThat(date2Millis(timeDate)).isEqualTo(millis);
     }
 
     @Test
-    public void testMilliseconds2Date() throws Exception {
-        assertThat(milliseconds2Date(milliseconds)).isEqualTo(timeDate);
+    public void testMillis2Date() throws Exception {
+        assertThat(millis2Date(millis)).isEqualTo(timeDate);
     }
 
     @Test
     public void testGetIntervalTime() throws Exception {
-        assertThat(getIntervalTime(timeString0, timeString1, ConstUtils.TimeUnit.SEC)).isEqualTo(4210);
-        assertThat(getIntervalTime(myTimeString0, myTimeString1, ConstUtils.TimeUnit.SEC, myFormat)).isEqualTo(4210);
-        assertThat(getIntervalTime(new Date(4210000), new Date(0), ConstUtils.TimeUnit.SEC)).isEqualTo(4210);
+        assertThat(getTimeSpan(timeString0, timeString1, ConstUtils.TimeUnit.SEC)).isEqualTo(4210);
+        assertThat(getTimeSpan(myTimeString0, myTimeString1, ConstUtils.TimeUnit.SEC, myFormat)).isEqualTo(4210);
+        assertThat(getTimeSpan(new Date(4210000), new Date(0), ConstUtils.TimeUnit.SEC)).isEqualTo(4210);
     }
 
     @Test
@@ -87,8 +87,13 @@ public class TimeUtilsTest {
     }
 
     @Test
-    public void testGetIntervalByNow() throws Exception {
-
+    public void testGetFriendlyTimeSpanByNow() throws Exception {
+        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis()));
+        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 6 * ConstUtils.SEC));
+        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 6 * ConstUtils.MIN));
+        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 6 * ConstUtils.HOUR));
+        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - ConstUtils.DAY));
+        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 2 * ConstUtils.DAY));
     }
 
     @Test

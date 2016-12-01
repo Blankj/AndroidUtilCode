@@ -22,9 +22,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.blankj.utilcode.utils.ConvertUtils.bytes2HexString;
-
-
 /**
  * <pre>
  *     author: Blankj
@@ -1084,7 +1081,7 @@ public class FileUtils {
             for (File file : files) {
                 if (file.isDirectory()) {
                     len += getDirLength(file);
-                }else {
+                } else {
                     len += file.length();
                 }
             }
@@ -1142,7 +1139,7 @@ public class FileUtils {
      * @return 文件的MD5校验码
      */
     public static String getFileMD5ToString(File file) {
-        return bytes2HexString(getFileMD5(file));
+        return ConvertUtils.bytes2HexString(getFileMD5(file));
     }
 
     /**

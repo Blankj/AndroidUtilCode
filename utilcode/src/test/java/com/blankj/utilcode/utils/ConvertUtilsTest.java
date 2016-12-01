@@ -54,6 +54,14 @@ public class ConvertUtilsTest {
     }
 
     @Test
+    public void testMillis2FitTimeSpan() throws Exception {
+        System.out.println(millis2FitTimeSpan(6 * ConstUtils.MSEC));
+        System.out.println(millis2FitTimeSpan(6 * ConstUtils.SEC));
+        System.out.println(millis2FitTimeSpan(6 * ConstUtils.HOUR));
+        System.out.println(millis2FitTimeSpan(6 * ConstUtils.DAY));
+    }
+
+    @Test
     public void testBytes2Bits() throws Exception {
         System.out.println(bytes2Bits(new byte[]{0x7F, (byte) 0xFA}));
     }

@@ -1,5 +1,12 @@
 package com.blankj.utilcode.utils;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.res.Resources;
+import android.text.format.DateUtils;
+import android.text.format.Time;
+
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -192,23 +199,23 @@ public class TimeUtils {
      * 将时间戳转为时间字符串
      * <p>格式为yyyy-MM-dd HH:mm:ss</p>
      *
-     * @param milliseconds 毫秒时间戳
+     * @param millis 毫秒时间戳
      * @return 时间字符串
      */
-    public static String milliseconds2String(long milliseconds) {
-        return milliseconds2String(milliseconds, DEFAULT_SDF);
+    public static String millis2String(long millis) {
+        return millis2String(millis, DEFAULT_SDF);
     }
 
     /**
      * 将时间戳转为时间字符串
      * <p>格式为用户自定义</p>
      *
-     * @param milliseconds 毫秒时间戳
-     * @param format       时间格式
+     * @param millis 毫秒时间戳
+     * @param format 时间格式
      * @return 时间字符串
      */
-    public static String milliseconds2String(long milliseconds, SimpleDateFormat format) {
-        return format.format(new Date(milliseconds));
+    public static String millis2String(long millis, SimpleDateFormat format) {
+        return format.format(new Date(millis));
     }
 
     /**
@@ -218,8 +225,8 @@ public class TimeUtils {
      * @param time 时间字符串
      * @return 毫秒时间戳
      */
-    public static long string2Milliseconds(String time) {
-        return string2Milliseconds(time, DEFAULT_SDF);
+    public static long string2Millis(String time) {
+        return string2Millis(time, DEFAULT_SDF);
     }
 
     /**
@@ -230,7 +237,7 @@ public class TimeUtils {
      * @param format 时间格式
      * @return 毫秒时间戳
      */
-    public static long string2Milliseconds(String time, SimpleDateFormat format) {
+    public static long string2Millis(String time, SimpleDateFormat format) {
         try {
             return format.parse(time).getTime();
         } catch (ParseException e) {
@@ -259,7 +266,7 @@ public class TimeUtils {
      * @return Date类型
      */
     public static Date string2Date(String time, SimpleDateFormat format) {
-        return new Date(string2Milliseconds(time, format));
+        return new Date(string2Millis(time, format));
     }
 
     /**
@@ -291,46 +298,46 @@ public class TimeUtils {
      * @param time Date类型时间
      * @return 毫秒时间戳
      */
-    public static long date2Milliseconds(Date time) {
+    public static long date2Millis(Date time) {
         return time.getTime();
     }
 
     /**
      * 将时间戳转为Date类型
      *
-     * @param milliseconds 毫秒时间戳
+     * @param millis 毫秒时间戳
      * @return Date类型时间
      */
-    public static Date milliseconds2Date(long milliseconds) {
-        return new Date(milliseconds);
+    public static Date millis2Date(long millis) {
+        return new Date(millis);
     }
 
     /**
      * 毫秒时间戳单位转换（单位：unit）
      *
-     * @param milliseconds 毫秒时间戳
-     * @param unit         单位类型
-     *                     <ul>
-     *                     <li>{@link TimeUnit#MSEC}: 毫秒</li>
-     *                     <li>{@link TimeUnit#SEC }: 秒</li>
-     *                     <li>{@link TimeUnit#MIN }: 分</li>
-     *                     <li>{@link TimeUnit#HOUR}: 小时</li>
-     *                     <li>{@link TimeUnit#DAY }: 天</li>
-     *                     </ul>
+     * @param millis 毫秒时间戳
+     * @param unit   单位类型
+     *               <ul>
+     *               <li>{@link TimeUnit#MSEC}: 毫秒</li>
+     *               <li>{@link TimeUnit#SEC }: 秒</li>
+     *               <li>{@link TimeUnit#MIN }: 分</li>
+     *               <li>{@link TimeUnit#HOUR}: 小时</li>
+     *               <li>{@link TimeUnit#DAY }: 天</li>
+     *               </ul>
      * @return unit时间戳
      */
-    private static long milliseconds2Unit(long milliseconds, TimeUnit unit) {
+    private static long millis2Unit(long millis, TimeUnit unit) {
         switch (unit) {
             case MSEC:
-                return milliseconds / MSEC;
+                return millis / MSEC;
             case SEC:
-                return milliseconds / SEC;
+                return millis / SEC;
             case MIN:
-                return milliseconds / MIN;
+                return millis / MIN;
             case HOUR:
-                return milliseconds / HOUR;
+                return millis / HOUR;
             case DAY:
-                return milliseconds / DAY;
+                return millis / DAY;
         }
         return -1;
     }
@@ -351,8 +358,8 @@ public class TimeUtils {
      *              </ul>
      * @return unit时间戳
      */
-    public static long getIntervalTime(String time0, String time1, TimeUnit unit) {
-        return getIntervalTime(time0, time1, unit, DEFAULT_SDF);
+    public static long getTimeSpan(String time0, String time1, TimeUnit unit) {
+        return getTimeSpan(time0, time1, unit, DEFAULT_SDF);
     }
 
     /**
@@ -372,9 +379,8 @@ public class TimeUtils {
      * @param format 时间格式
      * @return unit时间戳
      */
-    public static long getIntervalTime(String time0, String time1, TimeUnit unit, SimpleDateFormat format) {
-        return milliseconds2Unit(Math.abs(string2Milliseconds(time0, format)
-                - string2Milliseconds(time1, format)), unit);
+    public static long getTimeSpan(String time0, String time1, TimeUnit unit, SimpleDateFormat format) {
+        return millis2Unit(Math.abs(string2Millis(time0, format) - string2Millis(time1, format)), unit);
     }
 
     /**
@@ -393,9 +399,8 @@ public class TimeUtils {
      *              </ul>
      * @return unit时间戳
      */
-    public static long getIntervalTime(Date time0, Date time1, TimeUnit unit) {
-        return milliseconds2Unit(Math.abs(date2Milliseconds(time1)
-                - date2Milliseconds(time0)), unit);
+    public static long getTimeSpan(Date time0, Date time1, TimeUnit unit) {
+        return millis2Unit(Math.abs(date2Millis(time1) - date2Millis(time0)), unit);
     }
 
     /**
@@ -453,8 +458,8 @@ public class TimeUtils {
      *             </ul>
      * @return unit时间戳
      */
-    public static long getIntervalByNow(String time, TimeUnit unit) {
-        return getIntervalByNow(time, unit, DEFAULT_SDF);
+    public static long getTimeSpanByNow(String time, TimeUnit unit) {
+        return getTimeSpanByNow(time, unit, DEFAULT_SDF);
     }
 
     /**
@@ -473,8 +478,8 @@ public class TimeUtils {
      * @param format 时间格式
      * @return unit时间戳
      */
-    public static long getIntervalByNow(String time, TimeUnit unit, SimpleDateFormat format) {
-        return getIntervalTime(getCurTimeString(), time, unit, format);
+    public static long getTimeSpanByNow(String time, TimeUnit unit, SimpleDateFormat format) {
+        return getTimeSpan(getCurTimeString(), time, unit, format);
     }
 
     /**
@@ -492,8 +497,98 @@ public class TimeUtils {
      *             </ul>
      * @return unit时间戳
      */
-    public static long getIntervalByNow(Date time, TimeUnit unit) {
-        return getIntervalTime(getCurTimeDate(), time, unit);
+    public static long getTimeSpanByNow(Date time, TimeUnit unit) {
+        return getTimeSpan(getCurTimeDate(), time, unit);
+    }
+
+    /**
+     * 获取与当前时间的差友好型
+     *
+     * @param time 时间字符串
+     * @return <ul>
+     * <li>如果小于1秒钟内，显示刚刚</li>
+     * <li>如果在1分钟内，显示XXX秒前</li>
+     * <li>如果在1小时内，显示XXX分钟前</li>
+     * <li>如果在1小时外的今天内，显示今天15:32</li>
+     * <li>如果是昨天的，显示昨天15:32</li>
+     * <li>其余显示，2016-10-15</li>
+     * <li>时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007</li>
+     * </ul>
+     */
+    public static String getFriendlyTimeSpanByNow(String time) {
+        return getFriendlyTimeSpanByNow(time, DEFAULT_SDF);
+    }
+
+    /**
+     * 获取与当前时间的差友好型
+     *
+     * @param time 时间字符串
+     * @return <ul>
+     * <li>如果小于1秒钟内，显示刚刚</li>
+     * <li>如果在1分钟内，显示XXX秒前</li>
+     * <li>如果在1小时内，显示XXX分钟前</li>
+     * <li>如果在1小时外的今天内，显示今天15:32</li>
+     * <li>如果是昨天的，显示昨天15:32</li>
+     * <li>其余显示，2016-10-15</li>
+     * <li>时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007</li>
+     * </ul>
+     */
+    public static String getFriendlyTimeSpanByNow(String time, SimpleDateFormat format) {
+        return getFriendlyTimeSpanByNow(string2Millis(time, format));
+    }
+
+    /**
+     * 获取与当前时间的差友好型
+     *
+     * @param time Date类型时间
+     * @return <ul>
+     * <li>如果小于1秒钟内，显示刚刚</li>
+     * <li>如果在1分钟内，显示XXX秒前</li>
+     * <li>如果在1小时内，显示XXX分钟前</li>
+     * <li>如果在1小时外的今天内，显示今天15:32</li>
+     * <li>如果是昨天的，显示昨天15:32</li>
+     * <li>其余显示，2016-10-15</li>
+     * <li>时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007</li>
+     * </ul>
+     */
+    public static String getFriendlyTimeSpanByNow(Date time) {
+        return getFriendlyTimeSpanByNow(time.getTime());
+    }
+
+    /**
+     * 获取与当前时间的差友好型
+     *
+     * @param millis 毫秒时间戳
+     * @return <ul>
+     * <li>如果小于1秒钟内，显示刚刚</li>
+     * <li>如果在1分钟内，显示XXX秒前</li>
+     * <li>如果在1小时内，显示XXX分钟前</li>
+     * <li>如果在1小时外的今天内，显示今天15:32</li>
+     * <li>如果是昨天的，显示昨天15:32</li>
+     * <li>其余显示，2016-10-15</li>
+     * <li>时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007</li>
+     * </ul>
+     */
+    @SuppressLint("DefaultLocale")
+    public static String getFriendlyTimeSpanByNow(long millis) {
+        long now = System.currentTimeMillis();
+        long span = now - millis;
+        if (span < 0) return String.format("%tc", new Date(millis));
+        // 获取当天00:00
+        long wee = (now / ConstUtils.DAY) * ConstUtils.DAY;
+        if (span < 1000) {
+            return "刚刚";
+        } else if (span < ConstUtils.MIN) {
+            return String.format("%d秒前", span / ConstUtils.SEC);
+        } else if (span < ConstUtils.HOUR) {
+            return String.format("%d分钟前", span / ConstUtils.MIN);
+        } else if (millis >= wee) {
+            return String.format("今天%tR", new Date(millis));
+        } else if (millis >= wee - ConstUtils.DAY) {
+            return String.format("昨天%tR", new Date(millis));
+        } else {
+            return String.format("%tF", new Date(millis));
+        }
     }
 
     /**

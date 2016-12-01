@@ -1,5 +1,6 @@
 package com.blankj.utilcode.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -16,12 +17,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.text.Format;
+import java.util.Date;
 import java.util.Locale;
-
-import static com.blankj.utilcode.utils.ConstUtils.BYTE;
-import static com.blankj.utilcode.utils.ConstUtils.GB;
-import static com.blankj.utilcode.utils.ConstUtils.KB;
-import static com.blankj.utilcode.utils.ConstUtils.MB;
 
 /**
  * <pre>
@@ -149,13 +147,13 @@ public class ConvertUtils {
         switch (unit) {
             default:
             case BYTE:
-                return (double) byteNum / BYTE;
+                return (double) byteNum / ConstUtils.BYTE;
             case KB:
-                return (double) byteNum / KB;
+                return (double) byteNum / ConstUtils.KB;
             case MB:
-                return (double) byteNum / MB;
+                return (double) byteNum / ConstUtils.MB;
             case GB:
-                return (double) byteNum / GB;
+                return (double) byteNum / ConstUtils.GB;
         }
     }
 
@@ -177,34 +175,58 @@ public class ConvertUtils {
         switch (unit) {
             default:
             case BYTE:
-                return size * BYTE;
+                return size;
             case KB:
-                return size * KB;
+                return size * ConstUtils.KB;
             case MB:
-                return size * MB;
+                return size * ConstUtils.MB;
             case GB:
-                return size * GB;
+                return size * ConstUtils.GB;
         }
     }
 
     /**
-     * 字节数转合适大小
+     * 字节数转合适内存大小
      * <p>保留3位小数</p>
      *
      * @param byteNum 字节数
-     * @return 1...1024 unit
+     * @return 合适内存大小
      */
+    @SuppressLint("DefaultLocale")
     public static String byte2FitSize(long byteNum) {
         if (byteNum < 0) {
             return "shouldn't be less than zero!";
-        } else if (byteNum < KB) {
-            return String.format(Locale.getDefault(), "%.3fB", (double) byteNum);
-        } else if (byteNum < MB) {
-            return String.format(Locale.getDefault(), "%.3fKB", (double) byteNum / KB);
-        } else if (byteNum < GB) {
-            return String.format(Locale.getDefault(), "%.3fMB", (double) byteNum / MB);
+        } else if (byteNum < ConstUtils.KB) {
+            return String.format("%.3fB", (double) byteNum);
+        } else if (byteNum < ConstUtils.MB) {
+            return String.format("%.3fKB", (double) byteNum / ConstUtils.KB);
+        } else if (byteNum < ConstUtils.GB) {
+            return String.format("%.3fMB", (double) byteNum / ConstUtils.MB);
         } else {
-            return String.format(Locale.getDefault(), "%.3fGB", (double) byteNum / GB);
+            return String.format("%.3fGB", (double) byteNum / ConstUtils.GB);
+        }
+    }
+
+    /**
+     * 毫秒时间戳转合适时间长度
+     *
+     * @param millis 毫秒时间戳
+     * @return 合适时间长度
+     */
+    @SuppressLint("DefaultLocale")
+    public static String millis2FitTimeSpan(long millis) {
+        if (millis < 0) {
+            return "shouldn't be less than zero!";
+        } else if (millis < ConstUtils.SEC) {
+            return String.format("%d毫秒", millis);
+        } else if (millis < ConstUtils.MIN) {
+            return String.format("%d秒", millis / ConstUtils.SEC);
+        } else if (millis < ConstUtils.HOUR) {
+            return String.format("%d分", millis / ConstUtils.MIN);
+        } else if (millis < ConstUtils.DAY) {
+            return String.format("%d小时", millis / ConstUtils.HOUR);
+        } else {
+            return String.format("%d天", millis / ConstUtils.DAY);
         }
     }
 
@@ -260,9 +282,9 @@ public class ConvertUtils {
         if (is == null) return null;
         try {
             ByteArrayOutputStream os = new ByteArrayOutputStream();
-            byte[] b = new byte[KB];
+            byte[] b = new byte[ConstUtils.KB];
             int len;
-            while ((len = is.read(b, 0, KB)) != -1) {
+            while ((len = is.read(b, 0, ConstUtils.KB)) != -1) {
                 os.write(b, 0, len);
             }
             return os;

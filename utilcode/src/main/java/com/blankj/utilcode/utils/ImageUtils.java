@@ -1437,7 +1437,7 @@ public class ImageUtils {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         int quality = 100;
         src.compress(CompressFormat.JPEG, quality, baos);
-        while (baos.toByteArray().length > maxByteSize && quality >= 0) {
+        while (baos.toByteArray().length > maxByteSize && quality > 0) {
             baos.reset();
             src.compress(CompressFormat.JPEG, quality -= 5, baos);
         }
