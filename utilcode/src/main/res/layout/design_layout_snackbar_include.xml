@@ -20,30 +20,30 @@
         android:id="@+id/snackbar_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|left|start"
         android:layout_weight="1"
-        android:paddingTop="14dp"
+        android:ellipsize="end"
+        android:maxLines="2"
         android:paddingBottom="14dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:textSize="14sp"
+        android:paddingTop="14dp"
+        android:textAlignment="viewStart"
         android:textColor="#000000"
-        android:maxLines="2"
-        android:layout_gravity="center_vertical|left|start"
-        android:ellipsize="end"
-        android:textAlignment="viewStart" />
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/snackbar_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|right|end"
         android:layout_marginLeft="0dp"
         android:layout_marginStart="0dp"
-        android:layout_gravity="center_vertical|right|end"
-        android:paddingTop="14dp"
+        android:background="@drawable/snackbar_action_bg"
         android:paddingBottom="14dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:visibility="gone"
+        android:paddingTop="14dp"
         android:textColor="#000000"
-        android:background="@drawable/snackbar_action_bg" />
+        android:visibility="gone" />
 </merge>

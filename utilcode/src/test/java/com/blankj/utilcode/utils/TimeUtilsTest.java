@@ -3,11 +3,23 @@ package com.blankj.utilcode.utils;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.blankj.utilcode.utils.TimeUtils.*;
+import static com.blankj.utilcode.utils.TimeUtils.date2Milliseconds;
+import static com.blankj.utilcode.utils.TimeUtils.date2String;
+import static com.blankj.utilcode.utils.TimeUtils.getCurTimeMills;
+import static com.blankj.utilcode.utils.TimeUtils.getCurTimeString;
+import static com.blankj.utilcode.utils.TimeUtils.getIntervalTime;
+import static com.blankj.utilcode.utils.TimeUtils.getWeek;
+import static com.blankj.utilcode.utils.TimeUtils.getWeekIndex;
+import static com.blankj.utilcode.utils.TimeUtils.getWeekOfMonth;
+import static com.blankj.utilcode.utils.TimeUtils.getWeekOfYear;
+import static com.blankj.utilcode.utils.TimeUtils.isLeapYear;
+import static com.blankj.utilcode.utils.TimeUtils.milliseconds2Date;
+import static com.blankj.utilcode.utils.TimeUtils.milliseconds2String;
+import static com.blankj.utilcode.utils.TimeUtils.string2Date;
+import static com.blankj.utilcode.utils.TimeUtils.string2Milliseconds;
 import static com.google.common.truth.Truth.assertThat;
 
 

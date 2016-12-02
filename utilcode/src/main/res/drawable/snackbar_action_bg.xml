@@ -14,8 +14,8 @@
 -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_focused="true" android:drawable="@drawable/snackbar_action_bg_focused" />
-    <item android:state_pressed="true" android:drawable="@drawable/snackbar_action_bg_focused" />
+    <item android:drawable="@drawable/snackbar_action_bg_focused" android:state_focused="true" />
+    <item android:drawable="@drawable/snackbar_action_bg_focused" android:state_pressed="true" />
     <item android:drawable="@android:color/transparent" />
 </selector>
 

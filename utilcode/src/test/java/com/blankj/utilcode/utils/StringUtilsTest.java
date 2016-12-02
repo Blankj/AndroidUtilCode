@@ -2,7 +2,16 @@ package com.blankj.utilcode.utils;
 
 import org.junit.Test;
 
-import static com.blankj.utilcode.utils.StringUtils.*;
+import static com.blankj.utilcode.utils.StringUtils.equalsIgnoreCase;
+import static com.blankj.utilcode.utils.StringUtils.isEmpty;
+import static com.blankj.utilcode.utils.StringUtils.isSpace;
+import static com.blankj.utilcode.utils.StringUtils.length;
+import static com.blankj.utilcode.utils.StringUtils.lowerFirstLetter;
+import static com.blankj.utilcode.utils.StringUtils.null2Length0;
+import static com.blankj.utilcode.utils.StringUtils.reverse;
+import static com.blankj.utilcode.utils.StringUtils.toDBC;
+import static com.blankj.utilcode.utils.StringUtils.toSBC;
+import static com.blankj.utilcode.utils.StringUtils.upperFirstLetter;
 import static com.google.common.truth.Truth.assertThat;
 
 /**

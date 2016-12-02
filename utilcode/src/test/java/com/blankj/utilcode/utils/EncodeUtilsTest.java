@@ -5,7 +5,13 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import static com.blankj.utilcode.utils.EncodeUtils.*;
+import static com.blankj.utilcode.utils.EncodeUtils.base64Decode;
+import static com.blankj.utilcode.utils.EncodeUtils.base64Encode;
+import static com.blankj.utilcode.utils.EncodeUtils.base64Encode2String;
+import static com.blankj.utilcode.utils.EncodeUtils.htmlDecode;
+import static com.blankj.utilcode.utils.EncodeUtils.htmlEncode;
+import static com.blankj.utilcode.utils.EncodeUtils.urlDecode;
+import static com.blankj.utilcode.utils.EncodeUtils.urlEncode;
 import static com.google.common.truth.Truth.assertThat;
 
 /**

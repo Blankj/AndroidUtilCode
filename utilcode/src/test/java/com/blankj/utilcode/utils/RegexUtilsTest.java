@@ -4,7 +4,21 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static com.blankj.utilcode.utils.RegexUtils.*;
+import static com.blankj.utilcode.utils.RegexUtils.getMatches;
+import static com.blankj.utilcode.utils.RegexUtils.getReplaceAll;
+import static com.blankj.utilcode.utils.RegexUtils.getReplaceFirst;
+import static com.blankj.utilcode.utils.RegexUtils.getSplits;
+import static com.blankj.utilcode.utils.RegexUtils.isDate;
+import static com.blankj.utilcode.utils.RegexUtils.isEmail;
+import static com.blankj.utilcode.utils.RegexUtils.isIDCard18;
+import static com.blankj.utilcode.utils.RegexUtils.isIP;
+import static com.blankj.utilcode.utils.RegexUtils.isMatch;
+import static com.blankj.utilcode.utils.RegexUtils.isMobileExact;
+import static com.blankj.utilcode.utils.RegexUtils.isMobileSimple;
+import static com.blankj.utilcode.utils.RegexUtils.isTel;
+import static com.blankj.utilcode.utils.RegexUtils.isURL;
+import static com.blankj.utilcode.utils.RegexUtils.isUsername;
+import static com.blankj.utilcode.utils.RegexUtils.isZh;
 import static com.google.common.truth.Truth.assertThat;
 
 /**

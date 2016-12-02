@@ -3,7 +3,18 @@ package com.blankj.utilcode.utils;
 
 import org.junit.Test;
 
-import static com.blankj.utilcode.utils.ConvertUtils.*;
+import static com.blankj.utilcode.utils.ConvertUtils.bits2Bytes;
+import static com.blankj.utilcode.utils.ConvertUtils.byte2FitSize;
+import static com.blankj.utilcode.utils.ConvertUtils.byte2Size;
+import static com.blankj.utilcode.utils.ConvertUtils.bytes2Bits;
+import static com.blankj.utilcode.utils.ConvertUtils.bytes2Chars;
+import static com.blankj.utilcode.utils.ConvertUtils.bytes2HexString;
+import static com.blankj.utilcode.utils.ConvertUtils.bytes2InputStream;
+import static com.blankj.utilcode.utils.ConvertUtils.chars2Bytes;
+import static com.blankj.utilcode.utils.ConvertUtils.hexString2Bytes;
+import static com.blankj.utilcode.utils.ConvertUtils.inputStream2Bytes;
+import static com.blankj.utilcode.utils.ConvertUtils.inputStream2String;
+import static com.blankj.utilcode.utils.ConvertUtils.string2InputStream;
 import static com.google.common.truth.Truth.assertThat;
 
 

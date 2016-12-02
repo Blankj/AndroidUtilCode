@@ -8,8 +8,14 @@ import java.util.List;
 
 import static com.blankj.utilcode.utils.TestUtils.BASEPATH;
 import static com.blankj.utilcode.utils.TestUtils.SEP;
-import static com.blankj.utilcode.utils.ZipUtils.*;
-import static com.google.common.truth.Truth.*;
+import static com.blankj.utilcode.utils.ZipUtils.getComments;
+import static com.blankj.utilcode.utils.ZipUtils.getFilesPath;
+import static com.blankj.utilcode.utils.ZipUtils.unzipFile;
+import static com.blankj.utilcode.utils.ZipUtils.unzipFileByKeyword;
+import static com.blankj.utilcode.utils.ZipUtils.unzipFiles;
+import static com.blankj.utilcode.utils.ZipUtils.zipFile;
+import static com.blankj.utilcode.utils.ZipUtils.zipFiles;
+import static com.google.common.truth.Truth.assertThat;
 
 /**
  * <pre>
