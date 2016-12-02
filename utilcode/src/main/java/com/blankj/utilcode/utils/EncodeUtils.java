@@ -2,6 +2,7 @@ package com.blankj.utilcode.utils;
 
 import android.os.Build;
 import android.text.Html;
+import android.text.Spanned;
 import android.util.Base64;
 
 import java.io.UnsupportedEncodingException;
@@ -188,7 +189,17 @@ public class EncodeUtils {
      * @param input 待解码的字符串
      * @return Html解码后的字符串
      */
+    @SuppressWarnings("deprecation")
     public static String htmlDecode(String input) {
-        return Html.fromHtml(input).toString();
+
+        Spanned result;
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(input, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(input);
+        }
+
+        return result.toString();
     }
 }
