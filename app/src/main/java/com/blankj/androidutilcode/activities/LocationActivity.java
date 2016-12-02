@@ -19,8 +19,8 @@ import com.blankj.utilcode.utils.LocationUtils;
  */
 public class LocationActivity extends Activity {
 
-    Context       mContext;
-    TextView      tvAboutLocation;
+    Context mContext;
+    TextView tvAboutLocation;
     LocationUtils locationUtils;
 
     @Override

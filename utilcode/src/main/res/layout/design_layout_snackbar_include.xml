@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2015 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,6 +15,7 @@
 -->
 
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
+
     <TextView
         android:id="@+id/snackbar_text"
         android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
         android:maxLines="2"
         android:layout_gravity="center_vertical|left|start"
         android:ellipsize="end"
-        android:textAlignment="viewStart"/>
+        android:textAlignment="viewStart" />
 
     <Button
         android:id="@+id/snackbar_action"
@@ -45,5 +45,5 @@
         android:paddingRight="12dp"
         android:visibility="gone"
         android:textColor="#000000"
-        android:background="@drawable/snackbar_action_bg"/>
+        android:background="@drawable/snackbar_action_bg" />
 </merge>

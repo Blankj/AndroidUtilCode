@@ -26,7 +26,7 @@ import static com.google.common.truth.Truth.assertThat;
  * </pre>
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE , sdk = 23)
+@Config(manifest = Config.NONE, sdk = 23)
 public class EmptyUtilsTest {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
@@ -37,7 +37,7 @@ public class EmptyUtilsTest {
         int[][] arr = new int[][]{};
         int[] arr1 = null;
         LinkedList<Integer> list = new LinkedList<>();
-        HashMap<String,Integer> map = new HashMap<>();
+        HashMap<String, Integer> map = new HashMap<>();
         SparseArray<String> sa = new SparseArray<>();
         SparseBooleanArray sba = new SparseBooleanArray();
         SparseIntArray sia = new SparseIntArray();

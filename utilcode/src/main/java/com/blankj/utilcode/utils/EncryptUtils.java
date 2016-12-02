@@ -570,8 +570,8 @@ public class EncryptUtils {
      * <p>加密模式有：电子密码本模式ECB、加密块链模式CBC、加密反馈模式CFB、输出反馈模式OFB</p>
      * <p>填充方式有：NoPadding、ZerosPadding、PKCS5Padding</p>
      */
-    public static        String DES_Transformation = "DES/ECB/NoPadding";
-    private static final String DES_Algorithm      = "DES";
+    public static String DES_Transformation = "DES/ECB/NoPadding";
+    private static final String DES_Algorithm = "DES";
 
     /**
      * DES加密后转为Base64编码
@@ -646,8 +646,8 @@ public class EncryptUtils {
      * <p>加密模式有：电子密码本模式ECB、加密块链模式CBC、加密反馈模式CFB、输出反馈模式OFB</p>
      * <p>填充方式有：NoPadding、ZerosPadding、PKCS5Padding</p>
      */
-    public static        String TripleDES_Transformation = "DESede/ECB/NoPadding";
-    private static final String TripleDES_Algorithm      = "DESede";
+    public static String TripleDES_Transformation = "DESede/ECB/NoPadding";
+    private static final String TripleDES_Algorithm = "DESede";
 
 
     /**
@@ -723,8 +723,8 @@ public class EncryptUtils {
      * <p>加密模式有：电子密码本模式ECB、加密块链模式CBC、加密反馈模式CFB、输出反馈模式OFB</p>
      * <p>填充方式有：NoPadding、ZerosPadding、PKCS5Padding</p>
      */
-    public static        String AES_Transformation = "AES/ECB/NoPadding";
-    private static final String AES_Algorithm      = "AES";
+    public static String AES_Transformation = "AES/ECB/NoPadding";
+    private static final String AES_Algorithm = "AES";
 
 
     /**

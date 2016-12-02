@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2014 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2014 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -17,17 +16,17 @@
 <!-- Used as the canonical button shape. -->
 
 <inset xmlns:android="http://schemas.android.com/apk/res/android"
-       android:insetBottom="6dp"
-       android:insetLeft="4dp"
-       android:insetRight="4dp"
-       android:insetTop="6dp">
+    android:insetBottom="6dp"
+    android:insetLeft="4dp"
+    android:insetRight="4dp"
+    android:insetTop="6dp">
     <shape android:shape="rectangle">
-        <corners android:radius="2dp"/>
-        <solid android:color="@android:color/white"/>
+        <corners android:radius="2dp" />
+        <solid android:color="@android:color/white" />
         <padding
             android:bottom="4dp"
             android:left="8dp"
             android:right="8dp"
-            android:top="4dp"/>
+            android:top="4dp" />
     </shape>
 </inset>

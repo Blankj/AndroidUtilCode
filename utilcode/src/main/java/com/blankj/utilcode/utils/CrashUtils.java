@@ -28,10 +28,10 @@ public class CrashUtils implements Thread.UncaughtExceptionHandler {
     private volatile static CrashUtils mInstance;
 
     private UncaughtExceptionHandler mHandler;
-    private boolean                  mInitialized;
-    private String                   crashDir;
-    private String                   versionName;
-    private int                      versionCode;
+    private boolean mInitialized;
+    private String crashDir;
+    private String versionName;
+    private int versionCode;
 
     private CrashUtils() {
     }

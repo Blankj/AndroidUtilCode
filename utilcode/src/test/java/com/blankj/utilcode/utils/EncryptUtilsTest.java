@@ -21,7 +21,7 @@ import static com.google.common.truth.Truth.assertThat;
  * </pre>
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE ,sdk = 23)
+@Config(manifest = Config.NONE, sdk = 23)
 public class EncryptUtilsTest {
 
     String blankjMD2 = "15435017570D8A73449E25C4622E17A4";

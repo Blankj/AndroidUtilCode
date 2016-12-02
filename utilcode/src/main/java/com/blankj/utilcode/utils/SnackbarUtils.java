@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.R;
 
-import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
 
 /**

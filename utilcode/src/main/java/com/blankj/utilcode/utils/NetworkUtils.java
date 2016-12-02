@@ -4,14 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
-import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
@@ -20,8 +18,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 /**
  * <pre>
@@ -37,16 +33,16 @@ public class NetworkUtils {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
-    public static final int NETWORK_WIFI    = 1;    // wifi network
-    public static final int NETWORK_4G      = 4;    // "4G" networks
-    public static final int NETWORK_3G      = 3;    // "3G" networks
-    public static final int NETWORK_2G      = 2;    // "2G" networks
+    public static final int NETWORK_WIFI = 1;    // wifi network
+    public static final int NETWORK_4G = 4;    // "4G" networks
+    public static final int NETWORK_3G = 3;    // "3G" networks
+    public static final int NETWORK_2G = 2;    // "2G" networks
     public static final int NETWORK_UNKNOWN = 5;    // unknown network
-    public static final int NETWORK_NO      = -1;   // no network
+    public static final int NETWORK_NO = -1;   // no network
 
-    private static final int NETWORK_TYPE_GSM      = 16;
+    private static final int NETWORK_TYPE_GSM = 16;
     private static final int NETWORK_TYPE_TD_SCDMA = 17;
-    private static final int NETWORK_TYPE_IWLAN    = 18;
+    private static final int NETWORK_TYPE_IWLAN = 18;
 
     /**
      * 打开网络设置界面

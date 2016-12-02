@@ -1,8 +1,5 @@
 package com.blankj.utilcode.utils;
 
-import android.content.Context;
-import android.os.Vibrator;
-
 /**
  * <pre>
  *     author: Blankj

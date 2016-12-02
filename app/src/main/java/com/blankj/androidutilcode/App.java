@@ -1,14 +1,10 @@
 package com.blankj.androidutilcode;
 
 import android.app.Application;
-import android.os.Handler;
-import android.os.Message;
 
 import com.blankj.utilcode.utils.CrashUtils;
 import com.blankj.utilcode.utils.LogUtils;
 import com.squareup.leakcanary.LeakCanary;
-
-import java.lang.ref.WeakReference;
 
 /**
  * <pre>

@@ -5,7 +5,17 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.blankj.utilcode.utils.ConstUtils.*;
+import static com.blankj.utilcode.utils.ConstUtils.REGEX_DATE;
+import static com.blankj.utilcode.utils.ConstUtils.REGEX_EMAIL;
+import static com.blankj.utilcode.utils.ConstUtils.REGEX_ID_CARD15;
+import static com.blankj.utilcode.utils.ConstUtils.REGEX_ID_CARD18;
+import static com.blankj.utilcode.utils.ConstUtils.REGEX_IP;
+import static com.blankj.utilcode.utils.ConstUtils.REGEX_MOBILE_EXACT;
+import static com.blankj.utilcode.utils.ConstUtils.REGEX_MOBILE_SIMPLE;
+import static com.blankj.utilcode.utils.ConstUtils.REGEX_TEL;
+import static com.blankj.utilcode.utils.ConstUtils.REGEX_URL;
+import static com.blankj.utilcode.utils.ConstUtils.REGEX_USERNAME;
+import static com.blankj.utilcode.utils.ConstUtils.REGEX_ZH;
 
 /**
  * <pre>
