@@ -1,13 +1,8 @@
 package com.blankj.utilcode.utils;
 
-import android.app.ActivityManager;
 import android.content.Context;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * <pre>

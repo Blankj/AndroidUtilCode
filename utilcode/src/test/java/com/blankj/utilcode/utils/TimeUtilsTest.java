@@ -63,7 +63,7 @@ public class TimeUtilsTest {
     }
 
     @Test
-    public void testGetIntervalTime() throws Exception {
+    public void testGetTimeSpan() throws Exception {
         assertThat(getTimeSpan(timeString0, timeString1, ConstUtils.TimeUnit.SEC)).isEqualTo(4210);
         assertThat(getTimeSpan(myTimeString0, myTimeString1, ConstUtils.TimeUnit.SEC, myPattern)).isEqualTo(4210);
         assertThat(getTimeSpan(new Date(4210000), new Date(0), ConstUtils.TimeUnit.SEC)).isEqualTo(4210);
@@ -116,5 +116,15 @@ public class TimeUtilsTest {
     @Test
     public void testGetOfYear() throws Exception {
         assertThat(getWeekOfYear(timeString)).isEqualTo(33);
+    }
+
+    @Test
+    public void testGetChineseZodiac() throws Exception {
+        System.out.println(getChineseZodiac(System.currentTimeMillis()));
+    }
+
+    @Test
+    public void testGetZodiac() throws Exception {
+        assertThat(getZodiac("2016-08-16 16:37:29")).isEqualTo("狮子座");
     }
 }

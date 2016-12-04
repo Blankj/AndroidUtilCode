@@ -89,7 +89,7 @@ public class SDCardUtils {
         long blockSize, availableBlocks;
         availableBlocks = stat.getAvailableBlocksLong();
         blockSize = stat.getBlockSizeLong();
-        return ConvertUtils.byte2FitSize(availableBlocks * blockSize);
+        return ConvertUtils.byte2FitMemorySize(availableBlocks * blockSize);
     }
 
     /**

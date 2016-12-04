@@ -1033,7 +1033,7 @@ public class FileUtils {
      */
     public static String getDirSize(File dir) {
         long len = getDirLength(dir);
-        return len == -1 ? "" : ConvertUtils.byte2FitSize(len);
+        return len == -1 ? "" : ConvertUtils.byte2FitMemorySize(len);
     }
 
     /**
@@ -1054,7 +1054,7 @@ public class FileUtils {
      */
     public static String getFileSize(File file) {
         long len = getFileLength(file);
-        return len == -1 ? "" : ConvertUtils.byte2FitSize(len);
+        return len == -1 ? "" : ConvertUtils.byte2FitMemorySize(len);
     }
 
     /**

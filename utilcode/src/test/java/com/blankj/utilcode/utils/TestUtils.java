@@ -41,7 +41,7 @@ public class TestUtils {
         File readmeEng = new File(new File(System.getProperty("user.dir")).getParent() + SEP + "README.md");
         List<String> list = FileUtils.readFile2List(readmeCN, "UTF-8");
         StringBuilder sb = new StringBuilder("## Android developers should collect the following utils\r\n" +
-                "**[中文版README][readme-cn.md]**\r\n" +
+                "**[README of Chinese][readme-cn.md]**\r\n" +
                 "***\r\n" +
                 "Directory is shown below：  \r\n");
         List<String> lines = list.subList(4, list.size());

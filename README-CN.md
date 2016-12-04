@@ -86,8 +86,10 @@ RegexConst  : 正则相关常量
  ```
 bytes2HexString, hexString2Bytes         : byteArr与hexString互转
 chars2Bytes, bytes2Chars                 : charArr与byteArr互转
-byte2Size, size2Byte                     : 字节数与unit为单位的size互转
-byte2FitSize                             : 字节数转合适大小
+memorySize2Byte, byte2MemorySize         : 以unit为单位的内存大小与字节数互转
+byte2FitMemorySize                       : 字节数转合适内存大小
+timeSpan2Millis, millis2TimeSpan         : 以unit为单位的时间长度与毫秒时间戳互转
+millis2FitTimeSpan                       : 毫秒时间戳转合适时间长度
 bytes2Bits, bits2Bytes                   : bytes与bits互转
 input2OutputStream, output2InputStream   : inputStream与outputStream互转
 inputStream2Bytes, bytes2InputStream     : inputStream与byteArr互转
@@ -464,22 +466,27 @@ scheduleWithFixedDelay : 延迟并以固定休息时间循环执行命令
 
 > - **时间相关→[TimeUtils.java][time.java]→[Test][time.test]**
  ```
-milliseconds2String   : 将时间戳转为时间字符串
-string2Milliseconds   : 将时间字符串转为时间戳
-string2Date           : 将时间字符串转为Date类型
-date2String           : 将Date类型转为时间字符串
-date2Milliseconds     : 将Date类型转为时间戳
-milliseconds2Date     : 将时间戳转为Date类型
-milliseconds2Unit     : 毫秒时间戳单位转换（单位：unit）
-getIntervalTime       : 获取两个时间差（单位：unit）
-getCurTimeMills       : 获取当前时间戳
-getCurTimeString      : 获取当前时间字符串
-getCurTimeDate        : 获取当前Date
-getIntervalByNow      : 获取与当前时间的差（单位：unit）
-isLeapYear            : 判断闰年
-getWeek, getWeekIndex : 获取星期
-getWeekOfMonth        : 获取月份中的第几周
-getWeekOfYear         : 获取年份中的第几周
+millis2String            : 将时间戳转为时间字符串
+string2Millis            : 将时间字符串转为时间戳
+string2Date              : 将时间字符串转为Date类型
+date2String              : 将Date类型转为时间字符串
+date2Millis              : 将Date类型转为时间戳
+millis2Date              : 将时间戳转为Date类型
+getTimeSpan              : 获取两个时间差（单位：unit）
+getFitTimeSpan           : 获取合适型两个时间差
+getNowTimeMills          : 获取当前毫秒时间戳
+getNowTimeString         : 获取当前时间字符串
+getNowTimeDate           : 获取当前Date
+getTimeSpanByNow         : 获取与当前时间的差（单位：unit）
+getFitTimeSpanByNow      : 获取合适型与当前时间的差
+getFriendlyTimeSpanByNow : 获取友好型与当前时间的差
+isSameDay                : 判断是否同一天
+isLeapYear               : 判断是否闰年
+getWeek, getWeekIndex    : 获取星期
+getWeekOfMonth           : 获取月份中的第几周
+getWeekOfYear            : 获取年份中的第几周
+getChineseZodiac         : 获取生肖
+getZodiac                : 获取星座
  ```
 
 > - **吐司相关→[ToastUtils.java][toast.java]→[Demo][toast.demo]**

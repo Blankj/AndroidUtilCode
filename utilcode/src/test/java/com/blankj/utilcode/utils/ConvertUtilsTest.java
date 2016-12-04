@@ -17,7 +17,7 @@ import static com.google.common.truth.Truth.assertThat;
  */
 public class ConvertUtilsTest {
 
-    byte[] mBytes = new byte[]{0x00, 0x08, (byte) 0xdb, 0x33, 0x45, (byte) 0xab, 0x02, 0x23};
+    byte[] mBytes    = new byte[]{0x00, 0x08, (byte) 0xdb, 0x33, 0x45, (byte) 0xab, 0x02, 0x23};
     String hexString = "0008DB3345AB0223";
 
     @Test
@@ -45,20 +45,22 @@ public class ConvertUtilsTest {
 
     @Test
     public void testByte2Unit() throws Exception {
-        assertThat(byte2Size(ConstUtils.GB, ConstUtils.MemoryUnit.MB) - 1024).isWithin(0.001);
+        assertThat(byte2MemorySize(ConstUtils.GB, ConstUtils.MemoryUnit.MB) - 1024).isWithin(0.001);
     }
 
     @Test
     public void testByte2FitSize() throws Exception {
-        assertThat(byte2FitSize(1024 * 1024 * 3 + 1024 * 100)).isEqualTo("3.098MB");
+        assertThat(byte2FitMemorySize(1024 * 1024 * 3 + 1024 * 100)).isEqualTo("3.098MB");
     }
 
     @Test
     public void testMillis2FitTimeSpan() throws Exception {
-        System.out.println(millis2FitTimeSpan(6 * ConstUtils.MSEC));
-        System.out.println(millis2FitTimeSpan(6 * ConstUtils.SEC));
-        System.out.println(millis2FitTimeSpan(6 * ConstUtils.HOUR));
-        System.out.println(millis2FitTimeSpan(6 * ConstUtils.DAY));
+        long millis = ConstUtils.DAY * 6 + ConstUtils.HOUR * 6
+                + ConstUtils.MIN * 6 + ConstUtils.SEC * 6 + 6;
+        System.out.println(millis2FitTimeSpan(millis, 7));
+        System.out.println(millis2FitTimeSpan(millis, 4));
+        System.out.println(millis2FitTimeSpan(millis, 3));
+        System.out.println(millis2FitTimeSpan(millis * 4, 5));
     }
 
     @Test

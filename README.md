@@ -1,5 +1,5 @@
 ## Android developers should collect the following utils
-**[中文版README][readme-cn.md]**
+**[README of Chinese][readme-cn.md]**
 ***
 Directory is shown below：  
 > - **About Activity→[ActivityUtils.java][activity.java]→[Demo][activity.demo]**
@@ -86,8 +86,10 @@ RegexConst
  ```
 bytes2HexString, hexString2Bytes
 chars2Bytes, bytes2Chars
-byte2Size, size2Byte
-byte2FitSize
+memorySize2Byte, byte2MemorySize
+byte2FitMemorySize
+timeSpan2Millis, millis2TimeSpan
+millis2FitTimeSpan
 bytes2Bits, bits2Bytes
 input2OutputStream, output2InputStream
 inputStream2Bytes, bytes2InputStream
@@ -464,22 +466,27 @@ scheduleWithFixedDelay
 
 > - **About Time→[TimeUtils.java][time.java]→[Test][time.test]**
  ```
-milliseconds2String
-string2Milliseconds
+millis2String
+string2Millis
 string2Date
 date2String
-date2Milliseconds
-milliseconds2Date
-milliseconds2Unit
-getIntervalTime
-getCurTimeMills
-getCurTimeString
-getCurTimeDate
-getIntervalByNow
+date2Millis
+millis2Date
+getTimeSpan
+getFitTimeSpan
+getNowTimeMills
+getNowTimeString
+getNowTimeDate
+getTimeSpanByNow
+getFitTimeSpanByNow
+getFriendlyTimeSpanByNow
+isSameDay
 isLeapYear
 getWeek, getWeekIndex
 getWeekOfMonth
 getWeekOfYear
+getChineseZodiac
+getZodiac
  ```
 
 > - **About Toast→[ToastUtils.java][toast.java]→[Demo][toast.demo]**
