@@ -10,7 +10,6 @@
         android:orientation="vertical"
         android:padding="@dimen/spacing_small">
 
-
         <Button
             android:id="@+id/btn_send_msg_after_3s"
             style="@style/BtnFont"
@@ -20,15 +19,7 @@
             />
 
         <TextView
-            android:id="@+id/tv_about_handler0"
-            style="@style/Font"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            />
-
-        <TextView
-            android:id="@+id/tv_about_handler1"
+            android:id="@+id/tv_about_handler"
             style="@style/Font"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
