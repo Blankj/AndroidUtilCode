@@ -7,9 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.utilcode.utils.DeviceUtils;
 import com.blankj.utilcode.utils.HandlerUtils;
-import com.blankj.utilcode.utils.LogUtils;
 
 /**
  * <pre>
@@ -20,10 +18,10 @@ import com.blankj.utilcode.utils.LogUtils;
  * </pre>
  */
 public class HandlerActivity extends Activity
-        implements View.OnClickListener, HandlerUtils.OnReceiveMessageListener {
+        implements View.OnClickListener,
+        HandlerUtils.OnReceiveMessageListener {
 
-    private TextView tvAboutHandler0;
-    private TextView tvAboutHandler1;
+    private TextView                   tvAboutHandler;
     private HandlerUtils.HandlerHolder handlerHolder;
 
     @Override
@@ -31,8 +29,7 @@ public class HandlerActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_handler);
 
-        tvAboutHandler0 = (TextView) findViewById(R.id.tv_about_handler0);
-        tvAboutHandler1 = (TextView) findViewById(R.id.tv_about_handler1);
+        tvAboutHandler = (TextView) findViewById(R.id.tv_about_handler);
         findViewById(R.id.btn_send_msg_after_3s).setOnClickListener(this);
 
         handlerHolder = new HandlerUtils.HandlerHolder(this);
@@ -49,6 +46,6 @@ public class HandlerActivity extends Activity
 
     @Override
     public void handlerMessage(Message msg) {
-        tvAboutHandler1.setText("get_msg_after_3s");
+        tvAboutHandler.setText("get_msg_after_3s");
     }
 }
