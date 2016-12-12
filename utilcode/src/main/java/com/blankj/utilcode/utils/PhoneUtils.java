@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.SystemClock;
-import android.provider.Settings;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -39,11 +38,10 @@ public class PhoneUtils {
     /**
      * 判断设备是否是手机
      *
-     * @param context 上下文
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isPhone(Context context) {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+    public static boolean isPhone() {
+        TelephonyManager tm = (TelephonyManager) Utils.context.getSystemService(Context.TELEPHONY_SERVICE);
         return tm != null && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE;
     }
 
@@ -51,12 +49,11 @@ public class PhoneUtils {
      * 获取IMEI码
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_PHONE_STATE"/>}</p>
      *
-     * @param context 上下文
      * @return IMIE码
      */
     @SuppressLint("HardwareIds")
-    public static String getIMEI(Context context) {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+    public static String getIMEI() {
+        TelephonyManager tm = (TelephonyManager) Utils.context.getSystemService(Context.TELEPHONY_SERVICE);
         return tm != null ? tm.getDeviceId() : null;
     }
 
@@ -64,19 +61,17 @@ public class PhoneUtils {
      * 获取IMSI码
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_PHONE_STATE"/>}</p>
      *
-     * @param context 上下文
      * @return IMIE码
      */
     @SuppressLint("HardwareIds")
-    public static String getIMSI(Context context) {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+    public static String getIMSI() {
+        TelephonyManager tm = (TelephonyManager) Utils.context.getSystemService(Context.TELEPHONY_SERVICE);
         return tm != null ? tm.getSubscriberId() : null;
     }
 
     /**
      * 获取移动终端类型
      *
-     * @param context 上下文
      * @return 手机制式
      * <ul>
      * <li>{@link TelephonyManager#PHONE_TYPE_NONE } : 0 手机制式未知</li>
@@ -85,8 +80,8 @@ public class PhoneUtils {
      * <li>{@link TelephonyManager#PHONE_TYPE_SIP  } : 3</li>
      * </ul>
      */
-    public static int getPhoneType(Context context) {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+    public static int getPhoneType() {
+        TelephonyManager tm = (TelephonyManager) Utils.context.getSystemService(Context.TELEPHONY_SERVICE);
         return tm != null ? tm.getPhoneType() : -1;
     }
 
@@ -95,8 +90,8 @@ public class PhoneUtils {
      *
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isSimCardReady(Context context) {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+    public static boolean isSimCardReady() {
+        TelephonyManager tm = (TelephonyManager) Utils.context.getSystemService(Context.TELEPHONY_SERVICE);
         return tm != null && tm.getSimState() == TelephonyManager.SIM_STATE_READY;
     }
 
@@ -104,11 +99,10 @@ public class PhoneUtils {
      * 获取Sim卡运营商名称
      * <p>中国移动、如中国联通、中国电信</p>
      *
-     * @param context 上下文
      * @return sim卡运营商名称
      */
-    public static String getSimOperatorName(Context context) {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+    public static String getSimOperatorName() {
+        TelephonyManager tm = (TelephonyManager) Utils.context.getSystemService(Context.TELEPHONY_SERVICE);
         return tm != null ? tm.getSimOperatorName() : null;
     }
 
@@ -116,11 +110,10 @@ public class PhoneUtils {
      * 获取Sim卡运营商名称
      * <p>中国移动、如中国联通、中国电信</p>
      *
-     * @param context 上下文
      * @return 移动网络运营商名称
      */
-    public static String getSimOperatorByMnc(Context context) {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+    public static String getSimOperatorByMnc() {
+        TelephonyManager tm = (TelephonyManager) Utils.context.getSystemService(Context.TELEPHONY_SERVICE);
         String operator = tm != null ? tm.getSimOperator() : null;
         if (operator == null) return null;
         switch (operator) {
@@ -141,7 +134,6 @@ public class PhoneUtils {
      * 获取手机状态信息
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_PHONE_STATE"/>}</p>
      *
-     * @param context 上下文
      * @return DeviceId(IMEI) = 99000311726612<br>
      * DeviceSoftwareVersion = 00<br>
      * Line1Number =<br>
@@ -158,8 +150,8 @@ public class PhoneUtils {
      * SubscriberId(IMSI) = 460030419724900<br>
      * VoiceMailNumber = *86<br>
      */
-    public static String getPhoneStatus(Context context) {
-        TelephonyManager tm = (TelephonyManager) context
+    public static String getPhoneStatus() {
+        TelephonyManager tm = (TelephonyManager) Utils.context
                 .getSystemService(Context.TELEPHONY_SERVICE);
         String str = "";
         str += "DeviceId(IMEI) = " + tm.getDeviceId() + "\n";
@@ -183,49 +175,45 @@ public class PhoneUtils {
     /**
      * 跳至拨号界面
      *
-     * @param context     上下文
      * @param phoneNumber 电话号码
      */
-    public static void dial(Context context, String phoneNumber) {
-        context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber)));
+    public static void dial(String phoneNumber) {
+        Utils.context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber)));
     }
 
     /**
      * 拨打电话
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.CALL_PHONE"/>}</p>
      *
-     * @param context     上下文
      * @param phoneNumber 电话号码
      */
-    public static void call(Context context, String phoneNumber) {
-        context.startActivity(new Intent("android.intent.action.CALL", Uri.parse("tel:" + phoneNumber)));
+    public static void call(String phoneNumber) {
+        Utils.context.startActivity(new Intent("android.intent.action.CALL", Uri.parse("tel:" + phoneNumber)));
     }
 
     /**
      * 跳至发送短信界面
      *
-     * @param context     上下文
      * @param phoneNumber 接收号码
      * @param content     短信内容
      */
-    public static void sendSms(Context context, String phoneNumber, String content) {
+    public static void sendSms(String phoneNumber, String content) {
         Uri uri = Uri.parse("smsto:" + (StringUtils.isEmpty(phoneNumber) ? "" : phoneNumber));
         Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
         intent.putExtra("sms_body", StringUtils.isEmpty(content) ? "" : content);
-        context.startActivity(intent);
+        Utils.context.startActivity(intent);
     }
 
     /**
      * 发送短信
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.SEND_SMS"/>}</p>
      *
-     * @param context     上下文
      * @param phoneNumber 接收号码
      * @param content     短信内容
      */
-    public static void sendSmsSilent(Context context, String phoneNumber, String content) {
+    public static void sendSmsSilent(String phoneNumber, String content) {
         if (StringUtils.isEmpty(content)) return;
-        PendingIntent sentIntent = PendingIntent.getBroadcast(context, 0, new Intent(), 0);
+        PendingIntent sentIntent = PendingIntent.getBroadcast(Utils.context, 0, new Intent(), 0);
         SmsManager smsManager = SmsManager.getDefault();
         if (content.length() >= 70) {
             List<String> ms = smsManager.divideMessage(content);
@@ -242,14 +230,13 @@ public class PhoneUtils {
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>}</p>
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_CONTACTS"/>}</p>
      *
-     * @param context 上下文;
      * @return 联系人链表
      */
-    public static List<HashMap<String, String>> getAllContactInfo(Context context) {
+    public static List<HashMap<String, String>> getAllContactInfo() {
         SystemClock.sleep(3000);
         ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
         // 1.获取内容解析者
-        ContentResolver resolver = context.getContentResolver();
+        ContentResolver resolver = Utils.context.getContentResolver();
         // 2.获取内容提供者的地址:com.android.contacts
         // raw_contacts表的地址 :raw_contacts
         // view_data表的地址 : data
@@ -338,13 +325,11 @@ public class PhoneUtils {
      * 获取手机短信并保存到xml中
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>}</p>
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_SMS"/>}</p>
-     *
-     * @param context 上下文
      */
-    public static void getAllSMS(Context context) {
+    public static void getAllSMS() {
         // 1.获取短信
         // 1.1获取内容解析者
-        ContentResolver resolver = context.getContentResolver();
+        ContentResolver resolver = Utils.context.getContentResolver();
         // 1.2获取内容提供者地址   sms,sms表的地址:null  不写
         // 1.3获取查询路径
         Uri uri = Uri.parse("content://sms");

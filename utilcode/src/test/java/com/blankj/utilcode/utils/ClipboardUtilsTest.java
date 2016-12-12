@@ -1,15 +1,12 @@
 package com.blankj.utilcode.utils;
 
-import android.content.ContentResolver;
 import android.net.Uri;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowContentResolver;
-
-import java.io.File;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -24,21 +21,27 @@ import static com.google.common.truth.Truth.assertThat;
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.NONE)
 public class ClipboardUtilsTest {
+
+    @Before
+    public void setUp() throws Exception {
+        if (Utils.context == null) TestUtils.init();
+    }
+
     @Test
     public void testText() throws Exception {
-        ClipboardUtils.copyText(TestUtils.getContext(), "test");
-        assertThat(ClipboardUtils.getText(TestUtils.getContext())).isEqualTo("test");
+        ClipboardUtils.copyText("test");
+        assertThat(ClipboardUtils.getText()).isEqualTo("test");
     }
 
     @Test
     public void testUri() throws Exception {
-        ClipboardUtils.copyUri(TestUtils.getContext(), Uri.parse("http://www.blankj.com"));
-        System.out.println((ClipboardUtils.getUri(TestUtils.getContext())));
+        ClipboardUtils.copyUri(Uri.parse("http://www.blankj.com"));
+        System.out.println((ClipboardUtils.getUri()));
     }
 
     @Test
     public void testIntent() throws Exception {
-        ClipboardUtils.copyIntent(TestUtils.getContext(), IntentUtils.getShareTextIntent("test"));
-        System.out.println(ClipboardUtils.getText(TestUtils.getContext()));
+        ClipboardUtils.copyIntent(IntentUtils.getShareTextIntent("test"));
+        System.out.println(ClipboardUtils.getText());
     }
 }

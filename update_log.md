@@ -1,3 +1,7 @@
+* 16/12/12 新增Utils来做初始化context
+* 16/12/10 完善权限中
+* 16/12/09 新增6.0以上权限判断
+* 16/12/07 手机升级到6.0，修复bug中
 * 16/12/06 完善FlashlightUtils中
 * 16/12/05 FlashlightUtils兼容Api21之后
 * 16/12/04 新增FlashlightUtils

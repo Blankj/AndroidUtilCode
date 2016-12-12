@@ -21,8 +21,9 @@ public class LogUtilsTest {
 
     @Before
     public void setUp() throws Exception {
+        if (Utils.context == null) TestUtils.init();
         ShadowLog.stream = System.out;
-        LogUtils.getBuilder(TestUtils.getContext()).
+        LogUtils.getBuilder().
                 setLogSwitch(true).
                 setLog2FileSwitch(false).
                 setTag("Blankj").

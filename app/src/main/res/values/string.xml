@@ -13,6 +13,7 @@
     <string name="test.keyboard">KeyboardUtils Test</string>
     <string name="test.location">LocationUtils Test</string>
     <string name="test.network">NetworkUtils Test</string>
+    <string name="test.permission">NetworkUtils Test</string>
     <string name="test.phone">PhoneUtils Test</string>
     <string name="test.process">ProcessUtils Test</string>
     <string name="test.sdcard">SDCardUtils Test</string>

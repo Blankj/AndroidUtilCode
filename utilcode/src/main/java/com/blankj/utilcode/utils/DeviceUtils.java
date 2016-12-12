@@ -58,12 +58,11 @@ public class DeviceUtils {
     /**
      * 获取设备AndroidID
      *
-     * @param context 上下文
      * @return AndroidID
      */
     @SuppressLint("HardwareIds")
-    public static String getAndroidID(Context context) {
-        return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+    public static String getAndroidID() {
+        return Settings.Secure.getString(Utils.context.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
     /**
@@ -71,11 +70,10 @@ public class DeviceUtils {
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>}</p>
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
      *
-     * @param context 上下文
      * @return MAC地址
      */
-    public static String getMacAddress(Context context) {
-        String macAddress = getMacAddressByWifiInfo(context);
+    public static String getMacAddress() {
+        String macAddress = getMacAddressByWifiInfo();
         if (!"02:00:00:00:00:00".equals(macAddress)) {
             return macAddress;
         }
@@ -94,13 +92,12 @@ public class DeviceUtils {
      * 获取设备MAC地址
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>}</p>
      *
-     * @param context 上下文
      * @return MAC地址
      */
     @SuppressLint("HardwareIds")
-    private static String getMacAddressByWifiInfo(Context context) {
+    private static String getMacAddressByWifiInfo() {
         try {
-            WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+            WifiManager wifi = (WifiManager) Utils.context.getSystemService(Context.WIFI_SERVICE);
             if (wifi != null) {
                 WifiInfo info = wifi.getConnectionInfo();
                 if (info != null) return info.getMacAddress();
@@ -187,56 +184,38 @@ public class DeviceUtils {
 
     /**
      * 关机
-     * <p>需要root权限</p>
+     * <p>需要root权限或者系统权限 {@code <android:sharedUserId="android.uid.system"/>}</p>
      */
     public static void shutdown() {
         ShellUtils.execCmd("reboot -p", true);
-    }
-
-    /**
-     * 关机
-     * <p>需系统权限 {@code <android:sharedUserId="android.uid.system"/>}</p>
-     *
-     * @param context 上下文
-     */
-    public static void shutdown(Context context) {
         Intent intent = new Intent("android.intent.action.ACTION_REQUEST_SHUTDOWN");
         intent.putExtra("android.intent.extra.KEY_CONFIRM", false);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        Utils.context.startActivity(intent);
     }
 
     /**
      * 重启
-     * <p>需要root权限</p>
+     * <p>需要root权限或者系统权限 {@code <android:sharedUserId="android.uid.system"/>}</p>
+     *
      */
     public static void reboot() {
         ShellUtils.execCmd("reboot", true);
-    }
-
-    /**
-     * 重启
-     * <p>需系统权限 {@code <android:sharedUserId="android.uid.system"/>}</p>
-     *
-     * @param context 上下文
-     */
-    public static void reboot(Context context) {
         Intent intent = new Intent(Intent.ACTION_REBOOT);
         intent.putExtra("nowait", 1);
         intent.putExtra("interval", 1);
         intent.putExtra("window", 0);
-        context.sendBroadcast(intent);
+        Utils.context.sendBroadcast(intent);
     }
 
     /**
      * 重启
      * <p>需系统权限 {@code <android:sharedUserId="android.uid.system"/>}</p>
      *
-     * @param context 上下文
      * @param reason  传递给内核来请求特殊的引导模式，如"recovery"
      */
-    public static void reboot(Context context, String reason) {
-        PowerManager mPowerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+    public static void reboot(String reason) {
+        PowerManager mPowerManager = (PowerManager) Utils.context.getSystemService(Context.POWER_SERVICE);
         try {
             mPowerManager.reboot(reason);
         } catch (Exception e) {

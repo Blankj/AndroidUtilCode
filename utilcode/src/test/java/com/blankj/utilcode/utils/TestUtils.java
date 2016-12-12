@@ -1,7 +1,5 @@
 package com.blankj.utilcode.utils;
 
-import android.content.Context;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -10,8 +8,6 @@ import org.robolectric.annotation.Config;
 
 import java.io.File;
 import java.util.List;
-
-import static com.google.common.truth.Truth.assertThat;
 
 /**
  * <pre>
@@ -30,8 +26,8 @@ public class TestUtils {
     public static final String BASEPATH = System.getProperty("user.dir")
             + SEP + "src" + SEP + "test" + SEP + "res" + SEP;
 
-    public static Context getContext() {
-        return RuntimeEnvironment.application;
+    public static void init() {
+        Utils.context = RuntimeEnvironment.application;
     }
 
     @Test

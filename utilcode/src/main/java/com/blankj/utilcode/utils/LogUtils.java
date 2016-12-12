@@ -36,17 +36,16 @@ public class LogUtils {
      * 初始化函数
      * <p>与{@link #getBuilder(Context)}两者选其一</p>
      *
-     * @param context        上下文
      * @param logSwitch      日志总开关
      * @param log2FileSwitch 日志写入文件开关
      * @param logFilter      输入日志类型有{@code v, d, i, w, e}<br>v代表输出所有信息，w则只输出警告...
      * @param tag            标签
      */
-    public static void init(Context context, boolean logSwitch, boolean log2FileSwitch, char logFilter, String tag) {
+    public static void init(boolean logSwitch, boolean log2FileSwitch, char logFilter, String tag) {
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            dir = context.getExternalCacheDir().getPath() + File.separator;
+            dir = Utils.context.getExternalCacheDir().getPath() + File.separator;
         } else {
-            dir = context.getCacheDir().getPath() + File.separator;
+            dir = Utils.context.getCacheDir().getPath() + File.separator;
         }
         LogUtils.logSwitch = logSwitch;
         LogUtils.log2FileSwitch = log2FileSwitch;
@@ -56,16 +55,15 @@ public class LogUtils {
 
     /**
      * 获取LogUtils建造者
-     * <p>与{@link #init(Context, boolean, boolean, char, String)}两者选其一</p>
+     * <p>与{@link #init(boolean, boolean, char, String)}两者选其一</p>
      *
-     * @param context 上下文
      * @return Builder对象
      */
-    public static Builder getBuilder(Context context) {
+    public static Builder getBuilder() {
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            dir = context.getExternalCacheDir().getPath() + File.separator + "log" + File.separator;
+            dir = Utils.context.getExternalCacheDir().getPath() + File.separator + "log" + File.separator;
         } else {
-            dir = context.getCacheDir().getPath() + File.separator + "log" + File.separator;
+            dir = Utils.context.getCacheDir().getPath() + File.separator + "log" + File.separator;
         }
         return new Builder();
     }

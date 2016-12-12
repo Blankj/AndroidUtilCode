@@ -1,14 +1,11 @@
 package com.blankj.androidutilcode;
 
 import android.app.Application;
-import android.os.Handler;
-import android.os.Message;
 
 import com.blankj.utilcode.utils.CrashUtils;
 import com.blankj.utilcode.utils.LogUtils;
+import com.blankj.utilcode.utils.Utils;
 import com.squareup.leakcanary.LeakCanary;
-
-import java.lang.ref.WeakReference;
 
 /**
  * <pre>
@@ -20,10 +17,10 @@ import java.lang.ref.WeakReference;
  */
 public class App extends Application {
 
-    private static App ourInstance;
+    private static App appContext;
 
     public static App getInstance() {
-        return ourInstance;
+        return appContext;
     }
 
     @Override
@@ -36,8 +33,9 @@ public class App extends Application {
             return;
         }
         LeakCanary.install(this);
-        ourInstance = this;
-        CrashUtils.getInstance().init(this);
-        LogUtils.getBuilder(this).setTag("MyTag").setLog2FileSwitch(true).create();
+        appContext = this;
+        Utils.init(appContext);
+        CrashUtils.getInstance().init();
+        LogUtils.getBuilder().setTag("MyTag").setLog2FileSwitch(true).create();
     }
 }

@@ -28,11 +28,10 @@ public class ScreenUtils {
     /**
      * 获取屏幕的宽度（单位：px）
      *
-     * @param context 上下文
      * @return 屏幕宽px
      */
-    public static int getScreenWidth(Context context) {
-        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+    public static int getScreenWidth() {
+        WindowManager windowManager = (WindowManager) Utils.context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics dm = new DisplayMetrics();// 创建了一张白纸
         windowManager.getDefaultDisplay().getMetrics(dm);// 给白纸设置宽高
         return dm.widthPixels;
@@ -41,11 +40,10 @@ public class ScreenUtils {
     /**
      * 获取屏幕的高度（单位：px）
      *
-     * @param context 上下文
      * @return 屏幕高px
      */
-    public static int getScreenHeight(Context context) {
-        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+    public static int getScreenHeight() {
+        WindowManager windowManager = (WindowManager) Utils.context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics dm = new DisplayMetrics();// 创建了一张白纸
         windowManager.getDefaultDisplay().getMetrics(dm);// 给白纸设置宽高
         return dm.heightPixels;
@@ -77,21 +75,19 @@ public class ScreenUtils {
     /**
      * 判断是否横屏
      *
-     * @param context 上下文
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isLandscape(Context context) {
-        return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    public static boolean isLandscape() {
+        return Utils.context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     /**
      * 判断是否竖屏
      *
-     * @param context 上下文
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isPortrait(Context context) {
-        return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+    public static boolean isPortrait() {
+        return Utils.context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
     }
 
     /**
@@ -154,11 +150,10 @@ public class ScreenUtils {
     /**
      * 判断是否锁屏
      *
-     * @param context 上下文
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isScreenLock(Context context) {
-        KeyguardManager km = (KeyguardManager) context
+    public static boolean isScreenLock() {
+        KeyguardManager km = (KeyguardManager) Utils.context
                 .getSystemService(Context.KEYGUARD_SERVICE);
         return km.inKeyguardRestrictedInputMode();
     }

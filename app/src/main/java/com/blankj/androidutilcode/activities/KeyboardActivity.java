@@ -2,7 +2,9 @@ package com.blankj.androidutilcode.activities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.utilcode.utils.KeyboardUtils;
+import com.blankj.utilcode.utils.LogUtils;
 
 /**
  * <pre>
@@ -49,9 +52,10 @@ public class KeyboardActivity extends Activity
                 KeyboardUtils.showSoftInput(this, (EditText) findViewById(R.id.et));
                 break;
             case R.id.btn_toggle_soft_input:
-                KeyboardUtils.toggleSoftInput(this);
+                KeyboardUtils.toggleSoftInput();
                 break;
         }
+        LogUtils.d("" + isKeyboardShown(getWindow().getDecorView().findViewById(android.R.id.content)));
     }
 
     @Override
@@ -79,5 +83,15 @@ public class KeyboardActivity extends Activity
                     && event.getY() > top && event.getY() < bottom);
         }
         return false;
+    }
+
+    private boolean isKeyboardShown(View rootView) {
+        final int softKeyboardHeight = 100;
+        Rect frame = new Rect();
+        rootView.getWindowVisibleDisplayFrame(frame);
+        DisplayMetrics dm = rootView.getResources().getDisplayMetrics();
+        int heightDiff = rootView.getBottom() - frame.bottom;
+        LogUtils.d("" + rootView.getBottom() + ", " + frame.bottom + ", " + heightDiff);
+        return heightDiff > softKeyboardHeight * dm.density;
     }
 }

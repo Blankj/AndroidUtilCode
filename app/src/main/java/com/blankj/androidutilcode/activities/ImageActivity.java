@@ -53,7 +53,7 @@ public class ImageActivity extends Activity {
         });
         ivRound.setImageBitmap(ImageUtils.toRound(src));
         ivRoundCorner.setImageBitmap(ImageUtils.toRoundCorner(src, 60));
-        ivFastBlur.setImageBitmap(ImageUtils.fastBlur(this, src, 0.1f, 5));
+        ivFastBlur.setImageBitmap(ImageUtils.fastBlur(src, 0.1f, 5));
         ivRenderScriptBlur.setImageBitmap(ImageUtils.renderScriptBlur(this, src, 10));
         src = ImageUtils.getBitmap(getResources(), R.drawable.lena);
         ivStackBlur.setImageBitmap(ImageUtils.stackBlur(src, 10, false));

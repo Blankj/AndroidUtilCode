@@ -1,7 +1,6 @@
 package com.blankj.utilcode.utils;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,9 +16,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.text.Format;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * <pre>
@@ -133,13 +129,13 @@ public class ConvertUtils {
      * 以unit为单位的内存大小转字节数
      *
      * @param memorySize 大小
-     * @param unit 单位类型
-     *             <ul>
-     *             <li>{@link ConstUtils.MemoryUnit#BYTE}: 字节</li>
-     *             <li>{@link ConstUtils.MemoryUnit#KB}  : 千字节</li>
-     *             <li>{@link ConstUtils.MemoryUnit#MB}  : 兆</li>
-     *             <li>{@link ConstUtils.MemoryUnit#GB}  : GB</li>
-     *             </ul>
+     * @param unit       单位类型
+     *                   <ul>
+     *                   <li>{@link ConstUtils.MemoryUnit#BYTE}: 字节</li>
+     *                   <li>{@link ConstUtils.MemoryUnit#KB}  : 千字节</li>
+     *                   <li>{@link ConstUtils.MemoryUnit#MB}  : 兆</li>
+     *                   <li>{@link ConstUtils.MemoryUnit#GB}  : GB</li>
+     *                   </ul>
      * @return 字节数
      */
     public static long memorySize2Byte(long memorySize, ConstUtils.MemoryUnit unit) {
@@ -587,48 +583,44 @@ public class ConvertUtils {
     /**
      * dp转px
      *
-     * @param context 上下文
      * @param dpValue dp值
      * @return px值
      */
-    public static int dp2px(Context context, float dpValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
+    public static int dp2px(float dpValue) {
+        final float scale = Utils.context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
     /**
      * px转dp
      *
-     * @param context 上下文
      * @param pxValue px值
      * @return dp值
      */
-    public static int px2dp(Context context, float pxValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
+    public static int px2dp(float pxValue) {
+        final float scale = Utils.context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
 
     /**
      * sp转px
      *
-     * @param context 上下文
      * @param spValue sp值
      * @return px值
      */
-    public static int sp2px(Context context, float spValue) {
-        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+    public static int sp2px(float spValue) {
+        final float fontScale = Utils.context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
 
     /**
      * px转sp
      *
-     * @param context 上下文
      * @param pxValue px值
      * @return sp值
      */
-    public static int px2sp(Context context, float pxValue) {
-        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+    public static int px2sp(float pxValue) {
+        final float fontScale = Utils.context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
 }

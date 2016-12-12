@@ -34,15 +34,13 @@ public class KeyboardUtils {
      */
     public static void hideSoftInput(Activity activity) {
         View view = activity.getCurrentFocus();
-        if (view == null) {
-            view = new View(activity);
-        }
+        if (view == null) view = new View(activity);
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     /**
-     * 点击屏幕空白区域隐藏软键盘（方法2）
+     * 点击屏幕空白区域隐藏软键盘
      * <p>根据EditText所在坐标和用户点击的坐标相对比，来判断是否隐藏键盘</p>
      * <p>需重写dispatchTouchEvent</p>
      * <p>参照以下注释代码</p>
@@ -82,10 +80,9 @@ public class KeyboardUtils {
     /**
      * 动态显示软键盘
      *
-     * @param context 上下文
-     * @param edit    输入框
+     * @param edit 输入框
      */
-    public static void showSoftInput(Context context, EditText edit) {
+    public static void showSoftInput(Context context,EditText edit) {
         edit.setFocusable(true);
         edit.setFocusableInTouchMode(true);
         edit.requestFocus();
@@ -96,11 +93,9 @@ public class KeyboardUtils {
 
     /**
      * 切换键盘显示与否状态
-     *
-     * @param context 上下文
      */
-    public static void toggleSoftInput(Context context) {
-        InputMethodManager imm = (InputMethodManager) context
+    public static void toggleSoftInput() {
+        InputMethodManager imm = (InputMethodManager) Utils.context
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }

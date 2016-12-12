@@ -630,28 +630,26 @@ public class ImageUtils {
      * 快速模糊
      * <p>先缩小原图，对小图进行模糊，再放大回原先尺寸</p>
      *
-     * @param context 上下文
      * @param src     源图片
      * @param scale   缩放比例(0...1)
      * @param radius  模糊半径
      * @return 模糊后的图片
      */
-    public static Bitmap fastBlur(Context context, Bitmap src, float scale, float radius) {
-        return fastBlur(context, src, scale, radius, false);
+    public static Bitmap fastBlur( Bitmap src, float scale, float radius) {
+        return fastBlur(src, scale, radius, false);
     }
 
     /**
      * 快速模糊图片
      * <p>先缩小原图，对小图进行模糊，再放大回原先尺寸</p>
      *
-     * @param context 上下文
      * @param src     源图片
      * @param scale   缩放比例(0...1)
      * @param radius  模糊半径
      * @param recycle 是否回收
      * @return 模糊后的图片
      */
-    public static Bitmap fastBlur(Context context, Bitmap src, float scale, float radius, boolean recycle) {
+    public static Bitmap fastBlur(Bitmap src, float scale, float radius, boolean recycle) {
         if (isEmptyBitmap(src)) return null;
         int width = src.getWidth();
         int height = src.getHeight();
@@ -667,7 +665,7 @@ public class ImageUtils {
         canvas.scale(scale, scale);
         canvas.drawBitmap(scaleBitmap, 0, 0, paint);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            scaleBitmap = renderScriptBlur(context, scaleBitmap, radius);
+            scaleBitmap = renderScriptBlur(Utils.context, scaleBitmap, radius);
         } else {
             scaleBitmap = stackBlur(scaleBitmap, (int) radius, recycle);
         }

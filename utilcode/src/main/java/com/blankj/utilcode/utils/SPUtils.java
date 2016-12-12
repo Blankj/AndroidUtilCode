@@ -22,11 +22,10 @@ public class SPUtils {
      * SPUtils构造函数
      * <p>在Application中初始化</p>
      *
-     * @param context 上下文
      * @param spName  spName
      */
-    public SPUtils(Context context, String spName) {
-        sp = context.getSharedPreferences(spName, Context.MODE_PRIVATE);
+    public SPUtils(String spName) {
+        sp = Utils.context.getSharedPreferences(spName, Context.MODE_PRIVATE);
         editor = sp.edit();
         editor.apply();
     }

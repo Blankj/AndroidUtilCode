@@ -50,19 +50,19 @@ public class CleanActivity extends Activity
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_clean_internal_cache:
-                Log.d("cleanInternalCache", "" + CleanUtils.cleanInternalCache(this));
+                Log.d("cleanInternalCache", "" + CleanUtils.cleanInternalCache());
                 break;
             case R.id.btn_clean_internal_files:
-                Log.d("cleanInternalFiles", "" + CleanUtils.cleanInternalFiles(this));
+                Log.d("cleanInternalFiles", "" + CleanUtils.cleanInternalFiles());
                 break;
             case R.id.btn_clean_internal_databases:
-                Log.d("cleanInternalDbs", "" + CleanUtils.cleanInternalDbs(this));
+                Log.d("cleanInternalDbs", "" + CleanUtils.cleanInternalDbs());
                 break;
             case R.id.btn_clean_internal_sp:
-                Log.d("cleanInternalSP", "" + CleanUtils.cleanInternalSP(this));
+                Log.d("cleanInternalSP", "" + CleanUtils.cleanInternalSP());
                 break;
             case R.id.btn_clean_external_cache:
-                Log.d("cleanExternalCache", "" + CleanUtils.cleanExternalCache(this));
+                Log.d("cleanExternalCache", "" + CleanUtils.cleanExternalCache());
                 break;
         }
     }

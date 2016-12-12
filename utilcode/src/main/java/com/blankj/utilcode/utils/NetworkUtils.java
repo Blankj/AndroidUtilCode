@@ -49,14 +49,12 @@ public class NetworkUtils {
     /**
      * 打开网络设置界面
      * <p>3.0以下打开设置界面</p>
-     *
-     * @param context 上下文
      */
-    public static void openWirelessSettings(Context context) {
+    public static void openWirelessSettings() {
         if (android.os.Build.VERSION.SDK_INT > 10) {
-            context.startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS));
+            Utils.context.startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS));
         } else {
-            context.startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS));
+            Utils.context.startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS));
         }
     }
 
@@ -64,11 +62,10 @@ public class NetworkUtils {
      * 获取活动网络信息
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
      *
-     * @param context 上下文
      * @return NetworkInfo
      */
-    private static NetworkInfo getActiveNetworkInfo(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context
+    private static NetworkInfo getActiveNetworkInfo() {
+        ConnectivityManager cm = (ConnectivityManager) Utils.context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo();
     }
@@ -77,11 +74,10 @@ public class NetworkUtils {
      * 判断网络是否连接
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
      *
-     * @param context 上下文
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isConnected(Context context) {
-        NetworkInfo info = getActiveNetworkInfo(context);
+    public static boolean isConnected() {
+        NetworkInfo info = getActiveNetworkInfo();
         return info != null && info.isConnected();
     }
 
@@ -89,10 +85,9 @@ public class NetworkUtils {
      * 判断网络是否可用
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
      *
-     * @param context 上下文
      * @return {@code true}: 可用<br>{@code false}: 不可用
      */
-    public static boolean isAvailableByPing(Context context) {
+    public static boolean isAvailableByPing() {
         ShellUtils.CommandResult result = ShellUtils.execCmd("ping -c 1 -w 1 123.125.114.144", false);
         boolean ret = result.result == 0;
         if (result.errorMsg != null) {
@@ -107,12 +102,11 @@ public class NetworkUtils {
     /**
      * 判断移动数据是否打开
      *
-     * @param context 上下文
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean getDataEnabled(Context context) {
+    public static boolean getDataEnabled() {
         try {
-            TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            TelephonyManager tm = (TelephonyManager) Utils.context.getSystemService(Context.TELEPHONY_SERVICE);
             Method getMobileDataEnabledMethod = tm.getClass().getDeclaredMethod("getDataEnabled");
             if (null != getMobileDataEnabledMethod) {
                 return (boolean) getMobileDataEnabledMethod.invoke(tm);
@@ -127,12 +121,11 @@ public class NetworkUtils {
      * 打开或关闭移动数据
      * <p>需系统应用 需添加权限{@code <uses-permission android:name="android.permission.MODIFY_PHONE_STATE"/>}</p>
      *
-     * @param context 上下文
      * @param enabled {@code true}: 打开<br>{@code false}: 关闭
      */
-    public static void setDataEnabled(Context context, boolean enabled) {
+    public static void setDataEnabled(boolean enabled) {
         try {
-            TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            TelephonyManager tm = (TelephonyManager) Utils.context.getSystemService(Context.TELEPHONY_SERVICE);
             Method setMobileDataEnabledMethod = tm.getClass().getDeclaredMethod("setDataEnabled", boolean.class);
             if (null != setMobileDataEnabledMethod) {
                 setMobileDataEnabledMethod.invoke(tm, enabled);
@@ -146,11 +139,10 @@ public class NetworkUtils {
      * 判断网络是否是4G
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
      *
-     * @param context 上下文
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean is4G(Context context) {
-        NetworkInfo info = getActiveNetworkInfo(context);
+    public static boolean is4G() {
+        NetworkInfo info = getActiveNetworkInfo();
         return info != null && info.isAvailable() && info.getSubtype() == TelephonyManager.NETWORK_TYPE_LTE;
     }
 
@@ -158,11 +150,10 @@ public class NetworkUtils {
      * 判断wifi是否打开
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>}</p>
      *
-     * @param context 上下文
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean getWifiEnabled(Context context) {
-        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+    public static boolean getWifiEnabled() {
+        WifiManager wifiManager = (WifiManager) Utils.context.getSystemService(Context.WIFI_SERVICE);
         return wifiManager.isWifiEnabled();
     }
 
@@ -170,11 +161,10 @@ public class NetworkUtils {
      * 打开或关闭wifi
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>}</p>
      *
-     * @param context 上下文
      * @param enabled {@code true}: 打开<br>{@code false}: 关闭
      */
-    public static void setWifiEnabled(Context context, boolean enabled) {
-        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+    public static void setWifiEnabled( boolean enabled) {
+        WifiManager wifiManager = (WifiManager)Utils.context.getSystemService(Context.WIFI_SERVICE);
         if (enabled) {
             if (!wifiManager.isWifiEnabled()) {
                 wifiManager.setWifiEnabled(true);
@@ -190,11 +180,10 @@ public class NetworkUtils {
      * 判断wifi是否连接状态
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
      *
-     * @param context 上下文
      * @return {@code true}: 连接<br>{@code false}: 未连接
      */
-    public static boolean isWifiConnected(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context
+    public static boolean isWifiConnected() {
+        ConnectivityManager cm = (ConnectivityManager) Utils.context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm != null && cm.getActiveNetworkInfo() != null
                 && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
@@ -205,22 +194,20 @@ public class NetworkUtils {
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>}</p>
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
      *
-     * @param context 上下文
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isWifiAvailable(Context context) {
-        return getWifiEnabled(context) && isAvailableByPing(context);
+    public static boolean isWifiAvailable() {
+        return getWifiEnabled() && isAvailableByPing();
     }
 
     /**
      * 获取网络运营商名称
      * <p>中国移动、如中国联通、中国电信</p>
      *
-     * @param context 上下文
      * @return 运营商名称
      */
-    public static String getNetworkOperatorName(Context context) {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+    public static String getNetworkOperatorName() {
+        TelephonyManager tm = (TelephonyManager) Utils.context.getSystemService(Context.TELEPHONY_SERVICE);
         return tm != null ? tm.getNetworkOperatorName() : null;
     }
 
@@ -232,7 +219,6 @@ public class NetworkUtils {
      * 获取当前网络类型
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
      *
-     * @param context 上下文
      * @return 网络类型
      * <ul>
      * <li>{@link NetworkUtils.NetworkType#NETWORK_WIFI   } </li>
@@ -243,9 +229,9 @@ public class NetworkUtils {
      * <li>{@link NetworkUtils.NetworkType#NETWORK_NO     } </li>
      * </ul>
      */
-    public static NetworkType getNetworkType(Context context) {
+    public static NetworkType getNetworkType() {
         NetworkType netType = NetworkType.NETWORK_NO;
-        NetworkInfo info = getActiveNetworkInfo(context);
+        NetworkInfo info = getActiveNetworkInfo();
         if (info != null && info.isAvailable()) {
 
             if (info.getType() == ConnectivityManager.TYPE_WIFI) {

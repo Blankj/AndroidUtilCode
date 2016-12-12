@@ -1,6 +1,7 @@
 package com.blankj.utilcode.utils;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -22,12 +23,18 @@ import static com.google.common.truth.Truth.assertThat;
 @Config(manifest = Config.NONE)
 public class SPUtilsTest {
 
-    SPUtils spUtils;
+    private SPUtils spUtils;
+
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
+
+    }
 
     @Before
     public void setUp() throws Exception {
+        if (Utils.context == null) TestUtils.init();
         if (spUtils == null) {
-            spUtils = new SPUtils(TestUtils.getContext(), "test");
+            spUtils = new SPUtils("test");
             spUtils.putString("stringKey", "stringVal");
             spUtils.putInt("intKey", 1);
             spUtils.putLong("longKey", 1L);

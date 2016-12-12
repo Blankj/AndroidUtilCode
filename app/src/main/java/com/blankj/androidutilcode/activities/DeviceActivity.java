@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.blankj.androidutilcode.App;
 import com.blankj.androidutilcode.R;
 import com.blankj.utilcode.utils.DeviceUtils;
 
@@ -34,8 +33,8 @@ public class DeviceActivity extends Activity
 
         tvAboutDevice.setText("isRoot: " + DeviceUtils.isDeviceRoot()
                 + "\ngetSDKVersion: " + DeviceUtils.getSDKVersion()
-                + "\ngetAndroidID: " + DeviceUtils.getAndroidID(App.getInstance())
-                + "\ngetMacAddress: " + DeviceUtils.getMacAddress(App.getInstance())
+                + "\ngetAndroidID: " + DeviceUtils.getAndroidID()
+                + "\ngetMacAddress: " + DeviceUtils.getMacAddress()
                 + "\ngetManufacturer: " + DeviceUtils.getManufacturer()
                 + "\ngetModel: " + DeviceUtils.getModel()
         );

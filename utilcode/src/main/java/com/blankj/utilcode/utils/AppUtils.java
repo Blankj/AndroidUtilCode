@@ -12,10 +12,7 @@ import android.graphics.drawable.Drawable;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * <pre>
@@ -686,22 +683,21 @@ public class AppUtils {
         for (String dirPath : dirPaths) {
             dirs[i++] = new File(dirPath);
         }
-        return cleanAppData(context, dirs);
+        return cleanAppData(dirs);
     }
 
     /**
      * 清除App所有数据
      *
-     * @param context 上下文
      * @param dirs    目录
      * @return {@code true}: 成功<br>{@code false}: 失败
      */
-    public static boolean cleanAppData(Context context, File... dirs) {
-        boolean isSuccess = CleanUtils.cleanInternalCache(context);
-        isSuccess &= CleanUtils.cleanInternalDbs(context);
-        isSuccess &= CleanUtils.cleanInternalSP(context);
-        isSuccess &= CleanUtils.cleanInternalFiles(context);
-        isSuccess &= CleanUtils.cleanExternalCache(context);
+    public static boolean cleanAppData(File... dirs) {
+        boolean isSuccess = CleanUtils.cleanInternalCache();
+        isSuccess &= CleanUtils.cleanInternalDbs();
+        isSuccess &= CleanUtils.cleanInternalSP();
+        isSuccess &= CleanUtils.cleanInternalFiles();
+        isSuccess &= CleanUtils.cleanExternalCache();
         for (File dir : dirs) {
             isSuccess &= CleanUtils.cleanCustomCache(dir);
         }
