@@ -27,6 +27,7 @@ import java.lang.reflect.Method;
  * </pre>
  */
 public class BarUtils {
+
     private BarUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }

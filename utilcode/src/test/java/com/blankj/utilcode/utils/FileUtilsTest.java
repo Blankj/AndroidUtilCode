@@ -175,6 +175,11 @@ public class FileUtilsTest {
     }
 
     @Test
+    public void testGetFileLastModified()throws Exception{
+        System.out.println(TimeUtils.millis2String(getFileLastModified(path)));
+    }
+
+    @Test
     public void testReadFile2List() throws Exception {
         System.out.println(readFile2List(path + "UTF8.txt", "").toString());
         System.out.println(readFile2List(path + "UTF8.txt", "UTF-8").toString());

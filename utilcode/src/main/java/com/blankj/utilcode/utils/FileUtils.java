@@ -801,7 +801,7 @@ public class FileUtils {
     }
 
     /**
-     * 指定编码按行读取文件到List
+     * 指定编码按行读取文件到链表中
      *
      * @param filePath    文件路径
      * @param charsetName 编码格式
@@ -812,7 +812,7 @@ public class FileUtils {
     }
 
     /**
-     * 指定编码按行读取文件到List
+     * 指定编码按行读取文件到链表中
      *
      * @param file        文件
      * @param charsetName 编码格式
@@ -823,7 +823,7 @@ public class FileUtils {
     }
 
     /**
-     * 指定编码按行读取文件到List
+     * 指定编码按行读取文件到链表中
      *
      * @param filePath    文件路径
      * @param st          需要读取的开始行数
@@ -837,7 +837,7 @@ public class FileUtils {
     }
 
     /**
-     * 指定编码按行读取文件到List
+     * 指定编码按行读取文件到链表中
      *
      * @param file        文件
      * @param st          需要读取的开始行数
@@ -938,6 +938,27 @@ public class FileUtils {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * 获取文件最后修改的毫秒时间戳
+     *
+     * @param filePath 文件路径
+     * @return 文件最后修改的毫秒时间戳
+     */
+    public static long getFileLastModified(String filePath) {
+        return getFileLastModified(getFileByPath(filePath));
+    }
+
+    /**
+     * 获取文件最后修改的毫秒时间戳
+     *
+     * @param file 文件
+     * @return 文件最后修改的毫秒时间戳
+     */
+    public static long getFileLastModified(File file) {
+        if (file == null) return -1;
+        return file.lastModified();
     }
 
     /**

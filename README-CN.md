@@ -190,10 +190,12 @@ listFilesInDirWithFilter       : 获取目录下所有符合filter的文件包�
 searchFileInDir                : 获取目录下指定文件名的文件包括子目录
 writeFileFromIS                : 将输入流写入文件
 writeFileFromString            : 将字符串写入文件
+readFile2List                  : 指定编码按行读取文件到链表中
+readFile2String                : 指定编码按行读取文件到字符串中
+readFile2Bytes                 : 读取文件到字符数组中
+getFileLastModified            : 获取文件最后修改的毫秒时间戳
 getFileCharsetSimple           : 简单获取文件编码格式
 getFileLines                   : 获取文件行数
-readFile2List                  : 指定编码按行读取文件到List
-readFile2SB                    : 指定编码按行读取文件到StringBuilder中
 getDirSize                     : 获取目录大小
 getFileSize                    : 获取文件大小
 getDirLength                   : 获取目录长度
