@@ -188,7 +188,12 @@ public class EncodeUtils {
      * @param input 待解码的字符串
      * @return Html解码后的字符串
      */
+    @SuppressWarnings("deprecation")
     public static String htmlDecode(String input) {
-        return Html.fromHtml(input).toString();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return Html.fromHtml(input, Html.FROM_HTML_MODE_LEGACY).toString();
+        } else {
+            return Html.fromHtml(input).toString();
+        }
     }
 }

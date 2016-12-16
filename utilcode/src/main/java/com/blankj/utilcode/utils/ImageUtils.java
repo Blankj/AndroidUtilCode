@@ -19,6 +19,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.os.Build;
@@ -62,7 +63,10 @@ public class ImageUtils {
      * @return 字节数组
      */
     public static byte[] bitmap2Bytes(Bitmap bitmap, CompressFormat format) {
-        return ConvertUtils.bitmap2Bytes(bitmap, format);
+        if (bitmap == null) return null;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(format, 100, baos);
+        return baos.toByteArray();
     }
 
     /**
@@ -72,7 +76,7 @@ public class ImageUtils {
      * @return bitmap
      */
     public static Bitmap bytes2Bitmap(byte[] bytes) {
-        return ConvertUtils.bytes2Bitmap(bytes);
+        return (bytes == null || bytes.length == 0) ? null : BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 
     /**
@@ -82,7 +86,7 @@ public class ImageUtils {
      * @return bitmap
      */
     public static Bitmap drawable2Bitmap(Drawable drawable) {
-        return ConvertUtils.drawable2Bitmap(drawable);
+        return drawable == null ? null : ((BitmapDrawable) drawable).getBitmap();
     }
 
     /**
@@ -93,7 +97,7 @@ public class ImageUtils {
      * @return drawable
      */
     public static Drawable bitmap2Drawable(Resources res, Bitmap bitmap) {
-        return ConvertUtils.bitmap2Drawable(res, bitmap);
+        return bitmap == null ? null : new BitmapDrawable(res, bitmap);
     }
 
     /**
@@ -104,7 +108,7 @@ public class ImageUtils {
      * @return 字节数组
      */
     public static byte[] drawable2Bytes(Drawable drawable, CompressFormat format) {
-        return ConvertUtils.drawable2Bytes(drawable, format);
+        return drawable == null ? null : bitmap2Bytes(drawable2Bitmap(drawable), format);
     }
 
     /**
@@ -115,7 +119,7 @@ public class ImageUtils {
      * @return drawable
      */
     public static Drawable bytes2Drawable(Resources res, byte[] bytes) {
-        return ConvertUtils.bytes2Drawable(res, bytes);
+        return res == null ? null : bitmap2Drawable(res, bytes2Bitmap(bytes));
     }
 
     /**
@@ -125,7 +129,17 @@ public class ImageUtils {
      * @return bitmap
      */
     public static Bitmap view2Bitmap(View view) {
-        return ConvertUtils.view2Bitmap(view);
+        if (view == null) return null;
+        Bitmap ret = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(ret);
+        Drawable bgDrawable = view.getBackground();
+        if (bgDrawable != null) {
+            bgDrawable.draw(canvas);
+        } else {
+            canvas.drawColor(Color.WHITE);
+        }
+        view.draw(canvas);
+        return ret;
     }
 
     /**
@@ -630,12 +644,12 @@ public class ImageUtils {
      * 快速模糊
      * <p>先缩小原图，对小图进行模糊，再放大回原先尺寸</p>
      *
-     * @param src     源图片
-     * @param scale   缩放比例(0...1)
-     * @param radius  模糊半径
+     * @param src    源图片
+     * @param scale  缩放比例(0...1)
+     * @param radius 模糊半径
      * @return 模糊后的图片
      */
-    public static Bitmap fastBlur( Bitmap src, float scale, float radius) {
+    public static Bitmap fastBlur(Bitmap src, float scale, float radius) {
         return fastBlur(src, scale, radius, false);
     }
 
