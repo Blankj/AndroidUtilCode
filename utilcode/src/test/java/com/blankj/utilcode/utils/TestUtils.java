@@ -92,7 +92,7 @@ public class TestUtils {
                     for (int j = 0; j < l; j++) {
                         spaces += space;
                     }
-                    String temp = noSpaceLine.substring(0, noSpaceLine.indexOf(':')) + spaces + " : " + noSpaceLine.substring(noSpaceLine.indexOf(':') + 1) + "\r\n";
+                    String temp = noSpaceLine.substring(0, noSpaceLine.indexOf(':')) + spaces + ": " + noSpaceLine.substring(noSpaceLine.indexOf(':') + 1) + "\r\n";
                     sb.append(temp.replace(",", ", "));
                 }
             } else {
