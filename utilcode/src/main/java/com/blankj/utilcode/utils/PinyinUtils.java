@@ -91,7 +91,7 @@ public class PinyinUtils {
      * 根据名字获取姓氏的拼音
      *
      * @param name 名字
-     * @return 拼音
+     * @return 姓氏的拼音
      */
     public static String getSurnamePinyin(CharSequence name) {
         if (name == null || name.length() == 0) return null;
@@ -118,13 +118,12 @@ public class PinyinUtils {
      * 根据名字获取姓氏的首字母
      *
      * @param name 名字
-     * @return 拼音
+     * @return 姓氏的首字母
      */
     public static String getSurnameFirstLetter(CharSequence name) {
         String surname = getSurnamePinyin(name);
         if (surname == null || surname.length() == 0) return null;
         return String.valueOf(surname.charAt(0));
-
     }
 
     // 多音字姓氏映射表
