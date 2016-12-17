@@ -329,7 +329,8 @@ ccs2Pinyin
 ccs2Pinyin
 getPinyinFirstLetter
 getPinyinFirstLetters: 获取所有汉字的首字母
-surname2Pinyin
+getSurnamePinyin
+getSurnameFirstLetter: 根据名字获取姓氏的首字母
  ```
 
 > - **About Process→[ProcessUtils.java][process.java]→[Demo][process.demo]**

@@ -88,21 +88,21 @@ public class PinyinUtils {
     }
 
     /**
-     * 姓氏转拼音
+     * 根据名字获取姓氏的拼音
      *
-     * @param surname 姓氏
+     * @param name 名字
      * @return 拼音
      */
-    public static String surname2Pinyin(CharSequence surname) {
-        if (surname == null || surname.length() == 0) return null;
-        if (surname.length() >= 2) {
-            CharSequence str = surname.subSequence(0, 2).toString();
+    public static String getSurnamePinyin(CharSequence name) {
+        if (name == null || name.length() == 0) return null;
+        if (name.length() >= 2) {
+            CharSequence str = name.subSequence(0, 2);
             if (str.equals("澹台")) return "tantai";
             else if (str.equals("尉迟")) return "yuchi";
             else if (str.equals("万俟")) return "moqi";
             else if (str.equals("单于")) return "chanyu";
         }
-        char ch = surname.charAt(0);
+        char ch = name.charAt(0);
         if (surnames.containsKey(ch)) {
             return surnames.get(ch);
         }
@@ -112,6 +112,19 @@ public class PinyinUtils {
         } else {
             return String.valueOf(ch);
         }
+    }
+
+    /**
+     * 根据名字获取姓氏的首字母
+     *
+     * @param name 名字
+     * @return 拼音
+     */
+    public static String getSurnameFirstLetter(CharSequence name) {
+        String surname = getSurnamePinyin(name);
+        if (surname == null || surname.length() == 0) return null;
+        return String.valueOf(surname.charAt(0));
+
     }
 
     // 多音字姓氏映射表
@@ -196,5 +209,4 @@ public class PinyinUtils {
                 .append("n   fu    diao  ji    feng  none  gan   shi   feng  ming  bao   yuan  zhi   hu    qian  fu    fen   wen   jian  shi   yu    fou   yiao  ju    jue   pi    huan  zhen  bao   yan   ya    zheng fang  feng  wen   ou    te    jia   nu    ling  mie   fu    tuo   wen   li    bian  zhi   ge    yuan  zi    qu    xiao  chi   dan   ju    you   gu    zhong yu    yang  rong  ya    zhi   yu    none  ying  zhui  wu    er    gua   ai    zhi   yan   heng  jiao  ji    lie   zhu   ren   ti    hong  luo   ru    mou   ge    ren   jiao  xiu   zhou  chi   luo   none  none  none  luan  jia   ji    yu    huan  tuo   bu    wu    juan  yu    bo    xun   xun   bi    xi    jun   ju    tu    jing  ti    e     e     kuang hu    wu    shen  la    none  none  lu    bing  shu   fu    an    zhao  peng  qin   qian  bei   diao  lu    que   jian  ju    tu    ya    yuan  qi    li    ye    zhui  kong  duo   kun   sheng qi    jing  ni    e     jing  zi    lai   dong  qi    chun  geng  ju    qu    none  none  ji    shu   none  chi   miao  rou   fu    qiu   ti    hu    ti    e     jie   mao   fu    chun  tu    yan   he    yuan  pian  yun   mei   hu    ying  dun   mu    ju    none  cang  fang  ge    ying  yuan  xuan  weng  shi   he    chu   tang  xia   ruo   liu   ji    gu    jian  zhun  han   zi    ci    yi    yao   yan   ji    li    tian  kou   ti    ti    ni    tu    ma    jiao  liu   zhen  chen  li    zhuan zhe   ao    yao   yi    ou    chi   zhi   liao  rong  lou   bi    shuangzhuo  yu    wu    jue   yin   tan   si    jiao  yi    hua   bi    ying  su    huang fan   jiao  liao  yan   kao   jiu   xian  xian  tu    mai   zun   yu    ying  lu    tuan  xian  xue   yi    pi    shu   luo   qi    yi    ji    zhe   yu    zhan  ye    yang  pi    ning  hu    mi    ying  meng  di    yue   yu    lei   bo    lu    he    long  shuangyue   ying  guan  qu    li    luan  niao  jiu   ji    yuan  ming  shi   ou    ya    cang  bao   zhen  gu    dong  lu    ya    xiao  yang  ling  chi   qu    yuan  xue   tuo   si    zhi   er    gua   xiu   heng  zhou  ge    luan  hong  wu    bo    li    juan  hu    e     yu    xian  ti    wu    que   miao  an    kun   bei   peng  qian  chun  geng  yuan  su    hu    he    e     gu    qiu   ci    mei   wu    yi    yao   weng  liu   ji    yi    jian  he    yi    ying  zhe   liu   liao  jiao  jiu   yu    lu    huan  zhan  ying  hu    meng  guan  shuanglu    jin   ling  jian  xian  cuo   jian  jian  yan   cuo   lu    you   cu    ji    biao  cu    pao   zhu   jun   zhu   jian  mi    mi    wu    liu   chen  jun   lin   ni    qi    lu    jiu   jun   jing  li    xiang yan   jia   mi    li    she   zhang lin   jing  qi    ling  yan   cu    mai   mai   ge    chao  fu    mian  mian  fu    pao   qu    qu    mou   fu    xian  lai   qu    mian  chi   feng  fu    qu    mian  ma    ma    mo    hui   none  zou   nen   fen   huang huang jin   guang tian  tou   hong  xi    kuang hong  shu   li    nian  chi   hei   hei   yi    qian  zhen  xi    tuan  mo    mo    qian  dai   chu   you   dian  yi    xia   yan   qu    mei   yan   qing  yu    li    dang  du    can   yin   an    yan   tan   an    zhen  dai   can   yi    mei   dan   yan   du    lu    zhi   fen   fu    fu    min   min   yuan  cu    qu    chao  wa    zhu   zhi   mang  ao    bie   tuo   bi    yuan  chao  tuo   ding  mi    nai   ding  zi    gu    gu    dong  fen   tao   yuan  pi    chang gao   qi    yuan  tang  teng  shu   shu   fen   fei   wen   ba    diao  tuo   tong  qu    sheng shi   you   shi   ting  wu    nian  jing  hun   ju    yan   tu    si    xi    xian  yan   lei   bi    yao   yan   han   hui   wu    hou   xi    ge    zha   xiu   weng  zha   nong  nang  qi    zhai  ji    zi    ji    ji    qi    ji    chi   chen  chen  he    ya    ken   xie   bao   ze    shi   zi    chi   nian  ju    tiao  ling  ling  chu   quan  xie   yin   nie   jiu   nie   chuo  kun   yu    chu   yi    ni    cuo   chuo  qu    nian  xian  yu    e     wo    yi    chi   zou   dian  chu   jin   ya    chi   chen  he    yin   ju    ling  bao   tiao  zi    yin   yu    chuo  qu    wo    long  pang  gong  pang  yan   long  long  gong  kan   ta    ling  ta    long  gong  kan   gui   qiu   bie   gui   yue   chui  he    jue   ")
                 .append("xie   yue   ").toString();
     }
-
 }

@@ -34,7 +34,7 @@ public class LogUtils {
 
     /**
      * 初始化函数
-     * <p>与{@link #getBuilder(Context)}两者选其一</p>
+     * <p>与{@link #getBuilder()}两者选其一</p>
      *
      * @param logSwitch      日志总开关
      * @param log2FileSwitch 日志写入文件开关

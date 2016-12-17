@@ -10,7 +10,7 @@ import java.util.List;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/11/23
- *     desc  : 生成Dode的README
+ *     desc  : 生成Doge的README
  * </pre>
  */
 public class DogeTest {
