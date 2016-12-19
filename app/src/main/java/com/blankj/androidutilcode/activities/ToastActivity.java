@@ -21,15 +21,13 @@ import com.blankj.utilcode.utils.ToastUtils;
 public class ToastActivity extends Activity
         implements View.OnClickListener {
 
-    private Context mContext;
-    private boolean isJumpWhenMore;
+    private boolean  isJumpWhenMore;
     private TextView tvAboutToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_toast);
-        mContext = this;
         isJumpWhenMore = false;
 
         tvAboutToast = (TextView) findViewById(R.id.tv_about_toast);
@@ -54,7 +52,7 @@ public class ToastActivity extends Activity
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtils.showShortToastSafe(mContext, "show_short_toast_safe");
+                        ToastUtils.showShortToastSafe("show_short_toast_safe");
                     }
                 }).start();
                 break;
@@ -62,15 +60,15 @@ public class ToastActivity extends Activity
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtils.showLongToastSafe(mContext, "show_long_toast_safe");
+                        ToastUtils.showLongToastSafe("show_long_toast_safe");
                     }
                 }).start();
                 break;
             case R.id.btn_show_short_toast:
-                ToastUtils.showShortToast(mContext, "show_short_toast");
+                ToastUtils.showShortToast("show_short_toast");
                 break;
             case R.id.btn_show_long_toast:
-                ToastUtils.showShortToast(mContext, "show_long_toast");
+                ToastUtils.showShortToast("show_long_toast");
                 break;
             case R.id.btn_cancel_toast:
                 ToastUtils.cancelToast();

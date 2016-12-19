@@ -21,9 +21,9 @@ import java.util.List;
 @Config(manifest = Config.NONE)
 public class TestUtils {
 
-    public static final char SEP = File.separatorChar;
+    static final char SEP = File.separatorChar;
 
-    public static final String BASEPATH = System.getProperty("user.dir")
+    static final String BASEPATH = System.getProperty("user.dir")
             + SEP + "src" + SEP + "test" + SEP + "res" + SEP;
 
     public static void init() {

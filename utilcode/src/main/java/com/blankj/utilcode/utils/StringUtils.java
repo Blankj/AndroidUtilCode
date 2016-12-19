@@ -106,9 +106,7 @@ public class StringUtils {
      * @return 首字母小写字符串
      */
     public static String lowerFirstLetter(String s) {
-        if (isEmpty(s) || !Character.isUpperCase(s.charAt(0))) {
-            return s;
-        }
+        if (isEmpty(s) || !Character.isUpperCase(s.charAt(0))) return s;
         return String.valueOf((char) (s.charAt(0) + 32)) + s.substring(1);
     }
 
@@ -139,9 +137,7 @@ public class StringUtils {
      * @return 半角字符串
      */
     public static String toDBC(String s) {
-        if (isEmpty(s)) {
-            return s;
-        }
+        if (isEmpty(s)) return s;
         char[] chars = s.toCharArray();
         for (int i = 0, len = chars.length; i < len; i++) {
             if (chars[i] == 12288) {
@@ -162,9 +158,7 @@ public class StringUtils {
      * @return 全角字符串
      */
     public static String toSBC(String s) {
-        if (isEmpty(s)) {
-            return s;
-        }
+        if (isEmpty(s)) return s;
         char[] chars = s.toCharArray();
         for (int i = 0, len = chars.length; i < len; i++) {
             if (chars[i] == ' ') {

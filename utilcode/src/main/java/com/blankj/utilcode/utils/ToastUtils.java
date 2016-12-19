@@ -2,6 +2,7 @@ package com.blankj.utilcode.utils;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.StringRes;
 import android.widget.Toast;
 
 /**
@@ -52,7 +53,7 @@ public class ToastUtils {
      *
      * @param resId 资源Id
      */
-    public static void showShortToastSafe(final int resId) {
+    public static void showShortToastSafe(final @StringRes int resId) {
         sHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -67,7 +68,7 @@ public class ToastUtils {
      * @param resId 资源Id
      * @param args  参数
      */
-    public static void showShortToastSafe(final int resId, final Object... args) {
+    public static void showShortToastSafe(final @StringRes int resId, final Object... args) {
         sHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -110,7 +111,7 @@ public class ToastUtils {
      *
      * @param resId 资源Id
      */
-    public static void showLongToastSafe(final int resId) {
+    public static void showLongToastSafe(final @StringRes int resId) {
         sHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -125,7 +126,7 @@ public class ToastUtils {
      * @param resId 资源Id
      * @param args  参数
      */
-    public static void showLongToastSafe(final int resId, final Object... args) {
+    public static void showLongToastSafe(final @StringRes int resId, final Object... args) {
         sHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -163,7 +164,7 @@ public class ToastUtils {
      *
      * @param resId 资源Id
      */
-    public static void showShortToast(int resId) {
+    public static void showShortToast(@StringRes int resId) {
         showToast(resId, Toast.LENGTH_SHORT);
     }
 
@@ -173,7 +174,7 @@ public class ToastUtils {
      * @param resId 资源Id
      * @param args  参数
      */
-    public static void showShortToast(int resId, Object... args) {
+    public static void showShortToast(@StringRes int resId, Object... args) {
         showToast(resId, Toast.LENGTH_SHORT, args);
     }
 
@@ -201,7 +202,7 @@ public class ToastUtils {
      *
      * @param resId 资源Id
      */
-    public static void showLongToast(int resId) {
+    public static void showLongToast(@StringRes int resId) {
         showToast(resId, Toast.LENGTH_LONG);
     }
 
@@ -211,7 +212,7 @@ public class ToastUtils {
      * @param resId 资源Id
      * @param args  参数
      */
-    public static void showLongToast(int resId, Object... args) {
+    public static void showLongToast(@StringRes int resId, Object... args) {
         showToast(resId, Toast.LENGTH_LONG, args);
     }
 
@@ -223,6 +224,38 @@ public class ToastUtils {
      */
     public static void showLongToast(String format, Object... args) {
         showToast(format, Toast.LENGTH_LONG, args);
+    }
+
+    /**
+     * 显示吐司
+     *
+     * @param resId    资源Id
+     * @param duration 显示时长
+     */
+    private static void showToast(@StringRes int resId, int duration) {
+        showToast(Utils.context.getResources().getText(resId).toString(), duration);
+    }
+
+    /**
+     * 显示吐司
+     *
+     * @param resId    资源Id
+     * @param duration 显示时长
+     * @param args     参数
+     */
+    private static void showToast(@StringRes int resId, int duration, Object... args) {
+        showToast(String.format(Utils.context.getResources().getString(resId), args), duration);
+    }
+
+    /**
+     * 显示吐司
+     *
+     * @param format   格式
+     * @param duration 显示时长
+     * @param args     参数
+     */
+    private static void showToast(String format, int duration, Object... args) {
+        showToast(String.format(format, args), duration);
     }
 
     /**
@@ -240,38 +273,6 @@ public class ToastUtils {
             sToast.setDuration(duration);
         }
         sToast.show();
-    }
-
-    /**
-     * 显示吐司
-     *
-     * @param resId    资源Id
-     * @param duration 显示时长
-     */
-    private static void showToast(int resId, int duration) {
-        showToast(Utils.context.getResources().getText(resId).toString(), duration);
-    }
-
-    /**
-     * 显示吐司
-     *
-     * @param resId    资源Id
-     * @param duration 显示时长
-     * @param args     参数
-     */
-    private static void showToast(int resId, int duration, Object... args) {
-        showToast(String.format(Utils.context.getResources().getString(resId), args), duration);
-    }
-
-    /**
-     * 显示吐司
-     *
-     * @param format   格式
-     * @param duration 显示时长
-     * @param args     参数
-     */
-    private static void showToast(String format, int duration, Object... args) {
-        showToast(String.format(format, args), duration);
     }
 
     /**
