@@ -1,3 +1,6 @@
+* 16/12/19 SpannableStringUtils完善中
+* 16/12/18 SpannableStringUtils采用构造者模式
+* 16/12/17 完善SpannableStringUtils中
 * 16/12/16 拼音工具类完善结束
 * 16/12/15 完善拼音工具类中
 * 16/12/14 新增不低于7.0的Html解码
