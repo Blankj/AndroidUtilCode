@@ -18,6 +18,7 @@
     <string name="test.process">ProcessUtils Test</string>
     <string name="test.sdcard">SDCardUtils Test</string>
     <string name="test.snackbar">SnackbarUtils Test</string>
+    <string name="test.spannable">SpannableStringUtils Test</string>
     <string name="test.toast">ToastUtils Test</string>
 
     <!--Activity相关-->

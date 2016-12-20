@@ -31,14 +31,14 @@ public class PhoneActivity extends Activity implements
         findViewById(R.id.btn_send_sms).setOnClickListener(this);
         findViewById(R.id.btn_send_sms_silent).setOnClickListener(this);
 
-        tvAboutPhone.setText("isPhone: " + PhoneUtils.isPhone(this)
-                + "\ngetIMEI: " + PhoneUtils.getIMEI(this)
-                + "\ngetIMSI: " + PhoneUtils.getIMSI(this)
-                + "\ngetPhoneType: " + PhoneUtils.getPhoneType(this)
-                + "\nisSimCardReady: " + PhoneUtils.isSimCardReady(this)
-                + "\ngetSimOperatorName: " + PhoneUtils.getSimOperatorName(this)
-                + "\ngetSimOperatorByMnc: " + PhoneUtils.getSimOperatorByMnc(this)
-                + "\n获取手机状态信息: " + PhoneUtils.getPhoneStatus(this)
+        tvAboutPhone.setText("isPhone: " + PhoneUtils.isPhone()
+                + "\ngetIMEI: " + PhoneUtils.getIMEI()
+                + "\ngetIMSI: " + PhoneUtils.getIMSI()
+                + "\ngetPhoneType: " + PhoneUtils.getPhoneType()
+                + "\nisSimCardReady: " + PhoneUtils.isSimCardReady()
+                + "\ngetSimOperatorName: " + PhoneUtils.getSimOperatorName()
+                + "\ngetSimOperatorByMnc: " + PhoneUtils.getSimOperatorByMnc()
+                + "\n获取手机状态信息: " + PhoneUtils.getPhoneStatus()
         );
     }
 
@@ -46,16 +46,16 @@ public class PhoneActivity extends Activity implements
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_dial:
-                PhoneUtils.dial(this, "10000");
+                PhoneUtils.dial("10000");
                 break;
             case R.id.btn_call:
-                PhoneUtils.call(this, "10000");
+                PhoneUtils.call("10000");
                 break;
             case R.id.btn_send_sms:
-                PhoneUtils.sendSms(this, "10000", "test");
+                PhoneUtils.sendSms("10000", "test");
                 break;
             case R.id.btn_send_sms_silent:
-                PhoneUtils.sendSmsSilent(this, "10000", "test");
+                PhoneUtils.sendSmsSilent("10000", "test");
                 break;
         }
     }

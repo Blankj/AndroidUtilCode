@@ -87,6 +87,10 @@ public class MainActivity extends Activity {
         startActivity(new Intent(this, SnackbarActivity.class));
     }
 
+    public void spannableClick(View view) {
+        startActivity(new Intent(this, SpannableActivity.class));
+    }
+
     public void toastClick(View view) {
         startActivity(new Intent(this, ToastActivity.class));
     }

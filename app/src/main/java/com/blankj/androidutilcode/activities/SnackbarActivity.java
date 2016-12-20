@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
-import com.blankj.androidutilcode.App;
 import com.blankj.androidutilcode.R;
 import com.blankj.utilcode.utils.SnackbarUtils;
 import com.blankj.utilcode.utils.ToastUtils;
@@ -48,7 +47,7 @@ public class SnackbarActivity extends Activity
                         "Short", Color.YELLOW, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ToastUtils.showShortToast(App.getInstance(), "Click Short");
+                                ToastUtils.showShortToast("Click Short");
                             }
                         });
                 break;
@@ -60,7 +59,7 @@ public class SnackbarActivity extends Activity
                         "Long", Color.YELLOW, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ToastUtils.showLongToast(App.getInstance(), "Click Long");
+                                ToastUtils.showLongToast("Click Long");
                             }
                         });
                 break;
@@ -72,7 +71,7 @@ public class SnackbarActivity extends Activity
                         "Indefinite", Color.YELLOW, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ToastUtils.showShortToast(App.getInstance(), "Click Indefinite");
+                                ToastUtils.showShortToast("Click Indefinite");
                             }
                         });
                 break;
@@ -85,7 +84,7 @@ public class SnackbarActivity extends Activity
                         "Short", Color.YELLOW, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ToastUtils.showShortToast(App.getInstance(), "Click Short");
+                                ToastUtils.showShortToast("Click Short");
                             }
                         });
                 SnackbarUtils.addView(R.layout.snackbar_add, 0);

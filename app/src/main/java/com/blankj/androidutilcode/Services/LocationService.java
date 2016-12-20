@@ -77,7 +77,7 @@ public class LocationService extends Service {
             public void run() {
                 Looper.prepare();
                 isSuccess = LocationUtils.register(App.getInstance(), 0, 0, mOnLocationChangeListener);
-                if (isSuccess) ToastUtils.showShortToastSafe(App.getInstance(), "init success");
+                if (isSuccess) ToastUtils.showShortToastSafe("init success");
                 Looper.loop();
             }
         }).start();

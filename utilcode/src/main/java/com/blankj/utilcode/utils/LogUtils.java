@@ -1,6 +1,5 @@
 package com.blankj.utilcode.utils;
 
-import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
@@ -307,6 +306,5 @@ public class LogUtils {
                 }
             }
         }).start();
-
     }
 }

@@ -1,5 +1,6 @@
 package com.blankj.utilcode.utils;
 
+import android.support.annotation.ColorInt;
 import android.support.design.widget.Snackbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -9,7 +10,6 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.R;
 
-import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
 
 /**
@@ -36,7 +36,7 @@ public class SnackbarUtils {
      * @param textColor 文本颜色
      * @param bgColor   背景色
      */
-    public static void showShortSnackbar(View parent, CharSequence text, int textColor, int bgColor) {
+    public static void showShortSnackbar(View parent, CharSequence text, @ColorInt int textColor, @ColorInt int bgColor) {
         showSnackbar(parent, text, Snackbar.LENGTH_SHORT, textColor, bgColor, null, -1, null);
     }
 
@@ -51,7 +51,7 @@ public class SnackbarUtils {
      * @param actionTextColor 事件文本颜色
      * @param listener        监听器
      */
-    public static void showShortSnackbar(View parent, CharSequence text, int textColor, int bgColor,
+    public static void showShortSnackbar(View parent, CharSequence text, @ColorInt int textColor, @ColorInt int bgColor,
                                          CharSequence actionText, int actionTextColor, View.OnClickListener listener) {
         showSnackbar(parent, text, Snackbar.LENGTH_SHORT, textColor, bgColor,
                 actionText, actionTextColor, listener);
@@ -65,7 +65,7 @@ public class SnackbarUtils {
      * @param textColor 文本颜色
      * @param bgColor   背景色
      */
-    public static void showLongSnackbar(View parent, CharSequence text, int textColor, int bgColor) {
+    public static void showLongSnackbar(View parent, CharSequence text, @ColorInt int textColor, @ColorInt int bgColor) {
         showSnackbar(parent, text, Snackbar.LENGTH_LONG, textColor, bgColor, null, -1, null);
     }
 
@@ -80,7 +80,7 @@ public class SnackbarUtils {
      * @param actionTextColor 事件文本颜色
      * @param listener        监听器
      */
-    public static void showLongSnackbar(View parent, CharSequence text, int textColor, int bgColor,
+    public static void showLongSnackbar(View parent, CharSequence text, @ColorInt int textColor, @ColorInt int bgColor,
                                         CharSequence actionText, int actionTextColor, View.OnClickListener listener) {
         showSnackbar(parent, text, Snackbar.LENGTH_LONG, textColor, bgColor,
                 actionText, actionTextColor, listener);
@@ -95,7 +95,7 @@ public class SnackbarUtils {
      * @param textColor 文本颜色
      * @param bgColor   背景色
      */
-    public static void showIndefiniteSnackbar(View parent, CharSequence text, int duration, int textColor, int bgColor) {
+    public static void showIndefiniteSnackbar(View parent, CharSequence text, int duration, @ColorInt int textColor, @ColorInt int bgColor) {
         showSnackbar(parent, text, duration, textColor, bgColor, null, -1, null);
     }
 
@@ -111,7 +111,7 @@ public class SnackbarUtils {
      * @param actionTextColor 事件文本颜色
      * @param listener        监听器
      */
-    public static void showIndefiniteSnackbar(View parent, CharSequence text, int duration, int textColor, int bgColor,
+    public static void showIndefiniteSnackbar(View parent, CharSequence text, int duration, @ColorInt int textColor, @ColorInt int bgColor,
                                               CharSequence actionText, int actionTextColor, View.OnClickListener listener) {
         showSnackbar(parent, text, duration, textColor, bgColor,
                 actionText, actionTextColor, listener);
@@ -129,7 +129,7 @@ public class SnackbarUtils {
      * @param actionTextColor 事件文本颜色
      * @param listener        监听器
      */
-    private static void showSnackbar(View parent, CharSequence text, int duration, int textColor, int bgColor,
+    private static void showSnackbar(View parent, CharSequence text, int duration, @ColorInt int textColor, @ColorInt int bgColor,
                                      CharSequence actionText, int actionTextColor, View.OnClickListener listener) {
         switch (duration) {
             default:

@@ -7,5 +7,6 @@
     <dimen name="spacing_small">8dp</dimen>
     <dimen name="spacing_tiny">4dp</dimen>
 
-    <dimen name="font_normal">12sp</dimen>
+    <dimen name="font_small">12sp</dimen>
+    <dimen name="font_normal">24sp</dimen>
 </resources>
