@@ -50,6 +50,7 @@ public class SpannableStringUtils {
     /**
      * 获取建造者
      *
+     * @param text 样式字符串文本
      * @return {@link Builder}
      */
     public static Builder getBuilder(@NonNull CharSequence text) {
@@ -307,12 +308,13 @@ public class SpannableStringUtils {
 
         /**
          * 设置对齐
-         * <ul>
-         * <li>{@link Alignment#ALIGN_NORMAL}正常</li>
-         * <li>{@link Alignment#ALIGN_OPPOSITE}相反</li>
-         * <li>{@link Alignment#ALIGN_CENTER}居中</li>
-         * </ul>
          *
+         * @param align 对其方式
+         *              <ul>
+         *              <li>{@link Alignment#ALIGN_NORMAL}正常</li>
+         *              <li>{@link Alignment#ALIGN_OPPOSITE}相反</li>
+         *              <li>{@link Alignment#ALIGN_CENTER}居中</li>
+         *              </ul>
          * @return {@link Builder}
          */
         public Builder setAlign(@Nullable Alignment align) {
@@ -371,6 +373,7 @@ public class SpannableStringUtils {
         /**
          * 设置点击事件
          * <p>需添加view.setMovementMethod(LinkMovementMethod.getInstance())</p>
+         *
          * @param clickSpan 点击事件
          * @return {@link Builder}
          */

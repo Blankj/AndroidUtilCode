@@ -269,12 +269,14 @@ public class ConvertUtils {
      * @param millis    毫秒时间戳
      *                  <p>小于等于0，返回null</p>
      * @param precision 精度
-     *                  <p>precision = 0，返回null</p>
-     *                  <p>precision = 1，返回天</p>
-     *                  <p>precision = 2，返回天和小时</p>
-     *                  <p>precision = 3，返回天、小时和分钟</p>
-     *                  <p>precision = 4，返回天、小时、分钟和秒</p>
-     *                  <p>precision >= 5，返回天、小时、分钟、秒和毫秒</p>
+     *                  <ul>
+     *                  <li>precision = 0，返回null</li>
+     *                  <li>precision = 1，返回天</li>
+     *                  <li>precision = 2，返回天和小时</li>
+     *                  <li>precision = 3，返回天、小时和分钟</li>
+     *                  <li>precision = 4，返回天、小时、分钟和秒</li>
+     *                  <li>precision &gt;= 5，返回天、小时、分钟、秒和毫秒</li>
+     *                  </ul>
      * @return 合适时间长度
      */
     @SuppressLint("DefaultLocale")

@@ -326,8 +326,9 @@ public class BarUtils {
     /**
      * 为 DrawerLayout 布局设置状态栏透明
      *
-     * @param activity     需要设置的activity
-     * @param drawerLayout DrawerLayout
+     * @param activity       需要设置的activity
+     * @param drawerLayout   DrawerLayout
+     * @param statusBarAlpha 透明度
      */
     public static void setTranslucentForDrawerLayout(Activity activity, DrawerLayout drawerLayout, int statusBarAlpha) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {

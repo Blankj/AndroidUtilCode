@@ -82,11 +82,11 @@ public class KeyboardUtils {
      *
      * @param edit 输入框
      */
-    public static void showSoftInput(Context context,EditText edit) {
+    public static void showSoftInput(EditText edit) {
         edit.setFocusable(true);
         edit.setFocusableInTouchMode(true);
         edit.requestFocus();
-        InputMethodManager imm = (InputMethodManager) context
+        InputMethodManager imm = (InputMethodManager) Utils.context
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(edit, 0);
     }

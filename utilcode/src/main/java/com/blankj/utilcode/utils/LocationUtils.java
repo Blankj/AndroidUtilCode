@@ -39,8 +39,8 @@ public class LocationUtils {
      *
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isGpsEnabled(Context context) {
-        LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+    public static boolean isGpsEnabled() {
+        LocationManager lm = (LocationManager) Utils.context.getSystemService(Context.LOCATION_SERVICE);
         return lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
@@ -49,18 +49,18 @@ public class LocationUtils {
      *
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isLocationEnabled(Context context) {
-        LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+    public static boolean isLocationEnabled() {
+        LocationManager lm = (LocationManager) Utils.context.getSystemService(Context.LOCATION_SERVICE);
         return lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER) || lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
     /**
      * 打开Gps设置界面
      */
-    public static void openGpsSettings(Context context) {
+    public static void openGpsSettings() {
         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        Utils.context.startActivity(intent);
     }
 
     /**
@@ -78,11 +78,11 @@ public class LocationUtils {
      * @param listener    位置刷新的回调接口
      * @return {@code true}: 初始化成功<br>{@code false}: 初始化失败
      */
-    public static boolean register(Context context, long minTime, long minDistance, OnLocationChangeListener listener) {
+    public static boolean register(long minTime, long minDistance, OnLocationChangeListener listener) {
         if (listener == null) return false;
-        mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        mLocationManager = (LocationManager) Utils.context.getSystemService(Context.LOCATION_SERVICE);
         mListener = listener;
-        if (!isLocationEnabled(context)) {
+        if (!isLocationEnabled()) {
             ToastUtils.showShortToastSafe("无法定位，请打开定位服务");
             return false;
         }
@@ -133,13 +133,12 @@ public class LocationUtils {
     /**
      * 根据经纬度获取地理位置
      *
-     * @param context   上下文
      * @param latitude  纬度
      * @param longitude 经度
      * @return {@link Address}
      */
-    public static Address getAddress(Context context, double latitude, double longitude) {
-        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+    public static Address getAddress(double latitude, double longitude) {
+        Geocoder geocoder = new Geocoder(Utils.context, Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
             if (addresses.size() > 0) return addresses.get(0);
@@ -152,39 +151,36 @@ public class LocationUtils {
     /**
      * 根据经纬度获取所在国家
      *
-     * @param context   上下文
      * @param latitude  纬度
      * @param longitude 经度
      * @return 所在国家
      */
-    public static String getCountryName(Context context, double latitude, double longitude) {
-        Address address = getAddress(context, latitude, longitude);
+    public static String getCountryName(double latitude, double longitude) {
+        Address address = getAddress(latitude, longitude);
         return address == null ? "unknown" : address.getCountryName();
     }
 
     /**
      * 根据经纬度获取所在地
      *
-     * @param context   上下文
      * @param latitude  纬度
      * @param longitude 经度
      * @return 所在地
      */
-    public static String getLocality(Context context, double latitude, double longitude) {
-        Address address = getAddress(context, latitude, longitude);
+    public static String getLocality(double latitude, double longitude) {
+        Address address = getAddress(latitude, longitude);
         return address == null ? "unknown" : address.getLocality();
     }
 
     /**
      * 根据经纬度获取所在街道
      *
-     * @param context   上下文
      * @param latitude  纬度
      * @param longitude 经度
      * @return 所在街道
      */
-    public static String getStreet(Context context, double latitude, double longitude) {
-        Address address = getAddress(context, latitude, longitude);
+    public static String getStreet(double latitude, double longitude) {
+        Address address = getAddress(latitude, longitude);
         return address == null ? "unknown" : address.getAddressLine(0);
     }
 
