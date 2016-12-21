@@ -49,7 +49,7 @@ public class KeyboardActivity extends Activity
                 KeyboardUtils.hideSoftInput(this);
                 break;
             case R.id.btn_show_soft_input:
-                KeyboardUtils.showSoftInput(this, (EditText) findViewById(R.id.et));
+                KeyboardUtils.showSoftInput((EditText) findViewById(R.id.et));
                 break;
             case R.id.btn_toggle_soft_input:
                 KeyboardUtils.toggleSoftInput();

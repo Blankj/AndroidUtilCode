@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.blankj.androidutilcode.App;
 import com.blankj.androidutilcode.R;
 import com.blankj.utilcode.utils.AppUtils;
 
@@ -60,7 +59,7 @@ public class AppActivity extends Activity
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        AppUtils.installAppSilent(App.getInstance(), appPath);
+                        AppUtils.installAppSilent(appPath);
                     }
                 }).start();
                 break;

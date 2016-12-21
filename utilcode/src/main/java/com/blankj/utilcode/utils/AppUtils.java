@@ -87,15 +87,14 @@ public class AppUtils {
      * 静默安装App
      * <p>非root需添加权限 {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
      *
-     * @param context  上下文
      * @param filePath 文件路径
      * @return {@code true}: 安装成功<br>{@code false}: 安装失败
      */
-    public static boolean installAppSilent(Context context, String filePath) {
+    public static boolean installAppSilent(String filePath) {
         File file = FileUtils.getFileByPath(filePath);
         if (!FileUtils.isFileExists(file)) return false;
         String command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib pm install " + filePath;
-        ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, !isSystemApp(context), true);
+        ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, !isSystemApp(Utils.context), true);
         return commandResult.successMsg != null && commandResult.successMsg.toLowerCase().contains("success");
     }
 
@@ -689,7 +688,7 @@ public class AppUtils {
     /**
      * 清除App所有数据
      *
-     * @param dirs    目录
+     * @param dirs 目录
      * @return {@code true}: 成功<br>{@code false}: 失败
      */
     public static boolean cleanAppData(File... dirs) {

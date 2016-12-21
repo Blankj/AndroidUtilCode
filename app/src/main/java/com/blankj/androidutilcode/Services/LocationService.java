@@ -9,9 +9,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 
-import com.blankj.androidutilcode.App;
 import com.blankj.utilcode.utils.LocationUtils;
-import com.blankj.utilcode.utils.ThreadPoolUtils;
 import com.blankj.utilcode.utils.ToastUtils;
 
 /**
@@ -55,9 +53,9 @@ public class LocationService extends Service {
             if (mOnGetLocationListener != null) {
                 mOnGetLocationListener.getLocation(lastLatitude, lastLongitude, latitude, longitude, country, locality, street);
             }
-            country = LocationUtils.getCountryName(App.getInstance(), Double.parseDouble(latitude), Double.parseDouble(longitude));
-            locality = LocationUtils.getLocality(App.getInstance(), Double.parseDouble(latitude), Double.parseDouble(longitude));
-            street = LocationUtils.getStreet(App.getInstance(), Double.parseDouble(latitude), Double.parseDouble(longitude));
+            country = LocationUtils.getCountryName(Double.parseDouble(latitude), Double.parseDouble(longitude));
+            locality = LocationUtils.getLocality(Double.parseDouble(latitude), Double.parseDouble(longitude));
+            street = LocationUtils.getStreet(Double.parseDouble(latitude), Double.parseDouble(longitude));
             if (mOnGetLocationListener != null) {
                 mOnGetLocationListener.getLocation(lastLatitude, lastLongitude, latitude, longitude, country, locality, street);
             }
@@ -76,7 +74,7 @@ public class LocationService extends Service {
             @Override
             public void run() {
                 Looper.prepare();
-                isSuccess = LocationUtils.register(App.getInstance(), 0, 0, mOnLocationChangeListener);
+                isSuccess = LocationUtils.register(0, 0, mOnLocationChangeListener);
                 if (isSuccess) ToastUtils.showShortToastSafe("init success");
                 Looper.loop();
             }
