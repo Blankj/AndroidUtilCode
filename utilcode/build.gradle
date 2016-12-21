@@ -25,5 +25,5 @@ dependencies {
     testCompile rootProject.ext.deps.truth
     testCompile rootProject.ext.deps.robolectric
 }
-//apply from: "https://raw.githubusercontent.com/xiaopansky/android-library-publish-to-jcenter/master/bintrayUpload.gradle"
-//gradlew bintrayUpload
+apply from: "https://raw.githubusercontent.com/xiaopansky/android-library-publish-to-jcenter/master/bintrayUpload.gradle"
+gradlew bintrayUpload

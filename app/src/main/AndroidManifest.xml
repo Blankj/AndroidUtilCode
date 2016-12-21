@@ -7,10 +7,12 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <!--flashlight-->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-feature android:name="android.hardware.camera.flash" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+    <uses-feature android:name="android.hardware.camera.flash"/>
+
     <uses-permission android:name="android.permission.FLASHLIGHT"/>
 
     <!--location-->
@@ -52,7 +54,7 @@
         <activity android:name=".activities.AppActivity"/>
         <activity android:name=".activities.CleanActivity"/>
         <activity android:name=".activities.DeviceActivity"/>
-        <activity android:name=".activities.FlashlightActivity"/>
+        <!--<activity android:name=".activities.FlashlightActivity"/>-->
         <activity android:name=".activities.HandlerActivity"/>
         <activity android:name=".activities.ImageActivity"/>
         <activity
@@ -66,7 +68,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.NetworkActivity"/>
-        <activity android:name=".activities.PermissionActivity"/>
+        <!--<activity android:name=".activities.PermissionActivity"/>-->
         <activity android:name=".activities.PhoneActivity"/>
         <activity android:name=".activities.ProcessActivity"/>
         <activity android:name=".activities.SDCardActivity"/>

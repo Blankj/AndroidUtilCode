@@ -8,5 +8,5 @@
     <dimen name="spacing_tiny">4dp</dimen>
 
     <dimen name="font_small">12sp</dimen>
-    <dimen name="font_normal">24sp</dimen>
+    <dimen name="font_normal">22sp</dimen>
 </resources>

@@ -103,7 +103,7 @@ public class ProcessUtils {
     }
 
     /**
-     * 杀死后台服务进程
+     * 杀死所有的后台服务进程
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>}</p>
      *
      * @return 被暂时杀死的服务集合

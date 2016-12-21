@@ -483,7 +483,7 @@ public class ImageUtils {
      * @return 倾斜后的图片
      */
     public static Bitmap skew(Bitmap src, float kx, float ky, float px, float py) {
-        return skew(src, kx, ky, 0, 0, false);
+        return skew(src, kx, ky, px, py, false);
     }
 
     /**

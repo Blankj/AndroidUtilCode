@@ -132,13 +132,14 @@ isNotEmpty: 判断对象是否非空
 
 > - **编码解码相关→[EncodeUtils.java][encode.java]→[Test][encode.test]**
  ```
-urlEncode                        : URL编码
-urlDecode                        : URL解码
-base64Encode, base64Encode2String: Base64编码
-base64Decode                     : Base64解码
-base64UrlSafeEncode              : Base64URL安全编码
-htmlEncode                       : Html编码
-htmlDecode                       : Html解码
+urlEncode          : URL编码
+urlDecode          : URL解码
+base64Encode       : Base64编码
+base64Encode2String: Base64编码
+base64Decode       : Base64解码
+base64UrlSafeEncode: Base64URL安全编码
+htmlEncode         : Html编码
+htmlDecode         : Html解码
  ```
 
 > - **加密解密相关→[EncryptUtils.java][encrypt.java]→[Test][encrypt.test]**
@@ -167,44 +168,45 @@ decryptAES, decryptHexStringAES, decryptBase64AES     : AES解密
 
 > - **文件相关→[FileUtils.java][file.java]→[Test][file.test]**
  ```
-getFileByPath                 : 根据文件路径获取文件
-isFileExists                  : 判断文件是否存在
-rename                        : 重命名文件
-isDir                         : 判断是否是目录
-isFile                        : 判断是否是文件
-createOrExistsDir             : 判断目录是否存在，不存在则判断是否创建成功
-createOrExistsFile            : 判断文件是否存在，不存在则判断是否创建成功
-createFileByDeleteOldFile     : 判断文件是否存在，存在则在创建之前删除
-copyDir                       : 复制目录
-copyFile                      : 复制文件
-moveDir                       : 移动目录
-moveFile                      : 移动文件
-deleteDir                     : 删除目录
-deleteFile                    : 删除文件
-listFilesInDir                : 获取目录下所有文件
-listFilesInDir                : 获取目录下所有文件包括子目录
-listFilesInDirWithFilter      : 获取目录下所有后缀名为suffix的文件
-listFilesInDirWithFilter      : 获取目录下所有后缀名为suffix的文件包括子目录
-listFilesInDirWithFilter      : 获取目录下所有符合filter的文件
-listFilesInDirWithFilter      : 获取目录下所有符合filter的文件包括子目录
-searchFileInDir               : 获取目录下指定文件名的文件包括子目录
-writeFileFromIS               : 将输入流写入文件
-writeFileFromString           : 将字符串写入文件
-readFile2List                 : 指定编码按行读取文件到链表中
-readFile2String               : 指定编码按行读取文件到字符串中
-readFile2Bytes                : 读取文件到字符数组中
-getFileLastModified           : 获取文件最后修改的毫秒时间戳
-getFileCharsetSimple          : 简单获取文件编码格式
-getFileLines                  : 获取文件行数
-getDirSize                    : 获取目录大小
-getFileSize                   : 获取文件大小
-getDirLength                  : 获取目录长度
-getFileLength                 : 获取文件长度
-getFileMD5, getFileMD5ToString: 获取文件的MD5校验码
-getDirName                    : 根据全路径获取最长目录
-getFileName                   : 根据全路径获取文件名
-getFileNameNoExtension        : 根据全路径获取文件名不带拓展名
-getFileExtension              : 根据全路径获取文件拓展名
+getFileByPath            : 根据文件路径获取文件
+isFileExists             : 判断文件是否存在
+rename                   : 重命名文件
+isDir                    : 判断是否是目录
+isFile                   : 判断是否是文件
+createOrExistsDir        : 判断目录是否存在，不存在则判断是否创建成功
+createOrExistsFile       : 判断文件是否存在，不存在则判断是否创建成功
+createFileByDeleteOldFile: 判断文件是否存在，存在则在创建之前删除
+copyDir                  : 复制目录
+copyFile                 : 复制文件
+moveDir                  : 移动目录
+moveFile                 : 移动文件
+deleteDir                : 删除目录
+deleteFile               : 删除文件
+listFilesInDir           : 获取目录下所有文件
+listFilesInDir           : 获取目录下所有文件包括子目录
+listFilesInDirWithFilter : 获取目录下所有后缀名为suffix的文件
+listFilesInDirWithFilter : 获取目录下所有后缀名为suffix的文件包括子目录
+listFilesInDirWithFilter : 获取目录下所有符合filter的文件
+listFilesInDirWithFilter : 获取目录下所有符合filter的文件包括子目录
+searchFileInDir          : 获取目录下指定文件名的文件包括子目录
+writeFileFromIS          : 将输入流写入文件
+writeFileFromString      : 将字符串写入文件
+readFile2List            : 指定编码按行读取文件到链表中
+readFile2String          : 指定编码按行读取文件到字符串中
+readFile2Bytes           : 读取文件到字符数组中
+getFileLastModified      : 获取文件最后修改的毫秒时间戳
+getFileCharsetSimple     : 简单获取文件编码格式
+getFileLines             : 获取文件行数
+getDirSize               : 获取目录大小
+getFileSize              : 获取文件大小
+getDirLength             : 获取目录长度
+getFileLength            : 获取文件长度
+getFileMD5               : 获取文件的MD5校验码
+getFileMD5ToString       : 获取文件的MD5校验码
+getDirName               : 根据全路径获取最长目录
+getFileName              : 根据全路径获取文件名
+getFileNameNoExtension   : 根据全路径获取文件名不带拓展名
+getFileExtension         : 根据全路径获取文件拓展名
  ```
 
 > - **Handler相关→[HandlerUtils.java][handler.java]→[Demo][handler.demo]**
@@ -307,20 +309,21 @@ getDomainAddress      : 获取域名ip地址
 
 > - **手机相关→[PhoneUtils.java][phone.java]→[Demo][phone.demo]**
  ```
-isPhone                                : 判断设备是否是手机
-getIMEI                                : 获取IMEI码
-getIMSI                                : 获取IMSI码
-getPhoneType                           : 获取移动终端类型
-isSimCardReady                         : 判断sim卡是否准备好
-getSimOperatorName, getSimOperatorByMnc: 获取Sim卡运营商名称
-getPhoneStatus                         : 获取手机状态信息
-dial                                   : 跳至拨号界面
-call                                   : 拨打phoneNumber
-sendSms                                : 跳至发送短信界面
-sendSmsSilent                          : 发送短信
-getAllContactInfo                      : 获取手机联系人
-getContactNum                          : 打开手机联系人界面点击联系人后便获取该号码
-getAllSMS                              : 获取手机短信并保存到xml中
+isPhone            : 判断设备是否是手机
+getIMEI            : 获取IMEI码
+getIMSI            : 获取IMSI码
+getPhoneType       : 获取移动终端类型
+isSimCardReady     : 判断sim卡是否准备好
+getSimOperatorName : 获取Sim卡运营商名称
+getSimOperatorByMnc: 获取Sim卡运营商名称
+getPhoneStatus     : 获取手机状态信息
+dial               : 跳至拨号界面
+call               : 拨打phoneNumber
+sendSms            : 跳至发送短信界面
+sendSmsSilent      : 发送短信
+getAllContactInfo  : 获取手机联系人
+getContactNum      : 打开手机联系人界面点击联系人后便获取该号码
+getAllSMS          : 获取手机短信并保存到xml中
  ```
 
 > - **拼音相关→[PinyinUtils.java][pinyin.java]→[Test][pinyin.test]**
@@ -335,8 +338,9 @@ getSurnameFirstLetter: 根据名字获取姓氏的首字母
 
 > - **进程相关→[ProcessUtils.java][process.java]→[Demo][process.demo]**
  ```
-getForegroundProcessName                             : 获取前台线程包名
-cleanAllBackgroundProcesses, cleanBackgroundProcesses: 清理后台服务进程
+getForegroundProcessName  : 获取前台线程包名
+killAllBackgroundProcesses: 杀死所有的后台服务进程
+killBackgroundProcesses   : 杀死后台服务进程
  ```
 
 > - **正则相关→[RegexUtils.java][regex.java]→[Test][regex.test]**
@@ -415,6 +419,37 @@ showLongSnackbar      : 显示长时snackbar
 showIndefiniteSnackbar: 显示自定义时长snackbar
 addView               : 为SnackBar添加布局
 dismissSnackbar       : 取消snackbar显示
+ ```
+
+> - **SpannableString相关工具类→[SpannableStringUtils.java][spannable.java]→[Demo][spannable.demo]**
+ ```
+getBuilder        : 获取建造者
+setFlag           : 设置标识
+setForegroundColor: 设置前景色
+setBackgroundColor: 设置背景色
+setQuoteColor     : 设置引用线的颜色
+setLeadingMargin  : 设置缩进
+setBullet         : 设置列表标记
+setProportion     : 设置字体比例
+setXProportion    : 设置字体横向比例
+setStrikethrough  : 设置删除线
+setUnderline      : 设置下划线
+setSuperscript    : 设置上标
+setSubscript      : 设置下标
+setBold           : 设置粗体
+setItalic         : 设置斜体
+setBoldItalic     : 设置粗斜体
+setFontFamily     : 设置字体
+setAlign          : 设置对齐
+setBitmap         : 设置图片
+setDrawable       : 设置图片
+setUri            : 设置图片
+setResourceId     : 设置图片
+setClickSpan      : 设置点击事件
+setUrl            : 设置超链接
+setBlur           : 设置模糊
+append            : 追加样式字符串
+create            : 创建样式字符串
  ```
 
 > - **SP相关→[SPUtils.java][sp.java]→[Test][sp.test]**
@@ -646,6 +681,9 @@ limitations under the License.
 
 [snackbar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SnackbarUtils.java
 [snackbar.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activities/SnackbarActivity.java
+
+[spannable.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SpannableStringUtils.java
+[spannable.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activities/SpannableActivity.java
 
 [sp.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SPUtils.java
 [sp.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/SPUtilsTest.java

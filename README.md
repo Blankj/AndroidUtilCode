@@ -134,9 +134,10 @@ isNotEmpty: 判断对象是否非空
  ```
 urlEncode
 urlDecode
-base64Encode, base64Encode2String: Base64编码
+base64Encode
+base64Encode2String: Base64编码
 base64Decode
-base64UrlSafeEncode
+base64UrlSafeEncode: Base64URL安全编码
 htmlEncode
 htmlDecode
  ```
@@ -174,7 +175,7 @@ isDir
 isFile
 createOrExistsDir
 createOrExistsFile
-createFileByDeleteOldFile
+createFileByDeleteOldFile: 判断文件是否存在，存在则在创建之前删除
 copyDir
 copyFile
 moveDir
@@ -200,7 +201,8 @@ getDirSize
 getFileSize
 getDirLength
 getFileLength
-getFileMD5, getFileMD5ToString: 获取文件的MD5校验码
+getFileMD5
+getFileMD5ToString
 getDirName
 getFileName
 getFileNameNoExtension
@@ -312,7 +314,8 @@ getIMEI
 getIMSI
 getPhoneType
 isSimCardReady
-getSimOperatorName, getSimOperatorByMnc: 获取Sim卡运营商名称
+getSimOperatorName
+getSimOperatorByMnc: 获取Sim卡运营商名称
 getPhoneStatus
 dial
 call
@@ -336,7 +339,8 @@ getSurnameFirstLetter: 根据名字获取姓氏的首字母
 > - **About Process→[ProcessUtils.java][process.java]→[Demo][process.demo]**
  ```
 getForegroundProcessName
-cleanAllBackgroundProcesses, cleanBackgroundProcesses: 清理后台服务进程
+killAllBackgroundProcesses: 杀死所有的后台服务进程
+killBackgroundProcesses
  ```
 
 > - **About Regex→[RegexUtils.java][regex.java]→[Test][regex.test]**
@@ -415,6 +419,37 @@ showLongSnackbar
 showIndefiniteSnackbar: 显示自定义时长snackbar
 addView
 dismissSnackbar
+ ```
+
+> - **About SpannableString→[SpannableStringUtils.java][spannable.java]→[Demo][spannable.demo]**
+ ```
+getBuilder
+setFlag
+setForegroundColor: 设置前景色
+setBackgroundColor: 设置背景色
+setQuoteColor
+setLeadingMargin
+setBullet
+setProportion
+setXProportion
+setStrikethrough
+setUnderline
+setSuperscript
+setSubscript
+setBold
+setItalic
+setBoldItalic
+setFontFamily
+setAlign
+setBitmap
+setDrawable
+setUri
+setResourceId
+setClickSpan
+setUrl
+setBlur
+append
+create
  ```
 
 > - **About SP→[SPUtils.java][sp.java]→[Test][sp.test]**

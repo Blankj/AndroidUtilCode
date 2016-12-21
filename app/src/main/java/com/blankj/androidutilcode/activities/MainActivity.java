@@ -43,9 +43,9 @@ public class MainActivity extends Activity {
         startActivity(new Intent(this, DeviceActivity.class));
     }
 
-    public void flashlightClick(View view) {
-        startActivity(new Intent(this, FlashlightActivity.class));
-    }
+//    public void flashlightClick(View view) {
+//        startActivity(new Intent(this, FlashlightActivity.class));
+//    }
 
     public void handlerClick(View view) {
         startActivity(new Intent(this, HandlerActivity.class));
@@ -67,9 +67,9 @@ public class MainActivity extends Activity {
         startActivity(new Intent(this, NetworkActivity.class));
     }
 
-    public void permissionClick(View view) {
-        startActivity(new Intent(this, PermissionActivity.class));
-    }
+//    public void permissionClick(View view) {
+//        startActivity(new Intent(this, PermissionActivity.class));
+//    }
 
     public void phoneClick(View view) {
         startActivity(new Intent(this, PhoneActivity.class));

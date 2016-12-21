@@ -1,3 +1,4 @@
+* 16/12/21 SpannableStringUtils撒花完结
 * 16/12/19 SpannableStringUtils完善中
 * 16/12/18 SpannableStringUtils采用构造者模式
 * 16/12/17 完善SpannableStringUtils中
