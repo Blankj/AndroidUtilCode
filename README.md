@@ -556,7 +556,9 @@ getEntries
 
 ***
 
+### About
 **I'm so sorry for that the code is annotated with Chinese.**
+***
 
 ### Download
 ***
@@ -566,6 +568,7 @@ compile 'com.blankj:utilcode:1.3.5'
 ```
 
 ### How to use
+***
 ```
 Utils.init(context);
 ```

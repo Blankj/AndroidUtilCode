@@ -49,7 +49,7 @@ public class TestUtils {
                 sb.append(line.substring(0, line.indexOf(
                         ':')).trim());
             } else if (line.contains("### 关于")) {
-                sb.append("**I'm so sorry for that the code is annotated with Chinese.**");
+                sb.append("### About\n**I'm so sorry for that the code is annotated with Chinese.**");
             } else if (line.contains("* 做") || line.contains("* QQ") || line.contains("* 我的")) {
                 continue;
             } else {
