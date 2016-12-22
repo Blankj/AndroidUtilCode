@@ -27,7 +27,7 @@ public class SPUtilsTest {
 
     @Before
     public void setUp() throws Exception {
-        if (Utils.context == null) TestUtils.init();
+        if (Utils.getContext() == null) TestUtils.init();
         if (spUtils == null) {
             spUtils = new SPUtils("test");
             spUtils.putString("stringKey", "stringVal");

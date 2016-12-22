@@ -21,7 +21,7 @@ public class LogUtilsTest {
 
     @Before
     public void setUp() throws Exception {
-        if (Utils.context == null) TestUtils.init();
+        if (Utils.getContext() == null) TestUtils.init();
         ShadowLog.stream = System.out;
         LogUtils.getBuilder().
                 setLogSwitch(true).

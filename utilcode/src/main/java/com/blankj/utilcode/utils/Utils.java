@@ -7,12 +7,12 @@ import android.content.Context;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 16/12/08
- *     desc  :
+ *     desc  : Utils初始化相关
  * </pre>
  */
 public class Utils {
 
-    public static Context context;
+    private static Context context;
 
     private Utils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -25,5 +25,15 @@ public class Utils {
      */
     public static void init(Context context) {
         Utils.context = context.getApplicationContext();
+    }
+
+    /**
+     * 获取ApplicationContext
+     *
+     * @return ApplicationContext
+     */
+    public static Context getContext() {
+        if (context != null) return context;
+        throw new NullPointerException("u should init first");
     }
 }

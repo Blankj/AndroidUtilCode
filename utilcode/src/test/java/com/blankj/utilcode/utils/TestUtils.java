@@ -27,7 +27,7 @@ public class TestUtils {
             + SEP + "src" + SEP + "test" + SEP + "res" + SEP;
 
     public static void init() {
-        Utils.context = RuntimeEnvironment.application;
+        Utils.getContext() = RuntimeEnvironment.application;
     }
 
     @Test

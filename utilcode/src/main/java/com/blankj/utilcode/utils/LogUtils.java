@@ -42,9 +42,9 @@ public class LogUtils {
      */
     public static void init(boolean logSwitch, boolean log2FileSwitch, char logFilter, String tag) {
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            dir = Utils.context.getExternalCacheDir().getPath() + File.separator;
+            dir = Utils.getContext().getExternalCacheDir().getPath() + File.separator;
         } else {
-            dir = Utils.context.getCacheDir().getPath() + File.separator;
+            dir = Utils.getContext().getCacheDir().getPath() + File.separator;
         }
         LogUtils.logSwitch = logSwitch;
         LogUtils.log2FileSwitch = log2FileSwitch;
@@ -60,9 +60,9 @@ public class LogUtils {
      */
     public static Builder getBuilder() {
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            dir = Utils.context.getExternalCacheDir().getPath() + File.separator + "log" + File.separator;
+            dir = Utils.getContext().getExternalCacheDir().getPath() + File.separator + "log" + File.separator;
         } else {
-            dir = Utils.context.getCacheDir().getPath() + File.separator + "log" + File.separator;
+            dir = Utils.getContext().getCacheDir().getPath() + File.separator + "log" + File.separator;
         }
         return new Builder();
     }

@@ -61,12 +61,12 @@ public class CrashUtils
     public boolean init() {
         if (mInitialized) return true;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            crashDir = Utils.context.getExternalCacheDir().getPath() + File.separator + "crash" + File.separator;
+            crashDir = Utils.getContext().getExternalCacheDir().getPath() + File.separator + "crash" + File.separator;
         } else {
-            crashDir = Utils.context.getCacheDir().getPath() + File.separator + "crash" + File.separator;
+            crashDir = Utils.getContext().getCacheDir().getPath() + File.separator + "crash" + File.separator;
         }
         try {
-            PackageInfo pi = Utils.context.getPackageManager().getPackageInfo(Utils.context.getPackageName(), 0);
+            PackageInfo pi = Utils.getContext().getPackageManager().getPackageInfo(Utils.getContext().getPackageName(), 0);
             versionName = pi.versionName;
             versionCode = pi.versionCode;
         } catch (PackageManager.NameNotFoundException e) {

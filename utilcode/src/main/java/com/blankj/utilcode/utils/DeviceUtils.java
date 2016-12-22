@@ -62,7 +62,7 @@ public class DeviceUtils {
      */
     @SuppressLint("HardwareIds")
     public static String getAndroidID() {
-        return Settings.Secure.getString(Utils.context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        return Settings.Secure.getString(Utils.getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
     /**
@@ -97,7 +97,7 @@ public class DeviceUtils {
     @SuppressLint("HardwareIds")
     private static String getMacAddressByWifiInfo() {
         try {
-            WifiManager wifi = (WifiManager) Utils.context.getSystemService(Context.WIFI_SERVICE);
+            WifiManager wifi = (WifiManager) Utils.getContext().getSystemService(Context.WIFI_SERVICE);
             if (wifi != null) {
                 WifiInfo info = wifi.getConnectionInfo();
                 if (info != null) return info.getMacAddress();
@@ -191,7 +191,7 @@ public class DeviceUtils {
         Intent intent = new Intent("android.intent.action.ACTION_REQUEST_SHUTDOWN");
         intent.putExtra("android.intent.extra.KEY_CONFIRM", false);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Utils.context.startActivity(intent);
+        Utils.getContext().startActivity(intent);
     }
 
     /**
@@ -205,7 +205,7 @@ public class DeviceUtils {
         intent.putExtra("nowait", 1);
         intent.putExtra("interval", 1);
         intent.putExtra("window", 0);
-        Utils.context.sendBroadcast(intent);
+        Utils.getContext().sendBroadcast(intent);
     }
 
     /**
@@ -215,7 +215,7 @@ public class DeviceUtils {
      * @param reason  传递给内核来请求特殊的引导模式，如"recovery"
      */
     public static void reboot(String reason) {
-        PowerManager mPowerManager = (PowerManager) Utils.context.getSystemService(Context.POWER_SERVICE);
+        PowerManager mPowerManager = (PowerManager) Utils.getContext().getSystemService(Context.POWER_SERVICE);
         try {
             mPowerManager.reboot(reason);
         } catch (Exception e) {
