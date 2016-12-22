@@ -36,11 +36,11 @@ public class TestUtils {
         File readmeCN = new File(new File(System.getProperty("user.dir")).getParent() + SEP + "README-CN.md");
         File readmeEng = new File(new File(System.getProperty("user.dir")).getParent() + SEP + "README.md");
         List<String> list = FileUtils.readFile2List(readmeCN, "UTF-8");
-        StringBuilder sb = new StringBuilder("## Android developers should collect the following utils\r\n" +
-                "**[README of Chinese][readme-cn.md]**\r\n" +
+        StringBuilder sb = new StringBuilder("## Android developers should collect the following utils\r\n***\r\n\r\n" +
+                "**[README of Chinese][readme-cn.md]**\r\n\r\n" +
                 "***\r\n" +
-                "Directory is shown below：  \r\n");
-        List<String> lines = list.subList(4, list.size());
+                "Directory is shown below:\r\n\r\n");
+        List<String> lines = list.subList(9, list.size());
         for (String line : lines) {
             if (line.contains("> -") && line.contains("Utils")) {
                 String utilsName = line.substring(line.indexOf("[") + 1, line.indexOf("Utils"));
@@ -48,11 +48,11 @@ public class TestUtils {
             } else if (line.contains(" : ")) {
                 sb.append(line.substring(0, line.indexOf(
                         ':')).trim());
-            } else if (line.contains("### 关于")) {
-                sb.append("### About\n**I'm so sorry for that the code is annotated with Chinese.**");
-            } else if (line.contains("* 做") || line.contains("* QQ") || line.contains("* 我的")) {
+            } else if (line.contains("* 做")) {
+                sb.append("**I'm so sorry for that the code is annotated with Chinese.**");
+            } else if(line.contains("* QQ") || line.contains("* 我的")){
                 continue;
-            } else {
+            } else{
                 sb.append(line);
             }
             sb.append("\r\n");

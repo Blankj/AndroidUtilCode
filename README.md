@@ -1,7 +1,11 @@
 ## Android developers should collect the following utils
-**[README of Chinese][readme-cn.md]**
 ***
-Directory is shown below：  
+
+**[README of Chinese][readme-cn.md]**
+
+***
+Directory is shown below:
+
 > - **About Activity→[ActivityUtils.java][activity.java]→[Demo][activity.demo]**
  ```
 isActivityExists
@@ -557,11 +561,13 @@ getEntries
 ***
 
 ### About
-**I'm so sorry for that the code is annotated with Chinese.**
 ***
+
+**I'm so sorry for that the code is annotated with Chinese.**
 
 ### Download
 ***
+
 Gradle:
 ``` groovy
 compile 'com.blankj:utilcode:1.3.5'
@@ -569,12 +575,14 @@ compile 'com.blankj:utilcode:1.3.5'
 
 ### How to use
 ***
+
 ```
 Utils.init(context);
 ```
 
 ### Proguard
 ***
+
 ```
 -keep class com.blankj.utilcode.** { *; }
 -keepclassmembers class com.blankj.utilcode.** { *; }
@@ -583,6 +591,7 @@ Utils.init(context);
 
 ### License
 ***
+
 ```
 Copyright 2016 Blankj
 
