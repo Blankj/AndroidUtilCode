@@ -44,7 +44,7 @@
     <!--process-->
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
     <application
-        android:name=".App"
+        android:name=".UtilsApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/my_app_name"

@@ -570,7 +570,7 @@ compile 'com.blankj:utilcode:1.3.4'
 
 ### How to use
 ```
-Utils.
+Utils.init(context);
 ```
 
 ### Proguard

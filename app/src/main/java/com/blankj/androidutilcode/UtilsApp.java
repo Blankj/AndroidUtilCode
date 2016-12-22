@@ -12,14 +12,14 @@ import com.squareup.leakcanary.LeakCanary;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/12
- *     desc  : App
+ *     desc  : 工具类测试App
  * </pre>
  */
-public class App extends Application {
+public class UtilsApp extends Application {
 
-    private static App appContext;
+    private static UtilsApp appContext;
 
-    public static App getInstance() {
+    public static UtilsApp getInstance() {
         return appContext;
     }
 
