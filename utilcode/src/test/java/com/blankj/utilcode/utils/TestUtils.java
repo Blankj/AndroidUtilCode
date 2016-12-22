@@ -36,11 +36,10 @@ public class TestUtils {
         File readmeCN = new File(new File(System.getProperty("user.dir")).getParent() + SEP + "README-CN.md");
         File readmeEng = new File(new File(System.getProperty("user.dir")).getParent() + SEP + "README.md");
         List<String> list = FileUtils.readFile2List(readmeCN, "UTF-8");
-        StringBuilder sb = new StringBuilder("## Android developers should collect the following utils\r\n***\r\n\r\n" +
-                "**[README of Chinese][readme-cn.md]**\r\n\r\n" +
-                "***\r\n" +
+        StringBuilder sb = new StringBuilder("# Android developers should collect the following utils\r\n\r\n" +
+                "## [README of Chinese][readme-cn.md]\r\n\r\n" +
                 "Directory is shown below:\r\n\r\n");
-        List<String> lines = list.subList(9, list.size());
+        List<String> lines = list.subList(6, list.size());
         for (String line : lines) {
             if (line.contains("> -") && line.contains("Utils")) {
                 String utilsName = line.substring(line.indexOf("[") + 1, line.indexOf("Utils"));
