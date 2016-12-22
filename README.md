@@ -562,7 +562,7 @@ getEntries
 ***
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.3.4'
+compile 'com.blankj:utilcode:1.3.5'
 ```
 
 ### How to use
