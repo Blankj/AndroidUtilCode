@@ -8,7 +8,7 @@ Directory is shown below:
  ```
 isActivityExists
 launchActivity
-getLauncherActivity: 获取入口activity
+getLauncherActivity
  ```
 
 > - **About App→[AppUtils.java][app.java]→[Demo][app.demo]**
@@ -22,7 +22,7 @@ isAppRoot
 launchApp
 closeApp
 getAppPackageName
-getAppDetailsSettings: 获取App具体设置
+getAppDetailsSettings
 getAppName
 getAppIcon
 getAppPath
@@ -41,7 +41,7 @@ cleanAppData
 
 > - **About Bar→[BarUtils.java][bar.java]**
  ```
-setTransparentStatusBar: 设置透明状态栏（api大于19方可使用）
+setTransparentStatusBar
 hideStatusBar
 getStatusBarHeight
 isStatusBarExists
@@ -55,7 +55,7 @@ hideNotificationBar
 cleanInternalCache
 cleanInternalFiles
 cleanInternalDbs
-cleanInternalDbByName: 根据名称清除数据库
+cleanInternalDbByName
 cleanInternalSP
 cleanExternalCache
 cleanCustomCache
@@ -67,19 +67,19 @@ copyText
 getText
 copyUri
 getUri
-copyIntent: 复制意图到剪贴板
+copyIntent
 getIntent
  ```
 
 > - **About Close→[CloseUtils.java][close.java]**
  ```
 closeIO
-closeIOQuietly: 安静关闭IO
+closeIOQuietly
  ```
 
 > - **About Const→[ConstUtils.java][const.java]**
  ```
-MemoryConst: 存储相关常量
+MemoryConst
 TimeConst
 RegexConst
  ```
@@ -97,7 +97,7 @@ input2OutputStream, output2InputStream
 inputStream2Bytes, bytes2InputStream
 outputStream2Bytes, bytes2OutputStream
 inputStream2String, string2InputStream
-outputStream2String, string2OutputStream: outputStream与string按编码互转
+outputStream2String, string2OutputStream
 bitmap2Bytes, bytes2Bitmap
 drawable2Bitmap, bitmap2Drawable
 drawable2Bytes, bytes2Drawable
@@ -108,7 +108,7 @@ sp2px, px2sp
 
 > - **About Crash→[CrashUtils.java][crash.java]**
  ```
-getInstance: 获取单例
+getInstance
 init
  ```
 
@@ -123,13 +123,13 @@ getModel
 shutdown
 reboot
 reboot2Recovery
-reboot2Bootloader: 重启到bootloader
+reboot2Bootloader
  ```
 
 > - **About Empty→[EmptyUtils.java][empty.java]→[Test][empty.test]**
  ```
 isEmpty
-isNotEmpty: 判断对象是否非空
+isNotEmpty
  ```
 
 > - **About Encode→[EncodeUtils.java][encode.java]→[Test][encode.test]**
@@ -137,9 +137,9 @@ isNotEmpty: 判断对象是否非空
 urlEncode
 urlDecode
 base64Encode
-base64Encode2String: Base64编码
+base64Encode2String
 base64Decode
-base64UrlSafeEncode: Base64URL安全编码
+base64UrlSafeEncode
 htmlEncode
 htmlDecode
  ```
@@ -162,7 +162,7 @@ encryptHmacSHA384, encryptHmacSHA384ToString
 encryptHmacSHA512, encryptHmacSHA512ToString
 encryptDES, encryptDES2HexString, encryptDES2Base64
 decryptDES, decryptHexStringDES, decryptBase64DES
-encrypt3DES, encrypt3DES2HexString, encrypt3DES2Base64: 3DES加密
+encrypt3DES, encrypt3DES2HexString, encrypt3DES2Base64
 decrypt3DES, decryptHexString3DES, decryptBase64_3DES
 encryptAES, encryptAES2HexString, encryptAES2Base64
 decryptAES, decryptHexStringAES, decryptBase64AES
@@ -177,7 +177,7 @@ isDir
 isFile
 createOrExistsDir
 createOrExistsFile
-createFileByDeleteOldFile: 判断文件是否存在，存在则在创建之前删除
+createFileByDeleteOldFile
 copyDir
 copyFile
 moveDir
@@ -213,13 +213,13 @@ getFileExtension
 
 > - **About Handler→[HandlerUtils.java][handler.java]→[Demo][handler.demo]**
  ```
-HandlerHolder: 使用必读
+HandlerHolder
  ```
 
 > - **About Image→[ImageUtils.java][image.java]→[Demo][image.demo]**
  ```
 bitmap2Bytes, bytes2Bitmap
-drawable2Bitmap, bitmap2Drawable: drawable与bitmap互转
+drawable2Bitmap, bitmap2Drawable
 drawable2Bytes, bytes2Drawable
 getBitmap
 scale
@@ -251,7 +251,7 @@ compressBySampleSize
 getInstallAppIntent
 getUninstallAppIntent
 getLaunchAppIntent
-getAppDetailsSettingsIntent: 获取App具体设置的意图
+getAppDetailsSettingsIntent
 getShareTextIntent
 getShareImageIntent
 getComponentIntent
@@ -262,7 +262,7 @@ getCaptureIntent
 > - **About Keyboard→[KeyboardUtils.java][keyboard.java]→[Demo][keyboard.demo]**
  ```
 hideSoftInput
-clickBlankArea2HideSoftInput: 点击屏幕空白区域隐藏软键盘
+clickBlankArea2HideSoftInput
 showSoftInput
 toggleSoftInput
  ```
@@ -270,7 +270,7 @@ toggleSoftInput
 > - **About Location→[LocationUtils.java][location.java]→[Demo][location.demo]**
  ```
 isGpsEnabled
-isLocationEnabled: 判断定位是否可用
+isLocationEnabled
 openGpsSettings
 register
 unregister
@@ -283,7 +283,7 @@ getStreet
 > - **About Log→[LogUtils.java][log.java]→[Test][log.test]**
  ```
 init
-getBuilder: 获取LogUtils建造者
+getBuilder
 v
 d
 i
@@ -303,7 +303,7 @@ getWifiEnabled
 setWifiEnabled
 isWifiConnected
 isWifiAvailable
-getNetworkOperatorName: 获取移动网络运营商名称
+getNetworkOperatorName
 getNetworkType
 getIPAddress
 getDomainAddress
@@ -317,7 +317,7 @@ getIMSI
 getPhoneType
 isSimCardReady
 getSimOperatorName
-getSimOperatorByMnc: 获取Sim卡运营商名称
+getSimOperatorByMnc
 getPhoneStatus
 dial
 call
@@ -333,15 +333,15 @@ getAllSMS
 ccs2Pinyin
 ccs2Pinyin
 getPinyinFirstLetter
-getPinyinFirstLetters: 获取所有汉字的首字母
+getPinyinFirstLetters
 getSurnamePinyin
-getSurnameFirstLetter: 根据名字获取姓氏的首字母
+getSurnameFirstLetter
  ```
 
 > - **About Process→[ProcessUtils.java][process.java]→[Demo][process.demo]**
  ```
 getForegroundProcessName
-killAllBackgroundProcesses: 杀死所有的后台服务进程
+killAllBackgroundProcesses
 killBackgroundProcesses
  ```
 
@@ -361,7 +361,7 @@ isIP
 isMatch
 getMatches
 getSplits
-getReplaceFirst: 替换正则匹配的第一部分
+getReplaceFirst
 getReplaceAll
  ```
 
@@ -375,13 +375,13 @@ isLandscape
 isPortrait
 getScreenRotation
 captureWithStatusBar
-captureWithoutStatusBar: 获取当前屏幕截图，不包含状态栏
+captureWithoutStatusBar
 isScreenLock
  ```
 
 > - **About SDCard→[SDCardUtils.java][sdcard.java]→[Demo][sdcard.demo]**
  ```
-isSDCardEnable: 判断SD卡是否可用
+isSDCardEnable
 getSDCardPath
 getDataPath
 getFreeSpace
@@ -390,7 +390,7 @@ getSDCardInfo
 
 > - **About Service→[ServiceUtils.java][service.java]**
  ```
-getAllRunningService: 获取所有运行的服务
+getAllRunningService
 startService
 stopService
 bindService
@@ -400,7 +400,7 @@ isServiceRunning
 
 > - **About Shell→[ShellUtils.java][shell.java]**
  ```
-execCmd: 是否是在root下执行命令
+execCmd
  ```
 
 > - **About Size→[SizeUtils.java][size.java]**
@@ -411,14 +411,14 @@ applyDimension
 forceGetViewSize
 measureView
 getMeasuredWidth
-getMeasuredHeight: 获取测量视图高度
+getMeasuredHeight
  ```
 
 > - **About Snackbar→[SnackbarUtils.java][snackbar.java]→[Demo][snackbar.demo]**
  ```
 showShortSnackbar
 showLongSnackbar
-showIndefiniteSnackbar: 显示自定义时长snackbar
+showIndefiniteSnackbar
 addView
 dismissSnackbar
  ```
@@ -427,8 +427,8 @@ dismissSnackbar
  ```
 getBuilder
 setFlag
-setForegroundColor: 设置前景色
-setBackgroundColor: 设置背景色
+setForegroundColor
+setBackgroundColor
 setQuoteColor
 setLeadingMargin
 setBullet
@@ -465,8 +465,8 @@ putLong
 getLong
 putFloat
 getFloat
-putBoolean: SP中写入boolean类型value
-getBoolean: SP中读取boolean
+putBoolean
+getBoolean
 getAll
 remove
 contains
@@ -478,11 +478,11 @@ clear
 isEmpty
 isSpace
 equals
-equalsIgnoreCase: 判断两字符串忽略大小写是否相等
+equalsIgnoreCase
 null2Length0
 length
-upperFirstLetter: 首字母大写
-lowerFirstLetter: 首字母小写
+upperFirstLetter
+lowerFirstLetter
 reverse
 toDBC
 toSBC
@@ -504,7 +504,7 @@ invokeAll, invokeAny
 schedule
 schedule
 scheduleWithFixedRate
-scheduleWithFixedDelay: 延迟并以固定休息时间循环执行命令
+scheduleWithFixedDelay
  ```
 
 > - **About Time→[TimeUtils.java][time.java]→[Test][time.test]**
@@ -522,7 +522,7 @@ getNowTimeString
 getNowTimeDate
 getTimeSpanByNow
 getFitTimeSpanByNow
-getFriendlyTimeSpanByNow: 获取友好型与当前时间的差
+getFriendlyTimeSpanByNow
 isSameDay
 isLeapYear
 getWeek, getWeekIndex
@@ -535,7 +535,7 @@ getZodiac
 > - **About Toast→[ToastUtils.java][toast.java]→[Demo][toast.demo]**
  ```
 init
-showShortToastSafe: 安全地显示短时吐司
+showShortToastSafe
 showLongToastSafe
 showShortToast
 showLongToast
@@ -548,7 +548,7 @@ zipFiles
 zipFile
 unzipFiles
 unzipFile
-unzipFileByKeyword: 解压带有关键字的文件
+unzipFileByKeyword
 getFilesPath
 getComments
 getEntries

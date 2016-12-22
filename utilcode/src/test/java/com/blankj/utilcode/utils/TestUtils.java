@@ -44,14 +44,13 @@ public class TestUtils {
             if (line.contains("> -") && line.contains("Utils")) {
                 String utilsName = line.substring(line.indexOf("[") + 1, line.indexOf("Utils"));
                 sb.append("> - **About ").append(utilsName).append(line.substring(line.indexOf("→")));
-            } else if (line.contains(" : ")) {
-                sb.append(line.substring(0, line.indexOf(
-                        ':')).trim());
+            } else if (line.contains(": ") && !line.contains("[")) {
+                sb.append(line.substring(0, line.indexOf(':')).trim());
             } else if (line.contains("* 做")) {
                 sb.append("**I'm so sorry for that the code is annotated with Chinese.**");
-            } else if(line.contains("* QQ") || line.contains("* 我的")){
+            } else if (line.contains("* QQ") || line.contains("* 我的")) {
                 continue;
-            } else{
+            } else {
                 sb.append(line);
             }
             sb.append("\r\n");
