@@ -20,7 +20,6 @@ uninstallApp
 uninstallAppSilent
 isAppRoot
 launchApp
-closeApp
 getAppPackageName
 getAppDetailsSettings
 getAppName

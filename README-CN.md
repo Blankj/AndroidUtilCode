@@ -20,7 +20,6 @@ uninstallApp         : 卸载App
 uninstallAppSilent   : 静默卸载App
 isAppRoot            : 判断App是否有root权限
 launchApp            : 打开App
-closeApp             : 关闭App
 getAppPackageName    : 获取App包名
 getAppDetailsSettings: 获取App具体设置
 getAppName           : 获取App名称
