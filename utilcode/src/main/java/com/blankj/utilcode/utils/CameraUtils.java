@@ -1,17 +1,5 @@
 package com.blankj.utilcode.utils;
 
-import android.app.Activity;
-import android.content.ContentResolver;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.MediaStore;
-
-import java.io.File;
-import java.io.IOException;
-
 /**
  * <pre>
  *     author: Blankj
