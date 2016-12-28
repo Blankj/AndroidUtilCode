@@ -33,4 +33,21 @@ public class DogeTest {
         }
         FileUtils.writeFileFromString("F:/MyGithub/doge-expression/README.md", sb.toString(), false);
     }
+
+    @Test
+    public void generateDogeNames() throws Exception {
+        StringBuilder sb = new StringBuilder();
+        File file = new File("F:/MyGithub/doge-expression/expression");
+        List<File> files = FileUtils.listFilesInDir(file);
+        for (File f : files) {
+            String name = f.getName();
+            sb.append("![")
+                    .append(name)
+                    .append("]")
+                    .append("(https://github.com/Blankj/doge-expression/raw/master/expression/")
+                    .append(name)
+                    .append(")  \n");
+        }
+        FileUtils.writeFileFromString("F:/MyGithub/doge-expression/README.md", sb.toString(), false);
+    }
 }
