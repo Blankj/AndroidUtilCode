@@ -39,6 +39,7 @@ public class CrashUtils
     /**
      * 获取单例
      * <p>在Application中初始化{@code CrashUtils.getInstance().init(this);}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>}</p>
      *
      * @return 单例
      */
