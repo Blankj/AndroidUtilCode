@@ -36,7 +36,7 @@ public class LogUtils {
      * <p>与{@link #getBuilder()}两者选其一</p>
      *
      * @param logSwitch      日志总开关
-     * @param log2FileSwitch 日志写入文件开关
+     * @param log2FileSwitch 日志写入文件开关，设为true需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>}
      * @param logFilter      输入日志类型有{@code v, d, i, w, e}<br>v代表输出所有信息，w则只输出警告...
      * @param tag            标签
      */
