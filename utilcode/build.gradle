@@ -21,6 +21,7 @@ android {
 dependencies {
     provided rootProject.ext.deps.design
     provided rootProject.ext.deps.supportV4
+    provided rootProject.ext.deps.appcompatV7
     testCompile rootProject.ext.deps.junit
     testCompile rootProject.ext.deps.truth
     testCompile rootProject.ext.deps.robolectric
