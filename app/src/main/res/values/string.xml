@@ -70,8 +70,8 @@
     <!--SnackBar相关工具类-->
     <string name="snackbar.show_short">Show Short Snackbar</string>
     <string name="snackbar.show_short_with_action">Show Short Snackbar With Action</string>
-    <string name="snackbar.show_long">Show Short Snackbar</string>
-    <string name="snackbar.show_long_with_action">Show Short Snackbar With Action</string>
+    <string name="snackbar.show_long">Show Long Snackbar</string>
+    <string name="snackbar.show_long_with_action">Show Long Snackbar With Action</string>
     <string name="snackbar.show_indefinite">Show Indefinite Snackbar</string>
     <string name="snackbar.show_indefinite_with_action">Show Indefinite Snackbar With Action</string>
     <string name="snackbar.add_view">Add View</string>
