@@ -6,9 +6,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.blankj.utilcode.R;
 
 import java.lang.ref.WeakReference;
 
@@ -140,8 +137,9 @@ public class SnackbarUtils {
             case Snackbar.LENGTH_INDEFINITE:
                 snackbarWeakReference = new WeakReference<>(Snackbar.make(parent, text, Snackbar.LENGTH_INDEFINITE).setDuration(duration));
         }
-        View view = snackbarWeakReference.get().getView();
-        ((TextView) view.findViewById(R.id.snackbar_text)).setTextColor(textColor);
+        Snackbar snackbar = snackbarWeakReference.get();
+        View view = snackbar.getView();
+        snackbar.setActionTextColor(textColor);
         view.setBackgroundColor(bgColor);
         if (actionText != null && actionText.length() > 0 && listener != null) {
             snackbarWeakReference.get().setActionTextColor(actionTextColor);
