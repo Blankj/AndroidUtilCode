@@ -113,7 +113,7 @@ init
 
 > - **About Device→[DeviceUtils.java][device.java]→[Demo][device.demo]**
  ```
-isDeviceRoot
+isDeviceRooted
 getSDKVersion
 getAndroidID
 getMacAddress
