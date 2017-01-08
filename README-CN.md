@@ -113,7 +113,7 @@ init       : 初始化
 
 > - **设备相关→[DeviceUtils.java][device.java]→[Demo][device.demo]**
  ```
-isDeviceRoot     : 判断设备是否root
+isDeviceRooted   : 判断设备是否rooted
 getSDKVersion    : 获取设备系统版本号
 getAndroidID     : 获取设备AndroidID
 getMacAddress    : 获取设备MAC地址
