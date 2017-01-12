@@ -94,4 +94,7 @@ public class MainActivity extends Activity {
     public void toastClick(View view) {
         startActivity(new Intent(this, ToastActivity.class));
     }
+
+    public void flashlightClick(View view) {
+    }
 }
