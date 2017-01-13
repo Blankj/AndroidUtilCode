@@ -58,6 +58,7 @@ public class NetworkActivity extends Activity
                 + "\ngetWifiEnabled: " + NetworkUtils.getWifiEnabled()
                 + "\nisWifiConnected: " + NetworkUtils.isWifiConnected()
                 + "\nisWifiAvailable: " + NetworkUtils.isWifiAvailable()
+                + "\nisAvailableByPing: " + NetworkUtils.isAvailableByPing()
                 + "\ngetNetworkOperatorName: " + NetworkUtils.getNetworkOperatorName()
                 + "\ngetNetworkTypeName: " + NetworkUtils.getNetworkType()
                 + "\ngetIPAddress: " + NetworkUtils.getIPAddress(true)

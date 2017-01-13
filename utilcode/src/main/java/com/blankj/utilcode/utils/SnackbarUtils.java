@@ -1,7 +1,6 @@
 package com.blankj.utilcode.utils;
 
 import android.support.annotation.ColorInt;
-import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -89,7 +88,6 @@ public class SnackbarUtils {
      *
      * @param parent    父视图(CoordinatorLayout或者DecorView)
      * @param text      文本
-     * @param duration  自定义时长
      * @param textColor 文本颜色
      * @param bgColor   背景色
      */
@@ -102,7 +100,6 @@ public class SnackbarUtils {
      *
      * @param parent          父视图(CoordinatorLayout或者DecorView)
      * @param text            文本
-     * @param duration        自定义时长
      * @param textColor       文本颜色
      * @param bgColor         背景色
      * @param actionText      事件文本
@@ -128,7 +125,7 @@ public class SnackbarUtils {
      * @param listener        监听器
      */
     private static void showSnackbar(View parent, CharSequence text,
-                                     @BaseTransientBottomBar.Duration int duration,
+                                     int duration,
                                      @ColorInt int textColor, @ColorInt int bgColor,
                                      CharSequence actionText, int actionTextColor,
                                      View.OnClickListener listener) {

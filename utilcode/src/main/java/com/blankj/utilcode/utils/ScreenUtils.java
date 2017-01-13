@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.view.Surface;
 import android.view.View;
@@ -156,5 +157,29 @@ public class ScreenUtils {
         KeyguardManager km = (KeyguardManager) Utils.getContext()
                 .getSystemService(Context.KEYGUARD_SERVICE);
         return km.inKeyguardRestrictedInputMode();
+    }
+
+    /**
+     * 设置进入休眠时长
+     * <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+     *
+     * @param duration 时长
+     */
+    public static void setSleepDuration(int duration) {
+        Settings.System.putInt(Utils.getContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, duration);
+    }
+
+    /**
+     * 获取进入休眠时长
+     *
+     * @return 进入休眠时长，报错返回-123
+     */
+    public static int getSleepDuration() {
+        try {
+            return Settings.System.getInt(Utils.getContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT);
+        } catch (Settings.SettingNotFoundException e) {
+            e.printStackTrace();
+            return -123;
+        }
     }
 }

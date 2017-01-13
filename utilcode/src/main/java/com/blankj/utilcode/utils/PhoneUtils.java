@@ -49,7 +49,7 @@ public class PhoneUtils {
      * 获取IMEI码
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_PHONE_STATE"/>}</p>
      *
-     * @return IMIE码
+     * @return IMEI码
      */
     @SuppressLint("HardwareIds")
     public static String getIMEI() {
@@ -61,7 +61,7 @@ public class PhoneUtils {
      * 获取IMSI码
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_PHONE_STATE"/>}</p>
      *
-     * @return IMIE码
+     * @return IMSI码
      */
     @SuppressLint("HardwareIds")
     public static String getIMSI() {
@@ -178,7 +178,9 @@ public class PhoneUtils {
      * @param phoneNumber 电话号码
      */
     public static void dial(String phoneNumber) {
-        Utils.getContext().startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber)));
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Utils.getContext().startActivity(intent);
     }
 
     /**
@@ -188,7 +190,9 @@ public class PhoneUtils {
      * @param phoneNumber 电话号码
      */
     public static void call(String phoneNumber) {
-        Utils.getContext().startActivity(new Intent("android.intent.action.CALL", Uri.parse("tel:" + phoneNumber)));
+        Intent intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + phoneNumber));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Utils.getContext().startActivity(intent);
     }
 
     /**

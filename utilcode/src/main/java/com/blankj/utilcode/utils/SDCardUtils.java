@@ -56,7 +56,7 @@ public class SDCardUtils {
                     }
                 }
                 if (p.waitFor() != 0 && p.exitValue() == 1) {
-                    return " 命令执行失败";
+                    break;
                 }
             }
         } catch (Exception e) {
