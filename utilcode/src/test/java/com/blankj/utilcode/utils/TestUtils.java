@@ -103,6 +103,6 @@ public class TestUtils {
 
     @Test
     public void test() throws Exception {
-        System.out.printf("%tl:%tM\n%tp", System.currentTimeMillis(), System.currentTimeMillis(), System.currentTimeMillis());
+
     }
 }
