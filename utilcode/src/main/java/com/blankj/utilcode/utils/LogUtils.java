@@ -108,7 +108,7 @@ public class LogUtils {
      * @param msg 消息
      */
     public static void v(Object msg) {
-        v(tag, msg);
+        log(tag, msg.toString(), null, 'i');
     }
 
     /**
@@ -118,7 +118,7 @@ public class LogUtils {
      * @param msg 消息
      */
     public static void v(String tag, Object msg) {
-        v(tag, msg, null);
+        log(tag, msg.toString(), null, 'i');
     }
 
     /**
@@ -138,7 +138,7 @@ public class LogUtils {
      * @param msg 消息
      */
     public static void d(Object msg) {
-        d(tag, msg);
+        log(tag, msg.toString(), null, 'd');
     }
 
     /**
@@ -148,7 +148,7 @@ public class LogUtils {
      * @param msg 消息
      */
     public static void d(String tag, Object msg) {// 调试信息
-        d(tag, msg, null);
+        log(tag, msg.toString(), null, 'd');
     }
 
     /**
@@ -168,7 +168,7 @@ public class LogUtils {
      * @param msg 消息
      */
     public static void i(Object msg) {
-        i(tag, msg);
+        log(tag, msg.toString(), null, 'i');
     }
 
     /**
@@ -178,7 +178,7 @@ public class LogUtils {
      * @param msg 消息
      */
     public static void i(String tag, Object msg) {
-        i(tag, msg, null);
+        log(tag, msg.toString(), null, 'i');
     }
 
     /**
@@ -198,7 +198,7 @@ public class LogUtils {
      * @param msg 消息
      */
     public static void w(Object msg) {
-        w(tag, msg);
+        log(tag, msg.toString(), null, 'w');
     }
 
     /**
@@ -208,7 +208,7 @@ public class LogUtils {
      * @param msg 消息
      */
     public static void w(String tag, Object msg) {
-        w(tag, msg, null);
+        log(tag, msg.toString(), null, 'w');
     }
 
     /**
@@ -228,7 +228,7 @@ public class LogUtils {
      * @param msg 消息
      */
     public static void e(Object msg) {
-        e(tag, msg);
+        log(tag, msg.toString(), null, 'e');
     }
 
     /**
@@ -238,7 +238,7 @@ public class LogUtils {
      * @param msg 消息
      */
     public static void e(String tag, Object msg) {
-        e(tag, msg, null);
+        log(tag, msg.toString(), null, 'e');
     }
 
     /**
@@ -263,16 +263,16 @@ public class LogUtils {
     private static void log(String tag, String msg, Throwable tr, char type) {
         if (logSwitch) {
             if ('e' == type && ('e' == logFilter || 'v' == logFilter)) {
-                Log.e(tag, msg, tr);
+                Log.e(generateTag(tag), msg, tr);
             } else if ('w' == type && ('w' == logFilter || 'v' == logFilter)) {
-                Log.w(tag, msg, tr);
+                Log.w(generateTag(tag), msg, tr);
             } else if ('d' == type && ('d' == logFilter || 'v' == logFilter)) {
-                Log.d(tag, msg, tr);
+                Log.d(generateTag(tag), msg, tr);
             } else if ('i' == type && ('d' == logFilter || 'v' == logFilter)) {
-                Log.i(tag, msg, tr);
+                Log.i(generateTag(tag), msg, tr);
             }
             if (log2FileSwitch) {
-                log2File(type, tag, msg + '\n' + Log.getStackTraceString(tr));
+                log2File(type, generateTag(tag), msg + '\n' + Log.getStackTraceString(tr));
             }
         }
     }
@@ -306,5 +306,19 @@ public class LogUtils {
                 }
             }
         }).start();
+    }
+
+    /**
+     * 产生tag
+     *
+     * @return tag
+     */
+    private static String generateTag(String tag) {
+        StackTraceElement[] stacks = Thread.currentThread().getStackTrace();
+        StackTraceElement caller = stacks[4];
+        String format = "Tag[" + tag + "] %s[%s, %d]";
+        String callerClazzName = caller.getClassName();
+        callerClazzName = callerClazzName.substring(callerClazzName.lastIndexOf(".") + 1);
+        return String.format(format, callerClazzName, caller.getMethodName(), caller.getLineNumber());
     }
 }

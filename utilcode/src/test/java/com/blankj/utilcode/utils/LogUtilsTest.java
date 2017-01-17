@@ -21,19 +21,19 @@ public class LogUtilsTest {
 
     @Before
     public void setUp() throws Exception {
-        if (Utils.getContext() == null) TestUtils.init();
+        TestUtils.init();
         ShadowLog.stream = System.out;
         LogUtils.getBuilder().
                 setLogSwitch(true).
                 setLog2FileSwitch(false).
                 setTag("Blankj").
-                setLogFilter('e').
+                setLogFilter('v').
                 create();
     }
 
     @Test
     public void v() throws Exception {
-        LogUtils.v("Verbose");
+        LogUtils.v("My Tag","Verbose");
     }
 
     @Test
