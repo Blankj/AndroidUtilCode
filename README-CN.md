@@ -567,7 +567,7 @@ getEntries        : 获取压缩文件中的文件对象
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.3.5'
+compile 'com.blankj:utilcode:1.3.6'
 ```
 
 ## How to use
