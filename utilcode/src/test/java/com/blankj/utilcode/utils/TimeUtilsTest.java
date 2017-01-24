@@ -92,6 +92,13 @@ public class TimeUtilsTest {
     }
 
     @Test
+    public void testIsSameDay() throws Exception {
+        System.out.println(isSameDay(System.currentTimeMillis()));
+        System.out.println(isSameDay((System.currentTimeMillis() / ConstUtils.DAY) * ConstUtils.DAY - 8 * ConstUtils.HOUR));
+        System.out.println(isSameDay((System.currentTimeMillis() / ConstUtils.DAY) * ConstUtils.DAY + 16 * ConstUtils.HOUR));
+    }
+
+    @Test
     public void testIsLeapYear() throws Exception {
         assertThat(isLeapYear(2012)).isEqualTo(true);
         assertThat(isLeapYear(2000)).isEqualTo(true);

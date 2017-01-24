@@ -178,9 +178,7 @@ public class PhoneUtils {
      * @param phoneNumber 电话号码
      */
     public static void dial(String phoneNumber) {
-        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Utils.getContext().startActivity(intent);
+        Utils.getContext().startActivity(IntentUtils.getDialIntent(phoneNumber));
     }
 
     /**
@@ -190,9 +188,7 @@ public class PhoneUtils {
      * @param phoneNumber 电话号码
      */
     public static void call(String phoneNumber) {
-        Intent intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + phoneNumber));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Utils.getContext().startActivity(intent);
+        Utils.getContext().startActivity(IntentUtils.getCallIntent(phoneNumber));
     }
 
     /**
@@ -202,10 +198,7 @@ public class PhoneUtils {
      * @param content     短信内容
      */
     public static void sendSms(String phoneNumber, String content) {
-        Uri uri = Uri.parse("smsto:" + (StringUtils.isEmpty(phoneNumber) ? "" : phoneNumber));
-        Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-        intent.putExtra("sms_body", StringUtils.isEmpty(content) ? "" : content);
-        Utils.getContext().startActivity(intent);
+        Utils.getContext().startActivity(IntentUtils.getSendSmsIntent(phoneNumber, content));
     }
 
     /**
@@ -249,47 +242,49 @@ public class PhoneUtils {
         Uri date_uri = Uri.parse("content://com.android.contacts/data");
         // 4.查询操作,先查询raw_contacts,查询contact_id
         // projection : 查询的字段
-        Cursor cursor = resolver.query(raw_uri, new String[]{"contact_id"},
-                null, null, null);
-        // 5.解析cursor
-        while (cursor.moveToNext()) {
-            // 6.获取查询的数据
-            String contact_id = cursor.getString(0);
-            // cursor.getString(cursor.getColumnIndex("contact_id"));//getColumnIndex
-            // : 查询字段在cursor中索引值,一般都是用在查询字段比较多的时候
-            // 判断contact_id是否为空
-            if (!StringUtils.isEmpty(contact_id)) {//null   ""
-                // 7.根据contact_id查询view_data表中的数据
-                // selection : 查询条件
-                // selectionArgs :查询条件的参数
-                // sortOrder : 排序
-                // 空指针: 1.null.方法 2.参数为null
-                Cursor c = resolver.query(date_uri, new String[]{"data1",
-                                "mimetype"}, "raw_contact_id=?",
-                        new String[]{contact_id}, null);
-                HashMap<String, String> map = new HashMap<String, String>();
-                // 8.解析c
-                while (c.moveToNext()) {
-                    // 9.获取数据
-                    String data1 = c.getString(0);
-                    String mimetype = c.getString(1);
-                    // 10.根据类型去判断获取的data1数据并保存
-                    if (mimetype.equals("vnd.android.cursor.item/phone_v2")) {
-                        // 电话
-                        map.put("phone", data1);
-                    } else if (mimetype.equals("vnd.android.cursor.item/name")) {
-                        // 姓名
-                        map.put("name", data1);
+        Cursor cursor = resolver.query(raw_uri, new String[]{"contact_id"}, null, null, null);
+        try {
+            // 5.解析cursor
+            while (cursor.moveToNext()) {
+                // 6.获取查询的数据
+                String contact_id = cursor.getString(0);
+                // cursor.getString(cursor.getColumnIndex("contact_id"));//getColumnIndex
+                // : 查询字段在cursor中索引值,一般都是用在查询字段比较多的时候
+                // 判断contact_id是否为空
+                if (!StringUtils.isEmpty(contact_id)) {//null   ""
+                    // 7.根据contact_id查询view_data表中的数据
+                    // selection : 查询条件
+                    // selectionArgs :查询条件的参数
+                    // sortOrder : 排序
+                    // 空指针: 1.null.方法 2.参数为null
+                    Cursor c = resolver.query(date_uri, new String[]{"data1",
+                                    "mimetype"}, "raw_contact_id=?",
+                            new String[]{contact_id}, null);
+                    HashMap<String, String> map = new HashMap<String, String>();
+                    // 8.解析c
+                    while (c.moveToNext()) {
+                        // 9.获取数据
+                        String data1 = c.getString(0);
+                        String mimetype = c.getString(1);
+                        // 10.根据类型去判断获取的data1数据并保存
+                        if (mimetype.equals("vnd.android.cursor.item/phone_v2")) {
+                            // 电话
+                            map.put("phone", data1);
+                        } else if (mimetype.equals("vnd.android.cursor.item/name")) {
+                            // 姓名
+                            map.put("name", data1);
+                        }
                     }
+                    // 11.添加到集合中数据
+                    list.add(map);
+                    // 12.关闭cursor
+                    c.close();
                 }
-                // 11.添加到集合中数据
-                list.add(map);
-                // 12.关闭cursor
-                c.close();
             }
+        } finally {
+            // 12.关闭cursor
+            cursor.close();
         }
-        // 12.关闭cursor
-        cursor.close();
         return list;
     }
 

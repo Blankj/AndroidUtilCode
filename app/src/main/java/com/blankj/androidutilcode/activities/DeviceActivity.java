@@ -48,8 +48,10 @@ public class DeviceActivity extends Activity
                 break;
             case R.id.btn_reboot:
                 DeviceUtils.reboot();
+                break;
             case R.id.btn_reboot_to_recovery:
                 DeviceUtils.reboot2Recovery();
+                break;
             case R.id.btn_reboot_to_bootloader:
                 DeviceUtils.reboot2Bootloader();
                 break;

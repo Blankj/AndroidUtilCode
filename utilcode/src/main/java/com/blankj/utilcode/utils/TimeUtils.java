@@ -734,7 +734,7 @@ public class TimeUtils {
             return String.format("%d分钟前", span / ConstUtils.MIN);
         }
         // 获取当天00:00
-        long wee = (now / ConstUtils.DAY) * ConstUtils.DAY;
+        long wee = (now / ConstUtils.DAY) * ConstUtils.DAY - 8 * ConstUtils.HOUR;
         if (millis >= wee) {
             return String.format("今天%tR", millis);
         } else if (millis >= wee - ConstUtils.DAY) {
@@ -784,7 +784,7 @@ public class TimeUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isSameDay(long millis) {
-        long wee = (System.currentTimeMillis() / ConstUtils.DAY) * ConstUtils.DAY;
+        long wee = (System.currentTimeMillis() / ConstUtils.DAY) * ConstUtils.DAY - 8 * ConstUtils.HOUR;
         return millis >= wee && millis < wee + ConstUtils.DAY;
     }
 

@@ -147,7 +147,7 @@ public class LogUtils {
      * @param tag 标签
      * @param msg 消息
      */
-    public static void d(String tag, Object msg) {// 调试信息
+    public static void d(String tag, Object msg) {
         log(tag, msg.toString(), null, 'd');
     }
 

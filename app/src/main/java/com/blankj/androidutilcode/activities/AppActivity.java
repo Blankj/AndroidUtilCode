@@ -70,7 +70,7 @@ public class AppActivity extends Activity
                 AppUtils.uninstallAppSilent(this, this.getPackageName(), false);
                 break;
             case R.id.btn_launch_app:
-                AppUtils.launchApp(this, this.getPackageName());
+                AppUtils.launchApp(this.getPackageName());
                 break;
             case R.id.btn_get_app_details_settings:
                 AppUtils.getAppDetailsSettings(this);

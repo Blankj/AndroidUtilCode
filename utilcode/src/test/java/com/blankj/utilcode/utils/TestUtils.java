@@ -1,5 +1,7 @@
 package com.blankj.utilcode.utils;
 
+import android.graphics.drawable.BitmapDrawable;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;

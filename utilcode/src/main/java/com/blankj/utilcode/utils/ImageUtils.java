@@ -13,6 +13,7 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.PorterDuffXfermode;
@@ -21,12 +22,15 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.NinePatchDrawable;
 import android.media.ExifInterface;
 import android.os.Build;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
+import android.support.annotation.FloatRange;
+import android.support.annotation.IntRange;
 import android.view.View;
 
 import java.io.BufferedInputStream;
@@ -86,7 +90,20 @@ public class ImageUtils {
      * @return bitmap
      */
     public static Bitmap drawable2Bitmap(Drawable drawable) {
-        return drawable == null ? null : ((BitmapDrawable) drawable).getBitmap();
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable) drawable).getBitmap();
+        } else if (drawable instanceof NinePatchDrawable) {
+            Bitmap bitmap = Bitmap.createBitmap(
+                    drawable.getIntrinsicWidth(),
+                    drawable.getIntrinsicHeight(),
+                    drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+            Canvas canvas = new Canvas(bitmap);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            drawable.draw(canvas);
+            return bitmap;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -649,7 +666,9 @@ public class ImageUtils {
      * @param radius 模糊半径
      * @return 模糊后的图片
      */
-    public static Bitmap fastBlur(Bitmap src, float scale, float radius) {
+    public static Bitmap fastBlur(Bitmap src,
+                                  @FloatRange(from = 0, to = 1, fromInclusive = false) float scale,
+                                  @FloatRange(from = 0, to = 25, fromInclusive = false) float radius) {
         return fastBlur(src, scale, radius, false);
     }
 
@@ -659,11 +678,14 @@ public class ImageUtils {
      *
      * @param src     源图片
      * @param scale   缩放比例(0...1)
-     * @param radius  模糊半径
+     * @param radius  模糊半径(0...25)
      * @param recycle 是否回收
      * @return 模糊后的图片
      */
-    public static Bitmap fastBlur(Bitmap src, float scale, float radius, boolean recycle) {
+    public static Bitmap fastBlur(Bitmap src,
+                                  @FloatRange(from = 0, to = 1, fromInclusive = false) float scale,
+                                  @FloatRange(from = 0, to = 25, fromInclusive = false) float radius,
+                                  boolean recycle) {
         if (isEmptyBitmap(src)) return null;
         int width = src.getWidth();
         int height = src.getHeight();
@@ -696,11 +718,11 @@ public class ImageUtils {
      *
      * @param context 上下文
      * @param src     源图片
-     * @param radius  模糊度(1...25)
+     * @param radius  模糊半径(0...25)
      * @return 模糊后的图片
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public static Bitmap renderScriptBlur(Context context, Bitmap src, float radius) {
+    public static Bitmap renderScriptBlur(Context context, Bitmap src, @FloatRange(from = 0, to = 25, fromInclusive = false) float radius) {
         if (isEmptyBitmap(src)) return null;
         RenderScript rs = null;
         try {
@@ -710,11 +732,6 @@ public class ImageUtils {
                     .USAGE_SCRIPT);
             Allocation output = Allocation.createTyped(rs, input.getType());
             ScriptIntrinsicBlur blurScript = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
-            if (radius > 25) {
-                radius = 25.0f;
-            } else if (radius <= 0) {
-                radius = 1.0f;
-            }
             blurScript.setInput(input);
             blurScript.setRadius(radius);
             blurScript.forEach(output);
@@ -1404,7 +1421,7 @@ public class ImageUtils {
      * @param quality 质量
      * @return 质量压缩后的图片
      */
-    public static Bitmap compressByQuality(Bitmap src, int quality) {
+    public static Bitmap compressByQuality(Bitmap src, @IntRange(from = 0, to = 100) int quality) {
         return compressByQuality(src, quality, false);
     }
 
@@ -1416,8 +1433,8 @@ public class ImageUtils {
      * @param recycle 是否回收
      * @return 质量压缩后的图片
      */
-    public static Bitmap compressByQuality(Bitmap src, int quality, boolean recycle) {
-        if (isEmptyBitmap(src) || quality < 0 || quality > 100) return null;
+    public static Bitmap compressByQuality(Bitmap src, @IntRange(from = 0, to = 100) int quality, boolean recycle) {
+        if (isEmptyBitmap(src)) return null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         src.compress(Bitmap.CompressFormat.JPEG, quality, baos);
         byte[] bytes = baos.toByteArray();

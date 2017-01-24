@@ -1,6 +1,7 @@
-* 16/01/16 LogUtils新增打印类名函数名及所在行
-* 16/12/26 新增阴历相关工具类
-* 16/12/21 SpannableStringUtils撒花完结
+* 17/01/24
+* 17/01/16 LogUtils新增打印类名函数名及所在行
+* 17/12/26 新增阴历相关工具类
+* 17/12/21 SpannableStringUtils撒花完结
 * 16/12/19 SpannableStringUtils完善中
 * 16/12/18 SpannableStringUtils采用构造者模式
 * 16/12/17 完善SpannableStringUtils中
