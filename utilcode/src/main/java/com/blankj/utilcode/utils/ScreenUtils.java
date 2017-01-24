@@ -154,14 +154,13 @@ public class ScreenUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isScreenLock() {
-        KeyguardManager km = (KeyguardManager) Utils.getContext()
-                .getSystemService(Context.KEYGUARD_SERVICE);
+        KeyguardManager km = (KeyguardManager) Utils.getContext().getSystemService(Context.KEYGUARD_SERVICE);
         return km.inKeyguardRestrictedInputMode();
     }
 
     /**
      * 设置进入休眠时长
-     * <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_SETTINGS" />}</p>
      *
      * @param duration 时长
      */

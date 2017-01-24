@@ -77,7 +77,7 @@ public class LunarUtils {
 
     /**
      * @param lunarYear 农历年份
-     * @return String of Ganzhi: 甲子年 Tiangan:甲乙丙丁戊己庚辛壬癸<br/>
+     * @return String of Ganzhi: 甲子年 Tiangan:甲乙丙丁戊己庚辛壬癸
      * Dizhi: 子丑寅卯辰巳无为申酉戌亥
      */
     public static String lunarYearToGanZhi(int lunarYear) {

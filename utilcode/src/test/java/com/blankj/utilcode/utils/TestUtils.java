@@ -25,8 +25,7 @@ public class TestUtils {
 
     static final char SEP = File.separatorChar;
 
-    static final String BASEPATH = System.getProperty("user.dir")
-            + SEP + "src" + SEP + "test" + SEP + "res" + SEP;
+    static final String BASEPATH = System.getProperty("user.dir") + SEP + "src" + SEP + "test" + SEP + "res" + SEP;
 
     public static void init() {
         Utils.init(RuntimeEnvironment.application);
