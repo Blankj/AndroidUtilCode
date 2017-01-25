@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 
 /**
  * <pre>
@@ -20,14 +21,22 @@ public class FragmentUtils {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
+    /**
+     * 替换fragment
+     *
+     * @param fragmentManager fragment管理器
+     * @param container       布局id
+     * @param newFragment     fragment
+     * @return
+     */
     public static Fragment replaceFragment(FragmentManager fragmentManager,
-                                           int container,
+                                           @IdRes int container,
                                            Fragment newFragment) {
         return replaceFragment(fragmentManager, container, newFragment, false);
     }
 
     public static Fragment replaceFragment(FragmentManager fragmentManager,
-                                           int container,
+                                           @IdRes int container,
                                            Fragment newFragment,
                                            boolean addToBackStack) {
         final FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -43,15 +52,16 @@ public class FragmentUtils {
     }
 
     public static Fragment replaceFragment(FragmentManager fragmentManager,
-                                           int container,
+                                           @IdRes int container,
                                            Class<? extends Fragment> newFragment,
                                            Bundle args) {
         return replaceFragment(fragmentManager, container, newFragment, args, false);
     }
 
     public static Fragment replaceFragment(FragmentManager fragmentManager,
-                                           int container, Class<? extends Fragment> newFragment,
-                                           Bundle args, boolean addToBackStack) {
+                                           @IdRes int container, Class<? extends Fragment> newFragment,
+                                           Bundle args,
+                                           boolean addToBackStack) {
         Fragment fragment = null;
         // 构造新的Fragment
         try {
@@ -93,11 +103,11 @@ public class FragmentUtils {
      * @param currentFragment
      * @param newFragment
      * @param args            新Fragment的参数
-     * @param addToBackStack  这个操作是否加入栈中，如果要实现类似返回效果，则需要�?
+     * @param addToBackStack  这个操作是否加入栈中，如果要实现类似返回效果，则需要true
      * @return 新显示的Fragment
      */
     public static Fragment switchFragment(FragmentManager fragmentManager,
-                                          int container,
+                                          @IdRes int container,
                                           Fragment currentFragment,
                                           Class<? extends Fragment> newFragment,
                                           Bundle args,
