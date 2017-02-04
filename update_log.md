@@ -1,3 +1,5 @@
+* 17/02/04 完善FragmentUtils中
+* 17/02/03 完善FragmentUtils中
 * 17/02/02 完善FragmentUtils中
 * 17/02/01 完善FragmentUtils中
 * 17/01/24 发布版本1.3.6
