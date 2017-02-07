@@ -7,6 +7,7 @@
     <string name="test.clean">CleanUtils Test</string>
     <string name="test.crash">CrashUtils Test</string>
     <string name="test.device">DeviceUtils Test</string>
+    <string name="test.fragment">FragmentUtils Test</string>
     <string name="test.flashlight">FlashlightUtils Test</string>
     <string name="test.handler">HandlerUtils Test</string>
     <string name="test.image">ImageUtils Test</string>
@@ -15,6 +16,7 @@
     <string name="test.network">NetworkUtils Test</string>
     <string name="test.permission">NetworkUtils Test</string>
     <string name="test.phone">PhoneUtils Test</string>
+    <string name="test.pinyin">PinyinUtils Test</string>
     <string name="test.process">ProcessUtils Test</string>
     <string name="test.sdcard">SDCardUtils Test</string>
     <string name="test.snackbar">SnackbarUtils Test</string>
@@ -43,6 +45,13 @@
     <!--Flashlight相关-->
     <string name="flashlight.open">Open Flashlight</string>
     <string name="flashlight.close">Close Flashlight</string>
+
+    <!--Fragment相关-->
+    <string name="fragment.add">Add</string>
+    <string name="fragment.pop">Pop</string>
+    <string name="fragment.pop_add">Pop Add</string>
+    <string name="fragment.hide_show">Hide Show</string>
+    <string name="fragment.replace">Replace</string>
 
     <!--Handler相关-->
     <string name="handler.send_msg_after_3s">Send Msg After 3s</string>
