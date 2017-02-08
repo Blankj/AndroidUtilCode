@@ -1,4 +1,4 @@
-package com.blankj.androidutilcode.activities;
+package com.blankj.androidutilcode.activity;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -10,7 +10,7 @@ import android.os.IBinder;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.services.LocationService;
+import com.blankj.androidutilcode.service.LocationService;
 
 /**
  * <pre>

@@ -210,6 +210,27 @@ getFileNameNoExtension   : 根据全路径获取文件名不带拓展名
 getFileExtension         : 根据全路径获取文件拓展名
  ```
 
+> - **Fragment相关→[FragmentUtils.java][fragment.java]→[Demo][fragment.demo]**
+ ```
+addFragment          : 新增fragment
+popFragment          : 出栈fragment
+popToFragment        : 出栈到指定fragment
+popAddFragment       : 先出栈后新增fragment
+hideFragment         : 隐藏fragment
+showFragment         : 显示fragment
+hideShowFragment     : 先隐藏后显示fragment
+replaceFragment      : 替换fragment
+getTopFragment       : 获得栈顶fragment
+getTopShowFragment   : 获得栈顶可见fragment
+getPreFragment       : 获取目标fragment的前一个fragment
+findFragment         : 寻找fragment
+getFragments         : 获取同级别的fragment
+getAllFragments      : 获取所有fragment
+setBackgroundColor   : 设置背景色
+setBackgroundResource: 设置背景资源
+setBackground        : 设置背景
+ ```
+
 > - **Handler相关→[HandlerUtils.java][handler.java]→[Demo][handler.demo]**
  ```
 HandlerHolder: 使用必读
@@ -643,6 +664,9 @@ limitations under the License.
 
 [file.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/FileUtils.java
 [file.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/FileUtilsTest.java
+
+[fragment.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/FragmentUtils.java
+[fragment.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activities/FragmentActivity.java
 
 [handler.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/HandlerUtils.java
 [handler.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activities/HandlerActivity.java

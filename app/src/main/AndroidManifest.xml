@@ -50,33 +50,35 @@
         android:label="@string/my_app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.ActivityActivity"/>
-        <activity android:name=".activities.AppActivity"/>
-        <activity android:name=".activities.CleanActivity"/>
-        <activity android:name=".activities.DeviceActivity"/>
+        <activity android:name=".activity.ActivityActivity"/>
+        <activity android:name=".activity.AppActivity"/>
+        <activity android:name=".activity.CleanActivity"/>
+        <activity android:name=".activity.DeviceActivity"/>
+        <activity android:name=".activity.FragmentActivity"/>
         <!--<activity android:name=".activities.FlashlightActivity"/>-->
-        <activity android:name=".activities.HandlerActivity"/>
-        <activity android:name=".activities.ImageActivity"/>
+        <activity android:name=".activity.HandlerActivity"/>
+        <activity android:name=".activity.ImageActivity"/>
         <activity
-            android:name=".activities.KeyboardActivity"
+            android:name=".activity.KeyboardActivity"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
-        <activity android:name=".activities.LocationActivity"/>
-        <activity android:name=".activities.MainActivity">
+        <activity android:name=".activity.LocationActivity"/>
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.NetworkActivity"/>
+        <activity android:name=".activity.NetworkActivity"/>
         <!--<activity android:name=".activities.PermissionActivity"/>-->
-        <activity android:name=".activities.PhoneActivity"/>
-        <activity android:name=".activities.ProcessActivity"/>
-        <activity android:name=".activities.SDCardActivity"/>
-        <activity android:name=".activities.SnackbarActivity"/>
-        <activity android:name=".activities.SpannableActivity"/>
-        <activity android:name=".activities.ToastActivity"/>
+        <activity android:name=".activity.PhoneActivity"/>
+        <activity android:name=".activity.PinyinActivity"/>
+        <activity android:name=".activity.ProcessActivity"/>
+        <activity android:name=".activity.SDCardActivity"/>
+        <activity android:name=".activity.SnackbarActivity"/>
+        <activity android:name=".activity.SpannableActivity"/>
+        <activity android:name=".activity.ToastActivity"/>
 
-        <service android:name=".services.LocationService"/>
+        <service android:name=".service.LocationService"/>
     </application>
 
 </manifest>

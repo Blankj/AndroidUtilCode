@@ -1,4 +1,4 @@
-package com.blankj.androidutilcode.activities;
+package com.blankj.androidutilcode.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -43,6 +43,10 @@ public class MainActivity extends Activity {
         startActivity(new Intent(this, DeviceActivity.class));
     }
 
+    public void fragmentClick(View view) {
+        startActivity(new Intent(this, FragmentActivity.class));
+    }
+
 //    public void flashlightClick(View view) {
 //        startActivity(new Intent(this, FlashlightActivity.class));
 //    }
@@ -73,6 +77,10 @@ public class MainActivity extends Activity {
 
     public void phoneClick(View view) {
         startActivity(new Intent(this, PhoneActivity.class));
+    }
+
+    public void pinyinClick(View view) {
+        startActivity(new Intent(this, PinyinActivity.class));
     }
 
     public void processClick(View view) {

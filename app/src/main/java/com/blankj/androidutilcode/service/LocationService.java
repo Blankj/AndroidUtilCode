@@ -1,4 +1,4 @@
-package com.blankj.androidutilcode.services;
+package com.blankj.androidutilcode.service;
 
 import android.app.Service;
 import android.content.Intent;

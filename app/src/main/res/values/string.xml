@@ -47,10 +47,14 @@
     <string name="flashlight.close">Close Flashlight</string>
 
     <!--Fragment相关-->
-    <string name="fragment.add">Add</string>
+    <string name="fragment.show_stack">Show Stack</string>
+    <string name="fragment.add_demo1">Add Demo1</string>
+    <string name="fragment.add_child">Add Child</string>
     <string name="fragment.pop">Pop</string>
+    <string name="fragment.pop_to_root">Pop To Root</string>
     <string name="fragment.pop_add">Pop Add</string>
-    <string name="fragment.hide_show">Hide Show</string>
+    <string name="fragment.hide_demo0_show_demo1">Hide Demo0 Show Demo1</string>
+    <string name="fragment.hide_demo1_show_demo0">Hide Demo1 Show Demo0</string>
     <string name="fragment.replace">Replace</string>
 
     <!--Handler相关-->

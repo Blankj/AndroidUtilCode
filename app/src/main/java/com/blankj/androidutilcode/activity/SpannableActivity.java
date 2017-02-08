@@ -1,4 +1,4 @@
-package com.blankj.androidutilcode.activities;
+package com.blankj.androidutilcode.activity;
 
 import android.app.Activity;
 import android.graphics.BlurMaskFilter;

@@ -210,6 +210,27 @@ getFileNameNoExtension
 getFileExtension
  ```
 
+> - **About Fragment→[FragmentUtils.java][fragment.java]→[Demo][fragment.demo]**
+ ```
+addFragment
+popFragment
+popToFragment
+popAddFragment
+hideFragment
+showFragment
+hideShowFragment
+replaceFragment
+getTopFragment
+getTopShowFragment
+getPreFragment
+findFragment
+getFragments
+getAllFragments
+setBackgroundColor
+setBackgroundResource
+setBackground
+ ```
+
 > - **About Handler→[HandlerUtils.java][handler.java]→[Demo][handler.demo]**
  ```
 HandlerHolder
@@ -641,6 +662,9 @@ limitations under the License.
 
 [file.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/FileUtils.java
 [file.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/FileUtilsTest.java
+
+[fragment.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/FragmentUtils.java
+[fragment.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activities/FragmentActivity.java
 
 [handler.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/HandlerUtils.java
 [handler.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activities/HandlerActivity.java
