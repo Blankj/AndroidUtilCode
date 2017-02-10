@@ -1,3 +1,7 @@
+* 17/02/10 完善FragmentUtils中，LogUtils对长度进行分割
+* 17/02/09 完善FragmentUtils中
+* 17/02/08 完善FragmentUtils中
+* 17/02/07 完善FragmentUtils中
 * 17/02/06 完善FragmentUtils中，炸断肠
 * 17/02/05 完善FragmentUtils中
 * 17/02/04 完善FragmentUtils中

@@ -261,15 +261,16 @@ public class LogUtils {
      * @param type 日志类型
      */
     private static void log(String tag, String msg, Throwable tr, char type) {
+        if (msg == null || msg.isEmpty()) return;
         if (logSwitch) {
             if ('e' == type && ('e' == logFilter || 'v' == logFilter)) {
-                Log.e(generateTag(tag), msg, tr);
+                printLog(tag, msg, tr, 'e');
             } else if ('w' == type && ('w' == logFilter || 'v' == logFilter)) {
-                Log.w(generateTag(tag), msg, tr);
+                printLog(tag, msg, tr, 'w');
             } else if ('d' == type && ('d' == logFilter || 'v' == logFilter)) {
-                Log.d(generateTag(tag), msg, tr);
+                printLog(tag, msg, tr, 'd');
             } else if ('i' == type && ('d' == logFilter || 'v' == logFilter)) {
-                Log.i(generateTag(tag), msg, tr);
+                printLog(tag, msg, tr, 'i');
             }
             if (log2FileSwitch) {
                 log2File(type, generateTag(tag), msg + '\n' + Log.getStackTraceString(tr));
@@ -278,20 +279,48 @@ public class LogUtils {
     }
 
     /**
+     * 根据tag, msg和等级，输出日志
+     *
+     * @param tag  标签
+     * @param msg  消息
+     * @param tr   异常
+     * @param type 日志类型
+     */
+    private static void printLog(final String tag, final String msg, Throwable tr, char type) {
+        final int maxLen = 4000;
+        for (int i = 0, len = msg.length(); i * maxLen < len; ++i) {
+            String subMsg = msg.substring(i * maxLen, (i + 1) * maxLen < len ? (i + 1) * maxLen : len);
+            switch (type) {
+                case 'e':
+                    Log.e(generateTag(tag), subMsg, tr);
+                    break;
+                case 'w':
+                    Log.w(generateTag(tag), subMsg, tr);
+                    break;
+                case 'd':
+                    Log.d(generateTag(tag), subMsg, tr);
+                    break;
+                case 'i':
+                    Log.i(generateTag(tag), subMsg, tr);
+                    break;
+            }
+        }
+    }
+
+    /**
      * 打开日志文件并写入日志
      *
-     * @param type    日志类型
-     * @param tag     标签
-     * @param content 内容
+     * @param type 日志类型
+     * @param tag  标签
+     * @param msg  信息
      **/
-    private synchronized static void log2File(final char type, final String tag, final String content) {
-        if (content == null) return;
+    private synchronized static void log2File(final char type, final String tag, final String msg) {
         Date now = new Date();
         String date = new SimpleDateFormat("MM-dd", Locale.getDefault()).format(now);
         final String fullPath = dir + date + ".txt";
         if (!FileUtils.createOrExistsFile(fullPath)) return;
         String time = new SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.getDefault()).format(now);
-        final String dateLogContent = time + ":" + type + ":" + tag + ":" + content + '\n';
+        final String dateLogContent = time + ":" + type + ":" + tag + ":" + msg + '\n';
         new Thread(new Runnable() {
             @Override
             public void run() {
