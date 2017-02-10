@@ -1,8 +1,8 @@
 package com.blankj.utilcode.utils;
 
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.support.v4.content.FileProvider;
 import android.webkit.MimeTypeMap;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * <pre>
@@ -24,6 +25,18 @@ public class IntentUtils {
 
     private IntentUtils() {
         throw new UnsupportedOperationException("u can't fuck me...");
+    }
+
+    /**
+     * 检查intent是否安全（有可以处理该intent的程序）
+     *
+     * @param intent 需要检查的intent
+     * @return 是否安全
+     */
+    public static boolean isIntentSafe(Intent intent) {
+        PackageManager packageManager = Utils.getContext().getPackageManager();
+        List activities = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        return activities.size() > 0;
     }
 
     /**

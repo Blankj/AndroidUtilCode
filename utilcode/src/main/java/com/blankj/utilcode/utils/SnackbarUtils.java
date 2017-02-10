@@ -25,6 +25,50 @@ public class SnackbarUtils {
 
     private static WeakReference<Snackbar> snackbarWeakReference;
 
+
+    /**
+     * 显示短时间的Snackbar
+     * @param rootView 传入当前界面的view
+     * @param textId 显示文本的id
+     */
+    public static void showSnack(View rootView, int textId) {
+        if (null != rootView) {
+            Snackbar.make(rootView, textId, Snackbar.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * 显示短时间的Snackbar
+     * @param rootView 传入当前界面的view
+     * @param text 显示文本的字符串
+     */
+    public static void showSnack(View rootView, String text) {
+        if (null != rootView) {
+            Snackbar.make(rootView, text, Snackbar.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * 显示长时间的Snackbar
+     * @param rootView 传入当前界面的view
+     * @param textId 显示文本的id
+     */
+    public static void showSnackLong(View rootView, int textId) {
+        if (null != rootView) {
+            Snackbar.make(rootView, textId, Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * 显示长时间的Snackbar
+     * @param rootView 传入当前界面的view
+     * @param textId 显示文本的字符串
+     */
+    public static void showSnackLong(View rootView, String text) {
+        if (null != rootView) {
+            Snackbar.make(rootView, text, Snackbar.LENGTH_LONG).show();
+        }
+    }
     /**
      * 显示短时snackbar
      *

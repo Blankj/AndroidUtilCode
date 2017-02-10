@@ -1,8 +1,10 @@
 package com.blankj.utilcode.utils;
 
 import android.annotation.TargetApi;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -24,7 +26,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.NinePatchDrawable;
 import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
@@ -1181,11 +1185,23 @@ public class ImageUtils {
     }
 
     /**
+     * 保存图片(JPEG格式)
+     *
+     * @param src      源图片
+     * @param filePath 要保存到的文件路径
+     * @return {@code true}: 成功<br>{@code false}: 失败
+     */
+    public static boolean save(Bitmap src, String filePath) {
+        return save(src, FileUtils.getFileByPath(filePath), CompressFormat.JPEG, false);
+    }
+
+
+    /**
      * 保存图片
      *
      * @param src      源图片
      * @param filePath 要保存到的文件路径
-     * @param format   格式
+     * @param format   格式, 如CompressFormat.JPEG
      * @return {@code true}: 成功<br>{@code false}: 失败
      */
     public static boolean save(Bitmap src, String filePath, CompressFormat format) {
@@ -1505,4 +1521,6 @@ public class ImageUtils {
         if (recycle && !src.isRecycled()) src.recycle();
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
     }
+
+
 }
