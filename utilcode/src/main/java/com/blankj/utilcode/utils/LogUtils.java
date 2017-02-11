@@ -30,6 +30,7 @@ public class LogUtils {
     private static char    logFilter      = 'v';
     private static String  tag            = "TAG";
     private static String  dir            = null;
+    private static int     stackIndex     = 0;
 
     /**
      * 初始化函数
@@ -264,13 +265,13 @@ public class LogUtils {
         if (msg == null || msg.isEmpty()) return;
         if (logSwitch) {
             if ('e' == type && ('e' == logFilter || 'v' == logFilter)) {
-                printLog(tag, msg, tr, 'e');
+                printLog(generateTag(tag), msg, tr, 'e');
             } else if ('w' == type && ('w' == logFilter || 'v' == logFilter)) {
-                printLog(tag, msg, tr, 'w');
+                printLog(generateTag(tag), msg, tr, 'w');
             } else if ('d' == type && ('d' == logFilter || 'v' == logFilter)) {
-                printLog(tag, msg, tr, 'd');
+                printLog(generateTag(tag), msg, tr, 'd');
             } else if ('i' == type && ('d' == logFilter || 'v' == logFilter)) {
-                printLog(tag, msg, tr, 'i');
+                printLog(generateTag(tag), msg, tr, 'i');
             }
             if (log2FileSwitch) {
                 log2File(type, generateTag(tag), msg + '\n' + Log.getStackTraceString(tr));
@@ -292,16 +293,16 @@ public class LogUtils {
             String subMsg = msg.substring(i * maxLen, (i + 1) * maxLen < len ? (i + 1) * maxLen : len);
             switch (type) {
                 case 'e':
-                    Log.e(generateTag(tag), subMsg, tr);
+                    Log.e(tag, subMsg, tr);
                     break;
                 case 'w':
-                    Log.w(generateTag(tag), subMsg, tr);
+                    Log.w(tag, subMsg, tr);
                     break;
                 case 'd':
-                    Log.d(generateTag(tag), subMsg, tr);
+                    Log.d(tag, subMsg, tr);
                     break;
                 case 'i':
-                    Log.i(generateTag(tag), subMsg, tr);
+                    Log.i(tag, subMsg, tr);
                     break;
             }
         }
@@ -344,9 +345,15 @@ public class LogUtils {
      */
     private static String generateTag(String tag) {
         StackTraceElement[] stacks = Thread.currentThread().getStackTrace();
-        StackTraceElement caller = stacks[4];
-        String format = "Tag[" + tag + "] %s[%s, %d]";
+        if (stackIndex == 0) {
+            while (!stacks[stackIndex].getMethodName().equals("generateTag")) {
+                ++stackIndex;
+            }
+            stackIndex += 3;
+        }
+        StackTraceElement caller = stacks[stackIndex];
         String callerClazzName = caller.getClassName();
+        String format = "Tag[" + tag + "] %s[%s, %d]";
         callerClazzName = callerClazzName.substring(callerClazzName.lastIndexOf(".") + 1);
         return String.format(format, callerClazzName, caller.getMethodName(), caller.getLineNumber());
     }
