@@ -477,7 +477,7 @@ create
 > - **About SP→[SPUtils.java][sp.java]→[Test][sp.test]**
  ```
 SPUtils
-putString
+put
 getString
 putInt
 getInt

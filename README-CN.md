@@ -477,7 +477,7 @@ create            : 创建样式字符串
 > - **SP相关→[SPUtils.java][sp.java]→[Test][sp.test]**
  ```
 SPUtils   : SPUtils构造函数
-putString : SP中写入String类型value
+put       : SP中写入数据
 getString : SP中读取String
 putInt    : SP中写入int类型value
 getInt    : SP中读取int
