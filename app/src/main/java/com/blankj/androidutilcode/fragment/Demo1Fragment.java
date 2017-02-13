@@ -24,7 +24,7 @@ import java.util.Random;
  * </pre>
  */
 public class Demo1Fragment extends Fragment
-        implements View.OnClickListener {
+        implements View.OnClickListener{
 
     public static Demo1Fragment newInstance() {
 
@@ -45,7 +45,7 @@ public class Demo1Fragment extends Fragment
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        view.findViewById(R.id.btn_show_stack).setOnClickListener(this);
+        view.findViewById(R.id.btn_show_about_fragment).setOnClickListener(this);
         view.findViewById(R.id.btn_hide_show).setOnClickListener(this);
         tvAboutFragment = (TextView) view.findViewById(R.id.tv_about_fragment);
     }
@@ -61,12 +61,28 @@ public class Demo1Fragment extends Fragment
     public void onClick(View view) {
         tvAboutFragment.setText("");
         switch (view.getId()) {
-            case R.id.btn_show_stack:
-                tvAboutFragment.setText(FragmentUtils.getAllFragments(getFragmentManager()).toString());
+            case R.id.btn_show_about_fragment:
+                tvAboutFragment.setText("---all fragments---\n"
+                        + FragmentUtils.getAllFragments(getFragmentManager()).toString()
+                        + "\n-------------------\n\n"
+                        + "---stack top---\n"
+                        + FragmentUtils.getAllFragmentsInStack(getFragmentManager()).toString()
+                        + "\n---stack bottom---\n\n"
+                        + "\ntopFragment: " + FragmentUtils.getTopFragment(getFragmentManager()).getClass().getSimpleName()
+                        + "\ntopShowFragment: " + FragmentUtils.getTopShowFragment(getFragmentManager()).getClass().getSimpleName()
+                );
                 break;
             case R.id.btn_hide_show:
-                FragmentUtils.hideShowFragment(this, ((FragmentActivity) getActivity()).fragment);
+                FragmentUtils.hideShowFragment(this, ((FragmentActivity) getActivity()).rootFragment);
                 break;
         }
     }
+
+//    @Override
+//    public boolean onBackClick() {
+//        LogUtils.d("onBackClick");
+//        FragmentUtils.showFragment(((FragmentActivity) getActivity()).rootFragment);
+//        FragmentUtils.popFragment(getFragmentManager());
+//        return true;
+//    }
 }

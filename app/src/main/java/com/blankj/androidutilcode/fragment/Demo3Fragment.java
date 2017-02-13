@@ -26,16 +26,16 @@ import java.util.Random;
  *     desc  :
  * </pre>
  */
-public class Demo0Fragment extends Fragment
-        implements View.OnClickListener,FragmentUtils.OnBackClickListener {
+public class Demo3Fragment extends Fragment
+        implements View.OnClickListener {
 
     private Fragment fragment1;
 
-    public static Demo0Fragment newInstance() {
+    public static Demo3Fragment newInstance() {
 
         Bundle args = new Bundle();
 
-        Demo0Fragment fragment = new Demo0Fragment();
+        Demo3Fragment fragment = new Demo3Fragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,7 +53,6 @@ public class Demo0Fragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
         btnShowAboutFragment = (Button) view.findViewById(R.id.btn_show_about_fragment);
         btnShowAboutFragment.setOnClickListener(this);
-        view.findViewById(R.id.btn_add_hide).setOnClickListener(this);
         view.findViewById(R.id.btn_add_show).setOnClickListener(this);
         view.findViewById(R.id.btn_add_child).setOnClickListener(this);
         view.findViewById(R.id.btn_pop_to_root).setOnClickListener(this);
@@ -75,21 +74,15 @@ public class Demo0Fragment extends Fragment
         tvAboutFragment.setText("");
         switch (view.getId()) {
             case R.id.btn_show_about_fragment:
-                tvAboutFragment.setText("---all fragments---\n"
+                tvAboutFragment.setText("---stack top---\n"
                         + FragmentUtils.getAllFragments(getFragmentManager()).toString()
-                        + "\n-------------------\n\n"
-                        + "---stack top---\n"
-                        + FragmentUtils.getAllFragmentsInStack(getFragmentManager()).toString()
-                        + "\n---stack bottom---\n\n"
+                        + "\n---stack bottom---\n"
                         + "\ntopFragment: " + FragmentUtils.getTopFragment(getFragmentManager()).getClass().getSimpleName()
                         + "\ntopShowFragment: " + FragmentUtils.getTopShowFragment(getFragmentManager()).getClass().getSimpleName()
                 );
                 break;
-            case R.id.btn_add_hide:
-                FragmentUtils.addFragment(getFragmentManager(), Demo1Fragment.newInstance(), R.id.fragment_container, true, true);
-                break;
             case R.id.btn_add_show:
-                FragmentUtils.addFragment(getFragmentManager(), Demo1Fragment.newInstance(), R.id.fragment_container, false, true);
+                FragmentUtils.addFragment(getFragmentManager(), Demo1Fragment.newInstance(), R.id.fragment_container, true, true);
                 break;
             case R.id.btn_add_child:
                 FragmentUtils.addFragment(getChildFragmentManager(), Demo2Fragment.newInstance(), R.id.child_fragment_container, false, true);
@@ -110,14 +103,8 @@ public class Demo0Fragment extends Fragment
                 }
                 break;
             case R.id.btn_replace:
-                ((FragmentActivity) getActivity()).rootFragment = FragmentUtils.replaceFragment(this, Demo3Fragment.newInstance(), false);
+                ((FragmentActivity) getActivity()).rootFragment = FragmentUtils.replaceFragment(this, Demo0Fragment.newInstance(), false);
                 break;
         }
-    }
-
-    @Override
-    public boolean onBackClick() {
-        FragmentUtils.popToFragment(getFragmentManager(), Demo1Fragment.class, true);
-        return false;
     }
 }

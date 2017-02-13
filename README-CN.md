@@ -212,23 +212,26 @@ getFileExtension         : 根据全路径获取文件拓展名
 
 > - **Fragment相关→[FragmentUtils.java][fragment.java]→[Demo][fragment.demo]**
  ```
-addFragment          : 新增fragment
-popFragment          : 出栈fragment
-popToFragment        : 出栈到指定fragment
-popAddFragment       : 先出栈后新增fragment
-hideFragment         : 隐藏fragment
-showFragment         : 显示fragment
-hideShowFragment     : 先隐藏后显示fragment
-replaceFragment      : 替换fragment
-getTopFragment       : 获得栈顶fragment
-getTopShowFragment   : 获得栈顶可见fragment
-getPreFragment       : 获取目标fragment的前一个fragment
-findFragment         : 寻找fragment
-getFragments         : 获取同级别的fragment
-getAllFragments      : 获取所有fragment
-setBackgroundColor   : 设置背景色
-setBackgroundResource: 设置背景资源
-setBackground        : 设置背景
+addFragment              : 新增fragment
+popFragment              : 出栈fragment
+popToFragment            : 出栈到指定fragment
+popAddFragment           : 先出栈后新增fragment
+hideFragment             : 隐藏fragment
+showFragment             : 显示fragment
+hideShowFragment         : 先隐藏后显示fragment
+replaceFragment          : 替换fragment
+getLastAddFragment       : 获取最后加入的fragment
+getLastAddFragmentInStack: 获取栈中最后加入的fragment
+getTopShowFragment       : 获取顶层可见fragment
+getTopShowFragmentInStack: 获取栈中顶层可见fragment
+findFragment             : 查找fragment
+getPreFragment           : 获取目标fragment的前一个fragment
+getFragments             : 获取同级别的fragment
+getAllFragments          : 获取所有fragment
+getAllFragmentsInStack   : 获取栈中所有fragment
+setBackgroundColor       : 设置背景色
+setBackgroundResource    : 设置背景资源
+setBackground            : 设置背景
  ```
 
 > - **Handler相关→[HandlerUtils.java][handler.java]→[Demo][handler.demo]**

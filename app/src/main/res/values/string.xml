@@ -48,7 +48,8 @@
 
     <!--Fragment相关-->
     <string name="fragment.show_stack">Show Stack</string>
-    <string name="fragment.add_demo1">Add Demo1</string>
+    <string name="fragment.add_demo1_hide">Add Demo1 Hide</string>
+    <string name="fragment.add_demo1_show">Add Demo1 Show</string>
     <string name="fragment.add_child">Add Child</string>
     <string name="fragment.pop">Pop</string>
     <string name="fragment.pop_to_root">Pop To Root</string>

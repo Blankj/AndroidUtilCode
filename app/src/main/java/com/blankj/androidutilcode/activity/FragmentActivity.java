@@ -18,12 +18,20 @@ import com.blankj.utilcode.utils.FragmentUtils;
  */
 public class FragmentActivity extends AppCompatActivity {
 
-    public Fragment fragment;
+    public Fragment rootFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
-        fragment = FragmentUtils.addFragment(getSupportFragmentManager(), Demo0Fragment.newInstance(), R.id.fragment_container);
+        rootFragment = FragmentUtils.addFragment(getSupportFragmentManager(), Demo0Fragment.newInstance(), R.id.fragment_container);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if (!FragmentUtils.dispatchBackPress(getSupportFragmentManager())) {
+            super.onBackPressed();
+        }
     }
 }

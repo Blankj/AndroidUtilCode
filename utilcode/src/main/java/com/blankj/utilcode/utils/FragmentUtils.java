@@ -30,13 +30,13 @@ public class FragmentUtils {
     }
 
     private static final int TYPE_ADD_FRAGMENT       = 0x01 << 0;
-    private static final int TYPE_HIDE_FRAGMENT      = 0x01 << 1;
-    private static final int TYPE_SHOW_FRAGMENT      = 0x01 << 2;
-    private static final int TYPE_HIDE_SHOW_FRAGMENT = 0x01 << 3;
-    private static final int TYPE_POP_ADD_FRAGMENT   = 0x01 << 4;
-    private static final int TYPE_REPLACE_FRAGMENT   = 0x01 << 5;
+    private static final int TYPE_REMOVE_FRAGMENT    = 0x01 << 1;
+    private static final int TYPE_REPLACE_FRAGMENT   = 0x01 << 2;
+    private static final int TYPE_HIDE_FRAGMENT      = 0x01 << 3;
+    private static final int TYPE_SHOW_FRAGMENT      = 0x01 << 4;
+    private static final int TYPE_HIDE_SHOW_FRAGMENT = 0x01 << 5;
+    private static final int TYPE_POP_ADD_FRAGMENT   = 0x01 << 6;
 
-    private static final String ARGS_TYPE         = "args_type";
     private static final String ARGS_ID           = "args_id";
     private static final String ARGS_IS_HIDE      = "args_is_hide";
     private static final String ARGS_IS_ADD_STACK = "args_is_add_stack";
@@ -86,7 +86,7 @@ public class FragmentUtils {
                                        int containerId,
                                        boolean isHide,
                                        boolean isAddStack) {
-        putArgs(fragment, new Args(TYPE_ADD_FRAGMENT, containerId, isHide, isAddStack));
+        putArgs(fragment, new Args(containerId, isHide, isAddStack));
         return operateFragment(fragmentManager, null, fragment, TYPE_ADD_FRAGMENT);
     }
 
@@ -105,8 +105,52 @@ public class FragmentUtils {
                                        int containerId,
                                        boolean isAddStack,
                                        SharedElement... sharedElement) {
-        putArgs(fragment, new Args(TYPE_ADD_FRAGMENT, containerId, false, isAddStack));
+        putArgs(fragment, new Args(containerId, false, isAddStack));
         return operateFragment(fragmentManager, null, fragment, TYPE_ADD_FRAGMENT, sharedElement);
+    }
+
+    /**
+     * 移除fragment
+     *
+     * @param fragment fragment
+     * @return fragment
+     */
+    public static Fragment removeFragment(@NonNull Fragment fragment) {
+        return operateFragment(fragment.getFragmentManager(), null, fragment, TYPE_REMOVE_FRAGMENT);
+    }
+
+    /**
+     * 替换fragment
+     *
+     * @param srcFragment  源fragment
+     * @param destFragment 目标fragment
+     * @param isAddStack   是否入回退栈
+     * @return {@code null} 失败
+     */
+    public static Fragment replaceFragment(@NonNull Fragment srcFragment,
+                                           @NonNull Fragment destFragment,
+                                           boolean isAddStack) {
+        if (srcFragment.getArguments() == null) return null;
+        int containerId = srcFragment.getArguments().getInt(ARGS_ID);
+        if (containerId == 0) return null;
+        return replaceFragment(srcFragment.getFragmentManager(), containerId, destFragment, isAddStack);
+    }
+
+    /**
+     * 替换fragment
+     *
+     * @param fragmentManager fragment管理器
+     * @param containerId     布局Id
+     * @param fragment        fragment
+     * @param isAddStack      是否入回退栈
+     * @return fragment
+     */
+    public static Fragment replaceFragment(@NonNull FragmentManager fragmentManager,
+                                           int containerId,
+                                           @NonNull Fragment fragment,
+                                           boolean isAddStack) {
+        putArgs(fragment, new Args(containerId, false, isAddStack));
+        return operateFragment(fragmentManager, null, fragment, TYPE_REPLACE_FRAGMENT);
     }
 
     /**
@@ -145,8 +189,26 @@ public class FragmentUtils {
     public static Fragment popAddFragment(@NonNull FragmentManager fragmentManager,
                                           int containerId,
                                           @NonNull Fragment fragment,
+                                          boolean isAddStack,
+                                          SharedElement... sharedElement) {
+        putArgs(fragment, new Args(containerId, false, isAddStack));
+        return operateFragment(fragmentManager, null, fragment, TYPE_POP_ADD_FRAGMENT, sharedElement);
+    }
+
+    /**
+     * 先出栈后新增fragment
+     *
+     * @param fragmentManager fragment管理器
+     * @param containerId     布局Id
+     * @param fragment        fragment
+     * @param isAddStack      是否入回退栈
+     * @return fragment
+     */
+    public static Fragment popAddFragment(@NonNull FragmentManager fragmentManager,
+                                          int containerId,
+                                          @NonNull Fragment fragment,
                                           boolean isAddStack) {
-        putArgs(fragment, new Args(TYPE_POP_ADD_FRAGMENT, containerId, false, isAddStack));
+        putArgs(fragment, new Args(containerId, false, isAddStack));
         return operateFragment(fragmentManager, null, fragment, TYPE_POP_ADD_FRAGMENT);
     }
 
@@ -158,7 +220,7 @@ public class FragmentUtils {
     public static Fragment hideFragment(@NonNull Fragment fragment) {
         Args args = getArgs(fragment);
         if (args != null) {
-            putArgs(fragment, new Args(TYPE_HIDE_FRAGMENT, args.id, true, args.isAddStack));
+            putArgs(fragment, new Args(args.id, true, args.isAddStack));
         }
         return operateFragment(fragment.getFragmentManager(), null, fragment, TYPE_HIDE_FRAGMENT);
     }
@@ -171,7 +233,7 @@ public class FragmentUtils {
     public static Fragment showFragment(@NonNull Fragment fragment) {
         Args args = getArgs(fragment);
         if (args != null) {
-            putArgs(fragment, new Args(TYPE_SHOW_FRAGMENT, args.id, false, args.isAddStack));
+            putArgs(fragment, new Args(args.id, false, args.isAddStack));
         }
         return operateFragment(fragment.getFragmentManager(), null, fragment, TYPE_SHOW_FRAGMENT);
     }
@@ -179,54 +241,20 @@ public class FragmentUtils {
     /**
      * 先隐藏后显示fragment
      *
-     * @param showFragment 需要show的Fragment
      * @param hideFragment 需要hide的Fragment，如果为null则把栈中的fragment都隐藏
+     * @param showFragment 需要show的Fragment
      */
-    public static Fragment hideShowFragment(Fragment hideFragment,
+    public static Fragment hideShowFragment(@NonNull Fragment hideFragment,
                                             @NonNull Fragment showFragment) {
         Args args = getArgs(hideFragment);
         if (args != null) {
-            putArgs(hideFragment, new Args(TYPE_HIDE_SHOW_FRAGMENT, args.id, true, args.isAddStack));
+            putArgs(hideFragment, new Args(args.id, true, args.isAddStack));
         }
         args = getArgs(showFragment);
         if (args != null) {
-            putArgs(showFragment, new Args(TYPE_HIDE_SHOW_FRAGMENT, args.id, true, args.isAddStack));
+            putArgs(showFragment, new Args(args.id, false, args.isAddStack));
         }
         return operateFragment(showFragment.getFragmentManager(), hideFragment, showFragment, TYPE_HIDE_SHOW_FRAGMENT);
-    }
-
-    /**
-     * 替换fragment
-     *
-     * @param srcFragment  源fragment
-     * @param destFragment 目标fragment
-     * @param isAddStack   是否入回退栈
-     * @return {@code null} 失败
-     */
-    public static Fragment replaceFragment(@NonNull Fragment srcFragment,
-                                           @NonNull Fragment destFragment,
-                                           boolean isAddStack) {
-        if (srcFragment.getArguments() == null) return null;
-        int containerId = srcFragment.getArguments().getInt(ARGS_ID);
-        if (containerId == 0) return null;
-        return replaceFragment(srcFragment.getFragmentManager(), containerId, destFragment, isAddStack);
-    }
-
-    /**
-     * 替换fragment
-     *
-     * @param fragmentManager fragment管理器
-     * @param containerId     布局Id
-     * @param fragment        fragment
-     * @param isAddStack      是否入回退栈
-     * @return fragment
-     */
-    public static Fragment replaceFragment(@NonNull FragmentManager fragmentManager,
-                                           int containerId,
-                                           @NonNull Fragment fragment,
-                                           boolean isAddStack) {
-        putArgs(fragment, new Args(TYPE_REPLACE_FRAGMENT, containerId, false, isAddStack));
-        return operateFragment(fragmentManager, null, fragment, TYPE_REPLACE_FRAGMENT);
     }
 
     /**
@@ -241,7 +269,6 @@ public class FragmentUtils {
             bundle = new Bundle();
             fragment.setArguments(bundle);
         }
-        bundle.putInt(ARGS_TYPE, args.type);
         bundle.putInt(ARGS_ID, args.id);
         bundle.putBoolean(ARGS_IS_HIDE, args.isHide);
         bundle.putBoolean(ARGS_IS_ADD_STACK, args.isAddStack);
@@ -254,8 +281,8 @@ public class FragmentUtils {
      */
     private static Args getArgs(@NonNull Fragment fragment) {
         Bundle bundle = fragment.getArguments();
-        if (bundle == null || bundle.getInt(ARGS_TYPE) == 0) return null;
-        return new Args(bundle.getInt(ARGS_TYPE), bundle.getInt(ARGS_ID), bundle.getBoolean(ARGS_IS_HIDE), bundle.getBoolean(ARGS_IS_ADD_STACK));
+        if (bundle == null || bundle.getInt(ARGS_ID) == 0) return null;
+        return new Args(bundle.getInt(ARGS_ID), bundle.getBoolean(ARGS_IS_HIDE), bundle.getBoolean(ARGS_IS_ADD_STACK));
     }
 
     /**
@@ -274,7 +301,7 @@ public class FragmentUtils {
                                             int type,
                                             SharedElement... sharedElements) {
         if (srcFragment == destFragment) return null;
-        if ((srcFragment != null && srcFragment.isRemoving())) {
+        if (srcFragment != null && srcFragment.isRemoving()) {
             LogUtils.e(srcFragment.getClass().getName() + " is isRemoving");
             return null;
         }
@@ -295,6 +322,9 @@ public class FragmentUtils {
                 if (args.getBoolean(ARGS_IS_HIDE)) ft.hide(destFragment);
                 if (args.getBoolean(ARGS_IS_ADD_STACK)) ft.addToBackStack(name);
                 break;
+            case TYPE_REMOVE_FRAGMENT:
+                ft.remove(destFragment);
+                break;
             case TYPE_POP_ADD_FRAGMENT:
                 popFragment(fragmentManager);
                 if (args.getBoolean(ARGS_IS_ADD_STACK)) ft.addToBackStack(name);
@@ -307,19 +337,7 @@ public class FragmentUtils {
                 ft.show(destFragment);
                 break;
             case TYPE_HIDE_SHOW_FRAGMENT:
-                if (srcFragment == null) {
-                    List<Fragment> fragments = getFragments(fragmentManager);
-                    if (!fragments.isEmpty()) {
-                        for (Fragment fragment : fragments) {
-                            if (fragment != null && fragment != destFragment) {
-                                ft.hide(fragment);
-                            }
-                        }
-                    }
-                } else {
-                    ft.hide(srcFragment);
-                }
-                ft.show(destFragment);
+                ft.hide(srcFragment).show(destFragment);
                 break;
             case TYPE_REPLACE_FRAGMENT:
                 if (args.getBoolean(ARGS_IS_ADD_STACK)) ft.addToBackStack(name);
@@ -331,15 +349,14 @@ public class FragmentUtils {
     }
 
     /**
-     * 获得栈顶fragment
+     * 获取最后加入的fragment
      *
      * @param fragmentManager fragment管理器
      * @return 栈顶fragment
      */
-    public static Fragment getTopFragment(@NonNull FragmentManager fragmentManager) {
+    public static Fragment getLastAddFragment(@NonNull FragmentManager fragmentManager) {
         List<Fragment> fragments = getFragments(fragmentManager);
         if (fragments.isEmpty()) return null;
-        LogUtils.d(fragments.size());
         for (int i = fragments.size() - 1; i >= 0; i--) {
             if (fragments.get(i) != null) {
                 return fragments.get(i);
@@ -349,7 +366,25 @@ public class FragmentUtils {
     }
 
     /**
-     * 获得栈顶可见fragment
+     * 获取栈中最后加入的fragment
+     *
+     * @param fragmentManager
+     * @return
+     */
+    public static Fragment getLastAddFragmentInStack(@NonNull FragmentManager fragmentManager) {
+        List<Fragment> fragments = getFragments(fragmentManager);
+        if (fragments.isEmpty()) return null;
+        for (int i = fragments.size() - 1; i >= 0; i--) {
+            Fragment fragment = fragments.get(i);
+            if (fragment != null && fragment.getArguments().getBoolean(ARGS_IS_ADD_STACK)) {
+                return fragment;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 获取顶层可见fragment
      *
      * @param fragmentManager fragment管理器
      * @return 栈顶可见fragment
@@ -359,11 +394,11 @@ public class FragmentUtils {
     }
 
     /**
-     * 获得栈顶可见fragment
+     * 获取顶层可见fragment
      *
      * @param fragmentManager fragment管理器
      * @param parentFragment  父fragment
-     * @return 栈顶可见fragment
+     * @return 顶层可见fragment
      */
     private static Fragment getTopShowFragment(@NonNull FragmentManager fragmentManager,
                                                Fragment parentFragment) {
@@ -371,11 +406,52 @@ public class FragmentUtils {
         if (fragments.isEmpty()) return parentFragment;
         for (int i = fragments.size() - 1; i >= 0; i--) {
             Fragment fragment = fragments.get(i);
-            if (fragment != null && fragment.isResumed() && !fragment.isHidden() && fragment.getUserVisibleHint()) {
+            if (fragment != null && fragment.isResumed() && fragment.isVisible() && fragment.getUserVisibleHint()) {
                 return getTopShowFragment(fragment.getChildFragmentManager(), fragment);
             }
         }
         return parentFragment;
+    }
+
+    /**
+     * 获取栈中顶层可见fragment
+     *
+     * @param fragmentManager fragment管理器
+     * @return 栈顶可见fragment
+     */
+    public static Fragment getTopShowFragmentInStack(@NonNull FragmentManager fragmentManager) {
+        return getTopShowFragmentInStack(fragmentManager, null);
+    }
+
+    /**
+     * 获取栈中顶层可见fragment
+     *
+     * @param fragmentManager fragment管理器
+     * @param parentFragment  父fragment
+     * @return 顶层可见fragment
+     */
+    private static Fragment getTopShowFragmentInStack(@NonNull FragmentManager fragmentManager,
+                                                    Fragment parentFragment) {
+        List<Fragment> fragments = getFragments(fragmentManager);
+        if (fragments.isEmpty()) return parentFragment;
+        for (int i = fragments.size() - 1; i >= 0; i--) {
+            Fragment fragment = fragments.get(i);
+            if (fragment != null && fragment.isResumed() && fragment.isVisible() && fragment.getUserVisibleHint() && fragment.getArguments().getBoolean(ARGS_IS_ADD_STACK)) {
+                return getTopShowFragmentInStack(fragment.getChildFragmentManager(), fragment);
+            }
+        }
+        return parentFragment;
+    }
+
+    /**
+     * 查找fragment
+     *
+     * @param fragmentManager fragment管理器
+     */
+    public static Fragment findFragment(@NonNull FragmentManager fragmentManager, Class<? extends Fragment> fragmentClass) {
+        List<Fragment> fragments = getFragments(fragmentManager);
+        if (fragments.isEmpty()) return null;
+        return fragmentManager.findFragmentByTag(fragmentClass.getName());
     }
 
     /**
@@ -395,17 +471,6 @@ public class FragmentUtils {
             }
         }
         return null;
-    }
-
-    /**
-     * 寻找fragment
-     *
-     * @param fragmentManager fragment管理器
-     */
-    public static Fragment findFragment(@NonNull FragmentManager fragmentManager, Class<? extends Fragment> fragmentClass) {
-        List<Fragment> fragments = getFragments(fragmentManager);
-        if (fragments.isEmpty()) return null;
-        return fragmentManager.findFragmentByTag(fragmentClass.getName());
     }
 
     /**
@@ -434,19 +499,76 @@ public class FragmentUtils {
      * 获取所有fragment
      *
      * @param fragmentManager fragment管理器
-     * @param result
+     * @param result          结果
      * @return 所有fragment
      */
     private static List<FragmentNode> getAllFragments(@NonNull FragmentManager fragmentManager,
                                                       List<FragmentNode> result) {
         List<Fragment> fragments = fragmentManager.getFragments();
-        if (fragments == null || fragments.isEmpty()) return null;
+        if (fragments == null || fragments.isEmpty()) return Collections.emptyList();
         for (int i = fragments.size() - 1; i >= 0; i--) {
             Fragment fragment = fragments.get(i);
             if (fragments.get(i) == null) continue;
             result.add(new FragmentNode(fragment, getAllFragments(fragment.getChildFragmentManager(), new ArrayList<FragmentNode>())));
         }
         return result;
+    }
+
+    /**
+     * 获取回退栈中的fragment
+     * <p>需之前对fragment的操作都借助该工具类</p>
+     *
+     * @param fragmentManager fragment管理器
+     * @return 回退栈中的fragment
+     */
+    public static List<FragmentNode> getAllFragmentsInStack(@NonNull FragmentManager fragmentManager) {
+        List<Fragment> fragments = fragmentManager.getFragments();
+        if (fragments == null || fragments.isEmpty()) return Collections.emptyList();
+        List<FragmentNode> result = new ArrayList<>();
+        for (int i = fragments.size() - 1; i >= 0; i--) {
+            Fragment fragment = fragments.get(i);
+            if (fragments.get(i) != null && fragment.getArguments().getBoolean(ARGS_IS_ADD_STACK)) {
+                result.add(new FragmentNode(fragment, getAllFragments(fragment.getChildFragmentManager(), new ArrayList<FragmentNode>())));
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 处理fragment回退键
+     * <p>如果fragment实现了OnBackClickListener接口，返回{@code true}: 表示已消费回退键事件，反之则没消费</p>
+     * <p>具体示例见FragmentActivity</p>
+     *
+     * @param fragment fragment
+     * @return 是否消费回退事件
+     */
+    public static boolean dispatchBackPress(@NonNull Fragment fragment) {
+        return dispatchBackPress(fragment.getFragmentManager());
+    }
+
+    /**
+     * 处理fragment回退键
+     * <p>如果fragment实现了OnBackClickListener接口，返回{@code true}: 表示已消费回退键事件，反之则没消费</p>
+     * <p>具体示例见FragmentActivity</p>
+     *
+     * @param fragmentManager fragment管理器
+     * @return 是否消费回退事件
+     */
+    public static boolean dispatchBackPress(@NonNull FragmentManager fragmentManager) {
+        List<Fragment> fragments = fragmentManager.getFragments();
+        if (fragments == null || fragments.isEmpty()) return false;
+        for (int i = fragments.size() - 1; i >= 0; i--) {
+            Fragment fragment = fragments.get(i);
+            if (fragment != null
+                    && fragment.isResumed()
+                    && fragment.isVisible()
+                    && fragment.getUserVisibleHint()
+                    && fragment instanceof OnBackClickListener
+                    && ((OnBackClickListener) fragment).onBackClick()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -493,20 +615,18 @@ public class FragmentUtils {
     }
 
     static class Args {
-        int     type;
         int     id;
         boolean isHide;
         boolean isAddStack;
 
-        Args(int type, int id, boolean isHide, boolean isAddStack) {
-            this.type = type;
+        Args(int id, boolean isHide, boolean isAddStack) {
             this.id = id;
             this.isHide = isHide;
             this.isAddStack = isAddStack;
         }
     }
 
-    public class SharedElement {
+    public static class SharedElement {
         View   sharedElement;
         String name;
 
@@ -529,5 +649,9 @@ public class FragmentUtils {
         public String toString() {
             return fragment.getClass().getSimpleName() + "->" + ((next == null || next.isEmpty()) ? "no child" : next.toString());
         }
+    }
+
+    public interface OnBackClickListener {
+        boolean onBackClick();
     }
 }

@@ -12,7 +12,7 @@
         android:padding="@dimen/spacing_small">
 
         <Button
-            android:id="@+id/btn_show_stack"
+            android:id="@+id/btn_show_about_fragment"
             style="@style/BtnFont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,11 +20,19 @@
             />
 
         <Button
-            android:id="@+id/btn_add"
+            android:id="@+id/btn_add_hide"
             style="@style/BtnFont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/fragment.add_demo1"
+            android:text="@string/fragment.add_demo1_hide"
+            />
+
+        <Button
+            android:id="@+id/btn_add_show"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment.add_demo1_show"
             />
 
         <Button

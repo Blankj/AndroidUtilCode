@@ -220,12 +220,15 @@ hideFragment
 showFragment
 hideShowFragment
 replaceFragment
-getTopFragment
+getLastAddFragment
+getLastAddFragmentInStack
 getTopShowFragment
-getPreFragment
+getTopShowFragmentInStack
 findFragment
+getPreFragment
 getFragments
 getAllFragments
+getAllFragmentsInStack
 setBackgroundColor
 setBackgroundResource
 setBackground
