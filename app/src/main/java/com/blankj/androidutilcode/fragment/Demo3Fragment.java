@@ -77,7 +77,7 @@ public class Demo3Fragment extends Fragment
                 tvAboutFragment.setText("---stack top---\n"
                         + FragmentUtils.getAllFragments(getFragmentManager()).toString()
                         + "\n---stack bottom---\n"
-                        + "\ntopFragment: " + FragmentUtils.getTopFragment(getFragmentManager()).getClass().getSimpleName()
+                        + "\ntopFragment: " + FragmentUtils.getLastAddFragment(getFragmentManager()).getClass().getSimpleName()
                         + "\ntopShowFragment: " + FragmentUtils.getTopShowFragment(getFragmentManager()).getClass().getSimpleName()
                 );
                 break;

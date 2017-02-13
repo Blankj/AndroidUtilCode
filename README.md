@@ -213,13 +213,14 @@ getFileExtension
 > - **About Fragment→[FragmentUtils.java][fragment.java]→[Demo][fragment.demo]**
  ```
 addFragment
+removeFragment
+replaceFragment
 popFragment
 popToFragment
 popAddFragment
 hideFragment
 showFragment
 hideShowFragment
-replaceFragment
 getLastAddFragment
 getLastAddFragmentInStack
 getTopShowFragment

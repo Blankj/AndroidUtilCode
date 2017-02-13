@@ -68,7 +68,7 @@ public class Demo2Fragment extends Fragment
                         + "---stack top---\n"
                         + FragmentUtils.getAllFragmentsInStack(getFragmentManager()).toString()
                         + "\n---stack bottom---\n\n"
-                        + "\ntopFragment: " + FragmentUtils.getTopFragment(getFragmentManager()).getClass().getSimpleName()
+                        + "\ntopFragment: " + FragmentUtils.getLastAddFragment(getFragmentManager()).getClass().getSimpleName()
                         + "\ntopShowFragment: " + FragmentUtils.getTopShowFragment(getFragmentManager()).getClass().getSimpleName()
                 );
                 break;
