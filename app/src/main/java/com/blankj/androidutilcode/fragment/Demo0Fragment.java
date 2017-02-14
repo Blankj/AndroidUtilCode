@@ -27,7 +27,7 @@ import java.util.Random;
  * </pre>
  */
 public class Demo0Fragment extends Fragment
-        implements View.OnClickListener,FragmentUtils.OnBackClickListener {
+        implements View.OnClickListener, FragmentUtils.OnBackClickListener {
 
     private Fragment fragment1;
 
@@ -75,14 +75,16 @@ public class Demo0Fragment extends Fragment
         tvAboutFragment.setText("");
         switch (view.getId()) {
             case R.id.btn_show_about_fragment:
-                tvAboutFragment.setText("---all fragments---\n"
+                tvAboutFragment.setText("lastAdd: " + FragmentUtils.getLastAddFragment(getFragmentManager()).getClass().getSimpleName()
+                        + "\nlastAddInStack: " + (FragmentUtils.getLastAddFragmentInStack(getFragmentManager()) != null ? FragmentUtils.getLastAddFragmentInStack(getFragmentManager()).getClass().getSimpleName() : "null")
+                        + "\ntopShow: " + FragmentUtils.getTopShowFragment(getFragmentManager()).getClass().getSimpleName()
+                        + "\ntopShowInStack: " + (FragmentUtils.getTopShowFragmentInStack(getFragmentManager()) != null ? FragmentUtils.getTopShowFragmentInStack(getFragmentManager()).getClass().getSimpleName() : "null")
+                        + "\n---all of fragments---\n"
                         + FragmentUtils.getAllFragments(getFragmentManager()).toString()
-                        + "\n-------------------\n\n"
+                        + "\n----------------------\n\n"
                         + "---stack top---\n"
                         + FragmentUtils.getAllFragmentsInStack(getFragmentManager()).toString()
                         + "\n---stack bottom---\n\n"
-                        + "\ntopFragment: " + FragmentUtils.getLastAddFragment(getFragmentManager()).getClass().getSimpleName()
-                        + "\ntopShowFragment: " + FragmentUtils.getTopShowFragment(getFragmentManager()).getClass().getSimpleName()
                 );
                 break;
             case R.id.btn_add_hide:
@@ -117,7 +119,7 @@ public class Demo0Fragment extends Fragment
 
     @Override
     public boolean onBackClick() {
-        FragmentUtils.popToFragment(getFragmentManager(), Demo1Fragment.class, true);
+//        FragmentUtils.popToFragment(getFragmentManager(), Demo1Fragment.class, true);
         return false;
     }
 }

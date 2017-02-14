@@ -74,11 +74,16 @@ public class Demo3Fragment extends Fragment
         tvAboutFragment.setText("");
         switch (view.getId()) {
             case R.id.btn_show_about_fragment:
-                tvAboutFragment.setText("---stack top---\n"
+                tvAboutFragment.setText("lastAdd: " + FragmentUtils.getLastAddFragment(getFragmentManager()).getClass().getSimpleName()
+                        + "\nlastAddInStack: " + (FragmentUtils.getLastAddFragmentInStack(getFragmentManager()) != null ? FragmentUtils.getLastAddFragmentInStack(getFragmentManager()).getClass().getSimpleName() : "null")
+                        + "\ntopShow: " + FragmentUtils.getTopShowFragment(getFragmentManager()).getClass().getSimpleName()
+                        + "\ntopShowInStack: " + (FragmentUtils.getTopShowFragmentInStack(getFragmentManager()) != null ? FragmentUtils.getTopShowFragmentInStack(getFragmentManager()).getClass().getSimpleName() : "null")
+                        + "\n---all of fragments---\n"
                         + FragmentUtils.getAllFragments(getFragmentManager()).toString()
-                        + "\n---stack bottom---\n"
-                        + "\ntopFragment: " + FragmentUtils.getLastAddFragment(getFragmentManager()).getClass().getSimpleName()
-                        + "\ntopShowFragment: " + FragmentUtils.getTopShowFragment(getFragmentManager()).getClass().getSimpleName()
+                        + "\n----------------------\n\n"
+                        + "---stack top---\n"
+                        + FragmentUtils.getAllFragmentsInStack(getFragmentManager()).toString()
+                        + "\n---stack bottom---\n\n"
                 );
                 break;
             case R.id.btn_add_show:

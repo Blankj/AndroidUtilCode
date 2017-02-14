@@ -214,9 +214,14 @@ getFileExtension         : 根据全路径获取文件拓展名
  ```
 addFragment              : 新增fragment
 removeFragment           : 移除fragment
+removeToFragment         : 移除到指定fragment
+removeFragments          : 移除同级别fragment
+removeAllFragments       : 移除所有fragment
 replaceFragment          : 替换fragment
 popFragment              : 出栈fragment
 popToFragment            : 出栈到指定fragment
+popFragments             : 出栈同级别fragment
+popAllFragments          : 出栈所有fragment
 popAddFragment           : 先出栈后新增fragment
 hideFragment             : 隐藏fragment
 showFragment             : 显示fragment
@@ -225,11 +230,13 @@ getLastAddFragment       : 获取最后加入的fragment
 getLastAddFragmentInStack: 获取栈中最后加入的fragment
 getTopShowFragment       : 获取顶层可见fragment
 getTopShowFragmentInStack: 获取栈中顶层可见fragment
-findFragment             : 查找fragment
 getPreFragment           : 获取目标fragment的前一个fragment
-getFragments             : 获取同级别的fragment
+getFragments             : 获取同级别fragment
+getFragmentsInStack      : 获取栈中同级别fragment
 getAllFragments          : 获取所有fragment
 getAllFragmentsInStack   : 获取栈中所有fragment
+findFragment             : 查找fragment
+dispatchBackPress        : 处理fragment回退键
 setBackgroundColor       : 设置背景色
 setBackgroundResource    : 设置背景资源
 setBackground            : 设置背景
