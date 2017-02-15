@@ -213,6 +213,7 @@ getFileExtension         : 根据全路径获取文件拓展名
 > - **Fragment相关→[FragmentUtils.java][fragment.java]→[Demo][fragment.demo]**
  ```
 addFragment              : 新增fragment
+addFragments             : 新增多个fragment
 removeFragment           : 移除fragment
 removeToFragment         : 移除到指定fragment
 removeFragments          : 移除同级别fragment
@@ -224,6 +225,7 @@ popFragments             : 出栈同级别fragment
 popAllFragments          : 出栈所有fragment
 popAddFragment           : 先出栈后新增fragment
 hideFragment             : 隐藏fragment
+hideFragments            : 隐藏同级别fragment
 showFragment             : 显示fragment
 hideShowFragment         : 先隐藏后显示fragment
 getLastAddFragment       : 获取同级别最后加入的fragment

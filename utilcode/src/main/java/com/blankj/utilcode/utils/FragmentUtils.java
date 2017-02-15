@@ -29,14 +29,14 @@ public class FragmentUtils {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
-    private static final int TYPE_ADD_FRAGMENT       = 0x01 << 0;
+    private static final int TYPE_ADD_FRAGMENT       = 0x01;
     private static final int TYPE_REMOVE_FRAGMENT    = 0x01 << 1;
     private static final int TYPE_REMOVE_TO_FRAGMENT = 0x01 << 2;
-    private static final int TYPE_REPLACE_FRAGMENT   = 0x01 << 4;
+    private static final int TYPE_REPLACE_FRAGMENT   = 0x01 << 3;
+    private static final int TYPE_POP_ADD_FRAGMENT   = 0x01 << 4;
     private static final int TYPE_HIDE_FRAGMENT      = 0x01 << 5;
     private static final int TYPE_SHOW_FRAGMENT      = 0x01 << 6;
     private static final int TYPE_HIDE_SHOW_FRAGMENT = 0x01 << 7;
-    private static final int TYPE_POP_ADD_FRAGMENT   = 0x01 << 8;
 
     private static final String ARGS_ID           = "args_id";
     private static final String ARGS_IS_HIDE      = "args_is_hide";
@@ -111,6 +111,29 @@ public class FragmentUtils {
     }
 
     /**
+     * 新增多个fragment
+     *
+     * @param fragmentManager fragment管理器
+     * @param fragments       fragments
+     * @param showIndex       要显示的fragment索引
+     * @param containerId     布局Id
+     * @return fragment
+     */
+    public static Fragment addFragments(@NonNull FragmentManager fragmentManager,
+                                        @NonNull List<Fragment> fragments,
+                                        int showIndex,
+                                        int containerId) {
+        for (int i = fragments.size() - 1; i >= 0; --i) {
+            Fragment fragment = fragments.get(i);
+            if (fragment != null) {
+                putArgs(fragment, new Args(containerId, showIndex != i, false));
+                operateFragment(fragmentManager, null, fragment, TYPE_ADD_FRAGMENT);
+            }
+        }
+        return fragments.get(showIndex);
+    }
+
+    /**
      * 移除fragment
      *
      * @param fragment fragment
@@ -162,7 +185,7 @@ public class FragmentUtils {
      * @param srcFragment  源fragment
      * @param destFragment 目标fragment
      * @param isAddStack   是否入回退栈
-     * @return {@code null} 失败
+     * @return 目标fragment
      */
     public static Fragment replaceFragment(@NonNull Fragment srcFragment,
                                            @NonNull Fragment destFragment,
@@ -281,6 +304,7 @@ public class FragmentUtils {
      * 隐藏fragment
      *
      * @param fragment fragment
+     * @return 隐藏的Fragment
      */
     public static Fragment hideFragment(@NonNull Fragment fragment) {
         Args args = getArgs(fragment);
@@ -291,9 +315,24 @@ public class FragmentUtils {
     }
 
     /**
+     * 隐藏同级别fragment
+     *
+     * @param fragmentManager fragment管理器
+     */
+    public static void hideFragments(@NonNull FragmentManager fragmentManager) {
+        List<Fragment> fragments = getFragments(fragmentManager);
+        if (fragments.isEmpty()) return;
+        for (int i = fragments.size() - 1; i >= 0; --i) {
+            Fragment fragment = fragments.get(i);
+            if (fragment != null) hideFragment(fragment);
+        }
+    }
+
+    /**
      * 显示fragment
      *
      * @param fragment fragment
+     * @return show的Fragment
      */
     public static Fragment showFragment(@NonNull Fragment fragment) {
         Args args = getArgs(fragment);
@@ -306,8 +345,9 @@ public class FragmentUtils {
     /**
      * 先隐藏后显示fragment
      *
-     * @param hideFragment 需要hide的Fragment，如果为null则把栈中的fragment都隐藏
-     * @param showFragment 需要show的Fragment
+     * @param hideFragment 需要隐藏的Fragment
+     * @param showFragment 需要显示的Fragment
+     * @return 显示的Fragment
      */
     public static Fragment hideShowFragment(@NonNull Fragment hideFragment,
                                             @NonNull Fragment showFragment) {
@@ -401,10 +441,14 @@ public class FragmentUtils {
                     ft.remove(fragment);
                 }
                 break;
+            case TYPE_REPLACE_FRAGMENT:
+                ft.replace(args.getInt(ARGS_ID), destFragment, name);
+                if (args.getBoolean(ARGS_IS_ADD_STACK)) ft.addToBackStack(name);
+                break;
             case TYPE_POP_ADD_FRAGMENT:
                 popFragment(fragmentManager);
-                if (args.getBoolean(ARGS_IS_ADD_STACK)) ft.addToBackStack(name);
                 ft.add(args.getInt(ARGS_ID), destFragment, name);
+                if (args.getBoolean(ARGS_IS_ADD_STACK)) ft.addToBackStack(name);
                 break;
             case TYPE_HIDE_FRAGMENT:
                 ft.hide(destFragment);
@@ -414,10 +458,6 @@ public class FragmentUtils {
                 break;
             case TYPE_HIDE_SHOW_FRAGMENT:
                 ft.hide(srcFragment).show(destFragment);
-                break;
-            case TYPE_REPLACE_FRAGMENT:
-                if (args.getBoolean(ARGS_IS_ADD_STACK)) ft.addToBackStack(name);
-                ft.replace(args.getInt(ARGS_ID), destFragment, name);
                 break;
         }
         ft.commitAllowingStateLoss();
@@ -451,7 +491,8 @@ public class FragmentUtils {
      * @param isInStack       是否是栈中的
      * @return 栈中最后加入的fragment
      */
-    private static Fragment getLastAddFragmentIsInStack(@NonNull FragmentManager fragmentManager, boolean isInStack) {
+    private static Fragment getLastAddFragmentIsInStack(@NonNull FragmentManager fragmentManager,
+                                                        boolean isInStack) {
         List<Fragment> fragments = getFragments(fragmentManager);
         if (fragments.isEmpty()) return null;
         for (int i = fragments.size() - 1; i >= 0; --i) {

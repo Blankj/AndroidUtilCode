@@ -2,11 +2,16 @@ package com.blankj.androidutilcode.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.fragment.Demo0Fragment;
+import com.blankj.androidutilcode.fragment.Demo1Fragment;
+import com.blankj.androidutilcode.fragment.Demo2Fragment;
 import com.blankj.utilcode.utils.FragmentUtils;
+
+import java.util.ArrayList;
 
 /**
  * <pre>
@@ -24,7 +29,11 @@ public class FragmentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
-        rootFragment = FragmentUtils.addFragment(getSupportFragmentManager(), Demo0Fragment.newInstance(), R.id.fragment_container);
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        fragments.add(Demo0Fragment.newInstance());
+        fragments.add(Demo1Fragment.newInstance());
+        fragments.add(Demo2Fragment.newInstance());
+        rootFragment = FragmentUtils.addFragments(getSupportFragmentManager(), fragments, 0, R.id.fragment_container);
     }
 
 

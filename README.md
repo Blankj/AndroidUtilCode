@@ -213,6 +213,7 @@ getFileExtension
 > - **About Fragment→[FragmentUtils.java][fragment.java]→[Demo][fragment.demo]**
  ```
 addFragment
+addFragments
 removeFragment
 removeToFragment
 removeFragments
@@ -224,17 +225,18 @@ popFragments
 popAllFragments
 popAddFragment
 hideFragment
+hideFragments
 showFragment
 hideShowFragment
 getLastAddFragment
 getLastAddFragmentInStack
 getTopShowFragment
 getTopShowFragmentInStack
-getPreFragment
 getFragments
 getFragmentsInStack
 getAllFragments
 getAllFragmentsInStack
+getPreFragment
 findFragment
 dispatchBackPress
 setBackgroundColor
