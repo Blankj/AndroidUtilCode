@@ -124,12 +124,6 @@ public class SizeUtils {
         void onGetSize(View view);
     }
 
-    public static void setListener(onGetSizeListener listener) {
-        mListener = listener;
-    }
-
-    private static onGetSizeListener mListener;
-
     /**
      * 测量视图尺寸
      *

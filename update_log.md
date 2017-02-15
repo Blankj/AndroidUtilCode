@@ -1,3 +1,8 @@
+* 17/02/14 完善FragmentUtils中，修复部分bug
+* 17/02/14 完善FragmentUtils中，Demo测试中
+* 17/02/13 完善FragmentUtils中
+* 17/02/12 完善FragmentUtils中
+* 17/02/11 完善FragmentUtils中
 * 17/02/10 完善FragmentUtils中，LogUtils对长度进行分割
 * 17/02/09 完善FragmentUtils中
 * 17/02/08 完善FragmentUtils中

@@ -161,7 +161,7 @@ public class PhoneUtils {
         str += "NetworkOperator = " + tm.getNetworkOperator() + "\n";
         str += "NetworkOperatorName = " + tm.getNetworkOperatorName() + "\n";
         str += "NetworkType = " + tm.getNetworkType() + "\n";
-        str += "honeType = " + tm.getPhoneType() + "\n";
+        str += "PhoneType = " + tm.getPhoneType() + "\n";
         str += "SimCountryIso = " + tm.getSimCountryIso() + "\n";
         str += "SimOperator = " + tm.getSimOperator() + "\n";
         str += "SimOperatorName = " + tm.getSimOperatorName() + "\n";

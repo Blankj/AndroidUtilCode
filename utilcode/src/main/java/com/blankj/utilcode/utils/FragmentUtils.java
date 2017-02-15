@@ -425,7 +425,7 @@ public class FragmentUtils {
     }
 
     /**
-     * 获取最后加入的fragment
+     * 获取同级别最后加入的fragment
      *
      * @param fragmentManager fragment管理器
      * @return 最后加入的fragment
@@ -435,7 +435,7 @@ public class FragmentUtils {
     }
 
     /**
-     * 获取栈中最后加入的fragment
+     * 获取栈中同级别最后加入的fragment
      *
      * @param fragmentManager fragment管理器
      * @return 最后加入的fragment
@@ -445,7 +445,7 @@ public class FragmentUtils {
     }
 
     /**
-     * 根据栈参数获取最后加入的fragment
+     * 根据栈参数获取同级别最后加入的fragment
      *
      * @param fragmentManager fragment管理器
      * @param isInStack       是否是栈中的
@@ -515,29 +515,6 @@ public class FragmentUtils {
             }
         }
         return parentFragment;
-    }
-
-    /**
-     * 获取目标fragment的前一个fragment
-     *
-     * @param destFragment 目标fragment
-     * @return 目标fragment的前一个fragment
-     */
-    public static Fragment getPreFragment(@NonNull Fragment destFragment) {
-        FragmentManager fragmentManager = destFragment.getFragmentManager();
-        if (fragmentManager == null) return null;
-        List<Fragment> fragments = getFragments(fragmentManager);
-        boolean flag = false;
-        for (int i = fragments.size() - 1; i >= 0; --i) {
-            Fragment fragment = fragments.get(i);
-            if (flag && fragment != null) {
-                return fragment;
-            }
-            if (fragment == destFragment) {
-                flag = true;
-            }
-        }
-        return null;
     }
 
     /**
@@ -633,6 +610,29 @@ public class FragmentUtils {
             }
         }
         return result;
+    }
+
+    /**
+     * 获取目标fragment的前一个fragment
+     *
+     * @param destFragment 目标fragment
+     * @return 目标fragment的前一个fragment
+     */
+    public static Fragment getPreFragment(@NonNull Fragment destFragment) {
+        FragmentManager fragmentManager = destFragment.getFragmentManager();
+        if (fragmentManager == null) return null;
+        List<Fragment> fragments = getFragments(fragmentManager);
+        boolean flag = false;
+        for (int i = fragments.size() - 1; i >= 0; --i) {
+            Fragment fragment = fragments.get(i);
+            if (flag && fragment != null) {
+                return fragment;
+            }
+            if (fragment == destFragment) {
+                flag = true;
+            }
+        }
+        return null;
     }
 
     /**

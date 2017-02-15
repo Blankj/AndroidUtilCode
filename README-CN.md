@@ -226,15 +226,15 @@ popAddFragment           : 先出栈后新增fragment
 hideFragment             : 隐藏fragment
 showFragment             : 显示fragment
 hideShowFragment         : 先隐藏后显示fragment
-getLastAddFragment       : 获取最后加入的fragment
-getLastAddFragmentInStack: 获取栈中最后加入的fragment
+getLastAddFragment       : 获取同级别最后加入的fragment
+getLastAddFragmentInStack: 获取栈中同级别最后加入的fragment
 getTopShowFragment       : 获取顶层可见fragment
 getTopShowFragmentInStack: 获取栈中顶层可见fragment
-getPreFragment           : 获取目标fragment的前一个fragment
 getFragments             : 获取同级别fragment
 getFragmentsInStack      : 获取栈中同级别fragment
 getAllFragments          : 获取所有fragment
 getAllFragmentsInStack   : 获取栈中所有fragment
+getPreFragment           : 获取目标fragment的前一个fragment
 findFragment             : 查找fragment
 dispatchBackPress        : 处理fragment回退键
 setBackgroundColor       : 设置背景色
