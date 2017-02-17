@@ -117,17 +117,16 @@ public class FragmentUtils {
      * @param fragments       fragments
      * @param showIndex       要显示的fragment索引
      * @param containerId     布局Id
-     * @return fragment
+     * @return 要显示的fragment
      */
     public static Fragment addFragments(@NonNull FragmentManager fragmentManager,
                                         @NonNull List<Fragment> fragments,
                                         int showIndex,
                                         int containerId) {
-        for (int i = fragments.size() - 1; i >= 0; --i) {
+        for (int i = 0, size = fragments.size(); i < size; ++i) {
             Fragment fragment = fragments.get(i);
             if (fragment != null) {
-                putArgs(fragment, new Args(containerId, showIndex != i, false));
-                operateFragment(fragmentManager, null, fragment, TYPE_ADD_FRAGMENT);
+                addFragment(fragmentManager, fragment, containerId, showIndex != i, false);
             }
         }
         return fragments.get(showIndex);
