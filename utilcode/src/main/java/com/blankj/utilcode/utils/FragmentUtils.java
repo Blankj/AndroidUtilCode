@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -52,7 +53,7 @@ public class FragmentUtils {
      */
     public static Fragment addFragment(@NonNull FragmentManager fragmentManager,
                                        @NonNull Fragment fragment,
-                                       int containerId) {
+                                       @IdRes int containerId) {
         return addFragment(fragmentManager, fragment, containerId, false);
     }
 
@@ -62,12 +63,12 @@ public class FragmentUtils {
      * @param fragmentManager fragment管理器
      * @param containerId     布局Id
      * @param fragment        fragment
-     * @param isHide          是否显示
+     * @param isHide          是否隐藏
      * @return fragment
      */
     public static Fragment addFragment(@NonNull FragmentManager fragmentManager,
                                        @NonNull Fragment fragment,
-                                       int containerId,
+                                       @IdRes int containerId,
                                        boolean isHide) {
         return addFragment(fragmentManager, fragment, containerId, isHide, false);
     }
@@ -78,13 +79,13 @@ public class FragmentUtils {
      * @param fragmentManager fragment管理器
      * @param containerId     布局Id
      * @param fragment        fragment
-     * @param isHide          是否显示
+     * @param isHide          是否隐藏
      * @param isAddStack      是否入回退栈
      * @return fragment
      */
     public static Fragment addFragment(@NonNull FragmentManager fragmentManager,
                                        @NonNull Fragment fragment,
-                                       int containerId,
+                                       @IdRes int containerId,
                                        boolean isHide,
                                        boolean isAddStack) {
         putArgs(fragment, new Args(containerId, isHide, isAddStack));
@@ -103,7 +104,7 @@ public class FragmentUtils {
      */
     public static Fragment addFragment(@NonNull FragmentManager fragmentManager,
                                        @NonNull Fragment fragment,
-                                       int containerId,
+                                       @IdRes int containerId,
                                        boolean isAddStack,
                                        SharedElement... sharedElement) {
         putArgs(fragment, new Args(containerId, false, isAddStack));
@@ -115,14 +116,14 @@ public class FragmentUtils {
      *
      * @param fragmentManager fragment管理器
      * @param fragments       fragments
-     * @param showIndex       要显示的fragment索引
      * @param containerId     布局Id
+     * @param showIndex       要显示的fragment索引
      * @return 要显示的fragment
      */
     public static Fragment addFragments(@NonNull FragmentManager fragmentManager,
                                         @NonNull List<Fragment> fragments,
-                                        int showIndex,
-                                        int containerId) {
+                                        @IdRes int containerId,
+                                        int showIndex) {
         for (int i = 0, size = fragments.size(); i < size; ++i) {
             Fragment fragment = fragments.get(i);
             if (fragment != null) {
@@ -192,7 +193,7 @@ public class FragmentUtils {
         if (srcFragment.getArguments() == null) return null;
         int containerId = srcFragment.getArguments().getInt(ARGS_ID);
         if (containerId == 0) return null;
-        return replaceFragment(srcFragment.getFragmentManager(), containerId, destFragment, isAddStack);
+        return replaceFragment(srcFragment.getFragmentManager(), destFragment, containerId, isAddStack);
     }
 
     /**
@@ -205,8 +206,8 @@ public class FragmentUtils {
      * @return fragment
      */
     public static Fragment replaceFragment(@NonNull FragmentManager fragmentManager,
-                                           int containerId,
                                            @NonNull Fragment fragment,
+                                           @IdRes int containerId,
                                            boolean isAddStack) {
         putArgs(fragment, new Args(containerId, false, isAddStack));
         return operateFragment(fragmentManager, null, fragment, TYPE_REPLACE_FRAGMENT);
@@ -274,8 +275,8 @@ public class FragmentUtils {
      * @return fragment
      */
     public static Fragment popAddFragment(@NonNull FragmentManager fragmentManager,
-                                          int containerId,
                                           @NonNull Fragment fragment,
+                                          @IdRes int containerId,
                                           boolean isAddStack,
                                           SharedElement... sharedElement) {
         putArgs(fragment, new Args(containerId, false, isAddStack));
@@ -292,8 +293,8 @@ public class FragmentUtils {
      * @return fragment
      */
     public static Fragment popAddFragment(@NonNull FragmentManager fragmentManager,
-                                          int containerId,
                                           @NonNull Fragment fragment,
+                                          @IdRes int containerId,
                                           boolean isAddStack) {
         putArgs(fragment, new Args(containerId, false, isAddStack));
         return operateFragment(fragmentManager, null, fragment, TYPE_POP_ADD_FRAGMENT);
