@@ -57,6 +57,7 @@
     <string name="fragment.hide_demo0_show_demo1">Hide Demo0 Show Demo1</string>
     <string name="fragment.hide_demo1_show_demo0">Hide Demo1 Show Demo0</string>
     <string name="fragment.replace">Replace</string>
+    <string name="fragment.transition">Transition</string>
 
     <!--Handler相关-->
     <string name="handler.send_msg_after_3s">Send Msg After 3s</string>

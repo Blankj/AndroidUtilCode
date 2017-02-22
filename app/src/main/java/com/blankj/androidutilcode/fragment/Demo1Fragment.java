@@ -75,7 +75,7 @@ public class Demo1Fragment extends Fragment
                 );
                 break;
             case R.id.btn_hide_show:
-                FragmentUtils.hideShowFragment(this, ((FragmentActivity) getActivity()).rootFragment);
+                FragmentUtils.hideAllShowFragment(((FragmentActivity) getActivity()).rootFragment);
                 break;
         }
     }

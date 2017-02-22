@@ -1,18 +1,21 @@
 package com.blankj.androidutilcode.fragment;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewCompat;
+import android.transition.Fade;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.activity.FragmentActivity;
+import com.blankj.androidutilcode.transition.DetailTransition;
 import com.blankj.utilcode.utils.FragmentUtils;
 import com.blankj.utilcode.utils.ToastUtils;
 
@@ -27,7 +30,7 @@ import java.util.Random;
  * </pre>
  */
 public class Demo3Fragment extends Fragment
-        implements View.OnClickListener {
+        implements View.OnClickListener, FragmentUtils.OnBackClickListener {
 
     private Fragment fragment1;
 
@@ -40,12 +43,13 @@ public class Demo3Fragment extends Fragment
         return fragment;
     }
 
-    private Button   btnShowAboutFragment;
-    private TextView tvAboutFragment;
+    private Button    btnShowAboutFragment;
+    private ImageView ivSharedElement;
+    private TextView  tvAboutFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_demo0, container, false);
+        return inflater.inflate(R.layout.fragment_demo3, container, false);
     }
 
     @Override
@@ -53,12 +57,14 @@ public class Demo3Fragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
         btnShowAboutFragment = (Button) view.findViewById(R.id.btn_show_about_fragment);
         btnShowAboutFragment.setOnClickListener(this);
+        view.findViewById(R.id.btn_add_hide).setOnClickListener(this);
         view.findViewById(R.id.btn_add_show).setOnClickListener(this);
         view.findViewById(R.id.btn_add_child).setOnClickListener(this);
         view.findViewById(R.id.btn_pop_to_root).setOnClickListener(this);
         view.findViewById(R.id.btn_pop_add).setOnClickListener(this);
         view.findViewById(R.id.btn_hide_show).setOnClickListener(this);
         view.findViewById(R.id.btn_replace).setOnClickListener(this);
+        ivSharedElement = (ImageView) view.findViewById(R.id.iv_shared_element);
         tvAboutFragment = (TextView) view.findViewById(R.id.tv_about_fragment);
     }
 
@@ -86,8 +92,11 @@ public class Demo3Fragment extends Fragment
                         + "\n---stack bottom---\n\n"
                 );
                 break;
-            case R.id.btn_add_show:
+            case R.id.btn_add_hide:
                 FragmentUtils.addFragment(getFragmentManager(), Demo1Fragment.newInstance(), R.id.fragment_container, true, true);
+                break;
+            case R.id.btn_add_show:
+                FragmentUtils.addFragment(getFragmentManager(), Demo1Fragment.newInstance(), R.id.fragment_container, false, true);
                 break;
             case R.id.btn_add_child:
                 FragmentUtils.addFragment(getChildFragmentManager(), Demo2Fragment.newInstance(), R.id.child_fragment_container, false, true);
@@ -96,8 +105,7 @@ public class Demo3Fragment extends Fragment
                 FragmentUtils.popToFragment(getFragmentManager(), Demo1Fragment.class, true);
                 break;
             case R.id.btn_pop_add:
-                ViewCompat.setTransitionName(btnShowAboutFragment, "addSharedElement");
-                FragmentUtils.popAddFragment(getFragmentManager(), R.id.fragment_container, Demo2Fragment.newInstance(), true, new FragmentUtils.SharedElement(this.btnShowAboutFragment, "btnShowAboutFragment"));
+                FragmentUtils.popAddFragment(getFragmentManager(), Demo2Fragment.newInstance(), R.id.fragment_container, true, new FragmentUtils.SharedElement(this.btnShowAboutFragment, "btnShowAboutFragment"));
                 break;
             case R.id.btn_hide_show:
                 Fragment fragment1 = FragmentUtils.findFragment(getFragmentManager(), Demo1Fragment.class);
@@ -108,8 +116,21 @@ public class Demo3Fragment extends Fragment
                 }
                 break;
             case R.id.btn_replace:
-                ((FragmentActivity) getActivity()).rootFragment = FragmentUtils.replaceFragment(this, Demo0Fragment.newInstance(), false);
+                Demo0Fragment demo0Fragment = Demo0Fragment.newInstance();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    demo0Fragment.setSharedElementEnterTransition(new DetailTransition());
+                    setExitTransition(new Fade());
+                    demo0Fragment.setEnterTransition(new Fade());
+                    demo0Fragment.setSharedElementReturnTransition(new DetailTransition());
+                }
+                ((FragmentActivity)getActivity()).rootFragment = FragmentUtils.replaceFragment(this, demo0Fragment, false, new FragmentUtils.SharedElement(ivSharedElement, getString(R.string.fragment_transition)));
                 break;
         }
+    }
+
+    @Override
+    public boolean onBackClick() {
+//        FragmentUtils.popToFragment(getFragmentManager(), Demo1Fragment.class, true);
+        return false;
     }
 }
