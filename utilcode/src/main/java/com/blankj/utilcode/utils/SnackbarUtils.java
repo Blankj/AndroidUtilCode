@@ -2,10 +2,15 @@ package com.blankj.utilcode.utils;
 
 import android.support.annotation.ColorInt;
 import android.support.design.widget.Snackbar;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
@@ -132,7 +137,10 @@ public class SnackbarUtils {
         snackbarWeakReference = new WeakReference<>(Snackbar.make(parent, text, duration));
         Snackbar snackbar = snackbarWeakReference.get();
         View view = snackbar.getView();
-        snackbar.setActionTextColor(textColor);
+        SpannableString spannableString = new SpannableString(text);
+        ForegroundColorSpan colorSpan = new ForegroundColorSpan(textColor);
+        spannableString.setSpan(colorSpan, 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        snackbar.setText(spannableString);
         view.setBackgroundColor(bgColor);
         if (actionText != null && actionText.length() > 0 && listener != null) {
             snackbar.setActionTextColor(actionTextColor);

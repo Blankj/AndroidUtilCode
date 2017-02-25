@@ -42,10 +42,10 @@ public class SnackbarActivity extends Activity
 
         switch (view.getId()) {
             case R.id.btn_short_snackbar:
-                SnackbarUtils.showShortSnackbar(snackBarRootView, "short snackbar", Color.WHITE, Color.BLUE);
+                SnackbarUtils.showShortSnackbar(snackBarRootView, "short snackbar", Color.YELLOW, Color.BLUE);
                 break;
             case R.id.btn_short_snackbar_with_action:
-                SnackbarUtils.showShortSnackbar(snackBarRootView, "short snackbar", Color.WHITE, Color.BLUE,
+                SnackbarUtils.showShortSnackbar(snackBarRootView, "short snackbar", Color.YELLOW, Color.BLUE,
                         "Short", Color.YELLOW, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -54,10 +54,10 @@ public class SnackbarActivity extends Activity
                         });
                 break;
             case R.id.btn_long_snackbar:
-                SnackbarUtils.showLongSnackbar(snackBarRootView, "long snackbar", Color.WHITE, Color.GREEN);
+                SnackbarUtils.showLongSnackbar(snackBarRootView, "long snackbar", Color.YELLOW, Color.GREEN);
                 break;
             case R.id.btn_long_snackbar_with_action:
-                SnackbarUtils.showLongSnackbar(snackBarRootView, "long snackbar", Color.WHITE, Color.GREEN,
+                SnackbarUtils.showLongSnackbar(snackBarRootView, "long snackbar", Color.YELLOW, Color.GREEN,
                         "Long", Color.YELLOW, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
