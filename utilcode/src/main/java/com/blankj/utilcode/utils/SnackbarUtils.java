@@ -134,13 +134,12 @@ public class SnackbarUtils {
                                      @ColorInt int textColor, @ColorInt int bgColor,
                                      CharSequence actionText, int actionTextColor,
                                      View.OnClickListener listener) {
-        snackbarWeakReference = new WeakReference<>(Snackbar.make(parent, text, duration));
-        Snackbar snackbar = snackbarWeakReference.get();
-        View view = snackbar.getView();
         SpannableString spannableString = new SpannableString(text);
         ForegroundColorSpan colorSpan = new ForegroundColorSpan(textColor);
         spannableString.setSpan(colorSpan, 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        snackbar.setText(spannableString);
+        snackbarWeakReference = new WeakReference<>(Snackbar.make(parent, spannableString, duration));
+        Snackbar snackbar = snackbarWeakReference.get();
+        View view = snackbar.getView();
         view.setBackgroundColor(bgColor);
         if (actionText != null && actionText.length() > 0 && listener != null) {
             snackbar.setActionTextColor(actionTextColor);
