@@ -2,6 +2,7 @@ package com.blankj.utilcode.utils;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -24,6 +25,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.NinePatchDrawable;
 import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Build;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
@@ -1504,5 +1506,22 @@ public class ImageUtils {
         byte[] bytes = baos.toByteArray();
         if (recycle && !src.isRecycled()) src.recycle();
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
+    }
+
+    /**
+     * 在系统相册中显示图片
+     * @param ctx
+     * @param imgFilePath 图片路径
+     */
+    public static void scanPhoto(Context ctx, String imgFilePath) {
+        if (!isImage(imgFilePath)) {
+            return;
+        }
+        Intent mediaScanIntent = new Intent(
+            Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File file = new File(imgFilePath);
+        Uri contentUri = Uri.fromFile(file);
+        mediaScanIntent.setData(contentUri);
+        ctx.sendBroadcast(mediaScanIntent);
     }
 }
