@@ -31,8 +31,6 @@ public class FragmentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fragment);
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(Demo0Fragment.newInstance());
-//        fragments.add(Demo1Fragment.newInstance());
-//        fragments.add(Demo2Fragment.newInstance());
         rootFragment = FragmentUtils.addFragments(getSupportFragmentManager(), fragments, R.id.fragment_container, 0);
     }
 
