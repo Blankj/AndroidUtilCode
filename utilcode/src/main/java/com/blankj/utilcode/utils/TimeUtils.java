@@ -319,6 +319,41 @@ public class TimeUtils {
     }
 
     /**
+     * 毫秒时间戳单位转换
+     *
+     * @param milliseconds 毫秒
+     * @return 毫秒时间对应的日时分秒 字符串"xx天xx时xx分xx秒"
+     */
+    public static String milliseconds2Unit(long milliseconds) {
+        long days = milliseconds / UnitUtils.DAY;
+        long hours = (milliseconds - days * UnitUtils.DAY) / UnitUtils.HOUR;
+        long minutes = ((milliseconds - days * UnitUtils.DAY) - hours * UnitUtils.HOUR) / UnitUtils.MIN;
+        long seconds = milliseconds % UnitUtils.MIN;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, (int) days);
+        calendar.set(Calendar.HOUR_OF_DAY, (int) hours);
+        calendar.set(Calendar.MINUTE, (int) minutes);
+        calendar.set(Calendar.SECOND, (int) seconds);
+        return new SimpleDateFormat("dd天HH时mm分ss秒").format(calendar.getTime());
+    }
+
+    /**
+     * 毫秒时间戳单位转换
+     *
+     * @param milliseconds 毫秒
+     * @return 毫秒时间对应的日时分秒数组
+     */
+    public static long[] milliseconds2Unit(long milliseconds) {
+        long days = milliseconds / UnitUtils.DAY;
+        long hours = (milliseconds - days * UnitUtils.DAY) / UnitUtils.HOUR;
+        long minutes = ((milliseconds - days * UnitUtils.DAY) - hours * UnitUtils.HOUR) / UnitUtils.MIN;
+        long seconds = milliseconds % UnitUtils.MIN;
+        return new long[]{days, hours, minutes, seconds};
+    }
+
+
+    /**
      * 获取两个时间差（单位：unit）
      * <p>time0和time1格式都为format</p>
      *
