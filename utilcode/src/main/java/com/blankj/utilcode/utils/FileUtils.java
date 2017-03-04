@@ -1,9 +1,12 @@
 package com.blankj.utilcode.utils;
 
+import android.annotation.SuppressLint;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -933,7 +936,7 @@ public class FileUtils {
     public static byte[] readFile2Bytes(File file) {
         if (file == null) return null;
         try {
-            return ConvertUtils.inputStream2Bytes(new FileInputStream(file));
+            return inputStream2Bytes(new FileInputStream(file));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return null;
@@ -1054,7 +1057,7 @@ public class FileUtils {
      */
     public static String getDirSize(File dir) {
         long len = getDirLength(dir);
-        return len == -1 ? "" : ConvertUtils.byte2FitMemorySize(len);
+        return len == -1 ? "" : byte2FitMemorySize(len);
     }
 
     /**
@@ -1075,7 +1078,7 @@ public class FileUtils {
      */
     public static String getFileSize(File file) {
         long len = getFileLength(file);
-        return len == -1 ? "" : ConvertUtils.byte2FitMemorySize(len);
+        return len == -1 ? "" : byte2FitMemorySize(len);
     }
 
     /**
@@ -1160,7 +1163,7 @@ public class FileUtils {
      * @return 文件的MD5校验码
      */
     public static String getFileMD5ToString(File file) {
-        return ConvertUtils.bytes2HexString(getFileMD5(file));
+        return bytes2HexString(getFileMD5(file));
     }
 
     /**
@@ -1287,5 +1290,86 @@ public class FileUtils {
         int lastSep = filePath.lastIndexOf(File.separator);
         if (lastPoi == -1 || lastSep >= lastPoi) return "";
         return filePath.substring(lastPoi + 1);
+    }
+
+    /** copy from ConvertUtils **/
+
+    /**
+     * inputStream转byteArr
+     *
+     * @param is 输入流
+     * @return 字节数组
+     */
+    private static byte[] inputStream2Bytes(InputStream is) {
+        if (is == null) return null;
+        return input2OutputStream(is).toByteArray();
+    }
+
+    /**
+     * inputStream转outputStream
+     *
+     * @param is 输入流
+     * @return outputStream子类
+     */
+    private static ByteArrayOutputStream input2OutputStream(InputStream is) {
+        if (is == null) return null;
+        try {
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            byte[] b = new byte[ConstUtils.KB];
+            int len;
+            while ((len = is.read(b, 0, ConstUtils.KB)) != -1) {
+                os.write(b, 0, len);
+            }
+            return os;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            CloseUtils.closeIO(is);
+        }
+    }
+
+    private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+
+    /**
+     * byteArr转hexString
+     * <p>例如：</p>
+     * bytes2HexString(new byte[] { 0, (byte) 0xa8 }) returns 00A8
+     *
+     * @param bytes 字节数组
+     * @return 16进制大写字符串
+     */
+    private static String bytes2HexString(byte[] bytes) {
+        if (bytes == null) return null;
+        int len = bytes.length;
+        if (len <= 0) return null;
+        char[] ret = new char[len << 1];
+        for (int i = 0, j = 0; i < len; i++) {
+            ret[j++] = hexDigits[bytes[i] >>> 4 & 0x0f];
+            ret[j++] = hexDigits[bytes[i] & 0x0f];
+        }
+        return new String(ret);
+    }
+
+    /**
+     * 字节数转合适内存大小
+     * <p>保留3位小数</p>
+     *
+     * @param byteNum 字节数
+     * @return 合适内存大小
+     */
+    @SuppressLint("DefaultLocale")
+    private static String byte2FitMemorySize(long byteNum) {
+        if (byteNum < 0) {
+            return "shouldn't be less than zero!";
+        } else if (byteNum < ConstUtils.KB) {
+            return String.format("%.3fB", (double) byteNum + 0.0005);
+        } else if (byteNum < ConstUtils.MB) {
+            return String.format("%.3fKB", (double) byteNum / ConstUtils.KB + 0.0005);
+        } else if (byteNum < ConstUtils.GB) {
+            return String.format("%.3fMB", (double) byteNum / ConstUtils.MB + 0.0005);
+        } else {
+            return String.format("%.3fGB", (double) byteNum / ConstUtils.GB + 0.0005);
+        }
     }
 }
