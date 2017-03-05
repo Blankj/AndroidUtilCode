@@ -37,6 +37,7 @@ public class ActivityActivity extends Activity
 
         tvAboutActivity.setText("Is ImageActivity Exists: " + ActivityUtils.isActivityExists(packageName, className)
                 + "\ngetLauncherActivity: " + ActivityUtils.getLauncherActivity(packageName)
+                + "\ngetTopActivity: " + ActivityUtils.getTopActivity()
         );
     }
 

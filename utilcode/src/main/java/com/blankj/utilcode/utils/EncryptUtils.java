@@ -1,5 +1,7 @@
 package com.blankj.utilcode.utils;
 
+import android.util.Base64;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -578,7 +580,7 @@ public class EncryptUtils {
      * @return Base64密文
      */
     public static byte[] encryptDES2Base64(byte[] data, byte[] key) {
-        return EncodeUtils.base64Encode(encryptDES(data, key));
+        return base64Encode(encryptDES(data, key));
     }
 
     /**
@@ -611,7 +613,7 @@ public class EncryptUtils {
      * @return 明文
      */
     public static byte[] decryptBase64DES(byte[] data, byte[] key) {
-        return decryptDES(EncodeUtils.base64Decode(data), key);
+        return decryptDES(base64Decode(data), key);
     }
 
     /**
@@ -655,7 +657,7 @@ public class EncryptUtils {
      * @return Base64密文
      */
     public static byte[] encrypt3DES2Base64(byte[] data, byte[] key) {
-        return EncodeUtils.base64Encode(encrypt3DES(data, key));
+        return base64Encode(encrypt3DES(data, key));
     }
 
     /**
@@ -688,7 +690,7 @@ public class EncryptUtils {
      * @return 明文
      */
     public static byte[] decryptBase64_3DES(byte[] data, byte[] key) {
-        return decrypt3DES(EncodeUtils.base64Decode(data), key);
+        return decrypt3DES(base64Decode(data), key);
     }
 
     /**
@@ -732,7 +734,7 @@ public class EncryptUtils {
      * @return Base64密文
      */
     public static byte[] encryptAES2Base64(byte[] data, byte[] key) {
-        return EncodeUtils.base64Encode(encryptAES(data, key));
+        return base64Encode(encryptAES(data, key));
     }
 
     /**
@@ -765,7 +767,7 @@ public class EncryptUtils {
      * @return 明文
      */
     public static byte[] decryptBase64AES(byte[] data, byte[] key) {
-        return decryptAES(EncodeUtils.base64Decode(data), key);
+        return decryptAES(base64Decode(data), key);
     }
 
     /**
@@ -874,5 +876,25 @@ public class EncryptUtils {
         } else {
             throw new IllegalArgumentException();
         }
+    }
+
+    /**
+     * Base64编码
+     *
+     * @param input 要编码的字节数组
+     * @return Base64编码后的字符串
+     */
+    private static byte[] base64Encode(byte[] input) {
+        return Base64.encode(input, Base64.NO_WRAP);
+    }
+
+    /**
+     * Base64解码
+     *
+     * @param input 要解码的字符串
+     * @return Base64解码后的字符串
+     */
+    private static byte[] base64Decode(byte[] input) {
+        return Base64.decode(input, Base64.NO_WRAP);
     }
 }

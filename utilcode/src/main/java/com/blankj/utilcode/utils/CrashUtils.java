@@ -88,7 +88,7 @@ public class CrashUtils
     public void uncaughtException(Thread thread, final Throwable throwable) {
         String now = new SimpleDateFormat("yy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
         final String fullPath = crashDir + now + ".txt";
-        if (!FileUtils.createOrExistsFile(fullPath)) return;
+        if (!createOrExistsFile(fullPath)) return;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -128,5 +128,36 @@ public class CrashUtils
                 "\nApp VersionName    : " + versionName +
                 "\nApp VersionCode    : " + versionCode +
                 "\n************* Crash Log Head ****************\n\n";
+    }
+
+    /**
+     * 判断文件是否存在，不存在则判断是否创建成功
+     *
+     * @param filePath 文件路径
+     * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
+     */
+    private static boolean createOrExistsFile(String filePath) {
+        File file = new File(filePath);
+        // 如果存在，是文件则返回true，是目录则返回false
+        if (file.exists()) return file.isFile();
+        if (!createOrExistsDir(file.getParentFile())) return false;
+        try {
+            return file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    /**
+     * 判断目录是否存在，不存在则判断是否创建成功
+     *
+     * @param file 文件
+     * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
+     */
+    private static boolean createOrExistsDir(File file) {
+        // 如果存在，是目录则返回true，是文件则返回false，不存在则返回是否创建成功
+        return file != null && (file.exists() ? file.isDirectory() : file.mkdirs());
     }
 }
