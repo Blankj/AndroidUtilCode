@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.utilcode.utils.ActivityUtils;
+import com.blankj.utilcode.utils.ToastUtils;
 
 /**
  * <pre>
@@ -47,6 +48,10 @@ public class ActivityActivity extends Activity
             case R.id.btn_launch_image_activity:
                 ActivityUtils.launchActivity(packageName, className);
                 break;
+            default:
+
+                break;
         }
     }
+
 }
