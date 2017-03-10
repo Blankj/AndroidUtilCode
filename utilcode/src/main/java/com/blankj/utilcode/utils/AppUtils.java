@@ -36,7 +36,7 @@ public class AppUtils {
      * @return {@code true}: 已安装<br>{@code false}: 未安装
      */
     public static boolean isInstallApp(Context context, String packageName) {
-        return !StringUtils.isSpace(packageName) && IntentUtils.getLaunchAppIntent(context, packageName) != null;
+        return !StringUtils.isSpace(packageName) && IntentUtils.getLaunchAppIntent(packageName) != null;
     }
 
     /**
@@ -157,12 +157,11 @@ public class AppUtils {
     /**
      * 打开App
      *
-     * @param context     上下文
      * @param packageName 包名
      */
-    public static void launchApp(Context context, String packageName) {
+    public static void launchApp(String packageName) {
         if (StringUtils.isSpace(packageName)) return;
-        context.startActivity(IntentUtils.getLaunchAppIntent(context, packageName));
+        Utils.getContext().startActivity(IntentUtils.getLaunchAppIntent(packageName));
     }
 
     /**
@@ -174,7 +173,7 @@ public class AppUtils {
      */
     public static void launchApp(Activity activity, String packageName, int requestCode) {
         if (StringUtils.isSpace(packageName)) return;
-        activity.startActivityForResult(IntentUtils.getLaunchAppIntent(activity, packageName), requestCode);
+        activity.startActivityForResult(IntentUtils.getLaunchAppIntent(packageName), requestCode);
     }
 
     /**

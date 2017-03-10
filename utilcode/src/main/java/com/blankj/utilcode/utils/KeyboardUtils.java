@@ -36,6 +36,19 @@ public class KeyboardUtils {
         View view = activity.getCurrentFocus();
         if (view == null) view = new View(activity);
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (imm == null) return;
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    /**
+     * 动态隐藏软键盘
+     *
+     * @param context 上下文
+     * @param view    视图
+     */
+    public static void hideSoftInput(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm == null) return;
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
@@ -86,8 +99,8 @@ public class KeyboardUtils {
         edit.setFocusable(true);
         edit.setFocusableInTouchMode(true);
         edit.requestFocus();
-        InputMethodManager imm = (InputMethodManager) Utils.getContext()
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) Utils.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm == null) return;
         imm.showSoftInput(edit, 0);
     }
 
@@ -95,8 +108,8 @@ public class KeyboardUtils {
      * 切换键盘显示与否状态
      */
     public static void toggleSoftInput() {
-        InputMethodManager imm = (InputMethodManager) Utils.getContext()
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) Utils.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm == null) return;
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 }

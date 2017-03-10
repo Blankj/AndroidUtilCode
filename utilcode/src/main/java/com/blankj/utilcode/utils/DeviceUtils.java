@@ -33,7 +33,7 @@ public class DeviceUtils {
      *
      * @return the boolean{@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isDeviceRoot() {
+    public static boolean isDeviceRooted() {
         String su = "su";
         String[] locations = {"/system/bin/", "/system/xbin/", "/sbin/", "/system/sd/xbin/", "/system/bin/failsafe/",
                 "/data/local/xbin/", "/data/local/bin/", "/data/local/"};

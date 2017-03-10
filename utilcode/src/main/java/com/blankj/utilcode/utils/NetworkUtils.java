@@ -52,9 +52,9 @@ public class NetworkUtils {
      */
     public static void openWirelessSettings() {
         if (android.os.Build.VERSION.SDK_INT > 10) {
-            Utils.getContext().startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS));
+            Utils.getContext().startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         } else {
-            Utils.getContext().startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS));
+            Utils.getContext().startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
     }
 
@@ -65,9 +65,7 @@ public class NetworkUtils {
      * @return NetworkInfo
      */
     private static NetworkInfo getActiveNetworkInfo() {
-        ConnectivityManager cm = (ConnectivityManager) Utils.getContext()
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo();
+        return ((ConnectivityManager) Utils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
     }
 
     /**
@@ -88,7 +86,7 @@ public class NetworkUtils {
      * @return {@code true}: 可用<br>{@code false}: 不可用
      */
     public static boolean isAvailableByPing() {
-        ShellUtils.CommandResult result = ShellUtils.execCmd("ping -c 1 -w 1 123.125.114.144", false);
+        ShellUtils.CommandResult result = ShellUtils.execCmd("ping -c 1 -w 1 223.5.5.5", false);
         boolean ret = result.result == 0;
         if (result.errorMsg != null) {
             LogUtils.d("isAvailableByPing errorMsg", result.errorMsg);
@@ -163,8 +161,8 @@ public class NetworkUtils {
      *
      * @param enabled {@code true}: 打开<br>{@code false}: 关闭
      */
-    public static void setWifiEnabled( boolean enabled) {
-        WifiManager wifiManager = (WifiManager)Utils.getContext().getSystemService(Context.WIFI_SERVICE);
+    public static void setWifiEnabled(boolean enabled) {
+        WifiManager wifiManager = (WifiManager) Utils.getContext().getSystemService(Context.WIFI_SERVICE);
         if (enabled) {
             if (!wifiManager.isWifiEnabled()) {
                 wifiManager.setWifiEnabled(true);

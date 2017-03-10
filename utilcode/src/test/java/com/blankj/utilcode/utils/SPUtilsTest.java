@@ -30,11 +30,11 @@ public class SPUtilsTest {
         if (Utils.getContext() == null) TestUtils.init();
         if (spUtils == null) {
             spUtils = new SPUtils("test");
-            spUtils.putString("stringKey", "stringVal");
-            spUtils.putInt("intKey", 1);
-            spUtils.putLong("longKey", 1L);
-            spUtils.putFloat("floatKey", 1f);
-            spUtils.putBoolean("booleanKey", true);
+            spUtils.put("stringKey", "stringVal");
+            spUtils.put("intKey", 1);
+            spUtils.put("longKey", 1L);
+            spUtils.put("floatKey", 1f);
+            spUtils.put("booleanKey", true);
         }
     }
 
