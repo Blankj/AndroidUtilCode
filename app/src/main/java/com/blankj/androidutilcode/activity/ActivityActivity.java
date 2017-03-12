@@ -48,7 +48,6 @@ public class ActivityActivity extends Activity
                 ActivityUtils.launchActivity(packageName, className);
                 break;
             default:
-
                 break;
         }
     }
