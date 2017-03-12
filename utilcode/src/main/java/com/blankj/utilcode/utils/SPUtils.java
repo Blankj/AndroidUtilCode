@@ -2,8 +2,11 @@ package com.blankj.utilcode.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * <pre>
@@ -15,14 +18,14 @@ import java.util.Map;
  */
 public class SPUtils {
 
-    private SharedPreferences        sp;
+    private SharedPreferences sp;
     private SharedPreferences.Editor editor;
 
     /**
      * SPUtils构造函数
      * <p>在Application中初始化</p>
      *
-     * @param spName  spName
+     * @param spName spName
      */
     public SPUtils(String spName) {
         sp = Utils.getContext().getSharedPreferences(spName, Context.MODE_PRIVATE);
@@ -36,7 +39,7 @@ public class SPUtils {
      * @param key   键
      * @param value 值
      */
-    public void put(String key, String value) {
+    public void put(String key, @Nullable String value) {
         editor.putString(key, value).apply();
     }
 
@@ -183,6 +186,37 @@ public class SPUtils {
      */
     public boolean getBoolean(String key, boolean defaultValue) {
         return sp.getBoolean(key, defaultValue);
+    }
+
+    /**
+     * SP中写入String集合类型value
+     *
+     * @param key    键
+     * @param values 值
+     */
+    public void put(String key, @Nullable Set<String> values) {
+        editor.putStringSet(key, values).apply();
+    }
+
+    /**
+     * SP中读取StringSet
+     *
+     * @param key 键
+     * @return 存在返回对应值，不存在返回默认值{@code null}
+     */
+    public Set<String> getStringSet(String key) {
+        return getStringSet(key, null);
+    }
+
+    /**
+     * SP中读取StringSet
+     *
+     * @param key          键
+     * @param defaultValue 默认值
+     * @return 存在返回对应值，不存在返回默认值{@code defaultValue}
+     */
+    public Set<String> getStringSet(String key, @Nullable Set<String> defaultValue) {
+        return sp.getStringSet(key, defaultValue);
     }
 
     /**

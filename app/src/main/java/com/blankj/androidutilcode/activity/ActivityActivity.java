@@ -17,7 +17,6 @@ import com.blankj.utilcode.utils.ToastUtils;
  *     desc  : Activity工具类Demo
  * </pre>
  */
-
 public class ActivityActivity extends Activity
         implements View.OnClickListener {
 
@@ -53,5 +52,4 @@ public class ActivityActivity extends Activity
                 break;
         }
     }
-
 }
