@@ -27,11 +27,11 @@ import java.io.UnsupportedEncodingException;
  */
 public class ConvertUtils {
 
+    private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+
     private ConvertUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
-
-    private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     /**
      * byteArr转hexString
@@ -363,17 +363,6 @@ public class ConvertUtils {
     }
 
     /**
-     * outputStream转inputStream
-     *
-     * @param out 输出流
-     * @return inputStream子类
-     */
-    public ByteArrayInputStream output2InputStream(OutputStream out) {
-        if (out == null) return null;
-        return new ByteArrayInputStream(((ByteArrayOutputStream) out).toByteArray());
-    }
-
-    /**
      * inputStream转byteArr
      *
      * @param is 输入流
@@ -494,6 +483,7 @@ public class ConvertUtils {
             return null;
         }
     }
+
 
     /**
      * bitmap转byteArr
@@ -624,5 +614,16 @@ public class ConvertUtils {
     public static int px2sp(float pxValue) {
         final float fontScale = Utils.getContext().getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
+    }
+
+    /**
+     * outputStream转inputStream
+     *
+     * @param out 输出流
+     * @return inputStream子类
+     */
+    public ByteArrayInputStream output2InputStream(OutputStream out) {
+        if (out == null) return null;
+        return new ByteArrayInputStream(((ByteArrayOutputStream) out).toByteArray());
     }
 }
