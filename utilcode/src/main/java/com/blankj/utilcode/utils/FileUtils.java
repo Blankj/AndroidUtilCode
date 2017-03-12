@@ -1372,4 +1372,35 @@ public class FileUtils {
             return String.format("%.3fGB", (double) byteNum / ConstUtils.GB + 0.0005);
         }
     }
+
+    /**
+     * Returns a byte array of a file
+     *
+     * @param file
+     * @return byte[]
+     * @throws IOException
+     */
+    public static byte[] getBytesFromFile( File file ) throws IOException {
+        InputStream is = new FileInputStream( file );
+        long length = file.length();
+
+        if ( length > Integer.MAX_VALUE ) {
+            throw new IOException( "File is too large" );
+        }
+
+        byte[] bytes = new byte[(int) length];
+
+        int offset = 0;
+        int numRead = 0;
+        while ( offset < bytes.length && ( numRead = is.read( bytes, offset, bytes.length - offset ) ) >= 0 ) {
+            offset += numRead;
+        }
+
+        if ( offset < bytes.length ) {
+            throw new IOException( "Could not completely read file " + file.getName() );
+        }
+        is.close();
+        return bytes;
+    }
+
 }
