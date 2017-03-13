@@ -1,5 +1,7 @@
 package com.blankj.utilcode.utils;
 
+import com.blankj.utilcode.utils.constant.TimeConstant;
+
 import org.junit.Test;
 
 import java.util.Date;
@@ -18,13 +20,13 @@ import static com.google.common.truth.Truth.assertThat;
  */
 public class TimeUtilsTest {
 
-    String myPattern     = "yyyy-MM-dd HH:mm:ss zzzz";
-    long   millis        = 1470991049000L;
-    Date   timeDate      = new Date(millis);
-    String timeString    = "2016-08-12 16:37:29";
-    String myTimeString  = "2016-08-12 16:37:29 中国标准时间";
-    String timeString0   = "2016-08-12 16:00:00";
-    String timeString1   = "2016-08-12 17:10:10";
+    String myPattern = "yyyy-MM-dd HH:mm:ss zzzz";
+    long millis = 1470991049000L;
+    Date timeDate = new Date(millis);
+    String timeString = "2016-08-12 16:37:29";
+    String myTimeString = "2016-08-12 16:37:29 中国标准时间";
+    String timeString0 = "2016-08-12 16:00:00";
+    String timeString1 = "2016-08-12 17:10:10";
     String myTimeString0 = "2016-08-12 16:00:00 中国标准时间";
     String myTimeString1 = "2016-08-12 17:10:10 中国标准时间";
 
@@ -64,9 +66,9 @@ public class TimeUtilsTest {
 
     @Test
     public void testGetTimeSpan() throws Exception {
-        assertThat(getTimeSpan(timeString0, timeString1, ConstUtils.TimeUnit.SEC)).isEqualTo(4210);
-        assertThat(getTimeSpan(myTimeString0, myTimeString1, ConstUtils.TimeUnit.SEC, myPattern)).isEqualTo(4210);
-        assertThat(getTimeSpan(new Date(4210000), new Date(0), ConstUtils.TimeUnit.SEC)).isEqualTo(4210);
+        assertThat(getTimeSpan(timeString0, timeString1, TimeConstant.SEC)).isEqualTo(4210);
+        assertThat(getTimeSpan(myTimeString0, myTimeString1, TimeConstant.SEC, myPattern)).isEqualTo(4210);
+        assertThat(getTimeSpan(new Date(4210000), new Date(0), TimeConstant.SEC)).isEqualTo(4210);
     }
 
     @Test
@@ -84,18 +86,18 @@ public class TimeUtilsTest {
     @Test
     public void testGetFriendlyTimeSpanByNow() throws Exception {
         System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis()));
-        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 6 * ConstUtils.SEC));
-        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 6 * ConstUtils.MIN));
-        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 6 * ConstUtils.HOUR));
-        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - ConstUtils.DAY));
-        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 2 * ConstUtils.DAY));
+        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 6 * TimeConstant.SEC));
+        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 6 * TimeConstant.MIN));
+        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 6 * TimeConstant.HOUR));
+        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - TimeConstant.DAY));
+        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 2 * TimeConstant.DAY));
     }
 
     @Test
     public void testIsSameDay() throws Exception {
         System.out.println(isSameDay(System.currentTimeMillis()));
-        System.out.println(isSameDay((System.currentTimeMillis() / ConstUtils.DAY) * ConstUtils.DAY - 8 * ConstUtils.HOUR));
-        System.out.println(isSameDay((System.currentTimeMillis() / ConstUtils.DAY) * ConstUtils.DAY + 16 * ConstUtils.HOUR));
+        System.out.println(isSameDay((System.currentTimeMillis() / TimeConstant.DAY) * TimeConstant.DAY - 8 * TimeConstant.HOUR));
+        System.out.println(isSameDay((System.currentTimeMillis() / TimeConstant.DAY) * TimeConstant.DAY + 16 * TimeConstant.HOUR));
     }
 
     @Test

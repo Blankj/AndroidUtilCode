@@ -2,6 +2,8 @@ package com.blankj.utilcode.utils;
 
 import android.annotation.SuppressLint;
 
+import com.blankj.utilcode.utils.constant.TimeConstant;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -306,15 +308,15 @@ public class TimeUtils {
      * @param time1 时间字符串1
      * @param unit  单位类型
      *              <ul>
-     *              <li>{@link ConstUtils.TimeUnit#MSEC}: 毫秒</li>
-     *              <li>{@link ConstUtils.TimeUnit#SEC }: 秒</li>
-     *              <li>{@link ConstUtils.TimeUnit#MIN }: 分</li>
-     *              <li>{@link ConstUtils.TimeUnit#HOUR}: 小时</li>
-     *              <li>{@link ConstUtils.TimeUnit#DAY }: 天</li>
+     *              <li>{@link TimeConstant#MSEC}: 毫秒</li>
+     *              <li>{@link TimeConstant#SEC }: 秒</li>
+     *              <li>{@link TimeConstant#MIN }: 分</li>
+     *              <li>{@link TimeConstant#HOUR}: 小时</li>
+     *              <li>{@link TimeConstant#DAY }: 天</li>
      *              </ul>
      * @return unit时间戳
      */
-    public static long getTimeSpan(String time0, String time1, ConstUtils.TimeUnit unit) {
+    public static long getTimeSpan(String time0, String time1, @TimeConstant.Unit int unit) {
         return getTimeSpan(time0, time1, unit, DEFAULT_PATTERN);
     }
 
@@ -326,16 +328,16 @@ public class TimeUtils {
      * @param time1   时间字符串1
      * @param unit    单位类型
      *                <ul>
-     *                <li>{@link ConstUtils.TimeUnit#MSEC}: 毫秒</li>
-     *                <li>{@link ConstUtils.TimeUnit#SEC }: 秒</li>
-     *                <li>{@link ConstUtils.TimeUnit#MIN }: 分</li>
-     *                <li>{@link ConstUtils.TimeUnit#HOUR}: 小时</li>
-     *                <li>{@link ConstUtils.TimeUnit#DAY }: 天</li>
+     *                <li>{@link TimeConstant#MSEC}: 毫秒</li>
+     *                <li>{@link TimeConstant#SEC }: 秒</li>
+     *                <li>{@link TimeConstant#MIN }: 分</li>
+     *                <li>{@link TimeConstant#HOUR}: 小时</li>
+     *                <li>{@link TimeConstant#DAY }: 天</li>
      *                </ul>
      * @param pattern 时间格式
      * @return unit时间戳
      */
-    public static long getTimeSpan(String time0, String time1, ConstUtils.TimeUnit unit, String pattern) {
+    public static long getTimeSpan(String time0, String time1, @TimeConstant.Unit int unit, String pattern) {
         return ConvertUtils.millis2TimeSpan(Math.abs(string2Millis(time0, pattern) - string2Millis(time1, pattern)), unit);
     }
 
@@ -346,15 +348,15 @@ public class TimeUtils {
      * @param date1 Date类型时间1
      * @param unit  单位类型
      *              <ul>
-     *              <li>{@link ConstUtils.TimeUnit#MSEC}: 毫秒</li>
-     *              <li>{@link ConstUtils.TimeUnit#SEC }: 秒</li>
-     *              <li>{@link ConstUtils.TimeUnit#MIN }: 分</li>
-     *              <li>{@link ConstUtils.TimeUnit#HOUR}: 小时</li>
-     *              <li>{@link ConstUtils.TimeUnit#DAY }: 天</li>
+     *              <li>{@link TimeConstant#MSEC}: 毫秒</li>
+     *              <li>{@link TimeConstant#SEC }: 秒</li>
+     *              <li>{@link TimeConstant#MIN }: 分</li>
+     *              <li>{@link TimeConstant#HOUR}: 小时</li>
+     *              <li>{@link TimeConstant#DAY }: 天</li>
      *              </ul>
      * @return unit时间戳
      */
-    public static long getTimeSpan(Date date0, Date date1, ConstUtils.TimeUnit unit) {
+    public static long getTimeSpan(Date date0, Date date1, @TimeConstant.Unit int unit) {
         return ConvertUtils.millis2TimeSpan(Math.abs(date2Millis(date0) - date2Millis(date1)), unit);
     }
 
@@ -365,15 +367,15 @@ public class TimeUtils {
      * @param millis1 毫秒时间戳1
      * @param unit    单位类型
      *                <ul>
-     *                <li>{@link ConstUtils.TimeUnit#MSEC}: 毫秒</li>
-     *                <li>{@link ConstUtils.TimeUnit#SEC }: 秒</li>
-     *                <li>{@link ConstUtils.TimeUnit#MIN }: 分</li>
-     *                <li>{@link ConstUtils.TimeUnit#HOUR}: 小时</li>
-     *                <li>{@link ConstUtils.TimeUnit#DAY }: 天</li>
+     *                <li>{@link TimeConstant#MSEC}: 毫秒</li>
+     *                <li>{@link TimeConstant#SEC }: 秒</li>
+     *                <li>{@link TimeConstant#MIN }: 分</li>
+     *                <li>{@link TimeConstant#HOUR}: 小时</li>
+     *                <li>{@link TimeConstant#DAY }: 天</li>
      *                </ul>
      * @return unit时间戳
      */
-    public static long getTimeSpan(long millis0, long millis1, ConstUtils.TimeUnit unit) {
+    public static long getTimeSpan(long millis0, long millis1, @TimeConstant.Unit int unit) {
         return ConvertUtils.millis2TimeSpan(Math.abs(millis0 - millis1), unit);
     }
 
@@ -498,15 +500,15 @@ public class TimeUtils {
      * @param time 时间字符串
      * @param unit 单位类型
      *             <ul>
-     *             <li>{@link ConstUtils.TimeUnit#MSEC}:毫秒</li>
-     *             <li>{@link ConstUtils.TimeUnit#SEC }:秒</li>
-     *             <li>{@link ConstUtils.TimeUnit#MIN }:分</li>
-     *             <li>{@link ConstUtils.TimeUnit#HOUR}:小时</li>
-     *             <li>{@link ConstUtils.TimeUnit#DAY }:天</li>
+     *             <li>{@link TimeConstant#MSEC}: 毫秒</li>
+     *             <li>{@link TimeConstant#SEC }: 秒</li>
+     *             <li>{@link TimeConstant#MIN }: 分</li>
+     *             <li>{@link TimeConstant#HOUR}: 小时</li>
+     *             <li>{@link TimeConstant#DAY }: 天</li>
      *             </ul>
      * @return unit时间戳
      */
-    public static long getTimeSpanByNow(String time, ConstUtils.TimeUnit unit) {
+    public static long getTimeSpanByNow(String time, @TimeConstant.Unit int unit) {
         return getTimeSpan(getNowTimeString(), time, unit, DEFAULT_PATTERN);
     }
 
@@ -517,16 +519,16 @@ public class TimeUtils {
      * @param time    时间字符串
      * @param unit    单位类型
      *                <ul>
-     *                <li>{@link ConstUtils.TimeUnit#MSEC}: 毫秒</li>
-     *                <li>{@link ConstUtils.TimeUnit#SEC }: 秒</li>
-     *                <li>{@link ConstUtils.TimeUnit#MIN }: 分</li>
-     *                <li>{@link ConstUtils.TimeUnit#HOUR}: 小时</li>
-     *                <li>{@link ConstUtils.TimeUnit#DAY }: 天</li>
+     *                <li>{@link TimeConstant#MSEC}: 毫秒</li>
+     *                <li>{@link TimeConstant#SEC }: 秒</li>
+     *                <li>{@link TimeConstant#MIN }: 分</li>
+     *                <li>{@link TimeConstant#HOUR}: 小时</li>
+     *                <li>{@link TimeConstant#DAY }: 天</li>
      *                </ul>
      * @param pattern 时间格式
      * @return unit时间戳
      */
-    public static long getTimeSpanByNow(String time, ConstUtils.TimeUnit unit, String pattern) {
+    public static long getTimeSpanByNow(String time, @TimeConstant.Unit int unit, String pattern) {
         return getTimeSpan(getNowTimeString(), time, unit, pattern);
     }
 
@@ -536,15 +538,15 @@ public class TimeUtils {
      * @param date Date类型时间
      * @param unit 单位类型
      *             <ul>
-     *             <li>{@link ConstUtils.TimeUnit#MSEC}: 毫秒</li>
-     *             <li>{@link ConstUtils.TimeUnit#SEC }: 秒</li>
-     *             <li>{@link ConstUtils.TimeUnit#MIN }: 分</li>
-     *             <li>{@link ConstUtils.TimeUnit#HOUR}: 小时</li>
-     *             <li>{@link ConstUtils.TimeUnit#DAY }: 天</li>
+     *             <li>{@link TimeConstant#MSEC}: 毫秒</li>
+     *             <li>{@link TimeConstant#SEC }: 秒</li>
+     *             <li>{@link TimeConstant#MIN }: 分</li>
+     *             <li>{@link TimeConstant#HOUR}: 小时</li>
+     *             <li>{@link TimeConstant#DAY }: 天</li>
      *             </ul>
      * @return unit时间戳
      */
-    public static long getTimeSpanByNow(Date date, ConstUtils.TimeUnit unit) {
+    public static long getTimeSpanByNow(Date date, @TimeConstant.Unit int unit) {
         return getTimeSpan(new Date(), date, unit);
     }
 
@@ -554,15 +556,15 @@ public class TimeUtils {
      * @param millis 毫秒时间戳
      * @param unit   单位类型
      *               <ul>
-     *               <li>{@link ConstUtils.TimeUnit#MSEC}: 毫秒</li>
-     *               <li>{@link ConstUtils.TimeUnit#SEC }: 秒</li>
-     *               <li>{@link ConstUtils.TimeUnit#MIN }: 分</li>
-     *               <li>{@link ConstUtils.TimeUnit#HOUR}: 小时</li>
-     *               <li>{@link ConstUtils.TimeUnit#DAY }: 天</li>
+     *               <li>{@link TimeConstant#MSEC}: 毫秒</li>
+     *               <li>{@link TimeConstant#SEC }: 秒</li>
+     *               <li>{@link TimeConstant#MIN }: 分</li>
+     *               <li>{@link TimeConstant#HOUR}: 小时</li>
+     *               <li>{@link TimeConstant#DAY }: 天</li>
      *               </ul>
      * @return unit时间戳
      */
-    public static long getTimeSpanByNow(long millis, ConstUtils.TimeUnit unit) {
+    public static long getTimeSpanByNow(long millis, @TimeConstant.Unit int unit) {
         return getTimeSpan(System.currentTimeMillis(), millis, unit);
     }
 
@@ -728,16 +730,16 @@ public class TimeUtils {
             return String.format("%tc", millis);// U can read http://www.apihome.cn/api/java/Formatter.html to understand it.
         if (span < 1000) {
             return "刚刚";
-        } else if (span < ConstUtils.MIN) {
-            return String.format("%d秒前", span / ConstUtils.SEC);
-        } else if (span < ConstUtils.HOUR) {
-            return String.format("%d分钟前", span / ConstUtils.MIN);
+        } else if (span < TimeConstant.MIN) {
+            return String.format("%d秒前", span / TimeConstant.SEC);
+        } else if (span < TimeConstant.HOUR) {
+            return String.format("%d分钟前", span / TimeConstant.MIN);
         }
         // 获取当天00:00
-        long wee = (now / ConstUtils.DAY) * ConstUtils.DAY - 8 * ConstUtils.HOUR;
+        long wee = (now / TimeConstant.DAY) * TimeConstant.DAY - 8 * TimeConstant.HOUR;
         if (millis >= wee) {
             return String.format("今天%tR", millis);
-        } else if (millis >= wee - ConstUtils.DAY) {
+        } else if (millis >= wee - TimeConstant.DAY) {
             return String.format("昨天%tR", millis);
         } else {
             return String.format("%tF", millis);
@@ -784,8 +786,8 @@ public class TimeUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isSameDay(long millis) {
-        long wee = (System.currentTimeMillis() / ConstUtils.DAY) * ConstUtils.DAY - 8 * ConstUtils.HOUR;
-        return millis >= wee && millis < wee + ConstUtils.DAY;
+        long wee = (System.currentTimeMillis() / TimeConstant.DAY) * TimeConstant.DAY - 8 * TimeConstant.HOUR;
+        return millis >= wee && millis < wee + TimeConstant.DAY;
     }
 
     /**
@@ -1091,8 +1093,8 @@ public class TimeUtils {
         return CHINESE_ZODIAC[year % 12];
     }
 
-    private static final String[] ZODIAC       = {"水瓶座", "双鱼座", "白羊座", "金牛座", "双子座", "巨蟹座", "狮子座", "处女座", "天秤座", "天蝎座", "射手座", "魔羯座"};
-    private static final int[]    ZODIAC_FLAGS = {20, 19, 21, 21, 21, 22, 23, 23, 23, 24, 23, 22};
+    private static final String[] ZODIAC = {"水瓶座", "双鱼座", "白羊座", "金牛座", "双子座", "巨蟹座", "狮子座", "处女座", "天秤座", "天蝎座", "射手座", "魔羯座"};
+    private static final int[] ZODIAC_FLAGS = {20, 19, 21, 21, 21, 22, 23, 23, 23, 24, 23, 22};
 
     /**
      * 获取星座

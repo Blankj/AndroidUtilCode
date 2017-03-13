@@ -2,6 +2,8 @@ package com.blankj.utilcode.utils;
 
 import android.annotation.SuppressLint;
 
+import com.blankj.utilcode.utils.constant.MemoryConstant;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -1315,9 +1317,9 @@ public class FileUtils {
         if (is == null) return null;
         try {
             ByteArrayOutputStream os = new ByteArrayOutputStream();
-            byte[] b = new byte[ConstUtils.KB];
+            byte[] b = new byte[MemoryConstant.KB];
             int len;
-            while ((len = is.read(b, 0, ConstUtils.KB)) != -1) {
+            while ((len = is.read(b, 0, MemoryConstant.KB)) != -1) {
                 os.write(b, 0, len);
             }
             return os;
@@ -1362,14 +1364,14 @@ public class FileUtils {
     private static String byte2FitMemorySize(long byteNum) {
         if (byteNum < 0) {
             return "shouldn't be less than zero!";
-        } else if (byteNum < ConstUtils.KB) {
+        } else if (byteNum < MemoryConstant.KB) {
             return String.format("%.3fB", (double) byteNum + 0.0005);
-        } else if (byteNum < ConstUtils.MB) {
-            return String.format("%.3fKB", (double) byteNum / ConstUtils.KB + 0.0005);
-        } else if (byteNum < ConstUtils.GB) {
-            return String.format("%.3fMB", (double) byteNum / ConstUtils.MB + 0.0005);
+        } else if (byteNum < MemoryConstant.MB) {
+            return String.format("%.3fKB", (double) byteNum / MemoryConstant.KB + 0.0005);
+        } else if (byteNum < MemoryConstant.GB) {
+            return String.format("%.3fMB", (double) byteNum / MemoryConstant.MB + 0.0005);
         } else {
-            return String.format("%.3fGB", (double) byteNum / ConstUtils.GB + 0.0005);
+            return String.format("%.3fGB", (double) byteNum / MemoryConstant.GB + 0.0005);
         }
     }
 }

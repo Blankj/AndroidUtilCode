@@ -1,6 +1,9 @@
 package com.blankj.utilcode.utils;
 
 
+import com.blankj.utilcode.utils.constant.MemoryConstant;
+import com.blankj.utilcode.utils.constant.TimeConstant;
+
 import org.junit.Test;
 
 import static com.blankj.utilcode.utils.ConvertUtils.*;
@@ -45,7 +48,7 @@ public class ConvertUtilsTest {
 
     @Test
     public void testByte2Unit() throws Exception {
-        assertThat(byte2MemorySize(ConstUtils.GB, ConstUtils.MemoryUnit.MB) - 1024).isWithin(0.001);
+        assertThat(byte2MemorySize(MemoryConstant.GB, MemoryConstant.MB) - 1024).isWithin(0.001);
     }
 
     @Test
@@ -55,8 +58,8 @@ public class ConvertUtilsTest {
 
     @Test
     public void testMillis2FitTimeSpan() throws Exception {
-        long millis = ConstUtils.DAY * 6 + ConstUtils.HOUR * 6
-                + ConstUtils.MIN * 6 + ConstUtils.SEC * 6 + 6;
+        long millis = TimeConstant.DAY * 6 + TimeConstant.HOUR * 6
+                + TimeConstant.MIN * 6 + TimeConstant.SEC * 6 + 6;
         System.out.println(millis2FitTimeSpan(millis, 7));
         System.out.println(millis2FitTimeSpan(millis, 4));
         System.out.println(millis2FitTimeSpan(millis, 3));

@@ -1,4 +1,4 @@
-* 17/02/14 完善FragmentUtils中，修复部分bug
+* 17/03/14 新增常量包
 * 17/02/14 完善FragmentUtils中，Demo测试中
 * 17/02/13 完善FragmentUtils中
 * 17/02/12 完善FragmentUtils中
