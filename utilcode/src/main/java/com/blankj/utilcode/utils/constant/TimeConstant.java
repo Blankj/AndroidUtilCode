@@ -2,6 +2,9 @@ package com.blankj.utilcode.utils.constant;
 
 import android.support.annotation.IntDef;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 /**
  * <pre>
  *     author: Blankj
@@ -35,6 +38,7 @@ public class TimeConstant {
     public static final int DAY = 86400000;
 
     @IntDef({MSEC, SEC, MIN, HOUR, DAY})
+    @Retention(RetentionPolicy.SOURCE)
     public @interface Unit {
     }
 }
