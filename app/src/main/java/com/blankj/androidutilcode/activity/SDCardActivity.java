@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.utilcode.utils.SDCardUtils;
+import com.blankj.utilcode.util.SDCardUtils;
 
 /**
  * <pre>

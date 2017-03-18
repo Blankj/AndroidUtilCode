@@ -2,14 +2,11 @@ package com.blankj.androidutilcode.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.fragment.Demo0Fragment;
-import com.blankj.androidutilcode.fragment.Demo1Fragment;
-import com.blankj.androidutilcode.fragment.Demo2Fragment;
-import com.blankj.utilcode.utils.FragmentUtils;
+import com.blankj.utilcode.util.FragmentUtils;
 
 import java.util.ArrayList;
 

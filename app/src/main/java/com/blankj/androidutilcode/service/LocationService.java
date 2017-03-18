@@ -9,8 +9,8 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 
-import com.blankj.utilcode.utils.LocationUtils;
-import com.blankj.utilcode.utils.ToastUtils;
+import com.blankj.utilcode.util.LocationUtils;
+import com.blankj.utilcode.util.ToastUtils;
 
 /**
  * <pre>

@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.utilcode.utils.NetworkUtils;
+import com.blankj.utilcode.util.NetworkUtils;
 
 /**
  * <pre>

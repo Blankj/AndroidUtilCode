@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.utilcode.utils.ImageUtils;
-import com.blankj.utilcode.utils.SizeUtils;
+import com.blankj.utilcode.util.ImageUtils;
+import com.blankj.utilcode.util.SizeUtils;
 
 /**
  * <pre>

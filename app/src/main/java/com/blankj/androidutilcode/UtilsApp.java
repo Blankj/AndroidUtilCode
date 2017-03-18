@@ -2,9 +2,9 @@ package com.blankj.androidutilcode;
 
 import android.app.Application;
 
-import com.blankj.utilcode.utils.CrashUtils;
-import com.blankj.utilcode.utils.LogUtils;
-import com.blankj.utilcode.utils.Utils;
+import com.blankj.utilcode.util.CrashUtils;
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.Utils;
 import com.squareup.leakcanary.LeakCanary;
 
 /**

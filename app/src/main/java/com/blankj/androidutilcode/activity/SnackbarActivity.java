@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.utilcode.utils.SnackbarUtils;
-import com.blankj.utilcode.utils.ToastUtils;
+import com.blankj.utilcode.util.SnackbarUtils;
+import com.blankj.utilcode.util.ToastUtils;
 
 /**
  * <pre>

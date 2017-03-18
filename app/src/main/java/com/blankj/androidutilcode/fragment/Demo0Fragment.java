@@ -16,8 +16,8 @@ import android.widget.TextView;
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.activity.FragmentActivity;
 import com.blankj.androidutilcode.transition.DetailTransition;
-import com.blankj.utilcode.utils.FragmentUtils;
-import com.blankj.utilcode.utils.ToastUtils;
+import com.blankj.utilcode.util.FragmentUtils;
+import com.blankj.utilcode.util.ToastUtils;
 
 import java.util.Random;
 

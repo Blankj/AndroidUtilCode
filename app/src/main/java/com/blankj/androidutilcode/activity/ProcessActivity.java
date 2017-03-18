@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.utilcode.utils.ProcessUtils;
+import com.blankj.utilcode.util.ProcessUtils;
 
 import java.util.Iterator;
 import java.util.Set;

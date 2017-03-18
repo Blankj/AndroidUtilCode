@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.utilcode.utils.AppUtils;
+import com.blankj.utilcode.util.AppUtils;
 
 /**
  * <pre>

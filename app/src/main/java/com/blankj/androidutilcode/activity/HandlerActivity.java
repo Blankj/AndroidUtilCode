@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.utilcode.utils.HandlerUtils;
+import com.blankj.utilcode.util.HandlerUtils;
 
 /**
  * <pre>
