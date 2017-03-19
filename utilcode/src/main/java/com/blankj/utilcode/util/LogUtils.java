@@ -353,8 +353,8 @@ public class LogUtils {
         }
         StackTraceElement caller = stacks[stackIndex];
         String callerClazzName = caller.getClassName();
-        String format = "Tag[" + tag + "] %s[%s, %d]";
+        String format = "[" + tag + " at %s(%s.java:%d)]";
         callerClazzName = callerClazzName.substring(callerClazzName.lastIndexOf(".") + 1);
-        return String.format(format, callerClazzName, caller.getMethodName(), caller.getLineNumber());
+        return String.format(format, caller.getMethodName(), callerClazzName, caller.getLineNumber());
     }
 }
