@@ -8,7 +8,7 @@ package com.blankj.utilcode.constant;
  *     desc  : 正则相关常量
  * </pre>
  */
-public class RegexConstant {
+public class RegexConstants {
 
     /**
      * 正则：手机号（简单）

@@ -2,7 +2,7 @@ package com.blankj.utilcode.util;
 
 
 import com.blankj.utilcode.constant.MemoryConstants;
-import com.blankj.utilcode.constant.TimeConstant;
+import com.blankj.utilcode.constant.TimeConstants;
 
 import org.junit.Test;
 
@@ -58,8 +58,8 @@ public class ConvertUtilsTest {
 
     @Test
     public void testMillis2FitTimeSpan() throws Exception {
-        long millis = TimeConstant.DAY * 6 + TimeConstant.HOUR * 6
-                + TimeConstant.MIN * 6 + TimeConstant.SEC * 6 + 6;
+        long millis = TimeConstants.DAY * 6 + TimeConstants.HOUR * 6
+                + TimeConstants.MIN * 6 + TimeConstants.SEC * 6 + 6;
         System.out.println(millis2FitTimeSpan(millis, 7));
         System.out.println(millis2FitTimeSpan(millis, 4));
         System.out.println(millis2FitTimeSpan(millis, 3));

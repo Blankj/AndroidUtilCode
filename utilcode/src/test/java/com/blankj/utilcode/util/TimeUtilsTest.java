@@ -1,6 +1,6 @@
 package com.blankj.utilcode.util;
 
-import com.blankj.utilcode.constant.TimeConstant;
+import com.blankj.utilcode.constant.TimeConstants;
 
 import org.junit.Test;
 
@@ -66,9 +66,9 @@ public class TimeUtilsTest {
 
     @Test
     public void testGetTimeSpan() throws Exception {
-        assertThat(getTimeSpan(timeString0, timeString1, TimeConstant.SEC)).isEqualTo(4210);
-        assertThat(getTimeSpan(myTimeString0, myTimeString1, TimeConstant.SEC, myPattern)).isEqualTo(4210);
-        assertThat(getTimeSpan(new Date(4210000), new Date(0), TimeConstant.SEC)).isEqualTo(4210);
+        assertThat(getTimeSpan(timeString0, timeString1, TimeConstants.SEC)).isEqualTo(4210);
+        assertThat(getTimeSpan(myTimeString0, myTimeString1, TimeConstants.SEC, myPattern)).isEqualTo(4210);
+        assertThat(getTimeSpan(new Date(4210000), new Date(0), TimeConstants.SEC)).isEqualTo(4210);
     }
 
     @Test
@@ -86,18 +86,18 @@ public class TimeUtilsTest {
     @Test
     public void testGetFriendlyTimeSpanByNow() throws Exception {
         System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis()));
-        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 6 * TimeConstant.SEC));
-        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 6 * TimeConstant.MIN));
-        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 6 * TimeConstant.HOUR));
-        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - TimeConstant.DAY));
-        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 2 * TimeConstant.DAY));
+        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 6 * TimeConstants.SEC));
+        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 6 * TimeConstants.MIN));
+        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 6 * TimeConstants.HOUR));
+        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - TimeConstants.DAY));
+        System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 2 * TimeConstants.DAY));
     }
 
     @Test
     public void testIsSameDay() throws Exception {
         System.out.println(isSameDay(System.currentTimeMillis()));
-        System.out.println(isSameDay((System.currentTimeMillis() / TimeConstant.DAY) * TimeConstant.DAY - 8 * TimeConstant.HOUR));
-        System.out.println(isSameDay((System.currentTimeMillis() / TimeConstant.DAY) * TimeConstant.DAY + 16 * TimeConstant.HOUR));
+        System.out.println(isSameDay((System.currentTimeMillis() / TimeConstants.DAY) * TimeConstants.DAY - 8 * TimeConstants.HOUR));
+        System.out.println(isSameDay((System.currentTimeMillis() / TimeConstants.DAY) * TimeConstants.DAY + 16 * TimeConstants.HOUR));
     }
 
     @Test

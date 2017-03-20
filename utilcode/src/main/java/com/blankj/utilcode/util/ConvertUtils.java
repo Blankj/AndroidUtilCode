@@ -11,7 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import com.blankj.utilcode.constant.MemoryConstants;
-import com.blankj.utilcode.constant.TimeConstant;
+import com.blankj.utilcode.constant.TimeConstants;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -192,15 +192,15 @@ public class ConvertUtils {
      * @param timeSpan 毫秒时间戳
      * @param unit     单位类型
      *                 <ul>
-     *                 <li>{@link TimeConstant#MSEC}: 毫秒</li>
-     *                 <li>{@link TimeConstant#SEC }: 秒</li>
-     *                 <li>{@link TimeConstant#MIN }: 分</li>
-     *                 <li>{@link TimeConstant#HOUR}: 小时</li>
-     *                 <li>{@link TimeConstant#DAY }: 天</li>
+     *                 <li>{@link TimeConstants#MSEC}: 毫秒</li>
+     *                 <li>{@link TimeConstants#SEC }: 秒</li>
+     *                 <li>{@link TimeConstants#MIN }: 分</li>
+     *                 <li>{@link TimeConstants#HOUR}: 小时</li>
+     *                 <li>{@link TimeConstants#DAY }: 天</li>
      *                 </ul>
      * @return 毫秒时间戳
      */
-    public static long timeSpan2Millis(long timeSpan, @TimeConstant.Unit int unit) {
+    public static long timeSpan2Millis(long timeSpan, @TimeConstants.Unit int unit) {
         return timeSpan * unit;
     }
 
@@ -210,15 +210,15 @@ public class ConvertUtils {
      * @param millis 毫秒时间戳
      * @param unit   单位类型
      *               <ul>
-     *               <li>{@link TimeConstant#MSEC}: 毫秒</li>
-     *               <li>{@link TimeConstant#SEC }: 秒</li>
-     *               <li>{@link TimeConstant#MIN }: 分</li>
-     *               <li>{@link TimeConstant#HOUR}: 小时</li>
-     *               <li>{@link TimeConstant#DAY }: 天</li>
+     *               <li>{@link TimeConstants#MSEC}: 毫秒</li>
+     *               <li>{@link TimeConstants#SEC }: 秒</li>
+     *               <li>{@link TimeConstants#MIN }: 分</li>
+     *               <li>{@link TimeConstants#HOUR}: 小时</li>
+     *               <li>{@link TimeConstants#DAY }: 天</li>
      *               </ul>
      * @return 以unit为单位的时间长度
      */
-    public static long millis2TimeSpan(long millis, @TimeConstant.Unit int unit) {
+    public static long millis2TimeSpan(long millis, @TimeConstants.Unit int unit) {
         return millis / unit;
     }
 

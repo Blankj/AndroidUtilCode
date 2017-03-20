@@ -1,3 +1,5 @@
+* 17/03/20 修复链接错误
+* 17/03/19 LogUtils新增栈回溯
 * 17/03/14 新增常量包
 * 17/02/14 完善FragmentUtils中，Demo测试中
 * 17/02/13 完善FragmentUtils中
