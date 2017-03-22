@@ -580,6 +580,18 @@ getComments       : 获取压缩文件中的注释链表
 getEntries        : 获取压缩文件中的文件对象
  ```
 
+> - **压缩相关→[AssetsHelper.java][zip.java]→[Test][zip.test]**
+ ```
+readData          : 读取 assets 文件
+ ```
+ 
+ > - **压缩相关→[GsonHelper.java][zip.java]→[Test][zip.test]**
+ ```
+convertEntity          : 将json数据转化为实体数据
+convertEntities        : 将json数据转化为实体列表数据
+object2JsonStr         : 将 Object 对象转为 String
+ ```
+ 
 > - **更新Log→[update_log.md][update_log.md]**
 
 ***
