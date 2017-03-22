@@ -2,6 +2,9 @@
 <resources>
     <string name="my_app_name">AndroidUtilCode</string>
 
+    <string name="git_hub">GitHub</string>
+    <string name="blog">Blog</string>
+
     <string name="test.activity">ActivityUtils Test</string>
     <string name="test.app">AppUtils Test</string>
     <string name="test.clean">CleanUtils Test</string>
@@ -13,6 +16,7 @@
     <string name="test.image">ImageUtils Test</string>
     <string name="test.keyboard">KeyboardUtils Test</string>
     <string name="test.location">LocationUtils Test</string>
+    <string name="test.log">Log Test</string>
     <string name="test.network">NetworkUtils Test</string>
     <string name="test.permission">NetworkUtils Test</string>
     <string name="test.phone">PhoneUtils Test</string>

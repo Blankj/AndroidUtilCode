@@ -1,15 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar"/>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="actionMenuTextColor">@android:color/white</item>
+    </style>
 
     <style name="Font">
-        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/font_normal</item>
     </style>
 
     <style name="BtnFont" parent="Font">
         <item name="android:textAllCaps" tools:targetApi="ice_cream_sandwich">false</item>
     </style>
-
 </resources>

@@ -32,6 +32,8 @@ public class LogUtils {
     private static String  dir            = null;
     private static int     stackIndex     = 0;
 
+    private static final int MAX_LEN = 4000;
+
     /**
      * 初始化函数
      * <p>与{@link #getBuilder()}两者选其一</p>

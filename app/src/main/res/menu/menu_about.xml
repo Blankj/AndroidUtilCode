@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_git_hub"
+        android:title="@string/git_hub"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_blog"
+        android:title="@string/blog"
+        app:showAsAction="ifRoom" />
+</menu>
