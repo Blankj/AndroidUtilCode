@@ -149,7 +149,7 @@ public class AppUtils {
             return true;
         }
         if (result.errorMsg != null) {
-            LogUtils.d("isAppRoot", result.errorMsg);
+            JLog.d("isAppRoot", result.errorMsg);
         }
         return false;
     }

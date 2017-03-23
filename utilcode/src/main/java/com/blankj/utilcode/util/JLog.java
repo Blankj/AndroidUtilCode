@@ -1,12 +1,15 @@
 package com.blankj.utilcode.util;
 
 import android.os.Environment;
+import android.support.annotation.IntDef;
 import android.util.Log;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -19,15 +22,29 @@ import java.util.Locale;
  *     desc  : 日志相关工具类
  * </pre>
  */
-public class LogUtils {
+public final class JLog {
 
-    private LogUtils() {
+    private JLog() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
+    public static final int V = 0x01;
+    public static final int D = 0x01 << 1;
+    public static final int I = 0x01 << 2;
+    public static final int W = 0x01 << 3;
+    public static final int E = 0x01 << 4;
+    public static final int A = 0x01 << 5;
+
+    @IntDef({V, D, I, W, E, A})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface TYPE {
+    }
+
+    private static final byte
+
     private static boolean logSwitch      = true;
     private static boolean log2FileSwitch = false;
-    private static char    logFilter      = 'v';
+    private static int     logFilter      = V;
     private static String  tag            = "TAG";
     private static String  dir            = null;
     private static int     stackIndex     = 0;
@@ -43,21 +60,21 @@ public class LogUtils {
      * @param logFilter      输入日志类型有{@code v, d, i, w, e}<br>v代表输出所有信息，w则只输出警告...
      * @param tag            标签
      */
-    public static void init(boolean logSwitch, boolean log2FileSwitch, char logFilter, String tag) {
+    public static void init(boolean logSwitch, boolean log2FileSwitch, @TYPE int logFilter, String tag) {
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
             dir = Utils.getContext().getExternalCacheDir().getPath() + File.separator;
         } else {
             dir = Utils.getContext().getCacheDir().getPath() + File.separator;
         }
-        LogUtils.logSwitch = logSwitch;
-        LogUtils.log2FileSwitch = log2FileSwitch;
-        LogUtils.logFilter = logFilter;
-        LogUtils.tag = tag;
+        JLog.logSwitch = logSwitch;
+        JLog.log2FileSwitch = log2FileSwitch;
+        JLog.logFilter = logFilter;
+        JLog.tag = tag;
     }
 
     /**
      * 获取LogUtils建造者
-     * <p>与{@link #init(boolean, boolean, char, String)}两者选其一</p>
+     * <p>与{@link #init(boolean, boolean, int, String)}两者选其一</p>
      *
      * @return Builder对象
      */
@@ -74,7 +91,7 @@ public class LogUtils {
 
         private boolean logSwitch      = true;
         private boolean log2FileSwitch = false;
-        private char    logFilter      = 'v';
+        private int     logFilter      = LogConstants.V;
         private String  tag            = "TAG";
 
         public Builder setLogSwitch(boolean logSwitch) {
@@ -87,7 +104,7 @@ public class LogUtils {
             return this;
         }
 
-        public Builder setLogFilter(char logFilter) {
+        public Builder setLogFilter(@LogConstants.TYPE int logFilter) {
             this.logFilter = logFilter;
             return this;
         }
@@ -98,10 +115,10 @@ public class LogUtils {
         }
 
         public void create() {
-            LogUtils.logSwitch = logSwitch;
-            LogUtils.log2FileSwitch = log2FileSwitch;
-            LogUtils.logFilter = logFilter;
-            LogUtils.tag = tag;
+            JLog.logSwitch = logSwitch;
+            JLog.log2FileSwitch = log2FileSwitch;
+            JLog.logFilter = logFilter;
+            JLog.tag = tag;
         }
     }
 
@@ -290,9 +307,8 @@ public class LogUtils {
      * @param type 日志类型
      */
     private static void printLog(final String tag, final String msg, Throwable tr, char type) {
-        final int maxLen = 4000;
-        for (int i = 0, len = msg.length(); i * maxLen < len; ++i) {
-            String subMsg = msg.substring(i * maxLen, (i + 1) * maxLen < len ? (i + 1) * maxLen : len);
+        for (int i = 0, len = msg.length(); i * MAX_LEN < len; ++i) {
+            String subMsg = msg.substring(i * MAX_LEN, (i + 1) * MAX_LEN < len ? (i + 1) * MAX_LEN : len);
             switch (type) {
                 case 'e':
                     Log.e(tag, subMsg, tr);
@@ -305,6 +321,9 @@ public class LogUtils {
                     break;
                 case 'i':
                     Log.i(tag, subMsg, tr);
+                    break;
+                case 'a':
+                    Log.wtf(tag, subMsg, tr);
                     break;
             }
         }

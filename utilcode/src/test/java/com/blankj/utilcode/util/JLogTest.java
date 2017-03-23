@@ -17,13 +17,13 @@ import org.robolectric.shadows.ShadowLog;
  */
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.NONE)
-public class LogUtilsTest {
+public class JLogTest {
 
     @Before
     public void setUp() throws Exception {
         TestUtils.init();
         ShadowLog.stream = System.out;
-        LogUtils.getBuilder().
+        JLog.getBuilder().
                 setLogSwitch(true).
                 setLog2FileSwitch(false).
                 setTag("Blankj").
@@ -33,26 +33,26 @@ public class LogUtilsTest {
 
     @Test
     public void v() throws Exception {
-        LogUtils.v("My Tag","Verbose");
+        JLog.v("My Tag","Verbose");
     }
 
     @Test
     public void d() throws Exception {
-        LogUtils.d("Debug");
+        JLog.d("Debug");
     }
 
     @Test
     public void i() throws Exception {
-        LogUtils.i("Info");
+        JLog.i("Info");
     }
 
     @Test
     public void w() throws Exception {
-        LogUtils.w("Warn");
+        JLog.w("Warn");
     }
 
     @Test
     public void e() throws Exception {
-        LogUtils.e("Error");
+        JLog.e("Error");
     }
 }
