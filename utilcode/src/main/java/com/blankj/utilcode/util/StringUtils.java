@@ -8,7 +8,7 @@ package com.blankj.utilcode.util;
  *     desc  : 字符串相关工具类
  * </pre>
  */
-public class StringUtils {
+public final class StringUtils {
 
     private StringUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -30,8 +30,24 @@ public class StringUtils {
      * @param s 待校验字符串
      * @return {@code true}: null或全空格<br> {@code false}: 不为null且不全空格
      */
-    public static boolean isSpace(String s) {
+    public static boolean isTrimEmpty(String s) {
         return (s == null || s.trim().length() == 0);
+    }
+
+    /**
+     * 判断字符串是否为null或全为空白字符
+     *
+     * @param s 待校验字符串
+     * @return {@code true}: null或全空白字符<br> {@code false}: 不为null且不全空白字符
+     */
+    public static boolean isSpace(String s) {
+        if (s == null) return true;
+        for (int i = 0, len = s.length(); i < len; ++i) {
+            if (!Character.isWhitespace(s.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

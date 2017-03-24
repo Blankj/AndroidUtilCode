@@ -18,7 +18,7 @@ import java.util.Locale;
  *     desc  : 时间相关工具类
  * </pre>
  */
-public class TimeUtils {
+public final class TimeUtils {
 
     private TimeUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

@@ -3,7 +3,7 @@ package com.blankj.androidutilcode;
 import android.app.Application;
 
 import com.blankj.utilcode.util.CrashUtils;
-import com.blankj.utilcode.util.JLog;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.Utils;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -16,6 +16,8 @@ import com.squareup.leakcanary.LeakCanary;
  * </pre>
  */
 public class UtilsApp extends Application {
+
+    public static LogUtils.Builder lBuilder;
 
     private static UtilsApp appContext;
 
@@ -36,6 +38,6 @@ public class UtilsApp extends Application {
         appContext = this;
         Utils.init(appContext);
         CrashUtils.getInstance().init();
-        JLog.getBuilder().setTag("JLog").setLog2FileSwitch(true).create();
+        lBuilder = new LogUtils.Builder();
     }
 }

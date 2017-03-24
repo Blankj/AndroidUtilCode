@@ -10,7 +10,7 @@ import android.content.Context;
  *     desc  : Utils初始化相关
  * </pre>
  */
-public class Utils {
+public final class Utils {
 
     private static Context context;
     private static SPUtils spUtils;

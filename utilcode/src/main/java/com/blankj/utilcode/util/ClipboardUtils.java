@@ -14,7 +14,7 @@ import android.net.Uri;
  *     desc  : 剪贴板相关工具类
  * </pre>
  */
-public class ClipboardUtils {
+public final class ClipboardUtils {
 
     private ClipboardUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

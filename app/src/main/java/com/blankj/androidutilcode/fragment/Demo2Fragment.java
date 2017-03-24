@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.utilcode.util.FragmentUtils;
-import com.blankj.utilcode.util.JLog;
+import com.blankj.utilcode.util.LogUtils;
 
 import java.util.Random;
 
@@ -82,7 +82,7 @@ public class Demo2Fragment extends Fragment
 
     @Override
     public boolean onBackClick() {
-        JLog.d("demo2 onBackClick");
+        LogUtils.d("demo2 onBackClick");
         return false;
     }
 }

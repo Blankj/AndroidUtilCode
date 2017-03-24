@@ -29,7 +29,7 @@ import java.util.List;
  *     desc  : 手机相关工具类
  * </pre>
  */
-public class PhoneUtils {
+public final class PhoneUtils {
 
     private PhoneUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

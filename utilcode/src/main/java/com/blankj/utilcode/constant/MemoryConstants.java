@@ -13,7 +13,7 @@ import java.lang.annotation.RetentionPolicy;
  *     desc  : 存储相关常量
  * </pre>
  */
-public class MemoryConstants {
+public final class MemoryConstants {
 
     /**
      * Byte与Byte的倍数

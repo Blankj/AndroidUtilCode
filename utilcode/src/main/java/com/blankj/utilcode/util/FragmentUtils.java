@@ -24,7 +24,7 @@ import java.util.List;
  *     desc  : Fragment相关工具类
  * </pre>
  */
-public class FragmentUtils {
+public final class FragmentUtils {
 
     private FragmentUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -526,7 +526,7 @@ public class FragmentUtils {
                                             SharedElement... sharedElements) {
         if (srcFragment == destFragment) return null;
         if (srcFragment != null && srcFragment.isRemoving()) {
-            JLog.e(srcFragment.getClass().getName() + " is isRemoving");
+            LogUtils.e(srcFragment.getClass().getName() + " is isRemoving");
             return null;
         }
         String name = destFragment.getClass().getName();

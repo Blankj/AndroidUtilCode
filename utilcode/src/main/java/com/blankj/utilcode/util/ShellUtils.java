@@ -13,7 +13,7 @@ import java.util.List;
  *     desc  : Shell相关工具类
  * </pre>
  */
-public class ShellUtils {
+public final class ShellUtils {
 
     private ShellUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

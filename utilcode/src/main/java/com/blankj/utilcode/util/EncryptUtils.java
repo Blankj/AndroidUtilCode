@@ -23,7 +23,7 @@ import javax.crypto.spec.SecretKeySpec;
  *     desc  : 加密解密相关的工具类
  * </pre>
  */
-public class EncryptUtils {
+public final class EncryptUtils {
 
     private EncryptUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -123,7 +123,7 @@ public class EncryptUtils {
      * @return 文件的16进制密文
      */
     public static String encryptMD5File2String(String filePath) {
-        File file = StringUtils.isSpace(filePath) ? null : new File(filePath);
+        File file = isSpace(filePath) ? null : new File(filePath);
         return encryptMD5File2String(file);
     }
 
@@ -134,7 +134,7 @@ public class EncryptUtils {
      * @return 文件的MD5校验码
      */
     public static byte[] encryptMD5File(String filePath) {
-        File file = StringUtils.isSpace(filePath) ? null : new File(filePath);
+        File file = isSpace(filePath) ? null : new File(filePath);
         return encryptMD5File(file);
     }
 
@@ -848,7 +848,7 @@ public class EncryptUtils {
      * @return 字节数组
      */
     private static byte[] hexString2Bytes(String hexString) {
-        if (StringUtils.isSpace(hexString)) return null;
+        if (isSpace(hexString)) return null;
         int len = hexString.length();
         if (len % 2 != 0) {
             hexString = "0" + hexString;
@@ -896,5 +896,15 @@ public class EncryptUtils {
      */
     private static byte[] base64Decode(byte[] input) {
         return Base64.decode(input, Base64.NO_WRAP);
+    }
+
+    private static boolean isSpace(String s) {
+        if (s == null) return true;
+        for (int i = 0, len = s.length(); i < len; ++i) {
+            if (!Character.isWhitespace(s.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 }

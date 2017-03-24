@@ -13,7 +13,7 @@ import android.widget.Toast;
  *     desc  : 吐司相关工具类
  * </pre>
  */
-public class ToastUtils {
+public final class ToastUtils {
 
     private ToastUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

@@ -20,7 +20,7 @@ import java.util.concurrent.TimeoutException;
  *     desc  : 线程池相关工具类
  * </pre>
  */
-public class ThreadPoolUtils {
+public final class ThreadPoolUtils {
 
     private ThreadPoolUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

@@ -24,7 +24,7 @@ import java.util.Locale;
  *     desc  : 定位相关工具类
  * </pre>
  */
-public class LocationUtils {
+public final class LocationUtils {
 
     private static OnLocationChangeListener mListener;
     private static MyLocationListener       myLocationListener;
@@ -212,13 +212,13 @@ public class LocationUtils {
             }
             switch (status) {
                 case LocationProvider.AVAILABLE:
-                    JLog.d("onStatusChanged", "当前GPS状态为可见状态");
+                    LogUtils.d("onStatusChanged", "当前GPS状态为可见状态");
                     break;
                 case LocationProvider.OUT_OF_SERVICE:
-                    JLog.d("onStatusChanged", "当前GPS状态为服务区外状态");
+                    LogUtils.d("onStatusChanged", "当前GPS状态为服务区外状态");
                     break;
                 case LocationProvider.TEMPORARILY_UNAVAILABLE:
-                    JLog.d("onStatusChanged", "当前GPS状态为暂停服务状态");
+                    LogUtils.d("onStatusChanged", "当前GPS状态为暂停服务状态");
                     break;
             }
         }

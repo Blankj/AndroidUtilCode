@@ -8,7 +8,7 @@ package com.blankj.utilcode.util;
  *     desc  : 阴历相关工具类
  * </pre>
  */
-public class LunarUtils {
+public final class LunarUtils {
 
     private LunarUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

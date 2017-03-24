@@ -22,7 +22,7 @@ import java.util.Locale;
  *     desc  : 崩溃相关工具类
  * </pre>
  */
-public class CrashUtils
+public final class CrashUtils
         implements Thread.UncaughtExceptionHandler {
 
     private volatile static CrashUtils mInstance;

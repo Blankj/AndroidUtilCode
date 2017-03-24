@@ -10,6 +10,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,7 +26,7 @@ import java.util.Set;
  *     desc  : 进程相关工具类
  * </pre>
  */
-public class ProcessUtils {
+public final class ProcessUtils {
 
     private ProcessUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -61,7 +62,7 @@ public class ProcessUtils {
                         Utils.getContext().startActivity(intent);
                     }
                     if (aom.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, info.uid, info.packageName) != AppOpsManager.MODE_ALLOWED) {
-                        JLog.d("getForegroundApp", "没有打开\"有权查看使用权限的应用\"选项");
+                        LogUtils.d("getForegroundApp", "没有打开\"有权查看使用权限的应用\"选项");
                         return null;
                     }
                     UsageStatsManager usageStatsManager = (UsageStatsManager) Utils.getContext().getSystemService(Context.USAGE_STATS_SERVICE);
@@ -80,7 +81,7 @@ public class ProcessUtils {
                     e.printStackTrace();
                 }
             } else {
-                JLog.d("getForegroundApp", "无\"有权查看使用权限的应用\"选项");
+                LogUtils.d("getForegroundApp", "无\"有权查看使用权限的应用\"选项");
             }
         }
         return null;
@@ -134,8 +135,7 @@ public class ProcessUtils {
      * @param packageName 包名
      * @return {@code true}: 杀死成功<br>{@code false}: 杀死失败
      */
-    public static boolean killBackgroundProcesses(String packageName) {
-        if (StringUtils.isSpace(packageName)) return false;
+    public static boolean killBackgroundProcesses(@NonNull String packageName) {
         ActivityManager am = (ActivityManager) Utils.getContext().getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> infos = am.getRunningAppProcesses();
         if (infos == null || infos.size() == 0) return true;

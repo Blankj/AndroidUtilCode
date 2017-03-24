@@ -21,7 +21,7 @@ import java.util.Map;
  *     desc  : Activity相关工具类
  * </pre>
  */
-public class ActivityUtils {
+public final class ActivityUtils {
 
     private ActivityUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

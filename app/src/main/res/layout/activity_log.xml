@@ -11,14 +11,70 @@
         android:padding="@dimen/spacing_small">
 
         <Button
-            android:id="@+id/btn_launch_image_activity"
+            android:id="@+id/btn_toggle_tag"
             style="@style/BtnFont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/activity.start_imageActivity" />
+            android:text="@string/log.toggle_tag" />
+
+        <Button
+            android:id="@+id/btn_toggle_border"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log.toggle_border" />
+
+        <Button
+            android:id="@+id/btn_toggle_filter"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log.toggle_filter" />
+
+        <Button
+            android:id="@+id/btn_log_v"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log.v" />
+
+        <Button
+            android:id="@+id/btn_log_d"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log.d" />
+
+        <Button
+            android:id="@+id/btn_log_i"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log.i" />
+
+        <Button
+            android:id="@+id/btn_log_w"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log.w" />
+
+        <Button
+            android:id="@+id/btn_log_e"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log.e" />
+
+        <Button
+            android:id="@+id/btn_log_a"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log.a" />
 
         <TextView
-            android:id="@+id/tv_about_activity"
+            android:id="@+id/tv_about_log"
             style="@style/Font"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -76,6 +76,17 @@
     <string name="keyboard.show_soft_input">Show Soft Input</string>
     <string name="keyboard.toggle_soft_input">Toggle Soft Input</string>
 
+    <!--Log相关-->
+    <string name="log.toggle_tag">Toggle Tag</string>
+    <string name="log.toggle_border">Toggle Border</string>
+    <string name="log.toggle_filter">Toggle Filter</string>
+    <string name="log.v">v</string>
+    <string name="log.d">d</string>
+    <string name="log.i">i</string>
+    <string name="log.w">w</string>
+    <string name="log.e">e</string>
+    <string name="log.a">a</string>
+
     <!--Phone相关-->
     <string name="phone.dial">Dial</string>
     <string name="phone.call">Call</string>

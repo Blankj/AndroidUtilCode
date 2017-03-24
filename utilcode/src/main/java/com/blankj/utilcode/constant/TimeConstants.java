@@ -13,7 +13,7 @@ import java.lang.annotation.RetentionPolicy;
  *     desc  : 时间相关常量
  * </pre>
  */
-public class TimeConstants {
+public final class TimeConstants {
 
     /**
      * 秒与毫秒的倍数

@@ -11,7 +11,7 @@ import java.io.IOException;
  *     desc  : 关闭相关工具类
  * </pre>
  */
-public class CloseUtils {
+public final class CloseUtils {
 
     private CloseUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

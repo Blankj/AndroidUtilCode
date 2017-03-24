@@ -27,7 +27,7 @@ import java.util.concurrent.Future;
  *     desc  : 网络相关工具类
  * </pre>
  */
-public class NetworkUtils {
+public final class NetworkUtils {
 
     private NetworkUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -85,10 +85,10 @@ public class NetworkUtils {
         ShellUtils.CommandResult result = ShellUtils.execCmd("ping -c 1 -w 1 223.5.5.5", false);
         boolean ret = result.result == 0;
         if (result.errorMsg != null) {
-            JLog.d("isAvailableByPing errorMsg", result.errorMsg);
+            LogUtils.d("isAvailableByPing errorMsg", result.errorMsg);
         }
         if (result.successMsg != null) {
-            JLog.d("isAvailableByPing successMsg", result.successMsg);
+            LogUtils.d("isAvailableByPing successMsg", result.successMsg);
         }
         return ret;
     }

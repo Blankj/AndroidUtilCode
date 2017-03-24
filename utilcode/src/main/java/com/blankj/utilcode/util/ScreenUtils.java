@@ -20,7 +20,7 @@ import android.view.WindowManager;
  *     desc  : 屏幕相关工具类
  * </pre>
  */
-public class ScreenUtils {
+public final class ScreenUtils {
 
     private ScreenUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
