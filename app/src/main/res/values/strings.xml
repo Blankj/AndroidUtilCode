@@ -80,12 +80,15 @@
     <string name="log.toggle_tag">Toggle Tag</string>
     <string name="log.toggle_border">Toggle Border</string>
     <string name="log.toggle_filter">Toggle Filter</string>
-    <string name="log.v">v</string>
-    <string name="log.d">d</string>
-    <string name="log.i">i</string>
-    <string name="log.w">w</string>
-    <string name="log.e">e</string>
-    <string name="log.a">a</string>
+    <string name="log.with_no_tag">Log With No Tag</string>
+    <string name="log.with_tag">Log With Tag</string>
+    <string name="log.in_new_thread">Log In New Thread</string>
+    <string name="log.null">Log Null</string>
+    <string name="log.many_params">Log Many Params</string>
+    <string name="log.long_string">Log Long String</string>
+    <string name="log.to_file">Log To File</string>
+    <string name="log.json">Log Json</string>
+    <string name="log.xml">Log Xml</string>
 
     <!--Phone相关-->
     <string name="phone.dial">Dial</string>

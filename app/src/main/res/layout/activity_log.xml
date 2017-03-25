@@ -32,46 +32,67 @@
             android:text="@string/log.toggle_filter" />
 
         <Button
-            android:id="@+id/btn_log_v"
+            android:id="@+id/btn_log_no_tag"
             style="@style/BtnFont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/log.v" />
+            android:text="@string/log.with_no_tag" />
 
         <Button
-            android:id="@+id/btn_log_d"
+            android:id="@+id/btn_log_with_tag"
             style="@style/BtnFont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/log.d" />
+            android:text="@string/log.with_tag" />
 
         <Button
-            android:id="@+id/btn_log_i"
+            android:id="@+id/btn_log_in_new_thread"
             style="@style/BtnFont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/log.i" />
+            android:text="@string/log.in_new_thread" />
 
         <Button
-            android:id="@+id/btn_log_w"
+            android:id="@+id/btn_log_null"
             style="@style/BtnFont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/log.w" />
+            android:text="@string/log.null" />
 
         <Button
-            android:id="@+id/btn_log_e"
+            android:id="@+id/btn_log_many_params"
             style="@style/BtnFont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/log.e" />
+            android:text="@string/log.many_params" />
 
         <Button
-            android:id="@+id/btn_log_a"
+            android:id="@+id/btn_log_long"
             style="@style/BtnFont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/log.a" />
+            android:text="@string/log.long_string" />
+
+        <Button
+            android:id="@+id/btn_log_file"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log.to_file" />
+
+        <Button
+            android:id="@+id/btn_log_json"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log.json" />
+
+        <Button
+            android:id="@+id/btn_log_xml"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log.xml" />
 
         <TextView
             android:id="@+id/tv_about_log"

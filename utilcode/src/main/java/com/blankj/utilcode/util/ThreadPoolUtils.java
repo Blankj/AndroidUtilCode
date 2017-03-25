@@ -1,5 +1,9 @@
 package com.blankj.utilcode.util;
 
+import android.support.annotation.IntDef;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -26,10 +30,13 @@ public final class ThreadPoolUtils {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
-    public enum Type {
-        FixedThread,
-        CachedThread,
-        SingleThread,
+    public static final int FixedThread  = 0;
+    public static final int CachedThread = 1;
+    public static final int SingleThread = 2;
+
+    @IntDef({FixedThread, CachedThread, SingleThread})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Type {
     }
 
     private ExecutorService          exec;
@@ -41,7 +48,7 @@ public final class ThreadPoolUtils {
      * @param type         线程池类型
      * @param corePoolSize 只对Fixed和Scheduled线程池起效
      */
-    public ThreadPoolUtils(Type type, int corePoolSize) {
+    public ThreadPoolUtils(@Type int type, int corePoolSize) {
         // 构造有定时功能的线程池
         // ThreadPoolExecutor(corePoolSize, Integer.MAX_VALUE, 10L, TimeUnit.MILLISECONDS, new BlockingQueue<Runnable>)
         scheduleExec = Executors.newScheduledThreadPool(corePoolSize);
@@ -60,9 +67,6 @@ public final class ThreadPoolUtils {
                 // 构造一个缓冲功能的线程池
                 // ThreadPoolExecutor(0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS, new SynchronousQueue<Runnable>());
                 exec = Executors.newCachedThreadPool();
-                break;
-            default:
-                exec = scheduleExec;
                 break;
         }
     }
