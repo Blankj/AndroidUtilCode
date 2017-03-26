@@ -61,22 +61,24 @@ public final class LogUtils {
     private static int stackIndex = 0;
     private static Callable<Boolean> sTask;
 
+
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
     private static final String TOP_BORDER     = "╔═══════════════════════════════════════════════════════════════════════════════════════════════════";
+    private static final String LEFT_BORDER    = "║ ";
     private static final String BOTTOM_BORDER  = "╚═══════════════════════════════════════════════════════════════════════════════════════════════════";
 
     private static final int    MAX_LEN   = 4000;
     private static final String NULL_TIPS = "Log with null object.";
     private static final String NULL      = "null";
-    private static final String PARAM     = "Param";
+    private static final String ARGS      = "args";
 
     public static class Builder {
 
         public Builder() {
             if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-                dir = Utils.getContext().getExternalCacheDir().getPath() + File.separator + "log" + File.separator;
+                dir = Utils.getContext().getExternalCacheDir() + File.separator + "log" + File.separator;
             } else {
-                dir = Utils.getContext().getCacheDir().getPath() + File.separator + "log" + File.separator;
+                dir = Utils.getContext().getCacheDir() + File.separator + "log" + File.separator;
             }
         }
 
@@ -190,7 +192,6 @@ public final class LogUtils {
         tag = processContents[0];
         String head = processContents[1];
         String body = processContents[2];
-        Log.d("1cmj", body);
         switch (type) {
             case V:
             case D:
@@ -252,7 +253,7 @@ public final class LogUtils {
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0, len = contents.length; i < len; ++i) {
                     Object content = contents[i];
-                    sb.append(PARAM)
+                    sb.append(ARGS)
                             .append("[")
                             .append(i)
                             .append("]")
@@ -263,18 +264,27 @@ public final class LogUtils {
                 body = sb.toString();
             }
         }
+        if (sLogBorderSwitch) {
+            StringBuilder sb = new StringBuilder();
+            String[] lines = body.split(LINE_SEPARATOR);
+            for (String line : lines) {
+                sb.append(LEFT_BORDER).append(line).append(LINE_SEPARATOR);
+            }
+            body = sb.substring(2);
+        }
         return new String[]{tag, head, body};
     }
 
     private static void printLog(int type, String tag, String head, String msg) {
-        if (sLogBorderSwitch) printSubLog(type, tag, TOP_BORDER);
+        if (sLogBorderSwitch) printBorder(type, tag, true);
         printSubLog(type, tag, head);
         int len = msg.length();
         int countOfSub = len / MAX_LEN;
         if (countOfSub > 0) {
             int index = 0;
+            String sub;
             for (int i = 0; i < countOfSub; i++) {
-                String sub = msg.substring(index, index + MAX_LEN);
+                sub = msg.substring(index, index + MAX_LEN);
                 printSubLog(type, tag, sub);
                 index += MAX_LEN;
             }
@@ -282,10 +292,11 @@ public final class LogUtils {
         } else {
             printSubLog(type, tag, msg);
         }
-        if (sLogBorderSwitch) printSubLog(type, tag, BOTTOM_BORDER);
+        if (sLogBorderSwitch) printBorder(type, tag, false);
     }
 
-    private static void printSubLog(int type, final String tag, final String msg) {
+    private static void printSubLog(final int type, final String tag, String msg) {
+        if (sLogBorderSwitch) msg = LEFT_BORDER + msg;
         switch (type) {
             case V:
                 Log.v(tag, msg);
@@ -304,6 +315,30 @@ public final class LogUtils {
                 break;
             case A:
                 Log.wtf(tag, msg);
+                break;
+        }
+    }
+
+    private static void printBorder(int type, String tag, boolean isTop) {
+        String border = isTop ? TOP_BORDER : BOTTOM_BORDER;
+        switch (type) {
+            case V:
+                Log.v(tag, border);
+                break;
+            case D:
+                Log.d(tag, border);
+                break;
+            case I:
+                Log.i(tag, border);
+                break;
+            case W:
+                Log.w(tag, border);
+                break;
+            case E:
+                Log.e(tag, border);
+                break;
+            case A:
+                Log.wtf(tag, border);
                 break;
         }
     }
@@ -360,9 +395,9 @@ public final class LogUtils {
             }
         }
         if (isSuccess) {
-            printSubLog(type, tag, "log to " + fullPath + "success >> ");
+            Log.d(tag, "log to " + fullPath + "success!");
         } else {
-            printSubLog(type, tag, "log to file failed!");
+            Log.e(tag, "log to " + fullPath + " failed!");
         }
     }
 

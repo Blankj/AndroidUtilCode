@@ -38,6 +38,6 @@ public class UtilsApp extends Application {
         appContext = this;
         Utils.init(appContext);
         CrashUtils.getInstance().init();
-        lBuilder = new LogUtils.Builder();
+        lBuilder = new LogUtils.Builder().setLogSwitch(BuildConfig.DEBUG);
     }
 }

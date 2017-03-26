@@ -80,6 +80,7 @@
     <string name="log.toggle_tag">Toggle Tag</string>
     <string name="log.toggle_border">Toggle Border</string>
     <string name="log.toggle_filter">Toggle Filter</string>
+    <string name="log.toggle_file">Toggle File</string>
     <string name="log.with_no_tag">Log With No Tag</string>
     <string name="log.with_tag">Log With Tag</string>
     <string name="log.in_new_thread">Log In New Thread</string>

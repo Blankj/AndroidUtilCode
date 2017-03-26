@@ -30,13 +30,14 @@ public class LogActivity extends Activity
 
     private String  globalTag = "";
     private boolean border    = false;
+    private boolean file      = false;
     private int     filter    = LogUtils.V;
 
     private static final int UPDATE_TAG    = 0x01;
-    private static final int UPDATE_BORDER = 0x01 << 1;
-    private static final int UPDATE_FILTER = 0x01 << 2;
+    private static final int UPDATE_FILE   = 0x01 << 1;
+    private static final int UPDATE_BORDER = 0x01 << 2;
+    private static final int UPDATE_FILTER = 0x01 << 3;
 
-    private Thread mThread;
     private Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
@@ -55,7 +56,7 @@ public class LogActivity extends Activity
 
     static {
         StringBuilder sb = new StringBuilder();
-        sb.append("len = 10400\n content = \"");
+        sb.append("len = 10400\ncontent = \"");
         for (int i = 0; i < 800; ++i) {
             sb.append("Hello world. ");
         }
@@ -71,6 +72,7 @@ public class LogActivity extends Activity
         mBuilder = UtilsApp.lBuilder;
         findViewById(R.id.btn_toggle_tag).setOnClickListener(this);
         findViewById(R.id.btn_toggle_border).setOnClickListener(this);
+        findViewById(R.id.btn_toggle_file).setOnClickListener(this);
         findViewById(R.id.btn_toggle_filter).setOnClickListener(this);
         findViewById(R.id.btn_log_no_tag).setOnClickListener(this);
         findViewById(R.id.btn_log_with_tag).setOnClickListener(this);
@@ -90,6 +92,9 @@ public class LogActivity extends Activity
         switch (view.getId()) {
             case R.id.btn_toggle_tag:
                 updateAbout(UPDATE_TAG);
+                break;
+            case R.id.btn_toggle_file:
+                updateAbout(UPDATE_FILE);
                 break;
             case R.id.btn_toggle_border:
                 updateAbout(UPDATE_BORDER);
@@ -114,8 +119,8 @@ public class LogActivity extends Activity
                 LogUtils.a("customTag", "assert");
                 break;
             case R.id.btn_log_in_new_thread:
-                mThread = new Thread(mRunnable);
-                mThread.start();
+                Thread thread = new Thread(mRunnable);
+                thread.start();
                 break;
             case R.id.btn_log_null:
                 LogUtils.v(null);
@@ -153,6 +158,9 @@ public class LogActivity extends Activity
             case UPDATE_TAG:
                 globalTag = globalTag.equals(TAG) ? "" : TAG;
                 break;
+            case UPDATE_FILE:
+                file = !file;
+                break;
             case UPDATE_BORDER:
                 border = !border;
                 break;
@@ -161,9 +169,11 @@ public class LogActivity extends Activity
                 break;
         }
         mBuilder.setGlobalTag(globalTag)
+                .setLog2FileSwitch(file)
                 .setBorderSwitch(border)
                 .setLogFilter(filter);
         tvAboutLog.setText("tag: " + (globalTag.equals("") ? "null" : TAG)
+                + "\nfile: " + String.valueOf(file)
                 + "\nborder: " + String.valueOf(border)
                 + "\nfilter: " + (filter == LogUtils.V ? "Verbose" : "Warn")
         );
