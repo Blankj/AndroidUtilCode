@@ -504,7 +504,8 @@ clear     : SP中清除所有数据
 > - **字符串相关→[StringUtils.java][string.java]→[Test][string.test]**
  ```
 isEmpty         : 判断字符串是否为null或长度为0
-isSpace         : 判断字符串是否为null或全为空格
+isTrimEmpty     : 判断字符串是否为null或全为空格
+isSpace         : 判断字符串是否为null或全为空白字符
 equals          : 判断两字符串是否相等
 equalsIgnoreCase: 判断两字符串忽略大小写是否相等
 null2Length0    : null转为长度为0的字符串
@@ -596,7 +597,7 @@ getEntries        : 获取压缩文件中的文件对象
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.3.6'
+compile 'com.blankj:utilcode:1.3.7'
 ```
 
 ## How to use

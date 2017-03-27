@@ -386,13 +386,13 @@ public final class LogUtils {
         }
         String time = new SimpleDateFormat("MM-dd HH:mm:ss.SSS ", Locale.getDefault()).format(now);
         StringBuilder sb = new StringBuilder();
-        if (sLogBorderSwitch) sb.append(TOP_BORDER);
+        if (sLogBorderSwitch) sb.append(TOP_BORDER).append(LINE_SEPARATOR);
         sb.append(time)
                 .append(tag)
                 .append(": ")
                 .append(msg)
                 .append(LINE_SEPARATOR);
-        if (sLogBorderSwitch) sb.append(BOTTOM_BORDER);
+        if (sLogBorderSwitch) sb.append(BOTTOM_BORDER).append(LINE_SEPARATOR);
         final String dateLogContent = sb.toString();
         new Thread(new Runnable() {
             @Override

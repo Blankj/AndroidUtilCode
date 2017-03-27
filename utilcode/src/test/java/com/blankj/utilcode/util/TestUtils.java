@@ -32,8 +32,8 @@ public class TestUtils {
     @Test
     public void readme2Eng() throws Exception {
         formatCN();
-        File readmeCN = new File(new File(System.getProperty("user.dir")).getParent() + SEP + "README-CN.md");
-        File readmeEng = new File(new File(System.getProperty("user.dir")).getParent() + SEP + "README.md");
+        File readmeCN = new File(new File(System.getProperty("user.dir")).getAbsolutePath() + SEP + "README-CN.md");
+        File readmeEng = new File(new File(System.getProperty("user.dir")).getAbsolutePath() + SEP + "README.md");
         List<String> list = FileUtils.readFile2List(readmeCN, "UTF-8");
         StringBuilder sb = new StringBuilder("# Android developers should collect the following utils\r\n\r\n" +
                 "## [README of Chinese][readme-cn.md]\r\n\r\n" +
@@ -59,7 +59,7 @@ public class TestUtils {
 
     @Test
     public void formatCN() throws Exception {
-        File readmeCN = new File(new File(System.getProperty("user.dir")).getParent() + SEP + "README-CN.md");
+        File readmeCN = new File(new File(System.getProperty("user.dir")).getAbsolutePath() + SEP + "README-CN.md");
         List<String> list = FileUtils.readFile2List(readmeCN, "UTF-8");
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 4; i++) {
@@ -102,6 +102,6 @@ public class TestUtils {
 
     @Test
     public void test() throws Exception {
-
+        System.out.println(System.getProperty("user.dir"));
     }
 }

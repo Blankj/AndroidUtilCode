@@ -504,6 +504,7 @@ clear
 > - **About String→[StringUtils.java][string.java]→[Test][string.test]**
  ```
 isEmpty
+isTrimEmpty
 isSpace
 equals
 equalsIgnoreCase
@@ -594,7 +595,7 @@ getEntries
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.3.6'
+compile 'com.blankj:utilcode:1.3.7'
 ```
 
 ## How to use
@@ -648,8 +649,6 @@ limitations under the License.
 [clipboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ClipboardUtils.java
 
 [close.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CloseUtils.java
-
-[const.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ConstUtils.java
 
 [convert.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ConvertUtils.java
 [convert.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/ConvertUtilsTest.java
