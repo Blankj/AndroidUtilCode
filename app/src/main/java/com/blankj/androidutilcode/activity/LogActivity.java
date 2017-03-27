@@ -29,7 +29,7 @@ public class LogActivity extends Activity
     private TextView tvAboutLog;
 
     private String  globalTag = "";
-    private boolean border    = false;
+    private boolean border    = true;
     private boolean file      = false;
     private int     filter    = LogUtils.V;
 
@@ -51,8 +51,9 @@ public class LogActivity extends Activity
     };
 
     private static final String longStr;
+
     private String json = "{\"tools\": [{ \"name\":\"css format\" , \"site\":\"http://tools.w3cschool.cn/code/css\" },{ \"name\":\"json format\" , \"site\":\"http://tools.w3cschool.cn/code/json\" },{ \"name\":\"pwd check\" , \"site\":\"http://tools.w3cschool.cn/password/my_password_safe\" }]}";
-    private String xml  = "<books>  <book>  <author>Jack Herrington</author>  <title>PHP Hacks</title>  <publisher>O'Reilly</publisher>  </book>  <book>  <author>Jack Herrington</author>  <title>Podcasting Hacks</title>  <publisher>O'Reilly</publisher>  </book>  </books>";
+    private String xml = "<books><book><author>Jack Herrington</author><title>PHP Hacks</title><publisher>O'Reilly</publisher></book><book><author>Jack Herrington</author><title>Podcasting Hacks</title><publisher>O'Reilly</publisher></book></books>";
 
     static {
         StringBuilder sb = new StringBuilder();
@@ -142,13 +143,13 @@ public class LogActivity extends Activity
                 LogUtils.d(longStr);
                 break;
             case R.id.btn_log_file:
-                //TODO implement
+                LogUtils.file(longStr);
                 break;
             case R.id.btn_log_json:
-                //TODO implement
+                LogUtils.json(json);
                 break;
             case R.id.btn_log_xml:
-                //TODO implement
+                LogUtils.xml(xml);
                 break;
         }
     }

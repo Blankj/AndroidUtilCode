@@ -4,21 +4,29 @@ import android.os.Environment;
 import android.support.annotation.IntDef;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.Locale;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 /**
  * <pre>
@@ -51,21 +59,17 @@ public final class LogUtils {
     private static final int XML  = 0xF4;
 
     private static String dir;                      // log存储目录
+    private static boolean sLogSwitch       = true; // log总开关
     private static String  sGlobalTag       = null; // log标签
     private static boolean sTagIsSpace      = true; // log标签是否为空白
-    private static boolean sLogSwitch       = true; // log总开关
     private static boolean sLog2FileSwitch  = false;// log写入文件开关
-    private static boolean sLogBorderSwitch = false;// log边框开关
+    private static boolean sLogBorderSwitch = true; // log边框开关
     private static int     sLogFilter       = V;    // log过滤器
 
-    private static int stackIndex = 0;
-    private static Callable<Boolean> sTask;
-
-
-    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
     private static final String TOP_BORDER     = "╔═══════════════════════════════════════════════════════════════════════════════════════════════════";
     private static final String LEFT_BORDER    = "║ ";
     private static final String BOTTOM_BORDER  = "╚═══════════════════════════════════════════════════════════════════════════════════════════════════";
+    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
     private static final int    MAX_LEN   = 4000;
     private static final String NULL_TIPS = "Log with null object.";
@@ -188,10 +192,9 @@ public final class LogUtils {
 
     private static void log(int type, String tag, Object... contents) {
         if (!sLogSwitch) return;
-        String[] processContents = processContents(tag, contents);
+        final String[] processContents = processContents(type, tag, contents);
         tag = processContents[0];
-        String head = processContents[1];
-        String body = processContents[2];
+        String msg = processContents[1];
         switch (type) {
             case V:
             case D:
@@ -200,27 +203,26 @@ public final class LogUtils {
             case E:
             case A:
                 if (V == sLogFilter || type >= sLogFilter) {
-                    printLog(type, tag, head, body);
+                    printLog(type, tag, msg);
                 }
                 if (sLog2FileSwitch) {
-                    print2File(type, tag, head, body);
+                    print2File(tag, msg);
                 }
                 break;
             case FILE:
-                if (!sLog2FileSwitch) return;
-                print2File(type, tag, head, body);
+                print2File(tag, msg);
                 break;
             case JSON:
-//                printJson();
+                printLog(D, tag, msg);
                 break;
             case XML:
-//                printXml();
+                printLog(D, tag, msg);
                 break;
         }
 
     }
 
-    private static String[] processContents(String tag, Object... contents) {
+    private static String[] processContents(int type, String tag, Object... contents) {
         StackTraceElement targetElement = Thread.currentThread().getStackTrace()[5];
         String className = targetElement.getClassName();
         String[] classNameInfo = className.split("\\.");
@@ -237,18 +239,22 @@ public final class LogUtils {
         }
 
         String head = new Formatter()
-                .format("Thread: %s, %s(%s.java:%d)",
+                .format("Thread: %s, %s(%s.java:%d)" + LINE_SEPARATOR,
                         Thread.currentThread().getName(),
                         targetElement.getMethodName(),
                         className,
                         targetElement.getLineNumber())
                 .toString();
-
-        String body = NULL_TIPS;
+        String msg = NULL_TIPS;
         if (contents != null) {
             if (contents.length == 1) {
                 Object object = contents[0];
-                body = object == null ? NULL : object.toString();
+                msg = object == null ? NULL : object.toString();
+                if (type == JSON) {
+                    msg = formatJson(msg);
+                } else if (type == XML) {
+                    msg = formatXml(msg);
+                }
             } else {
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0, len = contents.length; i < len; ++i) {
@@ -261,23 +267,50 @@ public final class LogUtils {
                             .append(content == null ? NULL : content.toString())
                             .append(LINE_SEPARATOR);
                 }
-                body = sb.toString();
+                msg = sb.toString();
             }
         }
         if (sLogBorderSwitch) {
             StringBuilder sb = new StringBuilder();
-            String[] lines = body.split(LINE_SEPARATOR);
+            String[] lines = msg.split(LINE_SEPARATOR);
             for (String line : lines) {
                 sb.append(LEFT_BORDER).append(line).append(LINE_SEPARATOR);
             }
-            body = sb.substring(2);
+            msg = sb.toString();
         }
-        return new String[]{tag, head, body};
+        return new String[]{tag, head + msg};
     }
 
-    private static void printLog(int type, String tag, String head, String msg) {
+    private static String formatJson(String json) {
+        try {
+            if (json.startsWith("{")) {
+                json = new JSONObject(json).toString(4);
+            } else if (json.startsWith("[")) {
+                json = new JSONArray(json).toString(4);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
+
+    private static String formatXml(String xml) {
+        try {
+            Source xmlInput = new StreamSource(new StringReader(xml));
+            StreamResult xmlOutput = new StreamResult(new StringWriter());
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+            transformer.transform(xmlInput, xmlOutput);
+            xml = xmlOutput.getWriter().toString().replaceFirst(">", ">" + LINE_SEPARATOR);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return xml;
+    }
+
+    private static void printLog(int type, String tag, String msg) {
         if (sLogBorderSwitch) printBorder(type, tag, true);
-        printSubLog(type, tag, head);
         int len = msg.length();
         int countOfSub = len / MAX_LEN;
         if (countOfSub > 0) {
@@ -343,62 +376,46 @@ public final class LogUtils {
         }
     }
 
-    private synchronized static void print2File(int type, String tag, final String head, final String msg) {
-        boolean isSuccess = false;
+    private synchronized static void print2File(final String tag, final String msg) {
         Date now = new Date();
         String date = new SimpleDateFormat("MM-dd", Locale.getDefault()).format(now);
         final String fullPath = dir + date + ".txt";
         if (!createOrExistsFile(fullPath)) {
-            String time = new SimpleDateFormat("MM-dd HH:mm:ss.SSS ", Locale.getDefault()).format(now);
-            StringBuilder sb = new StringBuilder();
-            if (sLogBorderSwitch) sb.append(TOP_BORDER);
-            sb.append(time)
-                    .append(tag)
-                    .append(": ")
-                    .append(head)
-                    .append(LINE_SEPARATOR)
-                    .append(time)
-                    .append(tag)
-                    .append(": ")
-                    .append(msg)
-                    .append(LINE_SEPARATOR);
-            if (sLogBorderSwitch) sb.append(BOTTOM_BORDER);
-            final String dateLogContent = sb.toString();
-            ExecutorService executor = Executors.newSingleThreadExecutor();
-            sTask = new Callable<Boolean>() {
-                @Override
-                public Boolean call() throws Exception {
-                    BufferedWriter bw = null;
+            Log.e(tag, "log to " + fullPath + " failed!");
+            return;
+        }
+        String time = new SimpleDateFormat("MM-dd HH:mm:ss.SSS ", Locale.getDefault()).format(now);
+        StringBuilder sb = new StringBuilder();
+        if (sLogBorderSwitch) sb.append(TOP_BORDER);
+        sb.append(time)
+                .append(tag)
+                .append(": ")
+                .append(msg)
+                .append(LINE_SEPARATOR);
+        if (sLogBorderSwitch) sb.append(BOTTOM_BORDER);
+        final String dateLogContent = sb.toString();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                BufferedWriter bw = null;
+                try {
+                    bw = new BufferedWriter(new FileWriter(fullPath, true));
+                    bw.write(dateLogContent);
+                    Log.d(tag, "log to " + fullPath + " success!");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.e(tag, "log to " + fullPath + " failed!");
+                } finally {
                     try {
-                        bw = new BufferedWriter(new FileWriter(fullPath, true));
-                        bw.write(dateLogContent);
-                        return true;
+                        if (bw != null) {
+                            bw.close();
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
-                        return false;
-                    } finally {
-                        try {
-                            if (bw != null) {
-                                bw.close();
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
                     }
                 }
-            };
-            Future<Boolean> future = executor.submit(sTask);
-            try {
-                isSuccess = future.get();
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
             }
-        }
-        if (isSuccess) {
-            Log.d(tag, "log to " + fullPath + "success!");
-        } else {
-            Log.e(tag, "log to " + fullPath + " failed!");
-        }
+        }).start();
     }
 
     private static boolean createOrExistsFile(String filePath) {

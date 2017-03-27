@@ -306,15 +306,17 @@ getLocality
 getStreet
  ```
 
-> - **About Log→[LogUtils.java][log.java]→[Test][log.test]**
+> - **About Log→[LogUtils.java][log.java]→[Demo][log.demo]**
  ```
-init
-getBuilder
 v
 d
 i
 w
 e
+a
+file
+json
+xml
  ```
 
 > - **About Network→[NetworkUtils.java][network.java]→[Demo][network.demo]**
@@ -687,7 +689,7 @@ limitations under the License.
 [location.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/LocationActivity.java
 
 [log.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/LogUtils.java
-[log.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/LogUtilsTest.java
+[log.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/LogActivity.java
 
 [network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/NetworkUtils.java
 [network.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/NetworkActivity.java

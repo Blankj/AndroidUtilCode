@@ -306,15 +306,17 @@ getLocality      : 根据经纬度获取所在地
 getStreet        : 根据经纬度获取所在街道
  ```
 
-> - **日志相关→[LogUtils.java][log.java]→[Test][log.test]**
+> - **日志相关→[LogUtils.java][log.java]→[Demo][log.demo]**
  ```
-init      : 初始化函数
-getBuilder: 获取LogUtils建造者
-v         : Verbose日志
-d         : Debug日志
-i         : Info日志
-w         : Warn日志
-e         : Error日志
+v   : Verbose日志
+d   : Debug日志
+i   : Info日志
+w   : Warn日志
+e   : Error日志
+a   : Assert日志
+file: log到文件
+json: log字符串之json
+xml : log字符串之xml
  ```
 
 > - **网络相关→[NetworkUtils.java][network.java]→[Demo][network.demo]**
@@ -687,7 +689,7 @@ limitations under the License.
 [location.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/LocationActivity.java
 
 [log.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/LogUtils.java
-[log.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/LogUtilsTest.java
+[log.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/LogActivity.java
 
 [network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/NetworkUtils.java
 [network.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/NetworkActivity.java
