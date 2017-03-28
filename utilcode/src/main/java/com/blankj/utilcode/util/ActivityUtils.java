@@ -1,6 +1,7 @@
 package com.blankj.utilcode.util;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -60,7 +61,7 @@ public final class ActivityUtils {
      * @param bundle      bundle
      */
     public static void launchActivity(String packageName, String className, Bundle bundle) {
-        Utils.getContext().startActivity(IntentUtils.getComponentIntent(packageName, className, bundle));
+        Utils.getContext().startActivity(getComponentIntent(packageName, className, bundle));
     }
 
     /**
@@ -115,5 +116,13 @@ public final class ActivityUtils {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private static Intent getComponentIntent(String packageName, String className, Bundle bundle) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        if (bundle != null) intent.putExtras(bundle);
+        ComponentName cn = new ComponentName(packageName, className);
+        intent.setComponent(cn);
+        return intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 }
