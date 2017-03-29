@@ -4,14 +4,14 @@
 
 为方便查找，已进行大致归类，其目录如下所示：
 
-> - **Activity相关→[ActivityUtils.java][activity.java]→[Demo][activity.demo]**
+* ### Activity相关→[ActivityUtils.java][activity.java]→[Demo][activity.demo]
  ```
 isActivityExists   : 判断是否存在Activity
 launchActivity     : 打开Activity
 getLauncherActivity: 获取入口activity
  ```
 
-> - **App相关→[AppUtils.java][app.java]→[Demo][app.demo]**
+* ### App相关→[AppUtils.java][app.java]→[Demo][app.demo]
  ```
 isInstallApp         : 判断App是否安装
 installApp           : 安装App（支持6.0）
@@ -38,7 +38,7 @@ getAppsInfo          : 获取所有已安装App信息
 cleanAppData         : 清除App所有数据
  ```
 
-> - **栏相关→[BarUtils.java][bar.java]**
+* ### 栏相关→[BarUtils.java][bar.java]
  ```
 setTransparentStatusBar: 设置透明状态栏（api大于19方可使用）
 hideStatusBar          : 隐藏状态栏
@@ -49,7 +49,7 @@ showNotificationBar    : 显示通知栏
 hideNotificationBar    : 隐藏通知栏
  ```
 
-> - **清除相关→[CleanUtils.java][clean.java]→[Demo][clean.demo]**
+* ### 清除相关→[CleanUtils.java][clean.java]→[Demo][clean.demo]
  ```
 cleanInternalCache   : 清除内部缓存
 cleanInternalFiles   : 清除内部文件
@@ -60,7 +60,7 @@ cleanExternalCache   : 清除外部缓存
 cleanCustomCache     : 清除自定义目录下的文件
  ```
 
-> - **剪贴板相关→[ClipboardUtils.java][clipboard.java]**
+* ### 剪贴板相关→[ClipboardUtils.java][clipboard.java]
  ```
 copyText  : 复制文本到剪贴板
 getText   : 获取剪贴板的文本
@@ -70,13 +70,13 @@ copyIntent: 复制意图到剪贴板
 getIntent : 获取剪贴板的意图
  ```
 
-> - **关闭相关→[CloseUtils.java][close.java]**
+* ### 关闭相关→[CloseUtils.java][close.java]
  ```
 closeIO       : 关闭IO
 closeIOQuietly: 安静关闭IO
  ```
 
-> - **转换相关→[ConvertUtils.java][convert.java]→[Test][convert.test]**
+* ### 转换相关→[ConvertUtils.java][convert.java]→[Test][convert.test]
  ```
 bytes2HexString, hexString2Bytes        : byteArr与hexString互转
 chars2Bytes, bytes2Chars                : charArr与byteArr互转
@@ -98,13 +98,13 @@ dp2px, px2dp                            : dp与px互转
 sp2px, px2sp                            : sp与px互转
  ```
 
-> - **崩溃相关→[CrashUtils.java][crash.java]**
+* ### 崩溃相关→[CrashUtils.java][crash.java]
  ```
 getInstance: 获取单例
 init       : 初始化
  ```
 
-> - **设备相关→[DeviceUtils.java][device.java]→[Demo][device.demo]**
+* ### 设备相关→[DeviceUtils.java][device.java]→[Demo][device.demo]
  ```
 isDeviceRooted   : 判断设备是否rooted
 getSDKVersion    : 获取设备系统版本号
@@ -118,13 +118,13 @@ reboot2Recovery  : 重启到recovery
 reboot2Bootloader: 重启到bootloader
  ```
 
-> - **判空相关→[EmptyUtils.java][empty.java]→[Test][empty.test]**
+* ### 判空相关→[EmptyUtils.java][empty.java]→[Test][empty.test]
  ```
 isEmpty   : 判断对象是否为空
 isNotEmpty: 判断对象是否非空
  ```
 
-> - **编码解码相关→[EncodeUtils.java][encode.java]→[Test][encode.test]**
+* ### 编码解码相关→[EncodeUtils.java][encode.java]→[Test][encode.test]
  ```
 urlEncode          : URL编码
 urlDecode          : URL解码
@@ -136,7 +136,7 @@ htmlEncode         : Html编码
 htmlDecode         : Html解码
  ```
 
-> - **加密解密相关→[EncryptUtils.java][encrypt.java]→[Test][encrypt.test]**
+* ### 加密解密相关→[EncryptUtils.java][encrypt.java]→[Test][encrypt.test]
  ```
 encryptMD2, encryptMD2ToString                        : MD2加密
 encryptMD5, encryptMD5ToString                        : MD5加密
@@ -160,7 +160,7 @@ encryptAES, encryptAES2HexString, encryptAES2Base64   : AES加密
 decryptAES, decryptHexStringAES, decryptBase64AES     : AES解密
  ```
 
-> - **文件相关→[FileUtils.java][file.java]→[Test][file.test]**
+* ### 文件相关→[FileUtils.java][file.java]→[Test][file.test]
  ```
 getFileByPath            : 根据文件路径获取文件
 isFileExists             : 判断文件是否存在
@@ -203,7 +203,7 @@ getFileNameNoExtension   : 根据全路径获取文件名不带拓展名
 getFileExtension         : 根据全路径获取文件拓展名
  ```
 
-> - **Fragment相关→[FragmentUtils.java][fragment.java]→[Demo][fragment.demo]**
+* ### Fragment相关→[FragmentUtils.java][fragment.java]→[Demo][fragment.demo]
  ```
 addFragment              : 新增fragment
 addFragments             : 新增多个fragment
@@ -237,12 +237,12 @@ setBackgroundResource    : 设置背景资源
 setBackground            : 设置背景
  ```
 
-> - **Handler相关→[HandlerUtils.java][handler.java]→[Demo][handler.demo]**
+* ### Handler相关→[HandlerUtils.java][handler.java]→[Demo][handler.demo]
  ```
 HandlerHolder: 使用必读
  ```
 
-> - **图片相关→[ImageUtils.java][image.java]→[Demo][image.demo]**
+* ### 图片相关→[ImageUtils.java][image.java]→[Demo][image.demo]
  ```
 bitmap2Bytes, bytes2Bitmap      : bitmap与byteArr互转
 drawable2Bitmap, bitmap2Drawable: drawable与bitmap互转
@@ -272,7 +272,7 @@ compressByQuality               : 按质量压缩
 compressBySampleSize            : 按采样大小压缩
  ```
 
-> - **意图相关→[IntentUtils.java][intent.java]**
+* ### 意图相关→[IntentUtils.java][intent.java]
  ```
 getInstallAppIntent        : 获取安装App（支持6.0）的意图
 getUninstallAppIntent      : 获取卸载App的意图
@@ -285,7 +285,7 @@ getShutdownIntent          : 获取关机的意图
 getCaptureIntent           : 获取拍照的意图
  ```
 
-> - **键盘相关→[KeyboardUtils.java][keyboard.java]→[Demo][keyboard.demo]**
+* ### 键盘相关→[KeyboardUtils.java][keyboard.java]→[Demo][keyboard.demo]
  ```
 hideSoftInput               : 动态隐藏软键盘
 clickBlankArea2HideSoftInput: 点击屏幕空白区域隐藏软键盘
@@ -293,7 +293,7 @@ showSoftInput               : 动态显示软键盘
 toggleSoftInput             : 切换键盘显示与否状态
  ```
 
-> - **定位相关→[LocationUtils.java][location.java]→[Demo][location.demo]**
+* ### 定位相关→[LocationUtils.java][location.java]→[Demo][location.demo]
  ```
 isGpsEnabled     : 判断Gps是否可用
 isLocationEnabled: 判断定位是否可用
@@ -306,7 +306,7 @@ getLocality      : 根据经纬度获取所在地
 getStreet        : 根据经纬度获取所在街道
  ```
 
-> - **日志相关→[LogUtils.java][log.java]→[Demo][log.demo]**
+* ### 日志相关→[LogUtils.java][log.java]→[Demo][log.demo]
  ```
 v   : Verbose日志
 d   : Debug日志
@@ -319,7 +319,7 @@ json: log字符串之json
 xml : log字符串之xml
  ```
 
-> - **网络相关→[NetworkUtils.java][network.java]→[Demo][network.demo]**
+* ### 网络相关→[NetworkUtils.java][network.java]→[Demo][network.demo]
  ```
 openWirelessSettings  : 打开网络设置界面
 isConnected           : 判断网络是否连接
@@ -337,7 +337,7 @@ getIPAddress          : 获取IP地址
 getDomainAddress      : 获取域名ip地址
  ```
 
-> - **手机相关→[PhoneUtils.java][phone.java]→[Demo][phone.demo]**
+* ### 手机相关→[PhoneUtils.java][phone.java]→[Demo][phone.demo]
  ```
 isPhone            : 判断设备是否是手机
 getIMEI            : 获取IMEI码
@@ -356,7 +356,7 @@ getContactNum      : 打开手机联系人界面点击联系人后便获取该�
 getAllSMS          : 获取手机短信并保存到xml中
  ```
 
-> - **拼音相关→[PinyinUtils.java][pinyin.java]→[Test][pinyin.test]**
+* ### 拼音相关→[PinyinUtils.java][pinyin.java]→[Test][pinyin.test]
  ```
 ccs2Pinyin           : 汉字转拼音
 ccs2Pinyin           : 汉字转拼音
@@ -366,14 +366,14 @@ getSurnamePinyin     : 根据名字获取姓氏的拼音
 getSurnameFirstLetter: 根据名字获取姓氏的首字母
  ```
 
-> - **进程相关→[ProcessUtils.java][process.java]→[Demo][process.demo]**
+* ### 进程相关→[ProcessUtils.java][process.java]→[Demo][process.demo]
  ```
 getForegroundProcessName  : 获取前台线程包名
 killAllBackgroundProcesses: 杀死所有的后台服务进程
 killBackgroundProcesses   : 杀死后台服务进程
  ```
 
-> - **正则相关→[RegexUtils.java][regex.java]→[Test][regex.test]**
+* ### 正则相关→[RegexUtils.java][regex.java]→[Test][regex.test]
  ```
 isMobileSimple : 验证手机号（简单）
 isMobileExact  : 验证手机号（精确）
@@ -393,7 +393,7 @@ getReplaceFirst: 替换正则匹配的第一部分
 getReplaceAll  : 替换所有正则匹配的部分
  ```
 
-> - **屏幕相关→[ScreenUtils.java][screen.java]**
+* ### 屏幕相关→[ScreenUtils.java][screen.java]
  ```
 getScreenWidth         : 获取屏幕的宽度（单位：px）
 getScreenHeight        : 获取屏幕的高度（单位：px）
@@ -407,7 +407,7 @@ captureWithoutStatusBar: 获取当前屏幕截图，不包含状态栏
 isScreenLock           : 判断是否锁屏
  ```
 
-> - **SD卡相关→[SDCardUtils.java][sdcard.java]→[Demo][sdcard.demo]**
+* ### SD卡相关→[SDCardUtils.java][sdcard.java]→[Demo][sdcard.demo]
  ```
 isSDCardEnable: 判断SD卡是否可用
 getSDCardPath : 获取SD卡路径
@@ -416,7 +416,7 @@ getFreeSpace  : 计算SD卡的剩余空间
 getSDCardInfo : 获取SD卡信息
  ```
 
-> - **服务相关→[ServiceUtils.java][service.java]**
+* ### 服务相关→[ServiceUtils.java][service.java]
  ```
 getAllRunningService: 获取所有运行的服务
 startService        : 启动服务
@@ -426,12 +426,12 @@ unbindService       : 解绑服务
 isServiceRunning    : 判断服务是否运行
  ```
 
-> - **Shell相关→[ShellUtils.java][shell.java]**
+* ### Shell相关→[ShellUtils.java][shell.java]
  ```
 execCmd: 是否是在root下执行命令
  ```
 
-> - **尺寸相关→[SizeUtils.java][size.java]**
+* ### 尺寸相关→[SizeUtils.java][size.java]
  ```
 dp2px, px2dp     : dp与px转换
 sp2px, px2sp     : sp与px转换
@@ -442,7 +442,7 @@ getMeasuredWidth : 获取测量视图宽度
 getMeasuredHeight: 获取测量视图高度
  ```
 
-> - **Snackbar相关→[SnackbarUtils.java][snackbar.java]→[Demo][snackbar.demo]**
+* ### Snackbar相关→[SnackbarUtils.java][snackbar.java]→[Demo][snackbar.demo]
  ```
 showShortSnackbar     : 显示短时snackbar
 showLongSnackbar      : 显示长时snackbar
@@ -451,7 +451,7 @@ addView               : 为SnackBar添加布局
 dismissSnackbar       : 取消snackbar显示
  ```
 
-> - **SpannableString相关工具类→[SpannableStringUtils.java][spannable.java]→[Demo][spannable.demo]**
+* ### SpannableString相关工具类→[SpannableStringUtils.java][spannable.java]→[Demo][spannable.demo]
  ```
 getBuilder        : 获取建造者
 setFlag           : 设置标识
@@ -482,7 +482,7 @@ append            : 追加样式字符串
 create            : 创建样式字符串
  ```
 
-> - **SP相关→[SPUtils.java][sp.java]→[Test][sp.test]**
+* ### SP相关→[SPUtils.java][sp.java]→[Test][sp.test]
  ```
 SPUtils   : SPUtils构造函数
 put       : SP中写入数据
@@ -501,7 +501,7 @@ contains  : SP中是否存在该key
 clear     : SP中清除所有数据
  ```
 
-> - **字符串相关→[StringUtils.java][string.java]→[Test][string.test]**
+* ### 字符串相关→[StringUtils.java][string.java]→[Test][string.test]
  ```
 isEmpty         : 判断字符串是否为null或长度为0
 isTrimEmpty     : 判断字符串是否为null或全为空格
@@ -517,7 +517,7 @@ toDBC           : 转化为半角字符
 toSBC           : 转化为全角字符
  ```
 
-> - **线程池相关→[ThreadPoolUtils.java][thread_pool.java]**
+* ### 线程池相关→[ThreadPoolUtils.java][thread_pool.java]
  ```
 ThreadPoolUtils       : ThreadPoolUtils构造函数
 execute               : 在未来某个时间执行给定的命令
@@ -536,7 +536,7 @@ scheduleWithFixedRate : 延迟并循环执行命令
 scheduleWithFixedDelay: 延迟并以固定休息时间循环执行命令
  ```
 
-> - **时间相关→[TimeUtils.java][time.java]→[Test][time.test]**
+* ### 时间相关→[TimeUtils.java][time.java]→[Test][time.test]
  ```
 millis2String           : 将时间戳转为时间字符串
 string2Millis           : 将时间字符串转为时间戳
@@ -561,7 +561,7 @@ getChineseZodiac        : 获取生肖
 getZodiac               : 获取星座
  ```
 
-> - **吐司相关→[ToastUtils.java][toast.java]→[Demo][toast.demo]**
+* ### 吐司相关→[ToastUtils.java][toast.java]→[Demo][toast.demo]
  ```
 init              : 吐司初始化
 showShortToastSafe: 安全地显示短时吐司
@@ -571,7 +571,7 @@ showLongToast     : 显示长时吐司
 cancelToast       : 取消吐司显示
  ```
 
-> - **压缩相关→[ZipUtils.java][zip.java]→[Test][zip.test]**
+* ### 压缩相关→[ZipUtils.java][zip.java]→[Test][zip.test]
  ```
 zipFiles          : 批量压缩文件
 zipFile           : 压缩文件
@@ -583,7 +583,7 @@ getComments       : 获取压缩文件中的注释链表
 getEntries        : 获取压缩文件中的文件对象
  ```
 
-> - **更新Log→[update_log.md][update_log.md]**
+* ### 更新Log→[update_log.md][update_log.md]
 
 ***
 
