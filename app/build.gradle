@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion rootProject.ext.android.compileSdkVersion
-    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.blankj.androidutilcode"
-        minSdkVersion rootProject.ext.android.minSdkVersion
-        targetSdkVersion rootProject.ext.android.targetSdkVersion
-        versionCode rootProject.ext.android.versionCode
-        versionName rootProject.ext.android.versionName
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
     }
     buildTypes {
         release {
@@ -21,16 +21,14 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':utilcode')
-    compile rootProject.ext.deps.design
-    compile rootProject.ext.deps.supportV4
+    compile "com.android.support:design:$rootProject.supportVersion"
+    compile "com.android.support:support-v4:$rootProject.supportVersion"
+    compile "com.android.support:appcompat-v7:$rootProject.supportVersion"
 
-    // RxAndroid
-    compile rootProject.ext.deps.rxAndroid
-    compile rootProject.ext.deps.rxJava
+    compile project(':utilcode')
 
     // LeakCanary
-    debugCompile rootProject.ext.deps.leakcanaryAndroid
-    releaseCompile rootProject.ext.deps.leakcanaryAndroidNoOp
-    testCompile rootProject.ext.deps.leakcanaryAndroidNoOp
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }
