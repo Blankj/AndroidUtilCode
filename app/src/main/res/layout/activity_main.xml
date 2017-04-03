@@ -136,13 +136,6 @@
                 style="@style/BtnFont"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="phoneClick"
-                android:text="@string/test.phone" />
-
-            <Button
-                style="@style/BtnFont"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:onClick="pinyinClick"
                 android:text="@string/test.pinyin" />
 
