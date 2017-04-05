@@ -30,15 +30,14 @@ public final class FragmentUtils {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
-    private static final int TYPE_ADD_FRAGMENT       = 0x01;
-    private static final int TYPE_CHECK_ADD_FRAGMENT = 0x01 << 1;
-    private static final int TYPE_REMOVE_FRAGMENT    = 0x01 << 2;
-    private static final int TYPE_REMOVE_TO_FRAGMENT = 0x01 << 3;
-    private static final int TYPE_REPLACE_FRAGMENT   = 0x01 << 4;
-    private static final int TYPE_POP_ADD_FRAGMENT   = 0x01 << 5;
-    private static final int TYPE_HIDE_FRAGMENT      = 0x01 << 6;
-    private static final int TYPE_SHOW_FRAGMENT      = 0x01 << 7;
-    private static final int TYPE_HIDE_SHOW_FRAGMENT = 0x01 << 8;
+    private static final int TYPE_ADD_FRAGMENT       = 0x01 << 0;
+    private static final int TYPE_REMOVE_FRAGMENT    = 0x01 << 1;
+    private static final int TYPE_REMOVE_TO_FRAGMENT = 0x01 << 2;
+    private static final int TYPE_REPLACE_FRAGMENT   = 0x01 << 3;
+    private static final int TYPE_POP_ADD_FRAGMENT   = 0x01 << 4;
+    private static final int TYPE_HIDE_FRAGMENT      = 0x01 << 5;
+    private static final int TYPE_SHOW_FRAGMENT      = 0x01 << 6;
+    private static final int TYPE_HIDE_SHOW_FRAGMENT = 0x01 << 7;
 
     private static final String ARGS_ID           = "args_id";
     private static final String ARGS_IS_HIDE      = "args_is_hide";
@@ -114,26 +113,7 @@ public final class FragmentUtils {
     }
 
     /**
-     * 新增fragment
-     *
-     * @param fragmentManager fragment管理器
-     * @param containerId     布局Id
-     * @param fragment        fragment
-     * @param isHide          是否隐藏
-     * @param isAddStack      是否入回退栈
-     * @return fragment
-     */
-    public static Fragment checkAddFragment(@NonNull FragmentManager fragmentManager,
-                                            @NonNull Fragment fragment,
-                                            @IdRes int containerId,
-                                            boolean isHide,
-                                            boolean isAddStack) {
-        putArgs(fragment, new Args(containerId, isHide, isAddStack));
-        return operateFragment(fragmentManager, null, fragment, TYPE_CHECK_ADD_FRAGMENT);
-    }
-
-    /**
-     * 新增fragment
+     * 先隐藏后新增fragment
      *
      * @param fragmentManager fragment管理器
      * @param containerId     布局Id
@@ -543,19 +523,6 @@ public final class FragmentUtils {
         switch (type) {
             case TYPE_ADD_FRAGMENT:
                 if (srcFragment != null) ft.hide(srcFragment);
-                ft.add(args.getInt(ARGS_ID), destFragment, name);
-                if (args.getBoolean(ARGS_IS_HIDE)) ft.hide(destFragment);
-                if (args.getBoolean(ARGS_IS_ADD_STACK)) ft.addToBackStack(name);
-                break;
-            case TYPE_CHECK_ADD_FRAGMENT:
-                List<Fragment> fragmentList = getFragments(fragmentManager);
-                for (int i = fragmentList.size() - 1; i >= 0; --i) {
-                    Fragment fragment = fragmentList.get(i);
-                    if (fragment == destFragment) {
-                        if (srcFragment != null) ft.remove(fragment);
-                        break;
-                    }
-                }
                 ft.add(args.getInt(ARGS_ID), destFragment, name);
                 if (args.getBoolean(ARGS_IS_HIDE)) ft.hide(destFragment);
                 if (args.getBoolean(ARGS_IS_ADD_STACK)) ft.addToBackStack(name);
