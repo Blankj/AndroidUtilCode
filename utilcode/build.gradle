@@ -18,12 +18,12 @@ android {
 }
 
 dependencies {
-    provided "com.android.support:design:$rootProject.supportVersion"
-    provided "com.android.support:support-v4:$rootProject.supportVersion"
-    provided "com.android.support:appcompat-v7:$rootProject.supportVersion"
-    testCompile "junit:junit:$rootProject.junitVersion"
-    testCompile "com.google.truth:truth:$rootProject.truthVersion"
-    testCompile "org.robolectric:robolectric:$rootProject.robolectricVersion"
+    provided deps.appcompatv7
+    provided deps.supportv4
+    provided deps.design
+    testCompile deps.junit
+    testCompile deps.truth
+    testCompile deps.robolectric
 }
 //apply from: "https://raw.githubusercontent.com/xiaopansky/android-library-publish-to-jcenter/master/bintrayUpload.gradle"
 //gradlew bintrayUpload

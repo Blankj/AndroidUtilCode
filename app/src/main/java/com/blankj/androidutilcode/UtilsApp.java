@@ -36,7 +36,7 @@ public class UtilsApp extends Application {
         }
         LeakCanary.install(this);
         appContext = this;
-        Utils.init(appContext);
+        Utils.init(this);
         CrashUtils.getInstance().init();
         lBuilder = new LogUtils.Builder()
                 .setLogSwitch(BuildConfig.DEBUG)// 设置log总开关，默认开

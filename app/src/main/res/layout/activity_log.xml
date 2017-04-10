@@ -25,6 +25,13 @@
             android:text="@string/log.toggle_tag" />
 
         <Button
+            android:id="@+id/btn_toggle_head"
+            style="@style/BtnFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log.toggle_head"/>
+
+        <Button
             android:id="@+id/btn_toggle_file"
             style="@style/BtnFont"
             android:layout_width="match_parent"

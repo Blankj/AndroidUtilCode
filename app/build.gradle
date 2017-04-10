@@ -21,14 +21,13 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "com.android.support:design:$rootProject.supportVersion"
-    compile "com.android.support:support-v4:$rootProject.supportVersion"
-    compile "com.android.support:appcompat-v7:$rootProject.supportVersion"
+    compile deps.appcompatv7
+    compile deps.supportv4
+    compile deps.design
 
     compile project(':utilcode')
 
     // LeakCanary
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    debugCompile deps.leakcanaryandroid
+    releaseCompile deps.leakcanaryandroidnoop
 }

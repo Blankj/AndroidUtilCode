@@ -78,6 +78,7 @@
 
     <!--Log相关-->
     <string name="log.toggle_tag">Toggle Tag</string>
+    <string name="log.toggle_head">Toggle Head</string>
     <string name="log.toggle_border">Toggle Border</string>
     <string name="log.toggle_filter">Toggle Filter</string>
     <string name="log.toggle_file">Toggle File</string>

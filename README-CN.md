@@ -2,7 +2,7 @@
 
 ## [README of English][readme.md]
 
-为方便查找，已进行大致归类，其目录如下所示：
+## API
 
 * ### Activity相关→[ActivityUtils.java][activity.java]→[Demo][activity.demo]
 ```
@@ -206,6 +206,7 @@ getFileExtension         : 根据全路径获取文件拓展名
 * ### Fragment相关→[FragmentUtils.java][fragment.java]→[Demo][fragment.demo]
 ```
 addFragment              : 新增fragment
+hideAddFragment          : 先隐藏后新增fragment
 addFragments             : 新增多个fragment
 removeFragment           : 移除fragment
 removeToFragment         : 移除到指定fragment
@@ -308,6 +309,13 @@ getStreet        : 根据经纬度获取所在街道
 
 * ### 日志相关→[LogUtils.java][log.java]→[Demo][log.demo]
 ```
+Builder.setLogSwitch     : 设置log总开关
+Builder.setGlobalTag     : 设置log全局tag
+Builder.setLogHeadSwitch : 设置log头开关
+Builder.setLog2FileSwitch: 设置log文件开关
+Builder.setBorderSwitch  : 设置log边框开关
+Builder.setLogFilter     : 设置log过滤器
+
 v   : Verbose日志
 d   : Debug日志
 i   : Info日志
@@ -451,7 +459,7 @@ addView               : 为SnackBar添加布局
 dismissSnackbar       : 取消snackbar显示
 ```
 
-* ### SpannableString相关工具类→[SpannableStringUtils.java][spannable.java]→[Demo][spannable.demo]
+* ### SpannableString相关→[SpannableStringUtils.java][spannable.java]→[Demo][spannable.demo]
 ```
 getBuilder        : 获取建造者
 setFlag           : 设置标识
@@ -597,7 +605,7 @@ getEntries        : 获取压缩文件中的文件对象
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.3.7'
+compile 'com.blankj:utilcode:1.3.8'
 ```
 
 ## How to use

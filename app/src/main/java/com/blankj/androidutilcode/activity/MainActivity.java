@@ -119,20 +119,25 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_about, menu);
+        getMenuInflater().inflate(R.menu.about, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        try {
+            switch (item.getItemId()) {
 
-        switch (item.getItemId()) {
-            case R.id.action_git_hub:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Blankj/AndroidUtilCode")));
-                break;
-            case R.id.action_blog:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.jianshu.com/u/46702d5c6978")));
-                break;
+                case R.id.action_git_hub:
+
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Blankj/AndroidUtilCode")));
+                    break;
+                case R.id.action_blog:
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.jianshu.com/u/46702d5c6978")));
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return super.onOptionsItemSelected(item);

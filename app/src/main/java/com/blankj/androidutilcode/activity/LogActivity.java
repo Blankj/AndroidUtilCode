@@ -29,14 +29,16 @@ public class LogActivity extends Activity
     private TextView tvAboutLog;
 
     private String  globalTag = "";
-    private boolean border    = true;
+    private boolean head      = true;
     private boolean file      = false;
+    private boolean border    = true;
     private int     filter    = LogUtils.V;
 
-    private static final int UPDATE_TAG    = 0x01;
-    private static final int UPDATE_FILE   = 0x01 << 1;
-    private static final int UPDATE_BORDER = 0x01 << 2;
-    private static final int UPDATE_FILTER = 0x01 << 3;
+    private static final int UPDATE_TAG    = 0x01 << 0;
+    private static final int UPDATE_HEAD   = 0x01 << 1;
+    private static final int UPDATE_FILE   = 0x01 << 2;
+    private static final int UPDATE_BORDER = 0x01 << 3;
+    private static final int UPDATE_FILTER = 0x01 << 4;
 
     private Runnable mRunnable = new Runnable() {
         @Override
@@ -72,6 +74,7 @@ public class LogActivity extends Activity
 
         mBuilder = UtilsApp.lBuilder;
         findViewById(R.id.btn_toggle_tag).setOnClickListener(this);
+        findViewById(R.id.btn_toggle_head).setOnClickListener(this);
         findViewById(R.id.btn_toggle_border).setOnClickListener(this);
         findViewById(R.id.btn_toggle_file).setOnClickListener(this);
         findViewById(R.id.btn_toggle_filter).setOnClickListener(this);
@@ -93,6 +96,9 @@ public class LogActivity extends Activity
         switch (view.getId()) {
             case R.id.btn_toggle_tag:
                 updateAbout(UPDATE_TAG);
+                break;
+            case R.id.btn_toggle_head:
+                updateAbout(UPDATE_HEAD);
                 break;
             case R.id.btn_toggle_file:
                 updateAbout(UPDATE_FILE);
@@ -143,7 +149,9 @@ public class LogActivity extends Activity
                 LogUtils.d(longStr);
                 break;
             case R.id.btn_log_file:
-                LogUtils.file(longStr);
+                LogUtils.file("test0 log to file");
+                LogUtils.file("test1 log to file");
+                LogUtils.file("test2 log to file");
                 break;
             case R.id.btn_log_json:
                 LogUtils.json(json);
@@ -159,6 +167,9 @@ public class LogActivity extends Activity
             case UPDATE_TAG:
                 globalTag = globalTag.equals(TAG) ? "" : TAG;
                 break;
+            case UPDATE_HEAD:
+                head = !head;
+                break;
             case UPDATE_FILE:
                 file = !file;
                 break;
@@ -170,10 +181,12 @@ public class LogActivity extends Activity
                 break;
         }
         mBuilder.setGlobalTag(globalTag)
+                .setLogHeadSwitch(head)
                 .setLog2FileSwitch(file)
                 .setBorderSwitch(border)
                 .setLogFilter(filter);
         tvAboutLog.setText("tag: " + (globalTag.equals("") ? "null" : TAG)
+                + "\nhead: " + String.valueOf(head)
                 + "\nfile: " + String.valueOf(file)
                 + "\nborder: " + String.valueOf(border)
                 + "\nfilter: " + (filter == LogUtils.V ? "Verbose" : "Warn")

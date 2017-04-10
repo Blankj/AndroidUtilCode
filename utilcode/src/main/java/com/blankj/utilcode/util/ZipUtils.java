@@ -26,11 +26,11 @@ import java.util.zip.ZipOutputStream;
  */
 public final class ZipUtils {
 
+    private static final int KB = 1024;
+
     private ZipUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
-
-    private static final int KB = 1024;
 
     /**
      * 批量压缩文件

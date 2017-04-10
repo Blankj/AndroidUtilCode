@@ -20,6 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
@@ -33,14 +35,10 @@ import javax.xml.transform.stream.StreamSource;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/9/21
- *     desc  : 日志相关工具类
+ *     desc  : Log相关工具类
  * </pre>
  */
 public final class LogUtils {
-
-    private LogUtils() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
-    }
 
     public static final int V = 0x01;
     public static final int D = 0x02;
@@ -52,38 +50,51 @@ public final class LogUtils {
     @IntDef({V, D, I, W, E, A})
     @Retention(RetentionPolicy.SOURCE)
     public @interface TYPE {
+
     }
 
     private static final int FILE = 0xF1;
     private static final int JSON = 0xF2;
     private static final int XML  = 0xF4;
+    private static String          dir;// log存储目录
+    private static ExecutorService executor;
 
-    private static String dir;                      // log存储目录
-    private static boolean sLogSwitch       = true; // log总开关
+    private static boolean sLogSwitch       = true; // log总开关，默认开
     private static String  sGlobalTag       = null; // log标签
     private static boolean sTagIsSpace      = true; // log标签是否为空白
-    private static boolean sLog2FileSwitch  = false;// log写入文件开关
-    private static boolean sLogBorderSwitch = true; // log边框开关
+    private static boolean sLogHeadSwitch   = true; // log头部开关，默认开
+    private static boolean sLog2FileSwitch  = false;// log写入文件开关，默认关
+    private static boolean sLogBorderSwitch = true; // log边框开关，默认开
     private static int     sLogFilter       = V;    // log过滤器
 
     private static final String TOP_BORDER     = "╔═══════════════════════════════════════════════════════════════════════════════════════════════════";
     private static final String LEFT_BORDER    = "║ ";
     private static final String BOTTOM_BORDER  = "╚═══════════════════════════════════════════════════════════════════════════════════════════════════";
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+    private static final int    MAX_LEN        = 4000;
 
-    private static final int    MAX_LEN   = 4000;
     private static final String NULL_TIPS = "Log with null object.";
     private static final String NULL      = "null";
     private static final String ARGS      = "args";
 
+    private LogUtils() {
+        throw new UnsupportedOperationException("u can't instantiate me...");
+    }
+
     public static class Builder {
 
         public Builder() {
-            if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+            if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
+                    && Utils.getContext().getExternalCacheDir() != null)
                 dir = Utils.getContext().getExternalCacheDir() + File.separator + "log" + File.separator;
-            } else {
+            else {
                 dir = Utils.getContext().getCacheDir() + File.separator + "log" + File.separator;
             }
+        }
+
+        public Builder setLogSwitch(boolean logSwitch) {
+            LogUtils.sLogSwitch = logSwitch;
+            return this;
         }
 
         public Builder setGlobalTag(String tag) {
@@ -97,8 +108,8 @@ public final class LogUtils {
             return this;
         }
 
-        public Builder setLogSwitch(boolean logSwitch) {
-            LogUtils.sLogSwitch = logSwitch;
+        public Builder setLogHeadSwitch(boolean logHeadSwitch) {
+            LogUtils.sLogHeadSwitch = logHeadSwitch;
             return this;
         }
 
@@ -219,7 +230,6 @@ public final class LogUtils {
                 printLog(D, tag, msg);
                 break;
         }
-
     }
 
     private static String[] processContents(int type, String tag, Object... contents) {
@@ -237,23 +247,23 @@ public final class LogUtils {
         } else {// 全局tag为空时，如果传入的tag为空那就显示类名，否则显示tag
             tag = isSpace(tag) ? className : tag;
         }
-
-        String head = new Formatter()
+        String head = sLogHeadSwitch
+                ? new Formatter()
                 .format("Thread: %s, %s(%s.java:%d)" + LINE_SEPARATOR,
                         Thread.currentThread().getName(),
                         targetElement.getMethodName(),
                         className,
-                        targetElement.getLineNumber())
-                .toString();
-        String msg = NULL_TIPS;
+                        targetElement.getLineNumber()).toString()
+                : "";
+        String body = NULL_TIPS;
         if (contents != null) {
             if (contents.length == 1) {
                 Object object = contents[0];
-                msg = object == null ? NULL : object.toString();
+                body = object == null ? NULL : object.toString();
                 if (type == JSON) {
-                    msg = formatJson(msg);
+                    body = formatJson(body);
                 } else if (type == XML) {
-                    msg = formatXml(msg);
+                    body = formatXml(body);
                 }
             } else {
                 StringBuilder sb = new StringBuilder();
@@ -267,9 +277,10 @@ public final class LogUtils {
                             .append(content == null ? NULL : content.toString())
                             .append(LINE_SEPARATOR);
                 }
-                msg = sb.toString();
+                body = sb.toString();
             }
         }
+        String msg = head + body;
         if (sLogBorderSwitch) {
             StringBuilder sb = new StringBuilder();
             String[] lines = msg.split(LINE_SEPARATOR);
@@ -278,7 +289,7 @@ public final class LogUtils {
             }
             msg = sb.toString();
         }
-        return new String[]{tag, head + msg};
+        return new String[]{tag, msg};
     }
 
     private static String formatJson(String json) {
@@ -310,26 +321,27 @@ public final class LogUtils {
     }
 
     private static void printLog(int type, String tag, String msg) {
-        if (sLogBorderSwitch) printBorder(type, tag, true);
+        if (sLogBorderSwitch) print(type, tag, TOP_BORDER);
         int len = msg.length();
         int countOfSub = len / MAX_LEN;
         if (countOfSub > 0) {
-            int index = 0;
+            print(type, tag, msg.substring(0, MAX_LEN));
             String sub;
-            for (int i = 0; i < countOfSub; i++) {
+            int index = MAX_LEN;
+            for (int i = 1; i < countOfSub; i++) {
                 sub = msg.substring(index, index + MAX_LEN);
-                printSubLog(type, tag, sub);
+                print(type, tag, (sLogBorderSwitch ? LEFT_BORDER : "") + sub);
                 index += MAX_LEN;
             }
-            printSubLog(type, tag, msg.substring(index, len));
+            sub = msg.substring(index, len);
+            print(type, tag, (sLogBorderSwitch ? LEFT_BORDER : "") + sub);
         } else {
-            printSubLog(type, tag, msg);
+            print(type, tag, msg);
         }
-        if (sLogBorderSwitch) printBorder(type, tag, false);
+        if (sLogBorderSwitch) print(type, tag, BOTTOM_BORDER);
     }
 
-    private static void printSubLog(final int type, final String tag, String msg) {
-        if (sLogBorderSwitch) msg = LEFT_BORDER + msg;
+    private static void print(final int type, final String tag, String msg) {
         switch (type) {
             case V:
                 Log.v(tag, msg);
@@ -352,31 +364,7 @@ public final class LogUtils {
         }
     }
 
-    private static void printBorder(int type, String tag, boolean isTop) {
-        String border = isTop ? TOP_BORDER : BOTTOM_BORDER;
-        switch (type) {
-            case V:
-                Log.v(tag, border);
-                break;
-            case D:
-                Log.d(tag, border);
-                break;
-            case I:
-                Log.i(tag, border);
-                break;
-            case W:
-                Log.w(tag, border);
-                break;
-            case E:
-                Log.e(tag, border);
-                break;
-            case A:
-                Log.wtf(tag, border);
-                break;
-        }
-    }
-
-    private synchronized static void print2File(final String tag, final String msg) {
+    private static void print2File(final String tag, final String msg) {
         Date now = new Date();
         String date = new SimpleDateFormat("MM-dd", Locale.getDefault()).format(now);
         final String fullPath = dir + date + ".txt";
@@ -386,15 +374,27 @@ public final class LogUtils {
         }
         String time = new SimpleDateFormat("MM-dd HH:mm:ss.SSS ", Locale.getDefault()).format(now);
         StringBuilder sb = new StringBuilder();
-        if (sLogBorderSwitch) sb.append(TOP_BORDER).append(LINE_SEPARATOR);
-        sb.append(time)
-                .append(tag)
-                .append(": ")
-                .append(msg)
-                .append(LINE_SEPARATOR);
-        if (sLogBorderSwitch) sb.append(BOTTOM_BORDER).append(LINE_SEPARATOR);
+        if (sLogBorderSwitch) {
+            sb.append(TOP_BORDER).append(LINE_SEPARATOR);
+            sb.append(LEFT_BORDER)
+                    .append(time)
+                    .append(tag)
+                    .append(LINE_SEPARATOR)
+                    .append(msg);
+            sb.append(BOTTOM_BORDER).append(LINE_SEPARATOR);
+        } else {
+            sb.append(time)
+                    .append(tag)
+                    .append(LINE_SEPARATOR)
+                    .append(msg)
+                    .append(LINE_SEPARATOR);
+        }
+        sb.append(LINE_SEPARATOR);
         final String dateLogContent = sb.toString();
-        new Thread(new Runnable() {
+        if (executor == null) {
+            executor = Executors.newSingleThreadExecutor();
+        }
+        executor.execute(new Runnable() {
             @Override
             public void run() {
                 BufferedWriter bw = null;
@@ -415,15 +415,11 @@ public final class LogUtils {
                     }
                 }
             }
-        }).start();
+        });
     }
 
     private static boolean createOrExistsFile(String filePath) {
-        return createOrExistsFile(isSpace(filePath) ? null : new File(filePath));
-    }
-
-    private static boolean createOrExistsFile(File file) {
-        if (file == null) return false;
+        File file = new File(filePath);
         if (file.exists()) return file.isFile();
         if (!createOrExistsDir(file.getParentFile())) return false;
         try {

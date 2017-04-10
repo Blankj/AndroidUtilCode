@@ -26,10 +26,6 @@ import java.util.concurrent.TimeoutException;
  */
 public final class ThreadPoolUtils {
 
-    private ThreadPoolUtils() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
-    }
-
     public static final int FixedThread  = 0;
     public static final int CachedThread = 1;
     public static final int SingleThread = 2;
@@ -41,6 +37,10 @@ public final class ThreadPoolUtils {
 
     private ExecutorService          exec;
     private ScheduledExecutorService scheduleExec;
+
+    private ThreadPoolUtils() {
+        throw new UnsupportedOperationException("u can't instantiate me...");
+    }
 
     /**
      * ThreadPoolUtils构造函数

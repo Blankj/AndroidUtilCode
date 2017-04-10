@@ -20,10 +20,6 @@ import java.util.Locale;
  */
 public final class TimeUtils {
 
-    private TimeUtils() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
-    }
-
     /**
      * <p>在工具类中经常使用到工具类的格式化描述，这个主要是一个日期的操作类，所以日志格式主要使用 SimpleDateFormat的定义格式.</p>
      * 格式的意义如下： 日期和时间模式 <br>
@@ -181,7 +177,11 @@ public final class TimeUtils {
      * </pre>
      * 注意：SimpleDateFormat不是线程安全的，线程安全需用{@code ThreadLocal<SimpleDateFormat>}
      */
-    public static final String DEFAULT_PATTERN = "yyyy-MM-dd HH:mm:ss";
+    private static final String DEFAULT_PATTERN = "yyyy-MM-dd HH:mm:ss";
+
+    private TimeUtils() {
+        throw new UnsupportedOperationException("u can't instantiate me...");
+    }
 
     /**
      * 将时间戳转为时间字符串
