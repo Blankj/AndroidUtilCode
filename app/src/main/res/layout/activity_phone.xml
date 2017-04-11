@@ -11,6 +11,14 @@
         android:orientation="vertical"
         android:padding="@dimen/spacing_small">
 
+        <TextView
+            android:id="@+id/tv_about_phone"
+            style="@style/Font"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            />
+
         <Button
             android:id="@+id/btn_dial"
             style="@style/BtnFont"
@@ -41,14 +49,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/phone.send_sms_silent"
-            />
-
-        <TextView
-            android:id="@+id/tv_about_phone"
-            style="@style/Font"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
             />
 
     </LinearLayout>

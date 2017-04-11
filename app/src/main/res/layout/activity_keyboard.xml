@@ -11,6 +11,14 @@
         android:orientation="vertical"
         android:padding="@dimen/spacing_small">
 
+        <TextView
+            android:id="@+id/tv_about_keyboard"
+            style="@style/Font"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            />
+
         <EditText
             android:id="@+id/et"
             android:layout_width="match_parent"
@@ -38,14 +46,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/keyboard.toggle_soft_input"
-            />
-
-        <TextView
-            android:id="@+id/tv_about_keyboard"
-            style="@style/Font"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
             />
 
     </LinearLayout>

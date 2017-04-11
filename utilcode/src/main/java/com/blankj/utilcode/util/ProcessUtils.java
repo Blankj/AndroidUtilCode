@@ -10,6 +10,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,7 +26,7 @@ import java.util.Set;
  *     desc  : 进程相关工具类
  * </pre>
  */
-public class ProcessUtils {
+public final class ProcessUtils {
 
     private ProcessUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -134,8 +135,7 @@ public class ProcessUtils {
      * @param packageName 包名
      * @return {@code true}: 杀死成功<br>{@code false}: 杀死失败
      */
-    public static boolean killBackgroundProcesses(String packageName) {
-        if (StringUtils.isSpace(packageName)) return false;
+    public static boolean killBackgroundProcesses(@NonNull String packageName) {
         ActivityManager am = (ActivityManager) Utils.getContext().getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> infos = am.getRunningAppProcesses();
         if (infos == null || infos.size() == 0) return true;

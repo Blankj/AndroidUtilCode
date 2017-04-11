@@ -15,7 +15,7 @@ import java.util.Set;
  *     desc  : SP相关工具类
  * </pre>
  */
-public class SPUtils {
+public final class SPUtils {
 
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;

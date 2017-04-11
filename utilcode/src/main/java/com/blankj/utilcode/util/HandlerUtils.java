@@ -13,7 +13,7 @@ import java.lang.ref.WeakReference;
  *     desc  : Handler相关工具类
  * </pre>
  */
-public class HandlerUtils {
+public final class HandlerUtils {
 
     private HandlerUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

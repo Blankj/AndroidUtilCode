@@ -1,3 +1,11 @@
+* 17/03/29 修改README
+* 17/03/28 新增BaseActivity
+* 17/03/27 更新LogUtils
+* 17/03/26 更新LogUtils
+* 17/03/25 更新LogUtils
+* 17/03/24 StringUtils
+* 17/03/20 修复链接错误
+* 17/03/19 LogUtils新增栈回溯
 * 17/03/14 新增常量包
 * 17/02/14 完善FragmentUtils中，Demo测试中
 * 17/02/13 完善FragmentUtils中

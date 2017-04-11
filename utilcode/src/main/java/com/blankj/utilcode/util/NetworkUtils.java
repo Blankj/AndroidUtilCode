@@ -27,7 +27,7 @@ import java.util.concurrent.Future;
  *     desc  : 网络相关工具类
  * </pre>
  */
-public class NetworkUtils {
+public final class NetworkUtils {
 
     private NetworkUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

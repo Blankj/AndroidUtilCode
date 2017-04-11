@@ -20,7 +20,7 @@ import java.lang.ref.WeakReference;
  *     desc  : Snackbar相关工具类
  * </pre>
  */
-public class SnackbarUtils {
+public final class SnackbarUtils {
 
     private SnackbarUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

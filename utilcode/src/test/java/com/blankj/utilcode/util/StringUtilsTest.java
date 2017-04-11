@@ -27,7 +27,7 @@ public class StringUtilsTest {
         assertThat(isSpace("")).isTrue();
         assertThat(isSpace(null)).isTrue();
         assertThat(isSpace(" ")).isTrue();
-        assertThat(isSpace("　")).isFalse();
+        assertThat(isSpace("　 \n\t\r")).isTrue();
     }
 
     @Test

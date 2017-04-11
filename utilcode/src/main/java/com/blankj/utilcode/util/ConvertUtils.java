@@ -11,7 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import com.blankj.utilcode.constant.MemoryConstants;
-import com.blankj.utilcode.constant.TimeConstant;
+import com.blankj.utilcode.constant.TimeConstants;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -28,7 +28,7 @@ import java.io.UnsupportedEncodingException;
  *     desc  : 转换相关工具类
  * </pre>
  */
-public class ConvertUtils {
+public final class ConvertUtils {
 
     private ConvertUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -65,7 +65,7 @@ public class ConvertUtils {
      * @return 字节数组
      */
     public static byte[] hexString2Bytes(String hexString) {
-        if (StringUtils.isSpace(hexString)) return null;
+        if (isSpace(hexString)) return null;
         int len = hexString.length();
         if (len % 2 != 0) {
             hexString = "0" + hexString;
@@ -192,15 +192,15 @@ public class ConvertUtils {
      * @param timeSpan 毫秒时间戳
      * @param unit     单位类型
      *                 <ul>
-     *                 <li>{@link TimeConstant#MSEC}: 毫秒</li>
-     *                 <li>{@link TimeConstant#SEC }: 秒</li>
-     *                 <li>{@link TimeConstant#MIN }: 分</li>
-     *                 <li>{@link TimeConstant#HOUR}: 小时</li>
-     *                 <li>{@link TimeConstant#DAY }: 天</li>
+     *                 <li>{@link TimeConstants#MSEC}: 毫秒</li>
+     *                 <li>{@link TimeConstants#SEC }: 秒</li>
+     *                 <li>{@link TimeConstants#MIN }: 分</li>
+     *                 <li>{@link TimeConstants#HOUR}: 小时</li>
+     *                 <li>{@link TimeConstants#DAY }: 天</li>
      *                 </ul>
      * @return 毫秒时间戳
      */
-    public static long timeSpan2Millis(long timeSpan, @TimeConstant.Unit int unit) {
+    public static long timeSpan2Millis(long timeSpan, @TimeConstants.Unit int unit) {
         return timeSpan * unit;
     }
 
@@ -210,15 +210,15 @@ public class ConvertUtils {
      * @param millis 毫秒时间戳
      * @param unit   单位类型
      *               <ul>
-     *               <li>{@link TimeConstant#MSEC}: 毫秒</li>
-     *               <li>{@link TimeConstant#SEC }: 秒</li>
-     *               <li>{@link TimeConstant#MIN }: 分</li>
-     *               <li>{@link TimeConstant#HOUR}: 小时</li>
-     *               <li>{@link TimeConstant#DAY }: 天</li>
+     *               <li>{@link TimeConstants#MSEC}: 毫秒</li>
+     *               <li>{@link TimeConstants#SEC }: 秒</li>
+     *               <li>{@link TimeConstants#MIN }: 分</li>
+     *               <li>{@link TimeConstants#HOUR}: 小时</li>
+     *               <li>{@link TimeConstants#DAY }: 天</li>
      *               </ul>
      * @return 以unit为单位的时间长度
      */
-    public static long millis2TimeSpan(long millis, @TimeConstant.Unit int unit) {
+    public static long millis2TimeSpan(long millis, @TimeConstants.Unit int unit) {
         return millis / unit;
     }
 
@@ -394,7 +394,7 @@ public class ConvertUtils {
      * @return 字符串
      */
     public static String inputStream2String(InputStream is, String charsetName) {
-        if (is == null || StringUtils.isSpace(charsetName)) return null;
+        if (is == null || isSpace(charsetName)) return null;
         try {
             return new String(inputStream2Bytes(is), charsetName);
         } catch (UnsupportedEncodingException e) {
@@ -411,7 +411,7 @@ public class ConvertUtils {
      * @return 输入流
      */
     public static InputStream string2InputStream(String string, String charsetName) {
-        if (string == null || StringUtils.isSpace(charsetName)) return null;
+        if (string == null || isSpace(charsetName)) return null;
         try {
             return new ByteArrayInputStream(string.getBytes(charsetName));
         } catch (UnsupportedEncodingException e) {
@@ -428,7 +428,7 @@ public class ConvertUtils {
      * @return 字符串
      */
     public static String outputStream2String(OutputStream out, String charsetName) {
-        if (out == null || StringUtils.isSpace(charsetName)) return null;
+        if (out == null || isSpace(charsetName)) return null;
         try {
             return new String(outputStream2Bytes(out), charsetName);
         } catch (UnsupportedEncodingException e) {
@@ -445,7 +445,7 @@ public class ConvertUtils {
      * @return 输入流
      */
     public static OutputStream string2OutputStream(String string, String charsetName) {
-        if (string == null || StringUtils.isSpace(charsetName)) return null;
+        if (string == null || isSpace(charsetName)) return null;
         try {
             return bytes2OutputStream(string.getBytes(charsetName));
         } catch (UnsupportedEncodingException e) {
@@ -583,5 +583,21 @@ public class ConvertUtils {
     public static int px2sp(float pxValue) {
         final float fontScale = Utils.getContext().getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
+    }
+
+    /**
+     * 判断字符串是否为null或全为空白字符
+     *
+     * @param s 待校验字符串
+     * @return {@code true}: null或全空白字符<br> {@code false}: 不为null且不全空白字符
+     */
+    private static boolean isSpace(String s) {
+        if (s == null) return true;
+        for (int i = 0, len = s.length(); i < len; ++i) {
+            if (!Character.isWhitespace(s.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 }

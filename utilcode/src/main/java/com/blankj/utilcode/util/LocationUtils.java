@@ -24,7 +24,7 @@ import java.util.Locale;
  *     desc  : 定位相关工具类
  * </pre>
  */
-public class LocationUtils {
+public final class LocationUtils {
 
     private static OnLocationChangeListener mListener;
     private static MyLocationListener       myLocationListener;

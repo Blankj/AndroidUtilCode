@@ -53,7 +53,7 @@ import java.io.OutputStream;
  *     desc  : 图片相关工具类
  * </pre>
  */
-public class ImageUtils {
+public final class ImageUtils {
 
     private ImageUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -232,7 +232,7 @@ public class ImageUtils {
      * @return bitmap
      */
     public static Bitmap getBitmap(String filePath) {
-        if (StringUtils.isSpace(filePath)) return null;
+        if (isSpace(filePath)) return null;
         return BitmapFactory.decodeFile(filePath);
     }
 
@@ -245,7 +245,7 @@ public class ImageUtils {
      * @return bitmap
      */
     public static Bitmap getBitmap(String filePath, int maxWidth, int maxHeight) {
-        if (StringUtils.isSpace(filePath)) return null;
+        if (isSpace(filePath)) return null;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(filePath, options);
@@ -1504,5 +1504,15 @@ public class ImageUtils {
         byte[] bytes = baos.toByteArray();
         if (recycle && !src.isRecycled()) src.recycle();
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
+    }
+
+    private static boolean isSpace(String s) {
+        if (s == null) return true;
+        for (int i = 0, len = s.length(); i < len; ++i) {
+            if (!Character.isWhitespace(s.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 }

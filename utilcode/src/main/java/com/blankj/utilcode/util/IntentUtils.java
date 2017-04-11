@@ -19,7 +19,7 @@ import java.io.File;
  *     desc  : 意图相关工具类
  * </pre>
  */
-public class IntentUtils {
+public final class IntentUtils {
 
     private IntentUtils() {
         throw new UnsupportedOperationException("u can't fuck me...");

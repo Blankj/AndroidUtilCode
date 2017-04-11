@@ -10,7 +10,7 @@ import java.io.File;
  *     desc  : 清除相关工具类
  * </pre>
  */
-public class CleanUtils {
+public final class CleanUtils {
 
     private CleanUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

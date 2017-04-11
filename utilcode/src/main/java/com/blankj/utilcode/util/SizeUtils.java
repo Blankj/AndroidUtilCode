@@ -13,7 +13,7 @@ import android.view.ViewGroup;
  *     desc  : 尺寸相关工具类
  * </pre>
  */
-public class SizeUtils {
+public final class SizeUtils {
 
     private SizeUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

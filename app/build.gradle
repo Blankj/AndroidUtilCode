@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion rootProject.ext.android.compileSdkVersion
-    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
         applicationId "com.blankj.androidutilcode"
-        minSdkVersion rootProject.ext.android.minSdkVersion
-        targetSdkVersion rootProject.ext.android.targetSdkVersion
-        versionCode rootProject.ext.android.versionCode
-        versionName rootProject.ext.android.versionName
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
     }
     buildTypes {
         release {
@@ -21,16 +21,13 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':utilcode')
-    compile rootProject.ext.deps.design
-    compile rootProject.ext.deps.supportV4
+    compile deps.appcompatv7
+    compile deps.supportv4
+    compile deps.design
 
-    // RxAndroid
-    compile rootProject.ext.deps.rxAndroid
-    compile rootProject.ext.deps.rxJava
+    compile project(':utilcode')
 
     // LeakCanary
-    debugCompile rootProject.ext.deps.leakcanaryAndroid
-    releaseCompile rootProject.ext.deps.leakcanaryAndroidNoOp
-    testCompile rootProject.ext.deps.leakcanaryAndroidNoOp
+    debugCompile deps.leakcanaryandroid
+    releaseCompile deps.leakcanaryandroidnoop
 }

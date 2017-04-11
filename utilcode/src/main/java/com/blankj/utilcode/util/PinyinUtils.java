@@ -10,7 +10,7 @@ import android.support.v4.util.SimpleArrayMap;
  *     desc  : 拼音相关工具类
  * </pre>
  */
-public class PinyinUtils {
+public final class PinyinUtils {
 
     private PinyinUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

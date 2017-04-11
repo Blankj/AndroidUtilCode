@@ -15,7 +15,7 @@ import android.widget.EditText;
  *     desc  : 键盘相关工具类
  * </pre>
  */
-public class KeyboardUtils {
+public final class KeyboardUtils {
 
     private KeyboardUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

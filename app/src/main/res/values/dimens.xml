@@ -1,12 +1,19 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
 
-    <dimen name="spacing_huge">64dp</dimen>
-    <dimen name="spacing_large">32dp</dimen>
+    <dimen name="spacing_xxlarge">64dp</dimen>
+    <dimen name="spacing_xlarge">32dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
     <dimen name="spacing_normal">16dp</dimen>
     <dimen name="spacing_small">8dp</dimen>
     <dimen name="spacing_tiny">4dp</dimen>
+    <dimen name="spacing_thin">1dp</dimen>
+    <dimen name="spacing_half">0.5dp</dimen>
 
-    <dimen name="font_small">12sp</dimen>
-    <dimen name="font_normal">18sp</dimen>
+    <dimen name="font_xlarge">40sp</dimen>
+    <dimen name="font_large">36sp</dimen>
+    <dimen name="font_normal">32sp</dimen>
+    <dimen name="font_small">28sp</dimen>
+    <dimen name="font_tiny">24sp</dimen>
+    <dimen name="font_thin">20sp</dimen>
 </resources>

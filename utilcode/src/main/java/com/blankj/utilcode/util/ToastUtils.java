@@ -13,15 +13,15 @@ import android.widget.Toast;
  *     desc  : 吐司相关工具类
  * </pre>
  */
-public class ToastUtils {
-
-    private ToastUtils() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
-    }
+public final class ToastUtils {
 
     private static Toast sToast;
     private static Handler sHandler = new Handler(Looper.getMainLooper());
     private static boolean isJumpWhenMore;
+
+    private ToastUtils() {
+        throw new UnsupportedOperationException("u can't instantiate me...");
+    }
 
     /**
      * 吐司初始化

@@ -22,7 +22,7 @@ import java.util.Locale;
  *     desc  : 崩溃相关工具类
  * </pre>
  */
-public class CrashUtils
+public final class CrashUtils
         implements Thread.UncaughtExceptionHandler {
 
     private volatile static CrashUtils mInstance;
@@ -86,7 +86,7 @@ public class CrashUtils
 
     @Override
     public void uncaughtException(Thread thread, final Throwable throwable) {
-        String now = new SimpleDateFormat("yy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+        String now = new SimpleDateFormat("yyMMdd HH-mm-ss", Locale.getDefault()).format(new Date());
         final String fullPath = crashDir + now + ".txt";
         if (!createOrExistsFile(fullPath)) return;
         new Thread(new Runnable() {

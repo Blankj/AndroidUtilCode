@@ -18,7 +18,7 @@ import java.util.Set;
  *     desc  : 服务相关工具类
  * </pre>
  */
-public class ServiceUtils {
+public final class ServiceUtils {
 
     private ServiceUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

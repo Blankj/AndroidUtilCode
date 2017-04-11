@@ -11,6 +11,14 @@
         android:orientation="vertical"
         android:padding="@dimen/spacing_small">
 
+        <TextView
+            android:id="@+id/tv_about_network"
+            style="@style/Font"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            />
+
         <Button
             android:id="@+id/btn_open_wireless_settings"
             style="@style/BtnFont"
@@ -34,15 +42,6 @@
             android:layout_height="wrap_content"
             android:text="@string/network.set_wifi_enabled"
             />
-
-        <TextView
-            android:id="@+id/tv_about_network"
-            style="@style/Font"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            />
-
 
     </LinearLayout>
 </ScrollView>

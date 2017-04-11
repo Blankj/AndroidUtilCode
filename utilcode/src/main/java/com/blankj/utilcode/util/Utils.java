@@ -10,10 +10,9 @@ import android.content.Context;
  *     desc  : Utils初始化相关
  * </pre>
  */
-public class Utils {
+public final class Utils {
 
     private static Context context;
-    private static SPUtils spUtils;
 
     private Utils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -26,7 +25,6 @@ public class Utils {
      */
     public static void init(Context context) {
         Utils.context = context.getApplicationContext();
-        spUtils = new SPUtils("utilcode");
     }
 
     /**
@@ -37,9 +35,5 @@ public class Utils {
     public static Context getContext() {
         if (context != null) return context;
         throw new NullPointerException("u should init first");
-    }
-
-    public static SPUtils getSpUtils() {
-        return spUtils;
     }
 }

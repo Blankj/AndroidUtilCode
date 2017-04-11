@@ -18,7 +18,7 @@ import java.util.Map;
  *     desc  : 判空相关工具类
  * </pre>
  */
-public class EmptyUtils {
+public final class EmptyUtils {
 
     private EmptyUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

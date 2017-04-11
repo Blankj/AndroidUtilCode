@@ -16,7 +16,7 @@ import java.net.URLEncoder;
  *     desc  : 编码解码相关工具类
  * </pre>
  */
-public class EncodeUtils {
+public final class EncodeUtils {
 
     private EncodeUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
