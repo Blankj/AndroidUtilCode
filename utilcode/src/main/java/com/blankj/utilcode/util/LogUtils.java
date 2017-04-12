@@ -213,7 +213,7 @@ public final class LogUtils {
             case W:
             case E:
             case A:
-                if (V == sLogFilter || type >= sLogFilter) {
+                if (type >= sLogFilter) {
                     printLog(type, tag, msg);
                 }
                 if (sLog2FileSwitch) {
