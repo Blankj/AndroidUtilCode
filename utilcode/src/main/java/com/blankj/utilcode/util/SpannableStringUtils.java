@@ -416,6 +416,18 @@ public final class SpannableStringUtils {
         }
 
         /**
+         * 追加样式一行字符串
+         *
+         * @param text 样式字符串文本
+         * @return {@link Builder}
+         */
+        public Builder appendLine(@NonNull CharSequence text) {
+            setSpan();
+            this.text = text + System.getProperty("line.separator");
+            return this;
+        }
+
+        /**
          * 追加样式字符串
          *
          * @param text 样式字符串文本
