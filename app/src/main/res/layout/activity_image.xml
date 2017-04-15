@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_small">
+        android:padding="@dimen/spacing_16">
 
         <ImageView
             android:id="@+id/iv_src"

@@ -9,11 +9,11 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_small">
+        android:padding="@dimen/spacing_16">
 
         <TextView
             android:id="@+id/tv_about_keyboard"
-            style="@style/Font"
+            style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -26,7 +26,7 @@
 
         <Button
             android:id="@+id/btn_hide_soft_input"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/keyboard.hide_soft_input"
@@ -34,7 +34,7 @@
 
         <Button
             android:id="@+id/btn_show_soft_input"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/keyboard.show_soft_input"
@@ -42,7 +42,7 @@
 
         <Button
             android:id="@+id/btn_toggle_soft_input"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/keyboard.toggle_soft_input"

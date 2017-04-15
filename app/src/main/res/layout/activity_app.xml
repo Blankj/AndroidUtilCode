@@ -9,11 +9,11 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_small">
+        android:padding="@dimen/spacing_16">
 
         <TextView
             android:id="@+id/tv_about_app"
-            style="@style/Font"
+            style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -21,7 +21,7 @@
 
         <Button
             android:id="@+id/btn_install_app"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app.install"
@@ -29,7 +29,7 @@
 
         <Button
             android:id="@+id/btn_install_app_silent"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app.install_silent"
@@ -37,7 +37,7 @@
 
         <Button
             android:id="@+id/btn_uninstall_app"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app.uninstall"
@@ -45,7 +45,7 @@
 
         <Button
             android:id="@+id/btn_uninstall_app_silent"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app.uninstall_silent"
@@ -53,7 +53,7 @@
 
         <Button
             android:id="@+id/btn_launch_app"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app.launch"
@@ -61,7 +61,7 @@
 
         <Button
             android:id="@+id/btn_get_app_details_settings"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app.get_details_settings"

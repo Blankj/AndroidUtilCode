@@ -9,11 +9,11 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_small">
+        android:padding="@dimen/spacing_16">
 
         <TextView
             android:id="@+id/tv_about_fragment"
-            style="@style/Font"
+            style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -26,7 +26,7 @@
 
         <Button
             android:id="@+id/btn_show_about_fragment"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fragment.show_stack"
@@ -34,7 +34,7 @@
 
         <Button
             android:id="@+id/btn_add_hide"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fragment.add_demo1_hide"
@@ -42,7 +42,7 @@
 
         <Button
             android:id="@+id/btn_add_show"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fragment.add_demo1_show"
@@ -50,7 +50,7 @@
 
         <Button
             android:id="@+id/btn_add_child"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fragment.add_child"
@@ -58,7 +58,7 @@
 
         <Button
             android:id="@+id/btn_pop_to_root"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fragment.pop_to_root"
@@ -66,7 +66,7 @@
 
         <Button
             android:id="@+id/btn_pop_add"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fragment.pop_add"
@@ -74,7 +74,7 @@
 
         <Button
             android:id="@+id/btn_hide_show"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fragment.hide_demo0_show_demo1"
@@ -82,7 +82,7 @@
 
         <Button
             android:id="@+id/btn_replace"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fragment.replace"

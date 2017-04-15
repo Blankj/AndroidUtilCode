@@ -8,109 +8,109 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_small">
+        android:padding="@dimen/spacing_16">
 
         <TextView
             android:id="@+id/tv_about_log"
-            style="@style/Font"
+            style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center" />
 
         <Button
             android:id="@+id/btn_toggle_tag"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/log.toggle_tag" />
 
         <Button
             android:id="@+id/btn_toggle_head"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/log.toggle_head"/>
 
         <Button
             android:id="@+id/btn_toggle_file"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/log.toggle_file" />
 
         <Button
             android:id="@+id/btn_toggle_border"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/log.toggle_border" />
 
         <Button
             android:id="@+id/btn_toggle_filter"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/log.toggle_filter" />
 
         <Button
             android:id="@+id/btn_log_no_tag"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/log.with_no_tag" />
 
         <Button
             android:id="@+id/btn_log_with_tag"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/log.with_tag" />
 
         <Button
             android:id="@+id/btn_log_in_new_thread"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/log.in_new_thread" />
 
         <Button
             android:id="@+id/btn_log_null"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/log.null" />
 
         <Button
             android:id="@+id/btn_log_many_params"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/log.many_params" />
 
         <Button
             android:id="@+id/btn_log_long"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/log.long_string" />
 
         <Button
             android:id="@+id/btn_log_file"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/log.to_file" />
 
         <Button
             android:id="@+id/btn_log_json"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/log.json" />
 
         <Button
             android:id="@+id/btn_log_xml"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/log.xml" />

@@ -12,11 +12,11 @@
         <item name="actionMenuTextColor">@android:color/white</item>
     </style>
 
-    <style name="Font">
-        <item name="android:textSize">@dimen/font_normal</item>
+    <style name="TextStyle">
+        <item name="android:textSize">@dimen/font_32</item>
     </style>
 
-    <style name="BtnFont" parent="Font">
+    <style name="WideBtnStyle" parent="TextStyle">
         <item name="android:textAllCaps" tools:targetApi="ice_cream_sandwich">false</item>
     </style>
 </resources>

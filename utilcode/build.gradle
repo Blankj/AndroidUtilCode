@@ -1,29 +1,39 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
-        minSdkVersion rootProject.minSdkVersion
-        versionCode rootProject.versionCode
-        versionName rootProject.versionName
+        minSdkVersion 16
+        versionCode 20
+        versionName "1.4.0"
     }
     buildTypes {
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
 
 dependencies {
-    provided deps.appcompatv7
-    provided deps.supportv4
-    provided deps.design
-    testCompile deps.junit
-    testCompile deps.truth
-    testCompile deps.robolectric
+    final SUPPORT_VERSION = '25.3.1'
+    final JUNIT_VERSION = '4.12'
+    final TRUTH_VERSION = '0.29'
+    final ROBOLECTRIC_VERSION = '3.1.2'
+
+    provided "com.android.support:appcompat-v7:$SUPPORT_VERSION"
+    provided "com.android.support:support-v4:$SUPPORT_VERSION"
+    provided "com.android.support:design:$SUPPORT_VERSION"
+
+    testCompile "junit:junit:$JUNIT_VERSION"
+    testCompile "com.google.truth:truth:$TRUTH_VERSION"
+    testCompile "org.robolectric:robolectric:$ROBOLECTRIC_VERSION"
 }
 //apply from: "https://raw.githubusercontent.com/xiaopansky/android-library-publish-to-jcenter/master/bintrayUpload.gradle"
 //gradlew bintrayUpload

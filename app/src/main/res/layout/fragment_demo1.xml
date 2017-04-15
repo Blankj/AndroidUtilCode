@@ -9,11 +9,11 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_small">
+        android:padding="@dimen/spacing_16">
 
         <TextView
             android:id="@+id/tv_about_fragment"
-            style="@style/Font"
+            style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -21,7 +21,7 @@
 
         <Button
             android:id="@+id/btn_show_about_fragment"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fragment.show_stack"
@@ -29,7 +29,7 @@
 
         <Button
             android:id="@+id/btn_hide_show"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fragment.hide_demo1_show_demo0"

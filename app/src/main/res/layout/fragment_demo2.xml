@@ -9,18 +9,18 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_small">
+        android:padding="@dimen/spacing_16">
 
         <TextView
             android:id="@+id/tv_about_fragment"
-            style="@style/Font"
+            style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             />
 
         <Button
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:id="@+id/btn_show_about_fragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             />
 
         <Button
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:id="@+id/btn_pop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

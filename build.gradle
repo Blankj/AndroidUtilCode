@@ -21,34 +21,3 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-
-ext {
-    // Sdk and tools
-    compileSdkVersion = 25
-    buildToolsVersion = "25.0.0"
-    minSdkVersion = 15
-    targetSdkVersion = 19
-    versionCode = 16
-    versionName = "1.4.0"
-
-    // App dependencies
-    supportVersion = '25.0.0'
-    rxjavaVersion = '1.1.8'
-    rxandroidVersion = '1.2.1'
-    leakcanaryVersion = '1.5'
-    junitVersion = '4.12'
-    truthVersion = '0.29'
-    robolectricVersion = '3.1.2'
-
-    deps = [
-            appcompatv7: "com.android.support:appcompat-v7:$supportVersion",
-            supportv4  : "com.android.support:support-v4:$supportVersion",
-            design     : "com.android.support:design:$supportVersion",
-            junit      : "junit:junit:$junitVersion",
-            truth      : "com.google.truth:truth:$truthVersion",
-            robolectric: "org.robolectric:robolectric:$robolectricVersion",
-
-            leakcanaryandroid    : "com.squareup.leakcanary:leakcanary-android:$leakcanaryVersion",
-            leakcanaryandroidnoop: "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanaryVersion"
-    ]
-}

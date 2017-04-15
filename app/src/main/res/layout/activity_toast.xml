@@ -9,11 +9,11 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_small">
+        android:padding="@dimen/spacing_16">
 
         <TextView
             android:id="@+id/tv_about_toast"
-            style="@style/Font"
+            style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -21,7 +21,7 @@
 
         <Button
             android:id="@+id/btn_is_jump_when_more"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/toast.toggle_is_jump_when_more"
@@ -29,7 +29,7 @@
 
         <Button
             android:id="@+id/btn_show_short_toast_safe"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/toast.show_short_safe"
@@ -37,21 +37,21 @@
 
         <Button
             android:id="@+id/btn_show_long_toast_safe"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/toast.show_long_safe"/>
 
         <Button
             android:id="@+id/btn_show_short_toast"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/toast.show_short"/>
 
         <Button
             android:id="@+id/btn_show_long_toast"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/toast.show_long"
@@ -59,7 +59,7 @@
 
         <Button
             android:id="@+id/btn_cancel_toast"
-            style="@style/BtnFont"
+            style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/toast.cancel"
