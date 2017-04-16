@@ -9,6 +9,7 @@ android {
         versionCode 20
         versionName "1.4.0"
     }
+
     buildTypes {
         debug {
             minifyEnabled true
