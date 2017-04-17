@@ -1155,4 +1155,98 @@ public final class TimeUtils {
                 ? month - 1
                 : (month + 10) % 12];
     }
+
+    /**
+     * 与给定时间间隔millis的日期
+     * @param time 指定时间
+     * @param millis 间隔的毫秒数
+     * @return 默认格式的新日期
+     */
+    public static String getDateStringAfterTimeSpan(String time, long millis) {
+        return millis2String(string2Millis(time) + millis);
+    }
+
+    /**
+     * 与给定时间间隔millis的日期
+     * @param time 指定的原时间
+     * @param pattern 时间格式
+     * @param millis 间隔的毫秒数
+     * @return 给定格式的日期字符串
+     */
+    public static String getDateStringAfterTimeSpan(String time, String pattern, long millis) {
+        return millis2String(string2Millis(time, pattern) + millis, pattern);
+    }
+
+    /**
+     * 与给定时间指定间隔的日期
+     * @param time 指定的原时间
+     * @param pattern 时间格式
+     * @param timeSpanNum 时间间隔数
+     * @param unit 时间间隔单位
+     * @return 计算后的新时间格式化后的字符串
+     */
+    public static String getDateStringAfterTimeSpan(String time, String pattern, long timeSpanNum, @TimeConstants.Unit int unit) {
+        return millis2String(getDateStringAfterTimeSpan(string2Millis(time, pattern), timeSpanNum, unit), pattern);
+    }
+    /**
+     * 与给定时间间隔millis的日期
+     * @param timeMillis 指定的原时间的时间戳
+     * @param timeSpanNum 时间间隔数
+     * @param unit 时间间隔单位
+     * @return 计算后的新时间的时间戳
+     */
+    private static long getDateStringAfterTimeSpan(long timeMillis, long timeSpanNum, @TimeConstants.Unit int unit) {
+        int unitMultiple = 1;
+        switch (unit) {
+            case TimeConstants.DAY:
+                unitMultiple = 1000 * 60 * 60 * 24;
+                break;
+            case TimeConstants.HOUR:
+                unitMultiple = 1000 * 60 * 60;
+                break;
+            case TimeConstants.MIN:
+                unitMultiple = 1000 * 6;
+                break;
+            case TimeConstants.SEC:
+                unitMultiple = 1000;
+                break;
+            case TimeConstants.MSEC:
+                unitMultiple = 1;
+                break;
+        }
+        return timeMillis + timeSpanNum * unitMultiple;
+    }
+
+    /**
+     * 与给定时间间隔millis的日期
+     * @param time 指定时间
+     * @param millis 时间间隔
+     * @return 新日期
+     */
+    public static Date getDateAfterTimeSpan(String time, long millis) {
+        return millis2Date(string2Millis(time) + millis);
+    }
+
+    /**
+     * 与给定时间间隔millis的日期
+     * @param time 指定时间
+     * @param pattern 时间格式
+     * @param millis 时间间隔
+     * @return 新日期
+     */
+    public static Date getDateAfterTimeSpan(String time, String pattern, long millis) {
+        return millis2Date(string2Millis(time, pattern) + millis);
+    }
+
+    /**
+     *与给定时间指定间隔的日期
+     * @param time 原时间
+     * @param pattern 时间格式
+     * @param timeSpanNum 时间间隔数
+     * @param unit 时间间隔单位
+     * @return 计算后的新日期
+     */
+    public static Date getDateAfterTimeSpan(String time, String pattern, long timeSpanNum, @TimeConstants.Unit int unit) {
+        return millis2Date(getDateStringAfterTimeSpan(string2Millis(time, pattern), timeSpanNum, unit));
+    }
 }
