@@ -1032,7 +1032,7 @@ public final class TimeUtils {
      * @return 与当前时间等于时间差的时间戳
      */
     public static long getMillisByNow(long timeSpan, @TimeConstants.Unit int unit) {
-        return getNowMills() + timeSpan2Millis(timeSpan, unit);
+        return getMillis(getNowMills(), timeSpan, unit);
     }
 
     /**
@@ -1069,7 +1069,7 @@ public final class TimeUtils {
      * @return 与当前时间等于时间差的时间字符串
      */
     public static String getStringByNow(long timeSpan, @TimeConstants.Unit int unit, String pattern) {
-        return millis2String(getNowMills() + timeSpan2Millis(timeSpan, unit), pattern);
+        return getString(getNowMills(), pattern, timeSpan, unit);
     }
 
     /**
@@ -1087,7 +1087,7 @@ public final class TimeUtils {
      * @return 与当前时间等于时间差的Date
      */
     public static Date getDateByNow(long timeSpan, @TimeConstants.Unit int unit) {
-        return millis2Date(getNowMills() + timeSpan2Millis(timeSpan, unit));
+        return getDate(getNowMills(), timeSpan, unit);
     }
 
     /**

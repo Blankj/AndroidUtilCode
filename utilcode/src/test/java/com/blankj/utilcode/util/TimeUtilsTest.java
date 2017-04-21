@@ -24,6 +24,7 @@ public class TimeUtilsTest {
     long millis = 1470991049000L;
     Date timeDate = new Date(millis);
     String timeString = "2016-08-12 16:37:29";
+    String tomorrowTimeString = "2016-08-13 16:37:29";
     String myTimeString = "2016-08-12 16:37:29 中国标准时间";
     String timeString0 = "2016-08-12 16:00:00";
     String timeString1 = "2016-08-12 17:10:10";
@@ -91,6 +92,11 @@ public class TimeUtilsTest {
         System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 6 * TimeConstants.HOUR));
         System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - TimeConstants.DAY));
         System.out.println(getFriendlyTimeSpanByNow(System.currentTimeMillis() - 2 * TimeConstants.DAY));
+    }
+
+    @Test
+    public void testGetString() throws Exception {
+        assertThat(tomorrowTimeString).isEqualTo(getString(millis, 1, TimeConstants.DAY));
     }
 
     @Test
