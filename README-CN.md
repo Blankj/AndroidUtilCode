@@ -461,33 +461,34 @@ dismissSnackbar       : 取消snackbar显示
 
 * ### SpannableString相关→[SpannableStringUtils.java][spannable.java]→[Demo][spannable.demo]
 ```
-getBuilder        : 获取建造者
-setFlag           : 设置标识
-setForegroundColor: 设置前景色
-setBackgroundColor: 设置背景色
-setQuoteColor     : 设置引用线的颜色
-setLeadingMargin  : 设置缩进
-setBullet         : 设置列表标记
-setProportion     : 设置字体比例
-setXProportion    : 设置字体横向比例
-setStrikethrough  : 设置删除线
-setUnderline      : 设置下划线
-setSuperscript    : 设置上标
-setSubscript      : 设置下标
-setBold           : 设置粗体
-setItalic         : 设置斜体
-setBoldItalic     : 设置粗斜体
-setFontFamily     : 设置字体
-setAlign          : 设置对齐
-setBitmap         : 设置图片
-setDrawable       : 设置图片
-setUri            : 设置图片
-setResourceId     : 设置图片
-setClickSpan      : 设置点击事件
-setUrl            : 设置超链接
-setBlur           : 设置模糊
-append            : 追加样式字符串
-create            : 创建样式字符串
+Builder.getBuilder        : 获取建造者
+Builder.setFlag           : 设置标识
+Builder.setForegroundColor: 设置前景色
+Builder.setBackgroundColor: 设置背景色
+Builder.setQuoteColor     : 设置引用线的颜色
+Builder.setLeadingMargin  : 设置缩进
+Builder.setBullet         : 设置列表标记
+Builder.setFontSize       : 设置字体尺寸
+Builder.setFontProportion : 设置字体比例
+Builder.setFontXProportion: 设置字体横向比例
+Builder.setStrikethrough  : 设置删除线
+Builder.setUnderline      : 设置下划线
+Builder.setSuperscript    : 设置上标
+Builder.setSubscript      : 设置下标
+Builder.setBold           : 设置粗体
+Builder.setItalic         : 设置斜体
+Builder.setBoldItalic     : 设置粗斜体
+Builder.setFontFamily     : 设置字体
+Builder.setAlign          : 设置对齐
+Builder.setBitmap         : 设置图片
+Builder.setDrawable       : 设置图片
+Builder.setUri            : 设置图片
+Builder.setResourceId     : 设置图片
+Builder.setClickSpan      : 设置点击事件
+Builder.setUrl            : 设置超链接
+Builder.setBlur           : 设置模糊
+Builder.append            : 追加样式字符串
+Builder.create            : 创建样式字符串
 ```
 
 * ### SP相关→[SPUtils.java][sp.java]→[Test][sp.test]
@@ -554,12 +555,18 @@ date2Millis             : 将Date类型转为时间戳
 millis2Date             : 将时间戳转为Date类型
 getTimeSpan             : 获取两个时间差（单位：unit）
 getFitTimeSpan          : 获取合适型两个时间差
-getNowTimeMills         : 获取当前毫秒时间戳
-getNowTimeString        : 获取当前时间字符串
-getNowTimeDate          : 获取当前Date
+getNowMills             : 获取当前毫秒时间戳
+getNowString            : 获取当前时间字符串
+getNowDate              : 获取当前Date
 getTimeSpanByNow        : 获取与当前时间的差（单位：unit）
 getFitTimeSpanByNow     : 获取合适型与当前时间的差
 getFriendlyTimeSpanByNow: 获取友好型与当前时间的差
+getMillis               : 获取与给定时间等于时间差的时间戳
+getString               : 获取与给定时间等于时间差的时间字符串
+getDate                 : 获取与给定时间等于时间差的Date
+getMillisByNow          : 获取与当前时间等于时间差的时间戳
+getStringByNow          : 获取与当前时间等于时间差的时间字符串
+getDateByNow            : 获取与当前时间等于时间差的Date
 isSameDay               : 判断是否同一天
 isLeapYear              : 判断是否闰年
 getWeek, getWeekIndex   : 获取星期
@@ -605,7 +612,7 @@ getEntries        : 获取压缩文件中的文件对象
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.3.8'
+compile 'com.blankj:utilcode:1.4.0'
 ```
 
 ## How to use

@@ -8,7 +8,7 @@ import java.io.FilenameFilter;
 
 import static com.blankj.utilcode.util.FileUtils.*;
 import static com.blankj.utilcode.util.TestUtils.BASEPATH;
-import static com.blankj.utilcode.util.TestUtils.SEP;
+import static com.blankj.utilcode.util.TestUtils.FILE_SEP;
 import static com.google.common.truth.Truth.assertThat;
 
 /**
@@ -22,7 +22,7 @@ import static com.google.common.truth.Truth.assertThat;
 public class FileUtilsTest {
 
 
-    String path = BASEPATH + "file" + SEP;
+    String path = BASEPATH + "file" + FILE_SEP;
 
     @Test
     public void testGetFileByPath() throws Exception {
@@ -72,7 +72,7 @@ public class FileUtilsTest {
         assertThat(createFileByDeleteOldFile(path)).isFalse();
     }
 
-    String path1 = BASEPATH + "file1" + SEP;
+    String path1 = BASEPATH + "file1" + FILE_SEP;
 
     @Test
     public void testCopyDir() throws Exception {
@@ -84,7 +84,7 @@ public class FileUtilsTest {
     @Test
     public void testCopyFile() throws Exception {
         assertThat(copyFile(path + "GBK.txt", path + "GBK.txt")).isFalse();
-        assertThat(copyFile(path + "GBK.txt", path + "new Dir" + SEP + "GBK.txt")).isTrue();
+        assertThat(copyFile(path + "GBK.txt", path + "new Dir" + FILE_SEP + "GBK.txt")).isTrue();
         assertThat(copyFile(path + "GBK.txt", path1 + "GBK.txt")).isTrue();
     }
 

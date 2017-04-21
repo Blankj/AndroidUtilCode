@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.blankj.utilcode.util.TestUtils.BASEPATH;
-import static com.blankj.utilcode.util.TestUtils.SEP;
+import static com.blankj.utilcode.util.TestUtils.FILE_SEP;
 import static com.blankj.utilcode.util.ZipUtils.*;
 import static com.google.common.truth.Truth.*;
 
@@ -21,10 +21,10 @@ import static com.google.common.truth.Truth.*;
  */
 public class ZipUtilsTest {
 
-    String testZip = BASEPATH + "zip" + SEP + "testZip" + SEP;
-    String testZipFiles = BASEPATH + "zip" + SEP + "testZips.zip";
-    String testZipFile = BASEPATH + "zip" + SEP + "testZip.zip";
-    String unzipFile = BASEPATH + "zip" + SEP + "testUnzip";
+    String testZip = BASEPATH + "zip" + FILE_SEP + "testZip" + FILE_SEP;
+    String testZipFiles = BASEPATH + "zip" + FILE_SEP + "testZips.zip";
+    String testZipFile = BASEPATH + "zip" + FILE_SEP + "testZip.zip";
+    String unzipFile = BASEPATH + "zip" + FILE_SEP + "testUnzip";
 
     @Test
     public void testZipFiles() throws Exception {

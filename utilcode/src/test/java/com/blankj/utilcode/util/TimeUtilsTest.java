@@ -73,14 +73,14 @@ public class TimeUtilsTest {
 
     @Test
     public void testGetCurTimeMills() throws Exception {
-        long interval = getNowTimeMills() - System.currentTimeMillis();
+        long interval = getNowMills() - System.currentTimeMillis();
         assertThat(interval).isLessThan(10L);
     }
 
     @Test
     public void testGetCurTimeString() throws Exception {
-        System.out.println(getNowTimeString());
-        System.out.println(getNowTimeString(myPattern));
+        System.out.println(getNowString());
+        System.out.println(getNowString(myPattern));
     }
 
     @Test

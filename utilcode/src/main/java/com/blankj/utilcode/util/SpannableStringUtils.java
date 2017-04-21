@@ -12,10 +12,12 @@ import android.support.annotation.Nullable;
 import android.text.Layout.Alignment;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
 import android.text.style.AlignmentSpan;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.BulletSpan;
 import android.text.style.ClickableSpan;
+import android.text.style.DynamicDrawableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.text.style.LeadingMarginSpan;
@@ -47,15 +49,7 @@ public final class SpannableStringUtils {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
-    /**
-     * 获取建造者
-     *
-     * @param text 样式字符串文本
-     * @return {@link Builder}
-     */
-    public static Builder getBuilder(@NonNull CharSequence text) {
-        return new Builder(text);
-    }
+    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
     public static class Builder {
 
@@ -71,53 +65,54 @@ public final class SpannableStringUtils {
         private int quoteColor;
 
         private boolean isLeadingMargin;
-        private int     first;
-        private int     rest;
+        private int first;
+        private int rest;
 
         private boolean isBullet;
-        private int     gapWidth;
-        private int     bulletColor;
+        private int gapWidth;
+        private int bulletColor;
 
-        private float     proportion;
-        private float     xProportion;
-        private boolean   isStrikethrough;
-        private boolean   isUnderline;
-        private boolean   isSuperscript;
-        private boolean   isSubscript;
-        private boolean   isBold;
-        private boolean   isItalic;
-        private boolean   isBoldItalic;
-        private String    fontFamily;
+        private int fontSize;
+        private boolean fontSizeIsDp;
+        private float fontProportion;
+        private float fontXProportion;
+        private boolean isStrikethrough;
+        private boolean isUnderline;
+        private boolean isSuperscript;
+        private boolean isSubscript;
+        private boolean isBold;
+        private boolean isItalic;
+        private boolean isBoldItalic;
+        private String fontFamily;
         private Alignment align;
 
-        private boolean  imageIsBitmap;
-        private Bitmap   bitmap;
-        private boolean  imageIsDrawable;
+        private boolean imageIsBitmap;
+        private Bitmap bitmap;
+        private boolean imageIsDrawable;
         private Drawable drawable;
-        private boolean  imageIsUri;
-        private Uri      uri;
-        private boolean  imageIsResourceId;
+        private boolean imageIsUri;
+        private Uri uri;
+        private boolean imageIsResourceId;
         @DrawableRes
-        private int      resourceId;
+        private int resourceId;
 
         private ClickableSpan clickSpan;
-        private String        url;
+        private String url;
 
         private boolean isBlur;
-        private float   radius;
-        private Blur    style;
+        private float radius;
+        private Blur style;
 
         private SpannableStringBuilder mBuilder;
 
-
-        private Builder(@NonNull CharSequence text) {
-            this.text = text;
+        public Builder() {
             flag = Spanned.SPAN_EXCLUSIVE_EXCLUSIVE;
             foregroundColor = defaultValue;
             backgroundColor = defaultValue;
             quoteColor = defaultValue;
-            proportion = -1;
-            xProportion = -1;
+            fontSize = -1;
+            fontProportion = -1;
+            fontXProportion = -1;
             mBuilder = new SpannableStringBuilder();
         }
 
@@ -199,24 +194,37 @@ public final class SpannableStringUtils {
         }
 
         /**
-         * 设置字体比例
+         * 设置字体尺寸
          *
-         * @param proportion 比例
+         * @param size 尺寸
+         * @param isDp 是否使用dip
          * @return {@link Builder}
          */
-        public Builder setProportion(float proportion) {
-            this.proportion = proportion;
+        public Builder setFontSize(int size, boolean isDp) {
+            this.fontSize = size;
+            this.fontSizeIsDp = isDp;
+            return this;
+        }
+
+        /**
+         * 设置字体比例
+         *
+         * @param fontProportion 字体比例
+         * @return {@link Builder}
+         */
+        public Builder setFontProportion(float fontProportion) {
+            this.fontProportion = fontProportion;
             return this;
         }
 
         /**
          * 设置字体横向比例
          *
-         * @param proportion 比例
+         * @param fontXProportion 比例
          * @return {@link Builder}
          */
-        public Builder setXProportion(float proportion) {
-            this.xProportion = proportion;
+        public Builder setFontXProportion(float fontXProportion) {
+            this.fontXProportion = fontXProportion;
             return this;
         }
 
@@ -423,7 +431,7 @@ public final class SpannableStringUtils {
          */
         public Builder appendLine(@NonNull CharSequence text) {
             setSpan();
-            this.text = text + System.getProperty("line.separator");
+            this.text = text + LINE_SEPARATOR;
             return this;
         }
 
@@ -453,6 +461,7 @@ public final class SpannableStringUtils {
          * 设置样式
          */
         private void setSpan() {
+            if (text == null || text.length() == 0) return;
             int start = mBuilder.length();
             mBuilder.append(this.text);
             int end = mBuilder.length();
@@ -469,20 +478,25 @@ public final class SpannableStringUtils {
                 isLeadingMargin = false;
             }
             if (quoteColor != defaultValue) {
-                mBuilder.setSpan(new QuoteSpan(quoteColor), start, end, 0);
+                mBuilder.setSpan(new QuoteSpan(quoteColor), start, end, flag);
                 quoteColor = defaultValue;
             }
             if (isBullet) {
-                mBuilder.setSpan(new BulletSpan(gapWidth, bulletColor), start, end, 0);
+                mBuilder.setSpan(new BulletSpan(gapWidth, bulletColor), start, end, flag);
                 isBullet = false;
             }
-            if (proportion != -1) {
-                mBuilder.setSpan(new RelativeSizeSpan(proportion), start, end, flag);
-                proportion = -1;
+            if (fontSize != -1) {
+                mBuilder.setSpan(new AbsoluteSizeSpan(fontSize, fontSizeIsDp), start, end, flag);
+                fontSize = -1;
+                fontSizeIsDp = false;
             }
-            if (xProportion != -1) {
-                mBuilder.setSpan(new ScaleXSpan(xProportion), start, end, flag);
-                xProportion = -1;
+            if (fontProportion != -1) {
+                mBuilder.setSpan(new RelativeSizeSpan(fontProportion), start, end, flag);
+                fontProportion = -1;
+            }
+            if (fontXProportion != -1) {
+                mBuilder.setSpan(new ScaleXSpan(fontXProportion), start, end, flag);
+                fontXProportion = -1;
             }
             if (isStrikethrough) {
                 mBuilder.setSpan(new StrikethroughSpan(), start, end, flag);
@@ -534,7 +548,7 @@ public final class SpannableStringUtils {
                     uri = null;
                     imageIsUri = false;
                 } else {
-                    mBuilder.setSpan(new ImageSpan(Utils.getContext(), resourceId), start, end, flag);
+                    mBuilder.setSpan(new ImageSpan(Utils.getContext(), resourceId, DynamicDrawableSpan.ALIGN_BASELINE), start, end, flag);
                     resourceId = 0;
                     imageIsResourceId = false;
                 }

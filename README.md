@@ -1,18 +1,18 @@
 # Android developers should collect the following utils
 
-## [README of Chinese][readme-cn.md] 
+## [README of Chinese][readme-cn.md]
 
-Directory is shown below:
+## API
 
-> - **About Activity→[ActivityUtils.java][activity.java]→[Demo][activity.demo]**
- ```
+* ### About Activity→[ActivityUtils.java][activity.java]→[Demo][activity.demo]
+```
 isActivityExists
 launchActivity
 getLauncherActivity
- ```
+```
 
-> - **About App→[AppUtils.java][app.java]→[Demo][app.demo]**
- ```
+* ### About App→[AppUtils.java][app.java]→[Demo][app.demo]
+```
 isInstallApp
 installApp
 installAppSilent
@@ -36,10 +36,10 @@ getForegroundApp
 getAppInfo
 getAppsInfo
 cleanAppData
- ```
+```
 
-> - **About Bar→[BarUtils.java][bar.java]**
- ```
+* ### About Bar→[BarUtils.java][bar.java]
+```
 setTransparentStatusBar
 hideStatusBar
 getStatusBarHeight
@@ -47,10 +47,10 @@ isStatusBarExists
 getActionBarHeight
 showNotificationBar
 hideNotificationBar
- ```
+```
 
-> - **About Clean→[CleanUtils.java][clean.java]→[Demo][clean.demo]**
- ```
+* ### About Clean→[CleanUtils.java][clean.java]→[Demo][clean.demo]
+```
 cleanInternalCache
 cleanInternalFiles
 cleanInternalDbs
@@ -58,26 +58,26 @@ cleanInternalDbByName
 cleanInternalSP
 cleanExternalCache
 cleanCustomCache
- ```
+```
 
-> - **About Clipboard→[ClipboardUtils.java][clipboard.java]**
- ```
+* ### About Clipboard→[ClipboardUtils.java][clipboard.java]
+```
 copyText
 getText
 copyUri
 getUri
 copyIntent
 getIntent
- ```
+```
 
-> - **About Close→[CloseUtils.java][close.java]**
- ```
+* ### About Close→[CloseUtils.java][close.java]
+```
 closeIO
 closeIOQuietly
- ```
+```
 
-> - **About Convert→[ConvertUtils.java][convert.java]→[Test][convert.test]**
- ```
+* ### About Convert→[ConvertUtils.java][convert.java]→[Test][convert.test]
+```
 bytes2HexString, hexString2Bytes
 chars2Bytes, bytes2Chars
 memorySize2Byte, byte2MemorySize
@@ -96,16 +96,16 @@ drawable2Bytes, bytes2Drawable
 view2Bitmap
 dp2px, px2dp
 sp2px, px2sp
- ```
+```
 
-> - **About Crash→[CrashUtils.java][crash.java]**
- ```
+* ### About Crash→[CrashUtils.java][crash.java]
+```
 getInstance
 init
- ```
+```
 
-> - **About Device→[DeviceUtils.java][device.java]→[Demo][device.demo]**
- ```
+* ### About Device→[DeviceUtils.java][device.java]→[Demo][device.demo]
+```
 isDeviceRooted
 getSDKVersion
 getAndroidID
@@ -116,16 +116,16 @@ shutdown
 reboot
 reboot2Recovery
 reboot2Bootloader
- ```
+```
 
-> - **About Empty→[EmptyUtils.java][empty.java]→[Test][empty.test]**
- ```
+* ### About Empty→[EmptyUtils.java][empty.java]→[Test][empty.test]
+```
 isEmpty
 isNotEmpty
- ```
+```
 
-> - **About Encode→[EncodeUtils.java][encode.java]→[Test][encode.test]**
- ```
+* ### About Encode→[EncodeUtils.java][encode.java]→[Test][encode.test]
+```
 urlEncode
 urlDecode
 base64Encode
@@ -134,10 +134,10 @@ base64Decode
 base64UrlSafeEncode
 htmlEncode
 htmlDecode
- ```
+```
 
-> - **About Encrypt→[EncryptUtils.java][encrypt.java]→[Test][encrypt.test]**
- ```
+* ### About Encrypt→[EncryptUtils.java][encrypt.java]→[Test][encrypt.test]
+```
 encryptMD2, encryptMD2ToString
 encryptMD5, encryptMD5ToString
 encryptMD5File, encryptMD5File2String
@@ -158,10 +158,10 @@ encrypt3DES, encrypt3DES2HexString, encrypt3DES2Base64
 decrypt3DES, decryptHexString3DES, decryptBase64_3DES
 encryptAES, encryptAES2HexString, encryptAES2Base64
 decryptAES, decryptHexStringAES, decryptBase64AES
- ```
+```
 
-> - **About File→[FileUtils.java][file.java]→[Test][file.test]**
- ```
+* ### About File→[FileUtils.java][file.java]→[Test][file.test]
+```
 getFileByPath
 isFileExists
 rename
@@ -201,11 +201,12 @@ getDirName
 getFileName
 getFileNameNoExtension
 getFileExtension
- ```
+```
 
-> - **About Fragment→[FragmentUtils.java][fragment.java]→[Demo][fragment.demo]**
- ```
+* ### About Fragment→[FragmentUtils.java][fragment.java]→[Demo][fragment.demo]
+```
 addFragment
+hideAddFragment
 addFragments
 removeFragment
 removeToFragment
@@ -235,15 +236,15 @@ dispatchBackPress
 setBackgroundColor
 setBackgroundResource
 setBackground
- ```
+```
 
-> - **About Handler→[HandlerUtils.java][handler.java]→[Demo][handler.demo]**
- ```
+* ### About Handler→[HandlerUtils.java][handler.java]→[Demo][handler.demo]
+```
 HandlerHolder
- ```
+```
 
-> - **About Image→[ImageUtils.java][image.java]→[Demo][image.demo]**
- ```
+* ### About Image→[ImageUtils.java][image.java]→[Demo][image.demo]
+```
 bitmap2Bytes, bytes2Bitmap
 drawable2Bitmap, bitmap2Drawable
 drawable2Bytes, bytes2Drawable
@@ -270,10 +271,10 @@ getImageType
 compressByScale
 compressByQuality
 compressBySampleSize
- ```
+```
 
-> - **About Intent→[IntentUtils.java][intent.java]**
- ```
+* ### About Intent→[IntentUtils.java][intent.java]
+```
 getInstallAppIntent
 getUninstallAppIntent
 getLaunchAppIntent
@@ -283,18 +284,18 @@ getShareImageIntent
 getComponentIntent
 getShutdownIntent
 getCaptureIntent
- ```
+```
 
-> - **About Keyboard→[KeyboardUtils.java][keyboard.java]→[Demo][keyboard.demo]**
- ```
+* ### About Keyboard→[KeyboardUtils.java][keyboard.java]→[Demo][keyboard.demo]
+```
 hideSoftInput
 clickBlankArea2HideSoftInput
 showSoftInput
 toggleSoftInput
- ```
+```
 
-> - **About Location→[LocationUtils.java][location.java]→[Demo][location.demo]**
- ```
+* ### About Location→[LocationUtils.java][location.java]→[Demo][location.demo]
+```
 isGpsEnabled
 isLocationEnabled
 openGpsSettings
@@ -304,10 +305,17 @@ getAddress
 getCountryName
 getLocality
 getStreet
- ```
+```
 
-> - **About Log→[LogUtils.java][log.java]→[Demo][log.demo]**
- ```
+* ### About Log→[LogUtils.java][log.java]→[Demo][log.demo]
+```
+Builder.setLogSwitch
+Builder.setGlobalTag
+Builder.setLogHeadSwitch
+Builder.setLog2FileSwitch
+Builder.setBorderSwitch
+Builder.setLogFilter
+
 v
 d
 i
@@ -317,10 +325,10 @@ a
 file
 json
 xml
- ```
+```
 
-> - **About Network→[NetworkUtils.java][network.java]→[Demo][network.demo]**
- ```
+* ### About Network→[NetworkUtils.java][network.java]→[Demo][network.demo]
+```
 openWirelessSettings
 isConnected
 isAvailableByPing
@@ -335,10 +343,10 @@ getNetworkOperatorName
 getNetworkType
 getIPAddress
 getDomainAddress
- ```
+```
 
-> - **About Phone→[PhoneUtils.java][phone.java]→[Demo][phone.demo]**
- ```
+* ### About Phone→[PhoneUtils.java][phone.java]→[Demo][phone.demo]
+```
 isPhone
 getIMEI
 getIMSI
@@ -354,27 +362,27 @@ sendSmsSilent
 getAllContactInfo
 getContactNum
 getAllSMS
- ```
+```
 
-> - **About Pinyin→[PinyinUtils.java][pinyin.java]→[Test][pinyin.test]**
- ```
+* ### About Pinyin→[PinyinUtils.java][pinyin.java]→[Test][pinyin.test]
+```
 ccs2Pinyin
 ccs2Pinyin
 getPinyinFirstLetter
 getPinyinFirstLetters
 getSurnamePinyin
 getSurnameFirstLetter
- ```
+```
 
-> - **About Process→[ProcessUtils.java][process.java]→[Demo][process.demo]**
- ```
+* ### About Process→[ProcessUtils.java][process.java]→[Demo][process.demo]
+```
 getForegroundProcessName
 killAllBackgroundProcesses
 killBackgroundProcesses
- ```
+```
 
-> - **About Regex→[RegexUtils.java][regex.java]→[Test][regex.test]**
- ```
+* ### About Regex→[RegexUtils.java][regex.java]→[Test][regex.test]
+```
 isMobileSimple
 isMobileExact
 isTel
@@ -391,10 +399,10 @@ getMatches
 getSplits
 getReplaceFirst
 getReplaceAll
- ```
+```
 
-> - **About Screen→[ScreenUtils.java][screen.java]**
- ```
+* ### About Screen→[ScreenUtils.java][screen.java]
+```
 getScreenWidth
 getScreenHeight
 setLandscape
@@ -405,34 +413,34 @@ getScreenRotation
 captureWithStatusBar
 captureWithoutStatusBar
 isScreenLock
- ```
+```
 
-> - **About SDCard→[SDCardUtils.java][sdcard.java]→[Demo][sdcard.demo]**
- ```
+* ### About SDCard→[SDCardUtils.java][sdcard.java]→[Demo][sdcard.demo]
+```
 isSDCardEnable
 getSDCardPath
 getDataPath
 getFreeSpace
 getSDCardInfo
- ```
+```
 
-> - **About Service→[ServiceUtils.java][service.java]**
- ```
+* ### About Service→[ServiceUtils.java][service.java]
+```
 getAllRunningService
 startService
 stopService
 bindService
 unbindService
 isServiceRunning
- ```
+```
 
-> - **About Shell→[ShellUtils.java][shell.java]**
- ```
+* ### About Shell→[ShellUtils.java][shell.java]
+```
 execCmd
- ```
+```
 
-> - **About Size→[SizeUtils.java][size.java]**
- ```
+* ### About Size→[SizeUtils.java][size.java]
+```
 dp2px, px2dp
 sp2px, px2sp
 applyDimension
@@ -440,50 +448,51 @@ forceGetViewSize
 measureView
 getMeasuredWidth
 getMeasuredHeight
- ```
+```
 
-> - **About Snackbar→[SnackbarUtils.java][snackbar.java]→[Demo][snackbar.demo]**
- ```
+* ### About Snackbar→[SnackbarUtils.java][snackbar.java]→[Demo][snackbar.demo]
+```
 showShortSnackbar
 showLongSnackbar
 showIndefiniteSnackbar
 addView
 dismissSnackbar
- ```
+```
 
-> - **About SpannableString→[SpannableStringUtils.java][spannable.java]→[Demo][spannable.demo]**
- ```
-getBuilder
-setFlag
-setForegroundColor
-setBackgroundColor
-setQuoteColor
-setLeadingMargin
-setBullet
-setProportion
-setXProportion
-setStrikethrough
-setUnderline
-setSuperscript
-setSubscript
-setBold
-setItalic
-setBoldItalic
-setFontFamily
-setAlign
-setBitmap
-setDrawable
-setUri
-setResourceId
-setClickSpan
-setUrl
-setBlur
-append
-create
- ```
+* ### About SpannableString→[SpannableStringUtils.java][spannable.java]→[Demo][spannable.demo]
+```
+Builder.getBuilder
+Builder.setFlag
+Builder.setForegroundColor
+Builder.setBackgroundColor
+Builder.setQuoteColor
+Builder.setLeadingMargin
+Builder.setBullet
+Builder.setFontSize
+Builder.setFontProportion
+Builder.setFontXProportion
+Builder.setStrikethrough
+Builder.setUnderline
+Builder.setSuperscript
+Builder.setSubscript
+Builder.setBold
+Builder.setItalic
+Builder.setBoldItalic
+Builder.setFontFamily
+Builder.setAlign
+Builder.setBitmap
+Builder.setDrawable
+Builder.setUri
+Builder.setResourceId
+Builder.setClickSpan
+Builder.setUrl
+Builder.setBlur
+Builder.append
+Builder.create
+```
 
-> - **About SP→[SPUtils.java][sp.java]→[Test][sp.test]**
- ```
+* ### About SP→[SPUtils.java][sp.java]→[Test][sp.test]
+```
 SPUtils
 put
 getString
@@ -499,10 +508,10 @@ getAll
 remove
 contains
 clear
- ```
+```
 
-> - **About String→[StringUtils.java][string.java]→[Test][string.test]**
- ```
+* ### About String→[StringUtils.java][string.java]→[Test][string.test]
+```
 isEmpty
 isTrimEmpty
 isSpace
@@ -515,10 +524,10 @@ lowerFirstLetter
 reverse
 toDBC
 toSBC
- ```
+```
 
-> - **About ThreadPool→[ThreadPoolUtils.java][thread_pool.java]**
- ```
+* ### About ThreadPool→[ThreadPoolUtils.java][thread_pool.java]
+```
 ThreadPoolUtils
 execute
 execute
@@ -534,10 +543,10 @@ schedule
 schedule
 scheduleWithFixedRate
 scheduleWithFixedDelay
- ```
+```
 
-> - **About Time→[TimeUtils.java][time.java]→[Test][time.test]**
- ```
+* ### About Time→[TimeUtils.java][time.java]→[Test][time.test]
+```
 millis2String
 string2Millis
 string2Date
@@ -546,12 +555,18 @@ date2Millis
 millis2Date
 getTimeSpan
 getFitTimeSpan
-getNowTimeMills
-getNowTimeString
-getNowTimeDate
+getNowMills
+getNowString
+getNowDate
 getTimeSpanByNow
 getFitTimeSpanByNow
 getFriendlyTimeSpanByNow
+getMillis
+getString
+getDate
+getMillisByNow
+getStringByNow
+getDateByNow
 isSameDay
 isLeapYear
 getWeek, getWeekIndex
@@ -559,20 +574,20 @@ getWeekOfMonth
 getWeekOfYear
 getChineseZodiac
 getZodiac
- ```
+```
 
-> - **About Toast→[ToastUtils.java][toast.java]→[Demo][toast.demo]**
- ```
+* ### About Toast→[ToastUtils.java][toast.java]→[Demo][toast.demo]
+```
 init
 showShortToastSafe
 showLongToastSafe
 showShortToast
 showLongToast
 cancelToast
- ```
+```
 
-> - **About Zip→[ZipUtils.java][zip.java]→[Test][zip.test]**
- ```
+* ### About Zip→[ZipUtils.java][zip.java]→[Test][zip.test]
+```
 zipFiles
 zipFile
 unzipFiles
@@ -581,9 +596,9 @@ unzipFileByKeyword
 getFilesPath
 getComments
 getEntries
- ```
+```
 
-> - **更新Log→[update_log.md][update_log.md]**
+* ### About Log→[update_log.md][update_log.md]**
 
 ***
 
@@ -595,7 +610,7 @@ getEntries
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.3.7'
+compile 'com.blankj:utilcode:1.4.0'
 ```
 
 ## How to use

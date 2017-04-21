@@ -1,4 +1,4 @@
 <resources>
     <dimen name="spacing_16">16dp</dimen>
-    <dimen name="font_32">32sp</dimen>
+    <dimen name="font_26">26sp</dimen>
 </resources>
