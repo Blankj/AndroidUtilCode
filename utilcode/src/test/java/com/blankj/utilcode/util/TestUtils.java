@@ -31,7 +31,6 @@ public class TestUtils {
         Utils.init(RuntimeEnvironment.application);
     }
 
-//    * ### Activity相关→[ActivityUtils.java][activity.java]→[Demo][activity.demo]
     @Test
     public void readme2Eng() throws Exception {
         formatCN();

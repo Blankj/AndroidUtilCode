@@ -315,16 +315,15 @@ Builder.setLogHeadSwitch : 设置log头开关
 Builder.setLog2FileSwitch: 设置log文件开关
 Builder.setBorderSwitch  : 设置log边框开关
 Builder.setLogFilter     : 设置log过滤器
-
-v   : Verbose日志
-d   : Debug日志
-i   : Info日志
-w   : Warn日志
-e   : Error日志
-a   : Assert日志
-file: log到文件
-json: log字符串之json
-xml : log字符串之xml
+v                        : Verbose日志
+d                        : Debug日志
+i                        : Info日志
+w                        : Warn日志
+e                        : Error日志
+a                        : Assert日志
+file                     : log到文件
+json                     : log字符串之json
+xml                      : log字符串之xml
 ```
 
 * ### 网络相关→[NetworkUtils.java][network.java]→[Demo][network.demo]
@@ -461,7 +460,6 @@ dismissSnackbar       : 取消snackbar显示
 
 * ### SpannableString相关→[SpannableStringUtils.java][spannable.java]→[Demo][spannable.demo]
 ```
-Builder.getBuilder        : 获取建造者
 Builder.setFlag           : 设置标识
 Builder.setForegroundColor: 设置前景色
 Builder.setBackgroundColor: 设置背景色

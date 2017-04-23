@@ -1,4 +1,5 @@
-* 17/04/21 发布Version1.4.0
+* 17/04/23 完善README
+* 17/04/21 完善TimeUtils，发布Version1.4.0
 * 17/04/20 SpannableStringUtils新增设置字体尺寸
 * 17/03/29 修改README
 * 17/03/27 更新LogUtils

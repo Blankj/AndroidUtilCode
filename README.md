@@ -315,7 +315,6 @@ Builder.setLogHeadSwitch
 Builder.setLog2FileSwitch
 Builder.setBorderSwitch
 Builder.setLogFilter
-
 v
 d
 i
@@ -461,7 +460,6 @@ dismissSnackbar
 
 * ### About SpannableString→[SpannableStringUtils.java][spannable.java]→[Demo][spannable.demo]
 ```
-Builder.getBuilder
 Builder.setFlag
 Builder.setForegroundColor
 Builder.setBackgroundColor
