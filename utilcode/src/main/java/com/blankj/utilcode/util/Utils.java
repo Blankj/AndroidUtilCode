@@ -11,7 +11,7 @@ import android.content.Context;
  * </pre>
  */
 public final class Utils {
-
+    @SuppressWarnings("StaticFieldLeak")
     private static Context context;
 
     private Utils() {
