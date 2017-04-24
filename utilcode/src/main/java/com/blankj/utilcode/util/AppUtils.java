@@ -537,8 +537,8 @@ public final class AppUtils {
             return packageName;
         }
 
-        public void setPackageName(String packagName) {
-            this.packageName = packagName;
+        public void setPackageName(String packageName) {
+            this.packageName = packageName;
         }
 
         public String getPackagePath() {

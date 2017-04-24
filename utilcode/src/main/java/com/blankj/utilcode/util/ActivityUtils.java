@@ -90,6 +90,7 @@ public final class ActivityUtils {
      *
      * @return 栈顶Activity
      */
+    @SuppressWarnings("unchecked")
     public static Activity getTopActivity() {
         try {
             Class activityThreadClass = Class.forName("android.app.ActivityThread");

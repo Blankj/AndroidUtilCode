@@ -81,7 +81,7 @@ public final class StringUtils {
      * @return {@code true}: 相等<br>{@code false}: 不相等
      */
     public static boolean equalsIgnoreCase(String a, String b) {
-        return (a == b) || (b != null) && (a.length() == b.length()) && a.regionMatches(true, 0, b, 0, b.length());
+        return a == null ? b == null : a.equalsIgnoreCase(b);
     }
 
     /**

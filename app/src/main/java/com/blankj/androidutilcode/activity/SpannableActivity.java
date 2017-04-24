@@ -60,7 +60,7 @@ public class SpannableActivity extends Activity {
                 .append("测试")
                 .appendLine("横向2倍字体").setFontXProportion(2)
                 .append("测试")
-                .append("删除线").setStrikethrough()
+                .append("删除线").setStrikeThrough()
                 .appendLine("下划线").setUnderline()
                 .append("测试")
                 .append("上标").setSuperscript()

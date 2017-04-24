@@ -76,7 +76,7 @@ public final class SpannableStringUtils {
         private boolean fontSizeIsDp;
         private float fontProportion;
         private float fontXProportion;
-        private boolean isStrikethrough;
+        private boolean isStrikeThrough;
         private boolean isUnderline;
         private boolean isSuperscript;
         private boolean isSubscript;
@@ -233,8 +233,8 @@ public final class SpannableStringUtils {
          *
          * @return {@link Builder}
          */
-        public Builder setStrikethrough() {
-            this.isStrikethrough = true;
+        public Builder setStrikeThrough() {
+            this.isStrikeThrough = true;
             return this;
         }
 
@@ -498,9 +498,9 @@ public final class SpannableStringUtils {
                 mBuilder.setSpan(new ScaleXSpan(fontXProportion), start, end, flag);
                 fontXProportion = -1;
             }
-            if (isStrikethrough) {
+            if (isStrikeThrough) {
                 mBuilder.setSpan(new StrikethroughSpan(), start, end, flag);
-                isStrikethrough = false;
+                isStrikeThrough = false;
             }
             if (isUnderline) {
                 mBuilder.setSpan(new UnderlineSpan(), start, end, flag);
