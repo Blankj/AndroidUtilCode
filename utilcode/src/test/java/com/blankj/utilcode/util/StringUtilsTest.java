@@ -38,6 +38,8 @@ public class StringUtilsTest {
 
     @Test
     public void testEqualsIgnoreCase() throws Exception {
+        assertThat(equalsIgnoreCase(null, null)).isEqualTo(true);
+        assertThat(equalsIgnoreCase(null, "blankj")).isEqualTo(false);
         assertThat(equalsIgnoreCase("blankj", "Blankj")).isEqualTo(true);
         assertThat(equalsIgnoreCase("blankj", "blankj")).isEqualTo(true);
         assertThat(equalsIgnoreCase("blankj", "blank")).isEqualTo(false);

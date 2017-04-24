@@ -1,5 +1,6 @@
 package com.blankj.utilcode.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 /**
@@ -12,6 +13,7 @@ import android.content.Context;
  */
 public final class Utils {
 
+    @SuppressLint("StaticFieldLeak")
     private static Context context;
 
     private Utils() {

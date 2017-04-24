@@ -1,3 +1,4 @@
+* 17/04/24 fix typos and fix StringUtils.equalsIgnoreCase
 * 17/04/23 完善README
 * 17/04/21 完善TimeUtils，发布Version1.4.0
 * 17/04/20 SpannableStringUtils新增设置字体尺寸
