@@ -2,6 +2,8 @@ package com.blankj.androidutilcode.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Handler.Callback;
 import android.os.Message;
 import android.view.View;
 import android.widget.TextView;
@@ -18,10 +20,9 @@ import com.blankj.utilcode.util.HandlerUtils;
  * </pre>
  */
 public class HandlerActivity extends Activity
-        implements View.OnClickListener,
-        HandlerUtils.OnReceiveMessageListener {
+        implements View.OnClickListener, Callback {
 
-    private TextView                   tvAboutHandler;
+    private TextView tvAboutHandler;
     private HandlerUtils.HandlerHolder handlerHolder;
 
     @Override
@@ -45,7 +46,8 @@ public class HandlerActivity extends Activity
     }
 
     @Override
-    public void handlerMessage(Message msg) {
+    public boolean handleMessage(Message msg) {
         tvAboutHandler.setText("get_msg_after_3s");
+        return false;
     }
 }
