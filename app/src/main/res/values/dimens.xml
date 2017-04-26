@@ -1,4 +1,9 @@
 <resources>
     <dimen name="spacing_16">16dp</dimen>
     <dimen name="font_26">26sp</dimen>
+
+    <dimen name="block_low_width">40dp</dimen>
+    <dimen name="block_low_height">8dp</dimen>
+    <dimen name="block_high_width">20dp</dimen>
+    <dimen name="block_high_height">60dp</dimen>
 </resources>

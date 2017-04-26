@@ -3,6 +3,7 @@ package com.blankj.androidutilcode.activity;
 import android.app.Activity;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Layout;
 import android.text.TextPaint;
@@ -47,18 +48,18 @@ public class SpannableActivity extends Activity {
         // 响应点击事件的话必须设置以下属性
         tvAboutSpannable.setMovementMethod(LinkMovementMethod.getInstance());
         tvAboutSpannable.setText(new SpannableStringUtils.Builder()
-                .appendLine("测试SpannableStringUtils").setBold().setForegroundColor(Color.YELLOW).setBackgroundColor(Color.GRAY).setAlign(Layout.Alignment.ALIGN_CENTER)
+                .appendLine("测试SpannableStringUtils").setBackgroundColor(Color.LTGRAY).setBold().setForegroundColor(Color.YELLOW).setAlign(Layout.Alignment.ALIGN_CENTER)
                 .append("测试")
                 .append("前景色").setForegroundColor(Color.GREEN)
-                .appendLine("背景色").setBackgroundColor(Color.RED)
+                .appendLine("背景色").setBackgroundColor(Color.LTGRAY)
                 .appendLine("测试首行缩进").setLeadingMargin(30, 50)
-                .appendLine("测试引用").setQuoteColor(Color.BLACK)
-                .appendLine("测试列表项").setBullet(30, Color.BLACK)
+                .appendLine("测试引用").setQuoteColor(Color.BLUE, 10, 10)
+                .appendLine("测试列表项").setBullet(Color.GREEN, 30, 10)
                 .appendLine("测试32dp字体").setFontSize(36, true)
                 .append("测试")
-                .appendLine("2倍字体").setFontProportion(2)
+                .appendLine("2倍字体").setProportion(2)
                 .append("测试")
-                .appendLine("横向2倍字体").setFontXProportion(2)
+                .appendLine("横向2倍字体").setXProportion(2)
                 .append("测试")
                 .append("删除线").setStrikethrough()
                 .appendLine("下划线").setUnderline()
@@ -70,13 +71,23 @@ public class SpannableActivity extends Activity {
                 .append("斜体").setItalic()
                 .appendLine("粗斜体").setBoldItalic()
                 .appendLine("monospace font").setFontFamily("monospace")
-                .appendLine("serif font").setFontFamily("serif")
-                .appendLine("sans-serif font").setFontFamily("sans-serif")
-                .appendLine("测试正常对齐").setAlign(Layout.Alignment.ALIGN_NORMAL)
-                .appendLine("测试居中对齐").setAlign(Layout.Alignment.ALIGN_CENTER)
+                .appendLine("测试自定义字体").setTypeface(Typeface.createFromAsset(getAssets(), "fonts/dnmbhs.ttf"))
                 .appendLine("测试相反对齐").setAlign(Layout.Alignment.ALIGN_OPPOSITE)
-                .append("测试")
-                .appendLine("图片").setResourceId(R.mipmap.ic_launcher)
+                .appendLine("测试居中对齐").setAlign(Layout.Alignment.ALIGN_CENTER)
+                .appendLine("测试正常对齐").setAlign(Layout.Alignment.ALIGN_NORMAL)
+                .append("测试小图对齐").setBackgroundColor(Color.LTGRAY)
+                .append("image").setResourceId(R.drawable.shape_block_low, SpannableStringUtils.ALIGN_TOP)
+                .append("image").setResourceId(R.drawable.shape_block_low, SpannableStringUtils.ALIGN_CENTER)
+                .append("image").setResourceId(R.drawable.shape_block_low, SpannableStringUtils.ALIGN_BASELINE)
+                .appendLine("image").setResourceId(R.drawable.shape_block_low, SpannableStringUtils.ALIGN_BOTTOM)
+                .append("测试顶部对齐").setBackgroundColor(Color.GREEN)
+                .appendLine("image").setResourceId(R.drawable.shape_block_high, SpannableStringUtils.ALIGN_TOP)
+                .append("居中对齐").setBackgroundColor(Color.LTGRAY)
+                .appendLine("image").setResourceId(R.drawable.shape_block_high, SpannableStringUtils.ALIGN_CENTER)
+                .append("Baseline对齐").setBackgroundColor(Color.GREEN)
+                .appendLine("image").setResourceId(R.drawable.shape_block_high, SpannableStringUtils.ALIGN_BASELINE)
+                .append("底部对齐").setBackgroundColor(Color.LTGRAY)
+                .appendLine("image").setResourceId(R.drawable.shape_block_high, SpannableStringUtils.ALIGN_BOTTOM)
                 .append("测试")
                 .appendLine("点击事件").setClickSpan(clickableSpan)
                 .append("测试")
