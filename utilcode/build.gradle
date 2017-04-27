@@ -26,6 +26,10 @@ android {
     }
 }
 
+tasks.matching {it instanceof Test}.all {
+    testLogging.events = ["failed", "passed", "skipped"]
+}
+
 dependencies {
     final SUPPORT_VERSION = '25.3.1'
     final JUNIT_VERSION = '4.12'
