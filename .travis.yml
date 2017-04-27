@@ -13,8 +13,8 @@ android:
     - tools
     - build-tools-$BUILD_TOOLS_VERSION
     - android-$COMPILE_SDK_VERSION
-#    - extra-android-m2repository
-#    - extra-android-support
+    - extra-android-m2repository
+    - extra-android-support
 
   notifications:
     email: false
