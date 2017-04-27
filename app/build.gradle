@@ -6,10 +6,10 @@ android {
 
     defaultConfig {
         applicationId "com.blankj.androidutilcode"
-        minSdkVersion 16
+        minSdkVersion 15
         targetSdkVersion 16
-        versionCode 20
-        versionName "1.4.0"
+        versionCode 21
+        versionName "1.4.1"
     }
 
     buildTypes {

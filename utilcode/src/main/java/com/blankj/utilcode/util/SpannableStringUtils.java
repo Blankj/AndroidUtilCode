@@ -229,9 +229,9 @@ public final class SpannableStringUtils {
         }
 
         /**
-         * 设置边距
+         * 设置间距
          *
-         * @param margin 边距
+         * @param margin 间距
          * @return {@link Builder}
          */
         public Builder setMargin(int margin) {

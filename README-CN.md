@@ -1,5 +1,7 @@
 # Android开发人员不得不收集的代码([持续更新中][update_log.md])
 
+[![auc][aucsvg]][auc] [![build][buildsvg]][build] [![api][apisvg]][api] [![License][licensesvg]][license]
+
 ## [README of English][readme.md]
 
 ## API
@@ -465,6 +467,7 @@ Builder.setForegroundColor: 设置前景色
 Builder.setBackgroundColor: 设置背景色
 Builder.setQuoteColor     : 设置引用线的颜色
 Builder.setLeadingMargin  : 设置缩进
+Builder.setMargin         : 设置间距
 Builder.setBullet         : 设置列表标记
 Builder.setFontSize       : 设置字体尺寸
 Builder.setFontProportion : 设置字体比例
@@ -476,7 +479,8 @@ Builder.setSubscript      : 设置下标
 Builder.setBold           : 设置粗体
 Builder.setItalic         : 设置斜体
 Builder.setBoldItalic     : 设置粗斜体
-Builder.setFontFamily     : 设置字体
+Builder.setFontFamily     : 设置字体系列
+Builder.setTypeface       : 设置字体
 Builder.setAlign          : 设置对齐
 Builder.setBitmap         : 设置图片
 Builder.setDrawable       : 设置图片
@@ -602,22 +606,26 @@ getEntries        : 获取压缩文件中的文件对象
 
 ## About
 
+* [![jianshu][jianshusvg]][jianshu] [![weibo][weibosvg]][weibo]  [![Blog][blogsvg]][blog] [![QQ0Group][qq0groupsvg]][qq0group] [![QQ1Group][qq1groupsvg]][qq1group]
+
 * 做这份整理是想把它作为Android开发的小字典，当遇到一些琐碎问题时，不用再面向百度或者谷歌查询API的使用，费时费力，这里有的话，大家尽管撸走；同时也希望它能逐日壮大起来，期待大家的Star和完善，当然我也会一直更新发布版本和日志，为了方便大家导入，现已上传jcenter；其中很多代码也是汇四方之精华，谢谢前辈们的提供，当然最终还是要通过单元测试的，如有错误，请及时告之。
-* QQ群提供讨论，1群：74721490（已满）2群：25206533，至于验证问题对大家来说肯定都是小case。关于群：[在别人生活里低调地做配角（我和466个程序员的故事）][group]。
-* 我的[微博][weibo],求个关注哈。
+
 
 ## Download
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.4.0'
+compile 'com.blankj:utilcode:1.4.1'
 ```
+
 
 ## How to use
 
 ```
+// init it in the function of onCreate in ur Application
 Utils.init(context);
 ```
+
 
 ## Proguard
 
@@ -627,25 +635,34 @@ Utils.init(context);
 -dontwarn com.blankj.utilcode.**
 ```
 
-## License
 
-```
-Copyright 2016 Blankj
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.4.1-blue.svg
+[auc]: https://github.com/Blankj/AndroidUtilCode
 
-	http://www.apache.org/licenses/LICENSE-2.0
+[buildsvg]: https://travis-ci.org/Blankj/AndroidUtilCode.svg?branch=master
+[build]: https://travis-ci.org/Blankj/AndroidUtilCode
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
+[apisvg]: https://img.shields.io/badge/API-15+-blue.svg
+[api]: https://android-arsenal.com/api?level=15
 
-[update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/update_log.md
+[jianshusvg]: https://img.shields.io/badge/简书-Blankj-brightgreen.svg
+[jianshu]: http://www.jianshu.com/u/46702d5c6978
+
+[weibosvg]: https://img.shields.io/badge/weibo-__Blankj-brightgreen.svg
+[weibo]: http://weibo.com/3076228982
+
+[blogsvg]: https://img.shields.io/badge/Blog-Blankj-brightgreen.svg
+[blog]: http://blankj.com
+
+[qq0groupsvg]: https://img.shields.io/badge/QQ0群(满)-74721490-fba7f9.svg
+[qq0group]: https://shang.qq.com/wpa/qunwpa?idkey=62baf2c3ec6b0863155b0c7a10c71bba2608cb0b6532fc18515835e54c69bdd3
+
+[qq1groupsvg]: https://img.shields.io/badge/QQ1群-25206533-fba7f9.svg
+[qq1group]: https://shang.qq.com/wpa/qunwpa?idkey=d906789f84484465e2736f7b524366b4c23afeda38733d5c7b10fc3f6e406e9b
+
+[licensesvg]: https://img.shields.io/badge/License-Apache--2.0-blue.svg
+[license]: https://opensource.org/licenses/apache2.0.php
 
 [readme.md]: https://github.com/Blankj/AndroidUtilCode
 [readme-cn.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md
@@ -753,6 +770,8 @@ limitations under the License.
 
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ZipUtils.java
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/ZipUtilsTest.java
+
+[update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/update_log.md
 
 [group]: http://www.jianshu.com/p/8938015df951
 [weibo]: http://weibo.com/blankcmj
