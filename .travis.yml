@@ -1,14 +1,16 @@
 language: android
 jdk: oraclejdk8
 sudo: false
+
 env:
   global:
     - COMPILE_SDK_VERSION = 25
     - BUILD_TOOLS_VERSION = 25.0.2
+
 android:
   components:
-#    - platform-tools
-#    - tools
+    - platform-tools
+    - tools
     - build-tools-$BUILD_TOOLS_VERSION
     - android-$COMPILE_SDK_VERSION
 #    - extra-android-m2repository
