@@ -107,8 +107,8 @@ public class TestUtils {
 //        FileUtils.writeFileFromString(readmeCN, sb.toString(), false);
 //    }
 //
-//    @Test
-//    public void test() throws Exception {
-//        System.out.println(System.getProperty("user.dir"));
-//    }
+    @Test
+    public void test() throws Exception {
+        System.out.println(System.getProperty("user.dir"));
+    }
 }
