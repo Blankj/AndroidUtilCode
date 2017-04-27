@@ -43,6 +43,7 @@ public class CleanActivity extends Activity
         btnCleanInternalFiles.setText(getFilesDir().getPath());
         btnCleanInternalDbs.setText(getFilesDir().getParent() + File.separator + "databases");
         btnCleanInternalSP.setText(getFilesDir().getParent() + File.separator + "shared_prefs");
+        //noinspection ConstantConditions
         btnCleanExternalCache.setText(getExternalCacheDir().getPath());
     }
 

@@ -991,6 +991,7 @@ public final class ImageUtils {
         // setStrokeWidth是居中画的，所以要两倍的宽度才能画，否则有一半的宽度是空的
         paint.setStrokeWidth(doubleBorder);
         canvas.drawRect(rect, paint);
+        //noinspection SuspiciousNameCombination
         canvas.drawBitmap(src, borderWidth, borderWidth, null);
         if (recycle && !src.isRecycled()) src.recycle();
         return ret;

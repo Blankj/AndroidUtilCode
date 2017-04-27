@@ -63,6 +63,6 @@ public class EncodeUtilsTest {
 
     @Test
     public void testHtmlDecode() throws Exception {
-        assertThat(htmlDecode(encodeHtml)).isEqualTo(html);
+        assertThat(htmlDecode(encodeHtml).toString()).isEqualTo(html);
     }
 }

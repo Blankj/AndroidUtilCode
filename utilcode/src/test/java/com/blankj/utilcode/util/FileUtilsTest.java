@@ -7,7 +7,7 @@ import java.io.FileInputStream;
 import java.io.FilenameFilter;
 
 import static com.blankj.utilcode.util.FileUtils.*;
-import static com.blankj.utilcode.util.TestUtils.BASEPATH;
+import static com.blankj.utilcode.util.TestUtils.TEST_PATH;
 import static com.blankj.utilcode.util.TestUtils.FILE_SEP;
 import static com.google.common.truth.Truth.assertThat;
 
@@ -22,7 +22,8 @@ import static com.google.common.truth.Truth.assertThat;
 public class FileUtilsTest {
 
 
-    String path = BASEPATH + "file" + FILE_SEP;
+    String path = TEST_PATH + "file" + FILE_SEP;
+    String path1 = TEST_PATH + "file1" + FILE_SEP;
 
     @Test
     public void testGetFileByPath() throws Exception {
@@ -40,6 +41,7 @@ public class FileUtilsTest {
     @Test
     public void testRename() throws Exception {
         assertThat(rename(path + "GBK.txt", "GBK1.txt")).isTrue();
+        assertThat(rename(path + "GBK1.txt", "GBK.txt")).isTrue();
     }
 
     @Test
@@ -58,27 +60,29 @@ public class FileUtilsTest {
     public void testCreateOrExistsDir() throws Exception {
         assertThat(createOrExistsDir(path + "new Dir")).isTrue();
         assertThat(createOrExistsDir(path)).isTrue();
+        deleteDir(path + "new Dir");
     }
 
     @Test
     public void testCreateOrExistsFile() throws Exception {
         assertThat(createOrExistsFile(path + "new File")).isTrue();
         assertThat(createOrExistsFile(path)).isFalse();
+        deleteFile(path + "new File");
     }
 
     @Test
     public void testCreateFileByDeleteOldFile() throws Exception {
         assertThat(createFileByDeleteOldFile(path + "new File")).isTrue();
         assertThat(createFileByDeleteOldFile(path)).isFalse();
+        deleteFile(path + "new File");
     }
-
-    String path1 = BASEPATH + "file1" + FILE_SEP;
 
     @Test
     public void testCopyDir() throws Exception {
         assertThat(copyDir(path, path)).isFalse();
         assertThat(copyDir(path, path + "new Dir")).isFalse();
         assertThat(copyDir(path, path1)).isTrue();
+        deleteDir(path1);
     }
 
     @Test
@@ -86,6 +90,9 @@ public class FileUtilsTest {
         assertThat(copyFile(path + "GBK.txt", path + "GBK.txt")).isFalse();
         assertThat(copyFile(path + "GBK.txt", path + "new Dir" + FILE_SEP + "GBK.txt")).isTrue();
         assertThat(copyFile(path + "GBK.txt", path1 + "GBK.txt")).isTrue();
+        deleteDir(path + "new Dir" + FILE_SEP + "GBK.txt");
+        deleteDir(path1 + "GBK.txt");
+
     }
 
     @Test
@@ -101,30 +108,7 @@ public class FileUtilsTest {
         assertThat(moveFile(path + "GBK.txt", path + "GBK.txt")).isFalse();
         assertThat(moveFile(path + "GBK.txt", path1 + "GBK.txt")).isTrue();
         assertThat(moveFile(path1 + "GBK.txt", path + "GBK.txt")).isTrue();
-    }
-
-    @Test
-    public void testDeleteDir() throws Exception {
-        assertThat(deleteDir(path + "GBK.txt")).isFalse();
-        assertThat(deleteDir(path + "del")).isTrue();
-    }
-
-    @Test
-    public void testDeleteFile() throws Exception {
-        assertThat(deleteFile(path)).isFalse();
-        assertThat(deleteFile(path + "GBK1.txt")).isTrue();
-        assertThat(deleteFile(path + "del.txt")).isTrue();
-    }
-
-    @Test
-    public void testDeleteFilesInDir() throws Exception {
-        assertThat(deleteFilesInDir(path + "child")).isTrue();
-    }
-
-    @Test
-    public void testListFilesInDir() throws Exception {
-        System.out.println(listFilesInDir(path, false).toString());
-        System.out.println(listFilesInDir(path, true).toString());
+        deleteDir(path1);
     }
 
     FilenameFilter filter = new FilenameFilter() {
@@ -158,7 +142,7 @@ public class FileUtilsTest {
     @Test
     public void testWriteFileFromString() throws Exception {
         assertThat(writeFileFromString(path + "NEW.txt", "这是新的", false)).isTrue();
-        assertThat(writeFileFromString(path + "NEW.txt", "\r\n这是追加的", true)).isTrue();
+        assertThat(writeFileFromString(path + "NEW.txt", "这是追加的", true)).isTrue();
     }
 
     @Test

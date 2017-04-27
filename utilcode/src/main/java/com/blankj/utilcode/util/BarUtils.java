@@ -614,6 +614,7 @@ public class BarUtils {
         red = (int) (red * a + 0.5);
         green = (int) (green * a + 0.5);
         blue = (int) (blue * a + 0.5);
+        //noinspection NumericOverflow
         return 0xff << 24 | red << 16 | green << 8 | blue;
     }
 

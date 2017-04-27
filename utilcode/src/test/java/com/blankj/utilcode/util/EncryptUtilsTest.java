@@ -206,7 +206,7 @@ public class EncryptUtilsTest {
                 (bytesDataAES);
     }
 
-    String path = TestUtils.BASEPATH + "encrypt" + TestUtils.FILE_SEP;
+    String path = TestUtils.TEST_PATH + "encrypt" + TestUtils.FILE_SEP;
     String md5 = "7F138A09169B250E9DCB378140907378";
 
     @Test

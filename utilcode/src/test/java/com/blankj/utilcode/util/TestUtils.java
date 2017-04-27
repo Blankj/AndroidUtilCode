@@ -25,7 +25,7 @@ public class TestUtils {
 
     private static final String LINE_SEP = System.getProperty("line.separator");
 
-    static final String BASEPATH = System.getProperty("user.dir") + FILE_SEP + "src" + FILE_SEP + "test" + FILE_SEP + "res" + FILE_SEP;
+    static final String TEST_PATH = System.getProperty("user.dir") + FILE_SEP + "utilcode" + FILE_SEP + "src" + FILE_SEP + "test" + FILE_SEP + "res" + FILE_SEP;
 
     public static void init() {
         Utils.init(RuntimeEnvironment.application);

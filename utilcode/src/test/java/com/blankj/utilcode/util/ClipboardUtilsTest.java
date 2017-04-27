@@ -24,7 +24,7 @@ public class ClipboardUtilsTest {
 
     @Before
     public void setUp() throws Exception {
-        if (Utils.getContext() == null) TestUtils.init();
+        TestUtils.init();
     }
 
     @Test

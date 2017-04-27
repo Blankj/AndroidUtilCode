@@ -64,7 +64,7 @@ public class RegexUtilsTest {
     @Test
     public void testIsURL() throws Exception {
         assertThat(isURL("http://blankj.com")).isTrue();
-        assertThat(isURL("http://blank")).isFalse();
+        assertThat(isURL("https:blank")).isFalse();
     }
 
     @Test

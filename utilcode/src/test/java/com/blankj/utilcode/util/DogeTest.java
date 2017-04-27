@@ -37,8 +37,6 @@ public class DogeTest {
         dogeFiles.add(new File("F:/MyGithub/doge-expression/_11_700_799_OtherJpg"));
     }
 
-
-    @Test
     public void generateDogeMD() throws Exception {
         bitNum = 4;
         renameDogeNames();
@@ -65,7 +63,6 @@ public class DogeTest {
         FileUtils.writeFileFromString("F:/MyGithub/doge-expression/README.md", sb.toString(), false);
     }
 
-    @Test
     public void renameDogeNames() throws Exception {
         for (int i = 0; i < dogeFiles.size(); ++i) {
             List<File> files = FileUtils.listFilesInDir(dogeFiles.get(i));

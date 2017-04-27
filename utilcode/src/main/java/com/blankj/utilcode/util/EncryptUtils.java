@@ -166,6 +166,7 @@ public final class EncryptUtils {
             MessageDigest md = MessageDigest.getInstance("MD5");
             digestInputStream = new DigestInputStream(fis, md);
             byte[] buffer = new byte[256 * 1024];
+            //noinspection StatementWithEmptyBody
             while (digestInputStream.read(buffer) > 0) ;
             md = digestInputStream.getMessageDigest();
             return md.digest();
