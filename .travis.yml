@@ -19,6 +19,7 @@ android:
   licenses:
     - android-sdk-license-.+
     - '.+'
+    
   notifications:
     email: false
 
