@@ -1,5 +1,7 @@
 # Android developers should collect the following utils
 
+[![auc][aucsvg]][auc] [![build][buildsvg]][build] [![api][apidsvg]][api] [![License][licensesvg]][license]
+
 ## [README of Chinese][readme-cn.md]
 
 ## API
@@ -465,6 +467,7 @@ Builder.setForegroundColor
 Builder.setBackgroundColor
 Builder.setQuoteColor
 Builder.setLeadingMargin
+Builder.setMargin
 Builder.setBullet
 Builder.setFontSize
 Builder.setFontProportion
@@ -477,6 +480,7 @@ Builder.setBold
 Builder.setItalic
 Builder.setBoldItalic
 Builder.setFontFamily
+Builder.setTypeface
 Builder.setAlign
 Builder.setBitmap
 Builder.setDrawable
@@ -602,20 +606,26 @@ getEntries
 
 ## About
 
+* [![jianshu][jianshusvg]][jianshu] [![weibo][weibosvg]][weibo]  [![Blog][blogsvg]][blog] [![QQ0Group][qq0groupsvg]][qq0group] [![QQ1Group][qq1groupsvg]][qq1group]
+
 **I'm so sorry for that the code is annotated with Chinese.**
+
 
 ## Download
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.4.0'
+compile 'com.blankj:utilcode:1.4.1'
 ```
+
 
 ## How to use
 
 ```
+// init it in the function of onCreate in ur Application
 Utils.init(context);
 ```
+
 
 ## Proguard
 
@@ -625,25 +635,34 @@ Utils.init(context);
 -dontwarn com.blankj.utilcode.**
 ```
 
-## License
 
-```
-Copyright 2016 Blankj
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.4.1-blue.svg
+[auc]: https://github.com/Blankj/AndroidUtilCode
 
-	http://www.apache.org/licenses/LICENSE-2.0
+[buildsvg]: https://travis-ci.org/Blankj/AndroidUtilCode.svg?branch=master
+[build]: https://travis-ci.org/Blankj/AndroidUtilCode
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
+[apisvg]: https://img.shields.io/badge/API-15+-blue.svg
+[api]: https://android-arsenal.com/api?level=15
 
-[update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/update_log.md
+[jianshusvg]: https://img.shields.io/badge/简书-Blankj-brightgreen.svg
+[jianshu]: http://www.jianshu.com/u/46702d5c6978
+
+[weibosvg]: https://img.shields.io/badge/weibo-__Blankj-brightgreen.svg
+[weibo]: http://weibo.com/3076228982
+
+[blogsvg]: https://img.shields.io/badge/Blog-Blankj-brightgreen.svg
+[blog]: http://blankj.com
+
+[qq0groupsvg]: https://img.shields.io/badge/QQ0群(满)-74721490-fba7f9.svg
+[qq0group]: https://shang.qq.com/wpa/qunwpa?idkey=62baf2c3ec6b0863155b0c7a10c71bba2608cb0b6532fc18515835e54c69bdd3
+
+[qq1groupsvg]: https://img.shields.io/badge/QQ1群-25206533-fba7f9.svg
+[qq1group]: https://shang.qq.com/wpa/qunwpa?idkey=d906789f84484465e2736f7b524366b4c23afeda38733d5c7b10fc3f6e406e9b
+
+[licensesvg]: https://img.shields.io/badge/License-Apache--2.0-blue.svg
+[license]: https://opensource.org/licenses/apache2.0.php
 
 [readme.md]: https://github.com/Blankj/AndroidUtilCode
 [readme-cn.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md
@@ -751,6 +770,8 @@ limitations under the License.
 
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ZipUtils.java
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/ZipUtilsTest.java
+
+[update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/update_log.md
 
 [group]: http://www.jianshu.com/p/8938015df951
 [weibo]: http://weibo.com/blankcmj

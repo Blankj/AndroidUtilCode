@@ -1,3 +1,4 @@
+* 17/04/27 添加Travis CI，使用shields，发布1.4.1
 * 17/04/26 完善HandlerUtils使用Handler.CallBack的回调接口及SpannableStringUtils图片对齐
 * 17/04/24 fix typos and fix StringUtils.equalsIgnoreCase
 * 17/04/23 完善README
