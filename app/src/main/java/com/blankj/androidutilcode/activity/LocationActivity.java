@@ -22,8 +22,8 @@ import com.blankj.androidutilcode.service.LocationService;
  */
 public class LocationActivity extends Activity {
 
-    private TextView        tvAboutLocation;
-    private LocationService mLocationService;
+    TextView        tvAboutLocation;
+    LocationService mLocationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

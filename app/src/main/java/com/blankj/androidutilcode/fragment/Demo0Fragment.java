@@ -34,6 +34,9 @@ public class Demo0Fragment extends Fragment
 
     private Demo0Fragment               demo0Fragment;
     private FragmentUtils.SharedElement sharedElement;
+    Button    btnShowAboutFragment;
+    ImageView ivSharedElement;
+    TextView  tvAboutFragment;
 
     public static Demo0Fragment newInstance() {
 
@@ -43,10 +46,6 @@ public class Demo0Fragment extends Fragment
         fragment.setArguments(args);
         return fragment;
     }
-
-    private Button    btnShowAboutFragment;
-    private ImageView ivSharedElement;
-    private TextView  tvAboutFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

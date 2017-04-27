@@ -34,11 +34,24 @@ public class LogActivity extends Activity
     private boolean border    = true;
     private int     filter    = LogUtils.V;
 
-    private static final int UPDATE_TAG    = 0x01 << 0;
+    private static final int UPDATE_TAG    = 0x01;
     private static final int UPDATE_HEAD   = 0x01 << 1;
     private static final int UPDATE_FILE   = 0x01 << 2;
     private static final int UPDATE_BORDER = 0x01 << 3;
     private static final int UPDATE_FILTER = 0x01 << 4;
+
+    String json = "{\"tools\": [{ \"name\":\"css format\" , \"site\":\"http://tools.w3cschool.cn/code/css\" },{ \"name\":\"json format\" , \"site\":\"http://tools.w3cschool.cn/code/json\" },{ \"name\":\"pwd check\" , \"site\":\"http://tools.w3cschool.cn/password/my_password_safe\" }]}";
+    String xml = "<books><book><author>Jack Herrington</author><title>PHP Hacks</title><publisher>O'Reilly</publisher></book><book><author>Jack Herrington</author><title>Podcasting Hacks</title><publisher>O'Reilly</publisher></book></books>";
+
+    static {
+        StringBuilder sb = new StringBuilder();
+        sb.append("len = 10400\ncontent = \"");
+        for (int i = 0; i < 800; ++i) {
+            sb.append("Hello world. ");
+        }
+        sb.append("\"");
+        longStr = sb.toString();
+    }
 
     private Runnable mRunnable = new Runnable() {
         @Override
@@ -53,19 +66,6 @@ public class LogActivity extends Activity
     };
 
     private static final String longStr;
-
-    private String json = "{\"tools\": [{ \"name\":\"css format\" , \"site\":\"http://tools.w3cschool.cn/code/css\" },{ \"name\":\"json format\" , \"site\":\"http://tools.w3cschool.cn/code/json\" },{ \"name\":\"pwd check\" , \"site\":\"http://tools.w3cschool.cn/password/my_password_safe\" }]}";
-    private String xml = "<books><book><author>Jack Herrington</author><title>PHP Hacks</title><publisher>O'Reilly</publisher></book><book><author>Jack Herrington</author><title>Podcasting Hacks</title><publisher>O'Reilly</publisher></book></books>";
-
-    static {
-        StringBuilder sb = new StringBuilder();
-        sb.append("len = 10400\ncontent = \"");
-        for (int i = 0; i < 800; ++i) {
-            sb.append("Hello world. ");
-        }
-        sb.append("\"");
-        longStr = sb.toString();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

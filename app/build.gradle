@@ -12,9 +12,6 @@ android {
         versionName "1.4.1"
     }
 
-    lintOptions {
-        abortOnError false
-    }
 
     buildTypes {
         debug {
@@ -25,6 +22,10 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    
+    lintOptions {
+        abortOnError false
     }
 }
 

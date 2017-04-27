@@ -21,10 +21,10 @@ public final class KeyboardUtils {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
-    /**
-     * 避免输入法面板遮挡
-     * <p>在manifest.xml中activity中设置</p>
-     * <p>android:windowSoftInputMode="adjustPan"</p>
+    /*
+      避免输入法面板遮挡
+      <p>在manifest.xml中activity中设置</p>
+      <p>android:windowSoftInputMode="adjustPan"</p>
      */
 
     /**

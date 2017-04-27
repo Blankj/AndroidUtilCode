@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void crashClick(View view) {
-        int err = 1 / 0;
+        throw new NullPointerException("crash test");
     }
 
     public void deviceClick(View view) {

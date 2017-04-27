@@ -21,9 +21,9 @@ public final class RegexUtils {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
-    /**
-     * If u want more please visit http://toutiao.com/i6231678548520731137/
-     */
+    ///////////////////////////////////////////////////////////////////////////
+    // If u want more please visit http://toutiao.com/i6231678548520731137
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      * 验证手机号（简单）

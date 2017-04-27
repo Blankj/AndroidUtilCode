@@ -17,7 +17,7 @@ import com.blankj.utilcode.util.PinyinUtils;
  */
 public class PinyinActivity extends Activity {
 
-    private TextView tvAboutPinyin;
+    TextView tvAboutPinyin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

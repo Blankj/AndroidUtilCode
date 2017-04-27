@@ -150,6 +150,7 @@ public final class PhoneUtils {
      * SubscriberId(IMSI) = 460030419724900<br>
      * VoiceMailNumber = *86<br>
      */
+    @SuppressLint("HardwareIds")
     public static String getPhoneStatus() {
         TelephonyManager tm = (TelephonyManager) Utils.getContext()
                 .getSystemService(Context.TELEPHONY_SERVICE);
@@ -245,45 +246,53 @@ public final class PhoneUtils {
         Cursor cursor = resolver.query(raw_uri, new String[]{"contact_id"}, null, null, null);
         try {
             // 5.解析cursor
-            while (cursor.moveToNext()) {
-                // 6.获取查询的数据
-                String contact_id = cursor.getString(0);
-                // cursor.getString(cursor.getColumnIndex("contact_id"));//getColumnIndex
-                // : 查询字段在cursor中索引值,一般都是用在查询字段比较多的时候
-                // 判断contact_id是否为空
-                if (!StringUtils.isEmpty(contact_id)) {//null   ""
-                    // 7.根据contact_id查询view_data表中的数据
-                    // selection : 查询条件
-                    // selectionArgs :查询条件的参数
-                    // sortOrder : 排序
-                    // 空指针: 1.null.方法 2.参数为null
-                    Cursor c = resolver.query(date_uri, new String[]{"data1",
-                                    "mimetype"}, "raw_contact_id=?",
-                            new String[]{contact_id}, null);
-                    HashMap<String, String> map = new HashMap<String, String>();
-                    // 8.解析c
-                    while (c.moveToNext()) {
-                        // 9.获取数据
-                        String data1 = c.getString(0);
-                        String mimetype = c.getString(1);
-                        // 10.根据类型去判断获取的data1数据并保存
-                        if (mimetype.equals("vnd.android.cursor.item/phone_v2")) {
-                            // 电话
-                            map.put("phone", data1);
-                        } else if (mimetype.equals("vnd.android.cursor.item/name")) {
-                            // 姓名
-                            map.put("name", data1);
+            if (cursor != null) {
+                while (cursor.moveToNext()) {
+                    // 6.获取查询的数据
+                    String contact_id = cursor.getString(0);
+                    // cursor.getString(cursor.getColumnIndex("contact_id"));//getColumnIndex
+                    // : 查询字段在cursor中索引值,一般都是用在查询字段比较多的时候
+                    // 判断contact_id是否为空
+                    if (!StringUtils.isEmpty(contact_id)) {//null   ""
+                        // 7.根据contact_id查询view_data表中的数据
+                        // selection : 查询条件
+                        // selectionArgs :查询条件的参数
+                        // sortOrder : 排序
+                        // 空指针: 1.null.方法 2.参数为null
+                        Cursor c = resolver.query(date_uri, new String[]{"data1",
+                                        "mimetype"}, "raw_contact_id=?",
+                                new String[]{contact_id}, null);
+                        HashMap<String, String> map = new HashMap<String, String>();
+                        // 8.解析c
+                        if (c != null) {
+                            while (c.moveToNext()) {
+                                // 9.获取数据
+                                String data1 = c.getString(0);
+                                String mimetype = c.getString(1);
+                                // 10.根据类型去判断获取的data1数据并保存
+                                if (mimetype.equals("vnd.android.cursor.item/phone_v2")) {
+                                    // 电话
+                                    map.put("phone", data1);
+                                } else if (mimetype.equals("vnd.android.cursor.item/name")) {
+                                    // 姓名
+                                    map.put("name", data1);
+                                }
+                            }
+                        }
+                        // 11.添加到集合中数据
+                        list.add(map);
+                        // 12.关闭cursor
+                        if (c != null) {
+                            c.close();
                         }
                     }
-                    // 11.添加到集合中数据
-                    list.add(map);
-                    // 12.关闭cursor
-                    c.close();
                 }
             }
         } finally {
             // 12.关闭cursor
-            cursor.close();
+            if (cursor != null) {
+                cursor.close();
+            }
         }
         return list;
     }

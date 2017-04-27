@@ -30,17 +30,17 @@ public final class FragmentUtils {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
-    private static final int TYPE_ADD_FRAGMENT       = 0x01 << 0;
-    private static final int TYPE_REMOVE_FRAGMENT    = 0x01 << 1;
+    private static final int TYPE_ADD_FRAGMENT = 0x01;
+    private static final int TYPE_REMOVE_FRAGMENT = 0x01 << 1;
     private static final int TYPE_REMOVE_TO_FRAGMENT = 0x01 << 2;
-    private static final int TYPE_REPLACE_FRAGMENT   = 0x01 << 3;
-    private static final int TYPE_POP_ADD_FRAGMENT   = 0x01 << 4;
-    private static final int TYPE_HIDE_FRAGMENT      = 0x01 << 5;
-    private static final int TYPE_SHOW_FRAGMENT      = 0x01 << 6;
+    private static final int TYPE_REPLACE_FRAGMENT = 0x01 << 3;
+    private static final int TYPE_POP_ADD_FRAGMENT = 0x01 << 4;
+    private static final int TYPE_HIDE_FRAGMENT = 0x01 << 5;
+    private static final int TYPE_SHOW_FRAGMENT = 0x01 << 6;
     private static final int TYPE_HIDE_SHOW_FRAGMENT = 0x01 << 7;
 
-    private static final String ARGS_ID           = "args_id";
-    private static final String ARGS_IS_HIDE      = "args_is_hide";
+    private static final String ARGS_ID = "args_id";
+    private static final String ARGS_IS_HIDE = "args_is_hide";
     private static final String ARGS_IS_ADD_STACK = "args_is_add_stack";
 
     /**
@@ -163,6 +163,7 @@ public final class FragmentUtils {
      * @param fragments       fragments
      * @param containerId     布局Id
      * @param showIndex       要显示的fragment索引
+     * @param lists           共享元素链表
      * @return 要显示的fragment
      */
     public static Fragment addFragments(@NonNull FragmentManager fragmentManager,
@@ -871,7 +872,7 @@ public final class FragmentUtils {
     }
 
     static class Args {
-        int     id;
+        int id;
         boolean isHide;
         boolean isAddStack;
 
@@ -883,7 +884,7 @@ public final class FragmentUtils {
     }
 
     public static class SharedElement {
-        View   sharedElement;
+        View sharedElement;
         String name;
 
         public SharedElement(View sharedElement, String name) {
@@ -893,7 +894,7 @@ public final class FragmentUtils {
     }
 
     static class FragmentNode {
-        Fragment           fragment;
+        Fragment fragment;
         List<FragmentNode> next;
 
         public FragmentNode(Fragment fragment, List<FragmentNode> next) {

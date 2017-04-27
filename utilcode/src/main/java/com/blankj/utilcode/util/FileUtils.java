@@ -1294,7 +1294,9 @@ public final class FileUtils {
         return filePath.substring(lastPoi + 1);
     }
 
-    /** copy from ConvertUtils **/
+    ///////////////////////////////////////////////////////////////////////////
+    // copy from ConvertUtils
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      * inputStream转byteArr
