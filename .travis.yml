@@ -5,9 +5,9 @@ env:
     - COMPILE_SDK_VERSION = 25
     - BUILD_TOOLS_VERSION = 25.0.2
   components:
-    # The BuildTools version used by your project
+    - platform-tools
+    - tools
     - build-tools-$BUILD_TOOLS_VERSION
-    # The SDK version used to compile your project
     - android-$COMPILE_SDK_VERSION
 
   notifications:
