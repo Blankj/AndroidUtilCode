@@ -12,6 +12,10 @@ android {
         versionName "1.4.1"
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
     buildTypes {
         debug {
             minifyEnabled true
