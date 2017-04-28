@@ -1087,7 +1087,7 @@ public final class FileUtils {
      * 获取目录长度
      *
      * @param dirPath 目录路径
-     * @return 文件大小
+     * @return 目录长度
      */
     public static long getDirLength(String dirPath) {
         return getDirLength(getFileByPath(dirPath));
@@ -1097,7 +1097,7 @@ public final class FileUtils {
      * 获取目录长度
      *
      * @param dir 目录
-     * @return 文件大小
+     * @return 目录长度
      */
     public static long getDirLength(File dir) {
         if (!isDir(dir)) return -1;
@@ -1119,7 +1119,7 @@ public final class FileUtils {
      * 获取文件长度
      *
      * @param filePath 文件路径
-     * @return 文件大小
+     * @return 文件长度
      */
     public static long getFileLength(String filePath) {
         return getFileLength(getFileByPath(filePath));
@@ -1129,7 +1129,7 @@ public final class FileUtils {
      * 获取文件长度
      *
      * @param file 文件
-     * @return 文件大小
+     * @return 文件长度
      */
     public static long getFileLength(File file) {
         if (!isFile(file)) return -1;
