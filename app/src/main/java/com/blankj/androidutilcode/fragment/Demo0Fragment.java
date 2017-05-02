@@ -136,7 +136,7 @@ public class Demo0Fragment extends Fragment
                 if (fragment1 != null) {
                     FragmentUtils.hideShowFragment(this, fragment1);
                 } else {
-                    ToastUtils.showLongToast("please add demo1 first!");
+                    ToastUtils.showLong("please add demo1 first!");
                 }
                 break;
             case R.id.btn_replace:

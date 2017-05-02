@@ -1,6 +1,6 @@
 # Android developers should collect the following utils
 
-[![auc][aucsvg]][auc] [![build][buildsvg]][build] [![api][apisvg]][api] [![License][licensesvg]][license]
+[![auc][aucsvg]][auc] [![api][apisvg]][api] [![License][licensesvg]][license]
 
 ## [README of Chinese][readme-cn.md]
 
@@ -453,11 +453,11 @@ getMeasuredHeight
 
 * ### About Snackbar→[SnackbarUtils.java][snackbar.java]→[Demo][snackbar.demo]
 ```
-showShortSnackbar
-showLongSnackbar
-showIndefiniteSnackbar
+showShort
+showLong
+showIndefinite
 addView
-dismissSnackbar
+dismiss
 ```
 
 * ### About SpannableString→[SpannableStringUtils.java][spannable.java]→[Demo][spannable.demo]
@@ -580,12 +580,14 @@ getZodiac
 
 * ### About Toast→[ToastUtils.java][toast.java]→[Demo][toast.demo]
 ```
-init
-showShortToastSafe
-showLongToastSafe
-showShortToast
-showLongToast
-cancelToast
+setGravity
+setView
+getView
+showShortSafe
+showLongSafe
+showShort
+showLong
+cancel
 ```
 
 * ### About Zip→[ZipUtils.java][zip.java]→[Test][zip.test]
@@ -639,9 +641,6 @@ Utils.init(context);
 
 [aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.4.1-blue.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
-
-[buildsvg]: https://travis-ci.org/Blankj/AndroidUtilCode.svg?branch=master
-[build]: https://travis-ci.org/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-15+-blue.svg
 [api]: https://android-arsenal.com/api?level=15

@@ -5,120 +5,127 @@
     <string name="git_hub">GitHub</string>
     <string name="blog">Blog</string>
 
-    <string name="test.activity">ActivityUtils Test</string>
-    <string name="test.app">AppUtils Test</string>
-    <string name="test.clean">CleanUtils Test</string>
-    <string name="test.crash">CrashUtils Test</string>
-    <string name="test.device">DeviceUtils Test</string>
-    <string name="test.fragment">FragmentUtils Test</string>
-    <string name="test.flashlight">FlashlightUtils Test</string>
-    <string name="test.handler">HandlerUtils Test</string>
-    <string name="test.image">ImageUtils Test</string>
-    <string name="test.keyboard">KeyboardUtils Test</string>
-    <string name="test.location">LocationUtils Test</string>
-    <string name="test.log">Log Test</string>
-    <string name="test.network">NetworkUtils Test</string>
-    <string name="test.permission">PermissionUtils Test</string>
-    <string name="test.phone">PhoneUtils Test</string>
-    <string name="test.pinyin">PinyinUtils Test</string>
-    <string name="test.process">ProcessUtils Test</string>
-    <string name="test.sdcard">SDCardUtils Test</string>
-    <string name="test.snackbar">SnackbarUtils Test</string>
-    <string name="test.spannable">SpannableStringUtils Test</string>
-    <string name="test.toast">ToastUtils Test</string>
+    <string name="demo_activity">ActivityUtils Demo</string>
+    <string name="demo_app">AppUtils Demo</string>
+    <string name="demo_clean">CleanUtils Demo</string>
+    <string name="demo_crash">CrashUtils Demo</string>
+    <string name="demo_device">DeviceUtils Demo</string>
+    <string name="demo_fragment">FragmentUtils Demo</string>
+    <string name="demo_flashlight">FlashlightUtils Demo</string>
+    <string name="demo_handler">HandlerUtils Demo</string>
+    <string name="demo_image">ImageUtils Demo</string>
+    <string name="demo_keyboard">KeyboardUtils Demo</string>
+    <string name="demo_location">LocationUtils Demo</string>
+    <string name="demo_log">Log Demo</string>
+    <string name="demo_network">NetworkUtils Demo</string>
+    <string name="demo_permission">PermissionUtils Demo</string>
+    <string name="demo_phone">PhoneUtils Demo</string>
+    <string name="demo_pinyin">PinyinUtils Demo</string>
+    <string name="demo_process">ProcessUtils Demo</string>
+    <string name="demo_sdcard">SDCardUtils Demo</string>
+    <string name="demo_snackbar">SnackbarUtils Demo</string>
+    <string name="demo_spannable">SpannableStringUtils Demo</string>
+    <string name="demo_toast">ToastUtils Demo</string>
 
     <!--Activity相关-->
-    <string name="activity.start_imageActivity">Start ImageActivity</string>
+    <string name="activity_start_imageActivity">Start ImageActivity</string>
 
     <!--App相关-->
-    <string name="app.install">Install App</string>
-    <string name="app.install_silent">Install App Silent</string>
-    <string name="app.uninstall">Uninstall App</string>
-    <string name="app.uninstall_silent">Uninstall App Silent</string>
-    <string name="app.launch">Launch App</string>
-    <string name="app.close">Close App</string>
-    <string name="app.isDebug">Is Debug</string>
-    <string name="app.get_details_settings">Get App Details Settings</string>
+    <string name="app_install">Install App</string>
+    <string name="app_install_silent">Install App Silent</string>
+    <string name="app_uninstall">Uninstall App</string>
+    <string name="app_uninstall_silent">Uninstall App Silent</string>
+    <string name="app_launch">Launch App</string>
+    <string name="app_close">Close App</string>
+    <string name="app_isDebug">Is Debug</string>
+    <string name="app_get_details_settings">Get App Details Settings</string>
 
     <!--Device相关-->
-    <string name="device.shutdown">Shutdown</string>
-    <string name="device.reboot">Reboot</string>
-    <string name="device.reboot_to_recovery">Reboot To Recovery</string>
-    <string name="device.reboot_to_bootloader">Reboot To Bootloader</string>
+    <string name="device_shutdown">Shutdown</string>
+    <string name="device_reboot">Reboot</string>
+    <string name="device_reboot_to_recovery">Reboot To Recovery</string>
+    <string name="device_reboot_to_bootloader">Reboot To Bootloader</string>
 
     <!--Flashlight相关-->
-    <string name="flashlight.open">Open Flashlight</string>
-    <string name="flashlight.close">Close Flashlight</string>
+    <string name="flashlight_open">Open Flashlight</string>
+    <string name="flashlight_close">Close Flashlight</string>
 
     <!--Fragment相关-->
-    <string name="fragment.show_stack">Show Stack</string>
-    <string name="fragment.add_demo1_hide">Add Demo1 Hide</string>
-    <string name="fragment.add_demo1_show">Add Demo1 Show</string>
-    <string name="fragment.add_child">Add Child</string>
-    <string name="fragment.pop">Pop</string>
-    <string name="fragment.pop_to_root">Pop To Root</string>
-    <string name="fragment.pop_add">Pop Add</string>
-    <string name="fragment.hide_demo0_show_demo1">Hide Demo0 Show Demo1</string>
-    <string name="fragment.hide_demo1_show_demo0">Hide Demo1 Show Demo0</string>
-    <string name="fragment.replace">Replace</string>
-    <string name="fragment.transition">Transition</string>
+    <string name="fragment_show_stack">Show Stack</string>
+    <string name="fragment_add_demo1_hide">Add Demo1 Hide</string>
+    <string name="fragment_add_demo1_show">Add Demo1 Show</string>
+    <string name="fragment_add_child">Add Child</string>
+    <string name="fragment_pop">Pop</string>
+    <string name="fragment_pop_to_root">Pop To Root</string>
+    <string name="fragment_pop_add">Pop Add</string>
+    <string name="fragment_hide_demo0_show_demo1">Hide Demo0 Show Demo1</string>
+    <string name="fragment_hide_demo1_show_demo0">Hide Demo1 Show Demo0</string>
+    <string name="fragment_replace">Replace</string>
+    <string name="fragment_transition">Transition</string>
 
     <!--Handler相关-->
-    <string name="handler.send_msg_after_3s">Send Msg After 3s</string>
+    <string name="handler_send_msg_after_3s">Send Msg After 3s</string>
 
     <!--Network相关-->
-    <string name="network.open_wireless_settings">Open Wireless Settings</string>
-    <string name="network.set_data_enabled">Set Data Enabled</string>
-    <string name="network.set_wifi_enabled">Set Wifi Enabled</string>
+    <string name="network_open_wireless_settings">Open Wireless Settings</string>
+    <string name="network_set_data_enabled">Set Data Enabled</string>
+    <string name="network_set_wifi_enabled">Set Wifi Enabled</string>
 
     <!--Keyboard相关-->
-    <string name="keyboard.hide_soft_input">Hide Soft Input</string>
-    <string name="keyboard.show_soft_input">Show Soft Input</string>
-    <string name="keyboard.toggle_soft_input">Toggle Soft Input</string>
+    <string name="keyboard_hide_soft_input">Hide Soft Input</string>
+    <string name="keyboard_show_soft_input">Show Soft Input</string>
+    <string name="keyboard_toggle_soft_input">Toggle Soft Input</string>
 
     <!--Log相关-->
-    <string name="log.toggle_tag">Toggle Tag</string>
-    <string name="log.toggle_head">Toggle Head</string>
-    <string name="log.toggle_border">Toggle Border</string>
-    <string name="log.toggle_filter">Toggle Filter</string>
-    <string name="log.toggle_file">Toggle File</string>
-    <string name="log.with_no_tag">Log With No Tag</string>
-    <string name="log.with_tag">Log With Tag</string>
-    <string name="log.in_new_thread">Log In New Thread</string>
-    <string name="log.null">Log Null</string>
-    <string name="log.many_params">Log Many Params</string>
-    <string name="log.long_string">Log Long String</string>
-    <string name="log.to_file">Log To File</string>
-    <string name="log.json">Log Json</string>
-    <string name="log.xml">Log Xml</string>
+    <string name="log_toggle_tag">Toggle Tag</string>
+    <string name="log_toggle_head">Toggle Head</string>
+    <string name="log_toggle_border">Toggle Border</string>
+    <string name="log_toggle_filter">Toggle Filter</string>
+    <string name="log_toggle_file">Toggle File</string>
+    <string name="log_with_no_tag">Log With No Tag</string>
+    <string name="log_with_tag">Log With Tag</string>
+    <string name="log_in_new_thread">Log In New Thread</string>
+    <string name="log_null">Log Null</string>
+    <string name="log_many_params">Log Many Params</string>
+    <string name="log_long_string">Log Long String</string>
+    <string name="log_to_file">Log To File</string>
+    <string name="log_json">Log Json</string>
+    <string name="log_xml">Log Xml</string>
 
     <!--Phone相关-->
-    <string name="phone.dial">Dial</string>
-    <string name="phone.call">Call</string>
-    <string name="phone.send_sms">Send SMS</string>
-    <string name="phone.send_sms_silent">Send SMS Silent</string>
+    <string name="phone_dial">Dial</string>
+    <string name="phone_call">Call</string>
+    <string name="phone_send_sms">Send SMS</string>
+    <string name="phone_send_sms_silent">Send SMS Silent</string>
 
     <!--Process相关-->
-    <string name="process.kill_background">Kill Background Process</string>
-    <string name="process.kill_all_background">Kill All Background Processes</string>
+    <string name="process_kill_background">Kill Background Process</string>
+    <string name="process_kill_all_background">Kill All Background Processes</string>
 
     <!--SnackBar相关工具类-->
-    <string name="snackbar.show_short">Show Short Snackbar</string>
-    <string name="snackbar.show_short_with_action">Show Short Snackbar With Action</string>
-    <string name="snackbar.show_long">Show Long Snackbar</string>
-    <string name="snackbar.show_long_with_action">Show Long Snackbar With Action</string>
-    <string name="snackbar.show_indefinite">Show Indefinite Snackbar</string>
-    <string name="snackbar.show_indefinite_with_action">Show Indefinite Snackbar With Action</string>
-    <string name="snackbar.add_view">Add View</string>
-    <string name="snackbar.add_view_with_action">Add View With Action</string>
-    <string name="snackbar.cancel">Cancel Snackbar</string>
+    <string name="snackbar_show_short">Show Short Snackbar</string>
+    <string name="snackbar_show_short_with_action">Show Short Snackbar With Action</string>
+    <string name="snackbar_show_long">Show Long Snackbar</string>
+    <string name="snackbar_show_long_with_action">Show Long Snackbar With Action</string>
+    <string name="snackbar_show_indefinite">Show Indefinite Snackbar</string>
+    <string name="snackbar_show_indefinite_with_action">Show Indefinite Snackbar With Action</string>
+    <string name="snackbar_add_view">Add View</string>
+    <string name="snackbar_add_view_with_action">Add View With Action</string>
+    <string name="snackbar_cancel">Cancel Snackbar</string>
+    <string name="snackbar_short">Short Snackbar</string>
+    <string name="snackbar_long">Long Snackbar</string>
+    <string name="snackbar_indefinite">Indefinite Snackbar</string>
+    <string name="snackbar_custom">Custom Snackbar</string>
+    <string name="snackbar_click">Click</string>
 
     <!--Toast相关-->
-    <string name="toast.toggle_is_jump_when_more">Toggle Is Jump When More</string>
-    <string name="toast.show_short_safe">Show Short Toast Safe</string>
-    <string name="toast.show_long_safe">Show Long Toast Safe</string>
-    <string name="toast.show_short">Show Short Toast</string>
-    <string name="toast.show_long">Show Long Toast</string>
-    <string name="toast.cancel">Cancel Toast</string>
+    <string name="toast_toggle_location">Toggle Location</string>
+    <string name="toast_toggle_view">Toggle View</string>
+    <string name="toast_show_short_safe">Show Short Toast Safe</string>
+    <string name="toast_show_long_safe">Show Long Toast Safe</string>
+    <string name="toast_show_short">Show Short Toast</string>
+    <string name="toast_show_long">Show Long Toast</string>
+    <string name="toast_cancel">Cancel Toast</string>
+    <string name="toast_custom_view">custom toast view</string>
 
 </resources>

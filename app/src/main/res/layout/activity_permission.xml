@@ -12,36 +12,11 @@
         android:padding="@dimen/spacing_16">
 
         <TextView
-            android:id="@+id/tv_about_network"
+            android:id="@+id/tv_about_permission"
             style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            />
-
-        <Button
-            android:id="@+id/btn_check_permission"
-            style="@style/WideBtnStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/network.open_wireless_settings"
-            />
-
-        <Button
-            android:id="@+id/btn_set_data_enabled"
-            style="@style/WideBtnStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/network.set_data_enabled"
-            />
-
-        <Button
-            android:id="@+id/btn_set_wifi_enabled"
-            style="@style/WideBtnStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/network.set_wifi_enabled"
-            />
+            android:gravity="center"/>
 
     </LinearLayout>
 </ScrollView>

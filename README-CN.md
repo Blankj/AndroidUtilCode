@@ -453,11 +453,11 @@ getMeasuredHeight: 获取测量视图高度
 
 * ### Snackbar相关→[SnackbarUtils.java][snackbar.java]→[Demo][snackbar.demo]
 ```
-showShortSnackbar     : 显示短时snackbar
-showLongSnackbar      : 显示长时snackbar
-showIndefiniteSnackbar: 显示自定义时长snackbar
-addView               : 为SnackBar添加布局
-dismissSnackbar       : 取消snackbar显示
+showShort     : 显示短时snackbar
+showLong      : 显示长时snackbar
+showIndefinite: 显示自定义时长snackbar
+addView       : 为SnackBar添加布局
+dismiss       : 取消snackbar显示
 ```
 
 * ### SpannableString相关→[SpannableStringUtils.java][spannable.java]→[Demo][spannable.demo]
@@ -580,12 +580,14 @@ getZodiac               : 获取星座
 
 * ### 吐司相关→[ToastUtils.java][toast.java]→[Demo][toast.demo]
 ```
-init              : 吐司初始化
-showShortToastSafe: 安全地显示短时吐司
-showLongToastSafe : 安全地显示长时吐司
-showShortToast    : 显示短时吐司
-showLongToast     : 显示长时吐司
-cancelToast       : 取消吐司显示
+setGravity   : 设置吐司位置
+setView      : 设置吐司view
+getView      : 获取吐司view
+showShortSafe: 安全地显示短时吐司
+showLongSafe : 安全地显示长时吐司
+showShort    : 显示短时吐司
+showLong     : 显示长时吐司
+cancel       : 取消吐司显示
 ```
 
 * ### 压缩相关→[ZipUtils.java][zip.java]→[Test][zip.test]

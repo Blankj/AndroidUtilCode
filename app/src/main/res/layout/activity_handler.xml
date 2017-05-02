@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,16 +16,14 @@
             style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            />
+            android:gravity="center"/>
 
         <Button
             android:id="@+id/btn_send_msg_after_3s"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/handler.send_msg_after_3s"
-            />
+            android:text="@string/handler_send_msg_after_3s"/>
 
     </LinearLayout>
 </ScrollView>

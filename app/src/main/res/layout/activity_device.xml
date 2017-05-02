@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,40 +16,35 @@
             style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            />
+            android:gravity="center"/>
 
         <Button
             android:id="@+id/btn_shutdown"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/device.shutdown"
-            />
+            android:text="@string/device_shutdown"/>
 
         <Button
             android:id="@+id/btn_reboot"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/device.reboot"
-            />
+            android:text="@string/device_reboot"/>
 
         <Button
             android:id="@+id/btn_reboot_to_recovery"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/device.reboot_to_recovery"
-            />
+            android:text="@string/device_reboot_to_recovery"/>
 
         <Button
             android:id="@+id/btn_reboot_to_bootloader"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/device.reboot_to_bootloader"
-            />
+            android:text="@string/device_reboot_to_bootloader"/>
 
     </LinearLayout>
 </ScrollView>

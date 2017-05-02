@@ -16,40 +16,35 @@
             style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            />
+            android:gravity="center"/>
 
         <Button
             android:id="@+id/btn_dial"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/phone.dial"
-            />
+            android:text="@string/phone_dial"/>
 
         <Button
             android:id="@+id/btn_call"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/phone.call"
-            />
+            android:text="@string/phone_call"/>
 
         <Button
             android:id="@+id/btn_send_sms"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/phone.send_sms"
-            />
+            android:text="@string/phone_send_sms"/>
 
         <Button
             android:id="@+id/btn_send_sms_silent"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/phone.send_sms_silent"
-            />
+            android:text="@string/phone_send_sms_silent"/>
 
     </LinearLayout>
 </ScrollView>

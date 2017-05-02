@@ -21,7 +21,7 @@ import com.blankj.utilcode.util.ToastUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/9/27
- *     desc  : SDCard工具类Demo
+ *     desc  : Spannable工具类Demo
  * </pre>
  */
 public class SpannableActivity extends Activity {
@@ -34,7 +34,7 @@ public class SpannableActivity extends Activity {
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View widget) {
-                ToastUtils.showShortToast("事件触发了");
+                ToastUtils.showShort("事件触发了");
             }
 
             @Override
@@ -76,18 +76,23 @@ public class SpannableActivity extends Activity {
                 .appendLine("测试居中对齐").setAlign(Layout.Alignment.ALIGN_CENTER)
                 .appendLine("测试正常对齐").setAlign(Layout.Alignment.ALIGN_NORMAL)
                 .append("测试小图对齐").setBackgroundColor(Color.LTGRAY)
-                .append("image").setResourceId(R.drawable.shape_block_low, SpannableStringUtils.ALIGN_TOP)
-                .append("image").setResourceId(R.drawable.shape_block_low, SpannableStringUtils.ALIGN_CENTER)
-                .append("image").setResourceId(R.drawable.shape_block_low, SpannableStringUtils.ALIGN_BASELINE)
-                .appendLine("image").setResourceId(R.drawable.shape_block_low, SpannableStringUtils.ALIGN_BOTTOM)
+                .append("").setResourceId(R.drawable.shape_spannable_block_low, SpannableStringUtils.ALIGN_TOP)
+                .append("").setResourceId(R.drawable.shape_spannable_block_low, SpannableStringUtils.ALIGN_CENTER)
+                .append("").setResourceId(R.drawable.shape_spannable_block_low, SpannableStringUtils.ALIGN_BASELINE)
+                .append("").setResourceId(R.drawable.shape_spannable_block_low, SpannableStringUtils.ALIGN_BOTTOM)
+                .appendLine("end").setBackgroundColor(Color.LTGRAY)
                 .append("测试顶部对齐").setBackgroundColor(Color.GREEN)
-                .appendLine("image").setResourceId(R.drawable.shape_block_high, SpannableStringUtils.ALIGN_TOP)
+                .append("image").setResourceId(R.drawable.shape_spannable_block_high, SpannableStringUtils.ALIGN_TOP)
+                .appendLine("end").setBackgroundColor(Color.GREEN)
                 .append("居中对齐").setBackgroundColor(Color.LTGRAY)
-                .appendLine("image").setResourceId(R.drawable.shape_block_high, SpannableStringUtils.ALIGN_CENTER)
+                .append("").setResourceId(R.drawable.shape_spannable_block_high, SpannableStringUtils.ALIGN_CENTER)
+                .appendLine("end").setBackgroundColor(Color.LTGRAY)
                 .append("Baseline对齐").setBackgroundColor(Color.GREEN)
-                .appendLine("image").setResourceId(R.drawable.shape_block_high, SpannableStringUtils.ALIGN_BASELINE)
+                .append("").setResourceId(R.drawable.shape_spannable_block_high, SpannableStringUtils.ALIGN_BASELINE)
+                .appendLine("end").setBackgroundColor(Color.GREEN)
                 .append("底部对齐").setBackgroundColor(Color.LTGRAY)
-                .appendLine("image").setResourceId(R.drawable.shape_block_high, SpannableStringUtils.ALIGN_BOTTOM)
+                .append("").setResourceId(R.drawable.shape_spannable_block_high, SpannableStringUtils.ALIGN_BOTTOM)
+                .appendLine("end").setBackgroundColor(Color.LTGRAY)
                 .append("测试")
                 .appendLine("点击事件").setClickSpan(clickableSpan)
                 .append("测试")

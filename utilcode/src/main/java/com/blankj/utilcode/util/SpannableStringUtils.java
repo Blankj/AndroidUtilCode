@@ -236,7 +236,7 @@ public final class SpannableStringUtils {
          */
         public Builder setMargin(int margin) {
             this.margin = margin;
-            this.text = " ";
+            this.text = " " + this.text;
             return this;
         }
 
@@ -456,6 +456,7 @@ public final class SpannableStringUtils {
         public Builder setBitmap(@NonNull Bitmap bitmap, @Align int align) {
             this.bitmap = bitmap;
             this.align = align;
+            this.text = " " + this.text;
             imageIsBitmap = true;
             return this;
         }
@@ -486,6 +487,7 @@ public final class SpannableStringUtils {
         public Builder setDrawable(@NonNull Drawable drawable, @Align int align) {
             this.drawable = drawable;
             this.align = align;
+            this.text = " " + this.text;
             imageIsDrawable = true;
             return this;
         }
@@ -517,6 +519,7 @@ public final class SpannableStringUtils {
         public Builder setUri(@NonNull Uri uri, @Align int align) {
             this.uri = uri;
             this.align = align;
+            this.text = " " + this.text;
             imageIsUri = true;
             return this;
         }
@@ -541,6 +544,7 @@ public final class SpannableStringUtils {
         public Builder setResourceId(@DrawableRes int resourceId, @Align int align) {
             this.resourceId = resourceId;
             this.align = align;
+            this.text = " " + this.text;
             imageIsResourceId = true;
             return this;
         }
@@ -597,9 +601,7 @@ public final class SpannableStringUtils {
          * @return {@link Builder}
          */
         public Builder appendLine(@NonNull CharSequence text) {
-            setSpan();
-            this.text = text + LINE_SEPARATOR;
-            return this;
+            return append(text + LINE_SEPARATOR);
         }
 
         /**

@@ -541,7 +541,10 @@ public final class FileUtils {
             for (File file : files) {
                 list.add(file);
                 if (file.isDirectory()) {
-                    list.addAll(listFilesInDir(file));
+                    List<File> fileList = listFilesInDir(file);
+                    if (fileList != null) {
+                        list.addAll(fileList);
+                    }
                 }
             }
         }
