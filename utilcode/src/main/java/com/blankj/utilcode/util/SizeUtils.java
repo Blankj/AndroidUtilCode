@@ -9,7 +9,7 @@ import android.view.ViewGroup;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2016/8/2
+ *     time  : 2016/08/02
  *     desc  : 尺寸相关工具类
  * </pre>
  */

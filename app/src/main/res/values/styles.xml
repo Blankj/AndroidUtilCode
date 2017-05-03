@@ -14,10 +14,12 @@
 
     <style name="TextStyle">
         <item name="android:textSize">@dimen/font_26</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="WideBtnStyle">
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">@dimen/font_26</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 </resources>

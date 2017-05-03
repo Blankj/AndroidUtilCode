@@ -11,7 +11,7 @@ import android.widget.EditText;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2016/8/2
+ *     time  : 2016/08/02
  *     desc  : 键盘相关工具类
  * </pre>
  */

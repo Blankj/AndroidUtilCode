@@ -9,7 +9,7 @@ import org.robolectric.annotation.Config;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2016/8/23
+ *     time  : 2016/08/23
  *     desc  : SDCard单元测试
  * </pre>
  */

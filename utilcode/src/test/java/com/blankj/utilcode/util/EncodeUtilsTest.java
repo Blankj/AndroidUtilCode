@@ -12,7 +12,7 @@ import static com.google.common.truth.Truth.assertThat;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2016/8/12
+ *     time  : 2016/08/12
  *     desc  : EncodeUtils单元测试
  * </pre>
  */

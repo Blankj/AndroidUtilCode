@@ -15,7 +15,7 @@ import com.blankj.utilcode.util.SizeUtils;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2016/9/26
+ *     time  : 2016/09/26
  *     desc  : Image工具类Demo
  * </pre>
  */

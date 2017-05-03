@@ -20,8 +20,8 @@ import com.blankj.utilcode.util.ToastUtils;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2016/9/27
- *     desc  : Spannable工具类Demo
+ *     time  : 2016/09/27
+ *     desc  : SpannableString工具类Demo
  * </pre>
  */
 public class SpannableActivity extends Activity {

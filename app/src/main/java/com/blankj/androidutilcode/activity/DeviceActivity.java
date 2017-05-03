@@ -12,7 +12,7 @@ import com.blankj.utilcode.util.DeviceUtils;
  * <pre>
  *     author: Blankj
  *     blog : http://blankj.com
- *     time : 2016/9/27
+ *     time : 2016/09/27
  *     desc : Device工具类Demo
  * </pre>
  */

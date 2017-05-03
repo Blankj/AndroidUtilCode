@@ -4,7 +4,7 @@ package com.blankj.utilcode.util;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2016/9/29
+ *     time  : 2016/09/29
  *     desc  : 震动相关工具类
  * </pre>
  */

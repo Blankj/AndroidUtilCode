@@ -14,7 +14,7 @@ import com.blankj.utilcode.util.HandlerUtils;
  * <pre>
  *     author: Blankj
  *     blog : http://blankj.com
- *     time : 2016/9/27
+ *     time : 2016/09/27
  *     desc : Handler工具类Demo
  * </pre>
  */

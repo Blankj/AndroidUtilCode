@@ -20,7 +20,7 @@ import java.util.zip.ZipOutputStream;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2016/8/27
+ *     time  : 2016/08/27
  *     desc  : 压缩相关工具类
  * </pre>
  */

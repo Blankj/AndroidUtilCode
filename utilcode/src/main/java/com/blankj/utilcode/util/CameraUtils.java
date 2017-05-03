@@ -4,7 +4,7 @@ package com.blankj.utilcode.util;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2016/9/19
+ *     time  : 2016/09/19
  *     desc  : 相机相关工具类
  * </pre>
  */

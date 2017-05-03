@@ -4,7 +4,7 @@ package com.blankj.utilcode.util;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2016/12/5
+ *     time  : 2016/12/05
  *     desc  : 阴历相关工具类
  * </pre>
  */

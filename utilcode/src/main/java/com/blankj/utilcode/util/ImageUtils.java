@@ -49,7 +49,7 @@ import java.io.OutputStream;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2016/8/12
+ *     time  : 2016/08/12
  *     desc  : 图片相关工具类
  * </pre>
  */

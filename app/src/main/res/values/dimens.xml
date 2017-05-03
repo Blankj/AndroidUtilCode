@@ -8,5 +8,5 @@
     <dimen name="block_high_width">20dp</dimen>
     <dimen name="block_high_height">60dp</dimen>
 
-    <dimen name="toast_y_offset">64dp</dimen>
+    <dimen name="offset_64">64dp</dimen>
 </resources>

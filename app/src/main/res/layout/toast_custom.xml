@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/TextStyle"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="@drawable/shape_toast_bg"
-    android:drawableLeft="@drawable/ic_logo"
+    android:drawableLeft="@mipmap/ic_launcher"
     android:drawablePadding="@dimen/spacing_16"
+    android:gravity="center"
     android:padding="@dimen/spacing_16"
     android:text="@string/toast_custom_view"
-    android:textColor="@color/white"/>
+    android:textColor="@color/white"
+    android:textSize="@dimen/font_26"/>

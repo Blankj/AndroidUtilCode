@@ -20,7 +20,7 @@ import java.util.List;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2017/1/17
+ *     time  : 2017/01/17
  *     desc  : Fragment相关工具类
  * </pre>
  */

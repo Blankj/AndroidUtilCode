@@ -15,7 +15,7 @@ import static com.google.common.truth.Truth.assertThat;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2016/8/19
+ *     time  : 2016/08/19
  *     desc  : FileUtils单元测试
  * </pre>
  */

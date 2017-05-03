@@ -126,6 +126,10 @@
     <string name="toast_show_short">Show Short Toast</string>
     <string name="toast_show_long">Show Long Toast</string>
     <string name="toast_cancel">Cancel Toast</string>
-    <string name="toast_custom_view">custom toast view</string>
+    <string name="toast_custom_view">Custom View</string>
+    <string name="toast_short_safe">Short Safe</string>
+    <string name="toast_long_safe">Long Safe</string>
+    <string name="toast_short">Short</string>
+    <string name="toast_long">Long</string>
 
 </resources>

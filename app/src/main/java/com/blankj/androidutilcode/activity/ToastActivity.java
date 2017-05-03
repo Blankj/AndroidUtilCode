@@ -13,7 +13,7 @@ import com.blankj.utilcode.util.ToastUtils;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2016/9/29
+ *     time  : 2016/09/29
  *     desc  : Toast工具类Demo
  * </pre>
  */
@@ -42,7 +42,7 @@ public class ToastActivity extends Activity
         findViewById(R.id.btn_cancel_toast).setOnClickListener(this);
 
         tvAboutToast.setText("is default location: " + isDefaultLocation
-                + "\ncustom view: " + isDefaultView
+                + "\nis default view: " + isDefaultView
         );
     }
 
@@ -53,7 +53,7 @@ public class ToastActivity extends Activity
                 if (isDefaultLocation) {
                     ToastUtils.setGravity(Gravity.CENTER, 0, 0);
                 } else {
-                    ToastUtils.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, R.dimen.toast_y_offset);
+                    ToastUtils.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, getResources().getDimensionPixelSize(R.dimen.offset_64));
                 }
                 isDefaultLocation = !isDefaultLocation;
                 break;
@@ -69,7 +69,7 @@ public class ToastActivity extends Activity
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtils.showShortSafe("show_short_toast_safe");
+                        ToastUtils.showShortSafe(R.string.toast_short_safe);
                     }
                 }).start();
                 break;
@@ -77,22 +77,22 @@ public class ToastActivity extends Activity
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtils.showLongSafe("show_long_toast_safe");
+                        ToastUtils.showLongSafe(R.string.toast_long_safe);
                     }
                 }).start();
                 break;
             case R.id.btn_show_short_toast:
-                ToastUtils.showShort("show_short_toast");
+                ToastUtils.showShort(R.string.toast_short);
                 break;
             case R.id.btn_show_long_toast:
-                ToastUtils.showShort("show_long_toast");
+                ToastUtils.showShort(R.string.toast_long);
                 break;
             case R.id.btn_cancel_toast:
                 ToastUtils.cancel();
                 break;
         }
         tvAboutToast.setText("is default location: " + isDefaultLocation
-                + "\ncustom view: " + isDefaultView
+                + "\nis default view: " + isDefaultView
         );
     }
 }

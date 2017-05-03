@@ -15,7 +15,7 @@ import java.util.ArrayList;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 17/02/01
- *     desc  :
+ *     desc  : Fragment工具类Demo
  * </pre>
  */
 public class FragmentActivity extends AppCompatActivity {

@@ -16,7 +16,7 @@ import static com.google.common.truth.Truth.assertThat;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2016/8/6
+ *     time  : 2016/08/06
  *     desc  : EncryptUtils单元测试
  * </pre>
  */

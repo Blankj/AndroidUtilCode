@@ -16,7 +16,7 @@ import com.blankj.androidutilcode.R;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2016/9/29
+ *     time  : 2016/09/29
  *     desc  : MainActivity
  * </pre>
  */

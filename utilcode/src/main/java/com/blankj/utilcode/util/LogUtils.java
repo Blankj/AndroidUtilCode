@@ -34,7 +34,7 @@ import javax.xml.transform.stream.StreamSource;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2016/9/21
+ *     time  : 2016/09/21
  *     desc  : Log相关工具类
  * </pre>
  */

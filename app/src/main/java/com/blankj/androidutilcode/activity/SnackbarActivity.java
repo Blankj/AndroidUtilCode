@@ -61,7 +61,7 @@ public class SnackbarActivity extends Activity
                 showSnackbar(TYPE_LONG);
                 break;
             case R.id.btn_long_snackbar_with_action:
-                showSnackbar(TYPE_SHORT_WITH_ACTION);
+                showSnackbar(TYPE_LONG_WITH_ACTION);
                 break;
             case R.id.btn_indefinite_snackbar:
                 showSnackbar(TYPE_INDEFINITE);
@@ -83,7 +83,7 @@ public class SnackbarActivity extends Activity
 
     private void showSnackbar(int type) {
         SpannableStringUtils.Builder builder = new SpannableStringUtils.Builder()
-                .append("").setResourceId(R.drawable.ic_logo)
+                .append("").setResourceId(R.mipmap.ic_launcher)
                 .append("").setMargin(24);
         switch (type) {
             case TYPE_SHORT:
