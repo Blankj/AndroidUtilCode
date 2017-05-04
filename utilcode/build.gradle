@@ -6,8 +6,8 @@ android {
 
     defaultConfig {
         minSdkVersion 15
-        versionCode 21
-        versionName "1.4.1"
+        versionCode 30
+        versionName "1.5.0"
     }
 
     buildTypes {
@@ -24,6 +24,10 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    testOptions {
+        reportDir = "$project.buildDir/foo/report"
+    }
 }
 
 tasks.matching {it instanceof Test}.all {
@@ -33,7 +37,7 @@ tasks.matching {it instanceof Test}.all {
 dependencies {
     final SUPPORT_VERSION = '25.3.1'
     final JUNIT_VERSION = '4.12'
-    final TRUTH_VERSION = '0.29'
+    final TRUTH_VERSION = '0.31'
     final ROBOLECTRIC_VERSION = '3.1.2'
 
     provided "com.android.support:appcompat-v7:$SUPPORT_VERSION"

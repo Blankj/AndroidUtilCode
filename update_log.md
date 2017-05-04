@@ -1,3 +1,5 @@
+* 17/05/04 新增签名
+* 17/05/03 对齐头部日期
 * 17/05/02 Demo的string字符串变更，完善ToastUtils和SnackbarUtils
 * 17/04/27 添加Travis CI，使用shields，发布1.4.1
 * 17/04/26 完善HandlerUtils使用Handler.CallBack的回调接口及SpannableStringUtils图片对齐

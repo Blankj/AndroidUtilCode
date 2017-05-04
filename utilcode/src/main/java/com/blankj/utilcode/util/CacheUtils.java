@@ -522,11 +522,6 @@ public class CacheUtils {
         mCacheManager.clear();
     }
 
-    /**
-     * @author 杨福海（michael） www.yangfuhai.com
-     * @version 1.0
-     * @title 缓存管理器
-     */
     public class CacheManager {
         private final AtomicLong cacheSize;
         private final AtomicInteger cacheCount;

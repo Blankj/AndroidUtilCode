@@ -25,13 +25,12 @@ public class TestUtils {
 
     private static final String LINE_SEP = System.getProperty("line.separator");
 
-    static final String TEST_PATH = System.getProperty("user.dir") + FILE_SEP + "utilcode" + FILE_SEP + "src" + FILE_SEP + "test" + FILE_SEP + "res" + FILE_SEP;
+     static String TEST_PATH;
 
     public static void init() {
         Utils.init(RuntimeEnvironment.application);
     }
 
-    @Test
     public void readme2Eng() throws Exception {
         formatCN();
         File readmeCN = new File(new File(System.getProperty("user.dir")).getAbsolutePath() + FILE_SEP + "README-CN.md");
@@ -109,5 +108,17 @@ public class TestUtils {
     @Test
     public void test() throws Exception {
         System.out.println(System.getProperty("user.dir"));
+        System.out.println(new File("").getAbsoluteFile().toString());
+    }
+
+    public static String getTestPath() {
+        if (TEST_PATH == null) {
+            String projectPath = System.getProperty("user.dir");
+            if (!projectPath.contains("utilcode")) {
+                projectPath += FILE_SEP + "utilcode";
+            }
+            TEST_PATH = projectPath + FILE_SEP + "src" + FILE_SEP + "test" + FILE_SEP + "res";
+        }
+        return TEST_PATH;
     }
 }

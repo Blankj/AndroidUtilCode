@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="my_app_name">AndroidUtilCode</string>
+    <string name="my_app_name">Util</string>
 
     <string name="git_hub">GitHub</string>
     <string name="blog">Blog</string>

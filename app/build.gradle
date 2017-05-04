@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 
+File signPropertiesFile = rootProject.file('sign/keystore.properties')
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -8,10 +10,22 @@ android {
         applicationId "com.blankj.androidutilcode"
         minSdkVersion 15
         targetSdkVersion 16
-        versionCode 21
-        versionName "1.4.1"
+        versionCode 30
+        versionName "1.5.0"
     }
 
+    if (signPropertiesFile.exists()) {
+        Properties properties = new Properties()
+        properties.load(new FileInputStream(signPropertiesFile))
+        signingConfigs {
+            release {
+                storeFile rootProject.file(properties['keystore'])
+                storePassword properties['storePassword']
+                keyAlias properties['keyAlias']
+                keyPassword properties['keyPassword']
+            }
+        }
+    }
 
     buildTypes {
         debug {
@@ -21,9 +35,12 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            if (signPropertiesFile.exists()) {
+                signingConfig signingConfigs.release
+            }
         }
     }
-    
+
     lintOptions {
         abortOnError false
     }

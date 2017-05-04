@@ -531,7 +531,6 @@ public class BarUtils {
     /**
      * 设置根布局参数
      */
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     private static void setRootView(Activity activity) {
         ViewGroup rootView = (ViewGroup) ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0);
         rootView.setFitsSystemWindows(true);

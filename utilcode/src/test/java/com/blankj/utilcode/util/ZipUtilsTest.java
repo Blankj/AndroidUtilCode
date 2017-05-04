@@ -6,7 +6,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.blankj.utilcode.util.TestUtils.TEST_PATH;
 import static com.blankj.utilcode.util.TestUtils.FILE_SEP;
 import static com.blankj.utilcode.util.ZipUtils.*;
 import static com.google.common.truth.Truth.*;
@@ -21,10 +20,10 @@ import static com.google.common.truth.Truth.*;
  */
 public class ZipUtilsTest {
 
-//    String testZip = TEST_PATH + "zip" + FILE_SEP + "testZip" + FILE_SEP;
-//    String testZipFiles = TEST_PATH + "zip" + FILE_SEP + "testZips.zip";
-//    String testZipFile = TEST_PATH + "zip" + FILE_SEP + "testZip.zip";
-//    String unzipFile = TEST_PATH + "zip" + FILE_SEP + "testUnzip";
+//    String testZip = TestUtils.getTestPath() + FILE_SEP + "zip" + FILE_SEP + "testZip" + FILE_SEP;
+//    String testZipFiles = TestUtils.getTestPath() + FILE_SEP + "zip" + FILE_SEP + "testZips.zip";
+//    String testZipFile = TestUtils.getTestPath() + FILE_SEP + "zip" + FILE_SEP + "testZip.zip";
+//    String unzipFile = TestUtils.getTestPath() + FILE_SEP + "zip" + FILE_SEP + "testUnzip";
 //
 //    @Test
 //    public void testZipFiles() throws Exception {

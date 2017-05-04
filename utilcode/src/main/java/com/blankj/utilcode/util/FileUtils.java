@@ -1185,8 +1185,9 @@ public final class FileUtils {
             MessageDigest md = MessageDigest.getInstance("MD5");
             dis = new DigestInputStream(fis, md);
             byte[] buffer = new byte[1024 * 256];
-            //noinspection StatementWithEmptyBody
-            while (dis.read(buffer) > 0) ;
+            while (true) {
+                if (!(dis.read(buffer) > 0)) break;
+            }
             md = dis.getMessageDigest();
             return md.digest();
         } catch (NoSuchAlgorithmException | IOException e) {
