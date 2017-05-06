@@ -29,6 +29,7 @@ public final class LocationUtils {
     private static OnLocationChangeListener mListener;
     private static MyLocationListener       myLocationListener;
     private static LocationManager          mLocationManager;
+    private static final int TWO_MINUTES = 1000 * 60 * 2;
 
     private LocationUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
