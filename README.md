@@ -307,6 +307,8 @@ getAddress
 getCountryName
 getLocality
 getStreet
+isBetterLocation
+isSameProvider
 ```
 
 * ### About Log→[LogUtils.java][log.java]→[Demo][log.demo]
