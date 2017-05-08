@@ -578,6 +578,7 @@ getWeekOfMonth
 getWeekOfYear
 getChineseZodiac
 getZodiac
+getCurrentTimeZone
 ```
 
 * ### About Toast→[ToastUtils.java][toast.java]→[Demo][toast.demo]
