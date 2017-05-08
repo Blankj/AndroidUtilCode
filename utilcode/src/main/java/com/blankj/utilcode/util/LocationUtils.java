@@ -186,10 +186,11 @@ public final class LocationUtils {
     }
 
     /**
-     * Determines whether one Location reading is better than the current Location fix
+     * 是否更好的位置
      *
      * @param newLocation         The new Location that you want to evaluate
      * @param currentBestLocation The current Location fix, to which you want to compare the new one
+     * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isBetterLocation(Location newLocation, Location currentBestLocation) {
         if (currentBestLocation == null) {
@@ -234,13 +235,17 @@ public final class LocationUtils {
     }
 
     /**
-     * Checks whether two providers are the same
+     * 是否相同的提供者
+     *
+     * @param provider0 提供者1
+     * @param provider1 提供者2
+     * @return {@code true}: 是<br>{@code false}: 否
      */
-    private static boolean isSameProvider(String provider1, String provider2) {
-        if (provider1 == null) {
-            return provider2 == null;
+    public static boolean isSameProvider(String provider0, String provider1) {
+        if (provider0 == null) {
+            return provider1 == null;
         }
-        return provider1.equals(provider2);
+        return provider0.equals(provider1);
     }
 
     private static class MyLocationListener

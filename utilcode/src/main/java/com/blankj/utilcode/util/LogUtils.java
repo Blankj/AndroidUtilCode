@@ -2,6 +2,7 @@ package com.blankj.utilcode.util;
 
 import android.os.Environment;
 import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -16,6 +17,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Formatter;
@@ -67,15 +69,17 @@ public final class LogUtils {
     private static boolean sLogBorderSwitch = true; // log边框开关，默认开
     private static int     sLogFilter       = V;    // log过滤器
 
-    private static final String TOP_BORDER     = "╔═══════════════════════════════════════════════════════════════════════════════════════════════════";
-    private static final String LEFT_BORDER    = "║ ";
-    private static final String BOTTOM_BORDER  = "╚═══════════════════════════════════════════════════════════════════════════════════════════════════";
-    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
-    private static final int    MAX_LEN        = 4000;
+    private static final String FILE_SEP      = System.getProperty("file.separator");
+    private static final String LINE_SEP      = System.getProperty("line.separator");
+    private static final String TOP_BORDER    = "╔═══════════════════════════════════════════════════════════════════════════════════════════════════";
+    private static final String LEFT_BORDER   = "║ ";
+    private static final String BOTTOM_BORDER = "╚═══════════════════════════════════════════════════════════════════════════════════════════════════";
+    private static final int    MAX_LEN       = 4000;
 
     private static final String NULL_TIPS = "Log with null object.";
     private static final String NULL      = "null";
     private static final String ARGS      = "args";
+    private static final Format FORMAT    = new SimpleDateFormat("MM-dd HH:mm:ss.SSS ", Locale.getDefault());
 
     private LogUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -86,10 +90,20 @@ public final class LogUtils {
         public Builder() {
             if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
                     && Utils.getContext().getExternalCacheDir() != null)
-                dir = Utils.getContext().getExternalCacheDir() + File.separator + "log" + File.separator;
+                dir = Utils.getContext().getExternalCacheDir() + FILE_SEP + "log" + FILE_SEP;
             else {
-                dir = Utils.getContext().getCacheDir() + File.separator + "log" + File.separator;
+                dir = Utils.getContext().getCacheDir() + FILE_SEP + "log" + FILE_SEP;
             }
+        }
+
+        public Builder(@NonNull String dir) {
+            LogUtils.dir = dir;
+            if (!dir.endsWith(FILE_SEP))
+                LogUtils.dir += FILE_SEP;
+        }
+
+        public Builder(@NonNull File dir) {
+            LogUtils.dir = dir.getAbsolutePath() + FILE_SEP;
         }
 
         public Builder setLogSwitch(boolean logSwitch) {
@@ -249,7 +263,7 @@ public final class LogUtils {
         }
         String head = sLogHeadSwitch
                 ? new Formatter()
-                .format("Thread: %s, %s(%s.java:%d)" + LINE_SEPARATOR,
+                .format("Thread: %s, %s(%s.java:%d)" + LINE_SEP,
                         Thread.currentThread().getName(),
                         targetElement.getMethodName(),
                         className,
@@ -275,7 +289,7 @@ public final class LogUtils {
                             .append("]")
                             .append(" = ")
                             .append(content == null ? NULL : content.toString())
-                            .append(LINE_SEPARATOR);
+                            .append(LINE_SEP);
                 }
                 body = sb.toString();
             }
@@ -283,9 +297,9 @@ public final class LogUtils {
         String msg = head + body;
         if (sLogBorderSwitch) {
             StringBuilder sb = new StringBuilder();
-            String[] lines = msg.split(LINE_SEPARATOR);
+            String[] lines = msg.split(LINE_SEP);
             for (String line : lines) {
-                sb.append(LEFT_BORDER).append(line).append(LINE_SEPARATOR);
+                sb.append(LEFT_BORDER).append(line).append(LINE_SEP);
             }
             msg = sb.toString();
         }
@@ -313,7 +327,7 @@ public final class LogUtils {
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
             transformer.transform(xmlInput, xmlOutput);
-            xml = xmlOutput.getWriter().toString().replaceFirst(">", ">" + LINE_SEPARATOR);
+            xml = xmlOutput.getWriter().toString().replaceFirst(">", ">" + LINE_SEP);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -365,31 +379,32 @@ public final class LogUtils {
     }
 
     private static void print2File(final String tag, final String msg) {
-        Date now = new Date();
-        String date = new SimpleDateFormat("MM-dd", Locale.getDefault()).format(now);
+        Date now = new Date(System.currentTimeMillis());
+        String format = FORMAT.format(now);
+        String date = format.substring(0, 5);
+        String time = format.substring(6);
         final String fullPath = dir + date + ".txt";
         if (!createOrExistsFile(fullPath)) {
             Log.e(tag, "log to " + fullPath + " failed!");
             return;
         }
-        String time = new SimpleDateFormat("MM-dd HH:mm:ss.SSS ", Locale.getDefault()).format(now);
         StringBuilder sb = new StringBuilder();
         if (sLogBorderSwitch) {
-            sb.append(TOP_BORDER).append(LINE_SEPARATOR);
+            sb.append(TOP_BORDER).append(LINE_SEP);
             sb.append(LEFT_BORDER)
                     .append(time)
                     .append(tag)
-                    .append(LINE_SEPARATOR)
+                    .append(LINE_SEP)
                     .append(msg);
-            sb.append(BOTTOM_BORDER).append(LINE_SEPARATOR);
+            sb.append(BOTTOM_BORDER).append(LINE_SEP);
         } else {
             sb.append(time)
                     .append(tag)
-                    .append(LINE_SEPARATOR)
+                    .append(LINE_SEP)
                     .append(msg)
-                    .append(LINE_SEPARATOR);
+                    .append(LINE_SEP);
         }
-        sb.append(LINE_SEPARATOR);
+        sb.append(LINE_SEP);
         final String dateLogContent = sb.toString();
         if (executor == null) {
             executor = Executors.newSingleThreadExecutor();

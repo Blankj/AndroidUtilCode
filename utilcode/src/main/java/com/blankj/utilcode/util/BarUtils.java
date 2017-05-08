@@ -31,24 +31,14 @@ import java.lang.reflect.Method;
  */
 public class BarUtils {
 
-    private BarUtils() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
-    }
-
-    public static class StatusBarView extends View {
-        public StatusBarView(Context context, AttributeSet attrs) {
-            super(context, attrs);
-        }
-
-        public StatusBarView(Context context) {
-            super(context);
-        }
-    }
-
     private static final int DEFAULT_STATUS_BAR_ALPHA = 112;
     private static final int FAKE_STATUS_BAR_VIEW_ID  = R.id.statusbarutil_fake_status_bar_view;
     private static final int FAKE_TRANSLUCENT_VIEW_ID = R.id.statusbarutil_translucent_view;
     private static final int TAG_KEY_HAVE_SET_OFFSET  = -123;
+
+    private BarUtils() {
+        throw new UnsupportedOperationException("u can't instantiate me...");
+    }
 
     /**
      * 设置状态栏颜色
@@ -661,8 +651,7 @@ public class BarUtils {
      * @param context context
      * @return 状态栏高度
      */
-    private static int getStatusBarHeight(Context context) {
-        // 获得状态栏高度
+    public static int getStatusBarHeight(Context context) {
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         return context.getResources().getDimensionPixelSize(resourceId);
     }

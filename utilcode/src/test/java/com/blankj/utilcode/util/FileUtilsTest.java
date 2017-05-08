@@ -16,9 +16,8 @@ import static com.google.common.truth.Truth.assertThat;
  */
 public class FileUtilsTest {
 
-
-    String path = TestUtils.getTestPath() + FILE_SEP + "file" + FILE_SEP;
-    String path1 = TestUtils.getTestPath() + FILE_SEP + "file1" + FILE_SEP;
+    String path = TestUtils.TEST_PATH + FILE_SEP + "file" + FILE_SEP;
+    String path1 = TestUtils.TEST_PATH + FILE_SEP + "file1" + FILE_SEP;
 
     @Test
     public void testGetFileByPath() throws Exception {
@@ -28,7 +27,6 @@ public class FileUtilsTest {
 
     @Test
     public void testIsFileExists() throws Exception {
-        System.out.println(path + "UTF8.txt");
         assertThat(isFileExists(path + "UTF8.txt")).isTrue();
         assertThat(isFileExists(path + "UTF8")).isFalse();
     }

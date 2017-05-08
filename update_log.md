@@ -1,3 +1,4 @@
+* 17/05/08 更新BarUtils，LogUtils新增配置文件，TimeUtils将pattern改为format，发布1.5.0
 * 17/05/04 新增签名
 * 17/05/03 对齐头部日期
 * 17/05/02 Demo的string字符串变更，完善ToastUtils和SnackbarUtils

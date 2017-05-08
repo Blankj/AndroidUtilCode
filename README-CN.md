@@ -307,6 +307,8 @@ getAddress       : 根据经纬度获取地理位置
 getCountryName   : 根据经纬度获取所在国家
 getLocality      : 根据经纬度获取所在地
 getStreet        : 根据经纬度获取所在街道
+isBetterLocation : 是否更好的位置
+isSameProvider   : 是否相同的提供者
 ```
 
 * ### 日志相关→[LogUtils.java][log.java]→[Demo][log.demo]
@@ -617,7 +619,7 @@ getEntries        : 获取压缩文件中的文件对象
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.4.1'
+compile 'com.blankj:utilcode:1.5.0'
 ```
 
 

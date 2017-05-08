@@ -1,15 +1,5 @@
 package com.blankj.utilcode.util;
 
-import org.junit.Test;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.blankj.utilcode.util.TestUtils.FILE_SEP;
-import static com.blankj.utilcode.util.ZipUtils.*;
-import static com.google.common.truth.Truth.*;
-
 /**
  * <pre>
  *     author: Blankj
@@ -20,10 +10,10 @@ import static com.google.common.truth.Truth.*;
  */
 public class ZipUtilsTest {
 
-//    String testZip = TestUtils.getTestPath() + FILE_SEP + "zip" + FILE_SEP + "testZip" + FILE_SEP;
-//    String testZipFiles = TestUtils.getTestPath() + FILE_SEP + "zip" + FILE_SEP + "testZips.zip";
-//    String testZipFile = TestUtils.getTestPath() + FILE_SEP + "zip" + FILE_SEP + "testZip.zip";
-//    String unzipFile = TestUtils.getTestPath() + FILE_SEP + "zip" + FILE_SEP + "testUnzip";
+//    String testZip = TestUtils.TEST_PATH() + FILE_SEP + "zip" + FILE_SEP + "testZip" + FILE_SEP;
+//    String testZipFiles = TestUtils.TEST_PATH() + FILE_SEP + "zip" + FILE_SEP + "testZips.zip";
+//    String testZipFile = TestUtils.TEST_PATH() + FILE_SEP + "zip" + FILE_SEP + "testZip.zip";
+//    String unzipFile = TestUtils.TEST_PATH() + FILE_SEP + "zip" + FILE_SEP + "testUnzip";
 //
 //    @Test
 //    public void testZipFiles() throws Exception {
