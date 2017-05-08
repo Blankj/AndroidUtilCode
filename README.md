@@ -612,7 +612,7 @@ getEntries
 
 * [![jianshu][jianshusvg]][jianshu] [![weibo][weibosvg]][weibo]  [![Blog][blogsvg]][blog] [![QQ0Group][qq0groupsvg]][qq0group] [![QQ1Group][qq1groupsvg]][qq1group]
 
-**I'm so sorry for that the code is annotated with Chinese.**
+* **I'm so sorry for that the code is annotated with Chinese.**
 
 
 ## Download
