@@ -6,7 +6,25 @@ import org.junit.Test;
 
 import java.util.Date;
 
-import static com.blankj.utilcode.util.TimeUtils.*;
+import static com.blankj.utilcode.util.TimeUtils.date2Millis;
+import static com.blankj.utilcode.util.TimeUtils.date2String;
+import static com.blankj.utilcode.util.TimeUtils.getChineseZodiac;
+import static com.blankj.utilcode.util.TimeUtils.getFriendlyTimeSpanByNow;
+import static com.blankj.utilcode.util.TimeUtils.getNowMills;
+import static com.blankj.utilcode.util.TimeUtils.getNowString;
+import static com.blankj.utilcode.util.TimeUtils.getString;
+import static com.blankj.utilcode.util.TimeUtils.getTimeSpan;
+import static com.blankj.utilcode.util.TimeUtils.getWeek;
+import static com.blankj.utilcode.util.TimeUtils.getWeekIndex;
+import static com.blankj.utilcode.util.TimeUtils.getWeekOfMonth;
+import static com.blankj.utilcode.util.TimeUtils.getWeekOfYear;
+import static com.blankj.utilcode.util.TimeUtils.getZodiac;
+import static com.blankj.utilcode.util.TimeUtils.isLeapYear;
+import static com.blankj.utilcode.util.TimeUtils.isSameDay;
+import static com.blankj.utilcode.util.TimeUtils.millis2Date;
+import static com.blankj.utilcode.util.TimeUtils.millis2String;
+import static com.blankj.utilcode.util.TimeUtils.string2Date;
+import static com.blankj.utilcode.util.TimeUtils.string2Millis;
 import static com.google.common.truth.Truth.assertThat;
 
 

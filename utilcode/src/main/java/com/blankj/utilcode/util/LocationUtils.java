@@ -116,15 +116,15 @@ public final class LocationUtils {
      */
     private static Criteria getCriteria() {
         Criteria criteria = new Criteria();
-        //设置定位精确度 Criteria.ACCURACY_COARSE比较粗略，Criteria.ACCURACY_FINE则比较精细
+        // 设置定位精确度 Criteria.ACCURACY_COARSE比较粗略，Criteria.ACCURACY_FINE则比较精细
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
-        //设置是否要求速度
+        // 设置是否要求速度
         criteria.setSpeedRequired(false);
         // 设置是否允许运营商收费
         criteria.setCostAllowed(false);
-        //设置是否需要方位信息
+        // 设置是否需要方位信息
         criteria.setBearingRequired(false);
-        //设置是否需要海拔信息
+        // 设置是否需要海拔信息
         criteria.setAltitudeRequired(false);
         // 设置对电源的需求
         criteria.setPowerRequirement(Criteria.POWER_LOW);
@@ -184,12 +184,14 @@ public final class LocationUtils {
         Address address = getAddress(latitude, longitude);
         return address == null ? "unknown" : address.getAddressLine(0);
     }
-    
-    /** Determines whether one Location reading is better than the current Location fix
-     * @param newLocation  The new Location that you want to evaluate
-     * @param currentBestLocation  The current Location fix, to which you want to compare the new one
+
+    /**
+     * Determines whether one Location reading is better than the current Location fix
+     *
+     * @param newLocation         The new Location that you want to evaluate
+     * @param currentBestLocation The current Location fix, to which you want to compare the new one
      */
-    static boolean isBetterLocation(Location newLocation, Location currentBestLocation) {
+    public static boolean isBetterLocation(Location newLocation, Location currentBestLocation) {
         if (currentBestLocation == null) {
             // A new location is always better than no location
             return true;
@@ -231,8 +233,10 @@ public final class LocationUtils {
         return false;
     }
 
-    /** Checks whether two providers are the same */
-    static boolean isSameProvider(String provider1, String provider2) {
+    /**
+     * Checks whether two providers are the same
+     */
+    private static boolean isSameProvider(String provider1, String provider2) {
         if (provider1 == null) {
             return provider2 == null;
         }

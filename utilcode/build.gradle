@@ -12,6 +12,7 @@ android {
 
     buildTypes {
         debug {
+            testCoverageEnabled true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -30,7 +31,7 @@ android {
     }
 }
 
-tasks.matching {it instanceof Test}.all {
+tasks.matching { it instanceof Test }.all {
     testLogging.events = ["failed", "passed", "skipped"]
 }
 
