@@ -151,27 +151,27 @@ public final class TimeUtils {
      * </tr>
      * </table>
      * <pre>
-     *                          HH:mm    15:44
-     *                         h:mm a    3:44 下午
-     *                        HH:mm z    15:44 CST
-     *                        HH:mm Z    15:44 +0800
-     *                     HH:mm zzzz    15:44 中国标准时间
-     *                       HH:mm:ss    15:44:40
-     *                     yyyy-MM-dd    2016-08-12
-     *               yyyy-MM-dd HH:mm    2016-08-12 15:44
-     *            yyyy-MM-dd HH:mm:ss    2016-08-12 15:44:40
-     *       yyyy-MM-dd HH:mm:ss zzzz    2016-08-12 15:44:40 中国标准时间
-     *  EEEE yyyy-MM-dd HH:mm:ss zzzz    星期五 2016-08-12 15:44:40 中国标准时间
-     *       yyyy-MM-dd HH:mm:ss.SSSZ    2016-08-12 15:44:40.461+0800
-     *     yyyy-MM-dd'T'HH:mm:ss.SSSZ    2016-08-12T15:44:40.461+0800
-     *   yyyy.MM.dd G 'at' HH:mm:ss z    2016.08.12 公元 at 15:44:40 CST
-     *                         K:mm a    3:44 下午
-     *               EEE, MMM d, ''yy    星期五, 八月 12, '16
-     *          hh 'o''clock' a, zzzz    03 o'clock 下午, 中国标准时间
-     *   yyyyy.MMMMM.dd GGG hh:mm aaa    02016.八月.12 公元 03:44 下午
-     *     EEE, d MMM yyyy HH:mm:ss Z    星期五, 12 八月 2016 15:44:40 +0800
-     *                  yyMMddHHmmssZ    160812154440+0800
-     *     yyyy-MM-dd'T'HH:mm:ss.SSSZ    2016-08-12T15:44:40.461+0800
+     *                                             HH:mm    15:44
+     *                                            h:mm a    3:44 下午
+     *                                           HH:mm z    15:44 CST
+     *                                           HH:mm Z    15:44 +0800
+     *                                        HH:mm zzzz    15:44 中国标准时间
+     *                                          HH:mm:ss    15:44:40
+     *                                        yyyy-MM-dd    2016-08-12
+     *                                  yyyy-MM-dd HH:mm    2016-08-12 15:44
+     *                               yyyy-MM-dd HH:mm:ss    2016-08-12 15:44:40
+     *                          yyyy-MM-dd HH:mm:ss zzzz    2016-08-12 15:44:40 中国标准时间
+     *                     EEEE yyyy-MM-dd HH:mm:ss zzzz    星期五 2016-08-12 15:44:40 中国标准时间
+     *                          yyyy-MM-dd HH:mm:ss.SSSZ    2016-08-12 15:44:40.461+0800
+     *                        yyyy-MM-dd'T'HH:mm:ss.SSSZ    2016-08-12T15:44:40.461+0800
+     *                      yyyy.MM.dd G 'at' HH:mm:ss z    2016.08.12 公元 at 15:44:40 CST
+     *                                            K:mm a    3:44 下午
+     *                                  EEE, MMM d, ''yy    星期五, 八月 12, '16
+     *                             hh 'o''clock' a, zzzz    03 o'clock 下午, 中国标准时间
+     *                      yyyyy.MMMMM.dd GGG hh:mm aaa    02016.八月.12 公元 03:44 下午
+     *                        EEE, d MMM yyyy HH:mm:ss Z    星期五, 12 八月 2016 15:44:40 +0800
+     *                                     yyMMddHHmmssZ    160812154440+0800
+     *                        yyyy-MM-dd'T'HH:mm:ss.SSSZ    2016-08-12T15:44:40.461+0800
      * EEEE 'DATE('yyyy-MM-dd')' 'TIME('HH:mm:ss')' zzzz    星期五 DATE(2016-08-12) TIME(15:44:40) 中国标准时间
      * </pre>
      * 注意：SimpleDateFormat不是线程安全的，线程安全需用{@code ThreadLocal<SimpleDateFormat>}
@@ -771,6 +771,7 @@ public final class TimeUtils {
 
     /**
      * 获取与给定时间等于时间差的时间戳
+     * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
      *
      * @param time     给定时间
      * @param timeSpan 时间差的毫秒时间戳
@@ -790,6 +791,7 @@ public final class TimeUtils {
 
     /**
      * 获取与给定时间等于时间差的时间戳
+     * <p>time格式为format</p>
      *
      * @param time     给定时间
      * @param format   时间格式
@@ -829,6 +831,7 @@ public final class TimeUtils {
 
     /**
      * 获取与给定时间等于时间差的时间字符串
+     * <p>格式为yyyy-MM-dd HH:mm:ss</p>
      *
      * @param millis   给定时间
      * @param timeSpan 时间差的毫秒时间戳
@@ -848,6 +851,7 @@ public final class TimeUtils {
 
     /**
      * 获取与给定时间等于时间差的时间字符串
+     * <p>格式为format</p>
      *
      * @param millis   给定时间
      * @param format   时间格式
@@ -868,6 +872,7 @@ public final class TimeUtils {
 
     /**
      * 获取与给定时间等于时间差的时间字符串
+     * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
      *
      * @param time     给定时间
      * @param timeSpan 时间差的毫秒时间戳
@@ -887,6 +892,7 @@ public final class TimeUtils {
 
     /**
      * 获取与给定时间等于时间差的时间字符串
+     * <p>格式为format</p>
      *
      * @param time     给定时间
      * @param format   时间格式
@@ -907,6 +913,7 @@ public final class TimeUtils {
 
     /**
      * 获取与给定时间等于时间差的时间字符串
+     * <p>格式为yyyy-MM-dd HH:mm:ss</p>
      *
      * @param date     给定时间
      * @param timeSpan 时间差的毫秒时间戳
@@ -926,6 +933,7 @@ public final class TimeUtils {
 
     /**
      * 获取与给定时间等于时间差的时间字符串
+     * <p>格式为format</p>
      *
      * @param date     给定时间
      * @param format   时间格式
@@ -965,6 +973,7 @@ public final class TimeUtils {
 
     /**
      * 获取与给定时间等于时间差的Date
+     * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
      *
      * @param time     给定时间
      * @param timeSpan 时间差的毫秒时间戳
@@ -984,6 +993,7 @@ public final class TimeUtils {
 
     /**
      * 获取与给定时间等于时间差的Date
+     * <p>格式为format</p>
      *
      * @param time     给定时间
      * @param format   时间格式
@@ -1041,6 +1051,7 @@ public final class TimeUtils {
 
     /**
      * 获取与当前时间等于时间差的时间字符串
+     * <p>格式为yyyy-MM-dd HH:mm:ss</p>
      *
      * @param timeSpan 时间差的毫秒时间戳
      * @param unit     单位类型
@@ -1059,6 +1070,7 @@ public final class TimeUtils {
 
     /**
      * 获取与当前时间等于时间差的时间字符串
+     * <p>格式为format</p>
      *
      * @param timeSpan 时间差的毫秒时间戳
      * @param format   时间格式
@@ -1095,45 +1107,45 @@ public final class TimeUtils {
     }
 
     /**
-     * 判断是否同一天
+     * 判断是否今天
      * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
      *
      * @param time 时间字符串
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isSameDay(String time) {
-        return isSameDay(string2Millis(time, DEFAULT_FORMAT));
+    public static boolean isToday(String time) {
+        return isToday(string2Millis(time, DEFAULT_FORMAT));
     }
 
     /**
-     * 判断是否同一天
+     * 判断是否今天
      * <p>time格式为format</p>
      *
      * @param time   时间字符串
      * @param format 时间格式
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isSameDay(String time, DateFormat format) {
-        return isSameDay(string2Millis(time, format));
+    public static boolean isToday(String time, DateFormat format) {
+        return isToday(string2Millis(time, format));
     }
 
     /**
-     * 判断是否同一天
+     * 判断是否今天
      *
      * @param date Date类型时间
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isSameDay(Date date) {
-        return isSameDay(date.getTime());
+    public static boolean isToday(Date date) {
+        return isToday(date.getTime());
     }
 
     /**
-     * 判断是否同一天
+     * 判断是否今天
      *
      * @param millis 毫秒时间戳
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isSameDay(long millis) {
+    public static boolean isToday(long millis) {
         long wee = (System.currentTimeMillis() / TimeConstants.DAY) * TimeConstants.DAY - 8 * TimeConstants.HOUR;
         return millis >= wee && millis < wee + TimeConstants.DAY;
     }
@@ -1195,79 +1207,143 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取星期
+     * 获取中式星期
      * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
      *
      * @param time 时间字符串
-     * @return 星期
+     * @return 中式星期
      */
-    public static String getWeek(String time) {
-        return getWeek(string2Date(time, DEFAULT_FORMAT));
+    public static String getChineseWeek(String time) {
+        return getChineseWeek(string2Date(time, DEFAULT_FORMAT));
     }
 
     /**
-     * 获取星期
+     * 获取中式星期
      * <p>time格式为format</p>
      *
      * @param time   时间字符串
      * @param format 时间格式
-     * @return 星期
+     * @return 中式星期
      */
-    public static String getWeek(String time, DateFormat format) {
-        return getWeek(string2Date(time, format));
+    public static String getChineseWeek(String time, DateFormat format) {
+        return getChineseWeek(string2Date(time, format));
     }
 
     /**
-     * 获取星期
+     * 获取中式星期
      *
      * @param date Date类型时间
-     * @return 星期
+     * @return 中式星期
      */
-    public static String getWeek(Date date) {
-        return new SimpleDateFormat("EEEE", Locale.getDefault()).format(date);
+    public static String getChineseWeek(Date date) {
+        return new SimpleDateFormat("E", Locale.CHINA).format(date);
     }
 
     /**
-     * 获取星期
+     * 获取中式星期
      *
      * @param millis 毫秒时间戳
-     * @return 星期
+     * @return 中式星期
      */
-    public static String getWeek(long millis) {
-        return getWeek(new Date(millis));
+    public static String getChineseWeek(long millis) {
+        return getChineseWeek(new Date(millis));
     }
 
     /**
-     * 获取星期
+     * 获取美式星期
+     * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
+     *
+     * @param time 时间字符串
+     * @return 美式星期
+     */
+    public static String getUSWeek(String time) {
+        return getUSWeek(string2Date(time, DEFAULT_FORMAT));
+    }
+
+    /**
+     * 获取美式星期
+     * <p>time格式为format</p>
+     *
+     * @param time   时间字符串
+     * @param format 时间格式
+     * @return 美式星期
+     */
+    public static String getUSWeek(String time, DateFormat format) {
+        return getUSWeek(string2Date(time, format));
+    }
+
+    /**
+     * 获取美式星期
+     *
+     * @param date Date类型时间
+     * @return 美式星期
+     */
+    public static String getUSWeek(Date date) {
+        return new SimpleDateFormat("EEEE", Locale.US).format(date);
+    }
+
+    /**
+     * 获取美式星期
+     *
+     * @param millis 毫秒时间戳
+     * @return 美式星期
+     */
+    public static String getUSWeek(long millis) {
+        return getUSWeek(new Date(millis));
+    }
+
+    /**
+     * 获取星期索引
      * <p>注意：周日的Index才是1，周六为7</p>
      * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
      *
      * @param time 时间字符串
-     * @return 1...5
+     * @return 1...7
+     * @see Calendar#SUNDAY
+     * @see Calendar#MONDAY
+     * @see Calendar#TUESDAY
+     * @see Calendar#WEDNESDAY
+     * @see Calendar#THURSDAY
+     * @see Calendar#FRIDAY
+     * @see Calendar#SATURDAY
      */
     public static int getWeekIndex(String time) {
         return getWeekIndex(string2Date(time, DEFAULT_FORMAT));
     }
 
     /**
-     * 获取星期
+     * 获取星期索引
      * <p>注意：周日的Index才是1，周六为7</p>
      * <p>time格式为format</p>
      *
      * @param time   时间字符串
      * @param format 时间格式
      * @return 1...7
+     * @see Calendar#SUNDAY
+     * @see Calendar#MONDAY
+     * @see Calendar#TUESDAY
+     * @see Calendar#WEDNESDAY
+     * @see Calendar#THURSDAY
+     * @see Calendar#FRIDAY
+     * @see Calendar#SATURDAY
      */
     public static int getWeekIndex(String time, DateFormat format) {
         return getWeekIndex(string2Date(time, format));
     }
 
     /**
-     * 获取星期
+     * 获取星期索引
      * <p>注意：周日的Index才是1，周六为7</p>
      *
      * @param date Date类型时间
      * @return 1...7
+     * @see Calendar#SUNDAY
+     * @see Calendar#MONDAY
+     * @see Calendar#TUESDAY
+     * @see Calendar#WEDNESDAY
+     * @see Calendar#THURSDAY
+     * @see Calendar#FRIDAY
+     * @see Calendar#SATURDAY
      */
     public static int getWeekIndex(Date date) {
         Calendar cal = Calendar.getInstance();
@@ -1276,11 +1352,18 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取星期
+     * 获取星期索引
      * <p>注意：周日的Index才是1，周六为7</p>
      *
      * @param millis 毫秒时间戳
      * @return 1...7
+     * @see Calendar#SUNDAY
+     * @see Calendar#MONDAY
+     * @see Calendar#TUESDAY
+     * @see Calendar#WEDNESDAY
+     * @see Calendar#THURSDAY
+     * @see Calendar#FRIDAY
+     * @see Calendar#SATURDAY
      */
     public static int getWeekIndex(long millis) {
         return getWeekIndex(millis2Date(millis));

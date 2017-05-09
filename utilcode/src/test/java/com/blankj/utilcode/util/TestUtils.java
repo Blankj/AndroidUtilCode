@@ -7,7 +7,10 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * <pre>
@@ -115,7 +118,7 @@ public class TestUtils {
 
     @Test
     public void test() throws Exception {
+        System.out.println(new SimpleDateFormat("E", Locale.CHINA).format(new Date()));
         System.out.println(System.getProperty("user.dir"));
-        System.out.println(new File("").getAbsoluteFile().toString());
     }
 }

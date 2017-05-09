@@ -2,7 +2,6 @@ package com.blankj.utilcode.util;
 
 import android.os.Environment;
 import android.support.annotation.IntDef;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -51,15 +50,15 @@ public final class LogUtils {
 
     @IntDef({V, D, I, W, E, A})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface TYPE {
-
+    private @interface TYPE {
     }
 
     private static final int FILE = 0xF1;
     private static final int JSON = 0xF2;
     private static final int XML  = 0xF4;
-    private static String          dir;// log存储目录
     private static ExecutorService executor;
+    private static String          defaultDir;// log默认存储目录
+    private static String          dir;       // log存储目录
 
     private static boolean sLogSwitch       = true; // log总开关，默认开
     private static String  sGlobalTag       = null; // log标签
@@ -75,35 +74,25 @@ public final class LogUtils {
     private static final String LEFT_BORDER   = "║ ";
     private static final String BOTTOM_BORDER = "╚═══════════════════════════════════════════════════════════════════════════════════════════════════";
     private static final int    MAX_LEN       = 4000;
+    private static final Format FORMAT        = new SimpleDateFormat("MM-dd HH:mm:ss.SSS ", Locale.getDefault());
 
     private static final String NULL_TIPS = "Log with null object.";
     private static final String NULL      = "null";
     private static final String ARGS      = "args";
-    private static final Format FORMAT    = new SimpleDateFormat("MM-dd HH:mm:ss.SSS ", Locale.getDefault());
 
     private LogUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     public static class Builder {
-
         public Builder() {
+            if (defaultDir != null) return;
             if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
                     && Utils.getContext().getExternalCacheDir() != null)
-                dir = Utils.getContext().getExternalCacheDir() + FILE_SEP + "log" + FILE_SEP;
+                defaultDir = Utils.getContext().getExternalCacheDir() + FILE_SEP + "log" + FILE_SEP;
             else {
-                dir = Utils.getContext().getCacheDir() + FILE_SEP + "log" + FILE_SEP;
+                defaultDir = Utils.getContext().getCacheDir() + FILE_SEP + "log" + FILE_SEP;
             }
-        }
-
-        public Builder(@NonNull String dir) {
-            LogUtils.dir = dir;
-            if (!dir.endsWith(FILE_SEP))
-                LogUtils.dir += FILE_SEP;
-        }
-
-        public Builder(@NonNull File dir) {
-            LogUtils.dir = dir.getAbsolutePath() + FILE_SEP;
         }
 
         public Builder setLogSwitch(boolean logSwitch) {
@@ -111,13 +100,13 @@ public final class LogUtils {
             return this;
         }
 
-        public Builder setGlobalTag(String tag) {
-            if (!isSpace(tag)) {
-                LogUtils.sGlobalTag = tag;
-                sTagIsSpace = false;
-            } else {
+        public Builder setGlobalTag(final String tag) {
+            if (isSpace(tag)) {
                 LogUtils.sGlobalTag = "";
                 sTagIsSpace = true;
+            } else {
+                LogUtils.sGlobalTag = tag;
+                sTagIsSpace = false;
             }
             return this;
         }
@@ -132,6 +121,20 @@ public final class LogUtils {
             return this;
         }
 
+        public Builder setDir(final String dir) {
+            if (isSpace(dir)) {
+                LogUtils.dir = null;
+            } else {
+                LogUtils.dir = dir.endsWith(FILE_SEP) ? dir : dir + FILE_SEP;
+            }
+            return this;
+        }
+
+        public Builder setDir(final File dir) {
+            LogUtils.dir = dir == null ? null : dir.getAbsolutePath() + FILE_SEP;
+            return this;
+        }
+
         public Builder setBorderSwitch(boolean borderSwitch) {
             LogUtils.sLogBorderSwitch = borderSwitch;
             return this;
@@ -140,6 +143,17 @@ public final class LogUtils {
         public Builder setLogFilter(@TYPE int logFilter) {
             LogUtils.sLogFilter = logFilter;
             return this;
+        }
+
+        @Override
+        public String toString() {
+            return "switch: " + sLogSwitch
+                    + LINE_SEP + "tag: " + (sGlobalTag.equals("") ? "null" : sGlobalTag)
+                    + LINE_SEP + "head: " + sLogHeadSwitch
+                    + LINE_SEP + "file: " + sLog2FileSwitch
+                    + LINE_SEP + "dir: " + (dir == null ? defaultDir : dir)
+                    + LINE_SEP + "border: " + sLogBorderSwitch
+                    + LINE_SEP + "filter: " + (sLogFilter == V ? "verbose" : "not verbose");
         }
     }
 
@@ -229,9 +243,9 @@ public final class LogUtils {
             case A:
                 if (type >= sLogFilter) {
                     printLog(type, tag, msg);
-                }
-                if (sLog2FileSwitch) {
-                    print2File(tag, msg);
+                    if (sLog2FileSwitch) {
+                        print2File(tag, msg);
+                    }
                 }
                 break;
             case FILE:
@@ -247,28 +261,32 @@ public final class LogUtils {
     }
 
     private static String[] processContents(int type, String tag, Object... contents) {
-        StackTraceElement targetElement = Thread.currentThread().getStackTrace()[5];
-        String className = targetElement.getClassName();
-        String[] classNameInfo = className.split("\\.");
-        if (classNameInfo.length > 0) {
-            className = classNameInfo[classNameInfo.length - 1];
-        }
-        if (className.contains("$")) {
-            className = className.split("\\$")[0];
-        }
-        if (!sTagIsSpace) {// 如果全局tag不为空，那就用全局tag
+        String head = "";
+        if (!sTagIsSpace && !sLogHeadSwitch) {
             tag = sGlobalTag;
-        } else {// 全局tag为空时，如果传入的tag为空那就显示类名，否则显示tag
-            tag = isSpace(tag) ? className : tag;
+        }else {
+            StackTraceElement targetElement = Thread.currentThread().getStackTrace()[5];
+            String className = targetElement.getClassName();
+            String[] classNameInfo = className.split("\\.");
+            if (classNameInfo.length > 0) {
+                className = classNameInfo[classNameInfo.length - 1];
+            }
+            if (className.contains("$")) {
+                className = className.split("\\$")[0];
+            }
+            if (sTagIsSpace) {
+                tag = isSpace(tag) ? className : tag;
+            }
+            if (sLogHeadSwitch) {
+                head = new Formatter()
+                        .format("Thread: %s, %s(%s.java:%d)" + LINE_SEP,
+                                Thread.currentThread().getName(),
+                                targetElement.getMethodName(),
+                                className,
+                                targetElement.getLineNumber())
+                        .toString();
+            }
         }
-        String head = sLogHeadSwitch
-                ? new Formatter()
-                .format("Thread: %s, %s(%s.java:%d)" + LINE_SEP,
-                        Thread.currentThread().getName(),
-                        targetElement.getMethodName(),
-                        className,
-                        targetElement.getLineNumber()).toString()
-                : "";
         String body = NULL_TIPS;
         if (contents != null) {
             if (contents.length == 1) {
@@ -344,11 +362,11 @@ public final class LogUtils {
             int index = MAX_LEN;
             for (int i = 1; i < countOfSub; i++) {
                 sub = msg.substring(index, index + MAX_LEN);
-                print(type, tag, (sLogBorderSwitch ? LEFT_BORDER : "") + sub);
+                print(type, tag, sLogBorderSwitch ? LEFT_BORDER + sub : sub);
                 index += MAX_LEN;
             }
             sub = msg.substring(index, len);
-            print(type, tag, (sLogBorderSwitch ? LEFT_BORDER : "") + sub);
+            print(type, tag, sLogBorderSwitch ? LEFT_BORDER + sub : sub);
         } else {
             print(type, tag, msg);
         }
@@ -383,7 +401,7 @@ public final class LogUtils {
         String format = FORMAT.format(now);
         String date = format.substring(0, 5);
         String time = format.substring(6);
-        final String fullPath = dir + date + ".txt";
+        final String fullPath = (dir == null ? defaultDir : dir) + date + ".txt";
         if (!createOrExistsFile(fullPath)) {
             Log.e(tag, "log to " + fullPath + " failed!");
             return;

@@ -317,6 +317,7 @@ Builder.setLogSwitch     : 设置log总开关
 Builder.setGlobalTag     : 设置log全局tag
 Builder.setLogHeadSwitch : 设置log头开关
 Builder.setLog2FileSwitch: 设置log文件开关
+Builder.setDir           : 设置log文件存储目录
 Builder.setBorderSwitch  : 设置log边框开关
 Builder.setLogFilter     : 设置log过滤器
 v                        : Verbose日志
@@ -571,9 +572,11 @@ getDate                 : 获取与给定时间等于时间差的Date
 getMillisByNow          : 获取与当前时间等于时间差的时间戳
 getStringByNow          : 获取与当前时间等于时间差的时间字符串
 getDateByNow            : 获取与当前时间等于时间差的Date
-isSameDay               : 判断是否同一天
+isToday                 : 判断是否今天
 isLeapYear              : 判断是否闰年
-getWeek, getWeekIndex   : 获取星期
+getChineseWeek          : 获取中式星期
+getUSWeek               : 获取美式式星期
+getWeekIndex            : 获取星期索引
 getWeekOfMonth          : 获取月份中的第几周
 getWeekOfYear           : 获取年份中的第几周
 getChineseZodiac        : 获取生肖

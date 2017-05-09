@@ -317,6 +317,7 @@ Builder.setLogSwitch
 Builder.setGlobalTag
 Builder.setLogHeadSwitch
 Builder.setLog2FileSwitch
+Builder.setDir
 Builder.setBorderSwitch
 Builder.setLogFilter
 v
@@ -571,9 +572,11 @@ getDate
 getMillisByNow
 getStringByNow
 getDateByNow
-isSameDay
+isToday
 isLeapYear
-getWeek, getWeekIndex
+getChineseWeek
+getUSWeek
+getWeekIndex
 getWeekOfMonth
 getWeekOfYear
 getChineseZodiac

@@ -65,5 +65,5 @@ dependencies {
     testCompile "com.google.truth:truth:$TRUTH_VERSION"
     testCompile "org.robolectric:robolectric:$ROBOLECTRIC_VERSION"
 }
-apply from: "https://raw.githubusercontent.com/xiaopansky/android-library-publish-to-jcenter/master/bintrayUpload.gradle"
+//apply from: "https://raw.githubusercontent.com/xiaopansky/android-library-publish-to-jcenter/master/bintrayUpload.gradle"
 //gradlew bintrayUpload
