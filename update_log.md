@@ -1,3 +1,4 @@
+* 17/05/10 installApp完善7.0
 * 17/05/09 TimeUtils完善单元测试
 * 17/05/08 更新BarUtils，LogUtils新增配置文件，TimeUtils将pattern改为format，发布1.5.0
 * 17/05/04 新增签名

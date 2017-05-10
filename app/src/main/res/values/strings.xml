@@ -31,14 +31,16 @@
     <string name="activity_start_imageActivity">Start ImageActivity</string>
 
     <!--App相关-->
-    <string name="app_install">Install App</string>
-    <string name="app_install_silent">Install App Silent</string>
-    <string name="app_uninstall">Uninstall App</string>
-    <string name="app_uninstall_silent">Uninstall App Silent</string>
+    <string name="app_install">Install Test App</string>
+    <string name="app_install_silent">Install Test App Silently</string>
+    <string name="app_uninstall">Uninstall Test App</string>
+    <string name="app_uninstall_tips">Please install test apk first</string>
+    <string name="app_uninstall_silent">Uninstall App Silently</string>
     <string name="app_launch">Launch App</string>
     <string name="app_close">Close App</string>
     <string name="app_isDebug">Is Debug</string>
     <string name="app_get_details_settings">Get App Details Settings</string>
+
 
     <!--Device相关-->
     <string name="device_shutdown">Shutdown</string>
@@ -76,12 +78,13 @@
     <string name="keyboard_show_soft_input">Show Soft Input</string>
     <string name="keyboard_toggle_soft_input">Toggle Soft Input</string>
 
-    <!--Log相关-->
+    <!-- log -->
     <string name="log_toggle_tag">Toggle Tag</string>
     <string name="log_toggle_head">Toggle Head</string>
     <string name="log_toggle_border">Toggle Border</string>
     <string name="log_toggle_filter">Toggle Filter</string>
     <string name="log_toggle_file">Toggle File</string>
+    <string name="log_toggle_dir">Toggle Dir</string>
     <string name="log_with_no_tag">Log With No Tag</string>
     <string name="log_with_tag">Log With Tag</string>
     <string name="log_in_new_thread">Log In New Thread</string>

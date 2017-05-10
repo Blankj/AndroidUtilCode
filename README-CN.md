@@ -501,13 +501,9 @@ Builder.create            : 创建样式字符串
 SPUtils   : SPUtils构造函数
 put       : SP中写入数据
 getString : SP中读取String
-putInt    : SP中写入int类型value
 getInt    : SP中读取int
-putLong   : SP中写入long类型value
 getLong   : SP中读取long
-putFloat  : SP中写入float类型value
 getFloat  : SP中读取float
-putBoolean: SP中写入boolean类型value
 getBoolean: SP中读取boolean
 getAll    : SP中获取所有键值对
 remove    : SP中移除该key

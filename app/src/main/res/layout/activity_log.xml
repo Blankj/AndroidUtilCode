@@ -39,6 +39,13 @@
             android:text="@string/log_toggle_file"/>
 
         <Button
+            android:id="@+id/btn_toggle_dir"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log_toggle_dir"/>
+
+        <Button
             android:id="@+id/btn_toggle_border"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"

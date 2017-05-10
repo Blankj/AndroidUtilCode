@@ -301,7 +301,7 @@ public final class SpannableStringUtils {
          * @param proportion 比例
          * @return {@link Builder}
          */
-        public Builder setProportion(float proportion) {
+        public Builder setFontProportion(float proportion) {
             this.proportion = proportion;
             return this;
         }
@@ -312,7 +312,7 @@ public final class SpannableStringUtils {
          * @param proportion 比例
          * @return {@link Builder}
          */
-        public Builder setXProportion(float proportion) {
+        public Builder setFontXProportion(float proportion) {
             this.xProportion = proportion;
             return this;
         }

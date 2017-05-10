@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
-import android.webkit.MimeTypeMap;
 
 import java.io.File;
 
@@ -26,37 +25,33 @@ public final class IntentUtils {
     }
 
     /**
-     * 获取安装App（支持6.0）的意图
+     * 获取安装App（支持7.0）的意图
      *
      * @param filePath 文件路径
      * @return intent
      */
-    public static Intent getInstallAppIntent(String filePath) {
-        return getInstallAppIntent(FileUtils.getFileByPath(filePath));
+    public static Intent getInstallAppIntent(String filePath, String authority) {
+        return getInstallAppIntent(FileUtils.getFileByPath(filePath), authority);
     }
 
     /**
-     * 获取安装App(支持6.0)的意图
+     * 获取安装App(支持7.0)的意图
      *
      * @param file 文件
      * @return intent
      */
-    public static Intent getInstallAppIntent(File file) {
+    public static Intent getInstallAppIntent(File file, String authority) {
         if (file == null) return null;
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        String type;
-
-        if (Build.VERSION.SDK_INT < 23) {
-            type = "application/vnd.android.package-archive";
+        Uri data;
+        String type = "application/vnd.android.package-archive";
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            data = Uri.fromFile(file);
         } else {
-            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(FileUtils.getFileExtension(file));
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            Uri contentUri = FileProvider.getUriForFile(Utils.getContext(), "com.your.package.fileProvider", file);
-            intent.setDataAndType(contentUri, type);
+            data = FileProvider.getUriForFile(Utils.getContext(), authority, file);
         }
-        intent.setDataAndType(Uri.fromFile(file), type);
+        intent.setDataAndType(data, type);
         return intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 

@@ -24,17 +24,17 @@ import static org.junit.Assert.assertTrue;
  */
 public class TimeUtilsTest {
 
-    private DateFormat mFormat = new SimpleDateFormat("yyyy MM dd HH:mm:ss", Locale.getDefault());
+    private final DateFormat mFormat = new SimpleDateFormat("yyyy MM dd HH:mm:ss", Locale.getDefault());
 
-    private long   timeMillis               = 1493887049000L;
-    private Date   timeDate                 = new Date(timeMillis);
-    private String timeString               = "2017-05-04 16:37:29";
-    private String timeStringFormat         = "2017 05 04 16:37:29";
-    private long   tomorrowTimeMillis       = 1493973449000L;
-    private Date   tomorrowTimeDate         = new Date(tomorrowTimeMillis);
-    private String tomorrowTimeString       = "2017-05-05 16:37:29";
-    private String tomorrowTimeStringFormat = "2017 05 05 16:37:29";
-    private long   delta                    = 1;// 允许误差1ms
+    private final long   timeMillis               = 1493887049000L;
+    private final Date   timeDate                 = new Date(timeMillis);
+    private final String timeString               = "2017-05-04 16:37:29";
+    private final String timeStringFormat         = "2017 05 04 16:37:29";
+    private final long   tomorrowTimeMillis       = 1493973449000L;
+    private final Date   tomorrowTimeDate         = new Date(tomorrowTimeMillis);
+    private final String tomorrowTimeString       = "2017-05-05 16:37:29";
+    private final String tomorrowTimeStringFormat = "2017 05 05 16:37:29";
+    private final long   delta                    = 1;// 允许误差1ms
 
     @Test
     public void millis2String() throws Exception {

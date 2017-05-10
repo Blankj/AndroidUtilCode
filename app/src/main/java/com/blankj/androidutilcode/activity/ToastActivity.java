@@ -95,4 +95,10 @@ public class ToastActivity extends Activity
                 + "\nis default view: " + isDefaultView
         );
     }
+
+    @Override
+    protected void onDestroy() {
+        ToastUtils.setView(null);
+        super.onDestroy();
+    }
 }
