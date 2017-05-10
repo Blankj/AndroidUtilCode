@@ -50,6 +50,16 @@ public final class AppUtils {
     }
 
     /**
+     * 安装App(支持7.0)
+     *
+     * @param context  上下文
+     * @param filePath 文件路径
+     */
+    public static void installApp(Context context, String filePath, String fileProvider) {
+        installApp(context, FileUtils.getFileByPath(filePath), fileProvider);
+    }
+
+    /**
      * 安装App（支持6.0）
      *
      * @param context 上下文
@@ -58,6 +68,18 @@ public final class AppUtils {
     public static void installApp(Context context, File file) {
         if (!FileUtils.isFileExists(file)) return;
         context.startActivity(IntentUtils.getInstallAppIntent(file));
+    }
+
+    /**
+     * 安装App（支持6.0）
+     *
+     * @param context 上下文
+     * @param file    文件
+     * @param fileProvider fileProvider字符串
+     */
+    public static void installApp(Context context, File file, String fileProvider) {
+        if (!FileUtils.isFileExists(file)) return;
+        context.startActivity(IntentUtils.getInstallAppIntent(file, fileProvider));
     }
 
     /**

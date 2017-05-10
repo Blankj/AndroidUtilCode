@@ -42,6 +42,17 @@ public final class IntentUtils {
      * @return intent
      */
     public static Intent getInstallAppIntent(File file) {
+        return getInstallAppIntent(file, "com.your.package.fileProvider");
+    }
+
+    /**
+     * 获取安装App(支持7.0)的意图
+     *
+     * @param file 文件
+     * @param fileProvider fileProvider字符串
+     * @return intent
+     */
+    public static Intent getInstallAppIntent(File file, String fileProvider) {
         if (file == null) return null;
         Intent intent = new Intent(Intent.ACTION_VIEW);
         String type;
@@ -53,10 +64,11 @@ public final class IntentUtils {
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            Uri contentUri = FileProvider.getUriForFile(Utils.getContext(), "com.your.package.fileProvider", file);
+            Uri contentUri = FileProvider.getUriForFile(Utils.getContext(), fileProvider, file);
             intent.setDataAndType(contentUri, type);
+        } else {
+            intent.setDataAndType(Uri.fromFile(file), type);
         }
-        intent.setDataAndType(Uri.fromFile(file), type);
         return intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 
