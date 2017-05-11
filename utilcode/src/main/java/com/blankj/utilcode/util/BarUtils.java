@@ -9,15 +9,12 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.IntRange;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.DrawerLayout;
-import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-
-import com.blankj.utilcode.R;
 
 import java.lang.reflect.Method;
 
@@ -31,10 +28,10 @@ import java.lang.reflect.Method;
  */
 public class BarUtils {
 
-    private static final int DEFAULT_STATUS_BAR_ALPHA = 112;
-    private static final int FAKE_STATUS_BAR_VIEW_ID  = R.id.statusbarutil_fake_status_bar_view;
-    private static final int FAKE_TRANSLUCENT_VIEW_ID = R.id.statusbarutil_translucent_view;
-    private static final int TAG_KEY_HAVE_SET_OFFSET  = -123;
+    private static final int    DEFAULT_STATUS_BAR_ALPHA  = 112;
+    private static final String FAKE_STATUS_BAR_VIEW_TAG  = "FAKE_STATUS_BAR_VIEW_TAG";
+    private static final String FAKE_TRANSLUCENT_VIEW_TAG = "FAKE_TRANSLUCENT_VIEW_TAG";
+    private static final int    TAG_KEY_HAVE_SET_OFFSET   = -123;
 
     private BarUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -66,7 +63,7 @@ public class BarUtils {
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
-            View fakeStatusBarView = decorView.findViewById(FAKE_STATUS_BAR_VIEW_ID);
+            View fakeStatusBarView = decorView.findViewWithTag(FAKE_STATUS_BAR_VIEW_TAG);
             if (fakeStatusBarView != null) {
                 if (fakeStatusBarView.getVisibility() == View.GONE) {
                     fakeStatusBarView.setVisibility(View.VISIBLE);
@@ -153,7 +150,7 @@ public class BarUtils {
         transparentStatusBar(activity);
         ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
         // 移除半透明矩形,以免叠加
-        View fakeStatusBarView = contentView.findViewById(FAKE_STATUS_BAR_VIEW_ID);
+        View fakeStatusBarView = contentView.findViewWithTag(FAKE_STATUS_BAR_VIEW_TAG);
         if (fakeStatusBarView != null) {
             if (fakeStatusBarView.getVisibility() == View.GONE) {
                 fakeStatusBarView.setVisibility(View.VISIBLE);
@@ -282,7 +279,7 @@ public class BarUtils {
         // 生成一个状态栏大小的矩形
         // 添加 statusBarView 到布局中
         ViewGroup contentLayout = (ViewGroup) drawerLayout.getChildAt(0);
-        View fakeStatusBarView = contentLayout.findViewById(FAKE_STATUS_BAR_VIEW_ID);
+        View fakeStatusBarView = contentLayout.findViewWithTag(FAKE_STATUS_BAR_VIEW_TAG);
         if (fakeStatusBarView != null) {
             if (fakeStatusBarView.getVisibility() == View.GONE) {
                 fakeStatusBarView.setVisibility(View.VISIBLE);
@@ -329,7 +326,7 @@ public class BarUtils {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             // 生成一个状态栏大小的矩形
             ViewGroup contentLayout = (ViewGroup) drawerLayout.getChildAt(0);
-            View fakeStatusBarView = contentLayout.findViewById(FAKE_STATUS_BAR_VIEW_ID);
+            View fakeStatusBarView = contentLayout.findViewWithTag(FAKE_STATUS_BAR_VIEW_TAG);
             if (fakeStatusBarView != null) {
                 if (fakeStatusBarView.getVisibility() == View.GONE) {
                     fakeStatusBarView.setVisibility(View.VISIBLE);
@@ -512,11 +509,11 @@ public class BarUtils {
      */
     public static void hideFakeStatusBarView(Activity activity) {
         ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
-        View fakeStatusBarView = decorView.findViewById(FAKE_STATUS_BAR_VIEW_ID);
+        View fakeStatusBarView = decorView.findViewWithTag(FAKE_STATUS_BAR_VIEW_TAG);
         if (fakeStatusBarView != null) {
             fakeStatusBarView.setVisibility(View.GONE);
         }
-        View fakeTranslucentView = decorView.findViewById(FAKE_TRANSLUCENT_VIEW_ID);
+        View fakeTranslucentView = decorView.findViewWithTag(FAKE_TRANSLUCENT_VIEW_TAG);
         if (fakeTranslucentView != null) {
             fakeTranslucentView.setVisibility(View.GONE);
         }
@@ -527,7 +524,7 @@ public class BarUtils {
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private static void clearPreviousSetting(Activity activity) {
         ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
-        View fakeStatusBarView = decorView.findViewById(FAKE_STATUS_BAR_VIEW_ID);
+        View fakeStatusBarView = decorView.findViewWithTag(FAKE_STATUS_BAR_VIEW_TAG);
         if (fakeStatusBarView != null) {
             decorView.removeView(fakeStatusBarView);
             ViewGroup rootView = (ViewGroup) ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0);
@@ -543,7 +540,7 @@ public class BarUtils {
      */
     private static void addTranslucentView(Activity activity, @IntRange(from = 0, to = 255) int statusBarAlpha) {
         ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
-        View fakeTranslucentView = contentView.findViewById(FAKE_TRANSLUCENT_VIEW_ID);
+        View fakeTranslucentView = contentView.findViewWithTag(FAKE_TRANSLUCENT_VIEW_TAG);
         if (fakeTranslucentView != null) {
             if (fakeTranslucentView.getVisibility() == View.GONE) {
                 fakeTranslucentView.setVisibility(View.VISIBLE);
@@ -580,7 +577,7 @@ public class BarUtils {
                 new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity));
         statusBarView.setLayoutParams(params);
         statusBarView.setBackgroundColor(calculateStatusColor(color, alpha));
-        statusBarView.setId(FAKE_STATUS_BAR_VIEW_ID);
+        statusBarView.setTag(FAKE_STATUS_BAR_VIEW_TAG);
         return statusBarView;
     }
 
@@ -641,7 +638,7 @@ public class BarUtils {
                 new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity));
         statusBarView.setLayoutParams(params);
         statusBarView.setBackgroundColor(Color.argb(alpha, 0, 0, 0));
-        statusBarView.setId(FAKE_TRANSLUCENT_VIEW_ID);
+        statusBarView.setTag(FAKE_TRANSLUCENT_VIEW_TAG);
         return statusBarView;
     }
 

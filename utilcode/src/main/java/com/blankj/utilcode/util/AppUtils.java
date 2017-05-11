@@ -9,7 +9,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.FileProvider;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -43,8 +42,8 @@ public final class AppUtils {
      * 安装App(支持7.0)
      *
      * @param filePath  文件路径
-     * @param authority The authority of a {@link FileProvider} defined in a
-     *                  {@code <provider>} element in your app's manifest.
+     * @param authority 7.0及以上安装需要传入清单文件中的{@code <provider>}的authorities属性
+     *                  <br>参看https://developer.android.com/reference/android/support/v4/content/FileProvider.html
      */
     public static void installApp(String filePath, String authority) {
         installApp(FileUtils.getFileByPath(filePath), authority);
@@ -54,7 +53,8 @@ public final class AppUtils {
      * 安装App（支持7.0）
      *
      * @param file      文件
-     * @param authority
+     * @param authority 7.0及以上安装需要传入清单文件中的{@code <provider>}的authorities属性
+     *                  <br>参看https://developer.android.com/reference/android/support/v4/content/FileProvider.html
      */
     public static void installApp(File file, String authority) {
         if (!FileUtils.isFileExists(file)) return;
@@ -66,6 +66,8 @@ public final class AppUtils {
      *
      * @param activity    activity
      * @param filePath    文件路径
+     * @param authority   7.0及以上安装需要传入清单文件中的{@code <provider>}的authorities属性
+     *                    <br>参看https://developer.android.com/reference/android/support/v4/content/FileProvider.html
      * @param requestCode 请求值
      */
     public static void installApp(Activity activity, String filePath, String authority, int requestCode) {
@@ -77,6 +79,8 @@ public final class AppUtils {
      *
      * @param activity    activity
      * @param file        文件
+     * @param authority   7.0及以上安装需要传入清单文件中的{@code <provider>}的authorities属性
+     *                    <br>参看https://developer.android.com/reference/android/support/v4/content/FileProvider.html
      * @param requestCode 请求值
      */
     public static void installApp(Activity activity, File file, String authority, int requestCode) {
@@ -186,7 +190,6 @@ public final class AppUtils {
 
     /**
      * 获取App具体设置
-     *
      */
     public static void getAppDetailsSettings() {
         getAppDetailsSettings(Utils.getContext().getPackageName());
@@ -563,13 +566,12 @@ public final class AppUtils {
 
         @Override
         public String toString() {
-            return "App包名：" + getPackageName() +
-                    "\nApp名称：" + getName() +
-                    "\nApp图标：" + getIcon() +
-                    "\nApp路径：" + getPackagePath() +
-                    "\nApp版本号：" + getVersionName() +
-                    "\nApp版本码：" + getVersionCode() +
-                    "\n是否系统App：" + isSystem();
+            return "pkg name: " + getPackageName() +
+                    "\napp name: " + getName() +
+                    "\napp path: " + getPackagePath() +
+                    "\napp v name: " + getVersionName() +
+                    "\napp v code: " + getVersionCode() +
+                    "\nis system: " + isSystem();
         }
     }
 

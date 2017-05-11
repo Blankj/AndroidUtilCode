@@ -501,13 +501,9 @@ Builder.create
 SPUtils
 put
 getString
-putInt
 getInt
-putLong
 getLong
-putFloat
 getFloat
-putBoolean
 getBoolean
 getAll
 remove
@@ -622,7 +618,7 @@ getEntries
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.5.0'
+compile 'com.blankj:utilcode:1.5.1'
 ```
 
 
@@ -644,7 +640,7 @@ Utils.init(context);
 
 
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.4.1-blue.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.5.1-blue.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-15+-blue.svg

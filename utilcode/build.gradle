@@ -26,8 +26,8 @@ android {
 
     defaultConfig {
         minSdkVersion 15
-        versionCode 30
-        versionName "1.5.0"
+        versionCode 31
+        versionName "1.5.1"
     }
 
     buildTypes {
@@ -65,5 +65,5 @@ dependencies {
     testCompile "com.google.truth:truth:$TRUTH_VERSION"
     testCompile "org.robolectric:robolectric:$ROBOLECTRIC_VERSION"
 }
-//apply from: "https://raw.githubusercontent.com/xiaopansky/android-library-publish-to-jcenter/master/bintrayUpload.gradle"
+apply from: "https://raw.githubusercontent.com/xiaopansky/android-library-publish-to-jcenter/master/bintrayUpload.gradle"
 //gradlew bintrayUpload

@@ -32,10 +32,15 @@
 
     <!--App相关-->
     <string name="app_install">Install Test App</string>
+    <string name="app_install_tips">Test app have installed</string>
     <string name="app_install_silent">Install Test App Silently</string>
+    <string name="install_successfully">Install successfully</string>
+    <string name="install_unsuccessfully">Install unsuccessfully</string>
     <string name="app_uninstall">Uninstall Test App</string>
-    <string name="app_uninstall_tips">Please install test apk first</string>
+    <string name="app_uninstall_tips">Please install test app first</string>
     <string name="app_uninstall_silent">Uninstall App Silently</string>
+    <string name="uninstall_successfully">Uninstall successfully</string>
+    <string name="uninstall_unsuccessfully">Uninstall unsuccessfully</string>
     <string name="app_launch">Launch App</string>
     <string name="app_close">Close App</string>
     <string name="app_isDebug">Is Debug</string>

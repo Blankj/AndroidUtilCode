@@ -895,7 +895,6 @@ public final class SpannableStringUtils {
         private Uri mContentUri;
         private int mResourceId;
         private Context mContext;
-        private String mSource;
 
         CustomImageSpan(Context context, Bitmap b, int verticalAlignment) {
             super(verticalAlignment);
@@ -911,19 +910,14 @@ public final class SpannableStringUtils {
         CustomImageSpan(Drawable d, int verticalAlignment) {
             super(verticalAlignment);
             mDrawable = d;
-        }
-
-        CustomImageSpan(Drawable d, String source, int verticalAlignment) {
-            super(verticalAlignment);
-            mDrawable = d;
-            mSource = source;
+            mDrawable.setBounds(0, 0, mDrawable.getIntrinsicWidth(),
+                    mDrawable.getIntrinsicHeight());
         }
 
         CustomImageSpan(Context context, Uri uri, int verticalAlignment) {
             super(verticalAlignment);
             mContext = context;
             mContentUri = uri;
-            mSource = uri.toString();
         }
 
         CustomImageSpan(Context context, @DrawableRes int resourceId, int verticalAlignment) {
@@ -935,7 +929,6 @@ public final class SpannableStringUtils {
         @Override
         public Drawable getDrawable() {
             Drawable drawable = null;
-
             if (mDrawable != null) {
                 drawable = mDrawable;
             } else if (mContentUri != null) {
@@ -962,7 +955,6 @@ public final class SpannableStringUtils {
                     Log.e("sms", "Unable to find resource: " + mResourceId);
                 }
             }
-
             return drawable;
         }
     }
@@ -1044,19 +1036,14 @@ public final class SpannableStringUtils {
         private Drawable getCachedDrawable() {
             WeakReference<Drawable> wr = mDrawableRef;
             Drawable d = null;
-
             if (wr != null)
                 d = wr.get();
-
             if (d == null) {
                 d = getDrawable();
                 mDrawableRef = new WeakReference<>(d);
             }
-
-            return d;
+            return getDrawable();
         }
-
         private WeakReference<Drawable> mDrawableRef;
-
     }
 }

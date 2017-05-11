@@ -16,7 +16,7 @@ getLauncherActivity: 获取入口activity
 * ### App相关→[AppUtils.java][app.java]→[Demo][app.demo]
 ```
 isInstallApp         : 判断App是否安装
-installApp           : 安装App（支持6.0）
+installApp           : 安装App（支持7.0）
 installAppSilent     : 静默安装App
 uninstallApp         : 卸载App
 uninstallAppSilent   : 静默卸载App
@@ -618,7 +618,7 @@ getEntries        : 获取压缩文件中的文件对象
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.5.0'
+compile 'com.blankj:utilcode:1.5.1'
 ```
 
 
@@ -640,7 +640,7 @@ Utils.init(context);
 
 
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.4.1-blue.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.5.1-blue.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-15+-blue.svg

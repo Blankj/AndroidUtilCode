@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.blankj.androidutilcode.Config;
 import com.blankj.androidutilcode.R;
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.SpannableStringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 
 /**
@@ -22,62 +23,62 @@ import com.blankj.utilcode.util.ToastUtils;
 public class AppActivity extends Activity
         implements View.OnClickListener {
 
-    private String appPath;
+    private TextView tvAboutApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app);
 
-        appPath = AppUtils.getAppPath();
-
-        TextView tvAboutApp = (TextView) findViewById(R.id.tv_about_app);
-
+        tvAboutApp = (TextView) findViewById(R.id.tv_about_app);
         findViewById(R.id.btn_install_app).setOnClickListener(this);
         findViewById(R.id.btn_install_app_silent).setOnClickListener(this);
         findViewById(R.id.btn_uninstall_app).setOnClickListener(this);
         findViewById(R.id.btn_uninstall_app_silent).setOnClickListener(this);
         findViewById(R.id.btn_launch_app).setOnClickListener(this);
         findViewById(R.id.btn_get_app_details_settings).setOnClickListener(this);
-
-        tvAboutApp.setText(AppUtils.getAppInfo().toString()
-                + "\nisInstallTestApp: " + AppUtils.isInstallApp("com.blankj.testinstallapk")
-                + "\nisAppRoot: " + AppUtils.isAppRoot()
-                + "\nisAppDebug: " + AppUtils.isAppDebug()
-                + "\nisTestAppDebug: " + AppUtils.isAppDebug(Config.TEST_PKG)
-                + "\nAppSignatureSHA1: " + AppUtils.getAppSignatureSHA1()
-                + "\nisAppForeground: " + AppUtils.isAppForeground()
-                + "\nisTestForeground: " + AppUtils.isAppForeground(Config.TEST_PKG)
-        );
+        updateState();
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_install_app:
-                AppUtils.installApp(Config.getTestApkPath(), "com.blankj.androidutilcode.provider");
+                if (AppUtils.isInstallApp("com.blankj.testinstallapk")) {
+                    ToastUtils.showShort(R.string.app_install_tips);
+                } else {
+                    AppUtils.installApp(this, Config.getTestApkPath(), "com.blankj.androidutilcode.provider", 0);
+                }
                 break;
             case R.id.btn_install_app_silent:
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        AppUtils.installAppSilent(appPath);
+                        if (AppUtils.isInstallApp("com.blankj.testinstallapk")) {
+                            ToastUtils.showShortSafe(R.string.app_install_tips);
+                        } else {
+                            if (AppUtils.installAppSilent(Config.getTestApkPath())) {
+                                ToastUtils.showShortSafe(R.string.install_successfully);
+                            } else {
+                                ToastUtils.showShortSafe(R.string.install_unsuccessfully);
+                            }
+                        }
                     }
                 }).start();
                 break;
             case R.id.btn_uninstall_app:
                 if (AppUtils.isInstallApp("com.blankj.testinstallapk")) {
-                    AppUtils.uninstallApp(this.getPackageName());
+                    AppUtils.uninstallApp(this, Config.TEST_PKG, 0);
                 } else {
                     ToastUtils.showShort(R.string.app_uninstall_tips);
                 }
                 break;
             case R.id.btn_uninstall_app_silent:
                 if (AppUtils.isInstallApp("com.blankj.testinstallapk")) {
-                    if (AppUtils.uninstallAppSilent(this.getPackageName(), false)) {
-                        ToastUtils.showShort("uninstall success");
-                    }else {
-                        ToastUtils.showShort("uninstall fail");
+                    if (AppUtils.uninstallAppSilent(Config.TEST_PKG, false)) {
+                        ToastUtils.showShort(R.string.uninstall_successfully);
+                    } else {
+                        ToastUtils.showShort(R.string.uninstall_unsuccessfully);
                     }
                 } else {
                     ToastUtils.showShort(R.string.app_uninstall_tips);
@@ -90,5 +91,16 @@ public class AppActivity extends Activity
                 AppUtils.getAppDetailsSettings();
                 break;
         }
+        updateState();
+    }
+
+    private void updateState() {
+        tvAboutApp.setText(new SpannableStringUtils.Builder().append("app icon: ")
+                .appendLine("").setDrawable(AppUtils.getAppIcon(), SpannableStringUtils.ALIGN_CENTER).create());
+        tvAboutApp.append(AppUtils.getAppInfo().toString()
+                + "\nisAppRoot: " + AppUtils.isAppRoot()
+                + "\nisAppDebug: " + AppUtils.isAppDebug()
+                + "\nAppSignatureSHA1: " + AppUtils.getAppSignatureSHA1()
+                + "\nisAppForeground: " + AppUtils.isAppForeground());
     }
 }
