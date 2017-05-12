@@ -1,6 +1,6 @@
 package com.blankj.androidutilcode.activity;
 
-import android.app.Activity;
+import android.content.Context;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
+import com.blankj.androidutilcode.base.BaseActivity;
 import com.blankj.utilcode.util.SpannableStringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 
@@ -24,13 +25,20 @@ import com.blankj.utilcode.util.ToastUtils;
  *     desc  : SpannableString工具类Demo
  * </pre>
  */
-public class SpannableActivity extends Activity {
+public class SpannableActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_spannable);
+    public void initData(Bundle bundle) {
 
+    }
+
+    @Override
+    public int bindLayout() {
+        return R.layout.activity_spannable;
+    }
+
+    @Override
+    public void initView(Bundle savedInstanceState, View view) {
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View widget) {
@@ -101,5 +109,15 @@ public class SpannableActivity extends Activity {
                 .append("模糊").setBlur(3, BlurMaskFilter.Blur.NORMAL)
                 .create()
         );
+    }
+
+    @Override
+    public void doBusiness(Context context) {
+
+    }
+
+    @Override
+    public void onWidgetClick(View view) {
+
     }
 }

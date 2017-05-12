@@ -1,12 +1,13 @@
 package com.blankj.androidutilcode.activity;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
+import com.blankj.androidutilcode.base.BaseActivity;
 import com.blankj.utilcode.util.ToastUtils;
 
 /**
@@ -17,22 +18,25 @@ import com.blankj.utilcode.util.ToastUtils;
  *     desc  : Toast工具类Demo
  * </pre>
  */
-public class ToastActivity extends Activity
-        implements View.OnClickListener {
+public class ToastActivity extends BaseActivity {
 
     private boolean isDefaultLocation;
     private boolean isDefaultView;
     private TextView tvAboutToast;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_toast);
+    public void initData(Bundle bundle) {
         isDefaultLocation = true;
         isDefaultView = true;
+    }
 
-        tvAboutToast = (TextView) findViewById(R.id.tv_about_toast);
+    @Override
+    public int bindLayout() {
+        return R.layout.activity_toast;
+    }
 
+    @Override
+    public void initView(Bundle savedInstanceState, View view) {
         findViewById(R.id.btn_toggle_location).setOnClickListener(this);
         findViewById(R.id.btn_toggle_view).setOnClickListener(this);
         findViewById(R.id.btn_show_short_toast_safe).setOnClickListener(this);
@@ -40,14 +44,19 @@ public class ToastActivity extends Activity
         findViewById(R.id.btn_show_short_toast).setOnClickListener(this);
         findViewById(R.id.btn_show_long_toast).setOnClickListener(this);
         findViewById(R.id.btn_cancel_toast).setOnClickListener(this);
-
+        tvAboutToast = (TextView) findViewById(R.id.tv_about_toast);
         tvAboutToast.setText("is default location: " + isDefaultLocation
                 + "\nis default view: " + isDefaultView
         );
     }
 
     @Override
-    public void onClick(View view) {
+    public void doBusiness(Context context) {
+
+    }
+
+    @Override
+    public void onWidgetClick(View view) {
         switch (view.getId()) {
             case R.id.btn_toggle_location:
                 if (isDefaultLocation) {

@@ -1,15 +1,13 @@
 package com.blankj.androidutilcode.fragment;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
+import com.blankj.androidutilcode.base.BaseFragment;
 import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.LogUtils;
 
@@ -23,42 +21,44 @@ import java.util.Random;
  *     desc  :
  * </pre>
  */
-public class Demo2Fragment extends Fragment
-        implements View.OnClickListener ,FragmentUtils.OnBackClickListener{
+public class Demo2Fragment extends BaseFragment
+        implements FragmentUtils.OnBackClickListener{
+
+    private TextView tvAboutFragment;
 
     public static Demo2Fragment newInstance() {
-
         Bundle args = new Bundle();
-
         Demo2Fragment fragment = new Demo2Fragment();
         fragment.setArguments(args);
         return fragment;
     }
 
-    private TextView tvAboutFragment;
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_demo2, container, false);
+    public void initData(Bundle bundle) {
+
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public int bindLayout() {
+        return R.layout.fragment_demo2;
+    }
+
+    @Override
+    public void initView(Bundle savedInstanceState, View view) {
+        Random random = new Random();
+        FragmentUtils.setBackgroundColor(this, Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
         view.findViewById(R.id.btn_show_about_fragment).setOnClickListener(this);
         view.findViewById(R.id.btn_pop).setOnClickListener(this);
         tvAboutFragment = (TextView) view.findViewById(R.id.tv_about_fragment);
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        Random random = new Random();
-        FragmentUtils.setBackgroundColor(this, Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
-        super.onActivityCreated(savedInstanceState);
+    public void doBusiness(Context context) {
+
     }
 
     @Override
-    public void onClick(View view) {
+    public void onWidgetClick(View view) {
         tvAboutFragment.setText("");
         switch (view.getId()) {
             case R.id.btn_show_about_fragment:

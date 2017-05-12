@@ -1,10 +1,12 @@
 package com.blankj.androidutilcode.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.blankj.androidutilcode.R;
+import com.blankj.androidutilcode.base.BaseActivity;
 import com.blankj.androidutilcode.fragment.Demo0Fragment;
 import com.blankj.utilcode.util.FragmentUtils;
 
@@ -18,17 +20,35 @@ import java.util.ArrayList;
  *     desc  : Fragment工具类Demo
  * </pre>
  */
-public class FragmentActivity extends AppCompatActivity {
+public class FragmentActivity extends BaseActivity {
 
     public Fragment rootFragment;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fragment);
+    public void initData(Bundle bundle) {
+
+    }
+
+    @Override
+    public int bindLayout() {
+        return R.layout.activity_fragment;
+    }
+
+    @Override
+    public void initView(Bundle savedInstanceState, View view) {
+
+    }
+
+    @Override
+    public void doBusiness(Context context) {
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(Demo0Fragment.newInstance());
         rootFragment = FragmentUtils.addFragments(getSupportFragmentManager(), fragments, R.id.fragment_container, 0);
+    }
+
+    @Override
+    public void onWidgetClick(View view) {
+
     }
 
 

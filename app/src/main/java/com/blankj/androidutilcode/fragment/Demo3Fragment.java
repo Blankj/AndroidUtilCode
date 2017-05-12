@@ -1,20 +1,19 @@
 package com.blankj.androidutilcode.fragment;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.transition.Fade;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.activity.FragmentActivity;
+import com.blankj.androidutilcode.base.BaseFragment;
 import com.blankj.androidutilcode.transition.DetailTransition;
 import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -29,32 +28,34 @@ import java.util.Random;
  *     desc  :
  * </pre>
  */
-public class Demo3Fragment extends Fragment
+public class Demo3Fragment extends BaseFragment
         implements View.OnClickListener, FragmentUtils.OnBackClickListener {
-
-    private Fragment fragment1;
-
-    public static Demo3Fragment newInstance() {
-
-        Bundle args = new Bundle();
-
-        Demo3Fragment fragment = new Demo3Fragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     private Button    btnShowAboutFragment;
     private ImageView ivSharedElement;
     private TextView  tvAboutFragment;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_demo3, container, false);
+    public static Demo3Fragment newInstance() {
+        Bundle args = new Bundle();
+        Demo3Fragment fragment = new Demo3Fragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void initData(Bundle bundle) {
+
+    }
+
+    @Override
+    public int bindLayout() {
+        return R.layout.fragment_demo3;
+    }
+
+    @Override
+    public void initView(Bundle savedInstanceState, View view) {
+        Random random = new Random();
+        FragmentUtils.setBackgroundColor(this, Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
         btnShowAboutFragment = (Button) view.findViewById(R.id.btn_show_about_fragment);
         btnShowAboutFragment.setOnClickListener(this);
         view.findViewById(R.id.btn_add_hide).setOnClickListener(this);
@@ -69,14 +70,12 @@ public class Demo3Fragment extends Fragment
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        Random random = new Random();
-        FragmentUtils.setBackgroundColor(this, Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
-        super.onActivityCreated(savedInstanceState);
+    public void doBusiness(Context context) {
+
     }
 
     @Override
-    public void onClick(View view) {
+    public void onWidgetClick(View view) {
         tvAboutFragment.setText("");
         switch (view.getId()) {
             case R.id.btn_show_about_fragment:
@@ -123,7 +122,7 @@ public class Demo3Fragment extends Fragment
                     demo0Fragment.setEnterTransition(new Fade());
                     demo0Fragment.setSharedElementReturnTransition(new DetailTransition());
                 }
-                ((FragmentActivity)getActivity()).rootFragment = FragmentUtils.replaceFragment(this, demo0Fragment, false, new FragmentUtils.SharedElement(ivSharedElement, getString(R.string.fragment_transition)));
+                ((FragmentActivity) getActivity()).rootFragment = FragmentUtils.replaceFragment(this, demo0Fragment, false, new FragmentUtils.SharedElement(ivSharedElement, getString(R.string.fragment_transition)));
                 break;
         }
     }

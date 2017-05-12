@@ -1,15 +1,16 @@
 package com.blankj.androidutilcode.activity;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
+import com.blankj.androidutilcode.base.BaseActivity;
 import com.blankj.androidutilcode.service.LocationService;
 
 /**
@@ -20,18 +21,24 @@ import com.blankj.androidutilcode.service.LocationService;
  *     desc  : Location工具类Demo
  * </pre>
  */
-public class LocationActivity extends Activity {
+public class LocationActivity extends BaseActivity {
 
     TextView        tvAboutLocation;
     LocationService mLocationService;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_location);
+    public void initData(Bundle bundle) {
 
+    }
+
+    @Override
+    public int bindLayout() {
+        return R.layout.activity_location;
+    }
+
+    @Override
+    public void initView(Bundle savedInstanceState, View view) {
         tvAboutLocation = (TextView) findViewById(R.id.tv_about_location);
-
         tvAboutLocation.setText("lastLatitude: unknown"
                 + "\nlastLongitude: unknown"
                 + "\nlatitude: unknown"
@@ -40,8 +47,16 @@ public class LocationActivity extends Activity {
                 + "\ngetLocality: unknown"
                 + "\ngetStreet: unknown"
         );
+    }
 
+    @Override
+    public void doBusiness(Context context) {
         bindService(new Intent(this, LocationService.class), conn, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    public void onWidgetClick(View view) {
+
     }
 
     @Override

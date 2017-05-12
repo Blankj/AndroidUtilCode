@@ -1,13 +1,14 @@
 package com.blankj.androidutilcode.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.UtilsApp;
+import com.blankj.androidutilcode.base.BaseActivity;
 import com.blankj.utilcode.util.LogUtils;
 
 
@@ -20,8 +21,7 @@ import com.blankj.utilcode.util.LogUtils;
  * </pre>
  */
 
-public class LogActivity extends AppCompatActivity
-        implements View.OnClickListener {
+public class LogActivity extends BaseActivity {
 
     private static final String TAG = "CMJ";
 
@@ -68,9 +68,17 @@ public class LogActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log);
+    public void initData(Bundle bundle) {
+
+    }
+
+    @Override
+    public int bindLayout() {
+        return R.layout.activity_log;
+    }
+
+    @Override
+    public void initView(Bundle savedInstanceState, View view) {
         findViewById(R.id.btn_toggle_tag).setOnClickListener(this);
         findViewById(R.id.btn_toggle_head).setOnClickListener(this);
         findViewById(R.id.btn_toggle_border).setOnClickListener(this);
@@ -91,7 +99,12 @@ public class LogActivity extends AppCompatActivity
     }
 
     @Override
-    public void onClick(View view) {
+    public void doBusiness(Context context) {
+
+    }
+
+    @Override
+    public void onWidgetClick(View view) {
         switch (view.getId()) {
             case R.id.btn_toggle_tag:
                 updateAbout(UPDATE_TAG);
