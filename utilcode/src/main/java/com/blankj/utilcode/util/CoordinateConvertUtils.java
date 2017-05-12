@@ -30,7 +30,9 @@ package com.blankj.utilcode.util;
 public class CoordinateConvertUtils {
 
     private static double PI = Math.PI;
+    // 长半轴
     private static double AXIS = 6378245.0;
+    // 扁率
     private static double OFFSET = 0.00669342162296594323;
     private static double X_PI = PI * 3000.0 / 180.0;
 
