@@ -1,11 +1,12 @@
 package com.blankj.androidutilcode.activity;
 
-import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
 import com.blankj.androidutilcode.R;
+import com.blankj.androidutilcode.base.BaseActivity;
 import com.blankj.utilcode.util.SnackbarUtils;
 import com.blankj.utilcode.util.SpannableStringUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -18,8 +19,7 @@ import com.blankj.utilcode.util.ToastUtils;
  *     desc  : Snackbar工具类Demo
  * </pre>
  */
-public class SnackbarActivity extends Activity
-        implements View.OnClickListener {
+public class SnackbarActivity extends BaseActivity {
 
     private View snackBarRootView;
     private final int TYPE_SHORT = 0x00;
@@ -32,10 +32,17 @@ public class SnackbarActivity extends Activity
     private final int TYPE_CUSTOM_WITH_ACTION = 0x41;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_snackbar);
+    public void initData(Bundle bundle) {
 
+    }
+
+    @Override
+    public int bindLayout() {
+        return R.layout.activity_snackbar;
+    }
+
+    @Override
+    public void initView(Bundle savedInstanceState, View view) {
         snackBarRootView = findViewById(android.R.id.content);
         findViewById(R.id.btn_short_snackbar).setOnClickListener(this);
         findViewById(R.id.btn_short_snackbar_with_action).setOnClickListener(this);
@@ -49,7 +56,12 @@ public class SnackbarActivity extends Activity
     }
 
     @Override
-    public void onClick(View view) {
+    public void doBusiness(Context context) {
+
+    }
+
+    @Override
+    public void onWidgetClick(View view) {
         switch (view.getId()) {
             case R.id.btn_short_snackbar:
                 showSnackbar(TYPE_SHORT);

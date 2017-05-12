@@ -1,7 +1,6 @@
 package com.blankj.androidutilcode;
 
-import android.app.Application;
-
+import com.blankj.androidutilcode.base.BaseApplication;
 import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.LogUtils;
@@ -18,14 +17,7 @@ import java.io.IOException;
  *     desc  : 工具类测试App
  * </pre>
  */
-public class UtilsApp extends Application {
-
-
-    private static UtilsApp appContext;
-
-    public static UtilsApp getInstance() {
-        return appContext;
-    }
+public class UtilsApp extends BaseApplication {
 
     @Override
     public void onCreate() {
@@ -37,8 +29,6 @@ public class UtilsApp extends Application {
             return;
         }
         LeakCanary.install(this);
-
-        appContext = this;
         Utils.init(this);
         initLog();
         initCrash();

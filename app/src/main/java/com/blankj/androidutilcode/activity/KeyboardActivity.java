@@ -1,6 +1,5 @@
 package com.blankj.androidutilcode.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -12,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
+import com.blankj.androidutilcode.base.BaseActivity;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
 
@@ -23,27 +23,35 @@ import com.blankj.utilcode.util.LogUtils;
  *     desc  : Keyboard工具类Demo
  * </pre>
  */
-public class KeyboardActivity extends Activity
-        implements View.OnClickListener {
+public class KeyboardActivity extends BaseActivity {
 
     TextView tvAboutKeyboard;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_keyboard);
+    public void initData(Bundle bundle) {
 
+    }
 
+    @Override
+    public int bindLayout() {
+        return R.layout.activity_keyboard;
+    }
+
+    @Override
+    public void initView(Bundle savedInstanceState, View view) {
         findViewById(R.id.btn_hide_soft_input).setOnClickListener(this);
         findViewById(R.id.btn_show_soft_input).setOnClickListener(this);
         findViewById(R.id.btn_toggle_soft_input).setOnClickListener(this);
         tvAboutKeyboard = (TextView) findViewById(R.id.tv_about_keyboard);
-
-        tvAboutKeyboard.setText("");
     }
 
     @Override
-    public void onClick(View view) {
+    public void doBusiness(Context context) {
+
+    }
+
+    @Override
+    public void onWidgetClick(View view) {
         switch (view.getId()) {
             case R.id.btn_hide_soft_input:
                 KeyboardUtils.hideSoftInput(this);
@@ -55,7 +63,6 @@ public class KeyboardActivity extends Activity
                 KeyboardUtils.toggleSoftInput();
                 break;
         }
-        LogUtils.d("" + isKeyboardShown(getWindow().getDecorView().findViewById(android.R.id.content)));
     }
 
     @Override

@@ -1,16 +1,17 @@
 package com.blankj.androidutilcode.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.blankj.androidutilcode.R;
+import com.blankj.androidutilcode.base.BaseActivity;
 
 /**
  * <pre>
@@ -20,17 +21,35 @@ import com.blankj.androidutilcode.R;
  *     desc  : MainActivity
  * </pre>
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public void initData(Bundle bundle) {
+
+    }
+
+    @Override
+    public int bindLayout() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public void initView(Bundle savedInstanceState, View view) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             toolbar.setTitleTextColor(Color.WHITE);
             setSupportActionBar(toolbar);
         }
+    }
+
+    @Override
+    public void doBusiness(Context context) {
+
+    }
+
+    @Override
+    public void onWidgetClick(View view) {
+
     }
 
     public void activityClick(View view) {
@@ -116,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
     public void toastClick(View view) {
         startActivity(new Intent(this, ToastActivity.class));
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

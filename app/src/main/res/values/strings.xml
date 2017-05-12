@@ -72,6 +72,8 @@
 
     <!--Handler相关-->
     <string name="handler_send_msg_after_3s">Send Msg After 3s</string>
+    <string name="handler_received_msg">Received Message</string>
+
 
     <!--Network相关-->
     <string name="network_open_wireless_settings">Open Wireless Settings</string>

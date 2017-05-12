@@ -1,12 +1,13 @@
 package com.blankj.androidutilcode.activity;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.Config;
 import com.blankj.androidutilcode.R;
+import com.blankj.androidutilcode.base.BaseActivity;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.SpannableStringUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -20,28 +21,44 @@ import com.blankj.utilcode.util.ToastUtils;
  * </pre>
  */
 
-public class AppActivity extends Activity
-        implements View.OnClickListener {
-
-    private TextView tvAboutApp;
+public class AppActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_app);
+    public void initData(Bundle bundle) {
 
-        tvAboutApp = (TextView) findViewById(R.id.tv_about_app);
+    }
+
+    @Override
+    public int bindLayout() {
+        return R.layout.activity_app;
+    }
+
+    @Override
+    public void initView(Bundle savedInstanceState, View view) {
         findViewById(R.id.btn_install_app).setOnClickListener(this);
         findViewById(R.id.btn_install_app_silent).setOnClickListener(this);
         findViewById(R.id.btn_uninstall_app).setOnClickListener(this);
         findViewById(R.id.btn_uninstall_app_silent).setOnClickListener(this);
         findViewById(R.id.btn_launch_app).setOnClickListener(this);
         findViewById(R.id.btn_get_app_details_settings).setOnClickListener(this);
-        updateState();
+        TextView tvAboutApp = (TextView) findViewById(R.id.tv_about_app);
+        tvAboutApp.setText(new SpannableStringUtils.Builder().append("app icon: ")
+                .appendLine("").setDrawable(AppUtils.getAppIcon(), SpannableStringUtils.ALIGN_CENTER)
+                .append(AppUtils.getAppInfo().toString())
+                .appendLine("isAppRoot: " + AppUtils.isAppRoot())
+                .appendLine("isAppDebug: " + AppUtils.isAppDebug())
+                .appendLine("AppSignatureSHA1: " + AppUtils.getAppSignatureSHA1())
+                .appendLine("isAppForeground: " + AppUtils.isAppForeground())
+                .create());
     }
 
     @Override
-    public void onClick(View view) {
+    public void doBusiness(Context context) {
+
+    }
+
+    @Override
+    public void onWidgetClick(View view) {
         switch (view.getId()) {
             case R.id.btn_install_app:
                 if (AppUtils.isInstallApp("com.blankj.testinstallapk")) {
@@ -91,16 +108,5 @@ public class AppActivity extends Activity
                 AppUtils.getAppDetailsSettings();
                 break;
         }
-        updateState();
-    }
-
-    private void updateState() {
-        tvAboutApp.setText(new SpannableStringUtils.Builder().append("app icon: ")
-                .appendLine("").setDrawable(AppUtils.getAppIcon(), SpannableStringUtils.ALIGN_CENTER).create());
-        tvAboutApp.append(AppUtils.getAppInfo().toString()
-                + "\nisAppRoot: " + AppUtils.isAppRoot()
-                + "\nisAppDebug: " + AppUtils.isAppDebug()
-                + "\nAppSignatureSHA1: " + AppUtils.getAppSignatureSHA1()
-                + "\nisAppForeground: " + AppUtils.isAppForeground());
     }
 }

@@ -1,11 +1,12 @@
 package com.blankj.androidutilcode.activity;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
+import com.blankj.androidutilcode.base.BaseActivity;
 import com.blankj.utilcode.util.PhoneUtils;
 
 /**
@@ -16,21 +17,25 @@ import com.blankj.utilcode.util.PhoneUtils;
  *     desc  : Phone工具类Demo
  * </pre>
  */
-public class PhoneActivity extends Activity implements
-        View.OnClickListener {
+public class PhoneActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_phone);
+    public void initData(Bundle bundle) {
 
-        TextView tvAboutPhone = (TextView) findViewById(R.id.tv_about_phone);
+    }
 
+    @Override
+    public int bindLayout() {
+        return R.layout.activity_phone;
+    }
+
+    @Override
+    public void initView(Bundle savedInstanceState, View view) {
         findViewById(R.id.btn_dial).setOnClickListener(this);
         findViewById(R.id.btn_call).setOnClickListener(this);
         findViewById(R.id.btn_send_sms).setOnClickListener(this);
         findViewById(R.id.btn_send_sms_silent).setOnClickListener(this);
-
+        TextView tvAboutPhone = (TextView) findViewById(R.id.tv_about_phone);
         tvAboutPhone.setText("isPhone: " + PhoneUtils.isPhone()
                 + "\ngetIMEI: " + PhoneUtils.getIMEI()
                 + "\ngetIMSI: " + PhoneUtils.getIMSI()
@@ -43,7 +48,12 @@ public class PhoneActivity extends Activity implements
     }
 
     @Override
-    public void onClick(View view) {
+    public void doBusiness(Context context) {
+
+    }
+
+    @Override
+    public void onWidgetClick(View view) {
         switch (view.getId()) {
             case R.id.btn_dial:
                 PhoneUtils.dial("10000");

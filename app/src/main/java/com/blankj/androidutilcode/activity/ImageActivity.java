@@ -1,6 +1,6 @@
 package com.blankj.androidutilcode.activity;
 
-import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.blankj.androidutilcode.R;
+import com.blankj.androidutilcode.base.BaseActivity;
 import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.SizeUtils;
 
@@ -19,16 +20,23 @@ import com.blankj.utilcode.util.SizeUtils;
  *     desc  : Image工具类Demo
  * </pre>
  */
-public class ImageActivity extends Activity {
+public class ImageActivity extends BaseActivity {
 
     private ImageView ivSrc;
     private ImageView ivView2Bitmap;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image);
+    public void initData(Bundle bundle) {
 
+    }
+
+    @Override
+    public int bindLayout() {
+        return R.layout.activity_image;
+    }
+
+    @Override
+    public void initView(Bundle savedInstanceState, View view) {
         ivSrc = (ImageView) findViewById(R.id.iv_src);
         ivView2Bitmap = (ImageView) findViewById(R.id.iv_view2Bitmap);
         ImageView ivRound = (ImageView) findViewById(R.id.iv_round);
@@ -62,5 +70,15 @@ public class ImageActivity extends Activity {
         ivAddTextWatermark.setImageBitmap(ImageUtils.addTextWatermark(src, "blankj", 40, 0x8800ff00, 0, 0));
         ivAddImageWatermark.setImageBitmap(ImageUtils.addImageWatermark(src, watermark, 0, 0, 0x88));
         ivGray.setImageBitmap(ImageUtils.toGray(src));
+    }
+
+    @Override
+    public void doBusiness(Context context) {
+
+    }
+
+    @Override
+    public void onWidgetClick(View view) {
+
     }
 }

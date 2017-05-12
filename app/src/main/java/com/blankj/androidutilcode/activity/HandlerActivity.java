@@ -1,6 +1,6 @@
 package com.blankj.androidutilcode.activity;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler.Callback;
 import android.os.Message;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
+import com.blankj.androidutilcode.base.BaseActivity;
 import com.blankj.utilcode.util.HandlerUtils;
 
 /**
@@ -18,25 +19,35 @@ import com.blankj.utilcode.util.HandlerUtils;
  *     desc : Handler工具类Demo
  * </pre>
  */
-public class HandlerActivity extends Activity
-        implements View.OnClickListener, Callback {
+public class HandlerActivity extends BaseActivity
+        implements Callback {
 
-    private TextView tvAboutHandler;
+    private TextView                   tvAboutHandler;
     private HandlerUtils.HandlerHolder handlerHolder;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_handler);
+    public void initData(Bundle bundle) {
 
+    }
+
+    @Override
+    public int bindLayout() {
+        return R.layout.activity_handler;
+    }
+
+    @Override
+    public void initView(Bundle savedInstanceState, View view) {
         tvAboutHandler = (TextView) findViewById(R.id.tv_about_handler);
         findViewById(R.id.btn_send_msg_after_3s).setOnClickListener(this);
+    }
 
+    @Override
+    public void doBusiness(Context context) {
         handlerHolder = new HandlerUtils.HandlerHolder(this);
     }
 
     @Override
-    public void onClick(View view) {
+    public void onWidgetClick(View view) {
         switch (view.getId()) {
             case R.id.btn_send_msg_after_3s:
                 handlerHolder.sendEmptyMessageDelayed(0, 3000);
@@ -46,7 +57,7 @@ public class HandlerActivity extends Activity
 
     @Override
     public boolean handleMessage(Message msg) {
-        tvAboutHandler.setText("get_msg_after_3s");
+        tvAboutHandler.setText(R.string.handler_received_msg);
         return false;
     }
 }
