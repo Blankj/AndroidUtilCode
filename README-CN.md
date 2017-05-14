@@ -640,14 +640,17 @@ Utils.init(context);
 
 
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.5.1-blue.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.5.1-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
-[apisvg]: https://img.shields.io/badge/API-15+-blue.svg
+[apisvg]: https://img.shields.io/badge/API-15+-brightgreen.svg
 [api]: https://android-arsenal.com/api?level=15
 
 [buildsvg]: https://travis-ci.org/Blankj/AndroidUtilCode.svg?branch=master
 [build]: https://travis-ci.org/Blankj/AndroidUtilCode
+
+[licensesvg]: https://img.shields.io/badge/License-Apache--2.0-brightgreen.svg
+[license]: https://opensource.org/licenses/apache2.0.php
 
 [jianshusvg]: https://img.shields.io/badge/简书-Blankj-brightgreen.svg
 [jianshu]: http://www.jianshu.com/u/46702d5c6978
@@ -663,9 +666,6 @@ Utils.init(context);
 
 [qq1groupsvg]: https://img.shields.io/badge/QQ1群-25206533-fba7f9.svg
 [qq1group]: https://shang.qq.com/wpa/qunwpa?idkey=d906789f84484465e2736f7b524366b4c23afeda38733d5c7b10fc3f6e406e9b
-
-[licensesvg]: https://img.shields.io/badge/License-Apache--2.0-blue.svg
-[license]: https://opensource.org/licenses/apache2.0.php
 
 [readme.md]: https://github.com/Blankj/AndroidUtilCode
 [readme-cn.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md
