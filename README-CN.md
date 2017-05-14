@@ -1,6 +1,6 @@
 # Android开发人员不得不收集的代码([持续更新中][update_log.md])
 
-[![auc][aucsvg]][auc] [![api][apisvg]][api] [![License][licensesvg]][license]
+[![auc][aucsvg]][auc] [![api][apisvg]][api] [![build][buildsvg]][build] [![License][licensesvg]][license]
 
 ## [README of English][readme.md]
 
@@ -645,6 +645,9 @@ Utils.init(context);
 
 [apisvg]: https://img.shields.io/badge/API-15+-blue.svg
 [api]: https://android-arsenal.com/api?level=15
+
+[buildsvg]: https://travis-ci.org/Blankj/AndroidUtilCode.svg?branch=master
+[build]: https://travis-ci.org/Blankj/AndroidUtilCode
 
 [jianshusvg]: https://img.shields.io/badge/简书-Blankj-brightgreen.svg
 [jianshu]: http://www.jianshu.com/u/46702d5c6978
