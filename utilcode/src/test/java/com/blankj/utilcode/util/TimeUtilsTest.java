@@ -38,7 +38,6 @@ public class TimeUtilsTest {
 
     @Test
     public void millis2String() throws Exception {
-        System.out.println(TimeUtils.millis2String(timeMillis));
         assertEquals(timeString, TimeUtils.millis2String(timeMillis));
         assertEquals(timeStringFormat, TimeUtils.millis2String(timeMillis, mFormat));
     }
