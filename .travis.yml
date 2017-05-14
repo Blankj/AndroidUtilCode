@@ -37,4 +37,4 @@ cache:
     - $HOME/.android/build-cache
 
 script:
-  - ./gradlew build connectedCheck -i
+  - ./gradlew build connectedCheck

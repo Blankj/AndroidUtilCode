@@ -1,5 +1,3 @@
-import java.text.SimpleDateFormat
-
 apply plugin: 'com.android.library'
 apply plugin: 'jacoco'
 
@@ -20,11 +18,6 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
             "jacoco/testDebugUnitTest.exec",
             "outputs/code-coverage/connected/*coverage.ec"
     ])
-}
-
-task time() {
-    def format = new SimpleDateFormat("yyyy MM dd HH:mm:ss", Locale.getDefault());
-    println format.format(new Date(1493887049000L));
 }
 
 android {
