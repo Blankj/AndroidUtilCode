@@ -35,8 +35,7 @@ public class TimeUtilsTest {
     private final Date   tomorrowTimeDate         = new Date(tomorrowTimeMillis);
     private final String tomorrowTimeString       = defaultFormat.format(tomorrowTimeDate);
     private final String tomorrowTimeStringFormat = mFormat.format(tomorrowTimeDate);
-    ;
-    private final long delta = 1;// 允许误差1ms
+    private final long   delta                    = 1;// 允许误差1ms
 
     @Test
     public void millis2String() throws Exception {
