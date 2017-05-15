@@ -7,10 +7,7 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * <pre>
@@ -42,13 +39,13 @@ public class TestUtils {
         Utils.init(RuntimeEnvironment.application);
     }
 
-//    @Test
+//        @Test
     public void readme2Eng() throws Exception {
         formatCN();
         File readmeCN = new File(new File(System.getProperty("user.dir")).getAbsolutePath() + FILE_SEP + "README-CN.md");
         File readmeEng = new File(new File(System.getProperty("user.dir")).getAbsolutePath() + FILE_SEP + "README.md");
         List<String> list = FileUtils.readFile2List(readmeCN, "UTF-8");
-        StringBuilder sb = new StringBuilder("# Android developers should collect the following utils" + LINE_SEP + LINE_SEP +
+        StringBuilder sb = new StringBuilder("# :fire: Android developers should collect the following utils" + LINE_SEP + LINE_SEP +
                 "[![auc][aucsvg]][auc] [![api][apisvg]][api] [![build][buildsvg]][build] [![License][licensesvg]][license]" + LINE_SEP + LINE_SEP +
                 "## [README of Chinese][readme-cn.md]" + LINE_SEP + LINE_SEP +
                 "## API" + LINE_SEP + LINE_SEP);
@@ -119,7 +116,6 @@ public class TestUtils {
 
     @Test
     public void test() throws Exception {
-        System.out.println(new SimpleDateFormat("E", Locale.CHINA).format(new Date()));
-        System.out.println(System.getProperty("user.dir"));
+
     }
 }

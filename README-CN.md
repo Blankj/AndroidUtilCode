@@ -1,4 +1,4 @@
-# Android开发人员不得不收集的代码([持续更新中][update_log.md])
+# :fire: Android开发人员不得不收集的代码([持续更新中][update_log.md])
 
 [![auc][aucsvg]][auc] [![api][apisvg]][api] [![build][buildsvg]][build] [![License][licensesvg]][license]
 
@@ -650,7 +650,7 @@ Utils.init(context);
 [build]: https://travis-ci.org/Blankj/AndroidUtilCode
 
 [licensesvg]: https://img.shields.io/badge/License-Apache--2.0-brightgreen.svg
-[license]: https://opensource.org/licenses/apache2.0.php
+[license]: https://github.com/Blankj/AndroidUtilCode/blob/master/LICENSE
 
 [jianshusvg]: https://img.shields.io/badge/简书-Blankj-brightgreen.svg
 [jianshu]: http://www.jianshu.com/u/46702d5c6978
