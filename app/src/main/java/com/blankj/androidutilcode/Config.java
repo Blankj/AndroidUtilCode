@@ -14,7 +14,7 @@ import java.io.File;
  */
 public class Config {
     public static final String PKG      = "com.blankj.androidutilcode";
-    public static final String TEST_PKG = "com.blankj.testinstallapk";
+    public static final String TEST_PKG = "com.blankj.testinstall";
     private static String testApkPath;
 
     public static String getTestApkPath() {

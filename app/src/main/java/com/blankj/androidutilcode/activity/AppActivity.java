@@ -15,9 +15,9 @@ import com.blankj.utilcode.util.ToastUtils;
 /**
  * <pre>
  *     author: Blankj
- *     blog : http://blankj.com
- *     time : 2016/10/13
- *     desc : App工具类Demo
+ *     blog  : http://blankj.com
+ *     time  : 2016/10/13
+ *     desc  : App工具类Demo
  * </pre>
  */
 
@@ -61,17 +61,17 @@ public class AppActivity extends BaseActivity {
     public void onWidgetClick(View view) {
         switch (view.getId()) {
             case R.id.btn_install_app:
-                if (AppUtils.isInstallApp("com.blankj.testinstallapk")) {
+                if (AppUtils.isInstallApp(Config.TEST_PKG)) {
                     ToastUtils.showShort(R.string.app_install_tips);
                 } else {
-                    AppUtils.installApp(this, Config.getTestApkPath(), "com.blankj.androidutilcode.provider", 0);
+                    AppUtils.installApp(Config.getTestApkPath(), "com.blankj.androidutilcode.provider");
                 }
                 break;
             case R.id.btn_install_app_silent:
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        if (AppUtils.isInstallApp("com.blankj.testinstallapk")) {
+                        if (AppUtils.isInstallApp(Config.TEST_PKG)) {
                             ToastUtils.showShortSafe(R.string.app_install_tips);
                         } else {
                             if (AppUtils.installAppSilent(Config.getTestApkPath())) {
@@ -84,14 +84,14 @@ public class AppActivity extends BaseActivity {
                 }).start();
                 break;
             case R.id.btn_uninstall_app:
-                if (AppUtils.isInstallApp("com.blankj.testinstallapk")) {
-                    AppUtils.uninstallApp(this, Config.TEST_PKG, 0);
+                if (AppUtils.isInstallApp(Config.TEST_PKG)) {
+                    AppUtils.uninstallApp(Config.TEST_PKG);
                 } else {
                     ToastUtils.showShort(R.string.app_uninstall_tips);
                 }
                 break;
             case R.id.btn_uninstall_app_silent:
-                if (AppUtils.isInstallApp("com.blankj.testinstallapk")) {
+                if (AppUtils.isInstallApp(Config.TEST_PKG)) {
                     if (AppUtils.uninstallAppSilent(Config.TEST_PKG, false)) {
                         ToastUtils.showShort(R.string.uninstall_successfully);
                     } else {
