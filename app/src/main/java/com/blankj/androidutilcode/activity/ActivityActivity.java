@@ -24,7 +24,7 @@ public class ActivityActivity extends BaseActivity {
 
     @Override
     public void initData(Bundle bundle) {
-        imageActivityClassName = Config.PKG + ".activities.ImageActivity";
+        imageActivityClassName = Config.PKG + ".activity.ImageActivity";
     }
 
     @Override
@@ -51,7 +51,7 @@ public class ActivityActivity extends BaseActivity {
     public void onWidgetClick(View view) {
         switch (view.getId()) {
             case R.id.btn_launch_image_activity:
-                ActivityUtils.launchActivity(Config.PKG, imageActivityClassName);
+                ActivityUtils.startActivity(Config.PKG, imageActivityClassName);
                 break;
             default:
                 break;
