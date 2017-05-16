@@ -9,8 +9,9 @@
 * ### About Activity→[ActivityUtils.java][activity.java]→[Demo][activity.demo]
 ```
 isActivityExists
-launchActivity
+startActivity
 getLauncherActivity
+getTopActivity
 ```
 
 * ### About App→[AppUtils.java][app.java]→[Demo][app.demo]

@@ -31,11 +31,11 @@ public final class ServiceUtils {
      */
     public static Set getAllRunningService() {
         ActivityManager activityManager = (ActivityManager) Utils.getContext().getSystemService(Context.ACTIVITY_SERVICE);
-        List<RunningServiceInfo> infos = activityManager.getRunningServices(0x7FFFFFFF);
+        List<RunningServiceInfo> info = activityManager.getRunningServices(0x7FFFFFFF);
         Set<String> names = new HashSet<>();
-        if (infos == null || infos.size() == 0) return null;
-        for (RunningServiceInfo info : infos) {
-            names.add(info.service.getClassName());
+        if (info == null || info.size() == 0) return null;
+        for (RunningServiceInfo aInfo : info) {
+            names.add(aInfo.service.getClassName());
         }
         return names;
     }
@@ -149,10 +149,10 @@ public final class ServiceUtils {
      */
     public static boolean isServiceRunning(String className) {
         ActivityManager activityManager = (ActivityManager) Utils.getContext().getSystemService(Context.ACTIVITY_SERVICE);
-        List<RunningServiceInfo> infos = activityManager.getRunningServices(0x7FFFFFFF);
-        if (infos == null || infos.size() == 0) return false;
-        for (RunningServiceInfo info : infos) {
-            if (className.equals(info.service.getClassName())) return true;
+        List<RunningServiceInfo> info = activityManager.getRunningServices(0x7FFFFFFF);
+        if (info == null || info.size() == 0) return false;
+        for (RunningServiceInfo aInfo : info) {
+            if (className.equals(aInfo.service.getClassName())) return true;
         }
         return false;
     }

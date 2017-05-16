@@ -9,8 +9,9 @@
 * ### Activity相关→[ActivityUtils.java][activity.java]→[Demo][activity.demo]
 ```
 isActivityExists   : 判断是否存在Activity
-launchActivity     : 打开Activity
+startActivity      : 打开Activity
 getLauncherActivity: 获取入口activity
+getTopActivity     : 获取栈顶Activity
 ```
 
 * ### App相关→[AppUtils.java][app.java]→[Demo][app.demo]

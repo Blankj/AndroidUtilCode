@@ -2,6 +2,7 @@ package com.blankj.utilcode.util;
 
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -44,24 +45,132 @@ public final class ActivityUtils {
     }
 
     /**
-     * 打开Activity
+     * 启动Activity
      *
-     * @param packageName 包名
-     * @param className   全类名
+     * @param activity activity
+     * @param cls      activity类
      */
-    public static void launchActivity(String packageName, String className) {
-        launchActivity(packageName, className, null);
+    public static void startActivity(Activity activity, Class<?> cls) {
+        startActivity(activity, null, activity.getPackageName(), cls.getName(), null);
     }
 
     /**
-     * 打开Activity
+     * 启动Activity
      *
-     * @param packageName 包名
-     * @param className   全类名
-     * @param bundle      bundle
+     * @param extras   extras
+     * @param activity activity
+     * @param cls      activity类
      */
-    public static void launchActivity(String packageName, String className, Bundle bundle) {
-        Utils.getContext().startActivity(getComponentIntent(packageName, className, bundle));
+    public static void startActivity(Bundle extras, Activity activity, Class<?> cls) {
+        startActivity(activity, extras, activity.getPackageName(), cls.getName(), null);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param activity  activity
+     * @param cls       activity类
+     * @param enterAnim 入场动画
+     * @param exitAnim  出场动画
+     */
+    public static void startActivity(Activity activity, Class<?> cls, int enterAnim, int exitAnim) {
+        startActivity(activity, null, activity.getPackageName(), cls.getName(), null);
+        activity.overridePendingTransition(enterAnim, exitAnim);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param extras    extras
+     * @param activity  activity
+     * @param cls       activity类
+     * @param enterAnim 入场动画
+     * @param exitAnim  出场动画
+     */
+    public static void startActivity(Bundle extras, Activity activity, Class<?> cls, int enterAnim, int exitAnim) {
+        startActivity(activity, extras, activity.getPackageName(), cls.getName(), null);
+        activity.overridePendingTransition(enterAnim, exitAnim);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param activity activity
+     * @param cls      activity类
+     * @param options  跳转动画
+     */
+    public static void startActivity(Activity activity, Class<?> cls, Bundle options) {
+        startActivity(activity, null, activity.getPackageName(), cls.getName(), options);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param extras   extras
+     * @param activity activity
+     * @param cls      activity类
+     * @param options  跳转动画
+     */
+    public static void startActivity(Bundle extras, Activity activity, Class<?> cls, Bundle options) {
+        startActivity(activity, extras, activity.getPackageName(), cls.getName(), options);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param pkg 包名
+     * @param cls 全类名
+     */
+    public static void startActivity(String pkg, String cls) {
+        startActivity(Utils.getContext(), null, pkg, cls, null);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param extras extras
+     * @param pkg    包名
+     * @param cls    全类名
+     */
+    public static void startActivity(Bundle extras, String pkg, String cls) {
+        startActivity(Utils.getContext(), extras, pkg, cls, extras);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param pkg     包名
+     * @param cls     全类名
+     * @param options 动画
+     */
+    public static void startActivity(String pkg, String cls, Bundle options) {
+        startActivity(Utils.getContext(), null, pkg, cls, options);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param extras  extras
+     * @param pkg     包名
+     * @param cls     全类名
+     * @param options 动画
+     */
+    public static void startActivity(Bundle extras, String pkg, String cls, Bundle options) {
+        startActivity(Utils.getContext(), extras, pkg, cls, options);
+    }
+
+    private static void startActivity(Context context, Bundle extras, String pkg, String cls, Bundle options) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        if (extras != null) intent.putExtras(extras);
+        intent.setComponent(new ComponentName(pkg, cls));
+        if (!(context instanceof Activity)) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        if (options == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            context.startActivity(intent);
+        } else {
+            context.startActivity(intent, options);
+        }
     }
 
     /**
@@ -75,10 +184,10 @@ public final class ActivityUtils {
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PackageManager pm = Utils.getContext().getPackageManager();
-        List<ResolveInfo> infos = pm.queryIntentActivities(intent, 0);
-        for (ResolveInfo info : infos) {
-            if (info.activityInfo.packageName.equals(packageName)) {
-                return info.activityInfo.name;
+        List<ResolveInfo> info = pm.queryIntentActivities(intent, 0);
+        for (ResolveInfo aInfo : info) {
+            if (aInfo.activityInfo.packageName.equals(packageName)) {
+                return aInfo.activityInfo.name;
             }
         }
         return "no " + packageName;
@@ -93,7 +202,6 @@ public final class ActivityUtils {
     public static Activity getTopActivity() {
         try {
             Class activityThreadClass = Class.forName("android.app.ActivityThread");
-            @SuppressWarnings("unchecked")
             Object activityThread = activityThreadClass.getMethod("currentActivityThread").invoke(null);
             Field activitiesField = activityThreadClass.getDeclaredField("mActivities");
             activitiesField.setAccessible(true);
@@ -117,13 +225,5 @@ public final class ActivityUtils {
             e.printStackTrace();
         }
         return null;
-    }
-
-    private static Intent getComponentIntent(String packageName, String className, Bundle bundle) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        if (bundle != null) intent.putExtras(bundle);
-        ComponentName cn = new ComponentName(packageName, className);
-        intent.setComponent(cn);
-        return intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 }
