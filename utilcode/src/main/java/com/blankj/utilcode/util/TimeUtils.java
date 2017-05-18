@@ -8,6 +8,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
+import java.util.GregorianCalendar;
 
 /**
  * <pre>
@@ -181,6 +184,19 @@ public final class TimeUtils {
 
     private TimeUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
+    }
+    
+    /**
+     * returns the current time zone.
+     */
+    public static long getCurrentTimeZone() {
+        long currentTimeZone;
+
+        Calendar mCalendar = new GregorianCalendar();
+        TimeZone mTimeZone = mCalendar.getTimeZone();
+        int mGMTOffset = mTimeZone.getRawOffset();
+
+        return currentTimeZone =  TimeUnit.HOURS.convert(mGMTOffset, TimeUnit.MILLISECONDS);
     }
 
     /**
