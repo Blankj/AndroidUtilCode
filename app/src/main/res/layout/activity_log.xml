@@ -18,6 +18,20 @@
             android:gravity="center"/>
 
         <Button
+            android:id="@+id/btn_toggle_log"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log_toggle_log"/>
+
+        <Button
+            android:id="@+id/btn_toggle_console"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log_toggle_console"/>
+
+        <Button
             android:id="@+id/btn_toggle_tag"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
@@ -53,11 +67,18 @@
             android:text="@string/log_toggle_border"/>
 
         <Button
-            android:id="@+id/btn_toggle_filter"
+            android:id="@+id/btn_toggle_conole_filter"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/log_toggle_filter"/>
+            android:text="@string/log_toggle_console_filter"/>
+
+        <Button
+            android:id="@+id/btn_toggle_file_filter"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log_toggle_file_filter"/>
 
         <Button
             android:id="@+id/btn_log_no_tag"

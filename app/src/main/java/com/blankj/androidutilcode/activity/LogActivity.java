@@ -29,19 +29,25 @@ public class LogActivity extends BaseActivity {
 
     private LogUtils.Builder mBuilder = new LogUtils.Builder();
 
-    private String  dir       = "";
-    private String  globalTag = "";
-    private boolean head      = true;
-    private boolean file      = false;
-    private boolean border    = true;
-    private int     filter    = LogUtils.V;
+    private String  dir           = "";
+    private String  globalTag     = "";
+    private boolean log           = true;
+    private boolean console       = true;
+    private boolean head          = true;
+    private boolean file          = false;
+    private boolean border        = true;
+    private int     consoleFilter = LogUtils.V;
+    private int     fileFilter    = LogUtils.V;
 
-    private static final int UPDATE_TAG    = 0x01;
-    private static final int UPDATE_HEAD   = 0x01 << 1;
-    private static final int UPDATE_FILE   = 0x01 << 2;
-    private static final int UPDATE_DIR    = 0x01 << 3;
-    private static final int UPDATE_BORDER = 0x01 << 4;
-    private static final int UPDATE_FILTER = 0x01 << 5;
+    private static final int UPDATE_LOG            = 0x01;
+    private static final int UPDATE_CONSOLE        = 0x01 << 1;
+    private static final int UPDATE_TAG            = 0x01 << 2;
+    private static final int UPDATE_HEAD           = 0x01 << 3;
+    private static final int UPDATE_FILE           = 0x01 << 4;
+    private static final int UPDATE_DIR            = 0x01 << 5;
+    private static final int UPDATE_BORDER         = 0x01 << 6;
+    private static final int UPDATE_CONSOLE_FILTER = 0x01 << 7;
+    private static final int UPDATE_FILE_FILTER    = 0x01 << 8;
 
     private Runnable mRunnable = new Runnable() {
         @Override
@@ -79,12 +85,15 @@ public class LogActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        findViewById(R.id.btn_toggle_log).setOnClickListener(this);
+        findViewById(R.id.btn_toggle_console).setOnClickListener(this);
         findViewById(R.id.btn_toggle_tag).setOnClickListener(this);
         findViewById(R.id.btn_toggle_head).setOnClickListener(this);
         findViewById(R.id.btn_toggle_border).setOnClickListener(this);
         findViewById(R.id.btn_toggle_file).setOnClickListener(this);
         findViewById(R.id.btn_toggle_dir).setOnClickListener(this);
-        findViewById(R.id.btn_toggle_filter).setOnClickListener(this);
+        findViewById(R.id.btn_toggle_conole_filter).setOnClickListener(this);
+        findViewById(R.id.btn_toggle_file_filter).setOnClickListener(this);
         findViewById(R.id.btn_log_no_tag).setOnClickListener(this);
         findViewById(R.id.btn_log_with_tag).setOnClickListener(this);
         findViewById(R.id.btn_log_in_new_thread).setOnClickListener(this);
@@ -106,6 +115,12 @@ public class LogActivity extends BaseActivity {
     @Override
     public void onWidgetClick(View view) {
         switch (view.getId()) {
+            case R.id.btn_toggle_log:
+                updateAbout(UPDATE_LOG);
+                break;
+            case R.id.btn_toggle_console:
+                updateAbout(UPDATE_CONSOLE);
+                break;
             case R.id.btn_toggle_tag:
                 updateAbout(UPDATE_TAG);
                 break;
@@ -121,8 +136,11 @@ public class LogActivity extends BaseActivity {
             case R.id.btn_toggle_border:
                 updateAbout(UPDATE_BORDER);
                 break;
-            case R.id.btn_toggle_filter:
-                updateAbout(UPDATE_FILTER);
+            case R.id.btn_toggle_conole_filter:
+                updateAbout(UPDATE_CONSOLE_FILTER);
+                break;
+            case R.id.btn_toggle_file_filter:
+                updateAbout(UPDATE_FILE_FILTER);
                 break;
             case R.id.btn_log_no_tag:
                 LogUtils.v("verbose");
@@ -164,23 +182,32 @@ public class LogActivity extends BaseActivity {
                 LogUtils.d(longStr);
                 break;
             case R.id.btn_log_file:
-                for (int i = 0; i < 1000; i++) {
+                for (int i = 0; i < 100; i++) {
                     LogUtils.file("test0 log to file");
+                    LogUtils.file(LogUtils.I, "test0 log to file");
                 }
                 break;
             case R.id.btn_log_json:
                 String json = "{\"tools\": [{ \"name\":\"css format\" , \"site\":\"http://tools.w3cschool.cn/code/css\" },{ \"name\":\"json format\" , \"site\":\"http://tools.w3cschool.cn/code/json\" },{ \"name\":\"pwd check\" , \"site\":\"http://tools.w3cschool.cn/password/my_password_safe\" }]}";
                 LogUtils.json(json);
+                LogUtils.json(LogUtils.I, json);
                 break;
             case R.id.btn_log_xml:
                 String xml = "<books><book><author>Jack Herrington</author><title>PHP Hacks</title><publisher>O'Reilly</publisher></book><book><author>Jack Herrington</author><title>Podcasting Hacks</title><publisher>O'Reilly</publisher></book></books>";
                 LogUtils.xml(xml);
+                LogUtils.xml(LogUtils.I, xml);
                 break;
         }
     }
 
     private void updateAbout(int args) {
         switch (args) {
+            case UPDATE_LOG:
+                log = !log;
+                break;
+            case UPDATE_CONSOLE:
+                console = !console;
+                break;
             case UPDATE_TAG:
                 globalTag = globalTag.equals(TAG) ? "" : TAG;
                 break;
@@ -202,16 +229,22 @@ public class LogActivity extends BaseActivity {
             case UPDATE_BORDER:
                 border = !border;
                 break;
-            case UPDATE_FILTER:
-                filter = filter == LogUtils.V ? LogUtils.W : LogUtils.V;
+            case UPDATE_CONSOLE_FILTER:
+                consoleFilter = consoleFilter == LogUtils.V ? LogUtils.W : LogUtils.V;
+                break;
+            case UPDATE_FILE_FILTER:
+                fileFilter = fileFilter == LogUtils.V ? LogUtils.I : LogUtils.V;
                 break;
         }
-        mBuilder.setGlobalTag(globalTag)
+        mBuilder.setLogSwitch(log)
+                .setConsoleSwitch(console)
+                .setGlobalTag(globalTag)
                 .setLogHeadSwitch(head)
                 .setLog2FileSwitch(file)
                 .setDir(dir)
                 .setBorderSwitch(border)
-                .setLogFilter(filter);
+                .setConsoleFilter(consoleFilter)
+                .setFileFilter(fileFilter);
         tvAboutLog.setText(mBuilder.toString());
     }
 
