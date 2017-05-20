@@ -1,3 +1,4 @@
+* 17/05/19 LogUtils新增文件过滤和控制台开关
 * 17/05/16 ActivityUtils新增动画
 * 17/05/12 新增base系列
 * 17/05/11 修复SpannableStringUtils的setDrawable的bug，发布1.5.1
