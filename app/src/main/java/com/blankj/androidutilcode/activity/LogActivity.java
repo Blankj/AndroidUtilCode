@@ -249,7 +249,7 @@ public class LogActivity extends BaseActivity {
     }
 
     private String getDir() {
-        return mBuilder.toString().split(System.getProperty("line.separator"))[4].substring(5);
+        return mBuilder.toString().split(System.getProperty("line.separator"))[5].substring(5);
     }
 
     @Override

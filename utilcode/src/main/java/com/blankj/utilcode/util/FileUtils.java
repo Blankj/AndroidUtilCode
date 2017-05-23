@@ -13,13 +13,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -31,7 +34,7 @@ import java.util.List;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2016/08/11
+ *     time  : 2016/05/03
  *     desc  : 文件相关工具类
  * </pre>
  */
@@ -40,6 +43,8 @@ public final class FileUtils {
     private FileUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
+
+    private static final String LINE_SEP = System.getProperty("line.separator");
 
     /**
      * 根据文件路径获取文件
@@ -773,6 +778,42 @@ public final class FileUtils {
     }
 
     /**
+     * 将字节数组写入文件
+     *
+     * @param filePath 文件路径
+     * @param bytes    字节数组
+     * @param append   是否追加在文件末
+     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
+     */
+    public static boolean writeFileFromBytes(String filePath, byte[] bytes, boolean append) {
+        return writeFileFromBytes(getFileByPath(filePath), bytes, append);
+    }
+
+    /**
+     * 将字节数组写入文件
+     *
+     * @param file   文件
+     * @param bytes  字节数组
+     * @param append 是否追加在文件末
+     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
+     */
+    public static boolean writeFileFromBytes(File file, byte[] bytes, boolean append) {
+        if (file == null || bytes == null) return false;
+        if (!createOrExistsFile(file)) return false;
+        BufferedOutputStream bos = null;
+        try {
+            bos = new BufferedOutputStream(new FileOutputStream(file, append));
+            bos.write(bytes);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            CloseUtils.closeIO(bos);
+        }
+    }
+
+    /**
      * 将字符串写入文件
      *
      * @param filePath 文件路径
@@ -862,7 +903,7 @@ public final class FileUtils {
             int curLine = 1;
             List<String> list = new ArrayList<>();
             if (isSpace(charsetName)) {
-                reader = new BufferedReader(new FileReader(file));
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
             } else {
                 reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charsetName));
             }
@@ -910,10 +951,10 @@ public final class FileUtils {
             }
             String line;
             while ((line = reader.readLine()) != null) {
-                sb.append(line).append("\r\n");// windows系统换行为\r\n，Linux为\n
+                sb.append(line).append(LINE_SEP);
             }
-            // 要去除最后的换行符
-            return sb.delete(sb.length() - 2, sb.length()).toString();
+            // delete the last line separator
+            return sb.delete(sb.length() - LINE_SEP.length(), sb.length()).toString();
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -945,6 +986,77 @@ public final class FileUtils {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    /**
+     * 读取文件到字符数组中
+     *
+     * @param filePath 文件路径
+     * @return 字符数组
+     */
+    public static byte[] readFile2BytesByChannel(String filePath) {
+        return readFile2BytesByChannel(getFileByPath(filePath));
+    }
+
+    /**
+     * 读取文件到字符数组中
+     *
+     * @param file 文件
+     * @return 字符数组
+     */
+    public static byte[] readFile2BytesByChannel(File file) {
+        if (file == null) return null;
+        FileChannel channel = null;
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(file);
+            channel = fis.getChannel();
+            ByteBuffer byteBuffer = ByteBuffer.allocate((int) channel.size());
+            while (true) {
+                if (!((channel.read(byteBuffer)) > 0)) break;
+            }
+            return byteBuffer.array();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            CloseUtils.closeIO(channel, fis);
+        }
+    }
+
+    /**
+     * 读取文件到字符数组中
+     *
+     * @param filePath 文件路径
+     * @return 字符数组
+     */
+    public static byte[] readFile2BytesByMap(String filePath) {
+        return readFile2BytesByMap(getFileByPath(filePath));
+    }
+
+    /**
+     * 读取文件到字符数组中
+     *
+     * @param file 文件
+     * @return 字符数组
+     */
+    public static byte[] readFile2BytesByMap(File file) {
+        if (file == null) return null;
+        FileChannel fc = null;
+        try {
+            fc = new RandomAccessFile(file, "r").getChannel();
+            MappedByteBuffer byteBuffer = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size()).load();
+            byte[] result = new byte[(int) fc.size()];
+            if (byteBuffer.remaining() > 0) {
+                byteBuffer.get(result, 0, byteBuffer.remaining());
+            }
+            return result;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            CloseUtils.closeIO(fc);
         }
     }
 

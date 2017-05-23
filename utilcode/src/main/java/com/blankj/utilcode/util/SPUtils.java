@@ -33,7 +33,7 @@ public class SPUtils {
     }
 
     /**
-     * SP中写入String类型value
+     * SP中写入String
      *
      * @param key   键
      * @param value 值
@@ -64,7 +64,7 @@ public class SPUtils {
     }
 
     /**
-     * SP中写入int类型value
+     * SP中写入int
      *
      * @param key   键
      * @param value 值
@@ -95,7 +95,7 @@ public class SPUtils {
     }
 
     /**
-     * SP中写入long类型value
+     * SP中写入long
      *
      * @param key   键
      * @param value 值
@@ -126,7 +126,7 @@ public class SPUtils {
     }
 
     /**
-     * SP中写入float类型value
+     * SP中写入float
      *
      * @param key   键
      * @param value 值
@@ -157,7 +157,7 @@ public class SPUtils {
     }
 
     /**
-     * SP中写入boolean类型value
+     * SP中写入boolean
      *
      * @param key   键
      * @param value 值
@@ -188,7 +188,7 @@ public class SPUtils {
     }
 
     /**
-     * SP中写入String集合类型value
+     * SP中写入String集合
      *
      * @param key    键
      * @param values 值
