@@ -24,6 +24,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
@@ -192,20 +194,23 @@ public class CacheUtils {
     public byte[] getBytes(String key) {
         File file = mCacheManager.getFile(key);
         if (!file.exists()) return null;
-        RandomAccessFile raf = null;
+        FileChannel fc = null;
         try {
-            raf = new RandomAccessFile(file, "r");
-            byte[] byteArray = new byte[(int) raf.length()];
-            raf.read(byteArray);
-            if (!CacheHelper.isDue(byteArray)) {
-                return CacheHelper.getDataWithoutDueTime(byteArray);
+            fc = new RandomAccessFile(file, "r").getChannel();
+            MappedByteBuffer byteBuffer = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size()).load();
+            byte[] data = new byte[(int) fc.size()];
+            if (byteBuffer.remaining() > 0) {
+                byteBuffer.get(data, 0, byteBuffer.remaining());
+            }
+            if (!CacheHelper.isDue(data)) {
+                return CacheHelper.getDataWithoutDueTime(data);
             } else {
                 mCacheManager.remove(key);
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            CloseUtils.closeIO(raf);
+            CloseUtils.closeIO(fc);
         }
         return null;
     }
@@ -242,28 +247,7 @@ public class CacheUtils {
      * @return String
      */
     public String getString(String key) {
-        File file = mCacheManager.getFile(key);
-        if (!file.exists()) return null;
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = br.readLine()) != null) {
-                sb.append(line).append(LINE_SEP);
-            }
-            String content = sb.toString();
-            if (!CacheHelper.isDue(content)) {
-                return CacheHelper.getDataWithoutDueTime(content);
-            } else {
-                mCacheManager.remove(key);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            CloseUtils.closeIO(br);
-        }
-        return null;
+        return new String(getBytes(key));
     }
 
     ///////////////////////////////////////////////////////////////////////////
