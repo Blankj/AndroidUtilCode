@@ -52,6 +52,14 @@ showNotificationBar
 hideNotificationBar
 ```
 
+* ### About Cache→[CacheUtils.java][cache.java]→[Test][cache.test]
+```
+getInstance
+put
+getString
+getJSONObject
+```
+
 * ### About Clean→[CleanUtils.java][clean.java]→[Demo][clean.demo]
 ```
 cleanInternalCache
@@ -163,6 +171,20 @@ encryptAES, encryptAES2HexString, encryptAES2Base64
 decryptAES, decryptHexStringAES, decryptBase64AES
 ```
 
+* ### About FileIO→[FileIOUtils.java][fileio.java]→[Test][fileio.test]
+```
+writeFileFromIS
+writeFileFromBytesByStream
+writeFileFromBytesByChannel
+writeFileFromBytesByMap
+writeFileFromString
+readFile2List
+readFile2String
+readFile2BytesByStream
+readFile2BytesByChannel
+readFile2BytesByMap
+```
+
 * ### About File→[FileUtils.java][file.java]→[Test][file.test]
 ```
 getFileByPath
@@ -186,11 +208,6 @@ listFilesInDirWithFilter
 listFilesInDirWithFilter
 listFilesInDirWithFilter
 searchFileInDir
-writeFileFromIS
-writeFileFromString
-readFile2List
-readFile2String
-readFile2Bytes
 getFileLastModified
 getFileCharsetSimple
 getFileLines
@@ -315,12 +332,14 @@ isSameProvider
 * ### About Log→[LogUtils.java][log.java]→[Demo][log.demo]
 ```
 Builder.setLogSwitch
+Builder.setConsoleSwitch
 Builder.setGlobalTag
 Builder.setLogHeadSwitch
 Builder.setLog2FileSwitch
 Builder.setDir
 Builder.setBorderSwitch
-Builder.setLogFilter
+Builder.setConsoleFilter
+Builder.setFileFilter
 v
 d
 i
@@ -604,7 +623,7 @@ getComments
 getEntries
 ```
 
-* ### About Log→[update_log.md][update_log.md]**
+* ### About Log→[update_log.md][update_log.md]
 
 ***
 
@@ -679,6 +698,9 @@ Utils.init(context);
 
 [bar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/BarUtils.java
 
+[cache.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheUtils.java
+[cache.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheUtilsTest.java
+
 [clean.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CleanUtils.java
 [clean.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/CleanActivity.java
 
@@ -702,6 +724,9 @@ Utils.init(context);
 
 [encrypt.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/EncryptUtils.java
 [encrypt.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/EncryptUtilsTest.java
+
+[fileio.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/FileIOUtils.java
+[fileio.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/FileIOUtilsTest.java
 
 [file.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/FileUtils.java
 [file.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/FileUtilsTest.java

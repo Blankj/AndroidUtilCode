@@ -5,24 +5,12 @@ import android.annotation.SuppressLint;
 import com.blankj.utilcode.constant.MemoryConstants;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.RandomAccessFile;
-import java.nio.ByteBuffer;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -202,16 +190,6 @@ public final class FileUtils {
     /**
      * 判断文件是否存在，存在则在创建之前删除
      *
-     * @param filePath 文件路径
-     * @return {@code true}: 创建成功<br>{@code false}: 创建失败
-     */
-    public static boolean createFileByDeleteOldFile(String filePath) {
-        return createFileByDeleteOldFile(getFileByPath(filePath));
-    }
-
-    /**
-     * 判断文件是否存在，存在则在创建之前删除
-     *
      * @param file 文件
      * @return {@code true}: 创建成功<br>{@code false}: 创建失败
      */
@@ -305,7 +283,7 @@ public final class FileUtils {
         // 目标目录不存在返回false
         if (!createOrExistsDir(destFile.getParentFile())) return false;
         try {
-            return writeFileFromIS(destFile, new FileInputStream(srcFile), false)
+            return FileIOUtils.writeFileFromIS(destFile, new FileInputStream(srcFile), false)
                     && !(isMove && !deleteFile(srcFile));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -738,329 +716,6 @@ public final class FileUtils {
     }
 
     /**
-     * 将输入流写入文件
-     *
-     * @param filePath 路径
-     * @param is       输入流
-     * @param append   是否追加在文件末
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromIS(String filePath, InputStream is, boolean append) {
-        return writeFileFromIS(getFileByPath(filePath), is, append);
-    }
-
-    /**
-     * 将输入流写入文件
-     *
-     * @param file   文件
-     * @param is     输入流
-     * @param append 是否追加在文件末
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromIS(File file, InputStream is, boolean append) {
-        if (file == null || is == null) return false;
-        if (!createOrExistsFile(file)) return false;
-        OutputStream os = null;
-        try {
-            os = new BufferedOutputStream(new FileOutputStream(file, append));
-            byte data[] = new byte[1024];
-            int len;
-            while ((len = is.read(data, 0, 1024)) != -1) {
-                os.write(data, 0, len);
-            }
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            CloseUtils.closeIO(is, os);
-        }
-    }
-
-    /**
-     * 将字节数组写入文件
-     *
-     * @param filePath 文件路径
-     * @param bytes    字节数组
-     * @param append   是否追加在文件末
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromBytes(String filePath, byte[] bytes, boolean append) {
-        return writeFileFromBytes(getFileByPath(filePath), bytes, append);
-    }
-
-    /**
-     * 将字节数组写入文件
-     *
-     * @param file   文件
-     * @param bytes  字节数组
-     * @param append 是否追加在文件末
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromBytes(File file, byte[] bytes, boolean append) {
-        if (file == null || bytes == null) return false;
-        if (!createOrExistsFile(file)) return false;
-        BufferedOutputStream bos = null;
-        try {
-            bos = new BufferedOutputStream(new FileOutputStream(file, append));
-            bos.write(bytes);
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            CloseUtils.closeIO(bos);
-        }
-    }
-
-    /**
-     * 将字符串写入文件
-     *
-     * @param filePath 文件路径
-     * @param content  写入内容
-     * @param append   是否追加在文件末
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromString(String filePath, String content, boolean append) {
-        return writeFileFromString(getFileByPath(filePath), content, append);
-    }
-
-    /**
-     * 将字符串写入文件
-     *
-     * @param file    文件
-     * @param content 写入内容
-     * @param append  是否追加在文件末
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromString(File file, String content, boolean append) {
-        if (file == null || content == null) return false;
-        if (!createOrExistsFile(file)) return false;
-        BufferedWriter bw = null;
-        try {
-            bw = new BufferedWriter(new FileWriter(file, append));
-            bw.write(content);
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            CloseUtils.closeIO(bw);
-        }
-    }
-
-    /**
-     * 指定编码按行读取文件到链表中
-     *
-     * @param filePath    文件路径
-     * @param charsetName 编码格式
-     * @return 文件行链表
-     */
-    public static List<String> readFile2List(String filePath, String charsetName) {
-        return readFile2List(getFileByPath(filePath), charsetName);
-    }
-
-    /**
-     * 指定编码按行读取文件到链表中
-     *
-     * @param file        文件
-     * @param charsetName 编码格式
-     * @return 文件行链表
-     */
-    public static List<String> readFile2List(File file, String charsetName) {
-        return readFile2List(file, 0, 0x7FFFFFFF, charsetName);
-    }
-
-    /**
-     * 指定编码按行读取文件到链表中
-     *
-     * @param filePath    文件路径
-     * @param st          需要读取的开始行数
-     * @param end         需要读取的结束行数
-     * @param charsetName 编码格式
-     * @return 包含制定行的list
-     */
-    public static List<String> readFile2List(String filePath, int st, int end, String
-            charsetName) {
-        return readFile2List(getFileByPath(filePath), st, end, charsetName);
-    }
-
-    /**
-     * 指定编码按行读取文件到链表中
-     *
-     * @param file        文件
-     * @param st          需要读取的开始行数
-     * @param end         需要读取的结束行数
-     * @param charsetName 编码格式
-     * @return 包含从start行到end行的list
-     */
-    public static List<String> readFile2List(File file, int st, int end, String charsetName) {
-        if (file == null) return null;
-        if (st > end) return null;
-        BufferedReader reader = null;
-        try {
-            String line;
-            int curLine = 1;
-            List<String> list = new ArrayList<>();
-            if (isSpace(charsetName)) {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-            } else {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charsetName));
-            }
-            while ((line = reader.readLine()) != null) {
-                if (curLine > end) break;
-                if (st <= curLine && curLine <= end) list.add(line);
-                ++curLine;
-            }
-            return list;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            CloseUtils.closeIO(reader);
-        }
-    }
-
-    /**
-     * 指定编码按行读取文件到字符串中
-     *
-     * @param filePath    文件路径
-     * @param charsetName 编码格式
-     * @return 字符串
-     */
-    public static String readFile2String(String filePath, String charsetName) {
-        return readFile2String(getFileByPath(filePath), charsetName);
-    }
-
-    /**
-     * 指定编码按行读取文件到字符串中
-     *
-     * @param file        文件
-     * @param charsetName 编码格式
-     * @return 字符串
-     */
-    public static String readFile2String(File file, String charsetName) {
-        if (file == null) return null;
-        BufferedReader reader = null;
-        try {
-            StringBuilder sb = new StringBuilder();
-            if (isSpace(charsetName)) {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-            } else {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charsetName));
-            }
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line).append(LINE_SEP);
-            }
-            // delete the last line separator
-            return sb.delete(sb.length() - LINE_SEP.length(), sb.length()).toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            CloseUtils.closeIO(reader);
-        }
-    }
-
-    /**
-     * 读取文件到字符数组中
-     *
-     * @param filePath 文件路径
-     * @return 字符数组
-     */
-    public static byte[] readFile2Bytes(String filePath) {
-        return readFile2Bytes(getFileByPath(filePath));
-    }
-
-    /**
-     * 读取文件到字符数组中
-     *
-     * @param file 文件
-     * @return 字符数组
-     */
-    public static byte[] readFile2Bytes(File file) {
-        if (file == null) return null;
-        try {
-            return inputStream2Bytes(new FileInputStream(file));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    /**
-     * 读取文件到字符数组中
-     *
-     * @param filePath 文件路径
-     * @return 字符数组
-     */
-    public static byte[] readFile2BytesByChannel(String filePath) {
-        return readFile2BytesByChannel(getFileByPath(filePath));
-    }
-
-    /**
-     * 读取文件到字符数组中
-     *
-     * @param file 文件
-     * @return 字符数组
-     */
-    public static byte[] readFile2BytesByChannel(File file) {
-        if (file == null) return null;
-        FileChannel channel = null;
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(file);
-            channel = fis.getChannel();
-            ByteBuffer byteBuffer = ByteBuffer.allocate((int) channel.size());
-            while (true) {
-                if (!((channel.read(byteBuffer)) > 0)) break;
-            }
-            return byteBuffer.array();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            CloseUtils.closeIO(channel, fis);
-        }
-    }
-
-    /**
-     * 读取文件到字符数组中
-     *
-     * @param filePath 文件路径
-     * @return 字符数组
-     */
-    public static byte[] readFile2BytesByMap(String filePath) {
-        return readFile2BytesByMap(getFileByPath(filePath));
-    }
-
-    /**
-     * 读取文件到字符数组中
-     *
-     * @param file 文件
-     * @return 字符数组
-     */
-    public static byte[] readFile2BytesByMap(File file) {
-        if (file == null) return null;
-        FileChannel fc = null;
-        try {
-            fc = new RandomAccessFile(file, "r").getChannel();
-            MappedByteBuffer byteBuffer = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size()).load();
-            byte[] result = new byte[(int) fc.size()];
-            if (byteBuffer.remaining() > 0) {
-                byteBuffer.get(result, 0, byteBuffer.remaining());
-            }
-            return result;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            CloseUtils.closeIO(fc);
-        }
-    }
-
-    /**
      * 获取文件最后修改的毫秒时间戳
      *
      * @param filePath 文件路径
@@ -1132,6 +787,7 @@ public final class FileUtils {
 
     /**
      * 获取文件行数
+     * <p>比readLine要快很多</p>
      *
      * @param file 文件
      * @return 文件行数
@@ -1143,9 +799,17 @@ public final class FileUtils {
             is = new BufferedInputStream(new FileInputStream(file));
             byte[] buffer = new byte[1024];
             int readChars;
-            while ((readChars = is.read(buffer, 0, 1024)) != -1) {
-                for (int i = 0; i < readChars; ++i) {
-                    if (buffer[i] == '\n') ++count;
+            if (LINE_SEP.endsWith("\n")) {
+                while ((readChars = is.read(buffer, 0, 1024)) != -1) {
+                    for (int i = 0; i < readChars; ++i) {
+                        if (buffer[i] == '\n') ++count;
+                    }
+                }
+            } else {
+                while ((readChars = is.read(buffer, 0, 1024)) != -1) {
+                    for (int i = 0; i < readChars; ++i) {
+                        if (buffer[i] == '\r') ++count;
+                    }
                 }
             }
         } catch (IOException e) {
@@ -1414,41 +1078,6 @@ public final class FileUtils {
     ///////////////////////////////////////////////////////////////////////////
     // copy from ConvertUtils
     ///////////////////////////////////////////////////////////////////////////
-
-    /**
-     * inputStream转byteArr
-     *
-     * @param is 输入流
-     * @return 字节数组
-     */
-    private static byte[] inputStream2Bytes(InputStream is) {
-        if (is == null) return null;
-        return input2OutputStream(is).toByteArray();
-    }
-
-    /**
-     * inputStream转outputStream
-     *
-     * @param is 输入流
-     * @return outputStream子类
-     */
-    private static ByteArrayOutputStream input2OutputStream(InputStream is) {
-        if (is == null) return null;
-        try {
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-            byte[] b = new byte[MemoryConstants.KB];
-            int len;
-            while ((len = is.read(b, 0, MemoryConstants.KB)) != -1) {
-                os.write(b, 0, len);
-            }
-            return os;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            CloseUtils.closeIO(is);
-        }
-    }
 
     private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 

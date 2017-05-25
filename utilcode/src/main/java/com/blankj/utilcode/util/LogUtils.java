@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -23,6 +24,9 @@ import java.util.Formatter;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.zip.DataFormatException;
+import java.util.zip.Deflater;
+import java.util.zip.Inflater;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
@@ -478,4 +482,43 @@ public final class LogUtils {
         }
         return true;
     }
+
+    public static byte[] compress(byte input[]) {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        Deflater compressor = new Deflater(1);
+        try {
+            compressor.setInput(input);
+            compressor.finish();
+            final byte[] buf = new byte[2048];
+            while (!compressor.finished()) {
+                int count = compressor.deflate(buf);
+                bos.write(buf, 0, count);
+            }
+        } finally {
+            compressor.end();
+        }
+        return bos.toByteArray();
+    }
+
+    public static byte[] uncompress(byte[] input) {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        Inflater decompressor = new Inflater();
+        try {
+            decompressor.setInput(input);
+            final byte[] buf = new byte[2048];
+            while (!decompressor.finished()) {
+                int count = 0;
+                try {
+                    count = decompressor.inflate(buf);
+                } catch (DataFormatException e) {
+                    e.printStackTrace();
+                }
+                bos.write(buf, 0, count);
+            }
+        } finally {
+            decompressor.end();
+        }
+        return bos.toByteArray();
+    }
+
 }

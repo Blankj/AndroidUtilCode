@@ -44,7 +44,7 @@ public class TestUtils {
         formatCN();
         File readmeCN = new File(new File(System.getProperty("user.dir")).getAbsolutePath() + FILE_SEP + "README-CN.md");
         File readmeEng = new File(new File(System.getProperty("user.dir")).getAbsolutePath() + FILE_SEP + "README.md");
-        List<String> list = FileUtils.readFile2List(readmeCN, "UTF-8");
+        List<String> list = FileIOUtils.readFile2List(readmeCN, "UTF-8");
         StringBuilder sb = new StringBuilder("# :fire: Android developers should collect the following utils" + LINE_SEP + LINE_SEP +
                 "[![auc][aucsvg]][auc] [![api][apisvg]][api] [![build][buildsvg]][build] [![License][licensesvg]][license]" + LINE_SEP + LINE_SEP +
                 "## [README of Chinese][readme-cn.md]" + LINE_SEP + LINE_SEP +
@@ -56,7 +56,7 @@ public class TestUtils {
                     String utilsName = line.substring(line.indexOf("[") + 1, line.indexOf("Utils"));
                     sb.append("* ### About ").append(utilsName).append(line.substring(line.indexOf("→")));
                 } else {
-                    sb.append("* ### About Log→[update_log.md][update_log.md]**");
+                    sb.append("* ### About Log→[update_log.md][update_log.md]");
                 }
             } else if (line.contains(": ") && !line.contains("[")) {
                 sb.append(line.substring(0, line.indexOf(':')).trim());
@@ -69,12 +69,12 @@ public class TestUtils {
             }
             sb.append(LINE_SEP);
         }
-        FileUtils.writeFileFromString(readmeEng, sb.toString(), false);
+        FileIOUtils.writeFileFromString(readmeEng, sb.toString(), false);
     }
 
     public void formatCN() throws Exception {
         File readmeCN = new File(new File(System.getProperty("user.dir")).getAbsolutePath() + FILE_SEP + "README-CN.md");
-        List<String> list = FileUtils.readFile2List(readmeCN, "UTF-8");
+        List<String> list = FileIOUtils.readFile2List(readmeCN, "UTF-8");
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 4; i++) {
             sb.append(list.get(i)).append(LINE_SEP);
@@ -111,11 +111,10 @@ public class TestUtils {
             }
             sb.append(LINE_SEP);
         }
-        FileUtils.writeFileFromString(readmeCN, sb.toString(), false);
+        FileIOUtils.writeFileFromString(readmeCN, sb.toString(), false);
     }
 
     @Test
     public void test() throws Exception {
-        System.out.println("/");
     }
 }

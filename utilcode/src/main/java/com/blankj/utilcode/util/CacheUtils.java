@@ -3,7 +3,6 @@ package com.blankj.utilcode.util;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Process;
@@ -12,14 +11,11 @@ import android.support.annotation.NonNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.RandomAccessFile;
@@ -159,9 +155,9 @@ public class CacheUtils {
     /**
      * 缓存中写入字节数组
      *
-     * @param key      保存的key
-     * @param value    保存的数据
-     * @param saveTime 保存的时间，单位：秒
+     * @param key      键
+     * @param value    值
+     * @param saveTime 保存时长，单位：秒
      */
     public void put(String key, byte[] value, int saveTime) {
         if (saveTime >= 0) value = CacheHelper.newByteArrayWithTime(saveTime, value);
@@ -173,14 +169,7 @@ public class CacheUtils {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (out != null) {
-                try {
-                    out.flush();
-                    out.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            CloseUtils.closeIO(out);
             mCacheManager.put(file);
         }
     }
@@ -197,11 +186,10 @@ public class CacheUtils {
         FileChannel fc = null;
         try {
             fc = new RandomAccessFile(file, "r").getChannel();
-            MappedByteBuffer byteBuffer = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size()).load();
-            byte[] data = new byte[(int) fc.size()];
-            if (byteBuffer.remaining() > 0) {
-                byteBuffer.get(data, 0, byteBuffer.remaining());
-            }
+            int size = (int) fc.size();
+            MappedByteBuffer byteBuffer = fc.map(FileChannel.MapMode.READ_ONLY, 0, size).load();
+            byte[] data = new byte[size];
+            byteBuffer.get(data, 0, size);
             if (!CacheHelper.isDue(data)) {
                 return CacheHelper.getDataWithoutDueTime(data);
             } else {
@@ -226,7 +214,7 @@ public class CacheUtils {
      * @param value 值
      */
     public void put(String key, String value) {
-        put(key, value.getBytes(), -1);
+        put(key, value, -1);
     }
 
     /**
@@ -247,7 +235,9 @@ public class CacheUtils {
      * @return String
      */
     public String getString(String key) {
-        return new String(getBytes(key));
+        byte[] bytes = getBytes(key);
+        if (bytes == null) return null;
+        return new String(bytes);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -261,7 +251,7 @@ public class CacheUtils {
      * @param value 值
      */
     public void put(String key, JSONObject value) {
-        put(key, value.toString());
+        put(key, value, -1);
     }
 
     /**
@@ -298,19 +288,19 @@ public class CacheUtils {
     /**
      * 缓存中写入JSONArray
      *
-     * @param key   保存的key
-     * @param value 保存的JSONArray数据
+     * @param key   键
+     * @param value 值
      */
     public void put(String key, JSONArray value) {
-        put(key, value.toString());
+        put(key, value, -1);
     }
 
     /**
      * 缓存中写入JSONArray
      *
-     * @param key      保存的key
-     * @param value    保存的JSONArray数据
-     * @param saveTime 保存的时间，单位：秒
+     * @param key      键
+     * @param value    值
+     * @param saveTime 保存时长，单位：秒
      */
     public void put(String key, JSONArray value, int saveTime) {
         put(key, value.toString(), saveTime);
@@ -325,94 +315,68 @@ public class CacheUtils {
     public JSONArray getJSONArray(String key) {
         String JSONString = getString(key);
         try {
-            JSONArray obj = new JSONArray(JSONString);
-            return obj;
+            return new JSONArray(JSONString);
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
+        return null;
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // 序列化 数据 读写
+    // Serializable 读写
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * 保存 Serializable数据 到 缓存中
+     * 缓存中写入Serializable
      *
-     * @param key   保存的key
-     * @param value 保存的value
+     * @param key   键
+     * @param value 值
      */
     public void put(String key, Serializable value) {
         put(key, value, -1);
     }
 
     /**
-     * 保存 Serializable数据到 缓存中
+     * 缓存中写入Serializable
      *
-     * @param key      保存的key
-     * @param value    保存的value
-     * @param saveTime 保存的时间，单位：秒
+     * @param key      键
+     * @param value    值
+     * @param saveTime 保存时长，单位：秒
      */
     public void put(String key, Serializable value, int saveTime) {
-        ByteArrayOutputStream baos = null;
+        ByteArrayOutputStream baos;
         ObjectOutputStream oos = null;
         try {
-            baos = new ByteArrayOutputStream();
-            oos = new ObjectOutputStream(baos);
+            oos = new ObjectOutputStream(baos = new ByteArrayOutputStream());
             oos.writeObject(value);
             byte[] data = baos.toByteArray();
-            if (saveTime != -1) {
-                put(key, data, saveTime);
-            } else {
-                put(key, data);
-            }
+            put(key, data, saveTime);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try {
-                oos.close();
-            } catch (IOException e) {
-            }
+            CloseUtils.closeIO(oos);
         }
     }
 
     /**
-     * 读取 Serializable数据
+     * 缓存中读取Serializable
      *
-     * @param key
-     * @return Serializable 数据
+     * @param key 键
+     * @return Serializable
      */
-    public Object getAsObject(String key) {
-        byte[] data = getBytes(key);
-        if (data != null) {
-            ByteArrayInputStream bais = null;
-            ObjectInputStream ois = null;
-            try {
-                bais = new ByteArrayInputStream(data);
-                ois = new ObjectInputStream(bais);
-                Object reObject = ois.readObject();
-                return reObject;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            } finally {
-                try {
-                    if (bais != null)
-                        bais.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    if (ois != null)
-                        ois.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+    public Object getObject(String key) {
+        byte[] bytes = getBytes(key);
+        if (bytes == null) return null;
+        ObjectInputStream ois = null;
+        try {
+            ois = new ObjectInputStream(new ByteArrayInputStream(bytes));
+            return ois.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            CloseUtils.closeIO(ois);
         }
-        return null;
-
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -420,37 +384,36 @@ public class CacheUtils {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * 保存 bitmap 到 缓存中
+     * 缓存中写入bitmap
      *
-     * @param key   保存的key
-     * @param value 保存的bitmap数据
+     * @param key   键
+     * @param value 值
      */
     public void put(String key, Bitmap value) {
-        put(key, CacheHelper.Bitmap2Bytes(value));
+        put(key, value, -1);
     }
 
     /**
-     * 保存 bitmap 到 缓存中
+     * 缓存中写入bitmap
      *
-     * @param key      保存的key
-     * @param value    保存的 bitmap 数据
-     * @param saveTime 保存的时间，单位：秒
+     * @param key      键
+     * @param value    值
+     * @param saveTime 保存时长，单位：秒
      */
     public void put(String key, Bitmap value, int saveTime) {
-        put(key, CacheHelper.Bitmap2Bytes(value), saveTime);
+        put(key, CacheHelper.bitmap2Bytes(value), saveTime);
     }
 
     /**
-     * 读取 bitmap 数据
+     * 缓存中读取bitmap
      *
-     * @param key
-     * @return bitmap 数据
+     * @param key 键
+     * @return bitmap
      */
-    public Bitmap getAsBitmap(String key) {
-        if (getBytes(key) == null) {
-            return null;
-        }
-        return CacheHelper.Bytes2Bimap(getBytes(key));
+    public Bitmap getBitmap(String key) {
+        byte[] bytes = getBytes(key);
+        if (bytes == null) return null;
+        return CacheHelper.bytes2Bitmap(bytes);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -458,37 +421,36 @@ public class CacheUtils {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * 保存 drawable 到 缓存中
+     * 缓存中写入drawable
      *
-     * @param key   保存的key
-     * @param value 保存的drawable数据
+     * @param key   键
+     * @param value 值
      */
     public void put(String key, Drawable value) {
-        put(key, CacheHelper.drawable2Bitmap(value));
+        put(key, CacheHelper.drawable2Bytes(value));
     }
 
     /**
-     * 保存 drawable 到 缓存中
+     * 缓存中写入drawable
      *
-     * @param key      保存的key
-     * @param value    保存的 drawable 数据
-     * @param saveTime 保存的时间，单位：秒
+     * @param key      键
+     * @param value    值
+     * @param saveTime 保存时长，单位：秒
      */
     public void put(String key, Drawable value, int saveTime) {
-        put(key, CacheHelper.drawable2Bitmap(value), saveTime);
+        put(key, CacheHelper.drawable2Bytes(value), saveTime);
     }
 
     /**
-     * 读取 Drawable 数据
+     * 缓存中读取drawable
      *
-     * @param key
-     * @return Drawable 数据
+     * @param key 键
+     * @return bitmap
      */
-    public Drawable getAsDrawable(String key) {
-        if (getBytes(key) == null) {
-            return null;
-        }
-        return CacheHelper.bitmap2Drawable(CacheHelper.Bytes2Bimap(getBytes(key)));
+    public Drawable getDrawable(String key) {
+        byte[] bytes = getBytes(key);
+        if (bytes == null) return null;
+        return CacheHelper.bytes2Drawable(bytes);
     }
 
     /**
@@ -609,9 +571,7 @@ public class CacheUtils {
             cacheCount.set(0);
             File[] files = cacheDir.listFiles();
             if (files == null) return;
-            for (File f : files) {
-                f.delete();
-            }
+            for (File file : files) file.delete();
         }
 
         /**
@@ -728,61 +688,82 @@ public class CacheUtils {
         }
 
 
-        /*
-         * Bitmap → byte[]
+        /**
+         * bitmap转byteArr
+         *
+         * @param bitmap bitmap对象
+         * @return 字节数组
          */
-        private static byte[] Bitmap2Bytes(Bitmap bm) {
-            if (bm == null) {
-                return null;
-            }
+        private static byte[] bitmap2Bytes(Bitmap bitmap) {
+            if (bitmap == null) return null;
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
             return baos.toByteArray();
         }
 
-        /*
-         * byte[] → Bitmap
+        /**
+         * byteArr转bitmap
+         *
+         * @param bytes 字节数组
+         * @return bitmap
          */
-        private static Bitmap Bytes2Bimap(byte[] b) {
-            if (b.length == 0) {
-                return null;
-            }
-            return BitmapFactory.decodeByteArray(b, 0, b.length);
+        private static Bitmap bytes2Bitmap(byte[] bytes) {
+            return (bytes == null || bytes.length == 0) ? null : BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         }
 
-        /*
-         * Drawable → Bitmap
+        /**
+         * drawable转bitmap
+         *
+         * @param drawable drawable对象
+         * @return bitmap
          */
         private static Bitmap drawable2Bitmap(Drawable drawable) {
-            if (drawable == null) {
-                return null;
+            if (drawable instanceof BitmapDrawable) {
+                BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+                if (bitmapDrawable.getBitmap() != null) {
+                    return bitmapDrawable.getBitmap();
+                }
             }
-            // 取 drawable 的长宽
-            int w = drawable.getIntrinsicWidth();
-            int h = drawable.getIntrinsicHeight();
-            // 取 drawable 的颜色格式
-            Bitmap.Config config = drawable.getOpacity() != PixelFormat.OPAQUE
-                    ? Bitmap.Config.ARGB_8888
-                    : Bitmap.Config.RGB_565;
-            // 建立对应 bitmap
-            Bitmap bitmap = Bitmap.createBitmap(w, h, config);
-            // 建立对应 bitmap 的画布
+            Bitmap bitmap;
+            if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+                bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+            } else {
+                bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            }
             Canvas canvas = new Canvas(bitmap);
-            drawable.setBounds(0, 0, w, h);
-            // 把 drawable 内容画到画布中
+            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
             drawable.draw(canvas);
             return bitmap;
         }
 
-        /*
-         * Bitmap → Drawable
+        /**
+         * bitmap转drawable
+         *
+         * @param bitmap bitmap对象
+         * @return drawable
          */
-        @SuppressWarnings("deprecation")
-        private static Drawable bitmap2Drawable(Bitmap bm) {
-            if (bm == null) {
-                return null;
-            }
-            return new BitmapDrawable(bm);
+        private static Drawable bitmap2Drawable(Bitmap bitmap) {
+            return bitmap == null ? null : new BitmapDrawable(Utils.getContext().getResources(), bitmap);
+        }
+
+        /**
+         * drawable转byteArr
+         *
+         * @param drawable drawable对象
+         * @return 字节数组
+         */
+        private static byte[] drawable2Bytes(Drawable drawable) {
+            return drawable == null ? null : bitmap2Bytes(drawable2Bitmap(drawable));
+        }
+
+        /**
+         * byteArr转drawable
+         *
+         * @param bytes 字节数组
+         * @return drawable
+         */
+        private static Drawable bytes2Drawable(byte[] bytes) {
+            return bytes == null ? null : bitmap2Drawable(bytes2Bitmap(bytes));
         }
     }
 }
