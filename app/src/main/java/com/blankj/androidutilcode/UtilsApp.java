@@ -2,6 +2,7 @@ package com.blankj.androidutilcode;
 
 import com.blankj.androidutilcode.base.BaseApplication;
 import com.blankj.utilcode.util.CrashUtils;
+import com.blankj.utilcode.util.FileIOUtils;
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.Utils;
@@ -58,7 +59,7 @@ public class UtilsApp extends BaseApplication {
     private void initAssets() {
         if (!FileUtils.isFileExists(Config.getTestApkPath())) {
             try {
-                FileUtils.writeFileFromIS(Config.getTestApkPath(), getAssets().open("test_install.apk"), false);
+                FileIOUtils.writeFileFromIS(Config.getTestApkPath(), getAssets().open("test_install.apk"), false);
             } catch (IOException e) {
                 e.printStackTrace();
             }
