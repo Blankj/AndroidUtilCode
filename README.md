@@ -56,8 +56,17 @@ hideNotificationBar
 ```
 getInstance
 put
+getBytes
 getString
 getJSONObject
+getJSONArray
+getBitmap
+getDrawable
+getParcelable
+getOSerializable
+getCacheFile
+remove
+clear
 ```
 
 * ### About Clean→[CleanUtils.java][clean.java]→[Demo][clean.demo]
@@ -518,7 +527,7 @@ Builder.create
 
 * ### About SP→[SPUtils.java][sp.java]→[Test][sp.test]
 ```
-SPUtils
+getInstance
 put
 getString
 getInt
@@ -638,7 +647,7 @@ getEntries
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.5.1'
+compile 'com.blankj:utilcode:1.6.0'
 ```
 
 
@@ -660,7 +669,7 @@ Utils.init(context);
 
 
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.5.1-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.6.0-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-15+-brightgreen.svg

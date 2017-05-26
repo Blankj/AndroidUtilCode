@@ -2,8 +2,10 @@ package com.blankj.utilcode.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,19 +19,36 @@ import java.util.Set;
  */
 public class SPUtils {
 
-    private SharedPreferences        sp;
-    private SharedPreferences.Editor editor;
+    private static Map<String, SPUtils> sSPMap = new HashMap<>();
+    private SharedPreferences sp;
 
     /**
-     * SPUtils构造函数
-     * <p>在Application中初始化</p>
+     * 获取SP实例
      *
-     * @param spName spName
+     * @return {@link SPUtils}
      */
-    public SPUtils(String spName) {
+    public static SPUtils getInstance() {
+        return getInstance("");
+    }
+
+    /**
+     * 获取SP实例
+     *
+     * @param spName sp名
+     * @return {@link SPUtils}
+     */
+    public static SPUtils getInstance(String spName) {
+        if (isSpace(spName)) spName = "spUtils";
+        SPUtils sp = sSPMap.get(spName);
+        if (sp == null) {
+            sp = new SPUtils(spName);
+            sSPMap.put(spName, sp);
+        }
+        return sp;
+    }
+
+    private SPUtils(String spName) {
         sp = Utils.getContext().getSharedPreferences(spName, Context.MODE_PRIVATE);
-        editor = sp.edit();
-        editor.apply();
     }
 
     /**
@@ -38,8 +57,8 @@ public class SPUtils {
      * @param key   键
      * @param value 值
      */
-    public void put(String key, @Nullable String value) {
-        editor.putString(key, value).apply();
+    public void put(@NonNull String key, @NonNull String value) {
+        sp.edit().putString(key, value).apply();
     }
 
     /**
@@ -48,8 +67,8 @@ public class SPUtils {
      * @param key 键
      * @return 存在返回对应值，不存在返回默认值{@code null}
      */
-    public String getString(String key) {
-        return getString(key, null);
+    public String getString(@NonNull String key) {
+        return getString(key, "");
     }
 
     /**
@@ -59,7 +78,7 @@ public class SPUtils {
      * @param defaultValue 默认值
      * @return 存在返回对应值，不存在返回默认值{@code defaultValue}
      */
-    public String getString(String key, String defaultValue) {
+    public String getString(@NonNull String key, @NonNull String defaultValue) {
         return sp.getString(key, defaultValue);
     }
 
@@ -69,8 +88,8 @@ public class SPUtils {
      * @param key   键
      * @param value 值
      */
-    public void put(String key, int value) {
-        editor.putInt(key, value).apply();
+    public void put(@NonNull String key, int value) {
+        sp.edit().putInt(key, value).apply();
     }
 
     /**
@@ -79,7 +98,7 @@ public class SPUtils {
      * @param key 键
      * @return 存在返回对应值，不存在返回默认值-1
      */
-    public int getInt(String key) {
+    public int getInt(@NonNull String key) {
         return getInt(key, -1);
     }
 
@@ -90,7 +109,7 @@ public class SPUtils {
      * @param defaultValue 默认值
      * @return 存在返回对应值，不存在返回默认值{@code defaultValue}
      */
-    public int getInt(String key, int defaultValue) {
+    public int getInt(@NonNull String key, int defaultValue) {
         return sp.getInt(key, defaultValue);
     }
 
@@ -100,8 +119,8 @@ public class SPUtils {
      * @param key   键
      * @param value 值
      */
-    public void put(String key, long value) {
-        editor.putLong(key, value).apply();
+    public void put(@NonNull String key, long value) {
+        sp.edit().putLong(key, value).apply();
     }
 
     /**
@@ -110,7 +129,7 @@ public class SPUtils {
      * @param key 键
      * @return 存在返回对应值，不存在返回默认值-1
      */
-    public long getLong(String key) {
+    public long getLong(@NonNull String key) {
         return getLong(key, -1L);
     }
 
@@ -121,7 +140,7 @@ public class SPUtils {
      * @param defaultValue 默认值
      * @return 存在返回对应值，不存在返回默认值{@code defaultValue}
      */
-    public long getLong(String key, long defaultValue) {
+    public long getLong(@NonNull String key, long defaultValue) {
         return sp.getLong(key, defaultValue);
     }
 
@@ -131,8 +150,8 @@ public class SPUtils {
      * @param key   键
      * @param value 值
      */
-    public void put(String key, float value) {
-        editor.putFloat(key, value).apply();
+    public void put(@NonNull String key, float value) {
+        sp.edit().putFloat(key, value).apply();
     }
 
     /**
@@ -141,7 +160,7 @@ public class SPUtils {
      * @param key 键
      * @return 存在返回对应值，不存在返回默认值-1
      */
-    public float getFloat(String key) {
+    public float getFloat(@NonNull String key) {
         return getFloat(key, -1f);
     }
 
@@ -152,7 +171,7 @@ public class SPUtils {
      * @param defaultValue 默认值
      * @return 存在返回对应值，不存在返回默认值{@code defaultValue}
      */
-    public float getFloat(String key, float defaultValue) {
+    public float getFloat(@NonNull String key, float defaultValue) {
         return sp.getFloat(key, defaultValue);
     }
 
@@ -162,8 +181,8 @@ public class SPUtils {
      * @param key   键
      * @param value 值
      */
-    public void put(String key, boolean value) {
-        editor.putBoolean(key, value).apply();
+    public void put(@NonNull String key, boolean value) {
+        sp.edit().putBoolean(key, value).apply();
     }
 
     /**
@@ -172,7 +191,7 @@ public class SPUtils {
      * @param key 键
      * @return 存在返回对应值，不存在返回默认值{@code false}
      */
-    public boolean getBoolean(String key) {
+    public boolean getBoolean(@NonNull String key) {
         return getBoolean(key, false);
     }
 
@@ -183,7 +202,7 @@ public class SPUtils {
      * @param defaultValue 默认值
      * @return 存在返回对应值，不存在返回默认值{@code defaultValue}
      */
-    public boolean getBoolean(String key, boolean defaultValue) {
+    public boolean getBoolean(@NonNull String key, boolean defaultValue) {
         return sp.getBoolean(key, defaultValue);
     }
 
@@ -193,8 +212,8 @@ public class SPUtils {
      * @param key    键
      * @param values 值
      */
-    public void put(String key, @Nullable Set<String> values) {
-        editor.putStringSet(key, values).apply();
+    public void put(@NonNull String key, @NonNull Set<String> values) {
+        sp.edit().putStringSet(key, values).apply();
     }
 
     /**
@@ -203,8 +222,8 @@ public class SPUtils {
      * @param key 键
      * @return 存在返回对应值，不存在返回默认值{@code null}
      */
-    public Set<String> getStringSet(String key) {
-        return getStringSet(key, null);
+    public Set<String> getStringSet(@NonNull String key) {
+        return getStringSet(key, Collections.<String>emptySet());
     }
 
     /**
@@ -214,7 +233,7 @@ public class SPUtils {
      * @param defaultValue 默认值
      * @return 存在返回对应值，不存在返回默认值{@code defaultValue}
      */
-    public Set<String> getStringSet(String key, @Nullable Set<String> defaultValue) {
+    public Set<String> getStringSet(@NonNull String key, @NonNull Set<String> defaultValue) {
         return sp.getStringSet(key, defaultValue);
     }
 
@@ -232,8 +251,8 @@ public class SPUtils {
      *
      * @param key 键
      */
-    public void remove(String key) {
-        editor.remove(key).apply();
+    public void remove(@NonNull String key) {
+        sp.edit().remove(key).apply();
     }
 
     /**
@@ -242,7 +261,7 @@ public class SPUtils {
      * @param key 键
      * @return {@code true}: 存在<br>{@code false}: 不存在
      */
-    public boolean contains(String key) {
+    public boolean contains(@NonNull String key) {
         return sp.contains(key);
     }
 
@@ -250,6 +269,16 @@ public class SPUtils {
      * SP中清除所有数据
      */
     public void clear() {
-        editor.clear().apply();
+        sp.edit().clear().apply();
+    }
+
+    private static boolean isSpace(String s) {
+        if (s == null) return true;
+        for (int i = 0, len = s.length(); i < len; ++i) {
+            if (!Character.isWhitespace(s.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 }

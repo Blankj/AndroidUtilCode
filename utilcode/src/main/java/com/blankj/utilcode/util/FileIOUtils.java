@@ -203,10 +203,9 @@ public final class FileIOUtils {
      */
     public static boolean writeFileFromBytesByChannel(File file, final byte[] bytes, boolean append, boolean isForce) {
         if (bytes == null) return false;
-        if (!append && !FileUtils.createFileByDeleteOldFile(file)) return false;
         FileChannel fc = null;
         try {
-            fc = new RandomAccessFile(file, "rw").getChannel();
+            fc = new FileOutputStream(file, append).getChannel();
             fc.position(fc.size());
             fc.write(ByteBuffer.wrap(bytes));
             if (isForce) fc.force(true);
@@ -267,10 +266,9 @@ public final class FileIOUtils {
      */
     public static boolean writeFileFromBytesByMap(File file, final byte[] bytes, boolean append, boolean isForce) {
         if (bytes == null || !FileUtils.createOrExistsFile(file)) return false;
-        if (!append && !FileUtils.createFileByDeleteOldFile(file)) return false;
         FileChannel fc = null;
         try {
-            fc = new RandomAccessFile(file, "rw").getChannel();
+            fc = new FileOutputStream(file, append).getChannel();
             MappedByteBuffer mbb = fc.map(FileChannel.MapMode.READ_WRITE, fc.size(), bytes.length);
             mbb.put(bytes);
             if (isForce) mbb.force();

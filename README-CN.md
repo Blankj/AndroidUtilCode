@@ -54,10 +54,19 @@ hideNotificationBar    : 隐藏通知栏
 
 * ### 缓存相关→[CacheUtils.java][cache.java]→[Test][cache.test]
 ```
-getInstance  : 获取缓存实例
-put          : 缓存中写入数据
-getString    : 缓存中读取String
-getJSONObject: 缓存中读取JSONObject
+getInstance     : 获取缓存实例
+put             : 缓存中写入数据
+getBytes        : 缓存中读取字节数组
+getString       : 缓存中读取String
+getJSONObject   : 缓存中读取JSONObject
+getJSONArray    : 缓存中读取JSONArray
+getBitmap       : 缓存中读取bitmap
+getDrawable     : 缓存中读取drawable
+getParcelable   : 缓存中读取Parcelable
+getOSerializable: 缓存中读取Serializable
+getCacheFile    : 获取缓存文件
+remove          : 移除某个key
+clear           : 清除所有缓存
 ```
 
 * ### 清除相关→[CleanUtils.java][clean.java]→[Demo][clean.demo]
@@ -518,17 +527,17 @@ Builder.create            : 创建样式字符串
 
 * ### SP相关→[SPUtils.java][sp.java]→[Test][sp.test]
 ```
-SPUtils   : SPUtils构造函数
-put       : SP中写入数据
-getString : SP中读取String
-getInt    : SP中读取int
-getLong   : SP中读取long
-getFloat  : SP中读取float
-getBoolean: SP中读取boolean
-getAll    : SP中获取所有键值对
-remove    : SP中移除该key
-contains  : SP中是否存在该key
-clear     : SP中清除所有数据
+getInstance: 获取SP实例
+put        : SP中写入数据
+getString  : SP中读取String
+getInt     : SP中读取int
+getLong    : SP中读取long
+getFloat   : SP中读取float
+getBoolean : SP中读取boolean
+getAll     : SP中获取所有键值对
+remove     : SP中移除该key
+contains   : SP中是否存在该key
+clear      : SP中清除所有数据
 ```
 
 * ### 字符串相关→[StringUtils.java][string.java]→[Test][string.test]
@@ -638,7 +647,7 @@ getEntries        : 获取压缩文件中的文件对象
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.5.1'
+compile 'com.blankj:utilcode:1.6.0'
 ```
 
 
@@ -660,7 +669,7 @@ Utils.init(context);
 
 
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.5.1-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.6.0-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-15+-brightgreen.svg
