@@ -49,11 +49,11 @@ public class SPUtilsTest {
     public void getString() throws Exception {
         Assert.assertEquals("stringVal1", spUtils1.getString("stringKey1"));
         Assert.assertEquals("stringVal", spUtils1.getString("stringKey", "stringVal"));
-        Assert.assertNull(spUtils1.getString("stringKey"));
+        Assert.assertEquals("", spUtils1.getString("stringKey"));
 
         Assert.assertEquals("stringVal2", spUtils2.getString("stringKey2"));
         Assert.assertEquals("stringVal", spUtils2.getString("stringKey", "stringVal"));
-        Assert.assertNull(spUtils2.getString("stringKey"));
+        Assert.assertEquals("", spUtils2.getString("stringKey"));
     }
 
     @Test
@@ -122,11 +122,11 @@ public class SPUtilsTest {
     public void testRemove() throws Exception {
         Assert.assertEquals("stringVal1", spUtils1.getString("stringKey1"));
         spUtils1.remove("stringKey1");
-        Assert.assertNull(spUtils1.getString("stringKey1"));
+        Assert.assertEquals("", spUtils1.getString("stringKey1"));
 
         Assert.assertEquals("stringVal2", spUtils2.getString("stringKey2"));
         spUtils2.remove("stringKey2");
-        Assert.assertNull(spUtils2.getString("stringKey2"));
+        Assert.assertEquals("", spUtils2.getString("stringKey2"));
     }
 
     @Test
@@ -141,14 +141,14 @@ public class SPUtilsTest {
     @Test
     public void clear() throws Exception {
         spUtils1.clear();
-        Assert.assertNull(spUtils1.getString("stringKey1"));
+        Assert.assertEquals("", spUtils1.getString("stringKey1"));
         Assert.assertEquals(-1, spUtils1.getInt("intKey1"));
         Assert.assertEquals(-1L, spUtils1.getLong("longKey1"));
         Assert.assertEquals(-1f, spUtils1.getFloat("floatKey1"), 0f);
         Assert.assertFalse(spUtils1.getBoolean("booleanKey1"));
 
         spUtils2.clear();
-        Assert.assertNull(spUtils2.getString("stringKey2"));
+        Assert.assertEquals("", spUtils2.getString("stringKey2"));
         Assert.assertEquals(-1, spUtils2.getInt("intKey2"));
         Assert.assertEquals(-1L, spUtils2.getLong("longKey1"));
         Assert.assertEquals(-1f, spUtils2.getFloat("floatKey1"), 0f);
