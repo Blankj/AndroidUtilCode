@@ -63,7 +63,7 @@ getJSONArray    : 缓存中读取JSONArray
 getBitmap       : 缓存中读取bitmap
 getDrawable     : 缓存中读取drawable
 getParcelable   : 缓存中读取Parcelable
-getOSerializable: 缓存中读取Serializable
+getSerializable: 缓存中读取Serializable
 getCacheFile    : 获取缓存文件
 remove          : 移除某个key
 clear           : 清除所有缓存

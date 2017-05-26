@@ -436,7 +436,7 @@ public class CacheUtils {
      * @param key 键
      * @return Serializable
      */
-    public Object getOSerializable(@NonNull String key) {
+    public Object getSerializable(@NonNull String key) {
         return CacheHelper.bytes2Object(getBytes(key));
     }
 

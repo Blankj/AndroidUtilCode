@@ -63,7 +63,7 @@ getJSONArray
 getBitmap
 getDrawable
 getParcelable
-getOSerializable
+getSerializable
 getCacheFile
 remove
 clear

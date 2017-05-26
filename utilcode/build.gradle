@@ -26,8 +26,8 @@ android {
 
     defaultConfig {
         minSdkVersion 15
-        versionCode 32
-        versionName "1.6.0"
+        versionCode 33
+        versionName "1.6.1"
     }
 
     buildTypes {
