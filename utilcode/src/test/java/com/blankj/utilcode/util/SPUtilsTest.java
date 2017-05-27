@@ -1,5 +1,6 @@
 package com.blankj.utilcode.util;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,9 +25,12 @@ public class SPUtilsTest {
     private SPUtils spUtils1;
     private SPUtils spUtils2;
 
+    static {
+        TestUtils.init();
+    }
+
     @Before
     public void setUp() throws Exception {
-        TestUtils.init();
         if (spUtils1 == null) {
             spUtils1 = SPUtils.getInstance("test1");
             spUtils1.put("stringKey1", "stringVal1");
@@ -153,5 +157,11 @@ public class SPUtilsTest {
         Assert.assertEquals(-1L, spUtils2.getLong("longKey1"));
         Assert.assertEquals(-1f, spUtils2.getFloat("floatKey1"), 0f);
         Assert.assertFalse(spUtils2.getBoolean("booleanKey1"));
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        spUtils1.clear();
+        spUtils2.clear();
     }
 }

@@ -43,8 +43,8 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class CacheUtils {
 
-    private static final int DEFAULT_MAX_SIZE  = 104857600; // 100Mb
-    private static final int DEFAULT_MAX_COUNT = Integer.MAX_VALUE;
+    private static final long DEFAULT_MAX_SIZE  = Long.MAX_VALUE;
+    private static final int  DEFAULT_MAX_COUNT = Integer.MAX_VALUE;
 
     private static Map<String, CacheUtils> sCacheMap = new HashMap<>();
     private CacheManager mCacheManager;
@@ -164,8 +164,9 @@ public class CacheUtils {
     public void put(@NonNull String key, @NonNull byte[] value, int saveTime) {
         if (value.length <= 0) return;
         if (saveTime >= 0) value = CacheHelper.newByteArrayWithTime(saveTime, value);
-        File file = mCacheManager.getFileByKey(key);
+        File file = mCacheManager.getFileBeforePut(key);
         CacheHelper.writeFileFromBytes(file, value);
+        mCacheManager.updateModify(file);
         mCacheManager.put(file);
 
     }
@@ -441,13 +442,22 @@ public class CacheUtils {
     }
 
     /**
-     * 获取缓存文件
+     * 获取缓存大小
+     * <p>单位：字节</p>
      *
-     * @param key 键
-     * @return 缓存文件
+     * @return 缓存大小
      */
-    public File getCacheFile(@NonNull String key) {
-        return mCacheManager.getFileIfExists(key);
+    public long getCacheSize() {
+        return mCacheManager.getCacheSize();
+    }
+
+    /**
+     * 获取缓存个数
+     *
+     * @return 缓存个数
+     */
+    public int getCacheCount() {
+        return mCacheManager.getCacheCount();
     }
 
     /**
@@ -466,7 +476,6 @@ public class CacheUtils {
     public void clear() {
         mCacheManager.clear();
     }
-
 
     private class CacheManager {
         private final AtomicLong    cacheSize;
@@ -508,8 +517,21 @@ public class CacheUtils {
             }).start();
         }
 
-        private File getFileByKey(String key) {
-            return new File(cacheDir, String.valueOf(key.hashCode()));
+        private long getCacheSize() {
+            return cacheSize.get();
+        }
+
+        private int getCacheCount() {
+            return cacheCount.get();
+        }
+
+        private File getFileBeforePut(String key) {
+            File file = new File(cacheDir, String.valueOf(key.hashCode()));
+            if (file.exists()) {
+                cacheCount.addAndGet(-1);
+                cacheSize.addAndGet(-file.length());
+            }
+            return file;
         }
 
         private File getFileIfExists(String key) {
@@ -525,7 +547,6 @@ public class CacheUtils {
                 cacheSize.addAndGet(-removeOldest());
                 cacheCount.addAndGet(-1);
             }
-            updateModify(file);
         }
 
         private void updateModify(File file) {
@@ -547,15 +568,21 @@ public class CacheUtils {
         private void clear() {
             File[] files = cacheDir.listFiles();
             if (files == null) return;
+            boolean flag = true;
             for (File file : files) {
-                if (!file.delete()) continue;
-                cacheSize.addAndGet(file.length());
+                if (!file.delete()) {
+                    flag = false;
+                    continue;
+                }
+                cacheSize.addAndGet(-file.length());
                 cacheCount.addAndGet(-1);
                 lastUsageDates.remove(file);
             }
-            lastUsageDates.clear();
-            cacheSize.set(0);
-            cacheCount.set(0);
+            if (flag) {
+                lastUsageDates.clear();
+                cacheSize.set(0);
+                cacheCount.set(0);
+            }
         }
 
         /**
