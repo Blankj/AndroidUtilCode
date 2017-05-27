@@ -37,7 +37,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2017/04/30
+ *     time  : 2017/05/24
  *     desc  : 缓存相关工具类
  * </pre>
  */
@@ -494,24 +494,21 @@ public class CacheUtils {
             calculateCacheSizeAndCacheCount();
         }
 
-        /**
-         * 计算 cacheSize和cacheCount
-         */
         private void calculateCacheSizeAndCacheCount() {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     int size = 0;
                     int count = 0;
-                    File[] cachedFiles = cacheDir.listFiles();
+                    final File[] cachedFiles = cacheDir.listFiles();
                     if (cachedFiles != null) {
                         for (File cachedFile : cachedFiles) {
                             size += cachedFile.length();
                             count += 1;
                             lastUsageDates.put(cachedFile, cachedFile.lastModified());
                         }
-                        cacheSize.set(size);
-                        cacheCount.set(count);
+                        cacheSize.getAndAdd(size);
+                        cacheCount.getAndAdd(count);
                     }
                 }
             }).start();

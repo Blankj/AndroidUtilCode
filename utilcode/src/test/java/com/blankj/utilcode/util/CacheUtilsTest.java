@@ -157,9 +157,9 @@ public class CacheUtilsTest {
 
     @Test
     public void getCacheSize() throws Exception {
-        System.out.println(mCacheUtils1.getCacheSize());
+        Assert.assertEquals(FileUtils.getDirLength(file1), mCacheUtils1.getCacheSize());
 
-        System.out.println(mCacheUtils2.getCacheSize());
+        Assert.assertEquals(FileUtils.getDirLength(file2), mCacheUtils2.getCacheSize());
     }
 
     @Test
