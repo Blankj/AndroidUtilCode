@@ -2,10 +2,13 @@ package com.blankj.utilcode.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import java.util.Map;
 import java.util.Set;
+
 
 /**
  * <pre>
@@ -15,22 +18,34 @@ import java.util.Set;
  *     desc  : SP相关工具类
  * </pre>
  */
-public class SPUtils {
-
-    private SharedPreferences        sp;
-    private SharedPreferences.Editor editor;
+public final class SPUtils {
+    private static final String DEFAULT="DEFAULT_SP";
+    private static SharedPreferences sp;
 
     /**
      * SPUtils构造函数
      * <p>在Application中初始化</p>
      *
-     * @param spName spName
      */
-    public SPUtils(String spName) {
-        sp = Utils.getContext().getSharedPreferences(spName, Context.MODE_PRIVATE);
-        editor = sp.edit();
-        editor.apply();
+    private SPUtils() {
+
     }
+
+    public static void init(@NonNull Context context) {
+        init(context,context.getPackageName());
+    }
+
+    public static void init(@NonNull Context context, String preferenceName) {
+        if (context==null){
+            throw new NullPointerException("context can't be null");
+        }
+
+        if (null == sp) {
+            sp = context.getSharedPreferences(TextUtils.isEmpty(preferenceName) ? DEFAULT : preferenceName, Context.MODE_PRIVATE);
+        }
+    }
+
+
 
     /**
      * SP中写入String类型value
@@ -38,8 +53,12 @@ public class SPUtils {
      * @param key   键
      * @param value 值
      */
-    public void put(String key, @Nullable String value) {
-        editor.putString(key, value).apply();
+    public static void save(String key, @Nullable String value) {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
+        sp.edit().putString(key, value).apply();
     }
 
     /**
@@ -48,7 +67,11 @@ public class SPUtils {
      * @param key 键
      * @return 存在返回对应值，不存在返回默认值{@code null}
      */
-    public String getString(String key) {
+    public static String getString(String key) {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
         return getString(key, null);
     }
 
@@ -59,7 +82,11 @@ public class SPUtils {
      * @param defaultValue 默认值
      * @return 存在返回对应值，不存在返回默认值{@code defaultValue}
      */
-    public String getString(String key, String defaultValue) {
+    public static String getString(String key, String defaultValue) {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
         return sp.getString(key, defaultValue);
     }
 
@@ -69,8 +96,12 @@ public class SPUtils {
      * @param key   键
      * @param value 值
      */
-    public void put(String key, int value) {
-        editor.putInt(key, value).apply();
+    public static void save(String key, int value) {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
+         sp.edit().putInt(key, value).apply();
     }
 
     /**
@@ -79,7 +110,11 @@ public class SPUtils {
      * @param key 键
      * @return 存在返回对应值，不存在返回默认值-1
      */
-    public int getInt(String key) {
+    public static int getInt(String key) {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
         return getInt(key, -1);
     }
 
@@ -90,7 +125,11 @@ public class SPUtils {
      * @param defaultValue 默认值
      * @return 存在返回对应值，不存在返回默认值{@code defaultValue}
      */
-    public int getInt(String key, int defaultValue) {
+    public static int getInt(String key, int defaultValue) {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
         return sp.getInt(key, defaultValue);
     }
 
@@ -100,8 +139,12 @@ public class SPUtils {
      * @param key   键
      * @param value 值
      */
-    public void put(String key, long value) {
-        editor.putLong(key, value).apply();
+    public static void save(String key, long value) {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
+         sp.edit().putLong(key, value).apply();
     }
 
     /**
@@ -110,7 +153,11 @@ public class SPUtils {
      * @param key 键
      * @return 存在返回对应值，不存在返回默认值-1
      */
-    public long getLong(String key) {
+    public static long getLong(String key) {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
         return getLong(key, -1L);
     }
 
@@ -121,7 +168,11 @@ public class SPUtils {
      * @param defaultValue 默认值
      * @return 存在返回对应值，不存在返回默认值{@code defaultValue}
      */
-    public long getLong(String key, long defaultValue) {
+    public static long getLong(String key, long defaultValue) {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
         return sp.getLong(key, defaultValue);
     }
 
@@ -131,8 +182,12 @@ public class SPUtils {
      * @param key   键
      * @param value 值
      */
-    public void put(String key, float value) {
-        editor.putFloat(key, value).apply();
+    public static void save(String key, float value) {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
+         sp.edit().putFloat(key, value).apply();
     }
 
     /**
@@ -141,7 +196,11 @@ public class SPUtils {
      * @param key 键
      * @return 存在返回对应值，不存在返回默认值-1
      */
-    public float getFloat(String key) {
+    public static float getFloat(String key) {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
         return getFloat(key, -1f);
     }
 
@@ -152,7 +211,11 @@ public class SPUtils {
      * @param defaultValue 默认值
      * @return 存在返回对应值，不存在返回默认值{@code defaultValue}
      */
-    public float getFloat(String key, float defaultValue) {
+    public static float getFloat(String key, float defaultValue) {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
         return sp.getFloat(key, defaultValue);
     }
 
@@ -162,8 +225,12 @@ public class SPUtils {
      * @param key   键
      * @param value 值
      */
-    public void put(String key, boolean value) {
-        editor.putBoolean(key, value).apply();
+    public static void save(String key, boolean value) {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
+         sp.edit().putBoolean(key, value).apply();
     }
 
     /**
@@ -172,7 +239,11 @@ public class SPUtils {
      * @param key 键
      * @return 存在返回对应值，不存在返回默认值{@code false}
      */
-    public boolean getBoolean(String key) {
+    public static boolean getBoolean(String key) {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
         return getBoolean(key, false);
     }
 
@@ -183,7 +254,11 @@ public class SPUtils {
      * @param defaultValue 默认值
      * @return 存在返回对应值，不存在返回默认值{@code defaultValue}
      */
-    public boolean getBoolean(String key, boolean defaultValue) {
+    public static boolean getBoolean(String key, boolean defaultValue) {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
         return sp.getBoolean(key, defaultValue);
     }
 
@@ -193,8 +268,12 @@ public class SPUtils {
      * @param key    键
      * @param values 值
      */
-    public void put(String key, @Nullable Set<String> values) {
-        editor.putStringSet(key, values).apply();
+    public static void save(String key, @Nullable Set<String> values) {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
+         sp.edit().putStringSet(key, values).apply();
     }
 
     /**
@@ -203,7 +282,11 @@ public class SPUtils {
      * @param key 键
      * @return 存在返回对应值，不存在返回默认值{@code null}
      */
-    public Set<String> getStringSet(String key) {
+    public static Set<String> getStringSet(String key) {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
         return getStringSet(key, null);
     }
 
@@ -214,7 +297,11 @@ public class SPUtils {
      * @param defaultValue 默认值
      * @return 存在返回对应值，不存在返回默认值{@code defaultValue}
      */
-    public Set<String> getStringSet(String key, @Nullable Set<String> defaultValue) {
+    public static Set<String> getStringSet(String key, @Nullable Set<String> defaultValue) {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
         return sp.getStringSet(key, defaultValue);
     }
 
@@ -223,7 +310,11 @@ public class SPUtils {
      *
      * @return Map对象
      */
-    public Map<String, ?> getAll() {
+    public static Map<String, ?> getAll() {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
         return sp.getAll();
     }
 
@@ -232,8 +323,12 @@ public class SPUtils {
      *
      * @param key 键
      */
-    public void remove(String key) {
-        editor.remove(key).apply();
+    public static void remove(String key) {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
+         sp.edit().remove(key).apply();
     }
 
     /**
@@ -242,14 +337,22 @@ public class SPUtils {
      * @param key 键
      * @return {@code true}: 存在<br>{@code false}: 不存在
      */
-    public boolean contains(String key) {
+    public static boolean contains(String key) {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
         return sp.contains(key);
     }
 
     /**
      * SP中清除所有数据
      */
-    public void clear() {
-        editor.clear().apply();
+    public static void clear() {
+        if (sp==null){
+            throw new IllegalStateException("SPUtils not initialized");
+        }
+        
+         sp.edit().clear().apply();
     }
 }
