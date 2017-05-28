@@ -1,31 +1,33 @@
 package com.blankj.utilcode.util;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.os.Process;
+import android.support.annotation.NonNull;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
+import java.nio.ByteBuffer;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -35,423 +37,300 @@ import java.util.concurrent.atomic.AtomicLong;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2017/04/30
+ *     time  : 2017/05/24
  *     desc  : 缓存相关工具类
  * </pre>
  */
 public class CacheUtils {
 
-    public static final int TIME_HOUR = 60 * 60;
-    public static final int TIME_DAY = TIME_HOUR * 24;
-    private static final int MAX_SIZE = 1000 * 1000 * 50; // 50 mb
-    private static final int MAX_COUNT = Integer.MAX_VALUE; // 不限制存放数据的数量
-    private static Map<String, CacheUtils> mInstanceMap = new HashMap<>();
+    private static final long DEFAULT_MAX_SIZE  = Long.MAX_VALUE;
+    private static final int  DEFAULT_MAX_COUNT = Integer.MAX_VALUE;
+
+    private static Map<String, CacheUtils> sCacheMap = new HashMap<>();
     private CacheManager mCacheManager;
 
-    public static CacheUtils get(Context ctx) {
-        return get(ctx, "CacheUtils");
+    /**
+     * 获取缓存实例
+     * <p>在/data/data/com.xxx.xxx/cache/cacheUtils目录</p>
+     * <p>最大缓存100M</p>
+     * <p>缓存个数不限</p>
+     *
+     * @return {@link CacheUtils}
+     */
+    public static CacheUtils getInstance() {
+        return getInstance("", DEFAULT_MAX_SIZE, DEFAULT_MAX_COUNT);
     }
 
-    public static CacheUtils get(Context ctx, String cacheName) {
-        File f = new File(ctx.getCacheDir(), cacheName);
-        return get(f, MAX_SIZE, MAX_COUNT);
+    /**
+     * 获取缓存实例
+     * <p>在/data/data/com.xxx.xxx/cache/cacheName目录</p>
+     * <p>最大缓存100M</p>
+     * <p>缓存个数不限</p>
+     *
+     * @param cacheName 缓存目录名
+     * @return {@link CacheUtils}
+     */
+    public static CacheUtils getInstance(String cacheName) {
+        return getInstance(cacheName, DEFAULT_MAX_SIZE, DEFAULT_MAX_COUNT);
     }
 
-    public static CacheUtils get(File cacheDir) {
-        return get(cacheDir, MAX_SIZE, MAX_COUNT);
+    /**
+     * 获取缓存实例
+     * <p>在/data/data/com.xxx.xxx/cache/cacheUtils目录</p>
+     *
+     * @param maxSize  缓存大小，单位字节
+     * @param maxCount 缓存个数
+     * @return {@link CacheUtils}
+     */
+    public static CacheUtils getInstance(long maxSize, int maxCount) {
+        return getInstance("", maxSize, maxCount);
     }
 
-    public static CacheUtils get(Context ctx, long max_zise, int max_count) {
-        File f = new File(ctx.getCacheDir(), "CacheUtils");
-        return get(f, max_zise, max_count);
+    /**
+     * 获取缓存实例
+     * <p>在/data/data/com.xxx.xxx/cache/cacheName目录</p>
+     *
+     * @param cacheName 缓存目录名
+     * @param maxSize   缓存大小，单位字节
+     * @param maxCount  缓存个数
+     * @return {@link CacheUtils}
+     */
+    public static CacheUtils getInstance(String cacheName, long maxSize, int maxCount) {
+        if (isSpace(cacheName)) cacheName = "cacheUtils";
+        File file = new File(Utils.getContext().getCacheDir(), cacheName);
+        return getInstance(file, maxSize, maxCount);
     }
 
-    public static CacheUtils get(File cacheDir, long max_zise, int max_count) {
-        CacheUtils manager = mInstanceMap.get(cacheDir.getAbsoluteFile() + myPid());
-        if (manager == null) {
-            manager = new CacheUtils(cacheDir, max_zise, max_count);
-            mInstanceMap.put(cacheDir.getAbsolutePath() + myPid(), manager);
+    /**
+     * 获取缓存实例
+     * <p>在cacheDir目录</p>
+     * <p>最大缓存100M</p>
+     * <p>缓存个数不限</p>
+     *
+     * @param cacheDir 缓存目录
+     * @return {@link CacheUtils}
+     */
+    public static CacheUtils getInstance(@NonNull File cacheDir) {
+        return getInstance(cacheDir, DEFAULT_MAX_SIZE, DEFAULT_MAX_COUNT);
+    }
+
+    /**
+     * 获取缓存实例
+     * <p>在cacheDir目录</p>
+     *
+     * @param cacheDir 缓存目录
+     * @param maxSize  缓存大小，单位字节
+     * @param maxCount 缓存个数
+     * @return {@link CacheUtils}
+     */
+    public static CacheUtils getInstance(@NonNull File cacheDir, long maxSize, int maxCount) {
+        final String cacheKey = cacheDir.getAbsoluteFile() + "_" + Process.myPid();
+        CacheUtils cache = sCacheMap.get(cacheKey);
+        if (cache == null) {
+            cache = new CacheUtils(cacheDir, maxSize, maxCount);
+            sCacheMap.put(cacheKey, cache);
         }
-        return manager;
+        return cache;
     }
 
-    private static String myPid() {
-        return "_" + android.os.Process.myPid();
-    }
-
-    private CacheUtils(File cacheDir, long max_size, int max_count) {
+    private CacheUtils(@NonNull File cacheDir, long maxSize, int maxCount) {
         if (!cacheDir.exists() && !cacheDir.mkdirs()) {
-            throw new RuntimeException("can't make dirs in "
-                    + cacheDir.getAbsolutePath());
+            throw new RuntimeException("can't make dirs in " + cacheDir.getAbsolutePath());
         }
-        mCacheManager = new CacheManager(cacheDir, max_size, max_count);
+        mCacheManager = new CacheManager(cacheDir, maxSize, maxCount);
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // String数据 读写
+    // byte 读写
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * 保存 String数据 到 缓存中
+     * 缓存中写入字节数组
      *
-     * @param key   保存的key
-     * @param value 保存的String数据
+     * @param key   键
+     * @param value 值
      */
-    public void put(String key, String value) {
-        File file = mCacheManager.newFile(key);
-        BufferedWriter out = null;
-        try {
-            out = new BufferedWriter(new FileWriter(file), 1024);
-            out.write(value);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (out != null) {
-                try {
-                    out.flush();
-                    out.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            mCacheManager.put(file);
-        }
-    }
-
-    /**
-     * 保存 String数据 到 缓存中
-     *
-     * @param key      保存的key
-     * @param value    保存的String数据
-     * @param saveTime 保存的时间，单位：秒
-     */
-    public void put(String key, String value, int saveTime) {
-        put(key, Utils.newStringWithDateInfo(saveTime, value));
-    }
-
-    /**
-     * 读取 String数据
-     *
-     * @param key
-     * @return String 数据
-     */
-    public String getAsString(String key) {
-        File file = mCacheManager.get(key);
-        if (!file.exists())
-            return null;
-        boolean removeFile = false;
-        BufferedReader in = null;
-        try {
-            in = new BufferedReader(new FileReader(file));
-            String readString = "";
-            String currentLine;
-            while ((currentLine = in.readLine()) != null) {
-                readString += currentLine;
-            }
-            if (!Utils.isDue(readString)) {
-                return Utils.clearDateInfo(readString);
-            } else {
-                removeFile = true;
-                return null;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (removeFile)
-                remove(key);
-        }
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-    // JSONObject 数据 读写
-    ///////////////////////////////////////////////////////////////////////////
-
-    /**
-     * 保存 JSONObject数据 到 缓存中
-     *
-     * @param key   保存的key
-     * @param value 保存的JSON数据
-     */
-    public void put(String key, JSONObject value) {
-        put(key, value.toString());
-    }
-
-    /**
-     * 保存 JSONObject数据 到 缓存中
-     *
-     * @param key      保存的key
-     * @param value    保存的JSONObject数据
-     * @param saveTime 保存的时间，单位：秒
-     */
-    public void put(String key, JSONObject value, int saveTime) {
-        put(key, value.toString(), saveTime);
-    }
-
-    /**
-     * 读取JSONObject数据
-     *
-     * @param key
-     * @return JSONObject数据
-     */
-    public JSONObject getAsJSONObject(String key) {
-        String JSONString = getAsString(key);
-        try {
-            JSONObject obj = new JSONObject(JSONString);
-            return obj;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-    // JSONArray 数据 读写
-    ///////////////////////////////////////////////////////////////////////////
-
-    /**
-     * 保存 JSONArray数据 到 缓存中
-     *
-     * @param key   保存的key
-     * @param value 保存的JSONArray数据
-     */
-    public void put(String key, JSONArray value) {
-        put(key, value.toString());
-    }
-
-    /**
-     * 保存 JSONArray数据 到 缓存中
-     *
-     * @param key      保存的key
-     * @param value    保存的JSONArray数据
-     * @param saveTime 保存的时间，单位：秒
-     */
-    public void put(String key, JSONArray value, int saveTime) {
-        put(key, value.toString(), saveTime);
-    }
-
-    /**
-     * 读取JSONArray数据
-     *
-     * @param key
-     * @return JSONArray数据
-     */
-    public JSONArray getAsJSONArray(String key) {
-        String JSONString = getAsString(key);
-        try {
-            JSONArray obj = new JSONArray(JSONString);
-            return obj;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-    // byte 数据 读写
-    ///////////////////////////////////////////////////////////////////////////
-
-    /**
-     * 保存 byte数据 到 缓存中
-     *
-     * @param key   保存的key
-     * @param value 保存的数据
-     */
-    public void put(String key, byte[] value) {
-        File file = mCacheManager.newFile(key);
-        FileOutputStream out = null;
-        try {
-            out = new FileOutputStream(file);
-            out.write(value);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (out != null) {
-                try {
-                    out.flush();
-                    out.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            mCacheManager.put(file);
-        }
-    }
-
-    /**
-     * 保存 byte数据 到 缓存中
-     *
-     * @param key      保存的key
-     * @param value    保存的数据
-     * @param saveTime 保存的时间，单位：秒
-     */
-    public void put(String key, byte[] value, int saveTime) {
-        put(key, Utils.newByteArrayWithDateInfo(saveTime, value));
-    }
-
-    /**
-     * 获取 byte 数据
-     *
-     * @param key
-     * @return byte 数据
-     */
-    public byte[] getAsBinary(String key) {
-        RandomAccessFile RAFile = null;
-        boolean removeFile = false;
-        try {
-            File file = mCacheManager.get(key);
-            if (!file.exists())
-                return null;
-            RAFile = new RandomAccessFile(file, "r");
-            byte[] byteArray = new byte[(int) RAFile.length()];
-            RAFile.read(byteArray);
-            if (!Utils.isDue(byteArray)) {
-                return Utils.clearDateInfo(byteArray);
-            } else {
-                removeFile = true;
-                return null;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            if (RAFile != null) {
-                try {
-                    RAFile.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (removeFile)
-                remove(key);
-        }
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-    // 序列化 数据 读写
-    ///////////////////////////////////////////////////////////////////////////
-
-    /**
-     * 保存 Serializable数据 到 缓存中
-     *
-     * @param key   保存的key
-     * @param value 保存的value
-     */
-    public void put(String key, Serializable value) {
+    public void put(@NonNull String key, @NonNull byte[] value) {
         put(key, value, -1);
     }
 
     /**
-     * 保存 Serializable数据到 缓存中
+     * 缓存中写入字节数组
      *
-     * @param key      保存的key
-     * @param value    保存的value
-     * @param saveTime 保存的时间，单位：秒
+     * @param key      键
+     * @param value    值
+     * @param saveTime 保存时长，单位：秒
      */
-    public void put(String key, Serializable value, int saveTime) {
-        ByteArrayOutputStream baos = null;
-        ObjectOutputStream oos = null;
-        try {
-            baos = new ByteArrayOutputStream();
-            oos = new ObjectOutputStream(baos);
-            oos.writeObject(value);
-            byte[] data = baos.toByteArray();
-            if (saveTime != -1) {
-                put(key, data, saveTime);
-            } else {
-                put(key, data);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                oos.close();
-            } catch (IOException e) {
-            }
-        }
+    public void put(@NonNull String key, @NonNull byte[] value, int saveTime) {
+        if (value.length <= 0) return;
+        if (saveTime >= 0) value = CacheHelper.newByteArrayWithTime(saveTime, value);
+        File file = mCacheManager.getFileBeforePut(key);
+        CacheHelper.writeFileFromBytes(file, value);
+        mCacheManager.updateModify(file);
+        mCacheManager.put(file);
+
     }
 
     /**
-     * 读取 Serializable数据
+     * 缓存中读取字节数组
      *
-     * @param key
-     * @return Serializable 数据
+     * @param key 键
+     * @return 字节数组
      */
-    public Object getAsObject(String key) {
-        byte[] data = getAsBinary(key);
-        if (data != null) {
-            ByteArrayInputStream bais = null;
-            ObjectInputStream ois = null;
-            try {
-                bais = new ByteArrayInputStream(data);
-                ois = new ObjectInputStream(bais);
-                Object reObject = ois.readObject();
-                return reObject;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            } finally {
-                try {
-                    if (bais != null)
-                        bais.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    if (ois != null)
-                        ois.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return null;
-
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-    // bitmap 数据 读写
-    ///////////////////////////////////////////////////////////////////////////
-
-    /**
-     * 保存 bitmap 到 缓存中
-     *
-     * @param key   保存的key
-     * @param value 保存的bitmap数据
-     */
-    public void put(String key, Bitmap value) {
-        put(key, Utils.Bitmap2Bytes(value));
-    }
-
-    /**
-     * 保存 bitmap 到 缓存中
-     *
-     * @param key      保存的key
-     * @param value    保存的 bitmap 数据
-     * @param saveTime 保存的时间，单位：秒
-     */
-    public void put(String key, Bitmap value, int saveTime) {
-        put(key, Utils.Bitmap2Bytes(value), saveTime);
-    }
-
-    /**
-     * 读取 bitmap 数据
-     *
-     * @param key
-     * @return bitmap 数据
-     */
-    public Bitmap getAsBitmap(String key) {
-        if (getAsBinary(key) == null) {
+    public byte[] getBytes(@NonNull String key) {
+        final File file = mCacheManager.getFileIfExists(key);
+        if (file == null) return null;
+        byte[] data = CacheHelper.readFile2Bytes(file);
+        if (CacheHelper.isDue(data)) {
+            mCacheManager.removeByKey(key);
             return null;
         }
-        return Utils.Bytes2Bimap(getAsBinary(key));
+        mCacheManager.updateModify(file);
+        return CacheHelper.getDataWithoutDueTime(data);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // String 读写
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 缓存中写入String
+     *
+     * @param key   键
+     * @param value 值
+     */
+    public void put(@NonNull String key, @NonNull String value) {
+        put(key, value, -1);
+    }
+
+    /**
+     * 缓存中写入String
+     *
+     * @param key      键
+     * @param value    值
+     * @param saveTime 保存时长，单位：秒
+     */
+    public void put(@NonNull String key, @NonNull String value, int saveTime) {
+        put(key, CacheHelper.string2Bytes(value), saveTime);
+    }
+
+    /**
+     * 缓存中读取String
+     *
+     * @param key 键
+     * @return String
+     */
+    public String getString(@NonNull String key) {
+        return CacheHelper.bytes2String(getBytes(key));
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // JSONObject 读写
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 缓存中写入JSONObject
+     *
+     * @param key   键
+     * @param value 值
+     */
+    public void put(@NonNull String key, @NonNull JSONObject value) {
+        put(key, value, -1);
+    }
+
+    /**
+     * 缓存中写入JSONObject
+     *
+     * @param key      键
+     * @param value    值
+     * @param saveTime 保存时长，单位：秒
+     */
+    public void put(@NonNull String key, @NonNull JSONObject value, int saveTime) {
+        put(key, CacheHelper.jsonObject2Bytes(value), saveTime);
+    }
+
+    /**
+     * 缓存中读取JSONObject
+     *
+     * @param key 键
+     * @return JSONObject
+     */
+    public JSONObject getJSONObject(@NonNull String key) {
+        return CacheHelper.bytes2JSONObject(getBytes(key));
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // JSONArray 读写
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 缓存中写入JSONArray
+     *
+     * @param key   键
+     * @param value 值
+     */
+    public void put(@NonNull String key, @NonNull JSONArray value) {
+        put(key, value, -1);
+    }
+
+    /**
+     * 缓存中写入JSONArray
+     *
+     * @param key      键
+     * @param value    值
+     * @param saveTime 保存时长，单位：秒
+     */
+    public void put(@NonNull String key, @NonNull JSONArray value, int saveTime) {
+        put(key, CacheHelper.jsonArray2Bytes(value), saveTime);
+    }
+
+    /**
+     * 缓存中读取JSONArray
+     *
+     * @param key 键
+     * @return JSONArray
+     */
+    public JSONArray getJSONArray(@NonNull String key) {
+        return CacheHelper.bytes2JSONArray(getBytes(key));
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // bitmap 读写
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 缓存中写入bitmap
+     *
+     * @param key   键
+     * @param value 值
+     */
+    public void put(@NonNull String key, @NonNull Bitmap value) {
+        put(key, value, -1);
+    }
+
+    /**
+     * 缓存中写入bitmap
+     *
+     * @param key      键
+     * @param value    值
+     * @param saveTime 保存时长，单位：秒
+     */
+    public void put(@NonNull String key, @NonNull Bitmap value, int saveTime) {
+        put(key, CacheHelper.bitmap2Bytes(value), saveTime);
+    }
+
+    /**
+     * 缓存中读取bitmap
+     *
+     * @param key 键
+     * @return bitmap
+     */
+    public Bitmap getBitmap(@NonNull String key) {
+        byte[] bytes = getBytes(key);
+        if (bytes == null) return null;
+        return CacheHelper.bytes2Bitmap(bytes);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -459,77 +338,152 @@ public class CacheUtils {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * 保存 drawable 到 缓存中
+     * 缓存中写入drawable
      *
-     * @param key   保存的key
-     * @param value 保存的drawable数据
+     * @param key   键
+     * @param value 值
      */
-    public void put(String key, Drawable value) {
-        put(key, Utils.drawable2Bitmap(value));
+    public void put(@NonNull String key, @NonNull Drawable value) {
+        put(key, CacheHelper.drawable2Bytes(value));
     }
 
     /**
-     * 保存 drawable 到 缓存中
+     * 缓存中写入drawable
      *
-     * @param key      保存的key
-     * @param value    保存的 drawable 数据
-     * @param saveTime 保存的时间，单位：秒
+     * @param key      键
+     * @param value    值
+     * @param saveTime 保存时长，单位：秒
      */
-    public void put(String key, Drawable value, int saveTime) {
-        put(key, Utils.drawable2Bitmap(value), saveTime);
+    public void put(@NonNull String key, @NonNull Drawable value, int saveTime) {
+        put(key, CacheHelper.drawable2Bytes(value), saveTime);
     }
 
     /**
-     * 读取 Drawable 数据
+     * 缓存中读取drawable
      *
-     * @param key
-     * @return Drawable 数据
+     * @param key 键
+     * @return bitmap
      */
-    public Drawable getAsDrawable(String key) {
-        if (getAsBinary(key) == null) {
-            return null;
-        }
-        return Utils.bitmap2Drawable(Utils.Bytes2Bimap(getAsBinary(key)));
+    public Drawable getDrawable(@NonNull String key) {
+        byte[] bytes = getBytes(key);
+        if (bytes == null) return null;
+        return CacheHelper.bytes2Drawable(bytes);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Parcelable 读写
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 缓存中写入Parcelable
+     *
+     * @param key   键
+     * @param value 值
+     */
+    public void put(@NonNull String key, @NonNull Parcelable value) {
+        put(key, value, -1);
     }
 
     /**
-     * 获取缓存文件
+     * 缓存中写入Parcelable
      *
-     * @param key
-     * @return value 缓存的文件
+     * @param key      键
+     * @param value    值
+     * @param saveTime 保存时长，单位：秒
      */
-    public File file(String key) {
-        File f = mCacheManager.newFile(key);
-        if (f.exists())
-            return f;
-        return null;
+    public void put(@NonNull String key, @NonNull Parcelable value, int saveTime) {
+        put(key, CacheHelper.parcelable2Bytes(value), saveTime);
+    }
+
+    /**
+     * 缓存中读取Parcelable
+     *
+     * @param key     键
+     * @param creator 建造器
+     * @return T
+     */
+    public <T> T getParcelable(@NonNull String key, @NonNull Parcelable.Creator<T> creator) {
+        return CacheHelper.bytes2Parcelable(getBytes(key), creator);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Serializable 读写
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 缓存中写入Serializable
+     *
+     * @param key   键
+     * @param value 值
+     */
+    public void put(@NonNull String key, @NonNull Serializable value) {
+        put(key, value, -1);
+    }
+
+    /**
+     * 缓存中写入Serializable
+     *
+     * @param key      键
+     * @param value    值
+     * @param saveTime 保存时长，单位：秒
+     */
+    public void put(@NonNull String key, @NonNull Serializable value, int saveTime) {
+        put(key, CacheHelper.serializable2Bytes(value), saveTime);
+    }
+
+    /**
+     * 缓存中读取Serializable
+     *
+     * @param key 键
+     * @return Serializable
+     */
+    public Object getSerializable(@NonNull String key) {
+        return CacheHelper.bytes2Object(getBytes(key));
+    }
+
+    /**
+     * 获取缓存大小
+     * <p>单位：字节</p>
+     *
+     * @return 缓存大小
+     */
+    public long getCacheSize() {
+        return mCacheManager.getCacheSize();
+    }
+
+    /**
+     * 获取缓存个数
+     *
+     * @return 缓存个数
+     */
+    public int getCacheCount() {
+        return mCacheManager.getCacheCount();
     }
 
     /**
      * 移除某个key
      *
-     * @param key
+     * @param key 键
      * @return 是否移除成功
      */
-    public boolean remove(String key) {
-        return mCacheManager.remove(key);
+    public boolean remove(@NonNull String key) {
+        return mCacheManager.removeByKey(key);
     }
 
     /**
-     * 清除所有数据
+     * 清除所有
      */
     public void clear() {
         mCacheManager.clear();
     }
 
-    public class CacheManager {
-        private final AtomicLong cacheSize;
+    private class CacheManager {
+        private final AtomicLong    cacheSize;
         private final AtomicInteger cacheCount;
-        private final long sizeLimit;
-        private final int countLimit;
-        private final Map<File, Long> lastUsageDates = Collections
-                .synchronizedMap(new HashMap<File, Long>());
-        protected File cacheDir;
+        private final long          sizeLimit;
+        private final int           countLimit;
+        private final Map<File, Long> lastUsageDates = Collections.synchronizedMap(new HashMap<File, Long>());
+        private final File cacheDir;
 
         private CacheManager(File cacheDir, long sizeLimit, int countLimit) {
             this.cacheDir = cacheDir;
@@ -540,288 +494,359 @@ public class CacheUtils {
             calculateCacheSizeAndCacheCount();
         }
 
-        /**
-         * 计算 cacheSize和cacheCount
-         */
         private void calculateCacheSizeAndCacheCount() {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     int size = 0;
                     int count = 0;
-                    File[] cachedFiles = cacheDir.listFiles();
+                    final File[] cachedFiles = cacheDir.listFiles();
                     if (cachedFiles != null) {
                         for (File cachedFile : cachedFiles) {
-                            size += calculateSize(cachedFile);
+                            size += cachedFile.length();
                             count += 1;
-                            lastUsageDates.put(cachedFile,
-                                    cachedFile.lastModified());
+                            lastUsageDates.put(cachedFile, cachedFile.lastModified());
                         }
-                        cacheSize.set(size);
-                        cacheCount.set(count);
+                        cacheSize.getAndAdd(size);
+                        cacheCount.getAndAdd(count);
                     }
                 }
             }).start();
         }
 
-        private void put(File file) {
-            int curCacheCount = cacheCount.get();
-            while (curCacheCount + 1 > countLimit) {
-                long freedSize = removeNext();
-                cacheSize.addAndGet(-freedSize);
-
-                curCacheCount = cacheCount.addAndGet(-1);
-            }
-            cacheCount.addAndGet(1);
-
-            long valueSize = calculateSize(file);
-            long curCacheSize = cacheSize.get();
-            while (curCacheSize + valueSize > sizeLimit) {
-                long freedSize = removeNext();
-                curCacheSize = cacheSize.addAndGet(-freedSize);
-            }
-            cacheSize.addAndGet(valueSize);
-
-            Long currentTime = System.currentTimeMillis();
-            file.setLastModified(currentTime);
-            lastUsageDates.put(file, currentTime);
+        private long getCacheSize() {
+            return cacheSize.get();
         }
 
-        private File get(String key) {
-            File file = newFile(key);
-            Long currentTime = System.currentTimeMillis();
-            file.setLastModified(currentTime);
-            lastUsageDates.put(file, currentTime);
+        private int getCacheCount() {
+            return cacheCount.get();
+        }
 
+        private File getFileBeforePut(String key) {
+            File file = new File(cacheDir, String.valueOf(key.hashCode()));
+            if (file.exists()) {
+                cacheCount.addAndGet(-1);
+                cacheSize.addAndGet(-file.length());
+            }
             return file;
         }
 
-        private File newFile(String key) {
-            return new File(cacheDir, key.hashCode() + "");
+        private File getFileIfExists(String key) {
+            File file = new File(cacheDir, String.valueOf(key.hashCode()));
+            if (!file.exists()) return null;
+            return file;
         }
 
-        private boolean remove(String key) {
-            File image = get(key);
-            return image.delete();
+        private void put(File file) {
+            cacheCount.addAndGet(1);
+            cacheSize.addAndGet(file.length());
+            while (cacheCount.get() > countLimit || cacheSize.get() > sizeLimit) {
+                cacheSize.addAndGet(-removeOldest());
+                cacheCount.addAndGet(-1);
+            }
+        }
+
+        private void updateModify(File file) {
+            Long millis = System.currentTimeMillis();
+            file.setLastModified(millis);
+            lastUsageDates.put(file, millis);
+        }
+
+        private boolean removeByKey(String key) {
+            File file = getFileIfExists(key);
+            if (file == null) return true;
+            if (!file.delete()) return false;
+            cacheSize.addAndGet(-file.length());
+            cacheCount.addAndGet(-1);
+            lastUsageDates.remove(file);
+            return true;
         }
 
         private void clear() {
-            lastUsageDates.clear();
-            cacheSize.set(0);
             File[] files = cacheDir.listFiles();
-            if (files != null) {
-                for (File f : files) {
-                    f.delete();
+            if (files == null) return;
+            boolean flag = true;
+            for (File file : files) {
+                if (!file.delete()) {
+                    flag = false;
+                    continue;
                 }
+                cacheSize.addAndGet(-file.length());
+                cacheCount.addAndGet(-1);
+                lastUsageDates.remove(file);
+            }
+            if (flag) {
+                lastUsageDates.clear();
+                cacheSize.set(0);
+                cacheCount.set(0);
             }
         }
 
         /**
          * 移除旧的文件
          *
-         * @return
+         * @return 移除的字节数
          */
-        private long removeNext() {
-            if (lastUsageDates.isEmpty()) {
-                return 0;
-            }
-
-            Long oldestUsage = null;
-            File mostLongUsedFile = null;
+        private long removeOldest() {
+            if (lastUsageDates.isEmpty()) return 0;
+            Long oldestUsage = Long.MAX_VALUE;
+            File oldestFile = null;
             Set<Map.Entry<File, Long>> entries = lastUsageDates.entrySet();
             synchronized (lastUsageDates) {
                 for (Map.Entry<File, Long> entry : entries) {
-                    if (mostLongUsedFile == null) {
-                        mostLongUsedFile = entry.getKey();
-                        oldestUsage = entry.getValue();
-                    } else {
-                        Long lastValueUsage = entry.getValue();
-                        if (lastValueUsage < oldestUsage) {
-                            oldestUsage = lastValueUsage;
-                            mostLongUsedFile = entry.getKey();
-                        }
+                    Long lastValueUsage = entry.getValue();
+                    if (lastValueUsage < oldestUsage) {
+                        oldestUsage = lastValueUsage;
+                        oldestFile = entry.getKey();
                     }
                 }
             }
-
-            long fileSize = calculateSize(mostLongUsedFile);
-            if (mostLongUsedFile.delete()) {
-                lastUsageDates.remove(mostLongUsedFile);
+            if (oldestFile == null) return 0;
+            long fileSize = oldestFile.length();
+            if (oldestFile.delete()) {
+                lastUsageDates.remove(oldestFile);
             }
             return fileSize;
         }
-
-        private long calculateSize(File file) {
-            return file.length();
-        }
     }
 
-    /**
-     * @author 杨福海（michael） www.yangfuhai.com
-     * @version 1.0
-     * @title 时间计算工具类
-     */
-    private static class Utils {
+    private static class CacheHelper {
 
-        /**
-         * 判断缓存的String数据是否到期
-         *
-         * @param str
-         * @return true：到期了 false：还没有到期
-         */
-        private static boolean isDue(String str) {
-            return isDue(str.getBytes());
+        static final int timeInfoLen = 17;
+
+        private static String newStringWithTime(int second, String strInfo) {
+            return createDueTime(second) + strInfo;
+        }
+
+        private static byte[] newByteArrayWithTime(int second, byte[] data) {
+            byte[] time = createDueTime(second).getBytes();
+            byte[] content = new byte[time.length + data.length];
+            System.arraycopy(time, 0, content, 0, time.length);
+            System.arraycopy(data, 0, content, time.length, data.length);
+            return content;
         }
 
         /**
-         * 判断缓存的byte数据是否到期
+         * 创建过期时间
          *
-         * @param data
-         * @return true：到期了 false：还没有到期
+         * @param second 秒
+         * @return _$millis$_
          */
+        private static String createDueTime(int second) {
+            return String.format(Locale.getDefault(), "_$%013d$_", System.currentTimeMillis() + second * 1000);
+        }
+
         private static boolean isDue(byte[] data) {
-            String[] strs = getDateInfoFromDate(data);
-            if (strs != null && strs.length == 2) {
-                String saveTimeStr = strs[0];
-                while (saveTimeStr.startsWith("0")) {
-                    saveTimeStr = saveTimeStr
-                            .substring(1, saveTimeStr.length());
-                }
-                long saveTime = Long.valueOf(saveTimeStr);
-                long deleteAfter = Long.valueOf(strs[1]);
-                if (System.currentTimeMillis() > saveTime + deleteAfter * 1000) {
-                    return true;
-                }
-            }
-            return false;
+            long millis = getDueTime(data);
+            return millis != -1 && System.currentTimeMillis() > millis;
         }
 
-        private static String newStringWithDateInfo(int second, String strInfo) {
-            return createDateInfo(second) + strInfo;
-        }
-
-        private static byte[] newByteArrayWithDateInfo(int second, byte[] data2) {
-            byte[] data1 = createDateInfo(second).getBytes();
-            byte[] retdata = new byte[data1.length + data2.length];
-            System.arraycopy(data1, 0, retdata, 0, data1.length);
-            System.arraycopy(data2, 0, retdata, data1.length, data2.length);
-            return retdata;
-        }
-
-        private static String clearDateInfo(String strInfo) {
-            if (strInfo != null && hasDateInfo(strInfo.getBytes())) {
-                strInfo = strInfo.substring(strInfo.indexOf(mSeparator) + 1,
-                        strInfo.length());
-            }
-            return strInfo;
-        }
-
-        private static byte[] clearDateInfo(byte[] data) {
-            if (hasDateInfo(data)) {
-                return copyOfRange(data, indexOf(data, mSeparator) + 1,
-                        data.length);
-            }
-            return data;
-        }
-
-        private static boolean hasDateInfo(byte[] data) {
-            return data != null && data.length > 15 && data[13] == '-'
-                    && indexOf(data, mSeparator) > 14;
-        }
-
-        private static String[] getDateInfoFromDate(byte[] data) {
-            if (hasDateInfo(data)) {
-                String saveDate = new String(copyOfRange(data, 0, 13));
-                String deleteAfter = new String(copyOfRange(data, 14,
-                        indexOf(data, mSeparator)));
-                return new String[]{saveDate, deleteAfter};
-            }
-            return null;
-        }
-
-        private static int indexOf(byte[] data, char c) {
-            for (int i = 0; i < data.length; i++) {
-                if (data[i] == c) {
-                    return i;
+        private static long getDueTime(byte[] data) {
+            if (hasTimeInfo(data)) {
+                String millis = new String(copyOfRange(data, 2, 15));
+                try {
+                    return Long.parseLong(millis);
+                } catch (NumberFormatException e) {
+                    return -1;
                 }
             }
             return -1;
         }
 
+        private static byte[] getDataWithoutDueTime(byte[] data) {
+            if (hasTimeInfo(data)) {
+                return copyOfRange(data, timeInfoLen, data.length);
+            }
+            return data;
+        }
+
         private static byte[] copyOfRange(byte[] original, int from, int to) {
             int newLength = to - from;
-            if (newLength < 0)
-                throw new IllegalArgumentException(from + " > " + to);
+            if (newLength < 0) throw new IllegalArgumentException(from + " > " + to);
             byte[] copy = new byte[newLength];
-            System.arraycopy(original, from, copy, 0,
-                    Math.min(original.length - from, newLength));
+            System.arraycopy(original, from, copy, 0, Math.min(original.length - from, newLength));
             return copy;
         }
 
-        private static final char mSeparator = ' ';
-
-        private static String createDateInfo(int second) {
-            String currentTime = System.currentTimeMillis() + "";
-            while (currentTime.length() < 13) {
-                currentTime = "0" + currentTime;
-            }
-            return currentTime + "-" + second + mSeparator;
+        private static boolean hasTimeInfo(byte[] data) {
+            return data != null
+                    && data.length >= timeInfoLen
+                    && data[0] == '_'
+                    && data[1] == '$'
+                    && data[15] == '$'
+                    && data[16] == '_';
         }
 
-        /*
-         * Bitmap → byte[]
-         */
-        private static byte[] Bitmap2Bytes(Bitmap bm) {
-            if (bm == null) {
+        private static void writeFileFromBytes(File file, byte[] bytes) {
+            FileChannel fc = null;
+            try {
+                fc = new FileOutputStream(file, false).getChannel();
+                fc.write(ByteBuffer.wrap(bytes));
+                fc.force(true);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                CloseUtils.closeIO(fc);
+            }
+        }
+
+        private static byte[] readFile2Bytes(File file) {
+            FileChannel fc = null;
+            try {
+                fc = new RandomAccessFile(file, "r").getChannel();
+                int size = (int) fc.size();
+                MappedByteBuffer mbb = fc.map(FileChannel.MapMode.READ_ONLY, 0, size).load();
+                byte[] data = new byte[size];
+                mbb.get(data, 0, size);
+                return data;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            } finally {
+                CloseUtils.closeIO(fc);
+            }
+        }
+
+        private static byte[] string2Bytes(String string) {
+            if (string == null) return null;
+            return string.getBytes();
+        }
+
+        private static String bytes2String(byte[] bytes) {
+            if (bytes == null) return null;
+            return new String(bytes);
+        }
+
+        private static byte[] jsonObject2Bytes(JSONObject jsonObject) {
+            if (jsonObject == null) return null;
+            return jsonObject.toString().getBytes();
+        }
+
+        private static JSONObject bytes2JSONObject(byte[] bytes) {
+            if (bytes == null) return null;
+            try {
+                return new JSONObject(new String(bytes));
+            } catch (Exception e) {
+                e.printStackTrace();
                 return null;
             }
+        }
+
+        private static byte[] jsonArray2Bytes(JSONArray jsonArray) {
+            if (jsonArray == null) return null;
+            return jsonArray.toString().getBytes();
+        }
+
+        private static JSONArray bytes2JSONArray(byte[] bytes) {
+            if (bytes == null) return null;
+            try {
+                return new JSONArray(new String(bytes));
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        private static byte[] parcelable2Bytes(Parcelable parcelable) {
+            if (parcelable == null) return null;
+            Parcel parcel = Parcel.obtain();
+            parcelable.writeToParcel(parcel, 0);
+            byte[] bytes = parcel.marshall();
+            parcel.recycle();
+            return bytes;
+        }
+
+        private static <T> T bytes2Parcelable(byte[] bytes, Parcelable.Creator<T> creator) {
+            if (bytes == null) return null;
+            Parcel parcel = Parcel.obtain();
+            parcel.unmarshall(bytes, 0, bytes.length);
+            parcel.setDataPosition(0);
+            T result = creator.createFromParcel(parcel);
+            parcel.recycle();
+            return result;
+        }
+
+        private static byte[] serializable2Bytes(Serializable serializable) {
+            if (serializable == null) return null;
+            ByteArrayOutputStream baos;
+            ObjectOutputStream oos = null;
+            try {
+                oos = new ObjectOutputStream(baos = new ByteArrayOutputStream());
+                oos.writeObject(serializable);
+                return baos.toByteArray();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            } finally {
+                CloseUtils.closeIO(oos);
+            }
+        }
+
+        private static Object bytes2Object(byte[] bytes) {
+            if (bytes == null) return null;
+            ObjectInputStream ois = null;
+            try {
+                ois = new ObjectInputStream(new ByteArrayInputStream(bytes));
+                return ois.readObject();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            } finally {
+                CloseUtils.closeIO(ois);
+            }
+        }
+
+        private static byte[] bitmap2Bytes(Bitmap bitmap) {
+            if (bitmap == null) return null;
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
             return baos.toByteArray();
         }
 
-        /*
-         * byte[] → Bitmap
-         */
-        private static Bitmap Bytes2Bimap(byte[] b) {
-            if (b.length == 0) {
-                return null;
-            }
-            return BitmapFactory.decodeByteArray(b, 0, b.length);
+        private static Bitmap bytes2Bitmap(byte[] bytes) {
+            return (bytes == null || bytes.length == 0) ? null : BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         }
 
-        /*
-         * Drawable → Bitmap
-         */
+        private static byte[] drawable2Bytes(Drawable drawable) {
+            return drawable == null ? null : bitmap2Bytes(drawable2Bitmap(drawable));
+        }
+
+        private static Drawable bytes2Drawable(byte[] bytes) {
+            return bytes == null ? null : bitmap2Drawable(bytes2Bitmap(bytes));
+        }
+
         private static Bitmap drawable2Bitmap(Drawable drawable) {
-            if (drawable == null) {
-                return null;
+            if (drawable == null) return null;
+            if (drawable instanceof BitmapDrawable) {
+                BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+                if (bitmapDrawable.getBitmap() != null) {
+                    return bitmapDrawable.getBitmap();
+                }
             }
-            // 取 drawable 的长宽
-            int w = drawable.getIntrinsicWidth();
-            int h = drawable.getIntrinsicHeight();
-            // 取 drawable 的颜色格式
-            Bitmap.Config config = drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
-                    : Bitmap.Config.RGB_565;
-            // 建立对应 bitmap
-            Bitmap bitmap = Bitmap.createBitmap(w, h, config);
-            // 建立对应 bitmap 的画布
+            Bitmap bitmap;
+            if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+                bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+            } else {
+                bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            }
             Canvas canvas = new Canvas(bitmap);
-            drawable.setBounds(0, 0, w, h);
-            // 把 drawable 内容画到画布中
+            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
             drawable.draw(canvas);
             return bitmap;
         }
 
-        /*
-         * Bitmap → Drawable
-         */
-        @SuppressWarnings("deprecation")
-        private static Drawable bitmap2Drawable(Bitmap bm) {
-            if (bm == null) {
-                return null;
-            }
-            return new BitmapDrawable(bm);
+        private static Drawable bitmap2Drawable(Bitmap bitmap) {
+            return bitmap == null ? null : new BitmapDrawable(Utils.getContext().getResources(), bitmap);
         }
+    }
+
+    private static boolean isSpace(String s) {
+        if (s == null) return true;
+        for (int i = 0, len = s.length(); i < len; ++i) {
+            if (!Character.isWhitespace(s.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 }

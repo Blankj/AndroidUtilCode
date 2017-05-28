@@ -1,6 +1,5 @@
 package com.blankj.utilcode.util;
 
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -13,8 +12,7 @@ import org.junit.Test;
  */
 public class PinyinUtilsTest {
 
-    @Before
-    public void setUp() throws Exception {
+    static {
         PinyinUtils.ccs2Pinyin("");
     }
 

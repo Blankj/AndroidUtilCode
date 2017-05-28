@@ -52,6 +52,24 @@ showNotificationBar    : 显示通知栏
 hideNotificationBar    : 隐藏通知栏
 ```
 
+* ### 缓存相关→[CacheUtils.java][cache.java]→[Test][cache.test]
+```
+getInstance    : 获取缓存实例
+put            : 缓存中写入数据
+getBytes       : 缓存中读取字节数组
+getString      : 缓存中读取String
+getJSONObject  : 缓存中读取JSONObject
+getJSONArray   : 缓存中读取JSONArray
+getBitmap      : 缓存中读取bitmap
+getDrawable    : 缓存中读取drawable
+getParcelable  : 缓存中读取Parcelable
+getSerializable: 缓存中读取Serializable
+getCacheSize   : 获取缓存大小
+getCacheCount  : 获取缓存个数
+remove         : 移除某个key
+clear          : 清除所有缓存
+```
+
 * ### 清除相关→[CleanUtils.java][clean.java]→[Demo][clean.demo]
 ```
 cleanInternalCache   : 清除内部缓存
@@ -163,6 +181,20 @@ encryptAES, encryptAES2HexString, encryptAES2Base64   : AES加密
 decryptAES, decryptHexStringAES, decryptBase64AES     : AES解密
 ```
 
+* ### 文件相关→[FileIOUtils.java][fileio.java]→[Test][fileio.test]
+```
+writeFileFromIS            : 将输入流写入文件
+writeFileFromBytesByStream : 将字节数组写入文件
+writeFileFromBytesByChannel: 将字节数组写入文件
+writeFileFromBytesByMap    : 将字节数组写入文件
+writeFileFromString        : 将字符串写入文件
+readFile2List              : 读取文件到字符串链表中
+readFile2String            : 读取文件到字符串中
+readFile2BytesByStream     : 读取文件到字节数组中
+readFile2BytesByChannel    : 读取文件到字节数组中
+readFile2BytesByMap        : 读取文件到字节数组中
+```
+
 * ### 文件相关→[FileUtils.java][file.java]→[Test][file.test]
 ```
 getFileByPath            : 根据文件路径获取文件
@@ -186,11 +218,6 @@ listFilesInDirWithFilter : 获取目录下所有后缀名为suffix的文件包�
 listFilesInDirWithFilter : 获取目录下所有符合filter的文件
 listFilesInDirWithFilter : 获取目录下所有符合filter的文件包括子目录
 searchFileInDir          : 获取目录下指定文件名的文件包括子目录
-writeFileFromIS          : 将输入流写入文件
-writeFileFromString      : 将字符串写入文件
-readFile2List            : 指定编码按行读取文件到链表中
-readFile2String          : 指定编码按行读取文件到字符串中
-readFile2Bytes           : 读取文件到字符数组中
 getFileLastModified      : 获取文件最后修改的毫秒时间戳
 getFileCharsetSimple     : 简单获取文件编码格式
 getFileLines             : 获取文件行数
@@ -315,12 +342,14 @@ isSameProvider   : 是否相同的提供者
 * ### 日志相关→[LogUtils.java][log.java]→[Demo][log.demo]
 ```
 Builder.setLogSwitch     : 设置log总开关
+Builder.setConsoleSwitch : 设置log控制台开关
 Builder.setGlobalTag     : 设置log全局tag
-Builder.setLogHeadSwitch : 设置log头开关
+Builder.setLogHeadSwitch : 设置log头部信息开关
 Builder.setLog2FileSwitch: 设置log文件开关
 Builder.setDir           : 设置log文件存储目录
 Builder.setBorderSwitch  : 设置log边框开关
-Builder.setLogFilter     : 设置log过滤器
+Builder.setConsoleFilter : 设置log控制台过滤器
+Builder.setFileFilter    : 设置log文件过滤器
 v                        : Verbose日志
 d                        : Debug日志
 i                        : Info日志
@@ -499,17 +528,17 @@ Builder.create            : 创建样式字符串
 
 * ### SP相关→[SPUtils.java][sp.java]→[Test][sp.test]
 ```
-SPUtils   : SPUtils构造函数
-put       : SP中写入数据
-getString : SP中读取String
-getInt    : SP中读取int
-getLong   : SP中读取long
-getFloat  : SP中读取float
-getBoolean: SP中读取boolean
-getAll    : SP中获取所有键值对
-remove    : SP中移除该key
-contains  : SP中是否存在该key
-clear     : SP中清除所有数据
+getInstance: 获取SP实例
+put        : SP中写入数据
+getString  : SP中读取String
+getInt     : SP中读取int
+getLong    : SP中读取long
+getFloat   : SP中读取float
+getBoolean : SP中读取boolean
+getAll     : SP中获取所有键值对
+remove     : SP中移除该key
+contains   : SP中是否存在该key
+clear      : SP中清除所有数据
 ```
 
 * ### 字符串相关→[StringUtils.java][string.java]→[Test][string.test]
@@ -619,7 +648,7 @@ getEntries        : 获取压缩文件中的文件对象
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.5.1'
+compile 'com.blankj:utilcode:1.6.2'
 ```
 
 
@@ -641,7 +670,7 @@ Utils.init(context);
 
 
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.5.1-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.6.2-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-15+-brightgreen.svg
@@ -679,6 +708,9 @@ Utils.init(context);
 
 [bar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/BarUtils.java
 
+[cache.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheUtils.java
+[cache.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheUtilsTest.java
+
 [clean.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CleanUtils.java
 [clean.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/CleanActivity.java
 
@@ -702,6 +734,9 @@ Utils.init(context);
 
 [encrypt.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/EncryptUtils.java
 [encrypt.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/EncryptUtilsTest.java
+
+[fileio.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/FileIOUtils.java
+[fileio.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/FileIOUtilsTest.java
 
 [file.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/FileUtils.java
 [file.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/FileUtilsTest.java

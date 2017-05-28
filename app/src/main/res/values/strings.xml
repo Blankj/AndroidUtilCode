@@ -42,8 +42,6 @@
     <string name="uninstall_successfully">Uninstall successfully</string>
     <string name="uninstall_unsuccessfully">Uninstall unsuccessfully</string>
     <string name="app_launch">Launch App</string>
-    <string name="app_close">Close App</string>
-    <string name="app_isDebug">Is Debug</string>
     <string name="app_get_details_settings">Get App Details Settings</string>
 
 
@@ -86,10 +84,13 @@
     <string name="keyboard_toggle_soft_input">Toggle Soft Input</string>
 
     <!-- log -->
+    <string name="log_toggle_log">Toggle Log</string>
+    <string name="log_toggle_console">Toggle Console</string>
     <string name="log_toggle_tag">Toggle Tag</string>
     <string name="log_toggle_head">Toggle Head</string>
     <string name="log_toggle_border">Toggle Border</string>
-    <string name="log_toggle_filter">Toggle Filter</string>
+    <string name="log_toggle_console_filter">Toggle Console Filter</string>
+    <string name="log_toggle_file_filter">Toggle File Filter</string>
     <string name="log_toggle_file">Toggle File</string>
     <string name="log_toggle_dir">Toggle Dir</string>
     <string name="log_with_no_tag">Log With No Tag</string>
@@ -109,7 +110,6 @@
     <string name="phone_send_sms_silent">Send SMS Silent</string>
 
     <!--Process相关-->
-    <string name="process_kill_background">Kill Background Process</string>
     <string name="process_kill_all_background">Kill All Background Processes</string>
 
     <!--SnackBar相关工具类-->
@@ -125,7 +125,6 @@
     <string name="snackbar_short">Short Snackbar</string>
     <string name="snackbar_long">Long Snackbar</string>
     <string name="snackbar_indefinite">Indefinite Snackbar</string>
-    <string name="snackbar_custom">Custom Snackbar</string>
     <string name="snackbar_click">Click</string>
 
     <!--Toast相关-->

@@ -1,7 +1,5 @@
 package com.blankj.utilcode.util;
 
-import org.junit.Test;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +58,7 @@ public class DogeTest {
             }
         }
 //        System.out.println(sb.toString());
-        FileUtils.writeFileFromString("F:/MyGithub/doge-expression/README.md", sb.toString(), false);
+        FileIOUtils.writeFileFromString("F:/MyGithub/doge-expression/README.md", sb.toString(), false);
     }
 
     public void renameDogeNames() throws Exception {

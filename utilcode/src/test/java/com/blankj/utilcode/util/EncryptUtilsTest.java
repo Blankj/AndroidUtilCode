@@ -5,11 +5,52 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import java.io.File;
-
-import static com.blankj.utilcode.util.ConvertUtils.*;
-import static com.blankj.utilcode.util.EncodeUtils.*;
-import static com.blankj.utilcode.util.EncryptUtils.*;
+import static com.blankj.utilcode.util.ConvertUtils.hexString2Bytes;
+import static com.blankj.utilcode.util.EncodeUtils.base64Encode;
+import static com.blankj.utilcode.util.EncryptUtils.decrypt3DES;
+import static com.blankj.utilcode.util.EncryptUtils.decryptAES;
+import static com.blankj.utilcode.util.EncryptUtils.decryptBase64AES;
+import static com.blankj.utilcode.util.EncryptUtils.decryptBase64DES;
+import static com.blankj.utilcode.util.EncryptUtils.decryptBase64_3DES;
+import static com.blankj.utilcode.util.EncryptUtils.decryptDES;
+import static com.blankj.utilcode.util.EncryptUtils.decryptHexString3DES;
+import static com.blankj.utilcode.util.EncryptUtils.decryptHexStringAES;
+import static com.blankj.utilcode.util.EncryptUtils.decryptHexStringDES;
+import static com.blankj.utilcode.util.EncryptUtils.encrypt3DES;
+import static com.blankj.utilcode.util.EncryptUtils.encrypt3DES2Base64;
+import static com.blankj.utilcode.util.EncryptUtils.encrypt3DES2HexString;
+import static com.blankj.utilcode.util.EncryptUtils.encryptAES;
+import static com.blankj.utilcode.util.EncryptUtils.encryptAES2Base64;
+import static com.blankj.utilcode.util.EncryptUtils.encryptAES2HexString;
+import static com.blankj.utilcode.util.EncryptUtils.encryptDES;
+import static com.blankj.utilcode.util.EncryptUtils.encryptDES2Base64;
+import static com.blankj.utilcode.util.EncryptUtils.encryptDES2HexString;
+import static com.blankj.utilcode.util.EncryptUtils.encryptHmacMD5;
+import static com.blankj.utilcode.util.EncryptUtils.encryptHmacMD5ToString;
+import static com.blankj.utilcode.util.EncryptUtils.encryptHmacSHA1;
+import static com.blankj.utilcode.util.EncryptUtils.encryptHmacSHA1ToString;
+import static com.blankj.utilcode.util.EncryptUtils.encryptHmacSHA224;
+import static com.blankj.utilcode.util.EncryptUtils.encryptHmacSHA224ToString;
+import static com.blankj.utilcode.util.EncryptUtils.encryptHmacSHA256;
+import static com.blankj.utilcode.util.EncryptUtils.encryptHmacSHA256ToString;
+import static com.blankj.utilcode.util.EncryptUtils.encryptHmacSHA384;
+import static com.blankj.utilcode.util.EncryptUtils.encryptHmacSHA384ToString;
+import static com.blankj.utilcode.util.EncryptUtils.encryptHmacSHA512;
+import static com.blankj.utilcode.util.EncryptUtils.encryptHmacSHA512ToString;
+import static com.blankj.utilcode.util.EncryptUtils.encryptMD2;
+import static com.blankj.utilcode.util.EncryptUtils.encryptMD2ToString;
+import static com.blankj.utilcode.util.EncryptUtils.encryptMD5;
+import static com.blankj.utilcode.util.EncryptUtils.encryptMD5ToString;
+import static com.blankj.utilcode.util.EncryptUtils.encryptSHA1;
+import static com.blankj.utilcode.util.EncryptUtils.encryptSHA1ToString;
+import static com.blankj.utilcode.util.EncryptUtils.encryptSHA224;
+import static com.blankj.utilcode.util.EncryptUtils.encryptSHA224ToString;
+import static com.blankj.utilcode.util.EncryptUtils.encryptSHA256;
+import static com.blankj.utilcode.util.EncryptUtils.encryptSHA256ToString;
+import static com.blankj.utilcode.util.EncryptUtils.encryptSHA384;
+import static com.blankj.utilcode.util.EncryptUtils.encryptSHA384ToString;
+import static com.blankj.utilcode.util.EncryptUtils.encryptSHA512;
+import static com.blankj.utilcode.util.EncryptUtils.encryptSHA512ToString;
 import static com.google.common.truth.Truth.assertThat;
 
 /**
@@ -21,17 +62,17 @@ import static com.google.common.truth.Truth.assertThat;
  * </pre>
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE ,sdk = 23)
+@Config(manifest = Config.NONE, sdk = 23)
 public class EncryptUtilsTest {
 
-    String blankjMD2 = "15435017570D8A73449E25C4622E17A4";
-    String blankjMD5 = "AAC25CD336E01C8655F4EC7875445A60";
-    String blankjSHA1 = "C606ACCB1FEB669E19D080ADDDDBB8E6CDA5F43C";
-    String blankjSHA224 = "F4C5C0E8CF56CAC4D06DB6B523F67621859A9D79BDA4B2AC03097D5F";
-    String blankjSHA256 = "8BD80AE90DFBA112786367BEBDDEE60A638EF5B82682EDF8F3D3CA8E6BFEF648";
-    String blankjSHA384 =
+    private String blankjMD2    = "15435017570D8A73449E25C4622E17A4";
+    private String blankjMD5    = "AAC25CD336E01C8655F4EC7875445A60";
+    private String blankjSHA1   = "C606ACCB1FEB669E19D080ADDDDBB8E6CDA5F43C";
+    private String blankjSHA224 = "F4C5C0E8CF56CAC4D06DB6B523F67621859A9D79BDA4B2AC03097D5F";
+    private String blankjSHA256 = "8BD80AE90DFBA112786367BEBDDEE60A638EF5B82682EDF8F3D3CA8E6BFEF648";
+    private String blankjSHA384 =
             "BF831E5221FC108D6A72ACB888BA3EB0C030A5F01BA2F739856BE70681D86F992B85E0D461101C74BAEDA895BD422557";
-    String blankjSHA512 =
+    private String blankjSHA512 =
             "D59D31067F614ED3586F85A31FEFDB7F33096316DA26EBE0FF440B241C8560D96650F100D78C512560C976949EFA89CB5D5589DCF68C7FAADE98F03BCFEC2B45";
 
     @Test
@@ -84,15 +125,15 @@ public class EncryptUtilsTest {
     }
 
     //use this site to test https://www.freeformatter.com/hmac-generator.html
-    String blankjHmacMD5 = "2BA3FDABEE222522044BEC0CE5D6B490";
-    String blankjHmacSHA1 = "88E83EFD915496860C83739BE2CF4752B2AC105F";
-    String blankjHmacSHA224 = "E392D83D1030323FB2E062E8165A3AD38366E53DF19EA3290961E153";
-    String blankjHmacSHA256 = "A59675F13FC9A6E06D8DC90D4DC01DB9C991B0B95749D2471E588BF311DA2C67";
-    String blankjHmacSHA384 =
+    private String blankjHmacMD5    = "2BA3FDABEE222522044BEC0CE5D6B490";
+    private String blankjHmacSHA1   = "88E83EFD915496860C83739BE2CF4752B2AC105F";
+    private String blankjHmacSHA224 = "E392D83D1030323FB2E062E8165A3AD38366E53DF19EA3290961E153";
+    private String blankjHmacSHA256 = "A59675F13FC9A6E06D8DC90D4DC01DB9C991B0B95749D2471E588BF311DA2C67";
+    private String blankjHmacSHA384 =
             "9FC2F49C7EDE698EA59645B3BEFBBE67DCC7D6623E03D4D03CDA1324F7B6445BC428AB42F6A962CF79AFAD1302C3223D";
-    String blankjHmacSHA512 =
+    private String blankjHmacSHA512 =
             "FC55AD54B95F55A8E32EA1BAD7748C157F80679F5561EC95A3EAD975316BA85363CB4AF6462D695F742F469EDC2D577272BE359A7F9E9C7018FDF4C921E1B3CF";
-    String blankjHmackey = "blankj";
+    private String blankjHmackey    = "blankj";
 
     @Test
     public void testEncryptHmacMD5() throws Exception {
@@ -137,12 +178,12 @@ public class EncryptUtilsTest {
     }
 
 
-    String dataDES = "0008DB3345AB0223";
-    String keyDES = "6801020304050607";
-    String resDES = "1F7962581118F360";
-    byte[] bytesDataDES = hexString2Bytes(dataDES);
-    byte[] bytesKeyDES = hexString2Bytes(keyDES);
-    byte[] bytesResDES = hexString2Bytes(resDES);
+    private String dataDES      = "0008DB3345AB0223";
+    private String keyDES       = "6801020304050607";
+    private String resDES       = "1F7962581118F360";
+    private byte[] bytesDataDES = hexString2Bytes(dataDES);
+    private byte[] bytesKeyDES  = hexString2Bytes(keyDES);
+    private byte[] bytesResDES  = hexString2Bytes(resDES);
 
     @Test
     public void testEncryptDES() throws Exception {
@@ -160,12 +201,12 @@ public class EncryptUtilsTest {
                 (bytesDataDES);
     }
 
-    String data3DES = "1111111111111111";
-    String key3DES = "111111111111111111111111111111111111111111111111";
-    String res3DES = "F40379AB9E0EC533";
+    String data3DES      = "1111111111111111";
+    String key3DES       = "111111111111111111111111111111111111111111111111";
+    String res3DES       = "F40379AB9E0EC533";
     byte[] bytesDataDES3 = hexString2Bytes(data3DES);
-    byte[] bytesKeyDES3 = hexString2Bytes(key3DES);
-    byte[] bytesResDES3 = hexString2Bytes(res3DES);
+    byte[] bytesKeyDES3  = hexString2Bytes(key3DES);
+    byte[] bytesResDES3  = hexString2Bytes(res3DES);
 
     @Test
     public void testEncrypt3DES() throws Exception {
@@ -183,12 +224,12 @@ public class EncryptUtilsTest {
                 (bytesDataDES3);
     }
 
-    String dataAES = "11111111111111111111111111111111";
-    String keyAES = "11111111111111111111111111111111";
-    String resAES = "E56E26F5608B8D268F2556E198A0E01B";
-    byte[] bytesDataAES = hexString2Bytes(dataAES);
-    byte[] bytesKeyAES = hexString2Bytes(keyAES);
-    byte[] bytesResAES = hexString2Bytes(resAES);
+    private String dataAES      = "11111111111111111111111111111111";
+    private String keyAES       = "11111111111111111111111111111111";
+    private String resAES       = "E56E26F5608B8D268F2556E198A0E01B";
+    private byte[] bytesDataAES = hexString2Bytes(dataAES);
+    private byte[] bytesKeyAES  = hexString2Bytes(keyAES);
+    private byte[] bytesResAES  = hexString2Bytes(resAES);
 
     @Test
     public void testEncryptAES() throws Exception {
@@ -207,7 +248,7 @@ public class EncryptUtilsTest {
     }
 
     String path = TestUtils.TEST_PATH + "encrypt" + TestUtils.FILE_SEP;
-    String md5 = "7F138A09169B250E9DCB378140907378";
+    String md5  = "7F138A09169B250E9DCB378140907378";
 
     @Test
     public void testEncryptMD5File() throws Exception {

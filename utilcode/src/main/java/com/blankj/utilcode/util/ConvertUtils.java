@@ -1,7 +1,6 @@
 package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -485,18 +484,32 @@ public final class ConvertUtils {
      * @return bitmap
      */
     public static Bitmap drawable2Bitmap(Drawable drawable) {
-        return drawable == null ? null : ((BitmapDrawable) drawable).getBitmap();
+        if (drawable instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            if(bitmapDrawable.getBitmap() != null) {
+                return bitmapDrawable.getBitmap();
+            }
+        }
+        Bitmap bitmap;
+        if(drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+        } else {
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        }
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
     }
 
     /**
      * bitmap转drawable
      *
-     * @param res    resources对象
      * @param bitmap bitmap对象
      * @return drawable
      */
-    public static Drawable bitmap2Drawable(Resources res, Bitmap bitmap) {
-        return bitmap == null ? null : new BitmapDrawable(res, bitmap);
+    public static Drawable bitmap2Drawable(Bitmap bitmap) {
+        return bitmap == null ? null : new BitmapDrawable(Utils.getContext().getResources(), bitmap);
     }
 
     /**
@@ -513,12 +526,11 @@ public final class ConvertUtils {
     /**
      * byteArr转drawable
      *
-     * @param res   resources对象
      * @param bytes 字节数组
      * @return drawable
      */
-    public static Drawable bytes2Drawable(Resources res, byte[] bytes) {
-        return res == null ? null : bitmap2Drawable(res, bytes2Bitmap(bytes));
+    public static Drawable bytes2Drawable(byte[] bytes) {
+        return bytes == null ? null : bitmap2Drawable(bytes2Bitmap(bytes));
     }
 
     /**

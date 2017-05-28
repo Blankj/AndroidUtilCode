@@ -77,6 +77,7 @@
         <activity android:name=".activity.SnackbarActivity"/>
         <activity android:name=".activity.SpannableActivity"/>
         <activity android:name=".activity.ToastActivity"/>
+        <activity android:name=".activity.CacheActivity"/>
 
         <service android:name=".service.LocationService"/>
 
