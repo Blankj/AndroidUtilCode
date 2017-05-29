@@ -60,13 +60,13 @@ getBytes       : 缓存中读取字节数组
 getString      : 缓存中读取String
 getJSONObject  : 缓存中读取JSONObject
 getJSONArray   : 缓存中读取JSONArray
-getBitmap      : 缓存中读取bitmap
-getDrawable    : 缓存中读取drawable
+getBitmap      : 缓存中读取Bitmap
+getDrawable    : 缓存中读取Drawable
 getParcelable  : 缓存中读取Parcelable
 getSerializable: 缓存中读取Serializable
 getCacheSize   : 获取缓存大小
 getCacheCount  : 获取缓存个数
-remove         : 移除某个key
+remove         : 根据键值移除缓存
 clear          : 清除所有缓存
 ```
 
@@ -536,8 +536,8 @@ getLong    : SP中读取long
 getFloat   : SP中读取float
 getBoolean : SP中读取boolean
 getAll     : SP中获取所有键值对
-remove     : SP中移除该key
 contains   : SP中是否存在该key
+remove     : SP中移除该key
 clear      : SP中清除所有数据
 ```
 
@@ -648,7 +648,7 @@ getEntries        : 获取压缩文件中的文件对象
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.6.2'
+compile 'com.blankj:utilcode:1.6.3'
 ```
 
 
@@ -670,7 +670,7 @@ Utils.init(context);
 
 
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.6.2-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.6.3-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-15+-brightgreen.svg

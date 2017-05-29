@@ -19,7 +19,6 @@ import org.robolectric.annotation.Config;
 
 import java.io.File;
 import java.io.Serializable;
-import java.util.LinkedHashMap;
 
 import static com.blankj.utilcode.util.TestUtils.FILE_SEP;
 
@@ -35,25 +34,22 @@ import static com.blankj.utilcode.util.TestUtils.FILE_SEP;
 @Config(manifest = Config.NONE)
 public class CacheUtilsTest {
 
-    final String path1 = TestUtils.TEST_PATH + FILE_SEP + "cache" + FILE_SEP + "cache1" + FILE_SEP;
-    final String path2 = TestUtils.TEST_PATH + FILE_SEP + "cache" + FILE_SEP + "cache2" + FILE_SEP;
-    final File   file1 = new File(path1);
-    final File   file2 = new File(path2);
-
+    private final String path1 = TestUtils.TEST_PATH + FILE_SEP + "cache" + FILE_SEP + "cache1" + FILE_SEP;
+    private final String path2 = TestUtils.TEST_PATH + FILE_SEP + "cache" + FILE_SEP + "cache2" + FILE_SEP;
+    private final File   file1 = new File(path1);
+    private final File   file2 = new File(path2);
 
     private CacheUtils mCacheUtils1;
     private CacheUtils mCacheUtils2;
 
-    private static LinkedHashMap<String, String> map;
-
-    byte[]           mBytes            = "CacheUtils".getBytes();
-    String           mString           = "CacheUtils";
-    JSONObject       mJSONObject       = new JSONObject();
-    JSONArray        mJSONArray        = new JSONArray();
-    ParcelableTest   mParcelableTest   = new ParcelableTest("Blankj", "CacheUtils");
-    SerializableTest mSerializableTest = new SerializableTest("Blankj", "CacheUtils");
-    Bitmap           mBitmap           = Bitmap.createBitmap(100, 100, Bitmap.Config.RGB_565);
-    Drawable         mDrawable         = new BitmapDrawable(Utils.getContext().getResources(), mBitmap);
+    private byte[]           mBytes            = "CacheUtils".getBytes();
+    private String           mString           = "CacheUtils";
+    private JSONObject       mJSONObject       = new JSONObject();
+    private JSONArray        mJSONArray        = new JSONArray();
+    private ParcelableTest   mParcelableTest   = new ParcelableTest("Blankj", "CacheUtils");
+    private SerializableTest mSerializableTest = new SerializableTest("Blankj", "CacheUtils");
+    private Bitmap           mBitmap           = Bitmap.createBitmap(100, 100, Bitmap.Config.RGB_565);
+    private Drawable         mDrawable         = new BitmapDrawable(Utils.getContext().getResources(), mBitmap);
 
     static {
         TestUtils.init();
@@ -77,14 +73,14 @@ public class CacheUtilsTest {
     public void setUp() throws Exception {
         if (mCacheUtils1 == null) {
             mCacheUtils1 = CacheUtils.getInstance(file1);
-            mCacheUtils1.put("bytes1", mBytes, 6000);
-            mCacheUtils1.put("string1", mString, 6000);
-            mCacheUtils1.put("jsonObject1", mJSONObject, 6000);
-            mCacheUtils1.put("jsonArray1", mJSONArray, 6000);
-            mCacheUtils1.put("bitmap1", mBitmap, 6000);
-            mCacheUtils1.put("drawable1", mDrawable, 6000);
-            mCacheUtils1.put("parcelable1", mParcelableTest, 6000);
-            mCacheUtils1.put("serializable1", mSerializableTest, 6000);
+            mCacheUtils1.put("bytes1", mBytes, 60 * CacheUtils.SEC);
+            mCacheUtils1.put("string1", mString, 60 * CacheUtils.MIN);
+            mCacheUtils1.put("jsonObject1", mJSONObject, 24 * CacheUtils.HOUR);
+            mCacheUtils1.put("jsonArray1", mJSONArray, 365 * CacheUtils.DAY);
+            mCacheUtils1.put("bitmap1", mBitmap, CacheUtils.DAY);
+            mCacheUtils1.put("drawable1", mDrawable, CacheUtils.DAY);
+            mCacheUtils1.put("parcelable1", mParcelableTest, CacheUtils.DAY);
+            mCacheUtils1.put("serializable1", mSerializableTest, CacheUtils.DAY);
         }
         if (mCacheUtils2 == null) {
             mCacheUtils2 = CacheUtils.getInstance(file2);
@@ -102,57 +98,91 @@ public class CacheUtilsTest {
     @Test
     public void getBytes() throws Exception {
         Assert.assertEquals(mString, new String(mCacheUtils1.getBytes("bytes1")));
+        Assert.assertEquals(mString, new String(mCacheUtils1.getBytes("bytes1", null)));
+        Assert.assertNull(mCacheUtils1.getBytes("bytes2", null));
 
         Assert.assertEquals(mString, new String(mCacheUtils2.getBytes("bytes2")));
+        Assert.assertEquals(mString, new String(mCacheUtils2.getBytes("bytes2", null)));
+        Assert.assertNull(mCacheUtils2.getBytes("bytes1", null));
+
     }
 
     @Test
     public void getString() throws Exception {
         Assert.assertEquals(mString, mCacheUtils1.getString("string1"));
+        Assert.assertEquals(mString, mCacheUtils1.getString("string1", null));
+        Assert.assertNull(mCacheUtils1.getString("string2", null));
 
         Assert.assertEquals(mString, mCacheUtils2.getString("string2"));
+        Assert.assertEquals(mString, mCacheUtils2.getString("string2", null));
+        Assert.assertNull(mCacheUtils2.getString("string1", null));
     }
 
     @Test
     public void getJSONObject() throws Exception {
         Assert.assertEquals(mJSONObject.toString(), mCacheUtils1.getJSONObject("jsonObject1").toString());
+        Assert.assertEquals(mJSONObject.toString(), mCacheUtils1.getJSONObject("jsonObject1", null).toString());
+        Assert.assertNull(mCacheUtils1.getJSONObject("jsonObject2", null));
 
         Assert.assertEquals(mJSONObject.toString(), mCacheUtils2.getJSONObject("jsonObject2").toString());
+        Assert.assertEquals(mJSONObject.toString(), mCacheUtils2.getJSONObject("jsonObject2", null).toString());
+        Assert.assertNull(mCacheUtils2.getJSONObject("jsonObject1", null));
     }
 
     @Test
     public void getJSONArray() throws Exception {
         Assert.assertEquals(mJSONArray.toString(), mCacheUtils1.getJSONArray("jsonArray1").toString());
+        Assert.assertEquals(mJSONArray.toString(), mCacheUtils1.getJSONArray("jsonArray1", null).toString());
+        Assert.assertNull(mCacheUtils1.getJSONArray("jsonArray2", null));
+
 
         Assert.assertEquals(mJSONArray.toString(), mCacheUtils2.getJSONArray("jsonArray2").toString());
+        Assert.assertEquals(mJSONArray.toString(), mCacheUtils2.getJSONArray("jsonArray2", null).toString());
+        Assert.assertNull(mCacheUtils2.getJSONArray("jsonArray1", null));
     }
 
     @Test
     public void getBitmap() throws Exception {
         Assert.assertTrue(mCacheUtils1.getString("bitmap1").equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
+        Assert.assertTrue(mCacheUtils1.getString("bitmap1", null).equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
+        Assert.assertNull(mCacheUtils1.getString("bitmap2", null));
 
         Assert.assertTrue(mCacheUtils2.getString("bitmap2").equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
+        Assert.assertTrue(mCacheUtils2.getString("bitmap2", null).equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
+        Assert.assertNull(mCacheUtils2.getString("bitmap1", null));
     }
 
     @Test
     public void getDrawable() throws Exception {
         Assert.assertTrue(mCacheUtils1.getString("drawable1").equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
+        Assert.assertTrue(mCacheUtils1.getString("drawable1", null).equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
+        Assert.assertNull(mCacheUtils1.getString("drawable2", null));
 
         Assert.assertTrue(mCacheUtils2.getString("drawable2").equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
+        Assert.assertTrue(mCacheUtils2.getString("drawable2", null).equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
+        Assert.assertNull(mCacheUtils2.getString("drawable1", null));
     }
 
     @Test
     public void getParcel() throws Exception {
         Assert.assertTrue(mCacheUtils1.getParcelable("parcelable1", ParcelableTest.CREATOR).equals(mParcelableTest));
+        Assert.assertTrue(mCacheUtils1.getParcelable("parcelable1", ParcelableTest.CREATOR, null).equals(mParcelableTest));
+        Assert.assertNull(mCacheUtils1.getParcelable("parcelable2", ParcelableTest.CREATOR, null));
 
         Assert.assertTrue(mCacheUtils2.getParcelable("parcelable2", ParcelableTest.CREATOR).equals(mParcelableTest));
+        Assert.assertTrue(mCacheUtils2.getParcelable("parcelable2", ParcelableTest.CREATOR, null).equals(mParcelableTest));
+        Assert.assertNull(mCacheUtils2.getParcelable("parcelable1", ParcelableTest.CREATOR, null));
     }
 
     @Test
     public void getSerializable() throws Exception {
         Assert.assertTrue(mCacheUtils1.getSerializable("serializable1").equals(mSerializableTest));
+        Assert.assertTrue(mCacheUtils1.getSerializable("serializable1", null).equals(mSerializableTest));
+        Assert.assertNull(mCacheUtils1.getSerializable("parcelable2", null));
 
         Assert.assertTrue(mCacheUtils2.getSerializable("serializable2").equals(mSerializableTest));
+        Assert.assertTrue(mCacheUtils2.getSerializable("serializable2", null).equals(mSerializableTest));
+        Assert.assertNull(mCacheUtils2.getSerializable("parcelable1", null));
     }
 
     @Test

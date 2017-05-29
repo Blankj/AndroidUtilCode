@@ -46,13 +46,18 @@ public class CacheUtils {
     private static final long DEFAULT_MAX_SIZE  = Long.MAX_VALUE;
     private static final int  DEFAULT_MAX_COUNT = Integer.MAX_VALUE;
 
+    public static final int SEC  = 1;
+    public static final int MIN  = 60;
+    public static final int HOUR = 360;
+    public static final int DAY  = 8640;
+
     private static Map<String, CacheUtils> sCacheMap = new HashMap<>();
     private CacheManager mCacheManager;
 
     /**
      * 获取缓存实例
      * <p>在/data/data/com.xxx.xxx/cache/cacheUtils目录</p>
-     * <p>最大缓存100M</p>
+     * <p>缓存尺寸不限</p>
      * <p>缓存个数不限</p>
      *
      * @return {@link CacheUtils}
@@ -64,7 +69,7 @@ public class CacheUtils {
     /**
      * 获取缓存实例
      * <p>在/data/data/com.xxx.xxx/cache/cacheName目录</p>
-     * <p>最大缓存100M</p>
+     * <p>缓存尺寸不限</p>
      * <p>缓存个数不限</p>
      *
      * @param cacheName 缓存目录名
@@ -78,8 +83,8 @@ public class CacheUtils {
      * 获取缓存实例
      * <p>在/data/data/com.xxx.xxx/cache/cacheUtils目录</p>
      *
-     * @param maxSize  缓存大小，单位字节
-     * @param maxCount 缓存个数
+     * @param maxSize  最大缓存尺寸，单位字节
+     * @param maxCount 最大缓存个数
      * @return {@link CacheUtils}
      */
     public static CacheUtils getInstance(long maxSize, int maxCount) {
@@ -91,8 +96,8 @@ public class CacheUtils {
      * <p>在/data/data/com.xxx.xxx/cache/cacheName目录</p>
      *
      * @param cacheName 缓存目录名
-     * @param maxSize   缓存大小，单位字节
-     * @param maxCount  缓存个数
+     * @param maxSize   最大缓存尺寸，单位字节
+     * @param maxCount  最大缓存个数
      * @return {@link CacheUtils}
      */
     public static CacheUtils getInstance(String cacheName, long maxSize, int maxCount) {
@@ -104,7 +109,7 @@ public class CacheUtils {
     /**
      * 获取缓存实例
      * <p>在cacheDir目录</p>
-     * <p>最大缓存100M</p>
+     * <p>缓存尺寸不限</p>
      * <p>缓存个数不限</p>
      *
      * @param cacheDir 缓存目录
@@ -119,8 +124,8 @@ public class CacheUtils {
      * <p>在cacheDir目录</p>
      *
      * @param cacheDir 缓存目录
-     * @param maxSize  缓存大小，单位字节
-     * @param maxCount 缓存个数
+     * @param maxSize  最大缓存尺寸，单位字节
+     * @param maxCount 最大缓存个数
      * @return {@link CacheUtils}
      */
     public static CacheUtils getInstance(@NonNull File cacheDir, long maxSize, int maxCount) {
@@ -175,15 +180,26 @@ public class CacheUtils {
      * 缓存中读取字节数组
      *
      * @param key 键
-     * @return 字节数组
+     * @return 存在且没过期返回对应值，否则返回{@code null}
      */
     public byte[] getBytes(@NonNull String key) {
+        return getBytes(key, null);
+    }
+
+    /**
+     * 缓存中读取字节数组
+     *
+     * @param key          键
+     * @param defaultValue 默认值
+     * @return 存在且没过期返回对应值，否则返回默认值{@code defaultValue}
+     */
+    public byte[] getBytes(@NonNull String key, byte[] defaultValue) {
         final File file = mCacheManager.getFileIfExists(key);
-        if (file == null) return null;
+        if (file == null) return defaultValue;
         byte[] data = CacheHelper.readFile2Bytes(file);
         if (CacheHelper.isDue(data)) {
             mCacheManager.removeByKey(key);
-            return null;
+            return defaultValue;
         }
         mCacheManager.updateModify(file);
         return CacheHelper.getDataWithoutDueTime(data);
@@ -218,10 +234,23 @@ public class CacheUtils {
      * 缓存中读取String
      *
      * @param key 键
-     * @return String
+     * @return 存在且没过期返回对应值，否则返回{@code null}
      */
     public String getString(@NonNull String key) {
-        return CacheHelper.bytes2String(getBytes(key));
+        return getString(key, null);
+    }
+
+    /**
+     * 缓存中读取String
+     *
+     * @param key          键
+     * @param defaultValue 默认值
+     * @return 存在且没过期返回对应值，否则返回默认值{@code defaultValue}
+     */
+    public String getString(@NonNull String key, String defaultValue) {
+        byte[] bytes = getBytes(key);
+        if (bytes == null) return defaultValue;
+        return CacheHelper.bytes2String(bytes);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -253,10 +282,23 @@ public class CacheUtils {
      * 缓存中读取JSONObject
      *
      * @param key 键
-     * @return JSONObject
+     * @return 存在且没过期返回对应值，否则返回{@code null}
      */
     public JSONObject getJSONObject(@NonNull String key) {
-        return CacheHelper.bytes2JSONObject(getBytes(key));
+        return getJSONObject(key, null);
+    }
+
+    /**
+     * 缓存中读取JSONObject
+     *
+     * @param key          键
+     * @param defaultValue 默认值
+     * @return 存在且没过期返回对应值，否则返回默认值{@code defaultValue}
+     */
+    public JSONObject getJSONObject(@NonNull String key, JSONObject defaultValue) {
+        byte[] bytes = getBytes(key);
+        if (bytes == null) return defaultValue;
+        return CacheHelper.bytes2JSONObject(bytes);
     }
 
 
@@ -289,19 +331,32 @@ public class CacheUtils {
      * 缓存中读取JSONArray
      *
      * @param key 键
-     * @return JSONArray
+     * @return 存在且没过期返回对应值，否则返回{@code null}
      */
     public JSONArray getJSONArray(@NonNull String key) {
-        return CacheHelper.bytes2JSONArray(getBytes(key));
+        return getJSONArray(key, null);
+    }
+
+    /**
+     * 缓存中读取JSONArray
+     *
+     * @param key          键
+     * @param defaultValue 默认值
+     * @return 存在且没过期返回对应值，否则返回默认值{@code defaultValue}
+     */
+    public JSONArray getJSONArray(@NonNull String key, JSONArray defaultValue) {
+        byte[] bytes = getBytes(key);
+        if (bytes == null) return defaultValue;
+        return CacheHelper.bytes2JSONArray(bytes);
     }
 
 
     ///////////////////////////////////////////////////////////////////////////
-    // bitmap 读写
+    // Bitmap 读写
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * 缓存中写入bitmap
+     * 缓存中写入Bitmap
      *
      * @param key   键
      * @param value 值
@@ -311,7 +366,7 @@ public class CacheUtils {
     }
 
     /**
-     * 缓存中写入bitmap
+     * 缓存中写入Bitmap
      *
      * @param key      键
      * @param value    值
@@ -322,23 +377,34 @@ public class CacheUtils {
     }
 
     /**
-     * 缓存中读取bitmap
+     * 缓存中读取Bitmap
      *
      * @param key 键
-     * @return bitmap
+     * @return 存在且没过期返回对应值，否则返回{@code null}
      */
     public Bitmap getBitmap(@NonNull String key) {
+        return getBitmap(key, null);
+    }
+
+    /**
+     * 缓存中读取Bitmap
+     *
+     * @param key          键
+     * @param defaultValue 默认值
+     * @return 存在且没过期返回对应值，否则返回默认值{@code defaultValue}
+     */
+    public Bitmap getBitmap(@NonNull String key, Bitmap defaultValue) {
         byte[] bytes = getBytes(key);
-        if (bytes == null) return null;
+        if (bytes == null) return defaultValue;
         return CacheHelper.bytes2Bitmap(bytes);
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // drawable 数据 读写
+    // Drawable 读写
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * 缓存中写入drawable
+     * 缓存中写入Drawable
      *
      * @param key   键
      * @param value 值
@@ -348,7 +414,7 @@ public class CacheUtils {
     }
 
     /**
-     * 缓存中写入drawable
+     * 缓存中写入Drawable
      *
      * @param key      键
      * @param value    值
@@ -359,14 +425,25 @@ public class CacheUtils {
     }
 
     /**
-     * 缓存中读取drawable
+     * 缓存中读取Drawable
      *
      * @param key 键
-     * @return bitmap
+     * @return 存在且没过期返回对应值，否则返回{@code null}
      */
     public Drawable getDrawable(@NonNull String key) {
+        return getDrawable(key, null);
+    }
+
+    /**
+     * 缓存中读取Drawable
+     *
+     * @param key          键
+     * @param defaultValue 默认值
+     * @return 存在且没过期返回对应值，否则返回默认值{@code defaultValue}
+     */
+    public Drawable getDrawable(@NonNull String key, Drawable defaultValue) {
         byte[] bytes = getBytes(key);
-        if (bytes == null) return null;
+        if (bytes == null) return defaultValue;
         return CacheHelper.bytes2Drawable(bytes);
     }
 
@@ -400,10 +477,24 @@ public class CacheUtils {
      *
      * @param key     键
      * @param creator 建造器
-     * @return T
+     * @return 存在且没过期返回对应值，否则返回{@code null}
      */
     public <T> T getParcelable(@NonNull String key, @NonNull Parcelable.Creator<T> creator) {
-        return CacheHelper.bytes2Parcelable(getBytes(key), creator);
+        return getParcelable(key, creator, null);
+    }
+
+    /**
+     * 缓存中读取Parcelable
+     *
+     * @param key          键
+     * @param creator      建造器
+     * @param defaultValue 默认值
+     * @return 存在且没过期返回对应值，否则返回默认值{@code defaultValue}
+     */
+    public <T> T getParcelable(@NonNull String key, @NonNull Parcelable.Creator<T> creator, T defaultValue) {
+        byte[] bytes = getBytes(key);
+        if (bytes == null) return defaultValue;
+        return CacheHelper.bytes2Parcelable(bytes, creator);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -435,9 +526,22 @@ public class CacheUtils {
      * 缓存中读取Serializable
      *
      * @param key 键
-     * @return Serializable
+     * @return 存在且没过期返回对应值，否则返回{@code null}
      */
     public Object getSerializable(@NonNull String key) {
+        return getSerializable(key, null);
+    }
+
+    /**
+     * 缓存中读取Serializable
+     *
+     * @param key          键
+     * @param defaultValue 默认值
+     * @return 存在且没过期返回对应值，否则返回默认值{@code defaultValue}
+     */
+    public Object getSerializable(@NonNull String key, Object defaultValue) {
+        byte[] bytes = getBytes(key);
+        if (bytes == null) return defaultValue;
         return CacheHelper.bytes2Object(getBytes(key));
     }
 
@@ -461,20 +565,22 @@ public class CacheUtils {
     }
 
     /**
-     * 移除某个key
+     * 根据键值移除缓存
      *
      * @param key 键
-     * @return 是否移除成功
+     * @return {@code true}: 移除成功<br>{@code false}: 移除失败
      */
     public boolean remove(@NonNull String key) {
         return mCacheManager.removeByKey(key);
     }
 
     /**
-     * 清除所有
+     * 清除所有缓存
+     *
+     * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
-    public void clear() {
-        mCacheManager.clear();
+    public boolean clear() {
+        return mCacheManager.clear();
     }
 
     private class CacheManager {
@@ -562,9 +668,9 @@ public class CacheUtils {
             return true;
         }
 
-        private void clear() {
+        private boolean clear() {
             File[] files = cacheDir.listFiles();
-            if (files == null) return;
+            if (files == null || files.length <= 0) return true;
             boolean flag = true;
             for (File file : files) {
                 if (!file.delete()) {
@@ -580,6 +686,7 @@ public class CacheUtils {
                 cacheSize.set(0);
                 cacheCount.set(0);
             }
+            return flag;
         }
 
         /**
@@ -605,18 +712,15 @@ public class CacheUtils {
             long fileSize = oldestFile.length();
             if (oldestFile.delete()) {
                 lastUsageDates.remove(oldestFile);
+                return fileSize;
             }
-            return fileSize;
+            return 0;
         }
     }
 
     private static class CacheHelper {
 
         static final int timeInfoLen = 17;
-
-        private static String newStringWithTime(int second, String strInfo) {
-            return createDueTime(second) + strInfo;
-        }
 
         private static byte[] newByteArrayWithTime(int second, byte[] data) {
             byte[] time = createDueTime(second).getBytes();
@@ -812,15 +916,15 @@ public class CacheUtils {
         }
 
         private static Drawable bytes2Drawable(byte[] bytes) {
-            return bytes == null ? null : bitmap2Drawable(bytes2Bitmap(bytes));
+            return bytes == null ? null : Bitmap2Drawable(bytes2Bitmap(bytes));
         }
 
         private static Bitmap drawable2Bitmap(Drawable drawable) {
             if (drawable == null) return null;
             if (drawable instanceof BitmapDrawable) {
-                BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-                if (bitmapDrawable.getBitmap() != null) {
-                    return bitmapDrawable.getBitmap();
+                BitmapDrawable BitmapDrawable = (BitmapDrawable) drawable;
+                if (BitmapDrawable.getBitmap() != null) {
+                    return BitmapDrawable.getBitmap();
                 }
             }
             Bitmap bitmap;
@@ -835,8 +939,8 @@ public class CacheUtils {
             return bitmap;
         }
 
-        private static Drawable bitmap2Drawable(Bitmap bitmap) {
-            return bitmap == null ? null : new BitmapDrawable(Utils.getContext().getResources(), bitmap);
+        private static Drawable Bitmap2Drawable(Bitmap Bitmap) {
+            return Bitmap == null ? null : new BitmapDrawable(Utils.getContext().getResources(), Bitmap);
         }
     }
 

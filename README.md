@@ -536,8 +536,8 @@ getLong
 getFloat
 getBoolean
 getAll
-remove
 contains
+remove
 clear
 ```
 
@@ -648,7 +648,7 @@ getEntries
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.6.2'
+compile 'com.blankj:utilcode:1.6.3'
 ```
 
 
@@ -670,7 +670,7 @@ Utils.init(context);
 
 
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.6.2-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.6.3-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-15+-brightgreen.svg

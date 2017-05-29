@@ -65,7 +65,7 @@ public class SPUtils {
      * SP中读取String
      *
      * @param key 键
-     * @return 存在返回对应值，不存在返回默认值{@code null}
+     * @return 存在返回对应值，不存在返回默认值{@code ""}
      */
     public String getString(@NonNull String key) {
         return getString(key, "");
@@ -220,7 +220,7 @@ public class SPUtils {
      * SP中读取StringSet
      *
      * @param key 键
-     * @return 存在返回对应值，不存在返回默认值{@code null}
+     * @return 存在返回对应值，不存在返回默认值{@code Collections.<String>emptySet()}
      */
     public Set<String> getStringSet(@NonNull String key) {
         return getStringSet(key, Collections.<String>emptySet());
@@ -247,15 +247,6 @@ public class SPUtils {
     }
 
     /**
-     * SP中移除该key
-     *
-     * @param key 键
-     */
-    public void remove(@NonNull String key) {
-        sp.edit().remove(key).apply();
-    }
-
-    /**
      * SP中是否存在该key
      *
      * @param key 键
@@ -263,6 +254,15 @@ public class SPUtils {
      */
     public boolean contains(@NonNull String key) {
         return sp.contains(key);
+    }
+
+    /**
+     * SP中移除该key
+     *
+     * @param key 键
+     */
+    public void remove(@NonNull String key) {
+        sp.edit().remove(key).apply();
     }
 
     /**
