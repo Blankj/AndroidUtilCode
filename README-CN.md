@@ -121,8 +121,7 @@ sp2px, px2sp                            : sp与px互转
 
 * ### 崩溃相关→[CrashUtils.java][crash.java]
 ```
-getInstance: 获取单例
-init       : 初始化
+init: 初始化
 ```
 
 * ### 设备相关→[DeviceUtils.java][device.java]→[Demo][device.demo]
@@ -648,7 +647,7 @@ getEntries        : 获取压缩文件中的文件对象
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.6.3'
+compile 'com.blankj:utilcode:1.6.4'
 ```
 
 
@@ -670,7 +669,7 @@ Utils.init(context);
 
 
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.6.3-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.6.4-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-15+-brightgreen.svg

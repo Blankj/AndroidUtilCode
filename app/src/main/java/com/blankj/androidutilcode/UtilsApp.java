@@ -53,13 +53,13 @@ public class UtilsApp extends BaseApplication {
     }
 
     private void initCrash() {
-        CrashUtils.getInstance().init();
+        CrashUtils.init();
     }
 
     private void initAssets() {
         if (!FileUtils.isFileExists(Config.getTestApkPath())) {
             try {
-                FileIOUtils.writeFileFromIS(Config.getTestApkPath(), getAssets().open("test_install.apk"), false);
+                FileIOUtils.writeFileFromIS(Config.getTestApkPath(), getAssets().open("test_install"), false);
             } catch (IOException e) {
                 e.printStackTrace();
             }

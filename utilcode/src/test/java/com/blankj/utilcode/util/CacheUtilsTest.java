@@ -19,6 +19,7 @@ import org.robolectric.annotation.Config;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.LinkedHashMap;
 
 import static com.blankj.utilcode.util.TestUtils.FILE_SEP;
 
@@ -41,6 +42,8 @@ public class CacheUtilsTest {
 
     private CacheUtils mCacheUtils1;
     private CacheUtils mCacheUtils2;
+
+    private static LinkedHashMap<String, String> map;
 
     private byte[]           mBytes            = "CacheUtils".getBytes();
     private String           mString           = "CacheUtils";
@@ -77,10 +80,10 @@ public class CacheUtilsTest {
             mCacheUtils1.put("string1", mString, 60 * CacheUtils.MIN);
             mCacheUtils1.put("jsonObject1", mJSONObject, 24 * CacheUtils.HOUR);
             mCacheUtils1.put("jsonArray1", mJSONArray, 365 * CacheUtils.DAY);
-            mCacheUtils1.put("bitmap1", mBitmap, CacheUtils.DAY);
-            mCacheUtils1.put("drawable1", mDrawable, CacheUtils.DAY);
-            mCacheUtils1.put("parcelable1", mParcelableTest, CacheUtils.DAY);
-            mCacheUtils1.put("serializable1", mSerializableTest, CacheUtils.DAY);
+            mCacheUtils1.put("bitmap1", mBitmap, 60 * CacheUtils.SEC);
+            mCacheUtils1.put("drawable1", mDrawable, 60 * CacheUtils.SEC);
+            mCacheUtils1.put("parcelable1", mParcelableTest, 60 * CacheUtils.SEC);
+            mCacheUtils1.put("serializable1", mSerializableTest, 60 * CacheUtils.SEC);
         }
         if (mCacheUtils2 == null) {
             mCacheUtils2 = CacheUtils.getInstance(file2);
@@ -104,7 +107,6 @@ public class CacheUtilsTest {
         Assert.assertEquals(mString, new String(mCacheUtils2.getBytes("bytes2")));
         Assert.assertEquals(mString, new String(mCacheUtils2.getBytes("bytes2", null)));
         Assert.assertNull(mCacheUtils2.getBytes("bytes1", null));
-
     }
 
     @Test

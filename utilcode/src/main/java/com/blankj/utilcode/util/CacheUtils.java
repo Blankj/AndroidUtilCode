@@ -720,7 +720,7 @@ public class CacheUtils {
 
     private static class CacheHelper {
 
-        static final int timeInfoLen = 17;
+        static final int timeInfoLen = 14;
 
         private static byte[] newByteArrayWithTime(int second, byte[] data) {
             byte[] time = createDueTime(second).getBytes();
@@ -737,7 +737,7 @@ public class CacheUtils {
          * @return _$millis$_
          */
         private static String createDueTime(int second) {
-            return String.format(Locale.getDefault(), "_$%013d$_", System.currentTimeMillis() + second * 1000);
+            return String.format(Locale.getDefault(), "_$%010d$_", System.currentTimeMillis() / 1000 + second);
         }
 
         private static boolean isDue(byte[] data) {
@@ -747,9 +747,9 @@ public class CacheUtils {
 
         private static long getDueTime(byte[] data) {
             if (hasTimeInfo(data)) {
-                String millis = new String(copyOfRange(data, 2, 15));
+                String millis = new String(copyOfRange(data, 2, 12));
                 try {
-                    return Long.parseLong(millis);
+                    return Long.parseLong(millis) * 1000;
                 } catch (NumberFormatException e) {
                     return -1;
                 }
@@ -777,8 +777,8 @@ public class CacheUtils {
                     && data.length >= timeInfoLen
                     && data[0] == '_'
                     && data[1] == '$'
-                    && data[15] == '$'
-                    && data[16] == '_';
+                    && data[12] == '$'
+                    && data[13] == '_';
         }
 
         private static void writeFileFromBytes(File file, byte[] bytes) {

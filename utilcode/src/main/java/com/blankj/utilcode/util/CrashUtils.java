@@ -4,12 +4,14 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -22,105 +24,34 @@ import java.util.Locale;
  *     desc  : 崩溃相关工具类
  * </pre>
  */
-public final class CrashUtils
-        implements Thread.UncaughtExceptionHandler {
+public final class CrashUtils {
 
-    private volatile static CrashUtils mInstance;
+    private static boolean mInitialized;
+    private static String  defaultDir;
+    private static String  dir;
+    private static String  versionName;
+    private static int     versionCode;
 
-    private UncaughtExceptionHandler mHandler;
+    private static final String FILE_SEP = System.getProperty("file.separator");
+    private static final Format FORMAT   = new SimpleDateFormat("MM-dd HH-mm-ss", Locale.getDefault());
 
-    private boolean mInitialized;
-    private String  crashDir;
-    private String  versionName;
-    private int     versionCode;
+    private static final String CRASH_HEAD;
 
-    private CrashUtils() {
-    }
+    private static final UncaughtExceptionHandler DEFAULT_UNCAUGHT_EXCEPTION_HANDLER;
+    private static final UncaughtExceptionHandler UNCAUGHT_EXCEPTION_HANDLER;
 
-    /**
-     * 获取单例
-     * <p>在Application中初始化{@code CrashUtils.getInstance().init(this);}</p>
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>}</p>
-     *
-     * @return 单例
-     */
-    public static CrashUtils getInstance() {
-        if (mInstance == null) {
-            synchronized (CrashUtils.class) {
-                if (mInstance == null) {
-                    mInstance = new CrashUtils();
-                }
-            }
-        }
-        return mInstance;
-    }
-
-    /**
-     * 初始化
-     *
-     * @return {@code true}: 成功<br>{@code false}: 失败
-     */
-    public boolean init() {
-        if (mInitialized) return true;
-        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            File baseCache = Utils.getContext().getExternalCacheDir();
-            if (baseCache == null) return false;
-            crashDir = baseCache.getPath() + File.separator + "crash" + File.separator;
-        } else {
-            File baseCache = Utils.getContext().getCacheDir();
-            if (baseCache == null) return false;
-            crashDir = baseCache.getPath() + File.separator + "crash" + File.separator;
-        }
+    static {
         try {
             PackageInfo pi = Utils.getContext().getPackageManager().getPackageInfo(Utils.getContext().getPackageName(), 0);
-            versionName = pi.versionName;
-            versionCode = pi.versionCode;
+            if (pi != null) {
+                versionName = pi.versionName;
+                versionCode = pi.versionCode;
+            }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            return false;
         }
-        mHandler = Thread.getDefaultUncaughtExceptionHandler();
-        Thread.setDefaultUncaughtExceptionHandler(this);
-        return mInitialized = true;
-    }
 
-    @Override
-    public void uncaughtException(Thread thread, final Throwable throwable) {
-        String now = new SimpleDateFormat("yyMMdd HH-mm-ss", Locale.getDefault()).format(new Date());
-        final String fullPath = crashDir + now + ".txt";
-        if (!createOrExistsFile(fullPath)) return;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                PrintWriter pw = null;
-                try {
-                    pw = new PrintWriter(new FileWriter(fullPath, false));
-                    pw.write(getCrashHead());
-                    throwable.printStackTrace(pw);
-                    Throwable cause = throwable.getCause();
-                    while (cause != null) {
-                        cause.printStackTrace(pw);
-                        cause = cause.getCause();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    CloseUtils.closeIO(pw);
-                }
-            }
-        }).start();
-        if (mHandler != null) {
-            mHandler.uncaughtException(thread, throwable);
-        }
-    }
-
-    /**
-     * 获取崩溃头
-     *
-     * @return 崩溃头
-     */
-    private String getCrashHead() {
-        return "\n************* Crash Log Head ****************" +
+        CRASH_HEAD = "\n************* Crash Log Head ****************" +
                 "\nDevice Manufacturer: " + Build.MANUFACTURER +// 设备厂商
                 "\nDevice Model       : " + Build.MODEL +// 设备型号
                 "\nAndroid Version    : " + Build.VERSION.RELEASE +// 系统版本
@@ -128,17 +59,101 @@ public final class CrashUtils
                 "\nApp VersionName    : " + versionName +
                 "\nApp VersionCode    : " + versionCode +
                 "\n************* Crash Log Head ****************\n\n";
+
+        DEFAULT_UNCAUGHT_EXCEPTION_HANDLER = Thread.getDefaultUncaughtExceptionHandler();
+
+        UNCAUGHT_EXCEPTION_HANDLER = new UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(final Thread t, final Throwable e) {
+                if (e == null) {
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                    System.exit(0);
+                    return;
+                }
+                Date now = new Date(System.currentTimeMillis());
+                String fileName = FORMAT.format(now) + ".txt";
+                final String fullPath = (dir == null ? defaultDir : dir) + fileName;
+                if (!createOrExistsFile(fullPath)) return;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        PrintWriter pw = null;
+                        try {
+                            pw = new PrintWriter(new FileWriter(fullPath, false));
+                            pw.write(CRASH_HEAD);
+                            e.printStackTrace(pw);
+                            Throwable cause = e.getCause();
+                            while (cause != null) {
+                                cause.printStackTrace(pw);
+                                cause = cause.getCause();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } finally {
+                            if (pw != null) {
+                                pw.close();
+                            }
+                        }
+                    }
+                }).start();
+                if (DEFAULT_UNCAUGHT_EXCEPTION_HANDLER != null) {
+                    DEFAULT_UNCAUGHT_EXCEPTION_HANDLER.uncaughtException(t, e);
+                }
+            }
+        };
+    }
+
+    private CrashUtils() {
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**
-     * 判断文件是否存在，不存在则判断是否创建成功
+     * 初始化
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>}</p>
      *
-     * @param filePath 文件路径
-     * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
+     * @return {@code true}: 初始化成功<br>{@code false}: 初始化失败
      */
+    public static boolean init() {
+        return init("");
+    }
+
+    /**
+     * 初始化
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>}</p>
+     *
+     * @param crashDir 崩溃文件存储目录
+     * @return {@code true}: 初始化成功<br>{@code false}: 初始化失败
+     */
+    public static boolean init(@NonNull final File crashDir) {
+        return init(crashDir.getAbsolutePath() + FILE_SEP);
+    }
+
+    /**
+     * 初始化
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>}</p>
+     *
+     * @param crashDir 崩溃文件存储目录
+     * @return {@code true}: 初始化成功<br>{@code false}: 初始化失败
+     */
+    public static boolean init(final String crashDir) {
+        if (isSpace(crashDir)) {
+            dir = null;
+        } else {
+            dir = crashDir.endsWith(FILE_SEP) ? dir : dir + FILE_SEP;
+        }
+        if (mInitialized) return true;
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
+                && Utils.getContext().getExternalCacheDir() != null)
+            defaultDir = Utils.getContext().getExternalCacheDir() + FILE_SEP + "crash" + FILE_SEP;
+        else {
+            defaultDir = Utils.getContext().getCacheDir() + FILE_SEP + "crash" + FILE_SEP;
+        }
+        Thread.setDefaultUncaughtExceptionHandler(UNCAUGHT_EXCEPTION_HANDLER);
+        return mInitialized = true;
+    }
+
     private static boolean createOrExistsFile(String filePath) {
         File file = new File(filePath);
-        // 如果存在，是文件则返回true，是目录则返回false
         if (file.exists()) return file.isFile();
         if (!createOrExistsDir(file.getParentFile())) return false;
         try {
@@ -149,15 +164,17 @@ public final class CrashUtils
         }
     }
 
-
-    /**
-     * 判断目录是否存在，不存在则判断是否创建成功
-     *
-     * @param file 文件
-     * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
-     */
     private static boolean createOrExistsDir(File file) {
-        // 如果存在，是目录则返回true，是文件则返回false，不存在则返回是否创建成功
         return file != null && (file.exists() ? file.isDirectory() : file.mkdirs());
+    }
+
+    private static boolean isSpace(String s) {
+        if (s == null) return true;
+        for (int i = 0, len = s.length(); i < len; ++i) {
+            if (!Character.isWhitespace(s.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 }

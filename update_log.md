@@ -1,4 +1,6 @@
-* 17/05/27 完善CacheUtils，发布1.6.2
+* 17/05/30 完善CrashUtils，发布1.6.4
+* 17/05/28 修复CacheUtils的bug，发布1.6.3
+* 17/05/27 修复CacheUtils的bug，发布1.6.2
 * 17/05/26 完善CacheUtils，发布1.6.0和1.6.1
 * 17/05/25 完善FileIOUtils和CacheUtils
 * 17/05/23 新增读取文件到字符数组中两种方式

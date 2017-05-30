@@ -121,7 +121,6 @@ sp2px, px2sp
 
 * ### About Crash→[CrashUtils.java][crash.java]
 ```
-getInstance
 init
 ```
 
@@ -648,7 +647,7 @@ getEntries
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.6.3'
+compile 'com.blankj:utilcode:1.6.4'
 ```
 
 
@@ -670,7 +669,7 @@ Utils.init(context);
 
 
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.6.3-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.6.4-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-15+-brightgreen.svg

@@ -10,8 +10,8 @@ android {
         applicationId "com.blankj.androidutilcode"
         minSdkVersion 15
         targetSdkVersion 16
-        versionCode 35
-        versionName "1.6.3"
+        versionCode 36
+        versionName "1.6.4"
     }
 
     if (signPropertiesFile.exists()) {

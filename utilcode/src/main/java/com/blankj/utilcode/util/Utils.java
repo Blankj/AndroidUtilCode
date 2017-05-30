@@ -2,6 +2,7 @@ package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 /**
  * <pre>
@@ -25,7 +26,7 @@ public final class Utils {
      *
      * @param context 上下文
      */
-    public static void init(Context context) {
+    public static void init(@NonNull Context context) {
         Utils.context = context.getApplicationContext();
     }
 
