@@ -114,13 +114,13 @@ public class SnackbarActivity extends BaseActivity {
                         });
                 break;
             case TYPE_LONG:
-                SnackbarUtils.showShort(snackBarRootView,
+                SnackbarUtils.showLong(snackBarRootView,
                         builder.append(getString(R.string.snackbar_long)).create(),
                         Color.BLUE,
                         Color.LTGRAY);
                 break;
             case TYPE_LONG_WITH_ACTION:
-                SnackbarUtils.showShort(snackBarRootView, builder.append(getString(R.string.snackbar_long)).create(), Color.BLUE, Color.LTGRAY,
+                SnackbarUtils.showLong(snackBarRootView, builder.append(getString(R.string.snackbar_long)).create(), Color.BLUE, Color.LTGRAY,
                         "Short", Color.DKGRAY, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -129,13 +129,13 @@ public class SnackbarActivity extends BaseActivity {
                         });
                 break;
             case TYPE_INDEFINITE:
-                SnackbarUtils.showShort(snackBarRootView,
+                SnackbarUtils.showIndefinite(snackBarRootView,
                         builder.append(getString(R.string.snackbar_indefinite)).create(),
                         Color.BLUE,
                         Color.LTGRAY);
                 break;
             case TYPE_INDEFINITE_WITH_ACTION:
-                SnackbarUtils.showShort(snackBarRootView, builder.append(getString(R.string.snackbar_indefinite)).create(), Color.BLUE, Color.LTGRAY,
+                SnackbarUtils.showIndefinite(snackBarRootView, builder.append(getString(R.string.snackbar_indefinite)).create(), Color.BLUE, Color.LTGRAY,
                         "Short", Color.DKGRAY, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
