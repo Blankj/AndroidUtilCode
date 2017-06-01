@@ -317,10 +317,10 @@ getCaptureIntent
 
 * ### About Keyboard→[KeyboardUtils.java][keyboard.java]→[Demo][keyboard.demo]
 ```
-hideSoftInput
-clickBlankArea2HideSoftInput
 showSoftInput
+hideSoftInput
 toggleSoftInput
+clickBlankArea2HideSoftInput
 ```
 
 * ### About Location→[LocationUtils.java][location.java]→[Demo][location.demo]

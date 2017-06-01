@@ -3,6 +3,7 @@ package com.blankj.androidutilcode.activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseActivity;
+import com.blankj.androidutilcode.dialog.KeyboardDialog;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
 
@@ -26,6 +28,8 @@ import com.blankj.utilcode.util.LogUtils;
 public class KeyboardActivity extends BaseActivity {
 
     TextView tvAboutKeyboard;
+    EditText etInput;
+    private AlertDialog dialog;
 
     @Override
     public void initData(Bundle bundle) {
@@ -39,9 +43,11 @@ public class KeyboardActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        etInput = (EditText) findViewById(R.id.et_input);
         findViewById(R.id.btn_hide_soft_input).setOnClickListener(this);
         findViewById(R.id.btn_show_soft_input).setOnClickListener(this);
         findViewById(R.id.btn_toggle_soft_input).setOnClickListener(this);
+        findViewById(R.id.btn_keyboard_in_fragment).setOnClickListener(this);
         tvAboutKeyboard = (TextView) findViewById(R.id.tv_about_keyboard);
     }
 
@@ -57,10 +63,14 @@ public class KeyboardActivity extends BaseActivity {
                 KeyboardUtils.hideSoftInput(this);
                 break;
             case R.id.btn_show_soft_input:
-                KeyboardUtils.showSoftInput((EditText) findViewById(R.id.et));
+                KeyboardUtils.showSoftInput(this);
                 break;
             case R.id.btn_toggle_soft_input:
                 KeyboardUtils.toggleSoftInput();
+                break;
+            case R.id.btn_keyboard_in_fragment:
+                KeyboardUtils.hideSoftInput(this);
+                new KeyboardDialog(this).show();
                 break;
         }
     }

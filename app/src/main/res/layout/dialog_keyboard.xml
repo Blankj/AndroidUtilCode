@@ -5,19 +5,11 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:padding="@dimen/spacing_16">
-
-        <TextView
-            android:id="@+id/tv_about_keyboard"
-            style="@style/TextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"/>
 
         <EditText
             android:id="@+id/et_input"
@@ -47,11 +39,11 @@
             android:text="@string/keyboard_toggle_soft_input"/>
 
         <Button
-            android:id="@+id/btn_keyboard_in_fragment"
+            android:id="@+id/btn_close_dialog"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/keyboard_in_dialog"/>
+            android:text="@string/keyboard_close_dialog"/>
 
     </LinearLayout>
 </ScrollView>

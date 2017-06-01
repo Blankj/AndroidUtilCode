@@ -317,10 +317,10 @@ getCaptureIntent           : 获取拍照的意图
 
 * ### 键盘相关→[KeyboardUtils.java][keyboard.java]→[Demo][keyboard.demo]
 ```
-hideSoftInput               : 动态隐藏软键盘
-clickBlankArea2HideSoftInput: 点击屏幕空白区域隐藏软键盘
 showSoftInput               : 动态显示软键盘
+hideSoftInput               : 动态隐藏软键盘
 toggleSoftInput             : 切换键盘显示与否状态
+clickBlankArea2HideSoftInput: 点击屏幕空白区域隐藏软键盘
 ```
 
 * ### 定位相关→[LocationUtils.java][location.java]→[Demo][location.demo]

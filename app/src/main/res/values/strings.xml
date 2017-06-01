@@ -82,6 +82,8 @@
     <string name="keyboard_hide_soft_input">Hide Soft Input</string>
     <string name="keyboard_show_soft_input">Show Soft Input</string>
     <string name="keyboard_toggle_soft_input">Toggle Soft Input</string>
+    <string name="keyboard_in_dialog">Keyboard In Dialog</string>
+    <string name="keyboard_close_dialog">Close Dialog</string>
 
     <!-- log -->
     <string name="log_toggle_log">Toggle Log</string>
