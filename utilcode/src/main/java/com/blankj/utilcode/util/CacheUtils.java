@@ -48,8 +48,8 @@ public class CacheUtils {
 
     public static final int SEC  = 1;
     public static final int MIN  = 60;
-    public static final int HOUR = 360;
-    public static final int DAY  = 8640;
+    public static final int HOUR = 3600;
+    public static final int DAY  = 86400;
 
     private static Map<String, CacheUtils> sCacheMap = new HashMap<>();
     private CacheManager mCacheManager;
