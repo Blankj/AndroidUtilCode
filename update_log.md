@@ -1,3 +1,6 @@
+* 17/06/04 优化SpannableStringUtils
+* 17/06/03 优化SpannableStringUtils
+* 17/06/02 优化SpannableStringUtils
 * 17/06/01 完善KeyBoardUtils及Demo
 * 17/05/30 完善CrashUtils，发布1.6.4
 * 17/05/28 修复CacheUtils的bug，发布1.6.3
