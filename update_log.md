@@ -1,3 +1,5 @@
+* 17/06/06 优化SpannableStringUtils
+* 17/06/05 优化SpannableStringUtils
 * 17/06/04 优化SpannableStringUtils
 * 17/06/03 优化SpannableStringUtils
 * 17/06/02 优化SpannableStringUtils
