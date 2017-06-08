@@ -1,3 +1,4 @@
+* 17/06/08 SpanUtils即将完工
 * 17/06/07 SpannableStringUtils改名为SpanUtils，即将完工
 * 17/06/06 优化SpannableStringUtils
 * 17/06/05 优化SpannableStringUtils
