@@ -653,7 +653,7 @@ getEntries        : 获取压缩文件中的文件对象
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.6.4'
+compile 'com.blankj:utilcode:1.7.0'
 ```
 
 
@@ -675,7 +675,7 @@ Utils.init(context);
 
 
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.6.4-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.7.0-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-15+-brightgreen.svg
