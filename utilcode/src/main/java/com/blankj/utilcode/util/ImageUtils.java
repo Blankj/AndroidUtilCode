@@ -1,7 +1,6 @@
 package com.blankj.utilcode.util;
 
 import android.annotation.TargetApi;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -21,7 +20,6 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.NinePatchDrawable;
 import android.media.ExifInterface;
 import android.os.Build;
 import android.renderscript.Allocation;
@@ -90,30 +88,33 @@ public final class ImageUtils {
      */
     public static Bitmap drawable2Bitmap(Drawable drawable) {
         if (drawable instanceof BitmapDrawable) {
-            return ((BitmapDrawable) drawable).getBitmap();
-        } else if (drawable instanceof NinePatchDrawable) {
-            Bitmap bitmap = Bitmap.createBitmap(
-                    drawable.getIntrinsicWidth(),
-                    drawable.getIntrinsicHeight(),
-                    drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
-            Canvas canvas = new Canvas(bitmap);
-            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-            drawable.draw(canvas);
-            return bitmap;
-        } else {
-            return null;
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            if (bitmapDrawable.getBitmap() != null) {
+                return bitmapDrawable.getBitmap();
+            }
         }
+        Bitmap bitmap;
+        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+            bitmap = Bitmap.createBitmap(1, 1,
+                    drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+        } else {
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
+                    drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+        }
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
     }
 
     /**
      * bitmap转drawable
      *
-     * @param res    resources对象
      * @param bitmap bitmap对象
      * @return drawable
      */
-    public static Drawable bitmap2Drawable(Resources res, Bitmap bitmap) {
-        return bitmap == null ? null : new BitmapDrawable(res, bitmap);
+    public static Drawable bitmap2Drawable(Bitmap bitmap) {
+        return bitmap == null ? null : new BitmapDrawable(Utils.getContext().getResources(), bitmap);
     }
 
     /**
@@ -130,12 +131,11 @@ public final class ImageUtils {
     /**
      * byteArr转drawable
      *
-     * @param res   resources对象
      * @param bytes 字节数组
      * @return drawable
      */
-    public static Drawable bytes2Drawable(Resources res, byte[] bytes) {
-        return res == null ? null : bitmap2Drawable(res, bytes2Bitmap(bytes));
+    public static Drawable bytes2Drawable(byte[] bytes) {
+        return bitmap2Drawable(bytes2Bitmap(bytes));
     }
 
     /**
@@ -171,7 +171,7 @@ public final class ImageUtils {
         int height = options.outHeight;
         int width = options.outWidth;
         int inSampleSize = 1;
-        while ((height >>= 1) >= maxHeight && (width >>= 1) >= maxWidth) {
+        while ((height >>= 1) > maxHeight && (width >>= 1) > maxWidth) {
             inSampleSize <<= 1;
         }
         return inSampleSize;
@@ -316,32 +316,28 @@ public final class ImageUtils {
     /**
      * 获取bitmap
      *
-     * @param res 资源对象
-     * @param id  资源id
+     * @param id 资源id
      * @return bitmap
      */
-    public static Bitmap getBitmap(Resources res, int id) {
-        if (res == null) return null;
-        return BitmapFactory.decodeResource(res, id);
+    public static Bitmap getBitmap(int id) {
+        return BitmapFactory.decodeResource(Utils.getContext().getResources(), id);
     }
 
     /**
      * 获取bitmap
      *
-     * @param res       资源对象
      * @param id        资源id
      * @param maxWidth  最大宽度
      * @param maxHeight 最大高度
      * @return bitmap
      */
-    public static Bitmap getBitmap(Resources res, int id, int maxWidth, int maxHeight) {
-        if (res == null) return null;
+    public static Bitmap getBitmap(int id, int maxWidth, int maxHeight) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(res, id, options);
+        BitmapFactory.decodeResource(Utils.getContext().getResources(), id, options);
         options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
         options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeResource(res, id, options);
+        return BitmapFactory.decodeResource(Utils.getContext().getResources(), id, options);
     }
 
     /**
@@ -715,8 +711,8 @@ public final class ImageUtils {
      * renderScript模糊图片
      * <p>API大于17</p>
      *
-     * @param src     源图片
-     * @param radius  模糊半径(0...25)
+     * @param src    源图片
+     * @param radius 模糊半径(0...25)
      * @return 模糊后的图片
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -982,15 +978,15 @@ public final class ImageUtils {
         int newHeight = src.getHeight() + doubleBorder;
         Bitmap ret = Bitmap.createBitmap(newWidth, newHeight, src.getConfig());
         Canvas canvas = new Canvas(ret);
-        Rect rect = new Rect(0, 0, newWidth, newHeight);
+        //noinspection SuspiciousNameCombination
+        canvas.drawBitmap(src, borderWidth, borderWidth, null);
         Paint paint = new Paint();
         paint.setColor(color);
         paint.setStyle(Paint.Style.STROKE);
         // setStrokeWidth是居中画的，所以要两倍的宽度才能画，否则有一半的宽度是空的
         paint.setStrokeWidth(doubleBorder);
+        Rect rect = new Rect(0, 0, newWidth, newHeight);
         canvas.drawRect(rect, paint);
-        //noinspection SuspiciousNameCombination
-        canvas.drawBitmap(src, borderWidth, borderWidth, null);
         if (recycle && !src.isRecycled()) src.recycle();
         return ret;
     }

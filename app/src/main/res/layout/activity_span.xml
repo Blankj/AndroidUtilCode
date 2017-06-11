@@ -12,7 +12,14 @@
         android:padding="@dimen/spacing_16">
 
         <TextView
-            android:id="@+id/tv_about_spannable"
+            android:id="@+id/tv_about_anim_span"
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layerType="software"/>
+
+        <TextView
+            android:id="@+id/tv_about_span"
             style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

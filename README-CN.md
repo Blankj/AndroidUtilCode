@@ -492,37 +492,40 @@ addView       : 为SnackBar添加布局
 dismiss       : 取消snackbar显示
 ```
 
-* ### SpannableString相关→[SpannableStringUtils.java][spannable.java]→[Demo][spannable.demo]
+* ### SpannableString相关→[SpanUtils.java][span.java]→[Demo][span.demo]
 ```
-Builder.setFlag           : 设置标识
-Builder.setForegroundColor: 设置前景色
-Builder.setBackgroundColor: 设置背景色
-Builder.setQuoteColor     : 设置引用线的颜色
-Builder.setLeadingMargin  : 设置缩进
-Builder.setMargin         : 设置间距
-Builder.setBullet         : 设置列表标记
-Builder.setFontSize       : 设置字体尺寸
-Builder.setFontProportion : 设置字体比例
-Builder.setFontXProportion: 设置字体横向比例
-Builder.setStrikethrough  : 设置删除线
-Builder.setUnderline      : 设置下划线
-Builder.setSuperscript    : 设置上标
-Builder.setSubscript      : 设置下标
-Builder.setBold           : 设置粗体
-Builder.setItalic         : 设置斜体
-Builder.setBoldItalic     : 设置粗斜体
-Builder.setFontFamily     : 设置字体系列
-Builder.setTypeface       : 设置字体
-Builder.setAlign          : 设置对齐
-Builder.setBitmap         : 设置图片
-Builder.setDrawable       : 设置图片
-Builder.setUri            : 设置图片
-Builder.setResourceId     : 设置图片
-Builder.setClickSpan      : 设置点击事件
-Builder.setUrl            : 设置超链接
-Builder.setBlur           : 设置模糊
-Builder.append            : 追加样式字符串
-Builder.create            : 创建样式字符串
+setFlag           : 设置标识
+setForegroundColor: 设置前景色
+setBackgroundColor: 设置背景色
+setLineHeight     : 设置行高
+setQuoteColor     : 设置引用线的颜色
+setLeadingMargin  : 设置缩进
+setBullet         : 设置列表标记
+setIconMargin     : 设置图标
+setFontSize       : 设置字体尺寸
+setFontProportion : 设置字体比例
+setFontXProportion: 设置字体横向比例
+setStrikethrough  : 设置删除线
+setUnderline      : 设置下划线
+setSuperscript    : 设置上标
+setSubscript      : 设置下标
+setBold           : 设置粗体
+setItalic         : 设置斜体
+setBoldItalic     : 设置粗斜体
+setFontFamily     : 设置字体系列
+setTypeface       : 设置字体
+setAlign          : 设置对齐
+setClickSpan      : 设置点击事件
+setUrl            : 设置超链接
+setBlur           : 设置模糊
+setShader         : 设置着色器
+setShadow         : 设置阴影
+setSpans          : 设置样式
+append            : 追加样式字符串
+appendLine        : 追加一行样式字符串
+appendImage       : 追加图片
+appendSpace       : 追加空白
+create            : 创建样式字符串
 ```
 
 * ### SP相关→[SPUtils.java][sp.java]→[Test][sp.test]
@@ -610,14 +613,17 @@ getZodiac               : 获取星座
 
 * ### 吐司相关→[ToastUtils.java][toast.java]→[Demo][toast.demo]
 ```
-setGravity   : 设置吐司位置
-setView      : 设置吐司view
-getView      : 获取吐司view
-showShortSafe: 安全地显示短时吐司
-showLongSafe : 安全地显示长时吐司
-showShort    : 显示短时吐司
-showLong     : 显示长时吐司
-cancel       : 取消吐司显示
+setGravity           : 设置吐司位置
+setView              : 设置吐司view
+getView              : 获取吐司view
+setBackgroundColor   : 设置背景颜色
+setBackgroundResource: 设置背景资源
+setMessageColor      : 设置消息颜色
+showShortSafe        : 安全地显示短时吐司
+showLongSafe         : 安全地显示长时吐司
+showShort            : 显示短时吐司
+showLong             : 显示长时吐司
+cancel               : 取消吐司显示
 ```
 
 * ### 压缩相关→[ZipUtils.java][zip.java]→[Test][zip.test]
@@ -789,8 +795,8 @@ Utils.init(context);
 [snackbar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/SnackbarUtils.java
 [snackbar.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/SnackbarActivity.java
 
-[spannable.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/SpannableStringUtils.java
-[spannable.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/SpannableActivity.java
+[span.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/SpanUtils.java
+[span.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/SpanActivity.java
 
 [sp.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/SPUtils.java
 [sp.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/SPUtilsTest.java

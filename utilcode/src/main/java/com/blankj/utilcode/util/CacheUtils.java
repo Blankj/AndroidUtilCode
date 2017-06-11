@@ -3,6 +3,7 @@ package com.blankj.utilcode.util;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
@@ -146,7 +147,7 @@ public class CacheUtils {
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // byte 读写
+    // bytes 读写
     ///////////////////////////////////////////////////////////////////////////
 
     /**
@@ -916,22 +917,23 @@ public class CacheUtils {
         }
 
         private static Drawable bytes2Drawable(byte[] bytes) {
-            return bytes == null ? null : Bitmap2Drawable(bytes2Bitmap(bytes));
+            return bytes == null ? null : bitmap2Drawable(bytes2Bitmap(bytes));
         }
 
         private static Bitmap drawable2Bitmap(Drawable drawable) {
-            if (drawable == null) return null;
             if (drawable instanceof BitmapDrawable) {
-                BitmapDrawable BitmapDrawable = (BitmapDrawable) drawable;
-                if (BitmapDrawable.getBitmap() != null) {
-                    return BitmapDrawable.getBitmap();
+                BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+                if (bitmapDrawable.getBitmap() != null) {
+                    return bitmapDrawable.getBitmap();
                 }
             }
             Bitmap bitmap;
             if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
-                bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+                bitmap = Bitmap.createBitmap(1, 1,
+                        drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
             } else {
-                bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+                bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
+                        drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
             }
             Canvas canvas = new Canvas(bitmap);
             drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -939,8 +941,8 @@ public class CacheUtils {
             return bitmap;
         }
 
-        private static Drawable Bitmap2Drawable(Bitmap Bitmap) {
-            return Bitmap == null ? null : new BitmapDrawable(Utils.getContext().getResources(), Bitmap);
+        private static Drawable bitmap2Drawable(Bitmap bitmap) {
+            return bitmap == null ? null : new BitmapDrawable(Utils.getContext().getResources(), bitmap);
         }
     }
 

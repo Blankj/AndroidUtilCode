@@ -30,17 +30,18 @@ public final class FragmentUtils {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
-    private static final int TYPE_ADD_FRAGMENT = 0x01;
-    private static final int TYPE_REMOVE_FRAGMENT = 0x01 << 1;
-    private static final int TYPE_REMOVE_TO_FRAGMENT = 0x01 << 2;
-    private static final int TYPE_REPLACE_FRAGMENT = 0x01 << 3;
-    private static final int TYPE_POP_ADD_FRAGMENT = 0x01 << 4;
-    private static final int TYPE_HIDE_FRAGMENT = 0x01 << 5;
-    private static final int TYPE_SHOW_FRAGMENT = 0x01 << 6;
-    private static final int TYPE_HIDE_SHOW_FRAGMENT = 0x01 << 7;
+    private static final int TYPE_ADD_FRAGMENT       = 0x01;
+    private static final int TYPE_HIDE_ADD_FRAGMENT  = 0x01 << 1;
+    private static final int TYPE_REMOVE_FRAGMENT    = 0x01 << 2;
+    private static final int TYPE_REMOVE_TO_FRAGMENT = 0x01 << 3;
+    private static final int TYPE_REPLACE_FRAGMENT   = 0x01 << 4;
+    private static final int TYPE_POP_ADD_FRAGMENT   = 0x01 << 5;
+    private static final int TYPE_HIDE_FRAGMENT      = 0x01 << 6;
+    private static final int TYPE_SHOW_FRAGMENT      = 0x01 << 7;
+    private static final int TYPE_HIDE_SHOW_FRAGMENT = 0x01 << 8;
 
-    private static final String ARGS_ID = "args_id";
-    private static final String ARGS_IS_HIDE = "args_is_hide";
+    private static final String ARGS_ID           = "args_id";
+    private static final String ARGS_IS_HIDE      = "args_is_hide";
     private static final String ARGS_IS_ADD_STACK = "args_is_add_stack";
 
     /**
@@ -131,7 +132,7 @@ public final class FragmentUtils {
                                            boolean isAddStack,
                                            SharedElement... sharedElement) {
         putArgs(addFragment, new Args(containerId, isHide, isAddStack));
-        return operateFragment(fragmentManager, hideFragment, addFragment, TYPE_ADD_FRAGMENT, sharedElement);
+        return operateFragment(fragmentManager, hideFragment, addFragment, TYPE_HIDE_ADD_FRAGMENT, sharedElement);
     }
 
     /**
@@ -522,11 +523,17 @@ public final class FragmentUtils {
             }
         }
         switch (type) {
+            case TYPE_HIDE_ADD_FRAGMENT:
+                ft.hide(srcFragment);
             case TYPE_ADD_FRAGMENT:
-                if (srcFragment != null) ft.hide(srcFragment);
-                ft.add(args.getInt(ARGS_ID), destFragment, name);
-                if (args.getBoolean(ARGS_IS_HIDE)) ft.hide(destFragment);
-                if (args.getBoolean(ARGS_IS_ADD_STACK)) ft.addToBackStack(name);
+                Fragment fragmentByTag = fragmentManager.findFragmentByTag(name);
+                if (fragmentByTag != null) {
+                    destFragment = fragmentByTag;
+                } else {
+                    ft.add(args.getInt(ARGS_ID), destFragment, name);
+                    if (args.getBoolean(ARGS_IS_HIDE)) ft.hide(destFragment);
+                    if (args.getBoolean(ARGS_IS_ADD_STACK)) ft.addToBackStack(name);
+                }
                 break;
             case TYPE_REMOVE_FRAGMENT:
                 ft.remove(destFragment);
@@ -872,7 +879,7 @@ public final class FragmentUtils {
     }
 
     static class Args {
-        int id;
+        int     id;
         boolean isHide;
         boolean isAddStack;
 
@@ -884,7 +891,7 @@ public final class FragmentUtils {
     }
 
     public static class SharedElement {
-        View sharedElement;
+        View   sharedElement;
         String name;
 
         public SharedElement(View sharedElement, String name) {
@@ -894,7 +901,7 @@ public final class FragmentUtils {
     }
 
     static class FragmentNode {
-        Fragment fragment;
+        Fragment           fragment;
         List<FragmentNode> next;
 
         public FragmentNode(Fragment fragment, List<FragmentNode> next) {

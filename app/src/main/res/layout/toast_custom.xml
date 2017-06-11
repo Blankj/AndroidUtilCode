@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/shape_toast_bg"
+    android:background="@drawable/shape_round_rect"
     android:drawableLeft="@mipmap/ic_launcher"
     android:drawablePadding="@dimen/spacing_16"
     android:gravity="center"

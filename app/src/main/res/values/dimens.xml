@@ -6,7 +6,7 @@
     <dimen name="block_low_width">40dp</dimen>
     <dimen name="block_low_height">8dp</dimen>
     <dimen name="block_high_width">20dp</dimen>
-    <dimen name="block_high_height">60dp</dimen>
+    <dimen name="block_high_height">96dp</dimen>
 
     <dimen name="offset_64">64dp</dimen>
 </resources>

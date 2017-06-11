@@ -22,12 +22,12 @@ import java.util.Map;
 @Config(manifest = Config.NONE)
 public class SPUtilsTest {
 
-    private SPUtils spUtils1;
-    private SPUtils spUtils2;
-
     static {
         TestUtils.init();
     }
+    private SPUtils spUtils1;
+
+    private SPUtils spUtils2;
 
     @Before
     public void setUp() throws Exception {

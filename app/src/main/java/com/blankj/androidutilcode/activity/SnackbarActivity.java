@@ -8,7 +8,7 @@ import android.view.View;
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseActivity;
 import com.blankj.utilcode.util.SnackbarUtils;
-import com.blankj.utilcode.util.SpannableStringUtils;
+import com.blankj.utilcode.util.SpanUtils;
 import com.blankj.utilcode.util.ToastUtils;
 
 /**
@@ -22,14 +22,14 @@ import com.blankj.utilcode.util.ToastUtils;
 public class SnackbarActivity extends BaseActivity {
 
     private View snackBarRootView;
-    private final int TYPE_SHORT = 0x00;
-    private final int TYPE_SHORT_WITH_ACTION = 0x01;
-    private final int TYPE_LONG = 0x10;
-    private final int TYPE_LONG_WITH_ACTION = 0x11;
-    private final int TYPE_INDEFINITE = 0x20;
+    private final int TYPE_SHORT                  = 0x00;
+    private final int TYPE_SHORT_WITH_ACTION      = 0x01;
+    private final int TYPE_LONG                   = 0x10;
+    private final int TYPE_LONG_WITH_ACTION       = 0x11;
+    private final int TYPE_INDEFINITE             = 0x20;
     private final int TYPE_INDEFINITE_WITH_ACTION = 0x21;
-    private final int TYPE_CUSTOM = 0x40;
-    private final int TYPE_CUSTOM_WITH_ACTION = 0x41;
+    private final int TYPE_CUSTOM                 = 0x40;
+    private final int TYPE_CUSTOM_WITH_ACTION     = 0x41;
 
     @Override
     public void initData(Bundle bundle) {
@@ -94,9 +94,9 @@ public class SnackbarActivity extends BaseActivity {
     }
 
     private void showSnackbar(int type) {
-        SpannableStringUtils.Builder builder = new SpannableStringUtils.Builder()
-                .append("").setResourceId(R.mipmap.ic_launcher)
-                .append("").setMargin(24);
+        SpanUtils builder = new SpanUtils()
+                .append("").appendImage(R.mipmap.ic_launcher, SpanUtils.ALIGN_CENTER)
+                .append("").appendSpace(100);
         switch (type) {
             case TYPE_SHORT:
                 SnackbarUtils.showShort(snackBarRootView,
@@ -147,8 +147,8 @@ public class SnackbarActivity extends BaseActivity {
                 SnackbarUtils.showShort(snackBarRootView,
                         "",
                         Color.BLUE,
-                        Color.LTGRAY);
-                SnackbarUtils.addView(R.layout.snackbar_add, 0);
+                        Color.TRANSPARENT);
+                SnackbarUtils.addView(R.layout.snackbar_custom, 1);
                 break;
             case TYPE_CUSTOM_WITH_ACTION:
                 SnackbarUtils.showShort(snackBarRootView,
@@ -162,7 +162,7 @@ public class SnackbarActivity extends BaseActivity {
                                 ToastUtils.showShort(getString(R.string.snackbar_click));
                             }
                         });
-                SnackbarUtils.addView(R.layout.snackbar_add, 0);
+                SnackbarUtils.addView(R.layout.snackbar_custom, 0);
                 break;
 
         }

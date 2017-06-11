@@ -20,8 +20,8 @@ import com.blankj.utilcode.util.ToastUtils;
  */
 public class ToastActivity extends BaseActivity {
 
-    private boolean isDefaultLocation;
-    private boolean isDefaultView;
+    private boolean  isDefaultLocation;
+    private boolean  isDefaultView;
     private TextView tvAboutToast;
 
     @Override
@@ -108,6 +108,7 @@ public class ToastActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         ToastUtils.setView(null);
+        ToastUtils.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, getResources().getDimensionPixelSize(R.dimen.offset_64));
         super.onDestroy();
     }
 }

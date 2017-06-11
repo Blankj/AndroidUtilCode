@@ -1,17 +1,22 @@
 package com.blankj.utilcode.util;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.ColorInt;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import java.lang.ref.WeakReference;
 
 /**
  * <pre>
@@ -23,12 +28,15 @@ import android.widget.Toast;
  */
 public final class ToastUtils {
 
+    private static final int DEFAULT_COLOR = 0x12000000;
     private static Toast sToast;
-    private static int gravity = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
-    private static int xOffset = 0;
-    private static int yOffset = (int) (64 * Utils.getContext().getResources().getDisplayMetrics().density + 0.5);
-    @SuppressLint("StaticFieldLeak")
-    private static View customView;
+    private static int gravity            = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
+    private static int xOffset            = 0;
+    private static int yOffset            = (int) (64 * Utils.getContext().getResources().getDisplayMetrics().density + 0.5);
+    private static int backgroundColor    = DEFAULT_COLOR;
+    private static int backgroundResource = -1;
+    private static int messageColor       = DEFAULT_COLOR;
+    private static WeakReference<View> sViewWeakReference;
     private static Handler sHandler = new Handler(Looper.getMainLooper());
 
     private ToastUtils() {
@@ -55,7 +63,7 @@ public final class ToastUtils {
      */
     public static void setView(@LayoutRes int layoutId) {
         LayoutInflater inflate = (LayoutInflater) Utils.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        ToastUtils.customView = inflate.inflate(layoutId, null);
+        sViewWeakReference = new WeakReference<>(inflate.inflate(layoutId, null));
     }
 
     /**
@@ -63,19 +71,51 @@ public final class ToastUtils {
      *
      * @param view 视图
      */
-    public static void setView(View view) {
-        ToastUtils.customView = view;
+    public static void setView(@Nullable View view) {
+        sViewWeakReference = view == null ? null : new WeakReference<>(view);
     }
 
     /**
      * 获取吐司view
      *
-     * @return view 自定义view
+     * @return view
      */
     public static View getView() {
-        if (customView != null) return customView;
+        if (sViewWeakReference != null) {
+            final View view = sViewWeakReference.get();
+            if (view != null) {
+                return view;
+            }
+        }
         if (sToast != null) return sToast.getView();
         return null;
+    }
+
+    /**
+     * 设置背景颜色
+     *
+     * @param backgroundColor 背景色
+     */
+    public static void setBackgroundColor(@ColorInt int backgroundColor) {
+        ToastUtils.backgroundColor = backgroundColor;
+    }
+
+    /**
+     * 设置背景资源
+     *
+     * @param backgroundResource 背景资源
+     */
+    public static void setBackgroundResource(@IdRes int backgroundResource) {
+        ToastUtils.backgroundResource = backgroundResource;
+    }
+
+    /**
+     * 设置消息颜色
+     *
+     * @param messageColor 颜色
+     */
+    public static void setMessageColor(@ColorInt int messageColor) {
+        ToastUtils.messageColor = messageColor;
     }
 
     /**
@@ -271,6 +311,44 @@ public final class ToastUtils {
     }
 
     /**
+     * 安全地显示短时自定义吐司
+     */
+    public static void showCustomShortSafe() {
+        sHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                show("", Toast.LENGTH_SHORT);
+            }
+        });
+    }
+
+    /**
+     * 安全地显示长时自定义吐司
+     */
+    public static void showCustomLongSafe() {
+        sHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                show("", Toast.LENGTH_LONG);
+            }
+        });
+    }
+
+    /**
+     * 显示短时自定义吐司
+     */
+    public static void showCustomShort() {
+        show("", Toast.LENGTH_SHORT);
+    }
+
+    /**
+     * 显示长时自定义吐司
+     */
+    public static void showCustomLong() {
+        show("", Toast.LENGTH_LONG);
+    }
+
+    /**
      * 显示吐司
      *
      * @param resId    资源Id
@@ -310,12 +388,34 @@ public final class ToastUtils {
      */
     private static void show(CharSequence text, int duration) {
         cancel();
-        if (customView != null) {
-            sToast = new Toast(Utils.getContext());
-            sToast.setView(customView);
-            sToast.setDuration(duration);
-        } else {
-            sToast = Toast.makeText(Utils.getContext(), text, duration);
+        boolean isCustom = false;
+        if (sViewWeakReference != null) {
+            final View view = sViewWeakReference.get();
+            if (view != null) {
+                sToast = new Toast(Utils.getContext());
+                sToast.setView(view);
+                sToast.setDuration(duration);
+                isCustom = true;
+            }
+        }
+        if (!isCustom) {
+            if (messageColor != DEFAULT_COLOR) {
+                SpannableString spannableString = new SpannableString(text);
+                ForegroundColorSpan colorSpan = new ForegroundColorSpan(messageColor);
+                spannableString.setSpan(colorSpan, 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                sToast = Toast.makeText(Utils.getContext(), spannableString, duration);
+            } else {
+                sToast = Toast.makeText(Utils.getContext(), text, duration);
+            }
+        }
+        View view = sToast.getView();
+        if (backgroundColor != DEFAULT_COLOR || backgroundResource != -1) {
+            if (backgroundColor != DEFAULT_COLOR) {
+                view.setBackgroundColor(backgroundColor);
+            }
+            if (backgroundResource != -1) {
+                view.setBackgroundResource(backgroundResource);
+            }
         }
         sToast.setGravity(gravity, xOffset, yOffset);
         sToast.show();

@@ -129,7 +129,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void spannableClick(View view) {
-        startActivity(new Intent(this, SpannableActivity.class));
+        startActivity(new Intent(this, SpanActivity.class));
     }
 
     public void toastClick(View view) {

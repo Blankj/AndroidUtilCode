@@ -4,14 +4,14 @@ File signPropertiesFile = rootProject.file('sign/keystore.properties')
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
 
     defaultConfig {
         applicationId "com.blankj.androidutilcode"
         minSdkVersion 15
         targetSdkVersion 16
-        versionCode 36
-        versionName "1.6.4"
+        versionCode 40
+        versionName "1.7.0"
     }
 
     if (signPropertiesFile.exists()) {
@@ -29,7 +29,6 @@ android {
 
     buildTypes {
         debug {
-            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {

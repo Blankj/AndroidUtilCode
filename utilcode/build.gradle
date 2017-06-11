@@ -22,18 +22,17 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
 
     defaultConfig {
         minSdkVersion 15
-        versionCode 36
-        versionName "1.6.4"
+        versionCode 40
+        versionName "1.7.0"
     }
 
     buildTypes {
         debug {
             testCoverageEnabled true
-            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {

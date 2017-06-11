@@ -35,6 +35,10 @@ import static com.blankj.utilcode.util.TestUtils.FILE_SEP;
 @Config(manifest = Config.NONE)
 public class CacheUtilsTest {
 
+    static {
+        TestUtils.init();
+    }
+
     private final String path1 = TestUtils.TEST_PATH + FILE_SEP + "cache" + FILE_SEP + "cache1" + FILE_SEP;
     private final String path2 = TestUtils.TEST_PATH + FILE_SEP + "cache" + FILE_SEP + "cache2" + FILE_SEP;
     private final File   file1 = new File(path1);
@@ -53,10 +57,6 @@ public class CacheUtilsTest {
     private SerializableTest mSerializableTest = new SerializableTest("Blankj", "CacheUtils");
     private Bitmap           mBitmap           = Bitmap.createBitmap(100, 100, Bitmap.Config.RGB_565);
     private Drawable         mDrawable         = new BitmapDrawable(Utils.getContext().getResources(), mBitmap);
-
-    static {
-        TestUtils.init();
-    }
 
     public CacheUtilsTest() {
         try {

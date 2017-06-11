@@ -9,7 +9,7 @@ import com.blankj.androidutilcode.Config;
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseActivity;
 import com.blankj.utilcode.util.AppUtils;
-import com.blankj.utilcode.util.SpannableStringUtils;
+import com.blankj.utilcode.util.SpanUtils;
 import com.blankj.utilcode.util.ToastUtils;
 
 /**
@@ -42,14 +42,15 @@ public class AppActivity extends BaseActivity {
         findViewById(R.id.btn_launch_app).setOnClickListener(this);
         findViewById(R.id.btn_get_app_details_settings).setOnClickListener(this);
         TextView tvAboutApp = (TextView) findViewById(R.id.tv_about_app);
-        tvAboutApp.setText(new SpannableStringUtils.Builder().append("app icon: ")
-                .appendLine("").setDrawable(AppUtils.getAppIcon(), SpannableStringUtils.ALIGN_CENTER)
-                .append(AppUtils.getAppInfo().toString())
-                .appendLine("isAppRoot: " + AppUtils.isAppRoot())
-                .appendLine("isAppDebug: " + AppUtils.isAppDebug())
-                .appendLine("AppSignatureSHA1: " + AppUtils.getAppSignatureSHA1())
-                .appendLine("isAppForeground: " + AppUtils.isAppForeground())
-                .create());
+        tvAboutApp.setText(
+                new SpanUtils()
+                        .append("app icon: ").appendImage(AppUtils.getAppIcon(), SpanUtils.ALIGN_CENTER)
+                        .appendLine(AppUtils.getAppInfo().toString())
+                        .appendLine("isAppRoot: " + AppUtils.isAppRoot())
+                        .appendLine("isAppDebug: " + AppUtils.isAppDebug())
+                        .appendLine("AppSignatureSHA1: " + AppUtils.getAppSignatureSHA1())
+                        .appendLine("isAppForeground: " + AppUtils.isAppForeground())
+                        .create());
     }
 
     @Override

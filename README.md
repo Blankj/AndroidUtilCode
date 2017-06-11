@@ -492,37 +492,40 @@ addView
 dismiss
 ```
 
-* ### About SpannableString→[SpannableStringUtils.java][spannable.java]→[Demo][spannable.demo]
+* ### About Span→[SpanUtils.java][span.java]→[Demo][span.demo]
 ```
-Builder.setFlag
-Builder.setForegroundColor
-Builder.setBackgroundColor
-Builder.setQuoteColor
-Builder.setLeadingMargin
-Builder.setMargin
-Builder.setBullet
-Builder.setFontSize
-Builder.setFontProportion
-Builder.setFontXProportion
-Builder.setStrikethrough
-Builder.setUnderline
-Builder.setSuperscript
-Builder.setSubscript
-Builder.setBold
-Builder.setItalic
-Builder.setBoldItalic
-Builder.setFontFamily
-Builder.setTypeface
-Builder.setAlign
-Builder.setBitmap
-Builder.setDrawable
-Builder.setUri
-Builder.setResourceId
-Builder.setClickSpan
-Builder.setUrl
-Builder.setBlur
-Builder.append
-Builder.create
+setFlag
+setForegroundColor
+setBackgroundColor
+setLineHeight
+setQuoteColor
+setLeadingMargin
+setBullet
+setIconMargin
+setFontSize
+setFontProportion
+setFontXProportion
+setStrikethrough
+setUnderline
+setSuperscript
+setSubscript
+setBold
+setItalic
+setBoldItalic
+setFontFamily
+setTypeface
+setAlign
+setClickSpan
+setUrl
+setBlur
+setShader
+setShadow
+setSpans
+append
+appendLine
+appendImage
+appendSpace
+create
 ```
 
 * ### About SP→[SPUtils.java][sp.java]→[Test][sp.test]
@@ -613,6 +616,9 @@ getZodiac
 setGravity
 setView
 getView
+setBackgroundColor
+setBackgroundResource
+setMessageColor
 showShortSafe
 showLongSafe
 showShort
@@ -789,8 +795,8 @@ Utils.init(context);
 [snackbar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/SnackbarUtils.java
 [snackbar.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/SnackbarActivity.java
 
-[spannable.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/SpannableStringUtils.java
-[spannable.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/SpannableActivity.java
+[span.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/SpanUtils.java
+[span.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/SpanActivity.java
 
 [sp.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/SPUtils.java
 [sp.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/SPUtilsTest.java
