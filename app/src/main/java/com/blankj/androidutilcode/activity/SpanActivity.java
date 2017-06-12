@@ -2,6 +2,7 @@ package com.blankj.androidutilcode.activity;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
@@ -25,10 +26,8 @@ import com.blankj.androidutilcode.span.BlurMaskFilterSpan;
 import com.blankj.androidutilcode.span.ForegroundAlphaColorSpan;
 import com.blankj.androidutilcode.span.ForegroundAlphaColorSpanGroup;
 import com.blankj.androidutilcode.span.ShadowSpan;
-import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.SpanUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.blankj.utilcode.util.Utils;
 
 /**
  * <pre>
@@ -97,7 +96,7 @@ public class SpanActivity extends BaseActivity {
         tvAboutSpan.setMovementMethod(LinkMovementMethod.getInstance());
         lineHeight = tvAboutSpan.getLineHeight();
         textSize = tvAboutSpan.getTextSize();
-        density = Utils.getContext().getResources().getDisplayMetrics().density;
+        density = getResources().getDisplayMetrics().density;
 
         tvAboutSpan.setText(new SpanUtils()
                 .appendLine("SpanUtils").setBackgroundColor(Color.LTGRAY).setBold().setForegroundColor(Color.YELLOW).setAlign(Layout.Alignment.ALIGN_CENTER)
@@ -138,7 +137,7 @@ public class SpanActivity extends BaseActivity {
                         getResources().getIntArray(R.array.rainbow),
                         null,
                         Shader.TileMode.REPEAT)).setFontSize(64, true)
-                .appendLine("图片着色").setFontSize(64, true).setShader(new BitmapShader(ImageUtils.getBitmap(R.drawable.cheetah),
+                .appendLine("图片着色").setFontSize(64, true).setShader(new BitmapShader(BitmapFactory.decodeResource(getResources(), R.drawable.cheetah),
                         Shader.TileMode.REPEAT,
                         Shader.TileMode.REPEAT))
                 .appendLine("阴影效果").setFontSize(64, true).setBackgroundColor(Color.BLACK).setShadow(24, 8, 8, Color.WHITE)

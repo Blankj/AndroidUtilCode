@@ -3,7 +3,11 @@ package com.blankj.androidutilcode.activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
+import android.text.SpannableStringBuilder;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseActivity;
@@ -22,14 +26,6 @@ import com.blankj.utilcode.util.ToastUtils;
 public class SnackbarActivity extends BaseActivity {
 
     private View snackBarRootView;
-    private final int TYPE_SHORT                  = 0x00;
-    private final int TYPE_SHORT_WITH_ACTION      = 0x01;
-    private final int TYPE_LONG                   = 0x10;
-    private final int TYPE_LONG_WITH_ACTION       = 0x11;
-    private final int TYPE_INDEFINITE             = 0x20;
-    private final int TYPE_INDEFINITE_WITH_ACTION = 0x21;
-    private final int TYPE_CUSTOM                 = 0x40;
-    private final int TYPE_CUSTOM_WITH_ACTION     = 0x41;
 
     @Override
     public void initData(Bundle bundle) {
@@ -64,107 +60,123 @@ public class SnackbarActivity extends BaseActivity {
     public void onWidgetClick(View view) {
         switch (view.getId()) {
             case R.id.btn_short_snackbar:
-                showSnackbar(TYPE_SHORT);
+                SnackbarUtils.with(snackBarRootView)
+                        .setMessage(getMsg(R.string.snackbar_short))
+                        .setMessageColor(Color.WHITE)
+                        .setBgResource(R.drawable.shape_top_round_rect)
+                        .show();
                 break;
+
             case R.id.btn_short_snackbar_with_action:
-                showSnackbar(TYPE_SHORT_WITH_ACTION);
+                SnackbarUtils.with(snackBarRootView)
+                        .setMessage(getMsg(R.string.snackbar_short))
+                        .setMessageColor(Color.WHITE)
+                        .setBgResource(R.drawable.shape_top_round_rect)
+                        .setAction(getActionText(), Color.YELLOW, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ToastUtils.showShort(getString(R.string.snackbar_click));
+                            }
+                        })
+                        .show();
                 break;
+
             case R.id.btn_long_snackbar:
-                showSnackbar(TYPE_LONG);
+                SnackbarUtils.with(snackBarRootView)
+                        .setMessage(getMsg(R.string.snackbar_long))
+                        .setMessageColor(Color.WHITE)
+                        .setDuration(SnackbarUtils.LENGTH_LONG)
+                        .setBgResource(R.drawable.shape_top_round_rect)
+                        .show();
                 break;
+
             case R.id.btn_long_snackbar_with_action:
-                showSnackbar(TYPE_LONG_WITH_ACTION);
+                SnackbarUtils.with(snackBarRootView)
+                        .setMessage(getMsg(R.string.snackbar_long))
+                        .setMessageColor(Color.WHITE)
+                        .setBgResource(R.drawable.shape_top_round_rect)
+                        .setDuration(SnackbarUtils.LENGTH_LONG)
+                        .setAction(getActionText(), Color.YELLOW, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ToastUtils.showShort(getString(R.string.snackbar_click));
+                            }
+                        })
+                        .show();
                 break;
+
             case R.id.btn_indefinite_snackbar:
-                showSnackbar(TYPE_INDEFINITE);
+                SnackbarUtils.with(snackBarRootView)
+                        .setMessage(getMsg(R.string.snackbar_indefinite))
+                        .setMessageColor(Color.WHITE)
+                        .setDuration(SnackbarUtils.LENGTH_INDEFINITE)
+                        .setBgResource(R.drawable.shape_top_round_rect)
+                        .show();
                 break;
+
             case R.id.btn_indefinite_snackbar_with_action:
-                showSnackbar(TYPE_INDEFINITE_WITH_ACTION);
+                SnackbarUtils.with(snackBarRootView)
+                        .setMessage(getMsg(R.string.snackbar_indefinite))
+                        .setMessageColor(Color.WHITE)
+                        .setDuration(SnackbarUtils.LENGTH_INDEFINITE)
+                        .setBgResource(R.drawable.shape_top_round_rect)
+                        .setAction(getActionText(), Color.YELLOW, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ToastUtils.showShort(getString(R.string.snackbar_click));
+                            }
+                        })
+                        .show();
                 break;
+
             case R.id.btn_add_view:
-                showSnackbar(TYPE_CUSTOM);
+                SnackbarUtils.with(snackBarRootView)
+                        .setBgColor(Color.TRANSPARENT)
+                        .setDuration(SnackbarUtils.LENGTH_INDEFINITE)
+                        .show();
+                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                SnackbarUtils.addView(R.layout.snackbar_custom, -1, params);
                 break;
+
             case R.id.btn_add_view_with_action:
-                showSnackbar(TYPE_CUSTOM_WITH_ACTION);
+                SnackbarUtils.with(snackBarRootView)
+                        .setBgColor(Color.TRANSPARENT)
+                        .setDuration(SnackbarUtils.LENGTH_INDEFINITE)
+                        .show();
+                params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                SnackbarUtils.addView(R.layout.snackbar_custom, -1, params);
+                View snackbarView = SnackbarUtils.getView();
+                if (snackbarView != null) {
+                    TextView tvSnackbarCustom = (TextView) snackbarView.findViewById(R.id.tv_snackbar_custom);
+                    tvSnackbarCustom.setText("点我可消失");
+                    tvSnackbarCustom.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            SnackbarUtils.dismiss();
+                        }
+                    });
+                }
                 break;
+
             case R.id.btn_cancel_snackbar:
                 SnackbarUtils.dismiss();
                 break;
         }
     }
 
-    private void showSnackbar(int type) {
-        SpanUtils builder = new SpanUtils()
-                .append("").appendImage(R.mipmap.ic_launcher, SpanUtils.ALIGN_CENTER)
-                .append("").appendSpace(100);
-        switch (type) {
-            case TYPE_SHORT:
-                SnackbarUtils.showShort(snackBarRootView,
-                        builder.append(getString(R.string.snackbar_short)).create(),
-                        Color.BLUE,
-                        Color.LTGRAY);
-                break;
-            case TYPE_SHORT_WITH_ACTION:
-                SnackbarUtils.showShort(snackBarRootView, builder.append(getString(R.string.snackbar_short)).create(), Color.BLUE, Color.LTGRAY,
-                        "Short", Color.DKGRAY, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                ToastUtils.showShort(getString(R.string.snackbar_click));
-                            }
-                        });
-                break;
-            case TYPE_LONG:
-                SnackbarUtils.showLong(snackBarRootView,
-                        builder.append(getString(R.string.snackbar_long)).create(),
-                        Color.BLUE,
-                        Color.LTGRAY);
-                break;
-            case TYPE_LONG_WITH_ACTION:
-                SnackbarUtils.showLong(snackBarRootView, builder.append(getString(R.string.snackbar_long)).create(), Color.BLUE, Color.LTGRAY,
-                        "Short", Color.DKGRAY, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                ToastUtils.showShort(getString(R.string.snackbar_click));
-                            }
-                        });
-                break;
-            case TYPE_INDEFINITE:
-                SnackbarUtils.showIndefinite(snackBarRootView,
-                        builder.append(getString(R.string.snackbar_indefinite)).create(),
-                        Color.BLUE,
-                        Color.LTGRAY);
-                break;
-            case TYPE_INDEFINITE_WITH_ACTION:
-                SnackbarUtils.showIndefinite(snackBarRootView, builder.append(getString(R.string.snackbar_indefinite)).create(), Color.BLUE, Color.LTGRAY,
-                        "Short", Color.DKGRAY, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                ToastUtils.showShort(getString(R.string.snackbar_click));
-                            }
-                        });
-                break;
-            case TYPE_CUSTOM:
-                SnackbarUtils.showShort(snackBarRootView,
-                        "",
-                        Color.BLUE,
-                        Color.TRANSPARENT);
-                SnackbarUtils.addView(R.layout.snackbar_custom, 1);
-                break;
-            case TYPE_CUSTOM_WITH_ACTION:
-                SnackbarUtils.showShort(snackBarRootView,
-                        "",
-                        Color.BLUE,
-                        Color.LTGRAY,
-                        "Short",
-                        Color.DKGRAY, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                ToastUtils.showShort(getString(R.string.snackbar_click));
-                            }
-                        });
-                SnackbarUtils.addView(R.layout.snackbar_custom, 0);
-                break;
+    private SpannableStringBuilder getMsg(@StringRes int resId) {
+        return new SpanUtils()
+                .append(getString(resId))
+                .setFontSize(24, true)
+                .setIconMargin(R.mipmap.ic_launcher, 32, SpanUtils.ALIGN_CENTER)
+                .create();
+    }
 
-        }
+    private SpannableStringBuilder getActionText() {
+        return new SpanUtils()
+                .append("Click")
+                .setFontSize(100, true)
+                .setBold()
+                .create();
     }
 }

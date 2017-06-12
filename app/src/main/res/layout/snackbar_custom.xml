@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView
+    android:id="@+id/tv_snackbar_custom"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -7,7 +8,7 @@
     android:background="@drawable/shape_round_rect"
     android:drawableLeft="@mipmap/ic_launcher"
     android:drawablePadding="@dimen/spacing_16"
-    android:gravity="center"
+    android:gravity="center_vertical"
     android:padding="@dimen/spacing_16"
     android:text="@string/toast_custom_view"
     android:textColor="@color/white"

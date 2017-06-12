@@ -1,3 +1,4 @@
+* 17/06/12 变更Snackbar为建造者模式
 * 17/06/11 SpanUtils完工，发布版本1.7.0
 * 17/06/08 SpanUtils即将完工
 * 17/06/07 SpannableStringUtils改名为SpanUtils，即将完工
