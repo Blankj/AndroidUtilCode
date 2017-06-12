@@ -5,7 +5,6 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -30,11 +29,11 @@ public final class SnackbarUtils {
 
     private static final int DEFAULT_COLOR = 0x12000000;
 
-    public static final int LENGTH_INDEFINITE = BaseTransientBottomBar.LENGTH_INDEFINITE;
+    public static final int LENGTH_INDEFINITE = -2;
 
-    public static final int LENGTH_SHORT = BaseTransientBottomBar.LENGTH_SHORT;
+    public static final int LENGTH_SHORT = -1;
 
-    public static final int LENGTH_LONG = BaseTransientBottomBar.LENGTH_LONG;
+    public static final int LENGTH_LONG = 0;
 
     @IntDef({LENGTH_INDEFINITE, LENGTH_SHORT, LENGTH_LONG})
     @Retention(RetentionPolicy.SOURCE)
