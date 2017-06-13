@@ -10,6 +10,6 @@
     android:drawablePadding="@dimen/spacing_16"
     android:gravity="center_vertical"
     android:padding="@dimen/spacing_16"
-    android:text="@string/toast_custom_view"
+    android:text="@string/snackbar_custom_view"
     android:textColor="@color/white"
     android:textSize="@dimen/font_26"/>

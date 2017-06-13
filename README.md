@@ -485,11 +485,20 @@ getMeasuredHeight
 
 * ### About Snackbar→[SnackbarUtils.java][snackbar.java]→[Demo][snackbar.demo]
 ```
-showShort
-showLong
-showIndefinite
-addView
+with
+setMessage
+setMessageColor
+setBgColor
+setBgResource
+setDuration
+setAction
+show
+showSuccess
+showWarning
+showError
 dismiss
+getView
+addView
 ```
 
 * ### About Span→[SpanUtils.java][span.java]→[Demo][span.demo]

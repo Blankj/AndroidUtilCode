@@ -485,11 +485,20 @@ getMeasuredHeight: 获取测量视图高度
 
 * ### Snackbar相关→[SnackbarUtils.java][snackbar.java]→[Demo][snackbar.demo]
 ```
-showShort     : 显示短时snackbar
-showLong      : 显示长时snackbar
-showIndefinite: 显示自定义时长snackbar
-addView       : 为SnackBar添加布局
-dismiss       : 取消snackbar显示
+with           : 设置snackbar依赖view
+setMessage     : 设置消息
+setMessageColor: 设置消息颜色
+setBgColor     : 设置背景色
+setBgResource  : 设置背景资源
+setDuration    : 设置显示时长
+setAction      : 设置行为
+show           : 显示snackbar
+showSuccess    : 显示预设成功的snackbar
+showWarning    : 显示预设警告的snackbar
+showError      : 显示预设错误的snackbar
+dismiss        : 消失snackbar
+getView        : 获取snackbar视图
+addView        : 添加snackbar视图
 ```
 
 * ### SpannableString相关→[SpanUtils.java][span.java]→[Demo][span.demo]

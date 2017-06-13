@@ -1,3 +1,4 @@
+* 17/06/13 更新Snackbar和Toast的Demo
 * 17/06/12 变更Snackbar为建造者模式
 * 17/06/11 SpanUtils完工，发布版本1.7.0
 * 17/06/08 SpanUtils即将完工

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.ColorInt;
-import android.support.annotation.IdRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -30,12 +30,12 @@ public final class ToastUtils {
 
     private static final int DEFAULT_COLOR = 0x12000000;
     private static Toast sToast;
-    private static int gravity            = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
-    private static int xOffset            = 0;
-    private static int yOffset            = (int) (64 * Utils.getContext().getResources().getDisplayMetrics().density + 0.5);
-    private static int backgroundColor    = DEFAULT_COLOR;
-    private static int backgroundResource = -1;
-    private static int messageColor       = DEFAULT_COLOR;
+    private static int gravity         = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
+    private static int xOffset         = 0;
+    private static int yOffset         = (int) (64 * Utils.getContext().getResources().getDisplayMetrics().density + 0.5);
+    private static int backgroundColor = DEFAULT_COLOR;
+    private static int bgResource      = -1;
+    private static int messageColor    = DEFAULT_COLOR;
     private static WeakReference<View> sViewWeakReference;
     private static Handler sHandler = new Handler(Looper.getMainLooper());
 
@@ -103,10 +103,10 @@ public final class ToastUtils {
     /**
      * 设置背景资源
      *
-     * @param backgroundResource 背景资源
+     * @param bgResource 背景资源
      */
-    public static void setBackgroundResource(@IdRes int backgroundResource) {
-        ToastUtils.backgroundResource = backgroundResource;
+    public static void setBgResource(@DrawableRes int bgResource) {
+        ToastUtils.bgResource = bgResource;
     }
 
     /**
@@ -409,13 +409,10 @@ public final class ToastUtils {
             }
         }
         View view = sToast.getView();
-        if (backgroundColor != DEFAULT_COLOR || backgroundResource != -1) {
-            if (backgroundColor != DEFAULT_COLOR) {
-                view.setBackgroundColor(backgroundColor);
-            }
-            if (backgroundResource != -1) {
-                view.setBackgroundResource(backgroundResource);
-            }
+        if (bgResource != -1) {
+            view.setBackgroundResource(bgResource);
+        } else if (backgroundColor != DEFAULT_COLOR) {
+            view.setBackgroundColor(backgroundColor);
         }
         sToast.setGravity(gravity, xOffset, yOffset);
         sToast.show();

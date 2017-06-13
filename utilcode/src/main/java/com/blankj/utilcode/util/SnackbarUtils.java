@@ -40,6 +40,11 @@ public final class SnackbarUtils {
     public @interface Duration {
     }
 
+    private static final int SUCCESS = 0xFF2BB600;
+    private static final int WARNING = 0xFFFFC100;
+    private static final int ERROR   = 0xFFFF0000;
+    private static final int MESSAGE = 0xFFFFFFFF;
+
     private static WeakReference<Snackbar> snackbarWeakReference;
 
     private WeakReference<View> parent;
@@ -181,10 +186,10 @@ public final class SnackbarUtils {
         }
         final Snackbar snackbar = snackbarWeakReference.get();
         final View snackbarView = snackbar.getView();
-        if (bgColor != DEFAULT_COLOR) {
-            snackbarView.setBackgroundColor(bgColor);
-        } else if (bgResource != -1) {
+        if (bgResource != -1) {
             snackbarView.setBackgroundResource(bgResource);
+        } else if (bgColor != DEFAULT_COLOR) {
+            snackbarView.setBackgroundColor(bgColor);
         }
         if (actionText.length() > 0 && actionListener != null) {
             if (actionTextColor != DEFAULT_COLOR) {
@@ -193,6 +198,36 @@ public final class SnackbarUtils {
             snackbar.setAction(actionText, actionListener);
         }
         snackbar.show();
+    }
+
+    /**
+     * 显示预设成功的snackbar
+     */
+    public void showSuccess() {
+        bgColor = SUCCESS;
+        messageColor = MESSAGE;
+        actionTextColor = MESSAGE;
+        show();
+    }
+
+    /**
+     * 显示预设警告的snackbar
+     */
+    public void showWarning() {
+        bgColor = WARNING;
+        messageColor = MESSAGE;
+        actionTextColor = MESSAGE;
+        show();
+    }
+
+    /**
+     * 显示预设错误的snackbar
+     */
+    public void showError() {
+        bgColor = ERROR;
+        messageColor = MESSAGE;
+        actionTextColor = MESSAGE;
+        show();
     }
 
     /**

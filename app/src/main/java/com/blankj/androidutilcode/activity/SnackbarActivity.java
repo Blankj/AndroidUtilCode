@@ -48,6 +48,9 @@ public class SnackbarActivity extends BaseActivity {
         findViewById(R.id.btn_indefinite_snackbar_with_action).setOnClickListener(this);
         findViewById(R.id.btn_add_view).setOnClickListener(this);
         findViewById(R.id.btn_add_view_with_action).setOnClickListener(this);
+        findViewById(R.id.btn_show_success).setOnClickListener(this);
+        findViewById(R.id.btn_show_warning).setOnClickListener(this);
+        findViewById(R.id.btn_show_error).setOnClickListener(this);
         findViewById(R.id.btn_cancel_snackbar).setOnClickListener(this);
     }
 
@@ -72,7 +75,7 @@ public class SnackbarActivity extends BaseActivity {
                         .setMessage(getMsg(R.string.snackbar_short))
                         .setMessageColor(Color.WHITE)
                         .setBgResource(R.drawable.shape_top_round_rect)
-                        .setAction(getActionText(), Color.YELLOW, new View.OnClickListener() {
+                        .setAction(getString(R.string.snackbar_click), Color.YELLOW, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 ToastUtils.showShort(getString(R.string.snackbar_click));
@@ -96,7 +99,7 @@ public class SnackbarActivity extends BaseActivity {
                         .setMessageColor(Color.WHITE)
                         .setBgResource(R.drawable.shape_top_round_rect)
                         .setDuration(SnackbarUtils.LENGTH_LONG)
-                        .setAction(getActionText(), Color.YELLOW, new View.OnClickListener() {
+                        .setAction(getString(R.string.snackbar_click), Color.YELLOW, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 ToastUtils.showShort(getString(R.string.snackbar_click));
@@ -120,7 +123,7 @@ public class SnackbarActivity extends BaseActivity {
                         .setMessageColor(Color.WHITE)
                         .setDuration(SnackbarUtils.LENGTH_INDEFINITE)
                         .setBgResource(R.drawable.shape_top_round_rect)
-                        .setAction(getActionText(), Color.YELLOW, new View.OnClickListener() {
+                        .setAction(getString(R.string.snackbar_click), Color.YELLOW, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 ToastUtils.showShort(getString(R.string.snackbar_click));
@@ -158,6 +161,24 @@ public class SnackbarActivity extends BaseActivity {
                 }
                 break;
 
+            case R.id.btn_show_success:
+                SnackbarUtils.with(snackBarRootView)
+                        .setMessage(getMsg(R.string.snackbar_success))
+                        .showSuccess();
+                break;
+
+            case R.id.btn_show_warning:
+                SnackbarUtils.with(snackBarRootView)
+                        .setMessage(getMsg(R.string.snackbar_warning))
+                        .showWarning();
+                break;
+
+            case R.id.btn_show_error:
+                SnackbarUtils.with(snackBarRootView)
+                        .setMessage(getMsg(R.string.snackbar_error))
+                        .showError();
+                break;
+
             case R.id.btn_cancel_snackbar:
                 SnackbarUtils.dismiss();
                 break;
@@ -166,17 +187,10 @@ public class SnackbarActivity extends BaseActivity {
 
     private SpannableStringBuilder getMsg(@StringRes int resId) {
         return new SpanUtils()
-                .append(getString(resId))
+                .appendLine(getString(resId))
                 .setFontSize(24, true)
                 .setIconMargin(R.mipmap.ic_launcher, 32, SpanUtils.ALIGN_CENTER)
-                .create();
-    }
-
-    private SpannableStringBuilder getActionText() {
-        return new SpanUtils()
-                .append("Click")
-                .setFontSize(100, true)
-                .setBold()
+                .append(" ").setFontSize(0)
                 .create();
     }
 }

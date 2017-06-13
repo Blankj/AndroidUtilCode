@@ -67,6 +67,27 @@
             android:layout_height="wrap_content"
             android:text="@string/snackbar_add_view_with_action"/>
 
+        <Button
+            android:id="@+id/btn_show_success"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/snackbar_show_success"/>
+
+        <Button
+            android:id="@+id/btn_show_warning"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/snackbar_show_warning"/>
+
+        <Button
+            android:id="@+id/btn_show_error"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/snackbar_show_error"/>
+
 
         <Button
             android:id="@+id/btn_cancel_snackbar"
