@@ -90,11 +90,11 @@
 
 
         <Button
-            android:id="@+id/btn_cancel_snackbar"
+            android:id="@+id/btn_dismiss_snackbar"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/snackbar_cancel"/>
+            android:text="@string/snackbar_dismiss"/>
 
     </LinearLayout>
 </ScrollView>

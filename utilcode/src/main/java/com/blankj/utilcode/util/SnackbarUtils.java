@@ -256,15 +256,14 @@ public final class SnackbarUtils {
      * <p>在{@link #show()}之后调用</p>
      *
      * @param layoutId 布局文件
-     * @param index    位置(the position at which to add the child or -1 to add last)
      * @param params   布局参数
      */
-    public static void addView(@LayoutRes int layoutId, int index, ViewGroup.LayoutParams params) {
+    public static void addView(@LayoutRes int layoutId, ViewGroup.LayoutParams params) {
         final View view = getView();
         if (view != null) {
             Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) view;
             View child = LayoutInflater.from(view.getContext()).inflate(layoutId, null);
-            layout.addView(child, index, params);
+            layout.addView(child, -1, params);
         }
     }
 
@@ -273,14 +272,13 @@ public final class SnackbarUtils {
      * <p>在{@link #show()}之后调用</p>
      *
      * @param child  要添加的view
-     * @param index  位置(the position at which to add the child or -1 to add last)
      * @param params 布局参数
      */
-    public static void addView(View child, int index, ViewGroup.LayoutParams params) {
+    public static void addView(View child, ViewGroup.LayoutParams params) {
         final View view = getView();
         if (view != null) {
             Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) view;
-            layout.addView(child, index, params);
+            layout.addView(child, params);
         }
     }
 }

@@ -51,7 +51,7 @@ public class SnackbarActivity extends BaseActivity {
         findViewById(R.id.btn_show_success).setOnClickListener(this);
         findViewById(R.id.btn_show_warning).setOnClickListener(this);
         findViewById(R.id.btn_show_error).setOnClickListener(this);
-        findViewById(R.id.btn_cancel_snackbar).setOnClickListener(this);
+        findViewById(R.id.btn_dismiss_snackbar).setOnClickListener(this);
     }
 
     @Override
@@ -138,7 +138,7 @@ public class SnackbarActivity extends BaseActivity {
                         .setDuration(SnackbarUtils.LENGTH_INDEFINITE)
                         .show();
                 ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                SnackbarUtils.addView(R.layout.snackbar_custom, -1, params);
+                SnackbarUtils.addView(R.layout.snackbar_custom, params);
                 break;
 
             case R.id.btn_add_view_with_action:
@@ -147,12 +147,12 @@ public class SnackbarActivity extends BaseActivity {
                         .setDuration(SnackbarUtils.LENGTH_INDEFINITE)
                         .show();
                 params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                SnackbarUtils.addView(R.layout.snackbar_custom, -1, params);
+                SnackbarUtils.addView(R.layout.snackbar_custom, params);
                 View snackbarView = SnackbarUtils.getView();
                 if (snackbarView != null) {
                     TextView tvSnackbarCustom = (TextView) snackbarView.findViewById(R.id.tv_snackbar_custom);
                     tvSnackbarCustom.setText("点我可消失");
-                    tvSnackbarCustom.setOnClickListener(new View.OnClickListener() {
+                    snackbarView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             SnackbarUtils.dismiss();
@@ -179,7 +179,7 @@ public class SnackbarActivity extends BaseActivity {
                         .showError();
                 break;
 
-            case R.id.btn_cancel_snackbar:
+            case R.id.btn_dismiss_snackbar:
                 SnackbarUtils.dismiss();
                 break;
         }

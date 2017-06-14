@@ -126,7 +126,7 @@
     <string name="snackbar_show_success">Show Success</string>
     <string name="snackbar_show_warning">Show Warning</string>
     <string name="snackbar_show_error">Show Error</string>
-    <string name="snackbar_cancel">Cancel Snackbar</string>
+    <string name="snackbar_dismiss">Dismiss Snackbar</string>
     <string name="snackbar_short">Short Snackbar</string>
     <string name="snackbar_long">Long Snackbar</string>
     <string name="snackbar_indefinite">Indefinite Snackbar</string>
