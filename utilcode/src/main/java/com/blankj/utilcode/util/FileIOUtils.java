@@ -1,7 +1,5 @@
 package com.blankj.utilcode.util;
 
-import com.blankj.utilcode.constant.MemoryConstants;
-
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -36,6 +34,8 @@ public final class FileIOUtils {
     }
 
     private static final String LINE_SEP = System.getProperty("line.separator");
+
+    private static int sBufferSize = 8192;
 
     /**
      * 将输入流写入文件
@@ -84,9 +84,9 @@ public final class FileIOUtils {
         OutputStream os = null;
         try {
             os = new BufferedOutputStream(new FileOutputStream(file, append));
-            byte data[] = new byte[1024];
+            byte data[] = new byte[sBufferSize];
             int len;
-            while ((len = is.read(data, 0, 1024)) != -1) {
+            while ((len = is.read(data, 0, sBufferSize)) != -1) {
                 os.write(data, 0, len);
             }
             return true;
@@ -543,9 +543,9 @@ public final class FileIOUtils {
         try {
             fis = new FileInputStream(file);
             os = new ByteArrayOutputStream();
-            byte[] b = new byte[MemoryConstants.KB];
+            byte[] b = new byte[sBufferSize];
             int len;
-            while ((len = fis.read(b, 0, MemoryConstants.KB)) != -1) {
+            while ((len = fis.read(b, 0, sBufferSize)) != -1) {
                 os.write(b, 0, len);
             }
             return os.toByteArray();
@@ -623,6 +623,15 @@ public final class FileIOUtils {
         } finally {
             CloseUtils.closeIO(fc);
         }
+    }
+
+    /**
+     * 设置缓冲区尺寸
+     *
+     * @param bufferSize 缓冲区大小
+     */
+    public static void setBufferSize(int bufferSize) {
+        FileIOUtils.sBufferSize = bufferSize;
     }
 
     private static boolean isSpace(String s) {

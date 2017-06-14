@@ -2,8 +2,6 @@ package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
 
-import com.blankj.utilcode.constant.MemoryConstants;
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -1112,14 +1110,14 @@ public final class FileUtils {
     private static String byte2FitMemorySize(long byteNum) {
         if (byteNum < 0) {
             return "shouldn't be less than zero!";
-        } else if (byteNum < MemoryConstants.KB) {
+        } else if (byteNum < 1024) {
             return String.format("%.3fB", (double) byteNum + 0.0005);
-        } else if (byteNum < MemoryConstants.MB) {
-            return String.format("%.3fKB", (double) byteNum / MemoryConstants.KB + 0.0005);
-        } else if (byteNum < MemoryConstants.GB) {
-            return String.format("%.3fMB", (double) byteNum / MemoryConstants.MB + 0.0005);
+        } else if (byteNum < 1048576) {
+            return String.format("%.3fKB", (double) byteNum / 1024 + 0.0005);
+        } else if (byteNum < 1073741824) {
+            return String.format("%.3fMB", (double) byteNum / 1048576 + 0.0005);
         } else {
-            return String.format("%.3fGB", (double) byteNum / MemoryConstants.GB + 0.0005);
+            return String.format("%.3fGB", (double) byteNum / 1073741824 + 0.0005);
         }
     }
 

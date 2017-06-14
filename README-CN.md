@@ -192,6 +192,7 @@ readFile2String            : 读取文件到字符串中
 readFile2BytesByStream     : 读取文件到字节数组中
 readFile2BytesByChannel    : 读取文件到字节数组中
 readFile2BytesByMap        : 读取文件到字节数组中
+setBufferSize              : 设置缓冲区尺寸
 ```
 
 * ### 文件相关→[FileUtils.java][file.java]→[Test][file.test]
@@ -662,7 +663,7 @@ getEntries        : 获取压缩文件中的文件对象
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.7.0'
+compile 'com.blankj:utilcode:1.7.1'
 ```
 
 
@@ -684,7 +685,7 @@ Utils.init(context);
 
 
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.7.0-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.7.1-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-15+-brightgreen.svg
