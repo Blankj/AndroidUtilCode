@@ -291,7 +291,7 @@ public final class LogUtils {
         if (!sTagIsSpace && !sLogHeadSwitch) {
             tag = sGlobalTag;
         } else {
-            StackTraceElement targetElement = Thread.currentThread().getStackTrace()[5];
+            StackTraceElement targetElement = new Throwable().getStackTrace()[3];
             String className = targetElement.getClassName();
             String[] classNameInfo = className.split("\\.");
             if (classNameInfo.length > 0) {
