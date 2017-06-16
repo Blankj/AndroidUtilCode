@@ -1,6 +1,6 @@
 # :fire: Android开发人员不得不收集的代码([持续更新中][update_log.md])
 
-[![auc][aucsvg]][auc] [![api][apisvg]][api] [![build][buildsvg]][build] [![License][licensesvg]][license]
+[![auc][aucsvg]][auc] [![api][apisvg]][api] [![build][buildsvg]][build] [![Insight][insightsvg]][insight] [![License][licensesvg]][license]
 
 ## [README of English][readme.md]
 
@@ -693,6 +693,9 @@ Utils.init(context);
 
 [buildsvg]: https://travis-ci.org/Blankj/AndroidUtilCode.svg?branch=master
 [build]: https://travis-ci.org/Blankj/AndroidUtilCode
+
+[insightsvg]: https://www.insight.io/repoBadge/github.com/Blankj/AndroidUtilCode
+[insight]: https://insight.io/github.com/Blankj/AndroidUtilCode
 
 [licensesvg]: https://img.shields.io/badge/License-Apache--2.0-brightgreen.svg
 [license]: https://github.com/Blankj/AndroidUtilCode/blob/master/LICENSE
