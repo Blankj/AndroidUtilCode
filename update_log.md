@@ -1,3 +1,4 @@
+* 17/06/17 删除HandlerUtils
 * 17/06/16 新增insight.io的bandage
 * 17/06/14 发布1.7.1版本，LogUtils优化回退栈
 * 17/06/13 更新Snackbar和Toast的Demo

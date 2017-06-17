@@ -80,10 +80,6 @@ public class MainActivity extends BaseActivity {
 //        startActivity(new Intent(this, FlashlightActivity.class));
 //    }
 
-    public void handlerClick(View view) {
-        startActivity(new Intent(this, HandlerActivity.class));
-    }
-
     public void imageClick(View view) {
         startActivity(new Intent(this, ImageActivity.class));
     }

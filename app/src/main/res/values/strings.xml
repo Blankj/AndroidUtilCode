@@ -12,7 +12,6 @@
     <string name="demo_device">DeviceUtils Demo</string>
     <string name="demo_fragment">FragmentUtils Demo</string>
     <string name="demo_flashlight">FlashlightUtils Demo</string>
-    <string name="demo_handler">HandlerUtils Demo</string>
     <string name="demo_image">ImageUtils Demo</string>
     <string name="demo_keyboard">KeyboardUtils Demo</string>
     <string name="demo_location">LocationUtils Demo</string>

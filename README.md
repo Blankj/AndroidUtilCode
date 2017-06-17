@@ -268,11 +268,6 @@ setBackgroundResource
 setBackground
 ```
 
-* ### About Handler→[HandlerUtils.java][handler.java]→[Demo][handler.demo]
-```
-HandlerHolder
-```
-
 * ### About Image→[ImageUtils.java][image.java]→[Demo][image.demo]
 ```
 bitmap2Bytes, bytes2Bitmap
@@ -761,9 +756,6 @@ Utils.init(context);
 
 [fragment.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/FragmentUtils.java
 [fragment.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/FragmentActivity.java
-
-[handler.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/HandlerUtils.java
-[handler.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/HandlerActivity.java
 
 [image.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ImageUtils.java
 [image.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/ImageActivity.java

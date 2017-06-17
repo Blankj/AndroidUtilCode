@@ -80,13 +80,6 @@
                 style="@style/WideBtnStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="handlerClick"
-                android:text="@string/demo_handler"/>
-
-            <Button
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:onClick="imageClick"
                 android:text="@string/demo_image"/>
 

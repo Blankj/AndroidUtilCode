@@ -26,7 +26,7 @@ public final class Utils {
      *
      * @param context 上下文
      */
-    public static void init(@NonNull Context context) {
+    public static void init(@NonNull final Context context) {
         Utils.context = context.getApplicationContext();
     }
 
