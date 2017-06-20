@@ -8,6 +8,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.AnimRes;
+import android.support.annotation.NonNull;
 import android.util.ArrayMap;
 
 import java.lang.reflect.Field;
@@ -36,7 +38,7 @@ public final class ActivityUtils {
      * @param className   activity全路径类名
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isActivityExists(String packageName, String className) {
+    public static boolean isActivityExists(@NonNull final String packageName, @NonNull final String className) {
         Intent intent = new Intent();
         intent.setClassName(packageName, className);
         return !(Utils.getContext().getPackageManager().resolveActivity(intent, 0) == null ||
@@ -50,7 +52,7 @@ public final class ActivityUtils {
      * @param activity activity
      * @param cls      activity类
      */
-    public static void startActivity(Activity activity, Class<?> cls) {
+    public static void startActivity(@NonNull final Activity activity, @NonNull final Class<?> cls) {
         startActivity(activity, null, activity.getPackageName(), cls.getName(), null);
     }
 
@@ -61,7 +63,7 @@ public final class ActivityUtils {
      * @param activity activity
      * @param cls      activity类
      */
-    public static void startActivity(Bundle extras, Activity activity, Class<?> cls) {
+    public static void startActivity(@NonNull final Bundle extras, @NonNull final Activity activity, @NonNull final Class<?> cls) {
         startActivity(activity, extras, activity.getPackageName(), cls.getName(), null);
     }
 
@@ -73,7 +75,7 @@ public final class ActivityUtils {
      * @param enterAnim 入场动画
      * @param exitAnim  出场动画
      */
-    public static void startActivity(Activity activity, Class<?> cls, int enterAnim, int exitAnim) {
+    public static void startActivity(@NonNull final Activity activity, @NonNull final Class<?> cls, @AnimRes final int enterAnim, @AnimRes final int exitAnim) {
         startActivity(activity, null, activity.getPackageName(), cls.getName(), null);
         activity.overridePendingTransition(enterAnim, exitAnim);
     }
@@ -87,7 +89,7 @@ public final class ActivityUtils {
      * @param enterAnim 入场动画
      * @param exitAnim  出场动画
      */
-    public static void startActivity(Bundle extras, Activity activity, Class<?> cls, int enterAnim, int exitAnim) {
+    public static void startActivity(@NonNull final Bundle extras, @NonNull final Activity activity, @NonNull final Class<?> cls, @AnimRes final int enterAnim, @AnimRes final int exitAnim) {
         startActivity(activity, extras, activity.getPackageName(), cls.getName(), null);
         activity.overridePendingTransition(enterAnim, exitAnim);
     }
@@ -99,7 +101,7 @@ public final class ActivityUtils {
      * @param cls      activity类
      * @param options  跳转动画
      */
-    public static void startActivity(Activity activity, Class<?> cls, Bundle options) {
+    public static void startActivity(@NonNull final Activity activity, @NonNull final Class<?> cls, @NonNull final Bundle options) {
         startActivity(activity, null, activity.getPackageName(), cls.getName(), options);
     }
 
@@ -111,7 +113,7 @@ public final class ActivityUtils {
      * @param cls      activity类
      * @param options  跳转动画
      */
-    public static void startActivity(Bundle extras, Activity activity, Class<?> cls, Bundle options) {
+    public static void startActivity(@NonNull final Bundle extras, @NonNull final Activity activity, Class<?> cls, @NonNull final Bundle options) {
         startActivity(activity, extras, activity.getPackageName(), cls.getName(), options);
     }
 
@@ -121,7 +123,7 @@ public final class ActivityUtils {
      * @param pkg 包名
      * @param cls 全类名
      */
-    public static void startActivity(String pkg, String cls) {
+    public static void startActivity(@NonNull final String pkg, @NonNull final String cls) {
         startActivity(Utils.getContext(), null, pkg, cls, null);
     }
 
@@ -132,7 +134,7 @@ public final class ActivityUtils {
      * @param pkg    包名
      * @param cls    全类名
      */
-    public static void startActivity(Bundle extras, String pkg, String cls) {
+    public static void startActivity(@NonNull final Bundle extras, @NonNull final String pkg, @NonNull final String cls) {
         startActivity(Utils.getContext(), extras, pkg, cls, extras);
     }
 
@@ -143,7 +145,7 @@ public final class ActivityUtils {
      * @param cls     全类名
      * @param options 动画
      */
-    public static void startActivity(String pkg, String cls, Bundle options) {
+    public static void startActivity(@NonNull final String pkg, @NonNull final String cls, @NonNull final Bundle options) {
         startActivity(Utils.getContext(), null, pkg, cls, options);
     }
 
@@ -155,7 +157,7 @@ public final class ActivityUtils {
      * @param cls     全类名
      * @param options 动画
      */
-    public static void startActivity(Bundle extras, String pkg, String cls, Bundle options) {
+    public static void startActivity(@NonNull final Bundle extras, @NonNull final String pkg, @NonNull final String cls, @NonNull final Bundle options) {
         startActivity(Utils.getContext(), extras, pkg, cls, options);
     }
 
@@ -179,7 +181,7 @@ public final class ActivityUtils {
      * @param packageName 包名
      * @return launcher activity
      */
-    public static String getLauncherActivity(String packageName) {
+    public static String getLauncherActivity(@NonNull final String packageName) {
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

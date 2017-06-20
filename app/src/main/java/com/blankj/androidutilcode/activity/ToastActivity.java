@@ -93,8 +93,7 @@ public class ToastActivity extends BaseActivity {
                         .create());
                 break;
             case R.id.btn_show_custom_view:
-                ToastUtils.setView(R.layout.toast_custom);
-                ToastUtils.showLong("");
+                ToastUtils.showCustomLong(R.layout.toast_custom);
                 break;
             case R.id.btn_show_middle:
                 ToastUtils.setGravity(Gravity.CENTER, 0, 0);

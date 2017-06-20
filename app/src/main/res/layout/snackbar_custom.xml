@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/shape_round_rect"
+    android:background="@drawable/shape_top_round_rect"
     android:drawableLeft="@mipmap/ic_launcher"
     android:drawablePadding="@dimen/spacing_16"
     android:gravity="center_vertical"

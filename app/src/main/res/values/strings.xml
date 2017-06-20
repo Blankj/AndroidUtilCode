@@ -7,6 +7,7 @@
 
     <string name="demo_activity">ActivityUtils Demo</string>
     <string name="demo_app">AppUtils Demo</string>
+    <string name="demo_bar">BarUtils Demo</string>
     <string name="demo_clean">CleanUtils Demo</string>
     <string name="demo_crash">CrashUtils Demo</string>
     <string name="demo_device">DeviceUtils Demo</string>
@@ -23,7 +24,7 @@
     <string name="demo_process">ProcessUtils Demo</string>
     <string name="demo_sdcard">SDCardUtils Demo</string>
     <string name="demo_snackbar">SnackbarUtils Demo</string>
-    <string name="demo_spannable">SpannableStringUtils Demo</string>
+    <string name="demo_spannable">SpanUtils Demo</string>
     <string name="demo_toast">ToastUtils Demo</string>
 
     <!--Activity相关-->

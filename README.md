@@ -488,6 +488,7 @@ setBgColor
 setBgResource
 setDuration
 setAction
+setBottomMargin
 show
 showSuccess
 showWarning
@@ -621,13 +622,17 @@ getZodiac
 setGravity
 setView
 getView
-setBackgroundColor
-setBackgroundResource
+setBgColor
+setBgResource
 setMessageColor
 showShortSafe
 showLongSafe
 showShort
 showLong
+showCustomShortSafe
+showCustomLongSafe
+showCustomShort
+showCustomLong
 cancel
 ```
 

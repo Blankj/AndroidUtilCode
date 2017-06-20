@@ -488,6 +488,7 @@ setBgColor     : 设置背景色
 setBgResource  : 设置背景资源
 setDuration    : 设置显示时长
 setAction      : 设置行为
+setBottomMargin: 设置底边距
 show           : 显示snackbar
 showSuccess    : 显示预设成功的snackbar
 showWarning    : 显示预设警告的snackbar
@@ -618,17 +619,21 @@ getZodiac               : 获取星座
 
 * ### 吐司相关→[ToastUtils.java][toast.java]→[Demo][toast.demo]
 ```
-setGravity           : 设置吐司位置
-setView              : 设置吐司view
-getView              : 获取吐司view
-setBackgroundColor   : 设置背景颜色
-setBackgroundResource: 设置背景资源
-setMessageColor      : 设置消息颜色
-showShortSafe        : 安全地显示短时吐司
-showLongSafe         : 安全地显示长时吐司
-showShort            : 显示短时吐司
-showLong             : 显示长时吐司
-cancel               : 取消吐司显示
+setGravity         : 设置吐司位置
+setView            : 设置吐司view
+getView            : 获取吐司view
+setBgColor         : 设置背景颜色
+setBgResource      : 设置背景资源
+setMessageColor    : 设置消息颜色
+showShortSafe      : 安全地显示短时吐司
+showLongSafe       : 安全地显示长时吐司
+showShort          : 显示短时吐司
+showLong           : 显示长时吐司
+showCustomShortSafe: 安全地显示短时自定义吐司
+showCustomLongSafe : 安全地显示长时自定义吐司
+showCustomShort    : 显示短时自定义吐司
+showCustomLong     : 显示长时自定义吐司
+cancel             : 取消吐司显示
 ```
 
 * ### 压缩相关→[ZipUtils.java][zip.java]→[Test][zip.test]

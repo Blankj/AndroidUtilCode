@@ -3,8 +3,9 @@ package com.blankj.utilcode.util;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
+import android.support.annotation.IntRange;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -57,6 +58,7 @@ public final class SnackbarUtils {
     private CharSequence         actionText;
     private int                  actionTextColor;
     private View.OnClickListener actionListener;
+    private int                  bottomMargin;
 
     private SnackbarUtils(View parent) {
         setDefault();
@@ -71,6 +73,7 @@ public final class SnackbarUtils {
         duration = LENGTH_SHORT;
         actionText = "";
         actionTextColor = DEFAULT_COLOR;
+        bottomMargin = 0;
     }
 
     /**
@@ -79,7 +82,7 @@ public final class SnackbarUtils {
      * @param parent 依赖view
      * @return {@link SnackbarUtils}
      */
-    public static SnackbarUtils with(@Nullable View parent) {
+    public static SnackbarUtils with(@NonNull final View parent) {
         return new SnackbarUtils(parent);
     }
 
@@ -89,7 +92,7 @@ public final class SnackbarUtils {
      * @param msg 消息
      * @return {@link SnackbarUtils}
      */
-    public SnackbarUtils setMessage(@Nullable CharSequence msg) {
+    public SnackbarUtils setMessage(@NonNull final CharSequence msg) {
         this.message = msg;
         return this;
     }
@@ -100,7 +103,7 @@ public final class SnackbarUtils {
      * @param color 颜色
      * @return {@link SnackbarUtils}
      */
-    public SnackbarUtils setMessageColor(@ColorInt int color) {
+    public SnackbarUtils setMessageColor(@ColorInt final int color) {
         this.messageColor = color;
         return this;
     }
@@ -111,7 +114,7 @@ public final class SnackbarUtils {
      * @param color 背景色
      * @return {@link SnackbarUtils}
      */
-    public SnackbarUtils setBgColor(@ColorInt int color) {
+    public SnackbarUtils setBgColor(@ColorInt final int color) {
         this.bgColor = color;
         return this;
     }
@@ -122,7 +125,7 @@ public final class SnackbarUtils {
      * @param bgResource 背景资源
      * @return {@link SnackbarUtils}
      */
-    public SnackbarUtils setBgResource(@DrawableRes int bgResource) {
+    public SnackbarUtils setBgResource(@DrawableRes final int bgResource) {
         this.bgResource = bgResource;
         return this;
     }
@@ -138,7 +141,7 @@ public final class SnackbarUtils {
      *                 </ul>
      * @return {@link SnackbarUtils}
      */
-    public SnackbarUtils setDuration(@Duration int duration) {
+    public SnackbarUtils setDuration(@Duration final int duration) {
         this.duration = duration;
         return this;
     }
@@ -150,7 +153,7 @@ public final class SnackbarUtils {
      * @param listener 事件
      * @return {@link SnackbarUtils}
      */
-    public SnackbarUtils setAction(@Nullable CharSequence text, @Nullable final View.OnClickListener listener) {
+    public SnackbarUtils setAction(@NonNull final CharSequence text, @NonNull final View.OnClickListener listener) {
         return setAction(text, DEFAULT_COLOR, listener);
     }
 
@@ -163,10 +166,20 @@ public final class SnackbarUtils {
      * @return {@link SnackbarUtils}
      */
 
-    public SnackbarUtils setAction(@Nullable CharSequence text, @ColorInt int color, @Nullable final View.OnClickListener listener) {
+    public SnackbarUtils setAction(@NonNull final CharSequence text, @ColorInt final int color, @NonNull final View.OnClickListener listener) {
         this.actionText = text;
         this.actionTextColor = color;
         this.actionListener = listener;
+        return this;
+    }
+
+    /**
+     * 设置底边距
+     *
+     * @param bottomMargin 底边距
+     */
+    public SnackbarUtils setBottomMargin(@IntRange(from = 1) final int bottomMargin) {
+        this.bottomMargin = bottomMargin;
         return this;
     }
 
@@ -190,6 +203,10 @@ public final class SnackbarUtils {
             snackbarView.setBackgroundResource(bgResource);
         } else if (bgColor != DEFAULT_COLOR) {
             snackbarView.setBackgroundColor(bgColor);
+        }
+        if (bottomMargin != 0) {
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) snackbarView.getLayoutParams();
+            params.bottomMargin = bottomMargin;
         }
         if (actionText.length() > 0 && actionListener != null) {
             if (actionTextColor != DEFAULT_COLOR) {
@@ -258,9 +275,10 @@ public final class SnackbarUtils {
      * @param layoutId 布局文件
      * @param params   布局参数
      */
-    public static void addView(@LayoutRes int layoutId, ViewGroup.LayoutParams params) {
+    public static void addView(@LayoutRes final int layoutId, @NonNull final ViewGroup.LayoutParams params) {
         final View view = getView();
         if (view != null) {
+            view.setPadding(0, 0, 0, 0);
             Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) view;
             View child = LayoutInflater.from(view.getContext()).inflate(layoutId, null);
             layout.addView(child, -1, params);
@@ -274,9 +292,10 @@ public final class SnackbarUtils {
      * @param child  要添加的view
      * @param params 布局参数
      */
-    public static void addView(View child, ViewGroup.LayoutParams params) {
+    public static void addView(@NonNull final View child, @NonNull final ViewGroup.LayoutParams params) {
         final View view = getView();
         if (view != null) {
+            view.setPadding(0, 0, 0, 0);
             Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) view;
             layout.addView(child, params);
         }

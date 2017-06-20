@@ -60,6 +60,10 @@ public class MainActivity extends BaseActivity {
         startActivity(new Intent(this, AppActivity.class));
     }
 
+    public void barClick(View view) {
+        startActivity(new Intent(this, BarActivity.class));
+    }
+
     public void cleanClick(View view) {
         startActivity(new Intent(this, CleanActivity.class));
     }
