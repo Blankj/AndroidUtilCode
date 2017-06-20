@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.blankj.androidutilcode"
-        minSdkVersion 15
+        minSdkVersion 14
         targetSdkVersion 16
         versionCode 41
         versionName "1.7.1"
