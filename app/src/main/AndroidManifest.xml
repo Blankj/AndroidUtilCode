@@ -55,7 +55,6 @@
         <activity android:name=".activity.DeviceActivity"/>
         <activity android:name=".activity.FragmentActivity"/>
         <!--<activity android:name=".activities.FlashlightActivity"/>-->
-        <activity android:name=".activity.HandlerActivity"/>
         <activity android:name=".activity.ImageActivity"/>
         <activity
             android:name=".activity.KeyboardActivity"
