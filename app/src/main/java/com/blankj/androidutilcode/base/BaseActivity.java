@@ -23,7 +23,7 @@ public abstract class BaseActivity extends AppCompatActivity
     /**
      * 是否全屏
      */
-    private boolean isFullScreen = false;
+    private boolean isFullScreen     = false;
     /**
      * 是否沉浸状态栏
      */
@@ -73,7 +73,7 @@ public abstract class BaseActivity extends AppCompatActivity
      *
      * @param bundle 从上个Activity传递过来的bundle
      */
-    public abstract void initData(Bundle bundle);
+    public abstract void initData(final Bundle bundle);
 
     /**
      * 绑定布局
@@ -85,21 +85,21 @@ public abstract class BaseActivity extends AppCompatActivity
     /**
      * 初始化view
      */
-    public abstract void initView(Bundle savedInstanceState, final View view);
+    public abstract void initView(final Bundle savedInstanceState, final View view);
 
     /**
      * 业务操作
      *
      * @param context 上下文
      */
-    public abstract void doBusiness(Context context);
+    public abstract void doBusiness(final Context context);
 
     /**
      * 视图点击事件
      *
      * @param view 视图
      */
-    public abstract void onWidgetClick(View view);
+    public abstract void onWidgetClick(final View view);
 
     /**
      * 判断是否快速点击
@@ -116,7 +116,7 @@ public abstract class BaseActivity extends AppCompatActivity
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(final View view) {
         if (!isFastClick()) onWidgetClick(view);
     }
 
@@ -125,7 +125,7 @@ public abstract class BaseActivity extends AppCompatActivity
      *
      * @param isFullScreen 是否全屏
      */
-    public void setFullScreen(boolean isFullScreen) {
+    public void setFullScreen(final boolean isFullScreen) {
         this.isFullScreen = isFullScreen;
     }
 
@@ -134,7 +134,7 @@ public abstract class BaseActivity extends AppCompatActivity
      *
      * @param isSteepStatusBar 是否沉浸状态栏
      */
-    public void setSteepStatusBar(boolean isSteepStatusBar) {
+    public void setSteepStatusBar(final boolean isSteepStatusBar) {
         this.isSteepStatusBar = isSteepStatusBar;
     }
 }

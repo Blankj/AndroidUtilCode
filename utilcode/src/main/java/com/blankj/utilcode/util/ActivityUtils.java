@@ -207,7 +207,7 @@ public final class ActivityUtils {
             Object activityThread = activityThreadClass.getMethod("currentActivityThread").invoke(null);
             Field activitiesField = activityThreadClass.getDeclaredField("mActivities");
             activitiesField.setAccessible(true);
-            Map activities = null;
+            Map activities;
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
                 activities = (HashMap) activitiesField.get(activityThread);
             } else {

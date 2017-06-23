@@ -1,179 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center_horizontal"
-              android:orientation="vertical">
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:openDrawer="start">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <include
+        layout="@layout/app_bar_main"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        app:theme="@style/ToolbarTheme"/>
+        android:layout_height="match_parent"/>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/activity_main_drawer"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/spacing_16"
-            android:paddingRight="@dimen/spacing_16">
-
-
-            <Button
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="activityClick"
-                android:text="@string/demo_activity"/>
-
-            <Button
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="appClick"
-                android:text="@string/demo_app"/>
-
-            <Button
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="barClick"
-                android:text="@string/demo_bar"/>
-
-            <Button
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="cleanClick"
-                android:text="@string/demo_clean"/>
-
-            <Button
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="crashClick"
-                android:text="@string/demo_crash"/>
-
-            <Button
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="deviceClick"
-                android:text="@string/demo_device"/>
-
-            <Button
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="fragmentClick"
-                android:text="@string/demo_fragment"/>
-
-            <!--<Button-->
-            <!--style="@style/BtnFont"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:onClick="flashlightClick"-->
-            <!--android:text="@string/demo_flashlight"-->
-            <!--/>-->
-
-            <Button
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="imageClick"
-                android:text="@string/demo_image"/>
-
-            <Button
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="keyboardClick"
-                android:text="@string/demo_keyboard"/>
-
-            <Button
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="locationClick"
-                android:text="@string/demo_location"/>
-
-            <Button
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="logClick"
-                android:text="@string/demo_log"/>
-
-            <Button
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="networkClick"
-                android:text="@string/demo_network"/>
-
-            <Button
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="permissionClick"
-                android:text="@string/demo_permission"/>
-
-            <Button
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="phoneClick"
-                android:text="@string/demo_phone"/>
-
-            <Button
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="pinyinClick"
-                android:text="@string/demo_pinyin"/>
-
-            <Button
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="processClick"
-                android:text="@string/demo_process"/>
-
-            <Button
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="sdcardClick"
-                android:text="@string/demo_sdcard"/>
-
-            <Button
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="snackbarClick"
-                android:text="@string/demo_snackbar"/>
-
-            <Button
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="spannableClick"
-                android:text="@string/demo_spannable"/>
-
-            <Button
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="toastClick"
-                android:text="@string/demo_toast"/>
-
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+</android.support.v4.widget.DrawerLayout>

@@ -3,6 +3,7 @@ package com.blankj.utilcode.util;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.ColorInt;
@@ -10,7 +11,10 @@ import android.support.annotation.IntRange;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.DrawerLayout;
 import android.util.TypedValue;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -27,6 +31,10 @@ import java.lang.reflect.Method;
  * </pre>
  */
 public class BarUtils {
+
+    ///////////////////////////////////////////////////////////////////////////
+    // status bar
+    ///////////////////////////////////////////////////////////////////////////
 
     private static final int    DEFAULT_STATUS_BAR_ALPHA  = 112;
     private static final String FAKE_STATUS_BAR_VIEW_TAG  = "FAKE_STATUS_BAR_VIEW_TAG";
@@ -164,8 +172,7 @@ public class BarUtils {
 
     /**
      * 使状态栏半透明
-     * <p>
-     * 适用于图片作为背景的界面,此时需要图片填充到状态栏
+     * <p>适用于图片作为背景的界面,此时需要图片填充到状态栏</p>
      *
      * @param activity 需要设置的activity
      */
@@ -661,9 +668,7 @@ public class BarUtils {
      * @return 最终的状态栏颜色
      */
     private static int calculateStatusColor(@ColorInt int color, int alpha) {
-        if (alpha == 0) {
-            return color;
-        }
+        if (alpha == 0) return color;
         float a = 1 - alpha / 255f;
         int red = color >> 16 & 0xff;
         int green = color >> 8 & 0xff;
@@ -671,6 +676,7 @@ public class BarUtils {
         red = (int) (red * a + 0.5);
         green = (int) (green * a + 0.5);
         blue = (int) (blue * a + 0.5);
+        //noinspection NumericOverflow
         return 0xff << 24 | red << 16 | green << 8 | blue;
     }
 
@@ -773,6 +779,27 @@ public class BarUtils {
             expand.invoke(service);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // navigation bar
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 获取导航栏高度
+     *
+     * @return 导航栏高度，0代表不存在
+     */
+    public int getNavigationBarHeight() {
+        boolean hasMenuKey = ViewConfiguration.get(Utils.getContext()).hasPermanentMenuKey();
+        boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+        if (!hasMenuKey && !hasBackKey) {
+            Resources res = Utils.getContext().getResources();
+            int resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android");
+            return res.getDimensionPixelSize(resourceId);
+        } else {
+            return 0;
         }
     }
 }
