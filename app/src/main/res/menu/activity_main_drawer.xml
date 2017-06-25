@@ -8,6 +8,5 @@
     <item
         android:id="@+id/action_blog"
         android:icon="@drawable/ic_menu_blog"
-        android:title="@string/blog"
-        />
+        android:title="@string/blog"/>
 </menu>
