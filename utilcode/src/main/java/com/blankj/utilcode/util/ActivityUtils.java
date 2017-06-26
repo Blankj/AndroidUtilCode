@@ -113,7 +113,7 @@ public final class ActivityUtils {
      * @param cls      activity类
      * @param options  跳转动画
      */
-    public static void startActivity(@NonNull final Bundle extras, @NonNull final Activity activity, Class<?> cls, @NonNull final Bundle options) {
+    public static void startActivity(@NonNull final Bundle extras, @NonNull final Activity activity, final Class<?> cls, @NonNull final Bundle options) {
         startActivity(activity, extras, activity.getPackageName(), cls.getName(), options);
     }
 

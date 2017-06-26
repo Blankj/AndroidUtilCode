@@ -22,7 +22,7 @@
     <string name="demo_image">ImageUtils Demo</string>
     <string name="demo_keyboard">KeyboardUtils Demo</string>
     <string name="demo_location">LocationUtils Demo</string>
-    <string name="demo_log">Log Demo</string>
+    <string name="demo_log">LogUtils Demo</string>
     <string name="demo_network">NetworkUtils Demo</string>
     <string name="demo_permission">PermissionUtils Demo</string>
     <string name="demo_phone">PhoneUtils Demo</string>

@@ -38,7 +38,7 @@ public final class FileUtils {
      * @param filePath 文件路径
      * @return 文件
      */
-    public static File getFileByPath(String filePath) {
+    public static File getFileByPath(final String filePath) {
         return isSpace(filePath) ? null : new File(filePath);
     }
 
@@ -48,7 +48,7 @@ public final class FileUtils {
      * @param filePath 文件路径
      * @return {@code true}: 存在<br>{@code false}: 不存在
      */
-    public static boolean isFileExists(String filePath) {
+    public static boolean isFileExists(final String filePath) {
         return isFileExists(getFileByPath(filePath));
     }
 
@@ -58,7 +58,7 @@ public final class FileUtils {
      * @param file 文件
      * @return {@code true}: 存在<br>{@code false}: 不存在
      */
-    public static boolean isFileExists(File file) {
+    public static boolean isFileExists(final File file) {
         return file != null && file.exists();
     }
 
@@ -69,7 +69,7 @@ public final class FileUtils {
      * @param newName  新名称
      * @return {@code true}: 重命名成功<br>{@code false}: 重命名失败
      */
-    public static boolean rename(String filePath, String newName) {
+    public static boolean rename(final String filePath, final String newName) {
         return rename(getFileByPath(filePath), newName);
     }
 
@@ -80,7 +80,7 @@ public final class FileUtils {
      * @param newName 新名称
      * @return {@code true}: 重命名成功<br>{@code false}: 重命名失败
      */
-    public static boolean rename(File file, String newName) {
+    public static boolean rename(final File file, final String newName) {
         // 文件为空返回false
         if (file == null) return false;
         // 文件不存在返回false
@@ -101,7 +101,7 @@ public final class FileUtils {
      * @param dirPath 目录路径
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isDir(String dirPath) {
+    public static boolean isDir(final String dirPath) {
         return isDir(getFileByPath(dirPath));
     }
 
@@ -111,7 +111,7 @@ public final class FileUtils {
      * @param file 文件
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isDir(File file) {
+    public static boolean isDir(final File file) {
         return isFileExists(file) && file.isDirectory();
     }
 
@@ -121,7 +121,7 @@ public final class FileUtils {
      * @param filePath 文件路径
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isFile(String filePath) {
+    public static boolean isFile(final String filePath) {
         return isFile(getFileByPath(filePath));
     }
 
@@ -131,7 +131,7 @@ public final class FileUtils {
      * @param file 文件
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isFile(File file) {
+    public static boolean isFile(final File file) {
         return isFileExists(file) && file.isFile();
     }
 
@@ -141,7 +141,7 @@ public final class FileUtils {
      * @param dirPath 目录路径
      * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
      */
-    public static boolean createOrExistsDir(String dirPath) {
+    public static boolean createOrExistsDir(final String dirPath) {
         return createOrExistsDir(getFileByPath(dirPath));
     }
 
@@ -151,7 +151,7 @@ public final class FileUtils {
      * @param file 文件
      * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
      */
-    public static boolean createOrExistsDir(File file) {
+    public static boolean createOrExistsDir(final File file) {
         // 如果存在，是目录则返回true，是文件则返回false，不存在则返回是否创建成功
         return file != null && (file.exists() ? file.isDirectory() : file.mkdirs());
     }
@@ -162,7 +162,7 @@ public final class FileUtils {
      * @param filePath 文件路径
      * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
      */
-    public static boolean createOrExistsFile(String filePath) {
+    public static boolean createOrExistsFile(final String filePath) {
         return createOrExistsFile(getFileByPath(filePath));
     }
 
@@ -172,7 +172,7 @@ public final class FileUtils {
      * @param file 文件
      * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
      */
-    public static boolean createOrExistsFile(File file) {
+    public static boolean createOrExistsFile(final File file) {
         if (file == null) return false;
         // 如果存在，是文件则返回true，是目录则返回false
         if (file.exists()) return file.isFile();
@@ -191,7 +191,7 @@ public final class FileUtils {
      * @param file 文件
      * @return {@code true}: 创建成功<br>{@code false}: 创建失败
      */
-    public static boolean createFileByDeleteOldFile(File file) {
+    public static boolean createFileByDeleteOldFile(final File file) {
         if (file == null) return false;
         // 文件存在并且删除失败返回false
         if (file.exists() && !file.delete()) return false;
@@ -213,7 +213,7 @@ public final class FileUtils {
      * @param isMove      是否移动
      * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
      */
-    private static boolean copyOrMoveDir(String srcDirPath, String destDirPath, boolean isMove) {
+    private static boolean copyOrMoveDir(final String srcDirPath, final String destDirPath, final boolean isMove) {
         return copyOrMoveDir(getFileByPath(srcDirPath), getFileByPath(destDirPath), isMove);
     }
 
@@ -225,7 +225,7 @@ public final class FileUtils {
      * @param isMove  是否移动
      * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
      */
-    private static boolean copyOrMoveDir(File srcDir, File destDir, boolean isMove) {
+    private static boolean copyOrMoveDir(final File srcDir, final File destDir, final boolean isMove) {
         if (srcDir == null || destDir == null) return false;
         // 如果目标目录在源目录中则返回false，看不懂的话好好想想递归怎么结束
         // srcPath : F:\\MyGithub\\AndroidUtilCode\\utilcode\\src\\test\\res
@@ -260,7 +260,7 @@ public final class FileUtils {
      * @param isMove       是否移动
      * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
      */
-    private static boolean copyOrMoveFile(String srcFilePath, String destFilePath, boolean isMove) {
+    private static boolean copyOrMoveFile(final String srcFilePath, final String destFilePath, final boolean isMove) {
         return copyOrMoveFile(getFileByPath(srcFilePath), getFileByPath(destFilePath), isMove);
     }
 
@@ -272,7 +272,7 @@ public final class FileUtils {
      * @param isMove   是否移动
      * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
      */
-    private static boolean copyOrMoveFile(File srcFile, File destFile, boolean isMove) {
+    private static boolean copyOrMoveFile(final File srcFile, final File destFile, final boolean isMove) {
         if (srcFile == null || destFile == null) return false;
         // 源文件不存在或者不是文件则返回false
         if (!srcFile.exists() || !srcFile.isFile()) return false;
@@ -296,7 +296,7 @@ public final class FileUtils {
      * @param destDirPath 目标目录路径
      * @return {@code true}: 复制成功<br>{@code false}: 复制失败
      */
-    public static boolean copyDir(String srcDirPath, String destDirPath) {
+    public static boolean copyDir(final String srcDirPath, final String destDirPath) {
         return copyDir(getFileByPath(srcDirPath), getFileByPath(destDirPath));
     }
 
@@ -307,7 +307,7 @@ public final class FileUtils {
      * @param destDir 目标目录
      * @return {@code true}: 复制成功<br>{@code false}: 复制失败
      */
-    public static boolean copyDir(File srcDir, File destDir) {
+    public static boolean copyDir(final File srcDir, final File destDir) {
         return copyOrMoveDir(srcDir, destDir, false);
     }
 
@@ -318,7 +318,7 @@ public final class FileUtils {
      * @param destFilePath 目标文件路径
      * @return {@code true}: 复制成功<br>{@code false}: 复制失败
      */
-    public static boolean copyFile(String srcFilePath, String destFilePath) {
+    public static boolean copyFile(final String srcFilePath, final String destFilePath) {
         return copyFile(getFileByPath(srcFilePath), getFileByPath(destFilePath));
     }
 
@@ -329,7 +329,7 @@ public final class FileUtils {
      * @param destFile 目标文件
      * @return {@code true}: 复制成功<br>{@code false}: 复制失败
      */
-    public static boolean copyFile(File srcFile, File destFile) {
+    public static boolean copyFile(final File srcFile, final File destFile) {
         return copyOrMoveFile(srcFile, destFile, false);
     }
 
@@ -340,7 +340,7 @@ public final class FileUtils {
      * @param destDirPath 目标目录路径
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
      */
-    public static boolean moveDir(String srcDirPath, String destDirPath) {
+    public static boolean moveDir(final String srcDirPath, final String destDirPath) {
         return moveDir(getFileByPath(srcDirPath), getFileByPath(destDirPath));
     }
 
@@ -351,7 +351,7 @@ public final class FileUtils {
      * @param destDir 目标目录
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
      */
-    public static boolean moveDir(File srcDir, File destDir) {
+    public static boolean moveDir(final File srcDir, final File destDir) {
         return copyOrMoveDir(srcDir, destDir, true);
     }
 
@@ -362,7 +362,7 @@ public final class FileUtils {
      * @param destFilePath 目标文件路径
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
      */
-    public static boolean moveFile(String srcFilePath, String destFilePath) {
+    public static boolean moveFile(final String srcFilePath, final String destFilePath) {
         return moveFile(getFileByPath(srcFilePath), getFileByPath(destFilePath));
     }
 
@@ -373,7 +373,7 @@ public final class FileUtils {
      * @param destFile 目标文件
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
      */
-    public static boolean moveFile(File srcFile, File destFile) {
+    public static boolean moveFile(final File srcFile, final File destFile) {
         return copyOrMoveFile(srcFile, destFile, true);
     }
 
@@ -383,7 +383,7 @@ public final class FileUtils {
      * @param dirPath 目录路径
      * @return {@code true}: 删除成功<br>{@code false}: 删除失败
      */
-    public static boolean deleteDir(String dirPath) {
+    public static boolean deleteDir(final String dirPath) {
         return deleteDir(getFileByPath(dirPath));
     }
 
@@ -393,7 +393,7 @@ public final class FileUtils {
      * @param dir 目录
      * @return {@code true}: 删除成功<br>{@code false}: 删除失败
      */
-    public static boolean deleteDir(File dir) {
+    public static boolean deleteDir(final File dir) {
         if (dir == null) return false;
         // 目录不存在返回true
         if (!dir.exists()) return true;
@@ -419,7 +419,7 @@ public final class FileUtils {
      * @param srcFilePath 文件路径
      * @return {@code true}: 删除成功<br>{@code false}: 删除失败
      */
-    public static boolean deleteFile(String srcFilePath) {
+    public static boolean deleteFile(final String srcFilePath) {
         return deleteFile(getFileByPath(srcFilePath));
     }
 
@@ -429,7 +429,7 @@ public final class FileUtils {
      * @param file 文件
      * @return {@code true}: 删除成功<br>{@code false}: 删除失败
      */
-    public static boolean deleteFile(File file) {
+    public static boolean deleteFile(final File file) {
         return file != null && (!file.exists() || file.isFile() && file.delete());
     }
 
@@ -439,7 +439,7 @@ public final class FileUtils {
      * @param dirPath 目录路径
      * @return {@code true}: 删除成功<br>{@code false}: 删除失败
      */
-    public static boolean deleteFilesInDir(String dirPath) {
+    public static boolean deleteFilesInDir(final String dirPath) {
         return deleteFilesInDir(getFileByPath(dirPath));
     }
 
@@ -449,7 +449,7 @@ public final class FileUtils {
      * @param dir 目录
      * @return {@code true}: 删除成功<br>{@code false}: 删除失败
      */
-    public static boolean deleteFilesInDir(File dir) {
+    public static boolean deleteFilesInDir(final File dir) {
         if (dir == null) return false;
         // 目录不存在返回true
         if (!dir.exists()) return true;
