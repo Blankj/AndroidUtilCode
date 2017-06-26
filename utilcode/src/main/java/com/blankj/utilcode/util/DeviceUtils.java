@@ -215,7 +215,7 @@ public final class DeviceUtils {
      *
      * @param reason  传递给内核来请求特殊的引导模式，如"recovery"
      */
-    public static void reboot(String reason) {
+    public static void reboot(final String reason) {
         PowerManager mPowerManager = (PowerManager) Utils.getContext().getSystemService(Context.POWER_SERVICE);
         try {
             mPowerManager.reboot(reason);

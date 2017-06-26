@@ -78,7 +78,7 @@ public final class CameraUtils {
 //    /**
 //     * 获取[跳转至相册选择界面,并跳转至裁剪界面，默认可缩放裁剪区域]的Intent
 //     */
-//    public static Intent getCameraIntent(Uri saveFileURI) {
+//    public static Intent getCameraIntent(final Uri saveFileURI) {
 //        Intent mIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 //        return mIntent.putExtra(MediaStore.EXTRA_OUTPUT, saveFileURI);
 //    }
@@ -134,7 +134,7 @@ public final class CameraUtils {
 //     * @param data    onActivityResult返回的Intent
 //     * @return bitmap
 //     */
-//    public static Bitmap getChoosedImage(Activity context, Intent data) {
+//    public static Bitmap getChoosedImage(final Activity context, final Intent data) {
 //        if (data == null) return null;
 //        Bitmap bm = null;
 //        ContentResolver cr = context.getContentResolver();
@@ -154,7 +154,7 @@ public final class CameraUtils {
 //     * @param data    onActivityResult返回的Intent
 //     * @return
 //     */
-//    public static String getChoosedImagePath(Activity context, Intent data) {
+//    public static String getChoosedImagePath(final Activity context, final Intent data) {
 //        if (data == null) return null;
 //        String path = "";
 //        ContentResolver resolver = context.getContentResolver();
@@ -189,7 +189,7 @@ public final class CameraUtils {
 //     * @param filePath 文件路径
 //     * @return 文件
 //     */
-//    public static File getTakePictureFile(Intent data, String filePath) {
+//    public static File getTakePictureFile(final Intent data, final String filePath) {
 //        if (data == null) return null;
 //        Bundle extras = data.getExtras();
 //        if (extras == null) return null;

@@ -135,7 +135,7 @@ public final class ProcessUtils {
      * @param packageName 包名
      * @return {@code true}: 杀死成功<br>{@code false}: 杀死失败
      */
-    public static boolean killBackgroundProcesses(@NonNull String packageName) {
+    public static boolean killBackgroundProcesses(@NonNull final String packageName) {
         ActivityManager am = (ActivityManager) Utils.getContext().getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> info = am.getRunningAppProcesses();
         if (info == null || info.size() == 0) return true;

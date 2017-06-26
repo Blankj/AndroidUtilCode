@@ -79,7 +79,7 @@ public final class LocationUtils {
      * @param listener    位置刷新的回调接口
      * @return {@code true}: 初始化成功<br>{@code false}: 初始化失败
      */
-    public static boolean register(long minTime, long minDistance, OnLocationChangeListener listener) {
+    public static boolean register(final long minTime, final long minDistance, final OnLocationChangeListener listener) {
         if (listener == null) return false;
         mLocationManager = (LocationManager) Utils.getContext().getSystemService(Context.LOCATION_SERVICE);
         mListener = listener;
@@ -138,7 +138,7 @@ public final class LocationUtils {
      * @param longitude 经度
      * @return {@link Address}
      */
-    public static Address getAddress(double latitude, double longitude) {
+    public static Address getAddress(final double latitude, final double longitude) {
         Geocoder geocoder = new Geocoder(Utils.getContext(), Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
@@ -156,7 +156,7 @@ public final class LocationUtils {
      * @param longitude 经度
      * @return 所在国家
      */
-    public static String getCountryName(double latitude, double longitude) {
+    public static String getCountryName(final double latitude, final double longitude) {
         Address address = getAddress(latitude, longitude);
         return address == null ? "unknown" : address.getCountryName();
     }
@@ -168,7 +168,7 @@ public final class LocationUtils {
      * @param longitude 经度
      * @return 所在地
      */
-    public static String getLocality(double latitude, double longitude) {
+    public static String getLocality(final double latitude, final double longitude) {
         Address address = getAddress(latitude, longitude);
         return address == null ? "unknown" : address.getLocality();
     }
@@ -180,7 +180,7 @@ public final class LocationUtils {
      * @param longitude 经度
      * @return 所在街道
      */
-    public static String getStreet(double latitude, double longitude) {
+    public static String getStreet(final double latitude, final double longitude) {
         Address address = getAddress(latitude, longitude);
         return address == null ? "unknown" : address.getAddressLine(0);
     }
@@ -192,7 +192,7 @@ public final class LocationUtils {
      * @param currentBestLocation The current Location fix, to which you want to compare the new one
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isBetterLocation(Location newLocation, Location currentBestLocation) {
+    public static boolean isBetterLocation(final Location newLocation, final Location currentBestLocation) {
         if (currentBestLocation == null) {
             // A new location is always better than no location
             return true;
@@ -241,7 +241,7 @@ public final class LocationUtils {
      * @param provider1 提供者2
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isSameProvider(String provider0, String provider1) {
+    public static boolean isSameProvider(final String provider0, final String provider1) {
         if (provider0 == null) {
             return provider1 == null;
         }
@@ -256,7 +256,7 @@ public final class LocationUtils {
          * @param location 坐标
          */
         @Override
-        public void onLocationChanged(Location location) {
+        public void onLocationChanged(final Location location) {
             if (mListener != null) {
                 mListener.onLocationChanged(location);
             }
@@ -270,7 +270,7 @@ public final class LocationUtils {
          * @param extras   provider可选包
          */
         @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
+        public void onStatusChanged(final String provider, final int status, final Bundle extras) {
             if (mListener != null) {
                 mListener.onStatusChanged(provider, status, extras);
             }
@@ -291,14 +291,14 @@ public final class LocationUtils {
          * provider被enable时触发此函数，比如GPS被打开
          */
         @Override
-        public void onProviderEnabled(String provider) {
+        public void onProviderEnabled(final String provider) {
         }
 
         /**
          * provider被disable时触发此函数，比如GPS被关闭
          */
         @Override
-        public void onProviderDisabled(String provider) {
+        public void onProviderDisabled(final String provider) {
         }
     }
 

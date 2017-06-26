@@ -178,7 +178,7 @@ public final class PhoneUtils {
      *
      * @param phoneNumber 电话号码
      */
-    public static void dial(String phoneNumber) {
+    public static void dial(final String phoneNumber) {
         Utils.getContext().startActivity(IntentUtils.getDialIntent(phoneNumber));
     }
 
@@ -188,7 +188,7 @@ public final class PhoneUtils {
      *
      * @param phoneNumber 电话号码
      */
-    public static void call(String phoneNumber) {
+    public static void call(final String phoneNumber) {
         Utils.getContext().startActivity(IntentUtils.getCallIntent(phoneNumber));
     }
 
@@ -198,7 +198,7 @@ public final class PhoneUtils {
      * @param phoneNumber 接收号码
      * @param content     短信内容
      */
-    public static void sendSms(String phoneNumber, String content) {
+    public static void sendSms(final String phoneNumber, final String content) {
         Utils.getContext().startActivity(IntentUtils.getSendSmsIntent(phoneNumber, content));
     }
 
@@ -209,7 +209,7 @@ public final class PhoneUtils {
      * @param phoneNumber 接收号码
      * @param content     短信内容
      */
-    public static void sendSmsSilent(String phoneNumber, String content) {
+    public static void sendSmsSilent(final String phoneNumber, final String content) {
         if (StringUtils.isEmpty(content)) return;
         PendingIntent sentIntent = PendingIntent.getBroadcast(Utils.getContext(), 0, new Intent(), 0);
         SmsManager smsManager = SmsManager.getDefault();

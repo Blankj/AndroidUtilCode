@@ -30,7 +30,7 @@ import java.lang.reflect.Method;
  *     desc  : 栏相关工具类
  * </pre>
  */
-public class BarUtils {
+public final class BarUtils {
 
     ///////////////////////////////////////////////////////////////////////////
     // status bar
@@ -51,7 +51,7 @@ public class BarUtils {
      * @param activity 需要设置的 activity
      * @param color    状态栏颜色值
      */
-    public static void setColor(Activity activity, @ColorInt int color) {
+    public static void setColor(final Activity activity, @ColorInt final int color) {
         setColor(activity, color, DEFAULT_STATUS_BAR_ALPHA);
     }
 
@@ -63,7 +63,7 @@ public class BarUtils {
      * @param statusBarAlpha 状态栏透明度
      */
 
-    public static void setColor(Activity activity, @ColorInt int color, @IntRange(from = 0, to = 255) int statusBarAlpha) {
+    public static void setColor(final Activity activity, @ColorInt final int color, @IntRange(from = 0, to = 255) final int statusBarAlpha) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -90,7 +90,7 @@ public class BarUtils {
      * @param activity 需要设置的activity
      * @param color    状态栏颜色值
      */
-    public static void setColorForSwipeBack(Activity activity, int color) {
+    public static void setColorForSwipeBack(final Activity activity, final int color) {
         setColorForSwipeBack(activity, color, DEFAULT_STATUS_BAR_ALPHA);
     }
 
@@ -101,8 +101,8 @@ public class BarUtils {
      * @param color          状态栏颜色值
      * @param statusBarAlpha 状态栏透明度
      */
-    public static void setColorForSwipeBack(Activity activity, @ColorInt int color,
-                                            @IntRange(from = 0, to = 255) int statusBarAlpha) {
+    public static void setColorForSwipeBack(final Activity activity, @ColorInt final int color,
+                                            @IntRange(from = 0, to = 255) final int statusBarAlpha) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 
             ViewGroup contentView = ((ViewGroup) activity.findViewById(android.R.id.content));
@@ -140,7 +140,7 @@ public class BarUtils {
      * @param activity 需要设置的 activity
      * @param color    状态栏颜色值
      */
-    public static void setColorNoTranslucent(Activity activity, @ColorInt int color) {
+    public static void setColorNoTranslucent(final Activity activity, @ColorInt final int color) {
         setColor(activity, color, 0);
     }
 
@@ -151,7 +151,7 @@ public class BarUtils {
      * @param color    状态栏颜色值
      */
     @Deprecated
-    public static void setColorDiff(Activity activity, @ColorInt int color) {
+    public static void setColorDiff(final Activity activity, @ColorInt final int color) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             return;
         }
@@ -176,7 +176,7 @@ public class BarUtils {
      *
      * @param activity 需要设置的activity
      */
-    public static void setTranslucent(Activity activity) {
+    public static void setTranslucent(final Activity activity) {
         setTranslucent(activity, DEFAULT_STATUS_BAR_ALPHA);
     }
 
@@ -188,7 +188,7 @@ public class BarUtils {
      * @param activity       需要设置的activity
      * @param statusBarAlpha 状态栏透明度
      */
-    public static void setTranslucent(Activity activity, @IntRange(from = 0, to = 255) int statusBarAlpha) {
+    public static void setTranslucent(final Activity activity, @IntRange(from = 0, to = 255) final int statusBarAlpha) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             return;
         }
@@ -204,7 +204,7 @@ public class BarUtils {
      * @param activity       需要设置的activity
      * @param statusBarAlpha 状态栏透明度
      */
-    public static void setTranslucentForCoordinatorLayout(Activity activity, @IntRange(from = 0, to = 255) int statusBarAlpha) {
+    public static void setTranslucentForCoordinatorLayout(final Activity activity, @IntRange(from = 0, to = 255) final int statusBarAlpha) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             return;
         }
@@ -217,7 +217,7 @@ public class BarUtils {
      *
      * @param activity 需要设置的activity
      */
-    public static void setTransparent(Activity activity) {
+    public static void setTransparent(final Activity activity) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             return;
         }
@@ -233,7 +233,7 @@ public class BarUtils {
      * @param activity 需要设置的activity
      */
     @Deprecated
-    public static void setTranslucentDiff(Activity activity) {
+    public static void setTranslucentDiff(final Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // 设置状态栏透明
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -248,7 +248,7 @@ public class BarUtils {
      * @param drawerLayout DrawerLayout
      * @param color        状态栏颜色值
      */
-    public static void setColorForDrawerLayout(Activity activity, DrawerLayout drawerLayout, @ColorInt int color) {
+    public static void setColorForDrawerLayout(final Activity activity, final DrawerLayout drawerLayout, @ColorInt final int color) {
         setColorForDrawerLayout(activity, drawerLayout, color, DEFAULT_STATUS_BAR_ALPHA);
     }
 
@@ -259,7 +259,7 @@ public class BarUtils {
      * @param drawerLayout DrawerLayout
      * @param color        状态栏颜色值
      */
-    public static void setColorNoTranslucentForDrawerLayout(Activity activity, DrawerLayout drawerLayout, @ColorInt int color) {
+    public static void setColorNoTranslucentForDrawerLayout(final Activity activity, final DrawerLayout drawerLayout, @ColorInt final int color) {
         setColorForDrawerLayout(activity, drawerLayout, color, 0);
     }
 
@@ -271,8 +271,8 @@ public class BarUtils {
      * @param color          状态栏颜色值
      * @param statusBarAlpha 状态栏透明度
      */
-    public static void setColorForDrawerLayout(Activity activity, DrawerLayout drawerLayout, @ColorInt int color,
-                                               @IntRange(from = 0, to = 255) int statusBarAlpha) {
+    public static void setColorForDrawerLayout(final Activity activity, final DrawerLayout drawerLayout, final @ColorInt int color,
+                                               @IntRange(from = 0, to = 255) final int statusBarAlpha) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             return;
         }
@@ -312,7 +312,7 @@ public class BarUtils {
      * @param drawerLayout              DrawerLayout
      * @param drawerLayoutContentLayout DrawerLayout 的内容布局
      */
-    private static void setDrawerLayoutProperty(DrawerLayout drawerLayout, ViewGroup drawerLayoutContentLayout) {
+    private static void setDrawerLayoutProperty(final DrawerLayout drawerLayout, final ViewGroup drawerLayoutContentLayout) {
         ViewGroup drawer = (ViewGroup) drawerLayout.getChildAt(1);
         drawerLayout.setFitsSystemWindows(false);
         drawerLayoutContentLayout.setFitsSystemWindows(false);
@@ -328,7 +328,7 @@ public class BarUtils {
      * @param color        状态栏颜色值
      */
     @Deprecated
-    public static void setColorForDrawerLayoutDiff(Activity activity, DrawerLayout drawerLayout, @ColorInt int color) {
+    public static void setColorForDrawerLayoutDiff(final Activity activity, final DrawerLayout drawerLayout, @ColorInt final int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             // 生成一个状态栏大小的矩形
@@ -358,7 +358,7 @@ public class BarUtils {
      * @param activity     需要设置的activity
      * @param drawerLayout DrawerLayout
      */
-    public static void setTranslucentForDrawerLayout(Activity activity, DrawerLayout drawerLayout) {
+    public static void setTranslucentForDrawerLayout(final Activity activity, final DrawerLayout drawerLayout) {
         setTranslucentForDrawerLayout(activity, drawerLayout, DEFAULT_STATUS_BAR_ALPHA);
     }
 
@@ -368,8 +368,8 @@ public class BarUtils {
      * @param activity     需要设置的activity
      * @param drawerLayout DrawerLayout
      */
-    public static void setTranslucentForDrawerLayout(Activity activity, DrawerLayout drawerLayout,
-                                                     @IntRange(from = 0, to = 255) int statusBarAlpha) {
+    public static void setTranslucentForDrawerLayout(final Activity activity, final DrawerLayout drawerLayout,
+                                                     @IntRange(from = 0, to = 255) final int statusBarAlpha) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             return;
         }
@@ -383,7 +383,7 @@ public class BarUtils {
      * @param activity     需要设置的activity
      * @param drawerLayout DrawerLayout
      */
-    public static void setTransparentForDrawerLayout(Activity activity, DrawerLayout drawerLayout) {
+    public static void setTransparentForDrawerLayout(final Activity activity, final DrawerLayout drawerLayout) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             return;
         }
@@ -412,7 +412,7 @@ public class BarUtils {
      * @param drawerLayout DrawerLayout
      */
     @Deprecated
-    public static void setTranslucentForDrawerLayoutDiff(Activity activity, DrawerLayout drawerLayout) {
+    public static void setTranslucentForDrawerLayoutDiff(final Activity activity, final DrawerLayout drawerLayout) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // 设置状态栏透明
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -434,7 +434,7 @@ public class BarUtils {
      * @param activity       需要设置的activity
      * @param needOffsetView 需要向下偏移的 View
      */
-    public static void setTransparentForImageView(Activity activity, View needOffsetView) {
+    public static void setTransparentForImageView(final Activity activity, final View needOffsetView) {
         setTranslucentForImageView(activity, 0, needOffsetView);
     }
 
@@ -444,7 +444,7 @@ public class BarUtils {
      * @param activity       需要设置的activity
      * @param needOffsetView 需要向下偏移的 View
      */
-    public static void setTranslucentForImageView(Activity activity, View needOffsetView) {
+    public static void setTranslucentForImageView(final Activity activity, final View needOffsetView) {
         setTranslucentForImageView(activity, DEFAULT_STATUS_BAR_ALPHA, needOffsetView);
     }
 
@@ -455,8 +455,9 @@ public class BarUtils {
      * @param statusBarAlpha 状态栏透明度
      * @param needOffsetView 需要向下偏移的 View
      */
-    public static void setTranslucentForImageView(Activity activity, @IntRange(from = 0, to = 255) int statusBarAlpha,
-                                                  View needOffsetView) {
+    public static void setTranslucentForImageView(final Activity activity,
+                                                  @IntRange(from = 0, to = 255) final int statusBarAlpha,
+                                                  final View needOffsetView) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             return;
         }
@@ -480,7 +481,7 @@ public class BarUtils {
      * @param activity       fragment 对应的 activity
      * @param needOffsetView 需要向下偏移的 View
      */
-    public static void setTranslucentForImageViewInFragment(Activity activity, View needOffsetView) {
+    public static void setTranslucentForImageViewInFragment(final Activity activity, final View needOffsetView) {
         setTranslucentForImageViewInFragment(activity, DEFAULT_STATUS_BAR_ALPHA, needOffsetView);
     }
 
@@ -490,7 +491,7 @@ public class BarUtils {
      * @param activity       fragment 对应的 activity
      * @param needOffsetView 需要向下偏移的 View
      */
-    public static void setTransparentForImageViewInFragment(Activity activity, View needOffsetView) {
+    public static void setTransparentForImageViewInFragment(final Activity activity, final View needOffsetView) {
         setTranslucentForImageViewInFragment(activity, 0, needOffsetView);
     }
 
@@ -501,8 +502,9 @@ public class BarUtils {
      * @param statusBarAlpha 状态栏透明度
      * @param needOffsetView 需要向下偏移的 View
      */
-    public static void setTranslucentForImageViewInFragment(Activity activity, @IntRange(from = 0, to = 255) int statusBarAlpha,
-                                                            View needOffsetView) {
+    public static void setTranslucentForImageViewInFragment(final Activity activity,
+                                                            @IntRange(from = 0, to = 255)final  int statusBarAlpha,
+                                                            final View needOffsetView) {
         setTranslucentForImageView(activity, statusBarAlpha, needOffsetView);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             clearPreviousSetting(activity);
@@ -514,7 +516,7 @@ public class BarUtils {
      *
      * @param activity 调用的 Activity
      */
-    public static void hideFakeStatusBarView(Activity activity) {
+    public static void hideFakeStatusBarView(final Activity activity) {
         ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
         View fakeStatusBarView = decorView.findViewWithTag(FAKE_STATUS_BAR_VIEW_TAG);
         if (fakeStatusBarView != null) {
@@ -529,7 +531,7 @@ public class BarUtils {
     ///////////////////////////////////////////////////////////////////////////////////
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    private static void clearPreviousSetting(Activity activity) {
+    private static void clearPreviousSetting(final Activity activity) {
         ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
         View fakeStatusBarView = decorView.findViewWithTag(FAKE_STATUS_BAR_VIEW_TAG);
         if (fakeStatusBarView != null) {
@@ -545,7 +547,7 @@ public class BarUtils {
      * @param activity       需要设置的 activity
      * @param statusBarAlpha 透明值
      */
-    private static void addTranslucentView(Activity activity, @IntRange(from = 0, to = 255) int statusBarAlpha) {
+    private static void addTranslucentView(final Activity activity, @IntRange(from = 0, to = 255) final int statusBarAlpha) {
         ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
         View fakeTranslucentView = contentView.findViewWithTag(FAKE_TRANSLUCENT_VIEW_TAG);
         if (fakeTranslucentView != null) {
@@ -565,7 +567,7 @@ public class BarUtils {
      * @param color    状态栏颜色值
      * @return 状态栏矩形条
      */
-    private static View createStatusBarView(Activity activity, @ColorInt int color) {
+    private static View createStatusBarView(final Activity activity, @ColorInt final int color) {
         return createStatusBarView(activity, color, 0);
     }
 
@@ -577,7 +579,7 @@ public class BarUtils {
      * @param alpha    透明值
      * @return 状态栏矩形条
      */
-    private static View createStatusBarView(Activity activity, @ColorInt int color, int alpha) {
+    private static View createStatusBarView(final Activity activity, @ColorInt final int color, final int alpha) {
         // 绘制一个和状态栏一样高的矩形
         View statusBarView = new View(activity);
         LinearLayout.LayoutParams params =
@@ -591,7 +593,7 @@ public class BarUtils {
     /**
      * 设置根布局参数
      */
-    private static void setRootView(Activity activity) {
+    private static void setRootView(final Activity activity) {
         ViewGroup parent = (ViewGroup) activity.findViewById(android.R.id.content);
         for (int i = 0, count = parent.getChildCount(); i < count; i++) {
             View childView = parent.getChildAt(i);
@@ -605,7 +607,7 @@ public class BarUtils {
     /**
      * 设置透明
      */
-    private static void setTransparentForWindow(Activity activity) {
+    private static void setTransparentForWindow(final Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
             activity.getWindow()
@@ -621,7 +623,7 @@ public class BarUtils {
      * 使状态栏透明
      */
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    private static void transparentStatusBar(Activity activity) {
+    private static void transparentStatusBar(final Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -638,7 +640,7 @@ public class BarUtils {
      * @param alpha 透明值
      * @return 半透明 View
      */
-    private static View createTranslucentStatusBarView(Activity activity, int alpha) {
+    private static View createTranslucentStatusBarView(final Activity activity, final int alpha) {
         // 绘制一个和状态栏一样高的矩形
         View statusBarView = new View(activity);
         LinearLayout.LayoutParams params =
@@ -655,7 +657,7 @@ public class BarUtils {
      * @param context context
      * @return 状态栏高度
      */
-    public static int getStatusBarHeight(Context context) {
+    public static int getStatusBarHeight(final Context context) {
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         return context.getResources().getDimensionPixelSize(resourceId);
     }
@@ -667,7 +669,7 @@ public class BarUtils {
      * @param alpha alpha值
      * @return 最终的状态栏颜色
      */
-    private static int calculateStatusColor(@ColorInt int color, int alpha) {
+    private static int calculateStatusColor(@ColorInt final int color, final int alpha) {
         if (alpha == 0) return color;
         float a = 1 - alpha / 255f;
         int red = color >> 16 & 0xff;
@@ -691,7 +693,7 @@ public class BarUtils {
      *
      * @param activity activity
      */
-    public static void setTransparentStatusBar(Activity activity) {
+    public static void setTransparentStatusBar(final Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             //透明状态栏
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -710,7 +712,7 @@ public class BarUtils {
      *
      * @param activity activity
      */
-    public static void hideStatusBar(Activity activity) {
+    public static void hideStatusBar(final Activity activity) {
         activity.requestWindowFeature(Window.FEATURE_NO_TITLE);
         activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -722,7 +724,7 @@ public class BarUtils {
      * @param activity activity
      * @return {@code true}: 存在<br>{@code false}: 不存在
      */
-    public static boolean isStatusBarExists(Activity activity) {
+    public static boolean isStatusBarExists(final Activity activity) {
         WindowManager.LayoutParams params = activity.getWindow().getAttributes();
         return (params.flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != WindowManager.LayoutParams.FLAG_FULLSCREEN;
     }
@@ -733,7 +735,7 @@ public class BarUtils {
      * @param activity activity
      * @return ActionBar高度
      */
-    public static int getActionBarHeight(Activity activity) {
+    public static int getActionBarHeight(final Activity activity) {
         TypedValue tv = new TypedValue();
         if (activity.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
             return TypedValue.complexToDimensionPixelSize(tv.data, activity.getResources().getDisplayMetrics());
@@ -748,7 +750,7 @@ public class BarUtils {
      * @param context        上下文
      * @param isSettingPanel {@code true}: 打开设置<br>{@code false}: 打开通知
      */
-    public static void showNotificationBar(Context context, boolean isSettingPanel) {
+    public static void showNotificationBar(final Context context, final boolean isSettingPanel) {
         String methodName = (Build.VERSION.SDK_INT <= 16) ? "expand"
                 : (isSettingPanel ? "expandSettingsPanel" : "expandNotificationsPanel");
         invokePanels(context, methodName);
@@ -760,7 +762,7 @@ public class BarUtils {
      *
      * @param context 上下文
      */
-    public static void hideNotificationBar(Context context) {
+    public static void hideNotificationBar(final Context context) {
         String methodName = (Build.VERSION.SDK_INT <= 16) ? "collapse" : "collapsePanels";
         invokePanels(context, methodName);
     }
@@ -771,7 +773,7 @@ public class BarUtils {
      * @param context    上下文
      * @param methodName 方法名
      */
-    private static void invokePanels(Context context, String methodName) {
+    private static void invokePanels(final Context context, final String methodName) {
         try {
             Object service = context.getSystemService("statusbar");
             Class<?> statusBarManager = Class.forName("android.app.StatusBarManager");

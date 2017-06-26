@@ -1,3 +1,4 @@
+* 17/06/26 增加final参数
 * 17/06/23 修改Demo主页
 * 17/06/20 优化ToastUtil，SnackbarUtils新增设置底边距
 * 17/06/17 删除HandlerUtils

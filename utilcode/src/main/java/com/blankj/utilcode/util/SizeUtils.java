@@ -25,7 +25,7 @@ public final class SizeUtils {
      * @param dpValue dp值
      * @return px值
      */
-    public static int dp2px(float dpValue) {
+    public static int dp2px(final float dpValue) {
         final float scale = Utils.getContext().getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
@@ -36,7 +36,7 @@ public final class SizeUtils {
      * @param pxValue px值
      * @return dp值
      */
-    public static int px2dp( float pxValue) {
+    public static int px2dp(final float pxValue) {
         final float scale = Utils.getContext().getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
@@ -47,7 +47,7 @@ public final class SizeUtils {
      * @param spValue sp值
      * @return px值
      */
-    public static int sp2px(float spValue) {
+    public static int sp2px(final float spValue) {
         final float fontScale = Utils.getContext().getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
@@ -58,7 +58,7 @@ public final class SizeUtils {
      * @param pxValue px值
      * @return sp值
      */
-    public static int px2sp( float pxValue) {
+    public static int px2sp(final float pxValue) {
         final float fontScale = Utils.getContext().getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
@@ -72,7 +72,7 @@ public final class SizeUtils {
      * @param metrics DisplayMetrics
      * @return 转换结果
      */
-    public static float applyDimension(int unit, float value, DisplayMetrics metrics) {
+    public static float applyDimension(final int unit, final float value, final DisplayMetrics metrics) {
         switch (unit) {
             case TypedValue.COMPLEX_UNIT_PX:
                 return value;
@@ -97,7 +97,7 @@ public final class SizeUtils {
      * <pre>
      * SizeUtils.forceGetViewSize(view, new SizeUtils.onGetSizeListener() {
      *     Override
-     *     public void onGetSize(View view) {
+     *     public void onGetSize(final View view) {
      *         view.getWidth();
      *     }
      * });
@@ -130,7 +130,7 @@ public final class SizeUtils {
      * @param view 视图
      * @return arr[0]: 视图宽度, arr[1]: 视图高度
      */
-    public static int[] measureView(View view) {
+    public static int[] measureView(final View view) {
         ViewGroup.LayoutParams lp = view.getLayoutParams();
         if (lp == null) {
             lp = new ViewGroup.LayoutParams(
@@ -156,7 +156,7 @@ public final class SizeUtils {
      * @param view 视图
      * @return 视图宽度
      */
-    public static int getMeasuredWidth(View view) {
+    public static int getMeasuredWidth(final View view) {
         return measureView(view)[0];
     }
 
@@ -166,7 +166,7 @@ public final class SizeUtils {
      * @param view 视图
      * @return 视图高度
      */
-    public static int getMeasuredHeight(View view) {
+    public static int getMeasuredHeight(final View view) {
         return measureView(view)[1];
     }
 }

@@ -25,7 +25,7 @@ public final class ClipboardUtils {
      *
      * @param text 文本
      */
-    public static void copyText(CharSequence text) {
+    public static void copyText(final CharSequence text) {
         ClipboardManager clipboard = (ClipboardManager) Utils.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         clipboard.setPrimaryClip(ClipData.newPlainText("text", text));
     }
@@ -49,7 +49,7 @@ public final class ClipboardUtils {
      *
      * @param uri uri
      */
-    public static void copyUri(Uri uri) {
+    public static void copyUri(final Uri uri) {
         ClipboardManager clipboard = (ClipboardManager) Utils.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         clipboard.setPrimaryClip(ClipData.newUri(Utils.getContext().getContentResolver(), "uri", uri));
     }
@@ -73,7 +73,7 @@ public final class ClipboardUtils {
      *
      * @param intent 意图
      */
-    public static void copyIntent(Intent intent) {
+    public static void copyIntent(final Intent intent) {
         ClipboardManager clipboard = (ClipboardManager) Utils.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         clipboard.setPrimaryClip(ClipData.newIntent("intent", intent));
     }

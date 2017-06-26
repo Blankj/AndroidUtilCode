@@ -1,5 +1,7 @@
 package com.blankj.utilcode.util;
 
+import android.os.Environment;
+
 import java.io.File;
 
 /**
@@ -23,7 +25,7 @@ public final class CleanUtils {
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
     public static boolean cleanInternalCache() {
-        return FileUtils.deleteFilesInDir(Utils.getContext().getCacheDir());
+        return deleteFilesInDir(Utils.getContext().getCacheDir());
     }
 
     /**
@@ -33,7 +35,7 @@ public final class CleanUtils {
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
     public static boolean cleanInternalFiles() {
-        return FileUtils.deleteFilesInDir(Utils.getContext().getFilesDir());
+        return deleteFilesInDir(Utils.getContext().getFilesDir());
     }
 
     /**
@@ -43,17 +45,17 @@ public final class CleanUtils {
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
     public static boolean cleanInternalDbs() {
-        return FileUtils.deleteFilesInDir(Utils.getContext().getFilesDir().getParent() + File.separator + "databases");
+        return deleteFilesInDir(Utils.getContext().getFilesDir().getParent() + File.separator + "databases");
     }
 
     /**
      * 根据名称清除数据库
      * <p>/data/data/com.xxx.xxx/databases/dbName</p>
      *
-     * @param dbName  数据库名称
+     * @param dbName 数据库名称
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
-    public static boolean cleanInternalDbByName( String dbName) {
+    public static boolean cleanInternalDbByName(final String dbName) {
         return Utils.getContext().deleteDatabase(dbName);
     }
 
@@ -64,7 +66,7 @@ public final class CleanUtils {
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
     public static boolean cleanInternalSP() {
-        return FileUtils.deleteFilesInDir(Utils.getContext().getFilesDir().getParent() + File.separator + "shared_prefs");
+        return deleteFilesInDir(Utils.getContext().getFilesDir().getParent() + File.separator + "shared_prefs");
     }
 
     /**
@@ -74,7 +76,7 @@ public final class CleanUtils {
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
     public static boolean cleanExternalCache() {
-        return SDCardUtils.isSDCardEnable() && FileUtils.deleteFilesInDir(Utils.getContext().getExternalCacheDir());
+        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) && deleteFilesInDir(Utils.getContext().getExternalCacheDir());
     }
 
     /**
@@ -83,8 +85,8 @@ public final class CleanUtils {
      * @param dirPath 目录路径
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
-    public static boolean cleanCustomCache(String dirPath) {
-        return FileUtils.deleteFilesInDir(dirPath);
+    public static boolean cleanCustomCache(final String dirPath) {
+        return deleteFilesInDir(dirPath);
     }
 
     /**
@@ -93,7 +95,65 @@ public final class CleanUtils {
      * @param dir 目录
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
-    public static boolean cleanCustomCache(File dir) {
-        return FileUtils.deleteFilesInDir(dir);
+    public static boolean cleanCustomCache(final File dir) {
+        return deleteFilesInDir(dir);
+    }
+
+    public static boolean deleteFilesInDir(final String dirPath) {
+        return deleteFilesInDir(getFileByPath(dirPath));
+    }
+
+    private static boolean deleteFilesInDir(final File dir) {
+        if (dir == null) return false;
+        // 目录不存在返回true
+        if (!dir.exists()) return true;
+        // 不是目录返回false
+        if (!dir.isDirectory()) return false;
+        // 现在文件存在且是文件夹
+        File[] files = dir.listFiles();
+        if (files != null && files.length != 0) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    if (!file.delete()) return false;
+                } else if (file.isDirectory()) {
+                    if (!deleteDir(file)) return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private static boolean deleteDir(final File dir) {
+        if (dir == null) return false;
+        // 目录不存在返回true
+        if (!dir.exists()) return true;
+        // 不是目录返回false
+        if (!dir.isDirectory()) return false;
+        // 现在文件存在且是文件夹
+        File[] files = dir.listFiles();
+        if (files != null && files.length != 0) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    if (!file.delete()) return false;
+                } else if (file.isDirectory()) {
+                    if (!deleteDir(file)) return false;
+                }
+            }
+        }
+        return dir.delete();
+    }
+
+    private static File getFileByPath(final String filePath) {
+        return isSpace(filePath) ? null : new File(filePath);
+    }
+
+    private static boolean isSpace(final String s) {
+        if (s == null) return true;
+        for (int i = 0, len = s.length(); i < len; ++i) {
+            if (!Character.isWhitespace(s.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 }

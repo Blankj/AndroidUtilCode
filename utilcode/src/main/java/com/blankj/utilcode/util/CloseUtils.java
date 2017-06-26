@@ -22,7 +22,7 @@ public final class CloseUtils {
      *
      * @param closeables closeables
      */
-    public static void closeIO(Closeable... closeables) {
+    public static void closeIO(final Closeable... closeables) {
         if (closeables == null) return;
         for (Closeable closeable : closeables) {
             if (closeable != null) {
@@ -40,7 +40,7 @@ public final class CloseUtils {
      *
      * @param closeables closeables
      */
-    public static void closeIOQuietly(Closeable... closeables) {
+    public static void closeIOQuietly(final Closeable... closeables) {
         if (closeables == null) return;
         for (Closeable closeable : closeables) {
             if (closeable != null) {

@@ -118,7 +118,7 @@ public final class NetworkUtils {
      *
      * @param enabled {@code true}: 打开<br>{@code false}: 关闭
      */
-    public static void setDataEnabled(boolean enabled) {
+    public static void setDataEnabled(final boolean enabled) {
         try {
             TelephonyManager tm = (TelephonyManager) Utils.getContext().getSystemService(Context.TELEPHONY_SERVICE);
             Method setMobileDataEnabledMethod = tm.getClass().getDeclaredMethod("setDataEnabled", boolean.class);
@@ -159,7 +159,7 @@ public final class NetworkUtils {
      *
      * @param enabled {@code true}: 打开<br>{@code false}: 关闭
      */
-    public static void setWifiEnabled(boolean enabled) {
+    public static void setWifiEnabled(final boolean enabled) {
         @SuppressLint("WifiManagerLeak")
         WifiManager wifiManager = (WifiManager) Utils.getContext().getSystemService(Context.WIFI_SERVICE);
         if (enabled) {
@@ -288,7 +288,7 @@ public final class NetworkUtils {
      * @param useIPv4 是否用IPv4
      * @return IP地址
      */
-    public static String getIPAddress(boolean useIPv4) {
+    public static String getIPAddress(final boolean useIPv4) {
         try {
             for (Enumeration<NetworkInterface> nis = NetworkInterface.getNetworkInterfaces(); nis.hasMoreElements(); ) {
                 NetworkInterface ni = nis.nextElement();

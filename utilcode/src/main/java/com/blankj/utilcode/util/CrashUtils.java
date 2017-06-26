@@ -152,7 +152,7 @@ public final class CrashUtils {
         return mInitialized = true;
     }
 
-    private static boolean createOrExistsFile(String filePath) {
+    private static boolean createOrExistsFile(final String filePath) {
         File file = new File(filePath);
         if (file.exists()) return file.isFile();
         if (!createOrExistsDir(file.getParentFile())) return false;
@@ -164,11 +164,11 @@ public final class CrashUtils {
         }
     }
 
-    private static boolean createOrExistsDir(File file) {
+    private static boolean createOrExistsDir(final File file) {
         return file != null && (file.exists() ? file.isDirectory() : file.mkdirs());
     }
 
-    private static boolean isSpace(String s) {
+    private static boolean isSpace(final String s) {
         if (s == null) return true;
         for (int i = 0, len = s.length(); i < len; ++i) {
             if (!Character.isWhitespace(s.charAt(i))) {

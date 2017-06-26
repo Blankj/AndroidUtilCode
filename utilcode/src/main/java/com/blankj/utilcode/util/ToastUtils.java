@@ -277,7 +277,7 @@ public final class ToastUtils {
      *
      * @param text 文本
      */
-    public static void showLong(@NonNull CharSequence text) {
+    public static void showLong(@NonNull final CharSequence text) {
         show(text, Toast.LENGTH_LONG);
     }
 

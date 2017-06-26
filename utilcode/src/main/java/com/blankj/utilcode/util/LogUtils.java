@@ -103,12 +103,12 @@ public final class LogUtils {
             }
         }
 
-        public Builder setLogSwitch(boolean logSwitch) {
+        public Builder setLogSwitch(final boolean logSwitch) {
             LogUtils.sLogSwitch = logSwitch;
             return this;
         }
 
-        public Builder setConsoleSwitch(boolean consoleSwitch) {
+        public Builder setConsoleSwitch(final boolean consoleSwitch) {
             LogUtils.sLog2ConsoleSwitch = consoleSwitch;
             return this;
         }
@@ -124,12 +124,12 @@ public final class LogUtils {
             return this;
         }
 
-        public Builder setLogHeadSwitch(boolean logHeadSwitch) {
+        public Builder setLogHeadSwitch(final boolean logHeadSwitch) {
             LogUtils.sLogHeadSwitch = logHeadSwitch;
             return this;
         }
 
-        public Builder setLog2FileSwitch(boolean log2FileSwitch) {
+        public Builder setLog2FileSwitch(final boolean log2FileSwitch) {
             LogUtils.sLog2FileSwitch = log2FileSwitch;
             return this;
         }
@@ -148,17 +148,17 @@ public final class LogUtils {
             return this;
         }
 
-        public Builder setBorderSwitch(boolean borderSwitch) {
+        public Builder setBorderSwitch(final boolean borderSwitch) {
             LogUtils.sLogBorderSwitch = borderSwitch;
             return this;
         }
 
-        public Builder setConsoleFilter(@TYPE int consoleFilter) {
+        public Builder setConsoleFilter(@TYPE final int consoleFilter) {
             LogUtils.sConsoleFilter = consoleFilter;
             return this;
         }
 
-        public Builder setFileFilter(@TYPE int fileFilter) {
+        public Builder setFileFilter(@TYPE final int fileFilter) {
             LogUtils.sFileFilter = fileFilter;
             return this;
         }
@@ -177,103 +177,103 @@ public final class LogUtils {
         }
     }
 
-    public static void v(Object contents) {
+    public static void v(final Object contents) {
         log(V, sGlobalTag, contents);
     }
 
-    public static void v(String tag, Object... contents) {
+    public static void v(final String tag, final Object... contents) {
         log(V, tag, contents);
     }
 
-    public static void d(Object contents) {
+    public static void d(final Object contents) {
         log(D, sGlobalTag, contents);
     }
 
-    public static void d(String tag, Object... contents) {
+    public static void d(final String tag, final Object... contents) {
         log(D, tag, contents);
     }
 
-    public static void i(Object contents) {
+    public static void i(final Object contents) {
         log(I, sGlobalTag, contents);
     }
 
-    public static void i(String tag, Object... contents) {
+    public static void i(final String tag, final Object... contents) {
         log(I, tag, contents);
     }
 
-    public static void w(Object contents) {
+    public static void w(final Object contents) {
         log(W, sGlobalTag, contents);
     }
 
-    public static void w(String tag, Object... contents) {
+    public static void w(final String tag, final Object... contents) {
         log(W, tag, contents);
     }
 
-    public static void e(Object contents) {
+    public static void e(final Object contents) {
         log(E, sGlobalTag, contents);
     }
 
-    public static void e(String tag, Object... contents) {
+    public static void e(final String tag, final Object... contents) {
         log(E, tag, contents);
     }
 
-    public static void a(Object contents) {
+    public static void a(final Object contents) {
         log(A, sGlobalTag, contents);
     }
 
-    public static void a(String tag, Object... contents) {
+    public static void a(final String tag, final Object... contents) {
         log(A, tag, contents);
     }
 
-    public static void file(Object contents) {
+    public static void file(final Object contents) {
         log(FILE | D, sGlobalTag, contents);
     }
 
-    public static void file(@TYPE int type, Object contents) {
+    public static void file(@TYPE final int type, final Object contents) {
         log(FILE | type, sGlobalTag, contents);
     }
 
-    public static void file(String tag, Object contents) {
+    public static void file(final String tag, final Object contents) {
         log(FILE | D, tag, contents);
     }
 
-    public static void file(@TYPE int type, String tag, Object contents) {
+    public static void file(@TYPE final int type, final String tag, final Object contents) {
         log(FILE | type, tag, contents);
     }
 
-    public static void json(String contents) {
+    public static void json(final String contents) {
         log(JSON | D, sGlobalTag, contents);
     }
 
-    public static void json(@TYPE int type, String contents) {
+    public static void json(@TYPE final int type, final String contents) {
         log(JSON | type, sGlobalTag, contents);
     }
 
-    public static void json(String tag, String contents) {
+    public static void json(final String tag, final String contents) {
         log(JSON | D, tag, contents);
     }
 
-    public static void json(@TYPE int type, String tag, String contents) {
+    public static void json(@TYPE final int type, final String tag, final String contents) {
         log(JSON | type, tag, contents);
     }
 
-    public static void xml(String contents) {
+    public static void xml(final String contents) {
         log(XML | D, sGlobalTag, contents);
     }
 
-    public static void xml(@TYPE int type, String contents) {
+    public static void xml(@TYPE final int type, final String contents) {
         log(XML | type, sGlobalTag, contents);
     }
 
-    public static void xml(String tag, String contents) {
+    public static void xml(final String tag, final String contents) {
         log(XML | D, tag, contents);
     }
 
-    public static void xml(@TYPE int type, String tag, String contents) {
+    public static void xml(@TYPE final int type, final String tag, final String contents) {
         log(XML | type, tag, contents);
     }
 
-    private static void log(final int type, String tag, final Object... contents) {
+    private static void log(final int type, final String tag, final Object... contents) {
         if (!sLogSwitch || (!sLog2ConsoleSwitch && !sLog2FileSwitch)) return;
         int type_low = type & 0x0f, type_high = type & 0xf0;
         if (type_low < sConsoleFilter && type_low < sFileFilter) return;
@@ -317,7 +317,7 @@ public final class LogUtils {
         return new String[]{tag, "", ": "};
     }
 
-    private static String processBody(int type, Object... contents) {
+    private static String processBody(final int type, final Object... contents) {
         String body = NULL_TIPS;
         if (contents != null) {
             if (contents.length == 1) {
@@ -374,7 +374,7 @@ public final class LogUtils {
         return xml;
     }
 
-    private static void print2Console(final int type, String tag, String msg) {
+    private static void print2Console(final int type, final String tag, String msg) {
         if (sLogBorderSwitch) {
             print(type, tag, TOP_BORDER);
             msg = addLeftBorder(msg);
@@ -398,11 +398,11 @@ public final class LogUtils {
         if (sLogBorderSwitch) print(type, tag, BOTTOM_BORDER);
     }
 
-    private static void print(final int type, final String tag, String msg) {
+    private static void print(final int type, final String tag, final String msg) {
         Log.println(type, tag, msg);
     }
 
-    private static String addLeftBorder(String msg) {
+    private static String addLeftBorder(final String msg) {
         if (!sLogBorderSwitch) return msg;
         StringBuilder sb = new StringBuilder();
         String[] lines = msg.split(LINE_SEP);
@@ -457,7 +457,7 @@ public final class LogUtils {
         });
     }
 
-    private static boolean createOrExistsFile(String filePath) {
+    private static boolean createOrExistsFile(final String filePath) {
         File file = new File(filePath);
         if (file.exists()) return file.isFile();
         if (!createOrExistsDir(file.getParentFile())) return false;
@@ -469,11 +469,11 @@ public final class LogUtils {
         }
     }
 
-    private static boolean createOrExistsDir(File file) {
+    private static boolean createOrExistsDir(final File file) {
         return file != null && (file.exists() ? file.isDirectory() : file.mkdirs());
     }
 
-    private static boolean isSpace(String s) {
+    private static boolean isSpace(final String s) {
         if (s == null) return true;
         for (int i = 0, len = s.length(); i < len; ++i) {
             if (!Character.isWhitespace(s.charAt(i))) {
@@ -483,7 +483,7 @@ public final class LogUtils {
         return true;
     }
 
-    public static byte[] compress(byte input[]) {
+    public static byte[] compress(final byte input[]) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         Deflater compressor = new Deflater(1);
         try {
@@ -500,7 +500,7 @@ public final class LogUtils {
         return bos.toByteArray();
     }
 
-    public static byte[] uncompress(byte[] input) {
+    public static byte[] uncompress(final byte[] input) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         Inflater decompressor = new Inflater();
         try {

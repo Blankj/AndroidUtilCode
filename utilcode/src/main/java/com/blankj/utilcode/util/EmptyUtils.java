@@ -30,7 +30,7 @@ public final class EmptyUtils {
      * @param obj 对象
      * @return {@code true}: 为空<br>{@code false}: 不为空
      */
-    public static boolean isEmpty(Object obj) {
+    public static boolean isEmpty(final Object obj) {
         if (obj == null) {
             return true;
         }
@@ -69,7 +69,7 @@ public final class EmptyUtils {
      * @param obj 对象
      * @return {@code true}: 非空<br>{@code false}: 空
      */
-    public static boolean isNotEmpty(Object obj) {
+    public static boolean isNotEmpty(final Object obj) {
         return !isEmpty(obj);
     }
 }

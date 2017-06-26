@@ -45,7 +45,7 @@ public final class ServiceUtils {
      *
      * @param className 完整包名的服务类名
      */
-    public static void startService(String className) {
+    public static void startService(final String className) {
         try {
             startService(Class.forName(className));
         } catch (Exception e) {
@@ -58,7 +58,7 @@ public final class ServiceUtils {
      *
      * @param cls 服务类
      */
-    public static void startService(Class<?> cls) {
+    public static void startService(final Class<?> cls) {
         Intent intent = new Intent(Utils.getContext(), cls);
         Utils.getContext().startService(intent);
     }
@@ -69,7 +69,7 @@ public final class ServiceUtils {
      * @param className 完整包名的服务类名
      * @return {@code true}: 停止成功<br>{@code false}: 停止失败
      */
-    public static boolean stopService(String className) {
+    public static boolean stopService(final String className) {
         try {
             return stopService(Class.forName(className));
         } catch (Exception e) {
@@ -84,7 +84,7 @@ public final class ServiceUtils {
      * @param cls 服务类
      * @return {@code true}: 停止成功<br>{@code false}: 停止失败
      */
-    public static boolean stopService(Class<?> cls) {
+    public static boolean stopService(final Class<?> cls) {
         Intent intent = new Intent(Utils.getContext(), cls);
         return Utils.getContext().stopService(intent);
     }
@@ -104,7 +104,7 @@ public final class ServiceUtils {
      *                  <li>{@link Context#BIND_WAIVE_PRIORITY}</li>
      *                  </ul>
      */
-    public static void bindService(String className, ServiceConnection conn, int flags) {
+    public static void bindService(final String className, final ServiceConnection conn, final int flags) {
         try {
             bindService(Class.forName(className), conn, flags);
         } catch (Exception e) {
@@ -127,7 +127,7 @@ public final class ServiceUtils {
      *              <li>{@link Context#BIND_WAIVE_PRIORITY}</li>
      *              </ul>
      */
-    public static void bindService(Class<?> cls, ServiceConnection conn, int flags) {
+    public static void bindService(final Class<?> cls, final ServiceConnection conn, final int flags) {
         Intent intent = new Intent(Utils.getContext(), cls);
         Utils.getContext().bindService(intent, conn, flags);
     }
@@ -137,7 +137,7 @@ public final class ServiceUtils {
      *
      * @param conn 服务连接对象
      */
-    public static void unbindService(ServiceConnection conn) {
+    public static void unbindService(final ServiceConnection conn) {
         Utils.getContext().unbindService(conn);
     }
 
@@ -147,7 +147,7 @@ public final class ServiceUtils {
      * @param className 完整包名的服务类名
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isServiceRunning(String className) {
+    public static boolean isServiceRunning(final String className) {
         ActivityManager activityManager = (ActivityManager) Utils.getContext().getSystemService(Context.ACTIVITY_SERVICE);
         List<RunningServiceInfo> info = activityManager.getRunningServices(0x7FFFFFFF);
         if (info == null || info.size() == 0) return false;

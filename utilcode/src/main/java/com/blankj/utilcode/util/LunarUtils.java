@@ -57,7 +57,7 @@ public final class LunarUtils {
             0x106a3d, 0x106c51, 0x106e47, 0x10703c, 0x10724f, 0x107444, 0x107638, 0x10784c, 0x107a3f, 0x107c53,
             0x107e48};
 
-    private static int GetBitInt(int data, int length, int shift) {
+    private static int GetBitInt(final int data, final int length, final int shift) {
         return (data & (((1 << length) - 1) << shift)) >> shift;
     }
 
@@ -69,7 +69,7 @@ public final class LunarUtils {
      * @param d 日
      * @return 阳历
      */
-    private static long SolarToInt(int y, int m, int d) {
+    private static long SolarToInt(int y, int m, final int d) {
         m = (m + 9) % 12;
         y = y - m / 10;
         return 365 * y + y / 4 - y / 100 + y / 400 + (m * 306 + 5) / 10 + (d - 1);
@@ -80,13 +80,13 @@ public final class LunarUtils {
      * @return String of Ganzhi: 甲子年 Tiangan:甲乙丙丁戊己庚辛壬癸
      * Dizhi: 子丑寅卯辰巳无为申酉戌亥
      */
-    public static String lunarYearToGanZhi(int lunarYear) {
+    public static String lunarYearToGanZhi(final int lunarYear) {
         final String[] tianGan = {"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"};
         final String[] diZhi = {"子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"};
         return tianGan[(lunarYear - 4) % 10] + diZhi[(lunarYear - 4) % 12] + "年";
     }
 
-    private static Solar SolarFromInt(long g) {
+    private static Solar SolarFromInt(final long g) {
         long y = (10000 * g + 14780) / 3652425;
         long ddd = g - (365 * y + y / 4 - y / 100 + y / 400);
         if (ddd < 0) {
@@ -110,7 +110,7 @@ public final class LunarUtils {
      * @param lunar 农历
      * @return 阴历
      */
-    public static Solar LunarToSolar(Lunar lunar) {
+    public static Solar LunarToSolar(final Lunar lunar) {
         int days = lunar_month_days[lunar.lunarYear - lunar_month_days[0]];
         int leap = GetBitInt(days, 4, 13);
         int offset = 0;
@@ -142,7 +142,7 @@ public final class LunarUtils {
      * @param solar 公历
      * @return 阴历
      */
-    public static Lunar SolarToLunar(Solar solar) {
+    public static Lunar SolarToLunar(final Solar solar) {
         Lunar lunar = new Lunar();
         int index = solar.solarYear - solar_1_1[0];
         int data = (solar.solarYear << 9) | (solar.solarMonth << 5) | (solar.solarDay);

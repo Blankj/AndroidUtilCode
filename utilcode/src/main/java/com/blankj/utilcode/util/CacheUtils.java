@@ -76,7 +76,7 @@ public class CacheUtils {
      * @param cacheName 缓存目录名
      * @return {@link CacheUtils}
      */
-    public static CacheUtils getInstance(String cacheName) {
+    public static CacheUtils getInstance(final String cacheName) {
         return getInstance(cacheName, DEFAULT_MAX_SIZE, DEFAULT_MAX_COUNT);
     }
 
@@ -88,7 +88,7 @@ public class CacheUtils {
      * @param maxCount 最大缓存个数
      * @return {@link CacheUtils}
      */
-    public static CacheUtils getInstance(long maxSize, int maxCount) {
+    public static CacheUtils getInstance(final long maxSize, final int maxCount) {
         return getInstance("", maxSize, maxCount);
     }
 
@@ -101,7 +101,7 @@ public class CacheUtils {
      * @param maxCount  最大缓存个数
      * @return {@link CacheUtils}
      */
-    public static CacheUtils getInstance(String cacheName, long maxSize, int maxCount) {
+    public static CacheUtils getInstance(String cacheName, final long maxSize, final int maxCount) {
         if (isSpace(cacheName)) cacheName = "cacheUtils";
         File file = new File(Utils.getContext().getCacheDir(), cacheName);
         return getInstance(file, maxSize, maxCount);
@@ -116,7 +116,7 @@ public class CacheUtils {
      * @param cacheDir 缓存目录
      * @return {@link CacheUtils}
      */
-    public static CacheUtils getInstance(@NonNull File cacheDir) {
+    public static CacheUtils getInstance(@NonNull final File cacheDir) {
         return getInstance(cacheDir, DEFAULT_MAX_SIZE, DEFAULT_MAX_COUNT);
     }
 
@@ -129,7 +129,7 @@ public class CacheUtils {
      * @param maxCount 最大缓存个数
      * @return {@link CacheUtils}
      */
-    public static CacheUtils getInstance(@NonNull File cacheDir, long maxSize, int maxCount) {
+    public static CacheUtils getInstance(@NonNull final File cacheDir, final long maxSize, final int maxCount) {
         final String cacheKey = cacheDir.getAbsoluteFile() + "_" + Process.myPid();
         CacheUtils cache = sCacheMap.get(cacheKey);
         if (cache == null) {
@@ -139,7 +139,7 @@ public class CacheUtils {
         return cache;
     }
 
-    private CacheUtils(@NonNull File cacheDir, long maxSize, int maxCount) {
+    private CacheUtils(@NonNull final File cacheDir, final long maxSize, final int maxCount) {
         if (!cacheDir.exists() && !cacheDir.mkdirs()) {
             throw new RuntimeException("can't make dirs in " + cacheDir.getAbsolutePath());
         }
@@ -156,7 +156,7 @@ public class CacheUtils {
      * @param key   键
      * @param value 值
      */
-    public void put(@NonNull String key, @NonNull byte[] value) {
+    public void put(@NonNull final String key, @NonNull final byte[] value) {
         put(key, value, -1);
     }
 
@@ -167,7 +167,7 @@ public class CacheUtils {
      * @param value    值
      * @param saveTime 保存时长，单位：秒
      */
-    public void put(@NonNull String key, @NonNull byte[] value, int saveTime) {
+    public void put(@NonNull final String key, @NonNull byte[] value, final int saveTime) {
         if (value.length <= 0) return;
         if (saveTime >= 0) value = CacheHelper.newByteArrayWithTime(saveTime, value);
         File file = mCacheManager.getFileBeforePut(key);
@@ -183,7 +183,7 @@ public class CacheUtils {
      * @param key 键
      * @return 存在且没过期返回对应值，否则返回{@code null}
      */
-    public byte[] getBytes(@NonNull String key) {
+    public byte[] getBytes(@NonNull final String key) {
         return getBytes(key, null);
     }
 
@@ -194,7 +194,7 @@ public class CacheUtils {
      * @param defaultValue 默认值
      * @return 存在且没过期返回对应值，否则返回默认值{@code defaultValue}
      */
-    public byte[] getBytes(@NonNull String key, byte[] defaultValue) {
+    public byte[] getBytes(@NonNull final String key, final byte[] defaultValue) {
         final File file = mCacheManager.getFileIfExists(key);
         if (file == null) return defaultValue;
         byte[] data = CacheHelper.readFile2Bytes(file);
@@ -216,7 +216,7 @@ public class CacheUtils {
      * @param key   键
      * @param value 值
      */
-    public void put(@NonNull String key, @NonNull String value) {
+    public void put(@NonNull final String key, @NonNull final String value) {
         put(key, value, -1);
     }
 
@@ -227,7 +227,7 @@ public class CacheUtils {
      * @param value    值
      * @param saveTime 保存时长，单位：秒
      */
-    public void put(@NonNull String key, @NonNull String value, int saveTime) {
+    public void put(@NonNull final String key, @NonNull final String value, final int saveTime) {
         put(key, CacheHelper.string2Bytes(value), saveTime);
     }
 
@@ -237,7 +237,7 @@ public class CacheUtils {
      * @param key 键
      * @return 存在且没过期返回对应值，否则返回{@code null}
      */
-    public String getString(@NonNull String key) {
+    public String getString(@NonNull final String key) {
         return getString(key, null);
     }
 
@@ -248,7 +248,7 @@ public class CacheUtils {
      * @param defaultValue 默认值
      * @return 存在且没过期返回对应值，否则返回默认值{@code defaultValue}
      */
-    public String getString(@NonNull String key, String defaultValue) {
+    public String getString(@NonNull final String key, final String defaultValue) {
         byte[] bytes = getBytes(key);
         if (bytes == null) return defaultValue;
         return CacheHelper.bytes2String(bytes);
@@ -264,7 +264,7 @@ public class CacheUtils {
      * @param key   键
      * @param value 值
      */
-    public void put(@NonNull String key, @NonNull JSONObject value) {
+    public void put(@NonNull final String key, @NonNull final JSONObject value) {
         put(key, value, -1);
     }
 
@@ -275,7 +275,7 @@ public class CacheUtils {
      * @param value    值
      * @param saveTime 保存时长，单位：秒
      */
-    public void put(@NonNull String key, @NonNull JSONObject value, int saveTime) {
+    public void put(@NonNull final String key, @NonNull final JSONObject value, final int saveTime) {
         put(key, CacheHelper.jsonObject2Bytes(value), saveTime);
     }
 
@@ -285,7 +285,7 @@ public class CacheUtils {
      * @param key 键
      * @return 存在且没过期返回对应值，否则返回{@code null}
      */
-    public JSONObject getJSONObject(@NonNull String key) {
+    public JSONObject getJSONObject(@NonNull final String key) {
         return getJSONObject(key, null);
     }
 
@@ -296,7 +296,7 @@ public class CacheUtils {
      * @param defaultValue 默认值
      * @return 存在且没过期返回对应值，否则返回默认值{@code defaultValue}
      */
-    public JSONObject getJSONObject(@NonNull String key, JSONObject defaultValue) {
+    public JSONObject getJSONObject(@NonNull final String key, final JSONObject defaultValue) {
         byte[] bytes = getBytes(key);
         if (bytes == null) return defaultValue;
         return CacheHelper.bytes2JSONObject(bytes);
@@ -313,7 +313,7 @@ public class CacheUtils {
      * @param key   键
      * @param value 值
      */
-    public void put(@NonNull String key, @NonNull JSONArray value) {
+    public void put(@NonNull final String key, @NonNull final JSONArray value) {
         put(key, value, -1);
     }
 
@@ -324,7 +324,7 @@ public class CacheUtils {
      * @param value    值
      * @param saveTime 保存时长，单位：秒
      */
-    public void put(@NonNull String key, @NonNull JSONArray value, int saveTime) {
+    public void put(@NonNull final String key, @NonNull final JSONArray value, final int saveTime) {
         put(key, CacheHelper.jsonArray2Bytes(value), saveTime);
     }
 
@@ -334,7 +334,7 @@ public class CacheUtils {
      * @param key 键
      * @return 存在且没过期返回对应值，否则返回{@code null}
      */
-    public JSONArray getJSONArray(@NonNull String key) {
+    public JSONArray getJSONArray(@NonNull final String key) {
         return getJSONArray(key, null);
     }
 
@@ -345,7 +345,7 @@ public class CacheUtils {
      * @param defaultValue 默认值
      * @return 存在且没过期返回对应值，否则返回默认值{@code defaultValue}
      */
-    public JSONArray getJSONArray(@NonNull String key, JSONArray defaultValue) {
+    public JSONArray getJSONArray(@NonNull final String key, final JSONArray defaultValue) {
         byte[] bytes = getBytes(key);
         if (bytes == null) return defaultValue;
         return CacheHelper.bytes2JSONArray(bytes);
@@ -362,7 +362,7 @@ public class CacheUtils {
      * @param key   键
      * @param value 值
      */
-    public void put(@NonNull String key, @NonNull Bitmap value) {
+    public void put(@NonNull final String key, @NonNull final Bitmap value) {
         put(key, value, -1);
     }
 
@@ -373,7 +373,7 @@ public class CacheUtils {
      * @param value    值
      * @param saveTime 保存时长，单位：秒
      */
-    public void put(@NonNull String key, @NonNull Bitmap value, int saveTime) {
+    public void put(@NonNull final String key, @NonNull final Bitmap value, final int saveTime) {
         put(key, CacheHelper.bitmap2Bytes(value), saveTime);
     }
 
@@ -383,7 +383,7 @@ public class CacheUtils {
      * @param key 键
      * @return 存在且没过期返回对应值，否则返回{@code null}
      */
-    public Bitmap getBitmap(@NonNull String key) {
+    public Bitmap getBitmap(@NonNull final String key) {
         return getBitmap(key, null);
     }
 
@@ -394,7 +394,7 @@ public class CacheUtils {
      * @param defaultValue 默认值
      * @return 存在且没过期返回对应值，否则返回默认值{@code defaultValue}
      */
-    public Bitmap getBitmap(@NonNull String key, Bitmap defaultValue) {
+    public Bitmap getBitmap(@NonNull final String key, final Bitmap defaultValue) {
         byte[] bytes = getBytes(key);
         if (bytes == null) return defaultValue;
         return CacheHelper.bytes2Bitmap(bytes);
@@ -410,7 +410,7 @@ public class CacheUtils {
      * @param key   键
      * @param value 值
      */
-    public void put(@NonNull String key, @NonNull Drawable value) {
+    public void put(@NonNull final String key, @NonNull final Drawable value) {
         put(key, CacheHelper.drawable2Bytes(value));
     }
 
@@ -421,7 +421,7 @@ public class CacheUtils {
      * @param value    值
      * @param saveTime 保存时长，单位：秒
      */
-    public void put(@NonNull String key, @NonNull Drawable value, int saveTime) {
+    public void put(@NonNull final String key, @NonNull final Drawable value, final int saveTime) {
         put(key, CacheHelper.drawable2Bytes(value), saveTime);
     }
 
@@ -431,7 +431,7 @@ public class CacheUtils {
      * @param key 键
      * @return 存在且没过期返回对应值，否则返回{@code null}
      */
-    public Drawable getDrawable(@NonNull String key) {
+    public Drawable getDrawable(@NonNull final String key) {
         return getDrawable(key, null);
     }
 
@@ -442,7 +442,7 @@ public class CacheUtils {
      * @param defaultValue 默认值
      * @return 存在且没过期返回对应值，否则返回默认值{@code defaultValue}
      */
-    public Drawable getDrawable(@NonNull String key, Drawable defaultValue) {
+    public Drawable getDrawable(@NonNull final String key, final Drawable defaultValue) {
         byte[] bytes = getBytes(key);
         if (bytes == null) return defaultValue;
         return CacheHelper.bytes2Drawable(bytes);
@@ -458,7 +458,7 @@ public class CacheUtils {
      * @param key   键
      * @param value 值
      */
-    public void put(@NonNull String key, @NonNull Parcelable value) {
+    public void put(@NonNull final String key, @NonNull final Parcelable value) {
         put(key, value, -1);
     }
 
@@ -469,7 +469,7 @@ public class CacheUtils {
      * @param value    值
      * @param saveTime 保存时长，单位：秒
      */
-    public void put(@NonNull String key, @NonNull Parcelable value, int saveTime) {
+    public void put(@NonNull final String key, @NonNull final Parcelable value, final int saveTime) {
         put(key, CacheHelper.parcelable2Bytes(value), saveTime);
     }
 
@@ -480,7 +480,7 @@ public class CacheUtils {
      * @param creator 建造器
      * @return 存在且没过期返回对应值，否则返回{@code null}
      */
-    public <T> T getParcelable(@NonNull String key, @NonNull Parcelable.Creator<T> creator) {
+    public <T> T getParcelable(@NonNull final String key, @NonNull final Parcelable.Creator<T> creator) {
         return getParcelable(key, creator, null);
     }
 
@@ -492,7 +492,7 @@ public class CacheUtils {
      * @param defaultValue 默认值
      * @return 存在且没过期返回对应值，否则返回默认值{@code defaultValue}
      */
-    public <T> T getParcelable(@NonNull String key, @NonNull Parcelable.Creator<T> creator, T defaultValue) {
+    public <T> T getParcelable(@NonNull final String key, @NonNull final Parcelable.Creator<T> creator, final T defaultValue) {
         byte[] bytes = getBytes(key);
         if (bytes == null) return defaultValue;
         return CacheHelper.bytes2Parcelable(bytes, creator);
@@ -508,7 +508,7 @@ public class CacheUtils {
      * @param key   键
      * @param value 值
      */
-    public void put(@NonNull String key, @NonNull Serializable value) {
+    public void put(@NonNull final String key, @NonNull final Serializable value) {
         put(key, value, -1);
     }
 
@@ -519,7 +519,7 @@ public class CacheUtils {
      * @param value    值
      * @param saveTime 保存时长，单位：秒
      */
-    public void put(@NonNull String key, @NonNull Serializable value, int saveTime) {
+    public void put(@NonNull final String key, @NonNull final Serializable value, final int saveTime) {
         put(key, CacheHelper.serializable2Bytes(value), saveTime);
     }
 
@@ -529,7 +529,7 @@ public class CacheUtils {
      * @param key 键
      * @return 存在且没过期返回对应值，否则返回{@code null}
      */
-    public Object getSerializable(@NonNull String key) {
+    public Object getSerializable(@NonNull final String key) {
         return getSerializable(key, null);
     }
 
@@ -540,7 +540,7 @@ public class CacheUtils {
      * @param defaultValue 默认值
      * @return 存在且没过期返回对应值，否则返回默认值{@code defaultValue}
      */
-    public Object getSerializable(@NonNull String key, Object defaultValue) {
+    public Object getSerializable(@NonNull final String key, final Object defaultValue) {
         byte[] bytes = getBytes(key);
         if (bytes == null) return defaultValue;
         return CacheHelper.bytes2Object(getBytes(key));
@@ -571,7 +571,7 @@ public class CacheUtils {
      * @param key 键
      * @return {@code true}: 移除成功<br>{@code false}: 移除失败
      */
-    public boolean remove(@NonNull String key) {
+    public boolean remove(@NonNull final String key) {
         return mCacheManager.removeByKey(key);
     }
 
@@ -592,7 +592,7 @@ public class CacheUtils {
         private final Map<File, Long> lastUsageDates = Collections.synchronizedMap(new HashMap<File, Long>());
         private final File cacheDir;
 
-        private CacheManager(File cacheDir, long sizeLimit, int countLimit) {
+        private CacheManager(final File cacheDir, final long sizeLimit, final int countLimit) {
             this.cacheDir = cacheDir;
             this.sizeLimit = sizeLimit;
             this.countLimit = countLimit;
@@ -629,7 +629,7 @@ public class CacheUtils {
             return cacheCount.get();
         }
 
-        private File getFileBeforePut(String key) {
+        private File getFileBeforePut(final String key) {
             File file = new File(cacheDir, String.valueOf(key.hashCode()));
             if (file.exists()) {
                 cacheCount.addAndGet(-1);
@@ -638,13 +638,13 @@ public class CacheUtils {
             return file;
         }
 
-        private File getFileIfExists(String key) {
+        private File getFileIfExists(final String key) {
             File file = new File(cacheDir, String.valueOf(key.hashCode()));
             if (!file.exists()) return null;
             return file;
         }
 
-        private void put(File file) {
+        private void put(final File file) {
             cacheCount.addAndGet(1);
             cacheSize.addAndGet(file.length());
             while (cacheCount.get() > countLimit || cacheSize.get() > sizeLimit) {
@@ -653,13 +653,13 @@ public class CacheUtils {
             }
         }
 
-        private void updateModify(File file) {
+        private void updateModify(final File file) {
             Long millis = System.currentTimeMillis();
             file.setLastModified(millis);
             lastUsageDates.put(file, millis);
         }
 
-        private boolean removeByKey(String key) {
+        private boolean removeByKey(final String key) {
             File file = getFileIfExists(key);
             if (file == null) return true;
             if (!file.delete()) return false;
@@ -723,7 +723,7 @@ public class CacheUtils {
 
         static final int timeInfoLen = 14;
 
-        private static byte[] newByteArrayWithTime(int second, byte[] data) {
+        private static byte[] newByteArrayWithTime(final int second, final byte[] data) {
             byte[] time = createDueTime(second).getBytes();
             byte[] content = new byte[time.length + data.length];
             System.arraycopy(time, 0, content, 0, time.length);
@@ -737,16 +737,16 @@ public class CacheUtils {
          * @param second 秒
          * @return _$millis$_
          */
-        private static String createDueTime(int second) {
+        private static String createDueTime(final int second) {
             return String.format(Locale.getDefault(), "_$%010d$_", System.currentTimeMillis() / 1000 + second);
         }
 
-        private static boolean isDue(byte[] data) {
+        private static boolean isDue(final byte[] data) {
             long millis = getDueTime(data);
             return millis != -1 && System.currentTimeMillis() > millis;
         }
 
-        private static long getDueTime(byte[] data) {
+        private static long getDueTime(final byte[] data) {
             if (hasTimeInfo(data)) {
                 String millis = new String(copyOfRange(data, 2, 12));
                 try {
@@ -758,14 +758,14 @@ public class CacheUtils {
             return -1;
         }
 
-        private static byte[] getDataWithoutDueTime(byte[] data) {
+        private static byte[] getDataWithoutDueTime(final byte[] data) {
             if (hasTimeInfo(data)) {
                 return copyOfRange(data, timeInfoLen, data.length);
             }
             return data;
         }
 
-        private static byte[] copyOfRange(byte[] original, int from, int to) {
+        private static byte[] copyOfRange(final byte[] original, final int from, final int to) {
             int newLength = to - from;
             if (newLength < 0) throw new IllegalArgumentException(from + " > " + to);
             byte[] copy = new byte[newLength];
@@ -773,7 +773,7 @@ public class CacheUtils {
             return copy;
         }
 
-        private static boolean hasTimeInfo(byte[] data) {
+        private static boolean hasTimeInfo(final byte[] data) {
             return data != null
                     && data.length >= timeInfoLen
                     && data[0] == '_'
@@ -782,7 +782,7 @@ public class CacheUtils {
                     && data[13] == '_';
         }
 
-        private static void writeFileFromBytes(File file, byte[] bytes) {
+        private static void writeFileFromBytes(final File file, final byte[] bytes) {
             FileChannel fc = null;
             try {
                 fc = new FileOutputStream(file, false).getChannel();
@@ -795,7 +795,7 @@ public class CacheUtils {
             }
         }
 
-        private static byte[] readFile2Bytes(File file) {
+        private static byte[] readFile2Bytes(final File file) {
             FileChannel fc = null;
             try {
                 fc = new RandomAccessFile(file, "r").getChannel();
@@ -812,22 +812,22 @@ public class CacheUtils {
             }
         }
 
-        private static byte[] string2Bytes(String string) {
+        private static byte[] string2Bytes(final String string) {
             if (string == null) return null;
             return string.getBytes();
         }
 
-        private static String bytes2String(byte[] bytes) {
+        private static String bytes2String(final byte[] bytes) {
             if (bytes == null) return null;
             return new String(bytes);
         }
 
-        private static byte[] jsonObject2Bytes(JSONObject jsonObject) {
+        private static byte[] jsonObject2Bytes(final JSONObject jsonObject) {
             if (jsonObject == null) return null;
             return jsonObject.toString().getBytes();
         }
 
-        private static JSONObject bytes2JSONObject(byte[] bytes) {
+        private static JSONObject bytes2JSONObject(final byte[] bytes) {
             if (bytes == null) return null;
             try {
                 return new JSONObject(new String(bytes));
@@ -837,12 +837,12 @@ public class CacheUtils {
             }
         }
 
-        private static byte[] jsonArray2Bytes(JSONArray jsonArray) {
+        private static byte[] jsonArray2Bytes(final JSONArray jsonArray) {
             if (jsonArray == null) return null;
             return jsonArray.toString().getBytes();
         }
 
-        private static JSONArray bytes2JSONArray(byte[] bytes) {
+        private static JSONArray bytes2JSONArray(final byte[] bytes) {
             if (bytes == null) return null;
             try {
                 return new JSONArray(new String(bytes));
@@ -852,7 +852,7 @@ public class CacheUtils {
             }
         }
 
-        private static byte[] parcelable2Bytes(Parcelable parcelable) {
+        private static byte[] parcelable2Bytes(final Parcelable parcelable) {
             if (parcelable == null) return null;
             Parcel parcel = Parcel.obtain();
             parcelable.writeToParcel(parcel, 0);
@@ -861,7 +861,7 @@ public class CacheUtils {
             return bytes;
         }
 
-        private static <T> T bytes2Parcelable(byte[] bytes, Parcelable.Creator<T> creator) {
+        private static <T> T bytes2Parcelable(final byte[] bytes, final Parcelable.Creator<T> creator) {
             if (bytes == null) return null;
             Parcel parcel = Parcel.obtain();
             parcel.unmarshall(bytes, 0, bytes.length);
@@ -871,7 +871,7 @@ public class CacheUtils {
             return result;
         }
 
-        private static byte[] serializable2Bytes(Serializable serializable) {
+        private static byte[] serializable2Bytes(final Serializable serializable) {
             if (serializable == null) return null;
             ByteArrayOutputStream baos;
             ObjectOutputStream oos = null;
@@ -887,7 +887,7 @@ public class CacheUtils {
             }
         }
 
-        private static Object bytes2Object(byte[] bytes) {
+        private static Object bytes2Object(final byte[] bytes) {
             if (bytes == null) return null;
             ObjectInputStream ois = null;
             try {
@@ -901,26 +901,26 @@ public class CacheUtils {
             }
         }
 
-        private static byte[] bitmap2Bytes(Bitmap bitmap) {
+        private static byte[] bitmap2Bytes(final Bitmap bitmap) {
             if (bitmap == null) return null;
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
             return baos.toByteArray();
         }
 
-        private static Bitmap bytes2Bitmap(byte[] bytes) {
+        private static Bitmap bytes2Bitmap(final byte[] bytes) {
             return (bytes == null || bytes.length == 0) ? null : BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         }
 
-        private static byte[] drawable2Bytes(Drawable drawable) {
+        private static byte[] drawable2Bytes(final Drawable drawable) {
             return drawable == null ? null : bitmap2Bytes(drawable2Bitmap(drawable));
         }
 
-        private static Drawable bytes2Drawable(byte[] bytes) {
+        private static Drawable bytes2Drawable(final byte[] bytes) {
             return bytes == null ? null : bitmap2Drawable(bytes2Bitmap(bytes));
         }
 
-        private static Bitmap drawable2Bitmap(Drawable drawable) {
+        private static Bitmap drawable2Bitmap(final Drawable drawable) {
             if (drawable instanceof BitmapDrawable) {
                 BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
                 if (bitmapDrawable.getBitmap() != null) {
@@ -941,12 +941,12 @@ public class CacheUtils {
             return bitmap;
         }
 
-        private static Drawable bitmap2Drawable(Bitmap bitmap) {
+        private static Drawable bitmap2Drawable(final Bitmap bitmap) {
             return bitmap == null ? null : new BitmapDrawable(Utils.getContext().getResources(), bitmap);
         }
     }
 
-    private static boolean isSpace(String s) {
+    private static boolean isSpace(final String s) {
         if (s == null) return true;
         for (int i = 0, len = s.length(); i < len; ++i) {
             if (!Character.isWhitespace(s.charAt(i))) {

@@ -39,7 +39,7 @@ public class TestUtils {
         Utils.init(RuntimeEnvironment.application);
     }
 
-//    @Test
+    //    @Test
     public void readme2Eng() throws Exception {
         formatCN();
         File readmeCN = new File(new File(System.getProperty("user.dir")).getAbsolutePath() + FILE_SEP + "README-CN.md");
@@ -69,7 +69,7 @@ public class TestUtils {
             }
             sb.append(LINE_SEP);
         }
-        FileIOUtils.writeFileFromString(readmeEng, sb.toString(), false);
+        FileIOUtils.writeFileFromString(readmeEng, sb.toString());
     }
 
     public void formatCN() throws Exception {

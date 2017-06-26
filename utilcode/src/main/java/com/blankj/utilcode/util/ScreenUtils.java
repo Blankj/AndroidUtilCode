@@ -60,7 +60,7 @@ public final class ScreenUtils {
      *
      * @param activity activity
      */
-    public static void setLandscape(Activity activity) {
+    public static void setLandscape(final Activity activity) {
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
@@ -69,7 +69,7 @@ public final class ScreenUtils {
      *
      * @param activity activity
      */
-    public static void setPortrait(Activity activity) {
+    public static void setPortrait(final Activity activity) {
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
@@ -97,7 +97,7 @@ public final class ScreenUtils {
      * @param activity activity
      * @return 屏幕旋转角度
      */
-    public static int getScreenRotation(Activity activity) {
+    public static int getScreenRotation(final Activity activity) {
         switch (activity.getWindowManager().getDefaultDisplay().getRotation()) {
             default:
             case Surface.ROTATION_0:
@@ -117,7 +117,7 @@ public final class ScreenUtils {
      * @param activity activity
      * @return Bitmap
      */
-    public static Bitmap captureWithStatusBar(Activity activity) {
+    public static Bitmap captureWithStatusBar(final Activity activity) {
         View view = activity.getWindow().getDecorView();
         view.setDrawingCacheEnabled(true);
         view.buildDrawingCache();
@@ -135,7 +135,7 @@ public final class ScreenUtils {
      * @param activity activity
      * @return Bitmap
      */
-    public static Bitmap captureWithoutStatusBar(Activity activity) {
+    public static Bitmap captureWithoutStatusBar(final Activity activity) {
         View view = activity.getWindow().getDecorView();
         view.setDrawingCacheEnabled(true);
         view.buildDrawingCache();
@@ -164,7 +164,7 @@ public final class ScreenUtils {
      *
      * @param duration 时长
      */
-    public static void setSleepDuration(int duration) {
+    public static void setSleepDuration(final int duration) {
         Settings.System.putInt(Utils.getContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, duration);
     }
 

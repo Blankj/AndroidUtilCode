@@ -60,7 +60,7 @@ public final class SnackbarUtils {
     private View.OnClickListener actionListener;
     private int                  bottomMargin;
 
-    private SnackbarUtils(View parent) {
+    private SnackbarUtils(final View parent) {
         setDefault();
         this.parent = new WeakReference<>(parent);
     }

@@ -101,7 +101,7 @@ public final class PermissionUtils {
     /**
      * 获取请求权限中需要授权的权限
      */
-    private static String[] getDeniedPermissions(Context context, String[] permissions) {
+    private static String[] getDeniedPermissions(final Context context, final String[] permissions) {
         List<String> deniedPermissions = new ArrayList<>();
         for (String permission : permissions) {
             if (ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_DENIED) {
@@ -114,7 +114,7 @@ public final class PermissionUtils {
     /**
      * 是否彻底拒绝了某项权限
      */
-    public static boolean hasAlwaysDeniedPermission(Context context, String... deniedPermissions) {
+    public static boolean hasAlwaysDeniedPermission(final Context context, final String... deniedPermissions) {
         for (String deniedPermission : deniedPermissions) {
             if (!shouldShowRequestPermissionRationale(context, deniedPermission)) {
                 return true;
@@ -126,7 +126,7 @@ public final class PermissionUtils {
     /**
      * 是否有权限需要说明提示
      */
-    private static boolean shouldShowRequestPermissionRationale(Context context, String... deniedPermissions) {
+    private static boolean shouldShowRequestPermissionRationale(final Context context, final String... deniedPermissions) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return false;
         boolean rationale;
         for (String permission : deniedPermissions) {

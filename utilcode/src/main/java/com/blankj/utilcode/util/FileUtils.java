@@ -404,7 +404,7 @@ public final class FileUtils {
         if (files != null && files.length != 0) {
             for (File file : files) {
                 if (file.isFile()) {
-                    if (!deleteFile(file)) return false;
+                    if (!file.delete()) return false;
                 } else if (file.isDirectory()) {
                     if (!deleteDir(file)) return false;
                 }
@@ -460,7 +460,7 @@ public final class FileUtils {
         if (files != null && files.length != 0) {
             for (File file : files) {
                 if (file.isFile()) {
-                    if (!deleteFile(file)) return false;
+                    if (!file.delete()) return false;
                 } else if (file.isDirectory()) {
                     if (!deleteDir(file)) return false;
                 }
@@ -476,7 +476,7 @@ public final class FileUtils {
      * @param isRecursive 是否递归进子目录
      * @return 文件链表
      */
-    public static List<File> listFilesInDir(String dirPath, boolean isRecursive) {
+    public static List<File> listFilesInDir(final String dirPath, final boolean isRecursive) {
         return listFilesInDir(getFileByPath(dirPath), isRecursive);
     }
 
@@ -487,7 +487,7 @@ public final class FileUtils {
      * @param isRecursive 是否递归进子目录
      * @return 文件链表
      */
-    public static List<File> listFilesInDir(File dir, boolean isRecursive) {
+    public static List<File> listFilesInDir(final File dir, final boolean isRecursive) {
         if (!isDir(dir)) return null;
         if (isRecursive) return listFilesInDir(dir);
         List<File> list = new ArrayList<>();
@@ -504,7 +504,7 @@ public final class FileUtils {
      * @param dirPath 目录路径
      * @return 文件链表
      */
-    public static List<File> listFilesInDir(String dirPath) {
+    public static List<File> listFilesInDir(final String dirPath) {
         return listFilesInDir(getFileByPath(dirPath));
     }
 
@@ -514,7 +514,7 @@ public final class FileUtils {
      * @param dir 目录
      * @return 文件链表
      */
-    public static List<File> listFilesInDir(File dir) {
+    public static List<File> listFilesInDir(final File dir) {
         if (!isDir(dir)) return null;
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
@@ -541,7 +541,7 @@ public final class FileUtils {
      * @param isRecursive 是否递归进子目录
      * @return 文件链表
      */
-    public static List<File> listFilesInDirWithFilter(String dirPath, String suffix, boolean isRecursive) {
+    public static List<File> listFilesInDirWithFilter(final String dirPath, final String suffix, final boolean isRecursive) {
         return listFilesInDirWithFilter(getFileByPath(dirPath), suffix, isRecursive);
     }
 
@@ -554,7 +554,7 @@ public final class FileUtils {
      * @param isRecursive 是否递归进子目录
      * @return 文件链表
      */
-    public static List<File> listFilesInDirWithFilter(File dir, String suffix, boolean isRecursive) {
+    public static List<File> listFilesInDirWithFilter(final File dir, final String suffix, final boolean isRecursive) {
         if (isRecursive) return listFilesInDirWithFilter(dir, suffix);
         if (dir == null || !isDir(dir)) return null;
         List<File> list = new ArrayList<>();
@@ -577,7 +577,7 @@ public final class FileUtils {
      * @param suffix  后缀名
      * @return 文件链表
      */
-    public static List<File> listFilesInDirWithFilter(String dirPath, String suffix) {
+    public static List<File> listFilesInDirWithFilter(final String dirPath, final String suffix) {
         return listFilesInDirWithFilter(getFileByPath(dirPath), suffix);
     }
 
@@ -589,7 +589,7 @@ public final class FileUtils {
      * @param suffix 后缀名
      * @return 文件链表
      */
-    public static List<File> listFilesInDirWithFilter(File dir, String suffix) {
+    public static List<File> listFilesInDirWithFilter(final File dir, final String suffix) {
         if (dir == null || !isDir(dir)) return null;
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
@@ -614,7 +614,7 @@ public final class FileUtils {
      * @param isRecursive 是否递归进子目录
      * @return 文件链表
      */
-    public static List<File> listFilesInDirWithFilter(String dirPath, FilenameFilter filter, boolean isRecursive) {
+    public static List<File> listFilesInDirWithFilter(final String dirPath, final FilenameFilter filter, final boolean isRecursive) {
         return listFilesInDirWithFilter(getFileByPath(dirPath), filter, isRecursive);
     }
 
@@ -626,7 +626,7 @@ public final class FileUtils {
      * @param isRecursive 是否递归进子目录
      * @return 文件链表
      */
-    public static List<File> listFilesInDirWithFilter(File dir, FilenameFilter filter, boolean isRecursive) {
+    public static List<File> listFilesInDirWithFilter(final File dir, final FilenameFilter filter, final boolean isRecursive) {
         if (isRecursive) return listFilesInDirWithFilter(dir, filter);
         if (dir == null || !isDir(dir)) return null;
         List<File> list = new ArrayList<>();
@@ -648,7 +648,7 @@ public final class FileUtils {
      * @param filter  过滤器
      * @return 文件链表
      */
-    public static List<File> listFilesInDirWithFilter(String dirPath, FilenameFilter filter) {
+    public static List<File> listFilesInDirWithFilter(final String dirPath, final FilenameFilter filter) {
         return listFilesInDirWithFilter(getFileByPath(dirPath), filter);
     }
 
@@ -659,7 +659,7 @@ public final class FileUtils {
      * @param filter 过滤器
      * @return 文件链表
      */
-    public static List<File> listFilesInDirWithFilter(File dir, FilenameFilter filter) {
+    public static List<File> listFilesInDirWithFilter(final File dir, final FilenameFilter filter) {
         if (dir == null || !isDir(dir)) return null;
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
@@ -684,7 +684,7 @@ public final class FileUtils {
      * @param fileName 文件名
      * @return 文件链表
      */
-    public static List<File> searchFileInDir(String dirPath, String fileName) {
+    public static List<File> searchFileInDir(final String dirPath, final String fileName) {
         return searchFileInDir(getFileByPath(dirPath), fileName);
     }
 
@@ -696,7 +696,7 @@ public final class FileUtils {
      * @param fileName 文件名
      * @return 文件链表
      */
-    public static List<File> searchFileInDir(File dir, String fileName) {
+    public static List<File> searchFileInDir(final File dir, final String fileName) {
         if (dir == null || !isDir(dir)) return null;
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
@@ -719,7 +719,7 @@ public final class FileUtils {
      * @param filePath 文件路径
      * @return 文件最后修改的毫秒时间戳
      */
-    public static long getFileLastModified(String filePath) {
+    public static long getFileLastModified(final String filePath) {
         return getFileLastModified(getFileByPath(filePath));
     }
 
@@ -729,7 +729,7 @@ public final class FileUtils {
      * @param file 文件
      * @return 文件最后修改的毫秒时间戳
      */
-    public static long getFileLastModified(File file) {
+    public static long getFileLastModified(final File file) {
         if (file == null) return -1;
         return file.lastModified();
     }
@@ -740,7 +740,7 @@ public final class FileUtils {
      * @param filePath 文件路径
      * @return 文件编码
      */
-    public static String getFileCharsetSimple(String filePath) {
+    public static String getFileCharsetSimple(final String filePath) {
         return getFileCharsetSimple(getFileByPath(filePath));
     }
 
@@ -750,7 +750,7 @@ public final class FileUtils {
      * @param file 文件
      * @return 文件编码
      */
-    public static String getFileCharsetSimple(File file) {
+    public static String getFileCharsetSimple(final File file) {
         int p = 0;
         InputStream is = null;
         try {
@@ -779,7 +779,7 @@ public final class FileUtils {
      * @param filePath 文件路径
      * @return 文件行数
      */
-    public static int getFileLines(String filePath) {
+    public static int getFileLines(final String filePath) {
         return getFileLines(getFileByPath(filePath));
     }
 
@@ -790,7 +790,7 @@ public final class FileUtils {
      * @param file 文件
      * @return 文件行数
      */
-    public static int getFileLines(File file) {
+    public static int getFileLines(final File file) {
         int count = 1;
         InputStream is = null;
         try {
@@ -824,7 +824,7 @@ public final class FileUtils {
      * @param dirPath 目录路径
      * @return 文件大小
      */
-    public static String getDirSize(String dirPath) {
+    public static String getDirSize(final String dirPath) {
         return getDirSize(getFileByPath(dirPath));
     }
 
@@ -834,7 +834,7 @@ public final class FileUtils {
      * @param dir 目录
      * @return 文件大小
      */
-    public static String getDirSize(File dir) {
+    public static String getDirSize(final File dir) {
         long len = getDirLength(dir);
         return len == -1 ? "" : byte2FitMemorySize(len);
     }
@@ -845,7 +845,7 @@ public final class FileUtils {
      * @param filePath 文件路径
      * @return 文件大小
      */
-    public static String getFileSize(String filePath) {
+    public static String getFileSize(final String filePath) {
         return getFileSize(getFileByPath(filePath));
     }
 
@@ -855,7 +855,7 @@ public final class FileUtils {
      * @param file 文件
      * @return 文件大小
      */
-    public static String getFileSize(File file) {
+    public static String getFileSize(final File file) {
         long len = getFileLength(file);
         return len == -1 ? "" : byte2FitMemorySize(len);
     }
@@ -866,7 +866,7 @@ public final class FileUtils {
      * @param dirPath 目录路径
      * @return 目录长度
      */
-    public static long getDirLength(String dirPath) {
+    public static long getDirLength(final String dirPath) {
         return getDirLength(getFileByPath(dirPath));
     }
 
@@ -876,7 +876,7 @@ public final class FileUtils {
      * @param dir 目录
      * @return 目录长度
      */
-    public static long getDirLength(File dir) {
+    public static long getDirLength(final File dir) {
         if (!isDir(dir)) return -1;
         long len = 0;
         File[] files = dir.listFiles();
@@ -898,7 +898,7 @@ public final class FileUtils {
      * @param filePath 文件路径
      * @return 文件长度
      */
-    public static long getFileLength(String filePath) {
+    public static long getFileLength(final String filePath) {
         return getFileLength(getFileByPath(filePath));
     }
 
@@ -908,7 +908,7 @@ public final class FileUtils {
      * @param file 文件
      * @return 文件长度
      */
-    public static long getFileLength(File file) {
+    public static long getFileLength(final File file) {
         if (!isFile(file)) return -1;
         return file.length();
     }
@@ -919,7 +919,7 @@ public final class FileUtils {
      * @param filePath 文件路径
      * @return 文件的MD5校验码
      */
-    public static String getFileMD5ToString(String filePath) {
+    public static String getFileMD5ToString(final String filePath) {
         File file = isSpace(filePath) ? null : new File(filePath);
         return getFileMD5ToString(file);
     }
@@ -930,7 +930,7 @@ public final class FileUtils {
      * @param filePath 文件路径
      * @return 文件的MD5校验码
      */
-    public static byte[] getFileMD5(String filePath) {
+    public static byte[] getFileMD5(final String filePath) {
         File file = isSpace(filePath) ? null : new File(filePath);
         return getFileMD5(file);
     }
@@ -941,7 +941,7 @@ public final class FileUtils {
      * @param file 文件
      * @return 文件的MD5校验码
      */
-    public static String getFileMD5ToString(File file) {
+    public static String getFileMD5ToString(final File file) {
         return bytes2HexString(getFileMD5(file));
     }
 
@@ -951,7 +951,7 @@ public final class FileUtils {
      * @param file 文件
      * @return 文件的MD5校验码
      */
-    public static byte[] getFileMD5(File file) {
+    public static byte[] getFileMD5(final File file) {
         if (file == null) return null;
         DigestInputStream dis = null;
         try {
@@ -978,7 +978,7 @@ public final class FileUtils {
      * @param file 文件
      * @return filePath最长目录
      */
-    public static String getDirName(File file) {
+    public static String getDirName(final File file) {
         if (file == null) return null;
         return getDirName(file.getPath());
     }
@@ -989,7 +989,7 @@ public final class FileUtils {
      * @param filePath 文件路径
      * @return filePath最长目录
      */
-    public static String getDirName(String filePath) {
+    public static String getDirName(final String filePath) {
         if (isSpace(filePath)) return filePath;
         int lastSep = filePath.lastIndexOf(File.separator);
         return lastSep == -1 ? "" : filePath.substring(0, lastSep + 1);
@@ -1001,7 +1001,7 @@ public final class FileUtils {
      * @param file 文件
      * @return 文件名
      */
-    public static String getFileName(File file) {
+    public static String getFileName(final File file) {
         if (file == null) return null;
         return getFileName(file.getPath());
     }
@@ -1012,7 +1012,7 @@ public final class FileUtils {
      * @param filePath 文件路径
      * @return 文件名
      */
-    public static String getFileName(String filePath) {
+    public static String getFileName(final String filePath) {
         if (isSpace(filePath)) return filePath;
         int lastSep = filePath.lastIndexOf(File.separator);
         return lastSep == -1 ? filePath : filePath.substring(lastSep + 1);
@@ -1024,7 +1024,7 @@ public final class FileUtils {
      * @param file 文件
      * @return 不带拓展名的文件名
      */
-    public static String getFileNameNoExtension(File file) {
+    public static String getFileNameNoExtension(final File file) {
         if (file == null) return null;
         return getFileNameNoExtension(file.getPath());
     }
@@ -1035,7 +1035,7 @@ public final class FileUtils {
      * @param filePath 文件路径
      * @return 不带拓展名的文件名
      */
-    public static String getFileNameNoExtension(String filePath) {
+    public static String getFileNameNoExtension(final String filePath) {
         if (isSpace(filePath)) return filePath;
         int lastPoi = filePath.lastIndexOf('.');
         int lastSep = filePath.lastIndexOf(File.separator);
@@ -1054,7 +1054,7 @@ public final class FileUtils {
      * @param file 文件
      * @return 文件拓展名
      */
-    public static String getFileExtension(File file) {
+    public static String getFileExtension(final File file) {
         if (file == null) return null;
         return getFileExtension(file.getPath());
     }
@@ -1065,7 +1065,7 @@ public final class FileUtils {
      * @param filePath 文件路径
      * @return 文件拓展名
      */
-    public static String getFileExtension(String filePath) {
+    public static String getFileExtension(final String filePath) {
         if (isSpace(filePath)) return filePath;
         int lastPoi = filePath.lastIndexOf('.');
         int lastSep = filePath.lastIndexOf(File.separator);
@@ -1087,7 +1087,7 @@ public final class FileUtils {
      * @param bytes 字节数组
      * @return 16进制大写字符串
      */
-    private static String bytes2HexString(byte[] bytes) {
+    private static String bytes2HexString(final byte[] bytes) {
         if (bytes == null) return null;
         int len = bytes.length;
         if (len <= 0) return null;
@@ -1107,7 +1107,7 @@ public final class FileUtils {
      * @return 合适内存大小
      */
     @SuppressLint("DefaultLocale")
-    private static String byte2FitMemorySize(long byteNum) {
+    private static String byte2FitMemorySize(final long byteNum) {
         if (byteNum < 0) {
             return "shouldn't be less than zero!";
         } else if (byteNum < 1024) {
@@ -1121,7 +1121,7 @@ public final class FileUtils {
         }
     }
 
-    private static boolean isSpace(String s) {
+    private static boolean isSpace(final String s) {
         if (s == null) return true;
         for (int i = 0, len = s.length(); i < len; ++i) {
             if (!Character.isWhitespace(s.charAt(i))) {
