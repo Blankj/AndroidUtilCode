@@ -1071,11 +1071,11 @@ public final class SpanUtils {
         private final int width;
         private final int color;
 
-        SpaceSpan(int width) {
+        private SpaceSpan(int width) {
             this(width, Color.TRANSPARENT);
         }
 
-        SpaceSpan(int width, int color) {
+        private SpaceSpan(int width, int color) {
             super();
             this.width = width;
             this.color = color;
@@ -1110,7 +1110,7 @@ public final class SpanUtils {
         private final int stripeWidth;
         private final int gapWidth;
 
-        CustomQuoteSpan(int color, int stripeWidth, int gapWidth) {
+        private CustomQuoteSpan(int color, int stripeWidth, int gapWidth) {
             super();
             this.color = color;
             this.stripeWidth = stripeWidth;
@@ -1149,7 +1149,7 @@ public final class SpanUtils {
 
         private Path sBulletPath = null;
 
-        CustomBulletSpan(int color, int radius, int gapWidth) {
+        private CustomBulletSpan(int color, int radius, int gapWidth) {
             this.color = color;
             this.radius = radius;
             this.gapWidth = gapWidth;
@@ -1208,25 +1208,25 @@ public final class SpanUtils {
         private int     need1;
         private boolean flag;
 
-        CustomIconMarginSpan(Bitmap b, int pad, int verticalAlignment) {
+        private CustomIconMarginSpan(Bitmap b, int pad, int verticalAlignment) {
             mBitmap = b;
             mPad = pad;
             mVerticalAlignment = verticalAlignment;
         }
 
-        CustomIconMarginSpan(Drawable drawable, int pad, int verticalAlignment) {
+        private CustomIconMarginSpan(Drawable drawable, int pad, int verticalAlignment) {
             mBitmap = drawable2Bitmap(drawable);
             mPad = pad;
             mVerticalAlignment = verticalAlignment;
         }
 
-        CustomIconMarginSpan(Context context, Uri uri, int pad, int verticalAlignment) {
+        private CustomIconMarginSpan(Context context, Uri uri, int pad, int verticalAlignment) {
             mBitmap = uri2Bitmap(context, uri);
             mPad = pad;
             mVerticalAlignment = verticalAlignment;
         }
 
-        CustomIconMarginSpan(Context context, int resourceId, int pad, int verticalAlignment) {
+        private CustomIconMarginSpan(Context context, int resourceId, int pad, int verticalAlignment) {
             mBitmap = resource2Bitmap(context, resourceId);
             mPad = pad;
             mVerticalAlignment = verticalAlignment;
@@ -1357,7 +1357,7 @@ public final class SpanUtils {
 
         private final Typeface newType;
 
-        CustomTypefaceSpan(Typeface type) {
+        private CustomTypefaceSpan(Typeface type) {
             super("");
             newType = type;
         }
@@ -1402,7 +1402,7 @@ public final class SpanUtils {
         private int      mResourceId;
         private Context  mContext;
 
-        CustomImageSpan(Context context, Bitmap b, int verticalAlignment) {
+        private CustomImageSpan(Context context, Bitmap b, int verticalAlignment) {
             super(verticalAlignment);
             mContext = context;
             mDrawable = context != null
@@ -1413,20 +1413,20 @@ public final class SpanUtils {
             mDrawable.setBounds(0, 0, width > 0 ? width : 0, height > 0 ? height : 0);
         }
 
-        CustomImageSpan(Drawable d, int verticalAlignment) {
+        private CustomImageSpan(Drawable d, int verticalAlignment) {
             super(verticalAlignment);
             mDrawable = d;
             mDrawable.setBounds(0, 0, mDrawable.getIntrinsicWidth(),
                     mDrawable.getIntrinsicHeight());
         }
 
-        CustomImageSpan(Context context, Uri uri, int verticalAlignment) {
+        private CustomImageSpan(Context context, Uri uri, int verticalAlignment) {
             super(verticalAlignment);
             mContext = context;
             mContentUri = uri;
         }
 
-        CustomImageSpan(Context context, @DrawableRes int resourceId, int verticalAlignment) {
+        private CustomImageSpan(Context context, @DrawableRes int resourceId, int verticalAlignment) {
             super(verticalAlignment);
             mContext = context;
             mResourceId = resourceId;
@@ -1477,11 +1477,11 @@ public final class SpanUtils {
 
         final int mVerticalAlignment;
 
-        CustomDynamicDrawableSpan() {
+        private CustomDynamicDrawableSpan() {
             mVerticalAlignment = ALIGN_BOTTOM;
         }
 
-        CustomDynamicDrawableSpan(int verticalAlignment) {
+        private CustomDynamicDrawableSpan(int verticalAlignment) {
             mVerticalAlignment = verticalAlignment;
         }
 
@@ -1568,7 +1568,7 @@ public final class SpanUtils {
         private float dx, dy;
         private int shadowColor;
 
-        ShadowSpan(float radius, float dx, float dy, int shadowColor) {
+        private ShadowSpan(float radius, float dx, float dy, int shadowColor) {
             this.radius = radius;
             this.dx = dx;
             this.dy = dy;
