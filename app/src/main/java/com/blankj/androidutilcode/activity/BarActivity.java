@@ -1,20 +1,17 @@
 package com.blankj.androidutilcode.activity;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseDrawerActivity;
 import com.blankj.utilcode.util.BarUtils;
+
+import java.util.Random;
 
 /**
  * <pre>
@@ -26,26 +23,16 @@ import com.blankj.utilcode.util.BarUtils;
  */
 public class BarActivity extends BaseDrawerActivity {
 
-    NavigationView.OnNavigationItemSelectedListener mListener = new NavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.action_git_hub:
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Blankj/AndroidUtilCode")));
-                    break;
-                case R.id.action_blog:
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.jianshu.com/u/46702d5c6978")));
-                    break;
-            }
-            return false;
-        }
-    };
-
-    int alpha;
+    private int      mColor;
+    private int      mAlpha;
+    private Random   mRandom;
+    private TextView mTvStatusAlpha;
 
     @Override
     public void initData(Bundle bundle) {
-
+        mRandom = new Random();
+        mColor = ContextCompat.getColor(this, R.color.colorPrimary);
+        mAlpha = 112;
     }
 
     @Override
@@ -55,15 +42,30 @@ public class BarActivity extends BaseDrawerActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        setSupportActionBar(toolbar);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-        BarUtils.setColor(this, getResources().getColor(R.color.colorPrimary));
-        navigationView.setNavigationItemSelectedListener(mListener);
+        findViewById(R.id.btn_set_color).setOnClickListener(this);
+        mTvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
+        SeekBar sbChangeAlpha = (SeekBar) findViewById(R.id.sb_change_alpha);
+
+        sbChangeAlpha.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                mAlpha = progress;
+                BarUtils.setColor(BarActivity.this, mColor, mAlpha);
+                mTvStatusAlpha.setText(String.valueOf(mAlpha));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        sbChangeAlpha.setProgress(mAlpha);
+        updateStatusBar();
     }
 
     @Override
@@ -73,6 +75,16 @@ public class BarActivity extends BaseDrawerActivity {
 
     @Override
     public void onWidgetClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_set_color:
+                mColor = 0xff000000 | mRandom.nextInt(0xffffff);
+                updateStatusBar();
+                break;
+        }
+    }
 
+    private void updateStatusBar() {
+        mToolbar.setBackgroundColor(mColor);
+        BarUtils.setColor(this, mColor, mAlpha);
     }
 }

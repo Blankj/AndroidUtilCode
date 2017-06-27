@@ -24,6 +24,8 @@ import com.blankj.androidutilcode.R;
  */
 public abstract class BaseDrawerActivity extends BaseActivity {
 
+    protected Toolbar mToolbar;
+
     NavigationView.OnNavigationItemSelectedListener mListener = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -40,16 +42,16 @@ public abstract class BaseDrawerActivity extends BaseActivity {
     };
 
     @Override
-    public void setBaseView() {
+    protected void setBaseView() {
         contentView = LayoutInflater.from(this).inflate(R.layout.activity_drawer, null);
         setContentView(contentView);
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.content_view);
         frameLayout.addView(LayoutInflater.from(this).inflate(bindLayout(), frameLayout, false));
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        setSupportActionBar(toolbar);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        setSupportActionBar(mToolbar);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(mListener);
