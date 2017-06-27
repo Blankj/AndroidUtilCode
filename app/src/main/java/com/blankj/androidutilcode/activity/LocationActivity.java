@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseActivity;
+import com.blankj.androidutilcode.base.BaseDrawerActivity;
 import com.blankj.androidutilcode.service.LocationService;
 
 /**
@@ -21,7 +21,7 @@ import com.blankj.androidutilcode.service.LocationService;
  *     desc  : Location工具类Demo
  * </pre>
  */
-public class LocationActivity extends BaseActivity {
+public class LocationActivity extends BaseDrawerActivity {
 
     TextView        tvAboutLocation;
     LocationService mLocationService;

@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseActivity;
+import com.blankj.androidutilcode.base.BaseDrawerActivity;
 import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.SizeUtils;
 
@@ -20,7 +20,7 @@ import com.blankj.utilcode.util.SizeUtils;
  *     desc  : Image工具类Demo
  * </pre>
  */
-public class ImageActivity extends BaseActivity {
+public class ImageActivity extends BaseDrawerActivity {
 
     private ImageView ivSrc;
     private ImageView ivView2Bitmap;

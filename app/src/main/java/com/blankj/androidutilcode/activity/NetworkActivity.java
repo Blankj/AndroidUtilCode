@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseActivity;
+import com.blankj.androidutilcode.base.BaseDrawerActivity;
 import com.blankj.utilcode.util.NetworkUtils;
 
 /**
@@ -17,7 +17,7 @@ import com.blankj.utilcode.util.NetworkUtils;
  *     desc  : Network工具类Demo
  * </pre>
  */
-public class NetworkActivity extends BaseActivity {
+public class NetworkActivity extends BaseDrawerActivity {
 
     private TextView tvAboutNetwork;
 

@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.UtilsApp;
-import com.blankj.androidutilcode.base.BaseActivity;
+import com.blankj.androidutilcode.base.BaseDrawerActivity;
 import com.blankj.utilcode.util.LogUtils;
 
 
@@ -21,7 +21,7 @@ import com.blankj.utilcode.util.LogUtils;
  * </pre>
  */
 
-public class LogActivity extends BaseActivity {
+public class LogActivity extends BaseDrawerActivity {
 
     private static final String TAG = "CMJ";
 

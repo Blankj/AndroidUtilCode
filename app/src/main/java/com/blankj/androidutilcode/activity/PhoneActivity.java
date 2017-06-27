@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseActivity;
+import com.blankj.androidutilcode.base.BaseDrawerActivity;
 import com.blankj.utilcode.util.PhoneUtils;
 
 /**
@@ -17,7 +17,7 @@ import com.blankj.utilcode.util.PhoneUtils;
  *     desc  : Phone工具类Demo
  * </pre>
  */
-public class PhoneActivity extends BaseActivity {
+public class PhoneActivity extends BaseDrawerActivity {
 
     @Override
     public void initData(Bundle bundle) {

@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.Config;
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseActivity;
+import com.blankj.androidutilcode.base.BaseDrawerActivity;
 import com.blankj.utilcode.util.ActivityUtils;
 
 /**
@@ -18,7 +18,7 @@ import com.blankj.utilcode.util.ActivityUtils;
  *     desc  : Activity工具类Demo
  * </pre>
  */
-public class ActivityActivity extends BaseActivity {
+public class ActivityActivity extends BaseDrawerActivity {
 
     private String imageActivityClassName;
 

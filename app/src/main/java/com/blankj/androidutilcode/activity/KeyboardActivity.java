@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseActivity;
+import com.blankj.androidutilcode.base.BaseDrawerActivity;
 import com.blankj.androidutilcode.dialog.KeyboardDialog;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
@@ -25,7 +25,7 @@ import com.blankj.utilcode.util.LogUtils;
  *     desc  : Keyboard工具类Demo
  * </pre>
  */
-public class KeyboardActivity extends BaseActivity {
+public class KeyboardActivity extends BaseDrawerActivity {
 
     TextView tvAboutKeyboard;
     EditText etInput;

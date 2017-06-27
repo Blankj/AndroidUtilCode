@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseActivity;
+import com.blankj.androidutilcode.base.BaseDrawerActivity;
 import com.blankj.utilcode.util.ProcessUtils;
 
 import java.util.Iterator;
@@ -20,7 +20,7 @@ import java.util.Set;
  *     desc  : Process工具类Demo
  * </pre>
  */
-public class ProcessActivity extends BaseActivity {
+public class ProcessActivity extends BaseDrawerActivity {
 
     private TextView tvAboutProcess;
 

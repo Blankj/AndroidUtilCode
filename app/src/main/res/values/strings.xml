@@ -36,6 +36,10 @@
     <!--Activity相关-->
     <string name="activity_start_imageActivity">Start ImageActivity</string>
 
+    <!--Bar相关-->
+    <string name="bar_set_color">Set Color</string>
+
+
     <!--App相关-->
     <string name="app_install">Install Test App</string>
     <string name="app_install_tips">Test app have installed</string>

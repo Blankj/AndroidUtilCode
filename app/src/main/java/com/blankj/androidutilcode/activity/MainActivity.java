@@ -23,8 +23,22 @@ import com.blankj.androidutilcode.base.BaseActivity;
  *     desc  : MainActivity
  * </pre>
  */
-public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity {
+
+    NavigationView.OnNavigationItemSelectedListener mListener = new NavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.action_git_hub:
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Blankj/AndroidUtilCode")));
+                    break;
+                case R.id.action_blog:
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.jianshu.com/u/46702d5c6978")));
+                    break;
+            }
+            return false;
+        }
+    };
 
     @Override
     public void initData(Bundle bundle) {
@@ -45,7 +59,7 @@ public class MainActivity extends BaseActivity
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(mListener);
     }
 
     @Override
@@ -140,18 +154,5 @@ public class MainActivity extends BaseActivity
 
     public void toastClick(View view) {
         startActivity(new Intent(this, ToastActivity.class));
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_git_hub:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Blankj/AndroidUtilCode")));
-                break;
-            case R.id.action_blog:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.jianshu.com/u/46702d5c6978")));
-                break;
-        }
-        return false;
     }
 }

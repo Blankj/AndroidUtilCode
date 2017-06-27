@@ -12,12 +12,12 @@
         android:padding="@dimen/spacing_16">
 
         <TextView
-            android:paddingTop="16dp"
             android:id="@+id/tv_about_app"
             style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:paddingTop="16dp"/>
 
         <Button
             android:id="@+id/btn_install_app"

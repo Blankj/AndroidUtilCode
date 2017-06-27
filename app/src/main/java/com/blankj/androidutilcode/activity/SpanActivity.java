@@ -21,7 +21,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseActivity;
+import com.blankj.androidutilcode.base.BaseDrawerActivity;
 import com.blankj.androidutilcode.span.BlurMaskFilterSpan;
 import com.blankj.androidutilcode.span.ForegroundAlphaColorSpan;
 import com.blankj.androidutilcode.span.ForegroundAlphaColorSpanGroup;
@@ -37,7 +37,7 @@ import com.blankj.utilcode.util.ToastUtils;
  *     desc  : Span工具类Demo
  * </pre>
  */
-public class SpanActivity extends BaseActivity {
+public class SpanActivity extends BaseDrawerActivity {
 
     SpanUtils              mSpanUtils;
     SpannableStringBuilder animSsb;

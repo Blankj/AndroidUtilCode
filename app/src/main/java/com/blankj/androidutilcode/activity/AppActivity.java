@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.Config;
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseActivity;
+import com.blankj.androidutilcode.base.BaseDrawerActivity;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.SpanUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -21,7 +21,7 @@ import com.blankj.utilcode.util.ToastUtils;
  * </pre>
  */
 
-public class AppActivity extends BaseActivity {
+public class AppActivity extends BaseDrawerActivity {
 
     @Override
     public void initData(Bundle bundle) {

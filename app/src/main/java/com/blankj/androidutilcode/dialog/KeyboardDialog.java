@@ -24,7 +24,7 @@ public class KeyboardDialog implements View.OnClickListener {
     private WeakReference<Activity> mActivityWeakReference;
 
     public KeyboardDialog(Activity activity) {
-        mActivityWeakReference = new WeakReference<Activity>(activity);
+        mActivityWeakReference = new WeakReference<>(activity);
     }
 
     private AlertDialog dialog;

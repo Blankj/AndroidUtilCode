@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseActivity;
+import com.blankj.androidutilcode.base.BaseDrawerActivity;
 import com.blankj.utilcode.util.CleanUtils;
 import com.blankj.utilcode.util.ToastUtils;
 
@@ -20,7 +20,7 @@ import java.io.File;
  *     desc  : Clean工具类Demo
  * </pre>
  */
-public class CleanActivity extends BaseActivity {
+public class CleanActivity extends BaseDrawerActivity {
 
     @Override
     public void initData(Bundle bundle) {

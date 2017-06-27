@@ -17,12 +17,18 @@
             android:layout_height="wrap_content"
             android:gravity="center"/>
 
-        <!--<Button-->
-            <!--android:id="@+id/btn_"-->
-            <!--style="@style/WideBtnStyle"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text=""/>-->
+        <SeekBar
+            android:id="@+id/sb_change_alpha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_8"/>
+
+        <Button
+            android:id="@+id/btn_set_color"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bar_set_color"/>
 
     </LinearLayout>
 </ScrollView>

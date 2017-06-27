@@ -1,30 +1,28 @@
-package com.blankj.androidutilcode.activity;
+package com.blankj.androidutilcode.base;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.FrameLayout;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseDrawerActivity;
-import com.blankj.utilcode.util.BarUtils;
+
 
 /**
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2017/05/27
- *     desc  :
+ *     time  : 2017/06/27
+ *     desc  : DrawerActivity基类
  * </pre>
  */
-public class BarActivity extends BaseDrawerActivity {
+public abstract class BaseDrawerActivity extends BaseActivity {
 
     NavigationView.OnNavigationItemSelectedListener mListener = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -41,20 +39,12 @@ public class BarActivity extends BaseDrawerActivity {
         }
     };
 
-    int alpha;
-
     @Override
-    public void initData(Bundle bundle) {
-
-    }
-
-    @Override
-    public int bindLayout() {
-        return R.layout.activity_bar;
-    }
-
-    @Override
-    public void initView(Bundle savedInstanceState, View view) {
+    public void setBaseView() {
+        contentView = LayoutInflater.from(this).inflate(R.layout.activity_drawer, null);
+        setContentView(contentView);
+        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.content_view);
+        frameLayout.addView(LayoutInflater.from(this).inflate(bindLayout(), frameLayout, false));
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -62,17 +52,6 @@ public class BarActivity extends BaseDrawerActivity {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        BarUtils.setColor(this, getResources().getColor(R.color.colorPrimary));
         navigationView.setNavigationItemSelectedListener(mListener);
-    }
-
-    @Override
-    public void doBusiness(Context context) {
-
-    }
-
-    @Override
-    public void onWidgetClick(View view) {
-
     }
 }

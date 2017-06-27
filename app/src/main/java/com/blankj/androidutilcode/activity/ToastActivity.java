@@ -7,7 +7,7 @@ import android.view.Gravity;
 import android.view.View;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseActivity;
+import com.blankj.androidutilcode.base.BaseDrawerActivity;
 import com.blankj.utilcode.util.SpanUtils;
 import com.blankj.utilcode.util.ToastUtils;
 
@@ -19,7 +19,7 @@ import com.blankj.utilcode.util.ToastUtils;
  *     desc  : Toast工具类Demo
  * </pre>
  */
-public class ToastActivity extends BaseActivity {
+public class ToastActivity extends BaseDrawerActivity {
 
     @Override
     public void initData(Bundle bundle) {
