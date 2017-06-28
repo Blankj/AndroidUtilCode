@@ -6,8 +6,6 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToPadding="true"
-    android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
     <include
@@ -20,6 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@color/white"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/activity_main_drawer"/>
 

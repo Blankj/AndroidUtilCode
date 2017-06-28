@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseDrawerActivity;
+import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.utilcode.util.DeviceUtils;
 
 /**
@@ -17,7 +17,7 @@ import com.blankj.utilcode.util.DeviceUtils;
  *     desc : Device工具类Demo
  * </pre>
  */
-public class DeviceActivity extends BaseDrawerActivity {
+public class DeviceActivity extends BaseBackActivity {
 
     @Override
     public void initData(Bundle bundle) {
@@ -31,6 +31,8 @@ public class DeviceActivity extends BaseDrawerActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        getSupportActionBar().setTitle(getString(R.string.demo_device));
+
         findViewById(R.id.btn_shutdown).setOnClickListener(this);
         findViewById(R.id.btn_reboot).setOnClickListener(this);
         findViewById(R.id.btn_reboot_to_recovery).setOnClickListener(this);

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseDrawerActivity;
+import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.utilcode.util.SnackbarUtils;
 import com.blankj.utilcode.util.SpanUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -23,7 +23,7 @@ import com.blankj.utilcode.util.ToastUtils;
  *     desc  : Snackbar工具类Demo
  * </pre>
  */
-public class SnackbarActivity extends BaseDrawerActivity {
+public class SnackbarActivity extends BaseBackActivity {
 
     private View snackBarRootView;
 
@@ -39,6 +39,8 @@ public class SnackbarActivity extends BaseDrawerActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        getSupportActionBar().setTitle(getString(R.string.demo_snackbar));
+
         snackBarRootView = findViewById(android.R.id.content);
         findViewById(R.id.btn_short_snackbar).setOnClickListener(this);
         findViewById(R.id.btn_short_snackbar_with_action).setOnClickListener(this);

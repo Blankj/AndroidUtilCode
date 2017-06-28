@@ -30,7 +30,7 @@
     <string name="demo_process">ProcessUtils Demo</string>
     <string name="demo_sdcard">SDCardUtils Demo</string>
     <string name="demo_snackbar">SnackbarUtils Demo</string>
-    <string name="demo_spannable">SpanUtils Demo</string>
+    <string name="demo_span">SpanUtils Demo</string>
     <string name="demo_toast">ToastUtils Demo</string>
 
     <!--Activity相关-->

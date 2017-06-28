@@ -3,8 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -141,11 +140,11 @@
                 android:text="@string/demo_network"/>
 
             <!--<Button-->
-                <!--style="@style/WideBtnStyle"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:onClick="permissionClick"-->
-                <!--android:text="@string/demo_permission"/>-->
+            <!--style="@style/WideBtnStyle"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:onClick="permissionClick"-->
+            <!--android:text="@string/demo_permission"/>-->
 
             <Button
                 style="@style/WideBtnStyle"
@@ -187,7 +186,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="spannableClick"
-                android:text="@string/demo_spannable"/>
+                android:text="@string/demo_span"/>
 
             <Button
                 style="@style/WideBtnStyle"

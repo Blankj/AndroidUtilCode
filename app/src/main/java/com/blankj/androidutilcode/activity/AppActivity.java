@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.Config;
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseDrawerActivity;
+import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.SpanUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -21,7 +21,7 @@ import com.blankj.utilcode.util.ToastUtils;
  * </pre>
  */
 
-public class AppActivity extends BaseDrawerActivity {
+public class AppActivity extends BaseBackActivity {
 
     @Override
     public void initData(Bundle bundle) {
@@ -35,6 +35,8 @@ public class AppActivity extends BaseDrawerActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        getSupportActionBar().setTitle(getString(R.string.demo_app));
+
         findViewById(R.id.btn_install_app).setOnClickListener(this);
         findViewById(R.id.btn_install_app_silent).setOnClickListener(this);
         findViewById(R.id.btn_uninstall_app).setOnClickListener(this);
@@ -44,12 +46,12 @@ public class AppActivity extends BaseDrawerActivity {
         TextView tvAboutApp = (TextView) findViewById(R.id.tv_about_app);
         tvAboutApp.setText(
                 new SpanUtils()
-                        .append("app icon: ").appendImage(AppUtils.getAppIcon(), SpanUtils.ALIGN_CENTER)
+                        .appendLine("app icon: ").appendImage(AppUtils.getAppIcon(), SpanUtils.ALIGN_CENTER)
                         .appendLine(AppUtils.getAppInfo().toString())
                         .appendLine("isAppRoot: " + AppUtils.isAppRoot())
                         .appendLine("isAppDebug: " + AppUtils.isAppDebug())
                         .appendLine("AppSignatureSHA1: " + AppUtils.getAppSignatureSHA1())
-                        .appendLine("isAppForeground: " + AppUtils.isAppForeground())
+                        .append("isAppForeground: " + AppUtils.isAppForeground())
                         .create());
     }
 

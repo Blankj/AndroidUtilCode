@@ -144,42 +144,36 @@ public final class EncodeUtils {
      * @return Html编码后的字符串
      */
     public static String htmlEncode(final CharSequence input) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            return Html.escapeHtml(input);
-        } else {
-            // 参照Html.escapeHtml()中代码
-            StringBuilder out = new StringBuilder();
-            for (int i = 0, len = input.length(); i < len; i++) {
-                char c = input.charAt(i);
-                if (c == '<') {
-                    out.append("&lt;");
-                } else if (c == '>') {
-                    out.append("&gt;");
-                } else if (c == '&') {
-                    out.append("&amp;");
-                } else if (c >= 0xD800 && c <= 0xDFFF) {
-                    if (c < 0xDC00 && i + 1 < len) {
-                        char d = input.charAt(i + 1);
-                        if (d >= 0xDC00 && d <= 0xDFFF) {
-                            i++;
-                            int codepoint = 0x010000 | (int) c - 0xD800 << 10 | (int) d - 0xDC00;
-                            out.append("&#").append(codepoint).append(";");
-                        }
-                    }
-                } else if (c > 0x7E || c < ' ') {
-                    out.append("&#").append((int) c).append(";");
-                } else if (c == ' ') {
-                    while (i + 1 < len && input.charAt(i + 1) == ' ') {
-                        out.append("&nbsp;");
-                        i++;
-                    }
-                    out.append(' ');
-                } else {
-                    out.append(c);
-                }
+        StringBuilder sb = new StringBuilder();
+        char c;
+        for (int i = 0, len = input.length(); i < len; i++) {
+            c = input.charAt(i);
+            switch (c) {
+                case '<':
+                    sb.append("&lt;"); //$NON-NLS-1$
+                    break;
+                case '>':
+                    sb.append("&gt;"); //$NON-NLS-1$
+                    break;
+                case '&':
+                    sb.append("&amp;"); //$NON-NLS-1$
+                    break;
+                case '\'':
+                    //http://www.w3.org/TR/xhtml1
+                    // The named character reference &apos; (the apostrophe, U+0027) was
+                    // introduced in XML 1.0 but does not appear in HTML. Authors should
+                    // therefore use &#39; instead of &apos; to work as expected in HTML 4
+                    // user agents.
+                    sb.append("&#39;"); //$NON-NLS-1$
+                    break;
+                case '"':
+                    sb.append("&quot;"); //$NON-NLS-1$
+                    break;
+                default:
+                    sb.append(c);
             }
-            return out.toString();
         }
+        return sb.toString();
     }
 
     /**

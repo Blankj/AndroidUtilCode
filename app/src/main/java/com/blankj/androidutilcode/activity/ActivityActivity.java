@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.Config;
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseDrawerActivity;
+import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.utilcode.util.ActivityUtils;
 
 /**
@@ -18,7 +18,7 @@ import com.blankj.utilcode.util.ActivityUtils;
  *     desc  : Activity工具类Demo
  * </pre>
  */
-public class ActivityActivity extends BaseDrawerActivity {
+public class ActivityActivity extends BaseBackActivity {
 
     private String imageActivityClassName;
 
@@ -32,8 +32,11 @@ public class ActivityActivity extends BaseDrawerActivity {
         return R.layout.activity_activity;
     }
 
+
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        getSupportActionBar().setTitle(getString(R.string.demo_activity));
+
         findViewById(R.id.btn_launch_image_activity).setOnClickListener(this);
         TextView tvAboutActivity = (TextView) findViewById(R.id.tv_about_activity);
         tvAboutActivity.setText("Is ImageActivity Exists: " + ActivityUtils.isActivityExists(Config.PKG, imageActivityClassName)

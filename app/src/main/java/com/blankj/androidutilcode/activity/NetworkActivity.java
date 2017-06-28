@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseDrawerActivity;
+import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.utilcode.util.NetworkUtils;
 
 /**
@@ -17,7 +17,7 @@ import com.blankj.utilcode.util.NetworkUtils;
  *     desc  : Network工具类Demo
  * </pre>
  */
-public class NetworkActivity extends BaseDrawerActivity {
+public class NetworkActivity extends BaseBackActivity {
 
     private TextView tvAboutNetwork;
 
@@ -33,6 +33,8 @@ public class NetworkActivity extends BaseDrawerActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        getSupportActionBar().setTitle(getString(R.string.demo_network));
+
         tvAboutNetwork = (TextView) findViewById(R.id.tv_about_network);
         findViewById(R.id.btn_open_wireless_settings).setOnClickListener(this);
         findViewById(R.id.btn_set_wifi_enabled).setOnClickListener(this);

@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.UtilsApp;
-import com.blankj.androidutilcode.base.BaseDrawerActivity;
+import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.utilcode.util.LogUtils;
 
 
@@ -21,7 +21,7 @@ import com.blankj.utilcode.util.LogUtils;
  * </pre>
  */
 
-public class LogActivity extends BaseDrawerActivity {
+public class LogActivity extends BaseBackActivity {
 
     private static final String TAG = "CMJ";
 
@@ -85,6 +85,8 @@ public class LogActivity extends BaseDrawerActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        getSupportActionBar().setTitle(getString(R.string.demo_log));
+
         findViewById(R.id.btn_toggle_log).setOnClickListener(this);
         findViewById(R.id.btn_toggle_console).setOnClickListener(this);
         findViewById(R.id.btn_toggle_tag).setOnClickListener(this);

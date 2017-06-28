@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseDrawerActivity;
+import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.SizeUtils;
 
@@ -20,7 +20,7 @@ import com.blankj.utilcode.util.SizeUtils;
  *     desc  : Image工具类Demo
  * </pre>
  */
-public class ImageActivity extends BaseDrawerActivity {
+public class ImageActivity extends BaseBackActivity {
 
     private ImageView ivSrc;
     private ImageView ivView2Bitmap;
@@ -37,6 +37,8 @@ public class ImageActivity extends BaseDrawerActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        getSupportActionBar().setTitle(getString(R.string.demo_image));
+
         ivSrc = (ImageView) findViewById(R.id.iv_src);
         ivView2Bitmap = (ImageView) findViewById(R.id.iv_view2Bitmap);
         ImageView ivRound = (ImageView) findViewById(R.id.iv_round);

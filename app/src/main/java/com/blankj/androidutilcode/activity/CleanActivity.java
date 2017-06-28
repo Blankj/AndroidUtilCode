@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseDrawerActivity;
+import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.utilcode.util.CleanUtils;
 import com.blankj.utilcode.util.ToastUtils;
 
@@ -20,7 +20,7 @@ import java.io.File;
  *     desc  : Clean工具类Demo
  * </pre>
  */
-public class CleanActivity extends BaseDrawerActivity {
+public class CleanActivity extends BaseBackActivity {
 
     @Override
     public void initData(Bundle bundle) {
@@ -34,6 +34,8 @@ public class CleanActivity extends BaseDrawerActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        getSupportActionBar().setTitle(getString(R.string.demo_clean));
+
         Button btnCleanInternalCache = (Button) findViewById(R.id.btn_clean_internal_cache);
         Button btnCleanInternalFiles = (Button) findViewById(R.id.btn_clean_internal_files);
         Button btnCleanInternalDbs = (Button) findViewById(R.id.btn_clean_internal_databases);

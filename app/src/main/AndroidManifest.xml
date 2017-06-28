@@ -52,6 +52,7 @@
         <activity android:name=".activity.ActivityActivity"/>
         <activity android:name=".activity.AppActivity"/>
         <activity android:name=".activity.BarActivity"/>
+        <activity android:name=".activity.BarBranchActivity"/>
         <activity android:name=".activity.CleanActivity"/>
         <activity android:name=".activity.DeviceActivity"/>
         <activity android:name=".activity.FragmentActivity"/>

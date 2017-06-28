@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseDrawerActivity;
+import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.androidutilcode.dialog.KeyboardDialog;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
@@ -25,7 +25,7 @@ import com.blankj.utilcode.util.LogUtils;
  *     desc  : Keyboard工具类Demo
  * </pre>
  */
-public class KeyboardActivity extends BaseDrawerActivity {
+public class KeyboardActivity extends BaseBackActivity {
 
     TextView tvAboutKeyboard;
     EditText etInput;
@@ -43,6 +43,7 @@ public class KeyboardActivity extends BaseDrawerActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        getSupportActionBar().setTitle(getString(R.string.demo_keyboard));
         etInput = (EditText) findViewById(R.id.et_input);
         findViewById(R.id.btn_hide_soft_input).setOnClickListener(this);
         findViewById(R.id.btn_show_soft_input).setOnClickListener(this);

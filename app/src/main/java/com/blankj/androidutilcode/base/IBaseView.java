@@ -12,7 +12,7 @@ import android.view.View;
  *     desc  :
  * </pre>
  */
-public interface IView {
+interface IBaseView {
 
     /**
      * 初始化数据

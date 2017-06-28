@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseDrawerActivity;
+import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.androidutilcode.fragment.Demo0Fragment;
 import com.blankj.utilcode.util.FragmentUtils;
 
@@ -20,7 +20,7 @@ import java.util.ArrayList;
  *     desc  : Fragment工具类Demo
  * </pre>
  */
-public class FragmentActivity extends BaseDrawerActivity {
+public class FragmentActivity extends BaseBackActivity {
 
     public Fragment rootFragment;
 
@@ -36,7 +36,7 @@ public class FragmentActivity extends BaseDrawerActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-
+        getSupportActionBar().setTitle(getString(R.string.demo_fragment));
     }
 
     @Override

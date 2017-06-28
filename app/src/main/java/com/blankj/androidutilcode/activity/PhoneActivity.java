@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseDrawerActivity;
+import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.utilcode.util.PhoneUtils;
 
 /**
@@ -17,7 +17,7 @@ import com.blankj.utilcode.util.PhoneUtils;
  *     desc  : Phone工具类Demo
  * </pre>
  */
-public class PhoneActivity extends BaseDrawerActivity {
+public class PhoneActivity extends BaseBackActivity {
 
     @Override
     public void initData(Bundle bundle) {
@@ -31,6 +31,8 @@ public class PhoneActivity extends BaseDrawerActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        getSupportActionBar().setTitle(getString(R.string.demo_phone));
+
         findViewById(R.id.btn_dial).setOnClickListener(this);
         findViewById(R.id.btn_call).setOnClickListener(this);
         findViewById(R.id.btn_send_sms).setOnClickListener(this);

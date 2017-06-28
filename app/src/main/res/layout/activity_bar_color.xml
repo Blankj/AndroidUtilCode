@@ -10,39 +10,33 @@
         android:orientation="vertical"
         android:padding="@dimen/spacing_16">
 
-        <EditText
-            android:id="@+id/et_input"
+        <TextView
+            android:id="@+id/tv_about_bar"
+            style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"/>
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_status_alpha"
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"/>
+
+        <SeekBar
+            android:id="@+id/sb_change_alpha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="255"
+            android:padding="@dimen/spacing_8"/>
 
         <Button
-            android:id="@+id/btn_hide_soft_input"
+            android:id="@+id/btn_set_color"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/keyboard_hide_soft_input"/>
-
-        <Button
-            android:id="@+id/btn_show_soft_input"
-            style="@style/WideBtnStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/keyboard_show_soft_input"/>
-
-        <Button
-            android:id="@+id/btn_toggle_soft_input"
-            style="@style/WideBtnStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/keyboard_toggle_soft_input"/>
-
-        <Button
-            android:id="@+id/btn_close_dialog"
-            style="@style/WideBtnStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/keyboard_close_dialog"/>
+            android:text="@string/bar_set_color"/>
 
     </LinearLayout>
 </ScrollView>

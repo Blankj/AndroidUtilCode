@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "com.blankj.androidutilcode"
         minSdkVersion 14
-        targetSdkVersion 16
+        targetSdkVersion 25
         versionCode 41
         versionName "1.7.1"
     }
@@ -56,6 +56,8 @@ dependencies {
     compile "com.android.support:appcompat-v7:$SUPPORT_VERSION"
     compile "com.android.support:support-v4:$SUPPORT_VERSION"
     compile "com.android.support:design:$SUPPORT_VERSION"
+
+    compile 'com.r0adkll:slidableactivity:2.0.5'
 
     // LeakCanary
     debugCompile "com.squareup.leakcanary:leakcanary-android:$LEAKCANARY_VERSION"

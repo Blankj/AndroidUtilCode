@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseDrawerActivity;
+import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.utilcode.util.ProcessUtils;
 
 import java.util.Iterator;
@@ -20,7 +20,7 @@ import java.util.Set;
  *     desc  : Process工具类Demo
  * </pre>
  */
-public class ProcessActivity extends BaseDrawerActivity {
+public class ProcessActivity extends BaseBackActivity {
 
     private TextView tvAboutProcess;
 
@@ -36,6 +36,8 @@ public class ProcessActivity extends BaseDrawerActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        getSupportActionBar().setTitle(getString(R.string.demo_process));
+
         findViewById(R.id.btn_kill_all_background_processes).setOnClickListener(this);
         tvAboutProcess = (TextView) findViewById(R.id.tv_about_process);
         Set<String> set = ProcessUtils.getAllBackgroundProcesses();

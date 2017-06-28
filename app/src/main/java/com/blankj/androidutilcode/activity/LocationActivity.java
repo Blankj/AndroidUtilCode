@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseDrawerActivity;
+import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.androidutilcode.service.LocationService;
 
 /**
@@ -21,7 +21,7 @@ import com.blankj.androidutilcode.service.LocationService;
  *     desc  : Location工具类Demo
  * </pre>
  */
-public class LocationActivity extends BaseDrawerActivity {
+public class LocationActivity extends BaseBackActivity {
 
     TextView        tvAboutLocation;
     LocationService mLocationService;
@@ -38,6 +38,8 @@ public class LocationActivity extends BaseDrawerActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        getSupportActionBar().setTitle(getString(R.string.demo_location));
+
         tvAboutLocation = (TextView) findViewById(R.id.tv_about_location);
         tvAboutLocation.setText("lastLatitude: unknown"
                 + "\nlastLongitude: unknown"

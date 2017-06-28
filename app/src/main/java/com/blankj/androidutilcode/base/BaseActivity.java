@@ -1,5 +1,6 @@
 package com.blankj.androidutilcode.base;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -14,7 +15,7 @@ import android.view.View;
  * </pre>
  */
 public abstract class BaseActivity extends AppCompatActivity
-        implements IView, View.OnClickListener {
+        implements IBaseView, View.OnClickListener {
 
     /**
      * 当前Activity渲染的视图View
@@ -36,6 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity
         setBaseView();
         initView(savedInstanceState, contentView);
         doBusiness(this);
+        contentView.setBackgroundColor(Color.WHITE);
     }
 
     protected void setBaseView() {

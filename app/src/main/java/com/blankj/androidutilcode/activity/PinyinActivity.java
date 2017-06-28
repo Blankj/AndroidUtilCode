@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseDrawerActivity;
+import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.utilcode.util.PinyinUtils;
 
 /**
@@ -17,7 +17,7 @@ import com.blankj.utilcode.util.PinyinUtils;
  *     desc  : Pinyin工具类Demo
  * </pre>
  */
-public class PinyinActivity extends BaseDrawerActivity {
+public class PinyinActivity extends BaseBackActivity {
 
     @Override
     public void initData(Bundle bundle) {
@@ -31,6 +31,8 @@ public class PinyinActivity extends BaseDrawerActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        getSupportActionBar().setTitle(getString(R.string.demo_pinyin));
+
         TextView tvAboutPinyin = (TextView) findViewById(R.id.tv_about_pinyin);
         tvAboutPinyin.setText("测试拼音工具类"
                 + "\n转拼音: " + PinyinUtils.ccs2Pinyin("测试拼音工具类", " ")

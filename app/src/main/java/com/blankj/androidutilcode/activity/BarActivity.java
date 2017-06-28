@@ -1,17 +1,12 @@
 package com.blankj.androidutilcode.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.widget.SeekBar;
-import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseDrawerActivity;
-import com.blankj.utilcode.util.BarUtils;
-
-import java.util.Random;
+import com.blankj.androidutilcode.base.BaseBackActivity;
 
 /**
  * <pre>
@@ -21,18 +16,11 @@ import java.util.Random;
  *     desc  :
  * </pre>
  */
-public class BarActivity extends BaseDrawerActivity {
-
-    private int      mColor;
-    private int      mAlpha;
-    private Random   mRandom;
-    private TextView mTvStatusAlpha;
+public class BarActivity extends BaseBackActivity {
 
     @Override
     public void initData(Bundle bundle) {
-        mRandom = new Random();
-        mColor = ContextCompat.getColor(this, R.color.colorPrimary);
-        mAlpha = 112;
+
     }
 
     @Override
@@ -42,30 +30,9 @@ public class BarActivity extends BaseDrawerActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        findViewById(R.id.btn_set_color).setOnClickListener(this);
-        mTvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
-        SeekBar sbChangeAlpha = (SeekBar) findViewById(R.id.sb_change_alpha);
+        getSupportActionBar().setTitle(getString(R.string.demo_bar));
 
-        sbChangeAlpha.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mAlpha = progress;
-                BarUtils.setColor(BarActivity.this, mColor, mAlpha);
-                mTvStatusAlpha.setText(String.valueOf(mAlpha));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-        sbChangeAlpha.setProgress(mAlpha);
-        updateStatusBar();
+        findViewById(R.id.btn_bar_color).setOnClickListener(this);
     }
 
     @Override
@@ -76,15 +43,11 @@ public class BarActivity extends BaseDrawerActivity {
     @Override
     public void onWidgetClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_set_color:
-                mColor = 0xff000000 | mRandom.nextInt(0xffffff);
-                updateStatusBar();
+            case R.id.btn_bar_color:
+                Intent intent = new Intent(this, BarBranchActivity.class);
+                intent.putExtra("branch", BarBranchActivity.BRANCH_BAR_COLOR);
+                startActivity(intent);
                 break;
         }
-    }
-
-    private void updateStatusBar() {
-        mToolbar.setBackgroundColor(mColor);
-        BarUtils.setColor(this, mColor, mAlpha);
     }
 }
