@@ -684,7 +684,7 @@ Utils.init(context);
 ```
 
 
-[logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/raw/logo.png
+[logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
 [aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.7.1-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
