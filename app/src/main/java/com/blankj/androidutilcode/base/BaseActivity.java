@@ -37,6 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity
         setBaseView();
         initView(savedInstanceState, contentView);
         doBusiness(this);
+
         contentView.setBackgroundColor(Color.WHITE);
     }
 

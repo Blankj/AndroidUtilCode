@@ -18,7 +18,7 @@ import java.util.Random;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/05/27
- *     desc  :
+ *     desc  : Bar工具类Demo分支
  * </pre>
  */
 public class BarBranchActivity extends BaseBackActivity

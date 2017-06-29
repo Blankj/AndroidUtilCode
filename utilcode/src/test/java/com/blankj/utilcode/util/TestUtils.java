@@ -39,13 +39,13 @@ public class TestUtils {
         Utils.init(RuntimeEnvironment.application);
     }
 
-    //    @Test
+//    @Test
     public void readme2Eng() throws Exception {
         formatCN();
         File readmeCN = new File(new File(System.getProperty("user.dir")).getAbsolutePath() + FILE_SEP + "README-CN.md");
         File readmeEng = new File(new File(System.getProperty("user.dir")).getAbsolutePath() + FILE_SEP + "README.md");
         List<String> list = FileIOUtils.readFile2List(readmeCN, "UTF-8");
-        StringBuilder sb = new StringBuilder("# :fire: Android developers should collect the following utils" + LINE_SEP + LINE_SEP +
+        StringBuilder sb = new StringBuilder("![logo][logo]" + LINE_SEP + LINE_SEP +
                 "[![auc][aucsvg]][auc] [![api][apisvg]][api] [![build][buildsvg]][build] [![Insight][insightsvg]][insight] [![License][licensesvg]][license]" + LINE_SEP + LINE_SEP +
                 "## [README of Chinese][readme-cn.md]" + LINE_SEP + LINE_SEP +
                 "## API" + LINE_SEP + LINE_SEP);

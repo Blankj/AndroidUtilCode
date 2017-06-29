@@ -1,4 +1,4 @@
-# :fire: Android developers should collect the following utils
+![logo][logo]
 
 [![auc][aucsvg]][auc] [![api][apisvg]][api] [![build][buildsvg]][build] [![Insight][insightsvg]][insight] [![License][licensesvg]][license]
 
@@ -684,6 +684,7 @@ Utils.init(context);
 ```
 
 
+[logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/raw/logo.png
 
 [aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.7.1-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
