@@ -1,3 +1,4 @@
+* 17/07/01 完善BarUtils的Demo
 * 17/06/30 完善BarUtils的Demo
 * 17/06/29 README新增logo
 * 17/06/28 增加返回键及右划返回

@@ -43,6 +43,8 @@ cleanAppData         : 清除App所有数据
 
 * ### 栏相关→[BarUtils.java][bar.java]
 ```
+setStatusBarColor      : 设置状态栏颜色
+setStatusBarAlpha      : 设置状态栏透明度
 setTransparentStatusBar: 设置透明状态栏（api大于19方可使用）
 hideStatusBar          : 隐藏状态栏
 getStatusBarHeight     : 获取状态栏高度

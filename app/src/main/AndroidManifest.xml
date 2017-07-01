@@ -52,7 +52,6 @@
         <activity android:name=".activity.ActivityActivity"/>
         <activity android:name=".activity.AppActivity"/>
         <activity android:name=".activity.BarActivity"/>
-        <activity android:name=".activity.BarBranchActivity"/>
         <activity android:name=".activity.CleanActivity"/>
         <activity android:name=".activity.DeviceActivity"/>
         <activity android:name=".activity.FragmentActivity"/>
@@ -77,6 +76,10 @@
         <activity android:name=".activity.SDCardActivity"/>
         <activity android:name=".activity.SnackbarActivity"/>
         <activity android:name=".activity.SpanActivity"/>
+        <activity android:name=".activity.StatusBarAlphaActivity"/>
+        <activity android:name=".activity.StatusBarColorActivity"/>
+        <activity android:name=".activity.StatusBarFragmentActivity"/>
+        <activity android:name=".activity.StatusBarImageViewActivity"/>
         <activity android:name=".activity.ToastActivity"/>
 
         <service android:name=".service.LocationService"/>

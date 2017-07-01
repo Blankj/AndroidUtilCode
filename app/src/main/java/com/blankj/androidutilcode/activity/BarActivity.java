@@ -32,7 +32,10 @@ public class BarActivity extends BaseBackActivity {
     public void initView(Bundle savedInstanceState, View view) {
         getSupportActionBar().setTitle(getString(R.string.demo_bar));
 
-        findViewById(R.id.btn_bar_color).setOnClickListener(this);
+        findViewById(R.id.btn_status_bar_color).setOnClickListener(this);
+        findViewById(R.id.btn_status_bar_alpha).setOnClickListener(this);
+        findViewById(R.id.btn_status_bar_image_view).setOnClickListener(this);
+        findViewById(R.id.btn_status_bar_fragment).setOnClickListener(this);
     }
 
     @Override
@@ -43,10 +46,17 @@ public class BarActivity extends BaseBackActivity {
     @Override
     public void onWidgetClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_bar_color:
-                Intent intent = new Intent(this, BarBranchActivity.class);
-                intent.putExtra("branch", BarBranchActivity.BRANCH_BAR_COLOR);
-                startActivity(intent);
+            case R.id.btn_status_bar_color:
+                startActivity(new Intent(this, StatusBarColorActivity.class));
+                break;
+            case R.id.btn_status_bar_alpha:
+                startActivity(new Intent(this, StatusBarAlphaActivity.class));
+                break;
+            case R.id.btn_status_bar_image_view:
+                startActivity(new Intent(this, StatusBarImageViewActivity.class));
+                break;
+            case R.id.btn_status_bar_fragment:
+                startActivity(new Intent(this, StatusBarFragmentActivity.class));
                 break;
         }
     }

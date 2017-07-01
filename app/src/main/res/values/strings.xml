@@ -36,10 +36,6 @@
     <!--Activity相关-->
     <string name="activity_start_imageActivity">Start ImageActivity</string>
 
-    <!--Bar相关-->
-    <string name="bar_set_color">Set Color</string>
-
-
     <!--App相关-->
     <string name="app_install">Install Test App</string>
     <string name="app_install_tips">Test app have installed</string>
@@ -54,6 +50,16 @@
     <string name="app_launch">Launch App</string>
     <string name="app_get_details_settings">Get App Details Settings</string>
 
+    <!--Bar相关-->
+    <string name="status_bar_set_color">Set Color</string>
+    <string name="status_bar_set_alpha">Set Alpha</string>
+    <string name="status_bar_set_image_view">Set Image View</string>
+    <string name="status_bar_set_fragment">Set Fragment</string>
+    <string name="status_bar_random_color">Random Color</string>
+    <string name="status_bar_set_transparent">Set Transparent</string>
+    <string name="bar_title_color">Color</string>
+    <string name="bar_title_alpha">Alpha</string>
+    <string name="bar_title_image_view">Image</string>
 
     <!--Device相关-->
     <string name="device_shutdown">Shutdown</string>

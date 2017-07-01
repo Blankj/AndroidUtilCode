@@ -1,6 +1,5 @@
 package com.blankj.androidutilcode.base;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -37,8 +36,6 @@ public abstract class BaseActivity extends AppCompatActivity
         setBaseView();
         initView(savedInstanceState, contentView);
         doBusiness(this);
-
-        contentView.setBackgroundColor(Color.WHITE);
     }
 
     protected void setBaseView() {

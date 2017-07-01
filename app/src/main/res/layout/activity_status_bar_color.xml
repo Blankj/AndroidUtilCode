@@ -11,13 +11,6 @@
         android:padding="@dimen/spacing_16">
 
         <TextView
-            android:id="@+id/tv_about_bar"
-            style="@style/TextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"/>
-
-        <TextView
             android:id="@+id/tv_status_alpha"
             style="@style/TextStyle"
             android:layout_width="wrap_content"
@@ -32,11 +25,18 @@
             android:padding="@dimen/spacing_8"/>
 
         <Button
-            android:id="@+id/btn_set_color"
+            android:id="@+id/btn_random_color"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/bar_set_color"/>
+            android:text="@string/status_bar_random_color"/>
+
+        <Button
+            android:id="@+id/btn_set_transparent"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/status_bar_set_transparent"/>
 
     </LinearLayout>
 </ScrollView>
