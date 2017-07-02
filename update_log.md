@@ -1,3 +1,4 @@
+* 17/07/02 完善BarUtils的Demo
 * 17/07/01 完善BarUtils的Demo
 * 17/06/30 完善BarUtils的Demo
 * 17/06/29 README新增logo
