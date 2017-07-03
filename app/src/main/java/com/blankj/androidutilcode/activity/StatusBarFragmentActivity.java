@@ -83,7 +83,7 @@ public class StatusBarFragmentActivity extends BaseActivity {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        BarUtils.setTranslucentForImageViewInFragment(StatusBarFragmentActivity.this, null);
+        BarUtils.setStatusBar4ImageViewInFragment(StatusBarFragmentActivity.this, null);
     }
 
     @Override

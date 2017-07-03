@@ -529,11 +529,10 @@ public final class FragmentUtils {
                 Fragment fragmentByTag = fragmentManager.findFragmentByTag(name);
                 if (fragmentByTag != null) {
                     destFragment = fragmentByTag;
-                } else {
-                    ft.add(args.getInt(ARGS_ID), destFragment, name);
-                    if (args.getBoolean(ARGS_IS_HIDE)) ft.hide(destFragment);
-                    if (args.getBoolean(ARGS_IS_ADD_STACK)) ft.addToBackStack(name);
                 }
+                ft.add(args.getInt(ARGS_ID), destFragment, name);
+                if (args.getBoolean(ARGS_IS_HIDE)) ft.hide(destFragment);
+                if (args.getBoolean(ARGS_IS_ADD_STACK)) ft.addToBackStack(name);
                 break;
             case TYPE_REMOVE_FRAGMENT:
                 ft.remove(destFragment);
