@@ -11,6 +11,7 @@ import android.graphics.Matrix;
 import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.Layout;
 import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
@@ -96,6 +97,8 @@ public class SpanActivity extends BaseBackActivity {
 
         // 响应点击事件的话必须设置以下属性
         tvAboutSpan.setMovementMethod(LinkMovementMethod.getInstance());
+        // 去掉点击事件后的高亮
+        tvAboutSpan.setHighlightColor(ContextCompat.getColor(this, android.R.color.transparent));
         lineHeight = tvAboutSpan.getLineHeight();
         textSize = tvAboutSpan.getTextSize();
         density = getResources().getDisplayMetrics().density;

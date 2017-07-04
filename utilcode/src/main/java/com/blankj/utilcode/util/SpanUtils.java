@@ -1533,10 +1533,7 @@ public final class SpanUtils {
                 }
             }
             canvas.translate(x, transY);
-            float v = paint.measureText(text, start, end);
-
             d.draw(canvas);
-            paint.measureText(text, start, end);
             canvas.restore();
         }
 
