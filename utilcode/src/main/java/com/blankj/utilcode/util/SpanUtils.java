@@ -1034,9 +1034,7 @@ public final class SpanUtils {
 
         @Override
         public void chooseHeight(final CharSequence text, final int start, final int end, final int spanstartv, final int v, final Paint.FontMetricsInt fm) {
-            int ht = height;
-
-            int need = ht - (v + fm.descent - fm.ascent - spanstartv);
+            int need = height - (v + fm.descent - fm.ascent - spanstartv);
             if (need > 0) {
                 if (mVerticalAlignment == ALIGN_TOP) {
                     fm.descent += need;
@@ -1047,7 +1045,7 @@ public final class SpanUtils {
                     fm.ascent -= need;
                 }
             }
-            need = ht - (v + fm.bottom - fm.top - spanstartv);
+            need = height - (v + fm.bottom - fm.top - spanstartv);
             if (need > 0) {
                 if (mVerticalAlignment == ALIGN_TOP) {
                     fm.top += need;
