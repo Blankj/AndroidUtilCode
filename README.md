@@ -321,6 +321,7 @@ clickBlankArea2HideSoftInput
 
 * ### About Location→[LocationUtils.java][location.java]→[Demo][location.demo]
 ```
+getLocation
 isGpsEnabled
 isLocationEnabled
 openGpsSettings
