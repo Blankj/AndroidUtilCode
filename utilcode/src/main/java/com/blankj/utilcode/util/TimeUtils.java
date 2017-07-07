@@ -499,6 +499,20 @@ public final class TimeUtils {
     }
 
     /**
+     * 获取当天零点的时间戳
+     *
+     * @return 毫秒时间戳
+     */
+    public static long getTimeTodayZero() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTimeInMillis();
+    }
+
+    /**
      * 获取与当前时间的差（单位：unit）
      * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
      *
@@ -740,7 +754,7 @@ public final class TimeUtils {
             return String.format(Locale.getDefault(), "%d分钟前", span / TimeConstants.MIN);
         }
         // 获取当天00:00
-        long wee = (now / TimeConstants.DAY) * TimeConstants.DAY - 8 * TimeConstants.HOUR;
+        long wee = getTimeTodayZero();
         if (millis >= wee) {
             return String.format("今天%tR", millis);
         } else if (millis >= wee - TimeConstants.DAY) {
@@ -1146,7 +1160,7 @@ public final class TimeUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isToday(final long millis) {
-        long wee = (System.currentTimeMillis() / TimeConstants.DAY) * TimeConstants.DAY - 8 * TimeConstants.HOUR;
+        long wee = getTimeTodayZero();
         return millis >= wee && millis < wee + TimeConstants.DAY;
     }
 
@@ -1524,8 +1538,8 @@ public final class TimeUtils {
         return CHINESE_ZODIAC[year % 12];
     }
 
-    private static final String[] ZODIAC       = {"水瓶座", "双鱼座", "白羊座", "金牛座", "双子座", "巨蟹座", "狮子座", "处女座", "天秤座", "天蝎座", "射手座", "魔羯座"};
-    private static final int[]    ZODIAC_FLAGS = {20, 19, 21, 21, 21, 22, 23, 23, 23, 24, 23, 22};
+    private static final String[] ZODIAC = {"水瓶座", "双鱼座", "白羊座", "金牛座", "双子座", "巨蟹座", "狮子座", "处女座", "天秤座", "天蝎座", "射手座", "魔羯座"};
+    private static final int[] ZODIAC_FLAGS = {20, 19, 21, 21, 21, 22, 23, 23, 23, 24, 23, 22};
 
     /**
      * 获取星座
