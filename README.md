@@ -43,6 +43,8 @@ cleanAppData
 
 * ### About Bar→[BarUtils.java][bar.java]
 ```
+setStatusBarColor
+setStatusBarAlpha
 setTransparentStatusBar
 hideStatusBar
 getStatusBarHeight
@@ -317,21 +319,6 @@ showSoftInput
 hideSoftInput
 toggleSoftInput
 clickBlankArea2HideSoftInput
-```
-
-* ### About Location→[LocationUtils.java][location.java]→[Demo][location.demo]
-```
-isGpsEnabled
-isLocationEnabled
-openGpsSettings
-register
-unregister
-getAddress
-getCountryName
-getLocality
-getStreet
-isBetterLocation
-isSameProvider
 ```
 
 * ### About Log→[LogUtils.java][log.java]→[Demo][log.demo]
@@ -770,9 +757,6 @@ Utils.init(context);
 
 [keyboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/KeyboardUtils.java
 [keyboard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/KeyboardActivity.java
-
-[location.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/LocationUtils.java
-[location.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/LocationActivity.java
 
 [log.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/LogUtils.java
 [log.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/LogActivity.java

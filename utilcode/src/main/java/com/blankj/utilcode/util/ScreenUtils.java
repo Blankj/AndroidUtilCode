@@ -10,7 +10,6 @@ import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.view.Surface;
 import android.view.View;
-import android.view.WindowManager;
 
 /**
  * <pre>
@@ -32,10 +31,7 @@ public final class ScreenUtils {
      * @return 屏幕宽px
      */
     public static int getScreenWidth() {
-        WindowManager windowManager = (WindowManager) Utils.getContext().getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics dm = new DisplayMetrics();// 创建了一张白纸
-        windowManager.getDefaultDisplay().getMetrics(dm);// 给白纸设置宽高
-        return dm.widthPixels;
+        return Utils.getContext().getResources().getDisplayMetrics().widthPixels;
     }
 
     /**
@@ -44,10 +40,7 @@ public final class ScreenUtils {
      * @return 屏幕高px
      */
     public static int getScreenHeight() {
-        WindowManager windowManager = (WindowManager) Utils.getContext().getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics dm = new DisplayMetrics();// 创建了一张白纸
-        windowManager.getDefaultDisplay().getMetrics(dm);// 给白纸设置宽高
-        return dm.heightPixels;
+        return Utils.getContext().getResources().getDisplayMetrics().heightPixels;
     }
 
     /**

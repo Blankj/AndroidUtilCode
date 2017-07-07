@@ -499,20 +499,6 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取当天零点的时间戳
-     *
-     * @return 毫秒时间戳
-     */
-    public static long getTimeTodayZero() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-        return cal.getTimeInMillis();
-    }
-
-    /**
      * 获取与当前时间的差（单位：unit）
      * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
      *
@@ -754,7 +740,7 @@ public final class TimeUtils {
             return String.format(Locale.getDefault(), "%d分钟前", span / TimeConstants.MIN);
         }
         // 获取当天00:00
-        long wee = getTimeTodayZero();
+        long wee = getWeeOfToday();
         if (millis >= wee) {
             return String.format("今天%tR", millis);
         } else if (millis >= wee - TimeConstants.DAY) {
@@ -762,6 +748,15 @@ public final class TimeUtils {
         } else {
             return String.format("%tF", millis);
         }
+    }
+
+    private static long getWeeOfToday() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTimeInMillis();
     }
 
     /**
@@ -1160,7 +1155,7 @@ public final class TimeUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isToday(final long millis) {
-        long wee = getTimeTodayZero();
+        long wee = getWeeOfToday();
         return millis >= wee && millis < wee + TimeConstants.DAY;
     }
 

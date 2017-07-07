@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import java.lang.reflect.Method;
 import java.net.InetAddress;
@@ -45,14 +46,9 @@ public final class NetworkUtils {
 
     /**
      * 打开网络设置界面
-     * <p>3.0以下打开设置界面</p>
      */
     public static void openWirelessSettings() {
-        if (android.os.Build.VERSION.SDK_INT > 10) {
-            Utils.getContext().startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        } else {
-            Utils.getContext().startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        }
+        Utils.getContext().startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     /**
@@ -86,10 +82,10 @@ public final class NetworkUtils {
         ShellUtils.CommandResult result = ShellUtils.execCmd("ping -c 1 -w 1 223.5.5.5", false);
         boolean ret = result.result == 0;
         if (result.errorMsg != null) {
-            LogUtils.d("isAvailableByPing errorMsg", result.errorMsg);
+            Log.d("NetworkUtils", "isAvailableByPing() called" + result.errorMsg);
         }
         if (result.successMsg != null) {
-            LogUtils.d("isAvailableByPing successMsg", result.successMsg);
+            Log.d("NetworkUtils", "isAvailableByPing() called" + result.successMsg);
         }
         return ret;
     }
@@ -208,9 +204,9 @@ public final class NetworkUtils {
         return tm != null ? tm.getNetworkOperatorName() : null;
     }
 
-    private static final int NETWORK_TYPE_GSM      = 16;
+    private static final int NETWORK_TYPE_GSM = 16;
     private static final int NETWORK_TYPE_TD_SCDMA = 17;
-    private static final int NETWORK_TYPE_IWLAN    = 18;
+    private static final int NETWORK_TYPE_IWLAN = 18;
 
     /**
      * 获取当前网络类型
@@ -324,25 +320,13 @@ public final class NetworkUtils {
      * @return ip地址
      */
     public static String getDomainAddress(final String domain) {
+        InetAddress inetAddress;
         try {
-            ExecutorService exec = Executors.newCachedThreadPool();
-            Future<String> fs = exec.submit(new Callable<String>() {
-                @Override
-                public String call() throws Exception {
-                    InetAddress inetAddress;
-                    try {
-                        inetAddress = InetAddress.getByName(domain);
-                        return inetAddress.getHostAddress();
-                    } catch (UnknownHostException e) {
-                        e.printStackTrace();
-                    }
-                    return null;
-                }
-            });
-            return fs.get();
-        } catch (InterruptedException | ExecutionException e) {
+            inetAddress = InetAddress.getByName(domain);
+            return inetAddress.getHostAddress();
+        } catch (UnknownHostException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 }

@@ -74,7 +74,7 @@ public class NetworkActivity extends BaseBackActivity {
                 + "\ngetNetworkOperatorName: " + NetworkUtils.getNetworkOperatorName()
                 + "\ngetNetworkTypeName: " + NetworkUtils.getNetworkType()
                 + "\ngetIPAddress: " + NetworkUtils.getIPAddress(true)
-                + "\ngetDomainAddress: " + NetworkUtils.getDomainAddress("baidu.com")
+//                + "\ngetDomainAddress: " + NetworkUtils.getDomainAddress("baidu.com")
         );
     }
 }

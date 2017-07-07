@@ -112,10 +112,6 @@ public class MainActivity extends BaseActivity {
         startActivity(new Intent(this, KeyboardActivity.class));
     }
 
-    public void locationClick(View view) {
-        startActivity(new Intent(this, LocationActivity.class));
-    }
-
     public void logClick(View view) {
         startActivity(new Intent(this, LogActivity.class));
     }

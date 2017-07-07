@@ -321,21 +321,6 @@ toggleSoftInput             : 切换键盘显示与否状态
 clickBlankArea2HideSoftInput: 点击屏幕空白区域隐藏软键盘
 ```
 
-* ### 定位相关→[LocationUtils.java][location.java]→[Demo][location.demo]
-```
-isGpsEnabled     : 判断Gps是否可用
-isLocationEnabled: 判断定位是否可用
-openGpsSettings  : 打开Gps设置界面
-register         : 注册
-unregister       : 注销
-getAddress       : 根据经纬度获取地理位置
-getCountryName   : 根据经纬度获取所在国家
-getLocality      : 根据经纬度获取所在地
-getStreet        : 根据经纬度获取所在街道
-isBetterLocation : 是否更好的位置
-isSameProvider   : 是否相同的提供者
-```
-
 * ### 日志相关→[LogUtils.java][log.java]→[Demo][log.demo]
 ```
 Builder.setLogSwitch     : 设置log总开关
@@ -772,9 +757,6 @@ Utils.init(context);
 
 [keyboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/KeyboardUtils.java
 [keyboard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/KeyboardActivity.java
-
-[location.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/LocationUtils.java
-[location.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/LocationActivity.java
 
 [log.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/LogUtils.java
 [log.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/LogActivity.java
