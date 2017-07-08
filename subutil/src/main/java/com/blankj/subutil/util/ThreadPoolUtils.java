@@ -1,4 +1,4 @@
-package com.blankj.utilcode.util;
+package com.blankj.subutil.util;
 
 import android.support.annotation.IntDef;
 
