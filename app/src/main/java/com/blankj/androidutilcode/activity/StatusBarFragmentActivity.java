@@ -15,7 +15,6 @@ import com.blankj.androidutilcode.base.BaseActivity;
 import com.blankj.androidutilcode.fragment.StatusBarAlphaFragment;
 import com.blankj.androidutilcode.fragment.StatusBarColorFragment;
 import com.blankj.androidutilcode.fragment.StatusBarImageViewFragment;
-import com.blankj.utilcode.util.BarUtils;
 
 import java.util.ArrayList;
 
@@ -29,9 +28,10 @@ import java.util.ArrayList;
  */
 public class StatusBarFragmentActivity extends BaseActivity {
 
-    private ViewPager            mVpHome;
+    private ViewPager mVpHome;
     private BottomNavigationView navigation;
     private ArrayList<Fragment> mFragmentList = new ArrayList<>();
+    private int[] itemIds = new int[]{R.id.navigation_color, R.id.navigation_alpha, R.id.navigation_image_view};
 
     @Override
     public void initData(Bundle bundle) {
@@ -72,7 +72,7 @@ public class StatusBarFragmentActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                navigation.setSelectedItemId(position);
+                navigation.setSelectedItemId(itemIds[position]);
             }
 
             @Override
@@ -82,8 +82,6 @@ public class StatusBarFragmentActivity extends BaseActivity {
         });
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        BarUtils.setStatusBar4ImageViewInFragment(StatusBarFragmentActivity.this, null);
     }
 
     @Override

@@ -38,10 +38,10 @@ public final class BarUtils {
     // status bar
     ///////////////////////////////////////////////////////////////////////////
 
-    private static final int    DEFAULT_STATUS_BAR_ALPHA = 112;
+    private static final int DEFAULT_STATUS_BAR_ALPHA = 112;
     private static final String FAKE_STATUS_BAR_VIEW_TAG = "FAKE_STATUS_BAR_VIEW_TAG";
-    private static final String FAKE_TOP_VIEW_TAG        = "FAKE_TOP_VIEW_TAG";
-    private static final int    TAG_KEY_HAVE_SET_OFFSET  = -123;
+    private static final String FAKE_TOP_VIEW_TAG = "FAKE_TOP_VIEW_TAG";
+    private static final int TAG_KEY_HAVE_SET_OFFSET = -123;
 
     private BarUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -265,7 +265,7 @@ public final class BarUtils {
             if (fakeStatusBarView != null) {
                 decorView.removeView(fakeStatusBarView);
                 ViewGroup rootView = (ViewGroup) ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0);
-                rootView.setPadding(0, 0, 0, 0);
+                rootView.setPadding(rootView.getPaddingLeft(), 0, rootView.getPaddingRight(), rootView.getPaddingBottom());
             }
         }
     }

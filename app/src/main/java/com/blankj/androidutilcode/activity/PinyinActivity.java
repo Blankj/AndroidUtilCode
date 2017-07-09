@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseBackActivity;
-import com.blankj.utilcode.util.PinyinUtils;
+import com.blankj.subutil.util.PinyinUtils;
 
 /**
  * <pre>
