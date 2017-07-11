@@ -380,16 +380,6 @@ getContactNum      : 打开手机联系人界面点击联系人后便获取该�
 getAllSMS          : 获取手机短信并保存到xml中
 ```
 
-* ### 拼音相关→[PinyinUtils.java][pinyin.java]→[Test][pinyin.test]
-```
-ccs2Pinyin           : 汉字转拼音
-ccs2Pinyin           : 汉字转拼音
-getPinyinFirstLetter : 获取第一个汉字首字母
-getPinyinFirstLetters: 获取所有汉字的首字母
-getSurnamePinyin     : 根据名字获取姓氏的拼音
-getSurnameFirstLetter: 根据名字获取姓氏的首字母
-```
-
 * ### 进程相关→[ProcessUtils.java][process.java]→[Demo][process.demo]
 ```
 getForegroundProcessName  : 获取前台线程包名
@@ -550,25 +540,6 @@ lowerFirstLetter: 首字母小写
 reverse         : 反转字符串
 toDBC           : 转化为半角字符
 toSBC           : 转化为全角字符
-```
-
-* ### 线程池相关→[ThreadPoolUtils.java][thread_pool.java]
-```
-ThreadPoolUtils       : ThreadPoolUtils构造函数
-execute               : 在未来某个时间执行给定的命令
-execute               : 在未来某个时间执行给定的命令链表
-shutDown              : 待以前提交的任务执行完毕后关闭线程池
-shutDownNow           : 试图停止所有正在执行的活动任务
-isShutDown            : 判断线程池是否已关闭
-isTerminated          : 关闭线程池后判断所有任务是否都已完成
-awaitTermination      : 请求关闭、发生超时或者当前线程中断
-submit                : 提交一个Callable任务用于执行
-submit                : 提交一个Runnable任务用于执行
-invokeAll, invokeAny  : 执行给定的任务
-schedule              : 延迟执行Runnable命令
-schedule              : 延迟执行Callable命令
-scheduleWithFixedRate : 延迟并循环执行命令
-scheduleWithFixedDelay: 延迟并以固定休息时间循环执行命令
 ```
 
 * ### 时间相关→[TimeUtils.java][time.java]→[Test][time.test]
@@ -767,9 +738,6 @@ Utils.init(context);
 [phone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/PhoneUtils.java
 [phone.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/PhoneActivity.java
 
-[pinyin.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/PinyinUtils.java
-[pinyin.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/PinyinUtilsTest.java
-
 [process.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ProcessUtils.java
 [process.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/ProcessActivity.java
 
@@ -798,8 +766,6 @@ Utils.init(context);
 
 [string.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/StringUtils.java
 [string.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/StringUtilsTest.java
-
-[thread_pool.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ThreadPoolUtils.java
 
 [time.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/TimeUtils.java
 [time.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/TimeUtilsTest.java

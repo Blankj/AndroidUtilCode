@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -81,7 +82,7 @@ public final class ProcessUtils {
                     e.printStackTrace();
                 }
             } else {
-                LogUtils.d("getForegroundApp", "无\"有权查看使用权限的应用\"选项");
+                Log.d("ProcessUtils", "getForegroundProcessName() called" + ": 无\"有权查看使用权限的应用\"选项");
             }
         }
         return null;

@@ -1,4 +1,4 @@
-package com.blankj.utilcode.util;
+package com.blankj.subutil.util;
 
 import org.junit.Test;
 
@@ -6,12 +6,11 @@ import org.junit.Test;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 16/11/16
- *     desc  : PinyinUtils单元测试
+ *     time  : 2017/07/11
+ *     desc  :
  * </pre>
  */
 public class PinyinUtilsTest {
-
     static {
         PinyinUtils.ccs2Pinyin("");
     }

@@ -1,3 +1,5 @@
+* 17/07/11 将不常用的工具类放在subutil中
+* 17/07/10 新增subutil库
 * 17/07/07 修复TimeUtils中获取当天零点的bug
 * 17/07/02 完善BarUtils的Demo
 * 17/07/01 完善BarUtils的Demo
