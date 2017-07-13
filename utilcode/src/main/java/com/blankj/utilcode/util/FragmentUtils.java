@@ -894,7 +894,7 @@ public final class FragmentUtils {
         }
     }
 
-    static class FragmentNode {
+    public static class FragmentNode {
         Fragment           fragment;
         List<FragmentNode> next;
 
