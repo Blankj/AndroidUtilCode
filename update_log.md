@@ -1,3 +1,4 @@
+* 17/07/14 将FragmentUtils的FragmentNode置为public
 * 17/07/11 将不常用的工具类放在subutil中
 * 17/07/10 新增subutil库
 * 17/07/07 修复TimeUtils中获取当天零点的bug
