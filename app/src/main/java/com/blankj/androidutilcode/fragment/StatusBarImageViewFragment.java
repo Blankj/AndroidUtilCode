@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseFragment;
+import com.blankj.utilcode.util.BarUtils;
 
 /**
  * <pre>
@@ -33,7 +34,7 @@ public class StatusBarImageViewFragment extends BaseFragment {
 
     @Override
     public void doBusiness(Context context) {
-
+        BarUtils.setStatusBar4ImageViewInFragment(mActivity, null);
     }
 
     @Override

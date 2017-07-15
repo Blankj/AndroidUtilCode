@@ -15,7 +15,6 @@ import com.blankj.androidutilcode.base.BaseActivity;
 import com.blankj.androidutilcode.fragment.StatusBarAlphaFragment;
 import com.blankj.androidutilcode.fragment.StatusBarColorFragment;
 import com.blankj.androidutilcode.fragment.StatusBarImageViewFragment;
-import com.blankj.utilcode.util.BarUtils;
 
 import java.util.ArrayList;
 
@@ -83,7 +82,7 @@ public class StatusBarFragmentActivity extends BaseActivity {
         });
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        BarUtils.setStatusBar4ImageViewInFragment(mActivity, null);
+
     }
 
     @Override
