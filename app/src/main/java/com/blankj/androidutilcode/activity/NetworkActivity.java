@@ -64,7 +64,6 @@ public class NetworkActivity extends BaseBackActivity {
 
     private void setAboutNetwork() {
         tvAboutNetwork.setText("isConnected: " + NetworkUtils.isConnected()
-                + "\nisAvailableByPing: " + NetworkUtils.isAvailableByPing()
                 + "\ngetDataEnabled: " + NetworkUtils.getDataEnabled()
                 + "\nis4G: " + NetworkUtils.is4G()
                 + "\ngetWifiEnabled: " + NetworkUtils.getWifiEnabled()

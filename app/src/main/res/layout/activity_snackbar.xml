@@ -6,7 +6,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_16">
+        android:padding="@dimen/spacing_16"
+        android:paddingBottom="@dimen/spacing_80">
 
         <Button
             android:id="@+id/btn_short_snackbar"

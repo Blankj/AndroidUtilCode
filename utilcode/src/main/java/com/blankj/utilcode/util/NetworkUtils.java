@@ -75,11 +75,28 @@ public final class NetworkUtils {
     /**
      * 判断网络是否可用
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
+     * <p>需要异步ping，如果ping不通就说明网络不可用</p>
+     * <p>ping的ip为阿里巴巴公共ip： 223.5.5.5</p>
      *
      * @return {@code true}: 可用<br>{@code false}: 不可用
      */
     public static boolean isAvailableByPing() {
-        ShellUtils.CommandResult result = ShellUtils.execCmd("ping -c 1 -w 1 223.5.5.5", false);
+        return isAvailableByPing();
+    }
+
+    /**
+     * 判断网络是否可用
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
+     * <p>需要异步ping，如果ping不通就说明网络不可用</p>
+     *
+     * @param ip ip地址（自己服务器ip），如果为空，ip为阿里巴巴公共ip
+     * @return {@code true}: 可用<br>{@code false}: 不可用
+     */
+    public static boolean isAvailableByPing(String ip) {
+        if (ip == null || ip.length() <= 0) {
+            ip = "223.5.5.5";// 阿里巴巴公共ip
+        }
+        ShellUtils.CommandResult result = ShellUtils.execCmd(String.format("ping -c 1 %s", ip), false);
         boolean ret = result.result == 0;
         if (result.errorMsg != null) {
             Log.d("NetworkUtils", "isAvailableByPing() called" + result.errorMsg);

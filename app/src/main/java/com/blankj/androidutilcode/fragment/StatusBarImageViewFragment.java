@@ -29,12 +29,12 @@ public class StatusBarImageViewFragment extends BaseFragment {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-
+        BarUtils.setStatusBar4ImageViewInFragment(mActivity, null);
     }
 
     @Override
     public void doBusiness(Context context) {
-        BarUtils.setStatusBar4ImageViewInFragment(mActivity, null);
+
     }
 
     @Override
