@@ -27,6 +27,7 @@ import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.support.annotation.FloatRange;
+import android.support.annotation.IdRes;
 import android.support.annotation.IntRange;
 import android.view.View;
 
@@ -316,28 +317,28 @@ public final class ImageUtils {
     /**
      * 获取bitmap
      *
-     * @param id 资源id
+     * @param resId 资源id
      * @return bitmap
      */
-    public static Bitmap getBitmap(final int id) {
-        return BitmapFactory.decodeResource(Utils.getContext().getResources(), id);
+    public static Bitmap getBitmap(@IdRes final int resId) {
+        return BitmapFactory.decodeResource(Utils.getContext().getResources(), resId);
     }
 
     /**
      * 获取bitmap
      *
-     * @param id        资源id
+     * @param resId        资源id
      * @param maxWidth  最大宽度
      * @param maxHeight 最大高度
      * @return bitmap
      */
-    public static Bitmap getBitmap(final int id, final int maxWidth, final int maxHeight) {
+    public static Bitmap getBitmap(@IdRes final int resId, final int maxWidth, final int maxHeight) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(Utils.getContext().getResources(), id, options);
+        BitmapFactory.decodeResource(Utils.getContext().getResources(), resId, options);
         options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
         options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeResource(Utils.getContext().getResources(), id, options);
+        return BitmapFactory.decodeResource(Utils.getContext().getResources(), resId, options);
     }
 
     /**
