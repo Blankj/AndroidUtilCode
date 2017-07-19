@@ -52,7 +52,7 @@ public class CacheUtils {
     public static final int HOUR = 3600;
     public static final int DAY  = 86400;
 
-    private static Map<String, CacheUtils> sCacheMap = new HashMap<>();
+    private static final Map<String, CacheUtils> CACHE_MAP = new HashMap<>();
     private CacheManager mCacheManager;
 
     /**
@@ -131,10 +131,10 @@ public class CacheUtils {
      */
     public static CacheUtils getInstance(@NonNull final File cacheDir, final long maxSize, final int maxCount) {
         final String cacheKey = cacheDir.getAbsoluteFile() + "_" + Process.myPid();
-        CacheUtils cache = sCacheMap.get(cacheKey);
+        CacheUtils cache = CACHE_MAP.get(cacheKey);
         if (cache == null) {
             cache = new CacheUtils(cacheDir, maxSize, maxCount);
-            sCacheMap.put(cacheKey, cache);
+            CACHE_MAP.put(cacheKey, cache);
         }
         return cache;
     }
