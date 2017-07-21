@@ -15,28 +15,28 @@
             style="@style/TextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal" />
 
         <SeekBar
             android:id="@+id/sb_change_alpha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="255"
-            android:padding="@dimen/spacing_8"/>
+            android:padding="@dimen/spacing_8" />
 
         <Button
             android:id="@+id/btn_random_color"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/status_bar_random_color"/>
+            android:text="@string/status_bar_random_color" />
 
         <Button
             android:id="@+id/btn_set_transparent"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/status_bar_set_transparent"/>
+            android:text="@string/status_bar_set_transparent" />
 
     </LinearLayout>
 </ScrollView>

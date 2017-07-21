@@ -15,28 +15,28 @@
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/status_bar_set_color"/>
+            android:text="@string/status_bar_set_color" />
 
         <Button
             android:id="@+id/btn_status_bar_alpha"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/status_bar_set_alpha"/>
+            android:text="@string/status_bar_set_alpha" />
 
         <Button
             android:id="@+id/btn_status_bar_image_view"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/status_bar_set_image_view"/>
+            android:text="@string/status_bar_set_image_view" />
 
         <Button
             android:id="@+id/btn_status_bar_fragment"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/status_bar_set_fragment"/>
+            android:text="@string/status_bar_set_fragment" />
 
     </LinearLayout>
 </ScrollView>

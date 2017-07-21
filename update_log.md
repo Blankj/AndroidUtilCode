@@ -1,3 +1,4 @@
+* 17/07/21 格式化xml文件
 * 17/07/17 将NetworkUtils的isAvailableByPing函数新增ip参数
 * 17/07/14 将FragmentUtils的FragmentNode置为public
 * 17/07/11 将不常用的工具类放在subutil中

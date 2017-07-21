@@ -19,7 +19,7 @@ import java.util.Set;
  */
 public final class SPUtils {
 
-    private static final Map<String, SPUtils> SP_MAP = new HashMap<>();
+    private static Map<String, SPUtils> SP_UTILS_MAP = new HashMap<>();
     private SharedPreferences sp;
 
     /**
@@ -39,12 +39,12 @@ public final class SPUtils {
      */
     public static SPUtils getInstance(String spName) {
         if (isSpace(spName)) spName = "spUtils";
-        SPUtils sp = SP_MAP.get(spName);
-        if (sp == null) {
-            sp = new SPUtils(spName);
-            SP_MAP.put(spName, sp);
+        SPUtils spUtils = SP_UTILS_MAP.get(spName);
+        if (spUtils == null) {
+            spUtils = new SPUtils(spName);
+            SP_UTILS_MAP.put(spName, spUtils);
         }
-        return sp;
+        return spUtils;
     }
 
     private SPUtils(final String spName) {

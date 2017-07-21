@@ -18,77 +18,77 @@
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/snackbar_show_short"/>
+            android:text="@string/snackbar_show_short" />
 
         <Button
             android:id="@+id/btn_short_snackbar_with_action"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/snackbar_show_short_with_action"/>
+            android:text="@string/snackbar_show_short_with_action" />
 
         <Button
             android:id="@+id/btn_long_snackbar"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/snackbar_show_long"/>
+            android:text="@string/snackbar_show_long" />
 
         <Button
             android:id="@+id/btn_long_snackbar_with_action"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/snackbar_show_long_with_action"/>
+            android:text="@string/snackbar_show_long_with_action" />
 
         <Button
             android:id="@+id/btn_indefinite_snackbar"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/snackbar_show_indefinite"/>
+            android:text="@string/snackbar_show_indefinite" />
 
         <Button
             android:id="@+id/btn_indefinite_snackbar_with_action"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/snackbar_show_indefinite_with_action"/>
+            android:text="@string/snackbar_show_indefinite_with_action" />
 
         <Button
             android:id="@+id/btn_add_view"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/snackbar_add_view"/>
+            android:text="@string/snackbar_add_view" />
 
         <Button
             android:id="@+id/btn_add_view_with_action"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/snackbar_add_view_with_action"/>
+            android:text="@string/snackbar_add_view_with_action" />
 
         <Button
             android:id="@+id/btn_show_success"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/snackbar_show_success"/>
+            android:text="@string/snackbar_show_success" />
 
         <Button
             android:id="@+id/btn_show_warning"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/snackbar_show_warning"/>
+            android:text="@string/snackbar_show_warning" />
 
         <Button
             android:id="@+id/btn_show_error"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/snackbar_show_error"/>
+            android:text="@string/snackbar_show_error" />
 
 
         <Button
@@ -96,7 +96,7 @@
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/snackbar_dismiss"/>
+            android:text="@string/snackbar_dismiss" />
 
     </LinearLayout>
 </ScrollView>

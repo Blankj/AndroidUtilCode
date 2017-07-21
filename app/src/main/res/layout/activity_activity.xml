@@ -15,14 +15,14 @@
             style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"/>
+            android:gravity="center" />
 
         <Button
             android:id="@+id/btn_launch_image_activity"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/activity_start_imageActivity"/>
+            android:text="@string/activity_start_imageActivity" />
 
     </LinearLayout>
 </ScrollView>
