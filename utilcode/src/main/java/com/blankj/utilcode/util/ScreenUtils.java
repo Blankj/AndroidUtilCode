@@ -181,6 +181,8 @@ public final class ScreenUtils {
      * @return {@code true}: Yes<br>{@code false}: No
      */
     public static boolean isTablet() {
-        return Utils.getContext().getResources().getBoolean(R.bool.isTablet);
+        return (Utils.getContext().getResources().getConfiguration().screenLayout 
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 }
