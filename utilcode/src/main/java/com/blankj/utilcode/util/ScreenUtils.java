@@ -174,4 +174,13 @@ public final class ScreenUtils {
             return -123;
         }
     }
+
+    /**
+     * Check if the device is a tablet based on screen size
+     *
+     * @return {@code true}: Yes<br>{@code false}: No
+     */
+    public static boolean isTablet() {
+        return Utils.getContext().getResources().getBoolean(R.bool.isTablet);
+    }
 }
