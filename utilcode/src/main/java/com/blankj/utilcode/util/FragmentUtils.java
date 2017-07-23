@@ -238,6 +238,18 @@ public final class FragmentUtils {
      *
      * @param srcFragment  源fragment
      * @param destFragment 目标fragment
+     * @return 目标fragment
+     */
+    public static Fragment replaceFragment(@NonNull final Fragment srcFragment,
+                                           @NonNull final Fragment destFragment) {
+        return replaceFragment(srcFragment, destFragment, false);
+    }
+
+    /**
+     * 替换fragment
+     *
+     * @param srcFragment  源fragment
+     * @param destFragment 目标fragment
      * @param isAddStack   是否入回退栈
      * @return 目标fragment
      */

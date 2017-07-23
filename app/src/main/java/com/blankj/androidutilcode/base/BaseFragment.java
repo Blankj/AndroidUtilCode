@@ -17,7 +17,7 @@ import android.view.ViewGroup;
  *     desc  : Fragment－v4基类
  * </pre>
  */
-public abstract class BaseFragment extends Fragment
+public abstract class BaseFragment<T extends BaseActivity> extends Fragment
         implements IBaseView, View.OnClickListener {
 
     private static final String TAG = "BaseFragment";
@@ -32,7 +32,7 @@ public abstract class BaseFragment extends Fragment
      */
     private long lastClick = 0;
 
-    protected BaseActivity mActivity;
+    protected T mActivity;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,7 +70,7 @@ public abstract class BaseFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mActivity = (BaseActivity) getActivity();
+        mActivity = (T) getActivity();
         initView(savedInstanceState, contentView);
         doBusiness(mActivity);
         Log.d(TAG, "onActivityCreated: ");

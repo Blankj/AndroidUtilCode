@@ -15,6 +15,7 @@ import com.blankj.androidutilcode.base.BaseActivity;
 import com.blankj.androidutilcode.fragment.StatusBarAlphaFragment;
 import com.blankj.androidutilcode.fragment.StatusBarColorFragment;
 import com.blankj.androidutilcode.fragment.StatusBarImageViewFragment;
+import com.blankj.utilcode.util.BarUtils;
 
 import java.util.ArrayList;
 
@@ -28,9 +29,10 @@ import java.util.ArrayList;
  */
 public class StatusBarFragmentActivity extends BaseActivity {
 
-    private ViewPager mVpHome;
+    private ViewPager            mVpHome;
     private BottomNavigationView navigation;
     private ArrayList<Fragment> mFragmentList = new ArrayList<>();
+
     private int[] itemIds = new int[]{R.id.navigation_color, R.id.navigation_alpha, R.id.navigation_image_view};
 
     @Override
@@ -45,12 +47,15 @@ public class StatusBarFragmentActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        BarUtils.initStatusBar4Fragment(this);
+
         mVpHome = (ViewPager) findViewById(R.id.vp_home);
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
 
-        mFragmentList.add(new StatusBarColorFragment());
-        mFragmentList.add(new StatusBarAlphaFragment());
-        mFragmentList.add(new StatusBarImageViewFragment());
+        mFragmentList.add(StatusBarColorFragment.newInstance());
+        mFragmentList.add(StatusBarAlphaFragment.newInstance());
+        mFragmentList.add(StatusBarImageViewFragment.newInstance());
+
 
         mVpHome.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -73,6 +78,13 @@ public class StatusBarFragmentActivity extends BaseActivity {
             @Override
             public void onPageSelected(int position) {
                 navigation.setSelectedItemId(itemIds[position]);
+                if (position == 0) {
+                    ((StatusBarColorFragment)mFragmentList.get(0)).updateFakeStatusBar();
+                } else if (position == 1) {
+                    ((StatusBarAlphaFragment)mFragmentList.get(1)).updateFakeStatusBar();
+                } else {
+                    ((StatusBarImageViewFragment)mFragmentList.get(2)).updateFakeStatusBar();
+                }
             }
 
             @Override

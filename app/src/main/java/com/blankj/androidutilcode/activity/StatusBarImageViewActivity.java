@@ -36,11 +36,13 @@ public class StatusBarImageViewActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        BarUtils.setStatusBarAlpha(StatusBarImageViewActivity.this, mAlpha);
+
         findViewById(R.id.btn_set_transparent).setOnClickListener(this);
         mTvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
         sbChangeAlpha = (SeekBar) findViewById(R.id.sb_change_alpha);
         sbChangeAlpha.setOnSeekBarChangeListener(translucentListener);
-        sbChangeAlpha.setProgress(mAlpha);
+        mTvStatusAlpha.setText(String.valueOf(mAlpha));
     }
 
     @Override
@@ -61,7 +63,7 @@ public class StatusBarImageViewActivity extends BaseActivity {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             mAlpha = progress;
-            BarUtils.setStatusBar4ImageView(StatusBarImageViewActivity.this, mAlpha, null);
+            BarUtils.setStatusBarAlpha(StatusBarImageViewActivity.this, mAlpha);
             mTvStatusAlpha.setText(String.valueOf(mAlpha));
         }
 

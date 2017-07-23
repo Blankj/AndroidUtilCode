@@ -1,6 +1,5 @@
 package com.blankj.androidutilcode.base;
 
-import android.graphics.Color;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -34,7 +33,6 @@ public abstract class BaseBackActivity extends BaseActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        contentView.setBackgroundColor(Color.WHITE);
     }
 
     @Override

@@ -5,8 +5,10 @@ import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.view.Surface;
 import android.view.View;
@@ -53,7 +55,7 @@ public final class ScreenUtils {
      *
      * @param activity activity
      */
-    public static void setLandscape(final Activity activity) {
+    public static void setLandscape(@NonNull final Activity activity) {
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
@@ -62,7 +64,7 @@ public final class ScreenUtils {
      *
      * @param activity activity
      */
-    public static void setPortrait(final Activity activity) {
+    public static void setPortrait(@NonNull final Activity activity) {
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
@@ -90,7 +92,7 @@ public final class ScreenUtils {
      * @param activity activity
      * @return 屏幕旋转角度
      */
-    public static int getScreenRotation(final Activity activity) {
+    public static int getScreenRotation(@NonNull final Activity activity) {
         switch (activity.getWindowManager().getDefaultDisplay().getRotation()) {
             default:
             case Surface.ROTATION_0:
@@ -110,7 +112,7 @@ public final class ScreenUtils {
      * @param activity activity
      * @return Bitmap
      */
-    public static Bitmap captureWithStatusBar(final Activity activity) {
+    public static Bitmap captureWithStatusBar(@NonNull final Activity activity) {
         View view = activity.getWindow().getDecorView();
         view.setDrawingCacheEnabled(true);
         view.buildDrawingCache();
@@ -128,12 +130,14 @@ public final class ScreenUtils {
      * @param activity activity
      * @return Bitmap
      */
-    public static Bitmap captureWithoutStatusBar(final Activity activity) {
+    public static Bitmap captureWithoutStatusBar(@NonNull final Activity activity) {
         View view = activity.getWindow().getDecorView();
         view.setDrawingCacheEnabled(true);
         view.buildDrawingCache();
         Bitmap bmp = view.getDrawingCache();
-        int statusBarHeight = BarUtils.getStatusBarHeight(activity);
+        Resources resources = activity.getResources();
+        int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
+        int statusBarHeight =  resources.getDimensionPixelSize(resourceId);
         DisplayMetrics dm = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
         Bitmap ret = Bitmap.createBitmap(bmp, 0, statusBarHeight, dm.widthPixels, dm.heightPixels - statusBarHeight);
@@ -176,12 +180,12 @@ public final class ScreenUtils {
     }
 
     /**
-     * Check if the device is a tablet based on screen size
+     * 判断是否是平板
      *
-     * @return {@code true}: Yes<br>{@code false}: No
+     * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isTablet() {
-        return (Utils.getContext().getResources().getConfiguration().screenLayout 
+        return (Utils.getContext().getResources().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK)
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }

@@ -21,8 +21,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:padding="@dimen/spacing_16">
-
+            android:paddingLeft="@dimen/spacing_16"
+            android:paddingRight="@dimen/spacing_16">
 
             <TextView
                 android:id="@+id/tv_status_alpha"
@@ -36,7 +36,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:max="255"
-                android:padding="@dimen/spacing_8" />
+                android:padding="@dimen/spacing_8"
+                android:progress="112" />
 
             <Button
                 android:id="@+id/btn_set_transparent"

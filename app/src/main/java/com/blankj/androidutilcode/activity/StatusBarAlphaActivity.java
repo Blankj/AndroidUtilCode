@@ -31,16 +31,18 @@ public class StatusBarAlphaActivity extends BaseActivity {
 
     @Override
     public int bindLayout() {
-        return R.layout.fragment_status_bar_alpha;
+        return R.layout.activity_status_bar_alpha;
     }
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        BarUtils.setStatusBarAlpha(StatusBarAlphaActivity.this, mAlpha, findViewById(R.id.tv_status_alpha));
+
         findViewById(R.id.btn_set_transparent).setOnClickListener(this);
         mTvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
         sbChangeAlpha = (SeekBar) findViewById(R.id.sb_change_alpha);
         sbChangeAlpha.setOnSeekBarChangeListener(translucentListener);
-        sbChangeAlpha.setProgress(mAlpha);
+        mTvStatusAlpha.setText(String.valueOf(mAlpha));
     }
 
     @Override
@@ -61,8 +63,8 @@ public class StatusBarAlphaActivity extends BaseActivity {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             mAlpha = progress;
-            BarUtils.setStatusBar4Bg(StatusBarAlphaActivity.this, mAlpha);
             mTvStatusAlpha.setText(String.valueOf(mAlpha));
+            BarUtils.setStatusBarAlpha(StatusBarAlphaActivity.this, mAlpha);
         }
 
         @Override
