@@ -1,6 +1,8 @@
 package com.blankj.utilcode.util;
 
 import android.os.Build;
+import android.support.v4.util.LongSparseArray;
+import android.support.v4.util.SimpleArrayMap;
 import android.util.SparseArray;
 import android.util.SparseBooleanArray;
 import android.util.SparseIntArray;
@@ -46,6 +48,9 @@ public final class EmptyUtils {
         if (obj instanceof Map && ((Map) obj).isEmpty()) {
             return true;
         }
+        if (obj instanceof SimpleArrayMap && ((SimpleArrayMap) obj).isEmpty()) {
+            return true;
+        }
         if (obj instanceof SparseArray && ((SparseArray) obj).size() == 0) {
             return true;
         }
@@ -57,6 +62,14 @@ public final class EmptyUtils {
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             if (obj instanceof SparseLongArray && ((SparseLongArray) obj).size() == 0) {
+                return true;
+            }
+        }
+        if (obj instanceof LongSparseArray && ((LongSparseArray) obj).size() == 0) {
+            return true;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            if (obj instanceof android.util.LongSparseArray && ((android.util.LongSparseArray) obj).size() == 0) {
                 return true;
             }
         }

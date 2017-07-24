@@ -1,6 +1,7 @@
 package com.blankj.androidutilcode.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -20,16 +21,22 @@ import java.util.Random;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/05/27
- *     desc  : Bar工具类Demo分支
+ *     desc  : Bar工具类Demo
  * </pre>
  */
 public class StatusBarColorActivity extends BaseActivity {
 
-    private Random   mRandom;
-    private int      mColor;
-    private int      mAlpha;
+    private Random mRandom;
+    private int    mColor;
+    private int    mAlpha;
+
     private TextView mTvStatusAlpha;
     private SeekBar  sbChangeAlpha;
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, StatusBarColorActivity.class);
+        context.startActivity(starter);
+    }
 
     @Override
     public void initData(Bundle bundle) {
@@ -45,14 +52,14 @@ public class StatusBarColorActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        BarUtils.setStatusBarColor(StatusBarColorActivity.this, mColor, mAlpha);
-
         findViewById(R.id.btn_random_color).setOnClickListener(this);
         findViewById(R.id.btn_set_transparent).setOnClickListener(this);
         mTvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
         sbChangeAlpha = (SeekBar) findViewById(R.id.sb_change_alpha);
         sbChangeAlpha.setOnSeekBarChangeListener(colorListener);
         mTvStatusAlpha.setText(String.valueOf(mAlpha));
+
+        updateStatusBar();
     }
 
 
@@ -66,7 +73,7 @@ public class StatusBarColorActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.btn_random_color:
                 mColor = 0xff000000 | mRandom.nextInt(0xffffff);
-                updateColorBar();
+                updateStatusBar();
                 break;
             case R.id.btn_set_transparent:
                 sbChangeAlpha.setProgress(0);
@@ -74,16 +81,12 @@ public class StatusBarColorActivity extends BaseActivity {
         }
     }
 
-    private void updateColorBar() {
-        BarUtils.setStatusBarColor(this, mColor, mAlpha);
-    }
-
     private SeekBar.OnSeekBarChangeListener colorListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             mAlpha = progress;
             mTvStatusAlpha.setText(String.valueOf(mAlpha));
-            BarUtils.setStatusBarColor(StatusBarColorActivity.this, mColor, mAlpha);
+            updateStatusBar();
         }
 
         @Override
@@ -96,4 +99,8 @@ public class StatusBarColorActivity extends BaseActivity {
 
         }
     };
+
+    private void updateStatusBar() {
+        BarUtils.setStatusBarColor(this, mColor, mAlpha);
+    }
 }

@@ -1,6 +1,7 @@
 package com.blankj.androidutilcode.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -22,6 +23,11 @@ import com.blankj.utilcode.util.ToastUtils;
  */
 
 public class AppActivity extends BaseBackActivity {
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, AppActivity.class);
+        context.startActivity(starter);
+    }
 
     @Override
     public void initData(Bundle bundle) {

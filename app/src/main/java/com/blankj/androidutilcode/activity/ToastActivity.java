@@ -1,6 +1,7 @@
 package com.blankj.androidutilcode.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -20,6 +21,11 @@ import com.blankj.utilcode.util.ToastUtils;
  * </pre>
  */
 public class ToastActivity extends BaseBackActivity {
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, ToastActivity.class);
+        context.startActivity(starter);
+    }
 
     @Override
     public void initData(Bundle bundle) {

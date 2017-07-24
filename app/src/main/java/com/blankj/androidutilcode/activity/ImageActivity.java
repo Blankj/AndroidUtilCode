@@ -1,6 +1,7 @@
 package com.blankj.androidutilcode.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,6 +22,11 @@ import com.blankj.utilcode.util.SizeUtils;
  * </pre>
  */
 public class ImageActivity extends BaseBackActivity {
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, ImageActivity.class);
+        context.startActivity(starter);
+    }
 
     private ImageView ivSrc;
     private ImageView ivView2Bitmap;

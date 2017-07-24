@@ -77,8 +77,10 @@
         <activity android:name=".activity.SpanActivity" />
         <activity android:name=".activity.StatusBarAlphaActivity" />
         <activity android:name=".activity.StatusBarColorActivity" />
+        <activity android:name=".activity.StatusBarDrawerActivity" />
         <activity android:name=".activity.StatusBarFragmentActivity" />
         <activity android:name=".activity.StatusBarImageViewActivity" />
+        <activity android:name=".activity.StatusBarSwipeBackActivity" />
         <activity android:name=".activity.ToastActivity" />
 
         <provider

@@ -55,6 +55,8 @@
     <string name="status_bar_set_alpha">Set Alpha</string>
     <string name="status_bar_set_image_view">Set Image View</string>
     <string name="status_bar_set_fragment">Set Fragment</string>
+    <string name="status_bar_set_swipe_back">Set Swipe Back</string>
+    <string name="status_bar_set_drawer">Set Drawer</string>
     <string name="status_bar_random_color">Random Color</string>
     <string name="status_bar_set_transparent">Set Transparent</string>
     <string name="bar_title_color">Color</string>

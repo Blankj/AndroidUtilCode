@@ -3,15 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="192dp"
-    android:background="@color/colorPrimary"
-    android:padding="@dimen/spacing_16"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_bar" />
 
     <ImageView
         android:id="@+id/iv_avatar"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_above="@+id/tv_desc"
+        android:layout_marginLeft="@dimen/spacing_16"
         android:src="@drawable/avatar_round" />
 
     <TextView
@@ -31,6 +36,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/spacing_16"
+        android:layout_marginLeft="@dimen/spacing_16"
         android:layout_marginTop="@dimen/spacing_8"
         android:text="@string/demo_of_android_util_code"
         android:textColor="@android:color/white"

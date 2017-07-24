@@ -20,7 +20,7 @@ import java.util.Random;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/07/01
- *     desc  :
+ *     desc  : Bar工具类Demo
  * </pre>
  */
 public class StatusBarColorFragment extends BaseFragment<StatusBarFragmentActivity> {
@@ -52,13 +52,14 @@ public class StatusBarColorFragment extends BaseFragment<StatusBarFragmentActivi
     @Override
     public void initView(Bundle savedInstanceState, View view) {
         fakeStatusBar = view.findViewById(R.id.fake_status_bar);
-        updateFakeStatusBar();
         view.findViewById(R.id.btn_random_color).setOnClickListener(this);
         view.findViewById(R.id.btn_set_transparent).setOnClickListener(this);
         mTvStatusAlpha = (TextView) view.findViewById(R.id.tv_status_alpha);
         sbChangeAlpha = (SeekBar) view.findViewById(R.id.sb_change_alpha);
         sbChangeAlpha.setOnSeekBarChangeListener(colorListener);
         mTvStatusAlpha.setText(String.valueOf(mAlpha));
+
+        updateFakeStatusBar();
     }
 
 

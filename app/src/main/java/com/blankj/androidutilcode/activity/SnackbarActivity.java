@@ -1,6 +1,7 @@
 package com.blankj.androidutilcode.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
@@ -26,6 +27,11 @@ import com.blankj.utilcode.util.ToastUtils;
 public class SnackbarActivity extends BaseBackActivity {
 
     private View snackBarRootView;
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, SnackbarActivity.class);
+        context.startActivity(starter);
+    }
 
     @Override
     public void initData(Bundle bundle) {

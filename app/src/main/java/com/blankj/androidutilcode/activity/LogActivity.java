@@ -1,6 +1,7 @@
 package com.blankj.androidutilcode.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -71,6 +72,11 @@ public class LogActivity extends BaseBackActivity {
         }
         sb.append("\"");
         longStr = sb.toString();
+    }
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, LogActivity.class);
+        context.startActivity(starter);
     }
 
     @Override

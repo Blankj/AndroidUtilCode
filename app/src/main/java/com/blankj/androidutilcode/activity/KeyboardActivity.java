@@ -1,6 +1,7 @@
 package com.blankj.androidutilcode.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -26,6 +27,11 @@ import com.blankj.utilcode.util.LogUtils;
  * </pre>
  */
 public class KeyboardActivity extends BaseBackActivity {
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, KeyboardActivity.class);
+        context.startActivity(starter);
+    }
 
     TextView tvAboutKeyboard;
     EditText etInput;

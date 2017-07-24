@@ -1,6 +1,7 @@
 package com.blankj.androidutilcode.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.SeekBar;
@@ -20,9 +21,15 @@ import com.blankj.utilcode.util.BarUtils;
  */
 public class StatusBarAlphaActivity extends BaseActivity {
 
-    private int      mAlpha;
+    private int mAlpha;
+
     private TextView mTvStatusAlpha;
     private SeekBar  sbChangeAlpha;
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, StatusBarAlphaActivity.class);
+        context.startActivity(starter);
+    }
 
     @Override
     public void initData(Bundle bundle) {
@@ -36,13 +43,13 @@ public class StatusBarAlphaActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        BarUtils.setStatusBarAlpha(StatusBarAlphaActivity.this, mAlpha, findViewById(R.id.tv_status_alpha));
-
         findViewById(R.id.btn_set_transparent).setOnClickListener(this);
         mTvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
         sbChangeAlpha = (SeekBar) findViewById(R.id.sb_change_alpha);
         sbChangeAlpha.setOnSeekBarChangeListener(translucentListener);
         mTvStatusAlpha.setText(String.valueOf(mAlpha));
+
+        updateStatusBar();
     }
 
     @Override
@@ -64,7 +71,7 @@ public class StatusBarAlphaActivity extends BaseActivity {
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             mAlpha = progress;
             mTvStatusAlpha.setText(String.valueOf(mAlpha));
-            BarUtils.setStatusBarAlpha(StatusBarAlphaActivity.this, mAlpha);
+            updateStatusBar();
         }
 
         @Override
@@ -77,4 +84,8 @@ public class StatusBarAlphaActivity extends BaseActivity {
 
         }
     };
+
+    private void updateStatusBar() {
+        BarUtils.setStatusBarAlpha(StatusBarAlphaActivity.this, mAlpha, mTvStatusAlpha);
+    }
 }

@@ -10,6 +10,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.Process;
 import android.support.annotation.NonNull;
+import android.support.v4.util.SimpleArrayMap;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -52,7 +53,7 @@ public class CacheUtils {
     public static final int HOUR = 3600;
     public static final int DAY  = 86400;
 
-    private static final Map<String, CacheUtils> CACHE_MAP = new HashMap<>();
+    private static final SimpleArrayMap<String, CacheUtils> CACHE_MAP = new SimpleArrayMap<>();
     private CacheManager mCacheManager;
 
     /**

@@ -1,6 +1,7 @@
 package com.blankj.androidutilcode.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -21,6 +22,11 @@ import java.util.Set;
  * </pre>
  */
 public class ProcessActivity extends BaseBackActivity {
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, ProcessActivity.class);
+        context.startActivity(starter);
+    }
 
     private TextView tvAboutProcess;
 

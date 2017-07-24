@@ -1,3 +1,6 @@
+* 17/07/24 完善BarUtils
+* 17/07/23 完善BarUtils
+* 17/07/22 完善BarUtils
 * 17/07/21 格式化xml文件
 * 17/07/17 将NetworkUtils的isAvailableByPing函数新增ip参数
 * 17/07/14 将FragmentUtils的FragmentNode置为public

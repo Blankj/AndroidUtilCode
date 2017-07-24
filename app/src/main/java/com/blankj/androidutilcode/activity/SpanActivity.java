@@ -2,6 +2,7 @@ package com.blankj.androidutilcode.activity;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.BlurMaskFilter;
@@ -57,13 +58,19 @@ public class SpanActivity extends BaseBackActivity {
     ForegroundAlphaColorSpan mForegroundAlphaColorSpan;
 
     ForegroundAlphaColorSpanGroup mForegroundAlphaColorSpanGroup;
-    String                        mPrinterString;
+
+    String mPrinterString;
 
 
     float    density;
     TextView tvAboutSpan;
     TextView tvAboutAnimRainbow;
     TextView tvAboutAnimBlur;
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, SpanActivity.class);
+        context.startActivity(starter);
+    }
 
     @Override
     public void initData(Bundle bundle) {

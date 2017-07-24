@@ -18,6 +18,11 @@ import com.blankj.androidutilcode.base.BaseBackActivity;
  */
 public class BarActivity extends BaseBackActivity {
 
+    public static void start(Context context) {
+        Intent starter = new Intent(context, BarActivity.class);
+        context.startActivity(starter);
+    }
+
     @Override
     public void initData(Bundle bundle) {
 
@@ -36,6 +41,8 @@ public class BarActivity extends BaseBackActivity {
         findViewById(R.id.btn_status_bar_alpha).setOnClickListener(this);
         findViewById(R.id.btn_status_bar_image_view).setOnClickListener(this);
         findViewById(R.id.btn_status_bar_fragment).setOnClickListener(this);
+        findViewById(R.id.btn_status_bar_swipe_back).setOnClickListener(this);
+        findViewById(R.id.btn_status_bar_drawer).setOnClickListener(this);
     }
 
     @Override
@@ -47,16 +54,22 @@ public class BarActivity extends BaseBackActivity {
     public void onWidgetClick(View view) {
         switch (view.getId()) {
             case R.id.btn_status_bar_color:
-                startActivity(new Intent(this, StatusBarColorActivity.class));
+                StatusBarColorActivity.start(this);
                 break;
             case R.id.btn_status_bar_alpha:
-                startActivity(new Intent(this, StatusBarAlphaActivity.class));
+                StatusBarAlphaActivity.start(this);
                 break;
             case R.id.btn_status_bar_image_view:
-                startActivity(new Intent(this, StatusBarImageViewActivity.class));
+                StatusBarImageViewActivity.start(this);
                 break;
             case R.id.btn_status_bar_fragment:
-                startActivity(new Intent(this, StatusBarFragmentActivity.class));
+                StatusBarFragmentActivity.start(this);
+                break;
+            case R.id.btn_status_bar_swipe_back:
+                StatusBarSwipeBackActivity.start(this);
+                break;
+            case R.id.btn_status_bar_drawer:
+                StatusBarDrawerActivity.start(this);
                 break;
         }
     }

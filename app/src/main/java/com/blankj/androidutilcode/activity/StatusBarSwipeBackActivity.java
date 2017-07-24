@@ -3,13 +3,20 @@ package com.blankj.androidutilcode.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
+import com.blankj.androidutilcode.UtilsApp;
 import com.blankj.androidutilcode.base.BaseActivity;
 import com.blankj.utilcode.util.BarUtils;
+import com.r0adkll.slidr.Slidr;
+
+import java.util.Random;
+
 
 /**
  * <pre>
@@ -19,38 +26,54 @@ import com.blankj.utilcode.util.BarUtils;
  *     desc  : Bar工具类Demo
  * </pre>
  */
-public class StatusBarImageViewActivity extends BaseActivity {
+public class StatusBarSwipeBackActivity extends BaseActivity {
 
-    private int mAlpha;
+    private Random mRandom;
+    private int    mColor;
+    private int    mAlpha;
 
+    protected Toolbar mToolbar;
     private TextView mTvStatusAlpha;
     private SeekBar  sbChangeAlpha;
 
     public static void start(Context context) {
-        Intent starter = new Intent(context, StatusBarImageViewActivity.class);
+        Intent starter = new Intent(context, StatusBarSwipeBackActivity.class);
         context.startActivity(starter);
     }
 
     @Override
     public void initData(Bundle bundle) {
+        mRandom = new Random();
+        mColor = ContextCompat.getColor(UtilsApp.getInstance(), R.color.colorPrimary);
         mAlpha = 112;
     }
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_status_bar_image_view;
+        return R.layout.activity_status_bar_swipe_back;
     }
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        Slidr.attach(this);
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+
+        findViewById(R.id.btn_random_color).setOnClickListener(this);
         findViewById(R.id.btn_set_transparent).setOnClickListener(this);
         mTvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
         sbChangeAlpha = (SeekBar) findViewById(R.id.sb_change_alpha);
-        sbChangeAlpha.setOnSeekBarChangeListener(translucentListener);
+        sbChangeAlpha.setOnSeekBarChangeListener(colorListener);
         mTvStatusAlpha.setText(String.valueOf(mAlpha));
 
         updateStatusBar();
     }
+
 
     @Override
     public void doBusiness(Context context) {
@@ -60,13 +83,17 @@ public class StatusBarImageViewActivity extends BaseActivity {
     @Override
     public void onWidgetClick(View view) {
         switch (view.getId()) {
+            case R.id.btn_random_color:
+                mColor = 0xff000000 | mRandom.nextInt(0xffffff);
+                updateStatusBar();
+                break;
             case R.id.btn_set_transparent:
                 sbChangeAlpha.setProgress(0);
                 break;
         }
     }
 
-    private SeekBar.OnSeekBarChangeListener translucentListener = new SeekBar.OnSeekBarChangeListener() {
+    private SeekBar.OnSeekBarChangeListener colorListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             mAlpha = progress;
@@ -86,6 +113,6 @@ public class StatusBarImageViewActivity extends BaseActivity {
     };
 
     private void updateStatusBar() {
-        BarUtils.setStatusBarAlpha(StatusBarImageViewActivity.this, mAlpha);
+        BarUtils.setColorForSwipeBack(StatusBarSwipeBackActivity.this, mColor, mAlpha);
     }
 }

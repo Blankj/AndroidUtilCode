@@ -1,6 +1,7 @@
 package com.blankj.androidutilcode.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -20,6 +21,11 @@ import com.blankj.utilcode.util.NetworkUtils;
 public class NetworkActivity extends BaseBackActivity {
 
     private TextView tvAboutNetwork;
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, NetworkActivity.class);
+        context.startActivity(starter);
+    }
 
     @Override
     public void initData(Bundle bundle) {

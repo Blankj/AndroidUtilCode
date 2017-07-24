@@ -16,7 +16,7 @@ import com.blankj.utilcode.util.BarUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/07/01
- *     desc  :
+ *     desc  : Bar工具类Demo
  * </pre>
  */
 public class StatusBarImageViewFragment extends BaseFragment<StatusBarFragmentActivity> {
@@ -49,6 +49,8 @@ public class StatusBarImageViewFragment extends BaseFragment<StatusBarFragmentAc
         view.findViewById(R.id.btn_set_transparent).setOnClickListener(this);
         sbChangeAlpha.setOnSeekBarChangeListener(translucentListener);
         mTvStatusAlpha.setText(String.valueOf(mAlpha));
+
+        updateFakeStatusBar();
     }
 
     @Override

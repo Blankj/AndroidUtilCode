@@ -1,6 +1,7 @@
 package com.blankj.androidutilcode.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -21,6 +22,11 @@ import java.util.ArrayList;
  * </pre>
  */
 public class FragmentActivity extends BaseBackActivity {
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, FragmentActivity.class);
+        context.startActivity(starter);
+    }
 
     public Fragment rootFragment;
 

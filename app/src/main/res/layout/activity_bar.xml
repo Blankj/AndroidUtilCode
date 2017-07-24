@@ -39,5 +39,19 @@
             android:layout_height="wrap_content"
             android:text="@string/status_bar_set_fragment" />
 
+        <Button
+            android:id="@+id/btn_status_bar_swipe_back"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/status_bar_set_swipe_back" />
+
+        <Button
+            android:id="@+id/btn_status_bar_drawer"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/status_bar_set_drawer" />
+
     </LinearLayout>
 </ScrollView>
