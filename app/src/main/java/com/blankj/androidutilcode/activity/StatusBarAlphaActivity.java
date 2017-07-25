@@ -8,7 +8,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseActivity;
+import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.utilcode.util.BarUtils;
 
 /**
@@ -19,7 +19,7 @@ import com.blankj.utilcode.util.BarUtils;
  *     desc  : Bar工具类Demo
  * </pre>
  */
-public class StatusBarAlphaActivity extends BaseActivity {
+public class StatusBarAlphaActivity extends BaseBackActivity {
 
     private int mAlpha;
 

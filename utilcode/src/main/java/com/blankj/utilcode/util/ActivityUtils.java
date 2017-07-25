@@ -151,7 +151,7 @@ public final class ActivityUtils {
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final String pkg,
                                      @NonNull final String cls) {
-        startActivity(Utils.getContext(), extras, pkg, cls, extras);
+        startActivity(Utils.getContext(), extras, pkg, cls, null);
     }
 
     /**
@@ -193,10 +193,10 @@ public final class ActivityUtils {
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
-        if (options == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-            context.startActivity(intent);
-        } else {
+        if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             context.startActivity(intent, options);
+        } else {
+            context.startActivity(intent);
         }
     }
 

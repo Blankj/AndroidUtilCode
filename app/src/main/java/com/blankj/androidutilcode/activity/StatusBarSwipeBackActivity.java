@@ -11,9 +11,8 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.UtilsApp;
-import com.blankj.androidutilcode.base.BaseActivity;
+import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.utilcode.util.BarUtils;
-import com.r0adkll.slidr.Slidr;
 
 import java.util.Random;
 
@@ -26,7 +25,7 @@ import java.util.Random;
  *     desc  : Bar工具类Demo
  * </pre>
  */
-public class StatusBarSwipeBackActivity extends BaseActivity {
+public class StatusBarSwipeBackActivity extends BaseBackActivity {
 
     private Random mRandom;
     private int    mColor;
@@ -55,14 +54,7 @@ public class StatusBarSwipeBackActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        Slidr.attach(this);
-
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-
+        getSupportActionBar().setTitle(getString(R.string.demo_bar));
 
         findViewById(R.id.btn_random_color).setOnClickListener(this);
         findViewById(R.id.btn_set_transparent).setOnClickListener(this);
@@ -113,6 +105,6 @@ public class StatusBarSwipeBackActivity extends BaseActivity {
     };
 
     private void updateStatusBar() {
-        BarUtils.setColorForSwipeBack(StatusBarSwipeBackActivity.this, mColor, mAlpha);
+        BarUtils.setStatusBarColor(StatusBarSwipeBackActivity.this, mColor, mAlpha);
     }
 }

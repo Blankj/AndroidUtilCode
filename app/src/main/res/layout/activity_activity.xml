@@ -1,29 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_16">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_about_activity"
+        style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="@dimen/spacing_16">
+        android:gravity="center" />
 
-        <TextView
-            android:id="@+id/tv_about_activity"
-            style="@style/TextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center" />
+    <Button
+        android:id="@+id/btn_launch_image_activity"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_start_imageActivity" />
 
-        <Button
-            android:id="@+id/btn_launch_image_activity"
-            style="@style/WideBtnStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/activity_start_imageActivity" />
-
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>
