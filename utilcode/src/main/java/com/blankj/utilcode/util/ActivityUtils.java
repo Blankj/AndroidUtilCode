@@ -38,7 +38,8 @@ public final class ActivityUtils {
      * @param className   activity全路径类名
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isActivityExists(@NonNull final String packageName, @NonNull final String className) {
+    public static boolean isActivityExists(@NonNull final String packageName,
+                                           @NonNull final String className) {
         Intent intent = new Intent();
         intent.setClassName(packageName, className);
         return !(Utils.getContext().getPackageManager().resolveActivity(intent, 0) == null ||
@@ -49,11 +50,89 @@ public final class ActivityUtils {
     /**
      * 启动Activity
      *
+     * @param cls activity类
+     */
+    public static void startActivity(@NonNull final Class<?> cls) {
+        Context context = Utils.getContext();
+        startActivity(context, null, context.getPackageName(), cls.getName(), null);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param cls     activity类
+     * @param options 跳转动画
+     */
+    public static void startActivity(@NonNull final Class<?> cls,
+                                     @NonNull final Bundle options) {
+        Context context = Utils.getContext();
+        startActivity(context, null, context.getPackageName(), cls.getName(), options);
+    }
+
+    /**
+     * 启动Activity
+     *
      * @param activity activity
      * @param cls      activity类
      */
-    public static void startActivity(@NonNull final Activity activity, @NonNull final Class<?> cls) {
+    public static void startActivity(@NonNull final Activity activity,
+                                     @NonNull final Class<?> cls) {
         startActivity(activity, null, activity.getPackageName(), cls.getName(), null);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param activity activity
+     * @param cls      activity类
+     * @param options  跳转动画
+     */
+    public static void startActivity(@NonNull final Activity activity,
+                                     @NonNull final Class<?> cls,
+                                     @NonNull final Bundle options) {
+        startActivity(activity, null, activity.getPackageName(), cls.getName(), options);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param activity  activity
+     * @param cls       activity类
+     * @param enterAnim 入场动画
+     * @param exitAnim  出场动画
+     */
+    public static void startActivity(@NonNull final Activity activity,
+                                     @NonNull final Class<?> cls,
+                                     @AnimRes final int enterAnim,
+                                     @AnimRes final int exitAnim) {
+        startActivity(activity, null, activity.getPackageName(), cls.getName(), null);
+        activity.overridePendingTransition(enterAnim, exitAnim);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param extras extras
+     * @param cls    activity类
+     */
+    public static void startActivity(@NonNull final Bundle extras,
+                                     @NonNull final Class<?> cls) {
+        Context context = Utils.getContext();
+        startActivity(context, extras, context.getPackageName(), cls.getName(), null);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param extras  extras
+     * @param cls     activity类
+     * @param options 跳转动画
+     */
+    public static void startActivity(@NonNull final Bundle extras,
+                                     @NonNull final Class<?> cls,
+                                     @NonNull final Bundle options) {
+        Context context = Utils.getContext();
+        startActivity(context, extras, context.getPackageName(), cls.getName(), options);
     }
 
     /**
@@ -72,17 +151,16 @@ public final class ActivityUtils {
     /**
      * 启动Activity
      *
-     * @param activity  activity
-     * @param cls       activity类
-     * @param enterAnim 入场动画
-     * @param exitAnim  出场动画
+     * @param extras   extras
+     * @param activity activity
+     * @param cls      activity类
+     * @param options  跳转动画
      */
-    public static void startActivity(@NonNull final Activity activity,
+    public static void startActivity(@NonNull final Bundle extras,
+                                     @NonNull final Activity activity,
                                      @NonNull final Class<?> cls,
-                                     @AnimRes final int enterAnim,
-                                     @AnimRes final int exitAnim) {
-        startActivity(activity, null, activity.getPackageName(), cls.getName(), null);
-        activity.overridePendingTransition(enterAnim, exitAnim);
+                                     @NonNull final Bundle options) {
+        startActivity(activity, extras, activity.getPackageName(), cls.getName(), options);
     }
 
     /**
@@ -106,52 +184,12 @@ public final class ActivityUtils {
     /**
      * 启动Activity
      *
-     * @param activity activity
-     * @param cls      activity类
-     * @param options  跳转动画
-     */
-    public static void startActivity(@NonNull final Activity activity,
-                                     @NonNull final Class<?> cls,
-                                     @NonNull final Bundle options) {
-        startActivity(activity, null, activity.getPackageName(), cls.getName(), options);
-    }
-
-    /**
-     * 启动Activity
-     *
-     * @param extras   extras
-     * @param activity activity
-     * @param cls      activity类
-     * @param options  跳转动画
-     */
-    public static void startActivity(@NonNull final Bundle extras,
-                                     @NonNull final Activity activity,
-                                     final Class<?> cls,
-                                     @NonNull final Bundle options) {
-        startActivity(activity, extras, activity.getPackageName(), cls.getName(), options);
-    }
-
-    /**
-     * 启动Activity
-     *
      * @param pkg 包名
      * @param cls 全类名
      */
-    public static void startActivity(@NonNull final String pkg, @NonNull final String cls) {
-        startActivity(Utils.getContext(), null, pkg, cls, null);
-    }
-
-    /**
-     * 启动Activity
-     *
-     * @param extras extras
-     * @param pkg    包名
-     * @param cls    全类名
-     */
-    public static void startActivity(@NonNull final Bundle extras,
-                                     @NonNull final String pkg,
+    public static void startActivity(@NonNull final String pkg,
                                      @NonNull final String cls) {
-        startActivity(Utils.getContext(), extras, pkg, cls, null);
+        startActivity(Utils.getContext(), null, pkg, cls, null);
     }
 
     /**
@@ -170,6 +208,65 @@ public final class ActivityUtils {
     /**
      * 启动Activity
      *
+     * @param activity activity
+     * @param pkg      包名
+     * @param cls      全类名
+     */
+    public static void startActivity(@NonNull final Activity activity,
+                                     @NonNull final String pkg,
+                                     @NonNull final String cls) {
+        startActivity(activity, null, pkg, cls, null);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param activity activity
+     * @param pkg      包名
+     * @param cls      全类名
+     * @param options  动画
+     */
+    public static void startActivity(@NonNull final Activity activity,
+                                     @NonNull final String pkg,
+                                     @NonNull final String cls,
+                                     @NonNull final Bundle options) {
+        startActivity(activity, null, pkg, cls, options);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param activity  activity
+     * @param pkg       包名
+     * @param cls       全类名
+     * @param enterAnim 入场动画
+     * @param exitAnim  出场动画
+     */
+    public static void startActivity(@NonNull final Activity activity,
+                                     @NonNull final String pkg,
+                                     @NonNull final String cls,
+                                     @AnimRes final int enterAnim,
+                                     @AnimRes final int exitAnim) {
+        startActivity(activity, null, pkg, cls, null);
+        activity.overridePendingTransition(enterAnim, exitAnim);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param extras extras
+     * @param pkg    包名
+     * @param cls    全类名
+     */
+    public static void startActivity(@NonNull final Bundle extras,
+                                     @NonNull final String pkg,
+                                     @NonNull final String cls) {
+        startActivity(Utils.getContext(), extras, pkg, cls, null);
+    }
+
+    /**
+     * 启动Activity
+     *
      * @param extras  extras
      * @param pkg     包名
      * @param cls     全类名
@@ -180,6 +277,57 @@ public final class ActivityUtils {
                                      @NonNull final String cls,
                                      @NonNull final Bundle options) {
         startActivity(Utils.getContext(), extras, pkg, cls, options);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param activity activity
+     * @param extras   extras
+     * @param pkg      包名
+     * @param cls      全类名
+     */
+    public static void startActivity(@NonNull final Bundle extras,
+                                     @NonNull final Activity activity,
+                                     @NonNull final String pkg,
+                                     @NonNull final String cls) {
+        startActivity(activity, extras, pkg, cls, null);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param extras   extras
+     * @param activity activity
+     * @param pkg      包名
+     * @param cls      全类名
+     * @param options  动画
+     */
+    public static void startActivity(@NonNull final Bundle extras,
+                                     @NonNull final Activity activity,
+                                     @NonNull final String pkg,
+                                     @NonNull final String cls,
+                                     @NonNull final Bundle options) {
+        startActivity(activity, extras, pkg, cls, options);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param extras    extras
+     * @param pkg       包名
+     * @param cls       全类名
+     * @param enterAnim 入场动画
+     * @param exitAnim  出场动画
+     */
+    public static void startActivity(@NonNull final Bundle extras,
+                                     @NonNull final Activity activity,
+                                     @NonNull final String pkg,
+                                     @NonNull final String cls,
+                                     @AnimRes final int enterAnim,
+                                     @AnimRes final int exitAnim) {
+        startActivity(activity, extras, pkg, cls, null);
+        activity.overridePendingTransition(enterAnim, exitAnim);
     }
 
     private static void startActivity(final Context context,
