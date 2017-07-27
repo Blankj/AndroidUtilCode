@@ -37,7 +37,7 @@ public class PhoneActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        getSupportActionBar().setTitle(getString(R.string.demo_phone));
+        getToolBar().setTitle(getString(R.string.demo_phone));
 
         findViewById(R.id.btn_dial).setOnClickListener(this);
         findViewById(R.id.btn_call).setOnClickListener(this);

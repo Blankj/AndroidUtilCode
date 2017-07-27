@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -23,7 +22,7 @@ import com.blankj.androidutilcode.R;
  */
 public abstract class BaseDrawerActivity extends BaseActivity {
 
-    protected Toolbar mToolbar;
+    protected DrawerLayout rootLayout;
 
     NavigationView.OnNavigationItemSelectedListener mListener = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -42,11 +41,11 @@ public abstract class BaseDrawerActivity extends BaseActivity {
 
     @Override
     protected void setBaseView() {
+        rootLayout = (DrawerLayout) findViewById(R.id.root_layout);
         contentView = LayoutInflater.from(this).inflate(R.layout.activity_drawer, null);
         setContentView(contentView);
-        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.content_view);
+        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.activity_container);
         frameLayout.addView(LayoutInflater.from(this).inflate(bindLayout(), frameLayout, false));
-        DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(mListener);
     }

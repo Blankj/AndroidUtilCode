@@ -37,7 +37,7 @@ public class PinyinActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        getSupportActionBar().setTitle(getString(R.string.demo_pinyin));
+        getToolBar().setTitle(getString(R.string.demo_pinyin));
 
         TextView tvAboutPinyin = (TextView) findViewById(R.id.tv_about_pinyin);
         tvAboutPinyin.setText("测试拼音工具类"

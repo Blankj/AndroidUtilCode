@@ -42,7 +42,7 @@ public class ProcessActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        getSupportActionBar().setTitle(getString(R.string.demo_process));
+        getToolBar().setTitle(getString(R.string.demo_process));
 
         findViewById(R.id.btn_kill_all_background_processes).setOnClickListener(this);
         tvAboutProcess = (TextView) findViewById(R.id.tv_about_process);

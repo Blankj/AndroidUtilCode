@@ -43,7 +43,7 @@ public class ImageActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        getSupportActionBar().setTitle(getString(R.string.demo_image));
+        getToolBar().setTitle(getString(R.string.demo_image));
 
         ivSrc = (ImageView) findViewById(R.id.iv_src);
         ivView2Bitmap = (ImageView) findViewById(R.id.iv_view2Bitmap);

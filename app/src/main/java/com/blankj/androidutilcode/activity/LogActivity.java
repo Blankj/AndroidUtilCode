@@ -91,7 +91,7 @@ public class LogActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        getSupportActionBar().setTitle(getString(R.string.demo_log));
+        getToolBar().setTitle(getString(R.string.demo_log));
 
         findViewById(R.id.btn_toggle_log).setOnClickListener(this);
         findViewById(R.id.btn_toggle_console).setOnClickListener(this);

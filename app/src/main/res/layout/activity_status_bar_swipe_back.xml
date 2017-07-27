@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -8,6 +7,14 @@
     android:orientation="vertical"
     android:paddingLeft="@dimen/spacing_16"
     android:paddingRight="@dimen/spacing_16">
+
+    <CheckBox
+        android:id="@+id/cb_alpha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="4dp"
+        android:text="@string/status_bar_title_alpha" />
 
     <TextView
         android:id="@+id/tv_status_alpha"

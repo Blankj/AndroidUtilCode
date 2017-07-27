@@ -41,7 +41,7 @@ public class AppActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        getSupportActionBar().setTitle(getString(R.string.demo_app));
+        getToolBar().setTitle(getString(R.string.demo_app));
 
         findViewById(R.id.btn_install_app).setOnClickListener(this);
         findViewById(R.id.btn_install_app_silent).setOnClickListener(this);

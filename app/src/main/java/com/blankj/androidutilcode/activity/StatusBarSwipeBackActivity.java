@@ -2,10 +2,13 @@ package com.blankj.androidutilcode.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -31,9 +34,10 @@ public class StatusBarSwipeBackActivity extends BaseBackActivity {
     private int    mColor;
     private int    mAlpha;
 
-    protected Toolbar mToolbar;
-    private TextView mTvStatusAlpha;
+    private CheckBox cbAlpha;
+    private TextView tvStatusAlpha;
     private SeekBar  sbChangeAlpha;
+    private Button   btnRandomColor;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, StatusBarSwipeBackActivity.class);
@@ -54,14 +58,19 @@ public class StatusBarSwipeBackActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        getSupportActionBar().setTitle(getString(R.string.demo_bar));
+        getToolBar().setTitle(getString(R.string.demo_bar));
 
-        findViewById(R.id.btn_random_color).setOnClickListener(this);
-        findViewById(R.id.btn_set_transparent).setOnClickListener(this);
-        mTvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
+        cbAlpha = (CheckBox) findViewById(R.id.cb_alpha);
+        btnRandomColor = (Button) findViewById(R.id.btn_random_color);
+        tvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
         sbChangeAlpha = (SeekBar) findViewById(R.id.sb_change_alpha);
-        sbChangeAlpha.setOnSeekBarChangeListener(colorListener);
-        mTvStatusAlpha.setText(String.valueOf(mAlpha));
+
+        cbAlpha.setOnCheckedChangeListener(mCheckedChangeListener);
+        btnRandomColor.setOnClickListener(this);
+        findViewById(R.id.btn_set_transparent).setOnClickListener(this);
+        sbChangeAlpha.setOnSeekBarChangeListener(mColorListener);
+
+        tvStatusAlpha.setText(String.valueOf(mAlpha));
 
         updateStatusBar();
     }
@@ -85,11 +94,11 @@ public class StatusBarSwipeBackActivity extends BaseBackActivity {
         }
     }
 
-    private SeekBar.OnSeekBarChangeListener colorListener = new SeekBar.OnSeekBarChangeListener() {
+    private SeekBar.OnSeekBarChangeListener mColorListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             mAlpha = progress;
-            mTvStatusAlpha.setText(String.valueOf(mAlpha));
+            tvStatusAlpha.setText(String.valueOf(mAlpha));
             updateStatusBar();
         }
 
@@ -104,7 +113,29 @@ public class StatusBarSwipeBackActivity extends BaseBackActivity {
         }
     };
 
+    CompoundButton.OnCheckedChangeListener mCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (isChecked) {
+                btnRandomColor.setVisibility(View.GONE);
+                getToolBar().hide();
+                rootLayout.setBackgroundResource(R.drawable.bg_bar);
+            } else {
+                btnRandomColor.setVisibility(View.VISIBLE);
+                getToolBar().show();
+                rootLayout.setBackgroundColor(Color.WHITE);
+            }
+            updateStatusBar();
+        }
+    };
+
     private void updateStatusBar() {
-        BarUtils.setStatusBarColor(StatusBarSwipeBackActivity.this, mColor, mAlpha);
+        if (!cbAlpha.isChecked()) {
+            BarUtils.setStatusBarColor(StatusBarSwipeBackActivity.this, mColor, mAlpha);
+            BarUtils.subtractMarginTopEqualStatusBarHeight(cbAlpha);
+        } else {
+            BarUtils.setStatusBarAlpha(StatusBarSwipeBackActivity.this, mAlpha);
+            BarUtils.addMarginTopEqualStatusBarHeight(cbAlpha);
+        }
     }
 }

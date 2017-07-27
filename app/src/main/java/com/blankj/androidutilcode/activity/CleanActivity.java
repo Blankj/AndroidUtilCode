@@ -40,7 +40,7 @@ public class CleanActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        getSupportActionBar().setTitle(getString(R.string.demo_clean));
+        getToolBar().setTitle(getString(R.string.demo_clean));
 
         Button btnCleanInternalCache = (Button) findViewById(R.id.btn_clean_internal_cache);
         Button btnCleanInternalFiles = (Button) findViewById(R.id.btn_clean_internal_files);

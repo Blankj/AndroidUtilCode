@@ -42,7 +42,7 @@ public class FragmentActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        getSupportActionBar().setTitle(getString(R.string.demo_fragment));
+        getToolBar().setTitle(getString(R.string.demo_fragment));
     }
 
     @Override

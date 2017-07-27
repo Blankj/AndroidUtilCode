@@ -59,9 +59,9 @@
     <string name="status_bar_set_drawer">Set Drawer</string>
     <string name="status_bar_random_color">Random Color</string>
     <string name="status_bar_set_transparent">Set Transparent</string>
-    <string name="bar_title_color">Color</string>
-    <string name="bar_title_alpha">Alpha</string>
-    <string name="bar_title_image_view">Image</string>
+    <string name="status_bar_title_color">Color</string>
+    <string name="status_bar_title_alpha">Alpha</string>
+    <string name="status_bar_title_image_view">Image</string>
 
     <!--Device相关-->
     <string name="device_shutdown">Shutdown</string>

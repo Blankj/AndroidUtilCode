@@ -56,6 +56,38 @@ public final class BarUtils {
     }
 
     /**
+     * 为view增加MarginTop为状态栏高度
+     *
+     * @param view view
+     */
+    public static void addMarginTopEqualStatusBarHeight(@NonNull View view) {
+        Object haveSetOffset = view.getTag(TAG_OFFSET);
+        if (haveSetOffset != null && (Boolean) haveSetOffset) return;
+        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        layoutParams.setMargins(layoutParams.leftMargin,
+                layoutParams.topMargin + getStatusBarHeight(),
+                layoutParams.rightMargin,
+                layoutParams.bottomMargin);
+        view.setTag(TAG_OFFSET, true);
+    }
+
+    /**
+     * 为view减少MarginTop为状态栏高度
+     *
+     * @param view view
+     */
+    public static void subtractMarginTopEqualStatusBarHeight(@NonNull View view) {
+        Object haveSetOffset = view.getTag(TAG_OFFSET);
+        if (haveSetOffset == null || !(Boolean) haveSetOffset) return;
+        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        layoutParams.setMargins(layoutParams.leftMargin,
+                layoutParams.topMargin - getStatusBarHeight(),
+                layoutParams.rightMargin,
+                layoutParams.bottomMargin);
+        view.setTag(TAG_OFFSET, false);
+    }
+
+    /**
      * 设置状态栏颜色
      *
      * @param activity activity
@@ -96,18 +128,16 @@ public final class BarUtils {
         hideAlphaView(activity);
         transparentStatusBar(activity);
         addColorView(activity, color, alpha, isDecor);
-        fitWindowAndClipToPadding(activity);
+        addMarginTopEqualStatusBarHeight(activity);
     }
 
     /**
      * 设置状态栏透明度
      *
-     * @param activity        activity
-     * @param needOffsetViews 需要
+     * @param activity activity
      */
-    public static void setStatusBarAlpha(@NonNull final Activity activity,
-                                         @NonNull final View... needOffsetViews) {
-        setStatusBarAlpha(activity, DEFAULT_ALPHA, false, needOffsetViews);
+    public static void setStatusBarAlpha(@NonNull final Activity activity) {
+        setStatusBarAlpha(activity, DEFAULT_ALPHA, false);
     }
 
     /**
@@ -116,9 +146,8 @@ public final class BarUtils {
      * @param activity activity
      */
     public static void setStatusBarAlpha(@NonNull final Activity activity,
-                                         @IntRange(from = 0, to = 255) final int alpha,
-                                         @NonNull final View... needOffsetViews) {
-        setStatusBarAlpha(activity, alpha, false, needOffsetViews);
+                                         @IntRange(from = 0, to = 255) final int alpha) {
+        setStatusBarAlpha(activity, alpha, false);
     }
 
     /**
@@ -131,15 +160,12 @@ public final class BarUtils {
      */
     public static void setStatusBarAlpha(@NonNull final Activity activity,
                                          @IntRange(from = 0, to = 255) final int alpha,
-                                         final boolean isDecor,
-                                         @NonNull final View... needOffsetViews) {
+                                         final boolean isDecor) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
         hideColorView(activity);
         transparentStatusBar(activity);
         addAlphaView(activity, alpha, isDecor);
-        for (View view : needOffsetViews) {
-            addMarginTopEqualStatusBarHeight(view);
-        }
+        subtractMarginTopEqualStatusBarHeight(activity);
     }
 
     /**
@@ -194,21 +220,6 @@ public final class BarUtils {
     }
 
     /**
-     * 针对根布局是 CoordinatorLayout, 使状态栏半透明
-     * <p>
-     * 适用于图片作为背景的界面,此时需要图片填充到状态栏
-     *
-     * @param activity 需要设置的activity
-     * @param alpha    状态栏透明度
-     */
-    public static void setTranslucentForCoordinatorLayout(@NonNull final Activity activity,
-                                                          @IntRange(from = 0, to = 255) final int alpha) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        transparentStatusBar(activity);
-        addAlphaViewInDecorView(activity, alpha);
-    }
-
-    /**
      * 为DrawerLayout 布局设置状态栏变色
      *
      * @param activity     需要设置的activity
@@ -247,13 +258,8 @@ public final class BarUtils {
                                                final @ColorInt int color,
                                                @IntRange(from = 0, to = 255) final int alpha) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
-        } else {
-            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
+        hideColorView(activity);
+        transparentStatusBar(activity);
         // 生成一个状态栏大小的矩形
         // 添加 statusBarView 到布局中
         ViewGroup contentLayout = (ViewGroup) drawerLayout.getChildAt(0);
@@ -268,7 +274,9 @@ public final class BarUtils {
         }
         // 内容布局不是 LinearLayout 时,设置padding top
         if (!(contentLayout instanceof LinearLayout) && contentLayout.getChildAt(1) != null) {
-            addPaddingTopEqualStatusBarHeight(contentLayout.getChildAt(1));
+            contentLayout.getChildAt(1)
+                    .setPadding(contentLayout.getPaddingLeft(), getStatusBarHeight() + contentLayout.getPaddingTop(),
+                            contentLayout.getPaddingRight(), contentLayout.getPaddingBottom());
         }
         // 设置属性
         setDrawerLayoutProperty(drawerLayout, contentLayout);
@@ -332,12 +340,12 @@ public final class BarUtils {
      *
      * @param activity 调用的 Activity
      */
-    public static void hideFakeStatusBarView(@NonNull final Activity activity) {
+    public static void hideStatusBarView(@NonNull final Activity activity) {
         hideColorView(activity);
         hideAlphaView(activity);
     }
 
-    public static void addPaddingTopEqualStatusBarHeight(@NonNull View view) {
+    private static void addPaddingTopEqualStatusBarHeight(@NonNull View view) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
         Object haveSetOffset = view.getTag(TAG_OFFSET);
         if (haveSetOffset != null && (Boolean) haveSetOffset) return;
@@ -345,17 +353,6 @@ public final class BarUtils {
                 view.getPaddingTop() + getStatusBarHeight(),
                 view.getPaddingRight(),
                 view.getPaddingBottom());
-        view.setTag(TAG_OFFSET, true);
-    }
-
-    public static void addMarginTopEqualStatusBarHeight(@NonNull View view) {
-        Object haveSetOffset = view.getTag(TAG_OFFSET);
-        if (haveSetOffset != null && (Boolean) haveSetOffset) return;
-        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        layoutParams.setMargins(layoutParams.leftMargin,
-                layoutParams.topMargin + getStatusBarHeight(),
-                layoutParams.rightMargin,
-                layoutParams.bottomMargin);
         view.setTag(TAG_OFFSET, true);
     }
 
@@ -398,27 +395,18 @@ public final class BarUtils {
     }
 
     private static void hideColorView(final Activity activity) {
-        Window window = activity.getWindow();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-        } else {
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            ViewGroup decorView = (ViewGroup) window.getDecorView();
-            View fakeStatusBarView = decorView.findViewWithTag(TAG_COLOR);
-            if (fakeStatusBarView != null) {
-                fakeStatusBarView.setVisibility(View.GONE);
-            }
-        }
+        subtractMarginTopEqualStatusBarHeight(activity);
+        ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
+        View fakeStatusBarView = decorView.findViewWithTag(TAG_COLOR);
+        if (fakeStatusBarView == null) return;
+        fakeStatusBarView.setVisibility(View.GONE);
     }
 
     private static void hideAlphaView(final Activity activity) {
         ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
         View fakeStatusBarView = decorView.findViewWithTag(TAG_ALPHA);
-        if (fakeStatusBarView != null) {
-            fakeStatusBarView.setVisibility(View.GONE);
-        }
+        if (fakeStatusBarView == null) return;
+        fakeStatusBarView.setVisibility(View.GONE);
     }
 
     private static int getStatusBarColor(final int color, final int alpha) {
@@ -470,16 +458,22 @@ public final class BarUtils {
         }
     }
 
-    /**
-     * 使内容布局在StatusBar下，内容不可滚动到StatusBar
-     */
-    private static void fitWindowAndClipToPadding(final Activity activity) {
+    private static void addMarginTopEqualStatusBarHeight(final Activity activity) {
         ViewGroup parent = (ViewGroup) activity.findViewById(android.R.id.content);
         for (int i = 0, count = parent.getChildCount(); i < count; i++) {
             View childView = parent.getChildAt(i);
             if (childView instanceof ViewGroup) {
-                childView.setFitsSystemWindows(true);
-                ((ViewGroup) childView).setClipToPadding(true);
+                addMarginTopEqualStatusBarHeight(childView);
+            }
+        }
+    }
+
+    private static void subtractMarginTopEqualStatusBarHeight(final Activity activity) {
+        ViewGroup parent = (ViewGroup) activity.findViewById(android.R.id.content);
+        for (int i = 0, count = parent.getChildCount(); i < count; i++) {
+            View childView = parent.getChildAt(i);
+            if (childView instanceof ViewGroup) {
+                subtractMarginTopEqualStatusBarHeight(childView);
             }
         }
     }

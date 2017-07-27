@@ -35,7 +35,7 @@ public class BarActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        getSupportActionBar().setTitle(getString(R.string.demo_bar));
+        getToolBar().setTitle(getString(R.string.demo_bar));
 
         findViewById(R.id.btn_status_bar_color).setOnClickListener(this);
         findViewById(R.id.btn_status_bar_alpha).setOnClickListener(this);

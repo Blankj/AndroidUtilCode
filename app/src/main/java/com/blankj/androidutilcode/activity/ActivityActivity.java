@@ -41,7 +41,7 @@ public class ActivityActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        getSupportActionBar().setTitle(getString(R.string.demo_activity));
+        getToolBar().setTitle(getString(R.string.demo_activity));
 
         findViewById(R.id.btn_launch_image_activity).setOnClickListener(this);
         TextView tvAboutActivity = (TextView) findViewById(R.id.tv_about_activity);

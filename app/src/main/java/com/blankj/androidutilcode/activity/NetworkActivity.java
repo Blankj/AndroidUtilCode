@@ -39,7 +39,7 @@ public class NetworkActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        getSupportActionBar().setTitle(getString(R.string.demo_network));
+        getToolBar().setTitle(getString(R.string.demo_network));
 
         tvAboutNetwork = (TextView) findViewById(R.id.tv_about_network);
         findViewById(R.id.btn_open_wireless_settings).setOnClickListener(this);

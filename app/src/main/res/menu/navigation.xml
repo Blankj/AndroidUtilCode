@@ -4,16 +4,16 @@
     <item
         android:id="@+id/navigation_color"
         android:icon="@drawable/ic_color"
-        android:title="@string/bar_title_color" />
+        android:title="@string/status_bar_title_color" />
 
     <item
         android:id="@+id/navigation_alpha"
         android:icon="@drawable/ic_alpha"
-        android:title="@string/bar_title_alpha" />
+        android:title="@string/status_bar_title_alpha" />
 
     <item
         android:id="@+id/navigation_image_view"
         android:icon="@drawable/ic_image"
-        android:title="@string/bar_title_image_view" />
+        android:title="@string/status_bar_title_image_view" />
 
 </menu>

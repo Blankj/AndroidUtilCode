@@ -33,7 +33,7 @@ public class MainActivity extends BaseDrawerActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.root_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);

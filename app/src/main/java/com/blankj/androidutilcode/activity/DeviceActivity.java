@@ -37,7 +37,7 @@ public class DeviceActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        getSupportActionBar().setTitle(getString(R.string.demo_device));
+        getToolBar().setTitle(getString(R.string.demo_device));
 
         findViewById(R.id.btn_shutdown).setOnClickListener(this);
         findViewById(R.id.btn_reboot).setOnClickListener(this);

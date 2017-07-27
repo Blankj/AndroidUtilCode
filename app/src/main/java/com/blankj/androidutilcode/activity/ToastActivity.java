@@ -39,7 +39,7 @@ public class ToastActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        getSupportActionBar().setTitle(getString(R.string.demo_toast));
+        getToolBar().setTitle(getString(R.string.demo_toast));
 
         view.findViewById(R.id.btn_show_short_toast_safe).setOnClickListener(this);
         view.findViewById(R.id.btn_show_short_toast).setOnClickListener(this);

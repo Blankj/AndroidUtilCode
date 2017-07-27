@@ -45,7 +45,7 @@ public class SnackbarActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        getSupportActionBar().setTitle(getString(R.string.demo_snackbar));
+        getToolBar().setTitle(getString(R.string.demo_snackbar));
 
         snackBarRootView = findViewById(android.R.id.content);
         findViewById(R.id.btn_short_snackbar).setOnClickListener(this);
