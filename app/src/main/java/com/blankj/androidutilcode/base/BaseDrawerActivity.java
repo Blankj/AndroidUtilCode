@@ -41,9 +41,9 @@ public abstract class BaseDrawerActivity extends BaseActivity {
 
     @Override
     protected void setBaseView() {
-        rootLayout = (DrawerLayout) findViewById(R.id.root_layout);
         contentView = LayoutInflater.from(this).inflate(R.layout.activity_drawer, null);
         setContentView(contentView);
+        rootLayout = (DrawerLayout) findViewById(R.id.root_layout);
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.activity_container);
         frameLayout.addView(LayoutInflater.from(this).inflate(bindLayout(), frameLayout, false));
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);

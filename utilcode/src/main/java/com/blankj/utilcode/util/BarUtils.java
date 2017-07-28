@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.ColorInt;
+import android.support.annotation.IdRes;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
@@ -127,7 +128,7 @@ public final class BarUtils {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
         hideAlphaView(activity);
         transparentStatusBar(activity);
-        addColorView(activity, color, alpha, isDecor);
+        addStatusBarColor(activity, color, alpha, isDecor);
         addMarginTopEqualStatusBarHeight(activity);
     }
 
@@ -164,8 +165,7 @@ public final class BarUtils {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
         hideColorView(activity);
         transparentStatusBar(activity);
-        addAlphaView(activity, alpha, isDecor);
-        subtractMarginTopEqualStatusBarHeight(activity);
+        addStatusBarAlpha(activity, alpha, isDecor);
     }
 
     /**
@@ -219,120 +219,28 @@ public final class BarUtils {
         fakeStatusBar.setBackgroundColor(Color.argb(alpha, 0, 0, 0));
     }
 
-    /**
-     * 为DrawerLayout 布局设置状态栏变色
-     *
-     * @param activity     需要设置的activity
-     * @param drawerLayout DrawerLayout
-     * @param color        状态栏颜色值
-     */
-    public static void setColorForDrawerLayout(@NonNull final Activity activity,
-                                               @NonNull final DrawerLayout drawerLayout,
-                                               @ColorInt final int color) {
-        setColorForDrawerLayout(activity, drawerLayout, color, DEFAULT_ALPHA);
-    }
-
-    /**
-     * 为DrawerLayout 布局设置状态栏颜色,纯色
-     *
-     * @param activity     需要设置的activity
-     * @param drawerLayout DrawerLayout
-     * @param color        状态栏颜色值
-     */
-    public static void setColorNoTranslucentForDrawerLayout(@NonNull final Activity activity,
-                                                            @NonNull final DrawerLayout drawerLayout,
-                                                            @ColorInt final int color) {
-        setColorForDrawerLayout(activity, drawerLayout, color, 0);
-    }
-
-    /**
-     * 为DrawerLayout 布局设置状态栏变色
-     *
-     * @param activity     需要设置的activity
-     * @param drawerLayout DrawerLayout
-     * @param color        状态栏颜色值
-     * @param alpha        状态栏透明度
-     */
-    public static void setColorForDrawerLayout(@NonNull final Activity activity,
-                                               @NonNull final DrawerLayout drawerLayout,
-                                               final @ColorInt int color,
-                                               @IntRange(from = 0, to = 255) final int alpha) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        hideColorView(activity);
-        transparentStatusBar(activity);
-        // 生成一个状态栏大小的矩形
-        // 添加 statusBarView 到布局中
-        ViewGroup contentLayout = (ViewGroup) drawerLayout.getChildAt(0);
-        View fakeStatusBarView = contentLayout.findViewWithTag(TAG_COLOR);
+    private static void addStatusBarColor(final ViewGroup parent, final int color, final int alpha) {
+        View fakeStatusBarView = parent.findViewWithTag(TAG_COLOR);
         if (fakeStatusBarView != null) {
             if (fakeStatusBarView.getVisibility() == View.GONE) {
                 fakeStatusBarView.setVisibility(View.VISIBLE);
             }
-            fakeStatusBarView.setBackgroundColor(color);
+            fakeStatusBarView.setBackgroundColor(getStatusBarColor(color, alpha));
         } else {
-            contentLayout.addView(createColorStatusBarView(activity, color, 0), 0);
+            parent.addView(createColorStatusBarView(parent.getContext(), color, alpha));
         }
-        // 内容布局不是 LinearLayout 时,设置padding top
-        if (!(contentLayout instanceof LinearLayout) && contentLayout.getChildAt(1) != null) {
-            contentLayout.getChildAt(1)
-                    .setPadding(contentLayout.getPaddingLeft(), getStatusBarHeight() + contentLayout.getPaddingTop(),
-                            contentLayout.getPaddingRight(), contentLayout.getPaddingBottom());
-        }
-        // 设置属性
-        setDrawerLayoutProperty(drawerLayout, contentLayout);
-        addAlphaViewInDecorView(activity, alpha);
     }
 
-    /**
-     * 为 DrawerLayout 布局设置状态栏透明
-     *
-     * @param activity     需要设置的activity
-     * @param drawerLayout DrawerLayout
-     */
-    public static void setTranslucentForDrawerLayout(@NonNull final Activity activity,
-                                                     @NonNull final DrawerLayout drawerLayout) {
-        setTranslucentForDrawerLayout(activity, drawerLayout, DEFAULT_ALPHA);
-    }
-
-    /**
-     * 为 DrawerLayout 布局设置状态栏透明
-     *
-     * @param activity     需要设置的activity
-     * @param drawerLayout DrawerLayout
-     */
-    public static void setTranslucentForDrawerLayout(@NonNull final Activity activity,
-                                                     @NonNull final DrawerLayout drawerLayout,
-                                                     @IntRange(from = 0, to = 255) final int alpha) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        setTransparentForDrawerLayout(activity, drawerLayout);
-        addAlphaViewInDecorView(activity, alpha);
-    }
-
-    /**
-     * 为 DrawerLayout 布局设置状态栏透明
-     *
-     * @param activity     需要设置的activity
-     * @param drawerLayout DrawerLayout
-     */
-    public static void setTransparentForDrawerLayout(@NonNull final Activity activity,
-                                                     @NonNull final DrawerLayout drawerLayout) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
+    private static void addStatusBarAlpha(final ViewGroup parent, final int alpha) {
+        View fakeStatusBarView = parent.findViewWithTag(TAG_ALPHA);
+        if (fakeStatusBarView != null) {
+            if (fakeStatusBarView.getVisibility() == View.GONE) {
+                fakeStatusBarView.setVisibility(View.VISIBLE);
+            }
+            fakeStatusBarView.setBackgroundColor(Color.argb(alpha, 0, 0, 0));
         } else {
-            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            parent.addView(createAlphaStatusBarView(parent.getContext(), alpha));
         }
-
-        ViewGroup contentLayout = (ViewGroup) drawerLayout.getChildAt(0);
-        // 内容布局不是 LinearLayout 时,设置padding top
-        if (!(contentLayout instanceof LinearLayout) && contentLayout.getChildAt(1) != null) {
-            contentLayout.getChildAt(1).setPadding(0, getStatusBarHeight(), 0, 0);
-        }
-
-        // 设置属性
-        setDrawerLayoutProperty(drawerLayout, contentLayout);
     }
 
     /**
@@ -356,42 +264,18 @@ public final class BarUtils {
         view.setTag(TAG_OFFSET, true);
     }
 
-    private static void addColorView(final Activity activity, final int color, final int alpha, boolean isDecor) {
+    private static void addStatusBarColor(final Activity activity, final int color, final int alpha, boolean isDecor) {
         ViewGroup parent = isDecor ?
                 (ViewGroup) activity.getWindow().getDecorView() :
                 (ViewGroup) activity.findViewById(android.R.id.content);
-        View fakeStatusBarView = parent.findViewWithTag(TAG_COLOR);
-        if (fakeStatusBarView != null) {
-            if (fakeStatusBarView.getVisibility() == View.GONE) {
-                fakeStatusBarView.setVisibility(View.VISIBLE);
-            }
-            fakeStatusBarView.setBackgroundColor(getStatusBarColor(color, alpha));
-        } else {
-            parent.addView(createColorStatusBarView(activity, color, alpha));
-        }
+        addStatusBarColor(parent, color, alpha);
     }
 
-    private static void addAlphaViewInDecorView(final Activity activity, final int alpha) {
-        addAlphaView(activity, alpha, true);
-    }
-
-    private static void addAlphaViewInContentView(final Activity activity, final int alpha) {
-        addAlphaView(activity, alpha, false);
-    }
-
-    private static void addAlphaView(final Activity activity, final int alpha, boolean isDecor) {
+    private static void addStatusBarAlpha(final Activity activity, final int alpha, boolean isDecor) {
         ViewGroup parent = isDecor ?
                 (ViewGroup) activity.getWindow().getDecorView() :
                 (ViewGroup) activity.findViewById(android.R.id.content);
-        View fakeStatusBarView = parent.findViewWithTag(TAG_ALPHA);
-        if (fakeStatusBarView != null) {
-            if (fakeStatusBarView.getVisibility() == View.GONE) {
-                fakeStatusBarView.setVisibility(View.VISIBLE);
-            }
-            fakeStatusBarView.setBackgroundColor(Color.argb(alpha, 0, 0, 0));
-        } else {
-            parent.addView(createAlphaStatusBarView(activity, alpha));
-        }
+        addStatusBarAlpha(parent, alpha);
     }
 
     private static void hideColorView(final Activity activity) {
@@ -424,8 +308,8 @@ public final class BarUtils {
     /**
      * 绘制一个和状态栏一样高的颜色矩形
      */
-    private static View createColorStatusBarView(final Activity activity, final int color, final int alpha) {
-        View statusBarView = new View(activity);
+    private static View createColorStatusBarView(final Context context, final int color, final int alpha) {
+        View statusBarView = new View(context);
         statusBarView.setLayoutParams(new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight()));
         statusBarView.setBackgroundColor(getStatusBarColor(color, alpha));
@@ -436,8 +320,8 @@ public final class BarUtils {
     /**
      * 绘制一个和状态栏一样高的黑色透明度矩形
      */
-    private static View createAlphaStatusBarView(final Activity activity, final int alpha) {
-        View statusBarView = new View(activity);
+    private static View createAlphaStatusBarView(final Context context, final int alpha) {
+        View statusBarView = new View(context);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight());
         statusBarView.setLayoutParams(params);
@@ -446,7 +330,7 @@ public final class BarUtils {
         return statusBarView;
     }
 
-    private static void transparentStatusBar(final Activity activity) {
+    public static void transparentStatusBar(final Activity activity) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
         Window window = activity.getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -477,6 +361,98 @@ public final class BarUtils {
             }
         }
     }
+
+    public static void setColorForDrawerLayout(Activity activity, DrawerLayout drawerLayout, @ColorInt int color,
+                                               @IntRange(from = 0, to = 255) int statusBarAlpha) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
+        transparentStatusBar(activity);
+        // 生成一个状态栏大小的矩形
+        // 添加 statusBarView 到布局中
+        addStatusBarColor((ViewGroup) drawerLayout.getChildAt(0), color, statusBarAlpha);
+//        ViewGroup contentLayout = (ViewGroup) drawerLayout.getChildAt(0);
+//        View fakeStatusBarView = contentLayout.findViewById(FAKE_STATUS_BAR_VIEW_ID);
+//        if (fakeStatusBarView != null) {
+//            if (fakeStatusBarView.getVisibility() == View.GONE) {
+//                fakeStatusBarView.setVisibility(View.VISIBLE);
+//            }
+//            fakeStatusBarView.setBackgroundColor(color);
+//        } else {
+//            contentLayout.addView(createStatusBarView(activity, color), 0);
+//        }
+        // 内容布局不是 LinearLayout 时,设置padding top
+//        if (!(contentLayout instanceof LinearLayout) && contentLayout.getChildAt(1) != null) {
+//            contentLayout.getChildAt(1)
+//                    .setPadding(contentLayout.getPaddingLeft(), getStatusBarHeight() + contentLayout.getPaddingTop(),
+//                            contentLayout.getPaddingRight(), contentLayout.getPaddingBottom());
+//        }
+//        // 设置属性
+        drawerLayout.setFitsSystemWindows(false);
+
+//        setDrawerLayoutProperty(drawerLayout, contentLayout);
+//        addTranslucentView(activity, statusBarAlpha);
+        addStatusBarAlpha(activity, statusBarAlpha, false);
+    }
+
+    /**
+     * 生成一个和状态栏大小相同的彩色矩形条
+     *
+     * @param activity 需要设置的 activity
+     * @param color    状态栏颜色值
+     * @return 状态栏矩形条
+     */
+    private static View createStatusBarView(Activity activity, @ColorInt int color) {
+        return createStatusBarView(activity, color, 0);
+    }
+
+    /**
+     * 生成一个和状态栏大小相同的半透明矩形条
+     *
+     * @param activity 需要设置的activity
+     * @param color    状态栏颜色值
+     * @param alpha    透明值
+     * @return 状态栏矩形条
+     */
+    private static View createStatusBarView(Activity activity, @ColorInt int color, int alpha) {
+        // 绘制一个和状态栏一样高的矩形
+        View statusBarView = new View(activity);
+        LinearLayout.LayoutParams params =
+                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight());
+        statusBarView.setLayoutParams(params);
+        statusBarView.setBackgroundColor(getStatusBarColor(color, alpha));
+        statusBarView.setId(FAKE_STATUS_BAR_VIEW_ID);
+        return statusBarView;
+    }
+
+
+    private static void addTranslucentView(Activity activity, @IntRange(from = 0, to = 255) int statusBarAlpha) {
+        ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
+        View fakeTranslucentView = contentView.findViewById(FAKE_TRANSLUCENT_VIEW_ID);
+        if (fakeTranslucentView != null) {
+            if (fakeTranslucentView.getVisibility() == View.GONE) {
+                fakeTranslucentView.setVisibility(View.VISIBLE);
+            }
+            fakeTranslucentView.setBackgroundColor(Color.argb(statusBarAlpha, 0, 0, 0));
+        } else {
+            contentView.addView(createTranslucentStatusBarView(activity, statusBarAlpha));
+        }
+    }
+
+    @IdRes
+    private static int FAKE_TRANSLUCENT_VIEW_ID = 110;
+    @IdRes
+    private static int FAKE_STATUS_BAR_VIEW_ID  = 111;
+
+    private static View createTranslucentStatusBarView(Activity activity, int alpha) {
+        // 绘制一个和状态栏一样高的矩形
+        View statusBarView = new View(activity);
+        LinearLayout.LayoutParams params =
+                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight());
+        statusBarView.setLayoutParams(params);
+        statusBarView.setBackgroundColor(Color.argb(alpha, 0, 0, 0));
+        statusBarView.setId(FAKE_TRANSLUCENT_VIEW_ID);
+        return statusBarView;
+    }
+
 
     private static void setDrawerLayoutProperty(final DrawerLayout drawerLayout,
                                                 final ViewGroup drawerLayoutContentLayout) {

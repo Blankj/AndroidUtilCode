@@ -34,13 +34,14 @@ public class StatusBarDrawerActivity extends BaseDrawerActivity {
     private int    mColor;
     private int    mAlpha;
 
+    private View     fakeStatusBar;
     private CheckBox cbAlpha;
     private TextView tvStatusAlpha;
     private SeekBar  sbChangeAlpha;
     private Button   btnRandomColor;
 
     public static void start(Context context) {
-        Intent starter = new Intent(context, StatusBarSwipeBackActivity.class);
+        Intent starter = new Intent(context, StatusBarDrawerActivity.class);
         context.startActivity(starter);
     }
 
@@ -53,11 +54,12 @@ public class StatusBarDrawerActivity extends BaseDrawerActivity {
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_status_bar_swipe_back;
+        return R.layout.activity_status_bar_drawer;
     }
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        fakeStatusBar = findViewById(R.id.fake_status_bar);
         cbAlpha = (CheckBox) findViewById(R.id.cb_alpha);
         btnRandomColor = (Button) findViewById(R.id.btn_random_color);
         tvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
@@ -126,6 +128,32 @@ public class StatusBarDrawerActivity extends BaseDrawerActivity {
     };
 
     private void updateStatusBar() {
-        BarUtils.setStatusBarColor(mActivity, mColor, mAlpha);
+//        ViewGroup childAt = (ViewGroup) rootLayout.getChildAt(0);
+//
+//        rootLayout.setFitsSystemWindows(false);
+//        childAt.setFitsSystemWindows(false);
+//        childAt.setClipToPadding(true);
+//
+//        BarUtils.transparentStatusBar(this);
+//        BarUtils.addStatusBarColor( childAt, mColor, mAlpha);
+
+//        BarUtils.transparentStatusBar(this);
+
+
+//        rootLayout.setFitsSystemWindows(true);
+
+
+//        BarUtils.addMarginTopEqualStatusBarHeight(cbAlpha);
+//        BarUtils.addStatusBarColor((ViewGroup) rootLayout.getChildAt(0), mColor, mAlpha);
+
+
+        if (!cbAlpha.isChecked()) {
+            BarUtils.setFakeStatusBarColor(fakeStatusBar, mColor, mAlpha);
+            BarUtils.setStatusBarAlpha(this, mAlpha);
+            rootLayout.setFitsSystemWindows(false);
+        } else {
+            BarUtils.setStatusBarAlpha(this, mAlpha);
+        }
+
     }
 }
