@@ -102,5 +102,6 @@ public class StatusBarColorActivity extends BaseActivity {
 
     private void updateStatusBar() {
         BarUtils.setStatusBarColor(this, mColor, mAlpha);
+        BarUtils.addMarginTopEqualStatusBarHeight(mTvStatusAlpha);
     }
 }

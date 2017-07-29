@@ -79,7 +79,7 @@
         android:id="@+id/iv_shared_element"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/lena"
+        android:src="@drawable/img_lena"
         android:transitionName="@string/fragment_transition" />
 
 </LinearLayout>

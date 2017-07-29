@@ -72,6 +72,7 @@ public class StatusBarDrawerActivity extends BaseDrawerActivity {
 
         tvStatusAlpha.setText(String.valueOf(mAlpha));
 
+
         updateStatusBar();
     }
 
@@ -128,32 +129,19 @@ public class StatusBarDrawerActivity extends BaseDrawerActivity {
     };
 
     private void updateStatusBar() {
-//        ViewGroup childAt = (ViewGroup) rootLayout.getChildAt(0);
-//
-//        rootLayout.setFitsSystemWindows(false);
-//        childAt.setFitsSystemWindows(false);
-//        childAt.setClipToPadding(true);
-//
-//        BarUtils.transparentStatusBar(this);
-//        BarUtils.addStatusBarColor( childAt, mColor, mAlpha);
-
-//        BarUtils.transparentStatusBar(this);
-
-
-//        rootLayout.setFitsSystemWindows(true);
-
-
-//        BarUtils.addMarginTopEqualStatusBarHeight(cbAlpha);
-//        BarUtils.addStatusBarColor((ViewGroup) rootLayout.getChildAt(0), mColor, mAlpha);
-
-
-        if (!cbAlpha.isChecked()) {
-            BarUtils.setFakeStatusBarColor(fakeStatusBar, mColor, mAlpha);
-            BarUtils.setStatusBarAlpha(this, mAlpha);
-            rootLayout.setFitsSystemWindows(false);
-        } else {
-            BarUtils.setStatusBarAlpha(this, mAlpha);
-        }
+        BarUtils.setStatusBarAlpha(this, mAlpha);
+//        if (!cbAlpha.isChecked()) {
+////            BarUtils.setStatusBarColor(this, mColor, mAlpha);
+//            BarUtils.setFakeStatusBarColor(fakeStatusBar, mColor, mAlpha);
+//            findViewById(R.id.activity_container).setFitsSystemWindows(false);
+//            findViewById(R.id.nav_view).setFitsSystemWindows(false);
+////            rootLayout.setFitsSystemWindows(false);
+//        } else {
+//            BarUtils.hideStatusBarView(this);
+////            fakeStatusBar.setVisibility(View.GONE);
+////            rootLayout.setFitsSystemWindows(true);
+//        }
+////        BarUtils.setStatusBarAlpha(this, mAlpha, true);
 
     }
 }

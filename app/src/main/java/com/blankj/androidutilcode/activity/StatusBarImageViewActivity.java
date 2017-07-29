@@ -86,6 +86,6 @@ public class StatusBarImageViewActivity extends BaseActivity {
     };
 
     private void updateStatusBar() {
-        BarUtils.setStatusBarAlpha(StatusBarImageViewActivity.this, mAlpha);
+        BarUtils.setStatusBarAlpha(StatusBarImageViewActivity.this, mAlpha, true);
     }
 }

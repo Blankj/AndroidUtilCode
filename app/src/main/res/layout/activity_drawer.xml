@@ -7,8 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:clipChildren="false"
-    android:fitsSystemWindows="true"
     android:overScrollMode="never"
     tools:openDrawer="start">
 
@@ -23,7 +21,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/white"
-        android:fitsSystemWindows="false"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/activity_main_drawer" />
 

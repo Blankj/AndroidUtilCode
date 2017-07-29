@@ -2,14 +2,16 @@ package com.blankj.androidutilcode.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseDrawerActivity;
+import com.blankj.utilcode.util.BarUtils;
 
 /**
  * <pre>
@@ -33,13 +35,20 @@ public class MainActivity extends BaseDrawerActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.root_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.ctl);
+        collapsingToolbarLayout.setExpandedTitleColor(Color.parseColor("#00FFFFFF"));
         setSupportActionBar(toolbar);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawerLayout.addDrawerListener(toggle);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                rootLayout,
+                toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
+        rootLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+        BarUtils.setStatusBarAlpha(this, 0);
+        BarUtils.addMarginTopEqualStatusBarHeight(toolbar);
     }
 
     @Override

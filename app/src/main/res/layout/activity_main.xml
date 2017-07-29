@@ -12,9 +12,10 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
         <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/ctl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="?attr/colorPrimary"
+            app:contentScrim="@color/colorPrimary"
             app:expandedTitleMarginStart="@dimen/spacing_24"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
@@ -22,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="@dimen/spacing_16"
+                android:scaleType="fitCenter"
                 android:src="@mipmap/ic_launcher"
                 app:layout_collapseMode="parallax" />
 

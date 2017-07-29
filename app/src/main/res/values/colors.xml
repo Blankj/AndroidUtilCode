@@ -5,7 +5,7 @@
     <color name="colorAccent">#FF73A3</color>
 
     <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
+    <color name="light_black">#4A4A4A</color>
 
     <color name="rainbow_red">#bf0c43</color>
     <color name="rainbow_yellow">#f9ba15</color>

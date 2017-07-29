@@ -58,7 +58,7 @@ public class ImageActivity extends BaseBackActivity {
         ImageView ivAddImageWatermark = (ImageView) findViewById(R.id.iv_add_image_watermark);
         ImageView ivGray = (ImageView) findViewById(R.id.iv_gray);
 
-        Bitmap src = ImageUtils.getBitmap(R.drawable.lena);
+        Bitmap src = ImageUtils.getBitmap(R.drawable.img_lena);
         Bitmap watermark = ImageUtils.getBitmap(R.mipmap.ic_launcher);
 
         SizeUtils.forceGetViewSize(ivSrc, new SizeUtils.onGetSizeListener() {
@@ -71,7 +71,7 @@ public class ImageActivity extends BaseBackActivity {
         ivRoundCorner.setImageBitmap(ImageUtils.toRoundCorner(src, 60));
         ivFastBlur.setImageBitmap(ImageUtils.fastBlur(src, 0.1f, 5));
         ivRenderScriptBlur.setImageBitmap(ImageUtils.renderScriptBlur(src, 10));
-        src = ImageUtils.getBitmap(R.drawable.lena);
+        src = ImageUtils.getBitmap(R.drawable.img_lena);
         ivStackBlur.setImageBitmap(ImageUtils.stackBlur(src, 10, false));
         ivAddFrame.setImageBitmap(ImageUtils.addFrame(src, 16, Color.GREEN));
         ivAddReflection.setImageBitmap(ImageUtils.addReflection(src, 80));

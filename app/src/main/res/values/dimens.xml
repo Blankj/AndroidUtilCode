@@ -6,10 +6,10 @@
     <dimen name="spacing_24">24dp</dimen>
     <dimen name="spacing_128">128dp</dimen>
 
-    <dimen name="font_40">40sp</dimen>
-    <dimen name="font_26">26sp</dimen>
-    <dimen name="font_20">20sp</dimen>
     <dimen name="font_16">16sp</dimen>
+    <dimen name="font_20">20sp</dimen>
+    <dimen name="font_24">24sp</dimen>
+    <dimen name="font_40">40sp</dimen>
 
     <dimen name="block_low_width">40dp</dimen>
     <dimen name="block_low_height">8dp</dimen>

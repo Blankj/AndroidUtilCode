@@ -12,4 +12,4 @@
     android:padding="@dimen/spacing_16"
     android:text="@string/snackbar_custom_view"
     android:textColor="@color/white"
-    android:textSize="@dimen/font_26" />
+    android:textSize="@dimen/font_24" />

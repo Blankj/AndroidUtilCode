@@ -58,8 +58,6 @@ public class StatusBarSwipeBackActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        getToolBar().setTitle(getString(R.string.demo_bar));
-
         cbAlpha = (CheckBox) findViewById(R.id.cb_alpha);
         btnRandomColor = (Button) findViewById(R.id.btn_random_color);
         tvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
@@ -72,6 +70,9 @@ public class StatusBarSwipeBackActivity extends BaseBackActivity {
 
         tvStatusAlpha.setText(String.valueOf(mAlpha));
 
+        abl.setVisibility(View.GONE);
+        BarUtils.subtractMarginTopEqualStatusBarHeight(rootLayout);
+        BarUtils.addMarginTopEqualStatusBarHeight(cbAlpha);
         updateStatusBar();
     }
 
@@ -118,11 +119,9 @@ public class StatusBarSwipeBackActivity extends BaseBackActivity {
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
                 btnRandomColor.setVisibility(View.GONE);
-                getToolBar().hide();
                 rootLayout.setBackgroundResource(R.drawable.bg_bar);
             } else {
                 btnRandomColor.setVisibility(View.VISIBLE);
-                getToolBar().show();
                 rootLayout.setBackgroundColor(Color.WHITE);
             }
             updateStatusBar();
@@ -130,14 +129,10 @@ public class StatusBarSwipeBackActivity extends BaseBackActivity {
     };
 
     private void updateStatusBar() {
-        if (!cbAlpha.isChecked()) {
-            BarUtils.setStatusBarColor(this, mColor, mAlpha);
-
-            BarUtils.subtractMarginTopEqualStatusBarHeight(cbAlpha);
-        } else {
+        if (cbAlpha.isChecked()) {
             BarUtils.setStatusBarAlpha(this, mAlpha);
-
-            BarUtils.addMarginTopEqualStatusBarHeight(cbAlpha);
+        } else {
+            BarUtils.setStatusBarColor(this, mColor, mAlpha);
         }
     }
 }
