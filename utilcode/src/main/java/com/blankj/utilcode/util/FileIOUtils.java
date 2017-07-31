@@ -511,7 +511,10 @@ public final class FileIOUtils {
                 sb.append(line).append(LINE_SEP);
             }
             // delete the last line separator
-            return sb.delete(sb.length() - LINE_SEP.length(), sb.length()).toString();
+            if (sb.length() >= LINE_SEP.length()) {
+                sb = sb.delete(sb.length() - LINE_SEP.length(), sb.length());
+            }
+            return sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
             return null;
