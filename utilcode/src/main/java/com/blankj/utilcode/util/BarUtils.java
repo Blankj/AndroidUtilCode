@@ -238,40 +238,85 @@ public final class BarUtils {
         fakeStatusBar.setBackgroundColor(Color.argb(alpha, 0, 0, 0));
     }
 
+    /**
+     * 为DrawerLayout设置状态栏颜色
+     *
+     * @param activity            activity
+     * @param drawer              drawerLayout
+     * @param fakeStatusBar       伪造状态栏
+     * @param color               状态栏颜色值
+     * @param isShowAlphaInDrawer 是否在drawerLayout显示透明度
+     */
+    public static void setStatusBarColor4Drawer(@NonNull final Activity activity,
+                                                @NonNull final DrawerLayout drawer,
+                                                @NonNull final View fakeStatusBar,
+                                                @ColorInt final int color,
+                                                final boolean isShowAlphaInDrawer) {
+        setStatusBarColor4Drawer(activity, drawer, fakeStatusBar, color, DEFAULT_ALPHA, isShowAlphaInDrawer);
+    }
+
+    /**
+     * 为DrawerLayout设置状态栏颜色
+     *
+     * @param activity            activity
+     * @param drawer              drawerLayout
+     * @param fakeStatusBar       伪造状态栏
+     * @param color               状态栏颜色值
+     * @param alpha               状态栏透明度，此透明度并非颜色中的透明度
+     * @param isShowAlphaInDrawer 是否在drawerLayout显示透明度
+     */
     public static void setStatusBarColor4Drawer(@NonNull final Activity activity,
                                                 @NonNull final DrawerLayout drawer,
                                                 @NonNull final View fakeStatusBar,
                                                 @ColorInt final int color,
                                                 @IntRange(from = 0, to = 255) final int alpha,
-                                                final boolean isShowShaderInDrawer) {
+                                                final boolean isShowAlphaInDrawer) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
+        drawer.setFitsSystemWindows(false);
         transparentStatusBar(activity);
-        setFakeStatusBarColor(fakeStatusBar, color, alpha);
+//        setFakeStatusBarColor(fakeStatusBar, color, alpha);
         for (int i = 0, len = drawer.getChildCount(); i < len; i++) {
             drawer.getChildAt(i).setFitsSystemWindows(false);
         }
-        if (isShowShaderInDrawer) addStatusBarAlpha(activity, alpha, false);
+        if (isShowAlphaInDrawer) addStatusBarAlpha(activity, alpha, false);
     }
 
+    /**
+     * 为DrawerLayout设置状态栏透明度
+     *
+     * @param activity            activity
+     * @param drawer              drawerLayout
+     * @param fakeStatusBar       伪造状态栏
+     * @param isShowAlphaInDrawer 是否在drawerLayout显示透明度
+     */
     public static void setStatusBarAlpha4Drawer(@NonNull final Activity activity,
                                                 @NonNull final DrawerLayout drawer,
                                                 @NonNull final View fakeStatusBar,
-                                                final boolean isShowShaderInDrawer) {
-        setStatusBarAlpha4Drawer(activity, drawer, fakeStatusBar, DEFAULT_ALPHA, isShowShaderInDrawer);
+                                                final boolean isShowAlphaInDrawer) {
+        setStatusBarAlpha4Drawer(activity, drawer, fakeStatusBar, DEFAULT_ALPHA, isShowAlphaInDrawer);
     }
 
+    /**
+     * 为DrawerLayout设置状态栏透明度
+     *
+     * @param activity            activity
+     * @param drawer              drawerLayout
+     * @param fakeStatusBar       伪造状态栏
+     * @param alpha               状态栏透明度
+     * @param isShowAlphaInDrawer 是否在drawerLayout显示透明度
+     */
     public static void setStatusBarAlpha4Drawer(@NonNull final Activity activity,
                                                 @NonNull final DrawerLayout drawer,
                                                 @NonNull final View fakeStatusBar,
                                                 @IntRange(from = 0, to = 255) final int alpha,
-                                                final boolean isShowShaderInDrawer) {
+                                                final boolean isShowAlphaInDrawer) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
         transparentStatusBar(activity);
         setFakeStatusBarAlpha(fakeStatusBar, alpha);
         for (int i = 0, len = drawer.getChildCount(); i < len; i++) {
             drawer.getChildAt(i).setFitsSystemWindows(false);
         }
-        if (isShowShaderInDrawer) addStatusBarAlpha(activity, alpha, false);
+        if (isShowAlphaInDrawer) addStatusBarAlpha(activity, alpha, false);
     }
 
 

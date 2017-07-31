@@ -906,9 +906,6 @@ public final class SpanUtils {
         if (backgroundColor != DEFAULT_COLOR) {
             mBuilder.setSpan(new BackgroundColorSpan(backgroundColor), start, end, flag);
         }
-        if (lineHeight != -1) {
-            mBuilder.setSpan(new CustomLineHeightSpan(lineHeight, alignLine), start, end, flag);
-        }
         if (first != -1) {
             mBuilder.setSpan(new LeadingMarginSpan.Standard(first, rest), start, end, flag);
         }
@@ -929,7 +926,6 @@ public final class SpanUtils {
                 mBuilder.setSpan(new CustomIconMarginSpan(Utils.getContext(), iconMarginResourceId, iconMarginGapWidth, alignIconMargin), start, end, flag);
             }
         }
-
         if (fontSize != -1) {
             mBuilder.setSpan(new AbsoluteSizeSpan(fontSize, fontSizeIsDp), start, end, flag);
         }
@@ -938,6 +934,9 @@ public final class SpanUtils {
         }
         if (xProportion != -1) {
             mBuilder.setSpan(new ScaleXSpan(xProportion), start, end, flag);
+        }
+        if (lineHeight != -1) {
+            mBuilder.setSpan(new CustomLineHeightSpan(lineHeight, alignLine), start, end, flag);
         }
         if (isStrikethrough) {
             mBuilder.setSpan(new StrikethroughSpan(), start, end, flag);

@@ -507,11 +507,13 @@ public final class FileIOUtils {
                 reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charsetName));
             }
             String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line).append(LINE_SEP);
+            if ((line = reader.readLine()) != null) {
+                sb.append(line);
+                while ((line = reader.readLine()) != null) {
+                    sb.append(LINE_SEP).append(line);
+                }
             }
-            // delete the last line separator
-            return sb.delete(sb.length() - LINE_SEP.length(), sb.length()).toString();
+            return sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
             return null;

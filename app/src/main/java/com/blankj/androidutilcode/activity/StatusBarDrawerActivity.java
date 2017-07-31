@@ -128,21 +128,12 @@ public class StatusBarDrawerActivity extends BaseDrawerActivity {
     };
 
     private void updateStatusBar() {
-        BarUtils.setStatusBarAlpha(this, 0);
-//        BarUtils.setStatusBarColor4Drawer(this, rootLayout, fakeStatusBar, mColor, mAlpha, true);
+        if (cbAlpha.isChecked()) {
 
-//        if (!cbAlpha.isChecked()) {
-////            BarUtils.setStatusBarColor(this, mColor, mAlpha);
-//            BarUtils.setFakeStatusBarColor(fakeStatusBar, mColor, mAlpha);
-//            findViewById(R.id.activity_container).setFitsSystemWindows(false);
-//            findViewById(R.id.nav_view).setFitsSystemWindows(false);
-////            rootLayout.setFitsSystemWindows(false);
-//        } else {
-//            BarUtils.hideStatusBarView(this);
-////            fakeStatusBar.setVisibility(View.GONE);
-////            rootLayout.setFitsSystemWindows(true);
-//        }
-////        BarUtils.setStatusBarAlpha(this, mAlpha, true);
+        } else {
+            BarUtils.setStatusBarColor4Drawer(this, rootLayout, fakeStatusBar, mColor, mAlpha, true);
+
+        }
 
     }
 }
