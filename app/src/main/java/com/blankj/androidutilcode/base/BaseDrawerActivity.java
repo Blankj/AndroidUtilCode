@@ -23,6 +23,7 @@ import com.blankj.androidutilcode.R;
 public abstract class BaseDrawerActivity extends BaseActivity {
 
     protected DrawerLayout rootLayout;
+    protected FrameLayout flActivityContainer;
 
     NavigationView.OnNavigationItemSelectedListener mListener = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -44,8 +45,8 @@ public abstract class BaseDrawerActivity extends BaseActivity {
         contentView = LayoutInflater.from(this).inflate(R.layout.activity_drawer, null);
         setContentView(contentView);
         rootLayout = (DrawerLayout) findViewById(R.id.root_layout);
-        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.activity_container);
-        frameLayout.addView(LayoutInflater.from(this).inflate(bindLayout(), frameLayout, false));
+        flActivityContainer = (FrameLayout) findViewById(R.id.activity_container);
+        flActivityContainer.addView(LayoutInflater.from(this).inflate(bindLayout(), flActivityContainer, false));
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(mListener);
     }

@@ -72,7 +72,6 @@ public class StatusBarDrawerActivity extends BaseDrawerActivity {
 
         tvStatusAlpha.setText(String.valueOf(mAlpha));
 
-
         updateStatusBar();
     }
 
@@ -129,7 +128,9 @@ public class StatusBarDrawerActivity extends BaseDrawerActivity {
     };
 
     private void updateStatusBar() {
-        BarUtils.setStatusBarAlpha(this, mAlpha);
+        BarUtils.setStatusBarAlpha(this, 0);
+//        BarUtils.setStatusBarColor4Drawer(this, rootLayout, fakeStatusBar, mColor, mAlpha, true);
+
 //        if (!cbAlpha.isChecked()) {
 ////            BarUtils.setStatusBarColor(this, mColor, mAlpha);
 //            BarUtils.setFakeStatusBarColor(fakeStatusBar, mColor, mAlpha);
