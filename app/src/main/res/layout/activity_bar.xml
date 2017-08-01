@@ -7,46 +7,66 @@
     android:orientation="vertical"
     android:padding="@dimen/spacing_16">
 
+    <TextView
+        style="@style/TextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bar_about_status_bar" />
+
     <Button
         android:id="@+id/btn_status_bar_color"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/status_bar_set_color" />
+        android:text="@string/bar_status_set_color" />
 
     <Button
         android:id="@+id/btn_status_bar_alpha"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/status_bar_set_alpha" />
+        android:text="@string/bar_status_set_alpha" />
 
     <Button
         android:id="@+id/btn_status_bar_image_view"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/status_bar_set_image_view" />
+        android:text="@string/bar_status_set_image_view" />
 
     <Button
         android:id="@+id/btn_status_bar_fragment"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/status_bar_set_fragment" />
+        android:text="@string/bar_status_set_fragment" />
 
     <Button
         android:id="@+id/btn_status_bar_swipe_back"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/status_bar_set_swipe_back" />
+        android:text="@string/bar_status_set_swipe_back" />
 
     <Button
         android:id="@+id/btn_status_bar_drawer"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/status_bar_set_drawer" />
+        android:text="@string/bar_status_set_drawer" />
+
+    <TextView
+        style="@style/TextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_16"
+        android:text="@string/bar_about_nav_bar" />
+
+    <Button
+        android:id="@+id/btn_nav_bar"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bar_nav_about" />
 
 </LinearLayout>

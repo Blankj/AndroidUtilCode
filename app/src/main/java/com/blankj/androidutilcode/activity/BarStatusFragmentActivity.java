@@ -13,9 +13,9 @@ import android.view.View;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseActivity;
-import com.blankj.androidutilcode.fragment.StatusBarAlphaFragment;
-import com.blankj.androidutilcode.fragment.StatusBarColorFragment;
-import com.blankj.androidutilcode.fragment.StatusBarImageViewFragment;
+import com.blankj.androidutilcode.fragment.BarStatusAlphaFragment;
+import com.blankj.androidutilcode.fragment.BarStatusColorFragment;
+import com.blankj.androidutilcode.fragment.BarStatusImageViewFragment;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ import java.util.ArrayList;
  *     desc  : Bar工具类Demo
  * </pre>
  */
-public class StatusBarFragmentActivity extends BaseActivity {
+public class BarStatusFragmentActivity extends BaseActivity {
 
     private int[] itemIds = new int[]{R.id.navigation_color, R.id.navigation_alpha, R.id.navigation_image_view};
 
@@ -36,7 +36,7 @@ public class StatusBarFragmentActivity extends BaseActivity {
     private ArrayList<Fragment> mFragmentList = new ArrayList<>();
 
     public static void start(Context context) {
-        Intent starter = new Intent(context, StatusBarFragmentActivity.class);
+        Intent starter = new Intent(context, BarStatusFragmentActivity.class);
         context.startActivity(starter);
     }
 
@@ -52,7 +52,7 @@ public class StatusBarFragmentActivity extends BaseActivity {
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_status_bar_fragment;
+        return R.layout.activity_bar_status_fragment;
     }
 
     @Override
@@ -60,9 +60,9 @@ public class StatusBarFragmentActivity extends BaseActivity {
         mVpHome = (ViewPager) findViewById(R.id.vp_home);
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
 
-        mFragmentList.add(StatusBarColorFragment.newInstance());
-        mFragmentList.add(StatusBarAlphaFragment.newInstance());
-        mFragmentList.add(StatusBarImageViewFragment.newInstance());
+        mFragmentList.add(BarStatusColorFragment.newInstance());
+        mFragmentList.add(BarStatusAlphaFragment.newInstance());
+        mFragmentList.add(BarStatusImageViewFragment.newInstance());
 
 
         mVpHome.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.blankj.androidutilcode.Config;
 import com.blankj.androidutilcode.R;
 
 
@@ -23,17 +24,17 @@ import com.blankj.androidutilcode.R;
 public abstract class BaseDrawerActivity extends BaseActivity {
 
     protected DrawerLayout rootLayout;
-    protected FrameLayout flActivityContainer;
+    protected FrameLayout  flActivityContainer;
 
     NavigationView.OnNavigationItemSelectedListener mListener = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.action_git_hub:
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Blankj/AndroidUtilCode")));
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Config.GITHUB)));
                     break;
                 case R.id.action_blog:
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.jianshu.com/u/46702d5c6978")));
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Config.BLOG)));
                     break;
             }
             return false;

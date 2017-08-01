@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/ll_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/spacing_16"
-    android:paddingRight="@dimen/spacing_16">
+    android:orientation="vertical">
 
     <CheckBox
         android:id="@+id/cb_alpha"
@@ -15,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="4dp"
-        android:text="@string/status_bar_title_alpha" />
+        android:text="@string/bar_status_title_alpha" />
 
     <TextView
         android:id="@+id/tv_status_alpha"
@@ -28,6 +27,8 @@
         android:id="@+id/sb_change_alpha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/spacing_16"
+        android:layout_marginRight="@dimen/spacing_16"
         android:max="255"
         android:padding="@dimen/spacing_8"
         android:progress="112" />
@@ -37,13 +38,17 @@
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/status_bar_random_color" />
+        android:layout_marginLeft="@dimen/spacing_16"
+        android:layout_marginRight="@dimen/spacing_16"
+        android:text="@string/bar_status_random_color" />
 
     <Button
         android:id="@+id/btn_set_transparent"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/status_bar_set_transparent" />
+        android:layout_marginLeft="@dimen/spacing_16"
+        android:layout_marginRight="@dimen/spacing_16"
+        android:text="@string/bar_status_set_transparent" />
 
 </LinearLayout>

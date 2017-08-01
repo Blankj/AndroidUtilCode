@@ -24,7 +24,7 @@ import java.util.Random;
  *     desc  : Bar工具类Demo
  * </pre>
  */
-public class StatusBarColorActivity extends BaseActivity {
+public class BarStatusColorActivity extends BaseActivity {
 
     private Random mRandom;
     private int    mColor;
@@ -34,7 +34,7 @@ public class StatusBarColorActivity extends BaseActivity {
     private SeekBar  sbChangeAlpha;
 
     public static void start(Context context) {
-        Intent starter = new Intent(context, StatusBarColorActivity.class);
+        Intent starter = new Intent(context, BarStatusColorActivity.class);
         context.startActivity(starter);
     }
 
@@ -47,7 +47,7 @@ public class StatusBarColorActivity extends BaseActivity {
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_status_bar_color;
+        return R.layout.activity_bar_status_color;
     }
 
     @Override

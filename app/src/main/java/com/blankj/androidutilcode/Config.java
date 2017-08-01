@@ -15,6 +15,10 @@ import java.io.File;
 public class Config {
     public static final String PKG      = "com.blankj.androidutilcode";
     public static final String TEST_PKG = "com.blankj.testinstall";
+    public static final String GITHUB   = "https://github.com/Blankj/AndroidUtilCode";
+    public static final String BLOG     = "http://www.jianshu.com/u/46702d5c6978";
+
+
     private static String testApkPath;
 
     public static String getTestApkPath() {

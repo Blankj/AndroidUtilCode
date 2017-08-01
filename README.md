@@ -43,15 +43,18 @@ cleanAppData
 
 * ### About Bar→[BarUtils.java][bar.java]
 ```
+getStatusBarHeight
+addMarginTopEqualStatusBarHeight
+subtractMarginTopEqualStatusBarHeight
 setStatusBarColor
 setStatusBarAlpha
-setTransparentStatusBar
-hideStatusBar
-getStatusBarHeight
-isStatusBarExists
+setStatusBarColor4Drawer
+setStatusBarAlpha4Drawer
 getActionBarHeight
 showNotificationBar
 hideNotificationBar
+getNavBarHeight
+hideNavBar
 ```
 
 * ### About Cache→[CacheUtils.java][cache.java]→[Test][cache.test]
@@ -380,16 +383,6 @@ getContactNum
 getAllSMS
 ```
 
-* ### About Pinyin→[PinyinUtils.java][pinyin.java]→[Test][pinyin.test]
-```
-ccs2Pinyin
-ccs2Pinyin
-getPinyinFirstLetter
-getPinyinFirstLetters
-getSurnamePinyin
-getSurnameFirstLetter
-```
-
 * ### About Process→[ProcessUtils.java][process.java]→[Demo][process.demo]
 ```
 getForegroundProcessName
@@ -421,14 +414,17 @@ getReplaceAll
 ```
 getScreenWidth
 getScreenHeight
+setFullScreen
 setLandscape
 setPortrait
 isLandscape
 isPortrait
 getScreenRotation
-captureWithStatusBar
-captureWithoutStatusBar
+screenShot
 isScreenLock
+setSleepDuration
+getSleepDuration
+isTablet
 ```
 
 * ### About SDCard→[SDCardUtils.java][sdcard.java]→[Demo][sdcard.demo]
@@ -552,25 +548,6 @@ toDBC
 toSBC
 ```
 
-* ### About ThreadPool→[ThreadPoolUtils.java][thread_pool.java]
-```
-ThreadPoolUtils
-execute
-execute
-shutDown
-shutDownNow
-isShutDown
-isTerminated
-awaitTermination
-submit
-submit
-invokeAll, invokeAny
-schedule
-schedule
-scheduleWithFixedRate
-scheduleWithFixedDelay
-```
-
 * ### About Time→[TimeUtils.java][time.java]→[Test][time.test]
 ```
 millis2String
@@ -650,7 +627,7 @@ getEntries
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.7.1'
+compile 'com.blankj:utilcode:1.8.0'
 ```
 
 
@@ -673,7 +650,7 @@ Utils.init(context);
 
 [logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.7.1-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.8.0-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-15+-brightgreen.svg
@@ -767,9 +744,6 @@ Utils.init(context);
 [phone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/PhoneUtils.java
 [phone.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/PhoneActivity.java
 
-[pinyin.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/PinyinUtils.java
-[pinyin.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/PinyinUtilsTest.java
-
 [process.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ProcessUtils.java
 [process.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/ProcessActivity.java
 
@@ -798,8 +772,6 @@ Utils.init(context);
 
 [string.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/StringUtils.java
 [string.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/StringUtilsTest.java
-
-[thread_pool.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ThreadPoolUtils.java
 
 [time.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/TimeUtils.java
 [time.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/TimeUtilsTest.java

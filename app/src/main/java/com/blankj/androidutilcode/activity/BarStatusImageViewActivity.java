@@ -19,7 +19,7 @@ import com.blankj.utilcode.util.BarUtils;
  *     desc  : Bar工具类Demo
  * </pre>
  */
-public class StatusBarImageViewActivity extends BaseActivity {
+public class BarStatusImageViewActivity extends BaseActivity {
 
     private int mAlpha;
 
@@ -27,7 +27,7 @@ public class StatusBarImageViewActivity extends BaseActivity {
     private SeekBar  sbChangeAlpha;
 
     public static void start(Context context) {
-        Intent starter = new Intent(context, StatusBarImageViewActivity.class);
+        Intent starter = new Intent(context, BarStatusImageViewActivity.class);
         context.startActivity(starter);
     }
 
@@ -38,7 +38,7 @@ public class StatusBarImageViewActivity extends BaseActivity {
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_status_bar_image_view;
+        return R.layout.activity_bar_status_image_view;
     }
 
     @Override
@@ -86,6 +86,6 @@ public class StatusBarImageViewActivity extends BaseActivity {
     };
 
     private void updateStatusBar() {
-        BarUtils.setStatusBarAlpha(StatusBarImageViewActivity.this, mAlpha, true);
+        BarUtils.setStatusBarAlpha(BarStatusImageViewActivity.this, mAlpha, true);
     }
 }

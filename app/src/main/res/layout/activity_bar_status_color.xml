@@ -33,14 +33,14 @@
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/status_bar_random_color" />
+            android:text="@string/bar_status_random_color" />
 
         <Button
             android:id="@+id/btn_set_transparent"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/status_bar_set_transparent" />
+            android:text="@string/bar_status_set_transparent" />
 
     </LinearLayout>
 </ScrollView>

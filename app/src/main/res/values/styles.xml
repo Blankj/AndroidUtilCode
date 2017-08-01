@@ -16,9 +16,12 @@
     <style name="TextStyle">
         <item name="android:textSize">@dimen/font_24</item>
         <item name="android:textColor">@color/light_black</item>
+        <item name="android:gravity">center</item>
     </style>
 
-    <style name="WideBtnStyle" parent="TextStyle">
+    <style name="WideBtnStyle">
+        <item name="android:textSize">@dimen/font_24</item>
+        <item name="android:textColor">@color/light_black</item>
         <item name="android:textAllCaps">false</item>
     </style>
 

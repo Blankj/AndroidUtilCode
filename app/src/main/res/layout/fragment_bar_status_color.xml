@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <View
@@ -18,14 +17,6 @@
         android:orientation="vertical"
         android:paddingLeft="@dimen/spacing_16"
         android:paddingRight="@dimen/spacing_16">
-
-        <CheckBox
-            android:id="@+id/cb_alpha"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="4dp"
-            android:text="@string/status_bar_title_alpha" />
 
         <TextView
             android:id="@+id/tv_status_alpha"
@@ -47,14 +38,14 @@
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/status_bar_random_color" />
+            android:text="@string/bar_status_random_color" />
 
         <Button
             android:id="@+id/btn_set_transparent"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/status_bar_set_transparent" />
+            android:text="@string/bar_status_set_transparent" />
 
     </LinearLayout>
-</FrameLayout>
+</LinearLayout>

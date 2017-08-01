@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.UtilsApp;
-import com.blankj.androidutilcode.base.BaseBackActivity;
+import com.blankj.androidutilcode.base.BaseDrawerActivity;
 import com.blankj.utilcode.util.BarUtils;
 
 import java.util.Random;
@@ -28,19 +28,21 @@ import java.util.Random;
  *     desc  : Bar工具类Demo
  * </pre>
  */
-public class StatusBarSwipeBackActivity extends BaseBackActivity {
+public class BarStatusDrawerActivity extends BaseDrawerActivity {
 
     private Random mRandom;
     private int    mColor;
     private int    mAlpha;
 
+    private View     fakeStatusBar;
     private CheckBox cbAlpha;
+    private CheckBox cbFront;
     private TextView tvStatusAlpha;
     private SeekBar  sbChangeAlpha;
     private Button   btnRandomColor;
 
     public static void start(Context context) {
-        Intent starter = new Intent(context, StatusBarSwipeBackActivity.class);
+        Intent starter = new Intent(context, BarStatusDrawerActivity.class);
         context.startActivity(starter);
     }
 
@@ -53,25 +55,26 @@ public class StatusBarSwipeBackActivity extends BaseBackActivity {
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_status_bar_swipe_back;
+        return R.layout.activity_bar_status_drawer;
     }
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        fakeStatusBar = findViewById(R.id.fake_status_bar);
         cbAlpha = (CheckBox) findViewById(R.id.cb_alpha);
+        cbFront = (CheckBox) findViewById(R.id.cb_front);
         btnRandomColor = (Button) findViewById(R.id.btn_random_color);
         tvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
         sbChangeAlpha = (SeekBar) findViewById(R.id.sb_change_alpha);
 
-        cbAlpha.setOnCheckedChangeListener(mCheckedChangeListener);
+        cbAlpha.setOnCheckedChangeListener(mAlphaCheckedChangeListener);
+        cbFront.setOnCheckedChangeListener(mFrontCheckedChangeListener);
         btnRandomColor.setOnClickListener(this);
         findViewById(R.id.btn_set_transparent).setOnClickListener(this);
         sbChangeAlpha.setOnSeekBarChangeListener(mColorListener);
 
         tvStatusAlpha.setText(String.valueOf(mAlpha));
 
-        abl.setVisibility(View.GONE);
-        BarUtils.subtractMarginTopEqualStatusBarHeight(rootLayout);
         BarUtils.addMarginTopEqualStatusBarHeight(cbAlpha);
         updateStatusBar();
     }
@@ -114,25 +117,33 @@ public class StatusBarSwipeBackActivity extends BaseBackActivity {
         }
     };
 
-    CompoundButton.OnCheckedChangeListener mCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+    CompoundButton.OnCheckedChangeListener mAlphaCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
                 btnRandomColor.setVisibility(View.GONE);
-                rootLayout.setBackgroundResource(R.drawable.bg_bar);
+                flActivityContainer.setBackgroundResource(R.drawable.bg_bar);
             } else {
                 btnRandomColor.setVisibility(View.VISIBLE);
-                rootLayout.setBackgroundColor(Color.WHITE);
+                flActivityContainer.setBackgroundColor(Color.WHITE);
             }
+            updateStatusBar();
+        }
+    };
+
+    CompoundButton.OnCheckedChangeListener mFrontCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             updateStatusBar();
         }
     };
 
     private void updateStatusBar() {
         if (cbAlpha.isChecked()) {
-            BarUtils.setStatusBarAlpha(this, mAlpha);
+            BarUtils.setStatusBarAlpha4Drawer(BarStatusDrawerActivity.this, rootLayout, fakeStatusBar, mAlpha, cbFront.isChecked());
         } else {
-            BarUtils.setStatusBarColor(this, mColor, mAlpha);
+            BarUtils.setStatusBarColor4Drawer(BarStatusDrawerActivity.this, rootLayout, fakeStatusBar, mColor, mAlpha, cbFront.isChecked());
         }
+
     }
 }

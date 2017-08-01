@@ -9,13 +9,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.UtilsApp;
-import com.blankj.androidutilcode.base.BaseDrawerActivity;
+import com.blankj.androidutilcode.base.BaseActivity;
 import com.blankj.utilcode.util.BarUtils;
+import com.r0adkll.slidr.Slidr;
 
 import java.util.Random;
 
@@ -28,20 +30,20 @@ import java.util.Random;
  *     desc  : Bar工具类Demo
  * </pre>
  */
-public class StatusBarDrawerActivity extends BaseDrawerActivity {
+public class BarStatusSwipeBackActivity extends BaseActivity {
 
     private Random mRandom;
     private int    mColor;
     private int    mAlpha;
 
-    private View     fakeStatusBar;
+    private LinearLayout llContainer;
     private CheckBox cbAlpha;
     private TextView tvStatusAlpha;
     private SeekBar  sbChangeAlpha;
     private Button   btnRandomColor;
 
     public static void start(Context context) {
-        Intent starter = new Intent(context, StatusBarDrawerActivity.class);
+        Intent starter = new Intent(context, BarStatusSwipeBackActivity.class);
         context.startActivity(starter);
     }
 
@@ -54,12 +56,14 @@ public class StatusBarDrawerActivity extends BaseDrawerActivity {
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_status_bar_drawer;
+        return R.layout.activity_bar_status_swipe_back;
     }
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        fakeStatusBar = findViewById(R.id.fake_status_bar);
+        Slidr.attach(this);
+
+        llContainer = (LinearLayout) findViewById(R.id.ll_container);
         cbAlpha = (CheckBox) findViewById(R.id.cb_alpha);
         btnRandomColor = (Button) findViewById(R.id.btn_random_color);
         tvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
@@ -118,10 +122,10 @@ public class StatusBarDrawerActivity extends BaseDrawerActivity {
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
                 btnRandomColor.setVisibility(View.GONE);
-                rootLayout.setBackgroundResource(R.drawable.bg_bar);
+                llContainer.setBackgroundResource(R.drawable.bg_bar);
             } else {
                 btnRandomColor.setVisibility(View.VISIBLE);
-                rootLayout.setBackgroundColor(Color.WHITE);
+                llContainer.setBackgroundColor(Color.WHITE);
             }
             updateStatusBar();
         }
@@ -129,11 +133,11 @@ public class StatusBarDrawerActivity extends BaseDrawerActivity {
 
     private void updateStatusBar() {
         if (cbAlpha.isChecked()) {
-
+            BarUtils.setStatusBarAlpha(this, mAlpha);
+            BarUtils.addMarginTopEqualStatusBarHeight(cbAlpha);
         } else {
-            BarUtils.setStatusBarColor4Drawer(this, rootLayout, fakeStatusBar, mColor, mAlpha, true);
-
+            BarUtils.setStatusBarColor(this, mColor, mAlpha);
+            BarUtils.addMarginTopEqualStatusBarHeight(cbAlpha);
         }
-
     }
 }

@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.blankj.androidutilcode">
 
+    <!--bar-->
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
+
     <!--读写内存-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -52,6 +55,13 @@
         <activity android:name=".activity.ActivityActivity" />
         <activity android:name=".activity.AppActivity" />
         <activity android:name=".activity.BarActivity" />
+        <activity android:name=".activity.BarNavActivity" />
+        <activity android:name=".activity.BarStatusAlphaActivity" />
+        <activity android:name=".activity.BarStatusColorActivity" />
+        <activity android:name=".activity.BarStatusDrawerActivity" />
+        <activity android:name=".activity.BarStatusFragmentActivity" />
+        <activity android:name=".activity.BarStatusImageViewActivity" />
+        <activity android:name=".activity.BarStatusSwipeBackActivity" />
         <activity android:name=".activity.CleanActivity" />
         <activity android:name=".activity.DeviceActivity" />
         <activity android:name=".activity.FragmentActivity" />
@@ -75,12 +85,6 @@
         <activity android:name=".activity.SDCardActivity" />
         <activity android:name=".activity.SnackbarActivity" />
         <activity android:name=".activity.SpanActivity" />
-        <activity android:name=".activity.StatusBarAlphaActivity" />
-        <activity android:name=".activity.StatusBarColorActivity" />
-        <activity android:name=".activity.StatusBarDrawerActivity" />
-        <activity android:name=".activity.StatusBarFragmentActivity" />
-        <activity android:name=".activity.StatusBarImageViewActivity" />
-        <activity android:name=".activity.StatusBarSwipeBackActivity" />
         <activity android:name=".activity.ToastActivity" />
 
         <provider

@@ -1,34 +1,35 @@
-package com.blankj.androidutilcode.activity;
+package com.blankj.androidutilcode.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseActivity;
+import com.blankj.androidutilcode.activity.BarStatusFragmentActivity;
+import com.blankj.androidutilcode.base.BaseFragment;
 import com.blankj.utilcode.util.BarUtils;
 
 /**
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2017/05/27
+ *     time  : 2017/07/01
  *     desc  : Bar工具类Demo
  * </pre>
  */
-public class StatusBarAlphaActivity extends BaseActivity {
+public class BarStatusAlphaFragment extends BaseFragment<BarStatusFragmentActivity> {
 
     private int mAlpha;
 
     private TextView mTvStatusAlpha;
     private SeekBar  sbChangeAlpha;
+    private View     fakeStatusBar;
 
-    public static void start(Context context) {
-        Intent starter = new Intent(context, StatusBarAlphaActivity.class);
-        context.startActivity(starter);
+
+    public static BarStatusAlphaFragment newInstance() {
+        return new BarStatusAlphaFragment();
     }
 
     @Override
@@ -38,18 +39,19 @@ public class StatusBarAlphaActivity extends BaseActivity {
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_status_bar_alpha;
+        return R.layout.fragment_bar_status_alpha;
     }
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        findViewById(R.id.btn_set_transparent).setOnClickListener(this);
-        mTvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
-        sbChangeAlpha = (SeekBar) findViewById(R.id.sb_change_alpha);
+        fakeStatusBar = view.findViewById(R.id.fake_status_bar);
+        mTvStatusAlpha = (TextView) view.findViewById(R.id.tv_status_alpha);
+        sbChangeAlpha = (SeekBar) view.findViewById(R.id.sb_change_alpha);
+        view.findViewById(R.id.btn_set_transparent).setOnClickListener(this);
         sbChangeAlpha.setOnSeekBarChangeListener(translucentListener);
         mTvStatusAlpha.setText(String.valueOf(mAlpha));
 
-        updateStatusBar();
+        updateFakeStatusBar();
     }
 
     @Override
@@ -71,7 +73,7 @@ public class StatusBarAlphaActivity extends BaseActivity {
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             mAlpha = progress;
             mTvStatusAlpha.setText(String.valueOf(mAlpha));
-            updateStatusBar();
+            updateFakeStatusBar();
         }
 
         @Override
@@ -85,8 +87,7 @@ public class StatusBarAlphaActivity extends BaseActivity {
         }
     };
 
-    private void updateStatusBar() {
-        BarUtils.setStatusBarAlpha(StatusBarAlphaActivity.this, mAlpha);
-        BarUtils.addMarginTopEqualStatusBarHeight(mTvStatusAlpha);
+    public void updateFakeStatusBar() {
+        BarUtils.setStatusBarAlpha(fakeStatusBar, mAlpha);
     }
 }

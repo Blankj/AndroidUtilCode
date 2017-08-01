@@ -43,6 +43,7 @@ public class BarActivity extends BaseBackActivity {
         findViewById(R.id.btn_status_bar_fragment).setOnClickListener(this);
         findViewById(R.id.btn_status_bar_swipe_back).setOnClickListener(this);
         findViewById(R.id.btn_status_bar_drawer).setOnClickListener(this);
+        findViewById(R.id.btn_nav_bar).setOnClickListener(this);
     }
 
     @Override
@@ -54,22 +55,25 @@ public class BarActivity extends BaseBackActivity {
     public void onWidgetClick(View view) {
         switch (view.getId()) {
             case R.id.btn_status_bar_color:
-                StatusBarColorActivity.start(this);
+                BarStatusColorActivity.start(this);
                 break;
             case R.id.btn_status_bar_alpha:
-                StatusBarAlphaActivity.start(this);
+                BarStatusAlphaActivity.start(this);
                 break;
             case R.id.btn_status_bar_image_view:
-                StatusBarImageViewActivity.start(this);
+                BarStatusImageViewActivity.start(this);
                 break;
             case R.id.btn_status_bar_fragment:
-                StatusBarFragmentActivity.start(this);
+                BarStatusFragmentActivity.start(this);
                 break;
             case R.id.btn_status_bar_swipe_back:
-                StatusBarSwipeBackActivity.start(this);
+                BarStatusSwipeBackActivity.start(this);
                 break;
             case R.id.btn_status_bar_drawer:
-                StatusBarDrawerActivity.start(this);
+                BarStatusDrawerActivity.start(this);
+                break;
+            case R.id.btn_nav_bar:
+                BarNavActivity.start(this);
                 break;
         }
     }
