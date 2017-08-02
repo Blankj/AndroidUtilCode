@@ -167,7 +167,7 @@ public final class BarUtils {
     }
 
     /**
-     * 设置伪造状态栏颜色
+     * 设置状态栏颜色
      *
      * @param fakeStatusBar 伪造状态栏
      * @param color         状态栏颜色值
@@ -177,7 +177,7 @@ public final class BarUtils {
     }
 
     /**
-     * 设置伪造状态栏颜色
+     * 设置状态栏颜色
      *
      * @param fakeStatusBar 伪造状态栏
      * @param color         状态栏颜色值
@@ -196,7 +196,7 @@ public final class BarUtils {
     }
 
     /**
-     * 设置伪造状态栏透明度
+     * 设置状态栏透明度
      *
      * @param fakeStatusBar 伪造状态栏
      */
@@ -205,7 +205,7 @@ public final class BarUtils {
     }
 
     /**
-     * 设置伪造状态栏透明度
+     * 设置状态栏透明度
      *
      * @param fakeStatusBar 伪造状态栏
      * @param alpha         状态栏透明度

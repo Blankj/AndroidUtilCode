@@ -75,7 +75,6 @@ public class BarStatusDrawerActivity extends BaseDrawerActivity {
 
         tvStatusAlpha.setText(String.valueOf(mAlpha));
 
-        BarUtils.addMarginTopEqualStatusBarHeight(cbAlpha);
         updateStatusBar();
     }
 
@@ -144,6 +143,6 @@ public class BarStatusDrawerActivity extends BaseDrawerActivity {
         } else {
             BarUtils.setStatusBarColor4Drawer(BarStatusDrawerActivity.this, rootLayout, fakeStatusBar, mColor, mAlpha, cbFront.isChecked());
         }
-
+        BarUtils.addMarginTopEqualStatusBarHeight(cbAlpha);// 其实这个只需要调用一次即可
     }
 }

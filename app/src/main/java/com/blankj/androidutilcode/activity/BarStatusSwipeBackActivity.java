@@ -134,10 +134,9 @@ public class BarStatusSwipeBackActivity extends BaseActivity {
     private void updateStatusBar() {
         if (cbAlpha.isChecked()) {
             BarUtils.setStatusBarAlpha(this, mAlpha);
-            BarUtils.addMarginTopEqualStatusBarHeight(cbAlpha);
         } else {
             BarUtils.setStatusBarColor(this, mColor, mAlpha);
-            BarUtils.addMarginTopEqualStatusBarHeight(cbAlpha);
         }
+        BarUtils.addMarginTopEqualStatusBarHeight(cbAlpha);// 其实这个只需要调用一次即可
     }
 }
