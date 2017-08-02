@@ -76,12 +76,12 @@ public final class NetworkUtils {
      * 判断网络是否可用
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
      * <p>需要异步ping，如果ping不通就说明网络不可用</p>
-     * <p>ping的ip为阿里巴巴公共ip： 223.5.5.5</p>
+     * <p>ping的ip为阿里巴巴公共ip：223.5.5.5</p>
      *
      * @return {@code true}: 可用<br>{@code false}: 不可用
      */
     public static boolean isAvailableByPing() {
-        return isAvailableByPing();
+        return isAvailableByPing(null);
     }
 
     /**

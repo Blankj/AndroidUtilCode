@@ -27,7 +27,7 @@ android {
     defaultConfig {
         minSdkVersion 14
         versionCode 41
-        versionName "1.8.0"
+        versionName "1.8.1"
     }
 
     buildTypes {

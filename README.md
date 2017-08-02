@@ -41,7 +41,7 @@ getAppsInfo
 cleanAppData
 ```
 
-* ### About Bar→[BarUtils.java][bar.java]
+* ### About Bar→[BarUtils.java][bar.java]→[Demo][bar.demo]
 ```
 getStatusBarHeight
 addMarginTopEqualStatusBarHeight
@@ -627,7 +627,7 @@ getEntries
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.8.0'
+compile 'com.blankj:utilcode:1.8.1'
 ```
 
 
@@ -650,11 +650,11 @@ Utils.init(context);
 
 [logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.8.0-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.8.1-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
-[apisvg]: https://img.shields.io/badge/API-15+-brightgreen.svg
-[api]: https://android-arsenal.com/api?level=15
+[apisvg]: https://img.shields.io/badge/API-14+-brightgreen.svg
+[api]: https://android-arsenal.com/api?level=14
 
 [buildsvg]: https://travis-ci.org/Blankj/AndroidUtilCode.svg?branch=master
 [build]: https://travis-ci.org/Blankj/AndroidUtilCode
@@ -690,6 +690,7 @@ Utils.init(context);
 [app.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/AppActivity.java
 
 [bar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/BarUtils.java
+[bar.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/BarActivity.java
 
 [cache.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheUtils.java
 [cache.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheUtilsTest.java

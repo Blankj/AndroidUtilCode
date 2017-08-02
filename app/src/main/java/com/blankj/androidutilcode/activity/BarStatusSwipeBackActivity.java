@@ -37,10 +37,10 @@ public class BarStatusSwipeBackActivity extends BaseActivity {
     private int    mAlpha;
 
     private LinearLayout llContainer;
-    private CheckBox cbAlpha;
-    private TextView tvStatusAlpha;
-    private SeekBar  sbChangeAlpha;
-    private Button   btnRandomColor;
+    private CheckBox     cbAlpha;
+    private TextView     tvStatusAlpha;
+    private SeekBar      sbChangeAlpha;
+    private Button       btnRandomColor;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, BarStatusSwipeBackActivity.class);
@@ -134,9 +134,10 @@ public class BarStatusSwipeBackActivity extends BaseActivity {
     private void updateStatusBar() {
         if (cbAlpha.isChecked()) {
             BarUtils.setStatusBarAlpha(this, mAlpha);
+            BarUtils.addMarginTopEqualStatusBarHeight(cbAlpha);
         } else {
             BarUtils.setStatusBarColor(this, mColor, mAlpha);
+            BarUtils.addMarginTopEqualStatusBarHeight(cbAlpha);
         }
-        BarUtils.addMarginTopEqualStatusBarHeight(cbAlpha);// 其实这个只需要调用一次即可
     }
 }

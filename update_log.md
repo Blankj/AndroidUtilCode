@@ -1,3 +1,4 @@
+* 17/07/31 修复isAvailableByPing循环递归，发布1.8.1
 * 17/07/31 完善BarUtils，发布1.8.0
 * 17/07/31 完善BarUtils
 * 17/07/30 完善BarUtils
