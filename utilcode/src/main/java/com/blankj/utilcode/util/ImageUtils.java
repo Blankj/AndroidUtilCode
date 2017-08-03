@@ -26,8 +26,8 @@ import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.FloatRange;
-import android.support.annotation.IdRes;
 import android.support.annotation.IntRange;
 import android.view.View;
 
@@ -320,19 +320,19 @@ public final class ImageUtils {
      * @param resId 资源id
      * @return bitmap
      */
-    public static Bitmap getBitmap(@IdRes final int resId) {
+    public static Bitmap getBitmap(@DrawableRes final int resId) {
         return BitmapFactory.decodeResource(Utils.getContext().getResources(), resId);
     }
 
     /**
      * 获取bitmap
      *
-     * @param resId        资源id
+     * @param resId     资源id
      * @param maxWidth  最大宽度
      * @param maxHeight 最大高度
      * @return bitmap
      */
-    public static Bitmap getBitmap(@IdRes final int resId, final int maxWidth, final int maxHeight) {
+    public static Bitmap getBitmap(@DrawableRes final int resId, final int maxWidth, final int maxHeight) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeResource(Utils.getContext().getResources(), resId, options);
