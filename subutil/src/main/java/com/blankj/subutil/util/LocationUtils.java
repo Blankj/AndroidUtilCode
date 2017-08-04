@@ -1,6 +1,5 @@
 package com.blankj.subutil.util;
 
-import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Criteria;
@@ -12,7 +11,6 @@ import android.location.LocationProvider;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.List;
