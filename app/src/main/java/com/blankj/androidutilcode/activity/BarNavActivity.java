@@ -43,7 +43,7 @@ public class BarNavActivity extends BaseBackActivity {
         getToolBar().setTitle(getString(R.string.demo_bar));
 
         tvAboutNav = (TextView) findViewById(R.id.tv_about_nav);
-        tvAboutNav.setText(String.valueOf(BarUtils.getNavBarHeight()));
+        tvAboutNav.setText("navHeight: " + BarUtils.getNavBarHeight());
     }
 
     @Override
