@@ -9,19 +9,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <!--flashlight-->
-    <uses-permission android:name="android.permission.CAMERA" />
-
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-feature android:name="android.hardware.camera.flash" />
-
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
-
-    <!--location-->
-    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
-    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
-
     <!--network-->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -46,46 +33,61 @@
 
     <!--process-->
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+
+
+    <!--flashlight-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera.flash" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <!--location-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:name=".UtilsApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/my_app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ActivityActivity" />
-        <activity android:name=".activity.AppActivity" />
-        <activity android:name=".activity.BarActivity" />
-        <activity android:name=".activity.BarNavActivity" />
-        <activity android:name=".activity.BarStatusAlphaActivity" />
-        <activity android:name=".activity.BarStatusColorActivity" />
-        <activity android:name=".activity.BarStatusDrawerActivity" />
-        <activity android:name=".activity.BarStatusFragmentActivity" />
-        <activity android:name=".activity.BarStatusImageViewActivity" />
-        <activity android:name=".activity.BarStatusSwipeBackActivity" />
-        <activity android:name=".activity.CleanActivity" />
-        <activity android:name=".activity.DeviceActivity" />
-        <activity android:name=".activity.FragmentActivity" />
-        <!--<activity android:name=".activities.FlashlightActivity"/>-->
-        <activity android:name=".activity.ImageActivity" />
-        <activity
-            android:name=".activity.KeyboardActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".activity.LogActivity" />
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.NetworkActivity" />
+
+
+        <!--core-->
+        <activity android:name=".core.main.CoreUtilActivity" />
+        <activity android:name=".core.activity.ActivityActivity" />
+        <activity android:name=".core.app.AppActivity" />
+        <activity android:name=".core.bar.BarActivity" />
+        <activity android:name=".core.bar.BarNavActivity" />
+        <activity android:name=".core.bar.BarStatusAlphaActivity" />
+        <activity android:name=".core.bar.BarStatusColorActivity" />
+        <activity android:name=".core.bar.BarStatusDrawerActivity" />
+        <activity android:name=".core.bar.BarStatusFragmentActivity" />
+        <activity android:name=".core.bar.BarStatusImageViewActivity" />
+        <activity android:name=".core.bar.BarStatusSwipeBackActivity" />
+        <activity android:name=".core.clean.CleanActivity" />
+        <activity android:name=".core.device.DeviceActivity" />
+        <activity android:name=".core.fragment.FragmentActivity" />
+        <activity android:name=".core.image.ImageActivity" />
+        <activity
+            android:name=".core.keyboard.KeyboardActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".core.log.LogActivity" />
+        <activity android:name=".core.network.NetworkActivity" />
         <!--<activity android:name=".activities.PermissionActivity"/>-->
-        <activity android:name=".activity.PhoneActivity" />
-        <activity android:name=".activity.PinyinActivity" />
-        <activity android:name=".activity.ProcessActivity" />
-        <activity android:name=".activity.SDCardActivity" />
-        <activity android:name=".activity.SnackbarActivity" />
-        <activity android:name=".activity.SpanActivity" />
-        <activity android:name=".activity.ToastActivity" />
+        <activity android:name=".core.phone.PhoneActivity" />
+        <activity android:name=".core.process.ProcessActivity" />
+        <activity android:name=".core.sdcard.SDCardActivity" />
+        <activity android:name=".core.snackbar.SnackbarActivity" />
+        <activity android:name=".core.span.SpanActivity" />
+        <activity android:name=".core.toast.ToastActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -96,6 +98,15 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
+
+        <!--sub-->
+        <activity android:name=".sub.main.SubUtilActivity" />
+        <activity android:name=".sub.location.LocationActivity" />
+        <activity android:name=".sub.pinyin.PinyinActivity" />
+
+        <service android:name=".sub.location.LocationService" />
+
     </application>
 
 </manifest>

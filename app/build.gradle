@@ -41,6 +41,17 @@ android {
         }
     }
 
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+                            'src/main/res',
+                            'src/main/res/core',
+                            'src/main/res/sub',
+                    ]
+        }
+    }
+
     lintOptions {
         abortOnError false
     }

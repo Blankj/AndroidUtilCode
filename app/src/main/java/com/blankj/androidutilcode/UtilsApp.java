@@ -5,7 +5,6 @@ import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.FileIOUtils;
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.Utils;
 import com.squareup.leakcanary.LeakCanary;
 
 import java.io.IOException;
@@ -30,7 +29,8 @@ public class UtilsApp extends BaseApplication {
             return;
         }
         LeakCanary.install(this);
-        Utils.init(this);
+        com.blankj.utilcode.util.Utils.init(this);
+        com.blankj.subutil.util.Utils.init(this);
         initLog();
         initCrash();
         initAssets();
