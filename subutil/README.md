@@ -1,3 +1,13 @@
+* ### 剪贴板相关→[ClipboardUtils.java][clipboard.java]→[Test][clipboard.test]
+```
+copyText  : 复制文本到剪贴板
+getText   : 获取剪贴板的文本
+copyUri   : 复制uri到剪贴板
+getUri    : 获取剪贴板的uri
+copyIntent: 复制意图到剪贴板
+getIntent : 获取剪贴板的意图
+```
+
 * ### 定位相关→[LocationUtils.java][location.java]→[Demo][location.demo]
 ```
 isGpsEnabled     : 判断Gps是否可用
@@ -13,7 +23,7 @@ isBetterLocation : 是否更好的位置
 isSameProvider   : 是否相同的提供者
 ```
 
-* ### 拼音相关→[PinyinUtils.java][pinyin.java]→[Test][pinyin.test]
+* ### 拼音相关→[PinyinUtils.java][pinyin.java]→[Demo][pinyin.demo]
 ```
 ccs2Pinyin           : 汉字转拼音
 ccs2Pinyin           : 汉字转拼音
@@ -42,11 +52,14 @@ scheduleWithFixedRate : 延迟并循环执行命令
 scheduleWithFixedDelay: 延迟并以固定休息时间循环执行命令
 ```
 
+[clipboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/ClipboardUtils.java
+[clipboard.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/test/java/com/blankj/subutil/util/ClipboardUtilsTest.java
 
-[location.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/subutil/util/LocationUtils.java
-[location.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/LocationActivity.java
+
+[location.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/LocationUtils.java
+[location.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/sub/location/LocationActivity.java
 
 [pinyin.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/PinyinUtils.java
-[pinyin.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/test/java/com/blankj/subutil/util/PinyinUtilsTest.java
+[pinyin.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/sub/pinyin/PinyinActivity.java
 
 [thread_pool.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/ThreadPoolUtils.java

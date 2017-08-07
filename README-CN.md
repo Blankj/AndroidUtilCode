@@ -86,16 +86,6 @@ cleanExternalCache   : 清除外部缓存
 cleanCustomCache     : 清除自定义目录下的文件
 ```
 
-* ### 剪贴板相关→[ClipboardUtils.java][clipboard.java]
-```
-copyText  : 复制文本到剪贴板
-getText   : 获取剪贴板的文本
-copyUri   : 复制uri到剪贴板
-getUri    : 获取剪贴板的uri
-copyIntent: 复制意图到剪贴板
-getIntent : 获取剪贴板的意图
-```
-
 * ### 关闭相关→[CloseUtils.java][close.java]
 ```
 closeIO       : 关闭IO

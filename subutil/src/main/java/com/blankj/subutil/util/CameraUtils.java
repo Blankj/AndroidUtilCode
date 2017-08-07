@@ -1,4 +1,4 @@
-package com.blankj.utilcode.util;
+package com.blankj.subutil.util;
 
 /**
  * <pre>

@@ -42,6 +42,8 @@ public class LocationActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
+        getToolBar().setTitle(getString(R.string.demo_location));
+
         tvAboutLocation = (TextView) findViewById(R.id.tv_about_location);
         tvAboutLocation.setText("lastLatitude: unknown"
                 + "\nlastLongitude: unknown"

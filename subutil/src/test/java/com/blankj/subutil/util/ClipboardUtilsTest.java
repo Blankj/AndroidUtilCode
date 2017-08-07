@@ -1,5 +1,6 @@
-package com.blankj.utilcode.util;
+package com.blankj.subutil.util;
 
+import android.content.Intent;
 import android.net.Uri;
 
 import org.junit.Test;
@@ -7,7 +8,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
+
 
 /**
  * <pre>
@@ -28,7 +30,7 @@ public class ClipboardUtilsTest {
     @Test
     public void testText() throws Exception {
         ClipboardUtils.copyText("test");
-        assertThat(ClipboardUtils.getText()).isEqualTo("test");
+        assertEquals("test", ClipboardUtils.getText());
     }
 
     @Test
@@ -39,7 +41,10 @@ public class ClipboardUtilsTest {
 
     @Test
     public void testIntent() throws Exception {
-        ClipboardUtils.copyIntent(IntentUtils.getShareTextIntent("test"));
+        Intent intent = new Intent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setAction(Intent.ACTION_DIAL);
+        ClipboardUtils.copyIntent(intent);
         System.out.println(ClipboardUtils.getText());
     }
 }
