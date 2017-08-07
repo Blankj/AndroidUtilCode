@@ -86,16 +86,6 @@ cleanExternalCache
 cleanCustomCache
 ```
 
-* ### About Clipboard→[ClipboardUtils.java][clipboard.java]
-```
-copyText
-getText
-copyUri
-getUri
-copyIntent
-getIntent
-```
-
 * ### About Close→[CloseUtils.java][close.java]
 ```
 closeIO
@@ -752,7 +742,7 @@ Utils.init(context);
 [screen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ScreenUtils.java
 
 [sdcard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/SDCardUtils.java
-[sdcard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/sd_card/SDCardActivity.java
+[sdcard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/sdcard/SDCardActivity.java
 
 [service.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ServiceUtils.java
 
