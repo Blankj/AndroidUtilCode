@@ -206,13 +206,11 @@ moveDir
 moveFile
 deleteDir
 deleteFile
+deleteAllInDir
+deleteFilesInDir
+deleteFilesInDirWithFilter
 listFilesInDir
-listFilesInDir
 listFilesInDirWithFilter
-listFilesInDirWithFilter
-listFilesInDirWithFilter
-listFilesInDirWithFilter
-searchFileInDir
 getFileLastModified
 getFileCharsetSimple
 getFileLines

@@ -4,16 +4,15 @@ import android.annotation.SuppressLint;
 
 import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -434,7 +433,32 @@ public final class FileUtils {
     }
 
     /**
-     * 删除目录下的所有文件
+     * 删除目录下所有东西
+     *
+     * @param dirPath 目录路径
+     * @return {@code true}: 删除成功<br>{@code false}: 删除失败
+     */
+    public static boolean deleteAllInDir(final String dirPath) {
+        return deleteAllInDir(getFileByPath(dirPath));
+    }
+
+    /**
+     * 删除目录下所有东西
+     *
+     * @param dir 目录
+     * @return {@code true}: 删除成功<br>{@code false}: 删除失败
+     */
+    public static boolean deleteAllInDir(final File dir) {
+        return deleteFilesInDirWithFilter(dir, new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                return true;
+            }
+        });
+    }
+
+    /**
+     * 删除目录下所有文件
      *
      * @param dirPath 目录路径
      * @return {@code true}: 删除成功<br>{@code false}: 删除失败
@@ -444,12 +468,39 @@ public final class FileUtils {
     }
 
     /**
-     * 删除目录下的所有文件
+     * 删除目录下所有文件
      *
      * @param dir 目录
      * @return {@code true}: 删除成功<br>{@code false}: 删除失败
      */
     public static boolean deleteFilesInDir(final File dir) {
+        return deleteFilesInDirWithFilter(dir, new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                return pathname.isFile();
+            }
+        });
+    }
+
+    /**
+     * 删除目录下所有过滤的文件
+     *
+     * @param dirPath 目录路径
+     * @param filter  过滤器
+     * @return {@code true}: 删除成功<br>{@code false}: 删除失败
+     */
+    public static boolean deleteFilesInDirWithFilter(final String dirPath, final FileFilter filter) {
+        return deleteFilesInDirWithFilter(getFileByPath(dirPath), filter);
+    }
+
+    /**
+     * 删除目录下所有过滤的文件
+     *
+     * @param dir    目录
+     * @param filter 过滤器
+     * @return {@code true}: 删除成功<br>{@code false}: 删除失败
+     */
+    public static boolean deleteFilesInDirWithFilter(final File dir, final FileFilter filter) {
         if (dir == null) return false;
         // 目录不存在返回true
         if (!dir.exists()) return true;
@@ -459,14 +510,38 @@ public final class FileUtils {
         File[] files = dir.listFiles();
         if (files != null && files.length != 0) {
             for (File file : files) {
-                if (file.isFile()) {
-                    if (!file.delete()) return false;
-                } else if (file.isDirectory()) {
-                    if (!deleteDir(file)) return false;
+                if (filter.accept(file)) {
+                    if (file.isFile()) {
+                        if (!file.delete()) return false;
+                    } else if (file.isDirectory()) {
+                        if (!deleteDir(file)) return false;
+                    }
                 }
             }
         }
         return true;
+    }
+
+    /**
+     * 获取目录下所有文件
+     *  <p>不递归进子目录</p>
+     *
+     * @param dirPath 目录路径
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDir(final String dirPath) {
+        return listFilesInDir(dirPath, false);
+    }
+
+    /**
+     * 获取目录下所有文件
+     *  <p>不递归进子目录</p>
+     *
+     * @param dir 目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDir(final File dir) {
+        return listFilesInDir(dir, false);
     }
 
     /**
@@ -488,225 +563,76 @@ public final class FileUtils {
      * @return 文件链表
      */
     public static List<File> listFilesInDir(final File dir, final boolean isRecursive) {
-        if (!isDir(dir)) return null;
-        if (isRecursive) return listFilesInDir(dir);
-        List<File> list = new ArrayList<>();
-        File[] files = dir.listFiles();
-        if (files != null && files.length != 0) {
-            Collections.addAll(list, files);
-        }
-        return list;
-    }
-
-    /**
-     * 获取目录下所有文件包括子目录
-     *
-     * @param dirPath 目录路径
-     * @return 文件链表
-     */
-    public static List<File> listFilesInDir(final String dirPath) {
-        return listFilesInDir(getFileByPath(dirPath));
-    }
-
-    /**
-     * 获取目录下所有文件包括子目录
-     *
-     * @param dir 目录
-     * @return 文件链表
-     */
-    public static List<File> listFilesInDir(final File dir) {
-        if (!isDir(dir)) return null;
-        List<File> list = new ArrayList<>();
-        File[] files = dir.listFiles();
-        if (files != null && files.length != 0) {
-            for (File file : files) {
-                list.add(file);
-                if (file.isDirectory()) {
-                    List<File> fileList = listFilesInDir(file);
-                    if (fileList != null) {
-                        list.addAll(fileList);
-                    }
-                }
+        return listFilesInDirWithFilter(dir, new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                return true;
             }
-        }
-        return list;
+        }, isRecursive);
     }
 
     /**
-     * 获取目录下所有后缀名为suffix的文件
-     * <p>大小写忽略</p>
-     *
-     * @param dirPath     目录路径
-     * @param suffix      后缀名
-     * @param isRecursive 是否递归进子目录
-     * @return 文件链表
-     */
-    public static List<File> listFilesInDirWithFilter(final String dirPath, final String suffix, final boolean isRecursive) {
-        return listFilesInDirWithFilter(getFileByPath(dirPath), suffix, isRecursive);
-    }
-
-    /**
-     * 获取目录下所有后缀名为suffix的文件
-     * <p>大小写忽略</p>
-     *
-     * @param dir         目录
-     * @param suffix      后缀名
-     * @param isRecursive 是否递归进子目录
-     * @return 文件链表
-     */
-    public static List<File> listFilesInDirWithFilter(final File dir, final String suffix, final boolean isRecursive) {
-        if (isRecursive) return listFilesInDirWithFilter(dir, suffix);
-        if (dir == null || !isDir(dir)) return null;
-        List<File> list = new ArrayList<>();
-        File[] files = dir.listFiles();
-        if (files != null && files.length != 0) {
-            for (File file : files) {
-                if (file.getName().toUpperCase().endsWith(suffix.toUpperCase())) {
-                    list.add(file);
-                }
-            }
-        }
-        return list;
-    }
-
-    /**
-     * 获取目录下所有后缀名为suffix的文件包括子目录
-     * <p>大小写忽略</p>
-     *
-     * @param dirPath 目录路径
-     * @param suffix  后缀名
-     * @return 文件链表
-     */
-    public static List<File> listFilesInDirWithFilter(final String dirPath, final String suffix) {
-        return listFilesInDirWithFilter(getFileByPath(dirPath), suffix);
-    }
-
-    /**
-     * 获取目录下所有后缀名为suffix的文件包括子目录
-     * <p>大小写忽略</p>
-     *
-     * @param dir    目录
-     * @param suffix 后缀名
-     * @return 文件链表
-     */
-    public static List<File> listFilesInDirWithFilter(final File dir, final String suffix) {
-        if (dir == null || !isDir(dir)) return null;
-        List<File> list = new ArrayList<>();
-        File[] files = dir.listFiles();
-        if (files != null && files.length != 0) {
-            for (File file : files) {
-                if (file.getName().toUpperCase().endsWith(suffix.toUpperCase())) {
-                    list.add(file);
-                }
-                if (file.isDirectory()) {
-                    list.addAll(listFilesInDirWithFilter(file, suffix));
-                }
-            }
-        }
-        return list;
-    }
-
-    /**
-     * 获取目录下所有符合filter的文件
-     *
-     * @param dirPath     目录路径
-     * @param filter      过滤器
-     * @param isRecursive 是否递归进子目录
-     * @return 文件链表
-     */
-    public static List<File> listFilesInDirWithFilter(final String dirPath, final FilenameFilter filter, final boolean isRecursive) {
-        return listFilesInDirWithFilter(getFileByPath(dirPath), filter, isRecursive);
-    }
-
-    /**
-     * 获取目录下所有符合filter的文件
-     *
-     * @param dir         目录
-     * @param filter      过滤器
-     * @param isRecursive 是否递归进子目录
-     * @return 文件链表
-     */
-    public static List<File> listFilesInDirWithFilter(final File dir, final FilenameFilter filter, final boolean isRecursive) {
-        if (isRecursive) return listFilesInDirWithFilter(dir, filter);
-        if (dir == null || !isDir(dir)) return null;
-        List<File> list = new ArrayList<>();
-        File[] files = dir.listFiles();
-        if (files != null && files.length != 0) {
-            for (File file : files) {
-                if (filter.accept(file.getParentFile(), file.getName())) {
-                    list.add(file);
-                }
-            }
-        }
-        return list;
-    }
-
-    /**
-     * 获取目录下所有符合filter的文件包括子目录
+     * 获取目录下所有过滤的文件
+     * <p>不递归进子目录</p>
      *
      * @param dirPath 目录路径
      * @param filter  过滤器
      * @return 文件链表
      */
-    public static List<File> listFilesInDirWithFilter(final String dirPath, final FilenameFilter filter) {
-        return listFilesInDirWithFilter(getFileByPath(dirPath), filter);
+    public static List<File> listFilesInDirWithFilter(final String dirPath,
+                                                      final FileFilter filter) {
+        return listFilesInDirWithFilter(getFileByPath(dirPath), filter, false);
     }
 
     /**
-     * 获取目录下所有符合filter的文件包括子目录
+     * 获取目录下所有过滤的文件
+     * <p>不递归进子目录</p>
      *
      * @param dir    目录
      * @param filter 过滤器
      * @return 文件链表
      */
-    public static List<File> listFilesInDirWithFilter(final File dir, final FilenameFilter filter) {
-        if (dir == null || !isDir(dir)) return null;
+    public static List<File> listFilesInDirWithFilter(final File dir,
+                                                      final FileFilter filter) {
+        return listFilesInDirWithFilter(dir, filter, false);
+    }
+
+    /**
+     * 获取目录下所有过滤的文件
+     *
+     * @param dirPath     目录路径
+     * @param filter      过滤器
+     * @param isRecursive 是否递归进子目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDirWithFilter(final String dirPath,
+                                                      final FileFilter filter,
+                                                      final boolean isRecursive) {
+        return listFilesInDirWithFilter(getFileByPath(dirPath), filter, isRecursive);
+    }
+
+    /**
+     * 获取目录下所有过滤的文件
+     *
+     * @param dir         目录
+     * @param filter      过滤器
+     * @param isRecursive 是否递归进子目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDirWithFilter(final File dir,
+                                                      final FileFilter filter,
+                                                      final boolean isRecursive) {
+        if (!isDir(dir)) return null;
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
         if (files != null && files.length != 0) {
             for (File file : files) {
-                if (filter.accept(file.getParentFile(), file.getName())) {
+                if (filter.accept(file)) {
                     list.add(file);
                 }
-                if (file.isDirectory()) {
-                    list.addAll(listFilesInDirWithFilter(file, filter));
-                }
-            }
-        }
-        return list;
-    }
-
-    /**
-     * 获取目录下指定文件名的文件包括子目录
-     * <p>大小写忽略</p>
-     *
-     * @param dirPath  目录路径
-     * @param fileName 文件名
-     * @return 文件链表
-     */
-    public static List<File> searchFileInDir(final String dirPath, final String fileName) {
-        return searchFileInDir(getFileByPath(dirPath), fileName);
-    }
-
-    /**
-     * 获取目录下指定文件名的文件包括子目录
-     * <p>大小写忽略</p>
-     *
-     * @param dir      目录
-     * @param fileName 文件名
-     * @return 文件链表
-     */
-    public static List<File> searchFileInDir(final File dir, final String fileName) {
-        if (dir == null || !isDir(dir)) return null;
-        List<File> list = new ArrayList<>();
-        File[] files = dir.listFiles();
-        if (files != null && files.length != 0) {
-            for (File file : files) {
-                if (file.getName().toUpperCase().equals(fileName.toUpperCase())) {
-                    list.add(file);
-                }
-                if (file.isDirectory()) {
-                    list.addAll(searchFileInDir(file, fileName));
+                if (isRecursive && file.isDirectory()) {
+                    //noinspection ConstantConditions
+                    list.addAll(listFilesInDirWithFilter(file, filter, true));
                 }
             }
         }
@@ -719,6 +645,7 @@ public final class FileUtils {
      * @param filePath 文件路径
      * @return 文件最后修改的毫秒时间戳
      */
+
     public static long getFileLastModified(final String filePath) {
         return getFileLastModified(getFileByPath(filePath));
     }

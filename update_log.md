@@ -1,3 +1,4 @@
+* 17/08/10 优化FileUtils的deleteFilesInDir和listFilesInDir
 * 17/08/08 新增反射工具类ReflectUtils
 * 17/08/06 更改为按功能分包，增加subutil的Demo
 * 17/07/31 修复isAvailableByPing循环递归，发布1.8.1
