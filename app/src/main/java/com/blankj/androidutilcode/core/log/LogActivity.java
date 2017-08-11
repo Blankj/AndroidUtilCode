@@ -28,7 +28,7 @@ public class LogActivity extends BaseBackActivity {
 
     private TextView tvAboutLog;
 
-    private LogUtils.Builder mBuilder = new LogUtils.Builder();
+    private LogUtils.Config mConfig = LogUtils.getConfig();
 
     private String  dir           = "";
     private String  globalTag     = "";
@@ -244,7 +244,7 @@ public class LogActivity extends BaseBackActivity {
                 fileFilter = fileFilter == LogUtils.V ? LogUtils.I : LogUtils.V;
                 break;
         }
-        mBuilder.setLogSwitch(log)
+        mConfig.setLogSwitch(log)
                 .setConsoleSwitch(console)
                 .setGlobalTag(globalTag)
                 .setLogHeadSwitch(head)
@@ -253,11 +253,11 @@ public class LogActivity extends BaseBackActivity {
                 .setBorderSwitch(border)
                 .setConsoleFilter(consoleFilter)
                 .setFileFilter(fileFilter);
-        tvAboutLog.setText(mBuilder.toString());
+        tvAboutLog.setText(mConfig.toString());
     }
 
     private String getDir() {
-        return mBuilder.toString().split(System.getProperty("line.separator"))[5].substring(5);
+        return mConfig.toString().split(System.getProperty("line.separator"))[5].substring(5);
     }
 
     @Override

@@ -314,24 +314,25 @@ clickBlankArea2HideSoftInput: 点击屏幕空白区域隐藏软键盘
 
 * ### 日志相关→[LogUtils.java][log.java]→[Demo][log.demo]
 ```
-Builder.setLogSwitch     : 设置log总开关
-Builder.setConsoleSwitch : 设置log控制台开关
-Builder.setGlobalTag     : 设置log全局tag
-Builder.setLogHeadSwitch : 设置log头部信息开关
-Builder.setLog2FileSwitch: 设置log文件开关
-Builder.setDir           : 设置log文件存储目录
-Builder.setBorderSwitch  : 设置log边框开关
-Builder.setConsoleFilter : 设置log控制台过滤器
-Builder.setFileFilter    : 设置log文件过滤器
-v                        : Verbose日志
-d                        : Debug日志
-i                        : Info日志
-w                        : Warn日志
-e                        : Error日志
-a                        : Assert日志
-file                     : log到文件
-json                     : log字符串之json
-xml                      : log字符串之xml
+getConfig               : 获取log配置
+Config.setLogSwitch     : 设置log总开关
+Config.setConsoleSwitch : 设置log控制台开关
+Config.setGlobalTag     : 设置log全局tag
+Config.setLogHeadSwitch : 设置log头部信息开关
+Config.setLog2FileSwitch: 设置log文件开关
+Config.setDir           : 设置log文件存储目录
+Config.setBorderSwitch  : 设置log边框开关
+Config.setConsoleFilter : 设置log控制台过滤器
+Config.setFileFilter    : 设置log文件过滤器
+v                       : Verbose日志
+d                       : Debug日志
+i                       : Info日志
+w                       : Warn日志
+e                       : Error日志
+a                       : Assert日志
+file                    : log到文件
+json                    : log字符串之json
+xml                     : log字符串之xml
 ```
 
 * ### 网络相关→[NetworkUtils.java][network.java]→[Demo][network.demo]
@@ -615,7 +616,7 @@ getEntries        : 获取压缩文件中的文件对象
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.8.1'
+compile 'com.blankj:utilcode:1.8.2'
 ```
 
 
@@ -638,7 +639,7 @@ Utils.init(context);
 
 [logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.8.1-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.8.2-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-14+-brightgreen.svg
