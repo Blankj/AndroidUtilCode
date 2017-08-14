@@ -64,7 +64,7 @@ dependencies {
 
     def leakCanary = "com.squareup.leakcanary:leakcanary-android-no-op:$LEAKCANARY_VERSION"
 
-//    compile project(':utilcode')
+    compile project(':utilcode')
     compile project(':subutil')
     compile "com.android.support:appcompat-v7:$SUPPORT_VERSION"
     compile "com.android.support:support-v4:$SUPPORT_VERSION"
@@ -77,7 +77,7 @@ dependencies {
     releaseCompile leakCanary
     testCompile leakCanary
 
-    compile 'com.blankj:utilcode:1.8.2'
+//    compile 'com.blankj:utilcode:1.8.2'
 }
 
 

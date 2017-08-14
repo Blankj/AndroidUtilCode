@@ -1,7 +1,6 @@
 package com.blankj.utilcode.util;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
+import android.app.Application;
 import android.support.annotation.NonNull;
 
 /**
@@ -14,8 +13,7 @@ import android.support.annotation.NonNull;
  */
 public final class Utils {
 
-    @SuppressLint("StaticFieldLeak")
-    private static Context context;
+    private static Application sApplication;
 
     private Utils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -24,10 +22,10 @@ public final class Utils {
     /**
      * 初始化工具类
      *
-     * @param context 上下文
+     * @param app 应用
      */
-    public static void init(@NonNull final Context context) {
-        Utils.context = context.getApplicationContext();
+    public static void init(@NonNull final Application app) {
+        Utils.sApplication = app;
     }
 
     /**
@@ -35,8 +33,8 @@ public final class Utils {
      *
      * @return ApplicationContext
      */
-    public static Context getContext() {
-        if (context != null) return context;
+    public static Application getApp() {
+        if (sApplication != null) return sApplication;
         throw new NullPointerException("u should init first");
     }
 }

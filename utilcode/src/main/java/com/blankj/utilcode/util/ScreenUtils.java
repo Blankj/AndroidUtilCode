@@ -35,7 +35,7 @@ public final class ScreenUtils {
      * @return 屏幕宽
      */
     public static int getScreenWidth() {
-        return Utils.getContext().getResources().getDisplayMetrics().widthPixels;
+        return Utils.getApp().getResources().getDisplayMetrics().widthPixels;
     }
 
     /**
@@ -44,7 +44,7 @@ public final class ScreenUtils {
      * @return 屏幕高
      */
     public static int getScreenHeight() {
-        return Utils.getContext().getResources().getDisplayMetrics().heightPixels;
+        return Utils.getApp().getResources().getDisplayMetrics().heightPixels;
     }
 
     /**
@@ -88,7 +88,7 @@ public final class ScreenUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isLandscape() {
-        return Utils.getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+        return Utils.getApp().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     /**
@@ -97,7 +97,7 @@ public final class ScreenUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isPortrait() {
-        return Utils.getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+        return Utils.getApp().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
     }
 
     /**
@@ -162,7 +162,7 @@ public final class ScreenUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isScreenLock() {
-        KeyguardManager km = (KeyguardManager) Utils.getContext().getSystemService(Context.KEYGUARD_SERVICE);
+        KeyguardManager km = (KeyguardManager) Utils.getApp().getSystemService(Context.KEYGUARD_SERVICE);
         return km.inKeyguardRestrictedInputMode();
     }
 
@@ -173,7 +173,7 @@ public final class ScreenUtils {
      * @param duration 时长
      */
     public static void setSleepDuration(final int duration) {
-        Settings.System.putInt(Utils.getContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, duration);
+        Settings.System.putInt(Utils.getApp().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, duration);
     }
 
     /**
@@ -183,7 +183,7 @@ public final class ScreenUtils {
      */
     public static int getSleepDuration() {
         try {
-            return Settings.System.getInt(Utils.getContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT);
+            return Settings.System.getInt(Utils.getApp().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT);
         } catch (Settings.SettingNotFoundException e) {
             e.printStackTrace();
             return -123;
@@ -196,7 +196,7 @@ public final class ScreenUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isTablet() {
-        return (Utils.getContext().getResources().getConfiguration().screenLayout
+        return (Utils.getApp().getResources().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK)
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }

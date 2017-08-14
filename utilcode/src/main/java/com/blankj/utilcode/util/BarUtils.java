@@ -50,7 +50,7 @@ public final class BarUtils {
      * @return 状态栏高度px
      */
     public static int getStatusBarHeight() {
-        Resources resources = Utils.getContext().getResources();
+        Resources resources = Utils.getApp().getResources();
         int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
         return resources.getDimensionPixelSize(resourceId);
     }
@@ -481,10 +481,10 @@ public final class BarUtils {
      * @return 导航栏高度
      */
     public static int getNavBarHeight() {
-        boolean hasMenuKey = ViewConfiguration.get(Utils.getContext()).hasPermanentMenuKey();
+        boolean hasMenuKey = ViewConfiguration.get(Utils.getApp()).hasPermanentMenuKey();
         boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
         if (!hasMenuKey && !hasBackKey) {
-            Resources res = Utils.getContext().getResources();
+            Resources res = Utils.getApp().getResources();
             int resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android");
             return res.getDimensionPixelSize(resourceId);
         } else {

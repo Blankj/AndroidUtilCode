@@ -42,7 +42,7 @@ public final class CrashUtils {
 
     static {
         try {
-            PackageInfo pi = Utils.getContext().getPackageManager().getPackageInfo(Utils.getContext().getPackageName(), 0);
+            PackageInfo pi = Utils.getApp().getPackageManager().getPackageInfo(Utils.getApp().getPackageName(), 0);
             if (pi != null) {
                 versionName = pi.versionName;
                 versionCode = pi.versionCode;
@@ -143,10 +143,10 @@ public final class CrashUtils {
         }
         if (mInitialized) return true;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
-                && Utils.getContext().getExternalCacheDir() != null)
-            defaultDir = Utils.getContext().getExternalCacheDir() + FILE_SEP + "crash" + FILE_SEP;
+                && Utils.getApp().getExternalCacheDir() != null)
+            defaultDir = Utils.getApp().getExternalCacheDir() + FILE_SEP + "crash" + FILE_SEP;
         else {
-            defaultDir = Utils.getContext().getCacheDir() + FILE_SEP + "crash" + FILE_SEP;
+            defaultDir = Utils.getApp().getCacheDir() + FILE_SEP + "crash" + FILE_SEP;
         }
         Thread.setDefaultUncaughtExceptionHandler(UNCAUGHT_EXCEPTION_HANDLER);
         return mInitialized = true;

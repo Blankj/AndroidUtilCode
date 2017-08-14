@@ -104,7 +104,7 @@ public class CacheUtils {
      */
     public static CacheUtils getInstance(String cacheName, final long maxSize, final int maxCount) {
         if (isSpace(cacheName)) cacheName = "cacheUtils";
-        File file = new File(Utils.getContext().getCacheDir(), cacheName);
+        File file = new File(Utils.getApp().getCacheDir(), cacheName);
         return getInstance(file, maxSize, maxCount);
     }
 
@@ -943,7 +943,7 @@ public class CacheUtils {
         }
 
         private static Drawable bitmap2Drawable(final Bitmap bitmap) {
-            return bitmap == null ? null : new BitmapDrawable(Utils.getContext().getResources(), bitmap);
+            return bitmap == null ? null : new BitmapDrawable(Utils.getApp().getResources(), bitmap);
         }
     }
 

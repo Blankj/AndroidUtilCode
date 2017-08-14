@@ -115,7 +115,7 @@ public final class ImageUtils {
      * @return drawable
      */
     public static Drawable bitmap2Drawable(final Bitmap bitmap) {
-        return bitmap == null ? null : new BitmapDrawable(Utils.getContext().getResources(), bitmap);
+        return bitmap == null ? null : new BitmapDrawable(Utils.getApp().getResources(), bitmap);
     }
 
     /**
@@ -321,7 +321,7 @@ public final class ImageUtils {
      * @return bitmap
      */
     public static Bitmap getBitmap(@DrawableRes final int resId) {
-        return BitmapFactory.decodeResource(Utils.getContext().getResources(), resId);
+        return BitmapFactory.decodeResource(Utils.getApp().getResources(), resId);
     }
 
     /**
@@ -335,10 +335,10 @@ public final class ImageUtils {
     public static Bitmap getBitmap(@DrawableRes final int resId, final int maxWidth, final int maxHeight) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(Utils.getContext().getResources(), resId, options);
+        BitmapFactory.decodeResource(Utils.getApp().getResources(), resId, options);
         options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
         options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeResource(Utils.getContext().getResources(), resId, options);
+        return BitmapFactory.decodeResource(Utils.getApp().getResources(), resId, options);
     }
 
     /**
@@ -722,7 +722,7 @@ public final class ImageUtils {
         if (isEmptyBitmap(src)) return null;
         RenderScript rs = null;
         try {
-            rs = RenderScript.create(Utils.getContext());
+            rs = RenderScript.create(Utils.getApp());
             rs.setMessageHandler(new RenderScript.RSMessageHandler());
             Allocation input = Allocation.createFromBitmap(rs, src, Allocation.MipmapControl.MIPMAP_NONE, Allocation
                     .USAGE_SCRIPT);

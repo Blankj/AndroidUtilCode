@@ -25,7 +25,7 @@ public final class CleanUtils {
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
     public static boolean cleanInternalCache() {
-        return deleteFilesInDir(Utils.getContext().getCacheDir());
+        return deleteFilesInDir(Utils.getApp().getCacheDir());
     }
 
     /**
@@ -35,7 +35,7 @@ public final class CleanUtils {
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
     public static boolean cleanInternalFiles() {
-        return deleteFilesInDir(Utils.getContext().getFilesDir());
+        return deleteFilesInDir(Utils.getApp().getFilesDir());
     }
 
     /**
@@ -45,7 +45,7 @@ public final class CleanUtils {
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
     public static boolean cleanInternalDbs() {
-        return deleteFilesInDir(Utils.getContext().getFilesDir().getParent() + File.separator + "databases");
+        return deleteFilesInDir(Utils.getApp().getFilesDir().getParent() + File.separator + "databases");
     }
 
     /**
@@ -56,7 +56,7 @@ public final class CleanUtils {
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
     public static boolean cleanInternalDbByName(final String dbName) {
-        return Utils.getContext().deleteDatabase(dbName);
+        return Utils.getApp().deleteDatabase(dbName);
     }
 
     /**
@@ -66,7 +66,7 @@ public final class CleanUtils {
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
     public static boolean cleanInternalSP() {
-        return deleteFilesInDir(Utils.getContext().getFilesDir().getParent() + File.separator + "shared_prefs");
+        return deleteFilesInDir(Utils.getApp().getFilesDir().getParent() + File.separator + "shared_prefs");
     }
 
     /**
@@ -76,7 +76,7 @@ public final class CleanUtils {
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
     public static boolean cleanExternalCache() {
-        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) && deleteFilesInDir(Utils.getContext().getExternalCacheDir());
+        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) && deleteFilesInDir(Utils.getApp().getExternalCacheDir());
     }
 
     /**

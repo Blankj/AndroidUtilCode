@@ -921,9 +921,9 @@ public final class SpanUtils {
             } else if (iconMarginDrawable != null) {
                 mBuilder.setSpan(new CustomIconMarginSpan(iconMarginDrawable, iconMarginGapWidth, alignIconMargin), start, end, flag);
             } else if (iconMarginUri != null) {
-                mBuilder.setSpan(new CustomIconMarginSpan(Utils.getContext(), iconMarginUri, iconMarginGapWidth, alignIconMargin), start, end, flag);
+                mBuilder.setSpan(new CustomIconMarginSpan(Utils.getApp(), iconMarginUri, iconMarginGapWidth, alignIconMargin), start, end, flag);
             } else if (iconMarginResourceId != -1) {
-                mBuilder.setSpan(new CustomIconMarginSpan(Utils.getContext(), iconMarginResourceId, iconMarginGapWidth, alignIconMargin), start, end, flag);
+                mBuilder.setSpan(new CustomIconMarginSpan(Utils.getApp(), iconMarginResourceId, iconMarginGapWidth, alignIconMargin), start, end, flag);
             }
         }
         if (fontSize != -1) {
@@ -995,13 +995,13 @@ public final class SpanUtils {
         mBuilder.append("<img>");
         int end = start + 5;
         if (imageBitmap != null) {
-            mBuilder.setSpan(new CustomImageSpan(Utils.getContext(), imageBitmap, alignImage), start, end, flag);
+            mBuilder.setSpan(new CustomImageSpan(Utils.getApp(), imageBitmap, alignImage), start, end, flag);
         } else if (imageDrawable != null) {
             mBuilder.setSpan(new CustomImageSpan(imageDrawable, alignImage), start, end, flag);
         } else if (imageUri != null) {
-            mBuilder.setSpan(new CustomImageSpan(Utils.getContext(), imageUri, alignImage), start, end, flag);
+            mBuilder.setSpan(new CustomImageSpan(Utils.getApp(), imageUri, alignImage), start, end, flag);
         } else if (imageResourceId != -1) {
-            mBuilder.setSpan(new CustomImageSpan(Utils.getContext(), imageResourceId, alignImage), start, end, flag);
+            mBuilder.setSpan(new CustomImageSpan(Utils.getApp(), imageResourceId, alignImage), start, end, flag);
         }
     }
 

@@ -42,9 +42,9 @@ public final class ActivityUtils {
                                            @NonNull final String className) {
         Intent intent = new Intent();
         intent.setClassName(packageName, className);
-        return !(Utils.getContext().getPackageManager().resolveActivity(intent, 0) == null ||
-                intent.resolveActivity(Utils.getContext().getPackageManager()) == null ||
-                Utils.getContext().getPackageManager().queryIntentActivities(intent, 0).size() == 0);
+        return !(Utils.getApp().getPackageManager().resolveActivity(intent, 0) == null ||
+                intent.resolveActivity(Utils.getApp().getPackageManager()) == null ||
+                Utils.getApp().getPackageManager().queryIntentActivities(intent, 0).size() == 0);
     }
 
     /**
@@ -53,7 +53,7 @@ public final class ActivityUtils {
      * @param cls activity类
      */
     public static void startActivity(@NonNull final Class<?> cls) {
-        Context context = Utils.getContext();
+        Context context = Utils.getApp();
         startActivity(context, null, context.getPackageName(), cls.getName(), null);
     }
 
@@ -65,7 +65,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final Class<?> cls,
                                      @NonNull final Bundle options) {
-        Context context = Utils.getContext();
+        Context context = Utils.getApp();
         startActivity(context, null, context.getPackageName(), cls.getName(), options);
     }
 
@@ -117,7 +117,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final Class<?> cls) {
-        Context context = Utils.getContext();
+        Context context = Utils.getApp();
         startActivity(context, extras, context.getPackageName(), cls.getName(), null);
     }
 
@@ -131,7 +131,7 @@ public final class ActivityUtils {
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final Class<?> cls,
                                      @NonNull final Bundle options) {
-        Context context = Utils.getContext();
+        Context context = Utils.getApp();
         startActivity(context, extras, context.getPackageName(), cls.getName(), options);
     }
 
@@ -189,7 +189,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final String pkg,
                                      @NonNull final String cls) {
-        startActivity(Utils.getContext(), null, pkg, cls, null);
+        startActivity(Utils.getApp(), null, pkg, cls, null);
     }
 
     /**
@@ -202,7 +202,7 @@ public final class ActivityUtils {
     public static void startActivity(@NonNull final String pkg,
                                      @NonNull final String cls,
                                      @NonNull final Bundle options) {
-        startActivity(Utils.getContext(), null, pkg, cls, options);
+        startActivity(Utils.getApp(), null, pkg, cls, options);
     }
 
     /**
@@ -261,7 +261,7 @@ public final class ActivityUtils {
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final String pkg,
                                      @NonNull final String cls) {
-        startActivity(Utils.getContext(), extras, pkg, cls, null);
+        startActivity(Utils.getApp(), extras, pkg, cls, null);
     }
 
     /**
@@ -276,7 +276,7 @@ public final class ActivityUtils {
                                      @NonNull final String pkg,
                                      @NonNull final String cls,
                                      @NonNull final Bundle options) {
-        startActivity(Utils.getContext(), extras, pkg, cls, options);
+        startActivity(Utils.getApp(), extras, pkg, cls, options);
     }
 
     /**
@@ -358,7 +358,7 @@ public final class ActivityUtils {
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        PackageManager pm = Utils.getContext().getPackageManager();
+        PackageManager pm = Utils.getApp().getPackageManager();
         List<ResolveInfo> info = pm.queryIntentActivities(intent, 0);
         for (ResolveInfo aInfo : info) {
             if (aInfo.activityInfo.packageName.equals(packageName)) {

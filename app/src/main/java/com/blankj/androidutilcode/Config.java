@@ -23,7 +23,7 @@ public class Config {
 
     public static String getTestApkPath() {
         if (testApkPath == null)
-            testApkPath = Utils.getContext().getCacheDir().getAbsolutePath() + File.separatorChar + "apk" + File.separatorChar + "test_install.apk";
+            testApkPath = Utils.getApp().getCacheDir().getAbsolutePath() + File.separatorChar + "apk" + File.separatorChar + "test_install.apk";
         return testApkPath;
     }
 }

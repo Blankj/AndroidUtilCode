@@ -56,7 +56,7 @@ public class CacheUtilsTest {
     private ParcelableTest   mParcelableTest   = new ParcelableTest("Blankj", "CacheUtils");
     private SerializableTest mSerializableTest = new SerializableTest("Blankj", "CacheUtils");
     private Bitmap           mBitmap           = Bitmap.createBitmap(100, 100, Bitmap.Config.RGB_565);
-    private Drawable         mDrawable         = new BitmapDrawable(Utils.getContext().getResources(), mBitmap);
+    private Drawable         mDrawable         = new BitmapDrawable(Utils.getApp().getResources(), mBitmap);
 
     public CacheUtilsTest() {
         try {
