@@ -10,12 +10,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.AnimRes;
 import android.support.annotation.NonNull;
-import android.util.ArrayMap;
 
-import java.lang.reflect.Field;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <pre>
@@ -375,30 +371,6 @@ public final class ActivityUtils {
      * @return 栈顶Activity
      */
     public static Activity getTopActivity() {
-        try {
-            Class activityThreadClass = Class.forName("android.app.ActivityThread");
-            Object activityThread = activityThreadClass.getMethod("currentActivityThread").invoke(null);
-            Field activitiesField = activityThreadClass.getDeclaredField("mActivities");
-            activitiesField.setAccessible(true);
-            Map activities;
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-                activities = (HashMap) activitiesField.get(activityThread);
-            } else {
-                activities = (ArrayMap) activitiesField.get(activityThread);
-            }
-            for (Object activityRecord : activities.values()) {
-                Class activityRecordClass = activityRecord.getClass();
-                Field pausedField = activityRecordClass.getDeclaredField("paused");
-                pausedField.setAccessible(true);
-                if (!pausedField.getBoolean(activityRecord)) {
-                    Field activityField = activityRecordClass.getDeclaredField("activity");
-                    activityField.setAccessible(true);
-                    return (Activity) activityField.get(activityRecord);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return null;
     }
 }
