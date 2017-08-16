@@ -1,5 +1,6 @@
 package com.blankj.androidutilcode.base;
 
+import android.annotation.LayoutRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
@@ -31,7 +32,7 @@ public abstract class BaseBackActivity extends BaseActivity {
     protected FrameLayout       flActivityContainer;
 
     @Override
-    protected void setBaseView() {
+    protected void setBaseView(@LayoutRes int layoutId) {
         Slidr.attach(this);
         contentView = LayoutInflater.from(this).inflate(R.layout.activity_back, null);
         setContentView(contentView);
@@ -39,14 +40,13 @@ public abstract class BaseBackActivity extends BaseActivity {
         abl = (AppBarLayout) findViewById(R.id.abl);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         flActivityContainer = (FrameLayout) findViewById(R.id.activity_container);
-        flActivityContainer.addView(LayoutInflater.from(this).inflate(bindLayout(), flActivityContainer, false));
+        flActivityContainer.addView(LayoutInflater.from(this).inflate(layoutId, flActivityContainer, false));
         setSupportActionBar(mToolbar);
         getToolBar().setDisplayHomeAsUpEnabled(true);
 
         BarUtils.setStatusBarColor(this, ContextCompat.getColor(UtilsApp.getInstance(), R.color.colorPrimary), 0);
         BarUtils.addMarginTopEqualStatusBarHeight(rootLayout);
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

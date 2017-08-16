@@ -1,5 +1,6 @@
 package com.blankj.androidutilcode.base;
 
+import android.annotation.LayoutRes;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -42,12 +43,12 @@ public abstract class BaseDrawerActivity extends BaseActivity {
     };
 
     @Override
-    protected void setBaseView() {
+    protected void setBaseView(@LayoutRes int layoutId) {
         contentView = LayoutInflater.from(this).inflate(R.layout.activity_drawer, null);
         setContentView(contentView);
         rootLayout = (DrawerLayout) findViewById(R.id.root_layout);
         flActivityContainer = (FrameLayout) findViewById(R.id.activity_container);
-        flActivityContainer.addView(LayoutInflater.from(this).inflate(bindLayout(), flActivityContainer, false));
+        flActivityContainer.addView(LayoutInflater.from(this).inflate(layoutId, flActivityContainer, false));
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(mListener);
     }

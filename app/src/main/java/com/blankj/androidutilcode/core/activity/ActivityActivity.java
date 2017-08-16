@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.blankj.androidutilcode.Config;
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseBackActivity;
+import com.blankj.androidutilcode.core.image.ImageActivity;
 import com.blankj.utilcode.util.ActivityUtils;
 
 /**
@@ -21,8 +22,6 @@ import com.blankj.utilcode.util.ActivityUtils;
  */
 public class ActivityActivity extends BaseBackActivity {
 
-    private String imageActivityClassName;
-
     public static void start(Context context) {
         Intent starter = new Intent(context, ActivityActivity.class);
         context.startActivity(starter);
@@ -30,7 +29,7 @@ public class ActivityActivity extends BaseBackActivity {
 
     @Override
     public void initData(Bundle bundle) {
-        imageActivityClassName = Config.PKG + ".activity.ImageActivity";
+
     }
 
     @Override
@@ -45,7 +44,7 @@ public class ActivityActivity extends BaseBackActivity {
 
         findViewById(R.id.btn_launch_image_activity).setOnClickListener(this);
         TextView tvAboutActivity = (TextView) findViewById(R.id.tv_about_activity);
-        tvAboutActivity.setText("Is ImageActivity Exists: " + ActivityUtils.isActivityExists(Config.PKG, imageActivityClassName)
+        tvAboutActivity.setText("Is ImageActivity Exists: " + ActivityUtils.isActivityExists(Config.PKG, ImageActivity.class.getName())
                 + "\ngetLauncherActivity: " + ActivityUtils.getLauncherActivity(Config.PKG)
                 + "\ngetTopActivity: " + ActivityUtils.getTopActivity()
         );
@@ -60,7 +59,7 @@ public class ActivityActivity extends BaseBackActivity {
     public void onWidgetClick(View view) {
         switch (view.getId()) {
             case R.id.btn_launch_image_activity:
-                ActivityUtils.startActivity(Config.PKG, imageActivityClassName);
+                ActivityUtils.startActivity(Config.PKG, ImageActivity.class.getName());
                 break;
             default:
                 break;
