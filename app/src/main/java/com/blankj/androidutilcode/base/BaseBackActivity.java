@@ -1,6 +1,6 @@
 package com.blankj.androidutilcode.base;
 
-import android.annotation.LayoutRes;
+import android.support.annotation.LayoutRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;

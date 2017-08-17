@@ -1,7 +1,7 @@
 package com.blankj.androidutilcode.base;
 
-import android.annotation.LayoutRes;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
