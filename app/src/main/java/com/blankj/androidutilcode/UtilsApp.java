@@ -1,6 +1,7 @@
 package com.blankj.androidutilcode;
 
 import com.blankj.androidutilcode.base.BaseApplication;
+import com.blankj.subutil.util.ThreadPoolUtils;
 import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.FileIOUtils;
 import com.blankj.utilcode.util.FileUtils;
@@ -47,6 +48,7 @@ public class UtilsApp extends BaseApplication {
         LeakCanary.install(this);
     }
 
+    // init it in ur application
     public void initLog() {
         LogUtils.Config config = LogUtils.getConfig()
                 .setLogSwitch(BuildConfig.DEBUG)// 设置log总开关，包括输出到控制台和文件，默认开
@@ -69,11 +71,17 @@ public class UtilsApp extends BaseApplication {
 
     private void initAssets() {
         if (!FileUtils.isFileExists(com.blankj.androidutilcode.Config.getTestApkPath())) {
-            try {
-                FileIOUtils.writeFileFromIS(com.blankj.androidutilcode.Config.getTestApkPath(), getAssets().open("test_install"), false);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            ThreadPoolUtils poolUtils = new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 1);
+            poolUtils.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        FileIOUtils.writeFileFromIS(Config.getTestApkPath(), getAssets().open("test_install"), false);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
     }
 }
