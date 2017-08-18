@@ -52,7 +52,7 @@ public class AppActivity extends BaseBackActivity {
         TextView tvAboutApp = (TextView) findViewById(R.id.tv_about_app);
         tvAboutApp.setText(
                 new SpanUtils()
-                        .appendLine("app icon: ").appendImage(AppUtils.getAppIcon(), SpanUtils.ALIGN_CENTER)
+                        .append("app icon: ").appendImage(AppUtils.getAppIcon(), SpanUtils.ALIGN_CENTER).appendLine()
                         .appendLine(AppUtils.getAppInfo().toString())
                         .appendLine("isAppRoot: " + AppUtils.isAppRoot())
                         .appendLine("isAppDebug: " + AppUtils.isAppDebug())
@@ -62,7 +62,7 @@ public class AppActivity extends BaseBackActivity {
     }
 
     @Override
-    public void doBusiness(Context context) {
+    public void doBusiness() {
 
     }
 

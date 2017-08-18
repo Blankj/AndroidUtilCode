@@ -64,7 +64,7 @@ public class CleanActivity extends BaseBackActivity {
     }
 
     @Override
-    public void doBusiness(Context context) {
+    public void doBusiness() {
 
     }
 

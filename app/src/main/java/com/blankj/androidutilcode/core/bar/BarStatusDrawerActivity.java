@@ -80,7 +80,7 @@ public class BarStatusDrawerActivity extends BaseDrawerActivity {
 
 
     @Override
-    public void doBusiness(Context context) {
+    public void doBusiness() {
 
     }
 

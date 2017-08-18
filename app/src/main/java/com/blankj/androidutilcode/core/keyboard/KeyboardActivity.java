@@ -59,7 +59,7 @@ public class KeyboardActivity extends BaseBackActivity {
     }
 
     @Override
-    public void doBusiness(Context context) {
+    public void doBusiness() {
 
     }
 

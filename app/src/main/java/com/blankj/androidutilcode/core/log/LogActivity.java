@@ -116,7 +116,7 @@ public class LogActivity extends BaseBackActivity {
     }
 
     @Override
-    public void doBusiness(Context context) {
+    public void doBusiness() {
 
     }
 
@@ -262,7 +262,7 @@ public class LogActivity extends BaseBackActivity {
 
     @Override
     protected void onDestroy() {
-        UtilsApp.initLog();
+        UtilsApp.getInstance().initLog();
         super.onDestroy();
     }
 }

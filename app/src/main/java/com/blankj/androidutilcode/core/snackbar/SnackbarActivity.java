@@ -63,7 +63,7 @@ public class SnackbarActivity extends BaseBackActivity {
     }
 
     @Override
-    public void doBusiness(Context context) {
+    public void doBusiness() {
 
     }
 

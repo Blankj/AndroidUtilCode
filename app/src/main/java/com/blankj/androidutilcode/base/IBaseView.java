@@ -1,6 +1,5 @@
 package com.blankj.androidutilcode.base;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
@@ -12,7 +11,7 @@ import android.view.View;
  *     desc  :
  * </pre>
  */
-interface IBaseView {
+interface IBaseView extends View.OnClickListener {
 
     /**
      * 初始化数据
@@ -35,10 +34,8 @@ interface IBaseView {
 
     /**
      * 业务操作
-     *
-     * @param context 上下文
      */
-    void doBusiness(final Context context);
+    void doBusiness();
 
     /**
      * 视图点击事件

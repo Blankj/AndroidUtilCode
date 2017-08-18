@@ -11,6 +11,7 @@
         style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:text="@string/bar_about_status_bar" />
 
     <Button
@@ -60,6 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_16"
+        android:gravity="center_horizontal"
         android:text="@string/bar_about_nav_bar" />
 
     <Button

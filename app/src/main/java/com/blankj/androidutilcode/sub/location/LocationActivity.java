@@ -56,7 +56,7 @@ public class LocationActivity extends BaseBackActivity {
     }
 
     @Override
-    public void doBusiness(Context context) {
+    public void doBusiness() {
         bindService(new Intent(this, LocationService.class), conn, Context.BIND_AUTO_CREATE);
     }
 

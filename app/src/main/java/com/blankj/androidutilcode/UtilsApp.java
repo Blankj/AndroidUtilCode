@@ -19,9 +19,16 @@ import java.io.IOException;
  */
 public class UtilsApp extends BaseApplication {
 
+    private static UtilsApp sInstance;
+
+    public static UtilsApp getInstance() {
+        return sInstance;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+        sInstance = this;
         com.blankj.utilcode.util.Utils.init(this);
         com.blankj.subutil.util.Utils.init(this);
         initLeakCanary();
@@ -40,7 +47,7 @@ public class UtilsApp extends BaseApplication {
         LeakCanary.install(this);
     }
 
-    public static void initLog() {
+    public void initLog() {
         LogUtils.Config config = LogUtils.getConfig()
                 .setLogSwitch(BuildConfig.DEBUG)// 设置log总开关，包括输出到控制台和文件，默认开
                 .setConsoleSwitch(BuildConfig.DEBUG)// 设置是否输出到控制台开关，默认开

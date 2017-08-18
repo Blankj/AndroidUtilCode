@@ -51,7 +51,7 @@ public class Demo1Fragment extends BaseFragment {
     }
 
     @Override
-    public void doBusiness(Context context) {
+    public void doBusiness() {
 
     }
 

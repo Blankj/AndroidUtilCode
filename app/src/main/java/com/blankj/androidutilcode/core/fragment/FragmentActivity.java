@@ -45,7 +45,7 @@ public class FragmentActivity extends BaseBackActivity {
     }
 
     @Override
-    public void doBusiness(Context context) {
+    public void doBusiness() {
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(Demo0Fragment.newInstance());
         rootFragment = FragmentUtils.addFragments(getSupportFragmentManager(), fragments, R.id.fragment_container, 0);

@@ -15,7 +15,7 @@ import android.view.View;
  * </pre>
  */
 public abstract class BaseActivity extends AppCompatActivity
-        implements IBaseView, View.OnClickListener {
+        implements IBaseView {
 
     /**
      * 当前Activity渲染的视图View
@@ -36,7 +36,7 @@ public abstract class BaseActivity extends AppCompatActivity
         initData(bundle);
         setBaseView(bindLayout());
         initView(savedInstanceState, contentView);
-        doBusiness(this);
+        doBusiness();
     }
 
     protected void setBaseView(@LayoutRes int layoutId) {

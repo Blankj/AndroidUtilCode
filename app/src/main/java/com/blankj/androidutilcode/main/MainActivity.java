@@ -1,6 +1,5 @@
 package com.blankj.androidutilcode.main;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -9,9 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.blankj.androidutilcode.R;
+import com.blankj.androidutilcode.base.BaseDrawerActivity;
 import com.blankj.androidutilcode.core.main.CoreUtilActivity;
 import com.blankj.androidutilcode.sub.main.SubUtilActivity;
-import com.blankj.androidutilcode.base.BaseDrawerActivity;
 import com.blankj.utilcode.util.BarUtils;
 
 /**
@@ -54,7 +53,7 @@ public class MainActivity extends BaseDrawerActivity {
     }
 
     @Override
-    public void doBusiness(Context context) {
+    public void doBusiness() {
 
     }
 

@@ -1,13 +1,11 @@
 package com.blankj.androidutilcode.core.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.core.bar.BarStatusFragmentActivity;
 import com.blankj.androidutilcode.base.BaseFragment;
 import com.blankj.utilcode.util.BarUtils;
 
@@ -19,7 +17,7 @@ import com.blankj.utilcode.util.BarUtils;
  *     desc  : Bar工具类Demo
  * </pre>
  */
-public class BarStatusAlphaFragment extends BaseFragment<BarStatusFragmentActivity> {
+public class BarStatusAlphaFragment extends BaseFragment {
 
     private int mAlpha;
 
@@ -55,7 +53,7 @@ public class BarStatusAlphaFragment extends BaseFragment<BarStatusFragmentActivi
     }
 
     @Override
-    public void doBusiness(Context context) {
+    public void doBusiness() {
 
     }
 
