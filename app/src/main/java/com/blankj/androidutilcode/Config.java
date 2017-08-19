@@ -18,7 +18,6 @@ public class Config {
     public static final String GITHUB   = "https://github.com/Blankj/AndroidUtilCode";
     public static final String BLOG     = "http://www.jianshu.com/u/46702d5c6978";
 
-
     private static String testApkPath;
 
     public static String getTestApkPath() {
