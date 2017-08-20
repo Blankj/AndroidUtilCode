@@ -43,6 +43,7 @@ public class ActivityActivity extends BaseBackActivity {
         getToolBar().setTitle(getString(R.string.demo_activity));
 
         findViewById(R.id.btn_launch_image_activity).setOnClickListener(this);
+        findViewById(R.id.btn_finish_all_activity).setOnClickListener(this);
         TextView tvAboutActivity = (TextView) findViewById(R.id.tv_about_activity);
         tvAboutActivity.setText("Is ImageActivity Exists: " + ActivityUtils.isActivityExists(Config.PKG, ImageActivity.class.getName())
                 + "\ngetLauncherActivity: " + ActivityUtils.getLauncherActivity(Config.PKG)
@@ -61,7 +62,8 @@ public class ActivityActivity extends BaseBackActivity {
             case R.id.btn_launch_image_activity:
                 ActivityUtils.startActivity(Config.PKG, ImageActivity.class.getName());
                 break;
-            default:
+            case R.id.btn_finish_all_activity:
+                ActivityUtils.finishAllActivities();
                 break;
         }
     }

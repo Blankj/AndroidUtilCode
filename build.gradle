@@ -21,3 +21,20 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    // Sdk and tools
+    compileSdkVersion = 25
+    buildToolsVersion = '25.0.3'
+    minSdkVersion = 14
+    targetSdkVersion = 25
+
+    versionCode = 100800300
+    versionName = '1.8.3'
+
+    // App dependencies
+    supportVersion = '25.3.1'
+
+    junitVersion = '4.12'
+    robolectricVersion = '3.1.2'
+}

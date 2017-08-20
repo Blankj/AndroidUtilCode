@@ -8,10 +8,11 @@
 
 * ### Activity相关→[ActivityUtils.java][activity.java]→[Demo][activity.demo]
 ```
-isActivityExists   : 判断是否存在Activity
-startActivity      : 打开Activity
+isActivityExists   : 判断是否存在activity
+startActivity      : 打开activity
 getLauncherActivity: 获取入口activity
-getTopActivity     : 获取栈顶Activity
+getTopActivity     : 获取栈顶activity
+finishAllActivities: 结束所有activity
 ```
 
 * ### App相关→[AppUtils.java][app.java]→[Demo][app.demo]
@@ -23,6 +24,7 @@ uninstallApp         : 卸载App
 uninstallAppSilent   : 静默卸载App
 isAppRoot            : 判断App是否有root权限
 launchApp            : 打开App
+exitApp              : 关闭应用
 getAppPackageName    : 获取App包名
 getAppDetailsSettings: 获取App具体设置
 getAppName           : 获取App名称
@@ -616,7 +618,7 @@ getEntries        : 获取压缩文件中的文件对象
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.8.2'
+compile 'com.blankj:utilcode:1.8.3'
 ```
 
 
@@ -639,7 +641,7 @@ Utils.init(context);
 
 [logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.8.2-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.8.3-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-14+-brightgreen.svg

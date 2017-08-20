@@ -21,13 +21,13 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 14
-        versionCode 100800100
-        versionName "1.8.1"
+        minSdkVersion rootProject.ext.minSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
     }
 
     buildTypes {
@@ -54,18 +54,13 @@ android {
 }
 
 dependencies {
-    final SUPPORT_VERSION = '25.3.1'
-    final JUNIT_VERSION = '4.12'
-    final TRUTH_VERSION = '0.31'
-    final ROBOLECTRIC_VERSION = '3.1.2'
+    provided "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
+    provided "com.android.support:support-v4:$rootProject.ext.supportVersion"
+    provided "com.android.support:design:$rootProject.ext.supportVersion"
 
-    provided "com.android.support:appcompat-v7:$SUPPORT_VERSION"
-    provided "com.android.support:support-v4:$SUPPORT_VERSION"
-    provided "com.android.support:design:$SUPPORT_VERSION"
-
-    testCompile "junit:junit:$JUNIT_VERSION"
-    testCompile "com.google.truth:truth:$TRUTH_VERSION"
-    testCompile "org.robolectric:robolectric:$ROBOLECTRIC_VERSION"
+    testCompile "junit:junit:$rootProject.ext.junitVersion"
+    testCompile "org.robolectric:robolectric:$rootProject.ext.robolectricVersion"
+    testCompile "com.google.truth:truth:0.31"
 }
 //apply from: "https://raw.githubusercontent.com/xiaopansky/android-library-publish-to-jcenter/master/bintrayUpload.gradle"
 //gradlew bintrayUpload

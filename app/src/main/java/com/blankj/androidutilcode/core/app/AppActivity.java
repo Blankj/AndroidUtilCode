@@ -48,6 +48,7 @@ public class AppActivity extends BaseBackActivity {
         findViewById(R.id.btn_uninstall_app).setOnClickListener(this);
         findViewById(R.id.btn_uninstall_app_silent).setOnClickListener(this);
         findViewById(R.id.btn_launch_app).setOnClickListener(this);
+        findViewById(R.id.btn_exit_app).setOnClickListener(this);
         findViewById(R.id.btn_get_app_details_settings).setOnClickListener(this);
         TextView tvAboutApp = (TextView) findViewById(R.id.tv_about_app);
         tvAboutApp.setText(
@@ -112,6 +113,9 @@ public class AppActivity extends BaseBackActivity {
                 break;
             case R.id.btn_launch_app:
                 AppUtils.launchApp(this.getPackageName());
+                break;
+            case R.id.btn_exit_app:
+                AppUtils.exitApp();
                 break;
             case R.id.btn_get_app_details_settings:
                 AppUtils.getAppDetailsSettings();

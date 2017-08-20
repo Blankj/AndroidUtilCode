@@ -6,7 +6,8 @@ import android.app.Application;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import java.lang.ref.WeakReference;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * <pre>
@@ -21,32 +22,14 @@ public final class Utils {
     @SuppressLint("StaticFieldLeak")
     private static Application sApplication;
 
-    private static WeakReference<Activity> sCurrentActivityWeakRef;
+    static List<Activity> sActivityList = new LinkedList<>();
+    @SuppressLint("StaticFieldLeak")
+    static Activity sTopActivity;
 
-    protected static Application.ActivityLifecycleCallbacks mCallbacks = new Application.ActivityLifecycleCallbacks() {
+    private static Application.ActivityLifecycleCallbacks mCallbacks = new Application.ActivityLifecycleCallbacks() {
         @Override
-        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-
-        }
-
-        @Override
-        public void onActivityDestroyed(Activity activity) {
-
-        }
-
-        @Override
-        public void onActivityPaused(Activity activity) {
-
-        }
-
-        @Override
-        public void onActivityResumed(Activity activity) {
-            sCurrentActivityWeakRef = new WeakReference<>(activity);
-        }
-
-        @Override
-        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-
+        public void onActivityCreated(Activity activity, Bundle bundle) {
+            sActivityList.add(activity);
         }
 
         @Override
@@ -55,8 +38,28 @@ public final class Utils {
         }
 
         @Override
+        public void onActivityResumed(Activity activity) {
+            sTopActivity = activity;
+        }
+
+        @Override
+        public void onActivityPaused(Activity activity) {
+
+        }
+
+        @Override
         public void onActivityStopped(Activity activity) {
 
+        }
+
+        @Override
+        public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
+
+        }
+
+        @Override
+        public void onActivityDestroyed(Activity activity) {
+            sActivityList.remove(activity);
         }
     };
 

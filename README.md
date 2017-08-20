@@ -12,6 +12,7 @@ isActivityExists
 startActivity
 getLauncherActivity
 getTopActivity
+finishAllActivities
 ```
 
 * ### About App→[AppUtils.java][app.java]→[Demo][app.demo]
@@ -23,6 +24,7 @@ uninstallApp
 uninstallAppSilent
 isAppRoot
 launchApp
+exitApp
 getAppPackageName
 getAppDetailsSettings
 getAppName
@@ -616,7 +618,7 @@ getEntries
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.8.2'
+compile 'com.blankj:utilcode:1.8.3'
 ```
 
 
@@ -639,7 +641,7 @@ Utils.init(context);
 
 [logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.8.2-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.8.3-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-14+-brightgreen.svg

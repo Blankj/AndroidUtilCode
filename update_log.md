@@ -1,3 +1,4 @@
+* 17/08/20 新增监听Activity生命周期，退出App，发布版本1.8.3
 * 17/08/11 LogUtils的Builder改为Config，发布版本1.8.2
 * 17/08/10 优化FileUtils的deleteFilesInDir和listFilesInDir
 * 17/08/08 新增反射工具类ReflectUtils

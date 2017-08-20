@@ -371,6 +371,17 @@ public final class ActivityUtils {
      * @return 栈顶Activity
      */
     public static Activity getTopActivity() {
-        return null;
+        return Utils.sTopActivity;
+    }
+
+    /**
+     * 结束所有activity
+     */
+    public static void finishAllActivities() {
+        List<Activity> activityList = Utils.sActivityList;
+        for (int i = activityList.size() - 1; i >= 0; --i) {
+            activityList.get(i).finish();
+            activityList.remove(i);
+        }
     }
 }

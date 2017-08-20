@@ -181,6 +181,18 @@ public final class AppUtils {
     }
 
     /**
+     * 关闭App
+     */
+    public static void exitApp() {
+        List<Activity> activityList = Utils.sActivityList;
+        for (int i = activityList.size() - 1; i >= 0; --i) {
+            activityList.get(i).finish();
+            activityList.remove(i);
+        }
+        System.exit(0);
+    }
+
+    /**
      * 获取App包名
      *
      * @return App包名

@@ -20,4 +20,11 @@
         android:layout_height="wrap_content"
         android:text="@string/activity_start_imageActivity" />
 
+    <Button
+        android:id="@+id/btn_finish_all_activity"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_finish_all_activity" />
+
 </LinearLayout>

@@ -21,6 +21,7 @@
 
     <!--Activity相关-->
     <string name="activity_start_imageActivity">Start ImageActivity</string>
+    <string name="activity_finish_all_activity">Finish All Activity</string>
 
     <!--App相关-->
     <string name="app_install">Install Test App</string>
@@ -34,6 +35,7 @@
     <string name="uninstall_successfully">Uninstall successfully</string>
     <string name="uninstall_unsuccessfully">Uninstall unsuccessfully</string>
     <string name="app_launch">Launch App</string>
+    <string name="app_exit">Exit App</string>
     <string name="app_get_details_settings">Get App Details Settings</string>
 
     <!--Bar相关-->
