@@ -18,7 +18,7 @@ import android.view.ViewGroup;
  * </pre>
  */
 public abstract class BaseFragment extends Fragment
-        implements IBaseView, View.OnClickListener {
+        implements IBaseView {
 
     private static final String TAG = "BaseFragment";
 
