@@ -21,7 +21,6 @@ import com.blankj.utilcode.util.LogUtils;
  *     desc  : Log工具类Demo
  * </pre>
  */
-
 public class LogActivity extends BaseBackActivity {
 
     private static final String TAG = "CMJ";
