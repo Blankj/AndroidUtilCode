@@ -34,12 +34,16 @@
     <!--process-->
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
 
+    <!--screen-->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <!--flashlight-->
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature android:name="android.hardware.camera.flash" />
+
     <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <!--location-->
@@ -84,6 +88,7 @@
         <!--<activity android:name=".activities.PermissionActivity"/>-->
         <activity android:name=".core.phone.PhoneActivity" />
         <activity android:name=".core.process.ProcessActivity" />
+        <activity android:name=".core.screen.ScreenActivity" />
         <activity android:name=".core.sdcard.SDCardActivity" />
         <activity android:name=".core.snackbar.SnackbarActivity" />
         <activity android:name=".core.span.SpanActivity" />

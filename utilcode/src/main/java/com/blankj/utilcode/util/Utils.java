@@ -6,6 +6,7 @@ import android.app.Application;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import java.lang.ref.WeakReference;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,24 +23,24 @@ public final class Utils {
     @SuppressLint("StaticFieldLeak")
     private static Application sApplication;
 
+    static WeakReference<Activity> sTopActivityWeakRef;
     static List<Activity> sActivityList = new LinkedList<>();
-    @SuppressLint("StaticFieldLeak")
-    static Activity sTopActivity;
 
     private static Application.ActivityLifecycleCallbacks mCallbacks = new Application.ActivityLifecycleCallbacks() {
         @Override
         public void onActivityCreated(Activity activity, Bundle bundle) {
             sActivityList.add(activity);
+            setTopActivityWeakRef(activity);
         }
 
         @Override
         public void onActivityStarted(Activity activity) {
-
+            setTopActivityWeakRef(activity);
         }
 
         @Override
         public void onActivityResumed(Activity activity) {
-            sTopActivity = activity;
+            setTopActivityWeakRef(activity);
         }
 
         @Override
@@ -85,5 +86,11 @@ public final class Utils {
     public static Application getApp() {
         if (sApplication != null) return sApplication;
         throw new NullPointerException("u should init first");
+    }
+
+    private static void setTopActivityWeakRef(Activity activity) {
+        if (sTopActivityWeakRef == null || !activity.equals(sTopActivityWeakRef.get())) {
+            sTopActivityWeakRef = new WeakReference<>(activity);
+        }
     }
 }
