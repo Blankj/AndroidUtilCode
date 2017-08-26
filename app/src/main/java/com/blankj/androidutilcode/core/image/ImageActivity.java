@@ -23,13 +23,13 @@ import com.blankj.utilcode.util.SizeUtils;
  */
 public class ImageActivity extends BaseBackActivity {
 
+    private ImageView ivSrc;
+    private ImageView ivView2Bitmap;
+
     public static void start(Context context) {
         Intent starter = new Intent(context, ImageActivity.class);
         context.startActivity(starter);
     }
-
-    private ImageView ivSrc;
-    private ImageView ivView2Bitmap;
 
     @Override
     public void initData(Bundle bundle) {
