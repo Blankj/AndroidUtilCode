@@ -371,7 +371,13 @@ public final class ActivityUtils {
      * @return 栈顶Activity
      */
     public static Activity getTopActivity() {
-        return Utils.sTopActivity;
+        if (Utils.sTopActivityWeakRef != null) {
+            Activity activity = Utils.sTopActivityWeakRef.get();
+            if (activity != null) {
+                return activity;
+            }
+        }
+        return Utils.sActivityList.get(Utils.sActivityList.size() - 1);
     }
 
     /**

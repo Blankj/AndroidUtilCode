@@ -127,7 +127,7 @@ public final class ScreenUtils {
      * @return Bitmap
      */
     public static Bitmap screenShot(@NonNull final Activity activity) {
-        return screenShot(activity, true);
+        return screenShot(activity, false);
     }
 
     /**

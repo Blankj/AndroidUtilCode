@@ -19,6 +19,7 @@ import com.blankj.androidutilcode.core.log.LogActivity;
 import com.blankj.androidutilcode.core.network.NetworkActivity;
 import com.blankj.androidutilcode.core.phone.PhoneActivity;
 import com.blankj.androidutilcode.core.process.ProcessActivity;
+import com.blankj.androidutilcode.core.screen.ScreenActivity;
 import com.blankj.androidutilcode.core.sdcard.SDCardActivity;
 import com.blankj.androidutilcode.core.snackbar.SnackbarActivity;
 import com.blankj.androidutilcode.core.span.SpanActivity;
@@ -122,6 +123,10 @@ public class CoreUtilActivity extends BaseBackActivity {
 
     public void processClick(View view) {
         ProcessActivity.start(this);
+    }
+
+    public void screenClick(View view) {
+        ScreenActivity.start(this);
     }
 
     public void sdcardClick(View view) {

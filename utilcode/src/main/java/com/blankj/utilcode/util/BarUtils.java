@@ -481,11 +481,9 @@ public final class BarUtils {
      * @return 导航栏高度
      */
     public static int getNavBarHeight() {
-        boolean hasMenuKey = ViewConfiguration.get(Utils.getApp()).hasPermanentMenuKey();
-        boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
-        if (!hasMenuKey && !hasBackKey) {
-            Resources res = Utils.getApp().getResources();
-            int resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android");
+        Resources res = Utils.getApp().getResources();
+        int resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId != 0) {
             return res.getDimensionPixelSize(resourceId);
         } else {
             return 0;
@@ -501,7 +499,9 @@ public final class BarUtils {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) return;
         if (getNavBarHeight() > 0) {
             View decorView = activity.getWindow().getDecorView();
-            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
             decorView.setSystemUiVisibility(uiOptions);
         }
     }
