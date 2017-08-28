@@ -394,7 +394,7 @@ public final class ActivityUtils {
     /**
      * 获取当前所有的activity列表
      */
-    public List<Activity> getActivityList() {
+    public static List<Activity> getActivityList() {
         return Utils.sActivityList;
     }
 }
