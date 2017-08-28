@@ -3,6 +3,7 @@ package com.blankj.utilcode.util;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
@@ -92,5 +93,9 @@ public final class Utils {
         if (sTopActivityWeakRef == null || !activity.equals(sTopActivityWeakRef.get())) {
             sTopActivityWeakRef = new WeakReference<>(activity);
         }
+    }
+
+    public static Context getContext() {
+       return ActivityUtils.getTopActivity();
     }
 }
