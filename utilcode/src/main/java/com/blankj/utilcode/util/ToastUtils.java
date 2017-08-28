@@ -8,12 +8,15 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.v4.widget.TextViewCompat;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
@@ -28,10 +31,11 @@ import java.lang.ref.WeakReference;
  */
 public final class ToastUtils {
 
+    private static final String  TAG           = "ToastUtils";
     private static final int     DEFAULT_COLOR = 0x12000000;
     private static final Handler sHandler      = new Handler(Looper.getMainLooper());
-    private static Toast               sToast;
-    private static WeakReference<View> sViewWeakReference;
+    private static WeakReference<Toast> sToastWeakReference;
+    private static WeakReference<View>  sViewWeakReference;
     private static int gravity         = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
     private static int xOffset         = 0;
     private static int yOffset         = (int) (64 * Utils.getApp().getResources().getDisplayMetrics().density + 0.5);
@@ -81,13 +85,14 @@ public final class ToastUtils {
      * @return view
      */
     public static View getView() {
-        if (sViewWeakReference != null) {
-            final View view = sViewWeakReference.get();
-            if (view != null) {
-                return view;
-            }
+        final View view = getViewFromWR();
+        if (view != null) {
+            return view;
         }
-        if (sToast != null) return sToast.getView();
+        final Toast toast = getToastFromWR();
+        if (toast != null) {
+            return toast.getView();
+        }
         return null;
     }
 
@@ -434,43 +439,65 @@ public final class ToastUtils {
      */
     private static void show(final CharSequence text, final int duration) {
         cancel();
-        boolean isCustom = false;
-        if (sViewWeakReference != null) {
-            final View view = sViewWeakReference.get();
-            if (view != null) {
-                sToast = new Toast(Utils.getApp());
-                sToast.setView(view);
-                sToast.setDuration(duration);
-                isCustom = true;
-            }
-        }
-        if (!isCustom) {
+        Toast toast;
+        final View view = getViewFromWR();
+        if (view != null) {
+            toast = new Toast(Utils.getApp());
+            toast.setView(view);
+            toast.setDuration(duration);
+        } else {
             if (messageColor != DEFAULT_COLOR) {
                 SpannableString spannableString = new SpannableString(text);
                 ForegroundColorSpan colorSpan = new ForegroundColorSpan(messageColor);
                 spannableString.setSpan(colorSpan, 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                sToast = Toast.makeText(Utils.getApp(), spannableString, duration);
+                toast = Toast.makeText(Utils.getApp(), spannableString, duration);
             } else {
-                sToast = Toast.makeText(Utils.getApp(), text, duration);
+                toast = Toast.makeText(Utils.getApp(), text, duration);
             }
+            // solve the font of toast
+            TextViewCompat.setTextAppearance((TextView) toast.getView().findViewById(android.R.id.message), android.R.style.TextAppearance);
         }
-        View view = sToast.getView();
+        View toastView = toast.getView();
         if (bgResource != -1) {
-            view.setBackgroundResource(bgResource);
+            toastView.setBackgroundResource(bgResource);
         } else if (backgroundColor != DEFAULT_COLOR) {
-            view.setBackgroundColor(backgroundColor);
+            toastView.setBackgroundColor(backgroundColor);
         }
-        sToast.setGravity(gravity, xOffset, yOffset);
-        sToast.show();
+        toast.setGravity(gravity, xOffset, yOffset);
+        sToastWeakReference = new WeakReference<>(toast);
+        toast.show();
     }
 
     /**
      * 取消吐司显示
      */
     public static void cancel() {
-        if (sToast != null) {
-            sToast.cancel();
-            sToast = null;
+        Toast toast = getToastFromWR();
+        if (toast != null) {
+            toast.cancel();
         }
+        sToastWeakReference = null;
+    }
+
+    private static Toast getToastFromWR() {
+        if (sToastWeakReference != null) {
+            final Toast toast = sToastWeakReference.get();
+            if (toast != null) {
+                return toast;
+            }
+        }
+        Log.e(TAG, "getToastFromWR: ", new NullPointerException("Toast is null"));
+        return null;
+    }
+
+    private static View getViewFromWR() {
+        if (sViewWeakReference != null) {
+            final View view = sViewWeakReference.get();
+            if (view != null) {
+                return view;
+            }
+        }
+        Log.e(TAG, "getViewFromWR: ", new NullPointerException("The custom view of toast is null"));
+        return null;
     }
 }
