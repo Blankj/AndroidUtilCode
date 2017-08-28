@@ -61,5 +61,3 @@ dependencies {
     testCompile "junit:junit:$rootProject.ext.junitVersion"
     testCompile "org.robolectric:robolectric:$rootProject.ext.robolectricVersion"
 }
-//apply from: "https://raw.githubusercontent.com/xiaopansky/android-library-publish-to-jcenter/master/bintrayUpload.gradle"
-//gradlew bintrayUpload

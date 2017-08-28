@@ -1,4 +1,4 @@
-* 17/08/28 修复ToastUtils内存泄露，新增toast可根据系统字体显示不同字体
+* 17/08/28 修复ToastUtils内存泄露，新增toast可根据系统字体显示不同字体，发布版本1.8.4
 * 17/08/20 新增监听Activity生命周期，退出App，发布版本1.8.3
 * 17/08/11 LogUtils的Builder改为Config，发布版本1.8.2
 * 17/08/10 优化FileUtils的deleteFilesInDir和listFilesInDir
