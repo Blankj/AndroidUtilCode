@@ -390,4 +390,11 @@ public final class ActivityUtils {
             activityList.remove(i);
         }
     }
+
+    /**
+     * 获取当前所有的activity列表
+     */
+    public List<Activity> getActivityList() {
+        return Utils.sActivityList;
+    }
 }
