@@ -20,7 +20,7 @@ import com.blankj.utilcode.util.NetworkUtils;
  */
 public class NetworkActivity extends BaseBackActivity {
 
-    private TextView tvAboutNetwork;
+    TextView tvAboutNetwork;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, NetworkActivity.class);
