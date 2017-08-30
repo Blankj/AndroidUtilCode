@@ -28,7 +28,7 @@ import java.lang.ref.WeakReference;
  */
 public final class SnackbarUtils {
 
-    private static final int DEFAULT_COLOR = 0x12000000;
+    private static final int DEFAULT_COLOR = 0xFEFFFFFF;
 
     public static final int LENGTH_INDEFINITE = -2;
 

@@ -120,7 +120,7 @@ public class ToastActivity extends BaseBackActivity {
     }
 
     private void resetToast() {
-        ToastUtils.setMessageColor(0x12000000);
+        ToastUtils.setMessageColor(0xFFFFFFFF);
         ToastUtils.setBgResource(-1);
         ToastUtils.setView(null);
         ToastUtils.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, getResources().getDimensionPixelSize(R.dimen.offset_64));

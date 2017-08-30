@@ -319,7 +319,9 @@ public class CacheUtilsTest {
     }
 
     static class SerializableTest implements Serializable {
-        private static final long serialVersionUID = -8021039743766780051L;
+
+        private static final long serialVersionUID = -5806706668736895024L;
+
         String author;
         String className;
 

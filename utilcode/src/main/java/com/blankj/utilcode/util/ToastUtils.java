@@ -9,10 +9,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.widget.TextViewCompat;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,11 +27,10 @@ import java.lang.ref.WeakReference;
  */
 public final class ToastUtils {
 
-    private static final String  TAG           = "ToastUtils";
-    private static final int     DEFAULT_COLOR = 0x12000000;
-    private static final Handler sHandler      = new Handler(Looper.getMainLooper());
-    private static WeakReference<Toast> sToastWeakReference;
-    private static WeakReference<View>  sViewWeakReference;
+    private static final int     DEFAULT_COLOR = 0xFEFFFFFF;
+    private static final Handler HANDLER       = new Handler(Looper.getMainLooper());
+    private static Toast               sToast;
+    private static WeakReference<View> sViewWeakReference;
     private static int gravity         = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
     private static int xOffset         = 0;
     private static int yOffset         = (int) (64 * Utils.getApp().getResources().getDisplayMetrics().density + 0.5);
@@ -89,9 +84,8 @@ public final class ToastUtils {
         if (view != null) {
             return view;
         }
-        final Toast toast = getToastFromWR();
-        if (toast != null) {
-            return toast.getView();
+        if (sToast != null) {
+            return sToast.getView();
         }
         return null;
     }
@@ -129,7 +123,7 @@ public final class ToastUtils {
      * @param text 文本
      */
     public static void showShortSafe(@NonNull final CharSequence text) {
-        sHandler.post(new Runnable() {
+        HANDLER.post(new Runnable() {
             @Override
             public void run() {
                 show(text, Toast.LENGTH_SHORT);
@@ -143,7 +137,7 @@ public final class ToastUtils {
      * @param resId 资源Id
      */
     public static void showShortSafe(@StringRes final int resId) {
-        sHandler.post(new Runnable() {
+        HANDLER.post(new Runnable() {
             @Override
             public void run() {
                 show(resId, Toast.LENGTH_SHORT);
@@ -158,7 +152,7 @@ public final class ToastUtils {
      * @param args  参数
      */
     public static void showShortSafe(@StringRes final int resId, final Object... args) {
-        sHandler.post(new Runnable() {
+        HANDLER.post(new Runnable() {
             @Override
             public void run() {
                 show(resId, Toast.LENGTH_SHORT, args);
@@ -173,7 +167,7 @@ public final class ToastUtils {
      * @param args   参数
      */
     public static void showShortSafe(final String format, final Object... args) {
-        sHandler.post(new Runnable() {
+        HANDLER.post(new Runnable() {
             @Override
             public void run() {
                 show(format, Toast.LENGTH_SHORT, args);
@@ -187,7 +181,7 @@ public final class ToastUtils {
      * @param text 文本
      */
     public static void showLongSafe(@NonNull final CharSequence text) {
-        sHandler.post(new Runnable() {
+        HANDLER.post(new Runnable() {
             @Override
             public void run() {
                 show(text, Toast.LENGTH_LONG);
@@ -201,7 +195,7 @@ public final class ToastUtils {
      * @param resId 资源Id
      */
     public static void showLongSafe(@StringRes final int resId) {
-        sHandler.post(new Runnable() {
+        HANDLER.post(new Runnable() {
             @Override
             public void run() {
                 show(resId, Toast.LENGTH_LONG);
@@ -216,7 +210,7 @@ public final class ToastUtils {
      * @param args  参数
      */
     public static void showLongSafe(@StringRes final int resId, final Object... args) {
-        sHandler.post(new Runnable() {
+        HANDLER.post(new Runnable() {
             @Override
             public void run() {
                 show(resId, Toast.LENGTH_LONG, args);
@@ -231,7 +225,7 @@ public final class ToastUtils {
      * @param args   参数
      */
     public static void showLongSafe(final String format, final Object... args) {
-        sHandler.post(new Runnable() {
+        HANDLER.post(new Runnable() {
             @Override
             public void run() {
                 show(format, Toast.LENGTH_LONG, args);
@@ -319,7 +313,7 @@ public final class ToastUtils {
      * 安全地显示短时自定义吐司
      */
     public static void showCustomShortSafe(@LayoutRes final int layoutId) {
-        sHandler.post(new Runnable() {
+        HANDLER.post(new Runnable() {
             @Override
             public void run() {
                 setView(layoutId);
@@ -332,7 +326,7 @@ public final class ToastUtils {
      * 安全地显示长时自定义吐司
      */
     public static void showCustomLongSafe(@LayoutRes final int layoutId) {
-        sHandler.post(new Runnable() {
+        HANDLER.post(new Runnable() {
             @Override
             public void run() {
                 setView(layoutId);
@@ -361,7 +355,7 @@ public final class ToastUtils {
      * 安全地显示短时自定义吐司
      */
     public static void showCustomShortSafe(@NonNull final View view) {
-        sHandler.post(new Runnable() {
+        HANDLER.post(new Runnable() {
             @Override
             public void run() {
                 setView(view);
@@ -374,7 +368,7 @@ public final class ToastUtils {
      * 安全地显示长时自定义吐司
      */
     public static void showCustomLongSafe(@NonNull final View view) {
-        sHandler.post(new Runnable() {
+        HANDLER.post(new Runnable() {
             @Override
             public void run() {
                 setView(view);
@@ -439,55 +433,36 @@ public final class ToastUtils {
      */
     private static void show(final CharSequence text, final int duration) {
         cancel();
-        Toast toast;
         final View view = getViewFromWR();
         if (view != null) {
-            toast = new Toast(Utils.getApp());
-            toast.setView(view);
-            toast.setDuration(duration);
+            sToast = new Toast(Utils.getApp());
+            sToast.setView(view);
+            sToast.setDuration(duration);
         } else {
-            if (messageColor != DEFAULT_COLOR) {
-                SpannableString spannableString = new SpannableString(text);
-                ForegroundColorSpan colorSpan = new ForegroundColorSpan(messageColor);
-                spannableString.setSpan(colorSpan, 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                toast = Toast.makeText(Utils.getApp(), spannableString, duration);
-            } else {
-                toast = Toast.makeText(Utils.getApp(), text, duration);
-            }
+            sToast = Toast.makeText(Utils.getApp(), text, duration);
             // solve the font of toast
-            TextViewCompat.setTextAppearance((TextView) toast.getView().findViewById(android.R.id.message), android.R.style.TextAppearance);
+            TextView tvMessage = (TextView) sToast.getView().findViewById(android.R.id.message);
+            TextViewCompat.setTextAppearance(tvMessage, android.R.style.TextAppearance);
+            tvMessage.setTextColor(messageColor);
         }
-        View toastView = toast.getView();
+        View toastView = sToast.getView();
         if (bgResource != -1) {
             toastView.setBackgroundResource(bgResource);
         } else if (backgroundColor != DEFAULT_COLOR) {
             toastView.setBackgroundColor(backgroundColor);
         }
-        toast.setGravity(gravity, xOffset, yOffset);
-        sToastWeakReference = new WeakReference<>(toast);
-        toast.show();
+        sToast.setGravity(gravity, xOffset, yOffset);
+        sToast.show();
     }
 
     /**
      * 取消吐司显示
      */
     public static void cancel() {
-        Toast toast = getToastFromWR();
-        if (toast != null) {
-            toast.cancel();
+        if (sToast != null) {
+            sToast.cancel();
+            sToast = null;
         }
-        sToastWeakReference = null;
-    }
-
-    private static Toast getToastFromWR() {
-        if (sToastWeakReference != null) {
-            final Toast toast = sToastWeakReference.get();
-            if (toast != null) {
-                return toast;
-            }
-        }
-        Log.e(TAG, "getToastFromWR: ", new NullPointerException("Toast is null"));
-        return null;
     }
 
     private static View getViewFromWR() {
@@ -497,7 +472,6 @@ public final class ToastUtils {
                 return view;
             }
         }
-        Log.e(TAG, "getViewFromWR: ", new NullPointerException("The custom view of toast is null"));
         return null;
     }
 }

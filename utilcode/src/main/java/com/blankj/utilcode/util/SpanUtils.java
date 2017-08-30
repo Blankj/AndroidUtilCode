@@ -69,7 +69,7 @@ import static android.graphics.BlurMaskFilter.Blur;
  */
 public final class SpanUtils {
 
-    private static final int DEFAULT_COLOR = 0x12000000;
+    private static final int DEFAULT_COLOR = 0xFEFFFFFF;
 
     public static final int ALIGN_BOTTOM   = 0;
     public static final int ALIGN_BASELINE = 1;

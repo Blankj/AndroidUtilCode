@@ -550,6 +550,7 @@ public class CacheUtils {
     /**
      * 获取缓存大小
      * <p>单位：字节</p>
+     * <p>调用了Thread.join()，需异步调用，否则可能主线程会卡顿</p>
      *
      * @return 缓存大小
      */
@@ -559,6 +560,7 @@ public class CacheUtils {
 
     /**
      * 获取缓存个数
+     * <p>调用了Thread.join()，需异步调用，否则可能主线程会卡顿</p>
      *
      * @return 缓存个数
      */
@@ -591,7 +593,8 @@ public class CacheUtils {
         private final long          sizeLimit;
         private final int           countLimit;
         private final Map<File, Long> lastUsageDates = Collections.synchronizedMap(new HashMap<File, Long>());
-        private final File cacheDir;
+        private final File   cacheDir;
+        private final Thread mThread;
 
         private CacheManager(final File cacheDir, final long sizeLimit, final int countLimit) {
             this.cacheDir = cacheDir;
@@ -599,11 +602,7 @@ public class CacheUtils {
             this.countLimit = countLimit;
             cacheSize = new AtomicLong();
             cacheCount = new AtomicInteger();
-            calculateCacheSizeAndCacheCount();
-        }
-
-        private void calculateCacheSizeAndCacheCount() {
-            new Thread(new Runnable() {
+            mThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     int size = 0;
@@ -619,14 +618,25 @@ public class CacheUtils {
                         cacheCount.getAndAdd(count);
                     }
                 }
-            }).start();
+            });
+            mThread.start();
         }
 
         private long getCacheSize() {
+            try {
+                mThread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return cacheSize.get();
         }
 
         private int getCacheCount() {
+            try {
+                mThread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return cacheCount.get();
         }
 

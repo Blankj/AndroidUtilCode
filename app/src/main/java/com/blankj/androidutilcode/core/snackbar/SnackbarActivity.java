@@ -26,7 +26,7 @@ import com.blankj.utilcode.util.ToastUtils;
  */
 public class SnackbarActivity extends BaseBackActivity {
 
-    private View snackBarRootView;
+    View snackBarRootView;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, SnackbarActivity.class);

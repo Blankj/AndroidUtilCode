@@ -1,3 +1,4 @@
+* 17/08/30 修复ToastUtils弱引用带来的问题，修复CacheUtils异步问题，发布版本1.8.5
 * 17/08/28 修复ToastUtils内存泄露，新增toast可根据系统字体显示不同字体，发布版本1.8.4
 * 17/08/20 新增监听Activity生命周期，退出App，发布版本1.8.3
 * 17/08/11 LogUtils的Builder改为Config，发布版本1.8.2
