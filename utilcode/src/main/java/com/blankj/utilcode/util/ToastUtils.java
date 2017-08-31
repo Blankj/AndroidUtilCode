@@ -60,9 +60,11 @@ public final class ToastUtils {
      *
      * @param layoutId 视图
      */
-    public static void setView(@LayoutRes final int layoutId) {
+    public static View setView(@LayoutRes final int layoutId) {
         LayoutInflater inflate = (LayoutInflater) Utils.getApp().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        sViewWeakReference = new WeakReference<>(inflate.inflate(layoutId, null));
+        final View toastView = inflate.inflate(layoutId, null);
+        sViewWeakReference = new WeakReference<>(toastView);
+        return toastView;
     }
 
     /**
@@ -70,8 +72,9 @@ public final class ToastUtils {
      *
      * @param view 视图
      */
-    public static void setView(final View view) {
+    public static View setView(final View view) {
         sViewWeakReference = view == null ? null : new WeakReference<>(view);
+        return view;
     }
 
     /**
@@ -312,62 +315,68 @@ public final class ToastUtils {
     /**
      * 安全地显示短时自定义吐司
      */
-    public static void showCustomShortSafe(@LayoutRes final int layoutId) {
+    public static View showCustomShortSafe(@LayoutRes final int layoutId) {
+        final View view = setView(layoutId);
         HANDLER.post(new Runnable() {
             @Override
             public void run() {
-                setView(layoutId);
                 show("", Toast.LENGTH_SHORT);
             }
         });
+        return view;
     }
 
     /**
      * 安全地显示长时自定义吐司
      */
-    public static void showCustomLongSafe(@LayoutRes final int layoutId) {
+    public static View showCustomLongSafe(@LayoutRes final int layoutId) {
+        final View view = setView(layoutId);
         HANDLER.post(new Runnable() {
             @Override
             public void run() {
-                setView(layoutId);
                 show("", Toast.LENGTH_LONG);
             }
         });
+        return view;
     }
 
     /**
      * 显示短时自定义吐司
      */
-    public static void showCustomShort(@LayoutRes final int layoutId) {
-        setView(layoutId);
+    public static View showCustomShort(@LayoutRes final int layoutId) {
+        final View view = setView(layoutId);
         show("", Toast.LENGTH_SHORT);
+        return view;
     }
 
     /**
      * 显示长时自定义吐司
      */
-    public static void showCustomLong(@LayoutRes final int layoutId) {
-        setView(layoutId);
+    public static View showCustomLong(@LayoutRes final int layoutId) {
+        final View view = setView(layoutId);
         show("", Toast.LENGTH_LONG);
+        return view;
     }
 
     /**
      * 安全地显示短时自定义吐司
      */
-    public static void showCustomShortSafe(@NonNull final View view) {
+    public static View showCustomShortSafe(@NonNull final View view) {
+        setView(view);
         HANDLER.post(new Runnable() {
             @Override
             public void run() {
-                setView(view);
                 show("", Toast.LENGTH_SHORT);
             }
         });
+        return view;
     }
 
     /**
      * 安全地显示长时自定义吐司
      */
-    public static void showCustomLongSafe(@NonNull final View view) {
+    public static View showCustomLongSafe(@NonNull final View view) {
+        setView(view);
         HANDLER.post(new Runnable() {
             @Override
             public void run() {
@@ -375,22 +384,25 @@ public final class ToastUtils {
                 show("", Toast.LENGTH_LONG);
             }
         });
+        return view;
     }
 
     /**
      * 显示短时自定义吐司
      */
-    public static void showCustomShort(@NonNull final View view) {
+    public static View showCustomShort(@NonNull final View view) {
         setView(view);
         show("", Toast.LENGTH_SHORT);
+        return view;
     }
 
     /**
      * 显示长时自定义吐司
      */
-    public static void showCustomLong(@NonNull final View view) {
+    public static View showCustomLong(@NonNull final View view) {
         setView(view);
         show("", Toast.LENGTH_LONG);
+        return view;
     }
 
     /**
@@ -462,6 +474,15 @@ public final class ToastUtils {
         if (sToast != null) {
             sToast.cancel();
             sToast = null;
+        }
+    }
+
+    /**
+     * 如果自定义View的Context为Activity级别，需要调用releaseView，否则会内存泄露
+     */
+    static void releaseView() {
+        if (sToast != null) {
+            sToast.setView(null);
         }
     }
 

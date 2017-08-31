@@ -61,7 +61,7 @@ public final class Utils {
         @Override
         public void onActivityDestroyed(Activity activity) {
             sActivityList.remove(activity);
-            ToastUtils.cancel();
+            ToastUtils.releaseView();
         }
     };
 

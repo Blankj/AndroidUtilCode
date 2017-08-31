@@ -41,16 +41,16 @@ public class ToastActivity extends BaseBackActivity {
     public void initView(Bundle savedInstanceState, View view) {
         getToolBar().setTitle(getString(R.string.demo_toast));
 
-        view.findViewById(R.id.btn_show_short_toast_safe).setOnClickListener(this);
-        view.findViewById(R.id.btn_show_short_toast).setOnClickListener(this);
-        view.findViewById(R.id.btn_show_long_toast_safe).setOnClickListener(this);
-        view.findViewById(R.id.btn_show_long_toast).setOnClickListener(this);
-        view.findViewById(R.id.btn_show_green_font).setOnClickListener(this);
-        view.findViewById(R.id.btn_show_custom_bg).setOnClickListener(this);
-        view.findViewById(R.id.btn_show_span).setOnClickListener(this);
-        view.findViewById(R.id.btn_show_custom_view).setOnClickListener(this);
-        view.findViewById(R.id.btn_show_middle).setOnClickListener(this);
-        view.findViewById(R.id.btn_cancel_toast).setOnClickListener(this);
+        findViewById(R.id.btn_show_short_toast_safe).setOnClickListener(this);
+        findViewById(R.id.btn_show_short_toast).setOnClickListener(this);
+        findViewById(R.id.btn_show_long_toast_safe).setOnClickListener(this);
+        findViewById(R.id.btn_show_long_toast).setOnClickListener(this);
+        findViewById(R.id.btn_show_green_font).setOnClickListener(this);
+        findViewById(R.id.btn_show_custom_bg).setOnClickListener(this);
+        findViewById(R.id.btn_show_span).setOnClickListener(this);
+        findViewById(R.id.btn_show_custom_view).setOnClickListener(this);
+        findViewById(R.id.btn_show_middle).setOnClickListener(this);
+        findViewById(R.id.btn_cancel_toast).setOnClickListener(this);
     }
 
     @Override
@@ -98,10 +98,11 @@ public class ToastActivity extends BaseBackActivity {
                         .setFontSize(24, true)
                         .setIconMargin(R.mipmap.ic_launcher, 32, SpanUtils.ALIGN_CENTER)
                         .append(" ").setFontSize(0)
-                        .create());
+                        .create()
+                );
                 break;
             case R.id.btn_show_custom_view:
-                ToastUtils.showCustomLong(R.layout.toast_custom);
+                MyToast.showMyToast(getString(R.string.toast_custom_view));
                 break;
             case R.id.btn_show_middle:
                 ToastUtils.setGravity(Gravity.CENTER, 0, 0);
