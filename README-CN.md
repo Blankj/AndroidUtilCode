@@ -575,8 +575,6 @@ getZodiac               : 获取星座
 * ### 吐司相关→[ToastUtils.java][toast.java]→[Demo][toast.demo]
 ```
 setGravity         : 设置吐司位置
-setView            : 设置吐司view
-getView            : 获取吐司view
 setBgColor         : 设置背景颜色
 setBgResource      : 设置背景资源
 setMessageColor    : 设置消息颜色
