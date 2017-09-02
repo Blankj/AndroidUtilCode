@@ -12,7 +12,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.widget.TextViewCompat;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -388,7 +387,6 @@ public final class ToastUtils {
                 }
             }
         }
-        Log.d("bbbb", "getView: ");
         LayoutInflater inflate = (LayoutInflater) Utils.getApp().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View toastView = inflate.inflate(layoutId, null);
         sViewWeakReference = new WeakReference<>(toastView);
