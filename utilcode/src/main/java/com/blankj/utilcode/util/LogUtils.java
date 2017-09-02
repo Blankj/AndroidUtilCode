@@ -212,23 +212,17 @@ public final class LogUtils {
             tag = sGlobalTag;
         } else {
             StackTraceElement targetElement = new Throwable().getStackTrace()[3];
-            String className = targetElement.getClassName();
-            String[] classNameInfo = className.split("\\.");
-            if (classNameInfo.length > 0) {
-                className = classNameInfo[classNameInfo.length - 1];
-            }
-            if (className.contains("$")) {
-                className = className.split("\\$")[0];
-            }
+            String fileName = targetElement.getFileName();
+            String className = fileName.substring(0, fileName.indexOf('.'));
             if (sTagIsSpace) {
                 tag = isSpace(tag) ? className : tag;
             }
             if (sLogHeadSwitch) {
                 String head = new Formatter()
-                        .format("%s, %s(%s.java:%d)",
+                        .format("%s, %s(%s:%d)",
                                 Thread.currentThread().getName(),
                                 targetElement.getMethodName(),
-                                className,
+                                fileName,
                                 targetElement.getLineNumber())
                         .toString();
                 return new String[]{tag, head + LINE_SEP, " [" + head + "]: "};

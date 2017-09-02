@@ -43,11 +43,18 @@
         android:text="@string/toast_show_green_font" />
 
     <Button
-        android:id="@+id/btn_show_custom_bg"
+        android:id="@+id/btn_show_bg_color"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/toast_show_custom_bg" />
+        android:text="@string/toast_show_bg_color" />
+
+    <Button
+        android:id="@+id/btn_show_bg_resource"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/toast_show_bg_resource" />
 
     <Button
         android:id="@+id/btn_show_span"

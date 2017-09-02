@@ -575,8 +575,6 @@ getZodiac
 * ### About Toast→[ToastUtils.java][toast.java]→[Demo][toast.demo]
 ```
 setGravity
-setView
-getView
 setBgColor
 setBgResource
 setMessageColor
@@ -618,7 +616,7 @@ getEntries
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.8.5'
+compile 'com.blankj:utilcode:1.8.6'
 ```
 
 
@@ -641,7 +639,7 @@ Utils.init(context);
 
 [logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.8.5-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.8.6-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-14+-brightgreen.svg

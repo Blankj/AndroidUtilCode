@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 
@@ -21,6 +22,8 @@ import com.blankj.utilcode.util.ToastUtils;
  * </pre>
  */
 public class ToastActivity extends BaseBackActivity {
+
+    View toastView;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, ToastActivity.class);
@@ -46,11 +49,13 @@ public class ToastActivity extends BaseBackActivity {
         findViewById(R.id.btn_show_long_toast_safe).setOnClickListener(this);
         findViewById(R.id.btn_show_long_toast).setOnClickListener(this);
         findViewById(R.id.btn_show_green_font).setOnClickListener(this);
-        findViewById(R.id.btn_show_custom_bg).setOnClickListener(this);
+        findViewById(R.id.btn_show_bg_color).setOnClickListener(this);
+        findViewById(R.id.btn_show_bg_resource).setOnClickListener(this);
         findViewById(R.id.btn_show_span).setOnClickListener(this);
         findViewById(R.id.btn_show_custom_view).setOnClickListener(this);
         findViewById(R.id.btn_show_middle).setOnClickListener(this);
         findViewById(R.id.btn_cancel_toast).setOnClickListener(this);
+        toastView = findViewById(R.id.btn_cancel_toast);
     }
 
     @Override
@@ -85,10 +90,14 @@ public class ToastActivity extends BaseBackActivity {
                 ToastUtils.showLong(R.string.toast_long);
                 break;
             case R.id.btn_show_green_font:
-                ToastUtils.setMessageColor(Color.GREEN);
+                ToastUtils.setMsgColor(Color.GREEN);
                 ToastUtils.showLong(R.string.toast_green_font);
                 break;
-            case R.id.btn_show_custom_bg:
+            case R.id.btn_show_bg_color:
+                ToastUtils.setBgColor(ContextCompat.getColor(this, R.color.colorAccent));
+                ToastUtils.showLong(R.string.toast_bg_color);
+                break;
+            case R.id.btn_show_bg_resource:
                 ToastUtils.setBgResource(R.drawable.shape_round_rect);
                 ToastUtils.showLong(R.string.toast_custom_bg);
                 break;
@@ -102,7 +111,7 @@ public class ToastActivity extends BaseBackActivity {
                 );
                 break;
             case R.id.btn_show_custom_view:
-                MyToast.showMyToast(getString(R.string.toast_custom_view));
+                CustomToast.show(getString(R.string.toast_custom_view));
                 break;
             case R.id.btn_show_middle:
                 ToastUtils.setGravity(Gravity.CENTER, 0, 0);
@@ -121,9 +130,9 @@ public class ToastActivity extends BaseBackActivity {
     }
 
     private void resetToast() {
-        ToastUtils.setMessageColor(0xFFFFFFFF);
+        ToastUtils.setMsgColor(0xFEFFFFFF);
+        ToastUtils.setBgColor(0xFEFFFFFF);
         ToastUtils.setBgResource(-1);
-        ToastUtils.setView(null);
         ToastUtils.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, getResources().getDimensionPixelSize(R.dimen.offset_64));
     }
 }

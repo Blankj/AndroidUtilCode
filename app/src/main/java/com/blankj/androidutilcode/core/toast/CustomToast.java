@@ -15,9 +15,9 @@ import com.blankj.utilcode.util.ToastUtils;
  *     desc  :
  * </pre>
  */
-public class MyToast {
+public class CustomToast {
 
-    public static void showMyToast(@NonNull final String message){
+    public static void show(@NonNull final String message){
         View toastView = ToastUtils.showCustomLongSafe(R.layout.toast_custom);
         TextView tvMessage = (TextView) toastView.findViewById(R.id.tv_toast_message);
         tvMessage.setText(message);

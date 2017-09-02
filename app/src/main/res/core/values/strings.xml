@@ -152,7 +152,8 @@
     <string name="toast_show_long_safe">Show Long Safe</string>
     <string name="toast_show_long">Show Long</string>
     <string name="toast_show_green_font">Show Green Font</string>
-    <string name="toast_show_custom_bg">Show Custom Bg</string>
+    <string name="toast_show_bg_color">Show Bg Color</string>
+    <string name="toast_show_bg_resource">Show Bg Resource</string>
     <string name="toast_show_span">Show Span</string>
     <string name="toast_show_custom_view">Show Custom View</string>
     <string name="toast_custom_view">Custom View</string>
@@ -164,6 +165,7 @@
     <string name="toast_long_safe">Long Safe</string>
     <string name="toast_long">Long</string>
     <string name="toast_green_font">Green Font</string>
+    <string name="toast_bg_color">Bg Color</string>
     <string name="toast_custom_bg">Custom Bg</string>
     <string name="toast_span">Span</string>
     <string name="toast_middle">Middle</string>

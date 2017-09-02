@@ -21,7 +21,7 @@ import java.io.File;
 public final class IntentUtils {
 
     private IntentUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**
