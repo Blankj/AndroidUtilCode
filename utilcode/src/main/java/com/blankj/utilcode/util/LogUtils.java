@@ -9,7 +9,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedWriter;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,9 +23,6 @@ import java.util.Formatter;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.zip.DataFormatException;
-import java.util.zip.Deflater;
-import java.util.zip.Inflater;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
@@ -62,19 +58,21 @@ public final class LogUtils {
     private static final int FILE = 0x10;
     private static final int JSON = 0x20;
     private static final int XML  = 0x30;
-    private static ExecutorService executor;
-    private static String          defaultDir;// log默认存储目录
-    private static String          dir;       // log存储目录
 
-    private static boolean sLogSwitch         = true; // log总开关，默认开
-    private static boolean sLog2ConsoleSwitch = true; // logcat是否打印，默认打印
-    private static String  sGlobalTag         = null; // log标签
-    private static boolean sTagIsSpace        = true; // log标签是否为空白
-    private static boolean sLogHeadSwitch     = true; // log头部开关，默认开
-    private static boolean sLog2FileSwitch    = false;// log写入文件开关，默认关
-    private static boolean sLogBorderSwitch   = true; // log边框开关，默认开
-    private static int     sConsoleFilter     = V;    // log控制台过滤器
-    private static int     sFileFilter        = V;    // log文件过滤器
+    private static ExecutorService sExecutor;
+    private static String          sDefaultDir;// log默认存储目录
+    private static String          sDir;       // log存储目录
+    private static String  sFilePrefix        = "util";// log文件前缀
+    private static boolean sLogSwitch         = true;  // log总开关，默认开
+    private static boolean sLog2ConsoleSwitch = true;  // logcat是否打印，默认打印
+    private static String  sGlobalTag         = null;  // log标签
+    private static boolean sTagIsSpace        = true;  // log标签是否为空白
+    private static boolean sLogHeadSwitch     = true;  // log头部开关，默认开
+    private static boolean sLog2FileSwitch    = false; // log写入文件开关，默认关
+    private static boolean sLogBorderSwitch   = true;  // log边框开关，默认开
+    private static int     sConsoleFilter     = V;     // log控制台过滤器
+    private static int     sFileFilter        = V;     // log文件过滤器
+    public static  int     sStackDeep         = 1;     // log栈深度
 
     private static final Config CONFIG        = new Config();
     private static final String FILE_SEP      = System.getProperty("file.separator");
@@ -84,10 +82,9 @@ public final class LogUtils {
     private static final String BOTTOM_BORDER = "╚═══════════════════════════════════════════════════════════════════════════════════════════════════";
     private static final int    MAX_LEN       = 4000;
     private static final Format FORMAT        = new SimpleDateFormat("MM-dd HH:mm:ss.SSS ", Locale.getDefault());
-
-    private static final String NULL_TIPS = "Log with null object.";
-    private static final String NULL      = "null";
-    private static final String ARGS      = "args";
+    private static final String NULL_TIPS     = "Log with null object.";
+    private static final String NULL          = "null";
+    private static final String ARGS          = "args";
 
     private LogUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -214,9 +211,7 @@ public final class LogUtils {
             StackTraceElement targetElement = new Throwable().getStackTrace()[3];
             String fileName = targetElement.getFileName();
             String className = fileName.substring(0, fileName.indexOf('.'));
-            if (sTagIsSpace) {
-                tag = isSpace(tag) ? className : tag;
-            }
+            if (sTagIsSpace) tag = isSpace(tag) ? className : tag;
             if (sLogHeadSwitch) {
                 String head = new Formatter()
                         .format("%s, %s(%s:%d)",
@@ -331,7 +326,7 @@ public final class LogUtils {
         String format = FORMAT.format(now);
         String date = format.substring(0, 5);
         String time = format.substring(6);
-        final String fullPath = (dir == null ? defaultDir : dir) + date + ".txt";
+        final String fullPath = (sDir == null ? sDefaultDir : sDir) + sFilePrefix + "-" + date + ".txt";
         if (!createOrExistsFile(fullPath)) {
             Log.e(tag, "log to " + fullPath + " failed!");
             return;
@@ -344,10 +339,10 @@ public final class LogUtils {
                 .append(msg)
                 .append(LINE_SEP);
         final String content = sb.toString();
-        if (executor == null) {
-            executor = Executors.newSingleThreadExecutor();
+        if (sExecutor == null) {
+            sExecutor = Executors.newSingleThreadExecutor();
         }
-        executor.execute(new Runnable() {
+        sExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 BufferedWriter bw = null;
@@ -397,113 +392,83 @@ public final class LogUtils {
         return true;
     }
 
-    public static byte[] compress(final byte input[]) {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        Deflater compressor = new Deflater(1);
-        try {
-            compressor.setInput(input);
-            compressor.finish();
-            final byte[] buf = new byte[2048];
-            while (!compressor.finished()) {
-                int count = compressor.deflate(buf);
-                bos.write(buf, 0, count);
-            }
-        } finally {
-            compressor.end();
-        }
-        return bos.toByteArray();
-    }
-
-    public static byte[] uncompress(final byte[] input) {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        Inflater decompressor = new Inflater();
-        try {
-            decompressor.setInput(input);
-            final byte[] buf = new byte[2048];
-            while (!decompressor.finished()) {
-                int count = 0;
-                try {
-                    count = decompressor.inflate(buf);
-                } catch (DataFormatException e) {
-                    e.printStackTrace();
-                }
-                bos.write(buf, 0, count);
-            }
-        } finally {
-            decompressor.end();
-        }
-        return bos.toByteArray();
-    }
-
-
     public static class Config {
         private Config() {
-            if (defaultDir != null) return;
+            if (sDefaultDir != null) return;
             if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
                     && Utils.getApp().getExternalCacheDir() != null)
-                defaultDir = Utils.getApp().getExternalCacheDir() + FILE_SEP + "log" + FILE_SEP;
+                sDefaultDir = Utils.getApp().getExternalCacheDir() + FILE_SEP + "log" + FILE_SEP;
             else {
-                defaultDir = Utils.getApp().getCacheDir() + FILE_SEP + "log" + FILE_SEP;
+                sDefaultDir = Utils.getApp().getCacheDir() + FILE_SEP + "log" + FILE_SEP;
             }
         }
 
         public Config setLogSwitch(final boolean logSwitch) {
-            LogUtils.sLogSwitch = logSwitch;
+            sLogSwitch = logSwitch;
             return this;
         }
 
         public Config setConsoleSwitch(final boolean consoleSwitch) {
-            LogUtils.sLog2ConsoleSwitch = consoleSwitch;
+            sLog2ConsoleSwitch = consoleSwitch;
             return this;
         }
 
         public Config setGlobalTag(final String tag) {
             if (isSpace(tag)) {
-                LogUtils.sGlobalTag = "";
+                sGlobalTag = "";
                 sTagIsSpace = true;
             } else {
-                LogUtils.sGlobalTag = tag;
+                sGlobalTag = tag;
                 sTagIsSpace = false;
             }
             return this;
         }
 
         public Config setLogHeadSwitch(final boolean logHeadSwitch) {
-            LogUtils.sLogHeadSwitch = logHeadSwitch;
+            sLogHeadSwitch = logHeadSwitch;
             return this;
         }
 
         public Config setLog2FileSwitch(final boolean log2FileSwitch) {
-            LogUtils.sLog2FileSwitch = log2FileSwitch;
+            sLog2FileSwitch = log2FileSwitch;
             return this;
         }
 
         public Config setDir(final String dir) {
             if (isSpace(dir)) {
-                LogUtils.dir = null;
+                sDir = null;
             } else {
-                LogUtils.dir = dir.endsWith(FILE_SEP) ? dir : dir + FILE_SEP;
+                sDir = dir.endsWith(FILE_SEP) ? dir : dir + FILE_SEP;
             }
             return this;
         }
 
         public Config setDir(final File dir) {
-            LogUtils.dir = dir == null ? null : dir.getAbsolutePath() + FILE_SEP;
+            sDir = dir == null ? null : dir.getAbsolutePath() + FILE_SEP;
+            return this;
+        }
+
+        public Config setFilePrefix(final String filePrefix) {
+            if (isSpace(filePrefix)) {
+                sFilePrefix = "util";
+            } else {
+                sFilePrefix = filePrefix;
+            }
             return this;
         }
 
         public Config setBorderSwitch(final boolean borderSwitch) {
-            LogUtils.sLogBorderSwitch = borderSwitch;
+            sLogBorderSwitch = borderSwitch;
             return this;
         }
 
         public Config setConsoleFilter(@TYPE final int consoleFilter) {
-            LogUtils.sConsoleFilter = consoleFilter;
+            sConsoleFilter = consoleFilter;
             return this;
         }
 
         public Config setFileFilter(@TYPE final int fileFilter) {
-            LogUtils.sFileFilter = fileFilter;
+            sFileFilter = fileFilter;
             return this;
         }
 
@@ -514,7 +479,8 @@ public final class LogUtils {
                     + LINE_SEP + "tag: " + (sTagIsSpace ? "null" : sGlobalTag)
                     + LINE_SEP + "head: " + sLogHeadSwitch
                     + LINE_SEP + "file: " + sLog2FileSwitch
-                    + LINE_SEP + "dir: " + (dir == null ? defaultDir : dir)
+                    + LINE_SEP + "dir: " + (sDir == null ? sDefaultDir : sDir)
+                    + LINE_SEP + "filePrefix" + sFilePrefix
                     + LINE_SEP + "border: " + sLogBorderSwitch
                     + LINE_SEP + "consoleFilter: " + T[sConsoleFilter - V]
                     + LINE_SEP + "fileFilter: " + T[sFileFilter - V];
