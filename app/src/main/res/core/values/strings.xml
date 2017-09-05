@@ -147,9 +147,7 @@
     <string name="snackbar_error">Error</string>
 
     <!--Toast相关-->
-    <string name="toast_show_short_safe">Show Short Safe</string>
     <string name="toast_show_short">Show Short</string>
-    <string name="toast_show_long_safe">Show Long Safe</string>
     <string name="toast_show_long">Show Long</string>
     <string name="toast_show_green_font">Show Green Font</string>
     <string name="toast_show_bg_color">Show Bg Color</string>
@@ -160,9 +158,7 @@
     <string name="toast_show_middle">Show Middle</string>
     <string name="toast_cancel">Cancel</string>
 
-    <string name="toast_short_safe">Short Safe</string>
     <string name="toast_short">Short</string>
-    <string name="toast_long_safe">Long Safe</string>
     <string name="toast_long">Long</string>
     <string name="toast_green_font">Green Font</string>
     <string name="toast_bg_color">Bg Color</string>

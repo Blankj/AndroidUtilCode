@@ -82,12 +82,12 @@ public class AppActivity extends BaseBackActivity {
                     @Override
                     public void run() {
                         if (AppUtils.isInstallApp(Config.TEST_PKG)) {
-                            ToastUtils.showShortSafe(R.string.app_install_tips);
+                            ToastUtils.showShort(R.string.app_install_tips);
                         } else {
                             if (AppUtils.installAppSilent(Config.getTestApkPath())) {
-                                ToastUtils.showShortSafe(R.string.install_successfully);
+                                ToastUtils.showShort(R.string.install_successfully);
                             } else {
-                                ToastUtils.showShortSafe(R.string.install_unsuccessfully);
+                                ToastUtils.showShort(R.string.install_unsuccessfully);
                             }
                         }
                     }
