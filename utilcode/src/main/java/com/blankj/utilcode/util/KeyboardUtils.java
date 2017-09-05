@@ -31,7 +31,7 @@ public final class KeyboardUtils {
      *
      * @param activity activity
      */
-    public static void showSoftInput(Activity activity) {
+    public static void showSoftInput(final Activity activity) {
         View view = activity.getCurrentFocus();
         if (view == null) view = new View(activity);
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -44,11 +44,11 @@ public final class KeyboardUtils {
      *
      * @param view 视图
      */
-    public static void showSoftInput(View view) {
+    public static void showSoftInput(final View view) {
         view.setFocusable(true);
         view.setFocusableInTouchMode(true);
         view.requestFocus();
-        InputMethodManager imm = (InputMethodManager) Utils.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm == null) return;
         imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
     }
@@ -58,7 +58,7 @@ public final class KeyboardUtils {
      *
      * @param activity activity
      */
-    public static void hideSoftInput(Activity activity) {
+    public static void hideSoftInput(final Activity activity) {
         View view = activity.getCurrentFocus();
         if (view == null) view = new View(activity);
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -71,8 +71,8 @@ public final class KeyboardUtils {
      *
      * @param view 视图
      */
-    public static void hideSoftInput(View view) {
-        InputMethodManager imm = (InputMethodManager) Utils.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+    public static void hideSoftInput(final View view) {
+        InputMethodManager imm = (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm == null) return;
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
@@ -81,7 +81,7 @@ public final class KeyboardUtils {
      * 切换键盘显示与否状态
      */
     public static void toggleSoftInput() {
-        InputMethodManager imm = (InputMethodManager) Utils.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm == null) return;
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }

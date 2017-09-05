@@ -1,6 +1,8 @@
 package com.blankj.utilcode.util;
 
 import android.os.Build;
+import android.support.v4.util.LongSparseArray;
+import android.support.v4.util.SimpleArrayMap;
 import android.util.SparseArray;
 import android.util.SparseBooleanArray;
 import android.util.SparseIntArray;
@@ -30,7 +32,7 @@ public final class EmptyUtils {
      * @param obj 对象
      * @return {@code true}: 为空<br>{@code false}: 不为空
      */
-    public static boolean isEmpty(Object obj) {
+    public static boolean isEmpty(final Object obj) {
         if (obj == null) {
             return true;
         }
@@ -44,6 +46,9 @@ public final class EmptyUtils {
             return true;
         }
         if (obj instanceof Map && ((Map) obj).isEmpty()) {
+            return true;
+        }
+        if (obj instanceof SimpleArrayMap && ((SimpleArrayMap) obj).isEmpty()) {
             return true;
         }
         if (obj instanceof SparseArray && ((SparseArray) obj).size() == 0) {
@@ -60,6 +65,14 @@ public final class EmptyUtils {
                 return true;
             }
         }
+        if (obj instanceof LongSparseArray && ((LongSparseArray) obj).size() == 0) {
+            return true;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            if (obj instanceof android.util.LongSparseArray && ((android.util.LongSparseArray) obj).size() == 0) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -69,7 +82,7 @@ public final class EmptyUtils {
      * @param obj 对象
      * @return {@code true}: 非空<br>{@code false}: 空
      */
-    public static boolean isNotEmpty(Object obj) {
+    public static boolean isNotEmpty(final Object obj) {
         return !isEmpty(obj);
     }
 }

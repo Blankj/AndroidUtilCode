@@ -29,7 +29,7 @@ public final class EncodeUtils {
      * @param input 要编码的字符
      * @return 编码为UTF-8的字符串
      */
-    public static String urlEncode(String input) {
+    public static String urlEncode(final String input) {
         return urlEncode(input, "UTF-8");
     }
 
@@ -41,7 +41,7 @@ public final class EncodeUtils {
      * @param charset 字符集
      * @return 编码为字符集的字符串
      */
-    public static String urlEncode(String input, String charset) {
+    public static String urlEncode(final String input, final String charset) {
         try {
             return URLEncoder.encode(input, charset);
         } catch (UnsupportedEncodingException e) {
@@ -56,7 +56,7 @@ public final class EncodeUtils {
      * @param input 要解码的字符串
      * @return URL解码后的字符串
      */
-    public static String urlDecode(String input) {
+    public static String urlDecode(final String input) {
         return urlDecode(input, "UTF-8");
     }
 
@@ -68,7 +68,7 @@ public final class EncodeUtils {
      * @param charset 字符集
      * @return URL解码为指定字符集的字符串
      */
-    public static String urlDecode(String input, String charset) {
+    public static String urlDecode(final String input, final String charset) {
         try {
             return URLDecoder.decode(input, charset);
         } catch (UnsupportedEncodingException e) {
@@ -82,7 +82,7 @@ public final class EncodeUtils {
      * @param input 要编码的字符串
      * @return Base64编码后的字符串
      */
-    public static byte[] base64Encode(String input) {
+    public static byte[] base64Encode(final String input) {
         return base64Encode(input.getBytes());
     }
 
@@ -92,7 +92,7 @@ public final class EncodeUtils {
      * @param input 要编码的字节数组
      * @return Base64编码后的字符串
      */
-    public static byte[] base64Encode(byte[] input) {
+    public static byte[] base64Encode(final byte[] input) {
         return Base64.encode(input, Base64.NO_WRAP);
     }
 
@@ -102,7 +102,7 @@ public final class EncodeUtils {
      * @param input 要编码的字节数组
      * @return Base64编码后的字符串
      */
-    public static String base64Encode2String(byte[] input) {
+    public static String base64Encode2String(final byte[] input) {
         return Base64.encodeToString(input, Base64.NO_WRAP);
     }
 
@@ -112,7 +112,7 @@ public final class EncodeUtils {
      * @param input 要解码的字符串
      * @return Base64解码后的字符串
      */
-    public static byte[] base64Decode(String input) {
+    public static byte[] base64Decode(final String input) {
         return Base64.decode(input, Base64.NO_WRAP);
     }
 
@@ -122,7 +122,7 @@ public final class EncodeUtils {
      * @param input 要解码的字符串
      * @return Base64解码后的字符串
      */
-    public static byte[] base64Decode(byte[] input) {
+    public static byte[] base64Decode(final byte[] input) {
         return Base64.decode(input, Base64.NO_WRAP);
     }
 
@@ -133,7 +133,7 @@ public final class EncodeUtils {
      * @param input 要Base64URL安全编码的字符串
      * @return Base64URL安全编码后的字符串
      */
-    public static byte[] base64UrlSafeEncode(String input) {
+    public static byte[] base64UrlSafeEncode(final String input) {
         return Base64.encode(input.getBytes(), Base64.URL_SAFE);
     }
 
@@ -143,43 +143,37 @@ public final class EncodeUtils {
      * @param input 要Html编码的字符串
      * @return Html编码后的字符串
      */
-    public static String htmlEncode(CharSequence input) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            return Html.escapeHtml(input);
-        } else {
-            // 参照Html.escapeHtml()中代码
-            StringBuilder out = new StringBuilder();
-            for (int i = 0, len = input.length(); i < len; i++) {
-                char c = input.charAt(i);
-                if (c == '<') {
-                    out.append("&lt;");
-                } else if (c == '>') {
-                    out.append("&gt;");
-                } else if (c == '&') {
-                    out.append("&amp;");
-                } else if (c >= 0xD800 && c <= 0xDFFF) {
-                    if (c < 0xDC00 && i + 1 < len) {
-                        char d = input.charAt(i + 1);
-                        if (d >= 0xDC00 && d <= 0xDFFF) {
-                            i++;
-                            int codepoint = 0x010000 | (int) c - 0xD800 << 10 | (int) d - 0xDC00;
-                            out.append("&#").append(codepoint).append(";");
-                        }
-                    }
-                } else if (c > 0x7E || c < ' ') {
-                    out.append("&#").append((int) c).append(";");
-                } else if (c == ' ') {
-                    while (i + 1 < len && input.charAt(i + 1) == ' ') {
-                        out.append("&nbsp;");
-                        i++;
-                    }
-                    out.append(' ');
-                } else {
-                    out.append(c);
-                }
+    public static String htmlEncode(final CharSequence input) {
+        StringBuilder sb = new StringBuilder();
+        char c;
+        for (int i = 0, len = input.length(); i < len; i++) {
+            c = input.charAt(i);
+            switch (c) {
+                case '<':
+                    sb.append("&lt;"); //$NON-NLS-1$
+                    break;
+                case '>':
+                    sb.append("&gt;"); //$NON-NLS-1$
+                    break;
+                case '&':
+                    sb.append("&amp;"); //$NON-NLS-1$
+                    break;
+                case '\'':
+                    //http://www.w3.org/TR/xhtml1
+                    // The named character reference &apos; (the apostrophe, U+0027) was
+                    // introduced in XML 1.0 but does not appear in HTML. Authors should
+                    // therefore use &#39; instead of &apos; to work as expected in HTML 4
+                    // user agents.
+                    sb.append("&#39;"); //$NON-NLS-1$
+                    break;
+                case '"':
+                    sb.append("&quot;"); //$NON-NLS-1$
+                    break;
+                default:
+                    sb.append(c);
             }
-            return out.toString();
         }
+        return sb.toString();
     }
 
     /**
@@ -189,7 +183,7 @@ public final class EncodeUtils {
      * @return Html解码后的字符串
      */
     @SuppressWarnings("deprecation")
-    public static CharSequence htmlDecode(String input) {
+    public static CharSequence htmlDecode(final String input) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return Html.fromHtml(input, Html.FROM_HTML_MODE_LEGACY);
         } else {

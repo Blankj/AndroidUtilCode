@@ -1,6 +1,5 @@
 package com.blankj.androidutilcode.base;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,7 +18,7 @@ import android.view.ViewGroup;
  * </pre>
  */
 public abstract class BaseFragment extends Fragment
-        implements View.OnClickListener {
+        implements IBaseView {
 
     private static final String TAG = "BaseFragment";
 
@@ -65,7 +64,6 @@ public abstract class BaseFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = getArguments();
         initData(bundle);
-        initView(savedInstanceState, contentView);
         Log.d(TAG, "onViewCreated: ");
     }
 
@@ -73,43 +71,10 @@ public abstract class BaseFragment extends Fragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mActivity = (BaseActivity) getActivity();
-        doBusiness(mActivity);
+        initView(savedInstanceState, contentView);
+        doBusiness();
         Log.d(TAG, "onActivityCreated: ");
     }
-
-
-    /**
-     * 初始化数据
-     *
-     * @param bundle 传递过来的bundle
-     */
-    public abstract void initData(Bundle bundle);
-
-    /**
-     * 绑定布局
-     *
-     * @return 布局Id
-     */
-    public abstract int bindLayout();
-
-    /**
-     * 初始化view
-     */
-    public abstract void initView(Bundle savedInstanceState, final View view);
-
-    /**
-     * 业务操作
-     *
-     * @param context 上下文
-     */
-    public abstract void doBusiness(Context context);
-
-    /**
-     * 视图点击事件
-     *
-     * @param view 视图
-     */
-    public abstract void onWidgetClick(View view);
 
     /**
      * 判断是否快速点击

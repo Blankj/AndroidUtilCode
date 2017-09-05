@@ -7,23 +7,27 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
-    </style>
-
-    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
-        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="android:windowActionBar">false</item>
+        <!--slider-->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
     <style name="TextStyle">
-        <item name="android:textSize">@dimen/font_26</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/font_24</item>
+        <item name="android:textColor">@color/light_black</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextStyle.Font">
+        <item name="android:textSize">@dimen/font_40</item>
     </style>
 
     <style name="WideBtnStyle">
+        <item name="android:textSize">@dimen/font_24</item>
+        <item name="android:textColor">@color/light_black</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textSize">@dimen/font_26</item>
-        <item name="android:textColor">@color/black</item>
     </style>
-
 
     <style name="AnimationActivity" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_left</item>

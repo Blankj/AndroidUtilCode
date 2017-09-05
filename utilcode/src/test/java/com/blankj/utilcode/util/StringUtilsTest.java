@@ -32,6 +32,7 @@ public class StringUtilsTest {
 
     @Test
     public void testEquals() throws Exception {
+        assertThat(StringUtils.equals(null, null)).isEqualTo(true);
         assertThat(StringUtils.equals("blankj", "blankj")).isEqualTo(true);
         assertThat(StringUtils.equals("blankj", "Blankj")).isEqualTo(false);
     }

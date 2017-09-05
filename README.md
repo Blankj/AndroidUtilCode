@@ -1,4 +1,4 @@
-# :fire: Android developers should collect the following utils
+![logo][logo]
 
 [![auc][aucsvg]][auc] [![api][apisvg]][api] [![build][buildsvg]][build] [![Insight][insightsvg]][insight] [![License][licensesvg]][license]
 
@@ -12,6 +12,7 @@ isActivityExists
 startActivity
 getLauncherActivity
 getTopActivity
+finishAllActivities
 ```
 
 * ### About App→[AppUtils.java][app.java]→[Demo][app.demo]
@@ -23,6 +24,7 @@ uninstallApp
 uninstallAppSilent
 isAppRoot
 launchApp
+exitApp
 getAppPackageName
 getAppDetailsSettings
 getAppName
@@ -41,15 +43,20 @@ getAppsInfo
 cleanAppData
 ```
 
-* ### About Bar→[BarUtils.java][bar.java]
+* ### About Bar→[BarUtils.java][bar.java]→[Demo][bar.demo]
 ```
-setTransparentStatusBar
-hideStatusBar
 getStatusBarHeight
-isStatusBarExists
+addMarginTopEqualStatusBarHeight
+subtractMarginTopEqualStatusBarHeight
+setStatusBarColor
+setStatusBarAlpha
+setStatusBarColor4Drawer
+setStatusBarAlpha4Drawer
 getActionBarHeight
 showNotificationBar
 hideNotificationBar
+getNavBarHeight
+hideNavBar
 ```
 
 * ### About Cache→[CacheUtils.java][cache.java]→[Test][cache.test]
@@ -79,16 +86,6 @@ cleanInternalDbByName
 cleanInternalSP
 cleanExternalCache
 cleanCustomCache
-```
-
-* ### About Clipboard→[ClipboardUtils.java][clipboard.java]
-```
-copyText
-getText
-copyUri
-getUri
-copyIntent
-getIntent
 ```
 
 * ### About Close→[CloseUtils.java][close.java]
@@ -211,13 +208,11 @@ moveDir
 moveFile
 deleteDir
 deleteFile
+deleteAllInDir
+deleteFilesInDir
+deleteFilesInDirWithFilter
 listFilesInDir
-listFilesInDir
 listFilesInDirWithFilter
-listFilesInDirWithFilter
-listFilesInDirWithFilter
-listFilesInDirWithFilter
-searchFileInDir
 getFileLastModified
 getFileCharsetSimple
 getFileLines
@@ -319,32 +314,18 @@ toggleSoftInput
 clickBlankArea2HideSoftInput
 ```
 
-* ### About Location→[LocationUtils.java][location.java]→[Demo][location.demo]
-```
-isGpsEnabled
-isLocationEnabled
-openGpsSettings
-register
-unregister
-getAddress
-getCountryName
-getLocality
-getStreet
-isBetterLocation
-isSameProvider
-```
-
 * ### About Log→[LogUtils.java][log.java]→[Demo][log.demo]
 ```
-Builder.setLogSwitch
-Builder.setConsoleSwitch
-Builder.setGlobalTag
-Builder.setLogHeadSwitch
-Builder.setLog2FileSwitch
-Builder.setDir
-Builder.setBorderSwitch
-Builder.setConsoleFilter
-Builder.setFileFilter
+getConfig
+Config.setLogSwitch
+Config.setConsoleSwitch
+Config.setGlobalTag
+Config.setLogHeadSwitch
+Config.setLog2FileSwitch
+Config.setDir
+Config.setBorderSwitch
+Config.setConsoleFilter
+Config.setFileFilter
 v
 d
 i
@@ -393,16 +374,6 @@ getContactNum
 getAllSMS
 ```
 
-* ### About Pinyin→[PinyinUtils.java][pinyin.java]→[Test][pinyin.test]
-```
-ccs2Pinyin
-ccs2Pinyin
-getPinyinFirstLetter
-getPinyinFirstLetters
-getSurnamePinyin
-getSurnameFirstLetter
-```
-
 * ### About Process→[ProcessUtils.java][process.java]→[Demo][process.demo]
 ```
 getForegroundProcessName
@@ -434,14 +405,17 @@ getReplaceAll
 ```
 getScreenWidth
 getScreenHeight
+setFullScreen
 setLandscape
 setPortrait
 isLandscape
 isPortrait
 getScreenRotation
-captureWithStatusBar
-captureWithoutStatusBar
+screenShot
 isScreenLock
+setSleepDuration
+getSleepDuration
+isTablet
 ```
 
 * ### About SDCard→[SDCardUtils.java][sdcard.java]→[Demo][sdcard.demo]
@@ -565,25 +539,6 @@ toDBC
 toSBC
 ```
 
-* ### About ThreadPool→[ThreadPoolUtils.java][thread_pool.java]
-```
-ThreadPoolUtils
-execute
-execute
-shutDown
-shutDownNow
-isShutDown
-isTerminated
-awaitTermination
-submit
-submit
-invokeAll, invokeAny
-schedule
-schedule
-scheduleWithFixedRate
-scheduleWithFixedDelay
-```
-
 * ### About Time→[TimeUtils.java][time.java]→[Test][time.test]
 ```
 millis2String
@@ -620,8 +575,6 @@ getZodiac
 * ### About Toast→[ToastUtils.java][toast.java]→[Demo][toast.demo]
 ```
 setGravity
-setView
-getView
 setBgColor
 setBgResource
 setMessageColor
@@ -663,7 +616,7 @@ getEntries
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.7.1'
+compile 'com.blankj:utilcode:1.8.6'
 ```
 
 
@@ -684,12 +637,13 @@ Utils.init(context);
 ```
 
 
+[logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.7.1-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.8.6-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
-[apisvg]: https://img.shields.io/badge/API-15+-brightgreen.svg
-[api]: https://android-arsenal.com/api?level=15
+[apisvg]: https://img.shields.io/badge/API-14+-brightgreen.svg
+[api]: https://android-arsenal.com/api?level=14
 
 [buildsvg]: https://travis-ci.org/Blankj/AndroidUtilCode.svg?branch=master
 [build]: https://travis-ci.org/Blankj/AndroidUtilCode
@@ -700,39 +654,38 @@ Utils.init(context);
 [licensesvg]: https://img.shields.io/badge/License-Apache--2.0-brightgreen.svg
 [license]: https://github.com/Blankj/AndroidUtilCode/blob/master/LICENSE
 
-[jianshusvg]: https://img.shields.io/badge/简书-Blankj-brightgreen.svg
+[jianshusvg]: https://img.shields.io/badge/简书-Blankj-34a48e.svg
 [jianshu]: http://www.jianshu.com/u/46702d5c6978
 
-[weibosvg]: https://img.shields.io/badge/weibo-__Blankj-brightgreen.svg
+[weibosvg]: https://img.shields.io/badge/weibo-__Blankj-34a48e.svg
 [weibo]: http://weibo.com/3076228982
 
-[blogsvg]: https://img.shields.io/badge/Blog-Blankj-brightgreen.svg
+[blogsvg]: https://img.shields.io/badge/Blog-Blankj-34a48e.svg
 [blog]: http://blankj.com
 
-[qq0groupsvg]: https://img.shields.io/badge/QQ0群(满)-74721490-fba7f9.svg
+[qq0groupsvg]: https://img.shields.io/badge/QQ0群(满)-74721490-ff73a3.svg
 [qq0group]: https://shang.qq.com/wpa/qunwpa?idkey=62baf2c3ec6b0863155b0c7a10c71bba2608cb0b6532fc18515835e54c69bdd3
 
-[qq1groupsvg]: https://img.shields.io/badge/QQ1群-25206533-fba7f9.svg
+[qq1groupsvg]: https://img.shields.io/badge/QQ1群-25206533-ff73a3.svg
 [qq1group]: https://shang.qq.com/wpa/qunwpa?idkey=d906789f84484465e2736f7b524366b4c23afeda38733d5c7b10fc3f6e406e9b
 
 [readme.md]: https://github.com/Blankj/AndroidUtilCode
 [readme-cn.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md
 
 [activity.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ActivityUtils.java
-[activity.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/ActivityActivity.java
+[activity.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/activity/ActivityActivity.java
 
 [app.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/AppUtils.java
-[app.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/AppActivity.java
+[app.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/app/AppActivity.java
 
 [bar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/BarUtils.java
+[bar.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/bar/BarActivity.java
 
 [cache.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheUtils.java
 [cache.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheUtilsTest.java
 
 [clean.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CleanUtils.java
-[clean.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/CleanActivity.java
-
-[clipboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ClipboardUtils.java
+[clean.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/clean/CleanActivity.java
 
 [close.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CloseUtils.java
 
@@ -742,7 +695,7 @@ Utils.init(context);
 [crash.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CrashUtils.java
 
 [device.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/DeviceUtils.java
-[device.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/DeviceActivity.java
+[device.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/device/DeviceActivity.java
 
 [empty.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/EmptyUtils.java
 [empty.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/EmptyUtilsTest.java
@@ -760,33 +713,27 @@ Utils.init(context);
 [file.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/FileUtilsTest.java
 
 [fragment.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/FragmentUtils.java
-[fragment.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/FragmentActivity.java
+[fragment.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/fragment/FragmentActivity.java
 
 [image.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ImageUtils.java
-[image.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/ImageActivity.java
+[image.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/image/ImageActivity.java
 
 [intent.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/IntentUtils.java
 
 [keyboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/KeyboardUtils.java
-[keyboard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/KeyboardActivity.java
-
-[location.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/LocationUtils.java
-[location.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/LocationActivity.java
+[keyboard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/keyboard/KeyboardActivity.java
 
 [log.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/LogUtils.java
-[log.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/LogActivity.java
+[log.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/log/LogActivity.java
 
 [network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/NetworkUtils.java
-[network.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/NetworkActivity.java
+[network.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/network/NetworkActivity.java
 
 [phone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/PhoneUtils.java
-[phone.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/PhoneActivity.java
-
-[pinyin.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/PinyinUtils.java
-[pinyin.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/PinyinUtilsTest.java
+[phone.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/phone/PhoneActivity.java
 
 [process.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ProcessUtils.java
-[process.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/ProcessActivity.java
+[process.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/process/ProcessActivity.java
 
 [regex.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/RegexUtils.java
 [regex.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/RegexUtilsTest.java
@@ -794,7 +741,7 @@ Utils.init(context);
 [screen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ScreenUtils.java
 
 [sdcard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/SDCardUtils.java
-[sdcard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/SDCardActivity.java
+[sdcard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/sdcard/SDCardActivity.java
 
 [service.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ServiceUtils.java
 
@@ -803,10 +750,10 @@ Utils.init(context);
 [size.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/SizeUtils.java
 
 [snackbar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/SnackbarUtils.java
-[snackbar.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/SnackbarActivity.java
+[snackbar.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/snackbar/SnackbarActivity.java
 
 [span.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/SpanUtils.java
-[span.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/SpanActivity.java
+[span.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/span/SpanActivity.java
 
 [sp.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/SPUtils.java
 [sp.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/SPUtilsTest.java
@@ -814,13 +761,11 @@ Utils.init(context);
 [string.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/StringUtils.java
 [string.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/StringUtilsTest.java
 
-[thread_pool.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ThreadPoolUtils.java
-
 [time.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/TimeUtils.java
 [time.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/TimeUtilsTest.java
 
 [toast.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ToastUtils.java
-[toast.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/activity/ToastActivity.java
+[toast.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/toast/ToastActivity.java
 
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ZipUtils.java
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/ZipUtilsTest.java

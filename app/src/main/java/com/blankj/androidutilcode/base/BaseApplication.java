@@ -2,7 +2,6 @@ package com.blankj.androidutilcode.base;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -20,7 +19,7 @@ public class BaseApplication extends Application {
 
     private static BaseApplication sInstance;
 
-    public static Context getInstance() {
+    public static BaseApplication getInstance() {
         return sInstance;
     }
 

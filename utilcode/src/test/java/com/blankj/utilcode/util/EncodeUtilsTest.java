@@ -30,7 +30,7 @@ public class EncodeUtilsTest {
             "<p>title 元素的内容会显示在浏览器的标题栏中。</p>" +
             "</body>" +
             "</html>";
-    String encodeHtml = "&lt;html&gt;&lt;head&gt;&lt;title&gt;&#25105;&#30340;&#31532;&#19968;&#20010; HTML &#39029;&#38754;&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;body &#20803;&#32032;&#30340;&#20869;&#23481;&#20250;&#26174;&#31034;&#22312;&#27983;&#35272;&#22120;&#20013;&#12290;&lt;/p&gt;&lt;p&gt;title &#20803;&#32032;&#30340;&#20869;&#23481;&#20250;&#26174;&#31034;&#22312;&#27983;&#35272;&#22120;&#30340;&#26631;&#39064;&#26639;&#20013;&#12290;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;";
+    String encodeHtml = "&lt;html&gt;&lt;head&gt;&lt;title&gt;我的第一个 HTML 页面&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;body 元素的内容会显示在浏览器中。&lt;/p&gt;&lt;p&gt;title 元素的内容会显示在浏览器的标题栏中。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;";
 
     @Test
     public void testUrlEncode() throws Exception {

@@ -28,7 +28,7 @@ import java.lang.ref.WeakReference;
  */
 public final class SnackbarUtils {
 
-    private static final int DEFAULT_COLOR = 0x12000000;
+    private static final int DEFAULT_COLOR = 0xFEFFFFFF;
 
     public static final int LENGTH_INDEFINITE = -2;
 
@@ -60,7 +60,7 @@ public final class SnackbarUtils {
     private View.OnClickListener actionListener;
     private int                  bottomMargin;
 
-    private SnackbarUtils(View parent) {
+    private SnackbarUtils(final View parent) {
         setDefault();
         this.parent = new WeakReference<>(parent);
     }
