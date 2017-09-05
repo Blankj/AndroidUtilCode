@@ -62,7 +62,8 @@ public class UtilsApp extends BaseApplication {
                 .setFilePrefix("")// 当文件前缀为空时，默认为"util"，即写入文件为"util-MM-dd.txt"
                 .setBorderSwitch(true)// 输出日志是否带边框开关，默认开
                 .setConsoleFilter(LogUtils.V)// log的控制台过滤器，和logcat过滤器同理，默认Verbose
-                .setFileFilter(LogUtils.V);// log文件过滤器，和logcat过滤器同理，默认Verbose
+                .setFileFilter(LogUtils.V)// log文件过滤器，和logcat过滤器同理，默认Verbose
+                .setStackDeep(1);// log栈深度，默认为1
         LogUtils.d(config.toString());
     }
 

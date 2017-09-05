@@ -8,25 +8,11 @@
     android:padding="@dimen/spacing_16">
 
     <Button
-        android:id="@+id/btn_show_short_toast_safe"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/toast_show_short_safe" />
-
-    <Button
         android:id="@+id/btn_show_short_toast"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/toast_show_short" />
-
-    <Button
-        android:id="@+id/btn_show_long_toast_safe"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/toast_show_long_safe" />
 
     <Button
         android:id="@+id/btn_show_long_toast"

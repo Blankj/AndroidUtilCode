@@ -1,3 +1,5 @@
+* 17/09/05 完善LogUtils，发布版本1.9.0
+* 17/09/04 完善ToastUtils，去除相关safe函数，都改为safe实现，新增CustomToast的Demo
 * 17/09/02 完善ToastUtils，去除引入view带来的问题，发布版本1.8.6
 * 17/08/30 修复ToastUtils弱引用带来的问题，修复CacheUtils异步问题，发布版本1.8.5
 * 17/08/28 修复ToastUtils内存泄露，新增toast可根据系统字体显示不同字体，发布版本1.8.4

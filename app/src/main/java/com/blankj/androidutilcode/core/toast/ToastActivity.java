@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseBackActivity;
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.SpanUtils;
 import com.blankj.utilcode.util.ToastUtils;
 
@@ -28,6 +29,7 @@ public class ToastActivity extends BaseBackActivity {
     public static void start(Context context) {
         Intent starter = new Intent(context, ToastActivity.class);
         context.startActivity(starter);
+        ActivityUtils.startActivity(ToastActivity.class);
     }
 
     @Override
@@ -44,9 +46,7 @@ public class ToastActivity extends BaseBackActivity {
     public void initView(Bundle savedInstanceState, View view) {
         getToolBar().setTitle(getString(R.string.demo_toast));
 
-        findViewById(R.id.btn_show_short_toast_safe).setOnClickListener(this);
         findViewById(R.id.btn_show_short_toast).setOnClickListener(this);
-        findViewById(R.id.btn_show_long_toast_safe).setOnClickListener(this);
         findViewById(R.id.btn_show_long_toast).setOnClickListener(this);
         findViewById(R.id.btn_show_green_font).setOnClickListener(this);
         findViewById(R.id.btn_show_bg_color).setOnClickListener(this);
@@ -67,27 +67,21 @@ public class ToastActivity extends BaseBackActivity {
     public void onWidgetClick(View view) {
         resetToast();
         switch (view.getId()) {
-            case R.id.btn_show_short_toast_safe:
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ToastUtils.showShortSafe(R.string.toast_short_safe);
-                    }
-                }).start();
-                break;
             case R.id.btn_show_short_toast:
-                ToastUtils.showShort(R.string.toast_short);
-                break;
-            case R.id.btn_show_long_toast_safe:
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtils.showLongSafe(R.string.toast_long_safe);
+                        ToastUtils.showShort(R.string.toast_short);
                     }
                 }).start();
                 break;
             case R.id.btn_show_long_toast:
-                ToastUtils.showLong(R.string.toast_long);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtils.showLong(R.string.toast_long);
+                    }
+                }).start();
                 break;
             case R.id.btn_show_green_font:
                 ToastUtils.setMsgColor(Color.GREEN);
@@ -111,7 +105,12 @@ public class ToastActivity extends BaseBackActivity {
                 );
                 break;
             case R.id.btn_show_custom_view:
-                CustomToast.show(getString(R.string.toast_custom_view));
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        CustomToast.showLong(R.string.toast_custom_view);
+                    }
+                }).start();
                 break;
             case R.id.btn_show_middle:
                 ToastUtils.setGravity(Gravity.CENTER, 0, 0);

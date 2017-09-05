@@ -323,9 +323,11 @@ Config.setGlobalTag     : 设置log全局tag
 Config.setLogHeadSwitch : 设置log头部信息开关
 Config.setLog2FileSwitch: 设置log文件开关
 Config.setDir           : 设置log文件存储目录
+Config.setFilePrefix    : 设置log文件前缀
 Config.setBorderSwitch  : 设置log边框开关
 Config.setConsoleFilter : 设置log控制台过滤器
 Config.setFileFilter    : 设置log文件过滤器
+Config.setStackDeep     : 设置log栈深度
 v                       : Verbose日志
 d                       : Debug日志
 i                       : Info日志
@@ -574,19 +576,15 @@ getZodiac               : 获取星座
 
 * ### 吐司相关→[ToastUtils.java][toast.java]→[Demo][toast.demo]
 ```
-setGravity         : 设置吐司位置
-setBgColor         : 设置背景颜色
-setBgResource      : 设置背景资源
-setMessageColor    : 设置消息颜色
-showShortSafe      : 安全地显示短时吐司
-showLongSafe       : 安全地显示长时吐司
-showShort          : 显示短时吐司
-showLong           : 显示长时吐司
-showCustomShortSafe: 安全地显示短时自定义吐司
-showCustomLongSafe : 安全地显示长时自定义吐司
-showCustomShort    : 显示短时自定义吐司
-showCustomLong     : 显示长时自定义吐司
-cancel             : 取消吐司显示
+setGravity     : 设置吐司位置
+setBgColor     : 设置背景颜色
+setBgResource  : 设置背景资源
+setMessageColor: 设置消息颜色
+showShort      : 显示短时吐司
+showLong       : 显示长时吐司
+showCustomShort: 显示短时自定义吐司
+showCustomLong : 显示长时自定义吐司
+cancel         : 取消吐司显示
 ```
 
 * ### 压缩相关→[ZipUtils.java][zip.java]→[Test][zip.test]
@@ -616,7 +614,7 @@ getEntries        : 获取压缩文件中的文件对象
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.8.6'
+compile 'com.blankj:utilcode:1.9.0'
 ```
 
 
@@ -639,7 +637,7 @@ Utils.init(context);
 
 [logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.8.6-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.9.0-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-14+-brightgreen.svg

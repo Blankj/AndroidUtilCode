@@ -92,128 +92,12 @@ public final class ToastUtils {
      *
      * @param text 文本
      */
-    public static void showShortSafe(@NonNull final CharSequence text) {
-        HANDLER.post(new Runnable() {
-            @Override
-            public void run() {
-                show(text, Toast.LENGTH_SHORT);
-            }
-        });
-    }
-
-    /**
-     * 安全地显示短时吐司
-     *
-     * @param resId 资源Id
-     */
-    public static void showShortSafe(@StringRes final int resId) {
-        HANDLER.post(new Runnable() {
-            @Override
-            public void run() {
-                show(resId, Toast.LENGTH_SHORT);
-            }
-        });
-    }
-
-    /**
-     * 安全地显示短时吐司
-     *
-     * @param resId 资源Id
-     * @param args  参数
-     */
-    public static void showShortSafe(@StringRes final int resId, final Object... args) {
-        HANDLER.post(new Runnable() {
-            @Override
-            public void run() {
-                show(resId, Toast.LENGTH_SHORT, args);
-            }
-        });
-    }
-
-    /**
-     * 安全地显示短时吐司
-     *
-     * @param format 格式
-     * @param args   参数
-     */
-    public static void showShortSafe(final String format, final Object... args) {
-        HANDLER.post(new Runnable() {
-            @Override
-            public void run() {
-                show(format, Toast.LENGTH_SHORT, args);
-            }
-        });
-    }
-
-    /**
-     * 安全地显示长时吐司
-     *
-     * @param text 文本
-     */
-    public static void showLongSafe(@NonNull final CharSequence text) {
-        HANDLER.post(new Runnable() {
-            @Override
-            public void run() {
-                show(text, Toast.LENGTH_LONG);
-            }
-        });
-    }
-
-    /**
-     * 安全地显示长时吐司
-     *
-     * @param resId 资源Id
-     */
-    public static void showLongSafe(@StringRes final int resId) {
-        HANDLER.post(new Runnable() {
-            @Override
-            public void run() {
-                show(resId, Toast.LENGTH_LONG);
-            }
-        });
-    }
-
-    /**
-     * 安全地显示长时吐司
-     *
-     * @param resId 资源Id
-     * @param args  参数
-     */
-    public static void showLongSafe(@StringRes final int resId, final Object... args) {
-        HANDLER.post(new Runnable() {
-            @Override
-            public void run() {
-                show(resId, Toast.LENGTH_LONG, args);
-            }
-        });
-    }
-
-    /**
-     * 安全地显示长时吐司
-     *
-     * @param format 格式
-     * @param args   参数
-     */
-    public static void showLongSafe(final String format, final Object... args) {
-        HANDLER.post(new Runnable() {
-            @Override
-            public void run() {
-                show(format, Toast.LENGTH_LONG, args);
-            }
-        });
-    }
-
-    /**
-     * 显示短时吐司
-     *
-     * @param text 文本
-     */
     public static void showShort(@NonNull final CharSequence text) {
         show(text, Toast.LENGTH_SHORT);
     }
 
     /**
-     * 显示短时吐司
+     * 安全地显示短时吐司
      *
      * @param resId 资源Id
      */
@@ -222,7 +106,7 @@ public final class ToastUtils {
     }
 
     /**
-     * 显示短时吐司
+     * 安全地显示短时吐司
      *
      * @param resId 资源Id
      * @param args  参数
@@ -232,7 +116,7 @@ public final class ToastUtils {
     }
 
     /**
-     * 显示短时吐司
+     * 安全地显示短时吐司
      *
      * @param format 格式
      * @param args   参数
@@ -242,7 +126,7 @@ public final class ToastUtils {
     }
 
     /**
-     * 显示长时吐司
+     * 安全地显示长时吐司
      *
      * @param text 文本
      */
@@ -251,7 +135,7 @@ public final class ToastUtils {
     }
 
     /**
-     * 显示长时吐司
+     * 安全地显示长时吐司
      *
      * @param resId 资源Id
      */
@@ -260,7 +144,7 @@ public final class ToastUtils {
     }
 
     /**
-     * 显示长时吐司
+     * 安全地显示长时吐司
      *
      * @param resId 资源Id
      * @param args  参数
@@ -270,7 +154,7 @@ public final class ToastUtils {
     }
 
     /**
-     * 显示长时吐司
+     * 安全地显示长时吐司
      *
      * @param format 格式
      * @param args   参数
@@ -282,34 +166,6 @@ public final class ToastUtils {
     /**
      * 安全地显示短时自定义吐司
      */
-    public static View showCustomShortSafe(@LayoutRes final int layoutId) {
-        final View view = getView(layoutId);
-        HANDLER.post(new Runnable() {
-            @Override
-            public void run() {
-                show(view, Toast.LENGTH_SHORT);
-            }
-        });
-        return view;
-    }
-
-    /**
-     * 安全地显示长时自定义吐司
-     */
-    public static View showCustomLongSafe(@LayoutRes final int layoutId) {
-        final View view = getView(layoutId);
-        HANDLER.post(new Runnable() {
-            @Override
-            public void run() {
-                show(view, Toast.LENGTH_LONG);
-            }
-        });
-        return view;
-    }
-
-    /**
-     * 显示短时自定义吐司
-     */
     public static View showCustomShort(@LayoutRes final int layoutId) {
         final View view = getView(layoutId);
         show(view, Toast.LENGTH_SHORT);
@@ -317,7 +173,7 @@ public final class ToastUtils {
     }
 
     /**
-     * 显示长时自定义吐司
+     * 安全地显示长时自定义吐司
      */
     public static View showCustomLong(@LayoutRes final int layoutId) {
         final View view = getView(layoutId);
@@ -348,23 +204,33 @@ public final class ToastUtils {
     }
 
     private static void show(final CharSequence text, final int duration) {
-        cancel();
-        sToast = Toast.makeText(Utils.getApp(), text, duration);
-        // solve the font of toast
-        TextView tvMessage = (TextView) sToast.getView().findViewById(android.R.id.message);
-        TextViewCompat.setTextAppearance(tvMessage, android.R.style.TextAppearance);
-        tvMessage.setTextColor(msgColor);
-        setBgAndGravity();
-        sToast.show();
+        HANDLER.post(new Runnable() {
+            @Override
+            public void run() {
+                cancel();
+                sToast = Toast.makeText(Utils.getApp(), text, duration);
+                // solve the font of toast
+                TextView tvMessage = (TextView) sToast.getView().findViewById(android.R.id.message);
+                TextViewCompat.setTextAppearance(tvMessage, android.R.style.TextAppearance);
+                tvMessage.setTextColor(msgColor);
+                setBgAndGravity();
+                sToast.show();
+            }
+        });
     }
 
     private static void show(final View view, final int duration) {
-        cancel();
-        sToast = new Toast(Utils.getApp());
-        sToast.setView(view);
-        sToast.setDuration(duration);
-        setBgAndGravity();
-        sToast.show();
+        HANDLER.post(new Runnable() {
+            @Override
+            public void run() {
+                cancel();
+                sToast = new Toast(Utils.getApp());
+                sToast.setView(view);
+                sToast.setDuration(duration);
+                setBgAndGravity();
+                sToast.show();
+            }
+        });
     }
 
     private static void setBgAndGravity() {
