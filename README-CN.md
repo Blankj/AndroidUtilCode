@@ -422,11 +422,8 @@ isTablet         : 判断是否是平板
 
 * ### SD卡相关→[SDCardUtils.java][sdcard.java]→[Demo][sdcard.demo]
 ```
-isSDCardEnable: 判断SD卡是否可用
-getSDCardPath : 获取SD卡路径
-getDataPath   : 获取SD卡Data路径
-getFreeSpace  : 计算SD卡的剩余空间
-getSDCardInfo : 获取SD卡信息
+isSDCardEnable : 判断SD卡是否可用
+getSDCardPaths : 获取SD卡路径
 ```
 
 * ### 服务相关→[ServiceUtils.java][service.java]
