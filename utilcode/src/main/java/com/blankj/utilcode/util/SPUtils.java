@@ -1,5 +1,6 @@
 package com.blankj.utilcode.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
@@ -17,6 +18,7 @@ import java.util.Set;
  *     desc  : SP相关工具类
  * </pre>
  */
+@SuppressLint("ApplySharedPref")
 public final class SPUtils {
 
     private static SimpleArrayMap<String, SPUtils> SP_UTILS_MAP = new SimpleArrayMap<>();
@@ -58,7 +60,23 @@ public final class SPUtils {
      * @param value 值
      */
     public void put(@NonNull final String key, @NonNull final String value) {
-        sp.edit().putString(key, value).apply();
+        put(key, value, false);
+    }
+
+    /**
+     * SP中写入String
+     *
+     * @param key      键
+     * @param value    值
+     * @param isCommit {@code true}: {@link SharedPreferences.Editor#commit()}<br>
+     *                 {@code false}: {@link SharedPreferences.Editor#apply()}
+     */
+    public void put(@NonNull final String key, @NonNull final String value, final boolean isCommit) {
+        if (isCommit) {
+            sp.edit().putString(key, value).commit();
+        } else {
+            sp.edit().putString(key, value).apply();
+        }
     }
 
     /**
@@ -89,7 +107,23 @@ public final class SPUtils {
      * @param value 值
      */
     public void put(@NonNull final String key, final int value) {
-        sp.edit().putInt(key, value).apply();
+        put(key, value, false);
+    }
+
+    /**
+     * SP中写入int
+     *
+     * @param key      键
+     * @param value    值
+     * @param isCommit {@code true}: {@link SharedPreferences.Editor#commit()}<br>
+     *                 {@code false}: {@link SharedPreferences.Editor#apply()}
+     */
+    public void put(@NonNull final String key, final int value, final boolean isCommit) {
+        if (isCommit) {
+            sp.edit().putInt(key, value).commit();
+        } else {
+            sp.edit().putInt(key, value).apply();
+        }
     }
 
     /**
@@ -120,7 +154,23 @@ public final class SPUtils {
      * @param value 值
      */
     public void put(@NonNull final String key, final long value) {
-        sp.edit().putLong(key, value).apply();
+        put(key, value, false);
+    }
+
+    /**
+     * SP中写入long
+     *
+     * @param key      键
+     * @param value    值
+     * @param isCommit {@code true}: {@link SharedPreferences.Editor#commit()}<br>
+     *                 {@code false}: {@link SharedPreferences.Editor#apply()}
+     */
+    public void put(@NonNull final String key, final long value, final boolean isCommit) {
+        if (isCommit) {
+            sp.edit().putLong(key, value).commit();
+        } else {
+            sp.edit().putLong(key, value).apply();
+        }
     }
 
     /**
@@ -151,7 +201,23 @@ public final class SPUtils {
      * @param value 值
      */
     public void put(@NonNull final String key, final float value) {
-        sp.edit().putFloat(key, value).apply();
+        put(key, value, false);
+    }
+
+    /**
+     * SP中写入float
+     *
+     * @param key      键
+     * @param value    值
+     * @param isCommit {@code true}: {@link SharedPreferences.Editor#commit()}<br>
+     *                 {@code false}: {@link SharedPreferences.Editor#apply()}
+     */
+    public void put(@NonNull final String key, final float value, final boolean isCommit) {
+        if (isCommit) {
+            sp.edit().putFloat(key, value).commit();
+        } else {
+            sp.edit().putFloat(key, value).apply();
+        }
     }
 
     /**
@@ -182,7 +248,23 @@ public final class SPUtils {
      * @param value 值
      */
     public void put(@NonNull final String key, final boolean value) {
-        sp.edit().putBoolean(key, value).apply();
+        put(key, value, false);
+    }
+
+    /**
+     * SP中写入boolean
+     *
+     * @param key      键
+     * @param value    值
+     * @param isCommit {@code true}: {@link SharedPreferences.Editor#commit()}<br>
+     *                 {@code false}: {@link SharedPreferences.Editor#apply()}
+     */
+    public void put(@NonNull final String key, final boolean value, final boolean isCommit) {
+        if (isCommit) {
+            sp.edit().putBoolean(key, value).commit();
+        } else {
+            sp.edit().putBoolean(key, value).apply();
+        }
     }
 
     /**
@@ -213,7 +295,23 @@ public final class SPUtils {
      * @param values 值
      */
     public void put(@NonNull final String key, @NonNull final Set<String> values) {
-        sp.edit().putStringSet(key, values).apply();
+        put(key, values, false);
+    }
+
+    /**
+     * SP中写入String集合
+     *
+     * @param key      键
+     * @param values   值
+     * @param isCommit {@code true}: {@link SharedPreferences.Editor#commit()}<br>
+     *                 {@code false}: {@link SharedPreferences.Editor#apply()}
+     */
+    public void put(@NonNull final String key, @NonNull final Set<String> values, final boolean isCommit) {
+        if (isCommit) {
+            sp.edit().putStringSet(key, values).commit();
+        } else {
+            sp.edit().putStringSet(key, values).apply();
+        }
     }
 
     /**
@@ -262,14 +360,43 @@ public final class SPUtils {
      * @param key 键
      */
     public void remove(@NonNull final String key) {
-        sp.edit().remove(key).apply();
+        remove(key, false);
+    }
+
+    /**
+     * SP中移除该key
+     *
+     * @param key      键
+     * @param isCommit {@code true}: {@link SharedPreferences.Editor#commit()}<br>
+     *                 {@code false}: {@link SharedPreferences.Editor#apply()}
+     */
+    public void remove(@NonNull final String key, final boolean isCommit) {
+        if (isCommit) {
+            sp.edit().remove(key).commit();
+        } else {
+            sp.edit().remove(key).apply();
+        }
     }
 
     /**
      * SP中清除所有数据
      */
     public void clear() {
-        sp.edit().clear().apply();
+        clear(false);
+    }
+
+    /**
+     * SP中清除所有数据
+     *
+     * @param isCommit {@code true}: {@link SharedPreferences.Editor#commit()}<br>
+     *                 {@code false}: {@link SharedPreferences.Editor#apply()}
+     */
+    public void clear(final boolean isCommit) {
+        if (isCommit) {
+            sp.edit().clear().commit();
+        } else {
+            sp.edit().clear().apply();
+        }
     }
 
     private static boolean isSpace(final String s) {
