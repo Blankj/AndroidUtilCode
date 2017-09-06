@@ -10,8 +10,6 @@ import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.utilcode.util.SDCardUtils;
 
-import java.util.Arrays;
-
 /**
  * <pre>
  *     author: Blankj
@@ -46,7 +44,6 @@ public class SDCardActivity extends BaseBackActivity {
                 + "\ngetSDCardPaths: " + SDCardUtils.getSDCardPaths()
                 + "\ngetInnerSDCardPaths: " + SDCardUtils.getSDCardPaths(true)
                 + "\ngetOuterSDCardPaths: " + SDCardUtils.getSDCardPaths(false)
-                + "\ngetStorageDirectories: " + Arrays.asList(SDCardUtils.getStorageDirectories())
         );
     }
 
