@@ -1,12 +1,12 @@
 package com.blankj.utilcode.util;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import static com.blankj.utilcode.util.EncodeUtils.*;
-import static com.google.common.truth.Truth.assertThat;
+import java.util.Arrays;
 
 /**
  * <pre>
@@ -21,7 +21,7 @@ import static com.google.common.truth.Truth.assertThat;
 public class EncodeUtilsTest {
 
     String urlEncodeString = "%E5%93%88%E5%93%88%E5%93%88";
-    String html = "<html>" +
+    String html            = "<html>" +
             "<head>" +
             "<title>我的第一个 HTML 页面</title>" +
             "</head>" +
@@ -30,39 +30,47 @@ public class EncodeUtilsTest {
             "<p>title 元素的内容会显示在浏览器的标题栏中。</p>" +
             "</body>" +
             "</html>";
-    String encodeHtml = "&lt;html&gt;&lt;head&gt;&lt;title&gt;我的第一个 HTML 页面&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;body 元素的内容会显示在浏览器中。&lt;/p&gt;&lt;p&gt;title 元素的内容会显示在浏览器的标题栏中。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;";
+    String encodeHtml      = "&lt;html&gt;&lt;head&gt;&lt;title&gt;我的第一个 HTML 页面&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;body 元素的内容会显示在浏览器中。&lt;/p&gt;&lt;p&gt;title 元素的内容会显示在浏览器的标题栏中。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;";
 
     @Test
-    public void testUrlEncode() throws Exception {
-        assertThat(urlEncode("哈哈哈")).isEqualTo(urlEncodeString);
-        assertThat(urlEncode("哈哈哈", "UTF-8")).isEqualTo(urlEncodeString);
+    public void urlEncode_urlDecode() throws Exception {
+        Assert.assertEquals(urlEncodeString, EncodeUtils.urlEncode("哈哈哈"));
+        Assert.assertEquals(urlEncodeString, EncodeUtils.urlEncode("哈哈哈", "UTF-8"));
+
+        Assert.assertEquals("哈哈哈", EncodeUtils.urlDecode(urlEncodeString));
+        Assert.assertEquals("哈哈哈", EncodeUtils.urlDecode(urlEncodeString, "UTF-8"));
     }
 
     @Test
-    public void testUrlDecode() throws Exception {
-        assertThat(urlDecode(urlEncodeString)).isEqualTo("哈哈哈");
-        assertThat(urlDecode(urlEncodeString, "UTF-8")).isEqualTo("哈哈哈");
+    public void base64Decode_base64Encode() throws Exception {
+        Assert.assertTrue(
+                Arrays.equals(
+                        "blankj".getBytes(),
+                        EncodeUtils.base64Decode(EncodeUtils.base64Encode("blankj"))
+                )
+        );
+        Assert.assertTrue(
+                Arrays.equals(
+                        "blankj".getBytes(),
+                        EncodeUtils.base64Decode(EncodeUtils.base64Encode2String("blankj".getBytes()))
+                )
+        );
+        Assert.assertEquals(
+                "Ymxhbmtq",
+                EncodeUtils.base64Encode2String("blankj".getBytes())
+        );
+        Assert.assertTrue(
+                Arrays.equals(
+                        "Ymxhbmtq".getBytes(),
+                        EncodeUtils.base64Encode("blankj".getBytes())
+                )
+        );
     }
 
     @Test
-    public void testBase64EncodeAndDecode() throws Exception {
-        assertThat(base64Decode(base64Encode("blankj")))
-                .isEqualTo("blankj".getBytes());
-        assertThat(base64Decode(base64Encode2String("blankj".getBytes())))
-                .isEqualTo("blankj".getBytes());
-        assertThat(base64Encode2String("blankj".getBytes()))
-                .isEqualTo("Ymxhbmtq");
-        assertThat(base64Encode("blankj".getBytes()))
-                .isEqualTo("Ymxhbmtq".getBytes());
-    }
+    public void htmlEncode_htmlDecode() throws Exception {
+        Assert.assertEquals(encodeHtml, EncodeUtils.htmlEncode(html));
 
-    @Test
-    public void testHtmlEncode() throws Exception {
-        assertThat(htmlEncode(html)).isEqualTo(encodeHtml);
-    }
-
-    @Test
-    public void testHtmlDecode() throws Exception {
-        assertThat(htmlDecode(encodeHtml).toString()).isEqualTo(html);
+        Assert.assertEquals(html, EncodeUtils.htmlDecode(encodeHtml).toString());
     }
 }

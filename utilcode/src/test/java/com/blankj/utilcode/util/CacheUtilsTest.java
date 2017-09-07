@@ -145,23 +145,25 @@ public class CacheUtilsTest {
 
     @Test
     public void getBitmap() throws Exception {
-        Assert.assertTrue(mCacheUtils1.getString("bitmap1").equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
-        Assert.assertTrue(mCacheUtils1.getString("bitmap1", null).equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
+        String bitmapString = "Bitmap (100 x 100) compressed as PNG with quality 100";
+        Assert.assertTrue(mCacheUtils1.getString("bitmap1").equals(bitmapString));
+        Assert.assertTrue(mCacheUtils1.getString("bitmap1", null).equals(bitmapString));
         Assert.assertNull(mCacheUtils1.getString("bitmap2", null));
 
-        Assert.assertTrue(mCacheUtils2.getString("bitmap2").equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
-        Assert.assertTrue(mCacheUtils2.getString("bitmap2", null).equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
+        Assert.assertTrue(mCacheUtils2.getString("bitmap2").equals(bitmapString));
+        Assert.assertTrue(mCacheUtils2.getString("bitmap2", null).equals(bitmapString));
         Assert.assertNull(mCacheUtils2.getString("bitmap1", null));
     }
 
     @Test
     public void getDrawable() throws Exception {
-        Assert.assertTrue(mCacheUtils1.getString("drawable1").equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
-        Assert.assertTrue(mCacheUtils1.getString("drawable1", null).equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
+        String bitmapString = "Bitmap (100 x 100) compressed as PNG with quality 100";
+        Assert.assertTrue(mCacheUtils1.getString("drawable1").equals(bitmapString));
+        Assert.assertTrue(mCacheUtils1.getString("drawable1", null).equals(bitmapString));
         Assert.assertNull(mCacheUtils1.getString("drawable2", null));
 
-        Assert.assertTrue(mCacheUtils2.getString("drawable2").equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
-        Assert.assertTrue(mCacheUtils2.getString("drawable2", null).equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
+        Assert.assertTrue(mCacheUtils2.getString("drawable2").equals(bitmapString));
+        Assert.assertTrue(mCacheUtils2.getString("drawable2", null).equals(bitmapString));
         Assert.assertNull(mCacheUtils2.getString("drawable1", null));
     }
 
@@ -348,7 +350,9 @@ public class CacheUtilsTest {
 
         @Override
         public boolean equals(Object obj) {
-            return obj instanceof SerializableTest && ((SerializableTest) obj).author.equals(author) && ((SerializableTest) obj).className.equals(className);
+            return obj instanceof SerializableTest
+                    && ((SerializableTest) obj).author.equals(author)
+                    && ((SerializableTest) obj).className.equals(className);
         }
     }
 }

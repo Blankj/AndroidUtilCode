@@ -4,10 +4,10 @@ package com.blankj.utilcode.util;
 import com.blankj.utilcode.constant.MemoryConstants;
 import com.blankj.utilcode.constant.TimeConstants;
 
+import org.junit.Assert;
 import org.junit.Test;
 
-import static com.blankj.utilcode.util.ConvertUtils.*;
-import static com.google.common.truth.Truth.assertThat;
+import java.util.Arrays;
 
 
 /**
@@ -20,75 +20,119 @@ import static com.google.common.truth.Truth.assertThat;
  */
 public class ConvertUtilsTest {
 
-    byte[] mBytes    = new byte[]{0x00, 0x08, (byte) 0xdb, 0x33, 0x45, (byte) 0xab, 0x02, 0x23};
-    String hexString = "0008DB3345AB0223";
+    private byte[] mBytes    = new byte[]{0x00, 0x08, (byte) 0xdb, 0x33, 0x45, (byte) 0xab, 0x02, 0x23};
+    private String hexString = "0008DB3345AB0223";
+
+    private char[] mChars1 = new char[]{'0', '1', '2'};
+    private byte[] mBytes1 = new byte[]{48, 49, 50};
 
     @Test
-    public void testBytes2HexString() throws Exception {
-        assertThat(bytes2HexString(mBytes)).isEqualTo(hexString);
+    public void bytes2HexString() throws Exception {
+        Assert.assertEquals(
+                hexString,
+                ConvertUtils.bytes2HexString(mBytes)
+        );
     }
 
     @Test
-    public void testHexString2Bytes() throws Exception {
-        assertThat(hexString2Bytes(hexString)).isEqualTo(mBytes);
-    }
-
-    char[] mChars1 = new char[]{'0', '1', '2'};
-    byte[] mBytes1 = new byte[]{48, 49, 50};
-
-    @Test
-    public void testChars2Bytes() throws Exception {
-        assertThat(chars2Bytes(mChars1)).isEqualTo(mBytes1);
+    public void hexString2Bytes() throws Exception {
+        Assert.assertTrue(
+                Arrays.equals(
+                        mBytes,
+                        ConvertUtils.hexString2Bytes(hexString)
+                )
+        );
     }
 
     @Test
-    public void testBytes2Chars() throws Exception {
-        assertThat(bytes2Chars(mBytes1)).isEqualTo(mChars1);
+    public void chars2Bytes() throws Exception {
+        Assert.assertTrue(
+                Arrays.equals(
+                        mBytes1,
+                        ConvertUtils.chars2Bytes(mChars1)
+                )
+        );
     }
 
     @Test
-    public void testByte2Unit() throws Exception {
-        assertThat(byte2MemorySize(MemoryConstants.GB, MemoryConstants.MB) - 1024).isWithin(0.001);
+    public void bytes2Chars() throws Exception {
+        Assert.assertTrue(
+                Arrays.equals(
+                        mChars1,
+                        ConvertUtils.bytes2Chars(mBytes1)
+                )
+        );
     }
 
     @Test
-    public void testByte2FitSize() throws Exception {
-        assertThat(byte2FitMemorySize(1024 * 1024 * 3 + 1024 * 100)).isEqualTo("3.098MB");
+    public void byte2MemorySize() throws Exception {
+        Assert.assertEquals(
+                1024,
+                ConvertUtils.byte2MemorySize(MemoryConstants.GB, MemoryConstants.MB),
+                0.001
+        );
     }
 
     @Test
-    public void testMillis2FitTimeSpan() throws Exception {
-        long millis = TimeConstants.DAY * 6 + TimeConstants.HOUR * 6
-                + TimeConstants.MIN * 6 + TimeConstants.SEC * 6 + 6;
-        System.out.println(millis2FitTimeSpan(millis, 7));
-        System.out.println(millis2FitTimeSpan(millis, 4));
-        System.out.println(millis2FitTimeSpan(millis, 3));
-        System.out.println(millis2FitTimeSpan(millis * 4, 5));
+    public void byte2FitMemorySize() throws Exception {
+        Assert.assertEquals(
+                "3.098MB",
+                ConvertUtils.byte2FitMemorySize(1024 * 1024 * 3 + 1024 * 100)
+        );
     }
 
     @Test
-    public void testBytes2Bits() throws Exception {
-        System.out.println(bytes2Bits(new byte[]{0x7F, (byte) 0xFA}));
+    public void millis2FitTimeSpan() throws Exception {
+        long millis = 6 * TimeConstants.DAY
+                + 6 * TimeConstants.HOUR
+                + 6 * TimeConstants.MIN
+                + 6 * TimeConstants.SEC
+                + 6;
+        Assert.assertEquals(
+                "6天6小时6分钟6秒6毫秒",
+                ConvertUtils.millis2FitTimeSpan(millis, 7)
+        );
+        Assert.assertEquals(
+                "6天6小时6分钟6秒",
+                ConvertUtils.millis2FitTimeSpan(millis, 4)
+        );
+        Assert.assertEquals(
+                "6天6小时6分钟",
+                ConvertUtils.millis2FitTimeSpan(millis, 3)
+        );
+        Assert.assertEquals(
+                "25天24分钟24秒24毫秒",
+                ConvertUtils.millis2FitTimeSpan(millis * 4, 5)
+        );
     }
 
     @Test
-    public void testBits2Bytes() throws Exception {
-        System.out.println(bytes2HexString(bits2Bytes("111111111111010")));
+    public void bytes2Bits_bits2Bytes() throws Exception {
+        Assert.assertEquals(
+                "0111111111111010",
+                ConvertUtils.bytes2Bits(new byte[]{0x7F, (byte) 0xFA})
+        );
+        Assert.assertEquals(
+                "0111111111111010",
+                ConvertUtils.bytes2Bits(ConvertUtils.bits2Bytes("111111111111010"))
+        );
     }
 
     @Test
-    public void testInputStream2BytesAndBytes2InputStream() throws Exception {
+    public void inputStream2Bytes_bytes2InputStream() throws Exception {
         String string = "this is test string";
-        assertThat(new String(inputStream2Bytes(
-                bytes2InputStream(string.getBytes("UTF-8")))))
-                .isEqualTo(string);
+        Assert.assertEquals(
+                string.getBytes("UTF-8"),
+                ConvertUtils.inputStream2Bytes(ConvertUtils.bytes2InputStream(string.getBytes("UTF-8")))
+        );
     }
 
     @Test
-    public void testInputStream2StringAndString2InputStream() throws Exception {
+    public void inputStream2String_string2InputStream() throws Exception {
         String string = "this is test string";
-        assertThat(inputStream2String(
-                string2InputStream(string, "UTF-8")
-                , "UTF-8")).isEqualTo(string);
+        Assert.assertEquals(
+                string,
+                ConvertUtils.inputStream2String(ConvertUtils.string2InputStream(string, "UTF-8"), "UTF-8")
+        );
     }
 }
