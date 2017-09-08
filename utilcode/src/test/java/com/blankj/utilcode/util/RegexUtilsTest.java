@@ -1,11 +1,25 @@
 package com.blankj.utilcode.util;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
 
-import static com.blankj.utilcode.util.RegexUtils.*;
-import static com.google.common.truth.Truth.assertThat;
+import static com.blankj.utilcode.util.RegexUtils.getMatches;
+import static com.blankj.utilcode.util.RegexUtils.getReplaceAll;
+import static com.blankj.utilcode.util.RegexUtils.getReplaceFirst;
+import static com.blankj.utilcode.util.RegexUtils.getSplits;
+import static com.blankj.utilcode.util.RegexUtils.isDate;
+import static com.blankj.utilcode.util.RegexUtils.isEmail;
+import static com.blankj.utilcode.util.RegexUtils.isIDCard18;
+import static com.blankj.utilcode.util.RegexUtils.isIP;
+import static com.blankj.utilcode.util.RegexUtils.isMatch;
+import static com.blankj.utilcode.util.RegexUtils.isMobileExact;
+import static com.blankj.utilcode.util.RegexUtils.isMobileSimple;
+import static com.blankj.utilcode.util.RegexUtils.isTel;
+import static com.blankj.utilcode.util.RegexUtils.isURL;
+import static com.blankj.utilcode.util.RegexUtils.isUsername;
+import static com.blankj.utilcode.util.RegexUtils.isZh;
 
 /**
  * <pre>
@@ -19,85 +33,85 @@ public class RegexUtilsTest {
 
     @Test
     public void testIsMobileSimple() throws Exception {
-        assertThat(isMobileSimple("11111111111")).isTrue();
+        Assert.assertTrue(isMobileSimple("11111111111"));
     }
 
     @Test
     public void testIsMobileExact() throws Exception {
-        assertThat(isMobileExact("11111111111")).isFalse();
-        assertThat(isMobileExact("13888880000")).isTrue();
+        Assert.assertFalse(isMobileExact("11111111111"));
+        Assert.assertTrue(isMobileExact("13888880000"));
     }
 
     @Test
     public void testIsTel() throws Exception {
-        assertThat(isTel("033-88888888")).isTrue();
-        assertThat(isTel("033-7777777")).isTrue();
-        assertThat(isTel("0444-88888888")).isTrue();
-        assertThat(isTel("0444-7777777")).isTrue();
-        assertThat(isTel("033 88888888")).isTrue();
-        assertThat(isTel("033 7777777")).isTrue();
-        assertThat(isTel("0444 88888888")).isTrue();
-        assertThat(isTel("0444 7777777")).isTrue();
-        assertThat(isTel("03388888888")).isTrue();
-        assertThat(isTel("0337777777")).isTrue();
-        assertThat(isTel("044488888888")).isTrue();
-        assertThat(isTel("04447777777")).isTrue();
+        Assert.assertTrue(isTel("033-88888888"));
+        Assert.assertTrue(isTel("033-7777777"));
+        Assert.assertTrue(isTel("0444-88888888"));
+        Assert.assertTrue(isTel("0444-7777777"));
+        Assert.assertTrue(isTel("033 88888888"));
+        Assert.assertTrue(isTel("033 7777777"));
+        Assert.assertTrue(isTel("0444 88888888"));
+        Assert.assertTrue(isTel("0444 7777777"));
+        Assert.assertTrue(isTel("03388888888"));
+        Assert.assertTrue(isTel("0337777777"));
+        Assert.assertTrue(isTel("044488888888"));
+        Assert.assertTrue(isTel("04447777777"));
 
-        assertThat(isTel("133-88888888")).isFalse();
-        assertThat(isTel("033-666666")).isFalse();
-        assertThat(isTel("0444-999999999")).isFalse();
+        Assert.assertFalse(isTel("133-88888888"));
+        Assert.assertFalse(isTel("033-666666"));
+        Assert.assertFalse(isTel("0444-999999999"));
     }
 
     @Test
     public void testIsIDCard() throws Exception {
-        assertThat(isIDCard18("33698418400112523x")).isTrue();
-        assertThat(isIDCard18("336984184001125233")).isTrue();
-        assertThat(isIDCard18("336984184021125233")).isFalse();
+        Assert.assertTrue(isIDCard18("33698418400112523x"));
+        Assert.assertTrue(isIDCard18("336984184001125233"));
+        Assert.assertFalse(isIDCard18("336984184021125233"));
     }
 
     @Test
     public void testIsEmail() throws Exception {
-        assertThat(isEmail("blankj@qq.com")).isTrue();
-        assertThat(isEmail("blankj@qq")).isFalse();
+        Assert.assertTrue(isEmail("blankj@qq.com"));
+        Assert.assertFalse(isEmail("blankj@qq"));
     }
 
     @Test
     public void testIsURL() throws Exception {
-        assertThat(isURL("http://blankj.com")).isTrue();
-        assertThat(isURL("https:blank")).isFalse();
+        Assert.assertTrue(isURL("http://blankj.com"));
+        Assert.assertFalse(isURL("https:blank"));
     }
 
     @Test
     public void testIsChz() throws Exception {
-        assertThat(isZh("我")).isTrue();
-        assertThat(isZh("wo")).isFalse();
+        Assert.assertTrue(isZh("我"));
+        Assert.assertFalse(isZh("wo"));
     }
 
     @Test
     public void testIsUsername() throws Exception {
-        assertThat(isUsername("小明233333")).isTrue();
-        assertThat(isUsername("小明")).isFalse();
-        assertThat(isUsername("小明233333_")).isFalse();
+        Assert.assertTrue(isUsername("小明233333"));
+        Assert.assertFalse(isUsername("小明"));
+        Assert.assertFalse(isUsername("小明233333_"));
     }
 
     @Test
     public void testIsDate() throws Exception {
-        assertThat(isDate("2016-08-16")).isTrue();
-        assertThat(isDate("2016-02-29")).isTrue();
-        assertThat(isDate("2015-02-29")).isFalse();
-        assertThat(isDate("2016-8-16")).isFalse();
+        Assert.assertTrue(isDate("2016-08-16"));
+        Assert.assertTrue(isDate("2016-02-29"));
+        Assert.assertFalse(isDate("2015-02-29"));
+        Assert.assertFalse(isDate("2016-8-16"));
     }
 
     @Test
     public void testIsIP() throws Exception {
-        assertThat(isIP("255.255.255.0")).isTrue();
-        assertThat(isIP("256.255.255.0")).isFalse();
+        Assert.assertTrue(isIP("255.255.255.0"));
+        Assert.assertFalse(isIP("256.255.255.0"));
     }
 
     @Test
     public void testIsMatch() throws Exception {
-        assertThat(isMatch("\\d?", "1")).isTrue();
-        assertThat(isMatch("\\d?", "a")).isFalse();
+        Assert.assertTrue(isMatch("\\d?", "1"));
+        Assert.assertFalse(isMatch("\\d?", "a"));
     }
 
     @Test

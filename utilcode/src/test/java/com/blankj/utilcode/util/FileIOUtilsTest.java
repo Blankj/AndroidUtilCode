@@ -1,6 +1,9 @@
 package com.blankj.utilcode.util;
 
+import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.FileInputStream;
 
 import static com.blankj.utilcode.util.TestUtils.FILE_SEP;
 
@@ -19,8 +22,8 @@ public class FileIOUtilsTest {
 
     @Test
     public void writeFileFromIS() throws Exception {
-//        assertTrue(FileIOUtils.writeFileFromIS(path + "NEW.txt", new FileInputStream(path + "UTF8.txt"), false));
-//        assertTrue(FileIOUtils.writeFileFromIS(path + "NEW.txt", new FileInputStream(path + "UTF8.txt"), true));
+        Assert.assertTrue(FileIOUtils.writeFileFromIS(path + "NEW.txt", new FileInputStream(path + "UTF8.txt"), false));
+        Assert.assertTrue(FileIOUtils.writeFileFromIS(path + "NEW.txt", new FileInputStream(path + "UTF8.txt"), true));
     }
 
     @Test

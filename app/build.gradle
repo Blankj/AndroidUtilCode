@@ -29,7 +29,7 @@ android {
 
     buildTypes {
         debug {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
@@ -76,8 +76,6 @@ dependencies {
     debugCompile "com.squareup.leakcanary:leakcanary-android:$LEAKCANARY_VERSION"
     releaseCompile leakCanary
     testCompile leakCanary
-
-    compile 'com.tencent.mars:mars-core:1.2.0'
 
 //    compile 'com.blankj:utilcode:1.9.0'
 }
