@@ -111,7 +111,7 @@ public final class FileUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isDir(final File file) {
-        return isFileExists(file) && file.isDirectory();
+        return file != null && file.exists() && file.isDirectory();
     }
 
     /**
@@ -131,7 +131,7 @@ public final class FileUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isFile(final File file) {
-        return isFileExists(file) && file.isFile();
+        return file != null && file.exists() && file.isFile();
     }
 
     /**
@@ -187,6 +187,16 @@ public final class FileUtils {
     /**
      * 判断文件是否存在，存在则在创建之前删除
      *
+     * @param filePath 文件路径
+     * @return {@code true}: 创建成功<br>{@code false}: 创建失败
+     */
+    public static boolean createFileByDeleteOldFile(final String filePath) {
+        return createFileByDeleteOldFile(getFileByPath(filePath));
+    }
+
+    /**
+     * 判断文件是否存在，存在则在创建之前删除
+     *
      * @param file 文件
      * @return {@code true}: 创建成功<br>{@code false}: 创建失败
      */
@@ -209,22 +219,24 @@ public final class FileUtils {
      *
      * @param srcDirPath  源目录路径
      * @param destDirPath 目标目录路径
+     * @param listener    是否覆盖监听器
      * @param isMove      是否移动
      * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
      */
-    private static boolean copyOrMoveDir(final String srcDirPath, final String destDirPath, final boolean isMove) {
-        return copyOrMoveDir(getFileByPath(srcDirPath), getFileByPath(destDirPath), isMove);
+    private static boolean copyOrMoveDir(final String srcDirPath, final String destDirPath, final OnReplaceListener listener, final boolean isMove) {
+        return copyOrMoveDir(getFileByPath(srcDirPath), getFileByPath(destDirPath), listener, isMove);
     }
 
     /**
      * 复制或移动目录
      *
-     * @param srcDir  源目录
-     * @param destDir 目标目录
-     * @param isMove  是否移动
+     * @param srcDir   源目录
+     * @param destDir  目标目录
+     * @param listener 是否覆盖监听器
+     * @param isMove   是否移动
      * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
      */
-    private static boolean copyOrMoveDir(final File srcDir, final File destDir, final boolean isMove) {
+    private static boolean copyOrMoveDir(final File srcDir, final File destDir, final OnReplaceListener listener, final boolean isMove) {
         if (srcDir == null || destDir == null) return false;
         // 如果目标目录在源目录中则返回false，看不懂的话好好想想递归怎么结束
         // srcPath : F:\\MyGithub\\AndroidUtilCode\\utilcode\\src\\test\\res
@@ -235,6 +247,15 @@ public final class FileUtils {
         if (destPath.contains(srcPath)) return false;
         // 源文件不存在或者不是目录则返回false
         if (!srcDir.exists() || !srcDir.isDirectory()) return false;
+        if (destDir.exists()) {
+            if (listener.onReplace()) {// 需要覆盖则删除旧目录
+                if (!deleteAllInDir(destDir)) {// 删除文件失败的话返回false
+                    return false;
+                }
+            } else {// 不需要覆盖直接返回即可true
+                return true;
+            }
+        }
         // 目标目录不存在返回false
         if (!createOrExistsDir(destDir)) return false;
         File[] files = srcDir.listFiles();
@@ -242,10 +263,10 @@ public final class FileUtils {
             File oneDestFile = new File(destPath + file.getName());
             if (file.isFile()) {
                 // 如果操作失败返回false
-                if (!copyOrMoveFile(file, oneDestFile, isMove)) return false;
+                if (!copyOrMoveFile(file, oneDestFile, listener, isMove)) return false;
             } else if (file.isDirectory()) {
                 // 如果操作失败返回false
-                if (!copyOrMoveDir(file, oneDestFile, isMove)) return false;
+                if (!copyOrMoveDir(file, oneDestFile, listener, isMove)) return false;
             }
         }
         return !isMove || deleteDir(srcDir);
@@ -256,11 +277,12 @@ public final class FileUtils {
      *
      * @param srcFilePath  源文件路径
      * @param destFilePath 目标文件路径
+     * @param listener     是否覆盖监听器
      * @param isMove       是否移动
      * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
      */
-    private static boolean copyOrMoveFile(final String srcFilePath, final String destFilePath, final boolean isMove) {
-        return copyOrMoveFile(getFileByPath(srcFilePath), getFileByPath(destFilePath), isMove);
+    private static boolean copyOrMoveFile(final String srcFilePath, final String destFilePath, final OnReplaceListener listener, final boolean isMove) {
+        return copyOrMoveFile(getFileByPath(srcFilePath), getFileByPath(destFilePath), listener, isMove);
     }
 
     /**
@@ -268,15 +290,25 @@ public final class FileUtils {
      *
      * @param srcFile  源文件
      * @param destFile 目标文件
+     * @param listener 是否覆盖监听器
      * @param isMove   是否移动
      * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
      */
-    private static boolean copyOrMoveFile(final File srcFile, final File destFile, final boolean isMove) {
+    private static boolean copyOrMoveFile(final File srcFile, final File destFile, final OnReplaceListener listener, final boolean isMove) {
         if (srcFile == null || destFile == null) return false;
+        // 如果源文件和目标文件相同则返回false
+        if (srcFile.equals(destFile)) return false;
         // 源文件不存在或者不是文件则返回false
         if (!srcFile.exists() || !srcFile.isFile()) return false;
-        // 目标文件存在且是文件则返回false
-        if (destFile.exists() && destFile.isFile()) return false;
+        if (destFile.exists()) {// 目标文件存在
+            if (listener.onReplace()) {// 需要覆盖则删除旧文件
+                if (!destFile.delete()) {// 删除文件失败的话返回false
+                    return false;
+                }
+            } else {// 不需要覆盖直接返回即可true
+                return true;
+            }
+        }
         // 目标目录不存在返回false
         if (!createOrExistsDir(destFile.getParentFile())) return false;
         try {
@@ -293,21 +325,23 @@ public final class FileUtils {
      *
      * @param srcDirPath  源目录路径
      * @param destDirPath 目标目录路径
+     * @param listener    是否覆盖监听器
      * @return {@code true}: 复制成功<br>{@code false}: 复制失败
      */
-    public static boolean copyDir(final String srcDirPath, final String destDirPath) {
-        return copyDir(getFileByPath(srcDirPath), getFileByPath(destDirPath));
+    public static boolean copyDir(final String srcDirPath, final String destDirPath, final OnReplaceListener listener) {
+        return copyDir(getFileByPath(srcDirPath), getFileByPath(destDirPath), listener);
     }
 
     /**
      * 复制目录
      *
-     * @param srcDir  源目录
-     * @param destDir 目标目录
+     * @param srcDir   源目录
+     * @param destDir  目标目录
+     * @param listener 是否覆盖监听器
      * @return {@code true}: 复制成功<br>{@code false}: 复制失败
      */
-    public static boolean copyDir(final File srcDir, final File destDir) {
-        return copyOrMoveDir(srcDir, destDir, false);
+    public static boolean copyDir(final File srcDir, final File destDir, final OnReplaceListener listener) {
+        return copyOrMoveDir(srcDir, destDir, listener, false);
     }
 
     /**
@@ -315,10 +349,11 @@ public final class FileUtils {
      *
      * @param srcFilePath  源文件路径
      * @param destFilePath 目标文件路径
+     * @param listener     是否覆盖监听器
      * @return {@code true}: 复制成功<br>{@code false}: 复制失败
      */
-    public static boolean copyFile(final String srcFilePath, final String destFilePath) {
-        return copyFile(getFileByPath(srcFilePath), getFileByPath(destFilePath));
+    public static boolean copyFile(final String srcFilePath, final String destFilePath, final OnReplaceListener listener) {
+        return copyFile(getFileByPath(srcFilePath), getFileByPath(destFilePath), listener);
     }
 
     /**
@@ -326,10 +361,11 @@ public final class FileUtils {
      *
      * @param srcFile  源文件
      * @param destFile 目标文件
+     * @param listener 是否覆盖监听器
      * @return {@code true}: 复制成功<br>{@code false}: 复制失败
      */
-    public static boolean copyFile(final File srcFile, final File destFile) {
-        return copyOrMoveFile(srcFile, destFile, false);
+    public static boolean copyFile(final File srcFile, final File destFile, final OnReplaceListener listener) {
+        return copyOrMoveFile(srcFile, destFile, listener, false);
     }
 
     /**
@@ -337,21 +373,23 @@ public final class FileUtils {
      *
      * @param srcDirPath  源目录路径
      * @param destDirPath 目标目录路径
+     * @param listener    是否覆盖监听器
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
      */
-    public static boolean moveDir(final String srcDirPath, final String destDirPath) {
-        return moveDir(getFileByPath(srcDirPath), getFileByPath(destDirPath));
+    public static boolean moveDir(final String srcDirPath, final String destDirPath, final OnReplaceListener listener) {
+        return moveDir(getFileByPath(srcDirPath), getFileByPath(destDirPath), listener);
     }
 
     /**
      * 移动目录
      *
-     * @param srcDir  源目录
-     * @param destDir 目标目录
+     * @param srcDir   源目录
+     * @param destDir  目标目录
+     * @param listener 是否覆盖监听器
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
      */
-    public static boolean moveDir(final File srcDir, final File destDir) {
-        return copyOrMoveDir(srcDir, destDir, true);
+    public static boolean moveDir(final File srcDir, final File destDir, final OnReplaceListener listener) {
+        return copyOrMoveDir(srcDir, destDir, listener, true);
     }
 
     /**
@@ -359,10 +397,11 @@ public final class FileUtils {
      *
      * @param srcFilePath  源文件路径
      * @param destFilePath 目标文件路径
+     * @param listener     是否覆盖监听器
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
      */
-    public static boolean moveFile(final String srcFilePath, final String destFilePath) {
-        return moveFile(getFileByPath(srcFilePath), getFileByPath(destFilePath));
+    public static boolean moveFile(final String srcFilePath, final String destFilePath, final OnReplaceListener listener) {
+        return moveFile(getFileByPath(srcFilePath), getFileByPath(destFilePath), listener);
     }
 
     /**
@@ -370,10 +409,11 @@ public final class FileUtils {
      *
      * @param srcFile  源文件
      * @param destFile 目标文件
+     * @param listener 是否覆盖监听器
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
      */
-    public static boolean moveFile(final File srcFile, final File destFile) {
-        return copyOrMoveFile(srcFile, destFile, true);
+    public static boolean moveFile(final File srcFile, final File destFile, final OnReplaceListener listener) {
+        return copyOrMoveFile(srcFile, destFile, listener, true);
     }
 
     /**
@@ -524,7 +564,7 @@ public final class FileUtils {
 
     /**
      * 获取目录下所有文件
-     *  <p>不递归进子目录</p>
+     * <p>不递归进子目录</p>
      *
      * @param dirPath 目录路径
      * @return 文件链表
@@ -535,7 +575,7 @@ public final class FileUtils {
 
     /**
      * 获取目录下所有文件
-     *  <p>不递归进子目录</p>
+     * <p>不递归进子目录</p>
      *
      * @param dir 目录
      * @return 文件链表
@@ -854,22 +894,21 @@ public final class FileUtils {
     /**
      * 获取文件的MD5校验码
      *
-     * @param filePath 文件路径
-     * @return 文件的MD5校验码
-     */
-    public static byte[] getFileMD5(final String filePath) {
-        File file = isSpace(filePath) ? null : new File(filePath);
-        return getFileMD5(file);
-    }
-
-    /**
-     * 获取文件的MD5校验码
-     *
      * @param file 文件
      * @return 文件的MD5校验码
      */
     public static String getFileMD5ToString(final File file) {
         return bytes2HexString(getFileMD5(file));
+    }
+
+    /**
+     * 获取文件的MD5校验码
+     *
+     * @param filePath 文件路径
+     * @return 文件的MD5校验码
+     */
+    public static byte[] getFileMD5(final String filePath) {
+        return getFileMD5(getFileByPath(filePath));
     }
 
     /**
@@ -1056,5 +1095,9 @@ public final class FileUtils {
             }
         }
         return true;
+    }
+
+    public interface OnReplaceListener {
+        boolean onReplace();
     }
 }
