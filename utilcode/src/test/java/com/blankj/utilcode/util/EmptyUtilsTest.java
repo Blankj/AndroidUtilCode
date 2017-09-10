@@ -9,7 +9,6 @@ import android.util.SparseBooleanArray;
 import android.util.SparseIntArray;
 import android.util.SparseLongArray;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -17,6 +16,9 @@ import org.robolectric.annotation.Config;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * <pre>
@@ -45,34 +47,34 @@ public class EmptyUtilsTest {
         SparseIntArray sia = new SparseIntArray();
         SparseLongArray sla = new SparseLongArray();
         LongSparseArray<String> lsa = new LongSparseArray<>();
-        android.util.LongSparseArray<String> lsa4 = new android.util.LongSparseArray<>();
+        android.util.LongSparseArray<String> lsaV4 = new android.util.LongSparseArray<>();
 
-        Assert.assertTrue(EmptyUtils.isEmpty(string));
-        Assert.assertFalse(EmptyUtils.isEmpty(string1));
-        Assert.assertTrue(EmptyUtils.isEmpty(arr));
-        Assert.assertTrue(EmptyUtils.isEmpty(arr1));
-        Assert.assertTrue(EmptyUtils.isEmpty(list));
-        Assert.assertTrue(EmptyUtils.isEmpty(map));
-        Assert.assertTrue(EmptyUtils.isEmpty(sam));
-        Assert.assertTrue(EmptyUtils.isEmpty(sa));
-        Assert.assertTrue(EmptyUtils.isEmpty(sba));
-        Assert.assertTrue(EmptyUtils.isEmpty(sia));
-        Assert.assertTrue(EmptyUtils.isEmpty(sla));
-        Assert.assertTrue(EmptyUtils.isEmpty(lsa));
-        Assert.assertTrue(EmptyUtils.isEmpty(lsa4));
+        assertTrue(EmptyUtils.isEmpty(string));
+        assertFalse(EmptyUtils.isEmpty(string1));
+        assertTrue(EmptyUtils.isEmpty(arr));
+        assertTrue(EmptyUtils.isEmpty(arr1));
+        assertTrue(EmptyUtils.isEmpty(list));
+        assertTrue(EmptyUtils.isEmpty(map));
+        assertTrue(EmptyUtils.isEmpty(sam));
+        assertTrue(EmptyUtils.isEmpty(sa));
+        assertTrue(EmptyUtils.isEmpty(sba));
+        assertTrue(EmptyUtils.isEmpty(sia));
+        assertTrue(EmptyUtils.isEmpty(sla));
+        assertTrue(EmptyUtils.isEmpty(lsa));
+        assertTrue(EmptyUtils.isEmpty(lsaV4));
 
-        Assert.assertTrue(!EmptyUtils.isNotEmpty(string));
-        Assert.assertFalse(!EmptyUtils.isNotEmpty(string1));
-        Assert.assertTrue(!EmptyUtils.isNotEmpty(arr));
-        Assert.assertTrue(!EmptyUtils.isNotEmpty(arr1));
-        Assert.assertTrue(!EmptyUtils.isNotEmpty(list));
-        Assert.assertTrue(!EmptyUtils.isNotEmpty(map));
-        Assert.assertTrue(!EmptyUtils.isNotEmpty(sam));
-        Assert.assertTrue(!EmptyUtils.isNotEmpty(sa));
-        Assert.assertTrue(!EmptyUtils.isNotEmpty(sba));
-        Assert.assertTrue(!EmptyUtils.isNotEmpty(sia));
-        Assert.assertTrue(!EmptyUtils.isNotEmpty(sla));
-        Assert.assertTrue(!EmptyUtils.isNotEmpty(lsa));
-        Assert.assertTrue(!EmptyUtils.isNotEmpty(lsa4));
+        assertTrue(!EmptyUtils.isNotEmpty(string));
+        assertFalse(!EmptyUtils.isNotEmpty(string1));
+        assertTrue(!EmptyUtils.isNotEmpty(arr));
+        assertTrue(!EmptyUtils.isNotEmpty(arr1));
+        assertTrue(!EmptyUtils.isNotEmpty(list));
+        assertTrue(!EmptyUtils.isNotEmpty(map));
+        assertTrue(!EmptyUtils.isNotEmpty(sam));
+        assertTrue(!EmptyUtils.isNotEmpty(sa));
+        assertTrue(!EmptyUtils.isNotEmpty(sba));
+        assertTrue(!EmptyUtils.isNotEmpty(sia));
+        assertTrue(!EmptyUtils.isNotEmpty(sla));
+        assertTrue(!EmptyUtils.isNotEmpty(lsa));
+        assertTrue(!EmptyUtils.isNotEmpty(lsaV4));
     }
 }

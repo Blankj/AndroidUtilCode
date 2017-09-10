@@ -1,12 +1,18 @@
 package com.blankj.utilcode.util;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.FileFilter;
 
-import static com.blankj.utilcode.util.TestUtils.FILE_SEP;
+import static com.blankj.utilcode.util.TestConfig.PATH_FILE;
+import static com.blankj.utilcode.util.TestConfig.FILE_SEP;
+import static com.blankj.utilcode.util.TestConfig.PATH_TEMP;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * <pre>
@@ -18,293 +24,181 @@ import static com.blankj.utilcode.util.TestUtils.FILE_SEP;
  */
 public class FileUtilsTest {
 
-    private String path  = TestUtils.TEST_PATH + FILE_SEP + "file" + FILE_SEP;
-    private String path1 = TestUtils.TEST_PATH + FILE_SEP + "file1" + FILE_SEP;
-
-    private FileFilter filter = new FileFilter() {
+    private FileFilter mFilter = new FileFilter() {
         @Override
         public boolean accept(File pathname) {
             return pathname.getName().endsWith("8.txt");
         }
     };
 
+    private FileUtils.OnReplaceListener mListener = new FileUtils.OnReplaceListener() {
+        @Override
+        public boolean onReplace() {
+            return true;
+        }
+    };
+
+
     @Test
     public void getFileByPath() throws Exception {
-        Assert.assertNull(FileUtils.getFileByPath(" "));
-        Assert.assertNotNull(FileUtils.getFileByPath(path));
+        assertNull(FileUtils.getFileByPath(" "));
+        assertNotNull(FileUtils.getFileByPath(PATH_FILE));
     }
 
     @Test
     public void isFileExists() throws Exception {
-        Assert.assertTrue(FileUtils.isFileExists(path + "UTF8.txt"));
-        Assert.assertFalse(FileUtils.isFileExists(path + "UTF8"));
+        assertTrue(FileUtils.isFileExists(PATH_FILE + "UTF8.txt"));
+        assertFalse(FileUtils.isFileExists(PATH_FILE + "UTF8"));
     }
 
     @Test
     public void rename() throws Exception {
-        Assert.assertTrue(FileUtils.rename(path + "GBK.txt", "GBK1.txt"));
-        Assert.assertTrue(FileUtils.rename(path + "GBK1.txt", "GBK.txt"));
+        assertTrue(FileUtils.rename(PATH_FILE + "GBK.txt", "GBK1.txt"));
+        assertTrue(FileUtils.rename(PATH_FILE + "GBK1.txt", "GBK.txt"));
     }
 
     @Test
     public void isDir() throws Exception {
-        Assert.assertFalse(FileUtils.isDir(path + "UTF8.txt"));
-        Assert.assertTrue(FileUtils.isDir(path));
+        assertFalse(FileUtils.isDir(PATH_FILE + "UTF8.txt"));
+        assertTrue(FileUtils.isDir(PATH_FILE));
     }
 
     @Test
     public void isFile() throws Exception {
-        Assert.assertTrue(FileUtils.isFile(path + "UTF8.txt"));
-        Assert.assertFalse(FileUtils.isFile(path));
+        assertTrue(FileUtils.isFile(PATH_FILE + "UTF8.txt"));
+        assertFalse(FileUtils.isFile(PATH_FILE));
     }
 
     @Test
     public void createOrExistsDir() throws Exception {
-        Assert.assertTrue(FileUtils.createOrExistsDir(path + "new Dir"));
-        Assert.assertTrue(FileUtils.createOrExistsDir(path));
-        Assert.assertTrue(FileUtils.deleteDir(path + "new Dir"));
+        assertTrue(FileUtils.createOrExistsDir(PATH_FILE + "new Dir"));
+        assertTrue(FileUtils.createOrExistsDir(PATH_FILE));
+        assertTrue(FileUtils.deleteDir(PATH_FILE + "new Dir"));
     }
 
     @Test
     public void createOrExistsFile() throws Exception {
-        Assert.assertTrue(FileUtils.createOrExistsFile(path + "new File"));
-        Assert.assertFalse(FileUtils.createOrExistsFile(path));
-        Assert.assertTrue(FileUtils.deleteFile(path + "new File"));
+        assertTrue(FileUtils.createOrExistsFile(PATH_FILE + "new File"));
+        assertFalse(FileUtils.createOrExistsFile(PATH_FILE));
+        assertTrue(FileUtils.deleteFile(PATH_FILE + "new File"));
     }
 
     @Test
     public void createFileByDeleteOldFile() throws Exception {
-        Assert.assertTrue(FileUtils.createFileByDeleteOldFile(path + "new File"));
-        Assert.assertFalse(FileUtils.createFileByDeleteOldFile(path));
-        Assert.assertTrue(FileUtils.deleteFile(path + "new File"));
+        assertTrue(FileUtils.createFileByDeleteOldFile(PATH_FILE + "new File"));
+        assertFalse(FileUtils.createFileByDeleteOldFile(PATH_FILE));
+        assertTrue(FileUtils.deleteFile(PATH_FILE + "new File"));
     }
 
     @Test
     public void copyDir() throws Exception {
-        Assert.assertFalse(FileUtils.copyDir(
-                path,
-                path,
-                new FileUtils.OnReplaceListener() {
-                    @Override
-                    public boolean onReplace() {
-                        return true;
-                    }
-                })
-        );
-        Assert.assertFalse(FileUtils.copyDir(
-                path,
-                path + "new Dir",
-                new FileUtils.OnReplaceListener() {
-                    @Override
-                    public boolean onReplace() {
-                        return true;
-                    }
-                })
-        );
-        Assert.assertTrue(FileUtils.copyDir(
-                path,
-                path1,
-                new FileUtils.OnReplaceListener() {
-                    @Override
-                    public boolean onReplace() {
-                        return true;
-                    }
-                })
-        );
-        Assert.assertTrue(FileUtils.deleteDir(path1));
+        assertFalse(FileUtils.copyDir(PATH_FILE, PATH_FILE, mListener));
+        assertFalse(FileUtils.copyDir(PATH_FILE, PATH_FILE + "new Dir", mListener));
+        assertTrue(FileUtils.copyDir(PATH_FILE, PATH_TEMP, mListener));
+        assertTrue(FileUtils.deleteDir(PATH_TEMP));
     }
 
     @Test
     public void copyFile() throws Exception {
-        Assert.assertFalse(FileUtils.copyFile(
-                path + "GBK.txt",
-                path + "GBK.txt",
-                new FileUtils.OnReplaceListener() {
-                    @Override
-                    public boolean onReplace() {
-                        return true;
-                    }
-                })
-        );
-        Assert.assertTrue(FileUtils.copyFile(
-                path + "GBK.txt",
-                path + "new Dir" + FILE_SEP + "GBK.txt",
-                new FileUtils.OnReplaceListener() {
-                    @Override
-                    public boolean onReplace() {
-                        return true;
-                    }
-                })
-        );
-        Assert.assertTrue(FileUtils.copyFile(
-                path + "GBK.txt",
-                path1 + "GBK.txt",
-                new FileUtils.OnReplaceListener() {
-                    @Override
-                    public boolean onReplace() {
-                        return true;
-                    }
-                })
-        );
-        Assert.assertTrue(FileUtils.deleteDir(path + "new Dir"));
-        Assert.assertTrue(FileUtils.deleteDir(path1));
+        assertFalse(FileUtils.copyFile(PATH_FILE + "GBK.txt", PATH_FILE + "GBK.txt", mListener));
+        assertTrue(FileUtils.copyFile(PATH_FILE + "GBK.txt", PATH_FILE + "new Dir" + FILE_SEP + "GBK.txt", mListener));
+        assertTrue(FileUtils.copyFile(PATH_FILE + "GBK.txt", PATH_TEMP + "GBK.txt", mListener));
+        assertTrue(FileUtils.deleteDir(PATH_FILE + "new Dir"));
+        assertTrue(FileUtils.deleteDir(PATH_TEMP));
     }
 
-//    @Test
-//    public void moveDir() throws Exception {
-//        Assert.assertFalse(FileUtils.moveDir(
-//                path,
-//                path,
-//                new FileUtils.OnReplaceListener() {
-//                    @Override
-//                    public boolean onReplace() {
-//                        return true;
-//                    }
-//                })
-//        );
-//        Assert.assertFalse(FileUtils.moveDir(
-//                path,
-//                path + "new Dir",
-//                new FileUtils.OnReplaceListener() {
-//                    @Override
-//                    public boolean onReplace() {
-//                        return true;
-//                    }
-//                })
-//        );
-//        Assert.assertTrue(FileUtils.moveDir(
-//                path,
-//                path1,
-//                new FileUtils.OnReplaceListener() {
-//                    @Override
-//                    public boolean onReplace() {
-//                        return true;
-//                    }
-//                })
-//        );
-//        Assert.assertTrue(FileUtils.moveDir(
-//                path1,
-//                path,
-//                new FileUtils.OnReplaceListener() {
-//                    @Override
-//                    public boolean onReplace() {
-//                        return true;
-//                    }
-//                })
-//        );
-//    }
-//
-//    @Test
-//    public void moveFile() throws Exception {
-//        Assert.assertFalse(FileUtils.moveFile(
-//                path + "GBK.txt",
-//                path + "GBK.txt",
-//                new FileUtils.OnReplaceListener() {
-//                    @Override
-//                    public boolean onReplace() {
-//                        return true;
-//                    }
-//                })
-//        );
-//        Assert.assertTrue(FileUtils.moveFile(
-//                path + "GBK.txt",
-//                path1 + "GBK.txt",
-//                new FileUtils.OnReplaceListener() {
-//                    @Override
-//                    public boolean onReplace() {
-//                        return true;
-//                    }
-//                })
-//        );
-//        Assert.assertTrue(FileUtils.moveFile(
-//                path1 + "GBK.txt",
-//                path + "GBK.txt",
-//                new FileUtils.OnReplaceListener() {
-//                    @Override
-//                    public boolean onReplace() {
-//                        return true;
-//                    }
-//                })
-//        );
-//        FileUtils.deleteDir(path1);
-//    }
-//
-//    @Test
-//    public void listFilesInDir() throws Exception {
-//        System.out.println(FileUtils.listFilesInDir(path, false).toString());
-//        System.out.println(FileUtils.listFilesInDir(path, true).toString());
-//    }
-//
-//    @Test
-//    public void listFilesInDirWithFilter() throws Exception {
-//        System.out.println(FileUtils.listFilesInDirWithFilter(path, filter, false).toString());
-//        System.out.println(FileUtils.listFilesInDirWithFilter(path, filter, true).toString());
-//    }
-//
-//    @Test
-//    public void getFileLastModified() throws Exception {
-//        System.out.println(TimeUtils.millis2String(FileUtils.getFileLastModified(path)));
-//    }
-//
-//    @Test
-//    public void getFileCharsetSimple() throws Exception {
-//        Assert.assertEquals("GBK", FileUtils.getFileCharsetSimple(path + "GBK.txt"));
-//        Assert.assertEquals("Unicode", FileUtils.getFileCharsetSimple(path + "Unicode.txt"));
-//        Assert.assertEquals("UTF-8", FileUtils.getFileCharsetSimple(path + "UTF8.txt"));
-//        Assert.assertEquals("UTF-16BE", FileUtils.getFileCharsetSimple(path + "UTF16BE.txt"));
-//    }
-//
-//    @Test
-//    public void getFileLines() throws Exception {
-//        Assert.assertEquals(7, FileUtils.getFileLines(path + "UTF8.txt"));
-//    }
-//
-//    @Test
-//    public void getDirSize() throws Exception {
-//        System.out.println(FileUtils.getDirSize(path));
-//    }
-//
-//    @Test
-//    public void getFileSize() throws Exception {
-//        System.out.println(FileUtils.getFileSize(path + "UTF8.txt"));
-//    }
-//
-//    @Test
-//    public void getDirLength() throws Exception {
-//        System.out.println(FileUtils.getDirLength(path));
-//    }
-//
-//    @Test
-//    public void getFileLength() throws Exception {
-//        System.out.println(FileUtils.getFileLength(path + "UTF8.txt"));
-//    }
-//
-//    @Test
-//    public void getFileMD5ToString() throws Exception {
-//        Assert.assertEquals("249D3E76851DCC56C945994DE9DAC406", FileUtils.getFileMD5ToString(path + "UTF8.txt"));
-//    }
-//
-//    @Test
-//    public void getDirName() throws Exception {
-//        Assert.assertEquals(path, FileUtils.getDirName(new File(path + "UTF8.txt")));
-//        Assert.assertEquals(path, FileUtils.getDirName(path + "UTF8.txt"));
-//    }
-//
-//    @Test
-//    public void getFileName() throws Exception {
-//        Assert.assertEquals("UTF8.txt", FileUtils.getFileName(path + "UTF8.txt"));
-//        Assert.assertEquals("UTF8.txt", FileUtils.getFileName(new File(path + "UTF8.txt")));
-//    }
-//
-//    @Test
-//    public void getFileNameNoExtension() throws Exception {
-//        Assert.assertEquals("UTF8", FileUtils.getFileNameNoExtension(path + "UTF8.txt"));
-//        Assert.assertEquals("UTF8", FileUtils.getFileNameNoExtension(new File(path + "UTF8.txt")));
-//    }
-//
-//    @Test
-//    public void getFileExtension() throws Exception {
-//        Assert.assertEquals("txt", FileUtils.getFileExtension(new File(path + "UTF8.txt")));
-//        Assert.assertEquals("txt", FileUtils.getFileExtension(path + "UTF8.txt"));
-//    }
+    @Test
+    public void moveDir() throws Exception {
+        assertFalse(FileUtils.moveDir(PATH_FILE, PATH_FILE, mListener));
+        assertFalse(FileUtils.moveDir(PATH_FILE, PATH_FILE + "new Dir", mListener));
+        assertTrue(FileUtils.moveDir(PATH_FILE, PATH_TEMP, mListener));
+        assertTrue(FileUtils.moveDir(PATH_TEMP, PATH_FILE, mListener));
+    }
+
+    @Test
+    public void moveFile() throws Exception {
+        assertFalse(FileUtils.moveFile(PATH_FILE + "GBK.txt", PATH_FILE + "GBK.txt", mListener));
+        assertTrue(FileUtils.moveFile(PATH_FILE + "GBK.txt", PATH_TEMP + "GBK.txt", mListener));
+        assertTrue(FileUtils.moveFile(PATH_TEMP + "GBK.txt", PATH_FILE + "GBK.txt", mListener));
+        FileUtils.deleteDir(PATH_TEMP);
+    }
+
+    @Test
+    public void listFilesInDir() throws Exception {
+        System.out.println(FileUtils.listFilesInDir(PATH_FILE, false).toString());
+        System.out.println(FileUtils.listFilesInDir(PATH_FILE, true).toString());
+    }
+
+    @Test
+    public void listFilesInDirWithFilter() throws Exception {
+        System.out.println(FileUtils.listFilesInDirWithFilter(PATH_FILE, mFilter, false).toString());
+        System.out.println(FileUtils.listFilesInDirWithFilter(PATH_FILE, mFilter, true).toString());
+    }
+
+    @Test
+    public void getFileLastModified() throws Exception {
+        System.out.println(TimeUtils.millis2String(FileUtils.getFileLastModified(PATH_FILE)));
+    }
+
+    @Test
+    public void getFileCharsetSimple() throws Exception {
+        assertEquals("GBK", FileUtils.getFileCharsetSimple(PATH_FILE + "GBK.txt"));
+        assertEquals("Unicode", FileUtils.getFileCharsetSimple(PATH_FILE + "Unicode.txt"));
+        assertEquals("UTF-8", FileUtils.getFileCharsetSimple(PATH_FILE + "UTF8.txt"));
+        assertEquals("UTF-16BE", FileUtils.getFileCharsetSimple(PATH_FILE + "UTF16BE.txt"));
+    }
+
+    @Test
+    public void getFileLines() throws Exception {
+        assertEquals(7, FileUtils.getFileLines(PATH_FILE + "UTF8.txt"));
+    }
+
+    @Test
+    public void getDirSize() throws Exception {
+        System.out.println(FileUtils.getDirSize(PATH_FILE));
+    }
+
+    @Test
+    public void getFileSize() throws Exception {
+        System.out.println(FileUtils.getFileSize(PATH_FILE + "UTF8.txt"));
+    }
+
+    @Test
+    public void getDirLength() throws Exception {
+        System.out.println(FileUtils.getDirLength(PATH_FILE));
+    }
+
+    @Test
+    public void getFileLength() throws Exception {
+        System.out.println(FileUtils.getFileLength(PATH_FILE + "UTF8.txt"));
+    }
+
+    @Test
+    public void getFileMD5ToString() throws Exception {
+        assertEquals("249D3E76851DCC56C945994DE9DAC406", FileUtils.getFileMD5ToString(PATH_FILE + "UTF8.txt"));
+    }
+
+    @Test
+    public void getDirName() throws Exception {
+        assertEquals(PATH_FILE, FileUtils.getDirName(new File(PATH_FILE + "UTF8.txt")));
+        assertEquals(PATH_FILE, FileUtils.getDirName(PATH_FILE + "UTF8.txt"));
+    }
+
+    @Test
+    public void getFileName() throws Exception {
+        assertEquals("UTF8.txt", FileUtils.getFileName(PATH_FILE + "UTF8.txt"));
+        assertEquals("UTF8.txt", FileUtils.getFileName(new File(PATH_FILE + "UTF8.txt")));
+    }
+
+    @Test
+    public void getFileNameNoExtension() throws Exception {
+        assertEquals("UTF8", FileUtils.getFileNameNoExtension(PATH_FILE + "UTF8.txt"));
+        assertEquals("UTF8", FileUtils.getFileNameNoExtension(new File(PATH_FILE + "UTF8.txt")));
+    }
+
+    @Test
+    public void getFileExtension() throws Exception {
+        assertEquals("txt", FileUtils.getFileExtension(new File(PATH_FILE + "UTF8.txt")));
+        assertEquals("txt", FileUtils.getFileExtension(PATH_FILE + "UTF8.txt"));
+    }
 }

@@ -1,18 +1,11 @@
 package com.blankj.utilcode.util;
 
-import org.junit.Assert;
 import org.junit.Test;
 
-import static com.blankj.utilcode.util.StringUtils.equalsIgnoreCase;
-import static com.blankj.utilcode.util.StringUtils.isEmpty;
-import static com.blankj.utilcode.util.StringUtils.isSpace;
-import static com.blankj.utilcode.util.StringUtils.length;
-import static com.blankj.utilcode.util.StringUtils.lowerFirstLetter;
-import static com.blankj.utilcode.util.StringUtils.null2Length0;
-import static com.blankj.utilcode.util.StringUtils.reverse;
-import static com.blankj.utilcode.util.StringUtils.toDBC;
-import static com.blankj.utilcode.util.StringUtils.toSBC;
-import static com.blankj.utilcode.util.StringUtils.upperFirstLetter;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * <pre>
@@ -25,77 +18,77 @@ import static com.blankj.utilcode.util.StringUtils.upperFirstLetter;
 public class StringUtilsTest {
 
     @Test
-    public void testIsEmpty() throws Exception {
-        Assert.assertTrue(isEmpty(""));
-        Assert.assertTrue(isEmpty(null));
-        Assert.assertFalse(isEmpty(" "));
+    public void isEmpty() throws Exception {
+        assertTrue(StringUtils.isEmpty(""));
+        assertTrue(StringUtils.isEmpty(null));
+        assertFalse(StringUtils.isEmpty(" "));
     }
 
     @Test
-    public void testIsSpace() throws Exception {
-        Assert.assertTrue(isSpace(""));
-        Assert.assertTrue(isSpace(null));
-        Assert.assertTrue(isSpace(" "));
-        Assert.assertTrue(isSpace("　 \n\t\r"));
+    public void isSpace() throws Exception {
+        assertTrue(StringUtils.isSpace(""));
+        assertTrue(StringUtils.isSpace(null));
+        assertTrue(StringUtils.isSpace(" "));
+        assertTrue(StringUtils.isSpace("　 \n\t\r"));
     }
 
     @Test
-    public void testEquals() throws Exception {
-        Assert.assertTrue(StringUtils.equals(null, null));
-        Assert.assertTrue(StringUtils.equals("blankj", "blankj"));
-        Assert.assertFalse(StringUtils.equals("blankj", "Blankj"));
+    public void equals() throws Exception {
+        assertTrue(StringUtils.equals(null, null));
+        assertTrue(StringUtils.equals("blankj", "blankj"));
+        assertFalse(StringUtils.equals("blankj", "Blankj"));
     }
 
     @Test
-    public void testEqualsIgnoreCase() throws Exception {
-        Assert.assertTrue(equalsIgnoreCase(null, null));
-        Assert.assertFalse(equalsIgnoreCase(null, "blankj"));
-        Assert.assertTrue(equalsIgnoreCase("blankj", "Blankj"));
-        Assert.assertTrue(equalsIgnoreCase("blankj", "blankj"));
-        Assert.assertFalse(equalsIgnoreCase("blankj", "blank"));
+    public void equalsIgnoreCase() throws Exception {
+        assertTrue(StringUtils.equalsIgnoreCase(null, null));
+        assertFalse(StringUtils.equalsIgnoreCase(null, "blankj"));
+        assertTrue(StringUtils.equalsIgnoreCase("blankj", "Blankj"));
+        assertTrue(StringUtils.equalsIgnoreCase("blankj", "blankj"));
+        assertFalse(StringUtils.equalsIgnoreCase("blankj", "blank"));
     }
 
     @Test
-    public void testNull2Length0() throws Exception {
-        Assert.assertEquals("", null2Length0(null));
+    public void null2Length0() throws Exception {
+        assertEquals("", StringUtils.null2Length0(null));
     }
 
     @Test
-    public void testLength() throws Exception {
-        Assert.assertEquals(0, length(null));
-        Assert.assertEquals(0, length(""));
-        Assert.assertEquals(6, length("blankj"));
+    public void length() throws Exception {
+        assertEquals(0, StringUtils.length(null));
+        assertEquals(0, StringUtils.length(""));
+        assertEquals(6, StringUtils.length("blankj"));
     }
 
     @Test
-    public void testUpperFirstLetter() throws Exception {
-        Assert.assertEquals("Blankj", upperFirstLetter("blankj"));
-        Assert.assertEquals("Blankj", upperFirstLetter("Blankj"));
-        Assert.assertEquals("1Blankj", upperFirstLetter("1Blankj"));
+    public void upperFirstLetter() throws Exception {
+        assertEquals("Blankj", StringUtils.upperFirstLetter("blankj"));
+        assertEquals("Blankj", StringUtils.upperFirstLetter("Blankj"));
+        assertEquals("1Blankj", StringUtils.upperFirstLetter("1Blankj"));
     }
 
     @Test
-    public void testLowerFirstLetter() throws Exception {
-        Assert.assertEquals("blankj", lowerFirstLetter("blankj"));
-        Assert.assertEquals("blankj", lowerFirstLetter("Blankj"));
-        Assert.assertEquals("1blankj", lowerFirstLetter("1blankj"));
+    public void lowerFirstLetter() throws Exception {
+        assertEquals("blankj", StringUtils.lowerFirstLetter("blankj"));
+        assertEquals("blankj", StringUtils.lowerFirstLetter("Blankj"));
+        assertEquals("1blankj", StringUtils.lowerFirstLetter("1blankj"));
     }
 
     @Test
-    public void testReverse() throws Exception {
-        Assert.assertEquals("jknalb", reverse("blankj"));
-        Assert.assertEquals("knalb", reverse("blank"));
-        Assert.assertEquals("文中试测", reverse("测试中文"));
-        Assert.assertNull(reverse(null));
+    public void reverse() throws Exception {
+        assertEquals("jknalb", StringUtils.reverse("blankj"));
+        assertEquals("knalb", StringUtils.reverse("blank"));
+        assertEquals("文中试测", StringUtils.reverse("测试中文"));
+        assertNull(StringUtils.reverse(null));
     }
 
     @Test
-    public void testToDBC() throws Exception {
-        Assert.assertEquals(" ,.&", toDBC("　，．＆"));
+    public void toDBC() throws Exception {
+        assertEquals(" ,.&", StringUtils.toDBC("　，．＆"));
     }
 
     @Test
-    public void testToSBC() throws Exception {
-        Assert.assertEquals("　，．＆", toSBC(" ,.&"));
+    public void toSBC() throws Exception {
+        assertEquals("　，．＆", StringUtils.toSBC(" ,.&"));
     }
 }

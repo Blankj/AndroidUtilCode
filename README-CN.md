@@ -586,14 +586,11 @@ cancel         : 取消吐司显示
 
 * ### 压缩相关→[ZipUtils.java][zip.java]→[Test][zip.test]
 ```
-zipFiles          : 批量压缩文件
 zipFile           : 压缩文件
-unzipFiles        : 批量解压文件
 unzipFile         : 解压文件
 unzipFileByKeyword: 解压带有关键字的文件
 getFilesPath      : 获取压缩文件中的文件路径链表
 getComments       : 获取压缩文件中的注释链表
-getEntries        : 获取压缩文件中的文件对象
 ```
 
 * ### 更新Log→[update_log.md][update_log.md]

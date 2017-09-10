@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.io.FileInputStream;
 
-import static com.blankj.utilcode.util.TestUtils.FILE_SEP;
+import static com.blankj.utilcode.util.TestConfig.TEST_PATH;
 
 /**
  * <pre>
@@ -17,13 +17,10 @@ import static com.blankj.utilcode.util.TestUtils.FILE_SEP;
  */
 public class FileIOUtilsTest {
 
-    String path  = TestUtils.TEST_PATH + FILE_SEP + "file" + FILE_SEP;
-    String path1 = TestUtils.TEST_PATH + FILE_SEP + "file1" + FILE_SEP;
-
     @Test
     public void writeFileFromIS() throws Exception {
-        Assert.assertTrue(FileIOUtils.writeFileFromIS(path + "NEW.txt", new FileInputStream(path + "UTF8.txt"), false));
-        Assert.assertTrue(FileIOUtils.writeFileFromIS(path + "NEW.txt", new FileInputStream(path + "UTF8.txt"), true));
+        Assert.assertTrue(FileIOUtils.writeFileFromIS(TEST_PATH + "NEW.txt", new FileInputStream(TEST_PATH + "UTF8.txt"), false));
+        Assert.assertTrue(FileIOUtils.writeFileFromIS(TEST_PATH + "NEW.txt", new FileInputStream(TEST_PATH + "UTF8.txt"), true));
     }
 
     @Test

@@ -176,13 +176,13 @@ public final class ConvertUtils {
         if (byteNum < 0) {
             return "shouldn't be less than zero!";
         } else if (byteNum < MemoryConstants.KB) {
-            return String.format("%.3fB", (double) byteNum + 0.0005);
+            return String.format("%.3fB", (double) byteNum);
         } else if (byteNum < MemoryConstants.MB) {
-            return String.format("%.3fKB", (double) byteNum / MemoryConstants.KB + 0.0005);
+            return String.format("%.3fKB", (double) byteNum / MemoryConstants.KB);
         } else if (byteNum < MemoryConstants.GB) {
-            return String.format("%.3fMB", (double) byteNum / MemoryConstants.MB + 0.0005);
+            return String.format("%.3fMB", (double) byteNum / MemoryConstants.MB);
         } else {
-            return String.format("%.3fGB", (double) byteNum / MemoryConstants.GB + 0.0005);
+            return String.format("%.3fGB", (double) byteNum / MemoryConstants.GB);
         }
     }
 

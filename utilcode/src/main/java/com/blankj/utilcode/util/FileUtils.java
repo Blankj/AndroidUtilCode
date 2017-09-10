@@ -1077,13 +1077,13 @@ public final class FileUtils {
         if (byteNum < 0) {
             return "shouldn't be less than zero!";
         } else if (byteNum < 1024) {
-            return String.format("%.3fB", (double) byteNum + 0.0005);
+            return String.format("%.3fB", (double) byteNum);
         } else if (byteNum < 1048576) {
-            return String.format("%.3fKB", (double) byteNum / 1024 + 0.0005);
+            return String.format("%.3fKB", (double) byteNum / 1024);
         } else if (byteNum < 1073741824) {
-            return String.format("%.3fMB", (double) byteNum / 1048576 + 0.0005);
+            return String.format("%.3fMB", (double) byteNum / 1048576);
         } else {
-            return String.format("%.3fGB", (double) byteNum / 1073741824 + 0.0005);
+            return String.format("%.3fGB", (double) byteNum / 1073741824);
         }
     }
 

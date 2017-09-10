@@ -9,6 +9,9 @@ import org.robolectric.annotation.Config;
 import java.io.File;
 import java.util.List;
 
+import static com.blankj.utilcode.util.TestConfig.FILE_SEP;
+import static com.blankj.utilcode.util.TestConfig.LINE_SEP;
+
 /**
  * <pre>
  *     author: Blankj
@@ -20,20 +23,6 @@ import java.util.List;
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.NONE)
 public class TestUtils {
-
-    static final String FILE_SEP = System.getProperty("file.separator");
-
-    static final String LINE_SEP = System.getProperty("line.separator");
-
-    static final String TEST_PATH;
-
-    static {
-        String projectPath = System.getProperty("user.dir");
-        if (!projectPath.contains("utilcode")) {
-            projectPath += FILE_SEP + "utilcode";
-        }
-        TEST_PATH = projectPath + FILE_SEP + "src" + FILE_SEP + "test" + FILE_SEP + "res";
-    }
 
     public static void init() {
         Utils.init(RuntimeEnvironment.application);
