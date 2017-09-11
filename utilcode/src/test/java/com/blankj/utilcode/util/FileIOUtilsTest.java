@@ -5,22 +5,23 @@ import org.junit.Test;
 
 import java.io.FileInputStream;
 
-import static com.blankj.utilcode.util.TestConfig.TEST_PATH;
+import static com.blankj.utilcode.util.TestConfig.PATH_FILE;
+import static com.blankj.utilcode.util.TestConfig.PATH_TEMP;
 
 /**
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/05/24
- *     desc  :
+ *     desc  : FileIOUtils单元测试
  * </pre>
  */
 public class FileIOUtilsTest {
 
     @Test
     public void writeFileFromIS() throws Exception {
-        Assert.assertTrue(FileIOUtils.writeFileFromIS(TEST_PATH + "NEW.txt", new FileInputStream(TEST_PATH + "UTF8.txt"), false));
-        Assert.assertTrue(FileIOUtils.writeFileFromIS(TEST_PATH + "NEW.txt", new FileInputStream(TEST_PATH + "UTF8.txt"), true));
+        Assert.assertTrue(FileIOUtils.writeFileFromIS(PATH_TEMP + "UTF8.txt", new FileInputStream(PATH_FILE + "UTF8.txt"), false));
+        Assert.assertTrue(FileIOUtils.writeFileFromIS(PATH_TEMP + "UTF8.txt", new FileInputStream(PATH_FILE + "UTF8.txt"), true));
     }
 
     @Test

@@ -8,8 +8,7 @@ import org.robolectric.annotation.Config;
 import java.io.File;
 import java.util.Arrays;
 
-import static com.blankj.utilcode.util.TestConfig.FILE_SEP;
-import static com.blankj.utilcode.util.TestConfig.TEST_PATH;
+import static com.blankj.utilcode.util.TestConfig.PATH_ENCRYPT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -428,14 +427,12 @@ public class EncryptUtilsTest {
         );
     }
 
-    private String path = TEST_PATH + FILE_SEP + "encrypt" + FILE_SEP;
-
     @Test
     public void encryptMD5File() throws Exception {
         String fileMd5 = "7f138a09169b250e9dcb378140907378";
         assertEquals(
                 fileMd5.toUpperCase(),
-                EncryptUtils.encryptMD5File2String(new File(path + "MD5.txt"))
+                EncryptUtils.encryptMD5File2String(new File(PATH_ENCRYPT + "MD5.txt"))
         );
     }
 }

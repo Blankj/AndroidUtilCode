@@ -5,7 +5,7 @@ package com.blankj.utilcode.util;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/09/10
- *     desc  :
+ *     desc  : 单元测试配置文件
  * </pre>
  */
 public class TestConfig {
@@ -21,14 +21,16 @@ public class TestConfig {
         if (!projectPath.contains("utilcode")) {
             projectPath += FILE_SEP + "utilcode";
         }
-        TEST_PATH = projectPath + FILE_SEP + "src" + FILE_SEP + "test" + FILE_SEP + "res";
+        TEST_PATH = projectPath + FILE_SEP + "src" + FILE_SEP + "test" + FILE_SEP + "res" + FILE_SEP;
     }
 
-    static final String PATH_TEMP = TEST_PATH + FILE_SEP + "temp" + FILE_SEP;
+    static final String PATH_TEMP = TEST_PATH + "temp" + FILE_SEP;
 
-    static final String PATH_CACHE = TEST_PATH + FILE_SEP + "cache" + FILE_SEP;
+    static final String PATH_CACHE = TEST_PATH + "cache" + FILE_SEP;
 
-    static final String PATH_FILE = TEST_PATH + FILE_SEP + "file" + FILE_SEP;
+    static final String PATH_ENCRYPT = TEST_PATH + "encrypt" + FILE_SEP;
 
-    static final String PATH_ZIP = TEST_PATH + FILE_SEP + "zip" + FILE_SEP;
+    static final String PATH_FILE = TEST_PATH + "file" + FILE_SEP;
+
+    static final String PATH_ZIP = TEST_PATH + "zip" + FILE_SEP;
 }
