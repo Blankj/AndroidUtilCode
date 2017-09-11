@@ -1,5 +1,6 @@
 package com.blankj.utilcode.util;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -88,6 +89,11 @@ public class FileIOUtilsTest {
 //        FileIOUtils.readFile2BytesByMap(p);
 //        end = System.currentTimeMillis();
 //        System.out.println(end - st);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        FileUtils.deleteAllInDir(PATH_TEMP);
     }
 
 }
