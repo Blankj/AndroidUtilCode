@@ -12,6 +12,7 @@
         style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="start"
         android:layerType="software" />
 
     <TextView
@@ -19,6 +20,7 @@
         style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true" />
+        android:clickable="true"
+        android:gravity="start" />
 
 </LinearLayout>
