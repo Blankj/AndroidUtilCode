@@ -213,7 +213,22 @@ public final class LogUtils {
             final StackTraceElement[] stackTrace = new Throwable().getStackTrace();
             StackTraceElement targetElement = stackTrace[3];
             String fileName = targetElement.getFileName();
-            String className = fileName.substring(0, fileName.indexOf('.'));
+            String className;
+            if (fileName == null) {// 混淆可能会导致获取为空 加-keepattributes SourceFile,LineNumberTable
+                className = targetElement.getClassName();
+                String[] classNameInfo = className.split("\\.");
+                if (classNameInfo.length > 0) {
+                    className = classNameInfo[classNameInfo.length - 1];
+                }
+                int index = className.indexOf('$');
+                if (index != -1) {
+                    className = className.substring(0, index);
+                }
+                fileName = className + ".java";
+            } else {
+                int index = fileName.indexOf('.');// 混淆可能导致文件名被改变从而找不到"."
+                className = index == -1 ? fileName : fileName.substring(0, index);
+            }
             if (sTagIsSpace) tag = isSpace(tag) ? className : tag;
             if (sLogHeadSwitch) {
                 String tName = Thread.currentThread().getName();
