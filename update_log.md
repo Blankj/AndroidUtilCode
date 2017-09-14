@@ -1,3 +1,5 @@
+* 17/09/13 完善ImageUtils和LogUtils
+* 17/09/12 完善ImageUtils
 * 17/09/10 完善单元测试
 * 17/09/08 完善单元测试
 * 17/09/06 完善SDCardUtils获取SD卡路径，完善SPUtils新增commit
