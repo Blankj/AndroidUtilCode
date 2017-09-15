@@ -275,11 +275,14 @@ skew                            : 倾斜图片
 rotate                          : 旋转图片
 getRotateDegree                 : 获取图片旋转角度
 toRound                         : 转为圆形图片
+toRoundDrawable                 : 转为圆形图片
 toRoundCorner                   : 转为圆角图片
+toRoundCornerDrawable           : 转为圆角图片
 fastBlur                        : 快速模糊
 renderScriptBlur                : renderScript模糊图片
 stackBlur                       : stack模糊图片
-addFrame                        : 添加颜色边框
+addCornerBorder                 : 添加圆角边框
+addCircleBorder                 : 添加圆形边框
 addReflection                   : 添加倒影
 addTextWatermark                : 添加文字水印
 addImageWatermark               : 添加图片水印
