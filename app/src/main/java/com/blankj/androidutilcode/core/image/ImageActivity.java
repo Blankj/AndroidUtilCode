@@ -5,13 +5,18 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 
+import com.blankj.androidutilcode.Config;
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.utilcode.util.ImageUtils;
-import com.blankj.utilcode.util.SizeUtils;
+import com.blankj.utilcode.util.ToastUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <pre>
@@ -23,8 +28,8 @@ import com.blankj.utilcode.util.SizeUtils;
  */
 public class ImageActivity extends BaseBackActivity {
 
-    private ImageView ivSrc;
-    private ImageView ivView2Bitmap;
+    Bitmap src;
+    List<ImageBean> mList = new ArrayList<>();
 
     public static void start(Context context) {
         Intent starter = new Intent(context, ImageActivity.class);
@@ -45,39 +50,41 @@ public class ImageActivity extends BaseBackActivity {
     public void initView(Bundle savedInstanceState, View view) {
         getToolBar().setTitle(getString(R.string.demo_image));
 
-        ivSrc = (ImageView) findViewById(R.id.iv_src);
-        ivView2Bitmap = (ImageView) findViewById(R.id.iv_view2Bitmap);
-        ImageView ivRound = (ImageView) findViewById(R.id.iv_round);
-        ImageView ivRoundCorner = (ImageView) findViewById(R.id.iv_round_corner);
-        ImageView ivFastBlur = (ImageView) findViewById(R.id.iv_fast_blur);
-        ImageView ivRenderScriptBlur = (ImageView) findViewById(R.id.iv_render_script_blur);
-        ImageView ivStackBlur = (ImageView) findViewById(R.id.iv_stack_blur);
-        ImageView ivAddFrame = (ImageView) findViewById(R.id.iv_add_frame);
-        ImageView ivAddReflection = (ImageView) findViewById(R.id.iv_add_reflection);
-        ImageView ivAddTextWatermark = (ImageView) findViewById(R.id.iv_add_text_watermark);
-        ImageView ivAddImageWatermark = (ImageView) findViewById(R.id.iv_add_image_watermark);
-        ImageView ivGray = (ImageView) findViewById(R.id.iv_gray);
+        RecyclerView rvImages = (RecyclerView) findViewById(R.id.rv_images);
+        findViewById(R.id.btn_save).setOnClickListener(this);
 
-        Bitmap src = ImageUtils.getBitmap(R.drawable.img_lena);
+        src = ImageUtils.getBitmap(R.drawable.img_lena);
+        Bitmap round = ImageUtils.getBitmap(R.drawable.avatar_round);
         Bitmap watermark = ImageUtils.getBitmap(R.mipmap.ic_launcher);
 
-        SizeUtils.forceGetViewSize(ivSrc, new SizeUtils.onGetSizeListener() {
-            @Override
-            public void onGetSize(View view) {
-                ivView2Bitmap.setImageBitmap(ImageUtils.view2Bitmap(ivSrc));
-            }
-        });
-        ivRound.setImageBitmap(ImageUtils.toRound(src));
-        ivRoundCorner.setImageBitmap(ImageUtils.toRoundCorner(src, 60));
-        ivFastBlur.setImageBitmap(ImageUtils.fastBlur(src, 0.1f, 5));
-        ivRenderScriptBlur.setImageBitmap(ImageUtils.renderScriptBlur(src, 10));
-        src = ImageUtils.getBitmap(R.drawable.img_lena);
-        ivStackBlur.setImageBitmap(ImageUtils.stackBlur(src, 10, false));
-        ivAddFrame.setImageBitmap(ImageUtils.addFrame(src, 16, Color.GREEN));
-        ivAddReflection.setImageBitmap(ImageUtils.addReflection(src, 80));
-        ivAddTextWatermark.setImageBitmap(ImageUtils.addTextWatermark(src, "blankj", 40, 0x8800ff00, 0, 0));
-        ivAddImageWatermark.setImageBitmap(ImageUtils.addImageWatermark(src, watermark, 0, 0, 0x88));
-        ivGray.setImageBitmap(ImageUtils.toGray(src));
+        int width = src.getWidth();
+        int height = src.getHeight();
+
+        mList.add(new ImageBean(R.string.image_compress_by_quality, ImageUtils.compressByQuality(src, 3706L)));
+        ImageUtils.save(ImageUtils.compressByQuality(src, 3706L), getExternalCacheDir() + "/low.jpg", Bitmap.CompressFormat.JPEG);
+        ImageUtils.save(ImageUtils.compressByQuality(src, 195752L), getExternalCacheDir() + "/high.jpg", Bitmap.CompressFormat.JPEG);
+
+        mList.add(new ImageBean(R.string.image_src, src));
+        mList.add(new ImageBean(R.string.image_scale, ImageUtils.scale(src, width / 2, height / 2)));
+        mList.add(new ImageBean(R.string.image_clip, ImageUtils.clip(src, 0, 0, width / 2, height / 2)));
+        mList.add(new ImageBean(R.string.image_skew, ImageUtils.skew(src, 0.2f, 0.1f)));
+        mList.add(new ImageBean(R.string.image_rotate, ImageUtils.rotate(src, 90, width / 2, height / 2)));
+        mList.add(new ImageBean(R.string.image_to_round, ImageUtils.toRound(src)));
+        mList.add(new ImageBean(R.string.image_to_round_border, ImageUtils.toRound(src, 16, Color.GREEN)));
+        mList.add(new ImageBean(R.string.image_to_round_corner, ImageUtils.toRoundCorner(src, 80)));
+        mList.add(new ImageBean(R.string.image_to_round_corner_border, ImageUtils.toRoundCorner(src, 80, 16, Color.GREEN)));
+        mList.add(new ImageBean(R.string.image_add_corner_border, ImageUtils.addCornerBorder(src, 16, Color.GREEN, 0)));
+        mList.add(new ImageBean(R.string.image_add_circle_border, ImageUtils.addCircleBorder(round, 16, Color.GREEN)));
+        mList.add(new ImageBean(R.string.image_add_reflection, ImageUtils.addReflection(src, 80)));
+        mList.add(new ImageBean(R.string.image_add_text_watermark, ImageUtils.addTextWatermark(src, "blankj", 40, Color.GREEN, 0, 0)));
+        mList.add(new ImageBean(R.string.image_add_image_watermark, ImageUtils.addImageWatermark(src, watermark, 0, 0, 0x88)));
+        mList.add(new ImageBean(R.string.image_to_gray, ImageUtils.toGray(src)));
+        mList.add(new ImageBean(R.string.image_fast_blur, ImageUtils.fastBlur(src, 0.1f, 5)));
+        mList.add(new ImageBean(R.string.image_render_script_blur, ImageUtils.renderScriptBlur(src, 10)));
+        mList.add(new ImageBean(R.string.image_stack_blur, ImageUtils.stackBlur(src, 10)));
+
+        rvImages.setAdapter(new ImageAdapter(mList, R.layout.item_image));
+        rvImages.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -87,6 +94,11 @@ public class ImageActivity extends BaseBackActivity {
 
     @Override
     public void onWidgetClick(View view) {
-
+        switch (view.getId()) {
+            case R.id.btn_save:
+                boolean save = ImageUtils.save(src, Config.CACHE_PATH + "lena.jpg", Bitmap.CompressFormat.JPEG);
+                ToastUtils.showLong(save ? "successful" : "failed");
+                break;
+        }
     }
 }

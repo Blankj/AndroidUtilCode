@@ -77,6 +77,29 @@
     <string name="fragment_replace">Replace</string>
     <string name="fragment_transition">Transition</string>
 
+    <!--Image相关-->
+    <string name="image_src">Src</string>
+    <string name="image_scale">Scale</string>
+    <string name="image_clip">Clip</string>
+    <string name="image_skew">Skew</string>
+    <string name="image_rotate">Rotate</string>
+    <string name="image_to_round">To Round</string>
+    <string name="image_to_round_border">To Round Border</string>
+    <string name="image_to_round_corner">To Round Corner</string>
+    <string name="image_to_round_corner_border">To Round Corner Border</string>
+    <string name="image_add_corner_border">Add Corner Border</string>
+    <string name="image_add_circle_border">Add Circle Border</string>
+    <string name="image_add_reflection">Add Reflection</string>
+    <string name="image_add_text_watermark">Add Text Watermark</string>
+    <string name="image_add_image_watermark">Add Image Watermark</string>
+    <string name="image_to_gray">Gray</string>
+    <string name="image_fast_blur">Fast Blur</string>
+    <string name="image_render_script_blur">Render Script Blur</string>
+    <string name="image_stack_blur">Stack Blur</string>
+    <string name="image_save">Save</string>
+    <string name="image_compress_by_quality">Compress By Quality</string>
+
+
     <!--Network相关-->
     <string name="network_open_wireless_settings">Open Wireless Settings</string>
     <string name="network_set_data_enabled">Set Data Enabled</string>

@@ -19,10 +19,6 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="TextStyle.Font">
-        <item name="android:textSize">@dimen/font_40</item>
-    </style>
-
     <style name="WideBtnStyle">
         <item name="android:textSize">@dimen/font_24</item>
         <item name="android:textColor">@color/light_black</item>

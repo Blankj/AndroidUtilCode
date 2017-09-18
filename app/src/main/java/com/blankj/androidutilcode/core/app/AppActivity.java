@@ -74,7 +74,7 @@ public class AppActivity extends BaseBackActivity {
                 if (AppUtils.isInstallApp(Config.TEST_PKG)) {
                     ToastUtils.showShort(R.string.app_install_tips);
                 } else {
-                    AppUtils.installApp(Config.getTestApkPath(), "com.blankj.androidutilcode.provider");
+                    AppUtils.installApp(Config.TEST_APK_PATH, "com.blankj.androidutilcode.provider");
                 }
                 break;
             case R.id.btn_install_app_silent:
@@ -84,7 +84,7 @@ public class AppActivity extends BaseBackActivity {
                         if (AppUtils.isInstallApp(Config.TEST_PKG)) {
                             ToastUtils.showShort(R.string.app_install_tips);
                         } else {
-                            if (AppUtils.installAppSilent(Config.getTestApkPath())) {
+                            if (AppUtils.installAppSilent(Config.TEST_APK_PATH)) {
                                 ToastUtils.showShort(R.string.install_successfully);
                             } else {
                                 ToastUtils.showShort(R.string.install_unsuccessfully);

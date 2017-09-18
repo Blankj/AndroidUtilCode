@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/tv_about_activity"
-        style="@style/TextStyle.Font"
+        style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

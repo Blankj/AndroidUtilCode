@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
           package="com.blankj.androidutilcode">
 
     <!--bar-->
@@ -65,8 +64,7 @@
         </activity>
 
         <!--core-->
-        <activity
-            android:name=".core.main.CoreUtilActivity" />
+        <activity android:name=".core.main.CoreUtilActivity" />
         <activity android:name=".core.activity.ActivityActivity" />
         <activity android:name=".core.app.AppActivity" />
         <activity android:name=".core.bar.BarActivity" />
@@ -92,7 +90,12 @@
         <activity android:name=".core.screen.ScreenActivity" />
         <activity android:name=".core.sdcard.SDCardActivity" />
         <activity android:name=".core.snackbar.SnackbarActivity" />
-        <activity android:name=".core.span.SpanActivity" />
+        <activity android:name=".core.span.SpanActivity">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
         <activity android:name=".core.toast.ToastActivity" />
 
         <provider

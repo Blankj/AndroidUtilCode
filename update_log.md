@@ -1,3 +1,7 @@
+* 17/09/18 完善ImageUtils的Demo
+* 17/09/17 完善ImageUtils的compress
+* 17/09/13 完善ImageUtils的addBorder
+* 17/09/13 完善ImageUtils的toRound
 * 17/09/13 完善ImageUtils和LogUtils
 * 17/09/12 完善ImageUtils
 * 17/09/10 完善单元测试
