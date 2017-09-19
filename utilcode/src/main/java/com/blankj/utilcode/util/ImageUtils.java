@@ -1,6 +1,7 @@
 package com.blankj.utilcode.util;
 
 import android.annotation.TargetApi;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -34,13 +35,11 @@ import android.support.annotation.IntRange;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -170,16 +169,25 @@ public final class ImageUtils {
      */
     public static Bitmap getBitmap(final File file) {
         if (file == null) return null;
-        InputStream is = null;
-        try {
-            is = new BufferedInputStream(new FileInputStream(file));
-            return BitmapFactory.decodeStream(is);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            CloseUtils.closeIO(is);
-        }
+        return BitmapFactory.decodeFile(file.getAbsolutePath());
+    }
+
+    /**
+     * 获取bitmap
+     *
+     * @param file      文件
+     * @param maxWidth  最大宽度
+     * @param maxHeight 最大高度
+     * @return bitmap
+     */
+    public static Bitmap getBitmap(final File file, final int maxWidth, final int maxHeight) {
+        if (file == null) return null;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(file.getAbsolutePath(), options);
     }
 
     /**
@@ -196,12 +204,48 @@ public final class ImageUtils {
     /**
      * 获取bitmap
      *
+     * @param filePath  文件路径
+     * @param maxWidth  最大宽度
+     * @param maxHeight 最大高度
+     * @return bitmap
+     */
+    public static Bitmap getBitmap(final String filePath, final int maxWidth, final int maxHeight) {
+        if (isSpace(filePath)) return null;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(filePath, options);
+        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(filePath, options);
+    }
+
+    /**
+     * 获取bitmap
+     *
      * @param is 输入流
      * @return bitmap
      */
     public static Bitmap getBitmap(final InputStream is) {
         if (is == null) return null;
         return BitmapFactory.decodeStream(is);
+    }
+
+    /**
+     * 获取bitmap
+     *
+     * @param is        输入流
+     * @param maxWidth  最大宽度
+     * @param maxHeight 最大高度
+     * @return bitmap
+     */
+    public static Bitmap getBitmap(final InputStream is, final int maxWidth, final int maxHeight) {
+        if (is == null) return null;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeStream(is, null, options);
+        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeStream(is, null, options);
     }
 
     /**
@@ -214,6 +258,25 @@ public final class ImageUtils {
     public static Bitmap getBitmap(final byte[] data, final int offset) {
         if (data.length == 0) return null;
         return BitmapFactory.decodeByteArray(data, offset, data.length);
+    }
+
+    /**
+     * 获取bitmap
+     *
+     * @param data      数据
+     * @param offset    偏移量
+     * @param maxWidth  最大宽度
+     * @param maxHeight 最大高度
+     * @return bitmap
+     */
+    public static Bitmap getBitmap(final byte[] data, final int offset, final int maxWidth, final int maxHeight) {
+        if (data.length == 0) return null;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeByteArray(data, offset, data.length, options);
+        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeByteArray(data, offset, data.length, options);
     }
 
     /**
@@ -235,12 +298,48 @@ public final class ImageUtils {
     /**
      * 获取bitmap
      *
+     * @param resId     资源id
+     * @param maxWidth  最大宽度
+     * @param maxHeight 最大高度
+     * @return bitmap
+     */
+    public static Bitmap getBitmap(@DrawableRes final int resId, final int maxWidth, final int maxHeight) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        final Resources resources = Utils.getApp().getResources();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(resources, resId, options);
+        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeResource(resources, resId, options);
+    }
+
+    /**
+     * 获取bitmap
+     *
      * @param fd 文件描述
      * @return bitmap
      */
     public static Bitmap getBitmap(final FileDescriptor fd) {
         if (fd == null) return null;
         return BitmapFactory.decodeFileDescriptor(fd);
+    }
+
+    /**
+     * 获取bitmap
+     *
+     * @param fd        文件描述
+     * @param maxWidth  最大宽度
+     * @param maxHeight 最大高度
+     * @return bitmap
+     */
+    public static Bitmap getBitmap(final FileDescriptor fd, final int maxWidth, final int maxHeight) {
+        if (fd == null) return null;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFileDescriptor(fd, null, options);
+        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFileDescriptor(fd, null, options);
     }
 
     /**
@@ -1592,6 +1691,41 @@ public final class ImageUtils {
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
     }
 
+    /**
+     * 按采样大小压缩
+     *
+     * @param src       源图片
+     * @param maxWidth  最大宽度
+     * @param maxHeight 最大高度
+     * @return 按采样率压缩后的图片
+     */
+    public static Bitmap compressBySampleSize(final Bitmap src, final int maxWidth, final int maxHeight) {
+        return compressBySampleSize(src, maxWidth, maxHeight, false);
+    }
+
+    /**
+     * 按采样大小压缩
+     *
+     * @param src       源图片
+     * @param maxWidth  最大宽度
+     * @param maxHeight 最大高度
+     * @param recycle   是否回收
+     * @return 按采样率压缩后的图片
+     */
+    public static Bitmap compressBySampleSize(final Bitmap src, final int maxWidth, final int maxHeight, final boolean recycle) {
+        if (isEmptyBitmap(src)) return null;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        src.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] bytes = baos.toByteArray();
+        BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
+        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
+        options.inJustDecodeBounds = false;
+        if (recycle && !src.isRecycled()) src.recycle();
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
+    }
+
     private static File getFileByPath(final String filePath) {
         return isSpace(filePath) ? null : new File(filePath);
     }
@@ -1631,12 +1765,13 @@ public final class ImageUtils {
      * @param maxHeight 最大高度
      * @return 采样大小
      */
-    private static int calculateInSampleSize(final BitmapFactory.Options options, final int maxWidth, final int maxHeight) {
-        if (maxWidth == 0 || maxHeight == 0) return 1;
+    private static int calculateInSampleSize(final BitmapFactory.Options options,
+                                             final int maxWidth,
+                                             final int maxHeight) {
         int height = options.outHeight;
         int width = options.outWidth;
         int inSampleSize = 1;
-        while ((height >>= 1) > maxHeight && (width >>= 1) > maxWidth) {
+        while ((width >>= 1) >= maxWidth && (height >>= 1) >= maxHeight) {
             inSampleSize <<= 1;
         }
         return inSampleSize;

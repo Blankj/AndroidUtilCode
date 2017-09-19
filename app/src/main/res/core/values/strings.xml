@@ -97,7 +97,10 @@
     <string name="image_render_script_blur">Render Script Blur</string>
     <string name="image_stack_blur">Stack Blur</string>
     <string name="image_save">Save</string>
-    <string name="image_compress_by_quality">Compress By Quality</string>
+    <string name="image_compress_by_scale">Compress By Scale</string>
+    <string name="image_compress_by_quality_half">Compress By Quality Half</string>
+    <string name="image_compress_by_quality_max_size">Compress By Quality Max Size</string>
+    <string name="image_compress_by_sample_size">Compress By Sample Size</string>
 
 
     <!--Network相关-->

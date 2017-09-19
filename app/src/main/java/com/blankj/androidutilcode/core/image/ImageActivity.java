@@ -60,10 +60,6 @@ public class ImageActivity extends BaseBackActivity {
         int width = src.getWidth();
         int height = src.getHeight();
 
-        mList.add(new ImageBean(R.string.image_compress_by_quality, ImageUtils.compressByQuality(src, 3706L)));
-        ImageUtils.save(ImageUtils.compressByQuality(src, 3706L), getExternalCacheDir() + "/low.jpg", Bitmap.CompressFormat.JPEG);
-        ImageUtils.save(ImageUtils.compressByQuality(src, 195752L), getExternalCacheDir() + "/high.jpg", Bitmap.CompressFormat.JPEG);
-
         mList.add(new ImageBean(R.string.image_src, src));
         mList.add(new ImageBean(R.string.image_scale, ImageUtils.scale(src, width / 2, height / 2)));
         mList.add(new ImageBean(R.string.image_clip, ImageUtils.clip(src, 0, 0, width / 2, height / 2)));
@@ -82,6 +78,10 @@ public class ImageActivity extends BaseBackActivity {
         mList.add(new ImageBean(R.string.image_fast_blur, ImageUtils.fastBlur(src, 0.1f, 5)));
         mList.add(new ImageBean(R.string.image_render_script_blur, ImageUtils.renderScriptBlur(src, 10)));
         mList.add(new ImageBean(R.string.image_stack_blur, ImageUtils.stackBlur(src, 10)));
+        mList.add(new ImageBean(R.string.image_compress_by_scale, ImageUtils.compressByScale(src, 0.5f, 0.5f)));
+        mList.add(new ImageBean(R.string.image_compress_by_quality_half, ImageUtils.compressByQuality(src, 50)));
+        mList.add(new ImageBean(R.string.image_compress_by_quality_max_size, ImageUtils.compressByQuality(src, 10L * 1024)));// 10Kb
+        mList.add(new ImageBean(R.string.image_compress_by_sample_size, ImageUtils.compressBySampleSize(src, 2)));
 
         rvImages.setAdapter(new ImageAdapter(mList, R.layout.item_image));
         rvImages.setLayoutManager(new LinearLayoutManager(this));

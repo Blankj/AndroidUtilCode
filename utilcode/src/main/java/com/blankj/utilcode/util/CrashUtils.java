@@ -125,7 +125,7 @@ public final class CrashUtils {
      * @return {@code true}: 初始化成功<br>{@code false}: 初始化失败
      */
     public static boolean init(@NonNull final File crashDir) {
-        return init(crashDir.getAbsolutePath() + FILE_SEP);
+        return init(crashDir.getAbsolutePath());
     }
 
     /**
@@ -139,7 +139,7 @@ public final class CrashUtils {
         if (isSpace(crashDir)) {
             dir = null;
         } else {
-            dir = crashDir.endsWith(FILE_SEP) ? dir : dir + FILE_SEP;
+            dir = crashDir.endsWith(FILE_SEP) ? crashDir : crashDir + FILE_SEP;
         }
         if (mInitialized) return true;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
