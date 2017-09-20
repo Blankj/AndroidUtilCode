@@ -28,28 +28,24 @@ import java.lang.ref.WeakReference;
  */
 public final class SnackbarUtils {
 
-    private static final int DEFAULT_COLOR = 0xFEFFFFFF;
-
     public static final int LENGTH_INDEFINITE = -2;
-
-    public static final int LENGTH_SHORT = -1;
-
-    public static final int LENGTH_LONG = 0;
+    public static final int LENGTH_SHORT      = -1;
+    public static final int LENGTH_LONG       = 0;
 
     @IntDef({LENGTH_INDEFINITE, LENGTH_SHORT, LENGTH_LONG})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Duration {
     }
 
-    private static final int SUCCESS = 0xFF2BB600;
-    private static final int WARNING = 0xFFFFC100;
-    private static final int ERROR   = 0xFFFF0000;
-    private static final int MESSAGE = 0xFFFFFFFF;
+    private static final int COLOR_DEFAULT = 0xFEFFFFFF;
+    private static final int COLOR_SUCCESS = 0xFF2BB600;
+    private static final int COLOR_WARNING = 0xFFFFC100;
+    private static final int COLOR_ERROR   = 0xFFFF0000;
+    private static final int COLOR_MESSAGE = 0xFFFFFFFF;
 
     private static WeakReference<Snackbar> snackbarWeakReference;
 
-    private WeakReference<View> parent;
-
+    private View                 parent;
     private CharSequence         message;
     private int                  messageColor;
     private int                  bgColor;
@@ -62,17 +58,17 @@ public final class SnackbarUtils {
 
     private SnackbarUtils(final View parent) {
         setDefault();
-        this.parent = new WeakReference<>(parent);
+        this.parent = parent;
     }
 
     private void setDefault() {
         message = "";
-        messageColor = DEFAULT_COLOR;
-        bgColor = DEFAULT_COLOR;
+        messageColor = COLOR_DEFAULT;
+        bgColor = COLOR_DEFAULT;
         bgResource = -1;
         duration = LENGTH_SHORT;
         actionText = "";
-        actionTextColor = DEFAULT_COLOR;
+        actionTextColor = COLOR_DEFAULT;
         bottomMargin = 0;
     }
 
@@ -154,7 +150,7 @@ public final class SnackbarUtils {
      * @return {@link SnackbarUtils}
      */
     public SnackbarUtils setAction(@NonNull final CharSequence text, @NonNull final View.OnClickListener listener) {
-        return setAction(text, DEFAULT_COLOR, listener);
+        return setAction(text, COLOR_DEFAULT, listener);
     }
 
     /**
@@ -187,9 +183,9 @@ public final class SnackbarUtils {
      * 显示snackbar
      */
     public void show() {
-        final View view = parent.get();
+        final View view = parent;
         if (view == null) return;
-        if (messageColor != DEFAULT_COLOR) {
+        if (messageColor != COLOR_DEFAULT) {
             SpannableString spannableString = new SpannableString(message);
             ForegroundColorSpan colorSpan = new ForegroundColorSpan(messageColor);
             spannableString.setSpan(colorSpan, 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -201,7 +197,7 @@ public final class SnackbarUtils {
         final View snackbarView = snackbar.getView();
         if (bgResource != -1) {
             snackbarView.setBackgroundResource(bgResource);
-        } else if (bgColor != DEFAULT_COLOR) {
+        } else if (bgColor != COLOR_DEFAULT) {
             snackbarView.setBackgroundColor(bgColor);
         }
         if (bottomMargin != 0) {
@@ -209,7 +205,7 @@ public final class SnackbarUtils {
             params.bottomMargin = bottomMargin;
         }
         if (actionText.length() > 0 && actionListener != null) {
-            if (actionTextColor != DEFAULT_COLOR) {
+            if (actionTextColor != COLOR_DEFAULT) {
                 snackbar.setActionTextColor(actionTextColor);
             }
             snackbar.setAction(actionText, actionListener);
@@ -221,9 +217,9 @@ public final class SnackbarUtils {
      * 显示预设成功的snackbar
      */
     public void showSuccess() {
-        bgColor = SUCCESS;
-        messageColor = MESSAGE;
-        actionTextColor = MESSAGE;
+        bgColor = COLOR_SUCCESS;
+        messageColor = COLOR_MESSAGE;
+        actionTextColor = COLOR_MESSAGE;
         show();
     }
 
@@ -231,9 +227,9 @@ public final class SnackbarUtils {
      * 显示预设警告的snackbar
      */
     public void showWarning() {
-        bgColor = WARNING;
-        messageColor = MESSAGE;
-        actionTextColor = MESSAGE;
+        bgColor = COLOR_WARNING;
+        messageColor = COLOR_MESSAGE;
+        actionTextColor = COLOR_MESSAGE;
         show();
     }
 
@@ -241,9 +237,9 @@ public final class SnackbarUtils {
      * 显示预设错误的snackbar
      */
     public void showError() {
-        bgColor = ERROR;
-        messageColor = MESSAGE;
-        actionTextColor = MESSAGE;
+        bgColor = COLOR_ERROR;
+        messageColor = COLOR_MESSAGE;
+        actionTextColor = COLOR_MESSAGE;
         show();
     }
 

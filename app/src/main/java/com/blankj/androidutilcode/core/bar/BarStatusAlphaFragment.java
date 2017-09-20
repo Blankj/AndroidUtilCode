@@ -1,4 +1,4 @@
-package com.blankj.androidutilcode.core.fragment;
+package com.blankj.androidutilcode.core.bar;
 
 import android.os.Bundle;
 import android.view.View;

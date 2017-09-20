@@ -10,6 +10,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.AnimRes;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
+import android.view.View;
 
 import java.util.List;
 
@@ -92,6 +95,21 @@ public final class ActivityUtils {
     /**
      * 启动Activity
      *
+     * @param activity      activity
+     * @param cls           activity类
+     * @param sharedElement 共享元素View
+     */
+    public static void startActivity(@NonNull final Activity activity,
+                                     @NonNull final Class<?> cls,
+                                     @NonNull final View... sharedElement) {
+        ActivityOptionsCompat options = getOptions(activity, sharedElement);
+        startActivity(activity, null, activity.getPackageName(), cls.getName(),
+                options == null ? null : options.toBundle());
+    }
+
+    /**
+     * 启动Activity
+     *
      * @param activity  activity
      * @param cls       activity类
      * @param enterAnim 入场动画
@@ -157,6 +175,23 @@ public final class ActivityUtils {
                                      @NonNull final Class<?> cls,
                                      @NonNull final Bundle options) {
         startActivity(activity, extras, activity.getPackageName(), cls.getName(), options);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param extras        extras
+     * @param activity      activity
+     * @param cls           activity类
+     * @param sharedElement 共享元素View
+     */
+    public static void startActivity(@NonNull final Bundle extras,
+                                     @NonNull final Activity activity,
+                                     @NonNull final Class<?> cls,
+                                     @NonNull final View... sharedElement) {
+        ActivityOptionsCompat options = getOptions(activity, sharedElement);
+        startActivity(activity, extras, activity.getPackageName(), cls.getName(),
+                options == null ? null : options.toBundle());
     }
 
     /**
@@ -389,5 +424,20 @@ public final class ActivityUtils {
             activityList.get(i).finish();
             activityList.remove(i);
         }
+    }
+
+    private static ActivityOptionsCompat getOptions(@NonNull Activity activity, @NonNull View[] sharedElement) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            int len = sharedElement.length;
+            Pair<View, String>[] pairs = new Pair[len];
+            for (int i = 0; i < len; i++) {
+
+                pairs[i] = new Pair<>(sharedElement[i], sharedElement[i].getTransitionName());
+            }
+            return ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    activity, pairs
+            );
+        }
+        return null;
     }
 }

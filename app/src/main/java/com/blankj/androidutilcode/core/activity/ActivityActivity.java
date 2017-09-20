@@ -22,6 +22,8 @@ import com.blankj.utilcode.util.ActivityUtils;
  */
 public class ActivityActivity extends BaseBackActivity {
 
+    View viewSharedElement;
+
     public static void start(Context context) {
         Intent starter = new Intent(context, ActivityActivity.class);
         context.startActivity(starter);
@@ -41,8 +43,9 @@ public class ActivityActivity extends BaseBackActivity {
     @Override
     public void initView(Bundle savedInstanceState, View view) {
         getToolBar().setTitle(getString(R.string.demo_activity));
-
-        findViewById(R.id.btn_launch_image_activity).setOnClickListener(this);
+        viewSharedElement = findViewById(R.id.view_shared_element);
+        findViewById(R.id.btn_start_image_activity).setOnClickListener(this);
+        findViewById(R.id.btn_shared_element).setOnClickListener(this);
         findViewById(R.id.btn_finish_all_activity).setOnClickListener(this);
         TextView tvAboutActivity = (TextView) findViewById(R.id.tv_about_activity);
         tvAboutActivity.setText("Is ImageActivity Exists: " + ActivityUtils.isActivityExists(Config.PKG, ImageActivity.class.getName())
@@ -59,8 +62,11 @@ public class ActivityActivity extends BaseBackActivity {
     @Override
     public void onWidgetClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_launch_image_activity:
+            case R.id.btn_start_image_activity:
                 ActivityUtils.startActivity(Config.PKG, ImageActivity.class.getName());
+                break;
+            case R.id.btn_shared_element:
+                ActivityUtils.startActivity(this, SharedElementActivityActivity.class, viewSharedElement);
                 break;
             case R.id.btn_finish_all_activity:
                 ActivityUtils.finishAllActivities();

@@ -30,7 +30,7 @@ import java.lang.ref.WeakReference;
  */
 public final class ToastUtils {
 
-    private static final int     DEFAULT_COLOR = 0xFEFFFFFF;
+    private static final int     COLOR_DEFAULT = 0xFEFFFFFF;
     private static final Handler HANDLER       = new Handler(Looper.getMainLooper());
 
     private static Toast               sToast;
@@ -39,9 +39,9 @@ public final class ToastUtils {
     private static int gravity    = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
     private static int xOffset    = 0;
     private static int yOffset    = (int) (64 * Utils.getApp().getResources().getDisplayMetrics().density + 0.5);
-    private static int bgColor    = DEFAULT_COLOR;
+    private static int bgColor    = COLOR_DEFAULT;
     private static int bgResource = -1;
-    private static int msgColor   = DEFAULT_COLOR;
+    private static int msgColor   = COLOR_DEFAULT;
 
     private ToastUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -237,7 +237,7 @@ public final class ToastUtils {
         View toastView = sToast.getView();
         if (bgResource != -1) {
             toastView.setBackgroundResource(bgResource);
-        } else if (bgColor != DEFAULT_COLOR) {
+        } else if (bgColor != COLOR_DEFAULT) {
             Drawable background = toastView.getBackground();
             background.setColorFilter(new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN));
         }

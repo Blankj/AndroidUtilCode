@@ -21,7 +21,9 @@
     <string name="demo_toast">ToastUtils Demo</string>
 
     <!--Activity相关-->
+    <string name="activity_shared_element">Shared Element</string>
     <string name="activity_start_imageActivity">Start ImageActivity</string>
+    <string name="activity_start_shared_element_activity">Start Shared Element Activity</string>
     <string name="activity_finish_all_activity">Finish All Activity</string>
 
     <!--App相关-->

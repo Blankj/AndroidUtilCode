@@ -7,6 +7,13 @@
     android:orientation="vertical"
     android:padding="@dimen/spacing_16">
 
+    <View
+        android:id="@+id/view_shared_element"
+        android:layout_width="@dimen/size_40"
+        android:layout_height="@dimen/size_40"
+        android:background="@color/colorPrimary"
+        android:transitionName="@string/activity_shared_element"/>
+
     <TextView
         android:id="@+id/tv_about_activity"
         style="@style/TextStyle"
@@ -14,11 +21,18 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/btn_launch_image_activity"
+        android:id="@+id/btn_start_image_activity"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/activity_start_imageActivity" />
+
+    <Button
+        android:id="@+id/btn_shared_element"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_start_shared_element_activity" />
 
     <Button
         android:id="@+id/btn_finish_all_activity"

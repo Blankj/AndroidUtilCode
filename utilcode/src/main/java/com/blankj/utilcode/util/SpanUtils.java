@@ -68,7 +68,7 @@ import static android.graphics.BlurMaskFilter.Blur;
  */
 public final class SpanUtils {
 
-    private static final int DEFAULT_COLOR = 0xFEFFFFFF;
+    private static final int COLOR_DEFAULT = 0xFEFFFFFF;
 
     public static final int ALIGN_BOTTOM   = 0;
     public static final int ALIGN_BASELINE = 1;
@@ -152,12 +152,12 @@ public final class SpanUtils {
 
     private void setDefault() {
         flag = Spanned.SPAN_EXCLUSIVE_EXCLUSIVE;
-        foregroundColor = DEFAULT_COLOR;
-        backgroundColor = DEFAULT_COLOR;
+        foregroundColor = COLOR_DEFAULT;
+        backgroundColor = COLOR_DEFAULT;
         lineHeight = -1;
-        quoteColor = DEFAULT_COLOR;
+        quoteColor = COLOR_DEFAULT;
         first = -1;
-        bulletColor = DEFAULT_COLOR;
+        bulletColor = COLOR_DEFAULT;
         iconMarginBitmap = null;
         iconMarginDrawable = null;
         iconMarginUri = null;
@@ -899,19 +899,19 @@ public final class SpanUtils {
         int start = mBuilder.length();
         mBuilder.append(mText);
         int end = mBuilder.length();
-        if (foregroundColor != DEFAULT_COLOR) {
+        if (foregroundColor != COLOR_DEFAULT) {
             mBuilder.setSpan(new ForegroundColorSpan(foregroundColor), start, end, flag);
         }
-        if (backgroundColor != DEFAULT_COLOR) {
+        if (backgroundColor != COLOR_DEFAULT) {
             mBuilder.setSpan(new BackgroundColorSpan(backgroundColor), start, end, flag);
         }
         if (first != -1) {
             mBuilder.setSpan(new LeadingMarginSpan.Standard(first, rest), start, end, flag);
         }
-        if (quoteColor != DEFAULT_COLOR) {
+        if (quoteColor != COLOR_DEFAULT) {
             mBuilder.setSpan(new CustomQuoteSpan(quoteColor, stripeWidth, quoteGapWidth), start, end, flag);
         }
-        if (bulletColor != DEFAULT_COLOR) {
+        if (bulletColor != COLOR_DEFAULT) {
             mBuilder.setSpan(new CustomBulletSpan(bulletColor, bulletRadius, bulletGapWidth), start, end, flag);
         }
         if (iconMarginGapWidth != -1) {

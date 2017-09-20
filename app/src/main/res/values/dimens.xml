@@ -5,6 +5,9 @@
     <dimen name="spacing_16">16dp</dimen>
     <dimen name="spacing_24">24dp</dimen>
     <dimen name="spacing_128">128dp</dimen>
+    
+    <dimen name="size_40">40dp</dimen>
+    <dimen name="size_160">160dp</dimen>
 
     <dimen name="font_16">16sp</dimen>
     <dimen name="font_20">20sp</dimen>

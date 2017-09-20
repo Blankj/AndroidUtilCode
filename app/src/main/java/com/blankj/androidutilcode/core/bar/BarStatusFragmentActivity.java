@@ -13,9 +13,6 @@ import android.view.View;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseActivity;
-import com.blankj.androidutilcode.core.fragment.BarStatusAlphaFragment;
-import com.blankj.androidutilcode.core.fragment.BarStatusColorFragment;
-import com.blankj.androidutilcode.core.fragment.BarStatusImageViewFragment;
 
 import java.util.ArrayList;
 

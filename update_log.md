@@ -1,3 +1,5 @@
+* 17/09/20 完善FragmentUtils
+* 17/09/19 修复CrashUtils自定义路径错误
 * 17/09/18 完善ImageUtils的Demo
 * 17/09/17 完善ImageUtils的compress
 * 17/09/13 完善ImageUtils的addBorder

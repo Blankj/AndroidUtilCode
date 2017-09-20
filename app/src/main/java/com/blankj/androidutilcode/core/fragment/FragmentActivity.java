@@ -42,13 +42,15 @@ public class FragmentActivity extends BaseBackActivity {
     @Override
     public void initView(Bundle savedInstanceState, View view) {
         getToolBar().setTitle(getString(R.string.demo_fragment));
+
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        fragments.add(Demo0Fragment.newInstance());
+        rootFragment = FragmentUtils.addFragments(getSupportFragmentManager(), fragments, R.id.fragment_container, 0);
     }
 
     @Override
     public void doBusiness() {
-        ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(Demo0Fragment.newInstance());
-        rootFragment = FragmentUtils.addFragments(getSupportFragmentManager(), fragments, R.id.fragment_container, 0);
+
     }
 
     @Override

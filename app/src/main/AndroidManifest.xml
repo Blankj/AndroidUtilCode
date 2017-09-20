@@ -66,6 +66,7 @@
         <!--core-->
         <activity android:name=".core.main.CoreUtilActivity" />
         <activity android:name=".core.activity.ActivityActivity" />
+        <activity android:name=".core.activity.SharedElementActivityActivity" />
         <activity android:name=".core.app.AppActivity" />
         <activity android:name=".core.bar.BarActivity" />
         <activity android:name=".core.bar.BarNavActivity" />
