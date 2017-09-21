@@ -3,10 +3,11 @@ package com.blankj.androidutilcode.core.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseBackActivity;
+import com.blankj.androidutilcode.base.BaseActivity;
 
 /**
  * <pre>
@@ -16,7 +17,7 @@ import com.blankj.androidutilcode.base.BaseBackActivity;
  *     desc  : Activity工具类Demo
  * </pre>
  */
-public class SharedElementActivityActivity extends BaseBackActivity {
+public class SharedElementActivityActivity extends BaseActivity {
 
     public static void start(Context context) {
         Intent starter = new Intent(context, SharedElementActivityActivity.class);
@@ -36,7 +37,6 @@ public class SharedElementActivityActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        getToolBar().setTitle(getString(R.string.demo_activity));
 
     }
 
@@ -48,5 +48,11 @@ public class SharedElementActivityActivity extends BaseBackActivity {
     @Override
     public void onWidgetClick(View view) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityCompat.finishAfterTransition(this);
     }
 }

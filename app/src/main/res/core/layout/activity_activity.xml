@@ -7,12 +7,12 @@
     android:orientation="vertical"
     android:padding="@dimen/spacing_16">
 
-    <View
+    <ImageView
         android:id="@+id/view_shared_element"
         android:layout_width="@dimen/size_40"
         android:layout_height="@dimen/size_40"
-        android:background="@color/colorPrimary"
-        android:transitionName="@string/activity_shared_element"/>
+        android:src="@drawable/avatar_round"
+        android:transitionName="@string/activity_shared_element" />
 
     <TextView
         android:id="@+id/tv_about_activity"
@@ -21,11 +21,25 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/btn_start_image_activity"
+        android:id="@+id/btn_start_activity_cls"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/activity_start_imageActivity" />
+        android:text="@string/activity_start_activity_cls" />
+
+    <Button
+        android:id="@+id/btn_start_activity_cls_opt"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_start_activity_cls_opt" />
+
+    <Button
+        android:id="@+id/btn_start_activity_cls_anim"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_start_activity_cls_anim" />
 
     <Button
         android:id="@+id/btn_shared_element"
@@ -33,6 +47,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/activity_start_shared_element_activity" />
+
+    <Button
+        android:id="@+id/btn_start_home_activity"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_start_home_activity" />
 
     <Button
         android:id="@+id/btn_finish_all_activity"
