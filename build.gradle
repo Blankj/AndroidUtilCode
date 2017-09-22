@@ -27,7 +27,7 @@ ext {
     compileSdkVersion = 25
     buildToolsVersion = '25.0.3'
     minSdkVersion = 14
-    targetSdkVersion = 25
+    targetSdkVersion = 22
 
     versionCode = 100900000
     versionName = '1.9.0'
