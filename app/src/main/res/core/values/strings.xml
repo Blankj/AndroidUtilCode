@@ -22,10 +22,13 @@
 
     <!--Activity相关-->
     <string name="activity_shared_element">Shared Element</string>
-    <string name="activity_start_activity_cls">Start Activity</string>
-    <string name="activity_start_activity_cls_opt">Start Activity Option</string>
-    <string name="activity_start_activity_cls_anim">Start Activity Anim</string>
-    <string name="activity_start_shared_element_activity">Start Shared Element Activity</string>
+    <string name="activity_cls">Start Activity</string>
+    <string name="activity_cls_opt_anim">Cls Option Anim</string>
+    <string name="activity_cls_opt_shared">Cls Option Shared</string>
+    <string name="activity_cls_opt_scale_up">Cls Option Scale</string>
+    <string name="activity_cls_opt_thumbnail_scale_up">Cls Option Thumbnail Scale</string>
+    <string name="activity_cls_opt_clip_reveal">Cls Option Clip Reveal</string>
+    <string name="activity_cls_anim">Cls Anim</string>
     <string name="activity_start_home_activity">Start Home Activity</string>
     <string name="activity_finish_all_activity">Finish All Activity</string>
 

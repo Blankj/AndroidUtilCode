@@ -21,32 +21,60 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/btn_start_activity_cls"
+        android:id="@+id/btn_cls"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/activity_start_activity_cls" />
+        android:text="@string/activity_cls" />
 
     <Button
-        android:id="@+id/btn_start_activity_cls_opt"
+        android:id="@+id/btn_cls_opt_anim"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/activity_start_activity_cls_opt" />
+        android:text="@string/activity_cls_opt_anim" />
 
     <Button
-        android:id="@+id/btn_start_activity_cls_anim"
+        android:id="@+id/btn_cls_opt_shared"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/activity_start_activity_cls_anim" />
+        android:text="@string/activity_cls_opt_shared" />
+
+    <Button
+        android:id="@+id/btn_cls_opt_scale_up"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_cls_opt_scale_up" />
+
+    <Button
+        android:id="@+id/btn_cls_opt_thumbnail_scale_up"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_cls_opt_thumbnail_scale_up" />
+
+    <Button
+        android:id="@+id/btn_cls_opt_clip_reveal"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_cls_opt_clip_reveal" />
+
+    <Button
+        android:id="@+id/btn_cls_anim"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_cls_anim" />
 
     <Button
         android:id="@+id/btn_shared_element"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/activity_start_shared_element_activity" />
+        android:text="@string/activity_shared_element" />
 
     <Button
         android:id="@+id/btn_start_home_activity"
