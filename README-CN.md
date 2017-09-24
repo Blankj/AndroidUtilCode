@@ -10,6 +10,7 @@
 ```
 isActivityExists   : 判断是否存在activity
 startActivity      : 打开activity
+startActivities    : 打开activities
 getLauncherActivity: 获取入口activity
 getTopActivity     : 获取栈顶activity
 finishAllActivities: 结束所有activity
