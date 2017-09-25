@@ -1,20 +1,15 @@
 package com.blankj.androidutilcode.core.activity;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.content.ContextCompat;
-import android.transition.Explode;
-import android.transition.Fade;
-import android.transition.TransitionInflater;
 import android.view.View;
 import android.view.Window;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseActivity;
+import com.blankj.androidutilcode.base.BaseBackActivity;
+
+import java.util.Random;
 
 /**
  * <pre>
@@ -24,13 +19,9 @@ import com.blankj.androidutilcode.base.BaseActivity;
  *     desc  : Activity工具类Demo
  * </pre>
  */
-public class SharedElementActivityActivity extends BaseActivity {
+public class SharedElementActivityActivity extends BaseBackActivity {
 
-    public static void start(Context context) {
-        Intent starter = new Intent(context, SharedElementActivityActivity.class);
-        ContextCompat.startActivity(context, starter,
-                ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context).toBundle());
-    }
+    Random random = new Random();
 
     @Override
     public void initData(Bundle bundle) {
@@ -45,21 +36,9 @@ public class SharedElementActivityActivity extends BaseActivity {
         return R.layout.activity_activity_shared_element;
     }
 
-
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            Explode explode = (Explode) TransitionInflater.from(this).inflateTransition(R.transition.explode_1000);
-            Fade fade = (Fade) TransitionInflater.from(this).inflateTransition(R.transition.fade_1000);
-            getWindow().setEnterTransition(fade);
-            getWindow().setExitTransition(explode);
-        }
-        findViewById(android.R.id.content).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedElementActivityActivity.start(SharedElementActivityActivity.this);
-            }
-        });
+        ((View)flActivityContainer.getParent()).setBackgroundColor(Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
     }
 
     @Override
@@ -75,13 +54,5 @@ public class SharedElementActivityActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            finishAfterTransition();
-        }
     }
 }

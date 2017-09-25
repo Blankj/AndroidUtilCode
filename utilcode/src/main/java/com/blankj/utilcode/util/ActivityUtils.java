@@ -49,37 +49,37 @@ public final class ActivityUtils {
     /**
      * 启动Activity
      *
-     * @param cls activity类
+     * @param clz activity类
      */
-    public static void startActivity(@NonNull final Class<?> cls) {
+    public static void startActivity(@NonNull final Class<?> clz) {
         Context context = getActivityOrApp();
-        startActivity(context, null, context.getPackageName(), cls.getName(), null);
+        startActivity(context, null, context.getPackageName(), clz.getName(), null);
     }
 
     /**
      * 启动Activity
      *
-     * @param cls     activity类
+     * @param clz     activity类
      * @param options 跳转动画
      */
-    public static void startActivity(@NonNull final Class<?> cls,
+    public static void startActivity(@NonNull final Class<?> clz,
                                      @NonNull final Bundle options) {
         Context context = getActivityOrApp();
-        startActivity(context, null, context.getPackageName(), cls.getName(), options);
+        startActivity(context, null, context.getPackageName(), clz.getName(), options);
     }
 
     /**
      * 启动Activity
      *
-     * @param cls       activity类
+     * @param clz       activity类
      * @param enterAnim 入场动画
      * @param exitAnim  出场动画
      */
-    public static void startActivity(@NonNull final Class<?> cls,
+    public static void startActivity(@NonNull final Class<?> clz,
                                      @AnimRes final int enterAnim,
                                      @AnimRes final int exitAnim) {
         Context context = getActivityOrApp();
-        startActivity(context, null, context.getPackageName(), cls.getName(),
+        startActivity(context, null, context.getPackageName(), clz.getName(),
                 getOptionsBundle(context, enterAnim, exitAnim));
     }
 
@@ -87,37 +87,37 @@ public final class ActivityUtils {
      * 启动Activity
      *
      * @param activity activity
-     * @param cls      activity类
+     * @param clz      activity类
      */
     public static void startActivity(@NonNull final Activity activity,
-                                     @NonNull final Class<?> cls) {
-        startActivity(activity, null, activity.getPackageName(), cls.getName(), null);
+                                     @NonNull final Class<?> clz) {
+        startActivity(activity, null, activity.getPackageName(), clz.getName(), null);
     }
 
     /**
      * 启动Activity
      *
      * @param activity activity
-     * @param cls      activity类
+     * @param clz      activity类
      * @param options  跳转动画
      */
     public static void startActivity(@NonNull final Activity activity,
-                                     @NonNull final Class<?> cls,
+                                     @NonNull final Class<?> clz,
                                      @NonNull final Bundle options) {
-        startActivity(activity, null, activity.getPackageName(), cls.getName(), options);
+        startActivity(activity, null, activity.getPackageName(), clz.getName(), options);
     }
 
     /**
      * 启动Activity
      *
      * @param activity       activity
-     * @param cls            activity类
+     * @param clz            activity类
      * @param sharedElements 共享元素
      */
     public static void startActivity(@NonNull final Activity activity,
-                                     @NonNull final Class<?> cls,
+                                     @NonNull final Class<?> clz,
                                      @NonNull final View... sharedElements) {
-        startActivity(activity, null, activity.getPackageName(), cls.getName(),
+        startActivity(activity, null, activity.getPackageName(), clz.getName(),
                 getOptionsBundle(activity, sharedElements));
     }
 
@@ -125,16 +125,16 @@ public final class ActivityUtils {
      * 启动Activity
      *
      * @param activity  activity
-     * @param cls       activity类
+     * @param clz       activity类
      * @param enterAnim 入场动画
      * @param exitAnim  出场动画
      */
     public static void startActivity(@NonNull final Activity activity,
-                                     @NonNull final Class<?> cls,
+                                     @NonNull final Class<?> clz,
                                      @AnimRes final int enterAnim,
                                      @AnimRes final int exitAnim) {
 
-        startActivity(activity, null, activity.getPackageName(), cls.getName(),
+        startActivity(activity, null, activity.getPackageName(), clz.getName(),
                 getOptionsBundle(activity, enterAnim, exitAnim));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
             activity.overridePendingTransition(enterAnim, exitAnim);
@@ -145,42 +145,42 @@ public final class ActivityUtils {
      * 启动Activity
      *
      * @param extras extras
-     * @param cls    activity类
+     * @param clz    activity类
      */
     public static void startActivity(@NonNull final Bundle extras,
-                                     @NonNull final Class<?> cls) {
+                                     @NonNull final Class<?> clz) {
         Context context = getActivityOrApp();
-        startActivity(context, extras, context.getPackageName(), cls.getName(), null);
+        startActivity(context, extras, context.getPackageName(), clz.getName(), null);
     }
 
     /**
      * 启动Activity
      *
      * @param extras  extras
-     * @param cls     activity类
+     * @param clz     activity类
      * @param options 跳转动画
      */
     public static void startActivity(@NonNull final Bundle extras,
-                                     @NonNull final Class<?> cls,
+                                     @NonNull final Class<?> clz,
                                      @NonNull final Bundle options) {
         Context context = getActivityOrApp();
-        startActivity(context, extras, context.getPackageName(), cls.getName(), options);
+        startActivity(context, extras, context.getPackageName(), clz.getName(), options);
     }
 
     /**
      * 启动Activity
      *
      * @param extras    extras
-     * @param cls       activity类
+     * @param clz       activity类
      * @param enterAnim 入场动画
      * @param exitAnim  出场动画
      */
     public static void startActivity(@NonNull final Bundle extras,
-                                     @NonNull final Class<?> cls,
+                                     @NonNull final Class<?> clz,
                                      @AnimRes final int enterAnim,
                                      @AnimRes final int exitAnim) {
         Context context = getActivityOrApp();
-        startActivity(context, extras, context.getPackageName(), cls.getName(),
+        startActivity(context, extras, context.getPackageName(), clz.getName(),
                 getOptionsBundle(context, enterAnim, exitAnim));
     }
 
@@ -189,12 +189,12 @@ public final class ActivityUtils {
      *
      * @param extras   extras
      * @param activity activity
-     * @param cls      activity类
+     * @param clz      activity类
      */
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final Activity activity,
-                                     @NonNull final Class<?> cls) {
-        startActivity(activity, extras, activity.getPackageName(), cls.getName(), null);
+                                     @NonNull final Class<?> clz) {
+        startActivity(activity, extras, activity.getPackageName(), clz.getName(), null);
     }
 
     /**
@@ -202,14 +202,14 @@ public final class ActivityUtils {
      *
      * @param extras   extras
      * @param activity activity
-     * @param cls      activity类
+     * @param clz      activity类
      * @param options  跳转动画
      */
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final Activity activity,
-                                     @NonNull final Class<?> cls,
+                                     @NonNull final Class<?> clz,
                                      @NonNull final Bundle options) {
-        startActivity(activity, extras, activity.getPackageName(), cls.getName(), options);
+        startActivity(activity, extras, activity.getPackageName(), clz.getName(), options);
     }
 
     /**
@@ -217,14 +217,15 @@ public final class ActivityUtils {
      *
      * @param extras         extras
      * @param activity       activity
-     * @param cls            activity类
+     * @param clz            activity类
      * @param sharedElements 共享元素
      */
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final Activity activity,
-                                     @NonNull final Class<?> cls,
+                                     @NonNull final Class<?> clz,
                                      @NonNull final View... sharedElements) {
-        startActivity(activity, extras, activity.getPackageName(), cls.getName(), getOptionsBundle(activity, sharedElements));
+        startActivity(activity, extras, activity.getPackageName(), clz.getName(),
+                getOptionsBundle(activity, sharedElements));
     }
 
     /**
@@ -232,16 +233,16 @@ public final class ActivityUtils {
      *
      * @param extras    extras
      * @param activity  activity
-     * @param cls       activity类
+     * @param clz       activity类
      * @param enterAnim 入场动画
      * @param exitAnim  出场动画
      */
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final Activity activity,
-                                     @NonNull final Class<?> cls,
+                                     @NonNull final Class<?> clz,
                                      @AnimRes final int enterAnim,
                                      @AnimRes final int exitAnim) {
-        startActivity(activity, extras, activity.getPackageName(), cls.getName(),
+        startActivity(activity, extras, activity.getPackageName(), clz.getName(),
                 getOptionsBundle(activity, enterAnim, exitAnim));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
             activity.overridePendingTransition(enterAnim, exitAnim);
@@ -314,6 +315,21 @@ public final class ActivityUtils {
                                      @NonNull final String cls,
                                      @NonNull final Bundle options) {
         startActivity(activity, null, pkg, cls, options);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param activity       activity
+     * @param pkg            包名
+     * @param cls            全类名
+     * @param sharedElements 共享元素
+     */
+    public static void startActivity(@NonNull final Activity activity,
+                                     @NonNull final String pkg,
+                                     @NonNull final String cls,
+                                     @NonNull final View... sharedElements) {
+        startActivity(activity, null, pkg, cls, getOptionsBundle(activity, sharedElements));
     }
 
     /**
@@ -412,6 +428,23 @@ public final class ActivityUtils {
                                      @NonNull final String cls,
                                      @NonNull final Bundle options) {
         startActivity(activity, extras, pkg, cls, options);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param extras         extras
+     * @param activity       activity
+     * @param pkg            包名
+     * @param cls            全类名
+     * @param sharedElements 共享元素
+     */
+    public static void startActivity(@NonNull final Bundle extras,
+                                     @NonNull final Activity activity,
+                                     @NonNull final String pkg,
+                                     @NonNull final String cls,
+                                     @NonNull final View... sharedElements) {
+        startActivity(activity, extras, pkg, cls, getOptionsBundle(activity, sharedElements));
     }
 
     /**
@@ -585,19 +618,6 @@ public final class ActivityUtils {
     /**
      * 启动Activity
      *
-     * @param activity       activity
-     * @param intents        意图
-     * @param sharedElements 共享元素
-     */
-    public static void startActivities(@NonNull final Activity activity,
-                                       @NonNull final Intent[] intents,
-                                       @NonNull final View... sharedElements) {
-        startActivities(intents, activity, getOptionsBundle(activity, sharedElements));
-    }
-
-    /**
-     * 启动Activity
-     *
      * @param activity  activity
      * @param intents   意图
      * @param enterAnim 入场动画
@@ -623,10 +643,28 @@ public final class ActivityUtils {
     }
 
     /**
-     * 获取launcher activity
+     * 获取Activity栈链表
+     *
+     * @return Activity栈链表
+     */
+    public static List<Activity> getActivityList() {
+        return Utils.sActivityList;
+    }
+
+    /**
+     * 获取启动项Activity
+     *
+     * @return 启动项Activity
+     */
+    public static String getLauncherActivity() {
+        return getLauncherActivity(Utils.getApp().getPackageName());
+    }
+
+    /**
+     * 获取启动项Activity
      *
      * @param packageName 包名
-     * @return launcher activity
+     * @return 启动项Activity
      */
     public static String getLauncherActivity(@NonNull final String packageName) {
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
@@ -657,6 +695,87 @@ public final class ActivityUtils {
         List<Activity> activities = Utils.sActivityList;
         int size = activities.size();
         return size > 0 ? activities.get(size - 1) : null;
+    }
+
+    /**
+     * 判断栈中是否存在activity
+     *
+     * @param activity activity
+     * @return {@code true}: 存在<br>{@code false}: 不存在
+     */
+    public static boolean isActivityExistsInStack(@NonNull final Activity activity) {
+        List<Activity> activities = Utils.sActivityList;
+        for (Activity aActivity : activities) {
+            if (aActivity.equals(activity)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 判断栈中是否存在activity
+     *
+     * @param clz activity类
+     * @return {@code true}: 存在<br>{@code false}: 不存在
+     */
+    public static boolean isActivityExistsInStack(@NonNull final Class<?> clz) {
+        List<Activity> activities = Utils.sActivityList;
+        for (Activity aActivity : activities) {
+            if (aActivity.getClass().equals(clz)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 结束Activity
+     *
+     * @param activity activity
+     */
+    public static void finishActivity(@NonNull final Activity activity) {
+        finishActivity(activity, false);
+    }
+
+    /**
+     * 结束Activity
+     *
+     * @param activity   activity
+     * @param isLoadAnim 是否启动动画
+     */
+    public static void finishActivity(@NonNull final Activity activity, final boolean isLoadAnim) {
+        activity.finish();
+        if (!isLoadAnim) {
+            activity.overridePendingTransition(0, 0);
+        }
+    }
+
+    /**
+     * 结束Activity
+     *
+     * @param clz activity类
+     */
+    public static void finishActivity(@NonNull final Class<?> clz) {
+        finishActivity(clz, false);
+    }
+
+    /**
+     * 结束Activity
+     *
+     * @param clz        activity类
+     * @param isLoadAnim 是否启动动画
+     */
+    public static void finishActivity(@NonNull final Class<?> clz, final boolean isLoadAnim) {
+        List<Activity> activities = Utils.sActivityList;
+        for (Activity aActivity : activities) {
+            if (aActivity.getClass().equals(clz)) {
+                aActivity.finish();
+                if (!isLoadAnim) {
+                    aActivity.overridePendingTransition(0, 0);
+                }
+            }
+        }
     }
 
     /**
@@ -730,6 +849,6 @@ public final class ActivityUtils {
             }
             return ActivityOptionsCompat.makeSceneTransitionAnimation(activity, pairs).toBundle();
         }
-        return null;
+        return ActivityOptionsCompat.makeSceneTransitionAnimation(activity, null, null).toBundle();
     }
 }

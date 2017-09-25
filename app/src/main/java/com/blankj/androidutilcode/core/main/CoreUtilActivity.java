@@ -2,10 +2,8 @@ package com.blankj.androidutilcode.core.main;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseBackActivity;
@@ -49,9 +47,6 @@ public class CoreUtilActivity extends BaseBackActivity {
 
     @Override
     public int bindLayout() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-        }
         return R.layout.activity_util_core;
     }
 
