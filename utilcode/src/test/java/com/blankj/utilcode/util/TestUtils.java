@@ -28,7 +28,7 @@ public class TestUtils {
         Utils.init(RuntimeEnvironment.application);
     }
 
-    //    @Test
+//    @Test
     public void readme2Eng() throws Exception {
         formatCN();
         File readmeCN = new File(new File(System.getProperty("user.dir")).getAbsolutePath() + FILE_SEP + "README-CN.md");

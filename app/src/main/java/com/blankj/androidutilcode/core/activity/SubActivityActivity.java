@@ -19,7 +19,7 @@ import java.util.Random;
  *     desc  : Activity工具类Demo
  * </pre>
  */
-public class SharedElementActivityActivity extends BaseBackActivity {
+public class SubActivityActivity extends BaseBackActivity {
 
     Random random = new Random();
 

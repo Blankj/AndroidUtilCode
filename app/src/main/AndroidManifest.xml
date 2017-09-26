@@ -56,7 +56,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/my_app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.MainActivity">
+        <activity
+            android:name=".main.MainActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -64,40 +66,91 @@
         </activity>
 
         <!--core-->
-        <activity android:name=".core.main.CoreUtilActivity" />
-        <activity android:name=".core.activity.ActivityActivity" />
-        <activity android:name=".core.activity.SharedElementActivityActivity" />
-        <activity android:name=".core.app.AppActivity" />
-        <activity android:name=".core.bar.BarActivity" />
-        <activity android:name=".core.bar.BarNavActivity" />
-        <activity android:name=".core.bar.BarStatusAlphaActivity" />
-        <activity android:name=".core.bar.BarStatusColorActivity" />
-        <activity android:name=".core.bar.BarStatusDrawerActivity" />
-        <activity android:name=".core.bar.BarStatusFragmentActivity" />
-        <activity android:name=".core.bar.BarStatusImageViewActivity" />
-        <activity android:name=".core.bar.BarStatusSwipeBackActivity" />
-        <activity android:name=".core.clean.CleanActivity" />
-        <activity android:name=".core.device.DeviceActivity" />
-        <activity android:name=".core.fragment.FragmentActivity" />
-        <activity android:name=".core.image.ImageActivity" />
+        <activity
+            android:name=".core.main.CoreUtilActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.activity.ActivityActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.activity.SubActivityActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.app.AppActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.bar.BarActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.bar.BarNavActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.bar.BarStatusAlphaActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.bar.BarStatusColorActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.bar.BarStatusDrawerActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.bar.BarStatusFragmentActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.bar.BarStatusImageViewActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.bar.BarStatusSwipeBackActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.clean.CleanActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.device.DeviceActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.fragment.FragmentActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.image.ImageActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".core.keyboard.KeyboardActivity"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".core.log.LogActivity" />
-        <activity android:name=".core.network.NetworkActivity" />
+        <activity
+            android:name=".core.log.LogActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.network.NetworkActivity"
+            android:launchMode="singleTop" />
         <!--<activity android:name=".activities.PermissionActivity"/>-->
-        <activity android:name=".core.phone.PhoneActivity" />
-        <activity android:name=".core.process.ProcessActivity" />
-        <activity android:name=".core.screen.ScreenActivity" />
-        <activity android:name=".core.sdcard.SDCardActivity" />
-        <activity android:name=".core.snackbar.SnackbarActivity" />
-        <activity android:name=".core.span.SpanActivity">
+        <activity
+            android:name=".core.phone.PhoneActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.process.ProcessActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.screen.ScreenActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.sdcard.SDCardActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.snackbar.SnackbarActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.span.SpanActivity"
+            android:launchMode="singleTop">
             <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN" />-->
             <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
-        <activity android:name=".core.toast.ToastActivity" />
+        <activity
+            android:name=".core.toast.ToastActivity"
+            android:launchMode="singleTop" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -111,11 +164,19 @@
 
 
         <!--sub-->
-        <activity android:name=".sub.main.SubUtilActivity" />
-        <activity android:name=".sub.location.LocationActivity" />
-        <activity android:name=".sub.pinyin.PinyinActivity" />
+        <activity
+            android:name=".sub.main.SubUtilActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".sub.location.LocationActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".sub.pinyin.PinyinActivity"
+            android:launchMode="singleTop" />
 
-        <service android:name=".sub.location.LocationService" />
+        <service
+            android:name=".sub.location.LocationService"
+            android:launchMode="singleTop" />
 
     </application>
 

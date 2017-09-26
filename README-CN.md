@@ -8,12 +8,18 @@
 
 * ### Activity相关→[ActivityUtils.java][activity.java]→[Demo][activity.demo]
 ```
-isActivityExists   : 判断是否存在activity
-startActivity      : 打开activity
-startActivities    : 打开activities
-getLauncherActivity: 获取入口activity
-getTopActivity     : 获取栈顶activity
-finishAllActivities: 结束所有activity
+isActivityExists                 : 判断Activity是否存在
+startActivity                    : 启动Activity
+startActivities                  : 启动多个Activity
+startHomeActivity                : 回到桌面
+getActivityList                  : 获取Activity栈链表
+getLauncherActivity              : 获取启动项Activity
+getTopActivity                   : 获取栈顶Activity
+isActivityExistsInStack          : 判断Activity是否存在栈中
+finishActivity                   : 结束Activity
+finishToActivity                 : 结束到指定Activity
+finishOtherActivitiesExceptNewest: 结束除最新之外的同类型Activity
+finishAllActivities              : 结束所有activity
 ```
 
 * ### App相关→[AppUtils.java][app.java]→[Demo][app.demo]
@@ -425,8 +431,8 @@ isTablet         : 判断是否是平板
 
 * ### SD卡相关→[SDCardUtils.java][sdcard.java]→[Demo][sdcard.demo]
 ```
-isSDCardEnable : 判断SD卡是否可用
-getSDCardPaths : 获取SD卡路径
+isSDCardEnable: 判断SD卡是否可用
+getSDCardPaths: 获取SD卡路径
 ```
 
 * ### 服务相关→[ServiceUtils.java][service.java]
@@ -611,7 +617,7 @@ getComments       : 获取压缩文件中的注释链表
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.9.0'
+compile 'com.blankj:utilcode:1.9.1'
 ```
 
 
@@ -634,7 +640,7 @@ Utils.init(context);
 
 [logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.9.0-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.9.1-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-14+-brightgreen.svg

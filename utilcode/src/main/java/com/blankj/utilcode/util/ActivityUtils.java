@@ -31,7 +31,7 @@ public final class ActivityUtils {
     }
 
     /**
-     * 判断是否存在Activity
+     * 判断Activity是否存在
      *
      * @param packageName 包名
      * @param className   activity全路径类名
@@ -558,7 +558,7 @@ public final class ActivityUtils {
     }
 
     /**
-     * 启动Activity
+     * 启动多个Activity
      *
      * @param intents 意图
      */
@@ -567,7 +567,7 @@ public final class ActivityUtils {
     }
 
     /**
-     * 启动Activity
+     * 启动多个Activity
      *
      * @param intents 意图
      * @param options 跳转动画
@@ -578,7 +578,7 @@ public final class ActivityUtils {
     }
 
     /**
-     * 启动Activity
+     * 启动多个Activity
      *
      * @param intents   意图
      * @param enterAnim 入场动画
@@ -592,7 +592,7 @@ public final class ActivityUtils {
     }
 
     /**
-     * 启动Activity
+     * 启动多个Activity
      *
      * @param activity activity
      * @param intents  意图
@@ -603,7 +603,7 @@ public final class ActivityUtils {
     }
 
     /**
-     * 启动Activity
+     * 启动多个Activity
      *
      * @param activity activity
      * @param intents  意图
@@ -616,7 +616,7 @@ public final class ActivityUtils {
     }
 
     /**
-     * 启动Activity
+     * 启动多个Activity
      *
      * @param activity  activity
      * @param intents   意图
@@ -698,7 +698,7 @@ public final class ActivityUtils {
     }
 
     /**
-     * 判断栈中是否存在activity
+     * 判断Activity是否存在栈中
      *
      * @param activity activity
      * @return {@code true}: 存在<br>{@code false}: 不存在
@@ -714,7 +714,7 @@ public final class ActivityUtils {
     }
 
     /**
-     * 判断栈中是否存在activity
+     * 判断Activity是否存在栈中
      *
      * @param clz activity类
      * @return {@code true}: 存在<br>{@code false}: 不存在
@@ -768,11 +768,114 @@ public final class ActivityUtils {
      */
     public static void finishActivity(@NonNull final Class<?> clz, final boolean isLoadAnim) {
         List<Activity> activities = Utils.sActivityList;
-        for (Activity aActivity : activities) {
-            if (aActivity.getClass().equals(clz)) {
-                aActivity.finish();
+        for (Activity activity : activities) {
+            if (activity.getClass().equals(clz)) {
+                activity.finish();
                 if (!isLoadAnim) {
-                    aActivity.overridePendingTransition(0, 0);
+                    activity.overridePendingTransition(0, 0);
+                }
+            }
+        }
+    }
+
+    /**
+     * 结束到指定Activity
+     *
+     * @param activity      activity
+     * @param isIncludeSelf 是否结束该activity自己
+     */
+    public static boolean finishToActivity(@NonNull final Activity activity,
+                                           final boolean isIncludeSelf) {
+        return finishToActivity(activity, isIncludeSelf, false);
+    }
+
+    /**
+     * 结束到指定Activity
+     *
+     * @param activity      activity
+     * @param isIncludeSelf 是否结束该activity自己
+     * @param isLoadAnim    是否启动动画
+     */
+    public static boolean finishToActivity(@NonNull final Activity activity,
+                                           final boolean isIncludeSelf,
+                                           final boolean isLoadAnim) {
+        List<Activity> activities = Utils.sActivityList;
+        for (int i = activities.size() - 1; i >= 0; --i) {
+            Activity aActivity = activities.get(i);
+            if (aActivity.equals(activity)) {
+                if (isIncludeSelf) {
+                    finishActivity(aActivity, isLoadAnim);
+                }
+                return true;
+            }
+            finishActivity(aActivity, isLoadAnim);
+        }
+        return false;
+    }
+
+    /**
+     * 结束到指定Activity
+     *
+     * @param clz           activity类
+     * @param isIncludeSelf 是否结束该activity自己
+     */
+    public static boolean finishToActivity(@NonNull final Class<?> clz,
+                                           final boolean isIncludeSelf) {
+        return finishToActivity(clz, isIncludeSelf, false);
+    }
+
+    /**
+     * 结束到指定Activity
+     *
+     * @param clz           activity类
+     * @param isIncludeSelf 是否结束该activity自己
+     * @param isLoadAnim    是否启动动画
+     */
+    public static boolean finishToActivity(@NonNull final Class<?> clz,
+                                           final boolean isIncludeSelf,
+                                           final boolean isLoadAnim) {
+        List<Activity> activities = Utils.sActivityList;
+        for (int i = activities.size() - 1; i >= 0; --i) {
+            Activity aActivity = activities.get(i);
+            if (aActivity.getClass().equals(clz)) {
+                if (isIncludeSelf) {
+                    finishActivity(aActivity, isLoadAnim);
+                }
+                return true;
+            }
+            finishActivity(aActivity, isLoadAnim);
+        }
+        return false;
+    }
+
+    /**
+     * 结束除最新之外的同类型Activity
+     * <p>也就是让栈中最多只剩下一种类型的Activity</p>
+     *
+     * @param clz activity类
+     */
+    public static void finishOtherActivitiesExceptNewest(@NonNull final Class<?> clz) {
+        finishOtherActivitiesExceptNewest(clz, false);
+    }
+
+    /**
+     * 结束除最新之外的同类型Activity
+     * <p>也就是让栈中最多只剩下一种类型的Activity</p>
+     *
+     * @param clz        activity类
+     * @param isLoadAnim 是否启动动画
+     */
+    public static void finishOtherActivitiesExceptNewest(@NonNull final Class<?> clz,
+                                                         final boolean isLoadAnim) {
+        List<Activity> activities = Utils.sActivityList;
+        boolean flag = false;
+        for (int i = activities.size() - 1; i >= 0; i--) {
+            Activity activity = activities.get(i);
+            if (activity.getClass().equals(clz)) {
+                if (flag) {
+                    finishActivity(activity, isLoadAnim);
+                } else {
+                    flag = true;
                 }
             }
         }
@@ -782,9 +885,22 @@ public final class ActivityUtils {
      * 结束所有activity
      */
     public static void finishAllActivities() {
+        finishAllActivities(false);
+    }
+
+    /**
+     * 结束所有activity
+     *
+     * @param isLoadAnim 是否启动动画
+     */
+    public static void finishAllActivities(final boolean isLoadAnim) {
         List<Activity> activityList = Utils.sActivityList;
-        for (int i = activityList.size() - 1; i >= 0; --i) {
-            activityList.get(i).finish();// 在onActivityDestroyed发生remove
+        for (int i = activityList.size() - 1; i >= 0; --i) {// 从栈顶开始移除
+            Activity activity = activityList.get(i);
+            activity.finish();// 在onActivityDestroyed发生remove
+            if (!isLoadAnim) {
+                activity.overridePendingTransition(0, 0);
+            }
         }
     }
 

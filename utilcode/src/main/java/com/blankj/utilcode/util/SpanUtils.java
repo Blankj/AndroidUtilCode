@@ -136,7 +136,7 @@ public final class SpanUtils {
     private int spaceSize;
     private int spaceColor;
 
-    private static SpannableStringBuilder mBuilder;
+    private SpannableStringBuilder mBuilder;
 
     private int mType;
     private final int mTypeCharSequence = 0;

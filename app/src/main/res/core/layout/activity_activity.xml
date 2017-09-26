@@ -196,6 +196,20 @@
         android:text="@string/activity_start_home_activity" />
 
     <Button
+        android:id="@+id/btn_finish_activity"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_finish_activity" />
+
+    <Button
+        android:id="@+id/btn_finish_to_activity"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_finish_to_activity" />
+
+    <Button
         android:id="@+id/btn_finish_all_activities"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"

@@ -10,8 +10,15 @@
 ```
 isActivityExists
 startActivity
+startActivities
+startHomeActivity
+getActivityList
 getLauncherActivity
 getTopActivity
+isActivityExistsInStack
+finishActivity
+finishToActivity
+finishOtherActivitiesExceptNewest
 finishAllActivities
 ```
 
@@ -268,6 +275,7 @@ setBackground
 bitmap2Bytes, bytes2Bitmap
 drawable2Bitmap, bitmap2Drawable
 drawable2Bytes, bytes2Drawable
+view2Bitmap
 getBitmap
 scale
 clip
@@ -276,15 +284,16 @@ rotate
 getRotateDegree
 toRound
 toRoundCorner
-fastBlur
-renderScriptBlur
-stackBlur
-addFrame
+addCornerBorder
+addCircleBorder
 addReflection
 addTextWatermark
 addImageWatermark
 toAlpha
 toGray
+fastBlur
+renderScriptBlur
+stackBlur
 save
 isImage
 getImageType
@@ -423,10 +432,7 @@ isTablet
 * ### About SDCard→[SDCardUtils.java][sdcard.java]→[Demo][sdcard.demo]
 ```
 isSDCardEnable
-getSDCardPath
-getDataPath
-getFreeSpace
-getSDCardInfo
+getSDCardPaths
 ```
 
 * ### About Service→[ServiceUtils.java][service.java]
@@ -589,14 +595,11 @@ cancel
 
 * ### About Zip→[ZipUtils.java][zip.java]→[Test][zip.test]
 ```
-zipFiles
 zipFile
-unzipFiles
 unzipFile
 unzipFileByKeyword
 getFilesPath
 getComments
-getEntries
 ```
 
 * ### About Log→[update_log.md][update_log.md]
@@ -614,7 +617,7 @@ getEntries
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.9.0'
+compile 'com.blankj:utilcode:1.9.1'
 ```
 
 
@@ -637,7 +640,7 @@ Utils.init(context);
 
 [logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.9.0-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.9.1-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-14+-brightgreen.svg

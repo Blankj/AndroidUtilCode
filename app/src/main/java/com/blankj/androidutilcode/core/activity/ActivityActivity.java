@@ -15,7 +15,8 @@ import android.widget.TextView;
 import com.blankj.androidutilcode.Config;
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseBackActivity;
-import com.blankj.androidutilcode.core.image.ImageActivity;
+import com.blankj.androidutilcode.core.main.CoreUtilActivity;
+import com.blankj.androidutilcode.main.MainActivity;
 import com.blankj.utilcode.util.ActivityUtils;
 
 import java.util.Random;
@@ -85,17 +86,20 @@ public class ActivityActivity extends BaseBackActivity {
         findViewById(R.id.btn_act_intents_anim).setOnClickListener(this);
         findViewById(R.id.btn_act_clz_shared_element).setOnClickListener(this);
         findViewById(R.id.btn_start_home_activity).setOnClickListener(this);
+        findViewById(R.id.btn_finish_activity).setOnClickListener(this);
+        findViewById(R.id.btn_finish_to_activity).setOnClickListener(this);
         findViewById(R.id.btn_finish_all_activities).setOnClickListener(this);
         TextView tvAboutActivity = (TextView) findViewById(R.id.tv_about_activity);
-        tvAboutActivity.setText("Is ImageActivity Exists: " + ActivityUtils.isActivityExists(Config.PKG, SharedElementActivityActivity.class.getName())
+        tvAboutActivity.setText("Is SubActivityActivity Exists: " + ActivityUtils.isActivityExists(Config.PKG, SubActivityActivity.class.getName())
                 + "\ngetLauncherActivity: " + ActivityUtils.getLauncherActivity(Config.PKG)
                 + "\ngetTopActivity: " + ActivityUtils.getTopActivity()
+                + "\nIs CoreUtilActivity Exists In Stack: " + ActivityUtils.isActivityExistsInStack(CoreUtilActivity.class)
         );
         bitmap = ((BitmapDrawable) viewSharedElement.getDrawable()).getBitmap();
 
-        intent = new Intent(this, SharedElementActivityActivity.class);
+        intent = new Intent(this, SubActivityActivity.class);
         intents[0] = intent;
-        intents[1] = new Intent(this, SharedElementActivityActivity.class);
+        intents[1] = new Intent(this, SubActivityActivity.class);
     }
 
     @Override
@@ -107,71 +111,71 @@ public class ActivityActivity extends BaseBackActivity {
     public void onWidgetClick(View view) {
         switch (view.getId()) {
             case R.id.btn_clz:
-                ActivityUtils.startActivity(SharedElementActivityActivity.class);
+                ActivityUtils.startActivity(SubActivityActivity.class);
                 break;
             case R.id.btn_clz_opt:
-                ActivityUtils.startActivity(SharedElementActivityActivity.class,
+                ActivityUtils.startActivity(SubActivityActivity.class,
                         getOption(random.nextInt(5)));
                 break;
             case R.id.btn_clz_anim:
-                ActivityUtils.startActivity(SharedElementActivityActivity.class,
+                ActivityUtils.startActivity(SubActivityActivity.class,
                         R.anim.fade_in_1000, R.anim.fade_out_1000);
                 break;
             case R.id.btn_act_clz:
                 ActivityUtils.startActivity(this,
-                        SharedElementActivityActivity.class);
+                        SubActivityActivity.class);
                 break;
             case R.id.btn_act_clz_opt:
                 ActivityUtils.startActivity(this,
-                        SharedElementActivityActivity.class,
+                        SubActivityActivity.class,
                         getOption(random.nextInt(5)));
                 break;
 
             case R.id.btn_act_clz_shared_element:
                 ActivityUtils.startActivity(this,
-                        SharedElementActivityActivity.class,
+                        SubActivityActivity.class,
                         viewSharedElement);
                 break;
             case R.id.btn_act_clz_anim:
                 ActivityUtils.startActivity(this,
-                        SharedElementActivityActivity.class,
+                        SubActivityActivity.class,
                         R.anim.fade_in_1000, R.anim.fade_out_1000);
                 break;
             case R.id.btn_pkg_cls:
                 ActivityUtils.startActivity(this.getPackageName(),
-                        SharedElementActivityActivity.class.getName());
+                        SubActivityActivity.class.getName());
                 break;
             case R.id.btn_pkg_cls_opt:
                 ActivityUtils.startActivity(this.getPackageName(),
-                        SharedElementActivityActivity.class.getName(),
+                        SubActivityActivity.class.getName(),
                         getOption(random.nextInt(5)));
                 break;
             case R.id.btn_pkg_cls_anim:
                 ActivityUtils.startActivity(this.getPackageName(),
-                        SharedElementActivityActivity.class.getName(),
+                        SubActivityActivity.class.getName(),
                         R.anim.fade_in_1000, R.anim.fade_out_1000);
                 break;
             case R.id.btn_act_pkg_cls:
                 ActivityUtils.startActivity(this,
                         this.getPackageName(),
-                        SharedElementActivityActivity.class.getName());
+                        SubActivityActivity.class.getName());
                 break;
             case R.id.btn_act_pkg_cls_opt:
                 ActivityUtils.startActivity(this,
                         this.getPackageName(),
-                        SharedElementActivityActivity.class.getName(),
+                        SubActivityActivity.class.getName(),
                         getOption(random.nextInt(5)));
                 break;
             case R.id.btn_act_pkg_cls_shared_element:
                 ActivityUtils.startActivity(this,
                         this.getPackageName(),
-                        SharedElementActivityActivity.class.getName(),
+                        SubActivityActivity.class.getName(),
                         viewSharedElement);
                 break;
             case R.id.btn_act_pkg_cls_anim:
                 ActivityUtils.startActivity(this,
                         this.getPackageName(),
-                        SharedElementActivityActivity.class.getName(),
+                        SubActivityActivity.class.getName(),
                         R.anim.fade_in_1000, R.anim.fade_out_1000);
                 break;
             case R.id.btn_intent:
@@ -221,6 +225,12 @@ public class ActivityActivity extends BaseBackActivity {
                 break;
             case R.id.btn_start_home_activity:
                 ActivityUtils.startHomeActivity();
+                break;
+            case R.id.btn_finish_activity:
+                ActivityUtils.finishActivity(MainActivity.class);
+                break;
+            case R.id.btn_finish_to_activity:
+                ActivityUtils.finishToActivity(MainActivity.class, false, true);
                 break;
             case R.id.btn_finish_all_activities:
                 ActivityUtils.finishAllActivities();
