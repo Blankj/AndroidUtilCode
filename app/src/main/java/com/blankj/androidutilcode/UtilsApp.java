@@ -1,5 +1,7 @@
 package com.blankj.androidutilcode;
 
+import android.widget.Toast;
+
 import com.blankj.androidutilcode.base.BaseApplication;
 import com.blankj.subutil.util.ThreadPoolUtils;
 import com.blankj.utilcode.util.CrashUtils;
@@ -68,7 +70,13 @@ public class UtilsApp extends BaseApplication {
     }
 
     private void initCrash() {
-        CrashUtils.init();
+        CrashUtils.init(new CrashUtils.OnCrashListener() {
+            @Override
+            public void onCrash(Throwable e) {
+                LogUtils.d(e.getMessage());
+                Toast.makeText(getInstance(), "炸了", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void initAssets() {

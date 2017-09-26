@@ -1,4 +1,7 @@
-* 17/09/20 完善FragmentUtils
+* 17/09/26 完善ActivityUtils及Demo，发布1.9.1
+* 17/09/25 完善ActivityUtils及Demo
+* 17/09/24 完善ActivityUtils及Demo
+* 17/09/23 完善FragmentUtils
 * 17/09/19 修复CrashUtils自定义路径错误
 * 17/09/18 完善ImageUtils的Demo
 * 17/09/17 完善ImageUtils的compress

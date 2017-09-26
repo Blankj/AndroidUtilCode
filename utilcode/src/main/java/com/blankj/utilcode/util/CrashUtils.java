@@ -15,6 +15,8 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * <pre>
@@ -26,11 +28,12 @@ import java.util.Locale;
  */
 public final class CrashUtils {
 
-    private static boolean mInitialized;
-    private static String  defaultDir;
-    private static String  dir;
-    private static String  versionName;
-    private static int     versionCode;
+    private static String defaultDir;
+    private static String dir;
+    private static String versionName;
+    private static int    versionCode;
+
+    private static ExecutorService sExecutor;
 
     private static final String FILE_SEP = System.getProperty("file.separator");
     private static final Format FORMAT   = new SimpleDateFormat("MM-dd HH-mm-ss", Locale.getDefault());
@@ -74,7 +77,10 @@ public final class CrashUtils {
                 String fileName = FORMAT.format(now) + ".txt";
                 final String fullPath = (dir == null ? defaultDir : dir) + fileName;
                 if (!createOrExistsFile(fullPath)) return;
-                new Thread(new Runnable() {
+                if (sExecutor == null) {
+                    sExecutor = Executors.newSingleThreadExecutor();
+                }
+                sExecutor.execute(new Runnable() {
                     @Override
                     public void run() {
                         PrintWriter pw = null;
@@ -95,7 +101,7 @@ public final class CrashUtils {
                             }
                         }
                     }
-                }).start();
+                });
                 if (DEFAULT_UNCAUGHT_EXCEPTION_HANDLER != null) {
                     DEFAULT_UNCAUGHT_EXCEPTION_HANDLER.uncaughtException(t, e);
                 }
@@ -110,11 +116,9 @@ public final class CrashUtils {
     /**
      * 初始化
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>}</p>
-     *
-     * @return {@code true}: 初始化成功<br>{@code false}: 初始化失败
      */
-    public static boolean init() {
-        return init("");
+    public static void init() {
+        init("");
     }
 
     /**
@@ -122,10 +126,9 @@ public final class CrashUtils {
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>}</p>
      *
      * @param crashDir 崩溃文件存储目录
-     * @return {@code true}: 初始化成功<br>{@code false}: 初始化失败
      */
-    public static boolean init(@NonNull final File crashDir) {
-        return init(crashDir.getAbsolutePath());
+    public static void init(@NonNull final File crashDir) {
+        init(crashDir.getAbsolutePath());
     }
 
     /**
@@ -133,15 +136,13 @@ public final class CrashUtils {
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>}</p>
      *
      * @param crashDir 崩溃文件存储目录
-     * @return {@code true}: 初始化成功<br>{@code false}: 初始化失败
      */
-    public static boolean init(final String crashDir) {
+    public static void init(final String crashDir) {
         if (isSpace(crashDir)) {
             dir = null;
         } else {
             dir = crashDir.endsWith(FILE_SEP) ? crashDir : crashDir + FILE_SEP;
         }
-        if (mInitialized) return true;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
                 && Utils.getApp().getExternalCacheDir() != null)
             defaultDir = Utils.getApp().getExternalCacheDir() + FILE_SEP + "crash" + FILE_SEP;
@@ -149,7 +150,6 @@ public final class CrashUtils {
             defaultDir = Utils.getApp().getCacheDir() + FILE_SEP + "crash" + FILE_SEP;
         }
         Thread.setDefaultUncaughtExceptionHandler(UNCAUGHT_EXCEPTION_HANDLER);
-        return mInitialized = true;
     }
 
     private static boolean createOrExistsFile(final String filePath) {

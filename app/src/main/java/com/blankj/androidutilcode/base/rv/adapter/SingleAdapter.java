@@ -22,7 +22,8 @@ public abstract class SingleAdapter<M> extends BaseAdapter<M> {
     }
 
     @Override
-    protected int bindLayout(int viewType) {
+    protected int bindLayout(final int viewType) {
         return mLayoutId;
     }
+
 }

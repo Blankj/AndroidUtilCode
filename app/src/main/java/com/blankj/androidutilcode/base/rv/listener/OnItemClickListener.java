@@ -11,5 +11,5 @@ import android.view.View;
  * </pre>
  */
 public interface OnItemClickListener {
-    void onItemClick(View view, int position);
+    void onItemClick(final View view, final int position);
 }

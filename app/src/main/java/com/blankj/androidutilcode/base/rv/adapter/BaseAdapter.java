@@ -58,11 +58,11 @@ public abstract class BaseAdapter<M> extends RecyclerView.Adapter<BaseViewHolder
         }
     }
 
-    protected int getCustomViewType(int position) {
+    protected int getCustomViewType(final int position) {
         return VIEW_TYPE_DEFAULT;
     }
 
-    protected abstract int bindLayout(int viewType);
+    protected abstract int bindLayout(final int viewType);
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -91,7 +91,7 @@ public abstract class BaseAdapter<M> extends RecyclerView.Adapter<BaseViewHolder
         }
     }
 
-    protected void bindCustomViewHolder(BaseViewHolder holder, int position) {
+    protected void bindCustomViewHolder(final BaseViewHolder holder, final int position) {
         final int dataPos = position - (mViewArray.get(VIEW_TYPE_HEADER) == null ? 0 : 1);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,8 +110,7 @@ public abstract class BaseAdapter<M> extends RecyclerView.Adapter<BaseViewHolder
         bind(holder, mData.get(dataPos));
     }
 
-    protected abstract void bind(BaseViewHolder holder, M data);
-
+    protected abstract void bind(final BaseViewHolder holder, final M data);
 
     @Override
     public int getItemCount() {
@@ -154,23 +153,23 @@ public abstract class BaseAdapter<M> extends RecyclerView.Adapter<BaseViewHolder
         removeView(VIEW_TYPE_FOOTER);
     }
 
-    private void setView(int type, @NonNull View view) {
+    private void setView(final int type, @NonNull final View view) {
         mViewArray.put(type, view);
         notifyDataSetChanged();
     }
 
-    private View getView(int type) {
+    private View getView(final int type) {
         return mViewArray.get(type);
     }
 
-    private void removeView(int type) {
+    private void removeView(final int type) {
         if (mViewArray.get(type) != null) {
             mViewArray.delete(type);
             notifyDataSetChanged();
         }
     }
 
-    private View inflateLayout(@LayoutRes int layoutId) {
+    private View inflateLayout(@LayoutRes final int layoutId) {
         return mInflater.inflate(layoutId, mParent, false);
     }
 
@@ -185,11 +184,11 @@ public abstract class BaseAdapter<M> extends RecyclerView.Adapter<BaseViewHolder
         return extraViewCount;
     }
 
-    public void setOnItemClickListener(OnItemClickListener clickListener) {
+    public void setOnItemClickListener(final OnItemClickListener clickListener) {
         mClickListener = clickListener;
     }
 
-    public void setOnItemLongClickListener(OnItemLongClickListener longClickListener) {
+    public void setOnItemLongClickListener(final OnItemLongClickListener longClickListener) {
         mLongClickListener = longClickListener;
     }
 
