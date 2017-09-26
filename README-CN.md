@@ -625,7 +625,7 @@ compile 'com.blankj:utilcode:1.9.1'
 
 ```
 // init it in the function of onCreate in ur Application
-Utils.init(context);
+Utils.init(application);
 ```
 
 
