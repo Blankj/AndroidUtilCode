@@ -81,6 +81,9 @@ public final class ActivityUtils {
         Context context = getActivityOrApp();
         startActivity(context, null, context.getPackageName(), clz.getName(),
                 getOptionsBundle(context, enterAnim, exitAnim));
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context instanceof Activity) {
+            ((Activity) context).overridePendingTransition(enterAnim, exitAnim);
+        }
     }
 
     /**
@@ -182,6 +185,9 @@ public final class ActivityUtils {
         Context context = getActivityOrApp();
         startActivity(context, extras, context.getPackageName(), clz.getName(),
                 getOptionsBundle(context, enterAnim, exitAnim));
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context instanceof Activity) {
+            ((Activity) context).overridePendingTransition(enterAnim, exitAnim);
+        }
     }
 
     /**
@@ -287,6 +293,9 @@ public final class ActivityUtils {
                                      @AnimRes final int exitAnim) {
         Context context = getActivityOrApp();
         startActivity(context, null, pkg, cls, getOptionsBundle(context, enterAnim, exitAnim));
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context instanceof Activity) {
+            ((Activity) context).overridePendingTransition(enterAnim, exitAnim);
+        }
     }
 
     /**
@@ -396,6 +405,9 @@ public final class ActivityUtils {
                                      @AnimRes final int exitAnim) {
         Context context = getActivityOrApp();
         startActivity(context, extras, pkg, cls, getOptionsBundle(context, enterAnim, exitAnim));
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context instanceof Activity) {
+            ((Activity) context).overridePendingTransition(enterAnim, exitAnim);
+        }
     }
 
     /**
@@ -500,6 +512,9 @@ public final class ActivityUtils {
                                      @AnimRes final int exitAnim) {
         Context context = getActivityOrApp();
         startActivity(intent, context, getOptionsBundle(context, enterAnim, exitAnim));
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context instanceof Activity) {
+            ((Activity) context).overridePendingTransition(enterAnim, exitAnim);
+        }
     }
 
     /**
@@ -589,6 +604,9 @@ public final class ActivityUtils {
                                        @AnimRes final int exitAnim) {
         Context context = getActivityOrApp();
         startActivities(intents, context, getOptionsBundle(context, enterAnim, exitAnim));
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context instanceof Activity) {
+            ((Activity) context).overridePendingTransition(enterAnim, exitAnim);
+        }
     }
 
     /**
@@ -754,6 +772,20 @@ public final class ActivityUtils {
     /**
      * 结束Activity
      *
+     * @param activity  activity
+     * @param enterAnim 入场动画
+     * @param exitAnim  出场动画
+     */
+    public static void finishActivity(@NonNull final Activity activity,
+                                      @AnimRes final int enterAnim,
+                                      @AnimRes final int exitAnim) {
+        activity.finish();
+        activity.overridePendingTransition(enterAnim, exitAnim);
+    }
+
+    /**
+     * 结束Activity
+     *
      * @param clz activity类
      */
     public static void finishActivity(@NonNull final Class<?> clz) {
@@ -774,6 +806,25 @@ public final class ActivityUtils {
                 if (!isLoadAnim) {
                     activity.overridePendingTransition(0, 0);
                 }
+            }
+        }
+    }
+
+    /**
+     * 结束Activity
+     *
+     * @param clz       activity类
+     * @param enterAnim 入场动画
+     * @param exitAnim  出场动画
+     */
+    public static void finishActivity(@NonNull final Class<?> clz,
+                                      @AnimRes final int enterAnim,
+                                      @AnimRes final int exitAnim) {
+        List<Activity> activities = Utils.sActivityList;
+        for (Activity activity : activities) {
+            if (activity.getClass().equals(clz)) {
+                activity.finish();
+                activity.overridePendingTransition(enterAnim, exitAnim);
             }
         }
     }
@@ -816,6 +867,32 @@ public final class ActivityUtils {
     /**
      * 结束到指定Activity
      *
+     * @param activity      activity
+     * @param isIncludeSelf 是否结束该activity自己
+     * @param enterAnim     入场动画
+     * @param exitAnim      出场动画
+     */
+    public static boolean finishToActivity(@NonNull final Activity activity,
+                                           final boolean isIncludeSelf,
+                                           @AnimRes final int enterAnim,
+                                           @AnimRes final int exitAnim) {
+        List<Activity> activities = Utils.sActivityList;
+        for (int i = activities.size() - 1; i >= 0; --i) {
+            Activity aActivity = activities.get(i);
+            if (aActivity.equals(activity)) {
+                if (isIncludeSelf) {
+                    finishActivity(aActivity, enterAnim, exitAnim);
+                }
+                return true;
+            }
+            finishActivity(aActivity, enterAnim, exitAnim);
+        }
+        return false;
+    }
+
+    /**
+     * 结束到指定Activity
+     *
      * @param clz           activity类
      * @param isIncludeSelf 是否结束该activity自己
      */
@@ -844,6 +921,32 @@ public final class ActivityUtils {
                 return true;
             }
             finishActivity(aActivity, isLoadAnim);
+        }
+        return false;
+    }
+
+    /**
+     * 结束到指定Activity
+     *
+     * @param clz           activity类
+     * @param isIncludeSelf 是否结束该activity自己
+     * @param enterAnim     入场动画
+     * @param exitAnim      出场动画
+     */
+    public static boolean finishToActivity(@NonNull final Class<?> clz,
+                                           final boolean isIncludeSelf,
+                                           @AnimRes final int enterAnim,
+                                           @AnimRes final int exitAnim) {
+        List<Activity> activities = Utils.sActivityList;
+        for (int i = activities.size() - 1; i >= 0; --i) {
+            Activity aActivity = activities.get(i);
+            if (aActivity.getClass().equals(clz)) {
+                if (isIncludeSelf) {
+                    finishActivity(aActivity, enterAnim, exitAnim);
+                }
+                return true;
+            }
+            finishActivity(aActivity, enterAnim, exitAnim);
         }
         return false;
     }
@@ -882,6 +985,31 @@ public final class ActivityUtils {
     }
 
     /**
+     * 结束除最新之外的同类型Activity
+     * <p>也就是让栈中最多只剩下一种类型的Activity</p>
+     *
+     * @param clz       activity类
+     * @param enterAnim 入场动画
+     * @param exitAnim  出场动画
+     */
+    public static void finishOtherActivitiesExceptNewest(@NonNull final Class<?> clz,
+                                                         @AnimRes final int enterAnim,
+                                                         @AnimRes final int exitAnim) {
+        List<Activity> activities = Utils.sActivityList;
+        boolean flag = false;
+        for (int i = activities.size() - 1; i >= 0; i--) {
+            Activity activity = activities.get(i);
+            if (activity.getClass().equals(clz)) {
+                if (flag) {
+                    finishActivity(activity, enterAnim, exitAnim);
+                } else {
+                    flag = true;
+                }
+            }
+        }
+    }
+
+    /**
      * 结束所有activity
      */
     public static void finishAllActivities() {
@@ -901,6 +1029,21 @@ public final class ActivityUtils {
             if (!isLoadAnim) {
                 activity.overridePendingTransition(0, 0);
             }
+        }
+    }
+
+    /**
+     * 结束所有activity
+     *
+     * @param enterAnim 入场动画
+     * @param exitAnim  出场动画
+     */
+    public static void finishAllActivities(@AnimRes final int enterAnim, @AnimRes final int exitAnim) {
+        List<Activity> activityList = Utils.sActivityList;
+        for (int i = activityList.size() - 1; i >= 0; --i) {// 从栈顶开始移除
+            Activity activity = activityList.get(i);
+            activity.finish();// 在onActivityDestroyed发生remove
+            activity.overridePendingTransition(enterAnim, exitAnim);
         }
     }
 
