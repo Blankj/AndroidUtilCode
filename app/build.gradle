@@ -73,7 +73,7 @@ dependencies {
     releaseCompile leakCanary
     testCompile leakCanary
 
-//    compile 'com.blankj:utilcode:1.9.0'
+//    compile 'com.blankj:utilcode:1.9.1'
 }
 
 
