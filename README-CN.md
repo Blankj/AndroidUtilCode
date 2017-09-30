@@ -237,37 +237,30 @@ getFileExtension          : 根据全路径获取文件拓展名
 
 * ### Fragment相关→[FragmentUtils.java][fragment.java]→[Demo][fragment.demo]
 ```
-addFragment              : 新增fragment
-hideAddFragment          : 先隐藏后新增fragment
-addFragments             : 新增多个fragment
-removeFragment           : 移除fragment
-removeToFragment         : 移除到指定fragment
-removeFragments          : 移除同级别fragment
-removeAllFragments       : 移除所有fragment
-replaceFragment          : 替换fragment
-popFragment              : 出栈fragment
-popToFragment            : 出栈到指定fragment
-popFragments             : 出栈同级别fragment
-popAllFragments          : 出栈所有fragment
-popAddFragment           : 先出栈后新增fragment
-hideFragment             : 隐藏fragment
-hideFragments            : 隐藏同级别fragment
-showFragment             : 显示fragment
-hideShowFragment         : 先隐藏后显示fragment
-getLastAddFragment       : 获取同级别最后加入的fragment
-getLastAddFragmentInStack: 获取栈中同级别最后加入的fragment
-getTopShowFragment       : 获取顶层可见fragment
-getTopShowFragmentInStack: 获取栈中顶层可见fragment
-getFragments             : 获取同级别fragment
-getFragmentsInStack      : 获取栈中同级别fragment
-getAllFragments          : 获取所有fragment
-getAllFragmentsInStack   : 获取栈中所有fragment
-getPreFragment           : 获取目标fragment的前一个fragment
-findFragment             : 查找fragment
-dispatchBackPress        : 处理fragment回退键
-setBackgroundColor       : 设置背景色
-setBackgroundResource    : 设置背景资源
-setBackground            : 设置背景
+add                   : 新增fragment
+show                  : 显示fragment
+hide                  : 隐藏fragment
+showHide              : 先显示后隐藏fragment
+replace               : 替换fragment
+pop                   : 出栈fragment
+popTo                 : 出栈到指定fragment
+popAll                : 出栈所有fragment
+remove                : 移除fragment
+removeTo              : 移除到指定fragment
+removeAll             : 移除所有fragment
+getTop                : 获取顶部fragment
+getTopInStack         : 获取栈中顶部fragment
+getTopShow            : 获取顶部可见fragment
+getTopShowInStack     : 获取栈中顶部可见fragment
+getFragments          : 获取同级别的fragment
+getFragmentsInStack   : 获取同级别栈中的fragment
+getAllFragments       : 获取所有fragment
+getAllFragmentsInStack: 获取栈中所有fragment
+findFragment          : 查找fragment
+dispatchBackPress     : 处理fragment回退键
+setBackgroundColor    : 设置背景色
+setBackgroundResource : 设置背景资源
+setBackground         : 设置背景
 ```
 
 * ### 图片相关→[ImageUtils.java][image.java]→[Demo][image.demo]
@@ -617,7 +610,7 @@ getComments       : 获取压缩文件中的注释链表
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.9.1'
+compile 'com.blankj:utilcode:1.9.2'
 ```
 
 
@@ -640,7 +633,7 @@ Utils.init(application);
 
 [logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.9.1-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.9.2-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-14+-brightgreen.svg

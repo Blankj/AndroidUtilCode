@@ -26,9 +26,13 @@ import java.util.ArrayList;
  */
 public class BarStatusFragmentActivity extends BaseActivity {
 
-    private int[] itemIds = new int[]{R.id.navigation_color, R.id.navigation_alpha, R.id.navigation_image_view};
+    private int[] itemIds = new int[]{
+            R.id.navigation_color,
+            R.id.navigation_alpha,
+            R.id.navigation_image_view
+    };
 
-    private ViewPager            mVpHome;
+    private ViewPager            mVpStatusBar;
     private BottomNavigationView navigation;
     private ArrayList<Fragment> mFragmentList = new ArrayList<>();
 
@@ -54,15 +58,15 @@ public class BarStatusFragmentActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        mVpHome = (ViewPager) findViewById(R.id.vp_home);
-        navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        mVpStatusBar = (ViewPager) findViewById(R.id.vp_status_bar);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation_status_bar);
 
         mFragmentList.add(BarStatusColorFragment.newInstance());
         mFragmentList.add(BarStatusAlphaFragment.newInstance());
         mFragmentList.add(BarStatusImageViewFragment.newInstance());
 
 
-        mVpHome.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+        mVpStatusBar.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 return mFragmentList.get(position);
@@ -74,7 +78,7 @@ public class BarStatusFragmentActivity extends BaseActivity {
             }
         });
 
-        mVpHome.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mVpStatusBar.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -112,13 +116,13 @@ public class BarStatusFragmentActivity extends BaseActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_color:
-                    mVpHome.setCurrentItem(0);
+                    mVpStatusBar.setCurrentItem(0);
                     return true;
                 case R.id.navigation_alpha:
-                    mVpHome.setCurrentItem(1);
+                    mVpStatusBar.setCurrentItem(1);
                     return true;
                 case R.id.navigation_image_view:
-                    mVpHome.setCurrentItem(2);
+                    mVpStatusBar.setCurrentItem(2);
                     return true;
             }
             return false;

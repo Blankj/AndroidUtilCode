@@ -3,14 +3,16 @@ package com.blankj.androidutilcode.core.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseBackActivity;
+import com.blankj.androidutilcode.base.BaseActivity;
 import com.blankj.utilcode.util.FragmentUtils;
-
-import java.util.ArrayList;
 
 /**
  * <pre>
@@ -20,7 +22,17 @@ import java.util.ArrayList;
  *     desc  : Fragment工具类Demo
  * </pre>
  */
-public class FragmentActivity extends BaseBackActivity {
+public class FragmentActivity extends BaseActivity {
+
+    private int[] itemIds = new int[]{
+            R.id.navigation_fragment_zero,
+            R.id.navigation_fragment_one,
+            R.id.navigation_fragment_two
+    };
+
+    private BottomNavigationView navigation;
+    private Fragment[] mFragments = new Fragment[3];
+    private int curIndex;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, FragmentActivity.class);
@@ -41,11 +53,17 @@ public class FragmentActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        getToolBar().setTitle(getString(R.string.demo_fragment));
+        if (savedInstanceState != null) {
+            curIndex = savedInstanceState.getInt("curIndex");
+        }
 
-        ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(Demo0Fragment.newInstance());
-        rootFragment = FragmentUtils.addFragments(getSupportFragmentManager(), fragments, R.id.fragment_container, 0);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation_fragment);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        mFragments[0] = Demo0Fragment.newInstance();
+        mFragments[1] = Demo1Fragment.newInstance();
+        mFragments[2] = Demo2Fragment.newInstance();
+        FragmentUtils.add(getSupportFragmentManager(), mFragments, R.id.fragment_container, curIndex);
     }
 
     @Override
@@ -61,8 +79,38 @@ public class FragmentActivity extends BaseBackActivity {
 
     @Override
     public void onBackPressed() {
-        if (!FragmentUtils.dispatchBackPress(getSupportFragmentManager())) {
-            super.onBackPressed();
+//        if (!FragmentUtils.dispatchBackPress(getSupportFragmentManager())) {
+//            super.onBackPressed();
+//        }
+    }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_fragment_zero:
+                    showCurrentFragment(0);
+                    return true;
+                case R.id.navigation_fragment_one:
+                    showCurrentFragment(1);
+                    return true;
+                case R.id.navigation_fragment_two:
+                    showCurrentFragment(2);
+                    return true;
+            }
+            return false;
         }
+    };
+
+    private void showCurrentFragment(int index) {
+        FragmentUtils.showHide(curIndex = index, mFragments);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putInt("curIndex", curIndex);
     }
 }

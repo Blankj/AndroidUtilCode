@@ -237,32 +237,25 @@ getFileExtension
 
 * ### About Fragment→[FragmentUtils.java][fragment.java]→[Demo][fragment.demo]
 ```
-addFragment
-hideAddFragment
-addFragments
-removeFragment
-removeToFragment
-removeFragments
-removeAllFragments
-replaceFragment
-popFragment
-popToFragment
-popFragments
-popAllFragments
-popAddFragment
-hideFragment
-hideFragments
-showFragment
-hideShowFragment
-getLastAddFragment
-getLastAddFragmentInStack
-getTopShowFragment
-getTopShowFragmentInStack
+add
+show
+hide
+showHide
+replace
+pop
+popTo
+popAll
+remove
+removeTo
+removeAll
+getTop
+getTopInStack
+getTopShow
+getTopShowInStack
 getFragments
 getFragmentsInStack
 getAllFragments
 getAllFragmentsInStack
-getPreFragment
 findFragment
 dispatchBackPress
 setBackgroundColor
@@ -617,7 +610,7 @@ getComments
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.9.1'
+compile 'com.blankj:utilcode:1.9.2'
 ```
 
 
@@ -640,7 +633,7 @@ Utils.init(application);
 
 [logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.9.1-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.9.2-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-14+-brightgreen.svg

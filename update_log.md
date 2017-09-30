@@ -1,3 +1,7 @@
+* 17/09/30 完善FragmentUtils，发布1.9.2
+* 17/09/29 完善FragmentUtils和isInstallApp
+* 17/09/28 完善FragmentUtils
+* 17/09/27 完善FragmentUtils
 * 17/09/26 完善ActivityUtils及Demo，发布1.9.1
 * 17/09/25 完善ActivityUtils及Demo
 * 17/09/24 完善ActivityUtils及Demo

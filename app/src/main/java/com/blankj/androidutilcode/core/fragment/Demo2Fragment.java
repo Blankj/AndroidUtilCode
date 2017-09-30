@@ -1,6 +1,5 @@
 package com.blankj.androidutilcode.core.fragment;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -60,24 +59,24 @@ public class Demo2Fragment extends BaseFragment
     @Override
     public void onWidgetClick(View view) {
         tvAboutFragment.setText("");
-        switch (view.getId()) {
-            case R.id.btn_show_about_fragment:
-                tvAboutFragment.setText("lastAdd: " + FragmentUtils.getLastAddFragment(getFragmentManager()).getClass().getSimpleName()
-                        + "\nlastAddInStack: " + (FragmentUtils.getLastAddFragmentInStack(getFragmentManager()) != null ? FragmentUtils.getLastAddFragmentInStack(getFragmentManager()).getClass().getSimpleName() : "null")
-                        + "\ntopShow: " + FragmentUtils.getTopShowFragment(getFragmentManager()).getClass().getSimpleName()
-                        + "\ntopShowInStack: " + (FragmentUtils.getTopShowFragmentInStack(getFragmentManager()) != null ? FragmentUtils.getTopShowFragmentInStack(getFragmentManager()).getClass().getSimpleName() : "null")
-                        + "\n---all of fragments---\n"
-                        + FragmentUtils.getAllFragments(getFragmentManager()).toString()
-                        + "\n----------------------\n\n"
-                        + "---stack top---\n"
-                        + FragmentUtils.getAllFragmentsInStack(getFragmentManager()).toString()
-                        + "\n---stack bottom---\n\n"
-                );
-                break;
-            case R.id.btn_pop:
-                FragmentUtils.popFragment(getFragmentManager());
-                break;
-        }
+//        switch (view.getId()) {
+//            case R.id.btn_show_about_fragment:
+//                tvAboutFragment.setText("lastAdd: " + FragmentUtils.getTop(getFragmentManager()).getClass().getSimpleName()
+//                        + "\nlastAddInStack: " + (FragmentUtils.getTopInStack(getFragmentManager()) != null ? FragmentUtils.getTopInStack(getFragmentManager()).getClass().getSimpleName() : "null")
+//                        + "\ntopShow: " + FragmentUtils.getTopShow(getFragmentManager()).getClass().getSimpleName()
+//                        + "\ntopShowInStack: " + (FragmentUtils.getTopShowInStack(getFragmentManager()) != null ? FragmentUtils.getTopShowInStack(getFragmentManager()).getClass().getSimpleName() : "null")
+//                        + "\n---all of fragments---\n"
+//                        + FragmentUtils.getAllFragments(getFragmentManager()).toString()
+//                        + "\n----------------------\n\n"
+//                        + "---stack top---\n"
+//                        + FragmentUtils.getAllFragmentsInStack(getFragmentManager()).toString()
+//                        + "\n---stack bottom---\n\n"
+//                );
+//                break;
+//            case R.id.btn_pop:
+//                FragmentUtils.popFragment(getFragmentManager());
+//                break;
+//        }
     }
 
     @Override
