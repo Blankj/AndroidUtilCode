@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.transition.Fade;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,17 +23,15 @@ import java.util.Random;
  *     desc  :
  * </pre>
  */
-public class Demo0Fragment extends BaseFragment
+public class RootFragment extends BaseFragment
         implements FragmentUtils.OnBackClickListener {
 
-    private Demo0Fragment demo0Fragment;
-    Button    btnShowAboutFragment;
     ImageView ivSharedElement;
     TextView  tvAboutFragment;
 
-    public static Demo0Fragment newInstance() {
+    public static RootFragment newInstance() {
         Bundle args = new Bundle();
-        Demo0Fragment fragment = new Demo0Fragment();
+        RootFragment fragment = new RootFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,16 +43,18 @@ public class Demo0Fragment extends BaseFragment
 
     @Override
     public int bindLayout() {
-        return R.layout.fragment_demo0;
+        return R.layout.fragment_root;
     }
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
         Random random = new Random();
         FragmentUtils.setBackgroundColor(this, Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
-        btnShowAboutFragment = (Button) view.findViewById(R.id.btn_show_about_fragment);
-        btnShowAboutFragment.setOnClickListener(this);
+        view.findViewById(R.id.btn_show_about_fragment).setOnClickListener(this);
+        view.findViewById(R.id.btn_add).setOnClickListener(this);
         view.findViewById(R.id.btn_add_hide).setOnClickListener(this);
+        view.findViewById(R.id.btn_add_hide_stack).setOnClickListener(this);
+        view.findViewById(R.id.btn_add).setOnClickListener(this);
         view.findViewById(R.id.btn_add_show).setOnClickListener(this);
         view.findViewById(R.id.btn_add_child).setOnClickListener(this);
         view.findViewById(R.id.btn_pop_to_root).setOnClickListener(this);
@@ -64,10 +63,6 @@ public class Demo0Fragment extends BaseFragment
         view.findViewById(R.id.btn_replace).setOnClickListener(this);
         ivSharedElement = (ImageView) view.findViewById(R.id.iv_shared_element);
         tvAboutFragment = (TextView) view.findViewById(R.id.tv_about_fragment);
-        demo0Fragment = this;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setExitTransition(new Fade());
-        }
     }
 
     @Override
@@ -78,29 +73,38 @@ public class Demo0Fragment extends BaseFragment
     @Override
     public void onWidgetClick(View view) {
         tvAboutFragment.setText("");
-//        switch (view.getId()) {
-//            case R.id.btn_show_about_fragment:
-//                tvAboutFragment.setText("lastAdd: " + FragmentUtils.getTop(getFragmentManager()).getClass().getSimpleName()
-//                        + "\nlastAddInStack: " + (FragmentUtils.getTopInStack(getFragmentManager()) != null ? FragmentUtils.getTopInStack(getFragmentManager()).getClass().getSimpleName() : "null")
-//                        + "\ntopShow: " + (FragmentUtils.getTopShow(getFragmentManager()) != null ? FragmentUtils.getTopShow(getFragmentManager()).getClass().getSimpleName() : "null")
-//                        + "\ntopShowInStack: " + (FragmentUtils.getTopShowInStack(getFragmentManager()) != null ? FragmentUtils.getTopShowInStack(getFragmentManager()).getClass().getSimpleName() : "null")
-//                        + "\n---all of fragments---\n"
-//                        + FragmentUtils.getAllFragments(getFragmentManager()).toString()
-//                        + "\n----------------------\n\n"
-//                        + "---stack top---\n"
-//                        + FragmentUtils.getAllFragmentsInStack(getFragmentManager()).toString()
-//                        + "\n---stack bottom---\n\n"
-//                );
-//                break;
-//            case R.id.btn_add_hide:
-//                FragmentUtils.addHide(getFragmentManager(),
-//                        demo0Fragment,
-//                        addSharedElement(Demo1Fragment.newInstance()),
-//                        R.id.fragment_container,
-//                        false,
-//                        true,
-//                        sharedElement);
-//                break;
+        switch (view.getId()) {
+            case R.id.btn_show_about_fragment:
+                tvAboutFragment.setText("top: " + FragmentUtils.getTop(getFragmentManager()).getClass().getSimpleName()
+                        + "\ntopInStack: " + (FragmentUtils.getTopInStack(getFragmentManager()) != null ? FragmentUtils.getTopInStack(getFragmentManager()).getClass().getSimpleName() : "null")
+                        + "\ntopShow: " + (FragmentUtils.getTopShow(getFragmentManager()) != null ? FragmentUtils.getTopShow(getFragmentManager()).getClass().getSimpleName() : "null")
+                        + "\ntopShowInStack: " + (FragmentUtils.getTopShowInStack(getFragmentManager()) != null ? FragmentUtils.getTopShowInStack(getFragmentManager()).getClass().getSimpleName() : "null")
+                        + "\n---all of fragments---\n"
+                        + FragmentUtils.getAllFragments(getFragmentManager()).toString()
+                        + "\n----------------------\n\n"
+                        + "---stack top---\n"
+                        + FragmentUtils.getAllFragmentsInStack(getFragmentManager()).toString()
+                        + "\n---stack bottom---\n\n"
+                );
+                break;
+            case R.id.btn_add:
+                FragmentUtils.add(getFragmentManager(),
+                        ChildFragment.newInstance(),
+                        R.id.fragment_container);
+                break;
+            case R.id.btn_add_hide:
+                FragmentUtils.add(getFragmentManager(),
+                        ChildFragment.newInstance(),
+                        R.id.fragment_container,
+                        true);
+                break;
+            case R.id.btn_add_hide_stack:
+                FragmentUtils.add(getFragmentManager(),
+                        ChildFragment.newInstance(),
+                        R.id.fragment_container,
+                        true,
+                        true);
+                break;
 //            case R.id.btn_add_show:
 //                FragmentUtils.add(getFragmentManager(),
 //                        addSharedElement(Demo1Fragment.newInstance()),
@@ -111,7 +115,7 @@ public class Demo0Fragment extends BaseFragment
 //                break;
 //            case R.id.btn_add_child:
 //                FragmentUtils.add(getChildFragmentManager(),
-//                        Demo2Fragment.newInstance(),
+//                        ChildFragment.newInstance(),
 //                        R.id.child_fragment_container,
 //                        false,
 //                        true);
@@ -123,7 +127,7 @@ public class Demo0Fragment extends BaseFragment
 //                break;
 //            case R.id.btn_pop_add:
 //                FragmentUtils.popAddFragment(getFragmentManager(),
-//                        addSharedElement(Demo2Fragment.newInstance()),
+//                        addSharedElement(ChildFragment.newInstance()),
 //                        R.id.fragment_container,
 //                        true,
 //                        sharedElement);
@@ -139,7 +143,7 @@ public class Demo0Fragment extends BaseFragment
 //            case R.id.btn_replace:
 //                ((FragmentActivity) getActivity()).rootFragment = FragmentUtils.replaceFragment(this, addSharedElement(Demo3Fragment.newInstance()), false, sharedElement);
 //                break;
-//        }
+        }
     }
 
     private Fragment addSharedElement(Fragment fragment) {

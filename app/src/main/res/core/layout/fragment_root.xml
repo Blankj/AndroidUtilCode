@@ -26,11 +26,25 @@
         android:text="@string/fragment_show_stack" />
 
     <Button
+        android:id="@+id/btn_add"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_add" />
+
+    <Button
         android:id="@+id/btn_add_hide"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/fragment_add_demo1_hide" />
+        android:text="@string/fragment_add_hide" />
+
+    <Button
+        android:id="@+id/btn_add_hide_stack"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_add_hide_stack" />
 
     <Button
         android:id="@+id/btn_add_show"

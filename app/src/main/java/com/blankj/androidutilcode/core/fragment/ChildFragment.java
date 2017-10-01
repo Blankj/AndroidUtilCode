@@ -20,14 +20,14 @@ import java.util.Random;
  *     desc  :
  * </pre>
  */
-public class Demo2Fragment extends BaseFragment
+public class ChildFragment extends BaseFragment
         implements FragmentUtils.OnBackClickListener{
 
     private TextView tvAboutFragment;
 
-    public static Demo2Fragment newInstance() {
+    public static ChildFragment newInstance() {
         Bundle args = new Bundle();
-        Demo2Fragment fragment = new Demo2Fragment();
+        ChildFragment fragment = new ChildFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -39,7 +39,7 @@ public class Demo2Fragment extends BaseFragment
 
     @Override
     public int bindLayout() {
-        return R.layout.fragment_demo2;
+        return R.layout.fragment_child;
     }
 
     @Override
@@ -59,24 +59,24 @@ public class Demo2Fragment extends BaseFragment
     @Override
     public void onWidgetClick(View view) {
         tvAboutFragment.setText("");
-//        switch (view.getId()) {
-//            case R.id.btn_show_about_fragment:
-//                tvAboutFragment.setText("lastAdd: " + FragmentUtils.getTop(getFragmentManager()).getClass().getSimpleName()
-//                        + "\nlastAddInStack: " + (FragmentUtils.getTopInStack(getFragmentManager()) != null ? FragmentUtils.getTopInStack(getFragmentManager()).getClass().getSimpleName() : "null")
-//                        + "\ntopShow: " + FragmentUtils.getTopShow(getFragmentManager()).getClass().getSimpleName()
-//                        + "\ntopShowInStack: " + (FragmentUtils.getTopShowInStack(getFragmentManager()) != null ? FragmentUtils.getTopShowInStack(getFragmentManager()).getClass().getSimpleName() : "null")
-//                        + "\n---all of fragments---\n"
-//                        + FragmentUtils.getAllFragments(getFragmentManager()).toString()
-//                        + "\n----------------------\n\n"
-//                        + "---stack top---\n"
-//                        + FragmentUtils.getAllFragmentsInStack(getFragmentManager()).toString()
-//                        + "\n---stack bottom---\n\n"
-//                );
-//                break;
+        switch (view.getId()) {
+            case R.id.btn_show_about_fragment:
+                tvAboutFragment.setText("lastAdd: " + FragmentUtils.getTop(getFragmentManager()).getClass().getSimpleName()
+                        + "\nlastAddInStack: " + (FragmentUtils.getTopInStack(getFragmentManager()) != null ? FragmentUtils.getTopInStack(getFragmentManager()).getClass().getSimpleName() : "null")
+                        + "\ntopShow: " + FragmentUtils.getTopShow(getFragmentManager()).getClass().getSimpleName()
+                        + "\ntopShowInStack: " + (FragmentUtils.getTopShowInStack(getFragmentManager()) != null ? FragmentUtils.getTopShowInStack(getFragmentManager()).getClass().getSimpleName() : "null")
+                        + "\n---all of fragments---\n"
+                        + FragmentUtils.getAllFragments(getFragmentManager()).toString()
+                        + "\n----------------------\n\n"
+                        + "---stack top---\n"
+                        + FragmentUtils.getAllFragmentsInStack(getFragmentManager()).toString()
+                        + "\n---stack bottom---\n\n"
+                );
+                break;
 //            case R.id.btn_pop:
 //                FragmentUtils.popFragment(getFragmentManager());
 //                break;
-//        }
+        }
     }
 
     @Override

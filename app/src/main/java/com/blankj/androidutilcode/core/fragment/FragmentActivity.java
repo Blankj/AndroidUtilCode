@@ -39,8 +39,6 @@ public class FragmentActivity extends BaseActivity {
         context.startActivity(starter);
     }
 
-    public Fragment rootFragment;
-
     @Override
     public void initData(Bundle bundle) {
 
@@ -60,9 +58,9 @@ public class FragmentActivity extends BaseActivity {
         navigation = (BottomNavigationView) findViewById(R.id.navigation_fragment);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        mFragments[0] = Demo0Fragment.newInstance();
-        mFragments[1] = Demo1Fragment.newInstance();
-        mFragments[2] = Demo2Fragment.newInstance();
+        mFragments[0] = RootFragment.newInstance();
+        mFragments[1] = RootFragment.newInstance();
+        mFragments[2] = RootFragment.newInstance();
         FragmentUtils.add(getSupportFragmentManager(), mFragments, R.id.fragment_container, curIndex);
     }
 

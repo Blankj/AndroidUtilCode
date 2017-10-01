@@ -97,7 +97,9 @@
     <string name="fragment_one">Fragment1</string>
     <string name="fragment_two">Fragment2</string>
     <string name="fragment_show_stack">Show Stack</string>
-    <string name="fragment_add_demo1_hide">Add Demo1 Hide</string>
+    <string name="fragment_add">Add</string>
+    <string name="fragment_add_hide">Add Hide</string>
+    <string name="fragment_add_hide_stack">Add Hide Stack</string>
     <string name="fragment_add_demo1_show">Add Demo1 Show</string>
     <string name="fragment_add_child">Add Child</string>
     <string name="fragment_pop">Pop</string>
