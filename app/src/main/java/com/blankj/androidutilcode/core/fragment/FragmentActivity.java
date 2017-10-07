@@ -75,12 +75,12 @@ public class FragmentActivity extends BaseActivity {
     }
 
 
-    @Override
-    public void onBackPressed() {
-//        if (!FragmentUtils.dispatchBackPress(getSupportFragmentManager())) {
-//            super.onBackPressed();
-//        }
-    }
+//    @Override
+//    public void onBackPressed() {
+////        if (!FragmentUtils.dispatchBackPress(getSupportFragmentManager())) {
+////            super.onBackPressed();
+////        }
+//    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {

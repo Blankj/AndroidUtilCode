@@ -21,7 +21,7 @@ import java.util.Random;
  * </pre>
  */
 public class ChildFragment extends BaseFragment
-        implements FragmentUtils.OnBackClickListener{
+        implements FragmentUtils.OnBackClickListener {
 
     private TextView tvAboutFragment;
 
@@ -61,10 +61,10 @@ public class ChildFragment extends BaseFragment
         tvAboutFragment.setText("");
         switch (view.getId()) {
             case R.id.btn_show_about_fragment:
-                tvAboutFragment.setText("lastAdd: " + FragmentUtils.getTop(getFragmentManager()).getClass().getSimpleName()
-                        + "\nlastAddInStack: " + (FragmentUtils.getTopInStack(getFragmentManager()) != null ? FragmentUtils.getTopInStack(getFragmentManager()).getClass().getSimpleName() : "null")
-                        + "\ntopShow: " + FragmentUtils.getTopShow(getFragmentManager()).getClass().getSimpleName()
-                        + "\ntopShowInStack: " + (FragmentUtils.getTopShowInStack(getFragmentManager()) != null ? FragmentUtils.getTopShowInStack(getFragmentManager()).getClass().getSimpleName() : "null")
+                tvAboutFragment.setText("top: " + FragmentUtils.getSimpleName(FragmentUtils.getTop(getFragmentManager()))
+                        + "\ntopInStack: " + FragmentUtils.getSimpleName(FragmentUtils.getTopInStack(getFragmentManager()))
+                        + "\ntopShow: " + FragmentUtils.getSimpleName(FragmentUtils.getTopShow(getFragmentManager()))
+                        + "\ntopShowInStack: " + FragmentUtils.getSimpleName(FragmentUtils.getTopShowInStack(getFragmentManager()))
                         + "\n---all of fragments---\n"
                         + FragmentUtils.getAllFragments(getFragmentManager()).toString()
                         + "\n----------------------\n\n"

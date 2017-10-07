@@ -75,10 +75,10 @@ public class RootFragment extends BaseFragment
         tvAboutFragment.setText("");
         switch (view.getId()) {
             case R.id.btn_show_about_fragment:
-                tvAboutFragment.setText("top: " + FragmentUtils.getTop(getFragmentManager()).getClass().getSimpleName()
-                        + "\ntopInStack: " + (FragmentUtils.getTopInStack(getFragmentManager()) != null ? FragmentUtils.getTopInStack(getFragmentManager()).getClass().getSimpleName() : "null")
-                        + "\ntopShow: " + (FragmentUtils.getTopShow(getFragmentManager()) != null ? FragmentUtils.getTopShow(getFragmentManager()).getClass().getSimpleName() : "null")
-                        + "\ntopShowInStack: " + (FragmentUtils.getTopShowInStack(getFragmentManager()) != null ? FragmentUtils.getTopShowInStack(getFragmentManager()).getClass().getSimpleName() : "null")
+                tvAboutFragment.setText("top: " + FragmentUtils.getSimpleName(FragmentUtils.getTop(getFragmentManager()))
+                        + "\ntopInStack: " + FragmentUtils.getSimpleName(FragmentUtils.getTopInStack(getFragmentManager()))
+                        + "\ntopShow: " + FragmentUtils.getSimpleName(FragmentUtils.getTopShow(getFragmentManager()))
+                        + "\ntopShowInStack: " + FragmentUtils.getSimpleName(FragmentUtils.getTopShowInStack(getFragmentManager()))
                         + "\n---all of fragments---\n"
                         + FragmentUtils.getAllFragments(getFragmentManager()).toString()
                         + "\n----------------------\n\n"

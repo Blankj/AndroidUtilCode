@@ -779,11 +779,12 @@ public final class FragmentUtils {
             Log.e("FragmentUtils", src.getClass().getName() + " is isRemoving");
             return;
         }
-        String name = dest.getClass().getName();
+        String name;
         Bundle args;
         switch (type) {
             case TYPE_ADD_FRAGMENT:
                 for (Fragment fragment : dest) {
+                    name = fragment.getClass().getName();
                     args = fragment.getArguments();
                     Fragment fragmentByTag = fm.findFragmentByTag(name);
                     if (fragmentByTag != null) {
@@ -815,6 +816,7 @@ public final class FragmentUtils {
                 }
                 break;
             case TYPE_REPLACE_FRAGMENT:
+                name = dest[0].getClass().getName();
                 args = dest[0].getArguments();
                 ft.replace(args.getInt(ARGS_ID), dest[0], name);
                 if (args.getBoolean(ARGS_IS_ADD_STACK)) ft.addToBackStack(name);
@@ -883,8 +885,10 @@ public final class FragmentUtils {
         for (int i = fragments.size() - 1; i >= 0; --i) {
             Fragment fragment = fragments.get(i);
             if (fragment != null) {
-                if (isInStack && fragment.getArguments().getBoolean(ARGS_IS_ADD_STACK)) {
-                    return fragment;
+                if (isInStack) {
+                    if (fragment.getArguments().getBoolean(ARGS_IS_ADD_STACK)) {
+                        return fragment;
+                    }
                 } else {
                     return fragment;
                 }
@@ -922,11 +926,13 @@ public final class FragmentUtils {
                     && fragment.isResumed()
                     && fragment.isVisible()
                     && fragment.getUserVisibleHint()) {
-                if (isInStack && fragment.getArguments().getBoolean(ARGS_IS_ADD_STACK)) {
+                if (isInStack) {
+                    if (fragment.getArguments().getBoolean(ARGS_IS_ADD_STACK)) {
+                        return fragment;
+                    }
+                } else {
                     return fragment;
                 }
-            } else {
-                return fragment;
             }
         }
         return null;
@@ -1097,6 +1103,16 @@ public final class FragmentUtils {
      */
     public static void setBackground(@NonNull final Fragment fragment, final Drawable background) {
         ViewCompat.setBackground(fragment.getView(), background);
+    }
+
+    /**
+     * 获取类名
+     *
+     * @param fragment fragment
+     * @return 类名
+     */
+    public static String getSimpleName(final Fragment fragment) {
+        return fragment == null ? "null" : fragment.getClass().getSimpleName();
     }
 
     private static class Args {
