@@ -1,6 +1,6 @@
 language: android
 jdk: oraclejdk8
-sudo: root
+sudo: false
 
 env:
   global:
@@ -11,6 +11,7 @@ android:
   components:
     - tools
     - platform-tools
+    - tools
     - build-tools-$BUILD_TOOLS_VERSION
     - android-$COMPILE_SDK_VERSION
 
