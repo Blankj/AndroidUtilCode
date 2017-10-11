@@ -1,11 +1,11 @@
 language: android
 jdk: oraclejdk8
-sudo: false
+sudo: root
 
 env:
   global:
     - COMPILE_SDK_VERSION = 25
-    - BUILD_TOOLS_VERSION = 25.0.0
+    - BUILD_TOOLS_VERSION = 25.0.3
 
 android:
   components:
