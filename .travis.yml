@@ -16,7 +16,7 @@ android:
 
   licenses:
     - android-sdk-license-.+
-    - '.+'
+    - android-sdk-build-tools-license-.+
 
   notifications:
     email: false
