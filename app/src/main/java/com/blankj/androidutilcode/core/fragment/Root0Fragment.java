@@ -23,15 +23,15 @@ import java.util.Random;
  *     desc  :
  * </pre>
  */
-public class RootFragment extends BaseFragment
+public class Root0Fragment extends BaseFragment
         implements FragmentUtils.OnBackClickListener {
 
     ImageView ivSharedElement;
     TextView  tvAboutFragment;
 
-    public static RootFragment newInstance() {
+    public static Root0Fragment newInstance() {
         Bundle args = new Bundle();
-        RootFragment fragment = new RootFragment();
+        Root0Fragment fragment = new Root0Fragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -90,7 +90,9 @@ public class RootFragment extends BaseFragment
             case R.id.btn_add:
                 FragmentUtils.add(getFragmentManager(),
                         ChildFragment.newInstance(),
-                        R.id.fragment_container);
+                        R.id.child_fragment_container,
+                        false,
+                        true);
                 break;
             case R.id.btn_add_hide:
                 FragmentUtils.add(getFragmentManager(),

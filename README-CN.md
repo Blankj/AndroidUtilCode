@@ -407,19 +407,21 @@ getReplaceAll  : 替换所有正则匹配的部分
 
 * ### 屏幕相关→[ScreenUtils.java][screen.java]
 ```
-getScreenWidth   : 获取屏幕的宽度（单位：px）
-getScreenHeight  : 获取屏幕的高度（单位：px）
-setFullScreen    : 设置屏幕为全屏
-setLandscape     : 设置屏幕为横屏
-setPortrait      : 设置屏幕为竖屏
-isLandscape      : 判断是否横屏
-isPortrait       : 判断是否竖屏
-getScreenRotation: 获取屏幕旋转角度
-screenShot       : 截屏
-isScreenLock     : 判断是否锁屏
-setSleepDuration : 设置进入休眠时长
-getSleepDuration : 获取进入休眠时长
-isTablet         : 判断是否是平板
+getScreenWidth     : 获取屏幕的宽度（单位：px）
+getScreenHeight    : 获取屏幕的高度（单位：px）
+getScreenDensity   : 获取屏幕密度
+getScreenDensityDpi: 获取屏幕密度DPI
+setFullScreen      : 设置屏幕为全屏
+setLandscape       : 设置屏幕为横屏
+setPortrait        : 设置屏幕为竖屏
+isLandscape        : 判断是否横屏
+isPortrait         : 判断是否竖屏
+getScreenRotation  : 获取屏幕旋转角度
+screenShot         : 截屏
+isScreenLock       : 判断是否锁屏
+setSleepDuration   : 设置进入休眠时长
+getSleepDuration   : 获取进入休眠时长
+isTablet           : 判断是否是平板
 ```
 
 * ### SD卡相关→[SDCardUtils.java][sdcard.java]→[Demo][sdcard.demo]
@@ -610,7 +612,7 @@ getComments       : 获取压缩文件中的注释链表
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.9.2'
+compile 'com.blankj:utilcode:1.9.3'
 ```
 
 
@@ -633,7 +635,7 @@ Utils.init(application);
 
 [logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.9.2-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.9.3-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-14+-brightgreen.svg

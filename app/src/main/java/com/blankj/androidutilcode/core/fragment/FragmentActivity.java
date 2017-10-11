@@ -58,9 +58,9 @@ public class FragmentActivity extends BaseActivity {
         navigation = (BottomNavigationView) findViewById(R.id.navigation_fragment);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        mFragments[0] = RootFragment.newInstance();
-        mFragments[1] = RootFragment.newInstance();
-        mFragments[2] = RootFragment.newInstance();
+        mFragments[0] = Root0Fragment.newInstance();
+        mFragments[1] = Root1Fragment.newInstance();
+        mFragments[2] = Root2Fragment.newInstance();
         FragmentUtils.add(getSupportFragmentManager(), mFragments, R.id.fragment_container, curIndex);
     }
 

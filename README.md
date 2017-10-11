@@ -409,6 +409,8 @@ getReplaceAll
 ```
 getScreenWidth
 getScreenHeight
+getScreenDensity
+getScreenDensityDpi
 setFullScreen
 setLandscape
 setPortrait
@@ -610,7 +612,7 @@ getComments
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.9.2'
+compile 'com.blankj:utilcode:1.9.3'
 ```
 
 
@@ -633,7 +635,7 @@ Utils.init(application);
 
 [logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.9.2-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.9.3-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-14+-brightgreen.svg
