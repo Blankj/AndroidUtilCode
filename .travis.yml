@@ -5,12 +5,12 @@ sudo: false
 env:
   global:
     - COMPILE_SDK_VERSION = 25
-    - BUILD_TOOLS_VERSION = 25.0.2
+    - BUILD_TOOLS_VERSION = 25.0.3
 
 android:
   components:
-    - platform-tools
     - tools
+    - platform-tools
     - build-tools-$BUILD_TOOLS_VERSION
     - android-$COMPILE_SDK_VERSION
 
