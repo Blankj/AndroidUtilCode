@@ -9,16 +9,16 @@ env:
 
 android:
   components:
-    - tools
     - platform-tools
     - tools
     - build-tools-$BUILD_TOOLS_VERSION
     - android-$COMPILE_SDK_VERSION
+    - extra-android-m2repository
+    - extra-android-support
 
   licenses:
-    - 'android-sdk-preview-license-.+'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
+    - android-sdk-license-.+
+    - '.+'
 
   notifications:
     email: false
