@@ -33,7 +33,7 @@ ext {
     versionName = '1.9.3'
 
     // App dependencies
-    supportVersion = '25.0.2'
+    supportVersion = '25.3.1'
 
     junitVersion = '4.12'
     robolectricVersion = '3.1.2'
