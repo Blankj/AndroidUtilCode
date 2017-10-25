@@ -1,4 +1,4 @@
-* 17/10/25 修复LogUtils边框
+* 17/10/25 修复LogUtils边框，修复getBitmap从流获取
 * 17/09/30 完善FragmentUtils，发布1.9.2
 * 17/09/29 完善FragmentUtils和isInstallApp
 * 17/09/28 完善FragmentUtils
