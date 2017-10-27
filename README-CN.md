@@ -612,7 +612,7 @@ getComments       : 获取压缩文件中的注释链表
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.9.5'
+compile 'com.blankj:utilcode:1.9.6'
 ```
 
 
@@ -635,7 +635,7 @@ Utils.init(application);
 
 [logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.9.5-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.9.6-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-14+-brightgreen.svg

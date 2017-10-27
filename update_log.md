@@ -1,3 +1,4 @@
+* 17/10/27 修复LogUtils在kotlin中使用的问题
 * 17/10/25 修复LogUtils边框，修复getBitmap从流获取
 * 17/09/30 完善FragmentUtils，发布1.9.2
 * 17/09/29 完善FragmentUtils和isInstallApp
