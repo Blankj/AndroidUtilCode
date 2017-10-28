@@ -5,13 +5,11 @@ sudo: false
 env:
   global:
     - COMPILE_SDK_VERSION = 26
-    - BUILD_TOOLS_VERSION = 26.0.2
 
 android:
   components:
     - platform-tools
     - tools
-    - build-tools-$BUILD_TOOLS_VERSION
     - android-$COMPILE_SDK_VERSION
 
   licenses:
@@ -28,4 +26,4 @@ before_install:
   - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
 
 script:
-  - ./gradlew build connectedCheck
+  - ./gradlew build connectedCheck -- info
