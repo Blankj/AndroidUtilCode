@@ -27,7 +27,7 @@ task clean(type: Delete) {
 ext {
     // Sdk and tools
     compileSdkVersion = 26
-    buildToolsVersion = '26.1.0'
+    buildToolsVersion = '26.0.2'
     minSdkVersion = 14
     targetSdkVersion = 22
 
@@ -35,7 +35,7 @@ ext {
     versionName = '1.9.6'
 
     // App dependencies
-    supportVersion = '26.0.2'
+    supportVersion = '26.1.0'
 
     junitVersion = '4.12'
     robolectricVersion = '3.1.2'
