@@ -5,7 +5,7 @@ sudo: false
 env:
   global:
     - COMPILE_SDK_VERSION = 26
-    - BUILD_TOOLS_VERSION = 26.0.2
+    - BUILD_TOOLS_VERSION = 26.0.1
 
 android:
   components:
@@ -16,7 +16,7 @@ android:
     - android-$COMPILE_SDK_VERSION
 
   licenses:
-    - 'android-sdk-preview-license-2742d1c5'
+    - 'android-sdk-license-2742d1c5'
     - 'android-sdk-license-.+'
     - '.+'
 
