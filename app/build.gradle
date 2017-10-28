@@ -66,9 +66,9 @@ dependencies {
     implementation 'com.r0adkll:slidableactivity:2.0.5'
 
     // LeakCanary
-    debugCompile "com.squareup.leakcanary:leakcanary-android:$LEAKCANARY_VERSION"
-    releaseCompile leakCanary
-    testCompile leakCanary
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$LEAKCANARY_VERSION"
+    releaseImplementation leakCanary
+    testImplementation leakCanary
 
 //    compile 'com.blankj:utilcode:1.9.3'
 }

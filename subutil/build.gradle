@@ -55,6 +55,6 @@ dependencies {
     compileOnly "com.android.support:support-v4:$rootProject.ext.supportVersion"
     compileOnly "com.android.support:design:$rootProject.ext.supportVersion"
 
-    testCompile "junit:junit:$rootProject.ext.junitVersion"
-    testCompile "org.robolectric:robolectric:$rootProject.ext.robolectricVersion"
+    testImplementation "junit:junit:$rootProject.ext.junitVersion"
+    testImplementation "org.robolectric:robolectric:$rootProject.ext.robolectricVersion"
 }

@@ -1,3 +1,4 @@
+* 17/10/28 替换compile为implementation，provided为compileOnly
 * 17/10/27 兼容AS3.0
 * 17/10/27 修复LogUtils在kotlin中使用的问题
 * 17/10/25 修复LogUtils边框，修复getBitmap从流获取
