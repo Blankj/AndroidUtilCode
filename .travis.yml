@@ -16,7 +16,7 @@ android:
     - android-$COMPILE_SDK_VERSION
 
   licenses:
-    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-preview-license-2742d1c5'
     - 'android-sdk-license-.+'
     - '.+'
 
