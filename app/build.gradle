@@ -4,8 +4,6 @@ File signPropertiesFile = rootProject.file('sign/keystore.properties')
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
-
     defaultConfig {
         applicationId "com.blankj.androidutilcode"
         minSdkVersion rootProject.ext.minSdkVersion
