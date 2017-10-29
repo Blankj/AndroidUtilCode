@@ -1,5 +1,7 @@
 package com.blankj.androidutilcode;
 
+import android.os.Environment;
+
 /**
  * <pre>
  *     author: Blankj
@@ -20,7 +22,7 @@ public class Config {
     public static final String TEST_APK_PATH;
 
     static {
-        CACHE_PATH = UtilsApp.getInstance().getCacheDir().getAbsolutePath();
-        TEST_APK_PATH = CACHE_PATH + FILE_SEP + "apk" + FILE_SEP + "test_install.apk";
+        CACHE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath();
+        TEST_APK_PATH = CACHE_PATH + FILE_SEP + "test_install.apk";
     }
 }

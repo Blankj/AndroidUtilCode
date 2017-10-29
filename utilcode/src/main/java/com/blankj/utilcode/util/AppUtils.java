@@ -80,7 +80,7 @@ public final class AppUtils {
     }
 
     /**
-     * 安装App（支持6.0）
+     * 安装App（支持7.0）
      *
      * @param activity    activity
      * @param filePath    文件路径
@@ -93,7 +93,7 @@ public final class AppUtils {
     }
 
     /**
-     * 安装App(支持6.0)
+     * 安装App(支持7.0)
      *
      * @param activity    activity
      * @param file        文件
