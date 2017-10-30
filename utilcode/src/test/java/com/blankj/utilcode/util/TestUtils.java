@@ -30,7 +30,7 @@ public class TestUtils {
 
     private static final String LONG_SPACE = "                                        ";
 
-    @Test
+//    @Test
     public void readme2Eng() throws Exception {
         String rootPath = new File(System.getProperty("user.dir")).getAbsolutePath() + FILE_SEP;
         File readmeCN = new File(rootPath + "utilcode" + FILE_SEP + "README-CN.md");
