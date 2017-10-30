@@ -28,54 +28,71 @@ public class TestUtils {
         Utils.init(RuntimeEnvironment.application);
     }
 
-//        @Test
+    private static final String LONG_SPACE = "                                        ";
+
+    @Test
     public void readme2Eng() throws Exception {
-        formatCN();
-        File readmeCN = new File(new File(System.getProperty("user.dir")).getAbsolutePath() + FILE_SEP + "README-CN.md");
-        File readmeEng = new File(new File(System.getProperty("user.dir")).getAbsolutePath() + FILE_SEP + "README.md");
-        List<String> list = FileIOUtils.readFile2List(readmeCN, "UTF-8");
-        StringBuilder sb = new StringBuilder("![logo][logo]" + LINE_SEP + LINE_SEP +
-                "[![auc][aucsvg]][auc] [![api][apisvg]][api] [![build][buildsvg]][build] [![Insight][insightsvg]][insight] [![License][licensesvg]][license]" + LINE_SEP + LINE_SEP +
-                "## [README of Chinese][readme-cn.md]" + LINE_SEP + LINE_SEP +
-                "## API" + LINE_SEP + LINE_SEP);
-        List<String> lines = list.subList(8, list.size());
+        String rootPath = new File(System.getProperty("user.dir")).getAbsolutePath() + FILE_SEP;
+        File readmeCN = new File(rootPath + "utilcode" + FILE_SEP + "README-CN.md");
+        File readme = new File(rootPath + "utilcode" + FILE_SEP + "README.md");
+        readmeOfUtilCode(readmeCN, readme);
+
+        readmeCN = new File(rootPath + "subutil" + FILE_SEP + "README-CN.md");
+        readme = new File(rootPath + "subutil" + FILE_SEP + "README.md");
+        readmeOfSubUtil(readmeCN, readme);
+    }
+
+
+    private void readmeOfUtilCode(File readmeCN, File readme) throws Exception {
+        formatCN(readmeCN);
+        List<String> lines = FileIOUtils.readFile2List(readmeCN, "UTF-8");
+        StringBuilder sb = new StringBuilder();
         for (String line : lines) {
             if (line.contains("* ###")) {
-                if (line.contains("Utils")) {
-                    String utilsName = line.substring(line.indexOf("[") + 1, line.indexOf("Utils"));
-                    sb.append("* ### About ").append(utilsName).append(line.substring(line.indexOf("→")));
-                } else {
-                    sb.append("* ### About Log→[update_log.md][update_log.md]");
-                }
+                String utilsName = line.substring(line.indexOf("[") + 1, line.indexOf("Utils"));
+                sb.append("* ### About ").append(utilsName).append(line.substring(line.indexOf("→")));
             } else if (line.contains(": ") && !line.contains("[")) {
                 sb.append(line.substring(0, line.indexOf(':')).trim());
-            } else if (line.contains("* 做")) {
-                sb.append("* **I'm so sorry for that the code is annotated with Chinese.**");
-            } else if (line.contains("* QQ") || line.contains("* 我的")) {
-                continue;
             } else {
                 sb.append(line);
             }
             sb.append(LINE_SEP);
         }
-        FileIOUtils.writeFileFromString(readmeEng, sb.toString());
+        FileIOUtils.writeFileFromString(readme, sb.toString());
     }
 
-    public void formatCN() throws Exception {
-        File readmeCN = new File(new File(System.getProperty("user.dir")).getAbsolutePath() + FILE_SEP + "README-CN.md");
-        List<String> list = FileIOUtils.readFile2List(readmeCN, "UTF-8");
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 4; i++) {
-            sb.append(list.get(i)).append(LINE_SEP);
+
+    private void readmeOfSubUtil(File readmeCN, File readme) throws Exception {
+        formatCN(readmeCN);
+        List<String> lines = FileIOUtils.readFile2List(readmeCN, "UTF-8");
+        StringBuilder sb = new StringBuilder("## How to use" + LINE_SEP
+                + LINE_SEP +
+                "You should copy the following classes which you want to use in your project." + LINE_SEP);
+        for (int i = 3, len = lines.size(); i < len; ++i) {
+            String line = lines.get(i);
+            if (line.contains("* ###")) {
+                String utilsName = line.substring(line.indexOf("[") + 1, line.indexOf("Utils"));
+                sb.append("* ### About ").append(utilsName).append(line.substring(line.indexOf("→")));
+            } else if (line.contains(": ") && !line.contains("[")) {
+                sb.append(line.substring(0, line.indexOf(':')).trim());
+            } else {
+                sb.append(line);
+            }
+            sb.append(LINE_SEP);
         }
-        String space = " ";
-        for (int i = 4, len = list.size(); i < len; ++i) {
+        FileIOUtils.writeFileFromString(readme, sb.toString());
+    }
+
+    public void formatCN(File file) throws Exception {
+        List<String> list = FileIOUtils.readFile2List(file, "UTF-8");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0, len = list.size(); i < len; ++i) {
             String line = list.get(i);
-            if (line.contains("* ###") && line.contains("Utils")) {
+            if (line.contains("* ###")) {
                 sb.append(line).append(LINE_SEP);
                 int maxLen = 0;
                 line = list.get(++i);
-                // 获取需填充最大空格数
+                // get the max length of space
                 for (int j = i; !line.equals(""); line = list.get(++j)) {
                     if (line.equals("```")) continue;
                     maxLen = Math.max(maxLen, line.replace(" ", "").replace(",", ", ").indexOf(':'));
@@ -83,24 +100,23 @@ public class TestUtils {
                 line = list.get(i);
                 for (; !line.equals(""); line = list.get(++i)) {
                     if (line.equals("```")) {
-                        sb.append("```").append(LINE_SEP);
-                        continue;
+                        sb.append("```");
+                    } else {
+                        String noSpaceLine = line.replace(" ", "");
+                        int spaceLen = maxLen - line.replace(" ", "").replace(",", ", ").indexOf(':');
+                        sb.append(noSpaceLine.substring(0, noSpaceLine.indexOf(':')).replace(",", ", "))
+                                .append(LONG_SPACE.substring(0, spaceLen))// add the space
+                                .append(": ")
+                                .append(noSpaceLine.substring(noSpaceLine.indexOf(':') + 1));
                     }
-                    String noSpaceLine = line.replace(" ", "");
-                    int l = maxLen - line.replace(" ", "").replace(",", ", ").indexOf(':');
-                    String spaces = "";
-                    for (int j = 0; j < l; j++) {
-                        spaces += space;
-                    }
-                    String temp = noSpaceLine.substring(0, noSpaceLine.indexOf(':')) + spaces + ": " + noSpaceLine.substring(noSpaceLine.indexOf(':') + 1) + LINE_SEP;
-                    sb.append(temp.replace(",", ", "));
+                    sb.append(LINE_SEP);
                 }
             } else {
                 sb.append(line);
             }
             sb.append(LINE_SEP);
         }
-        FileIOUtils.writeFileFromString(readmeCN, sb.toString(), false);
+        FileIOUtils.writeFileFromString(file, sb.toString());
     }
 
     @Test

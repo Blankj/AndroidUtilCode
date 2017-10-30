@@ -1,3 +1,4 @@
+* 17/10/30 升级README
 * 17/10/29 修复6.0内部存储安装失败问题
 * 17/10/28 替换compile为implementation，provided为compileOnly
 * 17/10/27 兼容AS3.0
