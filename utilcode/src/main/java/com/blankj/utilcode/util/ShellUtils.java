@@ -114,8 +114,8 @@ public final class ShellUtils {
                 errorResult = new BufferedReader(new InputStreamReader(process.getErrorStream(), "UTF-8"));
                 String s;
                 while ((s = successResult.readLine()) != null) {
-                    successMsg.append("\n");
-                    successMsg.append(s);
+                    successMsg.append(System.getProperty("line.separator"));
+                    successMsg.append(System.getProperty("line.separator"));
                 }
                 while ((s = errorResult.readLine()) != null) {
                     errorMsg.append("\n");
