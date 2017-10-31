@@ -115,10 +115,10 @@ public final class ShellUtils {
                 String s;
                 while ((s = successResult.readLine()) != null) {
                     successMsg.append(System.getProperty("line.separator"));
-                    successMsg.append(System.getProperty("line.separator"));
+                    successMsg.append(s);
                 }
                 while ((s = errorResult.readLine()) != null) {
-                    errorMsg.append("\n");
+                    errorMsg.append(System.getProperty("line.separator"));
                     errorMsg.append(s);
                 }
             }
