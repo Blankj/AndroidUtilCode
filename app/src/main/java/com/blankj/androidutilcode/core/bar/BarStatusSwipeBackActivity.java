@@ -63,11 +63,11 @@ public class BarStatusSwipeBackActivity extends BaseActivity {
     public void initView(Bundle savedInstanceState, View view) {
         Slidr.attach(this);
 
-        llContainer = (LinearLayout) findViewById(R.id.ll_container);
-        cbAlpha = (CheckBox) findViewById(R.id.cb_alpha);
-        btnRandomColor = (Button) findViewById(R.id.btn_random_color);
-        tvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
-        sbChangeAlpha = (SeekBar) findViewById(R.id.sb_change_alpha);
+        llContainer = findViewById(R.id.ll_container);
+        cbAlpha = findViewById(R.id.cb_alpha);
+        btnRandomColor = findViewById(R.id.btn_random_color);
+        tvStatusAlpha = findViewById(R.id.tv_status_alpha);
+        sbChangeAlpha = findViewById(R.id.sb_change_alpha);
 
         cbAlpha.setOnCheckedChangeListener(mCheckedChangeListener);
         btnRandomColor.setOnClickListener(this);

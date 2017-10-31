@@ -61,11 +61,11 @@ public class BarStatusDrawerActivity extends BaseDrawerActivity {
     @Override
     public void initView(Bundle savedInstanceState, View view) {
         fakeStatusBar = findViewById(R.id.fake_status_bar);
-        cbAlpha = (CheckBox) findViewById(R.id.cb_alpha);
-        cbFront = (CheckBox) findViewById(R.id.cb_front);
-        btnRandomColor = (Button) findViewById(R.id.btn_random_color);
-        tvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
-        sbChangeAlpha = (SeekBar) findViewById(R.id.sb_change_alpha);
+        cbAlpha = findViewById(R.id.cb_alpha);
+        cbFront = findViewById(R.id.cb_front);
+        btnRandomColor = findViewById(R.id.btn_random_color);
+        tvStatusAlpha = findViewById(R.id.tv_status_alpha);
+        sbChangeAlpha = findViewById(R.id.sb_change_alpha);
 
         cbAlpha.setOnCheckedChangeListener(mAlphaCheckedChangeListener);
         cbFront.setOnCheckedChangeListener(mFrontCheckedChangeListener);

@@ -16,7 +16,7 @@ import com.blankj.utilcode.util.ScreenUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/27
- *     desc  : SDCard工具类Demo
+ *     desc  : Screen工具类Demo
  * </pre>
  */
 public class ScreenActivity extends BaseBackActivity {
@@ -46,8 +46,8 @@ public class ScreenActivity extends BaseBackActivity {
         findViewById(R.id.btn_set_portrait).setOnClickListener(this);
         findViewById(R.id.btn_screenshot).setOnClickListener(this);
         findViewById(R.id.btn_set_sleep_duration).setOnClickListener(this);
-        ivScreenshot = (ImageView) findViewById(R.id.iv_screenshot);
-        TextView tvAboutSdcard = (TextView) findViewById(R.id.tv_about_screen);
+        ivScreenshot = findViewById(R.id.iv_screenshot);
+        TextView tvAboutSdcard = findViewById(R.id.tv_about_screen);
         tvAboutSdcard.setText("getScreenWidth: " + ScreenUtils.getScreenWidth()
                 + "\ngetScreenHeight: " + ScreenUtils.getScreenHeight()
                 + "\nisLandscape: " + ScreenUtils.isLandscape()

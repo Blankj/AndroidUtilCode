@@ -50,12 +50,12 @@ public class KeyboardActivity extends BaseBackActivity {
     public void initView(Bundle savedInstanceState, View view) {
         getToolBar().setTitle(getString(R.string.demo_keyboard));
 
-        etInput = (EditText) findViewById(R.id.et_input);
+        etInput = findViewById(R.id.et_input);
         findViewById(R.id.btn_hide_soft_input).setOnClickListener(this);
         findViewById(R.id.btn_show_soft_input).setOnClickListener(this);
         findViewById(R.id.btn_toggle_soft_input).setOnClickListener(this);
         findViewById(R.id.btn_keyboard_in_fragment).setOnClickListener(this);
-        tvAboutKeyboard = (TextView) findViewById(R.id.tv_about_keyboard);
+        tvAboutKeyboard = findViewById(R.id.tv_about_keyboard);
     }
 
     @Override

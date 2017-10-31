@@ -58,8 +58,8 @@ public class BarStatusFragmentActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        mVpStatusBar = (ViewPager) findViewById(R.id.vp_status_bar);
-        navigation = (BottomNavigationView) findViewById(R.id.navigation_status_bar);
+        mVpStatusBar = findViewById(R.id.vp_status_bar);
+        navigation = findViewById(R.id.navigation_status_bar);
 
         mFragmentList.add(BarStatusColorFragment.newInstance());
         mFragmentList.add(BarStatusAlphaFragment.newInstance());

@@ -50,7 +50,7 @@ public class ImageActivity extends BaseBackActivity {
     public void initView(Bundle savedInstanceState, View view) {
         getToolBar().setTitle(getString(R.string.demo_image));
 
-        RecyclerView rvImages = (RecyclerView) findViewById(R.id.rv_images);
+        RecyclerView rvImages = findViewById(R.id.rv_images);
         findViewById(R.id.btn_save).setOnClickListener(this);
 
         src = ImageUtils.getBitmap(R.drawable.img_lena);

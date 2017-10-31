@@ -35,9 +35,9 @@ public class MainActivity extends BaseDrawerActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         View fakeStatusBar = findViewById(R.id.fake_status_bar);
-        CollapsingToolbarLayout ctl = (CollapsingToolbarLayout) findViewById(R.id.ctl);
+        CollapsingToolbarLayout ctl = findViewById(R.id.ctl);
         ctl.setExpandedTitleColor(Color.parseColor("#00FFFFFF"));
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,

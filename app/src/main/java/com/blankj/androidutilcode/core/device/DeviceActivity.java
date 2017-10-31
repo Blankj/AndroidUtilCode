@@ -43,7 +43,7 @@ public class DeviceActivity extends BaseBackActivity {
         findViewById(R.id.btn_reboot).setOnClickListener(this);
         findViewById(R.id.btn_reboot_to_recovery).setOnClickListener(this);
         findViewById(R.id.btn_reboot_to_bootloader).setOnClickListener(this);
-        TextView tvAboutDevice = (TextView) findViewById(R.id.tv_about_device);
+        TextView tvAboutDevice = findViewById(R.id.tv_about_device);
         tvAboutDevice.setText("isRoot: " + DeviceUtils.isDeviceRooted()
                 + "\ngetSDKVersion: " + DeviceUtils.getSDKVersion()
                 + "\ngetAndroidID: " + DeviceUtils.getAndroidID()

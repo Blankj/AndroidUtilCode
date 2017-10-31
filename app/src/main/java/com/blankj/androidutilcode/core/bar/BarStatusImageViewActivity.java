@@ -44,8 +44,8 @@ public class BarStatusImageViewActivity extends BaseActivity {
     @Override
     public void initView(Bundle savedInstanceState, View view) {
         findViewById(R.id.btn_set_transparent).setOnClickListener(this);
-        mTvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
-        sbChangeAlpha = (SeekBar) findViewById(R.id.sb_change_alpha);
+        mTvStatusAlpha = findViewById(R.id.tv_status_alpha);
+        sbChangeAlpha = findViewById(R.id.sb_change_alpha);
         sbChangeAlpha.setOnSeekBarChangeListener(translucentListener);
         mTvStatusAlpha.setText(String.valueOf(mAlpha));
 

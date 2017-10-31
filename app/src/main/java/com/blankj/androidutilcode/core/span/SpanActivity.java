@@ -90,8 +90,8 @@ public class SpanActivity extends BaseBackActivity {
             }
         };
 
-        tvAboutSpan = (TextView) findViewById(R.id.tv_about_span);
-        tvAboutAnimRainbow = (TextView) findViewById(R.id.tv_about_anim_span);
+        tvAboutSpan = findViewById(R.id.tv_about_span);
+        tvAboutAnimRainbow = findViewById(R.id.tv_about_anim_span);
 
         // 响应点击事件的话必须设置以下属性
         tvAboutSpan.setMovementMethod(LinkMovementMethod.getInstance());

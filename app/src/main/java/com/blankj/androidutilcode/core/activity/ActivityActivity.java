@@ -59,7 +59,7 @@ public class ActivityActivity extends BaseBackActivity {
     @Override
     public void initView(Bundle savedInstanceState, View view) {
         getToolBar().setTitle(getString(R.string.demo_activity));
-        viewSharedElement = (ImageView) findViewById(R.id.view_shared_element);
+        viewSharedElement = findViewById(R.id.view_shared_element);
         findViewById(R.id.btn_clz).setOnClickListener(this);
         findViewById(R.id.btn_clz_opt).setOnClickListener(this);
         findViewById(R.id.btn_clz_anim).setOnClickListener(this);
@@ -89,7 +89,7 @@ public class ActivityActivity extends BaseBackActivity {
         findViewById(R.id.btn_finish_activity).setOnClickListener(this);
         findViewById(R.id.btn_finish_to_activity).setOnClickListener(this);
         findViewById(R.id.btn_finish_all_activities).setOnClickListener(this);
-        TextView tvAboutActivity = (TextView) findViewById(R.id.tv_about_activity);
+        TextView tvAboutActivity = findViewById(R.id.tv_about_activity);
         tvAboutActivity.setText("Is SubActivityActivity Exists: " + ActivityUtils.isActivityExists(Config.PKG, SubActivityActivity.class.getName())
                 + "\ngetLauncherActivity: " + ActivityUtils.getLauncherActivity(Config.PKG)
                 + "\ngetTopActivity: " + ActivityUtils.getTopActivity()

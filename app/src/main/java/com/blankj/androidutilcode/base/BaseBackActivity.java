@@ -36,10 +36,10 @@ public abstract class BaseBackActivity extends BaseActivity {
         Slidr.attach(this);
         contentView = LayoutInflater.from(this).inflate(R.layout.activity_back, null);
         setContentView(contentView);
-        rootLayout = (CoordinatorLayout) findViewById(R.id.root_layout);
-        abl = (AppBarLayout) findViewById(R.id.abl);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        flActivityContainer = (FrameLayout) findViewById(R.id.activity_container);
+        rootLayout = findViewById(R.id.root_layout);
+        abl = findViewById(R.id.abl);
+        mToolbar = findViewById(R.id.toolbar);
+        flActivityContainer = findViewById(R.id.activity_container);
         flActivityContainer.addView(LayoutInflater.from(this).inflate(layoutId, flActivityContainer, false));
         setSupportActionBar(mToolbar);
         getToolBar().setDisplayHomeAsUpEnabled(true);
