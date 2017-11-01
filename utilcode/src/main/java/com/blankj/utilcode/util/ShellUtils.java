@@ -15,6 +15,8 @@ import java.util.List;
  */
 public final class ShellUtils {
 
+    private static final String LINE_SEP = System.getProperty("line.separator");
+
     private ShellUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
@@ -101,10 +103,10 @@ public final class ShellUtils {
             for (String command : commands) {
                 if (command == null) continue;
                 os.write(command.getBytes());
-                os.writeBytes("\n");
+                os.writeBytes(LINE_SEP);
                 os.flush();
             }
-            os.writeBytes("exit\n");
+            os.writeBytes("exit" + LINE_SEP);
             os.flush();
             result = process.waitFor();
             if (isNeedResultMsg) {
@@ -112,14 +114,18 @@ public final class ShellUtils {
                 errorMsg = new StringBuilder();
                 successResult = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
                 errorResult = new BufferedReader(new InputStreamReader(process.getErrorStream(), "UTF-8"));
-                String s;
-                while ((s = successResult.readLine()) != null) {
-                    successMsg.append(System.getProperty("line.separator"));
-                    successMsg.append(System.getProperty("line.separator"));
+                String line;
+                if ((line = successResult.readLine()) != null) {
+                    successMsg.append(line);
+                    while ((line = successResult.readLine()) != null) {
+                        successMsg.append(LINE_SEP).append(line);
+                    }
                 }
-                while ((s = errorResult.readLine()) != null) {
-                    errorMsg.append("\n");
-                    errorMsg.append(s);
+                if ((line = errorResult.readLine()) != null) {
+                    errorMsg.append(line);
+                    while ((line = errorResult.readLine()) != null) {
+                        errorMsg.append(LINE_SEP).append(line);
+                    }
                 }
             }
         } catch (Exception e) {
