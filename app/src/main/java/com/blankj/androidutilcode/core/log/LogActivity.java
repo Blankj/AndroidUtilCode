@@ -92,7 +92,7 @@ public class LogActivity extends BaseBackActivity {
     public void initView(Bundle savedInstanceState, View view) {
         getToolBar().setTitle(getString(R.string.demo_log));
 
-        tvAboutLog = (TextView) findViewById(R.id.tv_about_log);
+        tvAboutLog = findViewById(R.id.tv_about_log);
         findViewById(R.id.btn_toggle_log).setOnClickListener(this);
         findViewById(R.id.btn_toggle_console).setOnClickListener(this);
         findViewById(R.id.btn_toggle_tag).setOnClickListener(this);

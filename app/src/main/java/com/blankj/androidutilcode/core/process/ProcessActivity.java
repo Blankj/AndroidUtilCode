@@ -45,7 +45,7 @@ public class ProcessActivity extends BaseBackActivity {
         getToolBar().setTitle(getString(R.string.demo_process));
 
         findViewById(R.id.btn_kill_all_background_processes).setOnClickListener(this);
-        tvAboutProcess = (TextView) findViewById(R.id.tv_about_process);
+        tvAboutProcess = findViewById(R.id.tv_about_process);
         Set<String> set = ProcessUtils.getAllBackgroundProcesses();
         tvAboutProcess.setText("getForegroundProcessName: " + ProcessUtils.getForegroundProcessName()
                 + "\n\ngetAllBackgroundProcesses: " + getSetItems(set)

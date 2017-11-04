@@ -94,7 +94,7 @@ public class CoreUtilActivity extends BaseBackActivity {
     }
 
     public void fragmentClick(View view) {
-        startActivity(new Intent(this, FragmentActivity.class));
+        FragmentActivity.start(this);
     }
 
     public void imageClick(View view) {

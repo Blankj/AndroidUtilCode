@@ -42,11 +42,11 @@ public class CleanActivity extends BaseBackActivity {
     public void initView(Bundle savedInstanceState, View view) {
         getToolBar().setTitle(getString(R.string.demo_clean));
 
-        Button btnCleanInternalCache = (Button) findViewById(R.id.btn_clean_internal_cache);
-        Button btnCleanInternalFiles = (Button) findViewById(R.id.btn_clean_internal_files);
-        Button btnCleanInternalDbs = (Button) findViewById(R.id.btn_clean_internal_databases);
-        Button btnCleanInternalSP = (Button) findViewById(R.id.btn_clean_internal_sp);
-        Button btnCleanExternalCache = (Button) findViewById(R.id.btn_clean_external_cache);
+        Button btnCleanInternalCache = findViewById(R.id.btn_clean_internal_cache);
+        Button btnCleanInternalFiles = findViewById(R.id.btn_clean_internal_files);
+        Button btnCleanInternalDbs = findViewById(R.id.btn_clean_internal_databases);
+        Button btnCleanInternalSP = findViewById(R.id.btn_clean_internal_sp);
+        Button btnCleanExternalCache = findViewById(R.id.btn_clean_external_cache);
         btnCleanInternalCache.setOnClickListener(this);
         btnCleanInternalFiles.setOnClickListener(this);
         btnCleanInternalDbs.setOnClickListener(this);

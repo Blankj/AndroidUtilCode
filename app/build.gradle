@@ -4,8 +4,6 @@ File signPropertiesFile = rootProject.file('sign/keystore.properties')
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
-
     defaultConfig {
         applicationId "com.blankj.androidutilcode"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -54,26 +52,25 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
     final LEAKCANARY_VERSION = '1.5';
-
     def leakCanary = "com.squareup.leakcanary:leakcanary-android-no-op:$LEAKCANARY_VERSION"
 
-    compile project(':utilcode')
-    compile project(':subutil')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':utilcode')
+    implementation project(':subutil')
 
-    compile "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
-    compile "com.android.support:support-v4:$rootProject.ext.supportVersion"
-    compile "com.android.support:design:$rootProject.ext.supportVersion"
+    implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
+    implementation "com.android.support:support-v4:$rootProject.ext.supportVersion"
+    implementation "com.android.support:design:$rootProject.ext.supportVersion"
 
-    compile 'com.r0adkll:slidableactivity:2.0.5'
+    implementation 'com.r0adkll:slidableactivity:2.0.5'
 
     // LeakCanary
-    debugCompile "com.squareup.leakcanary:leakcanary-android:$LEAKCANARY_VERSION"
-    releaseCompile leakCanary
-    testCompile leakCanary
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$LEAKCANARY_VERSION"
+    releaseImplementation leakCanary
+    testImplementation leakCanary
 
-//    compile 'com.blankj:utilcode:1.9.1'
+//    compile 'com.blankj:utilcode:1.9.3'
 }
 
 

@@ -1,6 +1,5 @@
 package com.blankj.androidutilcode.core.fragment;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +8,7 @@ import android.widget.TextView;
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseFragment;
 import com.blankj.utilcode.util.FragmentUtils;
+import com.blankj.utilcode.util.LogUtils;
 
 import java.util.Random;
 
@@ -20,16 +20,17 @@ import java.util.Random;
  *     desc  :
  * </pre>
  */
-public class Demo1Fragment extends BaseFragment {
+public class ChildFragment extends BaseFragment
+        implements FragmentUtils.OnBackClickListener {
 
-    public static Demo1Fragment newInstance() {
+    private TextView tvAboutFragment;
+
+    public static ChildFragment newInstance() {
         Bundle args = new Bundle();
-        Demo1Fragment fragment = new Demo1Fragment();
+        ChildFragment fragment = new ChildFragment();
         fragment.setArguments(args);
         return fragment;
     }
-
-    private TextView tvAboutFragment;
 
     @Override
     public void initData(Bundle bundle) {
@@ -38,7 +39,7 @@ public class Demo1Fragment extends BaseFragment {
 
     @Override
     public int bindLayout() {
-        return R.layout.fragment_demo1;
+        return R.layout.fragment_child;
     }
 
     @Override
@@ -46,7 +47,7 @@ public class Demo1Fragment extends BaseFragment {
         Random random = new Random();
         FragmentUtils.setBackgroundColor(this, Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
         view.findViewById(R.id.btn_show_about_fragment).setOnClickListener(this);
-        view.findViewById(R.id.btn_hide_show).setOnClickListener(this);
+        view.findViewById(R.id.btn_pop).setOnClickListener(this);
         tvAboutFragment = (TextView) view.findViewById(R.id.tv_about_fragment);
     }
 
@@ -60,10 +61,10 @@ public class Demo1Fragment extends BaseFragment {
         tvAboutFragment.setText("");
         switch (view.getId()) {
             case R.id.btn_show_about_fragment:
-                tvAboutFragment.setText("lastAdd: " + FragmentUtils.getLastAddFragment(getFragmentManager()).getClass().getSimpleName()
-                        + "\nlastAddInStack: " + (FragmentUtils.getLastAddFragmentInStack(getFragmentManager()) != null ? FragmentUtils.getLastAddFragmentInStack(getFragmentManager()).getClass().getSimpleName() : "null")
-                        + "\ntopShow: " + FragmentUtils.getTopShowFragment(getFragmentManager()).getClass().getSimpleName()
-                        + "\ntopShowInStack: " + (FragmentUtils.getTopShowFragmentInStack(getFragmentManager()) != null ? FragmentUtils.getTopShowFragmentInStack(getFragmentManager()).getClass().getSimpleName() : "null")
+                tvAboutFragment.setText("top: " + FragmentUtils.getSimpleName(FragmentUtils.getTop(getFragmentManager()))
+                        + "\ntopInStack: " + FragmentUtils.getSimpleName(FragmentUtils.getTopInStack(getFragmentManager()))
+                        + "\ntopShow: " + FragmentUtils.getSimpleName(FragmentUtils.getTopShow(getFragmentManager()))
+                        + "\ntopShowInStack: " + FragmentUtils.getSimpleName(FragmentUtils.getTopShowInStack(getFragmentManager()))
                         + "\n---all of fragments---\n"
                         + FragmentUtils.getAllFragments(getFragmentManager()).toString()
                         + "\n----------------------\n\n"
@@ -72,17 +73,15 @@ public class Demo1Fragment extends BaseFragment {
                         + "\n---stack bottom---\n\n"
                 );
                 break;
-            case R.id.btn_hide_show:
-                FragmentUtils.hideAllShowFragment(((FragmentActivity) getActivity()).rootFragment);
-                break;
+//            case R.id.btn_pop:
+//                FragmentUtils.popFragment(getFragmentManager());
+//                break;
         }
     }
 
-//    @Override
-//    public boolean onBackClick() {
-//        LogUtils.d("onBackClick");
-//        FragmentUtils.showFragment(((FragmentActivity) getActivity()).rootFragment);
-//        FragmentUtils.popFragment(getFragmentManager());
-//        return true;
-//    }
+    @Override
+    public boolean onBackClick() {
+        LogUtils.d("demo2 onBackClick");
+        return false;
+    }
 }

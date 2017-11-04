@@ -35,6 +35,8 @@ import android.support.annotation.IntRange;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
+import com.blankj.utilcode.constant.MemoryConstants;
+
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -240,12 +242,8 @@ public final class ImageUtils {
      */
     public static Bitmap getBitmap(final InputStream is, final int maxWidth, final int maxHeight) {
         if (is == null) return null;
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeStream(is, null, options);
-        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeStream(is, null, options);
+        byte[] bytes = input2Byte(is);
+        return getBitmap(bytes, 0, maxWidth, maxHeight);
     }
 
     /**
@@ -1775,5 +1773,23 @@ public final class ImageUtils {
             inSampleSize <<= 1;
         }
         return inSampleSize;
+    }
+
+    private static byte[] input2Byte(final InputStream is) {
+        if (is == null) return null;
+        try {
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            byte[] b = new byte[MemoryConstants.KB];
+            int len;
+            while ((len = is.read(b, 0, MemoryConstants.KB)) != -1) {
+                os.write(b, 0, len);
+            }
+            return os.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            CloseUtils.closeIO(is);
+        }
     }
 }

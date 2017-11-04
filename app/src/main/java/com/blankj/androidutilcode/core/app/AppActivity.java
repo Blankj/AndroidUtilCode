@@ -50,7 +50,7 @@ public class AppActivity extends BaseBackActivity {
         findViewById(R.id.btn_launch_app).setOnClickListener(this);
         findViewById(R.id.btn_exit_app).setOnClickListener(this);
         findViewById(R.id.btn_get_app_details_settings).setOnClickListener(this);
-        TextView tvAboutApp = (TextView) findViewById(R.id.tv_about_app);
+        TextView tvAboutApp = findViewById(R.id.tv_about_app);
         tvAboutApp.setText(
                 new SpanUtils()
                         .append("app icon: ").appendImage(AppUtils.getAppIcon(), SpanUtils.ALIGN_CENTER).appendLine()

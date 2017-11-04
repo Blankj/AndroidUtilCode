@@ -43,7 +43,7 @@ public class PhoneActivity extends BaseBackActivity {
         findViewById(R.id.btn_call).setOnClickListener(this);
         findViewById(R.id.btn_send_sms).setOnClickListener(this);
         findViewById(R.id.btn_send_sms_silent).setOnClickListener(this);
-        TextView tvAboutPhone = (TextView) findViewById(R.id.tv_about_phone);
+        TextView tvAboutPhone = findViewById(R.id.tv_about_phone);
         tvAboutPhone.setText("isPhone: " + PhoneUtils.isPhone()
                 + "\ngetIMEI: " + PhoneUtils.getIMEI()
                 + "\ngetIMSI: " + PhoneUtils.getIMSI()

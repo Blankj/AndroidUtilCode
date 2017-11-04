@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
@@ -27,6 +29,21 @@ public final class AppUtils {
 
     private AppUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
+    }
+
+    /**
+     * 判断App是否安装
+     *
+     * @param action   action
+     * @param category category
+     * @return {@code true}: 已安装<br>{@code false}: 未安装
+     */
+    public static boolean isInstallApp(final String action, final String category) {
+        Intent intent = new Intent(action);
+        intent.addCategory(category);
+        PackageManager pm = Utils.getApp().getPackageManager();
+        ResolveInfo info = pm.resolveActivity(intent, 0);
+        return info != null;
     }
 
     /**
@@ -63,7 +80,7 @@ public final class AppUtils {
     }
 
     /**
-     * 安装App（支持6.0）
+     * 安装App（支持7.0）
      *
      * @param activity    activity
      * @param filePath    文件路径
@@ -76,7 +93,7 @@ public final class AppUtils {
     }
 
     /**
-     * 安装App(支持6.0)
+     * 安装App(支持7.0)
      *
      * @param activity    activity
      * @param file        文件

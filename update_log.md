@@ -1,3 +1,14 @@
+* 17/11/01 完善ShellUtil的Msg换行，感谢香脆的大鸡排
+* 17/10/30 升级README
+* 17/10/29 修复6.0内部存储安装失败问题
+* 17/10/28 替换compile为implementation，provided为compileOnly
+* 17/10/27 兼容AS3.0
+* 17/10/27 修复LogUtils在kotlin中使用的问题
+* 17/10/25 修复LogUtils边框，修复getBitmap从流获取
+* 17/09/30 完善FragmentUtils，发布1.9.2
+* 17/09/29 完善FragmentUtils和isInstallApp
+* 17/09/28 完善FragmentUtils
+* 17/09/27 完善FragmentUtils
 * 17/09/26 完善ActivityUtils及Demo，发布1.9.1
 * 17/09/25 完善ActivityUtils及Demo
 * 17/09/24 完善ActivityUtils及Demo

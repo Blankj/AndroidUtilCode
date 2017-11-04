@@ -46,10 +46,10 @@ public abstract class BaseDrawerActivity extends BaseActivity {
     protected void setBaseView(@LayoutRes int layoutId) {
         contentView = LayoutInflater.from(this).inflate(R.layout.activity_drawer, null);
         setContentView(contentView);
-        rootLayout = (DrawerLayout) findViewById(R.id.root_layout);
-        flActivityContainer = (FrameLayout) findViewById(R.id.activity_container);
+        rootLayout = findViewById(R.id.root_layout);
+        flActivityContainer = findViewById(R.id.activity_container);
         flActivityContainer.addView(LayoutInflater.from(this).inflate(layoutId, flActivityContainer, false));
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(mListener);
     }
 }

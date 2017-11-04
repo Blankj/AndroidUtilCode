@@ -39,7 +39,7 @@ public class PinyinActivity extends BaseBackActivity {
     public void initView(Bundle savedInstanceState, View view) {
         getToolBar().setTitle(getString(R.string.demo_pinyin));
 
-        TextView tvAboutPinyin = (TextView) findViewById(R.id.tv_about_pinyin);
+        TextView tvAboutPinyin = findViewById(R.id.tv_about_pinyin);
 
         String surnames = "乐乘乜仇会便区单参句召员宓弗折曾朴查洗盖祭种秘繁缪能蕃覃解谌适都阿难黑";
         int size = surnames.length();
