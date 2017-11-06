@@ -83,7 +83,6 @@ public final class LogUtils {
     private static final String BOTTOM_BORDER = "╚═══════════════════════════════════════════════════════════════════════════════════════════════════";
     private static final int    MAX_LEN       = 4000;
     private static final Format FORMAT        = new SimpleDateFormat("MM-dd HH:mm:ss.SSS ", Locale.getDefault());
-    private static final String NULL_TIPS     = "Log with null object.";
     private static final String NULL          = "null";
     private static final String ARGS          = "args";
     private static final Config CONFIG        = new Config();
@@ -96,100 +95,100 @@ public final class LogUtils {
         return CONFIG;
     }
 
-    public static void v(final Object contents) {
-        log(V, sGlobalTag, contents);
+    public static void v(final Object content) {
+        log(V, sGlobalTag, content);
     }
 
     public static void v(final String tag, final Object content, final Object... contents) {
         log(V, tag, content, contents);
     }
 
-    public static void d(final Object contents) {
-        log(D, sGlobalTag, contents);
+    public static void d(final Object content) {
+        log(D, sGlobalTag, content);
     }
 
     public static void d(final String tag, final Object content, final Object... contents) {
         log(D, tag, content, contents);
     }
 
-    public static void i(final Object contents) {
-        log(I, sGlobalTag, contents);
+    public static void i(final Object content) {
+        log(I, sGlobalTag, content);
     }
 
     public static void i(final String tag, final Object content, final Object... contents) {
         log(I, tag, content, contents);
     }
 
-    public static void w(final Object contents) {
-        log(W, sGlobalTag, contents);
+    public static void w(final Object content) {
+        log(W, sGlobalTag, content);
     }
 
     public static void w(final String tag, final Object content, final Object... contents) {
         log(W, tag, content, contents);
     }
 
-    public static void e(final Object contents) {
-        log(E, sGlobalTag, contents);
+    public static void e(final Object content) {
+        log(E, sGlobalTag, content);
     }
 
     public static void e(final String tag, final Object content, final Object... contents) {
         log(E, tag, content, contents);
     }
 
-    public static void a(final Object contents) {
-        log(A, sGlobalTag, contents);
+    public static void a(final Object content) {
+        log(A, sGlobalTag, content);
     }
 
     public static void a(final String tag, final Object content, final Object... contents) {
         log(A, tag, content, contents);
     }
 
-    public static void file(final Object contents) {
-        log(FILE | D, sGlobalTag, contents);
+    public static void file(final Object content) {
+        log(FILE | D, sGlobalTag, content);
     }
 
-    public static void file(@TYPE final int type, final Object contents) {
-        log(FILE | type, sGlobalTag, contents);
+    public static void file(@TYPE final int type, final Object content) {
+        log(FILE | type, sGlobalTag, content);
     }
 
-    public static void file(final String tag, final Object contents) {
-        log(FILE | D, tag, contents);
+    public static void file(final String tag, final Object content) {
+        log(FILE | D, tag, content);
     }
 
-    public static void file(@TYPE final int type, final String tag, final Object contents) {
-        log(FILE | type, tag, contents);
+    public static void file(@TYPE final int type, final String tag, final Object content) {
+        log(FILE | type, tag, content);
     }
 
-    public static void json(final String contents) {
-        log(JSON | D, sGlobalTag, contents);
+    public static void json(final String content) {
+        log(JSON | D, sGlobalTag, content);
     }
 
-    public static void json(@TYPE final int type, final String contents) {
-        log(JSON | type, sGlobalTag, contents);
+    public static void json(@TYPE final int type, final String content) {
+        log(JSON | type, sGlobalTag, content);
     }
 
-    public static void json(final String tag, final String contents) {
-        log(JSON | D, tag, contents);
+    public static void json(final String tag, final String content) {
+        log(JSON | D, tag, content);
     }
 
-    public static void json(@TYPE final int type, final String tag, final String contents) {
-        log(JSON | type, tag, contents);
+    public static void json(@TYPE final int type, final String tag, final String content) {
+        log(JSON | type, tag, content);
     }
 
-    public static void xml(final String contents) {
-        log(XML | D, sGlobalTag, contents);
+    public static void xml(final String content) {
+        log(XML | D, sGlobalTag, content);
     }
 
-    public static void xml(@TYPE final int type, final String contents) {
-        log(XML | type, sGlobalTag, contents);
+    public static void xml(@TYPE final int type, final String content) {
+        log(XML | type, sGlobalTag, content);
     }
 
-    public static void xml(final String tag, final String contents) {
-        log(XML | D, tag, contents);
+    public static void xml(final String tag, final String content) {
+        log(XML | D, tag, content);
     }
 
-    public static void xml(@TYPE final int type, final String tag, final String contents) {
-        log(XML | type, tag, contents);
+    public static void xml(@TYPE final int type, final String tag, final String content) {
+        log(XML | type, tag, content);
     }
 
     private static void log(final int type, final String tag, final Object... contents) {
@@ -265,30 +264,26 @@ public final class LogUtils {
     }
 
     private static String processBody(final int type, final Object... contents) {
-        String body = NULL_TIPS;
-        if (contents != null) {
-            if (contents.length == 1) {
-                Object object = contents[0];
-                body = object == null ? NULL : object.toString();
-                if (type == JSON) {
-                    body = formatJson(body);
-                } else if (type == XML) {
-                    body = formatXml(body);
-                }
-            } else {
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0, len = contents.length; i < len; ++i) {
-                    Object content = contents[i];
-                    sb.append(ARGS)
-                            .append("[")
-                            .append(i)
-                            .append("]")
-                            .append(" = ")
-                            .append(content == null ? NULL : content.toString())
-                            .append(LINE_SEP);
-                }
-                body = sb.toString();
+        String body;
+        if (contents.length == 1) {
+            body = contents[0] == null ? NULL : contents[0].toString();
+            if (type == JSON) {
+                body = formatJson(body);
+            } else if (type == XML) {
+                body = formatXml(body);
             }
+        } else {
+            StringBuilder sb = new StringBuilder();
+            int i = 0;
+            sb.append(generateArgLine(i++, contents[0] == null ? NULL : contents[0].toString()));
+            if (contents[1] == null) {
+                sb.append(generateArgLine(i, NULL));
+            } else {
+                for (Object content : (Object[]) contents[1]) {
+                    sb.append(generateArgLine(i++, content == null ? NULL : content.toString()));
+                }
+            }
+            body = sb.toString();
         }
         return body;
     }
@@ -321,7 +316,11 @@ public final class LogUtils {
         return xml;
     }
 
-    private static void print2Console(final int type, final String tag, final String[] head, String msg) {
+    private static String generateArgLine(int index, String content) {
+        return ARGS + "[" + index + "]" + " = " + content + LINE_SEP;
+    }
+
+    private static void print2Console(final int type, final String tag, final String[] head, final String msg) {
         printBorder(type, tag, true);
         printHead(type, tag, head);
         printMsg(type, tag, msg);

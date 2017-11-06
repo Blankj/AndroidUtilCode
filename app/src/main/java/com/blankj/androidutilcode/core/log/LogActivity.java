@@ -56,7 +56,7 @@ public class LogActivity extends BaseBackActivity {
             LogUtils.d("debug");
             LogUtils.i("info");
             LogUtils.w("warn");
-            LogUtils.e("初始化成功");
+            LogUtils.e("error");
             LogUtils.a("assert");
         }
     };
