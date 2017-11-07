@@ -171,17 +171,11 @@ public class LogActivity extends BaseBackActivity {
                 break;
             case R.id.btn_log_null:
                 LogUtils.v(null);
-                LogUtils.v(null, null);
                 LogUtils.d(null);
-                LogUtils.d(null, null);
                 LogUtils.i(null);
-                LogUtils.i(null, null);
                 LogUtils.w(null);
-                LogUtils.w(null, null);
                 LogUtils.e(null);
-                LogUtils.e(null, null);
                 LogUtils.a(null);
-                LogUtils.a(null, null);
                 break;
             case R.id.btn_log_many_params:
                 LogUtils.v("verbose0", "verbose1");
