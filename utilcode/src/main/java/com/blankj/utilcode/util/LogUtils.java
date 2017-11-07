@@ -95,52 +95,52 @@ public final class LogUtils {
         return CONFIG;
     }
 
-    public static void v(final Object content) {
-        log(V, sGlobalTag, content);
+    public static void v(final Object... contents) {
+        log(V, sGlobalTag, contents);
     }
 
-    public static void v(final String tag, final Object content, final Object... contents) {
-        log(V, tag, content, contents);
+    public static void vTag(final String tag, final Object... contents) {
+        log(V, tag, contents);
     }
 
-    public static void d(final Object content) {
-        log(D, sGlobalTag, content);
+    public static void d(final Object... contents) {
+        log(D, sGlobalTag, contents);
     }
 
-    public static void d(final String tag, final Object content, final Object... contents) {
-        log(D, tag, content, contents);
+    public static void dTag(final String tag, final Object... contents) {
+        log(D, tag, contents);
     }
 
-    public static void i(final Object content) {
-        log(I, sGlobalTag, content);
+    public static void i(final Object... contents) {
+        log(I, sGlobalTag, contents);
     }
 
-    public static void i(final String tag, final Object content, final Object... contents) {
-        log(I, tag, content, contents);
+    public static void iTag(final String tag, final Object... contents) {
+        log(I, tag, contents);
     }
 
-    public static void w(final Object content) {
-        log(W, sGlobalTag, content);
+    public static void w(final Object... contents) {
+        log(W, sGlobalTag, contents);
     }
 
-    public static void w(final String tag, final Object content, final Object... contents) {
-        log(W, tag, content, contents);
+    public static void wTag(final String tag, final Object... contents) {
+        log(W, tag, contents);
     }
 
-    public static void e(final Object content) {
-        log(E, sGlobalTag, content);
+    public static void e(final Object... contents) {
+        log(E, sGlobalTag, contents);
     }
 
-    public static void e(final String tag, final Object content, final Object... contents) {
-        log(E, tag, content, contents);
+    public static void eTag(final String tag, final Object... contents) {
+        log(E, tag, contents);
     }
 
-    public static void a(final Object content) {
-        log(A, sGlobalTag, content);
+    public static void a(final Object... contents) {
+        log(A, sGlobalTag, contents);
     }
 
-    public static void a(final String tag, final Object content, final Object... contents) {
-        log(A, tag, content, contents);
+    public static void aTag(final String tag, final Object... contents) {
+        log(A, tag, contents);
     }
 
     public static void file(final Object content) {
@@ -264,26 +264,30 @@ public final class LogUtils {
     }
 
     private static String processBody(final int type, final Object... contents) {
-        String body;
-        if (contents.length == 1) {
-            body = contents[0] == null ? NULL : contents[0].toString();
-            if (type == JSON) {
-                body = formatJson(body);
-            } else if (type == XML) {
-                body = formatXml(body);
-            }
-        } else {
-            StringBuilder sb = new StringBuilder();
-            int i = 0;
-            sb.append(generateArgLine(i++, contents[0] == null ? NULL : contents[0].toString()));
-            if (contents[1] == null) {
-                sb.append(generateArgLine(i, NULL));
-            } else {
-                for (Object content : (Object[]) contents[1]) {
-                    sb.append(generateArgLine(i++, content == null ? NULL : content.toString()));
+        String body = NULL;
+        if (contents != null) {
+            if (contents.length == 1) {
+                Object object = contents[0];
+                if (object != null) body = object.toString();
+                if (type == JSON) {
+                    body = formatJson(body);
+                } else if (type == XML) {
+                    body = formatXml(body);
                 }
+            } else {
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0, len = contents.length; i < len; ++i) {
+                    Object content = contents[i];
+                    sb.append(ARGS)
+                            .append("[")
+                            .append(i)
+                            .append("]")
+                            .append(" = ")
+                            .append(content == null ? NULL : content.toString())
+                            .append(LINE_SEP);
+                }
+                body = sb.toString();
             }
-            body = sb.toString();
         }
         return body;
     }
@@ -314,10 +318,6 @@ public final class LogUtils {
             e.printStackTrace();
         }
         return xml;
-    }
-
-    private static String generateArgLine(int index, String content) {
-        return ARGS + "[" + index + "]" + " = " + content + LINE_SEP;
     }
 
     private static void print2Console(final int type, final String tag, final String[] head, final String msg) {

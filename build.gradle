@@ -30,8 +30,8 @@ ext {
     minSdkVersion = 14
     targetSdkVersion = 22
 
-    versionCode = 100900700
-    versionName = '1.9.7'
+    versionCode = 100900800
+    versionName = '1.9.8'
 
     // App dependencies
     supportVersion = '26.1.0'

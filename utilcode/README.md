@@ -2,7 +2,7 @@
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.9.7'
+compile 'com.blankj:utilcode:1.9.8'
 ```
 
 
@@ -350,11 +350,17 @@ Config.setConsoleFilter
 Config.setFileFilter
 Config.setStackDeep
 v
+vTag
 d
+dTag
 i
+iTag
 w
+wTag
 e
+eTag
 a
+aTag
 file
 json
 xml

@@ -158,12 +158,12 @@ public class LogActivity extends BaseBackActivity {
                 LogUtils.a("assert");
                 break;
             case R.id.btn_log_with_tag:
-                LogUtils.v("customTag", "verbose");
-                LogUtils.d("customTag", "debug");
-                LogUtils.i("customTag", "info");
-                LogUtils.w("customTag", "warn");
-                LogUtils.e("customTag", "error");
-                LogUtils.a("customTag", "assert");
+                LogUtils.vTag("customTag", "verbose");
+                LogUtils.dTag("customTag", "debug");
+                LogUtils.iTag("customTag", "info");
+                LogUtils.wTag("customTag", "warn");
+                LogUtils.eTag("customTag", "error");
+                LogUtils.aTag("customTag", "assert");
                 break;
             case R.id.btn_log_in_new_thread:
                 Thread thread = new Thread(mRunnable);
@@ -171,19 +171,31 @@ public class LogActivity extends BaseBackActivity {
                 break;
             case R.id.btn_log_null:
                 LogUtils.v(null);
+                LogUtils.v(null, null);
                 LogUtils.d(null);
+                LogUtils.d(null, null);
                 LogUtils.i(null);
+                LogUtils.i(null, null);
                 LogUtils.w(null);
+                LogUtils.w(null, null);
                 LogUtils.e(null);
+                LogUtils.e(null, null);
                 LogUtils.a(null);
+                LogUtils.a(null, null);
                 break;
             case R.id.btn_log_many_params:
-                LogUtils.v("customTag", "verbose0", "verbose1");
-                LogUtils.d("customTag", "debug0", "debug1");
-                LogUtils.i("customTag", "info0", "info1");
-                LogUtils.w("customTag", "warn0", "warn1");
-                LogUtils.e("customTag", "error0", "error1");
-                LogUtils.a("customTag", "assert0", "assert1");
+                LogUtils.v("verbose0", "verbose1");
+                LogUtils.vTag("customTag", "verbose0", "verbose1");
+                LogUtils.d("debug0", "debug1");
+                LogUtils.dTag("customTag", "debug0", "debug1");
+                LogUtils.i("info0", "info1");
+                LogUtils.iTag("customTag", "info0", "info1");
+                LogUtils.w("warn0", "warn1");
+                LogUtils.wTag("customTag", "warn0", "warn1");
+                LogUtils.e("error0", "error1");
+                LogUtils.eTag("customTag", "error0", "error1");
+                LogUtils.a("assert0", "assert1");
+                LogUtils.aTag("customTag", "assert0", "assert1");
                 break;
             case R.id.btn_log_long:
                 LogUtils.d(longStr);

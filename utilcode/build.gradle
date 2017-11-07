@@ -58,5 +58,5 @@ dependencies {
     testImplementation "org.robolectric:robolectric:$rootProject.ext.robolectricVersion"
     testImplementation "com.android.support:support-v4:$rootProject.ext.supportVersion"
 }
-//apply from: "../bintrayUpload.gradle"
+apply from: "../bintrayUpload.gradle"
 //gradle bintrayUpload

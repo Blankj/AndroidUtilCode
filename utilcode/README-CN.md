@@ -2,7 +2,7 @@
 
 Gradle:
 ``` groovy
-compile 'com.blankj:utilcode:1.9.7'
+compile 'com.blankj:utilcode:1.9.8'
 ```
 
 
@@ -349,12 +349,18 @@ Config.setBorderSwitch  : 设置log边框开关
 Config.setConsoleFilter : 设置log控制台过滤器
 Config.setFileFilter    : 设置log文件过滤器
 Config.setStackDeep     : 设置log栈深度
-v                       : Verbose日志
-d                       : Debug日志
-i                       : Info日志
-w                       : Warn日志
-e                       : Error日志
-a                       : Assert日志
+v                       : tag为类名的Verbose日志
+vTag                    : 自定义tag的Verbose日志
+d                       : tag为类名的Debug日志
+dTag                    : 自定义tag的Debug日志
+i                       : tag为类名的Info日志
+iTag                    : 自定义tag的Info日志
+w                       : tag为类名的Warn日志3
+wTag                    : 自定义tag的Warn日志
+e                       : tag为类名的Error日志
+eTag                    : 自定义tag的Error日志
+a                       : tag为类名的Assert日志
+aTag                    : 自定义tag的Assert日志
 file                    : log到文件
 json                    : log字符串之json
 xml                     : log字符串之xml
