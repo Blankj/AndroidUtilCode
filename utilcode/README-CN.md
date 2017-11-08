@@ -44,7 +44,7 @@ finishAllActivities              : 结束所有activity
 * ### App相关→[AppUtils.java][app.java]→[Demo][app.demo]
 ```
 isInstallApp         : 判断App是否安装
-installApp           : 安装App（支持7.0）
+installApp           : 安装App（支持8.0）
 installAppSilent     : 静默安装App
 uninstallApp         : 卸载App
 uninstallAppSilent   : 静默卸载App
@@ -355,7 +355,7 @@ d                       : tag为类名的Debug日志
 dTag                    : 自定义tag的Debug日志
 i                       : tag为类名的Info日志
 iTag                    : 自定义tag的Info日志
-w                       : tag为类名的Warn日志3
+w                       : tag为类名的Warn日志
 wTag                    : 自定义tag的Warn日志
 e                       : tag为类名的Error日志
 eTag                    : 自定义tag的Error日志

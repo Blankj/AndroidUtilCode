@@ -57,7 +57,8 @@ public final class AppUtils {
     }
 
     /**
-     * 安装App(支持7.0)
+     * 安装App(支持8.0)
+     * <p>8.0需添加权限 {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
      *
      * @param filePath  文件路径
      * @param authority 7.0及以上安装需要传入清单文件中的{@code <provider>}的authorities属性
@@ -68,7 +69,8 @@ public final class AppUtils {
     }
 
     /**
-     * 安装App（支持7.0）
+     * 安装App（支持8.0）
+     * <p>8.0需添加权限 {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
      *
      * @param file      文件
      * @param authority 7.0及以上安装需要传入清单文件中的{@code <provider>}的authorities属性
@@ -80,7 +82,8 @@ public final class AppUtils {
     }
 
     /**
-     * 安装App（支持7.0）
+     * 安装App（支持8.0）
+     * <p>8.0需添加权限 {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
      *
      * @param activity    activity
      * @param filePath    文件路径
@@ -93,7 +96,8 @@ public final class AppUtils {
     }
 
     /**
-     * 安装App(支持7.0)
+     * 安装App（支持8.0）
+     * <p>8.0需添加权限 {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
      *
      * @param activity    activity
      * @param file        文件
