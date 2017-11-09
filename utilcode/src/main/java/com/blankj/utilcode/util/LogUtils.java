@@ -1,5 +1,8 @@
 package com.blankj.utilcode.util;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
@@ -389,10 +392,7 @@ public final class LogUtils {
                 .append(msg)
                 .append(LINE_SEP);
         final String content = sb.toString();
-        if (sExecutor == null) {
-            sExecutor = Executors.newSingleThreadExecutor();
-        }
-        sExecutor.execute(new Runnable() {
+        execute(new Runnable() {
             @Override
             public void run() {
                 BufferedWriter bw = null;
@@ -421,11 +421,55 @@ public final class LogUtils {
         if (file.exists()) return file.isFile();
         if (!createOrExistsDir(file.getParentFile())) return false;
         try {
-            return file.createNewFile();
+            boolean r = file.createNewFile();
+            printDeviceInfo(filePath);
+            return r;
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    private static void printDeviceInfo(final String filePath) {
+        String versionName = "";
+        int versionCode = 0;
+        try {
+            PackageInfo pi = Utils.getApp().getPackageManager().getPackageInfo(Utils.getApp().getPackageName(), 0);
+            if (pi != null) {
+                versionName = pi.versionName;
+                versionCode = pi.versionCode;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        final String head = "\n************* Log Head ****************" +
+                "\nDevice Manufacturer: " + Build.MANUFACTURER +// 设备厂商
+                "\nDevice Model       : " + Build.MODEL +// 设备型号
+                "\nAndroid Version    : " + Build.VERSION.RELEASE +// 系统版本
+                "\nAndroid SDK        : " + Build.VERSION.SDK_INT +// SDK版本
+                "\nApp VersionName    : " + versionName +
+                "\nApp VersionCode    : " + versionCode +
+                "\n************* Log Head ****************\n\n";
+        execute(new Runnable() {
+            @Override
+            public void run() {
+                BufferedWriter bw = null;
+                try {
+                    bw = new BufferedWriter(new FileWriter(filePath, true));
+                    bw.write(head);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if (bw != null) {
+                            bw.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     private static boolean createOrExistsDir(final File file) {
@@ -440,6 +484,13 @@ public final class LogUtils {
             }
         }
         return true;
+    }
+
+    private static void execute(Runnable runnable) {
+        if (sExecutor == null) {
+            sExecutor = Executors.newSingleThreadExecutor();
+        }
+        sExecutor.execute(runnable);
     }
 
     public static class Config {
