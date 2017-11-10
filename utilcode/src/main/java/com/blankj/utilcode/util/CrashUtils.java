@@ -54,7 +54,7 @@ public final class CrashUtils {
             e.printStackTrace();
         }
 
-        CRASH_HEAD = "\n************* Crash Log Head ****************" +
+        CRASH_HEAD = "************* Crash Log Head ****************" +
                 "\nDevice Manufacturer: " + Build.MANUFACTURER +// 设备厂商
                 "\nDevice Model       : " + Build.MODEL +// 设备型号
                 "\nAndroid Version    : " + Build.VERSION.RELEASE +// 系统版本

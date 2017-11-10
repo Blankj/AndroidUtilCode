@@ -25,8 +25,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.Locale;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
@@ -392,28 +395,11 @@ public final class LogUtils {
                 .append(msg)
                 .append(LINE_SEP);
         final String content = sb.toString();
-        execute(new Runnable() {
-            @Override
-            public void run() {
-                BufferedWriter bw = null;
-                try {
-                    bw = new BufferedWriter(new FileWriter(fullPath, true));
-                    bw.write(content);
-                    Log.d(tag, "log to " + fullPath + " success!");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Log.e(tag, "log to " + fullPath + " failed!");
-                } finally {
-                    try {
-                        if (bw != null) {
-                            bw.close();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
+        if (input2File(content, fullPath)) {
+            Log.d(tag, "log to " + fullPath + " success!");
+        } else {
+            Log.e(tag, "log to " + fullPath + " failed!");
+        }
     }
 
     private static boolean createOrExistsFile(final String filePath) {
@@ -421,9 +407,9 @@ public final class LogUtils {
         if (file.exists()) return file.isFile();
         if (!createOrExistsDir(file.getParentFile())) return false;
         try {
-            boolean r = file.createNewFile();
-            printDeviceInfo(filePath);
-            return r;
+            boolean isCreate = file.createNewFile();
+            if (isCreate) printDeviceInfo(filePath);
+            return isCreate;
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -442,7 +428,7 @@ public final class LogUtils {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        final String head = "\n************* Log Head ****************" +
+        final String head = "************* Log Head ****************" +
                 "\nDevice Manufacturer: " + Build.MANUFACTURER +// 设备厂商
                 "\nDevice Model       : " + Build.MODEL +// 设备型号
                 "\nAndroid Version    : " + Build.VERSION.RELEASE +// 系统版本
@@ -450,26 +436,7 @@ public final class LogUtils {
                 "\nApp VersionName    : " + versionName +
                 "\nApp VersionCode    : " + versionCode +
                 "\n************* Log Head ****************\n\n";
-        execute(new Runnable() {
-            @Override
-            public void run() {
-                BufferedWriter bw = null;
-                try {
-                    bw = new BufferedWriter(new FileWriter(filePath, true));
-                    bw.write(head);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        if (bw != null) {
-                            bw.close();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
+        input2File(head, filePath);
     }
 
     private static boolean createOrExistsDir(final File file) {
@@ -486,11 +453,40 @@ public final class LogUtils {
         return true;
     }
 
-    private static void execute(Runnable runnable) {
+    private static boolean input2File(final String input, final String filePath) {
         if (sExecutor == null) {
             sExecutor = Executors.newSingleThreadExecutor();
         }
-        sExecutor.execute(runnable);
+        Future<Boolean> submit = sExecutor.submit(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                BufferedWriter bw = null;
+                try {
+                    bw = new BufferedWriter(new FileWriter(filePath, true));
+                    bw.write(input);
+                    return true;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return false;
+                } finally {
+                    try {
+                        if (bw != null) {
+                            bw.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        try {
+            return submit.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public static class Config {

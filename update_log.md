@@ -1,3 +1,4 @@
+* 17/11/10 LogUtils新增日志头部，感谢Kanade
 * 17/11/07 完善LogUtils无tag的多参数
 * 17/11/06 修复LogUtils多参数打印失败的问题
 * 17/11/01 完善ShellUtil的Msg换行，感谢香脆的大鸡排
