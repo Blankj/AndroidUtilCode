@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/spacing_16">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_about_fragment"
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <FrameLayout
+            android:id="@+id/child_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_show_about_fragment"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_show_stack" />
+
+        <Button
+            android:id="@+id/btn_add"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_add" />
+
+        <Button
+            android:id="@+id/btn_add_hide"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_add_hide" />
+
+        <Button
+            android:id="@+id/btn_add_hide_stack"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_add_hide_stack" />
+
+        <Button
+            android:id="@+id/btn_add_show"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_add_demo1_show" />
+
+        <Button
+            android:id="@+id/btn_add_child"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_add_child" />
+
+        <Button
+            android:id="@+id/btn_pop_to_root"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_pop_to_root" />
+
+        <Button
+            android:id="@+id/btn_pop_add"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_pop_add" />
+
+        <Button
+            android:id="@+id/btn_hide_show"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_hide_demo0_show_demo1" />
+
+        <Button
+            android:id="@+id/btn_replace"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_replace" />
+
+        <ImageView
+            android:id="@+id/iv_shared_element"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_lena"
+            android:transitionName="@string/fragment_transition" />
+
+    </LinearLayout>
+</ScrollView>

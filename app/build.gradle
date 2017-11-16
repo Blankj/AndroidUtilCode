@@ -1,36 +1,71 @@
 apply plugin: 'com.android.application'
 
-android {
-    compileSdkVersion rootProject.ext.android.compileSdkVersion
-    buildToolsVersion rootProject.ext.android.buildToolsVersion
+File signPropertiesFile = rootProject.file('sign/keystore.properties')
 
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "com.blankj.androidutilcode"
-        minSdkVersion rootProject.ext.android.minSdkVersion
-        targetSdkVersion rootProject.ext.android.targetSdkVersion
-        versionCode rootProject.ext.android.versionCode
-        versionName rootProject.ext.android.versionName
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
     }
+
+    if (signPropertiesFile.exists()) {
+        Properties properties = new Properties()
+        properties.load(new FileInputStream(signPropertiesFile))
+        signingConfigs {
+            release {
+                storeFile rootProject.file(properties['keystore'])
+                storePassword properties['storePassword']
+                keyAlias properties['keyAlias']
+                keyPassword properties['keyPassword']
+            }
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            if (signPropertiesFile.exists()) {
+                signingConfig signingConfigs.release
+            }
         }
+    }
+
+    sourceSets {
+        main {
+            res.srcDirs('src/main/res', 'src/main/res_core', 'src/main/res_sub')
+        }
+    }
+
+    lintOptions {
+        abortOnError false
     }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':utilcode')
-    compile rootProject.ext.deps.design
-    compile rootProject.ext.deps.supportV4
+    final LEAKCANARY_VERSION = '1.5';
+    def leakCanary = "com.squareup.leakcanary:leakcanary-android-no-op:$LEAKCANARY_VERSION"
 
-    // RxAndroid
-    compile rootProject.ext.deps.rxAndroid
-    compile rootProject.ext.deps.rxJava
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':utilcode')
+    implementation project(':subutil')
+
+    implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
+    implementation "com.android.support:support-v4:$rootProject.ext.supportVersion"
+    implementation "com.android.support:design:$rootProject.ext.supportVersion"
+
+    implementation 'com.r0adkll:slidableactivity:2.0.5'
 
     // LeakCanary
-    debugCompile rootProject.ext.deps.leakcanaryAndroid
-    releaseCompile rootProject.ext.deps.leakcanaryAndroidNoOp
-    testCompile rootProject.ext.deps.leakcanaryAndroidNoOp
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$LEAKCANARY_VERSION"
+    releaseImplementation leakCanary
+    testImplementation leakCanary
+
+//    compile 'com.blankj:utilcode:1.9.8'
 }
+
+
