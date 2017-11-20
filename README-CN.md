@@ -6,7 +6,7 @@
 
 ## About
 
-**[AndroidUtilCode][readme]** :fire: 是一个强大易用的安卓工具类库，它合理地封装了安卓开发中常用的函数，具有完善的Demo和单元测试，利用其封装好的APIs可以大大提高开发效率，如今它主要包括两部分模块，其一是主工具类模块：**[utilcode][utilcode-cn]**，其中的工具类是开发中常用到的；其二是子工具类模块：**[subutil][subutil-cn]**，它包含的工具类并不是很常用，它的出现是为了防止主工具类的臃肿。 :fire:
+**[AndroidUtilCode][readme]** :fire: 是一个强大易用的安卓工具类库，它合理地封装了安卓开发中常用的函数，具有完善的Demo和单元测试，利用其封装好的 APIs 可以大大提高开发效率，如今它主要包括两部分模块，其一是主工具类模块：**[utilcode][utilcode-cn]**，其中的工具类是开发中常用到的；其二是子工具类模块：**[subutil][subutil-cn]**，它包含的工具类并不是很常用，它的出现是为了防止主工具类的臃肿。 :fire:
 
 
 ## Documentation
