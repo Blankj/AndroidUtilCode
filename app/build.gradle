@@ -3,13 +3,13 @@ apply plugin: 'com.android.application'
 File signPropertiesFile = rootProject.file('sign/keystore.properties')
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion compile_sdk_version
     defaultConfig {
         applicationId "com.blankj.androidutilcode"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
+        versionCode version_code
+        versionName version_name
     }
 
     if (signPropertiesFile.exists()) {
@@ -46,26 +46,23 @@ android {
     }
 }
 
-dependencies {
-    final LEAKCANARY_VERSION = '1.5';
-    def leakCanary = "com.squareup.leakcanary:leakcanary-android-no-op:$LEAKCANARY_VERSION"
 
+dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':utilcode')
     implementation project(':subutil')
 
-    implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
-    implementation "com.android.support:support-v4:$rootProject.ext.supportVersion"
-    implementation "com.android.support:design:$rootProject.ext.supportVersion"
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:support-v4:$support_version"
+    implementation "com.android.support:design:$support_version"
 
     implementation 'com.r0adkll:slidableactivity:2.0.5'
 
     // LeakCanary
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$LEAKCANARY_VERSION"
-    releaseImplementation leakCanary
-    testImplementation leakCanary
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
 
-//    compile 'com.blankj:utilcode:1.9.8'
+//    implementation 'com.blankj:utilcode:1.9.8'
 }
 
 

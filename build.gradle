@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0'
+        classpath 'com.android.tools.build:gradle:3.0.1'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
         // NOTE: Do not place your application dependencies here; they belong
@@ -18,24 +18,27 @@ allprojects {
         google()
         jcenter()
     }
+
+    ext {
+        // Sdk and tools
+        compile_sdk_version = 26
+        build_tools_version = '26.0.0'
+        min_sdk_version = 14
+        target_sdk_version = 22
+
+        version_code = 100900800
+        version_name = '1.9.8'
+
+        // App dependencies
+        support_version = '26.1.0'
+
+        leakcanary_version = '1.5.4'
+
+        junit_version = '4.12'
+        robolectric_version = '3.1.2'
+    }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-ext {
-    // Sdk and tools
-    compileSdkVersion = 26
-    minSdkVersion = 14
-    targetSdkVersion = 22
-
-    versionCode = 100900800
-    versionName = '1.9.8'
-
-    // App dependencies
-    supportVersion = '26.1.0'
-
-    junitVersion = '4.12'
-    robolectricVersion = '3.1.2'
 }

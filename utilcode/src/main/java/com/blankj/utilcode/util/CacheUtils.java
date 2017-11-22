@@ -43,7 +43,7 @@ import java.util.concurrent.atomic.AtomicLong;
  *     desc  : 缓存相关工具类
  * </pre>
  */
-public class CacheUtils {
+public final class CacheUtils {
 
     private static final long DEFAULT_MAX_SIZE  = Long.MAX_VALUE;
     private static final int  DEFAULT_MAX_COUNT = Integer.MAX_VALUE;
