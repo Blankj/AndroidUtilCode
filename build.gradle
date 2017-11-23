@@ -18,27 +18,27 @@ allprojects {
         google()
         jcenter()
     }
-
-    ext {
-        // Sdk and tools
-        compile_sdk_version = 26
-        build_tools_version = '26.0.0'
-        min_sdk_version = 14
-        target_sdk_version = 22
-
-        version_code = 100900800
-        version_name = '1.9.8'
-
-        // App dependencies
-        support_version = '26.1.0'
-
-        leakcanary_version = '1.5.4'
-
-        junit_version = '4.12'
-        robolectric_version = '3.1.2'
-    }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    // Sdk and tools
+    compile_sdk_version = 26
+    build_tools_version = '26.0.0'
+    min_sdk_version = 14
+    target_sdk_version = 22
+
+    version_code = 100900800
+    version_name = '1.9.8'
+
+    // App dependencies
+    support_version = '26.1.0'
+
+    leakcanary_version = '1.5.4'
+
+    junit_version = '4.12'
+    robolectric_version = '3.1.2'
 }
