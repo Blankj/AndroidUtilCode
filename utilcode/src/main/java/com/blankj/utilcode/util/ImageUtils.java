@@ -1731,7 +1731,7 @@ public final class ImageUtils {
      * @param color  给图片添加颜色图层图层
      * @return 添加图层后的bitmap
      */
-    public static Bitmap drawImage(@NonNull Bitmap bitmap, @ColorInt int color){
+    public static Bitmap drawImageColor(@NonNull Bitmap bitmap, @ColorInt int color){
 
         Canvas canvas = new Canvas(bitmap);
         canvas.drawColor(color, PorterDuff.Mode.DARKEN);
