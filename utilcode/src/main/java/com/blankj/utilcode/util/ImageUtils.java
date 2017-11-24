@@ -1726,6 +1726,7 @@ public final class ImageUtils {
     }
 
     /**
+     * 给图片增加图层颜色
      *
      * @param bitmap 传入的图片
      * @param color  给图片添加颜色图层图层
