@@ -32,6 +32,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.FloatRange;
 import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
@@ -1722,6 +1723,21 @@ public final class ImageUtils {
         options.inJustDecodeBounds = false;
         if (recycle && !src.isRecycled()) src.recycle();
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
+    }
+
+    /**
+     *
+     * @param bitmap 传入的图片
+     * @param color  给图片添加颜色图层图层
+     * @return 添加图层后的bitmap
+     */
+    public static Bitmap drawImage(@NonNull Bitmap bitmap, @ColorInt int color){
+
+        Canvas canvas = new Canvas(bitmap);
+        canvas.drawColor(color, PorterDuff.Mode.DARKEN);
+
+        return bitmap;
+
     }
 
     private static File getFileByPath(final String filePath) {
