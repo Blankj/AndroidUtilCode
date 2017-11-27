@@ -20,7 +20,7 @@ def readmeOfUtilCode2Eng(File readmeCN, File readmeEng) {
     readmeCN.eachLine { line ->
         if (line.contains("* ###")) {
             String utilsName = line.substring(line.indexOf("[") + 1, line.indexOf("Utils"))
-            sb.append("* ### About ").append(utilsName).append(line.substring(line.indexOf("→")))
+            sb.append("* ### About ").append(utilsName).append(line.substring(line.indexOf(" -> ")))
         } else if (line.contains(": ") && !line.contains("[")) {
             sb.append(line.substring(0, line.indexOf(':')).trim())
         } else {
@@ -43,7 +43,7 @@ def readmeOfSubUtil2Eng(File readmeCN, File readmeEng) {
         String line = lines.get(i)
         if (line.contains("* ###")) {
             String utilsName = line.substring(line.indexOf("[") + 1, line.indexOf("Utils"))
-            sb.append("* ### About ").append(utilsName).append(line.substring(line.indexOf("→")))
+            sb.append("* ### About ").append(utilsName).append(line.substring(line.indexOf(" -> ")))
         } else if (line.contains(": ") && !line.contains("[")) {
             sb.append(line.substring(0, line.indexOf(':')).trim())
         } else {

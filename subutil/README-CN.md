@@ -5,7 +5,7 @@
 
 ## APIs
 
-* ### 剪贴板相关→[ClipboardUtils.java][clipboard.java]→[Test][clipboard.test]
+* ### 剪贴板相关 -> [ClipboardUtils.java][clipboard.java] -> [Test][clipboard.test]
 ```
 copyText  : 复制文本到剪贴板
 getText   : 获取剪贴板的文本
@@ -15,7 +15,7 @@ copyIntent: 复制意图到剪贴板
 getIntent : 获取剪贴板的意图
 ```
 
-* ### 定位相关→[LocationUtils.java][location.java]→[Demo][location.demo]
+* ### 定位相关 -> [LocationUtils.java][location.java] -> [Demo][location.demo]
 ```
 isGpsEnabled     : 判断Gps是否可用
 isLocationEnabled: 判断定位是否可用
@@ -30,7 +30,7 @@ isBetterLocation : 是否更好的位置
 isSameProvider   : 是否相同的提供者
 ```
 
-* ### 拼音相关→[PinyinUtils.java][pinyin.java]→[Demo][pinyin.demo]
+* ### 拼音相关 -> [PinyinUtils.java][pinyin.java] -> [Demo][pinyin.demo]
 ```
 ccs2Pinyin           : 汉字转拼音
 ccs2Pinyin           : 汉字转拼音
@@ -40,7 +40,7 @@ getSurnamePinyin     : 根据名字获取姓氏的拼音
 getSurnameFirstLetter: 根据名字获取姓氏的首字母
 ```
 
-* ### 线程池相关→[ThreadPoolUtils.java][thread_pool.java]
+* ### 线程池相关 -> [ThreadPoolUtils.java][thread_pool.java]
 ```
 ThreadPoolUtils       : ThreadPoolUtils构造函数
 execute               : 在未来某个时间执行给定的命令
