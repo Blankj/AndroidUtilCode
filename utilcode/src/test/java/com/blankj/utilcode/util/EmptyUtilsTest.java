@@ -35,10 +35,11 @@ public class EmptyUtilsTest {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Test
     public void isEmpty() throws Exception {
+        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb1 = new StringBuilder(" ");
         String string = "";
         String string1 = " ";
         int[][] arr = new int[][]{};
-        int[] arr1 = null;
         LinkedList<Integer> list = new LinkedList<>();
         HashMap<String, Integer> map = new HashMap<>();
         SimpleArrayMap<String, Integer> sam = new SimpleArrayMap<>();
@@ -49,10 +50,11 @@ public class EmptyUtilsTest {
         LongSparseArray<String> lsa = new LongSparseArray<>();
         android.util.LongSparseArray<String> lsaV4 = new android.util.LongSparseArray<>();
 
+        assertTrue(EmptyUtils.isEmpty(sb));
+        assertFalse(EmptyUtils.isEmpty(sb1));
         assertTrue(EmptyUtils.isEmpty(string));
         assertFalse(EmptyUtils.isEmpty(string1));
         assertTrue(EmptyUtils.isEmpty(arr));
-        assertTrue(EmptyUtils.isEmpty(arr1));
         assertTrue(EmptyUtils.isEmpty(list));
         assertTrue(EmptyUtils.isEmpty(map));
         assertTrue(EmptyUtils.isEmpty(sam));
@@ -63,10 +65,11 @@ public class EmptyUtilsTest {
         assertTrue(EmptyUtils.isEmpty(lsa));
         assertTrue(EmptyUtils.isEmpty(lsaV4));
 
+        assertTrue(!EmptyUtils.isNotEmpty(sb));
+        assertFalse(!EmptyUtils.isNotEmpty(sb1));
         assertTrue(!EmptyUtils.isNotEmpty(string));
         assertFalse(!EmptyUtils.isNotEmpty(string1));
         assertTrue(!EmptyUtils.isNotEmpty(arr));
-        assertTrue(!EmptyUtils.isNotEmpty(arr1));
         assertTrue(!EmptyUtils.isNotEmpty(list));
         assertTrue(!EmptyUtils.isNotEmpty(map));
         assertTrue(!EmptyUtils.isNotEmpty(sam));

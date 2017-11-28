@@ -36,7 +36,7 @@ public final class EmptyUtils {
         if (obj == null) {
             return true;
         }
-        if (obj instanceof String && obj.toString().length() == 0) {
+        if (obj instanceof CharSequence && obj.toString().length() == 0) {
             return true;
         }
         if (obj.getClass().isArray() && Array.getLength(obj) == 0) {
