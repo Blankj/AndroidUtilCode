@@ -58,7 +58,7 @@ public final class CacheUtils {
 
     /**
      * 获取缓存实例
-     * <p>在/data/data/com.xxx.xxx/cache/cacheUtils目录</p>
+     * <p>在 /data/data/com.xxx.xxx/cache/cacheUtils 目录</p>
      * <p>缓存尺寸不限</p>
      * <p>缓存个数不限</p>
      *
@@ -70,7 +70,7 @@ public final class CacheUtils {
 
     /**
      * 获取缓存实例
-     * <p>在/data/data/com.xxx.xxx/cache/cacheName目录</p>
+     * <p>在 /data/data/com.xxx.xxx/cache/cacheName 目录</p>
      * <p>缓存尺寸不限</p>
      * <p>缓存个数不限</p>
      *
@@ -83,7 +83,7 @@ public final class CacheUtils {
 
     /**
      * 获取缓存实例
-     * <p>在/data/data/com.xxx.xxx/cache/cacheUtils目录</p>
+     * <p>在 /data/data/com.xxx.xxx/cache/cacheUtils目录 </p>
      *
      * @param maxSize  最大缓存尺寸，单位字节
      * @param maxCount 最大缓存个数
@@ -95,7 +95,7 @@ public final class CacheUtils {
 
     /**
      * 获取缓存实例
-     * <p>在/data/data/com.xxx.xxx/cache/cacheName目录</p>
+     * <p>在 /data/data/com.xxx.xxx/cache/cacheName 目录</p>
      *
      * @param cacheName 缓存目录名
      * @param maxSize   最大缓存尺寸，单位字节
@@ -110,7 +110,7 @@ public final class CacheUtils {
 
     /**
      * 获取缓存实例
-     * <p>在cacheDir目录</p>
+     * <p>在 cacheDir 目录</p>
      * <p>缓存尺寸不限</p>
      * <p>缓存个数不限</p>
      *
@@ -123,7 +123,7 @@ public final class CacheUtils {
 
     /**
      * 获取缓存实例
-     * <p>在cacheDir目录</p>
+     * <p>在 cacheDir 目录</p>
      *
      * @param cacheDir 缓存目录
      * @param maxSize  最大缓存尺寸，单位字节

@@ -46,9 +46,9 @@ public final class BarUtils {
     }
 
     /**
-     * 获取状态栏高度(px)
+     * 获取状态栏高度（单位：px）
      *
-     * @return 状态栏高度px
+     * @return 状态栏高度（单位：px）
      */
     public static int getStatusBarHeight() {
         Resources resources = Utils.getApp().getResources();

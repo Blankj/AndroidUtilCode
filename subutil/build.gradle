@@ -52,7 +52,6 @@ android {
 
 dependencies {
     compileOnly "com.android.support:appcompat-v7:$support_version"
-    compileOnly "com.android.support:support-v4:$support_version"
     compileOnly "com.android.support:design:$support_version"
 
     testImplementation "junit:junit:$junit_version"
