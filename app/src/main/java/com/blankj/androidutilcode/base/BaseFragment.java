@@ -14,7 +14,7 @@ import android.view.ViewGroup;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/03/28
- *     desc  : Fragment－v4基类
+ *     desc  : Fragment－v4 基类
  * </pre>
  */
 public abstract class BaseFragment extends Fragment
@@ -24,7 +24,7 @@ public abstract class BaseFragment extends Fragment
 
     private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
     /**
-     * 当前Activity渲染的视图View
+     * 当前 Activity 渲染的视图 View
      */
     protected View contentView;
     /**

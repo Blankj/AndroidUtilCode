@@ -19,7 +19,7 @@ import com.blankj.androidutilcode.R;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/06/27
- *     desc  : DrawerActivity基类
+ *     desc  : DrawerActivity 基类
  * </pre>
  */
 public abstract class BaseDrawerActivity extends BaseActivity {

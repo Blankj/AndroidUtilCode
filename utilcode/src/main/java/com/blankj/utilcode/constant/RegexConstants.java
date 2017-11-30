@@ -28,11 +28,11 @@ public final class RegexConstants {
      */
     public static final String REGEX_TEL           = "^0\\d{2,3}[- ]?\\d{7,8}";
     /**
-     * 正则：身份证号码15位
+     * 正则：身份证号码 15 位
      */
     public static final String REGEX_ID_CARD15     = "^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$";
     /**
-     * 正则：身份证号码18位
+     * 正则：身份证号码 18 位
      */
     public static final String REGEX_ID_CARD18     = "^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9Xx])$";
     /**
@@ -48,20 +48,20 @@ public final class RegexConstants {
      */
     public static final String REGEX_ZH            = "^[\\u4e00-\\u9fa5]+$";
     /**
-     * 正则：用户名，取值范围为a-z,A-Z,0-9,"_",汉字，不能以"_"结尾,用户名必须是6-20位
+     * 正则：用户名，取值范围为 a-z,A-Z,0-9,"_",汉字，不能以"_"结尾,用户名必须是 6-20 位
      */
     public static final String REGEX_USERNAME      = "^[\\w\\u4e00-\\u9fa5]{6,20}(?<!_)$";
     /**
-     * 正则：yyyy-MM-dd格式的日期校验，已考虑平闰年
+     * 正则：yyyy-MM-dd 格式的日期校验，已考虑平闰年
      */
     public static final String REGEX_DATE          = "^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$";
     /**
-     * 正则：IP地址
+     * 正则：IP 地址
      */
     public static final String REGEX_IP            = "((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)";
 
     ///////////////////////////////////////////////////////////////////////////
-    // 以下摘自http://tool.oschina.net/regex
+    // 以下摘自 http://tool.oschina.net/regex
     ///////////////////////////////////////////////////////////////////////////
 
     /**
@@ -73,7 +73,7 @@ public final class RegexConstants {
      */
     public static final String REGEX_BLANK_LINE           = "\\n\\s*\\r";
     /**
-     * 正则：QQ号
+     * 正则：QQ 号
      */
     public static final String REGEX_TENCENT_NUM          = "[1-9][0-9]{4,}";
     /**

@@ -15,7 +15,7 @@ import com.blankj.subutil.util.PinyinUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 17/02/01
- *     desc  : Pinyin工具类Demo
+ *     desc  : Pinyin 工具类 Demo
  * </pre>
  */
 public class PinyinActivity extends BaseBackActivity {

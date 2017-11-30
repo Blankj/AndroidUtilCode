@@ -17,7 +17,7 @@ import com.blankj.utilcode.util.ToastUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/11/21
- *     desc  : Location服务
+ *     desc  : Location 服务
  * </pre>
  */
 public class LocationService extends Service {

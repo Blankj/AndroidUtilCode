@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/08/06
- *     desc  : EncryptUtils单元测试
+ *     desc  : EncryptUtils 单元测试
  * </pre>
  */
 @RunWith(RobolectricTestRunner.class)

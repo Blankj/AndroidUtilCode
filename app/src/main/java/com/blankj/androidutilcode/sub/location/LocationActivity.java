@@ -17,7 +17,7 @@ import com.blankj.androidutilcode.base.BaseBackActivity;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/13
- *     desc  : Location工具类Demo
+ *     desc  : Location 工具类 Demo
  * </pre>
  */
 public class LocationActivity extends BaseBackActivity {

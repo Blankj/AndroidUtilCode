@@ -15,7 +15,7 @@ public final class StringUtils {
     }
 
     /**
-     * 判断字符串是否为null或长度为0
+     * 判断字符串是否为 null 或长度为 0
      *
      * @param s 待校验字符串
      * @return {@code true}: 空<br> {@code false}: 不为空
@@ -25,20 +25,20 @@ public final class StringUtils {
     }
 
     /**
-     * 判断字符串是否为null或全为空格
+     * 判断字符串是否为 null 或全为空格
      *
      * @param s 待校验字符串
-     * @return {@code true}: null或全空格<br> {@code false}: 不为null且不全空格
+     * @return {@code true}: null 或全空格<br> {@code false}: 不为 null 且不全空格
      */
     public static boolean isTrimEmpty(final String s) {
         return (s == null || s.trim().length() == 0);
     }
 
     /**
-     * 判断字符串是否为null或全为空白字符
+     * 判断字符串是否为 null 或全为空白字符
      *
      * @param s 待校验字符串
-     * @return {@code true}: null或全空白字符<br> {@code false}: 不为null且不全空白字符
+     * @return {@code true}: null 或全空白字符<br> {@code false}: 不为 null 且不全空白字符
      */
     public static boolean isSpace(final String s) {
         if (s == null) return true;
@@ -53,8 +53,8 @@ public final class StringUtils {
     /**
      * 判断两字符串是否相等
      *
-     * @param a 待校验字符串a
-     * @param b 待校验字符串b
+     * @param a 待校验字符串 a
+     * @param b 待校验字符串 b
      * @return {@code true}: 相等<br>{@code false}: 不相等
      */
     public static boolean equals(final CharSequence a, final CharSequence b) {
@@ -76,8 +76,8 @@ public final class StringUtils {
     /**
      * 判断两字符串忽略大小写是否相等
      *
-     * @param a 待校验字符串a
-     * @param b 待校验字符串b
+     * @param a 待校验字符串 a
+     * @param b 待校验字符串 b
      * @return {@code true}: 相等<br>{@code false}: 不相等
      */
     public static boolean equalsIgnoreCase(final String a, final String b) {
@@ -85,10 +85,10 @@ public final class StringUtils {
     }
 
     /**
-     * null转为长度为0的字符串
+     * null 转为长度为 0 的字符串
      *
      * @param s 待转字符串
-     * @return s为null转为长度为0字符串，否则不改变
+     * @return s 为 null 转为长度为 0 字符串，否则不改变
      */
     public static String null2Length0(final String s) {
         return s == null ? "" : s;
@@ -98,7 +98,7 @@ public final class StringUtils {
      * 返回字符串长度
      *
      * @param s 字符串
-     * @return null返回0，其他返回自身长度
+     * @return null 返回 0，其他返回自身长度
      */
     public static int length(final CharSequence s) {
         return s == null ? 0 : s.length();

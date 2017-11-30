@@ -25,12 +25,12 @@ public final class IntentUtils {
     }
 
     /**
-     * 获取安装App（支持8.0）的意图
-     * <p>8.0需添加权限 {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
+     * 获取安装 App（支持 8.0）的意图
+     * <p>8.0 需添加权限 {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
      *
      * @param filePath  文件路径
-     * @param authority 7.0及以上安装需要传入清单文件中的{@code <provider>}的authorities属性
-     *                  <br>参看https://developer.android.com/reference/android/support/v4/content/FileProvider.html
+     * @param authority 7.0 及以上安装需要传入清单文件中的{@code <provider>}的 authorities 属性
+     *                  <br>参看 https://developer.android.com/reference/android/support/v4/content/FileProvider.html
      * @return intent
      */
     public static Intent getInstallAppIntent(final String filePath, final String authority) {
@@ -38,12 +38,12 @@ public final class IntentUtils {
     }
 
     /**
-     * 获取安装App(支持8.0)的意图
-     * <p>8.0需添加权限 {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
+     * 获取安装 App(支持 8.0)的意图
+     * <p>8.0 需添加权限 {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
      *
      * @param file      文件
-     * @param authority 7.0及以上安装需要传入清单文件中的{@code <provider>}的authorities属性
-     *                  <br>参看https://developer.android.com/reference/android/support/v4/content/FileProvider.html
+     * @param authority 7.0 及以上安装需要传入清单文件中的{@code <provider>}的 authorities 属性
+     *                  <br>参看 https://developer.android.com/reference/android/support/v4/content/FileProvider.html
      * @return intent
      */
     public static Intent getInstallAppIntent(final File file, final String authority) {
@@ -62,7 +62,7 @@ public final class IntentUtils {
     }
 
     /**
-     * 获取卸载App的意图
+     * 获取卸载 App 的意图
      *
      * @param packageName 包名
      * @return intent
@@ -74,7 +74,7 @@ public final class IntentUtils {
     }
 
     /**
-     * 获取打开App的意图
+     * 获取打开 App 的意图
      *
      * @param packageName 包名
      * @return intent
@@ -84,7 +84,7 @@ public final class IntentUtils {
     }
 
     /**
-     * 获取App具体设置的意图
+     * 获取 App 具体设置的意图
      *
      * @param packageName 包名
      * @return intent
@@ -135,7 +135,7 @@ public final class IntentUtils {
      * 获取分享图片的意图
      *
      * @param content 分享文本
-     * @param uri     图片uri
+     * @param uri     图片 uri
      * @return intent
      */
     public static Intent getShareImageIntent(final String content, final Uri uri) {
@@ -222,7 +222,7 @@ public final class IntentUtils {
     /**
      * 获取拍照的意图
      *
-     * @param outUri 输出的uri
+     * @param outUri 输出的 uri
      * @return 拍照的意图
      */
     public static Intent getCaptureIntent(final Uri outUri) {
@@ -232,7 +232,7 @@ public final class IntentUtils {
     }
 
 //    /**
-//     * 获取选择照片的Intent
+//     * 获取选择照片的 Intent
 //     *
 //     * @return
 //     */
@@ -242,7 +242,7 @@ public final class IntentUtils {
 //    }
 //
 //    /**
-//     * 获取从文件中选择照片的Intent
+//     * 获取从文件中选择照片的 Intent
 //     *
 //     * @return
 //     */

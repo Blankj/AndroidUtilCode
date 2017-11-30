@@ -3,6 +3,7 @@ package com.blankj.utilcode.util;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
@@ -11,6 +12,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.TextViewCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -51,8 +53,8 @@ public final class ToastUtils {
      * 设置吐司位置
      *
      * @param gravity 位置
-     * @param xOffset x偏移
-     * @param yOffset y偏移
+     * @param xOffset x 偏移
+     * @param yOffset y 偏移
      */
     public static void setGravity(final int gravity, final int xOffset, final int yOffset) {
         ToastUtils.gravity = gravity;
@@ -99,7 +101,7 @@ public final class ToastUtils {
     /**
      * 安全地显示短时吐司
      *
-     * @param resId 资源Id
+     * @param resId 资源 Id
      */
     public static void showShort(@StringRes final int resId) {
         show(resId, Toast.LENGTH_SHORT);
@@ -108,7 +110,7 @@ public final class ToastUtils {
     /**
      * 安全地显示短时吐司
      *
-     * @param resId 资源Id
+     * @param resId 资源 Id
      * @param args  参数
      */
     public static void showShort(@StringRes final int resId, final Object... args) {
@@ -137,7 +139,7 @@ public final class ToastUtils {
     /**
      * 安全地显示长时吐司
      *
-     * @param resId 资源Id
+     * @param resId 资源 Id
      */
     public static void showLong(@StringRes final int resId) {
         show(resId, Toast.LENGTH_LONG);
@@ -146,7 +148,7 @@ public final class ToastUtils {
     /**
      * 安全地显示长时吐司
      *
-     * @param resId 资源Id
+     * @param resId 资源 Id
      * @param args  参数
      */
     public static void showLong(@StringRes final int resId, final Object... args) {
@@ -239,7 +241,11 @@ public final class ToastUtils {
             toastView.setBackgroundResource(bgResource);
         } else if (bgColor != COLOR_DEFAULT) {
             Drawable background = toastView.getBackground();
-            background.setColorFilter(new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN));
+            if (background != null) {
+                background.setColorFilter(new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN));
+            } else {
+                ViewCompat.setBackground(toastView, new ColorDrawable(bgColor));
+            }
         }
         sToast.setGravity(gravity, xOffset, yOffset);
     }

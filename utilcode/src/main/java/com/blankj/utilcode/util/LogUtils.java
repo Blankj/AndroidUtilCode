@@ -43,7 +43,7 @@ import javax.xml.transform.stream.StreamSource;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/21
- *     desc  : Log相关工具类
+ *     desc  : Log 相关工具类
  * </pre>
  */
 public final class LogUtils {
@@ -67,19 +67,19 @@ public final class LogUtils {
     private static final int XML  = 0x30;
 
     private static ExecutorService sExecutor;
-    private static String          sDefaultDir;// log默认存储目录
-    private static String          sDir;       // log存储目录
-    private static String  sFilePrefix        = "util";// log文件前缀
-    private static boolean sLogSwitch         = true;  // log总开关，默认开
-    private static boolean sLog2ConsoleSwitch = true;  // logcat是否打印，默认打印
-    private static String  sGlobalTag         = null;  // log标签
-    private static boolean sTagIsSpace        = true;  // log标签是否为空白
-    private static boolean sLogHeadSwitch     = true;  // log头部开关，默认开
-    private static boolean sLog2FileSwitch    = false; // log写入文件开关，默认关
-    private static boolean sLogBorderSwitch   = true;  // log边框开关，默认开
-    private static int     sConsoleFilter     = V;     // log控制台过滤器
-    private static int     sFileFilter        = V;     // log文件过滤器
-    private static int     sStackDeep         = 1;     // log栈深度
+    private static String          sDefaultDir;// log 默认存储目录
+    private static String          sDir;       // log 存储目录
+    private static String  sFilePrefix        = "util";// log 文件前缀
+    private static boolean sLogSwitch         = true;  // log 总开关，默认开
+    private static boolean sLog2ConsoleSwitch = true;  // logcat 是否打印，默认打印
+    private static String  sGlobalTag         = null;  // log 标签
+    private static boolean sTagIsSpace        = true;  // log 标签是否为空白
+    private static boolean sLogHeadSwitch     = true;  // log 头部开关，默认开
+    private static boolean sLog2FileSwitch    = false; // log 写入文件开关，默认关
+    private static boolean sLogBorderSwitch   = true;  // log 边框开关，默认开
+    private static int     sConsoleFilter     = V;     // log 控制台过滤器
+    private static int     sFileFilter        = V;     // log 文件过滤器
+    private static int     sStackDeep         = 1;     // log 栈深度
 
     private static final String FILE_SEP      = System.getProperty("file.separator");
     private static final String LINE_SEP      = System.getProperty("line.separator");
@@ -432,7 +432,7 @@ public final class LogUtils {
                 "\nDevice Manufacturer: " + Build.MANUFACTURER +// 设备厂商
                 "\nDevice Model       : " + Build.MODEL +// 设备型号
                 "\nAndroid Version    : " + Build.VERSION.RELEASE +// 系统版本
-                "\nAndroid SDK        : " + Build.VERSION.SDK_INT +// SDK版本
+                "\nAndroid SDK        : " + Build.VERSION.SDK_INT +// SDK 版本
                 "\nApp VersionName    : " + versionName +
                 "\nApp VersionCode    : " + versionCode +
                 "\n************* Log Head ****************\n\n";

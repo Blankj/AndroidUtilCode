@@ -37,12 +37,12 @@ public final class ConvertUtils {
     private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     /**
-     * byteArr转hexString
+     * byteArr 转 hexString
      * <p>例如：</p>
      * bytes2HexString(new byte[] { 0, (byte) 0xa8 }) returns 00A8
      *
      * @param bytes 字节数组
-     * @return 16进制大写字符串
+     * @return 16 进制大写字符串
      */
     public static String bytes2HexString(final byte[] bytes) {
         if (bytes == null) return null;
@@ -57,7 +57,7 @@ public final class ConvertUtils {
     }
 
     /**
-     * hexString转byteArr
+     * hexString 转 byteArr
      * <p>例如：</p>
      * hexString2Bytes("00A8") returns { 0, (byte) 0xA8 }
      *
@@ -80,9 +80,9 @@ public final class ConvertUtils {
     }
 
     /**
-     * hexChar转int
+     * hexChar 转 int
      *
-     * @param hexChar hex单个字节
+     * @param hexChar hex 单个字节
      * @return 0..15
      */
     private static int hex2Dec(final char hexChar) {
@@ -96,7 +96,7 @@ public final class ConvertUtils {
     }
 
     /**
-     * charArr转byteArr
+     * charArr 转 byteArr
      *
      * @param chars 字符数组
      * @return 字节数组
@@ -112,7 +112,7 @@ public final class ConvertUtils {
     }
 
     /**
-     * byteArr转charArr
+     * byteArr 转 charArr
      *
      * @param bytes 字节数组
      * @return 字符数组
@@ -129,7 +129,7 @@ public final class ConvertUtils {
     }
 
     /**
-     * 以unit为单位的内存大小转字节数
+     * 以 unit 为单位的内存大小转字节数
      *
      * @param memorySize 大小
      * @param unit       单位类型
@@ -147,7 +147,7 @@ public final class ConvertUtils {
     }
 
     /**
-     * 字节数转以unit为单位的内存大小
+     * 字节数转以 unit 为单位的内存大小
      *
      * @param byteNum 字节数
      * @param unit    单位类型
@@ -157,7 +157,7 @@ public final class ConvertUtils {
      *                <li>{@link MemoryConstants#MB}  : 兆</li>
      *                <li>{@link MemoryConstants#GB}  : GB</li>
      *                </ul>
-     * @return 以unit为单位的size
+     * @return 以 unit 为单位的 size
      */
     public static double byte2MemorySize(final long byteNum, @MemoryConstants.Unit final int unit) {
         if (byteNum < 0) return -1;
@@ -166,7 +166,7 @@ public final class ConvertUtils {
 
     /**
      * 字节数转合适内存大小
-     * <p>保留3位小数</p>
+     * <p>保留 3 位小数</p>
      *
      * @param byteNum 字节数
      * @return 合适内存大小
@@ -187,7 +187,7 @@ public final class ConvertUtils {
     }
 
     /**
-     * 以unit为单位的时间长度转毫秒时间戳
+     * 以 unit 为单位的时间长度转毫秒时间戳
      *
      * @param timeSpan 毫秒时间戳
      * @param unit     单位类型
@@ -205,7 +205,7 @@ public final class ConvertUtils {
     }
 
     /**
-     * 毫秒时间戳转以unit为单位的时间长度
+     * 毫秒时间戳转以 unit 为单位的时间长度
      *
      * @param millis 毫秒时间戳
      * @param unit   单位类型
@@ -216,7 +216,7 @@ public final class ConvertUtils {
      *               <li>{@link TimeConstants#HOUR}: 小时</li>
      *               <li>{@link TimeConstants#DAY }: 天</li>
      *               </ul>
-     * @return 以unit为单位的时间长度
+     * @return 以 unit 为单位的时间长度
      */
     public static long millis2TimeSpan(final long millis, @TimeConstants.Unit final int unit) {
         return millis / unit;
@@ -226,10 +226,10 @@ public final class ConvertUtils {
      * 毫秒时间戳转合适时间长度
      *
      * @param millis    毫秒时间戳
-     *                  <p>小于等于0，返回null</p>
+     *                  <p>小于等于 0，返回 null</p>
      * @param precision 精度
      *                  <ul>
-     *                  <li>precision = 0，返回null</li>
+     *                  <li>precision = 0，返回 null</li>
      *                  <li>precision = 1，返回天</li>
      *                  <li>precision = 2，返回天和小时</li>
      *                  <li>precision = 3，返回天、小时和分钟</li>
@@ -256,7 +256,7 @@ public final class ConvertUtils {
     }
 
     /**
-     * bytes转bits
+     * bytes 转 bits
      *
      * @param bytes 字节数组
      * @return bits
@@ -272,7 +272,7 @@ public final class ConvertUtils {
     }
 
     /**
-     * bits转bytes
+     * bits 转 bytes
      *
      * @param bits 二进制
      * @return bytes
@@ -280,7 +280,7 @@ public final class ConvertUtils {
     public static byte[] bits2Bytes(String bits) {
         int lenMod = bits.length() % 8;
         int byteLen = bits.length() / 8;
-        // 不是8的倍数前面补0
+        // 不是 8 的倍数前面补 0
         if (lenMod != 0) {
             for (int i = lenMod; i < 8; i++) {
                 bits = "0" + bits;
@@ -298,10 +298,10 @@ public final class ConvertUtils {
     }
 
     /**
-     * inputStream转outputStream
+     * inputStream 转 outputStream
      *
      * @param is 输入流
-     * @return outputStream子类
+     * @return outputStream 子类
      */
     public static ByteArrayOutputStream input2OutputStream(final InputStream is) {
         if (is == null) return null;
@@ -322,10 +322,10 @@ public final class ConvertUtils {
     }
 
     /**
-     * outputStream转inputStream
+     * outputStream 转 inputStream
      *
      * @param out 输出流
-     * @return inputStream子类
+     * @return inputStream 子类
      */
     public ByteArrayInputStream output2InputStream(final OutputStream out) {
         if (out == null) return null;
@@ -333,7 +333,7 @@ public final class ConvertUtils {
     }
 
     /**
-     * inputStream转byteArr
+     * inputStream 转 byteArr
      *
      * @param is 输入流
      * @return 字节数组
@@ -344,7 +344,7 @@ public final class ConvertUtils {
     }
 
     /**
-     * byteArr转inputStream
+     * byteArr 转 inputStream
      *
      * @param bytes 字节数组
      * @return 输入流
@@ -355,7 +355,7 @@ public final class ConvertUtils {
     }
 
     /**
-     * outputStream转byteArr
+     * outputStream 转 byteArr
      *
      * @param out 输出流
      * @return 字节数组
@@ -366,7 +366,7 @@ public final class ConvertUtils {
     }
 
     /**
-     * outputStream转byteArr
+     * outputStream 转 byteArr
      *
      * @param bytes 字节数组
      * @return 字节数组
@@ -387,7 +387,7 @@ public final class ConvertUtils {
     }
 
     /**
-     * inputStream转string按编码
+     * inputStream 转 string 按编码
      *
      * @param is          输入流
      * @param charsetName 编码格式
@@ -404,7 +404,7 @@ public final class ConvertUtils {
     }
 
     /**
-     * string转inputStream按编码
+     * string 转 inputStream 按编码
      *
      * @param string      字符串
      * @param charsetName 编码格式
@@ -421,7 +421,7 @@ public final class ConvertUtils {
     }
 
     /**
-     * outputStream转string按编码
+     * outputStream 转 string 按编码
      *
      * @param out         输出流
      * @param charsetName 编码格式
@@ -438,7 +438,7 @@ public final class ConvertUtils {
     }
 
     /**
-     * string转outputStream按编码
+     * string 转 outputStream 按编码
      *
      * @param string      字符串
      * @param charsetName 编码格式
@@ -455,9 +455,9 @@ public final class ConvertUtils {
     }
 
     /**
-     * bitmap转byteArr
+     * bitmap 转 byteArr
      *
-     * @param bitmap bitmap对象
+     * @param bitmap bitmap 对象
      * @param format 格式
      * @return 字节数组
      */
@@ -469,7 +469,7 @@ public final class ConvertUtils {
     }
 
     /**
-     * byteArr转bitmap
+     * byteArr 转 bitmap
      *
      * @param bytes 字节数组
      * @return bitmap
@@ -479,9 +479,9 @@ public final class ConvertUtils {
     }
 
     /**
-     * drawable转bitmap
+     * drawable 转 bitmap
      *
-     * @param drawable drawable对象
+     * @param drawable drawable 对象
      * @return bitmap
      */
     public static Bitmap drawable2Bitmap(final Drawable drawable) {
@@ -506,9 +506,9 @@ public final class ConvertUtils {
     }
 
     /**
-     * bitmap转drawable
+     * bitmap 转 drawable
      *
-     * @param bitmap bitmap对象
+     * @param bitmap bitmap 对象
      * @return drawable
      */
     public static Drawable bitmap2Drawable(final Bitmap bitmap) {
@@ -516,9 +516,9 @@ public final class ConvertUtils {
     }
 
     /**
-     * drawable转byteArr
+     * drawable 转 byteArr
      *
-     * @param drawable drawable对象
+     * @param drawable drawable 对象
      * @param format   格式
      * @return 字节数组
      */
@@ -527,7 +527,7 @@ public final class ConvertUtils {
     }
 
     /**
-     * byteArr转drawable
+     * byteArr 转 drawable
      *
      * @param bytes 字节数组
      * @return drawable
@@ -537,7 +537,7 @@ public final class ConvertUtils {
     }
 
     /**
-     * view转Bitmap
+     * view 转 Bitmap
      *
      * @param view 视图
      * @return bitmap
@@ -557,10 +557,10 @@ public final class ConvertUtils {
     }
 
     /**
-     * dp转px
+     * dp 转 px
      *
-     * @param dpValue dp值
-     * @return px值
+     * @param dpValue dp 值
+     * @return px 值
      */
     public static int dp2px(final float dpValue) {
         final float scale = Utils.getApp().getResources().getDisplayMetrics().density;
@@ -568,10 +568,10 @@ public final class ConvertUtils {
     }
 
     /**
-     * px转dp
+     * px 转 dp
      *
-     * @param pxValue px值
-     * @return dp值
+     * @param pxValue px 值
+     * @return dp 值
      */
     public static int px2dp(final float pxValue) {
         final float scale = Utils.getApp().getResources().getDisplayMetrics().density;
@@ -579,10 +579,10 @@ public final class ConvertUtils {
     }
 
     /**
-     * sp转px
+     * sp 转 px
      *
-     * @param spValue sp值
-     * @return px值
+     * @param spValue sp 值
+     * @return px 值
      */
     public static int sp2px(final float spValue) {
         final float fontScale = Utils.getApp().getResources().getDisplayMetrics().scaledDensity;
@@ -590,10 +590,10 @@ public final class ConvertUtils {
     }
 
     /**
-     * px转sp
+     * px 转 sp
      *
-     * @param pxValue px值
-     * @return sp值
+     * @param pxValue px 值
+     * @return sp 值
      */
     public static int px2sp(final float pxValue) {
         final float fontScale = Utils.getApp().getResources().getDisplayMetrics().scaledDensity;
@@ -601,10 +601,10 @@ public final class ConvertUtils {
     }
 
     /**
-     * 判断字符串是否为null或全为空白字符
+     * 判断字符串是否为 null 或全为空白字符
      *
      * @param s 待校验字符串
-     * @return {@code true}: null或全空白字符<br> {@code false}: 不为null且不全空白字符
+     * @return {@code true}: null 或全空白字符<br> {@code false}: 不为 null 且不全空白字符
      */
     private static boolean isSpace(final String s) {
         if (s == null) return true;

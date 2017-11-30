@@ -1,8 +1,8 @@
 ## Download
 
 Gradle:
-``` groovy
-compile 'com.blankj:utilcode:1.9.8'
+```groovy
+compile 'com.blankj:utilcode:1.9.9'
 ```
 
 
@@ -71,7 +71,7 @@ cleanAppData         : 清除 App 所有数据
 
 * ### 栏相关 -> [BarUtils.java][bar.java] -> [Demo][bar.demo]
 ```
-getStatusBarHeight                   : 获取状态栏高度 (px)
+getStatusBarHeight                   : 获取状态栏高度(px)
 addMarginTopEqualStatusBarHeight     : 为 view 增加 MarginTop 为状态栏高度
 subtractMarginTopEqualStatusBarHeight: 为 view 减少 MarginTop 为状态栏高度
 setStatusBarColor                    : 设置状态栏颜色

@@ -15,7 +15,7 @@ import com.blankj.utilcode.util.NetworkUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/13
- *     desc  : Network工具类Demo
+ *     desc  : Network 工具类 Demo
  * </pre>
  */
 public class NetworkActivity extends BaseBackActivity {

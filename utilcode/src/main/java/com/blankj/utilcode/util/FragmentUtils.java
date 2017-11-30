@@ -24,7 +24,7 @@ import java.util.List;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/01/17
- *     desc  : Fragment相关工具类
+ *     desc  : Fragment 相关工具类
  * </pre>
  */
 public final class FragmentUtils {
@@ -46,11 +46,11 @@ public final class FragmentUtils {
     }
 
     /**
-     * 新增fragment
+     * 新增 fragment
      *
-     * @param fm          fragment管理器
-     * @param containerId 布局Id
-     * @param add         要新增的fragment
+     * @param fm          fragment 管理器
+     * @param containerId 布局 Id
+     * @param add         要新增的 fragment
      */
     public static void add(@NonNull final FragmentManager fm,
                            @NonNull final Fragment add,
@@ -59,11 +59,11 @@ public final class FragmentUtils {
     }
 
     /**
-     * 新增fragment
+     * 新增 fragment
      *
-     * @param fm          fragment管理器
-     * @param containerId 布局Id
-     * @param add         要新增的fragment
+     * @param fm          fragment 管理器
+     * @param containerId 布局 Id
+     * @param add         要新增的 fragment
      * @param isHide      是否隐藏
      */
     public static void add(@NonNull final FragmentManager fm,
@@ -74,11 +74,11 @@ public final class FragmentUtils {
     }
 
     /**
-     * 新增fragment
+     * 新增 fragment
      *
-     * @param fm          fragment管理器
-     * @param containerId 布局Id
-     * @param add         要新增的fragment
+     * @param fm          fragment 管理器
+     * @param containerId 布局 Id
+     * @param add         要新增的 fragment
      * @param isHide      是否隐藏
      * @param isAddStack  是否入回退栈
      */
@@ -92,11 +92,11 @@ public final class FragmentUtils {
     }
 
     /**
-     * 新增fragment
+     * 新增 fragment
      *
-     * @param fm          fragment管理器
-     * @param containerId 布局Id
-     * @param add         要新增的fragment
+     * @param fm          fragment 管理器
+     * @param containerId 布局 Id
+     * @param add         要新增的 fragment
      * @param enterAnim   入场动画
      * @param exitAnim    出场动画
      */
@@ -109,11 +109,11 @@ public final class FragmentUtils {
     }
 
     /**
-     * 新增fragment
+     * 新增 fragment
      *
-     * @param fm          fragment管理器
-     * @param containerId 布局Id
-     * @param add         要新增的fragment
+     * @param fm          fragment 管理器
+     * @param containerId 布局 Id
+     * @param add         要新增的 fragment
      * @param isAddStack  是否入回退栈
      * @param enterAnim   入场动画
      * @param exitAnim    出场动画
@@ -128,11 +128,11 @@ public final class FragmentUtils {
     }
 
     /**
-     * 新增fragment
+     * 新增 fragment
      *
-     * @param fm           fragment管理器
-     * @param containerId  布局Id
-     * @param add          要新增的fragment
+     * @param fm           fragment 管理器
+     * @param containerId  布局 Id
+     * @param add          要新增的 fragment
      * @param enterAnim    入场动画
      * @param exitAnim     出场动画
      * @param popEnterAnim 入栈动画
@@ -149,11 +149,11 @@ public final class FragmentUtils {
     }
 
     /**
-     * 新增fragment
+     * 新增 fragment
      *
-     * @param fm           fragment管理器
-     * @param containerId  布局Id
-     * @param add          要新增的fragment
+     * @param fm           fragment 管理器
+     * @param containerId  布局 Id
+     * @param add          要新增的 fragment
      * @param isAddStack   是否入回退栈
      * @param enterAnim    入场动画
      * @param exitAnim     出场动画
@@ -175,11 +175,11 @@ public final class FragmentUtils {
     }
 
     /**
-     * 新增fragment
+     * 新增 fragment
      *
-     * @param fm             fragment管理器
-     * @param add            新增的fragment
-     * @param containerId    布局Id
+     * @param fm             fragment 管理器
+     * @param add            新增的 fragment
+     * @param containerId    布局 Id
      * @param sharedElements 共享元素
      */
     public static void add(@NonNull final FragmentManager fm,
@@ -190,11 +190,11 @@ public final class FragmentUtils {
     }
 
     /**
-     * 新增fragment
+     * 新增 fragment
      *
-     * @param fm             fragment管理器
-     * @param add            新增的fragment
-     * @param containerId    布局Id
+     * @param fm             fragment 管理器
+     * @param add            新增的 fragment
+     * @param containerId    布局 Id
      * @param isAddStack     是否入回退栈
      * @param sharedElements 共享元素
      */
@@ -210,12 +210,12 @@ public final class FragmentUtils {
     }
 
     /**
-     * 新增fragment
+     * 新增 fragment
      *
-     * @param fm          fragment管理器
-     * @param add         新增的fragment
-     * @param containerId 布局Id
-     * @param showIndex   要显示的fragment索引
+     * @param fm          fragment 管理器
+     * @param add         新增的 fragment
+     * @param containerId 布局 Id
+     * @param showIndex   要显示的 fragment 索引
      */
     public static void add(@NonNull final FragmentManager fm,
                            @NonNull final List<Fragment> add,
@@ -225,12 +225,12 @@ public final class FragmentUtils {
     }
 
     /**
-     * 新增fragment
+     * 新增 fragment
      *
-     * @param fm          fragment管理器
-     * @param add         新增的fragment
-     * @param containerId 布局Id
-     * @param showIndex   要显示的fragment索引
+     * @param fm          fragment 管理器
+     * @param add         新增的 fragment
+     * @param containerId 布局 Id
+     * @param showIndex   要显示的 fragment 索引
      */
     public static void add(@NonNull final FragmentManager fm,
                            @NonNull final Fragment[] add,
@@ -243,9 +243,9 @@ public final class FragmentUtils {
     }
 
     /**
-     * 显示fragment
+     * 显示 fragment
      *
-     * @param show 要显示的fragment
+     * @param show 要显示的 fragment
      */
     public static void show(@NonNull final Fragment show) {
         putArgs(show, false);
@@ -253,9 +253,9 @@ public final class FragmentUtils {
     }
 
     /**
-     * 显示fragment
+     * 显示 fragment
      *
-     * @param fm fragment管理器
+     * @param fm fragment 管理器
      */
     public static void show(@NonNull final FragmentManager fm) {
         List<Fragment> fragments = getFragments(fm);
@@ -266,9 +266,9 @@ public final class FragmentUtils {
     }
 
     /**
-     * 隐藏fragment
+     * 隐藏 fragment
      *
-     * @param hide 要隐藏的fragment
+     * @param hide 要隐藏的 fragment
      */
     public static void hide(@NonNull final Fragment hide) {
         putArgs(hide, true);
@@ -276,9 +276,9 @@ public final class FragmentUtils {
     }
 
     /**
-     * 隐藏fragment
+     * 隐藏 fragment
      *
-     * @param fm fragment管理器
+     * @param fm fragment 管理器
      */
     public static void hide(@NonNull final FragmentManager fm) {
         List<Fragment> fragments = getFragments(fm);
@@ -289,20 +289,20 @@ public final class FragmentUtils {
     }
 
     /**
-     * 先显示后隐藏fragment
+     * 先显示后隐藏 fragment
      *
-     * @param showIndex 要显示的fragment索引
-     * @param fragments 要隐藏的fragments
+     * @param showIndex 要显示的 fragment 索引
+     * @param fragments 要隐藏的 fragments
      */
     public static void showHide(final int showIndex, @NonNull final List<Fragment> fragments) {
         showHide(fragments.get(showIndex), fragments);
     }
 
     /**
-     * 先显示后隐藏fragment
+     * 先显示后隐藏 fragment
      *
-     * @param show 要显示的fragment
-     * @param hide 要隐藏的fragment
+     * @param show 要显示的 fragment
+     * @param hide 要隐藏的 fragment
      */
     public static void showHide(@NonNull final Fragment show, @NonNull final List<Fragment> hide) {
         for (Fragment fragment : hide) {
@@ -313,20 +313,20 @@ public final class FragmentUtils {
     }
 
     /**
-     * 先显示后隐藏fragment
+     * 先显示后隐藏 fragment
      *
-     * @param showIndex 要显示的fragment索引
-     * @param fragments 要隐藏的fragments
+     * @param showIndex 要显示的 fragment 索引
+     * @param fragments 要隐藏的 fragments
      */
     public static void showHide(final int showIndex, @NonNull final Fragment... fragments) {
         showHide(fragments[showIndex], fragments);
     }
 
     /**
-     * 先显示后隐藏fragment
+     * 先显示后隐藏 fragment
      *
-     * @param show 要显示的fragment
-     * @param hide 要隐藏的fragment
+     * @param show 要显示的 fragment
+     * @param hide 要隐藏的 fragment
      */
     public static void showHide(@NonNull final Fragment show, @NonNull final Fragment... hide) {
         for (Fragment fragment : hide) {
@@ -336,10 +336,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 先显示后隐藏fragment
+     * 先显示后隐藏 fragment
      *
-     * @param show 要显示的fragment
-     * @param hide 要隐藏的fragment
+     * @param show 要显示的 fragment
+     * @param hide 要隐藏的 fragment
      */
     public static void showHide(@NonNull final Fragment show,
                                 @NonNull final Fragment hide) {
@@ -349,10 +349,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 替换fragment
+     * 替换 fragment
      *
-     * @param srcFragment  源fragment
-     * @param destFragment 目标fragment
+     * @param srcFragment  源 fragment
+     * @param destFragment 目标 fragment
      */
     public static void replace(@NonNull final Fragment srcFragment,
                                @NonNull final Fragment destFragment) {
@@ -360,10 +360,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 替换fragment
+     * 替换 fragment
      *
-     * @param srcFragment  源fragment
-     * @param destFragment 目标fragment
+     * @param srcFragment  源 fragment
+     * @param destFragment 目标 fragment
      * @param isAddStack   是否入回退栈
      */
     public static void replace(@NonNull final Fragment srcFragment,
@@ -374,10 +374,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 替换fragment
+     * 替换 fragment
      *
-     * @param srcFragment  源fragment
-     * @param destFragment 目标fragment
+     * @param srcFragment  源 fragment
+     * @param destFragment 目标 fragment
      * @param enterAnim    入场动画
      * @param exitAnim     出场动画
      */
@@ -389,10 +389,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 替换fragment
+     * 替换 fragment
      *
-     * @param srcFragment  源fragment
-     * @param destFragment 目标fragment
+     * @param srcFragment  源 fragment
+     * @param destFragment 目标 fragment
      * @param isAddStack   是否入回退栈
      * @param enterAnim    入场动画
      * @param exitAnim     出场动画
@@ -406,10 +406,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 替换fragment
+     * 替换 fragment
      *
-     * @param srcFragment  源fragment
-     * @param destFragment 目标fragment
+     * @param srcFragment  源 fragment
+     * @param destFragment 目标 fragment
      * @param enterAnim    入场动画
      * @param exitAnim     出场动画
      * @param popEnterAnim 入栈动画
@@ -425,10 +425,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 替换fragment
+     * 替换 fragment
      *
-     * @param srcFragment  源fragment
-     * @param destFragment 目标fragment
+     * @param srcFragment  源 fragment
+     * @param destFragment 目标 fragment
      * @param isAddStack   是否入回退栈
      * @param enterAnim    入场动画
      * @param exitAnim     出场动画
@@ -448,10 +448,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 替换fragment
+     * 替换 fragment
      *
-     * @param srcFragment    源fragment
-     * @param destFragment   目标fragment
+     * @param srcFragment    源 fragment
+     * @param destFragment   目标 fragment
      * @param sharedElements 共享元素
      */
     public static void replace(@NonNull final Fragment srcFragment,
@@ -461,10 +461,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 替换fragment
+     * 替换 fragment
      *
-     * @param srcFragment    源fragment
-     * @param destFragment   目标fragment
+     * @param srcFragment    源 fragment
+     * @param destFragment   目标 fragment
      * @param isAddStack     是否入回退栈
      * @param sharedElements 共享元素
      */
@@ -477,10 +477,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 替换fragment
+     * 替换 fragment
      *
-     * @param fm          fragment管理器
-     * @param containerId 布局Id
+     * @param fm          fragment 管理器
+     * @param containerId 布局 Id
      * @param fragment    fragment
      */
     public static void replace(@NonNull final FragmentManager fm,
@@ -490,10 +490,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 替换fragment
+     * 替换 fragment
      *
-     * @param fm          fragment管理器
-     * @param containerId 布局Id
+     * @param fm          fragment 管理器
+     * @param containerId 布局 Id
      * @param fragment    fragment
      * @param isAddStack  是否入回退栈
      */
@@ -507,10 +507,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 替换fragment
+     * 替换 fragment
      *
-     * @param fm          fragment管理器
-     * @param containerId 布局Id
+     * @param fm          fragment 管理器
+     * @param containerId 布局 Id
      * @param fragment    fragment
      * @param enterAnim   入场动画
      * @param exitAnim    出场动画
@@ -524,10 +524,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 替换fragment
+     * 替换 fragment
      *
-     * @param fm          fragment管理器
-     * @param containerId 布局Id
+     * @param fm          fragment 管理器
+     * @param containerId 布局 Id
      * @param fragment    fragment
      * @param isAddStack  是否入回退栈
      * @param enterAnim   入场动画
@@ -543,10 +543,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 替换fragment
+     * 替换 fragment
      *
-     * @param fm           fragment管理器
-     * @param containerId  布局Id
+     * @param fm           fragment 管理器
+     * @param containerId  布局 Id
      * @param fragment     fragment
      * @param enterAnim    入场动画
      * @param exitAnim     出场动画
@@ -564,10 +564,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 替换fragment
+     * 替换 fragment
      *
-     * @param fm           fragment管理器
-     * @param containerId  布局Id
+     * @param fm           fragment 管理器
+     * @param containerId  布局 Id
      * @param fragment     fragment
      * @param isAddStack   是否入回退栈
      * @param enterAnim    入场动画
@@ -590,10 +590,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 替换fragment
+     * 替换 fragment
      *
-     * @param fm             fragment管理器
-     * @param containerId    布局Id
+     * @param fm             fragment 管理器
+     * @param containerId    布局 Id
      * @param fragment       fragment
      * @param sharedElements 共享元素
      */
@@ -605,10 +605,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 替换fragment
+     * 替换 fragment
      *
-     * @param fm             fragment管理器
-     * @param containerId    布局Id
+     * @param fm             fragment 管理器
+     * @param containerId    布局 Id
      * @param fragment       fragment
      * @param isAddStack     是否入回退栈
      * @param sharedElements 共享元素
@@ -625,18 +625,18 @@ public final class FragmentUtils {
     }
 
     /**
-     * 出栈fragment
+     * 出栈 fragment
      *
-     * @param fm fragment管理器
+     * @param fm fragment 管理器
      */
     public static void pop(@NonNull final FragmentManager fm) {
         pop(fm, true);
     }
 
     /**
-     * 出栈fragment
+     * 出栈 fragment
      *
-     * @param fm fragment管理器
+     * @param fm fragment 管理器
      */
     public static void pop(@NonNull final FragmentManager fm,
                            final boolean isImmediate) {
@@ -648,11 +648,11 @@ public final class FragmentUtils {
     }
 
     /**
-     * 出栈到指定fragment
+     * 出栈到指定 fragment
      *
-     * @param fm          fragment管理器
-     * @param popClz      出栈fragment的类型
-     * @param isInclusive 是否出栈popClz的fragment
+     * @param fm          fragment 管理器
+     * @param popClz      出栈 fragment 的类型
+     * @param isInclusive 是否出栈 popClz 的 fragment
      */
     public static void popTo(@NonNull final FragmentManager fm,
                              final Class<? extends Fragment> popClz,
@@ -661,11 +661,11 @@ public final class FragmentUtils {
     }
 
     /**
-     * 出栈到指定fragment
+     * 出栈到指定 fragment
      *
-     * @param fm          fragment管理器
-     * @param popClz      出栈fragment的类型
-     * @param isInclusive 是否出栈popClz的fragment
+     * @param fm          fragment 管理器
+     * @param popClz      出栈 fragment 的类型
+     * @param isInclusive 是否出栈 popClz 的 fragment
      * @param isImmediate 是否立即出栈
      */
     public static void popTo(@NonNull final FragmentManager fm,
@@ -682,18 +682,18 @@ public final class FragmentUtils {
     }
 
     /**
-     * 出栈所有fragment
+     * 出栈所有 fragment
      *
-     * @param fm fragment管理器
+     * @param fm fragment 管理器
      */
     public static void popAll(@NonNull final FragmentManager fm) {
         popAll(fm, true);
     }
 
     /**
-     * 出栈所有fragment
+     * 出栈所有 fragment
      *
-     * @param fm fragment管理器
+     * @param fm fragment 管理器
      */
     public static void popAll(@NonNull final FragmentManager fm, final boolean isImmediate) {
         while (fm.getBackStackEntryCount() > 0) {
@@ -706,19 +706,19 @@ public final class FragmentUtils {
     }
 
     /**
-     * 移除fragment
+     * 移除 fragment
      *
-     * @param remove 要移除的fragment
+     * @param remove 要移除的 fragment
      */
     public static void remove(@NonNull final Fragment remove) {
         operateNoAnim(remove.getFragmentManager(), TYPE_REMOVE_FRAGMENT, null, remove);
     }
 
     /**
-     * 移除到指定fragment
+     * 移除到指定 fragment
      *
-     * @param removeTo    要移除到的fragment
-     * @param isInclusive 是否移除removeTo
+     * @param removeTo    要移除到的 fragment
+     * @param isInclusive 是否移除 removeTo
      */
     public static void removeTo(@NonNull final Fragment removeTo, final boolean isInclusive) {
         operateNoAnim(removeTo.getFragmentManager(), TYPE_REMOVE_TO_FRAGMENT,
@@ -726,9 +726,9 @@ public final class FragmentUtils {
     }
 
     /**
-     * 移除所有fragment
+     * 移除所有 fragment
      *
-     * @param fm fragment管理器
+     * @param fm fragment 管理器
      */
     public static void removeAll(@NonNull final FragmentManager fm) {
         List<Fragment> fragments = getFragments(fm);
@@ -858,20 +858,20 @@ public final class FragmentUtils {
     }
 
     /**
-     * 获取顶部fragment
+     * 获取顶部 fragment
      *
-     * @param fm fragment管理器
-     * @return 最后加入的fragment
+     * @param fm fragment 管理器
+     * @return 最后加入的 fragment
      */
     public static Fragment getTop(@NonNull final FragmentManager fm) {
         return getTopIsInStack(fm, false);
     }
 
     /**
-     * 获取栈中顶部fragment
+     * 获取栈中顶部 fragment
      *
-     * @param fm fragment管理器
-     * @return 最后加入的fragment
+     * @param fm fragment 管理器
+     * @return 最后加入的 fragment
      */
     public static Fragment getTopInStack(@NonNull final FragmentManager fm) {
         return getTopIsInStack(fm, true);
@@ -896,20 +896,20 @@ public final class FragmentUtils {
     }
 
     /**
-     * 获取顶部可见fragment
+     * 获取顶部可见 fragment
      *
-     * @param fm fragment管理器
-     * @return 顶层可见fragment
+     * @param fm fragment 管理器
+     * @return 顶层可见 fragment
      */
     public static Fragment getTopShow(@NonNull final FragmentManager fm) {
         return getTopShowIsInStack(fm, false);
     }
 
     /**
-     * 获取栈中顶部可见fragment
+     * 获取栈中顶部可见 fragment
      *
-     * @param fm fragment管理器
-     * @return 栈中顶层可见fragment
+     * @param fm fragment 管理器
+     * @return 栈中顶层可见 fragment
      */
     public static Fragment getTopShowInStack(@NonNull final FragmentManager fm) {
         return getTopShowIsInStack(fm, true);
@@ -937,10 +937,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 获取同级别的fragment
+     * 获取同级别的 fragment
      *
-     * @param fm fragment管理器
-     * @return fragment管理器中的fragment
+     * @param fm fragment 管理器
+     * @return fragment 管理器中的 fragment
      */
     public static List<Fragment> getFragments(@NonNull final FragmentManager fm) {
         @SuppressWarnings("RestrictedApi")
@@ -950,10 +950,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 获取同级别栈中的fragment
+     * 获取同级别栈中的 fragment
      *
-     * @param fm fragment管理器
-     * @return fragment管理器栈中的fragment
+     * @param fm fragment 管理器
+     * @return fragment 管理器栈中的 fragment
      */
     public static List<Fragment> getFragmentsInStack(@NonNull final FragmentManager fm) {
         List<Fragment> fragments = getFragments(fm);
@@ -967,10 +967,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 获取所有fragment
+     * 获取所有 fragment
      *
-     * @param fm fragment管理器
-     * @return 所有fragment
+     * @param fm fragment 管理器
+     * @return 所有 fragment
      */
     public static List<FragmentNode> getAllFragments(@NonNull final FragmentManager fm) {
         return getAllFragments(fm, new ArrayList<FragmentNode>());
@@ -991,10 +991,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 获取栈中所有fragment
+     * 获取栈中所有 fragment
      *
-     * @param fm fragment管理器
-     * @return 所有fragment
+     * @param fm fragment 管理器
+     * @return 所有 fragment
      */
     public static List<FragmentNode> getAllFragmentsInStack(@NonNull final FragmentManager fm) {
         return getAllFragmentsInStack(fm, new ArrayList<FragmentNode>());
@@ -1015,11 +1015,11 @@ public final class FragmentUtils {
     }
 
     /**
-     * 查找fragment
+     * 查找 fragment
      *
-     * @param fm      fragment管理器
-     * @param findClz 要查找的fragment类型
-     * @return 查找到的fragment
+     * @param fm      fragment 管理器
+     * @param findClz 要查找的 fragment 类型
+     * @return 查找到的 fragment
      */
     public static Fragment findFragment(@NonNull final FragmentManager fm,
                                         final Class<? extends Fragment> findClz) {
@@ -1027,9 +1027,9 @@ public final class FragmentUtils {
     }
 
     /**
-     * 处理fragment回退键
-     * <p>如果fragment实现了OnBackClickListener接口，返回{@code true}: 表示已消费回退键事件，反之则没消费</p>
-     * <p>具体示例见FragmentActivity</p>
+     * 处理 fragment 回退键
+     * <p>如果 fragment 实现了 OnBackClickListener 接口，返回{@code true}: 表示已消费回退键事件，反之则没消费</p>
+     * <p>具体示例见 FragmentActivity</p>
      *
      * @param fragment fragment
      * @return 是否消费回退事件
@@ -1043,11 +1043,11 @@ public final class FragmentUtils {
     }
 
     /**
-     * 处理fragment回退键
-     * <p>如果fragment实现了OnBackClickListener接口，返回{@code true}: 表示已消费回退键事件，反之则没消费</p>
-     * <p>具体示例见FragmentActivity</p>
+     * 处理 fragment 回退键
+     * <p>如果 fragment 实现了 OnBackClickListener 接口，返回{@code true}: 表示已消费回退键事件，反之则没消费</p>
+     * <p>具体示例见 FragmentActivity</p>
      *
-     * @param fm fragment管理器
+     * @param fm fragment 管理器
      * @return 是否消费回退事件
      */
     public static boolean dispatchBackPress(@NonNull final FragmentManager fm) {
@@ -1084,7 +1084,7 @@ public final class FragmentUtils {
      * 设置背景资源
      *
      * @param fragment fragment
-     * @param resId    资源Id
+     * @param resId    资源 Id
      */
     public static void setBackgroundResource(@NonNull final Fragment fragment, @DrawableRes final int resId) {
         View view = fragment.getView();

@@ -11,14 +11,14 @@ import android.view.View;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/24
- *     desc  : Activity基类
+ *     desc  : Activity 基类
  * </pre>
  */
 public abstract class BaseActivity extends AppCompatActivity
         implements IBaseView {
 
     /**
-     * 当前Activity渲染的视图View
+     * 当前 Activity 渲染的视图 View
      */
     protected View contentView;
     /**

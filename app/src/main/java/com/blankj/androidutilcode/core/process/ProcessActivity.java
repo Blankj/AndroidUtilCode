@@ -18,7 +18,7 @@ import java.util.Set;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/13
- *     desc  : Process工具类Demo
+ *     desc  : Process 工具类 Demo
  * </pre>
  */
 public class ProcessActivity extends BaseBackActivity {

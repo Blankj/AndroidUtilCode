@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/28
- *     desc  : EmptyUtils单元测试
+ *     desc  : EmptyUtils 单元测试
  * </pre>
  */
 @RunWith(RobolectricTestRunner.class)

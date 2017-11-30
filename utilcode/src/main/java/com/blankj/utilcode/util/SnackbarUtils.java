@@ -23,7 +23,7 @@ import java.lang.ref.WeakReference;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/16
- *     desc  : Snackbar相关工具类
+ *     desc  : Snackbar 相关工具类
  * </pre>
  */
 public final class SnackbarUtils {
@@ -73,9 +73,9 @@ public final class SnackbarUtils {
     }
 
     /**
-     * 设置snackbar依赖view
+     * 设置 snackbar 依赖 view
      *
-     * @param parent 依赖view
+     * @param parent 依赖 view
      * @return {@link SnackbarUtils}
      */
     public static SnackbarUtils with(@NonNull final View parent) {
@@ -180,7 +180,7 @@ public final class SnackbarUtils {
     }
 
     /**
-     * 显示snackbar
+     * 显示 snackbar
      */
     public void show() {
         final View view = parent;
@@ -214,7 +214,7 @@ public final class SnackbarUtils {
     }
 
     /**
-     * 显示预设成功的snackbar
+     * 显示预设成功的 snackbar
      */
     public void showSuccess() {
         bgColor = COLOR_SUCCESS;
@@ -224,7 +224,7 @@ public final class SnackbarUtils {
     }
 
     /**
-     * 显示预设警告的snackbar
+     * 显示预设警告的 snackbar
      */
     public void showWarning() {
         bgColor = COLOR_WARNING;
@@ -234,7 +234,7 @@ public final class SnackbarUtils {
     }
 
     /**
-     * 显示预设错误的snackbar
+     * 显示预设错误的 snackbar
      */
     public void showError() {
         bgColor = COLOR_ERROR;
@@ -244,7 +244,7 @@ public final class SnackbarUtils {
     }
 
     /**
-     * 消失snackbar
+     * 消失 snackbar
      */
     public static void dismiss() {
         if (snackbarWeakReference != null && snackbarWeakReference.get() != null) {
@@ -254,9 +254,9 @@ public final class SnackbarUtils {
     }
 
     /**
-     * 获取snackbar视图
+     * 获取 snackbar 视图
      *
-     * @return snackbar视图
+     * @return snackbar 视图
      */
     public static View getView() {
         Snackbar snackbar = snackbarWeakReference.get();
@@ -265,7 +265,7 @@ public final class SnackbarUtils {
     }
 
     /**
-     * 添加snackbar视图
+     * 添加 snackbar 视图
      * <p>在{@link #show()}之后调用</p>
      *
      * @param layoutId 布局文件
@@ -282,10 +282,10 @@ public final class SnackbarUtils {
     }
 
     /**
-     * 添加snackbar视图
+     * 添加 snackbar 视图
      * <p>在{@link #show()}之后调用</p>
      *
-     * @param child  要添加的view
+     * @param child  要添加的 view
      * @param params 布局参数
      */
     public static void addView(@NonNull final View child, @NonNull final ViewGroup.LayoutParams params) {

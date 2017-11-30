@@ -27,7 +27,7 @@ import com.blankj.utilcode.util.ToastUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/27
- *     desc  : Span工具类Demo
+ *     desc  : Span 工具类 Demo
  * </pre>
  */
 public class SpanActivity extends BaseBackActivity {
@@ -130,9 +130,9 @@ public class SpanActivity extends BaseBackActivity {
 //                .appendLine("测试图标顶部对齐，后面的字是为了凑到两行的效果").setIconMargin(R.drawable.shape_spannable_block_low, 20, SpanUtils.ALIGN_TOP).setBackgroundColor(Color.GREEN)
 //                .appendLine("测试图标居中对齐，后面的字是为了凑到两行的效果").setIconMargin(R.drawable.shape_spannable_block_low, 20, SpanUtils.ALIGN_CENTER).setBackgroundColor(Color.LTGRAY)
 //                .appendLine("测试图标底部对齐，后面的字是为了凑到两行的效果").setIconMargin(R.drawable.shape_spannable_block_low, 20, SpanUtils.ALIGN_BOTTOM).setBackgroundColor(Color.GREEN)
-//                .appendLine("32dp字体").setFontSize(32, true)
-//                .appendLine("2倍字体").setFontProportion(2)
-//                .appendLine("横向2倍字体").setFontXProportion(1.5f)
+//                .appendLine("32dp 字体").setFontSize(32, true)
+//                .appendLine("2 倍字体").setFontProportion(2)
+//                .appendLine("横向 2 倍字体").setFontXProportion(1.5f)
 //                .appendLine("删除线").setStrikethrough()
 //                .appendLine("下划线").setUnderline()
 //                .append("测试").appendLine("上标").setSuperscript()
@@ -140,7 +140,7 @@ public class SpanActivity extends BaseBackActivity {
 //                .appendLine("粗体").setBold()
 //                .appendLine("斜体").setItalic()
 //                .appendLine("粗斜体").setBoldItalic()
-//                .appendLine("monospace字体").setFontFamily("monospace")
+//                .appendLine("monospace 字体").setFontFamily("monospace")
 //                .appendLine("自定义字体").setTypeface(Typeface.createFromAsset(getAssets(), "fonts/dnmbhs.ttf"))
 //                .appendLine("相反对齐").setAlign(Layout.Alignment.ALIGN_OPPOSITE)
 //                .appendLine("居中对齐").setAlign(Layout.Alignment.ALIGN_CENTER)

@@ -35,7 +35,7 @@ public final class ProcessUtils {
 
     /**
      * 获取前台线程包名
-     * <p>当不是查看当前App，且SDK大于21时，
+     * <p>当不是查看当前 App，且 SDK 大于 21 时，
      * 需添加权限 {@code <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"/>}</p>
      *
      * @return 前台应用包名

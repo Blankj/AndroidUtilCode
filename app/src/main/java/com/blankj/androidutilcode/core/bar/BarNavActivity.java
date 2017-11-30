@@ -15,7 +15,7 @@ import com.blankj.utilcode.util.BarUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/13
- *     desc  : Activity工具类Demo
+ *     desc  : Activity 工具类 Demo
  * </pre>
  */
 public class BarNavActivity extends BaseBackActivity {

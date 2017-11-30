@@ -15,7 +15,7 @@ import com.blankj.utilcode.util.PhoneUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/13
- *     desc  : Phone工具类Demo
+ *     desc  : Phone 工具类 Demo
  * </pre>
  */
 public class PhoneActivity extends BaseBackActivity {
@@ -51,7 +51,7 @@ public class PhoneActivity extends BaseBackActivity {
                 + "\nisSimCardReady: " + PhoneUtils.isSimCardReady()
                 + "\ngetSimOperatorName: " + PhoneUtils.getSimOperatorName()
                 + "\ngetSimOperatorByMnc: " + PhoneUtils.getSimOperatorByMnc()
-                + "\n获取手机状态信息: " + PhoneUtils.getPhoneStatus()
+                + "\n 获取手机状态信息: " + PhoneUtils.getPhoneStatus()
         );
     }
 

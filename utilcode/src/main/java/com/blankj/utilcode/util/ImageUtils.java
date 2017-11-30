@@ -62,9 +62,9 @@ public final class ImageUtils {
     }
 
     /**
-     * bitmap转byteArr
+     * bitmap 转 byteArr
      *
-     * @param bitmap bitmap对象
+     * @param bitmap bitmap 对象
      * @param format 格式
      * @return 字节数组
      */
@@ -76,7 +76,7 @@ public final class ImageUtils {
     }
 
     /**
-     * byteArr转bitmap
+     * byteArr 转 bitmap
      *
      * @param bytes 字节数组
      * @return bitmap
@@ -86,9 +86,9 @@ public final class ImageUtils {
     }
 
     /**
-     * drawable转bitmap
+     * drawable 转 bitmap
      *
-     * @param drawable drawable对象
+     * @param drawable drawable 对象
      * @return bitmap
      */
     public static Bitmap drawable2Bitmap(final Drawable drawable) {
@@ -113,9 +113,9 @@ public final class ImageUtils {
     }
 
     /**
-     * bitmap转drawable
+     * bitmap 转 drawable
      *
-     * @param bitmap bitmap对象
+     * @param bitmap bitmap 对象
      * @return drawable
      */
     public static Drawable bitmap2Drawable(final Bitmap bitmap) {
@@ -123,9 +123,9 @@ public final class ImageUtils {
     }
 
     /**
-     * drawable转byteArr
+     * drawable 转 byteArr
      *
-     * @param drawable drawable对象
+     * @param drawable drawable 对象
      * @param format   格式
      * @return 字节数组
      */
@@ -134,7 +134,7 @@ public final class ImageUtils {
     }
 
     /**
-     * byteArr转drawable
+     * byteArr 转 drawable
      *
      * @param bytes 字节数组
      * @return drawable
@@ -144,7 +144,7 @@ public final class ImageUtils {
     }
 
     /**
-     * view转bitmap
+     * view 转 bitmap
      *
      * @param view 视图
      * @return bitmap
@@ -164,7 +164,7 @@ public final class ImageUtils {
     }
 
     /**
-     * 获取bitmap
+     * 获取 bitmap
      *
      * @param file 文件
      * @return bitmap
@@ -175,7 +175,7 @@ public final class ImageUtils {
     }
 
     /**
-     * 获取bitmap
+     * 获取 bitmap
      *
      * @param file      文件
      * @param maxWidth  最大宽度
@@ -193,7 +193,7 @@ public final class ImageUtils {
     }
 
     /**
-     * 获取bitmap
+     * 获取 bitmap
      *
      * @param filePath 文件路径
      * @return bitmap
@@ -204,7 +204,7 @@ public final class ImageUtils {
     }
 
     /**
-     * 获取bitmap
+     * 获取 bitmap
      *
      * @param filePath  文件路径
      * @param maxWidth  最大宽度
@@ -222,7 +222,7 @@ public final class ImageUtils {
     }
 
     /**
-     * 获取bitmap
+     * 获取 bitmap
      *
      * @param is 输入流
      * @return bitmap
@@ -233,7 +233,7 @@ public final class ImageUtils {
     }
 
     /**
-     * 获取bitmap
+     * 获取 bitmap
      *
      * @param is        输入流
      * @param maxWidth  最大宽度
@@ -247,7 +247,7 @@ public final class ImageUtils {
     }
 
     /**
-     * 获取bitmap
+     * 获取 bitmap
      *
      * @param data   数据
      * @param offset 偏移量
@@ -259,7 +259,7 @@ public final class ImageUtils {
     }
 
     /**
-     * 获取bitmap
+     * 获取 bitmap
      *
      * @param data      数据
      * @param offset    偏移量
@@ -278,9 +278,9 @@ public final class ImageUtils {
     }
 
     /**
-     * 获取bitmap
+     * 获取 bitmap
      *
-     * @param resId 资源id
+     * @param resId 资源 id
      * @return bitmap
      */
     public static Bitmap getBitmap(@DrawableRes final int resId) {
@@ -294,9 +294,9 @@ public final class ImageUtils {
     }
 
     /**
-     * 获取bitmap
+     * 获取 bitmap
      *
-     * @param resId     资源id
+     * @param resId     资源 id
      * @param maxWidth  最大宽度
      * @param maxHeight 最大高度
      * @return bitmap
@@ -312,7 +312,7 @@ public final class ImageUtils {
     }
 
     /**
-     * 获取bitmap
+     * 获取 bitmap
      *
      * @param fd 文件描述
      * @return bitmap
@@ -323,7 +323,7 @@ public final class ImageUtils {
     }
 
     /**
-     * 获取bitmap
+     * 获取 bitmap
      *
      * @param fd        文件描述
      * @param maxWidth  最大宽度
@@ -402,8 +402,8 @@ public final class ImageUtils {
      * 裁剪图片
      *
      * @param src    源图片
-     * @param x      开始坐标x
-     * @param y      开始坐标y
+     * @param x      开始坐标 x
+     * @param y      开始坐标 y
      * @param width  裁剪宽度
      * @param height 裁剪高度
      * @return 裁剪后的图片
@@ -416,8 +416,8 @@ public final class ImageUtils {
      * 裁剪图片
      *
      * @param src     源图片
-     * @param x       开始坐标x
-     * @param y       开始坐标y
+     * @param x       开始坐标 x
+     * @param y       开始坐标 y
      * @param width   裁剪宽度
      * @param height  裁剪高度
      * @param recycle 是否回收
@@ -434,8 +434,8 @@ public final class ImageUtils {
      * 倾斜图片
      *
      * @param src 源图片
-     * @param kx  倾斜因子x
-     * @param ky  倾斜因子y
+     * @param kx  倾斜因子 x
+     * @param ky  倾斜因子 y
      * @return 倾斜后的图片
      */
     public static Bitmap skew(final Bitmap src, final float kx, final float ky) {
@@ -446,8 +446,8 @@ public final class ImageUtils {
      * 倾斜图片
      *
      * @param src     源图片
-     * @param kx      倾斜因子x
-     * @param ky      倾斜因子y
+     * @param kx      倾斜因子 x
+     * @param ky      倾斜因子 y
      * @param recycle 是否回收
      * @return 倾斜后的图片
      */
@@ -459,10 +459,10 @@ public final class ImageUtils {
      * 倾斜图片
      *
      * @param src 源图片
-     * @param kx  倾斜因子x
-     * @param ky  倾斜因子y
-     * @param px  平移因子x
-     * @param py  平移因子y
+     * @param kx  倾斜因子 x
+     * @param ky  倾斜因子 y
+     * @param px  平移因子 x
+     * @param py  平移因子 y
      * @return 倾斜后的图片
      */
     public static Bitmap skew(final Bitmap src, final float kx, final float ky, final float px, final float py) {
@@ -473,10 +473,10 @@ public final class ImageUtils {
      * 倾斜图片
      *
      * @param src     源图片
-     * @param kx      倾斜因子x
-     * @param ky      倾斜因子y
-     * @param px      平移因子x
-     * @param py      平移因子y
+     * @param kx      倾斜因子 x
+     * @param ky      倾斜因子 y
+     * @param px      平移因子 x
+     * @param py      平移因子 y
      * @param recycle 是否回收
      * @return 倾斜后的图片
      */
@@ -869,8 +869,8 @@ public final class ImageUtils {
      * @param content  水印文本
      * @param textSize 水印字体大小
      * @param color    水印字体颜色
-     * @param x        起始坐标x
-     * @param y        起始坐标y
+     * @param x        起始坐标 x
+     * @param y        起始坐标 y
      * @return 带有文字水印的图片
      */
     public static Bitmap addTextWatermark(final Bitmap src,
@@ -889,8 +889,8 @@ public final class ImageUtils {
      * @param content  水印文本
      * @param textSize 水印字体大小
      * @param color    水印字体颜色
-     * @param x        起始坐标x
-     * @param y        起始坐标y
+     * @param x        起始坐标 x
+     * @param y        起始坐标 y
      * @param recycle  是否回收
      * @return 带有文字水印的图片
      */
@@ -919,8 +919,8 @@ public final class ImageUtils {
      *
      * @param src       源图片
      * @param watermark 图片水印
-     * @param x         起始坐标x
-     * @param y         起始坐标y
+     * @param x         起始坐标 x
+     * @param y         起始坐标 y
      * @param alpha     透明度
      * @return 带有图片水印的图片
      */
@@ -936,8 +936,8 @@ public final class ImageUtils {
      *
      * @param src       源图片
      * @param watermark 图片水印
-     * @param x         起始坐标x
-     * @param y         起始坐标y
+     * @param x         起始坐标 x
+     * @param y         起始坐标 y
      * @param alpha     透明度
      * @param recycle   是否回收
      * @return 带有图片水印的图片
@@ -961,21 +961,21 @@ public final class ImageUtils {
     }
 
     /**
-     * 转为alpha位图
+     * 转为 alpha 位图
      *
      * @param src 源图片
-     * @return alpha位图
+     * @return alpha 位图
      */
     public static Bitmap toAlpha(final Bitmap src) {
         return toAlpha(src, false);
     }
 
     /**
-     * 转为alpha位图
+     * 转为 alpha 位图
      *
      * @param src     源图片
      * @param recycle 是否回收
-     * @return alpha位图
+     * @return alpha 位图
      */
     public static Bitmap toAlpha(final Bitmap src, final Boolean recycle) {
         if (isEmptyBitmap(src)) return null;
@@ -1070,8 +1070,8 @@ public final class ImageUtils {
     }
 
     /**
-     * renderScript模糊图片
-     * <p>API大于17</p>
+     * renderScript 模糊图片
+     * <p>API 大于 17</p>
      *
      * @param src    源图片
      * @param radius 模糊半径(0...25)
@@ -1084,8 +1084,8 @@ public final class ImageUtils {
     }
 
     /**
-     * renderScript模糊图片
-     * <p>API大于17</p>
+     * renderScript 模糊图片
+     * <p>API 大于 17</p>
      *
      * @param src     源图片
      * @param radius  模糊半径(0...25)
@@ -1119,23 +1119,23 @@ public final class ImageUtils {
     }
 
     /**
-     * stack模糊图片
+     * stack 模糊图片
      *
      * @param src    源图片
      * @param radius 模糊半径
-     * @return stack模糊后的图片
+     * @return stack 模糊后的图片
      */
     public static Bitmap stackBlur(final Bitmap src, final int radius) {
         return stackBlur(src, radius, false);
     }
 
     /**
-     * stack模糊图片
+     * stack 模糊图片
      *
      * @param src     源图片
      * @param radius  模糊半径
      * @param recycle 是否回收
-     * @return stack模糊后的图片
+     * @return stack 模糊后的图片
      */
     public static Bitmap stackBlur(final Bitmap src, final int radius, final boolean recycle) {
         Bitmap ret = recycle ? src : src.copy(src.getConfig(), true);
@@ -1470,7 +1470,7 @@ public final class ImageUtils {
     /**
      * 获取图片类型
      *
-     * @param bytes bitmap的前8字节
+     * @param bytes bitmap 的前 8 字节
      * @return 图片类型
      */
     public static String getImageType(final byte[] bytes) {
@@ -1507,7 +1507,7 @@ public final class ImageUtils {
     }
 
     /**
-     * 判断bitmap对象是否为空
+     * 判断 bitmap 对象是否为空
      *
      * @param src 源图片
      * @return {@code true}: 是<br>{@code false}: 否
@@ -1741,7 +1741,7 @@ public final class ImageUtils {
     }
 
     private static boolean createOrExistsDir(final File file) {
-        // 如果存在，是目录则返回true，是文件则返回false，不存在则返回是否创建成功
+        // 如果存在，是目录则返回 true，是文件则返回 false，不存在则返回是否创建成功
         return file != null && (file.exists() ? file.isDirectory() : file.mkdirs());
     }
 

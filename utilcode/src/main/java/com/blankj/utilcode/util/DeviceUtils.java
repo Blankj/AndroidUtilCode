@@ -29,7 +29,7 @@ public final class DeviceUtils {
     }
 
     /**
-     * 判断设备是否root
+     * 判断设备是否 root
      *
      * @return the boolean{@code true}: 是<br>{@code false}: 否
      */
@@ -56,7 +56,7 @@ public final class DeviceUtils {
 
 
     /**
-     * 获取设备AndroidID
+     * 获取设备 AndroidID
      *
      * @return AndroidID
      */
@@ -66,11 +66,11 @@ public final class DeviceUtils {
     }
 
     /**
-     * 获取设备MAC地址
+     * 获取设备 MAC 地址
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>}</p>
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
      *
-     * @return MAC地址
+     * @return MAC 地址
      */
     public static String getMacAddress() {
         String macAddress = getMacAddressByWifiInfo();
@@ -89,10 +89,10 @@ public final class DeviceUtils {
     }
 
     /**
-     * 获取设备MAC地址
+     * 获取设备 MAC 地址
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>}</p>
      *
-     * @return MAC地址
+     * @return MAC 地址
      */
     @SuppressLint("HardwareIds")
     private static String getMacAddressByWifiInfo() {
@@ -110,10 +110,10 @@ public final class DeviceUtils {
     }
 
     /**
-     * 获取设备MAC地址
+     * 获取设备 MAC 地址
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
      *
-     * @return MAC地址
+     * @return MAC 地址
      */
     private static String getMacAddressByNetworkInterface() {
         try {
@@ -136,9 +136,9 @@ public final class DeviceUtils {
     }
 
     /**
-     * 获取设备MAC地址
+     * 获取设备 MAC 地址
      *
-     * @return MAC地址
+     * @return MAC 地址
      */
     private static String getMacAddressByFile() {
         ShellUtils.CommandResult result = ShellUtils.execCmd("getprop wifi.interface", false);
@@ -158,7 +158,7 @@ public final class DeviceUtils {
 
     /**
      * 获取设备厂商
-     * <p>如Xiaomi</p>
+     * <p>如 Xiaomi</p>
      *
      * @return 设备厂商
      */
@@ -169,7 +169,7 @@ public final class DeviceUtils {
 
     /**
      * 获取设备型号
-     * <p>如MI2SC</p>
+     * <p>如 MI2SC</p>
      *
      * @return 设备型号
      */
@@ -185,7 +185,7 @@ public final class DeviceUtils {
 
     /**
      * 关机
-     * <p>需要root权限或者系统权限 {@code <android:sharedUserId="android.uid.system"/>}</p>
+     * <p>需要 root 权限或者系统权限 {@code <android:sharedUserId="android.uid.system"/>}</p>
      */
     public static void shutdown() {
         ShellUtils.execCmd("reboot -p", true);
@@ -197,8 +197,7 @@ public final class DeviceUtils {
 
     /**
      * 重启
-     * <p>需要root权限或者系统权限 {@code <android:sharedUserId="android.uid.system"/>}</p>
-     *
+     * <p>需要 root 权限或者系统权限 {@code <android:sharedUserId="android.uid.system"/>}</p>
      */
     public static void reboot() {
         ShellUtils.execCmd("reboot", true);
@@ -213,7 +212,7 @@ public final class DeviceUtils {
      * 重启
      * <p>需系统权限 {@code <android:sharedUserId="android.uid.system"/>}</p>
      *
-     * @param reason  传递给内核来请求特殊的引导模式，如"recovery"
+     * @param reason 传递给内核来请求特殊的引导模式，如"recovery"
      */
     public static void reboot(final String reason) {
         PowerManager mPowerManager = (PowerManager) Utils.getApp().getSystemService(Context.POWER_SERVICE);
@@ -225,16 +224,16 @@ public final class DeviceUtils {
     }
 
     /**
-     * 重启到recovery
-     * <p>需要root权限</p>
+     * 重启到 recovery
+     * <p>需要 root 权限</p>
      */
     public static void reboot2Recovery() {
         ShellUtils.execCmd("reboot recovery", true);
     }
 
     /**
-     * 重启到bootloader
-     * <p>需要root权限</p>
+     * 重启到 bootloader
+     * <p>需要 root 权限</p>
      */
     public static void reboot2Bootloader() {
         ShellUtils.execCmd("reboot bootloader", true);

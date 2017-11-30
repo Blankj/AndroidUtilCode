@@ -6,15 +6,11 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
 import android.util.TypedValue;
-import android.view.KeyCharacterMap;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -57,7 +53,7 @@ public final class BarUtils {
     }
 
     /**
-     * 为view增加MarginTop为状态栏高度
+     * 为 view 增加 MarginTop 为状态栏高度
      *
      * @param view view
      */
@@ -73,7 +69,7 @@ public final class BarUtils {
     }
 
     /**
-     * 为view减少MarginTop为状态栏高度
+     * 为 view 减少 MarginTop 为状态栏高度
      *
      * @param view view
      */
@@ -118,8 +114,8 @@ public final class BarUtils {
      * @param activity activity
      * @param color    状态栏颜色值
      * @param alpha    状态栏透明度，此透明度并非颜色中的透明度
-     * @param isDecor  {@code true}: 设置在DecorView中<br>
-     *                 {@code false}: 设置在ContentView中
+     * @param isDecor  {@code true}: 设置在 DecorView 中<br>
+     *                 {@code false}: 设置在 ContentView 中
      */
     public static void setStatusBarColor(@NonNull final Activity activity,
                                          @ColorInt final int color,
@@ -155,8 +151,8 @@ public final class BarUtils {
      *
      * @param activity activity
      * @param alpha    状态栏透明度
-     * @param isDecor  {@code true}: 设置在DecorView中<br>
-     *                 {@code false}: 设置在ContentView中
+     * @param isDecor  {@code true}: 设置在 DecorView 中<br>
+     *                 {@code false}: 设置在 ContentView 中
      */
     public static void setStatusBarAlpha(@NonNull final Activity activity,
                                          @IntRange(from = 0, to = 255) final int alpha,
@@ -223,14 +219,14 @@ public final class BarUtils {
     }
 
     /**
-     * 为DrawerLayout设置状态栏颜色
-     * <p>DrawLayout需设置 {@code android:fitsSystemWindows="true"}</p>
+     * 为 DrawerLayout 设置状态栏颜色
+     * <p>DrawLayout 需设置 {@code android:fitsSystemWindows="true"}</p>
      *
      * @param activity      activity
      * @param drawer        drawerLayout
      * @param fakeStatusBar 伪造状态栏
      * @param color         状态栏颜色值
-     * @param isTop         drawerLayout是否在顶层
+     * @param isTop         drawerLayout 是否在顶层
      */
     public static void setStatusBarColor4Drawer(@NonNull final Activity activity,
                                                 @NonNull final DrawerLayout drawer,
@@ -241,15 +237,15 @@ public final class BarUtils {
     }
 
     /**
-     * 为DrawerLayout设置状态栏颜色
-     * <p>DrawLayout需设置 {@code android:fitsSystemWindows="true"}</p>
+     * 为 DrawerLayout 设置状态栏颜色
+     * <p>DrawLayout 需设置 {@code android:fitsSystemWindows="true"}</p>
      *
      * @param activity      activity
      * @param drawer        drawerLayout
      * @param fakeStatusBar 伪造状态栏
      * @param color         状态栏颜色值
      * @param alpha         状态栏透明度，此透明度并非颜色中的透明度
-     * @param isTop         drawerLayout是否在顶层
+     * @param isTop         drawerLayout 是否在顶层
      */
     public static void setStatusBarColor4Drawer(@NonNull final Activity activity,
                                                 @NonNull final DrawerLayout drawer,
@@ -272,13 +268,13 @@ public final class BarUtils {
     }
 
     /**
-     * 为DrawerLayout设置状态栏透明度
-     * <p>DrawLayout需设置 {@code android:fitsSystemWindows="true"}</p>
+     * 为 DrawerLayout 设置状态栏透明度
+     * <p>DrawLayout 需设置 {@code android:fitsSystemWindows="true"}</p>
      *
      * @param activity      activity
      * @param drawer        drawerLayout
      * @param fakeStatusBar 伪造状态栏
-     * @param isTop         drawerLayout是否在顶层
+     * @param isTop         drawerLayout 是否在顶层
      */
     public static void setStatusBarAlpha4Drawer(@NonNull final Activity activity,
                                                 @NonNull final DrawerLayout drawer,
@@ -288,14 +284,14 @@ public final class BarUtils {
     }
 
     /**
-     * 为DrawerLayout设置状态栏透明度
-     * <p>DrawLayout需设置 {@code android:fitsSystemWindows="true"}</p>
+     * 为 DrawerLayout 设置状态栏透明度
+     * <p>DrawLayout 需设置 {@code android:fitsSystemWindows="true"}</p>
      *
      * @param activity      activity
      * @param drawer        drawerLayout
      * @param fakeStatusBar 伪造状态栏
      * @param alpha         状态栏透明度
-     * @param isTop         drawerLayout是否在顶层
+     * @param isTop         drawerLayout 是否在顶层
      */
     public static void setStatusBarAlpha4Drawer(@NonNull final Activity activity,
                                                 @NonNull final DrawerLayout drawer,
@@ -413,10 +409,10 @@ public final class BarUtils {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * 获取ActionBar高度
+     * 获取 ActionBar 高度
      *
      * @param activity activity
-     * @return ActionBar高度
+     * @return ActionBar 高度
      */
     public static int getActionBarHeight(@NonNull final Activity activity) {
         TypedValue tv = new TypedValue();
@@ -477,7 +473,7 @@ public final class BarUtils {
 
     /**
      * 获取导航栏高度
-     * <p>0代表不存在</p>
+     * <p>0 代表不存在</p>
      *
      * @return 导航栏高度
      */

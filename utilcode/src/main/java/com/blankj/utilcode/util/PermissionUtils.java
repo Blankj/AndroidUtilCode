@@ -33,8 +33,8 @@ public final class PermissionUtils {
     }
 
     public abstract static class RationaleHandler {
-        private Context context;
-        private int requestCode;
+        private Context  context;
+        private int      requestCode;
         private String[] permissions;
 
         protected abstract void showRationale();
@@ -82,7 +82,7 @@ public final class PermissionUtils {
     }
 
     /**
-     * 请求权限结果，对应Activity中onRequestPermissionsResult()方法。
+     * 请求权限结果，对应 Activity 中 onRequestPermissionsResult()方法。
      */
     public static void onRequestPermissionsResult(Activity context, int requestCode, String[] permissions, int[]
             grantResults) {

@@ -56,7 +56,7 @@ public final class RegexUtils {
     }
 
     /**
-     * 验证身份证号码15位
+     * 验证身份证号码 15 位
      *
      * @param input 待验证文本
      * @return {@code true}: 匹配<br>{@code false}: 不匹配
@@ -66,7 +66,7 @@ public final class RegexUtils {
     }
 
     /**
-     * 验证身份证号码18位
+     * 验证身份证号码 18 位
      *
      * @param input 待验证文本
      * @return {@code true}: 匹配<br>{@code false}: 不匹配
@@ -86,7 +86,7 @@ public final class RegexUtils {
     }
 
     /**
-     * 验证URL
+     * 验证 URL
      *
      * @param input 待验证文本
      * @return {@code true}: 匹配<br>{@code false}: 不匹配
@@ -107,7 +107,7 @@ public final class RegexUtils {
 
     /**
      * 验证用户名
-     * <p>取值范围为a-z,A-Z,0-9,"_",汉字，不能以"_"结尾,用户名必须是6-20位</p>
+     * <p>取值范围为 a-z,A-Z,0-9,"_",汉字，不能以"_"结尾,用户名必须是 6-20 位</p>
      *
      * @param input 待验证文本
      * @return {@code true}: 匹配<br>{@code false}: 不匹配
@@ -117,7 +117,7 @@ public final class RegexUtils {
     }
 
     /**
-     * 验证yyyy-MM-dd格式的日期校验，已考虑平闰年
+     * 验证 yyyy-MM-dd 格式的日期校验，已考虑平闰年
      *
      * @param input 待验证文本
      * @return {@code true}: 匹配<br>{@code false}: 不匹配
@@ -127,7 +127,7 @@ public final class RegexUtils {
     }
 
     /**
-     * 验证IP地址
+     * 验证 IP 地址
      *
      * @param input 待验证文本
      * @return {@code true}: 匹配<br>{@code false}: 不匹配

@@ -1,8 +1,8 @@
 ## Download
 
 Gradle:
-``` groovy
-compile 'com.blankj:utilcode:1.9.8'
+```groovy
+compile 'com.blankj:utilcode:1.9.9'
 ```
 
 

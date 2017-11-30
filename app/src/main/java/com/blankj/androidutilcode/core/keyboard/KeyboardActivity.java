@@ -22,7 +22,7 @@ import com.blankj.utilcode.util.LogUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/27
- *     desc  : Keyboard工具类Demo
+ *     desc  : Keyboard 工具类 Demo
  * </pre>
  */
 public class KeyboardActivity extends BaseBackActivity {
@@ -94,7 +94,7 @@ public class KeyboardActivity extends BaseBackActivity {
         return super.dispatchTouchEvent(ev);
     }
 
-    // 根据EditText所在坐标和用户点击的坐标相对比，来判断是否隐藏键盘
+    // 根据 EditText 所在坐标和用户点击的坐标相对比，来判断是否隐藏键盘
     private boolean isShouldHideKeyboard(View v, MotionEvent event) {
         if (v != null && (v instanceof EditText)) {
             int[] l = {0, 0};

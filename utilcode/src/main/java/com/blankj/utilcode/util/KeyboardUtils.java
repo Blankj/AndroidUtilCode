@@ -22,7 +22,7 @@ public final class KeyboardUtils {
 
     /*
       避免输入法面板遮挡
-      <p>在manifest.xml中activity中设置</p>
+      <p>在 manifest.xml 中 activity 中设置</p>
       <p>android:windowSoftInputMode="adjustPan"</p>
      */
 
@@ -88,8 +88,8 @@ public final class KeyboardUtils {
 
     /**
      * 点击屏幕空白区域隐藏软键盘
-     * <p>根据EditText所在坐标和用户点击的坐标相对比，来判断是否隐藏键盘</p>
-     * <p>需重写dispatchTouchEvent</p>
+     * <p>根据 EditText 所在坐标和用户点击的坐标相对比，来判断是否隐藏键盘</p>
+     * <p>需重写 dispatchTouchEvent</p>
      * <p>参照以下注释代码</p>
      */
     public static void clickBlankArea2HideSoftInput() {
@@ -107,7 +107,7 @@ public final class KeyboardUtils {
             return super.dispatchTouchEvent(ev);
         }
 
-        // 根据EditText所在坐标和用户点击的坐标相对比，来判断是否隐藏键盘
+        // 根据 EditText 所在坐标和用户点击的坐标相对比，来判断是否隐藏键盘
         private boolean isShouldHideKeyboard(View v, MotionEvent event) {
             if (v != null && (v instanceof EditText)) {
                 int[] l = {0, 0};

@@ -57,9 +57,9 @@ public final class ScreenUtils {
     }
 
     /**
-     * 获取屏幕密度DPI
+     * 获取屏幕密度 DPI
      *
-     * @return 屏幕密度DPI
+     * @return 屏幕密度 DPI
      */
     public static int getScreenDensityDpi() {
         return Utils.getApp().getResources().getDisplayMetrics().densityDpi;
@@ -79,11 +79,11 @@ public final class ScreenUtils {
 
     /**
      * 设置屏幕为横屏
-     * <p>还有一种就是在Activity中加属性android:screenOrientation="landscape"</p>
-     * <p>不设置Activity的android:configChanges时，切屏会重新调用各个生命周期，切横屏时会执行一次，切竖屏时会执行两次</p>
-     * <p>设置Activity的android:configChanges="orientation"时，切屏还是会重新调用各个生命周期，切横、竖屏时只会执行一次</p>
-     * <p>设置Activity的android:configChanges="orientation|keyboardHidden|screenSize"（4.0以上必须带最后一个参数）时
-     * 切屏不会重新调用各个生命周期，只会执行onConfigurationChanged方法</p>
+     * <p>还有一种就是在 Activity 中加属性 android:screenOrientation="landscape"</p>
+     * <p>不设置 Activity 的 android:configChanges 时，切屏会重新调用各个生命周期，切横屏时会执行一次，切竖屏时会执行两次</p>
+     * <p>设置 Activity 的 android:configChanges="orientation"时，切屏还是会重新调用各个生命周期，切横、竖屏时只会执行一次</p>
+     * <p>设置 Activity 的 android:configChanges="orientation|keyboardHidden|screenSize"（4.0 以上必须带最后一个参数）时
+     * 切屏不会重新调用各个生命周期，只会执行 onConfigurationChanged 方法</p>
      *
      * @param activity activity
      */

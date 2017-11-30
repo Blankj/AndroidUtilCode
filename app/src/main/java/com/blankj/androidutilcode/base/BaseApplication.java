@@ -10,7 +10,7 @@ import android.util.Log;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/03/30
- *     desc  : 基类App
+ *     desc  : 基类 App
  * </pre>
  */
 public class BaseApplication extends Application {

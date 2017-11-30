@@ -212,7 +212,7 @@ public final class CacheUtils {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * 缓存中写入String
+     * 缓存中写入 String
      *
      * @param key   键
      * @param value 值
@@ -222,7 +222,7 @@ public final class CacheUtils {
     }
 
     /**
-     * 缓存中写入String
+     * 缓存中写入 String
      *
      * @param key      键
      * @param value    值
@@ -233,7 +233,7 @@ public final class CacheUtils {
     }
 
     /**
-     * 缓存中读取String
+     * 缓存中读取 String
      *
      * @param key 键
      * @return 存在且没过期返回对应值，否则返回{@code null}
@@ -243,7 +243,7 @@ public final class CacheUtils {
     }
 
     /**
-     * 缓存中读取String
+     * 缓存中读取 String
      *
      * @param key          键
      * @param defaultValue 默认值
@@ -260,7 +260,7 @@ public final class CacheUtils {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * 缓存中写入JSONObject
+     * 缓存中写入 JSONObject
      *
      * @param key   键
      * @param value 值
@@ -270,7 +270,7 @@ public final class CacheUtils {
     }
 
     /**
-     * 缓存中写入JSONObject
+     * 缓存中写入 JSONObject
      *
      * @param key      键
      * @param value    值
@@ -281,7 +281,7 @@ public final class CacheUtils {
     }
 
     /**
-     * 缓存中读取JSONObject
+     * 缓存中读取 JSONObject
      *
      * @param key 键
      * @return 存在且没过期返回对应值，否则返回{@code null}
@@ -291,7 +291,7 @@ public final class CacheUtils {
     }
 
     /**
-     * 缓存中读取JSONObject
+     * 缓存中读取 JSONObject
      *
      * @param key          键
      * @param defaultValue 默认值
@@ -309,7 +309,7 @@ public final class CacheUtils {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * 缓存中写入JSONArray
+     * 缓存中写入 JSONArray
      *
      * @param key   键
      * @param value 值
@@ -319,7 +319,7 @@ public final class CacheUtils {
     }
 
     /**
-     * 缓存中写入JSONArray
+     * 缓存中写入 JSONArray
      *
      * @param key      键
      * @param value    值
@@ -330,7 +330,7 @@ public final class CacheUtils {
     }
 
     /**
-     * 缓存中读取JSONArray
+     * 缓存中读取 JSONArray
      *
      * @param key 键
      * @return 存在且没过期返回对应值，否则返回{@code null}
@@ -340,7 +340,7 @@ public final class CacheUtils {
     }
 
     /**
-     * 缓存中读取JSONArray
+     * 缓存中读取 JSONArray
      *
      * @param key          键
      * @param defaultValue 默认值
@@ -358,7 +358,7 @@ public final class CacheUtils {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * 缓存中写入Bitmap
+     * 缓存中写入 Bitmap
      *
      * @param key   键
      * @param value 值
@@ -368,7 +368,7 @@ public final class CacheUtils {
     }
 
     /**
-     * 缓存中写入Bitmap
+     * 缓存中写入 Bitmap
      *
      * @param key      键
      * @param value    值
@@ -379,7 +379,7 @@ public final class CacheUtils {
     }
 
     /**
-     * 缓存中读取Bitmap
+     * 缓存中读取 Bitmap
      *
      * @param key 键
      * @return 存在且没过期返回对应值，否则返回{@code null}
@@ -389,7 +389,7 @@ public final class CacheUtils {
     }
 
     /**
-     * 缓存中读取Bitmap
+     * 缓存中读取 Bitmap
      *
      * @param key          键
      * @param defaultValue 默认值
@@ -406,7 +406,7 @@ public final class CacheUtils {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * 缓存中写入Drawable
+     * 缓存中写入 Drawable
      *
      * @param key   键
      * @param value 值
@@ -416,7 +416,7 @@ public final class CacheUtils {
     }
 
     /**
-     * 缓存中写入Drawable
+     * 缓存中写入 Drawable
      *
      * @param key      键
      * @param value    值
@@ -427,7 +427,7 @@ public final class CacheUtils {
     }
 
     /**
-     * 缓存中读取Drawable
+     * 缓存中读取 Drawable
      *
      * @param key 键
      * @return 存在且没过期返回对应值，否则返回{@code null}
@@ -437,7 +437,7 @@ public final class CacheUtils {
     }
 
     /**
-     * 缓存中读取Drawable
+     * 缓存中读取 Drawable
      *
      * @param key          键
      * @param defaultValue 默认值
@@ -454,7 +454,7 @@ public final class CacheUtils {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * 缓存中写入Parcelable
+     * 缓存中写入 Parcelable
      *
      * @param key   键
      * @param value 值
@@ -464,7 +464,7 @@ public final class CacheUtils {
     }
 
     /**
-     * 缓存中写入Parcelable
+     * 缓存中写入 Parcelable
      *
      * @param key      键
      * @param value    值
@@ -475,7 +475,7 @@ public final class CacheUtils {
     }
 
     /**
-     * 缓存中读取Parcelable
+     * 缓存中读取 Parcelable
      *
      * @param key     键
      * @param creator 建造器
@@ -486,7 +486,7 @@ public final class CacheUtils {
     }
 
     /**
-     * 缓存中读取Parcelable
+     * 缓存中读取 Parcelable
      *
      * @param key          键
      * @param creator      建造器
@@ -504,7 +504,7 @@ public final class CacheUtils {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * 缓存中写入Serializable
+     * 缓存中写入 Serializable
      *
      * @param key   键
      * @param value 值
@@ -514,7 +514,7 @@ public final class CacheUtils {
     }
 
     /**
-     * 缓存中写入Serializable
+     * 缓存中写入 Serializable
      *
      * @param key      键
      * @param value    值
@@ -525,7 +525,7 @@ public final class CacheUtils {
     }
 
     /**
-     * 缓存中读取Serializable
+     * 缓存中读取 Serializable
      *
      * @param key 键
      * @return 存在且没过期返回对应值，否则返回{@code null}
@@ -535,7 +535,7 @@ public final class CacheUtils {
     }
 
     /**
-     * 缓存中读取Serializable
+     * 缓存中读取 Serializable
      *
      * @param key          键
      * @param defaultValue 默认值
@@ -550,7 +550,7 @@ public final class CacheUtils {
     /**
      * 获取缓存大小
      * <p>单位：字节</p>
-     * <p>调用了Thread.join()，需异步调用，否则可能主线程会卡顿</p>
+     * <p>调用了 Thread.join()，需异步调用，否则可能主线程会卡顿</p>
      *
      * @return 缓存大小
      */
@@ -560,7 +560,7 @@ public final class CacheUtils {
 
     /**
      * 获取缓存个数
-     * <p>调用了Thread.join()，需异步调用，否则可能主线程会卡顿</p>
+     * <p>调用了 Thread.join()，需异步调用，否则可能主线程会卡顿</p>
      *
      * @return 缓存个数
      */

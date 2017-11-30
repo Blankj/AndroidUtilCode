@@ -18,7 +18,7 @@ import com.blankj.utilcode.util.ToastUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/13
- *     desc  : App工具类Demo
+ *     desc  : App 工具类 Demo
  * </pre>
  */
 

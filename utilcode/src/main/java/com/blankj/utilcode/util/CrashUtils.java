@@ -58,7 +58,7 @@ public final class CrashUtils {
                 "\nDevice Manufacturer: " + Build.MANUFACTURER +// 设备厂商
                 "\nDevice Model       : " + Build.MODEL +// 设备型号
                 "\nAndroid Version    : " + Build.VERSION.RELEASE +// 系统版本
-                "\nAndroid SDK        : " + Build.VERSION.SDK_INT +// SDK版本
+                "\nAndroid SDK        : " + Build.VERSION.SDK_INT +// SDK 版本
                 "\nApp VersionName    : " + versionName +
                 "\nApp VersionCode    : " + versionCode +
                 "\n************* Crash Log Head ****************\n\n";

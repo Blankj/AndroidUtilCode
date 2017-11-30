@@ -21,7 +21,7 @@ import com.blankj.utilcode.util.ToastUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/17
- *     desc  : Snackbar工具类Demo
+ *     desc  : Snackbar 工具类 Demo
  * </pre>
  */
 public class SnackbarActivity extends BaseBackActivity {

@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/10
- *     desc  : ZipUtils单元测试
+ *     desc  : ZipUtils 单元测试
  * </pre>
  */
 public class ZipUtilsTest {

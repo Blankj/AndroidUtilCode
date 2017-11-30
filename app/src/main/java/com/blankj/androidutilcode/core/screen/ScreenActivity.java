@@ -16,7 +16,7 @@ import com.blankj.utilcode.util.ScreenUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/27
- *     desc  : Screen工具类Demo
+ *     desc  : Screen 工具类 Demo
  * </pre>
  */
 public class ScreenActivity extends BaseBackActivity {

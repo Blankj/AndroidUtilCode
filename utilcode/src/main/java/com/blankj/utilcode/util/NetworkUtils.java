@@ -70,8 +70,8 @@ public final class NetworkUtils {
     /**
      * 判断网络是否可用
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
-     * <p>需要异步ping，如果ping不通就说明网络不可用</p>
-     * <p>ping的ip为阿里巴巴公共ip：223.5.5.5</p>
+     * <p>需要异步 ping，如果 ping 不通就说明网络不可用</p>
+     * <p>ping 的 ip 为阿里巴巴公共 ip：223.5.5.5</p>
      *
      * @return {@code true}: 可用<br>{@code false}: 不可用
      */
@@ -82,14 +82,14 @@ public final class NetworkUtils {
     /**
      * 判断网络是否可用
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
-     * <p>需要异步ping，如果ping不通就说明网络不可用</p>
+     * <p>需要异步 ping，如果 ping 不通就说明网络不可用</p>
      *
-     * @param ip ip地址（自己服务器ip），如果为空，ip为阿里巴巴公共ip
+     * @param ip ip 地址（自己服务器 ip），如果为空，ip 为阿里巴巴公共 ip
      * @return {@code true}: 可用<br>{@code false}: 不可用
      */
     public static boolean isAvailableByPing(String ip) {
         if (ip == null || ip.length() <= 0) {
-            ip = "223.5.5.5";// 阿里巴巴公共ip
+            ip = "223.5.5.5";// 阿里巴巴公共 ip
         }
         ShellUtils.CommandResult result = ShellUtils.execCmd(String.format("ping -c 1 %s", ip), false);
         boolean ret = result.result == 0;
@@ -139,7 +139,7 @@ public final class NetworkUtils {
     }
 
     /**
-     * 判断网络是否是4G
+     * 判断网络是否是 4G
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
      *
      * @return {@code true}: 是<br>{@code false}: 否
@@ -150,7 +150,7 @@ public final class NetworkUtils {
     }
 
     /**
-     * 判断wifi是否打开
+     * 判断 wifi 是否打开
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>}</p>
      *
      * @return {@code true}: 是<br>{@code false}: 否
@@ -162,7 +162,7 @@ public final class NetworkUtils {
     }
 
     /**
-     * 打开或关闭wifi
+     * 打开或关闭 wifi
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>}</p>
      *
      * @param enabled {@code true}: 打开<br>{@code false}: 关闭
@@ -182,7 +182,7 @@ public final class NetworkUtils {
     }
 
     /**
-     * 判断wifi是否连接状态
+     * 判断 wifi 是否连接状态
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
      *
      * @return {@code true}: 连接<br>{@code false}: 未连接
@@ -195,7 +195,7 @@ public final class NetworkUtils {
     }
 
     /**
-     * 判断wifi数据是否可用
+     * 判断 wifi 数据是否可用
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>}</p>
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
      *
@@ -216,9 +216,9 @@ public final class NetworkUtils {
         return tm != null ? tm.getNetworkOperatorName() : null;
     }
 
-    private static final int NETWORK_TYPE_GSM = 16;
+    private static final int NETWORK_TYPE_GSM      = 16;
     private static final int NETWORK_TYPE_TD_SCDMA = 17;
-    private static final int NETWORK_TYPE_IWLAN = 18;
+    private static final int NETWORK_TYPE_IWLAN    = 18;
 
     /**
      * 获取当前网络类型
@@ -290,17 +290,17 @@ public final class NetworkUtils {
     }
 
     /**
-     * 获取IP地址
+     * 获取 IP 地址
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
      *
-     * @param useIPv4 是否用IPv4
-     * @return IP地址
+     * @param useIPv4 是否用 IPv4
+     * @return IP 地址
      */
     public static String getIPAddress(final boolean useIPv4) {
         try {
             for (Enumeration<NetworkInterface> nis = NetworkInterface.getNetworkInterfaces(); nis.hasMoreElements(); ) {
                 NetworkInterface ni = nis.nextElement();
-                // 防止小米手机返回10.0.2.15
+                // 防止小米手机返回 10.0.2.15
                 if (!ni.isUp()) continue;
                 for (Enumeration<InetAddress> addresses = ni.getInetAddresses(); addresses.hasMoreElements(); ) {
                     InetAddress inetAddress = addresses.nextElement();
@@ -325,11 +325,11 @@ public final class NetworkUtils {
     }
 
     /**
-     * 获取域名ip地址
+     * 获取域名 ip 地址
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
      *
      * @param domain 域名
-     * @return ip地址
+     * @return ip 地址
      */
     public static String getDomainAddress(final String domain) {
         InetAddress inetAddress;

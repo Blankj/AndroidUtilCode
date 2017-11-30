@@ -16,7 +16,7 @@ import com.blankj.utilcode.util.ToastUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/08/31
- *     desc  : 自定义Toast
+ *     desc  : 自定义 Toast
  * </pre>
  */
 public class CustomToast {

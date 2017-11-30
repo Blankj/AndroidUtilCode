@@ -25,7 +25,7 @@ import java.util.Random;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/05/27
- *     desc  : Bar工具类Demo
+ *     desc  : Bar 工具类 Demo
  * </pre>
  */
 public class BarStatusDrawerActivity extends BaseDrawerActivity {

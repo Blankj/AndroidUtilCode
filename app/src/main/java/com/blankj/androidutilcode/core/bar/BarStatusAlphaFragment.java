@@ -14,7 +14,7 @@ import com.blankj.utilcode.util.BarUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/07/01
- *     desc  : Bar工具类Demo
+ *     desc  : Bar 工具类 Demo
  * </pre>
  */
 public class BarStatusAlphaFragment extends BaseFragment {

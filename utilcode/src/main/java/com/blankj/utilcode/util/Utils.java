@@ -15,7 +15,7 @@ import java.util.List;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 16/12/08
- *     desc  : Utils初始化相关
+ *     desc  : Utils 初始化相关
  * </pre>
  * 　　　　　　　　　瓦瓦　　　　　　　　　　　　十
  * 　　　　　　　　十齱龠己　　　　　　　　　亅瓦車己
@@ -113,7 +113,7 @@ public final class Utils {
     }
 
     /**
-     * 获取Application
+     * 获取 Application
      *
      * @return Application
      */

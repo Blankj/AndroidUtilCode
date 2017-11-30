@@ -15,7 +15,7 @@ import com.blankj.utilcode.util.DeviceUtils;
  *     author: Blankj
  *     blog : http://blankj.com
  *     time : 2016/09/27
- *     desc : Device工具类Demo
+ *     desc : Device 工具类 Demo
  * </pre>
  */
 public class DeviceActivity extends BaseBackActivity {

@@ -10,7 +10,7 @@ import java.util.List;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/08/07
- *     desc  : Shell相关工具类
+ *     desc  : Shell 相关工具类
  * </pre>
  */
 public final class ShellUtils {
@@ -22,10 +22,10 @@ public final class ShellUtils {
     }
 
     /**
-     * 是否是在root下执行命令
+     * 是否是在 root 下执行命令
      *
      * @param command 命令
-     * @param isRoot  是否需要root权限执行
+     * @param isRoot  是否需要 root 权限执行
      * @return CommandResult
      */
     public static CommandResult execCmd(final String command, final boolean isRoot) {
@@ -33,10 +33,10 @@ public final class ShellUtils {
     }
 
     /**
-     * 是否是在root下执行命令
+     * 是否是在 root 下执行命令
      *
      * @param commands 多条命令链表
-     * @param isRoot   是否需要root权限执行
+     * @param isRoot   是否需要 root 权限执行
      * @return CommandResult
      */
     public static CommandResult execCmd(final List<String> commands, final boolean isRoot) {
@@ -44,10 +44,10 @@ public final class ShellUtils {
     }
 
     /**
-     * 是否是在root下执行命令
+     * 是否是在 root 下执行命令
      *
      * @param commands 多条命令数组
-     * @param isRoot   是否需要root权限执行
+     * @param isRoot   是否需要 root 权限执行
      * @return CommandResult
      */
     public static CommandResult execCmd(final String[] commands, final boolean isRoot) {
@@ -55,10 +55,10 @@ public final class ShellUtils {
     }
 
     /**
-     * 是否是在root下执行命令
+     * 是否是在 root 下执行命令
      *
      * @param command         命令
-     * @param isRoot          是否需要root权限执行
+     * @param isRoot          是否需要 root 权限执行
      * @param isNeedResultMsg 是否需要结果消息
      * @return CommandResult
      */
@@ -67,10 +67,10 @@ public final class ShellUtils {
     }
 
     /**
-     * 是否是在root下执行命令
+     * 是否是在 root 下执行命令
      *
      * @param commands        命令链表
-     * @param isRoot          是否需要root权限执行
+     * @param isRoot          是否需要 root 权限执行
      * @param isNeedResultMsg 是否需要结果消息
      * @return CommandResult
      */
@@ -79,10 +79,10 @@ public final class ShellUtils {
     }
 
     /**
-     * 是否是在root下执行命令
+     * 是否是在 root 下执行命令
      *
      * @param commands        命令数组
-     * @param isRoot          是否需要root权限执行
+     * @param isRoot          是否需要 root 权限执行
      * @param isNeedResultMsg 是否需要结果消息
      * @return CommandResult
      */

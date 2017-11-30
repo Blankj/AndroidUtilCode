@@ -46,10 +46,10 @@ public final class PhoneUtils {
     }
 
     /**
-     * 获取IMEI码
+     * 获取 IMEI 码
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_PHONE_STATE"/>}</p>
      *
-     * @return IMEI码
+     * @return IMEI 码
      */
     @SuppressLint("HardwareIds")
     public static String getIMEI() {
@@ -58,10 +58,10 @@ public final class PhoneUtils {
     }
 
     /**
-     * 获取IMSI码
+     * 获取 IMSI 码
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_PHONE_STATE"/>}</p>
      *
-     * @return IMSI码
+     * @return IMSI 码
      */
     @SuppressLint("HardwareIds")
     public static String getIMSI() {
@@ -75,8 +75,8 @@ public final class PhoneUtils {
      * @return 手机制式
      * <ul>
      * <li>{@link TelephonyManager#PHONE_TYPE_NONE } : 0 手机制式未知</li>
-     * <li>{@link TelephonyManager#PHONE_TYPE_GSM  } : 1 手机制式为GSM，移动和联通</li>
-     * <li>{@link TelephonyManager#PHONE_TYPE_CDMA } : 2 手机制式为CDMA，电信</li>
+     * <li>{@link TelephonyManager#PHONE_TYPE_GSM  } : 1 手机制式为 GSM，移动和联通</li>
+     * <li>{@link TelephonyManager#PHONE_TYPE_CDMA } : 2 手机制式为 CDMA，电信</li>
      * <li>{@link TelephonyManager#PHONE_TYPE_SIP  } : 3</li>
      * </ul>
      */
@@ -86,7 +86,7 @@ public final class PhoneUtils {
     }
 
     /**
-     * 判断sim卡是否准备好
+     * 判断 sim 卡是否准备好
      *
      * @return {@code true}: 是<br>{@code false}: 否
      */
@@ -96,10 +96,10 @@ public final class PhoneUtils {
     }
 
     /**
-     * 获取Sim卡运营商名称
+     * 获取 Sim 卡运营商名称
      * <p>中国移动、如中国联通、中国电信</p>
      *
-     * @return sim卡运营商名称
+     * @return sim 卡运营商名称
      */
     public static String getSimOperatorName() {
         TelephonyManager tm = (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
@@ -107,7 +107,7 @@ public final class PhoneUtils {
     }
 
     /**
-     * 获取Sim卡运营商名称
+     * 获取 Sim 卡运营商名称
      * <p>中国移动、如中国联通、中国电信</p>
      *
      * @return 移动网络运营商名称
@@ -236,40 +236,40 @@ public final class PhoneUtils {
         // 1.获取内容解析者
         ContentResolver resolver = Utils.getApp().getContentResolver();
         // 2.获取内容提供者的地址:com.android.contacts
-        // raw_contacts表的地址 :raw_contacts
-        // view_data表的地址 : data
+        // raw_contacts 表的地址 :raw_contacts
+        // view_data 表的地址 : data
         // 3.生成查询地址
         Uri raw_uri = Uri.parse("content://com.android.contacts/raw_contacts");
         Uri date_uri = Uri.parse("content://com.android.contacts/data");
-        // 4.查询操作,先查询raw_contacts,查询contact_id
+        // 4.查询操作,先查询 raw_contacts,查询 contact_id
         // projection : 查询的字段
         Cursor cursor = resolver.query(raw_uri, new String[]{"contact_id"}, null, null, null);
         try {
-            // 5.解析cursor
+            // 5.解析 cursor
             if (cursor != null) {
                 while (cursor.moveToNext()) {
                     // 6.获取查询的数据
                     String contact_id = cursor.getString(0);
                     // cursor.getString(cursor.getColumnIndex("contact_id"));//getColumnIndex
-                    // : 查询字段在cursor中索引值,一般都是用在查询字段比较多的时候
-                    // 判断contact_id是否为空
+                    // : 查询字段在 cursor 中索引值,一般都是用在查询字段比较多的时候
+                    // 判断 contact_id 是否为空
                     if (!StringUtils.isEmpty(contact_id)) {//null   ""
-                        // 7.根据contact_id查询view_data表中的数据
+                        // 7.根据 contact_id 查询 view_data 表中的数据
                         // selection : 查询条件
                         // selectionArgs :查询条件的参数
                         // sortOrder : 排序
-                        // 空指针: 1.null.方法 2.参数为null
+                        // 空指针: 1.null.方法 2.参数为 null
                         Cursor c = resolver.query(date_uri, new String[]{"data1",
                                         "mimetype"}, "raw_contact_id=?",
                                 new String[]{contact_id}, null);
                         HashMap<String, String> map = new HashMap<String, String>();
-                        // 8.解析c
+                        // 8.解析 c
                         if (c != null) {
                             while (c.moveToNext()) {
                                 // 9.获取数据
                                 String data1 = c.getString(0);
                                 String mimetype = c.getString(1);
-                                // 10.根据类型去判断获取的data1数据并保存
+                                // 10.根据类型去判断获取的 data1 数据并保存
                                 if (mimetype.equals("vnd.android.cursor.item/phone_v2")) {
                                     // 电话
                                     map.put("phone", data1);
@@ -281,7 +281,7 @@ public final class PhoneUtils {
                         }
                         // 11.添加到集合中数据
                         list.add(map);
-                        // 12.关闭cursor
+                        // 12.关闭 cursor
                         if (c != null) {
                             c.close();
                         }
@@ -289,7 +289,7 @@ public final class PhoneUtils {
                 }
             }
         } finally {
-            // 12.关闭cursor
+            // 12.关闭 cursor
             if (cursor != null) {
                 cursor.close();
             }
@@ -330,16 +330,16 @@ public final class PhoneUtils {
     }
 
     /**
-     * 获取手机短信并保存到xml中
+     * 获取手机短信并保存到 xml 中
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>}</p>
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_SMS"/>}</p>
      */
     public static void getAllSMS() {
         // 1.获取短信
-        // 1.1获取内容解析者
+        // 1.1 获取内容解析者
         ContentResolver resolver = Utils.getApp().getContentResolver();
-        // 1.2获取内容提供者地址   sms,sms表的地址:null  不写
-        // 1.3获取查询路径
+        // 1.2 获取内容提供者地址   sms,sms 表的地址:null  不写
+        // 1.3 获取查询路径
         Uri uri = Uri.parse("content://sms");
         // 1.4.查询操作
         // projection : 查询的字段
@@ -350,27 +350,27 @@ public final class PhoneUtils {
         // 设置最大进度
         int count = cursor.getCount();//获取短信的个数
         // 2.备份短信
-        // 2.1获取xml序列器
+        // 2.1 获取 xml 序列器
         XmlSerializer xmlSerializer = Xml.newSerializer();
         try {
-            // 2.2设置xml文件保存的路径
+            // 2.2 设置 xml 文件保存的路径
             // os : 保存的位置
             // encoding : 编码格式
             xmlSerializer.setOutput(new FileOutputStream(new File("/mnt/sdcard/backupsms.xml")), "utf-8");
-            // 2.3设置头信息
+            // 2.3 设置头信息
             // standalone : 是否独立保存
             xmlSerializer.startDocument("utf-8", true);
-            // 2.4设置根标签
+            // 2.4 设置根标签
             xmlSerializer.startTag(null, "smss");
-            // 1.5.解析cursor
+            // 1.5.解析 cursor
             while (cursor.moveToNext()) {
                 SystemClock.sleep(1000);
-                // 2.5设置短信的标签
+                // 2.5 设置短信的标签
                 xmlSerializer.startTag(null, "sms");
-                // 2.6设置文本内容的标签
+                // 2.6 设置文本内容的标签
                 xmlSerializer.startTag(null, "address");
                 String address = cursor.getString(0);
-                // 2.7设置文本内容
+                // 2.7 设置文本内容
                 xmlSerializer.text(address);
                 xmlSerializer.endTag(null, "address");
                 xmlSerializer.startTag(null, "date");
@@ -390,7 +390,7 @@ public final class PhoneUtils {
             }
             xmlSerializer.endTag(null, "smss");
             xmlSerializer.endDocument();
-            // 2.8将数据刷新到文件中
+            // 2.8 将数据刷新到文件中
             xmlSerializer.flush();
         } catch (Exception e) {
             e.printStackTrace();

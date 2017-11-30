@@ -63,7 +63,7 @@ import static android.graphics.BlurMaskFilter.Blur;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 16/12/13
- *     desc  : SpannableString相关工具类
+ *     desc  : SpannableString 相关工具类
  * </pre>
  */
 public final class SpanUtils {
@@ -324,9 +324,9 @@ public final class SpanUtils {
 
     /**
      * 设置图标
-     * <p>默认0边距，居中对齐</p>
+     * <p>默认 0 边距，居中对齐</p>
      *
-     * @param bitmap 图标bitmap
+     * @param bitmap 图标 bitmap
      * @return {@link SpanUtils}
      */
     public SpanUtils setIconMargin(final Bitmap bitmap) {
@@ -336,7 +336,7 @@ public final class SpanUtils {
     /**
      * 设置图标
      *
-     * @param bitmap   图标bitmap
+     * @param bitmap   图标 bitmap
      * @param gapWidth 图标和文字间距离
      * @param align    对齐
      *                 <ul>
@@ -355,9 +355,9 @@ public final class SpanUtils {
 
     /**
      * 设置图标
-     * <p>默认0边距，居中对齐</p>
+     * <p>默认 0 边距，居中对齐</p>
      *
-     * @param drawable 图标drawable
+     * @param drawable 图标 drawable
      * @return {@link SpanUtils}
      */
     public SpanUtils setIconMargin(final Drawable drawable) {
@@ -367,7 +367,7 @@ public final class SpanUtils {
     /**
      * 设置图标
      *
-     * @param drawable 图标drawable
+     * @param drawable 图标 drawable
      * @param gapWidth 图标和文字间距离
      * @param align    对齐
      *                 <ul>
@@ -386,9 +386,9 @@ public final class SpanUtils {
 
     /**
      * 设置图标
-     * <p>默认0边距，居中对齐</p>
+     * <p>默认 0 边距，居中对齐</p>
      *
-     * @param uri 图标uri
+     * @param uri 图标 uri
      * @return {@link SpanUtils}
      */
     public SpanUtils setIconMargin(final Uri uri) {
@@ -398,7 +398,7 @@ public final class SpanUtils {
     /**
      * 设置图标
      *
-     * @param uri      图标uri
+     * @param uri      图标 uri
      * @param gapWidth 图标和文字间距离
      * @param align    对齐
      *                 <ul>
@@ -417,9 +417,9 @@ public final class SpanUtils {
 
     /**
      * 设置图标
-     * <p>默认0边距，居中对齐</p>
+     * <p>默认 0 边距，居中对齐</p>
      *
-     * @param resourceId 图标resourceId
+     * @param resourceId 图标 resourceId
      * @return {@link SpanUtils}
      */
     public SpanUtils setIconMargin(@DrawableRes final int resourceId) {
@@ -429,7 +429,7 @@ public final class SpanUtils {
     /**
      * 设置图标
      *
-     * @param resourceId 图标resourceId
+     * @param resourceId 图标 resourceId
      * @param gapWidth   图标和文字间距离
      * @param align      对齐
      *                   <ul>
@@ -460,7 +460,7 @@ public final class SpanUtils {
      * 设置字体尺寸
      *
      * @param size 尺寸
-     * @param isDp 是否使用dip
+     * @param isDp 是否使用 dip
      * @return {@link SpanUtils}
      */
     public SpanUtils setFontSize(@IntRange(from = 0) final int size, final boolean isDp) {
@@ -606,7 +606,7 @@ public final class SpanUtils {
 
     /**
      * 设置点击事件
-     * <p>需添加view.setMovementMethod(LinkMovementMethod.getInstance())</p>
+     * <p>需添加 view.setMovementMethod(LinkMovementMethod.getInstance())</p>
      *
      * @param clickSpan 点击事件
      * @return {@link SpanUtils}
@@ -618,7 +618,7 @@ public final class SpanUtils {
 
     /**
      * 设置超链接
-     * <p>需添加view.setMovementMethod(LinkMovementMethod.getInstance())</p>
+     * <p>需添加 view.setMovementMethod(LinkMovementMethod.getInstance())</p>
      *
      * @param url 超链接
      * @return {@link SpanUtils}
@@ -630,10 +630,10 @@ public final class SpanUtils {
 
     /**
      * 设置模糊
-     * <p>尚存bug，其他地方存在相同的字体的话，相同字体出现在之前的话那么就不会模糊，出现在之后的话那会一起模糊</p>
-     * <p>以上bug关闭硬件加速即可</p>
+     * <p>尚存 bug，其他地方存在相同的字体的话，相同字体出现在之前的话那么就不会模糊，出现在之后的话那会一起模糊</p>
+     * <p>以上 bug 关闭硬件加速即可</p>
      *
-     * @param radius 模糊半径（需大于0）
+     * @param radius 模糊半径（需大于 0）
      * @param style  模糊样式<ul>
      *               <li>{@link Blur#NORMAL}</li>
      *               <li>{@link Blur#SOLID}</li>
@@ -663,8 +663,8 @@ public final class SpanUtils {
      * 设置阴影
      *
      * @param radius      阴影半径
-     * @param dx          x轴偏移量
-     * @param dy          y轴偏移量
+     * @param dx          x 轴偏移量
+     * @param dy          y 轴偏移量
      * @param shadowColor 阴影颜色
      * @return {@link SpanUtils}
      */
@@ -790,7 +790,7 @@ public final class SpanUtils {
     /**
      * 追加图片
      *
-     * @param uri 图片uri
+     * @param uri 图片 uri
      * @return {@link SpanUtils}
      */
     public SpanUtils appendImage(@NonNull final Uri uri) {
@@ -800,7 +800,7 @@ public final class SpanUtils {
     /**
      * 追加图片
      *
-     * @param uri   图片uri
+     * @param uri   图片 uri
      * @param align 对齐
      *              <ul>
      *              <li>{@link Align#ALIGN_TOP}顶部对齐</li>
@@ -820,7 +820,7 @@ public final class SpanUtils {
     /**
      * 追加图片
      *
-     * @param resourceId 图片资源id
+     * @param resourceId 图片资源 id
      * @return {@link SpanUtils}
      */
     public SpanUtils appendImage(@DrawableRes final int resourceId) {
@@ -830,7 +830,7 @@ public final class SpanUtils {
     /**
      * 追加图片
      *
-     * @param resourceId 图片资源id
+     * @param resourceId 图片资源 id
      * @param align      对齐
      * @return {@link SpanUtils}
      */

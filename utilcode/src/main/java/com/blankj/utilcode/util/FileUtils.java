@@ -80,16 +80,16 @@ public final class FileUtils {
      * @return {@code true}: 重命名成功<br>{@code false}: 重命名失败
      */
     public static boolean rename(final File file, final String newName) {
-        // 文件为空返回false
+        // 文件为空返回 false
         if (file == null) return false;
-        // 文件不存在返回false
+        // 文件不存在返回 false
         if (!file.exists()) return false;
-        // 新的文件名为空返回false
+        // 新的文件名为空返回 false
         if (isSpace(newName)) return false;
-        // 如果文件名没有改变返回true
+        // 如果文件名没有改变返回 true
         if (newName.equals(file.getName())) return true;
         File newFile = new File(file.getParent() + File.separator + newName);
-        // 如果重命名的文件已存在返回false
+        // 如果重命名的文件已存在返回 false
         return !newFile.exists()
                 && file.renameTo(newFile);
     }
@@ -151,7 +151,7 @@ public final class FileUtils {
      * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
      */
     public static boolean createOrExistsDir(final File file) {
-        // 如果存在，是目录则返回true，是文件则返回false，不存在则返回是否创建成功
+        // 如果存在，是目录则返回 true，是文件则返回 false，不存在则返回是否创建成功
         return file != null && (file.exists() ? file.isDirectory() : file.mkdirs());
     }
 
@@ -173,7 +173,7 @@ public final class FileUtils {
      */
     public static boolean createOrExistsFile(final File file) {
         if (file == null) return false;
-        // 如果存在，是文件则返回true，是目录则返回false
+        // 如果存在，是文件则返回 true，是目录则返回 false
         if (file.exists()) return file.isFile();
         if (!createOrExistsDir(file.getParentFile())) return false;
         try {
@@ -202,9 +202,9 @@ public final class FileUtils {
      */
     public static boolean createFileByDeleteOldFile(final File file) {
         if (file == null) return false;
-        // 文件存在并且删除失败返回false
+        // 文件存在并且删除失败返回 false
         if (file.exists() && !file.delete()) return false;
-        // 创建目录失败返回false
+        // 创建目录失败返回 false
         if (!createOrExistsDir(file.getParentFile())) return false;
         try {
             return file.createNewFile();
@@ -238,34 +238,34 @@ public final class FileUtils {
      */
     private static boolean copyOrMoveDir(final File srcDir, final File destDir, final OnReplaceListener listener, final boolean isMove) {
         if (srcDir == null || destDir == null) return false;
-        // 如果目标目录在源目录中则返回false，看不懂的话好好想想递归怎么结束
+        // 如果目标目录在源目录中则返回 false，看不懂的话好好想想递归怎么结束
         // srcPath : F:\\MyGithub\\AndroidUtilCode\\utilcode\\src\\test\\res
         // destPath: F:\\MyGithub\\AndroidUtilCode\\utilcode\\src\\test\\res1
         // 为防止以上这种情况出现出现误判，须分别在后面加个路径分隔符
         String srcPath = srcDir.getPath() + File.separator;
         String destPath = destDir.getPath() + File.separator;
         if (destPath.contains(srcPath)) return false;
-        // 源文件不存在或者不是目录则返回false
+        // 源文件不存在或者不是目录则返回 false
         if (!srcDir.exists() || !srcDir.isDirectory()) return false;
         if (destDir.exists()) {
             if (listener.onReplace()) {// 需要覆盖则删除旧目录
-                if (!deleteAllInDir(destDir)) {// 删除文件失败的话返回false
+                if (!deleteAllInDir(destDir)) {// 删除文件失败的话返回 false
                     return false;
                 }
-            } else {// 不需要覆盖直接返回即可true
+            } else {// 不需要覆盖直接返回即可 true
                 return true;
             }
         }
-        // 目标目录不存在返回false
+        // 目标目录不存在返回 false
         if (!createOrExistsDir(destDir)) return false;
         File[] files = srcDir.listFiles();
         for (File file : files) {
             File oneDestFile = new File(destPath + file.getName());
             if (file.isFile()) {
-                // 如果操作失败返回false
+                // 如果操作失败返回 false
                 if (!copyOrMoveFile(file, oneDestFile, listener, isMove)) return false;
             } else if (file.isDirectory()) {
-                // 如果操作失败返回false
+                // 如果操作失败返回 false
                 if (!copyOrMoveDir(file, oneDestFile, listener, isMove)) return false;
             }
         }
@@ -296,20 +296,20 @@ public final class FileUtils {
      */
     private static boolean copyOrMoveFile(final File srcFile, final File destFile, final OnReplaceListener listener, final boolean isMove) {
         if (srcFile == null || destFile == null) return false;
-        // 如果源文件和目标文件相同则返回false
+        // 如果源文件和目标文件相同则返回 false
         if (srcFile.equals(destFile)) return false;
-        // 源文件不存在或者不是文件则返回false
+        // 源文件不存在或者不是文件则返回 false
         if (!srcFile.exists() || !srcFile.isFile()) return false;
         if (destFile.exists()) {// 目标文件存在
             if (listener.onReplace()) {// 需要覆盖则删除旧文件
-                if (!destFile.delete()) {// 删除文件失败的话返回false
+                if (!destFile.delete()) {// 删除文件失败的话返回 false
                     return false;
                 }
-            } else {// 不需要覆盖直接返回即可true
+            } else {// 不需要覆盖直接返回即可 true
                 return true;
             }
         }
-        // 目标目录不存在返回false
+        // 目标目录不存在返回 false
         if (!createOrExistsDir(destFile.getParentFile())) return false;
         try {
             return FileIOUtils.writeFileFromIS(destFile, new FileInputStream(srcFile), false)
@@ -434,9 +434,9 @@ public final class FileUtils {
      */
     public static boolean deleteDir(final File dir) {
         if (dir == null) return false;
-        // 目录不存在返回true
+        // 目录不存在返回 true
         if (!dir.exists()) return true;
-        // 不是目录返回false
+        // 不是目录返回 false
         if (!dir.isDirectory()) return false;
         // 现在文件存在且是文件夹
         File[] files = dir.listFiles();
@@ -542,9 +542,9 @@ public final class FileUtils {
      */
     public static boolean deleteFilesInDirWithFilter(final File dir, final FileFilter filter) {
         if (dir == null) return false;
-        // 目录不存在返回true
+        // 目录不存在返回 true
         if (!dir.exists()) return true;
-        // 不是目录返回false
+        // 不是目录返回 false
         if (!dir.isDirectory()) return false;
         // 现在文件存在且是文件夹
         File[] files = dir.listFiles();
@@ -752,7 +752,7 @@ public final class FileUtils {
 
     /**
      * 获取文件行数
-     * <p>比readLine要快很多</p>
+     * <p>比 readLine 要快很多</p>
      *
      * @param file 文件
      * @return 文件行数
@@ -881,10 +881,10 @@ public final class FileUtils {
     }
 
     /**
-     * 获取文件的MD5校验码
+     * 获取文件的 MD5 校验码
      *
      * @param filePath 文件路径
-     * @return 文件的MD5校验码
+     * @return 文件的 MD5 校验码
      */
     public static String getFileMD5ToString(final String filePath) {
         File file = isSpace(filePath) ? null : new File(filePath);
@@ -892,30 +892,30 @@ public final class FileUtils {
     }
 
     /**
-     * 获取文件的MD5校验码
+     * 获取文件的 MD5 校验码
      *
      * @param file 文件
-     * @return 文件的MD5校验码
+     * @return 文件的 MD5 校验码
      */
     public static String getFileMD5ToString(final File file) {
         return bytes2HexString(getFileMD5(file));
     }
 
     /**
-     * 获取文件的MD5校验码
+     * 获取文件的 MD5 校验码
      *
      * @param filePath 文件路径
-     * @return 文件的MD5校验码
+     * @return 文件的 MD5 校验码
      */
     public static byte[] getFileMD5(final String filePath) {
         return getFileMD5(getFileByPath(filePath));
     }
 
     /**
-     * 获取文件的MD5校验码
+     * 获取文件的 MD5 校验码
      *
      * @param file 文件
-     * @return 文件的MD5校验码
+     * @return 文件的 MD5 校验码
      */
     public static byte[] getFileMD5(final File file) {
         if (file == null) return null;
@@ -942,7 +942,7 @@ public final class FileUtils {
      * 获取全路径中的最长目录
      *
      * @param file 文件
-     * @return filePath最长目录
+     * @return filePath 最长目录
      */
     public static String getDirName(final File file) {
         if (file == null) return null;
@@ -953,7 +953,7 @@ public final class FileUtils {
      * 获取全路径中的最长目录
      *
      * @param filePath 文件路径
-     * @return filePath最长目录
+     * @return filePath 最长目录
      */
     public static String getDirName(final String filePath) {
         if (isSpace(filePath)) return filePath;
@@ -1046,12 +1046,12 @@ public final class FileUtils {
     private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     /**
-     * byteArr转hexString
+     * byteArr 转 hexString
      * <p>例如：</p>
      * bytes2HexString(new byte[] { 0, (byte) 0xa8 }) returns 00A8
      *
      * @param bytes 字节数组
-     * @return 16进制大写字符串
+     * @return 16 进制大写字符串
      */
     private static String bytes2HexString(final byte[] bytes) {
         if (bytes == null) return null;
@@ -1067,7 +1067,7 @@ public final class FileUtils {
 
     /**
      * 字节数转合适内存大小
-     * <p>保留3位小数</p>
+     * <p>保留 3 位小数</p>
      *
      * @param byteNum 字节数
      * @return 合适内存大小

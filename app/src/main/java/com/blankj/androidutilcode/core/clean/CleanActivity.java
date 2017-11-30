@@ -18,7 +18,7 @@ import java.io.File;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/29
- *     desc  : Clean工具类Demo
+ *     desc  : Clean 工具类 Demo
  * </pre>
  */
 public class CleanActivity extends BaseBackActivity {

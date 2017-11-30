@@ -60,7 +60,7 @@ public final class CleanUtils {
     }
 
     /**
-     * 清除内部SP
+     * 清除内部 SP
      * <p>/data/data/com.xxx.xxx/shared_prefs</p>
      *
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
@@ -105,9 +105,9 @@ public final class CleanUtils {
 
     private static boolean deleteFilesInDir(final File dir) {
         if (dir == null) return false;
-        // 目录不存在返回true
+        // 目录不存在返回 true
         if (!dir.exists()) return true;
-        // 不是目录返回false
+        // 不是目录返回 false
         if (!dir.isDirectory()) return false;
         // 现在文件存在且是文件夹
         File[] files = dir.listFiles();
@@ -125,9 +125,9 @@ public final class CleanUtils {
 
     private static boolean deleteDir(final File dir) {
         if (dir == null) return false;
-        // 目录不存在返回true
+        // 目录不存在返回 true
         if (!dir.exists()) return true;
-        // 不是目录返回false
+        // 不是目录返回 false
         if (!dir.isDirectory()) return false;
         // 现在文件存在且是文件夹
         File[] files = dir.listFiles();

@@ -23,7 +23,7 @@ import java.util.List;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/26
- *     desc  : Image工具类Demo
+ *     desc  : Image 工具类 Demo
  * </pre>
  */
 public class ImageActivity extends BaseBackActivity {

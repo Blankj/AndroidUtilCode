@@ -1,3 +1,4 @@
+* 17/11/30 修复 ToastUtils 获取背景为空，发布 1.9.9
 * 17/11/28 修复 EmptyUtils 对 CharSequence 的判断，感谢 jiezigg
 * 17/11/24 新增 readme 格式化的 gradle 脚本
 * 17/11/15 修改资源分包位置，使其更合理

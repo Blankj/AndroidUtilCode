@@ -18,7 +18,7 @@ public final class CloseUtils {
     }
 
     /**
-     * 关闭IO
+     * 关闭 IO
      *
      * @param closeables closeables
      */
@@ -36,7 +36,7 @@ public final class CloseUtils {
     }
 
     /**
-     * 安静关闭IO
+     * 安静关闭 IO
      *
      * @param closeables closeables
      */
