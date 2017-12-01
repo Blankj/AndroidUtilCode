@@ -660,10 +660,10 @@ public final class TimeUtils {
      * @return 友好型与当前时间的差
      * <ul>
      * <li>如果小于 1 秒钟内，显示刚刚</li>
-     * <li>如果在 1 分钟内，显示 XXX 秒前</li>
-     * <li>如果在 1 小时内，显示 XXX 分钟前</li>
-     * <li>如果在 1 小时外的今天内，显示今天 15:32</li>
-     * <li>如果是昨天的，显示昨天 15:32</li>
+     * <li>如果在 1 分钟内，显示 XXX秒前</li>
+     * <li>如果在 1 小时内，显示 XXX分钟前</li>
+     * <li>如果在 1 小时外的今天内，显示今天15:32</li>
+     * <li>如果是昨天的，显示昨天15:32</li>
      * <li>其余显示，2016-10-15</li>
      * <li>时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007</li>
      * </ul>
@@ -681,10 +681,10 @@ public final class TimeUtils {
      * @return 友好型与当前时间的差
      * <ul>
      * <li>如果小于 1 秒钟内，显示刚刚</li>
-     * <li>如果在 1 分钟内，显示 XXX 秒前</li>
-     * <li>如果在 1 小时内，显示 XXX 分钟前</li>
-     * <li>如果在 1 小时外的今天内，显示今天 15:32</li>
-     * <li>如果是昨天的，显示昨天 15:32</li>
+     * <li>如果在 1 分钟内，显示 XXX秒前</li>
+     * <li>如果在 1 小时内，显示 XXX分钟前</li>
+     * <li>如果在 1 小时外的今天内，显示今天15:32</li>
+     * <li>如果是昨天的，显示昨天15:32</li>
      * <li>其余显示，2016-10-15</li>
      * <li>时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007</li>
      * </ul>
@@ -700,10 +700,10 @@ public final class TimeUtils {
      * @return 友好型与当前时间的差
      * <ul>
      * <li>如果小于 1 秒钟内，显示刚刚</li>
-     * <li>如果在 1 分钟内，显示 XXX 秒前</li>
-     * <li>如果在 1 小时内，显示 XXX 分钟前</li>
-     * <li>如果在 1 小时外的今天内，显示今天 15:32</li>
-     * <li>如果是昨天的，显示昨天 15:32</li>
+     * <li>如果在 1 分钟内，显示 XXX秒前</li>
+     * <li>如果在 1 小时内，显示 XXX分钟前</li>
+     * <li>如果在 1 小时外的今天内，显示今天15:32</li>
+     * <li>如果是昨天的，显示昨天15:32</li>
      * <li>其余显示，2016-10-15</li>
      * <li>时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007</li>
      * </ul>
@@ -719,10 +719,10 @@ public final class TimeUtils {
      * @return 友好型与当前时间的差
      * <ul>
      * <li>如果小于 1 秒钟内，显示刚刚</li>
-     * <li>如果在 1 分钟内，显示 XXX 秒前</li>
-     * <li>如果在 1 小时内，显示 XXX 分钟前</li>
-     * <li>如果在 1 小时外的今天内，显示今天 15:32</li>
-     * <li>如果是昨天的，显示昨天 15:32</li>
+     * <li>如果在 1 分钟内，显示 XXX秒前</li>
+     * <li>如果在 1 小时内，显示 XXX分钟前</li>
+     * <li>如果在 1 小时外的今天内，显示今天15:32</li>
+     * <li>如果是昨天的，显示昨天15:32</li>
      * <li>其余显示，2016-10-15</li>
      * <li>时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007</li>
      * </ul>
@@ -735,9 +735,9 @@ public final class TimeUtils {
         if (span < 1000) {
             return "刚刚";
         } else if (span < TimeConstants.MIN) {
-            return String.format(Locale.getDefault(), "%d 秒前", span / TimeConstants.SEC);
+            return String.format(Locale.getDefault(), "%d秒前", span / TimeConstants.SEC);
         } else if (span < TimeConstants.HOUR) {
-            return String.format(Locale.getDefault(), "%d 分钟前", span / TimeConstants.MIN);
+            return String.format(Locale.getDefault(), "%d分钟前", span / TimeConstants.MIN);
         }
         // 获取当天 00:00
         long wee = getWeeOfToday();
