@@ -1,6 +1,7 @@
 package com.blankj.utilcode.util;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.ColorDrawable;
@@ -212,10 +213,11 @@ public final class ToastUtils {
                 cancel();
                 sToast = Toast.makeText(Utils.getApp(), text, duration);
                 // solve the font of toast
-                TextView tvMessage = (TextView) sToast.getView().findViewById(android.R.id.message);
+                TextView tvMessage = sToast.getView().findViewById(android.R.id.message);
                 TextViewCompat.setTextAppearance(tvMessage, android.R.style.TextAppearance);
                 tvMessage.setTextColor(msgColor);
-                setBgAndGravity();
+                sToast.setGravity(gravity, xOffset, yOffset);
+                setBg(tvMessage);
                 sToast.show();
             }
         });
@@ -229,13 +231,14 @@ public final class ToastUtils {
                 sToast = new Toast(Utils.getApp());
                 sToast.setView(view);
                 sToast.setDuration(duration);
-                setBgAndGravity();
+                sToast.setGravity(gravity, xOffset, yOffset);
+                setBg();
                 sToast.show();
             }
         });
     }
 
-    private static void setBgAndGravity() {
+    private static void setBg() {
         View toastView = sToast.getView();
         if (bgResource != -1) {
             toastView.setBackgroundResource(bgResource);
@@ -247,7 +250,27 @@ public final class ToastUtils {
                 ViewCompat.setBackground(toastView, new ColorDrawable(bgColor));
             }
         }
-        sToast.setGravity(gravity, xOffset, yOffset);
+    }
+
+    private static void setBg(final TextView tvMessage) {
+        View toastView = sToast.getView();
+        if (bgResource != -1) {
+            toastView.setBackgroundResource(bgResource);
+            tvMessage.setBackgroundColor(Color.TRANSPARENT);
+        } else if (bgColor != COLOR_DEFAULT) {
+            Drawable tvBg = toastView.getBackground();
+            Drawable messageBg = tvMessage.getBackground();
+            if (tvBg != null && messageBg != null) {
+                tvBg.setColorFilter(new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN));
+                tvMessage.setBackgroundColor(Color.TRANSPARENT);
+            } else if (tvBg != null) {
+                tvBg.setColorFilter(new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN));
+            } else if (messageBg != null) {
+                messageBg.setColorFilter(new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN));
+            } else {
+                toastView.setBackgroundColor(bgColor);
+            }
+        }
     }
 
     private static View getView(@LayoutRes final int layoutId) {
