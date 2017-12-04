@@ -81,17 +81,22 @@ public final class LogUtils {
     private static int     sFileFilter        = V;     // log 文件过滤器
     private static int     sStackDeep         = 1;     // log 栈深度
 
-    private static final String FILE_SEP      = System.getProperty("file.separator");
-    private static final String LINE_SEP      = System.getProperty("line.separator");
-    private static final String TOP_BORDER    = "╔═══════════════════════════════════════════════════════════════════════════════════════════════════";
-    private static final String SPLIT_BORDER  = "╟───────────────────────────────────────────────────────────────────────────────────────────────────";
-    private static final String LEFT_BORDER   = "║ ";
-    private static final String BOTTOM_BORDER = "╚═══════════════════════════════════════════════════════════════════════════════════════════════════";
-    private static final int    MAX_LEN       = 4000;
-    private static final Format FORMAT        = new SimpleDateFormat("MM-dd HH:mm:ss.SSS ", Locale.getDefault());
-    private static final String NULL          = "null";
-    private static final String ARGS          = "args";
-    private static final Config CONFIG        = new Config();
+    private static final String FILE_SEP       = System.getProperty("file.separator");
+    private static final String LINE_SEP       = System.getProperty("line.separator");
+    private static final String TOP_CORNER     = "┌";
+    private static final String MIDDLE_CORNER  = "├";
+    private static final String LEFT_BORDER    = "│ ";
+    private static final String BOTTOM_CORNER  = "└";
+    private static final String SIDE_DIVIDER   = "────────────────────────────────────────────────────────";
+    private static final String MIDDLE_DIVIDER = "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄";
+    private static final String TOP_BORDER     = TOP_CORNER + SIDE_DIVIDER + SIDE_DIVIDER;
+    private static final String MIDDLE_BORDER  = MIDDLE_CORNER + MIDDLE_DIVIDER + MIDDLE_DIVIDER;
+    private static final String BOTTOM_BORDER  = BOTTOM_CORNER + SIDE_DIVIDER + SIDE_DIVIDER;
+    private static final int    MAX_LEN        = 4000;
+    private static final Format FORMAT         = new SimpleDateFormat("MM-dd HH:mm:ss.SSS ", Locale.getDefault());
+    private static final String NULL           = "null";
+    private static final String ARGS           = "args";
+    private static final Config CONFIG         = new Config();
 
     private LogUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -344,7 +349,7 @@ public final class LogUtils {
             for (String aHead : head) {
                 Log.println(type, tag, sLogBorderSwitch ? LEFT_BORDER + aHead : aHead);
             }
-            if (sLogBorderSwitch) Log.println(type, tag, SPLIT_BORDER);
+            if (sLogBorderSwitch) Log.println(type, tag, MIDDLE_BORDER);
         }
     }
 

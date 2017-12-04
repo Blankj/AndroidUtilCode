@@ -1,3 +1,4 @@
+* 17/12/04 LogUtils 边框改为单线清爽型
 * 17/11/30 修复 ToastUtils 背景问题，发布 1.9.10
 * 17/11/30 修复 ToastUtils 获取背景为空，发布 1.9.9
 * 17/11/28 修复 EmptyUtils 对 CharSequence 的判断，感谢 jiezigg
