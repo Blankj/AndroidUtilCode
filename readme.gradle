@@ -3,7 +3,7 @@ import groovy.transform.Field
 @Field LINE_SEP = System.getProperty("line.separator")
 @Field LONG_SPACE = "                                        "
 
-task readmeTask {
+task readmeTask << {
     def readmeCN = file("./utilcode/README-CN.md")
     def readmeEng = file("./utilcode/README.md")
     readmeOfUtilCode2Eng(readmeCN, readmeEng)

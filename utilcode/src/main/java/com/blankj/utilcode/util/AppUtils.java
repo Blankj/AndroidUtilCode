@@ -121,7 +121,7 @@ public final class AppUtils {
         File file = FileUtils.getFileByPath(filePath);
         if (!FileUtils.isFileExists(file)) return false;
         String command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib pm install " + filePath;
-        ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, !isSystemApp(), true);
+        ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, isDeviceRooted(), true);
         return commandResult.successMsg != null && commandResult.successMsg.toLowerCase().contains("success");
     }
 
@@ -158,10 +158,9 @@ public final class AppUtils {
     public static boolean uninstallAppSilent(final String packageName, final boolean isKeepData) {
         if (isSpace(packageName)) return false;
         String command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib pm uninstall " + (isKeepData ? "-k " : "") + packageName;
-        ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, !isSystemApp(), true);
+        ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, isDeviceRooted(), true);
         return commandResult.successMsg != null && commandResult.successMsg.toLowerCase().contains("success");
     }
-
 
     /**
      * 判断 App 是否有 root 权限
@@ -718,5 +717,17 @@ public final class AppUtils {
             }
         }
         return true;
+    }
+
+    private static boolean isDeviceRooted() {
+        String su = "su";
+        String[] locations = {"/system/bin/", "/system/xbin/", "/sbin/", "/system/sd/xbin/", "/system/bin/failsafe/",
+                "/data/local/xbin/", "/data/local/bin/", "/data/local/"};
+        for (String location : locations) {
+            if (new File(location + su).exists()) {
+                return true;
+            }
+        }
+        return false;
     }
 }
