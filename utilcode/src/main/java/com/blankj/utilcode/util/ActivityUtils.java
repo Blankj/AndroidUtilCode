@@ -952,24 +952,23 @@ public final class ActivityUtils {
     }
 
     /**
-     * 结束除最新之外的同类型 Activity
-     * <p>也就是让栈中最多只剩下一种类型的 Activity</p>
+     * 结束所有其他类型的 Activity
      *
      * @param clz Activity 类
      */
-    public static void finishOtherActivitiesExceptNewest(@NonNull final Class<?> clz) {
-        finishOtherActivitiesExceptNewest(clz, false);
+    public static void finishOtherActivities(@NonNull final Class<?> clz) {
+        finishOtherActivities(clz, false);
     }
 
+
     /**
-     * 结束除最新之外的同类型 Activity
-     * <p>也就是让栈中最多只剩下一种类型的 Activity</p>
+     * 结束所有其他类型的 Activity
      *
      * @param clz        Activity 类
      * @param isLoadAnim 是否启动动画
      */
-    public static void finishOtherActivitiesExceptNewest(@NonNull final Class<?> clz,
-                                                         final boolean isLoadAnim) {
+    public static void finishOtherActivities(@NonNull final Class<?> clz,
+                                             final boolean isLoadAnim) {
         List<Activity> activities = Utils.sActivityList;
         boolean flag = false;
         for (int i = activities.size() - 1; i >= 0; i--) {
@@ -980,21 +979,22 @@ public final class ActivityUtils {
                 } else {
                     flag = true;
                 }
+            } else {
+                finishActivity(activity, isLoadAnim);
             }
         }
     }
 
     /**
-     * 结束除最新之外的同类型 Activity
-     * <p>也就是让栈中最多只剩下一种类型的 Activity</p>
+     * 结束所有其他类型的 Activity
      *
      * @param clz       Activity 类
      * @param enterAnim 入场动画
      * @param exitAnim  出场动画
      */
-    public static void finishOtherActivitiesExceptNewest(@NonNull final Class<?> clz,
-                                                         @AnimRes final int enterAnim,
-                                                         @AnimRes final int exitAnim) {
+    public static void finishOtherActivities(@NonNull final Class<?> clz,
+                                             @AnimRes final int enterAnim,
+                                             @AnimRes final int exitAnim) {
         List<Activity> activities = Utils.sActivityList;
         boolean flag = false;
         for (int i = activities.size() - 1; i >= 0; i--) {
@@ -1005,6 +1005,8 @@ public final class ActivityUtils {
                 } else {
                     flag = true;
                 }
+            } else {
+                finishActivity(activity, enterAnim, exitAnim);
             }
         }
     }
@@ -1038,12 +1040,48 @@ public final class ActivityUtils {
      * @param enterAnim 入场动画
      * @param exitAnim  出场动画
      */
-    public static void finishAllActivities(@AnimRes final int enterAnim, @AnimRes final int exitAnim) {
+    public static void finishAllActivities(@AnimRes final int enterAnim,
+                                           @AnimRes final int exitAnim) {
         List<Activity> activityList = Utils.sActivityList;
         for (int i = activityList.size() - 1; i >= 0; --i) {// 从栈顶开始移除
             Activity activity = activityList.get(i);
             activity.finish();// 在 onActivityDestroyed 发生 remove
             activity.overridePendingTransition(enterAnim, exitAnim);
+        }
+    }
+
+    /**
+     * 结束除最新之外的所有 Activity
+     */
+    public static void finishAllActivitiesExceptNewest() {
+        finishAllActivitiesExceptNewest(false);
+    }
+
+    /**
+     * 结束除最新之外的所有 Activity
+     *
+     * @param isLoadAnim 是否启动动画
+     */
+    public static void finishAllActivitiesExceptNewest(final boolean isLoadAnim) {
+        List<Activity> activities = Utils.sActivityList;
+        boolean flag = false;
+        for (int i = activities.size() - 2; i >= 0; i--) {
+            finishActivity(activities.get(i), isLoadAnim);
+        }
+    }
+
+    /**
+     * 结束除最新之外的所有 Activity
+     *
+     * @param enterAnim 入场动画
+     * @param exitAnim  出场动画
+     */
+    public static void finishAllActivitiesExceptNewest(@AnimRes final int enterAnim,
+                                                       @AnimRes final int exitAnim) {
+        List<Activity> activities = Utils.sActivityList;
+        boolean flag = false;
+        for (int i = activities.size() - 2; i >= 0; i--) {
+            finishActivity(activities.get(i), enterAnim, exitAnim);
         }
     }
 

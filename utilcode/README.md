@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-compile 'com.blankj:utilcode:1.9.10'
+compile 'com.blankj:utilcode:1.9.11'
 ```
 
 
@@ -37,8 +37,9 @@ getTopActivity
 isActivityExistsInStack
 finishActivity
 finishToActivity
-finishOtherActivitiesExceptNewest
+finishOtherActivities
 finishAllActivities
+finishAllActivitiesExceptNewest
 ```
 
 * ### About App -> [AppUtils.java][app.java] -> [Demo][app.demo]
