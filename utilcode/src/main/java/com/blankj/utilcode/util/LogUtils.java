@@ -94,6 +94,7 @@ public final class LogUtils {
     private static final String BOTTOM_BORDER  = BOTTOM_CORNER + SIDE_DIVIDER + SIDE_DIVIDER;
     private static final int    MAX_LEN        = 4000;
     private static final Format FORMAT         = new SimpleDateFormat("MM-dd HH:mm:ss.SSS ", Locale.getDefault());
+    private static final String NOTHING        = "log nothing";
     private static final String NULL           = "null";
     private static final String ARGS           = "args";
     private static final Config CONFIG         = new Config();
@@ -300,7 +301,7 @@ public final class LogUtils {
                 body = sb.toString();
             }
         }
-        return body;
+        return body.length() == 0 ? NOTHING : body;
     }
 
     private static String formatJson(String json) {
