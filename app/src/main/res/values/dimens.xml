@@ -14,9 +14,8 @@
     <dimen name="font_24">24sp</dimen>
     <dimen name="font_40">40sp</dimen>
 
-    <dimen name="block_low_width">40dp</dimen>
+    <dimen name="block_width">40dp</dimen>
     <dimen name="block_low_height">8dp</dimen>
-    <dimen name="block_high_width">20dp</dimen>
     <dimen name="block_high_height">196dp</dimen>
 
     <dimen name="offset_64">64dp</dimen>
