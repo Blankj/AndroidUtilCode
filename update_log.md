@@ -1,4 +1,6 @@
-* 17/12/11 完善 ActivityUtils 的 finish 系列，发布1.9.11
+* 17/12/14 更新手机号（精确）正则，发布 1.9.12
+* 17/12/12 完善 LogUtils，当最终日志长度为 0 时，输出 log nothing
+* 17/12/11 完善 ActivityUtils 的 finish 系列，发布 1.9.11
 * 17/12/04 LogUtils 边框改为单线清爽型
 * 17/11/30 修复 ToastUtils 背景问题，发布 1.9.10
 * 17/11/30 修复 ToastUtils 获取背景为空，发布 1.9.9

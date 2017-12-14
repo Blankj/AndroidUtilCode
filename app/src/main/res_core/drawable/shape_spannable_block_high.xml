@@ -3,7 +3,7 @@
 
     <solid android:color="@color/colorAccent" />
     <size
-        android:width="100dp"
+        android:width="@dimen/block_width"
         android:height="@dimen/block_high_height" />
     <stroke
         android:width="5dp"
