@@ -1,3 +1,6 @@
+plugins {
+    id "tech.harmonysoft.oss.traute" version '1.0.5'
+}
 apply plugin: 'com.android.application'
 
 File signPropertiesFile = rootProject.file('sign/keystore.properties')
@@ -46,6 +49,9 @@ android {
     }
 }
 
+traute {
+    javacPluginVersion = trauteVersion
+}
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')

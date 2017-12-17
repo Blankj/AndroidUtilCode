@@ -42,6 +42,8 @@ ext {
 
     junit_version = '4.12'
     robolectric_version = '3.1.2'
+
+    trauteVersion = '1.0.10'
 }
 
 
