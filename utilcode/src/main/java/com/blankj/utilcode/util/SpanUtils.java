@@ -36,6 +36,7 @@ import android.text.style.CharacterStyle;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.LeadingMarginSpan;
+import android.text.style.LineHeightSpan;
 import android.text.style.MaskFilterSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.ReplacementSpan;
@@ -835,6 +836,7 @@ public final class SpanUtils {
      * @return {@link SpanUtils}
      */
     public SpanUtils appendImage(@DrawableRes final int resourceId, @Align final int align) {
+        append(Character.toString((char) 0));
         apply(mTypeImage);
         this.imageResourceId = resourceId;
         this.alignImage = align;
@@ -1194,7 +1196,7 @@ public final class SpanUtils {
         }
     }
 
-    class CustomIconMarginSpan implements LeadingMarginSpan, android.text.style.LineHeightSpan {
+    class CustomIconMarginSpan implements LeadingMarginSpan, LineHeightSpan {
         Bitmap mBitmap;
 
         static final int ALIGN_CENTER = 2;
@@ -1479,21 +1481,29 @@ public final class SpanUtils {
 
         @Override
         public int getSize(@NonNull final Paint paint, final CharSequence text,
-                           final int start, final int end,
-                           final Paint.FontMetricsInt fm) {
+                           final int start, final int end, final Paint.FontMetricsInt fm) {
             Drawable d = getCachedDrawable();
             Rect rect = d.getBounds();
-            final int fontHeight = (int) (paint.getFontMetrics().descent - paint.getFontMetrics().ascent);
-            if (fm != null) { // this is the fucking code which I waste 3 days
-                if (rect.height() > fontHeight) {
+            if (fm != null) {
+                LogUtils.d("fm.top: " + fm.top,
+                        "fm.ascent: " + fm.ascent,
+                        "fm.descent: " + fm.descent,
+                        "fm.bottom: " + fm.bottom,
+                        "lineHeight: " + (fm.bottom - fm.top));
+                int lineHeight = fm.bottom - fm.top;
+                if (lineHeight < rect.height()) {
                     if (mVerticalAlignment == ALIGN_TOP) {
-                        fm.descent += rect.height() - fontHeight;
+                        fm.top = fm.top;
+                        fm.bottom = rect.height() + fm.top;
                     } else if (mVerticalAlignment == ALIGN_CENTER) {
-                        fm.ascent -= (rect.height() - fontHeight) / 2;
-                        fm.descent += (rect.height() - fontHeight) / 2;
+                        fm.top = -rect.height() / 2 - lineHeight / 4;
+                        fm.bottom = rect.height() / 2 - lineHeight / 4;
                     } else {
-                        fm.ascent -= rect.height() - fontHeight;
+                        fm.top = -rect.height() + fm.bottom;
+                        fm.bottom = fm.bottom;
                     }
+                    fm.ascent = fm.top;
+                    fm.descent = fm.bottom;
                 }
             }
             return rect.right;
@@ -1506,18 +1516,25 @@ public final class SpanUtils {
             Drawable d = getCachedDrawable();
             Rect rect = d.getBounds();
             canvas.save();
-            final float fontHeight = paint.getFontMetrics().descent - paint.getFontMetrics().ascent;
-            int transY = bottom - rect.bottom;
-            if (rect.height() < fontHeight) { // this is the fucking code which I waste 3 days
-                if (mVerticalAlignment == ALIGN_BASELINE) {
-                    transY -= paint.getFontMetricsInt().descent;
+            float transY;
+            int lineHeight = bottom - top;
+            LogUtils.d("rectHeight: " + rect.height(),
+                    "lineHeight: " + (bottom - top),
+                    "base: " + (bottom - y));
+            if (rect.height() < lineHeight) {
+                if (mVerticalAlignment == ALIGN_TOP) {
+                    transY = top;
                 } else if (mVerticalAlignment == ALIGN_CENTER) {
-                    transY -= (fontHeight - rect.height()) / 2;
-                } else if (mVerticalAlignment == ALIGN_TOP) {
-                    transY -= fontHeight - rect.height();
+                    transY = (bottom + top - rect.height()) / 2;
+                } else if (mVerticalAlignment == ALIGN_BASELINE) {
+                    transY = y - rect.height();
+                } else {
+                    transY = bottom - rect.height();
                 }
+                canvas.translate(x, transY);
+            } else {
+                canvas.translate(x, top);
             }
-            canvas.translate(x, transY);
             d.draw(canvas);
             canvas.restore();
         }
@@ -1531,7 +1548,7 @@ public final class SpanUtils {
                 d = getDrawable();
                 mDrawableRef = new WeakReference<>(d);
             }
-            return getDrawable();
+            return d;
         }
 
         private WeakReference<Drawable> mDrawableRef;
