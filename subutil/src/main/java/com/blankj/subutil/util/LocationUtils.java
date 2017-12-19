@@ -110,7 +110,7 @@ public final class LocationUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isGpsEnabled() {
-        LocationManager lm = (LocationManager) Utils.getContext().getSystemService(LOCATION_SERVICE);
+        LocationManager lm = (LocationManager) Utils.getApp().getSystemService(LOCATION_SERVICE);
         return lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
@@ -120,7 +120,7 @@ public final class LocationUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isLocationEnabled() {
-        LocationManager lm = (LocationManager) Utils.getContext().getSystemService(LOCATION_SERVICE);
+        LocationManager lm = (LocationManager) Utils.getApp().getSystemService(LOCATION_SERVICE);
         return lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER) || lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
@@ -130,7 +130,7 @@ public final class LocationUtils {
     public static void openGpsSettings() {
         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Utils.getContext().startActivity(intent);
+        Utils.getApp().startActivity(intent);
     }
 
     /**
@@ -150,7 +150,7 @@ public final class LocationUtils {
      */
     public static boolean register(long minTime, long minDistance, OnLocationChangeListener listener) {
         if (listener == null) return false;
-        mLocationManager = (LocationManager) Utils.getContext().getSystemService(LOCATION_SERVICE);
+        mLocationManager = (LocationManager) Utils.getApp().getSystemService(LOCATION_SERVICE);
         mListener = listener;
         if (!isLocationEnabled()) {
             Log.d(TAG, "无法定位，请打开定位服务");
@@ -208,7 +208,7 @@ public final class LocationUtils {
      * @return {@link Address}
      */
     public static Address getAddress(double latitude, double longitude) {
-        Geocoder geocoder = new Geocoder(Utils.getContext(), Locale.getDefault());
+        Geocoder geocoder = new Geocoder(Utils.getApp(), Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
             if (addresses.size() > 0) return addresses.get(0);
