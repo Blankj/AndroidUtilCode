@@ -154,11 +154,12 @@ public class SnackbarActivity extends BaseBackActivity {
                         .setBgColor(Color.TRANSPARENT)
                         .setDuration(SnackbarUtils.LENGTH_INDEFINITE)
                         .show();
-                params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT);
                 SnackbarUtils.addView(R.layout.snackbar_custom, params);
                 View snackbarView = SnackbarUtils.getView();
                 if (snackbarView != null) {
-                    TextView tvSnackbarCustom = (TextView) snackbarView.findViewById(R.id.tv_snackbar_custom);
+                    TextView tvSnackbarCustom = snackbarView.findViewById(R.id.tv_snackbar_custom);
                     tvSnackbarCustom.setText("点我可消失");
                     snackbarView.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -195,10 +196,9 @@ public class SnackbarActivity extends BaseBackActivity {
 
     private SpannableStringBuilder getMsg(@StringRes int resId) {
         return new SpanUtils()
-                .appendLine(getString(resId))
-                .setFontSize(24, true)
-                .setIconMargin(R.mipmap.ic_launcher, 32, SpanUtils.ALIGN_CENTER)
-                .append(" ").setFontSize(0)
+                .appendImage(R.mipmap.ic_launcher, SpanUtils.ALIGN_CENTER)
+                .appendSpace(32)
+                .append(getString(resId)).setFontSize(24, true)
                 .create();
     }
 }

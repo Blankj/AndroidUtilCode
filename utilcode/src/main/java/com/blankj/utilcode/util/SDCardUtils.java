@@ -40,7 +40,7 @@ public final class SDCardUtils {
      * @return SD 卡路径
      */
     @SuppressWarnings("TryWithIdenticalCatches")
-    public static List<String> getSDCardPaths(boolean removable) {
+    public static List<String> getSDCardPaths(final boolean removable) {
         List<String> paths = new ArrayList<>();
         StorageManager mStorageManager = (StorageManager) Utils.getApp()
                 .getSystemService(Context.STORAGE_SERVICE);

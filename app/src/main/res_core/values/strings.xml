@@ -222,6 +222,6 @@
     <string name="toast_green_font">Green Font</string>
     <string name="toast_bg_color">Bg Color</string>
     <string name="toast_custom_bg">Custom Bg</string>
-    <string name="toast_span">Span</string>
+    <string name="toast_span">Spannable String</string>
     <string name="toast_middle">Middle</string>
 </resources>

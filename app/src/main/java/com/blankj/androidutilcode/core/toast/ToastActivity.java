@@ -97,10 +97,8 @@ public class ToastActivity extends BaseBackActivity {
                 break;
             case R.id.btn_show_span:
                 ToastUtils.showLong(new SpanUtils()
-                        .appendLine(getString(R.string.toast_span))
-                        .setFontSize(24, true)
-                        .setIconMargin(R.mipmap.ic_launcher, 32, SpanUtils.ALIGN_CENTER)
-                        .append(" ").setFontSize(0)
+                        .appendImage(R.mipmap.ic_launcher, SpanUtils.ALIGN_CENTER).appendSpace(32)
+                        .append(getString(R.string.toast_span)).setFontSize(24, true)
                         .create()
                 );
                 break;

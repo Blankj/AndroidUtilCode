@@ -15,6 +15,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
@@ -149,6 +150,7 @@ public final class SpanUtils {
         mBuilder = new SpannableStringBuilder();
         mText = "";
         setDefault();
+        appendLine().setFontSize(0);// it's important for span start with icon
     }
 
     private void setDefault() {
@@ -836,7 +838,7 @@ public final class SpanUtils {
      * @return {@link SpanUtils}
      */
     public SpanUtils appendImage(@DrawableRes final int resourceId, @Align final int align) {
-        append(Character.toString((char) 0));
+        append(Character.toString((char) 0));// it's important for span start with image
         apply(mTypeImage);
         this.imageResourceId = resourceId;
         this.alignImage = align;
@@ -878,6 +880,7 @@ public final class SpanUtils {
      * @return 样式字符串
      */
     public SpannableStringBuilder create() {
+        append(Character.toString((char) 0)).setFontSize(0);// it's important for the last line
         applyLast();
         return mBuilder;
     }
@@ -1017,7 +1020,7 @@ public final class SpanUtils {
      * 行高
      */
     class CustomLineHeightSpan extends CharacterStyle
-            implements android.text.style.LineHeightSpan {
+            implements LineHeightSpan {
 
         private final int height;
 
@@ -1033,7 +1036,8 @@ public final class SpanUtils {
         }
 
         @Override
-        public void chooseHeight(final CharSequence text, final int start, final int end, final int spanstartv, final int v, final Paint.FontMetricsInt fm) {
+        public void chooseHeight(final CharSequence text, final int start, final int end,
+                                 final int spanstartv, final int v, final Paint.FontMetricsInt fm) {
             int need = height - (v + fm.descent - fm.ascent - spanstartv);
             if (need > 0) {
                 if (mVerticalAlignment == ALIGN_TOP) {
@@ -1196,7 +1200,9 @@ public final class SpanUtils {
         }
     }
 
-    class CustomIconMarginSpan implements LeadingMarginSpan, LineHeightSpan {
+    class CustomIconMarginSpan
+            implements LeadingMarginSpan, LineHeightSpan {
+
         Bitmap mBitmap;
 
         static final int ALIGN_CENTER = 2;
@@ -1206,8 +1212,6 @@ public final class SpanUtils {
         final int mVerticalAlignment;
 
         private int     mPad;
-        private int     totalHeight;
-        private int     lineHeight;
         private int     need0;
         private int     need1;
         private boolean flag;
@@ -1276,47 +1280,19 @@ public final class SpanUtils {
             return bitmap;
         }
 
-        public int getLeadingMargin(final boolean first) {
-            return mBitmap.getWidth() + mPad;
-        }
-
-        public void drawLeadingMargin(Canvas c, Paint p, int x, int dir,
-                                      int top, int baseline, int bottom,
-                                      CharSequence text, int start, int end,
-                                      boolean first, Layout layout) {
-            int st = ((Spanned) text).getSpanStart(this);
-            int itop = layout.getLineTop(layout.getLineForOffset(st));
-
-            if (dir < 0)
-                x -= mBitmap.getWidth();
-
-            int delta = totalHeight - mBitmap.getHeight();
-
-            if (delta > 0) {
-                if (mVerticalAlignment == ALIGN_TOP) {
-                    c.drawBitmap(mBitmap, x, itop, p);
-                } else if (mVerticalAlignment == ALIGN_CENTER) {
-                    c.drawBitmap(mBitmap, x, itop + delta / 2, p);
-                } else {
-                    c.drawBitmap(mBitmap, x, itop + delta, p);
-                }
-            } else {
-                c.drawBitmap(mBitmap, x, itop, p);
-            }
-        }
-
         public void chooseHeight(CharSequence text, int start, int end,
                                  int istartv, int v, Paint.FontMetricsInt fm) {
-            if (lineHeight == 0) {
-                lineHeight = v - istartv;
-            }
             if (need0 == 0 && end == ((Spanned) text).getSpanEnd(this)) {
                 int ht = mBitmap.getHeight();
                 need0 = ht - (v + fm.descent - fm.ascent - istartv);
                 need1 = ht - (v + fm.bottom - fm.top - istartv);
-                totalHeight = v - istartv + lineHeight;
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                    if (need0 > 0) fm.descent += need0;
+                    if (need1 > 0) fm.bottom += need1;
+                }
                 return;
             }
+            // 不高于 6.0 版本不支持居中及靠底部
             if (need0 > 0 || need1 > 0) {
                 if (mVerticalAlignment == ALIGN_TOP) {
                     // the rest space should be filled with the end of line
@@ -1351,6 +1327,40 @@ public final class SpanUtils {
                             flag = true;
                         }
                     }
+                }
+            }
+        }
+
+        public int getLeadingMargin(final boolean first) {
+            return mBitmap.getWidth() + mPad;
+        }
+
+        public void drawLeadingMargin(Canvas c, Paint p, int x, int dir,
+                                      int top, int baseline, int bottom,
+                                      CharSequence text, int start, int end,
+                                      boolean first, Layout layout) {
+            int st = ((Spanned) text).getSpanStart(this);
+            int ed = ((Spanned) text).getSpanEnd(this);
+
+            int lineTop = layout.getLineTop(layout.getLineForOffset(st));
+            int lineBottom = layout.getLineTop(layout.getLineForOffset(ed));
+
+            if (dir < 0)
+                x -= mBitmap.getWidth();
+
+            int delta = (lineBottom - lineTop) - mBitmap.getHeight();
+
+            if (first) {
+                if (delta > 0) {
+                    if (mVerticalAlignment == ALIGN_TOP) {
+                        c.drawBitmap(mBitmap, x, lineTop, p);
+                    } else if (mVerticalAlignment == ALIGN_CENTER) {
+                        c.drawBitmap(mBitmap, x, lineTop + delta / 2, p);
+                    } else {
+                        c.drawBitmap(mBitmap, x, lineTop + delta, p);
+                    }
+                } else {
+                    c.drawBitmap(mBitmap, x, lineTop, p);
                 }
             }
         }
@@ -1485,11 +1495,11 @@ public final class SpanUtils {
             Drawable d = getCachedDrawable();
             Rect rect = d.getBounds();
             if (fm != null) {
-                LogUtils.d("fm.top: " + fm.top,
-                        "fm.ascent: " + fm.ascent,
-                        "fm.descent: " + fm.descent,
-                        "fm.bottom: " + fm.bottom,
-                        "lineHeight: " + (fm.bottom - fm.top));
+//                LogUtils.d("fm.top: " + fm.top,
+//                        "fm.ascent: " + fm.ascent,
+//                        "fm.descent: " + fm.descent,
+//                        "fm.bottom: " + fm.bottom,
+//                        "lineHeight: " + (fm.bottom - fm.top));
                 int lineHeight = fm.bottom - fm.top;
                 if (lineHeight < rect.height()) {
                     if (mVerticalAlignment == ALIGN_TOP) {
@@ -1518,9 +1528,8 @@ public final class SpanUtils {
             canvas.save();
             float transY;
             int lineHeight = bottom - top;
-            LogUtils.d("rectHeight: " + rect.height(),
-                    "lineHeight: " + (bottom - top),
-                    "base: " + (bottom - y));
+//            LogUtils.d("rectHeight: " + rect.height(),
+//                    "lineHeight: " + (bottom - top));
             if (rect.height() < lineHeight) {
                 if (mVerticalAlignment == ALIGN_TOP) {
                     transY = top;

@@ -58,7 +58,8 @@ public final class AppUtils {
 
     /**
      * 安装 App(支持 8.0)
-     * <p>8.0 需添加权限 {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
+     * <p>8.0 需添加权限
+     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
      *
      * @param filePath  文件路径
      * @param authority 7.0 及以上安装需要传入清单文件中的{@code <provider>}的 authorities 属性
@@ -70,7 +71,8 @@ public final class AppUtils {
 
     /**
      * 安装 App（支持 8.0）
-     * <p>8.0 需添加权限 {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
+     * <p>8.0 需添加权限
+     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
      *
      * @param file      文件
      * @param authority 7.0 及以上安装需要传入清单文件中的{@code <provider>}的 authorities 属性
@@ -78,12 +80,13 @@ public final class AppUtils {
      */
     public static void installApp(final File file, final String authority) {
         if (!FileUtils.isFileExists(file)) return;
-        Utils.getApp().startActivity(IntentUtils.getInstallAppIntent(file, authority));
+        Utils.getApp().startActivity(IntentUtils.getInstallAppIntent(file, authority, true));
     }
 
     /**
      * 安装 App（支持 8.0）
-     * <p>8.0 需添加权限 {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
+     * <p>8.0 需添加权限
+     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
      *
      * @param activity    activity
      * @param filePath    文件路径
@@ -91,13 +94,17 @@ public final class AppUtils {
      *                    <br>参看 https://developer.android.com/reference/android/support/v4/content/FileProvider.html
      * @param requestCode 请求值
      */
-    public static void installApp(final Activity activity, final String filePath, final String authority, final int requestCode) {
+    public static void installApp(final Activity activity,
+                                  final String filePath,
+                                  final String authority,
+                                  final int requestCode) {
         installApp(activity, FileUtils.getFileByPath(filePath), authority, requestCode);
     }
 
     /**
      * 安装 App（支持 8.0）
-     * <p>8.0 需添加权限 {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
+     * <p>8.0 需添加权限
+     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
      *
      * @param activity    activity
      * @param file        文件
@@ -105,14 +112,19 @@ public final class AppUtils {
      *                    <br>参看 https://developer.android.com/reference/android/support/v4/content/FileProvider.html
      * @param requestCode 请求值
      */
-    public static void installApp(final Activity activity, final File file, final String authority, final int requestCode) {
+    public static void installApp(final Activity activity,
+                                  final File file,
+                                  final String authority,
+                                  final int requestCode) {
         if (!FileUtils.isFileExists(file)) return;
-        activity.startActivityForResult(IntentUtils.getInstallAppIntent(file, authority), requestCode);
+        activity.startActivityForResult(IntentUtils.getInstallAppIntent(file, authority),
+                requestCode);
     }
 
     /**
      * 静默安装 App
-     * <p>非 root 需添加权限 {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
+     * <p>非 root 需添加权限
+     * {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
      *
      * @param filePath 文件路径
      * @return {@code true}: 安装成功<br>{@code false}: 安装失败
@@ -120,9 +132,18 @@ public final class AppUtils {
     public static boolean installAppSilent(final String filePath) {
         File file = FileUtils.getFileByPath(filePath);
         if (!FileUtils.isFileExists(file)) return false;
+        boolean isRoot = isDeviceRooted();
         String command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib pm install " + filePath;
-        ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, isDeviceRooted(), true);
-        return commandResult.successMsg != null && commandResult.successMsg.toLowerCase().contains("success");
+        ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, isRoot);
+        if (commandResult.successMsg != null
+                && commandResult.successMsg.toLowerCase().contains("success")) {
+            return true;
+        } else {
+            command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib64 pm install " + filePath;
+            commandResult = ShellUtils.execCmd(command, isRoot, true);
+            return commandResult.successMsg != null
+                    && commandResult.successMsg.toLowerCase().contains("success");
+        }
     }
 
     /**
@@ -132,7 +153,7 @@ public final class AppUtils {
      */
     public static void uninstallApp(final String packageName) {
         if (isSpace(packageName)) return;
-        Utils.getApp().startActivity(IntentUtils.getUninstallAppIntent(packageName));
+        Utils.getApp().startActivity(IntentUtils.getUninstallAppIntent(packageName, true));
     }
 
     /**
@@ -142,14 +163,17 @@ public final class AppUtils {
      * @param packageName 包名
      * @param requestCode 请求值
      */
-    public static void uninstallApp(final Activity activity, final String packageName, final int requestCode) {
+    public static void uninstallApp(final Activity activity,
+                                    final String packageName,
+                                    final int requestCode) {
         if (isSpace(packageName)) return;
         activity.startActivityForResult(IntentUtils.getUninstallAppIntent(packageName), requestCode);
     }
 
     /**
      * 静默卸载 App
-     * <p>非 root 需添加权限 {@code <uses-permission android:name="android.permission.DELETE_PACKAGES" />}</p>
+     * <p>非 root 需添加权限
+     * {@code <uses-permission android:name="android.permission.DELETE_PACKAGES" />}</p>
      *
      * @param packageName 包名
      * @param isKeepData  是否保留数据
@@ -157,9 +181,22 @@ public final class AppUtils {
      */
     public static boolean uninstallAppSilent(final String packageName, final boolean isKeepData) {
         if (isSpace(packageName)) return false;
-        String command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib pm uninstall " + (isKeepData ? "-k " : "") + packageName;
-        ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, isDeviceRooted(), true);
-        return commandResult.successMsg != null && commandResult.successMsg.toLowerCase().contains("success");
+        boolean isRoot = isDeviceRooted();
+        String command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib pm uninstall "
+                + (isKeepData ? "-k " : "")
+                + packageName;
+        ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, isRoot, true);
+        if (commandResult.successMsg != null
+                && commandResult.successMsg.toLowerCase().contains("success")) {
+            return true;
+        } else {
+            command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib64 pm uninstall "
+                    + (isKeepData ? "-k " : "")
+                    + packageName;
+            commandResult = ShellUtils.execCmd(command, isRoot, true);
+            return commandResult.successMsg != null
+                    && commandResult.successMsg.toLowerCase().contains("success");
+        }
     }
 
     /**
@@ -169,9 +206,7 @@ public final class AppUtils {
      */
     public static boolean isAppRoot() {
         ShellUtils.CommandResult result = ShellUtils.execCmd("echo root", true);
-        if (result.result == 0) {
-            return true;
-        }
+        if (result.result == 0) return true;
         if (result.errorMsg != null) {
             Log.d("AppUtils", "isAppRoot() called" + result.errorMsg);
         }
@@ -195,7 +230,9 @@ public final class AppUtils {
      * @param packageName 包名
      * @param requestCode 请求值
      */
-    public static void launchApp(final Activity activity, final String packageName, final int requestCode) {
+    public static void launchApp(final Activity activity,
+                                 final String packageName,
+                                 final int requestCode) {
         if (isSpace(packageName)) return;
         activity.startActivityForResult(IntentUtils.getLaunchAppIntent(packageName), requestCode);
     }
@@ -485,7 +522,8 @@ public final class AppUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isAppForeground() {
-        ActivityManager manager = (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager manager =
+                (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> info = manager.getRunningAppProcesses();
         if (info == null || info.size() == 0) return false;
         for (ActivityManager.RunningAppProcessInfo aInfo : info) {
@@ -658,7 +696,8 @@ public final class AppUtils {
 
     /**
      * 获取所有已安装 App 信息
-     * <p>{@link #getBean(PackageManager, PackageInfo)}（名称，图标，包名，包路径，版本号，版本 Code，是否系统应用）</p>
+     * <p>{@link #getBean(PackageManager, PackageInfo)}
+     * （名称，图标，包名，包路径，版本号，版本 Code，是否系统应用）</p>
      * <p>依赖上面的 getBean 方法</p>
      *
      * @return 所有已安装的 AppInfo 列表
@@ -721,8 +760,8 @@ public final class AppUtils {
 
     private static boolean isDeviceRooted() {
         String su = "su";
-        String[] locations = {"/system/bin/", "/system/xbin/", "/sbin/", "/system/sd/xbin/", "/system/bin/failsafe/",
-                "/data/local/xbin/", "/data/local/bin/", "/data/local/"};
+        String[] locations = {"/system/bin/", "/system/xbin/", "/sbin/", "/system/sd/xbin/",
+                "/system/bin/failsafe/", "/data/local/xbin/", "/data/local/bin/", "/data/local/"};
         for (String location : locations) {
             if (new File(location + su).exists()) {
                 return true;

@@ -61,7 +61,8 @@ public class SpanActivity extends BaseBackActivity {
     float    density;
     TextView tvAboutSpan;
     TextView tvAboutAnimRainbow;
-    TextView tvAboutAnimBlur;
+    TextView tvAboutSpan1;
+    TextView tvAboutAnimRainbow1;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, SpanActivity.class);
@@ -106,18 +107,6 @@ public class SpanActivity extends BaseBackActivity {
         textSize = tvAboutSpan.getTextSize();
         density = getResources().getDisplayMetrics().density;
 
-//        tvAboutSpan.setText(new SpanUtils()
-//                .appendLine("测试图标文字顶部对齐测试图标文字顶部对齐测试图标文字顶部对齐测试图标文字顶部对齐").setIconMargin(R.drawable.shape_spannable_block_high, 20, SpanUtils.ALIGN_CENTER).setBackgroundColor(Color.LTGRAY)
-//                .appendLine("测试图标文字居中对齐，后面的字是为了凑到两行的效果").setIconMargin(R.drawable.shape_spannable_block_high, 20, SpanUtils.ALIGN_CENTER).setBackgroundColor(Color.GREEN)
-//                .appendLine("测试图标文字底部对齐，后面的字是为了凑到两行的效果").setIconMargin(R.drawable.shape_spannable_block_high, 20, SpanUtils.ALIGN_BOTTOM).setBackgroundColor(Color.LTGRAY)
-//                .appendLine("测试图标顶部对齐，后面的字是为了凑到两行的效果").setIconMargin(R.drawable.shape_spannable_block_low, 20, SpanUtils.ALIGN_TOP).setBackgroundColor(Color.GREEN)
-//                .appendLine("测试图标居中对齐，后面的字是为了凑到两行的效果").setIconMargin(R.drawable.shape_spannable_block_low, 20, SpanUtils.ALIGN_CENTER).setBackgroundColor(Color.LTGRAY)
-//                .appendLine("测试图标底部对齐，后面的字是为了凑到两行的效果").setIconMargin(R.drawable.shape_spannable_block_low, 20, SpanUtils.ALIGN_BOTTOM).setBackgroundColor(Color.GREEN)
-//                .append("测试大图字体顶部对齐").setBackgroundColor(Color.GREEN)
-//                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_TOP)
-//                .appendLine()
-//                .create());
-
         initAnimSpan();
         startAnim();
 
@@ -131,12 +120,15 @@ public class SpanActivity extends BaseBackActivity {
                 .appendLine("测试段落缩，首行缩进两字，其他行不缩进").setLeadingMargin((int) textSize * 2, 10).setBackgroundColor(Color.GREEN)
                 .appendLine("测试引用，后面的字是为了凑到两行的效果").setQuoteColor(Color.GREEN, 10, 10).setBackgroundColor(Color.LTGRAY)
                 .appendLine("测试列表项，后面的字是为了凑到两行的效果").setBullet(Color.GREEN, 20, 10).setBackgroundColor(Color.LTGRAY).setBackgroundColor(Color.GREEN)
+
                 .appendLine("测试图标文字顶部对齐，后面的字是为了凑到两行的效果").setIconMargin(R.drawable.shape_spannable_block_high, 20, SpanUtils.ALIGN_TOP).setBackgroundColor(Color.LTGRAY)
                 .appendLine("测试图标文字居中对齐，后面的字是为了凑到两行的效果").setIconMargin(R.drawable.shape_spannable_block_high, 20, SpanUtils.ALIGN_CENTER).setBackgroundColor(Color.GREEN)
                 .appendLine("测试图标文字底部对齐，后面的字是为了凑到两行的效果").setIconMargin(R.drawable.shape_spannable_block_high, 20, SpanUtils.ALIGN_BOTTOM).setBackgroundColor(Color.LTGRAY)
+
                 .appendLine("测试图标顶部对齐，后面的字是为了凑到两行的效果").setIconMargin(R.drawable.shape_spannable_block_low, 20, SpanUtils.ALIGN_TOP).setBackgroundColor(Color.GREEN)
                 .appendLine("测试图标居中对齐，后面的字是为了凑到两行的效果").setIconMargin(R.drawable.shape_spannable_block_low, 20, SpanUtils.ALIGN_CENTER).setBackgroundColor(Color.LTGRAY)
                 .appendLine("测试图标底部对齐，后面的字是为了凑到两行的效果").setIconMargin(R.drawable.shape_spannable_block_low, 20, SpanUtils.ALIGN_BOTTOM).setBackgroundColor(Color.GREEN)
+
                 .appendLine("32dp 字体").setFontSize(32, true)
                 .appendLine("2 倍字体").setFontProportion(2)
                 .appendLine("横向 2 倍字体").setFontXProportion(1.5f)
@@ -165,27 +157,36 @@ public class SpanActivity extends BaseBackActivity {
                         Shader.TileMode.REPEAT))
                 .appendLine("阴影效果").setFontSize(64, true).setBackgroundColor(Color.BLACK).setShadow(24, 8, 8, Color.WHITE)
 
-                .append("测试小图对齐").setBackgroundColor(Color.LTGRAY)
+                .append("小图").setBackgroundColor(Color.GREEN)
                 .appendImage(R.drawable.shape_spannable_block_low, SpanUtils.ALIGN_TOP)
+                .append("顶部").setBackgroundColor(Color.GREEN)
                 .appendImage(R.drawable.shape_spannable_block_low, SpanUtils.ALIGN_CENTER)
+                .append("居中").setBackgroundColor(Color.GREEN)
                 .appendImage(R.drawable.shape_spannable_block_low, SpanUtils.ALIGN_BASELINE)
+                .append("底部").setBackgroundColor(Color.GREEN)
                 .appendImage(R.drawable.shape_spannable_block_low, SpanUtils.ALIGN_BOTTOM)
-                .appendLine("end").setBackgroundColor(Color.LTGRAY)
+                .appendLine("对齐").setBackgroundColor(Color.GREEN)
 
-                .append("测试大图字体顶部对齐").setBackgroundColor(Color.GREEN)
                 .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_TOP)
-                .append("测试大图字体顶部对齐").setBackgroundColor(Color.GREEN)
-                .appendLine()
+                .append("大图").setBackgroundColor(Color.LTGRAY)
+                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_TOP)
+                .append("顶部").setBackgroundColor(Color.LTGRAY)
+                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_TOP)
+                .appendLine("对齐").setBackgroundColor(Color.LTGRAY)
 
-                .append("测试大图字体居中对齐").setBackgroundColor(Color.LTGRAY)
                 .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_CENTER)
-                .append("测试大图字体居中对齐").setBackgroundColor(Color.LTGRAY)
-                .appendLine()
+                .append("大图").setBackgroundColor(Color.GREEN)
+                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_CENTER)
+                .append("居中").setBackgroundColor(Color.GREEN)
+                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_CENTER)
+                .appendLine("对齐").setBackgroundColor(Color.GREEN)
 
-                .append("测试大图字体底部对齐").setBackgroundColor(Color.GREEN)
                 .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_BOTTOM)
-                .append("测试大图字体底部对齐").setBackgroundColor(Color.GREEN)
-                .appendLine()
+                .append("大图").setBackgroundColor(Color.LTGRAY)
+                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_BOTTOM)
+                .append("底部").setBackgroundColor(Color.LTGRAY)
+                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_BOTTOM)
+                .appendLine("对齐").setBackgroundColor(Color.LTGRAY)
 
                 .append("测试空格").appendSpace(30, Color.LTGRAY).appendSpace(50, Color.GREEN).appendSpace(100).appendSpace(30, Color.LTGRAY).appendSpace(50, Color.GREEN)
                 .create());
