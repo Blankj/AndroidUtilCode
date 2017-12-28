@@ -245,28 +245,30 @@ public final class ToastUtils {
         } else if (bgColor != COLOR_DEFAULT) {
             Drawable background = toastView.getBackground();
             if (background != null) {
-                background.setColorFilter(new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN));
+                background.setColorFilter(
+                        new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN)
+                );
             } else {
                 ViewCompat.setBackground(toastView, new ColorDrawable(bgColor));
             }
         }
     }
 
-    private static void setBg(final TextView tvMessage) {
+    private static void setBg(final TextView tvMsg) {
         View toastView = sToast.getView();
         if (bgResource != -1) {
             toastView.setBackgroundResource(bgResource);
-            tvMessage.setBackgroundColor(Color.TRANSPARENT);
+            tvMsg.setBackgroundColor(Color.TRANSPARENT);
         } else if (bgColor != COLOR_DEFAULT) {
             Drawable tvBg = toastView.getBackground();
-            Drawable messageBg = tvMessage.getBackground();
-            if (tvBg != null && messageBg != null) {
+            Drawable msgBg = tvMsg.getBackground();
+            if (tvBg != null && msgBg != null) {
                 tvBg.setColorFilter(new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN));
-                tvMessage.setBackgroundColor(Color.TRANSPARENT);
+                tvMsg.setBackgroundColor(Color.TRANSPARENT);
             } else if (tvBg != null) {
                 tvBg.setColorFilter(new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN));
-            } else if (messageBg != null) {
-                messageBg.setColorFilter(new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN));
+            } else if (msgBg != null) {
+                msgBg.setColorFilter(new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN));
             } else {
                 toastView.setBackgroundColor(bgColor);
             }
@@ -282,7 +284,9 @@ public final class ToastUtils {
                 }
             }
         }
-        LayoutInflater inflate = (LayoutInflater) Utils.getApp().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflate =
+                (LayoutInflater) Utils.getApp().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if (inflate == null) return null;
         final View toastView = inflate.inflate(layoutId, null);
         sViewWeakReference = new WeakReference<>(toastView);
         sLayoutId = layoutId;

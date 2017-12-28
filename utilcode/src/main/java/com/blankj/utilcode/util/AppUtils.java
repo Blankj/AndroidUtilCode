@@ -220,7 +220,7 @@ public final class AppUtils {
      */
     public static void launchApp(final String packageName) {
         if (isSpace(packageName)) return;
-        Utils.getApp().startActivity(IntentUtils.getLaunchAppIntent(packageName));
+        Utils.getApp().startActivity(IntentUtils.getLaunchAppIntent(packageName, true));
     }
 
     /**
@@ -272,7 +272,7 @@ public final class AppUtils {
      */
     public static void getAppDetailsSettings(final String packageName) {
         if (isSpace(packageName)) return;
-        Utils.getApp().startActivity(IntentUtils.getAppDetailsSettingsIntent(packageName));
+        Utils.getApp().startActivity(IntentUtils.getAppDetailsSettingsIntent(packageName, true));
     }
 
     /**
@@ -537,7 +537,7 @@ public final class AppUtils {
     /**
      * 判断 App 是否处于前台
      * <p>当不是查看当前 App，且 SDK 大于 21 时，
-     * 需添加权限 {@code <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"/>}</p>
+     * 需添加权限 {@code <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />}</p>
      *
      * @param packageName 包名
      * @return {@code true}: 是<br>{@code false}: 否

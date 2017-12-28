@@ -14,6 +14,13 @@
         android:layout_height="wrap_content" />
 
     <Button
+        android:id="@+id/btn_set_fullscreen"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/screen_set_fullscreen" />
+
+    <Button
         android:id="@+id/btn_set_landscape"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"

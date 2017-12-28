@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-compile 'com.blankj:utilcode:1.9.12'
+compile 'com.blankj:utilcode:1.10.0'
 ```
 
 
@@ -73,6 +73,8 @@ cleanAppData
 * ### About Bar -> [BarUtils.java][bar.java] -> [Demo][bar.demo]
 ```
 getStatusBarHeight
+setStatusBarVisibility
+isStatusBarVisible
 addMarginTopEqualStatusBarHeight
 subtractMarginTopEqualStatusBarHeight
 setStatusBarColor
@@ -80,10 +82,11 @@ setStatusBarAlpha
 setStatusBarColor4Drawer
 setStatusBarAlpha4Drawer
 getActionBarHeight
-showNotificationBar
-hideNotificationBar
+setNotificationBarVisibility
 getNavBarHeight
-hideNavBar
+setNavBarVisibility
+setNavBarImmersive
+isNavBarVisible
 ```
 
 * ### About Cache -> [CacheUtils.java][cache.java] -> [Test][cache.test]
@@ -333,6 +336,8 @@ getCaptureIntent
 showSoftInput
 hideSoftInput
 toggleSoftInput
+isSoftInputVisible
+registerSoftInputChangedListener
 clickBlankArea2HideSoftInput
 ```
 
@@ -372,8 +377,9 @@ xml
 openWirelessSettings
 isConnected
 isAvailableByPing
-getDataEnabled
-setDataEnabled
+getMobileDataEnabled
+setMobileDataEnabled
+isMobileData
 is4G
 getWifiEnabled
 setWifiEnabled
@@ -383,6 +389,13 @@ getNetworkOperatorName
 getNetworkType
 getIPAddress
 getDomainAddress
+```
+
+* ### About Object -> [ObjectUtils.java][object.java] -> [Test][object.test]
+```
+isEmpty
+isNotEmpty
+equals
 ```
 
 * ### About Phone -> [PhoneUtils.java][phone.java] -> [Demo][phone.demo]
@@ -681,6 +694,9 @@ getComments
 
 [network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/NetworkUtils.java
 [network.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/network/NetworkActivity.java
+
+[object.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ObjectUtils.java
+[object.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/ObjectUtilsTest.java
 
 [phone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/PhoneUtils.java
 [phone.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/phone/PhoneActivity.java

@@ -2,10 +2,8 @@ package com.blankj.androidutilcode.core.keyboard;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -15,7 +13,6 @@ import android.widget.TextView;
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.LogUtils;
 
 /**
  * <pre>
@@ -56,6 +53,16 @@ public class KeyboardActivity extends BaseBackActivity {
         findViewById(R.id.btn_toggle_soft_input).setOnClickListener(this);
         findViewById(R.id.btn_keyboard_in_fragment).setOnClickListener(this);
         tvAboutKeyboard = findViewById(R.id.tv_about_keyboard);
+
+        KeyboardUtils.registerSoftInputChangedListener(this,
+                new KeyboardUtils.OnSoftInputChangedListener() {
+                    @Override
+                    public void onSoftInputChanged(int height) {
+                        tvAboutKeyboard.setText("isSoftInputVisible: "
+                                + KeyboardUtils.isSoftInputVisible(KeyboardActivity.this)
+                                + "\nheight: " + height);
+                    }
+                });
     }
 
     @Override
@@ -76,8 +83,8 @@ public class KeyboardActivity extends BaseBackActivity {
                 KeyboardUtils.toggleSoftInput();
                 break;
             case R.id.btn_keyboard_in_fragment:
-                KeyboardUtils.hideSoftInput(this);
                 new KeyboardDialog(this).show();
+                KeyboardUtils.showSoftInput(this);
                 break;
         }
     }
@@ -87,7 +94,9 @@ public class KeyboardActivity extends BaseBackActivity {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             View v = getCurrentFocus();
             if (isShouldHideKeyboard(v, ev)) {
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm =
+                        (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm == null) return super.dispatchTouchEvent(ev);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
             }
         }
@@ -107,15 +116,5 @@ public class KeyboardActivity extends BaseBackActivity {
                     && event.getY() > top && event.getY() < bottom);
         }
         return false;
-    }
-
-    private boolean isKeyboardShown(View rootView) {
-        final int softKeyboardHeight = 100;
-        Rect frame = new Rect();
-        rootView.getWindowVisibleDisplayFrame(frame);
-        DisplayMetrics dm = rootView.getResources().getDisplayMetrics();
-        int heightDiff = rootView.getBottom() - frame.bottom;
-        LogUtils.d("" + rootView.getBottom() + ", " + frame.bottom + ", " + heightDiff);
-        return heightDiff > softKeyboardHeight * dm.density;
     }
 }

@@ -6,6 +6,10 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * <pre>
  *     author: Blankj
@@ -24,6 +28,19 @@ public class TestUtils {
 
     @Test
     public void test() throws Exception {
+        TagMessage m0 = new TagMessage("", "0", -1);
+        TagMessage m1 = new TagMessage("", "1", 0);
+        TagMessage m2 = new TagMessage("", "2", 0);
+        TagMessage m3 = new TagMessage("", "3", 0);
+        TagMessage m4 = new TagMessage("", "4", 1);
+        List<TagMessage> ms = new ArrayList<>();
+        ms.add(m0);
+        ms.add(m1);
+        ms.add(m2);
+        ms.add(m3);
+        ms.add(m4);
 
+        Collections.sort(ms);
+        System.out.println(ms);
     }
 }

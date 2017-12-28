@@ -76,7 +76,8 @@ def format(File readmeCN) {
                 def spaceLen = maxLen - line.replace(" ", "").replace(",", ", ").indexOf(':')
                 sb.append(noSpaceLine.substring(0, noSpaceLine.indexOf(':')).replace(",", ", "))
                         .append(LONG_SPACE.substring(0, spaceLen))// add the space
-                        .append(line.substring(line.indexOf(':')))
+                        .append(': ')
+                        .append(line.substring(line.indexOf(':') + 1).trim())
                         .append(LINE_SEP)
             }
             sb.append("```")

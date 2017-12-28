@@ -59,7 +59,7 @@ public class NetworkActivity extends BaseBackActivity {
                 NetworkUtils.openWirelessSettings();
                 break;
             case R.id.btn_set_data_enabled:
-                NetworkUtils.setDataEnabled(!NetworkUtils.getDataEnabled());
+                NetworkUtils.setMobileDataEnabled(!NetworkUtils.getMobileDataEnabled());
                 break;
             case R.id.btn_set_wifi_enabled:
                 NetworkUtils.setWifiEnabled(!NetworkUtils.getWifiEnabled());
@@ -70,7 +70,7 @@ public class NetworkActivity extends BaseBackActivity {
 
     private void setAboutNetwork() {
         tvAboutNetwork.setText("isConnected: " + NetworkUtils.isConnected()
-                + "\ngetDataEnabled: " + NetworkUtils.getDataEnabled()
+                + "\ngetDataEnabled: " + NetworkUtils.getMobileDataEnabled()
                 + "\nis4G: " + NetworkUtils.is4G()
                 + "\ngetWifiEnabled: " + NetworkUtils.getWifiEnabled()
                 + "\nisWifiConnected: " + NetworkUtils.isWifiConnected()

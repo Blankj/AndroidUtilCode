@@ -3,12 +3,10 @@ package com.blankj.androidutilcode.core.bar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
+import android.os.Handler;
 import android.view.View;
-import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.UtilsApp;
 import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.utilcode.util.BarUtils;
 
@@ -20,12 +18,12 @@ import com.blankj.utilcode.util.BarUtils;
  *     desc  : Activity 工具类 Demo
  * </pre>
  */
-public class BarNavActivity extends BaseBackActivity {
+public class BarNotificationActivity extends BaseBackActivity {
 
-    private TextView tvAboutNav;
+    private Handler mHandler = new Handler();
 
     public static void start(Context context) {
-        Intent starter = new Intent(context, BarNavActivity.class);
+        Intent starter = new Intent(context, BarNotificationActivity.class);
         context.startActivity(starter);
     }
 
@@ -36,7 +34,7 @@ public class BarNavActivity extends BaseBackActivity {
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_bar_nav;
+        return R.layout.activity_bar_notification;
     }
 
 
@@ -44,24 +42,7 @@ public class BarNavActivity extends BaseBackActivity {
     public void initView(Bundle savedInstanceState, View view) {
         getToolBar().setTitle(getString(R.string.demo_bar));
 
-        tvAboutNav = findViewById(R.id.tv_about_nav);
-        findViewById(R.id.btn_show_nav).setOnClickListener(this);
-        findViewById(R.id.btn_hide_nav).setOnClickListener(this);
-
-        BarUtils.setNavBarVisible(this, false);
-        updateAboutNav(false);
-
-        BarUtils.registerNavBarChangedListener(this, new BarUtils.OnNavBarChangedListener() {
-            @Override
-            public void onNavBarChanged(boolean isVisible) {
-                updateAboutNav(isVisible);
-            }
-        });
-    }
-
-    private void updateAboutNav(boolean isNavBarVisible) {
-        tvAboutNav.setText("navHeight: " + BarUtils.getNavBarHeight()
-                + "\nisNavBarVisible: " + isNavBarVisible);
+        findViewById(R.id.btn_show_notification).setOnClickListener(this);
     }
 
     @Override
@@ -72,14 +53,21 @@ public class BarNavActivity extends BaseBackActivity {
     @Override
     public void onWidgetClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_show_nav:
-                BarUtils.setNavBarVisible(this, true);
-                BarUtils.setStatusBarColor(this, ContextCompat.getColor(UtilsApp.getInstance(), R.color.colorPrimary), 0);
-                BarUtils.addMarginTopEqualStatusBarHeight(rootLayout);
-                break;
-            case R.id.btn_hide_nav:
-                BarUtils.setNavBarVisible(this, false);
+            case R.id.btn_show_notification:
+                BarUtils.setNotificationBarVisibility(true);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        BarUtils.setNotificationBarVisibility(false);
+                    }
+                }, 2000);
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
     }
 }

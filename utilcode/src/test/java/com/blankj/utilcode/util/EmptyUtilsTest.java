@@ -1,7 +1,5 @@
 package com.blankj.utilcode.util;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.support.v4.util.LongSparseArray;
 import android.support.v4.util.SimpleArrayMap;
 import android.util.SparseArray;
@@ -32,7 +30,6 @@ import static org.junit.Assert.assertTrue;
 @Config(manifest = Config.NONE, sdk = 23)
 public class EmptyUtilsTest {
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Test
     public void isEmpty() throws Exception {
         StringBuilder sb = new StringBuilder("");

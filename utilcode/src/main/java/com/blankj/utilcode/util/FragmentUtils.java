@@ -262,7 +262,11 @@ public final class FragmentUtils {
         for (Fragment show : fragments) {
             putArgs(show, false);
         }
-        operateNoAnim(fm, TYPE_SHOW_FRAGMENT, null, fragments.toArray(new Fragment[fragments.size()]));
+        operateNoAnim(fm,
+                TYPE_SHOW_FRAGMENT,
+                null,
+                fragments.toArray(new Fragment[fragments.size()])
+        );
     }
 
     /**
@@ -285,7 +289,11 @@ public final class FragmentUtils {
         for (Fragment hide : fragments) {
             putArgs(hide, true);
         }
-        operateNoAnim(fm, TYPE_HIDE_FRAGMENT, null, fragments.toArray(new Fragment[fragments.size()]));
+        operateNoAnim(fm,
+                TYPE_HIDE_FRAGMENT,
+                null,
+                fragments.toArray(new Fragment[fragments.size()])
+        );
     }
 
     /**
@@ -473,7 +481,12 @@ public final class FragmentUtils {
                                final boolean isAddStack,
                                final View... sharedElements) {
         Args args = getArgs(srcFragment);
-        replace(srcFragment.getFragmentManager(), destFragment, args.id, isAddStack, sharedElements);
+        replace(srcFragment.getFragmentManager(),
+                destFragment,
+                args.id,
+                isAddStack,
+                sharedElements
+        );
     }
 
     /**
@@ -732,7 +745,11 @@ public final class FragmentUtils {
      */
     public static void removeAll(@NonNull final FragmentManager fm) {
         List<Fragment> fragments = getFragments(fm);
-        operateNoAnim(fm, TYPE_REMOVE_FRAGMENT, null, fragments.toArray(new Fragment[fragments.size()]));
+        operateNoAnim(fm,
+                TYPE_REMOVE_FRAGMENT,
+                null,
+                fragments.toArray(new Fragment[fragments.size()])
+        );
     }
 
     private static void putArgs(final Fragment fragment, final Args args) {
@@ -1073,7 +1090,8 @@ public final class FragmentUtils {
      * @param fragment fragment
      * @param color    背景色
      */
-    public static void setBackgroundColor(@NonNull final Fragment fragment, @ColorInt final int color) {
+    public static void setBackgroundColor(@NonNull final Fragment fragment,
+                                          @ColorInt final int color) {
         View view = fragment.getView();
         if (view != null) {
             view.setBackgroundColor(color);
@@ -1086,7 +1104,8 @@ public final class FragmentUtils {
      * @param fragment fragment
      * @param resId    资源 Id
      */
-    public static void setBackgroundResource(@NonNull final Fragment fragment, @DrawableRes final int resId) {
+    public static void setBackgroundResource(@NonNull final Fragment fragment,
+                                             @DrawableRes final int resId) {
         View view = fragment.getView();
         if (view != null) {
             view.setBackgroundResource(resId);

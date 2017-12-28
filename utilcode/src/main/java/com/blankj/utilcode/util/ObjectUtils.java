@@ -16,13 +16,13 @@ import java.util.Map;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2016/09/28
- *     desc  : 判空相关工具类
+ *     time  : 2017/12/24
+ *     desc  : 对象相关工具类
  * </pre>
  */
-public final class EmptyUtils {
+public class ObjectUtils {
 
-    private EmptyUtils() {
+    private ObjectUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
@@ -31,9 +31,7 @@ public final class EmptyUtils {
      *
      * @param obj 对象
      * @return {@code true}: 为空<br>{@code false}: 不为空
-     * @deprecated use {@link ObjectUtils#isEmpty(Object)} instead
      */
-    @Deprecated
     public static boolean isEmpty(final Object obj) {
         if (obj == null) {
             return true;
@@ -84,10 +82,44 @@ public final class EmptyUtils {
      *
      * @param obj 对象
      * @return {@code true}: 非空<br>{@code false}: 空
-     * @deprecated use {@link ObjectUtils#isNotEmpty(Object)} instead
      */
-    @Deprecated
     public static boolean isNotEmpty(final Object obj) {
         return !isEmpty(obj);
+    }
+
+    /**
+     * 判断对象是否相等
+     *
+     * @param o1 对象1
+     * @param o2 对象2
+     * @return {@code true}: 相等<br>{@code false}: 不相等
+     */
+    public static boolean equals(Object o1, Object o2) {
+        return o1 == o2 || (o1 != null && o1.equals(o2));
+    }
+
+    /**
+     * 检查对象非空
+     *
+     * @param object  对象
+     * @param message 报错
+     * @param <T>     范型
+     * @return 非空对象
+     */
+    public static <T> T requireNonNull(T object, String message) {
+        if (object == null) {
+            throw new NullPointerException(message);
+        }
+        return object;
+    }
+
+    /**
+     * 获取对象哈希值
+     *
+     * @param o 对象
+     * @return 哈希值
+     */
+    public static int hashCode(Object o) {
+        return o != null ? o.hashCode() : 0;
     }
 }

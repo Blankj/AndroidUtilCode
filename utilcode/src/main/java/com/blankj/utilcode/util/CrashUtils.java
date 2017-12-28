@@ -1,5 +1,6 @@
 package com.blankj.utilcode.util;
 
+import android.annotation.SuppressLint;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -14,7 +15,6 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -36,7 +36,8 @@ public final class CrashUtils {
     private static ExecutorService sExecutor;
 
     private static final String FILE_SEP = System.getProperty("file.separator");
-    private static final Format FORMAT   = new SimpleDateFormat("MM-dd HH-mm-ss", Locale.getDefault());
+    @SuppressLint("SimpleDateFormat")
+    private static final Format FORMAT   = new SimpleDateFormat("MM-dd HH-mm-ss");
 
     private static final String CRASH_HEAD;
 
@@ -45,7 +46,9 @@ public final class CrashUtils {
 
     static {
         try {
-            PackageInfo pi = Utils.getApp().getPackageManager().getPackageInfo(Utils.getApp().getPackageName(), 0);
+            PackageInfo pi = Utils.getApp()
+                    .getPackageManager()
+                    .getPackageInfo(Utils.getApp().getPackageName(), 0);
             if (pi != null) {
                 versionName = pi.versionName;
                 versionCode = pi.versionCode;
@@ -115,7 +118,7 @@ public final class CrashUtils {
 
     /**
      * 初始化
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      */
     public static void init() {
         init("");
@@ -123,7 +126,7 @@ public final class CrashUtils {
 
     /**
      * 初始化
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      *
      * @param crashDir 崩溃文件存储目录
      */
@@ -133,7 +136,7 @@ public final class CrashUtils {
 
     /**
      * 初始化
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      *
      * @param crashDir 崩溃文件存储目录
      */

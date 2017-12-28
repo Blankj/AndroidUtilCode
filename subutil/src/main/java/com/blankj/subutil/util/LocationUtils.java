@@ -1,5 +1,6 @@
 package com.blankj.subutil.util;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Criteria;
@@ -28,8 +29,7 @@ import static android.content.Context.LOCATION_SERVICE;
  */
 public final class LocationUtils {
 
-    private static final String TAG         = "LocationUtils";
-    private static final int    TWO_MINUTES = 1000 * 60 * 2;
+    private static final int TWO_MINUTES = 1000 * 60 * 2;
 
     private static OnLocationChangeListener mListener;
     private static MyLocationListener       myLocationListener;
@@ -42,7 +42,7 @@ public final class LocationUtils {
 
 //    /**
 //     * you have to chech for Location Permission before use this method
-//     * add this code <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/> to your Manifest file.
+//     * add this code <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> to your Manifest file.
 //     * you have also implement LocationListener and passed it to the method.
 //     *
 //     * @param Context
@@ -129,16 +129,15 @@ public final class LocationUtils {
      */
     public static void openGpsSettings() {
         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Utils.getApp().startActivity(intent);
+        Utils.getApp().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     /**
      * 注册
      * <p>使用完记得调用{@link #unregister()}</p>
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>}</p>
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />}</p>
      * <p>如果{@code minDistance}为0，则通过{@code minTime}来定时更新；</p>
      * <p>{@code minDistance}不为0，则以{@code minDistance}为准；</p>
      * <p>两者都为0，则随时刷新。</p>
@@ -148,16 +147,17 @@ public final class LocationUtils {
      * @param listener    位置刷新的回调接口
      * @return {@code true}: 初始化成功<br>{@code false}: 初始化失败
      */
+    @SuppressLint("MissingPermission")
     public static boolean register(long minTime, long minDistance, OnLocationChangeListener listener) {
         if (listener == null) return false;
         mLocationManager = (LocationManager) Utils.getApp().getSystemService(LOCATION_SERVICE);
         mListener = listener;
         if (!isLocationEnabled()) {
-            Log.d(TAG, "无法定位，请打开定位服务");
+            Log.d("LocationUtils", "无法定位，请打开定位服务");
             return false;
         }
         String provider = mLocationManager.getBestProvider(getCriteria(), true);
-        Location location = mLocationManager.getLastKnownLocation(provider);
+        @SuppressLint("MissingPermission") Location location = mLocationManager.getLastKnownLocation(provider);
         if (location != null) listener.getLastKnownLocation(location);
         if (myLocationListener == null) myLocationListener = new MyLocationListener();
         mLocationManager.requestLocationUpdates(provider, minTime, minDistance, myLocationListener);
@@ -168,6 +168,7 @@ public final class LocationUtils {
     /**
      * 注销
      */
+    @SuppressLint("MissingPermission")
     public static void unregister() {
         if (mLocationManager != null) {
             if (myLocationListener != null) {
@@ -344,13 +345,13 @@ public final class LocationUtils {
             }
             switch (status) {
                 case LocationProvider.AVAILABLE:
-                    Log.d(TAG, "当前GPS状态为可见状态");
+                    Log.d("LocationUtils", "当前GPS状态为可见状态");
                     break;
                 case LocationProvider.OUT_OF_SERVICE:
-                    Log.d(TAG, "当前GPS状态为服务区外状态");
+                    Log.d("LocationUtils", "当前GPS状态为服务区外状态");
                     break;
                 case LocationProvider.TEMPORARILY_UNAVAILABLE:
-                    Log.d(TAG, "当前GPS状态为暂停服务状态");
+                    Log.d("LocationUtils", "当前GPS状态为暂停服务状态");
                     break;
             }
         }

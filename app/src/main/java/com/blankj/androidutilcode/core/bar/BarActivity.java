@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseBackActivity;
@@ -17,6 +18,8 @@ import com.blankj.androidutilcode.base.BaseBackActivity;
  * </pre>
  */
 public class BarActivity extends BaseBackActivity {
+
+    private TextView tvAboutStatus;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, BarActivity.class);
@@ -37,12 +40,15 @@ public class BarActivity extends BaseBackActivity {
     public void initView(Bundle savedInstanceState, View view) {
         getToolBar().setTitle(getString(R.string.demo_bar));
 
+        tvAboutStatus = findViewById(R.id.tv_about_status);
+        findViewById(R.id.btn_status_bar).setOnClickListener(this);
         findViewById(R.id.btn_status_bar_color).setOnClickListener(this);
         findViewById(R.id.btn_status_bar_alpha).setOnClickListener(this);
         findViewById(R.id.btn_status_bar_image_view).setOnClickListener(this);
         findViewById(R.id.btn_status_bar_fragment).setOnClickListener(this);
         findViewById(R.id.btn_status_bar_swipe_back).setOnClickListener(this);
         findViewById(R.id.btn_status_bar_drawer).setOnClickListener(this);
+        findViewById(R.id.btn_notification_bar).setOnClickListener(this);
         findViewById(R.id.btn_nav_bar).setOnClickListener(this);
     }
 
@@ -54,6 +60,9 @@ public class BarActivity extends BaseBackActivity {
     @Override
     public void onWidgetClick(View view) {
         switch (view.getId()) {
+            case R.id.btn_status_bar:
+                BarStatusActivity.start(this);
+                break;
             case R.id.btn_status_bar_color:
                 BarStatusColorActivity.start(this);
                 break;
@@ -71,6 +80,9 @@ public class BarActivity extends BaseBackActivity {
                 break;
             case R.id.btn_status_bar_drawer:
                 BarStatusDrawerActivity.start(this);
+                break;
+            case R.id.btn_notification_bar:
+                BarNotificationActivity.start(this);
                 break;
             case R.id.btn_nav_bar:
                 BarNavActivity.start(this);

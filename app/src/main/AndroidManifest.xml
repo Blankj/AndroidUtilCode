@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.blankj.androidutilcode">
 
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <!--bar-->
     <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
@@ -16,6 +16,7 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!--phone-->
@@ -27,10 +28,10 @@
     <!--发送短信-->
     <uses-permission android:name="android.permission.SEND_SMS" />
     <!--获取手机联系人-->
-    <!--<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>-->
+    <!--<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <!--获取短信-->
-    <!--<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>-->
+    <!--<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
     <uses-permission android:name="android.permission.READ_SMS" />
 
     <!--process-->
@@ -84,6 +85,12 @@
             android:name=".core.bar.BarActivity"
             android:launchMode="singleTop" />
         <activity
+            android:name=".core.bar.BarStatusActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".core.bar.BarNotificationActivity"
+            android:launchMode="singleTop" />
+        <activity
             android:name=".core.bar.BarNavActivity"
             android:launchMode="singleTop" />
         <activity
@@ -126,7 +133,7 @@
         <activity
             android:name=".core.network.NetworkActivity"
             android:launchMode="singleTop" />
-        <!--<activity android:name=".activities.PermissionActivity"/>-->
+        <!--<activity android:name=".activities.PermissionActivity" />-->
         <activity
             android:name=".core.phone.PhoneActivity"
             android:launchMode="singleTop" />

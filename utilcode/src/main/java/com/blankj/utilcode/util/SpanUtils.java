@@ -98,12 +98,12 @@ public final class SpanUtils {
     private int           bulletColor;
     private int           bulletRadius;
     private int           bulletGapWidth;
-    private Bitmap        iconMarginBitmap;
-    private Drawable      iconMarginDrawable;
-    private Uri           iconMarginUri;
-    private int           iconMarginResourceId;
-    private int           iconMarginGapWidth;
-    private int           alignIconMargin;
+    private Bitmap        imBitmap;
+    private Drawable      imDrawable;
+    private Uri           imUri;
+    private int           imResourceId;
+    private int           imGapWidth;
+    private int           imAlign;
     private int           fontSize;
     private boolean       fontSizeIsDp;
     private float         proportion;
@@ -161,11 +161,11 @@ public final class SpanUtils {
         quoteColor = COLOR_DEFAULT;
         first = -1;
         bulletColor = COLOR_DEFAULT;
-        iconMarginBitmap = null;
-        iconMarginDrawable = null;
-        iconMarginUri = null;
-        iconMarginResourceId = -1;
-        iconMarginGapWidth = -1;
+        imBitmap = null;
+        imDrawable = null;
+        imUri = null;
+        imResourceId = -1;
+        imGapWidth = -1;
         fontSize = -1;
         proportion = -1;
         xProportion = -1;
@@ -256,7 +256,8 @@ public final class SpanUtils {
      *                   </ul>
      * @return {@link SpanUtils}
      */
-    public SpanUtils setLineHeight(@IntRange(from = 0) final int lineHeight, @Align final int align) {
+    public SpanUtils setLineHeight(@IntRange(from = 0) final int lineHeight,
+                                   @Align final int align) {
         this.lineHeight = lineHeight;
         this.alignLine = align;
         return this;
@@ -280,7 +281,9 @@ public final class SpanUtils {
      * @param gapWidth    引用线和文字间距
      * @return {@link SpanUtils}
      */
-    public SpanUtils setQuoteColor(@ColorInt final int color, @IntRange(from = 1) final int stripeWidth, @IntRange(from = 0) final int gapWidth) {
+    public SpanUtils setQuoteColor(@ColorInt final int color,
+                                   @IntRange(from = 1) final int stripeWidth,
+                                   @IntRange(from = 0) final int gapWidth) {
         this.quoteColor = color;
         this.stripeWidth = stripeWidth;
         this.quoteGapWidth = gapWidth;
@@ -294,7 +297,8 @@ public final class SpanUtils {
      * @param rest  剩余行缩进
      * @return {@link SpanUtils}
      */
-    public SpanUtils setLeadingMargin(@IntRange(from = 0) final int first, @IntRange(from = 0) final int rest) {
+    public SpanUtils setLeadingMargin(@IntRange(from = 0) final int first,
+                                      @IntRange(from = 0) final int rest) {
         this.first = first;
         this.rest = rest;
         return this;
@@ -318,7 +322,9 @@ public final class SpanUtils {
      * @param gapWidth 列表标记和文字间距离
      * @return {@link SpanUtils}
      */
-    public SpanUtils setBullet(@ColorInt final int color, @IntRange(from = 0) final int radius, @IntRange(from = 0) final int gapWidth) {
+    public SpanUtils setBullet(@ColorInt final int color,
+                               @IntRange(from = 0) final int radius,
+                               @IntRange(from = 0) final int gapWidth) {
         this.bulletColor = color;
         this.bulletRadius = radius;
         this.bulletGapWidth = gapWidth;
@@ -349,10 +355,12 @@ public final class SpanUtils {
      *                 </ul>
      * @return {@link SpanUtils}
      */
-    public SpanUtils setIconMargin(final Bitmap bitmap, final int gapWidth, @Align final int align) {
-        this.iconMarginBitmap = bitmap;
-        this.iconMarginGapWidth = gapWidth;
-        this.alignIconMargin = align;
+    public SpanUtils setIconMargin(final Bitmap bitmap,
+                                   final int gapWidth,
+                                   @Align final int align) {
+        this.imBitmap = bitmap;
+        this.imGapWidth = gapWidth;
+        this.imAlign = align;
         return this;
     }
 
@@ -380,10 +388,12 @@ public final class SpanUtils {
      *                 </ul>
      * @return {@link SpanUtils}
      */
-    public SpanUtils setIconMargin(final Drawable drawable, final int gapWidth, @Align final int align) {
-        this.iconMarginDrawable = drawable;
-        this.iconMarginGapWidth = gapWidth;
-        this.alignIconMargin = align;
+    public SpanUtils setIconMargin(final Drawable drawable,
+                                   final int gapWidth,
+                                   @Align final int align) {
+        this.imDrawable = drawable;
+        this.imGapWidth = gapWidth;
+        this.imAlign = align;
         return this;
     }
 
@@ -412,9 +422,9 @@ public final class SpanUtils {
      * @return {@link SpanUtils}
      */
     public SpanUtils setIconMargin(final Uri uri, final int gapWidth, @Align final int align) {
-        this.iconMarginUri = uri;
-        this.iconMarginGapWidth = gapWidth;
-        this.alignIconMargin = align;
+        this.imUri = uri;
+        this.imGapWidth = gapWidth;
+        this.imAlign = align;
         return this;
     }
 
@@ -442,10 +452,12 @@ public final class SpanUtils {
      *                   </ul>
      * @return {@link SpanUtils}
      */
-    public SpanUtils setIconMargin(@DrawableRes final int resourceId, final int gapWidth, @Align final int align) {
-        this.iconMarginResourceId = resourceId;
-        this.iconMarginGapWidth = gapWidth;
-        this.alignIconMargin = align;
+    public SpanUtils setIconMargin(@DrawableRes final int resourceId,
+                                   final int gapWidth,
+                                   @Align final int align) {
+        this.imResourceId = resourceId;
+        this.imGapWidth = gapWidth;
+        this.imAlign = align;
         return this;
     }
 
@@ -478,7 +490,7 @@ public final class SpanUtils {
      * @param proportion 比例
      * @return {@link SpanUtils}
      */
-    public SpanUtils setFontProportion(@FloatRange(from = 0, fromInclusive = false) final float proportion) {
+    public SpanUtils setFontProportion(final float proportion) {
         this.proportion = proportion;
         return this;
     }
@@ -489,7 +501,7 @@ public final class SpanUtils {
      * @param proportion 比例
      * @return {@link SpanUtils}
      */
-    public SpanUtils setFontXProportion(@FloatRange(from = 0, fromInclusive = false) final float proportion) {
+    public SpanUtils setFontXProportion(final float proportion) {
         this.xProportion = proportion;
         return this;
     }
@@ -645,7 +657,8 @@ public final class SpanUtils {
      *               </ul>
      * @return {@link SpanUtils}
      */
-    public SpanUtils setBlur(@FloatRange(from = 0, fromInclusive = false) final float radius, final Blur style) {
+    public SpanUtils setBlur(@FloatRange(from = 0, fromInclusive = false) final float radius,
+                             final Blur style) {
         this.blurRadius = radius;
         this.style = style;
         return this;
@@ -914,20 +927,50 @@ public final class SpanUtils {
             mBuilder.setSpan(new LeadingMarginSpan.Standard(first, rest), start, end, flag);
         }
         if (quoteColor != COLOR_DEFAULT) {
-            mBuilder.setSpan(new CustomQuoteSpan(quoteColor, stripeWidth, quoteGapWidth), start, end, flag);
+            mBuilder.setSpan(
+                    new CustomQuoteSpan(quoteColor, stripeWidth, quoteGapWidth),
+                    start,
+                    end,
+                    flag
+            );
         }
         if (bulletColor != COLOR_DEFAULT) {
-            mBuilder.setSpan(new CustomBulletSpan(bulletColor, bulletRadius, bulletGapWidth), start, end, flag);
+            mBuilder.setSpan(
+                    new CustomBulletSpan(bulletColor, bulletRadius, bulletGapWidth),
+                    start,
+                    end,
+                    flag
+            );
         }
-        if (iconMarginGapWidth != -1) {
-            if (iconMarginBitmap != null) {
-                mBuilder.setSpan(new CustomIconMarginSpan(iconMarginBitmap, iconMarginGapWidth, alignIconMargin), start, end, flag);
-            } else if (iconMarginDrawable != null) {
-                mBuilder.setSpan(new CustomIconMarginSpan(iconMarginDrawable, iconMarginGapWidth, alignIconMargin), start, end, flag);
-            } else if (iconMarginUri != null) {
-                mBuilder.setSpan(new CustomIconMarginSpan(iconMarginUri, iconMarginGapWidth, alignIconMargin), start, end, flag);
-            } else if (iconMarginResourceId != -1) {
-                mBuilder.setSpan(new CustomIconMarginSpan(iconMarginResourceId, iconMarginGapWidth, alignIconMargin), start, end, flag);
+        if (imGapWidth != -1) {
+            if (imBitmap != null) {
+                mBuilder.setSpan(
+                        new CustomIconMarginSpan(imBitmap, imGapWidth, imAlign),
+                        start,
+                        end,
+                        flag
+                );
+            } else if (imDrawable != null) {
+                mBuilder.setSpan(
+                        new CustomIconMarginSpan(imDrawable, imGapWidth, imAlign),
+                        start,
+                        end,
+                        flag
+                );
+            } else if (imUri != null) {
+                mBuilder.setSpan(
+                        new CustomIconMarginSpan(imUri, imGapWidth, imAlign),
+                        start,
+                        end,
+                        flag
+                );
+            } else if (imResourceId != -1) {
+                mBuilder.setSpan(
+                        new CustomIconMarginSpan(imResourceId, imGapWidth, imAlign),
+                        start,
+                        end,
+                        flag
+                );
             }
         }
         if (fontSize != -1) {
@@ -979,13 +1022,23 @@ public final class SpanUtils {
             mBuilder.setSpan(new URLSpan(url), start, end, flag);
         }
         if (blurRadius != -1) {
-            mBuilder.setSpan(new MaskFilterSpan(new BlurMaskFilter(blurRadius, style)), start, end, flag);
+            mBuilder.setSpan(
+                    new MaskFilterSpan(new BlurMaskFilter(blurRadius, style)),
+                    start,
+                    end,
+                    flag
+            );
         }
         if (shader != null) {
             mBuilder.setSpan(new ShaderSpan(shader), start, end, flag);
         }
         if (shadowRadius != -1) {
-            mBuilder.setSpan(new ShadowSpan(shadowRadius, shadowDx, shadowDy, shadowColor), start, end, flag);
+            mBuilder.setSpan(
+                    new ShadowSpan(shadowRadius, shadowDx, shadowDy, shadowColor),
+                    start,
+                    end,
+                    flag
+            );
         }
         if (spans != null) {
             for (Object span : spans) {
@@ -1222,7 +1275,9 @@ public final class SpanUtils {
             mVerticalAlignment = verticalAlignment;
         }
 
-        private CustomIconMarginSpan(final Drawable drawable, final int pad, final int verticalAlignment) {
+        private CustomIconMarginSpan(final Drawable drawable,
+                                     final int pad,
+                                     final int verticalAlignment) {
             mBitmap = drawable2Bitmap(drawable);
             mPad = pad;
             mVerticalAlignment = verticalAlignment;
@@ -1234,7 +1289,9 @@ public final class SpanUtils {
             mVerticalAlignment = verticalAlignment;
         }
 
-        private CustomIconMarginSpan(final int resourceId, final int pad, final int verticalAlignment) {
+        private CustomIconMarginSpan(final int resourceId,
+                                     final int pad,
+                                     final int verticalAlignment) {
             mBitmap = resource2Bitmap(resourceId);
             mPad = pad;
             mVerticalAlignment = verticalAlignment;
@@ -1249,11 +1306,21 @@ public final class SpanUtils {
             }
             Bitmap bitmap;
             if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
-                bitmap = Bitmap.createBitmap(1, 1,
-                        drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+                bitmap = Bitmap.createBitmap(
+                        1,
+                        1,
+                        drawable.getOpacity() != PixelFormat.OPAQUE
+                                ? Bitmap.Config.ARGB_8888
+                                : Bitmap.Config.RGB_565
+                );
             } else {
-                bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
-                        drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+                bitmap = Bitmap.createBitmap(
+                        drawable.getIntrinsicWidth(),
+                        drawable.getIntrinsicHeight(),
+                        drawable.getOpacity() != PixelFormat.OPAQUE
+                                ? Bitmap.Config.ARGB_8888
+                                : Bitmap.Config.RGB_565
+                );
             }
             Canvas canvas = new Canvas(bitmap);
             drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -1273,7 +1340,11 @@ public final class SpanUtils {
         private Bitmap resource2Bitmap(final int resourceId) {
             Drawable drawable = ContextCompat.getDrawable(Utils.getApp(), resourceId);
             Canvas canvas = new Canvas();
-            Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            Bitmap bitmap = Bitmap.createBitmap(
+                    drawable.getIntrinsicWidth(),
+                    drawable.getIntrinsicHeight(),
+                    Bitmap.Config.ARGB_8888
+            );
             canvas.setBitmap(bitmap);
             drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
             drawable.draw(canvas);
@@ -1345,8 +1416,7 @@ public final class SpanUtils {
             int lineTop = layout.getLineTop(layout.getLineForOffset(st));
             int lineBottom = layout.getLineTop(layout.getLineForOffset(ed));
 
-            if (dir < 0)
-                x -= mBitmap.getWidth();
+            if (dir < 0) x -= mBitmap.getWidth();
 
             int delta = (lineBottom - lineTop) - mBitmap.getHeight();
 
@@ -1418,13 +1488,17 @@ public final class SpanUtils {
         private CustomImageSpan(final Bitmap b, final int verticalAlignment) {
             super(verticalAlignment);
             mDrawable = new BitmapDrawable(Utils.getApp().getResources(), b);
-            mDrawable.setBounds(0, 0, mDrawable.getIntrinsicWidth(), mDrawable.getIntrinsicHeight());
+            mDrawable.setBounds(
+                    0, 0, mDrawable.getIntrinsicWidth(), mDrawable.getIntrinsicHeight()
+            );
         }
 
         private CustomImageSpan(final Drawable d, final int verticalAlignment) {
             super(verticalAlignment);
             mDrawable = d;
-            mDrawable.setBounds(0, 0, mDrawable.getIntrinsicWidth(), mDrawable.getIntrinsicHeight());
+            mDrawable.setBounds(
+                    0, 0, mDrawable.getIntrinsicWidth(), mDrawable.getIntrinsicHeight()
+            );
         }
 
         private CustomImageSpan(final Uri uri, final int verticalAlignment) {
@@ -1445,10 +1519,13 @@ public final class SpanUtils {
             } else if (mContentUri != null) {
                 Bitmap bitmap;
                 try {
-                    InputStream is = Utils.getApp().getContentResolver().openInputStream(mContentUri);
+                    InputStream is =
+                            Utils.getApp().getContentResolver().openInputStream(mContentUri);
                     bitmap = BitmapFactory.decodeStream(is);
                     drawable = new BitmapDrawable(Utils.getApp().getResources(), bitmap);
-                    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+                    drawable.setBounds(
+                            0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight()
+                    );
                     if (is != null) {
                         is.close();
                     }
@@ -1458,7 +1535,9 @@ public final class SpanUtils {
             } else {
                 try {
                     drawable = ContextCompat.getDrawable(Utils.getApp(), mResourceId);
-                    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+                    drawable.setBounds(
+                            0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight()
+                    );
                 } catch (Exception e) {
                     Log.e("sms", "Unable to find resource: " + mResourceId);
                 }
@@ -1581,7 +1660,10 @@ public final class SpanUtils {
         private float dx, dy;
         private int shadowColor;
 
-        private ShadowSpan(final float radius, final float dx, final float dy, final int shadowColor) {
+        private ShadowSpan(final float radius,
+                           final float dx,
+                           final float dy,
+                           final int shadowColor) {
             this.radius = radius;
             this.dx = dx;
             this.dy = dy;

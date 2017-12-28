@@ -14,11 +14,4 @@
         android:layout_height="wrap_content"
         android:text="@string/bar_notification_show" />
 
-    <Button
-        android:id="@+id/btn_hide_notification"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/bar_notification_hide" />
-
 </LinearLayout>

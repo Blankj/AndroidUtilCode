@@ -8,23 +8,23 @@
     android:padding="@dimen/spacing_16">
 
     <TextView
-        android:id="@+id/tv_about_nav"
+        android:id="@+id/tv_about_status"
         style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/btn_show_nav_bar"
+        android:id="@+id/btn_show_status"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/bar_nav_show" />
+        android:text="@string/bar_status_show" />
 
     <Button
-        android:id="@+id/btn_hide_nav_bar"
+        android:id="@+id/btn_hide_status"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/bar_nav_hide" />
+        android:text="@string/bar_status_hide" />
 
 </LinearLayout>

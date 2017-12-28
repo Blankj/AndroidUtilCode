@@ -229,7 +229,11 @@ public final class ZipUtils {
         return files;
     }
 
-    private static boolean unzipChildFile(File destDir, List<File> files, ZipFile zf, ZipEntry entry, String entryName) throws IOException {
+    private static boolean unzipChildFile(final File destDir,
+                                          final List<File> files,
+                                          final ZipFile zf,
+                                          final ZipEntry entry,
+                                          final String entryName) throws IOException {
         String filePath = destDir + File.separator + entryName;
         File file = new File(filePath);
         files.add(file);

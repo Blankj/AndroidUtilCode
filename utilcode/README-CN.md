@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-compile 'com.blankj:utilcode:1.9.12'
+compile 'com.blankj:utilcode:1.10.0'
 ```
 
 
@@ -72,7 +72,9 @@ cleanAppData         : 清除 App 所有数据
 
 * ### 栏相关 -> [BarUtils.java][bar.java] -> [Demo][bar.demo]
 ```
-getStatusBarHeight                   : 获取状态栏高度(px)
+getStatusBarHeight                   : 获取状态栏高度（px）
+setStatusBarVisibility               : 设置状态栏是否可见
+isStatusBarVisible                   : 判断状态栏是否可见
 addMarginTopEqualStatusBarHeight     : 为 view 增加 MarginTop 为状态栏高度
 subtractMarginTopEqualStatusBarHeight: 为 view 减少 MarginTop 为状态栏高度
 setStatusBarColor                    : 设置状态栏颜色
@@ -80,10 +82,11 @@ setStatusBarAlpha                    : 设置状态栏透明度
 setStatusBarColor4Drawer             : 为 DrawerLayout 设置状态栏颜色
 setStatusBarAlpha4Drawer             : 为 DrawerLayout 设置状态栏透明度
 getActionBarHeight                   : 获取 ActionBar 高度
-showNotificationBar                  : 显示通知栏
-hideNotificationBar                  : 隐藏通知栏
+setNotificationBarVisibility         : 设置通知栏是否可见
 getNavBarHeight                      : 获取导航栏高度
-hideNavBar                           : 隐藏导航栏
+setNavBarVisibility                  : 设置导航栏是否可见
+setNavBarImmersive                   : 设置导航栏沉浸式
+isNavBarVisible                      : 判断导航栏是否可见
 ```
 
 * ### 缓存相关 -> [CacheUtils.java][cache.java] -> [Test][cache.test]
@@ -330,10 +333,12 @@ getCaptureIntent           : 获取拍照的意图
 
 * ### 键盘相关 -> [KeyboardUtils.java][keyboard.java] -> [Demo][keyboard.demo]
 ```
-showSoftInput               : 动态显示软键盘
-hideSoftInput               : 动态隐藏软键盘
-toggleSoftInput             : 切换键盘显示与否状态
-clickBlankArea2HideSoftInput: 点击屏幕空白区域隐藏软键盘
+showSoftInput                   : 动态显示软键盘
+hideSoftInput                   : 动态隐藏软键盘
+toggleSoftInput                 : 切换键盘显示与否状态
+isSoftInputVisible              : 判断软键盘是否可见
+registerSoftInputChangedListener: 注册软键盘改变监听器
+clickBlankArea2HideSoftInput    : 点击屏幕空白区域隐藏软键盘
 ```
 
 * ### 日志相关 -> [LogUtils.java][log.java] -> [Demo][log.demo]
@@ -372,8 +377,9 @@ xml                     : log 字符串之 xml
 openWirelessSettings  : 打开网络设置界面
 isConnected           : 判断网络是否连接
 isAvailableByPing     : 判断网络是否可用
-getDataEnabled        : 判断移动数据是否打开
-setDataEnabled        : 打开或关闭移动数据
+getMobileDataEnabled  : 判断移动数据是否打开
+setMobileDataEnabled  : 打开或关闭移动数据
+isMobileData          : 判断网络是否是移动数据
 is4G                  : 判断网络是否是 4G
 getWifiEnabled        : 判断 wifi 是否打开
 setWifiEnabled        : 打开或关闭 wifi
@@ -383,6 +389,13 @@ getNetworkOperatorName: 获取移动网络运营商名称
 getNetworkType        : 获取当前网络类型
 getIPAddress          : 获取 IP 地址
 getDomainAddress      : 获取域名 ip 地址
+```
+
+* ### 对象相关 -> [ObjectUtils.java][object.java] -> [Test][object.test]
+```
+isEmpty   : 判断对象是否为空
+isNotEmpty: 判断对象是否非空
+equals    : 判断对象是否相等
 ```
 
 * ### 手机相关 -> [PhoneUtils.java][phone.java] -> [Demo][phone.demo]
@@ -681,6 +694,9 @@ getComments       : 获取压缩文件中的注释链表
 
 [network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/NetworkUtils.java
 [network.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/network/NetworkActivity.java
+
+[object.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ObjectUtils.java
+[object.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/ObjectUtilsTest.java
 
 [phone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/PhoneUtils.java
 [phone.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/phone/PhoneActivity.java

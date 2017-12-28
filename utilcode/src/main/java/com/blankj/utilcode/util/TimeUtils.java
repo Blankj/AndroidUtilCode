@@ -1,5 +1,7 @@
 package com.blankj.utilcode.util;
 
+import android.annotation.SuppressLint;
+
 import com.blankj.utilcode.constant.TimeConstants;
 
 import java.text.DateFormat;
@@ -20,15 +22,17 @@ import java.util.Locale;
 public final class TimeUtils {
 
     /**
-     * <p>在工具类中经常使用到工具类的格式化描述，这个主要是一个日期的操作类，所以日志格式主要使用 SimpleDateFormat 的定义格式.</p>
+     * <p>在工具类中经常使用到工具类的格式化描述，这个主要是一个日期的操作类，
+     * 所以日志格式主要使用 SimpleDateFormat 的定义格式.</p>
      * 格式的意义如下： 日期和时间模式 <br>
-     * <p>日期和时间格式由日期和时间模式字符串指定。在日期和时间模式字符串中，未加引号的字母 'A' 到 'Z' 和 'a' 到 'z'
+     * <p>日期和时间格式由日期和时间模式字符串指定。
+     * 在日期和时间模式字符串中，未加引号的字母 'A' 到 'Z' 和 'a' 到 'z'
      * 被解释为模式字母，用来表示日期或时间字符串元素。文本可以使用单引号 (') 引起来，以免进行解释。"''"
      * 表示单引号。所有其他字符均不解释；只是在格式化时将它们简单复制到输出字符串，或者在分析时与输入字符串进行匹配。
      * </p>
      * 定义了以下模式字母（所有其他字符 'A' 到 'Z' 和 'a' 到 'z' 都被保留）： <br>
-     * <table border="1" cellspacing="1" cellpadding="1" summary="Chart shows format letters, date/time component,
-     * presentation, and examples.">
+     * <table border="1" cellspacing="1" cellpadding="1"
+     * summary="Chart shows format letters, date/time component, presentation, and examples.">
      * <tr>
      * <th align="left">字母</th>
      * <th align="left">日期或时间元素</th>
@@ -151,33 +155,33 @@ public final class TimeUtils {
      * </tr>
      * </table>
      * <pre>
-     *                                             HH:mm    15:44
-     *                                            h:mm a    3:44 下午
-     *                                           HH:mm z    15:44 CST
-     *                                           HH:mm Z    15:44 +0800
-     *                                        HH:mm zzzz    15:44 中国标准时间
-     *                                          HH:mm:ss    15:44:40
-     *                                        yyyy-MM-dd    2016-08-12
-     *                                  yyyy-MM-dd HH:mm    2016-08-12 15:44
-     *                               yyyy-MM-dd HH:mm:ss    2016-08-12 15:44:40
-     *                          yyyy-MM-dd HH:mm:ss zzzz    2016-08-12 15:44:40 中国标准时间
-     *                     EEEE yyyy-MM-dd HH:mm:ss zzzz    星期五 2016-08-12 15:44:40 中国标准时间
-     *                          yyyy-MM-dd HH:mm:ss.SSSZ    2016-08-12 15:44:40.461+0800
-     *                        yyyy-MM-dd'T'HH:mm:ss.SSSZ    2016-08-12T15:44:40.461+0800
-     *                      yyyy.MM.dd G 'at' HH:mm:ss z    2016.08.12 公元 at 15:44:40 CST
-     *                                            K:mm a    3:44 下午
-     *                                  EEE, MMM d, ''yy    星期五, 八月 12, '16
-     *                             hh 'o''clock' a, zzzz    03 o'clock 下午, 中国标准时间
-     *                      yyyyy.MMMMM.dd GGG hh:mm aaa    02016.八月.12 公元 03:44 下午
-     *                        EEE, d MMM yyyy HH:mm:ss Z    星期五, 12 八月 2016 15:44:40 +0800
-     *                                     yyMMddHHmmssZ    160812154440+0800
-     *                        yyyy-MM-dd'T'HH:mm:ss.SSSZ    2016-08-12T15:44:40.461+0800
-     * EEEE 'DATE('yyyy-MM-dd')' 'TIME('HH:mm:ss')' zzzz    星期五 DATE(2016-08-12) TIME(15:44:40) 中国标准时间
+     *                                        HH:mm    15:44
+     *                                       h:mm a    3:44 下午
+     *                                      HH:mm z    15:44 CST
+     *                                      HH:mm Z    15:44 +0800
+     *                                   HH:mm zzzz    15:44 中国标准时间
+     *                                     HH:mm:ss    15:44:40
+     *                                   yyyy-MM-dd    2016-08-12
+     *                             yyyy-MM-dd HH:mm    2016-08-12 15:44
+     *                          yyyy-MM-dd HH:mm:ss    2016-08-12 15:44:40
+     *                     yyyy-MM-dd HH:mm:ss zzzz    2016-08-12 15:44:40 中国标准时间
+     *                EEEE yyyy-MM-dd HH:mm:ss zzzz    星期五 2016-08-12 15:44:40 中国标准时间
+     *                     yyyy-MM-dd HH:mm:ss.SSSZ    2016-08-12 15:44:40.461+0800
+     *                   yyyy-MM-dd'T'HH:mm:ss.SSSZ    2016-08-12T15:44:40.461+0800
+     *                 yyyy.MM.dd G 'at' HH:mm:ss z    2016.08.12 公元 at 15:44:40 CST
+     *                                       K:mm a    3:44 下午
+     *                             EEE, MMM d, ''yy    星期五, 八月 12, '16
+     *                        hh 'o''clock' a, zzzz    03 o'clock 下午, 中国标准时间
+     *                 yyyyy.MMMMM.dd GGG hh:mm aaa    02016.八月.12 公元 03:44 下午
+     *                   EEE, d MMM yyyy HH:mm:ss Z    星期五, 12 八月 2016 15:44:40 +0800
+     *                                yyMMddHHmmssZ    160812154440+0800
+     *                   yyyy-MM-dd'T'HH:mm:ss.SSSZ    2016-08-12T15:44:40.461+0800
+     * 'DATE('yyyy-MM-dd')' 'TIME('HH:mm:ss')' zzzz    DATE(2016-08-12) TIME(15:44:40) 中国标准时间
      * </pre>
      * 注意：SimpleDateFormat 不是线程安全的，线程安全需用{@code ThreadLocal<SimpleDateFormat>}
      */
-
-    private static final DateFormat DEFAULT_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+    @SuppressLint("SimpleDateFormat")
+    private static final DateFormat DEFAULT_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     private TimeUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -321,7 +325,9 @@ public final class TimeUtils {
      *              </ul>
      * @return unit 时间戳
      */
-    public static long getTimeSpan(final String time0, final String time1, @TimeConstants.Unit final int unit) {
+    public static long getTimeSpan(final String time0,
+                                   final String time1,
+                                   @TimeConstants.Unit final int unit) {
         return getTimeSpan(time0, time1, DEFAULT_FORMAT, unit);
     }
 
@@ -342,8 +348,13 @@ public final class TimeUtils {
      *               </ul>
      * @return unit 时间戳
      */
-    public static long getTimeSpan(final String time0, final String time1, final DateFormat format, @TimeConstants.Unit final int unit) {
-        return millis2TimeSpan(Math.abs(string2Millis(time0, format) - string2Millis(time1, format)), unit);
+    public static long getTimeSpan(final String time0,
+                                   final String time1,
+                                   final DateFormat format,
+                                   @TimeConstants.Unit final int unit) {
+        return millis2TimeSpan(
+                Math.abs(string2Millis(time0, format) - string2Millis(time1, format)), unit
+        );
     }
 
     /**
@@ -361,7 +372,9 @@ public final class TimeUtils {
      *              </ul>
      * @return unit 时间戳
      */
-    public static long getTimeSpan(final Date date0, final Date date1, @TimeConstants.Unit final int unit) {
+    public static long getTimeSpan(final Date date0,
+                                   final Date date1,
+                                   @TimeConstants.Unit final int unit) {
         return millis2TimeSpan(Math.abs(date2Millis(date0) - date2Millis(date1)), unit);
     }
 
@@ -380,7 +393,9 @@ public final class TimeUtils {
      *                </ul>
      * @return unit 时间戳
      */
-    public static long getTimeSpan(final long millis0, final long millis1, @TimeConstants.Unit final int unit) {
+    public static long getTimeSpan(final long millis0,
+                                   final long millis1,
+                                   @TimeConstants.Unit final int unit) {
         return millis2TimeSpan(Math.abs(millis0 - millis1), unit);
     }
 
@@ -399,8 +414,11 @@ public final class TimeUtils {
      *                  <p>precision &gt;= 5，返回天、小时、分钟、秒和毫秒</p>
      * @return 合适型两个时间差
      */
-    public static String getFitTimeSpan(final String time0, final String time1, final int precision) {
-        return millis2FitTimeSpan(Math.abs(string2Millis(time0, DEFAULT_FORMAT) - string2Millis(time1, DEFAULT_FORMAT)), precision);
+    public static String getFitTimeSpan(final String time0,
+                                        final String time1,
+                                        final int precision) {
+        long delta = string2Millis(time0, DEFAULT_FORMAT) - string2Millis(time1, DEFAULT_FORMAT);
+        return millis2FitTimeSpan(Math.abs(delta), precision);
     }
 
     /**
@@ -419,8 +437,12 @@ public final class TimeUtils {
      *                  <p>precision &gt;= 5，返回天、小时、分钟、秒和毫秒</p>
      * @return 合适型两个时间差
      */
-    public static String getFitTimeSpan(final String time0, final String time1, final DateFormat format, final int precision) {
-        return millis2FitTimeSpan(Math.abs(string2Millis(time0, format) - string2Millis(time1, format)), precision);
+    public static String getFitTimeSpan(final String time0,
+                                        final String time1,
+                                        final DateFormat format,
+                                        final int precision) {
+        long delta = string2Millis(time0, format) - string2Millis(time1, format);
+        return millis2FitTimeSpan(Math.abs(delta), precision);
     }
 
     /**
@@ -455,7 +477,9 @@ public final class TimeUtils {
      *                  <p>precision &gt;= 5，返回天、小时、分钟、秒和毫秒</p>
      * @return 合适型两个时间差
      */
-    public static String getFitTimeSpan(final long millis0, final long millis1, final int precision) {
+    public static String getFitTimeSpan(final long millis0,
+                                        final long millis1,
+                                        final int precision) {
         return millis2FitTimeSpan(Math.abs(millis0 - millis1), precision);
     }
 
@@ -533,7 +557,9 @@ public final class TimeUtils {
      *               </ul>
      * @return unit 时间戳
      */
-    public static long getTimeSpanByNow(final String time, final DateFormat format, @TimeConstants.Unit final int unit) {
+    public static long getTimeSpanByNow(final String time,
+                                        final DateFormat format,
+                                        @TimeConstants.Unit final int unit) {
         return getTimeSpan(getNowString(format), time, format, unit);
     }
 
@@ -610,7 +636,9 @@ public final class TimeUtils {
      *                  </ul>
      * @return 合适型与当前时间的差
      */
-    public static String getFitTimeSpanByNow(final String time, final DateFormat format, final int precision) {
+    public static String getFitTimeSpanByNow(final String time,
+                                             final DateFormat format,
+                                             final int precision) {
         return getFitTimeSpan(getNowString(format), time, format, precision);
     }
 
@@ -731,7 +759,8 @@ public final class TimeUtils {
         long now = System.currentTimeMillis();
         long span = now - millis;
         if (span < 0)
-            return String.format("%tc", millis);// U can read http://www.apihome.cn/api/java/Formatter.html to understand it.
+            // U can read http://www.apihome.cn/api/java/Formatter.html to understand it.
+            return String.format("%tc", millis);
         if (span < 1000) {
             return "刚刚";
         } else if (span < TimeConstants.MIN) {
@@ -774,7 +803,9 @@ public final class TimeUtils {
      *                 </ul>
      * @return 与给定时间等于时间差的时间戳
      */
-    public static long getMillis(final long millis, final long timeSpan, @TimeConstants.Unit final int unit) {
+    public static long getMillis(final long millis,
+                                 final long timeSpan,
+                                 @TimeConstants.Unit final int unit) {
         return millis + timeSpan2Millis(timeSpan, unit);
     }
 
@@ -794,7 +825,9 @@ public final class TimeUtils {
      *                 </ul>
      * @return 与给定时间等于时间差的时间戳
      */
-    public static long getMillis(final String time, final long timeSpan, @TimeConstants.Unit final int unit) {
+    public static long getMillis(final String time,
+                                 final long timeSpan,
+                                 @TimeConstants.Unit final int unit) {
         return getMillis(time, DEFAULT_FORMAT, timeSpan, unit);
     }
 
@@ -815,7 +848,10 @@ public final class TimeUtils {
      *                 </ul>
      * @return 与给定时间等于时间差的时间戳
      */
-    public static long getMillis(final String time, final DateFormat format, final long timeSpan, @TimeConstants.Unit final int unit) {
+    public static long getMillis(final String time,
+                                 final DateFormat format,
+                                 final long timeSpan,
+                                 @TimeConstants.Unit final int unit) {
         return string2Millis(time, format) + timeSpan2Millis(timeSpan, unit);
     }
 
@@ -834,7 +870,9 @@ public final class TimeUtils {
      *                 </ul>
      * @return 与给定时间等于时间差的时间戳
      */
-    public static long getMillis(final Date date, final long timeSpan, @TimeConstants.Unit final int unit) {
+    public static long getMillis(final Date date,
+                                 final long timeSpan,
+                                 @TimeConstants.Unit final int unit) {
         return date2Millis(date) + timeSpan2Millis(timeSpan, unit);
     }
 
@@ -854,7 +892,9 @@ public final class TimeUtils {
      *                 </ul>
      * @return 与给定时间等于时间差的时间字符串
      */
-    public static String getString(final long millis, final long timeSpan, @TimeConstants.Unit final int unit) {
+    public static String getString(final long millis,
+                                   final long timeSpan,
+                                   @TimeConstants.Unit final int unit) {
         return getString(millis, DEFAULT_FORMAT, timeSpan, unit);
     }
 
@@ -875,7 +915,10 @@ public final class TimeUtils {
      *                 </ul>
      * @return 与给定时间等于时间差的时间字符串
      */
-    public static String getString(final long millis, final DateFormat format, final long timeSpan, @TimeConstants.Unit final int unit) {
+    public static String getString(final long millis,
+                                   final DateFormat format,
+                                   final long timeSpan,
+                                   @TimeConstants.Unit final int unit) {
         return millis2String(millis + timeSpan2Millis(timeSpan, unit), format);
     }
 
@@ -895,7 +938,9 @@ public final class TimeUtils {
      *                 </ul>
      * @return 与给定时间等于时间差的时间字符串
      */
-    public static String getString(final String time, final long timeSpan, @TimeConstants.Unit final int unit) {
+    public static String getString(final String time,
+                                   final long timeSpan,
+                                   @TimeConstants.Unit final int unit) {
         return getString(time, DEFAULT_FORMAT, timeSpan, unit);
     }
 
@@ -916,7 +961,10 @@ public final class TimeUtils {
      *                 </ul>
      * @return 与给定时间等于时间差的时间字符串
      */
-    public static String getString(final String time, final DateFormat format, final long timeSpan, @TimeConstants.Unit final int unit) {
+    public static String getString(final String time,
+                                   final DateFormat format,
+                                   final long timeSpan,
+                                   @TimeConstants.Unit final int unit) {
         return millis2String(string2Millis(time, format) + timeSpan2Millis(timeSpan, unit), format);
     }
 
@@ -936,7 +984,9 @@ public final class TimeUtils {
      *                 </ul>
      * @return 与给定时间等于时间差的时间字符串
      */
-    public static String getString(final Date date, final long timeSpan, @TimeConstants.Unit final int unit) {
+    public static String getString(final Date date,
+                                   final long timeSpan,
+                                   @TimeConstants.Unit final int unit) {
         return getString(date, DEFAULT_FORMAT, timeSpan, unit);
     }
 
@@ -957,7 +1007,10 @@ public final class TimeUtils {
      *                 </ul>
      * @return 与给定时间等于时间差的时间字符串
      */
-    public static String getString(final Date date, final DateFormat format, final long timeSpan, @TimeConstants.Unit final int unit) {
+    public static String getString(final Date date,
+                                   final DateFormat format,
+                                   final long timeSpan,
+                                   @TimeConstants.Unit final int unit) {
         return millis2String(date2Millis(date) + timeSpan2Millis(timeSpan, unit), format);
     }
 
@@ -976,7 +1029,9 @@ public final class TimeUtils {
      *                 </ul>
      * @return 与给定时间等于时间差的 Date
      */
-    public static Date getDate(final long millis, final long timeSpan, @TimeConstants.Unit final int unit) {
+    public static Date getDate(final long millis,
+                               final long timeSpan,
+                               @TimeConstants.Unit final int unit) {
         return millis2Date(millis + timeSpan2Millis(timeSpan, unit));
     }
 
@@ -996,7 +1051,9 @@ public final class TimeUtils {
      *                 </ul>
      * @return 与给定时间等于时间差的 Date
      */
-    public static Date getDate(final String time, final long timeSpan, @TimeConstants.Unit final int unit) {
+    public static Date getDate(final String time,
+                               final long timeSpan,
+                               @TimeConstants.Unit final int unit) {
         return getDate(time, DEFAULT_FORMAT, timeSpan, unit);
     }
 
@@ -1017,7 +1074,10 @@ public final class TimeUtils {
      *                 </ul>
      * @return 与给定时间等于时间差的 Date
      */
-    public static Date getDate(final String time, final DateFormat format, final long timeSpan, @TimeConstants.Unit final int unit) {
+    public static Date getDate(final String time,
+                               final DateFormat format,
+                               final long timeSpan,
+                               @TimeConstants.Unit final int unit) {
         return millis2Date(string2Millis(time, format) + timeSpan2Millis(timeSpan, unit));
     }
 
@@ -1036,7 +1096,9 @@ public final class TimeUtils {
      *                 </ul>
      * @return 与给定时间等于时间差的 Date
      */
-    public static Date getDate(final Date date, final long timeSpan, @TimeConstants.Unit final int unit) {
+    public static Date getDate(final Date date,
+                               final long timeSpan,
+                               @TimeConstants.Unit final int unit) {
         return millis2Date(date2Millis(date) + timeSpan2Millis(timeSpan, unit));
     }
 
@@ -1093,7 +1155,9 @@ public final class TimeUtils {
      *                 </ul>
      * @return 与当前时间等于时间差的时间字符串
      */
-    public static String getStringByNow(final long timeSpan, final DateFormat format, @TimeConstants.Unit final int unit) {
+    public static String getStringByNow(final long timeSpan,
+                                        final DateFormat format,
+                                        @TimeConstants.Unit final int unit) {
         return getString(getNowMills(), format, timeSpan, unit);
     }
 
@@ -1476,7 +1540,8 @@ public final class TimeUtils {
         return getWeekOfYear(millis2Date(millis));
     }
 
-    private static final String[] CHINESE_ZODIAC = {"猴", "鸡", "狗", "猪", "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊"};
+    private static final String[] CHINESE_ZODIAC =
+            {"猴", "鸡", "狗", "猪", "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊"};
 
     /**
      * 获取生肖
@@ -1533,8 +1598,11 @@ public final class TimeUtils {
         return CHINESE_ZODIAC[year % 12];
     }
 
-    private static final String[] ZODIAC       = {"水瓶座", "双鱼座", "白羊座", "金牛座", "双子座", "巨蟹座", "狮子座", "处女座", "天秤座", "天蝎座", "射手座", "魔羯座"};
     private static final int[]    ZODIAC_FLAGS = {20, 19, 21, 21, 21, 22, 23, 23, 23, 24, 23, 22};
+    private static final String[] ZODIAC       = {
+            "水瓶座", "双鱼座", "白羊座", "金牛座", "双子座", "巨蟹座",
+            "狮子座", "处女座", "天秤座", "天蝎座", "射手座", "魔羯座"
+    };
 
     /**
      * 获取星座

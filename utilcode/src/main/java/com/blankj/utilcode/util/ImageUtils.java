@@ -1077,8 +1077,12 @@ public final class ImageUtils {
      * @return 模糊后的图片
      */
     public static Bitmap fastBlur(final Bitmap src,
-                                  @FloatRange(from = 0, to = 1, fromInclusive = false) final float scale,
-                                  @FloatRange(from = 0, to = 25, fromInclusive = false) final float radius) {
+                                  @FloatRange(
+                                          from = 0, to = 1, fromInclusive = false
+                                  ) final float scale,
+                                  @FloatRange(
+                                          from = 0, to = 25, fromInclusive = false
+                                  ) final float radius) {
         return fastBlur(src, scale, radius, false);
     }
 
@@ -1093,15 +1097,20 @@ public final class ImageUtils {
      * @return 模糊后的图片
      */
     public static Bitmap fastBlur(final Bitmap src,
-                                  @FloatRange(from = 0, to = 1, fromInclusive = false) final float scale,
-                                  @FloatRange(from = 0, to = 25, fromInclusive = false) final float radius,
+                                  @FloatRange(
+                                          from = 0, to = 1, fromInclusive = false
+                                  ) final float scale,
+                                  @FloatRange(
+                                          from = 0, to = 25, fromInclusive = false
+                                  ) final float radius,
                                   final boolean recycle) {
         if (isEmptyBitmap(src)) return null;
         int width = src.getWidth();
         int height = src.getHeight();
         Matrix matrix = new Matrix();
         matrix.setScale(scale, scale);
-        Bitmap scaleBitmap = Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), matrix, true);
+        Bitmap scaleBitmap =
+                Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), matrix, true);
         Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG | Paint.ANTI_ALIAS_FLAG);
         Canvas canvas = new Canvas();
         PorterDuffColorFilter filter = new PorterDuffColorFilter(
@@ -1131,7 +1140,9 @@ public final class ImageUtils {
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static Bitmap renderScriptBlur(final Bitmap src,
-                                          @FloatRange(from = 0, to = 25, fromInclusive = false) final float radius) {
+                                          @FloatRange(
+                                                  from = 0, to = 25, fromInclusive = false
+                                          ) final float radius) {
         return renderScriptBlur(src, radius, false);
     }
 
@@ -1146,7 +1157,9 @@ public final class ImageUtils {
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static Bitmap renderScriptBlur(final Bitmap src,
-                                          @FloatRange(from = 0, to = 25, fromInclusive = false) final float radius,
+                                          @FloatRange(
+                                                  from = 0, to = 25, fromInclusive = false
+                                          ) final float radius,
                                           final boolean recycle) {
         if (isEmptyBitmap(src)) return null;
         RenderScript rs = null;

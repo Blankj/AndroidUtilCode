@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.utilcode.util.BarUtils;
-import com.blankj.utilcode.util.LogUtils;
 
 /**
  * <pre>
@@ -46,20 +45,7 @@ public class BarStatusActivity extends BaseBackActivity {
         tvAboutStatus = findViewById(R.id.tv_about_status);
         findViewById(R.id.btn_show_status).setOnClickListener(this);
         findViewById(R.id.btn_hide_status).setOnClickListener(this);
-
-        tvAboutStatus.setText("statusHeight: " + BarUtils.getStatusBarHeight()
-                + "\nisStatusVisible: " + BarUtils.isStatusBarVisible(this));
-
-        BarUtils.registerNavBarChangedListener(this, new BarUtils.OnNavBarChangedListener() {
-            @Override
-            public void onNavBarChanged(boolean isVisible) {
-                LogUtils.d(isVisible);
-            }
-        });
-    }
-
-    private void updateAboutNav(boolean isNavBarVisible) {
-
+        updateAboutStatus();
     }
 
     @Override
@@ -71,12 +57,16 @@ public class BarStatusActivity extends BaseBackActivity {
     public void onWidgetClick(View view) {
         switch (view.getId()) {
             case R.id.btn_show_status:
-                BarUtils.showStatusBar(this);
+                BarUtils.setStatusBarVisibility(this, true);
                 break;
             case R.id.btn_hide_status:
-                BarUtils.hideStatusBar(this);
+                BarUtils.setStatusBarVisibility(this, false);
                 break;
         }
+        updateAboutStatus();
+    }
+
+    private void updateAboutStatus() {
         tvAboutStatus.setText("statusHeight: " + BarUtils.getStatusBarHeight()
                 + "\nisStatusVisible: " + BarUtils.isStatusBarVisible(this));
     }

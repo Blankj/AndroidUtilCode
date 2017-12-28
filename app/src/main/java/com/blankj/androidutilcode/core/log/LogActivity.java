@@ -111,7 +111,7 @@ public class LogActivity extends BaseBackActivity {
         findViewById(R.id.btn_log_file).setOnClickListener(this);
         findViewById(R.id.btn_log_json).setOnClickListener(this);
         findViewById(R.id.btn_log_xml).setOnClickListener(this);
-        updateAbout(0);
+        updateConfig(0);
     }
 
     @Override
@@ -123,31 +123,31 @@ public class LogActivity extends BaseBackActivity {
     public void onWidgetClick(View view) {
         switch (view.getId()) {
             case R.id.btn_toggle_log:
-                updateAbout(UPDATE_LOG);
+                updateConfig(UPDATE_LOG);
                 break;
             case R.id.btn_toggle_console:
-                updateAbout(UPDATE_CONSOLE);
+                updateConfig(UPDATE_CONSOLE);
                 break;
             case R.id.btn_toggle_tag:
-                updateAbout(UPDATE_TAG);
+                updateConfig(UPDATE_TAG);
                 break;
             case R.id.btn_toggle_head:
-                updateAbout(UPDATE_HEAD);
+                updateConfig(UPDATE_HEAD);
                 break;
             case R.id.btn_toggle_file:
-                updateAbout(UPDATE_FILE);
+                updateConfig(UPDATE_FILE);
                 break;
             case R.id.btn_toggle_dir:
-                updateAbout(UPDATE_DIR);
+                updateConfig(UPDATE_DIR);
                 break;
             case R.id.btn_toggle_border:
-                updateAbout(UPDATE_BORDER);
+                updateConfig(UPDATE_BORDER);
                 break;
             case R.id.btn_toggle_conole_filter:
-                updateAbout(UPDATE_CONSOLE_FILTER);
+                updateConfig(UPDATE_CONSOLE_FILTER);
                 break;
             case R.id.btn_toggle_file_filter:
-                updateAbout(UPDATE_FILE_FILTER);
+                updateConfig(UPDATE_FILE_FILTER);
                 break;
             case R.id.btn_log_no_tag:
                 LogUtils.v("verbose");
@@ -213,7 +213,7 @@ public class LogActivity extends BaseBackActivity {
         }
     }
 
-    private void updateAbout(int args) {
+    private void updateConfig(int args) {
         switch (args) {
             case UPDATE_LOG:
                 log = !log;

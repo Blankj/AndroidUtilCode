@@ -8,13 +8,12 @@ import android.text.style.UpdateAppearance;
 
 public class BlurMaskFilterSpan extends CharacterStyle implements UpdateAppearance {
 
-    private static final String TAG = "MutableBlurMaskFilterSpan";
     private float      mRadius;
     private MaskFilter mFilter;
 
-	public BlurMaskFilterSpan(float radius) {
+    public BlurMaskFilterSpan(float radius) {
         mRadius = radius;
-	}
+    }
 
     public void setRadius(float radius) {
         mRadius = radius;
@@ -26,7 +25,7 @@ public class BlurMaskFilterSpan extends CharacterStyle implements UpdateAppearan
     }
 
     @Override
-	public void updateDrawState(TextPaint ds) {
-		ds.setMaskFilter(mFilter);
-	}
+    public void updateDrawState(TextPaint ds) {
+        ds.setMaskFilter(mFilter);
+    }
 }

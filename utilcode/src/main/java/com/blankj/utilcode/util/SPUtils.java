@@ -71,7 +71,9 @@ public final class SPUtils {
      * @param isCommit {@code true}: {@link SharedPreferences.Editor#commit()}<br>
      *                 {@code false}: {@link SharedPreferences.Editor#apply()}
      */
-    public void put(@NonNull final String key, @NonNull final String value, final boolean isCommit) {
+    public void put(@NonNull final String key,
+                    @NonNull final String value,
+                    final boolean isCommit) {
         if (isCommit) {
             sp.edit().putString(key, value).commit();
         } else {
@@ -306,7 +308,9 @@ public final class SPUtils {
      * @param isCommit {@code true}: {@link SharedPreferences.Editor#commit()}<br>
      *                 {@code false}: {@link SharedPreferences.Editor#apply()}
      */
-    public void put(@NonNull final String key, @NonNull final Set<String> values, final boolean isCommit) {
+    public void put(@NonNull final String key,
+                    @NonNull final Set<String> values,
+                    final boolean isCommit) {
         if (isCommit) {
             sp.edit().putStringSet(key, values).commit();
         } else {
@@ -331,7 +335,8 @@ public final class SPUtils {
      * @param defaultValue 默认值
      * @return 存在返回对应值，不存在返回默认值{@code defaultValue}
      */
-    public Set<String> getStringSet(@NonNull final String key, @NonNull final Set<String> defaultValue) {
+    public Set<String> getStringSet(@NonNull final String key,
+                                    @NonNull final Set<String> defaultValue) {
         return sp.getStringSet(key, defaultValue);
     }
 

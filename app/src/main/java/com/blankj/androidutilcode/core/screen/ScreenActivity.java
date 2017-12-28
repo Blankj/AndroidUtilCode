@@ -42,6 +42,7 @@ public class ScreenActivity extends BaseBackActivity {
     public void initView(Bundle savedInstanceState, View view) {
         getToolBar().setTitle(getString(R.string.demo_sdcard));
 
+        findViewById(R.id.btn_set_fullscreen).setOnClickListener(this);
         findViewById(R.id.btn_set_landscape).setOnClickListener(this);
         findViewById(R.id.btn_set_portrait).setOnClickListener(this);
         findViewById(R.id.btn_screenshot).setOnClickListener(this);
@@ -69,6 +70,9 @@ public class ScreenActivity extends BaseBackActivity {
     @Override
     public void onWidgetClick(View view) {
         switch (view.getId()) {
+            case R.id.btn_set_fullscreen:
+                ScreenUtils.setFullScreen(this);
+                break;
             case R.id.btn_set_landscape:
                 ScreenUtils.setLandscape(this);
                 break;

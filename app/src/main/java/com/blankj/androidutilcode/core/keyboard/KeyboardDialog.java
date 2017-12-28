@@ -28,14 +28,14 @@ public class KeyboardDialog implements View.OnClickListener {
     }
 
     private AlertDialog dialog;
-    private EditText etInput;
+    private EditText    etInput;
 
-    public void show(){
+    public void show() {
         final Activity activity = mActivityWeakReference.get();
         if (activity != null) {
             final View dialogView = LayoutInflater.from(activity).inflate(R.layout.dialog_keyboard, null);
             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-            etInput = (EditText) dialogView.findViewById(R.id.et_input);
+            etInput = dialogView.findViewById(R.id.et_input);
             dialog = builder.setView(dialogView).create();
             dialog.setCanceledOnTouchOutside(false);
             dialogView.findViewById(R.id.btn_hide_soft_input).setOnClickListener(this);
@@ -43,7 +43,6 @@ public class KeyboardDialog implements View.OnClickListener {
             dialogView.findViewById(R.id.btn_toggle_soft_input).setOnClickListener(this);
             dialogView.findViewById(R.id.btn_close_dialog).setOnClickListener(this);
             dialog.show();
-            KeyboardUtils.showSoftInput(activity);
         }
     }
 

@@ -34,7 +34,8 @@ public final class ConvertUtils {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
-    private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    private static final char hexDigits[] =
+            {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     /**
      * byteArr 转 hexString
@@ -475,7 +476,9 @@ public final class ConvertUtils {
      * @return bitmap
      */
     public static Bitmap bytes2Bitmap(final byte[] bytes) {
-        return (bytes == null || bytes.length == 0) ? null : BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        return (bytes == null || bytes.length == 0)
+                ? null
+                : BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 
     /**
@@ -494,10 +497,15 @@ public final class ConvertUtils {
         Bitmap bitmap;
         if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
             bitmap = Bitmap.createBitmap(1, 1,
-                    drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+                    drawable.getOpacity() != PixelFormat.OPAQUE
+                            ? Bitmap.Config.ARGB_8888
+                            : Bitmap.Config.RGB_565);
         } else {
-            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
-                    drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                    drawable.getIntrinsicHeight(),
+                    drawable.getOpacity() != PixelFormat.OPAQUE
+                            ? Bitmap.Config.ARGB_8888
+                            : Bitmap.Config.RGB_565);
         }
         Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -522,7 +530,8 @@ public final class ConvertUtils {
      * @param format   格式
      * @return 字节数组
      */
-    public static byte[] drawable2Bytes(final Drawable drawable, final Bitmap.CompressFormat format) {
+    public static byte[] drawable2Bytes(final Drawable drawable,
+                                        final Bitmap.CompressFormat format) {
         return drawable == null ? null : bitmap2Bytes(drawable2Bitmap(drawable), format);
     }
 
@@ -544,7 +553,8 @@ public final class ConvertUtils {
      */
     public static Bitmap view2Bitmap(final View view) {
         if (view == null) return null;
-        Bitmap ret = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap ret =
+                Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(ret);
         Drawable bgDrawable = view.getBackground();
         if (bgDrawable != null) {

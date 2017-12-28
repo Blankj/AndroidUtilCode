@@ -70,7 +70,11 @@
     <!--Bar相关-->
     <string name="bar_about_status_bar">About Status Bar</string>
     <string name="bar_about_nav_bar">About Nav Bar</string>
+    <string name="bar_about_notification_bar">About Notification Bar</string>
 
+    <string name="bar_status_about">About Status</string>
+    <string name="bar_status_show">Show Status</string>
+    <string name="bar_status_hide">Hide Status</string>
     <string name="bar_status_set_color">Set Color</string>
     <string name="bar_status_set_alpha">Set Alpha</string>
     <string name="bar_status_set_image_view">Set Image View</string>
@@ -84,7 +88,13 @@
     <string name="bar_status_is_front">Front</string>
     <string name="bar_status_title_image_view">Image</string>
 
+    <string name="bar_notification_about">About Notification</string>
+    <string name="bar_notification_show">Show Notification And Hide After 2s</string>
+
     <string name="bar_nav_about">About Nav</string>
+    <string name="bar_nav_show">Show Nav</string>
+    <string name="bar_nav_hide">Hide Nav</string>
+    <string name="bar_nav_immersive">Immersive Nav</string>
 
     <!--Device相关-->
     <string name="device_shutdown">Shutdown</string>
@@ -145,7 +155,7 @@
     <string name="keyboard_hide_soft_input">Hide Soft Input</string>
     <string name="keyboard_show_soft_input">Show Soft Input</string>
     <string name="keyboard_toggle_soft_input">Toggle Soft Input</string>
-    <string name="keyboard_in_dialog">Keyboard In Dialog</string>
+    <string name="keyboard_show_dialog">Show Dialog</string>
     <string name="keyboard_close_dialog">Close Dialog</string>
 
     <!--log相关-->
@@ -178,6 +188,7 @@
     <string name="process_kill_all_background">Kill All Background Processes</string>
 
     <!--Screen相关-->
+    <string name="screen_set_fullscreen">Set Fullscreen</string>
     <string name="screen_set_landscape">Set Landscape</string>
     <string name="screen_set_portrait">Set Portrait</string>
     <string name="screen_screenshot">Screenshot</string>
