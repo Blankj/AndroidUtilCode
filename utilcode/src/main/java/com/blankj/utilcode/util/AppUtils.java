@@ -3,6 +3,7 @@ package com.blankj.utilcode.util;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -300,6 +301,51 @@ public final class AppUtils {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * Get activity icon for the specified activity<br/>
+     * Firstly lookup the icon attribute if not found, use logo attribute in manifest
+     *
+     * @param activityClass the activity class
+     * @return a drawable of the icon
+     */
+    public static Drawable getActivityIcon(Class<?> activityClass) {
+        Drawable iconDrawable = null;
+        PackageManager packageManager = Utils.getApp().getPackageManager();
+        final Intent intent = new Intent(Utils.getApp(), activityClass);
+        try {
+            iconDrawable = packageManager.getActivityIcon(intent);
+            if (iconDrawable == null) {
+                iconDrawable = packageManager.getActivityLogo(intent);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return iconDrawable;
+    }
+
+    /**
+     * Get the activity icon for specified component<br/>
+     * Firstly lookup the icon attribute if not found use logo attribute in manifest
+     *
+     * @param componentName the component name
+     * @return a drawable of the icon
+     */
+    public static Drawable getActivityIcon(ComponentName componentName) {
+        PackageManager packageManager = Utils.getApp().getPackageManager();
+        Drawable iconDrawable = null;
+        try {
+            iconDrawable = packageManager.getActivityIcon(componentName);
+            if (iconDrawable == null) {
+                iconDrawable = packageManager.getActivityLogo(componentName);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return iconDrawable;
     }
 
     /**

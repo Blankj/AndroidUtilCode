@@ -71,6 +71,7 @@
         <!--core-->
         <activity
             android:name=".core.main.CoreUtilActivity"
+            android:icon="@drawable/img_lena"
             android:launchMode="singleTop" />
         <activity
             android:name=".core.activity.ActivityActivity"
