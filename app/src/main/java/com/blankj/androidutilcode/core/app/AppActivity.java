@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.blankj.androidutilcode.Config;
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseBackActivity;
+import com.blankj.androidutilcode.core.main.CoreUtilActivity;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.SpanUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -57,7 +58,9 @@ public class AppActivity extends BaseBackActivity {
                 .appendLine("isAppRoot: " + AppUtils.isAppRoot())
                 .appendLine("isAppDebug: " + AppUtils.isAppDebug())
                 .appendLine("AppSignatureSHA1: " + AppUtils.getAppSignatureSHA1())
-                .append("isAppForeground: " + AppUtils.isAppForeground())
+                .append("isAppForeground: " + AppUtils.isAppForeground()).appendLine()
+                .append("Activity icon: ").appendImage(AppUtils.getActivityIcon(CoreUtilActivity.class), SpanUtils.ALIGN_CENTER)
+                .appendLine()
                 .create());
     }
 
