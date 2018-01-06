@@ -21,8 +21,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.ref.WeakReference;
-
 /**
  * <pre>
  *     author: Blankj
@@ -36,9 +34,7 @@ public final class ToastUtils {
     private static final int     COLOR_DEFAULT = 0xFEFFFFFF;
     private static final Handler HANDLER       = new Handler(Looper.getMainLooper());
 
-    private static Toast               sToast;
-    private static WeakReference<View> sViewWeakReference;
-    private static int sLayoutId  = -1;
+    private static Toast sToast;
     private static int gravity    = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
     private static int xOffset    = 0;
     private static int yOffset    = (int) (64 * Utils.getApp().getResources().getDisplayMetrics().density + 0.5);
@@ -276,20 +272,8 @@ public final class ToastUtils {
     }
 
     private static View getView(@LayoutRes final int layoutId) {
-        if (sLayoutId == layoutId) {
-            if (sViewWeakReference != null) {
-                final View toastView = sViewWeakReference.get();
-                if (toastView != null) {
-                    return toastView;
-                }
-            }
-        }
         LayoutInflater inflate =
                 (LayoutInflater) Utils.getApp().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (inflate == null) return null;
-        final View toastView = inflate.inflate(layoutId, null);
-        sViewWeakReference = new WeakReference<>(toastView);
-        sLayoutId = layoutId;
-        return toastView;
+        return inflate != null ? inflate.inflate(layoutId, null) : null;
     }
 }
