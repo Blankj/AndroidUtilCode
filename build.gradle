@@ -30,10 +30,10 @@ ext {
     compile_sdk_version = 26
     build_tools_version = '26.0.0'
     min_sdk_version = 14
-    target_sdk_version = 22
+    target_sdk_version = 23
 
-    version_code = 1_010_000
-    version_name = '1.10.0'// E.g 1.9.72 == 1,009,072
+    version_code = 1_011_000
+    version_name = '1.11.0'// E.g 1.9.72 == 1,009,072
 
     // App dependencies
     support_version = '26.1.0'

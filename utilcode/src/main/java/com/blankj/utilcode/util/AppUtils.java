@@ -739,7 +739,7 @@ public final class AppUtils {
     public static boolean cleanAppData(final File... dirs) {
         boolean isSuccess = CleanUtils.cleanInternalCache();
         isSuccess &= CleanUtils.cleanInternalDbs();
-        isSuccess &= CleanUtils.cleanInternalSP();
+        isSuccess &= CleanUtils.cleanInternalSp();
         isSuccess &= CleanUtils.cleanInternalFiles();
         isSuccess &= CleanUtils.cleanExternalCache();
         for (File dir : dirs) {

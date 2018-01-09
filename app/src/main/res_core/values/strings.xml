@@ -16,11 +16,12 @@
     <string name="demo_process">ProcessUtils Demo</string>
     <string name="demo_screen">ScreenUtils Demo</string>
     <string name="demo_sdcard">SDCardUtils Demo</string>
-    <string name="demo_snackbar">SnackbarUtils Demo</string>
+    <string name="demo_snackbar">Snackbar Demo</string>
+    <string name="demo_sp">SP Demo</string>
     <string name="demo_span">SpanUtils Demo</string>
     <string name="demo_toast">ToastUtils Demo</string>
 
-    <!--Activity相关-->
+    <!--Activity 相关-->
     <string name="activity_shared_element">Shared Element</string>
     <string name="activity_clz">Clz</string>
     <string name="activity_clz_opt">Clz Opt</string>
@@ -52,7 +53,7 @@
     <string name="activity_finish_to_activity">Finish To MainActivity</string>
     <string name="activity_finish_all_activities">Finish All Activities</string>
 
-    <!--App相关-->
+    <!--App 相关-->
     <string name="app_install">Install Test App</string>
     <string name="app_install_tips">Test app have installed</string>
     <string name="app_install_silent">Install Test App Silently</string>
@@ -67,7 +68,7 @@
     <string name="app_exit">Exit App</string>
     <string name="app_get_details_settings">Get App Details Settings</string>
 
-    <!--Bar相关-->
+    <!--Bar 相关-->
     <string name="bar_about_status_bar">About Status Bar</string>
     <string name="bar_about_nav_bar">About Nav Bar</string>
     <string name="bar_about_notification_bar">About Notification Bar</string>
@@ -96,13 +97,20 @@
     <string name="bar_nav_hide">Hide Nav</string>
     <string name="bar_nav_immersive">Immersive Nav</string>
 
-    <!--Device相关-->
+    <!--Clean 相关-->
+    <string name="clean_internal_cache">Clean Internal Cache</string>
+    <string name="clean_internal_files">Clean Internal Files</string>
+    <string name="clean_internal_databases">Clean Internal Databases</string>
+    <string name="clean_internal_sp">Clean Internal SP</string>
+    <string name="clean_external_cache">Clean External Cache</string>
+
+    <!--Device 相关-->
     <string name="device_shutdown">Shutdown</string>
     <string name="device_reboot">Reboot</string>
     <string name="device_reboot_to_recovery">Reboot To Recovery</string>
     <string name="device_reboot_to_bootloader">Reboot To Bootloader</string>
 
-    <!--Fragment相关-->
+    <!--Fragment 相关-->
     <string name="fragment_zero">Fragment0</string>
     <string name="fragment_one">Fragment1</string>
     <string name="fragment_two">Fragment2</string>
@@ -120,7 +128,7 @@
     <string name="fragment_replace">Replace</string>
     <string name="fragment_transition">Transition</string>
 
-    <!--Image相关-->
+    <!--Image 相关-->
     <string name="image_src">Src</string>
     <string name="image_scale">Scale</string>
     <string name="image_clip">Clip</string>
@@ -146,19 +154,19 @@
     <string name="image_compress_by_sample_size">Compress By Sample Size</string>
 
 
-    <!--Network相关-->
+    <!--Network 相关-->
     <string name="network_open_wireless_settings">Open Wireless Settings</string>
     <string name="network_set_data_enabled">Set Data Enabled</string>
     <string name="network_set_wifi_enabled">Set Wifi Enabled</string>
 
-    <!--Keyboard相关-->
+    <!--Keyboard 相关-->
     <string name="keyboard_hide_soft_input">Hide Soft Input</string>
     <string name="keyboard_show_soft_input">Show Soft Input</string>
     <string name="keyboard_toggle_soft_input">Toggle Soft Input</string>
     <string name="keyboard_show_dialog">Show Dialog</string>
     <string name="keyboard_close_dialog">Close Dialog</string>
 
-    <!--log相关-->
+    <!--log 相关-->
     <string name="log_toggle_log">Toggle Log</string>
     <string name="log_toggle_console">Toggle Console</string>
     <string name="log_toggle_tag">Toggle Tag</string>
@@ -178,23 +186,29 @@
     <string name="log_json">Log Json</string>
     <string name="log_xml">Log Xml</string>
 
-    <!--Phone相关-->
+    <!--Permission 相关-->
+    <string name="permission_open_app_settings">Open App Settings</string>
+    <string name="permission_request_calendar">Request Calendar</string>
+    <string name="permission_request_record_audio">Request Record Audio</string>
+
+
+    <!--Phone 相关-->
     <string name="phone_dial">Dial</string>
     <string name="phone_call">Call</string>
     <string name="phone_send_sms">Send SMS</string>
     <string name="phone_send_sms_silent">Send SMS Silent</string>
 
-    <!--Process相关-->
+    <!--Process 相关-->
     <string name="process_kill_all_background">Kill All Background Processes</string>
 
-    <!--Screen相关-->
+    <!--Screen 相关-->
     <string name="screen_set_fullscreen">Set Fullscreen</string>
     <string name="screen_set_landscape">Set Landscape</string>
     <string name="screen_set_portrait">Set Portrait</string>
     <string name="screen_screenshot">Screenshot</string>
     <string name="screen_set_sleep_duration">Set Sleep Duration</string>
 
-    <!--SnackBar相关工具类-->
+    <!--SnackBar 相关-->
     <string name="snackbar_show_short">Show Short Snackbar</string>
     <string name="snackbar_show_short_with_action">Show Short Snackbar With Action</string>
     <string name="snackbar_show_long">Show Long Snackbar</string>
@@ -216,7 +230,15 @@
     <string name="snackbar_warning">Warning</string>
     <string name="snackbar_error">Error</string>
 
-    <!--Toast相关-->
+    <!--SP 相关-->
+    <string name="sp_put_string">Put String</string>
+    <string name="sp_put_int">Put Int</string>
+    <string name="sp_put_long">Put Long</string>
+    <string name="sp_put_float">Put Float</string>
+    <string name="sp_put_boolean">Put Boolean</string>
+    <string name="sp_clear">Clear</string>
+
+    <!--Toast 相关-->
     <string name="toast_show_short">Show Short</string>
     <string name="toast_show_long">Show Long</string>
     <string name="toast_show_green_font">Show Green Font</string>

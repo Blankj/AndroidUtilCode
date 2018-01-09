@@ -1,14 +1,10 @@
 package com.blankj.androidutilcode;
 
 import com.blankj.androidutilcode.base.BaseApplication;
-import com.blankj.subutil.util.ThreadPoolUtils;
 import com.blankj.utilcode.util.CrashUtils;
-import com.blankj.utilcode.util.FileIOUtils;
-import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.PermissionUtils;
 import com.squareup.leakcanary.LeakCanary;
-
-import java.io.IOException;
 
 /**
  * <pre>
@@ -35,7 +31,8 @@ public class UtilsApp extends BaseApplication {
         initLeakCanary();
         initLog();
         initCrash();
-        initAssets();
+
+        LogUtils.d(PermissionUtils.getPermissions());
     }
 
     private void initLeakCanary() {
@@ -70,22 +67,6 @@ public class UtilsApp extends BaseApplication {
     private void initCrash() {
         CrashUtils.init();
     }
-
-    private void initAssets() {
-        if (!FileUtils.isFileExists(Config.TEST_APK_PATH)) {
-            ThreadPoolUtils poolUtils = new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 1);
-            poolUtils.execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        FileIOUtils.writeFileFromIS(Config.TEST_APK_PATH, getAssets().open("test_install"), false);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        } else {
-            LogUtils.d("test apk existed.");
-        }
-    }
 }
+
+

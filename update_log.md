@@ -1,5 +1,7 @@
-
-* 18/01/08 修复 ToastUtils 在 SDK 为 18 的自定义 Toast 崩溃问题
+* 18/01/10 完善 readme，发布 1.11.0 版本
+* 18/01/09 完善 demo 动态权限适配
+* 18/01/08 新增 SPActivity，删除 SPUtils 的单元测试
+* 18/01/08 修复 ToastUtils 在 SDK 为 18 的自定义 toast 崩溃问题
 * 18/01/07 新增 PermissionUtils 的 Demo
 * 18/01/06 修复权限相关工具类内存泄漏问题
 * 18/01/05 新增获取 Activity icon 和 logo

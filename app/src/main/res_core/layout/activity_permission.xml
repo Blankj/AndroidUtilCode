@@ -13,4 +13,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:id="@+id/btn_open_app_settings"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/permission_open_app_settings" />
+
+    <Button
+        android:id="@+id/btn_request_calendar"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/permission_request_calendar" />
+
+    <Button
+        android:id="@+id/btn_request_record_audio"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/permission_request_record_audio" />
+
 </LinearLayout>

@@ -41,7 +41,7 @@ public final class LocationUtils {
 
 
 //    /**
-//     * you have to chech for Location Permission before use this method
+//     * you have to check for Location Permission before use this method
 //     * add this code <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> to your Manifest file.
 //     * you have also implement LocationListener and passed it to the method.
 //     *
@@ -121,7 +121,11 @@ public final class LocationUtils {
      */
     public static boolean isLocationEnabled() {
         LocationManager lm = (LocationManager) Utils.getApp().getSystemService(LOCATION_SERVICE);
-        return lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER) || lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        return lm != null
+                && (
+                lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+                        || lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        );
     }
 
     /**

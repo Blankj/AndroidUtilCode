@@ -11,30 +11,35 @@
         android:id="@+id/btn_clean_internal_cache"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/clean_internal_cache" />
 
     <Button
         android:id="@+id/btn_clean_internal_files"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/clean_internal_files" />
 
     <Button
         android:id="@+id/btn_clean_internal_databases"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/clean_internal_databases"/>
 
     <Button
         android:id="@+id/btn_clean_internal_sp"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/clean_internal_sp"/>
 
     <Button
         android:id="@+id/btn_clean_external_cache"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/clean_external_cache"/>
 
 </LinearLayout>

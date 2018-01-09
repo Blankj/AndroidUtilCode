@@ -65,7 +65,7 @@ public final class CleanUtils {
      *
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
-    public static boolean cleanInternalSP() {
+    public static boolean cleanInternalSp() {
         return deleteFilesInDir(new File(Utils.getApp().getFilesDir().getParent(), "shared_prefs"));
     }
 
