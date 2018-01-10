@@ -58,7 +58,7 @@ public class PermissionActivity extends BaseBackActivity {
 
         StringBuilder sb = new StringBuilder();
         for (String s : PermissionUtils.getPermissions()) {
-            sb.append(s).append("\n");
+            sb.append(s.substring(s.lastIndexOf('.') + 1)).append("\n");
         }
         permissions = sb.toString();
     }
@@ -141,7 +141,7 @@ public class PermissionActivity extends BaseBackActivity {
 
     private void updateAboutPermission() {
         tvAboutPermission.setText(new SpanUtils()
-                .append(permissions)
+                .append(permissions).setBold()
                 .appendLine("READ_CALENDAR: " + PermissionUtils.isGranted(Manifest.permission.READ_CALENDAR))
                 .appendLine("RECORD_AUDIO: " + PermissionUtils.isGranted(Manifest.permission.RECORD_AUDIO))
                 .create());

@@ -165,12 +165,6 @@ reboot2Recovery
 reboot2Bootloader
 ```
 
-* ### About Empty -> [EmptyUtils.java][empty.java] -> [Test][empty.test]
-```
-isEmpty
-isNotEmpty
-```
-
 * ### About Encode -> [EncodeUtils.java][encode.java] -> [Test][encode.test]
 ```
 urlEncode
@@ -456,7 +450,7 @@ getReplaceFirst
 getReplaceAll
 ```
 
-* ### About Screen -> [ScreenUtils.java][screen.java]
+* ### About Screen -> [ScreenUtils.java][screen.java] -> [Demo][screen.demo]
 ```
 getScreenWidth
 getScreenHeight
@@ -562,7 +556,7 @@ appendSpace
 create
 ```
 
-* ### About SP -> [SPUtils.java][sp.java] -> [Test][sp.test]
+* ### About SP -> [SPUtils.java][sp.java] -> [Test][sp.demo]
 ```
 getInstance
 put
@@ -723,6 +717,7 @@ getComments
 [regex.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/RegexUtilsTest.java
 
 [screen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ScreenUtils.java
+[screen.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/screen/ScreenActivity.java
 
 [sdcard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/SDCardUtils.java
 [sdcard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/sdcard/SDCardActivity.java

@@ -165,12 +165,6 @@ reboot2Recovery  : 重启到 recovery
 reboot2Bootloader: 重启到 bootloader
 ```
 
-* ### 判空相关 -> [EmptyUtils.java][empty.java] -> [Test][empty.test]
-```
-isEmpty   : 判断对象是否为空
-isNotEmpty: 判断对象是否非空
-```
-
 * ### 编码解码相关 -> [EncodeUtils.java][encode.java] -> [Test][encode.test]
 ```
 urlEncode          : URL 编码
@@ -456,7 +450,7 @@ getReplaceFirst: 替换正则匹配的第一部分
 getReplaceAll  : 替换所有正则匹配的部分
 ```
 
-* ### 屏幕相关 -> [ScreenUtils.java][screen.java]
+* ### 屏幕相关 -> [ScreenUtils.java][screen.java] -> [Demo][screen.demo]
 ```
 getScreenWidth     : 获取屏幕的宽度（单位：px）
 getScreenHeight    : 获取屏幕的高度（单位：px）
@@ -562,7 +556,7 @@ appendSpace       : 追加空白
 create            : 创建样式字符串
 ```
 
-* ### SP 相关 -> [SPUtils.java][sp.java] -> [Test][sp.test]
+* ### SP 相关 -> [SPUtils.java][sp.java] -> [Test][sp.demo]
 ```
 getInstance: 获取 SP 实例
 put        : SP 中写入数据
@@ -723,6 +717,7 @@ getComments       : 获取压缩文件中的注释链表
 [regex.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/RegexUtilsTest.java
 
 [screen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ScreenUtils.java
+[screen.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/screen/ScreenActivity.java
 
 [sdcard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/SDCardUtils.java
 [sdcard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/sdcard/SDCardActivity.java
