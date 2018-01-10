@@ -39,7 +39,7 @@ public class CoreUtilActivity extends BaseBackActivity {
 
     public static void start(Context context) {
         Intent starter = new Intent(context, CoreUtilActivity.class);
-        context.startActivity(starter);
+        context.startActivity(starter.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     @Override
@@ -88,8 +88,6 @@ public class CoreUtilActivity extends BaseBackActivity {
     }
 
     public void crashClick(View view) {
-//        PermissionUtils.permission(PermissionConstants.WRITE_EXTERNAL_STORAGE)
-
         throw new NullPointerException("crash test");
     }
 

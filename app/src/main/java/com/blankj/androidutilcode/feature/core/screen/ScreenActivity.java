@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.utilcode.util.ScreenUtils;
+import com.blankj.utilcode.util.SpanUtils;
 
 /**
  * <pre>
@@ -49,14 +50,16 @@ public class ScreenActivity extends BaseBackActivity {
         findViewById(R.id.btn_set_sleep_duration).setOnClickListener(this);
         ivScreenshot = findViewById(R.id.iv_screenshot);
         TextView tvAboutSdcard = findViewById(R.id.tv_about_screen);
-        tvAboutSdcard.setText("getScreenWidth: " + ScreenUtils.getScreenWidth()
-                + "\ngetScreenHeight: " + ScreenUtils.getScreenHeight()
-                + "\nisLandscape: " + ScreenUtils.isLandscape()
-                + "\nisPortrait: " + ScreenUtils.isPortrait()
-                + "\ngetScreenRotation: " + ScreenUtils.getScreenRotation(this)
-                + "\nisScreenLock: " + ScreenUtils.isScreenLock()
-                + "\ngetSleepDuration: " + ScreenUtils.getSleepDuration()
-                + "\nisTablet: " + ScreenUtils.isTablet()
+        tvAboutSdcard.setText(new SpanUtils()
+                .appendLine("getScreenWidth: " + ScreenUtils.getScreenWidth())
+                .appendLine("getScreenHeight: " + ScreenUtils.getScreenHeight())
+                .appendLine("isLandscape: " + ScreenUtils.isLandscape())
+                .appendLine("isPortrait: " + ScreenUtils.isPortrait())
+                .appendLine("getScreenRotation: " + ScreenUtils.getScreenRotation(this))
+                .appendLine("isScreenLock: " + ScreenUtils.isScreenLock())
+                .appendLine("getSleepDuration: " + ScreenUtils.getSleepDuration())
+                .append("isTablet: " + ScreenUtils.isTablet())
+                .create()
         );
 
 

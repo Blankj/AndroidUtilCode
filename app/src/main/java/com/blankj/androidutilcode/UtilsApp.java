@@ -1,6 +1,12 @@
 package com.blankj.androidutilcode;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+
 import com.blankj.androidutilcode.base.BaseApplication;
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.PermissionUtils;
@@ -65,7 +71,26 @@ public class UtilsApp extends BaseApplication {
     }
 
     private void initCrash() {
-        CrashUtils.init();
+        CrashUtils.init(new CrashUtils.OnCrashListener() {
+            @Override
+            public void onCrash(Throwable e) {
+                e.printStackTrace();
+                restartApp();
+            }
+        });
+    }
+
+    private void restartApp() {
+        Intent intent = new Intent();
+        intent.setClassName("com.blankj.androidutilcode", "com.blankj.androidutilcode.MainActivity");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent restartIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        AlarmManager manager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        if (manager == null) return;
+        manager.set(AlarmManager.RTC, System.currentTimeMillis() + 1, restartIntent);
+        ActivityUtils.finishAllActivities();
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);
     }
 }
 

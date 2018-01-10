@@ -1123,9 +1123,12 @@ public final class ImageUtils {
         } else {
             scaleBitmap = stackBlur(scaleBitmap, (int) radius, recycle);
         }
-        if (scale == 1) return scaleBitmap;
+        if (scale == 1) {
+            if (recycle && !src.isRecycled()) src.recycle();
+            return scaleBitmap;
+        }
         Bitmap ret = Bitmap.createScaledBitmap(scaleBitmap, width, height, true);
-        if (scaleBitmap != null && !scaleBitmap.isRecycled()) scaleBitmap.recycle();
+        if (!scaleBitmap.isRecycled()) scaleBitmap.recycle();
         if (recycle && !src.isRecycled()) src.recycle();
         return ret;
     }
@@ -1161,7 +1164,6 @@ public final class ImageUtils {
                                                   from = 0, to = 25, fromInclusive = false
                                           ) final float radius,
                                           final boolean recycle) {
-        if (isEmptyBitmap(src)) return null;
         RenderScript rs = null;
         Bitmap ret = recycle ? src : src.copy(src.getConfig(), true);
         try {
@@ -1204,12 +1206,11 @@ public final class ImageUtils {
      * @param recycle 是否回收
      * @return stack 模糊后的图片
      */
-    public static Bitmap stackBlur(final Bitmap src, final int radius, final boolean recycle) {
+    public static Bitmap stackBlur(final Bitmap src, int radius, final boolean recycle) {
         Bitmap ret = recycle ? src : src.copy(src.getConfig(), true);
         if (radius < 1) {
-            return null;
+            radius = 1;
         }
-
         int w = ret.getWidth();
         int h = ret.getHeight();
 

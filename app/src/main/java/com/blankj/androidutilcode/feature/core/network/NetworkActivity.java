@@ -36,9 +36,15 @@ public class NetworkActivity extends BaseBackActivity {
                 text += '\n';
             }
             if (msg.what == 1) {
-                tvAboutNetworkAsync.setText(text + "isAvailableByPing: " + msg.obj);
+                tvAboutNetworkAsync.setText(new SpanUtils()
+                        .append(text + "isAvailableByPing: " + msg.obj)
+                        .create()
+                );
             } else {
-                tvAboutNetworkAsync.setText(text + "getDomainAddress: " + msg.obj);
+                tvAboutNetworkAsync.setText(new SpanUtils()
+                        .append(text + "getDomainAddress: " + msg.obj)
+                        .create()
+                );
             }
             return true;
         }

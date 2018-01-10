@@ -44,6 +44,8 @@ public final class CrashUtils {
     private static final UncaughtExceptionHandler DEFAULT_UNCAUGHT_EXCEPTION_HANDLER;
     private static final UncaughtExceptionHandler UNCAUGHT_EXCEPTION_HANDLER;
 
+    private static OnCrashListener sOnCrashListener;
+
     static {
         try {
             PackageInfo pi = Utils.getApp()
@@ -72,9 +74,16 @@ public final class CrashUtils {
             @Override
             public void uncaughtException(final Thread t, final Throwable e) {
                 if (e == null) {
-                    android.os.Process.killProcess(android.os.Process.myPid());
-                    System.exit(0);
+                    if (DEFAULT_UNCAUGHT_EXCEPTION_HANDLER != null) {
+                        DEFAULT_UNCAUGHT_EXCEPTION_HANDLER.uncaughtException(t, null);
+                    } else {
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                        System.exit(1);
+                    }
                     return;
+                }
+                if (sOnCrashListener != null) {
+                    sOnCrashListener.onCrash(e);
                 }
                 Date now = new Date(System.currentTimeMillis());
                 String fileName = FORMAT.format(now) + ".txt";
@@ -105,9 +114,6 @@ public final class CrashUtils {
                         }
                     }
                 });
-                if (DEFAULT_UNCAUGHT_EXCEPTION_HANDLER != null) {
-                    DEFAULT_UNCAUGHT_EXCEPTION_HANDLER.uncaughtException(t, e);
-                }
             }
         };
     }
@@ -131,7 +137,7 @@ public final class CrashUtils {
      * @param crashDir 崩溃文件存储目录
      */
     public static void init(@NonNull final File crashDir) {
-        init(crashDir.getAbsolutePath());
+        init(crashDir.getAbsolutePath(), null);
     }
 
     /**
@@ -141,6 +147,38 @@ public final class CrashUtils {
      * @param crashDir 崩溃文件存储目录
      */
     public static void init(final String crashDir) {
+        init(crashDir, null);
+    }
+
+    /**
+     * 初始化
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
+     *
+     * @param onCrashListener 崩溃监听事件
+     */
+    public static void init(final OnCrashListener onCrashListener) {
+        init("", onCrashListener);
+    }
+
+    /**
+     * 初始化
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
+     *
+     * @param crashDir        崩溃文件存储目录
+     * @param onCrashListener 崩溃监听事件
+     */
+    public static void init(@NonNull final File crashDir, final OnCrashListener onCrashListener) {
+        init(crashDir.getAbsolutePath(), onCrashListener);
+    }
+
+    /**
+     * 初始化
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
+     *
+     * @param crashDir        崩溃文件存储目录
+     * @param onCrashListener 崩溃监听事件
+     */
+    public static void init(final String crashDir, final OnCrashListener onCrashListener) {
         if (isSpace(crashDir)) {
             dir = null;
         } else {
@@ -152,6 +190,7 @@ public final class CrashUtils {
         else {
             defaultDir = Utils.getApp().getCacheDir() + FILE_SEP + "crash" + FILE_SEP;
         }
+        sOnCrashListener = onCrashListener;
         Thread.setDefaultUncaughtExceptionHandler(UNCAUGHT_EXCEPTION_HANDLER);
     }
 
@@ -179,5 +218,9 @@ public final class CrashUtils {
             }
         }
         return true;
+    }
+
+    public interface OnCrashListener {
+        void onCrash(Throwable e);
     }
 }

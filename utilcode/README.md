@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-compile 'com.blankj:utilcode:1.11.0'
+compile 'com.blankj:utilcode:1.11.1'
 ```
 
 
@@ -556,7 +556,7 @@ appendSpace
 create
 ```
 
-* ### About SP -> [SPUtils.java][sp.java] -> [Test][sp.demo]
+* ### About SP -> [SPUtils.java][sp.java] -> [Demo][sp.demo]
 ```
 getInstance
 put

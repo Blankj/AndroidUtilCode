@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseBackActivity;
-import com.blankj.androidutilcode.helper.PermissionHelper;
+import com.blankj.androidutilcode.helper.DialogHelper;
 import com.blankj.utilcode.constant.PermissionConstants;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.PermissionUtils;
@@ -85,7 +85,7 @@ public class PermissionActivity extends BaseBackActivity {
                         .rationale(new PermissionUtils.OnRationaleListener() {
                             @Override
                             public void rationale(final ShouldRequest shouldRequest) {
-                                PermissionHelper.showRationaleDialog(shouldRequest);
+                                DialogHelper.showRationaleDialog(shouldRequest);
                             }
                         })
                         .callback(new PermissionUtils.FullCallback() {
@@ -98,7 +98,7 @@ public class PermissionActivity extends BaseBackActivity {
                             public void onDenied(List<String> permissionsDeniedForever,
                                                  List<String> permissionsDenied) {
                                 if (!permissionsDeniedForever.isEmpty()) {
-                                    PermissionHelper.showOpenAppSettingDialog();
+                                    DialogHelper.showOpenAppSettingDialog();
                                 }
                                 LogUtils.d(permissionsDeniedForever, permissionsDenied);
                             }
@@ -116,7 +116,7 @@ public class PermissionActivity extends BaseBackActivity {
                         .rationale(new PermissionUtils.OnRationaleListener() {
                             @Override
                             public void rationale(final ShouldRequest shouldRequest) {
-                                PermissionHelper.showRationaleDialog(shouldRequest);
+                                DialogHelper.showRationaleDialog(shouldRequest);
                             }
                         })
                         .callback(new PermissionUtils.FullCallback() {
@@ -129,7 +129,7 @@ public class PermissionActivity extends BaseBackActivity {
                             public void onDenied(List<String> permissionsDeniedForever,
                                                  List<String> permissionsDenied) {
                                 if (!permissionsDeniedForever.isEmpty()) {
-                                    PermissionHelper.showOpenAppSettingDialog();
+                                    DialogHelper.showOpenAppSettingDialog();
                                 }
                                 LogUtils.d(permissionsDeniedForever, permissionsDenied);
                             }

@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-compile 'com.blankj:utilcode:1.11.0'
+compile 'com.blankj:utilcode:1.11.1'
 ```
 
 
@@ -556,7 +556,7 @@ appendSpace       : 追加空白
 create            : 创建样式字符串
 ```
 
-* ### SP 相关 -> [SPUtils.java][sp.java] -> [Test][sp.demo]
+* ### SP 相关 -> [SPUtils.java][sp.java] -> [Demo][sp.demo]
 ```
 getInstance: 获取 SP 实例
 put        : SP 中写入数据

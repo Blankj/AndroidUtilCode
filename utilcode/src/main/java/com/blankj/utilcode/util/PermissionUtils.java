@@ -294,7 +294,8 @@ public final class PermissionUtils {
             } else {
                 Window window = getWindow();
                 window.setBackgroundDrawable(null);
-                int option = View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+                int option = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
                 window.getDecorView().setSystemUiVisibility(option);
                 window.setStatusBarColor(Color.TRANSPARENT);
             }

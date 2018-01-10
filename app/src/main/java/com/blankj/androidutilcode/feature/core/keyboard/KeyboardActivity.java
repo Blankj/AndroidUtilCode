@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseBackActivity;
+import com.blankj.androidutilcode.helper.DialogHelper;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.SpanUtils;
 
@@ -86,7 +87,7 @@ public class KeyboardActivity extends BaseBackActivity {
                 KeyboardUtils.toggleSoftInput();
                 break;
             case R.id.btn_keyboard_in_fragment:
-                new KeyboardDialog(this).show();
+                DialogHelper.showKeyboardDialog();
                 KeyboardUtils.showSoftInput(this);
                 break;
         }

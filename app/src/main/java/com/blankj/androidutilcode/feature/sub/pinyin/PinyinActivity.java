@@ -43,21 +43,23 @@ public class PinyinActivity extends BaseBackActivity {
 
         String surnames = "乐乘乜仇会便区单参句召员宓弗折曾朴查洗盖祭种秘繁缪能蕃覃解谌适都阿难黑";
         int size = surnames.length();
-        String testString = "汉字转拼音: " + PinyinUtils.ccs2Pinyin("汉字转拼音", " ")
+        StringBuilder sb = new StringBuilder("汉字转拼音: " + PinyinUtils.ccs2Pinyin("汉字转拼音", " ")
                 + "\n获取首字母: " + PinyinUtils.getPinyinFirstLetters("获取首字母", " ")
                 + "\n\n测试姓氏"
                 + "\n澹台: " + PinyinUtils.getSurnamePinyin("澹台")
                 + "\n尉迟: " + PinyinUtils.getSurnamePinyin("尉迟")
                 + "\n万俟: " + PinyinUtils.getSurnamePinyin("万俟")
-                + "\n单于: " + PinyinUtils.getSurnamePinyin("单于");
+                + "\n单于: " + PinyinUtils.getSurnamePinyin("单于"));
         for (int i = 0; i < size; ++i) {
             String surname = String.valueOf(surnames.charAt(i));
-            testString += String.format("\n%s 正确: %-6s 错误: %-6s",
+            sb.append(String.format(
+                    "\n%s 正确: %-6s 错误: %-6s",
                     surname,
                     PinyinUtils.getSurnamePinyin(surname),
-                    PinyinUtils.ccs2Pinyin(surname));
+                    PinyinUtils.ccs2Pinyin(surname)
+            ));
         }
-        tvAboutPinyin.setText(testString);
+        tvAboutPinyin.setText(sb.toString());
     }
 
     @Override

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -32,6 +33,91 @@ public final class ZipUtils {
     }
 
     /**
+     * 批量压缩文件
+     *
+     * @param resFiles    待压缩文件路径集合
+     * @param zipFilePath 压缩文件路径
+     * @return {@code true}: 压缩成功<br>{@code false}: 压缩失败
+     * @throws IOException IO错误时抛出
+     */
+    public static boolean zipFiles(final Collection<String> resFiles,
+                                   final String zipFilePath)
+            throws IOException {
+        return zipFiles(resFiles, zipFilePath, null);
+    }
+
+    /**
+     * 批量压缩文件
+     *
+     * @param resFilePaths 待压缩文件路径集合
+     * @param zipFilePath  压缩文件路径
+     * @param comment      压缩文件的注释
+     * @return {@code true}: 压缩成功<br>{@code false}: 压缩失败
+     * @throws IOException IO错误时抛出
+     */
+    public static boolean zipFiles(final Collection<String> resFilePaths,
+                                   final String zipFilePath,
+                                   final String comment)
+            throws IOException {
+        if (resFilePaths == null || zipFilePath == null) return false;
+        ZipOutputStream zos = null;
+        try {
+            zos = new ZipOutputStream(new FileOutputStream(zipFilePath));
+            for (String resFile : resFilePaths) {
+                if (!zipFile(getFileByPath(resFile), "", zos, comment)) return false;
+            }
+            return true;
+        } finally {
+            if (zos != null) {
+                zos.finish();
+                CloseUtils.closeIO(zos);
+            }
+        }
+    }
+
+    /**
+     * 批量压缩文件
+     *
+     * @param resFiles 待压缩文件集合
+     * @param zipFile  压缩文件
+     * @return {@code true}: 压缩成功<br>{@code false}: 压缩失败
+     * @throws IOException IO错误时抛出
+     */
+    public static boolean zipFiles(final Collection<File> resFiles, final File zipFile)
+            throws IOException {
+        return zipFiles(resFiles, zipFile, null);
+    }
+
+    /**
+     * 批量压缩文件
+     *
+     * @param resFiles 待压缩文件集合
+     * @param zipFile  压缩文件
+     * @param comment  压缩文件的注释
+     * @return {@code true}: 压缩成功<br>{@code false}: 压缩失败
+     * @throws IOException IO错误时抛出
+     */
+    public static boolean zipFiles(final Collection<File> resFiles,
+                                   final File zipFile,
+                                   final String comment)
+            throws IOException {
+        if (resFiles == null || zipFile == null) return false;
+        ZipOutputStream zos = null;
+        try {
+            zos = new ZipOutputStream(new FileOutputStream(zipFile));
+            for (File resFile : resFiles) {
+                if (!zipFile(resFile, "", zos, comment)) return false;
+            }
+            return true;
+        } finally {
+            if (zos != null) {
+                zos.finish();
+                CloseUtils.closeIO(zos);
+            }
+        }
+    }
+
+    /**
      * 压缩文件
      *
      * @param resFilePath 待压缩文件路径
@@ -42,7 +128,7 @@ public final class ZipUtils {
     public static boolean zipFile(final String resFilePath,
                                   final String zipFilePath)
             throws IOException {
-        return zipFile(resFilePath, zipFilePath, null);
+        return zipFile(getFileByPath(resFilePath), getFileByPath(zipFilePath), null);
     }
 
     /**
@@ -121,7 +207,7 @@ public final class ZipUtils {
             // 如果是空文件夹那么创建它，我把'/'换为File.separator测试就不成功，eggPain
             if (fileList == null || fileList.length <= 0) {
                 ZipEntry entry = new ZipEntry(rootPath + '/');
-                if (!isSpace(comment)) entry.setComment(comment);
+                entry.setComment(comment);
                 zos.putNextEntry(entry);
                 zos.closeEntry();
             } else {
@@ -135,7 +221,7 @@ public final class ZipUtils {
             try {
                 is = new BufferedInputStream(new FileInputStream(resFile));
                 ZipEntry entry = new ZipEntry(rootPath);
-                if (!isSpace(comment)) entry.setComment(comment);
+                entry.setComment(comment);
                 zos.putNextEntry(entry);
                 byte buffer[] = new byte[BUFFER_LEN];
                 int len;

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.utilcode.util.ProcessUtils;
+import com.blankj.utilcode.util.SpanUtils;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -47,9 +48,12 @@ public class ProcessActivity extends BaseBackActivity {
         findViewById(R.id.btn_kill_all_background_processes).setOnClickListener(this);
         tvAboutProcess = findViewById(R.id.tv_about_process);
         Set<String> set = ProcessUtils.getAllBackgroundProcesses();
-        tvAboutProcess.setText("getForegroundProcessName: " + ProcessUtils.getForegroundProcessName()
-                + "\n\ngetAllBackgroundProcesses: " + getSetItems(set)
-                + "\nsize: " + set.size());
+        tvAboutProcess.setText(new SpanUtils()
+                .appendLine("getForegroundProcessName: " + ProcessUtils.getForegroundProcessName())
+                .appendLine("getAllBackgroundProcesses: " + getSetItems(set))
+                .append("size: " + set.size())
+                .create()
+        );
     }
 
     @Override
@@ -63,11 +67,14 @@ public class ProcessActivity extends BaseBackActivity {
             case R.id.btn_kill_all_background_processes:
                 Set<String> set = ProcessUtils.getAllBackgroundProcesses();
                 Set<String> set1 = ProcessUtils.killAllBackgroundProcesses();
-                tvAboutProcess.setText("getForegroundProcessName: " + ProcessUtils.getForegroundProcessName()
-                        + "\n\ngetAllBackgroundProcesses: " + getSetItems(set)
-                        + "\nsize: " + set.size()
-                        + "\n\nkillAllBackgroundProcesses: " + getSetItems(set1)
-                        + "\nsize: " + set1.size());
+                tvAboutProcess.setText(new SpanUtils()
+                        .appendLine("getForegroundProcessName: " + ProcessUtils.getForegroundProcessName())
+                        .appendLine("getAllBackgroundProcesses: " + getSetItems(set))
+                        .appendLine("size: " + set.size())
+                        .appendLine("killAllBackgroundProcesses: " + getSetItems(set1))
+                        .append("size: " + set1.size())
+                        .create()
+                );
                 break;
         }
     }

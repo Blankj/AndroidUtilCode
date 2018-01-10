@@ -1,4 +1,5 @@
-* 18/01/10 完善 readme，发布 1.11.0 版本
+* 18/01/11 修复 ImageUtils 的 fastBlur radius 为 1 recycle 的 bug，新增 CrashUtils 初始化崩溃监听事件，发布 1.11.1 版本
+* 18/01/10 完善 PermissionUtils 及 readme，发布 1.11.0 版本
 * 18/01/09 完善 demo 动态权限适配
 * 18/01/08 新增 SPActivity，删除 SPUtils 的单元测试
 * 18/01/08 修复 ToastUtils 在 SDK 为 18 的自定义 toast 崩溃问题
