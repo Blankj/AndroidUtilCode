@@ -114,6 +114,9 @@ public final class CrashUtils {
                         }
                     }
                 });
+                if (DEFAULT_UNCAUGHT_EXCEPTION_HANDLER != null) {
+                    DEFAULT_UNCAUGHT_EXCEPTION_HANDLER.uncaughtException(t, e);
+                }
             }
         };
     }
