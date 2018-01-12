@@ -130,7 +130,9 @@ public final class CacheUtils {
      * @param maxCount 最大缓存个数
      * @return {@link CacheUtils}
      */
-    public static CacheUtils getInstance(@NonNull final File cacheDir, final long maxSize, final int maxCount) {
+    public static CacheUtils getInstance(@NonNull final File cacheDir,
+                                         final long maxSize,
+                                         final int maxCount) {
         final String cacheKey = cacheDir.getAbsoluteFile() + "_" + Process.myPid();
         CacheUtils cache = CACHE_MAP.get(cacheKey);
         if (cache == null) {
@@ -175,7 +177,6 @@ public final class CacheUtils {
         CacheHelper.writeFileFromBytes(file, value);
         mCacheManager.updateModify(file);
         mCacheManager.put(file);
-
     }
 
     /**
@@ -276,7 +277,9 @@ public final class CacheUtils {
      * @param value    值
      * @param saveTime 保存时长，单位：秒
      */
-    public void put(@NonNull final String key, @NonNull final JSONObject value, final int saveTime) {
+    public void put(@NonNull final String key,
+                    @NonNull final JSONObject value,
+                    final int saveTime) {
         put(key, CacheHelper.jsonObject2Bytes(value), saveTime);
     }
 
@@ -470,7 +473,9 @@ public final class CacheUtils {
      * @param value    值
      * @param saveTime 保存时长，单位：秒
      */
-    public void put(@NonNull final String key, @NonNull final Parcelable value, final int saveTime) {
+    public void put(@NonNull final String key,
+                    @NonNull final Parcelable value,
+                    final int saveTime) {
         put(key, CacheHelper.parcelable2Bytes(value), saveTime);
     }
 
@@ -481,7 +486,8 @@ public final class CacheUtils {
      * @param creator 建造器
      * @return 存在且没过期返回对应值，否则返回{@code null}
      */
-    public <T> T getParcelable(@NonNull final String key, @NonNull final Parcelable.Creator<T> creator) {
+    public <T> T getParcelable(@NonNull final String key,
+                               @NonNull final Parcelable.Creator<T> creator) {
         return getParcelable(key, creator, null);
     }
 
@@ -493,7 +499,9 @@ public final class CacheUtils {
      * @param defaultValue 默认值
      * @return 存在且没过期返回对应值，否则返回默认值{@code defaultValue}
      */
-    public <T> T getParcelable(@NonNull final String key, @NonNull final Parcelable.Creator<T> creator, final T defaultValue) {
+    public <T> T getParcelable(@NonNull final String key,
+                               @NonNull final Parcelable.Creator<T> creator,
+                               final T defaultValue) {
         byte[] bytes = getBytes(key);
         if (bytes == null) return defaultValue;
         return CacheHelper.bytes2Parcelable(bytes, creator);
@@ -520,7 +528,9 @@ public final class CacheUtils {
      * @param value    值
      * @param saveTime 保存时长，单位：秒
      */
-    public void put(@NonNull final String key, @NonNull final Serializable value, final int saveTime) {
+    public void put(@NonNull final String key,
+                    @NonNull final Serializable value,
+                    final int saveTime) {
         put(key, CacheHelper.serializable2Bytes(value), saveTime);
     }
 
@@ -592,7 +602,8 @@ public final class CacheUtils {
         private final AtomicInteger cacheCount;
         private final long          sizeLimit;
         private final int           countLimit;
-        private final Map<File, Long> lastUsageDates = Collections.synchronizedMap(new HashMap<File, Long>());
+        private final Map<File, Long> lastUsageDates
+                = Collections.synchronizedMap(new HashMap<File, Long>());
         private final File   cacheDir;
         private final Thread mThread;
 
@@ -749,7 +760,10 @@ public final class CacheUtils {
          * @return _$millis$_
          */
         private static String createDueTime(final int second) {
-            return String.format(Locale.getDefault(), "_$%010d$_", System.currentTimeMillis() / 1000 + second);
+            return String.format(
+                    Locale.getDefault(), "_$%010d$_",
+                    System.currentTimeMillis() / 1000 + second
+            );
         }
 
         private static boolean isDue(final byte[] data) {
@@ -872,7 +886,8 @@ public final class CacheUtils {
             return bytes;
         }
 
-        private static <T> T bytes2Parcelable(final byte[] bytes, final Parcelable.Creator<T> creator) {
+        private static <T> T bytes2Parcelable(final byte[] bytes,
+                                              final Parcelable.Creator<T> creator) {
             if (bytes == null) return null;
             Parcel parcel = Parcel.obtain();
             parcel.unmarshall(bytes, 0, bytes.length);
@@ -920,7 +935,9 @@ public final class CacheUtils {
         }
 
         private static Bitmap bytes2Bitmap(final byte[] bytes) {
-            return (bytes == null || bytes.length == 0) ? null : BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            return (bytes == null || bytes.length == 0)
+                    ? null
+                    : BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         }
 
         private static byte[] drawable2Bytes(final Drawable drawable) {
@@ -940,11 +957,21 @@ public final class CacheUtils {
             }
             Bitmap bitmap;
             if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
-                bitmap = Bitmap.createBitmap(1, 1,
-                        drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+                bitmap = Bitmap.createBitmap(
+                        1,
+                        1,
+                        drawable.getOpacity() != PixelFormat.OPAQUE
+                                ? Bitmap.Config.ARGB_8888
+                                : Bitmap.Config.RGB_565
+                );
             } else {
-                bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
-                        drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+                bitmap = Bitmap.createBitmap(
+                        drawable.getIntrinsicWidth(),
+                        drawable.getIntrinsicHeight(),
+                        drawable.getOpacity() != PixelFormat.OPAQUE
+                                ? Bitmap.Config.ARGB_8888
+                                : Bitmap.Config.RGB_565
+                );
             }
             Canvas canvas = new Canvas(bitmap);
             drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -953,7 +980,9 @@ public final class CacheUtils {
         }
 
         private static Drawable bitmap2Drawable(final Bitmap bitmap) {
-            return bitmap == null ? null : new BitmapDrawable(Utils.getApp().getResources(), bitmap);
+            return bitmap == null
+                    ? null
+                    : new BitmapDrawable(Utils.getApp().getResources(), bitmap);
         }
     }
 
