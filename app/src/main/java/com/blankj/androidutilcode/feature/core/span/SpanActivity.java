@@ -61,8 +61,6 @@ public class SpanActivity extends BaseBackActivity {
     float    density;
     TextView tvAboutSpan;
     TextView tvAboutAnimRainbow;
-    TextView tvAboutSpan1;
-    TextView tvAboutAnimRainbow1;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, SpanActivity.class);
@@ -143,7 +141,7 @@ public class SpanActivity extends BaseBackActivity {
                         getResources().getIntArray(R.array.rainbow),
                         null,
                         Shader.TileMode.REPEAT)).setFontSize(64, true)
-                .appendLine("图片着色").setFontSize(64, true).setShader(new BitmapShader(BitmapFactory.decodeResource(getResources(), R.drawable.cheetah),
+                .appendLine("图片着色").setFontSize(64, true).setShader(new BitmapShader(BitmapFactory.decodeResource(getResources(), R.drawable.span_cheetah),
                         Shader.TileMode.REPEAT,
                         Shader.TileMode.REPEAT))
                 .appendLine("阴影效果").setFontSize(64, true).setBackgroundColor(Color.BLACK).setShadow(24, 8, 8, Color.WHITE)
