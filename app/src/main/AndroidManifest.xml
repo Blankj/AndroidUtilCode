@@ -70,9 +70,9 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.core.activity.ActivityActivity"
-            android:icon="@drawable/ic_icon"
+            android:icon="@drawable/ic_activity_icon"
             android:launchMode="singleTop"
-            android:logo="@drawable/ic_logo" />
+            android:logo="@drawable/ic_activity_logo" />
         <activity
             android:name=".feature.core.activity.SubActivityActivity"
             android:launchMode="singleTop" />
@@ -124,7 +124,7 @@
         <activity
             android:name=".feature.core.keyboard.KeyboardActivity"
             android:launchMode="singleTop"
-            />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".feature.core.log.LogActivity"
             android:launchMode="singleTop" />
