@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.inputmethod.InputMethodManager;
 
+import java.lang.reflect.Field;
+
 /**
  * <pre>
  *     author: Blankj
@@ -147,6 +149,39 @@ public final class KeyboardUtils {
                 }
             }
         });
+    }
+
+    /**
+     * 修复软键盘内存泄漏
+     * <p>在{@link Activity#onDestroy()}中使用</p>
+     *
+     * @param context context
+     */
+    public static void fixSoftInputLeaks(final Context context) {
+        if (context == null) return;
+        InputMethodManager imm =
+                (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm == null) return;
+        String[] strArr = new String[]{"mCurRootView", "mServedView", "mNextServedView"};
+        for (int i = 0; i < 3; i++) {
+            try {
+                Field declaredField = imm.getClass().getDeclaredField(strArr[i]);
+                if (declaredField == null) continue;
+                if (!declaredField.isAccessible()) {
+                    declaredField.setAccessible(true);
+                }
+                Object obj = declaredField.get(imm);
+                if (obj == null || !(obj instanceof View)) continue;
+                View view = (View) obj;
+                if (view.getContext() == context) {
+                    declaredField.set(imm, null);
+                } else {
+                    return;
+                }
+            } catch (Throwable th) {
+                th.printStackTrace();
+            }
+        }
     }
 
     /**

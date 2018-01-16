@@ -4,8 +4,8 @@ package com.blankj.utilcode.util.reflect;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2017/05/26
- *     desc  : CacheUtils 单元测试
+ *     time  : 2018/01/12
+ *     desc  :
  * </pre>
  */
 public class PrivateConstructors {

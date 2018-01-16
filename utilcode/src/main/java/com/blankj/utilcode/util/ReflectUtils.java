@@ -4,7 +4,13 @@ import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Member;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * <pre>
@@ -20,11 +26,11 @@ public final class ReflectUtils {
 
     private final Object object;
 
-    private ReflectUtils(Class<?> type) {
+    private ReflectUtils(final Class<?> type) {
         this(type, type);
     }
 
-    private ReflectUtils(Class<?> type, Object object) {
+    private ReflectUtils(final Class<?> type, Object object) {
         this.type = type;
         this.object = object;
     }
@@ -33,32 +39,24 @@ public final class ReflectUtils {
     // reflect
     ///////////////////////////////////////////////////////////////////////////
 
-    public static ReflectUtils reflect(String className) {
+    public static ReflectUtils reflect(final String className)
+            throws ReflectException {
         return reflect(forName(className));
     }
 
-    public static ReflectUtils reflect(String name, ClassLoader classLoader) {
+    public static ReflectUtils reflect(final String name, final ClassLoader classLoader)
+            throws ReflectException {
         return reflect(forName(name, classLoader));
     }
 
-    public static ReflectUtils reflect(Class<?> clazz) {
+    public static ReflectUtils reflect(final Class<?> clazz)
+            throws ReflectException {
         return new ReflectUtils(clazz);
     }
 
-    public static ReflectUtils reflect(Object object) {
+    public static ReflectUtils reflect(final Object object)
+            throws ReflectException {
         return new ReflectUtils(object == null ? Object.class : object.getClass(), object);
-    }
-
-    private ReflectUtils reflect(Class<?> type, Object object) {
-        return new ReflectUtils(type, object);
-    }
-
-    private ReflectUtils reflect(Constructor<?> constructor, Object... args) {
-        try {
-            return new ReflectUtils(constructor.getDeclaringClass(), accessible(constructor).newInstance(args));
-        } catch (Exception e) {
-            throw new ReflectException(e);
-        }
     }
 
     private static Class<?> forName(String className) {
@@ -82,52 +80,246 @@ public final class ReflectUtils {
         return (T) object;
     }
 
-    public ReflectUtils field(String name) {
+    ///////////////////////////////////////////////////////////////////////////
+    // newInstance
+    ///////////////////////////////////////////////////////////////////////////
+
+    public ReflectUtils newInstance() {
+        return newInstance(new Object[0]);
+    }
+
+    public ReflectUtils newInstance(Object... args) {
+        Class<?>[] types = getArgsType(args);
         try {
-            Field field = field0(name);
-            return reflect(field.getType(), field.get(object));
+            Constructor<?> constructor = type().getDeclaredConstructor(types);
+            return newInstance(constructor, args);
+        } catch (NoSuchMethodException e) {
+            List<Constructor<?>> list = new ArrayList<>();
+            for (Constructor<?> constructor : type().getDeclaredConstructors()) {
+                if (match(constructor.getParameterTypes(), types)) {
+                    list.add(constructor);
+                }
+            }
+            if (list.isEmpty()) {
+                throw new ReflectException(e);
+            } else {
+                sortConstructors(list);
+                return newInstance(list.get(0), args);
+            }
+        }
+    }
+
+    private Class<?>[] getArgsType(final Object... args) {
+        if (args == null) return new Class[0];
+        Class<?>[] result = new Class[args.length];
+        for (int i = 0; i < args.length; i++) {
+            Object value = args[i];
+            result[i] = value == null ? NULL.class : value.getClass();
+        }
+        return result;
+    }
+
+    private void sortConstructors(List<Constructor<?>> list) {
+        Collections.sort(list, new Comparator<Constructor<?>>() {
+            @Override
+            public int compare(Constructor<?> o1, Constructor<?> o2) {
+                Class<?>[] types1 = o1.getParameterTypes();
+                Class<?>[] types2 = o2.getParameterTypes();
+                int len = types1.length;
+                for (int i = 0; i < len; i++) {
+                    if (!types1[i].equals(types2[i])) {
+                        if (wrapper(types1[i]).isAssignableFrom(wrapper(types2[i]))) {
+                            return 1;
+                        } else {
+                            return -1;
+                        }
+                    }
+                }
+                return 0;
+            }
+        });
+    }
+
+    private ReflectUtils newInstance(final Constructor<?> constructor, final Object... args) {
+        try {
+            return new ReflectUtils(
+                    constructor.getDeclaringClass(),
+                    accessible(constructor).newInstance(args)
+            );
+        } catch (Exception e) {
+            throw new ReflectException(e);
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // field
+    ///////////////////////////////////////////////////////////////////////////
+
+    public <T> T getField(final String name) {
+        return field(name).get();
+    }
+
+    public ReflectUtils field(final String name) {
+        try {
+            Field field = getAccessibleField(name);
+            return new ReflectUtils(field.getType(), field.get(object));
         } catch (IllegalAccessException e) {
             throw new ReflectException(e);
         }
     }
 
-    private Field field0(String name) {
-        Class<?> t = type();
+    public ReflectUtils field(String name, Object value) {
         try {
-            return accessible(t.getField(name));
+            Field field = getAccessibleField(name);
+            if ((field.getModifiers() & Modifier.FINAL) == Modifier.FINAL) {
+                Field modifiersField = Field.class.getDeclaredField("modifiers");
+                modifiersField.setAccessible(true);
+                modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+            }
+            field.set(object, unwrap(value));
+            return this;
+        } catch (Exception e) {
+            throw new ReflectException(e);
+        }
+    }
+
+    private Field getAccessibleField(String name) throws ReflectException {
+        Class<?> type = type();
+        try {
+            return accessible(type.getField(name));
         } catch (NoSuchFieldException e) {
             do {
                 try {
-                    return accessible(t.getDeclaredField(name));
+                    return accessible(type.getDeclaredField(name));
                 } catch (NoSuchFieldException ignore) {
                 }
-                t = t.getSuperclass();
+                type = type.getSuperclass();
             }
-            while (t != null);
+            while (type != null);
             throw new ReflectException(e);
         }
     }
 
-    public ReflectUtils create() {
-        return create(new Object[0]);
+    private Object unwrap(Object object) {
+        if (object instanceof ReflectUtils) {
+            return ((ReflectUtils) object).get();
+        }
+        return object;
     }
 
-    public ReflectUtils create(Object... args) {
-        Class<?>[] types = types(args);
+    ///////////////////////////////////////////////////////////////////////////
+    // method
+    ///////////////////////////////////////////////////////////////////////////
+
+    public ReflectUtils method(final String name) throws ReflectException {
+        return method(name, new Object[0]);
+    }
+
+    public ReflectUtils method(final String name, final Object... args) throws ReflectException {
+        Class<?>[] types = getArgsType(args);
         try {
-            Constructor<?> constructor = type().getDeclaredConstructor(types);
-            return reflect(constructor, args);
+            Method method = exactMethod(name, types);
+            return method(method, object, args);
         } catch (NoSuchMethodException e) {
-            for (Constructor<?> constructor : type().getDeclaredConstructors()) {
-                if (match(constructor.getParameterTypes(), types)) {
-                    return reflect(constructor, args);
+            try {
+                Method method = similarMethod(name, types);
+                return method(method, object, args);
+            } catch (NoSuchMethodException e1) {
+                throw new ReflectException(e1);
+            }
+        }
+    }
+
+    private ReflectUtils method(final Method method, final Object obj, final Object... args) {
+        try {
+            accessible(method);
+            if (method.getReturnType() == void.class) {
+                method.invoke(obj, args);
+                return reflect(obj);
+            } else {
+                return reflect(method.invoke(obj, args));
+            }
+        } catch (Exception e) {
+            throw new ReflectException(e);
+        }
+    }
+
+    private Method exactMethod(final String name, final Class<?>[] types)
+            throws NoSuchMethodException {
+        Class<?> type = type();
+        try {
+            return type.getMethod(name, types);
+        } catch (NoSuchMethodException e) {
+            do {
+                try {
+                    return type.getDeclaredMethod(name, types);
+                } catch (NoSuchMethodException ignore) {
+                }
+                type = type.getSuperclass();
+            } while (type != null);
+            throw new NoSuchMethodException();
+        }
+    }
+
+    private Method similarMethod(final String name, final Class<?>[] types)
+            throws NoSuchMethodException {
+        Class<?> type = type();
+        List<Method> methods = new ArrayList<>();
+        for (Method method : type.getMethods()) {
+            if (isSimilarSignature(method, name, types)) {
+                methods.add(method);
+            }
+        }
+        if (!methods.isEmpty()) {
+            sortMethods(methods);
+            return methods.get(0);
+        }
+        do {
+            for (Method method : type.getDeclaredMethods()) {
+                if (isSimilarSignature(method, name, types)) {
+                    methods.add(method);
                 }
             }
-            throw new ReflectException(e);
-        }
+            if (!methods.isEmpty()) {
+                sortMethods(methods);
+                return methods.get(0);
+            }
+            type = type.getSuperclass();
+        } while (type != null);
+
+        throw new NoSuchMethodException("No similar method " + name + " with params "
+                + Arrays.toString(types) + " could be found on type " + type() + ".");
     }
 
-    private boolean match(Class<?>[] declaredTypes, Class<?>[] actualTypes) {
+    private void sortMethods(final List<Method> methods) {
+        Collections.sort(methods, new Comparator<Method>() {
+            @Override
+            public int compare(Method o1, Method o2) {
+                Class<?>[] types1 = o1.getParameterTypes();
+                Class<?>[] types2 = o2.getParameterTypes();
+                int len = types1.length;
+                for (int i = 0; i < len; i++) {
+                    if (!types1[i].equals(types2[i])) {
+                        if (wrapper(types1[i]).isAssignableFrom(wrapper(types2[i]))) {
+                            return 1;
+                        } else {
+                            return -1;
+                        }
+                    }
+                }
+                return 0;
+            }
+        });
+    }
+
+    private boolean isSimilarSignature(final Method possiblyMatchingMethod,
+                                       final String desiredMethodName,
+                                       final Class<?>[] desiredParamTypes) {
+        return possiblyMatchingMethod.getName().equals(desiredMethodName)
+                && match(possiblyMatchingMethod.getParameterTypes(), desiredParamTypes);
+    }
+
+    private boolean match(final Class<?>[] declaredTypes, final Class<?>[] actualTypes) {
         if (declaredTypes.length == actualTypes.length) {
             for (int i = 0; i < actualTypes.length; i++) {
                 if (actualTypes[i] == NULL.class
@@ -142,24 +334,24 @@ public final class ReflectUtils {
         }
     }
 
-    private static Class<?>[] types(Object... values) {
-        if (values == null) return new Class[0];
-
-        Class<?>[] result = new Class[values.length];
-
-        for (int i = 0; i < values.length; i++) {
-            Object value = values[i];
-            result[i] = value == null ? NULL.class : value.getClass();
+    private <T extends AccessibleObject> T accessible(T accessible) {
+        if (accessible == null) return null;
+        if (accessible instanceof Member) {
+            Member member = (Member) accessible;
+            if (Modifier.isPublic(member.getModifiers())
+                    && Modifier.isPublic(member.getDeclaringClass().getModifiers())) {
+                return accessible;
+            }
         }
-
-        return result;
+        if (!accessible.isAccessible()) accessible.setAccessible(true);
+        return accessible;
     }
 
-    public Class<?> type() {
+    private Class<?> type() {
         return type;
     }
 
-    public static Class<?> wrapper(Class<?> type) {
+    private Class<?> wrapper(final Class<?> type) {
         if (type == null) {
             return null;
         } else if (type.isPrimitive()) {
@@ -186,7 +378,6 @@ public final class ReflectUtils {
         return type;
     }
 
-
     @Override
     public int hashCode() {
         return object.hashCode();
@@ -202,30 +393,12 @@ public final class ReflectUtils {
         return object.toString();
     }
 
-
-    /**
-     * @param accessible
-     * @param <T>
-     * @return
-     */
-    public static <T extends AccessibleObject> T accessible(T accessible) {
-        if (accessible == null) return null;
-        if (accessible instanceof Member) {
-            Member member = (Member) accessible;
-            if (Modifier.isPublic(member.getModifiers()) &&
-                    Modifier.isPublic(member.getDeclaringClass().getModifiers())) {
-                return accessible;
-            }
-        }
-        if (!accessible.isAccessible()) accessible.setAccessible(true);
-        return accessible;
-    }
-
-
     private static class NULL {
     }
 
     public static class ReflectException extends RuntimeException {
+
+        private static final long serialVersionUID = 858774075258496016L;
 
         public ReflectException(String message) {
             super(message);

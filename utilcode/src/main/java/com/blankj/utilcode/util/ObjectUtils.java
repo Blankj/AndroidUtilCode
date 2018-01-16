@@ -20,7 +20,7 @@ import java.util.Map;
  *     desc  : 对象相关工具类
  * </pre>
  */
-public class ObjectUtils {
+public final class ObjectUtils {
 
     private ObjectUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

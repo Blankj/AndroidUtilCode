@@ -332,6 +332,7 @@ hideSoftInput                   : 动态隐藏软键盘
 toggleSoftInput                 : 切换键盘显示与否状态
 isSoftInputVisible              : 判断软键盘是否可见
 registerSoftInputChangedListener: 注册软键盘改变监听器
+fixSoftInputLeaks               : 修复软键盘内存泄漏
 clickBlankArea2HideSoftInput    : 点击屏幕空白区域隐藏软键盘
 ```
 
@@ -635,6 +636,7 @@ cancel         : 取消吐司显示
 
 * ### 压缩相关 -> [ZipUtils.java][zip.java] -> [Test][zip.test]
 ```
+zipFiles          : 批量压缩文件
 zipFile           : 压缩文件
 unzipFile         : 解压文件
 unzipFileByKeyword: 解压带有关键字的文件
