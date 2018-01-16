@@ -13,6 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <TextView
+        android:id="@+id/tv_about_network_async"
+        style="@style/TextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/btn_open_wireless_settings"
         style="@style/WideBtnStyle"

@@ -62,13 +62,16 @@ public final class DeviceUtils {
      */
     @SuppressLint("HardwareIds")
     public static String getAndroidID() {
-        return Settings.Secure.getString(Utils.getApp().getContentResolver(), Settings.Secure.ANDROID_ID);
+        return Settings.Secure.getString(
+                Utils.getApp().getContentResolver(),
+                Settings.Secure.ANDROID_ID
+        );
     }
 
     /**
      * 获取设备 MAC 地址
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>}</p>
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
      *
      * @return MAC 地址
      */
@@ -90,11 +93,11 @@ public final class DeviceUtils {
 
     /**
      * 获取设备 MAC 地址
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />}</p>
      *
      * @return MAC 地址
      */
-    @SuppressLint("HardwareIds")
+    @SuppressLint({"HardwareIds", "MissingPermission"})
     private static String getMacAddressByWifiInfo() {
         try {
             @SuppressLint("WifiManagerLeak")
@@ -111,7 +114,7 @@ public final class DeviceUtils {
 
     /**
      * 获取设备 MAC 地址
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
      *
      * @return MAC 地址
      */
@@ -185,19 +188,18 @@ public final class DeviceUtils {
 
     /**
      * 关机
-     * <p>需要 root 权限或者系统权限 {@code <android:sharedUserId="android.uid.system"/>}</p>
+     * <p>需要 root 权限或者系统权限 {@code <android:sharedUserId="android.uid.system" />}</p>
      */
     public static void shutdown() {
         ShellUtils.execCmd("reboot -p", true);
         Intent intent = new Intent("android.intent.action.ACTION_REQUEST_SHUTDOWN");
         intent.putExtra("android.intent.extra.KEY_CONFIRM", false);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Utils.getApp().startActivity(intent);
+        Utils.getApp().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     /**
      * 重启
-     * <p>需要 root 权限或者系统权限 {@code <android:sharedUserId="android.uid.system"/>}</p>
+     * <p>需要 root 权限或者系统权限 {@code <android:sharedUserId="android.uid.system" />}</p>
      */
     public static void reboot() {
         ShellUtils.execCmd("reboot", true);
@@ -210,13 +212,15 @@ public final class DeviceUtils {
 
     /**
      * 重启
-     * <p>需系统权限 {@code <android:sharedUserId="android.uid.system"/>}</p>
+     * <p>需系统权限 {@code <android:sharedUserId="android.uid.system" />}</p>
      *
      * @param reason 传递给内核来请求特殊的引导模式，如"recovery"
      */
     public static void reboot(final String reason) {
-        PowerManager mPowerManager = (PowerManager) Utils.getApp().getSystemService(Context.POWER_SERVICE);
+        PowerManager mPowerManager =
+                (PowerManager) Utils.getApp().getSystemService(Context.POWER_SERVICE);
         try {
+            if (mPowerManager == null) return;
             mPowerManager.reboot(reason);
         } catch (Exception e) {
             e.printStackTrace();

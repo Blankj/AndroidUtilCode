@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-compile 'com.blankj:utilcode:1.9.12'
+compile 'com.blankj:utilcode:1.11.1'
 ```
 
 
@@ -72,7 +72,9 @@ cleanAppData         : 清除 App 所有数据
 
 * ### 栏相关 -> [BarUtils.java][bar.java] -> [Demo][bar.demo]
 ```
-getStatusBarHeight                   : 获取状态栏高度(px)
+getStatusBarHeight                   : 获取状态栏高度（px）
+setStatusBarVisibility               : 设置状态栏是否可见
+isStatusBarVisible                   : 判断状态栏是否可见
 addMarginTopEqualStatusBarHeight     : 为 view 增加 MarginTop 为状态栏高度
 subtractMarginTopEqualStatusBarHeight: 为 view 减少 MarginTop 为状态栏高度
 setStatusBarColor                    : 设置状态栏颜色
@@ -80,10 +82,11 @@ setStatusBarAlpha                    : 设置状态栏透明度
 setStatusBarColor4Drawer             : 为 DrawerLayout 设置状态栏颜色
 setStatusBarAlpha4Drawer             : 为 DrawerLayout 设置状态栏透明度
 getActionBarHeight                   : 获取 ActionBar 高度
-showNotificationBar                  : 显示通知栏
-hideNotificationBar                  : 隐藏通知栏
+setNotificationBarVisibility         : 设置通知栏是否可见
 getNavBarHeight                      : 获取导航栏高度
-hideNavBar                           : 隐藏导航栏
+setNavBarVisibility                  : 设置导航栏是否可见
+setNavBarImmersive                   : 设置导航栏沉浸式
+isNavBarVisible                      : 判断导航栏是否可见
 ```
 
 * ### 缓存相关 -> [CacheUtils.java][cache.java] -> [Test][cache.test]
@@ -110,7 +113,7 @@ cleanInternalCache   : 清除内部缓存
 cleanInternalFiles   : 清除内部文件
 cleanInternalDbs     : 清除内部数据库
 cleanInternalDbByName: 根据名称清除数据库
-cleanInternalSP      : 清除内部 SP
+cleanInternalSp      : 清除内部 SP
 cleanExternalCache   : 清除外部缓存
 cleanCustomCache     : 清除自定义目录下的文件
 ```
@@ -160,12 +163,6 @@ shutdown         : 关机
 reboot           : 重启
 reboot2Recovery  : 重启到 recovery
 reboot2Bootloader: 重启到 bootloader
-```
-
-* ### 判空相关 -> [EmptyUtils.java][empty.java] -> [Test][empty.test]
-```
-isEmpty   : 判断对象是否为空
-isNotEmpty: 判断对象是否非空
 ```
 
 * ### 编码解码相关 -> [EncodeUtils.java][encode.java] -> [Test][encode.test]
@@ -330,10 +327,12 @@ getCaptureIntent           : 获取拍照的意图
 
 * ### 键盘相关 -> [KeyboardUtils.java][keyboard.java] -> [Demo][keyboard.demo]
 ```
-showSoftInput               : 动态显示软键盘
-hideSoftInput               : 动态隐藏软键盘
-toggleSoftInput             : 切换键盘显示与否状态
-clickBlankArea2HideSoftInput: 点击屏幕空白区域隐藏软键盘
+showSoftInput                   : 动态显示软键盘
+hideSoftInput                   : 动态隐藏软键盘
+toggleSoftInput                 : 切换键盘显示与否状态
+isSoftInputVisible              : 判断软键盘是否可见
+registerSoftInputChangedListener: 注册软键盘改变监听器
+clickBlankArea2HideSoftInput    : 点击屏幕空白区域隐藏软键盘
 ```
 
 * ### 日志相关 -> [LogUtils.java][log.java] -> [Demo][log.demo]
@@ -372,8 +371,9 @@ xml                     : log 字符串之 xml
 openWirelessSettings  : 打开网络设置界面
 isConnected           : 判断网络是否连接
 isAvailableByPing     : 判断网络是否可用
-getDataEnabled        : 判断移动数据是否打开
-setDataEnabled        : 打开或关闭移动数据
+getMobileDataEnabled  : 判断移动数据是否打开
+setMobileDataEnabled  : 打开或关闭移动数据
+isMobileData          : 判断网络是否是移动数据
 is4G                  : 判断网络是否是 4G
 getWifiEnabled        : 判断 wifi 是否打开
 setWifiEnabled        : 打开或关闭 wifi
@@ -383,6 +383,25 @@ getNetworkOperatorName: 获取移动网络运营商名称
 getNetworkType        : 获取当前网络类型
 getIPAddress          : 获取 IP 地址
 getDomainAddress      : 获取域名 ip 地址
+```
+
+* ### 对象相关 -> [ObjectUtils.java][object.java] -> [Test][object.test]
+```
+isEmpty   : 判断对象是否为空
+isNotEmpty: 判断对象是否非空
+equals    : 判断对象是否相等
+```
+
+* ### 权限相关 -> [PermissionUtils.java][permission.java] -> [Demo][permission.demo]
+```
+getPermissions : 获取应用权限
+isGranted      : 判断权限是否被授予
+openAppSettings: 打开应用具体设置
+permission     : 设置请求权限
+rationale      : 设置拒绝权限后再次请求的回调接口
+callback       : 设置回调
+theme          : 设置主题
+request        : 开始请求
 ```
 
 * ### 手机相关 -> [PhoneUtils.java][phone.java] -> [Demo][phone.demo]
@@ -431,7 +450,7 @@ getReplaceFirst: 替换正则匹配的第一部分
 getReplaceAll  : 替换所有正则匹配的部分
 ```
 
-* ### 屏幕相关 -> [ScreenUtils.java][screen.java]
+* ### 屏幕相关 -> [ScreenUtils.java][screen.java] -> [Demo][screen.demo]
 ```
 getScreenWidth     : 获取屏幕的宽度（单位：px）
 getScreenHeight    : 获取屏幕的高度（单位：px）
@@ -537,7 +556,7 @@ appendSpace       : 追加空白
 create            : 创建样式字符串
 ```
 
-* ### SP 相关 -> [SPUtils.java][sp.java] -> [Test][sp.test]
+* ### SP 相关 -> [SPUtils.java][sp.java] -> [Demo][sp.demo]
 ```
 getInstance: 获取 SP 实例
 put        : SP 中写入数据
@@ -626,19 +645,19 @@ getComments       : 获取压缩文件中的注释链表
 
 
 [activity.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ActivityUtils.java
-[activity.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/activity/ActivityActivity.java
+[activity.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/activity/ActivityActivity.java
 
 [app.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/AppUtils.java
-[app.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/app/AppActivity.java
+[app.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/app/AppActivity.java
 
 [bar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/BarUtils.java
-[bar.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/bar/BarActivity.java
+[bar.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/bar/BarActivity.java
 
 [cache.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheUtils.java
 [cache.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheUtilsTest.java
 
 [clean.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CleanUtils.java
-[clean.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/clean/CleanActivity.java
+[clean.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/clean/CleanActivity.java
 
 [close.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CloseUtils.java
 
@@ -648,7 +667,7 @@ getComments       : 获取压缩文件中的注释链表
 [crash.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CrashUtils.java
 
 [device.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/DeviceUtils.java
-[device.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/device/DeviceActivity.java
+[device.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/device/DeviceActivity.java
 
 [empty.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/EmptyUtils.java
 [empty.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/EmptyUtilsTest.java
@@ -666,35 +685,42 @@ getComments       : 获取压缩文件中的注释链表
 [file.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/FileUtilsTest.java
 
 [fragment.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/FragmentUtils.java
-[fragment.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/fragment/FragmentActivity.java
+[fragment.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/fragment/FragmentActivity.java
 
 [image.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ImageUtils.java
-[image.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/image/ImageActivity.java
+[image.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/image/ImageActivity.java
 
 [intent.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/IntentUtils.java
 
 [keyboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/KeyboardUtils.java
-[keyboard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/keyboard/KeyboardActivity.java
+[keyboard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/keyboard/KeyboardActivity.java
 
 [log.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/LogUtils.java
-[log.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/log/LogActivity.java
+[log.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/log/LogActivity.java
 
 [network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/NetworkUtils.java
-[network.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/network/NetworkActivity.java
+[network.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/network/NetworkActivity.java
+
+[object.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ObjectUtils.java
+[object.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/ObjectUtilsTest.java
+
+[permission.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/PermissionUtils.java
+[permission.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/permission/PermissionActivity.java
 
 [phone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/PhoneUtils.java
-[phone.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/phone/PhoneActivity.java
+[phone.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/phone/PhoneActivity.java
 
 [process.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ProcessUtils.java
-[process.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/process/ProcessActivity.java
+[process.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/process/ProcessActivity.java
 
 [regex.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/RegexUtils.java
 [regex.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/RegexUtilsTest.java
 
 [screen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ScreenUtils.java
+[screen.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/screen/ScreenActivity.java
 
 [sdcard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/SDCardUtils.java
-[sdcard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/sdcard/SDCardActivity.java
+[sdcard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/sdcard/SDCardActivity.java
 
 [service.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ServiceUtils.java
 
@@ -703,13 +729,13 @@ getComments       : 获取压缩文件中的注释链表
 [size.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/SizeUtils.java
 
 [snackbar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/SnackbarUtils.java
-[snackbar.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/snackbar/SnackbarActivity.java
+[snackbar.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/snackbar/SnackbarActivity.java
 
 [span.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/SpanUtils.java
-[span.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/span/SpanActivity.java
+[span.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/span/SpanActivity.java
 
 [sp.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/SPUtils.java
-[sp.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/SPUtilsTest.java
+[sp.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/sp/SPActivity.java
 
 [string.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/StringUtils.java
 [string.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/StringUtilsTest.java
@@ -718,7 +744,7 @@ getComments       : 获取压缩文件中的注释链表
 [time.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/TimeUtilsTest.java
 
 [toast.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ToastUtils.java
-[toast.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/core/toast/ToastActivity.java
+[toast.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/toast/ToastActivity.java
 
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ZipUtils.java
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/ZipUtilsTest.java

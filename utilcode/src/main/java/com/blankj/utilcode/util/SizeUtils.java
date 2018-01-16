@@ -72,7 +72,9 @@ public final class SizeUtils {
      * @param metrics DisplayMetrics
      * @return 转换结果
      */
-    public static float applyDimension(final int unit, final float value, final DisplayMetrics metrics) {
+    public static float applyDimension(final int unit,
+                                       final float value,
+                                       final DisplayMetrics metrics) {
         switch (unit) {
             case TypedValue.COMPLEX_UNIT_PX:
                 return value;

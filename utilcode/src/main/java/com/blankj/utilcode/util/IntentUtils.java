@@ -26,7 +26,8 @@ public final class IntentUtils {
 
     /**
      * 获取安装 App（支持 8.0）的意图
-     * <p>8.0 需添加权限 {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
+     * <p>8.0 需添加权限
+     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
      *
      * @param filePath  文件路径
      * @param authority 7.0 及以上安装需要传入清单文件中的{@code <provider>}的 authorities 属性
@@ -39,7 +40,8 @@ public final class IntentUtils {
 
     /**
      * 获取安装 App(支持 8.0)的意图
-     * <p>8.0 需添加权限 {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
+     * <p>8.0 需添加权限
+     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
      *
      * @param file      文件
      * @param authority 7.0 及以上安装需要传入清单文件中的{@code <provider>}的 authorities 属性
@@ -52,7 +54,8 @@ public final class IntentUtils {
 
     /**
      * 获取安装 App(支持 8.0)的意图
-     * <p>8.0 需添加权限 {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
+     * <p>8.0 需添加权限
+     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
      *
      * @param file      文件
      * @param authority 7.0 及以上安装需要传入清单文件中的{@code <provider>}的 authorities 属性
@@ -314,7 +317,7 @@ public final class IntentUtils {
 
     /**
      * 获取关机的意图
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.SHUTDOWN"/>}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.SHUTDOWN" />}</p>
      *
      * @return 关机的意图
      */
@@ -324,7 +327,7 @@ public final class IntentUtils {
 
     /**
      * 获取关机的意图
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.SHUTDOWN"/>}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.SHUTDOWN" />}</p>
      *
      * @param isNewTask 是否开启新的任务栈
      * @return 关机的意图
@@ -358,7 +361,7 @@ public final class IntentUtils {
 
     /**
      * 获取拨打电话意图
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.CALL_PHONE"/>}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.CALL_PHONE" />}</p>
      *
      * @param phoneNumber 电话号码
      * @return 拨打电话意图
@@ -369,7 +372,7 @@ public final class IntentUtils {
 
     /**
      * 获取拨打电话意图
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.CALL_PHONE"/>}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.CALL_PHONE" />}</p>
      *
      * @param phoneNumber 电话号码
      * @param isNewTask   是否开启新的任务栈

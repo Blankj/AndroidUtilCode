@@ -223,8 +223,15 @@ public final class FileUtils {
      * @param isMove      是否移动
      * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
      */
-    private static boolean copyOrMoveDir(final String srcDirPath, final String destDirPath, final OnReplaceListener listener, final boolean isMove) {
-        return copyOrMoveDir(getFileByPath(srcDirPath), getFileByPath(destDirPath), listener, isMove);
+    private static boolean copyOrMoveDir(final String srcDirPath,
+                                         final String destDirPath,
+                                         final OnReplaceListener listener,
+                                         final boolean isMove) {
+        return copyOrMoveDir(getFileByPath(srcDirPath),
+                getFileByPath(destDirPath),
+                listener,
+                isMove
+        );
     }
 
     /**
@@ -236,7 +243,10 @@ public final class FileUtils {
      * @param isMove   是否移动
      * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
      */
-    private static boolean copyOrMoveDir(final File srcDir, final File destDir, final OnReplaceListener listener, final boolean isMove) {
+    private static boolean copyOrMoveDir(final File srcDir,
+                                         final File destDir,
+                                         final OnReplaceListener listener,
+                                         final boolean isMove) {
         if (srcDir == null || destDir == null) return false;
         // 如果目标目录在源目录中则返回 false，看不懂的话好好想想递归怎么结束
         // srcPath : F:\\MyGithub\\AndroidUtilCode\\utilcode\\src\\test\\res
@@ -281,8 +291,15 @@ public final class FileUtils {
      * @param isMove       是否移动
      * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
      */
-    private static boolean copyOrMoveFile(final String srcFilePath, final String destFilePath, final OnReplaceListener listener, final boolean isMove) {
-        return copyOrMoveFile(getFileByPath(srcFilePath), getFileByPath(destFilePath), listener, isMove);
+    private static boolean copyOrMoveFile(final String srcFilePath,
+                                          final String destFilePath,
+                                          final OnReplaceListener listener,
+                                          final boolean isMove) {
+        return copyOrMoveFile(getFileByPath(srcFilePath),
+                getFileByPath(destFilePath),
+                listener,
+                isMove
+        );
     }
 
     /**
@@ -294,7 +311,10 @@ public final class FileUtils {
      * @param isMove   是否移动
      * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
      */
-    private static boolean copyOrMoveFile(final File srcFile, final File destFile, final OnReplaceListener listener, final boolean isMove) {
+    private static boolean copyOrMoveFile(final File srcFile,
+                                          final File destFile,
+                                          final OnReplaceListener listener,
+                                          final boolean isMove) {
         if (srcFile == null || destFile == null) return false;
         // 如果源文件和目标文件相同则返回 false
         if (srcFile.equals(destFile)) return false;
@@ -328,7 +348,9 @@ public final class FileUtils {
      * @param listener    是否覆盖监听器
      * @return {@code true}: 复制成功<br>{@code false}: 复制失败
      */
-    public static boolean copyDir(final String srcDirPath, final String destDirPath, final OnReplaceListener listener) {
+    public static boolean copyDir(final String srcDirPath,
+                                  final String destDirPath,
+                                  final OnReplaceListener listener) {
         return copyDir(getFileByPath(srcDirPath), getFileByPath(destDirPath), listener);
     }
 
@@ -340,7 +362,9 @@ public final class FileUtils {
      * @param listener 是否覆盖监听器
      * @return {@code true}: 复制成功<br>{@code false}: 复制失败
      */
-    public static boolean copyDir(final File srcDir, final File destDir, final OnReplaceListener listener) {
+    public static boolean copyDir(final File srcDir,
+                                  final File destDir,
+                                  final OnReplaceListener listener) {
         return copyOrMoveDir(srcDir, destDir, listener, false);
     }
 
@@ -352,7 +376,9 @@ public final class FileUtils {
      * @param listener     是否覆盖监听器
      * @return {@code true}: 复制成功<br>{@code false}: 复制失败
      */
-    public static boolean copyFile(final String srcFilePath, final String destFilePath, final OnReplaceListener listener) {
+    public static boolean copyFile(final String srcFilePath,
+                                   final String destFilePath,
+                                   final OnReplaceListener listener) {
         return copyFile(getFileByPath(srcFilePath), getFileByPath(destFilePath), listener);
     }
 
@@ -364,7 +390,9 @@ public final class FileUtils {
      * @param listener 是否覆盖监听器
      * @return {@code true}: 复制成功<br>{@code false}: 复制失败
      */
-    public static boolean copyFile(final File srcFile, final File destFile, final OnReplaceListener listener) {
+    public static boolean copyFile(final File srcFile,
+                                   final File destFile,
+                                   final OnReplaceListener listener) {
         return copyOrMoveFile(srcFile, destFile, listener, false);
     }
 
@@ -376,7 +404,9 @@ public final class FileUtils {
      * @param listener    是否覆盖监听器
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
      */
-    public static boolean moveDir(final String srcDirPath, final String destDirPath, final OnReplaceListener listener) {
+    public static boolean moveDir(final String srcDirPath,
+                                  final String destDirPath,
+                                  final OnReplaceListener listener) {
         return moveDir(getFileByPath(srcDirPath), getFileByPath(destDirPath), listener);
     }
 
@@ -388,7 +418,9 @@ public final class FileUtils {
      * @param listener 是否覆盖监听器
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
      */
-    public static boolean moveDir(final File srcDir, final File destDir, final OnReplaceListener listener) {
+    public static boolean moveDir(final File srcDir,
+                                  final File destDir,
+                                  final OnReplaceListener listener) {
         return copyOrMoveDir(srcDir, destDir, listener, true);
     }
 
@@ -400,7 +432,9 @@ public final class FileUtils {
      * @param listener     是否覆盖监听器
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
      */
-    public static boolean moveFile(final String srcFilePath, final String destFilePath, final OnReplaceListener listener) {
+    public static boolean moveFile(final String srcFilePath,
+                                   final String destFilePath,
+                                   final OnReplaceListener listener) {
         return moveFile(getFileByPath(srcFilePath), getFileByPath(destFilePath), listener);
     }
 
@@ -412,7 +446,9 @@ public final class FileUtils {
      * @param listener 是否覆盖监听器
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
      */
-    public static boolean moveFile(final File srcFile, final File destFile, final OnReplaceListener listener) {
+    public static boolean moveFile(final File srcFile,
+                                   final File destFile,
+                                   final OnReplaceListener listener) {
         return copyOrMoveFile(srcFile, destFile, listener, true);
     }
 
@@ -529,7 +565,8 @@ public final class FileUtils {
      * @param filter  过滤器
      * @return {@code true}: 删除成功<br>{@code false}: 删除失败
      */
-    public static boolean deleteFilesInDirWithFilter(final String dirPath, final FileFilter filter) {
+    public static boolean deleteFilesInDirWithFilter(final String dirPath,
+                                                     final FileFilter filter) {
         return deleteFilesInDirWithFilter(getFileByPath(dirPath), filter);
     }
 
@@ -1043,7 +1080,8 @@ public final class FileUtils {
     // copy from ConvertUtils
     ///////////////////////////////////////////////////////////////////////////
 
-    private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    private static final char hexDigits[] =
+            {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     /**
      * byteArr 转 hexString

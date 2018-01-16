@@ -15,6 +15,13 @@
         android:text="@string/bar_about_status_bar" />
 
     <Button
+        android:id="@+id/btn_status_bar"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bar_status_about" />
+
+    <Button
         android:id="@+id/btn_status_bar_color"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
@@ -55,6 +62,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/bar_status_set_drawer" />
+
+    <TextView
+        style="@style/TextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_16"
+        android:gravity="center_horizontal"
+        android:text="@string/bar_about_notification_bar" />
+
+    <Button
+        android:id="@+id/btn_notification_bar"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bar_notification_about" />
 
     <TextView
         style="@style/TextStyle"

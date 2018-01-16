@@ -1,5 +1,6 @@
 package com.blankj.utilcode.util;
 
+import android.annotation.SuppressLint;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -24,7 +25,6 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Formatter;
-import java.util.Locale;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -66,6 +66,25 @@ public final class LogUtils {
     private static final int JSON = 0x20;
     private static final int XML  = 0x30;
 
+    private static final String FILE_SEP       = System.getProperty("file.separator");
+    private static final String LINE_SEP       = System.getProperty("line.separator");
+    private static final String TOP_CORNER     = "┌";
+    private static final String MIDDLE_CORNER  = "├";
+    private static final String LEFT_BORDER    = "│ ";
+    private static final String BOTTOM_CORNER  = "└";
+    private static final String SIDE_DIVIDER   = "────────────────────────────────────────────────────────";
+    private static final String MIDDLE_DIVIDER = "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄";
+    private static final String TOP_BORDER     = TOP_CORNER + SIDE_DIVIDER + SIDE_DIVIDER;
+    private static final String MIDDLE_BORDER  = MIDDLE_CORNER + MIDDLE_DIVIDER + MIDDLE_DIVIDER;
+    private static final String BOTTOM_BORDER  = BOTTOM_CORNER + SIDE_DIVIDER + SIDE_DIVIDER;
+    private static final int    MAX_LEN        = 4000;
+    @SuppressLint("SimpleDateFormat")
+    private static final Format FORMAT         = new SimpleDateFormat("MM-dd HH:mm:ss.SSS ");
+    private static final String NOTHING        = "log nothing";
+    private static final String NULL           = "null";
+    private static final String ARGS           = "args";
+    private static final Config CONFIG         = new Config();
+
     private static ExecutorService sExecutor;
     private static String          sDefaultDir;// log 默认存储目录
     private static String          sDir;       // log 存储目录
@@ -80,24 +99,6 @@ public final class LogUtils {
     private static int     sConsoleFilter     = V;     // log 控制台过滤器
     private static int     sFileFilter        = V;     // log 文件过滤器
     private static int     sStackDeep         = 1;     // log 栈深度
-
-    private static final String FILE_SEP       = System.getProperty("file.separator");
-    private static final String LINE_SEP       = System.getProperty("line.separator");
-    private static final String TOP_CORNER     = "┌";
-    private static final String MIDDLE_CORNER  = "├";
-    private static final String LEFT_BORDER    = "│ ";
-    private static final String BOTTOM_CORNER  = "└";
-    private static final String SIDE_DIVIDER   = "────────────────────────────────────────────────────────";
-    private static final String MIDDLE_DIVIDER = "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄";
-    private static final String TOP_BORDER     = TOP_CORNER + SIDE_DIVIDER + SIDE_DIVIDER;
-    private static final String MIDDLE_BORDER  = MIDDLE_CORNER + MIDDLE_DIVIDER + MIDDLE_DIVIDER;
-    private static final String BOTTOM_BORDER  = BOTTOM_CORNER + SIDE_DIVIDER + SIDE_DIVIDER;
-    private static final int    MAX_LEN        = 4000;
-    private static final Format FORMAT         = new SimpleDateFormat("MM-dd HH:mm:ss.SSS ", Locale.getDefault());
-    private static final String NOTHING        = "log nothing";
-    private static final String NULL           = "null";
-    private static final String ARGS           = "args";
-    private static final Config CONFIG         = new Config();
 
     private LogUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -225,7 +226,8 @@ public final class LogUtils {
             StackTraceElement targetElement = stackTrace[3];
             String fileName = targetElement.getFileName();
             String className;
-            if (fileName == null) {// 混淆可能会导致获取为空 加-keepattributes SourceFile,LineNumberTable
+            // 混淆可能会导致获取为空 加-keepattributes SourceFile,LineNumberTable
+            if (fileName == null) {
                 className = targetElement.getClassName();
                 String[] classNameInfo = className.split("\\.");
                 if (classNameInfo.length > 0) {
@@ -254,7 +256,8 @@ public final class LogUtils {
                 if (sStackDeep <= 1) {
                     return new TagHead(tag, new String[]{head}, fileHead);
                 } else {
-                    final String[] consoleHead = new String[Math.min(sStackDeep, stackTrace.length - 3)];
+                    final String[] consoleHead =
+                            new String[Math.min(sStackDeep, stackTrace.length - 3)];
                     consoleHead[0] = head;
                     int spaceLen = tName.length() + 2;
                     String space = new Formatter().format("%" + spaceLen + "s", "").toString();
@@ -332,7 +335,10 @@ public final class LogUtils {
         return xml;
     }
 
-    private static void print2Console(final int type, final String tag, final String[] head, final String msg) {
+    private static void print2Console(final int type,
+                                      final String tag,
+                                      final String[] head,
+                                      final String msg) {
         printBorder(type, tag, true);
         printHead(type, tag, head);
         printMsg(type, tag, msg);
@@ -388,7 +394,8 @@ public final class LogUtils {
         String format = FORMAT.format(now);
         String date = format.substring(0, 5);
         String time = format.substring(6);
-        final String fullPath = (sDir == null ? sDefaultDir : sDir) + sFilePrefix + "-" + date + ".txt";
+        final String fullPath =
+                (sDir == null ? sDefaultDir : sDir) + sFilePrefix + "-" + date + ".txt";
         if (!createOrExistsFile(fullPath)) {
             Log.e(tag, "log to " + fullPath + " failed!");
             return;
@@ -426,7 +433,9 @@ public final class LogUtils {
         String versionName = "";
         int versionCode = 0;
         try {
-            PackageInfo pi = Utils.getApp().getPackageManager().getPackageInfo(Utils.getApp().getPackageName(), 0);
+            PackageInfo pi = Utils.getApp()
+                    .getPackageManager()
+                    .getPackageInfo(Utils.getApp().getPackageName(), 0);
             if (pi != null) {
                 versionName = pi.versionName;
                 versionCode = pi.versionCode;

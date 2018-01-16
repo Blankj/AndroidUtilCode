@@ -2,6 +2,10 @@ package com.blankj.androidutilcode;
 
 import android.os.Environment;
 
+import com.blankj.utilcode.util.Utils;
+
+import java.io.File;
+
 /**
  * <pre>
  *     author: Blankj
@@ -22,7 +26,13 @@ public class Config {
     public static final String TEST_APK_PATH;
 
     static {
-        CACHE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath();
+        File cacheDir = Utils.getApp().getExternalCacheDir();
+        if (cacheDir != null) {
+            CACHE_PATH = cacheDir.getAbsolutePath();
+        } else {
+            CACHE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath();
+        }
         TEST_APK_PATH = CACHE_PATH + FILE_SEP + "test_install.apk";
+
     }
 }

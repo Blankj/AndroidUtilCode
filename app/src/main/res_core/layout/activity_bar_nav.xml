@@ -13,4 +13,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:id="@+id/btn_show_nav"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bar_nav_show" />
+
+    <Button
+        android:id="@+id/btn_hide_nav"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bar_nav_hide" />
+
+    <Button
+        android:id="@+id/btn_immersive_nav"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bar_nav_immersive" />
+
 </LinearLayout>

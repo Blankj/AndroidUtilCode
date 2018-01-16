@@ -9,10 +9,11 @@ import java.security.DigestInputStream;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
+import java.security.spec.AlgorithmParameterSpec;
 
 import javax.crypto.Cipher;
 import javax.crypto.Mac;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
@@ -554,7 +555,9 @@ public final class EncryptUtils {
      * @param algorithm 加密算法
      * @return 密文字节数组
      */
-    private static byte[] hmacTemplate(final byte[] data, final byte[] key, final String algorithm) {
+    private static byte[] hmacTemplate(final byte[] data,
+                                       final byte[] key,
+                                       final String algorithm) {
         if (data == null || data.length == 0 || key == null || key.length == 0) return null;
         try {
             SecretKeySpec secretKey = new SecretKeySpec(key, algorithm);
@@ -577,73 +580,102 @@ public final class EncryptUtils {
      * <p>加密模式有：电子密码本模式 ECB、加密块链模式 CBC、加密反馈模式 CFB、输出反馈模式 OFB</p>
      * <p>填充方式有：NoPadding、ZerosPadding、PKCS5Padding</p>
      */
-    public static        String DES_Transformation = "DES/ECB/NoPadding";
-    private static final String DES_Algorithm      = "DES";
+    private static final String DES_Algorithm = "DES";
 
     /**
      * DES 加密后转为 Base64 编码
      *
-     * @param data 明文
-     * @param key  8 字节秘钥
+     * @param data           明文
+     * @param key            8 字节秘钥
+     * @param transformation 转变
+     * @param iv             初始化向量
      * @return Base64 密文
      */
-    public static byte[] encryptDES2Base64(final byte[] data, final byte[] key) {
-        return base64Encode(encryptDES(data, key));
+    public static byte[] encryptDES2Base64(final byte[] data,
+                                           final byte[] key,
+                                           final String transformation,
+                                           final byte[] iv) {
+        return base64Encode(encryptDES(data, key, transformation, iv));
     }
 
     /**
      * DES 加密后转为 16 进制
      *
-     * @param data 明文
-     * @param key  8 字节秘钥
+     * @param data           明文
+     * @param key            8 字节秘钥
+     * @param transformation 转变
+     * @param iv             初始化向量
      * @return 16 进制密文
      */
-    public static String encryptDES2HexString(final byte[] data, final byte[] key) {
-        return bytes2HexString(encryptDES(data, key));
+    public static String encryptDES2HexString(final byte[] data,
+                                              final byte[] key,
+                                              final String transformation,
+                                              final byte[] iv) {
+        return bytes2HexString(encryptDES(data, key, transformation, iv));
     }
 
     /**
      * DES 加密
      *
-     * @param data 明文
-     * @param key  8 字节秘钥
+     * @param data           明文
+     * @param key            8 字节秘钥
+     * @param transformation 转变
+     * @param iv             初始化向量
      * @return 密文
      */
-    public static byte[] encryptDES(final byte[] data, final byte[] key) {
-        return desTemplate(data, key, DES_Algorithm, DES_Transformation, true);
+    public static byte[] encryptDES(final byte[] data,
+                                    final byte[] key,
+                                    final String transformation,
+                                    final byte[] iv) {
+        return desTemplate(data, key, DES_Algorithm, transformation, iv, true);
     }
 
     /**
      * DES 解密 Base64 编码密文
      *
-     * @param data Base64 编码密文
-     * @param key  8 字节秘钥
+     * @param data           Base64 编码密文
+     * @param key            8 字节秘钥
+     * @param transformation 转变
+     * @param iv             初始化向量
      * @return 明文
      */
-    public static byte[] decryptBase64DES(final byte[] data, final byte[] key) {
-        return decryptDES(base64Decode(data), key);
+    public static byte[] decryptBase64DES(final byte[] data,
+                                          final byte[] key,
+                                          final String transformation,
+                                          final byte[] iv) {
+        return decryptDES(base64Decode(data), key, transformation, iv);
     }
 
     /**
      * DES 解密 16 进制密文
      *
-     * @param data 16 进制密文
-     * @param key  8 字节秘钥
+     * @param data           16 进制密文
+     * @param key            8 字节秘钥
+     * @param transformation 转变
+     * @param iv             初始化向量
      * @return 明文
      */
-    public static byte[] decryptHexStringDES(final String data, final byte[] key) {
-        return decryptDES(hexString2Bytes(data), key);
+    public static byte[] decryptHexStringDES(final String data,
+                                             final byte[] key,
+                                             final String transformation,
+                                             final byte[] iv) {
+        return decryptDES(hexString2Bytes(data), key, transformation, iv);
     }
 
     /**
      * DES 解密
      *
-     * @param data 密文
-     * @param key  8 字节秘钥
+     * @param data           密文
+     * @param key            8 字节秘钥
+     * @param transformation 转变
+     * @param iv             初始化向量
      * @return 明文
      */
-    public static byte[] decryptDES(final byte[] data, final byte[] key) {
-        return desTemplate(data, key, DES_Algorithm, DES_Transformation, false);
+    public static byte[] decryptDES(final byte[] data,
+                                    final byte[] key,
+                                    final String transformation,
+                                    final byte[] iv) {
+        return desTemplate(data, key, DES_Algorithm, transformation, iv, false);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -656,74 +688,103 @@ public final class EncryptUtils {
      * <p>加密模式有：电子密码本模式 ECB、加密块链模式 CBC、加密反馈模式 CFB、输出反馈模式 OFB</p>
      * <p>填充方式有：NoPadding、ZerosPadding、PKCS5Padding</p>
      */
-    public static        String TripleDES_Transformation = "DESede/ECB/NoPadding";
-    private static final String TripleDES_Algorithm      = "DESede";
+    private static final String TripleDES_Algorithm = "DESede";
 
 
     /**
      * 3DES 加密后转为 Base64 编码
      *
-     * @param data 明文
-     * @param key  24 字节秘钥
+     * @param data           明文
+     * @param key            24 字节秘钥
+     * @param transformation 转变
+     * @param iv             初始化向量
      * @return Base64 密文
      */
-    public static byte[] encrypt3DES2Base64(final byte[] data, final byte[] key) {
-        return base64Encode(encrypt3DES(data, key));
+    public static byte[] encrypt3DES2Base64(final byte[] data,
+                                            final byte[] key,
+                                            final String transformation,
+                                            final byte[] iv) {
+        return base64Encode(encrypt3DES(data, key, transformation, iv));
     }
 
     /**
      * 3DES 加密后转为 16 进制
      *
-     * @param data 明文
-     * @param key  24 字节秘钥
+     * @param data           明文
+     * @param key            24 字节秘钥
+     * @param transformation 转变
+     * @param iv             初始化向量
      * @return 16 进制密文
      */
-    public static String encrypt3DES2HexString(final byte[] data, final byte[] key) {
-        return bytes2HexString(encrypt3DES(data, key));
+    public static String encrypt3DES2HexString(final byte[] data,
+                                               final byte[] key,
+                                               final String transformation,
+                                               final byte[] iv) {
+        return bytes2HexString(encrypt3DES(data, key, transformation, iv));
     }
 
     /**
      * 3DES 加密
      *
-     * @param data 明文
-     * @param key  24 字节密钥
+     * @param data           明文
+     * @param key            24 字节密钥
+     * @param transformation 转变
+     * @param iv             初始化向量
      * @return 密文
      */
-    public static byte[] encrypt3DES(final byte[] data, final byte[] key) {
-        return desTemplate(data, key, TripleDES_Algorithm, TripleDES_Transformation, true);
+    public static byte[] encrypt3DES(final byte[] data,
+                                     final byte[] key,
+                                     final String transformation,
+                                     final byte[] iv) {
+        return desTemplate(data, key, TripleDES_Algorithm, transformation, iv, true);
     }
 
     /**
      * 3DES 解密 Base64 编码密文
      *
-     * @param data Base64 编码密文
-     * @param key  24 字节秘钥
+     * @param data           Base64 编码密文
+     * @param key            24 字节秘钥
+     * @param transformation 转变
+     * @param iv             初始化向量
      * @return 明文
      */
-    public static byte[] decryptBase64_3DES(final byte[] data, final byte[] key) {
-        return decrypt3DES(base64Decode(data), key);
+    public static byte[] decryptBase64_3DES(final byte[] data,
+                                            final byte[] key,
+                                            final String transformation,
+                                            final byte[] iv) {
+        return decrypt3DES(base64Decode(data), key, transformation, iv);
     }
 
     /**
      * 3DES 解密 16 进制密文
      *
-     * @param data 16 进制密文
-     * @param key  24 字节秘钥
+     * @param data           16 进制密文
+     * @param key            24 字节秘钥
+     * @param transformation 转变
+     * @param iv             初始化向量
      * @return 明文
      */
-    public static byte[] decryptHexString3DES(final String data, final byte[] key) {
-        return decrypt3DES(hexString2Bytes(data), key);
+    public static byte[] decryptHexString3DES(final String data,
+                                              final byte[] key,
+                                              final String transformation,
+                                              final byte[] iv) {
+        return decrypt3DES(hexString2Bytes(data), key, transformation, iv);
     }
 
     /**
      * 3DES 解密
      *
-     * @param data 密文
-     * @param key  24 字节密钥
+     * @param data           密文
+     * @param key            24 字节密钥
+     * @param transformation 转变
+     * @param iv             初始化向量
      * @return 明文
      */
-    public static byte[] decrypt3DES(final byte[] data, final byte[] key) {
-        return desTemplate(data, key, TripleDES_Algorithm, TripleDES_Transformation, false);
+    public static byte[] decrypt3DES(final byte[] data,
+                                     final byte[] key,
+                                     final String transformation,
+                                     final byte[] iv) {
+        return desTemplate(data, key, TripleDES_Algorithm, transformation, iv, false);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -736,74 +797,103 @@ public final class EncryptUtils {
      * <p>加密模式有：电子密码本模式 ECB、加密块链模式 CBC、加密反馈模式 CFB、输出反馈模式 OFB</p>
      * <p>填充方式有：NoPadding、ZerosPadding、PKCS5Padding</p>
      */
-    public static        String AES_Transformation = "AES/ECB/NoPadding";
-    private static final String AES_Algorithm      = "AES";
+    private static final String AES_Algorithm = "AES";
 
 
     /**
      * AES 加密后转为 Base64 编码
      *
-     * @param data 明文
-     * @param key  16、24、32 字节秘钥
+     * @param data           明文
+     * @param key            16、24、32 字节秘钥
+     * @param transformation 转变
+     * @param iv             初始化向量
      * @return Base64 密文
      */
-    public static byte[] encryptAES2Base64(final byte[] data, final byte[] key) {
-        return base64Encode(encryptAES(data, key));
+    public static byte[] encryptAES2Base64(final byte[] data,
+                                           final byte[] key,
+                                           final String transformation,
+                                           final byte[] iv) {
+        return base64Encode(encryptAES(data, key, transformation, iv));
     }
 
     /**
      * AES 加密后转为 16 进制
      *
-     * @param data 明文
-     * @param key  16、24、32 字节秘钥
+     * @param data           明文
+     * @param key            16、24、32 字节秘钥
+     * @param transformation 转变
+     * @param iv             初始化向量
      * @return 16 进制密文
      */
-    public static String encryptAES2HexString(final byte[] data, final byte[] key) {
-        return bytes2HexString(encryptAES(data, key));
+    public static String encryptAES2HexString(final byte[] data,
+                                              final byte[] key,
+                                              final String transformation,
+                                              final byte[] iv) {
+        return bytes2HexString(encryptAES(data, key, transformation, iv));
     }
 
     /**
      * AES 加密
      *
-     * @param data 明文
-     * @param key  16、24、32 字节秘钥
+     * @param data           明文
+     * @param key            16、24、32 字节秘钥
+     * @param transformation 转变
+     * @param iv             初始化向量
      * @return 密文
      */
-    public static byte[] encryptAES(final byte[] data, final byte[] key) {
-        return desTemplate(data, key, AES_Algorithm, AES_Transformation, true);
+    public static byte[] encryptAES(final byte[] data,
+                                    final byte[] key,
+                                    final String transformation,
+                                    final byte[] iv) {
+        return desTemplate(data, key, AES_Algorithm, transformation, iv, true);
     }
 
     /**
      * AES 解密 Base64 编码密文
      *
-     * @param data Base64 编码密文
-     * @param key  16、24、32 字节秘钥
+     * @param data           Base64 编码密文
+     * @param key            16、24、32 字节秘钥
+     * @param transformation 转变
+     * @param iv             初始化向量
      * @return 明文
      */
-    public static byte[] decryptBase64AES(final byte[] data, final byte[] key) {
-        return decryptAES(base64Decode(data), key);
+    public static byte[] decryptBase64AES(final byte[] data,
+                                          final byte[] key,
+                                          final String transformation,
+                                          final byte[] iv) {
+        return decryptAES(base64Decode(data), key, transformation, iv);
     }
 
     /**
      * AES 解密 16 进制密文
      *
-     * @param data 16 进制密文
-     * @param key  16、24、32 字节秘钥
+     * @param data           16 进制密文
+     * @param key            16、24、32 字节秘钥
+     * @param transformation 转变
+     * @param iv             初始化向量
      * @return 明文
      */
-    public static byte[] decryptHexStringAES(final String data, final byte[] key) {
-        return decryptAES(hexString2Bytes(data), key);
+    public static byte[] decryptHexStringAES(final String data,
+                                             final byte[] key,
+                                             final String transformation,
+                                             final byte[] iv) {
+        return decryptAES(hexString2Bytes(data), key, transformation, iv);
     }
 
     /**
      * AES 解密
      *
-     * @param data 密文
-     * @param key  16、24、32 字节秘钥
+     * @param data           密文
+     * @param key            16、24、32 字节秘钥
+     * @param transformation 转变
+     * @param iv             初始化向量
      * @return 明文
      */
-    public static byte[] decryptAES(final byte[] data, final byte[] key) {
-        return desTemplate(data, key, AES_Algorithm, AES_Transformation, false);
+    public static byte[] decryptAES(final byte[] data,
+                                    final byte[] key,
+                                    final String transformation,
+                                    final byte[] iv) {
+        return desTemplate(data, key, AES_Algorithm, transformation, iv, false);
     }
 
     /**
@@ -816,13 +906,22 @@ public final class EncryptUtils {
      * @param isEncrypt      {@code true}: 加密 {@code false}: 解密
      * @return 密文或者明文，适用于 DES，3DES，AES
      */
-    public static byte[] desTemplate(final byte[] data, final byte[] key, final String algorithm, final String transformation, final boolean isEncrypt) {
+    private static byte[] desTemplate(final byte[] data,
+                                      final byte[] key,
+                                      final String algorithm,
+                                      final String transformation,
+                                      final byte[] iv,
+                                      final boolean isEncrypt) {
         if (data == null || data.length == 0 || key == null || key.length == 0) return null;
         try {
             SecretKeySpec keySpec = new SecretKeySpec(key, algorithm);
             Cipher cipher = Cipher.getInstance(transformation);
-            SecureRandom random = new SecureRandom();
-            cipher.init(isEncrypt ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE, keySpec, random);
+            if (iv == null || iv.length == 0) {
+                cipher.init(isEncrypt ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE, keySpec);
+            } else {
+                AlgorithmParameterSpec params = new IvParameterSpec(iv);
+                cipher.init(isEncrypt ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE, keySpec, params);
+            }
             return cipher.doFinal(data);
         } catch (Throwable e) {
             e.printStackTrace();
@@ -830,7 +929,8 @@ public final class EncryptUtils {
         }
     }
 
-    private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    private static final char hexDigits[] =
+            {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     private static String bytes2HexString(final byte[] bytes) {
         if (bytes == null) return null;

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.AnimRes;
@@ -1084,6 +1085,59 @@ public final class ActivityUtils {
             finishActivity(activities.get(i), enterAnim, exitAnim);
         }
     }
+
+    /**
+     * 获取 Activity 图标
+     *
+     * @param clz Activity 类
+     * @return Activity 图标
+     */
+    public static Drawable getActivityIcon(final Class<?> clz) {
+        return getActivityIcon(new ComponentName(Utils.getApp(), clz));
+    }
+
+    /**
+     * 获取 Activity 图标
+     *
+     * @param activityName activityName
+     * @return Activity 图标
+     */
+    public static Drawable getActivityIcon(final ComponentName activityName) {
+        PackageManager pm = Utils.getApp().getPackageManager();
+        try {
+            return pm.getActivityIcon(activityName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 获取 Activity Logo
+     *
+     * @param clz Activity 类
+     * @return Activity Logo
+     */
+    public static Drawable getActivityLogo(final Class<?> clz) {
+        return getActivityLogo(new ComponentName(Utils.getApp(), clz));
+    }
+
+    /**
+     * 获取 Activity Logo
+     *
+     * @param activityName activityName
+     * @return Activity Logo
+     */
+    public static Drawable getActivityLogo(final ComponentName activityName) {
+        PackageManager pm = Utils.getApp().getPackageManager();
+        try {
+            return pm.getActivityLogo(activityName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     private static Context getActivityOrApp() {
         Activity topActivity = getTopActivity();
