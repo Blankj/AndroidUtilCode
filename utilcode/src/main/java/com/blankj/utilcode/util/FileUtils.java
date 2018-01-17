@@ -9,6 +9,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -850,7 +852,8 @@ public final class FileUtils {
      * @return 文件大小
      */
     public static String getFileSize(final String filePath) {
-        return getFileSize(getFileByPath(filePath));
+        long len = getFileLength(filePath);
+        return len == -1 ? "" : byte2FitMemorySize(len);
     }
 
     /**
@@ -903,6 +906,20 @@ public final class FileUtils {
      * @return 文件长度
      */
     public static long getFileLength(final String filePath) {
+        boolean isURL = filePath.matches("[a-zA-z]+://[^\\s]*");
+        if (isURL) {
+            try {
+                HttpURLConnection conn = (HttpURLConnection) new URL(filePath).openConnection();
+                conn.setRequestProperty("Accept-Encoding", "identity");
+                conn.connect();
+                if (conn.getResponseCode() == 200) {
+                    return conn.getContentLength();
+                }
+                return -1;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return getFileLength(getFileByPath(filePath));
     }
 
