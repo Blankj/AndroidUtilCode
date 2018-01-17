@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-compile 'com.blankj:utilcode:1.11.1'
+compile 'com.blankj:utilcode:1.12.0'
 ```
 
 
@@ -332,6 +332,7 @@ hideSoftInput
 toggleSoftInput
 isSoftInputVisible
 registerSoftInputChangedListener
+fixSoftInputLeaks
 clickBlankArea2HideSoftInput
 ```
 
@@ -428,6 +429,15 @@ getAllSMS
 getForegroundProcessName
 killAllBackgroundProcesses
 killBackgroundProcesses
+```
+
+* ### About Reflect -> [ReflectUtils.java][reflect.java] -> [Test][reflect.test]
+```
+reflect
+newInstance
+field
+method
+get
 ```
 
 * ### About Regex -> [RegexUtils.java][regex.java] -> [Test][regex.test]
@@ -635,6 +645,7 @@ cancel
 
 * ### About Zip -> [ZipUtils.java][zip.java] -> [Test][zip.test]
 ```
+zipFiles
 zipFile
 unzipFile
 unzipFileByKeyword
@@ -712,6 +723,9 @@ getComments
 
 [process.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ProcessUtils.java
 [process.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/process/ProcessActivity.java
+
+[reflect.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ReflectUtils.java
+[reflect.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/ReflectUtilsTest.java
 
 [regex.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/RegexUtils.java
 [regex.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/RegexUtilsTest.java

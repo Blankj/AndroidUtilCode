@@ -39,21 +39,50 @@ public final class ReflectUtils {
     // reflect
     ///////////////////////////////////////////////////////////////////////////
 
+    /**
+     * 设置要反射的类
+     *
+     * @param className 完整类名
+     * @return {@link ReflectUtils}
+     * @throws ReflectException 反射异常
+     */
     public static ReflectUtils reflect(final String className)
             throws ReflectException {
         return reflect(forName(className));
     }
 
-    public static ReflectUtils reflect(final String name, final ClassLoader classLoader)
+    /**
+     * 设置要反射的类
+     *
+     * @param className   完整类名
+     * @param classLoader 类加载器
+     * @return {@link ReflectUtils}
+     * @throws ReflectException 反射异常
+     */
+    public static ReflectUtils reflect(final String className, final ClassLoader classLoader)
             throws ReflectException {
-        return reflect(forName(name, classLoader));
+        return reflect(forName(className, classLoader));
     }
 
+    /**
+     * 设置要反射的类
+     *
+     * @param clazz 类的类型
+     * @return {@link ReflectUtils}
+     * @throws ReflectException 反射异常
+     */
     public static ReflectUtils reflect(final Class<?> clazz)
             throws ReflectException {
         return new ReflectUtils(clazz);
     }
 
+    /**
+     * 设置要反射的类
+     *
+     * @param object 类对象
+     * @return {@link ReflectUtils}
+     * @throws ReflectException 反射异常
+     */
     public static ReflectUtils reflect(final Object object)
             throws ReflectException {
         return new ReflectUtils(object == null ? Object.class : object.getClass(), object);
@@ -75,19 +104,25 @@ public final class ReflectUtils {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public <T> T get() {
-        return (T) object;
-    }
-
     ///////////////////////////////////////////////////////////////////////////
     // newInstance
     ///////////////////////////////////////////////////////////////////////////
 
+    /**
+     * 实例化反射对象
+     *
+     * @return {@link ReflectUtils}
+     */
     public ReflectUtils newInstance() {
         return newInstance(new Object[0]);
     }
 
+    /**
+     * 实例化反射对象
+     *
+     * @param args 实例化需要的参数
+     * @return {@link ReflectUtils}
+     */
     public ReflectUtils newInstance(Object... args) {
         Class<?>[] types = getArgsType(args);
         try {
@@ -155,10 +190,12 @@ public final class ReflectUtils {
     // field
     ///////////////////////////////////////////////////////////////////////////
 
-    public <T> T getField(final String name) {
-        return field(name).get();
-    }
-
+    /**
+     * 设置反射的字段
+     *
+     * @param name 字段名
+     * @return {@link ReflectUtils}
+     */
     public ReflectUtils field(final String name) {
         try {
             Field field = getAccessibleField(name);
@@ -168,6 +205,13 @@ public final class ReflectUtils {
         }
     }
 
+    /**
+     * 设置反射的字段
+     *
+     * @param name  字段名
+     * @param value 字段值
+     * @return {@link ReflectUtils}
+     */
     public ReflectUtils field(String name, Object value) {
         try {
             Field field = getAccessibleField(name);
@@ -211,10 +255,25 @@ public final class ReflectUtils {
     // method
     ///////////////////////////////////////////////////////////////////////////
 
+    /**
+     * 设置反射的方法
+     *
+     * @param name 方法名
+     * @return {@link ReflectUtils}
+     * @throws ReflectException 反射异常
+     */
     public ReflectUtils method(final String name) throws ReflectException {
         return method(name, new Object[0]);
     }
 
+    /**
+     * 设置反射的方法
+     *
+     * @param name 方法名
+     * @param args 方法需要的参数
+     * @return {@link ReflectUtils}
+     * @throws ReflectException 反射异常
+     */
     public ReflectUtils method(final String name, final Object... args) throws ReflectException {
         Class<?>[] types = getArgsType(args);
         try {
@@ -376,6 +435,17 @@ public final class ReflectUtils {
             }
         }
         return type;
+    }
+
+    /**
+     * 获取反射想要获取的
+     *
+     * @param <T> 返回的范型
+     * @return 反射想要获取的
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T get() {
+        return (T) object;
     }
 
     @Override

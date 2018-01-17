@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-compile 'com.blankj:utilcode:1.11.1'
+compile 'com.blankj:utilcode:1.12.0'
 ```
 
 
@@ -431,6 +431,15 @@ killAllBackgroundProcesses: 杀死所有的后台服务进程
 killBackgroundProcesses   : 杀死后台服务进程
 ```
 
+* ### 反射相关 -> [ReflectUtils.java][reflect.java] -> [Test][reflect.test]
+```
+reflect    : 设置要反射的类
+newInstance: 实例化反射对象
+field      : 设置反射的字段
+method     : 设置反射的方法
+get        : 获取反射想要获取的
+```
+
 * ### 正则相关 -> [RegexUtils.java][regex.java] -> [Test][regex.test]
 ```
 isMobileSimple : 验证手机号（简单）
@@ -714,6 +723,9 @@ getComments       : 获取压缩文件中的注释链表
 
 [process.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ProcessUtils.java
 [process.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/process/ProcessActivity.java
+
+[reflect.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ReflectUtils.java
+[reflect.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/ReflectUtilsTest.java
 
 [regex.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/RegexUtils.java
 [regex.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/RegexUtilsTest.java
