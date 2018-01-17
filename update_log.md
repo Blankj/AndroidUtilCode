@@ -1,3 +1,9 @@
+* 18/01/17 完善 ReflectUtils 及 单元测试，发布 1.12.0 版本
+* 18/01/16 完善 ReflectUtils 及 单元测试
+* 18/01/15 完善 ReflectUtils 及 单元测试
+* 18/01/14 完善 ReflectUtils 及 单元测试
+* 18/01/13 完善 ReflectUtils 及 单元测试
+* 18/01/12 完善 ReflectUtils 及 单元测试
 * 18/01/11 修复 ImageUtils 的 fastBlur radius 为 1 recycle 的 bug，新增 CrashUtils 初始化崩溃监听事件，发布 1.11.1 版本
 * 18/01/10 完善 PermissionUtils 及 readme，发布 1.11.0 版本
 * 18/01/09 完善 demo 动态权限适配
