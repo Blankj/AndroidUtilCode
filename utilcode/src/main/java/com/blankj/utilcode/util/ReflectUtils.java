@@ -198,7 +198,7 @@ public final class ReflectUtils {
      */
     public ReflectUtils field(final String name) {
         try {
-            Field field = getAccessibleField(name);
+            Field field = getField(name);
             return new ReflectUtils(field.getType(), field.get(object));
         } catch (IllegalAccessException e) {
             throw new ReflectException(e);
@@ -214,12 +214,7 @@ public final class ReflectUtils {
      */
     public ReflectUtils field(String name, Object value) {
         try {
-            Field field = getAccessibleField(name);
-            if ((field.getModifiers() & Modifier.FINAL) == Modifier.FINAL) {
-                Field modifiersField = Field.class.getDeclaredField("modifiers");
-                modifiersField.setAccessible(true);
-                modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-            }
+            Field field = getField(name);
             field.set(object, unwrap(value));
             return this;
         } catch (Exception e) {
@@ -227,7 +222,21 @@ public final class ReflectUtils {
         }
     }
 
-    private Field getAccessibleField(String name) throws ReflectException {
+    private Field getField(String name) throws IllegalAccessException {
+        Field field = getAccessibleField(name);
+        if ((field.getModifiers() & Modifier.FINAL) == Modifier.FINAL) {
+            try {
+                Field modifiersField = Field.class.getDeclaredField("modifiers");
+                modifiersField.setAccessible(true);
+                modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+            } catch (NoSuchFieldException ignore) {
+                // runs in android will happen
+            }
+        }
+        return field;
+    }
+
+    private Field getAccessibleField(String name) {
         Class<?> type = type();
         try {
             return accessible(type.getField(name));
@@ -238,8 +247,7 @@ public final class ReflectUtils {
                 } catch (NoSuchFieldException ignore) {
                 }
                 type = type.getSuperclass();
-            }
-            while (type != null);
+            } while (type != null);
             throw new ReflectException(e);
         }
     }

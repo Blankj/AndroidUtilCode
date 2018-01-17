@@ -383,6 +383,9 @@ public class ReflectUtilsTest {
 
     @Test
     public void fieldPrivateStaticFinal() throws Exception {
+        assertEquals(1, ReflectUtils.reflect(TestPrivateStaticFinal.class).field("I1").get());
+        assertEquals(1, ReflectUtils.reflect(TestPrivateStaticFinal.class).field("I2").get());
+
         ReflectUtils.reflect(TestPrivateStaticFinal.class).field("I1", 2);
         ReflectUtils.reflect(TestPrivateStaticFinal.class).field("I2", 2);
 

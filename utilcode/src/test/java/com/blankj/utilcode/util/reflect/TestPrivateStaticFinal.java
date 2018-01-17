@@ -9,10 +9,6 @@ package com.blankj.utilcode.util.reflect;
  * </pre>
  */
 public class TestPrivateStaticFinal {
-    private static final int I1;
+    private static final int     I1 = new Integer(1);
     private static final Integer I2 = new Integer(1);
-
-    static {
-        I1 = new Integer(1);
-    }
 }
