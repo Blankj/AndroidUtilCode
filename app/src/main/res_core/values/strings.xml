@@ -20,6 +20,7 @@
     <string name="demo_sp">SP Demo</string>
     <string name="demo_span">SpanUtils Demo</string>
     <string name="demo_toast">ToastUtils Demo</string>
+    <string name="demo_reflect">Reflect Test</string>
 
     <!--Activity 相关-->
     <string name="activity_shared_element">Shared Element</string>

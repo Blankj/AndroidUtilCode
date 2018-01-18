@@ -147,5 +147,13 @@
         android:layout_height="wrap_content"
         android:onClick="toastClick"
         android:text="@string/demo_toast" />
+    <Button
+        android:id="@+id/btn_reflect"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_reflect"
+        android:onClick="reflectClick"
+        />
 
 </LinearLayout>

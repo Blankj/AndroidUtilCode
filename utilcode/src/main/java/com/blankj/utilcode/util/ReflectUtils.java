@@ -1,5 +1,7 @@
 package com.blankj.utilcode.util;
 
+import android.os.Build;
+
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -222,6 +224,9 @@ public final class ReflectUtils {
         }
     }
 
+    // todo: android only safe test on 6.0 7.0 and later
+    // art from 5.0 5.1 change many about flags, so fail
+    // 4.4 slot fail
     private Field getField(String name) throws IllegalAccessException {
         Field field = getAccessibleField(name);
         if ((field.getModifiers() & Modifier.FINAL) == Modifier.FINAL) {
@@ -230,7 +235,52 @@ public final class ReflectUtils {
                 modifiersField.setAccessible(true);
                 modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
             } catch (NoSuchFieldException ignore) {
-                // runs in android will happen
+                // runs in android accessFlags
+                // dalvik 4.4 and before slot
+//                if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT){
+//                    try {
+//                        Field modifiersField = Field.class.getDeclaredField("slot");
+//                        modifiersField.setAccessible(true);
+//                        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+//                    } catch (NoSuchFieldException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                } else if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1){
+//
+//                    // art 5.0 5.1 artField.accessFlag
+//                    try {
+//                        Field artField = Field.class.getDeclaredField("artField");
+//                        artField.setAccessible(true);
+//                        Object objArtField = artField.get(field);
+//                        Field accessFlagsArt = objArtField.getClass().getDeclaredField("accessFlags");
+//                        accessFlagsArt.setAccessible(true);
+//                        accessFlagsArt.set(objArtField, accessFlagsArt.getModifiers() & ~Modifier.FINAL);
+//                    } catch (NoSuchFieldException e) {
+//                        e.printStackTrace();
+//                    }
+//                } else {
+//
+//                    // art  6.0 7.0 accessFlags
+//                    try {
+//                        Field modifiersField = Field.class.getDeclaredField("accessFlags");
+//                        modifiersField.setAccessible(true);
+//                        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+//                    } catch (NoSuchFieldException e) {
+//                        e.printStackTrace();
+//                    }
+//            }
+
+                //art  6.0 7.0 accessFlags
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    try {
+                        Field modifiersField = Field.class.getDeclaredField("accessFlags");
+                        modifiersField.setAccessible(true);
+                        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+                    } catch (NoSuchFieldException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
         return field;

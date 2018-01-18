@@ -26,6 +26,9 @@ import com.blankj.androidutilcode.feature.core.snackbar.SnackbarActivity;
 import com.blankj.androidutilcode.feature.core.sp.SPActivity;
 import com.blankj.androidutilcode.feature.core.span.SpanActivity;
 import com.blankj.androidutilcode.feature.core.toast.ToastActivity;
+import com.blankj.androidutilcode.helper.Test1;
+import com.blankj.utilcode.util.ReflectUtils;
+import com.blankj.utilcode.util.ToastUtils;
 
 /**
  * <pre>
@@ -66,6 +69,17 @@ public class CoreUtilActivity extends BaseBackActivity {
     public void onWidgetClick(View view) {
 
     }
+
+    public void reflectClick(View view) {
+
+        Object old = ReflectUtils.reflect(Test1.class).field("S_INT1").get();
+        ReflectUtils.reflect(Test1.class).field("S_INT1",3);
+        Object newObj = ReflectUtils.reflect(Test1.class).field("S_INT1").get();
+
+        ToastUtils.showShort("reflect old:"+old +"\t new:"+newObj );
+
+    }
+
 
     public void coreUtilClick(View view) {
 
