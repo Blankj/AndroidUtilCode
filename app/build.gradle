@@ -1,3 +1,6 @@
+plugins {
+    id "tech.harmonysoft.oss.traute" version '1.0.5'
+}
 apply plugin: 'com.android.application'
 
 File signPropertiesFile = rootProject.file('sign/keystore.properties')
@@ -46,6 +49,9 @@ android {
     }
 }
 
+traute {
+    javacPluginVersion = trauteVersion
+}
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -61,7 +67,7 @@ dependencies {
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
 
-//    implementation 'com.blankj:utilcode:1.9.10'
+//    implementation 'com.blankj:utilcode:1.12.0'
 }
 
 

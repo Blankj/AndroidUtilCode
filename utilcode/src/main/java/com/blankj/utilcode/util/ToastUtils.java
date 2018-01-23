@@ -21,8 +21,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.ref.WeakReference;
-
 /**
  * <pre>
  *     author: Blankj
@@ -36,9 +34,7 @@ public final class ToastUtils {
     private static final int     COLOR_DEFAULT = 0xFEFFFFFF;
     private static final Handler HANDLER       = new Handler(Looper.getMainLooper());
 
-    private static Toast               sToast;
-    private static WeakReference<View> sViewWeakReference;
-    private static int sLayoutId  = -1;
+    private static Toast sToast;
     private static int gravity    = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
     private static int xOffset    = 0;
     private static int yOffset    = (int) (64 * Utils.getApp().getResources().getDisplayMetrics().density + 0.5);
@@ -245,28 +241,30 @@ public final class ToastUtils {
         } else if (bgColor != COLOR_DEFAULT) {
             Drawable background = toastView.getBackground();
             if (background != null) {
-                background.setColorFilter(new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN));
+                background.setColorFilter(
+                        new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN)
+                );
             } else {
                 ViewCompat.setBackground(toastView, new ColorDrawable(bgColor));
             }
         }
     }
 
-    private static void setBg(final TextView tvMessage) {
+    private static void setBg(final TextView tvMsg) {
         View toastView = sToast.getView();
         if (bgResource != -1) {
             toastView.setBackgroundResource(bgResource);
-            tvMessage.setBackgroundColor(Color.TRANSPARENT);
+            tvMsg.setBackgroundColor(Color.TRANSPARENT);
         } else if (bgColor != COLOR_DEFAULT) {
             Drawable tvBg = toastView.getBackground();
-            Drawable messageBg = tvMessage.getBackground();
-            if (tvBg != null && messageBg != null) {
+            Drawable msgBg = tvMsg.getBackground();
+            if (tvBg != null && msgBg != null) {
                 tvBg.setColorFilter(new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN));
-                tvMessage.setBackgroundColor(Color.TRANSPARENT);
+                tvMsg.setBackgroundColor(Color.TRANSPARENT);
             } else if (tvBg != null) {
                 tvBg.setColorFilter(new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN));
-            } else if (messageBg != null) {
-                messageBg.setColorFilter(new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN));
+            } else if (msgBg != null) {
+                msgBg.setColorFilter(new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN));
             } else {
                 toastView.setBackgroundColor(bgColor);
             }
@@ -274,18 +272,8 @@ public final class ToastUtils {
     }
 
     private static View getView(@LayoutRes final int layoutId) {
-        if (sLayoutId == layoutId) {
-            if (sViewWeakReference != null) {
-                final View toastView = sViewWeakReference.get();
-                if (toastView != null) {
-                    return toastView;
-                }
-            }
-        }
-        LayoutInflater inflate = (LayoutInflater) Utils.getApp().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View toastView = inflate.inflate(layoutId, null);
-        sViewWeakReference = new WeakReference<>(toastView);
-        sLayoutId = layoutId;
-        return toastView;
+        LayoutInflater inflate =
+                (LayoutInflater) Utils.getApp().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        return inflate != null ? inflate.inflate(layoutId, null) : null;
     }
 }

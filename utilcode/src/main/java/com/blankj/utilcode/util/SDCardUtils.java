@@ -40,16 +40,16 @@ public final class SDCardUtils {
      * @return SD 卡路径
      */
     @SuppressWarnings("TryWithIdenticalCatches")
-    public static List<String> getSDCardPaths(boolean removable) {
+    public static List<String> getSDCardPaths(final boolean removable) {
         List<String> paths = new ArrayList<>();
-        StorageManager mStorageManager = (StorageManager) Utils.getApp()
-                .getSystemService(Context.STORAGE_SERVICE);
+        StorageManager sm =
+                (StorageManager) Utils.getApp().getSystemService(Context.STORAGE_SERVICE);
         try {
             Class<?> storageVolumeClazz = Class.forName("android.os.storage.StorageVolume");
             Method getVolumeList = StorageManager.class.getMethod("getVolumeList");
             Method getPath = storageVolumeClazz.getMethod("getPath");
             Method isRemovable = storageVolumeClazz.getMethod("isRemovable");
-            Object result = getVolumeList.invoke(mStorageManager);
+            Object result = getVolumeList.invoke(sm);
             final int length = Array.getLength(result);
             for (int i = 0; i < length; i++) {
                 Object storageVolumeElement = Array.get(result, i);

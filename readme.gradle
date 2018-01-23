@@ -3,7 +3,7 @@ import groovy.transform.Field
 @Field LINE_SEP = System.getProperty("line.separator")
 @Field LONG_SPACE = "                                        "
 
-task readmeTask {
+task readmeTask << {
     def readmeCN = file("./utilcode/README-CN.md")
     def readmeEng = file("./utilcode/README.md")
     readmeOfUtilCode2Eng(readmeCN, readmeEng)
@@ -76,8 +76,8 @@ def format(File readmeCN) {
                 def spaceLen = maxLen - line.replace(" ", "").replace(",", ", ").indexOf(':')
                 sb.append(noSpaceLine.substring(0, noSpaceLine.indexOf(':')).replace(",", ", "))
                         .append(LONG_SPACE.substring(0, spaceLen))// add the space
-                        .append(": ")
-                        .append(noSpaceLine.substring(noSpaceLine.indexOf(':') + 1))
+                        .append(': ')
+                        .append(line.substring(line.indexOf(':') + 1).trim())
                         .append(LINE_SEP)
             }
             sb.append("```")

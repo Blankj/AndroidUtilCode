@@ -1,3 +1,6 @@
+plugins {
+    id "tech.harmonysoft.oss.traute" version '1.0.5'
+}
 apply plugin: 'com.android.library'
 apply plugin: 'jacoco'
 
@@ -49,10 +52,13 @@ android {
     }
 }
 
+traute {
+    javacPluginVersion = trauteVersion
+}
+
 dependencies {
     compileOnly "com.android.support:appcompat-v7:$support_version"
     compileOnly "com.android.support:design:$support_version"
-
     testImplementation "junit:junit:$junit_version"
     testImplementation "org.robolectric:robolectric:$robolectric_version"
     testImplementation "com.android.support:support-v4:$support_version"

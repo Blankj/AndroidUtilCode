@@ -3,6 +3,7 @@ package com.blankj.utilcode.util;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
+import android.app.Application.ActivityLifecycleCallbacks;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
@@ -60,7 +61,7 @@ public final class Utils {
     static WeakReference<Activity> sTopActivityWeakRef;
     static List<Activity> sActivityList = new LinkedList<>();
 
-    private static Application.ActivityLifecycleCallbacks mCallbacks = new Application.ActivityLifecycleCallbacks() {
+    private static ActivityLifecycleCallbacks mCallbacks = new ActivityLifecycleCallbacks() {
         @Override
         public void onActivityCreated(Activity activity, Bundle bundle) {
             sActivityList.add(activity);
@@ -122,7 +123,8 @@ public final class Utils {
         throw new NullPointerException("u should init first");
     }
 
-    private static void setTopActivityWeakRef(Activity activity) {
+    private static void setTopActivityWeakRef(final Activity activity) {
+        if (activity.getClass() == PermissionUtils.PermissionActivity.class) return;
         if (sTopActivityWeakRef == null || !activity.equals(sTopActivityWeakRef.get())) {
             sTopActivityWeakRef = new WeakReference<>(activity);
         }

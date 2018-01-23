@@ -4,9 +4,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.blankj.utilcode.util.TestConfig.PATH_TEMP;
 import static com.blankj.utilcode.util.TestConfig.PATH_ZIP;
-import static org.junit.Assert.assertTrue;
+import static junit.framework.TestCase.assertTrue;
 
 /**
  * <pre>
@@ -18,12 +21,22 @@ import static org.junit.Assert.assertTrue;
  */
 public class ZipUtilsTest {
 
-    private String zipFile = PATH_TEMP + "zipFile.zip";
+    private String zipFile  = PATH_TEMP + "zipFile.zip";
+    private String zipFiles = PATH_TEMP + "zipFiles.zip";
 
     @Before
     public void setUp() throws Exception {
         FileUtils.createOrExistsDir(PATH_TEMP);
         assertTrue(ZipUtils.zipFile(PATH_ZIP, zipFile, "测试zip"));
+    }
+
+    @Test
+    public void zipFiles() throws Exception {
+        List<String> files = new ArrayList<>();
+        files.add(PATH_ZIP + "test.txt");
+        files.add(PATH_ZIP);
+        files.add(PATH_ZIP + "testDir");
+        assertTrue(ZipUtils.zipFiles(files, zipFiles));
     }
 
     @Test

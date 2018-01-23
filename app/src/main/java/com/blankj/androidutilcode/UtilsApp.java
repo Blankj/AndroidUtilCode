@@ -1,14 +1,16 @@
 package com.blankj.androidutilcode;
 
-import com.blankj.androidutilcode.base.BaseApplication;
-import com.blankj.subutil.util.ThreadPoolUtils;
-import com.blankj.utilcode.util.CrashUtils;
-import com.blankj.utilcode.util.FileIOUtils;
-import com.blankj.utilcode.util.FileUtils;
-import com.blankj.utilcode.util.LogUtils;
-import com.squareup.leakcanary.LeakCanary;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 
-import java.io.IOException;
+import com.blankj.androidutilcode.base.BaseApplication;
+import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.CrashUtils;
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.PermissionUtils;
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * <pre>
@@ -35,7 +37,8 @@ public class UtilsApp extends BaseApplication {
         initLeakCanary();
         initLog();
         initCrash();
-        initAssets();
+
+        LogUtils.d(PermissionUtils.getPermissions());
     }
 
     private void initLeakCanary() {
@@ -68,24 +71,27 @@ public class UtilsApp extends BaseApplication {
     }
 
     private void initCrash() {
-        CrashUtils.init();
+        CrashUtils.init(new CrashUtils.OnCrashListener() {
+            @Override
+            public void onCrash(Throwable e) {
+                e.printStackTrace();
+                restartApp();
+            }
+        });
     }
 
-    private void initAssets() {
-        if (!FileUtils.isFileExists(Config.TEST_APK_PATH)) {
-            ThreadPoolUtils poolUtils = new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 1);
-            poolUtils.execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        FileIOUtils.writeFileFromIS(Config.TEST_APK_PATH, getAssets().open("test_install"), false);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        } else {
-            LogUtils.d("test apk existed.");
-        }
+    private void restartApp() {
+        Intent intent = new Intent();
+        intent.setClassName("com.blankj.androidutilcode", "com.blankj.androidutilcode.MainActivity");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent restartIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        AlarmManager manager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        if (manager == null) return;
+        manager.set(AlarmManager.RTC, System.currentTimeMillis() + 1, restartIntent);
+        ActivityUtils.finishAllActivities();
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);
     }
 }
+
+

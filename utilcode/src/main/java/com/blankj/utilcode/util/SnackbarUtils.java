@@ -43,7 +43,7 @@ public final class SnackbarUtils {
     private static final int COLOR_ERROR   = 0xFFFF0000;
     private static final int COLOR_MESSAGE = 0xFFFFFFFF;
 
-    private static WeakReference<Snackbar> snackbarWeakReference;
+    private static WeakReference<Snackbar> sReference;
 
     private View                 parent;
     private CharSequence         message;
@@ -149,7 +149,8 @@ public final class SnackbarUtils {
      * @param listener 事件
      * @return {@link SnackbarUtils}
      */
-    public SnackbarUtils setAction(@NonNull final CharSequence text, @NonNull final View.OnClickListener listener) {
+    public SnackbarUtils setAction(@NonNull final CharSequence text,
+                                   @NonNull final View.OnClickListener listener) {
         return setAction(text, COLOR_DEFAULT, listener);
     }
 
@@ -162,7 +163,9 @@ public final class SnackbarUtils {
      * @return {@link SnackbarUtils}
      */
 
-    public SnackbarUtils setAction(@NonNull final CharSequence text, @ColorInt final int color, @NonNull final View.OnClickListener listener) {
+    public SnackbarUtils setAction(@NonNull final CharSequence text,
+                                   @ColorInt final int color,
+                                   @NonNull final View.OnClickListener listener) {
         this.actionText = text;
         this.actionTextColor = color;
         this.actionListener = listener;
@@ -188,12 +191,14 @@ public final class SnackbarUtils {
         if (messageColor != COLOR_DEFAULT) {
             SpannableString spannableString = new SpannableString(message);
             ForegroundColorSpan colorSpan = new ForegroundColorSpan(messageColor);
-            spannableString.setSpan(colorSpan, 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            snackbarWeakReference = new WeakReference<>(Snackbar.make(view, spannableString, duration));
+            spannableString.setSpan(
+                    colorSpan, 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            );
+            sReference = new WeakReference<>(Snackbar.make(view, spannableString, duration));
         } else {
-            snackbarWeakReference = new WeakReference<>(Snackbar.make(view, message, duration));
+            sReference = new WeakReference<>(Snackbar.make(view, message, duration));
         }
-        final Snackbar snackbar = snackbarWeakReference.get();
+        final Snackbar snackbar = sReference.get();
         final View snackbarView = snackbar.getView();
         if (bgResource != -1) {
             snackbarView.setBackgroundResource(bgResource);
@@ -201,7 +206,8 @@ public final class SnackbarUtils {
             snackbarView.setBackgroundColor(bgColor);
         }
         if (bottomMargin != 0) {
-            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) snackbarView.getLayoutParams();
+            ViewGroup.MarginLayoutParams params =
+                    (ViewGroup.MarginLayoutParams) snackbarView.getLayoutParams();
             params.bottomMargin = bottomMargin;
         }
         if (actionText.length() > 0 && actionListener != null) {
@@ -247,9 +253,9 @@ public final class SnackbarUtils {
      * 消失 snackbar
      */
     public static void dismiss() {
-        if (snackbarWeakReference != null && snackbarWeakReference.get() != null) {
-            snackbarWeakReference.get().dismiss();
-            snackbarWeakReference = null;
+        if (sReference != null && sReference.get() != null) {
+            sReference.get().dismiss();
+            sReference = null;
         }
     }
 
@@ -259,7 +265,7 @@ public final class SnackbarUtils {
      * @return snackbar 视图
      */
     public static View getView() {
-        Snackbar snackbar = snackbarWeakReference.get();
+        Snackbar snackbar = sReference.get();
         if (snackbar == null) return null;
         return snackbar.getView();
     }
@@ -271,7 +277,8 @@ public final class SnackbarUtils {
      * @param layoutId 布局文件
      * @param params   布局参数
      */
-    public static void addView(@LayoutRes final int layoutId, @NonNull final ViewGroup.LayoutParams params) {
+    public static void addView(@LayoutRes final int layoutId,
+                               @NonNull final ViewGroup.LayoutParams params) {
         final View view = getView();
         if (view != null) {
             view.setPadding(0, 0, 0, 0);
@@ -288,7 +295,8 @@ public final class SnackbarUtils {
      * @param child  要添加的 view
      * @param params 布局参数
      */
-    public static void addView(@NonNull final View child, @NonNull final ViewGroup.LayoutParams params) {
+    public static void addView(@NonNull final View child,
+                               @NonNull final ViewGroup.LayoutParams params) {
         final View view = getView();
         if (view != null) {
             view.setPadding(0, 0, 0, 0);

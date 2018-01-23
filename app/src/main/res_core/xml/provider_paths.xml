@@ -2,5 +2,5 @@
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
     <external-path
         name="my_external_path"
-        path="."/>
+        path="." />
 </paths>

@@ -185,7 +185,9 @@ public final class RegexUtils {
      * @param replacement 代替者
      * @return 替换正则匹配的第一部分
      */
-    public static String getReplaceFirst(final String input, final String regex, final String replacement) {
+    public static String getReplaceFirst(final String input,
+                                         final String regex,
+                                         final String replacement) {
         if (input == null) return null;
         return Pattern.compile(regex).matcher(input).replaceFirst(replacement);
     }
@@ -198,7 +200,9 @@ public final class RegexUtils {
      * @param replacement 代替者
      * @return 替换所有正则匹配的部分
      */
-    public static String getReplaceAll(final String input, final String regex, final String replacement) {
+    public static String getReplaceAll(final String input,
+                                       final String regex,
+                                       final String replacement) {
         if (input == null) return null;
         return Pattern.compile(regex).matcher(input).replaceAll(replacement);
     }
