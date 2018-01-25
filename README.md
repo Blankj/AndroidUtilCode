@@ -1,377 +1,85 @@
-## Android developers should collect the following utils
-**[中文版README][readme.ch]**
-***
-Directory is shown below：  
-> - **About App→[AppUtils.java][app.java]**
->  - *getInstallAppIntent*
->  - *getUninstallAppIntent*
->  - *getOpenAppItent*
->  - *getAppInfoIntent*
->  - *getShareInfoIntent*
->  - *isInstallApp*
->  - *getAppInfo*
->  - *getAllAppsInfo*
->  - *isAppBackground*
+![logo][logo]
 
-> - **About Const→[ConstUtils.java][const.java]**
->  - *Memory Const*
->  - *Time Const*
->  - *Regex Const*
+[![auc][aucsvg]][auc] [![api][apisvg]][api] [![build][buildsvg]][build] [![Insight][insightsvg]][insight] [![License][licensesvg]][license]
 
-> - **About Convert→[ConvertUtils.java][convert.java]→[Test][convert.test]**
->  - *bytes2HexString*、*hexString2Bytes*
->  - *chars2Bytes*、*bytes2Chars*
->  - *byte2Size*、*size2Byte*
->  - *byte2FitSize*
->  - *input2OutputStream*、*output2InputStream*
->  - *inputStream2Bytes*、*bytes2InputStream*
->  - *outputStream2Bytes*、*bytes2OutputStream*
->  - *inputStream2String*、*string2InputStream*
->  - *outputStream2String*、*string2OutputStream*
->  - *bitmap2Bytes*、*bytes2Bitmap*
->  - *drawable2Bitmap*、*bitmap2Drawable*
->  - *drawable2Bytes*、*bytes2Drawable*
->  - *dp2px*、*px2dp*
->  - *sp2px*、*px2sp*
+## [README of Chinese][readme-cn]
 
-> - **About Device→[DeviceUtils.java][device.java]**
->  - *getMacAddress*
->  - *getManufacturer*
->  - *getModel*
+## About
 
-> - **About Encode→[EncodeUtils.java][encode.java]→[Test][encode.test]**
->  - *urlEncode*
->  - *urlDecode*
->  - *base64Encode*、*base64Encode2String*
->  - *base64Decode*
->  - *base64UrlSafeEncode*
->  - *htmlEncode*
->  - *htmlDecode*
+**[AndroidUtilCode][readme]** :fire: is a powerful & easy to use library for Android. It encapsulates the functions commonly used in Android development which have complete demo and unit test. Using its encapsulated APIs can greatly improve development efficiency. It mainly consists of two modules. One is the main module, **[utilcode][utilcode-cn]**, which includes the utils commonly used in development. The other is **[subutil][subutil-cn]** which contains the utils is not very common, which is beneficial to simplify the main module. :fire:
 
-> - **About Encrypt→[EncryptUtils.java][encrypt.java]→[Test][encrypt.test]**
->  - *encryptMD2ToString*、*encryptMD2*
->  - *encryptMD5ToString*、*encryptMD5*
->  - *encryptSHA1ToString*、*encryptSHA1*
->  - *encryptSHA224ToString*、*encryptSHA224*
->  - *encryptSHA256ToString*、*encryptSHA256*
->  - *encryptSHA384ToString*、*encryptSHA384*
->  - *encryptSHA512ToString*、*encryptSHA512*
->  - *encryptMD5File2String*、*encryptMD5File*
->  - *encryptDES2Base64*
->  - *encryptDES2HexString*
->  - *encryptDES*
->  - *decryptBase64DES*
->  - *decryptHexStringDES*
->  - *decryptDES*
->  - *encrypt3DES2Base64*
->  - *encrypt3DES2HexString*
->  - *encrypt3DES*
->  - *decryptBase64_3DES*
->  - *decryptHexString3DES*
->  - *decrypt3DES*
->  - *encryptAES2Base64*
->  - *encryptAES2HexString*
->  - *encryptAES*
->  - *decryptBase64AES*
->  - *decryptHexStringAES*
->  - *decryptAES*
 
-> - **About File→[FileUtils.java][file.java]→[Test][file.test]**
->  - *getFileByPath*
->  - *isFileExists*
->  - *isDir*
->  - *isFile*
->  - *createOrExistsDir*
->  - *createOrExistsFile*
->  - *createFileByDeleteOldFile*
->  - *copyDir*
->  - *copyFile*
->  - *moveDir*
->  - *moveFile*
->  - *deleteDir*
->  - *deleteFile*
->  - *listFilesInDir*
->  - *listFilesInDir*
->  - *listFilesInDirWithFilter*
->  - *listFilesInDirWithFilter*
->  - *listFilesInDirWithFilter*
->  - *listFilesInDirWithFilter*
->  - *searchFileInDir*
->  - *writeFileFromIS*
->  - *writeFileFromString*
->  - *getFileCharsetSimple*
->  - *getFileLines*
->  - *readFile2List*
->  - *readFile2SB*
->  - *getFileSize*
->  - *getFileMD5*
->  - *closeIO*
->  - *getDirName*
->  - *getFileName*
->  - *getFileNameNoExtension*
->  - *getFileExtension*
+## Documentation
 
-> - **About Image→[ImageUtils.java][image.java]**
->  - *bitmap2Bytes*、*bytes2Bitmap*
->  - *drawable2Bitmap*、*bitmap2Drawable*
->  - *drawable2Bytes*、*bytes2Drawable*
->  - *getBitmap*
->  - *scale*
->  - *clip*
->  - *skew*
->  - *rotate*
->  - *getRotateDegree*
->  - *toRound*
->  - *toRoundCorner*
->  - *fastBlur*
->  - *renderScriptBlur*
->  - *stackBlur*
->  - *addFrame*
->  - *addReflection*
->  - *addTextWatermark*
->  - *addImageWatermark*
->  - *toAlpha*
->  - *toGray*
->  - *save*
->  - *isImage*
->  - *getImageType*
->  - *compressByScale*
->  - *compressByQuality*
->  - *compressBySampleSize*
+### utilcode
 
-> - **About Keyboard→[KeyboardUtils.java][keyboard.java]**
->  - *hideSoftInput*
->  - *clickBlankArea2HideSoftInput0*
->  - *showSoftInput*
->  - *toggleSoftInput*
+* [README of English][utilcode]
+* [README of Chinese][utilcode-cn]
 
-> - **About Network→[NetworkUtils.java][network.java]**
->  - *openWirelessSettings*
->  - *isAvailable*
->  - *isConnected*
->  - *is4G*
->  - *isWifiConnected*
->  - *getNetworkOperatorName*
->  - *getPhoneType*
->  - *getNetWorkType*、*getNetWorkTypeName*
 
-> - **About Phone→[PhoneUtils.java][phone.java]**
->  - *isPhone*
->  - *getPhoneIMEI*
->  - *getPhoneStatus*
->  - *dial*
->  - *call*
->  - *sendSms*
->  - *getAllContactInfo*
->  - *getContantNum*
->  - *getAllSMS*
+### subutil
 
-> - **About Regex→[RegexUtils.java][regex.java]→[Test][regex.test]**
->  - *isMobileSimple*
->  - *isMobileExact*
->  - *isTel*
->  - *isIDCard15*
->  - *isIDCard18*
->  - *isEmail*
->  - *isURL*
->  - *isChz*
->  - *isUsername*
->  - *isDate*
->  - *isIP*
->  - *isMatch*
+* [README of English][subutil]
+* [README of Chinese][subutil-cn]
 
-> - **About Screen→[ScreenUtils.java][screen.java]**
->  - *getDeviceWidth*、*getDeviceHeight*
->  - *setTransparentStatusBar*
->  - *hideStatusBar*
->  - *getStatusBarHeight*
->  - *isStatusBarExists*
->  - *getActionBarHeight*
->  - *showNotificationBar*
->  - *hideNotificationBar*
->  - *setLandscape*
->  - *snapShotWithStatusBar*、*snapShotWithoutStatusBar*
->  - *isScreenLock*
 
-> - **About SDCard→[SDCardUtils.java][sdcard.java]**
->  - *isSDCardEnable*
->  - *getSDCardPath*
->  - *getDataPath*
->  - *getFreeSpace*
+## Donations
 
-> - **About Shell→[ShellUtils.java][shell.java]**
->  - *isRoot*
->  - *execCmd*
+If this ptoject helps you a lot, and you would like to support this ptoject's further development and the continuous maintenance of this project. You can sweep the following QR code free to donate me, which asked me to have a cup of coffee or beer. Your donation is highly appreciated. Thank you!
 
-> - **About Size→[SizeUtils.java][size.java]**
->  - *dp2px*、*px2dp*
->  - *sp2px*、*px2sp*
->  - *applyDimension*
->  - *forceGetViewSize*
->  - *measureView*
+![donate][donate]
 
-> - **About SP→[SPUtils.java][sp.java]→[Test][sp.test]**
->  - *SPUtils*
->  - *putString*
->  - *getString*
->  - *putInt*
->  - *getInt*
->  - *putLong*
->  - *getLong*
->  - *putFloat*
->  - *getFloat*
->  - *putBoolean*
->  - *getBoolean*
->  - *getAll*
->  - *remove*
->  - *contains*
->  - *clear*
 
-> - **About String→[StringUtils.java][string.java]→[Test][string.test]**
->  - *isEmpty*
->  - *isSpace*
->  - *null2Length0*
->  - *length*
->  - *upperFirstLetter*
->  - *lowerFirstLetter*
->  - *reverse*
->  - *toDBC*
->  - *toSBC*
+## Contact
 
-> - **About ThreadPool→[ThreadPoolUtils.java][thread_pool.java]**
->  - *ThreadPoolUtils*
->  - *execute*
->  - *execute*
->  - *shutDown*
->  - *shutDownNow*
->  - *isShutDown*
->  - *isTerminated*
->  - *awaitTermination*
->  - *submit*
->  - *submit*
->  - *invokeAll*、*invokeAny*
->  - *schedule*
->  - *schedule*
->  - *scheduleWithFixedRate*、*scheduleWithFixedDelay*
+[![Blog][blogsvg]][blog] [![jianshu][jianshusvg]][jianshu] [![weibo][weibosvg]][weibo] [![QQ0Group][qq0groupsvg]][qq0group] [![QQ1Group][qq1groupsvg]][qq1group]
 
-> - **About Time→[TimeUtils.java][time.java]→[Test][time.test]**
->  - *milliseconds2String*
->  - *string2Milliseconds*
->  - *string2Date*
->  - *date2String*
->  - *date2Milliseconds*
->  - *milliseconds2Date*
->  - *milliseconds2Unit*
->  - *getIntervalTime*
->  - *getCurTimeMills*、*getCurTimeString*、*getCurTimeDate*
->  - *getIntervalByNow*
->  - *isLeapYear*
 
-> - **About Unclassified→[UnclassifiedUtils.java][unclassified.java]**
->  - *isRunningService*
+## [Update Log][update_log.md]
 
-> - **About Zip→[ZipUtils.java][zip.java]→[Test][zip.test]**
->  - *zipFiles*
->  - *zipFile*
->  - *unzipFiles*
->  - *unzipFile*
->  - *unzipFileByKeyword*
->  - *getFilesPath*
->  - *getComments*
->  - *getEntries*
 
-> - **Update Log→[update_log.md][update_log.md]**
 
-***
-  
-**I'm so sorry for that the code is annotated with Chinese.**  
+[logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
-### Download
-***
-Gradle:
-``` groovy
-compile 'com.blankj:utilcode:1.2.1'
-```
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.12.0-brightgreen.svg
+[auc]: https://github.com/Blankj/AndroidUtilCode
 
-### Proguard
-***
-```
--keep class com.blankj.utilcode.** { *; }
--keep classmembers class com.blankj.utilcode.** { *; }
--dontwarn com.blankj.utilcode.**
-```
+[apisvg]: https://img.shields.io/badge/API-14+-brightgreen.svg
+[api]: https://android-arsenal.com/api?level=14
 
-### License
-***
-```
-Copyright 2016 Blankj
+[buildsvg]: https://travis-ci.org/Blankj/AndroidUtilCode.svg?branch=master
+[build]: https://travis-ci.org/Blankj/AndroidUtilCode
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+[insightsvg]: https://www.insight.io/repoBadge/github.com/Blankj/AndroidUtilCode
+[insight]: https://insight.io/github.com/Blankj/AndroidUtilCode
 
-	http://www.apache.org/licenses/LICENSE-2.0
+[licensesvg]: https://img.shields.io/badge/License-Apache--2.0-brightgreen.svg
+[license]: https://github.com/Blankj/AndroidUtilCode/blob/master/LICENSE
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
+[readme]: https://github.com/Blankj/AndroidUtilCode
+[readme-cn]: https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md
 
-[readme.ch]: https://github.com/Blankj/AndroidUtilCode/blob/master/README-CH.md
+[utilcode]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/README.md
+[utilcode-cn]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/README-CN.md
 
-[app.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/AppUtils.java
-
-[const.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ConstUtils.java
-
-[convert.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ConvertUtils.java
-[convert.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/ConvertUtilsTest.java
-
-[device.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/DeviceUtils.java
-
-[encode.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/EncodeUtils.java
-[encode.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/EncodeUtilsTest.java
-
-[encrypt.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/EncryptUtils.java
-[encrypt.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/EncryptUtilsTest.java
-
-[file.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/FileUtils.java
-[file.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/FileUtilsTest.java
-
-[image.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ImageUtils.java
-
-[keyboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/KeyboardUtils.java
-
-[network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/NetworkUtils.java
-
-[phone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/PhoneUtils.java
-
-[regex.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/RegexUtils.java
-[regex.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/RegexUtilsTest.java
-
-[screen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ScreenUtils.java
-
-[sdcard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SDCardUtils.java
-
-[shell.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ShellUtils.java
-
-[size.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SizeUtils.java
-
-[sp.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/SPUtils.java
-[sp.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/SPUtilsTest.java
-
-[string.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/StringUtils.java
-[string.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/StringUtilsTest.java
-
-[thread_pool.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ThreadPoolUtils.java
-
-[time.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/TimeUtils.java
-[time.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/TimeUtilsTest.java
-
-[unclassified.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/UnclassifiedUtils.java
-
-[zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/utils/ZipUtils.java
-[zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/utils/ZipUtilsTest.java
+[subutil]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/README.md
+[subutil-cn]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/README-CN.md
 
 [update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/update_log.md
+
+[donate]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/donate.png
+
+[blogsvg]: https://img.shields.io/badge/Blog-@Blankj-34a48e.svg
+[blog]: http://blankj.com
+
+[jianshusvg]: https://img.shields.io/badge/简书-@Blankj-34a48e.svg
+[jianshu]: http://www.jianshu.com/u/46702d5c6978
+
+[weibosvg]: https://img.shields.io/badge/weibo-@__Blankj-34a48e.svg
+[weibo]: http://weibo.com/3076228982
+
+[qq0groupsvg]: https://img.shields.io/badge/QQ0群(满)-74721490-ff73a3.svg
+[qq0group]: https://shang.qq.com/wpa/qunwpa?idkey=62baf2c3ec6b0863155b0c7a10c71bba2608cb0b6532fc18515835e54c69bdd3
+
+[qq1groupsvg]: https://img.shields.io/badge/QQ1群-25206533-ff73a3.svg
+[qq1group]: https://shang.qq.com/wpa/qunwpa?idkey=d906789f84484465e2736f7b524366b4c23afeda38733d5c7b10fc3f6e406e9b

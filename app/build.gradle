@@ -1,0 +1,73 @@
+plugins {
+    id "tech.harmonysoft.oss.traute" version '1.0.5'
+}
+apply plugin: 'com.android.application'
+
+File signPropertiesFile = rootProject.file('sign/keystore.properties')
+
+android {
+    compileSdkVersion compile_sdk_version
+    defaultConfig {
+        applicationId "com.blankj.androidutilcode"
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
+        versionCode version_code
+        versionName version_name
+    }
+
+    if (signPropertiesFile.exists()) {
+        Properties properties = new Properties()
+        properties.load(new FileInputStream(signPropertiesFile))
+        signingConfigs {
+            release {
+                storeFile rootProject.file(properties['keystore'])
+                storePassword properties['storePassword']
+                keyAlias properties['keyAlias']
+                keyPassword properties['keyPassword']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            if (signPropertiesFile.exists()) {
+                signingConfig signingConfigs.release
+            }
+        }
+    }
+
+    sourceSets {
+        main {
+            res.srcDirs('src/main/res', 'src/main/res_core', 'src/main/res_sub')
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+traute {
+    javacPluginVersion = trauteVersion
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':utilcode')
+    implementation project(':subutil')
+
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:design:$support_version"
+
+    implementation 'com.r0adkll:slidableactivity:2.0.5'
+
+    // LeakCanary
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
+
+//    implementation 'com.blankj:utilcode:1.12.0'
+}
+
+
