@@ -67,7 +67,7 @@ dependencies {
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
 
-//    implementation 'com.blankj:utilcode:1.12.0'
+//    implementation 'com.blankj:utilcode:1.12.1'
 }
 
 

@@ -1,3 +1,4 @@
+* 18/01/27 修复 PermissionUtils 某些机型闪烁问题，发布 1.12.1
 * 18/01/17 完善 ReflectUtils 及 单元测试，发布 1.12.0 版本
 * 18/01/16 完善 ReflectUtils 及 单元测试
 * 18/01/15 完善 ReflectUtils 及 单元测试
