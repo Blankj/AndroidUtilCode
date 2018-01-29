@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-compile 'com.blankj:utilcode:1.12.2'
+compile 'com.blankj:utilcode:1.12.3'
 ```
 
 
@@ -154,7 +154,8 @@ init: 初始化
 * ### 设备相关 -> [DeviceUtils.java][device.java] -> [Demo][device.demo]
 ```
 isDeviceRooted   : 判断设备是否 rooted
-getSDKVersion    : 获取设备系统版本号
+getSDKVersionName: 获取设备系统版本号
+getSDKVersionCode: 获取设备系统版本码
 getAndroidID     : 获取设备 AndroidID
 getMacAddress    : 获取设备 MAC 地址
 getManufacturer  : 获取设备厂商

@@ -50,10 +50,18 @@ public final class DeviceUtils {
      *
      * @return 设备系统版本号
      */
-    public static int getSDKVersion() {
-        return android.os.Build.VERSION.SDK_INT;
+    public static String getSDKVersionName() {
+        return android.os.Build.VERSION.RELEASE;
     }
 
+    /**
+     * 获取设备系统版本码
+     *
+     * @return 设备系统版本码
+     */
+    public static int getSDKVersionCode() {
+        return android.os.Build.VERSION.SDK_INT;
+    }
 
     /**
      * 获取设备 AndroidID

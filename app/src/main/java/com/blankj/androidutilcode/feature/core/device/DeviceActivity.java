@@ -47,7 +47,8 @@ public class DeviceActivity extends BaseBackActivity {
         TextView tvAboutDevice = findViewById(R.id.tv_about_device);
         tvAboutDevice.setText(new SpanUtils()
                 .appendLine("isRoot: " + DeviceUtils.isDeviceRooted())
-                .appendLine("getSDKVersion: " + DeviceUtils.getSDKVersion())
+                .appendLine("getSDKVersionName: " + DeviceUtils.getSDKVersionName())
+                .appendLine("getSDKVersionCode: " + DeviceUtils.getSDKVersionCode())
                 .appendLine("getAndroidID: " + DeviceUtils.getAndroidID())
                 .appendLine("getMacAddress: " + DeviceUtils.getMacAddress())
                 .appendLine("getManufacturer: " + DeviceUtils.getManufacturer())

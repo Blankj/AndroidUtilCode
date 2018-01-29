@@ -207,11 +207,14 @@ public final class ToastUtils {
             public void run() {
                 cancel();
                 sToast = Toast.makeText(Utils.getApp(), text, duration);
-                //t solve the font of toast
                 TextView tvMessage = sToast.getView().findViewById(android.R.id.message);
+                int msgColor = tvMessage.getCurrentTextColor();
+                //it solve the font of toast
                 TextViewCompat.setTextAppearance(tvMessage, android.R.style.TextAppearance);
                 if (sMsgColor != COLOR_DEFAULT) {
                     tvMessage.setTextColor(sMsgColor);
+                } else {
+                    tvMessage.setTextColor(msgColor);
                 }
                 if (sGravity != -1 || sXOffset != -1 || sYOffset != -1) {
                     sToast.setGravity(sGravity, sXOffset, sYOffset);
