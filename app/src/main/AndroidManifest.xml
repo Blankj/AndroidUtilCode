@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <!--bar-->
     <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
@@ -141,6 +141,9 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.core.process.ProcessActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.reflect.ReflectActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.core.screen.ScreenActivity"
