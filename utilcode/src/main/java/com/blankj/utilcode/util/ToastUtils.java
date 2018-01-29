@@ -15,7 +15,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.TextViewCompat;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -35,12 +34,12 @@ public final class ToastUtils {
     private static final Handler HANDLER       = new Handler(Looper.getMainLooper());
 
     private static Toast sToast;
-    private static int gravity    = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
-    private static int xOffset    = 0;
-    private static int yOffset    = (int) (64 * Utils.getApp().getResources().getDisplayMetrics().density + 0.5);
-    private static int bgColor    = COLOR_DEFAULT;
-    private static int bgResource = -1;
-    private static int msgColor   = COLOR_DEFAULT;
+    private static int sGravity    = -1;
+    private static int sXOffset    = -1;
+    private static int sYOffset    = -1;
+    private static int sBgColor    = COLOR_DEFAULT;
+    private static int sBgResource = -1;
+    private static int sMsgColor   = COLOR_DEFAULT;
 
     private ToastUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -54,9 +53,9 @@ public final class ToastUtils {
      * @param yOffset y 偏移
      */
     public static void setGravity(final int gravity, final int xOffset, final int yOffset) {
-        ToastUtils.gravity = gravity;
-        ToastUtils.xOffset = xOffset;
-        ToastUtils.yOffset = yOffset;
+        sGravity = gravity;
+        sXOffset = xOffset;
+        sYOffset = yOffset;
     }
 
     /**
@@ -65,7 +64,7 @@ public final class ToastUtils {
      * @param backgroundColor 背景色
      */
     public static void setBgColor(@ColorInt final int backgroundColor) {
-        ToastUtils.bgColor = backgroundColor;
+        sBgColor = backgroundColor;
     }
 
     /**
@@ -74,7 +73,7 @@ public final class ToastUtils {
      * @param bgResource 背景资源
      */
     public static void setBgResource(@DrawableRes final int bgResource) {
-        ToastUtils.bgResource = bgResource;
+        sBgResource = bgResource;
     }
 
     /**
@@ -83,7 +82,7 @@ public final class ToastUtils {
      * @param msgColor 颜色
      */
     public static void setMsgColor(@ColorInt final int msgColor) {
-        ToastUtils.msgColor = msgColor;
+        sMsgColor = msgColor;
     }
 
     /**
@@ -208,11 +207,15 @@ public final class ToastUtils {
             public void run() {
                 cancel();
                 sToast = Toast.makeText(Utils.getApp(), text, duration);
-                // solve the font of toast
+                //t solve the font of toast
                 TextView tvMessage = sToast.getView().findViewById(android.R.id.message);
                 TextViewCompat.setTextAppearance(tvMessage, android.R.style.TextAppearance);
-                tvMessage.setTextColor(msgColor);
-                sToast.setGravity(gravity, xOffset, yOffset);
+                if (sMsgColor != COLOR_DEFAULT) {
+                    tvMessage.setTextColor(sMsgColor);
+                }
+                if (sGravity != -1 || sXOffset != -1 || sYOffset != -1) {
+                    sToast.setGravity(sGravity, sXOffset, sYOffset);
+                }
                 setBg(tvMessage);
                 sToast.show();
             }
@@ -227,7 +230,9 @@ public final class ToastUtils {
                 sToast = new Toast(Utils.getApp());
                 sToast.setView(view);
                 sToast.setDuration(duration);
-                sToast.setGravity(gravity, xOffset, yOffset);
+                if (sGravity != -1 || sXOffset != -1 || sYOffset != -1) {
+                    sToast.setGravity(sGravity, sXOffset, sYOffset);
+                }
                 setBg();
                 sToast.show();
             }
@@ -236,37 +241,37 @@ public final class ToastUtils {
 
     private static void setBg() {
         View toastView = sToast.getView();
-        if (bgResource != -1) {
-            toastView.setBackgroundResource(bgResource);
-        } else if (bgColor != COLOR_DEFAULT) {
+        if (sBgResource != -1) {
+            toastView.setBackgroundResource(sBgResource);
+        } else if (sBgColor != COLOR_DEFAULT) {
             Drawable background = toastView.getBackground();
             if (background != null) {
                 background.setColorFilter(
-                        new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN)
+                        new PorterDuffColorFilter(sBgColor, PorterDuff.Mode.SRC_IN)
                 );
             } else {
-                ViewCompat.setBackground(toastView, new ColorDrawable(bgColor));
+                ViewCompat.setBackground(toastView, new ColorDrawable(sBgColor));
             }
         }
     }
 
     private static void setBg(final TextView tvMsg) {
         View toastView = sToast.getView();
-        if (bgResource != -1) {
-            toastView.setBackgroundResource(bgResource);
+        if (sBgResource != -1) {
+            toastView.setBackgroundResource(sBgResource);
             tvMsg.setBackgroundColor(Color.TRANSPARENT);
-        } else if (bgColor != COLOR_DEFAULT) {
+        } else if (sBgColor != COLOR_DEFAULT) {
             Drawable tvBg = toastView.getBackground();
             Drawable msgBg = tvMsg.getBackground();
             if (tvBg != null && msgBg != null) {
-                tvBg.setColorFilter(new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN));
+                tvBg.setColorFilter(new PorterDuffColorFilter(sBgColor, PorterDuff.Mode.SRC_IN));
                 tvMsg.setBackgroundColor(Color.TRANSPARENT);
             } else if (tvBg != null) {
-                tvBg.setColorFilter(new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN));
+                tvBg.setColorFilter(new PorterDuffColorFilter(sBgColor, PorterDuff.Mode.SRC_IN));
             } else if (msgBg != null) {
-                msgBg.setColorFilter(new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN));
+                msgBg.setColorFilter(new PorterDuffColorFilter(sBgColor, PorterDuff.Mode.SRC_IN));
             } else {
-                toastView.setBackgroundColor(bgColor);
+                toastView.setBackgroundColor(sBgColor);
             }
         }
     }
