@@ -150,7 +150,6 @@ public final class ScreenUtils {
      */
     public static int getScreenRotation(@NonNull final Activity activity) {
         switch (activity.getWindowManager().getDefaultDisplay().getRotation()) {
-            default:
             case Surface.ROTATION_0:
                 return 0;
             case Surface.ROTATION_90:
@@ -159,6 +158,8 @@ public final class ScreenUtils {
                 return 180;
             case Surface.ROTATION_270:
                 return 270;
+            default:
+                return 0;
         }
     }
 

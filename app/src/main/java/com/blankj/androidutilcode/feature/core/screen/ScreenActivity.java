@@ -61,8 +61,6 @@ public class ScreenActivity extends BaseBackActivity {
                 .append("isTablet: " + ScreenUtils.isTablet())
                 .create()
         );
-
-
     }
 
     @Override

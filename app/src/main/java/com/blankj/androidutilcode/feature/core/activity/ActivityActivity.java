@@ -249,7 +249,6 @@ public class ActivityActivity extends BaseBackActivity {
 
     private Bundle getOption(int type) {
         switch (type) {
-            default:
             case 0:
                 return ActivityOptionsCompat.makeCustomAnimation(this,
                         R.anim.slide_in_right_1000,
@@ -277,6 +276,8 @@ public class ActivityActivity extends BaseBackActivity {
                         viewSharedElement,
                         getString(R.string.activity_shared_element))
                         .toBundle();
+            default:
+                return null;
         }
     }
 }

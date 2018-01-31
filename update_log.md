@@ -1,4 +1,5 @@
-* 18/01/27 修复 ToastUtils 默认样式问题，发布 1.12.2，新增 DeviceUtils#getSDKVersionName，发布 1.12.3
+* 18/01/31 修复 default 相关的逻辑错误，发布 1.12.4
+* 18/01/28 修复 ToastUtils 默认样式问题，发布 1.12.2，新增 DeviceUtils#getSDKVersionName，发布 1.12.3
 * 18/01/27 修复 PermissionUtils 某些机型闪烁问题，发布 1.12.1
 * 18/01/17 完善 ReflectUtils 及 单元测试，发布 1.12.0 版本
 * 18/01/16 完善 ReflectUtils 及 单元测试

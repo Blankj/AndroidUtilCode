@@ -576,33 +576,32 @@ public final class ImageUtils {
 
     /**
      * 获取图片旋转角度
+     * <p>返回 -1 表示异常</p>
      *
      * @param filePath 文件路径
      * @return 旋转角度
      */
     public static int getRotateDegree(final String filePath) {
-        int degree = 0;
         try {
             ExifInterface exifInterface = new ExifInterface(filePath);
             int orientation = exifInterface.getAttributeInt(
                     ExifInterface.TAG_ORIENTATION,
-                    ExifInterface.ORIENTATION_NORMAL);
+                    ExifInterface.ORIENTATION_NORMAL
+            );
             switch (orientation) {
-                default:
                 case ExifInterface.ORIENTATION_ROTATE_90:
-                    degree = 90;
-                    break;
+                    return 90;
                 case ExifInterface.ORIENTATION_ROTATE_180:
-                    degree = 180;
-                    break;
+                    return 180;
                 case ExifInterface.ORIENTATION_ROTATE_270:
-                    degree = 270;
-                    break;
+                    return 270;
+                default:
+                    return 0;
             }
         } catch (IOException e) {
             e.printStackTrace();
+            return -1;
         }
-        return degree;
     }
 
     /**
