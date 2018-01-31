@@ -110,7 +110,11 @@ public final class ToastUtils {
      * @param args  参数
      */
     public static void showShort(@StringRes final int resId, final Object... args) {
-        show(resId, Toast.LENGTH_SHORT, args);
+        if (args != null && args.length == 0) {
+            show(resId, Toast.LENGTH_SHORT);
+        } else {
+            show(resId, Toast.LENGTH_SHORT, args);
+        }
     }
 
     /**
@@ -120,7 +124,11 @@ public final class ToastUtils {
      * @param args   参数
      */
     public static void showShort(final String format, final Object... args) {
-        show(format, Toast.LENGTH_SHORT, args);
+        if (args != null && args.length == 0) {
+            show(format, Toast.LENGTH_SHORT);
+        } else {
+            show(format, Toast.LENGTH_SHORT, args);
+        }
     }
 
     /**
@@ -148,7 +156,11 @@ public final class ToastUtils {
      * @param args  参数
      */
     public static void showLong(@StringRes final int resId, final Object... args) {
-        show(resId, Toast.LENGTH_LONG, args);
+        if (args != null && args.length == 0) {
+            show(resId, Toast.LENGTH_SHORT);
+        } else {
+            show(resId, Toast.LENGTH_LONG, args);
+        }
     }
 
     /**
@@ -158,7 +170,11 @@ public final class ToastUtils {
      * @param args   参数
      */
     public static void showLong(final String format, final Object... args) {
-        show(format, Toast.LENGTH_LONG, args);
+        if (args != null && args.length == 0) {
+            show(format, Toast.LENGTH_SHORT);
+        } else {
+            show(format, Toast.LENGTH_LONG, args);
+        }
     }
 
     /**
