@@ -597,7 +597,7 @@ public final class LogUtils {
                     + LINE_SEP + "head: " + sLogHeadSwitch
                     + LINE_SEP + "file: " + sLog2FileSwitch
                     + LINE_SEP + "dir: " + (sDir == null ? sDefaultDir : sDir)
-                    + LINE_SEP + "filePrefix" + sFilePrefix
+                    + LINE_SEP + "filePrefix: " + sFilePrefix
                     + LINE_SEP + "border: " + sLogBorderSwitch
                     + LINE_SEP + "consoleFilter: " + T[sConsoleFilter - V]
                     + LINE_SEP + "fileFilter: " + T[sFileFilter - V]
