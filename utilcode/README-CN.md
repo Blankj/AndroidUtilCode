@@ -75,6 +75,7 @@ cleanAppData         : 清除 App 所有数据
 getStatusBarHeight                   : 获取状态栏高度（px）
 setStatusBarVisibility               : 设置状态栏是否可见
 isStatusBarVisible                   : 判断状态栏是否可见
+setStatusBarLightMode                : 设置状态栏是否为浅色模式
 addMarginTopEqualStatusBarHeight     : 为 view 增加 MarginTop 为状态栏高度
 subtractMarginTopEqualStatusBarHeight: 为 view 减少 MarginTop 为状态栏高度
 setStatusBarColor                    : 设置状态栏颜色
@@ -389,9 +390,12 @@ getDomainAddress      : 获取域名 ip 地址
 
 * ### 对象相关 -> [ObjectUtils.java][object.java] -> [Test][object.test]
 ```
-isEmpty   : 判断对象是否为空
-isNotEmpty: 判断对象是否非空
-equals    : 判断对象是否相等
+isEmpty       : 判断对象是否为空
+isNotEmpty    : 判断对象是否非空
+equals        : 判断对象是否相等
+requireNonNull: 检查对象非空
+getOrDefault  : 获取非空或默认对象
+hashCode      : 获取对象哈希值
 ```
 
 * ### 权限相关 -> [PermissionUtils.java][permission.java] -> [Demo][permission.demo]
