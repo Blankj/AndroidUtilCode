@@ -75,6 +75,7 @@ cleanAppData
 getStatusBarHeight
 setStatusBarVisibility
 isStatusBarVisible
+setStatusBarLightMode
 addMarginTopEqualStatusBarHeight
 subtractMarginTopEqualStatusBarHeight
 setStatusBarColor
@@ -392,6 +393,9 @@ getDomainAddress
 isEmpty
 isNotEmpty
 equals
+requireNonNull
+getOrDefault
+hashCode
 ```
 
 * ### About Permission -> [PermissionUtils.java][permission.java] -> [Demo][permission.demo]
