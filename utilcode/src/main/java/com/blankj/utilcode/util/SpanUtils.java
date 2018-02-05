@@ -1300,8 +1300,9 @@ public final class SpanUtils {
         private Drawable getCachedDrawable() {
             WeakReference<Drawable> wr = mDrawableRef;
             Drawable d = null;
-            if (wr != null)
+            if (wr != null) {
                 d = wr.get();
+            }
             if (d == null) {
                 d = getDrawable();
                 mDrawableRef = new WeakReference<>(d);
