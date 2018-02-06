@@ -105,7 +105,7 @@ public final class KeyboardUtils {
      * @return {@code true}: 可见<br>{@code false}: 不可见
      */
     public static boolean isSoftInputVisible(final Activity activity) {
-        return getContentViewInvisibleHeight(activity) >= 200;
+        return isSoftInputVisible(activity, 200);
     }
 
     /**
@@ -124,7 +124,7 @@ public final class KeyboardUtils {
         final View contentView = activity.findViewById(android.R.id.content);
         Rect r = new Rect();
         contentView.getWindowVisibleDisplayFrame(r);
-        return contentView.getRootView().getHeight() - (r.top - r.bottom);
+        return contentView.getRootView().getHeight() - r.height();
     }
 
     /**
