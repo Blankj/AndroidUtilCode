@@ -1,12 +1,18 @@
 package com.blankj.androidutilcode.base;
 
-import android.graphics.Color;
+import android.support.annotation.LayoutRes;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.blankj.androidutilcode.R;
+import com.blankj.androidutilcode.UtilsApp;
+import com.blankj.utilcode.util.BarUtils;
 import com.r0adkll.slidr.Slidr;
 
 
@@ -15,26 +21,31 @@ import com.r0adkll.slidr.Slidr;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/06/27
- *     desc  : DrawerActivity基类
+ *     desc  : DrawerActivity 基类
  * </pre>
  */
 public abstract class BaseBackActivity extends BaseActivity {
 
-    protected Toolbar mToolbar;
+    protected CoordinatorLayout rootLayout;
+    protected Toolbar           mToolbar;
+    protected AppBarLayout      abl;
+    protected FrameLayout       flActivityContainer;
 
     @Override
-    protected void setBaseView() {
+    protected void setBaseView(@LayoutRes int layoutId) {
         Slidr.attach(this);
         contentView = LayoutInflater.from(this).inflate(R.layout.activity_back, null);
         setContentView(contentView);
-        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.content_view);
-        frameLayout.addView(LayoutInflater.from(this).inflate(bindLayout(), frameLayout, false));
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        rootLayout = findViewById(R.id.root_layout);
+        abl = findViewById(R.id.abl);
+        mToolbar = findViewById(R.id.toolbar);
+        flActivityContainer = findViewById(R.id.activity_container);
+        flActivityContainer.addView(LayoutInflater.from(this).inflate(layoutId, flActivityContainer, false));
         setSupportActionBar(mToolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-        contentView.setBackgroundColor(Color.WHITE);
+        getToolBar().setDisplayHomeAsUpEnabled(true);
+
+        BarUtils.setStatusBarColor(this, ContextCompat.getColor(UtilsApp.getInstance(), R.color.colorPrimary), 0);
+        BarUtils.addMarginTopEqualStatusBarHeight(rootLayout);
     }
 
     @Override
@@ -43,5 +54,9 @@ public abstract class BaseBackActivity extends BaseActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected ActionBar getToolBar() {
+        return getSupportActionBar();
     }
 }

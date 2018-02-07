@@ -2,87 +2,169 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.blankj.androidutilcode">
 
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <!--bar-->
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
+
     <!--读写内存-->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
-    <!--flashlight-->
-    <uses-permission android:name="android.permission.CAMERA"/>
-
-    <uses-feature android:name="android.hardware.camera"/>
-    <uses-feature android:name="android.hardware.camera.autofocus"/>
-    <uses-feature android:name="android.hardware.camera.flash"/>
-
-    <uses-permission android:name="android.permission.FLASHLIGHT"/>
-
-    <!--location-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!--network-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!--permission-->
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <!--phone-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <!--拨打电话-->
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <!--发送短信-->
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <!--获取手机联系人-->
-    <!--<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>-->
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
-    <!--获取短信-->
-    <!--<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>-->
-    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <!--process-->
-    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+
+    <!--screen-->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+
+    <!--flashlight-->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera.flash" />
+
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <!--location-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:name=".UtilsApp"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/my_app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ActivityActivity"/>
-        <activity android:name=".activity.AppActivity"/>
-        <activity android:name=".activity.BarActivity"/>
-        <activity android:name=".activity.CleanActivity"/>
-        <activity android:name=".activity.DeviceActivity"/>
-        <activity android:name=".activity.FragmentActivity"/>
-        <!--<activity android:name=".activities.FlashlightActivity"/>-->
-        <activity android:name=".activity.ImageActivity"/>
         <activity
-            android:name=".activity.KeyboardActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
-        <activity android:name=".activity.LocationActivity"/>
-        <activity android:name=".activity.LogActivity"/>
-        <activity android:name=".activity.MainActivity">
+            android:name=".MainActivity"
+            android:launchMode="singleTop">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.NetworkActivity"/>
-        <!--<activity android:name=".activities.PermissionActivity"/>-->
-        <activity android:name=".activity.PhoneActivity"/>
-        <activity android:name=".activity.PinyinActivity"/>
-        <activity android:name=".activity.ProcessActivity"/>
-        <activity android:name=".activity.SDCardActivity"/>
-        <activity android:name=".activity.SnackbarActivity"/>
-        <activity android:name=".activity.SpanActivity"/>
-        <activity android:name=".activity.StatusBarAlphaActivity"/>
-        <activity android:name=".activity.StatusBarColorActivity"/>
-        <activity android:name=".activity.StatusBarFragmentActivity"/>
-        <activity android:name=".activity.StatusBarImageViewActivity"/>
-        <activity android:name=".activity.ToastActivity"/>
 
-        <service android:name=".service.LocationService"/>
+        <!--core-->
+        <activity
+            android:name=".feature.core.CoreUtilActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.activity.ActivityActivity"
+            android:icon="@drawable/ic_activity_icon"
+            android:launchMode="singleTop"
+            android:logo="@drawable/ic_activity_logo" />
+        <activity
+            android:name=".feature.core.activity.SubActivityActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.app.AppActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.bar.BarActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.bar.BarStatusActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.bar.BarNotificationActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.bar.BarNavActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.bar.BarStatusAlphaActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.bar.BarStatusColorActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.bar.BarStatusDrawerActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.bar.BarStatusFragmentActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.bar.BarStatusImageViewActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.bar.BarStatusSwipeBackActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.clean.CleanActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.device.DeviceActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.fragment.FragmentActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.image.ImageActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.keyboard.KeyboardActivity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".feature.core.log.LogActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.network.NetworkActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.permission.PermissionActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.phone.PhoneActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.process.ProcessActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.reflect.ReflectActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.screen.ScreenActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.sdcard.SDCardActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.snackbar.SnackbarActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.sp.SPActivity"
+            android:launchMode="singleTop">
+        </activity>
+        <activity
+            android:name=".feature.core.span.SpanActivity"
+            android:launchMode="singleTop">
+        </activity>
+        <activity
+            android:name=".feature.core.toast.ToastActivity"
+            android:launchMode="singleTop" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -91,8 +173,25 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
+
+
+        <!--sub-->
+        <activity
+            android:name=".feature.sub.SubUtilActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.sub.location.LocationActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.sub.pinyin.PinyinActivity"
+            android:launchMode="singleTop" />
+
+        <service
+            android:name=".feature.sub.location.LocationService"
+            android:launchMode="singleTop" />
+
     </application>
 
 </manifest>

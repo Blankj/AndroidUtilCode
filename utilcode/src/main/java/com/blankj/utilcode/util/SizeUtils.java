@@ -20,59 +20,61 @@ public final class SizeUtils {
     }
 
     /**
-     * dp转px
+     * dp 转 px
      *
-     * @param dpValue dp值
-     * @return px值
+     * @param dpValue dp 值
+     * @return px 值
      */
     public static int dp2px(final float dpValue) {
-        final float scale = Utils.getContext().getResources().getDisplayMetrics().density;
+        final float scale = Utils.getApp().getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
     /**
-     * px转dp
+     * px 转 dp
      *
-     * @param pxValue px值
-     * @return dp值
+     * @param pxValue px 值
+     * @return dp 值
      */
     public static int px2dp(final float pxValue) {
-        final float scale = Utils.getContext().getResources().getDisplayMetrics().density;
+        final float scale = Utils.getApp().getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
 
     /**
-     * sp转px
+     * sp 转 px
      *
-     * @param spValue sp值
-     * @return px值
+     * @param spValue sp 值
+     * @return px 值
      */
     public static int sp2px(final float spValue) {
-        final float fontScale = Utils.getContext().getResources().getDisplayMetrics().scaledDensity;
+        final float fontScale = Utils.getApp().getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
 
     /**
-     * px转sp
+     * px 转 sp
      *
-     * @param pxValue px值
-     * @return sp值
+     * @param pxValue px 值
+     * @return sp 值
      */
     public static int px2sp(final float pxValue) {
-        final float fontScale = Utils.getContext().getResources().getDisplayMetrics().scaledDensity;
+        final float fontScale = Utils.getApp().getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
 
     /**
      * 各种单位转换
-     * <p>该方法存在于TypedValue</p>
+     * <p>该方法存在于 TypedValue</p>
      *
      * @param unit    单位
      * @param value   值
      * @param metrics DisplayMetrics
      * @return 转换结果
      */
-    public static float applyDimension(final int unit, final float value, final DisplayMetrics metrics) {
+    public static float applyDimension(final int unit,
+                                       final float value,
+                                       final DisplayMetrics metrics) {
         switch (unit) {
             case TypedValue.COMPLEX_UNIT_PX:
                 return value;
@@ -91,8 +93,8 @@ public final class SizeUtils {
     }
 
     /**
-     * 在onCreate中获取视图的尺寸
-     * <p>需回调onGetSizeListener接口，在onGetSize中获取view宽高</p>
+     * 在 onCreate 中获取视图的尺寸
+     * <p>需回调 onGetSizeListener 接口，在 onGetSize 中获取 view 宽高</p>
      * <p>用法示例如下所示</p>
      * <pre>
      * SizeUtils.forceGetViewSize(view, new SizeUtils.onGetSizeListener() {
@@ -118,7 +120,7 @@ public final class SizeUtils {
     }
 
     /**
-     * 获取到View尺寸的监听
+     * 获取到 View 尺寸的监听
      */
     public interface onGetSizeListener {
         void onGetSize(View view);

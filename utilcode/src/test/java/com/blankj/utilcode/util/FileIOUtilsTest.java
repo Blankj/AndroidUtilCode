@@ -1,26 +1,28 @@
 package com.blankj.utilcode.util;
 
+import org.junit.After;
+import org.junit.Assert;
 import org.junit.Test;
 
-import static com.blankj.utilcode.util.TestUtils.FILE_SEP;
+import java.io.FileInputStream;
+
+import static com.blankj.utilcode.util.TestConfig.PATH_FILE;
+import static com.blankj.utilcode.util.TestConfig.PATH_TEMP;
 
 /**
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/05/24
- *     desc  :
+ *     desc  : FileIOUtils 单元测试
  * </pre>
  */
 public class FileIOUtilsTest {
 
-    String path  = TestUtils.TEST_PATH + FILE_SEP + "file" + FILE_SEP;
-    String path1 = TestUtils.TEST_PATH + FILE_SEP + "file1" + FILE_SEP;
-
     @Test
     public void writeFileFromIS() throws Exception {
-//        assertTrue(FileIOUtils.writeFileFromIS(path + "NEW.txt", new FileInputStream(path + "UTF8.txt"), false));
-//        assertTrue(FileIOUtils.writeFileFromIS(path + "NEW.txt", new FileInputStream(path + "UTF8.txt"), true));
+        Assert.assertTrue(FileIOUtils.writeFileFromIS(PATH_TEMP + "UTF8.txt", new FileInputStream(PATH_FILE + "UTF8.txt"), false));
+        Assert.assertTrue(FileIOUtils.writeFileFromIS(PATH_TEMP + "UTF8.txt", new FileInputStream(PATH_FILE + "UTF8.txt"), true));
     }
 
     @Test
@@ -87,6 +89,11 @@ public class FileIOUtilsTest {
 //        FileIOUtils.readFile2BytesByMap(p);
 //        end = System.currentTimeMillis();
 //        System.out.println(end - st);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        FileUtils.deleteAllInDir(PATH_TEMP);
     }
 
 }

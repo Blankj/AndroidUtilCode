@@ -14,17 +14,17 @@ import android.view.ViewGroup;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/03/28
- *     desc  : Fragment－v4基类
+ *     desc  : Fragment－v4 基类
  * </pre>
  */
 public abstract class BaseFragment extends Fragment
-        implements IBaseView, View.OnClickListener {
+        implements IBaseView {
 
     private static final String TAG = "BaseFragment";
 
     private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
     /**
-     * 当前Activity渲染的视图View
+     * 当前 Activity 渲染的视图 View
      */
     protected View contentView;
     /**
@@ -64,7 +64,6 @@ public abstract class BaseFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = getArguments();
         initData(bundle);
-        initView(savedInstanceState, contentView);
         Log.d(TAG, "onViewCreated: ");
     }
 
@@ -72,7 +71,8 @@ public abstract class BaseFragment extends Fragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mActivity = (BaseActivity) getActivity();
-        doBusiness(mActivity);
+        initView(savedInstanceState, contentView);
+        doBusiness();
         Log.d(TAG, "onActivityCreated: ");
     }
 

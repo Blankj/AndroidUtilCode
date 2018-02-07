@@ -16,19 +16,19 @@ import java.lang.annotation.RetentionPolicy;
 public final class MemoryConstants {
 
     /**
-     * Byte与Byte的倍数
+     * Byte 与 Byte 的倍数
      */
     public static final int BYTE = 1;
     /**
-     * KB与Byte的倍数
+     * KB 与 Byte 的倍数
      */
     public static final int KB   = 1024;
     /**
-     * MB与Byte的倍数
+     * MB 与 Byte 的倍数
      */
     public static final int MB   = 1048576;
     /**
-     * GB与Byte的倍数
+     * GB 与 Byte 的倍数
      */
     public static final int GB   = 1073741824;
 

@@ -23,33 +23,29 @@ import java.lang.ref.WeakReference;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/16
- *     desc  : Snackbar相关工具类
+ *     desc  : Snackbar 相关工具类
  * </pre>
  */
 public final class SnackbarUtils {
 
-    private static final int DEFAULT_COLOR = 0x12000000;
-
     public static final int LENGTH_INDEFINITE = -2;
-
-    public static final int LENGTH_SHORT = -1;
-
-    public static final int LENGTH_LONG = 0;
+    public static final int LENGTH_SHORT      = -1;
+    public static final int LENGTH_LONG       = 0;
 
     @IntDef({LENGTH_INDEFINITE, LENGTH_SHORT, LENGTH_LONG})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Duration {
     }
 
-    private static final int SUCCESS = 0xFF2BB600;
-    private static final int WARNING = 0xFFFFC100;
-    private static final int ERROR   = 0xFFFF0000;
-    private static final int MESSAGE = 0xFFFFFFFF;
+    private static final int COLOR_DEFAULT = 0xFEFFFFFF;
+    private static final int COLOR_SUCCESS = 0xFF2BB600;
+    private static final int COLOR_WARNING = 0xFFFFC100;
+    private static final int COLOR_ERROR   = 0xFFFF0000;
+    private static final int COLOR_MESSAGE = 0xFFFFFFFF;
 
-    private static WeakReference<Snackbar> snackbarWeakReference;
+    private static WeakReference<Snackbar> sReference;
 
-    private WeakReference<View> parent;
-
+    private View                 parent;
     private CharSequence         message;
     private int                  messageColor;
     private int                  bgColor;
@@ -62,24 +58,24 @@ public final class SnackbarUtils {
 
     private SnackbarUtils(final View parent) {
         setDefault();
-        this.parent = new WeakReference<>(parent);
+        this.parent = parent;
     }
 
     private void setDefault() {
         message = "";
-        messageColor = DEFAULT_COLOR;
-        bgColor = DEFAULT_COLOR;
+        messageColor = COLOR_DEFAULT;
+        bgColor = COLOR_DEFAULT;
         bgResource = -1;
         duration = LENGTH_SHORT;
         actionText = "";
-        actionTextColor = DEFAULT_COLOR;
+        actionTextColor = COLOR_DEFAULT;
         bottomMargin = 0;
     }
 
     /**
-     * 设置snackbar依赖view
+     * 设置 snackbar 依赖 view
      *
-     * @param parent 依赖view
+     * @param parent 依赖 view
      * @return {@link SnackbarUtils}
      */
     public static SnackbarUtils with(@NonNull final View parent) {
@@ -153,8 +149,9 @@ public final class SnackbarUtils {
      * @param listener 事件
      * @return {@link SnackbarUtils}
      */
-    public SnackbarUtils setAction(@NonNull final CharSequence text, @NonNull final View.OnClickListener listener) {
-        return setAction(text, DEFAULT_COLOR, listener);
+    public SnackbarUtils setAction(@NonNull final CharSequence text,
+                                   @NonNull final View.OnClickListener listener) {
+        return setAction(text, COLOR_DEFAULT, listener);
     }
 
     /**
@@ -166,7 +163,9 @@ public final class SnackbarUtils {
      * @return {@link SnackbarUtils}
      */
 
-    public SnackbarUtils setAction(@NonNull final CharSequence text, @ColorInt final int color, @NonNull final View.OnClickListener listener) {
+    public SnackbarUtils setAction(@NonNull final CharSequence text,
+                                   @ColorInt final int color,
+                                   @NonNull final View.OnClickListener listener) {
         this.actionText = text;
         this.actionTextColor = color;
         this.actionListener = listener;
@@ -184,32 +183,35 @@ public final class SnackbarUtils {
     }
 
     /**
-     * 显示snackbar
+     * 显示 snackbar
      */
     public void show() {
-        final View view = parent.get();
+        final View view = parent;
         if (view == null) return;
-        if (messageColor != DEFAULT_COLOR) {
+        if (messageColor != COLOR_DEFAULT) {
             SpannableString spannableString = new SpannableString(message);
             ForegroundColorSpan colorSpan = new ForegroundColorSpan(messageColor);
-            spannableString.setSpan(colorSpan, 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            snackbarWeakReference = new WeakReference<>(Snackbar.make(view, spannableString, duration));
+            spannableString.setSpan(
+                    colorSpan, 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            );
+            sReference = new WeakReference<>(Snackbar.make(view, spannableString, duration));
         } else {
-            snackbarWeakReference = new WeakReference<>(Snackbar.make(view, message, duration));
+            sReference = new WeakReference<>(Snackbar.make(view, message, duration));
         }
-        final Snackbar snackbar = snackbarWeakReference.get();
+        final Snackbar snackbar = sReference.get();
         final View snackbarView = snackbar.getView();
         if (bgResource != -1) {
             snackbarView.setBackgroundResource(bgResource);
-        } else if (bgColor != DEFAULT_COLOR) {
+        } else if (bgColor != COLOR_DEFAULT) {
             snackbarView.setBackgroundColor(bgColor);
         }
         if (bottomMargin != 0) {
-            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) snackbarView.getLayoutParams();
+            ViewGroup.MarginLayoutParams params =
+                    (ViewGroup.MarginLayoutParams) snackbarView.getLayoutParams();
             params.bottomMargin = bottomMargin;
         }
         if (actionText.length() > 0 && actionListener != null) {
-            if (actionTextColor != DEFAULT_COLOR) {
+            if (actionTextColor != COLOR_DEFAULT) {
                 snackbar.setActionTextColor(actionTextColor);
             }
             snackbar.setAction(actionText, actionListener);
@@ -218,64 +220,65 @@ public final class SnackbarUtils {
     }
 
     /**
-     * 显示预设成功的snackbar
+     * 显示预设成功的 snackbar
      */
     public void showSuccess() {
-        bgColor = SUCCESS;
-        messageColor = MESSAGE;
-        actionTextColor = MESSAGE;
+        bgColor = COLOR_SUCCESS;
+        messageColor = COLOR_MESSAGE;
+        actionTextColor = COLOR_MESSAGE;
         show();
     }
 
     /**
-     * 显示预设警告的snackbar
+     * 显示预设警告的 snackbar
      */
     public void showWarning() {
-        bgColor = WARNING;
-        messageColor = MESSAGE;
-        actionTextColor = MESSAGE;
+        bgColor = COLOR_WARNING;
+        messageColor = COLOR_MESSAGE;
+        actionTextColor = COLOR_MESSAGE;
         show();
     }
 
     /**
-     * 显示预设错误的snackbar
+     * 显示预设错误的 snackbar
      */
     public void showError() {
-        bgColor = ERROR;
-        messageColor = MESSAGE;
-        actionTextColor = MESSAGE;
+        bgColor = COLOR_ERROR;
+        messageColor = COLOR_MESSAGE;
+        actionTextColor = COLOR_MESSAGE;
         show();
     }
 
     /**
-     * 消失snackbar
+     * 消失 snackbar
      */
     public static void dismiss() {
-        if (snackbarWeakReference != null && snackbarWeakReference.get() != null) {
-            snackbarWeakReference.get().dismiss();
-            snackbarWeakReference = null;
+        if (sReference != null && sReference.get() != null) {
+            sReference.get().dismiss();
+            sReference = null;
         }
     }
 
     /**
-     * 获取snackbar视图
+     * 获取 snackbar 视图
      *
-     * @return snackbar视图
+     * @return snackbar 视图
      */
     public static View getView() {
-        Snackbar snackbar = snackbarWeakReference.get();
+        Snackbar snackbar = sReference.get();
         if (snackbar == null) return null;
         return snackbar.getView();
     }
 
     /**
-     * 添加snackbar视图
+     * 添加 snackbar 视图
      * <p>在{@link #show()}之后调用</p>
      *
      * @param layoutId 布局文件
      * @param params   布局参数
      */
-    public static void addView(@LayoutRes final int layoutId, @NonNull final ViewGroup.LayoutParams params) {
+    public static void addView(@LayoutRes final int layoutId,
+                               @NonNull final ViewGroup.LayoutParams params) {
         final View view = getView();
         if (view != null) {
             view.setPadding(0, 0, 0, 0);
@@ -286,13 +289,14 @@ public final class SnackbarUtils {
     }
 
     /**
-     * 添加snackbar视图
+     * 添加 snackbar 视图
      * <p>在{@link #show()}之后调用</p>
      *
-     * @param child  要添加的view
+     * @param child  要添加的 view
      * @param params 布局参数
      */
-    public static void addView(@NonNull final View child, @NonNull final ViewGroup.LayoutParams params) {
+    public static void addView(@NonNull final View child,
+                               @NonNull final ViewGroup.LayoutParams params) {
         final View view = getView();
         if (view != null) {
             view.setPadding(0, 0, 0, 0);

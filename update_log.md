@@ -1,182 +1,277 @@
-* 17/07/02 完善BarUtils的Demo
-* 17/07/01 完善BarUtils的Demo
-* 17/06/30 完善BarUtils的Demo
-* 17/06/29 README新增logo
-* 17/06/28 增加返回键及右划返回
-* 17/06/27 增加Toolbar
-* 17/06/26 增加final参数
-* 17/06/23 修改Demo主页
-* 17/06/20 优化ToastUtil，SnackbarUtils新增设置底边距
-* 17/06/17 删除HandlerUtils
-* 17/06/16 新增insight.io的bandage
-* 17/06/14 发布1.7.1版本，LogUtils优化回退栈
-* 17/06/13 更新Snackbar和Toast的Demo
-* 17/06/12 变更Snackbar为建造者模式
-* 17/06/11 SpanUtils完工，发布版本1.7.0
-* 17/06/08 SpanUtils即将完工
-* 17/06/07 SpannableStringUtils改名为SpanUtils，即将完工
-* 17/06/06 优化SpannableStringUtils
-* 17/06/05 优化SpannableStringUtils
-* 17/06/04 优化SpannableStringUtils
-* 17/06/03 优化SpannableStringUtils
-* 17/06/02 优化SpannableStringUtils
-* 17/06/01 完善KeyBoardUtils及Demo
-* 17/05/30 完善CrashUtils，发布1.6.4
-* 17/05/28 修复CacheUtils的bug，发布1.6.3
-* 17/05/27 修复CacheUtils的bug，发布1.6.2
-* 17/05/26 完善CacheUtils，发布1.6.0和1.6.1
-* 17/05/25 完善FileIOUtils和CacheUtils
+* 18/01/31 修复 default 相关的逻辑错误，发布 1.12.4，修复 ToastUtils 在 kotlin 中转义失败，发布 1.12.5
+* 18/01/28 修复 ToastUtils 默认样式问题，发布 1.12.2，新增 DeviceUtils#getSDKVersionName，发布 1.12.3
+* 18/01/27 修复 PermissionUtils 某些机型闪烁问题，发布 1.12.1
+* 18/01/17 完善 ReflectUtils 及 单元测试，发布 1.12.0 版本
+* 18/01/16 完善 ReflectUtils 及 单元测试
+* 18/01/15 完善 ReflectUtils 及 单元测试
+* 18/01/14 完善 ReflectUtils 及 单元测试
+* 18/01/13 完善 ReflectUtils 及 单元测试
+* 18/01/12 完善 ReflectUtils 及 单元测试
+* 18/01/11 修复 ImageUtils 的 fastBlur radius 为 1 recycle 的 bug，新增 CrashUtils 初始化崩溃监听事件，发布 1.11.1 版本
+* 18/01/10 完善 PermissionUtils 及 readme，发布 1.11.0 版本
+* 18/01/09 完善 demo 动态权限适配
+* 18/01/08 新增 SPActivity，删除 SPUtils 的单元测试
+* 18/01/08 修复 ToastUtils 在 SDK 为 18 的自定义 toast 崩溃问题
+* 18/01/07 新增 PermissionUtils 的 Demo
+* 18/01/06 修复权限相关工具类内存泄漏问题
+* 18/01/05 新增获取 Activity icon 和 logo
+* 18/01/04 完善 6.0 动态权限相关工具类
+* 18/01/03 完善 6.0 动态权限相关工具类
+* 18/01/02 完善 6.0 动态权限相关工具类
+* 18/01/01 新增 6.0 动态权限相关工具类
+* 17/12/30 删除 SpanUtils 中设置图标
+* 17/12/29 完善 SpanUtils 的 appendImage 对齐方式
+* 17/12/28 完善 ScreenUtils 设置全屏的方式，发布 1.10.0
+* 17/12/26 新增状态栏、导航栏设置是否可见和判断是否可见
+* 17/12/22 新增注册软键盘改变监听器、注册导航栏改变监听器方法
+* 17/12/21 完善获取屏幕宽高，修复行宽度大于 100 字符
+* 17/12/20 修复 SpanUtils 图标的 bug，不高于 6.0 的版本不支持居中和底部对齐
+* 17/12/19 修复 SpanUtils 多图的 bug
+* 17/12/15 新增 ReflectUtils
+* 17/12/14 完善手机号（精确）正则，发布 1.9.12
+* 17/12/12 完善 LogUtils，当最终日志长度为 0 时，输出 log nothing
+* 17/12/11 完善 ActivityUtils 的 finish 系列，发布 1.9.11
+* 17/12/04 完善 LogUtils 边框改为单线清爽型
+* 17/11/30 修复 ToastUtils 背景问题，发布 1.9.10
+* 17/11/30 修复 ToastUtils 获取背景为空，发布 1.9.9
+* 17/11/28 修复 EmptyUtils 对 CharSequence 的判断，感谢 jiezigg
+* 17/11/24 新增 readme 格式化的 gradle 脚本
+* 17/11/15 完善资源分包位置，使其更合理
+* 17/11/10 完善 LogUtils 新增日志头部，感谢 Kanade
+* 17/11/07 完善 LogUtils 无 tag 的多参数
+* 17/11/06 修复 LogUtils 多参数打印失败的问题
+* 17/11/01 完善 ShellUtil 的 Msg 换行，感谢香脆的大鸡排
+* 17/10/30 完善 README
+* 17/10/29 修复 6.0 内部存储安装失败问题
+* 17/10/28 完善 compile 为 implementation, provided 为 compileOnly
+* 17/10/27 修复兼容 AS3.0
+* 17/10/27 修复 LogUtils 在 kotlin 中使用的问题
+* 17/10/25 修复 LogUtils 边框，修复 getBitmap 从流获取
+* 17/09/30 完善 FragmentUtils，发布 1.9.2
+* 17/09/29 完善 FragmentUtils 和 isInstallApp
+* 17/09/28 完善 FragmentUtils
+* 17/09/27 完善 FragmentUtils
+* 17/09/26 完善 ActivityUtils 及 Demo，发布 1.9.1
+* 17/09/25 完善 ActivityUtils 及 Demo
+* 17/09/24 完善 ActivityUtils 及 Demo
+* 17/09/23 完善 FragmentUtils
+* 17/09/19 修复 CrashUtils 自定义路径错误
+* 17/09/18 完善 ImageUtils 的 Demo
+* 17/09/17 完善 ImageUtils 的 compress
+* 17/09/13 完善 ImageUtils 的 addBorder
+* 17/09/13 完善 ImageUtils 的 toRound
+* 17/09/13 完善 ImageUtils 和 LogUtils
+* 17/09/12 完善 ImageUtils
+* 17/09/10 完善单元测试
+* 17/09/08 完善单元测试
+* 17/09/06 完善 SDCardUtils 获取 SD 卡路径，完善 SPUtils 新增 commit
+* 17/09/05 完善 LogUtils，发布版本 1.9.0
+* 17/09/04 完善 ToastUtils，去除相关 safe 函数，都改为 safe 实现，新增 CustomToast 的 Demo
+* 17/09/02 完善 ToastUtils，去除引入 view 带来的问题，发布版本 1.8.6
+* 17/08/30 修复 ToastUtils 弱引用带来的问题，修复 CacheUtils 异步问题，发布版本 1.8.5
+* 17/08/28 修复 ToastUtils 内存泄露，新增 toast 可根据系统字体显示不同字体，发布版本 1.8.4
+* 17/08/20 新增监听 Activity 生命周期，退出 App，发布版本 1.8.3
+* 17/08/11 完善 LogUtils 的 Builder 改为 Config，发布版本 1.8.2
+* 17/08/10 完善 FileUtils 的 deleteFilesInDir 和 listFilesInDir
+* 17/08/08 新增反射工具类 ReflectUtils
+* 17/08/06 完善为按功能分包，增加 subutil 的 Demo
+* 17/07/31 修复 NetworkUtils 的 isAvailableByPing 循环递归，发布 1.8.1
+* 17/07/31 完善 BarUtils，发布 1.8.0
+* 17/07/31 完善 BarUtils
+* 17/07/30 完善 BarUtils
+* 17/07/29 完善 BarUtils
+* 17/07/28 完善 BarUtils
+* 17/07/27 完善 BarUtils
+* 17/07/26 完善 ActivityUtils
+* 17/07/25 完善 BarUtils，更新布局文件
+* 17/07/24 完善 BarUtils
+* 17/07/23 完善 BarUtils
+* 17/07/22 完善 BarUtils
+* 17/07/21 完善 xml 文件的格式化
+* 17/07/17 完善 NetworkUtils 的 isAvailableByPing 函数新增 ip 参数
+* 17/07/14 修复 FragmentUtils 的 FragmentNode 为 public
+* 17/07/11 完善将不常用的工具类放在 subutil 中
+* 17/07/10 新增 subutil 库
+* 17/07/07 修复 TimeUtils 中获取当天零点的 bug
+* 17/07/02 完善 BarUtils 的 Demo
+* 17/07/01 完善 BarUtils 的 Demo
+* 17/06/30 完善 BarUtils 的 Demo
+* 17/06/29 README 新增 logo
+* 17/06/28 新增返回键及右划返回
+* 17/06/27 新增 Toolbar
+* 17/06/26 新增 final 参数
+* 17/06/23 完善 Demo 主页
+* 17/06/20 完善 ToastUtil, SnackbarUtils 新增设置底边距
+* 17/06/17 删除 HandlerUtils
+* 17/06/16 新增 insight.io 的 bandage
+* 17/06/14 完善 LogUtils 回退栈，发布 1.7.1 版本
+* 17/06/13 完善 Snackbar 和 Toast 的 Demo
+* 17/06/12 完善 Snackbar 为建造者模式
+* 17/06/11 完善 SpanUtils，发布版本 1.7.0
+* 17/06/08 完善 SpanUtils
+* 17/06/07 完善 SpannableStringUtils 改名为 SpanUtils，即将完工
+* 17/06/06 完善 SpannableStringUtils
+* 17/06/05 完善 SpannableStringUtils
+* 17/06/04 完善 SpannableStringUtils
+* 17/06/03 完善 SpannableStringUtils
+* 17/06/02 完善 SpannableStringUtils
+* 17/06/01 完善 KeyBoardUtils 及 Demo
+* 17/05/30 完善 CrashUtils，发布 1.6.4
+* 17/05/28 修复 CacheUtils 的 bug，发布 1.6.3
+* 17/05/27 修复 CacheUtils 的 bug，发布 1.6.2
+* 17/05/26 完善 CacheUtils，发布 1.6.0 和 1.6.1
+* 17/05/25 完善 FileIOUtils 和 CacheUtils
 * 17/05/23 新增读取文件到字符数组中两种方式
-* 17/05/19 LogUtils新增文件过滤和控制台开关
-* 17/05/16 ActivityUtils新增动画
-* 17/05/12 新增base系列
-* 17/05/11 修复SpannableStringUtils的setDrawable的bug，发布1.5.1
-* 17/05/10 installApp完善7.0，完善AppActivity
-* 17/05/09 TimeUtils完善单元测试
-* 17/05/08 更新BarUtils，LogUtils新增配置文件，TimeUtils将pattern改为format，发布1.5.0
+* 17/05/19 新增 LogUtils 文件过滤和控制台开关
+* 17/05/16 新增 ActivityUtils 动画
+* 17/05/12 新增 base 系列
+* 17/05/11 修复 SpannableStringUtils 的 setDrawable 的 bug，发布 1.5.1
+* 17/05/10 完善 7.0 安装 App，完善 AppActivity
+* 17/05/09 完善 TimeUtils 单元测试
+* 17/05/08 更新 BarUtils, LogUtils 新增配置文件，TimeUtils 将 pattern 改为 format，发布 1.5.0
 * 17/05/04 新增签名
-* 17/05/03 对齐头部日期
-* 17/05/02 Demo的string字符串变更，完善ToastUtils和SnackbarUtils
-* 17/04/27 添加Travis CI，使用shields，发布1.4.1
-* 17/04/26 完善HandlerUtils使用Handler.CallBack的回调接口及SpannableStringUtils图片对齐
-* 17/04/24 fix typos and fix StringUtils.equalsIgnoreCase
-* 17/04/23 完善README
-* 17/04/21 完善TimeUtils，发布Version1.4.0
-* 17/04/20 SpannableStringUtils新增设置字体尺寸
-* 17/03/29 修改README
-* 17/03/27 更新LogUtils
-* 17/03/26 更新LogUtils
-* 17/03/25 更新LogUtils
-* 17/03/24 StringUtils
+* 17/05/03 修复对齐头部日期
+* 17/05/02 完善 Demo 的 string 字符串变更，完善 ToastUtils 和 SnackbarUtils
+* 17/04/27 新增 Travis CI，使用 shields，发布 1.4.1
+* 17/04/26 完善 HandlerUtils 使用 Handler#CallBack 的回调接口及 SpannableStringUtils 图片对齐
+* 17/04/24 修复拼写错误，修复 StringUtils 的 equalsIgnoreCase
+* 17/04/23 完善 README
+* 17/04/21 完善 TimeUtils，发布 1.4.0
+* 17/04/20 新增 SpannableStringUtils 设置字体尺寸
+* 17/03/29 修改 README
+* 17/03/27 更新 LogUtils
+* 17/03/26 更新 LogUtils
+* 17/03/25 更新 LogUtils
+* 17/03/24 完善 StringUtils
 * 17/03/20 修复链接错误
-* 17/03/19 LogUtils新增栈回溯
+* 17/03/19 新增 LogUtils 栈回溯
 * 17/03/14 新增常量包
-* 17/02/14 完善FragmentUtils中，Demo测试中
-* 17/02/13 完善FragmentUtils中
-* 17/02/12 完善FragmentUtils中
-* 17/02/11 完善FragmentUtils中
-* 17/02/10 完善FragmentUtils中，LogUtils对长度进行分割
-* 17/02/09 完善FragmentUtils中
-* 17/02/08 完善FragmentUtils中
-* 17/02/07 完善FragmentUtils中
-* 17/02/06 完善FragmentUtils中，炸断肠
-* 17/02/05 完善FragmentUtils中
-* 17/02/04 完善FragmentUtils中
-* 17/02/03 完善FragmentUtils中
-* 17/02/02 完善FragmentUtils中
-* 17/02/01 完善FragmentUtils中
-* 17/01/24 发布版本1.3.6
-* 17/01/16 LogUtils新增打印类名函数名及所在行
+* 17/02/14 完善 FragmentUtils 中，Demo 测试中
+* 17/02/13 完善 FragmentUtils 中
+* 17/02/12 完善 FragmentUtils 中
+* 17/02/11 完善 FragmentUtils 中
+* 17/02/10 完善 FragmentUtils 中，LogUtils 对长度进行分割
+* 17/02/09 完善 FragmentUtils 中
+* 17/02/08 完善 FragmentUtils 中
+* 17/02/07 完善 FragmentUtils 中
+* 17/02/06 完善 FragmentUtils 中，炸断肠
+* 17/02/05 完善 FragmentUtils 中
+* 17/02/04 完善 FragmentUtils 中
+* 17/02/03 完善 FragmentUtils 中
+* 17/02/02 完善 FragmentUtils 中
+* 17/02/01 完善 FragmentUtils 中
+* 17/01/24 完善并发布版本 1.3.6
+* 17/01/16 新增 LogUtils 打印类名函数名及所在行
 * 17/12/26 新增阴历相关工具类
-* 17/12/21 SpannableStringUtils撒花完结
-* 16/12/19 SpannableStringUtils完善中
-* 16/12/18 SpannableStringUtils采用构造者模式
-* 16/12/17 完善SpannableStringUtils中
-* 16/12/16 拼音工具类完善结束
-* 16/12/15 完善拼音工具类中
-* 16/12/14 新增不低于7.0的Html解码
+* 17/12/21 完善 SpannableStringUtils
+* 16/12/19 完善 SpannableStringUtils
+* 16/12/18 完善 SpannableStringUtils，采用构造者模式
+* 16/12/17 完善 SpannableStringUtils
+* 16/12/16 完善拼音工具类
+* 16/12/15 完善拼音工具类
+* 16/12/14 新增不低于 7.0 的 Html 解码
 * 16/12/13 新增获取文件最后修改时间
-* 16/12/12 新增Utils来做初始化context
+* 16/12/12 新增 Utils 来做初始化 context
 * 16/12/10 完善权限中
-* 16/12/09 新增6.0以上权限判断
-* 16/12/07 手机升级到6.0，修复bug中
-* 16/12/06 完善FlashlightUtils中
-* 16/12/05 FlashlightUtils兼容Api21之后
-* 16/12/04 新增FlashlightUtils
+* 16/12/09 新增 6.0 以上权限判断
+* 16/12/07 修复升级到 6.0 bug 中
+* 16/12/06 完善 FlashlightUtils 中
+* 16/12/05 完善 FlashlightUtils 兼容 Api21 之后
+* 16/12/04 新增 FlashlightUtils
 * 16/12/03 完善时间工具类
 * 16/12/02 新增获取合适型时间差
 * 16/12/01 新增获取生肖和星座
 * 16/11/30 新增获取友好型时间差
-* 16/11/23 LocationUtils测试完毕，发布1.3.4
-* 16/11/22 查看LocationActivity内存泄漏
-* 16/11/21 优化README
-* 16/11/20 完善LocationUtils
-* 16/11/19 完善SizeUtils
-* 16/11/18 完善LocationUtils
-* 16/11/17 完善LocationUtils
-* 16/11/16 拼音工具类单独拎出来做了整理
+* 16/11/23 完善 LocationUtils 测试，发布 1.3.4
+* 16/11/22 修复 LocationActivity 内存泄漏
+* 16/11/21 完善 README
+* 16/11/20 完善 LocationUtils
+* 16/11/19 完善 SizeUtils
+* 16/11/18 完善 LocationUtils
+* 16/11/17 完善 LocationUtils
+* 16/11/16 新增拼音工具类，单独拎出来做了整理
 * 16/11/15 完善正则工具类
 * 16/11/14 新增启动服务
-* 16/11/13 新增判断sim卡是否准备好
-* 16/11/12 最近一直在博客搬家，所以更得有点少，新增重启到recovery和bootloader，新增获取launcher activity
-* 16/11/04 修复README的缺少process的bug
-* 16/11/03 SnackbarUtils中Snackbar持有弱引用来消除内存泄漏
-* 16/11/02 内存泄漏检测中
-* 16/11/01 完善发布版本1.3.3内存泄漏检测中
-* 16/10/31 完善发布版本1.3.1和1.3.2
-* 16/10/30 修复获取IpAddress对于小米手机的Bug
-* 16/10/29 新增文件重命名和完善root
-* 16/10/23 测试中
-* 16/10/22 测试中
-* 16/10/21 测试中
-* 16/10/20 测试中
+* 16/11/13 新增判断 sim 卡是否准备好
+* 16/11/12 新增重启到 recovery 和 bootloader，新增获取 launcher activity，最近一直在博客搬家，所以更得有点少
+* 16/11/04 修复 README 的缺少 process 的 bug
+* 16/11/03 修复 SnackbarUtils 中 Snackbar 持有弱引用来消除内存泄漏
+* 16/11/02 修复内存泄漏中
+* 16/11/01 完善发布版本 1.3.3 内存泄漏检测中
+* 16/10/31 完善发布版本 1.3.1 和 1.3.2
+* 16/10/30 修复获取 IpAddress 对于小米手机的 Bug
+* 16/10/29 新增文件重命名和完善 root
+* 16/10/23 完善测试中
+* 16/10/22 完善测试中
+* 16/10/21 完善测试中
+* 16/10/20 完善测试中
 * 16/10/19 修复判断网络是否可用
 * 16/10/18 完善是否前台应用，完善网络状态
 * 16/10/17 修复获取签名，完善是否前台应用，完善网络状态
-* 16/10/16 新增SnackbarUtils
-* 16/10/15 优化isAppForeground
-* 16/10/14 README-CN排版变化（强迫症一定要对齐）
-* 16/10/13 优化测试中
-* 16/10/12 LogUtils新增建造者模式,新增获取星期，发布版本1.3.0，cheer
-* 16/10/11 新增Hmac系列加密
-* 16/10/10 完善LogUtils
-* 16/10/09 完善ToastUtils
-* 16/10/08 新增静默安装和静默卸载
-* 16/10/07 优化EmptyUtils，新增很多判空
-* 16/10/05 Happy Wedding!
-* 16/10/04 更新Readme
-* 16/10/03 修复ConvertUtils
-* 16/10/02 CrashUtils完善完毕
-* 16/10/01 Happy National Day!
-* 16/09/30 完善CrashUtils
-* 16/09/29 CleanUtils测试完毕
-* 16/09/28 新增EmptyUtils，完善AppUtils完毕
-* 16/09/27 新增CleanUtils，完善AppUtils
-* 16/09/26 新增根据域名获取ip地址（在此感谢jp1017），新增ClipboardUtils单元测试，对ImageUtils进行了bug修复
-* 16/09/25 新增ClipboardUtils
-* 16/09/24 完善AppUtils
-* 16/09/23 整理工具类，新增ActivityUtils、BarUtils、IntentUtils
-* 16/09/22 完善LogUtils中
-* 16/09/21 新增LogUtils
-* 16/09/20 对昨天的进行单元测试
-* 16/09/19 新增CameraUtils，新增获取中文首字母
-* 16/09/18 修复少许代码，发布1.2.1
-* 16/09/15 Happy Mid-Autumn Festival!
-* 16/09/14 ImageUtils完善完毕，完善了6.0及以上版本安装App的问题，发布版本1.2.0
-* 16/09/13 新增英文版README
-* 16/09/12 ZipUtils及单元测试完美谢幕（支持空文件夹）
-* 16/09/11 push一下不断更
-* 16/09/10 完善ZipUtils和单元测试中
-* 16/09/09 新增字符串反转，ImageUtils单元测试卡住中，暂时换为真机测试
-* 16/09/08 NetworkUtils报空修复，ImageUtils单元测试卡住中
-* 16/08/31 ImageUtils单元测试中，之后7天鸡儿岭放假，停更
-* 16/08/30 ImageUtils单元测试中（获取保存图片有问题，卡卡卡住了）
-* 16/08/29 完善ImageUtils，新增stack模糊算法和快速模糊
-* 16/08/28 完善ImageUtils
-* 16/08/27 完善ConvertUtils，新增ZipUtils
-* 16/08/26 ThreadPoolUtils线程池相关工具类完善完毕
-* 16/08/25 ConstUtils时间和存储相关常量新增枚举，传参改为枚举更为友好，新增ThreadPoolUtils线程池相关工具类
-* 16/08/24 ConvertUtils新增InputStream与byte[]和String相互转换，应用在FileUtils中读文件
-* 16/08/23 小修bug，接下来完善SDCardUtils和ImageUtils
-* 16/08/22 SPUtils将commit改为apply提高效率，将SPUtils改为构造函数法创建，FileUtils新增查找函数，规范JavaDoc
-* 16/08/21 FileUtils单元测试完毕，修复FileUtils的bug，发布版本1.1.2
-* 16/08/20 更新目录，继续完善FileUtils单元测试，发布版本1.1.1
-* 16/08/19 继续完善FileUtils及单元测试，及其他小修小补（在此感谢vpop的三次Pr）
-* 16/08/18 完善FileUtils及单元测试，完善ImageUtils
-* 16/08/17 完善FileUtils
-* 16/08/16 新增StringUtils及单元测试，完善正则工具类，版本更新1.1.0
-* 16/08/15 新增3DES和AES加密及单元检测，加密解密工具类基本完善，目录更新
-* 16/08/14 新增DES加密及单元检测
-* 16/08/13 新增MD2，SHA224，SHA256，SHA384，SHA512加密及单元测试，正折腾DES加密
-* 16/08/12 新增Base64和Html编码解码及他们的单元测试，新增TimeUtils单元测试，更新md
-* 16/08/11 新增SDCardUtils，UnitUtils，单元测试慢慢完善中
-* 16/08/09 目录排版更新，新增Download，Proguard和License
-* 16/08/08 新增Shell工具类，已传jcenter()遇到好多坑，javaDoc惹的祸，注释一定要规范
-* 16/08/07 新增6.0获取Mac地址方法，新增对HTML转义，新增编码解码工具类,新增SP工具类
-* 16/08/06 重命名包名，新增加密相关的单元测试，MD5加密新增文件加密重载
-* 16/08/05 加密新增MD5盐加密，完善NetworkUtils，新增判断状态栏是否存在（在此感谢tiandawu）
-* 16/08/04 新增时间工具类（在此感谢yi520000给的补充），手机正则分简单和精确（在此感谢MIkeeJY），新增判断是否锁屏，注释分段落，目录按首字母排序
-* 16/08/03 修复在onCreate中获取view尺寸的bug，MD5和SHA的Bug修复完成（在此感谢ssyijiu）
-* 16/08/02 wifi设置界面bug修复，注释排版还在修改，获取mac地址增加判空，新增QQ群：74721490，欢迎加入，新增隐藏状态栏，注释更加全面，工具类已封装，写的时候真的是一个一个测试过去的，宝宝心里苦
-* 16/08/01 新增获取SD卡路径，手机和设备进行分类，代码bug修改部分，小修排版，正在封装类，新增目录中显示方法名，新增获取当前App版本Code
+* 16/10/16 新增 SnackbarUtils
+* 16/10/15 完善 AppUtils 的 isAppForeground
+* 16/10/14 完善 README-CN 排版（强迫症一定要对齐）
+* 16/10/13 完善测试
+* 16/10/12 新增 LogUtils 建造者模式，新增获取星期，发布版本 1.3.0，cheer
+* 16/10/11 新增 EncryptUtils 的 Hmac 系列加密
+* 16/10/10 完善 LogUtils
+* 16/10/09 完善 ToastUtils
+* 16/10/08 新增 AppUtils 静默安装和静默卸载
+* 16/10/07 完善 EmptyUtils，新增很多判空
+* 16/10/05 完善 Happy Wedding!
+* 16/10/04 完善 Readme
+* 16/10/03 修复 ConvertUtils
+* 16/10/02 完善 CrashUtils 完毕
+* 16/10/01 完善 Happy National Day!
+* 16/09/30 完善 CrashUtils
+* 16/09/29 完善 CleanUtils 测试完毕
+* 16/09/28 新增 EmptyUtils，完善 AppUtils 完毕
+* 16/09/27 新增 CleanUtils，完善 AppUtils
+* 16/09/26 新增根据域名获取 ip 地址（在此感谢 jp1017），新增 ClipboardUtils 单元测试，对 ImageUtils 进行了 bug 修复
+* 16/09/25 新增 ClipboardUtils
+* 16/09/24 完善 AppUtils
+* 16/09/23 完善工具类，新增 ActivityUtils、BarUtils、IntentUtils
+* 16/09/22 完善 LogUtils 中
+* 16/09/21 新增 LogUtils
+* 16/09/20 完善昨天的单元测试
+* 16/09/19 新增 CameraUtils，新增获取中文首字母
+* 16/09/18 修复少许代码，发布 1.2.1
+* 16/09/15 完善 Happy Mid-Autumn Festival!
+* 16/09/14 完善 ImageUtils 完毕，完善了 6.0 及以上版本安装 App 的问题，发布版本 1.2.0
+* 16/09/13 新增英文版 README
+* 16/09/12 完善 ZipUtils 及单元测试完美谢幕（支持空文件夹）
+* 16/09/11 完善不断更
+* 16/09/10 完善 ZipUtils 和单元测试中
+* 16/09/09 新增字符串反转，ImageUtils 单元测试卡住中，暂时换为真机测试
+* 16/09/08 修复 NetworkUtils 报空，ImageUtils 单元测试卡住中
+* 16/08/31 完善 ImageUtils 单元测试中，之后 7 天鸡儿岭放假，停更
+* 16/08/30 完善 ImageUtils 单元测试（获取保存图片有问题，卡卡卡住了）
+* 16/08/29 完善 ImageUtils，新增 stack 模糊算法和快速模糊
+* 16/08/28 完善 ImageUtils
+* 16/08/27 完善 ConvertUtils，新增 ZipUtils
+* 16/08/26 完善 ThreadPoolUtils 线程池相关工具类
+* 16/08/25 完善 ConstUtils 时间和存储相关常量新增枚举，传参改为枚举更为友好，新增 ThreadPoolUtils 线程池相关工具类
+* 16/08/24 新增 ConvertUtils 的 InputStream 与 byte[]和 String 相互转换，应用在 FileUtils 中读文件
+* 16/08/23 修复 bug，接下来完善 SDCardUtils 和 ImageUtils
+* 16/08/22 完善 SPUtils 将 commit 改为 apply 提高效率，将 SPUtils 改为构造函数法创建，FileUtils 新增查找函数，规范 JavaDoc
+* 16/08/21 完善 FileUtils 单元测试，修复 FileUtils 的 bug，发布版本 1.1.2
+* 16/08/20 完善目录、FileUtils 单元测试，发布版本 1.1.1
+* 16/08/19 完善 FileUtils 及单元测试，及其他小修小补（在此感谢 vpop 的三次 Pr）
+* 16/08/18 完善 FileUtils 及单元测试，完善 ImageUtils
+* 16/08/17 完善 FileUtils
+* 16/08/16 新增 StringUtils 及单元测试，完善正则工具类，版本更新 1.1.0
+* 16/08/15 新增 3DES 和 AES 加密及单元检测，加密解密工具类基本完善，目录更新
+* 16/08/14 新增 DES 加密及单元检测
+* 16/08/13 新增 MD2，SHA224，SHA256，SHA384，SHA512 加密及单元测试，正折腾 DES 加密
+* 16/08/12 新增 Base64 和 Html 编码解码及他们的单元测试，新增 TimeUtils 单元测试，更新 md
+* 16/08/11 新增 SDCardUtils, UnitUtils，单元测试慢慢完善中
+* 16/08/09 修复目录排版，新增 Download, Proguard 和 License
+* 16/08/08 新增 Shell 工具类，已传 jcenter 遇到好多坑，javaDoc 惹的祸，注释一定要规范
+* 16/08/07 新增 6.0 获取 Mac 地址方法，新增对 HTML 转义，新增编码解码工具类，新增 SP 工具类
+* 16/08/06 完善名包名，新增加密相关的单元测试，MD5 加密新增文件加密重载
+* 16/08/05 新增 MD5 盐加密，完善 NetworkUtils，新增判断状态栏是否存在（在此感谢 tiandawu）
+* 16/08/04 新增时间工具类（在此感谢 yi520000 给的补充），手机正则分简单和精确（在此感谢 MIkeeJY），新增判断是否锁屏，注释分段落，目录按首字母排序
+* 16/08/03 修复 onCreate 中获取 view 尺寸的 bug, MD5 和 SHA 的 Bug 修复完成（在此感谢 ssyijiu）
+* 16/08/02 修复 wifi 设置界面 bug，注释排版还在修改，获取 mac 地址增加判空，新增 QQ群：74721490，欢迎加入，新增隐藏状态栏，注释更加全面，工具类已封装，写的时候真的是一个一个测试过去的，宝宝心里苦
+* 16/08/01 新增获取 SD 卡路径，手机和设备进行分类，代码 bug 修改部分，小修排版，正在封装类，新增目录中显示方法名，新增获取当前 App 版本 Code
 * 16/07/31 新增点击屏幕空白区域隐藏软键盘，未能成功增加本页目录跳转功能（不支持）

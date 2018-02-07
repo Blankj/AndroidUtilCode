@@ -7,6 +7,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
+import android.util.Log;
+
+import com.blankj.utilcode.util.ShellUtils.CommandResult;
 
 import java.lang.reflect.Method;
 import java.net.InetAddress;
@@ -14,11 +17,6 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 /**
  * <pre>
@@ -45,29 +43,31 @@ public final class NetworkUtils {
 
     /**
      * 打开网络设置界面
-     * <p>3.0以下打开设置界面</p>
      */
     public static void openWirelessSettings() {
-        if (android.os.Build.VERSION.SDK_INT > 10) {
-            Utils.getContext().startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        } else {
-            Utils.getContext().startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        }
+        Utils.getApp().startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS)
+                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     /**
      * 获取活动网络信息
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
+     * <p>需添加权限
+     * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
      *
      * @return NetworkInfo
      */
+    @SuppressLint("MissingPermission")
     private static NetworkInfo getActiveNetworkInfo() {
-        return ((ConnectivityManager) Utils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+        ConnectivityManager manager =
+                (ConnectivityManager) Utils.getApp().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (manager == null) return null;
+        return manager.getActiveNetworkInfo();
     }
 
     /**
      * 判断网络是否连接
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
+     * <p>需添加权限
+     * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
      *
      * @return {@code true}: 是<br>{@code false}: 否
      */
@@ -78,18 +78,35 @@ public final class NetworkUtils {
 
     /**
      * 判断网络是否可用
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
+     * <p>需要异步 ping，如果 ping 不通就说明网络不可用</p>
+     * <p>ping 的 ip 为阿里巴巴公共 ip：223.5.5.5</p>
      *
      * @return {@code true}: 可用<br>{@code false}: 不可用
      */
     public static boolean isAvailableByPing() {
-        ShellUtils.CommandResult result = ShellUtils.execCmd("ping -c 1 -w 1 223.5.5.5", false);
+        return isAvailableByPing(null);
+    }
+
+    /**
+     * 判断网络是否可用
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
+     * <p>需要异步 ping，如果 ping 不通就说明网络不可用</p>
+     *
+     * @param ip ip 地址（自己服务器 ip），如果为空，ip 为阿里巴巴公共 ip
+     * @return {@code true}: 可用<br>{@code false}: 不可用
+     */
+    public static boolean isAvailableByPing(String ip) {
+        if (ip == null || ip.length() <= 0) {
+            ip = "223.5.5.5";// 阿里巴巴公共 ip
+        }
+        CommandResult result = ShellUtils.execCmd(String.format("ping -c 1 %s", ip), false);
         boolean ret = result.result == 0;
         if (result.errorMsg != null) {
-            LogUtils.d("isAvailableByPing errorMsg", result.errorMsg);
+            Log.d("NetworkUtils", "isAvailableByPing() called" + result.errorMsg);
         }
         if (result.successMsg != null) {
-            LogUtils.d("isAvailableByPing successMsg", result.successMsg);
+            Log.d("NetworkUtils", "isAvailableByPing() called" + result.successMsg);
         }
         return ret;
     }
@@ -99,9 +116,12 @@ public final class NetworkUtils {
      *
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean getDataEnabled() {
+    public static boolean getMobileDataEnabled() {
         try {
-            TelephonyManager tm = (TelephonyManager) Utils.getContext().getSystemService(Context.TELEPHONY_SERVICE);
+            TelephonyManager tm =
+                    (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+            if (tm == null) return false;
+            @SuppressLint("PrivateApi")
             Method getMobileDataEnabledMethod = tm.getClass().getDeclaredMethod("getDataEnabled");
             if (null != getMobileDataEnabledMethod) {
                 return (boolean) getMobileDataEnabledMethod.invoke(tm);
@@ -114,14 +134,18 @@ public final class NetworkUtils {
 
     /**
      * 打开或关闭移动数据
-     * <p>需系统应用 需添加权限{@code <uses-permission android:name="android.permission.MODIFY_PHONE_STATE"/>}</p>
+     * <p>需系统应用 需添加权限
+     * {@code <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />}</p>
      *
      * @param enabled {@code true}: 打开<br>{@code false}: 关闭
      */
-    public static void setDataEnabled(final boolean enabled) {
+    public static void setMobileDataEnabled(final boolean enabled) {
         try {
-            TelephonyManager tm = (TelephonyManager) Utils.getContext().getSystemService(Context.TELEPHONY_SERVICE);
-            Method setMobileDataEnabledMethod = tm.getClass().getDeclaredMethod("setDataEnabled", boolean.class);
+            TelephonyManager tm =
+                    (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+            if (tm == null) return;
+            Method setMobileDataEnabledMethod =
+                    tm.getClass().getDeclaredMethod("setDataEnabled", boolean.class);
             if (null != setMobileDataEnabledMethod) {
                 setMobileDataEnabledMethod.invoke(tm, enabled);
             }
@@ -131,65 +155,92 @@ public final class NetworkUtils {
     }
 
     /**
-     * 判断网络是否是4G
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
+     * 判断网络是否是移动数据
+     * <p>需添加权限
+     * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
+     *
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    @SuppressLint("MissingPermission")
+    public static boolean isMobileData() {
+        NetworkInfo info = getActiveNetworkInfo();
+        return null != info
+                && info.isAvailable()
+                && info.getType() == ConnectivityManager.TYPE_MOBILE;
+    }
+
+    /**
+     * 判断网络是否是 4G
+     * <p>需添加权限
+     * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
      *
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean is4G() {
         NetworkInfo info = getActiveNetworkInfo();
-        return info != null && info.isAvailable() && info.getSubtype() == TelephonyManager.NETWORK_TYPE_LTE;
+        return info != null
+                && info.isAvailable()
+                && info.getSubtype() == TelephonyManager.NETWORK_TYPE_LTE;
     }
 
     /**
-     * 判断wifi是否打开
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>}</p>
+     * 判断 wifi 是否打开
+     * <p>需添加权限
+     * {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />}</p>
      *
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean getWifiEnabled() {
         @SuppressLint("WifiManagerLeak")
-        WifiManager wifiManager = (WifiManager) Utils.getContext().getSystemService(Context.WIFI_SERVICE);
-        return wifiManager.isWifiEnabled();
+        WifiManager manager = (WifiManager) Utils.getApp().getSystemService(Context.WIFI_SERVICE);
+        return manager != null && manager.isWifiEnabled();
     }
 
     /**
-     * 打开或关闭wifi
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>}</p>
+     * 打开或关闭 wifi
+     * <p>需添加权限
+     * {@code <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />}</p>
      *
      * @param enabled {@code true}: 打开<br>{@code false}: 关闭
      */
+    @SuppressLint("MissingPermission")
     public static void setWifiEnabled(final boolean enabled) {
         @SuppressLint("WifiManagerLeak")
-        WifiManager wifiManager = (WifiManager) Utils.getContext().getSystemService(Context.WIFI_SERVICE);
+        WifiManager manager = (WifiManager) Utils.getApp().getSystemService(Context.WIFI_SERVICE);
+        if (manager == null) return;
         if (enabled) {
-            if (!wifiManager.isWifiEnabled()) {
-                wifiManager.setWifiEnabled(true);
+            if (!manager.isWifiEnabled()) {
+                manager.setWifiEnabled(true);
             }
         } else {
-            if (wifiManager.isWifiEnabled()) {
-                wifiManager.setWifiEnabled(false);
+            if (manager.isWifiEnabled()) {
+                manager.setWifiEnabled(false);
             }
         }
     }
 
     /**
-     * 判断wifi是否连接状态
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
+     * 判断 wifi 是否连接状态
+     * <p>需添加权限
+     * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
      *
      * @return {@code true}: 连接<br>{@code false}: 未连接
      */
+    @SuppressLint("MissingPermission")
     public static boolean isWifiConnected() {
-        ConnectivityManager cm = (ConnectivityManager) Utils.getContext()
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm != null && cm.getActiveNetworkInfo() != null
+        ConnectivityManager cm =
+                (ConnectivityManager) Utils.getApp().getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm != null
+                && cm.getActiveNetworkInfo() != null
                 && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
     }
 
     /**
-     * 判断wifi数据是否可用
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>}</p>
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
+     * 判断 wifi 数据是否可用
+     * <p>需添加权限
+     * {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />}</p>
+     * <p>需添加权限
+     * {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
      *
      * @return {@code true}: 是<br>{@code false}: 否
      */
@@ -204,7 +255,8 @@ public final class NetworkUtils {
      * @return 运营商名称
      */
     public static String getNetworkOperatorName() {
-        TelephonyManager tm = (TelephonyManager) Utils.getContext().getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm =
+                (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
         return tm != null ? tm.getNetworkOperatorName() : null;
     }
 
@@ -214,7 +266,8 @@ public final class NetworkUtils {
 
     /**
      * 获取当前网络类型
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
+     * <p>需添加权限
+     * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
      *
      * @return 网络类型
      * <ul>
@@ -282,19 +335,21 @@ public final class NetworkUtils {
     }
 
     /**
-     * 获取IP地址
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
+     * 获取 IP 地址
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
      *
-     * @param useIPv4 是否用IPv4
-     * @return IP地址
+     * @param useIPv4 是否用 IPv4
+     * @return IP 地址
      */
     public static String getIPAddress(final boolean useIPv4) {
         try {
-            for (Enumeration<NetworkInterface> nis = NetworkInterface.getNetworkInterfaces(); nis.hasMoreElements(); ) {
+            for (Enumeration<NetworkInterface> nis =
+                 NetworkInterface.getNetworkInterfaces(); nis.hasMoreElements(); ) {
                 NetworkInterface ni = nis.nextElement();
-                // 防止小米手机返回10.0.2.15
+                // 防止小米手机返回 10.0.2.15
                 if (!ni.isUp()) continue;
-                for (Enumeration<InetAddress> addresses = ni.getInetAddresses(); addresses.hasMoreElements(); ) {
+                Enumeration<InetAddress> addresses = ni.getInetAddresses();
+                while (addresses.hasMoreElements()) {
                     InetAddress inetAddress = addresses.nextElement();
                     if (!inetAddress.isLoopbackAddress()) {
                         String hostAddress = inetAddress.getHostAddress();
@@ -304,7 +359,9 @@ public final class NetworkUtils {
                         } else {
                             if (!isIPv4) {
                                 int index = hostAddress.indexOf('%');
-                                return index < 0 ? hostAddress.toUpperCase() : hostAddress.substring(0, index).toUpperCase();
+                                return index < 0
+                                        ? hostAddress.toUpperCase()
+                                        : hostAddress.substring(0, index).toUpperCase();
                             }
                         }
                     }
@@ -317,32 +374,20 @@ public final class NetworkUtils {
     }
 
     /**
-     * 获取域名ip地址
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
+     * 获取域名 ip 地址
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
      *
      * @param domain 域名
-     * @return ip地址
+     * @return ip 地址
      */
     public static String getDomainAddress(final String domain) {
+        InetAddress inetAddress;
         try {
-            ExecutorService exec = Executors.newCachedThreadPool();
-            Future<String> fs = exec.submit(new Callable<String>() {
-                @Override
-                public String call() throws Exception {
-                    InetAddress inetAddress;
-                    try {
-                        inetAddress = InetAddress.getByName(domain);
-                        return inetAddress.getHostAddress();
-                    } catch (UnknownHostException e) {
-                        e.printStackTrace();
-                    }
-                    return null;
-                }
-            });
-            return fs.get();
-        } catch (InterruptedException | ExecutionException e) {
+            inetAddress = InetAddress.getByName(domain);
+            return inetAddress.getHostAddress();
+        } catch (UnknownHostException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 }

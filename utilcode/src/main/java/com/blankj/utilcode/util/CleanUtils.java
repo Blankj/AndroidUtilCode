@@ -25,7 +25,7 @@ public final class CleanUtils {
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
     public static boolean cleanInternalCache() {
-        return deleteFilesInDir(Utils.getContext().getCacheDir());
+        return deleteFilesInDir(Utils.getApp().getCacheDir());
     }
 
     /**
@@ -35,7 +35,7 @@ public final class CleanUtils {
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
     public static boolean cleanInternalFiles() {
-        return deleteFilesInDir(Utils.getContext().getFilesDir());
+        return deleteFilesInDir(Utils.getApp().getFilesDir());
     }
 
     /**
@@ -45,7 +45,7 @@ public final class CleanUtils {
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
     public static boolean cleanInternalDbs() {
-        return deleteFilesInDir(Utils.getContext().getFilesDir().getParent() + File.separator + "databases");
+        return deleteFilesInDir(new File(Utils.getApp().getFilesDir().getParent(), "databases"));
     }
 
     /**
@@ -56,17 +56,17 @@ public final class CleanUtils {
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
     public static boolean cleanInternalDbByName(final String dbName) {
-        return Utils.getContext().deleteDatabase(dbName);
+        return Utils.getApp().deleteDatabase(dbName);
     }
 
     /**
-     * 清除内部SP
+     * 清除内部 SP
      * <p>/data/data/com.xxx.xxx/shared_prefs</p>
      *
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
-    public static boolean cleanInternalSP() {
-        return deleteFilesInDir(Utils.getContext().getFilesDir().getParent() + File.separator + "shared_prefs");
+    public static boolean cleanInternalSp() {
+        return deleteFilesInDir(new File(Utils.getApp().getFilesDir().getParent(), "shared_prefs"));
     }
 
     /**
@@ -76,7 +76,8 @@ public final class CleanUtils {
      * @return {@code true}: 清除成功<br>{@code false}: 清除失败
      */
     public static boolean cleanExternalCache() {
-        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) && deleteFilesInDir(Utils.getContext().getExternalCacheDir());
+        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
+                && deleteFilesInDir(Utils.getApp().getExternalCacheDir());
     }
 
     /**
@@ -105,9 +106,9 @@ public final class CleanUtils {
 
     private static boolean deleteFilesInDir(final File dir) {
         if (dir == null) return false;
-        // 目录不存在返回true
+        // 目录不存在返回 true
         if (!dir.exists()) return true;
-        // 不是目录返回false
+        // 不是目录返回 false
         if (!dir.isDirectory()) return false;
         // 现在文件存在且是文件夹
         File[] files = dir.listFiles();
@@ -125,9 +126,9 @@ public final class CleanUtils {
 
     private static boolean deleteDir(final File dir) {
         if (dir == null) return false;
-        // 目录不存在返回true
+        // 目录不存在返回 true
         if (!dir.exists()) return true;
-        // 不是目录返回false
+        // 不是目录返回 false
         if (!dir.isDirectory()) return false;
         // 现在文件存在且是文件夹
         File[] files = dir.listFiles();

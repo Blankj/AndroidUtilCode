@@ -1,1 +1,11 @@
-<manifest package="com.blankj.utilcode"/>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.blankj.utilcode">
+
+    <application>
+        <activity
+            android:name=".util.PermissionUtils$PermissionActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/ActivityTranslucent"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
+    </application>
+</manifest>

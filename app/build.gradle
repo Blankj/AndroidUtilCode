@@ -1,17 +1,18 @@
+plugins {
+    id "tech.harmonysoft.oss.traute" version '1.0.5'
+}
 apply plugin: 'com.android.application'
 
 File signPropertiesFile = rootProject.file('sign/keystore.properties')
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
-
+    compileSdkVersion compile_sdk_version
     defaultConfig {
         applicationId "com.blankj.androidutilcode"
-        minSdkVersion 14
-        targetSdkVersion 25
-        versionCode 41
-        versionName "1.7.1"
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
+        versionCode version_code
+        versionName version_name
     }
 
     if (signPropertiesFile.exists()) {
@@ -28,9 +29,6 @@ android {
     }
 
     buildTypes {
-        debug {
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -40,29 +38,36 @@ android {
         }
     }
 
+    sourceSets {
+        main {
+            res.srcDirs('src/main/res', 'src/main/res_core', 'src/main/res_sub')
+        }
+    }
+
     lintOptions {
         abortOnError false
     }
 }
 
+traute {
+    javacPluginVersion = trauteVersion
+}
+
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    final SUPPORT_VERSION = '25.3.1'
-    final LEAKCANARY_VERSION = '1.5';
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':utilcode')
+    implementation project(':subutil')
 
-    def leakCanary = "com.squareup.leakcanary:leakcanary-android-no-op:$LEAKCANARY_VERSION"
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:design:$support_version"
 
-    compile project(':utilcode')
-    compile "com.android.support:appcompat-v7:$SUPPORT_VERSION"
-    compile "com.android.support:support-v4:$SUPPORT_VERSION"
-    compile "com.android.support:design:$SUPPORT_VERSION"
-
-    compile 'com.r0adkll:slidableactivity:2.0.5'
+    implementation 'com.r0adkll:slidableactivity:2.0.5'
 
     // LeakCanary
-    debugCompile "com.squareup.leakcanary:leakcanary-android:$LEAKCANARY_VERSION"
-    releaseCompile leakCanary
-    testCompile leakCanary
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
+
+//    implementation 'com.blankj:utilcode:1.12.5'
 }
 
 

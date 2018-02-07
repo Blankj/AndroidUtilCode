@@ -10,7 +10,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,14 +20,19 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 
-import static com.blankj.utilcode.util.TestUtils.FILE_SEP;
+import static com.blankj.utilcode.util.TestConfig.FILE_SEP;
+import static com.blankj.utilcode.util.TestConfig.PATH_CACHE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/05/26
- *     desc  :
+ *     desc  : CacheUtils 单元测试
  * </pre>
  */
 @RunWith(RobolectricTestRunner.class)
@@ -39,10 +43,10 @@ public class CacheUtilsTest {
         TestUtils.init();
     }
 
-    private final String path1 = TestUtils.TEST_PATH + FILE_SEP + "cache" + FILE_SEP + "cache1" + FILE_SEP;
-    private final String path2 = TestUtils.TEST_PATH + FILE_SEP + "cache" + FILE_SEP + "cache2" + FILE_SEP;
-    private final File   file1 = new File(path1);
-    private final File   file2 = new File(path2);
+    private final String cache1Path = PATH_CACHE + "cache1" + FILE_SEP;
+    private final String cache2Path = PATH_CACHE + "cache2" + FILE_SEP;
+    private final File   cache1File = new File(cache1Path);
+    private final File   cache2File = new File(cache2Path);
 
     private CacheUtils mCacheUtils1;
     private CacheUtils mCacheUtils2;
@@ -56,7 +60,7 @@ public class CacheUtilsTest {
     private ParcelableTest   mParcelableTest   = new ParcelableTest("Blankj", "CacheUtils");
     private SerializableTest mSerializableTest = new SerializableTest("Blankj", "CacheUtils");
     private Bitmap           mBitmap           = Bitmap.createBitmap(100, 100, Bitmap.Config.RGB_565);
-    private Drawable         mDrawable         = new BitmapDrawable(Utils.getContext().getResources(), mBitmap);
+    private Drawable         mDrawable         = new BitmapDrawable(Utils.getApp().getResources(), mBitmap);
 
     public CacheUtilsTest() {
         try {
@@ -75,7 +79,7 @@ public class CacheUtilsTest {
     @Before
     public void setUp() throws Exception {
         if (mCacheUtils1 == null) {
-            mCacheUtils1 = CacheUtils.getInstance(file1);
+            mCacheUtils1 = CacheUtils.getInstance(cache1File);
             mCacheUtils1.put("bytes1", mBytes, 60 * CacheUtils.SEC);
             mCacheUtils1.put("string1", mString, 60 * CacheUtils.MIN);
             mCacheUtils1.put("jsonObject1", mJSONObject, 24 * CacheUtils.HOUR);
@@ -86,7 +90,7 @@ public class CacheUtilsTest {
             mCacheUtils1.put("serializable1", mSerializableTest, 60 * CacheUtils.SEC);
         }
         if (mCacheUtils2 == null) {
-            mCacheUtils2 = CacheUtils.getInstance(file2);
+            mCacheUtils2 = CacheUtils.getInstance(cache2File);
             mCacheUtils2.put("bytes2", mBytes);
             mCacheUtils2.put("string2", mString);
             mCacheUtils2.put("jsonObject2", mJSONObject);
@@ -100,156 +104,158 @@ public class CacheUtilsTest {
 
     @Test
     public void getBytes() throws Exception {
-        Assert.assertEquals(mString, new String(mCacheUtils1.getBytes("bytes1")));
-        Assert.assertEquals(mString, new String(mCacheUtils1.getBytes("bytes1", null)));
-        Assert.assertNull(mCacheUtils1.getBytes("bytes2", null));
+        assertEquals(mString, new String(mCacheUtils1.getBytes("bytes1")));
+        assertEquals(mString, new String(mCacheUtils1.getBytes("bytes1", null)));
+        assertNull(mCacheUtils1.getBytes("bytes2", null));
 
-        Assert.assertEquals(mString, new String(mCacheUtils2.getBytes("bytes2")));
-        Assert.assertEquals(mString, new String(mCacheUtils2.getBytes("bytes2", null)));
-        Assert.assertNull(mCacheUtils2.getBytes("bytes1", null));
+        assertEquals(mString, new String(mCacheUtils2.getBytes("bytes2")));
+        assertEquals(mString, new String(mCacheUtils2.getBytes("bytes2", null)));
+        assertNull(mCacheUtils2.getBytes("bytes1", null));
     }
 
     @Test
     public void getString() throws Exception {
-        Assert.assertEquals(mString, mCacheUtils1.getString("string1"));
-        Assert.assertEquals(mString, mCacheUtils1.getString("string1", null));
-        Assert.assertNull(mCacheUtils1.getString("string2", null));
+        assertEquals(mString, mCacheUtils1.getString("string1"));
+        assertEquals(mString, mCacheUtils1.getString("string1", null));
+        assertNull(mCacheUtils1.getString("string2", null));
 
-        Assert.assertEquals(mString, mCacheUtils2.getString("string2"));
-        Assert.assertEquals(mString, mCacheUtils2.getString("string2", null));
-        Assert.assertNull(mCacheUtils2.getString("string1", null));
+        assertEquals(mString, mCacheUtils2.getString("string2"));
+        assertEquals(mString, mCacheUtils2.getString("string2", null));
+        assertNull(mCacheUtils2.getString("string1", null));
     }
 
     @Test
     public void getJSONObject() throws Exception {
-        Assert.assertEquals(mJSONObject.toString(), mCacheUtils1.getJSONObject("jsonObject1").toString());
-        Assert.assertEquals(mJSONObject.toString(), mCacheUtils1.getJSONObject("jsonObject1", null).toString());
-        Assert.assertNull(mCacheUtils1.getJSONObject("jsonObject2", null));
+        assertEquals(mJSONObject.toString(), mCacheUtils1.getJSONObject("jsonObject1").toString());
+        assertEquals(mJSONObject.toString(), mCacheUtils1.getJSONObject("jsonObject1", null).toString());
+        assertNull(mCacheUtils1.getJSONObject("jsonObject2", null));
 
-        Assert.assertEquals(mJSONObject.toString(), mCacheUtils2.getJSONObject("jsonObject2").toString());
-        Assert.assertEquals(mJSONObject.toString(), mCacheUtils2.getJSONObject("jsonObject2", null).toString());
-        Assert.assertNull(mCacheUtils2.getJSONObject("jsonObject1", null));
+        assertEquals(mJSONObject.toString(), mCacheUtils2.getJSONObject("jsonObject2").toString());
+        assertEquals(mJSONObject.toString(), mCacheUtils2.getJSONObject("jsonObject2", null).toString());
+        assertNull(mCacheUtils2.getJSONObject("jsonObject1", null));
     }
 
     @Test
     public void getJSONArray() throws Exception {
-        Assert.assertEquals(mJSONArray.toString(), mCacheUtils1.getJSONArray("jsonArray1").toString());
-        Assert.assertEquals(mJSONArray.toString(), mCacheUtils1.getJSONArray("jsonArray1", null).toString());
-        Assert.assertNull(mCacheUtils1.getJSONArray("jsonArray2", null));
+        assertEquals(mJSONArray.toString(), mCacheUtils1.getJSONArray("jsonArray1").toString());
+        assertEquals(mJSONArray.toString(), mCacheUtils1.getJSONArray("jsonArray1", null).toString());
+        assertNull(mCacheUtils1.getJSONArray("jsonArray2", null));
 
 
-        Assert.assertEquals(mJSONArray.toString(), mCacheUtils2.getJSONArray("jsonArray2").toString());
-        Assert.assertEquals(mJSONArray.toString(), mCacheUtils2.getJSONArray("jsonArray2", null).toString());
-        Assert.assertNull(mCacheUtils2.getJSONArray("jsonArray1", null));
+        assertEquals(mJSONArray.toString(), mCacheUtils2.getJSONArray("jsonArray2").toString());
+        assertEquals(mJSONArray.toString(), mCacheUtils2.getJSONArray("jsonArray2", null).toString());
+        assertNull(mCacheUtils2.getJSONArray("jsonArray1", null));
     }
 
     @Test
     public void getBitmap() throws Exception {
-        Assert.assertTrue(mCacheUtils1.getString("bitmap1").equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
-        Assert.assertTrue(mCacheUtils1.getString("bitmap1", null).equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
-        Assert.assertNull(mCacheUtils1.getString("bitmap2", null));
+        String bitmapString = "Bitmap (100 x 100) compressed as PNG with quality 100";
+        assertTrue(mCacheUtils1.getString("bitmap1").equals(bitmapString));
+        assertTrue(mCacheUtils1.getString("bitmap1", null).equals(bitmapString));
+        assertNull(mCacheUtils1.getString("bitmap2", null));
 
-        Assert.assertTrue(mCacheUtils2.getString("bitmap2").equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
-        Assert.assertTrue(mCacheUtils2.getString("bitmap2", null).equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
-        Assert.assertNull(mCacheUtils2.getString("bitmap1", null));
+        assertTrue(mCacheUtils2.getString("bitmap2").equals(bitmapString));
+        assertTrue(mCacheUtils2.getString("bitmap2", null).equals(bitmapString));
+        assertNull(mCacheUtils2.getString("bitmap1", null));
     }
 
     @Test
     public void getDrawable() throws Exception {
-        Assert.assertTrue(mCacheUtils1.getString("drawable1").equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
-        Assert.assertTrue(mCacheUtils1.getString("drawable1", null).equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
-        Assert.assertNull(mCacheUtils1.getString("drawable2", null));
+        String bitmapString = "Bitmap (100 x 100) compressed as PNG with quality 100";
+        assertTrue(mCacheUtils1.getString("drawable1").equals(bitmapString));
+        assertTrue(mCacheUtils1.getString("drawable1", null).equals(bitmapString));
+        assertNull(mCacheUtils1.getString("drawable2", null));
 
-        Assert.assertTrue(mCacheUtils2.getString("drawable2").equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
-        Assert.assertTrue(mCacheUtils2.getString("drawable2", null).equals("Bitmap (100 x 100) compressed as PNG with quality 100"));
-        Assert.assertNull(mCacheUtils2.getString("drawable1", null));
+        assertTrue(mCacheUtils2.getString("drawable2").equals(bitmapString));
+        assertTrue(mCacheUtils2.getString("drawable2", null).equals(bitmapString));
+        assertNull(mCacheUtils2.getString("drawable1", null));
     }
 
     @Test
     public void getParcel() throws Exception {
-        Assert.assertTrue(mCacheUtils1.getParcelable("parcelable1", ParcelableTest.CREATOR).equals(mParcelableTest));
-        Assert.assertTrue(mCacheUtils1.getParcelable("parcelable1", ParcelableTest.CREATOR, null).equals(mParcelableTest));
-        Assert.assertNull(mCacheUtils1.getParcelable("parcelable2", ParcelableTest.CREATOR, null));
+        assertTrue(mCacheUtils1.getParcelable("parcelable1", ParcelableTest.CREATOR).equals(mParcelableTest));
+        assertTrue(mCacheUtils1.getParcelable("parcelable1", ParcelableTest.CREATOR, null).equals(mParcelableTest));
+        assertNull(mCacheUtils1.getParcelable("parcelable2", ParcelableTest.CREATOR, null));
 
-        Assert.assertTrue(mCacheUtils2.getParcelable("parcelable2", ParcelableTest.CREATOR).equals(mParcelableTest));
-        Assert.assertTrue(mCacheUtils2.getParcelable("parcelable2", ParcelableTest.CREATOR, null).equals(mParcelableTest));
-        Assert.assertNull(mCacheUtils2.getParcelable("parcelable1", ParcelableTest.CREATOR, null));
+        assertTrue(mCacheUtils2.getParcelable("parcelable2", ParcelableTest.CREATOR).equals(mParcelableTest));
+        assertTrue(mCacheUtils2.getParcelable("parcelable2", ParcelableTest.CREATOR, null).equals(mParcelableTest));
+        assertNull(mCacheUtils2.getParcelable("parcelable1", ParcelableTest.CREATOR, null));
     }
 
     @Test
     public void getSerializable() throws Exception {
-        Assert.assertTrue(mCacheUtils1.getSerializable("serializable1").equals(mSerializableTest));
-        Assert.assertTrue(mCacheUtils1.getSerializable("serializable1", null).equals(mSerializableTest));
-        Assert.assertNull(mCacheUtils1.getSerializable("parcelable2", null));
+        assertTrue(mCacheUtils1.getSerializable("serializable1").equals(mSerializableTest));
+        assertTrue(mCacheUtils1.getSerializable("serializable1", null).equals(mSerializableTest));
+        assertNull(mCacheUtils1.getSerializable("parcelable2", null));
 
-        Assert.assertTrue(mCacheUtils2.getSerializable("serializable2").equals(mSerializableTest));
-        Assert.assertTrue(mCacheUtils2.getSerializable("serializable2", null).equals(mSerializableTest));
-        Assert.assertNull(mCacheUtils2.getSerializable("parcelable1", null));
+        assertTrue(mCacheUtils2.getSerializable("serializable2").equals(mSerializableTest));
+        assertTrue(mCacheUtils2.getSerializable("serializable2", null).equals(mSerializableTest));
+        assertNull(mCacheUtils2.getSerializable("parcelable1", null));
     }
 
     @Test
     public void getCacheSize() throws Exception {
-        Assert.assertEquals(FileUtils.getDirLength(file1), mCacheUtils1.getCacheSize());
+        assertEquals(FileUtils.getDirLength(cache1File), mCacheUtils1.getCacheSize());
 
-        Assert.assertEquals(FileUtils.getDirLength(file2), mCacheUtils2.getCacheSize());
+        assertEquals(FileUtils.getDirLength(cache2File), mCacheUtils2.getCacheSize());
     }
 
     @Test
     public void getCacheCount() throws Exception {
-        Assert.assertEquals(8, mCacheUtils1.getCacheCount());
+        assertEquals(8, mCacheUtils1.getCacheCount());
 
-        Assert.assertEquals(8, mCacheUtils2.getCacheCount());
+        assertEquals(8, mCacheUtils2.getCacheCount());
     }
 
     @Test
     public void remove() throws Exception {
-        Assert.assertNotNull(mCacheUtils1.getString("string1"));
+        assertNotNull(mCacheUtils1.getString("string1"));
         mCacheUtils1.remove("string1");
-        Assert.assertNull(mCacheUtils1.getString("string1"));
+        assertNull(mCacheUtils1.getString("string1"));
 
-        Assert.assertNotNull(mCacheUtils2.getString("string2"));
+        assertNotNull(mCacheUtils2.getString("string2"));
         mCacheUtils2.remove("string2");
-        Assert.assertNull(mCacheUtils2.getString("string2"));
+        assertNull(mCacheUtils2.getString("string2"));
     }
 
     @Test
     public void clear() throws Exception {
-        Assert.assertNotNull(mCacheUtils1.getBytes("bytes1"));
-        Assert.assertNotNull(mCacheUtils1.getString("string1"));
-        Assert.assertNotNull(mCacheUtils1.getJSONObject("jsonObject1"));
-        Assert.assertNotNull(mCacheUtils1.getJSONArray("jsonArray1"));
-        Assert.assertNotNull(mCacheUtils1.getString("bitmap1"));
-        Assert.assertNotNull(mCacheUtils1.getString("drawable1"));
-        Assert.assertNotNull(mCacheUtils1.getParcelable("parcelable1", ParcelableTest.CREATOR));
-        Assert.assertNotNull(mCacheUtils1.getSerializable("serializable1"));
+        assertNotNull(mCacheUtils1.getBytes("bytes1"));
+        assertNotNull(mCacheUtils1.getString("string1"));
+        assertNotNull(mCacheUtils1.getJSONObject("jsonObject1"));
+        assertNotNull(mCacheUtils1.getJSONArray("jsonArray1"));
+        assertNotNull(mCacheUtils1.getString("bitmap1"));
+        assertNotNull(mCacheUtils1.getString("drawable1"));
+        assertNotNull(mCacheUtils1.getParcelable("parcelable1", ParcelableTest.CREATOR));
+        assertNotNull(mCacheUtils1.getSerializable("serializable1"));
         mCacheUtils1.clear();
-        Assert.assertNull(mCacheUtils1.getBytes("bytes1"));
-        Assert.assertNull(mCacheUtils1.getString("string1"));
-        Assert.assertNull(mCacheUtils1.getJSONObject("jsonObject1"));
-        Assert.assertNull(mCacheUtils1.getJSONArray("jsonArray1"));
-        Assert.assertNull(mCacheUtils1.getString("bitmap1"));
-        Assert.assertNull(mCacheUtils1.getString("drawable1"));
-        Assert.assertNull(mCacheUtils1.getParcelable("parcelable1", ParcelableTest.CREATOR));
-        Assert.assertNull(mCacheUtils1.getSerializable("serializable1"));
+        assertNull(mCacheUtils1.getBytes("bytes1"));
+        assertNull(mCacheUtils1.getString("string1"));
+        assertNull(mCacheUtils1.getJSONObject("jsonObject1"));
+        assertNull(mCacheUtils1.getJSONArray("jsonArray1"));
+        assertNull(mCacheUtils1.getString("bitmap1"));
+        assertNull(mCacheUtils1.getString("drawable1"));
+        assertNull(mCacheUtils1.getParcelable("parcelable1", ParcelableTest.CREATOR));
+        assertNull(mCacheUtils1.getSerializable("serializable1"));
 
 
-        Assert.assertNotNull(mCacheUtils2.getBytes("bytes2"));
-        Assert.assertNotNull(mCacheUtils2.getString("string2"));
-        Assert.assertNotNull(mCacheUtils2.getJSONObject("jsonObject2"));
-        Assert.assertNotNull(mCacheUtils2.getJSONArray("jsonArray2"));
-        Assert.assertNotNull(mCacheUtils2.getString("bitmap2"));
-        Assert.assertNotNull(mCacheUtils2.getString("drawable2"));
-        Assert.assertNotNull(mCacheUtils2.getParcelable("parcelable2", ParcelableTest.CREATOR));
-        Assert.assertNotNull(mCacheUtils2.getSerializable("serializable2"));
+        assertNotNull(mCacheUtils2.getBytes("bytes2"));
+        assertNotNull(mCacheUtils2.getString("string2"));
+        assertNotNull(mCacheUtils2.getJSONObject("jsonObject2"));
+        assertNotNull(mCacheUtils2.getJSONArray("jsonArray2"));
+        assertNotNull(mCacheUtils2.getString("bitmap2"));
+        assertNotNull(mCacheUtils2.getString("drawable2"));
+        assertNotNull(mCacheUtils2.getParcelable("parcelable2", ParcelableTest.CREATOR));
+        assertNotNull(mCacheUtils2.getSerializable("serializable2"));
         mCacheUtils2.clear();
-        Assert.assertNull(mCacheUtils2.getBytes("bytes2"));
-        Assert.assertNull(mCacheUtils2.getString("string2"));
-        Assert.assertNull(mCacheUtils2.getJSONObject("jsonObject2"));
-        Assert.assertNull(mCacheUtils2.getJSONArray("jsonArray2"));
-        Assert.assertNull(mCacheUtils2.getString("bitmap2"));
-        Assert.assertNull(mCacheUtils2.getString("drawable2"));
-        Assert.assertNull(mCacheUtils2.getParcelable("parcelable2", ParcelableTest.CREATOR));
-        Assert.assertNull(mCacheUtils2.getSerializable("serializable2"));
+        assertNull(mCacheUtils2.getBytes("bytes2"));
+        assertNull(mCacheUtils2.getString("string2"));
+        assertNull(mCacheUtils2.getJSONObject("jsonObject2"));
+        assertNull(mCacheUtils2.getJSONArray("jsonArray2"));
+        assertNull(mCacheUtils2.getString("bitmap2"));
+        assertNull(mCacheUtils2.getString("drawable2"));
+        assertNull(mCacheUtils2.getParcelable("parcelable2", ParcelableTest.CREATOR));
+        assertNull(mCacheUtils2.getSerializable("serializable2"));
     }
 
     @After
@@ -319,7 +325,9 @@ public class CacheUtilsTest {
     }
 
     static class SerializableTest implements Serializable {
-        private static final long serialVersionUID = -8021039743766780051L;
+
+        private static final long serialVersionUID = -5806706668736895024L;
+
         String author;
         String className;
 
@@ -346,7 +354,9 @@ public class CacheUtilsTest {
 
         @Override
         public boolean equals(Object obj) {
-            return obj instanceof SerializableTest && ((SerializableTest) obj).author.equals(author) && ((SerializableTest) obj).className.equals(className);
+            return obj instanceof SerializableTest
+                    && ((SerializableTest) obj).author.equals(author)
+                    && ((SerializableTest) obj).className.equals(className);
         }
     }
 }

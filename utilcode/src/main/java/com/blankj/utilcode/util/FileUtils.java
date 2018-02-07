@@ -4,16 +4,17 @@ import android.annotation.SuppressLint;
 
 import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -81,16 +82,16 @@ public final class FileUtils {
      * @return {@code true}: 重命名成功<br>{@code false}: 重命名失败
      */
     public static boolean rename(final File file, final String newName) {
-        // 文件为空返回false
+        // 文件为空返回 false
         if (file == null) return false;
-        // 文件不存在返回false
+        // 文件不存在返回 false
         if (!file.exists()) return false;
-        // 新的文件名为空返回false
+        // 新的文件名为空返回 false
         if (isSpace(newName)) return false;
-        // 如果文件名没有改变返回true
+        // 如果文件名没有改变返回 true
         if (newName.equals(file.getName())) return true;
         File newFile = new File(file.getParent() + File.separator + newName);
-        // 如果重命名的文件已存在返回false
+        // 如果重命名的文件已存在返回 false
         return !newFile.exists()
                 && file.renameTo(newFile);
     }
@@ -112,7 +113,7 @@ public final class FileUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isDir(final File file) {
-        return isFileExists(file) && file.isDirectory();
+        return file != null && file.exists() && file.isDirectory();
     }
 
     /**
@@ -132,7 +133,7 @@ public final class FileUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isFile(final File file) {
-        return isFileExists(file) && file.isFile();
+        return file != null && file.exists() && file.isFile();
     }
 
     /**
@@ -152,7 +153,7 @@ public final class FileUtils {
      * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
      */
     public static boolean createOrExistsDir(final File file) {
-        // 如果存在，是目录则返回true，是文件则返回false，不存在则返回是否创建成功
+        // 如果存在，是目录则返回 true，是文件则返回 false，不存在则返回是否创建成功
         return file != null && (file.exists() ? file.isDirectory() : file.mkdirs());
     }
 
@@ -174,7 +175,7 @@ public final class FileUtils {
      */
     public static boolean createOrExistsFile(final File file) {
         if (file == null) return false;
-        // 如果存在，是文件则返回true，是目录则返回false
+        // 如果存在，是文件则返回 true，是目录则返回 false
         if (file.exists()) return file.isFile();
         if (!createOrExistsDir(file.getParentFile())) return false;
         try {
@@ -188,14 +189,24 @@ public final class FileUtils {
     /**
      * 判断文件是否存在，存在则在创建之前删除
      *
+     * @param filePath 文件路径
+     * @return {@code true}: 创建成功<br>{@code false}: 创建失败
+     */
+    public static boolean createFileByDeleteOldFile(final String filePath) {
+        return createFileByDeleteOldFile(getFileByPath(filePath));
+    }
+
+    /**
+     * 判断文件是否存在，存在则在创建之前删除
+     *
      * @param file 文件
      * @return {@code true}: 创建成功<br>{@code false}: 创建失败
      */
     public static boolean createFileByDeleteOldFile(final File file) {
         if (file == null) return false;
-        // 文件存在并且删除失败返回false
+        // 文件存在并且删除失败返回 false
         if (file.exists() && !file.delete()) return false;
-        // 创建目录失败返回false
+        // 创建目录失败返回 false
         if (!createOrExistsDir(file.getParentFile())) return false;
         try {
             return file.createNewFile();
@@ -210,43 +221,64 @@ public final class FileUtils {
      *
      * @param srcDirPath  源目录路径
      * @param destDirPath 目标目录路径
+     * @param listener    是否覆盖监听器
      * @param isMove      是否移动
      * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
      */
-    private static boolean copyOrMoveDir(final String srcDirPath, final String destDirPath, final boolean isMove) {
-        return copyOrMoveDir(getFileByPath(srcDirPath), getFileByPath(destDirPath), isMove);
+    private static boolean copyOrMoveDir(final String srcDirPath,
+                                         final String destDirPath,
+                                         final OnReplaceListener listener,
+                                         final boolean isMove) {
+        return copyOrMoveDir(getFileByPath(srcDirPath),
+                getFileByPath(destDirPath),
+                listener,
+                isMove
+        );
     }
 
     /**
      * 复制或移动目录
      *
-     * @param srcDir  源目录
-     * @param destDir 目标目录
-     * @param isMove  是否移动
+     * @param srcDir   源目录
+     * @param destDir  目标目录
+     * @param listener 是否覆盖监听器
+     * @param isMove   是否移动
      * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
      */
-    private static boolean copyOrMoveDir(final File srcDir, final File destDir, final boolean isMove) {
+    private static boolean copyOrMoveDir(final File srcDir,
+                                         final File destDir,
+                                         final OnReplaceListener listener,
+                                         final boolean isMove) {
         if (srcDir == null || destDir == null) return false;
-        // 如果目标目录在源目录中则返回false，看不懂的话好好想想递归怎么结束
+        // 如果目标目录在源目录中则返回 false，看不懂的话好好想想递归怎么结束
         // srcPath : F:\\MyGithub\\AndroidUtilCode\\utilcode\\src\\test\\res
         // destPath: F:\\MyGithub\\AndroidUtilCode\\utilcode\\src\\test\\res1
         // 为防止以上这种情况出现出现误判，须分别在后面加个路径分隔符
         String srcPath = srcDir.getPath() + File.separator;
         String destPath = destDir.getPath() + File.separator;
         if (destPath.contains(srcPath)) return false;
-        // 源文件不存在或者不是目录则返回false
+        // 源文件不存在或者不是目录则返回 false
         if (!srcDir.exists() || !srcDir.isDirectory()) return false;
-        // 目标目录不存在返回false
+        if (destDir.exists()) {
+            if (listener.onReplace()) {// 需要覆盖则删除旧目录
+                if (!deleteAllInDir(destDir)) {// 删除文件失败的话返回 false
+                    return false;
+                }
+            } else {// 不需要覆盖直接返回即可 true
+                return true;
+            }
+        }
+        // 目标目录不存在返回 false
         if (!createOrExistsDir(destDir)) return false;
         File[] files = srcDir.listFiles();
         for (File file : files) {
             File oneDestFile = new File(destPath + file.getName());
             if (file.isFile()) {
-                // 如果操作失败返回false
-                if (!copyOrMoveFile(file, oneDestFile, isMove)) return false;
+                // 如果操作失败返回 false
+                if (!copyOrMoveFile(file, oneDestFile, listener, isMove)) return false;
             } else if (file.isDirectory()) {
-                // 如果操作失败返回false
-                if (!copyOrMoveDir(file, oneDestFile, isMove)) return false;
+                // 如果操作失败返回 false
+                if (!copyOrMoveDir(file, oneDestFile, listener, isMove)) return false;
             }
         }
         return !isMove || deleteDir(srcDir);
@@ -257,11 +289,19 @@ public final class FileUtils {
      *
      * @param srcFilePath  源文件路径
      * @param destFilePath 目标文件路径
+     * @param listener     是否覆盖监听器
      * @param isMove       是否移动
      * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
      */
-    private static boolean copyOrMoveFile(final String srcFilePath, final String destFilePath, final boolean isMove) {
-        return copyOrMoveFile(getFileByPath(srcFilePath), getFileByPath(destFilePath), isMove);
+    private static boolean copyOrMoveFile(final String srcFilePath,
+                                          final String destFilePath,
+                                          final OnReplaceListener listener,
+                                          final boolean isMove) {
+        return copyOrMoveFile(getFileByPath(srcFilePath),
+                getFileByPath(destFilePath),
+                listener,
+                isMove
+        );
     }
 
     /**
@@ -269,16 +309,29 @@ public final class FileUtils {
      *
      * @param srcFile  源文件
      * @param destFile 目标文件
+     * @param listener 是否覆盖监听器
      * @param isMove   是否移动
      * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
      */
-    private static boolean copyOrMoveFile(final File srcFile, final File destFile, final boolean isMove) {
+    private static boolean copyOrMoveFile(final File srcFile,
+                                          final File destFile,
+                                          final OnReplaceListener listener,
+                                          final boolean isMove) {
         if (srcFile == null || destFile == null) return false;
-        // 源文件不存在或者不是文件则返回false
+        // 如果源文件和目标文件相同则返回 false
+        if (srcFile.equals(destFile)) return false;
+        // 源文件不存在或者不是文件则返回 false
         if (!srcFile.exists() || !srcFile.isFile()) return false;
-        // 目标文件存在且是文件则返回false
-        if (destFile.exists() && destFile.isFile()) return false;
-        // 目标目录不存在返回false
+        if (destFile.exists()) {// 目标文件存在
+            if (listener.onReplace()) {// 需要覆盖则删除旧文件
+                if (!destFile.delete()) {// 删除文件失败的话返回 false
+                    return false;
+                }
+            } else {// 不需要覆盖直接返回即可 true
+                return true;
+            }
+        }
+        // 目标目录不存在返回 false
         if (!createOrExistsDir(destFile.getParentFile())) return false;
         try {
             return FileIOUtils.writeFileFromIS(destFile, new FileInputStream(srcFile), false)
@@ -294,21 +347,27 @@ public final class FileUtils {
      *
      * @param srcDirPath  源目录路径
      * @param destDirPath 目标目录路径
+     * @param listener    是否覆盖监听器
      * @return {@code true}: 复制成功<br>{@code false}: 复制失败
      */
-    public static boolean copyDir(final String srcDirPath, final String destDirPath) {
-        return copyDir(getFileByPath(srcDirPath), getFileByPath(destDirPath));
+    public static boolean copyDir(final String srcDirPath,
+                                  final String destDirPath,
+                                  final OnReplaceListener listener) {
+        return copyDir(getFileByPath(srcDirPath), getFileByPath(destDirPath), listener);
     }
 
     /**
      * 复制目录
      *
-     * @param srcDir  源目录
-     * @param destDir 目标目录
+     * @param srcDir   源目录
+     * @param destDir  目标目录
+     * @param listener 是否覆盖监听器
      * @return {@code true}: 复制成功<br>{@code false}: 复制失败
      */
-    public static boolean copyDir(final File srcDir, final File destDir) {
-        return copyOrMoveDir(srcDir, destDir, false);
+    public static boolean copyDir(final File srcDir,
+                                  final File destDir,
+                                  final OnReplaceListener listener) {
+        return copyOrMoveDir(srcDir, destDir, listener, false);
     }
 
     /**
@@ -316,10 +375,13 @@ public final class FileUtils {
      *
      * @param srcFilePath  源文件路径
      * @param destFilePath 目标文件路径
+     * @param listener     是否覆盖监听器
      * @return {@code true}: 复制成功<br>{@code false}: 复制失败
      */
-    public static boolean copyFile(final String srcFilePath, final String destFilePath) {
-        return copyFile(getFileByPath(srcFilePath), getFileByPath(destFilePath));
+    public static boolean copyFile(final String srcFilePath,
+                                   final String destFilePath,
+                                   final OnReplaceListener listener) {
+        return copyFile(getFileByPath(srcFilePath), getFileByPath(destFilePath), listener);
     }
 
     /**
@@ -327,10 +389,13 @@ public final class FileUtils {
      *
      * @param srcFile  源文件
      * @param destFile 目标文件
+     * @param listener 是否覆盖监听器
      * @return {@code true}: 复制成功<br>{@code false}: 复制失败
      */
-    public static boolean copyFile(final File srcFile, final File destFile) {
-        return copyOrMoveFile(srcFile, destFile, false);
+    public static boolean copyFile(final File srcFile,
+                                   final File destFile,
+                                   final OnReplaceListener listener) {
+        return copyOrMoveFile(srcFile, destFile, listener, false);
     }
 
     /**
@@ -338,21 +403,27 @@ public final class FileUtils {
      *
      * @param srcDirPath  源目录路径
      * @param destDirPath 目标目录路径
+     * @param listener    是否覆盖监听器
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
      */
-    public static boolean moveDir(final String srcDirPath, final String destDirPath) {
-        return moveDir(getFileByPath(srcDirPath), getFileByPath(destDirPath));
+    public static boolean moveDir(final String srcDirPath,
+                                  final String destDirPath,
+                                  final OnReplaceListener listener) {
+        return moveDir(getFileByPath(srcDirPath), getFileByPath(destDirPath), listener);
     }
 
     /**
      * 移动目录
      *
-     * @param srcDir  源目录
-     * @param destDir 目标目录
+     * @param srcDir   源目录
+     * @param destDir  目标目录
+     * @param listener 是否覆盖监听器
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
      */
-    public static boolean moveDir(final File srcDir, final File destDir) {
-        return copyOrMoveDir(srcDir, destDir, true);
+    public static boolean moveDir(final File srcDir,
+                                  final File destDir,
+                                  final OnReplaceListener listener) {
+        return copyOrMoveDir(srcDir, destDir, listener, true);
     }
 
     /**
@@ -360,10 +431,13 @@ public final class FileUtils {
      *
      * @param srcFilePath  源文件路径
      * @param destFilePath 目标文件路径
+     * @param listener     是否覆盖监听器
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
      */
-    public static boolean moveFile(final String srcFilePath, final String destFilePath) {
-        return moveFile(getFileByPath(srcFilePath), getFileByPath(destFilePath));
+    public static boolean moveFile(final String srcFilePath,
+                                   final String destFilePath,
+                                   final OnReplaceListener listener) {
+        return moveFile(getFileByPath(srcFilePath), getFileByPath(destFilePath), listener);
     }
 
     /**
@@ -371,10 +445,13 @@ public final class FileUtils {
      *
      * @param srcFile  源文件
      * @param destFile 目标文件
+     * @param listener 是否覆盖监听器
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
      */
-    public static boolean moveFile(final File srcFile, final File destFile) {
-        return copyOrMoveFile(srcFile, destFile, true);
+    public static boolean moveFile(final File srcFile,
+                                   final File destFile,
+                                   final OnReplaceListener listener) {
+        return copyOrMoveFile(srcFile, destFile, listener, true);
     }
 
     /**
@@ -395,9 +472,9 @@ public final class FileUtils {
      */
     public static boolean deleteDir(final File dir) {
         if (dir == null) return false;
-        // 目录不存在返回true
+        // 目录不存在返回 true
         if (!dir.exists()) return true;
-        // 不是目录返回false
+        // 不是目录返回 false
         if (!dir.isDirectory()) return false;
         // 现在文件存在且是文件夹
         File[] files = dir.listFiles();
@@ -434,7 +511,32 @@ public final class FileUtils {
     }
 
     /**
-     * 删除目录下的所有文件
+     * 删除目录下所有东西
+     *
+     * @param dirPath 目录路径
+     * @return {@code true}: 删除成功<br>{@code false}: 删除失败
+     */
+    public static boolean deleteAllInDir(final String dirPath) {
+        return deleteAllInDir(getFileByPath(dirPath));
+    }
+
+    /**
+     * 删除目录下所有东西
+     *
+     * @param dir 目录
+     * @return {@code true}: 删除成功<br>{@code false}: 删除失败
+     */
+    public static boolean deleteAllInDir(final File dir) {
+        return deleteFilesInDirWithFilter(dir, new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                return true;
+            }
+        });
+    }
+
+    /**
+     * 删除目录下所有文件
      *
      * @param dirPath 目录路径
      * @return {@code true}: 删除成功<br>{@code false}: 删除失败
@@ -444,29 +546,81 @@ public final class FileUtils {
     }
 
     /**
-     * 删除目录下的所有文件
+     * 删除目录下所有文件
      *
      * @param dir 目录
      * @return {@code true}: 删除成功<br>{@code false}: 删除失败
      */
     public static boolean deleteFilesInDir(final File dir) {
+        return deleteFilesInDirWithFilter(dir, new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                return pathname.isFile();
+            }
+        });
+    }
+
+    /**
+     * 删除目录下所有过滤的文件
+     *
+     * @param dirPath 目录路径
+     * @param filter  过滤器
+     * @return {@code true}: 删除成功<br>{@code false}: 删除失败
+     */
+    public static boolean deleteFilesInDirWithFilter(final String dirPath,
+                                                     final FileFilter filter) {
+        return deleteFilesInDirWithFilter(getFileByPath(dirPath), filter);
+    }
+
+    /**
+     * 删除目录下所有过滤的文件
+     *
+     * @param dir    目录
+     * @param filter 过滤器
+     * @return {@code true}: 删除成功<br>{@code false}: 删除失败
+     */
+    public static boolean deleteFilesInDirWithFilter(final File dir, final FileFilter filter) {
         if (dir == null) return false;
-        // 目录不存在返回true
+        // 目录不存在返回 true
         if (!dir.exists()) return true;
-        // 不是目录返回false
+        // 不是目录返回 false
         if (!dir.isDirectory()) return false;
         // 现在文件存在且是文件夹
         File[] files = dir.listFiles();
         if (files != null && files.length != 0) {
             for (File file : files) {
-                if (file.isFile()) {
-                    if (!file.delete()) return false;
-                } else if (file.isDirectory()) {
-                    if (!deleteDir(file)) return false;
+                if (filter.accept(file)) {
+                    if (file.isFile()) {
+                        if (!file.delete()) return false;
+                    } else if (file.isDirectory()) {
+                        if (!deleteDir(file)) return false;
+                    }
                 }
             }
         }
         return true;
+    }
+
+    /**
+     * 获取目录下所有文件
+     * <p>不递归进子目录</p>
+     *
+     * @param dirPath 目录路径
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDir(final String dirPath) {
+        return listFilesInDir(dirPath, false);
+    }
+
+    /**
+     * 获取目录下所有文件
+     * <p>不递归进子目录</p>
+     *
+     * @param dir 目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDir(final File dir) {
+        return listFilesInDir(dir, false);
     }
 
     /**
@@ -488,225 +642,76 @@ public final class FileUtils {
      * @return 文件链表
      */
     public static List<File> listFilesInDir(final File dir, final boolean isRecursive) {
-        if (!isDir(dir)) return null;
-        if (isRecursive) return listFilesInDir(dir);
-        List<File> list = new ArrayList<>();
-        File[] files = dir.listFiles();
-        if (files != null && files.length != 0) {
-            Collections.addAll(list, files);
-        }
-        return list;
-    }
-
-    /**
-     * 获取目录下所有文件包括子目录
-     *
-     * @param dirPath 目录路径
-     * @return 文件链表
-     */
-    public static List<File> listFilesInDir(final String dirPath) {
-        return listFilesInDir(getFileByPath(dirPath));
-    }
-
-    /**
-     * 获取目录下所有文件包括子目录
-     *
-     * @param dir 目录
-     * @return 文件链表
-     */
-    public static List<File> listFilesInDir(final File dir) {
-        if (!isDir(dir)) return null;
-        List<File> list = new ArrayList<>();
-        File[] files = dir.listFiles();
-        if (files != null && files.length != 0) {
-            for (File file : files) {
-                list.add(file);
-                if (file.isDirectory()) {
-                    List<File> fileList = listFilesInDir(file);
-                    if (fileList != null) {
-                        list.addAll(fileList);
-                    }
-                }
+        return listFilesInDirWithFilter(dir, new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                return true;
             }
-        }
-        return list;
+        }, isRecursive);
     }
 
     /**
-     * 获取目录下所有后缀名为suffix的文件
-     * <p>大小写忽略</p>
-     *
-     * @param dirPath     目录路径
-     * @param suffix      后缀名
-     * @param isRecursive 是否递归进子目录
-     * @return 文件链表
-     */
-    public static List<File> listFilesInDirWithFilter(final String dirPath, final String suffix, final boolean isRecursive) {
-        return listFilesInDirWithFilter(getFileByPath(dirPath), suffix, isRecursive);
-    }
-
-    /**
-     * 获取目录下所有后缀名为suffix的文件
-     * <p>大小写忽略</p>
-     *
-     * @param dir         目录
-     * @param suffix      后缀名
-     * @param isRecursive 是否递归进子目录
-     * @return 文件链表
-     */
-    public static List<File> listFilesInDirWithFilter(final File dir, final String suffix, final boolean isRecursive) {
-        if (isRecursive) return listFilesInDirWithFilter(dir, suffix);
-        if (dir == null || !isDir(dir)) return null;
-        List<File> list = new ArrayList<>();
-        File[] files = dir.listFiles();
-        if (files != null && files.length != 0) {
-            for (File file : files) {
-                if (file.getName().toUpperCase().endsWith(suffix.toUpperCase())) {
-                    list.add(file);
-                }
-            }
-        }
-        return list;
-    }
-
-    /**
-     * 获取目录下所有后缀名为suffix的文件包括子目录
-     * <p>大小写忽略</p>
-     *
-     * @param dirPath 目录路径
-     * @param suffix  后缀名
-     * @return 文件链表
-     */
-    public static List<File> listFilesInDirWithFilter(final String dirPath, final String suffix) {
-        return listFilesInDirWithFilter(getFileByPath(dirPath), suffix);
-    }
-
-    /**
-     * 获取目录下所有后缀名为suffix的文件包括子目录
-     * <p>大小写忽略</p>
-     *
-     * @param dir    目录
-     * @param suffix 后缀名
-     * @return 文件链表
-     */
-    public static List<File> listFilesInDirWithFilter(final File dir, final String suffix) {
-        if (dir == null || !isDir(dir)) return null;
-        List<File> list = new ArrayList<>();
-        File[] files = dir.listFiles();
-        if (files != null && files.length != 0) {
-            for (File file : files) {
-                if (file.getName().toUpperCase().endsWith(suffix.toUpperCase())) {
-                    list.add(file);
-                }
-                if (file.isDirectory()) {
-                    list.addAll(listFilesInDirWithFilter(file, suffix));
-                }
-            }
-        }
-        return list;
-    }
-
-    /**
-     * 获取目录下所有符合filter的文件
-     *
-     * @param dirPath     目录路径
-     * @param filter      过滤器
-     * @param isRecursive 是否递归进子目录
-     * @return 文件链表
-     */
-    public static List<File> listFilesInDirWithFilter(final String dirPath, final FilenameFilter filter, final boolean isRecursive) {
-        return listFilesInDirWithFilter(getFileByPath(dirPath), filter, isRecursive);
-    }
-
-    /**
-     * 获取目录下所有符合filter的文件
-     *
-     * @param dir         目录
-     * @param filter      过滤器
-     * @param isRecursive 是否递归进子目录
-     * @return 文件链表
-     */
-    public static List<File> listFilesInDirWithFilter(final File dir, final FilenameFilter filter, final boolean isRecursive) {
-        if (isRecursive) return listFilesInDirWithFilter(dir, filter);
-        if (dir == null || !isDir(dir)) return null;
-        List<File> list = new ArrayList<>();
-        File[] files = dir.listFiles();
-        if (files != null && files.length != 0) {
-            for (File file : files) {
-                if (filter.accept(file.getParentFile(), file.getName())) {
-                    list.add(file);
-                }
-            }
-        }
-        return list;
-    }
-
-    /**
-     * 获取目录下所有符合filter的文件包括子目录
+     * 获取目录下所有过滤的文件
+     * <p>不递归进子目录</p>
      *
      * @param dirPath 目录路径
      * @param filter  过滤器
      * @return 文件链表
      */
-    public static List<File> listFilesInDirWithFilter(final String dirPath, final FilenameFilter filter) {
-        return listFilesInDirWithFilter(getFileByPath(dirPath), filter);
+    public static List<File> listFilesInDirWithFilter(final String dirPath,
+                                                      final FileFilter filter) {
+        return listFilesInDirWithFilter(getFileByPath(dirPath), filter, false);
     }
 
     /**
-     * 获取目录下所有符合filter的文件包括子目录
+     * 获取目录下所有过滤的文件
+     * <p>不递归进子目录</p>
      *
      * @param dir    目录
      * @param filter 过滤器
      * @return 文件链表
      */
-    public static List<File> listFilesInDirWithFilter(final File dir, final FilenameFilter filter) {
-        if (dir == null || !isDir(dir)) return null;
+    public static List<File> listFilesInDirWithFilter(final File dir,
+                                                      final FileFilter filter) {
+        return listFilesInDirWithFilter(dir, filter, false);
+    }
+
+    /**
+     * 获取目录下所有过滤的文件
+     *
+     * @param dirPath     目录路径
+     * @param filter      过滤器
+     * @param isRecursive 是否递归进子目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDirWithFilter(final String dirPath,
+                                                      final FileFilter filter,
+                                                      final boolean isRecursive) {
+        return listFilesInDirWithFilter(getFileByPath(dirPath), filter, isRecursive);
+    }
+
+    /**
+     * 获取目录下所有过滤的文件
+     *
+     * @param dir         目录
+     * @param filter      过滤器
+     * @param isRecursive 是否递归进子目录
+     * @return 文件链表
+     */
+    public static List<File> listFilesInDirWithFilter(final File dir,
+                                                      final FileFilter filter,
+                                                      final boolean isRecursive) {
+        if (!isDir(dir)) return null;
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
         if (files != null && files.length != 0) {
             for (File file : files) {
-                if (filter.accept(file.getParentFile(), file.getName())) {
+                if (filter.accept(file)) {
                     list.add(file);
                 }
-                if (file.isDirectory()) {
-                    list.addAll(listFilesInDirWithFilter(file, filter));
-                }
-            }
-        }
-        return list;
-    }
-
-    /**
-     * 获取目录下指定文件名的文件包括子目录
-     * <p>大小写忽略</p>
-     *
-     * @param dirPath  目录路径
-     * @param fileName 文件名
-     * @return 文件链表
-     */
-    public static List<File> searchFileInDir(final String dirPath, final String fileName) {
-        return searchFileInDir(getFileByPath(dirPath), fileName);
-    }
-
-    /**
-     * 获取目录下指定文件名的文件包括子目录
-     * <p>大小写忽略</p>
-     *
-     * @param dir      目录
-     * @param fileName 文件名
-     * @return 文件链表
-     */
-    public static List<File> searchFileInDir(final File dir, final String fileName) {
-        if (dir == null || !isDir(dir)) return null;
-        List<File> list = new ArrayList<>();
-        File[] files = dir.listFiles();
-        if (files != null && files.length != 0) {
-            for (File file : files) {
-                if (file.getName().toUpperCase().equals(fileName.toUpperCase())) {
-                    list.add(file);
-                }
-                if (file.isDirectory()) {
-                    list.addAll(searchFileInDir(file, fileName));
+                if (isRecursive && file.isDirectory()) {
+                    //noinspection ConstantConditions
+                    list.addAll(listFilesInDirWithFilter(file, filter, true));
                 }
             }
         }
@@ -719,6 +724,7 @@ public final class FileUtils {
      * @param filePath 文件路径
      * @return 文件最后修改的毫秒时间戳
      */
+
     public static long getFileLastModified(final String filePath) {
         return getFileLastModified(getFileByPath(filePath));
     }
@@ -785,7 +791,7 @@ public final class FileUtils {
 
     /**
      * 获取文件行数
-     * <p>比readLine要快很多</p>
+     * <p>比 readLine 要快很多</p>
      *
      * @param file 文件
      * @return 文件行数
@@ -846,7 +852,8 @@ public final class FileUtils {
      * @return 文件大小
      */
     public static String getFileSize(final String filePath) {
-        return getFileSize(getFileByPath(filePath));
+        long len = getFileLength(filePath);
+        return len == -1 ? "" : byte2FitMemorySize(len);
     }
 
     /**
@@ -899,6 +906,20 @@ public final class FileUtils {
      * @return 文件长度
      */
     public static long getFileLength(final String filePath) {
+        boolean isURL = filePath.matches("[a-zA-z]+://[^\\s]*");
+        if (isURL) {
+            try {
+                HttpURLConnection conn = (HttpURLConnection) new URL(filePath).openConnection();
+                conn.setRequestProperty("Accept-Encoding", "identity");
+                conn.connect();
+                if (conn.getResponseCode() == 200) {
+                    return conn.getContentLength();
+                }
+                return -1;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return getFileLength(getFileByPath(filePath));
     }
 
@@ -914,10 +935,10 @@ public final class FileUtils {
     }
 
     /**
-     * 获取文件的MD5校验码
+     * 获取文件的 MD5 校验码
      *
      * @param filePath 文件路径
-     * @return 文件的MD5校验码
+     * @return 文件的 MD5 校验码
      */
     public static String getFileMD5ToString(final String filePath) {
         File file = isSpace(filePath) ? null : new File(filePath);
@@ -925,31 +946,30 @@ public final class FileUtils {
     }
 
     /**
-     * 获取文件的MD5校验码
-     *
-     * @param filePath 文件路径
-     * @return 文件的MD5校验码
-     */
-    public static byte[] getFileMD5(final String filePath) {
-        File file = isSpace(filePath) ? null : new File(filePath);
-        return getFileMD5(file);
-    }
-
-    /**
-     * 获取文件的MD5校验码
+     * 获取文件的 MD5 校验码
      *
      * @param file 文件
-     * @return 文件的MD5校验码
+     * @return 文件的 MD5 校验码
      */
     public static String getFileMD5ToString(final File file) {
         return bytes2HexString(getFileMD5(file));
     }
 
     /**
-     * 获取文件的MD5校验码
+     * 获取文件的 MD5 校验码
+     *
+     * @param filePath 文件路径
+     * @return 文件的 MD5 校验码
+     */
+    public static byte[] getFileMD5(final String filePath) {
+        return getFileMD5(getFileByPath(filePath));
+    }
+
+    /**
+     * 获取文件的 MD5 校验码
      *
      * @param file 文件
-     * @return 文件的MD5校验码
+     * @return 文件的 MD5 校验码
      */
     public static byte[] getFileMD5(final File file) {
         if (file == null) return null;
@@ -976,7 +996,7 @@ public final class FileUtils {
      * 获取全路径中的最长目录
      *
      * @param file 文件
-     * @return filePath最长目录
+     * @return filePath 最长目录
      */
     public static String getDirName(final File file) {
         if (file == null) return null;
@@ -987,7 +1007,7 @@ public final class FileUtils {
      * 获取全路径中的最长目录
      *
      * @param filePath 文件路径
-     * @return filePath最长目录
+     * @return filePath 最长目录
      */
     public static String getDirName(final String filePath) {
         if (isSpace(filePath)) return filePath;
@@ -1077,15 +1097,16 @@ public final class FileUtils {
     // copy from ConvertUtils
     ///////////////////////////////////////////////////////////////////////////
 
-    private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    private static final char hexDigits[] =
+            {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     /**
-     * byteArr转hexString
+     * byteArr 转 hexString
      * <p>例如：</p>
      * bytes2HexString(new byte[] { 0, (byte) 0xa8 }) returns 00A8
      *
      * @param bytes 字节数组
-     * @return 16进制大写字符串
+     * @return 16 进制大写字符串
      */
     private static String bytes2HexString(final byte[] bytes) {
         if (bytes == null) return null;
@@ -1101,7 +1122,7 @@ public final class FileUtils {
 
     /**
      * 字节数转合适内存大小
-     * <p>保留3位小数</p>
+     * <p>保留 3 位小数</p>
      *
      * @param byteNum 字节数
      * @return 合适内存大小
@@ -1111,13 +1132,13 @@ public final class FileUtils {
         if (byteNum < 0) {
             return "shouldn't be less than zero!";
         } else if (byteNum < 1024) {
-            return String.format("%.3fB", (double) byteNum + 0.0005);
+            return String.format("%.3fB", (double) byteNum);
         } else if (byteNum < 1048576) {
-            return String.format("%.3fKB", (double) byteNum / 1024 + 0.0005);
+            return String.format("%.3fKB", (double) byteNum / 1024);
         } else if (byteNum < 1073741824) {
-            return String.format("%.3fMB", (double) byteNum / 1048576 + 0.0005);
+            return String.format("%.3fMB", (double) byteNum / 1048576);
         } else {
-            return String.format("%.3fGB", (double) byteNum / 1073741824 + 0.0005);
+            return String.format("%.3fGB", (double) byteNum / 1073741824);
         }
     }
 
@@ -1129,5 +1150,9 @@ public final class FileUtils {
             }
         }
         return true;
+    }
+
+    public interface OnReplaceListener {
+        boolean onReplace();
     }
 }
