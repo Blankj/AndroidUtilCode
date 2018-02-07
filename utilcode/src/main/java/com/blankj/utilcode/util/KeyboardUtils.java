@@ -124,7 +124,7 @@ public final class KeyboardUtils {
         final View contentView = activity.findViewById(android.R.id.content);
         Rect r = new Rect();
         contentView.getWindowVisibleDisplayFrame(r);
-        return contentView.getBottom() - r.bottom;
+        return contentView.getRootView().getHeight() - (r.top - r.bottom);
     }
 
     /**
