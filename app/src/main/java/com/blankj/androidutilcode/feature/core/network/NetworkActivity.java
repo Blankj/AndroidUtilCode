@@ -31,7 +31,7 @@ public class NetworkActivity extends BaseBackActivity {
     Handler mHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            String text = (String) tvAboutNetworkAsync.getText();
+            String text = tvAboutNetworkAsync.getText().toString();
             if (text.length() != 0) {
                 text += '\n';
             }
