@@ -114,6 +114,21 @@ public final class ObjectUtils {
     }
 
     /**
+     * 获取非空或默认对象
+     *
+     * @param object        对象
+     * @param defaultObject 默认值
+     * @param <T>           范型
+     * @return 非空或默认对象
+     */
+    public static <T> T getOrDefault(T object, T defaultObject) {
+        if (object == null) {
+            return defaultObject;
+        }
+        return object;
+    }
+
+    /**
      * 获取对象哈希值
      *
      * @param o 对象
