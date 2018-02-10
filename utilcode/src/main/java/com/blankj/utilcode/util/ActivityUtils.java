@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.AnimRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.view.View;
@@ -64,7 +65,7 @@ public final class ActivityUtils {
      * @param options 跳转动画
      */
     public static void startActivity(@NonNull final Class<?> clz,
-                                     @NonNull final Bundle options) {
+                                     @Nullable final Bundle options) {
         Context context = getActivityOrApp();
         startActivity(context, null, context.getPackageName(), clz.getName(), options);
     }
@@ -107,7 +108,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final Activity activity,
                                      @NonNull final Class<?> clz,
-                                     @NonNull final Bundle options) {
+                                     @Nullable final Bundle options) {
         startActivity(activity, null, activity.getPackageName(), clz.getName(), options);
     }
 
@@ -276,7 +277,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final String pkg,
                                      @NonNull final String cls,
-                                     @NonNull final Bundle options) {
+                                     @Nullable final Bundle options) {
         startActivity(getActivityOrApp(), null, pkg, cls, options);
     }
 
@@ -323,7 +324,7 @@ public final class ActivityUtils {
     public static void startActivity(@NonNull final Activity activity,
                                      @NonNull final String pkg,
                                      @NonNull final String cls,
-                                     @NonNull final Bundle options) {
+                                     @Nullable final Bundle options) {
         startActivity(activity, null, pkg, cls, options);
     }
 
@@ -538,7 +539,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final Activity activity,
                                      @NonNull final Intent intent,
-                                     @NonNull final Bundle options) {
+                                     @Nullable final Bundle options) {
         startActivity(intent, activity, options);
     }
 
@@ -589,7 +590,7 @@ public final class ActivityUtils {
      * @param options 跳转动画
      */
     public static void startActivities(@NonNull final Intent[] intents,
-                                       @NonNull final Bundle options) {
+                                       @Nullable final Bundle options) {
         startActivities(intents, getActivityOrApp(), options);
     }
 
@@ -630,7 +631,7 @@ public final class ActivityUtils {
      */
     public static void startActivities(@NonNull final Activity activity,
                                        @NonNull final Intent[] intents,
-                                       @NonNull final Bundle options) {
+                                       @Nullable final Bundle options) {
         startActivities(intents, activity, options);
     }
 

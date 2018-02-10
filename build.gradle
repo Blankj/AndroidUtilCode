@@ -9,12 +9,15 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.0.1'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+
+        classpath "tech.harmonysoft:traute-gradle:1.1.8"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
 allprojects {
+    apply plugin: "tech.harmonysoft.oss.traute"
     repositories {
         google()
         jcenter()
@@ -43,7 +46,7 @@ ext {
     junit_version = '4.12'
     robolectric_version = '3.1.2'
 
-    trauteVersion = '1.0.10'
+    trauteVersion = '1.1.8'
 }
 
 

@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseBackActivity;
+import com.blankj.androidutilcode.base.BaseActivity;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.SpanUtils;
 
@@ -20,9 +20,10 @@ import com.blankj.utilcode.util.SpanUtils;
  *     desc  : Screen 工具类 Demo
  * </pre>
  */
-public class ScreenActivity extends BaseBackActivity {
+public class ScreenActivity extends BaseActivity {
 
     ImageView ivScreenshot;
+    TextView  tvAboutScreen;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, ScreenActivity.class);
@@ -36,31 +37,20 @@ public class ScreenActivity extends BaseBackActivity {
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_screen;
+        return R.layout.activity_brightness;
     }
 
     @Override
     public void initView(Bundle savedInstanceState, View view) {
-        getToolBar().setTitle(getString(R.string.demo_sdcard));
-
+        ivScreenshot = findViewById(R.id.iv_screenshot);
+        tvAboutScreen = findViewById(R.id.tv_about_screen);
         findViewById(R.id.btn_set_fullscreen).setOnClickListener(this);
         findViewById(R.id.btn_set_landscape).setOnClickListener(this);
         findViewById(R.id.btn_set_portrait).setOnClickListener(this);
         findViewById(R.id.btn_screenshot).setOnClickListener(this);
         findViewById(R.id.btn_set_sleep_duration).setOnClickListener(this);
-        ivScreenshot = findViewById(R.id.iv_screenshot);
-        TextView tvAboutSdcard = findViewById(R.id.tv_about_screen);
-        tvAboutSdcard.setText(new SpanUtils()
-                .appendLine("getScreenWidth: " + ScreenUtils.getScreenWidth())
-                .appendLine("getScreenHeight: " + ScreenUtils.getScreenHeight())
-                .appendLine("isLandscape: " + ScreenUtils.isLandscape())
-                .appendLine("isPortrait: " + ScreenUtils.isPortrait())
-                .appendLine("getScreenRotation: " + ScreenUtils.getScreenRotation(this))
-                .appendLine("isScreenLock: " + ScreenUtils.isScreenLock())
-                .appendLine("getSleepDuration: " + ScreenUtils.getSleepDuration())
-                .append("isTablet: " + ScreenUtils.isTablet())
-                .create()
-        );
+
+        updateAboutScreen();
     }
 
     @Override
@@ -85,7 +75,22 @@ public class ScreenActivity extends BaseBackActivity {
                 break;
             case R.id.btn_set_sleep_duration:
                 ScreenUtils.setSleepDuration(100000);
+                updateAboutScreen();
                 break;
         }
+    }
+
+    private void updateAboutScreen() {
+        tvAboutScreen.setText(new SpanUtils()
+                .appendLine("getScreenWidth: " + ScreenUtils.getScreenWidth())
+                .appendLine("getScreenHeight: " + ScreenUtils.getScreenHeight())
+                .appendLine("isLandscape: " + ScreenUtils.isLandscape())
+                .appendLine("isPortrait: " + ScreenUtils.isPortrait())
+                .appendLine("getScreenRotation: " + ScreenUtils.getScreenRotation(this))
+                .appendLine("isScreenLock: " + ScreenUtils.isScreenLock())
+                .appendLine("getSleepDuration: " + ScreenUtils.getSleepDuration())
+                .append("isTablet: " + ScreenUtils.isTablet())
+                .create()
+        );
     }
 }

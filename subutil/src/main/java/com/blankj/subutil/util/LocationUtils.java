@@ -50,6 +50,7 @@ public final class LocationUtils {
 //     * @return {@code Location}
 //     */
 //
+//    @SuppressLint("MissingPermission")
 //    public static Location getLocation(Context context, LocationListener listener) {
 //        Location location = null;
 //        try {
@@ -111,7 +112,7 @@ public final class LocationUtils {
      */
     public static boolean isGpsEnabled() {
         LocationManager lm = (LocationManager) Utils.getApp().getSystemService(LOCATION_SERVICE);
-        return lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        return lm != null && lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
     /**
@@ -122,9 +123,8 @@ public final class LocationUtils {
     public static boolean isLocationEnabled() {
         LocationManager lm = (LocationManager) Utils.getApp().getSystemService(LOCATION_SERVICE);
         return lm != null
-                && (
-                lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-                        || lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                && (lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+                || lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
         );
     }
 
@@ -155,19 +155,20 @@ public final class LocationUtils {
     public static boolean register(long minTime, long minDistance, OnLocationChangeListener listener) {
         if (listener == null) return false;
         mLocationManager = (LocationManager) Utils.getApp().getSystemService(LOCATION_SERVICE);
-        mListener = listener;
-        if (!isLocationEnabled()) {
+        if (mLocationManager == null
+                || (!mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+                && !mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))) {
             Log.d("LocationUtils", "无法定位，请打开定位服务");
             return false;
         }
+        mListener = listener;
         String provider = mLocationManager.getBestProvider(getCriteria(), true);
-        @SuppressLint("MissingPermission") Location location = mLocationManager.getLastKnownLocation(provider);
+        Location location = mLocationManager.getLastKnownLocation(provider);
         if (location != null) listener.getLastKnownLocation(location);
         if (myLocationListener == null) myLocationListener = new MyLocationListener();
         mLocationManager.requestLocationUpdates(provider, minTime, minDistance, myLocationListener);
         return true;
     }
-
 
     /**
      * 注销
@@ -180,6 +181,9 @@ public final class LocationUtils {
                 myLocationListener = null;
             }
             mLocationManager = null;
+        }
+        if (mListener != null) {
+            mListener = null;
         }
     }
 

@@ -1,6 +1,3 @@
-plugins {
-    id "tech.harmonysoft.oss.traute" version '1.0.5'
-}
 apply plugin: 'com.android.library'
 apply plugin: 'jacoco'
 
@@ -45,16 +42,11 @@ android {
         abortOnError false
     }
 
-
     testOptions.unitTests.all {
         testLogging {
             events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
         }
     }
-}
-
-traute {
-    javacPluginVersion = trauteVersion
 }
 
 dependencies {

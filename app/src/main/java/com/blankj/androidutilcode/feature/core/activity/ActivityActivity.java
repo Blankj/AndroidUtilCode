@@ -18,6 +18,7 @@ import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.androidutilcode.feature.core.CoreUtilActivity;
 import com.blankj.androidutilcode.MainActivity;
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SpanUtils;
 
 import java.util.Random;
@@ -225,7 +226,7 @@ public class ActivityActivity extends BaseBackActivity {
             case R.id.btn_act_intents_opt:
                 ActivityUtils.startActivities(this,
                         intents,
-                        getOption(random.nextInt(3)));
+                        getOption(random.nextInt(5)));
                 break;
             case R.id.btn_act_intents_anim:
                 ActivityUtils.startActivities(this,
@@ -248,6 +249,7 @@ public class ActivityActivity extends BaseBackActivity {
     }
 
     private Bundle getOption(int type) {
+        LogUtils.d(type);
         switch (type) {
             case 0:
                 return ActivityOptionsCompat.makeCustomAnimation(this,
@@ -266,15 +268,15 @@ public class ActivityActivity extends BaseBackActivity {
                         0, 0)
                         .toBundle();
             case 3:
+                return ActivityOptionsCompat.makeSceneTransitionAnimation(this,
+                        viewSharedElement,
+                        getString(R.string.activity_shared_element))
+                        .toBundle();
+            case 4:
                 return ActivityOptionsCompat.makeClipRevealAnimation(viewSharedElement,
                         viewSharedElement.getWidth() / 2,
                         viewSharedElement.getHeight() / 2,
                         0, 0)
-                        .toBundle();
-            case 4:
-                return ActivityOptionsCompat.makeSceneTransitionAnimation(this,
-                        viewSharedElement,
-                        getString(R.string.activity_shared_element))
                         .toBundle();
             default:
                 return null;

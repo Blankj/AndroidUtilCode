@@ -5,6 +5,16 @@
 
 ## APIs
 
+* ### 亮度相关 -> [BrightnessUtils.java][brightness.java] -> [Demo][brightness.demo]
+```
+isAutoBrightnessEnabled  : 判断是否开启自动调节亮度
+setAutoBrightnessEnabled   : 设置是否开启自动调节亮度
+getBrightness   : 获取屏幕亮度
+setBrightness    : 设置屏幕亮度
+setWindowBrightness: 设置窗口亮度
+getWindowBrightness : 获取窗口亮度
+```
+
 * ### 剪贴板相关 -> [ClipboardUtils.java][clipboard.java] -> [Test][clipboard.test]
 ```
 copyText  : 复制文本到剪贴板
@@ -59,9 +69,13 @@ scheduleWithFixedRate : 延迟并循环执行命令
 scheduleWithFixedDelay: 延迟并以固定休息时间循环执行命令
 ```
 
+
+
+[brightness.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/BrightnessUtils.java
+[brightness.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/sub/brightness/BrightnessActivity.java
+
 [clipboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/ClipboardUtils.java
 [clipboard.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/test/java/com/blankj/subutil/util/ClipboardUtilsTest.java
-
 
 [location.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/LocationUtils.java
 [location.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/sub/location/LocationActivity.java

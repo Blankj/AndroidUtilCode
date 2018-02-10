@@ -27,4 +27,18 @@
         android:layout_height="wrap_content"
         android:text="@string/bar_status_hide" />
 
+    <Button
+        android:id="@+id/btn_light_mode"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bar_status_light_mode" />
+
+    <Button
+        android:id="@+id/btn_dark_mode"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bar_status_dark_mode" />
+
 </LinearLayout>

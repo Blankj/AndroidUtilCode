@@ -9,7 +9,6 @@ import com.blankj.androidutilcode.base.BaseApplication;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.PermissionUtils;
 import com.squareup.leakcanary.LeakCanary;
 
 /**
@@ -37,8 +36,6 @@ public class UtilsApp extends BaseApplication {
         initLeakCanary();
         initLog();
         initCrash();
-
-        LogUtils.d(PermissionUtils.getPermissions());
     }
 
     private void initLeakCanary() {
@@ -53,7 +50,7 @@ public class UtilsApp extends BaseApplication {
 
     // init it in ur application
     public void initLog() {
-        LogUtils.Config config = LogUtils.getConfig()
+        final LogUtils.Config config = LogUtils.getConfig()
                 .setLogSwitch(BuildConfig.DEBUG)// 设置 log 总开关，包括输出到控制台和文件，默认开
                 .setConsoleSwitch(BuildConfig.DEBUG)// 设置是否输出到控制台开关，默认开
                 .setGlobalTag(null)// 设置 log 全局标签，默认为空
@@ -67,7 +64,13 @@ public class UtilsApp extends BaseApplication {
                 .setConsoleFilter(LogUtils.V)// log 的控制台过滤器，和 logcat 过滤器同理，默认 Verbose
                 .setFileFilter(LogUtils.V)// log 文件过滤器，和 logcat 过滤器同理，默认 Verbose
                 .setStackDeep(1);// log 栈深度，默认为 1
-        LogUtils.d(config.toString());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                LogUtils.d(config.toString());
+            }
+        }).start();
+
     }
 
     private void initCrash() {

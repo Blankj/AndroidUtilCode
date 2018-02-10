@@ -69,7 +69,6 @@ public final class BarUtils {
         }
     }
 
-
     /**
      * 判断状态栏是否可见
      *
@@ -82,11 +81,35 @@ public final class BarUtils {
     }
 
     /**
+     * 设置状态栏是否为浅色模式
+     *
+     * @param activity    activity
+     * @param isLightMode 是否为浅色模式
+     */
+    public static void setStatusBarLightMode(final Activity activity, final boolean isLightMode) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Window window = activity.getWindow();
+            View decorView = window.getDecorView();
+            if (decorView != null) {
+                int vis = decorView.getSystemUiVisibility();
+                if (isLightMode) {
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    vis |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                } else {
+                    vis &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                }
+                decorView.setSystemUiVisibility(vis);
+            }
+        }
+    }
+
+    /**
      * 为 view 增加 MarginTop 为状态栏高度
      *
      * @param view view
      */
     public static void addMarginTopEqualStatusBarHeight(@NonNull View view) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
         Object haveSetOffset = view.getTag(TAG_OFFSET);
         if (haveSetOffset != null && (Boolean) haveSetOffset) return;
         MarginLayoutParams layoutParams = (MarginLayoutParams) view.getLayoutParams();
@@ -103,6 +126,7 @@ public final class BarUtils {
      * @param view view
      */
     public static void subtractMarginTopEqualStatusBarHeight(@NonNull View view) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
         Object haveSetOffset = view.getTag(TAG_OFFSET);
         if (haveSetOffset == null || !(Boolean) haveSetOffset) return;
         MarginLayoutParams layoutParams = (MarginLayoutParams) view.getLayoutParams();
@@ -433,6 +457,7 @@ public final class BarUtils {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
         Window window = activity.getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             int option = View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
             window.getDecorView().setSystemUiVisibility(option);
             window.setStatusBarColor(Color.TRANSPARENT);

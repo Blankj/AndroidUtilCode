@@ -46,6 +46,8 @@ public class BarStatusActivity extends BaseBackActivity {
         tvAboutStatus = findViewById(R.id.tv_about_status);
         findViewById(R.id.btn_show_status).setOnClickListener(this);
         findViewById(R.id.btn_hide_status).setOnClickListener(this);
+        findViewById(R.id.btn_light_mode).setOnClickListener(this);
+        findViewById(R.id.btn_dark_mode).setOnClickListener(this);
         updateAboutStatus();
     }
 
@@ -62,6 +64,12 @@ public class BarStatusActivity extends BaseBackActivity {
                 break;
             case R.id.btn_hide_status:
                 BarUtils.setStatusBarVisibility(this, false);
+                break;
+            case R.id.btn_light_mode:
+                BarUtils.setStatusBarLightMode(this, true);
+                break;
+            case R.id.btn_dark_mode:
+                BarUtils.setStatusBarLightMode(this, false);
                 break;
         }
         updateAboutStatus();

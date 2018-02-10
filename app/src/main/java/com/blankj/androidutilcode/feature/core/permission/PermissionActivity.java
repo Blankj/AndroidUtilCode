@@ -92,6 +92,7 @@ public class PermissionActivity extends BaseBackActivity {
                             @Override
                             public void onGranted(List<String> permissionsGranted) {
                                 updateAboutPermission();
+                                LogUtils.d(permissionsGranted);
                             }
 
                             @Override
@@ -123,6 +124,7 @@ public class PermissionActivity extends BaseBackActivity {
                             @Override
                             public void onGranted(List<String> permissionsGranted) {
                                 updateAboutPermission();
+                                LogUtils.d(permissionsGranted);
                             }
 
                             @Override

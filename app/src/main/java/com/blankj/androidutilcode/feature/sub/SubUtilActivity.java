@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseBackActivity;
+import com.blankj.androidutilcode.feature.sub.brightness.BrightnessActivity;
 import com.blankj.androidutilcode.feature.sub.location.LocationActivity;
 import com.blankj.androidutilcode.feature.sub.pinyin.PinyinActivity;
 
@@ -48,6 +49,10 @@ public class SubUtilActivity extends BaseBackActivity {
     @Override
     public void onWidgetClick(View view) {
 
+    }
+
+    public void brightnessClick(View view) {
+        BrightnessActivity.start(this);
     }
 
     public void locationClick(View view) {

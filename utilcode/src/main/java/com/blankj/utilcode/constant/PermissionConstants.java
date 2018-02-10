@@ -14,7 +14,7 @@ import java.lang.annotation.RetentionPolicy;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/12/29
- *     desc  : 权限相关常量
+ *     desc  : The constants of permission
  * </pre>
  */
 @SuppressLint("InlinedApi")

@@ -37,7 +37,6 @@
     <!--screen-->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
-
     <!--flashlight-->
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -180,6 +179,9 @@
         <!--sub-->
         <activity
             android:name=".feature.sub.SubUtilActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.sub.brightness.BrightnessActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.sub.location.LocationActivity"

@@ -1,3 +1,6 @@
+* 18/02/10 完善中文版为英文版
+* 18/02/09 完善非空转换插件 traute 的使用方式
+* 18/02/08 修复 ActivityUtils option 低版本为空的异常
 * 18/01/31 修复 default 相关的逻辑错误，发布 1.12.4，修复 ToastUtils 在 kotlin 中转义失败，发布 1.12.5
 * 18/01/28 修复 ToastUtils 默认样式问题，发布 1.12.2，新增 DeviceUtils#getSDKVersionName，发布 1.12.3
 * 18/01/27 修复 PermissionUtils 某些机型闪烁问题，发布 1.12.1
