@@ -73,7 +73,7 @@ public class NetworkActivity extends BaseBackActivity {
         tvAboutNetworkAsync = findViewById(R.id.tv_about_network_async);
         findViewById(R.id.btn_open_wireless_settings).setOnClickListener(this);
         findViewById(R.id.btn_set_wifi_enabled).setOnClickListener(this);
-        setAboutNetwork();
+        updateAboutNetwork();
     }
 
     @Override
@@ -112,10 +112,10 @@ public class NetworkActivity extends BaseBackActivity {
                 NetworkUtils.setWifiEnabled(!NetworkUtils.getWifiEnabled());
                 break;
         }
-        setAboutNetwork();
+        updateAboutNetwork();
     }
 
-    private void setAboutNetwork() {
+    private void updateAboutNetwork() {
         tvAboutNetwork.setText(new SpanUtils()
                 .appendLine("isConnected: " + NetworkUtils.isConnected())
                 .appendLine("getMobileDataEnabled: " + NetworkUtils.getMobileDataEnabled())

@@ -37,7 +37,7 @@ public class ScreenActivity extends BaseActivity {
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_brightness;
+        return R.layout.activity_screen;
     }
 
     @Override
