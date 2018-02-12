@@ -1009,7 +1009,6 @@ public final class ActivityUtils {
     public static void finishOtherActivities(@NonNull final Class<?> clz,
                                              final boolean isLoadAnim) {
         List<Activity> activities = Utils.sActivityList;
-        boolean flag = false;
         for (int i = activities.size() - 1; i >= 0; i--) {
             Activity activity = activities.get(i);
             if (!activity.getClass().equals(clz)) {
@@ -1031,7 +1030,6 @@ public final class ActivityUtils {
                                              @AnimRes final int enterAnim,
                                              @AnimRes final int exitAnim) {
         List<Activity> activities = Utils.sActivityList;
-        boolean flag = false;
         for (int i = activities.size() - 1; i >= 0; i--) {
             Activity activity = activities.get(i);
             if (!activity.getClass().equals(clz)) {
@@ -1054,9 +1052,10 @@ public final class ActivityUtils {
      */
     public static void finishAllActivities(final boolean isLoadAnim) {
         List<Activity> activityList = Utils.sActivityList;
-        for (int i = activityList.size() - 1; i >= 0; --i) {// 从栈顶开始移除
+        for (int i = activityList.size() - 1; i >= 0; --i) {// remove from top
             Activity activity = activityList.get(i);
-            activity.finish();// 在 onActivityDestroyed 发生 remove
+            // sActivityList remove the index activity at onActivityDestroyed
+            activity.finish();
             if (!isLoadAnim) {
                 activity.overridePendingTransition(0, 0);
             }
@@ -1074,9 +1073,10 @@ public final class ActivityUtils {
     public static void finishAllActivities(@AnimRes final int enterAnim,
                                            @AnimRes final int exitAnim) {
         List<Activity> activityList = Utils.sActivityList;
-        for (int i = activityList.size() - 1; i >= 0; --i) {// 从栈顶开始移除
+        for (int i = activityList.size() - 1; i >= 0; --i) {// remove from top
             Activity activity = activityList.get(i);
-            activity.finish();// 在 onActivityDestroyed 发生 remove
+            // sActivityList remove the index activity at onActivityDestroyed
+            activity.finish();
             activity.overridePendingTransition(enterAnim, exitAnim);
         }
     }
@@ -1095,7 +1095,6 @@ public final class ActivityUtils {
      */
     public static void finishAllActivitiesExceptNewest(final boolean isLoadAnim) {
         List<Activity> activities = Utils.sActivityList;
-        boolean flag = false;
         for (int i = activities.size() - 2; i >= 0; i--) {
             finishActivity(activities.get(i), isLoadAnim);
         }
@@ -1112,7 +1111,6 @@ public final class ActivityUtils {
     public static void finishAllActivitiesExceptNewest(@AnimRes final int enterAnim,
                                                        @AnimRes final int exitAnim) {
         List<Activity> activities = Utils.sActivityList;
-        boolean flag = false;
         for (int i = activities.size() - 2; i >= 0; i--) {
             finishActivity(activities.get(i), enterAnim, exitAnim);
         }
