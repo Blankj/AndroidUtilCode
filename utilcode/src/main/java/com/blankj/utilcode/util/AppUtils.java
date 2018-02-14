@@ -32,11 +32,11 @@ public final class AppUtils {
     }
 
     /**
-     * 判断 App 是否安装
+     * Return whether the app is installed.
      *
-     * @param action   action
-     * @param category category
-     * @return {@code true}: 已安装<br>{@code false}: 未安装
+     * @param action   The Intent action, such as ACTION_VIEW.
+     * @param category The desired category.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isInstallApp(final String action, final String category) {
         Intent intent = new Intent(action);
@@ -47,10 +47,10 @@ public final class AppUtils {
     }
 
     /**
-     * 判断 App 是否安装
+     * Return whether the app is installed.
      *
-     * @param packageName 包名
-     * @return {@code true}: 已安装<br>{@code false}: 未安装
+     * @param packageName The name of the package.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isInstallApp(final String packageName) {
         return !isSpace(packageName) && IntentUtils.getLaunchAppIntent(packageName) != null;
