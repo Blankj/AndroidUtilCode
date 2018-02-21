@@ -93,7 +93,7 @@ public final class ActivityUtils {
     /**
      * Start the activity.
      *
-     * @param activity activity
+     * @param activity The activity.
      * @param clz      The activity class.
      */
     public static void startActivity(@NonNull final Activity activity,
@@ -104,7 +104,7 @@ public final class ActivityUtils {
     /**
      * Start the activity.
      *
-     * @param activity activity
+     * @param activity The activity.
      * @param clz      The activity class.
      * @param options  Additional options for how the Activity should be started.
      */
@@ -117,7 +117,7 @@ public final class ActivityUtils {
     /**
      * Start the activity.
      *
-     * @param activity       activity
+     * @param activity       The activity.
      * @param clz            The activity class.
      * @param sharedElements The names of the shared elements to transfer to the called
      *                       Activity and their associated Views.
@@ -132,7 +132,7 @@ public final class ActivityUtils {
     /**
      * Start the activity.
      *
-     * @param activity  activity
+     * @param activity  The activity.
      * @param clz       The activity class.
      * @param enterAnim A resource ID of the animation resource to use for the
      *                  incoming activity.
@@ -203,7 +203,7 @@ public final class ActivityUtils {
      * Start the activity.
      *
      * @param extras   The Bundle of extras to add to this intent.
-     * @param activity activity
+     * @param activity The activity.
      * @param clz      The activity class.
      */
     public static void startActivity(@NonNull final Bundle extras,
@@ -216,7 +216,7 @@ public final class ActivityUtils {
      * Start the activity.
      *
      * @param extras   The Bundle of extras to add to this intent.
-     * @param activity activity
+     * @param activity The activity.
      * @param clz      The activity class.
      * @param options  Additional options for how the Activity should be started.
      */
@@ -231,7 +231,7 @@ public final class ActivityUtils {
      * Start the activity.
      *
      * @param extras         The Bundle of extras to add to this intent.
-     * @param activity       activity
+     * @param activity       The activity.
      * @param clz            The activity class.
      * @param sharedElements The names of the shared elements to transfer to the called
      *                       Activity and their associated Views.
@@ -248,7 +248,7 @@ public final class ActivityUtils {
      * Start the activity.
      *
      * @param extras    The Bundle of extras to add to this intent.
-     * @param activity  activity
+     * @param activity  The activity.
      * @param clz       The activity class.
      * @param enterAnim A resource ID of the animation resource to use for the
      *                  incoming activity.
@@ -315,7 +315,7 @@ public final class ActivityUtils {
     /**
      * Start the activity.
      *
-     * @param activity activity
+     * @param activity The activity.
      * @param pkg      The name of the package.
      * @param cls      The name of the class.
      */
@@ -328,7 +328,7 @@ public final class ActivityUtils {
     /**
      * Start the activity.
      *
-     * @param activity activity
+     * @param activity The activity.
      * @param pkg      The name of the package.
      * @param cls      The name of the class.
      * @param options  Additional options for how the Activity should be started.
@@ -343,7 +343,7 @@ public final class ActivityUtils {
     /**
      * Start the activity.
      *
-     * @param activity       activity
+     * @param activity       The activity.
      * @param pkg            The name of the package.
      * @param cls            The name of the class.
      * @param sharedElements The names of the shared elements to transfer to the called
@@ -359,7 +359,7 @@ public final class ActivityUtils {
     /**
      * Start the activity.
      *
-     * @param activity  activity
+     * @param activity  The activity.
      * @param pkg       The name of the package.
      * @param cls       The name of the class.
      * @param enterAnim A resource ID of the animation resource to use for the
@@ -432,7 +432,7 @@ public final class ActivityUtils {
     /**
      * Start the activity.
      *
-     * @param activity activity
+     * @param activity The activity.
      * @param extras   The Bundle of extras to add to this intent.
      * @param pkg      The name of the package.
      * @param cls      The name of the class.
@@ -448,7 +448,7 @@ public final class ActivityUtils {
      * Start the activity.
      *
      * @param extras   The Bundle of extras to add to this intent.
-     * @param activity activity
+     * @param activity The activity.
      * @param pkg      The name of the package.
      * @param cls      The name of the class.
      * @param options  Additional options for how the Activity should be started.
@@ -465,7 +465,7 @@ public final class ActivityUtils {
      * Start the activity.
      *
      * @param extras         The Bundle of extras to add to this intent.
-     * @param activity       activity
+     * @param activity       The activity.
      * @param pkg            The name of the package.
      * @param cls            The name of the class.
      * @param sharedElements The names of the shared elements to transfer to the called
@@ -544,7 +544,7 @@ public final class ActivityUtils {
     /**
      * Start the activity.
      *
-     * @param activity activity
+     * @param activity The activity.
      * @param intent   The description of the activity to start.
      */
     public static void startActivity(@NonNull final Activity activity,
@@ -555,7 +555,7 @@ public final class ActivityUtils {
     /**
      * Start the activity.
      *
-     * @param activity activity
+     * @param activity The activity.
      * @param intent   The description of the activity to start.
      * @param options  Additional options for how the Activity should be started.
      */
@@ -568,7 +568,7 @@ public final class ActivityUtils {
     /**
      * Start the activity.
      *
-     * @param activity       activity
+     * @param activity       The activity.
      * @param intent         The description of the activity to start.
      * @param sharedElements The names of the shared elements to transfer to the called
      *                       Activity and their associated Views.
@@ -582,7 +582,7 @@ public final class ActivityUtils {
     /**
      * Start the activity.
      *
-     * @param activity  activity
+     * @param activity  The activity.
      * @param intent    The description of the activity to start.
      * @param enterAnim A resource ID of the animation resource to use for the
      *                  incoming activity.
@@ -641,7 +641,7 @@ public final class ActivityUtils {
     /**
      * Start activities.
      *
-     * @param activity activity
+     * @param activity The activity.
      * @param intents  The descriptions of the activities to start.
      */
     public static void startActivities(@NonNull final Activity activity,
@@ -652,7 +652,7 @@ public final class ActivityUtils {
     /**
      * Start activities.
      *
-     * @param activity activity
+     * @param activity The activity.
      * @param intents  The descriptions of the activities to start.
      * @param options  Additional options for how the Activity should be started.
      */
@@ -665,7 +665,7 @@ public final class ActivityUtils {
     /**
      * Start activities.
      *
-     * @param activity  activity
+     * @param activity  The activity.
      * @param intents   The descriptions of the activities to start.
      * @param enterAnim A resource ID of the animation resource to use for the
      *                  incoming activity.
@@ -749,7 +749,7 @@ public final class ActivityUtils {
     /**
      * Return whether the activity exists in activity's stack.
      *
-     * @param activity activity
+     * @param activity The activity.
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isActivityExistsInStack(@NonNull final Activity activity) {
@@ -781,7 +781,7 @@ public final class ActivityUtils {
     /**
      * Finish the activity.
      *
-     * @param activity activity
+     * @param activity The activity.
      */
     public static void finishActivity(@NonNull final Activity activity) {
         finishActivity(activity, false);
@@ -790,7 +790,7 @@ public final class ActivityUtils {
     /**
      * Finish the activity.
      *
-     * @param activity   activity
+     * @param activity   The activity.
      * @param isLoadAnim Whether use animation for the outgoing activity.
      */
     public static void finishActivity(@NonNull final Activity activity, final boolean isLoadAnim) {
@@ -803,7 +803,7 @@ public final class ActivityUtils {
     /**
      * Finish the activity.
      *
-     * @param activity  activity
+     * @param activity  The activity.
      * @param enterAnim A resource ID of the animation resource to use for the
      *                  incoming activity.
      * @param exitAnim  A resource ID of the animation resource to use for the
@@ -867,7 +867,7 @@ public final class ActivityUtils {
     /**
      * Finish to the activity.
      *
-     * @param activity      activity
+     * @param activity      The activity.
      * @param isIncludeSelf Whether include the activity.
      */
     public static boolean finishToActivity(@NonNull final Activity activity,
@@ -878,7 +878,7 @@ public final class ActivityUtils {
     /**
      * Finish to the activity.
      *
-     * @param activity      activity
+     * @param activity      The activity.
      * @param isIncludeSelf Whether include the activity.
      * @param isLoadAnim    Whether use animation for the outgoing activity.
      */
@@ -902,7 +902,7 @@ public final class ActivityUtils {
     /**
      * Finish to the activity.
      *
-     * @param activity      activity
+     * @param activity      The activity.
      * @param isIncludeSelf Whether include the activity.
      * @param enterAnim     A resource ID of the animation resource to use for the
      *                      incoming activity.
