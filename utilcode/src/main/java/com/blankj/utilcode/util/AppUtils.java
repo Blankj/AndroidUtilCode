@@ -39,9 +39,8 @@ public final class AppUtils {
      * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
      *
      * @param filePath  The path of file.
-     * @param authority Target APIs greater than 23 must hold the authority of a
-     *                  {@link android.support.v4.content.FileProvider} defined in a
-     *                  {@code <provider>} element in your app's manifest.
+     * @param authority Target APIs greater than 23 must hold the authority of a FileProvider
+     *                  defined in a {@code <provider>} element in your app's manifest.
      */
     public static void installApp(final String filePath, final String authority) {
         installApp(getFileByPath(filePath), authority);
@@ -53,9 +52,8 @@ public final class AppUtils {
      * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
      *
      * @param file      The file.
-     * @param authority Target APIs greater than 23 must hold the authority of a
-     *                  {@link android.support.v4.content.FileProvider} defined in a
-     *                  {@code <provider>} element in your app's manifest.
+     * @param authority Target APIs greater than 23 must hold the authority of a FileProvider
+     *                  defined in a {@code <provider>} element in your app's manifest.
      */
     public static void installApp(final File file, final String authority) {
         if (!isFileExists(file)) return;
@@ -69,9 +67,8 @@ public final class AppUtils {
      *
      * @param activity    The activity.
      * @param filePath    The path of file.
-     * @param authority   Target APIs greater than 23 must hold the authority of a
-     *                    {@link android.support.v4.content.FileProvider} defined in a
-     *                    {@code <provider>} element in your app's manifest.
+     * @param authority   Target APIs greater than 23 must hold the authority of a FileProvider
+     *                    defined in a {@code <provider>} element in your app's manifest.
      * @param requestCode If &gt;= 0, this code will be returned in
      *                    onActivityResult() when the activity exits.
      */
@@ -89,9 +86,8 @@ public final class AppUtils {
      *
      * @param activity    The activity.
      * @param file        The file.
-     * @param authority   Target APIs greater than 23 must hold the authority of a
-     *                    {@link android.support.v4.content.FileProvider} defined in a
-     *                    {@code <provider>} element in your app's manifest.
+     * @param authority   Target APIs greater than 23 must hold the authority of a FileProvider
+     *                    defined in a {@code <provider>} element in your app's manifest.
      * @param requestCode If &gt;= 0, this code will be returned in
      *                    onActivityResult() when the activity exits.
      */

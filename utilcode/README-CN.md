@@ -112,7 +112,7 @@ cleanInternalDbs     : 清除内部数据库
 cleanInternalDbByName: 根据名称清除数据库
 cleanInternalSp      : 清除内部 SP
 cleanExternalCache   : 清除外部缓存
-cleanCustomCache     : 清除自定义目录下的文件
+cleanCustomDir       : 清除自定义目录下的文件
 ```
 
 * ### 关闭相关 -> [CloseUtils.java][close.java]

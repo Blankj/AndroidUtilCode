@@ -317,11 +317,11 @@ public final class TimeUtils {
      * @param time1 时间字符串 1
      * @param unit  单位类型
      *              <ul>
-     *              <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *              <li>{@link TimeConstants#SEC }: 秒</li>
-     *              <li>{@link TimeConstants#MIN }: 分</li>
-     *              <li>{@link TimeConstants#HOUR}: 小时</li>
-     *              <li>{@link TimeConstants#DAY }: 天</li>
+     *              <li>{@link TimeConstants#MSEC}</li>
+     *              <li>{@link TimeConstants#SEC }</li>
+     *              <li>{@link TimeConstants#MIN }</li>
+     *              <li>{@link TimeConstants#HOUR}</li>
+     *              <li>{@link TimeConstants#DAY }</li>
      *              </ul>
      * @return unit 时间戳
      */
@@ -340,11 +340,11 @@ public final class TimeUtils {
      * @param format 时间格式
      * @param unit   单位类型
      *               <ul>
-     *               <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *               <li>{@link TimeConstants#SEC }: 秒</li>
-     *               <li>{@link TimeConstants#MIN }: 分</li>
-     *               <li>{@link TimeConstants#HOUR}: 小时</li>
-     *               <li>{@link TimeConstants#DAY }: 天</li>
+     *               <li>{@link TimeConstants#MSEC}</li>
+     *               <li>{@link TimeConstants#SEC }</li>
+     *               <li>{@link TimeConstants#MIN }</li>
+     *               <li>{@link TimeConstants#HOUR}</li>
+     *               <li>{@link TimeConstants#DAY }</li>
      *               </ul>
      * @return unit 时间戳
      */
@@ -364,11 +364,11 @@ public final class TimeUtils {
      * @param date1 Date 类型时间 1
      * @param unit  单位类型
      *              <ul>
-     *              <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *              <li>{@link TimeConstants#SEC }: 秒</li>
-     *              <li>{@link TimeConstants#MIN }: 分</li>
-     *              <li>{@link TimeConstants#HOUR}: 小时</li>
-     *              <li>{@link TimeConstants#DAY }: 天</li>
+     *              <li>{@link TimeConstants#MSEC}</li>
+     *              <li>{@link TimeConstants#SEC }</li>
+     *              <li>{@link TimeConstants#MIN }</li>
+     *              <li>{@link TimeConstants#HOUR}</li>
+     *              <li>{@link TimeConstants#DAY }</li>
      *              </ul>
      * @return unit 时间戳
      */
@@ -385,11 +385,11 @@ public final class TimeUtils {
      * @param millis1 毫秒时间戳 1
      * @param unit    单位类型
      *                <ul>
-     *                <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *                <li>{@link TimeConstants#SEC }: 秒</li>
-     *                <li>{@link TimeConstants#MIN }: 分</li>
-     *                <li>{@link TimeConstants#HOUR}: 小时</li>
-     *                <li>{@link TimeConstants#DAY }: 天</li>
+     *                <li>{@link TimeConstants#MSEC}</li>
+     *                <li>{@link TimeConstants#SEC }</li>
+     *                <li>{@link TimeConstants#MIN }</li>
+     *                <li>{@link TimeConstants#HOUR}</li>
+     *                <li>{@link TimeConstants#DAY }</li>
      *                </ul>
      * @return unit 时间戳
      */
@@ -529,11 +529,11 @@ public final class TimeUtils {
      * @param time 时间字符串
      * @param unit 单位类型
      *             <ul>
-     *             <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *             <li>{@link TimeConstants#SEC }: 秒</li>
-     *             <li>{@link TimeConstants#MIN }: 分</li>
-     *             <li>{@link TimeConstants#HOUR}: 小时</li>
-     *             <li>{@link TimeConstants#DAY }: 天</li>
+     *             <li>{@link TimeConstants#MSEC}</li>
+     *             <li>{@link TimeConstants#SEC }</li>
+     *             <li>{@link TimeConstants#MIN }</li>
+     *             <li>{@link TimeConstants#HOUR}</li>
+     *             <li>{@link TimeConstants#DAY }</li>
      *             </ul>
      * @return unit 时间戳
      */
@@ -549,11 +549,11 @@ public final class TimeUtils {
      * @param format 时间格式
      * @param unit   单位类型
      *               <ul>
-     *               <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *               <li>{@link TimeConstants#SEC }: 秒</li>
-     *               <li>{@link TimeConstants#MIN }: 分</li>
-     *               <li>{@link TimeConstants#HOUR}: 小时</li>
-     *               <li>{@link TimeConstants#DAY }: 天</li>
+     *               <li>{@link TimeConstants#MSEC}</li>
+     *               <li>{@link TimeConstants#SEC }</li>
+     *               <li>{@link TimeConstants#MIN }</li>
+     *               <li>{@link TimeConstants#HOUR}</li>
+     *               <li>{@link TimeConstants#DAY }</li>
      *               </ul>
      * @return unit 时间戳
      */
@@ -569,11 +569,11 @@ public final class TimeUtils {
      * @param date Date 类型时间
      * @param unit 单位类型
      *             <ul>
-     *             <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *             <li>{@link TimeConstants#SEC }: 秒</li>
-     *             <li>{@link TimeConstants#MIN }: 分</li>
-     *             <li>{@link TimeConstants#HOUR}: 小时</li>
-     *             <li>{@link TimeConstants#DAY }: 天</li>
+     *             <li>{@link TimeConstants#MSEC}</li>
+     *             <li>{@link TimeConstants#SEC }</li>
+     *             <li>{@link TimeConstants#MIN }</li>
+     *             <li>{@link TimeConstants#HOUR}</li>
+     *             <li>{@link TimeConstants#DAY }</li>
      *             </ul>
      * @return unit 时间戳
      */
@@ -587,11 +587,11 @@ public final class TimeUtils {
      * @param millis 毫秒时间戳
      * @param unit   单位类型
      *               <ul>
-     *               <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *               <li>{@link TimeConstants#SEC }: 秒</li>
-     *               <li>{@link TimeConstants#MIN }: 分</li>
-     *               <li>{@link TimeConstants#HOUR}: 小时</li>
-     *               <li>{@link TimeConstants#DAY }: 天</li>
+     *               <li>{@link TimeConstants#MSEC}</li>
+     *               <li>{@link TimeConstants#SEC }</li>
+     *               <li>{@link TimeConstants#MIN }</li>
+     *               <li>{@link TimeConstants#HOUR}</li>
+     *               <li>{@link TimeConstants#DAY }</li>
      *               </ul>
      * @return unit 时间戳
      */
@@ -795,11 +795,11 @@ public final class TimeUtils {
      * @param timeSpan 时间差的毫秒时间戳
      * @param unit     单位类型
      *                 <ul>
-     *                 <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *                 <li>{@link TimeConstants#SEC }: 秒</li>
-     *                 <li>{@link TimeConstants#MIN }: 分</li>
-     *                 <li>{@link TimeConstants#HOUR}: 小时</li>
-     *                 <li>{@link TimeConstants#DAY }: 天</li>
+     *                 <li>{@link TimeConstants#MSEC}</li>
+     *                 <li>{@link TimeConstants#SEC }</li>
+     *                 <li>{@link TimeConstants#MIN }</li>
+     *                 <li>{@link TimeConstants#HOUR}</li>
+     *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
      * @return 与给定时间等于时间差的时间戳
      */
@@ -817,11 +817,11 @@ public final class TimeUtils {
      * @param timeSpan 时间差的毫秒时间戳
      * @param unit     单位类型
      *                 <ul>
-     *                 <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *                 <li>{@link TimeConstants#SEC }: 秒</li>
-     *                 <li>{@link TimeConstants#MIN }: 分</li>
-     *                 <li>{@link TimeConstants#HOUR}: 小时</li>
-     *                 <li>{@link TimeConstants#DAY }: 天</li>
+     *                 <li>{@link TimeConstants#MSEC}</li>
+     *                 <li>{@link TimeConstants#SEC }</li>
+     *                 <li>{@link TimeConstants#MIN }</li>
+     *                 <li>{@link TimeConstants#HOUR}</li>
+     *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
      * @return 与给定时间等于时间差的时间戳
      */
@@ -840,11 +840,11 @@ public final class TimeUtils {
      * @param timeSpan 时间差的毫秒时间戳
      * @param unit     单位类型
      *                 <ul>
-     *                 <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *                 <li>{@link TimeConstants#SEC }: 秒</li>
-     *                 <li>{@link TimeConstants#MIN }: 分</li>
-     *                 <li>{@link TimeConstants#HOUR}: 小时</li>
-     *                 <li>{@link TimeConstants#DAY }: 天</li>
+     *                 <li>{@link TimeConstants#MSEC}</li>
+     *                 <li>{@link TimeConstants#SEC }</li>
+     *                 <li>{@link TimeConstants#MIN }</li>
+     *                 <li>{@link TimeConstants#HOUR}</li>
+     *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
      * @return 与给定时间等于时间差的时间戳
      */
@@ -862,11 +862,11 @@ public final class TimeUtils {
      * @param timeSpan 时间差的毫秒时间戳
      * @param unit     单位类型
      *                 <ul>
-     *                 <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *                 <li>{@link TimeConstants#SEC }: 秒</li>
-     *                 <li>{@link TimeConstants#MIN }: 分</li>
-     *                 <li>{@link TimeConstants#HOUR}: 小时</li>
-     *                 <li>{@link TimeConstants#DAY }: 天</li>
+     *                 <li>{@link TimeConstants#MSEC}</li>
+     *                 <li>{@link TimeConstants#SEC }</li>
+     *                 <li>{@link TimeConstants#MIN }</li>
+     *                 <li>{@link TimeConstants#HOUR}</li>
+     *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
      * @return 与给定时间等于时间差的时间戳
      */
@@ -884,11 +884,11 @@ public final class TimeUtils {
      * @param timeSpan 时间差的毫秒时间戳
      * @param unit     单位类型
      *                 <ul>
-     *                 <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *                 <li>{@link TimeConstants#SEC }: 秒</li>
-     *                 <li>{@link TimeConstants#MIN }: 分</li>
-     *                 <li>{@link TimeConstants#HOUR}: 小时</li>
-     *                 <li>{@link TimeConstants#DAY }: 天</li>
+     *                 <li>{@link TimeConstants#MSEC}</li>
+     *                 <li>{@link TimeConstants#SEC }</li>
+     *                 <li>{@link TimeConstants#MIN }</li>
+     *                 <li>{@link TimeConstants#HOUR}</li>
+     *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
      * @return 与给定时间等于时间差的时间字符串
      */
@@ -907,11 +907,11 @@ public final class TimeUtils {
      * @param timeSpan 时间差的毫秒时间戳
      * @param unit     单位类型
      *                 <ul>
-     *                 <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *                 <li>{@link TimeConstants#SEC }: 秒</li>
-     *                 <li>{@link TimeConstants#MIN }: 分</li>
-     *                 <li>{@link TimeConstants#HOUR}: 小时</li>
-     *                 <li>{@link TimeConstants#DAY }: 天</li>
+     *                 <li>{@link TimeConstants#MSEC}</li>
+     *                 <li>{@link TimeConstants#SEC }</li>
+     *                 <li>{@link TimeConstants#MIN }</li>
+     *                 <li>{@link TimeConstants#HOUR}</li>
+     *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
      * @return 与给定时间等于时间差的时间字符串
      */
@@ -930,11 +930,11 @@ public final class TimeUtils {
      * @param timeSpan 时间差的毫秒时间戳
      * @param unit     单位类型
      *                 <ul>
-     *                 <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *                 <li>{@link TimeConstants#SEC }: 秒</li>
-     *                 <li>{@link TimeConstants#MIN }: 分</li>
-     *                 <li>{@link TimeConstants#HOUR}: 小时</li>
-     *                 <li>{@link TimeConstants#DAY }: 天</li>
+     *                 <li>{@link TimeConstants#MSEC}</li>
+     *                 <li>{@link TimeConstants#SEC }</li>
+     *                 <li>{@link TimeConstants#MIN }</li>
+     *                 <li>{@link TimeConstants#HOUR}</li>
+     *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
      * @return 与给定时间等于时间差的时间字符串
      */
@@ -953,11 +953,11 @@ public final class TimeUtils {
      * @param timeSpan 时间差的毫秒时间戳
      * @param unit     单位类型
      *                 <ul>
-     *                 <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *                 <li>{@link TimeConstants#SEC }: 秒</li>
-     *                 <li>{@link TimeConstants#MIN }: 分</li>
-     *                 <li>{@link TimeConstants#HOUR}: 小时</li>
-     *                 <li>{@link TimeConstants#DAY }: 天</li>
+     *                 <li>{@link TimeConstants#MSEC}</li>
+     *                 <li>{@link TimeConstants#SEC }</li>
+     *                 <li>{@link TimeConstants#MIN }</li>
+     *                 <li>{@link TimeConstants#HOUR}</li>
+     *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
      * @return 与给定时间等于时间差的时间字符串
      */
@@ -976,11 +976,11 @@ public final class TimeUtils {
      * @param timeSpan 时间差的毫秒时间戳
      * @param unit     单位类型
      *                 <ul>
-     *                 <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *                 <li>{@link TimeConstants#SEC }: 秒</li>
-     *                 <li>{@link TimeConstants#MIN }: 分</li>
-     *                 <li>{@link TimeConstants#HOUR}: 小时</li>
-     *                 <li>{@link TimeConstants#DAY }: 天</li>
+     *                 <li>{@link TimeConstants#MSEC}</li>
+     *                 <li>{@link TimeConstants#SEC }</li>
+     *                 <li>{@link TimeConstants#MIN }</li>
+     *                 <li>{@link TimeConstants#HOUR}</li>
+     *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
      * @return 与给定时间等于时间差的时间字符串
      */
@@ -999,11 +999,11 @@ public final class TimeUtils {
      * @param timeSpan 时间差的毫秒时间戳
      * @param unit     单位类型
      *                 <ul>
-     *                 <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *                 <li>{@link TimeConstants#SEC }: 秒</li>
-     *                 <li>{@link TimeConstants#MIN }: 分</li>
-     *                 <li>{@link TimeConstants#HOUR}: 小时</li>
-     *                 <li>{@link TimeConstants#DAY }: 天</li>
+     *                 <li>{@link TimeConstants#MSEC}</li>
+     *                 <li>{@link TimeConstants#SEC }</li>
+     *                 <li>{@link TimeConstants#MIN }</li>
+     *                 <li>{@link TimeConstants#HOUR}</li>
+     *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
      * @return 与给定时间等于时间差的时间字符串
      */
@@ -1021,11 +1021,11 @@ public final class TimeUtils {
      * @param timeSpan 时间差的毫秒时间戳
      * @param unit     单位类型
      *                 <ul>
-     *                 <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *                 <li>{@link TimeConstants#SEC }: 秒</li>
-     *                 <li>{@link TimeConstants#MIN }: 分</li>
-     *                 <li>{@link TimeConstants#HOUR}: 小时</li>
-     *                 <li>{@link TimeConstants#DAY }: 天</li>
+     *                 <li>{@link TimeConstants#MSEC}</li>
+     *                 <li>{@link TimeConstants#SEC }</li>
+     *                 <li>{@link TimeConstants#MIN }</li>
+     *                 <li>{@link TimeConstants#HOUR}</li>
+     *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
      * @return 与给定时间等于时间差的 Date
      */
@@ -1043,11 +1043,11 @@ public final class TimeUtils {
      * @param timeSpan 时间差的毫秒时间戳
      * @param unit     单位类型
      *                 <ul>
-     *                 <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *                 <li>{@link TimeConstants#SEC }: 秒</li>
-     *                 <li>{@link TimeConstants#MIN }: 分</li>
-     *                 <li>{@link TimeConstants#HOUR}: 小时</li>
-     *                 <li>{@link TimeConstants#DAY }: 天</li>
+     *                 <li>{@link TimeConstants#MSEC}</li>
+     *                 <li>{@link TimeConstants#SEC }</li>
+     *                 <li>{@link TimeConstants#MIN }</li>
+     *                 <li>{@link TimeConstants#HOUR}</li>
+     *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
      * @return 与给定时间等于时间差的 Date
      */
@@ -1066,11 +1066,11 @@ public final class TimeUtils {
      * @param timeSpan 时间差的毫秒时间戳
      * @param unit     单位类型
      *                 <ul>
-     *                 <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *                 <li>{@link TimeConstants#SEC }: 秒</li>
-     *                 <li>{@link TimeConstants#MIN }: 分</li>
-     *                 <li>{@link TimeConstants#HOUR}: 小时</li>
-     *                 <li>{@link TimeConstants#DAY }: 天</li>
+     *                 <li>{@link TimeConstants#MSEC}</li>
+     *                 <li>{@link TimeConstants#SEC }</li>
+     *                 <li>{@link TimeConstants#MIN }</li>
+     *                 <li>{@link TimeConstants#HOUR}</li>
+     *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
      * @return 与给定时间等于时间差的 Date
      */
@@ -1088,11 +1088,11 @@ public final class TimeUtils {
      * @param timeSpan 时间差的毫秒时间戳
      * @param unit     单位类型
      *                 <ul>
-     *                 <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *                 <li>{@link TimeConstants#SEC }: 秒</li>
-     *                 <li>{@link TimeConstants#MIN }: 分</li>
-     *                 <li>{@link TimeConstants#HOUR}: 小时</li>
-     *                 <li>{@link TimeConstants#DAY }: 天</li>
+     *                 <li>{@link TimeConstants#MSEC}</li>
+     *                 <li>{@link TimeConstants#SEC }</li>
+     *                 <li>{@link TimeConstants#MIN }</li>
+     *                 <li>{@link TimeConstants#HOUR}</li>
+     *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
      * @return 与给定时间等于时间差的 Date
      */
@@ -1108,11 +1108,11 @@ public final class TimeUtils {
      * @param timeSpan 时间差的毫秒时间戳
      * @param unit     单位类型
      *                 <ul>
-     *                 <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *                 <li>{@link TimeConstants#SEC }: 秒</li>
-     *                 <li>{@link TimeConstants#MIN }: 分</li>
-     *                 <li>{@link TimeConstants#HOUR}: 小时</li>
-     *                 <li>{@link TimeConstants#DAY }: 天</li>
+     *                 <li>{@link TimeConstants#MSEC}</li>
+     *                 <li>{@link TimeConstants#SEC }</li>
+     *                 <li>{@link TimeConstants#MIN }</li>
+     *                 <li>{@link TimeConstants#HOUR}</li>
+     *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
      * @return 与当前时间等于时间差的时间戳
      */
@@ -1127,11 +1127,11 @@ public final class TimeUtils {
      * @param timeSpan 时间差的毫秒时间戳
      * @param unit     单位类型
      *                 <ul>
-     *                 <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *                 <li>{@link TimeConstants#SEC }: 秒</li>
-     *                 <li>{@link TimeConstants#MIN }: 分</li>
-     *                 <li>{@link TimeConstants#HOUR}: 小时</li>
-     *                 <li>{@link TimeConstants#DAY }: 天</li>
+     *                 <li>{@link TimeConstants#MSEC}</li>
+     *                 <li>{@link TimeConstants#SEC }</li>
+     *                 <li>{@link TimeConstants#MIN }</li>
+     *                 <li>{@link TimeConstants#HOUR}</li>
+     *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
      * @return 与当前时间等于时间差的时间字符串
      */
@@ -1147,11 +1147,11 @@ public final class TimeUtils {
      * @param format   时间格式
      * @param unit     单位类型
      *                 <ul>
-     *                 <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *                 <li>{@link TimeConstants#SEC }: 秒</li>
-     *                 <li>{@link TimeConstants#MIN }: 分</li>
-     *                 <li>{@link TimeConstants#HOUR}: 小时</li>
-     *                 <li>{@link TimeConstants#DAY }: 天</li>
+     *                 <li>{@link TimeConstants#MSEC}</li>
+     *                 <li>{@link TimeConstants#SEC }</li>
+     *                 <li>{@link TimeConstants#MIN }</li>
+     *                 <li>{@link TimeConstants#HOUR}</li>
+     *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
      * @return 与当前时间等于时间差的时间字符串
      */
@@ -1167,11 +1167,11 @@ public final class TimeUtils {
      * @param timeSpan 时间差的毫秒时间戳
      * @param unit     单位类型
      *                 <ul>
-     *                 <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *                 <li>{@link TimeConstants#SEC }: 秒</li>
-     *                 <li>{@link TimeConstants#MIN }: 分</li>
-     *                 <li>{@link TimeConstants#HOUR}: 小时</li>
-     *                 <li>{@link TimeConstants#DAY }: 天</li>
+     *                 <li>{@link TimeConstants#MSEC}</li>
+     *                 <li>{@link TimeConstants#SEC }</li>
+     *                 <li>{@link TimeConstants#MIN }</li>
+     *                 <li>{@link TimeConstants#HOUR}</li>
+     *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
      * @return 与当前时间等于时间差的 Date
      */

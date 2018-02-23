@@ -472,11 +472,10 @@ public final class FileUtils {
      */
     public static boolean deleteDir(final File dir) {
         if (dir == null) return false;
-        // 目录不存在返回 true
+        // dir doesn't exist then return true
         if (!dir.exists()) return true;
-        // 不是目录返回 false
+        // dir isn't a directory then return false
         if (!dir.isDirectory()) return false;
-        // 现在文件存在且是文件夹
         File[] files = dir.listFiles();
         if (files != null && files.length != 0) {
             for (File file : files) {
@@ -581,11 +580,10 @@ public final class FileUtils {
      */
     public static boolean deleteFilesInDirWithFilter(final File dir, final FileFilter filter) {
         if (dir == null) return false;
-        // 目录不存在返回 true
+        // dir doesn't exist then return true
         if (!dir.exists()) return true;
-        // 不是目录返回 false
+        // dir isn't a directory then return false
         if (!dir.isDirectory()) return false;
-        // 现在文件存在且是文件夹
         File[] files = dir.listFiles();
         if (files != null && files.length != 0) {
             for (File file : files) {
@@ -1100,14 +1098,6 @@ public final class FileUtils {
     private static final char hexDigits[] =
             {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
-    /**
-     * byteArr 转 hexString
-     * <p>例如：</p>
-     * bytes2HexString(new byte[] { 0, (byte) 0xa8 }) returns 00A8
-     *
-     * @param bytes 字节数组
-     * @return 16 进制大写字符串
-     */
     private static String bytes2HexString(final byte[] bytes) {
         if (bytes == null) return null;
         int len = bytes.length;
@@ -1120,13 +1110,6 @@ public final class FileUtils {
         return new String(ret);
     }
 
-    /**
-     * 字节数转合适内存大小
-     * <p>保留 3 位小数</p>
-     *
-     * @param byteNum 字节数
-     * @return 合适内存大小
-     */
     @SuppressLint("DefaultLocale")
     private static String byte2FitMemorySize(final long byteNum) {
         if (byteNum < 0) {

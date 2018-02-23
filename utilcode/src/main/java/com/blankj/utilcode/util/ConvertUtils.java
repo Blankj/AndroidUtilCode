@@ -25,7 +25,7 @@ import java.io.UnsupportedEncodingException;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/08/13
- *     desc  : 转换相关工具类
+ *     desc  : Utils about convert.
  * </pre>
  */
 public final class ConvertUtils {
@@ -38,12 +38,11 @@ public final class ConvertUtils {
             {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     /**
-     * byteArr 转 hexString
-     * <p>例如：</p>
-     * bytes2HexString(new byte[] { 0, (byte) 0xa8 }) returns 00A8
+     * Bytes to hex string.
+     * <p>e.g. bytes2HexString(new byte[] { 0, (byte) 0xa8 }) returns "00A8"</p>
      *
-     * @param bytes 字节数组
-     * @return 16 进制大写字符串
+     * @param bytes The bytes.
+     * @return hex string
      */
     public static String bytes2HexString(final byte[] bytes) {
         if (bytes == null) return null;
@@ -58,12 +57,11 @@ public final class ConvertUtils {
     }
 
     /**
-     * hexString 转 byteArr
-     * <p>例如：</p>
-     * hexString2Bytes("00A8") returns { 0, (byte) 0xA8 }
+     * Hex string to bytes.
+     * <p>e.g. hexString2Bytes("00A8") returns { 0, (byte) 0xA8 }</p>
      *
-     * @param hexString 十六进制字符串
-     * @return 字节数组
+     * @param hexString The hex string.
+     * @return the bytes
      */
     public static byte[] hexString2Bytes(String hexString) {
         if (isSpace(hexString)) return null;
@@ -75,18 +73,12 @@ public final class ConvertUtils {
         char[] hexBytes = hexString.toUpperCase().toCharArray();
         byte[] ret = new byte[len >> 1];
         for (int i = 0; i < len; i += 2) {
-            ret[i >> 1] = (byte) (hex2Dec(hexBytes[i]) << 4 | hex2Dec(hexBytes[i + 1]));
+            ret[i >> 1] = (byte) (hex2Int(hexBytes[i]) << 4 | hex2Int(hexBytes[i + 1]));
         }
         return ret;
     }
 
-    /**
-     * hexChar 转 int
-     *
-     * @param hexChar hex 单个字节
-     * @return 0..15
-     */
-    private static int hex2Dec(final char hexChar) {
+    private static int hex2Int(final char hexChar) {
         if (hexChar >= '0' && hexChar <= '9') {
             return hexChar - '0';
         } else if (hexChar >= 'A' && hexChar <= 'F') {
@@ -97,10 +89,10 @@ public final class ConvertUtils {
     }
 
     /**
-     * charArr 转 byteArr
+     * Chars to bytes.
      *
-     * @param chars 字符数组
-     * @return 字节数组
+     * @param chars The chars.
+     * @return bytes
      */
     public static byte[] chars2Bytes(final char[] chars) {
         if (chars == null || chars.length <= 0) return null;
@@ -113,10 +105,10 @@ public final class ConvertUtils {
     }
 
     /**
-     * byteArr 转 charArr
+     * Bytes to chars.
      *
-     * @param bytes 字节数组
-     * @return 字符数组
+     * @param bytes The bytes.
+     * @return chars
      */
     public static char[] bytes2Chars(final byte[] bytes) {
         if (bytes == null) return null;
@@ -130,60 +122,62 @@ public final class ConvertUtils {
     }
 
     /**
-     * 以 unit 为单位的内存大小转字节数
+     * Size of memory in unit to size of byte.
      *
-     * @param memorySize 大小
-     * @param unit       单位类型
+     * @param memorySize Size of memory.
+     * @param unit       The unit of memory size.
      *                   <ul>
-     *                   <li>{@link MemoryConstants#BYTE}: 字节</li>
-     *                   <li>{@link MemoryConstants#KB}  : 千字节</li>
-     *                   <li>{@link MemoryConstants#MB}  : 兆</li>
-     *                   <li>{@link MemoryConstants#GB}  : GB</li>
+     *                   <li>{@link MemoryConstants#BYTE}</li>
+     *                   <li>{@link MemoryConstants#KB}</li>
+     *                   <li>{@link MemoryConstants#MB}</li>
+     *                   <li>{@link MemoryConstants#GB}</li>
      *                   </ul>
-     * @return 字节数
+     * @return size of byte
      */
-    public static long memorySize2Byte(final long memorySize, @MemoryConstants.Unit final int unit) {
+    public static long memorySize2Byte(final long memorySize,
+                                       @MemoryConstants.Unit final int unit) {
         if (memorySize < 0) return -1;
         return memorySize * unit;
     }
 
     /**
-     * 字节数转以 unit 为单位的内存大小
+     * Size of byte to size of memory in unit.
      *
-     * @param byteNum 字节数
-     * @param unit    单位类型
-     *                <ul>
-     *                <li>{@link MemoryConstants#BYTE}: 字节</li>
-     *                <li>{@link MemoryConstants#KB}  : 千字节</li>
-     *                <li>{@link MemoryConstants#MB}  : 兆</li>
-     *                <li>{@link MemoryConstants#GB}  : GB</li>
-     *                </ul>
-     * @return 以 unit 为单位的 size
+     * @param byteSize Size of byte.
+     * @param unit     The unit of memory size.
+     *                 <ul>
+     *                 <li>{@link MemoryConstants#BYTE}</li>
+     *                 <li>{@link MemoryConstants#KB}</li>
+     *                 <li>{@link MemoryConstants#MB}</li>
+     *                 <li>{@link MemoryConstants#GB}</li>
+     *                 </ul>
+     * @return size of memory in unit
      */
-    public static double byte2MemorySize(final long byteNum, @MemoryConstants.Unit final int unit) {
-        if (byteNum < 0) return -1;
-        return (double) byteNum / unit;
+    public static double byte2MemorySize(final long byteSize,
+                                         @MemoryConstants.Unit final int unit) {
+        if (byteSize < 0) return -1;
+        return (double) byteSize / unit;
     }
 
     /**
-     * 字节数转合适内存大小
-     * <p>保留 3 位小数</p>
+     * Size of byte to fit size of memory.
+     * <p>to three decimal places</p>
      *
-     * @param byteNum 字节数
-     * @return 合适内存大小
+     * @param byteSize Size of byte.
+     * @return fit size of memory
      */
     @SuppressLint("DefaultLocale")
-    public static String byte2FitMemorySize(final long byteNum) {
-        if (byteNum < 0) {
+    public static String byte2FitMemorySize(final long byteSize) {
+        if (byteSize < 0) {
             return "shouldn't be less than zero!";
-        } else if (byteNum < MemoryConstants.KB) {
-            return String.format("%.3fB", (double) byteNum);
-        } else if (byteNum < MemoryConstants.MB) {
-            return String.format("%.3fKB", (double) byteNum / MemoryConstants.KB);
-        } else if (byteNum < MemoryConstants.GB) {
-            return String.format("%.3fMB", (double) byteNum / MemoryConstants.MB);
+        } else if (byteSize < MemoryConstants.KB) {
+            return String.format("%.3fB", (double) byteSize);
+        } else if (byteSize < MemoryConstants.MB) {
+            return String.format("%.3fKB", (double) byteSize / MemoryConstants.KB);
+        } else if (byteSize < MemoryConstants.GB) {
+            return String.format("%.3fMB", (double) byteSize / MemoryConstants.MB);
         } else {
-            return String.format("%.3fGB", (double) byteNum / MemoryConstants.GB);
+            return String.format("%.3fGB", (double) byteSize / MemoryConstants.GB);
         }
     }
 
@@ -193,11 +187,11 @@ public final class ConvertUtils {
      * @param timeSpan 毫秒时间戳
      * @param unit     单位类型
      *                 <ul>
-     *                 <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *                 <li>{@link TimeConstants#SEC }: 秒</li>
-     *                 <li>{@link TimeConstants#MIN }: 分</li>
-     *                 <li>{@link TimeConstants#HOUR}: 小时</li>
-     *                 <li>{@link TimeConstants#DAY }: 天</li>
+     *                 <li>{@link TimeConstants#MSEC}</li>
+     *                 <li>{@link TimeConstants#SEC }</li>
+     *                 <li>{@link TimeConstants#MIN }</li>
+     *                 <li>{@link TimeConstants#HOUR}</li>
+     *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
      * @return 毫秒时间戳
      */
@@ -211,11 +205,11 @@ public final class ConvertUtils {
      * @param millis 毫秒时间戳
      * @param unit   单位类型
      *               <ul>
-     *               <li>{@link TimeConstants#MSEC}: 毫秒</li>
-     *               <li>{@link TimeConstants#SEC }: 秒</li>
-     *               <li>{@link TimeConstants#MIN }: 分</li>
-     *               <li>{@link TimeConstants#HOUR}: 小时</li>
-     *               <li>{@link TimeConstants#DAY }: 天</li>
+     *               <li>{@link TimeConstants#MSEC}</li>
+     *               <li>{@link TimeConstants#SEC }</li>
+     *               <li>{@link TimeConstants#MIN }</li>
+     *               <li>{@link TimeConstants#HOUR}</li>
+     *               <li>{@link TimeConstants#DAY }</li>
      *               </ul>
      * @return 以 unit 为单位的时间长度
      */
@@ -610,12 +604,6 @@ public final class ConvertUtils {
         return (int) (pxValue / fontScale + 0.5f);
     }
 
-    /**
-     * 判断字符串是否为 null 或全为空白字符
-     *
-     * @param s 待校验字符串
-     * @return {@code true}: null 或全空白字符<br> {@code false}: 不为 null 且不全空白字符
-     */
     private static boolean isSpace(final String s) {
         if (s == null) return true;
         for (int i = 0, len = s.length(); i < len; ++i) {

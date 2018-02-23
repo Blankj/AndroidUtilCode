@@ -57,50 +57,50 @@ public final class CacheUtils {
     private CacheManager mCacheManager;
 
     /**
-     * Return the instance.
+     * Return the single {@link CacheUtils} instance.
      * <p>cache directory: /data/data/package/cache/cacheUtils</p>
      * <p>cache size: unlimited</p>
      * <p>cache count: unlimited</p>
      *
-     * @return {@link CacheUtils}
+     * @return the single {@link CacheUtils} instance.
      */
     public static CacheUtils getInstance() {
         return getInstance("", DEFAULT_MAX_SIZE, DEFAULT_MAX_COUNT);
     }
 
     /**
-     * Return the instance.
+     * Return the single {@link CacheUtils} instance.
      * <p>cache directory: /data/data/package/cache/cacheUtils</p>
      * <p>cache size: unlimited</p>
      * <p>cache count: unlimited</p>
      *
      * @param cacheName The name of cache.
-     * @return {@link CacheUtils}
+     * @return the single {@link CacheUtils} instance.
      */
     public static CacheUtils getInstance(final String cacheName) {
         return getInstance(cacheName, DEFAULT_MAX_SIZE, DEFAULT_MAX_COUNT);
     }
 
     /**
-     * Return the instance.
+     * Return the single {@link CacheUtils} instance.
      * <p>cache directory: /data/data/package/cache/cacheUtils</p>
      *
      * @param maxSize  The max size, in bytes, of cache.
      * @param maxCount The max count of cache.
-     * @return {@link CacheUtils}
+     * @return the single {@link CacheUtils} instance.
      */
     public static CacheUtils getInstance(final long maxSize, final int maxCount) {
         return getInstance("", maxSize, maxCount);
     }
 
     /**
-     * Return the instance.
+     * Return the single {@link CacheUtils} instance.
      * <p>cache directory: /data/data/package/cache/cacheName</p>
      *
      * @param cacheName The name of cache.
      * @param maxSize   The max size, in bytes, of cache.
      * @param maxCount  The max count of cache.
-     * @return {@link CacheUtils}
+     * @return the single {@link CacheUtils} instance.
      */
     public static CacheUtils getInstance(String cacheName, final long maxSize, final int maxCount) {
         if (isSpace(cacheName)) cacheName = "cacheUtils";
@@ -109,24 +109,24 @@ public final class CacheUtils {
     }
 
     /**
-     * Return the instance.
+     * Return the single {@link CacheUtils} instance.
      * <p>cache size: unlimited</p>
      * <p>cache count: unlimited</p>
      *
      * @param cacheDir The directory of cache.
-     * @return {@link CacheUtils}
+     * @return the single {@link CacheUtils} instance.
      */
     public static CacheUtils getInstance(@NonNull final File cacheDir) {
         return getInstance(cacheDir, DEFAULT_MAX_SIZE, DEFAULT_MAX_COUNT);
     }
 
     /**
-     * Return the instance.
+     * Return the single {@link CacheUtils} instance.
      *
      * @param cacheDir The directory of cache.
      * @param maxSize  The max size, in bytes, of cache.
      * @param maxCount The max count of cache.
-     * @return {@link CacheUtils}
+     * @return the single {@link CacheUtils} instance.
      */
     public static CacheUtils getInstance(@NonNull final File cacheDir,
                                          final long maxSize,
@@ -191,7 +191,7 @@ public final class CacheUtils {
      * Return the bytes in cache.
      *
      * @param key          The key of cache.
-     * @param defaultValue The default value if the cache does not exist.
+     * @param defaultValue The default value if the cache doesn't exist.
      * @return the bytes if cache exists or defaultValue otherwise
      */
     public byte[] getBytes(@NonNull final String key, final byte[] defaultValue) {
@@ -245,7 +245,7 @@ public final class CacheUtils {
      * Return the string in cache.
      *
      * @param key          The key of cache.
-     * @param defaultValue The default value if the cache does not exist.
+     * @param defaultValue The default value if the cache doesn't exist.
      * @return the string if cache exists or defaultValue otherwise
      */
     public String getString(@NonNull final String key, final String defaultValue) {
@@ -295,7 +295,7 @@ public final class CacheUtils {
      * Return the JSONObject in cache.
      *
      * @param key          The key of cache.
-     * @param defaultValue The default value if the cache does not exist.
+     * @param defaultValue The default value if the cache doesn't exist.
      * @return the JSONObject if cache exists or defaultValue otherwise
      */
     public JSONObject getJSONObject(@NonNull final String key, final JSONObject defaultValue) {
@@ -344,7 +344,7 @@ public final class CacheUtils {
      * Return the JSONArray in cache.
      *
      * @param key          The key of cache.
-     * @param defaultValue The default value if the cache does not exist.
+     * @param defaultValue The default value if the cache doesn't exist.
      * @return the JSONArray if cache exists or defaultValue otherwise
      */
     public JSONArray getJSONArray(@NonNull final String key, final JSONArray defaultValue) {
@@ -393,7 +393,7 @@ public final class CacheUtils {
      * Return the bitmap in cache.
      *
      * @param key          The key of cache.
-     * @param defaultValue The default value if the cache does not exist.
+     * @param defaultValue The default value if the cache doesn't exist.
      * @return the bitmap if cache exists or defaultValue otherwise
      */
     public Bitmap getBitmap(@NonNull final String key, final Bitmap defaultValue) {
@@ -441,7 +441,7 @@ public final class CacheUtils {
      * Return the drawable in cache.
      *
      * @param key          The key of cache.
-     * @param defaultValue The default value if the cache does not exist.
+     * @param defaultValue The default value if the cache doesn't exist.
      * @return the drawable if cache exists or defaultValue otherwise
      */
     public Drawable getDrawable(@NonNull final String key, final Drawable defaultValue) {
@@ -494,7 +494,7 @@ public final class CacheUtils {
      *
      * @param key          The key of cache.
      * @param creator      The creator.
-     * @param defaultValue The default value if the cache does not exist.
+     * @param defaultValue The default value if the cache doesn't exist.
      * @return the parcelable if cache exists or defaultValue otherwise
      */
     public <T> T getParcelable(@NonNull final String key,
@@ -546,7 +546,7 @@ public final class CacheUtils {
      * Return the serializable in cache.
      *
      * @param key          The key of cache.
-     * @param defaultValue The default value if the cache does not exist.
+     * @param defaultValue The default value if the cache doesn't exist.
      * @return the bitmap if cache exists or defaultValue otherwise
      */
     public Object getSerializable(@NonNull final String key, final Object defaultValue) {
