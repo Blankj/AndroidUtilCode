@@ -51,15 +51,27 @@ public class AppActivity extends BaseBackActivity {
         findViewById(R.id.btn_uninstall_app_silent).setOnClickListener(this);
         findViewById(R.id.btn_launch_app).setOnClickListener(this);
         findViewById(R.id.btn_exit_app).setOnClickListener(this);
-        findViewById(R.id.btn_get_app_details_settings).setOnClickListener(this);
+        findViewById(R.id.btn_launch_app_details_settings).setOnClickListener(this);
         TextView tvAboutApp = findViewById(R.id.tv_about_app);
+//        "pkg name: " + getPackageName() +
+//                "\napp name: " + getName() +
+//                "\napp path: " + getPackagePath() +
+//                "\napp v name: " + getVersionName() +
+//                "\napp v code: " + getVersionCode() +
+//                "\nis system: " + isSystem();
         tvAboutApp.setText(new SpanUtils()
-                .append("app icon: ").appendImage(AppUtils.getAppIcon(), SpanUtils.ALIGN_CENTER).appendLine()
-                .appendLine(AppUtils.getAppInfo().toString())
                 .appendLine("isAppRoot: " + AppUtils.isAppRoot())
                 .appendLine("isAppDebug: " + AppUtils.isAppDebug())
-                .appendLine("AppSignatureSHA1: " + AppUtils.getAppSignatureSHA1())
-                .append("isAppForeground: " + AppUtils.isAppForeground())
+                .appendLine("isAppSystem: " + AppUtils.isAppSystem())
+                .appendLine("isAppForeground: " + AppUtils.isAppForeground())
+                .append("getAppIcon: ").appendImage(AppUtils.getAppIcon(), SpanUtils.ALIGN_CENTER)
+                .appendLine()
+                .appendLine("getAppPackageName: " + AppUtils.getAppPackageName())
+                .appendLine("getAppName: " + AppUtils.getAppName())
+                .appendLine("getAppPath: " + AppUtils.getAppPath())
+                .appendLine("getAppVersionName: " + AppUtils.getAppVersionName())
+                .appendLine("getAppVersionCode: " + AppUtils.getAppVersionCode())
+                .append("getAppSignatureSHA1: " + AppUtils.getAppSignatureSHA1())
                 .create());
     }
 
@@ -72,7 +84,7 @@ public class AppActivity extends BaseBackActivity {
     public void onWidgetClick(View view) {
         switch (view.getId()) {
             case R.id.btn_install_app:
-                if (AppUtils.isInstallApp(Config.TEST_PKG)) {
+                if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
                     ToastUtils.showShort(R.string.app_install_tips);
                 } else {
                     PermissionHelper.requestStorage(new PermissionHelper.OnPermissionGrantedListener() {
@@ -92,7 +104,7 @@ public class AppActivity extends BaseBackActivity {
                 }
                 break;
             case R.id.btn_install_app_silent:
-                if (AppUtils.isInstallApp(Config.TEST_PKG)) {
+                if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
                     ToastUtils.showShort(R.string.app_install_tips);
                 } else {
                     if (AppUtils.installAppSilent(Config.TEST_APK_PATH)) {
@@ -103,14 +115,14 @@ public class AppActivity extends BaseBackActivity {
                 }
                 break;
             case R.id.btn_uninstall_app:
-                if (AppUtils.isInstallApp(Config.TEST_PKG)) {
+                if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
                     AppUtils.uninstallApp(Config.TEST_PKG);
                 } else {
                     ToastUtils.showShort(R.string.app_uninstall_tips);
                 }
                 break;
             case R.id.btn_uninstall_app_silent:
-                if (AppUtils.isInstallApp(Config.TEST_PKG)) {
+                if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
                     if (AppUtils.uninstallAppSilent(Config.TEST_PKG, false)) {
                         ToastUtils.showShort(R.string.uninstall_successfully);
                     } else {
@@ -123,11 +135,11 @@ public class AppActivity extends BaseBackActivity {
             case R.id.btn_launch_app:
                 AppUtils.launchApp(this.getPackageName());
                 break;
+            case R.id.btn_launch_app_details_settings:
+                AppUtils.launchAppDetailsSettings();
+                break;
             case R.id.btn_exit_app:
                 AppUtils.exitApp();
-                break;
-            case R.id.btn_get_app_details_settings:
-                AppUtils.getAppDetailsSettings();
                 break;
         }
     }

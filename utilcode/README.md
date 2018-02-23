@@ -44,30 +44,26 @@ finishAllActivitiesExceptNewest
 
 * ### About App -> [AppUtils.java][app.java] -> [Demo][app.demo]
 ```
-isInstallApp
 installApp
 installAppSilent
 uninstallApp
 uninstallAppSilent
+isAppInstalled
 isAppRoot
+isAppDebug
+isAppSystem
+isAppForeground
 launchApp
+launchAppDetailsSettings
 exitApp
-getAppPackageName
-getAppDetailsSettings
-getAppName
 getAppIcon
+getAppPackageName
+getAppName
 getAppPath
 getAppVersionName
 getAppVersionCode
-isSystemApp
-isAppDebug
 getAppSignature
 getAppSignatureSHA1
-isAppForeground
-getForegroundApp
-getAppInfo
-getAppsInfo
-cleanAppData
 ```
 
 * ### About Bar -> [BarUtils.java][bar.java] -> [Demo][bar.demo]
@@ -319,7 +315,7 @@ compressBySampleSize
 getInstallAppIntent
 getUninstallAppIntent
 getLaunchAppIntent
-getAppDetailsSettingsIntent
+getLaunchAppDetailsSettingsIntent
 getShareTextIntent
 getShareImageIntent
 getComponentIntent

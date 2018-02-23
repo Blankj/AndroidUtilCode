@@ -93,11 +93,11 @@ public class ActivityActivity extends BaseBackActivity {
         findViewById(R.id.btn_finish_all_activities).setOnClickListener(this);
         TextView tvAboutActivity = findViewById(R.id.tv_about_activity);
         tvAboutActivity.setText(new SpanUtils()
-                .appendLine("Is SubActivityActivity Exists: " + ActivityUtils.isActivityExists(Config.PKG, SubActivityActivity.class.getName()))
+                .appendLine("isActivityExists: " + ActivityUtils.isActivityExists(Config.PKG, SubActivityActivity.class.getName()))
                 .appendLine("getLauncherActivity: " + ActivityUtils.getLauncherActivity(Config.PKG))
                 .appendLine("getTopActivity: " + ActivityUtils.getTopActivity())
                 .appendLine("getTopActivity: " + ActivityUtils.getTopActivity())
-                .appendLine("Is CoreUtilActivity Exists In Stack: " + ActivityUtils.isActivityExistsInStack(CoreUtilActivity.class))
+                .appendLine("isActivityExistsInStack: " + ActivityUtils.isActivityExistsInStack(CoreUtilActivity.class))
                 .append("getActivityIcon: ")
                 .appendImage(ActivityUtils.getActivityIcon(ActivityActivity.class), SpanUtils.ALIGN_CENTER)
                 .appendLine()

@@ -175,7 +175,7 @@ public final class ImageUtils {
     /**
      * 获取 bitmap
      *
-     * @param file 文件
+     * @param file The file.
      * @return bitmap
      */
     public static Bitmap getBitmap(final File file) {
@@ -186,7 +186,7 @@ public final class ImageUtils {
     /**
      * 获取 bitmap
      *
-     * @param file      文件
+     * @param file The file.
      * @param maxWidth  最大宽度
      * @param maxHeight 最大高度
      * @return bitmap
@@ -204,7 +204,7 @@ public final class ImageUtils {
     /**
      * 获取 bitmap
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @return bitmap
      */
     public static Bitmap getBitmap(final String filePath) {
@@ -215,7 +215,7 @@ public final class ImageUtils {
     /**
      * 获取 bitmap
      *
-     * @param filePath  文件路径
+     * @param filePath The path of file.
      * @param maxWidth  最大宽度
      * @param maxHeight 最大高度
      * @return bitmap
@@ -578,7 +578,7 @@ public final class ImageUtils {
      * 获取图片旋转角度
      * <p>返回 -1 表示异常</p>
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @return 旋转角度
      */
     public static int getRotateDegree(final String filePath) {
@@ -1406,7 +1406,7 @@ public final class ImageUtils {
      * 保存图片
      *
      * @param src      源图片
-     * @param filePath 要保存到的文件路径
+     * @param filePath The path of file.
      * @param format   格式
      * @return {@code true}: 成功<br>{@code false}: 失败
      */
@@ -1420,7 +1420,7 @@ public final class ImageUtils {
      * 保存图片
      *
      * @param src    源图片
-     * @param file   要保存到的文件
+     * @param file The file.
      * @param format 格式
      * @return {@code true}: 成功<br>{@code false}: 失败
      */
@@ -1432,7 +1432,7 @@ public final class ImageUtils {
      * 保存图片
      *
      * @param src      源图片
-     * @param filePath 要保存到的文件路径
+     * @param filePath The path of file.
      * @param format   格式
      * @param recycle  是否回收
      * @return {@code true}: 成功<br>{@code false}: 失败
@@ -1448,7 +1448,7 @@ public final class ImageUtils {
      * 保存图片
      *
      * @param src     源图片
-     * @param file    要保存到的文件
+     * @param file The file.
      * @param format  格式
      * @param recycle 是否回收
      * @return {@code true}: 成功<br>{@code false}: 失败
@@ -1475,7 +1475,7 @@ public final class ImageUtils {
     /**
      * 根据文件名判断文件是否为图片
      *
-     * @param file 　文件
+     * @param file The file.
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isImage(final File file) {
@@ -1485,7 +1485,7 @@ public final class ImageUtils {
     /**
      * 根据文件名判断文件是否为图片
      *
-     * @param filePath 　文件路径
+     * @param filePath The path of file.
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isImage(final String filePath) {
@@ -1498,7 +1498,7 @@ public final class ImageUtils {
     /**
      * 获取图片类型
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @return 图片类型
      */
     public static String getImageType(final String filePath) {
@@ -1508,7 +1508,7 @@ public final class ImageUtils {
     /**
      * 获取图片类型
      *
-     * @param file 文件
+     * @param file The file.
      * @return 图片类型
      */
     public static String getImageType(final File file) {

@@ -35,7 +35,7 @@ public final class KeyboardUtils {
     /**
      * 动态显示软键盘
      *
-     * @param activity activity
+     * @param activity The activity.
      */
     public static void showSoftInput(final Activity activity) {
         InputMethodManager imm =
@@ -64,7 +64,7 @@ public final class KeyboardUtils {
     /**
      * 动态隐藏软键盘
      *
-     * @param activity activity
+     * @param activity The activity.
      */
     public static void hideSoftInput(final Activity activity) {
         InputMethodManager imm =
@@ -101,7 +101,7 @@ public final class KeyboardUtils {
      * 判断软键盘是否可见
      * <p>默认软键盘最小高度为 200</p>
      *
-     * @param activity activity
+     * @param activity The activity.
      * @return {@code true}: 可见<br>{@code false}: 不可见
      */
     public static boolean isSoftInputVisible(final Activity activity) {
@@ -111,7 +111,7 @@ public final class KeyboardUtils {
     /**
      * 判断软键盘是否可见
      *
-     * @param activity             activity
+     * @param activity The activity.
      * @param minHeightOfSoftInput 软键盘最小高度
      * @return {@code true}: 可见<br>{@code false}: 不可见
      */
@@ -130,7 +130,7 @@ public final class KeyboardUtils {
     /**
      * 注册软键盘改变监听器
      *
-     * @param activity activity
+     * @param activity The activity.
      * @param listener listener
      */
     public static void registerSoftInputChangedListener(final Activity activity,

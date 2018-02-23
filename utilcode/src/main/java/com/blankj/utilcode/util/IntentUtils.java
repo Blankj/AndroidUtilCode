@@ -29,7 +29,7 @@ public final class IntentUtils {
      * <p>8.0 需添加权限
      * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
      *
-     * @param filePath  文件路径
+     * @param filePath The path of file.
      * @param authority 7.0 及以上安装需要传入清单文件中的{@code <provider>}的 authorities 属性
      *                  <br>参看 https://developer.android.com/reference/android/support/v4/content/FileProvider.html
      * @return 安装 App（支持 8.0）的意图
@@ -43,7 +43,7 @@ public final class IntentUtils {
      * <p>8.0 需添加权限
      * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
      *
-     * @param file      文件
+     * @param file The file.
      * @param authority 7.0 及以上安装需要传入清单文件中的{@code <provider>}的 authorities 属性
      *                  <br>参看 https://developer.android.com/reference/android/support/v4/content/FileProvider.html
      * @return 安装 App(支持 8.0)的意图
@@ -57,7 +57,7 @@ public final class IntentUtils {
      * <p>8.0 需添加权限
      * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
      *
-     * @param file      文件
+     * @param file The file.
      * @param authority 7.0 及以上安装需要传入清单文件中的{@code <provider>}的 authorities 属性
      *                  <br>参看 https://developer.android.com/reference/android/support/v4/content/FileProvider.html
      * @param isNewTask 是否开启新的任务栈
@@ -83,7 +83,7 @@ public final class IntentUtils {
     /**
      * 获取卸载 App 的意图
      *
-     * @param packageName 包名
+     * @param packageName The name of the package.
      * @return 卸载 App 的意图
      */
     public static Intent getUninstallAppIntent(final String packageName) {
@@ -93,7 +93,7 @@ public final class IntentUtils {
     /**
      * 获取卸载 App 的意图
      *
-     * @param packageName 包名
+     * @param packageName The name of the package.
      * @param isNewTask   是否开启新的任务栈
      * @return 卸载 App 的意图
      */
@@ -106,7 +106,7 @@ public final class IntentUtils {
     /**
      * 获取打开 App 的意图
      *
-     * @param packageName 包名
+     * @param packageName The name of the package.
      * @return 打开 App 的意图
      */
     public static Intent getLaunchAppIntent(final String packageName) {
@@ -116,7 +116,7 @@ public final class IntentUtils {
     /**
      * 获取打开 App 的意图
      *
-     * @param packageName 包名
+     * @param packageName The name of the package.
      * @param isNewTask   是否开启新的任务栈
      * @return 打开 App 的意图
      */
@@ -129,22 +129,22 @@ public final class IntentUtils {
     /**
      * 获取 App 具体设置的意图
      *
-     * @param packageName 包名
+     * @param packageName The name of the package.
      * @return App 具体设置的意图
      */
-    public static Intent getAppDetailsSettingsIntent(final String packageName) {
-        return getAppDetailsSettingsIntent(packageName, false);
+    public static Intent getLaunchAppDetailsSettingsIntent(final String packageName) {
+        return getLaunchAppDetailsSettingsIntent(packageName, false);
     }
 
     /**
      * 获取 App 具体设置的意图
      *
-     * @param packageName 包名
+     * @param packageName The name of the package.
      * @param isNewTask   是否开启新的任务栈
      * @return App 具体设置的意图
      */
-    public static Intent getAppDetailsSettingsIntent(final String packageName,
-                                                     final boolean isNewTask) {
+    public static Intent getLaunchAppDetailsSettingsIntent(final String packageName,
+                                                           final boolean isNewTask) {
         Intent intent = new Intent("android.settings.APPLICATION_DETAILS_SETTINGS");
         intent.setData(Uri.parse("package:" + packageName));
         return getIntent(intent, isNewTask);
@@ -259,7 +259,7 @@ public final class IntentUtils {
     /**
      * 获取其他应用组件的意图
      *
-     * @param packageName 包名
+     * @param packageName The name of the package.
      * @param className   全类名
      * @return 其他应用组件的意图
      */
@@ -270,7 +270,7 @@ public final class IntentUtils {
     /**
      * 获取其他应用组件的意图
      *
-     * @param packageName 包名
+     * @param packageName The name of the package.
      * @param className   全类名
      * @param isNewTask   是否开启新的任务栈
      * @return 其他应用组件的意图
@@ -284,7 +284,7 @@ public final class IntentUtils {
     /**
      * 获取其他应用组件的意图
      *
-     * @param packageName 包名
+     * @param packageName The name of the package.
      * @param className   全类名
      * @param bundle      bundle
      * @return 其他应用组件的意图
@@ -298,7 +298,7 @@ public final class IntentUtils {
     /**
      * 获取其他应用组件的意图
      *
-     * @param packageName 包名
+     * @param packageName The name of the package.
      * @param className   全类名
      * @param bundle      bundle
      * @param isNewTask   是否开启新的任务栈

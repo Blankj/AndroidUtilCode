@@ -89,7 +89,7 @@ public final class ScreenUtils {
     /**
      * 设置屏幕为全屏
      *
-     * @param activity activity
+     * @param activity The activity.
      */
     public static void setFullScreen(@NonNull final Activity activity) {
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN
@@ -107,7 +107,7 @@ public final class ScreenUtils {
      * （4.0 以上必须带最后一个参数）时
      * 切屏不会重新调用各个生命周期，只会执行 onConfigurationChanged 方法</p>
      *
-     * @param activity activity
+     * @param activity The activity.
      */
     public static void setLandscape(@NonNull final Activity activity) {
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -116,7 +116,7 @@ public final class ScreenUtils {
     /**
      * 设置屏幕为竖屏
      *
-     * @param activity activity
+     * @param activity The activity.
      */
     public static void setPortrait(@NonNull final Activity activity) {
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -145,7 +145,7 @@ public final class ScreenUtils {
     /**
      * 获取屏幕旋转角度
      *
-     * @param activity activity
+     * @param activity The activity.
      * @return 屏幕旋转角度
      */
     public static int getScreenRotation(@NonNull final Activity activity) {
@@ -166,7 +166,7 @@ public final class ScreenUtils {
     /**
      * 截屏
      *
-     * @param activity activity
+     * @param activity The activity.
      * @return Bitmap
      */
     public static Bitmap screenShot(@NonNull final Activity activity) {
@@ -176,7 +176,7 @@ public final class ScreenUtils {
     /**
      * 截屏
      *
-     * @param activity activity
+     * @param activity The activity.
      * @return Bitmap
      */
     public static Bitmap screenShot(@NonNull final Activity activity, boolean isDeleteStatusBar) {

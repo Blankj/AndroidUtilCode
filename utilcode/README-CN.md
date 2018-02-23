@@ -44,30 +44,26 @@ finishAllActivitiesExceptNewest: 结束除最新之外的所有 Activity
 
 * ### App 相关 -> [AppUtils.java][app.java] -> [Demo][app.demo]
 ```
-isInstallApp         : 判断 App 是否安装
-installApp           : 安装 App（支持 8.0）
-installAppSilent     : 静默安装 App
-uninstallApp         : 卸载 App
-uninstallAppSilent   : 静默卸载 App
-isAppRoot            : 判断 App 是否有 root 权限
-launchApp            : 打开 App
-exitApp              : 关闭应用
-getAppPackageName    : 获取 App 包名
-getAppDetailsSettings: 获取 App 具体设置
-getAppName           : 获取 App 名称
-getAppIcon           : 获取 App 图标
-getAppPath           : 获取 App 路径
-getAppVersionName    : 获取 App 版本号
-getAppVersionCode    : 获取 App 版本码
-isSystemApp          : 判断 App 是否是系统应用
-isAppDebug           : 判断 App 是否是 Debug 版本
-getAppSignature      : 获取 App 签名
-getAppSignatureSHA1  : 获取应用签名的的 SHA1 值
-isAppForeground      : 判断 App 是否处于前台
-getForegroundApp     : 获取前台应用包名
-getAppInfo           : 获取 App 信息
-getAppsInfo          : 获取所有已安装 App 信息
-cleanAppData         : 清除 App 所有数据
+installApp              : 安装 App（支持 8.0）
+installAppSilent        : 静默安装 App
+uninstallApp            : 卸载 App
+uninstallAppSilent      : 静默卸载 App
+isAppInstalled          : 判断 App 是否安装
+isAppRoot               : 判断 App 是否有 root 权限
+isAppDebug              : 判断 App 是否是 Debug 版本
+isAppSystem             : 判断 App 是否是系统应用
+isAppForeground         : 判断 App 是否处于前台
+launchApp               : 打开 App
+launchAppDetailsSettings: 打开 App 具体设置
+exitApp                 : 关闭应用
+getAppIcon              : 获取 App 图标
+getAppPackageName       : 获取 App 包名
+getAppName              : 获取 App 名称
+getAppPath              : 获取 App 路径
+getAppVersionName       : 获取 App 版本号
+getAppVersionCode       : 获取 App 版本码
+getAppSignature         : 获取 App 签名
+getAppSignatureSHA1     : 获取应用签名的的 SHA1 值
 ```
 
 * ### 栏相关 -> [BarUtils.java][bar.java] -> [Demo][bar.demo]
@@ -316,15 +312,15 @@ compressBySampleSize            : 按采样大小压缩
 
 * ### 意图相关 -> [IntentUtils.java][intent.java]
 ```
-getInstallAppIntent        : 获取安装 App（支持 6.0）的意图
-getUninstallAppIntent      : 获取卸载 App 的意图
-getLaunchAppIntent         : 获取打开 App 的意图
-getAppDetailsSettingsIntent: 获取 App 具体设置的意图
-getShareTextIntent         : 获取分享文本的意图
-getShareImageIntent        : 获取分享图片的意图
-getComponentIntent         : 获取其他应用组件的意图
-getShutdownIntent          : 获取关机的意图
-getCaptureIntent           : 获取拍照的意图
+getInstallAppIntent              : 获取安装 App（支持 6.0）的意图
+getUninstallAppIntent            : 获取卸载 App 的意图
+getLaunchAppIntent               : 获取打开 App 的意图
+getLaunchAppDetailsSettingsIntent: 获取 App 具体设置的意图
+getShareTextIntent               : 获取分享文本的意图
+getShareImageIntent              : 获取分享图片的意图
+getComponentIntent               : 获取其他应用组件的意图
+getShutdownIntent                : 获取关机的意图
+getCaptureIntent                 : 获取拍照的意图
 ```
 
 * ### 键盘相关 -> [KeyboardUtils.java][keyboard.java] -> [Demo][keyboard.demo]

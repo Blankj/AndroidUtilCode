@@ -60,7 +60,7 @@ public final class PermissionUtils {
     /**
      * 获取应用权限
      *
-     * @param packageName 包名
+     * @param packageName The name of the package.
      * @return 清单文件中的权限列表
      */
     public static List<String> getPermissions(final String packageName) {

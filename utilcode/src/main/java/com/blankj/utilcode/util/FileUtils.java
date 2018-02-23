@@ -36,7 +36,7 @@ public final class FileUtils {
     /**
      * 根据文件路径获取文件
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @return 文件
      */
     public static File getFileByPath(final String filePath) {
@@ -46,7 +46,7 @@ public final class FileUtils {
     /**
      * 判断文件是否存在
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @return {@code true}: 存在<br>{@code false}: 不存在
      */
     public static boolean isFileExists(final String filePath) {
@@ -56,7 +56,7 @@ public final class FileUtils {
     /**
      * 判断文件是否存在
      *
-     * @param file 文件
+     * @param file The file.
      * @return {@code true}: 存在<br>{@code false}: 不存在
      */
     public static boolean isFileExists(final File file) {
@@ -66,7 +66,7 @@ public final class FileUtils {
     /**
      * 重命名文件
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @param newName  新名称
      * @return {@code true}: 重命名成功<br>{@code false}: 重命名失败
      */
@@ -77,8 +77,8 @@ public final class FileUtils {
     /**
      * 重命名文件
      *
-     * @param file    文件
-     * @param newName 新名称
+     * @param file The file.
+     * @param newName The new name of file.
      * @return {@code true}: 重命名成功<br>{@code false}: 重命名失败
      */
     public static boolean rename(final File file, final String newName) {
@@ -109,7 +109,7 @@ public final class FileUtils {
     /**
      * 判断是否是目录
      *
-     * @param file 文件
+     * @param file The file.
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isDir(final File file) {
@@ -119,7 +119,7 @@ public final class FileUtils {
     /**
      * 判断是否是文件
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isFile(final String filePath) {
@@ -129,7 +129,7 @@ public final class FileUtils {
     /**
      * 判断是否是文件
      *
-     * @param file 文件
+     * @param file The file.
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isFile(final File file) {
@@ -149,7 +149,7 @@ public final class FileUtils {
     /**
      * 判断目录是否存在，不存在则判断是否创建成功
      *
-     * @param file 文件
+     * @param file The file.
      * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
      */
     public static boolean createOrExistsDir(final File file) {
@@ -160,7 +160,7 @@ public final class FileUtils {
     /**
      * 判断文件是否存在，不存在则判断是否创建成功
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
      */
     public static boolean createOrExistsFile(final String filePath) {
@@ -170,7 +170,7 @@ public final class FileUtils {
     /**
      * 判断文件是否存在，不存在则判断是否创建成功
      *
-     * @param file 文件
+     * @param file The file.
      * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
      */
     public static boolean createOrExistsFile(final File file) {
@@ -189,7 +189,7 @@ public final class FileUtils {
     /**
      * 判断文件是否存在，存在则在创建之前删除
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @return {@code true}: 创建成功<br>{@code false}: 创建失败
      */
     public static boolean createFileByDeleteOldFile(final String filePath) {
@@ -199,7 +199,7 @@ public final class FileUtils {
     /**
      * 判断文件是否存在，存在则在创建之前删除
      *
-     * @param file 文件
+     * @param file The file.
      * @return {@code true}: 创建成功<br>{@code false}: 创建失败
      */
     public static boolean createFileByDeleteOldFile(final File file) {
@@ -503,7 +503,7 @@ public final class FileUtils {
     /**
      * 删除文件
      *
-     * @param file 文件
+     * @param file The file.
      * @return {@code true}: 删除成功<br>{@code false}: 删除失败
      */
     public static boolean deleteFile(final File file) {
@@ -721,7 +721,7 @@ public final class FileUtils {
     /**
      * 获取文件最后修改的毫秒时间戳
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @return 文件最后修改的毫秒时间戳
      */
 
@@ -732,7 +732,7 @@ public final class FileUtils {
     /**
      * 获取文件最后修改的毫秒时间戳
      *
-     * @param file 文件
+     * @param file The file.
      * @return 文件最后修改的毫秒时间戳
      */
     public static long getFileLastModified(final File file) {
@@ -743,7 +743,7 @@ public final class FileUtils {
     /**
      * 简单获取文件编码格式
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @return 文件编码
      */
     public static String getFileCharsetSimple(final String filePath) {
@@ -753,7 +753,7 @@ public final class FileUtils {
     /**
      * 简单获取文件编码格式
      *
-     * @param file 文件
+     * @param file The file.
      * @return 文件编码
      */
     public static String getFileCharsetSimple(final File file) {
@@ -782,7 +782,7 @@ public final class FileUtils {
     /**
      * 获取文件行数
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @return 文件行数
      */
     public static int getFileLines(final String filePath) {
@@ -793,7 +793,7 @@ public final class FileUtils {
      * 获取文件行数
      * <p>比 readLine 要快很多</p>
      *
-     * @param file 文件
+     * @param file The file.
      * @return 文件行数
      */
     public static int getFileLines(final File file) {
@@ -848,7 +848,7 @@ public final class FileUtils {
     /**
      * 获取文件大小
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @return 文件大小
      */
     public static String getFileSize(final String filePath) {
@@ -859,7 +859,7 @@ public final class FileUtils {
     /**
      * 获取文件大小
      *
-     * @param file 文件
+     * @param file The file.
      * @return 文件大小
      */
     public static String getFileSize(final File file) {
@@ -902,7 +902,7 @@ public final class FileUtils {
     /**
      * 获取文件长度
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @return 文件长度
      */
     public static long getFileLength(final String filePath) {
@@ -926,7 +926,7 @@ public final class FileUtils {
     /**
      * 获取文件长度
      *
-     * @param file 文件
+     * @param file The file.
      * @return 文件长度
      */
     public static long getFileLength(final File file) {
@@ -937,7 +937,7 @@ public final class FileUtils {
     /**
      * 获取文件的 MD5 校验码
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @return 文件的 MD5 校验码
      */
     public static String getFileMD5ToString(final String filePath) {
@@ -948,7 +948,7 @@ public final class FileUtils {
     /**
      * 获取文件的 MD5 校验码
      *
-     * @param file 文件
+     * @param file The file.
      * @return 文件的 MD5 校验码
      */
     public static String getFileMD5ToString(final File file) {
@@ -958,7 +958,7 @@ public final class FileUtils {
     /**
      * 获取文件的 MD5 校验码
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @return 文件的 MD5 校验码
      */
     public static byte[] getFileMD5(final String filePath) {
@@ -968,7 +968,7 @@ public final class FileUtils {
     /**
      * 获取文件的 MD5 校验码
      *
-     * @param file 文件
+     * @param file The file.
      * @return 文件的 MD5 校验码
      */
     public static byte[] getFileMD5(final File file) {
@@ -995,7 +995,7 @@ public final class FileUtils {
     /**
      * 获取全路径中的最长目录
      *
-     * @param file 文件
+     * @param file The file.
      * @return filePath 最长目录
      */
     public static String getDirName(final File file) {
@@ -1006,7 +1006,7 @@ public final class FileUtils {
     /**
      * 获取全路径中的最长目录
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @return filePath 最长目录
      */
     public static String getDirName(final String filePath) {
@@ -1018,7 +1018,7 @@ public final class FileUtils {
     /**
      * 获取全路径中的文件名
      *
-     * @param file 文件
+     * @param file The file.
      * @return 文件名
      */
     public static String getFileName(final File file) {
@@ -1029,7 +1029,7 @@ public final class FileUtils {
     /**
      * 获取全路径中的文件名
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @return 文件名
      */
     public static String getFileName(final String filePath) {
@@ -1041,7 +1041,7 @@ public final class FileUtils {
     /**
      * 获取全路径中的不带拓展名的文件名
      *
-     * @param file 文件
+     * @param file The file.
      * @return 不带拓展名的文件名
      */
     public static String getFileNameNoExtension(final File file) {
@@ -1052,7 +1052,7 @@ public final class FileUtils {
     /**
      * 获取全路径中的不带拓展名的文件名
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @return 不带拓展名的文件名
      */
     public static String getFileNameNoExtension(final String filePath) {
@@ -1071,7 +1071,7 @@ public final class FileUtils {
     /**
      * 获取全路径中的文件拓展名
      *
-     * @param file 文件
+     * @param file The file.
      * @return 文件拓展名
      */
     public static String getFileExtension(final File file) {
@@ -1082,7 +1082,7 @@ public final class FileUtils {
     /**
      * 获取全路径中的文件拓展名
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @return 文件拓展名
      */
     public static String getFileExtension(final String filePath) {

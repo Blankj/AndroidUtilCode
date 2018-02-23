@@ -123,7 +123,7 @@ public final class EncryptUtils {
     /**
      * MD5 加密文件
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @return 文件的 16 进制密文
      */
     public static String encryptMD5File2String(final String filePath) {
@@ -134,7 +134,7 @@ public final class EncryptUtils {
     /**
      * MD5 加密文件
      *
-     * @param filePath 文件路径
+     * @param filePath The path of file.
      * @return 文件的 MD5 校验码
      */
     public static byte[] encryptMD5File(final String filePath) {
@@ -145,7 +145,7 @@ public final class EncryptUtils {
     /**
      * MD5 加密文件
      *
-     * @param file 文件
+     * @param file The file.
      * @return 文件的 16 进制密文
      */
     public static String encryptMD5File2String(final File file) {
@@ -155,7 +155,7 @@ public final class EncryptUtils {
     /**
      * MD5 加密文件
      *
-     * @param file 文件
+     * @param file The file.
      * @return 文件的 MD5 校验码
      */
     public static byte[] encryptMD5File(final File file) {
@@ -929,7 +929,7 @@ public final class EncryptUtils {
         }
     }
 
-    private static final char hexDigits[] =
+    private static final char HEX_DIGITS[] =
             {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     private static String bytes2HexString(final byte[] bytes) {
@@ -938,8 +938,8 @@ public final class EncryptUtils {
         if (len <= 0) return null;
         char[] ret = new char[len << 1];
         for (int i = 0, j = 0; i < len; i++) {
-            ret[j++] = hexDigits[bytes[i] >>> 4 & 0x0f];
-            ret[j++] = hexDigits[bytes[i] & 0x0f];
+            ret[j++] = HEX_DIGITS[bytes[i] >>> 4 & 0x0f];
+            ret[j++] = HEX_DIGITS[bytes[i] & 0x0f];
         }
         return new String(ret);
     }

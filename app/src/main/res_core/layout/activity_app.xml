@@ -49,17 +49,17 @@
         android:text="@string/app_launch" />
 
     <Button
+        android:id="@+id/btn_launch_app_details_settings"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_launch_details_settings" />
+
+    <Button
         android:id="@+id/btn_exit_app"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_exit" />
-
-    <Button
-        android:id="@+id/btn_get_app_details_settings"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/app_get_details_settings" />
 
 </LinearLayout>

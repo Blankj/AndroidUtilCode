@@ -166,7 +166,7 @@ public final class ProcessUtils {
      * <p>需添加权限
      * {@code <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />}</p>
      *
-     * @param packageName 包名
+     * @param packageName The name of the package.
      * @return {@code true}: 杀死成功<br>{@code false}: 杀死失败
      */
     @SuppressLint("MissingPermission")
