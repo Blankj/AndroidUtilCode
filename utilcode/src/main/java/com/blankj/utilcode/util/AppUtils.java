@@ -72,7 +72,7 @@ public final class AppUtils {
      * @param authority   Target APIs greater than 23 must hold the authority of a
      *                    {@link android.support.v4.content.FileProvider} defined in a
      *                    {@code <provider>} element in your app's manifest.
-     * @param requestCode If >= 0, this code will be returned in
+     * @param requestCode If &gt= 0, this code will be returned in
      *                    onActivityResult() when the activity exits.
      */
     public static void installApp(final Activity activity,
@@ -92,7 +92,7 @@ public final class AppUtils {
      * @param authority   Target APIs greater than 23 must hold the authority of a
      *                    {@link android.support.v4.content.FileProvider} defined in a
      *                    {@code <provider>} element in your app's manifest.
-     * @param requestCode If >= 0, this code will be returned in
+     * @param requestCode If &gt= 0, this code will be returned in
      *                    onActivityResult() when the activity exits.
      */
     public static void installApp(final Activity activity,
@@ -156,7 +156,7 @@ public final class AppUtils {
      *
      * @param activity    The activity.
      * @param packageName The name of the package.
-     * @param requestCode If >= 0, this code will be returned in
+     * @param requestCode If &gt= 0, this code will be returned in
      *                    onActivityResult() when the activity exits.
      */
     public static void uninstallApp(final Activity activity,
@@ -346,7 +346,7 @@ public final class AppUtils {
      *
      * @param activity    The activity.
      * @param packageName The name of the package.
-     * @param requestCode If >= 0, this code will be returned in
+     * @param requestCode If &gt= 0, this code will be returned in
      *                    onActivityResult() when the activity exits.
      */
     public static void launchApp(final Activity activity,
