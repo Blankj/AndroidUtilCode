@@ -112,7 +112,7 @@ cleanInternalDbs
 cleanInternalDbByName
 cleanInternalSp
 cleanExternalCache
-cleanCustomCache
+cleanCustomDir
 ```
 
 * ### About Close -> [CloseUtils.java][close.java]
@@ -123,13 +123,13 @@ closeIOQuietly
 
 * ### About Convert -> [ConvertUtils.java][convert.java] -> [Test][convert.test]
 ```
+bytes2Bits, bits2Bytes
+bytes2Chars, chars2Bytes
 bytes2HexString, hexString2Bytes
-chars2Bytes, bytes2Chars
 memorySize2Byte, byte2MemorySize
 byte2FitMemorySize
 timeSpan2Millis, millis2TimeSpan
 millis2FitTimeSpan
-bytes2Bits, bits2Bytes
 input2OutputStream, output2InputStream
 inputStream2Bytes, bytes2InputStream
 outputStream2Bytes, bytes2OutputStream

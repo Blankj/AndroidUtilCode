@@ -19,7 +19,7 @@ import java.util.List;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/8/1
- *     desc  : Utils about device.
+ *     desc  : utils about device
  * </pre>
  */
 public final class DeviceUtils {

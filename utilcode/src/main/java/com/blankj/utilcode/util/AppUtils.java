@@ -24,7 +24,7 @@ import java.util.List;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/08/02
- *     desc  : Utils about app.
+ *     desc  : utils about app
  * </pre>
  */
 public final class AppUtils {

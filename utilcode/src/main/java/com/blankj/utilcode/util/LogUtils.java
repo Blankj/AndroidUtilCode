@@ -43,7 +43,7 @@ import javax.xml.transform.stream.StreamSource;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/21
- *     desc  : Log 相关工具类
+ *     desc  : utils about log
  * </pre>
  */
 public final class LogUtils {
@@ -444,10 +444,10 @@ public final class LogUtils {
             e.printStackTrace();
         }
         final String head = "************* Log Head ****************" +
-                "\nDevice Manufacturer: " + Build.MANUFACTURER +// 设备厂商
-                "\nDevice Model       : " + Build.MODEL +// 设备型号
-                "\nAndroid Version    : " + Build.VERSION.RELEASE +// 系统版本
-                "\nAndroid SDK        : " + Build.VERSION.SDK_INT +// SDK 版本
+                "\nDevice Manufacturer: " + Build.MANUFACTURER +
+                "\nDevice Model       : " + Build.MODEL +
+                "\nAndroid Version    : " + Build.VERSION.RELEASE +
+                "\nAndroid SDK        : " + Build.VERSION.SDK_INT +
                 "\nApp VersionName    : " + versionName +
                 "\nApp VersionCode    : " + versionCode +
                 "\n************* Log Head ****************\n\n";

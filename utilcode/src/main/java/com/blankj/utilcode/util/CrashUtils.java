@@ -23,7 +23,7 @@ import java.util.concurrent.Executors;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/27
- *     desc  : Utils about crash.
+ *     desc  : utils about crash
  * </pre>
  */
 public final class CrashUtils {

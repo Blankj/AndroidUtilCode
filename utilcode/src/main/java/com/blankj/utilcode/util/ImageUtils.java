@@ -62,7 +62,7 @@ public final class ImageUtils {
     }
 
     /**
-     * bitmap 转 byteArr
+     * bitmap 转 bytes
      *
      * @param bitmap bitmap 对象
      * @param format 格式
@@ -76,7 +76,7 @@ public final class ImageUtils {
     }
 
     /**
-     * byteArr 转 bitmap
+     * bytes 转 bitmap
      *
      * @param bytes 字节数组
      * @return bitmap
@@ -130,7 +130,7 @@ public final class ImageUtils {
     }
 
     /**
-     * drawable 转 byteArr
+     * drawable 转 bytes
      *
      * @param drawable drawable 对象
      * @param format   格式
@@ -141,7 +141,7 @@ public final class ImageUtils {
     }
 
     /**
-     * byteArr 转 drawable
+     * bytes 转 drawable
      *
      * @param bytes 字节数组
      * @return drawable

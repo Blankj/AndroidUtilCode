@@ -23,7 +23,7 @@ import java.util.List;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/23
- *     desc  : Utils about activity.
+ *     desc  : utils about activity
  * </pre>
  */
 public final class ActivityUtils {

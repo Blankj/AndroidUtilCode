@@ -9,7 +9,7 @@ import java.io.File;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/27
- *     desc  : Utils about clean.
+ *     desc  : utils about clean
  * </pre>
  */
 public final class CleanUtils {

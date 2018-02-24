@@ -405,13 +405,15 @@ public final class TimeUtils {
      *
      * @param time0     时间字符串 0
      * @param time1     时间字符串 1
-     * @param precision 精度
-     *                  <p>precision = 0，返回 null</p>
-     *                  <p>precision = 1，返回天</p>
-     *                  <p>precision = 2，返回天和小时</p>
-     *                  <p>precision = 3，返回天、小时和分钟</p>
-     *                  <p>precision = 4，返回天、小时、分钟和秒</p>
-     *                  <p>precision &gt;= 5，返回天、小时、分钟、秒和毫秒</p>
+     * @param precision The precision of time span.
+     *                  <ul>
+     *                  <li>precision = 0, return null</li>
+     *                  <li>precision = 1, return 天</li>
+     *                  <li>precision = 2, return 天, 小时</li>
+     *                  <li>precision = 3, return 天, 小时, 分钟</li>
+     *                  <li>precision = 4, return 天, 小时, 分钟, 秒</li>
+     *                  <li>precision &gt;= 5，return 天, 小时, 分钟, 秒, 毫秒</li>
+     *                  </ul>
      * @return 合适型两个时间差
      */
     public static String getFitTimeSpan(final String time0,
@@ -428,13 +430,15 @@ public final class TimeUtils {
      * @param time0     时间字符串 0
      * @param time1     时间字符串 1
      * @param format    时间格式
-     * @param precision 精度
-     *                  <p>precision = 0，返回 null</p>
-     *                  <p>precision = 1，返回天</p>
-     *                  <p>precision = 2，返回天和小时</p>
-     *                  <p>precision = 3，返回天、小时和分钟</p>
-     *                  <p>precision = 4，返回天、小时、分钟和秒</p>
-     *                  <p>precision &gt;= 5，返回天、小时、分钟、秒和毫秒</p>
+     * @param precision The precision of time span.
+     *                  <ul>
+     *                  <li>precision = 0, return null</li>
+     *                  <li>precision = 1, return 天</li>
+     *                  <li>precision = 2, return 天, 小时</li>
+     *                  <li>precision = 3, return 天, 小时, 分钟</li>
+     *                  <li>precision = 4, return 天, 小时, 分钟, 秒</li>
+     *                  <li>precision &gt;= 5，return 天, 小时, 分钟, 秒, 毫秒</li>
+     *                  </ul>
      * @return 合适型两个时间差
      */
     public static String getFitTimeSpan(final String time0,
@@ -450,13 +454,15 @@ public final class TimeUtils {
      *
      * @param date0     Date 类型时间 0
      * @param date1     Date 类型时间 1
-     * @param precision 精度
-     *                  <p>precision = 0，返回 null</p>
-     *                  <p>precision = 1，返回天</p>
-     *                  <p>precision = 2，返回天和小时</p>
-     *                  <p>precision = 3，返回天、小时和分钟</p>
-     *                  <p>precision = 4，返回天、小时、分钟和秒</p>
-     *                  <p>precision &gt;= 5，返回天、小时、分钟、秒和毫秒</p>
+     * @param precision The precision of time span.
+     *                  <ul>
+     *                  <li>precision = 0, return null</li>
+     *                  <li>precision = 1, return 天</li>
+     *                  <li>precision = 2, return 天, 小时</li>
+     *                  <li>precision = 3, return 天, 小时, 分钟</li>
+     *                  <li>precision = 4, return 天, 小时, 分钟, 秒</li>
+     *                  <li>precision &gt;= 5，return 天, 小时, 分钟, 秒, 毫秒</li>
+     *                  </ul>
      * @return 合适型两个时间差
      */
     public static String getFitTimeSpan(final Date date0, final Date date1, final int precision) {
@@ -468,13 +474,15 @@ public final class TimeUtils {
      *
      * @param millis0   毫秒时间戳 1
      * @param millis1   毫秒时间戳 2
-     * @param precision 精度
-     *                  <p>precision = 0，返回 null</p>
-     *                  <p>precision = 1，返回天</p>
-     *                  <p>precision = 2，返回天和小时</p>
-     *                  <p>precision = 3，返回天、小时和分钟</p>
-     *                  <p>precision = 4，返回天、小时、分钟和秒</p>
-     *                  <p>precision &gt;= 5，返回天、小时、分钟、秒和毫秒</p>
+     * @param precision The precision of time span.
+     *                  <ul>
+     *                  <li>precision = 0, return null</li>
+     *                  <li>precision = 1, return 天</li>
+     *                  <li>precision = 2, return 天, 小时</li>
+     *                  <li>precision = 3, return 天, 小时, 分钟</li>
+     *                  <li>precision = 4, return 天, 小时, 分钟, 秒</li>
+     *                  <li>precision &gt;= 5，return 天, 小时, 分钟, 秒, 毫秒</li>
+     *                  </ul>
      * @return 合适型两个时间差
      */
     public static String getFitTimeSpan(final long millis0,
@@ -604,7 +612,7 @@ public final class TimeUtils {
      * <p>time 格式为 yyyy-MM-dd HH:mm:ss</p>
      *
      * @param time      时间字符串
-     * @param precision 精度
+     * @param precision The precision of time span.
      *                  <ul>
      *                  <li>precision = 0，返回 null</li>
      *                  <li>precision = 1，返回天</li>
@@ -625,7 +633,7 @@ public final class TimeUtils {
      *
      * @param time      时间字符串
      * @param format    时间格式
-     * @param precision 精度
+     * @param precision The precision of time span.
      *                  <ul>
      *                  <li>precision = 0，返回 null</li>
      *                  <li>precision = 1，返回天</li>
@@ -646,7 +654,7 @@ public final class TimeUtils {
      * 获取合适型与当前时间的差
      *
      * @param date      Date 类型时间
-     * @param precision 精度
+     * @param precision The precision of time span.
      *                  <ul>
      *                  <li>precision = 0，返回 null</li>
      *                  <li>precision = 1，返回天</li>
@@ -665,7 +673,7 @@ public final class TimeUtils {
      * 获取合适型与当前时间的差
      *
      * @param millis    毫秒时间戳
-     * @param precision 精度
+     * @param precision The precision of time span.
      *                  <ul>
      *                  <li>precision = 0，返回 null</li>
      *                  <li>precision = 1，返回天</li>

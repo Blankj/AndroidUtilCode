@@ -28,7 +28,7 @@ import java.util.List;
  *         \__\/                       \__\/         \__\/         \__\/
  *     blog  : http://blankj.com
  *     time  : 16/12/08
- *     desc  : Utils about initialization.
+ *     desc  : utils about initialization
  * </pre>
  */
 public final class Utils {

@@ -26,7 +26,7 @@ import java.lang.reflect.Method;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/23
- *     desc  : Utils about bar.
+ *     desc  : utils about bar
  * </pre>
  */
 public final class BarUtils {
@@ -61,11 +61,23 @@ public final class BarUtils {
      * @param activity  The activity.
      * @param isVisible True to set status bar visible, false otherwise.
      */
-    public static void setStatusBarVisibility(final Activity activity, final boolean isVisible) {
+    public static void setStatusBarVisibility(@NonNull final Activity activity,
+                                              final boolean isVisible) {
+        setStatusBarVisibility(activity.getWindow(), isVisible);
+    }
+
+    /**
+     * Set the status bar's visibility.
+     *
+     * @param window    The window.
+     * @param isVisible True to set status bar visible, false otherwise.
+     */
+    public static void setStatusBarVisibility(@NonNull final Window window,
+                                              final boolean isVisible) {
         if (isVisible) {
-            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         } else {
-            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
     }
 
@@ -75,7 +87,7 @@ public final class BarUtils {
      * @param activity The activity.
      * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean isStatusBarVisible(final Activity activity) {
+    public static boolean isStatusBarVisible(@NonNull final Activity activity) {
         int flags = activity.getWindow().getAttributes().flags;
         return (flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) == 0;
     }
@@ -86,9 +98,20 @@ public final class BarUtils {
      * @param activity    The activity.
      * @param isLightMode True to set status bar light mode, false otherwise.
      */
-    public static void setStatusBarLightMode(final Activity activity, final boolean isLightMode) {
+    public static void setStatusBarLightMode(@NonNull final Activity activity,
+                                             final boolean isLightMode) {
+        setStatusBarLightMode(activity.getWindow(), isLightMode);
+    }
+
+    /**
+     * Set the status bar's light mode.
+     *
+     * @param window      The window.
+     * @param isLightMode True to set status bar light mode, false otherwise.
+     */
+    public static void setStatusBarLightMode(@NonNull final Window window,
+                                             final boolean isLightMode) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Window window = activity.getWindow();
             View decorView = window.getDecorView();
             if (decorView != null) {
                 int vis = decorView.getSystemUiVisibility();
@@ -539,12 +562,22 @@ public final class BarUtils {
      * @param activity  The activity.
      * @param isVisible True to set notification bar visible, false otherwise.
      */
-    public static void setNavBarVisibility(final Activity activity, boolean isVisible) {
+    public static void setNavBarVisibility(@NonNull final Activity activity, boolean isVisible) {
+        setNavBarVisibility(activity.getWindow(), isVisible);
+    }
+
+    /**
+     * Set the navigation bar's visibility.
+     *
+     * @param window    The window.
+     * @param isVisible True to set notification bar visible, false otherwise.
+     */
+    public static void setNavBarVisibility(@NonNull final Window window, boolean isVisible) {
         if (isVisible) {
-            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         } else {
-            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-            View decorView = activity.getWindow().getDecorView();
+            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            View decorView = window.getDecorView();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 int visibility = decorView.getSystemUiVisibility();
                 decorView.setSystemUiVisibility(visibility & ~View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
@@ -558,9 +591,19 @@ public final class BarUtils {
      * @param activity The activity.
      */
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    public static void setNavBarImmersive(final Activity activity) {
-        View decorView = activity.getWindow().getDecorView();
-        activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+    public static void setNavBarImmersive(@NonNull final Activity activity) {
+        setNavBarImmersive(activity.getWindow());
+    }
+
+    /**
+     * Set the navigation bar immersive.
+     *
+     * @param window The window.
+     */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public static void setNavBarImmersive(@NonNull final Window window) {
+        View decorView = window.getDecorView();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
@@ -573,11 +616,21 @@ public final class BarUtils {
      * @param activity The activity.
      * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean isNavBarVisible(final Activity activity) {
-        boolean isNoLimits = (activity.getWindow().getAttributes().flags
+    public static boolean isNavBarVisible(@NonNull final Activity activity) {
+        return isNavBarVisible(activity.getWindow());
+    }
+
+    /**
+     * Return whether the navigation bar visible.
+     *
+     * @param window The window.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isNavBarVisible(@NonNull final Window window) {
+        boolean isNoLimits = (window.getAttributes().flags
                 & WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS) != 0;
         if (isNoLimits) return false;
-        View decorView = activity.getWindow().getDecorView();
+        View decorView = window.getDecorView();
         int visibility = decorView.getSystemUiVisibility();
         return (visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
     }

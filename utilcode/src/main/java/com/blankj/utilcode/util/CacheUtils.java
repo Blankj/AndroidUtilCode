@@ -40,7 +40,7 @@ import java.util.concurrent.atomic.AtomicLong;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/05/24
- *     desc  : Utils about cache.
+ *     desc  : utils about cache
  * </pre>
  */
 public final class CacheUtils {

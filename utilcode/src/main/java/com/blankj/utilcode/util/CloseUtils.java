@@ -8,7 +8,7 @@ import java.io.IOException;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/09
- *     desc  : Utils about close.
+ *     desc  : utils about close
  * </pre>
  */
 public final class CloseUtils {
