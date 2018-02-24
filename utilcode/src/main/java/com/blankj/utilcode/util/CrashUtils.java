@@ -23,7 +23,7 @@ import java.util.concurrent.Executors;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/27
- *     desc  : 崩溃相关工具类
+ *     desc  : Utils about crash.
  * </pre>
  */
 public final class CrashUtils {
@@ -60,10 +60,10 @@ public final class CrashUtils {
         }
 
         CRASH_HEAD = "************* Crash Log Head ****************" +
-                "\nDevice Manufacturer: " + Build.MANUFACTURER +// 设备厂商
-                "\nDevice Model       : " + Build.MODEL +// 设备型号
-                "\nAndroid Version    : " + Build.VERSION.RELEASE +// 系统版本
-                "\nAndroid SDK        : " + Build.VERSION.SDK_INT +// SDK 版本
+                "\nDevice Manufacturer: " + Build.MANUFACTURER +
+                "\nDevice Model       : " + Build.MODEL +
+                "\nAndroid Version    : " + Build.VERSION.RELEASE +
+                "\nAndroid SDK        : " + Build.VERSION.SDK_INT +
                 "\nApp VersionName    : " + versionName +
                 "\nApp VersionCode    : " + versionCode +
                 "\n************* Crash Log Head ****************\n\n";
@@ -126,49 +126,49 @@ public final class CrashUtils {
     }
 
     /**
-     * 初始化
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
+     * Initialization.
+     * <p>Must hold {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      */
     public static void init() {
         init("");
     }
 
     /**
-     * 初始化
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
+     * Initialization
+     * <p>Must hold {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      *
-     * @param crashDir 崩溃文件存储目录
+     * @param crashDir The directory of saving crash information.
      */
     public static void init(@NonNull final File crashDir) {
         init(crashDir.getAbsolutePath(), null);
     }
 
     /**
-     * 初始化
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
+     * Initialization
+     * <p>Must hold {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      *
-     * @param crashDir 崩溃文件存储目录
+     * @param crashDirPath The directory's path of saving crash information.
      */
-    public static void init(final String crashDir) {
-        init(crashDir, null);
+    public static void init(final String crashDirPath) {
+        init(crashDirPath, null);
     }
 
     /**
-     * 初始化
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
+     * Initialization
+     * <p>Must hold {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      *
-     * @param onCrashListener 崩溃监听事件
+     * @param onCrashListener The crash listener.
      */
     public static void init(final OnCrashListener onCrashListener) {
         init("", onCrashListener);
     }
 
     /**
-     * 初始化
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
+     * Initialization
+     * <p>Must hold {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      *
-     * @param crashDir        崩溃文件存储目录
-     * @param onCrashListener 崩溃监听事件
+     * @param crashDir        The directory of saving crash information.
+     * @param onCrashListener The crash listener.
      */
     public static void init(@NonNull final File crashDir, final OnCrashListener onCrashListener) {
         init(crashDir.getAbsolutePath(), onCrashListener);
@@ -178,14 +178,14 @@ public final class CrashUtils {
      * 初始化
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      *
-     * @param crashDir        崩溃文件存储目录
-     * @param onCrashListener 崩溃监听事件
+     * @param crashDirPath    The directory's path of saving crash information.
+     * @param onCrashListener The crash listener.
      */
-    public static void init(final String crashDir, final OnCrashListener onCrashListener) {
-        if (isSpace(crashDir)) {
+    public static void init(final String crashDirPath, final OnCrashListener onCrashListener) {
+        if (isSpace(crashDirPath)) {
             dir = null;
         } else {
-            dir = crashDir.endsWith(FILE_SEP) ? crashDir : crashDir + FILE_SEP;
+            dir = crashDirPath.endsWith(FILE_SEP) ? crashDirPath : crashDirPath + FILE_SEP;
         }
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
                 && Utils.getApp().getExternalCacheDir() != null)
