@@ -62,7 +62,7 @@ public final class CacheUtils {
      * <p>cache size: unlimited</p>
      * <p>cache count: unlimited</p>
      *
-     * @return the single {@link CacheUtils} instance.
+     * @return the single {@link CacheUtils} instance
      */
     public static CacheUtils getInstance() {
         return getInstance("", DEFAULT_MAX_SIZE, DEFAULT_MAX_COUNT);
@@ -75,7 +75,7 @@ public final class CacheUtils {
      * <p>cache count: unlimited</p>
      *
      * @param cacheName The name of cache.
-     * @return the single {@link CacheUtils} instance.
+     * @return the single {@link CacheUtils} instance
      */
     public static CacheUtils getInstance(final String cacheName) {
         return getInstance(cacheName, DEFAULT_MAX_SIZE, DEFAULT_MAX_COUNT);
@@ -87,7 +87,7 @@ public final class CacheUtils {
      *
      * @param maxSize  The max size, in bytes, of cache.
      * @param maxCount The max count of cache.
-     * @return the single {@link CacheUtils} instance.
+     * @return the single {@link CacheUtils} instance
      */
     public static CacheUtils getInstance(final long maxSize, final int maxCount) {
         return getInstance("", maxSize, maxCount);
@@ -100,7 +100,7 @@ public final class CacheUtils {
      * @param cacheName The name of cache.
      * @param maxSize   The max size, in bytes, of cache.
      * @param maxCount  The max count of cache.
-     * @return the single {@link CacheUtils} instance.
+     * @return the single {@link CacheUtils} instance
      */
     public static CacheUtils getInstance(String cacheName, final long maxSize, final int maxCount) {
         if (isSpace(cacheName)) cacheName = "cacheUtils";
@@ -114,7 +114,7 @@ public final class CacheUtils {
      * <p>cache count: unlimited</p>
      *
      * @param cacheDir The directory of cache.
-     * @return the single {@link CacheUtils} instance.
+     * @return the single {@link CacheUtils} instance
      */
     public static CacheUtils getInstance(@NonNull final File cacheDir) {
         return getInstance(cacheDir, DEFAULT_MAX_SIZE, DEFAULT_MAX_COUNT);
@@ -126,7 +126,7 @@ public final class CacheUtils {
      * @param cacheDir The directory of cache.
      * @param maxSize  The max size, in bytes, of cache.
      * @param maxCount The max count of cache.
-     * @return the single {@link CacheUtils} instance.
+     * @return the single {@link CacheUtils} instance
      */
     public static CacheUtils getInstance(@NonNull final File cacheDir,
                                          final long maxSize,
@@ -558,7 +558,7 @@ public final class CacheUtils {
     /**
      * Return the size, in bytes, of cache.
      *
-     * @return the size, in bytes, of cache.
+     * @return the size, in bytes, of cache
      */
     public long getCacheSize() {
         return mCacheManager.getCacheSize();
@@ -567,7 +567,7 @@ public final class CacheUtils {
     /**
      * Return the count of cache.
      *
-     * @return the count of cache.
+     * @return the count of cache
      */
     public int getCacheCount() {
         return mCacheManager.getCacheCount();
@@ -710,7 +710,7 @@ public final class CacheUtils {
         /**
          * Remove the oldest files.
          *
-         * @return the size, in bytes, of oldest files.
+         * @return the size, in bytes, of oldest files
          */
         private long removeOldest() {
             if (lastUsageDates.isEmpty()) return 0;

@@ -57,7 +57,7 @@ public final class DeviceUtils {
     /**
      * Return version code of device's system.
      *
-     * @return version code of device's system.
+     * @return version code of device's system
      */
     public static int getSDKVersionCode() {
         return android.os.Build.VERSION.SDK_INT;
@@ -154,7 +154,7 @@ public final class DeviceUtils {
      * Return the manufacturer of the product/hardware.
      * <p>e.g. Xiaomi</p>
      *
-     * @return the manufacturer of the product/hardware.
+     * @return the manufacturer of the product/hardware
      */
 
     public static String getManufacturer() {
