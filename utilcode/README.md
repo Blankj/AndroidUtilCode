@@ -64,6 +64,8 @@ getAppVersionName
 getAppVersionCode
 getAppSignature
 getAppSignatureSHA1
+getAppInfo
+getAppsInfo
 ```
 
 * ### About Bar -> [BarUtils.java][bar.java] -> [Demo][bar.demo]
@@ -170,7 +172,6 @@ urlDecode
 base64Encode
 base64Encode2String
 base64Decode
-base64UrlSafeEncode
 htmlEncode
 htmlDecode
 ```
