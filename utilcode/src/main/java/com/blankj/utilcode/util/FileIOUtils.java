@@ -568,7 +568,7 @@ public final class FileIOUtils {
      * Return the bytes in file by stream.
      *
      * @param filePath The path of file.
-     * @return the bytes in file by stream
+     * @return the bytes in file
      */
     public static byte[] readFile2BytesByStream(final String filePath) {
         return readFile2BytesByStream(getFileByPath(filePath));
@@ -578,7 +578,7 @@ public final class FileIOUtils {
      * Return the bytes in file by stream.
      *
      * @param file The file.
-     * @return the bytes in file by stream
+     * @return the bytes in file
      */
     public static byte[] readFile2BytesByStream(final File file) {
         if (!isFileExists(file)) return null;
@@ -605,7 +605,7 @@ public final class FileIOUtils {
      * Return the bytes in file by channel.
      *
      * @param filePath The path of file.
-     * @return the bytes in file by channel
+     * @return the bytes in file
      */
     public static byte[] readFile2BytesByChannel(final String filePath) {
         return readFile2BytesByChannel(getFileByPath(filePath));
@@ -615,7 +615,7 @@ public final class FileIOUtils {
      * Return the bytes in file by channel.
      *
      * @param file The file.
-     * @return the bytes in file by channel
+     * @return the bytes in file
      */
     public static byte[] readFile2BytesByChannel(final File file) {
         if (!isFileExists(file)) return null;
@@ -639,7 +639,7 @@ public final class FileIOUtils {
      * Return the bytes in file by map.
      *
      * @param filePath The path of file.
-     * @return the bytes in file by map
+     * @return the bytes in file
      */
     public static byte[] readFile2BytesByMap(final String filePath) {
         return readFile2BytesByMap(getFileByPath(filePath));
@@ -649,7 +649,7 @@ public final class FileIOUtils {
      * Return the bytes in file by map.
      *
      * @param file The file.
-     * @return the bytes in file by map
+     * @return the bytes in file
      */
     public static byte[] readFile2BytesByMap(final File file) {
         if (!isFileExists(file)) return null;
