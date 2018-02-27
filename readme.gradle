@@ -3,14 +3,16 @@ import groovy.transform.Field
 @Field LINE_SEP = System.getProperty("line.separator")
 @Field LONG_SPACE = "                                        "
 
-task readmeTask << {
-    def readmeCN = file("./utilcode/README-CN.md")
-    def readmeEng = file("./utilcode/README.md")
-    readmeOfUtilCode2Eng(readmeCN, readmeEng)
+task readmeTask {
+    doLast {
+        def readmeCN = file("./utilcode/README-CN.md")
+        def readmeEng = file("./utilcode/README.md")
+        readmeOfUtilCode2Eng(readmeCN, readmeEng)
 
-    readmeCN = file("./subutil/README-CN.md")
-    readmeEng = file("./subutil/README.md")
-    readmeOfSubUtil2Eng(readmeCN, readmeEng)
+        readmeCN = file("./subutil/README-CN.md")
+        readmeEng = file("./subutil/README.md")
+        readmeOfSubUtil2Eng(readmeCN, readmeEng)
+    }
 }
 
 def readmeOfUtilCode2Eng(File readmeCN, File readmeEng) {
