@@ -143,10 +143,10 @@ public final class FragmentUtils {
      *                     view of the fragment being removed or detached.
      * @param popEnterAnim An animation or animator resource ID used for the enter animation on the
      *                     view of the fragment being readded or reattached caused by
-     *                     {@link FragmentManager#popBackStack()} or similar methods.
+     *                     popBackStack() or similar methods.
      * @param popExitAnim  An animation or animator resource ID used for the enter animation on the
      *                     view of the fragment being removed or detached caused by
-     *                     {@link FragmentManager#popBackStack()} or similar methods.
+     *                     popBackStack() or similar methods.
      */
     public static void add(@NonNull final FragmentManager fm,
                            @NonNull final Fragment add,
@@ -171,10 +171,10 @@ public final class FragmentUtils {
      *                     view of the fragment being removed or detached.
      * @param popEnterAnim An animation or animator resource ID used for the enter animation on the
      *                     view of the fragment being readded or reattached caused by
-     *                     {@link FragmentManager#popBackStack()} or similar methods.
+     *                     popBackStack() or similar methods.
      * @param popExitAnim  An animation or animator resource ID used for the enter animation on the
      *                     view of the fragment being removed or detached caused by
-     *                     {@link FragmentManager#popBackStack()} or similar methods.
+     *                     popBackStack() or similar methods.
      */
     public static void add(@NonNull final FragmentManager fm,
                            @NonNull final Fragment add,
@@ -446,10 +446,10 @@ public final class FragmentUtils {
      *                     view of the fragment being removed or detached.
      * @param popEnterAnim An animation or animator resource ID used for the enter animation on the
      *                     view of the fragment being readded or reattached caused by
-     *                     {@link FragmentManager#popBackStack()} or similar methods.
+     *                     popBackStack() or similar methods.
      * @param popExitAnim  An animation or animator resource ID used for the enter animation on the
      *                     view of the fragment being removed or detached caused by
-     *                     {@link FragmentManager#popBackStack()} or similar methods.
+     *                     popBackStack() or similar methods.
      */
     public static void replace(@NonNull final Fragment srcFragment,
                                @NonNull final Fragment destFragment,
@@ -472,10 +472,10 @@ public final class FragmentUtils {
      *                     view of the fragment being removed or detached.
      * @param popEnterAnim An animation or animator resource ID used for the enter animation on the
      *                     view of the fragment being readded or reattached caused by
-     *                     {@link FragmentManager#popBackStack()} or similar methods.
+     *                     popBackStack() or similar methods.
      * @param popExitAnim  An animation or animator resource ID used for the enter animation on the
      *                     view of the fragment being removed or detached caused by
-     *                     {@link FragmentManager#popBackStack()} or similar methods.
+     *                     popBackStack() or similar methods.
      */
     public static void replace(@NonNull final Fragment srcFragment,
                                @NonNull final Fragment destFragment,
@@ -607,10 +607,10 @@ public final class FragmentUtils {
      *                     view of the fragment being removed or detached.
      * @param popEnterAnim An animation or animator resource ID used for the enter animation on the
      *                     view of the fragment being readded or reattached caused by
-     *                     {@link FragmentManager#popBackStack()} or similar methods.
+     *                     popBackStack() or similar methods.
      * @param popExitAnim  An animation or animator resource ID used for the enter animation on the
      *                     view of the fragment being removed or detached caused by
-     *                     {@link FragmentManager#popBackStack()} or similar methods.
+     *                     popBackStack() or similar methods.
      */
     public static void replace(@NonNull final FragmentManager fm,
                                @NonNull final Fragment fragment,
@@ -635,10 +635,10 @@ public final class FragmentUtils {
      *                     view of the fragment being removed or detached.
      * @param popEnterAnim An animation or animator resource ID used for the enter animation on the
      *                     view of the fragment being readded or reattached caused by
-     *                     {@link FragmentManager#popBackStack()} or similar methods.
+     *                     popBackStack() or similar methods.
      * @param popExitAnim  An animation or animator resource ID used for the enter animation on the
      *                     view of the fragment being removed or detached caused by
-     *                     {@link FragmentManager#popBackStack()} or similar methods.
+     *                     popBackStack() or similar methods.
      */
     public static void replace(@NonNull final FragmentManager fm,
                                @NonNull final Fragment fragment,

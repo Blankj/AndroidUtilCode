@@ -791,7 +791,7 @@ public final class ActivityUtils {
      * Finish the activity.
      *
      * @param activity   The activity.
-     * @param isLoadAnim Whether use animation for the outgoing activity.
+     * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
      */
     public static void finishActivity(@NonNull final Activity activity, final boolean isLoadAnim) {
         activity.finish();
@@ -829,7 +829,7 @@ public final class ActivityUtils {
      * Finish the activity.
      *
      * @param clz        The activity class.
-     * @param isLoadAnim Whether use animation for the outgoing activity.
+     * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
      */
     public static void finishActivity(@NonNull final Class<?> clz, final boolean isLoadAnim) {
         List<Activity> activities = Utils.sActivityList;
@@ -868,7 +868,7 @@ public final class ActivityUtils {
      * Finish to the activity.
      *
      * @param activity      The activity.
-     * @param isIncludeSelf Whether include the activity.
+     * @param isIncludeSelf True to include the activity, false otherwise.
      */
     public static boolean finishToActivity(@NonNull final Activity activity,
                                            final boolean isIncludeSelf) {
@@ -879,8 +879,8 @@ public final class ActivityUtils {
      * Finish to the activity.
      *
      * @param activity      The activity.
-     * @param isIncludeSelf Whether include the activity.
-     * @param isLoadAnim    Whether use animation for the outgoing activity.
+     * @param isIncludeSelf True to include the activity, false otherwise.
+     * @param isLoadAnim    True to use animation for the outgoing activity, false otherwise.
      */
     public static boolean finishToActivity(@NonNull final Activity activity,
                                            final boolean isIncludeSelf,
@@ -903,7 +903,7 @@ public final class ActivityUtils {
      * Finish to the activity.
      *
      * @param activity      The activity.
-     * @param isIncludeSelf Whether include the activity.
+     * @param isIncludeSelf True to include the activity, false otherwise.
      * @param enterAnim     A resource ID of the animation resource to use for the
      *                      incoming activity.
      * @param exitAnim      A resource ID of the animation resource to use for the
@@ -931,7 +931,7 @@ public final class ActivityUtils {
      * Finish to the activity.
      *
      * @param clz           The activity class.
-     * @param isIncludeSelf Whether include the activity.
+     * @param isIncludeSelf True to include the activity, false otherwise.
      */
     public static boolean finishToActivity(@NonNull final Class<?> clz,
                                            final boolean isIncludeSelf) {
@@ -942,8 +942,8 @@ public final class ActivityUtils {
      * Finish to the activity.
      *
      * @param clz           The activity class.
-     * @param isIncludeSelf Whether include the activity.
-     * @param isLoadAnim    Whether use animation for the outgoing activity.
+     * @param isIncludeSelf True to include the activity, false otherwise.
+     * @param isLoadAnim    True to use animation for the outgoing activity, false otherwise.
      */
     public static boolean finishToActivity(@NonNull final Class<?> clz,
                                            final boolean isIncludeSelf,
@@ -966,7 +966,7 @@ public final class ActivityUtils {
      * Finish to the activity.
      *
      * @param clz           The activity class.
-     * @param isIncludeSelf Whether include the activity.
+     * @param isIncludeSelf True to include the activity, false otherwise.
      * @param enterAnim     A resource ID of the animation resource to use for the
      *                      incoming activity.
      * @param exitAnim      A resource ID of the animation resource to use for the
@@ -1004,7 +1004,7 @@ public final class ActivityUtils {
      * Finish the activities whose type not equals the activity class.
      *
      * @param clz        The activity class.
-     * @param isLoadAnim Whether use animation for the outgoing activity.
+     * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
      */
     public static void finishOtherActivities(@NonNull final Class<?> clz,
                                              final boolean isLoadAnim) {
@@ -1048,7 +1048,7 @@ public final class ActivityUtils {
     /**
      * Finish all of activities.
      *
-     * @param isLoadAnim Whether use animation for the outgoing activity.
+     * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
      */
     public static void finishAllActivities(final boolean isLoadAnim) {
         List<Activity> activityList = Utils.sActivityList;
@@ -1091,7 +1091,7 @@ public final class ActivityUtils {
     /**
      * Finish all of activities except the newest activity.
      *
-     * @param isLoadAnim Whether use animation for the outgoing activity.
+     * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
      */
     public static void finishAllActivitiesExceptNewest(final boolean isLoadAnim) {
         List<Activity> activities = Utils.sActivityList;
