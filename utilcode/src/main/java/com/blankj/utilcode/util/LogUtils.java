@@ -86,19 +86,19 @@ public final class LogUtils {
     private static final Config CONFIG         = new Config();
 
     private static ExecutorService sExecutor;
-    private static String          sDefaultDir;// log 默认存储目录
-    private static String          sDir;       // log 存储目录
-    private static String  sFilePrefix        = "util";// log 文件前缀
-    private static boolean sLogSwitch         = true;  // log 总开关，默认开
-    private static boolean sLog2ConsoleSwitch = true;  // logcat 是否打印，默认打印
-    private static String  sGlobalTag         = null;  // log 标签
-    private static boolean sTagIsSpace        = true;  // log 标签是否为空白
-    private static boolean sLogHeadSwitch     = true;  // log 头部开关，默认开
-    private static boolean sLog2FileSwitch    = false; // log 写入文件开关，默认关
-    private static boolean sLogBorderSwitch   = true;  // log 边框开关，默认开
-    private static int     sConsoleFilter     = V;     // log 控制台过滤器
-    private static int     sFileFilter        = V;     // log 文件过滤器
-    private static int     sStackDeep         = 1;     // log 栈深度
+    private static String          sDefaultDir;// The default storage directory of log.
+    private static String          sDir;       // The storage directory of log.
+    private static String  sFilePrefix        = "util";// The file prefix of log.
+    private static boolean sLogSwitch         = true;  // The switch of log.
+    private static boolean sLog2ConsoleSwitch = true;  // The logcat's switch of log.
+    private static String  sGlobalTag         = null;  // The global tag of log.
+    private static boolean sTagIsSpace        = true;  // The global tag is space.
+    private static boolean sLogHeadSwitch     = true;  // The head's switch of log.
+    private static boolean sLog2FileSwitch    = false; // The file's switch of log.
+    private static boolean sLogBorderSwitch   = true;  // The border's switch of log.
+    private static int     sConsoleFilter     = V;     // The console's filter of log.
+    private static int     sFileFilter        = V;     // The file's filter of log.
+    private static int     sStackDeep         = 1;     // The stack's deep of log.
 
     private LogUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -226,7 +226,8 @@ public final class LogUtils {
             StackTraceElement targetElement = stackTrace[3];
             String fileName = targetElement.getFileName();
             String className;
-            // 混淆可能会导致获取为空 加-keepattributes SourceFile,LineNumberTable
+            // If name of file is null, should add
+            // "-keepattributes SourceFile,LineNumberTable" in proguard file.
             if (fileName == null) {
                 className = targetElement.getClassName();
                 String[] classNameInfo = className.split("\\.");
@@ -239,7 +240,7 @@ public final class LogUtils {
                 }
                 fileName = className + ".java";
             } else {
-                int index = fileName.indexOf('.');// 混淆可能导致文件名被改变从而找不到"."
+                int index = fileName.indexOf('.');// Use proguard may not find '.'.
                 className = index == -1 ? fileName : fileName.substring(0, index);
             }
             if (sTagIsSpace) tag = isSpace(tag) ? className : tag;
