@@ -56,7 +56,7 @@ public class DialogHelper {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        PermissionUtils.openAppSettings();
+                        PermissionUtils.launchAppDetailsSettings();
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
