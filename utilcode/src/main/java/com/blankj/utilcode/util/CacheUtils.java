@@ -85,7 +85,7 @@ public final class CacheUtils {
      * Return the single {@link CacheUtils} instance.
      * <p>cache directory: /data/data/package/cache/cacheUtils</p>
      *
-     * @param maxSize  The max size, in bytes, of cache.
+     * @param maxSize  The max size of cache, in bytes.
      * @param maxCount The max count of cache.
      * @return the single {@link CacheUtils} instance
      */
@@ -98,7 +98,7 @@ public final class CacheUtils {
      * <p>cache directory: /data/data/package/cache/cacheName</p>
      *
      * @param cacheName The name of cache.
-     * @param maxSize   The max size, in bytes, of cache.
+     * @param maxSize   The max size of cache, in bytes.
      * @param maxCount  The max count of cache.
      * @return the single {@link CacheUtils} instance
      */
@@ -124,7 +124,7 @@ public final class CacheUtils {
      * Return the single {@link CacheUtils} instance.
      *
      * @param cacheDir The directory of cache.
-     * @param maxSize  The max size, in bytes, of cache.
+     * @param maxSize  The max size of cache, in bytes.
      * @param maxCount The max count of cache.
      * @return the single {@link CacheUtils} instance
      */
@@ -166,7 +166,7 @@ public final class CacheUtils {
      *
      * @param key      The key of cache.
      * @param value    The value of cache.
-     * @param saveTime The save time, in seconds, of cache.
+     * @param saveTime The save time of cache, in seconds.
      */
     public void put(@NonNull final String key, @NonNull byte[] value, final int saveTime) {
         if (value.length <= 0) return;
@@ -225,7 +225,7 @@ public final class CacheUtils {
      *
      * @param key      The key of cache.
      * @param value    The value of cache.
-     * @param saveTime The save time, in seconds, of cache.
+     * @param saveTime The save time of cache, in seconds.
      */
     public void put(@NonNull final String key, @NonNull final String value, final int saveTime) {
         put(key, CacheHelper.string2Bytes(value), saveTime);
@@ -273,7 +273,7 @@ public final class CacheUtils {
      *
      * @param key      The key of cache.
      * @param value    The value of cache.
-     * @param saveTime The save time, in seconds, of cache.
+     * @param saveTime The save time of cache, in seconds.
      */
     public void put(@NonNull final String key,
                     @NonNull final JSONObject value,
@@ -324,7 +324,7 @@ public final class CacheUtils {
      *
      * @param key      The key of cache.
      * @param value    The value of cache.
-     * @param saveTime The save time, in seconds, of cache.
+     * @param saveTime The save time of cache, in seconds.
      */
     public void put(@NonNull final String key, @NonNull final JSONArray value, final int saveTime) {
         put(key, CacheHelper.jsonArray2Bytes(value), saveTime);
@@ -373,7 +373,7 @@ public final class CacheUtils {
      *
      * @param key      The key of cache.
      * @param value    The value of cache.
-     * @param saveTime The save time, in seconds, of cache.
+     * @param saveTime The save time of cache, in seconds.
      */
     public void put(@NonNull final String key, @NonNull final Bitmap value, final int saveTime) {
         put(key, CacheHelper.bitmap2Bytes(value), saveTime);
@@ -421,7 +421,7 @@ public final class CacheUtils {
      *
      * @param key      The key of cache.
      * @param value    The value of cache.
-     * @param saveTime The save time, in seconds, of cache.
+     * @param saveTime The save time of cache, in seconds.
      */
     public void put(@NonNull final String key, @NonNull final Drawable value, final int saveTime) {
         put(key, CacheHelper.drawable2Bytes(value), saveTime);
@@ -469,7 +469,7 @@ public final class CacheUtils {
      *
      * @param key      The key of cache.
      * @param value    The value of cache.
-     * @param saveTime The save time, in seconds, of cache.
+     * @param saveTime The save time of cache, in seconds.
      */
     public void put(@NonNull final String key,
                     @NonNull final Parcelable value,
@@ -526,7 +526,7 @@ public final class CacheUtils {
      *
      * @param key      The key of cache.
      * @param value    The value of cache.
-     * @param saveTime The save time, in seconds, of cache.
+     * @param saveTime The save time of cache, in seconds.
      */
     public void put(@NonNull final String key,
                     @NonNull final Serializable value,
@@ -558,9 +558,9 @@ public final class CacheUtils {
     }
 
     /**
-     * Return the size, in bytes, of cache.
+     * Return the size of cache, in bytes.
      *
-     * @return the size, in bytes, of cache
+     * @return the size of cache, in bytes
      */
     public long getCacheSize() {
         return mCacheManager.getCacheSize();
@@ -712,7 +712,7 @@ public final class CacheUtils {
         /**
          * Remove the oldest files.
          *
-         * @return the size, in bytes, of oldest files
+         * @return the size of oldest files, in bytes
          */
         private long removeOldest() {
             if (lastUsageDates.isEmpty()) return 0;

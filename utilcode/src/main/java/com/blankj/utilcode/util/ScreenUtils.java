@@ -11,17 +11,20 @@ import android.graphics.Point;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresPermission;
 import android.util.DisplayMetrics;
 import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
+
+import static android.Manifest.permission.WRITE_SETTINGS;
 
 /**
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/08/02
- *     desc  : 屏幕相关工具类
+ *     desc  : utils about screen
  * </pre>
  */
 public final class ScreenUtils {
@@ -31,9 +34,9 @@ public final class ScreenUtils {
     }
 
     /**
-     * 获取屏幕的宽度（单位：px）
+     * Return the width of screen, in pixel.
      *
-     * @return 屏幕宽
+     * @return the width of screen, in pixel
      */
     public static int getScreenWidth() {
         WindowManager wm = (WindowManager) Utils.getApp().getSystemService(Context.WINDOW_SERVICE);
@@ -50,9 +53,9 @@ public final class ScreenUtils {
     }
 
     /**
-     * 获取屏幕的高度（单位：px）
+     * Return the height of screen, in pixel.
      *
-     * @return 屏幕高
+     * @return the height of screen, in pixel
      */
     public static int getScreenHeight() {
         WindowManager wm = (WindowManager) Utils.getApp().getSystemService(Context.WINDOW_SERVICE);
@@ -69,25 +72,25 @@ public final class ScreenUtils {
     }
 
     /**
-     * 获取屏幕密度
+     * Return the density of screen.
      *
-     * @return 屏幕密度
+     * @return the density of screen
      */
     public static float getScreenDensity() {
         return Utils.getApp().getResources().getDisplayMetrics().density;
     }
 
     /**
-     * 获取屏幕密度 DPI
+     * Return the screen density expressed as dots-per-inch.
      *
-     * @return 屏幕密度 DPI
+     * @return the screen density expressed as dots-per-inch
      */
     public static int getScreenDensityDpi() {
         return Utils.getApp().getResources().getDisplayMetrics().densityDpi;
     }
 
     /**
-     * 设置屏幕为全屏
+     * Set full screen.
      *
      * @param activity The activity.
      */
@@ -97,15 +100,7 @@ public final class ScreenUtils {
     }
 
     /**
-     * 设置屏幕为横屏
-     * <p>还有一种就是在 Activity 中加属性 android:screenOrientation="landscape"</p>
-     * <p>不设置 Activity 的 android:configChanges 时，
-     * 切屏会重新调用各个生命周期，切横屏时会执行一次，切竖屏时会执行两次</p>
-     * <p>设置 Activity 的 android:configChanges="orientation"时，
-     * 切屏还是会重新调用各个生命周期，切横、竖屏时只会执行一次</p>
-     * <p>设置 Activity 的 android:configChanges="orientation|keyboardHidden|screenSize"
-     * （4.0 以上必须带最后一个参数）时
-     * 切屏不会重新调用各个生命周期，只会执行 onConfigurationChanged 方法</p>
+     * Set the screen to landscape.
      *
      * @param activity The activity.
      */
@@ -114,7 +109,7 @@ public final class ScreenUtils {
     }
 
     /**
-     * 设置屏幕为竖屏
+     * Set the screen to portrait.
      *
      * @param activity The activity.
      */
@@ -123,9 +118,9 @@ public final class ScreenUtils {
     }
 
     /**
-     * 判断是否横屏
+     * Return whether screen is landscape.
      *
-     * @return {@code true}: 是<br>{@code false}: 否
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isLandscape() {
         return Utils.getApp().getResources().getConfiguration().orientation
@@ -133,9 +128,9 @@ public final class ScreenUtils {
     }
 
     /**
-     * 判断是否竖屏
+     * Return whether screen is portrait.
      *
-     * @return {@code true}: 是<br>{@code false}: 否
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isPortrait() {
         return Utils.getApp().getResources().getConfiguration().orientation
@@ -143,10 +138,10 @@ public final class ScreenUtils {
     }
 
     /**
-     * 获取屏幕旋转角度
+     * Return the rotation of screen.
      *
      * @param activity The activity.
-     * @return 屏幕旋转角度
+     * @return the rotation of screen
      */
     public static int getScreenRotation(@NonNull final Activity activity) {
         switch (activity.getWindowManager().getDefaultDisplay().getRotation()) {
@@ -164,20 +159,21 @@ public final class ScreenUtils {
     }
 
     /**
-     * 截屏
+     * Return the bitmap of screen.
      *
      * @param activity The activity.
-     * @return Bitmap
+     * @return the bitmap of screen
      */
     public static Bitmap screenShot(@NonNull final Activity activity) {
         return screenShot(activity, false);
     }
 
     /**
-     * 截屏
+     * Return the bitmap of screen.
      *
-     * @param activity The activity.
-     * @return Bitmap
+     * @param activity          The activity.
+     * @param isDeleteStatusBar True to delete status bar, false otherwise.
+     * @return the bitmap of screen
      */
     public static Bitmap screenShot(@NonNull final Activity activity, boolean isDeleteStatusBar) {
         View decorView = activity.getWindow().getDecorView();
@@ -206,9 +202,9 @@ public final class ScreenUtils {
     }
 
     /**
-     * 判断是否锁屏
+     * Return whether screen is locked.
      *
-     * @return {@code true}: 是<br>{@code false}: 否
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isScreenLock() {
         KeyguardManager km =
@@ -217,11 +213,12 @@ public final class ScreenUtils {
     }
 
     /**
-     * 设置进入休眠时长
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_SETTINGS" />}</p>
+     * Set the duration of sleep.
+     * <p>Must hold {@code <uses-permission android:name="android.permission.WRITE_SETTINGS" />}</p>
      *
-     * @param duration 时长
+     * @param duration The duration.
      */
+    @RequiresPermission(WRITE_SETTINGS)
     public static void setSleepDuration(final int duration) {
         Settings.System.putInt(
                 Utils.getApp().getContentResolver(),
@@ -231,9 +228,9 @@ public final class ScreenUtils {
     }
 
     /**
-     * 获取进入休眠时长
+     * Return the duration of sleep.
      *
-     * @return 进入休眠时长，报错返回-123
+     * @return the duration of sleep.
      */
     public static int getSleepDuration() {
         try {
@@ -248,9 +245,9 @@ public final class ScreenUtils {
     }
 
     /**
-     * 判断是否是平板
+     * Return whether device is tablet.
      *
-     * @return {@code true}: 是<br>{@code false}: 否
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isTablet() {
         return (Utils.getApp().getResources().getConfiguration().screenLayout
