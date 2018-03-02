@@ -29,7 +29,7 @@ import static com.blankj.utilcode.constant.PermissionConstants.Permission;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/12/29
- *     desc  : 权限相关工具类
+ *     desc  : utils about permission
  * </pre>
  */
 public final class PermissionUtils {
@@ -49,19 +49,19 @@ public final class PermissionUtils {
     private List<String>        mPermissionsDeniedForever;
 
     /**
-     * 获取应用权限
+     * Return the permissions used in application.
      *
-     * @return 清单文件中的权限列表
+     * @return the permissions used in application
      */
     public static List<String> getPermissions() {
         return getPermissions(Utils.getApp().getPackageName());
     }
 
     /**
-     * 获取应用权限
+     * Return the permissions used in application.
      *
      * @param packageName The name of the package.
-     * @return 清单文件中的权限列表
+     * @return the permissions used in application
      */
     public static List<String> getPermissions(final String packageName) {
         PackageManager pm = Utils.getApp().getPackageManager();
@@ -77,10 +77,10 @@ public final class PermissionUtils {
     }
 
     /**
-     * 判断权限是否被授予
+     * Return whether <em>you</em> have been granted the permissions.
      *
-     * @param permissions 权限
-     * @return {@code true}: 是<br>{@code false}: 否
+     * @param permissions The permissions.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isGranted(final String... permissions) {
         for (String permission : permissions) {
@@ -98,19 +98,19 @@ public final class PermissionUtils {
     }
 
     /**
-     * 打开应用具体设置
+     * Launch the application's details settings.
      */
-    public static void openAppSettings() {
+    public static void launchAppDetailsSettings() {
         Intent intent = new Intent("android.settings.APPLICATION_DETAILS_SETTINGS");
         intent.setData(Uri.parse("package:" + Utils.getApp().getPackageName()));
         Utils.getApp().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     /**
-     * 设置请求权限
+     * Set the permissions.
      *
-     * @param permissions 要请求的权限
-     * @return {@link PermissionUtils}
+     * @param permissions The permissions.
+     * @return the single {@link PermissionUtils} instance
      */
     public static PermissionUtils permission(@Permission final String... permissions) {
         return new PermissionUtils(permissions);
@@ -129,10 +129,10 @@ public final class PermissionUtils {
     }
 
     /**
-     * 设置拒绝权限后再次请求的回调接口
+     * Set rationale listener.
      *
-     * @param listener 拒绝权限后再次请求的回调接口
-     * @return {@link PermissionUtils}
+     * @param listener The rationale listener.
+     * @return the single {@link PermissionUtils} instance
      */
     public PermissionUtils rationale(final OnRationaleListener listener) {
         mOnRationaleListener = listener;
@@ -140,10 +140,10 @@ public final class PermissionUtils {
     }
 
     /**
-     * 设置回调
+     * Set the simple call back.
      *
-     * @param callback 简单回调接口
-     * @return {@link PermissionUtils}
+     * @param callback the simple call back
+     * @return the single {@link PermissionUtils} instance
      */
     public PermissionUtils callback(final SimpleCallback callback) {
         mSimpleCallback = callback;
@@ -151,10 +151,10 @@ public final class PermissionUtils {
     }
 
     /**
-     * 设置回调
+     * Set the full call back.
      *
-     * @param callback 完整回调接口
-     * @return {@link PermissionUtils}
+     * @param callback the full call back
+     * @return the single {@link PermissionUtils} instance
      */
     public PermissionUtils callback(final FullCallback callback) {
         mFullCallback = callback;
@@ -162,10 +162,10 @@ public final class PermissionUtils {
     }
 
     /**
-     * 设置主题
+     * Set the theme callback.
      *
-     * @param callback 主题回调接口
-     * @return {@link PermissionUtils}
+     * @param callback The theme callback.
+     * @return the single {@link PermissionUtils} instance
      */
     public PermissionUtils theme(final ThemeCallback callback) {
         mThemeCallback = callback;
@@ -173,7 +173,7 @@ public final class PermissionUtils {
     }
 
     /**
-     * 开始请求
+     * Start request.
      */
     public void request() {
         mPermissionsGranted = new ArrayList<>();
