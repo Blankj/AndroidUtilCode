@@ -275,6 +275,7 @@ public final class PermissionUtils {
         requestCallback();
     }
 
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     public static class PermissionActivity extends Activity {
 
@@ -309,6 +310,7 @@ public final class PermissionUtils {
             finish();
         }
     }
+
 
     public interface OnRationaleListener {
 
