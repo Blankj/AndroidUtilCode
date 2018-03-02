@@ -1,6 +1,5 @@
 package com.blankj.utilcode.util;
 
-import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.AppOpsManager;
 import android.app.usage.UsageStats;
@@ -12,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresPermission;
 import android.util.Log;
 
 import java.util.Arrays;
@@ -20,12 +20,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static android.Manifest.permission.KILL_BACKGROUND_PROCESSES;
+
 /**
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/18
- *     desc  : 进程相关工具类
+ *     desc  : utils about process
  * </pre>
  */
 public final class ProcessUtils {
@@ -35,12 +37,11 @@ public final class ProcessUtils {
     }
 
     /**
-     * 获取前台线程包名
-     * <p>当不是查看当前 App，且 SDK 大于 21 时，
-     * 需添加权限
+     * Return the foreground process name.
+     * <p>Target APIs greater than 21 must hold
      * {@code <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />}</p>
      *
-     * @return 前台应用包名
+     * @return the foreground process name
      */
     public static String getForegroundProcessName() {
         ActivityManager manager =
@@ -112,12 +113,13 @@ public final class ProcessUtils {
     }
 
     /**
-     * 获取后台服务进程
-     * <p>需添加权限
+     * Return all background processes.
+     * <p>Must hold
      * {@code <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />}</p>
      *
-     * @return 后台服务进程
+     * @return all background processes
      */
+    @RequiresPermission(KILL_BACKGROUND_PROCESSES)
     public static Set<String> getAllBackgroundProcesses() {
         ActivityManager am =
                 (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
@@ -133,13 +135,13 @@ public final class ProcessUtils {
     }
 
     /**
-     * 杀死所有的后台服务进程
-     * <p>需添加权限
+     * Kill all background processes.
+     * <p>Must hold
      * {@code <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />}</p>
      *
-     * @return 被暂时杀死的服务集合
+     * @return background processes were killed
      */
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(KILL_BACKGROUND_PROCESSES)
     public static Set<String> killAllBackgroundProcesses() {
         ActivityManager am =
                 (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
@@ -162,14 +164,14 @@ public final class ProcessUtils {
     }
 
     /**
-     * 杀死后台服务进程
-     * <p>需添加权限
+     * Kill background processes.
+     * <p>Must hold
      * {@code <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />}</p>
      *
      * @param packageName The name of the package.
-     * @return {@code true}: 杀死成功<br>{@code false}: 杀死失败
+     * @return {@code true}: success<br>{@code false}: fail
      */
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(KILL_BACKGROUND_PROCESSES)
     public static boolean killBackgroundProcesses(@NonNull final String packageName) {
         ActivityManager am =
                 (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
