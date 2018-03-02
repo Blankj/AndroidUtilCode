@@ -17,7 +17,7 @@ import java.util.Map;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/12/24
- *     desc  : 对象相关工具类
+ *     desc  : utils about object
  * </pre>
  */
 public final class ObjectUtils {
@@ -27,10 +27,10 @@ public final class ObjectUtils {
     }
 
     /**
-     * 判断对象是否为空
+     * Return whether object is empty.
      *
-     * @param obj 对象
-     * @return {@code true}: 为空<br>{@code false}: 不为空
+     * @param obj The object.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isEmpty(final Object obj) {
         if (obj == null) {
@@ -78,35 +78,36 @@ public final class ObjectUtils {
     }
 
     /**
-     * 判断对象是否非空
+     * Return whether object is not empty.
      *
-     * @param obj 对象
-     * @return {@code true}: 非空<br>{@code false}: 空
+     * @param obj The object.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isNotEmpty(final Object obj) {
         return !isEmpty(obj);
     }
 
     /**
-     * 判断对象是否相等
+     * Return whether object1 is equals to object2.
      *
-     * @param o1 对象1
-     * @param o2 对象2
-     * @return {@code true}: 相等<br>{@code false}: 不相等
+     * @param o1 The first object.
+     * @param o2 The second object.
+     * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean equals(Object o1, Object o2) {
+    public static boolean equals(final Object o1, final Object o2) {
         return o1 == o2 || (o1 != null && o1.equals(o2));
     }
 
     /**
-     * 检查对象非空
+     * Require the object is not null.
      *
-     * @param object  对象
-     * @param message 报错
-     * @param <T>     范型
-     * @return 非空对象
+     * @param <T>     The value type.
+     * @param object  The object.
+     * @param message The message to use with the NullPointerException.
+     * @return the object
+     * @throws NullPointerException if object is null
      */
-    public static <T> T requireNonNull(T object, String message) {
+    public static <T> T requireNonNull(final T object, final String message) {
         if (object == null) {
             throw new NullPointerException(message);
         }
@@ -114,14 +115,14 @@ public final class ObjectUtils {
     }
 
     /**
-     * 获取非空或默认对象
+     * Return the nonnull object or default object.
      *
-     * @param object        对象
-     * @param defaultObject 默认值
-     * @param <T>           范型
-     * @return 非空或默认对象
+     * @param <T>           The value type.
+     * @param object        The object.
+     * @param defaultObject The default object to use with the object is null.
+     * @return the nonnull object or default object
      */
-    public static <T> T getOrDefault(T object, T defaultObject) {
+    public static <T> T getOrDefault(final T object, final T defaultObject) {
         if (object == null) {
             return defaultObject;
         }
@@ -129,12 +130,12 @@ public final class ObjectUtils {
     }
 
     /**
-     * 获取对象哈希值
+     * Return the hash code of object.
      *
-     * @param o 对象
-     * @return 哈希值
+     * @param o The object.
+     * @return the hash code of object
      */
-    public static int hashCode(Object o) {
+    public static int hashCode(final Object o) {
         return o != null ? o.hashCode() : 0;
     }
 }
