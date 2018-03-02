@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/08/02
- *     desc  : 正则相关工具类
+ *     desc  : utils about regex
  * </pre>
  */
 public final class RegexUtils {
@@ -26,133 +26,135 @@ public final class RegexUtils {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * 验证手机号（简单）
+     * Return whether input matches regex of simple mobile.
      *
-     * @param input 待验证文本
-     * @return {@code true}: 匹配<br>{@code false}: 不匹配
+     * @param input The input.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isMobileSimple(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_MOBILE_SIMPLE, input);
     }
 
     /**
-     * 验证手机号（精确）
+     * Return whether input matches regex of exact mobile.
      *
-     * @param input 待验证文本
-     * @return {@code true}: 匹配<br>{@code false}: 不匹配
+     * @param input The input.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isMobileExact(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_MOBILE_EXACT, input);
     }
 
     /**
-     * 验证电话号码
+     * Return whether input matches regex of telephone number.
      *
-     * @param input 待验证文本
-     * @return {@code true}: 匹配<br>{@code false}: 不匹配
+     * @param input The input.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isTel(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_TEL, input);
     }
 
     /**
-     * 验证身份证号码 15 位
+     * Return whether input matches regex of id card number which length is 15.
      *
-     * @param input 待验证文本
-     * @return {@code true}: 匹配<br>{@code false}: 不匹配
+     * @param input The input.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isIDCard15(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_ID_CARD15, input);
     }
 
     /**
-     * 验证身份证号码 18 位
+     * Return whether input matches regex of id card number which length is 18.
      *
-     * @param input 待验证文本
-     * @return {@code true}: 匹配<br>{@code false}: 不匹配
+     * @param input The input.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isIDCard18(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_ID_CARD18, input);
     }
 
     /**
-     * 验证邮箱
+     * Return whether input matches regex of email.
      *
-     * @param input 待验证文本
-     * @return {@code true}: 匹配<br>{@code false}: 不匹配
+     * @param input The input.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isEmail(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_EMAIL, input);
     }
 
     /**
-     * 验证 URL
+     * Return whether input matches regex of url.
      *
-     * @param input 待验证文本
-     * @return {@code true}: 匹配<br>{@code false}: 不匹配
+     * @param input The input.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isURL(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_URL, input);
     }
 
     /**
-     * 验证汉字
+     * Return whether input matches regex of Chinese character.
      *
-     * @param input 待验证文本
-     * @return {@code true}: 匹配<br>{@code false}: 不匹配
+     * @param input The input.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isZh(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_ZH, input);
     }
 
     /**
-     * 验证用户名
-     * <p>取值范围为 a-z,A-Z,0-9,"_",汉字，不能以"_"结尾,用户名必须是 6-20 位</p>
+     * Return whether input matches regex of username.
+     * <p>scope for "a-z", "A-Z", "0-9", "_", "Chinese character"</p>
+     * <p>can't end with "_"</p>
+     * <p>length is between 6 to 20</p>.
      *
-     * @param input 待验证文本
-     * @return {@code true}: 匹配<br>{@code false}: 不匹配
+     * @param input The input.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isUsername(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_USERNAME, input);
     }
 
     /**
-     * 验证 yyyy-MM-dd 格式的日期校验，已考虑平闰年
+     * Return whether input matches regex of date which pattern is "yyyy-MM-dd".
      *
-     * @param input 待验证文本
-     * @return {@code true}: 匹配<br>{@code false}: 不匹配
+     * @param input The input.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isDate(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_DATE, input);
     }
 
     /**
-     * 验证 IP 地址
+     * Return whether input matches regex of ip address.
      *
-     * @param input 待验证文本
-     * @return {@code true}: 匹配<br>{@code false}: 不匹配
+     * @param input The input.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isIP(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_IP, input);
     }
 
     /**
-     * 判断是否匹配正则
+     * Return whether input matches the regex.
      *
-     * @param regex 正则表达式
-     * @param input 要匹配的字符串
-     * @return {@code true}: 匹配<br>{@code false}: 不匹配
+     * @param regex The regex.
+     * @param input The input.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isMatch(final String regex, final CharSequence input) {
         return input != null && input.length() > 0 && Pattern.matches(regex, input);
     }
 
     /**
-     * 获取正则匹配的部分
+     * Return the list of input matches the regex.
      *
-     * @param regex 正则表达式
-     * @param input 要匹配的字符串
-     * @return 正则匹配的部分
+     * @param regex The regex.
+     * @param input The input.
+     * @return the list of input matches the regex
      */
     public static List<String> getMatches(final String regex, final CharSequence input) {
         if (input == null) return null;
@@ -166,11 +168,11 @@ public final class RegexUtils {
     }
 
     /**
-     * 获取正则匹配分组
+     * Splits input around matches of the regex.
      *
-     * @param input 要分组的字符串
-     * @param regex 正则表达式
-     * @return 正则匹配分组
+     * @param input The input.
+     * @param regex The regex.
+     * @return the array of strings computed by splitting input around matches of regex
      */
     public static String[] getSplits(final String input, final String regex) {
         if (input == null) return null;
@@ -178,12 +180,15 @@ public final class RegexUtils {
     }
 
     /**
-     * 替换正则匹配的第一部分
+     * Replace the first subsequence of the input sequence that matches the
+     * regex with the given replacement string.
      *
-     * @param input       要替换的字符串
-     * @param regex       正则表达式
-     * @param replacement 代替者
-     * @return 替换正则匹配的第一部分
+     * @param input       The input.
+     * @param regex       The regex.
+     * @param replacement The replacement string.
+     * @return the string constructed by replacing the first matching
+     * subsequence by the replacement string, substituting captured
+     * subsequences as needed
      */
     public static String getReplaceFirst(final String input,
                                          final String regex,
@@ -193,12 +198,15 @@ public final class RegexUtils {
     }
 
     /**
-     * 替换所有正则匹配的部分
+     * Replace every subsequence of the input sequence that matches the
+     * pattern with the given replacement string.
      *
-     * @param input       要替换的字符串
-     * @param regex       正则表达式
-     * @param replacement 代替者
-     * @return 替换所有正则匹配的部分
+     * @param input       The input.
+     * @param regex       The regex.
+     * @param replacement The replacement string.
+     * @return the string constructed by replacing each matching subsequence
+     * by the replacement string, substituting captured subsequences
+     * as needed
      */
     public static String getReplaceAll(final String input,
                                        final String regex,
