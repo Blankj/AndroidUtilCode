@@ -8,11 +8,15 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.support.annotation.RequiresPermission;
 
 import java.io.File;
 import java.net.NetworkInterface;
 import java.util.Collections;
 import java.util.List;
+
+import static android.Manifest.permission.ACCESS_WIFI_STATE;
+import static android.Manifest.permission.INTERNET;
 
 /**
  * <pre>
@@ -78,11 +82,13 @@ public final class DeviceUtils {
 
     /**
      * Return the MAC address.
-     * <p>Must hold {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />}</p>
-     * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
+     * <p>Must hold
+     * {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />},
+     * {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
      *
      * @return the MAC address
      */
+    @RequiresPermission(allOf = {ACCESS_WIFI_STATE, INTERNET})
     public static String getMacAddress() {
         String macAddress = getMacAddressByWifiInfo();
         if (!"02:00:00:00:00:00".equals(macAddress)) {

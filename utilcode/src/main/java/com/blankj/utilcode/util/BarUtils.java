@@ -10,6 +10,7 @@ import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresPermission;
 import android.support.v4.widget.DrawerLayout;
 import android.util.TypedValue;
 import android.view.View;
@@ -20,6 +21,8 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import java.lang.reflect.Method;
+
+import static android.Manifest.permission.EXPAND_STATUS_BAR;
 
 /**
  * <pre>
@@ -514,6 +517,7 @@ public final class BarUtils {
      *
      * @param isVisible True to set notification bar visible, false otherwise.
      */
+    @RequiresPermission(EXPAND_STATUS_BAR)
     public static void setNotificationBarVisibility(final boolean isVisible) {
         String methodName;
         if (isVisible) {

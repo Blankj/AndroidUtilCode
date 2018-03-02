@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
+import android.support.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
@@ -17,6 +18,11 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
+
+import static android.Manifest.permission.ACCESS_NETWORK_STATE;
+import static android.Manifest.permission.ACCESS_WIFI_STATE;
+import static android.Manifest.permission.INTERNET;
+import static android.Manifest.permission.MODIFY_PHONE_STATE;
 
 /**
  * <pre>
@@ -58,6 +64,7 @@ public final class NetworkUtils {
      *
      * @return {@code true}: connected<br>{@code false}: disconnected
      */
+    @RequiresPermission(ACCESS_NETWORK_STATE)
     public static boolean isConnected() {
         NetworkInfo info = getActiveNetworkInfo();
         return info != null && info.isConnected();
@@ -70,6 +77,7 @@ public final class NetworkUtils {
      *
      * @return {@code true}: yes<br>{@code false}: no
      */
+    @RequiresPermission(INTERNET)
     public static boolean isAvailableByPing() {
         return isAvailableByPing(null);
     }
@@ -81,6 +89,7 @@ public final class NetworkUtils {
      * @param ip The ip address.
      * @return {@code true}: yes<br>{@code false}: no
      */
+    @RequiresPermission(INTERNET)
     public static boolean isAvailableByPing(String ip) {
         if (ip == null || ip.length() <= 0) {
             ip = "223.5.5.5";// default ping ip
@@ -97,7 +106,7 @@ public final class NetworkUtils {
     }
 
     /**
-     * Return whether mobile data enabled.
+     * Return whether mobile data is enabled.
      *
      * @return {@code true}: enabled<br>{@code false}: disabled
      */
@@ -124,6 +133,7 @@ public final class NetworkUtils {
      *
      * @param enabled True to enabled, false otherwise.
      */
+    @RequiresPermission(MODIFY_PHONE_STATE)
     public static void setMobileDataEnabled(final boolean enabled) {
         try {
             TelephonyManager tm =
@@ -146,7 +156,7 @@ public final class NetworkUtils {
      *
      * @return {@code true}: yes<br>{@code false}: no
      */
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(ACCESS_NETWORK_STATE)
     public static boolean isMobileData() {
         NetworkInfo info = getActiveNetworkInfo();
         return null != info
@@ -161,6 +171,7 @@ public final class NetworkUtils {
      *
      * @return {@code true}: yes<br>{@code false}: no
      */
+    @RequiresPermission(ACCESS_NETWORK_STATE)
     public static boolean is4G() {
         NetworkInfo info = getActiveNetworkInfo();
         return info != null
@@ -169,12 +180,13 @@ public final class NetworkUtils {
     }
 
     /**
-     * Return whether wifi enabled.
+     * Return whether wifi is enabled.
      * <p>Must hold
      * {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />}</p>
      *
      * @return {@code true}: enabled<br>{@code false}: disabled
      */
+    @RequiresPermission(ACCESS_WIFI_STATE)
     public static boolean getWifiEnabled() {
         @SuppressLint("WifiManagerLeak")
         WifiManager manager = (WifiManager) Utils.getApp().getSystemService(Context.WIFI_SERVICE);
@@ -228,6 +240,7 @@ public final class NetworkUtils {
      *
      * @return {@code true}: available<br>{@code false}: unavailable
      */
+    @RequiresPermission(allOf = {ACCESS_WIFI_STATE, INTERNET})
     public static boolean isWifiAvailable() {
         return getWifiEnabled() && isAvailableByPing();
     }
@@ -262,6 +275,7 @@ public final class NetworkUtils {
      * <li>{@link NetworkUtils.NetworkType#NETWORK_NO     } </li>
      * </ul>
      */
+    @RequiresPermission(ACCESS_NETWORK_STATE)
     public static NetworkType getNetworkType() {
         NetworkType netType = NetworkType.NETWORK_NO;
         NetworkInfo info = getActiveNetworkInfo();
@@ -317,7 +331,7 @@ public final class NetworkUtils {
         return netType;
     }
 
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(ACCESS_NETWORK_STATE)
     private static NetworkInfo getActiveNetworkInfo() {
         ConnectivityManager manager =
                 (ConnectivityManager) Utils.getApp().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -332,6 +346,7 @@ public final class NetworkUtils {
      * @param useIPv4 True to use ipv4, false otherwise.
      * @return the ip address
      */
+    @RequiresPermission(INTERNET)
     public static String getIPAddress(final boolean useIPv4) {
         try {
             for (Enumeration<NetworkInterface> nis =
@@ -371,6 +386,7 @@ public final class NetworkUtils {
      * @param domain The name of domain.
      * @return the domain address
      */
+    @RequiresPermission(INTERNET)
     public static String getDomainAddress(final String domain) {
         InetAddress inetAddress;
         try {

@@ -6,9 +6,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.RequiresPermission;
 import android.support.v4.content.FileProvider;
 
 import java.io.File;
+
+import static android.Manifest.permission.CALL_PHONE;
 
 /**
  * <pre>
@@ -373,6 +376,7 @@ public final class IntentUtils {
      * @param phoneNumber The phone number.
      * @return the intent of call
      */
+    @RequiresPermission(CALL_PHONE)
     public static Intent getCallIntent(final String phoneNumber) {
         return getCallIntent(phoneNumber, false);
     }
@@ -385,6 +389,7 @@ public final class IntentUtils {
      * @param isNewTask   True to add flag of new task, false otherwise.
      * @return the intent of call
      */
+    @RequiresPermission(CALL_PHONE)
     public static Intent getCallIntent(final String phoneNumber, final boolean isNewTask) {
         Intent intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + phoneNumber));
         return getIntent(intent, isNewTask);
