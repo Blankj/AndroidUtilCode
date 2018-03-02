@@ -10,7 +10,7 @@ import java.util.List;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/08/07
- *     desc  : Shell 相关工具类
+ *     desc  : utils about shell
  * </pre>
  */
 public final class ShellUtils {
@@ -22,45 +22,45 @@ public final class ShellUtils {
     }
 
     /**
-     * 是否是在 root 下执行命令
+     * Execute the command.
      *
-     * @param command 命令
-     * @param isRoot  是否需要 root 权限执行
-     * @return CommandResult
+     * @param command The command.
+     * @param isRoot  True to use root, false otherwise.
+     * @return the single {@link CommandResult} instance
      */
     public static CommandResult execCmd(final String command, final boolean isRoot) {
         return execCmd(new String[]{command}, isRoot, true);
     }
 
     /**
-     * 是否是在 root 下执行命令
+     * Execute the command.
      *
-     * @param commands 多条命令链表
-     * @param isRoot   是否需要 root 权限执行
-     * @return CommandResult
+     * @param commands The commands.
+     * @param isRoot   True to use root, false otherwise.
+     * @return the single {@link CommandResult} instance
      */
     public static CommandResult execCmd(final List<String> commands, final boolean isRoot) {
         return execCmd(commands == null ? null : commands.toArray(new String[]{}), isRoot, true);
     }
 
     /**
-     * 是否是在 root 下执行命令
+     * Execute the command.
      *
-     * @param commands 多条命令数组
-     * @param isRoot   是否需要 root 权限执行
-     * @return CommandResult
+     * @param commands The commands.
+     * @param isRoot   True to use root, false otherwise.
+     * @return the single {@link CommandResult} instance
      */
     public static CommandResult execCmd(final String[] commands, final boolean isRoot) {
         return execCmd(commands, isRoot, true);
     }
 
     /**
-     * 是否是在 root 下执行命令
+     * Execute the command.
      *
-     * @param command         命令
-     * @param isRoot          是否需要 root 权限执行
-     * @param isNeedResultMsg 是否需要结果消息
-     * @return CommandResult
+     * @param command         The command.
+     * @param isRoot          True to use root, false otherwise.
+     * @param isNeedResultMsg True to return the message of result, false otherwise.
+     * @return the single {@link CommandResult} instance
      */
     public static CommandResult execCmd(final String command,
                                         final boolean isRoot,
@@ -69,12 +69,12 @@ public final class ShellUtils {
     }
 
     /**
-     * 是否是在 root 下执行命令
+     * Execute the command.
      *
-     * @param commands        命令链表
-     * @param isRoot          是否需要 root 权限执行
-     * @param isNeedResultMsg 是否需要结果消息
-     * @return CommandResult
+     * @param commands        The commands.
+     * @param isRoot          True to use root, false otherwise.
+     * @param isNeedResultMsg True to return the message of result, false otherwise.
+     * @return the single {@link CommandResult} instance
      */
     public static CommandResult execCmd(final List<String> commands,
                                         final boolean isRoot,
@@ -85,12 +85,12 @@ public final class ShellUtils {
     }
 
     /**
-     * 是否是在 root 下执行命令
+     * Execute the command.
      *
-     * @param commands        命令数组
-     * @param isRoot          是否需要 root 权限执行
-     * @param isNeedResultMsg 是否需要结果消息
-     * @return CommandResult
+     * @param commands        The commands.
+     * @param isRoot          True to use root, false otherwise.
+     * @param isNeedResultMsg True to return the message of result, false otherwise.
+     * @return the single {@link CommandResult} instance
      */
     public static CommandResult execCmd(final String[] commands,
                                         final boolean isRoot,
@@ -154,20 +154,11 @@ public final class ShellUtils {
     }
 
     /**
-     * 返回的命令结果
+     * The result of command.
      */
     public static class CommandResult {
-        /**
-         * 结果码
-         **/
         public int    result;
-        /**
-         * 成功信息
-         **/
         public String successMsg;
-        /**
-         * 错误信息
-         **/
         public String errorMsg;
 
         public CommandResult(final int result, final String successMsg, final String errorMsg) {
