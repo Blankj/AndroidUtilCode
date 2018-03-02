@@ -482,6 +482,7 @@ public final class CacheUtils {
      *
      * @param key     The key of cache.
      * @param creator The creator.
+     * @param <T>     The value type.
      * @return the parcelable if cache exists or null otherwise
      */
     public <T> T getParcelable(@NonNull final String key,
@@ -495,6 +496,7 @@ public final class CacheUtils {
      * @param key          The key of cache.
      * @param creator      The creator.
      * @param defaultValue The default value if the cache doesn't exist.
+     * @param <T>          The value type.
      * @return the parcelable if cache exists or defaultValue otherwise
      */
     public <T> T getParcelable(@NonNull final String key,

@@ -101,9 +101,9 @@ public final class ObjectUtils {
     /**
      * Require the object is not null.
      *
-     * @param <T>     The value type.
      * @param object  The object.
      * @param message The message to use with the NullPointerException.
+     * @param <T>     The value type.
      * @return the object
      * @throws NullPointerException if object is null
      */
@@ -117,9 +117,9 @@ public final class ObjectUtils {
     /**
      * Return the nonnull object or default object.
      *
-     * @param <T>           The value type.
      * @param object        The object.
      * @param defaultObject The default object to use with the object is null.
+     * @param <T>           The value type.
      * @return the nonnull object or default object
      */
     public static <T> T getOrDefault(final T object, final T defaultObject) {
