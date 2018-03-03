@@ -716,4 +716,30 @@ public final class FileIOUtils {
         }
         return true;
     }
+    
+    /**
+     * Convert the [InputStream] into a String.
+     *
+     * @param InputStream
+     * @return String 
+     */
+    public static String readFromStreamToString(InputStream inputStream) {
+        StringBuilder output = new StringBuilder();
+        if (inputStream != null) {
+            try {
+                InputStreamReader inputStreamReader = 
+                        new InputStreamReader(inputStream, Charset.forName("UTF-8"));
+                BufferedReader reader = new BufferedReader(inputStreamReader);
+                String  line = reader.readLine();
+                while (line != null) {
+                    java.lang.StringBuilder append = output.append(line);
+                            line = reader.readLine();
+                                    }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return output.toString();
+    }
+    
 }
