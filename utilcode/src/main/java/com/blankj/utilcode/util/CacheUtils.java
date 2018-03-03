@@ -211,7 +211,7 @@ public final class CacheUtils {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * Put string in cache.
+     * Put string value in cache.
      *
      * @param key   The key of cache.
      * @param value The value of cache.
@@ -221,7 +221,7 @@ public final class CacheUtils {
     }
 
     /**
-     * Put string in cache.
+     * Put string value in cache.
      *
      * @param key      The key of cache.
      * @param value    The value of cache.
@@ -232,21 +232,21 @@ public final class CacheUtils {
     }
 
     /**
-     * Return the string in cache.
+     * Return the string value in cache.
      *
      * @param key The key of cache.
-     * @return the string if cache exists or null otherwise
+     * @return the string value if cache exists or null otherwise
      */
     public String getString(@NonNull final String key) {
         return getString(key, null);
     }
 
     /**
-     * Return the string in cache.
+     * Return the string value in cache.
      *
      * @param key          The key of cache.
      * @param defaultValue The default value if the cache doesn't exist.
-     * @return the string if cache exists or defaultValue otherwise
+     * @return the string value if cache exists or defaultValue otherwise
      */
     public String getString(@NonNull final String key, final String defaultValue) {
         byte[] bytes = getBytes(key);
