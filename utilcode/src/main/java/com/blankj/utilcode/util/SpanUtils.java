@@ -61,7 +61,7 @@ import static android.graphics.BlurMaskFilter.Blur;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 16/12/13
- *     desc  : SpannableString 相关工具类
+ *     desc  : utils about span
  * </pre>
  */
 public final class SpanUtils {
@@ -179,15 +179,16 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置标识
+     * Set the span of flag.
      *
-     * @param flag <ul>
+     * @param flag The flag.
+     *             <ul>
      *             <li>{@link Spanned#SPAN_INCLUSIVE_EXCLUSIVE}</li>
      *             <li>{@link Spanned#SPAN_INCLUSIVE_INCLUSIVE}</li>
      *             <li>{@link Spanned#SPAN_EXCLUSIVE_EXCLUSIVE}</li>
      *             <li>{@link Spanned#SPAN_EXCLUSIVE_INCLUSIVE}</li>
      *             </ul>
-     * @return {@link SpanUtils}
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setFlag(final int flag) {
         this.flag = flag;
@@ -195,10 +196,10 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置前景色
+     * Set the span of foreground's color.
      *
-     * @param color 前景色
-     * @return {@link SpanUtils}
+     * @param color The color of foreground
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setForegroundColor(@ColorInt final int color) {
         this.foregroundColor = color;
@@ -206,10 +207,10 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置背景色
+     * Set the span of background's color.
      *
-     * @param color 背景色
-     * @return {@link SpanUtils}
+     * @param color The color of background
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setBackgroundColor(@ColorInt final int color) {
         this.backgroundColor = color;
@@ -217,28 +218,26 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置行高
-     * <p>当行高大于字体高度时，字体在行中的位置默认居中</p>
+     * Set the span of line height.
      *
-     * @param lineHeight 行高
-     * @return {@link SpanUtils}
+     * @param lineHeight The line height, in pixel.
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setLineHeight(@IntRange(from = 0) final int lineHeight) {
         return setLineHeight(lineHeight, ALIGN_CENTER);
     }
 
     /**
-     * 设置行高
-     * <p>当行高大于字体高度时，字体在行中的位置由{@code align}决定</p>
+     * Set the span of line height.
      *
-     * @param lineHeight 行高
-     * @param align      对齐
+     * @param lineHeight The line height, in pixel.
+     * @param align      The alignment.
      *                   <ul>
-     *                   <li>{@link Align#ALIGN_TOP}顶部对齐</li>
-     *                   <li>{@link Align#ALIGN_CENTER}居中对齐</li>
-     *                   <li>{@link Align#ALIGN_BOTTOM}底部对齐</li>
+     *                   <li>{@link Align#ALIGN_TOP   }</li>
+     *                   <li>{@link Align#ALIGN_CENTER}</li>
+     *                   <li>{@link Align#ALIGN_BOTTOM}</li>
      *                   </ul>
-     * @return {@link SpanUtils}
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setLineHeight(@IntRange(from = 0) final int lineHeight,
                                    @Align final int align) {
@@ -248,22 +247,22 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置引用线的颜色
+     * Set the span of quote's color.
      *
-     * @param color 引用线的颜色
-     * @return {@link SpanUtils}
+     * @param color The color of quote
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setQuoteColor(@ColorInt final int color) {
         return setQuoteColor(color, 2, 2);
     }
 
     /**
-     * 设置引用线的颜色
+     * Set the span of quote's color.
      *
-     * @param color       引用线的颜色
-     * @param stripeWidth 引用线线宽
-     * @param gapWidth    引用线和文字间距
-     * @return {@link SpanUtils}
+     * @param color       The color of quote.
+     * @param stripeWidth The width of stripe, in pixel.
+     * @param gapWidth    The width of gap, in pixel.
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setQuoteColor(@ColorInt final int color,
                                    @IntRange(from = 1) final int stripeWidth,
@@ -275,11 +274,11 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置缩进
+     * Set the span of leading margin.
      *
-     * @param first 首行缩进
-     * @param rest  剩余行缩进
-     * @return {@link SpanUtils}
+     * @param first The indent for the first line of the paragraph.
+     * @param rest  The indent for the remaining lines of the paragraph.
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setLeadingMargin(@IntRange(from = 0) final int first,
                                       @IntRange(from = 0) final int rest) {
@@ -289,22 +288,22 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置列表标记
+     * Set the span of bullet.
      *
-     * @param gapWidth 列表标记和文字间距离
-     * @return {@link SpanUtils}
+     * @param gapWidth The width of gap, in pixel.
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setBullet(@IntRange(from = 0) final int gapWidth) {
         return setBullet(0, 3, gapWidth);
     }
 
     /**
-     * 设置列表标记
+     * Set the span of bullet.
      *
-     * @param color    列表标记的颜色
-     * @param radius   列表标记颜色
-     * @param gapWidth 列表标记和文字间距离
-     * @return {@link SpanUtils}
+     * @param color    The color of bullet.
+     * @param radius   The radius of bullet, in pixel.
+     * @param gapWidth The width of gap, in pixel.
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setBullet(@ColorInt final int color,
                                @IntRange(from = 0) final int radius,
@@ -316,33 +315,33 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置字体尺寸
+     * Set the span of font's size.
      *
-     * @param size 尺寸
-     * @return {@link SpanUtils}
+     * @param size The size of font.
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setFontSize(@IntRange(from = 0) final int size) {
         return setFontSize(size, false);
     }
 
     /**
-     * 设置字体尺寸
+     * Set the span of size of font.
      *
-     * @param size 尺寸
-     * @param isDp 是否使用 dip
-     * @return {@link SpanUtils}
+     * @param size The size of font.
+     * @param isSp True to use sp, false to use pixel.
+     * @return the single {@link SpanUtils} instance
      */
-    public SpanUtils setFontSize(@IntRange(from = 0) final int size, final boolean isDp) {
+    public SpanUtils setFontSize(@IntRange(from = 0) final int size, final boolean isSp) {
         this.fontSize = size;
-        this.fontSizeIsDp = isDp;
+        this.fontSizeIsDp = isSp;
         return this;
     }
 
     /**
-     * 设置字体比例
+     * Set the span of proportion of font.
      *
-     * @param proportion 比例
-     * @return {@link SpanUtils}
+     * @param proportion The proportion of font.
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setFontProportion(final float proportion) {
         this.proportion = proportion;
@@ -350,10 +349,10 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置字体横向比例
+     * Set the span of transverse proportion of font.
      *
-     * @param proportion 比例
-     * @return {@link SpanUtils}
+     * @param proportion The transverse proportion of font.
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setFontXProportion(final float proportion) {
         this.xProportion = proportion;
@@ -361,9 +360,9 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置删除线
+     * Set the span of strikethrough.
      *
-     * @return {@link SpanUtils}
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setStrikethrough() {
         this.isStrikethrough = true;
@@ -371,9 +370,9 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置下划线
+     * Set the span of underline.
      *
-     * @return {@link SpanUtils}
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setUnderline() {
         this.isUnderline = true;
@@ -381,9 +380,9 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置上标
+     * Set the span of superscript.
      *
-     * @return {@link SpanUtils}
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setSuperscript() {
         this.isSuperscript = true;
@@ -391,9 +390,9 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置下标
+     * Set the span of subscript.
      *
-     * @return {@link SpanUtils}
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setSubscript() {
         this.isSubscript = true;
@@ -401,9 +400,9 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置粗体
+     * Set the span of bold.
      *
-     * @return {@link SpanUtils}
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setBold() {
         isBold = true;
@@ -411,9 +410,9 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置斜体
+     * Set the span of italic.
      *
-     * @return {@link SpanUtils}
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setItalic() {
         isItalic = true;
@@ -421,9 +420,9 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置粗斜体
+     * Set the span of bold italic.
      *
-     * @return {@link SpanUtils}
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setBoldItalic() {
         isBoldItalic = true;
@@ -431,15 +430,15 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置字体系列
+     * Set the span of font family.
      *
-     * @param fontFamily 字体系列
+     * @param fontFamily The font family.
      *                   <ul>
      *                   <li>monospace</li>
      *                   <li>serif</li>
      *                   <li>sans-serif</li>
      *                   </ul>
-     * @return {@link SpanUtils}
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setFontFamily(@NonNull final String fontFamily) {
         this.fontFamily = fontFamily;
@@ -447,10 +446,10 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置字体
+     * Set the span of typeface.
      *
-     * @param typeface 字体
-     * @return {@link SpanUtils}
+     * @param typeface The typeface.
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setTypeface(@NonNull final Typeface typeface) {
         this.typeface = typeface;
@@ -458,15 +457,15 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置对齐
+     * Set the span of alignment.
      *
-     * @param alignment 对其方式
+     * @param alignment The alignment.
      *                  <ul>
-     *                  <li>{@link Alignment#ALIGN_NORMAL}正常</li>
-     *                  <li>{@link Alignment#ALIGN_OPPOSITE}相反</li>
-     *                  <li>{@link Alignment#ALIGN_CENTER}居中</li>
+     *                  <li>{@link Alignment#ALIGN_NORMAL  }</li>
+     *                  <li>{@link Alignment#ALIGN_OPPOSITE}</li>
+     *                  <li>{@link Alignment#ALIGN_CENTER  }</li>
      *                  </ul>
-     * @return {@link SpanUtils}
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setAlign(@NonNull final Alignment alignment) {
         this.alignment = alignment;
@@ -474,11 +473,11 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置点击事件
-     * <p>需添加 view.setMovementMethod(LinkMovementMethod.getInstance())</p>
+     * Set the span of click.
+     * <p>Must set {@code view.setMovementMethod(LinkMovementMethod.getInstance())}</p>
      *
-     * @param clickSpan 点击事件
-     * @return {@link SpanUtils}
+     * @param clickSpan The span of click.
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setClickSpan(@NonNull final ClickableSpan clickSpan) {
         this.clickSpan = clickSpan;
@@ -486,11 +485,11 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置超链接
-     * <p>需添加 view.setMovementMethod(LinkMovementMethod.getInstance())</p>
+     * Set the span of url.
+     * <p>Must set {@code view.setMovementMethod(LinkMovementMethod.getInstance())}</p>
      *
-     * @param url 超链接
-     * @return {@link SpanUtils}
+     * @param url The url.
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setUrl(@NonNull final String url) {
         this.url = url;
@@ -498,18 +497,17 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置模糊
-     * <p>尚存 bug，其他地方存在相同的字体的话，相同字体出现在之前的话那么就不会模糊，出现在之后的话那会一起模糊</p>
-     * <p>以上 bug 关闭硬件加速即可</p>
+     * Set the span of blur.
      *
-     * @param radius 模糊半径（需大于 0）
-     * @param style  模糊样式<ul>
+     * @param radius The radius of blur.
+     * @param style  The style.
+     *               <ul>
      *               <li>{@link Blur#NORMAL}</li>
      *               <li>{@link Blur#SOLID}</li>
      *               <li>{@link Blur#OUTER}</li>
      *               <li>{@link Blur#INNER}</li>
      *               </ul>
-     * @return {@link SpanUtils}
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setBlur(@FloatRange(from = 0, fromInclusive = false) final float radius,
                              final Blur style) {
@@ -519,10 +517,10 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置着色器
+     * Set the span of shader.
      *
-     * @param shader 着色器
-     * @return {@link SpanUtils}
+     * @param shader The shader.
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setShader(@NonNull final Shader shader) {
         this.shader = shader;
@@ -530,13 +528,13 @@ public final class SpanUtils {
     }
 
     /**
-     * 设置阴影
+     * Set the span of shadow.
      *
-     * @param radius      阴影半径
-     * @param dx          x 轴偏移量
-     * @param dy          y 轴偏移量
-     * @param shadowColor 阴影颜色
-     * @return {@link SpanUtils}
+     * @param radius      The radius of shadow.
+     * @param dx          X-axis offset, in pixel.
+     * @param dy          Y-axis offset, in pixel.
+     * @param shadowColor The color of shadow.
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setShadow(@FloatRange(from = 0, fromInclusive = false) final float radius,
                                final float dx,
@@ -551,10 +549,10 @@ public final class SpanUtils {
 
 
     /**
-     * 设置样式
+     * Set the spans.
      *
-     * @param spans 样式
-     * @return {@link SpanUtils}
+     * @param spans The spans.
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setSpans(@NonNull final Object... spans) {
         if (spans.length > 0) {
@@ -564,10 +562,10 @@ public final class SpanUtils {
     }
 
     /**
-     * 追加样式字符串
+     * Append the text text.
      *
-     * @param text 样式字符串文本
-     * @return {@link SpanUtils}
+     * @param text The text.
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils append(@NonNull final CharSequence text) {
         apply(mTypeCharSequence);
@@ -576,9 +574,9 @@ public final class SpanUtils {
     }
 
     /**
-     * 追加一行
+     * Append one line.
      *
-     * @return {@link SpanUtils}
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils appendLine() {
         apply(mTypeCharSequence);
@@ -587,9 +585,9 @@ public final class SpanUtils {
     }
 
     /**
-     * 追加一行样式字符串
+     * Append text and one line.
      *
-     * @return {@link SpanUtils}
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils appendLine(@NonNull final CharSequence text) {
         apply(mTypeCharSequence);
@@ -598,27 +596,27 @@ public final class SpanUtils {
     }
 
     /**
-     * 追加图片
+     * Append one image.
      *
-     * @param bitmap 图片位图
-     * @return {@link SpanUtils}
+     * @param bitmap The bitmap of image.
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils appendImage(@NonNull final Bitmap bitmap) {
         return appendImage(bitmap, ALIGN_BOTTOM);
     }
 
     /**
-     * 追加图片
+     * Append one image.
      *
-     * @param bitmap 图片位图
-     * @param align  对齐
+     * @param bitmap The bitmap.
+     * @param align  The alignment.
      *               <ul>
-     *               <li>{@link Align#ALIGN_TOP}顶部对齐</li>
-     *               <li>{@link Align#ALIGN_CENTER}居中对齐</li>
-     *               <li>{@link Align#ALIGN_BASELINE}基线对齐</li>
-     *               <li>{@link Align#ALIGN_BOTTOM}底部对齐</li>
+     *               <li>{@link Align#ALIGN_TOP     }</li>
+     *               <li>{@link Align#ALIGN_CENTER  }</li>
+     *               <li>{@link Align#ALIGN_BASELINE}</li>
+     *               <li>{@link Align#ALIGN_BOTTOM  }</li>
      *               </ul>
-     * @return {@link SpanUtils}
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils appendImage(@NonNull final Bitmap bitmap, @Align final int align) {
         apply(mTypeImage);
@@ -628,27 +626,27 @@ public final class SpanUtils {
     }
 
     /**
-     * 追加图片
+     * Append one image.
      *
-     * @param drawable 图片资源
-     * @return {@link SpanUtils}
+     * @param drawable The drawable of image.
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils appendImage(@NonNull final Drawable drawable) {
         return appendImage(drawable, ALIGN_BOTTOM);
     }
 
     /**
-     * 追加图片
+     * Append one image.
      *
-     * @param drawable 图片资源
-     * @param align    对齐
+     * @param drawable The drawable of image.
+     * @param align    The alignment.
      *                 <ul>
-     *                 <li>{@link Align#ALIGN_TOP}顶部对齐</li>
-     *                 <li>{@link Align#ALIGN_CENTER}居中对齐</li>
-     *                 <li>{@link Align#ALIGN_BASELINE}基线对齐</li>
-     *                 <li>{@link Align#ALIGN_BOTTOM}底部对齐</li>
+     *                 <li>{@link Align#ALIGN_TOP     }</li>
+     *                 <li>{@link Align#ALIGN_CENTER  }</li>
+     *                 <li>{@link Align#ALIGN_BASELINE}</li>
+     *                 <li>{@link Align#ALIGN_BOTTOM  }</li>
      *                 </ul>
-     * @return {@link SpanUtils}
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils appendImage(@NonNull final Drawable drawable, @Align final int align) {
         apply(mTypeImage);
@@ -658,27 +656,27 @@ public final class SpanUtils {
     }
 
     /**
-     * 追加图片
+     * Append one image.
      *
-     * @param uri 图片 uri
-     * @return {@link SpanUtils}
+     * @param uri The uri of image.
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils appendImage(@NonNull final Uri uri) {
         return appendImage(uri, ALIGN_BOTTOM);
     }
 
     /**
-     * 追加图片
+     * Append one image.
      *
-     * @param uri   图片 uri
-     * @param align 对齐
+     * @param uri   The uri of image.
+     * @param align The alignment.
      *              <ul>
-     *              <li>{@link Align#ALIGN_TOP}顶部对齐</li>
-     *              <li>{@link Align#ALIGN_CENTER}居中对齐</li>
-     *              <li>{@link Align#ALIGN_BASELINE}基线对齐</li>
-     *              <li>{@link Align#ALIGN_BOTTOM}底部对齐</li>
+     *              <li>{@link Align#ALIGN_TOP     }</li>
+     *              <li>{@link Align#ALIGN_CENTER  }</li>
+     *              <li>{@link Align#ALIGN_BASELINE}</li>
+     *              <li>{@link Align#ALIGN_BOTTOM  }</li>
      *              </ul>
-     * @return {@link SpanUtils}
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils appendImage(@NonNull final Uri uri, @Align final int align) {
         apply(mTypeImage);
@@ -688,21 +686,27 @@ public final class SpanUtils {
     }
 
     /**
-     * 追加图片
+     * Append one image.
      *
-     * @param resourceId 图片资源 id
-     * @return {@link SpanUtils}
+     * @param resourceId The resource id of image.
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils appendImage(@DrawableRes final int resourceId) {
         return appendImage(resourceId, ALIGN_BOTTOM);
     }
 
     /**
-     * 追加图片
+     * Append one image.
      *
-     * @param resourceId 图片资源 id
-     * @param align      对齐
-     * @return {@link SpanUtils}
+     * @param resourceId The resource id of image.
+     * @param align      The alignment.
+     *                   <ul>
+     *                   <li>{@link Align#ALIGN_TOP     }</li>
+     *                   <li>{@link Align#ALIGN_CENTER  }</li>
+     *                   <li>{@link Align#ALIGN_BASELINE}</li>
+     *                   <li>{@link Align#ALIGN_BOTTOM  }</li>
+     *                   </ul>
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils appendImage(@DrawableRes final int resourceId, @Align final int align) {
         append(Character.toString((char) 0));// it's important for span start with image
@@ -713,21 +717,21 @@ public final class SpanUtils {
     }
 
     /**
-     * 追加空白
+     * Append space.
      *
-     * @param size 间距
-     * @return {@link SpanUtils}
+     * @param size The size of space.
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils appendSpace(@IntRange(from = 0) final int size) {
         return appendSpace(size, Color.TRANSPARENT);
     }
 
     /**
-     * 追加空白
+     * Append space.
      *
-     * @param size  间距
-     * @param color 颜色
-     * @return {@link SpanUtils}
+     * @param size  The size of space.
+     * @param color The color of space.
+     * @return the single {@link SpanUtils} instance
      */
     public SpanUtils appendSpace(@IntRange(from = 0) final int size, @ColorInt final int color) {
         apply(mTypeSpace);
@@ -742,18 +746,15 @@ public final class SpanUtils {
     }
 
     /**
-     * 创建样式字符串
+     * Create the span string.
      *
-     * @return 样式字符串
+     * @return the span string
      */
     public SpannableStringBuilder create() {
         applyLast();
         return mBuilder;
     }
 
-    /**
-     * 设置上一次的样式
-     */
     private void applyLast() {
         if (mType == mTypeCharSequence) {
             updateCharCharSequence();
@@ -922,9 +923,6 @@ public final class SpanUtils {
         mBuilder.setSpan(new SpaceSpan(spaceSize, spaceColor), start, end, flag);
     }
 
-    /**
-     * 行高
-     */
     class CustomLineHeightSpan extends CharacterStyle
             implements LineHeightSpan {
 
@@ -974,9 +972,6 @@ public final class SpanUtils {
         }
     }
 
-    /**
-     * 空格
-     */
     class SpaceSpan extends ReplacementSpan {
 
         private final int width;
@@ -1019,9 +1014,6 @@ public final class SpanUtils {
         }
     }
 
-    /**
-     * 引用
-     */
     class CustomQuoteSpan implements LeadingMarginSpan {
 
         private final int color;
@@ -1056,9 +1048,6 @@ public final class SpanUtils {
         }
     }
 
-    /**
-     * 列表项
-     */
     class CustomBulletSpan implements LeadingMarginSpan {
 
         private final int color;
