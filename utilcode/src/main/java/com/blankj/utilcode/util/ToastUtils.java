@@ -25,7 +25,7 @@ import android.widget.Toast;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/29
- *     desc  : 吐司相关工具类
+ *     desc  : utils about toast
  * </pre>
  */
 public final class ToastUtils {
@@ -46,11 +46,11 @@ public final class ToastUtils {
     }
 
     /**
-     * 设置吐司位置
+     * Set the gravity.
      *
-     * @param gravity 位置
-     * @param xOffset x 偏移
-     * @param yOffset y 偏移
+     * @param gravity The gravity.
+     * @param xOffset X-axis offset, in pixel.
+     * @param yOffset Y-axis offset, in pixel.
      */
     public static void setGravity(final int gravity, final int xOffset, final int yOffset) {
         sGravity = gravity;
@@ -59,55 +59,55 @@ public final class ToastUtils {
     }
 
     /**
-     * 设置背景颜色
+     * Set the color of background.
      *
-     * @param backgroundColor 背景色
+     * @param backgroundColor The color of background.
      */
     public static void setBgColor(@ColorInt final int backgroundColor) {
         sBgColor = backgroundColor;
     }
 
     /**
-     * 设置背景资源
+     * Set the resource of background.
      *
-     * @param bgResource 背景资源
+     * @param bgResource The resource of background.
      */
     public static void setBgResource(@DrawableRes final int bgResource) {
         sBgResource = bgResource;
     }
 
     /**
-     * 设置消息颜色
+     * Set the color of message.
      *
-     * @param msgColor 颜色
+     * @param msgColor The color of message.
      */
     public static void setMsgColor(@ColorInt final int msgColor) {
         sMsgColor = msgColor;
     }
 
     /**
-     * 安全地显示短时吐司
+     * Show the toast for a short period of time.
      *
-     * @param text 文本
+     * @param text The text.
      */
     public static void showShort(@NonNull final CharSequence text) {
         show(text, Toast.LENGTH_SHORT);
     }
 
     /**
-     * 安全地显示短时吐司
+     * Show the toast for a short period of time.
      *
-     * @param resId 资源 Id
+     * @param resId The resource id for text.
      */
     public static void showShort(@StringRes final int resId) {
         show(resId, Toast.LENGTH_SHORT);
     }
 
     /**
-     * 安全地显示短时吐司
+     * Show the toast for a short period of time.
      *
-     * @param resId 资源 Id
-     * @param args  参数
+     * @param resId The resource id for text.
+     * @param args  The args.
      */
     public static void showShort(@StringRes final int resId, final Object... args) {
         if (args != null && args.length == 0) {
@@ -118,10 +118,10 @@ public final class ToastUtils {
     }
 
     /**
-     * 安全地显示短时吐司
+     * Show the toast for a short period of time.
      *
-     * @param format 格式
-     * @param args   参数
+     * @param format The format.
+     * @param args   The args.
      */
     public static void showShort(final String format, final Object... args) {
         if (args != null && args.length == 0) {
@@ -132,28 +132,28 @@ public final class ToastUtils {
     }
 
     /**
-     * 安全地显示长时吐司
+     * Show the toast for a long period of time.
      *
-     * @param text 文本
+     * @param text The text.
      */
     public static void showLong(@NonNull final CharSequence text) {
         show(text, Toast.LENGTH_LONG);
     }
 
     /**
-     * 安全地显示长时吐司
+     * Show the toast for a long period of time.
      *
-     * @param resId 资源 Id
+     * @param resId The resource id for text.
      */
     public static void showLong(@StringRes final int resId) {
         show(resId, Toast.LENGTH_LONG);
     }
 
     /**
-     * 安全地显示长时吐司
+     * Show the toast for a long period of time.
      *
-     * @param resId 资源 Id
-     * @param args  参数
+     * @param resId The resource id for text.
+     * @param args  The args.
      */
     public static void showLong(@StringRes final int resId, final Object... args) {
         if (args != null && args.length == 0) {
@@ -164,10 +164,10 @@ public final class ToastUtils {
     }
 
     /**
-     * 安全地显示长时吐司
+     * Show the toast for a long period of time.
      *
-     * @param format 格式
-     * @param args   参数
+     * @param format The format.
+     * @param args   The args.
      */
     public static void showLong(final String format, final Object... args) {
         if (args != null && args.length == 0) {
@@ -178,7 +178,7 @@ public final class ToastUtils {
     }
 
     /**
-     * 安全地显示短时自定义吐司
+     * Show custom toast for a short period of time.
      */
     public static View showCustomShort(@LayoutRes final int layoutId) {
         final View view = getView(layoutId);
@@ -187,7 +187,7 @@ public final class ToastUtils {
     }
 
     /**
-     * 安全地显示长时自定义吐司
+     * Show custom toast for a long period of time.
      */
     public static View showCustomLong(@LayoutRes final int layoutId) {
         final View view = getView(layoutId);
@@ -196,7 +196,7 @@ public final class ToastUtils {
     }
 
     /**
-     * 取消吐司显示
+     * Cancel the toast.
      */
     public static void cancel() {
         if (sToast != null) {
