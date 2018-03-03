@@ -272,7 +272,7 @@ public final class SnackbarUtils {
 
     /**
      * Add view to the snackbar.
-     * <p>call it after {@link #show()}</p>
+     * <p>Call it after {@link #show()}</p>
      *
      * @param layoutId The id of layout.
      * @param params   The params.
@@ -290,7 +290,7 @@ public final class SnackbarUtils {
 
     /**
      * Add view to the snackbar.
-     * <p>call it after {@link #show()}</p>
+     * <p>Call it after {@link #show()}</p>
      *
      * @param child  The child view.
      * @param params The params.
