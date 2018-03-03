@@ -16,170 +16,11 @@ import java.util.Locale;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/08/02
- *     desc  : 时间相关工具类
+ *     desc  : utils about time
  * </pre>
  */
 public final class TimeUtils {
 
-    /**
-     * <p>在工具类中经常使用到工具类的格式化描述，这个主要是一个日期的操作类，
-     * 所以日志格式主要使用 SimpleDateFormat 的定义格式.</p>
-     * 格式的意义如下： 日期和时间模式 <br>
-     * <p>日期和时间格式由日期和时间模式字符串指定。
-     * 在日期和时间模式字符串中，未加引号的字母 'A' 到 'Z' 和 'a' 到 'z'
-     * 被解释为模式字母，用来表示日期或时间字符串元素。文本可以使用单引号 (') 引起来，以免进行解释。"''"
-     * 表示单引号。所有其他字符均不解释；只是在格式化时将它们简单复制到输出字符串，或者在分析时与输入字符串进行匹配。
-     * </p>
-     * 定义了以下模式字母（所有其他字符 'A' 到 'Z' 和 'a' 到 'z' 都被保留）： <br>
-     * <table border="1" cellspacing="1" cellpadding="1"
-     * summary="Chart shows format letters, date/time component, presentation, and examples.">
-     * <tr>
-     * <th align="left">字母</th>
-     * <th align="left">日期或时间元素</th>
-     * <th align="left">表示</th>
-     * <th align="left">示例</th>
-     * </tr>
-     * <tr>
-     * <td><code>G</code></td>
-     * <td>Era 标志符</td>
-     * <td>Text</td>
-     * <td><code>AD</code></td>
-     * </tr>
-     * <tr>
-     * <td><code>y</code> </td>
-     * <td>年 </td>
-     * <td>Year </td>
-     * <td><code>1996</code>; <code>96</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>M</code> </td>
-     * <td>年中的月份 </td>
-     * <td>Month </td>
-     * <td><code>July</code>; <code>Jul</code>; <code>07</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>w</code> </td>
-     * <td>年中的周数 </td>
-     * <td>Number </td>
-     * <td><code>27</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>W</code> </td>
-     * <td>月份中的周数 </td>
-     * <td>Number </td>
-     * <td><code>2</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>D</code> </td>
-     * <td>年中的天数 </td>
-     * <td>Number </td>
-     * <td><code>189</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>d</code> </td>
-     * <td>月份中的天数 </td>
-     * <td>Number </td>
-     * <td><code>10</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>F</code> </td>
-     * <td>月份中的星期 </td>
-     * <td>Number </td>
-     * <td><code>2</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>E</code> </td>
-     * <td>星期中的天数 </td>
-     * <td>Text </td>
-     * <td><code>Tuesday</code>; <code>Tue</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>a</code> </td>
-     * <td>Am/pm 标记 </td>
-     * <td>Text </td>
-     * <td><code>PM</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>H</code> </td>
-     * <td>一天中的小时数（0-23） </td>
-     * <td>Number </td>
-     * <td><code>0</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>k</code> </td>
-     * <td>一天中的小时数（1-24） </td>
-     * <td>Number </td>
-     * <td><code>24</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>K</code> </td>
-     * <td>am/pm 中的小时数（0-11） </td>
-     * <td>Number </td>
-     * <td><code>0</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>h</code> </td>
-     * <td>am/pm 中的小时数（1-12） </td>
-     * <td>Number </td>
-     * <td><code>12</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>m</code> </td>
-     * <td>小时中的分钟数 </td>
-     * <td>Number </td>
-     * <td><code>30</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>s</code> </td>
-     * <td>分钟中的秒数 </td>
-     * <td>Number </td>
-     * <td><code>55</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>S</code> </td>
-     * <td>毫秒数 </td>
-     * <td>Number </td>
-     * <td><code>978</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>z</code> </td>
-     * <td>时区 </td>
-     * <td>General time zone </td>
-     * <td><code>Pacific Standard Time</code>; <code>PST</code>; <code>GMT-08:00</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>Z</code> </td>
-     * <td>时区 </td>
-     * <td>RFC 822 time zone </td>
-     * <td><code>-0800</code> </td>
-     * </tr>
-     * </table>
-     * <pre>
-     *                                        HH:mm    15:44
-     *                                       h:mm a    3:44 下午
-     *                                      HH:mm z    15:44 CST
-     *                                      HH:mm Z    15:44 +0800
-     *                                   HH:mm zzzz    15:44 中国标准时间
-     *                                     HH:mm:ss    15:44:40
-     *                                   yyyy-MM-dd    2016-08-12
-     *                             yyyy-MM-dd HH:mm    2016-08-12 15:44
-     *                          yyyy-MM-dd HH:mm:ss    2016-08-12 15:44:40
-     *                     yyyy-MM-dd HH:mm:ss zzzz    2016-08-12 15:44:40 中国标准时间
-     *                EEEE yyyy-MM-dd HH:mm:ss zzzz    星期五 2016-08-12 15:44:40 中国标准时间
-     *                     yyyy-MM-dd HH:mm:ss.SSSZ    2016-08-12 15:44:40.461+0800
-     *                   yyyy-MM-dd'T'HH:mm:ss.SSSZ    2016-08-12T15:44:40.461+0800
-     *                 yyyy.MM.dd G 'at' HH:mm:ss z    2016.08.12 公元 at 15:44:40 CST
-     *                                       K:mm a    3:44 下午
-     *                             EEE, MMM d, ''yy    星期五, 八月 12, '16
-     *                        hh 'o''clock' a, zzzz    03 o'clock 下午, 中国标准时间
-     *                 yyyyy.MMMMM.dd GGG hh:mm aaa    02016.八月.12 公元 03:44 下午
-     *                   EEE, d MMM yyyy HH:mm:ss Z    星期五, 12 八月 2016 15:44:40 +0800
-     *                                yyMMddHHmmssZ    160812154440+0800
-     *                   yyyy-MM-dd'T'HH:mm:ss.SSSZ    2016-08-12T15:44:40.461+0800
-     * 'DATE('yyyy-MM-dd')' 'TIME('HH:mm:ss')' zzzz    DATE(2016-08-12) TIME(15:44:40) 中国标准时间
-     * </pre>
-     * 注意：SimpleDateFormat 不是线程安全的，线程安全需用{@code ThreadLocal<SimpleDateFormat>}
-     */
     @SuppressLint("SimpleDateFormat")
     private static final DateFormat DEFAULT_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -188,46 +29,44 @@ public final class TimeUtils {
     }
 
     /**
-     * 将时间戳转为时间字符串
-     * <p>格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Milliseconds to the formatted time string.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param millis 毫秒时间戳
-     * @return 时间字符串
+     * @param millis The milliseconds.
+     * @return the formatted time string
      */
     public static String millis2String(final long millis) {
         return millis2String(millis, DEFAULT_FORMAT);
     }
 
     /**
-     * 将时间戳转为时间字符串
-     * <p>格式为 format</p>
+     * Milliseconds to the formatted time string.
      *
-     * @param millis 毫秒时间戳
-     * @param format 时间格式
-     * @return 时间字符串
+     * @param millis The milliseconds.
+     * @param format The format.
+     * @return the formatted time string
      */
     public static String millis2String(final long millis, final DateFormat format) {
         return format.format(new Date(millis));
     }
 
     /**
-     * 将时间字符串转为时间戳
-     * <p>time 格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Formatted time string to the milliseconds.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param time 时间字符串
-     * @return 毫秒时间戳
+     * @param time The formatted time string.
+     * @return the milliseconds
      */
     public static long string2Millis(final String time) {
         return string2Millis(time, DEFAULT_FORMAT);
     }
 
     /**
-     * 将时间字符串转为时间戳
-     * <p>time 格式为 format</p>
+     * Formatted time string to the milliseconds.
      *
-     * @param time   时间字符串
-     * @param format 时间格式
-     * @return 毫秒时间戳
+     * @param time   The formatted time string.
+     * @param format The format.
+     * @return the milliseconds
      */
     public static long string2Millis(final String time, final DateFormat format) {
         try {
@@ -239,23 +78,22 @@ public final class TimeUtils {
     }
 
     /**
-     * 将时间字符串转为 Date 类型
-     * <p>time 格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Formatted time string to the date.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param time 时间字符串
-     * @return Date 类型
+     * @param time The formatted time string.
+     * @return the date
      */
     public static Date string2Date(final String time) {
         return string2Date(time, DEFAULT_FORMAT);
     }
 
     /**
-     * 将时间字符串转为 Date 类型
-     * <p>time 格式为 format</p>
+     * Formatted time string to the date.
      *
-     * @param time   时间字符串
-     * @param format 时间格式
-     * @return Date 类型
+     * @param time   The formatted time string.
+     * @param format The format.
+     * @return the date
      */
     public static Date string2Date(final String time, final DateFormat format) {
         try {
@@ -267,55 +105,54 @@ public final class TimeUtils {
     }
 
     /**
-     * 将 Date 类型转为时间字符串
-     * <p>格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Date to the formatted time string.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param date Date 类型时间
-     * @return 时间字符串
+     * @param date The date.
+     * @return the formatted time string
      */
     public static String date2String(final Date date) {
         return date2String(date, DEFAULT_FORMAT);
     }
 
     /**
-     * 将 Date 类型转为时间字符串
-     * <p>格式为 format</p>
+     * Date to the formatted time string.
      *
-     * @param date   Date 类型时间
-     * @param format 时间格式
-     * @return 时间字符串
+     * @param date   The date.
+     * @param format The format.
+     * @return the formatted time string
      */
     public static String date2String(final Date date, final DateFormat format) {
         return format.format(date);
     }
 
     /**
-     * 将 Date 类型转为时间戳
+     * Date to the milliseconds.
      *
-     * @param date Date 类型时间
-     * @return 毫秒时间戳
+     * @param date The date.
+     * @return the milliseconds
      */
     public static long date2Millis(final Date date) {
         return date.getTime();
     }
 
     /**
-     * 将时间戳转为 Date 类型
+     * Milliseconds to the date.
      *
-     * @param millis 毫秒时间戳
-     * @return Date 类型时间
+     * @param millis The milliseconds.
+     * @return the date
      */
     public static Date millis2Date(final long millis) {
         return new Date(millis);
     }
 
     /**
-     * 获取两个时间差（单位：unit）
-     * <p>time0 和 time1 格式都为 yyyy-MM-dd HH:mm:ss</p>
+     * Return the time span, in unit.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param time0 时间字符串 0
-     * @param time1 时间字符串 1
-     * @param unit  单位类型
+     * @param time1 The first formatted time string.
+     * @param time2 The second formatted time string.
+     * @param unit  The unit of time span.
      *              <ul>
      *              <li>{@link TimeConstants#MSEC}</li>
      *              <li>{@link TimeConstants#SEC }</li>
@@ -323,22 +160,21 @@ public final class TimeUtils {
      *              <li>{@link TimeConstants#HOUR}</li>
      *              <li>{@link TimeConstants#DAY }</li>
      *              </ul>
-     * @return unit 时间戳
+     * @return the time span, in unit
      */
-    public static long getTimeSpan(final String time0,
-                                   final String time1,
+    public static long getTimeSpan(final String time1,
+                                   final String time2,
                                    @TimeConstants.Unit final int unit) {
-        return getTimeSpan(time0, time1, DEFAULT_FORMAT, unit);
+        return getTimeSpan(time1, time2, DEFAULT_FORMAT, unit);
     }
 
     /**
-     * 获取两个时间差（单位：unit）
-     * <p>time0 和 time1 格式都为 format</p>
+     * Return the time span, in unit.
      *
-     * @param time0  时间字符串 0
-     * @param time1  时间字符串 1
-     * @param format 时间格式
-     * @param unit   单位类型
+     * @param time1  The first formatted time string.
+     * @param time2  The second formatted time string.
+     * @param format The format.
+     * @param unit   The unit of time span.
      *               <ul>
      *               <li>{@link TimeConstants#MSEC}</li>
      *               <li>{@link TimeConstants#SEC }</li>
@@ -346,23 +182,23 @@ public final class TimeUtils {
      *               <li>{@link TimeConstants#HOUR}</li>
      *               <li>{@link TimeConstants#DAY }</li>
      *               </ul>
-     * @return unit 时间戳
+     * @return the time span, in unit
      */
-    public static long getTimeSpan(final String time0,
-                                   final String time1,
+    public static long getTimeSpan(final String time1,
+                                   final String time2,
                                    final DateFormat format,
                                    @TimeConstants.Unit final int unit) {
         return millis2TimeSpan(
-                Math.abs(string2Millis(time0, format) - string2Millis(time1, format)), unit
+                Math.abs(string2Millis(time1, format) - string2Millis(time2, format)), unit
         );
     }
 
     /**
-     * 获取两个时间差（单位：unit）
+     * Return the time span, in unit.
      *
-     * @param date0 Date 类型时间 0
-     * @param date1 Date 类型时间 1
-     * @param unit  单位类型
+     * @param date1 The first date.
+     * @param date2 The second date.
+     * @param unit  The unit of time span.
      *              <ul>
      *              <li>{@link TimeConstants#MSEC}</li>
      *              <li>{@link TimeConstants#SEC }</li>
@@ -370,20 +206,20 @@ public final class TimeUtils {
      *              <li>{@link TimeConstants#HOUR}</li>
      *              <li>{@link TimeConstants#DAY }</li>
      *              </ul>
-     * @return unit 时间戳
+     * @return the time span, in unit
      */
-    public static long getTimeSpan(final Date date0,
-                                   final Date date1,
+    public static long getTimeSpan(final Date date1,
+                                   final Date date2,
                                    @TimeConstants.Unit final int unit) {
-        return millis2TimeSpan(Math.abs(date2Millis(date0) - date2Millis(date1)), unit);
+        return millis2TimeSpan(Math.abs(date2Millis(date1) - date2Millis(date2)), unit);
     }
 
     /**
-     * 获取两个时间差（单位：unit）
+     * Return the time span, in unit.
      *
-     * @param millis0 毫秒时间戳 0
-     * @param millis1 毫秒时间戳 1
-     * @param unit    单位类型
+     * @param millis1 The first milliseconds.
+     * @param millis2 The second milliseconds.
+     * @param unit    The unit of time span.
      *                <ul>
      *                <li>{@link TimeConstants#MSEC}</li>
      *                <li>{@link TimeConstants#SEC }</li>
@@ -391,20 +227,20 @@ public final class TimeUtils {
      *                <li>{@link TimeConstants#HOUR}</li>
      *                <li>{@link TimeConstants#DAY }</li>
      *                </ul>
-     * @return unit 时间戳
+     * @return the time span, in unit
      */
-    public static long getTimeSpan(final long millis0,
-                                   final long millis1,
+    public static long getTimeSpan(final long millis1,
+                                   final long millis2,
                                    @TimeConstants.Unit final int unit) {
-        return millis2TimeSpan(Math.abs(millis0 - millis1), unit);
+        return millis2TimeSpan(Math.abs(millis1 - millis2), unit);
     }
 
     /**
-     * 获取合适型两个时间差
-     * <p>time0 和 time1 格式都为 yyyy-MM-dd HH:mm:ss</p>
+     * Return the fit time span.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param time0     时间字符串 0
-     * @param time1     时间字符串 1
+     * @param time1     The first formatted time string.
+     * @param time2     The second formatted time string.
      * @param precision The precision of time span.
      *                  <ul>
      *                  <li>precision = 0, return null</li>
@@ -414,22 +250,21 @@ public final class TimeUtils {
      *                  <li>precision = 4, return 天, 小时, 分钟, 秒</li>
      *                  <li>precision &gt;= 5，return 天, 小时, 分钟, 秒, 毫秒</li>
      *                  </ul>
-     * @return 合适型两个时间差
+     * @return the fit time span
      */
-    public static String getFitTimeSpan(final String time0,
-                                        final String time1,
+    public static String getFitTimeSpan(final String time1,
+                                        final String time2,
                                         final int precision) {
-        long delta = string2Millis(time0, DEFAULT_FORMAT) - string2Millis(time1, DEFAULT_FORMAT);
+        long delta = string2Millis(time1, DEFAULT_FORMAT) - string2Millis(time2, DEFAULT_FORMAT);
         return millis2FitTimeSpan(Math.abs(delta), precision);
     }
 
     /**
-     * 获取合适型两个时间差
-     * <p>time0 和 time1 格式都为 format</p>
+     * Return the fit time span.
      *
-     * @param time0     时间字符串 0
-     * @param time1     时间字符串 1
-     * @param format    时间格式
+     * @param time1     The first formatted time string.
+     * @param time2     The second formatted time string.
+     * @param format    The format.
      * @param precision The precision of time span.
      *                  <ul>
      *                  <li>precision = 0, return null</li>
@@ -439,21 +274,21 @@ public final class TimeUtils {
      *                  <li>precision = 4, return 天, 小时, 分钟, 秒</li>
      *                  <li>precision &gt;= 5，return 天, 小时, 分钟, 秒, 毫秒</li>
      *                  </ul>
-     * @return 合适型两个时间差
+     * @return the fit time span
      */
-    public static String getFitTimeSpan(final String time0,
-                                        final String time1,
+    public static String getFitTimeSpan(final String time1,
+                                        final String time2,
                                         final DateFormat format,
                                         final int precision) {
-        long delta = string2Millis(time0, format) - string2Millis(time1, format);
+        long delta = string2Millis(time1, format) - string2Millis(time2, format);
         return millis2FitTimeSpan(Math.abs(delta), precision);
     }
 
     /**
-     * 获取合适型两个时间差
+     * Return the fit time span.
      *
-     * @param date0     Date 类型时间 0
-     * @param date1     Date 类型时间 1
+     * @param date1     The first date.
+     * @param date2     The second date.
      * @param precision The precision of time span.
      *                  <ul>
      *                  <li>precision = 0, return null</li>
@@ -463,17 +298,17 @@ public final class TimeUtils {
      *                  <li>precision = 4, return 天, 小时, 分钟, 秒</li>
      *                  <li>precision &gt;= 5，return 天, 小时, 分钟, 秒, 毫秒</li>
      *                  </ul>
-     * @return 合适型两个时间差
+     * @return the fit time span
      */
-    public static String getFitTimeSpan(final Date date0, final Date date1, final int precision) {
-        return millis2FitTimeSpan(Math.abs(date2Millis(date0) - date2Millis(date1)), precision);
+    public static String getFitTimeSpan(final Date date1, final Date date2, final int precision) {
+        return millis2FitTimeSpan(Math.abs(date2Millis(date1) - date2Millis(date2)), precision);
     }
 
     /**
-     * 获取合适型两个时间差
+     * Return the fit time span.
      *
-     * @param millis0   毫秒时间戳 1
-     * @param millis1   毫秒时间戳 2
+     * @param millis1   The first milliseconds.
+     * @param millis2   The second milliseconds.
      * @param precision The precision of time span.
      *                  <ul>
      *                  <li>precision = 0, return null</li>
@@ -483,59 +318,58 @@ public final class TimeUtils {
      *                  <li>precision = 4, return 天, 小时, 分钟, 秒</li>
      *                  <li>precision &gt;= 5，return 天, 小时, 分钟, 秒, 毫秒</li>
      *                  </ul>
-     * @return 合适型两个时间差
+     * @return the fit time span
      */
-    public static String getFitTimeSpan(final long millis0,
-                                        final long millis1,
+    public static String getFitTimeSpan(final long millis1,
+                                        final long millis2,
                                         final int precision) {
-        return millis2FitTimeSpan(Math.abs(millis0 - millis1), precision);
+        return millis2FitTimeSpan(Math.abs(millis1 - millis2), precision);
     }
 
     /**
-     * 获取当前毫秒时间戳
+     * Return the current time in milliseconds.
      *
-     * @return 毫秒时间戳
+     * @return the current time in milliseconds
      */
     public static long getNowMills() {
         return System.currentTimeMillis();
     }
 
     /**
-     * 获取当前时间字符串
-     * <p>格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Return the current formatted time string.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @return 时间字符串
+     * @return the current formatted time string
      */
     public static String getNowString() {
         return millis2String(System.currentTimeMillis(), DEFAULT_FORMAT);
     }
 
     /**
-     * 获取当前时间字符串
-     * <p>格式为 format</p>
+     * Return the current formatted time string.
      *
-     * @param format 时间格式
-     * @return 时间字符串
+     * @param format The format.
+     * @return the current formatted time string
      */
     public static String getNowString(final DateFormat format) {
         return millis2String(System.currentTimeMillis(), format);
     }
 
     /**
-     * 获取当前 Date
+     * Return the current date.
      *
-     * @return Date 类型时间
+     * @return the current date
      */
     public static Date getNowDate() {
         return new Date();
     }
 
     /**
-     * 获取与当前时间的差（单位：unit）
-     * <p>time 格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Return the time span by now, in unit.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param time 时间字符串
-     * @param unit 单位类型
+     * @param time The formatted time string.
+     * @param unit The unit of time span.
      *             <ul>
      *             <li>{@link TimeConstants#MSEC}</li>
      *             <li>{@link TimeConstants#SEC }</li>
@@ -543,19 +377,18 @@ public final class TimeUtils {
      *             <li>{@link TimeConstants#HOUR}</li>
      *             <li>{@link TimeConstants#DAY }</li>
      *             </ul>
-     * @return unit 时间戳
+     * @return the time span by now, in unit
      */
     public static long getTimeSpanByNow(final String time, @TimeConstants.Unit final int unit) {
         return getTimeSpan(getNowString(), time, DEFAULT_FORMAT, unit);
     }
 
     /**
-     * 获取与当前时间的差（单位：unit）
-     * <p>time 格式为 format</p>
+     * Return the time span by now, in unit.
      *
-     * @param time   时间字符串
-     * @param format 时间格式
-     * @param unit   单位类型
+     * @param time   The formatted time string.
+     * @param format The format.
+     * @param unit   The unit of time span.
      *               <ul>
      *               <li>{@link TimeConstants#MSEC}</li>
      *               <li>{@link TimeConstants#SEC }</li>
@@ -563,7 +396,7 @@ public final class TimeUtils {
      *               <li>{@link TimeConstants#HOUR}</li>
      *               <li>{@link TimeConstants#DAY }</li>
      *               </ul>
-     * @return unit 时间戳
+     * @return the time span by now, in unit
      */
     public static long getTimeSpanByNow(final String time,
                                         final DateFormat format,
@@ -572,10 +405,10 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取与当前时间的差（单位：unit）
+     * Return the time span by now, in unit.
      *
-     * @param date Date 类型时间
-     * @param unit 单位类型
+     * @param date The date.
+     * @param unit The unit of time span.
      *             <ul>
      *             <li>{@link TimeConstants#MSEC}</li>
      *             <li>{@link TimeConstants#SEC }</li>
@@ -583,17 +416,17 @@ public final class TimeUtils {
      *             <li>{@link TimeConstants#HOUR}</li>
      *             <li>{@link TimeConstants#DAY }</li>
      *             </ul>
-     * @return unit 时间戳
+     * @return the time span by now, in unit
      */
     public static long getTimeSpanByNow(final Date date, @TimeConstants.Unit final int unit) {
         return getTimeSpan(new Date(), date, unit);
     }
 
     /**
-     * 获取与当前时间的差（单位：unit）
+     * Return the time span by now, in unit.
      *
-     * @param millis 毫秒时间戳
-     * @param unit   单位类型
+     * @param millis The milliseconds.
+     * @param unit   The unit of time span.
      *               <ul>
      *               <li>{@link TimeConstants#MSEC}</li>
      *               <li>{@link TimeConstants#SEC }</li>
@@ -601,17 +434,17 @@ public final class TimeUtils {
      *               <li>{@link TimeConstants#HOUR}</li>
      *               <li>{@link TimeConstants#DAY }</li>
      *               </ul>
-     * @return unit 时间戳
+     * @return the time span by now, in unit
      */
     public static long getTimeSpanByNow(final long millis, @TimeConstants.Unit final int unit) {
         return getTimeSpan(System.currentTimeMillis(), millis, unit);
     }
 
     /**
-     * 获取合适型与当前时间的差
-     * <p>time 格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Return the fit time span by now.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param time      时间字符串
+     * @param time      The formatted time string.
      * @param precision The precision of time span.
      *                  <ul>
      *                  <li>precision = 0，返回 null</li>
@@ -621,18 +454,17 @@ public final class TimeUtils {
      *                  <li>precision = 4，返回天、小时、分钟和秒</li>
      *                  <li>precision &gt;= 5，返回天、小时、分钟、秒和毫秒</li>
      *                  </ul>
-     * @return 合适型与当前时间的差
+     * @return the fit time span by now
      */
     public static String getFitTimeSpanByNow(final String time, final int precision) {
         return getFitTimeSpan(getNowString(), time, DEFAULT_FORMAT, precision);
     }
 
     /**
-     * 获取合适型与当前时间的差
-     * <p>time 格式为 format</p>
+     * Return the fit time span by now.
      *
-     * @param time      时间字符串
-     * @param format    时间格式
+     * @param time      The formatted time string.
+     * @param format    The format.
      * @param precision The precision of time span.
      *                  <ul>
      *                  <li>precision = 0，返回 null</li>
@@ -642,7 +474,7 @@ public final class TimeUtils {
      *                  <li>precision = 4，返回天、小时、分钟和秒</li>
      *                  <li>precision &gt;= 5，返回天、小时、分钟、秒和毫秒</li>
      *                  </ul>
-     * @return 合适型与当前时间的差
+     * @return the fit time span by now
      */
     public static String getFitTimeSpanByNow(final String time,
                                              final DateFormat format,
@@ -651,9 +483,9 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取合适型与当前时间的差
+     * Return the fit time span by now.
      *
-     * @param date      Date 类型时间
+     * @param date      The date.
      * @param precision The precision of time span.
      *                  <ul>
      *                  <li>precision = 0，返回 null</li>
@@ -663,16 +495,16 @@ public final class TimeUtils {
      *                  <li>precision = 4，返回天、小时、分钟和秒</li>
      *                  <li>precision &gt;= 5，返回天、小时、分钟、秒和毫秒</li>
      *                  </ul>
-     * @return 合适型与当前时间的差
+     * @return the fit time span by now
      */
     public static String getFitTimeSpanByNow(final Date date, final int precision) {
         return getFitTimeSpan(getNowDate(), date, precision);
     }
 
     /**
-     * 获取合适型与当前时间的差
+     * Return the fit time span by now.
      *
-     * @param millis    毫秒时间戳
+     * @param millis    The milliseconds.
      * @param precision The precision of time span.
      *                  <ul>
      *                  <li>precision = 0，返回 null</li>
@@ -682,18 +514,18 @@ public final class TimeUtils {
      *                  <li>precision = 4，返回天、小时、分钟和秒</li>
      *                  <li>precision &gt;= 5，返回天、小时、分钟、秒和毫秒</li>
      *                  </ul>
-     * @return 合适型与当前时间的差
+     * @return the fit time span by now
      */
     public static String getFitTimeSpanByNow(final long millis, final int precision) {
         return getFitTimeSpan(System.currentTimeMillis(), millis, precision);
     }
 
     /**
-     * 获取友好型与当前时间的差
-     * <p>time 格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Return the friendly time span by now.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param time 时间字符串
-     * @return 友好型与当前时间的差
+     * @param time The formatted time string.
+     * @return the friendly time span by now
      * <ul>
      * <li>如果小于 1 秒钟内，显示刚刚</li>
      * <li>如果在 1 分钟内，显示 XXX秒前</li>
@@ -709,12 +541,11 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取友好型与当前时间的差
-     * <p>time 格式为 format</p>
+     * Return the friendly time span by now.
      *
-     * @param time   时间字符串
-     * @param format 时间格式
-     * @return 友好型与当前时间的差
+     * @param time   The formatted time string.
+     * @param format The format.
+     * @return the friendly time span by now
      * <ul>
      * <li>如果小于 1 秒钟内，显示刚刚</li>
      * <li>如果在 1 分钟内，显示 XXX秒前</li>
@@ -730,10 +561,10 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取友好型与当前时间的差
+     * Return the friendly time span by now.
      *
-     * @param date Date 类型时间
-     * @return 友好型与当前时间的差
+     * @param date The date.
+     * @return the friendly time span by now
      * <ul>
      * <li>如果小于 1 秒钟内，显示刚刚</li>
      * <li>如果在 1 分钟内，显示 XXX秒前</li>
@@ -749,10 +580,10 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取友好型与当前时间的差
+     * Return the friendly time span by now.
      *
-     * @param millis 毫秒时间戳
-     * @return 友好型与当前时间的差
+     * @param millis The milliseconds.
+     * @return the friendly time span by now
      * <ul>
      * <li>如果小于 1 秒钟内，显示刚刚</li>
      * <li>如果在 1 分钟内，显示 XXX秒前</li>
@@ -797,11 +628,11 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取与给定时间等于时间差的时间戳
+     * Return the milliseconds differ time span.
      *
-     * @param millis   给定时间
-     * @param timeSpan 时间差的毫秒时间戳
-     * @param unit     单位类型
+     * @param millis   The milliseconds.
+     * @param timeSpan The time span.
+     * @param unit     The unit of time span.
      *                 <ul>
      *                 <li>{@link TimeConstants#MSEC}</li>
      *                 <li>{@link TimeConstants#SEC }</li>
@@ -809,7 +640,7 @@ public final class TimeUtils {
      *                 <li>{@link TimeConstants#HOUR}</li>
      *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
-     * @return 与给定时间等于时间差的时间戳
+     * @return the milliseconds differ time span
      */
     public static long getMillis(final long millis,
                                  final long timeSpan,
@@ -818,12 +649,12 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取与给定时间等于时间差的时间戳
-     * <p>time 格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Return the milliseconds differ time span.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param time     给定时间
-     * @param timeSpan 时间差的毫秒时间戳
-     * @param unit     单位类型
+     * @param time     The formatted time string.
+     * @param timeSpan The time span.
+     * @param unit     The unit of time span.
      *                 <ul>
      *                 <li>{@link TimeConstants#MSEC}</li>
      *                 <li>{@link TimeConstants#SEC }</li>
@@ -831,7 +662,7 @@ public final class TimeUtils {
      *                 <li>{@link TimeConstants#HOUR}</li>
      *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
-     * @return 与给定时间等于时间差的时间戳
+     * @return the milliseconds differ time span
      */
     public static long getMillis(final String time,
                                  final long timeSpan,
@@ -840,13 +671,12 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取与给定时间等于时间差的时间戳
-     * <p>time 格式为 format</p>
+     * Return the milliseconds differ time span.
      *
-     * @param time     给定时间
-     * @param format   时间格式
-     * @param timeSpan 时间差的毫秒时间戳
-     * @param unit     单位类型
+     * @param time     The formatted time string.
+     * @param format   The format.
+     * @param timeSpan The time span.
+     * @param unit     The unit of time span.
      *                 <ul>
      *                 <li>{@link TimeConstants#MSEC}</li>
      *                 <li>{@link TimeConstants#SEC }</li>
@@ -854,7 +684,7 @@ public final class TimeUtils {
      *                 <li>{@link TimeConstants#HOUR}</li>
      *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
-     * @return 与给定时间等于时间差的时间戳
+     * @return the milliseconds differ time span.
      */
     public static long getMillis(final String time,
                                  final DateFormat format,
@@ -864,11 +694,11 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取与给定时间等于时间差的时间戳
+     * Return the milliseconds differ time span.
      *
-     * @param date     给定时间
-     * @param timeSpan 时间差的毫秒时间戳
-     * @param unit     单位类型
+     * @param date     The date.
+     * @param timeSpan The time span.
+     * @param unit     The unit of time span.
      *                 <ul>
      *                 <li>{@link TimeConstants#MSEC}</li>
      *                 <li>{@link TimeConstants#SEC }</li>
@@ -876,7 +706,7 @@ public final class TimeUtils {
      *                 <li>{@link TimeConstants#HOUR}</li>
      *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
-     * @return 与给定时间等于时间差的时间戳
+     * @return the milliseconds differ time span.
      */
     public static long getMillis(final Date date,
                                  final long timeSpan,
@@ -885,12 +715,12 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取与给定时间等于时间差的时间字符串
-     * <p>格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Return the formatted time string differ time span.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param millis   给定时间
-     * @param timeSpan 时间差的毫秒时间戳
-     * @param unit     单位类型
+     * @param millis   The milliseconds.
+     * @param timeSpan The time span.
+     * @param unit     The unit of time span.
      *                 <ul>
      *                 <li>{@link TimeConstants#MSEC}</li>
      *                 <li>{@link TimeConstants#SEC }</li>
@@ -898,7 +728,7 @@ public final class TimeUtils {
      *                 <li>{@link TimeConstants#HOUR}</li>
      *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
-     * @return 与给定时间等于时间差的时间字符串
+     * @return the formatted time string differ time span
      */
     public static String getString(final long millis,
                                    final long timeSpan,
@@ -907,13 +737,12 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取与给定时间等于时间差的时间字符串
-     * <p>格式为 format</p>
+     * Return the formatted time string differ time span.
      *
-     * @param millis   给定时间
-     * @param format   时间格式
-     * @param timeSpan 时间差的毫秒时间戳
-     * @param unit     单位类型
+     * @param millis   The milliseconds.
+     * @param format   The format.
+     * @param timeSpan The time span.
+     * @param unit     The unit of time span.
      *                 <ul>
      *                 <li>{@link TimeConstants#MSEC}</li>
      *                 <li>{@link TimeConstants#SEC }</li>
@@ -921,7 +750,7 @@ public final class TimeUtils {
      *                 <li>{@link TimeConstants#HOUR}</li>
      *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
-     * @return 与给定时间等于时间差的时间字符串
+     * @return the formatted time string differ time span
      */
     public static String getString(final long millis,
                                    final DateFormat format,
@@ -931,12 +760,12 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取与给定时间等于时间差的时间字符串
-     * <p>time 格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Return the formatted time string differ time span.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param time     给定时间
-     * @param timeSpan 时间差的毫秒时间戳
-     * @param unit     单位类型
+     * @param time     The formatted time string.
+     * @param timeSpan The time span.
+     * @param unit     The unit of time span.
      *                 <ul>
      *                 <li>{@link TimeConstants#MSEC}</li>
      *                 <li>{@link TimeConstants#SEC }</li>
@@ -944,7 +773,7 @@ public final class TimeUtils {
      *                 <li>{@link TimeConstants#HOUR}</li>
      *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
-     * @return 与给定时间等于时间差的时间字符串
+     * @return the formatted time string differ time span
      */
     public static String getString(final String time,
                                    final long timeSpan,
@@ -953,13 +782,12 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取与给定时间等于时间差的时间字符串
-     * <p>格式为 format</p>
+     * Return the formatted time string differ time span.
      *
-     * @param time     给定时间
-     * @param format   时间格式
-     * @param timeSpan 时间差的毫秒时间戳
-     * @param unit     单位类型
+     * @param time     The formatted time string.
+     * @param format   The format.
+     * @param timeSpan The time span.
+     * @param unit     The unit of time span.
      *                 <ul>
      *                 <li>{@link TimeConstants#MSEC}</li>
      *                 <li>{@link TimeConstants#SEC }</li>
@@ -967,7 +795,7 @@ public final class TimeUtils {
      *                 <li>{@link TimeConstants#HOUR}</li>
      *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
-     * @return 与给定时间等于时间差的时间字符串
+     * @return the formatted time string differ time span
      */
     public static String getString(final String time,
                                    final DateFormat format,
@@ -977,12 +805,12 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取与给定时间等于时间差的时间字符串
-     * <p>格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Return the formatted time string differ time span.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param date     给定时间
-     * @param timeSpan 时间差的毫秒时间戳
-     * @param unit     单位类型
+     * @param date     The date.
+     * @param timeSpan The time span.
+     * @param unit     The unit of time span.
      *                 <ul>
      *                 <li>{@link TimeConstants#MSEC}</li>
      *                 <li>{@link TimeConstants#SEC }</li>
@@ -990,7 +818,7 @@ public final class TimeUtils {
      *                 <li>{@link TimeConstants#HOUR}</li>
      *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
-     * @return 与给定时间等于时间差的时间字符串
+     * @return the formatted time string differ time span
      */
     public static String getString(final Date date,
                                    final long timeSpan,
@@ -999,13 +827,12 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取与给定时间等于时间差的时间字符串
-     * <p>格式为 format</p>
+     * Return the formatted time string differ time span.
      *
-     * @param date     给定时间
-     * @param format   时间格式
-     * @param timeSpan 时间差的毫秒时间戳
-     * @param unit     单位类型
+     * @param date     The date.
+     * @param format   The format.
+     * @param timeSpan The time span.
+     * @param unit     The unit of time span.
      *                 <ul>
      *                 <li>{@link TimeConstants#MSEC}</li>
      *                 <li>{@link TimeConstants#SEC }</li>
@@ -1013,7 +840,7 @@ public final class TimeUtils {
      *                 <li>{@link TimeConstants#HOUR}</li>
      *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
-     * @return 与给定时间等于时间差的时间字符串
+     * @return the formatted time string differ time span
      */
     public static String getString(final Date date,
                                    final DateFormat format,
@@ -1023,11 +850,11 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取与给定时间等于时间差的 Date
+     * Return the date differ time span.
      *
-     * @param millis   给定时间
-     * @param timeSpan 时间差的毫秒时间戳
-     * @param unit     单位类型
+     * @param millis   The milliseconds.
+     * @param timeSpan The time span.
+     * @param unit     The unit of time span.
      *                 <ul>
      *                 <li>{@link TimeConstants#MSEC}</li>
      *                 <li>{@link TimeConstants#SEC }</li>
@@ -1035,7 +862,7 @@ public final class TimeUtils {
      *                 <li>{@link TimeConstants#HOUR}</li>
      *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
-     * @return 与给定时间等于时间差的 Date
+     * @return the date differ time span
      */
     public static Date getDate(final long millis,
                                final long timeSpan,
@@ -1044,12 +871,12 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取与给定时间等于时间差的 Date
-     * <p>time 格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Return the date differ time span.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param time     给定时间
-     * @param timeSpan 时间差的毫秒时间戳
-     * @param unit     单位类型
+     * @param time     The formatted time string.
+     * @param timeSpan The time span.
+     * @param unit     The unit of time span.
      *                 <ul>
      *                 <li>{@link TimeConstants#MSEC}</li>
      *                 <li>{@link TimeConstants#SEC }</li>
@@ -1057,7 +884,7 @@ public final class TimeUtils {
      *                 <li>{@link TimeConstants#HOUR}</li>
      *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
-     * @return 与给定时间等于时间差的 Date
+     * @return the date differ time span
      */
     public static Date getDate(final String time,
                                final long timeSpan,
@@ -1066,13 +893,12 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取与给定时间等于时间差的 Date
-     * <p>格式为 format</p>
+     * Return the date differ time span.
      *
-     * @param time     给定时间
-     * @param format   时间格式
-     * @param timeSpan 时间差的毫秒时间戳
-     * @param unit     单位类型
+     * @param time     The formatted time string.
+     * @param format   The format.
+     * @param timeSpan The time span.
+     * @param unit     The unit of time span.
      *                 <ul>
      *                 <li>{@link TimeConstants#MSEC}</li>
      *                 <li>{@link TimeConstants#SEC }</li>
@@ -1080,7 +906,7 @@ public final class TimeUtils {
      *                 <li>{@link TimeConstants#HOUR}</li>
      *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
-     * @return 与给定时间等于时间差的 Date
+     * @return the date differ time span
      */
     public static Date getDate(final String time,
                                final DateFormat format,
@@ -1090,11 +916,11 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取与给定时间等于时间差的 Date
+     * Return the date differ time span.
      *
-     * @param date     给定时间
-     * @param timeSpan 时间差的毫秒时间戳
-     * @param unit     单位类型
+     * @param date     The date.
+     * @param timeSpan The time span.
+     * @param unit     The unit of time span.
      *                 <ul>
      *                 <li>{@link TimeConstants#MSEC}</li>
      *                 <li>{@link TimeConstants#SEC }</li>
@@ -1102,7 +928,7 @@ public final class TimeUtils {
      *                 <li>{@link TimeConstants#HOUR}</li>
      *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
-     * @return 与给定时间等于时间差的 Date
+     * @return the date differ time span
      */
     public static Date getDate(final Date date,
                                final long timeSpan,
@@ -1111,10 +937,10 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取与当前时间等于时间差的时间戳
+     * Return the milliseconds differ time span by now.
      *
-     * @param timeSpan 时间差的毫秒时间戳
-     * @param unit     单位类型
+     * @param timeSpan The time span.
+     * @param unit     The unit of time span.
      *                 <ul>
      *                 <li>{@link TimeConstants#MSEC}</li>
      *                 <li>{@link TimeConstants#SEC }</li>
@@ -1122,18 +948,18 @@ public final class TimeUtils {
      *                 <li>{@link TimeConstants#HOUR}</li>
      *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
-     * @return 与当前时间等于时间差的时间戳
+     * @return the milliseconds differ time span by now
      */
     public static long getMillisByNow(final long timeSpan, @TimeConstants.Unit final int unit) {
         return getMillis(getNowMills(), timeSpan, unit);
     }
 
     /**
-     * 获取与当前时间等于时间差的时间字符串
-     * <p>格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Return the formatted time string differ time span by now.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param timeSpan 时间差的毫秒时间戳
-     * @param unit     单位类型
+     * @param timeSpan The time span.
+     * @param unit     The unit of time span.
      *                 <ul>
      *                 <li>{@link TimeConstants#MSEC}</li>
      *                 <li>{@link TimeConstants#SEC }</li>
@@ -1141,19 +967,18 @@ public final class TimeUtils {
      *                 <li>{@link TimeConstants#HOUR}</li>
      *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
-     * @return 与当前时间等于时间差的时间字符串
+     * @return the formatted time string differ time span by now
      */
     public static String getStringByNow(final long timeSpan, @TimeConstants.Unit final int unit) {
         return getStringByNow(timeSpan, DEFAULT_FORMAT, unit);
     }
 
     /**
-     * 获取与当前时间等于时间差的时间字符串
-     * <p>格式为 format</p>
+     * Return the formatted time string differ time span by now.
      *
-     * @param timeSpan 时间差的毫秒时间戳
-     * @param format   时间格式
-     * @param unit     单位类型
+     * @param timeSpan The time span.
+     * @param format   The format.
+     * @param unit     The unit of time span.
      *                 <ul>
      *                 <li>{@link TimeConstants#MSEC}</li>
      *                 <li>{@link TimeConstants#SEC }</li>
@@ -1161,7 +986,7 @@ public final class TimeUtils {
      *                 <li>{@link TimeConstants#HOUR}</li>
      *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
-     * @return 与当前时间等于时间差的时间字符串
+     * @return the formatted time string differ time span by now
      */
     public static String getStringByNow(final long timeSpan,
                                         final DateFormat format,
@@ -1170,10 +995,10 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取与当前时间等于时间差的 Date
+     * Return the date differ time span by now.
      *
-     * @param timeSpan 时间差的毫秒时间戳
-     * @param unit     单位类型
+     * @param timeSpan The time span.
+     * @param unit     The unit of time span.
      *                 <ul>
      *                 <li>{@link TimeConstants#MSEC}</li>
      *                 <li>{@link TimeConstants#SEC }</li>
@@ -1181,50 +1006,49 @@ public final class TimeUtils {
      *                 <li>{@link TimeConstants#HOUR}</li>
      *                 <li>{@link TimeConstants#DAY }</li>
      *                 </ul>
-     * @return 与当前时间等于时间差的 Date
+     * @return the date differ time span by now
      */
     public static Date getDateByNow(final long timeSpan, @TimeConstants.Unit final int unit) {
         return getDate(getNowMills(), timeSpan, unit);
     }
 
     /**
-     * 判断是否今天
-     * <p>time 格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Return whether it is today.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param time 时间字符串
-     * @return {@code true}: 是<br>{@code false}: 否
+     * @param time The formatted time string.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isToday(final String time) {
         return isToday(string2Millis(time, DEFAULT_FORMAT));
     }
 
     /**
-     * 判断是否今天
-     * <p>time 格式为 format</p>
+     * Return whether it is today.
      *
-     * @param time   时间字符串
-     * @param format 时间格式
-     * @return {@code true}: 是<br>{@code false}: 否
+     * @param time   The formatted time string.
+     * @param format The format.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isToday(final String time, final DateFormat format) {
         return isToday(string2Millis(time, format));
     }
 
     /**
-     * 判断是否今天
+     * Return whether it is today.
      *
-     * @param date Date 类型时间
-     * @return {@code true}: 是<br>{@code false}: 否
+     * @param date The date.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isToday(final Date date) {
         return isToday(date.getTime());
     }
 
     /**
-     * 判断是否今天
+     * Return whether it is today.
      *
-     * @param millis 毫秒时间戳
-     * @return {@code true}: 是<br>{@code false}: 否
+     * @param millis The milliseconds.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isToday(final long millis) {
         long wee = getWeeOfToday();
@@ -1232,33 +1056,32 @@ public final class TimeUtils {
     }
 
     /**
-     * 判断是否闰年
-     * <p>time 格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Return whether it is leap year.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param time 时间字符串
-     * @return {@code true}: 闰年<br>{@code false}: 平年
+     * @param time The formatted time string.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isLeapYear(final String time) {
         return isLeapYear(string2Date(time, DEFAULT_FORMAT));
     }
 
     /**
-     * 判断是否闰年
-     * <p>time 格式为 format</p>
+     * Return whether it is leap year.
      *
-     * @param time   时间字符串
-     * @param format 时间格式
-     * @return {@code true}: 闰年<br>{@code false}: 平年
+     * @param time   The formatted time string.
+     * @param format The format.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isLeapYear(final String time, final DateFormat format) {
         return isLeapYear(string2Date(time, format));
     }
 
     /**
-     * 判断是否闰年
+     * Return whether it is leap year.
      *
-     * @param date Date 类型时间
-     * @return {@code true}: 闰年<br>{@code false}: 平年
+     * @param date The date.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isLeapYear(final Date date) {
         Calendar cal = Calendar.getInstance();
@@ -1268,118 +1091,115 @@ public final class TimeUtils {
     }
 
     /**
-     * 判断是否闰年
+     * Return whether it is leap year.
      *
-     * @param millis 毫秒时间戳
-     * @return {@code true}: 闰年<br>{@code false}: 平年
+     * @param millis The milliseconds.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isLeapYear(final long millis) {
         return isLeapYear(millis2Date(millis));
     }
 
     /**
-     * 判断是否闰年
+     * Return whether it is leap year.
      *
-     * @param year 年份
-     * @return {@code true}: 闰年<br>{@code false}: 平年
+     * @param year The year.
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isLeapYear(final int year) {
         return year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
     }
 
     /**
-     * 获取中式星期
-     * <p>time 格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Return the day of week in Chinese.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param time 时间字符串
-     * @return 中式星期
+     * @param time The formatted time string.
+     * @return the day of week in Chinese
      */
     public static String getChineseWeek(final String time) {
         return getChineseWeek(string2Date(time, DEFAULT_FORMAT));
     }
 
     /**
-     * 获取中式星期
-     * <p>time 格式为 format</p>
+     * Return the day of week in Chinese.
      *
-     * @param time   时间字符串
-     * @param format 时间格式
-     * @return 中式星期
+     * @param time   The formatted time string.
+     * @param format The format.
+     * @return the day of week in Chinese
      */
     public static String getChineseWeek(final String time, final DateFormat format) {
         return getChineseWeek(string2Date(time, format));
     }
 
     /**
-     * 获取中式星期
+     * Return the day of week in Chinese.
      *
-     * @param date Date 类型时间
-     * @return 中式星期
+     * @param date The date.
+     * @return the day of week in Chinese
      */
     public static String getChineseWeek(final Date date) {
         return new SimpleDateFormat("E", Locale.CHINA).format(date);
     }
 
     /**
-     * 获取中式星期
+     * Return the day of week in Chinese.
      *
-     * @param millis 毫秒时间戳
-     * @return 中式星期
+     * @param millis The milliseconds.
+     * @return the day of week in Chinese
      */
     public static String getChineseWeek(final long millis) {
         return getChineseWeek(new Date(millis));
     }
 
     /**
-     * 获取美式星期
-     * <p>time 格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Return the day of week in US.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param time 时间字符串
-     * @return 美式星期
+     * @param time The formatted time string.
+     * @return the day of week in US
      */
     public static String getUSWeek(final String time) {
         return getUSWeek(string2Date(time, DEFAULT_FORMAT));
     }
 
     /**
-     * 获取美式星期
-     * <p>time 格式为 format</p>
+     * Return the day of week in US.
      *
-     * @param time   时间字符串
-     * @param format 时间格式
-     * @return 美式星期
+     * @param time   The formatted time string.
+     * @param format The format.
+     * @return the day of week in US
      */
     public static String getUSWeek(final String time, final DateFormat format) {
         return getUSWeek(string2Date(time, format));
     }
 
     /**
-     * 获取美式星期
+     * Return the day of week in US.
      *
-     * @param date Date 类型时间
-     * @return 美式星期
+     * @param date The date.
+     * @return the day of week in US
      */
     public static String getUSWeek(final Date date) {
         return new SimpleDateFormat("EEEE", Locale.US).format(date);
     }
 
     /**
-     * 获取美式星期
+     * Return the day of week in US.
      *
-     * @param millis 毫秒时间戳
-     * @return 美式星期
+     * @param millis The milliseconds.
+     * @return the day of week in US
      */
     public static String getUSWeek(final long millis) {
         return getUSWeek(new Date(millis));
     }
 
     /**
-     * 获取星期索引
-     * <p>注意：周日的 Index 才是 1，周六为 7</p>
-     * <p>time 格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Return the number for indicating the day of the week.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param time 时间字符串
-     * @return 1...7
+     * @param time The formatted time string.
+     * @return the number for indicating the day of the week
      * @see Calendar#SUNDAY
      * @see Calendar#MONDAY
      * @see Calendar#TUESDAY
@@ -1393,13 +1213,11 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取星期索引
-     * <p>注意：周日的 Index 才是 1，周六为 7</p>
-     * <p>time 格式为 format</p>
+     * Return the number for indicating the day of the week.
      *
-     * @param time   时间字符串
-     * @param format 时间格式
-     * @return 1...7
+     * @param time   The formatted time string.
+     * @param format The format.
+     * @return the number for indicating the day of the week
      * @see Calendar#SUNDAY
      * @see Calendar#MONDAY
      * @see Calendar#TUESDAY
@@ -1413,11 +1231,10 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取星期索引
-     * <p>注意：周日的 Index 才是 1，周六为 7</p>
+     * Return the number for indicating the day of the week.
      *
-     * @param date Date 类型时间
-     * @return 1...7
+     * @param date The date.
+     * @return the number for indicating the day of the week
      * @see Calendar#SUNDAY
      * @see Calendar#MONDAY
      * @see Calendar#TUESDAY
@@ -1433,11 +1250,10 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取星期索引
-     * <p>注意：周日的 Index 才是 1，周六为 7</p>
+     * Return the number for indicating the day of the week.
      *
-     * @param millis 毫秒时间戳
-     * @return 1...7
+     * @param millis The milliseconds.
+     * @return the number for indicating the day of the week
      * @see Calendar#SUNDAY
      * @see Calendar#MONDAY
      * @see Calendar#TUESDAY
@@ -1451,36 +1267,32 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取月份中的第几周
-     * <p>注意：国外周日才是新的一周的开始</p>
-     * <p>time 格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Return the number for indicating the week number within the current month.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param time 时间字符串
-     * @return 1...5
+     * @param time The formatted time string.
+     * @return the number for indicating the week number within the current month
      */
     public static int getWeekOfMonth(final String time) {
         return getWeekOfMonth(string2Date(time, DEFAULT_FORMAT));
     }
 
     /**
-     * 获取月份中的第几周
-     * <p>注意：国外周日才是新的一周的开始</p>
-     * <p>time 格式为 format</p>
+     * Return the number for indicating the week number within the current month.
      *
-     * @param time   时间字符串
-     * @param format 时间格式
-     * @return 1...5
+     * @param time   The formatted time string.
+     * @param format The format.
+     * @return the number for indicating the week number within the current month
      */
     public static int getWeekOfMonth(final String time, final DateFormat format) {
         return getWeekOfMonth(string2Date(time, format));
     }
 
     /**
-     * 获取月份中的第几周
-     * <p>注意：国外周日才是新的一周的开始</p>
+     * Return the number for indicating the week number within the current month.
      *
-     * @param date Date 类型时间
-     * @return 1...5
+     * @param date The date.
+     * @return the number for indicating the week number within the current month
      */
     public static int getWeekOfMonth(final Date date) {
         Calendar cal = Calendar.getInstance();
@@ -1489,47 +1301,42 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取月份中的第几周
-     * <p>注意：国外周日才是新的一周的开始</p>
+     * Return the number for indicating the week number within the current month.
      *
-     * @param millis 毫秒时间戳
-     * @return 1...5
+     * @param millis The milliseconds.
+     * @return the number for indicating the week number within the current month
      */
     public static int getWeekOfMonth(final long millis) {
         return getWeekOfMonth(millis2Date(millis));
     }
 
     /**
-     * 获取年份中的第几周
-     * <p>注意：国外周日才是新的一周的开始</p>
-     * <p>time 格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Return the number for indicating the week number within the current year.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param time 时间字符串
-     * @return 1...54
+     * @param time The formatted time string.
+     * @return the number for indicating the week number within the current year
      */
     public static int getWeekOfYear(final String time) {
         return getWeekOfYear(string2Date(time, DEFAULT_FORMAT));
     }
 
     /**
-     * 获取年份中的第几周
-     * <p>注意：国外周日才是新的一周的开始</p>
-     * <p>time 格式为 format</p>
+     * Return the number for indicating the week number within the current year.
      *
-     * @param time   时间字符串
-     * @param format 时间格式
-     * @return 1...54
+     * @param time   The formatted time string.
+     * @param format The format.
+     * @return the number for indicating the week number within the current year
      */
     public static int getWeekOfYear(final String time, final DateFormat format) {
         return getWeekOfYear(string2Date(time, format));
     }
 
     /**
-     * 获取年份中的第几周
-     * <p>注意：国外周日才是新的一周的开始</p>
+     * Return the number for indicating the week number within the current year.
      *
-     * @param date Date 类型时间
-     * @return 1...54
+     * @param date The date.
+     * @return the number for indicating the week number within the current year
      */
     public static int getWeekOfYear(final Date date) {
         Calendar cal = Calendar.getInstance();
@@ -1538,11 +1345,10 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取年份中的第几周
-     * <p>注意：国外周日才是新的一周的开始</p>
+     * Return the number for indicating the week number within the current year.
      *
-     * @param millis 毫秒时间戳
-     * @return 1...54
+     * @param millis The milliseconds.
+     * @return the number for indicating the week number within the current year
      */
     public static int getWeekOfYear(final long millis) {
         return getWeekOfYear(millis2Date(millis));
@@ -1552,33 +1358,32 @@ public final class TimeUtils {
             {"猴", "鸡", "狗", "猪", "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊"};
 
     /**
-     * 获取生肖
-     * <p>time 格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Return the Chinese zodiac.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param time 时间字符串
-     * @return 生肖
+     * @param time The formatted time string.
+     * @return the Chinese zodiac
      */
     public static String getChineseZodiac(final String time) {
         return getChineseZodiac(string2Date(time, DEFAULT_FORMAT));
     }
 
     /**
-     * 获取生肖
-     * <p>time 格式为 format</p>
+     * Return the Chinese zodiac.
      *
-     * @param time   时间字符串
-     * @param format 时间格式
-     * @return 生肖
+     * @param time   The formatted time string.
+     * @param format The format.
+     * @return the Chinese zodiac
      */
     public static String getChineseZodiac(final String time, final DateFormat format) {
         return getChineseZodiac(string2Date(time, format));
     }
 
     /**
-     * 获取生肖
+     * Return the Chinese zodiac.
      *
-     * @param date Date 类型时间
-     * @return 生肖
+     * @param date The date.
+     * @return the Chinese zodiac
      */
     public static String getChineseZodiac(final Date date) {
         Calendar cal = Calendar.getInstance();
@@ -1587,20 +1392,20 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取生肖
+     * Return the Chinese zodiac.
      *
-     * @param millis 毫秒时间戳
-     * @return 生肖
+     * @param millis The milliseconds.
+     * @return the Chinese zodiac
      */
     public static String getChineseZodiac(final long millis) {
         return getChineseZodiac(millis2Date(millis));
     }
 
     /**
-     * 获取生肖
+     * Return the Chinese zodiac.
      *
-     * @param year 年
-     * @return 生肖
+     * @param year The year.
+     * @return the Chinese zodiac
      */
     public static String getChineseZodiac(final int year) {
         return CHINESE_ZODIAC[year % 12];
@@ -1613,33 +1418,32 @@ public final class TimeUtils {
     };
 
     /**
-     * 获取星座
-     * <p>time 格式为 yyyy-MM-dd HH:mm:ss</p>
+     * Return the zodiac.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
-     * @param time 时间字符串
-     * @return 生肖
+     * @param time The formatted time string.
+     * @return the zodiac
      */
     public static String getZodiac(final String time) {
         return getZodiac(string2Date(time, DEFAULT_FORMAT));
     }
 
     /**
-     * 获取星座
-     * <p>time 格式为 format</p>
+     * Return the zodiac.
      *
-     * @param time   时间字符串
-     * @param format 时间格式
-     * @return 生肖
+     * @param time   The formatted time string.
+     * @param format The format.
+     * @return the zodiac
      */
     public static String getZodiac(final String time, final DateFormat format) {
         return getZodiac(string2Date(time, format));
     }
 
     /**
-     * 获取星座
+     * Return the zodiac.
      *
-     * @param date Date 类型时间
-     * @return 星座
+     * @param date The date.
+     * @return the zodiac
      */
     public static String getZodiac(final Date date) {
         Calendar cal = Calendar.getInstance();
@@ -1650,21 +1454,21 @@ public final class TimeUtils {
     }
 
     /**
-     * 获取星座
+     * Return the zodiac.
      *
-     * @param millis 毫秒时间戳
-     * @return 星座
+     * @param millis The milliseconds.
+     * @return the zodiac
      */
     public static String getZodiac(final long millis) {
         return getZodiac(millis2Date(millis));
     }
 
     /**
-     * 获取星座
+     * Return the zodiac.
      *
-     * @param month 月
-     * @param day   日
-     * @return 星座
+     * @param month The month.
+     * @param day   The day.
+     * @return the zodiac
      */
     public static String getZodiac(final int month, final int day) {
         return ZODIAC[day >= ZODIAC_FLAGS[month - 1]
