@@ -12,11 +12,18 @@ import java.io.Serializable;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/01/30
- *     desc  : 克隆相关工具类
+ *     desc  : utils about clone
  * </pre>
  */
 public final class CloneUtils {
 
+    /**
+     * Deep clone.
+     *
+     * @param data The data.
+     * @param <T>  The value type.
+     * @return The object of cloned
+     */
     public static <T> T deepClone(final Serializable data) {
         if (data == null) return null;
         return (T) bytes2Object(serializable2Bytes((Serializable) data));

@@ -1,5 +1,6 @@
 package com.blankj.androidutilcode.feature.core.phone;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -51,11 +52,14 @@ public class PhoneActivity extends BaseBackActivity {
 
         PermissionHelper.requestPhone(
                 new PermissionHelper.OnPermissionGrantedListener() {
+                    @SuppressLint("MissingPermission")
                     @Override
                     public void onPermissionGranted() {
                         tvAboutPhone.setText(new SpanUtils()
                                 .appendLine("isPhone: " + PhoneUtils.isPhone())
+                                .appendLine("getDeviceId: " + PhoneUtils.getDeviceId())
                                 .appendLine("getIMEI: " + PhoneUtils.getIMEI())
+                                .appendLine("getMEID: " + PhoneUtils.getMEID())
                                 .appendLine("getIMSI: " + PhoneUtils.getIMSI())
                                 .appendLine("getPhoneType: " + PhoneUtils.getPhoneType())
                                 .appendLine("isSimCardReady: " + PhoneUtils.isSimCardReady())
@@ -70,7 +74,9 @@ public class PhoneActivity extends BaseBackActivity {
                     public void onPermissionDenied() {
                         tvAboutPhone.setText(new SpanUtils()
                                 .appendLine("isPhone: " + PhoneUtils.isPhone())
+                                .appendLine("getDeviceId: " + "need permission")
                                 .appendLine("getIMEI: " + "need permission")
+                                .appendLine("getMEID: " + "need permission")
                                 .appendLine("getIMSI: " + "need permission")
                                 .appendLine("getPhoneType: " + PhoneUtils.getPhoneType())
                                 .appendLine("isSimCardReady: " + PhoneUtils.isSimCardReady())

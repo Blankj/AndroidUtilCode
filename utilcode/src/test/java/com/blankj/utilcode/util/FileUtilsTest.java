@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/08/19
- *     desc  : FileUtils 单元测试
+ *     desc  : test FileUtils
  * </pre>
  */
 public class FileUtilsTest {

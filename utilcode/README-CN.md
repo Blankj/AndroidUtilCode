@@ -397,20 +397,22 @@ hashCode      : 获取对象哈希值
 
 * ### 权限相关 -> [PermissionUtils.java][permission.java] -> [Demo][permission.demo]
 ```
-getPermissions : 获取应用权限
-isGranted      : 判断权限是否被授予
-openAppSettings: 打开应用具体设置
-permission     : 设置请求权限
-rationale      : 设置拒绝权限后再次请求的回调接口
-callback       : 设置回调
-theme          : 设置主题
-request        : 开始请求
+getPermissions          : 获取应用权限
+isGranted               : 判断权限是否被授予
+launchAppDetailsSettings: 打开应用具体设置
+permission              : 设置请求权限
+rationale               : 设置拒绝权限后再次请求的回调接口
+callback                : 设置回调
+theme                   : 设置主题
+request                 : 开始请求
 ```
 
 * ### 手机相关 -> [PhoneUtils.java][phone.java] -> [Demo][phone.demo]
 ```
 isPhone            : 判断设备是否是手机
+getDeviceId        : 获取设备码
 getIMEI            : 获取 IMEI 码
+getMEID            : 获取 MEID 码
 getIMSI            : 获取 IMSI 码
 getPhoneType       : 获取移动终端类型
 isSimCardReady     : 判断 sim 卡是否准备好
@@ -421,9 +423,6 @@ dial               : 跳至拨号界面
 call               : 拨打 phoneNumber
 sendSms            : 跳至发送短信界面
 sendSmsSilent      : 发送短信
-getAllContactInfo  : 获取手机联系人
-getContactNum      : 打开手机联系人界面点击联系人后便获取该号码
-getAllSMS          : 获取手机短信并保存到 xml 中
 ```
 
 * ### 进程相关 -> [ProcessUtils.java][process.java] -> [Demo][process.demo]
@@ -489,12 +488,12 @@ getSDCardPaths: 获取 SD 卡路径
 
 * ### 服务相关 -> [ServiceUtils.java][service.java]
 ```
-getAllRunningService: 获取所有运行的服务
-startService        : 启动服务
-stopService         : 停止服务
-bindService         : 绑定服务
-unbindService       : 解绑服务
-isServiceRunning    : 判断服务是否运行
+getAllRunningServices: 获取所有运行的服务
+startService         : 启动服务
+stopService          : 停止服务
+bindService          : 绑定服务
+unbindService        : 解绑服务
+isServiceRunning     : 判断服务是否运行
 ```
 
 * ### Shell 相关 -> [ShellUtils.java][shell.java]

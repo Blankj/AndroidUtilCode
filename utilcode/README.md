@@ -399,7 +399,7 @@ hashCode
 ```
 getPermissions
 isGranted
-openAppSettings
+launchAppDetailsSettings
 permission
 rationale
 callback
@@ -410,7 +410,9 @@ request
 * ### About Phone -> [PhoneUtils.java][phone.java] -> [Demo][phone.demo]
 ```
 isPhone
+getDeviceId
 getIMEI
+getMEID
 getIMSI
 getPhoneType
 isSimCardReady
@@ -421,9 +423,6 @@ dial
 call
 sendSms
 sendSmsSilent
-getAllContactInfo
-getContactNum
-getAllSMS
 ```
 
 * ### About Process -> [ProcessUtils.java][process.java] -> [Demo][process.demo]
@@ -489,7 +488,7 @@ getSDCardPaths
 
 * ### About Service -> [ServiceUtils.java][service.java]
 ```
-getAllRunningService
+getAllRunningServices
 startService
 stopService
 bindService

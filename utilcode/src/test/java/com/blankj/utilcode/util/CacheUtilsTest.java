@@ -32,7 +32,7 @@ import static org.junit.Assert.assertTrue;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/05/26
- *     desc  : CacheUtils 单元测试
+ *     desc  : test CacheUtils
  * </pre>
  */
 @RunWith(RobolectricTestRunner.class)

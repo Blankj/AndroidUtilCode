@@ -14,7 +14,7 @@ import static com.blankj.utilcode.util.TestConfig.PATH_TEMP;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/05/24
- *     desc  : FileIOUtils 单元测试
+ *     desc  : test FileIOUtils
  * </pre>
  */
 public class FileIOUtilsTest {

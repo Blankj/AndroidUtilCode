@@ -304,10 +304,10 @@ public final class ThreadPoolUtils {
      * @param callable 命令
      * @param delay    延迟时间
      * @param unit     时间单位
-     * @param <V>      泛型
+     * @param <T>      泛型
      * @return 可用于提取结果或取消的ScheduledFuture
      */
-    public <V> ScheduledFuture<V> schedule(final Callable<V> callable,
+    public <T> ScheduledFuture<T> schedule(final Callable<T> callable,
                                            final long delay,
                                            final TimeUnit unit) {
         return scheduleExec.schedule(callable, delay, unit);
