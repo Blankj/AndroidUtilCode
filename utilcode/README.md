@@ -213,6 +213,7 @@ readFile2BytesByStream
 readFile2BytesByChannel
 readFile2BytesByMap
 setBufferSize
+readFromStreamToString
 ```
 
 * ### About File -> [FileUtils.java][file.java] -> [Test][file.test]
