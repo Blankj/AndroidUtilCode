@@ -57,7 +57,7 @@ public final class LogUtils {
 
     @IntDef({V, D, I, W, E, A})
     @Retention(RetentionPolicy.SOURCE)
-    private @interface TYPE {
+    public @interface TYPE {
     }
 
     private static final char[] T = new char[]{'V', 'D', 'I', 'W', 'E', 'A'};

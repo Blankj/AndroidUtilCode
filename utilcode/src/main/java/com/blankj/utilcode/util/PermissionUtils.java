@@ -77,7 +77,7 @@ public final class PermissionUtils {
     }
 
     /**
-     * Return whether <em>you</em> have been granted the permissions.
+     * Return whether <em>you</em> have granted the permissions.
      *
      * @param permissions The permissions.
      * @return {@code true}: yes<br>{@code false}: no

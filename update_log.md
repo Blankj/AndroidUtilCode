@@ -1,3 +1,6 @@
+* 18/03/05 修复 Library Source does not match the bytecode for class LogUtils 问题，发布 1.13.1 版本
+* 18/03/04 完善 Javadoc 中文版为英文版，发布 1.13.0 版本
+* 18/03/04 完善 Javadoc 中文版为英文版
 * 18/03/03 完善 Javadoc 中文版为英文版
 * 18/03/02 完善 Javadoc 中文版为英文版
 * 18/03/01 完善 Javadoc 中文版为英文版
