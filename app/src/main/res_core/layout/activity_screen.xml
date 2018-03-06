@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/spacing_16"
+        android:paddingRight="@dimen/spacing_16">
+
+        <ImageView
+            android:id="@+id/iv_screenshot"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tv_about_screen"
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_set_fullscreen"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/screen_set_fullscreen" />
+
+        <Button
+            android:id="@+id/btn_set_landscape"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/screen_set_landscape" />
+
+        <Button
+            android:id="@+id/btn_set_portrait"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/screen_set_portrait" />
+
+        <Button
+            android:id="@+id/btn_screenshot"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/screen_screenshot" />
+
+        <Button
+            android:id="@+id/btn_set_sleep_duration"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/screen_set_sleep_duration" />
+
+    </LinearLayout>
+</ScrollView>

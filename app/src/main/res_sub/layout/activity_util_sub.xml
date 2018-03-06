@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/spacing_16"
+    android:paddingRight="@dimen/spacing_16">
+
+    <!--<Button-->
+    <!--style="@style/BtnFont"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:onClick="flashlightClick"-->
+    <!--android:text="@string/demo_flashlight"-->
+    <!--/>-->
+
+    <Button
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="brightnessClick"
+        android:text="@string/demo_brightness" />
+
+    <Button
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="locationClick"
+        android:text="@string/demo_location" />
+
+    <Button
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="pinyinClick"
+        android:text="@string/demo_pinyin" />
+
+</LinearLayout>

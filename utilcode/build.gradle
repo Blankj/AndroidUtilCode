@@ -1,29 +1,60 @@
 apply plugin: 'com.android.library'
+apply plugin: 'jacoco'
+
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
+    def mainSrc = "${project.projectDir}/src/main/java"
+
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugTree])
+    executionData = fileTree(dir: "$buildDir", includes: [
+            "jacoco/testDebugUnitTest.exec",
+            "outputs/code-coverage/connected/*coverage.ec"
+    ])
+}
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion '24.0.3'
-
+    compileSdkVersion compile_sdk_version
     defaultConfig {
-        minSdkVersion 11
-        targetSdkVersion 24
-        versionCode 12
-        versionName "1.3.3"
+        minSdkVersion min_sdk_version
+        versionCode version_code
+        versionName version_name
     }
+
     buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    testOptions.unitTests.all {
+        testLogging {
+            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+        }
+    }
 }
 
 dependencies {
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.robolectric:robolectric:3.1.2'
-    testCompile 'com.google.truth:truth:0.29'
-    provided 'com.android.support:support-v4:24.0.0'
-    provided 'com.android.support:design:24.0.0'
+    compileOnly "com.android.support:appcompat-v7:$support_version"
+    compileOnly "com.android.support:design:$support_version"
+    testImplementation "junit:junit:$junit_version"
+    testImplementation "org.robolectric:robolectric:$robolectric_version"
+    testImplementation "com.android.support:support-v4:$support_version"
 }
-//apply from: "https://raw.githubusercontent.com/xiaopansky/android-library-publish-to-jcenter/master/bintrayUpload.gradle"
-//gradlew bintrayUpload
+apply from: "../bintrayUpload.gradle"
+//gradle bintrayUpload

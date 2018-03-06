@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_color"
+        android:icon="@drawable/ic_vector_color"
+        android:title="@string/bar_status_title_color" />
+
+    <item
+        android:id="@+id/navigation_alpha"
+        android:icon="@drawable/ic_vector_alpha"
+        android:title="@string/bar_status_title_alpha" />
+
+    <item
+        android:id="@+id/navigation_image_view"
+        android:icon="@drawable/ic_vector_image"
+        android:title="@string/bar_status_title_image_view" />
+
+</menu>
