@@ -1,5 +1,6 @@
 package com.blankj.utilcode.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -16,7 +17,10 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.view.View;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <pre>
@@ -736,14 +740,44 @@ public final class ActivityUtils {
      */
     public static Activity getTopActivity() {
         if (Utils.sTopActivityWeakRef != null) {
-            Activity activity = Utils.sTopActivityWeakRef.get();
+            final Activity activity = Utils.sTopActivityWeakRef.get();
             if (activity != null) {
                 return activity;
             }
         }
-        List<Activity> activities = Utils.sActivityList;
-        int size = activities.size();
-        return size > 0 ? activities.get(size - 1) : null;
+        // using reflect to get top activity
+        try {
+            @SuppressLint("PrivateApi")
+            Class<?> activityThreadClass = Class.forName("android.app.ActivityThread");
+            Object activityThread = activityThreadClass.getMethod("currentActivityThread").invoke(null);
+            Field activitiesField = activityThreadClass.getDeclaredField("mActivities");
+            activitiesField.setAccessible(true);
+            Map activities = (Map) activitiesField.get(activityThread);
+            if (activities == null) return null;
+            for (Object activityRecord : activities.values()) {
+                Class activityRecordClass = activityRecord.getClass();
+                Field pausedField = activityRecordClass.getDeclaredField("paused");
+                pausedField.setAccessible(true);
+                if (!pausedField.getBoolean(activityRecord)) {
+                    Field activityField = activityRecordClass.getDeclaredField("activity");
+                    activityField.setAccessible(true);
+                    Activity topActivity = (Activity) activityField.get(activityRecord);
+                    Utils.setTopActivityWeakRef(topActivity);
+                    return topActivity;
+                }
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        throw new NullPointerException("The top activity is null.");
     }
 
     /**
