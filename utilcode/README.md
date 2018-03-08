@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-compile 'com.blankj:utilcode:1.13.1'
+compile 'com.blankj:utilcode:1.13.2'
 ```
 
 

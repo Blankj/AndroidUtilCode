@@ -1,5 +1,6 @@
 package com.blankj.androidutilcode;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -73,6 +74,7 @@ public class UtilsApp extends BaseApplication {
 
     }
 
+    @SuppressLint("MissingPermission")
     private void initCrash() {
         CrashUtils.init(new CrashUtils.OnCrashListener() {
             @Override
