@@ -701,7 +701,7 @@ public final class ActivityUtils {
      * @return the list of activity
      */
     public static List<Activity> getActivityList() {
-        return Utils.sActivityList;
+        return Utils.getActivityList();
     }
 
     /**
@@ -739,11 +739,9 @@ public final class ActivityUtils {
      * @return the top activity in activity's stack
      */
     public static Activity getTopActivity() {
-        if (Utils.sTopActivityWeakRef != null) {
-            final Activity activity = Utils.sTopActivityWeakRef.get();
-            if (activity != null) {
-                return activity;
-            }
+        final Activity topActivity = Utils.getActivityList().getLast();
+        if (topActivity != null) {
+            return topActivity;
         }
         // using reflect to get top activity
         try {
@@ -761,9 +759,9 @@ public final class ActivityUtils {
                 if (!pausedField.getBoolean(activityRecord)) {
                     Field activityField = activityRecordClass.getDeclaredField("activity");
                     activityField.setAccessible(true);
-                    Activity topActivity = (Activity) activityField.get(activityRecord);
-                    Utils.setTopActivityWeakRef(topActivity);
-                    return topActivity;
+                    Activity activity = (Activity) activityField.get(activityRecord);
+                    Utils.setTopActivity(activity);
+                    return activity;
                 }
             }
         } catch (ClassNotFoundException e) {
@@ -777,7 +775,7 @@ public final class ActivityUtils {
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
-        throw new NullPointerException("The top activity is null.");
+        return null;
     }
 
     /**
@@ -787,7 +785,7 @@ public final class ActivityUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isActivityExistsInStack(@NonNull final Activity activity) {
-        List<Activity> activities = Utils.sActivityList;
+        List<Activity> activities = Utils.getActivityList();
         for (Activity aActivity : activities) {
             if (aActivity.equals(activity)) {
                 return true;
@@ -803,7 +801,7 @@ public final class ActivityUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isActivityExistsInStack(@NonNull final Class<?> clz) {
-        List<Activity> activities = Utils.sActivityList;
+        List<Activity> activities = Utils.getActivityList();
         for (Activity aActivity : activities) {
             if (aActivity.getClass().equals(clz)) {
                 return true;
@@ -866,7 +864,7 @@ public final class ActivityUtils {
      * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
      */
     public static void finishActivity(@NonNull final Class<?> clz, final boolean isLoadAnim) {
-        List<Activity> activities = Utils.sActivityList;
+        List<Activity> activities = Utils.getActivityList();
         for (Activity activity : activities) {
             if (activity.getClass().equals(clz)) {
                 activity.finish();
@@ -889,7 +887,7 @@ public final class ActivityUtils {
     public static void finishActivity(@NonNull final Class<?> clz,
                                       @AnimRes final int enterAnim,
                                       @AnimRes final int exitAnim) {
-        List<Activity> activities = Utils.sActivityList;
+        List<Activity> activities = Utils.getActivityList();
         for (Activity activity : activities) {
             if (activity.getClass().equals(clz)) {
                 activity.finish();
@@ -919,7 +917,7 @@ public final class ActivityUtils {
     public static boolean finishToActivity(@NonNull final Activity activity,
                                            final boolean isIncludeSelf,
                                            final boolean isLoadAnim) {
-        List<Activity> activities = Utils.sActivityList;
+        List<Activity> activities = Utils.getActivityList();
         for (int i = activities.size() - 1; i >= 0; --i) {
             Activity aActivity = activities.get(i);
             if (aActivity.equals(activity)) {
@@ -947,7 +945,7 @@ public final class ActivityUtils {
                                            final boolean isIncludeSelf,
                                            @AnimRes final int enterAnim,
                                            @AnimRes final int exitAnim) {
-        List<Activity> activities = Utils.sActivityList;
+        List<Activity> activities = Utils.getActivityList();
         for (int i = activities.size() - 1; i >= 0; --i) {
             Activity aActivity = activities.get(i);
             if (aActivity.equals(activity)) {
@@ -982,7 +980,7 @@ public final class ActivityUtils {
     public static boolean finishToActivity(@NonNull final Class<?> clz,
                                            final boolean isIncludeSelf,
                                            final boolean isLoadAnim) {
-        List<Activity> activities = Utils.sActivityList;
+        List<Activity> activities = Utils.getActivityList();
         for (int i = activities.size() - 1; i >= 0; --i) {
             Activity aActivity = activities.get(i);
             if (aActivity.getClass().equals(clz)) {
@@ -1010,7 +1008,7 @@ public final class ActivityUtils {
                                            final boolean isIncludeSelf,
                                            @AnimRes final int enterAnim,
                                            @AnimRes final int exitAnim) {
-        List<Activity> activities = Utils.sActivityList;
+        List<Activity> activities = Utils.getActivityList();
         for (int i = activities.size() - 1; i >= 0; --i) {
             Activity aActivity = activities.get(i);
             if (aActivity.getClass().equals(clz)) {
@@ -1042,7 +1040,7 @@ public final class ActivityUtils {
      */
     public static void finishOtherActivities(@NonNull final Class<?> clz,
                                              final boolean isLoadAnim) {
-        List<Activity> activities = Utils.sActivityList;
+        List<Activity> activities = Utils.getActivityList();
         for (int i = activities.size() - 1; i >= 0; i--) {
             Activity activity = activities.get(i);
             if (!activity.getClass().equals(clz)) {
@@ -1063,7 +1061,7 @@ public final class ActivityUtils {
     public static void finishOtherActivities(@NonNull final Class<?> clz,
                                              @AnimRes final int enterAnim,
                                              @AnimRes final int exitAnim) {
-        List<Activity> activities = Utils.sActivityList;
+        List<Activity> activities = Utils.getActivityList();
         for (int i = activities.size() - 1; i >= 0; i--) {
             Activity activity = activities.get(i);
             if (!activity.getClass().equals(clz)) {
@@ -1085,7 +1083,7 @@ public final class ActivityUtils {
      * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
      */
     public static void finishAllActivities(final boolean isLoadAnim) {
-        List<Activity> activityList = Utils.sActivityList;
+        List<Activity> activityList = Utils.getActivityList();
         for (int i = activityList.size() - 1; i >= 0; --i) {// remove from top
             Activity activity = activityList.get(i);
             // sActivityList remove the index activity at onActivityDestroyed
@@ -1106,7 +1104,7 @@ public final class ActivityUtils {
      */
     public static void finishAllActivities(@AnimRes final int enterAnim,
                                            @AnimRes final int exitAnim) {
-        List<Activity> activityList = Utils.sActivityList;
+        List<Activity> activityList = Utils.getActivityList();
         for (int i = activityList.size() - 1; i >= 0; --i) {// remove from top
             Activity activity = activityList.get(i);
             // sActivityList remove the index activity at onActivityDestroyed
@@ -1128,7 +1126,7 @@ public final class ActivityUtils {
      * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
      */
     public static void finishAllActivitiesExceptNewest(final boolean isLoadAnim) {
-        List<Activity> activities = Utils.sActivityList;
+        List<Activity> activities = Utils.getActivityList();
         for (int i = activities.size() - 2; i >= 0; i--) {
             finishActivity(activities.get(i), isLoadAnim);
         }
@@ -1144,7 +1142,7 @@ public final class ActivityUtils {
      */
     public static void finishAllActivitiesExceptNewest(@AnimRes final int enterAnim,
                                                        @AnimRes final int exitAnim) {
-        List<Activity> activities = Utils.sActivityList;
+        List<Activity> activities = Utils.getActivityList();
         for (int i = activities.size() - 2; i >= 0; i--) {
             finishActivity(activities.get(i), enterAnim, exitAnim);
         }

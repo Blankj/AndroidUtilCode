@@ -153,6 +153,16 @@ public final class ServiceUtils {
     /**
      * Return whether service is running.
      *
+     * @param cls The service class.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isServiceRunning(final Class<?> cls) {
+        return isServiceRunning(cls.getName());
+    }
+
+    /**
+     * Return whether service is running.
+     *
      * @param className The name of class.
      * @return {@code true}: yes<br>{@code false}: no
      */

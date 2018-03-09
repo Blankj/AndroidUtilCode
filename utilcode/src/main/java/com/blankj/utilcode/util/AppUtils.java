@@ -304,9 +304,10 @@ public final class AppUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isAppForeground() {
-        ActivityManager manager =
+        ActivityManager am =
                 (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningAppProcessInfo> info = manager.getRunningAppProcesses();
+        if (am == null) return false;
+        List<ActivityManager.RunningAppProcessInfo> info = am.getRunningAppProcesses();
         if (info == null || info.size() == 0) return false;
         for (ActivityManager.RunningAppProcessInfo aInfo : info) {
             if (aInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
@@ -376,7 +377,7 @@ public final class AppUtils {
      * Exit the application.
      */
     public static void exitApp() {
-        List<Activity> activityList = Utils.sActivityList;
+        List<Activity> activityList = Utils.getActivityList();
         for (int i = activityList.size() - 1; i >= 0; --i) {// remove from top
             Activity activity = activityList.get(i);
             // sActivityList remove the index activity at onActivityDestroyed

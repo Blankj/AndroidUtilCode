@@ -44,10 +44,10 @@ public final class ProcessUtils {
      * @return the foreground process name
      */
     public static String getForegroundProcessName() {
-        ActivityManager manager =
+        ActivityManager am =
                 (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-        if (manager == null) return null;
-        List<ActivityManager.RunningAppProcessInfo> pInfo = manager.getRunningAppProcesses();
+        if (am == null) return null;
+        List<ActivityManager.RunningAppProcessInfo> pInfo = am.getRunningAppProcesses();
         if (pInfo != null && pInfo.size() > 0) {
             for (ActivityManager.RunningAppProcessInfo aInfo : pInfo) {
                 if (aInfo.importance
@@ -57,10 +57,10 @@ public final class ProcessUtils {
             }
         }
         if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.LOLLIPOP) {
-            PackageManager packageManager = Utils.getApp().getPackageManager();
+            PackageManager pm = Utils.getApp().getPackageManager();
             Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
             List<ResolveInfo> list =
-                    packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                    pm.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
             Log.i("ProcessUtils", list.toString());
             if (list.size() <= 0) {
                 Log.i("ProcessUtils",
@@ -69,7 +69,7 @@ public final class ProcessUtils {
             }
             try {// 有"有权查看使用权限的应用"选项
                 ApplicationInfo info =
-                        packageManager.getApplicationInfo(Utils.getApp().getPackageName(), 0);
+                        pm.getApplicationInfo(Utils.getApp().getPackageName(), 0);
                 AppOpsManager aom =
                         (AppOpsManager) Utils.getApp().getSystemService(Context.APP_OPS_SERVICE);
                 if (aom != null) {
