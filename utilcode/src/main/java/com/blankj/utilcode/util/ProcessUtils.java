@@ -67,7 +67,7 @@ public final class ProcessUtils {
                         "getForegroundProcessName() called" + ": 无\"有权查看使用权限的应用\"选项");
                 return null;
             }
-            try {// 有"有权查看使用权限的应用"选项
+            try {// There is an owner has permission to view usage rights option
                 ApplicationInfo info =
                         pm.getApplicationInfo(Utils.getApp().getPackageName(), 0);
                 AppOpsManager aom =
