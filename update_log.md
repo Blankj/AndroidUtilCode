@@ -1,3 +1,5 @@
+* 18/03/10 完善 Utils#installAppSilent 和 DeviceUtils#getMacAddress，发布 1.13.3 版本
+* 18/03/09 完善 ActivityUtils#getTopActivity
 * 18/03/08 新增反射获取栈顶 Activity 的方法，发布 1.13.2 版本
 * 18/03/07 修复 PermissionUtils 请求权限为 0 的 崩溃
 * 18/03/05 修复 Library Source does not match the bytecode for class LogUtils 问题，发布 1.13.1 版本
