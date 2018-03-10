@@ -110,7 +110,7 @@ public final class AppUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean installAppSilent(final String filePath) {
-        return installAppSilent(getFileByPath(filePath));
+        return installAppSilent(getFileByPath(filePath), null);
     }
 
     /**
@@ -122,19 +122,47 @@ public final class AppUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean installAppSilent(final File file) {
+        return installAppSilent(file, null);
+    }
+
+
+    /**
+     * Install the app silently.
+     * <p>Without root permission must hold
+     * {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
+     *
+     * @param filePath The path of file.
+     * @param params   The params of installation.
+     * @return {@code true}: success<br>{@code false}: fail
+     */
+    public static boolean installAppSilent(final String filePath, final String params) {
+        return installAppSilent(getFileByPath(filePath), null);
+    }
+
+    /**
+     * Install the app silently.
+     * <p>Without root permission must hold
+     * {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
+     *
+     * @param file   The file.
+     * @param params The params of installation.
+     * @return {@code true}: success<br>{@code false}: fail
+     */
+    public static boolean installAppSilent(final File file, final String params) {
         if (!isFileExists(file)) return false;
         boolean isRoot = isDeviceRooted();
         String filePath = file.getAbsolutePath();
-        String command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib pm install " + filePath;
+        String command = "LD_LIBRARY_PATH=/vendor/lib*:/system/lib* pm install " +
+                (params == null ? "" : params + " ")
+                + filePath;
         ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, isRoot);
         if (commandResult.successMsg != null
                 && commandResult.successMsg.toLowerCase().contains("success")) {
             return true;
         } else {
-            command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib64 pm install " + filePath;
-            commandResult = ShellUtils.execCmd(command, isRoot, true);
-            return commandResult.successMsg != null
-                    && commandResult.successMsg.toLowerCase().contains("success");
+            Log.e("AppUtils", "installAppSilent successMsg: " + commandResult.successMsg +
+                    ", errorMsg: " + commandResult.errorMsg);
+            return false;
         }
     }
 
@@ -160,7 +188,10 @@ public final class AppUtils {
                                     final String packageName,
                                     final int requestCode) {
         if (isSpace(packageName)) return;
-        activity.startActivityForResult(IntentUtils.getUninstallAppIntent(packageName), requestCode);
+        activity.startActivityForResult(
+                IntentUtils.getUninstallAppIntent(packageName),
+                requestCode
+        );
     }
 
     /**
@@ -187,7 +218,7 @@ public final class AppUtils {
     public static boolean uninstallAppSilent(final String packageName, final boolean isKeepData) {
         if (isSpace(packageName)) return false;
         boolean isRoot = isDeviceRooted();
-        String command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib pm uninstall "
+        String command = "LD_LIBRARY_PATH=/vendor/lib*:/system/lib* pm uninstall "
                 + (isKeepData ? "-k " : "")
                 + packageName;
         ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, isRoot, true);
@@ -195,12 +226,9 @@ public final class AppUtils {
                 && commandResult.successMsg.toLowerCase().contains("success")) {
             return true;
         } else {
-            command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib64 pm uninstall "
-                    + (isKeepData ? "-k " : "")
-                    + packageName;
-            commandResult = ShellUtils.execCmd(command, isRoot, true);
-            return commandResult.successMsg != null
-                    && commandResult.successMsg.toLowerCase().contains("success");
+            Log.e("AppUtils", "uninstallAppSilent successMsg: " + commandResult.successMsg +
+                    ", errorMsg: " + commandResult.errorMsg);
+            return false;
         }
     }
 

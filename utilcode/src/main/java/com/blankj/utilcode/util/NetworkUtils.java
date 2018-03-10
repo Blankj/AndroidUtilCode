@@ -349,8 +349,8 @@ public final class NetworkUtils {
     @RequiresPermission(INTERNET)
     public static String getIPAddress(final boolean useIPv4) {
         try {
-            for (Enumeration<NetworkInterface> nis =
-                 NetworkInterface.getNetworkInterfaces(); nis.hasMoreElements(); ) {
+            Enumeration<NetworkInterface> nis = NetworkInterface.getNetworkInterfaces();
+            while (nis.hasMoreElements()) {
                 NetworkInterface ni = nis.nextElement();
                 // To prevent phone of xiaomi return "10.0.2.15"
                 if (!ni.isUp()) continue;

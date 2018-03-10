@@ -11,9 +11,10 @@ import android.provider.Settings;
 import android.support.annotation.RequiresPermission;
 
 import java.io.File;
+import java.net.InetAddress;
 import java.net.NetworkInterface;
-import java.util.Collections;
-import java.util.List;
+import java.net.SocketException;
+import java.util.Enumeration;
 
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
 import static android.Manifest.permission.INTERNET;
@@ -98,6 +99,10 @@ public final class DeviceUtils {
         if (!"02:00:00:00:00:00".equals(macAddress)) {
             return macAddress;
         }
+        macAddress = getMacAddressByInetAddress();
+        if (!"02:00:00:00:00:00".equals(macAddress)) {
+            return macAddress;
+        }
         macAddress = getMacAddressByFile();
         if (!"02:00:00:00:00:00".equals(macAddress)) {
             return macAddress;
@@ -122,22 +127,67 @@ public final class DeviceUtils {
 
     private static String getMacAddressByNetworkInterface() {
         try {
-            List<NetworkInterface> nis = Collections.list(NetworkInterface.getNetworkInterfaces());
-            for (NetworkInterface ni : nis) {
-                if (!ni.getName().equalsIgnoreCase("wlan0")) continue;
+            Enumeration<NetworkInterface> nis = NetworkInterface.getNetworkInterfaces();
+            while (nis.hasMoreElements()) {
+                NetworkInterface ni = nis.nextElement();
+                if (ni == null || !ni.getName().equalsIgnoreCase("wlan0")) continue;
                 byte[] macBytes = ni.getHardwareAddress();
                 if (macBytes != null && macBytes.length > 0) {
-                    StringBuilder res1 = new StringBuilder();
+                    StringBuilder sb = new StringBuilder();
                     for (byte b : macBytes) {
-                        res1.append(String.format("%02x:", b));
+                        sb.append(String.format("%02x:", b));
                     }
-                    return res1.deleteCharAt(res1.length() - 1).toString();
+                    return sb.substring(0, sb.length() - 1);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "02:00:00:00:00:00";
+    }
+
+    private static String getMacAddressByInetAddress() {
+        try {
+            InetAddress inetAddress = getInetAddress();
+            if (inetAddress != null) {
+                NetworkInterface ni = NetworkInterface.getByInetAddress(inetAddress);
+                if (ni != null) {
+                    byte[] macBytes = ni.getHardwareAddress();
+                    if (macBytes != null && macBytes.length > 0) {
+                        StringBuilder sb = new StringBuilder();
+                        for (byte b : macBytes) {
+                            sb.append(String.format("%02x:", b));
+                        }
+                        return sb.substring(0, sb.length() - 1);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "02:00:00:00:00:00";
+    }
+
+    private static InetAddress getInetAddress() {
+        try {
+            Enumeration<NetworkInterface> nis = NetworkInterface.getNetworkInterfaces();
+            while (nis.hasMoreElements()) {
+                NetworkInterface ni = nis.nextElement();
+                // To prevent phone of xiaomi return "10.0.2.15"
+                if (!ni.isUp()) continue;
+                Enumeration<InetAddress> addresses = ni.getInetAddresses();
+                while (addresses.hasMoreElements()) {
+                    InetAddress inetAddress = addresses.nextElement();
+                    if (!inetAddress.isLoopbackAddress()) {
+                        String hostAddress = inetAddress.getHostAddress();
+                        if (hostAddress.indexOf(':') < 0) return inetAddress;
+                    }
+                }
+            }
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private static String getMacAddressByFile() {
@@ -162,7 +212,6 @@ public final class DeviceUtils {
      *
      * @return the manufacturer of the product/hardware
      */
-
     public static String getManufacturer() {
         return Build.MANUFACTURER;
     }
