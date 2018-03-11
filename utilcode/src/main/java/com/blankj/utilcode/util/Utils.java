@@ -34,7 +34,7 @@ public final class Utils {
     @SuppressLint("StaticFieldLeak")
     private static Application sApplication;
 
-    static LinkedList<Activity> sActivityList = new LinkedList<>();
+    private static LinkedList<Activity> sActivityList = new LinkedList<>();
 
     private static ActivityLifecycleCallbacks mCallbacks = new ActivityLifecycleCallbacks() {
         @Override
@@ -84,7 +84,7 @@ public final class Utils {
      * @param context context
      */
     public static void init(@NonNull final Context context) {
-        Utils.sApplication = ((Application) context.getApplicationContext());
+        Utils.sApplication = (Application) context.getApplicationContext();
         Utils.sApplication.registerActivityLifecycleCallbacks(mCallbacks);
     }
 

@@ -113,8 +113,8 @@ public final class DeviceUtils {
     @SuppressLint({"HardwareIds", "MissingPermission"})
     private static String getMacAddressByWifiInfo() {
         try {
-            @SuppressLint("WifiManagerLeak")
-            WifiManager wifi = (WifiManager) Utils.getApp().getSystemService(Context.WIFI_SERVICE);
+            Context context = Utils.getApp().getApplicationContext();
+            WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
             if (wifi != null) {
                 WifiInfo info = wifi.getConnectionInfo();
                 if (info != null) return info.getMacAddress();
@@ -197,8 +197,9 @@ public final class DeviceUtils {
             if (name != null) {
                 result = ShellUtils.execCmd("cat /sys/class/net/" + name + "/address", false);
                 if (result.result == 0) {
-                    if (result.successMsg != null) {
-                        return result.successMsg;
+                    String address = result.successMsg;
+                    if (address != null && address.length() > 0) {
+                        return address;
                     }
                 }
             }

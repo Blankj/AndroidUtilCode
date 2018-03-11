@@ -64,10 +64,10 @@ public final class ProcessUtils {
             Log.i("ProcessUtils", list.toString());
             if (list.size() <= 0) {
                 Log.i("ProcessUtils",
-                        "getForegroundProcessName() called" + ": 无\"有权查看使用权限的应用\"选项");
+                        "getForegroundProcessName: noun of access to usage information.");
                 return null;
             }
-            try {// 有"有权查看使用权限的应用"选项
+            try {// Access to usage information.
                 ApplicationInfo info =
                         pm.getApplicationInfo(Utils.getApp().getPackageName(), 0);
                 AppOpsManager aom =
@@ -82,7 +82,8 @@ public final class ProcessUtils {
                     if (aom.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
                             info.uid,
                             info.packageName) != AppOpsManager.MODE_ALLOWED) {
-                        Log.i("ProcessUtils", "没有打开\"有权查看使用权限的应用\"选项");
+                        Log.i("ProcessUtils",
+                                "getForegroundProcessName: refuse to device usage stats.");
                         return null;
                     }
                 }
