@@ -39,7 +39,7 @@ ext {
     version_name = '1.13.3'// E.g 1.9.72 => 1,009,072
 
     // App dependencies
-    support_version = '26.0.0'
+    support_version = '26.1.0'
 
     leakcanary_version = '1.5.4'
 
