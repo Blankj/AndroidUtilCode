@@ -116,9 +116,9 @@ public final class KeyboardUtils {
 
     private static int getContentViewInvisibleHeight(final Activity activity) {
         final View contentView = activity.findViewById(android.R.id.content);
-        Rect r = new Rect();
-        contentView.getWindowVisibleDisplayFrame(r);
-        return contentView.getRootView().getHeight() - r.height();
+        Rect outRect = new Rect();
+        contentView.getWindowVisibleDisplayFrame(outRect);
+        return contentView.getBottom() - outRect.bottom;
     }
 
     /**
