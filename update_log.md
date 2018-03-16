@@ -1,3 +1,4 @@
+* 18/03/16 新增 gradle 插件来格式化 README
 * 18/03/14 修复 KeyboardUtils#getContentViewInvisibleHeight，发布 1.13.4 版本
 * 18/03/10 完善 Utils#installAppSilent 和 DeviceUtils#getMacAddress，发布 1.13.3 版本
 * 18/03/09 完善 ActivityUtils#getTopActivity

@@ -1,4 +1,10 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.blankj.readme.sub'
+
+readme {
+    readmeFile file('README.md')
+    readmeCnFile file('README-CN.md')
+}
 
 android {
     compileSdkVersion compile_sdk_version
