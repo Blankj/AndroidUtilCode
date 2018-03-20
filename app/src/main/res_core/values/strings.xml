@@ -133,6 +133,7 @@
 
     <!--Image 相关-->
     <string name="image_src">Src</string>
+    <string name="image_add_color">Add Color</string>
     <string name="image_scale">Scale</string>
     <string name="image_clip">Clip</string>
     <string name="image_skew">Skew</string>
