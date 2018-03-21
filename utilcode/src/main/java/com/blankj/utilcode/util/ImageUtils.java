@@ -1840,6 +1840,22 @@ public final class ImageUtils {
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
     }
 
+    /**
+     * 给图片增加图层颜色
+     *
+     * @param bitmap 传入的图片
+     * @param color  给图片添加颜色图层图层
+     * @return 添加图层后的bitmap
+     */
+    public static Bitmap drawImageColor(@NonNull Bitmap bitmap, @ColorInt int color){
+
+        Canvas canvas = new Canvas(bitmap);
+        canvas.drawColor(color, PorterDuff.Mode.DARKEN);
+
+        return bitmap;
+
+    }
+
     private static File getFileByPath(final String filePath) {
         return isSpace(filePath) ? null : new File(filePath);
     }
