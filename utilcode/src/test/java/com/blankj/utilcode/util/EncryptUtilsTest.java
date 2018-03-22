@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
  * </pre>
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE, sdk = 23)
+@Config(manifest = Config.NONE)
 public class EncryptUtilsTest {
 
     static {
