@@ -6,11 +6,12 @@ android:
   components:
     - tools
     - platform-tools
-    - build-tools-27.0.2
+    - build-tools-27.0.1
     - android-27
 
   licenses:
     - 'android-sdk-license-.+'
+    - 'android-sdk-preview-license-.+'
 
   notifications:
     email: false
