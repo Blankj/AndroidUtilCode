@@ -6,12 +6,13 @@ android:
   components:
     - tools
     - platform-tools
-    - build-tools-27.0.1
+    - build-tools-27.0.3
     - android-27
+    - add-on
+    - extra
 
   licenses:
     - 'android-sdk-license-.+'
-    - 'android-sdk-preview-license-.+'
 
   notifications:
     email: false
@@ -19,5 +20,14 @@ android:
 before_install:
   - yes | sdkmanager "platforms;android-27"
 
+before_cache:
+    - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+cache:
+  directories:
+    - $HOME/.m2
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+
 script:
+  - chmod +x ./gradlew
   - ./gradlew build connectedCheck --info
