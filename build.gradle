@@ -29,23 +29,20 @@ task clean(type: Delete) {
 
 ext {
     // Sdk and tools
-    compile_sdk_version = 26
-    build_tools_version = '26.0.0'
+    compile_sdk_version = 27
     min_sdk_version = 14
-    target_sdk_version = 26
+    target_sdk_version = 27
 
     version_code = 1_013_005
     version_name = '1.13.5'// E.g 1.9.72 => 1,009,072
 
     // App dependencies
-    support_version = '26.1.0'
+    support_version = '27.0.2'
 
     leakcanary_version = '1.5.4'
 
     junit_version = '4.12'
     robolectric_version = '3.1.2'
-
-    trauteVersion = '1.1.8'
 }
 
 
