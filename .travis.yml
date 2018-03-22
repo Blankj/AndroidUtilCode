@@ -18,16 +18,7 @@ android:
     email: false
 
 before_install:
-    - yes | sdkmanager --licenses
-
-before_cache:
-    - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
-cache:
-  directories:
-    - $HOME/.m2
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+    - yes | /usr/local/android-sdk/tools/bin/sdkmanager "build-tools;26.0.2"
 
 script:
-  - chmod +x ./gradlew
   - ./gradlew build connectedCheck --info
