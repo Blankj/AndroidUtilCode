@@ -6,8 +6,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseFragment;
+import com.blankj.androidutilcode.base.BaseLazyFragment;
 import com.blankj.utilcode.util.BarUtils;
+import com.blankj.utilcode.util.LogUtils;
 
 /**
  * <pre>
@@ -17,7 +18,7 @@ import com.blankj.utilcode.util.BarUtils;
  *     desc  : Bar 工具类 Demo
  * </pre>
  */
-public class BarStatusAlphaFragment extends BaseFragment {
+public class BarStatusAlphaFragment extends BaseLazyFragment {
 
     private int mAlpha;
 
@@ -53,8 +54,8 @@ public class BarStatusAlphaFragment extends BaseFragment {
     }
 
     @Override
-    public void doBusiness() {
-
+    public void doLazyBusiness() {
+        LogUtils.d("doLazyBusiness() called");
     }
 
     @Override

@@ -8,8 +8,9 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.UtilsApp;
-import com.blankj.androidutilcode.base.BaseFragment;
+import com.blankj.androidutilcode.base.BaseLazyFragment;
 import com.blankj.utilcode.util.BarUtils;
+import com.blankj.utilcode.util.LogUtils;
 
 import java.util.Random;
 
@@ -21,7 +22,7 @@ import java.util.Random;
  *     desc  : Bar 工具类 Demo
  * </pre>
  */
-public class BarStatusColorFragment extends BaseFragment {
+public class BarStatusColorFragment extends BaseLazyFragment {
 
     private Random mRandom;
     private int    mColor;
@@ -62,8 +63,8 @@ public class BarStatusColorFragment extends BaseFragment {
 
 
     @Override
-    public void doBusiness() {
-
+    public void doLazyBusiness() {
+        LogUtils.d("doLazyBusiness() called");
     }
 
     @Override
