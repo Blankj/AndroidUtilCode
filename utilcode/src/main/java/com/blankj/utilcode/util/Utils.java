@@ -89,6 +89,17 @@ public final class Utils {
     }
 
     /**
+     * Init utils.
+     * <p>Init it in the class of Application.</p>
+     *
+     * @param application application
+     */
+    public static void init(@NonNull final Application application) {
+        Utils.sApplication = application;
+        Utils.sApplication.registerActivityLifecycleCallbacks(mCallbacks);
+    }
+
+    /**
      * Return the context of Application object.
      *
      * @return the context of Application object

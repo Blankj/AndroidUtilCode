@@ -65,7 +65,7 @@ public class BarStatusFragmentActivity extends BaseActivity {
         mFragmentList.add(BarStatusAlphaFragment.newInstance());
         mFragmentList.add(BarStatusImageViewFragment.newInstance());
 
-
+        mVpStatusBar.setOffscreenPageLimit(2);
         mVpStatusBar.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -96,7 +96,6 @@ public class BarStatusFragmentActivity extends BaseActivity {
         });
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
     }
 
     @Override

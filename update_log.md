@@ -1,3 +1,4 @@
+* 18/03/29 兼容 Utils 的初始化传入 application，发布 1.13.6 版本
 * 18/03/20 修复 PermissionUtils 子进程的问题，发布 1.13.5 版本
 * 18/03/16 新增 gradle 插件来格式化 README
 * 18/03/14 修复 KeyboardUtils#getContentViewInvisibleHeight，发布 1.13.4 版本
