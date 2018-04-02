@@ -64,7 +64,7 @@ public class UtilsApp extends BaseApplication {
                 .setBorderSwitch(true)// 输出日志是否带边框开关，默认开
                 .setConsoleFilter(LogUtils.V)// log 的控制台过滤器，和 logcat 过滤器同理，默认 Verbose
                 .setFileFilter(LogUtils.V)// log 文件过滤器，和 logcat 过滤器同理，默认 Verbose
-                .setStackDeep(1);// log 栈深度，默认为 1
+                .setStackDeep(10);// log 栈深度，默认为 1
         new Thread(new Runnable() {
             @Override
             public void run() {

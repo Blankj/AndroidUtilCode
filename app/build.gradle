@@ -48,7 +48,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-//    implementation project(':utilcode')
+    implementation project(':utilcode')
     implementation project(':subutil')
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support:design:$support_version"
@@ -56,7 +56,7 @@ dependencies {
     // LeakCanary
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
-    implementation 'com.blankj:utilcode:1.13.6'
+//    implementation 'com.blankj:utilcode:1.13.6'
 }
 
 

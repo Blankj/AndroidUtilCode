@@ -224,31 +224,17 @@ public final class LogUtils {
         } else {
             final StackTraceElement[] stackTrace = new Throwable().getStackTrace();
             StackTraceElement targetElement = stackTrace[3];
-            String fileName = targetElement.getFileName();
-            String className;
-            // If name of file is null, should add
-            // "-keepattributes SourceFile,LineNumberTable" in proguard file.
-            if (fileName == null) {
-                className = targetElement.getClassName();
-                String[] classNameInfo = className.split("\\.");
-                if (classNameInfo.length > 0) {
-                    className = classNameInfo[classNameInfo.length - 1];
-                }
-                int index = className.indexOf('$');
-                if (index != -1) {
-                    className = className.substring(0, index);
-                }
-                fileName = className + ".java";
-            } else {
+            final String fileName = getFileName(targetElement);
+            if (sTagIsSpace && isSpace(tag)) {
                 int index = fileName.indexOf('.');// Use proguard may not find '.'.
-                className = index == -1 ? fileName : fileName.substring(0, index);
+                tag = index == -1 ? fileName : fileName.substring(0, index);
             }
-            if (sTagIsSpace) tag = isSpace(tag) ? className : tag;
             if (sLogHeadSwitch) {
                 String tName = Thread.currentThread().getName();
                 final String head = new Formatter()
-                        .format("%s, %s(%s:%d)",
+                        .format("%s, %s.%s(%s:%d)",
                                 tName,
+                                targetElement.getClassName(),
                                 targetElement.getMethodName(),
                                 fileName,
                                 targetElement.getLineNumber())
@@ -265,10 +251,11 @@ public final class LogUtils {
                     for (int i = 1, len = consoleHead.length; i < len; ++i) {
                         targetElement = stackTrace[i + 3];
                         consoleHead[i] = new Formatter()
-                                .format("%s%s(%s:%d)",
+                                .format("%s%s.%s(%s:%d)",
                                         space,
+                                        targetElement.getClassName(),
                                         targetElement.getMethodName(),
-                                        targetElement.getFileName(),
+                                        getFileName(targetElement),
                                         targetElement.getLineNumber())
                                 .toString();
                     }
@@ -277,6 +264,23 @@ public final class LogUtils {
             }
         }
         return new TagHead(tag, null, ": ");
+    }
+
+    private static String getFileName(final StackTraceElement targetElement) {
+        String fileName = targetElement.getFileName();
+        if (fileName != null) return fileName;
+        // If name of file is null, should add
+        // "-keepattributes SourceFile,LineNumberTable" in proguard file.
+        String className = targetElement.getClassName();
+        String[] classNameInfo = className.split("\\.");
+        if (classNameInfo.length > 0) {
+            className = classNameInfo[classNameInfo.length - 1];
+        }
+        int index = className.indexOf('$');
+        if (index != -1) {
+            className = className.substring(0, index);
+        }
+        return className + ".java";
     }
 
     private static String processBody(final int type, final Object... contents) {
