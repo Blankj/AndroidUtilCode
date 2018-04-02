@@ -344,10 +344,31 @@ public final class LogUtils {
                                       final String tag,
                                       final String[] head,
                                       final String msg) {
-        printBorder(type, tag, true);
-        printHead(type, tag, head);
-        printMsg(type, tag, msg);
-        printBorder(type, tag, false);
+        StringBuilder sb = new StringBuilder();
+        sb.append(" ").append(LINE_SEP);
+        if (sLogBorderSwitch) {
+            sb.append(TOP_BORDER).append(LINE_SEP);
+            for (String aHead : head) {
+                sb.append(LEFT_BORDER).append(aHead).append(LINE_SEP);
+            }
+            sb.append(MIDDLE_BORDER).append(LINE_SEP);
+            for (String line : msg.split(LINE_SEP)) {
+                sb.append(LEFT_BORDER).append(line).append(LINE_SEP);
+            }
+            sb.append(BOTTOM_BORDER);
+        } else {
+            for (String aHead : head) {
+                sb.append(aHead).append(LINE_SEP);
+            }
+            sb.append(msg);
+        }
+
+        printMsg1(type, tag, sb.toString());
+//
+//        printBorder(type, tag, true);
+//        printHead(type, tag, head);
+//        printMsg(type, tag, msg);
+//        printBorder(type, tag, false);
     }
 
     private static void printBorder(final int type, final String tag, boolean isTop) {
@@ -382,9 +403,38 @@ public final class LogUtils {
         }
     }
 
+    private static void printMsg1(final int type, final String tag, final String msg) {
+        int len = msg.length();
+        int countOfSub = len / MAX_LEN;
+        if (countOfSub > 0) {
+            int index = 0;
+            for (int i = 0; i < countOfSub; i++) {
+                Log.println(type, tag, msg.substring(index, index + MAX_LEN));
+                index += MAX_LEN;
+            }
+            if (index != len) {
+                Log.println(type, tag, msg.substring(index, len));
+            }
+        } else {
+            Log.println(type, tag, msg);
+        }
+    }
+
     private static void printSubMsg(final int type, final String tag, final String msg) {
         if (!sLogBorderSwitch) {
             Log.println(type, tag, msg);
+            return;
+        }
+        StringBuilder sb = new StringBuilder();
+        String[] lines = msg.split(LINE_SEP);
+        for (String line : lines) {
+            Log.println(type, tag, LEFT_BORDER + line);
+        }
+    }
+
+    private static void printSubMsg1(final int type, final String tag, final String msg) {
+        if (!sLogBorderSwitch) {
+
             return;
         }
         StringBuilder sb = new StringBuilder();
