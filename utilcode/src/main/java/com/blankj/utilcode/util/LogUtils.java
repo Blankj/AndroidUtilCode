@@ -77,12 +77,13 @@ public final class LogUtils {
     private static final String TOP_BORDER     = TOP_CORNER + SIDE_DIVIDER + SIDE_DIVIDER;
     private static final String MIDDLE_BORDER  = MIDDLE_CORNER + MIDDLE_DIVIDER + MIDDLE_DIVIDER;
     private static final String BOTTOM_BORDER  = BOTTOM_CORNER + SIDE_DIVIDER + SIDE_DIVIDER;
-    private static final int    MAX_LEN        = 4000;
+    private static final int    MAX_LEN        = 3000;
     @SuppressLint("SimpleDateFormat")
     private static final Format FORMAT         = new SimpleDateFormat("MM-dd HH:mm:ss.SSS ");
     private static final String NOTHING        = "log nothing";
     private static final String NULL           = "null";
     private static final String ARGS           = "args";
+    private static final String PLACEHOLDER    = " ";
     private static final Config CONFIG         = new Config();
 
     private static ExecutorService sExecutor;
@@ -96,9 +97,11 @@ public final class LogUtils {
     private static boolean sLogHeadSwitch     = true;  // The head's switch of log.
     private static boolean sLog2FileSwitch    = false; // The file's switch of log.
     private static boolean sLogBorderSwitch   = true;  // The border's switch of log.
+    private static boolean sSingleTagSwitch   = true;  // The single tag of log.
     private static int     sConsoleFilter     = V;     // The console's filter of log.
     private static int     sFileFilter        = V;     // The file's filter of log.
     private static int     sStackDeep         = 1;     // The stack's deep of log.
+
 
     private LogUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -344,31 +347,32 @@ public final class LogUtils {
                                       final String tag,
                                       final String[] head,
                                       final String msg) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(" ").append(LINE_SEP);
-        if (sLogBorderSwitch) {
-            sb.append(TOP_BORDER).append(LINE_SEP);
-            for (String aHead : head) {
-                sb.append(LEFT_BORDER).append(aHead).append(LINE_SEP);
+        if (sSingleTagSwitch) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(PLACEHOLDER).append(LINE_SEP);
+            if (sLogBorderSwitch) {
+                sb.append(TOP_BORDER).append(LINE_SEP);
+                for (String aHead : head) {
+                    sb.append(LEFT_BORDER).append(aHead).append(LINE_SEP);
+                }
+                sb.append(MIDDLE_BORDER).append(LINE_SEP);
+                for (String line : msg.split(LINE_SEP)) {
+                    sb.append(LEFT_BORDER).append(line).append(LINE_SEP);
+                }
+                sb.append(BOTTOM_BORDER);
+            } else {
+                for (String aHead : head) {
+                    sb.append(aHead).append(LINE_SEP);
+                }
+                sb.append(msg);
             }
-            sb.append(MIDDLE_BORDER).append(LINE_SEP);
-            for (String line : msg.split(LINE_SEP)) {
-                sb.append(LEFT_BORDER).append(line).append(LINE_SEP);
-            }
-            sb.append(BOTTOM_BORDER);
+            printMsgSingleTag(type, tag, sb.toString());
         } else {
-            for (String aHead : head) {
-                sb.append(aHead).append(LINE_SEP);
-            }
-            sb.append(msg);
+            printBorder(type, tag, true);
+            printHead(type, tag, head);
+            printMsg(type, tag, msg);
+            printBorder(type, tag, false);
         }
-
-        printMsg1(type, tag, sb.toString());
-//
-//        printBorder(type, tag, true);
-//        printHead(type, tag, head);
-//        printMsg(type, tag, msg);
-//        printBorder(type, tag, false);
     }
 
     private static void printBorder(final int type, final String tag, boolean isTop) {
@@ -403,17 +407,32 @@ public final class LogUtils {
         }
     }
 
-    private static void printMsg1(final int type, final String tag, final String msg) {
+    private static void printMsgSingleTag(final int type, final String tag, final String msg) {
         int len = msg.length();
         int countOfSub = len / MAX_LEN;
         if (countOfSub > 0) {
-            int index = 0;
-            for (int i = 0; i < countOfSub; i++) {
-                Log.println(type, tag, msg.substring(index, index + MAX_LEN));
-                index += MAX_LEN;
-            }
-            if (index != len) {
-                Log.println(type, tag, msg.substring(index, len));
+            if (sLogBorderSwitch) {
+                Log.println(type, tag, msg.substring(0, MAX_LEN) + LINE_SEP + BOTTOM_BORDER);
+                int index = MAX_LEN;
+                for (int i = 1; i < countOfSub; i++) {
+                    Log.println(type, tag, PLACEHOLDER + LINE_SEP + TOP_BORDER + LINE_SEP
+                            + LEFT_BORDER + msg.substring(index, index + MAX_LEN)
+                            + LINE_SEP + BOTTOM_BORDER);
+                    index += MAX_LEN;
+                }
+                if (index != len) {
+                    Log.println(type, tag, PLACEHOLDER + LINE_SEP + TOP_BORDER + LINE_SEP
+                            + LEFT_BORDER + msg.substring(index, len));
+                }
+            } else {
+                int index = 0;
+                for (int i = 0; i < countOfSub; i++) {
+                    Log.println(type, tag, msg.substring(index, index + MAX_LEN));
+                    index += MAX_LEN;
+                }
+                if (index != len) {
+                    Log.println(type, tag, msg.substring(index, len));
+                }
             }
         } else {
             Log.println(type, tag, msg);
@@ -629,6 +648,11 @@ public final class LogUtils {
             return this;
         }
 
+        public Config setSingleTagSwitch(final boolean singleTagSwitch) {
+            sSingleTagSwitch = singleTagSwitch;
+            return this;
+        }
+
         public Config setConsoleFilter(@TYPE final int consoleFilter) {
             sConsoleFilter = consoleFilter;
             return this;
@@ -654,6 +678,7 @@ public final class LogUtils {
                     + LINE_SEP + "dir: " + (sDir == null ? sDefaultDir : sDir)
                     + LINE_SEP + "filePrefix: " + sFilePrefix
                     + LINE_SEP + "border: " + sLogBorderSwitch
+                    + LINE_SEP + "singleTag: " + sSingleTagSwitch
                     + LINE_SEP + "consoleFilter: " + T[sConsoleFilter - V]
                     + LINE_SEP + "fileFilter: " + T[sFileFilter - V]
                     + LINE_SEP + "stackDeep: " + sStackDeep;

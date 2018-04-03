@@ -1,3 +1,4 @@
+* 18/04/03 修复 LogUtils 在 Android Studio 3.1 版本日志丑陋的问题，发布 1.13.7 版本
 * 18/03/29 兼容 Utils 的初始化传入 application，发布 1.13.6 版本
 * 18/03/20 修复 PermissionUtils 子进程的问题，发布 1.13.5 版本
 * 18/03/16 新增 gradle 插件来格式化 README

@@ -63,6 +63,13 @@
         android:text="@string/log_toggle_border" />
 
     <Button
+        android:id="@+id/btn_toggle_single"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_toggle_single" />
+
+    <Button
         android:id="@+id/btn_toggle_conole_filter"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"

@@ -36,6 +36,7 @@ public class LogActivity extends BaseBackActivity {
     private boolean head          = true;
     private boolean file          = false;
     private boolean border        = true;
+    private boolean single        = true;
     private int     consoleFilter = LogUtils.V;
     private int     fileFilter    = LogUtils.V;
 
@@ -46,8 +47,9 @@ public class LogActivity extends BaseBackActivity {
     private static final int UPDATE_FILE           = 0x01 << 4;
     private static final int UPDATE_DIR            = 0x01 << 5;
     private static final int UPDATE_BORDER         = 0x01 << 6;
-    private static final int UPDATE_CONSOLE_FILTER = 0x01 << 7;
-    private static final int UPDATE_FILE_FILTER    = 0x01 << 8;
+    private static final int UPDATE_SINGLE         = 0x01 << 7;
+    private static final int UPDATE_CONSOLE_FILTER = 0x01 << 8;
+    private static final int UPDATE_FILE_FILTER    = 0x01 << 9;
 
     private Runnable mRunnable = new Runnable() {
         @Override
@@ -98,6 +100,7 @@ public class LogActivity extends BaseBackActivity {
         findViewById(R.id.btn_toggle_tag).setOnClickListener(this);
         findViewById(R.id.btn_toggle_head).setOnClickListener(this);
         findViewById(R.id.btn_toggle_border).setOnClickListener(this);
+        findViewById(R.id.btn_toggle_single).setOnClickListener(this);
         findViewById(R.id.btn_toggle_file).setOnClickListener(this);
         findViewById(R.id.btn_toggle_dir).setOnClickListener(this);
         findViewById(R.id.btn_toggle_conole_filter).setOnClickListener(this);
@@ -142,6 +145,9 @@ public class LogActivity extends BaseBackActivity {
                 break;
             case R.id.btn_toggle_border:
                 updateConfig(UPDATE_BORDER);
+                break;
+            case R.id.btn_toggle_single:
+                updateConfig(UPDATE_SINGLE);
                 break;
             case R.id.btn_toggle_conole_filter:
                 updateConfig(UPDATE_CONSOLE_FILTER);
@@ -242,6 +248,9 @@ public class LogActivity extends BaseBackActivity {
             case UPDATE_BORDER:
                 border = !border;
                 break;
+            case UPDATE_SINGLE:
+                single = !single;
+                break;
             case UPDATE_CONSOLE_FILTER:
                 consoleFilter = consoleFilter == LogUtils.V ? LogUtils.W : LogUtils.V;
                 break;
@@ -256,6 +265,7 @@ public class LogActivity extends BaseBackActivity {
                 .setLog2FileSwitch(file)
                 .setDir(dir)
                 .setBorderSwitch(border)
+                .setSingleTagSwitch(single)
                 .setConsoleFilter(consoleFilter)
                 .setFileFilter(fileFilter);
         tvAboutLog.setText(mConfig.toString());
