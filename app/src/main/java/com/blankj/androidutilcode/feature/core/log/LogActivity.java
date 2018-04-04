@@ -91,7 +91,7 @@ public class LogActivity extends BaseBackActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
+    public void initView(Bundle savedInstanceState, View contentView) {
         getToolBar().setTitle(getString(R.string.demo_log));
 
         tvAboutLog = findViewById(R.id.tv_about_log);

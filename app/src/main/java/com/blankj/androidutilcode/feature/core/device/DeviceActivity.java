@@ -37,7 +37,7 @@ public class DeviceActivity extends BaseBackActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
+    public void initView(Bundle savedInstanceState, View contentView) {
         getToolBar().setTitle(getString(R.string.demo_device));
 
         findViewById(R.id.btn_shutdown).setOnClickListener(this);

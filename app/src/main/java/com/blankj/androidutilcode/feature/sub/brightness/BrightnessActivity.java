@@ -88,7 +88,7 @@ public class BrightnessActivity extends BaseActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
+    public void initView(Bundle savedInstanceState, View contentView) {
         tvBrightness = findViewById(R.id.tv_brightness);
         sbBrightness = findViewById(R.id.sb_brightness);
         tvWindowBrightness = findViewById(R.id.tv_window_brightness);

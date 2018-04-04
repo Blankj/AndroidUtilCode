@@ -47,7 +47,7 @@ public class ImageActivity extends BaseBackActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
+    public void initView(Bundle savedInstanceState, View contentView) {
         getToolBar().setTitle(getString(R.string.demo_image));
 
         RecyclerView rvImages = findViewById(R.id.rv_images);

@@ -60,7 +60,7 @@ public class BarStatusSwipeBackActivity extends BaseActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
+    public void initView(Bundle savedInstanceState, View contentView) {
         Slidr.attach(this);
 
         llContainer = findViewById(R.id.ll_container);

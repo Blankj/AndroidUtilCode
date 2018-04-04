@@ -43,12 +43,12 @@ public class ChildFragment extends BaseFragment
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
+    public void initView(Bundle savedInstanceState, View contentView) {
         Random random = new Random();
         FragmentUtils.setBackgroundColor(this, Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
-        view.findViewById(R.id.btn_show_about_fragment).setOnClickListener(this);
-        view.findViewById(R.id.btn_pop).setOnClickListener(this);
-        tvAboutFragment = (TextView) view.findViewById(R.id.tv_about_fragment);
+        findViewById(R.id.btn_show_about_fragment).setOnClickListener(this);
+        findViewById(R.id.btn_pop).setOnClickListener(this);
+        tvAboutFragment = findViewById(R.id.tv_about_fragment);
     }
 
     @Override

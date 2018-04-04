@@ -1,5 +1,6 @@
 package com.blankj.androidutilcode.base;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +27,7 @@ public abstract class BaseActivity extends AppCompatActivity
      */
     private long lastClick = 0;
 
-    protected BaseActivity mActivity;
+    protected Activity mActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity
     }
 
     protected void setBaseView(@LayoutRes int layoutId) {
+        if (layoutId <= 0) return;
         setContentView(contentView = LayoutInflater.from(this).inflate(layoutId, null));
     }
 

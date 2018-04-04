@@ -30,7 +30,7 @@ interface IBaseView extends View.OnClickListener {
     /**
      * 初始化 view
      */
-    void initView(final Bundle savedInstanceState, final View view);
+    void initView(final Bundle savedInstanceState, final View contentView);
 
     /**
      * 业务操作

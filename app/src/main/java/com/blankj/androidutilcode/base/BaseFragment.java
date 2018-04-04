@@ -1,6 +1,8 @@
 package com.blankj.androidutilcode.base;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -23,8 +25,8 @@ public abstract class BaseFragment extends Fragment
     private static final String TAG                  = "BaseFragment";
     private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
 
-    protected View         contentView;
-    protected BaseActivity mActivity;
+    protected View     contentView;
+    protected Activity mActivity;
 
     private long lastClick = 0;
 
@@ -103,5 +105,10 @@ public abstract class BaseFragment extends Fragment
     @Override
     public void onClick(View view) {
         if (!isFastClick()) onWidgetClick(view);
+    }
+
+    public <T extends View> T findViewById(@IdRes int id) {
+        if (contentView == null) throw new NullPointerException("ContentView is null.");
+        return contentView.findViewById(id);
     }
 }

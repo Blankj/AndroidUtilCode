@@ -47,22 +47,22 @@ public class Root0Fragment extends BaseFragment
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
+    public void initView(Bundle savedInstanceState, View contentView) {
         Random random = new Random();
         FragmentUtils.setBackgroundColor(this, Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
-        view.findViewById(R.id.btn_show_about_fragment).setOnClickListener(this);
-        view.findViewById(R.id.btn_add).setOnClickListener(this);
-        view.findViewById(R.id.btn_add_hide).setOnClickListener(this);
-        view.findViewById(R.id.btn_add_hide_stack).setOnClickListener(this);
-        view.findViewById(R.id.btn_add).setOnClickListener(this);
-        view.findViewById(R.id.btn_add_show).setOnClickListener(this);
-        view.findViewById(R.id.btn_add_child).setOnClickListener(this);
-        view.findViewById(R.id.btn_pop_to_root).setOnClickListener(this);
-        view.findViewById(R.id.btn_pop_add).setOnClickListener(this);
-        view.findViewById(R.id.btn_hide_show).setOnClickListener(this);
-        view.findViewById(R.id.btn_replace).setOnClickListener(this);
-        ivSharedElement = (ImageView) view.findViewById(R.id.iv_shared_element);
-        tvAboutFragment = (TextView) view.findViewById(R.id.tv_about_fragment);
+        findViewById(R.id.btn_show_about_fragment).setOnClickListener(this);
+        findViewById(R.id.btn_add).setOnClickListener(this);
+        findViewById(R.id.btn_add_hide).setOnClickListener(this);
+        findViewById(R.id.btn_add_hide_stack).setOnClickListener(this);
+        findViewById(R.id.btn_add).setOnClickListener(this);
+        findViewById(R.id.btn_add_show).setOnClickListener(this);
+        findViewById(R.id.btn_add_child).setOnClickListener(this);
+        findViewById(R.id.btn_pop_to_root).setOnClickListener(this);
+        findViewById(R.id.btn_pop_add).setOnClickListener(this);
+        findViewById(R.id.btn_hide_show).setOnClickListener(this);
+        findViewById(R.id.btn_replace).setOnClickListener(this);
+        ivSharedElement = findViewById(R.id.iv_shared_element);
+        tvAboutFragment = findViewById(R.id.tv_about_fragment);
     }
 
     @Override

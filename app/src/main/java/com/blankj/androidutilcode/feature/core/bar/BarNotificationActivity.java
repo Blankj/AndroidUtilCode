@@ -39,7 +39,7 @@ public class BarNotificationActivity extends BaseBackActivity {
 
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
+    public void initView(Bundle savedInstanceState, View contentView) {
         getToolBar().setTitle(getString(R.string.demo_bar));
 
         findViewById(R.id.btn_show_notification).setOnClickListener(this);

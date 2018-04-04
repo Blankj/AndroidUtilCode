@@ -59,7 +59,7 @@ public class BarStatusDrawerActivity extends BaseDrawerActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
+    public void initView(Bundle savedInstanceState, View contentView) {
         fakeStatusBar = findViewById(R.id.fake_status_bar);
         cbAlpha = findViewById(R.id.cb_alpha);
         cbFront = findViewById(R.id.cb_front);

@@ -33,7 +33,7 @@ public class MainActivity extends BaseDrawerActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
+    public void initView(Bundle savedInstanceState, View contentView) {
         Toolbar toolbar = findViewById(R.id.toolbar);
         View fakeStatusBar = findViewById(R.id.fake_status_bar);
         CollapsingToolbarLayout ctl = findViewById(R.id.ctl);

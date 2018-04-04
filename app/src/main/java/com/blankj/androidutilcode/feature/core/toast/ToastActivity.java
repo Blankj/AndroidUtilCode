@@ -41,7 +41,7 @@ public class ToastActivity extends BaseBackActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
+    public void initView(Bundle savedInstanceState, View contentView) {
         getToolBar().setTitle(getString(R.string.demo_toast));
 
         findViewById(R.id.btn_show_short_toast).setOnClickListener(this);

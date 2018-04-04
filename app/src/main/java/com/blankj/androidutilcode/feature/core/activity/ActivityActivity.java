@@ -59,7 +59,7 @@ public class ActivityActivity extends BaseBackActivity {
 
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
+    public void initView(Bundle savedInstanceState, View contentView) {
         getToolBar().setTitle(getString(R.string.demo_activity));
         viewSharedElement = findViewById(R.id.view_shared_element);
         findViewById(R.id.btn_clz).setOnClickListener(this);

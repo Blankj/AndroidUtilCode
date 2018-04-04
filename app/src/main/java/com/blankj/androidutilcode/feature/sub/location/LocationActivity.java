@@ -42,7 +42,7 @@ public class LocationActivity extends BaseBackActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
+    public void initView(Bundle savedInstanceState, View contentView) {
         getToolBar().setTitle(getString(R.string.demo_location));
 
         tvAboutLocation = findViewById(R.id.tv_about_location);

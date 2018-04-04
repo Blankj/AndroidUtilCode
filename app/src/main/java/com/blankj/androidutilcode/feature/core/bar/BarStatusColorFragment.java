@@ -49,12 +49,12 @@ public class BarStatusColorFragment extends BaseLazyFragment {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
-        fakeStatusBar = view.findViewById(R.id.fake_status_bar);
-        view.findViewById(R.id.btn_random_color).setOnClickListener(this);
-        view.findViewById(R.id.btn_set_transparent).setOnClickListener(this);
-        mTvStatusAlpha = (TextView) view.findViewById(R.id.tv_status_alpha);
-        sbChangeAlpha = (SeekBar) view.findViewById(R.id.sb_change_alpha);
+    public void initView(Bundle savedInstanceState, View contentView) {
+        fakeStatusBar = findViewById(R.id.fake_status_bar);
+        findViewById(R.id.btn_random_color).setOnClickListener(this);
+        findViewById(R.id.btn_set_transparent).setOnClickListener(this);
+        mTvStatusAlpha = findViewById(R.id.tv_status_alpha);
+        sbChangeAlpha = findViewById(R.id.sb_change_alpha);
         sbChangeAlpha.setOnSeekBarChangeListener(colorListener);
         mTvStatusAlpha.setText(String.valueOf(mAlpha));
 

@@ -38,7 +38,7 @@ public class SPActivity extends BaseBackActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
+    public void initView(Bundle savedInstanceState, View contentView) {
         tvAboutSp = findViewById(R.id.tv_about_sp);
         findViewById(R.id.btn_sp_put_string).setOnClickListener(this);
         findViewById(R.id.btn_sp_put_int).setOnClickListener(this);

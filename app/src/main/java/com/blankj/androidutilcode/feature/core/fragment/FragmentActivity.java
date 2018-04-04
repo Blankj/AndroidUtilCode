@@ -50,7 +50,7 @@ public class FragmentActivity extends BaseActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
+    public void initView(Bundle savedInstanceState, View contentView) {
         if (savedInstanceState != null) {
             curIndex = savedInstanceState.getInt("curIndex");
         }

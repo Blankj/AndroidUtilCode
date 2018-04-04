@@ -57,7 +57,7 @@ public class BarStatusFragmentActivity extends BaseActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
+    public void initView(Bundle savedInstanceState, View contentView) {
         mVpStatusBar = findViewById(R.id.vp_status_bar);
         navigation = findViewById(R.id.navigation_status_bar);
 

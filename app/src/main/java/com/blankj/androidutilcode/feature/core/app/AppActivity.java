@@ -42,7 +42,7 @@ public class AppActivity extends BaseBackActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
+    public void initView(Bundle savedInstanceState, View contentView) {
         getToolBar().setTitle(getString(R.string.demo_app));
 
         findViewById(R.id.btn_install_app).setOnClickListener(this);
