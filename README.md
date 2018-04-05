@@ -6,7 +6,7 @@
 
 ## About
 
-**[AndroidUtilCode][readme]** :fire: is a powerful & easy to use library for Android. It encapsulates the functions commonly used in Android development which have complete demo and unit test. Using its encapsulated APIs can greatly improve development efficiency. It mainly consists of two modules. One is the main module, **[utilcode][utilcode-cn]**, which includes the utils commonly used in development. The other is **[subutil][subutil-cn]** which contains the utils is not very common, which is beneficial to simplify the main module. :fire:
+**[AndroidUtilCode][readme]** :fire: is a powerful & easy to use library for Android. This application encapsulates the functions that commonly used in Android development which have complete demo and unit test. By using it's encapsulated APIs, you can greatly improve the development efficiency. The program mainly consists of two modules which is **[utilcode][utilcode-cn]**, which is commonly used in development, and **[subutil][subutil-cn]** which is rarely used in development, but the utils can be beneficial to simplify the main module. :fire:
 
 
 ## Documentation
@@ -25,7 +25,7 @@
 
 ## Donations
 
-If this ptoject helps you a lot, and you would like to support this ptoject's further development and the continuous maintenance of this project. You can sweep the following QR code free to donate me, which asked me to have a cup of coffee or beer. Your donation is highly appreciated. Thank you!
+If this project helps you a lot and you want to support the project's development and maintenance of this project, feel free to scan the following QR code for donation. Your donation is highly appreciated. Thank you!
 
 ![donate][donate]
 
