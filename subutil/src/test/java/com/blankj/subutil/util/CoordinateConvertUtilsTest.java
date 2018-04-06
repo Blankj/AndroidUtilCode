@@ -10,7 +10,7 @@ import static java.lang.Math.PI;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/03/22
- *     desc  :
+ *     desc  : CoordinateConvertUtils 单元测试
  * </pre>
  */
 public class CoordinateConvertUtilsTest {

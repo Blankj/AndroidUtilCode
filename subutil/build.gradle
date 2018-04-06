@@ -35,7 +35,9 @@ android {
 dependencies {
     compileOnly "com.android.support:appcompat-v7:$support_version"
     compileOnly "com.android.support:design:$support_version"
+    compileOnly "com.google.code.gson:gson:$gson_version"
 
+    testImplementation "com.google.code.gson:gson:$gson_version"
     testImplementation "junit:junit:$junit_version"
     testImplementation "org.robolectric:robolectric:$robolectric_version"
 }
