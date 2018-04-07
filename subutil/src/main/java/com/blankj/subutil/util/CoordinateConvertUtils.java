@@ -7,10 +7,10 @@ import static java.lang.Math.PI;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/03/21
- *     desc  :
+ *     desc  : 坐标转换工具类
  * </pre>
  */
-public class CoordinateConvertUtils {
+public final class CoordinateConvertUtils {
 
     private final static double X_PI = 3.14159265358979324 * 3000.0 / 180.0;
     private final static double A    = 6378245.0;

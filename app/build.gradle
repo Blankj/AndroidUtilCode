@@ -50,6 +50,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':utilcode')
     implementation project(':subutil')
+
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support:design:$support_version"
     implementation 'com.r0adkll:slidableactivity:2.0.5'

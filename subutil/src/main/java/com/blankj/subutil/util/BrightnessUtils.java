@@ -18,7 +18,7 @@ import android.view.WindowManager;
  *     desc  : 亮度相关工具类
  * </pre>
  */
-public class BrightnessUtils {
+public final class BrightnessUtils {
 
     private BrightnessUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

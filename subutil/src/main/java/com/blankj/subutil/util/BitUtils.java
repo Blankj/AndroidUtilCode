@@ -7,10 +7,10 @@ import android.util.Log;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/03/21
- *     desc  :
+ *     desc  : 位运算工具类
  * </pre>
  */
-public class BitUtils {
+public final class BitUtils {
 
     private BitUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

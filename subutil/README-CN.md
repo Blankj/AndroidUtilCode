@@ -25,6 +25,13 @@ copyIntent: 复制意图到剪贴板
 getIntent : 获取剪贴板的意图
 ```
 
+* ### Gson 相关 -> [GsonUtils.java][gson.java] -> [Test][gson.test]
+```
+getGson : 获取 Gson 对象
+toJson  : 对象转 Json 串
+fromJson: Json 串转对象
+```
+
 * ### 定位相关 -> [LocationUtils.java][location.java] -> [Demo][location.demo]
 ```
 isGpsEnabled     : 判断 Gps 是否可用
@@ -76,6 +83,9 @@ scheduleWithFixedDelay: 延迟并以固定休息时间循环执行命令
 
 [clipboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/ClipboardUtils.java
 [clipboard.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/test/java/com/blankj/subutil/util/ClipboardUtilsTest.java
+
+[gson.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/GsonUtils.java
+[gson.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/test/java/com/blankj/subutil/util/GsonUtilsTest.java
 
 [location.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/LocationUtils.java
 [location.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/sub/location/LocationActivity.java

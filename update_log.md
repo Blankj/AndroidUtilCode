@@ -1,3 +1,4 @@
+* 18/04/06 新增 GsonUtils 及单元测试
 * 18/04/05 完善 README 文档
 * 18/04/03 修复 LogUtils 在 Android Studio 3.1 版本日志丑陋的问题，发布 1.13.7 版本
 * 18/03/29 兼容 Utils 的初始化传入 application，发布 1.13.6 版本
@@ -28,12 +29,12 @@
 * 18/01/31 修复 default 相关的逻辑错误，发布 1.12.4，修复 ToastUtils 在 kotlin 中转义失败，发布 1.12.5
 * 18/01/28 修复 ToastUtils 默认样式问题，发布 1.12.2，新增 DeviceUtils#getSDKVersionName，发布 1.12.3
 * 18/01/27 修复 PermissionUtils 某些机型闪烁问题，发布 1.12.1
-* 18/01/17 完善 ReflectUtils 及 单元测试，发布 1.12.0 版本
-* 18/01/16 完善 ReflectUtils 及 单元测试
-* 18/01/15 完善 ReflectUtils 及 单元测试
-* 18/01/14 完善 ReflectUtils 及 单元测试
-* 18/01/13 完善 ReflectUtils 及 单元测试
-* 18/01/12 完善 ReflectUtils 及 单元测试
+* 18/01/17 完善 ReflectUtils 及单元测试，发布 1.12.0 版本
+* 18/01/16 完善 ReflectUtils 及单元测试
+* 18/01/15 完善 ReflectUtils 及单元测试
+* 18/01/14 完善 ReflectUtils 及单元测试
+* 18/01/13 完善 ReflectUtils 及单元测试
+* 18/01/12 完善 ReflectUtils 及单元测试
 * 18/01/11 修复 ImageUtils 的 fastBlur radius 为 1 recycle 的 bug，新增 CrashUtils 初始化崩溃监听事件，发布 1.11.1 版本
 * 18/01/10 完善 PermissionUtils 及 readme，发布 1.11.0 版本
 * 18/01/09 完善 demo 动态权限适配

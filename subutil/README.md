@@ -25,6 +25,13 @@ copyIntent
 getIntent
 ```
 
+* ### About Gson -> [GsonUtils.java][gson.java] -> [Test][gson.test]
+```
+getGson
+toJson
+fromJson
+```
+
 * ### About Location -> [LocationUtils.java][location.java] -> [Demo][location.demo]
 ```
 isGpsEnabled
@@ -76,6 +83,9 @@ scheduleWithFixedDelay
 
 [clipboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/ClipboardUtils.java
 [clipboard.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/test/java/com/blankj/subutil/util/ClipboardUtilsTest.java
+
+[gson.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/GsonUtils.java
+[gson.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/test/java/com/blankj/subutil/util/GsonUtilsTest.java
 
 [location.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/LocationUtils.java
 [location.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/sub/location/LocationActivity.java
