@@ -9,7 +9,7 @@ import org.junit.Test;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/26
- *     desc  : GsonUtils 单元测试
+ *     desc  : test GsonUtils
  * </pre>
  */
 public class GsonUtilsTest {
@@ -40,7 +40,7 @@ public class GsonUtilsTest {
         );
     }
 
-    class Person {
+    static class Person {
 
         String name;
         int    gender;

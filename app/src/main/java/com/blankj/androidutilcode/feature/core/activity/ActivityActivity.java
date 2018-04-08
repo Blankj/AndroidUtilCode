@@ -96,7 +96,6 @@ public class ActivityActivity extends BaseBackActivity {
                 .appendLine("isActivityExists: " + ActivityUtils.isActivityExists(Config.PKG, SubActivityActivity.class.getName()))
                 .appendLine("getLauncherActivity: " + ActivityUtils.getLauncherActivity(Config.PKG))
                 .appendLine("getTopActivity: " + ActivityUtils.getTopActivity())
-                .appendLine("getTopActivity: " + ActivityUtils.getTopActivity())
                 .appendLine("isActivityExistsInStack: " + ActivityUtils.isActivityExistsInStack(CoreUtilActivity.class))
                 .append("getActivityIcon: ")
                 .appendImage(ActivityUtils.getActivityIcon(ActivityActivity.class), SpanUtils.ALIGN_CENTER)

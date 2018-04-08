@@ -222,8 +222,8 @@ public final class ToastUtils {
             @Override
             public void run() {
                 cancel();
-                sToast = Toast.makeText(Utils.getApp(), text, duration);
-                TextView tvMessage = sToast.getView().findViewById(android.R.id.message);
+                sToast = Toast.makeText(Utils.getTopActivityOrApp(), text, duration);
+                final TextView tvMessage = sToast.getView().findViewById(android.R.id.message);
                 int msgColor = tvMessage.getCurrentTextColor();
                 //it solve the font of toast
                 TextViewCompat.setTextAppearance(tvMessage, android.R.style.TextAppearance);
@@ -246,7 +246,7 @@ public final class ToastUtils {
             @Override
             public void run() {
                 cancel();
-                sToast = new Toast(Utils.getApp());
+                sToast = new Toast(Utils.getTopActivityOrApp());
                 sToast.setView(view);
                 sToast.setDuration(duration);
                 if (sGravity != -1 || sXOffset != -1 || sYOffset != -1) {

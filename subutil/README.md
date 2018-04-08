@@ -25,6 +25,21 @@ copyIntent
 getIntent
 ```
 
+* ### About Clone -> [CloneUtils.java][clone.java] -> [Test][clone.test]
+```
+deepClone
+```
+
+* ### About Coordinate -> [CoordinateUtils.java][coordinate.java] -> [Test][coordinate.test]
+```
+bd09ToGcj02
+gcj02ToBd09
+gcj02ToWGS84
+wgs84ToGcj02
+bd09ToWGS84
+wgs84ToBd09
+```
+
 * ### About Gson -> [GsonUtils.java][gson.java] -> [Test][gson.test]
 ```
 getGson
@@ -83,6 +98,12 @@ scheduleWithFixedDelay
 
 [clipboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/ClipboardUtils.java
 [clipboard.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/test/java/com/blankj/subutil/util/ClipboardUtilsTest.java
+
+[clone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/CloneUtils.java
+[clone.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/test/java/com/blankj/subutil/util/CloneUtilsTest.java
+
+[coordinate.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/CoordinateUtils.java
+[coordinate.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/test/java/com/blankj/subutil/util/CoordinateUtilsTest.java
 
 [gson.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/GsonUtils.java
 [gson.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/test/java/com/blankj/subutil/util/GsonUtilsTest.java

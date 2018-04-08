@@ -10,10 +10,10 @@ import static java.lang.Math.PI;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/03/22
- *     desc  : CoordinateConvertUtils 单元测试
+ *     desc  : CoordinateUtils 单元测试
  * </pre>
  */
-public class CoordinateConvertUtilsTest {
+public class CoordinateUtilsTest {
 
     // 以下为各个坐标系的 天安门坐标
     private static final double[] locationWGS84 = new double[]{116.3912022800, 39.9075017400};
@@ -25,7 +25,7 @@ public class CoordinateConvertUtilsTest {
 
     @Test
     public void gcj2BD09() throws Exception {
-        double[] BD09 = CoordinateConvertUtils.gcj02ToBd09(locationGCJ02[0], locationGCJ02[1]);
+        double[] BD09 = CoordinateUtils.gcj02ToBd09(locationGCJ02[0], locationGCJ02[1]);
         double distance = distance(locationBD09[0], locationBD09[1], BD09[0], BD09[1]);
         System.out.println("distance: " + distance);
         Assert.assertTrue(distance < 10);
@@ -33,7 +33,7 @@ public class CoordinateConvertUtilsTest {
 
     @Test
     public void bd092GCJ() {
-        double[] GCJ02 = CoordinateConvertUtils.bd09ToGcj02(locationBD09[0], locationBD09[1]);
+        double[] GCJ02 = CoordinateUtils.bd09ToGcj02(locationBD09[0], locationBD09[1]);
         double distance = distance(locationGCJ02[0], locationGCJ02[1], GCJ02[0], GCJ02[1]);
         System.out.println("distance: " + distance);
         Assert.assertTrue(distance < 10);
@@ -41,7 +41,7 @@ public class CoordinateConvertUtilsTest {
 
     @Test
     public void bd092WGS() {
-        double[] WGS84 = CoordinateConvertUtils.bd09ToWGS84(locationBD09[0], locationBD09[1]);
+        double[] WGS84 = CoordinateUtils.bd09ToWGS84(locationBD09[0], locationBD09[1]);
         double distance = distance(locationWGS84[0], locationWGS84[1], WGS84[0], WGS84[1]);
         System.out.println("distance: " + distance);
         Assert.assertTrue(distance < 10);
@@ -49,7 +49,7 @@ public class CoordinateConvertUtilsTest {
 
     @Test
     public void wgs2BD09() {
-        double[] BD09 = CoordinateConvertUtils.wgs84ToBd09(locationWGS84[0], locationWGS84[1]);
+        double[] BD09 = CoordinateUtils.wgs84ToBd09(locationWGS84[0], locationWGS84[1]);
         double distance = distance(locationBD09[0], locationBD09[1], BD09[0], BD09[1]);
         System.out.println("distance: " + distance);
         Assert.assertTrue(distance < 10);
@@ -57,7 +57,7 @@ public class CoordinateConvertUtilsTest {
 
     @Test
     public void wgs2GCJ() {
-        double[] GCJ02 = CoordinateConvertUtils.wgs84ToGcj02(locationWGS84[0], locationWGS84[1]);
+        double[] GCJ02 = CoordinateUtils.wgs84ToGcj02(locationWGS84[0], locationWGS84[1]);
         double distance = distance(locationGCJ02[0], locationGCJ02[1], GCJ02[0], GCJ02[1]);
         System.out.println("distance: " + distance);
         Assert.assertTrue(distance < 10);
@@ -65,7 +65,7 @@ public class CoordinateConvertUtilsTest {
 
     @Test
     public void gcj2WGS() {
-        double[] WGS84 = CoordinateConvertUtils.gcj02ToWGS84(locationGCJ02[0], locationGCJ02[1]);
+        double[] WGS84 = CoordinateUtils.gcj02ToWGS84(locationGCJ02[0], locationGCJ02[1]);
         double distance = distance(locationWGS84[0], locationWGS84[1], WGS84[0], WGS84[1]);
         System.out.println("distance: " + distance);
         Assert.assertTrue(distance < 10);
@@ -73,7 +73,7 @@ public class CoordinateConvertUtilsTest {
 
     @Test
     public void gcj2WGSExactly() {
-        double[] WGS84 = CoordinateConvertUtils.gcj02ToWGS84(locationGCJ02[0], locationGCJ02[1]);
+        double[] WGS84 = CoordinateUtils.gcj02ToWGS84(locationGCJ02[0], locationGCJ02[1]);
         double distance = distance(locationWGS84[0], locationWGS84[1], WGS84[0], WGS84[1]);
         System.out.println("distance: " + distance);
         Assert.assertTrue(distance < 10);
@@ -81,8 +81,8 @@ public class CoordinateConvertUtilsTest {
 
     @Test
     public void outOfChina() {
-        Assert.assertFalse(CoordinateConvertUtils.outOfChina(locationWGS84[0], locationWGS84[1]));
-        Assert.assertTrue(CoordinateConvertUtils.outOfChina(newyorkWGS84[0], newyorkWGS84[1]));
+        Assert.assertFalse(CoordinateUtils.outOfChina(locationWGS84[0], locationWGS84[1]));
+        Assert.assertTrue(CoordinateUtils.outOfChina(newyorkWGS84[0], newyorkWGS84[1]));
     }
 
     public static double distance(double lngA, double latA, double lngB, double latB) {

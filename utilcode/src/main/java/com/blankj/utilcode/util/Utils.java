@@ -8,7 +8,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * <pre>
@@ -34,7 +37,7 @@ public final class Utils {
     @SuppressLint("StaticFieldLeak")
     private static Application sApplication;
 
-    private static LinkedList<Activity> sActivityList = new LinkedList<>();
+    private static final LinkedList<Activity> ACTIVITY_LIST = new LinkedList<>();
 
     private static ActivityLifecycleCallbacks mCallbacks = new ActivityLifecycleCallbacks() {
         @Override
@@ -69,7 +72,7 @@ public final class Utils {
 
         @Override
         public void onActivityDestroyed(Activity activity) {
-            sActivityList.remove(activity);
+            ACTIVITY_LIST.remove(activity);
         }
     };
 
@@ -84,18 +87,17 @@ public final class Utils {
      * @param context context
      */
     public static void init(@NonNull final Context context) {
-        Utils.sApplication = (Application) context.getApplicationContext();
-        Utils.sApplication.registerActivityLifecycleCallbacks(mCallbacks);
+        init((Application) context.getApplicationContext());
     }
 
     /**
      * Init utils.
      * <p>Init it in the class of Application.</p>
      *
-     * @param application application
+     * @param app application
      */
-    public static void init(@NonNull final Application application) {
-        Utils.sApplication = application;
+    public static void init(@NonNull final Application app) {
+        Utils.sApplication = app;
         Utils.sApplication.registerActivityLifecycleCallbacks(mCallbacks);
     }
 
@@ -111,17 +113,64 @@ public final class Utils {
 
     static void setTopActivity(final Activity activity) {
         if (activity.getClass() == PermissionUtils.PermissionActivity.class) return;
-        if (sActivityList.contains(activity)) {
-            if (!sActivityList.getLast().equals(activity)) {
-                sActivityList.remove(activity);
-                sActivityList.addLast(activity);
+        if (ACTIVITY_LIST.contains(activity)) {
+            if (!ACTIVITY_LIST.getLast().equals(activity)) {
+                ACTIVITY_LIST.remove(activity);
+                ACTIVITY_LIST.addLast(activity);
             }
         } else {
-            sActivityList.addLast(activity);
+            ACTIVITY_LIST.addLast(activity);
         }
     }
 
-    public static LinkedList<Activity> getActivityList() {
-        return sActivityList;
+    static LinkedList<Activity> getActivityList() {
+        return ACTIVITY_LIST;
+    }
+
+    static Context getTopActivityOrApp() {
+        Activity topActivity = getTopActivity();
+        return topActivity == null ? Utils.getApp() : topActivity;
+    }
+
+    static Activity getTopActivity() {
+        if (!ACTIVITY_LIST.isEmpty()) {
+            final Activity topActivity = ACTIVITY_LIST.getLast();
+            if (topActivity != null) {
+                return topActivity;
+            }
+        }
+        // using reflect to get top activity
+        try {
+            @SuppressLint("PrivateApi")
+            Class<?> activityThreadClass = Class.forName("android.app.ActivityThread");
+            Object activityThread = activityThreadClass.getMethod("currentActivityThread").invoke(null);
+            Field activitiesField = activityThreadClass.getDeclaredField("mActivities");
+            activitiesField.setAccessible(true);
+            Map activities = (Map) activitiesField.get(activityThread);
+            if (activities == null) return null;
+            for (Object activityRecord : activities.values()) {
+                Class activityRecordClass = activityRecord.getClass();
+                Field pausedField = activityRecordClass.getDeclaredField("paused");
+                pausedField.setAccessible(true);
+                if (!pausedField.getBoolean(activityRecord)) {
+                    Field activityField = activityRecordClass.getDeclaredField("activity");
+                    activityField.setAccessible(true);
+                    Activity activity = (Activity) activityField.get(activityRecord);
+                    Utils.setTopActivity(activity);
+                    return activity;
+                }
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

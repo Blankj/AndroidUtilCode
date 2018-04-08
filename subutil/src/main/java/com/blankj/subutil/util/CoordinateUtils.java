@@ -7,10 +7,10 @@ import static java.lang.Math.PI;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/03/21
- *     desc  : 坐标转换工具类
+ *     desc  : 坐标相关工具类
  * </pre>
  */
-public final class CoordinateConvertUtils {
+public final class CoordinateUtils {
 
     private final static double X_PI = 3.14159265358979324 * 3000.0 / 180.0;
     private final static double A    = 6378245.0;
@@ -73,7 +73,7 @@ public final class CoordinateConvertUtils {
     }
 
     /**
-     * WGS84 坐标 转 GCJ02 坐标
+     * WGS84 坐标转 GCJ02 坐标
      *
      * @param lng WGS84 坐标经度
      * @param lat WGS84 坐标纬度
@@ -97,7 +97,7 @@ public final class CoordinateConvertUtils {
     }
 
     /**
-     * BD09 坐标 转 WGS84 坐标
+     * BD09 坐标转 WGS84 坐标
      *
      * @param lng BD09 坐标经度
      * @param lat BD09 坐标纬度
@@ -137,14 +137,7 @@ public final class CoordinateConvertUtils {
         return ret;
     }
 
-    /**
-     * 判断坐标是否不在国内
-     *
-     * @param lng 经度
-     * @param lat 纬度
-     * @return 坐标是否在国内
-     */
-    public static boolean outOfChina(double lng, double lat) {
+    private static boolean outOfChina(double lng, double lat) {
         return lng < 72.004 || lng > 137.8347 || lat < 0.8293 || lat > 55.8271;
     }
 }
