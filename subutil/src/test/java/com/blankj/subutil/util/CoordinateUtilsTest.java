@@ -79,12 +79,6 @@ public class CoordinateUtilsTest {
         Assert.assertTrue(distance < 10);
     }
 
-    @Test
-    public void outOfChina() {
-        Assert.assertFalse(CoordinateUtils.outOfChina(locationWGS84[0], locationWGS84[1]));
-        Assert.assertTrue(CoordinateUtils.outOfChina(newyorkWGS84[0], newyorkWGS84[1]));
-    }
-
     public static double distance(double lngA, double latA, double lngB, double latB) {
         int earthR = 6371000;
         double x = Math.cos(latA * PI / 180) * Math.cos(latB * PI / 180) * Math.cos((lngA - lngB) * PI / 180);
