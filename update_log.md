@@ -1,3 +1,4 @@
+* 18/04/08 修复获取栈顶 Activity 链表为空的异常，获取栈顶 Activity 放到 Utils 中，发布 1.13.8 版本
 * 18/04/06 新增 GsonUtils 及单元测试
 * 18/04/05 完善 README 文档
 * 18/04/03 修复 LogUtils 在 Android Studio 3.1 版本日志丑陋的问题，发布 1.13.7 版本
