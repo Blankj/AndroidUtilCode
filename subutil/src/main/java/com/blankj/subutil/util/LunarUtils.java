@@ -5,7 +5,7 @@ package com.blankj.subutil.util;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/12/05
- *     desc  : 阴历相关工具类
+ *     desc  : 日历相关工具类
  * </pre>
  */
 public final class LunarUtils {
@@ -182,6 +182,7 @@ public final class LunarUtils {
     }
 
     public static class Lunar {
+
         public int     lunarYear;
         public int     lunarMonth;
         public int     lunarDay;
@@ -204,6 +205,7 @@ public final class LunarUtils {
     }
 
     public static class Solar {
+
         public int solarYear;
         public int solarMonth;
         public int solarDay;
