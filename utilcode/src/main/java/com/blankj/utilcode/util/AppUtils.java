@@ -136,7 +136,7 @@ public final class AppUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean installAppSilent(final String filePath, final String params) {
-        return installAppSilent(getFileByPath(filePath), null);
+        return installAppSilent(getFileByPath(filePath), params);
     }
 
     /**
