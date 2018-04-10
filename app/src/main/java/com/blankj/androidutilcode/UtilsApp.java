@@ -66,21 +66,15 @@ public class UtilsApp extends BaseApplication {
                 .setConsoleFilter(LogUtils.V)// log 的控制台过滤器，和 logcat 过滤器同理，默认 Verbose
                 .setFileFilter(LogUtils.V)// log 文件过滤器，和 logcat 过滤器同理，默认 Verbose
                 .setStackDeep(1);// log 栈深度，默认为 1
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                LogUtils.d(config.toString());
-            }
-        }).start();
-
+        LogUtils.d(config.toString());
     }
 
     @SuppressLint("MissingPermission")
     private void initCrash() {
         CrashUtils.init(new CrashUtils.OnCrashListener() {
             @Override
-            public void onCrash(Throwable e) {
-                e.printStackTrace();
+            public void onCrash(String crashInfo, Throwable e) {
+                LogUtils.e(crashInfo);
                 restartApp();
             }
         });

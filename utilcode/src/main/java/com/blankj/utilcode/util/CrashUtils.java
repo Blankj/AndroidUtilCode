@@ -8,10 +8,12 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresPermission;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -85,9 +87,21 @@ public final class CrashUtils {
                     }
                     return;
                 }
-                if (sOnCrashListener != null) {
-                    sOnCrashListener.onCrash(e);
+
+                StringBuilder sb = new StringBuilder();
+                sb.append(CRASH_HEAD);
+                StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw);
+                e.printStackTrace(pw);
+                Throwable cause = e.getCause();
+                while (cause != null) {
+                    cause.printStackTrace(pw);
+                    cause = cause.getCause();
                 }
+                pw.flush();
+                sb.append(sw.toString());
+                final String crashInfo = sb.toString();
+
                 Date now = new Date(System.currentTimeMillis());
                 String fileName = FORMAT.format(now) + ".txt";
                 final String fullPath = (dir == null ? defaultDir : dir) + fileName;
@@ -98,25 +112,28 @@ public final class CrashUtils {
                 sExecutor.execute(new Runnable() {
                     @Override
                     public void run() {
-                        PrintWriter pw = null;
+                        BufferedWriter bw = null;
                         try {
-                            pw = new PrintWriter(new FileWriter(fullPath, false));
-                            pw.write(CRASH_HEAD);
-                            e.printStackTrace(pw);
-                            Throwable cause = e.getCause();
-                            while (cause != null) {
-                                cause.printStackTrace(pw);
-                                cause = cause.getCause();
-                            }
+                            bw = new BufferedWriter(new FileWriter(fullPath, false));
+                            bw.write(crashInfo);
                         } catch (IOException e) {
                             e.printStackTrace();
                         } finally {
-                            if (pw != null) {
-                                pw.close();
+                            if (bw != null) {
+                                try {
+                                    bw.close();
+                                } catch (IOException e1) {
+                                    e1.printStackTrace();
+                                }
                             }
                         }
                     }
                 });
+
+                if (sOnCrashListener != null) {
+                    sOnCrashListener.onCrash(crashInfo, e);
+                }
+
                 if (DEFAULT_UNCAUGHT_EXCEPTION_HANDLER != null) {
                     DEFAULT_UNCAUGHT_EXCEPTION_HANDLER.uncaughtException(t, e);
                 }
@@ -239,6 +256,6 @@ public final class CrashUtils {
     }
 
     public interface OnCrashListener {
-        void onCrash(Throwable e);
+        void onCrash(String crashInfo, Throwable e);
     }
 }
