@@ -3,6 +3,7 @@ package com.blankj.androidutilcode.feature.core.keyboard;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.MotionEvent;
 import android.view.View;
@@ -36,7 +37,7 @@ public class KeyboardActivity extends BaseBackActivity {
     private AlertDialog dialog;
 
     @Override
-    public void initData(Bundle bundle) {
+    public void initData(@NonNull Bundle bundle) {
 
     }
 

@@ -10,6 +10,9 @@ android {
         targetSdkVersion target_sdk_version
         versionCode version_code
         versionName version_name
+        dataBinding {
+            enabled = true
+        }
     }
 
     if (signPropertiesFile.exists()) {
@@ -57,7 +60,7 @@ dependencies {
     // LeakCanary
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
-//    implementation 'com.blankj:utilcode:1.13.9'
+//    implementation 'com.blankj:utilcode:1.13.10'
 }
 
 

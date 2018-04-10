@@ -3,6 +3,7 @@ package com.blankj.androidutilcode.feature.core.bar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.SeekBar;
@@ -39,7 +40,7 @@ public class BarStatusColorActivity extends BaseActivity {
     }
 
     @Override
-    public void initData(Bundle bundle) {
+    public void initData(@NonNull Bundle bundle) {
         mRandom = new Random();
         mColor = ContextCompat.getColor(UtilsApp.getInstance(), R.color.colorPrimary);
         mAlpha = 112;

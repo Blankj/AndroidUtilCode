@@ -18,31 +18,30 @@ import android.view.View;
 public abstract class BaseActivity extends AppCompatActivity
         implements IBaseView {
 
-    /**
-     * 当前 Activity 渲染的视图 View
-     */
-    protected View contentView;
+    protected View     mContentView;
+    protected Activity mActivity;
+
     /**
      * 上次点击时间
      */
     private long lastClick = 0;
-
-    protected Activity mActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = this;
         Bundle bundle = getIntent().getExtras();
-        initData(bundle);
+        if (bundle != null) {
+            initData(bundle);
+        }
         setBaseView(bindLayout());
-        initView(savedInstanceState, contentView);
+        initView(savedInstanceState, mContentView);
         doBusiness();
     }
 
     protected void setBaseView(@LayoutRes int layoutId) {
         if (layoutId <= 0) return;
-        setContentView(contentView = LayoutInflater.from(this).inflate(layoutId, null));
+        setContentView(mContentView = LayoutInflater.from(this).inflate(layoutId, null));
     }
 
     /**

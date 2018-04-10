@@ -3,6 +3,7 @@ package com.blankj.androidutilcode.feature.core.process;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
@@ -32,7 +33,7 @@ public class ProcessActivity extends BaseBackActivity {
     private TextView tvAboutProcess;
 
     @Override
-    public void initData(Bundle bundle) {
+    public void initData(@NonNull Bundle bundle) {
 
     }
 

@@ -22,7 +22,7 @@ public abstract class BaseLazyFragment extends BaseFragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         Log.d(TAG, "setUserVisibleHint: " + isVisibleToUser);
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && contentView != null && !isDataLoaded) {
+        if (isVisibleToUser && mContentView != null && !isDataLoaded) {
             doLazyBusiness();
             isDataLoaded = true;
         }
