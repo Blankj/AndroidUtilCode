@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresPermission;
+import android.util.Log;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -18,8 +19,10 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
@@ -37,8 +40,6 @@ public final class CrashUtils {
     private static String dir;
     private static String versionName;
     private static int    versionCode;
-
-    private static ExecutorService sExecutor;
 
     private static final String FILE_SEP = System.getProperty("file.separator");
     @SuppressLint("SimpleDateFormat")
@@ -105,30 +106,11 @@ public final class CrashUtils {
                 Date now = new Date(System.currentTimeMillis());
                 String fileName = FORMAT.format(now) + ".txt";
                 final String fullPath = (dir == null ? defaultDir : dir) + fileName;
-                if (!createOrExistsFile(fullPath)) return;
-                if (sExecutor == null) {
-                    sExecutor = Executors.newSingleThreadExecutor();
+                if (createOrExistsFile(fullPath)) {
+                    input2File(crashInfo, fullPath);
+                } else {
+                    Log.e("CrashUtils", "create " + fullPath + " failed!");
                 }
-                sExecutor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        BufferedWriter bw = null;
-                        try {
-                            bw = new BufferedWriter(new FileWriter(fullPath, false));
-                            bw.write(crashInfo);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } finally {
-                            if (bw != null) {
-                                try {
-                                    bw.close();
-                                } catch (IOException e1) {
-                                    e1.printStackTrace();
-                                }
-                            }
-                        }
-                    }
-                });
 
                 if (sOnCrashListener != null) {
                     sOnCrashListener.onCrash(crashInfo, e);
@@ -227,6 +209,39 @@ public final class CrashUtils {
         }
         sOnCrashListener = onCrashListener;
         Thread.setDefaultUncaughtExceptionHandler(UNCAUGHT_EXCEPTION_HANDLER);
+    }
+
+    private static void input2File(final String input, final String filePath) {
+        Future<Boolean> submit = Executors.newSingleThreadExecutor().submit(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                BufferedWriter bw = null;
+                try {
+                    bw = new BufferedWriter(new FileWriter(filePath, true));
+                    bw.write(input);
+                    return true;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return false;
+                } finally {
+                    try {
+                        if (bw != null) {
+                            bw.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        try {
+            if (submit.get()) return;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.e("CrashUtils", "write crash info to " + filePath + " failed!");
     }
 
     private static boolean createOrExistsFile(final String filePath) {
