@@ -8,7 +8,7 @@ package com.blankj.androidutilcode.base;
  *     desc  :
  * </pre>
  */
-public abstract class DataBindingActivity extends BaseActivity {
+public abstract class BaseDataBindingActivity extends BaseActivity {
 
 
 }
