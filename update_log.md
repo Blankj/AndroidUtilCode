@@ -1,3 +1,4 @@
+* 18/04/16 完善 AppUtils#installAppSilent 路径包含空格问题，发布 1.13.11 版本
 * 18/04/10 完善 OnCrashListener 回调崩溃信息，发布 1.13.10 版本
 * 18/04/09 修复静默安装重载错误，发布 1.13.9 版本
 * 18/04/08 修复获取栈顶 Activity 链表为空的异常，获取栈顶 Activity 放到 Utils 中，发布 1.13.8 版本
@@ -8,7 +9,7 @@
 * 18/03/20 修复 PermissionUtils 子进程的问题，发布 1.13.5 版本
 * 18/03/16 新增 gradle 插件来格式化 README
 * 18/03/14 修复 KeyboardUtils#getContentViewInvisibleHeight，发布 1.13.4 版本
-* 18/03/10 完善 Utils#installAppSilent 和 DeviceUtils#getMacAddress，发布 1.13.3 版本
+* 18/03/10 完善 AppUtils#installAppSilent 和 DeviceUtils#getMacAddress，发布 1.13.3 版本
 * 18/03/09 完善 ActivityUtils#getTopActivity
 * 18/03/08 新增反射获取栈顶 Activity 的方法，发布 1.13.2 版本
 * 18/03/07 修复 PermissionUtils 请求权限为 0 的 崩溃

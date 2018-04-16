@@ -151,7 +151,7 @@ public final class AppUtils {
     public static boolean installAppSilent(final File file, final String params) {
         if (!isFileExists(file)) return false;
         boolean isRoot = isDeviceRooted();
-        String filePath = file.getAbsolutePath();
+        String filePath = '"' + file.getAbsolutePath() + '"';
         String command = "LD_LIBRARY_PATH=/vendor/lib*:/system/lib* pm install " +
                 (params == null ? "" : params + " ")
                 + filePath;
