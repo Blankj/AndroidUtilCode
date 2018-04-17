@@ -20,6 +20,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.ref.WeakReference;
+
 /**
  * <pre>
  *     author: Blankj
@@ -30,16 +32,17 @@ import android.widget.Toast;
  */
 public final class ToastUtils {
 
-    private static final int     COLOR_DEFAULT = 0xFEFFFFFF;
-    private static final Handler HANDLER       = new Handler(Looper.getMainLooper());
+    private static final int COLOR_DEFAULT = 0xFEFFFFFF;
+    private static final Handler HANDLER = new Handler(Looper.getMainLooper());
 
-    private static Toast sToast;
-    private static int sGravity    = -1;
-    private static int sXOffset    = -1;
-    private static int sYOffset    = -1;
-    private static int sBgColor    = COLOR_DEFAULT;
+    private static WeakReference<Toast> sToast;
+    private static int sGravity = -1;
+    private static int sXOffset = -1;
+    private static int sYOffset = -1;
+    private static int sBgColor = COLOR_DEFAULT;
     private static int sBgResource = -1;
-    private static int sMsgColor   = COLOR_DEFAULT;
+    private static int sMsgColor = COLOR_DEFAULT;
+    private static int sMsgTextSize = -1;
 
     private ToastUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -83,6 +86,15 @@ public final class ToastUtils {
      */
     public static void setMsgColor(@ColorInt final int msgColor) {
         sMsgColor = msgColor;
+    }
+
+    /**
+     * Set the text size of message.
+     *
+     * @param textSize The text size of message.
+     */
+    public static void setMsgTextSize(final int textSize) {
+        sMsgTextSize = textSize;
     }
 
     /**
@@ -199,8 +211,9 @@ public final class ToastUtils {
      * Cancel the toast.
      */
     public static void cancel() {
-        if (sToast != null) {
-            sToast.cancel();
+        Toast toast;
+        if (sToast != null && (toast = sToast.get()) != null) {
+            toast.cancel();
             sToast = null;
         }
     }
@@ -222,8 +235,9 @@ public final class ToastUtils {
             @Override
             public void run() {
                 cancel();
-                sToast = Toast.makeText(Utils.getTopActivityOrApp(), text, duration);
-                final TextView tvMessage = sToast.getView().findViewById(android.R.id.message);
+                Toast toast = Toast.makeText(Utils.getTopActivityOrApp(), text, duration);
+                sToast = new WeakReference<>(toast);
+                final TextView tvMessage = toast.getView().findViewById(android.R.id.message);
                 int msgColor = tvMessage.getCurrentTextColor();
                 //it solve the font of toast
                 TextViewCompat.setTextAppearance(tvMessage, android.R.style.TextAppearance);
@@ -232,11 +246,14 @@ public final class ToastUtils {
                 } else {
                     tvMessage.setTextColor(msgColor);
                 }
-                if (sGravity != -1 || sXOffset != -1 || sYOffset != -1) {
-                    sToast.setGravity(sGravity, sXOffset, sYOffset);
+                if (sMsgTextSize != -1) {
+                    tvMessage.setTextSize(sMsgTextSize);
                 }
-                setBg(tvMessage);
-                sToast.show();
+                if (sGravity != -1 || sXOffset != -1 || sYOffset != -1) {
+                    toast.setGravity(sGravity, sXOffset, sYOffset);
+                }
+                setBg(toast, tvMessage);
+                toast.show();
             }
         });
     }
@@ -246,20 +263,22 @@ public final class ToastUtils {
             @Override
             public void run() {
                 cancel();
-                sToast = new Toast(Utils.getTopActivityOrApp());
-                sToast.setView(view);
-                sToast.setDuration(duration);
+                Toast toast = new Toast(Utils.getTopActivityOrApp());
+                sToast = new WeakReference<>(toast);
+
+                toast.setView(view);
+                toast.setDuration(duration);
                 if (sGravity != -1 || sXOffset != -1 || sYOffset != -1) {
-                    sToast.setGravity(sGravity, sXOffset, sYOffset);
+                    toast.setGravity(sGravity, sXOffset, sYOffset);
                 }
-                setBg();
-                sToast.show();
+                setBg(toast);
+                toast.show();
             }
         });
     }
 
-    private static void setBg() {
-        View toastView = sToast.getView();
+    private static void setBg(Toast toast) {
+        View toastView = toast.getView();
         if (sBgResource != -1) {
             toastView.setBackgroundResource(sBgResource);
         } else if (sBgColor != COLOR_DEFAULT) {
@@ -274,8 +293,8 @@ public final class ToastUtils {
         }
     }
 
-    private static void setBg(final TextView tvMsg) {
-        View toastView = sToast.getView();
+    private static void setBg(final Toast toast, final TextView tvMsg) {
+        View toastView = toast.getView();
         if (sBgResource != -1) {
             toastView.setBackgroundResource(sBgResource);
             tvMsg.setBackgroundColor(Color.TRANSPARENT);
