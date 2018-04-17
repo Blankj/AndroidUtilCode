@@ -1,3 +1,4 @@
+* 18/04/17 修复 ToastUtils 内存泄漏问题，感谢 [LambertCoding](https://github.com/LambertCoding)，发布 1.13.12 版本
 * 18/04/16 完善 AppUtils#installAppSilent 路径包含空格问题，发布 1.13.11 版本
 * 18/04/10 完善 OnCrashListener 回调崩溃信息，发布 1.13.10 版本
 * 18/04/09 修复静默安装重载错误，发布 1.13.9 版本
