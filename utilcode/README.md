@@ -636,7 +636,8 @@ getZodiac
 setGravity
 setBgColor
 setBgResource
-setMessageColor
+setMsgColor
+setMsgTextSize
 showShort
 showLong
 showCustomShort

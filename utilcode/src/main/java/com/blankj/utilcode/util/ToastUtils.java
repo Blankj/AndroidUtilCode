@@ -32,16 +32,16 @@ import java.lang.ref.WeakReference;
  */
 public final class ToastUtils {
 
-    private static final int COLOR_DEFAULT = 0xFEFFFFFF;
-    private static final Handler HANDLER = new Handler(Looper.getMainLooper());
+    private static final int     COLOR_DEFAULT = 0xFEFFFFFF;
+    private static final Handler HANDLER       = new Handler(Looper.getMainLooper());
 
-    private static WeakReference<Toast> sToast;
-    private static int sGravity = -1;
-    private static int sXOffset = -1;
-    private static int sYOffset = -1;
-    private static int sBgColor = COLOR_DEFAULT;
-    private static int sBgResource = -1;
-    private static int sMsgColor = COLOR_DEFAULT;
+    private static WeakReference<Toast> sWeakToast;
+    private static int sGravity     = -1;
+    private static int sXOffset     = -1;
+    private static int sYOffset     = -1;
+    private static int sBgColor     = COLOR_DEFAULT;
+    private static int sBgResource  = -1;
+    private static int sMsgColor    = COLOR_DEFAULT;
     private static int sMsgTextSize = -1;
 
     private ToastUtils() {
@@ -191,6 +191,8 @@ public final class ToastUtils {
 
     /**
      * Show custom toast for a short period of time.
+     *
+     * @param layoutId ID for an XML layout resource to load.
      */
     public static View showCustomShort(@LayoutRes final int layoutId) {
         final View view = getView(layoutId);
@@ -200,6 +202,8 @@ public final class ToastUtils {
 
     /**
      * Show custom toast for a long period of time.
+     *
+     * @param layoutId ID for an XML layout resource to load.
      */
     public static View showCustomLong(@LayoutRes final int layoutId) {
         final View view = getView(layoutId);
@@ -212,9 +216,9 @@ public final class ToastUtils {
      */
     public static void cancel() {
         Toast toast;
-        if (sToast != null && (toast = sToast.get()) != null) {
+        if (sWeakToast != null && (toast = sWeakToast.get()) != null) {
             toast.cancel();
-            sToast = null;
+            sWeakToast = null;
         }
     }
 
@@ -236,7 +240,7 @@ public final class ToastUtils {
             public void run() {
                 cancel();
                 Toast toast = Toast.makeText(Utils.getTopActivityOrApp(), text, duration);
-                sToast = new WeakReference<>(toast);
+                sWeakToast = new WeakReference<>(toast);
                 final TextView tvMessage = toast.getView().findViewById(android.R.id.message);
                 int msgColor = tvMessage.getCurrentTextColor();
                 //it solve the font of toast
@@ -264,7 +268,7 @@ public final class ToastUtils {
             public void run() {
                 cancel();
                 Toast toast = new Toast(Utils.getTopActivityOrApp());
-                sToast = new WeakReference<>(toast);
+                sWeakToast = new WeakReference<>(toast);
 
                 toast.setView(view);
                 toast.setDuration(duration);

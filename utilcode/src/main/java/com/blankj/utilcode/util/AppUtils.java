@@ -2,8 +2,6 @@ package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -332,17 +330,7 @@ public final class AppUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isAppForeground() {
-        ActivityManager am =
-                (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-        if (am == null) return false;
-        List<ActivityManager.RunningAppProcessInfo> info = am.getRunningAppProcesses();
-        if (info == null || info.size() == 0) return false;
-        for (ActivityManager.RunningAppProcessInfo aInfo : info) {
-            if (aInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                return aInfo.processName.equals(Utils.getApp().getPackageName());
-            }
-        }
-        return false;
+        return Utils.isAppForeground();
     }
 
     /**
