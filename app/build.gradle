@@ -10,9 +10,6 @@ android {
         targetSdkVersion target_sdk_version
         versionCode version_code
         versionName version_name
-        dataBinding {
-            enabled = true
-        }
     }
 
     if (signPropertiesFile.exists()) {
