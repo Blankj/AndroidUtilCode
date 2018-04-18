@@ -7,17 +7,22 @@ import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresPermission;
+import android.util.Log;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
@@ -35,8 +40,6 @@ public final class CrashUtils {
     private static String dir;
     private static String versionName;
     private static int    versionCode;
-
-    private static ExecutorService sExecutor;
 
     private static final String FILE_SEP = System.getProperty("file.separator");
     @SuppressLint("SimpleDateFormat")
@@ -85,38 +88,34 @@ public final class CrashUtils {
                     }
                     return;
                 }
-                if (sOnCrashListener != null) {
-                    sOnCrashListener.onCrash(e);
+
+                StringBuilder sb = new StringBuilder();
+                sb.append(CRASH_HEAD);
+                StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw);
+                e.printStackTrace(pw);
+                Throwable cause = e.getCause();
+                while (cause != null) {
+                    cause.printStackTrace(pw);
+                    cause = cause.getCause();
                 }
+                pw.flush();
+                sb.append(sw.toString());
+                final String crashInfo = sb.toString();
+
                 Date now = new Date(System.currentTimeMillis());
                 String fileName = FORMAT.format(now) + ".txt";
                 final String fullPath = (dir == null ? defaultDir : dir) + fileName;
-                if (!createOrExistsFile(fullPath)) return;
-                if (sExecutor == null) {
-                    sExecutor = Executors.newSingleThreadExecutor();
+                if (createOrExistsFile(fullPath)) {
+                    input2File(crashInfo, fullPath);
+                } else {
+                    Log.e("CrashUtils", "create " + fullPath + " failed!");
                 }
-                sExecutor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        PrintWriter pw = null;
-                        try {
-                            pw = new PrintWriter(new FileWriter(fullPath, false));
-                            pw.write(CRASH_HEAD);
-                            e.printStackTrace(pw);
-                            Throwable cause = e.getCause();
-                            while (cause != null) {
-                                cause.printStackTrace(pw);
-                                cause = cause.getCause();
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } finally {
-                            if (pw != null) {
-                                pw.close();
-                            }
-                        }
-                    }
-                });
+
+                if (sOnCrashListener != null) {
+                    sOnCrashListener.onCrash(crashInfo, e);
+                }
+
                 if (DEFAULT_UNCAUGHT_EXCEPTION_HANDLER != null) {
                     DEFAULT_UNCAUGHT_EXCEPTION_HANDLER.uncaughtException(t, e);
                 }
@@ -212,6 +211,39 @@ public final class CrashUtils {
         Thread.setDefaultUncaughtExceptionHandler(UNCAUGHT_EXCEPTION_HANDLER);
     }
 
+    private static void input2File(final String input, final String filePath) {
+        Future<Boolean> submit = Executors.newSingleThreadExecutor().submit(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                BufferedWriter bw = null;
+                try {
+                    bw = new BufferedWriter(new FileWriter(filePath, true));
+                    bw.write(input);
+                    return true;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return false;
+                } finally {
+                    try {
+                        if (bw != null) {
+                            bw.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        try {
+            if (submit.get()) return;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.e("CrashUtils", "write crash info to " + filePath + " failed!");
+    }
+
     private static boolean createOrExistsFile(final String filePath) {
         File file = new File(filePath);
         if (file.exists()) return file.isFile();
@@ -239,6 +271,6 @@ public final class CrashUtils {
     }
 
     public interface OnCrashListener {
-        void onCrash(Throwable e);
+        void onCrash(String crashInfo, Throwable e);
     }
 }

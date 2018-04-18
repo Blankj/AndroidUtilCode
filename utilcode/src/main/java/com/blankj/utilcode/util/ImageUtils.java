@@ -32,6 +32,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.FloatRange;
 import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
@@ -356,6 +357,35 @@ public final class ImageUtils {
         options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeFileDescriptor(fd, null, options);
+    }
+
+    /**
+     * Return the bitmap with the specified color.
+     *
+     * @param src   The source of bitmap.
+     * @param color The color.
+     * @return the bitmap with the specified color
+     */
+    public static Bitmap drawColor(@NonNull final Bitmap src, @ColorInt final int color) {
+        return drawColor(src, color, false);
+    }
+
+    /**
+     * Return the bitmap with the specified color.
+     *
+     * @param src     The source of bitmap.
+     * @param color   The color.
+     * @param recycle True to recycle the source of bitmap, false otherwise.
+     * @return the bitmap with the specified color
+     */
+    public static Bitmap drawColor(@NonNull final Bitmap src,
+                                   @ColorInt final int color,
+                                   final boolean recycle) {
+        if (isEmptyBitmap(src)) return null;
+        Bitmap ret = recycle ? src : src.copy(src.getConfig(), true);
+        Canvas canvas = new Canvas(ret);
+        canvas.drawColor(color, PorterDuff.Mode.DARKEN);
+        return ret;
     }
 
     /**

@@ -3,6 +3,7 @@ package com.blankj.androidutilcode.feature.core;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.blankj.androidutilcode.R;
@@ -44,7 +45,7 @@ public class CoreUtilActivity extends BaseBackActivity {
     }
 
     @Override
-    public void initData(Bundle bundle) {
+    public void initData(@NonNull Bundle bundle) {
 
     }
 
@@ -54,7 +55,7 @@ public class CoreUtilActivity extends BaseBackActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
+    public void initView(Bundle savedInstanceState, View contentView) {
         getToolBar().setTitle(getString(R.string.core_util));
     }
 

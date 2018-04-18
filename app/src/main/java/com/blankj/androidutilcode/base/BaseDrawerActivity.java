@@ -44,8 +44,8 @@ public abstract class BaseDrawerActivity extends BaseActivity {
 
     @Override
     protected void setBaseView(@LayoutRes int layoutId) {
-        contentView = LayoutInflater.from(this).inflate(R.layout.activity_drawer, null);
-        setContentView(contentView);
+        mContentView = LayoutInflater.from(this).inflate(R.layout.activity_drawer, null);
+        setContentView(mContentView);
         rootLayout = findViewById(R.id.root_layout);
         flActivityContainer = findViewById(R.id.activity_container);
         flActivityContainer.addView(LayoutInflater.from(this).inflate(layoutId, flActivityContainer, false));

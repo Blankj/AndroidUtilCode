@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.view.View;
 import android.view.Window;
@@ -45,7 +46,7 @@ public class ActivityActivity extends BaseBackActivity {
     }
 
     @Override
-    public void initData(Bundle bundle) {
+    public void initData(@NonNull Bundle bundle) {
 
     }
 
@@ -59,7 +60,7 @@ public class ActivityActivity extends BaseBackActivity {
 
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
+    public void initView(Bundle savedInstanceState, View contentView) {
         getToolBar().setTitle(getString(R.string.demo_activity));
         viewSharedElement = findViewById(R.id.view_shared_element);
         findViewById(R.id.btn_clz).setOnClickListener(this);
@@ -95,7 +96,6 @@ public class ActivityActivity extends BaseBackActivity {
         tvAboutActivity.setText(new SpanUtils()
                 .appendLine("isActivityExists: " + ActivityUtils.isActivityExists(Config.PKG, SubActivityActivity.class.getName()))
                 .appendLine("getLauncherActivity: " + ActivityUtils.getLauncherActivity(Config.PKG))
-                .appendLine("getTopActivity: " + ActivityUtils.getTopActivity())
                 .appendLine("getTopActivity: " + ActivityUtils.getTopActivity())
                 .appendLine("isActivityExistsInStack: " + ActivityUtils.isActivityExistsInStack(CoreUtilActivity.class))
                 .append("getActivityIcon: ")

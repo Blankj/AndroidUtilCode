@@ -1,6 +1,7 @@
 package com.blankj.androidutilcode.feature.core.bar;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.SeekBar;
@@ -8,8 +9,9 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.UtilsApp;
-import com.blankj.androidutilcode.base.BaseFragment;
+import com.blankj.androidutilcode.base.BaseLazyFragment;
 import com.blankj.utilcode.util.BarUtils;
+import com.blankj.utilcode.util.LogUtils;
 
 import java.util.Random;
 
@@ -21,7 +23,7 @@ import java.util.Random;
  *     desc  : Bar 工具类 Demo
  * </pre>
  */
-public class BarStatusColorFragment extends BaseFragment {
+public class BarStatusColorFragment extends BaseLazyFragment {
 
     private Random mRandom;
     private int    mColor;
@@ -36,7 +38,7 @@ public class BarStatusColorFragment extends BaseFragment {
     }
 
     @Override
-    public void initData(Bundle bundle) {
+    public void initData(@NonNull Bundle bundle) {
         mRandom = new Random();
         mColor = ContextCompat.getColor(UtilsApp.getInstance(), R.color.colorPrimary);
         mAlpha = 112;
@@ -48,12 +50,12 @@ public class BarStatusColorFragment extends BaseFragment {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
-        fakeStatusBar = view.findViewById(R.id.fake_status_bar);
-        view.findViewById(R.id.btn_random_color).setOnClickListener(this);
-        view.findViewById(R.id.btn_set_transparent).setOnClickListener(this);
-        mTvStatusAlpha = (TextView) view.findViewById(R.id.tv_status_alpha);
-        sbChangeAlpha = (SeekBar) view.findViewById(R.id.sb_change_alpha);
+    public void initView(Bundle savedInstanceState, View contentView) {
+        fakeStatusBar = findViewById(R.id.fake_status_bar);
+        findViewById(R.id.btn_random_color).setOnClickListener(this);
+        findViewById(R.id.btn_set_transparent).setOnClickListener(this);
+        mTvStatusAlpha = findViewById(R.id.tv_status_alpha);
+        sbChangeAlpha = findViewById(R.id.sb_change_alpha);
         sbChangeAlpha.setOnSeekBarChangeListener(colorListener);
         mTvStatusAlpha.setText(String.valueOf(mAlpha));
 
@@ -62,8 +64,8 @@ public class BarStatusColorFragment extends BaseFragment {
 
 
     @Override
-    public void doBusiness() {
-
+    public void doLazyBusiness() {
+        LogUtils.d("doLazyBusiness() called");
     }
 
     @Override

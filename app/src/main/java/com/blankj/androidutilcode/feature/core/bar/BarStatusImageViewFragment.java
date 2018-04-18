@@ -1,13 +1,15 @@
 package com.blankj.androidutilcode.feature.core.bar;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseFragment;
+import com.blankj.androidutilcode.base.BaseLazyFragment;
 import com.blankj.utilcode.util.BarUtils;
+import com.blankj.utilcode.util.LogUtils;
 
 /**
  * <pre>
@@ -17,7 +19,7 @@ import com.blankj.utilcode.util.BarUtils;
  *     desc  : Bar 工具类 Demo
  * </pre>
  */
-public class BarStatusImageViewFragment extends BaseFragment {
+public class BarStatusImageViewFragment extends BaseLazyFragment {
 
     private int mAlpha;
 
@@ -30,7 +32,7 @@ public class BarStatusImageViewFragment extends BaseFragment {
     }
 
     @Override
-    public void initData(Bundle bundle) {
+    public void initData(@NonNull Bundle bundle) {
         mAlpha = 112;
     }
 
@@ -40,11 +42,11 @@ public class BarStatusImageViewFragment extends BaseFragment {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
-        fakeStatusBar = view.findViewById(R.id.fake_status_bar);
-        mTvStatusAlpha = (TextView) view.findViewById(R.id.tv_status_alpha);
-        sbChangeAlpha = (SeekBar) view.findViewById(R.id.sb_change_alpha);
-        view.findViewById(R.id.btn_set_transparent).setOnClickListener(this);
+    public void initView(Bundle savedInstanceState, View contentView) {
+        fakeStatusBar = findViewById(R.id.fake_status_bar);
+        mTvStatusAlpha = findViewById(R.id.tv_status_alpha);
+        sbChangeAlpha = findViewById(R.id.sb_change_alpha);
+        findViewById(R.id.btn_set_transparent).setOnClickListener(this);
         sbChangeAlpha.setOnSeekBarChangeListener(translucentListener);
         mTvStatusAlpha.setText(String.valueOf(mAlpha));
 
@@ -52,8 +54,8 @@ public class BarStatusImageViewFragment extends BaseFragment {
     }
 
     @Override
-    public void doBusiness() {
-
+    public void doLazyBusiness() {
+        LogUtils.d("doLazyBusiness() called");
     }
 
     @Override

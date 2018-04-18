@@ -133,6 +133,7 @@
 
     <!--Image 相关-->
     <string name="image_src">Src</string>
+    <string name="image_add_color">Add Color</string>
     <string name="image_scale">Scale</string>
     <string name="image_clip">Clip</string>
     <string name="image_skew">Skew</string>
@@ -175,6 +176,7 @@
     <string name="log_toggle_tag">Toggle Tag</string>
     <string name="log_toggle_head">Toggle Head</string>
     <string name="log_toggle_border">Toggle Border</string>
+    <string name="log_toggle_single">Toggle Single</string>
     <string name="log_toggle_console_filter">Toggle Console Filter</string>
     <string name="log_toggle_file_filter">Toggle File Filter</string>
     <string name="log_toggle_file">Toggle File</string>

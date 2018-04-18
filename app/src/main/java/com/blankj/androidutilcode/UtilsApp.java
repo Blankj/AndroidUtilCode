@@ -62,24 +62,19 @@ public class UtilsApp extends BaseApplication {
                 .setDir("")// 当自定义路径为空时，写入应用的/cache/log/目录中
                 .setFilePrefix("")// 当文件前缀为空时，默认为"util"，即写入文件为"util-MM-dd.txt"
                 .setBorderSwitch(true)// 输出日志是否带边框开关，默认开
+                .setSingleTagSwitch(true)// 一条日志仅输出一条，默认开，为美化 AS 3.1 的 Logcat
                 .setConsoleFilter(LogUtils.V)// log 的控制台过滤器，和 logcat 过滤器同理，默认 Verbose
                 .setFileFilter(LogUtils.V)// log 文件过滤器，和 logcat 过滤器同理，默认 Verbose
                 .setStackDeep(1);// log 栈深度，默认为 1
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                LogUtils.d(config.toString());
-            }
-        }).start();
-
+        LogUtils.d(config.toString());
     }
 
     @SuppressLint("MissingPermission")
     private void initCrash() {
         CrashUtils.init(new CrashUtils.OnCrashListener() {
             @Override
-            public void onCrash(Throwable e) {
-                e.printStackTrace();
+            public void onCrash(String crashInfo, Throwable e) {
+                LogUtils.e(crashInfo);
                 restartApp();
             }
         });

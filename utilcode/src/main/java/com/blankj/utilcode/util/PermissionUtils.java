@@ -298,7 +298,10 @@ public final class PermissionUtils {
             }
             if (sInstance.mPermissionsRequest != null) {
                 int size = sInstance.mPermissionsRequest.size();
-                if (size <= 0) return;
+                if (size <= 0) {
+                    finish();
+                    return;
+                }
                 requestPermissions(sInstance.mPermissionsRequest.toArray(new String[size]), 1);
             }
         }

@@ -1,6 +1,5 @@
 package com.blankj.utilcode.util;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -17,10 +16,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.view.View;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <pre>
@@ -58,7 +54,7 @@ public final class ActivityUtils {
      * @param clz The activity class.
      */
     public static void startActivity(@NonNull final Class<?> clz) {
-        Context context = getActivityOrApp();
+        Context context = Utils.getTopActivityOrApp();
         startActivity(context, null, context.getPackageName(), clz.getName(), null);
     }
 
@@ -70,7 +66,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final Class<?> clz,
                                      @Nullable final Bundle options) {
-        Context context = getActivityOrApp();
+        Context context = Utils.getTopActivityOrApp();
         startActivity(context, null, context.getPackageName(), clz.getName(), options);
     }
 
@@ -86,7 +82,7 @@ public final class ActivityUtils {
     public static void startActivity(@NonNull final Class<?> clz,
                                      @AnimRes final int enterAnim,
                                      @AnimRes final int exitAnim) {
-        Context context = getActivityOrApp();
+        Context context = Utils.getTopActivityOrApp();
         startActivity(context, null, context.getPackageName(), clz.getName(),
                 getOptionsBundle(context, enterAnim, exitAnim));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context instanceof Activity) {
@@ -147,7 +143,6 @@ public final class ActivityUtils {
                                      @NonNull final Class<?> clz,
                                      @AnimRes final int enterAnim,
                                      @AnimRes final int exitAnim) {
-
         startActivity(activity, null, activity.getPackageName(), clz.getName(),
                 getOptionsBundle(activity, enterAnim, exitAnim));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
@@ -163,7 +158,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final Class<?> clz) {
-        Context context = getActivityOrApp();
+        Context context = Utils.getTopActivityOrApp();
         startActivity(context, extras, context.getPackageName(), clz.getName(), null);
     }
 
@@ -177,7 +172,7 @@ public final class ActivityUtils {
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final Class<?> clz,
                                      @NonNull final Bundle options) {
-        Context context = getActivityOrApp();
+        Context context = Utils.getTopActivityOrApp();
         startActivity(context, extras, context.getPackageName(), clz.getName(), options);
     }
 
@@ -195,7 +190,7 @@ public final class ActivityUtils {
                                      @NonNull final Class<?> clz,
                                      @AnimRes final int enterAnim,
                                      @AnimRes final int exitAnim) {
-        Context context = getActivityOrApp();
+        Context context = Utils.getTopActivityOrApp();
         startActivity(context, extras, context.getPackageName(), clz.getName(),
                 getOptionsBundle(context, enterAnim, exitAnim));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context instanceof Activity) {
@@ -279,7 +274,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final String pkg,
                                      @NonNull final String cls) {
-        startActivity(getActivityOrApp(), null, pkg, cls, null);
+        startActivity(Utils.getTopActivityOrApp(), null, pkg, cls, null);
     }
 
     /**
@@ -292,7 +287,7 @@ public final class ActivityUtils {
     public static void startActivity(@NonNull final String pkg,
                                      @NonNull final String cls,
                                      @Nullable final Bundle options) {
-        startActivity(getActivityOrApp(), null, pkg, cls, options);
+        startActivity(Utils.getTopActivityOrApp(), null, pkg, cls, options);
     }
 
     /**
@@ -309,7 +304,7 @@ public final class ActivityUtils {
                                      @NonNull final String cls,
                                      @AnimRes final int enterAnim,
                                      @AnimRes final int exitAnim) {
-        Context context = getActivityOrApp();
+        Context context = Utils.getTopActivityOrApp();
         startActivity(context, null, pkg, cls, getOptionsBundle(context, enterAnim, exitAnim));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context instanceof Activity) {
             ((Activity) context).overridePendingTransition(enterAnim, exitAnim);
@@ -392,7 +387,7 @@ public final class ActivityUtils {
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final String pkg,
                                      @NonNull final String cls) {
-        startActivity(getActivityOrApp(), extras, pkg, cls, null);
+        startActivity(Utils.getTopActivityOrApp(), extras, pkg, cls, null);
     }
 
     /**
@@ -407,7 +402,7 @@ public final class ActivityUtils {
                                      @NonNull final String pkg,
                                      @NonNull final String cls,
                                      @NonNull final Bundle options) {
-        startActivity(getActivityOrApp(), extras, pkg, cls, options);
+        startActivity(Utils.getTopActivityOrApp(), extras, pkg, cls, options);
     }
 
     /**
@@ -426,7 +421,7 @@ public final class ActivityUtils {
                                      @NonNull final String cls,
                                      @AnimRes final int enterAnim,
                                      @AnimRes final int exitAnim) {
-        Context context = getActivityOrApp();
+        Context context = Utils.getTopActivityOrApp();
         startActivity(context, extras, pkg, cls, getOptionsBundle(context, enterAnim, exitAnim));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context instanceof Activity) {
             ((Activity) context).overridePendingTransition(enterAnim, exitAnim);
@@ -512,7 +507,7 @@ public final class ActivityUtils {
      * @param intent The description of the activity to start.
      */
     public static void startActivity(@NonNull final Intent intent) {
-        startActivity(intent, getActivityOrApp(), null);
+        startActivity(intent, Utils.getTopActivityOrApp(), null);
     }
 
     /**
@@ -523,7 +518,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final Intent intent,
                                      @NonNull final Bundle options) {
-        startActivity(intent, getActivityOrApp(), options);
+        startActivity(intent, Utils.getTopActivityOrApp(), options);
     }
 
     /**
@@ -538,7 +533,7 @@ public final class ActivityUtils {
     public static void startActivity(@NonNull final Intent intent,
                                      @AnimRes final int enterAnim,
                                      @AnimRes final int exitAnim) {
-        Context context = getActivityOrApp();
+        Context context = Utils.getTopActivityOrApp();
         startActivity(intent, context, getOptionsBundle(context, enterAnim, exitAnim));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context instanceof Activity) {
             ((Activity) context).overridePendingTransition(enterAnim, exitAnim);
@@ -609,7 +604,7 @@ public final class ActivityUtils {
      * @param intents The descriptions of the activities to start.
      */
     public static void startActivities(@NonNull final Intent[] intents) {
-        startActivities(intents, getActivityOrApp(), null);
+        startActivities(intents, Utils.getTopActivityOrApp(), null);
     }
 
     /**
@@ -620,7 +615,7 @@ public final class ActivityUtils {
      */
     public static void startActivities(@NonNull final Intent[] intents,
                                        @Nullable final Bundle options) {
-        startActivities(intents, getActivityOrApp(), options);
+        startActivities(intents, Utils.getTopActivityOrApp(), options);
     }
 
     /**
@@ -635,7 +630,7 @@ public final class ActivityUtils {
     public static void startActivities(@NonNull final Intent[] intents,
                                        @AnimRes final int enterAnim,
                                        @AnimRes final int exitAnim) {
-        Context context = getActivityOrApp();
+        Context context = Utils.getTopActivityOrApp();
         startActivities(intents, context, getOptionsBundle(context, enterAnim, exitAnim));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context instanceof Activity) {
             ((Activity) context).overridePendingTransition(enterAnim, exitAnim);
@@ -739,43 +734,7 @@ public final class ActivityUtils {
      * @return the top activity in activity's stack
      */
     public static Activity getTopActivity() {
-        final Activity topActivity = Utils.getActivityList().getLast();
-        if (topActivity != null) {
-            return topActivity;
-        }
-        // using reflect to get top activity
-        try {
-            @SuppressLint("PrivateApi")
-            Class<?> activityThreadClass = Class.forName("android.app.ActivityThread");
-            Object activityThread = activityThreadClass.getMethod("currentActivityThread").invoke(null);
-            Field activitiesField = activityThreadClass.getDeclaredField("mActivities");
-            activitiesField.setAccessible(true);
-            Map activities = (Map) activitiesField.get(activityThread);
-            if (activities == null) return null;
-            for (Object activityRecord : activities.values()) {
-                Class activityRecordClass = activityRecord.getClass();
-                Field pausedField = activityRecordClass.getDeclaredField("paused");
-                pausedField.setAccessible(true);
-                if (!pausedField.getBoolean(activityRecord)) {
-                    Field activityField = activityRecordClass.getDeclaredField("activity");
-                    activityField.setAccessible(true);
-                    Activity activity = (Activity) activityField.get(activityRecord);
-                    Utils.setTopActivity(activity);
-                    return activity;
-                }
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return Utils.getTopActivity();
     }
 
     /**
@@ -1200,11 +1159,28 @@ public final class ActivityUtils {
         }
     }
 
-
-    private static Context getActivityOrApp() {
-        Activity topActivity = getTopActivity();
-        return topActivity == null ? Utils.getApp() : topActivity;
-    }
+//    private static Context getTopActivityOrApp() {
+//        if (isAppForeground()) {
+//            Activity topActivity = getTopActivity();
+//            return topActivity == null ? Utils.getApp() : topActivity;
+//        } else {
+//            return Utils.getApp();
+//        }
+//    }
+//
+//    private static boolean isAppForeground() {
+//        ActivityManager am =
+//                (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
+//        if (am == null) return false;
+//        List<ActivityManager.RunningAppProcessInfo> info = am.getRunningAppProcesses();
+//        if (info == null || info.size() == 0) return false;
+//        for (ActivityManager.RunningAppProcessInfo aInfo : info) {
+//            if (aInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+//                return aInfo.processName.equals(Utils.getApp().getPackageName());
+//            }
+//        }
+//        return false;
+//    }
 
     private static void startActivity(final Context context,
                                       final Bundle extras,

@@ -11,7 +11,7 @@ import org.robolectric.annotation.Config;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/08/21
- *     desc  : 单元测试工具类
+ *     desc  : utils about test
  * </pre>
  */
 @RunWith(RobolectricTestRunner.class)
@@ -24,6 +24,5 @@ public class TestUtils {
 
     @Test
     public void test() throws Exception {
-
     }
 }

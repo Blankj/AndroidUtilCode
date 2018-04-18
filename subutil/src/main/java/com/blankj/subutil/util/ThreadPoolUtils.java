@@ -26,17 +26,17 @@ import java.util.concurrent.TimeoutException;
  */
 public final class ThreadPoolUtils {
 
-    public static final int FixedThread  = 0;
-    public static final int CachedThread = 1;
-    public static final int SingleThread = 2;
+    public static final int ScheduledThread = 0;
+    public static final int FixedThread     = 1;
+    public static final int CachedThread    = 2;
+    public static final int SingleThread    = 3;
 
-    @IntDef({FixedThread, CachedThread, SingleThread})
+    @IntDef({ScheduledThread, FixedThread, CachedThread, SingleThread})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Type {
     }
 
-    private ExecutorService          exec;
-    private ScheduledExecutorService scheduleExec;
+    private ExecutorService exec;
 
     private ThreadPoolUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -49,7 +49,10 @@ public final class ThreadPoolUtils {
      * @param corePoolSize 只对Fixed和Scheduled线程池起效
      */
     public ThreadPoolUtils(@Type final int type, final int corePoolSize) {
-        // 构造有定时功能的线程池
+
+        switch (type) {
+            case ScheduledThread:
+                // 构造有定时功能的线程池
 //        new ThreadPoolExecutor(
 //                corePoolSize,
 //                Integer.MAX_VALUE,
@@ -57,8 +60,8 @@ public final class ThreadPoolUtils {
 //                TimeUnit.MILLISECONDS,
 //                new DelayedWorkQueue()
 //        );
-        scheduleExec = Executors.newScheduledThreadPool(corePoolSize);
-        switch (type) {
+                exec = Executors.newScheduledThreadPool(corePoolSize);
+                break;
             case FixedThread:
                 // 构造一个固定线程数目的线程池
 //                new ThreadPoolExecutor(
@@ -295,7 +298,10 @@ public final class ThreadPoolUtils {
     public ScheduledFuture<?> schedule(final Runnable command,
                                        final long delay,
                                        final TimeUnit unit) {
-        return scheduleExec.schedule(command, delay, unit);
+        if (!(exec instanceof ScheduledExecutorService)) {
+            throw new ClassCastException("Exec can't cast to ScheduledExecutorService.");
+        }
+        return ((ScheduledExecutorService) exec).schedule(command, delay, unit);
     }
 
     /**
@@ -310,7 +316,10 @@ public final class ThreadPoolUtils {
     public <T> ScheduledFuture<T> schedule(final Callable<T> callable,
                                            final long delay,
                                            final TimeUnit unit) {
-        return scheduleExec.schedule(callable, delay, unit);
+        if (!(exec instanceof ScheduledExecutorService)) {
+            throw new ClassCastException("Exec can't cast to ScheduledExecutorService.");
+        }
+        return ((ScheduledExecutorService) exec).schedule(callable, delay, unit);
     }
 
     /**
@@ -326,7 +335,11 @@ public final class ThreadPoolUtils {
                                                     final long initialDelay,
                                                     final long period,
                                                     final TimeUnit unit) {
-        return scheduleExec.scheduleAtFixedRate(command, initialDelay, period, unit);
+        if (!(exec instanceof ScheduledExecutorService)) {
+            throw new ClassCastException("Exec can't cast to ScheduledExecutorService.");
+        }
+        return ((ScheduledExecutorService) exec)
+                .scheduleAtFixedRate(command, initialDelay, period, unit);
     }
 
     /**
@@ -342,6 +355,10 @@ public final class ThreadPoolUtils {
                                                      final long initialDelay,
                                                      final long delay,
                                                      final TimeUnit unit) {
-        return scheduleExec.scheduleWithFixedDelay(command, initialDelay, delay, unit);
+        if (!(exec instanceof ScheduledExecutorService)) {
+            throw new ClassCastException("Exec can't cast to ScheduledExecutorService.");
+        }
+        return ((ScheduledExecutorService) exec)
+                .scheduleWithFixedDelay(command, initialDelay, delay, unit);
     }
 }

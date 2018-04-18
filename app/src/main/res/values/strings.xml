@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="my_app_name">Util</string>
+    <string name="app_name">Util</string>
     <string name="core_util">Core Util</string>
     <string name="sub_util">Sub Util</string>
 

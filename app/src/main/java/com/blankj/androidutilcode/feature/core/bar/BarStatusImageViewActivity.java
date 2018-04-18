@@ -3,6 +3,7 @@ package com.blankj.androidutilcode.feature.core.bar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -32,7 +33,7 @@ public class BarStatusImageViewActivity extends BaseActivity {
     }
 
     @Override
-    public void initData(Bundle bundle) {
+    public void initData(@NonNull Bundle bundle) {
         mAlpha = 112;
     }
 
@@ -42,7 +43,7 @@ public class BarStatusImageViewActivity extends BaseActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View view) {
+    public void initView(Bundle savedInstanceState, View contentView) {
         findViewById(R.id.btn_set_transparent).setOnClickListener(this);
         mTvStatusAlpha = findViewById(R.id.tv_status_alpha);
         sbChangeAlpha = findViewById(R.id.sb_change_alpha);

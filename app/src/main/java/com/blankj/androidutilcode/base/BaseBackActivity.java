@@ -34,8 +34,8 @@ public abstract class BaseBackActivity extends BaseActivity {
     @Override
     protected void setBaseView(@LayoutRes int layoutId) {
         Slidr.attach(this);
-        contentView = LayoutInflater.from(this).inflate(R.layout.activity_back, null);
-        setContentView(contentView);
+        mContentView = LayoutInflater.from(this).inflate(R.layout.activity_back, null);
+        setContentView(mContentView);
         rootLayout = findViewById(R.id.root_layout);
         abl = findViewById(R.id.abl);
         mToolbar = findViewById(R.id.toolbar);

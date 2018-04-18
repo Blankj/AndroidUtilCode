@@ -1,6 +1,7 @@
 package com.blankj.androidutilcode.base;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 
 /**
@@ -18,7 +19,7 @@ interface IBaseView extends View.OnClickListener {
      *
      * @param bundle 传递过来的 bundle
      */
-    void initData(final Bundle bundle);
+    void initData(@NonNull final Bundle bundle);
 
     /**
      * 绑定布局
@@ -30,7 +31,7 @@ interface IBaseView extends View.OnClickListener {
     /**
      * 初始化 view
      */
-    void initView(final Bundle savedInstanceState, final View view);
+    void initView(final Bundle savedInstanceState, final View contentView);
 
     /**
      * 业务操作

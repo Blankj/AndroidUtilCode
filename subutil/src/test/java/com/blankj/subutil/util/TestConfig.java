@@ -5,7 +5,7 @@ package com.blankj.subutil.util;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/09/10
- *     desc  :
+ *     desc  : config of test
  * </pre>
  */
 public class TestConfig {

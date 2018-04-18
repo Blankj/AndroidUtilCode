@@ -5,6 +5,7 @@
         <activity
             android:name=".util.PermissionUtils$PermissionActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:multiprocess="true"
             android:theme="@style/ActivityTranslucent"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
     </application>
