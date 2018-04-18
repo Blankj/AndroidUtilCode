@@ -215,7 +215,7 @@ public final class ToastUtils {
      * Cancel the toast.
      */
     public static void cancel() {
-        Toast toast;
+        final Toast toast;
         if (sWeakToast != null && (toast = sWeakToast.get()) != null) {
             toast.cancel();
             sWeakToast = null;
@@ -239,7 +239,7 @@ public final class ToastUtils {
             @Override
             public void run() {
                 cancel();
-                Toast toast = Toast.makeText(Utils.getTopActivityOrApp(), text, duration);
+                final Toast toast = Toast.makeText(Utils.getTopActivityOrApp(), text, duration);
                 sWeakToast = new WeakReference<>(toast);
                 final TextView tvMessage = toast.getView().findViewById(android.R.id.message);
                 int msgColor = tvMessage.getCurrentTextColor();
@@ -267,7 +267,7 @@ public final class ToastUtils {
             @Override
             public void run() {
                 cancel();
-                Toast toast = new Toast(Utils.getTopActivityOrApp());
+                final Toast toast = new Toast(Utils.getTopActivityOrApp());
                 sWeakToast = new WeakReference<>(toast);
 
                 toast.setView(view);
@@ -281,8 +281,8 @@ public final class ToastUtils {
         });
     }
 
-    private static void setBg(Toast toast) {
-        View toastView = toast.getView();
+    private static void setBg(final Toast toast) {
+        final View toastView = toast.getView();
         if (sBgResource != -1) {
             toastView.setBackgroundResource(sBgResource);
         } else if (sBgColor != COLOR_DEFAULT) {

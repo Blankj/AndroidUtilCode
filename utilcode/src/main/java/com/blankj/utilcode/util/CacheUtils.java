@@ -157,7 +157,7 @@ public final class CacheUtils {
      * @param key   The key of cache.
      * @param value The value of cache.
      */
-    public void put(@NonNull final String key, @NonNull final byte[] value) {
+    public void put(@NonNull final String key, final byte[] value) {
         put(key, value, -1);
     }
 
@@ -168,8 +168,8 @@ public final class CacheUtils {
      * @param value    The value of cache.
      * @param saveTime The save time of cache, in seconds.
      */
-    public void put(@NonNull final String key, @NonNull byte[] value, final int saveTime) {
-        if (value.length <= 0) return;
+    public void put(@NonNull final String key, byte[] value, final int saveTime) {
+        if (value == null || value.length <= 0) return;
         if (saveTime >= 0) value = CacheHelper.newByteArrayWithTime(saveTime, value);
         File file = mCacheManager.getFileBeforePut(key);
         CacheHelper.writeFileFromBytes(file, value);
@@ -216,7 +216,7 @@ public final class CacheUtils {
      * @param key   The key of cache.
      * @param value The value of cache.
      */
-    public void put(@NonNull final String key, @NonNull final String value) {
+    public void put(@NonNull final String key, final String value) {
         put(key, value, -1);
     }
 
@@ -227,7 +227,7 @@ public final class CacheUtils {
      * @param value    The value of cache.
      * @param saveTime The save time of cache, in seconds.
      */
-    public void put(@NonNull final String key, @NonNull final String value, final int saveTime) {
+    public void put(@NonNull final String key, final String value, final int saveTime) {
         put(key, CacheHelper.string2Bytes(value), saveTime);
     }
 
@@ -264,7 +264,7 @@ public final class CacheUtils {
      * @param key   The key of cache.
      * @param value The value of cache.
      */
-    public void put(@NonNull final String key, @NonNull final JSONObject value) {
+    public void put(@NonNull final String key, final JSONObject value) {
         put(key, value, -1);
     }
 
@@ -276,7 +276,7 @@ public final class CacheUtils {
      * @param saveTime The save time of cache, in seconds.
      */
     public void put(@NonNull final String key,
-                    @NonNull final JSONObject value,
+                    final JSONObject value,
                     final int saveTime) {
         put(key, CacheHelper.jsonObject2Bytes(value), saveTime);
     }
@@ -315,7 +315,7 @@ public final class CacheUtils {
      * @param key   The key of cache.
      * @param value The value of cache.
      */
-    public void put(@NonNull final String key, @NonNull final JSONArray value) {
+    public void put(@NonNull final String key, final JSONArray value) {
         put(key, value, -1);
     }
 
@@ -326,7 +326,7 @@ public final class CacheUtils {
      * @param value    The value of cache.
      * @param saveTime The save time of cache, in seconds.
      */
-    public void put(@NonNull final String key, @NonNull final JSONArray value, final int saveTime) {
+    public void put(@NonNull final String key, final JSONArray value, final int saveTime) {
         put(key, CacheHelper.jsonArray2Bytes(value), saveTime);
     }
 
@@ -364,7 +364,7 @@ public final class CacheUtils {
      * @param key   The key of cache.
      * @param value The value of cache.
      */
-    public void put(@NonNull final String key, @NonNull final Bitmap value) {
+    public void put(@NonNull final String key, final Bitmap value) {
         put(key, value, -1);
     }
 
@@ -375,7 +375,7 @@ public final class CacheUtils {
      * @param value    The value of cache.
      * @param saveTime The save time of cache, in seconds.
      */
-    public void put(@NonNull final String key, @NonNull final Bitmap value, final int saveTime) {
+    public void put(@NonNull final String key, final Bitmap value, final int saveTime) {
         put(key, CacheHelper.bitmap2Bytes(value), saveTime);
     }
 
@@ -412,7 +412,7 @@ public final class CacheUtils {
      * @param key   The key of cache.
      * @param value The value of cache.
      */
-    public void put(@NonNull final String key, @NonNull final Drawable value) {
+    public void put(@NonNull final String key, final Drawable value) {
         put(key, CacheHelper.drawable2Bytes(value));
     }
 
@@ -423,7 +423,7 @@ public final class CacheUtils {
      * @param value    The value of cache.
      * @param saveTime The save time of cache, in seconds.
      */
-    public void put(@NonNull final String key, @NonNull final Drawable value, final int saveTime) {
+    public void put(@NonNull final String key, final Drawable value, final int saveTime) {
         put(key, CacheHelper.drawable2Bytes(value), saveTime);
     }
 
@@ -460,7 +460,7 @@ public final class CacheUtils {
      * @param key   The key of cache.
      * @param value The value of cache.
      */
-    public void put(@NonNull final String key, @NonNull final Parcelable value) {
+    public void put(@NonNull final String key, final Parcelable value) {
         put(key, value, -1);
     }
 
@@ -471,9 +471,7 @@ public final class CacheUtils {
      * @param value    The value of cache.
      * @param saveTime The save time of cache, in seconds.
      */
-    public void put(@NonNull final String key,
-                    @NonNull final Parcelable value,
-                    final int saveTime) {
+    public void put(@NonNull final String key, final Parcelable value, final int saveTime) {
         put(key, CacheHelper.parcelable2Bytes(value), saveTime);
     }
 
@@ -517,7 +515,7 @@ public final class CacheUtils {
      * @param key   The key of cache.
      * @param value The value of cache.
      */
-    public void put(@NonNull final String key, @NonNull final Serializable value) {
+    public void put(@NonNull final String key, final Serializable value) {
         put(key, value, -1);
     }
 
@@ -528,9 +526,7 @@ public final class CacheUtils {
      * @param value    The value of cache.
      * @param saveTime The save time of cache, in seconds.
      */
-    public void put(@NonNull final String key,
-                    @NonNull final Serializable value,
-                    final int saveTime) {
+    public void put(@NonNull final String key, final Serializable value, final int saveTime) {
         put(key, CacheHelper.serializable2Bytes(value), saveTime);
     }
 
@@ -932,7 +928,7 @@ public final class CacheUtils {
         }
 
         private static Bitmap bytes2Bitmap(final byte[] bytes) {
-            return (bytes == null || bytes.length == 0)
+            return (bytes == null || bytes.length <= 0)
                     ? null
                     : BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         }

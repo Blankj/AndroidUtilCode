@@ -59,7 +59,7 @@ public final class SPUtils {
      * @param key   The key of sp.
      * @param value The value of sp.
      */
-    public void put(@NonNull final String key, @NonNull final String value) {
+    public void put(@NonNull final String key, final String value) {
         put(key, value, false);
     }
 
@@ -71,9 +71,7 @@ public final class SPUtils {
      * @param isCommit True to use {@link SharedPreferences.Editor#commit()},
      *                 false to use {@link SharedPreferences.Editor#apply()}
      */
-    public void put(@NonNull final String key,
-                    @NonNull final String value,
-                    final boolean isCommit) {
+    public void put(@NonNull final String key, final String value, final boolean isCommit) {
         if (isCommit) {
             sp.edit().putString(key, value).commit();
         } else {
@@ -98,7 +96,7 @@ public final class SPUtils {
      * @param defaultValue The default value if the sp doesn't exist.
      * @return the string value if sp exists or {@code defaultValue} otherwise
      */
-    public String getString(@NonNull final String key, @NonNull final String defaultValue) {
+    public String getString(@NonNull final String key, final String defaultValue) {
         return sp.getString(key, defaultValue);
     }
 
@@ -296,7 +294,7 @@ public final class SPUtils {
      * @param key   The key of sp.
      * @param value The value of sp.
      */
-    public void put(@NonNull final String key, @NonNull final Set<String> value) {
+    public void put(@NonNull final String key, final Set<String> value) {
         put(key, value, false);
     }
 
@@ -309,7 +307,7 @@ public final class SPUtils {
      *                 false to use {@link SharedPreferences.Editor#apply()}
      */
     public void put(@NonNull final String key,
-                    @NonNull final Set<String> value,
+                    final Set<String> value,
                     final boolean isCommit) {
         if (isCommit) {
             sp.edit().putStringSet(key, value).commit();
@@ -322,7 +320,8 @@ public final class SPUtils {
      * Return the set of string value in sp.
      *
      * @param key The key of sp.
-     * @return the set of string value if sp exists or {@code Collections.<String>emptySet()} otherwise
+     * @return the set of string value if sp exists
+     * or {@code Collections.<String>emptySet()} otherwise
      */
     public Set<String> getStringSet(@NonNull final String key) {
         return getStringSet(key, Collections.<String>emptySet());
@@ -336,7 +335,7 @@ public final class SPUtils {
      * @return the set of string value if sp exists or {@code defaultValue} otherwise
      */
     public Set<String> getStringSet(@NonNull final String key,
-                                    @NonNull final Set<String> defaultValue) {
+                                    final Set<String> defaultValue) {
         return sp.getStringSet(key, defaultValue);
     }
 

@@ -11,7 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.AnimRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.view.View;
@@ -65,7 +64,7 @@ public final class ActivityUtils {
      * @param options Additional options for how the Activity should be started.
      */
     public static void startActivity(@NonNull final Class<?> clz,
-                                     @Nullable final Bundle options) {
+                                     final Bundle options) {
         Context context = Utils.getTopActivityOrApp();
         startActivity(context, null, context.getPackageName(), clz.getName(), options);
     }
@@ -110,7 +109,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final Activity activity,
                                      @NonNull final Class<?> clz,
-                                     @Nullable final Bundle options) {
+                                     final Bundle options) {
         startActivity(activity, null, activity.getPackageName(), clz.getName(), options);
     }
 
@@ -124,7 +123,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final Activity activity,
                                      @NonNull final Class<?> clz,
-                                     @NonNull final View... sharedElements) {
+                                     final View... sharedElements) {
         startActivity(activity, null, activity.getPackageName(), clz.getName(),
                 getOptionsBundle(activity, sharedElements));
     }
@@ -238,7 +237,7 @@ public final class ActivityUtils {
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final Activity activity,
                                      @NonNull final Class<?> clz,
-                                     @NonNull final View... sharedElements) {
+                                     final View... sharedElements) {
         startActivity(activity, extras, activity.getPackageName(), clz.getName(),
                 getOptionsBundle(activity, sharedElements));
     }
@@ -286,7 +285,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final String pkg,
                                      @NonNull final String cls,
-                                     @Nullable final Bundle options) {
+                                     final Bundle options) {
         startActivity(Utils.getTopActivityOrApp(), null, pkg, cls, options);
     }
 
@@ -335,7 +334,7 @@ public final class ActivityUtils {
     public static void startActivity(@NonNull final Activity activity,
                                      @NonNull final String pkg,
                                      @NonNull final String cls,
-                                     @Nullable final Bundle options) {
+                                     final Bundle options) {
         startActivity(activity, null, pkg, cls, options);
     }
 
@@ -351,7 +350,7 @@ public final class ActivityUtils {
     public static void startActivity(@NonNull final Activity activity,
                                      @NonNull final String pkg,
                                      @NonNull final String cls,
-                                     @NonNull final View... sharedElements) {
+                                     final View... sharedElements) {
         startActivity(activity, null, pkg, cls, getOptionsBundle(activity, sharedElements));
     }
 
@@ -401,7 +400,7 @@ public final class ActivityUtils {
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final String pkg,
                                      @NonNull final String cls,
-                                     @NonNull final Bundle options) {
+                                     final Bundle options) {
         startActivity(Utils.getTopActivityOrApp(), extras, pkg, cls, options);
     }
 
@@ -456,7 +455,7 @@ public final class ActivityUtils {
                                      @NonNull final Activity activity,
                                      @NonNull final String pkg,
                                      @NonNull final String cls,
-                                     @NonNull final Bundle options) {
+                                     final Bundle options) {
         startActivity(activity, extras, pkg, cls, options);
     }
 
@@ -474,7 +473,7 @@ public final class ActivityUtils {
                                      @NonNull final Activity activity,
                                      @NonNull final String pkg,
                                      @NonNull final String cls,
-                                     @NonNull final View... sharedElements) {
+                                     final View... sharedElements) {
         startActivity(activity, extras, pkg, cls, getOptionsBundle(activity, sharedElements));
     }
 
@@ -560,7 +559,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final Activity activity,
                                      @NonNull final Intent intent,
-                                     @Nullable final Bundle options) {
+                                     final Bundle options) {
         startActivity(intent, activity, options);
     }
 
@@ -574,7 +573,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final Activity activity,
                                      @NonNull final Intent intent,
-                                     @NonNull final View... sharedElements) {
+                                     final View... sharedElements) {
         startActivity(intent, activity, getOptionsBundle(activity, sharedElements));
     }
 
@@ -614,7 +613,7 @@ public final class ActivityUtils {
      * @param options Additional options for how the Activity should be started.
      */
     public static void startActivities(@NonNull final Intent[] intents,
-                                       @Nullable final Bundle options) {
+                                       final Bundle options) {
         startActivities(intents, Utils.getTopActivityOrApp(), options);
     }
 
@@ -657,7 +656,7 @@ public final class ActivityUtils {
      */
     public static void startActivities(@NonNull final Activity activity,
                                        @NonNull final Intent[] intents,
-                                       @Nullable final Bundle options) {
+                                       final Bundle options) {
         startActivities(intents, activity, options);
     }
 
@@ -1159,29 +1158,6 @@ public final class ActivityUtils {
         }
     }
 
-//    private static Context getTopActivityOrApp() {
-//        if (isAppForeground()) {
-//            Activity topActivity = getTopActivity();
-//            return topActivity == null ? Utils.getApp() : topActivity;
-//        } else {
-//            return Utils.getApp();
-//        }
-//    }
-//
-//    private static boolean isAppForeground() {
-//        ActivityManager am =
-//                (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-//        if (am == null) return false;
-//        List<ActivityManager.RunningAppProcessInfo> info = am.getRunningAppProcesses();
-//        if (info == null || info.size() == 0) return false;
-//        for (ActivityManager.RunningAppProcessInfo aInfo : info) {
-//            if (aInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-//                return aInfo.processName.equals(Utils.getApp().getPackageName());
-//            }
-//        }
-//        return false;
-//    }
-
     private static void startActivity(final Context context,
                                       final Bundle extras,
                                       final String pkg,
@@ -1229,15 +1205,15 @@ public final class ActivityUtils {
 
     private static Bundle getOptionsBundle(final Activity activity,
                                            final View[] sharedElements) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            int len = sharedElements.length;
-            @SuppressWarnings("unchecked")
-            Pair<View, String>[] pairs = new Pair[len];
-            for (int i = 0; i < len; i++) {
-                pairs[i] = Pair.create(sharedElements[i], sharedElements[i].getTransitionName());
-            }
-            return ActivityOptionsCompat.makeSceneTransitionAnimation(activity, pairs).toBundle();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return null;
+        if (sharedElements == null) return null;
+        int len = sharedElements.length;
+        if (len <= 0) return null;
+        @SuppressWarnings("unchecked")
+        Pair<View, String>[] pairs = new Pair[len];
+        for (int i = 0; i < len; i++) {
+            pairs[i] = Pair.create(sharedElements[i], sharedElements[i].getTransitionName());
         }
-        return ActivityOptionsCompat.makeSceneTransitionAnimation(activity, null, null).toBundle();
+        return ActivityOptionsCompat.makeSceneTransitionAnimation(activity, pairs).toBundle();
     }
 }

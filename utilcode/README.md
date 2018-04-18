@@ -2,13 +2,13 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.13.12'
+implementation 'com.blankj:utilcode:1.13.13'
 ```
 
 
 ## How to use
 
-```
+```java
 // init it in the function of onCreate in ur Application
 Utils.init(application);
 ```
