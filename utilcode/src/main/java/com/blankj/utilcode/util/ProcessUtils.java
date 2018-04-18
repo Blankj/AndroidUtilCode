@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.os.Process;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresPermission;
@@ -192,5 +193,35 @@ public final class ProcessUtils {
             }
         }
         return true;
+    }
+
+    /**
+     * Return whether app running in the main process.
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isMainProcess() {
+        return Utils.getApp().getPackageName().equals(getCurrentProcessName());
+    }
+
+    /**
+     * Return the name of current process.
+     *
+     * @return the name of current process
+     */
+    public static String getCurrentProcessName() {
+        ActivityManager am = (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
+        if (am == null) return null;
+        List<ActivityManager.RunningAppProcessInfo> info = am.getRunningAppProcesses();
+        if (info == null || info.size() == 0) return null;
+        int pid = Process.myPid();
+        for (ActivityManager.RunningAppProcessInfo aInfo : info) {
+            if (aInfo.pid == pid) {
+                if (aInfo.processName != null) {
+                    return aInfo.processName;
+                }
+            }
+        }
+        return null;
     }
 }

@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.13.13'
+implementation 'com.blankj:utilcode:1.13.14'
 ```
 
 
@@ -430,6 +430,8 @@ sendSmsSilent      : 发送短信
 getForegroundProcessName  : 获取前台线程包名
 killAllBackgroundProcesses: 杀死所有的后台服务进程
 killBackgroundProcesses   : 杀死后台服务进程
+isMainProcess             : 判断是否运行在主进程
+getCurrentProcessName     : 获取当前进程名称
 ```
 
 * ### 反射相关 -> [ReflectUtils.java][reflect.java] -> [Test][reflect.test]

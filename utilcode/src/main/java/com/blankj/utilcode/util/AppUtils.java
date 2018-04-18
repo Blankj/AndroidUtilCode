@@ -130,7 +130,7 @@ public final class AppUtils {
      * {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
      *
      * @param filePath The path of file.
-     * @param params   The params of installation.
+     * @param params   The params of installation(e.g.,<code>-r</code>, <code>-s</code>).
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean installAppSilent(final String filePath, final String params) {
@@ -143,7 +143,7 @@ public final class AppUtils {
      * {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
      *
      * @param file   The file.
-     * @param params The params of installation.
+     * @param params The params of installation(e.g.,<code>-r</code>, <code>-s</code>).
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean installAppSilent(final File file, final String params) {

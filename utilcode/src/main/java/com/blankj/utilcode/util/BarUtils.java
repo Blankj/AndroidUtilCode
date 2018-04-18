@@ -22,6 +22,8 @@ import android.widget.LinearLayout;
 
 import java.lang.reflect.Method;
 
+import static android.Manifest.permission.EXPAND_STATUS_BAR;
+
 /**
  * <pre>
  *     author: Blankj
@@ -515,7 +517,7 @@ public final class BarUtils {
      *
      * @param isVisible True to set notification bar visible, false otherwise.
      */
-    @RequiresPermission(android.Manifest.permission.EXPAND_STATUS_BAR)
+    @RequiresPermission(EXPAND_STATUS_BAR)
     public static void setNotificationBarVisibility(final boolean isVisible) {
         String methodName;
         if (isVisible) {

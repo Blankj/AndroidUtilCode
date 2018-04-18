@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.13.13'
+implementation 'com.blankj:utilcode:1.13.14'
 ```
 
 
@@ -430,6 +430,8 @@ sendSmsSilent
 getForegroundProcessName
 killAllBackgroundProcesses
 killBackgroundProcesses
+isMainProcess
+getCurrentProcessName
 ```
 
 * ### About Reflect -> [ReflectUtils.java][reflect.java] -> [Test][reflect.test]
