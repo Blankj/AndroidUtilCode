@@ -1,7 +1,6 @@
 package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -10,6 +9,7 @@ import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.RequiresPermission;
 import android.support.v4.widget.DrawerLayout;
 import android.util.TypedValue;
@@ -594,7 +594,7 @@ public final class BarUtils {
      *
      * @param activity The activity.
      */
-    @TargetApi(Build.VERSION_CODES.KITKAT)
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     public static void setNavBarImmersive(@NonNull final Activity activity) {
         setNavBarImmersive(activity.getWindow());
     }
@@ -604,7 +604,7 @@ public final class BarUtils {
      *
      * @param window The window.
      */
-    @TargetApi(Build.VERSION_CODES.KITKAT)
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     public static void setNavBarImmersive(@NonNull final Window window) {
         View decorView = window.getDecorView();
         window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -612,6 +612,50 @@ public final class BarUtils {
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         decorView.setSystemUiVisibility(uiOptions);
+    }
+
+    /**
+     * Set the navigation bar's color.
+     *
+     * @param activity The activity.
+     * @param color    The navigation bar's color.
+     */
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    public static void setNavBarColor(@NonNull final Activity activity, @ColorInt final int color) {
+        setNavBarColor(activity.getWindow(), color);
+    }
+
+    /**
+     * Set the navigation bar's color.
+     *
+     * @param window The window.
+     * @param color  The navigation bar's color.
+     */
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    public static void setNavBarColor(@NonNull final Window window, @ColorInt final int color) {
+        window.setNavigationBarColor(color);
+    }
+
+    /**
+     * Return the color of navigation bar.
+     *
+     * @param activity The activity.
+     * @return the color of navigation bar
+     */
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    public static int getNavBarColor(@NonNull final Activity activity) {
+        return getNavBarColor(activity.getWindow());
+    }
+
+    /**
+     * Return the color of navigation bar.
+     *
+     * @param window The window.
+     * @return the color of navigation bar
+     */
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    public static int getNavBarColor(@NonNull final Window window) {
+        return window.getNavigationBarColor();
     }
 
     /**

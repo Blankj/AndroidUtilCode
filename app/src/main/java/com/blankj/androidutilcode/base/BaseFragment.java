@@ -66,9 +66,7 @@ public abstract class BaseFragment extends Fragment
         Log.d(TAG, "onViewCreated: ");
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = getArguments();
-        if (bundle != null) {
-            initData(bundle);
-        }
+        initData(bundle);
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.blankj.androidutilcode.feature.core.fragment;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.transition.Fade;
 import android.view.View;
@@ -38,7 +38,7 @@ public class Root2Fragment extends BaseFragment
     }
 
     @Override
-    public void initData(@NonNull Bundle bundle) {
+    public void initData(@Nullable Bundle bundle) {
 
     }
 

@@ -1,6 +1,5 @@
 package com.blankj.utilcode.util;
 
-import android.annotation.TargetApi;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -33,6 +32,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.FloatRange;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
@@ -1167,7 +1167,7 @@ public final class ImageUtils {
      * @param radius The radius(0...25).
      * @return the blur bitmap
      */
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static Bitmap renderScriptBlur(final Bitmap src,
                                           @FloatRange(
                                                   from = 0, to = 25, fromInclusive = false
@@ -1183,7 +1183,7 @@ public final class ImageUtils {
      * @param recycle True to recycle the source of bitmap, false otherwise.
      * @return the blur bitmap
      */
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static Bitmap renderScriptBlur(final Bitmap src,
                                           @FloatRange(
                                                   from = 0, to = 25, fromInclusive = false

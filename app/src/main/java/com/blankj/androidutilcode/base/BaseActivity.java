@@ -31,9 +31,7 @@ public abstract class BaseActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         mActivity = this;
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            initData(bundle);
-        }
+        initData(bundle);
         setBaseView(bindLayout());
         initView(savedInstanceState, mContentView);
         doBusiness();

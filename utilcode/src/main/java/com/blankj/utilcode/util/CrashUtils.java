@@ -45,8 +45,6 @@ public final class CrashUtils {
     @SuppressLint("SimpleDateFormat")
     private static final Format FORMAT   = new SimpleDateFormat("MM-dd HH-mm-ss");
 
-    private static final String CRASH_HEAD;
-
     private static final UncaughtExceptionHandler DEFAULT_UNCAUGHT_EXCEPTION_HANDLER;
     private static final UncaughtExceptionHandler UNCAUGHT_EXCEPTION_HANDLER;
 
@@ -64,16 +62,6 @@ public final class CrashUtils {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-
-        CRASH_HEAD = "************* Crash Log Head ****************" +
-                "\nDevice Manufacturer: " + Build.MANUFACTURER +
-                "\nDevice Model       : " + Build.MODEL +
-                "\nAndroid Version    : " + Build.VERSION.RELEASE +
-                "\nAndroid SDK        : " + Build.VERSION.SDK_INT +
-                "\nApp VersionName    : " + versionName +
-                "\nApp VersionCode    : " + versionCode +
-                "\n************* Crash Log Head ****************\n\n";
-
         DEFAULT_UNCAUGHT_EXCEPTION_HANDLER = Thread.getDefaultUncaughtExceptionHandler();
 
         UNCAUGHT_EXCEPTION_HANDLER = new UncaughtExceptionHandler() {
@@ -89,8 +77,18 @@ public final class CrashUtils {
                     return;
                 }
 
-                StringBuilder sb = new StringBuilder();
-                sb.append(CRASH_HEAD);
+                final String time = FORMAT.format(new Date(System.currentTimeMillis()));
+                final StringBuilder sb = new StringBuilder();
+                final String head = "************* Log Head ****************" +
+                        "\nThe time of Crash  : " + time +
+                        "\nDevice Manufacturer: " + Build.MANUFACTURER +
+                        "\nDevice Model       : " + Build.MODEL +
+                        "\nAndroid Version    : " + Build.VERSION.RELEASE +
+                        "\nAndroid SDK        : " + Build.VERSION.SDK_INT +
+                        "\nApp VersionName    : " + versionName +
+                        "\nApp VersionCode    : " + versionCode +
+                        "\n************* Log Head ****************\n\n";
+                sb.append(head);
                 StringWriter sw = new StringWriter();
                 PrintWriter pw = new PrintWriter(sw);
                 e.printStackTrace(pw);
@@ -102,10 +100,7 @@ public final class CrashUtils {
                 pw.flush();
                 sb.append(sw.toString());
                 final String crashInfo = sb.toString();
-
-                Date now = new Date(System.currentTimeMillis());
-                String fileName = FORMAT.format(now) + ".txt";
-                final String fullPath = (dir == null ? defaultDir : dir) + fileName;
+                final String fullPath = (dir == null ? defaultDir : dir) + time + ".txt";
                 if (createOrExistsFile(fullPath)) {
                     input2File(crashInfo, fullPath);
                 } else {

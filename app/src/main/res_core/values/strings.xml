@@ -99,6 +99,7 @@
     <string name="bar_nav_show">Show Nav</string>
     <string name="bar_nav_hide">Hide Nav</string>
     <string name="bar_nav_immersive">Immersive Nav</string>
+    <string name="bar_nav_color">Set Nav Color Random</string>
 
     <!--Clean 相关-->
     <string name="clean_internal_cache">Clean Internal Cache</string>

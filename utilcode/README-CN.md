@@ -85,6 +85,8 @@ setNotificationBarVisibility         : 设置通知栏是否可见
 getNavBarHeight                      : 获取导航栏高度
 setNavBarVisibility                  : 设置导航栏是否可见
 setNavBarImmersive                   : 设置导航栏沉浸式
+setNavBarColor                       : 设置导航栏颜色
+getNavBarColor                       : 获取导航栏颜色
 isNavBarVisible                      : 判断导航栏是否可见
 ```
 

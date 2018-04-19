@@ -85,6 +85,8 @@ setNotificationBarVisibility
 getNavBarHeight
 setNavBarVisibility
 setNavBarImmersive
+setNavBarColor
+getNavBarColor
 isNavBarVisible
 ```
 

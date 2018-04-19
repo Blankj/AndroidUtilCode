@@ -1,4 +1,5 @@
-* 18/04/19 新增 Process#isMainProcess 和 Process#getCurrentProcessName，发布 1.13.14 版本
+* 18/04/20 新增 BarUtils#setNavBarColor、BarUtils#getNavBarColor
+* 18/04/19 新增 Process#isMainProcess、Process#getCurrentProcessName，发布 1.13.14 版本
 * 18/04/18 修复 LogUtils 头部空指针异常，SPUtils、CacheUtils 存储空值异常，发布 1.13.13 版本
 * 18/04/17 修复 ToastUtils 内存泄漏问题，感谢 [LambertCoding](https://github.com/LambertCoding)，发布 1.13.12 版本
 * 18/04/16 完善 AppUtils#installAppSilent 路径包含空格问题，发布 1.13.11 版本
