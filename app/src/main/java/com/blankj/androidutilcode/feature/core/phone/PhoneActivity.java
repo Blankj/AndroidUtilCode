@@ -56,6 +56,11 @@ public class PhoneActivity extends BaseBackActivity {
                     @SuppressLint("MissingPermission")
                     @Override
                     public void onPermissionGranted() {
+                        String[] architecture = PhoneUtils.getCpuArchitecture();
+                        String abis = "";
+                        for (String abi : architecture) {
+                            abis = abis + abi + "\n";
+                        }
                         tvAboutPhone.setText(new SpanUtils()
                                 .appendLine("isPhone: " + PhoneUtils.isPhone())
                                 .appendLine("getDeviceId: " + PhoneUtils.getDeviceId())
@@ -67,6 +72,7 @@ public class PhoneActivity extends BaseBackActivity {
                                 .appendLine("getSimOperatorName: " + PhoneUtils.getSimOperatorName())
                                 .appendLine("getSimOperatorByMnc: " + PhoneUtils.getSimOperatorByMnc())
                                 .appendLine("getPhoneStatus: " + PhoneUtils.getPhoneStatus())
+                                .appendLine("CPU: " + abis)
                                 .create());
                     }
                 },

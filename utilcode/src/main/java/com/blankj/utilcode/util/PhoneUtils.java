@@ -267,4 +267,19 @@ public final class PhoneUtils {
             smsManager.sendTextMessage(phoneNumber, null, content, sentIntent, null);
         }
     }
+
+
+    /**
+     *
+     * [获取cpu类型和架构]
+     */
+    public static String[] getCpuArchitecture() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return Build.SUPPORTED_ABIS;
+        }else{
+           return new String[]{Build.CPU_ABI};
+        }
+    }
+
+
 }
