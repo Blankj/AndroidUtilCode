@@ -89,10 +89,7 @@ public class AppActivity extends BaseBackActivity {
                             AssertHelper.releaseInstallApk(new AssertHelper.OnReleasedListener() {
                                 @Override
                                 public void onReleased() {
-                                    AppUtils.installApp(
-                                            Config.TEST_APK_PATH,
-                                            "com.blankj.androidutilcode.provider"
-                                    );
+                                    AppUtils.installApp(Config.TEST_APK_PATH);
                                 }
                             });
                         }

@@ -1,3 +1,4 @@
+* 18/04/22 新增 LogUtils#，发布 1.13.15 版本
 * 18/04/21 新增 AppUtils#relaunchApp、DeviceUtils#getABIs，发布 1.13.15 版本
 * 18/04/20 新增 BarUtils#setNavBarColor、BarUtils#getNavBarColor
 * 18/04/19 新增 Process#isMainProcess、Process#getCurrentProcessName，发布 1.13.14 版本

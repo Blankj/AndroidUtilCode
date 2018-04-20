@@ -32,13 +32,76 @@ public final class IntentUtils {
      * <p>Target APIs greater than 25 must hold
      * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
      *
+     * @param filePath The path of file.
+     * @return the intent of install app
+     */
+    public static Intent getInstallAppIntent(final String filePath) {
+        return getInstallAppIntent(getFileByPath(filePath), false);
+    }
+
+    /**
+     * Return the intent of install app.
+     * <p>Target APIs greater than 25 must hold
+     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
+     *
+     * @param file The file.
+     * @return the intent of install app
+     */
+    public static Intent getInstallAppIntent(final File file) {
+        return getInstallAppIntent(file, false);
+    }
+
+    /**
+     * Return the intent of install app.
+     * <p>Target APIs greater than 25 must hold
+     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
+     *
+     * @param filePath  The path of file.
+     * @param isNewTask True to add flag of new task, false otherwise.
+     * @return the intent of install app
+     */
+    public static Intent getInstallAppIntent(final String filePath, final boolean isNewTask) {
+        return getInstallAppIntent(getFileByPath(filePath), isNewTask);
+    }
+
+    /**
+     * Return the intent of install app.
+     * <p>Target APIs greater than 25 must hold
+     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
+     *
+     * @param file      The file.
+     * @param isNewTask True to add flag of new task, false otherwise.
+     * @return the intent of install app
+     */
+    public static Intent getInstallAppIntent(final File file, final boolean isNewTask) {
+        if (file == null) return null;
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri data;
+        String type = "application/vnd.android.package-archive";
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            data = Uri.fromFile(file);
+        } else {
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            String authority = Utils.getApp().getPackageName() + ".utilcode.provider";
+            data = FileProvider.getUriForFile(Utils.getApp(), authority, file);
+        }
+        intent.setDataAndType(data, type);
+        return getIntent(intent, isNewTask);
+    }
+
+    /**
+     * Return the intent of install app.
+     * <p>Target APIs greater than 25 must hold
+     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
+     *
      * @param filePath  The path of file.
      * @param authority Target APIs greater than 23 must hold the authority of a FileProvider
      *                  defined in a {@code <provider>} element in your app's manifest.
      * @return the intent of install app
      */
+    @Deprecated
     public static Intent getInstallAppIntent(final String filePath, final String authority) {
-        return getInstallAppIntent(FileUtils.getFileByPath(filePath), authority);
+        return getInstallAppIntent(getFileByPath(filePath), authority, false);
     }
 
     /**
@@ -51,8 +114,27 @@ public final class IntentUtils {
      *                  defined in a {@code <provider>} element in your app's manifest.
      * @return the intent of install app
      */
+    @Deprecated
     public static Intent getInstallAppIntent(final File file, final String authority) {
         return getInstallAppIntent(file, authority, false);
+    }
+
+    /**
+     * Return the intent of install app.
+     * <p>Target APIs greater than 25 must hold
+     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
+     *
+     * @param filePath  The path of file.
+     * @param authority Target APIs greater than 23 must hold the authority of a FileProvider
+     *                  defined in a {@code <provider>} element in your app's manifest.
+     * @param isNewTask True to add flag of new task, false otherwise.
+     * @return the intent of install app
+     */
+    @Deprecated
+    public static Intent getInstallAppIntent(final String filePath,
+                                             final String authority,
+                                             final boolean isNewTask) {
+        return getInstallAppIntent(getFileByPath(filePath), authority, isNewTask);
     }
 
     /**
@@ -66,6 +148,7 @@ public final class IntentUtils {
      * @param isNewTask True to add flag of new task, false otherwise.
      * @return the intent of install app
      */
+    @Deprecated
     public static Intent getInstallAppIntent(final File file,
                                              final String authority,
                                              final boolean isNewTask) {
@@ -449,6 +532,20 @@ public final class IntentUtils {
 
     private static Intent getIntent(final Intent intent, final boolean isNewTask) {
         return isNewTask ? intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) : intent;
+    }
+
+    private static File getFileByPath(final String filePath) {
+        return isSpace(filePath) ? null : new File(filePath);
+    }
+
+    private static boolean isSpace(final String s) {
+        if (s == null) return true;
+        for (int i = 0, len = s.length(); i < len; ++i) {
+            if (!Character.isWhitespace(s.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
 //    /**

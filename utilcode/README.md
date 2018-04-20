@@ -350,9 +350,12 @@ Config.setLog2FileSwitch
 Config.setDir
 Config.setFilePrefix
 Config.setBorderSwitch
+Config.setSingleTagSwitch
 Config.setConsoleFilter
 Config.setFileFilter
 Config.setStackDeep
+Config.setStackOffset
+log
 v
 vTag
 d

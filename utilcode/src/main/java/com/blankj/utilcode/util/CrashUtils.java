@@ -80,7 +80,7 @@ public final class CrashUtils {
                 final String time = FORMAT.format(new Date(System.currentTimeMillis()));
                 final StringBuilder sb = new StringBuilder();
                 final String head = "************* Log Head ****************" +
-                        "\nThe time of Crash  : " + time +
+                        "\nTime Of Crash      : " + time +
                         "\nDevice Manufacturer: " + Build.MANUFACTURER +
                         "\nDevice Model       : " + Build.MODEL +
                         "\nAndroid Version    : " + Build.VERSION.RELEASE +

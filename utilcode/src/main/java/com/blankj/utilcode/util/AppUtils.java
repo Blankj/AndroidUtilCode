@@ -38,10 +38,34 @@ public final class AppUtils {
      * <p>Target APIs greater than 25 must hold
      * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
      *
+     * @param filePath The path of file.
+     */
+    public static void installApp(final String filePath) {
+        installApp(getFileByPath(filePath));
+    }
+
+    /**
+     * Install the app.
+     * <p>Target APIs greater than 25 must hold
+     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
+     *
+     * @param file The file.
+     */
+    public static void installApp(final File file) {
+        if (!isFileExists(file)) return;
+        Utils.getApp().startActivity(IntentUtils.getInstallAppIntent(file, true));
+    }
+
+    /**
+     * Install the app.
+     * <p>Target APIs greater than 25 must hold
+     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
+     *
      * @param filePath  The path of file.
      * @param authority Target APIs greater than 23 must hold the authority of a FileProvider
      *                  defined in a {@code <provider>} element in your app's manifest.
      */
+    @Deprecated
     public static void installApp(final String filePath, final String authority) {
         installApp(getFileByPath(filePath), authority);
     }
@@ -55,9 +79,43 @@ public final class AppUtils {
      * @param authority Target APIs greater than 23 must hold the authority of a FileProvider
      *                  defined in a {@code <provider>} element in your app's manifest.
      */
+    @Deprecated
     public static void installApp(final File file, final String authority) {
         if (!isFileExists(file)) return;
         Utils.getApp().startActivity(IntentUtils.getInstallAppIntent(file, authority, true));
+    }
+
+    /**
+     * Install the app.
+     * <p>Target APIs greater than 25 must hold
+     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
+     *
+     * @param activity    The activity.
+     * @param filePath    The path of file.
+     * @param requestCode If &gt;= 0, this code will be returned in
+     *                    onActivityResult() when the activity exits.
+     */
+    public static void installApp(final Activity activity,
+                                  final String filePath,
+                                  final int requestCode) {
+        installApp(activity, getFileByPath(filePath), requestCode);
+    }
+
+    /**
+     * Install the app.
+     * <p>Target APIs greater than 25 must hold
+     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
+     *
+     * @param activity    The activity.
+     * @param file        The file.
+     * @param requestCode If &gt;= 0, this code will be returned in
+     *                    onActivityResult() when the activity exits.
+     */
+    public static void installApp(final Activity activity,
+                                  final File file,
+                                  final int requestCode) {
+        if (!isFileExists(file)) return;
+        activity.startActivityForResult(IntentUtils.getInstallAppIntent(file), requestCode);
     }
 
     /**
@@ -72,6 +130,7 @@ public final class AppUtils {
      * @param requestCode If &gt;= 0, this code will be returned in
      *                    onActivityResult() when the activity exits.
      */
+    @Deprecated
     public static void installApp(final Activity activity,
                                   final String filePath,
                                   final String authority,
@@ -91,6 +150,7 @@ public final class AppUtils {
      * @param requestCode If &gt;= 0, this code will be returned in
      *                    onActivityResult() when the activity exits.
      */
+    @Deprecated
     public static void installApp(final Activity activity,
                                   final File file,
                                   final String authority,
