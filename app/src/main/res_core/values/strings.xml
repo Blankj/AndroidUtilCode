@@ -66,6 +66,7 @@
     <string name="uninstall_successfully">Uninstall successfully</string>
     <string name="uninstall_unsuccessfully">Uninstall unsuccessfully</string>
     <string name="app_launch">Launch App</string>
+    <string name="app_relaunch">Relaunch App</string>
     <string name="app_launch_details_settings">Launch App Details Settings</string>
     <string name="app_exit">Exit App</string>
 

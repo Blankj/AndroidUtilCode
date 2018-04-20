@@ -12,6 +12,8 @@ import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.SpanUtils;
 
+import java.util.Arrays;
+
 /**
  * <pre>
  *     author: Blankj
@@ -53,7 +55,8 @@ public class DeviceActivity extends BaseBackActivity {
                 .appendLine("getAndroidID: " + DeviceUtils.getAndroidID())
                 .appendLine("getMacAddress: " + DeviceUtils.getMacAddress())
                 .appendLine("getManufacturer: " + DeviceUtils.getManufacturer())
-                .append("getModel: " + DeviceUtils.getModel())
+                .appendLine("getModel: " + DeviceUtils.getModel())
+                .append("getABIs: " + Arrays.asList(DeviceUtils.getABIs()))
                 .create()
         );
     }

@@ -2,6 +2,7 @@ package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -368,6 +369,19 @@ public final class AppUtils {
                                  final int requestCode) {
         if (isSpace(packageName)) return;
         activity.startActivityForResult(IntentUtils.getLaunchAppIntent(packageName), requestCode);
+    }
+
+    /**
+     * Relaunch the application.
+     */
+    public static void relaunchApp() {
+        PackageManager packageManager = Utils.getApp().getPackageManager();
+        Intent intent = packageManager.getLaunchIntentForPackage(Utils.getApp().getPackageName());
+        if (intent == null) return;
+        ComponentName componentName = intent.getComponent();
+        Intent mainIntent = Intent.makeRestartActivityTask(componentName);
+        Utils.getApp().startActivity(mainIntent);
+        System.exit(0);
     }
 
     /**

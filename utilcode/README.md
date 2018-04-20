@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.13.14'
+implementation 'com.blankj:utilcode:1.13.15'
 ```
 
 
@@ -54,6 +54,7 @@ isAppDebug
 isAppSystem
 isAppForeground
 launchApp
+relaunchApp
 launchAppDetailsSettings
 exitApp
 getAppIcon
@@ -161,6 +162,7 @@ getAndroidID
 getMacAddress
 getManufacturer
 getModel
+getABIs
 shutdown
 reboot
 reboot2Recovery

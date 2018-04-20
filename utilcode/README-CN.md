@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.13.14'
+implementation 'com.blankj:utilcode:1.13.15'
 ```
 
 
@@ -54,6 +54,7 @@ isAppDebug              : 判断 App 是否是 Debug 版本
 isAppSystem             : 判断 App 是否是系统应用
 isAppForeground         : 判断 App 是否处于前台
 launchApp               : 打开 App
+relaunchApp             : 重启 App
 launchAppDetailsSettings: 打开 App 具体设置
 exitApp                 : 关闭应用
 getAppIcon              : 获取 App 图标
@@ -161,6 +162,7 @@ getAndroidID     : 获取设备 AndroidID
 getMacAddress    : 获取设备 MAC 地址
 getManufacturer  : 获取设备厂商
 getModel         : 获取设备型号
+getABIs          : 获取设备 ABIs
 shutdown         : 关机
 reboot           : 重启
 reboot2Recovery  : 重启到 recovery

@@ -49,6 +49,13 @@
         android:text="@string/app_launch" />
 
     <Button
+        android:id="@+id/btn_relaunch_app"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_relaunch" />
+
+    <Button
         android:id="@+id/btn_launch_app_details_settings"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
