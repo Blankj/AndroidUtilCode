@@ -654,6 +654,11 @@ showCustomLong : 显示长时自定义吐司
 cancel         : 取消吐司显示
 ```
 
+* ### Uri 相关 -> [UriUtils.java][uri.java]
+```
+getUriForFile: 获取文件 URI
+```
+
 * ### 压缩相关 -> [ZipUtils.java][zip.java] -> [Test][zip.test]
 ```
 zipFiles          : 批量压缩文件
@@ -770,6 +775,8 @@ getComments       : 获取压缩文件中的注释链表
 
 [toast.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ToastUtils.java
 [toast.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/toast/ToastActivity.java
+
+[uri.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/UriUtils.java
 
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ZipUtils.java
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/ZipUtilsTest.java
