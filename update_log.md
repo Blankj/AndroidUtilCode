@@ -1,3 +1,4 @@
+* 18/04/23 新增 RSA 加解密，发布 1.13.16 版本
 * 18/04/22 新增 LogUtils#，发布 1.13.15 版本
 * 18/04/21 新增 AppUtils#relaunchApp、DeviceUtils#getABIs，发布 1.13.15 版本
 * 18/04/20 新增 BarUtils#setNavBarColor、BarUtils#getNavBarColor

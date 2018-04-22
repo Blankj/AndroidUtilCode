@@ -526,20 +526,22 @@ public class EncryptUtilsTest {
     private String dataRSA    = "BlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBla12345678";
 
     @Test
-    public void encryptRSA() throws Exception {
-        assertEquals(
-                EncryptUtils.decryptRSA(
-                        EncryptUtils.encryptRSA(
-                                dataRSA.getBytes(),
-                                EncodeUtils.base64Decode(publicKey.getBytes()),
-                                true,
+    public void encryptDecryptRSA() throws Exception {
+        assertTrue(
+                Arrays.equals(
+                        EncryptUtils.decryptRSA(
+                                EncryptUtils.encryptRSA(
+                                        dataRSA.getBytes(),
+                                        EncodeUtils.base64Decode(publicKey.getBytes()),
+                                        true,
+                                        "RSA/ECB/PKCS1Padding"
+                                ),
+                                EncodeUtils.base64Decode(privateKey.getBytes()),
+                                false,
                                 "RSA/ECB/PKCS1Padding"
                         ),
-                        EncodeUtils.base64Decode(privateKey.getBytes()),
-                        false,
-                        "RSA/ECB/PKCS1Padding"
-                ),
-                dataRSA.getBytes()
+                        dataRSA.getBytes()
+                )
         );
     }
 }
