@@ -11,7 +11,7 @@ import java.io.File;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/04/20
- *     desc  : uri 相关
+ *     desc  : URI 相关
  * </pre>
  */
 public final class UriUtils {
@@ -20,6 +20,12 @@ public final class UriUtils {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
+    /**
+     * Return a content URI for a given file.
+     *
+     * @param file The file.
+     * @return a content URI for a given file
+     */
     public static Uri getUriForFile(final File file) {
         if (file == null) return null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

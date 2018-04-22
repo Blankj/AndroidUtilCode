@@ -109,6 +109,7 @@ public class SpanActivity extends BaseBackActivity {
         initAnimSpan();
         startAnim();
 
+
         tvAboutSpan.setText(new SpanUtils()
                 .appendLine("SpanUtils").setBackgroundColor(Color.LTGRAY).setBold().setForegroundColor(Color.YELLOW).setAlign(Layout.Alignment.ALIGN_CENTER)
                 .appendLine("前景色").setForegroundColor(Color.GREEN)

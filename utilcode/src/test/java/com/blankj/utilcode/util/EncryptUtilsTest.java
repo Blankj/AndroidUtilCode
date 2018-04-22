@@ -68,6 +68,15 @@ public class EncryptUtilsTest {
     }
 
     @Test
+    public void encryptMD5File() throws Exception {
+        String fileMd5 = "7f138a09169b250e9dcb378140907378";
+        assertEquals(
+                fileMd5.toUpperCase(),
+                EncryptUtils.encryptMD5File2String(new File(PATH_ENCRYPT + "MD5.txt"))
+        );
+    }
+
+    @Test
     public void encryptSHA1() throws Exception {
         String blankjSHA1 = "C606ACCB1FEB669E19D080ADDDDBB8E6CDA5F43C";
         assertEquals(
@@ -447,12 +456,6 @@ public class EncryptUtilsTest {
 
     @Test
     public void encryptAES() throws Exception {
-//        EncryptUtils.encryptAES(
-//                bytesDataAES,
-//                bytesKeyAES,
-//                "AES/ECB/NoPadding",
-//                null
-//        );
         assertTrue(
                 Arrays.equals(
                         bytesResAES,
@@ -518,12 +521,25 @@ public class EncryptUtilsTest {
         );
     }
 
+    private String publicKey  = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCWuAuSCrzUXC1l4ixXBeBfotUtkALrAjLM5UHiVfOFHrRJHM41HSeHVm56UZHgJlwk80R8juu1ykuhkgrilTv7H+3MpZdIunvndDElgdgk8aI2Ip4GUlemUDvCtWd3ychWEh4kYQ8CeInQvNM08imoLFldvbjWt/IkGK+BcGzamQIDAQAB";
+    private String privateKey = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJa4C5IKvNRcLWXiLFcF4F+i1S2QAusCMszlQeJV84UetEkczjUdJ4dWbnpRkeAmXCTzRHyO67XKS6GSCuKVO/sf7cyll0i6e+d0MSWB2CTxojYingZSV6ZQO8K1Z3fJyFYSHiRhDwJ4idC80zTyKagsWV29uNa38iQYr4FwbNqZAgMBAAECgYAxV1k6W1eMMg0OsKeRabQVuwoNG3tJEnQtDdSu0zKg3vdohAyh6MR7EvmiA7g86HH8CsPd/y/9WJe/8j6sBO0Ye9gt7eyQ2NiwWvlTuwNmngcSTapVvVI6NEyJFMfQt9PB1EHLNAXlz8jtJUyA7C48jReQD9p/SzAP0VxG7lwyMQJBAOjE7hAZ/6fyP3DB1fG7jr9gONZcz3TUaqx6BUn4GKZnckW08ht9Xqcqft5Hthu8BbLM9ptQ0U8QZekrJwD6ya0CQQClwstZMPu8jLhsgugVwodcG1mPEOiw9Yjnmt9+WTI07Ll2uFv//hRXBnahBBnZbucUYEbUY3kqUX9b3e9TmEodAkEAybPMbxt4VDoxCy6Mi/pxChkBZ4/pHV3sSiU6bAyWn6vIc+sGWRfca5MBePA/N+1IKtY9Y/02QwL8rH5+P/URyQJAL/hdjORGFdzLimuf6pwvPBKWKncEQCHuisghIZmClBpl2duklELddAnkztg2+tvDd/wcw14+NGb9aoKhvhl2aQJAbvcgoPU+xs0CjeexH+TS2S/jKkTRpvP2CpPK/k71m13xWdE8RtMkYY1measRmlIwOfWze7ll/PGT4dxWf31FNg==";
+    private String dataRSA    = "BlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBla12345678";
+
     @Test
-    public void encryptMD5File() throws Exception {
-        String fileMd5 = "7f138a09169b250e9dcb378140907378";
+    public void encryptRSA() throws Exception {
         assertEquals(
-                fileMd5.toUpperCase(),
-                EncryptUtils.encryptMD5File2String(new File(PATH_ENCRYPT + "MD5.txt"))
+                EncryptUtils.decryptRSA(
+                        EncryptUtils.encryptRSA(
+                                dataRSA.getBytes(),
+                                EncodeUtils.base64Decode(publicKey.getBytes()),
+                                true,
+                                "RSA/ECB/PKCS1Padding"
+                        ),
+                        EncodeUtils.base64Decode(privateKey.getBytes()),
+                        false,
+                        "RSA/ECB/PKCS1Padding"
+                ),
+                dataRSA.getBytes()
         );
     }
 }

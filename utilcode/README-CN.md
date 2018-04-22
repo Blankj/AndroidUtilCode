@@ -202,6 +202,8 @@ encrypt3DES, encrypt3DES2HexString, encrypt3DES2Base64: 3DES 加密
 decrypt3DES, decryptHexString3DES, decryptBase64_3DES : 3DES 解密
 encryptAES, encryptAES2HexString, encryptAES2Base64   : AES 加密
 decryptAES, decryptHexStringAES, decryptBase64AES     : AES 解密
+encryptRSA, encryptRSA2HexString, encryptRSA2Base64   : RSA 加密
+decryptRSA, decryptHexStringRSA, decryptBase64RSA     : RSA 解密
 ```
 
 * ### 文件相关 -> [FileIOUtils.java][fileio.java] -> [Test][fileio.test]
@@ -654,7 +656,7 @@ showCustomLong : 显示长时自定义吐司
 cancel         : 取消吐司显示
 ```
 
-* ### Uri 相关 -> [UriUtils.java][uri.java]
+* ### URI 相关 -> [UriUtils.java][uri.java]
 ```
 getUriForFile: 获取文件 URI
 ```
