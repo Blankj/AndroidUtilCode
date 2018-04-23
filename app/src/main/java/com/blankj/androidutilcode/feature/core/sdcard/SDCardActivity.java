@@ -43,6 +43,8 @@ public class SDCardActivity extends BaseBackActivity {
 
         TextView tvAboutSdcard = findViewById(R.id.tv_about_sdcard);
         tvAboutSdcard.setText(new SpanUtils()
+                .appendLine("isSDCardEnableByEnvironment: " + SDCardUtils.isSDCardEnableByEnvironment())
+                .appendLine("getSDCardPathByEnvironment: " + SDCardUtils.getSDCardPathByEnvironment())
                 .appendLine("isSDCardEnable: " + SDCardUtils.isSDCardEnable())
                 .appendLine("getSDCardPaths: " + SDCardUtils.getSDCardPaths())
                 .appendLine("getInnerSDCardPaths: " + SDCardUtils.getSDCardPaths(true))

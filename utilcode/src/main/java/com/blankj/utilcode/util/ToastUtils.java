@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.ColorInt;
@@ -13,8 +14,6 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.TextViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -244,7 +243,11 @@ public final class ToastUtils {
                 final TextView tvMessage = toast.getView().findViewById(android.R.id.message);
                 int msgColor = tvMessage.getCurrentTextColor();
                 //it solve the font of toast
-                TextViewCompat.setTextAppearance(tvMessage, android.R.style.TextAppearance);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    tvMessage.setTextAppearance(android.R.style.TextAppearance);
+                } else {
+                    tvMessage.setTextAppearance(tvMessage.getContext(), android.R.style.TextAppearance);
+                }
                 if (sMsgColor != COLOR_DEFAULT) {
                     tvMessage.setTextColor(sMsgColor);
                 } else {
@@ -292,7 +295,11 @@ public final class ToastUtils {
                         new PorterDuffColorFilter(sBgColor, PorterDuff.Mode.SRC_IN)
                 );
             } else {
-                ViewCompat.setBackground(toastView, new ColorDrawable(sBgColor));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    toastView.setBackground(new ColorDrawable(sBgColor));
+                } else {
+                    toastView.setBackgroundDrawable(new ColorDrawable(sBgColor));
+                }
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.blankj.utilcode.util;
 
 import android.content.Context;
+import android.os.Environment;
 import android.os.storage.StorageManager;
 
 import java.lang.reflect.Array;
@@ -22,6 +23,27 @@ public final class SDCardUtils {
 
     private SDCardUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
+    }
+
+    /**
+     * Return whether sdcard is enabled by environment.
+     *
+     * @return true : enabled<br>false : disabled
+     */
+    public static boolean isSDCardEnableByEnvironment() {
+        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
+    }
+
+    /**
+     * Return the path of sdcard by environment.
+     *
+     * @return the path of sdcard by environment
+     */
+    public static String getSDCardPathByEnvironment() {
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+            return Environment.getExternalStorageDirectory().getAbsolutePath();
+        }
+        return null;
     }
 
     /**

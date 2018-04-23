@@ -11,7 +11,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewCompat;
 import android.util.Log;
 import android.view.View;
 
@@ -1170,7 +1169,13 @@ public final class FragmentUtils {
      * @param background The background.
      */
     public static void setBackground(@NonNull final Fragment fragment, final Drawable background) {
-        ViewCompat.setBackground(fragment.getView(), background);
+        View view = fragment.getView();
+        if (view == null) return;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            view.setBackground(background);
+        } else {
+            view.setBackgroundDrawable(background);
+        }
     }
 
     /**

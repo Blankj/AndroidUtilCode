@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.13.16'
+implementation 'com.blankj:utilcode:1.14.0'
 ```
 
 
@@ -16,11 +16,7 @@ Utils.init(application);
 
 ## Proguard
 
-```
--keep class com.blankj.utilcode.** { *; }
--keepclassmembers class com.blankj.utilcode.** { *; }
--dontwarn com.blankj.utilcode.**
-```
+U needn't do anything, because I add `consumerProguardFiles 'proguard-rules.pro'` in build.gradle.
 
 
 ## APIs
@@ -493,6 +489,8 @@ isTablet
 
 * ### About SDCard -> [SDCardUtils.java][sdcard.java] -> [Demo][sdcard.demo]
 ```
+isSDCardEnableByEnvironment
+getSDCardPathByEnvironment
 isSDCardEnable
 getSDCardPaths
 ```

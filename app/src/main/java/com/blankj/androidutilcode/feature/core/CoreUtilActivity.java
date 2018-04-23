@@ -11,7 +11,6 @@ import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.androidutilcode.feature.core.activity.ActivityActivity;
 import com.blankj.androidutilcode.feature.core.app.AppActivity;
 import com.blankj.androidutilcode.feature.core.bar.BarActivity;
-import com.blankj.androidutilcode.feature.core.clean.CleanActivity;
 import com.blankj.androidutilcode.feature.core.device.DeviceActivity;
 import com.blankj.androidutilcode.feature.core.fragment.FragmentActivity;
 import com.blankj.androidutilcode.feature.core.image.ImageActivity;
@@ -83,10 +82,6 @@ public class CoreUtilActivity extends BaseBackActivity {
 
     public void barClick(View view) {
         BarActivity.start(this);
-    }
-
-    public void cleanClick(View view) {
-        CleanActivity.start(this);
     }
 
     public void crashClick(View view) {
