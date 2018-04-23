@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.13.15'
+implementation 'com.blankj:utilcode:1.13.16'
 ```
 
 
@@ -202,6 +202,8 @@ encrypt3DES, encrypt3DES2HexString, encrypt3DES2Base64
 decrypt3DES, decryptHexString3DES, decryptBase64_3DES
 encryptAES, encryptAES2HexString, encryptAES2Base64
 decryptAES, decryptHexStringAES, decryptBase64AES
+encryptRSA, encryptRSA2HexString, encryptRSA2Base64
+decryptRSA, decryptHexStringRSA, decryptBase64RSA
 ```
 
 * ### About FileIO -> [FileIOUtils.java][fileio.java] -> [Test][fileio.test]
