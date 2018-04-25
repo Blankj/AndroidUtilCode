@@ -103,6 +103,13 @@ public final class FileIOUtils {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            try {
+                if (os != null) {
+                    os.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

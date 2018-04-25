@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -79,7 +78,7 @@ public class StringUtilsTest {
         assertEquals("jknalb", StringUtils.reverse("blankj"));
         assertEquals("knalb", StringUtils.reverse("blank"));
         assertEquals("文中试测", StringUtils.reverse("测试中文"));
-        assertNull(StringUtils.reverse(null));
+        assertEquals("", StringUtils.reverse(null));
     }
 
     @Test
