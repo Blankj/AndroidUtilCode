@@ -1,6 +1,7 @@
 package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
+import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.constant.TimeConstants;
 
@@ -46,7 +47,7 @@ public final class TimeUtils {
      * @param format The format.
      * @return the formatted time string
      */
-    public static String millis2String(final long millis, final DateFormat format) {
+    public static String millis2String(final long millis, @NonNull final DateFormat format) {
         return format.format(new Date(millis));
     }
 
@@ -68,7 +69,7 @@ public final class TimeUtils {
      * @param format The format.
      * @return the milliseconds
      */
-    public static long string2Millis(final String time, final DateFormat format) {
+    public static long string2Millis(final String time, @NonNull final DateFormat format) {
         try {
             return format.parse(time).getTime();
         } catch (ParseException e) {
@@ -95,7 +96,7 @@ public final class TimeUtils {
      * @param format The format.
      * @return the date
      */
-    public static Date string2Date(final String time, final DateFormat format) {
+    public static Date string2Date(final String time, @NonNull final DateFormat format) {
         try {
             return format.parse(time);
         } catch (ParseException e) {
@@ -122,7 +123,7 @@ public final class TimeUtils {
      * @param format The format.
      * @return the formatted time string
      */
-    public static String date2String(final Date date, final DateFormat format) {
+    public static String date2String(final Date date, @NonNull final DateFormat format) {
         return format.format(date);
     }
 
@@ -186,7 +187,7 @@ public final class TimeUtils {
      */
     public static long getTimeSpan(final String time1,
                                    final String time2,
-                                   final DateFormat format,
+                                   @NonNull final DateFormat format,
                                    @TimeConstants.Unit final int unit) {
         return millis2TimeSpan(
                 Math.abs(string2Millis(time1, format) - string2Millis(time2, format)), unit
@@ -278,7 +279,7 @@ public final class TimeUtils {
      */
     public static String getFitTimeSpan(final String time1,
                                         final String time2,
-                                        final DateFormat format,
+                                        @NonNull final DateFormat format,
                                         final int precision) {
         long delta = string2Millis(time1, format) - string2Millis(time2, format);
         return millis2FitTimeSpan(Math.abs(delta), precision);
@@ -351,7 +352,7 @@ public final class TimeUtils {
      * @param format The format.
      * @return the current formatted time string
      */
-    public static String getNowString(final DateFormat format) {
+    public static String getNowString(@NonNull final DateFormat format) {
         return millis2String(System.currentTimeMillis(), format);
     }
 
@@ -399,7 +400,7 @@ public final class TimeUtils {
      * @return the time span by now, in unit
      */
     public static long getTimeSpanByNow(final String time,
-                                        final DateFormat format,
+                                        @NonNull final DateFormat format,
                                         @TimeConstants.Unit final int unit) {
         return getTimeSpan(getNowString(format), time, format, unit);
     }
@@ -477,7 +478,7 @@ public final class TimeUtils {
      * @return the fit time span by now
      */
     public static String getFitTimeSpanByNow(final String time,
-                                             final DateFormat format,
+                                             @NonNull final DateFormat format,
                                              final int precision) {
         return getFitTimeSpan(getNowString(format), time, format, precision);
     }
@@ -556,7 +557,8 @@ public final class TimeUtils {
      * <li>时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007</li>
      * </ul>
      */
-    public static String getFriendlyTimeSpanByNow(final String time, final DateFormat format) {
+    public static String getFriendlyTimeSpanByNow(final String time,
+                                                  @NonNull final DateFormat format) {
         return getFriendlyTimeSpanByNow(string2Millis(time, format));
     }
 
@@ -687,7 +689,7 @@ public final class TimeUtils {
      * @return the milliseconds differ time span.
      */
     public static long getMillis(final String time,
-                                 final DateFormat format,
+                                 @NonNull final DateFormat format,
                                  final long timeSpan,
                                  @TimeConstants.Unit final int unit) {
         return string2Millis(time, format) + timeSpan2Millis(timeSpan, unit);
@@ -753,7 +755,7 @@ public final class TimeUtils {
      * @return the formatted time string differ time span
      */
     public static String getString(final long millis,
-                                   final DateFormat format,
+                                   @NonNull final DateFormat format,
                                    final long timeSpan,
                                    @TimeConstants.Unit final int unit) {
         return millis2String(millis + timeSpan2Millis(timeSpan, unit), format);
@@ -798,7 +800,7 @@ public final class TimeUtils {
      * @return the formatted time string differ time span
      */
     public static String getString(final String time,
-                                   final DateFormat format,
+                                   @NonNull final DateFormat format,
                                    final long timeSpan,
                                    @TimeConstants.Unit final int unit) {
         return millis2String(string2Millis(time, format) + timeSpan2Millis(timeSpan, unit), format);
@@ -843,7 +845,7 @@ public final class TimeUtils {
      * @return the formatted time string differ time span
      */
     public static String getString(final Date date,
-                                   final DateFormat format,
+                                   @NonNull final DateFormat format,
                                    final long timeSpan,
                                    @TimeConstants.Unit final int unit) {
         return millis2String(date2Millis(date) + timeSpan2Millis(timeSpan, unit), format);
@@ -909,7 +911,7 @@ public final class TimeUtils {
      * @return the date differ time span
      */
     public static Date getDate(final String time,
-                               final DateFormat format,
+                               @NonNull final DateFormat format,
                                final long timeSpan,
                                @TimeConstants.Unit final int unit) {
         return millis2Date(string2Millis(time, format) + timeSpan2Millis(timeSpan, unit));
@@ -989,7 +991,7 @@ public final class TimeUtils {
      * @return the formatted time string differ time span by now
      */
     public static String getStringByNow(final long timeSpan,
-                                        final DateFormat format,
+                                        @NonNull final DateFormat format,
                                         @TimeConstants.Unit final int unit) {
         return getString(getNowMills(), format, timeSpan, unit);
     }
@@ -1030,7 +1032,7 @@ public final class TimeUtils {
      * @param format The format.
      * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean isToday(final String time, final DateFormat format) {
+    public static boolean isToday(final String time, @NonNull final DateFormat format) {
         return isToday(string2Millis(time, format));
     }
 
@@ -1073,7 +1075,7 @@ public final class TimeUtils {
      * @param format The format.
      * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean isLeapYear(final String time, final DateFormat format) {
+    public static boolean isLeapYear(final String time, @NonNull final DateFormat format) {
         return isLeapYear(string2Date(time, format));
     }
 
@@ -1128,7 +1130,7 @@ public final class TimeUtils {
      * @param format The format.
      * @return the day of week in Chinese
      */
-    public static String getChineseWeek(final String time, final DateFormat format) {
+    public static String getChineseWeek(final String time, @NonNull final DateFormat format) {
         return getChineseWeek(string2Date(time, format));
     }
 
@@ -1170,7 +1172,7 @@ public final class TimeUtils {
      * @param format The format.
      * @return the day of week in US
      */
-    public static String getUSWeek(final String time, final DateFormat format) {
+    public static String getUSWeek(final String time, @NonNull final DateFormat format) {
         return getUSWeek(string2Date(time, format));
     }
 
@@ -1207,7 +1209,10 @@ public final class TimeUtils {
      * @see Calendar#THURSDAY
      * @see Calendar#FRIDAY
      * @see Calendar#SATURDAY
+     * @deprecated use {@link #getValueByCalendarField(String, int)} instead,
+     * the param of field should equals {@link Calendar#DAY_OF_WEEK}
      */
+    @Deprecated
     public static int getWeekIndex(final String time) {
         return getWeekIndex(string2Date(time, DEFAULT_FORMAT));
     }
@@ -1225,8 +1230,11 @@ public final class TimeUtils {
      * @see Calendar#THURSDAY
      * @see Calendar#FRIDAY
      * @see Calendar#SATURDAY
+     * @deprecated use {@link #getValueByCalendarField(String, DateFormat, int)} instead,
+     * the param of field should equals {@link Calendar#DAY_OF_WEEK}
      */
-    public static int getWeekIndex(final String time, final DateFormat format) {
+    @Deprecated
+    public static int getWeekIndex(final String time, @NonNull final DateFormat format) {
         return getWeekIndex(string2Date(time, format));
     }
 
@@ -1242,7 +1250,10 @@ public final class TimeUtils {
      * @see Calendar#THURSDAY
      * @see Calendar#FRIDAY
      * @see Calendar#SATURDAY
+     * @deprecated use {@link #getValueByCalendarField(Date, int)} instead,
+     * the param of field should equals {@link Calendar#DAY_OF_WEEK}
      */
+    @Deprecated
     public static int getWeekIndex(final Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -1261,7 +1272,10 @@ public final class TimeUtils {
      * @see Calendar#THURSDAY
      * @see Calendar#FRIDAY
      * @see Calendar#SATURDAY
+     * @deprecated use {@link #getValueByCalendarField(long, int)} instead,
+     * the param of field should equals {@link Calendar#DAY_OF_WEEK}
      */
+    @Deprecated
     public static int getWeekIndex(final long millis) {
         return getWeekIndex(millis2Date(millis));
     }
@@ -1272,7 +1286,10 @@ public final class TimeUtils {
      *
      * @param time The formatted time string.
      * @return the number for indicating the week number within the current month
+     * @deprecated use {@link #getValueByCalendarField(String, int)} instead,
+     * the param of field should equals {@link Calendar#WEEK_OF_MONTH}
      */
+    @Deprecated
     public static int getWeekOfMonth(final String time) {
         return getWeekOfMonth(string2Date(time, DEFAULT_FORMAT));
     }
@@ -1283,8 +1300,11 @@ public final class TimeUtils {
      * @param time   The formatted time string.
      * @param format The format.
      * @return the number for indicating the week number within the current month
+     * @deprecated use {@link #getValueByCalendarField(String, DateFormat, int)} instead,
+     * the param of field should equals {@link Calendar#WEEK_OF_MONTH}
      */
-    public static int getWeekOfMonth(final String time, final DateFormat format) {
+    @Deprecated
+    public static int getWeekOfMonth(final String time, @NonNull final DateFormat format) {
         return getWeekOfMonth(string2Date(time, format));
     }
 
@@ -1293,7 +1313,10 @@ public final class TimeUtils {
      *
      * @param date The date.
      * @return the number for indicating the week number within the current month
+     * @deprecated use {@link #getValueByCalendarField(Date, int)} instead,
+     * the param of field should equals {@link Calendar#WEEK_OF_MONTH}
      */
+    @Deprecated
     public static int getWeekOfMonth(final Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -1305,7 +1328,10 @@ public final class TimeUtils {
      *
      * @param millis The milliseconds.
      * @return the number for indicating the week number within the current month
+     * @deprecated use {@link #getValueByCalendarField(long, int)} instead,
+     * the param of field should equals {@link Calendar#WEEK_OF_MONTH}
      */
+    @Deprecated
     public static int getWeekOfMonth(final long millis) {
         return getWeekOfMonth(millis2Date(millis));
     }
@@ -1316,7 +1342,10 @@ public final class TimeUtils {
      *
      * @param time The formatted time string.
      * @return the number for indicating the week number within the current year
+     * @deprecated use {@link #getValueByCalendarField(String, int)} instead,
+     * the param of field should equals {@link Calendar#WEEK_OF_YEAR}
      */
+    @Deprecated
     public static int getWeekOfYear(final String time) {
         return getWeekOfYear(string2Date(time, DEFAULT_FORMAT));
     }
@@ -1327,8 +1356,11 @@ public final class TimeUtils {
      * @param time   The formatted time string.
      * @param format The format.
      * @return the number for indicating the week number within the current year
+     * @deprecated use {@link #getValueByCalendarField(String, DateFormat, int)} instead,
+     * the param of field should equals {@link Calendar#WEEK_OF_YEAR}
      */
-    public static int getWeekOfYear(final String time, final DateFormat format) {
+    @Deprecated
+    public static int getWeekOfYear(final String time, @NonNull final DateFormat format) {
         return getWeekOfYear(string2Date(time, format));
     }
 
@@ -1337,7 +1369,10 @@ public final class TimeUtils {
      *
      * @param date The date.
      * @return the number for indicating the week number within the current year
+     * @deprecated use {@link #getValueByCalendarField(Date, int)} instead,
+     * the param of field should equals {@link Calendar#WEEK_OF_YEAR}
      */
+    @Deprecated
     public static int getWeekOfYear(final Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -1349,9 +1384,92 @@ public final class TimeUtils {
      *
      * @param millis The milliseconds.
      * @return the number for indicating the week number within the current year
+     * @deprecated use {@link #getValueByCalendarField(long, int)} instead,
+     * the param of field should equals {@link Calendar#WEEK_OF_YEAR}
      */
+    @Deprecated
     public static int getWeekOfYear(final long millis) {
         return getWeekOfYear(millis2Date(millis));
+    }
+
+    /**
+     * Returns the value of the given calendar field.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
+     *
+     * @param time  The formatted time string.
+     * @param field The given calendar field.
+     *              <ul>
+     *              <li>{@link Calendar#ERA}</li>
+     *              <li>{@link Calendar#YEAR}</li>
+     *              <li>{@link Calendar#MONTH}</li>
+     *              ...
+     *              <li>{@link Calendar#DST_OFFSET}</li>
+     *              </ul>
+     * @return the value of the given calendar field
+     */
+    public static int getValueByCalendarField(final String time, final int field) {
+        return getValueByCalendarField(string2Date(time, DEFAULT_FORMAT), field);
+    }
+
+    /**
+     * Returns the value of the given calendar field.
+     *
+     * @param time   The formatted time string.
+     * @param format The format.
+     * @param field  The given calendar field.
+     *               <ul>
+     *               <li>{@link Calendar#ERA}</li>
+     *               <li>{@link Calendar#YEAR}</li>
+     *               <li>{@link Calendar#MONTH}</li>
+     *               ...
+     *               <li>{@link Calendar#DST_OFFSET}</li>
+     *               </ul>
+     * @return the value of the given calendar field
+     */
+    public static int getValueByCalendarField(final String time,
+                                              @NonNull final DateFormat format,
+                                              final int field) {
+        return getValueByCalendarField(string2Date(time, format), field);
+    }
+
+    /**
+     * Returns the value of the given calendar field.
+     *
+     * @param date  The date.
+     * @param field The given calendar field.
+     *              <ul>
+     *              <li>{@link Calendar#ERA}</li>
+     *              <li>{@link Calendar#YEAR}</li>
+     *              <li>{@link Calendar#MONTH}</li>
+     *              ...
+     *              <li>{@link Calendar#DST_OFFSET}</li>
+     *              </ul>
+     * @return the value of the given calendar field
+     */
+    public static int getValueByCalendarField(final Date date, final int field) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal.get(field);
+    }
+
+    /**
+     * Returns the value of the given calendar field.
+     *
+     * @param millis The milliseconds.
+     * @param field  The given calendar field.
+     *               <ul>
+     *               <li>{@link Calendar#ERA}</li>
+     *               <li>{@link Calendar#YEAR}</li>
+     *               <li>{@link Calendar#MONTH}</li>
+     *               ...
+     *               <li>{@link Calendar#DST_OFFSET}</li>
+     *               </ul>
+     * @return the value of the given calendar field
+     */
+    public static int getValueByCalendarField(final long millis, final int field) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(millis);
+        return cal.get(field);
     }
 
     private static final String[] CHINESE_ZODIAC =
@@ -1375,7 +1493,7 @@ public final class TimeUtils {
      * @param format The format.
      * @return the Chinese zodiac
      */
-    public static String getChineseZodiac(final String time, final DateFormat format) {
+    public static String getChineseZodiac(final String time, @NonNull final DateFormat format) {
         return getChineseZodiac(string2Date(time, format));
     }
 
@@ -1435,7 +1553,7 @@ public final class TimeUtils {
      * @param format The format.
      * @return the zodiac
      */
-    public static String getZodiac(final String time, final DateFormat format) {
+    public static String getZodiac(final String time, @NonNull final DateFormat format) {
         return getZodiac(string2Date(time, format));
     }
 

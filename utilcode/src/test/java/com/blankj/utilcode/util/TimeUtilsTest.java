@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -27,7 +28,7 @@ public class TimeUtilsTest {
     private final DateFormat defaultFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
     private final DateFormat mFormat       = new SimpleDateFormat("yyyy MM dd HH:mm:ss", Locale.getDefault());
 
-    private final long   timeMillis               = 1493887049000L;
+    private final long   timeMillis               = 1493887049000L;// 2017-05-04 16:37:29
     private final Date   timeDate                 = new Date(timeMillis);
     private final String timeString               = defaultFormat.format(timeDate);
     private final String timeStringFormat         = mFormat.format(timeDate);
@@ -35,7 +36,7 @@ public class TimeUtilsTest {
     private final Date   tomorrowTimeDate         = new Date(tomorrowTimeMillis);
     private final String tomorrowTimeString       = defaultFormat.format(tomorrowTimeDate);
     private final String tomorrowTimeStringFormat = mFormat.format(tomorrowTimeDate);
-    private final long   delta                    = 5;// 允许误差5ms
+    private final long   delta                    = 8;// 允许误差8ms
 
     @Test
     public void millis2String() throws Exception {
@@ -230,26 +231,27 @@ public class TimeUtilsTest {
 
     @Test
     public void getWeekIndex() throws Exception {
-        assertEquals(5, TimeUtils.getWeekIndex(timeString));
-        assertEquals(5, TimeUtils.getWeekIndex(timeStringFormat, mFormat));
-        assertEquals(5, TimeUtils.getWeekIndex(timeDate));
-        assertEquals(5, TimeUtils.getWeekIndex(timeMillis));
+        assertEquals(5, TimeUtils.getValueByCalendarField(timeString, Calendar.DAY_OF_WEEK));
+        assertEquals(5, TimeUtils.getValueByCalendarField(timeString, Calendar.DAY_OF_WEEK));
+        assertEquals(5, TimeUtils.getValueByCalendarField(timeStringFormat, mFormat, Calendar.DAY_OF_WEEK));
+        assertEquals(5, TimeUtils.getValueByCalendarField(timeDate, Calendar.DAY_OF_WEEK));
+        assertEquals(5, TimeUtils.getValueByCalendarField(timeMillis, Calendar.DAY_OF_WEEK));
     }
 
     @Test
     public void getWeekOfMonth() throws Exception {
-        assertEquals(1, TimeUtils.getWeekOfMonth(timeString));
-        assertEquals(1, TimeUtils.getWeekOfMonth(timeStringFormat, mFormat));
-        assertEquals(1, TimeUtils.getWeekOfMonth(timeDate));
-        assertEquals(1, TimeUtils.getWeekOfMonth(timeMillis));
+        assertEquals(1, TimeUtils.getValueByCalendarField(timeString, Calendar.WEEK_OF_MONTH));
+        assertEquals(1, TimeUtils.getValueByCalendarField(timeStringFormat, mFormat, Calendar.WEEK_OF_MONTH));
+        assertEquals(1, TimeUtils.getValueByCalendarField(timeDate, Calendar.WEEK_OF_MONTH));
+        assertEquals(1, TimeUtils.getValueByCalendarField(timeMillis, Calendar.WEEK_OF_MONTH));
     }
 
     @Test
     public void getWeekOfYear() throws Exception {
-        assertEquals(18, TimeUtils.getWeekOfYear(timeString));
-        assertEquals(18, TimeUtils.getWeekOfYear(timeStringFormat, mFormat));
-        assertEquals(18, TimeUtils.getWeekOfYear(timeDate));
-        assertEquals(18, TimeUtils.getWeekOfYear(timeMillis));
+        assertEquals(18, TimeUtils.getValueByCalendarField(timeString, Calendar.WEEK_OF_YEAR));
+        assertEquals(18, TimeUtils.getValueByCalendarField(timeStringFormat, mFormat, Calendar.WEEK_OF_YEAR));
+        assertEquals(18, TimeUtils.getValueByCalendarField(timeDate, Calendar.WEEK_OF_YEAR));
+        assertEquals(18, TimeUtils.getValueByCalendarField(timeMillis, Calendar.WEEK_OF_YEAR));
     }
 
     @Test

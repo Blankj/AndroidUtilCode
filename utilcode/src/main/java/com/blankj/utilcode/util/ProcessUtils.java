@@ -66,7 +66,7 @@ public final class ProcessUtils {
             if (list.size() <= 0) {
                 Log.i("ProcessUtils",
                         "getForegroundProcessName: noun of access to usage information.");
-                return null;
+                return "";
             }
             try {// Access to usage information.
                 ApplicationInfo info =
@@ -85,7 +85,7 @@ public final class ProcessUtils {
                             info.packageName) != AppOpsManager.MODE_ALLOWED) {
                         Log.i("ProcessUtils",
                                 "getForegroundProcessName: refuse to device usage stats.");
-                        return null;
+                        return "";
                     }
                 }
                 UsageStatsManager usageStatsManager = (UsageStatsManager) Utils.getApp()
@@ -111,7 +111,7 @@ public final class ProcessUtils {
                 e.printStackTrace();
             }
         }
-        return null;
+        return "";
     }
 
     /**
@@ -222,6 +222,6 @@ public final class ProcessUtils {
                 }
             }
         }
-        return null;
+        return "";
     }
 }

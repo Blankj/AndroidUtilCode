@@ -49,6 +49,7 @@ public final class EncryptUtils {
      * @return the hex string of MD2 encryption
      */
     public static String encryptMD2ToString(final String data) {
+        if (data == null || data.length() == 0) return "";
         return encryptMD2ToString(data.getBytes());
     }
 
@@ -79,6 +80,7 @@ public final class EncryptUtils {
      * @return the hex string of MD5 encryption
      */
     public static String encryptMD5ToString(final String data) {
+        if (data == null || data.length() == 0) return "";
         return encryptMD5ToString(data.getBytes());
     }
 
@@ -90,6 +92,9 @@ public final class EncryptUtils {
      * @return the hex string of MD5 encryption
      */
     public static String encryptMD5ToString(final String data, final String salt) {
+        if (data == null && salt == null) return "";
+        if (salt == null) return bytes2HexString(encryptMD5(data.getBytes()));
+        if (data == null) return bytes2HexString(encryptMD5(salt.getBytes()));
         return bytes2HexString(encryptMD5((data + salt).getBytes()));
     }
 
@@ -111,7 +116,9 @@ public final class EncryptUtils {
      * @return the hex string of MD5 encryption
      */
     public static String encryptMD5ToString(final byte[] data, final byte[] salt) {
-        if (data == null || salt == null) return null;
+        if (data == null && salt == null) return "";
+        if (salt == null) return bytes2HexString(encryptMD5(data));
+        if (data == null) return bytes2HexString(encryptMD5(salt));
         byte[] dataSalt = new byte[data.length + salt.length];
         System.arraycopy(data, 0, dataSalt, 0, data.length);
         System.arraycopy(salt, 0, dataSalt, data.length, salt.length);
@@ -184,7 +191,13 @@ public final class EncryptUtils {
             e.printStackTrace();
             return null;
         } finally {
-            CloseUtils.closeIO(fis);
+            try {
+                if (fis != null) {
+                    fis.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -195,6 +208,7 @@ public final class EncryptUtils {
      * @return the hex string of SHA1 encryption
      */
     public static String encryptSHA1ToString(final String data) {
+        if (data == null || data.length() == 0) return "";
         return encryptSHA1ToString(data.getBytes());
     }
 
@@ -225,6 +239,7 @@ public final class EncryptUtils {
      * @return the hex string of SHA224 encryption
      */
     public static String encryptSHA224ToString(final String data) {
+        if (data == null || data.length() == 0) return "";
         return encryptSHA224ToString(data.getBytes());
     }
 
@@ -255,6 +270,7 @@ public final class EncryptUtils {
      * @return the hex string of SHA256 encryption
      */
     public static String encryptSHA256ToString(final String data) {
+        if (data == null || data.length() == 0) return "";
         return encryptSHA256ToString(data.getBytes());
     }
 
@@ -285,6 +301,7 @@ public final class EncryptUtils {
      * @return the hex string of SHA384 encryption
      */
     public static String encryptSHA384ToString(final String data) {
+        if (data == null || data.length() == 0) return "";
         return encryptSHA384ToString(data.getBytes());
     }
 
@@ -315,6 +332,7 @@ public final class EncryptUtils {
      * @return the hex string of SHA512 encryption
      */
     public static String encryptSHA512ToString(final String data) {
+        if (data == null || data.length() == 0) return "";
         return encryptSHA512ToString(data.getBytes());
     }
 
@@ -369,6 +387,7 @@ public final class EncryptUtils {
      * @return the hex string of HmacMD5 encryption
      */
     public static String encryptHmacMD5ToString(final String data, final String key) {
+        if (data == null || data.length() == 0 || key == null || key.length() == 0) return "";
         return encryptHmacMD5ToString(data.getBytes(), key.getBytes());
     }
 
@@ -402,6 +421,7 @@ public final class EncryptUtils {
      * @return the hex string of HmacSHA1 encryption
      */
     public static String encryptHmacSHA1ToString(final String data, final String key) {
+        if (data == null || data.length() == 0 || key == null || key.length() == 0) return "";
         return encryptHmacSHA1ToString(data.getBytes(), key.getBytes());
     }
 
@@ -435,6 +455,7 @@ public final class EncryptUtils {
      * @return the hex string of HmacSHA224 encryption
      */
     public static String encryptHmacSHA224ToString(final String data, final String key) {
+        if (data == null || data.length() == 0 || key == null || key.length() == 0) return "";
         return encryptHmacSHA224ToString(data.getBytes(), key.getBytes());
     }
 
@@ -468,6 +489,7 @@ public final class EncryptUtils {
      * @return the hex string of HmacSHA256 encryption
      */
     public static String encryptHmacSHA256ToString(final String data, final String key) {
+        if (data == null || data.length() == 0 || key == null || key.length() == 0) return "";
         return encryptHmacSHA256ToString(data.getBytes(), key.getBytes());
     }
 
@@ -501,6 +523,7 @@ public final class EncryptUtils {
      * @return the hex string of HmacSHA384 encryption
      */
     public static String encryptHmacSHA384ToString(final String data, final String key) {
+        if (data == null || data.length() == 0 || key == null || key.length() == 0) return "";
         return encryptHmacSHA384ToString(data.getBytes(), key.getBytes());
     }
 
@@ -534,6 +557,7 @@ public final class EncryptUtils {
      * @return the hex string of HmacSHA512 encryption
      */
     public static String encryptHmacSHA512ToString(final String data, final String key) {
+        if (data == null || data.length() == 0 || key == null || key.length() == 0) return "";
         return encryptHmacSHA512ToString(data.getBytes(), key.getBytes());
     }
 
@@ -1112,9 +1136,9 @@ public final class EncryptUtils {
             {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     private static String bytes2HexString(final byte[] bytes) {
-        if (bytes == null) return null;
+        if (bytes == null) return "";
         int len = bytes.length;
-        if (len <= 0) return null;
+        if (len <= 0) return "";
         char[] ret = new char[len << 1];
         for (int i = 0, j = 0; i < len; i++) {
             ret[j++] = HEX_DIGITS[bytes[i] >>> 4 & 0x0f];

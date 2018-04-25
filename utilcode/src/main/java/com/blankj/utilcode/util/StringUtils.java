@@ -111,7 +111,8 @@ public final class StringUtils {
      * @return the string with first letter upper.
      */
     public static String upperFirstLetter(final String s) {
-        if (isEmpty(s) || !Character.isLowerCase(s.charAt(0))) return s;
+        if (s == null || s.length() == 0) return "";
+        if (!Character.isLowerCase(s.charAt(0))) return s;
         return String.valueOf((char) (s.charAt(0) - 32)) + s.substring(1);
     }
 
@@ -122,7 +123,8 @@ public final class StringUtils {
      * @return the string with first letter lower.
      */
     public static String lowerFirstLetter(final String s) {
-        if (isEmpty(s) || !Character.isUpperCase(s.charAt(0))) return s;
+        if (s == null || s.length() == 0) return "";
+        if (!Character.isUpperCase(s.charAt(0))) return s;
         return String.valueOf((char) (s.charAt(0) + 32)) + s.substring(1);
     }
 
@@ -133,7 +135,8 @@ public final class StringUtils {
      * @return the reverse string.
      */
     public static String reverse(final String s) {
-        int len = length(s);
+        if (s == null) return "";
+        int len = s.length();
         if (len <= 1) return s;
         int mid = len >> 1;
         char[] chars = s.toCharArray();
@@ -153,7 +156,7 @@ public final class StringUtils {
      * @return the DBC string
      */
     public static String toDBC(final String s) {
-        if (isEmpty(s)) return s;
+        if (s == null || s.length() == 0) return "";
         char[] chars = s.toCharArray();
         for (int i = 0, len = chars.length; i < len; i++) {
             if (chars[i] == 12288) {
@@ -174,7 +177,7 @@ public final class StringUtils {
      * @return the SBC string
      */
     public static String toSBC(final String s) {
-        if (isEmpty(s)) return s;
+        if (s == null || s.length() == 0) return "";
         char[] chars = s.toCharArray();
         for (int i = 0, len = chars.length; i < len; i++) {
             if (chars[i] == ' ') {

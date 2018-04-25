@@ -633,9 +633,7 @@ isToday                 : 判断是否今天
 isLeapYear              : 判断是否闰年
 getChineseWeek          : 获取中式星期
 getUSWeek               : 获取美式式星期
-getWeekIndex            : 获取星期索引
-getWeekOfMonth          : 获取月份中的第几周
-getWeekOfYear           : 获取年份中的第几周
+getValueByCalendarField : 根据日历字段获取值
 getChineseZodiac        : 获取生肖
 getZodiac               : 获取星座
 ```

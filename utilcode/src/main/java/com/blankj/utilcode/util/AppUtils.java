@@ -528,14 +528,14 @@ public final class AppUtils {
      * @return the application's name
      */
     public static String getAppName(final String packageName) {
-        if (isSpace(packageName)) return null;
+        if (isSpace(packageName)) return "";
         try {
             PackageManager pm = Utils.getApp().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(packageName, 0);
             return pi == null ? null : pi.applicationInfo.loadLabel(pm).toString();
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            return null;
+            return "";
         }
     }
 
@@ -555,14 +555,14 @@ public final class AppUtils {
      * @return the application's path
      */
     public static String getAppPath(final String packageName) {
-        if (isSpace(packageName)) return null;
+        if (isSpace(packageName)) return "";
         try {
             PackageManager pm = Utils.getApp().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(packageName, 0);
             return pi == null ? null : pi.applicationInfo.sourceDir;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            return null;
+            return "";
         }
     }
 
@@ -582,14 +582,14 @@ public final class AppUtils {
      * @return the application's version name
      */
     public static String getAppVersionName(final String packageName) {
-        if (isSpace(packageName)) return null;
+        if (isSpace(packageName)) return "";
         try {
             PackageManager pm = Utils.getApp().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(packageName, 0);
             return pi == null ? null : pi.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            return null;
+            return "";
         }
     }
 
@@ -663,9 +663,10 @@ public final class AppUtils {
      * @param packageName The name of the package.
      * @return the application's signature for SHA1 value
      */
-    public static String getAppSignatureSHA1(@NonNull final String packageName) {
+    public static String getAppSignatureSHA1(final String packageName) {
+        if (isSpace(packageName)) return "";
         Signature[] signature = getAppSignature(packageName);
-        if (signature == null || signature.length <= 0) return null;
+        if (signature == null || signature.length <= 0) return "";
         return encryptSHA1ToString(signature[0].toByteArray()).
                 replaceAll("(?<=[0-9A-F]{2})[0-9A-F]{2}", ":$0");
     }
@@ -794,9 +795,9 @@ public final class AppUtils {
     }
 
     private static String bytes2HexString(final byte[] bytes) {
-        if (bytes == null) return null;
+        if (bytes == null) return "";
         int len = bytes.length;
-        if (len <= 0) return null;
+        if (len <= 0) return "";
         char[] ret = new char[len << 1];
         for (int i = 0, j = 0; i < len; i++) {
             ret[j++] = HEX_DIGITS[bytes[i] >>> 4 & 0x0f];

@@ -253,7 +253,7 @@ public final class NetworkUtils {
     public static String getNetworkOperatorName() {
         TelephonyManager tm =
                 (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
-        return tm != null ? tm.getNetworkOperatorName() : null;
+        return tm != null ? tm.getNetworkOperatorName() : "";
     }
 
     private static final int NETWORK_TYPE_GSM      = 16;
@@ -376,7 +376,7 @@ public final class NetworkUtils {
         } catch (SocketException e) {
             e.printStackTrace();
         }
-        return null;
+        return "";
     }
 
     /**
@@ -394,7 +394,7 @@ public final class NetworkUtils {
             return inetAddress.getHostAddress();
         } catch (UnknownHostException e) {
             e.printStackTrace();
-            return null;
+            return "";
         }
     }
 }

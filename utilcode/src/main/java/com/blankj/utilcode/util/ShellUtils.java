@@ -2,6 +2,7 @@ package com.blankj.utilcode.util;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
@@ -141,7 +142,27 @@ public final class ShellUtils {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            CloseUtils.closeIO(os, successResult, errorResult);
+            try {
+                if (os != null) {
+                    os.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (successResult != null) {
+                    successResult.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (errorResult != null) {
+                    errorResult.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             if (process != null) {
                 process.destroy();
             }

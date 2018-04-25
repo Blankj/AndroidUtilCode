@@ -44,6 +44,7 @@ public final class ConvertUtils {
      * @return bits
      */
     public static String bytes2Bits(final byte[] bytes) {
+        if (bytes == null || bytes.length == 0) return "";
         StringBuilder sb = new StringBuilder();
         for (byte aByte : bytes) {
             for (int j = 7; j >= 0; --j) {
@@ -120,9 +121,9 @@ public final class ConvertUtils {
      * @return hex string
      */
     public static String bytes2HexString(final byte[] bytes) {
-        if (bytes == null) return null;
+        if (bytes == null) return "";
         int len = bytes.length;
-        if (len <= 0) return null;
+        if (len <= 0) return "";
         char[] ret = new char[len << 1];
         for (int i = 0, j = 0; i < len; i++) {
             ret[j++] = hexDigits[bytes[i] >>> 4 & 0x0f];
@@ -312,7 +313,11 @@ public final class ConvertUtils {
             e.printStackTrace();
             return null;
         } finally {
-            CloseUtils.closeIO(is);
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -377,7 +382,13 @@ public final class ConvertUtils {
             e.printStackTrace();
             return null;
         } finally {
-            CloseUtils.closeIO(os);
+            try {
+                if (os != null) {
+                    os.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -389,12 +400,12 @@ public final class ConvertUtils {
      * @return string
      */
     public static String inputStream2String(final InputStream is, final String charsetName) {
-        if (is == null || isSpace(charsetName)) return null;
+        if (is == null || isSpace(charsetName)) return "";
         try {
             return new String(inputStream2Bytes(is), charsetName);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            return null;
+            return "";
         }
     }
 
@@ -423,12 +434,12 @@ public final class ConvertUtils {
      * @return string
      */
     public static String outputStream2String(final OutputStream out, final String charsetName) {
-        if (out == null || isSpace(charsetName)) return null;
+        if (out == null || isSpace(charsetName)) return "";
         try {
             return new String(outputStream2Bytes(out), charsetName);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            return null;
+            return "";
         }
     }
 

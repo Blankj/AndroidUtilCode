@@ -1493,7 +1493,13 @@ public final class ImageUtils {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            CloseUtils.closeIO(os);
+            try {
+                if (os != null) {
+                    os.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return ret;
     }
@@ -1538,7 +1544,7 @@ public final class ImageUtils {
      * @return the type of image
      */
     public static String getImageType(final File file) {
-        if (file == null) return null;
+        if (file == null) return "";
         InputStream is = null;
         try {
             is = new FileInputStream(file);
@@ -1549,7 +1555,13 @@ public final class ImageUtils {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            CloseUtils.closeIO(is);
+            try {
+                if (is != null) {
+                    is.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return getFileExtension(file.getAbsolutePath()).toUpperCase();
     }
@@ -1904,7 +1916,11 @@ public final class ImageUtils {
             e.printStackTrace();
             return null;
         } finally {
-            CloseUtils.closeIO(is);
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -76,10 +76,11 @@ public final class DeviceUtils {
      */
     @SuppressLint("HardwareIds")
     public static String getAndroidID() {
-        return Settings.Secure.getString(
+        String id = Settings.Secure.getString(
                 Utils.getApp().getContentResolver(),
                 Settings.Secure.ANDROID_ID
         );
+        return id == null ? "" : id;
     }
 
     /**

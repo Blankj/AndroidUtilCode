@@ -43,7 +43,7 @@ public final class SDCardUtils {
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
             return Environment.getExternalStorageDirectory().getAbsolutePath();
         }
-        return null;
+        return "";
     }
 
     /**

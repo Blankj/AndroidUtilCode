@@ -52,7 +52,7 @@ public final class PhoneUtils {
     public static String getDeviceId() {
         TelephonyManager tm =
                 (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
-        return tm != null ? tm.getDeviceId() : null;
+        return tm != null ? tm.getDeviceId() : "";
     }
 
     /**
@@ -68,9 +68,9 @@ public final class PhoneUtils {
         TelephonyManager tm =
                 (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            return tm != null ? tm.getImei() : null;
+            return tm != null ? tm.getImei() : "";
         }
-        return tm != null ? tm.getDeviceId() : null;
+        return tm != null ? tm.getDeviceId() : "";
     }
 
     /**
@@ -86,9 +86,9 @@ public final class PhoneUtils {
         TelephonyManager tm =
                 (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            return tm != null ? tm.getMeid() : null;
+            return tm != null ? tm.getMeid() : "";
         } else {
-            return tm != null ? tm.getDeviceId() : null;
+            return tm != null ? tm.getDeviceId() : "";
         }
     }
 
@@ -104,7 +104,7 @@ public final class PhoneUtils {
     public static String getIMSI() {
         TelephonyManager tm =
                 (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
-        return tm != null ? tm.getSubscriberId() : null;
+        return tm != null ? tm.getSubscriberId() : "";
     }
 
     /**
@@ -143,7 +143,7 @@ public final class PhoneUtils {
     public static String getSimOperatorName() {
         TelephonyManager tm =
                 (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
-        return tm != null ? tm.getSimOperatorName() : null;
+        return tm != null ? tm.getSimOperatorName() : "";
     }
 
     /**
