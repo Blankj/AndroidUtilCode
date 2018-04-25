@@ -1402,7 +1402,7 @@ public final class TimeUtils {
      *              <li>{@link Calendar#ERA}</li>
      *              <li>{@link Calendar#YEAR}</li>
      *              <li>{@link Calendar#MONTH}</li>
-     *              ...
+     *              <li>...</li>
      *              <li>{@link Calendar#DST_OFFSET}</li>
      *              </ul>
      * @return the value of the given calendar field
@@ -1421,7 +1421,7 @@ public final class TimeUtils {
      *               <li>{@link Calendar#ERA}</li>
      *               <li>{@link Calendar#YEAR}</li>
      *               <li>{@link Calendar#MONTH}</li>
-     *               ...
+     *               <li>...</li>
      *               <li>{@link Calendar#DST_OFFSET}</li>
      *               </ul>
      * @return the value of the given calendar field
@@ -1441,7 +1441,7 @@ public final class TimeUtils {
      *              <li>{@link Calendar#ERA}</li>
      *              <li>{@link Calendar#YEAR}</li>
      *              <li>{@link Calendar#MONTH}</li>
-     *              ...
+     *              <li>...</li>
      *              <li>{@link Calendar#DST_OFFSET}</li>
      *              </ul>
      * @return the value of the given calendar field
@@ -1461,7 +1461,7 @@ public final class TimeUtils {
      *               <li>{@link Calendar#ERA}</li>
      *               <li>{@link Calendar#YEAR}</li>
      *               <li>{@link Calendar#MONTH}</li>
-     *               ...
+     *               <li>...</li>
      *               <li>{@link Calendar#DST_OFFSET}</li>
      *               </ul>
      * @return the value of the given calendar field
