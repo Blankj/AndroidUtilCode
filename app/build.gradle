@@ -36,9 +36,8 @@ android {
     }
 
     sourceSets {
-        main {
-            res.srcDirs('src/main/res', 'src/main/res_core', 'src/main/res_sub')
-        }
+        main.res.srcDirs += 'src/main/res_core'
+        main.res.srcDirs += 'src/main/res_sub'
     }
 
     lintOptions {

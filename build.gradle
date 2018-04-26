@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.0'
+        classpath 'com.android.tools.build:gradle:3.1.2'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
 
@@ -20,6 +20,17 @@ allprojects {
     repositories {
         google()
         jcenter()
+    }
+
+    configurations.all {
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+
+        resolutionStrategy.eachDependency {
+            if (it.requested.group == 'com.android.support'
+                    && it.requested.name != 'multidex') {
+                it.useVersion support_version
+            }
+        }
     }
 }
 
@@ -45,5 +56,3 @@ ext {
     junit_version = '4.12'
     robolectric_version = '3.1.2'
 }
-
-
