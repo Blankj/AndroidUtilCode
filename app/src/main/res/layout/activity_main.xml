@@ -1,183 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="@dimen/spacing_small">
+        android:layout_height="192dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-        <Button
-            style="@style/BtnFont"
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/ctl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/spacing_16"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_launcher"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.6" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <View
+        android:id="@+id/fake_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="activityClick"
-            android:text="@string/test.activity"
-            />
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/spacing_16"
+            android:paddingRight="@dimen/spacing_16">
 
-        <Button
-            style="@style/BtnFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="appClick"
-            android:text="@string/test.app"
-            />
+            <Button
+                style="@style/WideBtnStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="coreUtilClick"
+                android:text="@string/core_util" />
 
-        <Button
-            style="@style/BtnFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="cleanClick"
-            android:text="@string/test.clean"
-            />
+            <Button
+                style="@style/WideBtnStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="subUtilClick"
+                android:text="@string/sub_util" />
 
-        <Button
-            style="@style/BtnFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="crashClick"
-            android:text="@string/test.crash"
-            />
-
-        <Button
-            style="@style/BtnFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="deviceClick"
-            android:text="@string/test.device"
-            />
-
-        <Button
-            style="@style/BtnFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="fragmentClick"
-            android:text="@string/test.fragment"
-            />
-
-        <!--<Button-->
-            <!--style="@style/BtnFont"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:onClick="flashlightClick"-->
-            <!--android:text="@string/test.flashlight"-->
-            <!--/>-->
-
-        <Button
-            style="@style/BtnFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="handlerClick"
-            android:text="@string/test.handler"
-            />
-
-        <Button
-            style="@style/BtnFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="imageClick"
-            android:text="@string/test.image"
-            />
-
-        <Button
-            style="@style/BtnFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="keyboardClick"
-            android:text="@string/test.keyboard"
-            />
-
-        <Button
-            style="@style/BtnFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="locationClick"
-            android:text="@string/test.location"
-            />
-
-        <Button
-            style="@style/BtnFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="networkClick"
-            android:text="@string/test.network"
-            />
-
-        <Button
-            style="@style/BtnFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="permissionClick"
-            android:text="@string/test.permission"
-            />
-
-        <Button
-            style="@style/BtnFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="phoneClick"
-            android:text="@string/test.phone"
-            />
-
-        <Button
-            style="@style/BtnFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="phoneClick"
-            android:text="@string/test.phone"
-            />
-
-        <Button
-            style="@style/BtnFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="pinyinClick"
-            android:text="@string/test.pinyin"
-            />
-
-        <Button
-            style="@style/BtnFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="processClick"
-            android:text="@string/test.process"
-            />
-
-        <Button
-            style="@style/BtnFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="sdcardClick"
-            android:text="@string/test.sdcard"
-            />
-
-        <Button
-            style="@style/BtnFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="snackbarClick"
-            android:text="@string/test.snackbar"
-            />
-
-        <Button
-            style="@style/BtnFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="spannableClick"
-            android:text="@string/test.spannable"
-            />
-
-        <Button
-            style="@style/BtnFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="toastClick"
-            android:text="@string/test.toast"
-            />
-
-    </LinearLayout>
-</ScrollView>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

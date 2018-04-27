@@ -1,0 +1,24 @@
+language: android
+jdk: oraclejdk8
+sudo: false
+
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-27.0.2
+    - android-27
+    - add-on
+    - extra
+
+  licenses:
+    - 'android-sdk-license-.+'
+
+  notifications:
+    email: false
+
+before_install:
+    - yes | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;26.0.2"
+
+script:
+  - ./gradlew build connectedCheck --info
