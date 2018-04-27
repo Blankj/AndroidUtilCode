@@ -10,8 +10,8 @@
     <string name="brightness_set_auto_brightness_disable">Set Auto Brightness Disable</string>
 
     <!-- Flashlight相关 -->
-    <string name="flashlight_open">Open Flashlight</string>
-    <string name="flashlight_close">Close Flashlight</string>
+    <string name="flashlight_on">Set Flashlight On</string>
+    <string name="flashlight_off">Set Flashlight Off</string>
 
 
 </resources>

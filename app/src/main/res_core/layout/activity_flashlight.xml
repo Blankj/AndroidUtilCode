@@ -14,17 +14,17 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/btn_open_flashlight"
+        android:id="@+id/btn_set_flashlight_on"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/flashlight_open" />
+        android:text="@string/flashlight_on" />
 
     <Button
-        android:id="@+id/btn_close_flashlight"
+        android:id="@+id/btn_set_flashlight_off"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/flashlight_close" />
+        android:text="@string/flashlight_off" />
 
 </LinearLayout>
