@@ -30,7 +30,17 @@ public final class SPUtils {
      * @return the single {@link SPUtils} instance
      */
     public static SPUtils getInstance() {
-        return getInstance("");
+        return getInstance("", Context.MODE_PRIVATE);
+    }
+
+    /**
+     * Return the single {@link SPUtils} instance
+     *
+     * @param mode Operating mode.
+     * @return the single {@link SPUtils} instance
+     */
+    public static SPUtils getInstance(final int mode) {
+        return getInstance("", mode);
     }
 
     /**
@@ -40,10 +50,21 @@ public final class SPUtils {
      * @return the single {@link SPUtils} instance
      */
     public static SPUtils getInstance(String spName) {
+        return getInstance(spName, Context.MODE_PRIVATE);
+    }
+
+    /**
+     * Return the single {@link SPUtils} instance
+     *
+     * @param spName The name of sp.
+     * @param mode   Operating mode.
+     * @return the single {@link SPUtils} instance
+     */
+    public static SPUtils getInstance(String spName, final int mode) {
         if (isSpace(spName)) spName = "spUtils";
         SPUtils spUtils = SP_UTILS_MAP.get(spName);
         if (spUtils == null) {
-            spUtils = new SPUtils(spName);
+            spUtils = new SPUtils(spName, mode);
             SP_UTILS_MAP.put(spName, spUtils);
         }
         return spUtils;
@@ -51,6 +72,10 @@ public final class SPUtils {
 
     private SPUtils(final String spName) {
         sp = Utils.getApp().getSharedPreferences(spName, Context.MODE_PRIVATE);
+    }
+
+    private SPUtils(final String spName, final int mode) {
+        sp = Utils.getApp().getSharedPreferences(spName, mode);
     }
 
     /**
