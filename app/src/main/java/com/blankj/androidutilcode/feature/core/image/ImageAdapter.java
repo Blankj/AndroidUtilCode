@@ -15,7 +15,7 @@ import java.util.List;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/09/18
- *     desc  :
+ *     desc  : demo about ImageUtils
  * </pre>
  */
 public class ImageAdapter extends SingleAdapter<ImageBean> {

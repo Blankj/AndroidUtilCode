@@ -21,7 +21,7 @@ import com.r0adkll.slidr.Slidr;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/06/27
- *     desc  : DrawerActivity 基类
+ *     desc  : base about back activity
  * </pre>
  */
 public abstract class BaseBackActivity extends BaseActivity {

@@ -24,7 +24,7 @@ import com.blankj.utilcode.util.SpanUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/02/08
- *     desc  :
+ *     desc  : demo about BrightnessUtils
  * </pre>
  */
 public class BrightnessActivity extends BaseActivity {

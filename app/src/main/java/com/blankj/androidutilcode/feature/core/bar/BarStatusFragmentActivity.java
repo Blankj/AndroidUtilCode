@@ -22,7 +22,7 @@ import java.util.ArrayList;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/05/27
- *     desc  : Bar 工具类 Demo
+ *     desc  : demo about BarUtils
  * </pre>
  */
 public class BarStatusFragmentActivity extends BaseActivity {

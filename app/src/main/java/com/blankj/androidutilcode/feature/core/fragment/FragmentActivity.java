@@ -20,7 +20,7 @@ import com.blankj.utilcode.util.FragmentUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 17/02/01
- *     desc  : Fragment 工具类 Demo
+ *     desc  : demo about FragmentUtils
  * </pre>
  */
 public class FragmentActivity extends BaseActivity {

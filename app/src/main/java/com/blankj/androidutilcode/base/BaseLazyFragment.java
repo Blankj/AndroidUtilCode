@@ -7,7 +7,7 @@ import android.util.Log;
  *     author: blankj
  *     blog  : http://blankj.com
  *     time  : 2018/03/23
- *     desc  :
+ *     desc  : base about lazy fragment
  * </pre>
  */
 public abstract class BaseLazyFragment extends BaseFragment {

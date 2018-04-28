@@ -19,7 +19,7 @@ import com.blankj.utilcode.util.SpanUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/13
- *     desc  : Location 工具类 Demo
+ *     desc  : demo about LocationUtils
  * </pre>
  */
 public class LocationActivity extends BaseBackActivity {

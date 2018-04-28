@@ -13,7 +13,7 @@ import com.squareup.leakcanary.LeakCanary;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/12
- *     desc  : 工具类测试 App
+ *     desc  : app about utils
  * </pre>
  */
 public class UtilsApp extends BaseApplication {

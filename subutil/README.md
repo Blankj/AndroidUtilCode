@@ -40,6 +40,17 @@ bd09ToWGS84
 wgs84ToBd09
 ```
 
+* ### About Flashlight -> [FlashlightUtils.java][flashlight.java] -> [Demo][flashlight.test]
+```
+getInstance
+Instance.register
+Instance.unregister
+Instance.setFlashlightOn
+Instance.setFlashlightOff
+Instance.isFlashlightOn
+isFlashlightEnable
+```
+
 * ### About Gson -> [GsonUtils.java][gson.java] -> [Test][gson.test]
 ```
 getGson

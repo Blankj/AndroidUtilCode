@@ -11,10 +11,14 @@ import java.util.List;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/01/06
- *     desc  : 权限帮助类
+ *     desc  : helper about permission
  * </pre>
  */
 public class PermissionHelper {
+
+    public static void requestCamera(final OnPermissionGrantedListener listener) {
+        request(listener, PermissionConstants.CAMERA);
+    }
 
     public static void requestStorage(final OnPermissionGrantedListener listener) {
         request(listener, PermissionConstants.STORAGE);

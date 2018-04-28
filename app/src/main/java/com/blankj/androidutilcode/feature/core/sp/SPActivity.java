@@ -16,7 +16,7 @@ import com.blankj.androidutilcode.data.DataManager;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/01/08
- *     desc  : SP 工具类 Demo
+ *     desc  : demo about SPUtils
  * </pre>
  */
 public class SPActivity extends BaseBackActivity {

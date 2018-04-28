@@ -12,7 +12,7 @@ import java.lang.reflect.Type;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/04/05
- *     desc  :
+ *     desc  : utils about gson
  * </pre>
  */
 public final class GsonUtils {

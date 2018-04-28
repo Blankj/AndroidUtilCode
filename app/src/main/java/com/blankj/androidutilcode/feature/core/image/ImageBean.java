@@ -11,12 +11,12 @@ import com.blankj.utilcode.util.Utils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/09/18
- *     desc  :
+ *     desc  : demo about ImageUtils
  * </pre>
  */
 public class ImageBean {
 
-    int    resId;
+    int resId;
     String name;
     Bitmap image;
 

@@ -90,19 +90,19 @@ isNavBarVisible
 * ### About Cache -> [CacheUtils.java][cache.java] -> [Test][cache.test]
 ```
 getInstance
-put
-getBytes
-getString
-getJSONObject
-getJSONArray
-getBitmap
-getDrawable
-getParcelable
-getSerializable
-getCacheSize
-getCacheCount
-remove
-clear
+Instance.put
+Instance.getBytes
+Instance.getString
+Instance.getJSONObject
+Instance.getJSONArray
+Instance.getBitmap
+Instance.getDrawable
+Instance.getParcelable
+Instance.getSerializable
+Instance.getCacheSize
+Instance.getCacheCount
+Instance.remove
+Instance.clear
 ```
 
 * ### About Clean -> [CleanUtils.java][clean.java] -> [Demo][clean.demo]
@@ -579,16 +579,16 @@ create
 * ### About SP -> [SPUtils.java][sp.java] -> [Demo][sp.demo]
 ```
 getInstance
-put
-getString
-getInt
-getLong
-getFloat
-getBoolean
-getAll
-contains
-remove
-clear
+Instance.put
+Instance.getString
+Instance.getInt
+Instance.getLong
+Instance.getFloat
+Instance.getBoolean
+Instance.getAll
+Instance.contains
+Instance.remove
+Instance.clear
 ```
 
 * ### About String -> [StringUtils.java][string.java] -> [Test][string.test]
@@ -633,9 +633,7 @@ isToday
 isLeapYear
 getChineseWeek
 getUSWeek
-getWeekIndex
-getWeekOfMonth
-getWeekOfYear
+getValueByCalendarField
 getChineseZodiac
 getZodiac
 ```

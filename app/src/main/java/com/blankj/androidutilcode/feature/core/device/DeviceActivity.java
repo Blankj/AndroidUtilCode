@@ -19,7 +19,7 @@ import java.util.Arrays;
  *     author: Blankj
  *     blog : http://blankj.com
  *     time : 2016/09/27
- *     desc : Device 工具类 Demo
+ *     desc : demo about DeviceUtils
  * </pre>
  */
 public class DeviceActivity extends BaseBackActivity {

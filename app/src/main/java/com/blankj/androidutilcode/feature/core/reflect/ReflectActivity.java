@@ -17,7 +17,7 @@ import com.blankj.utilcode.util.SpanUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/01/29
- *     desc  :
+ *     desc  : demo about ReflectUtils
  * </pre>
  */
 public class ReflectActivity extends BaseBackActivity {

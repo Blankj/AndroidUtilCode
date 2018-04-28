@@ -25,7 +25,7 @@ import java.util.List;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/01/01
- *     desc  : Permission 工具类 Demo
+ *     desc  : demo about PermissionUtils
  * </pre>
  */
 public class PermissionActivity extends BaseBackActivity {

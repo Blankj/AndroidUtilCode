@@ -17,7 +17,7 @@ import com.blankj.utilcode.util.SpanUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/27
- *     desc  : SDCard 工具类 Demo
+ *     desc  : demo about SDCardUtils
  * </pre>
  */
 public class SDCardActivity extends BaseBackActivity {

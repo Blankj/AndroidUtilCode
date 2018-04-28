@@ -18,7 +18,7 @@ import com.blankj.utilcode.util.SpanUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/27
- *     desc  : Screen 工具类 Demo
+ *     desc  : demo about ScreenUtils
  * </pre>
  */
 public class ScreenActivity extends BaseActivity {

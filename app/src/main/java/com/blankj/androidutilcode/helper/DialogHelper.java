@@ -18,7 +18,7 @@ import com.blankj.utilcode.util.PermissionUtils.OnRationaleListener.ShouldReques
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/01/10
- *     desc  : 对话框工具类
+ *     desc  : helper about dialog
  * </pre>
  */
 public class DialogHelper {

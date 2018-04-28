@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.blankj.androidutilcode">
+    package="com.blankj.androidutilcode">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
@@ -39,11 +39,6 @@
 
     <!--flashlight-->
     <uses-permission android:name="android.permission.CAMERA" />
-
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-feature android:name="android.hardware.camera.flash" />
-
     <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <!--location-->
@@ -155,12 +150,10 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.core.sp.SPActivity"
-            android:launchMode="singleTop">
-        </activity>
+            android:launchMode="singleTop" />
         <activity
             android:name=".feature.core.span.SpanActivity"
-            android:launchMode="singleTop">
-        </activity>
+            android:launchMode="singleTop" />
         <activity
             android:name=".feature.core.toast.ToastActivity"
             android:launchMode="singleTop" />
@@ -171,6 +164,9 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.sub.brightness.BrightnessActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.sub.flashlight.FlashlightActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.sub.location.LocationActivity"

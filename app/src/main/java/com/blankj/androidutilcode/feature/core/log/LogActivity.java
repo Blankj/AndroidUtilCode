@@ -19,7 +19,7 @@ import com.blankj.utilcode.util.LogUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/03/22
- *     desc  : Log 工具类 Demo
+ *     desc  : demo about LogUtils
  * </pre>
  */
 public class LogActivity extends BaseBackActivity {

@@ -20,7 +20,7 @@ import com.blankj.utilcode.util.SpanUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/13
- *     desc  : Network 工具类 Demo
+ *     desc  : demo about NetworkUtils
  * </pre>
  */
 public class NetworkActivity extends BaseBackActivity {

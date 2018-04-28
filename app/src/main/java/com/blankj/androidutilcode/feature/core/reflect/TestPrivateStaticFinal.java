@@ -5,7 +5,7 @@ package com.blankj.androidutilcode.feature.core.reflect;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/01/12
- *     desc  :
+ *     desc  : demo about ReflectUtils
  * </pre>
  */
 public class TestPrivateStaticFinal {

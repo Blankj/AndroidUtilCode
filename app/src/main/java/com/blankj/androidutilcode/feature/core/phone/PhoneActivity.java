@@ -19,7 +19,7 @@ import com.blankj.utilcode.util.SpanUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/13
- *     desc  : Phone 工具类 Demo
+ *     desc  : demo about PhoneUtils
  * </pre>
  */
 public class PhoneActivity extends BaseBackActivity {

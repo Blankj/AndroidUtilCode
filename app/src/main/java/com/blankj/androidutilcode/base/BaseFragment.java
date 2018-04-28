@@ -18,7 +18,7 @@ import android.view.ViewGroup;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/03/28
- *     desc  : Fragment－v4 基类
+ *     desc  : base about v4-fragment
  * </pre>
  */
 public abstract class BaseFragment extends Fragment

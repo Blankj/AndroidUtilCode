@@ -6,6 +6,14 @@ import android.text.TextPaint;
 import android.text.style.CharacterStyle;
 import android.text.style.UpdateAppearance;
 
+/**
+ * <pre>
+ *     author: Blankj
+ *     blog  : http://blankj.com
+ *     time  : 2016/09/27
+ *     desc  : demo about SpanUtils
+ * </pre>
+ */
 public class ForegroundAlphaColorSpan extends CharacterStyle
         implements UpdateAppearance {
 

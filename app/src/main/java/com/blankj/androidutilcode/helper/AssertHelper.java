@@ -14,7 +14,7 @@ import java.io.IOException;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/01/07
- *     desc  :
+ *     desc  : helper about assert
  * </pre>
  */
 public class AssertHelper {

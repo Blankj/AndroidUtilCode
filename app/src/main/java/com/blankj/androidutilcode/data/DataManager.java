@@ -9,7 +9,7 @@ import java.util.Map;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/01/08
- *     desc  : 数据管理器
+ *     desc  : manager about data
  * </pre>
  */
 public class DataManager {

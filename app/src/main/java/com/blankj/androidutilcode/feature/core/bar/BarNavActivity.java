@@ -24,7 +24,7 @@ import java.util.Random;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/13
- *     desc  : Activity 工具类 Demo
+ *     desc  : demo about BarUtils
  * </pre>
  */
 public class BarNavActivity extends BaseBackActivity {

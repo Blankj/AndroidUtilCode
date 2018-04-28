@@ -40,6 +40,17 @@ bd09ToWGS84 : BD09 坐标转 WGS84 坐标
 wgs84ToBd09 : WGS84 坐标转 BD09 坐标
 ```
 
+* ### 闪光灯相关 -> [FlashlightUtils.java][flashlight.java] -> [Demo][flashlight.test]
+```
+getInstance              : 获取闪光灯实例
+Instance.register        : 注册
+Instance.unregister      : 注销
+Instance.setFlashlightOn : 打开闪光灯
+Instance.setFlashlightOff: 关闭闪光灯
+Instance.isFlashlightOn  : 判断闪光灯是否打开
+isFlashlightEnable       : 判断设备是否支持闪光灯
+```
+
 * ### Gson 相关 -> [GsonUtils.java][gson.java] -> [Test][gson.test]
 ```
 getGson : 获取 Gson 对象
@@ -104,6 +115,9 @@ scheduleWithFixedDelay: 延迟并以固定休息时间循环执行命令
 
 [coordinate.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/CoordinateUtils.java
 [coordinate.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/test/java/com/blankj/subutil/util/CoordinateUtilsTest.java
+
+[flashlight.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/FlashlightUtils.java
+[flashlight.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/sub/flashlight/FlashlightActivity.java
 
 [gson.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/GsonUtils.java
 [gson.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/test/java/com/blankj/subutil/util/GsonUtilsTest.java

@@ -11,7 +11,7 @@ import java.io.File;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/05/10
- *     desc  : 配置常量
+ *     desc  : config about constants
  * </pre>
  */
 public class Config {

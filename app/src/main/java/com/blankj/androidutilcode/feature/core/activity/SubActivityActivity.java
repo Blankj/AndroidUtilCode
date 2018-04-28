@@ -18,7 +18,7 @@ import java.util.Random;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/13
- *     desc  : Activity 工具类 Demo
+ *     desc  : demo about ActivityUtils
  * </pre>
  */
 public class SubActivityActivity extends BaseBackActivity {

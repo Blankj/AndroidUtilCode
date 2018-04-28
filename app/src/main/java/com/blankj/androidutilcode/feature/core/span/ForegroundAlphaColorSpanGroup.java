@@ -6,8 +6,8 @@ import java.util.ArrayList;
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2017/06/11
- *     desc  :
+ *     time  : 2016/09/27
+ *     desc  : demo about SpanUtils
  * </pre>
  */
 public class ForegroundAlphaColorSpanGroup {

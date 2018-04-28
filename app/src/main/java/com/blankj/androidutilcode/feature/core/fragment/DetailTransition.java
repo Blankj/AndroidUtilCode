@@ -14,7 +14,7 @@ import android.util.AttributeSet;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 17/02/21
- *     desc  :
+ *     desc  : demo about FragmentUtils
  * </pre>
  */
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)

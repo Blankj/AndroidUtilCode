@@ -21,7 +21,7 @@ import java.util.Random;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 17/02/02
- *     desc  :
+ *     desc  : demo about FragmentUtils
  * </pre>
  */
 public class Root2Fragment extends BaseFragment

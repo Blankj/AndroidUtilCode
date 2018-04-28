@@ -19,7 +19,7 @@ import com.blankj.utilcode.util.ToastUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/29
- *     desc  : Toast 工具类 Demo
+ *     desc  : demo about ToastUtils
  * </pre>
  */
 public class ToastActivity extends BaseBackActivity {
