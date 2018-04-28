@@ -116,6 +116,9 @@ scheduleWithFixedDelay
 [coordinate.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/CoordinateUtils.java
 [coordinate.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/test/java/com/blankj/subutil/util/CoordinateUtilsTest.java
 
+[flashlight.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/FlashlightUtils.java
+[flashlight.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/sub/flashlight/FlashlightActivity.java
+
 [gson.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/GsonUtils.java
 [gson.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/test/java/com/blankj/subutil/util/GsonUtilsTest.java
 

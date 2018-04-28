@@ -120,10 +120,6 @@ public final class KeyboardUtils {
     }
 
     private static int getContentViewInvisibleHeight(final Activity activity) {
-        final int flags = activity.getWindow().getAttributes().flags;
-        if ((flags & WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS) != 0) {
-            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        }
         final View contentView = activity.findViewById(android.R.id.content);
         final Rect outRect = new Rect();
         contentView.getWindowVisibleDisplayFrame(outRect);
@@ -139,6 +135,10 @@ public final class KeyboardUtils {
      */
     public static void registerSoftInputChangedListener(final Activity activity,
                                                         final OnSoftInputChangedListener listener) {
+        final int flags = activity.getWindow().getAttributes().flags;
+        if ((flags & WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS) != 0) {
+            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
         final View contentView = activity.findViewById(android.R.id.content);
         sContentViewInvisibleHeightPre = getContentViewInvisibleHeight(activity);
         onSoftInputChangedListener = listener;

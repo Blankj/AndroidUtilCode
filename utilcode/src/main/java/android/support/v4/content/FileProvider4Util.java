@@ -1,5 +1,7 @@
 package android.support.v4.content;
 
+import android.support.annotation.Keep;
+
 /**
  * <pre>
  *     author: Blankj
@@ -8,5 +10,6 @@ package android.support.v4.content;
  *     desc  :
  * </pre>
  */
+@Keep
 public final class FileProvider4Util extends FileProvider {
 }

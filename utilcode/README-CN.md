@@ -328,14 +328,14 @@ getCaptureIntent                 : 获取拍照的意图
 
 * ### 键盘相关 -> [KeyboardUtils.java][keyboard.java] -> [Demo][keyboard.demo]
 ```
-showSoftInput                   : 动态显示软键盘
-hideSoftInput                   : 动态隐藏软键盘
-toggleSoftInput                 : 切换键盘显示与否状态
-isSoftInputVisible              : 判断软键盘是否可见
-registerSoftInputChangedListener: 注册软键盘改变监听器
+showSoftInput                     : 动态显示软键盘
+hideSoftInput                     : 动态隐藏软键盘
+toggleSoftInput                   : 切换键盘显示与否状态
+isSoftInputVisible                : 判断软键盘是否可见
+registerSoftInputChangedListener  : 注册软键盘改变监听器
 unregisterSoftInputChangedListener: 注销软键盘改变监听器
-fixSoftInputLeaks               : 修复软键盘内存泄漏
-clickBlankArea2HideSoftInput    : 点击屏幕空白区域隐藏软键盘
+fixSoftInputLeaks                 : 修复软键盘内存泄漏
+clickBlankArea2HideSoftInput      : 点击屏幕空白区域隐藏软键盘
 ```
 
 * ### 日志相关 -> [LogUtils.java][log.java] -> [Demo][log.demo]

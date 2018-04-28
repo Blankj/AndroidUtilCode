@@ -333,6 +333,7 @@ hideSoftInput
 toggleSoftInput
 isSoftInputVisible
 registerSoftInputChangedListener
+unregisterSoftInputChangedListener
 fixSoftInputLeaks
 clickBlankArea2HideSoftInput
 ```
