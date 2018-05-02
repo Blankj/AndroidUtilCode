@@ -41,7 +41,12 @@ public final class KeyboardUtils {
                 (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         if (imm == null) return;
         View view = activity.getCurrentFocus();
-        if (view == null) view = new View(activity);
+        if (view == null) {
+            view = new View(activity);
+            view.setFocusable(true);
+            view.setFocusableInTouchMode(true);
+            view.requestFocus();
+        }
         imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
     }
 

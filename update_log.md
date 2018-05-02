@@ -1,3 +1,4 @@
+* 18/05/02 修复 PermissionUtils 空异常，发布 1.14.2 版本
 * 18/04/28 新增 FlashlightUtils，发布 1.14.1 版本
 * 18/04/26 修复 KeyboardUtils 全屏 NO_LIMIT 的 bug
 * 18/04/25 修复多个空异常

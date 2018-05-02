@@ -44,8 +44,8 @@ ext {
     min_sdk_version = 14
     target_sdk_version = 27
 
-    version_code = 1_014_001
-    version_name = '1.14.1'// E.g 1.9.72 => 1,009,072
+    version_code = 1_014_002
+    version_name = '1.14.2'// E.g 1.9.72 => 1,009,072
 
     // App dependencies
     support_version = '27.1.0'
