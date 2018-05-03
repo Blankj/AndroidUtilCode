@@ -241,17 +241,8 @@ public final class ToastUtils {
                 final Toast toast = Toast.makeText(Utils.getTopActivityOrApp(), text, duration);
                 sWeakToast = new WeakReference<>(toast);
                 final TextView tvMessage = toast.getView().findViewById(android.R.id.message);
-                int msgColor = tvMessage.getCurrentTextColor();
-                //it solve the font of toast
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    tvMessage.setTextAppearance(android.R.style.TextAppearance);
-                } else {
-                    tvMessage.setTextAppearance(tvMessage.getContext(), android.R.style.TextAppearance);
-                }
                 if (sMsgColor != COLOR_DEFAULT) {
                     tvMessage.setTextColor(sMsgColor);
-                } else {
-                    tvMessage.setTextColor(msgColor);
                 }
                 if (sMsgTextSize != -1) {
                     tvMessage.setTextSize(sMsgTextSize);

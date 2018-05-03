@@ -25,63 +25,63 @@ public final class ShellUtils {
     /**
      * Execute the command.
      *
-     * @param command The command.
-     * @param isRoot  True to use root, false otherwise.
+     * @param command  The command.
+     * @param isRooted True to use root, false otherwise.
      * @return the single {@link CommandResult} instance
      */
-    public static CommandResult execCmd(final String command, final boolean isRoot) {
-        return execCmd(new String[]{command}, isRoot, true);
+    public static CommandResult execCmd(final String command, final boolean isRooted) {
+        return execCmd(new String[]{command}, isRooted, true);
     }
 
     /**
      * Execute the command.
      *
      * @param commands The commands.
-     * @param isRoot   True to use root, false otherwise.
+     * @param isRooted True to use root, false otherwise.
      * @return the single {@link CommandResult} instance
      */
-    public static CommandResult execCmd(final List<String> commands, final boolean isRoot) {
-        return execCmd(commands == null ? null : commands.toArray(new String[]{}), isRoot, true);
+    public static CommandResult execCmd(final List<String> commands, final boolean isRooted) {
+        return execCmd(commands == null ? null : commands.toArray(new String[]{}), isRooted, true);
     }
 
     /**
      * Execute the command.
      *
      * @param commands The commands.
-     * @param isRoot   True to use root, false otherwise.
+     * @param isRooted True to use root, false otherwise.
      * @return the single {@link CommandResult} instance
      */
-    public static CommandResult execCmd(final String[] commands, final boolean isRoot) {
-        return execCmd(commands, isRoot, true);
+    public static CommandResult execCmd(final String[] commands, final boolean isRooted) {
+        return execCmd(commands, isRooted, true);
     }
 
     /**
      * Execute the command.
      *
      * @param command         The command.
-     * @param isRoot          True to use root, false otherwise.
+     * @param isRooted        True to use root, false otherwise.
      * @param isNeedResultMsg True to return the message of result, false otherwise.
      * @return the single {@link CommandResult} instance
      */
     public static CommandResult execCmd(final String command,
-                                        final boolean isRoot,
+                                        final boolean isRooted,
                                         final boolean isNeedResultMsg) {
-        return execCmd(new String[]{command}, isRoot, isNeedResultMsg);
+        return execCmd(new String[]{command}, isRooted, isNeedResultMsg);
     }
 
     /**
      * Execute the command.
      *
      * @param commands        The commands.
-     * @param isRoot          True to use root, false otherwise.
+     * @param isRooted        True to use root, false otherwise.
      * @param isNeedResultMsg True to return the message of result, false otherwise.
      * @return the single {@link CommandResult} instance
      */
     public static CommandResult execCmd(final List<String> commands,
-                                        final boolean isRoot,
+                                        final boolean isRooted,
                                         final boolean isNeedResultMsg) {
         return execCmd(commands == null ? null : commands.toArray(new String[]{}),
-                isRoot,
+                isRooted,
                 isNeedResultMsg);
     }
 
@@ -89,12 +89,12 @@ public final class ShellUtils {
      * Execute the command.
      *
      * @param commands        The commands.
-     * @param isRoot          True to use root, false otherwise.
+     * @param isRooted        True to use root, false otherwise.
      * @param isNeedResultMsg True to return the message of result, false otherwise.
      * @return the single {@link CommandResult} instance
      */
     public static CommandResult execCmd(final String[] commands,
-                                        final boolean isRoot,
+                                        final boolean isRooted,
                                         final boolean isNeedResultMsg) {
         int result = -1;
         if (commands == null || commands.length == 0) {
@@ -107,7 +107,7 @@ public final class ShellUtils {
         StringBuilder errorMsg = null;
         DataOutputStream os = null;
         try {
-            process = Runtime.getRuntime().exec(isRoot ? "su" : "sh");
+            process = Runtime.getRuntime().exec(isRooted ? "su" : "sh");
             os = new DataOutputStream(process.getOutputStream());
             for (String command : commands) {
                 if (command == null) continue;

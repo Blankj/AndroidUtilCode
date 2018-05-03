@@ -8,11 +8,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * <pre>
@@ -459,5 +463,62 @@ public class ReflectUtilsTest {
         assertTrue(a.equals(c));
         //noinspection ObjectEqualsNull
         assertFalse(a.equals(null));
+    }
+
+    @Test
+    public void testProxy() {
+        assertEquals("abc", ReflectUtils.reflect((Object) "abc").proxy(Test9.class).substring(0));
+        assertEquals("bc", ReflectUtils.reflect((Object) "abc").proxy(Test9.class).substring(1));
+        assertEquals("c", ReflectUtils.reflect((Object) "abc").proxy(Test9.class).substring(2));
+
+        assertEquals("a", ReflectUtils.reflect((Object) "abc").proxy(Test9.class).substring(0, 1));
+        assertEquals("b", ReflectUtils.reflect((Object) "abc").proxy(Test9.class).substring(1, 2));
+        assertEquals("c", ReflectUtils.reflect((Object) "abc").proxy(Test9.class).substring(2, 3));
+
+        assertEquals("abc", ReflectUtils.reflect((Object) "abc").proxy(Test9.class).substring(0));
+        assertEquals("bc", ReflectUtils.reflect((Object) "abc").proxy(Test9.class).substring(1));
+        assertEquals("c", ReflectUtils.reflect((Object) "abc").proxy(Test9.class).substring(2));
+
+        assertEquals("a", ReflectUtils.reflect((Object) "abc").proxy(Test9.class).substring(0, 1));
+        assertEquals("b", ReflectUtils.reflect((Object) "abc").proxy(Test9.class).substring(1, 2));
+        assertEquals("c", ReflectUtils.reflect((Object) "abc").proxy(Test9.class).substring(2, 3));
+    }
+
+    @Test
+    public void testMapProxy() {
+        class MyMap extends HashMap<String, Object> {
+            private String baz;
+
+            public void setBaz(String baz) {
+                this.baz = "MyMap: " + baz;
+            }
+
+            public String getBaz() {
+                return baz;
+            }
+        }
+
+        Map<String, Object> map = new MyMap();
+
+        ReflectUtils.reflect(map).proxy(Test10.class).setFoo("abc");
+        assertEquals(1, map.size());
+        assertEquals("abc", map.get("foo"));
+        assertEquals("abc", ReflectUtils.reflect(map).proxy(Test10.class).getFoo());
+
+        ReflectUtils.reflect(map).proxy(Test10.class).setBar(true);
+        assertEquals(2, map.size());
+        assertEquals(true, map.get("bar"));
+        assertEquals(true, ReflectUtils.reflect(map).proxy(Test10.class).isBar());
+
+        ReflectUtils.reflect(map).proxy(Test10.class).setBaz("baz");
+        assertEquals(2, map.size());
+        assertEquals(null, map.get("baz"));
+        assertEquals("MyMap: baz", ReflectUtils.reflect(map).proxy(Test10.class).getBaz());
+
+        try {
+            ReflectUtils.reflect(map).proxy(Test10.class).testIgnore();
+            fail();
+        } catch (ReflectUtils.ReflectException ignored) {
+        }
     }
 }

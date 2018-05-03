@@ -3,14 +3,17 @@ package com.blankj.utilcode.util;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <pre>
@@ -412,6 +415,66 @@ public final class ReflectUtils {
         }
         if (!accessible.isAccessible()) accessible.setAccessible(true);
         return accessible;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // proxy
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Create a proxy for the wrapped object allowing to typesafely invoke
+     * methods on it using a custom interface.
+     *
+     * @param proxyType The interface type that is implemented by the proxy.
+     * @return a proxy for the wrapped object
+     */
+    @SuppressWarnings("unchecked")
+    public <P> P proxy(final Class<P> proxyType) {
+        final boolean isMap = (object instanceof Map);
+        final InvocationHandler handler = new InvocationHandler() {
+            @Override
+            @SuppressWarnings("null")
+            public Object invoke(Object proxy, Method method, Object[] args) {
+                String name = method.getName();
+                try {
+                    return reflect(object).method(name, args).get();
+                }
+                catch (ReflectException e) {
+                    if (isMap) {
+                        Map<String, Object> map = (Map<String, Object>) object;
+                        int length = (args == null ? 0 : args.length);
+
+                        if (length == 0 && name.startsWith("get")) {
+                            return map.get(property(name.substring(3)));
+                        } else if (length == 0 && name.startsWith("is")) {
+                            return map.get(property(name.substring(2)));
+                        } else if (length == 1 && name.startsWith("set")) {
+                            map.put(property(name.substring(3)), args[0]);
+                            return null;
+                        }
+                    }
+                    throw e;
+                }
+            }
+        };
+        return (P) Proxy.newProxyInstance(proxyType.getClassLoader(),
+                new Class[]{proxyType},
+                handler);
+    }
+
+    /**
+     * Get the POJO property name of an getter/setter
+     */
+    private static String property(String string) {
+        int length = string.length();
+
+        if (length == 0) {
+            return "";
+        } else if (length == 1) {
+            return string.toLowerCase();
+        } else {
+            return string.substring(0, 1).toLowerCase() + string.substring(1);
+        }
     }
 
     private Class<?> type() {

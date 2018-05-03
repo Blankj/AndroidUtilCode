@@ -208,13 +208,28 @@ public final class AppUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean installAppSilent(final File file, final String params) {
+        return installAppSilent(file, params, isDeviceRooted());
+    }
+
+    /**
+     * Install the app silently.
+     * <p>Without root permission must hold
+     * {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
+     *
+     * @param file     The file.
+     * @param params   The params of installation(e.g.,<code>-r</code>, <code>-s</code>).
+     * @param isRooted True to use root, false otherwise.
+     * @return {@code true}: success<br>{@code false}: fail
+     */
+    public static boolean installAppSilent(final File file,
+                                           final String params,
+                                           final boolean isRooted) {
         if (!isFileExists(file)) return false;
-        boolean isRoot = isDeviceRooted();
         String filePath = '"' + file.getAbsolutePath() + '"';
         String command = "LD_LIBRARY_PATH=/vendor/lib*:/system/lib* pm install " +
                 (params == null ? "" : params + " ")
                 + filePath;
-        ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, isRoot);
+        ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, isRooted);
         if (commandResult.successMsg != null
                 && commandResult.successMsg.toLowerCase().contains("success")) {
             return true;
@@ -275,12 +290,27 @@ public final class AppUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean uninstallAppSilent(final String packageName, final boolean isKeepData) {
+        return uninstallAppSilent(packageName, isKeepData, isDeviceRooted());
+    }
+
+    /**
+     * Uninstall the app silently.
+     * <p>Without root permission must hold
+     * {@code <uses-permission android:name="android.permission.DELETE_PACKAGES" />}</p>
+     *
+     * @param packageName The name of the package.
+     * @param isKeepData  Is keep the data.
+     * @param isRooted    True to use root, false otherwise.
+     * @return {@code true}: success<br>{@code false}: fail
+     */
+    public static boolean uninstallAppSilent(final String packageName,
+                                             final boolean isKeepData,
+                                             final boolean isRooted) {
         if (isSpace(packageName)) return false;
-        boolean isRoot = isDeviceRooted();
         String command = "LD_LIBRARY_PATH=/vendor/lib*:/system/lib* pm uninstall "
                 + (isKeepData ? "-k " : "")
                 + packageName;
-        ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, isRoot, true);
+        ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, isRooted);
         if (commandResult.successMsg != null
                 && commandResult.successMsg.toLowerCase().contains("success")) {
             return true;
@@ -299,7 +329,7 @@ public final class AppUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isAppInstalled(@NonNull final String action,
-                                         @NonNull  final String category) {
+                                         @NonNull final String category) {
         Intent intent = new Intent(action);
         intent.addCategory(category);
         PackageManager pm = Utils.getApp().getPackageManager();
