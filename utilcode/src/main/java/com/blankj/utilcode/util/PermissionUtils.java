@@ -289,6 +289,7 @@ public final class PermissionUtils {
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
             if (sInstance == null) {
+                super.onCreate(savedInstanceState);
                 Log.e("PermissionUtils", "request permissions failed");
                 finish();
                 return;
