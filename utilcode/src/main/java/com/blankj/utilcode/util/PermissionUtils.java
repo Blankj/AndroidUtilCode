@@ -12,6 +12,8 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.WindowManager;
 
 import com.blankj.utilcode.constant.PermissionConstants;
 import com.blankj.utilcode.util.PermissionUtils.OnRationaleListener.ShouldRequest;
@@ -288,6 +290,8 @@ public final class PermissionUtils {
 
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                    | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
             if (sInstance == null) {
                 super.onCreate(savedInstanceState);
                 Log.e("PermissionUtils", "request permissions failed");
@@ -319,6 +323,12 @@ public final class PermissionUtils {
                                                @NonNull int[] grantResults) {
             sInstance.onRequestPermissionsResult(this);
             finish();
+        }
+
+        @Override
+        public boolean dispatchTouchEvent(MotionEvent ev) {
+            finish();
+            return true;
         }
     }
 
