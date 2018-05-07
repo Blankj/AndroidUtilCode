@@ -7,7 +7,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.2'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
 
         classpath "tech.harmonysoft:traute-gradle:1.1.8"
         // NOTE: Do not place your application dependencies here; they belong
@@ -44,8 +44,8 @@ ext {
     min_sdk_version = 14
     target_sdk_version = 27
 
-    version_code = 1_014_003
-    version_name = '1.14.3'// E.g 1.9.72 => 1,009,072
+    version_code = 1_014_004
+    version_name = '1.14.4'// E.g 1.9.72 => 1,009,072
 
     // App dependencies
     support_version = '27.1.0'
