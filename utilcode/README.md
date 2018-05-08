@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.14.4'
+implementation 'com.blankj:utilcode:1.15.0'
 ```
 
 
@@ -469,6 +469,16 @@ getReplaceFirst
 getReplaceAll
 ```
 
+* ### About Resource -> [ResourceUtils.java][resource.java] -> [Demo][resource.demo]
+```
+copyFileFromAssets
+readAssets2String
+readAssets2List
+copyFileFromRaw
+readRaw2String
+readRaw2List
+```
+
 * ### About Screen -> [ScreenUtils.java][screen.java] -> [Demo][screen.demo]
 ```
 getScreenWidth
@@ -744,6 +754,9 @@ getComments
 
 [regex.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/RegexUtils.java
 [regex.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/RegexUtilsTest.java
+
+[resource.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ResourceUtils.java
+[resource.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/resource/ResourceActivity.java
 
 [screen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ScreenUtils.java
 [screen.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/screen/ScreenActivity.java

@@ -117,6 +117,13 @@
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="resourceClick"
+        android:text="@string/demo_resource" />
+
+    <Button
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:onClick="screenClick"
         android:text="@string/demo_screen" />
 

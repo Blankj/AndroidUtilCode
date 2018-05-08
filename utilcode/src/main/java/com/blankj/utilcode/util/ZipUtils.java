@@ -293,7 +293,7 @@ public final class ZipUtils {
             while (entries.hasMoreElements()) {
                 ZipEntry entry = ((ZipEntry) entries.nextElement());
                 String entryName = entry.getName();
-                if (entryName.startsWith("../")) {
+                if (entryName.contains("../")) {
                     Log.e("ZipUtils", "it's dangerous!");
                     return files;
                 }
@@ -303,7 +303,7 @@ public final class ZipUtils {
             while (entries.hasMoreElements()) {
                 ZipEntry entry = ((ZipEntry) entries.nextElement());
                 String entryName = entry.getName();
-                if (entryName.startsWith("../")) {
+                if (entryName.contains("../")) {
                     Log.e("ZipUtils", "it's dangerous!");
                     return files;
                 }

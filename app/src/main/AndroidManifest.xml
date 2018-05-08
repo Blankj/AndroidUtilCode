@@ -141,6 +141,9 @@
             android:name=".feature.core.reflect.ReflectActivity"
             android:launchMode="singleTop" />
         <activity
+            android:name=".feature.core.resource.ResourceActivity"
+            android:launchMode="singleTop" />
+        <activity
             android:name=".feature.core.screen.ScreenActivity"
             android:launchMode="singleTop" />
         <activity

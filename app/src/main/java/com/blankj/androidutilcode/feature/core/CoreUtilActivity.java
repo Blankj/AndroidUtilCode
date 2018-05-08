@@ -22,6 +22,7 @@ import com.blankj.androidutilcode.feature.core.permission.PermissionActivity;
 import com.blankj.androidutilcode.feature.core.phone.PhoneActivity;
 import com.blankj.androidutilcode.feature.core.process.ProcessActivity;
 import com.blankj.androidutilcode.feature.core.reflect.ReflectActivity;
+import com.blankj.androidutilcode.feature.core.resource.ResourceActivity;
 import com.blankj.androidutilcode.feature.core.screen.ScreenActivity;
 import com.blankj.androidutilcode.feature.core.sdcard.SDCardActivity;
 import com.blankj.androidutilcode.feature.core.snackbar.SnackbarActivity;
@@ -131,6 +132,10 @@ public class CoreUtilActivity extends BaseBackActivity {
 
     public void reflectClick(View view) {
         ReflectActivity.start(this);
+    }
+
+    public void resourceClick(View view) {
+        ResourceActivity.start(this);
     }
 
     public void screenClick(View view) {

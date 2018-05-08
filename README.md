@@ -41,7 +41,7 @@ If this project helps you a lot and you want to support the project's developmen
 
 [logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.14.4-brightgreen.svg
+[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.15.0-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apisvg]: https://img.shields.io/badge/API-14+-brightgreen.svg

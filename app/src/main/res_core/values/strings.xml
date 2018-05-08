@@ -15,6 +15,7 @@
     <string name="demo_phone">PhoneUtils Demo</string>
     <string name="demo_process">ProcessUtils Demo</string>
     <string name="demo_reflect">ReflectUtils Demo</string>
+    <string name="demo_resource">ResourceUtils Demo</string>
     <string name="demo_screen">ScreenUtils Demo</string>
     <string name="demo_sdcard">SDCardUtils Demo</string>
     <string name="demo_snackbar">Snackbar Demo</string>
@@ -207,6 +208,10 @@
 
     <!--Process 相关-->
     <string name="process_kill_all_background">Kill All Background Processes</string>
+
+    <!--Resource 相关-->
+    <string name="resource_test_assets">Test Assets</string>
+    <string name="resource_test_raw">Test Raw</string>
 
     <!--Screen 相关-->
     <string name="screen_set_fullscreen">Set Fullscreen</string>
