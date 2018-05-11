@@ -103,6 +103,7 @@ public class PhoneActivity extends BaseBackActivity {
                 break;
             case R.id.btn_call:
                 PermissionHelper.requestPhone(new PermissionHelper.OnPermissionGrantedListener() {
+                    @SuppressLint("MissingPermission")
                     @Override
                     public void onPermissionGranted() {
                         PhoneUtils.call("10000");
@@ -114,6 +115,7 @@ public class PhoneActivity extends BaseBackActivity {
                 break;
             case R.id.btn_send_sms_silent:
                 PermissionHelper.requestSms(new PermissionHelper.OnPermissionGrantedListener() {
+                    @SuppressLint("MissingPermission")
                     @Override
                     public void onPermissionGranted() {
                         PhoneUtils.sendSmsSilent("10000", "sendSmsSilent");

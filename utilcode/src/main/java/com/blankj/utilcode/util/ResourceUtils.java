@@ -20,7 +20,7 @@ import java.util.List;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/05/07
- *     desc  :
+ *     desc  : utils about resource
  * </pre>
  */
 public final class ResourceUtils {

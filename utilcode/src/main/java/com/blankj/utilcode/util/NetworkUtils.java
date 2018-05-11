@@ -21,6 +21,7 @@ import java.util.Enumeration;
 
 import static android.Manifest.permission.ACCESS_NETWORK_STATE;
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
+import static android.Manifest.permission.CHANGE_WIFI_STATE;
 import static android.Manifest.permission.INTERNET;
 import static android.Manifest.permission.MODIFY_PHONE_STATE;
 
@@ -200,7 +201,7 @@ public final class NetworkUtils {
      *
      * @param enabled True to enabled, false otherwise.
      */
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(CHANGE_WIFI_STATE)
     public static void setWifiEnabled(final boolean enabled) {
         @SuppressLint("WifiManagerLeak")
         WifiManager manager = (WifiManager) Utils.getApp().getSystemService(Context.WIFI_SERVICE);
@@ -223,7 +224,7 @@ public final class NetworkUtils {
      *
      * @return {@code true}: connected<br>{@code false}: disconnected
      */
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(ACCESS_NETWORK_STATE)
     public static boolean isWifiConnected() {
         ConnectivityManager cm =
                 (ConnectivityManager) Utils.getApp().getSystemService(Context.CONNECTIVITY_SERVICE);
