@@ -99,10 +99,10 @@ public class ActivityActivity extends BaseBackActivity {
                 .appendLine("getTopActivity: " + ActivityUtils.getTopActivity())
                 .appendLine("isActivityExistsInStack: " + ActivityUtils.isActivityExistsInStack(CoreUtilActivity.class))
                 .append("getActivityIcon: ")
-                .appendImage(ActivityUtils.getActivityIcon(ActivityActivity.class), SpanUtils.ALIGN_CENTER)
+                .appendImage(ActivityUtils.getActivityIcon(this), SpanUtils.ALIGN_CENTER)
                 .appendLine()
                 .append("getActivityLogo: ")
-                .appendImage(ActivityUtils.getActivityLogo(ActivityActivity.class), SpanUtils.ALIGN_CENTER)
+                .appendImage(ActivityUtils.getActivityLogo(this), SpanUtils.ALIGN_CENTER)
                 .create()
         );
         bitmap = ((BitmapDrawable) viewSharedElement.getDrawable()).getBitmap();

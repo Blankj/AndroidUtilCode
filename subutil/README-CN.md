@@ -73,6 +73,14 @@ isBetterLocation : 是否更好的位置
 isSameProvider   : 是否相同的提供者
 ```
 
+* ### MetaData 相关 -> [MetaDataUtils.java][meta_data.java] -> [Demo][meta_data.demo]
+```
+getMetaDataInApp     : 获取 application 的 meta-data 值
+getMetaDataInActivity: 获取 activity 的 meta-data 值
+getMetaDataInService : 获取 service 的 meta-data 值
+getMetaDataInReceiver: 获取 receiver 的 meta-data 值
+```
+
 * ### 拼音相关 -> [PinyinUtils.java][pinyin.java] -> [Demo][pinyin.demo]
 ```
 ccs2Pinyin           : 汉字转拼音
@@ -124,6 +132,9 @@ scheduleWithFixedDelay: 延迟并以固定休息时间循环执行命令
 
 [location.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/LocationUtils.java
 [location.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/sub/location/LocationActivity.java
+
+[meta_data.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/MetaDataUtils.java
+[meta_data.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/sub/meta_data/MetaDataActivity.java
 
 [pinyin.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/PinyinUtils.java
 [pinyin.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/sub/pinyin/PinyinActivity.java

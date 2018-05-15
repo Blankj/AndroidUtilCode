@@ -52,7 +52,7 @@ public final class ActivityUtils {
      *
      * @param clz The activity class.
      */
-    public static void startActivity(@NonNull final Class<?> clz) {
+    public static void startActivity(@NonNull final Class<? extends Activity> clz) {
         Context context = Utils.getTopActivityOrApp();
         startActivity(context, null, context.getPackageName(), clz.getName(), null);
     }
@@ -63,7 +63,7 @@ public final class ActivityUtils {
      * @param clz     The activity class.
      * @param options Additional options for how the Activity should be started.
      */
-    public static void startActivity(@NonNull final Class<?> clz,
+    public static void startActivity(@NonNull final Class<? extends Activity> clz,
                                      final Bundle options) {
         Context context = Utils.getTopActivityOrApp();
         startActivity(context, null, context.getPackageName(), clz.getName(), options);
@@ -78,7 +78,7 @@ public final class ActivityUtils {
      * @param exitAnim  A resource ID of the animation resource to use for the
      *                  outgoing activity.
      */
-    public static void startActivity(@NonNull final Class<?> clz,
+    public static void startActivity(@NonNull final Class<? extends Activity> clz,
                                      @AnimRes final int enterAnim,
                                      @AnimRes final int exitAnim) {
         Context context = Utils.getTopActivityOrApp();
@@ -96,7 +96,7 @@ public final class ActivityUtils {
      * @param clz      The activity class.
      */
     public static void startActivity(@NonNull final Activity activity,
-                                     @NonNull final Class<?> clz) {
+                                     @NonNull final Class<? extends Activity> clz) {
         startActivity(activity, null, activity.getPackageName(), clz.getName(), null);
     }
 
@@ -108,7 +108,7 @@ public final class ActivityUtils {
      * @param options  Additional options for how the Activity should be started.
      */
     public static void startActivity(@NonNull final Activity activity,
-                                     @NonNull final Class<?> clz,
+                                     @NonNull final Class<? extends Activity> clz,
                                      final Bundle options) {
         startActivity(activity, null, activity.getPackageName(), clz.getName(), options);
     }
@@ -122,7 +122,7 @@ public final class ActivityUtils {
      *                       Activity and their associated Views.
      */
     public static void startActivity(@NonNull final Activity activity,
-                                     @NonNull final Class<?> clz,
+                                     @NonNull final Class<? extends Activity> clz,
                                      final View... sharedElements) {
         startActivity(activity, null, activity.getPackageName(), clz.getName(),
                 getOptionsBundle(activity, sharedElements));
@@ -139,7 +139,7 @@ public final class ActivityUtils {
      *                  outgoing activity.
      */
     public static void startActivity(@NonNull final Activity activity,
-                                     @NonNull final Class<?> clz,
+                                     @NonNull final Class<? extends Activity> clz,
                                      @AnimRes final int enterAnim,
                                      @AnimRes final int exitAnim) {
         startActivity(activity, null, activity.getPackageName(), clz.getName(),
@@ -156,7 +156,7 @@ public final class ActivityUtils {
      * @param clz    The activity class.
      */
     public static void startActivity(@NonNull final Bundle extras,
-                                     @NonNull final Class<?> clz) {
+                                     @NonNull final Class<? extends Activity> clz) {
         Context context = Utils.getTopActivityOrApp();
         startActivity(context, extras, context.getPackageName(), clz.getName(), null);
     }
@@ -169,7 +169,7 @@ public final class ActivityUtils {
      * @param options Additional options for how the Activity should be started.
      */
     public static void startActivity(@NonNull final Bundle extras,
-                                     @NonNull final Class<?> clz,
+                                     @NonNull final Class<? extends Activity> clz,
                                      @NonNull final Bundle options) {
         Context context = Utils.getTopActivityOrApp();
         startActivity(context, extras, context.getPackageName(), clz.getName(), options);
@@ -186,7 +186,7 @@ public final class ActivityUtils {
      *                  outgoing activity.
      */
     public static void startActivity(@NonNull final Bundle extras,
-                                     @NonNull final Class<?> clz,
+                                     @NonNull final Class<? extends Activity> clz,
                                      @AnimRes final int enterAnim,
                                      @AnimRes final int exitAnim) {
         Context context = Utils.getTopActivityOrApp();
@@ -206,7 +206,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final Activity activity,
-                                     @NonNull final Class<?> clz) {
+                                     @NonNull final Class<? extends Activity> clz) {
         startActivity(activity, extras, activity.getPackageName(), clz.getName(), null);
     }
 
@@ -220,7 +220,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final Activity activity,
-                                     @NonNull final Class<?> clz,
+                                     @NonNull final Class<? extends Activity> clz,
                                      @NonNull final Bundle options) {
         startActivity(activity, extras, activity.getPackageName(), clz.getName(), options);
     }
@@ -236,7 +236,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final Activity activity,
-                                     @NonNull final Class<?> clz,
+                                     @NonNull final Class<? extends Activity> clz,
                                      final View... sharedElements) {
         startActivity(activity, extras, activity.getPackageName(), clz.getName(),
                 getOptionsBundle(activity, sharedElements));
@@ -255,7 +255,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final Activity activity,
-                                     @NonNull final Class<?> clz,
+                                     @NonNull final Class<? extends Activity> clz,
                                      @AnimRes final int enterAnim,
                                      @AnimRes final int exitAnim) {
         startActivity(activity, extras, activity.getPackageName(), clz.getName(),
@@ -758,7 +758,7 @@ public final class ActivityUtils {
      * @param clz The activity class.
      * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean isActivityExistsInStack(@NonNull final Class<?> clz) {
+    public static boolean isActivityExistsInStack(@NonNull final Class<? extends Activity> clz) {
         List<Activity> activities = Utils.getActivityList();
         for (Activity aActivity : activities) {
             if (aActivity.getClass().equals(clz)) {
@@ -811,7 +811,7 @@ public final class ActivityUtils {
      *
      * @param clz The activity class.
      */
-    public static void finishActivity(@NonNull final Class<?> clz) {
+    public static void finishActivity(@NonNull final Class<? extends Activity> clz) {
         finishActivity(clz, false);
     }
 
@@ -821,7 +821,8 @@ public final class ActivityUtils {
      * @param clz        The activity class.
      * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
      */
-    public static void finishActivity(@NonNull final Class<?> clz, final boolean isLoadAnim) {
+    public static void finishActivity(@NonNull final Class<? extends Activity> clz,
+                                      final boolean isLoadAnim) {
         List<Activity> activities = Utils.getActivityList();
         for (Activity activity : activities) {
             if (activity.getClass().equals(clz)) {
@@ -842,7 +843,7 @@ public final class ActivityUtils {
      * @param exitAnim  A resource ID of the animation resource to use for the
      *                  outgoing activity.
      */
-    public static void finishActivity(@NonNull final Class<?> clz,
+    public static void finishActivity(@NonNull final Class<? extends Activity> clz,
                                       @AnimRes final int enterAnim,
                                       @AnimRes final int exitAnim) {
         List<Activity> activities = Utils.getActivityList();
@@ -923,7 +924,7 @@ public final class ActivityUtils {
      * @param clz           The activity class.
      * @param isIncludeSelf True to include the activity, false otherwise.
      */
-    public static boolean finishToActivity(@NonNull final Class<?> clz,
+    public static boolean finishToActivity(@NonNull final Class<? extends Activity> clz,
                                            final boolean isIncludeSelf) {
         return finishToActivity(clz, isIncludeSelf, false);
     }
@@ -935,7 +936,7 @@ public final class ActivityUtils {
      * @param isIncludeSelf True to include the activity, false otherwise.
      * @param isLoadAnim    True to use animation for the outgoing activity, false otherwise.
      */
-    public static boolean finishToActivity(@NonNull final Class<?> clz,
+    public static boolean finishToActivity(@NonNull final Class<? extends Activity> clz,
                                            final boolean isIncludeSelf,
                                            final boolean isLoadAnim) {
         List<Activity> activities = Utils.getActivityList();
@@ -962,7 +963,7 @@ public final class ActivityUtils {
      * @param exitAnim      A resource ID of the animation resource to use for the
      *                      outgoing activity.
      */
-    public static boolean finishToActivity(@NonNull final Class<?> clz,
+    public static boolean finishToActivity(@NonNull final Class<? extends Activity> clz,
                                            final boolean isIncludeSelf,
                                            @AnimRes final int enterAnim,
                                            @AnimRes final int exitAnim) {
@@ -985,7 +986,7 @@ public final class ActivityUtils {
      *
      * @param clz The activity class.
      */
-    public static void finishOtherActivities(@NonNull final Class<?> clz) {
+    public static void finishOtherActivities(@NonNull final Class<? extends Activity> clz) {
         finishOtherActivities(clz, false);
     }
 
@@ -996,7 +997,7 @@ public final class ActivityUtils {
      * @param clz        The activity class.
      * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
      */
-    public static void finishOtherActivities(@NonNull final Class<?> clz,
+    public static void finishOtherActivities(@NonNull final Class<? extends Activity> clz,
                                              final boolean isLoadAnim) {
         List<Activity> activities = Utils.getActivityList();
         for (int i = activities.size() - 1; i >= 0; i--) {
@@ -1016,7 +1017,7 @@ public final class ActivityUtils {
      * @param exitAnim  A resource ID of the animation resource to use for the
      *                  outgoing activity.
      */
-    public static void finishOtherActivities(@NonNull final Class<?> clz,
+    public static void finishOtherActivities(@NonNull final Class<? extends Activity> clz,
                                              @AnimRes final int enterAnim,
                                              @AnimRes final int exitAnim) {
         List<Activity> activities = Utils.getActivityList();
@@ -1109,10 +1110,20 @@ public final class ActivityUtils {
     /**
      * Return the icon of activity.
      *
+     * @param activity The activity.
+     * @return the icon of activity
+     */
+    public static Drawable getActivityIcon(@NonNull final Activity activity) {
+        return getActivityIcon(activity.getComponentName());
+    }
+
+    /**
+     * Return the icon of activity.
+     *
      * @param clz The activity class.
      * @return the icon of activity
      */
-    public static Drawable getActivityIcon(final Class<?> clz) {
+    public static Drawable getActivityIcon(@NonNull final Class<? extends Activity> clz) {
         return getActivityIcon(new ComponentName(Utils.getApp(), clz));
     }
 
@@ -1122,7 +1133,7 @@ public final class ActivityUtils {
      * @param activityName The name of activity.
      * @return the icon of activity
      */
-    public static Drawable getActivityIcon(final ComponentName activityName) {
+    public static Drawable getActivityIcon(@NonNull final ComponentName activityName) {
         PackageManager pm = Utils.getApp().getPackageManager();
         try {
             return pm.getActivityIcon(activityName);
@@ -1135,10 +1146,20 @@ public final class ActivityUtils {
     /**
      * Return the logo of activity.
      *
+     * @param activity The activity.
+     * @return the logo of activity
+     */
+    public static Drawable getActivityLogo(@NonNull final Activity activity) {
+        return getActivityLogo(activity.getComponentName());
+    }
+
+    /**
+     * Return the logo of activity.
+     *
      * @param clz The activity class.
      * @return the logo of activity
      */
-    public static Drawable getActivityLogo(final Class<?> clz) {
+    public static Drawable getActivityLogo(@NonNull final Class<? extends Activity> clz) {
         return getActivityLogo(new ComponentName(Utils.getApp(), clz));
     }
 
@@ -1148,7 +1169,7 @@ public final class ActivityUtils {
      * @param activityName The name of activity.
      * @return the logo of activity
      */
-    public static Drawable getActivityLogo(final ComponentName activityName) {
+    public static Drawable getActivityLogo(@NonNull final ComponentName activityName) {
         PackageManager pm = Utils.getApp().getPackageManager();
         try {
             return pm.getActivityLogo(activityName);

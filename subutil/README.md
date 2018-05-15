@@ -73,6 +73,14 @@ isBetterLocation
 isSameProvider
 ```
 
+* ### About MetaData -> [MetaDataUtils.java][meta_data.java] -> [Demo][meta_data.demo]
+```
+getMetaDataInApp
+getMetaDataInActivity
+getMetaDataInService
+getMetaDataInReceiver
+```
+
 * ### About Pinyin -> [PinyinUtils.java][pinyin.java] -> [Demo][pinyin.demo]
 ```
 ccs2Pinyin

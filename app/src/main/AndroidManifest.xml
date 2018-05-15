@@ -175,13 +175,25 @@
         <activity
             android:name=".feature.sub.location.LocationActivity"
             android:launchMode="singleTop" />
-        <activity
-            android:name=".feature.sub.pinyin.PinyinActivity"
-            android:launchMode="singleTop" />
 
         <service
             android:name=".feature.sub.location.LocationService"
             android:launchMode="singleTop" />
+
+        <activity
+            android:name=".feature.sub.meta_data.MetaDataActivity"
+            android:launchMode="singleTop">
+            <meta-data
+                android:name="activity_meta_data"
+                android:value="activity" />
+        </activity>
+        <activity
+            android:name=".feature.sub.pinyin.PinyinActivity"
+            android:launchMode="singleTop" />
+
+        <meta-data
+            android:name="app_meta_data"
+            android:value="1234" />
 
     </application>
 
