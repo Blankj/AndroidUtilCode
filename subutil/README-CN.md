@@ -40,7 +40,7 @@ bd09ToWGS84 : BD09 坐标转 WGS84 坐标
 wgs84ToBd09 : WGS84 坐标转 BD09 坐标
 ```
 
-* ### 闪光灯相关 -> [FlashlightUtils.java][flashlight.java] -> [Demo][flashlight.test]
+* ### 闪光灯相关 -> [FlashlightUtils.java][flashlight.java] -> [Demo][flashlight.demo]
 ```
 getInstance              : 获取闪光灯实例
 Instance.register        : 注册

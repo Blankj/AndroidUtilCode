@@ -40,7 +40,7 @@ bd09ToWGS84
 wgs84ToBd09
 ```
 
-* ### About Flashlight -> [FlashlightUtils.java][flashlight.java] -> [Demo][flashlight.test]
+* ### About Flashlight -> [FlashlightUtils.java][flashlight.java] -> [Demo][flashlight.demo]
 ```
 getInstance
 Instance.register
