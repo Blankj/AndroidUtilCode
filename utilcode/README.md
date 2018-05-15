@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.15.0'
+implementation 'com.blankj:utilcode:1.15.1'
 ```
 
 
@@ -25,6 +25,7 @@ U needn't do anything, because I add `consumerProguardFiles 'proguard-rules.pro'
 ```
 isActivityExists
 startActivity
+startActivityForResult
 startActivities
 startHomeActivity
 getActivityList

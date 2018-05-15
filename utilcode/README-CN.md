@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.15.0'
+implementation 'com.blankj:utilcode:1.15.1'
 ```
 
 
@@ -25,6 +25,7 @@ U needn't do anything, because I add `consumerProguardFiles 'proguard-rules.pro'
 ```
 isActivityExists               : 判断 Activity 是否存在
 startActivity                  : 启动 Activity
+startActivityForResult         : 启动 Activity 为返回结果
 startActivities                : 启动多个 Activity
 startHomeActivity              : 回到桌面
 getActivityList                : 获取 Activity 栈链表
