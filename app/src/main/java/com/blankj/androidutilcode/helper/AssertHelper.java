@@ -1,13 +1,11 @@
 package com.blankj.androidutilcode.helper;
 
 import com.blankj.androidutilcode.Config;
-import com.blankj.subutil.util.ThreadPoolUtils;
 import com.blankj.utilcode.util.FileIOUtils;
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ThreadUtils;
 import com.blankj.utilcode.util.Utils;
-
-import java.io.IOException;
 
 /**
  * <pre>
@@ -21,19 +19,19 @@ public class AssertHelper {
 
     public static void releaseInstallApk(final OnReleasedListener listener) {
         if (!FileUtils.isFileExists(Config.TEST_APK_PATH)) {
-            ThreadPoolUtils poolUtils = new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 1);
-            poolUtils.execute(new Runnable() {
+            ThreadUtils.executeByIo(new ThreadUtils.SimpleTask<Void>() {
                 @Override
-                public void run() {
-                    try {
-                        FileIOUtils.writeFileFromIS(
-                                Config.TEST_APK_PATH,
-                                Utils.getApp().getAssets().open("test_install"),
-                                false
-                        );
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                public Void doInBackground() throws Throwable {
+                    FileIOUtils.writeFileFromIS(
+                            Config.TEST_APK_PATH,
+                            Utils.getApp().getAssets().open("test_install"),
+                            false
+                    );
+                    return null;
+                }
+
+                @Override
+                public void onSuccess(Void result) {
                     if (listener != null) {
                         listener.onReleased();
                     }
