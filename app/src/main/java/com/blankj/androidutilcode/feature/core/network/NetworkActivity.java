@@ -3,17 +3,15 @@ package com.blankj.androidutilcode.feature.core.network;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseBackActivity;
-import com.blankj.subutil.util.ThreadPoolUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.SpanUtils;
+import com.blankj.utilcode.util.ThreadUtils;
 
 /**
  * <pre>
@@ -27,29 +25,18 @@ public class NetworkActivity extends BaseBackActivity {
 
     TextView tvAboutNetwork;
     TextView tvAboutNetworkAsync;
-    ThreadPoolUtils threadPoolUtils = new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 1);
-
-    Handler mHandler = new Handler(new Handler.Callback() {
+    ThreadUtils.SimpleTask mSimpleTask = new ThreadUtils.SimpleTask<String>() {
         @Override
-        public boolean handleMessage(Message msg) {
-            String text = tvAboutNetworkAsync.getText().toString();
-            if (text.length() != 0) {
-                text += '\n';
-            }
-            if (msg.what == 1) {
-                tvAboutNetworkAsync.setText(new SpanUtils()
-                        .append(text + "isAvailableByPing: " + msg.obj)
-                        .create()
-                );
-            } else {
-                tvAboutNetworkAsync.setText(new SpanUtils()
-                        .append(text + "getDomainAddress: " + msg.obj)
-                        .create()
-                );
-            }
-            return true;
+        public String doInBackground() throws Throwable {
+            return "isAvailableByPing: " + NetworkUtils.isAvailableByPing()
+                    + "\ngetDomainAddress: " + NetworkUtils.getDomainAddress("baidu.com");
         }
-    });
+
+        @Override
+        public void onSuccess(String result) {
+            tvAboutNetworkAsync.setText(result);
+        }
+    };
 
     public static void start(Context context) {
         Intent starter = new Intent(context, NetworkActivity.class);
@@ -79,25 +66,7 @@ public class NetworkActivity extends BaseBackActivity {
 
     @Override
     public void doBusiness() {
-        threadPoolUtils.execute(new Runnable() {
-            @Override
-            public void run() {
-                Message msg = Message.obtain();
-                msg.what = 1;
-                msg.obj = NetworkUtils.isAvailableByPing();
-                mHandler.sendMessage(msg);
-            }
-        });
-
-        threadPoolUtils.execute(new Runnable() {
-            @Override
-            public void run() {
-                Message msg = Message.obtain();
-                msg.what = 2;
-                msg.obj = NetworkUtils.getDomainAddress("baidu.com");
-                mHandler.sendMessage(msg);
-            }
-        });
+        ThreadUtils.executeBySingle(mSimpleTask);
     }
 
     @Override
@@ -134,8 +103,7 @@ public class NetworkActivity extends BaseBackActivity {
 
     @Override
     protected void onDestroy() {
-        threadPoolUtils.shutDownNow();
-        mHandler.removeCallbacksAndMessages(null);
+        ThreadUtils.cancel(mSimpleTask);
         super.onDestroy();
     }
 }
