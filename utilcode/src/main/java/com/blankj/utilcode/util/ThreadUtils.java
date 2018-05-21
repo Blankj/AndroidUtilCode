@@ -23,7 +23,7 @@ import java.util.concurrent.atomic.AtomicLong;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/05/08
- *     desc  :
+ *     desc  : utils about thread
  * </pre>
  */
 public final class ThreadUtils {
@@ -280,9 +280,12 @@ public final class ThreadUtils {
         executeAtFixedRate(pool, task, initialDelay, delay, unit);
     }
 
-
     public static void cancel(final Task task) {
         task.cancel();
+    }
+
+    public static boolean isMainThread() {
+        return Looper.myLooper() == Looper.getMainLooper();
     }
 
     private static <T> void execute(final ExecutorService pool, final Task<T> task) {
@@ -424,9 +427,10 @@ public final class ThreadUtils {
         private boolean isSchedule;
 
         private volatile int state;
-        private static final int NEW        = 0;
-        private static final int COMPLETING = 1;
-        private static final int CANCELLED  = 2;
+        private static final int NEW         = 0;
+        private static final int COMPLETING  = 1;
+        private static final int CANCELLED   = 2;
+        private static final int EXCEPTIONAL = 3;
 
         public Task() {
             state = NEW;
@@ -445,7 +449,6 @@ public final class ThreadUtils {
         public void run() {
             try {
                 final T result = doInBackground();
-
                 if (state != NEW) return;
 
                 if (isSchedule) {
@@ -468,6 +471,7 @@ public final class ThreadUtils {
             } catch (final Throwable throwable) {
                 if (state != NEW) return;
 
+                state = EXCEPTIONAL;
                 Deliver.post(new Runnable() {
                     @Override
                     public void run() {
