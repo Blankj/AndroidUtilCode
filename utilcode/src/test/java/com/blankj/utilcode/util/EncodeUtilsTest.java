@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 public class EncodeUtilsTest {
 
     @Test
-    public void urlEncode_urlDecode() throws Exception {
+    public void urlEncode_urlDecode() {
         String urlEncodeString = "%E5%93%88%E5%93%88%E5%93%88";
         assertEquals(urlEncodeString, EncodeUtils.urlEncode("哈哈哈"));
         assertEquals(urlEncodeString, EncodeUtils.urlEncode("哈哈哈", "UTF-8"));
@@ -33,7 +33,7 @@ public class EncodeUtilsTest {
     }
 
     @Test
-    public void base64Decode_base64Encode() throws Exception {
+    public void base64Decode_base64Encode() {
         assertTrue(
                 Arrays.equals(
                         "blankj".getBytes(),
@@ -59,7 +59,7 @@ public class EncodeUtilsTest {
     }
 
     @Test
-    public void htmlEncode_htmlDecode() throws Exception {
+    public void htmlEncode_htmlDecode() {
         String html = "<html>" +
                 "<head>" +
                 "<title>我的第一个 HTML 页面</title>" +

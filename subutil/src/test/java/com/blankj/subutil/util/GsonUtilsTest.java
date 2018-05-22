@@ -23,8 +23,14 @@ public class GsonUtilsTest {
     @Test
     public void toJson() {
         Person person = new Person("Blankj");
-        System.out.println(GsonUtils.toJson(person));
-        System.out.println(GsonUtils.toJson(person, false));
+        Assert.assertEquals(
+                "{\"name\":\"Blankj\",\"gender\":0,\"address\":null}",
+                GsonUtils.toJson(person)
+        );
+        Assert.assertEquals(
+                "{\"name\":\"Blankj\",\"gender\":0}",
+                GsonUtils.toJson(person, false)
+        );
     }
 
     @Test

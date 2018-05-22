@@ -60,7 +60,7 @@ public class ZipUtilsTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         FileUtils.deleteAllInDir(PATH_TEMP);
     }
 }

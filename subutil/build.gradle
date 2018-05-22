@@ -35,5 +35,10 @@ dependencies {
     testImplementation "junit:junit:$junit_version"
     testImplementation "org.robolectric:robolectric:$robolectric_version"
 
-    implementation "com.google.code.gson:gson:$gson_version"
+    api "com.google.code.gson:gson:$gson_version"
+
+    // glide
+    api ("com.github.bumptech.glide:glide:$glide_version") {
+        exclude group: "com.android.support"
+    }
 }

@@ -77,7 +77,7 @@ public class CacheUtilsTest {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         if (mCacheUtils1 == null) {
             mCacheUtils1 = CacheUtils.getInstance(cache1File);
             mCacheUtils1.put("bytes1", mBytes, 60 * CacheUtils.SEC);
@@ -103,7 +103,7 @@ public class CacheUtilsTest {
     }
 
     @Test
-    public void getBytes() throws Exception {
+    public void getBytes() {
         assertEquals(mString, new String(mCacheUtils1.getBytes("bytes1")));
         assertEquals(mString, new String(mCacheUtils1.getBytes("bytes1", null)));
         assertNull(mCacheUtils1.getBytes("bytes2", null));
@@ -114,7 +114,7 @@ public class CacheUtilsTest {
     }
 
     @Test
-    public void getString() throws Exception {
+    public void getString() {
         assertEquals(mString, mCacheUtils1.getString("string1"));
         assertEquals(mString, mCacheUtils1.getString("string1", null));
         assertNull(mCacheUtils1.getString("string2", null));
@@ -125,7 +125,7 @@ public class CacheUtilsTest {
     }
 
     @Test
-    public void getJSONObject() throws Exception {
+    public void getJSONObject() {
         assertEquals(mJSONObject.toString(), mCacheUtils1.getJSONObject("jsonObject1").toString());
         assertEquals(mJSONObject.toString(), mCacheUtils1.getJSONObject("jsonObject1", null).toString());
         assertNull(mCacheUtils1.getJSONObject("jsonObject2", null));
@@ -136,7 +136,7 @@ public class CacheUtilsTest {
     }
 
     @Test
-    public void getJSONArray() throws Exception {
+    public void getJSONArray() {
         assertEquals(mJSONArray.toString(), mCacheUtils1.getJSONArray("jsonArray1").toString());
         assertEquals(mJSONArray.toString(), mCacheUtils1.getJSONArray("jsonArray1", null).toString());
         assertNull(mCacheUtils1.getJSONArray("jsonArray2", null));
@@ -148,7 +148,7 @@ public class CacheUtilsTest {
     }
 
     @Test
-    public void getBitmap() throws Exception {
+    public void getBitmap() {
         String bitmapString = "Bitmap (100 x 100) compressed as PNG with quality 100";
         assertTrue(mCacheUtils1.getString("bitmap1").equals(bitmapString));
         assertTrue(mCacheUtils1.getString("bitmap1", null).equals(bitmapString));
@@ -160,7 +160,7 @@ public class CacheUtilsTest {
     }
 
     @Test
-    public void getDrawable() throws Exception {
+    public void getDrawable() {
         String bitmapString = "Bitmap (100 x 100) compressed as PNG with quality 100";
         assertTrue(mCacheUtils1.getString("drawable1").equals(bitmapString));
         assertTrue(mCacheUtils1.getString("drawable1", null).equals(bitmapString));
@@ -172,7 +172,7 @@ public class CacheUtilsTest {
     }
 
     @Test
-    public void getParcel() throws Exception {
+    public void getParcel() {
         assertTrue(mCacheUtils1.getParcelable("parcelable1", ParcelableTest.CREATOR).equals(mParcelableTest));
         assertTrue(mCacheUtils1.getParcelable("parcelable1", ParcelableTest.CREATOR, null).equals(mParcelableTest));
         assertNull(mCacheUtils1.getParcelable("parcelable2", ParcelableTest.CREATOR, null));
@@ -183,7 +183,7 @@ public class CacheUtilsTest {
     }
 
     @Test
-    public void getSerializable() throws Exception {
+    public void getSerializable() {
         assertTrue(mCacheUtils1.getSerializable("serializable1").equals(mSerializableTest));
         assertTrue(mCacheUtils1.getSerializable("serializable1", null).equals(mSerializableTest));
         assertNull(mCacheUtils1.getSerializable("parcelable2", null));
@@ -194,21 +194,21 @@ public class CacheUtilsTest {
     }
 
     @Test
-    public void getCacheSize() throws Exception {
+    public void getCacheSize() {
         assertEquals(FileUtils.getDirLength(cache1File), mCacheUtils1.getCacheSize());
 
         assertEquals(FileUtils.getDirLength(cache2File), mCacheUtils2.getCacheSize());
     }
 
     @Test
-    public void getCacheCount() throws Exception {
+    public void getCacheCount() {
         assertEquals(8, mCacheUtils1.getCacheCount());
 
         assertEquals(8, mCacheUtils2.getCacheCount());
     }
 
     @Test
-    public void remove() throws Exception {
+    public void remove() {
         assertNotNull(mCacheUtils1.getString("string1"));
         mCacheUtils1.remove("string1");
         assertNull(mCacheUtils1.getString("string1"));
@@ -219,7 +219,7 @@ public class CacheUtilsTest {
     }
 
     @Test
-    public void clear() throws Exception {
+    public void clear() {
         assertNotNull(mCacheUtils1.getBytes("bytes1"));
         assertNotNull(mCacheUtils1.getString("string1"));
         assertNotNull(mCacheUtils1.getJSONObject("jsonObject1"));
@@ -259,7 +259,7 @@ public class CacheUtilsTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         mCacheUtils1.clear();
         mCacheUtils2.clear();
     }

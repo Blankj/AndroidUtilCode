@@ -91,25 +91,6 @@ getSurnamePinyin
 getSurnameFirstLetter
 ```
 
-* ### About ThreadPool -> [ThreadPoolUtils.java][thread_pool.java]
-```
-ThreadPoolUtils
-execute
-execute
-shutDown
-shutDownNow
-isShutDown
-isTerminated
-awaitTermination
-submit
-submit
-invokeAll, invokeAny
-schedule
-schedule
-scheduleWithFixedRate
-scheduleWithFixedDelay
-```
-
 
 
 [brightness.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/BrightnessUtils.java

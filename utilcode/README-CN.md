@@ -619,6 +619,26 @@ toDBC           : 转化为半角字符
 toSBC           : 转化为全角字符
 ```
 
+* ### 线程相关 -> [ThreadUtils.java][thread.java] -> [Test][thread.test]
+```
+executeByFixed          : 在固定线程池执行任务
+executeByFixedWithDelay : 在固定线程池延时执行任务
+executeByFixedAtFixRate : 在固定线程池按固定频率执行任务
+executeBySingle         : 在单线程池执行任务
+executeBySingleWithDelay: 在单线程池延时执行任务
+executeBySingleAtFixRate: 在单线程池按固定频率执行任务
+executeByIo             : 在 IO 线程池执行任务
+executeByIoWithDelay    : 在 IO 线程池延时执行任务
+executeByIoAtFixRate    : 在 IO 线程池按固定频率执行任务
+executeByCpu            : 在 Cpu 线程池执行任务
+executeByCpuWithDelay   : 在 Cpu 线程池延时执行任务
+executeByCpuAtFixRate   : 在 Cpu 线程池按固定频率执行任务
+executeByCustom         : 在自定义线程池执行任务
+executeByCustomWithDelay: 在自定义线程池延时执行任务
+executeByCustomAtFixRate: 在自定义线程池按固定频率执行任务
+isMainThread            : 判断当前是否主线程
+```
+
 * ### 时间相关 -> [TimeUtils.java][time.java] -> [Test][time.test]
 ```
 millis2String           : 将时间戳转为时间字符串
@@ -782,6 +802,9 @@ getComments       : 获取压缩文件中的注释链表
 
 [string.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/StringUtils.java
 [string.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/StringUtilsTest.java
+
+[thread.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ThreadUtils.java
+[thread.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/ThreadUtilsTest.java
 
 [time.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/TimeUtils.java
 [time.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/TimeUtilsTest.java

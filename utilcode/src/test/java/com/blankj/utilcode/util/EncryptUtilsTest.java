@@ -33,7 +33,7 @@ public class EncryptUtilsTest {
     }
 
     @Test
-    public void encryptMD2() throws Exception {
+    public void encryptMD2() {
         String blankjMD2 = "15435017570D8A73449E25C4622E17A4";
         Assert.assertEquals(
                 blankjMD2,
@@ -52,7 +52,7 @@ public class EncryptUtilsTest {
     }
 
     @Test
-    public void encryptMD5() throws Exception {
+    public void encryptMD5() {
         String blankjMD5 = "AAC25CD336E01C8655F4EC7875445A60";
         assertEquals(
                 blankjMD5,
@@ -71,7 +71,7 @@ public class EncryptUtilsTest {
     }
 
     @Test
-    public void encryptMD5File() throws Exception {
+    public void encryptMD5File() {
         String fileMd5 = "7f138a09169b250e9dcb378140907378";
         assertEquals(
                 fileMd5.toUpperCase(),
@@ -80,7 +80,7 @@ public class EncryptUtilsTest {
     }
 
     @Test
-    public void encryptSHA1() throws Exception {
+    public void encryptSHA1() {
         String blankjSHA1 = "C606ACCB1FEB669E19D080ADDDDBB8E6CDA5F43C";
         assertEquals(
                 blankjSHA1,
@@ -99,7 +99,7 @@ public class EncryptUtilsTest {
     }
 
     @Test
-    public void encryptSHA224() throws Exception {
+    public void encryptSHA224() {
         String blankjSHA224 = "F4C5C0E8CF56CAC4D06DB6B523F67621859A9D79BDA4B2AC03097D5F";
         assertEquals(
                 blankjSHA224,
@@ -118,7 +118,7 @@ public class EncryptUtilsTest {
     }
 
     @Test
-    public void encryptSHA256() throws Exception {
+    public void encryptSHA256() {
         String blankjSHA256 = "8BD80AE90DFBA112786367BEBDDEE60A638EF5B82682EDF8F3D3CA8E6BFEF648";
         assertEquals(
                 blankjSHA256,
@@ -137,7 +137,7 @@ public class EncryptUtilsTest {
     }
 
     @Test
-    public void encryptSHA384() throws Exception {
+    public void encryptSHA384() {
         String blankjSHA384 = "BF831E5221FC108D6A72ACB888BA3EB0C030A5F01BA2F739856BE70681D86F992B85E0D461101C74BAEDA895BD422557";
         assertEquals(
                 blankjSHA384,
@@ -156,7 +156,7 @@ public class EncryptUtilsTest {
     }
 
     @Test
-    public void encryptSHA512() throws Exception {
+    public void encryptSHA512() {
         String blankjSHA512 = "D59D31067F614ED3586F85A31FEFDB7F33096316DA26EBE0FF440B241C8560D96650F100D78C512560C976949EFA89CB5D5589DCF68C7FAADE98F03BCFEC2B45";
         assertEquals(
                 blankjSHA512,
@@ -179,7 +179,7 @@ public class EncryptUtilsTest {
     private String blankjHmackey    = "blankj";
 
     @Test
-    public void encryptHmacMD5() throws Exception {
+    public void encryptHmacMD5() {
         String blankjHmacMD5 = "2BA3FDABEE222522044BEC0CE5D6B490";
         assertEquals(
                 blankjHmacMD5,
@@ -198,7 +198,7 @@ public class EncryptUtilsTest {
     }
 
     @Test
-    public void encryptHmacSHA1() throws Exception {
+    public void encryptHmacSHA1() {
         String blankjHmacSHA1 = "88E83EFD915496860C83739BE2CF4752B2AC105F";
         assertEquals(
                 blankjHmacSHA1,
@@ -217,7 +217,7 @@ public class EncryptUtilsTest {
     }
 
     @Test
-    public void encryptHmacSHA224() throws Exception {
+    public void encryptHmacSHA224() {
         String blankjHmacSHA224 = "E392D83D1030323FB2E062E8165A3AD38366E53DF19EA3290961E153";
         assertEquals(
                 blankjHmacSHA224,
@@ -236,7 +236,7 @@ public class EncryptUtilsTest {
     }
 
     @Test
-    public void encryptHmacSHA256() throws Exception {
+    public void encryptHmacSHA256() {
         String blankjHmacSHA256 = "A59675F13FC9A6E06D8DC90D4DC01DB9C991B0B95749D2471E588BF311DA2C67";
         assertEquals(
                 blankjHmacSHA256,
@@ -255,7 +255,7 @@ public class EncryptUtilsTest {
     }
 
     @Test
-    public void encryptHmacSHA384() throws Exception {
+    public void encryptHmacSHA384() {
         String blankjHmacSHA384 = "9FC2F49C7EDE698EA59645B3BEFBBE67DCC7D6623E03D4D03CDA1324F7B6445BC428AB42F6A962CF79AFAD1302C3223D";
         assertEquals(
                 blankjHmacSHA384,
@@ -274,7 +274,7 @@ public class EncryptUtilsTest {
     }
 
     @Test
-    public void encryptHmacSHA512() throws Exception {
+    public void encryptHmacSHA512() {
         assertEquals(
                 blankjHmacSHA512,
                 EncryptUtils.encryptHmacSHA512ToString("blankj", blankjHmackey)
@@ -300,7 +300,7 @@ public class EncryptUtilsTest {
     private byte[] bytesResDES  = hexString2Bytes(resDES);
 
     @Test
-    public void encryptDES() throws Exception {
+    public void encryptDES() {
         assertTrue(
                 Arrays.equals(
                         bytesResDES,
@@ -335,7 +335,7 @@ public class EncryptUtilsTest {
     }
 
     @Test
-    public void decryptDES() throws Exception {
+    public void decryptDES() {
         assertTrue(
                 Arrays.equals(
                         bytesDataDES,
@@ -379,7 +379,7 @@ public class EncryptUtilsTest {
     private byte[] bytesResDES3  = hexString2Bytes(res3DES);
 
     @Test
-    public void encrypt3DES() throws Exception {
+    public void encrypt3DES() {
         assertTrue(
                 Arrays.equals(
                         bytesResDES3,
@@ -414,7 +414,7 @@ public class EncryptUtilsTest {
     }
 
     @Test
-    public void decrypt3DES() throws Exception {
+    public void decrypt3DES() {
         assertTrue(
                 Arrays.equals(
                         bytesDataDES3,
@@ -458,7 +458,7 @@ public class EncryptUtilsTest {
     private byte[] bytesResAES  = hexString2Bytes(resAES);
 
     @Test
-    public void encryptAES() throws Exception {
+    public void encryptAES() {
         assertTrue(
                 Arrays.equals(
                         bytesResAES,
@@ -493,7 +493,7 @@ public class EncryptUtilsTest {
     }
 
     @Test
-    public void decryptAES() throws Exception {
+    public void decryptAES() {
         assertTrue(
                 Arrays.equals(
                         bytesDataAES,
@@ -529,7 +529,7 @@ public class EncryptUtilsTest {
     private String dataRSA    = "BlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBla12345678";
 
     @Test
-    public void encryptDecryptRSA() throws Exception {
+    public void encryptDecryptRSA() {
         assertTrue(
                 Arrays.equals(
                         EncryptUtils.decryptRSA(

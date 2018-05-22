@@ -619,6 +619,26 @@ toDBC
 toSBC
 ```
 
+* ### About Thread -> [ThreadUtils.java][thread.java] -> [Test][thread.test]
+```
+executeByFixed
+executeByFixedWithDelay
+executeByFixedAtFixRate
+executeBySingle
+executeBySingleWithDelay
+executeBySingleAtFixRate
+executeByIo
+executeByIoWithDelay
+executeByIoAtFixRate
+executeByCpu
+executeByCpuWithDelay
+executeByCpuAtFixRate
+executeByCustom
+executeByCustomWithDelay
+executeByCustomAtFixRate
+isMainThread
+```
+
 * ### About Time -> [TimeUtils.java][time.java] -> [Test][time.test]
 ```
 millis2String

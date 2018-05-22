@@ -29,7 +29,7 @@ public class ConvertUtilsTest {
     private byte[] mBytes1 = new byte[]{48, 49, 50};
 
     @Test
-    public void bytes2HexString() throws Exception {
+    public void bytes2HexString() {
         assertEquals(
                 hexString,
                 ConvertUtils.bytes2HexString(mBytes)
@@ -37,7 +37,7 @@ public class ConvertUtilsTest {
     }
 
     @Test
-    public void hexString2Bytes() throws Exception {
+    public void hexString2Bytes() {
         assertTrue(
                 Arrays.equals(
                         mBytes,
@@ -47,7 +47,7 @@ public class ConvertUtilsTest {
     }
 
     @Test
-    public void chars2Bytes() throws Exception {
+    public void chars2Bytes() {
         assertTrue(
                 Arrays.equals(
                         mBytes1,
@@ -57,7 +57,7 @@ public class ConvertUtilsTest {
     }
 
     @Test
-    public void bytes2Chars() throws Exception {
+    public void bytes2Chars() {
         assertTrue(
                 Arrays.equals(
                         mChars1,
@@ -67,7 +67,7 @@ public class ConvertUtilsTest {
     }
 
     @Test
-    public void byte2MemorySize() throws Exception {
+    public void byte2MemorySize() {
         assertEquals(
                 1024,
                 ConvertUtils.byte2MemorySize(MemoryConstants.GB, MemoryConstants.MB),
@@ -76,7 +76,7 @@ public class ConvertUtilsTest {
     }
 
     @Test
-    public void byte2FitMemorySize() throws Exception {
+    public void byte2FitMemorySize() {
         assertEquals(
                 "3.098MB",
                 ConvertUtils.byte2FitMemorySize(1024 * 1024 * 3 + 1024 * 100)
@@ -84,7 +84,7 @@ public class ConvertUtilsTest {
     }
 
     @Test
-    public void millis2FitTimeSpan() throws Exception {
+    public void millis2FitTimeSpan() {
         long millis = 6 * TimeConstants.DAY
                 + 6 * TimeConstants.HOUR
                 + 6 * TimeConstants.MIN
@@ -109,7 +109,7 @@ public class ConvertUtilsTest {
     }
 
     @Test
-    public void bytes2Bits_bits2Bytes() throws Exception {
+    public void bytes2Bits_bits2Bytes() {
         assertEquals(
                 "0111111111111010",
                 ConvertUtils.bytes2Bits(new byte[]{0x7F, (byte) 0xFA})
@@ -132,7 +132,7 @@ public class ConvertUtilsTest {
     }
 
     @Test
-    public void inputStream2String_string2InputStream() throws Exception {
+    public void inputStream2String_string2InputStream() {
         String string = "this is test string";
         assertEquals(
                 string,
