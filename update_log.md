@@ -1,3 +1,4 @@
+* 18/05/22 新增 ThreadUtils，发布 1.16.0 版本
 * 18/05/15 新增 MetaDataUtils 和 ActivityUtils#startActivityForResult，发布 1.15.1 版本
 * 18/05/08 新增 ResourceUtils，发布 1.15.0 版本
 * 18/05/07 修复 ZipUtils 漏洞，发布 1.14.4 版本
