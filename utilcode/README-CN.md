@@ -630,12 +630,13 @@ executeBySingleAtFixRate: 在单线程池按固定频率执行任务
 executeByIo             : 在 IO 线程池执行任务
 executeByIoWithDelay    : 在 IO 线程池延时执行任务
 executeByIoAtFixRate    : 在 IO 线程池按固定频率执行任务
-executeByCpu            : 在 Cpu 线程池执行任务
-executeByCpuWithDelay   : 在 Cpu 线程池延时执行任务
-executeByCpuAtFixRate   : 在 Cpu 线程池按固定频率执行任务
+executeByCpu            : 在 CPU 线程池执行任务
+executeByCpuWithDelay   : 在 CPU 线程池延时执行任务
+executeByCpuAtFixRate   : 在 CPU 线程池按固定频率执行任务
 executeByCustom         : 在自定义线程池执行任务
 executeByCustomWithDelay: 在自定义线程池延时执行任务
 executeByCustomAtFixRate: 在自定义线程池按固定频率执行任务
+cancel                  : 取消任务的执行
 isMainThread            : 判断当前是否主线程
 ```
 
