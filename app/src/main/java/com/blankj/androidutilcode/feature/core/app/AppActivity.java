@@ -10,9 +10,10 @@ import android.widget.TextView;
 import com.blankj.androidutilcode.Config;
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseBackActivity;
-import com.blankj.androidutilcode.helper.AssertHelper;
 import com.blankj.androidutilcode.helper.PermissionHelper;
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.FileUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SpanUtils;
 import com.blankj.utilcode.util.ToastUtils;
 
@@ -76,6 +77,13 @@ public class AppActivity extends BaseBackActivity {
 
     }
 
+    OnReleasedListener listener = new OnReleasedListener() {
+        @Override
+        public void onReleased() {
+            AppUtils.installApp(Config.TEST_APK_PATH);
+        }
+    };
+
     @Override
     public void onWidgetClick(View view) {
         switch (view.getId()) {
@@ -86,12 +94,12 @@ public class AppActivity extends BaseBackActivity {
                     PermissionHelper.requestStorage(new PermissionHelper.OnPermissionGrantedListener() {
                         @Override
                         public void onPermissionGranted() {
-                            AssertHelper.releaseInstallApk(new AssertHelper.OnReleasedListener() {
-                                @Override
-                                public void onReleased() {
-                                    AppUtils.installApp(Config.TEST_APK_PATH);
-                                }
-                            });
+                            if (!FileUtils.isFileExists(Config.TEST_APK_PATH)) {
+                                new ReleaseInstallApkTask(listener).execute();
+                            } else {
+                                listener.onReleased();
+                                LogUtils.d("test apk existed.");
+                            }
                         }
                     });
                 }

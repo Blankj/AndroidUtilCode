@@ -482,7 +482,7 @@ public final class ThreadUtils {
             }
         }
 
-        private void cancel() {
+        public void cancel() {
             if (state != NEW) return;
 
             state = CANCELLED;

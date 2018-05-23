@@ -28,7 +28,7 @@ public class ThreadUtilsTest {
                         if (index < 4) {
                             return Thread.currentThread() + " :" + index;
                         } else if (index < 7) {
-                            ThreadUtils.cancel(this);
+                            cancel();
                             return null;
                         } else {
                             throw new NullPointerException(String.valueOf(index));
@@ -57,7 +57,7 @@ public class ThreadUtilsTest {
                         if (index < 4) {
                             return Thread.currentThread() + " :" + index;
                         } else if (index < 7) {
-                            ThreadUtils.cancel(this);
+                            cancel();
                             return null;
                         } else {
                             throw new NullPointerException(String.valueOf(index));
@@ -86,7 +86,7 @@ public class ThreadUtilsTest {
                         if (index < 4) {
                             return Thread.currentThread() + " :" + index;
                         } else if (index < 7) {
-                            ThreadUtils.cancel(this);
+                            cancel();
                             return null;
                         } else {
                             throw new NullPointerException(String.valueOf(index));
@@ -115,7 +115,7 @@ public class ThreadUtilsTest {
                         if (index < 4) {
                             return Thread.currentThread() + " :" + index;
                         } else if (index < 7) {
-                            ThreadUtils.cancel(this);
+                            cancel();
                             return null;
                         } else {
                             throw new NullPointerException(String.valueOf(index));
@@ -144,7 +144,7 @@ public class ThreadUtilsTest {
                         if (index < 4) {
                             return Thread.currentThread() + " :" + index;
                         } else if (index < 7) {
-                            ThreadUtils.cancel(this);
+                            cancel();
                             return null;
                         } else {
                             throw new NullPointerException(String.valueOf(index));
@@ -173,7 +173,7 @@ public class ThreadUtilsTest {
                         if (index < 4) {
                             return Thread.currentThread() + " :" + index;
                         } else if (index < 7) {
-                            ThreadUtils.cancel(this);
+                            cancel();
                             return null;
                         } else {
                             throw new NullPointerException(String.valueOf(index));
@@ -202,7 +202,7 @@ public class ThreadUtilsTest {
                         if (index < 4) {
                             return Thread.currentThread() + " :" + index;
                         } else if (index < 7) {
-                            ThreadUtils.cancel(this);
+                            cancel();
                             return null;
                         } else {
                             throw new NullPointerException(String.valueOf(index));
@@ -231,7 +231,7 @@ public class ThreadUtilsTest {
                         if (index < 4) {
                             return Thread.currentThread() + " :" + index;
                         } else if (index < 7) {
-                            ThreadUtils.cancel(this);
+                            cancel();
                             return null;
                         } else {
                             throw new NullPointerException(String.valueOf(index));
@@ -260,7 +260,7 @@ public class ThreadUtilsTest {
                         if (index < 4) {
                             return Thread.currentThread() + " :" + index;
                         } else if (index < 7) {
-                            ThreadUtils.cancel(this);
+                            cancel();
                             return null;
                         } else {
                             throw new NullPointerException(String.valueOf(index));
@@ -289,7 +289,7 @@ public class ThreadUtilsTest {
                         if (index < 4) {
                             return Thread.currentThread() + " :" + index;
                         } else if (index < 7) {
-                            ThreadUtils.cancel(this);
+                            cancel();
                             return null;
                         } else {
                             throw new NullPointerException(String.valueOf(index));
@@ -318,7 +318,7 @@ public class ThreadUtilsTest {
                         if (index < 4) {
                             return Thread.currentThread() + " :" + index;
                         } else if (index < 7) {
-                            ThreadUtils.cancel(this);
+                            cancel();
                             return null;
                         } else {
                             throw new NullPointerException(String.valueOf(index));
@@ -347,7 +347,7 @@ public class ThreadUtilsTest {
                         if (index < 4) {
                             return Thread.currentThread() + " :" + index;
                         } else if (index < 7) {
-                            ThreadUtils.cancel(this);
+                            cancel();
                             return null;
                         } else {
                             throw new NullPointerException(String.valueOf(index));
