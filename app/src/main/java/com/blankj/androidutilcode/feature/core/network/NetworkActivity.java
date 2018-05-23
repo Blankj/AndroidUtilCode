@@ -27,7 +27,7 @@ public class NetworkActivity extends BaseBackActivity {
     TextView tvAboutNetworkAsync;
     ThreadUtils.SimpleTask mSimpleTask = new ThreadUtils.SimpleTask<String>() {
         @Override
-        public String doInBackground() throws Throwable {
+        public String doInBackground() {
             return "isAvailableByPing: " + NetworkUtils.isAvailableByPing()
                     + "\ngetDomainAddress: " + NetworkUtils.getDomainAddress("baidu.com");
         }
@@ -103,7 +103,7 @@ public class NetworkActivity extends BaseBackActivity {
 
     @Override
     protected void onDestroy() {
-        ThreadUtils.cancel(mSimpleTask);
+        mSimpleTask.cancel();
         super.onDestroy();
     }
 }

@@ -621,6 +621,11 @@ toSBC           : 转化为全角字符
 
 * ### 线程相关 -> [ThreadUtils.java][thread.java] -> [Test][thread.test]
 ```
+isMainThread            : 判断当前是否主线程
+getFixedPool            : 获取固定线程池
+getSinglePool           : 获取单线程池
+getIoPool               : 获取 IO 线程池
+getCpuPool              : 获取 CPU 线程池
 executeByFixed          : 在固定线程池执行任务
 executeByFixedWithDelay : 在固定线程池延时执行任务
 executeByFixedAtFixRate : 在固定线程池按固定频率执行任务
@@ -637,7 +642,6 @@ executeByCustom         : 在自定义线程池执行任务
 executeByCustomWithDelay: 在自定义线程池延时执行任务
 executeByCustomAtFixRate: 在自定义线程池按固定频率执行任务
 cancel                  : 取消任务的执行
-isMainThread            : 判断当前是否主线程
 ```
 
 * ### 时间相关 -> [TimeUtils.java][time.java] -> [Test][time.test]

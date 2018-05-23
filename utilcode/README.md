@@ -621,6 +621,11 @@ toSBC
 
 * ### About Thread -> [ThreadUtils.java][thread.java] -> [Test][thread.test]
 ```
+isMainThread
+getFixedPool
+getSinglePool
+getIoPool
+getCpuPool
 executeByFixed
 executeByFixedWithDelay
 executeByFixedAtFixRate
@@ -636,7 +641,7 @@ executeByCpuAtFixRate
 executeByCustom
 executeByCustomWithDelay
 executeByCustomAtFixRate
-isMainThread
+cancel
 ```
 
 * ### About Time -> [TimeUtils.java][time.java] -> [Test][time.test]

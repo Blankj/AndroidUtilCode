@@ -41,6 +41,53 @@ public final class ThreadUtils {
     private static final int CPU_CORE_POOL_SIZE    = Math.max(2, Math.min(CPU_COUNT - 1, 4));
     private static final int CPU_MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;
 
+    /**
+     * Return whether the thread is the main thread.
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isMainThread() {
+        return Looper.myLooper() == Looper.getMainLooper();
+    }
+
+    /**
+     * Return
+     * @param size
+     * @return
+     */
+    public static ExecutorService getFixedPool(@IntRange(from = 1) final int size) {
+        return getPoolByTypeAndPriority(size);
+    }
+
+    public static ExecutorService getFixedPool(@IntRange(from = 1) final int size,
+                                               @IntRange(from = 1, to = 10) final int priority) {
+        return getPoolByTypeAndPriority(size, priority);
+    }
+
+    public static ExecutorService getSinglePool() {
+        return getPoolByTypeAndPriority(TYPE_SINGLE);
+    }
+
+    public static ExecutorService getSinglePool(@IntRange(from = 1, to = 10) final int priority) {
+        return getPoolByTypeAndPriority(TYPE_SINGLE, priority);
+    }
+
+    public static ExecutorService getIoPool() {
+        return getPoolByTypeAndPriority(TYPE_CACHED);
+    }
+
+    public static ExecutorService getIoPool(@IntRange(from = 1, to = 10) final int priority) {
+        return getPoolByTypeAndPriority(TYPE_CACHED, priority);
+    }
+
+    public static ExecutorService getCpuPool() {
+        return getPoolByTypeAndPriority(TYPE_CPU);
+    }
+
+    public static ExecutorService getCpuPool(@IntRange(from = 1, to = 10) final int priority) {
+        return getPoolByTypeAndPriority(TYPE_CPU, priority);
+    }
+
     public static <T> void executeByFixed(@IntRange(from = 1) final int size, final Task<T> task) {
         execute(getPoolByTypeAndPriority(size), task);
     }
@@ -282,10 +329,6 @@ public final class ThreadUtils {
 
     public static void cancel(final Task task) {
         task.cancel();
-    }
-
-    public static boolean isMainThread() {
-        return Looper.myLooper() == Looper.getMainLooper();
     }
 
     private static <T> void execute(final ExecutorService pool, final Task<T> task) {

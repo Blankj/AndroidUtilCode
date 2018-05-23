@@ -28,6 +28,13 @@ import com.blankj.utilcode.util.ToastUtils;
 
 public class AppActivity extends BaseBackActivity {
 
+    private final OnReleasedListener listener = new OnReleasedListener() {
+        @Override
+        public void onReleased() {
+            AppUtils.installApp(Config.TEST_APK_PATH);
+        }
+    };
+
     public static void start(Context context) {
         Intent starter = new Intent(context, AppActivity.class);
         context.startActivity(starter);
@@ -76,13 +83,6 @@ public class AppActivity extends BaseBackActivity {
     public void doBusiness() {
 
     }
-
-    OnReleasedListener listener = new OnReleasedListener() {
-        @Override
-        public void onReleased() {
-            AppUtils.installApp(Config.TEST_APK_PATH);
-        }
-    };
 
     @Override
     public void onWidgetClick(View view) {
