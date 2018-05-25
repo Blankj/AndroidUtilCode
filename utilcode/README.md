@@ -41,6 +41,8 @@ finishAllActivitiesExceptNewest
 
 * ### About App -> [AppUtils.java][app.java] -> [Demo][app.demo]
 ```
+registerAppStatusChangedListener
+unregisterAppStatusChangedListener
 installApp
 installAppSilent
 uninstallApp
