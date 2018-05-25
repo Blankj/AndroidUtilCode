@@ -24,7 +24,7 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
-    <style name="AnimationActivity" parent="@android:style/Animation.Activity">
+    <style name="AnimationActivity" parent="@android:style/Animation.Translucent">
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_left</item>
         <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
         <item name="android:activityCloseEnterAnimation">@anim/slide_in_right</item>

@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -39,44 +40,7 @@ public final class Utils {
     @SuppressLint("StaticFieldLeak")
     private static Application sApplication;
 
-    private static final LinkedList<Activity> ACTIVITY_LIST = new LinkedList<>();
-
-    private static ActivityLifecycleCallbacks mCallbacks = new ActivityLifecycleCallbacks() {
-        @Override
-        public void onActivityCreated(Activity activity, Bundle bundle) {
-            setTopActivity(activity);
-        }
-
-        @Override
-        public void onActivityStarted(Activity activity) {
-            setTopActivity(activity);
-        }
-
-        @Override
-        public void onActivityResumed(Activity activity) {
-            setTopActivity(activity);
-        }
-
-        @Override
-        public void onActivityPaused(Activity activity) {
-
-        }
-
-        @Override
-        public void onActivityStopped(Activity activity) {
-
-        }
-
-        @Override
-        public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
-
-        }
-
-        @Override
-        public void onActivityDestroyed(Activity activity) {
-            ACTIVITY_LIST.remove(activity);
-        }
-    };
+    private static final ActivityLifecycleImpl ACTIVITY_LIFECYCLE = new ActivityLifecycleImpl();
 
     private Utils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -101,7 +65,7 @@ public final class Utils {
     public static void init(@NonNull final Application app) {
         if (sApplication == null) {
             Utils.sApplication = app;
-            Utils.sApplication.registerActivityLifecycleCallbacks(mCallbacks);
+            Utils.sApplication.registerActivityLifecycleCallbacks(ACTIVITY_LIFECYCLE);
         }
     }
 
@@ -134,25 +98,17 @@ public final class Utils {
         throw new NullPointerException("u should init first");
     }
 
-    private static void setTopActivity(final Activity activity) {
-        if (activity.getClass() == PermissionUtils.PermissionActivity.class) return;
-        if (ACTIVITY_LIST.contains(activity)) {
-            if (!ACTIVITY_LIST.getLast().equals(activity)) {
-                ACTIVITY_LIST.remove(activity);
-                ACTIVITY_LIST.addLast(activity);
-            }
-        } else {
-            ACTIVITY_LIST.addLast(activity);
-        }
+    static ActivityLifecycleImpl getActivityLifecycle() {
+        return ACTIVITY_LIFECYCLE;
     }
 
     static LinkedList<Activity> getActivityList() {
-        return ACTIVITY_LIST;
+        return ACTIVITY_LIFECYCLE.mActivityList;
     }
 
     static Context getTopActivityOrApp() {
         if (isAppForeground()) {
-            Activity topActivity = getTopActivity();
+            Activity topActivity = ACTIVITY_LIFECYCLE.getTopActivity();
             return topActivity == null ? Utils.getApp() : topActivity;
         } else {
             return Utils.getApp();
@@ -173,45 +129,142 @@ public final class Utils {
         return false;
     }
 
-    static Activity getTopActivity() {
-        if (!ACTIVITY_LIST.isEmpty()) {
-            final Activity topActivity = ACTIVITY_LIST.getLast();
-            if (topActivity != null) {
-                return topActivity;
+    static class ActivityLifecycleImpl implements ActivityLifecycleCallbacks {
+
+        final LinkedList<Activity>                        mActivityList      = new LinkedList<>();
+        final HashMap<Object, OnAppStatusChangedListener> mStatusListenerMap = new HashMap<>();
+
+        private int mForegroundCount = 0;
+        private int mConfigCount     = 0;
+
+        void addListener(final Object object, final OnAppStatusChangedListener listener) {
+            mStatusListenerMap.put(object, listener);
+        }
+
+        void removeListener(final Object object) {
+            mStatusListenerMap.remove(object);
+        }
+
+        @Override
+        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+            setTopActivity(activity);
+        }
+
+        @Override
+        public void onActivityStarted(Activity activity) {
+            setTopActivity(activity);
+            if (mForegroundCount <= 0) {
+                postStatus(true);
+            }
+            if (mConfigCount < 0) {
+                ++mConfigCount;
+            } else {
+                ++mForegroundCount;
             }
         }
-        // using reflect to get top activity
-        try {
-            @SuppressLint("PrivateApi")
-            Class<?> activityThreadClass = Class.forName("android.app.ActivityThread");
-            Object activityThread = activityThreadClass.getMethod("currentActivityThread").invoke(null);
-            Field activitiesField = activityThreadClass.getDeclaredField("mActivities");
-            activitiesField.setAccessible(true);
-            Map activities = (Map) activitiesField.get(activityThread);
-            if (activities == null) return null;
-            for (Object activityRecord : activities.values()) {
-                Class activityRecordClass = activityRecord.getClass();
-                Field pausedField = activityRecordClass.getDeclaredField("paused");
-                pausedField.setAccessible(true);
-                if (!pausedField.getBoolean(activityRecord)) {
-                    Field activityField = activityRecordClass.getDeclaredField("activity");
-                    activityField.setAccessible(true);
-                    Activity activity = (Activity) activityField.get(activityRecord);
-                    Utils.setTopActivity(activity);
-                    return activity;
+
+        @Override
+        public void onActivityResumed(Activity activity) {
+            setTopActivity(activity);
+        }
+
+        @Override
+        public void onActivityPaused(Activity activity) {
+
+        }
+
+        @Override
+        public void onActivityStopped(Activity activity) {
+            if (activity.isChangingConfigurations()) {
+                --mConfigCount;
+            } else {
+                --mForegroundCount;
+                if (mForegroundCount <= 0) {
+                    postStatus(false);
                 }
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
         }
-        return null;
+
+        @Override
+        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
+        }
+
+        @Override
+        public void onActivityDestroyed(Activity activity) {
+            mActivityList.remove(activity);
+        }
+
+        private void postStatus(final boolean isForeground) {
+            if (mStatusListenerMap.isEmpty()) return;
+            for (OnAppStatusChangedListener onAppStatusChangedListener : mStatusListenerMap.values()) {
+                if (onAppStatusChangedListener == null) return;
+                if (isForeground) {
+                    onAppStatusChangedListener.onForeground();
+                } else {
+                    onAppStatusChangedListener.onBackground();
+                }
+            }
+        }
+
+        private void setTopActivity(final Activity activity) {
+            if (activity.getClass() == PermissionUtils.PermissionActivity.class) return;
+            if (mActivityList.contains(activity)) {
+                if (!mActivityList.getLast().equals(activity)) {
+                    mActivityList.remove(activity);
+                    mActivityList.addLast(activity);
+                }
+            } else {
+                mActivityList.addLast(activity);
+            }
+        }
+
+        Activity getTopActivity() {
+            if (!mActivityList.isEmpty()) {
+                final Activity topActivity = mActivityList.getLast();
+                if (topActivity != null) {
+                    return topActivity;
+                }
+            }
+            // using reflect to get top activity
+            try {
+                @SuppressLint("PrivateApi")
+                Class<?> activityThreadClass = Class.forName("android.app.ActivityThread");
+                Object activityThread = activityThreadClass.getMethod("currentActivityThread").invoke(null);
+                Field activitiesField = activityThreadClass.getDeclaredField("mActivityList");
+                activitiesField.setAccessible(true);
+                Map activities = (Map) activitiesField.get(activityThread);
+                if (activities == null) return null;
+                for (Object activityRecord : activities.values()) {
+                    Class activityRecordClass = activityRecord.getClass();
+                    Field pausedField = activityRecordClass.getDeclaredField("paused");
+                    pausedField.setAccessible(true);
+                    if (!pausedField.getBoolean(activityRecord)) {
+                        Field activityField = activityRecordClass.getDeclaredField("activity");
+                        activityField.setAccessible(true);
+                        Activity activity = (Activity) activityField.get(activityRecord);
+                        setTopActivity(activity);
+                        return activity;
+                    }
+                }
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    public interface OnAppStatusChangedListener {
+        void onForeground();
+
+        void onBackground();
     }
 }

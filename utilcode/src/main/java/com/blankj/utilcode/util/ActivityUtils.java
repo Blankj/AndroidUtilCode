@@ -1048,7 +1048,7 @@ public final class ActivityUtils {
      * @return the top activity in activity's stack
      */
     public static Activity getTopActivity() {
-        return Utils.getTopActivity();
+        return Utils.getActivityLifecycle().getTopActivity();
     }
 
     /**

@@ -1,3 +1,4 @@
+* 18/05/25 新增 AppUtils#registerAppStatusChangedListener 和 AppUtils#unregisterAppStatusChangedListener，发布 1.16.1 版本
 * 18/05/22 新增 ThreadUtils，发布 1.16.0 版本
 * 18/05/15 新增 MetaDataUtils 和 ActivityUtils#startActivityForResult，发布 1.15.1 版本
 * 18/05/08 新增 ResourceUtils，发布 1.15.0 版本

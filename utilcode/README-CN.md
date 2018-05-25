@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.16.0'
+implementation 'com.blankj:utilcode:1.16.1'
 ```
 
 
@@ -624,6 +624,7 @@ toSBC           : 转化为全角字符
 isMainThread            : 判断当前是否主线程
 getFixedPool            : 获取固定线程池
 getSinglePool           : 获取单线程池
+getCachedPool           : 获取缓冲线程池
 getIoPool               : 获取 IO 线程池
 getCpuPool              : 获取 CPU 线程池
 executeByFixed          : 在固定线程池执行任务
@@ -632,6 +633,9 @@ executeByFixedAtFixRate : 在固定线程池按固定频率执行任务
 executeBySingle         : 在单线程池执行任务
 executeBySingleWithDelay: 在单线程池延时执行任务
 executeBySingleAtFixRate: 在单线程池按固定频率执行任务
+executeByCached         : 在缓冲线程池执行任务
+executeByCachedWithDelay: 在缓冲线程池延时执行任务
+executeByCachedAtFixRate: 在缓冲线程池按固定频率执行任务
 executeByIo             : 在 IO 线程池执行任务
 executeByIoWithDelay    : 在 IO 线程池延时执行任务
 executeByIoAtFixRate    : 在 IO 线程池按固定频率执行任务

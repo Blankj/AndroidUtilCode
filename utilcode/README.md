@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.16.0'
+implementation 'com.blankj:utilcode:1.16.1'
 ```
 
 
@@ -624,6 +624,7 @@ toSBC
 isMainThread
 getFixedPool
 getSinglePool
+getCachedPool
 getIoPool
 getCpuPool
 executeByFixed
@@ -632,6 +633,9 @@ executeByFixedAtFixRate
 executeBySingle
 executeBySingleWithDelay
 executeBySingleAtFixRate
+executeByCached
+executeByCachedWithDelay
+executeByCachedAtFixRate
 executeByIo
 executeByIoWithDelay
 executeByIoAtFixRate
