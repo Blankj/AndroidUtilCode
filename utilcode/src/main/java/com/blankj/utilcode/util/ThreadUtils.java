@@ -28,10 +28,10 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public final class ThreadUtils {
 
-    private static final Map<Integer, Map<Integer, ExecutorService>> TYPE_PRIORITY_POOLS
-            = new ConcurrentHashMap<>();
-    private static final Map<Task, ScheduledExecutorService>         TASK_SCHEDULED
-            = new ConcurrentHashMap<>();
+    private static final Map<Integer, Map<Integer, ExecutorService>> TYPE_PRIORITY_POOLS =
+            new ConcurrentHashMap<>();
+    private static final Map<Task, ScheduledExecutorService>         TASK_SCHEDULED      =
+            new ConcurrentHashMap<>();
 
     private static final byte TYPE_SINGLE = -1;
     private static final byte TYPE_CACHED = -2;

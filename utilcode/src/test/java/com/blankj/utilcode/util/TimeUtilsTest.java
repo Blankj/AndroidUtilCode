@@ -78,10 +78,10 @@ public class TimeUtilsTest {
         String testTimeString = TimeUtils.millis2String(testTimeMillis);
         String testTimeStringFormat = TimeUtils.millis2String(testTimeMillis, mFormat);
         Date testTimeDate = TimeUtils.millis2Date(testTimeMillis);
-        assertEquals(120, TimeUtils.getTimeSpan(timeString, testTimeString, TimeConstants.SEC));
-        assertEquals(2, TimeUtils.getTimeSpan(timeStringFormat, testTimeStringFormat, mFormat, TimeConstants.MIN));
-        assertEquals(2, TimeUtils.getTimeSpan(timeDate, testTimeDate, TimeConstants.MIN));
-        assertEquals(120, TimeUtils.getTimeSpan(timeMillis, testTimeMillis, TimeConstants.SEC));
+        assertEquals(-120, TimeUtils.getTimeSpan(timeString, testTimeString, TimeConstants.SEC));
+        assertEquals(2, TimeUtils.getTimeSpan(testTimeStringFormat, timeStringFormat, mFormat, TimeConstants.MIN));
+        assertEquals(-2, TimeUtils.getTimeSpan(timeDate, testTimeDate, TimeConstants.MIN));
+        assertEquals(120, TimeUtils.getTimeSpan(testTimeMillis, timeMillis, TimeConstants.SEC));
     }
 
     @Test
@@ -90,10 +90,10 @@ public class TimeUtilsTest {
         String testTimeString = TimeUtils.millis2String(testTimeMillis);
         String testTimeStringFormat = TimeUtils.millis2String(testTimeMillis, mFormat);
         Date testTimeDate = TimeUtils.millis2Date(testTimeMillis);
-        assertEquals("10天10分钟10秒", TimeUtils.getFitTimeSpan(timeString, testTimeString, 5));
-        assertEquals("10天10分钟10秒", TimeUtils.getFitTimeSpan(timeStringFormat, testTimeStringFormat, mFormat, 5));
-        assertEquals("10天10分钟10秒", TimeUtils.getFitTimeSpan(timeDate, testTimeDate, 5));
-        assertEquals("10天10分钟10秒", TimeUtils.getFitTimeSpan(timeMillis, testTimeMillis, 5));
+        assertEquals("-10天10分钟10秒", TimeUtils.getFitTimeSpan(timeString, testTimeString, 5));
+        assertEquals("10天10分钟10秒", TimeUtils.getFitTimeSpan(testTimeStringFormat, timeStringFormat, mFormat, 5));
+        assertEquals("-10天10分钟10秒", TimeUtils.getFitTimeSpan(timeDate, testTimeDate, 5));
+        assertEquals("10天10分钟10秒", TimeUtils.getFitTimeSpan(testTimeMillis, timeMillis, 5));
     }
 
     @Test

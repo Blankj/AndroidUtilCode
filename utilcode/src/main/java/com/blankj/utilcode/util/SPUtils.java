@@ -21,7 +21,7 @@ import java.util.Set;
 @SuppressLint("ApplySharedPref")
 public final class SPUtils {
 
-    private static SimpleArrayMap<String, SPUtils> SP_UTILS_MAP = new SimpleArrayMap<>();
+    private static final SimpleArrayMap<String, SPUtils> SP_UTILS_MAP = new SimpleArrayMap<>();
     private SharedPreferences sp;
 
     /**

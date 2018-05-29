@@ -189,9 +189,7 @@ public final class TimeUtils {
                                    final String time2,
                                    @NonNull final DateFormat format,
                                    @TimeConstants.Unit final int unit) {
-        return millis2TimeSpan(
-                Math.abs(string2Millis(time1, format) - string2Millis(time2, format)), unit
-        );
+        return millis2TimeSpan(string2Millis(time1, format) - string2Millis(time2, format), unit);
     }
 
     /**
@@ -212,7 +210,7 @@ public final class TimeUtils {
     public static long getTimeSpan(final Date date1,
                                    final Date date2,
                                    @TimeConstants.Unit final int unit) {
-        return millis2TimeSpan(Math.abs(date2Millis(date1) - date2Millis(date2)), unit);
+        return millis2TimeSpan(date2Millis(date1) - date2Millis(date2), unit);
     }
 
     /**
@@ -233,7 +231,7 @@ public final class TimeUtils {
     public static long getTimeSpan(final long millis1,
                                    final long millis2,
                                    @TimeConstants.Unit final int unit) {
-        return millis2TimeSpan(Math.abs(millis1 - millis2), unit);
+        return millis2TimeSpan(millis1 - millis2, unit);
     }
 
     /**
@@ -257,7 +255,7 @@ public final class TimeUtils {
                                         final String time2,
                                         final int precision) {
         long delta = string2Millis(time1, DEFAULT_FORMAT) - string2Millis(time2, DEFAULT_FORMAT);
-        return millis2FitTimeSpan(Math.abs(delta), precision);
+        return millis2FitTimeSpan(delta, precision);
     }
 
     /**
@@ -282,7 +280,7 @@ public final class TimeUtils {
                                         @NonNull final DateFormat format,
                                         final int precision) {
         long delta = string2Millis(time1, format) - string2Millis(time2, format);
-        return millis2FitTimeSpan(Math.abs(delta), precision);
+        return millis2FitTimeSpan(delta, precision);
     }
 
     /**
@@ -302,7 +300,7 @@ public final class TimeUtils {
      * @return the fit time span
      */
     public static String getFitTimeSpan(final Date date1, final Date date2, final int precision) {
-        return millis2FitTimeSpan(Math.abs(date2Millis(date1) - date2Millis(date2)), precision);
+        return millis2FitTimeSpan(date2Millis(date1) - date2Millis(date2), precision);
     }
 
     /**
@@ -324,7 +322,7 @@ public final class TimeUtils {
     public static String getFitTimeSpan(final long millis1,
                                         final long millis2,
                                         final int precision) {
-        return millis2FitTimeSpan(Math.abs(millis1 - millis2), precision);
+        return millis2FitTimeSpan(millis1 - millis2, precision);
     }
 
     /**
@@ -381,7 +379,7 @@ public final class TimeUtils {
      * @return the time span by now, in unit
      */
     public static long getTimeSpanByNow(final String time, @TimeConstants.Unit final int unit) {
-        return getTimeSpan(getNowString(), time, DEFAULT_FORMAT, unit);
+        return getTimeSpan(time, getNowString(), DEFAULT_FORMAT, unit);
     }
 
     /**
@@ -402,7 +400,7 @@ public final class TimeUtils {
     public static long getTimeSpanByNow(final String time,
                                         @NonNull final DateFormat format,
                                         @TimeConstants.Unit final int unit) {
-        return getTimeSpan(getNowString(format), time, format, unit);
+        return getTimeSpan(time, getNowString(format), format, unit);
     }
 
     /**
@@ -420,7 +418,7 @@ public final class TimeUtils {
      * @return the time span by now, in unit
      */
     public static long getTimeSpanByNow(final Date date, @TimeConstants.Unit final int unit) {
-        return getTimeSpan(new Date(), date, unit);
+        return getTimeSpan(date, new Date(), unit);
     }
 
     /**
@@ -438,7 +436,7 @@ public final class TimeUtils {
      * @return the time span by now, in unit
      */
     public static long getTimeSpanByNow(final long millis, @TimeConstants.Unit final int unit) {
-        return getTimeSpan(System.currentTimeMillis(), millis, unit);
+        return getTimeSpan(millis, System.currentTimeMillis(), unit);
     }
 
     /**
@@ -458,7 +456,7 @@ public final class TimeUtils {
      * @return the fit time span by now
      */
     public static String getFitTimeSpanByNow(final String time, final int precision) {
-        return getFitTimeSpan(getNowString(), time, DEFAULT_FORMAT, precision);
+        return getFitTimeSpan(time, getNowString(), DEFAULT_FORMAT, precision);
     }
 
     /**
@@ -480,7 +478,7 @@ public final class TimeUtils {
     public static String getFitTimeSpanByNow(final String time,
                                              @NonNull final DateFormat format,
                                              final int precision) {
-        return getFitTimeSpan(getNowString(format), time, format, precision);
+        return getFitTimeSpan(time, getNowString(format) , format, precision);
     }
 
     /**
@@ -499,7 +497,7 @@ public final class TimeUtils {
      * @return the fit time span by now
      */
     public static String getFitTimeSpanByNow(final Date date, final int precision) {
-        return getFitTimeSpan(getNowDate(), date, precision);
+        return getFitTimeSpan(date, getNowDate(), precision);
     }
 
     /**
@@ -518,7 +516,7 @@ public final class TimeUtils {
      * @return the fit time span by now
      */
     public static String getFitTimeSpanByNow(final long millis, final int precision) {
-        return getFitTimeSpan(System.currentTimeMillis(), millis, precision);
+        return getFitTimeSpan(millis, System.currentTimeMillis(), precision);
     }
 
     /**
@@ -1603,11 +1601,15 @@ public final class TimeUtils {
     }
 
     private static String millis2FitTimeSpan(long millis, int precision) {
-        if (millis < 0 || precision <= 0) return null;
+        if (precision <= 0) return null;
         precision = Math.min(precision, 5);
         String[] units = {"天", "小时", "分钟", "秒", "毫秒"};
         if (millis == 0) return 0 + units[precision - 1];
         StringBuilder sb = new StringBuilder();
+        if (millis < 0) {
+            sb.append("-");
+            millis = -millis;
+        }
         int[] unitLen = {86400000, 3600000, 60000, 1000, 1};
         for (int i = 0; i < precision; i++) {
             if (millis >= unitLen[i]) {

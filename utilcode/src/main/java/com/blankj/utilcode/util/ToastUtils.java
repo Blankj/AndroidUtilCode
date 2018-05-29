@@ -19,14 +19,12 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.ref.WeakReference;
-
 /**
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/29
- *     desc  : utils about toast
+ *     desc  : utils about sToast
  * </pre>
  */
 public final class ToastUtils {
@@ -34,7 +32,7 @@ public final class ToastUtils {
     private static final int     COLOR_DEFAULT = 0xFEFFFFFF;
     private static final Handler HANDLER       = new Handler(Looper.getMainLooper());
 
-    private static WeakReference<Toast> sWeakToast;
+    private static Toast sToast;
     private static int sGravity     = -1;
     private static int sXOffset     = -1;
     private static int sYOffset     = -1;
@@ -97,7 +95,7 @@ public final class ToastUtils {
     }
 
     /**
-     * Show the toast for a short period of time.
+     * Show the sToast for a short period of time.
      *
      * @param text The text.
      */
@@ -106,7 +104,7 @@ public final class ToastUtils {
     }
 
     /**
-     * Show the toast for a short period of time.
+     * Show the sToast for a short period of time.
      *
      * @param resId The resource id for text.
      */
@@ -115,7 +113,7 @@ public final class ToastUtils {
     }
 
     /**
-     * Show the toast for a short period of time.
+     * Show the sToast for a short period of time.
      *
      * @param resId The resource id for text.
      * @param args  The args.
@@ -129,7 +127,7 @@ public final class ToastUtils {
     }
 
     /**
-     * Show the toast for a short period of time.
+     * Show the sToast for a short period of time.
      *
      * @param format The format.
      * @param args   The args.
@@ -143,7 +141,7 @@ public final class ToastUtils {
     }
 
     /**
-     * Show the toast for a long period of time.
+     * Show the sToast for a long period of time.
      *
      * @param text The text.
      */
@@ -152,7 +150,7 @@ public final class ToastUtils {
     }
 
     /**
-     * Show the toast for a long period of time.
+     * Show the sToast for a long period of time.
      *
      * @param resId The resource id for text.
      */
@@ -161,7 +159,7 @@ public final class ToastUtils {
     }
 
     /**
-     * Show the toast for a long period of time.
+     * Show the sToast for a long period of time.
      *
      * @param resId The resource id for text.
      * @param args  The args.
@@ -175,7 +173,7 @@ public final class ToastUtils {
     }
 
     /**
-     * Show the toast for a long period of time.
+     * Show the sToast for a long period of time.
      *
      * @param format The format.
      * @param args   The args.
@@ -189,7 +187,7 @@ public final class ToastUtils {
     }
 
     /**
-     * Show custom toast for a short period of time.
+     * Show custom sToast for a short period of time.
      *
      * @param layoutId ID for an XML layout resource to load.
      */
@@ -200,7 +198,7 @@ public final class ToastUtils {
     }
 
     /**
-     * Show custom toast for a long period of time.
+     * Show custom sToast for a long period of time.
      *
      * @param layoutId ID for an XML layout resource to load.
      */
@@ -211,13 +209,12 @@ public final class ToastUtils {
     }
 
     /**
-     * Cancel the toast.
+     * Cancel the sToast.
      */
     public static void cancel() {
-        final Toast toast;
-        if (sWeakToast != null && (toast = sWeakToast.get()) != null) {
-            toast.cancel();
-            sWeakToast = null;
+        if (sToast != null) {
+            sToast.cancel();
+            sToast = null;
         }
     }
 
@@ -238,9 +235,8 @@ public final class ToastUtils {
             @Override
             public void run() {
                 cancel();
-                final Toast toast = Toast.makeText(Utils.getTopActivityOrApp(), text, duration);
-                sWeakToast = new WeakReference<>(toast);
-                final TextView tvMessage = toast.getView().findViewById(android.R.id.message);
+                sToast = Toast.makeText(Utils.getApp(), text, duration);
+                final TextView tvMessage = sToast.getView().findViewById(android.R.id.message);
                 if (sMsgColor != COLOR_DEFAULT) {
                     tvMessage.setTextColor(sMsgColor);
                 }
@@ -248,10 +244,10 @@ public final class ToastUtils {
                     tvMessage.setTextSize(sMsgTextSize);
                 }
                 if (sGravity != -1 || sXOffset != -1 || sYOffset != -1) {
-                    toast.setGravity(sGravity, sXOffset, sYOffset);
+                    sToast.setGravity(sGravity, sXOffset, sYOffset);
                 }
-                setBg(toast, tvMessage);
-                toast.show();
+                setBg(tvMessage);
+                sToast.show();
             }
         });
     }
@@ -261,25 +257,24 @@ public final class ToastUtils {
             @Override
             public void run() {
                 cancel();
-                final Toast toast = new Toast(Utils.getTopActivityOrApp());
-                sWeakToast = new WeakReference<>(toast);
-
-                toast.setView(view);
-                toast.setDuration(duration);
+                sToast = new Toast(Utils.getApp());
+                sToast.setView(view);
+                sToast.setDuration(duration);
                 if (sGravity != -1 || sXOffset != -1 || sYOffset != -1) {
-                    toast.setGravity(sGravity, sXOffset, sYOffset);
+                    sToast.setGravity(sGravity, sXOffset, sYOffset);
                 }
-                setBg(toast);
-                toast.show();
+                setBg();
+                sToast.show();
             }
         });
     }
 
-    private static void setBg(final Toast toast) {
-        final View toastView = toast.getView();
+    private static void setBg() {
         if (sBgResource != -1) {
+            final View toastView = sToast.getView();
             toastView.setBackgroundResource(sBgResource);
         } else if (sBgColor != COLOR_DEFAULT) {
+            final View toastView = sToast.getView();
             Drawable background = toastView.getBackground();
             if (background != null) {
                 background.setColorFilter(
@@ -295,12 +290,13 @@ public final class ToastUtils {
         }
     }
 
-    private static void setBg(final Toast toast, final TextView tvMsg) {
-        View toastView = toast.getView();
+    private static void setBg(final TextView tvMsg) {
         if (sBgResource != -1) {
+            final View toastView = sToast.getView();
             toastView.setBackgroundResource(sBgResource);
             tvMsg.setBackgroundColor(Color.TRANSPARENT);
         } else if (sBgColor != COLOR_DEFAULT) {
+            final View toastView = sToast.getView();
             Drawable tvBg = toastView.getBackground();
             Drawable msgBg = tvMsg.getBackground();
             if (tvBg != null && msgBg != null) {

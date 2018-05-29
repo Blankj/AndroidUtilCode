@@ -31,11 +31,11 @@ import java.util.List;
  */
 public final class FileIOUtils {
 
+    private static int sBufferSize = 8192;
+
     private FileIOUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
-
-    private static int sBufferSize = 8192;
 
     /**
      * Write file from input stream.

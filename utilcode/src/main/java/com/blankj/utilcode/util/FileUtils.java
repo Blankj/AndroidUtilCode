@@ -27,11 +27,11 @@ import java.util.List;
  */
 public final class FileUtils {
 
+    private static final String LINE_SEP = System.getProperty("line.separator");
+
     private FileUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
-
-    private static final String LINE_SEP = System.getProperty("line.separator");
 
     /**
      * Return the file by path.
