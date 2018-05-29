@@ -264,7 +264,6 @@ public class CacheUtilsTest {
         mCacheUtils2.clear();
     }
 
-
     static class ParcelableTest implements Parcelable {
         String author;
         String className;

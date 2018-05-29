@@ -1,6 +1,7 @@
 package com.blankj.utilcode.util;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -14,10 +15,16 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.lang.reflect.Field;
 
 /**
  * <pre>
@@ -214,7 +221,6 @@ public final class ToastUtils {
     public static void cancel() {
         if (sToast != null) {
             sToast.cancel();
-            sToast = null;
         }
     }
 
@@ -247,7 +253,7 @@ public final class ToastUtils {
                     sToast.setGravity(sGravity, sXOffset, sYOffset);
                 }
                 setBg(tvMessage);
-                sToast.show();
+                showToast();
             }
         });
     }
@@ -264,9 +270,22 @@ public final class ToastUtils {
                     sToast.setGravity(sGravity, sXOffset, sYOffset);
                 }
                 setBg();
-                sToast.show();
+                showToast();
             }
         });
+    }
+
+    private static void showToast() {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1) {
+            try {
+                Field field = View.class.getDeclaredField("mContext");
+                field.setAccessible(true);
+                field.set(sToast.getView(), new ApplicationContextWrapperForApi25());
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        }
+        sToast.show();
     }
 
     private static void setBg() {
@@ -316,5 +335,68 @@ public final class ToastUtils {
         LayoutInflater inflate =
                 (LayoutInflater) Utils.getApp().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         return inflate != null ? inflate.inflate(layoutId, null) : null;
+    }
+
+    private static final class ApplicationContextWrapperForApi25 extends ContextWrapper {
+
+        ApplicationContextWrapperForApi25() {
+            super(Utils.getApp());
+        }
+
+        @Override
+        public Context getApplicationContext() {
+            return this;
+        }
+
+        @Override
+        public Object getSystemService(@NonNull String name) {
+            if (Context.WINDOW_SERVICE.equals(name)) {
+                // noinspection ConstantConditions
+                return new WindowManagerWrapper(
+                        (WindowManager) getBaseContext().getSystemService(name)
+                );
+            }
+            return super.getSystemService(name);
+        }
+
+        private static final class WindowManagerWrapper implements WindowManager {
+
+            private final WindowManager base;
+
+            private WindowManagerWrapper(@NonNull WindowManager base) {
+                this.base = base;
+            }
+
+            @Override
+            public Display getDefaultDisplay() {
+                return base.getDefaultDisplay();
+            }
+
+            @Override
+            public void removeViewImmediate(View view) {
+                base.removeViewImmediate(view);
+            }
+
+            @Override
+            public void addView(View view, ViewGroup.LayoutParams params) {
+                try {
+                    base.addView(view, params);
+                } catch (BadTokenException e) {
+                    Log.e("WindowManagerWrapper", e.getMessage());
+                } catch (Throwable throwable) {
+                    Log.e("WindowManagerWrapper", "[addView]", throwable);
+                }
+            }
+
+            @Override
+            public void updateViewLayout(View view, ViewGroup.LayoutParams params) {
+                base.updateViewLayout(view, params);
+            }
+
+            @Override
+            public void removeView(View view) {
+                base.removeView(view);
+            }
+        }
     }
 }

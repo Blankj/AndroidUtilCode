@@ -3,45 +3,44 @@
     package="com.blankj.androidutilcode">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
-    <!--bar-->
+    <!-- bar -->
     <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
 
-    <!--读写内存-->
+    <!-- 读写内存 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <!--network-->
+    <!-- network -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!--permission-->
+    <!-- permission -->
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
-    <!--phone-->
+    <!-- phone -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
-    <!--process-->
+    <!-- process -->
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
 
-    <!--screen-->
+    <!-- screen -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
-    <!--flashlight-->
+    <!-- flashlight -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
 
-    <!--location-->
+    <!-- location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -57,11 +56,12 @@
             android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!--core-->
+        <!-- core -->
         <activity
             android:name=".feature.core.CoreUtilActivity"
             android:launchMode="singleTop" />
@@ -162,7 +162,7 @@
             android:name=".feature.core.toast.ToastActivity"
             android:launchMode="singleTop" />
 
-        <!--sub-->
+        <!-- sub -->
         <activity
             android:name=".feature.sub.SubUtilActivity"
             android:launchMode="singleTop" />
