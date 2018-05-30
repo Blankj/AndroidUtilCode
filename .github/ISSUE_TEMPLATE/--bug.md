@@ -9,13 +9,13 @@ about: Blankj 会尽快修复这个 bug
 - 所用库版本号：
 
 - 异常代码：
+```java
 
-  ```java
-
-  ```
+```
 
 - 异常栈
 
-## 编辑完 bug 描述，下述提示信息请删除
 
-再次感谢您对《[AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode/issues/templates/edit)》项目的支持
+本行及以下信息**请删除**
+
+再次感谢您对《[AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode)》项目的支持！
