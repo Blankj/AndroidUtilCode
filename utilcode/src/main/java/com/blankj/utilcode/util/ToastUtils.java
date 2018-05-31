@@ -1,5 +1,6 @@
 package com.blankj.utilcode.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Color;
@@ -238,6 +239,7 @@ public final class ToastUtils {
 
     private static void show(final CharSequence text, final int duration) {
         HANDLER.post(new Runnable() {
+            @SuppressLint("ShowToast")
             @Override
             public void run() {
                 cancel();

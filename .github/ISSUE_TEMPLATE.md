@@ -7,14 +7,14 @@ A clear and concise description of what the bug is.
 
 **The version of device: [e.g. API 27]**
 
-**The code: **
+**The code:**
 [e.g.
 ```java
 CrashUtils.init();
 ```
 ]
 
-**The stack of crash: **
+**The stack of crash:**
 [e.g.
 ```
 Caused by: java.lang.NullPointerException: u should init first
