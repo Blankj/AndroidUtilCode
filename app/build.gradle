@@ -57,5 +57,5 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
-//    implementation 'com.blankj:utilcode:1.16.3'
+//    implementation 'com.blankj:utilcode:1.16.4'
 }

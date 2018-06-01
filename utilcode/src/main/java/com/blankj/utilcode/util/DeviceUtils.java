@@ -93,23 +93,48 @@ public final class DeviceUtils {
      */
     @RequiresPermission(allOf = {ACCESS_WIFI_STATE, INTERNET})
     public static String getMacAddress() {
+        return getMacAddress((String[]) null);
+    }
+
+    /**
+     * Return the MAC address.
+     * <p>Must hold
+     * {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />},
+     * {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
+     *
+     * @return the MAC address
+     */
+    @RequiresPermission(allOf = {ACCESS_WIFI_STATE, INTERNET})
+    public static String getMacAddress(final String... excepts) {
         String macAddress = getMacAddressByWifiInfo();
-        if (!"02:00:00:00:00:00".equals(macAddress)) {
+        if (isAddressNotInExcepts(macAddress, excepts)) {
             return macAddress;
         }
         macAddress = getMacAddressByNetworkInterface();
-        if (!"02:00:00:00:00:00".equals(macAddress)) {
+        if (isAddressNotInExcepts(macAddress, excepts)) {
             return macAddress;
         }
         macAddress = getMacAddressByInetAddress();
-        if (!"02:00:00:00:00:00".equals(macAddress)) {
+        if (isAddressNotInExcepts(macAddress, excepts)) {
             return macAddress;
         }
         macAddress = getMacAddressByFile();
-        if (!"02:00:00:00:00:00".equals(macAddress)) {
+        if (isAddressNotInExcepts(macAddress, excepts)) {
             return macAddress;
         }
-        return "please open wifi";
+        return "";
+    }
+
+    private static boolean isAddressNotInExcepts(final String address, final String... excepts) {
+        if (excepts == null || excepts.length == 0) {
+            return !"02:00:00:00:00:00".equals(address);
+        }
+        for (String filter : excepts) {
+            if (address.equals(filter)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @SuppressLint({"HardwareIds", "MissingPermission"})
