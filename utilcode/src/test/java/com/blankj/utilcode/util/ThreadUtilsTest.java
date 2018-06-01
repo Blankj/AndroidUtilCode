@@ -243,7 +243,7 @@ public class ThreadUtilsTest {
                         System.out.println(result);
                     }
                 };
-                ThreadUtils.executeByIoWithDelay(task, 500  + index * 10, TimeUnit.MILLISECONDS);
+                ThreadUtils.executeByIoWithDelay(task, 500 + index * 10, TimeUnit.MILLISECONDS);
             }
         });
     }
@@ -330,7 +330,7 @@ public class ThreadUtilsTest {
                         System.out.println(result);
                     }
                 };
-                ThreadUtils.executeByCpuWithDelay(task, 500  + index * 10, TimeUnit.MILLISECONDS);
+                ThreadUtils.executeByCpuWithDelay(task, 500 + index * 10, TimeUnit.MILLISECONDS);
             }
         });
     }
