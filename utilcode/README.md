@@ -137,7 +137,7 @@ Instance.remove
 Instance.clear
 ```
 
-* ### About Cache -> [CacheUtils.java][cache.java]~~
+* ### ~~About Cache -> [CacheUtils.java][cache.java]~~
 ```
 getInstance
 Instance.put
