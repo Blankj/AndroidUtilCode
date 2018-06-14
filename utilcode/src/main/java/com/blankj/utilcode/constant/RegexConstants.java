@@ -5,7 +5,7 @@ package com.blankj.utilcode.constant;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/03/13
- *     desc  : The constants of regex.
+ *     desc  : constants of regex
  * </pre>
  */
 public final class RegexConstants {

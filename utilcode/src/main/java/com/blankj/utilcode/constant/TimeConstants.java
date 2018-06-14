@@ -10,7 +10,7 @@ import java.lang.annotation.RetentionPolicy;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/03/13
- *     desc  : The constants of time.
+ *     desc  : constants of time
  * </pre>
  */
 public final class TimeConstants {

@@ -23,7 +23,7 @@ public class TestUtils {
     }
 
     @Test
-    public void test() throws Exception {
+    public void test() {
 
     }
 }

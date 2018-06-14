@@ -1,5 +1,6 @@
 package com.blankj.androidutilcode.base;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -37,6 +38,7 @@ public abstract class BaseActivity extends AppCompatActivity
         doBusiness();
     }
 
+    @SuppressLint("ResourceType")
     protected void setBaseView(@LayoutRes int layoutId) {
         if (layoutId <= 0) return;
         setContentView(mContentView = LayoutInflater.from(this).inflate(layoutId, null));

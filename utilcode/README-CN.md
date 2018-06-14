@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.16.4'
+implementation 'com.blankj:utilcode:1.17.0'
 ```
 
 
@@ -90,7 +90,54 @@ getNavBarColor                       : 获取导航栏颜色
 isNavBarVisible                      : 判断导航栏是否可见
 ```
 
-* ### 缓存相关 -> [CacheUtils.java][cache.java] -> [Test][cache.test]
+* ### 磁盘缓存相关 -> [CacheDiskUtils.java][cache_disk.java] -> [Test][cache_disk.test]
+```
+getInstance             : 获取缓存实例
+Instance.put            : 缓存中写入数据
+Instance.getBytes       : 缓存中读取字节数组
+Instance.getString      : 缓存中读取 String
+Instance.getJSONObject  : 缓存中读取 JSONObject
+Instance.getJSONArray   : 缓存中读取 JSONArray
+Instance.getBitmap      : 缓存中读取 Bitmap
+Instance.getDrawable    : 缓存中读取 Drawable
+Instance.getParcelable  : 缓存中读取 Parcelable
+Instance.getSerializable: 缓存中读取 Serializable
+Instance.getCacheSize   : 获取缓存大小
+Instance.getCacheCount  : 获取缓存个数
+Instance.remove         : 根据键值移除缓存
+Instance.clear          : 清除所有缓存
+```
+
+* ### 二级缓存相关 -> [CacheDoubleUtils.java][cache_double.java] -> [Test][cache_double.test]
+```
+getInstance                 : 获取缓存实例
+Instance.put                : 缓存中写入数据
+Instance.getBytes           : 缓存中读取字节数组
+Instance.getString          : 缓存中读取 String
+Instance.getJSONObject      : 缓存中读取 JSONObject
+Instance.getJSONArray       : 缓存中读取 JSONArray
+Instance.getBitmap          : 缓存中读取 Bitmap
+Instance.getDrawable        : 缓存中读取 Drawable
+Instance.getParcelable      : 缓存中读取 Parcelable
+Instance.getSerializable    : 缓存中读取 Serializable
+Instance.getCacheDiskSize   : 获取磁盘缓存大小
+Instance.getCacheDiskCount  : 获取磁盘缓存个数
+Instance.getCacheMemoryCount: 获取内存缓存个数
+Instance.remove             : 根据键值移除缓存
+Instance.clear              : 清除所有缓存
+```
+
+* ### 内存缓存相关 -> [CacheMemoryUtils.java][cache_memory.java] -> [Test][cache_memory.test]
+```
+getInstance           : 获取缓存实例
+Instance.put          : 缓存中写入数据
+Instance.get          : 缓存中读取字节数组
+Instance.getCacheCount: 获取缓存个数
+Instance.remove       : 根据键值移除缓存
+Instance.clear        : 清除所有缓存
+```
+
+* ### ~~缓存相关 -> [CacheUtils.java][cache.java]~~
 ```
 getInstance             : 获取缓存实例
 Instance.put            : 缓存中写入数据
@@ -721,8 +768,16 @@ getComments       : 获取压缩文件中的注释链表
 [bar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/BarUtils.java
 [bar.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/bar/BarActivity.java
 
+[cache_disk.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheDiskUtils.java
+[cache_disk.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheDiskUtilsTest.java
+
+[cache_double.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheDoubleUtils.java
+[cache_double.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheDoubleUtilsTest.java
+
+[cache_memory.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheMemoryUtils.java
+[cache_memory.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheMemoryUtilsTest.java
+
 [cache.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheUtils.java
-[cache.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheUtilsTest.java
 
 [clean.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CleanUtils.java
 [clean.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/clean/CleanActivity.java
