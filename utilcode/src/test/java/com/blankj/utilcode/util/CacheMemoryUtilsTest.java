@@ -48,9 +48,9 @@ public class CacheMemoryUtilsTest {
         mCacheMemoryUtils1.put("10", 10, 2 * CacheMemoryUtils.SEC);
 
         assertEquals(10, mCacheMemoryUtils1.get("10"));
-        Thread.sleep(1000);
+        Thread.sleep(1500);
         assertEquals(10, mCacheMemoryUtils1.get("10"));
-        Thread.sleep(1000);
+        Thread.sleep(1500);
         assertNull(mCacheMemoryUtils1.get("10"));
     }
 
