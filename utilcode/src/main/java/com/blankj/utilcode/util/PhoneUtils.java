@@ -8,6 +8,7 @@ import android.os.Build;
 import android.support.annotation.RequiresPermission;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 
 import java.util.List;
 
@@ -52,7 +53,30 @@ public final class PhoneUtils {
     public static String getDeviceId() {
         TelephonyManager tm =
                 (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (tm == null) return "";
+            String imei = tm.getImei();
+            if (!TextUtils.isEmpty(imei)) return imei;
+            String meid = tm.getMeid();
+            return TextUtils.isEmpty(meid) ? "" : meid;
+
+        }
         return tm != null ? tm.getDeviceId() : "";
+    }
+
+    /**
+     * Return the serial of device.
+     *
+     * @return the serial of device
+     */
+    @SuppressLint("HardwareIds")
+    @RequiresPermission(READ_PHONE_STATE)
+    public static String getSerial() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return Build.getSerial();
+        } else {
+            return Build.SERIAL;
+        }
     }
 
     /**

@@ -98,7 +98,7 @@ public final class ShellUtils {
                                         final boolean isNeedResultMsg) {
         int result = -1;
         if (commands == null || commands.length == 0) {
-            return new CommandResult(result, null, null);
+            return new CommandResult(result, "", "");
         }
         Process process = null;
         BufferedReader successResult = null;
@@ -121,10 +121,12 @@ public final class ShellUtils {
             if (isNeedResultMsg) {
                 successMsg = new StringBuilder();
                 errorMsg = new StringBuilder();
-                successResult = new BufferedReader(new InputStreamReader(process.getInputStream(),
-                        "UTF-8"));
-                errorResult = new BufferedReader(new InputStreamReader(process.getErrorStream(),
-                        "UTF-8"));
+                successResult = new BufferedReader(
+                        new InputStreamReader(process.getInputStream(), "UTF-8")
+                );
+                errorResult = new BufferedReader(
+                        new InputStreamReader(process.getErrorStream(), "UTF-8")
+                );
                 String line;
                 if ((line = successResult.readLine()) != null) {
                     successMsg.append(line);
@@ -169,8 +171,8 @@ public final class ShellUtils {
         }
         return new CommandResult(
                 result,
-                successMsg == null ? null : successMsg.toString(),
-                errorMsg == null ? null : errorMsg.toString()
+                successMsg == null ? "" : successMsg.toString(),
+                errorMsg == null ? "" : errorMsg.toString()
         );
     }
 
@@ -186,6 +188,13 @@ public final class ShellUtils {
             this.result = result;
             this.successMsg = successMsg;
             this.errorMsg = errorMsg;
+        }
+
+        @Override
+        public String toString() {
+            return "result: " + result + "\n" +
+                    "successMsg: " + successMsg + "\n" +
+                    "errorMsg: " + errorMsg;
         }
     }
 }

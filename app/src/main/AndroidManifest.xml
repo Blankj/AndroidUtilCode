@@ -120,8 +120,7 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.core.keyboard.KeyboardActivity"
-            android:launchMode="singleTop"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:launchMode="singleTop" />
         <activity
             android:name=".feature.core.log.LogActivity"
             android:launchMode="singleTop" />

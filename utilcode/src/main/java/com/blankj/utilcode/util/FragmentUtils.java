@@ -1430,9 +1430,8 @@ public final class FragmentUtils {
                     if (args == null) return;
                     name = args.getString(ARGS_TAG, fragment.getClass().getName());
                     Fragment fragmentByTag = fm.findFragmentByTag(name);
-                    while (fragmentByTag != null && fragmentByTag.isAdded()) {
+                    if (fragmentByTag != null && fragmentByTag.isAdded()) {
                         ft.remove(fragmentByTag);
-                        fragmentByTag = fm.findFragmentByTag(name);
                     }
                     ft.add(args.getInt(ARGS_ID), fragment, name);
                     if (args.getBoolean(ARGS_IS_HIDE)) ft.hide(fragment);

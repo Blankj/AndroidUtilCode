@@ -1,3 +1,5 @@
+* 18/06/25 新增 KeyboardUtils#fixAndroidBug5497，发布 1.17.1 版本
+* 18/06/21 修复 FragmentUtils#add 死循环的 BUG
 * 18/06/14 替换 CacheUtils 为 CacheDiskUtils，CacheUtils 标记 deprecated，发布 1.17.0 版本
 * 18/06/13 新增 CacheMemoryUtils 和 CacheDoubleUtils
 * 18/06/12 完善 FragmentUtils#add 和 replace 新增 tag

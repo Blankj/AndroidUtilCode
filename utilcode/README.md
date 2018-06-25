@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.17.0'
+implementation 'com.blankj:utilcode:1.17.1'
 ```
 
 
@@ -384,6 +384,7 @@ toggleSoftInput
 isSoftInputVisible
 registerSoftInputChangedListener
 unregisterSoftInputChangedListener
+fixAndroidBug5497
 fixSoftInputLeaks
 clickBlankArea2HideSoftInput
 ```
@@ -467,6 +468,7 @@ request
 ```
 isPhone
 getDeviceId
+getSerial
 getIMEI
 getMEID
 getIMSI
@@ -610,7 +612,6 @@ setLineHeight
 setQuoteColor
 setLeadingMargin
 setBullet
-setIconMargin
 setFontSize
 setFontProportion
 setFontXProportion

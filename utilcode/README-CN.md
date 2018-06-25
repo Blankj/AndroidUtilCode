@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.17.0'
+implementation 'com.blankj:utilcode:1.17.1'
 ```
 
 
@@ -384,6 +384,7 @@ toggleSoftInput                   : 切换键盘显示与否状态
 isSoftInputVisible                : 判断软键盘是否可见
 registerSoftInputChangedListener  : 注册软键盘改变监听器
 unregisterSoftInputChangedListener: 注销软键盘改变监听器
+fixAndroidBug5497                 : 修复安卓 5497 BUG
 fixSoftInputLeaks                 : 修复软键盘内存泄漏
 clickBlankArea2HideSoftInput      : 点击屏幕空白区域隐藏软键盘
 ```
@@ -467,6 +468,7 @@ request                 : 开始请求
 ```
 isPhone            : 判断设备是否是手机
 getDeviceId        : 获取设备码
+getSerial          : 获取序列号
 getIMEI            : 获取 IMEI 码
 getMEID            : 获取 MEID 码
 getIMSI            : 获取 IMSI 码
@@ -610,7 +612,6 @@ setLineHeight     : 设置行高
 setQuoteColor     : 设置引用线的颜色
 setLeadingMargin  : 设置缩进
 setBullet         : 设置列表标记
-setIconMargin     : 设置图标
 setFontSize       : 设置字体尺寸
 setFontProportion : 设置字体比例
 setFontXProportion: 设置字体横向比例

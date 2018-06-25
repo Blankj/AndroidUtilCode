@@ -40,6 +40,7 @@ public final class NetworkUtils {
     }
 
     public enum NetworkType {
+        NETWORK_ETHERNET,
         NETWORK_WIFI,
         NETWORK_4G,
         NETWORK_3G,
@@ -257,10 +258,6 @@ public final class NetworkUtils {
         return tm != null ? tm.getNetworkOperatorName() : "";
     }
 
-    private static final int NETWORK_TYPE_GSM      = 16;
-    private static final int NETWORK_TYPE_TD_SCDMA = 17;
-    private static final int NETWORK_TYPE_IWLAN    = 18;
-
     /**
      * Return type of network.
      * <p>Must hold
@@ -268,12 +265,13 @@ public final class NetworkUtils {
      *
      * @return type of network
      * <ul>
-     * <li>{@link NetworkUtils.NetworkType#NETWORK_WIFI   } </li>
-     * <li>{@link NetworkUtils.NetworkType#NETWORK_4G     } </li>
-     * <li>{@link NetworkUtils.NetworkType#NETWORK_3G     } </li>
-     * <li>{@link NetworkUtils.NetworkType#NETWORK_2G     } </li>
-     * <li>{@link NetworkUtils.NetworkType#NETWORK_UNKNOWN} </li>
-     * <li>{@link NetworkUtils.NetworkType#NETWORK_NO     } </li>
+     * <li>{@link NetworkUtils.NetworkType#NETWORK_ETHERNET} </li>
+     * <li>{@link NetworkUtils.NetworkType#NETWORK_WIFI    } </li>
+     * <li>{@link NetworkUtils.NetworkType#NETWORK_4G      } </li>
+     * <li>{@link NetworkUtils.NetworkType#NETWORK_3G      } </li>
+     * <li>{@link NetworkUtils.NetworkType#NETWORK_2G      } </li>
+     * <li>{@link NetworkUtils.NetworkType#NETWORK_UNKNOWN } </li>
+     * <li>{@link NetworkUtils.NetworkType#NETWORK_NO      } </li>
      * </ul>
      */
     @RequiresPermission(ACCESS_NETWORK_STATE)
@@ -281,13 +279,14 @@ public final class NetworkUtils {
         NetworkType netType = NetworkType.NETWORK_NO;
         NetworkInfo info = getActiveNetworkInfo();
         if (info != null && info.isAvailable()) {
-
-            if (info.getType() == ConnectivityManager.TYPE_WIFI) {
+            if (info.getType() == ConnectivityManager.TYPE_ETHERNET) {
+                netType = NetworkType.NETWORK_ETHERNET;
+            } else if (info.getType() == ConnectivityManager.TYPE_WIFI) {
                 netType = NetworkType.NETWORK_WIFI;
             } else if (info.getType() == ConnectivityManager.TYPE_MOBILE) {
                 switch (info.getSubtype()) {
 
-                    case NETWORK_TYPE_GSM:
+                    case TelephonyManager.NETWORK_TYPE_GSM:
                     case TelephonyManager.NETWORK_TYPE_GPRS:
                     case TelephonyManager.NETWORK_TYPE_CDMA:
                     case TelephonyManager.NETWORK_TYPE_EDGE:
@@ -296,7 +295,7 @@ public final class NetworkUtils {
                         netType = NetworkType.NETWORK_2G;
                         break;
 
-                    case NETWORK_TYPE_TD_SCDMA:
+                    case TelephonyManager.NETWORK_TYPE_TD_SCDMA:
                     case TelephonyManager.NETWORK_TYPE_EVDO_A:
                     case TelephonyManager.NETWORK_TYPE_UMTS:
                     case TelephonyManager.NETWORK_TYPE_EVDO_0:
@@ -309,7 +308,7 @@ public final class NetworkUtils {
                         netType = NetworkType.NETWORK_3G;
                         break;
 
-                    case NETWORK_TYPE_IWLAN:
+                    case TelephonyManager.NETWORK_TYPE_IWLAN:
                     case TelephonyManager.NETWORK_TYPE_LTE:
                         netType = NetworkType.NETWORK_4G;
                         break;

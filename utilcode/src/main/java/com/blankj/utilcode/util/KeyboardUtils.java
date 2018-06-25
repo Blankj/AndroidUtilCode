@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
 
 import java.lang.reflect.Field;
 
@@ -26,6 +27,7 @@ public final class KeyboardUtils {
     private static int                        sContentViewInvisibleHeightPre;
     private static OnGlobalLayoutListener     onGlobalLayoutListener;
     private static OnSoftInputChangedListener onSoftInputChangedListener;
+    private static int                        sContentViewInvisibleHeightPre5497;
 
     private KeyboardUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -125,11 +127,15 @@ public final class KeyboardUtils {
     }
 
     private static int getContentViewInvisibleHeight(final Activity activity) {
-        final View contentView = activity.findViewById(android.R.id.content);
+        final FrameLayout contentView = activity.findViewById(android.R.id.content);
+        final View contentViewChild = contentView.getChildAt(0);
         final Rect outRect = new Rect();
-        contentView.getWindowVisibleDisplayFrame(outRect);
-        LogUtils.d(contentView.getTop(), contentView.getBottom(), outRect.top, outRect.bottom);
-        return contentView.getBottom() - outRect.bottom;
+        contentViewChild.getWindowVisibleDisplayFrame(outRect);
+        LogUtils.d(
+                contentViewChild.getTop(), contentViewChild.getBottom(),
+                outRect.top, outRect.bottom
+        );
+        return contentViewChild.getBottom() - outRect.bottom;
     }
 
     /**
@@ -144,7 +150,7 @@ public final class KeyboardUtils {
         if ((flags & WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS) != 0) {
             activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
-        final View contentView = activity.findViewById(android.R.id.content);
+        final FrameLayout contentView = activity.findViewById(android.R.id.content);
         sContentViewInvisibleHeightPre = getContentViewInvisibleHeight(activity);
         onSoftInputChangedListener = listener;
         onGlobalLayoutListener = new OnGlobalLayoutListener() {
@@ -159,7 +165,8 @@ public final class KeyboardUtils {
                 }
             }
         };
-        contentView.getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
+        contentView.getViewTreeObserver()
+                .addOnGlobalLayoutListener(onGlobalLayoutListener);
     }
 
     /**
@@ -173,6 +180,38 @@ public final class KeyboardUtils {
         contentView.getViewTreeObserver().removeOnGlobalLayoutListener(onGlobalLayoutListener);
         onSoftInputChangedListener = null;
         onGlobalLayoutListener = null;
+    }
+
+    /**
+     * Fix the bug of 5497 in Android.
+     *
+     * @param activity The activity.
+     */
+    public static void fixAndroidBug5497(final Activity activity) {
+        final int flags = activity.getWindow().getAttributes().flags;
+        if ((flags & WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS) != 0) {
+            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
+        final FrameLayout contentView = activity.findViewById(android.R.id.content);
+        final View contentViewChild = contentView.getChildAt(0);
+        final int paddingBottom = contentViewChild.getPaddingBottom();
+        sContentViewInvisibleHeightPre5497 = getContentViewInvisibleHeight(activity);
+        contentView.getViewTreeObserver()
+                .addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        int height = getContentViewInvisibleHeight(activity);
+                        if (sContentViewInvisibleHeightPre5497 != height) {
+                            contentViewChild.setPadding(
+                                    contentViewChild.getPaddingLeft(),
+                                    contentViewChild.getPaddingTop(),
+                                    contentViewChild.getPaddingRight(),
+                                    paddingBottom + height
+                            );
+                            sContentViewInvisibleHeightPre5497 = height;
+                        }
+                    }
+                });
     }
 
     /**

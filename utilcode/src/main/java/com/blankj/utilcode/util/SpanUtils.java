@@ -796,37 +796,6 @@ public final class SpanUtils {
                     flag
             );
         }
-//        if (imGapWidth != -1) {
-//            if (imBitmap != null) {
-//                mBuilder.setSpan(
-//                        new CustomIconMarginSpan(imBitmap, imGapWidth, imAlign),
-//                        start,
-//                        end,
-//                        flag
-//                );
-//            } else if (imDrawable != null) {
-//                mBuilder.setSpan(
-//                        new CustomIconMarginSpan(imDrawable, imGapWidth, imAlign),
-//                        start,
-//                        end,
-//                        flag
-//                );
-//            } else if (imUri != null) {
-//                mBuilder.setSpan(
-//                        new CustomIconMarginSpan(imUri, imGapWidth, imAlign),
-//                        start,
-//                        end,
-//                        flag
-//                );
-//            } else if (imResourceId != -1) {
-//                mBuilder.setSpan(
-//                        new CustomIconMarginSpan(imResourceId, imGapWidth, imAlign),
-//                        start,
-//                        end,
-//                        flag
-//                );
-//            }
-//        }
         if (fontSize != -1) {
             mBuilder.setSpan(new AbsoluteSizeSpan(fontSize, fontSizeIsDp), start, end, flag);
         }
