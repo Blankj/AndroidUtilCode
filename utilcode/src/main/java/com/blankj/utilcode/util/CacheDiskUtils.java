@@ -41,7 +41,7 @@ import java.util.concurrent.atomic.AtomicLong;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/05/24
- *     desc  : utils about cache
+ *     desc  : utils about disk cache
  * </pre>
  */
 public final class CacheDiskUtils implements CacheConstants {
@@ -128,7 +128,7 @@ public final class CacheDiskUtils implements CacheConstants {
     public static CacheDiskUtils getInstance(@NonNull final File cacheDir,
                                              final long maxSize,
                                              final int maxCount) {
-        final String cacheKey = cacheDir.getAbsoluteFile() + "_" + maxCount + "_" + maxCount;
+        final String cacheKey = cacheDir.getAbsoluteFile() + "_" + maxSize + "_" + maxCount;
         CacheDiskUtils cache = CACHE_MAP.get(cacheKey);
         if (cache == null) {
             if (!cacheDir.exists() && !cacheDir.mkdirs()) {

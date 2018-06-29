@@ -131,7 +131,7 @@ public class CacheUtils implements CacheConstants {
     public static CacheUtils getInstance(@NonNull final File cacheDir,
                                          final long maxSize,
                                          final int maxCount) {
-        final String cacheKey = cacheDir.getAbsoluteFile() + "_" + maxCount + "_" + maxCount;
+        final String cacheKey = cacheDir.getAbsoluteFile() + "_" + maxSize + "_" + maxCount;
         CacheUtils cache = CACHE_MAP.get(cacheKey);
         if (cache == null) {
             if (!cacheDir.exists() && !cacheDir.mkdirs()) {

@@ -13,7 +13,7 @@ import java.lang.reflect.Array;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/05/24
- *     desc  : utils about LRU cache
+ *     desc  : utils about memory cache
  * </pre>
  */
 public final class CacheMemoryUtils implements CacheConstants {

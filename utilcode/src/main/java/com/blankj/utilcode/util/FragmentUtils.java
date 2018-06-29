@@ -8,6 +8,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -933,8 +934,10 @@ public final class FragmentUtils {
                                @NonNull final Fragment destFragment,
                                final String destTag,
                                final boolean isAddStack) {
+        FragmentManager fm = srcFragment.getFragmentManager();
+        if (fm == null) return;
         Args args = getArgs(srcFragment);
-        replace(srcFragment.getFragmentManager(), destFragment, args.id, destTag, isAddStack);
+        replace(fm, destFragment, args.id, destTag, isAddStack);
     }
 
     /**
@@ -1031,8 +1034,10 @@ public final class FragmentUtils {
                                @AnimRes final int exitAnim,
                                @AnimRes final int popEnterAnim,
                                @AnimRes final int popExitAnim) {
+        FragmentManager fm = srcFragment.getFragmentManager();
+        if (fm == null) return;
         Args args = getArgs(srcFragment);
-        replace(srcFragment.getFragmentManager(), destFragment, args.id, destTag, isAddStack,
+        replace(fm, destFragment, args.id, destTag, isAddStack,
                 enterAnim, exitAnim, popEnterAnim, popExitAnim);
     }
 
@@ -1067,8 +1072,10 @@ public final class FragmentUtils {
                                final String destTag,
                                final boolean isAddStack,
                                final View... sharedElements) {
+        FragmentManager fm = srcFragment.getFragmentManager();
+        if (fm == null) return;
         Args args = getArgs(srcFragment);
-        replace(srcFragment.getFragmentManager(),
+        replace(fm,
                 destFragment,
                 args.id,
                 destTag,
@@ -1399,21 +1406,23 @@ public final class FragmentUtils {
 
     private static Args getArgs(final Fragment fragment) {
         Bundle bundle = fragment.getArguments();
+        if (bundle == null) bundle = Bundle.EMPTY;
         return new Args(bundle.getInt(ARGS_ID, fragment.getId()),
                 bundle.getBoolean(ARGS_IS_HIDE),
                 bundle.getBoolean(ARGS_IS_ADD_STACK));
     }
 
-    private static void operateNoAnim(final FragmentManager fm,
+    private static void operateNoAnim(@Nullable final FragmentManager fm,
                                       final int type,
                                       final Fragment src,
                                       Fragment... dest) {
+        if (fm == null) return;
         FragmentTransaction ft = fm.beginTransaction();
         operate(type, fm, ft, src, dest);
     }
 
     private static void operate(final int type,
-                                final FragmentManager fm,
+                                @NonNull final FragmentManager fm,
                                 final FragmentTransaction ft,
                                 final Fragment src,
                                 final Fragment... dest) {
@@ -1528,7 +1537,8 @@ public final class FragmentUtils {
             Fragment fragment = fragments.get(i);
             if (fragment != null) {
                 if (isInStack) {
-                    if (fragment.getArguments().getBoolean(ARGS_IS_ADD_STACK)) {
+                    Bundle args = fragment.getArguments();
+                    if (args != null && args.getBoolean(ARGS_IS_ADD_STACK)) {
                         return fragment;
                     }
                 } else {
@@ -1569,7 +1579,8 @@ public final class FragmentUtils {
                     && fragment.isVisible()
                     && fragment.getUserVisibleHint()) {
                 if (isInStack) {
-                    if (fragment.getArguments().getBoolean(ARGS_IS_ADD_STACK)) {
+                    Bundle args = fragment.getArguments();
+                    if (args != null && args.getBoolean(ARGS_IS_ADD_STACK)) {
                         return fragment;
                     }
                 } else {
@@ -1587,7 +1598,6 @@ public final class FragmentUtils {
      * @return the fragments in manager
      */
     public static List<Fragment> getFragments(@NonNull final FragmentManager fm) {
-        @SuppressWarnings("RestrictedApi")
         List<Fragment> fragments = fm.getFragments();
         if (fragments == null || fragments.isEmpty()) return Collections.emptyList();
         return fragments;
@@ -1603,8 +1613,11 @@ public final class FragmentUtils {
         List<Fragment> fragments = getFragments(fm);
         List<Fragment> result = new ArrayList<>();
         for (Fragment fragment : fragments) {
-            if (fragment != null && fragment.getArguments().getBoolean(ARGS_IS_ADD_STACK)) {
-                result.add(fragment);
+            if (fragment != null) {
+                Bundle args = fragment.getArguments();
+                if (args != null && args.getBoolean(ARGS_IS_ADD_STACK)) {
+                    result.add(fragment);
+                }
             }
         }
         return result;
@@ -1649,10 +1662,13 @@ public final class FragmentUtils {
         List<Fragment> fragments = getFragments(fm);
         for (int i = fragments.size() - 1; i >= 0; --i) {
             Fragment fragment = fragments.get(i);
-            if (fragment != null && fragment.getArguments().getBoolean(ARGS_IS_ADD_STACK)) {
-                result.add(new FragmentNode(fragment,
-                        getAllFragmentsInStack(fragment.getChildFragmentManager(),
-                                new ArrayList<FragmentNode>())));
+            if (fragment != null) {
+                Bundle args = fragment.getArguments();
+                if (args != null && args.getBoolean(ARGS_IS_ADD_STACK)) {
+                    result.add(new FragmentNode(fragment,
+                            getAllFragmentsInStack(fragment.getChildFragmentManager(),
+                                    new ArrayList<FragmentNode>())));
+                }
             }
         }
         return result;
@@ -1774,10 +1790,10 @@ public final class FragmentUtils {
     }
 
     private static class Args {
-        int     id;
-        boolean isHide;
-        boolean isAddStack;
-        String  tag;
+        final int     id;
+        final boolean isHide;
+        final boolean isAddStack;
+        final String  tag;
 
         private Args(final int id, final boolean isHide, final boolean isAddStack) {
             this(id, null, isHide, isAddStack);
@@ -1793,8 +1809,8 @@ public final class FragmentUtils {
     }
 
     public static class FragmentNode {
-        Fragment           fragment;
-        List<FragmentNode> next;
+        final Fragment           fragment;
+        final List<FragmentNode> next;
 
         public FragmentNode(final Fragment fragment, final List<FragmentNode> next) {
             this.fragment = fragment;

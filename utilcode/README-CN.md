@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.17.1'
+implementation 'com.blankj:utilcode:1.17.2'
 ```
 
 
@@ -745,7 +745,8 @@ cancel         : 取消吐司显示
 
 * ### URI 相关 -> [UriUtils.java][uri.java]
 ```
-getUriForFile: 获取文件 URI
+file2Uri: file 转 uri
+uri2File: uri 转 file
 ```
 
 * ### 压缩相关 -> [ZipUtils.java][zip.java] -> [Test][zip.test]

@@ -1,3 +1,5 @@
+* 18/06/29 修复 FragmentUtils 中 getFragmentManager 空指针错误，发布 1.17.2
+* 18/06/27 新增 UriUtils#uri2File
 * 18/06/25 新增 KeyboardUtils#fixAndroidBug5497，发布 1.17.1 版本
 * 18/06/21 修复 FragmentUtils#add 死循环的 BUG
 * 18/06/14 替换 CacheUtils 为 CacheDiskUtils，CacheUtils 标记 deprecated，发布 1.17.0 版本
