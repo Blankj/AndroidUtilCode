@@ -1,0 +1,19 @@
+ext{
+    // Sdk and tools
+    compile_sdk_version = 27
+    min_sdk_version = 14
+    target_sdk_version = 27
+
+    version_code = 1_017_002
+    version_name = '1.17.2'// E.g 1.9.72 => 1,009,072
+
+    // App dependencies
+    support_version = '27.1.0'
+
+    leakcanary_version = '1.5.4'
+    gson_version = '2.8.2'
+    glide_version = '4.7.1'
+
+    junit_version = '4.12'
+    robolectric_version = '3.1.2'
+}
