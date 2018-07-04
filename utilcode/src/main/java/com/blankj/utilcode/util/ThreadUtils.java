@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.util.Map;
@@ -993,9 +994,10 @@ public final class ThreadUtils {
             state = NEW;
         }
 
+        @Nullable
         public abstract T doInBackground() throws Throwable;
 
-        public abstract void onSuccess(T result);
+        public abstract void onSuccess(@Nullable T result);
 
         public abstract void onCancel();
 

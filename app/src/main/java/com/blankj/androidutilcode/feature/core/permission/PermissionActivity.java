@@ -82,7 +82,7 @@ public class PermissionActivity extends BaseBackActivity {
                 PermissionUtils.launchAppDetailsSettings();
                 break;
             case R.id.btn_request_calendar:
-                PermissionUtils.permission(PermissionConstants.PHONE, PermissionConstants.STORAGE)
+                PermissionUtils.permission(PermissionConstants.CALENDAR)
                         .rationale(new PermissionUtils.OnRationaleListener() {
                             @Override
                             public void rationale(final ShouldRequest shouldRequest) {
