@@ -1,3 +1,4 @@
+* 18/06/29 修复 IntentUtils 分享图片判断逻辑，CacheDiskUtils 可放入 byte[0]，发布 1.17.3
 * 18/06/29 修复 FragmentUtils 中 getFragmentManager 空指针错误，发布 1.17.2
 * 18/06/27 新增 UriUtils#uri2File
 * 18/06/25 新增 KeyboardUtils#fixAndroidBug5497，发布 1.17.1 版本

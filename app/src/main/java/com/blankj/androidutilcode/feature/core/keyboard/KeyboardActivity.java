@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
-import com.blankj.androidutilcode.base.BaseBackActivity;
+import com.blankj.androidutilcode.base.BaseActivity;
 import com.blankj.androidutilcode.helper.DialogHelper;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.SpanUtils;
@@ -23,7 +23,7 @@ import com.blankj.utilcode.util.SpanUtils;
  *     desc  : demo about KeyboardUtils
  * </pre>
  */
-public class KeyboardActivity extends BaseBackActivity {
+public class KeyboardActivity extends BaseActivity{
 
     public static void start(Context context) {
         Intent starter = new Intent(context, KeyboardActivity.class);
@@ -41,13 +41,13 @@ public class KeyboardActivity extends BaseBackActivity {
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_keyboard;
+        return R.layout.activity_keyboard1;
     }
 
     @Override
     public void initView(Bundle savedInstanceState, View contentView) {
         KeyboardUtils.fixAndroidBug5497(this);
-        getToolBar().setTitle(getString(R.string.demo_keyboard));
+//        getToolBar().setTitle(getString(R.string.demo_keyboard));
         etInput = findViewById(R.id.et_input);
         findViewById(R.id.btn_hide_soft_input).setOnClickListener(this);
         findViewById(R.id.btn_show_soft_input).setOnClickListener(this);

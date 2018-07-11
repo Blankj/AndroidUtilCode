@@ -175,7 +175,7 @@ public class CacheUtils implements CacheConstants {
      * @param saveTime The save time of cache, in seconds.
      */
     public void put(@NonNull final String key, byte[] value, final int saveTime) {
-        if (value == null || value.length <= 0) return;
+        if (value == null) return;
         if (saveTime >= 0) value = DiskCacheHelper.newByteArrayWithTime(saveTime, value);
         File file = mDiskCacheManager.getFileBeforePut(key);
         DiskCacheHelper.writeFileFromBytes(file, value);
