@@ -1,0 +1,185 @@
+ext {
+    androidConfig = [
+            applicationId    : 'com.blankj.androidutilcode',
+            appName          : 'Util',
+
+            compileSdkVersion: 27,
+            minSdkVersion    : 14,
+            targetSdkVersion : 27,
+            versionCode      : 1_017_004,
+            versionName      : '1.17.4'// E.g 1.9.72 => 1,009,072
+    ]
+
+    versionConfig = [
+            // plugin
+            gradle     : '3.1.3',
+            kotlin     : '1.2.30',
+            // lib
+            support    : '27.1.0',
+            gson       : '2.8.2',
+            glide      : '4.7.1',
+            leakcanary : '1.5.4',
+            // test
+            junit      : '4.12',
+            robolectric: '3.1.2'
+    ]
+
+    depConfig = [
+            gradle     : "com.android.tools.build:gradle:$versionConfig.gradle",
+            kotlin     : "org.jetbrains.kotlin:kotlin-gradle-plugin:$versionConfig.kotlin",
+
+            support    : [
+                    appcompat_v7: "com.android.support:appcompat-v7:$versionConfig.support",
+                    design      : "com.android.support:design:$versionConfig.support",
+            ],
+            leakcanary : [
+                    android      : "com.squareup.leakcanary:leakcanary-android:$versionConfig.leakcanary",
+                    android_no_op: "com.squareup.leakcanary:leakcanary-android-no-op:$versionConfig.leakcanary",
+            ],
+            gson       : "com.google.code.gson:gson:$versionConfig.gson",
+            glide      : "com.github.bumptech.glide:glide:$versionConfig.glide",
+
+            junit      : "junit:junit:$versionConfig.junit",
+            robolectric: "org.robolectric:robolectric:$versionConfig.robolectric",
+    ]
+
+    configAndroidDomain = this.&configAndroidDomain
+    configAppDependencies = this.&configAppDependencies
+    configUtilCodeDependencies = this.&configUtilCodeDependencies
+    configSubUtilDependencies = this.&configSubUtilDependencies
+}
+
+def configAndroidDomain(Project pro) {
+    if (pro.plugins.hasPlugin("com.android.application")) {
+        configAppAndroidDomain(pro)
+    } else {
+        configLibAndroidDomain(pro)
+    }
+}
+
+def configAppAndroidDomain(Project pro) {
+    configField(pro)
+    configSigning(pro)
+    pro.android {
+        compileSdkVersion androidConfig.compileSdkVersion
+        defaultConfig {
+            applicationId androidConfig.applicationId
+            minSdkVersion androidConfig.minSdkVersion
+            targetSdkVersion androidConfig.targetSdkVersion
+            versionCode androidConfig.versionCode
+            versionName androidConfig.versionName
+        }
+
+        buildTypes {
+            release {
+                minifyEnabled true
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            }
+        }
+
+        sourceSets {
+            main.res.srcDirs += 'src/main/res_core'
+            main.res.srcDirs += 'src/main/res_sub'
+        }
+
+        lintOptions {
+            abortOnError false
+        }
+    }
+}
+
+def configField(Project pro) {
+    pro.android.defaultConfig {
+        resValue "string", "app_name", androidConfig.appName
+    }
+}
+
+def configSigning(Project pro) {
+    File signPropertiesFile = file('sign/keystore.properties')
+    if (!signPropertiesFile.exists()) return
+    pro.android {
+        Properties properties = new Properties()
+        properties.load(new FileInputStream(signPropertiesFile))
+        signingConfigs {
+            release {
+                storeFile file(properties['keystore'])
+                storePassword properties['storePassword']
+                keyAlias properties['keyAlias']
+                keyPassword properties['keyPassword']
+            }
+        }
+        buildTypes.release.signingConfig signingConfigs.release
+    }
+}
+
+def configLibAndroidDomain(Project pro) {
+    pro.android {
+        compileSdkVersion androidConfig.compileSdkVersion
+        defaultConfig {
+            minSdkVersion androidConfig.minSdkVersion
+            versionCode androidConfig.versionCode
+            versionName androidConfig.versionName
+        }
+
+        buildTypes {
+            release {
+                minifyEnabled false
+//            consumerProguardFiles 'proguard-rules.pro'
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            }
+        }
+
+        lintOptions {
+            abortOnError false
+        }
+
+        testOptions.unitTests.all {
+            testLogging {
+                events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+            }
+        }
+    }
+}
+
+
+def configAppDependencies(Project pro) {
+    pro.dependencies {
+        implementation fileTree(include: ['*.jar'], dir: 'libs')
+        implementation project(':utilcode')
+        implementation project(':subutil')
+
+        implementation depConfig.support.appcompat_v7
+        implementation depConfig.support.design
+        implementation 'com.r0adkll:slidableactivity:2.0.5'
+        // LeakCanary
+        debugImplementation depConfig.leakcanary.android
+        releaseImplementation depConfig.leakcanary.android_no_op
+//        implementation 'com.blankj:utilcode:1.17.2'
+    }
+}
+
+def configUtilCodeDependencies(Project pro) {
+    pro.dependencies {
+        compileOnly depConfig.support.appcompat_v7
+        compileOnly depConfig.support.design
+
+        testImplementation depConfig.junit
+        testImplementation depConfig.robolectric
+        testImplementation depConfig.support.appcompat_v7
+    }
+}
+
+def configSubUtilDependencies(Project pro) {
+    pro.dependencies {
+        compileOnly depConfig.support.appcompat_v7
+        compileOnly depConfig.support.design
+
+        api depConfig.gson
+        api(depConfig.glide) {
+            exclude group: "com.android.support"
+        }
+
+        testImplementation depConfig.junit
+        testImplementation depConfig.robolectric
+    }
+}

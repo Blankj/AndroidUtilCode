@@ -1,7 +1,9 @@
 package com.blankj.utilcode.util;
 
 import android.app.Activity;
+import android.app.Application.ActivityLifecycleCallbacks;
 import android.app.KeyguardManager;
+import android.content.ComponentCallbacks;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -9,6 +11,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresPermission;
@@ -253,5 +256,88 @@ public final class ScreenUtils {
         return (Utils.getApp().getResources().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK)
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
+    private static float scaledDensity;
+    private static float density;
+
+    /**
+     * Adapt the portrait screen.
+     *
+     * @param designWidthInDp The size of design diagram width, in dp,
+     *                        e.g. the design diagram width is 750px, in XHDPI device,
+     *                        the designWidthInDp = 750 / 2.
+     */
+    public static void adaptPortraitScreen(final float designWidthInDp) {
+        adaptScreen(designWidthInDp, true);
+    }
+
+    /**
+     * Adapt the landscape screen.
+     *
+     * @param designHeightInDp The size of design diagram height, in dp,
+     *                         e.g. the design diagram height is 1920px, in XXHDPI device,
+     *                         the designHeightInDp = 1920 / 3.
+     */
+    public static void adaptLandscapeScreen(final float designHeightInDp) {
+        adaptScreen(designHeightInDp, false);
+    }
+
+    /**
+     * Reference from: https://mp.weixin.qq.com/s/d9QCoBP6kV9VSWvVldVVwA
+     *
+     * @param sizeInDp   The size, in dp.
+     * @param isPortrait True to portrait, false otherwise.
+     */
+    private static void adaptScreen(final float sizeInDp,
+                                    final boolean isPortrait) {
+        final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
+        if (density == 0) {
+            density = appDm.density;
+            scaledDensity = appDm.scaledDensity;
+            Utils.getApp().registerComponentCallbacks(new ComponentCallbacks() {
+                @Override
+                public void onConfigurationChanged(Configuration newConfig) {
+                    if (newConfig != null && newConfig.fontScale > 0) {
+                        scaledDensity =
+                                Utils.getApp().getResources().getDisplayMetrics().scaledDensity;
+                    }
+                }
+
+                @Override
+                public void onLowMemory() {/**/}
+            });
+            Utils.getApp().registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+                @Override
+                public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                    DisplayMetrics activityDm = activity.getResources().getDisplayMetrics();
+                    if (isPortrait) {
+                        activityDm.density = appDm.widthPixels / sizeInDp;
+                    } else {
+                        activityDm.density = appDm.heightPixels / sizeInDp;
+                    }
+                    activityDm.scaledDensity = activityDm.density * (scaledDensity / density);
+                    activityDm.densityDpi = (int) (160 * activityDm.density);
+                }
+
+                @Override
+                public void onActivityStarted(Activity activity) {/**/}
+
+                @Override
+                public void onActivityResumed(Activity activity) {/**/}
+
+                @Override
+                public void onActivityPaused(Activity activity) {/**/}
+
+                @Override
+                public void onActivityStopped(Activity activity) {/**/}
+
+                @Override
+                public void onActivitySaveInstanceState(Activity activity, Bundle outState) {/**/}
+
+                @Override
+                public void onActivityDestroyed(Activity activity) {/**/}
+            });
+        }
     }
 }

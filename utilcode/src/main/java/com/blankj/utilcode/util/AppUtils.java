@@ -30,6 +30,22 @@ import static com.blankj.utilcode.util.Utils.*;
  * </pre>
  */
 public final class AppUtils {
+    /**
+     * Return whether the app is installed.
+     *
+     * @param action   The Intent action, such as ACTION_VIEW.
+     * @param category The desired category.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isAppInstalled(@NonNull final String action,
+                                         @NonNull final String category) {
+        Intent intent = new Intent(action);
+        intent.addCategory(category);
+        PackageManager pm = getApp().getPackageManager();
+        ResolveInfo info = pm.resolveActivity(intent, 0);
+        return info != null;
+    }
+
 
     private AppUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -341,22 +357,6 @@ public final class AppUtils {
                     ", errorMsg: " + commandResult.errorMsg);
             return false;
         }
-    }
-
-    /**
-     * Return whether the app is installed.
-     *
-     * @param action   The Intent action, such as ACTION_VIEW.
-     * @param category The desired category.
-     * @return {@code true}: yes<br>{@code false}: no
-     */
-    public static boolean isAppInstalled(@NonNull final String action,
-                                         @NonNull final String category) {
-        Intent intent = new Intent(action);
-        intent.addCategory(category);
-        PackageManager pm = getApp().getPackageManager();
-        ResolveInfo info = pm.resolveActivity(intent, 0);
-        return info != null;
     }
 
     /**

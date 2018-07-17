@@ -169,9 +169,7 @@ public final class Utils {
         }
 
         @Override
-        public void onActivityPaused(Activity activity) {
-
-        }
+        public void onActivityPaused(Activity activity) {/**/}
 
         @Override
         public void onActivityStopped(Activity activity) {
@@ -186,9 +184,7 @@ public final class Utils {
         }
 
         @Override
-        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-
-        }
+        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {/**/}
 
         @Override
         public void onActivityDestroyed(Activity activity) {

@@ -1,40 +1,16 @@
-apply plugin: 'com.android.library'
-apply from: 'readme.gradle'
-
-android {
-    compileSdkVersion compile_sdk_version
-    defaultConfig {
-        minSdkVersion min_sdk_version
-        versionCode version_code
-        versionName version_name
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled true
-//            consumerProguardFiles 'proguard-rules.pro'
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    lintOptions {
-        abortOnError false
-    }
-
-    testOptions.unitTests.all {
-        testLogging {
-            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
-        }
-    }
+plugins {
+    id "com.android.library"
+    id "com.github.dcendents.android-maven" version "2.1"
+    id "com.jfrog.bintray" version "1.8.0"
+    id "tech.harmonysoft.oss.traute" version "1.1.8"
 }
 
-dependencies {
-    compileOnly "com.android.support:appcompat-v7:$support_version"
-    compileOnly "com.android.support:design:$support_version"
+configAndroidDomain project
 
-    testImplementation "junit:junit:$junit_version"
-    testImplementation "org.robolectric:robolectric:$robolectric_version"
-    testImplementation "com.android.support:support-v4:$support_version"
+configUtilCodeDependencies project
+
+apply {
+    from('readme.gradle')
+    from("../bintrayUpload.gradle")
 }
-apply from: "../bintrayUpload.gradle"
 //gradle bintrayUpload
