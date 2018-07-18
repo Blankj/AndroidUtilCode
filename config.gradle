@@ -25,22 +25,23 @@ ext {
     ]
 
     depConfig = [
-            gradle     : "com.android.tools.build:gradle:$versionConfig.gradle",
-            kotlin     : "org.jetbrains.kotlin:kotlin-gradle-plugin:$versionConfig.kotlin",
+            gradle              : "com.android.tools.build:gradle:$versionConfig.gradle",
+            kotlin_gradle_plugin: "org.jetbrains.kotlin:kotlin-gradle-plugin:$versionConfig.kotlin",
 
-            support    : [
+            support             : [
                     appcompat_v7: "com.android.support:appcompat-v7:$versionConfig.support",
                     design      : "com.android.support:design:$versionConfig.support",
             ],
-            leakcanary : [
+            kotlin_stdlib_jdk7  : "org.jetbrains.kotlin:kotlin-stdlib-jdk7",
+            leakcanary          : [
                     android      : "com.squareup.leakcanary:leakcanary-android:$versionConfig.leakcanary",
                     android_no_op: "com.squareup.leakcanary:leakcanary-android-no-op:$versionConfig.leakcanary",
             ],
-            gson       : "com.google.code.gson:gson:$versionConfig.gson",
-            glide      : "com.github.bumptech.glide:glide:$versionConfig.glide",
+            gson                : "com.google.code.gson:gson:$versionConfig.gson",
+            glide               : "com.github.bumptech.glide:glide:$versionConfig.glide",
 
-            junit      : "junit:junit:$versionConfig.junit",
-            robolectric: "org.robolectric:robolectric:$versionConfig.robolectric",
+            junit               : "junit:junit:$versionConfig.junit",
+            robolectric         : "org.robolectric:robolectric:$versionConfig.robolectric",
     ]
 
     configAndroidDomain = this.&configAndroidDomain

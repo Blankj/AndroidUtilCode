@@ -8,6 +8,7 @@ buildscript {
 
     dependencies {
         classpath depConfig.gradle
+//        classpath depConfig.kotlin_gradle_plugin
     }
 }
 
