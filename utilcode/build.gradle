@@ -5,8 +5,8 @@ plugins {
     id "tech.harmonysoft.oss.traute" version "1.1.8"
 }
 
+// in config.gradle
 configAndroidDomain project
-
 configUtilCodeDependencies project
 
 apply {
