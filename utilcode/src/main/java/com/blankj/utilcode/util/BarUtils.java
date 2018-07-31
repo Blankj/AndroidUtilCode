@@ -41,7 +41,8 @@ public final class BarUtils {
     private static final int    DEFAULT_ALPHA = 112;
     private static final String TAG_COLOR     = "TAG_COLOR";
     private static final String TAG_ALPHA     = "TAG_ALPHA";
-    private static final int    TAG_OFFSET    = -123;
+    private static final String TAG_OFFSET    = "TAG_OFFSET";
+    private static final int    KEY_OFFSET    = -123;
 
     private BarUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -79,8 +80,14 @@ public final class BarUtils {
                                               final boolean isVisible) {
         if (isVisible) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            showColorView(window);
+            showAlphaView(window);
+            addMarginTopEqualStatusBarHeight(window);
         } else {
             window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            hideColorView(window);
+            hideAlphaView(window);
+            subtractMarginTopEqualStatusBarHeight(window);
         }
     }
 
@@ -136,14 +143,15 @@ public final class BarUtils {
      */
     public static void addMarginTopEqualStatusBarHeight(@NonNull View view) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        Object haveSetOffset = view.getTag(TAG_OFFSET);
+        view.setTag(TAG_OFFSET);
+        Object haveSetOffset = view.getTag(KEY_OFFSET);
         if (haveSetOffset != null && (Boolean) haveSetOffset) return;
         MarginLayoutParams layoutParams = (MarginLayoutParams) view.getLayoutParams();
         layoutParams.setMargins(layoutParams.leftMargin,
                 layoutParams.topMargin + getStatusBarHeight(),
                 layoutParams.rightMargin,
                 layoutParams.bottomMargin);
-        view.setTag(TAG_OFFSET, true);
+        view.setTag(KEY_OFFSET, true);
     }
 
     /**
@@ -153,14 +161,28 @@ public final class BarUtils {
      */
     public static void subtractMarginTopEqualStatusBarHeight(@NonNull View view) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        Object haveSetOffset = view.getTag(TAG_OFFSET);
+        Object haveSetOffset = view.getTag(KEY_OFFSET);
         if (haveSetOffset == null || !(Boolean) haveSetOffset) return;
         MarginLayoutParams layoutParams = (MarginLayoutParams) view.getLayoutParams();
         layoutParams.setMargins(layoutParams.leftMargin,
                 layoutParams.topMargin - getStatusBarHeight(),
                 layoutParams.rightMargin,
                 layoutParams.bottomMargin);
-        view.setTag(TAG_OFFSET, false);
+        view.setTag(KEY_OFFSET, false);
+    }
+
+    public static void addMarginTopEqualStatusBarHeight(final Window window) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
+        View withTag = window.getDecorView().findViewWithTag(TAG_OFFSET);
+        if (withTag == null) return;
+        addMarginTopEqualStatusBarHeight(withTag);
+    }
+
+    private static void subtractMarginTopEqualStatusBarHeight(final Window window) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
+        View withTag = window.getDecorView().findViewWithTag(TAG_OFFSET);
+        if (withTag == null) return;
+        subtractMarginTopEqualStatusBarHeight(withTag);
     }
 
     /**
@@ -232,7 +254,7 @@ public final class BarUtils {
         transparentStatusBar((Activity) fakeStatusBar.getContext());
         ViewGroup.LayoutParams layoutParams = fakeStatusBar.getLayoutParams();
         layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        layoutParams.height = BarUtils.getStatusBarHeight();
+        layoutParams.height = getStatusBarHeight();
         fakeStatusBar.setBackgroundColor(getStatusBarColor(color, alpha));
     }
 
@@ -295,7 +317,7 @@ public final class BarUtils {
         transparentStatusBar((Activity) fakeStatusBar.getContext());
         ViewGroup.LayoutParams layoutParams = fakeStatusBar.getLayoutParams();
         layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        layoutParams.height = BarUtils.getStatusBarHeight();
+        layoutParams.height = getStatusBarHeight();
         fakeStatusBar.setBackgroundColor(Color.argb(alpha, 0, 0, 0));
     }
 
@@ -407,7 +429,7 @@ public final class BarUtils {
             }
             fakeStatusBarView.setBackgroundColor(getStatusBarColor(color, alpha));
         } else {
-            parent.addView(createColorStatusBarView(parent.getContext(), color, alpha));
+            parent.addView(createColorStatusBarView(activity, color, alpha));
         }
     }
 
@@ -424,22 +446,44 @@ public final class BarUtils {
             }
             fakeStatusBarView.setBackgroundColor(Color.argb(alpha, 0, 0, 0));
         } else {
-            parent.addView(createAlphaStatusBarView(parent.getContext(), alpha));
+            parent.addView(createAlphaStatusBarView(activity, alpha));
         }
     }
 
     private static void hideColorView(final Activity activity) {
-        ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
+        hideColorView(activity.getWindow());
+    }
+
+    private static void hideAlphaView(final Activity activity) {
+        hideAlphaView(activity.getWindow());
+    }
+
+    private static void hideColorView(final Window window) {
+        ViewGroup decorView = (ViewGroup) window.getDecorView();
         View fakeStatusBarView = decorView.findViewWithTag(TAG_COLOR);
         if (fakeStatusBarView == null) return;
         fakeStatusBarView.setVisibility(View.GONE);
     }
 
-    private static void hideAlphaView(final Activity activity) {
-        ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
+    private static void hideAlphaView(final Window window) {
+        ViewGroup decorView = (ViewGroup) window.getDecorView();
         View fakeStatusBarView = decorView.findViewWithTag(TAG_ALPHA);
         if (fakeStatusBarView == null) return;
         fakeStatusBarView.setVisibility(View.GONE);
+    }
+
+    private static void showColorView(final Window window) {
+        ViewGroup decorView = (ViewGroup) window.getDecorView();
+        View fakeStatusBarView = decorView.findViewWithTag(TAG_COLOR);
+        if (fakeStatusBarView == null) return;
+        fakeStatusBarView.setVisibility(View.VISIBLE);
+    }
+
+    private static void showAlphaView(final Window window) {
+        ViewGroup decorView = (ViewGroup) window.getDecorView();
+        View fakeStatusBarView = decorView.findViewWithTag(TAG_ALPHA);
+        if (fakeStatusBarView == null) return;
+        fakeStatusBarView.setVisibility(View.VISIBLE);
     }
 
     private static int getStatusBarColor(final int color, final int alpha) {

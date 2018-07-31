@@ -1,3 +1,6 @@
+* 18/08/01 删除标记废弃的 CacheUtils, AppUtils#installApp, TimeUtils#getWeekIndex，发布 1.18.0
+* 18/07/30 替换 ScreenUtils#adaptPortraitScreen 和 ScreenUtils#adaptLandscapeScreen，为 ScreenUtils#adaptScreen4VerticalSlide 和 ScreenUtils#adaptScreen4HorizontalSlide
+* 18/07/28 修复 NetworkUtils#getIPAddress
 * 18/07/16 新增 ScreenUtils#adaptPortraitScreen 和 ScreenUtils#adaptLandscapeScreen，发布 1.17.3
 * 18/07/13 修复 IntentUtils 分享图片判断逻辑，CacheDiskUtils 可放入 byte[0]
 * 18/06/29 修复 FragmentUtils 中 getFragmentManager 空指针错误，发布 1.17.2

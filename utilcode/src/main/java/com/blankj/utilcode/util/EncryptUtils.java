@@ -1125,6 +1125,10 @@ public final class EncryptUtils {
         return null;
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // other utils methods
+    ///////////////////////////////////////////////////////////////////////////
+
     private static byte[] joins(final byte[] prefix, final byte[] suffix) {
         byte[] ret = new byte[prefix.length + suffix.length];
         System.arraycopy(prefix, 0, ret, 0, prefix.length);

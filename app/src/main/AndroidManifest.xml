@@ -148,6 +148,9 @@
             android:name=".feature.core.screen.ScreenActivity"
             android:launchMode="singleTop" />
         <activity
+            android:name=".feature.core.screen.ScreenAdaptActivity"
+            android:launchMode="singleTop" />
+        <activity
             android:name=".feature.core.sdcard.SDCardActivity"
             android:launchMode="singleTop" />
         <activity

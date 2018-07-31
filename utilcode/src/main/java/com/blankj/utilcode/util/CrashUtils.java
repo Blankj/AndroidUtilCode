@@ -206,10 +206,22 @@ public final class CrashUtils {
         Thread.setDefaultUncaughtExceptionHandler(UNCAUGHT_EXCEPTION_HANDLER);
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // interface
+    ///////////////////////////////////////////////////////////////////////////
+
+    public interface OnCrashListener {
+        void onCrash(String crashInfo, Throwable e);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // other utils methods
+    ///////////////////////////////////////////////////////////////////////////
+
     private static void input2File(final String input, final String filePath) {
         Future<Boolean> submit = Executors.newSingleThreadExecutor().submit(new Callable<Boolean>() {
             @Override
-            public Boolean call() throws Exception {
+            public Boolean call() {
                 BufferedWriter bw = null;
                 try {
                     bw = new BufferedWriter(new FileWriter(filePath, true));
@@ -263,9 +275,5 @@ public final class CrashUtils {
             }
         }
         return true;
-    }
-
-    public interface OnCrashListener {
-        void onCrash(String crashInfo, Throwable e);
     }
 }

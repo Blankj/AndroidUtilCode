@@ -36,8 +36,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
-import com.blankj.utilcode.constant.MemoryConstants;
-
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -1852,6 +1850,30 @@ public final class ImageUtils {
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
     }
 
+    /**
+     * Return the sample size.
+     *
+     * @param options   The options.
+     * @param maxWidth  The maximum width.
+     * @param maxHeight The maximum height.
+     * @return the sample size
+     */
+    private static int calculateInSampleSize(final BitmapFactory.Options options,
+                                             final int maxWidth,
+                                             final int maxHeight) {
+        int height = options.outHeight;
+        int width = options.outWidth;
+        int inSampleSize = 1;
+        while ((width >>= 1) >= maxWidth && (height >>= 1) >= maxHeight) {
+            inSampleSize <<= 1;
+        }
+        return inSampleSize;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // other utils methods
+    ///////////////////////////////////////////////////////////////////////////
+
     private static File getFileByPath(final String filePath) {
         return isSpace(filePath) ? null : new File(filePath);
     }
@@ -1882,33 +1904,13 @@ public final class ImageUtils {
         return true;
     }
 
-    /**
-     * Return the sample size.
-     *
-     * @param options   The options.
-     * @param maxWidth  The maximum width.
-     * @param maxHeight The maximum height.
-     * @return the sample size
-     */
-    private static int calculateInSampleSize(final BitmapFactory.Options options,
-                                             final int maxWidth,
-                                             final int maxHeight) {
-        int height = options.outHeight;
-        int width = options.outWidth;
-        int inSampleSize = 1;
-        while ((width >>= 1) >= maxWidth && (height >>= 1) >= maxHeight) {
-            inSampleSize <<= 1;
-        }
-        return inSampleSize;
-    }
-
     private static byte[] input2Byte(final InputStream is) {
         if (is == null) return null;
         try {
             ByteArrayOutputStream os = new ByteArrayOutputStream();
-            byte[] b = new byte[MemoryConstants.KB];
+            byte[] b = new byte[1024];
             int len;
-            while ((len = is.read(b, 0, MemoryConstants.KB)) != -1) {
+            while ((len = is.read(b, 0, 1024)) != -1) {
                 os.write(b, 0, len);
             }
             return os.toByteArray();

@@ -219,6 +219,7 @@
     <string name="screen_set_portrait">Set Portrait</string>
     <string name="screen_screenshot">Screenshot</string>
     <string name="screen_set_sleep_duration">Set Sleep Duration</string>
+    <string name="screen_test_adapt_screen">Test Adapt Screen</string>
 
     <!--SnackBar 相关-->
     <string name="snackbar_show_short">Show Short Snackbar</string>

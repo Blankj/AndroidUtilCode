@@ -197,6 +197,10 @@ public final class ResourceUtils {
         return is2List(Utils.getApp().getResources().openRawResource(resId), charsetName);
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // other utils methods
+    ///////////////////////////////////////////////////////////////////////////
+
     private static boolean writeFileFromIS(final String filePath,
                                            final InputStream is,
                                            final boolean append) {

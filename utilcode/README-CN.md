@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.17.3'
+implementation 'com.blankj:utilcode:1.18.0'
 ```
 
 
@@ -135,24 +135,6 @@ Instance.get          : 缓存中读取字节数组
 Instance.getCacheCount: 获取缓存个数
 Instance.remove       : 根据键值移除缓存
 Instance.clear        : 清除所有缓存
-```
-
-* ### ~~缓存相关 -> [CacheUtils.java][cache.java]~~
-```
-getInstance             : 获取缓存实例
-Instance.put            : 缓存中写入数据
-Instance.getBytes       : 缓存中读取字节数组
-Instance.getString      : 缓存中读取 String
-Instance.getJSONObject  : 缓存中读取 JSONObject
-Instance.getJSONArray   : 缓存中读取 JSONArray
-Instance.getBitmap      : 缓存中读取 Bitmap
-Instance.getDrawable    : 缓存中读取 Drawable
-Instance.getParcelable  : 缓存中读取 Parcelable
-Instance.getSerializable: 缓存中读取 Serializable
-Instance.getCacheSize   : 获取缓存大小
-Instance.getCacheCount  : 获取缓存个数
-Instance.remove         : 根据键值移除缓存
-Instance.clear          : 清除所有缓存
 ```
 
 * ### 清除相关 -> [CleanUtils.java][clean.java] -> [Demo][clean.demo]
@@ -439,7 +421,11 @@ isWifiAvailable       : 判断 wifi 数据是否可用
 getNetworkOperatorName: 获取移动网络运营商名称
 getNetworkType        : 获取当前网络类型
 getIPAddress          : 获取 IP 地址
-getDomainAddress      : 获取域名 ip 地址
+getDomainAddress      : 获取域名 IP 地址
+getIpAddressByWifi    : 根据 WiFi 获取网络 IP 地址
+getGatewayByWifi      : 根据 WiFi 获取网关 IP 地址
+getNetMaskByWifi      : 根据 WiFi 获取子网掩码 IP 地址
+getServerAddressByWifi: 根据 WiFi 获取服务端 IP 地址
 ```
 
 * ### 对象相关 -> [ObjectUtils.java][object.java] -> [Test][object.test]
@@ -533,21 +519,24 @@ readRaw2List      : 从 raw 中按行读取字符串
 
 * ### 屏幕相关 -> [ScreenUtils.java][screen.java] -> [Demo][screen.demo]
 ```
-getScreenWidth     : 获取屏幕的宽度（单位：px）
-getScreenHeight    : 获取屏幕的高度（单位：px）
-getScreenDensity   : 获取屏幕密度
-getScreenDensityDpi: 获取屏幕密度 DPI
-setFullScreen      : 设置屏幕为全屏
-setLandscape       : 设置屏幕为横屏
-setPortrait        : 设置屏幕为竖屏
-isLandscape        : 判断是否横屏
-isPortrait         : 判断是否竖屏
-getScreenRotation  : 获取屏幕旋转角度
-screenShot         : 截屏
-isScreenLock       : 判断是否锁屏
-setSleepDuration   : 设置进入休眠时长
-getSleepDuration   : 获取进入休眠时长
-isTablet           : 判断是否是平板
+getScreenWidth             : 获取屏幕的宽度（单位：px）
+getScreenHeight            : 获取屏幕的高度（单位：px）
+getScreenDensity           : 获取屏幕密度
+getScreenDensityDpi        : 获取屏幕密度 DPI
+setFullScreen              : 设置屏幕为全屏
+setLandscape               : 设置屏幕为横屏
+setPortrait                : 设置屏幕为竖屏
+isLandscape                : 判断是否横屏
+isPortrait                 : 判断是否竖屏
+getScreenRotation          : 获取屏幕旋转角度
+screenShot                 : 截屏
+isScreenLock               : 判断是否锁屏
+setSleepDuration           : 设置进入休眠时长
+getSleepDuration           : 获取进入休眠时长
+isTablet                   : 判断是否是平板
+adaptScreen4VerticalSlide  : 适配垂直滑动的屏幕
+adaptScreen4HorizontalSlide: 适配水平滑动的屏幕
+cancelAdaptScreen          : 取消适配屏幕
 ```
 
 * ### SD 卡相关 -> [SDCardUtils.java][sdcard.java] -> [Demo][sdcard.demo]
@@ -778,8 +767,6 @@ getComments       : 获取压缩文件中的注释链表
 
 [cache_memory.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheMemoryUtils.java
 [cache_memory.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheMemoryUtilsTest.java
-
-[cache.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheUtils.java
 
 [clean.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CleanUtils.java
 [clean.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/clean/CleanActivity.java

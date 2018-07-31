@@ -708,6 +708,10 @@ public final class FileIOUtils {
         sBufferSize = bufferSize;
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // other utils methods
+    ///////////////////////////////////////////////////////////////////////////
+
     private static File getFileByPath(final String filePath) {
         return isSpace(filePath) ? null : new File(filePath);
     }

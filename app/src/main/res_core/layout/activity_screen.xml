@@ -59,5 +59,12 @@
             android:layout_height="wrap_content"
             android:text="@string/screen_set_sleep_duration" />
 
+        <Button
+            android:id="@+id/btn_test_adapt_screen"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/screen_test_adapt_screen" />
+
     </LinearLayout>
 </ScrollView>

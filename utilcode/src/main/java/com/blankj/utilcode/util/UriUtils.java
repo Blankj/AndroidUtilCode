@@ -24,14 +24,6 @@ public final class UriUtils {
     }
 
     /**
-     * @deprecated Use {@link UriUtils#file2Uri(File)} instead.
-     */
-    @Deprecated
-    public static Uri getUriForFile(final File file) {
-        return file2Uri(file);
-    }
-
-    /**
      * File to uri.
      *
      * @param file The file.

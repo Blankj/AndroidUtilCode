@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="2000dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_fullscreen"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:onClick="toggleFullScreen"
+            android:text="Toggle Full Screen"
+            android:textSize="@dimen/font_24" />
+
+        <TextView
+            android:id="@+id/tv_up"
+            android:layout_width="2000dp"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/tv_fullscreen"
+            android:background="@color/colorAccentHalfTrans"
+            android:gravity="center_vertical"
+            android:text="180dp"
+            android:textSize="@dimen/font_40" />
+
+        <TextView
+            android:id="@+id/tv_down"
+            android:layout_width="2000dp"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/tv_fullscreen"
+            android:background="@color/colorPrimaryHalfTrans"
+            android:gravity="center_vertical"
+            android:text="180dp"
+            android:textSize="@dimen/font_40" />
+
+
+    </RelativeLayout>
+</HorizontalScrollView>

@@ -175,7 +175,7 @@ public final class CacheDiskUtils implements CacheConstants {
         if (value == null) return;
         if (saveTime >= 0) value = DiskCacheHelper.newByteArrayWithTime(saveTime, value);
         File file = mDiskCacheManager.getFileBeforePut(key);
-        DiskCacheHelper.writeFileFromBytes(file, value);
+        writeFileFromBytes(file, value);
         mDiskCacheManager.updateModify(file);
         mDiskCacheManager.put(file);
     }
@@ -200,7 +200,7 @@ public final class CacheDiskUtils implements CacheConstants {
     public byte[] getBytes(@NonNull final String key, final byte[] defaultValue) {
         final File file = mDiskCacheManager.getFileIfExists(key);
         if (file == null) return defaultValue;
-        byte[] data = DiskCacheHelper.readFile2Bytes(file);
+        byte[] data = readFile2Bytes(file);
         if (DiskCacheHelper.isDue(data)) {
             mDiskCacheManager.removeByKey(key);
             return defaultValue;
@@ -737,6 +737,77 @@ public final class CacheDiskUtils implements CacheConstants {
         }
     }
 
+    private static final class DiskCacheHelper {
+
+        static final int TIME_INFO_LEN = 14;
+
+        private static byte[] newByteArrayWithTime(final int second, final byte[] data) {
+            byte[] time = createDueTime(second).getBytes();
+            byte[] content = new byte[time.length + data.length];
+            System.arraycopy(time, 0, content, 0, time.length);
+            System.arraycopy(data, 0, content, time.length, data.length);
+            return content;
+        }
+
+        /**
+         * Return the string of due time.
+         *
+         * @param seconds The seconds.
+         * @return the string of due time
+         */
+        private static String createDueTime(final int seconds) {
+            return String.format(
+                    Locale.getDefault(), "_$%010d$_",
+                    System.currentTimeMillis() / 1000 + seconds
+            );
+        }
+
+        private static boolean isDue(final byte[] data) {
+            long millis = getDueTime(data);
+            return millis != -1 && System.currentTimeMillis() > millis;
+        }
+
+        private static long getDueTime(final byte[] data) {
+            if (hasTimeInfo(data)) {
+                String millis = new String(copyOfRange(data, 2, 12));
+                try {
+                    return Long.parseLong(millis) * 1000;
+                } catch (NumberFormatException e) {
+                    return -1;
+                }
+            }
+            return -1;
+        }
+
+        private static byte[] getDataWithoutDueTime(final byte[] data) {
+            if (hasTimeInfo(data)) {
+                return copyOfRange(data, TIME_INFO_LEN, data.length);
+            }
+            return data;
+        }
+
+        private static byte[] copyOfRange(final byte[] original, final int from, final int to) {
+            int newLength = to - from;
+            if (newLength < 0) throw new IllegalArgumentException(from + " > " + to);
+            byte[] copy = new byte[newLength];
+            System.arraycopy(original, from, copy, 0, Math.min(original.length - from, newLength));
+            return copy;
+        }
+
+        private static boolean hasTimeInfo(final byte[] data) {
+            return data != null
+                    && data.length >= TIME_INFO_LEN
+                    && data[0] == '_'
+                    && data[1] == '$'
+                    && data[12] == '$'
+                    && data[13] == '_';
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // other utils methods
+    ///////////////////////////////////////////////////////////////////////////
+
     private static byte[] string2Bytes(final String string) {
         if (string == null) return null;
         return string.getBytes();
@@ -897,6 +968,49 @@ public final class CacheDiskUtils implements CacheConstants {
                 : new BitmapDrawable(Utils.getApp().getResources(), bitmap);
     }
 
+
+    private static void writeFileFromBytes(final File file, final byte[] bytes) {
+        FileChannel fc = null;
+        try {
+            fc = new FileOutputStream(file, false).getChannel();
+            fc.write(ByteBuffer.wrap(bytes));
+            fc.force(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fc != null) {
+                    fc.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static byte[] readFile2Bytes(final File file) {
+        FileChannel fc = null;
+        try {
+            fc = new RandomAccessFile(file, "r").getChannel();
+            int size = (int) fc.size();
+            MappedByteBuffer mbb = fc.map(FileChannel.MapMode.READ_ONLY, 0, size).load();
+            byte[] data = new byte[size];
+            mbb.get(data, 0, size);
+            return data;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                if (fc != null) {
+                    fc.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private static boolean isSpace(final String s) {
         if (s == null) return true;
         for (int i = 0, len = s.length(); i < len; ++i) {
@@ -905,114 +1019,5 @@ public final class CacheDiskUtils implements CacheConstants {
             }
         }
         return true;
-    }
-
-    private static final class DiskCacheHelper {
-
-        static final int TIME_INFO_LEN = 14;
-
-        private static byte[] newByteArrayWithTime(final int second, final byte[] data) {
-            byte[] time = createDueTime(second).getBytes();
-            byte[] content = new byte[time.length + data.length];
-            System.arraycopy(time, 0, content, 0, time.length);
-            System.arraycopy(data, 0, content, time.length, data.length);
-            return content;
-        }
-
-        /**
-         * Return the string of due time.
-         *
-         * @param seconds The seconds.
-         * @return the string of due time
-         */
-        private static String createDueTime(final int seconds) {
-            return String.format(
-                    Locale.getDefault(), "_$%010d$_",
-                    System.currentTimeMillis() / 1000 + seconds
-            );
-        }
-
-        private static boolean isDue(final byte[] data) {
-            long millis = getDueTime(data);
-            return millis != -1 && System.currentTimeMillis() > millis;
-        }
-
-        private static long getDueTime(final byte[] data) {
-            if (hasTimeInfo(data)) {
-                String millis = new String(copyOfRange(data, 2, 12));
-                try {
-                    return Long.parseLong(millis) * 1000;
-                } catch (NumberFormatException e) {
-                    return -1;
-                }
-            }
-            return -1;
-        }
-
-        private static byte[] getDataWithoutDueTime(final byte[] data) {
-            if (hasTimeInfo(data)) {
-                return copyOfRange(data, TIME_INFO_LEN, data.length);
-            }
-            return data;
-        }
-
-        private static byte[] copyOfRange(final byte[] original, final int from, final int to) {
-            int newLength = to - from;
-            if (newLength < 0) throw new IllegalArgumentException(from + " > " + to);
-            byte[] copy = new byte[newLength];
-            System.arraycopy(original, from, copy, 0, Math.min(original.length - from, newLength));
-            return copy;
-        }
-
-        private static boolean hasTimeInfo(final byte[] data) {
-            return data != null
-                    && data.length >= TIME_INFO_LEN
-                    && data[0] == '_'
-                    && data[1] == '$'
-                    && data[12] == '$'
-                    && data[13] == '_';
-        }
-
-        private static void writeFileFromBytes(final File file, final byte[] bytes) {
-            FileChannel fc = null;
-            try {
-                fc = new FileOutputStream(file, false).getChannel();
-                fc.write(ByteBuffer.wrap(bytes));
-                fc.force(true);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (fc != null) {
-                        fc.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        private static byte[] readFile2Bytes(final File file) {
-            FileChannel fc = null;
-            try {
-                fc = new RandomAccessFile(file, "r").getChannel();
-                int size = (int) fc.size();
-                MappedByteBuffer mbb = fc.map(FileChannel.MapMode.READ_ONLY, 0, size).load();
-                byte[] data = new byte[size];
-                mbb.get(data, 0, size);
-                return data;
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            } finally {
-                try {
-                    if (fc != null) {
-                        fc.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 }

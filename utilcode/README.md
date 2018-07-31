@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.17.3'
+implementation 'com.blankj:utilcode:1.18.0'
 ```
 
 
@@ -132,24 +132,6 @@ Instance.clear
 getInstance
 Instance.put
 Instance.get
-Instance.getCacheCount
-Instance.remove
-Instance.clear
-```
-
-* ### ~~About Cache -> [CacheUtils.java][cache.java]~~
-```
-getInstance
-Instance.put
-Instance.getBytes
-Instance.getString
-Instance.getJSONObject
-Instance.getJSONArray
-Instance.getBitmap
-Instance.getDrawable
-Instance.getParcelable
-Instance.getSerializable
-Instance.getCacheSize
 Instance.getCacheCount
 Instance.remove
 Instance.clear
@@ -440,6 +422,10 @@ getNetworkOperatorName
 getNetworkType
 getIPAddress
 getDomainAddress
+getIpAddressByWifi
+getGatewayByWifi
+getNetMaskByWifi
+getServerAddressByWifi
 ```
 
 * ### About Object -> [ObjectUtils.java][object.java] -> [Test][object.test]
@@ -548,6 +534,9 @@ isScreenLock
 setSleepDuration
 getSleepDuration
 isTablet
+adaptScreen4VerticalSlide
+adaptScreen4HorizontalSlide
+cancelAdaptScreen
 ```
 
 * ### About SDCard -> [SDCardUtils.java][sdcard.java] -> [Demo][sdcard.demo]
@@ -778,8 +767,6 @@ getComments
 
 [cache_memory.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheMemoryUtils.java
 [cache_memory.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheMemoryUtilsTest.java
-
-[cache.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheUtils.java
 
 [clean.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CleanUtils.java
 [clean.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/clean/CleanActivity.java

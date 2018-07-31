@@ -204,7 +204,6 @@ public final class Utils {
         }
 
         private void setTopActivity(final Activity activity) {
-            if (activity.getClass() == PermissionUtils.PermissionActivity.class) return;
             if (mActivityList.contains(activity)) {
                 if (!mActivityList.getLast().equals(activity)) {
                     mActivityList.remove(activity);
@@ -257,6 +256,10 @@ public final class Utils {
             return null;
         }
     }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // interface
+    ///////////////////////////////////////////////////////////////////////////
 
     public interface OnAppStatusChangedListener {
         void onForeground();

@@ -1,14 +1,15 @@
 package com.blankj.utilcode.util;
 
-import android.annotation.SuppressLint;
-
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.DigestInputStream;
@@ -16,6 +17,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * <pre>
@@ -495,7 +497,7 @@ public final class FileUtils {
         }
         if (!createOrExistsDir(destFile.getParentFile())) return false;
         try {
-            return FileIOUtils.writeFileFromIS(destFile, new FileInputStream(srcFile), false)
+            return writeFileFromIS(destFile, new FileInputStream(srcFile))
                     && !(isMove && !deleteFile(srcFile));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -1158,7 +1160,15 @@ public final class FileUtils {
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // copy from ConvertUtils
+    // interface
+    ///////////////////////////////////////////////////////////////////////////
+
+    public interface OnReplaceListener {
+        boolean onReplace();
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // other utils methods
     ///////////////////////////////////////////////////////////////////////////
 
     private static final char HEX_DIGITS[] =
@@ -1176,18 +1186,17 @@ public final class FileUtils {
         return new String(ret);
     }
 
-    @SuppressLint("DefaultLocale")
     private static String byte2FitMemorySize(final long byteNum) {
         if (byteNum < 0) {
             return "shouldn't be less than zero!";
         } else if (byteNum < 1024) {
-            return String.format("%.3fB", (double) byteNum);
+            return String.format(Locale.getDefault(), "%.3fB", (double) byteNum);
         } else if (byteNum < 1048576) {
-            return String.format("%.3fKB", (double) byteNum / 1024);
+            return String.format(Locale.getDefault(), "%.3fKB", (double) byteNum / 1024);
         } else if (byteNum < 1073741824) {
-            return String.format("%.3fMB", (double) byteNum / 1048576);
+            return String.format(Locale.getDefault(), "%.3fMB", (double) byteNum / 1048576);
         } else {
-            return String.format("%.3fGB", (double) byteNum / 1073741824);
+            return String.format(Locale.getDefault(), "%.3fGB", (double) byteNum / 1073741824);
         }
     }
 
@@ -1201,7 +1210,33 @@ public final class FileUtils {
         return true;
     }
 
-    public interface OnReplaceListener {
-        boolean onReplace();
+    private static boolean writeFileFromIS(final File file,
+                                           final InputStream is) {
+        OutputStream os = null;
+        try {
+            os = new BufferedOutputStream(new FileOutputStream(file));
+            byte data[] = new byte[8192];
+            int len;
+            while ((len = is.read(data, 0, 8192)) != -1) {
+                os.write(data, 0, len);
+            }
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (os != null) {
+                    os.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

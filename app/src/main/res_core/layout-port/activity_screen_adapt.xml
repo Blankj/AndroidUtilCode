@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="2000dp">
+
+        <TextView
+            android:layout_width="180dp"
+            android:layout_height="2000dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/tv_fullscreen"
+            android:background="@color/colorAccentHalfTrans"
+            android:gravity="center_horizontal"
+            android:text="180dp"
+            android:textSize="@dimen/font_40" />
+
+        <TextView
+            android:layout_width="180dp"
+            android:layout_height="2000dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_fullscreen"
+            android:background="@color/colorPrimaryHalfTrans"
+            android:gravity="center_horizontal"
+            android:text="180dp"
+            android:textSize="@dimen/font_40" />
+
+    </RelativeLayout>
+</ScrollView>

@@ -1,5 +1,7 @@
 package com.blankj.utilcode.util;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
@@ -26,7 +28,18 @@ public final class SizeUtils {
      * @return value of px
      */
     public static int dp2px(final float dpValue) {
-        final float scale = Utils.getApp().getResources().getDisplayMetrics().density;
+        return dp2px(Utils.getApp(), dpValue);
+    }
+
+    /**
+     * Value of dp to value of px.
+     *
+     * @param context The context.
+     * @param dpValue The value of dp.
+     * @return value of px
+     */
+    public static int dp2px(@NonNull final Context context, final float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
@@ -37,7 +50,18 @@ public final class SizeUtils {
      * @return value of dp
      */
     public static int px2dp(final float pxValue) {
-        final float scale = Utils.getApp().getResources().getDisplayMetrics().density;
+        return px2dp(Utils.getApp(), pxValue);
+    }
+
+    /**
+     * Value of px to value of dp.
+     *
+     * @param context The context.
+     * @param pxValue The value of px.
+     * @return value of dp
+     */
+    public static int px2dp(@NonNull final Context context, final float pxValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
 
@@ -48,7 +72,18 @@ public final class SizeUtils {
      * @return value of px
      */
     public static int sp2px(final float spValue) {
-        final float fontScale = Utils.getApp().getResources().getDisplayMetrics().scaledDensity;
+        return sp2px(Utils.getApp(), spValue);
+    }
+
+    /**
+     * Value of sp to value of px.
+     *
+     * @param context The context.
+     * @param spValue The value of sp.
+     * @return value of px
+     */
+    public static int sp2px(@NonNull final Context context, final float spValue) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
 
@@ -59,7 +94,18 @@ public final class SizeUtils {
      * @return value of sp
      */
     public static int px2sp(final float pxValue) {
-        final float fontScale = Utils.getApp().getResources().getDisplayMetrics().scaledDensity;
+        return px2sp(Utils.getApp(), pxValue);
+    }
+
+    /**
+     * Value of px to value of sp.
+     *
+     * @param context The context.
+     * @param pxValue The value of px.
+     * @return value of sp
+     */
+    public static int px2sp(@NonNull final Context context, final float pxValue) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
 
@@ -74,7 +120,22 @@ public final class SizeUtils {
      * metrics depending on its unit.
      */
     public static float applyDimension(final float value, final int unit) {
-        DisplayMetrics metrics = Utils.getApp().getResources().getDisplayMetrics();
+        return applyDimension(Utils.getApp(), value, unit);
+    }
+
+    /**
+     * Converts an unpacked complex data value holding a dimension to its final floating
+     * point value. The two parameters <var>unit</var> and <var>value</var>
+     * are as in {@link TypedValue#TYPE_DIMENSION}.
+     *
+     * @param context The context.
+     * @param value   The value to apply the unit to.
+     * @param unit    The unit to convert from.
+     * @return The complex floating point value multiplied by the appropriate
+     * metrics depending on its unit.
+     */
+    public static float applyDimension(final Context context, final float value, final int unit) {
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         switch (unit) {
             case TypedValue.COMPLEX_UNIT_PX:
                 return value;
@@ -164,6 +225,9 @@ public final class SizeUtils {
         return new int[]{view.getMeasuredWidth(), view.getMeasuredHeight()};
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // interface
+    ///////////////////////////////////////////////////////////////////////////
 
     public interface onGetSizeListener {
         void onGetSize(View view);

@@ -104,6 +104,10 @@ public final class CleanUtils {
         return deleteFilesInDir(getFileByPath(dirPath));
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // other utils methods
+    ///////////////////////////////////////////////////////////////////////////
+
     private static boolean deleteFilesInDir(final File dir) {
         if (dir == null) return false;
         // dir doesn't exist then return true

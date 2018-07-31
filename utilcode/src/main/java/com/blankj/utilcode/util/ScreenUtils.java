@@ -1,9 +1,7 @@
 package com.blankj.utilcode.util;
 
 import android.app.Activity;
-import android.app.Application.ActivityLifecycleCallbacks;
 import android.app.KeyguardManager;
-import android.content.ComponentCallbacks;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -11,13 +9,13 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Build;
-import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresPermission;
 import android.util.DisplayMetrics;
 import android.view.Surface;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 
 import static android.Manifest.permission.WRITE_SETTINGS;
@@ -100,6 +98,44 @@ public final class ScreenUtils {
     public static void setFullScreen(@NonNull final Activity activity) {
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN
                 | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+    }
+
+    /**
+     * Set non full screen.
+     *
+     * @param activity The activity.
+     */
+    public static void setNonFullScreen(@NonNull final Activity activity) {
+        activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN
+                | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+    }
+
+    /**
+     * Toggle full screen.
+     *
+     * @param activity The activity.
+     */
+    public static void toggleFullScreen(@NonNull final Activity activity) {
+        int fullScreenFlag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        Window window = activity.getWindow();
+        if ((window.getAttributes().flags & fullScreenFlag) == fullScreenFlag) {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN
+                    | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        } else {
+            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN
+                    | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
+    }
+
+    /**
+     * Return whether screen is full.
+     *
+     * @param activity The activity.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isFullScreen(@NonNull final Activity activity) {
+        int fullScreenFlag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        return (activity.getWindow().getAttributes().flags & fullScreenFlag) == fullScreenFlag;
     }
 
     /**
@@ -258,86 +294,57 @@ public final class ScreenUtils {
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
-    private static float scaledDensity;
-    private static float density;
-
     /**
-     * Adapt the portrait screen.
+     * Adapt the screen for vertical slide.
      *
-     * @param designWidthInDp The size of design diagram width, in dp,
-     *                        e.g. the design diagram width is 750px, in XHDPI device,
-     *                        the designWidthInDp = 750 / 2.
+     * @param designWidthInDp The size of design diagram's width, in dp,
+     *                        e.g. the design diagram width is 720px, in XHDPI device,
+     *                        the designWidthInDp = 720 / 2.
      */
-    public static void adaptPortraitScreen(final float designWidthInDp) {
-        adaptScreen(designWidthInDp, true);
+    public static void adaptScreen4VerticalSlide(final Activity activity,
+                                                 final int designWidthInDp) {
+        adaptScreen(activity, designWidthInDp, true);
     }
 
     /**
-     * Adapt the landscape screen.
+     * Adapt the screen for horizontal slide.
      *
-     * @param designHeightInDp The size of design diagram height, in dp,
-     *                         e.g. the design diagram height is 1920px, in XXHDPI device,
-     *                         the designHeightInDp = 1920 / 3.
+     * @param designHeightInDp The size of design diagram's height, in dp,
+     *                         e.g. the design diagram height is 1080px, in XXHDPI device,
+     *                         the designHeightInDp = 1080 / 3.
      */
-    public static void adaptLandscapeScreen(final float designHeightInDp) {
-        adaptScreen(designHeightInDp, false);
+    public static void adaptScreen4HorizontalSlide(final Activity activity,
+                                                   final int designHeightInDp) {
+        adaptScreen(activity, designHeightInDp, false);
+    }
+
+    /**
+     * Cancel adapt the screen.
+     *
+     * @param activity The activity.
+     */
+    public static void cancelAdaptScreen(final Activity activity) {
+        final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
+        final DisplayMetrics activityDm = activity.getResources().getDisplayMetrics();
+        activityDm.density = appDm.density;
+        activityDm.scaledDensity = appDm.scaledDensity;
+        activityDm.densityDpi = appDm.densityDpi;
     }
 
     /**
      * Reference from: https://mp.weixin.qq.com/s/d9QCoBP6kV9VSWvVldVVwA
-     *
-     * @param sizeInDp   The size, in dp.
-     * @param isPortrait True to portrait, false otherwise.
      */
-    private static void adaptScreen(final float sizeInDp,
-                                    final boolean isPortrait) {
+    private static void adaptScreen(final Activity activity,
+                                    final float sizeInDp,
+                                    final boolean isVerticalSlide) {
         final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
-        if (density == 0) {
-            density = appDm.density;
-            scaledDensity = appDm.scaledDensity;
-            Utils.getApp().registerComponentCallbacks(new ComponentCallbacks() {
-                @Override
-                public void onConfigurationChanged(Configuration newConfig) {
-                    if (newConfig != null && newConfig.fontScale > 0) {
-                        scaledDensity =
-                                Utils.getApp().getResources().getDisplayMetrics().scaledDensity;
-                    }
-                }
-
-                @Override
-                public void onLowMemory() {/**/}
-            });
-            Utils.getApp().registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
-                @Override
-                public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                    DisplayMetrics activityDm = activity.getResources().getDisplayMetrics();
-                    if (isPortrait) {
-                        activityDm.density = appDm.widthPixels / sizeInDp;
-                    } else {
-                        activityDm.density = appDm.heightPixels / sizeInDp;
-                    }
-                    activityDm.scaledDensity = activityDm.density * (scaledDensity / density);
-                    activityDm.densityDpi = (int) (160 * activityDm.density);
-                }
-
-                @Override
-                public void onActivityStarted(Activity activity) {/**/}
-
-                @Override
-                public void onActivityResumed(Activity activity) {/**/}
-
-                @Override
-                public void onActivityPaused(Activity activity) {/**/}
-
-                @Override
-                public void onActivityStopped(Activity activity) {/**/}
-
-                @Override
-                public void onActivitySaveInstanceState(Activity activity, Bundle outState) {/**/}
-
-                @Override
-                public void onActivityDestroyed(Activity activity) {/**/}
-            });
+        final DisplayMetrics activityDm = activity.getResources().getDisplayMetrics();
+        if (isVerticalSlide) {
+            activityDm.density = activityDm.widthPixels / sizeInDp;
+        } else {
+            activityDm.density = activityDm.heightPixels / sizeInDp;
         }
+        activityDm.scaledDensity = activityDm.density * (appDm.scaledDensity / appDm.density);
+        activityDm.densityDpi = (int) (160 * activityDm.density);
     }
 }

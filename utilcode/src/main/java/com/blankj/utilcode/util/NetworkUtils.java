@@ -8,22 +8,25 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.support.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
+import android.text.format.Formatter;
 import android.util.Log;
-
-import com.blankj.utilcode.util.ShellUtils.CommandResult;
 
 import java.lang.reflect.Method;
 import java.net.InetAddress;
+import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
+import java.util.LinkedList;
+import java.util.List;
 
 import static android.Manifest.permission.ACCESS_NETWORK_STATE;
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
 import static android.Manifest.permission.CHANGE_WIFI_STATE;
 import static android.Manifest.permission.INTERNET;
 import static android.Manifest.permission.MODIFY_PHONE_STATE;
+import static android.content.Context.WIFI_SERVICE;
 
 /**
  * <pre>
@@ -96,7 +99,7 @@ public final class NetworkUtils {
         if (ip == null || ip.length() <= 0) {
             ip = "223.5.5.5";// default ping ip
         }
-        CommandResult result = ShellUtils.execCmd(String.format("ping -c 1 %s", ip), false);
+        ShellUtils.CommandResult result = ShellUtils.execCmd(String.format("ping -c 1 %s", ip), false);
         boolean ret = result.result == 0;
         if (result.errorMsg != null) {
             Log.d("NetworkUtils", "isAvailableByPing() called" + result.errorMsg);
@@ -191,7 +194,7 @@ public final class NetworkUtils {
     @RequiresPermission(ACCESS_WIFI_STATE)
     public static boolean getWifiEnabled() {
         @SuppressLint("WifiManagerLeak")
-        WifiManager manager = (WifiManager) Utils.getApp().getSystemService(Context.WIFI_SERVICE);
+        WifiManager manager = (WifiManager) Utils.getApp().getSystemService(WIFI_SERVICE);
         return manager != null && manager.isWifiEnabled();
     }
 
@@ -205,7 +208,7 @@ public final class NetworkUtils {
     @RequiresPermission(CHANGE_WIFI_STATE)
     public static void setWifiEnabled(final boolean enabled) {
         @SuppressLint("WifiManagerLeak")
-        WifiManager manager = (WifiManager) Utils.getApp().getSystemService(Context.WIFI_SERVICE);
+        WifiManager manager = (WifiManager) Utils.getApp().getSystemService(WIFI_SERVICE);
         if (manager == null || enabled == manager.isWifiEnabled()) return;
         manager.setWifiEnabled(enabled);
     }
@@ -342,26 +345,56 @@ public final class NetworkUtils {
     public static String getIPAddress(final boolean useIPv4) {
         try {
             Enumeration<NetworkInterface> nis = NetworkInterface.getNetworkInterfaces();
+            LinkedList<InetAddress> adds = new LinkedList<>();
             while (nis.hasMoreElements()) {
                 NetworkInterface ni = nis.nextElement();
                 // To prevent phone of xiaomi return "10.0.2.15"
-                if (!ni.isUp()) continue;
+                if (!ni.isUp() || ni.isLoopback()) continue;
                 Enumeration<InetAddress> addresses = ni.getInetAddresses();
                 while (addresses.hasMoreElements()) {
-                    InetAddress inetAddress = addresses.nextElement();
-                    if (!inetAddress.isLoopbackAddress()) {
-                        String hostAddress = inetAddress.getHostAddress();
-                        boolean isIPv4 = hostAddress.indexOf(':') < 0;
-                        if (useIPv4) {
-                            if (isIPv4) return hostAddress;
-                        } else {
-                            if (!isIPv4) {
-                                int index = hostAddress.indexOf('%');
-                                return index < 0
-                                        ? hostAddress.toUpperCase()
-                                        : hostAddress.substring(0, index).toUpperCase();
-                            }
+                    adds.addFirst(addresses.nextElement());
+                }
+            }
+            for (InetAddress add : adds) {
+                if (!add.isLoopbackAddress()) {
+                    String hostAddress = add.getHostAddress();
+                    boolean isIPv4 = hostAddress.indexOf(':') < 0;
+                    if (useIPv4) {
+                        if (isIPv4) return hostAddress;
+                    } else {
+                        if (!isIPv4) {
+                            int index = hostAddress.indexOf('%');
+                            return index < 0
+                                    ? hostAddress.toUpperCase()
+                                    : hostAddress.substring(0, index).toUpperCase();
                         }
+                    }
+                }
+            }
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
+     * Return the ip address of broadcast.
+     *
+     * @return the ip address of broadcast
+     */
+    public static String getBroadcastIpAddress() {
+        try {
+            Enumeration<NetworkInterface> nis = NetworkInterface.getNetworkInterfaces();
+            LinkedList<InetAddress> adds = new LinkedList<>();
+            while (nis.hasMoreElements()) {
+                NetworkInterface ni = nis.nextElement();
+                if (!ni.isUp() || ni.isLoopback()) continue;
+                List<InterfaceAddress> ias = ni.getInterfaceAddresses();
+                for (int i = 0; i < ias.size(); i++) {
+                    InterfaceAddress ia = ias.get(i);
+                    InetAddress broadcast = ia.getBroadcast();
+                    if (broadcast != null) {
+                        return broadcast.getHostAddress();
                     }
                 }
             }
@@ -388,5 +421,57 @@ public final class NetworkUtils {
             e.printStackTrace();
             return "";
         }
+    }
+
+    /**
+     * Return the ip address by wifi.
+     *
+     * @return the ip address by wifi
+     */
+    @RequiresPermission(ACCESS_WIFI_STATE)
+    public static String getIpAddressByWifi() {
+        @SuppressLint("WifiManagerLeak")
+        WifiManager wm = (WifiManager) Utils.getApp().getSystemService(Context.WIFI_SERVICE);
+        if (wm == null) return "";
+        return Formatter.formatIpAddress(wm.getDhcpInfo().ipAddress);
+    }
+
+    /**
+     * Return the gate way by wifi.
+     *
+     * @return the gate way by wifi
+     */
+    @RequiresPermission(ACCESS_WIFI_STATE)
+    public static String getGatewayByWifi() {
+        @SuppressLint("WifiManagerLeak")
+        WifiManager wm = (WifiManager) Utils.getApp().getSystemService(Context.WIFI_SERVICE);
+        if (wm == null) return "";
+        return Formatter.formatIpAddress(wm.getDhcpInfo().gateway);
+    }
+
+    /**
+     * Return the net mask by wifi.
+     *
+     * @return the net mask by wifi
+     */
+    @RequiresPermission(ACCESS_WIFI_STATE)
+    public static String getNetMaskByWifi() {
+        @SuppressLint("WifiManagerLeak")
+        WifiManager wm = (WifiManager) Utils.getApp().getSystemService(Context.WIFI_SERVICE);
+        if (wm == null) return "";
+        return Formatter.formatIpAddress(wm.getDhcpInfo().netmask);
+    }
+
+    /**
+     * Return the server address by wifi.
+     *
+     * @return the server address by wifi
+     */
+    @RequiresPermission(ACCESS_WIFI_STATE)
+    public static String getServerAddressByWifi() {
+        @SuppressLint("WifiManagerLeak")
+        WifiManager wm = (WifiManager) Utils.getApp().getSystemService(Context.WIFI_SERVICE);
+        if (wm == null) return "";
+        return Formatter.formatIpAddress(wm.getDhcpInfo().serverAddress);
     }
 }

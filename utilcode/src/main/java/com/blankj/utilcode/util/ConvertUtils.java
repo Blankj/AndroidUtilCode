@@ -1,6 +1,7 @@
 package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -8,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.blankj.utilcode.constant.MemoryConstants;
@@ -578,7 +580,18 @@ public final class ConvertUtils {
      * @return value of px
      */
     public static int dp2px(final float dpValue) {
-        final float scale = Utils.getApp().getResources().getDisplayMetrics().density;
+        return dp2px(Utils.getApp(), dpValue);
+    }
+
+    /**
+     * Value of dp to value of px.
+     *
+     * @param context The context.
+     * @param dpValue The value of dp.
+     * @return value of px
+     */
+    public static int dp2px(@NonNull final Context context, final float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
@@ -589,7 +602,18 @@ public final class ConvertUtils {
      * @return value of dp
      */
     public static int px2dp(final float pxValue) {
-        final float scale = Utils.getApp().getResources().getDisplayMetrics().density;
+        return px2dp(Utils.getApp(), pxValue);
+    }
+
+    /**
+     * Value of px to value of dp.
+     *
+     * @param context The context.
+     * @param pxValue The value of px.
+     * @return value of dp
+     */
+    public static int px2dp(@NonNull final Context context, final float pxValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
 
@@ -600,7 +624,18 @@ public final class ConvertUtils {
      * @return value of px
      */
     public static int sp2px(final float spValue) {
-        final float fontScale = Utils.getApp().getResources().getDisplayMetrics().scaledDensity;
+        return sp2px(Utils.getApp(), spValue);
+    }
+
+    /**
+     * Value of sp to value of px.
+     *
+     * @param context The context.
+     * @param spValue The value of sp.
+     * @return value of px
+     */
+    public static int sp2px(@NonNull final Context context, final float spValue) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
 
@@ -611,9 +646,24 @@ public final class ConvertUtils {
      * @return value of sp
      */
     public static int px2sp(final float pxValue) {
-        final float fontScale = Utils.getApp().getResources().getDisplayMetrics().scaledDensity;
+        return px2sp(Utils.getApp(), pxValue);
+    }
+
+    /**
+     * Value of px to value of sp.
+     *
+     * @param context The context.
+     * @param pxValue The value of px.
+     * @return value of sp
+     */
+    public static int px2sp(@NonNull final Context context, final float pxValue) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // other utils methods
+    ///////////////////////////////////////////////////////////////////////////
 
     private static boolean isSpace(final String s) {
         if (s == null) return true;

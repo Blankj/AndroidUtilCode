@@ -1,6 +1,5 @@
 package com.blankj.utilcode.util;
 
-import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.constant.TimeConstants;
@@ -22,8 +21,8 @@ import java.util.Locale;
  */
 public final class TimeUtils {
 
-    @SuppressLint("SimpleDateFormat")
-    private static final DateFormat DEFAULT_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final DateFormat DEFAULT_FORMAT =
+            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
     private TimeUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -478,7 +477,7 @@ public final class TimeUtils {
     public static String getFitTimeSpanByNow(final String time,
                                              @NonNull final DateFormat format,
                                              final int precision) {
-        return getFitTimeSpan(time, getNowString(format) , format, precision);
+        return getFitTimeSpan(time, getNowString(format), format, precision);
     }
 
     /**
@@ -1192,202 +1191,6 @@ public final class TimeUtils {
      */
     public static String getUSWeek(final long millis) {
         return getUSWeek(new Date(millis));
-    }
-
-    /**
-     * Return the number for indicating the day of the week.
-     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
-     *
-     * @param time The formatted time string.
-     * @return the number for indicating the day of the week
-     * @see Calendar#SUNDAY
-     * @see Calendar#MONDAY
-     * @see Calendar#TUESDAY
-     * @see Calendar#WEDNESDAY
-     * @see Calendar#THURSDAY
-     * @see Calendar#FRIDAY
-     * @see Calendar#SATURDAY
-     * @deprecated use {@link #getValueByCalendarField(String, int)} instead,
-     * the param of field should equals {@link Calendar#DAY_OF_WEEK}
-     */
-    @Deprecated
-    public static int getWeekIndex(final String time) {
-        return getWeekIndex(string2Date(time, DEFAULT_FORMAT));
-    }
-
-    /**
-     * Return the number for indicating the day of the week.
-     *
-     * @param time   The formatted time string.
-     * @param format The format.
-     * @return the number for indicating the day of the week
-     * @see Calendar#SUNDAY
-     * @see Calendar#MONDAY
-     * @see Calendar#TUESDAY
-     * @see Calendar#WEDNESDAY
-     * @see Calendar#THURSDAY
-     * @see Calendar#FRIDAY
-     * @see Calendar#SATURDAY
-     * @deprecated use {@link #getValueByCalendarField(String, DateFormat, int)} instead,
-     * the param of field should equals {@link Calendar#DAY_OF_WEEK}
-     */
-    @Deprecated
-    public static int getWeekIndex(final String time, @NonNull final DateFormat format) {
-        return getWeekIndex(string2Date(time, format));
-    }
-
-    /**
-     * Return the number for indicating the day of the week.
-     *
-     * @param date The date.
-     * @return the number for indicating the day of the week
-     * @see Calendar#SUNDAY
-     * @see Calendar#MONDAY
-     * @see Calendar#TUESDAY
-     * @see Calendar#WEDNESDAY
-     * @see Calendar#THURSDAY
-     * @see Calendar#FRIDAY
-     * @see Calendar#SATURDAY
-     * @deprecated use {@link #getValueByCalendarField(Date, int)} instead,
-     * the param of field should equals {@link Calendar#DAY_OF_WEEK}
-     */
-    @Deprecated
-    public static int getWeekIndex(final Date date) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        return cal.get(Calendar.DAY_OF_WEEK);
-    }
-
-    /**
-     * Return the number for indicating the day of the week.
-     *
-     * @param millis The milliseconds.
-     * @return the number for indicating the day of the week
-     * @see Calendar#SUNDAY
-     * @see Calendar#MONDAY
-     * @see Calendar#TUESDAY
-     * @see Calendar#WEDNESDAY
-     * @see Calendar#THURSDAY
-     * @see Calendar#FRIDAY
-     * @see Calendar#SATURDAY
-     * @deprecated use {@link #getValueByCalendarField(long, int)} instead,
-     * the param of field should equals {@link Calendar#DAY_OF_WEEK}
-     */
-    @Deprecated
-    public static int getWeekIndex(final long millis) {
-        return getWeekIndex(millis2Date(millis));
-    }
-
-    /**
-     * Return the number for indicating the week number within the current month.
-     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
-     *
-     * @param time The formatted time string.
-     * @return the number for indicating the week number within the current month
-     * @deprecated use {@link #getValueByCalendarField(String, int)} instead,
-     * the param of field should equals {@link Calendar#WEEK_OF_MONTH}
-     */
-    @Deprecated
-    public static int getWeekOfMonth(final String time) {
-        return getWeekOfMonth(string2Date(time, DEFAULT_FORMAT));
-    }
-
-    /**
-     * Return the number for indicating the week number within the current month.
-     *
-     * @param time   The formatted time string.
-     * @param format The format.
-     * @return the number for indicating the week number within the current month
-     * @deprecated use {@link #getValueByCalendarField(String, DateFormat, int)} instead,
-     * the param of field should equals {@link Calendar#WEEK_OF_MONTH}
-     */
-    @Deprecated
-    public static int getWeekOfMonth(final String time, @NonNull final DateFormat format) {
-        return getWeekOfMonth(string2Date(time, format));
-    }
-
-    /**
-     * Return the number for indicating the week number within the current month.
-     *
-     * @param date The date.
-     * @return the number for indicating the week number within the current month
-     * @deprecated use {@link #getValueByCalendarField(Date, int)} instead,
-     * the param of field should equals {@link Calendar#WEEK_OF_MONTH}
-     */
-    @Deprecated
-    public static int getWeekOfMonth(final Date date) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        return cal.get(Calendar.WEEK_OF_MONTH);
-    }
-
-    /**
-     * Return the number for indicating the week number within the current month.
-     *
-     * @param millis The milliseconds.
-     * @return the number for indicating the week number within the current month
-     * @deprecated use {@link #getValueByCalendarField(long, int)} instead,
-     * the param of field should equals {@link Calendar#WEEK_OF_MONTH}
-     */
-    @Deprecated
-    public static int getWeekOfMonth(final long millis) {
-        return getWeekOfMonth(millis2Date(millis));
-    }
-
-    /**
-     * Return the number for indicating the week number within the current year.
-     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
-     *
-     * @param time The formatted time string.
-     * @return the number for indicating the week number within the current year
-     * @deprecated use {@link #getValueByCalendarField(String, int)} instead,
-     * the param of field should equals {@link Calendar#WEEK_OF_YEAR}
-     */
-    @Deprecated
-    public static int getWeekOfYear(final String time) {
-        return getWeekOfYear(string2Date(time, DEFAULT_FORMAT));
-    }
-
-    /**
-     * Return the number for indicating the week number within the current year.
-     *
-     * @param time   The formatted time string.
-     * @param format The format.
-     * @return the number for indicating the week number within the current year
-     * @deprecated use {@link #getValueByCalendarField(String, DateFormat, int)} instead,
-     * the param of field should equals {@link Calendar#WEEK_OF_YEAR}
-     */
-    @Deprecated
-    public static int getWeekOfYear(final String time, @NonNull final DateFormat format) {
-        return getWeekOfYear(string2Date(time, format));
-    }
-
-    /**
-     * Return the number for indicating the week number within the current year.
-     *
-     * @param date The date.
-     * @return the number for indicating the week number within the current year
-     * @deprecated use {@link #getValueByCalendarField(Date, int)} instead,
-     * the param of field should equals {@link Calendar#WEEK_OF_YEAR}
-     */
-    @Deprecated
-    public static int getWeekOfYear(final Date date) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        return cal.get(Calendar.WEEK_OF_YEAR);
-    }
-
-    /**
-     * Return the number for indicating the week number within the current year.
-     *
-     * @param millis The milliseconds.
-     * @return the number for indicating the week number within the current year
-     * @deprecated use {@link #getValueByCalendarField(long, int)} instead,
-     * the param of field should equals {@link Calendar#WEEK_OF_YEAR}
-     */
-    @Deprecated
-    public static int getWeekOfYear(final long millis) {
-        return getWeekOfYear(millis2Date(millis));
     }
 
     /**

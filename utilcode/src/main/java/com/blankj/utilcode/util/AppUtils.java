@@ -2,7 +2,12 @@ package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.AppOpsManager;
+import android.app.usage.UsageStats;
+import android.app.usage.UsageStatsManager;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -10,7 +15,11 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import java.io.File;
@@ -18,8 +27,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.blankj.utilcode.util.Utils.*;
 
 /**
  * <pre>
@@ -30,22 +37,6 @@ import static com.blankj.utilcode.util.Utils.*;
  * </pre>
  */
 public final class AppUtils {
-    /**
-     * Return whether the app is installed.
-     *
-     * @param action   The Intent action, such as ACTION_VIEW.
-     * @param category The desired category.
-     * @return {@code true}: yes<br>{@code false}: no
-     */
-    public static boolean isAppInstalled(@NonNull final String action,
-                                         @NonNull final String category) {
-        Intent intent = new Intent(action);
-        intent.addCategory(category);
-        PackageManager pm = getApp().getPackageManager();
-        ResolveInfo info = pm.resolveActivity(intent, 0);
-        return info != null;
-    }
-
 
     private AppUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -58,7 +49,7 @@ public final class AppUtils {
      * @param listener The status of application changed listener
      */
     public static void registerAppStatusChangedListener(@NonNull final Object obj,
-                                                        @NonNull final OnAppStatusChangedListener listener) {
+                                                        @NonNull final Utils.OnAppStatusChangedListener listener) {
         Utils.getActivityLifecycle().addListener(obj, listener);
     }
 
@@ -91,36 +82,7 @@ public final class AppUtils {
      */
     public static void installApp(final File file) {
         if (!isFileExists(file)) return;
-        getApp().startActivity(IntentUtils.getInstallAppIntent(file, true));
-    }
-
-    /**
-     * Install the app.
-     * <p>Target APIs greater than 25 must hold
-     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
-     *
-     * @param filePath  The path of file.
-     * @param authority Target APIs greater than 23 must hold the authority of a FileProvider
-     *                  defined in a {@code <provider>} element in your app's manifest.
-     */
-    @Deprecated
-    public static void installApp(final String filePath, final String authority) {
-        installApp(getFileByPath(filePath), authority);
-    }
-
-    /**
-     * Install the app.
-     * <p>Target APIs greater than 25 must hold
-     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
-     *
-     * @param file      The file.
-     * @param authority Target APIs greater than 23 must hold the authority of a FileProvider
-     *                  defined in a {@code <provider>} element in your app's manifest.
-     */
-    @Deprecated
-    public static void installApp(final File file, final String authority) {
-        if (!isFileExists(file)) return;
-        getApp().startActivity(IntentUtils.getInstallAppIntent(file, authority, true));
+        Utils.getApp().startActivity(getInstallAppIntent(file, true));
     }
 
     /**
@@ -153,49 +115,7 @@ public final class AppUtils {
                                   final File file,
                                   final int requestCode) {
         if (!isFileExists(file)) return;
-        activity.startActivityForResult(IntentUtils.getInstallAppIntent(file), requestCode);
-    }
-
-    /**
-     * Install the app.
-     * <p>Target APIs greater than 25 must hold
-     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
-     *
-     * @param activity    The activity.
-     * @param filePath    The path of file.
-     * @param authority   Target APIs greater than 23 must hold the authority of a FileProvider
-     *                    defined in a {@code <provider>} element in your app's manifest.
-     * @param requestCode If &gt;= 0, this code will be returned in
-     *                    onActivityResult() when the activity exits.
-     */
-    @Deprecated
-    public static void installApp(final Activity activity,
-                                  final String filePath,
-                                  final String authority,
-                                  final int requestCode) {
-        installApp(activity, getFileByPath(filePath), authority, requestCode);
-    }
-
-    /**
-     * Install the app.
-     * <p>Target APIs greater than 25 must hold
-     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
-     *
-     * @param activity    The activity.
-     * @param file        The file.
-     * @param authority   Target APIs greater than 23 must hold the authority of a FileProvider
-     *                    defined in a {@code <provider>} element in your app's manifest.
-     * @param requestCode If &gt;= 0, this code will be returned in
-     *                    onActivityResult() when the activity exits.
-     */
-    @Deprecated
-    public static void installApp(final Activity activity,
-                                  final File file,
-                                  final String authority,
-                                  final int requestCode) {
-        if (!isFileExists(file)) return;
-        activity.startActivityForResult(IntentUtils.getInstallAppIntent(file, authority),
-                requestCode);
+        activity.startActivityForResult(getInstallAppIntent(file), requestCode);
     }
 
     /**
@@ -285,7 +205,7 @@ public final class AppUtils {
      */
     public static void uninstallApp(final String packageName) {
         if (isSpace(packageName)) return;
-        getApp().startActivity(IntentUtils.getUninstallAppIntent(packageName, true));
+        Utils.getApp().startActivity(getUninstallAppIntent(packageName, true));
     }
 
     /**
@@ -300,10 +220,7 @@ public final class AppUtils {
                                     final String packageName,
                                     final int requestCode) {
         if (isSpace(packageName)) return;
-        activity.startActivityForResult(
-                IntentUtils.getUninstallAppIntent(packageName),
-                requestCode
-        );
+        activity.startActivityForResult(getUninstallAppIntent(packageName), requestCode);
     }
 
     /**
@@ -366,7 +283,24 @@ public final class AppUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isAppInstalled(@NonNull final String packageName) {
-        return !isSpace(packageName) && IntentUtils.getLaunchAppIntent(packageName) != null;
+        return !isSpace(packageName)
+                && Utils.getApp().getPackageManager().getLaunchIntentForPackage(packageName) != null;
+    }
+
+    /**
+     * Return whether the app is installed.
+     *
+     * @param action   The Intent action, such as ACTION_VIEW.
+     * @param category The desired category.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isAppInstalled(@NonNull final String action,
+                                         @NonNull final String category) {
+        Intent intent = new Intent(action);
+        intent.addCategory(category);
+        PackageManager pm = Utils.getApp().getPackageManager();
+        ResolveInfo info = pm.resolveActivity(intent, 0);
+        return info != null;
     }
 
     /**
@@ -389,7 +323,7 @@ public final class AppUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isAppDebug() {
-        return isAppDebug(getApp().getPackageName());
+        return isAppDebug(Utils.getApp().getPackageName());
     }
 
     /**
@@ -401,7 +335,7 @@ public final class AppUtils {
     public static boolean isAppDebug(final String packageName) {
         if (isSpace(packageName)) return false;
         try {
-            PackageManager pm = getApp().getPackageManager();
+            PackageManager pm = Utils.getApp().getPackageManager();
             ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
             return ai != null && (ai.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
         } catch (PackageManager.NameNotFoundException e) {
@@ -416,7 +350,7 @@ public final class AppUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isAppSystem() {
-        return isAppSystem(getApp().getPackageName());
+        return isAppSystem(Utils.getApp().getPackageName());
     }
 
     /**
@@ -428,7 +362,7 @@ public final class AppUtils {
     public static boolean isAppSystem(final String packageName) {
         if (isSpace(packageName)) return false;
         try {
-            PackageManager pm = getApp().getPackageManager();
+            PackageManager pm = Utils.getApp().getPackageManager();
             ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
             return ai != null && (ai.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
         } catch (PackageManager.NameNotFoundException e) {
@@ -455,7 +389,7 @@ public final class AppUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isAppForeground(@NonNull final String packageName) {
-        return !isSpace(packageName) && packageName.equals(ProcessUtils.getForegroundProcessName());
+        return !isSpace(packageName) && packageName.equals(getForegroundProcessName());
     }
 
     /**
@@ -465,7 +399,7 @@ public final class AppUtils {
      */
     public static void launchApp(final String packageName) {
         if (isSpace(packageName)) return;
-        getApp().startActivity(IntentUtils.getLaunchAppIntent(packageName, true));
+        Utils.getApp().startActivity(getLaunchAppIntent(packageName, true));
     }
 
     /**
@@ -480,19 +414,19 @@ public final class AppUtils {
                                  final String packageName,
                                  final int requestCode) {
         if (isSpace(packageName)) return;
-        activity.startActivityForResult(IntentUtils.getLaunchAppIntent(packageName), requestCode);
+        activity.startActivityForResult(getLaunchAppIntent(packageName), requestCode);
     }
 
     /**
      * Relaunch the application.
      */
     public static void relaunchApp() {
-        PackageManager packageManager = getApp().getPackageManager();
-        Intent intent = packageManager.getLaunchIntentForPackage(getApp().getPackageName());
+        PackageManager packageManager = Utils.getApp().getPackageManager();
+        Intent intent = packageManager.getLaunchIntentForPackage(Utils.getApp().getPackageName());
         if (intent == null) return;
         ComponentName componentName = intent.getComponent();
         Intent mainIntent = Intent.makeRestartActivityTask(componentName);
-        getApp().startActivity(mainIntent);
+        Utils.getApp().startActivity(mainIntent);
         System.exit(0);
     }
 
@@ -500,7 +434,7 @@ public final class AppUtils {
      * Launch the application's details settings.
      */
     public static void launchAppDetailsSettings() {
-        launchAppDetailsSettings(getApp().getPackageName());
+        launchAppDetailsSettings(Utils.getApp().getPackageName());
     }
 
     /**
@@ -510,16 +444,16 @@ public final class AppUtils {
      */
     public static void launchAppDetailsSettings(final String packageName) {
         if (isSpace(packageName)) return;
-        getApp().startActivity(
-                IntentUtils.getLaunchAppDetailsSettingsIntent(packageName, true)
-        );
+        Intent intent = new Intent("android.settings.APPLICATION_DETAILS_SETTINGS");
+        intent.setData(Uri.parse("package:" + packageName));
+        Utils.getApp().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     /**
      * Exit the application.
      */
     public static void exitApp() {
-        List<Activity> activityList = getActivityList();
+        List<Activity> activityList = Utils.getActivityList();
         for (int i = activityList.size() - 1; i >= 0; --i) {// remove from top
             Activity activity = activityList.get(i);
             // sActivityList remove the index activity at onActivityDestroyed
@@ -534,7 +468,7 @@ public final class AppUtils {
      * @return the application's icon
      */
     public static Drawable getAppIcon() {
-        return getAppIcon(getApp().getPackageName());
+        return getAppIcon(Utils.getApp().getPackageName());
     }
 
     /**
@@ -546,7 +480,7 @@ public final class AppUtils {
     public static Drawable getAppIcon(final String packageName) {
         if (isSpace(packageName)) return null;
         try {
-            PackageManager pm = getApp().getPackageManager();
+            PackageManager pm = Utils.getApp().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(packageName, 0);
             return pi == null ? null : pi.applicationInfo.loadIcon(pm);
         } catch (PackageManager.NameNotFoundException e) {
@@ -561,7 +495,7 @@ public final class AppUtils {
      * @return the application's package name
      */
     public static String getAppPackageName() {
-        return getApp().getPackageName();
+        return Utils.getApp().getPackageName();
     }
 
     /**
@@ -570,7 +504,7 @@ public final class AppUtils {
      * @return the application's name
      */
     public static String getAppName() {
-        return getAppName(getApp().getPackageName());
+        return getAppName(Utils.getApp().getPackageName());
     }
 
     /**
@@ -582,7 +516,7 @@ public final class AppUtils {
     public static String getAppName(final String packageName) {
         if (isSpace(packageName)) return "";
         try {
-            PackageManager pm = getApp().getPackageManager();
+            PackageManager pm = Utils.getApp().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(packageName, 0);
             return pi == null ? null : pi.applicationInfo.loadLabel(pm).toString();
         } catch (PackageManager.NameNotFoundException e) {
@@ -597,7 +531,7 @@ public final class AppUtils {
      * @return the application's path
      */
     public static String getAppPath() {
-        return getAppPath(getApp().getPackageName());
+        return getAppPath(Utils.getApp().getPackageName());
     }
 
     /**
@@ -609,7 +543,7 @@ public final class AppUtils {
     public static String getAppPath(final String packageName) {
         if (isSpace(packageName)) return "";
         try {
-            PackageManager pm = getApp().getPackageManager();
+            PackageManager pm = Utils.getApp().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(packageName, 0);
             return pi == null ? null : pi.applicationInfo.sourceDir;
         } catch (PackageManager.NameNotFoundException e) {
@@ -624,7 +558,7 @@ public final class AppUtils {
      * @return the application's version name
      */
     public static String getAppVersionName() {
-        return getAppVersionName(getApp().getPackageName());
+        return getAppVersionName(Utils.getApp().getPackageName());
     }
 
     /**
@@ -636,7 +570,7 @@ public final class AppUtils {
     public static String getAppVersionName(final String packageName) {
         if (isSpace(packageName)) return "";
         try {
-            PackageManager pm = getApp().getPackageManager();
+            PackageManager pm = Utils.getApp().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(packageName, 0);
             return pi == null ? null : pi.versionName;
         } catch (PackageManager.NameNotFoundException e) {
@@ -651,7 +585,7 @@ public final class AppUtils {
      * @return the application's version code
      */
     public static int getAppVersionCode() {
-        return getAppVersionCode(getApp().getPackageName());
+        return getAppVersionCode(Utils.getApp().getPackageName());
     }
 
     /**
@@ -663,7 +597,7 @@ public final class AppUtils {
     public static int getAppVersionCode(final String packageName) {
         if (isSpace(packageName)) return -1;
         try {
-            PackageManager pm = getApp().getPackageManager();
+            PackageManager pm = Utils.getApp().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(packageName, 0);
             return pi == null ? -1 : pi.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
@@ -678,7 +612,7 @@ public final class AppUtils {
      * @return the application's signature
      */
     public static Signature[] getAppSignature() {
-        return getAppSignature(getApp().getPackageName());
+        return getAppSignature(Utils.getApp().getPackageName());
     }
 
     /**
@@ -690,7 +624,7 @@ public final class AppUtils {
     public static Signature[] getAppSignature(final String packageName) {
         if (isSpace(packageName)) return null;
         try {
-            PackageManager pm = getApp().getPackageManager();
+            PackageManager pm = Utils.getApp().getPackageManager();
             @SuppressLint("PackageManagerGetSignatures")
             PackageInfo pi = pm.getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
             return pi == null ? null : pi.signatures;
@@ -706,7 +640,7 @@ public final class AppUtils {
      * @return the application's signature for SHA1 value
      */
     public static String getAppSignatureSHA1() {
-        return getAppSignatureSHA1(getApp().getPackageName());
+        return getAppSignatureSHA1(Utils.getApp().getPackageName());
     }
 
     /**
@@ -738,7 +672,7 @@ public final class AppUtils {
      * @return the application's information
      */
     public static AppInfo getAppInfo() {
-        return getAppInfo(getApp().getPackageName());
+        return getAppInfo(Utils.getApp().getPackageName());
     }
 
     /**
@@ -758,7 +692,7 @@ public final class AppUtils {
      */
     public static AppInfo getAppInfo(final String packageName) {
         try {
-            PackageManager pm = getApp().getPackageManager();
+            PackageManager pm = Utils.getApp().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(packageName, 0);
             return getBean(pm, pi);
         } catch (PackageManager.NameNotFoundException e) {
@@ -774,7 +708,7 @@ public final class AppUtils {
      */
     public static List<AppInfo> getAppsInfo() {
         List<AppInfo> list = new ArrayList<>();
-        PackageManager pm = getApp().getPackageManager();
+        PackageManager pm = Utils.getApp().getPackageManager();
         List<PackageInfo> installedPackages = pm.getInstalledPackages(0);
         for (PackageInfo pi : installedPackages) {
             AppInfo ai = getBean(pm, pi);
@@ -795,67 +729,6 @@ public final class AppUtils {
         int versionCode = pi.versionCode;
         boolean isSystem = (ApplicationInfo.FLAG_SYSTEM & ai.flags) != 0;
         return new AppInfo(packageName, name, icon, packagePath, versionName, versionCode, isSystem);
-    }
-
-    private static boolean isFileExists(final File file) {
-        return file != null && file.exists();
-    }
-
-    private static File getFileByPath(final String filePath) {
-        return isSpace(filePath) ? null : new File(filePath);
-    }
-
-    private static boolean isSpace(final String s) {
-        if (s == null) return true;
-        for (int i = 0, len = s.length(); i < len; ++i) {
-            if (!Character.isWhitespace(s.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static boolean isDeviceRooted() {
-        String su = "su";
-        String[] locations = {"/system/bin/", "/system/xbin/", "/sbin/", "/system/sd/xbin/",
-                "/system/bin/failsafe/", "/data/local/xbin/", "/data/local/bin/", "/data/local/"};
-        for (String location : locations) {
-            if (new File(location + su).exists()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static final char HEX_DIGITS[] =
-            {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-
-    private static String encryptSHA1ToString(final byte[] data) {
-        return bytes2HexString(encryptSHA1(data));
-    }
-
-    private static byte[] encryptSHA1(final byte[] data) {
-        if (data == null || data.length <= 0) return null;
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA1");
-            md.update(data);
-            return md.digest();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private static String bytes2HexString(final byte[] bytes) {
-        if (bytes == null) return "";
-        int len = bytes.length;
-        if (len <= 0) return "";
-        char[] ret = new char[len << 1];
-        for (int i = 0, j = 0; i < len; i++) {
-            ret[j++] = HEX_DIGITS[bytes[i] >> 4 & 0x0f];
-            ret[j++] = HEX_DIGITS[bytes[i] & 0x0f];
-        }
-        return new String(ret);
     }
 
     /**
@@ -948,5 +821,179 @@ public final class AppUtils {
                     "\napp v code: " + getVersionCode() +
                     "\nis system: " + isSystem();
         }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // other utils methods
+    ///////////////////////////////////////////////////////////////////////////
+
+    private static boolean isFileExists(final File file) {
+        return file != null && file.exists();
+    }
+
+    private static File getFileByPath(final String filePath) {
+        return isSpace(filePath) ? null : new File(filePath);
+    }
+
+    private static boolean isSpace(final String s) {
+        if (s == null) return true;
+        for (int i = 0, len = s.length(); i < len; ++i) {
+            if (!Character.isWhitespace(s.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean isDeviceRooted() {
+        String su = "su";
+        String[] locations = {"/system/bin/", "/system/xbin/", "/sbin/", "/system/sd/xbin/",
+                "/system/bin/failsafe/", "/data/local/xbin/", "/data/local/bin/", "/data/local/"};
+        for (String location : locations) {
+            if (new File(location + su).exists()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static final char HEX_DIGITS[] =
+            {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+
+    private static String encryptSHA1ToString(final byte[] data) {
+        return bytes2HexString(encryptSHA1(data));
+    }
+
+    private static byte[] encryptSHA1(final byte[] data) {
+        if (data == null || data.length <= 0) return null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA1");
+            md.update(data);
+            return md.digest();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static String bytes2HexString(final byte[] bytes) {
+        if (bytes == null) return "";
+        int len = bytes.length;
+        if (len <= 0) return "";
+        char[] ret = new char[len << 1];
+        for (int i = 0, j = 0; i < len; i++) {
+            ret[j++] = HEX_DIGITS[bytes[i] >> 4 & 0x0f];
+            ret[j++] = HEX_DIGITS[bytes[i] & 0x0f];
+        }
+        return new String(ret);
+    }
+
+    private static Intent getInstallAppIntent(final File file) {
+        return getInstallAppIntent(file, false);
+    }
+
+    private static Intent getInstallAppIntent(final File file, final boolean isNewTask) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri data;
+        String type = "application/vnd.android.package-archive";
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            data = Uri.fromFile(file);
+        } else {
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            String authority = Utils.getApp().getPackageName() + ".utilcode.provider";
+            data = FileProvider.getUriForFile(Utils.getApp(), authority, file);
+        }
+        intent.setDataAndType(data, type);
+        return isNewTask ? intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) : intent;
+    }
+
+    private static Intent getUninstallAppIntent(final String packageName) {
+        return getUninstallAppIntent(packageName, false);
+    }
+
+    private static Intent getUninstallAppIntent(final String packageName, final boolean isNewTask) {
+        Intent intent = new Intent(Intent.ACTION_DELETE);
+        intent.setData(Uri.parse("package:" + packageName));
+        return isNewTask ? intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) : intent;
+    }
+
+    private static Intent getLaunchAppIntent(final String packageName) {
+        return getLaunchAppIntent(packageName, false);
+    }
+
+    private static Intent getLaunchAppIntent(final String packageName, final boolean isNewTask) {
+        Intent intent = Utils.getApp().getPackageManager().getLaunchIntentForPackage(packageName);
+        if (intent == null) return null;
+        return isNewTask ? intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) : intent;
+    }
+
+    private static String getForegroundProcessName() {
+        ActivityManager am =
+                (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
+        if (am == null) return null;
+        List<ActivityManager.RunningAppProcessInfo> pInfo = am.getRunningAppProcesses();
+        if (pInfo != null && pInfo.size() > 0) {
+            for (ActivityManager.RunningAppProcessInfo aInfo : pInfo) {
+                if (aInfo.importance
+                        == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                    return aInfo.processName;
+                }
+            }
+        }
+        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.LOLLIPOP) {
+            PackageManager pm = Utils.getApp().getPackageManager();
+            Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+            List<ResolveInfo> list =
+                    pm.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+            Log.i("ProcessUtils", list.toString());
+            if (list.size() <= 0) {
+                Log.i("ProcessUtils",
+                        "getForegroundProcessName: noun of access to usage information.");
+                return "";
+            }
+            try {// Access to usage information.
+                ApplicationInfo info =
+                        pm.getApplicationInfo(Utils.getApp().getPackageName(), 0);
+                AppOpsManager aom =
+                        (AppOpsManager) Utils.getApp().getSystemService(Context.APP_OPS_SERVICE);
+                if (aom != null) {
+                    if (aom.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
+                            info.uid,
+                            info.packageName) != AppOpsManager.MODE_ALLOWED) {
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        Utils.getApp().startActivity(intent);
+                    }
+                    if (aom.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
+                            info.uid,
+                            info.packageName) != AppOpsManager.MODE_ALLOWED) {
+                        Log.i("ProcessUtils",
+                                "getForegroundProcessName: refuse to device usage stats.");
+                        return "";
+                    }
+                }
+                UsageStatsManager usageStatsManager = (UsageStatsManager) Utils.getApp()
+                        .getSystemService(Context.USAGE_STATS_SERVICE);
+                List<UsageStats> usageStatsList = null;
+                if (usageStatsManager != null) {
+                    long endTime = System.currentTimeMillis();
+                    long beginTime = endTime - 86400000 * 7;
+                    usageStatsList = usageStatsManager
+                            .queryUsageStats(UsageStatsManager.INTERVAL_BEST,
+                                    beginTime, endTime);
+                }
+                if (usageStatsList == null || usageStatsList.isEmpty()) return null;
+                UsageStats recentStats = null;
+                for (UsageStats usageStats : usageStatsList) {
+                    if (recentStats == null
+                            || usageStats.getLastTimeUsed() > recentStats.getLastTimeUsed()) {
+                        recentStats = usageStats;
+                    }
+                }
+                return recentStats == null ? null : recentStats.getPackageName();
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        return "";
     }
 }
