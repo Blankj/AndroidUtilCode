@@ -76,7 +76,7 @@ public class ScreenAdaptActivity extends BaseActivity {
         ViewGroup.LayoutParams upLayoutParams = tvUp.getLayoutParams();
         ViewGroup.LayoutParams downLayoutParams = tvDown.getLayoutParams();
         if (ScreenUtils.isFullScreen(this)) {
-            int height = 720 / 2 / 2;
+            int height = 360 / 2;
             String s = height + "dp";
             upLayoutParams.height = SizeUtils.dp2px(this, height);
             tvUp.setLayoutParams(upLayoutParams);
@@ -86,7 +86,7 @@ public class ScreenAdaptActivity extends BaseActivity {
             tvDown.setLayoutParams(downLayoutParams);
             tvDown.setText(s);
         } else {
-            int height = 720 / 2 / 2 - statusBarHeightInDp / 2;
+            int height = 360 / 2 - statusBarHeightInDp / 2;
             String s = height + "dp";
             upLayoutParams.height = SizeUtils.dp2px(this, height);
             tvUp.setLayoutParams(upLayoutParams);

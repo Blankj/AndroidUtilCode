@@ -146,7 +146,7 @@ def configLibAndroidDomain(Project pro) {
 def configAppDependencies(Project pro) {
     pro.dependencies {
         implementation fileTree(include: ['*.jar'], dir: 'libs')
-//        implementation project(':utilcode')
+        implementation project(':utilcode')
         implementation project(':subutil')
 
         implementation depConfig.support.appcompat_v7
@@ -155,7 +155,7 @@ def configAppDependencies(Project pro) {
         // LeakCanary
         debugImplementation depConfig.leakcanary.android
         releaseImplementation depConfig.leakcanary.android_no_op
-        implementation 'com.blankj:utilcode:1.18.0'
+//        implementation 'com.blankj:utilcode:1.18.0'
     }
 }
 
