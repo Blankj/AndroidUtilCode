@@ -3,9 +3,9 @@ ext {
             applicationId    : 'com.blankj.androidutilcode',
             appName          : 'Util',
 
-            compileSdkVersion: 27,
+            compileSdkVersion: 28,
             minSdkVersion    : 14,
-            targetSdkVersion : 27,
+            targetSdkVersion : 28,
             versionCode      : 1_018_000,
             versionName      : '1.18.0'// E.g 1.9.72 => 1,009,072
     ]

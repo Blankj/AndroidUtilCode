@@ -524,6 +524,9 @@ getScreenHeight
 getScreenDensity
 getScreenDensityDpi
 setFullScreen
+setNonFullScreen
+toggleFullScreen
+isFullScreen
 setLandscape
 setPortrait
 isLandscape

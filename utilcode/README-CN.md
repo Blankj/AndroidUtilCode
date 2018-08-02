@@ -524,6 +524,9 @@ getScreenHeight            : 获取屏幕的高度（单位：px）
 getScreenDensity           : 获取屏幕密度
 getScreenDensityDpi        : 获取屏幕密度 DPI
 setFullScreen              : 设置屏幕为全屏
+setNonFullScreen           : 设置屏幕为非全屏
+toggleFullScreen           : 切换屏幕为全屏与否状态
+isFullScreen               : 判断屏幕是否为全屏
 setLandscape               : 设置屏幕为横屏
 setPortrait                : 设置屏幕为竖屏
 isLandscape                : 判断是否横屏
