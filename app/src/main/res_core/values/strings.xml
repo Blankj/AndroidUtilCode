@@ -193,6 +193,11 @@
     <string name="log_to_file">Log To File</string>
     <string name="log_json">Log Json</string>
     <string name="log_xml">Log Xml</string>
+    <string name="log_array">Log Array</string>
+    <string name="log_throwable">Log Throwable</string>
+    <string name="log_bundle">Log Bundle</string>
+    <string name="log_intent">Log Intent</string>
+    <string name="log_array_list">Log Array List</string>
 
     <!--Permission 相关-->
     <string name="permission_open_app_settings">Open App Settings</string>

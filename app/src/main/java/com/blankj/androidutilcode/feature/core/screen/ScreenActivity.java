@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseActivity;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.SpanUtils;
 

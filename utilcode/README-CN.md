@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.18.0'
+implementation 'com.blankj:utilcode:1.18.1'
 ```
 
 
@@ -387,6 +387,8 @@ Config.setConsoleFilter  : 设置 log 控制台过滤器
 Config.setFileFilter     : 设置 log 文件过滤器
 Config.setStackDeep      : 设置 log 栈深度
 Config.setStackOffset    : 设置 log 栈偏移
+Config.setSaveDays       : 设置 log 可保留天数
+Config.addFormatter      : 新增 log 格式化器
 log                      : 自定义 tag 的 type 日志
 v                        : tag 为类名的 Verbose 日志
 vTag                     : 自定义 tag 的 Verbose 日志

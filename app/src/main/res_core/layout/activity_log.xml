@@ -146,4 +146,39 @@
         android:layout_height="wrap_content"
         android:text="@string/log_xml" />
 
+    <Button
+        android:id="@+id/btn_log_array"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_array" />
+
+    <Button
+        android:id="@+id/btn_log_throwable"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_throwable" />
+
+    <Button
+        android:id="@+id/btn_log_bundle"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_bundle" />
+
+    <Button
+        android:id="@+id/btn_log_intent"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_intent" />
+
+    <Button
+        android:id="@+id/btn_log_array_list"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_array_list" />
+
 </LinearLayout>

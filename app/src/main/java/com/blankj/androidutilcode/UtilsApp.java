@@ -8,6 +8,13 @@ import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.squareup.leakcanary.LeakCanary;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * <pre>
  *     author: Blankj
@@ -62,7 +69,15 @@ public class UtilsApp extends BaseApplication {
                 .setConsoleFilter(LogUtils.V)// log 的控制台过滤器，和 logcat 过滤器同理，默认 Verbose
                 .setFileFilter(LogUtils.V)// log 文件过滤器，和 logcat 过滤器同理，默认 Verbose
                 .setStackDeep(1)// log 栈深度，默认为 1
-                .setStackOffset(0);// 设置栈偏移，比如二次封装的话就需要设置，默认为 0
+                .setStackOffset(0)// 设置栈偏移，比如二次封装的话就需要设置，默认为 0
+                .setSaveDays(3)// 设置日志可保留天数，默认为 -1 表示无限时长
+                // 新增 ArrayList 格式化器，默认已支持 Array, Throwable, Bundle, Intent 的格式化输出
+                .addFormatter(new LogUtils.IFormatter<ArrayList>() {
+                    @Override
+                    public String format(ArrayList list) {
+                        return "LogUtils Formatter ArrayList { " + list.toString() + " }";
+                    }
+                });
         LogUtils.d(config.toString());
     }
 

@@ -32,13 +32,7 @@ import static org.junit.Assert.assertNull;
  *     desc  :
  * </pre>
  */
-@RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE)
-public class CacheDoubleUtilsTest {
-
-    static {
-        TestUtils.init();
-    }
+public class CacheDoubleUtilsTest extends BaseRobolectricTest {
 
     private CacheDiskUtils   mCacheDiskUtils;
     private CacheMemoryUtils mCacheMemoryUtils;

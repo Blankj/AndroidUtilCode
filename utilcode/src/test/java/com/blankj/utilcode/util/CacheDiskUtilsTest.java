@@ -32,13 +32,7 @@ import static org.junit.Assert.assertNull;
  *     desc  : test CacheDiskUtils
  * </pre>
  */
-@RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE)
-public class CacheDiskUtilsTest {
-
-    static {
-        TestUtils.init();
-    }
+public class CacheDiskUtilsTest extends BaseRobolectricTest {
 
     private final String           disk1Path         = PATH_CACHE + "disk1" + FILE_SEP;
     private final String           disk2Path         = PATH_CACHE + "disk2" + FILE_SEP;

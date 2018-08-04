@@ -24,14 +24,7 @@ import static org.junit.Assert.assertTrue;
  *     desc  : test EncryptUtils
  * </pre>
  */
-@RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE, sdk = 23)
-public class EncryptUtilsTest {
-
-    static {
-        TestUtils.init();
-    }
-
+public class EncryptUtilsTest extends BaseRobolectricTest{
     @Test
     public void encryptMD2() {
         String blankjMD2 = "15435017570D8A73449E25C4622E17A4";

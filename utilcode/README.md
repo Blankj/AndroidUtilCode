@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.18.0'
+implementation 'com.blankj:utilcode:1.18.1'
 ```
 
 
@@ -387,6 +387,8 @@ Config.setConsoleFilter
 Config.setFileFilter
 Config.setStackDeep
 Config.setStackOffset
+Config.setSaveDays
+Config.addFormatter
 log
 v
 vTag

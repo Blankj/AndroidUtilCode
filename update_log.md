@@ -1,3 +1,6 @@
+* 18/08/04 新增 LogUtils#Config#setSaveDays，发布 1.18.1
+* 18/08/03 新增 LogUtils#Config#addFormatter，并新增 Array, Throwable, Bundle, Intent 的格式化输出
+* 18/08/02 修复 TimeUtils 中的 SimpleDateFormat 为 ThreadLocal 实现
 * 18/08/01 删除标记废弃的 CacheUtils, AppUtils#installApp, TimeUtils#getWeekIndex，发布 1.18.0
 * 18/07/30 替换 ScreenUtils#adaptPortraitScreen 和 ScreenUtils#adaptLandscapeScreen，为 ScreenUtils#adaptScreen4VerticalSlide 和 ScreenUtils#adaptScreen4HorizontalSlide
 * 18/07/28 修复 NetworkUtils#getIPAddress
