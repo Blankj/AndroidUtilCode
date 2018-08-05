@@ -560,7 +560,7 @@ public final class LogUtils {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        String time = filePath.substring(filePath.length() - 9, filePath.length() - 4);
+        String time = filePath.substring(filePath.length() - 14, filePath.length() - 4);
         final String head = "************* Log Head ****************" +
                 "\nDate of Log        : " + time +
                 "\nDevice Manufacturer: " + Build.MANUFACTURER +

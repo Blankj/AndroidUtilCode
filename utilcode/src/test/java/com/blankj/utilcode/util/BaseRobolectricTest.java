@@ -1,5 +1,6 @@
 package com.blankj.utilcode.util;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
@@ -19,6 +20,11 @@ public class BaseRobolectricTest {
 
     public BaseRobolectricTest() {
         Utils.init(RuntimeEnvironment.application);
+    }
+
+    @Test
+    public void test() {
+
     }
 
 }

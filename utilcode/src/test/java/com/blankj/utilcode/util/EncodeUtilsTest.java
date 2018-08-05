@@ -18,9 +18,7 @@ import static org.junit.Assert.assertTrue;
  *     desc  : test EncodeUtils
  * </pre>
  */
-@RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE)
-public class EncodeUtilsTest {
+public class EncodeUtilsTest extends BaseRobolectricTest{
 
     @Test
     public void urlEncode_urlDecode() {
