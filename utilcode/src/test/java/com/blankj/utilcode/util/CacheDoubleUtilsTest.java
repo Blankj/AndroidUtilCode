@@ -11,9 +11,6 @@ import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.io.File;
 import java.io.Serializable;
@@ -32,7 +29,7 @@ import static org.junit.Assert.assertNull;
  *     desc  :
  * </pre>
  */
-public class CacheDoubleUtilsTest extends BaseRobolectricTest {
+public class CacheDoubleUtilsTest extends BaseTest {
 
     private CacheDiskUtils   mCacheDiskUtils;
     private CacheMemoryUtils mCacheMemoryUtils;

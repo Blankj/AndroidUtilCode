@@ -185,22 +185,6 @@ public final class ObjectUtils {
     }
 
     /**
-     * Require the object is not null.
-     *
-     * @param object  The object.
-     * @param message The message to use with the NullPointerException.
-     * @param <T>     The value type.
-     * @return the object
-     * @throws NullPointerException if object is null
-     */
-    public static <T> T requireNonNull(final T object, final String message) {
-        if (object == null) {
-            throw new NullPointerException(message);
-        }
-        return object;
-    }
-
-    /**
      * Require the objects are not null.
      *
      * @param objects The object.

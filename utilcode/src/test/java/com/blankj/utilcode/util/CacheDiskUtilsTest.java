@@ -11,9 +11,6 @@ import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.io.File;
 import java.io.Serializable;
@@ -32,7 +29,7 @@ import static org.junit.Assert.assertNull;
  *     desc  : test CacheDiskUtils
  * </pre>
  */
-public class CacheDiskUtilsTest extends BaseRobolectricTest {
+public class CacheDiskUtilsTest extends BaseTest {
 
     private final String           disk1Path         = PATH_CACHE + "disk1" + FILE_SEP;
     private final String           disk2Path         = PATH_CACHE + "disk2" + FILE_SEP;

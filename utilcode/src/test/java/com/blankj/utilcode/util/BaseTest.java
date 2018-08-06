@@ -16,9 +16,9 @@ import org.robolectric.annotation.Config;
  */
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.NONE)
-public class BaseRobolectricTest {
+public class BaseTest {
 
-    public BaseRobolectricTest() {
+    public BaseTest() {
         Utils.init(RuntimeEnvironment.application);
     }
 
@@ -26,5 +26,4 @@ public class BaseRobolectricTest {
     public void test() {
 
     }
-
 }

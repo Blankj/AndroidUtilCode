@@ -1,9 +1,6 @@
 package com.blankj.utilcode.util;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.util.Arrays;
 
@@ -18,7 +15,7 @@ import static org.junit.Assert.assertTrue;
  *     desc  : test EncodeUtils
  * </pre>
  */
-public class EncodeUtilsTest extends BaseRobolectricTest{
+public class EncodeUtilsTest extends BaseTest {
 
     @Test
     public void urlEncode_urlDecode() {

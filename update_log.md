@@ -1,3 +1,4 @@
+* 18/08/05 修复 1.18.0 版本删去 `if (activity.getClass() == PermissionUtils.PermissionActivity.class) return;` 造成 PermissionUtils 获取栈顶 Activity 问题，发布 1.18.2
 * 18/08/04 新增 LogUtils#Config#setSaveDays，发布 1.18.1
 * 18/08/03 新增 LogUtils#Config#addFormatter，并新增 Array, Throwable, Bundle, Intent 的格式化输出
 * 18/08/02 修复 TimeUtils 中的 SimpleDateFormat 为 ThreadLocal 实现

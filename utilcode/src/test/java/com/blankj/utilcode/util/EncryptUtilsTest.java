@@ -4,9 +4,6 @@ import android.util.Base64;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.io.File;
 import java.util.Arrays;
@@ -24,7 +21,7 @@ import static org.junit.Assert.assertTrue;
  *     desc  : test EncryptUtils
  * </pre>
  */
-public class EncryptUtilsTest extends BaseRobolectricTest{
+public class EncryptUtilsTest extends BaseTest {
     @Test
     public void encryptMD2() {
         String blankjMD2 = "15435017570D8A73449E25C4622E17A4";
