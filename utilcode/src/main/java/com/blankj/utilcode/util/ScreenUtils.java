@@ -217,8 +217,9 @@ public final class ScreenUtils {
     public static Bitmap screenShot(@NonNull final Activity activity, boolean isDeleteStatusBar) {
         View decorView = activity.getWindow().getDecorView();
         decorView.setDrawingCacheEnabled(true);
-        decorView.buildDrawingCache();
+        decorView.setWillNotCacheDrawing(false);
         Bitmap bmp = decorView.getDrawingCache();
+        if (bmp == null) return null;
         DisplayMetrics dm = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
         Bitmap ret;
