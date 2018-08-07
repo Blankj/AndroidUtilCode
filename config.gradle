@@ -61,6 +61,7 @@ def configAndroidDomain(Project pro) {
 def configAppAndroidDomain(Project pro) {
     configField(pro)
     configSigning(pro)
+    configApkName(pro)
     pro.android {
         compileSdkVersion androidConfig.compileSdkVersion
         defaultConfig {
@@ -110,6 +111,17 @@ def configSigning(Project pro) {
             }
         }
         buildTypes.release.signingConfig signingConfigs.release
+    }
+}
+
+def configApkName(Project pro) {
+    pro.android.applicationVariants.all { variant ->
+        if (variant.buildType.name != "debug") {
+            variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/apk")
+            variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
+                apkData.outputFileName = "util_" + variant.versionName.replace(".", "_") + ".apk"
+            }
+        }
     }
 }
 
