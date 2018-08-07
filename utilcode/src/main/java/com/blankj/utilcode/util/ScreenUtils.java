@@ -344,6 +344,7 @@ public final class ScreenUtils {
     private static void adaptScreen(final Activity activity,
                                     final float sizeInDp,
                                     final boolean isVerticalSlide) {
+        final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
         final DisplayMetrics activityDm = activity.getResources().getDisplayMetrics();
         if (UDM.densityDpi == -1) {
             UDM.density = activityDm.density;
@@ -369,6 +370,10 @@ public final class ScreenUtils {
         }
         activityDm.scaledDensity = activityDm.density * (UDM.scaledDensity / UDM.density);
         activityDm.densityDpi = (int) (160 * activityDm.density);
+
+        appDm.density = activityDm.density;
+        appDm.scaledDensity = activityDm.scaledDensity;
+        appDm.densityDpi = activityDm.densityDpi;
     }
 
     private static final UtilDisplayMetrics UDM = new UtilDisplayMetrics();
