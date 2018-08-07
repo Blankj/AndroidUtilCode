@@ -2,6 +2,7 @@ package com.blankj.utilcode.util;
 
 import android.app.Activity;
 import android.app.KeyguardManager;
+import android.content.ComponentCallbacks;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -13,6 +14,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresPermission;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Surface;
 import android.view.View;
 import android.view.Window;
@@ -303,7 +305,7 @@ public final class ScreenUtils {
      *                        the designWidthInDp = 720 / 2.
      */
     public static void adaptScreen4VerticalSlide(final Activity activity,
-                                                 final int designWidthInDp) {
+                                                 final float designWidthInDp) {
         adaptScreen(activity, designWidthInDp, true);
     }
 
@@ -315,7 +317,7 @@ public final class ScreenUtils {
      *                         the designHeightInDp = 1080 / 3.
      */
     public static void adaptScreen4HorizontalSlide(final Activity activity,
-                                                   final int designHeightInDp) {
+                                                   final float designHeightInDp) {
         adaptScreen(activity, designHeightInDp, false);
     }
 
@@ -325,12 +327,16 @@ public final class ScreenUtils {
      * @param activity The activity.
      */
     public static void cancelAdaptScreen(final Activity activity) {
-        final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
         final DisplayMetrics activityDm = activity.getResources().getDisplayMetrics();
-        activityDm.density = appDm.density;
-        activityDm.scaledDensity = appDm.scaledDensity;
-        activityDm.densityDpi = appDm.densityDpi;
+        if (UDM.densityDpi != -1) {
+            activityDm.density = UDM.density;
+            activityDm.scaledDensity = UDM.scaledDensity;
+            activityDm.densityDpi = UDM.densityDpi;
+        } else {
+            Log.i("ScreenUtils", "U should adapt screen first.");
+        }
     }
+
 
     /**
      * Reference from: https://mp.weixin.qq.com/s/d9QCoBP6kV9VSWvVldVVwA
@@ -338,14 +344,38 @@ public final class ScreenUtils {
     private static void adaptScreen(final Activity activity,
                                     final float sizeInDp,
                                     final boolean isVerticalSlide) {
-        final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
         final DisplayMetrics activityDm = activity.getResources().getDisplayMetrics();
+        if (UDM.densityDpi == -1) {
+            UDM.density = activityDm.density;
+            UDM.scaledDensity = activityDm.scaledDensity;
+            UDM.densityDpi = activityDm.densityDpi;
+            Utils.getApp().registerComponentCallbacks(new ComponentCallbacks() {
+                @Override
+                public void onConfigurationChanged(Configuration newConfig) {
+                    if (newConfig != null && newConfig.fontScale > 0) {
+                        UDM.scaledDensity =
+                                Utils.getApp().getResources().getDisplayMetrics().scaledDensity;
+                    }
+                }
+
+                @Override
+                public void onLowMemory() {/**/}
+            });
+        }
         if (isVerticalSlide) {
             activityDm.density = activityDm.widthPixels / sizeInDp;
         } else {
             activityDm.density = activityDm.heightPixels / sizeInDp;
         }
-        activityDm.scaledDensity = activityDm.density * (appDm.scaledDensity / appDm.density);
+        activityDm.scaledDensity = activityDm.density * (UDM.scaledDensity / UDM.density);
         activityDm.densityDpi = (int) (160 * activityDm.density);
+    }
+
+    private static final UtilDisplayMetrics UDM = new UtilDisplayMetrics();
+
+    private static class UtilDisplayMetrics {
+        float density;
+        float scaledDensity;
+        int densityDpi = -1;
     }
 }

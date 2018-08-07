@@ -36,9 +36,9 @@ public class ScreenAdaptActivity extends BaseActivity {
     @Override
     public void initData(@Nullable Bundle bundle) {
         if (ScreenUtils.isPortrait()) {
-            ScreenUtils.adaptScreen4VerticalSlide(this, 360);
+            ScreenUtils.adaptScreen4VerticalSlide(this, 720);
         } else {
-            ScreenUtils.adaptScreen4HorizontalSlide(this, 360);
+            ScreenUtils.adaptScreen4HorizontalSlide(this, 720);
         }
     }
 
