@@ -1,3 +1,4 @@
+* 18/08/08 修复 ScreenUtils#adaptxx 在第三方 SDK 会出现的问题，发布 1.18.5
 * 18/08/07 修复 ScreenUtils#adaptxx 在 API 26 以下无效的 bug，发布 1.18.4
 * 18/08/06 修复 ScreenUtils#screenShot 中 decorView.getDrawingCache() 为空的问题，发布 1.18.3
 * 18/08/05 修复 1.18.0 版本删去 `if (activity.getClass() == PermissionUtils.PermissionActivity.class) return;` 造成 PermissionUtils 获取栈顶 Activity 问题，发布 1.18.2

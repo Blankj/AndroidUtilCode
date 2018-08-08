@@ -297,53 +297,34 @@ public final class ScreenUtils {
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
+    private static final UtilDisplayMetrics UDM = new UtilDisplayMetrics();
+
     /**
      * Adapt the screen for vertical slide.
      *
-     * @param designWidthInDp The size of design diagram's width, in dp,
-     *                        e.g. the design diagram width is 720px, in XHDPI device,
-     *                        the designWidthInDp = 720 / 2.
+     * @param designWidthInPx The size of design diagram's width, in pixel.
      */
     public static void adaptScreen4VerticalSlide(final Activity activity,
-                                                 final float designWidthInDp) {
-        adaptScreen(activity, designWidthInDp, true);
+                                                 final int designWidthInPx) {
+        adaptScreen(activity, designWidthInPx, true);
     }
 
     /**
      * Adapt the screen for horizontal slide.
      *
-     * @param designHeightInDp The size of design diagram's height, in dp,
-     *                         e.g. the design diagram height is 1080px, in XXHDPI device,
-     *                         the designHeightInDp = 1080 / 3.
+     * @param designHeightInPx The size of design diagram's height, in pixel.
      */
     public static void adaptScreen4HorizontalSlide(final Activity activity,
-                                                   final float designHeightInDp) {
-        adaptScreen(activity, designHeightInDp, false);
+                                                   final int designHeightInPx) {
+        adaptScreen(activity, designHeightInPx, false);
     }
-
-    /**
-     * Cancel adapt the screen.
-     *
-     * @param activity The activity.
-     */
-    public static void cancelAdaptScreen(final Activity activity) {
-        final DisplayMetrics activityDm = activity.getResources().getDisplayMetrics();
-        if (UDM.densityDpi != -1) {
-            activityDm.density = UDM.density;
-            activityDm.scaledDensity = UDM.scaledDensity;
-            activityDm.densityDpi = UDM.densityDpi;
-        } else {
-            Log.i("ScreenUtils", "U should adapt screen first.");
-        }
-    }
-
 
     /**
      * Reference from: https://mp.weixin.qq.com/s/d9QCoBP6kV9VSWvVldVVwA
      */
-    private static void adaptScreen(final Activity activity,
-                                    final float sizeInDp,
-                                    final boolean isVerticalSlide) {
+    public static void adaptScreen(final Activity activity,
+                                   final int sizeInPx,
+                                   final boolean isVerticalSlide) {
         final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
         final DisplayMetrics activityDm = activity.getResources().getDisplayMetrics();
         if (UDM.densityDpi == -1) {
@@ -364,9 +345,9 @@ public final class ScreenUtils {
             });
         }
         if (isVerticalSlide) {
-            activityDm.density = activityDm.widthPixels / sizeInDp;
+            activityDm.density = activityDm.widthPixels / (float) sizeInPx;
         } else {
-            activityDm.density = activityDm.heightPixels / sizeInDp;
+            activityDm.density = activityDm.heightPixels / (float) sizeInPx;
         }
         activityDm.scaledDensity = activityDm.density * (UDM.scaledDensity / UDM.density);
         activityDm.densityDpi = (int) (160 * activityDm.density);
@@ -376,7 +357,26 @@ public final class ScreenUtils {
         appDm.densityDpi = activityDm.densityDpi;
     }
 
-    private static final UtilDisplayMetrics UDM = new UtilDisplayMetrics();
+    /**
+     * Cancel adapt the screen.
+     *
+     * @param activity The activity.
+     */
+    public static void cancelAdaptScreen(final Activity activity) {
+        final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
+        final DisplayMetrics activityDm = activity.getResources().getDisplayMetrics();
+        if (UDM.densityDpi != -1) {
+            activityDm.density = UDM.density;
+            activityDm.scaledDensity = UDM.scaledDensity;
+            activityDm.densityDpi = UDM.densityDpi;
+
+            appDm.density = UDM.density;
+            appDm.scaledDensity = UDM.scaledDensity;
+            appDm.densityDpi = UDM.densityDpi;
+        } else {
+            Log.i("ScreenUtils", "U should adapt screen first.");
+        }
+    }
 
     private static class UtilDisplayMetrics {
         float density;
