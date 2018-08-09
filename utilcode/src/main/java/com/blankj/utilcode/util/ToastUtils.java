@@ -39,6 +39,7 @@ public final class ToastUtils {
 
     private static final int     COLOR_DEFAULT = 0xFEFFFFFF;
     private static final Handler HANDLER       = new Handler(Looper.getMainLooper());
+    private static final String  NULL          = "null";
 
     private static Toast sToast;
     private static int sGravity     = -1;
@@ -107,8 +108,8 @@ public final class ToastUtils {
      *
      * @param text The text.
      */
-    public static void showShort(@NonNull final CharSequence text) {
-        show(text, Toast.LENGTH_SHORT);
+    public static void showShort(final CharSequence text) {
+        show(text == null ? NULL : text, Toast.LENGTH_SHORT);
     }
 
     /**
@@ -127,11 +128,7 @@ public final class ToastUtils {
      * @param args  The args.
      */
     public static void showShort(@StringRes final int resId, final Object... args) {
-        if (args != null && args.length == 0) {
-            show(resId, Toast.LENGTH_SHORT);
-        } else {
-            show(resId, Toast.LENGTH_SHORT, args);
-        }
+        show(resId, Toast.LENGTH_SHORT, args);
     }
 
     /**
@@ -141,11 +138,7 @@ public final class ToastUtils {
      * @param args   The args.
      */
     public static void showShort(final String format, final Object... args) {
-        if (args != null && args.length == 0) {
-            show(format, Toast.LENGTH_SHORT);
-        } else {
-            show(format, Toast.LENGTH_SHORT, args);
-        }
+        show(format, Toast.LENGTH_SHORT, args);
     }
 
     /**
@@ -153,8 +146,8 @@ public final class ToastUtils {
      *
      * @param text The text.
      */
-    public static void showLong(@NonNull final CharSequence text) {
-        show(text, Toast.LENGTH_LONG);
+    public static void showLong(final CharSequence text) {
+        show(text == null ? NULL : text, Toast.LENGTH_LONG);
     }
 
     /**
@@ -173,11 +166,7 @@ public final class ToastUtils {
      * @param args  The args.
      */
     public static void showLong(@StringRes final int resId, final Object... args) {
-        if (args != null && args.length == 0) {
-            show(resId, Toast.LENGTH_SHORT);
-        } else {
-            show(resId, Toast.LENGTH_LONG, args);
-        }
+        show(resId, Toast.LENGTH_LONG, args);
     }
 
     /**
@@ -187,11 +176,7 @@ public final class ToastUtils {
      * @param args   The args.
      */
     public static void showLong(final String format, final Object... args) {
-        if (args != null && args.length == 0) {
-            show(format, Toast.LENGTH_SHORT);
-        } else {
-            show(format, Toast.LENGTH_LONG, args);
-        }
+        show(format, Toast.LENGTH_LONG, args);
     }
 
     /**
@@ -234,7 +219,16 @@ public final class ToastUtils {
     }
 
     private static void show(final String format, final int duration, final Object... args) {
-        show(String.format(format, args), duration);
+        String text;
+        if (format == null) {
+            text = NULL;
+        } else {
+            text = String.format(format, args);
+            if (text == null) {
+                text = NULL;
+            }
+        }
+        show(text, duration);
     }
 
     private static void show(final CharSequence text, final int duration) {
@@ -280,6 +274,7 @@ public final class ToastUtils {
     private static void showToast() {
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1) {
             try {
+                //noinspection JavaReflectionMemberAccess
                 Field field = View.class.getDeclaredField("mContext");
                 field.setAccessible(true);
                 field.set(sToast.getView(), new ApplicationContextWrapperForApi25());

@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.18.5'
+implementation 'com.blankj:utilcode:1.18.6'
 ```
 
 
@@ -347,6 +347,7 @@ compressBySampleSize
 
 * ### About Intent -> [IntentUtils.java][intent.java]
 ```
+isIntentAvailable
 getInstallAppIntent
 getUninstallAppIntent
 getLaunchAppIntent

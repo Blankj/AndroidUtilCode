@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.18.5'
+implementation 'com.blankj:utilcode:1.18.6'
 ```
 
 
@@ -347,6 +347,7 @@ compressBySampleSize            : 按采样大小压缩
 
 * ### 意图相关 -> [IntentUtils.java][intent.java]
 ```
+isIntentAvailable                : 判断意图是否可用
 getInstallAppIntent              : 获取安装 App（支持 6.0）的意图
 getUninstallAppIntent            : 获取卸载 App 的意图
 getLaunchAppIntent               : 获取打开 App 的意图

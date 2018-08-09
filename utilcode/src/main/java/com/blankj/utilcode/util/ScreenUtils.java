@@ -302,6 +302,7 @@ public final class ScreenUtils {
     /**
      * Adapt the screen for vertical slide.
      *
+     * @param activity        The activity.
      * @param designWidthInPx The size of design diagram's width, in pixel.
      */
     public static void adaptScreen4VerticalSlide(final Activity activity,
@@ -312,6 +313,7 @@ public final class ScreenUtils {
     /**
      * Adapt the screen for horizontal slide.
      *
+     * @param activity         The activity.
      * @param designHeightInPx The size of design diagram's height, in pixel.
      */
     public static void adaptScreen4HorizontalSlide(final Activity activity,

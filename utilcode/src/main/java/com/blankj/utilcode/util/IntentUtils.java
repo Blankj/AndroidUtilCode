@@ -31,6 +31,16 @@ public final class IntentUtils {
     }
 
     /**
+     * Return whether the intent is available.
+     *
+     * @param intent The intent.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isIntentAvailable(final Intent intent) {
+        return Utils.getApp().getPackageManager().queryIntentActivities(intent, 0).size() > 0;
+    }
+
+    /**
      * Return the intent of install app.
      * <p>Target APIs greater than 25 must hold
      * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
