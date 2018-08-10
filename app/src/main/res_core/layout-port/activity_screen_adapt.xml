@@ -10,23 +10,23 @@
 
         <TextView
             style="@style/TextStyle"
-            android:layout_width="180dp"
+            android:layout_width="360dp"
             android:layout_height="2000dp"
             android:layout_alignParentLeft="true"
             android:layout_below="@id/tv_fullscreen"
             android:background="@color/colorAccentHalfTrans"
             android:gravity="center_horizontal"
-            android:text="180dp" />
+            android:text="360dp" />
 
         <TextView
             style="@style/TextStyle"
-            android:layout_width="180dp"
+            android:layout_width="360dp"
             android:layout_height="2000dp"
             android:layout_alignParentRight="true"
             android:layout_below="@id/tv_fullscreen"
             android:background="@color/colorPrimaryHalfTrans"
             android:gravity="center_horizontal"
-            android:text="180dp" />
+            android:text="360dp" />
 
     </RelativeLayout>
 </ScrollView>

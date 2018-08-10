@@ -21,23 +21,23 @@
             android:id="@+id/tv_up"
             style="@style/TextStyle"
             android:layout_width="2000dp"
-            android:layout_height="180dp"
+            android:layout_height="360dp"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@id/tv_fullscreen"
             android:background="@color/colorAccentHalfTrans"
             android:gravity="center_vertical"
-            android:text="180dp" />
+            android:text="360dp" />
 
         <TextView
             android:id="@+id/tv_down"
             style="@style/TextStyle"
             android:layout_width="2000dp"
-            android:layout_height="180dp"
+            android:layout_height="360dp"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@id/tv_fullscreen"
             android:background="@color/colorPrimaryHalfTrans"
             android:gravity="center_vertical"
-            android:text="180dp" />
+            android:text="360dp" />
 
 
     </RelativeLayout>

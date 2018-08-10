@@ -5,15 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseActivity;
-import com.blankj.utilcode.util.BarUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ScreenUtils;
-import com.blankj.utilcode.util.SizeUtils;
 
 /**
  * <pre>
@@ -36,9 +32,9 @@ public class ScreenAdaptActivity extends BaseActivity {
     @Override
     public void initData(@Nullable Bundle bundle) {
         if (ScreenUtils.isPortrait()) {
-            ScreenUtils.adaptScreen4VerticalSlide(this, 360);
+            ScreenUtils.adaptScreen4VerticalSlide(this, 720);
         } else {
-            ScreenUtils.adaptScreen4HorizontalSlide(this, 360);
+            ScreenUtils.adaptScreen4HorizontalSlide(this, 720);
         }
     }
 

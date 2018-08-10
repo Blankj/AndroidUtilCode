@@ -1,3 +1,4 @@
+* 18/08/10 修复 ScreenUtils#adaptxx 导致获取状态栏和导航栏尺寸不对问题，发布 1.19.0
 * 18/08/09 新增 IntentUtils#isIntentAvailable，ToastUtils 传入空显示 null，发布 1.18.6
 * 18/08/08 修复 ScreenUtils#adaptxx 在第三方 SDK 会出现的问题，发布 1.18.5
 * 18/08/07 修复 ScreenUtils#adaptxx 在 API 26 以下无效的 bug，发布 1.18.4

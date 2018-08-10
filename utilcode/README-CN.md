@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.18.6'
+implementation 'com.blankj:utilcode:1.19.0'
 ```
 
 
@@ -543,6 +543,7 @@ isTablet                   : 判断是否是平板
 adaptScreen4VerticalSlide  : 适配垂直滑动的屏幕
 adaptScreen4HorizontalSlide: 适配水平滑动的屏幕
 cancelAdaptScreen          : 取消适配屏幕
+isAdaptScreen              : 是否适配屏幕
 ```
 
 * ### SD 卡相关 -> [SDCardUtils.java][sdcard.java] -> [Demo][sdcard.demo]

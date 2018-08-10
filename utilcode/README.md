@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.18.6'
+implementation 'com.blankj:utilcode:1.19.0'
 ```
 
 
@@ -543,6 +543,7 @@ isTablet
 adaptScreen4VerticalSlide
 adaptScreen4HorizontalSlide
 cancelAdaptScreen
+isAdaptScreen
 ```
 
 * ### About SDCard -> [SDCardUtils.java][sdcard.java] -> [Demo][sdcard.demo]
