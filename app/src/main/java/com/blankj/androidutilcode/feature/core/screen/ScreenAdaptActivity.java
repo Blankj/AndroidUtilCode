@@ -34,6 +34,7 @@ public class ScreenAdaptActivity extends BaseActivity {
         if (ScreenUtils.isPortrait()) {
             ScreenUtils.adaptScreen4VerticalSlide(this, 720);
         } else {
+            ScreenUtils.setFullScreen(this);
             ScreenUtils.adaptScreen4HorizontalSlide(this, 720);
         }
     }

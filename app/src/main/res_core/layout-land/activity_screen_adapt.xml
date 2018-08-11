@@ -9,21 +9,11 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tv_fullscreen"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:onClick="toggleFullScreen"
-            android:text="Toggle Full Screen"
-            android:textSize="@dimen/font_24" />
-
-        <TextView
             android:id="@+id/tv_up"
             style="@style/TextStyle"
             android:layout_width="2000dp"
             android:layout_height="360dp"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@id/tv_fullscreen"
             android:background="@color/colorAccentHalfTrans"
             android:gravity="center_vertical"
             android:text="360dp" />
@@ -34,7 +24,6 @@
             android:layout_width="2000dp"
             android:layout_height="360dp"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@id/tv_fullscreen"
             android:background="@color/colorPrimaryHalfTrans"
             android:gravity="center_vertical"
             android:text="360dp" />
