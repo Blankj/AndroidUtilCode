@@ -181,10 +181,15 @@ public final class PhoneUtils {
             case "46000":
             case "46002":
             case "46007":
+            case "46020":
                 return "中国移动";
             case "46001":
+            case "46006":
+            case "46009":
                 return "中国联通";
             case "46003":
+            case "46005":
+            case "46011":
                 return "中国电信";
             default:
                 return operator;
