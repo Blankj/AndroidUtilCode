@@ -59,10 +59,6 @@ public class ScreenAdaptActivity extends BaseActivity {
 
     }
 
-    public void toggleFullScreen(View view) {
-        ScreenUtils.toggleFullScreen(this);
-    }
-
     @Override
     protected void onDestroy() {
         ScreenUtils.cancelAdaptScreen(this);
