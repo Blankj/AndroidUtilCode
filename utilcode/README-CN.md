@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.19.0'
+implementation 'com.github.ZhangKuixun:AndroidUtilCode:2.0'
 ```
 
 
