@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.support.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
@@ -120,11 +121,15 @@ public final class NetworkUtils {
             TelephonyManager tm =
                     (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
             if (tm == null) return false;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                return tm.isDataEnabled();
+            }
             @SuppressLint("PrivateApi")
             Method getMobileDataEnabledMethod = tm.getClass().getDeclaredMethod("getDataEnabled");
             if (null != getMobileDataEnabledMethod) {
                 return (boolean) getMobileDataEnabledMethod.invoke(tm);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

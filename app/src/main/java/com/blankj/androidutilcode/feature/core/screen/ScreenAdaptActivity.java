@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseActivity;
+import com.blankj.androidutilcode.helper.DialogHelper;
 import com.blankj.utilcode.util.ScreenUtils;
+import com.blankj.utilcode.util.ToastUtils;
 
 /**
  * <pre>
@@ -46,7 +49,12 @@ public class ScreenAdaptActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View contentView) {
-
+        if (ScreenUtils.isPortrait()) {
+            findViewById(R.id.btn_show_system_toast).setOnClickListener(this);
+            findViewById(R.id.btn_show_util_toast).setOnClickListener(this);
+            findViewById(R.id.btn_system_dialog).setOnClickListener(this);
+            findViewById(R.id.btn_system_dialog_without_adapt).setOnClickListener(this);
+        }
     }
 
     @Override
@@ -56,12 +64,27 @@ public class ScreenAdaptActivity extends BaseActivity {
 
     @Override
     public void onWidgetClick(View view) {
-
+        switch (view.getId()) {
+            case R.id.btn_show_system_toast:
+                Toast.makeText(this, "System Toast", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.btn_show_util_toast:
+                ToastUtils.showShort("Util Toast");
+                break;
+            case R.id.btn_system_dialog:
+                DialogHelper.showAdaptScreenDialog();
+                break;
+            case R.id.btn_system_dialog_without_adapt:
+                ScreenUtils.cancelAdaptScreen(this);
+                DialogHelper.showAdaptScreenDialog();
+                ScreenUtils.adaptScreen4VerticalSlide(this, 720);
+                break;
+        }
     }
 
     @Override
     protected void onDestroy() {
-        ScreenUtils.cancelAdaptScreen(this);
+//        ScreenUtils.cancelAdaptScreen(this);
         super.onDestroy();
     }
 }

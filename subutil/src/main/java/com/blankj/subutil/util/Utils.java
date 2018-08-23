@@ -41,7 +41,11 @@ public final class Utils {
      *
      * @param context context
      */
-    public static void init(@NonNull final Context context) {
+    public static void init(final Context context) {
+        if (context == null) {
+            init(getApplicationByReflect());
+            return;
+        }
         init((Application) context.getApplicationContext());
     }
 
@@ -51,8 +55,14 @@ public final class Utils {
      *
      * @param app application
      */
-    public static void init(@NonNull final Application app) {
-        Utils.sApplication = app;
+    public static void init(final Application app) {
+        if (sApplication == null) {
+            if (app == null) {
+                Utils.sApplication = getApplicationByReflect();
+            } else {
+                Utils.sApplication = app;
+            }
+        }
     }
 
     /**
@@ -62,9 +72,13 @@ public final class Utils {
      */
     public static Application getApp() {
         if (sApplication != null) return sApplication;
+        return getApplicationByReflect();
+    }
+
+    private static Application getApplicationByReflect() {
         try {
             @SuppressLint("PrivateApi")
-            Class<?> activityThread = Class.forName("android.app.activityThread");
+            Class<?> activityThread = Class.forName("android.app.ActivityThread");
             Object at = activityThread.getMethod("currentActivityThread").invoke(null);
             Object app = activityThread.getMethod("getApplication").invoke(at);
             if (app == null) {

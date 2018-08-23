@@ -237,7 +237,13 @@ public final class ToastUtils {
             @Override
             public void run() {
                 cancel();
-                sToast = Toast.makeText(Utils.getApp(), text, duration);
+                if (Utils.isAdaptScreen()) {
+                    Utils.cancelAdaptScreen();
+                    sToast = Toast.makeText(Utils.getApp(), text, duration);
+                    Utils.adaptScreen();
+                } else {
+                    sToast = Toast.makeText(Utils.getApp(), text, duration);
+                }
                 final TextView tvMessage = sToast.getView().findViewById(android.R.id.message);
                 if (sMsgColor != COLOR_DEFAULT) {
                     tvMessage.setTextColor(sMsgColor);

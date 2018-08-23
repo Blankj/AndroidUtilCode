@@ -6,8 +6,11 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.app.Application.ActivityLifecycleCallbacks;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
+import android.util.DisplayMetrics;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -40,7 +43,7 @@ public final class Utils {
     @SuppressLint("StaticFieldLeak")
     private static Application sApplication;
 
-    static final ActivityLifecycleImpl ACTIVITY_LIFECYCLE = new ActivityLifecycleImpl();
+    private static final ActivityLifecycleImpl ACTIVITY_LIFECYCLE = new ActivityLifecycleImpl();
 
     private Utils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -52,7 +55,11 @@ public final class Utils {
      *
      * @param context context
      */
-    public static void init(@NonNull final Context context) {
+    public static void init(final Context context) {
+        if (context == null) {
+            init(getApplicationByReflect());
+            return;
+        }
         init((Application) context.getApplicationContext());
     }
 
@@ -62,9 +69,13 @@ public final class Utils {
      *
      * @param app application
      */
-    public static void init(@NonNull final Application app) {
+    public static void init(final Application app) {
         if (sApplication == null) {
-            Utils.sApplication = app;
+            if (app == null) {
+                Utils.sApplication = getApplicationByReflect();
+            } else {
+                Utils.sApplication = app;
+            }
             Utils.sApplication.registerActivityLifecycleCallbacks(ACTIVITY_LIFECYCLE);
         }
     }
@@ -76,6 +87,10 @@ public final class Utils {
      */
     public static Application getApp() {
         if (sApplication != null) return sApplication;
+        return getApplicationByReflect();
+    }
+
+    private static Application getApplicationByReflect() {
         try {
             @SuppressLint("PrivateApi")
             Class<?> activityThread = Class.forName("android.app.ActivityThread");
@@ -127,6 +142,39 @@ public final class Utils {
             }
         }
         return false;
+    }
+
+    static void adaptScreen() {
+        final DisplayMetrics systemDm = Resources.getSystem().getDisplayMetrics();
+        final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
+        if (ADAPT_SCREEN_ARGS.isVerticalSlide) {
+            appDm.density = appDm.widthPixels / (float) ADAPT_SCREEN_ARGS.sizeInPx;
+        } else {
+            appDm.density = appDm.heightPixels / (float) ADAPT_SCREEN_ARGS.sizeInPx;
+        }
+        appDm.scaledDensity = appDm.density * (systemDm.scaledDensity / systemDm.density);
+        appDm.densityDpi = (int) (160 * appDm.density);
+    }
+
+    static void cancelAdaptScreen() {
+        final DisplayMetrics systemDm = Resources.getSystem().getDisplayMetrics();
+        final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
+        appDm.density = systemDm.density;
+        appDm.scaledDensity = systemDm.scaledDensity;
+        appDm.densityDpi = systemDm.densityDpi;
+    }
+
+    static boolean isAdaptScreen() {
+        final DisplayMetrics systemDm = Resources.getSystem().getDisplayMetrics();
+        final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
+        return systemDm.density != appDm.density;
+    }
+
+    static final AdaptScreenArgs ADAPT_SCREEN_ARGS = new AdaptScreenArgs();
+
+    static class AdaptScreenArgs {
+        int     sizeInPx;
+        boolean isVerticalSlide;
     }
 
     static class ActivityLifecycleImpl implements ActivityLifecycleCallbacks {
@@ -255,6 +303,16 @@ public final class Utils {
                 e.printStackTrace();
             }
             return null;
+        }
+    }
+
+
+    public static final class FileProvider4Util extends FileProvider {
+
+        @Override
+        public boolean onCreate() {
+            Utils.init(getContext());
+            return true;
         }
     }
 

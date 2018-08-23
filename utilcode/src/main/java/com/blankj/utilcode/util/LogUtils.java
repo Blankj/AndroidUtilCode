@@ -772,7 +772,7 @@ public final class LogUtils {
     }
 
     private static class LogFormatter {
-        private static String formatJson(String json) {
+        static String formatJson(String json) {
             try {
                 if (json.startsWith("{")) {
                     json = new JSONObject(json).toString(4);
@@ -785,7 +785,7 @@ public final class LogUtils {
             return json;
         }
 
-        private static String formatXml(String xml) {
+        static String formatXml(String xml) {
             try {
                 Source xmlInput = new StreamSource(new StringReader(xml));
                 StreamResult xmlOutput = new StreamResult(new StringWriter());
@@ -800,7 +800,7 @@ public final class LogUtils {
             return xml;
         }
 
-        private static String array2String(Object object) {
+        static String array2String(Object object) {
             if (object instanceof Object[]) {
                 return Arrays.deepToString((Object[]) object);
             } else if (object instanceof boolean[]) {
@@ -823,7 +823,7 @@ public final class LogUtils {
             throw new IllegalArgumentException("Array has incompatible type: " + object.getClass());
         }
 
-        private static String throwable2String(final Throwable e) {
+        static String throwable2String(final Throwable e) {
             Throwable t = e;
             while (t != null) {
                 if (t instanceof UnknownHostException) {
@@ -843,7 +843,7 @@ public final class LogUtils {
             return sw.toString();
         }
 
-        private static String bundle2String(Bundle bundle) {
+        static String bundle2String(Bundle bundle) {
             Iterator<String> iterator = bundle.keySet().iterator();
             if (!iterator.hasNext()) {
                 return "Bundle {}";
@@ -864,7 +864,7 @@ public final class LogUtils {
             }
         }
 
-        private static String intent2String(Intent intent) {
+        static String intent2String(Intent intent) {
             StringBuilder sb = new StringBuilder(128);
             sb.append("Intent { ");
             boolean first = true;
@@ -1014,7 +1014,7 @@ public final class LogUtils {
         }
     }
 
-    private static <T> Class getTypeClassFromInterface(final IFormatter<T> callback) {
+    static <T> Class getTypeClassFromInterface(final IFormatter<T> callback) {
         if (callback == null) return null;
         Type mySuperClass = callback.getClass().getGenericInterfaces()[0];
         Type type = ((ParameterizedType) mySuperClass).getActualTypeArguments()[0];

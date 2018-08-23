@@ -47,7 +47,6 @@ public class KeyboardActivity extends BaseActivity{
     @Override
     public void initView(Bundle savedInstanceState, View contentView) {
         KeyboardUtils.fixAndroidBug5497(this);
-//        getToolBar().setTitle(getString(R.string.demo_keyboard));
         etInput = findViewById(R.id.et_input);
         findViewById(R.id.btn_hide_soft_input).setOnClickListener(this);
         findViewById(R.id.btn_show_soft_input).setOnClickListener(this);

@@ -1,11 +1,13 @@
 package com.blankj.androidutilcode;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 
 import com.blankj.androidutilcode.base.BaseApplication;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.squareup.leakcanary.LeakCanary;
 
 import java.util.ArrayList;
@@ -27,10 +29,15 @@ public class UtilsApp extends BaseApplication {
     }
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+    }
+
+    @Override
     public void onCreate() {
         super.onCreate();
+        LogUtils.e();
         sInstance = this;
-        com.blankj.utilcode.util.Utils.init(this);
         com.blankj.subutil.util.Utils.init(this);
         initLeakCanary();
         initLog();

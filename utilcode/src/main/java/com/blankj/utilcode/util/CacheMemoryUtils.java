@@ -39,7 +39,17 @@ public final class CacheMemoryUtils implements CacheConstants {
      * @return the single {@link CacheMemoryUtils} instance
      */
     public static CacheMemoryUtils getInstance(final int maxCount) {
-        final String cacheKey = String.valueOf(maxCount);
+        return getInstance(String.valueOf(maxCount), maxCount);
+    }
+
+    /**
+     * Return the single {@link CacheMemoryUtils} instance.
+     *
+     * @param cacheKey The key of cache.
+     * @param maxCount The max count of cache.
+     * @return the single {@link CacheMemoryUtils} instance
+     */
+    public static CacheMemoryUtils getInstance(final String cacheKey, final int maxCount) {
         CacheMemoryUtils cache = CACHE_MAP.get(cacheKey);
         if (cache == null) {
             cache = new CacheMemoryUtils(cacheKey, new LruCache<String, CacheValue>(maxCount));
@@ -140,7 +150,7 @@ public final class CacheMemoryUtils implements CacheConstants {
         long   dueTime;
         Object value;
 
-        private CacheValue(long dueTime, Object value) {
+        CacheValue(long dueTime, Object value) {
             this.dueTime = dueTime;
             this.value = value;
         }

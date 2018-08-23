@@ -1795,11 +1795,11 @@ public final class FragmentUtils {
         final boolean isAddStack;
         final String  tag;
 
-        private Args(final int id, final boolean isHide, final boolean isAddStack) {
+        Args(final int id, final boolean isHide, final boolean isAddStack) {
             this(id, null, isHide, isAddStack);
         }
 
-        private Args(final int id, final String tag,
+        Args(final int id, final String tag,
                      final boolean isHide, final boolean isAddStack) {
             this.id = id;
             this.tag = tag;
@@ -1815,6 +1815,14 @@ public final class FragmentUtils {
         public FragmentNode(final Fragment fragment, final List<FragmentNode> next) {
             this.fragment = fragment;
             this.next = next;
+        }
+
+        public Fragment getFragment() {
+            return fragment;
+        }
+
+        public List<FragmentNode> getNext() {
+            return next;
         }
 
         @Override

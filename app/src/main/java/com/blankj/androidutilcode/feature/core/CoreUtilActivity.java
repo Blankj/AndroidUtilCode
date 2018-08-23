@@ -29,6 +29,7 @@ import com.blankj.androidutilcode.feature.core.snackbar.SnackbarActivity;
 import com.blankj.androidutilcode.feature.core.sp.SPActivity;
 import com.blankj.androidutilcode.feature.core.span.SpanActivity;
 import com.blankj.androidutilcode.feature.core.toast.ToastActivity;
+import com.blankj.utilcode.util.Utils;
 
 /**
  * <pre>
@@ -57,6 +58,7 @@ public class CoreUtilActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View contentView) {
+        Utils.getApp();
         getToolBar().setTitle(getString(R.string.core_util));
     }
 

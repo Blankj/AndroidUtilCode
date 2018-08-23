@@ -337,6 +337,9 @@ public final class ScreenUtils {
         appDm.density = activityDm.density;
         appDm.scaledDensity = activityDm.scaledDensity;
         appDm.densityDpi = activityDm.densityDpi;
+
+        Utils.ADAPT_SCREEN_ARGS.sizeInPx = sizeInPx;
+        Utils.ADAPT_SCREEN_ARGS.isVerticalSlide = isVerticalSlide;
     }
 
     /**

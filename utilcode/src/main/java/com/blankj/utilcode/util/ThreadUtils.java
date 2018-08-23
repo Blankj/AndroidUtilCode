@@ -1108,7 +1108,7 @@ public final class ThreadUtils {
             }
         }
 
-        private static void post(final Runnable runnable) {
+        static void post(final Runnable runnable) {
             if (MAIN_HANDLER != null) {
                 MAIN_HANDLER.post(runnable);
             } else {

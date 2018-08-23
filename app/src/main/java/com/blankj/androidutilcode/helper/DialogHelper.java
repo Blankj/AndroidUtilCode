@@ -70,6 +70,29 @@ public class DialogHelper {
                 .show();
     }
 
+    public static void showAdaptScreenDialog() {
+        Activity topActivity = ActivityUtils.getTopActivity();
+        if (topActivity == null) return;
+        new AlertDialog.Builder(topActivity)
+                .setTitle(android.R.string.dialog_alert_title)
+                .setMessage("Message!")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setCancelable(false)
+                .create()
+                .show();
+    }
+
     public static void showKeyboardDialog() {
         Activity topActivity = ActivityUtils.getTopActivity();
         if (topActivity == null) return;

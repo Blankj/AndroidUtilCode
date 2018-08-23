@@ -225,6 +225,10 @@
     <string name="screen_screenshot">Screenshot</string>
     <string name="screen_set_sleep_duration">Set Sleep Duration</string>
     <string name="screen_test_adapt_screen">Test Adapt Screen</string>
+    <string name="adapt_screen_system_toast">System Toast</string>
+    <string name="adapt_screen_util_toast">Util Toast</string>
+    <string name="adapt_screen_system_dialog">System Dialog</string>
+    <string name="adapt_screen_system_dialog_without_adapt">System Dialog Without Adapt</string>
 
     <!--SnackBar 相关-->
     <string name="snackbar_show_short">Show Short Snackbar</string>
