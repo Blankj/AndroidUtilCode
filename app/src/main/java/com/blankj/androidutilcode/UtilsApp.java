@@ -36,9 +36,7 @@ public class UtilsApp extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        LogUtils.e();
         sInstance = this;
-        com.blankj.subutil.util.Utils.init(this);
         initLeakCanary();
         initLog();
         initCrash();

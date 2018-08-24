@@ -10,7 +10,7 @@
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
 
         <provider
-            android:name=".util.Utils$FileProvider4Util"
+            android:name=".util.Utils$FileProvider4UtilCode"
             android:authorities="${applicationId}.utilcode.provider"
             android:exported="false"
             android:grantUriPermissions="true"

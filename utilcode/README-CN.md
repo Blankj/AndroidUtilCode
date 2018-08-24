@@ -2,21 +2,8 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.19.1'
+implementation 'com.blankj:utilcode:1.19.2'
 ```
-
-
-## How to use
-
-```java
-// init it in the function of onCreate in ur Application
-Utils.init(application);
-```
-
-
-## Proguard
-
-U needn't do anything, because I add `consumerProguardFiles 'proguard-rules.pro'` in build.gradle.
 
 
 ## APIs
@@ -543,6 +530,7 @@ isTablet                   : 判断是否是平板
 adaptScreen4VerticalSlide  : 适配垂直滑动的屏幕
 adaptScreen4HorizontalSlide: 适配水平滑动的屏幕
 cancelAdaptScreen          : 取消适配屏幕
+restoreAdaptScreen         : 恢复适配屏幕
 isAdaptScreen              : 是否适配屏幕
 ```
 

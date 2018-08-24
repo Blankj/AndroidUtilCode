@@ -1,3 +1,4 @@
+* 18/08/24 新增 ScreenUtils#restoreAdaptScreen，利用 FileProvider4UtilCode 不再需要初始化，发布 1.19.2
 * 18/08/23 修复适配后 ToastUtils 原生 Toast 尺寸发生改变的问题，修复 KeyboardUtils#fixSoftInputLeaks，发布 1.19.1
 * 18/08/10 修复 ScreenUtils#adaptxx 导致获取状态栏和导航栏尺寸不对问题，发布 1.19.0
 * 18/08/09 新增 IntentUtils#isIntentAvailable，ToastUtils 传入空显示 null，发布 1.18.6

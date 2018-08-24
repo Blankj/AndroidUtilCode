@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 import android.util.DisplayMetrics;
 
@@ -87,20 +88,21 @@ public final class Utils {
      */
     public static Application getApp() {
         if (sApplication != null) return sApplication;
-        return getApplicationByReflect();
+        Application app = getApplicationByReflect();
+        init(app);
+        return app;
     }
 
     private static Application getApplicationByReflect() {
         try {
             @SuppressLint("PrivateApi")
             Class<?> activityThread = Class.forName("android.app.ActivityThread");
-            Object at = activityThread.getMethod("currentActivityThread").invoke(null);
-            Object app = activityThread.getMethod("getApplication").invoke(at);
+            Object thread = activityThread.getMethod("currentActivityThread").invoke(null);
+            Object app = activityThread.getMethod("getApplication").invoke(thread);
             if (app == null) {
                 throw new NullPointerException("u should init first");
             }
-            init((Application) app);
-            return sApplication;
+            return (Application) app;
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -144,21 +146,46 @@ public final class Utils {
         return false;
     }
 
-    static void adaptScreen() {
+    static final AdaptScreenArgs ADAPT_SCREEN_ARGS = new AdaptScreenArgs();
+
+    static void restoreAdaptScreen() {
         final DisplayMetrics systemDm = Resources.getSystem().getDisplayMetrics();
         final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
-        if (ADAPT_SCREEN_ARGS.isVerticalSlide) {
-            appDm.density = appDm.widthPixels / (float) ADAPT_SCREEN_ARGS.sizeInPx;
+        final Activity activity = ACTIVITY_LIFECYCLE.getTopActivity();
+        if (activity != null) {
+            final DisplayMetrics activityDm = activity.getResources().getDisplayMetrics();
+            if (ADAPT_SCREEN_ARGS.isVerticalSlide) {
+                activityDm.density = activityDm.widthPixels / (float) ADAPT_SCREEN_ARGS.sizeInPx;
+            } else {
+                activityDm.density = activityDm.heightPixels / (float) ADAPT_SCREEN_ARGS.sizeInPx;
+            }
+            activityDm.scaledDensity = activityDm.density * (systemDm.scaledDensity / systemDm.density);
+            activityDm.densityDpi = (int) (160 * activityDm.density);
+
+            appDm.density = activityDm.density;
+            appDm.scaledDensity = activityDm.scaledDensity;
+            appDm.densityDpi = activityDm.densityDpi;
         } else {
-            appDm.density = appDm.heightPixels / (float) ADAPT_SCREEN_ARGS.sizeInPx;
+            if (ADAPT_SCREEN_ARGS.isVerticalSlide) {
+                appDm.density = appDm.widthPixels / (float) ADAPT_SCREEN_ARGS.sizeInPx;
+            } else {
+                appDm.density = appDm.heightPixels / (float) ADAPT_SCREEN_ARGS.sizeInPx;
+            }
+            appDm.scaledDensity = appDm.density * (systemDm.scaledDensity / systemDm.density);
+            appDm.densityDpi = (int) (160 * appDm.density);
         }
-        appDm.scaledDensity = appDm.density * (systemDm.scaledDensity / systemDm.density);
-        appDm.densityDpi = (int) (160 * appDm.density);
     }
 
     static void cancelAdaptScreen() {
         final DisplayMetrics systemDm = Resources.getSystem().getDisplayMetrics();
         final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
+        final Activity activity = ACTIVITY_LIFECYCLE.getTopActivity();
+        if (activity != null) {
+            final DisplayMetrics activityDm = activity.getResources().getDisplayMetrics();
+            activityDm.density = systemDm.density;
+            activityDm.scaledDensity = systemDm.scaledDensity;
+            activityDm.densityDpi = systemDm.densityDpi;
+        }
         appDm.density = systemDm.density;
         appDm.scaledDensity = systemDm.scaledDensity;
         appDm.densityDpi = systemDm.densityDpi;
@@ -169,8 +196,6 @@ public final class Utils {
         final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
         return systemDm.density != appDm.density;
     }
-
-    static final AdaptScreenArgs ADAPT_SCREEN_ARGS = new AdaptScreenArgs();
 
     static class AdaptScreenArgs {
         int     sizeInPx;
@@ -270,7 +295,14 @@ public final class Utils {
                     return topActivity;
                 }
             }
-            // using reflect to get top activity
+            Activity topActivityByReflect = getTopActivityByReflect();
+            if (topActivityByReflect != null) {
+                setTopActivity(topActivityByReflect);
+            }
+            return topActivityByReflect;
+        }
+
+        private Activity getTopActivityByReflect() {
             try {
                 @SuppressLint("PrivateApi")
                 Class<?> activityThreadClass = Class.forName("android.app.ActivityThread");
@@ -286,9 +318,7 @@ public final class Utils {
                     if (!pausedField.getBoolean(activityRecord)) {
                         Field activityField = activityRecordClass.getDeclaredField("activity");
                         activityField.setAccessible(true);
-                        Activity activity = (Activity) activityField.get(activityRecord);
-                        setTopActivity(activity);
-                        return activity;
+                        return (Activity) activityField.get(activityRecord);
                     }
                 }
             } catch (ClassNotFoundException e) {
@@ -307,7 +337,7 @@ public final class Utils {
     }
 
 
-    public static final class FileProvider4Util extends FileProvider {
+    public static final class FileProvider4UtilCode extends FileProvider {
 
         @Override
         public boolean onCreate() {

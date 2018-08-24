@@ -240,7 +240,7 @@ public final class ToastUtils {
                 if (Utils.isAdaptScreen()) {
                     Utils.cancelAdaptScreen();
                     sToast = Toast.makeText(Utils.getApp(), text, duration);
-                    Utils.adaptScreen();
+                    Utils.restoreAdaptScreen();
                 } else {
                     sToast = Toast.makeText(Utils.getApp(), text, duration);
                 }

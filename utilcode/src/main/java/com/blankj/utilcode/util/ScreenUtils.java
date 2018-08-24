@@ -361,6 +361,22 @@ public final class ScreenUtils {
     }
 
     /**
+     * Cancel adapt the screen.
+     */
+    public static void cancelAdaptScreen() {
+        Utils.cancelAdaptScreen();
+    }
+
+    /**
+     * Restore adapt the screen.
+     * <p>U should call the method of {@link ScreenUtils#adaptScreen4VerticalSlide(Activity, int)}
+     * or {@link ScreenUtils#adaptScreen4HorizontalSlide(Activity, int)} firstly.</p>
+     */
+    public static void restoreAdaptScreen() {
+        Utils.restoreAdaptScreen();
+    }
+
+    /**
      * Return whether adapt screen.
      *
      * @return {@code true}: yes<br>{@code false}: no

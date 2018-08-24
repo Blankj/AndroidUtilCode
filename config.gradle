@@ -6,8 +6,8 @@ ext {
             compileSdkVersion: 27,
             minSdkVersion    : 14,
             targetSdkVersion : 27,
-            versionCode      : 1_019_001,
-            versionName      : '1.19.1'// E.g 1.9.72 => 1,009,072
+            versionCode      : 1_019_002,
+            versionName      : '1.19.2'// E.g 1.9.72 => 1,009,072
     ]
 
     versionConfig = [
@@ -167,7 +167,7 @@ def configAppDependencies(Project pro) {
         // LeakCanary
         debugImplementation depConfig.leakcanary.android
         releaseImplementation depConfig.leakcanary.android_no_op
-//        implementation 'com.blankj:utilcode:1.19.1'
+//        implementation 'com.blankj:utilcode:1.19.2'
     }
 }
 
