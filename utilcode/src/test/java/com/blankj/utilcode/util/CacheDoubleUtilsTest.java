@@ -31,164 +31,159 @@ import static org.junit.Assert.assertNull;
  */
 public class CacheDoubleUtilsTest extends BaseTest {
 
-    private CacheDiskUtils   mCacheDiskUtils;
-    private CacheMemoryUtils mCacheMemoryUtils;
-    private CacheDoubleUtils mCacheDoubleUtils;
-    private final String           cachePath         = PATH_CACHE + "double" + FILE_SEP;
-    private final File             cacheFile         = new File(cachePath);
-    private final byte[]           mBytes            = "CacheDoubleUtils".getBytes();
-    private final String           mString           = "CacheDoubleUtils";
-    private final JSONObject       mJSONObject       = new JSONObject();
-    private final JSONArray        mJSONArray        = new JSONArray();
-    private final ParcelableTest   mParcelableTest   = new ParcelableTest("Blankj", "CacheDoubleUtils");
-    private final SerializableTest mSerializableTest = new SerializableTest("Blankj", "CacheDoubleUtils");
-    private final Bitmap           mBitmap           = Bitmap.createBitmap(100, 100, Bitmap.Config.RGB_565);
-    private final Drawable         mDrawable         = new BitmapDrawable(Utils.getApp().getResources(), mBitmap);
-
+    private static final String           CACHE_PATH         = PATH_CACHE + "double" + FILE_SEP;
+    private static final File             CACHE_FILE         = new File(CACHE_PATH);
+    private static final byte[]           BYTES              = "CacheDoubleUtils".getBytes();
+    private static final String           STRING             = "CacheDoubleUtils";
+    private static final JSONObject       JSON_OBJECT        = new JSONObject();
+    private static final JSONArray        JSON_ARRAY         = new JSONArray();
+    private static final ParcelableTest   PARCELABLE_TEST    = new ParcelableTest("Blankj", "CacheDoubleUtils");
+    private static final SerializableTest SERIALIZABLE_TEST  = new SerializableTest("Blankj", "CacheDoubleUtils");
+    private static final Bitmap           BITMAP             = Bitmap.createBitmap(100, 100, Bitmap.Config.RGB_565);
+    private static final Drawable         DRAWABLE           = new BitmapDrawable(Utils.getApp().getResources(), BITMAP);
+    private static final CacheMemoryUtils CACHE_MEMORY_UTILS = CacheMemoryUtils.getInstance();
+    private static final CacheDiskUtils   CACHE_DISK_UTILS   = CacheDiskUtils.getInstance(CACHE_FILE);
+    private static final CacheDoubleUtils CACHE_DOUBLE_UTILS = CacheDoubleUtils.getInstance(CACHE_MEMORY_UTILS, CACHE_DISK_UTILS);
 
     @Before
     public void setUp() throws Exception {
-        mCacheMemoryUtils = CacheMemoryUtils.getInstance();
-        mCacheDiskUtils = CacheDiskUtils.getInstance(cacheFile);
-        mCacheDoubleUtils = CacheDoubleUtils.getInstance(mCacheMemoryUtils, mCacheDiskUtils);
+        JSON_OBJECT.put("class", "CacheDoubleUtils");
+        JSON_OBJECT.put("author", "Blankj");
+        JSON_ARRAY.put(0, JSON_OBJECT);
 
-        mJSONObject.put("class", "CacheDoubleUtils");
-        mJSONObject.put("author", "Blankj");
-        mJSONArray.put(0, mJSONObject);
-
-        mCacheDoubleUtils.put("bytes", mBytes);
-        mCacheDoubleUtils.put("string", mString);
-        mCacheDoubleUtils.put("jsonObject", mJSONObject);
-        mCacheDoubleUtils.put("jsonArray", mJSONArray);
-        mCacheDoubleUtils.put("bitmap", mBitmap);
-        mCacheDoubleUtils.put("drawable", mDrawable);
-        mCacheDoubleUtils.put("parcelable", mParcelableTest);
-        mCacheDoubleUtils.put("serializable", mSerializableTest);
+        CACHE_DOUBLE_UTILS.put("bytes", BYTES);
+        CACHE_DOUBLE_UTILS.put("string", STRING);
+        CACHE_DOUBLE_UTILS.put("jsonObject", JSON_OBJECT);
+        CACHE_DOUBLE_UTILS.put("jsonArray", JSON_ARRAY);
+        CACHE_DOUBLE_UTILS.put("bitmap", BITMAP);
+        CACHE_DOUBLE_UTILS.put("drawable", DRAWABLE);
+        CACHE_DOUBLE_UTILS.put("parcelable", PARCELABLE_TEST);
+        CACHE_DOUBLE_UTILS.put("serializable", SERIALIZABLE_TEST);
     }
 
     @Test
     public void getBytes() {
-        assertEquals(mString, new String(mCacheDoubleUtils.getBytes("bytes")));
-        mCacheMemoryUtils.remove("bytes");
-        assertEquals(mString, new String(mCacheDoubleUtils.getBytes("bytes")));
-        mCacheDiskUtils.remove("bytes");
-        assertNull(mCacheDoubleUtils.getBytes("bytes"));
+        assertEquals(STRING, new String(CACHE_DOUBLE_UTILS.getBytes("bytes")));
+        CACHE_MEMORY_UTILS.remove("bytes");
+        assertEquals(STRING, new String(CACHE_DOUBLE_UTILS.getBytes("bytes")));
+        CACHE_DISK_UTILS.remove("bytes");
+        assertNull(CACHE_DOUBLE_UTILS.getBytes("bytes"));
     }
 
     @Test
     public void getString() {
-        assertEquals(mString, mCacheDoubleUtils.getString("string"));
-        mCacheMemoryUtils.remove("string");
-        assertEquals(mString, mCacheDoubleUtils.getString("string"));
-        mCacheDiskUtils.remove("string");
-        assertNull(mCacheDoubleUtils.getString("string"));
+        assertEquals(STRING, CACHE_DOUBLE_UTILS.getString("string"));
+        CACHE_MEMORY_UTILS.remove("string");
+        assertEquals(STRING, CACHE_DOUBLE_UTILS.getString("string"));
+        CACHE_DISK_UTILS.remove("string");
+        assertNull(CACHE_DOUBLE_UTILS.getString("string"));
     }
 
     @Test
     public void getJSONObject() {
-        assertEquals(mJSONObject.toString(), mCacheDoubleUtils.getJSONObject("jsonObject").toString());
-        mCacheMemoryUtils.remove("jsonObject");
-        assertEquals(mJSONObject.toString(), mCacheDoubleUtils.getJSONObject("jsonObject").toString());
-        mCacheDiskUtils.remove("jsonObject");
-        assertNull(mCacheDoubleUtils.getString("jsonObject"));
+        assertEquals(JSON_OBJECT.toString(), CACHE_DOUBLE_UTILS.getJSONObject("jsonObject").toString());
+        CACHE_MEMORY_UTILS.remove("jsonObject");
+        assertEquals(JSON_OBJECT.toString(), CACHE_DOUBLE_UTILS.getJSONObject("jsonObject").toString());
+        CACHE_DISK_UTILS.remove("jsonObject");
+        assertNull(CACHE_DOUBLE_UTILS.getString("jsonObject"));
     }
 
     @Test
     public void getJSONArray() {
-        assertEquals(mJSONArray.toString(), mCacheDoubleUtils.getJSONArray("jsonArray").toString());
-        mCacheMemoryUtils.remove("jsonArray");
-        assertEquals(mJSONArray.toString(), mCacheDoubleUtils.getJSONArray("jsonArray").toString());
-        mCacheDiskUtils.remove("jsonArray");
-        assertNull(mCacheDoubleUtils.getString("jsonArray"));
+        assertEquals(JSON_ARRAY.toString(), CACHE_DOUBLE_UTILS.getJSONArray("jsonArray").toString());
+        CACHE_MEMORY_UTILS.remove("jsonArray");
+        assertEquals(JSON_ARRAY.toString(), CACHE_DOUBLE_UTILS.getJSONArray("jsonArray").toString());
+        CACHE_DISK_UTILS.remove("jsonArray");
+        assertNull(CACHE_DOUBLE_UTILS.getString("jsonArray"));
     }
 
     @Test
     public void getBitmap() {
         String bitmapString = "Bitmap (100 x 100) compressed as PNG with quality 100";
-        assertEquals(mBitmap, mCacheDoubleUtils.getBitmap("bitmap"));
-        mCacheMemoryUtils.remove("bitmap");
-        assertEquals(bitmapString, mCacheDoubleUtils.getString("bitmap"));
-        mCacheDiskUtils.remove("bitmap");
-        assertNull(mCacheDoubleUtils.getString("bitmap"));
+        assertEquals(BITMAP, CACHE_DOUBLE_UTILS.getBitmap("bitmap"));
+        CACHE_MEMORY_UTILS.remove("bitmap");
+        assertEquals(bitmapString, CACHE_DOUBLE_UTILS.getString("bitmap"));
+        CACHE_DISK_UTILS.remove("bitmap");
+        assertNull(CACHE_DOUBLE_UTILS.getString("bitmap"));
     }
 
     @Test
     public void getDrawable() {
         String bitmapString = "Bitmap (100 x 100) compressed as PNG with quality 100";
-        assertEquals(mDrawable, mCacheDoubleUtils.getDrawable("drawable"));
-        mCacheMemoryUtils.remove("drawable");
-        assertEquals(bitmapString, mCacheDoubleUtils.getString("drawable"));
-        mCacheDiskUtils.remove("drawable");
-        assertNull(mCacheDoubleUtils.getString("drawable"));
+        assertEquals(DRAWABLE, CACHE_DOUBLE_UTILS.getDrawable("drawable"));
+        CACHE_MEMORY_UTILS.remove("drawable");
+        assertEquals(bitmapString, CACHE_DOUBLE_UTILS.getString("drawable"));
+        CACHE_DISK_UTILS.remove("drawable");
+        assertNull(CACHE_DOUBLE_UTILS.getString("drawable"));
     }
 
     @Test
     public void getParcel() {
-        assertEquals(mParcelableTest, mCacheDoubleUtils.getParcelable("parcelable", ParcelableTest.CREATOR));
-        mCacheMemoryUtils.remove("parcelable");
-        assertEquals(mParcelableTest, mCacheDoubleUtils.getParcelable("parcelable", ParcelableTest.CREATOR));
-        mCacheDiskUtils.remove("parcelable");
-        assertNull(mCacheDoubleUtils.getString("parcelable"));
+        assertEquals(PARCELABLE_TEST, CACHE_DOUBLE_UTILS.getParcelable("parcelable", ParcelableTest.CREATOR));
+        CACHE_MEMORY_UTILS.remove("parcelable");
+        assertEquals(PARCELABLE_TEST, CACHE_DOUBLE_UTILS.getParcelable("parcelable", ParcelableTest.CREATOR));
+        CACHE_DISK_UTILS.remove("parcelable");
+        assertNull(CACHE_DOUBLE_UTILS.getString("parcelable"));
     }
 
     @Test
     public void getSerializable() {
-        assertEquals(mSerializableTest, mCacheDoubleUtils.getSerializable("serializable"));
-        mCacheMemoryUtils.remove("serializable");
-        assertEquals(mSerializableTest, mCacheDoubleUtils.getSerializable("serializable"));
-        mCacheDiskUtils.remove("serializable");
-        assertNull(mCacheDoubleUtils.getString("serializable"));
+        assertEquals(SERIALIZABLE_TEST, CACHE_DOUBLE_UTILS.getSerializable("serializable"));
+        CACHE_MEMORY_UTILS.remove("serializable");
+        assertEquals(SERIALIZABLE_TEST, CACHE_DOUBLE_UTILS.getSerializable("serializable"));
+        CACHE_DISK_UTILS.remove("serializable");
+        assertNull(CACHE_DOUBLE_UTILS.getString("serializable"));
     }
 
     @Test
     public void getCacheDiskSize() {
-        assertEquals(FileUtils.getDirLength(cacheFile), mCacheDoubleUtils.getCacheDiskSize());
+        assertEquals(FileUtils.getDirLength(CACHE_FILE), CACHE_DOUBLE_UTILS.getCacheDiskSize());
     }
 
     @Test
     public void getCacheDiskCount() {
-        assertEquals(8, mCacheDoubleUtils.getCacheDiskCount());
+        assertEquals(8, CACHE_DOUBLE_UTILS.getCacheDiskCount());
     }
 
     @Test
     public void getCacheMemoryCount() {
-        assertEquals(8, mCacheDoubleUtils.getCacheMemoryCount());
+        assertEquals(8, CACHE_DOUBLE_UTILS.getCacheMemoryCount());
     }
 
     @Test
     public void remove() {
-        assertNotNull(mCacheDoubleUtils.getString("string"));
-        mCacheDoubleUtils.remove("string");
-        assertNull(mCacheDoubleUtils.getString("string"));
+        assertNotNull(CACHE_DOUBLE_UTILS.getString("string"));
+        CACHE_DOUBLE_UTILS.remove("string");
+        assertNull(CACHE_DOUBLE_UTILS.getString("string"));
     }
 
     @Test
     public void clear() {
-        assertNotNull(mCacheDoubleUtils.getBytes("bytes"));
-        assertNotNull(mCacheDoubleUtils.getString("string"));
-        assertNotNull(mCacheDoubleUtils.getJSONObject("jsonObject"));
-        assertNotNull(mCacheDoubleUtils.getJSONArray("jsonArray"));
-        assertNotNull(mCacheDoubleUtils.getBitmap("bitmap"));
-        assertNotNull(mCacheDoubleUtils.getDrawable("drawable"));
-        assertNotNull(mCacheDoubleUtils.getParcelable("parcelable", ParcelableTest.CREATOR));
-        assertNotNull(mCacheDoubleUtils.getSerializable("serializable"));
-        mCacheDoubleUtils.clear();
-        assertNull(mCacheDoubleUtils.getBytes("bytes"));
-        assertNull(mCacheDoubleUtils.getString("string"));
-        assertNull(mCacheDoubleUtils.getJSONObject("jsonObject"));
-        assertNull(mCacheDoubleUtils.getJSONArray("jsonArray"));
-        assertNull(mCacheDoubleUtils.getBitmap("bitmap"));
-        assertNull(mCacheDoubleUtils.getDrawable("drawable"));
-        assertNull(mCacheDoubleUtils.getParcelable("parcelable", ParcelableTest.CREATOR));
-        assertNull(mCacheDoubleUtils.getSerializable("serializable"));
-        assertEquals(0, mCacheDoubleUtils.getCacheDiskSize());
-        assertEquals(0, mCacheDoubleUtils.getCacheDiskCount());
-        assertEquals(0, mCacheDoubleUtils.getCacheMemoryCount());
+        assertNotNull(CACHE_DOUBLE_UTILS.getBytes("bytes"));
+        assertNotNull(CACHE_DOUBLE_UTILS.getString("string"));
+        assertNotNull(CACHE_DOUBLE_UTILS.getJSONObject("jsonObject"));
+        assertNotNull(CACHE_DOUBLE_UTILS.getJSONArray("jsonArray"));
+        assertNotNull(CACHE_DOUBLE_UTILS.getBitmap("bitmap"));
+        assertNotNull(CACHE_DOUBLE_UTILS.getDrawable("drawable"));
+        assertNotNull(CACHE_DOUBLE_UTILS.getParcelable("parcelable", ParcelableTest.CREATOR));
+        assertNotNull(CACHE_DOUBLE_UTILS.getSerializable("serializable"));
+        CACHE_DOUBLE_UTILS.clear();
+        assertNull(CACHE_DOUBLE_UTILS.getBytes("bytes"));
+        assertNull(CACHE_DOUBLE_UTILS.getString("string"));
+        assertNull(CACHE_DOUBLE_UTILS.getJSONObject("jsonObject"));
+        assertNull(CACHE_DOUBLE_UTILS.getJSONArray("jsonArray"));
+        assertNull(CACHE_DOUBLE_UTILS.getBitmap("bitmap"));
+        assertNull(CACHE_DOUBLE_UTILS.getDrawable("drawable"));
+        assertNull(CACHE_DOUBLE_UTILS.getParcelable("parcelable", ParcelableTest.CREATOR));
+        assertNull(CACHE_DOUBLE_UTILS.getSerializable("serializable"));
+        assertEquals(0, CACHE_DOUBLE_UTILS.getCacheDiskSize());
+        assertEquals(0, CACHE_DOUBLE_UTILS.getCacheDiskCount());
+        assertEquals(0, CACHE_DOUBLE_UTILS.getCacheMemoryCount());
     }
 
     @After
     public void tearDown() {
-        mCacheDoubleUtils.clear();
+        CACHE_DOUBLE_UTILS.clear();
     }
 
     static class ParcelableTest implements Parcelable {

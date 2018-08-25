@@ -44,8 +44,7 @@ public final class CacheDoubleUtils implements CacheConstants {
      * @return the single {@link CacheDoubleUtils} instance
      */
     public static CacheDoubleUtils getInstance(@NonNull final CacheMemoryUtils cacheMemoryUtils,
-                                               @NonNull final CacheDiskUtils cacheDiskUtils
-    ) {
+                                               @NonNull final CacheDiskUtils cacheDiskUtils) {
         final String cacheKey = cacheDiskUtils.toString() + "_" + cacheMemoryUtils.toString();
         CacheDoubleUtils cache = CACHE_MAP.get(cacheKey);
         if (cache == null) {

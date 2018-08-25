@@ -31,210 +31,210 @@ import static org.junit.Assert.assertNull;
  */
 public class CacheDiskUtilsTest extends BaseTest {
 
-    private final String           disk1Path         = PATH_CACHE + "disk1" + FILE_SEP;
-    private final String           disk2Path         = PATH_CACHE + "disk2" + FILE_SEP;
-    private final File             disk1File         = new File(disk1Path);
-    private final File             disk2File         = new File(disk2Path);
-    private final CacheDiskUtils   mCacheDiskUtils1  = CacheDiskUtils.getInstance(disk1File);
-    private final CacheDiskUtils   mCacheDiskUtils2  = CacheDiskUtils.getInstance(disk2File);
-    private final byte[]           mBytes            = "CacheDiskUtils".getBytes();
-    private final String           mString           = "CacheDiskUtils";
-    private final JSONObject       mJSONObject       = new JSONObject();
-    private final JSONArray        mJSONArray        = new JSONArray();
-    private final ParcelableTest   mParcelableTest   = new ParcelableTest("Blankj", "CacheDiskUtils");
-    private final SerializableTest mSerializableTest = new SerializableTest("Blankj", "CacheDiskUtils");
-    private final Bitmap           mBitmap           = Bitmap.createBitmap(100, 100, Bitmap.Config.RGB_565);
-    private final Drawable         mDrawable         = new BitmapDrawable(Utils.getApp().getResources(), mBitmap);
+    private static final String           DISK1_PATH        = PATH_CACHE + "disk1" + FILE_SEP;
+    private static final String           DISK2_PATH        = PATH_CACHE + "disk2" + FILE_SEP;
+    private static final File             DISK1_FILE        = new File(DISK1_PATH);
+    private static final File             DISK2_FILE        = new File(DISK2_PATH);
+    private static final CacheDiskUtils   CACHE_DISK_UTILS1 = CacheDiskUtils.getInstance(DISK1_FILE);
+    private static final CacheDiskUtils   CACHE_DISK_UTILS2 = CacheDiskUtils.getInstance(DISK2_FILE);
+    private static final byte[]           BYTES             = "CacheDiskUtils".getBytes();
+    private static final String           STRING            = "CacheDiskUtils";
+    private static final JSONObject       JSON_OBJECT       = new JSONObject();
+    private static final JSONArray        JSON_ARRAY        = new JSONArray();
+    private static final ParcelableTest   PARCELABLE_TEST   = new ParcelableTest("Blankj", "CacheDiskUtils");
+    private static final SerializableTest SERIALIZABLE_TEST = new SerializableTest("Blankj", "CacheDiskUtils");
+    private static final Bitmap           BITMAP            = Bitmap.createBitmap(100, 100, Bitmap.Config.RGB_565);
+    private static final Drawable         DRAWABLE          = new BitmapDrawable(Utils.getApp().getResources(), BITMAP);
 
     @Before
     public void setUp() throws Exception {
-        mJSONObject.put("class", "CacheDiskUtils");
-        mJSONObject.put("author", "Blankj");
-        mJSONArray.put(0, mJSONObject);
+        JSON_OBJECT.put("class", "CacheDiskUtils");
+        JSON_OBJECT.put("author", "Blankj");
+        JSON_ARRAY.put(0, JSON_OBJECT);
 
-        mCacheDiskUtils1.put("bytes1", mBytes, 60 * CacheDiskUtils.SEC);
-        mCacheDiskUtils1.put("string1", mString, 60 * CacheDiskUtils.MIN);
-        mCacheDiskUtils1.put("jsonObject1", mJSONObject, 24 * CacheDiskUtils.HOUR);
-        mCacheDiskUtils1.put("jsonArray1", mJSONArray, 365 * CacheDiskUtils.DAY);
-        mCacheDiskUtils1.put("bitmap1", mBitmap, 60 * CacheDiskUtils.SEC);
-        mCacheDiskUtils1.put("drawable1", mDrawable, 60 * CacheDiskUtils.SEC);
-        mCacheDiskUtils1.put("parcelable1", mParcelableTest, 60 * CacheDiskUtils.SEC);
-        mCacheDiskUtils1.put("serializable1", mSerializableTest, 60 * CacheDiskUtils.SEC);
+        CACHE_DISK_UTILS1.put("bytes1", BYTES, 60 * CacheDiskUtils.SEC);
+        CACHE_DISK_UTILS1.put("string1", STRING, 60 * CacheDiskUtils.MIN);
+        CACHE_DISK_UTILS1.put("jsonObject1", JSON_OBJECT, 24 * CacheDiskUtils.HOUR);
+        CACHE_DISK_UTILS1.put("jsonArray1", JSON_ARRAY, 365 * CacheDiskUtils.DAY);
+        CACHE_DISK_UTILS1.put("bitmap1", BITMAP, 60 * CacheDiskUtils.SEC);
+        CACHE_DISK_UTILS1.put("drawable1", DRAWABLE, 60 * CacheDiskUtils.SEC);
+        CACHE_DISK_UTILS1.put("parcelable1", PARCELABLE_TEST, 60 * CacheDiskUtils.SEC);
+        CACHE_DISK_UTILS1.put("serializable1", SERIALIZABLE_TEST, 60 * CacheDiskUtils.SEC);
 
-        mCacheDiskUtils2.put("bytes2", mBytes);
-        mCacheDiskUtils2.put("string2", mString);
-        mCacheDiskUtils2.put("jsonObject2", mJSONObject);
-        mCacheDiskUtils2.put("jsonArray2", mJSONArray);
-        mCacheDiskUtils2.put("parcelable2", mParcelableTest);
-        mCacheDiskUtils2.put("serializable2", mSerializableTest);
-        mCacheDiskUtils2.put("bitmap2", mBitmap);
-        mCacheDiskUtils2.put("drawable2", mDrawable);
+        CACHE_DISK_UTILS2.put("bytes2", BYTES);
+        CACHE_DISK_UTILS2.put("string2", STRING);
+        CACHE_DISK_UTILS2.put("jsonObject2", JSON_OBJECT);
+        CACHE_DISK_UTILS2.put("jsonArray2", JSON_ARRAY);
+        CACHE_DISK_UTILS2.put("parcelable2", PARCELABLE_TEST);
+        CACHE_DISK_UTILS2.put("serializable2", SERIALIZABLE_TEST);
+        CACHE_DISK_UTILS2.put("bitmap2", BITMAP);
+        CACHE_DISK_UTILS2.put("drawable2", DRAWABLE);
     }
 
     @Test
     public void getBytes() {
-        assertEquals(mString, new String(mCacheDiskUtils1.getBytes("bytes1")));
-        assertEquals(mString, new String(mCacheDiskUtils1.getBytes("bytes1", null)));
-        assertNull(mCacheDiskUtils1.getBytes("bytes2", null));
+        assertEquals(STRING, new String(CACHE_DISK_UTILS1.getBytes("bytes1")));
+        assertEquals(STRING, new String(CACHE_DISK_UTILS1.getBytes("bytes1", null)));
+        assertNull(CACHE_DISK_UTILS1.getBytes("bytes2", null));
 
-        assertEquals(mString, new String(mCacheDiskUtils2.getBytes("bytes2")));
-        assertEquals(mString, new String(mCacheDiskUtils2.getBytes("bytes2", null)));
-        assertNull(mCacheDiskUtils2.getBytes("bytes1", null));
+        assertEquals(STRING, new String(CACHE_DISK_UTILS2.getBytes("bytes2")));
+        assertEquals(STRING, new String(CACHE_DISK_UTILS2.getBytes("bytes2", null)));
+        assertNull(CACHE_DISK_UTILS2.getBytes("bytes1", null));
     }
 
     @Test
     public void getString() {
-        assertEquals(mString, mCacheDiskUtils1.getString("string1"));
-        assertEquals(mString, mCacheDiskUtils1.getString("string1", null));
-        assertNull(mCacheDiskUtils1.getString("string2", null));
+        assertEquals(STRING, CACHE_DISK_UTILS1.getString("string1"));
+        assertEquals(STRING, CACHE_DISK_UTILS1.getString("string1", null));
+        assertNull(CACHE_DISK_UTILS1.getString("string2", null));
 
-        assertEquals(mString, mCacheDiskUtils2.getString("string2"));
-        assertEquals(mString, mCacheDiskUtils2.getString("string2", null));
-        assertNull(mCacheDiskUtils2.getString("string1", null));
+        assertEquals(STRING, CACHE_DISK_UTILS2.getString("string2"));
+        assertEquals(STRING, CACHE_DISK_UTILS2.getString("string2", null));
+        assertNull(CACHE_DISK_UTILS2.getString("string1", null));
     }
 
     @Test
     public void getJSONObject() {
-        assertEquals(mJSONObject.toString(), mCacheDiskUtils1.getJSONObject("jsonObject1").toString());
-        assertEquals(mJSONObject.toString(), mCacheDiskUtils1.getJSONObject("jsonObject1", null).toString());
-        assertNull(mCacheDiskUtils1.getJSONObject("jsonObject2", null));
+        assertEquals(JSON_OBJECT.toString(), CACHE_DISK_UTILS1.getJSONObject("jsonObject1").toString());
+        assertEquals(JSON_OBJECT.toString(), CACHE_DISK_UTILS1.getJSONObject("jsonObject1", null).toString());
+        assertNull(CACHE_DISK_UTILS1.getJSONObject("jsonObject2", null));
 
-        assertEquals(mJSONObject.toString(), mCacheDiskUtils2.getJSONObject("jsonObject2").toString());
-        assertEquals(mJSONObject.toString(), mCacheDiskUtils2.getJSONObject("jsonObject2", null).toString());
-        assertNull(mCacheDiskUtils2.getJSONObject("jsonObject1", null));
+        assertEquals(JSON_OBJECT.toString(), CACHE_DISK_UTILS2.getJSONObject("jsonObject2").toString());
+        assertEquals(JSON_OBJECT.toString(), CACHE_DISK_UTILS2.getJSONObject("jsonObject2", null).toString());
+        assertNull(CACHE_DISK_UTILS2.getJSONObject("jsonObject1", null));
     }
 
     @Test
     public void getJSONArray() {
-        assertEquals(mJSONArray.toString(), mCacheDiskUtils1.getJSONArray("jsonArray1").toString());
-        assertEquals(mJSONArray.toString(), mCacheDiskUtils1.getJSONArray("jsonArray1", null).toString());
-        assertNull(mCacheDiskUtils1.getJSONArray("jsonArray2", null));
+        assertEquals(JSON_ARRAY.toString(), CACHE_DISK_UTILS1.getJSONArray("jsonArray1").toString());
+        assertEquals(JSON_ARRAY.toString(), CACHE_DISK_UTILS1.getJSONArray("jsonArray1", null).toString());
+        assertNull(CACHE_DISK_UTILS1.getJSONArray("jsonArray2", null));
 
 
-        assertEquals(mJSONArray.toString(), mCacheDiskUtils2.getJSONArray("jsonArray2").toString());
-        assertEquals(mJSONArray.toString(), mCacheDiskUtils2.getJSONArray("jsonArray2", null).toString());
-        assertNull(mCacheDiskUtils2.getJSONArray("jsonArray1", null));
+        assertEquals(JSON_ARRAY.toString(), CACHE_DISK_UTILS2.getJSONArray("jsonArray2").toString());
+        assertEquals(JSON_ARRAY.toString(), CACHE_DISK_UTILS2.getJSONArray("jsonArray2", null).toString());
+        assertNull(CACHE_DISK_UTILS2.getJSONArray("jsonArray1", null));
     }
 
     @Test
     public void getBitmap() {
         String bitmapString = "Bitmap (100 x 100) compressed as PNG with quality 100";
-        assertEquals(bitmapString, mCacheDiskUtils1.getString("bitmap1"));
-        assertEquals(bitmapString, mCacheDiskUtils1.getString("bitmap1", null));
-        assertNull(mCacheDiskUtils1.getString("bitmap2", null));
+        assertEquals(bitmapString, CACHE_DISK_UTILS1.getString("bitmap1"));
+        assertEquals(bitmapString, CACHE_DISK_UTILS1.getString("bitmap1", null));
+        assertNull(CACHE_DISK_UTILS1.getString("bitmap2", null));
 
-        assertEquals(bitmapString, mCacheDiskUtils2.getString("bitmap2"));
-        assertEquals(bitmapString, mCacheDiskUtils2.getString("bitmap2", null));
-        assertNull(mCacheDiskUtils2.getString("bitmap1", null));
+        assertEquals(bitmapString, CACHE_DISK_UTILS2.getString("bitmap2"));
+        assertEquals(bitmapString, CACHE_DISK_UTILS2.getString("bitmap2", null));
+        assertNull(CACHE_DISK_UTILS2.getString("bitmap1", null));
     }
 
     @Test
     public void getDrawable() {
         String bitmapString = "Bitmap (100 x 100) compressed as PNG with quality 100";
-        assertEquals(bitmapString, mCacheDiskUtils1.getString("drawable1"));
-        assertEquals(bitmapString, mCacheDiskUtils1.getString("drawable1", null));
-        assertNull(mCacheDiskUtils1.getString("drawable2", null));
+        assertEquals(bitmapString, CACHE_DISK_UTILS1.getString("drawable1"));
+        assertEquals(bitmapString, CACHE_DISK_UTILS1.getString("drawable1", null));
+        assertNull(CACHE_DISK_UTILS1.getString("drawable2", null));
 
-        assertEquals(bitmapString, mCacheDiskUtils2.getString("drawable2"));
-        assertEquals(bitmapString, mCacheDiskUtils2.getString("drawable2", null));
-        assertNull(mCacheDiskUtils2.getString("drawable1", null));
+        assertEquals(bitmapString, CACHE_DISK_UTILS2.getString("drawable2"));
+        assertEquals(bitmapString, CACHE_DISK_UTILS2.getString("drawable2", null));
+        assertNull(CACHE_DISK_UTILS2.getString("drawable1", null));
     }
 
     @Test
     public void getParcel() {
-        assertEquals(mParcelableTest, mCacheDiskUtils1.getParcelable("parcelable1", ParcelableTest.CREATOR));
-        assertEquals(mParcelableTest, mCacheDiskUtils1.getParcelable("parcelable1", ParcelableTest.CREATOR, null));
-        assertNull(mCacheDiskUtils1.getParcelable("parcelable2", ParcelableTest.CREATOR, null));
+        assertEquals(PARCELABLE_TEST, CACHE_DISK_UTILS1.getParcelable("parcelable1", ParcelableTest.CREATOR));
+        assertEquals(PARCELABLE_TEST, CACHE_DISK_UTILS1.getParcelable("parcelable1", ParcelableTest.CREATOR, null));
+        assertNull(CACHE_DISK_UTILS1.getParcelable("parcelable2", ParcelableTest.CREATOR, null));
 
-        assertEquals(mParcelableTest, mCacheDiskUtils2.getParcelable("parcelable2", ParcelableTest.CREATOR));
-        assertEquals(mParcelableTest, mCacheDiskUtils2.getParcelable("parcelable2", ParcelableTest.CREATOR, null));
-        assertNull(mCacheDiskUtils2.getParcelable("parcelable1", ParcelableTest.CREATOR, null));
+        assertEquals(PARCELABLE_TEST, CACHE_DISK_UTILS2.getParcelable("parcelable2", ParcelableTest.CREATOR));
+        assertEquals(PARCELABLE_TEST, CACHE_DISK_UTILS2.getParcelable("parcelable2", ParcelableTest.CREATOR, null));
+        assertNull(CACHE_DISK_UTILS2.getParcelable("parcelable1", ParcelableTest.CREATOR, null));
     }
 
     @Test
     public void getSerializable() {
-        assertEquals(mSerializableTest, mCacheDiskUtils1.getSerializable("serializable1"));
-        assertEquals(mSerializableTest, mCacheDiskUtils1.getSerializable("serializable1", null));
-        assertNull(mCacheDiskUtils1.getSerializable("parcelable2", null));
+        assertEquals(SERIALIZABLE_TEST, CACHE_DISK_UTILS1.getSerializable("serializable1"));
+        assertEquals(SERIALIZABLE_TEST, CACHE_DISK_UTILS1.getSerializable("serializable1", null));
+        assertNull(CACHE_DISK_UTILS1.getSerializable("parcelable2", null));
 
-        assertEquals(mSerializableTest, mCacheDiskUtils2.getSerializable("serializable2"));
-        assertEquals(mSerializableTest, mCacheDiskUtils2.getSerializable("serializable2", null));
-        assertNull(mCacheDiskUtils2.getSerializable("parcelable1", null));
+        assertEquals(SERIALIZABLE_TEST, CACHE_DISK_UTILS2.getSerializable("serializable2"));
+        assertEquals(SERIALIZABLE_TEST, CACHE_DISK_UTILS2.getSerializable("serializable2", null));
+        assertNull(CACHE_DISK_UTILS2.getSerializable("parcelable1", null));
     }
 
     @Test
     public void getCacheSize() {
-        assertEquals(FileUtils.getDirLength(disk1File), mCacheDiskUtils1.getCacheSize());
+        assertEquals(FileUtils.getDirLength(DISK1_FILE), CACHE_DISK_UTILS1.getCacheSize());
 
-        assertEquals(FileUtils.getDirLength(disk2File), mCacheDiskUtils2.getCacheSize());
+        assertEquals(FileUtils.getDirLength(DISK2_FILE), CACHE_DISK_UTILS2.getCacheSize());
     }
 
     @Test
     public void getCacheCount() {
-        assertEquals(8, mCacheDiskUtils1.getCacheCount());
+        assertEquals(8, CACHE_DISK_UTILS1.getCacheCount());
 
-        assertEquals(8, mCacheDiskUtils2.getCacheCount());
+        assertEquals(8, CACHE_DISK_UTILS2.getCacheCount());
     }
 
     @Test
     public void remove() {
-        assertNotNull(mCacheDiskUtils1.getString("string1"));
-        mCacheDiskUtils1.remove("string1");
-        assertNull(mCacheDiskUtils1.getString("string1"));
+        assertNotNull(CACHE_DISK_UTILS1.getString("string1"));
+        CACHE_DISK_UTILS1.remove("string1");
+        assertNull(CACHE_DISK_UTILS1.getString("string1"));
 
-        assertNotNull(mCacheDiskUtils2.getString("string2"));
-        mCacheDiskUtils2.remove("string2");
-        assertNull(mCacheDiskUtils2.getString("string2"));
+        assertNotNull(CACHE_DISK_UTILS2.getString("string2"));
+        CACHE_DISK_UTILS2.remove("string2");
+        assertNull(CACHE_DISK_UTILS2.getString("string2"));
     }
 
     @Test
     public void clear() {
-        assertNotNull(mCacheDiskUtils1.getBytes("bytes1"));
-        assertNotNull(mCacheDiskUtils1.getString("string1"));
-        assertNotNull(mCacheDiskUtils1.getJSONObject("jsonObject1"));
-        assertNotNull(mCacheDiskUtils1.getJSONArray("jsonArray1"));
-        assertNotNull(mCacheDiskUtils1.getString("bitmap1"));
-        assertNotNull(mCacheDiskUtils1.getString("drawable1"));
-        assertNotNull(mCacheDiskUtils1.getParcelable("parcelable1", ParcelableTest.CREATOR));
-        assertNotNull(mCacheDiskUtils1.getSerializable("serializable1"));
-        mCacheDiskUtils1.clear();
-        assertNull(mCacheDiskUtils1.getBytes("bytes1"));
-        assertNull(mCacheDiskUtils1.getString("string1"));
-        assertNull(mCacheDiskUtils1.getJSONObject("jsonObject1"));
-        assertNull(mCacheDiskUtils1.getJSONArray("jsonArray1"));
-        assertNull(mCacheDiskUtils1.getString("bitmap1"));
-        assertNull(mCacheDiskUtils1.getString("drawable1"));
-        assertNull(mCacheDiskUtils1.getParcelable("parcelable1", ParcelableTest.CREATOR));
-        assertNull(mCacheDiskUtils1.getSerializable("serializable1"));
-        assertEquals(0, mCacheDiskUtils1.getCacheSize());
-        assertEquals(0, mCacheDiskUtils1.getCacheCount());
+        assertNotNull(CACHE_DISK_UTILS1.getBytes("bytes1"));
+        assertNotNull(CACHE_DISK_UTILS1.getString("string1"));
+        assertNotNull(CACHE_DISK_UTILS1.getJSONObject("jsonObject1"));
+        assertNotNull(CACHE_DISK_UTILS1.getJSONArray("jsonArray1"));
+        assertNotNull(CACHE_DISK_UTILS1.getString("bitmap1"));
+        assertNotNull(CACHE_DISK_UTILS1.getString("drawable1"));
+        assertNotNull(CACHE_DISK_UTILS1.getParcelable("parcelable1", ParcelableTest.CREATOR));
+        assertNotNull(CACHE_DISK_UTILS1.getSerializable("serializable1"));
+        CACHE_DISK_UTILS1.clear();
+        assertNull(CACHE_DISK_UTILS1.getBytes("bytes1"));
+        assertNull(CACHE_DISK_UTILS1.getString("string1"));
+        assertNull(CACHE_DISK_UTILS1.getJSONObject("jsonObject1"));
+        assertNull(CACHE_DISK_UTILS1.getJSONArray("jsonArray1"));
+        assertNull(CACHE_DISK_UTILS1.getString("bitmap1"));
+        assertNull(CACHE_DISK_UTILS1.getString("drawable1"));
+        assertNull(CACHE_DISK_UTILS1.getParcelable("parcelable1", ParcelableTest.CREATOR));
+        assertNull(CACHE_DISK_UTILS1.getSerializable("serializable1"));
+        assertEquals(0, CACHE_DISK_UTILS1.getCacheSize());
+        assertEquals(0, CACHE_DISK_UTILS1.getCacheCount());
 
 
-        assertNotNull(mCacheDiskUtils2.getBytes("bytes2"));
-        assertNotNull(mCacheDiskUtils2.getString("string2"));
-        assertNotNull(mCacheDiskUtils2.getJSONObject("jsonObject2"));
-        assertNotNull(mCacheDiskUtils2.getJSONArray("jsonArray2"));
-        assertNotNull(mCacheDiskUtils2.getString("bitmap2"));
-        assertNotNull(mCacheDiskUtils2.getString("drawable2"));
-        assertNotNull(mCacheDiskUtils2.getParcelable("parcelable2", ParcelableTest.CREATOR));
-        assertNotNull(mCacheDiskUtils2.getSerializable("serializable2"));
-        mCacheDiskUtils2.clear();
-        assertNull(mCacheDiskUtils2.getBytes("bytes2"));
-        assertNull(mCacheDiskUtils2.getString("string2"));
-        assertNull(mCacheDiskUtils2.getJSONObject("jsonObject2"));
-        assertNull(mCacheDiskUtils2.getJSONArray("jsonArray2"));
-        assertNull(mCacheDiskUtils2.getString("bitmap2"));
-        assertNull(mCacheDiskUtils2.getString("drawable2"));
-        assertNull(mCacheDiskUtils2.getParcelable("parcelable2", ParcelableTest.CREATOR));
-        assertNull(mCacheDiskUtils2.getSerializable("serializable2"));
-        assertEquals(0, mCacheDiskUtils2.getCacheSize());
-        assertEquals(0, mCacheDiskUtils2.getCacheCount());
+        assertNotNull(CACHE_DISK_UTILS2.getBytes("bytes2"));
+        assertNotNull(CACHE_DISK_UTILS2.getString("string2"));
+        assertNotNull(CACHE_DISK_UTILS2.getJSONObject("jsonObject2"));
+        assertNotNull(CACHE_DISK_UTILS2.getJSONArray("jsonArray2"));
+        assertNotNull(CACHE_DISK_UTILS2.getString("bitmap2"));
+        assertNotNull(CACHE_DISK_UTILS2.getString("drawable2"));
+        assertNotNull(CACHE_DISK_UTILS2.getParcelable("parcelable2", ParcelableTest.CREATOR));
+        assertNotNull(CACHE_DISK_UTILS2.getSerializable("serializable2"));
+        CACHE_DISK_UTILS2.clear();
+        assertNull(CACHE_DISK_UTILS2.getBytes("bytes2"));
+        assertNull(CACHE_DISK_UTILS2.getString("string2"));
+        assertNull(CACHE_DISK_UTILS2.getJSONObject("jsonObject2"));
+        assertNull(CACHE_DISK_UTILS2.getJSONArray("jsonArray2"));
+        assertNull(CACHE_DISK_UTILS2.getString("bitmap2"));
+        assertNull(CACHE_DISK_UTILS2.getString("drawable2"));
+        assertNull(CACHE_DISK_UTILS2.getParcelable("parcelable2", ParcelableTest.CREATOR));
+        assertNull(CACHE_DISK_UTILS2.getSerializable("serializable2"));
+        assertEquals(0, CACHE_DISK_UTILS2.getCacheSize());
+        assertEquals(0, CACHE_DISK_UTILS2.getCacheCount());
     }
 
     @After
     public void tearDown() {
-        mCacheDiskUtils1.clear();
-        mCacheDiskUtils2.clear();
+        CACHE_DISK_UTILS1.clear();
+        CACHE_DISK_UTILS2.clear();
     }
 
     static class ParcelableTest implements Parcelable {
