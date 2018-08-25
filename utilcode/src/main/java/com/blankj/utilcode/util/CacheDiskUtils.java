@@ -140,7 +140,9 @@ public final class CacheDiskUtils implements CacheConstants {
         }
         if (cacheDir.mkdirs()) {
             DiskCacheManager cacheManager = new DiskCacheManager(cacheDir, maxSize, maxCount);
-            return CACHE_MAP.put(cacheKey, new CacheDiskUtils(cacheKey, cacheManager));
+            CacheDiskUtils cacheDiskUtils = new CacheDiskUtils(cacheKey, cacheManager);
+            CACHE_MAP.put(cacheKey, cacheDiskUtils);
+            return cacheDiskUtils;
         } else {
             throw new RuntimeException("can't make dirs in " + cacheDir.getAbsolutePath());
         }
