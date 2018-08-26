@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.19.2'
+implementation 'com.blankj:utilcode:1.19.3'
 ```
 
 
@@ -51,6 +51,8 @@ getAppVersionName
 getAppVersionCode
 getAppSignature
 getAppSignatureSHA1
+getAppSignatureSHA256
+getAppSignatureMD5
 getAppInfo
 getAppsInfo
 ```

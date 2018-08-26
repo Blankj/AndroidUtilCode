@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.19.2'
+implementation 'com.blankj:utilcode:1.19.3'
 ```
 
 
@@ -51,6 +51,8 @@ getAppVersionName                 : 获取 App 版本号
 getAppVersionCode                 : 获取 App 版本码
 getAppSignature                   : 获取 App 签名
 getAppSignatureSHA1               : 获取应用签名的的 SHA1 值
+getAppSignatureSHA256             : 获取应用签名的的 SHA256 值
+getAppSignatureMD5                : 获取应用签名的的 MD5 值
 getAppInfo                        : 获取 App 信息
 getAppsInfo                       : 获取所有已安装 App 信息
 ```

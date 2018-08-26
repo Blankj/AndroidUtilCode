@@ -86,7 +86,9 @@ public class AppActivity extends BaseBackActivity {
                 .appendLine("getAppPath: " + AppUtils.getAppPath())
                 .appendLine("getAppVersionName: " + AppUtils.getAppVersionName())
                 .appendLine("getAppVersionCode: " + AppUtils.getAppVersionCode())
-                .append("getAppSignatureSHA1: " + AppUtils.getAppSignatureSHA1())
+                .appendLine("getAppSignatureSHA1: " + AppUtils.getAppSignatureSHA1())
+                .appendLine("getAppSignatureSHA256: " + AppUtils.getAppSignatureSHA256())
+                .append("getAppSignatureMD5: " + AppUtils.getAppSignatureMD5())
                 .create());
     }
 

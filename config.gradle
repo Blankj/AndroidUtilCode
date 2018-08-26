@@ -6,8 +6,8 @@ ext {
             compileSdkVersion: 27,
             minSdkVersion    : 14,
             targetSdkVersion : 27,
-            versionCode      : 1_019_002,
-            versionName      : '1.19.2'// E.g 1.9.72 => 1,009,072
+            versionCode      : 1_019_003,
+            versionName      : '1.19.3'// E.g. 1.9.72 => 1,009,072
     ]
 
     versionConfig = [
@@ -19,6 +19,7 @@ ext {
             gson       : '2.8.2',
             glide      : '4.7.1',
             leakcanary : '1.5.4',
+            retrofit   : '2.4.0',
             // test
             junit      : '4.12',
             robolectric: '3.1.2'
@@ -39,6 +40,7 @@ ext {
             ],
             gson                : "com.google.code.gson:gson:$versionConfig.gson",
             glide               : "com.github.bumptech.glide:glide:$versionConfig.glide",
+            retrofit            : "com.squareup.retrofit2:retrofit:$versionConfig.retrofit",
 
             junit               : "junit:junit:$versionConfig.junit",
             robolectric         : "org.robolectric:robolectric:$versionConfig.robolectric",
@@ -167,7 +169,7 @@ def configAppDependencies(Project pro) {
         // LeakCanary
         debugImplementation depConfig.leakcanary.android
         releaseImplementation depConfig.leakcanary.android_no_op
-//        implementation 'com.blankj:utilcode:1.19.2'
+//        implementation 'com.blankj:utilcode:1.19.3'
     }
 }
 
@@ -191,6 +193,7 @@ def configSubUtilDependencies(Project pro) {
         api(depConfig.glide) {
             exclude group: "com.android.support"
         }
+        api depConfig.retrofit
 
         testImplementation depConfig.junit
         testImplementation depConfig.robolectric
