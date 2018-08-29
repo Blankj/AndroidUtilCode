@@ -486,6 +486,7 @@ isMobileExact
 isTel
 isIDCard15
 isIDCard18
+isIDCard18Exact
 isEmail
 isURL
 isZh

@@ -481,11 +481,12 @@ get        : 获取反射想要获取的
 
 * ### 正则相关 -> [RegexUtils.java][regex.java] -> [Test][regex.test]
 ```
-isMobileSimple : 验证手机号（简单）
-isMobileExact  : 验证手机号（精确）
+isMobileSimple : 简单验证手机号
+isMobileExact  : 精确验证手机号
 isTel          : 验证电话号码
 isIDCard15     : 验证身份证号码 15 位
-isIDCard18     : 验证身份证号码 18 位
+isIDCard18     : 简单验证身份证号码 18 位
+isIDCard18Exact: 精确验证身份证号码 18 位
 isEmail        : 验证邮箱
 isURL          : 验证 URL
 isZh           : 验证汉字

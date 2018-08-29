@@ -56,6 +56,13 @@ public class RegexUtilsTest {
     }
 
     @Test
+    public void isIDCard18Exact() {
+        assertFalse(RegexUtils.isIDCard18Exact("33698418400112523x"));
+        assertTrue(RegexUtils.isIDCard18Exact("336984184001125233"));
+        assertFalse(RegexUtils.isIDCard18Exact("336984184021125233"));
+    }
+
+    @Test
     public void isEmail() {
         assertTrue(RegexUtils.isEmail("blankj@qq.com"));
         assertFalse(RegexUtils.isEmail("blankj@qq"));

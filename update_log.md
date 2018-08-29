@@ -1,3 +1,4 @@
+* 18/08/28 新增 RegexUtils#isIDCard18Exact
 * 18/08/26 新增 AppUtils#getAppSignatureSHA256 和 AppUtils#getAppSignatureMD5，发布 1.19.3
 * 18/08/24 新增 ScreenUtils#restoreAdaptScreen，利用 FileProvider4UtilCode 不再需要初始化，发布 1.19.2
 * 18/08/23 修复适配后 ToastUtils 原生 Toast 尺寸发生改变的问题，修复 KeyboardUtils#fixSoftInputLeaks，发布 1.19.1
