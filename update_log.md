@@ -1,3 +1,4 @@
+* 18/08/30 修复 PermissionUtils$PermissionActivity 的 window 背景为黑色的问题，发布 1.19.4
 * 18/08/28 新增 RegexUtils#isIDCard18Exact
 * 18/08/26 新增 AppUtils#getAppSignatureSHA256 和 AppUtils#getAppSignatureMD5，发布 1.19.3
 * 18/08/24 新增 ScreenUtils#restoreAdaptScreen，利用 FileProvider4UtilCode 不再需要初始化，发布 1.19.2
