@@ -26,24 +26,4 @@
 
 #-keep class com.blankj.subutil.** { *; }
 #-keepclassmembers class com.blankj.subutil.** { *; }
-#-dontwarn com.blankj.subutil.**
-
-# OkHttp
--dontwarn okio.**
--dontwarn okhttp3.**
--dontwarn javax.annotation.Nullable
--dontwarn javax.annotation.ParametersAreNonnullByDefault
-
-# Okio
--dontwarn com.squareup.**
--dontwarn okio.**
--keep public class org.codehaus.* { *; }
--keep public class java.nio.* { *; }
-
-# Retrofit
--keep class retrofit2.** { *; }
--dontwarn retrofit2.**
--keepattributes Signature
--keepattributes Exceptions
--dontwarn okio.**
--dontwarn javax.annotation.**
+-dontwarn com.blankj.subutil.**
