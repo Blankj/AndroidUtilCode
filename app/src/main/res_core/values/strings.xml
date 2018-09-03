@@ -10,7 +10,9 @@
     <string name="demo_image">ImageUtils Demo</string>
     <string name="demo_keyboard">KeyboardUtils Demo</string>
     <string name="demo_log">LogUtils Demo</string>
+    <string name="demo_meta_data">MetaData Demo</string>
     <string name="demo_network">NetworkUtils Demo</string>
+    <string name="demo_path">Path Demo</string>
     <string name="demo_permission">PermissionUtils Demo</string>
     <string name="demo_phone">PhoneUtils Demo</string>
     <string name="demo_process">ProcessUtils Demo</string>

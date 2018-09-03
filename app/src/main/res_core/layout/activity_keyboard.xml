@@ -48,7 +48,6 @@
             android:id="@+id/et_input"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="bottom"
             android:inputType="text" />
 
 
@@ -56,7 +55,6 @@
             android:id="@+id/et_input1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="bottom"
             android:inputType="text" />
 
 
@@ -64,7 +62,6 @@
             android:id="@+id/et_input2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="bottom"
             android:inputType="text" />
 
 
@@ -80,7 +77,6 @@
             android:id="@+id/et_input4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="bottom"
             android:inputType="text" />
 
 
@@ -88,7 +84,6 @@
             android:id="@+id/et_input5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="bottom"
             android:inputType="text" />
 
 
@@ -96,35 +91,48 @@
             android:id="@+id/et_input6"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="bottom"
             android:inputType="text" />
 
         <EditText
             android:id="@+id/et_input7"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="bottom"
             android:inputType="text" />
 
         <EditText
             android:id="@+id/et_input8"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="bottom"
             android:inputType="text" />
 
         <EditText
             android:id="@+id/et_input9"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="bottom"
             android:inputType="text" />
 
         <EditText
             android:id="@+id/et_input10"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="bottom"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/et_input11"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/et_input12"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/et_input13"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:inputType="text" />
 
     </LinearLayout>

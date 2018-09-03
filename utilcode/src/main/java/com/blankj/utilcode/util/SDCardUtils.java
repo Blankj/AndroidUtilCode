@@ -67,7 +67,9 @@ public final class SDCardUtils {
                 (StorageManager) Utils.getApp().getSystemService(Context.STORAGE_SERVICE);
         try {
             Class<?> storageVolumeClazz = Class.forName("android.os.storage.StorageVolume");
+            //noinspection JavaReflectionMemberAccess
             Method getVolumeList = StorageManager.class.getMethod("getVolumeList");
+            //noinspection JavaReflectionMemberAccess
             Method getPath = storageVolumeClazz.getMethod("getPath");
             Method isRemovable = storageVolumeClazz.getMethod("isRemovable");
             Object result = getVolumeList.invoke(sm);
@@ -102,6 +104,7 @@ public final class SDCardUtils {
                 .getSystemService(Context.STORAGE_SERVICE);
         List<String> paths = new ArrayList<>();
         try {
+            //noinspection JavaReflectionMemberAccess
             Method getVolumePathsMethod = StorageManager.class.getMethod("getVolumePaths");
             getVolumePathsMethod.setAccessible(true);
             Object invoke = getVolumePathsMethod.invoke(storageManager);

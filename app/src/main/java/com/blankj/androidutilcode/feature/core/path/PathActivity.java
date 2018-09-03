@@ -1,4 +1,4 @@
-package com.blankj.androidutilcode.feature.sub.meta_data;
+package com.blankj.androidutilcode.feature.core.path;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,21 +9,20 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseBackActivity;
-import com.blankj.subutil.util.MetaDataUtils;
 import com.blankj.utilcode.util.SpanUtils;
 
 /**
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
- *     time  : 2018/05/15
- *     desc  :
+ *     time  : 2016/10/13
+ *     desc  : demo about PathUtils
  * </pre>
  */
-public class MetaDataActivity extends BaseBackActivity {
+public class PathActivity extends BaseBackActivity {
 
     public static void start(Context context) {
-        Intent starter = new Intent(context, MetaDataActivity.class);
+        Intent starter = new Intent(context, PathActivity.class);
         context.startActivity(starter);
     }
 
@@ -34,17 +33,17 @@ public class MetaDataActivity extends BaseBackActivity {
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_meta_data;
+        return R.layout.activity_path;
     }
 
     @Override
     public void initView(Bundle savedInstanceState, View contentView) {
-        getToolBar().setTitle(getString(R.string.demo_meta_data));
+        getToolBar().setTitle(getString(R.string.demo_path));
 
-        TextView tvAboutMetaData = findViewById(R.id.tv_about_metadata);
+        TextView tvAboutMetaData = findViewById(R.id.tv_about_path);
         tvAboutMetaData.setText(new SpanUtils()
-                .appendLine("getMetaDataInApp: " + MetaDataUtils.getMetaDataInApp("app_meta_data"))
-                .append("getMetaDataInActivity: " + MetaDataUtils.getMetaDataInActivity(this, "activity_meta_data"))
+//                .appendLine("getRootPath: " + PathUtils.getRootPath())
+                .append("")
                 .create());
     }
 

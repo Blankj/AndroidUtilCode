@@ -1,4 +1,4 @@
-package com.blankj.subutil.util;
+package com.blankj.utilcode.util;
 
 import android.app.Activity;
 import android.app.Service;
@@ -15,7 +15,7 @@ import android.support.annotation.NonNull;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/05/15
- *     desc  :
+ *     desc  : utils about meta-data
  * </pre>
  */
 public final class MetaDataUtils {

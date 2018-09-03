@@ -11,7 +11,6 @@ import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.androidutilcode.feature.sub.brightness.BrightnessActivity;
 import com.blankj.androidutilcode.feature.sub.flashlight.FlashlightActivity;
 import com.blankj.androidutilcode.feature.sub.location.LocationActivity;
-import com.blankj.androidutilcode.feature.sub.meta_data.MetaDataActivity;
 import com.blankj.androidutilcode.feature.sub.pinyin.PinyinActivity;
 
 /**
@@ -64,10 +63,6 @@ public class SubUtilActivity extends BaseBackActivity {
 
     public void locationClick(View view) {
         LocationActivity.start(this);
-    }
-
-    public void metaDataClick(View view) {
-        MetaDataActivity.start(this);
     }
 
     public void pinyinClick(View view) {

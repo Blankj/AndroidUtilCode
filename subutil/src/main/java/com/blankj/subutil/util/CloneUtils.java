@@ -26,6 +26,7 @@ public final class CloneUtils {
      */
     public static <T> T deepClone(final Serializable data) {
         if (data == null) return null;
+        //noinspection unchecked
         return (T) bytes2Object(serializable2Bytes((Serializable) data));
     }
 

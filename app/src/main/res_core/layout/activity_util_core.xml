@@ -82,8 +82,22 @@
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="metaDataClick"
+        android:text="@string/demo_meta_data" />
+
+    <Button
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:onClick="networkClick"
         android:text="@string/demo_network" />
+
+    <!--<Button-->
+        <!--style="@style/WideBtnStyle"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:onClick="pathClick"-->
+        <!--android:text="@string/demo_path" />-->
 
     <Button
         style="@style/WideBtnStyle"

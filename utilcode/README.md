@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.19.4'
+implementation 'com.blankj:utilcode:1.20.0'
 ```
 
 
@@ -351,7 +351,9 @@ getCaptureIntent
 * ### About Keyboard -> [KeyboardUtils.java][keyboard.java] -> [Demo][keyboard.demo]
 ```
 showSoftInput
+showSoftInputUsingToggle
 hideSoftInput
+hideSoftInputUsingToggle
 toggleSoftInput
 isSoftInputVisible
 registerSoftInputChangedListener
@@ -395,6 +397,14 @@ aTag
 file
 json
 xml
+```
+
+* ### About MetaData -> [MetaDataUtils.java][meta_data.java] -> [Demo][meta_data.demo]
+```
+getMetaDataInApp
+getMetaDataInActivity
+getMetaDataInService
+getMetaDataInReceiver
 ```
 
 * ### About Network -> [NetworkUtils.java][network.java] -> [Demo][network.demo]
@@ -807,6 +817,9 @@ getComments
 
 [log.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/LogUtils.java
 [log.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/log/LogActivity.java
+
+[meta_data.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/MetaDataUtils.java
+[meta_data.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/meta_data/MetaDataActivity.java
 
 [network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/NetworkUtils.java
 [network.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/network/NetworkActivity.java

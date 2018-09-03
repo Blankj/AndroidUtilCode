@@ -11,8 +11,11 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseActivity;
+import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.androidutilcode.helper.DialogHelper;
+import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.SpanUtils;
 
 /**
@@ -23,7 +26,7 @@ import com.blankj.utilcode.util.SpanUtils;
  *     desc  : demo about KeyboardUtils
  * </pre>
  */
-public class KeyboardActivity extends BaseActivity{
+public class KeyboardActivity extends BaseBackActivity {
 
     public static void start(Context context) {
         Intent starter = new Intent(context, KeyboardActivity.class);
@@ -41,7 +44,7 @@ public class KeyboardActivity extends BaseActivity{
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_keyboard1;
+        return R.layout.activity_keyboard;
     }
 
     @Override

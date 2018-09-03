@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.19.4'
+implementation 'com.blankj:utilcode:1.20.0'
 ```
 
 
@@ -350,8 +350,10 @@ getCaptureIntent                 : 获取拍照的意图
 
 * ### 键盘相关 -> [KeyboardUtils.java][keyboard.java] -> [Demo][keyboard.demo]
 ```
-showSoftInput                     : 动态显示软键盘
-hideSoftInput                     : 动态隐藏软键盘
+showSoftInput                     : 显示软键盘
+showSoftInputUsingToggle          : 显示软键盘用 toggle
+hideSoftInput                     : 隐藏软键盘
+hideSoftInputUsingToggle          : 隐藏软键盘用 toggle
 toggleSoftInput                   : 切换键盘显示与否状态
 isSoftInputVisible                : 判断软键盘是否可见
 registerSoftInputChangedListener  : 注册软键盘改变监听器
@@ -395,6 +397,14 @@ aTag                     : 自定义 tag 的 Assert 日志
 file                     : log 到文件
 json                     : log 字符串之 json
 xml                      : log 字符串之 xml
+```
+
+* ### MetaData 相关 -> [MetaDataUtils.java][meta_data.java] -> [Demo][meta_data.demo]
+```
+getMetaDataInApp     : 获取 application 的 meta-data 值
+getMetaDataInActivity: 获取 activity 的 meta-data 值
+getMetaDataInService : 获取 service 的 meta-data 值
+getMetaDataInReceiver: 获取 receiver 的 meta-data 值
 ```
 
 * ### 网络相关 -> [NetworkUtils.java][network.java] -> [Demo][network.demo]
@@ -807,6 +817,9 @@ getComments       : 获取压缩文件中的注释链表
 
 [log.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/LogUtils.java
 [log.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/log/LogActivity.java
+
+[meta_data.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/MetaDataUtils.java
+[meta_data.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/meta_data/MetaDataActivity.java
 
 [network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/NetworkUtils.java
 [network.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/network/NetworkActivity.java

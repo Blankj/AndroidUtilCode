@@ -608,7 +608,7 @@ public final class BarUtils {
      * Set the navigation bar's visibility.
      *
      * @param activity  The activity.
-     * @param isVisible True to set notification bar visible, false otherwise.
+     * @param isVisible True to set navigation bar visible, false otherwise.
      */
     public static void setNavBarVisibility(@NonNull final Activity activity, boolean isVisible) {
         setNavBarVisibility(activity.getWindow(), isVisible);
@@ -618,7 +618,7 @@ public final class BarUtils {
      * Set the navigation bar's visibility.
      *
      * @param window    The window.
-     * @param isVisible True to set notification bar visible, false otherwise.
+     * @param isVisible True to set navigation bar visible, false otherwise.
      */
     public static void setNavBarVisibility(@NonNull final Window window, boolean isVisible) {
         if (isVisible) {

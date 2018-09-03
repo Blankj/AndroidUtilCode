@@ -73,14 +73,6 @@ isBetterLocation
 isSameProvider
 ```
 
-* ### About MetaData -> [MetaDataUtils.java][meta_data.java] -> [Demo][meta_data.demo]
-```
-getMetaDataInApp
-getMetaDataInActivity
-getMetaDataInService
-getMetaDataInReceiver
-```
-
 * ### About Pinyin -> [PinyinUtils.java][pinyin.java] -> [Demo][pinyin.demo]
 ```
 ccs2Pinyin
@@ -113,9 +105,6 @@ getSurnameFirstLetter
 
 [location.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/LocationUtils.java
 [location.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/sub/location/LocationActivity.java
-
-[meta_data.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/MetaDataUtils.java
-[meta_data.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/sub/meta_data/MetaDataActivity.java
 
 [pinyin.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/PinyinUtils.java
 [pinyin.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/sub/pinyin/PinyinActivity.java
