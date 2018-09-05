@@ -1,5 +1,6 @@
 package com.blankj.androidutilcode.base;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.LayoutRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -21,7 +22,7 @@ import com.r0adkll.slidr.Slidr;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/06/27
- *     desc  : DrawerActivity基类
+ *     desc  : base about back activity
  * </pre>
  */
 public abstract class BaseBackActivity extends BaseActivity {
@@ -31,16 +32,19 @@ public abstract class BaseBackActivity extends BaseActivity {
     protected AppBarLayout      abl;
     protected FrameLayout       flActivityContainer;
 
+    @SuppressLint("ResourceType")
     @Override
     protected void setBaseView(@LayoutRes int layoutId) {
         Slidr.attach(this);
-        contentView = LayoutInflater.from(this).inflate(R.layout.activity_back, null);
-        setContentView(contentView);
+        mContentView = LayoutInflater.from(this).inflate(R.layout.activity_back, null);
+        setContentView(mContentView);
         rootLayout = findViewById(R.id.root_layout);
         abl = findViewById(R.id.abl);
         mToolbar = findViewById(R.id.toolbar);
         flActivityContainer = findViewById(R.id.activity_container);
-        flActivityContainer.addView(LayoutInflater.from(this).inflate(layoutId, flActivityContainer, false));
+        if (layoutId > 0) {
+            flActivityContainer.addView(LayoutInflater.from(this).inflate(layoutId, flActivityContainer, false));
+        }
         setSupportActionBar(mToolbar);
         getToolBar().setDisplayHomeAsUpEnabled(true);
 

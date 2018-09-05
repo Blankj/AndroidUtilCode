@@ -5,7 +5,7 @@ package com.blankj.utilcode.util;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/08/16
- *     desc  : 字符串相关工具类
+ *     desc  : utils about string
  * </pre>
  */
 public final class StringUtils {
@@ -15,30 +15,30 @@ public final class StringUtils {
     }
 
     /**
-     * 判断字符串是否为null或长度为0
+     * Return whether the string is null or 0-length.
      *
-     * @param s 待校验字符串
-     * @return {@code true}: 空<br> {@code false}: 不为空
+     * @param s The string.
+     * @return {@code true}: yes<br> {@code false}: no
      */
     public static boolean isEmpty(final CharSequence s) {
         return s == null || s.length() == 0;
     }
 
     /**
-     * 判断字符串是否为null或全为空格
+     * Return whether the string is null or whitespace.
      *
-     * @param s 待校验字符串
-     * @return {@code true}: null或全空格<br> {@code false}: 不为null且不全空格
+     * @param s The string.
+     * @return {@code true}: yes<br> {@code false}: no
      */
     public static boolean isTrimEmpty(final String s) {
         return (s == null || s.trim().length() == 0);
     }
 
     /**
-     * 判断字符串是否为null或全为空白字符
+     * Return whether the string is null or white space.
      *
-     * @param s 待校验字符串
-     * @return {@code true}: null或全空白字符<br> {@code false}: 不为null且不全空白字符
+     * @param s The string.
+     * @return {@code true}: yes<br> {@code false}: no
      */
     public static boolean isSpace(final String s) {
         if (s == null) return true;
@@ -51,21 +51,21 @@ public final class StringUtils {
     }
 
     /**
-     * 判断两字符串是否相等
+     * Return whether string1 is equals to string2.
      *
-     * @param a 待校验字符串a
-     * @param b 待校验字符串b
-     * @return {@code true}: 相等<br>{@code false}: 不相等
+     * @param s1 The first string.
+     * @param s2 The second string.
+     * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean equals(final CharSequence a, final CharSequence b) {
-        if (a == b) return true;
+    public static boolean equals(final CharSequence s1, final CharSequence s2) {
+        if (s1 == s2) return true;
         int length;
-        if (a != null && b != null && (length = a.length()) == b.length()) {
-            if (a instanceof String && b instanceof String) {
-                return a.equals(b);
+        if (s1 != null && s2 != null && (length = s1.length()) == s2.length()) {
+            if (s1 instanceof String && s2 instanceof String) {
+                return s1.equals(s2);
             } else {
                 for (int i = 0; i < length; i++) {
-                    if (a.charAt(i) != b.charAt(i)) return false;
+                    if (s1.charAt(i) != s2.charAt(i)) return false;
                 }
                 return true;
             }
@@ -74,66 +74,69 @@ public final class StringUtils {
     }
 
     /**
-     * 判断两字符串忽略大小写是否相等
+     * Return whether string1 is equals to string2, ignoring case considerations..
      *
-     * @param a 待校验字符串a
-     * @param b 待校验字符串b
-     * @return {@code true}: 相等<br>{@code false}: 不相等
+     * @param s1 The first string.
+     * @param s2 The second string.
+     * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean equalsIgnoreCase(final String a, final String b) {
-        return a == null ? b == null : a.equalsIgnoreCase(b);
+    public static boolean equalsIgnoreCase(final String s1, final String s2) {
+        return s1 == null ? s2 == null : s1.equalsIgnoreCase(s2);
     }
 
     /**
-     * null转为长度为0的字符串
+     * Return {@code ""} if string equals null.
      *
-     * @param s 待转字符串
-     * @return s为null转为长度为0字符串，否则不改变
+     * @param s The string.
+     * @return {@code ""} if string equals null
      */
     public static String null2Length0(final String s) {
         return s == null ? "" : s;
     }
 
     /**
-     * 返回字符串长度
+     * Return the length of string.
      *
-     * @param s 字符串
-     * @return null返回0，其他返回自身长度
+     * @param s The string.
+     * @return the length of string
      */
     public static int length(final CharSequence s) {
         return s == null ? 0 : s.length();
     }
 
     /**
-     * 首字母大写
+     * Set the first letter of string upper.
      *
-     * @param s 待转字符串
-     * @return 首字母大写字符串
+     * @param s The string.
+     * @return the string with first letter upper.
      */
     public static String upperFirstLetter(final String s) {
-        if (isEmpty(s) || !Character.isLowerCase(s.charAt(0))) return s;
+        if (s == null || s.length() == 0) return "";
+        if (!Character.isLowerCase(s.charAt(0))) return s;
         return String.valueOf((char) (s.charAt(0) - 32)) + s.substring(1);
     }
 
     /**
-     * 首字母小写
+     * Set the first letter of string lower.
      *
-     * @param s 待转字符串
-     * @return 首字母小写字符串
+     * @param s The string.
+     * @return the string with first letter lower.
      */
     public static String lowerFirstLetter(final String s) {
-        if (isEmpty(s) || !Character.isUpperCase(s.charAt(0))) return s;
+        if (s == null || s.length() == 0) return "";
+        if (!Character.isUpperCase(s.charAt(0))) return s;
         return String.valueOf((char) (s.charAt(0) + 32)) + s.substring(1);
     }
 
     /**
-     * 反转字符串
+     * Reverse the string.
      *
-     * @param s 待反转字符串
-     * @return 反转字符串
+     * @param s The string.
+     * @return the reverse string.
      */
     public static String reverse(final String s) {
-        int len = length(s);
+        if (s == null) return "";
+        int len = s.length();
         if (len <= 1) return s;
         int mid = len >> 1;
         char[] chars = s.toCharArray();
@@ -147,13 +150,13 @@ public final class StringUtils {
     }
 
     /**
-     * 转化为半角字符
+     * Convert string to DBC.
      *
-     * @param s 待转字符串
-     * @return 半角字符串
+     * @param s The string.
+     * @return the DBC string
      */
     public static String toDBC(final String s) {
-        if (isEmpty(s)) return s;
+        if (s == null || s.length() == 0) return "";
         char[] chars = s.toCharArray();
         for (int i = 0, len = chars.length; i < len; i++) {
             if (chars[i] == 12288) {
@@ -168,13 +171,13 @@ public final class StringUtils {
     }
 
     /**
-     * 转化为全角字符
+     * Convert string to SBC.
      *
-     * @param s 待转字符串
-     * @return 全角字符串
+     * @param s The string.
+     * @return the SBC string
      */
     public static String toSBC(final String s) {
-        if (isEmpty(s)) return s;
+        if (s == null || s.length() == 0) return "";
         char[] chars = s.toCharArray();
         for (int i = 0, len = chars.length; i < len; i++) {
             if (chars[i] == ' ') {

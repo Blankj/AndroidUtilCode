@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/26
- *     desc  : ClipboardUtils单元测试
+ *     desc  : ClipboardUtils 单元测试
  * </pre>
  */
 @RunWith(RobolectricTestRunner.class)

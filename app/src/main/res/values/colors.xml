@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#34A48E</color>
+    <color name="colorPrimaryHalfTrans">#8034A48E</color>
     <color name="colorPrimaryDark">#245C50</color>
     <color name="colorAccent">#FF73A3</color>
+    <color name="colorAccentHalfTrans">#80245C50</color>
 
     <color name="white">#FFFFFF</color>
     <color name="light_black">#191919</color>

@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="@color/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -24,7 +24,8 @@
                 android:padding="@dimen/spacing_16"
                 android:scaleType="fitCenter"
                 android:src="@mipmap/ic_launcher"
-                app:layout_collapseMode="parallax" />
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.6" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

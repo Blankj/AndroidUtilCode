@@ -14,7 +14,7 @@ import static com.blankj.utilcode.util.TestConfig.PATH_TEMP;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/05/24
- *     desc  : FileIOUtils单元测试
+ *     desc  : test FileIOUtils
  * </pre>
  */
 public class FileIOUtilsTest {
@@ -26,7 +26,7 @@ public class FileIOUtilsTest {
     }
 
     @Test
-    public void writeFileFromBytes() throws Exception {
+    public void writeFileFromBytes() {
 //        String p = path + "test.txt";
 //        String p1 = path + "copy.zip";
 //        byte[] data = new byte[(1 << 20) * 100];
@@ -59,22 +59,22 @@ public class FileIOUtilsTest {
     }
 
     @Test
-    public void writeFileFromString() throws Exception {
+    public void writeFileFromString() {
 
     }
 
     @Test
-    public void readFile2List() throws Exception {
+    public void readFile2List() {
 
     }
 
     @Test
-    public void readFile2String() throws Exception {
+    public void readFile2String() {
 
     }
 
     @Test
-    public void readFile2Bytes() throws Exception {
+    public void readFile2Bytes() {
 //        String p = path + "test.app.zip";
 //        long st, end;
 //        st = System.currentTimeMillis();
@@ -92,7 +92,7 @@ public class FileIOUtilsTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         FileUtils.deleteAllInDir(PATH_TEMP);
     }
 

@@ -1,5 +1,6 @@
 package com.blankj.subutil.util;
 
+import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Criteria;
@@ -10,13 +11,15 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.RequiresPermission;
 import android.util.Log;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-import static android.content.Context.LOCATION_SERVICE;
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 /**
  * <pre>
@@ -28,8 +31,7 @@ import static android.content.Context.LOCATION_SERVICE;
  */
 public final class LocationUtils {
 
-    private static final String TAG         = "LocationUtils";
-    private static final int    TWO_MINUTES = 1000 * 60 * 2;
+    private static final int TWO_MINUTES = 1000 * 60 * 2;
 
     private static OnLocationChangeListener mListener;
     private static MyLocationListener       myLocationListener;
@@ -41,8 +43,8 @@ public final class LocationUtils {
 
 
 //    /**
-//     * you have to chech for Location Permission before use this method
-//     * add this code <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/> to your Manifest file.
+//     * you have to check for Location Permission before use this method
+//     * add this code <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> to your Manifest file.
 //     * you have also implement LocationListener and passed it to the method.
 //     *
 //     * @param Context
@@ -50,6 +52,7 @@ public final class LocationUtils {
 //     * @return {@code Location}
 //     */
 //
+//    @SuppressLint("MissingPermission")
 //    public static Location getLocation(Context context, LocationListener listener) {
 //        Location location = null;
 //        try {
@@ -110,8 +113,8 @@ public final class LocationUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isGpsEnabled() {
-        LocationManager lm = (LocationManager) Utils.getContext().getSystemService(LOCATION_SERVICE);
-        return lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        LocationManager lm = (LocationManager) Utils.getApp().getSystemService(Context.LOCATION_SERVICE);
+        return lm != null && lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
     /**
@@ -120,8 +123,11 @@ public final class LocationUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isLocationEnabled() {
-        LocationManager lm = (LocationManager) Utils.getContext().getSystemService(LOCATION_SERVICE);
-        return lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER) || lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        LocationManager lm = (LocationManager) Utils.getApp().getSystemService(Context.LOCATION_SERVICE);
+        return lm != null
+                && (lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+                || lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        );
     }
 
     /**
@@ -129,16 +135,15 @@ public final class LocationUtils {
      */
     public static void openGpsSettings() {
         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Utils.getContext().startActivity(intent);
+        Utils.getApp().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     /**
      * 注册
      * <p>使用完记得调用{@link #unregister()}</p>
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>}</p>
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />}</p>
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />}</p>
      * <p>如果{@code minDistance}为0，则通过{@code minTime}来定时更新；</p>
      * <p>{@code minDistance}不为0，则以{@code minDistance}为准；</p>
      * <p>两者都为0，则随时刷新。</p>
@@ -148,14 +153,17 @@ public final class LocationUtils {
      * @param listener    位置刷新的回调接口
      * @return {@code true}: 初始化成功<br>{@code false}: 初始化失败
      */
+    @RequiresPermission(ACCESS_FINE_LOCATION)
     public static boolean register(long minTime, long minDistance, OnLocationChangeListener listener) {
         if (listener == null) return false;
-        mLocationManager = (LocationManager) Utils.getContext().getSystemService(LOCATION_SERVICE);
-        mListener = listener;
-        if (!isLocationEnabled()) {
-            Log.d(TAG, "无法定位，请打开定位服务");
+        mLocationManager = (LocationManager) Utils.getApp().getSystemService(Context.LOCATION_SERVICE);
+        if (mLocationManager == null
+                || (!mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+                && !mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))) {
+            Log.d("LocationUtils", "无法定位，请打开定位服务");
             return false;
         }
+        mListener = listener;
         String provider = mLocationManager.getBestProvider(getCriteria(), true);
         Location location = mLocationManager.getLastKnownLocation(provider);
         if (location != null) listener.getLastKnownLocation(location);
@@ -164,10 +172,10 @@ public final class LocationUtils {
         return true;
     }
 
-
     /**
      * 注销
      */
+    @RequiresPermission(ACCESS_COARSE_LOCATION)
     public static void unregister() {
         if (mLocationManager != null) {
             if (myLocationListener != null) {
@@ -175,6 +183,9 @@ public final class LocationUtils {
                 myLocationListener = null;
             }
             mLocationManager = null;
+        }
+        if (mListener != null) {
+            mListener = null;
         }
     }
 
@@ -208,7 +219,7 @@ public final class LocationUtils {
      * @return {@link Address}
      */
     public static Address getAddress(double latitude, double longitude) {
-        Geocoder geocoder = new Geocoder(Utils.getContext(), Locale.getDefault());
+        Geocoder geocoder = new Geocoder(Utils.getApp(), Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
             if (addresses.size() > 0) return addresses.get(0);
@@ -344,13 +355,13 @@ public final class LocationUtils {
             }
             switch (status) {
                 case LocationProvider.AVAILABLE:
-                    Log.d(TAG, "当前GPS状态为可见状态");
+                    Log.d("LocationUtils", "当前GPS状态为可见状态");
                     break;
                 case LocationProvider.OUT_OF_SERVICE:
-                    Log.d(TAG, "当前GPS状态为服务区外状态");
+                    Log.d("LocationUtils", "当前GPS状态为服务区外状态");
                     break;
                 case LocationProvider.TEMPORARILY_UNAVAILABLE:
-                    Log.d(TAG, "当前GPS状态为暂停服务状态");
+                    Log.d("LocationUtils", "当前GPS状态为暂停服务状态");
                     break;
             }
         }

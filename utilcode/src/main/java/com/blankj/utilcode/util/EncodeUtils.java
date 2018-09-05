@@ -13,7 +13,7 @@ import java.net.URLEncoder;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/08/07
- *     desc  : 编码解码相关工具类
+ *     desc  : utils about encode
  * </pre>
  */
 public final class EncodeUtils {
@@ -23,127 +23,119 @@ public final class EncodeUtils {
     }
 
     /**
-     * URL编码
-     * <p>若想自己指定字符集,可以使用{@link #urlEncode(String input, String charset)}方法</p>
+     * Return the urlencoded string.
      *
-     * @param input 要编码的字符
-     * @return 编码为UTF-8的字符串
+     * @param input The input.
+     * @return the urlencoded string
      */
     public static String urlEncode(final String input) {
         return urlEncode(input, "UTF-8");
     }
 
     /**
-     * URL编码
-     * <p>若系统不支持指定的编码字符集,则直接将input原样返回</p>
+     * Return the urlencoded string.
      *
-     * @param input   要编码的字符
-     * @param charset 字符集
-     * @return 编码为字符集的字符串
+     * @param input       The input.
+     * @param charsetName The name of charset.
+     * @return the urlencoded string
      */
-    public static String urlEncode(final String input, final String charset) {
+    public static String urlEncode(final String input, final String charsetName) {
+        if (input == null || input.length() == 0) return "";
         try {
-            return URLEncoder.encode(input, charset);
+            return URLEncoder.encode(input, charsetName);
         } catch (UnsupportedEncodingException e) {
-            return input;
+            throw new AssertionError(e);
         }
     }
 
     /**
-     * URL解码
-     * <p>若想自己指定字符集,可以使用 {@link #urlDecode(String input, String charset)}方法</p>
+     * Return the string of decode urlencoded string.
      *
-     * @param input 要解码的字符串
-     * @return URL解码后的字符串
+     * @param input The input.
+     * @return the string of decode urlencoded string
      */
     public static String urlDecode(final String input) {
         return urlDecode(input, "UTF-8");
     }
 
     /**
-     * URL解码
-     * <p>若系统不支持指定的解码字符集,则直接将input原样返回</p>
+     * Return the string of decode urlencoded string.
      *
-     * @param input   要解码的字符串
-     * @param charset 字符集
-     * @return URL解码为指定字符集的字符串
+     * @param input       The input.
+     * @param charsetName The name of charset.
+     * @return the string of decode urlencoded string
      */
-    public static String urlDecode(final String input, final String charset) {
+    public static String urlDecode(final String input, final String charsetName) {
+        if (input == null || input.length() == 0) return "";
         try {
-            return URLDecoder.decode(input, charset);
+            return URLDecoder.decode(input, charsetName);
         } catch (UnsupportedEncodingException e) {
-            return input;
+            throw new AssertionError(e);
         }
     }
 
     /**
-     * Base64编码
+     * Return Base64-encode bytes.
      *
-     * @param input 要编码的字符串
-     * @return Base64编码后的字符串
+     * @param input The input.
+     * @return Base64-encode bytes
      */
     public static byte[] base64Encode(final String input) {
         return base64Encode(input.getBytes());
     }
 
     /**
-     * Base64编码
+     * Return Base64-encode bytes.
      *
-     * @param input 要编码的字节数组
-     * @return Base64编码后的字符串
+     * @param input The input.
+     * @return Base64-encode bytes
      */
     public static byte[] base64Encode(final byte[] input) {
+        if (input == null || input.length == 0) return new byte[0];
         return Base64.encode(input, Base64.NO_WRAP);
     }
 
     /**
-     * Base64编码
+     * Return Base64-encode string.
      *
-     * @param input 要编码的字节数组
-     * @return Base64编码后的字符串
+     * @param input The input.
+     * @return Base64-encode string
      */
     public static String base64Encode2String(final byte[] input) {
+        if (input == null || input.length == 0) return "";
         return Base64.encodeToString(input, Base64.NO_WRAP);
     }
 
     /**
-     * Base64解码
+     * Return the bytes of decode Base64-encode string.
      *
-     * @param input 要解码的字符串
-     * @return Base64解码后的字符串
+     * @param input The input.
+     * @return the string of decode Base64-encode string
      */
     public static byte[] base64Decode(final String input) {
+        if (input == null || input.length() == 0) return new byte[0];
         return Base64.decode(input, Base64.NO_WRAP);
     }
 
     /**
-     * Base64解码
+     * Return the bytes of decode Base64-encode bytes.
      *
-     * @param input 要解码的字符串
-     * @return Base64解码后的字符串
+     * @param input The input.
+     * @return the bytes of decode Base64-encode bytes
      */
     public static byte[] base64Decode(final byte[] input) {
+        if (input == null || input.length == 0) return new byte[0];
         return Base64.decode(input, Base64.NO_WRAP);
     }
 
     /**
-     * Base64URL安全编码
-     * <p>将Base64中的URL非法字符�?,/=转为其他字符, 见RFC3548</p>
+     * Return html-encode string.
      *
-     * @param input 要Base64URL安全编码的字符串
-     * @return Base64URL安全编码后的字符串
-     */
-    public static byte[] base64UrlSafeEncode(final String input) {
-        return Base64.encode(input.getBytes(), Base64.URL_SAFE);
-    }
-
-    /**
-     * Html编码
-     *
-     * @param input 要Html编码的字符串
-     * @return Html编码后的字符串
+     * @param input The input.
+     * @return html-encode string
      */
     public static String htmlEncode(final CharSequence input) {
+        if (input == null || input.length() == 0) return "";
         StringBuilder sb = new StringBuilder();
         char c;
         for (int i = 0, len = input.length(); i < len; i++) {
@@ -177,13 +169,14 @@ public final class EncodeUtils {
     }
 
     /**
-     * Html解码
+     * Return the string of decode html-encode string.
      *
-     * @param input 待解码的字符串
-     * @return Html解码后的字符串
+     * @param input The input.
+     * @return the string of decode html-encode string
      */
     @SuppressWarnings("deprecation")
     public static CharSequence htmlDecode(final String input) {
+        if (input == null || input.length() == 0) return "";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return Html.fromHtml(input, Html.FROM_HTML_MODE_LEGACY);
         } else {

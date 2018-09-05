@@ -24,6 +24,6 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class com.blankj.subutil.** { *; }
--keepclassmembers class com.blankj.subutil.** { *; }
+#-keep class com.blankj.subutil.** { *; }
+#-keepclassmembers class com.blankj.subutil.** { *; }
 -dontwarn com.blankj.subutil.**

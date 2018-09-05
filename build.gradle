@@ -1,15 +1,14 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+    apply from: 'config.gradle'
     repositories {
         google()
         jcenter()
     }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath depConfig.gradle
+//        classpath depConfig.kotlin_gradle_plugin
     }
 }
 
@@ -18,24 +17,19 @@ allprojects {
         google()
         jcenter()
     }
+
+    configurations.all {
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+
+        resolutionStrategy.eachDependency {
+            if (it.requested.group == 'com.android.support'
+                    && !it.requested.name.contains('multidex')) {
+                it.useVersion versionConfig.support
+            }
+        }
+    }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-ext {
-    // Sdk and tools
-    compileSdkVersion = 26
-    minSdkVersion = 14
-    targetSdkVersion = 22
-
-    versionCode = 100900600
-    versionName = '1.9.6'
-
-    // App dependencies
-    supportVersion = '26.1.0'
-
-    junitVersion = '4.12'
-    robolectricVersion = '3.1.2'
 }

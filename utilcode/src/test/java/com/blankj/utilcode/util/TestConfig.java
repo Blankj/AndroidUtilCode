@@ -5,7 +5,7 @@ package com.blankj.utilcode.util;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/09/10
- *     desc  : 单元测试配置文件
+ *     desc  : config of test
  * </pre>
  */
 public class TestConfig {

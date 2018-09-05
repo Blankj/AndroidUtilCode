@@ -16,7 +16,7 @@ public final class VibrationUtils {
 //
 //    /**
 //     * 震动
-//     * <p>需添加权限 {@code <uses-permission android:name="android.permission.VIBRATE"/>}</p>
+//     * <p>需添加权限 {@code <uses-permission android:name="android.permission.VIBRATE" />}</p>
 //     *
 //     * @param context      上下文
 //     * @param milliseconds 振动时长

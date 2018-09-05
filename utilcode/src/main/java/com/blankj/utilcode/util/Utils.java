@@ -2,129 +2,357 @@ package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Application;
+import android.app.Application.ActivityLifecycleCallbacks;
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
+import android.util.DisplayMetrics;
 
-import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <pre>
- *     author: Blankj
+ *     author:
+ *                                      ___           ___           ___         ___
+ *         _____                       /  /\         /__/\         /__/|       /  /\
+ *        /  /::\                     /  /::\        \  \:\       |  |:|      /  /:/
+ *       /  /:/\:\    ___     ___    /  /:/\:\        \  \:\      |  |:|     /__/::\
+ *      /  /:/~/::\  /__/\   /  /\  /  /:/~/::\   _____\__\:\   __|  |:|     \__\/\:\
+ *     /__/:/ /:/\:| \  \:\ /  /:/ /__/:/ /:/\:\ /__/::::::::\ /__/\_|:|____    \  \:\
+ *     \  \:\/:/~/:/  \  \:\  /:/  \  \:\/:/__\/ \  \:\~~\~~\/ \  \:\/:::::/     \__\:\
+ *      \  \::/ /:/    \  \:\/:/    \  \::/       \  \:\  ~~~   \  \::/~~~~      /  /:/
+ *       \  \:\/:/      \  \::/      \  \:\        \  \:\        \  \:\         /__/:/
+ *        \  \::/        \__\/        \  \:\        \  \:\        \  \:\        \__\/
+ *         \__\/                       \__\/         \__\/         \__\/
  *     blog  : http://blankj.com
  *     time  : 16/12/08
- *     desc  : Utils初始化相关
+ *     desc  : utils about initialization
  * </pre>
- * 　　　　　　　　　瓦瓦　　　　　　　　　　　　十
- * 　　　　　　　　十齱龠己　　　　　　　　　亅瓦車己
- * 　　　　　　　　乙龍龠毋日丶　　　　　　丶乙己毋毋丶
- * 　　　　　　　　十龠馬鬼車瓦　　　　　　己十瓦毋毋
- * 　　　　　　　　　鬼馬龠馬龠十　　　　己己毋車毋瓦
- * 　　　　　　　　　毋龠龠龍龠鬼乙丶丶乙車乙毋鬼車己
- * 　　　　　　　　　乙龠龍龍鬼龍瓦　十瓦毋乙瓦龠瓦亅
- * 　　　　　　　　　　馬齱龍馬鬼十丶日己己己毋車乙丶
- * 　　　　　　　　　　己齱馬鬼車十十毋日乙己己乙乙
- * 　　　　　　　　　　　車馬齱齱日乙毋瓦己乙瓦日亅
- * 　　　　　　　　　　　亅車齺龖瓦乙車龖龍乙乙十
- * 　　　　　　　　　　　　日龠龠十亅車龍毋十十
- * 　　　　　　　　　　　　日毋己亅　己己十亅亅
- * 　　　　　　　　　　　丶己十十乙　　丶丶丶丶丶
- * 　　　　　　　　　　　亅己十龍龖瓦　　丶　丶　乙十
- * 　　　　　　　　　　　亅己十龠龖毋　丶丶　　丶己鬼鬼瓦亅
- * 　　　　　　　　　　　十日十十日亅丶亅丶　丶十日毋鬼馬馬車乙
- * 　　　　　　　　　　　十日乙十亅亅亅丶　　十乙己毋鬼鬼鬼龍齺馬乙
- * 　　　　　　　　　　　丶瓦己乙十十亅丶亅乙乙乙己毋鬼鬼鬼龍齱齺齺鬼十
- * 　　　　　　　　　　　　乙乙十十十亅乙瓦瓦己日瓦毋鬼鬼龠齱齱龍龍齱齱毋丶
- * 　　　　　　　　　　　　亅十十十十乙瓦車毋瓦瓦日車馬龠龍龍龍龍龍龠龠龠馬亅
- * 　　　　　　　　　　　　　十十十十己毋車瓦瓦瓦瓦鬼馬龠龍龠龠龍龠龠龠馬龠車
- * 　　　　　　　　　　　　　　亅十十日毋瓦日日瓦鬼鬼鬼龠龠馬馬龠龍龍龠馬馬車
- * 　　　　　　　　　　　　　　亅亅亅乙瓦瓦毋車車車馬龍龠鬼鬼馬龠龍龍龠馬馬鬼
- * 　　　　　　　　　　　　丶丶乙亅亅乙車鬼鬼鬼毋車龍龍龠鬼馬馬龠龍齱齱龍馬鬼
- * 　　　　　　　　　　　亅己十十己十日鬼鬼車瓦毋龠龍龠馬馬龠龠龠齱齺齺齱龠鬼
- * 　　　　　　　　　　　　亅乙乙乙十車馬車毋馬齱齱龍龠龠龠馬龠龍齱龍龠龠鬼瓦
- * 　　　　　　　　　　　　　　　　丶毋龠鬼車瓦車馬龠龍龠龠龍齱齱龠馬馬鬼毋日
- * 　　　　　　　　　　　　　　　　十乙己日十　　丶己鬼龍齱齺齱龍馬馬馬車毋己
- * 　　　　　　　　　　　　　　丶十己乙亅丶　　　　　　亅瓦馬龠龍龠龠馬毋瓦乙
- * 　　　　　　　　　　　　　丶十十乙亅十　　　　　　　　亅己瓦車馬龠鬼車瓦乙
- * 　　　　　　　　　　　　　丶十乙十十丶　　　　　　　　　丶丶亅十瓦鬼車瓦己
- * 　　　　　　　　　　　　　　丶亅亅丶　　　　　　　　　　　　　　　亅日瓦日
- * 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　丶
  */
 public final class Utils {
 
     @SuppressLint("StaticFieldLeak")
     private static Application sApplication;
 
-    static WeakReference<Activity> sTopActivityWeakRef;
-    static List<Activity> sActivityList = new LinkedList<>();
-
-    private static Application.ActivityLifecycleCallbacks mCallbacks = new Application.ActivityLifecycleCallbacks() {
-        @Override
-        public void onActivityCreated(Activity activity, Bundle bundle) {
-            sActivityList.add(activity);
-            setTopActivityWeakRef(activity);
-        }
-
-        @Override
-        public void onActivityStarted(Activity activity) {
-            setTopActivityWeakRef(activity);
-        }
-
-        @Override
-        public void onActivityResumed(Activity activity) {
-            setTopActivityWeakRef(activity);
-        }
-
-        @Override
-        public void onActivityPaused(Activity activity) {
-
-        }
-
-        @Override
-        public void onActivityStopped(Activity activity) {
-
-        }
-
-        @Override
-        public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
-
-        }
-
-        @Override
-        public void onActivityDestroyed(Activity activity) {
-            sActivityList.remove(activity);
-        }
-    };
+    private static final ActivityLifecycleImpl ACTIVITY_LIFECYCLE = new ActivityLifecycleImpl();
 
     private Utils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**
-     * 初始化工具类
+     * Init utils.
+     * <p>Init it in the class of Application.</p>
      *
-     * @param app 应用
+     * @param context context
      */
-    public static void init(@NonNull final Application app) {
-        Utils.sApplication = app;
-        app.registerActivityLifecycleCallbacks(mCallbacks);
+    public static void init(final Context context) {
+        if (context == null) {
+            init(getApplicationByReflect());
+            return;
+        }
+        init((Application) context.getApplicationContext());
     }
 
     /**
-     * 获取Application
+     * Init utils.
+     * <p>Init it in the class of Application.</p>
      *
-     * @return Application
+     * @param app application
+     */
+    public static void init(final Application app) {
+        if (sApplication == null) {
+            if (app == null) {
+                Utils.sApplication = getApplicationByReflect();
+            } else {
+                Utils.sApplication = app;
+            }
+            Utils.sApplication.registerActivityLifecycleCallbacks(ACTIVITY_LIFECYCLE);
+        }
+    }
+
+    /**
+     * Return the context of Application object.
+     *
+     * @return the context of Application object
      */
     public static Application getApp() {
         if (sApplication != null) return sApplication;
+        Application app = getApplicationByReflect();
+        init(app);
+        return app;
+    }
+
+    private static Application getApplicationByReflect() {
+        try {
+            @SuppressLint("PrivateApi")
+            Class<?> activityThread = Class.forName("android.app.ActivityThread");
+            Object thread = activityThread.getMethod("currentActivityThread").invoke(null);
+            Object app = activityThread.getMethod("getApplication").invoke(thread);
+            if (app == null) {
+                throw new NullPointerException("u should init first");
+            }
+            return (Application) app;
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         throw new NullPointerException("u should init first");
     }
 
-    private static void setTopActivityWeakRef(Activity activity) {
-        if (sTopActivityWeakRef == null || !activity.equals(sTopActivityWeakRef.get())) {
-            sTopActivityWeakRef = new WeakReference<>(activity);
+    static ActivityLifecycleImpl getActivityLifecycle() {
+        return ACTIVITY_LIFECYCLE;
+    }
+
+    static LinkedList<Activity> getActivityList() {
+        return ACTIVITY_LIFECYCLE.mActivityList;
+    }
+
+    static Context getTopActivityOrApp() {
+        if (isAppForeground()) {
+            Activity topActivity = ACTIVITY_LIFECYCLE.getTopActivity();
+            return topActivity == null ? Utils.getApp() : topActivity;
+        } else {
+            return Utils.getApp();
         }
+    }
+
+    static boolean isAppForeground() {
+        ActivityManager am =
+                (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
+        if (am == null) return false;
+        List<ActivityManager.RunningAppProcessInfo> info = am.getRunningAppProcesses();
+        if (info == null || info.size() == 0) return false;
+        for (ActivityManager.RunningAppProcessInfo aInfo : info) {
+            if (aInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                return aInfo.processName.equals(Utils.getApp().getPackageName());
+            }
+        }
+        return false;
+    }
+
+    static final AdaptScreenArgs ADAPT_SCREEN_ARGS = new AdaptScreenArgs();
+
+    static void restoreAdaptScreen() {
+        final DisplayMetrics systemDm = Resources.getSystem().getDisplayMetrics();
+        final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
+        final Activity activity = ACTIVITY_LIFECYCLE.getTopActivity();
+        if (activity != null) {
+            final DisplayMetrics activityDm = activity.getResources().getDisplayMetrics();
+            if (ADAPT_SCREEN_ARGS.isVerticalSlide) {
+                activityDm.density = activityDm.widthPixels / (float) ADAPT_SCREEN_ARGS.sizeInPx;
+            } else {
+                activityDm.density = activityDm.heightPixels / (float) ADAPT_SCREEN_ARGS.sizeInPx;
+            }
+            activityDm.scaledDensity = activityDm.density * (systemDm.scaledDensity / systemDm.density);
+            activityDm.densityDpi = (int) (160 * activityDm.density);
+
+            appDm.density = activityDm.density;
+            appDm.scaledDensity = activityDm.scaledDensity;
+            appDm.densityDpi = activityDm.densityDpi;
+        } else {
+            if (ADAPT_SCREEN_ARGS.isVerticalSlide) {
+                appDm.density = appDm.widthPixels / (float) ADAPT_SCREEN_ARGS.sizeInPx;
+            } else {
+                appDm.density = appDm.heightPixels / (float) ADAPT_SCREEN_ARGS.sizeInPx;
+            }
+            appDm.scaledDensity = appDm.density * (systemDm.scaledDensity / systemDm.density);
+            appDm.densityDpi = (int) (160 * appDm.density);
+        }
+    }
+
+    static void cancelAdaptScreen() {
+        final DisplayMetrics systemDm = Resources.getSystem().getDisplayMetrics();
+        final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
+        final Activity activity = ACTIVITY_LIFECYCLE.getTopActivity();
+        if (activity != null) {
+            final DisplayMetrics activityDm = activity.getResources().getDisplayMetrics();
+            activityDm.density = systemDm.density;
+            activityDm.scaledDensity = systemDm.scaledDensity;
+            activityDm.densityDpi = systemDm.densityDpi;
+        }
+        appDm.density = systemDm.density;
+        appDm.scaledDensity = systemDm.scaledDensity;
+        appDm.densityDpi = systemDm.densityDpi;
+    }
+
+    static boolean isAdaptScreen() {
+        final DisplayMetrics systemDm = Resources.getSystem().getDisplayMetrics();
+        final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
+        return systemDm.density != appDm.density;
+    }
+
+    static class AdaptScreenArgs {
+        int     sizeInPx;
+        boolean isVerticalSlide;
+    }
+
+    static class ActivityLifecycleImpl implements ActivityLifecycleCallbacks {
+
+        final LinkedList<Activity>                        mActivityList      = new LinkedList<>();
+        final HashMap<Object, OnAppStatusChangedListener> mStatusListenerMap = new HashMap<>();
+
+        private int mForegroundCount = 0;
+        private int mConfigCount     = 0;
+
+        void addListener(final Object object, final OnAppStatusChangedListener listener) {
+            mStatusListenerMap.put(object, listener);
+        }
+
+        void removeListener(final Object object) {
+            mStatusListenerMap.remove(object);
+        }
+
+        @Override
+        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+            setTopActivity(activity);
+        }
+
+        @Override
+        public void onActivityStarted(Activity activity) {
+            setTopActivity(activity);
+            if (mForegroundCount <= 0) {
+                postStatus(true);
+            }
+            if (mConfigCount < 0) {
+                ++mConfigCount;
+            } else {
+                ++mForegroundCount;
+            }
+        }
+
+        @Override
+        public void onActivityResumed(Activity activity) {
+            setTopActivity(activity);
+        }
+
+        @Override
+        public void onActivityPaused(Activity activity) {/**/}
+
+        @Override
+        public void onActivityStopped(Activity activity) {
+            if (activity.isChangingConfigurations()) {
+                --mConfigCount;
+            } else {
+                --mForegroundCount;
+                if (mForegroundCount <= 0) {
+                    postStatus(false);
+                }
+            }
+        }
+
+        @Override
+        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {/**/}
+
+        @Override
+        public void onActivityDestroyed(Activity activity) {
+            mActivityList.remove(activity);
+        }
+
+        private void postStatus(final boolean isForeground) {
+            if (mStatusListenerMap.isEmpty()) return;
+            for (OnAppStatusChangedListener onAppStatusChangedListener : mStatusListenerMap.values()) {
+                if (onAppStatusChangedListener == null) return;
+                if (isForeground) {
+                    onAppStatusChangedListener.onForeground();
+                } else {
+                    onAppStatusChangedListener.onBackground();
+                }
+            }
+        }
+
+        private void setTopActivity(final Activity activity) {
+            if (activity.getClass() == PermissionUtils.PermissionActivity.class) return;
+            if (mActivityList.contains(activity)) {
+                if (!mActivityList.getLast().equals(activity)) {
+                    mActivityList.remove(activity);
+                    mActivityList.addLast(activity);
+                }
+            } else {
+                mActivityList.addLast(activity);
+            }
+        }
+
+        Activity getTopActivity() {
+            if (!mActivityList.isEmpty()) {
+                final Activity topActivity = mActivityList.getLast();
+                if (topActivity != null) {
+                    return topActivity;
+                }
+            }
+            Activity topActivityByReflect = getTopActivityByReflect();
+            if (topActivityByReflect != null) {
+                setTopActivity(topActivityByReflect);
+            }
+            return topActivityByReflect;
+        }
+
+        private Activity getTopActivityByReflect() {
+            try {
+                @SuppressLint("PrivateApi")
+                Class<?> activityThreadClass = Class.forName("android.app.ActivityThread");
+                Object activityThread = activityThreadClass.getMethod("currentActivityThread").invoke(null);
+                Field activitiesField = activityThreadClass.getDeclaredField("mActivityList");
+                activitiesField.setAccessible(true);
+                Map activities = (Map) activitiesField.get(activityThread);
+                if (activities == null) return null;
+                for (Object activityRecord : activities.values()) {
+                    Class activityRecordClass = activityRecord.getClass();
+                    Field pausedField = activityRecordClass.getDeclaredField("paused");
+                    pausedField.setAccessible(true);
+                    if (!pausedField.getBoolean(activityRecord)) {
+                        Field activityField = activityRecordClass.getDeclaredField("activity");
+                        activityField.setAccessible(true);
+                        return (Activity) activityField.get(activityRecord);
+                    }
+                }
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+
+    public static final class FileProvider4UtilCode extends FileProvider {
+
+        @Override
+        public boolean onCreate() {
+            Utils.init(getContext());
+            return true;
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // interface
+    ///////////////////////////////////////////////////////////////////////////
+
+    public interface OnAppStatusChangedListener {
+        void onForeground();
+
+        void onBackground();
     }
 }

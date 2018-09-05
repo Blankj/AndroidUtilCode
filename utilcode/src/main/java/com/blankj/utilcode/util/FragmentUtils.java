@@ -8,10 +8,10 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewCompat;
 import android.util.Log;
 import android.view.View;
 
@@ -24,7 +24,7 @@ import java.util.List;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/01/17
- *     desc  : Fragment相关工具类
+ *     desc  : utils about fragment
  * </pre>
  */
 public final class FragmentUtils {
@@ -40,83 +40,87 @@ public final class FragmentUtils {
     private static final String ARGS_ID           = "args_id";
     private static final String ARGS_IS_HIDE      = "args_is_hide";
     private static final String ARGS_IS_ADD_STACK = "args_is_add_stack";
+    private static final String ARGS_TAG          = "args_tag";
 
     private FragmentUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**
-     * 新增fragment
+     * Add fragment.
      *
-     * @param fm          fragment管理器
-     * @param containerId 布局Id
-     * @param add         要新增的fragment
+     * @param fm          The manager of fragment.
+     * @param add         The fragment will be add.
+     * @param containerId The id of container.
      */
     public static void add(@NonNull final FragmentManager fm,
                            @NonNull final Fragment add,
                            @IdRes final int containerId) {
-        add(fm, add, containerId, false, false);
+        add(fm, add, containerId, null, false, false);
     }
 
     /**
-     * 新增fragment
+     * Add fragment.
      *
-     * @param fm          fragment管理器
-     * @param containerId 布局Id
-     * @param add         要新增的fragment
-     * @param isHide      是否隐藏
+     * @param fm          The manager of fragment.
+     * @param add         The fragment will be add.
+     * @param containerId The id of container.
+     * @param isHide      True to hide, false otherwise.
      */
     public static void add(@NonNull final FragmentManager fm,
                            @NonNull final Fragment add,
                            @IdRes final int containerId,
                            final boolean isHide) {
-        add(fm, add, containerId, isHide, false);
+        add(fm, add, containerId, null, isHide, false);
     }
 
     /**
-     * 新增fragment
+     * Add fragment.
      *
-     * @param fm          fragment管理器
-     * @param containerId 布局Id
-     * @param add         要新增的fragment
-     * @param isHide      是否隐藏
-     * @param isAddStack  是否入回退栈
+     * @param fm          The manager of fragment.
+     * @param add         The fragment will be add.
+     * @param containerId The id of container.
+     * @param isHide      True to hide, false otherwise.
+     * @param isAddStack  True to add fragment in stack, false otherwise.
      */
     public static void add(@NonNull final FragmentManager fm,
                            @NonNull final Fragment add,
                            @IdRes final int containerId,
                            final boolean isHide,
                            final boolean isAddStack) {
-        putArgs(add, new Args(containerId, isHide, isAddStack));
-        operateNoAnim(fm, TYPE_ADD_FRAGMENT, null, add);
+        add(fm, add, containerId, null, isHide, isAddStack);
     }
 
     /**
-     * 新增fragment
+     * Add fragment.
      *
-     * @param fm          fragment管理器
-     * @param containerId 布局Id
-     * @param add         要新增的fragment
-     * @param enterAnim   入场动画
-     * @param exitAnim    出场动画
+     * @param fm          The manager of fragment.
+     * @param add         The fragment will be add.
+     * @param containerId The id of container.
+     * @param enterAnim   An animation or animator resource ID used for the enter animation on the
+     *                    view of the fragment being added or attached.
+     * @param exitAnim    An animation or animator resource ID used for the exit animation on the
+     *                    view of the fragment being removed or detached.
      */
     public static void add(@NonNull final FragmentManager fm,
                            @NonNull final Fragment add,
                            @IdRes final int containerId,
                            @AnimRes final int enterAnim,
                            @AnimRes final int exitAnim) {
-        add(fm, add, containerId, false, enterAnim, exitAnim, 0, 0);
+        add(fm, add, containerId, null, false, enterAnim, exitAnim, 0, 0);
     }
 
     /**
-     * 新增fragment
+     * Add fragment.
      *
-     * @param fm          fragment管理器
-     * @param containerId 布局Id
-     * @param add         要新增的fragment
-     * @param isAddStack  是否入回退栈
-     * @param enterAnim   入场动画
-     * @param exitAnim    出场动画
+     * @param fm          The manager of fragment.
+     * @param containerId The id of container.
+     * @param add         The fragment will be add.
+     * @param isAddStack  True to add fragment in stack, false otherwise.
+     * @param enterAnim   An animation or animator resource ID used for the enter animation on the
+     *                    view of the fragment being added or attached.
+     * @param exitAnim    An animation or animator resource ID used for the exit animation on the
+     *                    view of the fragment being removed or detached.
      */
     public static void add(@NonNull final FragmentManager fm,
                            @NonNull final Fragment add,
@@ -124,19 +128,25 @@ public final class FragmentUtils {
                            final boolean isAddStack,
                            @AnimRes final int enterAnim,
                            @AnimRes final int exitAnim) {
-        add(fm, add, containerId, isAddStack, enterAnim, exitAnim, 0, 0);
+        add(fm, add, containerId, null, isAddStack, enterAnim, exitAnim, 0, 0);
     }
 
     /**
-     * 新增fragment
+     * Add fragment.
      *
-     * @param fm           fragment管理器
-     * @param containerId  布局Id
-     * @param add          要新增的fragment
-     * @param enterAnim    入场动画
-     * @param exitAnim     出场动画
-     * @param popEnterAnim 入栈动画
-     * @param popExitAnim  出栈动画
+     * @param fm           The manager of fragment.
+     * @param containerId  The id of container.
+     * @param add          The fragment will be add.
+     * @param enterAnim    An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being added or attached.
+     * @param exitAnim     An animation or animator resource ID used for the exit animation on the
+     *                     view of the fragment being removed or detached.
+     * @param popEnterAnim An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being readded or reattached caused by
+     *                     popBackStack() or similar methods.
+     * @param popExitAnim  An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being removed or detached caused by
+     *                     popBackStack() or similar methods.
      */
     public static void add(@NonNull final FragmentManager fm,
                            @NonNull final Fragment add,
@@ -145,107 +155,346 @@ public final class FragmentUtils {
                            @AnimRes final int exitAnim,
                            @AnimRes final int popEnterAnim,
                            @AnimRes final int popExitAnim) {
-        add(fm, add, containerId, false, enterAnim, exitAnim, popEnterAnim, popExitAnim);
+        add(fm, add, containerId, null, false, enterAnim, exitAnim, popEnterAnim, popExitAnim);
     }
 
     /**
-     * 新增fragment
+     * Add fragment.
      *
-     * @param fm           fragment管理器
-     * @param containerId  布局Id
-     * @param add          要新增的fragment
-     * @param isAddStack   是否入回退栈
-     * @param enterAnim    入场动画
-     * @param exitAnim     出场动画
-     * @param popEnterAnim 入栈动画
-     * @param popExitAnim  出栈动画
+     * @param fm           The manager of fragment.
+     * @param containerId  The id of container.
+     * @param add          The fragment will be add.
+     * @param isAddStack   True to add fragment in stack, false otherwise.
+     * @param enterAnim    An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being added or attached.
+     * @param exitAnim     An animation or animator resource ID used for the exit animation on the
+     *                     view of the fragment being removed or detached.
+     * @param popEnterAnim An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being readded or reattached caused by
+     *                     popBackStack() or similar methods.
+     * @param popExitAnim  An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being removed or detached caused by
+     *                     popBackStack() or similar methods.
      */
     public static void add(@NonNull final FragmentManager fm,
                            @NonNull final Fragment add,
                            @IdRes final int containerId,
+                           final boolean isAddStack,
+                           @AnimRes final int enterAnim,
+                           @AnimRes final int exitAnim,
+                           @AnimRes final int popEnterAnim,
+                           @AnimRes final int popExitAnim) {
+        add(fm, add, containerId, null, isAddStack, enterAnim, exitAnim, popEnterAnim, popExitAnim);
+    }
+
+    /**
+     * Add fragment.
+     *
+     * @param fm             The manager of fragment.
+     * @param add            The fragment will be add.
+     * @param containerId    The id of container.
+     * @param sharedElements A View in a disappearing Fragment to match with a View in an
+     *                       appearing Fragment.
+     */
+    public static void add(@NonNull final FragmentManager fm,
+                           @NonNull final Fragment add,
+                           @IdRes final int containerId,
+                           @NonNull final View... sharedElements) {
+        add(fm, add, containerId, null, false, sharedElements);
+    }
+
+    /**
+     * Add fragment.
+     *
+     * @param fm             The manager of fragment.
+     * @param add            The fragment will be add.
+     * @param containerId    The id of container.
+     * @param isAddStack     True to add fragment in stack, false otherwise.
+     * @param sharedElements A View in a disappearing Fragment to match with a View in an
+     *                       appearing Fragment.
+     */
+    public static void add(@NonNull final FragmentManager fm,
+                           @NonNull final Fragment add,
+                           @IdRes final int containerId,
+                           final boolean isAddStack,
+                           @NonNull final View... sharedElements) {
+        add(fm, add, containerId, null, isAddStack, sharedElements);
+    }
+
+    /**
+     * Add fragment.
+     *
+     * @param fm          The manager of fragment.
+     * @param adds        The fragments will be add.
+     * @param containerId The id of container.
+     * @param showIndex   The index of fragment will be shown.
+     */
+    public static void add(@NonNull final FragmentManager fm,
+                           @NonNull final List<Fragment> adds,
+                           @IdRes final int containerId,
+                           final int showIndex) {
+        add(fm, adds.toArray(new Fragment[adds.size()]), containerId, null, showIndex);
+    }
+
+    /**
+     * Add fragment.
+     *
+     * @param fm          The manager of fragment.
+     * @param adds        The fragments will be add.
+     * @param containerId The id of container.
+     * @param showIndex   The index of fragment will be shown.
+     */
+    public static void add(@NonNull final FragmentManager fm,
+                           @NonNull final Fragment[] adds,
+                           @IdRes final int containerId,
+                           final int showIndex) {
+        add(fm, adds, containerId, null, showIndex);
+    }
+
+    /**
+     * Add fragment.
+     *
+     * @param fm          The manager of fragment.
+     * @param add         The fragment will be add.
+     * @param containerId The id of container.
+     * @param tag         The tag of fragment.
+     */
+    public static void add(@NonNull final FragmentManager fm,
+                           @NonNull final Fragment add,
+                           @IdRes final int containerId,
+                           final String tag) {
+        add(fm, add, containerId, tag, false, false);
+    }
+
+    /**
+     * Add fragment.
+     *
+     * @param fm          The manager of fragment.
+     * @param add         The fragment will be add.
+     * @param containerId The id of container.
+     * @param tag         The tag of fragment.
+     * @param isHide      True to hide, false otherwise.
+     */
+    public static void add(@NonNull final FragmentManager fm,
+                           @NonNull final Fragment add,
+                           @IdRes final int containerId,
+                           final String tag,
+                           final boolean isHide) {
+        add(fm, add, containerId, tag, isHide, false);
+    }
+
+    /**
+     * Add fragment.
+     *
+     * @param fm          The manager of fragment.
+     * @param add         The fragment will be add.
+     * @param containerId The id of container.
+     * @param tag         The tag of fragment.
+     * @param isHide      True to hide, false otherwise.
+     * @param isAddStack  True to add fragment in stack, false otherwise.
+     */
+    public static void add(@NonNull final FragmentManager fm,
+                           @NonNull final Fragment add,
+                           @IdRes final int containerId,
+                           final String tag,
+                           final boolean isHide,
+                           final boolean isAddStack) {
+        putArgs(add, new Args(containerId, tag, isHide, isAddStack));
+        operateNoAnim(fm, TYPE_ADD_FRAGMENT, null, add);
+    }
+
+    /**
+     * Add fragment.
+     *
+     * @param fm          The manager of fragment.
+     * @param add         The fragment will be add.
+     * @param containerId The id of container.
+     * @param tag         The tag of fragment.
+     * @param enterAnim   An animation or animator resource ID used for the enter animation on the
+     *                    view of the fragment being added or attached.
+     * @param exitAnim    An animation or animator resource ID used for the exit animation on the
+     *                    view of the fragment being removed or detached.
+     */
+    public static void add(@NonNull final FragmentManager fm,
+                           @NonNull final Fragment add,
+                           @IdRes final int containerId,
+                           final String tag,
+                           @AnimRes final int enterAnim,
+                           @AnimRes final int exitAnim) {
+        add(fm, add, containerId, tag, false, enterAnim, exitAnim, 0, 0);
+    }
+
+    /**
+     * Add fragment.
+     *
+     * @param fm          The manager of fragment.
+     * @param add         The fragment will be add.
+     * @param containerId The id of container.
+     * @param tag         The tag of fragment.
+     * @param isAddStack  True to add fragment in stack, false otherwise.
+     * @param enterAnim   An animation or animator resource ID used for the enter animation on the
+     *                    view of the fragment being added or attached.
+     * @param exitAnim    An animation or animator resource ID used for the exit animation on the
+     *                    view of the fragment being removed or detached.
+     */
+    public static void add(@NonNull final FragmentManager fm,
+                           @NonNull final Fragment add,
+                           @IdRes final int containerId,
+                           final String tag,
+                           final boolean isAddStack,
+                           @AnimRes final int enterAnim,
+                           @AnimRes final int exitAnim) {
+        add(fm, add, containerId, tag, isAddStack, enterAnim, exitAnim, 0, 0);
+    }
+
+    /**
+     * Add fragment.
+     *
+     * @param fm           The manager of fragment.
+     * @param add          The fragment will be add.
+     * @param containerId  The id of container.
+     * @param tag          The tag of fragment.
+     * @param enterAnim    An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being added or attached.
+     * @param exitAnim     An animation or animator resource ID used for the exit animation on the
+     *                     view of the fragment being removed or detached.
+     * @param popEnterAnim An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being readded or reattached caused by
+     *                     popBackStack() or similar methods.
+     * @param popExitAnim  An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being removed or detached caused by
+     *                     popBackStack() or similar methods.
+     */
+    public static void add(@NonNull final FragmentManager fm,
+                           @NonNull final Fragment add,
+                           @IdRes final int containerId,
+                           final String tag,
+                           @AnimRes final int enterAnim,
+                           @AnimRes final int exitAnim,
+                           @AnimRes final int popEnterAnim,
+                           @AnimRes final int popExitAnim) {
+        add(fm, add, containerId, tag, false, enterAnim, exitAnim, popEnterAnim, popExitAnim);
+    }
+
+    /**
+     * Add fragment.
+     *
+     * @param fm           The manager of fragment.
+     * @param add          The fragment will be add.
+     * @param containerId  The id of container.
+     * @param tag          The tag of fragment.
+     * @param isAddStack   True to add fragment in stack, false otherwise.
+     * @param enterAnim    An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being added or attached.
+     * @param exitAnim     An animation or animator resource ID used for the exit animation on the
+     *                     view of the fragment being removed or detached.
+     * @param popEnterAnim An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being readded or reattached caused by
+     *                     popBackStack() or similar methods.
+     * @param popExitAnim  An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being removed or detached caused by
+     *                     popBackStack() or similar methods.
+     */
+    public static void add(@NonNull final FragmentManager fm,
+                           @NonNull final Fragment add,
+                           @IdRes final int containerId,
+                           final String tag,
                            final boolean isAddStack,
                            @AnimRes final int enterAnim,
                            @AnimRes final int exitAnim,
                            @AnimRes final int popEnterAnim,
                            @AnimRes final int popExitAnim) {
         FragmentTransaction ft = fm.beginTransaction();
-        putArgs(add, new Args(containerId, false, isAddStack));
+        putArgs(add, new Args(containerId, tag, false, isAddStack));
         addAnim(ft, enterAnim, exitAnim, popEnterAnim, popExitAnim);
         operate(TYPE_ADD_FRAGMENT, fm, ft, null, add);
     }
 
     /**
-     * 新增fragment
+     * Add fragment.
      *
-     * @param fm             fragment管理器
-     * @param add            新增的fragment
-     * @param containerId    布局Id
-     * @param sharedElements 共享元素
+     * @param fm             The manager of fragment.
+     * @param add            The fragment will be add.
+     * @param tag            The tag of fragment.
+     * @param containerId    The id of container.
+     * @param sharedElements A View in a disappearing Fragment to match with a View in an
+     *                       appearing Fragment.
      */
     public static void add(@NonNull final FragmentManager fm,
                            @NonNull final Fragment add,
                            @IdRes final int containerId,
+                           final String tag,
                            @NonNull final View... sharedElements) {
-        add(fm, add, containerId, false, sharedElements);
+        add(fm, add, containerId, tag, false, sharedElements);
     }
 
     /**
-     * 新增fragment
+     * Add fragment.
      *
-     * @param fm             fragment管理器
-     * @param add            新增的fragment
-     * @param containerId    布局Id
-     * @param isAddStack     是否入回退栈
-     * @param sharedElements 共享元素
+     * @param fm             The manager of fragment.
+     * @param add            The fragment will be add.
+     * @param containerId    The id of container.
+     * @param isAddStack     True to add fragment in stack, false otherwise.
+     * @param sharedElements A View in a disappearing Fragment to match with a View in an
+     *                       appearing Fragment.
      */
     public static void add(@NonNull final FragmentManager fm,
                            @NonNull final Fragment add,
                            @IdRes final int containerId,
+                           final String tag,
                            final boolean isAddStack,
                            @NonNull final View... sharedElements) {
         FragmentTransaction ft = fm.beginTransaction();
-        putArgs(add, new Args(containerId, false, isAddStack));
+        putArgs(add, new Args(containerId, tag, false, isAddStack));
         addSharedElement(ft, sharedElements);
         operate(TYPE_ADD_FRAGMENT, fm, ft, null, add);
     }
 
     /**
-     * 新增fragment
+     * Add fragment.
      *
-     * @param fm          fragment管理器
-     * @param add         新增的fragment
-     * @param containerId 布局Id
-     * @param showIndex   要显示的fragment索引
+     * @param fm          The manager of fragment.
+     * @param adds        The fragments will be add.
+     * @param containerId The id of container.
+     * @param showIndex   The index of fragment will be shown.
      */
     public static void add(@NonNull final FragmentManager fm,
-                           @NonNull final List<Fragment> add,
+                           @NonNull final List<Fragment> adds,
                            @IdRes final int containerId,
+                           final String tags[],
                            final int showIndex) {
-        add(fm, add.toArray(new Fragment[add.size()]), containerId, showIndex);
+        add(fm, adds.toArray(new Fragment[adds.size()]), containerId, tags, showIndex);
     }
 
     /**
-     * 新增fragment
+     * Add fragment.
      *
-     * @param fm          fragment管理器
-     * @param add         新增的fragment
-     * @param containerId 布局Id
-     * @param showIndex   要显示的fragment索引
+     * @param fm          The manager of fragment.
+     * @param adds        The fragments will be add.
+     * @param containerId The id of container.
+     * @param showIndex   The index of fragment will be shown.
      */
     public static void add(@NonNull final FragmentManager fm,
-                           @NonNull final Fragment[] add,
+                           @NonNull final Fragment[] adds,
                            @IdRes final int containerId,
+                           final String tags[],
                            final int showIndex) {
-        for (int i = 0, len = add.length; i < len; ++i) {
-            putArgs(add[i], new Args(containerId, showIndex != i, false));
+        if (tags == null) {
+            for (int i = 0, len = adds.length; i < len; ++i) {
+                putArgs(adds[i], new Args(containerId, null, showIndex != i, false));
+            }
+        } else {
+            for (int i = 0, len = adds.length; i < len; ++i) {
+                putArgs(adds[i], new Args(containerId, tags[i], showIndex != i, false));
+            }
         }
-        operateNoAnim(fm, TYPE_ADD_FRAGMENT, null, add);
+        operateNoAnim(fm, TYPE_ADD_FRAGMENT, null, adds);
     }
 
     /**
-     * 显示fragment
+     * Show fragment.
      *
-     * @param show 要显示的fragment
+     * @param show The fragment will be show.
      */
     public static void show(@NonNull final Fragment show) {
         putArgs(show, false);
@@ -253,22 +502,26 @@ public final class FragmentUtils {
     }
 
     /**
-     * 显示fragment
+     * Show fragment.
      *
-     * @param fm fragment管理器
+     * @param fm The manager of fragment.
      */
     public static void show(@NonNull final FragmentManager fm) {
         List<Fragment> fragments = getFragments(fm);
         for (Fragment show : fragments) {
             putArgs(show, false);
         }
-        operateNoAnim(fm, TYPE_SHOW_FRAGMENT, null, fragments.toArray(new Fragment[fragments.size()]));
+        operateNoAnim(fm,
+                TYPE_SHOW_FRAGMENT,
+                null,
+                fragments.toArray(new Fragment[fragments.size()])
+        );
     }
 
     /**
-     * 隐藏fragment
+     * Hide fragment.
      *
-     * @param hide 要隐藏的fragment
+     * @param hide The fragment will be hide.
      */
     public static void hide(@NonNull final Fragment hide) {
         putArgs(hide, true);
@@ -276,33 +529,37 @@ public final class FragmentUtils {
     }
 
     /**
-     * 隐藏fragment
+     * Hide fragment.
      *
-     * @param fm fragment管理器
+     * @param fm The manager of fragment.
      */
     public static void hide(@NonNull final FragmentManager fm) {
         List<Fragment> fragments = getFragments(fm);
         for (Fragment hide : fragments) {
             putArgs(hide, true);
         }
-        operateNoAnim(fm, TYPE_HIDE_FRAGMENT, null, fragments.toArray(new Fragment[fragments.size()]));
+        operateNoAnim(fm,
+                TYPE_HIDE_FRAGMENT,
+                null,
+                fragments.toArray(new Fragment[fragments.size()])
+        );
     }
 
     /**
-     * 先显示后隐藏fragment
+     * Show fragment then hide other fragment.
      *
-     * @param showIndex 要显示的fragment索引
-     * @param fragments 要隐藏的fragments
+     * @param showIndex The index of fragment will be shown.
+     * @param fragments The fragments will be hide.
      */
     public static void showHide(final int showIndex, @NonNull final List<Fragment> fragments) {
         showHide(fragments.get(showIndex), fragments);
     }
 
     /**
-     * 先显示后隐藏fragment
+     * Show fragment then hide other fragment.
      *
-     * @param show 要显示的fragment
-     * @param hide 要隐藏的fragment
+     * @param show The fragment will be show.
+     * @param hide The fragment will be hide.
      */
     public static void showHide(@NonNull final Fragment show, @NonNull final List<Fragment> hide) {
         for (Fragment fragment : hide) {
@@ -313,20 +570,20 @@ public final class FragmentUtils {
     }
 
     /**
-     * 先显示后隐藏fragment
+     * Show fragment then hide other fragment.
      *
-     * @param showIndex 要显示的fragment索引
-     * @param fragments 要隐藏的fragments
+     * @param showIndex The index of fragment will be shown.
+     * @param fragments The fragment will be hide.
      */
     public static void showHide(final int showIndex, @NonNull final Fragment... fragments) {
         showHide(fragments[showIndex], fragments);
     }
 
     /**
-     * 先显示后隐藏fragment
+     * Show fragment then hide other fragment.
      *
-     * @param show 要显示的fragment
-     * @param hide 要隐藏的fragment
+     * @param show The fragment will be show.
+     * @param hide The fragment will be hide.
      */
     public static void showHide(@NonNull final Fragment show, @NonNull final Fragment... hide) {
         for (Fragment fragment : hide) {
@@ -336,10 +593,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 先显示后隐藏fragment
+     * Show fragment then hide other fragment.
      *
-     * @param show 要显示的fragment
-     * @param hide 要隐藏的fragment
+     * @param show The fragment will be show.
+     * @param hide The fragment will be hide.
      */
     public static void showHide(@NonNull final Fragment show,
                                 @NonNull final Fragment hide) {
@@ -349,71 +606,80 @@ public final class FragmentUtils {
     }
 
     /**
-     * 替换fragment
+     * Replace fragment.
      *
-     * @param srcFragment  源fragment
-     * @param destFragment 目标fragment
+     * @param srcFragment  The source of fragment.
+     * @param destFragment The destination of fragment.
      */
     public static void replace(@NonNull final Fragment srcFragment,
                                @NonNull final Fragment destFragment) {
-        replace(srcFragment, destFragment, false);
+        replace(srcFragment, destFragment, null, false);
     }
 
     /**
-     * 替换fragment
+     * Replace fragment.
      *
-     * @param srcFragment  源fragment
-     * @param destFragment 目标fragment
-     * @param isAddStack   是否入回退栈
+     * @param srcFragment  The source of fragment.
+     * @param destFragment The destination of fragment.
+     * @param isAddStack   True to add fragment in stack, false otherwise.
      */
     public static void replace(@NonNull final Fragment srcFragment,
                                @NonNull final Fragment destFragment,
                                final boolean isAddStack) {
-        Args args = getArgs(srcFragment);
-        replace(srcFragment.getFragmentManager(), destFragment, args.id, isAddStack);
+        replace(srcFragment, destFragment, null, isAddStack);
     }
 
     /**
-     * 替换fragment
+     * Replace fragment.
      *
-     * @param srcFragment  源fragment
-     * @param destFragment 目标fragment
-     * @param enterAnim    入场动画
-     * @param exitAnim     出场动画
+     * @param srcFragment  The source of fragment.
+     * @param destFragment The destination of fragment.
+     * @param enterAnim    An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being added or attached.
+     * @param exitAnim     An animation or animator resource ID used for the exit animation on the
+     *                     view of the fragment being removed or detached.
      */
     public static void replace(@NonNull final Fragment srcFragment,
                                @NonNull final Fragment destFragment,
                                @AnimRes final int enterAnim,
                                @AnimRes final int exitAnim) {
-        replace(srcFragment, destFragment, false, enterAnim, exitAnim, 0, 0);
+        replace(srcFragment, destFragment, null, false, enterAnim, exitAnim, 0, 0);
     }
 
     /**
-     * 替换fragment
+     * Replace fragment.
      *
-     * @param srcFragment  源fragment
-     * @param destFragment 目标fragment
-     * @param isAddStack   是否入回退栈
-     * @param enterAnim    入场动画
-     * @param exitAnim     出场动画
+     * @param srcFragment  The source of fragment.
+     * @param destFragment The destination of fragment.
+     * @param isAddStack   True to add fragment in stack, false otherwise.
+     * @param enterAnim    An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being added or attached.
+     * @param exitAnim     An animation or animator resource ID used for the exit animation on the
+     *                     view of the fragment being removed or detached.
      */
     public static void replace(@NonNull final Fragment srcFragment,
                                @NonNull final Fragment destFragment,
                                final boolean isAddStack,
                                @AnimRes final int enterAnim,
                                @AnimRes final int exitAnim) {
-        replace(srcFragment, destFragment, isAddStack, enterAnim, exitAnim, 0, 0);
+        replace(srcFragment, destFragment, null, isAddStack, enterAnim, exitAnim, 0, 0);
     }
 
     /**
-     * 替换fragment
+     * Replace fragment.
      *
-     * @param srcFragment  源fragment
-     * @param destFragment 目标fragment
-     * @param enterAnim    入场动画
-     * @param exitAnim     出场动画
-     * @param popEnterAnim 入栈动画
-     * @param popExitAnim  出栈动画
+     * @param srcFragment  The source of fragment.
+     * @param destFragment The destination of fragment.
+     * @param enterAnim    An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being added or attached.
+     * @param exitAnim     An animation or animator resource ID used for the exit animation on the
+     *                     view of the fragment being removed or detached.
+     * @param popEnterAnim An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being readded or reattached caused by
+     *                     popBackStack() or similar methods.
+     * @param popExitAnim  An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being removed or detached caused by
+     *                     popBackStack() or similar methods.
      */
     public static void replace(@NonNull final Fragment srcFragment,
                                @NonNull final Fragment destFragment,
@@ -421,222 +687,600 @@ public final class FragmentUtils {
                                @AnimRes final int exitAnim,
                                @AnimRes final int popEnterAnim,
                                @AnimRes final int popExitAnim) {
-        replace(srcFragment, destFragment, false, enterAnim, exitAnim, popEnterAnim, popExitAnim);
-    }
-
-    /**
-     * 替换fragment
-     *
-     * @param srcFragment  源fragment
-     * @param destFragment 目标fragment
-     * @param isAddStack   是否入回退栈
-     * @param enterAnim    入场动画
-     * @param exitAnim     出场动画
-     * @param popEnterAnim 入栈动画
-     * @param popExitAnim  出栈动画
-     */
-    public static void replace(@NonNull final Fragment srcFragment,
-                               @NonNull final Fragment destFragment,
-                               final boolean isAddStack,
-                               @AnimRes final int enterAnim,
-                               @AnimRes final int exitAnim,
-                               @AnimRes final int popEnterAnim,
-                               @AnimRes final int popExitAnim) {
-        Args args = getArgs(srcFragment);
-        replace(srcFragment.getFragmentManager(), destFragment, args.id, isAddStack,
+        replace(srcFragment, destFragment, null, false,
                 enterAnim, exitAnim, popEnterAnim, popExitAnim);
     }
 
     /**
-     * 替换fragment
+     * Replace fragment.
      *
-     * @param srcFragment    源fragment
-     * @param destFragment   目标fragment
-     * @param sharedElements 共享元素
+     * @param srcFragment  The source of fragment.
+     * @param destFragment The destination of fragment.
+     * @param isAddStack   True to add fragment in stack, false otherwise.
+     * @param enterAnim    An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being added or attached.
+     * @param exitAnim     An animation or animator resource ID used for the exit animation on the
+     *                     view of the fragment being removed or detached.
+     * @param popEnterAnim An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being readded or reattached caused by
+     *                     popBackStack() or similar methods.
+     * @param popExitAnim  An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being removed or detached caused by
+     *                     popBackStack() or similar methods.
+     */
+    public static void replace(@NonNull final Fragment srcFragment,
+                               @NonNull final Fragment destFragment,
+                               final boolean isAddStack,
+                               @AnimRes final int enterAnim,
+                               @AnimRes final int exitAnim,
+                               @AnimRes final int popEnterAnim,
+                               @AnimRes final int popExitAnim) {
+        replace(srcFragment, destFragment, null, isAddStack,
+                enterAnim, exitAnim, popEnterAnim, popExitAnim);
+    }
+
+    /**
+     * Replace fragment.
+     *
+     * @param srcFragment    The source of fragment.
+     * @param destFragment   The destination of fragment.
+     * @param sharedElements A View in a disappearing Fragment to match with a View in an
+     *                       appearing Fragment.
      */
     public static void replace(@NonNull final Fragment srcFragment,
                                @NonNull final Fragment destFragment,
                                final View... sharedElements) {
-        replace(srcFragment, destFragment, false, sharedElements);
+        replace(srcFragment, destFragment, null, false, sharedElements);
     }
 
     /**
-     * 替换fragment
+     * Replace fragment.
      *
-     * @param srcFragment    源fragment
-     * @param destFragment   目标fragment
-     * @param isAddStack     是否入回退栈
-     * @param sharedElements 共享元素
+     * @param srcFragment    The source of fragment.
+     * @param destFragment   The destination of fragment.
+     * @param isAddStack     True to add fragment in stack, false otherwise.
+     * @param sharedElements A View in a disappearing Fragment to match with a View in an
+     *                       appearing Fragment.
      */
     public static void replace(@NonNull final Fragment srcFragment,
                                @NonNull final Fragment destFragment,
                                final boolean isAddStack,
                                final View... sharedElements) {
-        Args args = getArgs(srcFragment);
-        replace(srcFragment.getFragmentManager(), destFragment, args.id, isAddStack, sharedElements);
+        replace(srcFragment, destFragment, null, isAddStack, sharedElements);
     }
 
     /**
-     * 替换fragment
+     * Replace fragment.
      *
-     * @param fm          fragment管理器
-     * @param containerId 布局Id
-     * @param fragment    fragment
+     * @param fm          The manager of fragment.
+     * @param fragment    The new fragment to place in the container.
+     * @param containerId The id of container.
      */
     public static void replace(@NonNull final FragmentManager fm,
                                @NonNull final Fragment fragment,
                                @IdRes final int containerId) {
-        replace(fm, fragment, containerId, false);
+        replace(fm, fragment, containerId, null, false);
     }
 
     /**
-     * 替换fragment
+     * Replace fragment.
      *
-     * @param fm          fragment管理器
-     * @param containerId 布局Id
-     * @param fragment    fragment
-     * @param isAddStack  是否入回退栈
+     * @param fm          The manager of fragment.
+     * @param containerId The id of container.
+     * @param fragment    The new fragment to place in the container.
+     * @param isAddStack  True to add fragment in stack, false otherwise.
      */
     public static void replace(@NonNull final FragmentManager fm,
                                @NonNull final Fragment fragment,
                                @IdRes final int containerId,
                                final boolean isAddStack) {
+        replace(fm, fragment, containerId, null, isAddStack);
+    }
+
+    /**
+     * Replace fragment.
+     *
+     * @param fm          The manager of fragment.
+     * @param containerId The id of container.
+     * @param fragment    The new fragment to place in the container.
+     * @param enterAnim   An animation or animator resource ID used for the enter animation on the
+     *                    view of the fragment being added or attached.
+     * @param exitAnim    An animation or animator resource ID used for the exit animation on the
+     *                    view of the fragment being removed or detached.
+     */
+    public static void replace(@NonNull final FragmentManager fm,
+                               @NonNull final Fragment fragment,
+                               @IdRes final int containerId,
+                               @AnimRes final int enterAnim,
+                               @AnimRes final int exitAnim) {
+        replace(fm, fragment, containerId, null, false, enterAnim, exitAnim, 0, 0);
+    }
+
+    /**
+     * Replace fragment.
+     *
+     * @param fm          The manager of fragment.
+     * @param containerId The id of container.
+     * @param fragment    The new fragment to place in the container.
+     * @param isAddStack  True to add fragment in stack, false otherwise.
+     * @param enterAnim   An animation or animator resource ID used for the enter animation on the
+     *                    view of the fragment being added or attached.
+     * @param exitAnim    An animation or animator resource ID used for the exit animation on the
+     *                    view of the fragment being removed or detached.
+     */
+    public static void replace(@NonNull final FragmentManager fm,
+                               @NonNull final Fragment fragment,
+                               @IdRes final int containerId,
+                               final boolean isAddStack,
+                               @AnimRes final int enterAnim,
+                               @AnimRes final int exitAnim) {
+        replace(fm, fragment, containerId, null, isAddStack, enterAnim, exitAnim, 0, 0);
+    }
+
+    /**
+     * Replace fragment.
+     *
+     * @param fm           The manager of fragment.
+     * @param containerId  The id of container.
+     * @param fragment     The new fragment to place in the container.
+     * @param enterAnim    An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being added or attached.
+     * @param exitAnim     An animation or animator resource ID used for the exit animation on the
+     *                     view of the fragment being removed or detached.
+     * @param popEnterAnim An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being readded or reattached caused by
+     *                     popBackStack() or similar methods.
+     * @param popExitAnim  An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being removed or detached caused by
+     *                     popBackStack() or similar methods.
+     */
+    public static void replace(@NonNull final FragmentManager fm,
+                               @NonNull final Fragment fragment,
+                               @IdRes final int containerId,
+                               @AnimRes final int enterAnim,
+                               @AnimRes final int exitAnim,
+                               @AnimRes final int popEnterAnim,
+                               @AnimRes final int popExitAnim) {
+        replace(fm, fragment, containerId, null, false,
+                enterAnim, exitAnim, popEnterAnim, popExitAnim);
+    }
+
+    /**
+     * Replace fragment.
+     *
+     * @param fm           The manager of fragment.
+     * @param containerId  The id of container.
+     * @param fragment     The new fragment to place in the container.
+     * @param isAddStack   True to add fragment in stack, false otherwise.
+     * @param enterAnim    An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being added or attached.
+     * @param exitAnim     An animation or animator resource ID used for the exit animation on the
+     *                     view of the fragment being removed or detached.
+     * @param popEnterAnim An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being readded or reattached caused by
+     *                     popBackStack() or similar methods.
+     * @param popExitAnim  An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being removed or detached caused by
+     *                     popBackStack() or similar methods.
+     */
+    public static void replace(@NonNull final FragmentManager fm,
+                               @NonNull final Fragment fragment,
+                               @IdRes final int containerId,
+                               final boolean isAddStack,
+                               @AnimRes final int enterAnim,
+                               @AnimRes final int exitAnim,
+                               @AnimRes final int popEnterAnim,
+                               @AnimRes final int popExitAnim) {
+        replace(fm, fragment, containerId, null, isAddStack,
+                enterAnim, exitAnim, popEnterAnim, popExitAnim);
+    }
+
+    /**
+     * Replace fragment.
+     *
+     * @param fm             The manager of fragment.
+     * @param containerId    The id of container.
+     * @param fragment       The new fragment to place in the container.
+     * @param sharedElements A View in a disappearing Fragment to match with a View in an
+     *                       appearing Fragment.
+     */
+    public static void replace(@NonNull final FragmentManager fm,
+                               @NonNull final Fragment fragment,
+                               @IdRes final int containerId,
+                               final View... sharedElements) {
+        replace(fm, fragment, containerId, null, false, sharedElements);
+    }
+
+    /**
+     * Replace fragment.
+     *
+     * @param fm             The manager of fragment.
+     * @param containerId    The id of container.
+     * @param fragment       The new fragment to place in the container.
+     * @param isAddStack     True to add fragment in stack, false otherwise.
+     * @param sharedElements A View in a disappearing Fragment to match with a View in an
+     *                       appearing Fragment.
+     */
+    public static void replace(@NonNull final FragmentManager fm,
+                               @NonNull final Fragment fragment,
+                               @IdRes final int containerId,
+                               final boolean isAddStack,
+                               final View... sharedElements) {
+        replace(fm, fragment, containerId, null, isAddStack, sharedElements);
+    }
+
+    /**
+     * Replace fragment.
+     *
+     * @param srcFragment  The source of fragment.
+     * @param destFragment The destination of fragment.
+     * @param destTag      The destination of fragment's tag.
+     */
+    public static void replace(@NonNull final Fragment srcFragment,
+                               @NonNull final Fragment destFragment,
+                               final String destTag) {
+        replace(srcFragment, destFragment, destTag, false);
+    }
+
+    /**
+     * Replace fragment.
+     *
+     * @param srcFragment  The source of fragment.
+     * @param destFragment The destination of fragment.
+     * @param destTag      The destination of fragment's tag.
+     * @param isAddStack   True to add fragment in stack, false otherwise.
+     */
+    public static void replace(@NonNull final Fragment srcFragment,
+                               @NonNull final Fragment destFragment,
+                               final String destTag,
+                               final boolean isAddStack) {
+        FragmentManager fm = srcFragment.getFragmentManager();
+        if (fm == null) return;
+        Args args = getArgs(srcFragment);
+        replace(fm, destFragment, args.id, destTag, isAddStack);
+    }
+
+    /**
+     * Replace fragment.
+     *
+     * @param srcFragment  The source of fragment.
+     * @param destFragment The destination of fragment.
+     * @param destTag      The destination of fragment's tag.
+     * @param enterAnim    An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being added or attached.
+     * @param exitAnim     An animation or animator resource ID used for the exit animation on the
+     *                     view of the fragment being removed or detached.
+     */
+    public static void replace(@NonNull final Fragment srcFragment,
+                               @NonNull final Fragment destFragment,
+                               final String destTag,
+                               @AnimRes final int enterAnim,
+                               @AnimRes final int exitAnim) {
+        replace(srcFragment, destFragment, destTag, false, enterAnim, exitAnim, 0, 0);
+    }
+
+    /**
+     * Replace fragment.
+     *
+     * @param srcFragment  The source of fragment.
+     * @param destFragment The destination of fragment.
+     * @param destTag      The destination of fragment's tag.
+     * @param isAddStack   True to add fragment in stack, false otherwise.
+     * @param enterAnim    An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being added or attached.
+     * @param exitAnim     An animation or animator resource ID used for the exit animation on the
+     *                     view of the fragment being removed or detached.
+     */
+    public static void replace(@NonNull final Fragment srcFragment,
+                               @NonNull final Fragment destFragment,
+                               final String destTag,
+                               final boolean isAddStack,
+                               @AnimRes final int enterAnim,
+                               @AnimRes final int exitAnim) {
+        replace(srcFragment, destFragment, destTag, isAddStack, enterAnim, exitAnim, 0, 0);
+    }
+
+    /**
+     * Replace fragment.
+     *
+     * @param srcFragment  The source of fragment.
+     * @param destFragment The destination of fragment.
+     * @param destTag      The destination of fragment's tag.
+     * @param enterAnim    An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being added or attached.
+     * @param exitAnim     An animation or animator resource ID used for the exit animation on the
+     *                     view of the fragment being removed or detached.
+     * @param popEnterAnim An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being readded or reattached caused by
+     *                     popBackStack() or similar methods.
+     * @param popExitAnim  An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being removed or detached caused by
+     *                     popBackStack() or similar methods.
+     */
+    public static void replace(@NonNull final Fragment srcFragment,
+                               @NonNull final Fragment destFragment,
+                               final String destTag,
+                               @AnimRes final int enterAnim,
+                               @AnimRes final int exitAnim,
+                               @AnimRes final int popEnterAnim,
+                               @AnimRes final int popExitAnim) {
+        replace(srcFragment, destFragment, destTag, false,
+                enterAnim, exitAnim, popEnterAnim, popExitAnim);
+    }
+
+    /**
+     * Replace fragment.
+     *
+     * @param srcFragment  The source of fragment.
+     * @param destFragment The destination of fragment.
+     * @param destTag      The destination of fragment's tag.
+     * @param isAddStack   True to add fragment in stack, false otherwise.
+     * @param enterAnim    An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being added or attached.
+     * @param exitAnim     An animation or animator resource ID used for the exit animation on the
+     *                     view of the fragment being removed or detached.
+     * @param popEnterAnim An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being readded or reattached caused by
+     *                     popBackStack() or similar methods.
+     * @param popExitAnim  An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being removed or detached caused by
+     *                     popBackStack() or similar methods.
+     */
+    public static void replace(@NonNull final Fragment srcFragment,
+                               @NonNull final Fragment destFragment,
+                               final String destTag,
+                               final boolean isAddStack,
+                               @AnimRes final int enterAnim,
+                               @AnimRes final int exitAnim,
+                               @AnimRes final int popEnterAnim,
+                               @AnimRes final int popExitAnim) {
+        FragmentManager fm = srcFragment.getFragmentManager();
+        if (fm == null) return;
+        Args args = getArgs(srcFragment);
+        replace(fm, destFragment, args.id, destTag, isAddStack,
+                enterAnim, exitAnim, popEnterAnim, popExitAnim);
+    }
+
+    /**
+     * Replace fragment.
+     *
+     * @param srcFragment    The source of fragment.
+     * @param destFragment   The destination of fragment.
+     * @param destTag        The destination of fragment's tag.
+     * @param sharedElements A View in a disappearing Fragment to match with a View in an
+     *                       appearing Fragment.
+     */
+    public static void replace(@NonNull final Fragment srcFragment,
+                               @NonNull final Fragment destFragment,
+                               final String destTag,
+                               final View... sharedElements) {
+        replace(srcFragment, destFragment, destTag, false, sharedElements);
+    }
+
+    /**
+     * Replace fragment.
+     *
+     * @param srcFragment    The source of fragment.
+     * @param destFragment   The destination of fragment.
+     * @param destTag        The destination of fragment's tag.
+     * @param isAddStack     True to add fragment in stack, false otherwise.
+     * @param sharedElements A View in a disappearing Fragment to match with a View in an
+     *                       appearing Fragment.
+     */
+    public static void replace(@NonNull final Fragment srcFragment,
+                               @NonNull final Fragment destFragment,
+                               final String destTag,
+                               final boolean isAddStack,
+                               final View... sharedElements) {
+        FragmentManager fm = srcFragment.getFragmentManager();
+        if (fm == null) return;
+        Args args = getArgs(srcFragment);
+        replace(fm,
+                destFragment,
+                args.id,
+                destTag,
+                isAddStack,
+                sharedElements
+        );
+    }
+
+    /**
+     * Replace fragment.
+     *
+     * @param fm          The manager of fragment.
+     * @param fragment    The new fragment to place in the container.
+     * @param containerId The id of container.
+     * @param destTag     The destination of fragment's tag.
+     */
+    public static void replace(@NonNull final FragmentManager fm,
+                               @NonNull final Fragment fragment,
+                               @IdRes final int containerId,
+                               final String destTag) {
+        replace(fm, fragment, containerId, destTag, false);
+    }
+
+    /**
+     * Replace fragment.
+     *
+     * @param fm          The manager of fragment.
+     * @param fragment    The new fragment to place in the container.
+     * @param containerId The id of container.
+     * @param destTag     The destination of fragment's tag.
+     * @param isAddStack  True to add fragment in stack, false otherwise.
+     */
+    public static void replace(@NonNull final FragmentManager fm,
+                               @NonNull final Fragment fragment,
+                               @IdRes final int containerId,
+                               final String destTag,
+                               final boolean isAddStack) {
         FragmentTransaction ft = fm.beginTransaction();
-        putArgs(fragment, new Args(containerId, false, isAddStack));
+        putArgs(fragment, new Args(containerId, destTag, false, isAddStack));
         operate(TYPE_REPLACE_FRAGMENT, fm, ft, null, fragment);
     }
 
     /**
-     * 替换fragment
+     * Replace fragment.
      *
-     * @param fm          fragment管理器
-     * @param containerId 布局Id
-     * @param fragment    fragment
-     * @param enterAnim   入场动画
-     * @param exitAnim    出场动画
+     * @param fm          The manager of fragment.
+     * @param fragment    The new fragment to place in the container.
+     * @param containerId The id of container.
+     * @param destTag     The destination of fragment's tag.
+     * @param enterAnim   An animation or animator resource ID used for the enter animation on the
+     *                    view of the fragment being added or attached.
+     * @param exitAnim    An animation or animator resource ID used for the exit animation on the
+     *                    view of the fragment being removed or detached.
      */
     public static void replace(@NonNull final FragmentManager fm,
                                @NonNull final Fragment fragment,
                                @IdRes final int containerId,
+                               final String destTag,
                                @AnimRes final int enterAnim,
                                @AnimRes final int exitAnim) {
-        replace(fm, fragment, containerId, false, enterAnim, exitAnim, 0, 0);
+        replace(fm, fragment, containerId, destTag, false, enterAnim, exitAnim, 0, 0);
     }
 
     /**
-     * 替换fragment
+     * Replace fragment.
      *
-     * @param fm          fragment管理器
-     * @param containerId 布局Id
-     * @param fragment    fragment
-     * @param isAddStack  是否入回退栈
-     * @param enterAnim   入场动画
-     * @param exitAnim    出场动画
+     * @param fm          The manager of fragment.
+     * @param fragment    The new fragment to place in the container.
+     * @param containerId The id of container.
+     * @param destTag     The destination of fragment's tag.
+     * @param isAddStack  True to add fragment in stack, false otherwise.
+     * @param enterAnim   An animation or animator resource ID used for the enter animation on the
+     *                    view of the fragment being added or attached.
+     * @param exitAnim    An animation or animator resource ID used for the exit animation on the
+     *                    view of the fragment being removed or detached.
      */
     public static void replace(@NonNull final FragmentManager fm,
                                @NonNull final Fragment fragment,
                                @IdRes final int containerId,
+                               final String destTag,
                                final boolean isAddStack,
                                @AnimRes final int enterAnim,
                                @AnimRes final int exitAnim) {
-        replace(fm, fragment, containerId, isAddStack, enterAnim, exitAnim, 0, 0);
+        replace(fm, fragment, containerId, destTag, isAddStack, enterAnim, exitAnim, 0, 0);
     }
 
     /**
-     * 替换fragment
+     * Replace fragment.
      *
-     * @param fm           fragment管理器
-     * @param containerId  布局Id
-     * @param fragment     fragment
-     * @param enterAnim    入场动画
-     * @param exitAnim     出场动画
-     * @param popEnterAnim 入栈动画
-     * @param popExitAnim  出栈动画
+     * @param fm           The manager of fragment.
+     * @param fragment     The new fragment to place in the container.
+     * @param containerId  The id of container.
+     * @param destTag      The destination of fragment's tag.
+     * @param enterAnim    An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being added or attached.
+     * @param exitAnim     An animation or animator resource ID used for the exit animation on the
+     *                     view of the fragment being removed or detached.
+     * @param popEnterAnim An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being readded or reattached caused by
+     *                     popBackStack() or similar methods.
+     * @param popExitAnim  An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being removed or detached caused by
+     *                     popBackStack() or similar methods.
      */
     public static void replace(@NonNull final FragmentManager fm,
                                @NonNull final Fragment fragment,
                                @IdRes final int containerId,
+                               final String destTag,
                                @AnimRes final int enterAnim,
                                @AnimRes final int exitAnim,
                                @AnimRes final int popEnterAnim,
                                @AnimRes final int popExitAnim) {
-        replace(fm, fragment, containerId, false, enterAnim, exitAnim, popEnterAnim, popExitAnim);
+        replace(fm, fragment, containerId, destTag, false,
+                enterAnim, exitAnim, popEnterAnim, popExitAnim);
     }
 
     /**
-     * 替换fragment
+     * Replace fragment.
      *
-     * @param fm           fragment管理器
-     * @param containerId  布局Id
-     * @param fragment     fragment
-     * @param isAddStack   是否入回退栈
-     * @param enterAnim    入场动画
-     * @param exitAnim     出场动画
-     * @param popEnterAnim 入栈动画
-     * @param popExitAnim  出栈动画
+     * @param fm           The manager of fragment.
+     * @param fragment     The new fragment to place in the container.
+     * @param containerId  The id of container.
+     * @param destTag      The destination of fragment's tag.
+     * @param isAddStack   True to add fragment in stack, false otherwise.
+     * @param enterAnim    An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being added or attached.
+     * @param exitAnim     An animation or animator resource ID used for the exit animation on the
+     *                     view of the fragment being removed or detached.
+     * @param popEnterAnim An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being readded or reattached caused by
+     *                     popBackStack() or similar methods.
+     * @param popExitAnim  An animation or animator resource ID used for the enter animation on the
+     *                     view of the fragment being removed or detached caused by
+     *                     popBackStack() or similar methods.
      */
     public static void replace(@NonNull final FragmentManager fm,
                                @NonNull final Fragment fragment,
                                @IdRes final int containerId,
+                               final String destTag,
                                final boolean isAddStack,
                                @AnimRes final int enterAnim,
                                @AnimRes final int exitAnim,
                                @AnimRes final int popEnterAnim,
                                @AnimRes final int popExitAnim) {
         FragmentTransaction ft = fm.beginTransaction();
-        putArgs(fragment, new Args(containerId, false, isAddStack));
+        putArgs(fragment, new Args(containerId, destTag, false, isAddStack));
         addAnim(ft, enterAnim, exitAnim, popEnterAnim, popExitAnim);
         operate(TYPE_REPLACE_FRAGMENT, fm, ft, null, fragment);
     }
 
     /**
-     * 替换fragment
+     * Replace fragment.
      *
-     * @param fm             fragment管理器
-     * @param containerId    布局Id
-     * @param fragment       fragment
-     * @param sharedElements 共享元素
+     * @param fm             The manager of fragment.
+     * @param fragment       The new fragment to place in the container.
+     * @param containerId    The id of container.
+     * @param destTag        The destination of fragment's tag.
+     * @param sharedElements A View in a disappearing Fragment to match with a View in an
+     *                       appearing Fragment.
      */
     public static void replace(@NonNull final FragmentManager fm,
                                @NonNull final Fragment fragment,
                                @IdRes final int containerId,
+                               final String destTag,
                                final View... sharedElements) {
-        replace(fm, fragment, containerId, false, sharedElements);
+        replace(fm, fragment, containerId, destTag, false, sharedElements);
     }
 
     /**
-     * 替换fragment
+     * Replace fragment.
      *
-     * @param fm             fragment管理器
-     * @param containerId    布局Id
-     * @param fragment       fragment
-     * @param isAddStack     是否入回退栈
-     * @param sharedElements 共享元素
+     * @param fm             The manager of fragment.
+     * @param fragment       The new fragment to place in the container.
+     * @param containerId    The id of container.
+     * @param destTag        The destination of fragment's tag.
+     * @param isAddStack     True to add fragment in stack, false otherwise.
+     * @param sharedElements A View in a disappearing Fragment to match with a View in an
+     *                       appearing Fragment.
      */
     public static void replace(@NonNull final FragmentManager fm,
                                @NonNull final Fragment fragment,
                                @IdRes final int containerId,
+                               final String destTag,
                                final boolean isAddStack,
                                final View... sharedElements) {
         FragmentTransaction ft = fm.beginTransaction();
-        putArgs(fragment, new Args(containerId, false, isAddStack));
+        putArgs(fragment, new Args(containerId, destTag, false, isAddStack));
         addSharedElement(ft, sharedElements);
         operate(TYPE_REPLACE_FRAGMENT, fm, ft, null, fragment);
     }
 
     /**
-     * 出栈fragment
+     * Pop fragment.
      *
-     * @param fm fragment管理器
+     * @param fm The manager of fragment.
      */
     public static void pop(@NonNull final FragmentManager fm) {
         pop(fm, true);
     }
 
     /**
-     * 出栈fragment
+     * Pop fragment.
      *
-     * @param fm fragment管理器
+     * @param fm          The manager of fragment.
+     * @param isImmediate True to pop immediately, false otherwise.
      */
     public static void pop(@NonNull final FragmentManager fm,
                            final boolean isImmediate) {
@@ -648,52 +1292,52 @@ public final class FragmentUtils {
     }
 
     /**
-     * 出栈到指定fragment
+     * Pop to fragment.
      *
-     * @param fm          fragment管理器
-     * @param popClz      出栈fragment的类型
-     * @param isInclusive 是否出栈popClz的fragment
+     * @param fm            The manager of fragment.
+     * @param popClz        The class of fragment will be popped to.
+     * @param isIncludeSelf True to include the fragment, false otherwise.
      */
     public static void popTo(@NonNull final FragmentManager fm,
                              final Class<? extends Fragment> popClz,
-                             final boolean isInclusive) {
-        popTo(fm, popClz, isInclusive, true);
+                             final boolean isIncludeSelf) {
+        popTo(fm, popClz, isIncludeSelf, true);
     }
 
     /**
-     * 出栈到指定fragment
+     * Pop to fragment.
      *
-     * @param fm          fragment管理器
-     * @param popClz      出栈fragment的类型
-     * @param isInclusive 是否出栈popClz的fragment
-     * @param isImmediate 是否立即出栈
+     * @param fm            The manager of fragment.
+     * @param popClz        The class of fragment will be popped to.
+     * @param isIncludeSelf True to include the fragment, false otherwise.
+     * @param isImmediate   True to pop immediately, false otherwise.
      */
     public static void popTo(@NonNull final FragmentManager fm,
                              final Class<? extends Fragment> popClz,
-                             final boolean isInclusive,
+                             final boolean isIncludeSelf,
                              final boolean isImmediate) {
         if (isImmediate) {
             fm.popBackStackImmediate(popClz.getName(),
-                    isInclusive ? FragmentManager.POP_BACK_STACK_INCLUSIVE : 0);
+                    isIncludeSelf ? FragmentManager.POP_BACK_STACK_INCLUSIVE : 0);
         } else {
             fm.popBackStack(popClz.getName(),
-                    isInclusive ? FragmentManager.POP_BACK_STACK_INCLUSIVE : 0);
+                    isIncludeSelf ? FragmentManager.POP_BACK_STACK_INCLUSIVE : 0);
         }
     }
 
     /**
-     * 出栈所有fragment
+     * Pop all fragments.
      *
-     * @param fm fragment管理器
+     * @param fm The manager of fragment.
      */
     public static void popAll(@NonNull final FragmentManager fm) {
         popAll(fm, true);
     }
 
     /**
-     * 出栈所有fragment
+     * Pop all fragments.
      *
-     * @param fm fragment管理器
+     * @param fm The manager of fragment.
      */
     public static void popAll(@NonNull final FragmentManager fm, final boolean isImmediate) {
         while (fm.getBackStackEntryCount() > 0) {
@@ -706,33 +1350,37 @@ public final class FragmentUtils {
     }
 
     /**
-     * 移除fragment
+     * Remove fragment.
      *
-     * @param remove 要移除的fragment
+     * @param remove The fragment will be removed.
      */
     public static void remove(@NonNull final Fragment remove) {
         operateNoAnim(remove.getFragmentManager(), TYPE_REMOVE_FRAGMENT, null, remove);
     }
 
     /**
-     * 移除到指定fragment
+     * Remove to fragment.
      *
-     * @param removeTo    要移除到的fragment
-     * @param isInclusive 是否移除removeTo
+     * @param removeTo      The fragment will be removed to.
+     * @param isIncludeSelf True to include the fragment, false otherwise.
      */
-    public static void removeTo(@NonNull final Fragment removeTo, final boolean isInclusive) {
+    public static void removeTo(@NonNull final Fragment removeTo, final boolean isIncludeSelf) {
         operateNoAnim(removeTo.getFragmentManager(), TYPE_REMOVE_TO_FRAGMENT,
-                isInclusive ? removeTo : null, removeTo);
+                isIncludeSelf ? removeTo : null, removeTo);
     }
 
     /**
-     * 移除所有fragment
+     * Remove all fragments.
      *
-     * @param fm fragment管理器
+     * @param fm The manager of fragment.
      */
     public static void removeAll(@NonNull final FragmentManager fm) {
         List<Fragment> fragments = getFragments(fm);
-        operateNoAnim(fm, TYPE_REMOVE_FRAGMENT, null, fragments.toArray(new Fragment[fragments.size()]));
+        operateNoAnim(fm,
+                TYPE_REMOVE_FRAGMENT,
+                null,
+                fragments.toArray(new Fragment[fragments.size()])
+        );
     }
 
     private static void putArgs(final Fragment fragment, final Args args) {
@@ -744,6 +1392,7 @@ public final class FragmentUtils {
         bundle.putInt(ARGS_ID, args.id);
         bundle.putBoolean(ARGS_IS_HIDE, args.isHide);
         bundle.putBoolean(ARGS_IS_ADD_STACK, args.isAddStack);
+        bundle.putString(ARGS_TAG, args.tag);
     }
 
     private static void putArgs(final Fragment fragment, final boolean isHide) {
@@ -757,21 +1406,23 @@ public final class FragmentUtils {
 
     private static Args getArgs(final Fragment fragment) {
         Bundle bundle = fragment.getArguments();
+        if (bundle == null) bundle = Bundle.EMPTY;
         return new Args(bundle.getInt(ARGS_ID, fragment.getId()),
                 bundle.getBoolean(ARGS_IS_HIDE),
                 bundle.getBoolean(ARGS_IS_ADD_STACK));
     }
 
-    private static void operateNoAnim(final FragmentManager fm,
+    private static void operateNoAnim(@Nullable final FragmentManager fm,
                                       final int type,
                                       final Fragment src,
                                       Fragment... dest) {
+        if (fm == null) return;
         FragmentTransaction ft = fm.beginTransaction();
         operate(type, fm, ft, src, dest);
     }
 
     private static void operate(final int type,
-                                final FragmentManager fm,
+                                @NonNull final FragmentManager fm,
                                 final FragmentTransaction ft,
                                 final Fragment src,
                                 final Fragment... dest) {
@@ -784,13 +1435,12 @@ public final class FragmentUtils {
         switch (type) {
             case TYPE_ADD_FRAGMENT:
                 for (Fragment fragment : dest) {
-                    name = fragment.getClass().getName();
                     args = fragment.getArguments();
+                    if (args == null) return;
+                    name = args.getString(ARGS_TAG, fragment.getClass().getName());
                     Fragment fragmentByTag = fm.findFragmentByTag(name);
-                    if (fragmentByTag != null) {
-                        if (fragmentByTag.isAdded()) {
-                            ft.remove(fragmentByTag);
-                        }
+                    if (fragmentByTag != null && fragmentByTag.isAdded()) {
+                        ft.remove(fragmentByTag);
                     }
                     ft.add(args.getInt(ARGS_ID), fragment, name);
                     if (args.getBoolean(ARGS_IS_HIDE)) ft.hide(fragment);
@@ -816,8 +1466,9 @@ public final class FragmentUtils {
                 }
                 break;
             case TYPE_REPLACE_FRAGMENT:
-                name = dest[0].getClass().getName();
                 args = dest[0].getArguments();
+                if (args == null) return;
+                name = args.getString(ARGS_TAG, dest[0].getClass().getName());
                 ft.replace(args.getInt(ARGS_ID), dest[0], name);
                 if (args.getBoolean(ARGS_IS_ADD_STACK)) ft.addToBackStack(name);
                 break;
@@ -860,20 +1511,20 @@ public final class FragmentUtils {
     }
 
     /**
-     * 获取顶部fragment
+     * Return the top fragment.
      *
-     * @param fm fragment管理器
-     * @return 最后加入的fragment
+     * @param fm The manager of fragment.
+     * @return the top fragment
      */
     public static Fragment getTop(@NonNull final FragmentManager fm) {
         return getTopIsInStack(fm, false);
     }
 
     /**
-     * 获取栈中顶部fragment
+     * Return the top fragment in stack.
      *
-     * @param fm fragment管理器
-     * @return 最后加入的fragment
+     * @param fm The manager of fragment.
+     * @return the top fragment in stack
      */
     public static Fragment getTopInStack(@NonNull final FragmentManager fm) {
         return getTopIsInStack(fm, true);
@@ -886,7 +1537,8 @@ public final class FragmentUtils {
             Fragment fragment = fragments.get(i);
             if (fragment != null) {
                 if (isInStack) {
-                    if (fragment.getArguments().getBoolean(ARGS_IS_ADD_STACK)) {
+                    Bundle args = fragment.getArguments();
+                    if (args != null && args.getBoolean(ARGS_IS_ADD_STACK)) {
                         return fragment;
                     }
                 } else {
@@ -898,20 +1550,20 @@ public final class FragmentUtils {
     }
 
     /**
-     * 获取顶部可见fragment
+     * Return the top fragment which is shown.
      *
-     * @param fm fragment管理器
-     * @return 顶层可见fragment
+     * @param fm The manager of fragment.
+     * @return the top fragment which is shown
      */
     public static Fragment getTopShow(@NonNull final FragmentManager fm) {
         return getTopShowIsInStack(fm, false);
     }
 
     /**
-     * 获取栈中顶部可见fragment
+     * Return the top fragment which is shown in stack.
      *
-     * @param fm fragment管理器
-     * @return 栈中顶层可见fragment
+     * @param fm The manager of fragment.
+     * @return the top fragment which is shown in stack
      */
     public static Fragment getTopShowInStack(@NonNull final FragmentManager fm) {
         return getTopShowIsInStack(fm, true);
@@ -927,7 +1579,8 @@ public final class FragmentUtils {
                     && fragment.isVisible()
                     && fragment.getUserVisibleHint()) {
                 if (isInStack) {
-                    if (fragment.getArguments().getBoolean(ARGS_IS_ADD_STACK)) {
+                    Bundle args = fragment.getArguments();
+                    if (args != null && args.getBoolean(ARGS_IS_ADD_STACK)) {
                         return fragment;
                     }
                 } else {
@@ -939,40 +1592,42 @@ public final class FragmentUtils {
     }
 
     /**
-     * 获取同级别的fragment
+     * Return the fragments in manager.
      *
-     * @param fm fragment管理器
-     * @return fragment管理器中的fragment
+     * @param fm The manager of fragment.
+     * @return the fragments in manager
      */
     public static List<Fragment> getFragments(@NonNull final FragmentManager fm) {
-        @SuppressWarnings("RestrictedApi")
         List<Fragment> fragments = fm.getFragments();
         if (fragments == null || fragments.isEmpty()) return Collections.emptyList();
         return fragments;
     }
 
     /**
-     * 获取同级别栈中的fragment
+     * Return the fragments in stack in manager.
      *
-     * @param fm fragment管理器
-     * @return fragment管理器栈中的fragment
+     * @param fm The manager of fragment.
+     * @return the fragments in stack in manager
      */
     public static List<Fragment> getFragmentsInStack(@NonNull final FragmentManager fm) {
         List<Fragment> fragments = getFragments(fm);
         List<Fragment> result = new ArrayList<>();
         for (Fragment fragment : fragments) {
-            if (fragment != null && fragment.getArguments().getBoolean(ARGS_IS_ADD_STACK)) {
-                result.add(fragment);
+            if (fragment != null) {
+                Bundle args = fragment.getArguments();
+                if (args != null && args.getBoolean(ARGS_IS_ADD_STACK)) {
+                    result.add(fragment);
+                }
             }
         }
         return result;
     }
 
     /**
-     * 获取所有fragment
+     * Return all fragments in manager.
      *
-     * @param fm fragment管理器
-     * @return 所有fragment
+     * @param fm The manager of fragment.
+     * @return all fragments in manager
      */
     public static List<FragmentNode> getAllFragments(@NonNull final FragmentManager fm) {
         return getAllFragments(fm, new ArrayList<FragmentNode>());
@@ -993,10 +1648,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 获取栈中所有fragment
+     * Return all fragments in stack in manager.
      *
-     * @param fm fragment管理器
-     * @return 所有fragment
+     * @param fm The manager of fragment.
+     * @return all fragments in stack in manager
      */
     public static List<FragmentNode> getAllFragmentsInStack(@NonNull final FragmentManager fm) {
         return getAllFragmentsInStack(fm, new ArrayList<FragmentNode>());
@@ -1007,21 +1662,24 @@ public final class FragmentUtils {
         List<Fragment> fragments = getFragments(fm);
         for (int i = fragments.size() - 1; i >= 0; --i) {
             Fragment fragment = fragments.get(i);
-            if (fragment != null && fragment.getArguments().getBoolean(ARGS_IS_ADD_STACK)) {
-                result.add(new FragmentNode(fragment,
-                        getAllFragmentsInStack(fragment.getChildFragmentManager(),
-                                new ArrayList<FragmentNode>())));
+            if (fragment != null) {
+                Bundle args = fragment.getArguments();
+                if (args != null && args.getBoolean(ARGS_IS_ADD_STACK)) {
+                    result.add(new FragmentNode(fragment,
+                            getAllFragmentsInStack(fragment.getChildFragmentManager(),
+                                    new ArrayList<FragmentNode>())));
+                }
             }
         }
         return result;
     }
 
     /**
-     * 查找fragment
+     * Find fragment.
      *
-     * @param fm      fragment管理器
-     * @param findClz 要查找的fragment类型
-     * @return 查找到的fragment
+     * @param fm      The manager of fragment.
+     * @param findClz The class of fragment will be found.
+     * @return the fragment matches class
      */
     public static Fragment findFragment(@NonNull final FragmentManager fm,
                                         final Class<? extends Fragment> findClz) {
@@ -1029,12 +1687,22 @@ public final class FragmentUtils {
     }
 
     /**
-     * 处理fragment回退键
-     * <p>如果fragment实现了OnBackClickListener接口，返回{@code true}: 表示已消费回退键事件，反之则没消费</p>
-     * <p>具体示例见FragmentActivity</p>
+     * Find fragment.
      *
-     * @param fragment fragment
-     * @return 是否消费回退事件
+     * @param fm  The manager of fragment.
+     * @param tag The tag of fragment will be found.
+     * @return the fragment matches class
+     */
+    public static Fragment findFragment(@NonNull final FragmentManager fm,
+                                        @NonNull final String tag) {
+        return fm.findFragmentByTag(tag);
+    }
+
+    /**
+     * Dispatch the back press for fragment.
+     *
+     * @param fragment The fragment.
+     * @return {@code true}: the fragment consumes the back press<br>{@code false}: otherwise
      */
     public static boolean dispatchBackPress(@NonNull final Fragment fragment) {
         return fragment.isResumed()
@@ -1045,12 +1713,10 @@ public final class FragmentUtils {
     }
 
     /**
-     * 处理fragment回退键
-     * <p>如果fragment实现了OnBackClickListener接口，返回{@code true}: 表示已消费回退键事件，反之则没消费</p>
-     * <p>具体示例见FragmentActivity</p>
+     * Dispatch the back press for fragment.
      *
-     * @param fm fragment管理器
-     * @return 是否消费回退事件
+     * @param fm The manager of fragment.
+     * @return {@code true}: the fragment consumes the back press<br>{@code false}: otherwise
      */
     public static boolean dispatchBackPress(@NonNull final FragmentManager fm) {
         List<Fragment> fragments = getFragments(fm);
@@ -1070,12 +1736,13 @@ public final class FragmentUtils {
     }
 
     /**
-     * 设置背景色
+     * Set background color for fragment.
      *
-     * @param fragment fragment
-     * @param color    背景色
+     * @param fragment The fragment.
+     * @param color    The background color.
      */
-    public static void setBackgroundColor(@NonNull final Fragment fragment, @ColorInt final int color) {
+    public static void setBackgroundColor(@NonNull final Fragment fragment,
+                                          @ColorInt final int color) {
         View view = fragment.getView();
         if (view != null) {
             view.setBackgroundColor(color);
@@ -1083,12 +1750,13 @@ public final class FragmentUtils {
     }
 
     /**
-     * 设置背景资源
+     * Set background resource for fragment.
      *
-     * @param fragment fragment
-     * @param resId    资源Id
+     * @param fragment The fragment.
+     * @param resId    The resource id.
      */
-    public static void setBackgroundResource(@NonNull final Fragment fragment, @DrawableRes final int resId) {
+    public static void setBackgroundResource(@NonNull final Fragment fragment,
+                                             @DrawableRes final int resId) {
         View view = fragment.getView();
         if (view != null) {
             view.setBackgroundResource(resId);
@@ -1096,44 +1764,65 @@ public final class FragmentUtils {
     }
 
     /**
-     * 设置背景
+     * Set background color for fragment.
      *
-     * @param fragment   fragment
-     * @param background 背景
+     * @param fragment   The fragment.
+     * @param background The background.
      */
     public static void setBackground(@NonNull final Fragment fragment, final Drawable background) {
-        ViewCompat.setBackground(fragment.getView(), background);
+        View view = fragment.getView();
+        if (view == null) return;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            view.setBackground(background);
+        } else {
+            view.setBackgroundDrawable(background);
+        }
     }
 
     /**
-     * 获取类名
+     * Return the simple name of fragment.
      *
-     * @param fragment fragment
-     * @return 类名
+     * @param fragment The fragment.
+     * @return the simple name of fragment
      */
     public static String getSimpleName(final Fragment fragment) {
         return fragment == null ? "null" : fragment.getClass().getSimpleName();
     }
 
     private static class Args {
-        int     id;
-        boolean isHide;
-        boolean isAddStack;
+        final int     id;
+        final boolean isHide;
+        final boolean isAddStack;
+        final String  tag;
 
-        private Args(final int id, final boolean isHide, final boolean isAddStack) {
+        Args(final int id, final boolean isHide, final boolean isAddStack) {
+            this(id, null, isHide, isAddStack);
+        }
+
+        Args(final int id, final String tag,
+                     final boolean isHide, final boolean isAddStack) {
             this.id = id;
+            this.tag = tag;
             this.isHide = isHide;
             this.isAddStack = isAddStack;
         }
     }
 
     public static class FragmentNode {
-        Fragment           fragment;
-        List<FragmentNode> next;
+        final Fragment           fragment;
+        final List<FragmentNode> next;
 
         public FragmentNode(final Fragment fragment, final List<FragmentNode> next) {
             this.fragment = fragment;
             this.next = next;
+        }
+
+        public Fragment getFragment() {
+            return fragment;
+        }
+
+        public List<FragmentNode> getNext() {
+            return next;
         }
 
         @Override
@@ -1143,6 +1832,10 @@ public final class FragmentUtils {
                     + ((next == null || next.isEmpty()) ? "no child" : next.toString());
         }
     }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // interface
+    ///////////////////////////////////////////////////////////////////////////
 
     public interface OnBackClickListener {
         boolean onBackClick();

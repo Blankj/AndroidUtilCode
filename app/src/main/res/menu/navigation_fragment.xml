@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/navigation_fragment_zero"
-        android:icon="@drawable/ic_fragment"
+        android:icon="@drawable/ic_vector_fragment"
         android:title="@string/fragment_zero" />
 
     <item
         android:id="@+id/navigation_fragment_one"
-        android:icon="@drawable/ic_fragment"
+        android:icon="@drawable/ic_vector_fragment"
         android:title="@string/fragment_one" />
 
     <item
         android:id="@+id/navigation_fragment_two"
-        android:icon="@drawable/ic_fragment"
+        android:icon="@drawable/ic_vector_fragment"
         android:title="@string/fragment_two" />
 
 </menu>

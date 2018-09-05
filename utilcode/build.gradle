@@ -1,62 +1,14 @@
-apply plugin: 'com.android.library'
-apply plugin: 'jacoco'
-
-task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
-
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
-
-    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
-    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
-    def mainSrc = "${project.projectDir}/src/main/java"
-
-    sourceDirectories = files([mainSrc])
-    classDirectories = files([debugTree])
-    executionData = fileTree(dir: "$buildDir", includes: [
-            "jacoco/testDebugUnitTest.exec",
-            "outputs/code-coverage/connected/*coverage.ec"
-    ])
+plugins {
+    id "com.android.library"
+    id "com.github.dcendents.android-maven" version "2.1"
+    id "com.jfrog.bintray" version "1.8.0"
+    id "tech.harmonysoft.oss.traute" version "1.1.8"
 }
-
-android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
-    }
-
-    buildTypes {
-        debug {
-            testCoverageEnabled true
-        }
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    lintOptions {
-        abortOnError false
-    }
-
-    testOptions.unitTests.all {
-        testLogging {
-            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
-        }
-    }
+// in config.gradle
+configAndroidDomain project
+configUtilCodeDependencies project
+apply {
+    from('readme.gradle')
+    from("../bintrayUpload.gradle")
 }
-
-dependencies {
-    compileOnly "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
-    compileOnly "com.android.support:support-v4:$rootProject.ext.supportVersion"
-    compileOnly "com.android.support:design:$rootProject.ext.supportVersion"
-
-    testImplementation "junit:junit:$rootProject.ext.junitVersion"
-    testImplementation "org.robolectric:robolectric:$rootProject.ext.robolectricVersion"
-    testImplementation "com.android.support:support-v4:$rootProject.ext.supportVersion"
-}
-//apply from: "../bintrayUpload.gradle"
-//gradle bintrayUpload
+//./gradlew bintrayUpload

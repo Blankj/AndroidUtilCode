@@ -8,7 +8,7 @@ import java.io.IOException;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/09
- *     desc  : 关闭相关工具类
+ *     desc  : utils about close
  * </pre>
  */
 public final class CloseUtils {
@@ -18,7 +18,7 @@ public final class CloseUtils {
     }
 
     /**
-     * 关闭IO
+     * Close the io stream.
      *
      * @param closeables closeables
      */
@@ -36,7 +36,7 @@ public final class CloseUtils {
     }
 
     /**
-     * 安静关闭IO
+     * Close the io stream quietly.
      *
      * @param closeables closeables
      */

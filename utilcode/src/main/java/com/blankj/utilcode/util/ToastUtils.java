@@ -1,9 +1,14 @@
 package com.blankj.utilcode.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.ContextWrapper;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.ColorInt;
@@ -11,160 +16,173 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
-import android.support.v4.widget.TextViewCompat;
-import android.view.Gravity;
+import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
 
 /**
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/09/29
- *     desc  : 吐司相关工具类
+ *     desc  : utils about sToast
  * </pre>
  */
 public final class ToastUtils {
 
     private static final int     COLOR_DEFAULT = 0xFEFFFFFF;
     private static final Handler HANDLER       = new Handler(Looper.getMainLooper());
+    private static final String  NULL          = "null";
 
-    private static Toast               sToast;
-    private static WeakReference<View> sViewWeakReference;
-    private static int sLayoutId  = -1;
-    private static int gravity    = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
-    private static int xOffset    = 0;
-    private static int yOffset    = (int) (64 * Utils.getApp().getResources().getDisplayMetrics().density + 0.5);
-    private static int bgColor    = COLOR_DEFAULT;
-    private static int bgResource = -1;
-    private static int msgColor   = COLOR_DEFAULT;
+    private static Toast sToast;
+    private static int sGravity     = -1;
+    private static int sXOffset     = -1;
+    private static int sYOffset     = -1;
+    private static int sBgColor     = COLOR_DEFAULT;
+    private static int sBgResource  = -1;
+    private static int sMsgColor    = COLOR_DEFAULT;
+    private static int sMsgTextSize = -1;
 
     private ToastUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**
-     * 设置吐司位置
+     * Set the gravity.
      *
-     * @param gravity 位置
-     * @param xOffset x偏移
-     * @param yOffset y偏移
+     * @param gravity The gravity.
+     * @param xOffset X-axis offset, in pixel.
+     * @param yOffset Y-axis offset, in pixel.
      */
     public static void setGravity(final int gravity, final int xOffset, final int yOffset) {
-        ToastUtils.gravity = gravity;
-        ToastUtils.xOffset = xOffset;
-        ToastUtils.yOffset = yOffset;
+        sGravity = gravity;
+        sXOffset = xOffset;
+        sYOffset = yOffset;
     }
 
     /**
-     * 设置背景颜色
+     * Set the color of background.
      *
-     * @param backgroundColor 背景色
+     * @param backgroundColor The color of background.
      */
     public static void setBgColor(@ColorInt final int backgroundColor) {
-        ToastUtils.bgColor = backgroundColor;
+        sBgColor = backgroundColor;
     }
 
     /**
-     * 设置背景资源
+     * Set the resource of background.
      *
-     * @param bgResource 背景资源
+     * @param bgResource The resource of background.
      */
     public static void setBgResource(@DrawableRes final int bgResource) {
-        ToastUtils.bgResource = bgResource;
+        sBgResource = bgResource;
     }
 
     /**
-     * 设置消息颜色
+     * Set the color of message.
      *
-     * @param msgColor 颜色
+     * @param msgColor The color of message.
      */
     public static void setMsgColor(@ColorInt final int msgColor) {
-        ToastUtils.msgColor = msgColor;
+        sMsgColor = msgColor;
     }
 
     /**
-     * 安全地显示短时吐司
+     * Set the text size of message.
      *
-     * @param text 文本
+     * @param textSize The text size of message.
      */
-    public static void showShort(@NonNull final CharSequence text) {
-        show(text, Toast.LENGTH_SHORT);
+    public static void setMsgTextSize(final int textSize) {
+        sMsgTextSize = textSize;
     }
 
     /**
-     * 安全地显示短时吐司
+     * Show the sToast for a short period of time.
      *
-     * @param resId 资源Id
+     * @param text The text.
+     */
+    public static void showShort(final CharSequence text) {
+        show(text == null ? NULL : text, Toast.LENGTH_SHORT);
+    }
+
+    /**
+     * Show the sToast for a short period of time.
+     *
+     * @param resId The resource id for text.
      */
     public static void showShort(@StringRes final int resId) {
         show(resId, Toast.LENGTH_SHORT);
     }
 
     /**
-     * 安全地显示短时吐司
+     * Show the sToast for a short period of time.
      *
-     * @param resId 资源Id
-     * @param args  参数
+     * @param resId The resource id for text.
+     * @param args  The args.
      */
     public static void showShort(@StringRes final int resId, final Object... args) {
         show(resId, Toast.LENGTH_SHORT, args);
     }
 
     /**
-     * 安全地显示短时吐司
+     * Show the sToast for a short period of time.
      *
-     * @param format 格式
-     * @param args   参数
+     * @param format The format.
+     * @param args   The args.
      */
     public static void showShort(final String format, final Object... args) {
         show(format, Toast.LENGTH_SHORT, args);
     }
 
     /**
-     * 安全地显示长时吐司
+     * Show the sToast for a long period of time.
      *
-     * @param text 文本
+     * @param text The text.
      */
-    public static void showLong(@NonNull final CharSequence text) {
-        show(text, Toast.LENGTH_LONG);
+    public static void showLong(final CharSequence text) {
+        show(text == null ? NULL : text, Toast.LENGTH_LONG);
     }
 
     /**
-     * 安全地显示长时吐司
+     * Show the sToast for a long period of time.
      *
-     * @param resId 资源Id
+     * @param resId The resource id for text.
      */
     public static void showLong(@StringRes final int resId) {
         show(resId, Toast.LENGTH_LONG);
     }
 
     /**
-     * 安全地显示长时吐司
+     * Show the sToast for a long period of time.
      *
-     * @param resId 资源Id
-     * @param args  参数
+     * @param resId The resource id for text.
+     * @param args  The args.
      */
     public static void showLong(@StringRes final int resId, final Object... args) {
         show(resId, Toast.LENGTH_LONG, args);
     }
 
     /**
-     * 安全地显示长时吐司
+     * Show the sToast for a long period of time.
      *
-     * @param format 格式
-     * @param args   参数
+     * @param format The format.
+     * @param args   The args.
      */
     public static void showLong(final String format, final Object... args) {
         show(format, Toast.LENGTH_LONG, args);
     }
 
     /**
-     * 安全地显示短时自定义吐司
+     * Show custom sToast for a short period of time.
+     *
+     * @param layoutId ID for an XML layout resource to load.
      */
     public static View showCustomShort(@LayoutRes final int layoutId) {
         final View view = getView(layoutId);
@@ -173,7 +191,9 @@ public final class ToastUtils {
     }
 
     /**
-     * 安全地显示长时自定义吐司
+     * Show custom sToast for a long period of time.
+     *
+     * @param layoutId ID for an XML layout resource to load.
      */
     public static View showCustomLong(@LayoutRes final int layoutId) {
         final View view = getView(layoutId);
@@ -182,12 +202,11 @@ public final class ToastUtils {
     }
 
     /**
-     * 取消吐司显示
+     * Cancel the sToast.
      */
     public static void cancel() {
         if (sToast != null) {
             sToast.cancel();
-            sToast = null;
         }
     }
 
@@ -200,21 +219,43 @@ public final class ToastUtils {
     }
 
     private static void show(final String format, final int duration, final Object... args) {
-        show(String.format(format, args), duration);
+        String text;
+        if (format == null) {
+            text = NULL;
+        } else {
+            text = String.format(format, args);
+            if (text == null) {
+                text = NULL;
+            }
+        }
+        show(text, duration);
     }
 
     private static void show(final CharSequence text, final int duration) {
         HANDLER.post(new Runnable() {
+            @SuppressLint("ShowToast")
             @Override
             public void run() {
                 cancel();
-                sToast = Toast.makeText(Utils.getApp(), text, duration);
-                // solve the font of toast
-                TextView tvMessage = (TextView) sToast.getView().findViewById(android.R.id.message);
-                TextViewCompat.setTextAppearance(tvMessage, android.R.style.TextAppearance);
-                tvMessage.setTextColor(msgColor);
-                setBgAndGravity();
-                sToast.show();
+                if (Utils.isAdaptScreen()) {
+                    Utils.cancelAdaptScreen();
+                    sToast = Toast.makeText(Utils.getApp(), text, duration);
+                    Utils.restoreAdaptScreen();
+                } else {
+                    sToast = Toast.makeText(Utils.getApp(), text, duration);
+                }
+                final TextView tvMessage = sToast.getView().findViewById(android.R.id.message);
+                if (sMsgColor != COLOR_DEFAULT) {
+                    tvMessage.setTextColor(sMsgColor);
+                }
+                if (sMsgTextSize != -1) {
+                    tvMessage.setTextSize(sMsgTextSize);
+                }
+                if (sGravity != -1 || sXOffset != -1 || sYOffset != -1) {
+                    sToast.setGravity(sGravity, sXOffset, sYOffset);
+                }
+                setBg(tvMessage);
+                showToast();
             }
         });
     }
@@ -227,36 +268,138 @@ public final class ToastUtils {
                 sToast = new Toast(Utils.getApp());
                 sToast.setView(view);
                 sToast.setDuration(duration);
-                setBgAndGravity();
-                sToast.show();
+                if (sGravity != -1 || sXOffset != -1 || sYOffset != -1) {
+                    sToast.setGravity(sGravity, sXOffset, sYOffset);
+                }
+                setBg();
+                showToast();
             }
         });
     }
 
-    private static void setBgAndGravity() {
-        View toastView = sToast.getView();
-        if (bgResource != -1) {
-            toastView.setBackgroundResource(bgResource);
-        } else if (bgColor != COLOR_DEFAULT) {
-            Drawable background = toastView.getBackground();
-            background.setColorFilter(new PorterDuffColorFilter(bgColor, PorterDuff.Mode.SRC_IN));
+    private static void showToast() {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1) {
+            try {
+                //noinspection JavaReflectionMemberAccess
+                Field field = View.class.getDeclaredField("mContext");
+                field.setAccessible(true);
+                field.set(sToast.getView(), new ApplicationContextWrapperForApi25());
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
+            }
         }
-        sToast.setGravity(gravity, xOffset, yOffset);
+        sToast.show();
     }
 
-    private static View getView(@LayoutRes final int layoutId) {
-        if (sLayoutId == layoutId) {
-            if (sViewWeakReference != null) {
-                final View toastView = sViewWeakReference.get();
-                if (toastView != null) {
-                    return toastView;
+    private static void setBg() {
+        if (sBgResource != -1) {
+            final View toastView = sToast.getView();
+            toastView.setBackgroundResource(sBgResource);
+        } else if (sBgColor != COLOR_DEFAULT) {
+            final View toastView = sToast.getView();
+            Drawable background = toastView.getBackground();
+            if (background != null) {
+                background.setColorFilter(
+                        new PorterDuffColorFilter(sBgColor, PorterDuff.Mode.SRC_IN)
+                );
+            } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    toastView.setBackground(new ColorDrawable(sBgColor));
+                } else {
+                    toastView.setBackgroundDrawable(new ColorDrawable(sBgColor));
                 }
             }
         }
-        LayoutInflater inflate = (LayoutInflater) Utils.getApp().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View toastView = inflate.inflate(layoutId, null);
-        sViewWeakReference = new WeakReference<>(toastView);
-        sLayoutId = layoutId;
-        return toastView;
+    }
+
+    private static void setBg(final TextView tvMsg) {
+        if (sBgResource != -1) {
+            final View toastView = sToast.getView();
+            toastView.setBackgroundResource(sBgResource);
+            tvMsg.setBackgroundColor(Color.TRANSPARENT);
+        } else if (sBgColor != COLOR_DEFAULT) {
+            final View toastView = sToast.getView();
+            Drawable tvBg = toastView.getBackground();
+            Drawable msgBg = tvMsg.getBackground();
+            if (tvBg != null && msgBg != null) {
+                tvBg.setColorFilter(new PorterDuffColorFilter(sBgColor, PorterDuff.Mode.SRC_IN));
+                tvMsg.setBackgroundColor(Color.TRANSPARENT);
+            } else if (tvBg != null) {
+                tvBg.setColorFilter(new PorterDuffColorFilter(sBgColor, PorterDuff.Mode.SRC_IN));
+            } else if (msgBg != null) {
+                msgBg.setColorFilter(new PorterDuffColorFilter(sBgColor, PorterDuff.Mode.SRC_IN));
+            } else {
+                toastView.setBackgroundColor(sBgColor);
+            }
+        }
+    }
+
+    private static View getView(@LayoutRes final int layoutId) {
+        LayoutInflater inflate =
+                (LayoutInflater) Utils.getApp().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        return inflate != null ? inflate.inflate(layoutId, null) : null;
+    }
+
+    private static final class ApplicationContextWrapperForApi25 extends ContextWrapper {
+
+        ApplicationContextWrapperForApi25() {
+            super(Utils.getApp());
+        }
+
+        @Override
+        public Context getApplicationContext() {
+            return this;
+        }
+
+        @Override
+        public Object getSystemService(@NonNull String name) {
+            if (Context.WINDOW_SERVICE.equals(name)) {
+                // noinspection ConstantConditions
+                return new WindowManagerWrapper(
+                        (WindowManager) getBaseContext().getSystemService(name)
+                );
+            }
+            return super.getSystemService(name);
+        }
+
+        private static final class WindowManagerWrapper implements WindowManager {
+
+            private final WindowManager base;
+
+            private WindowManagerWrapper(@NonNull WindowManager base) {
+                this.base = base;
+            }
+
+            @Override
+            public Display getDefaultDisplay() {
+                return base.getDefaultDisplay();
+            }
+
+            @Override
+            public void removeViewImmediate(View view) {
+                base.removeViewImmediate(view);
+            }
+
+            @Override
+            public void addView(View view, ViewGroup.LayoutParams params) {
+                try {
+                    base.addView(view, params);
+                } catch (BadTokenException e) {
+                    Log.e("WindowManagerWrapper", e.getMessage());
+                } catch (Throwable throwable) {
+                    Log.e("WindowManagerWrapper", "[addView]", throwable);
+                }
+            }
+
+            @Override
+            public void updateViewLayout(View view, ViewGroup.LayoutParams params) {
+                base.updateViewLayout(view, params);
+            }
+
+            @Override
+            public void removeView(View view) {
+                base.removeView(view);
+            }
+        }
     }
 }

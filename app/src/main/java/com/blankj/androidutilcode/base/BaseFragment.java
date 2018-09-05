@@ -1,6 +1,10 @@
 package com.blankj.androidutilcode.base;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -14,28 +18,23 @@ import android.view.ViewGroup;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/03/28
- *     desc  : Fragment－v4基类
+ *     desc  : base about v4-fragment
  * </pre>
  */
 public abstract class BaseFragment extends Fragment
         implements IBaseView {
 
-    private static final String TAG = "BaseFragment";
-
+    private static final String TAG                  = "BaseFragment";
     private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
-    /**
-     * 当前Activity渲染的视图View
-     */
-    protected View contentView;
-    /**
-     * 上次点击时间
-     */
-    private long lastClick = 0;
 
-    protected BaseActivity mActivity;
+    protected View     mContentView;
+    protected Activity mActivity;
+
+    private long lastClick = 0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate: ");
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
             boolean isSupportHidden = savedInstanceState.getBoolean(STATE_SAVE_IS_HIDDEN);
@@ -45,42 +44,62 @@ public abstract class BaseFragment extends Fragment
             } else {
                 ft.show(this);
             }
-            ft.commit();
+            ft.commitAllowingStateLoss();
         }
-        Log.d(TAG, "onCreate: ");
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        setRetainInstance(true);
-        contentView = inflater.inflate(bindLayout(), null);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView: ");
-        return contentView;
+        setBaseView(inflater, bindLayout());
+        return mContentView;
+    }
+
+    protected void setBaseView(@NonNull LayoutInflater inflater, @LayoutRes int layoutId) {
+        if (layoutId <= 0) return;
+        mContentView = inflater.inflate(layoutId, null);
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Log.d(TAG, "onViewCreated: ");
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = getArguments();
         initData(bundle);
-        Log.d(TAG, "onViewCreated: ");
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mActivity = (BaseActivity) getActivity();
-        initView(savedInstanceState, contentView);
-        doBusiness();
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         Log.d(TAG, "onActivityCreated: ");
+        super.onActivityCreated(savedInstanceState);
+        mActivity = getActivity();
+        initView(savedInstanceState, mContentView);
+        doBusiness();
     }
 
-    /**
-     * 判断是否快速点击
-     *
-     * @return {@code true}: 是<br>{@code false}: 否
-     */
+    @Override
+    public void onDestroyView() {
+        Log.d(TAG, "onDestroyView: ");
+        if (mContentView != null) {
+            ((ViewGroup) mContentView.getParent()).removeView(mContentView);
+        }
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.d(TAG, "onDestroy: ");
+        super.onDestroy();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        Log.d(TAG, "onSaveInstanceState: ");
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(STATE_SAVE_IS_HIDDEN, isHidden());
+    }
+
     private boolean isFastClick() {
         long now = System.currentTimeMillis();
         if (now - lastClick >= 200) {
@@ -95,24 +114,8 @@ public abstract class BaseFragment extends Fragment
         if (!isFastClick()) onWidgetClick(view);
     }
 
-    @Override
-    public void onDestroyView() {
-        if (contentView != null) {
-            ((ViewGroup) contentView.getParent()).removeView(contentView);
-        }
-        super.onDestroyView();
-        Log.d(TAG, "onDestroyView: ");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy: ");
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean(STATE_SAVE_IS_HIDDEN, isHidden());
+    public <T extends View> T findViewById(@IdRes int id) {
+        if (mContentView == null) throw new NullPointerException("ContentView is null.");
+        return mContentView.findViewById(id);
     }
 }

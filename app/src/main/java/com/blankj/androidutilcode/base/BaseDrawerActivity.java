@@ -19,7 +19,7 @@ import com.blankj.androidutilcode.R;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2017/06/27
- *     desc  : DrawerActivity基类
+ *     desc  : base about drawer activity
  * </pre>
  */
 public abstract class BaseDrawerActivity extends BaseActivity {
@@ -44,8 +44,8 @@ public abstract class BaseDrawerActivity extends BaseActivity {
 
     @Override
     protected void setBaseView(@LayoutRes int layoutId) {
-        contentView = LayoutInflater.from(this).inflate(R.layout.activity_drawer, null);
-        setContentView(contentView);
+        mContentView = LayoutInflater.from(this).inflate(R.layout.activity_drawer, null);
+        setContentView(mContentView);
         rootLayout = findViewById(R.id.root_layout);
         flActivityContainer = findViewById(R.id.activity_container);
         flActivityContainer.addView(LayoutInflater.from(this).inflate(layoutId, flActivityContainer, false));

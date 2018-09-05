@@ -186,7 +186,7 @@ public final class CameraUtils {
 //     * 获取拍照之后的照片文件（JPG格式）
 //     *
 //     * @param data     onActivityResult回调返回的数据
-//     * @param filePath 文件路径
+//     * @param filePath The path of file.
 //     * @return 文件
 //     */
 //    public static File getTakePictureFile(final Intent data, final String filePath) {
