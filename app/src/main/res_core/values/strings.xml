@@ -205,6 +205,7 @@
     <string name="permission_open_app_settings">Open App Settings</string>
     <string name="permission_request_calendar">Request Calendar</string>
     <string name="permission_request_record_audio">Request Record Audio</string>
+    <string name="permission_request_calendar_and_record_audio">Request Calendar And Record Audio</string>
 
 
     <!--Phone 相关-->

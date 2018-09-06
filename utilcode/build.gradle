@@ -11,4 +11,3 @@ apply {
     from('readme.gradle')
     from("../bintrayUpload.gradle")
 }
-//./gradlew bintrayUpload

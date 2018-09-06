@@ -34,4 +34,11 @@
         android:layout_height="wrap_content"
         android:text="@string/permission_request_record_audio" />
 
+    <Button
+        android:id="@+id/btn_request_calendar_and_record_audio"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/permission_request_calendar" />
+
 </LinearLayout>

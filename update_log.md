@@ -1,3 +1,6 @@
+* `18/09/06` 新增 PathUtils，发布 1.20.1
+* `18/09/05` 新增 KeyboardUtils#showSoftInputUsingToggle 和 KeyboardUtils#hideSoftInputUsingToggle
+* `18/09/04` 修复 SHA 算法名
 * `18/09/03` 新增 MetaDataUtils，发布 1.20.0
 * `18/08/30` 修复 PermissionUtils$PermissionActivity 的 window 背景为黑色的问题，发布 1.19.4
 * `18/08/28` 新增 RegexUtils#isIDCard18Exact
