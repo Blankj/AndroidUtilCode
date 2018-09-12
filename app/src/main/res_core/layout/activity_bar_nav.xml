@@ -29,13 +29,6 @@
         android:text="@string/bar_nav_hide" />
 
     <Button
-        android:id="@+id/btn_nav_immersive"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/bar_nav_immersive" />
-
-    <Button
         android:id="@+id/btn_nav_set_color"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,7 +32,7 @@ public final class ServiceUtils {
     public static Set getAllRunningServices() {
         ActivityManager am =
                 (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-        if (am == null) return Collections.emptySet();
+        //noinspection ConstantConditions
         List<RunningServiceInfo> info = am.getRunningServices(0x7FFFFFFF);
         Set<String> names = new HashSet<>();
         if (info == null || info.size() == 0) return null;
@@ -169,7 +168,7 @@ public final class ServiceUtils {
     public static boolean isServiceRunning(final String className) {
         ActivityManager am =
                 (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-        if (am == null) return false;
+        //noinspection ConstantConditions
         List<RunningServiceInfo> info = am.getRunningServices(0x7FFFFFFF);
         if (info == null || info.size() == 0) return false;
         for (RunningServiceInfo aInfo : info) {

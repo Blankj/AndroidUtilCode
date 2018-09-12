@@ -223,6 +223,8 @@
 
     <!--Screen 相关-->
     <string name="screen_set_fullscreen">Set Fullscreen</string>
+    <string name="screen_set_non_fullscreen">Set NonFullscreen</string>
+    <string name="screen_toggle_fullscreen">Toggle Fullscreen</string>
     <string name="screen_set_landscape">Set Landscape</string>
     <string name="screen_set_portrait">Set Portrait</string>
     <string name="screen_screenshot">Screenshot</string>

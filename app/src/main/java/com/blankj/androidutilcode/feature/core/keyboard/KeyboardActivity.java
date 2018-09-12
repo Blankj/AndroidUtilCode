@@ -2,6 +2,7 @@ package com.blankj.androidutilcode.feature.core.keyboard;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;

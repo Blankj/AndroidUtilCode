@@ -31,7 +31,11 @@ public abstract class BaseActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ScreenUtils.adaptScreen4VerticalSlide(this, 720);
+//        if (ScreenUtils.isPortrait()) {
+//            ScreenUtils.adaptScreen4VerticalSlide(this, 720);
+//        } else {
+//            ScreenUtils.adaptScreen4HorizontalSlide(this, 720);
+//        }
         super.onCreate(savedInstanceState);
         mActivity = this;
         Bundle bundle = getIntent().getExtras();

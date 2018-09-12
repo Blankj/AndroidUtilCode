@@ -2,36 +2,3 @@ include ':app',
         ':buildSrc',
         ':subutil',
         ':utilcode'
-
-//getRootPath: /system
-//getDataPath: /data
-//getInternalDownloadCachePath: /data/cache
-//getInternalAppCachePath: /data/user/0/com.blankj.androidutilcode/cache
-//getInternalAppFilesPath: /data/user/0/com.blankj.androidutilcode/files
-//getInternalAppDbPath: /data/user/0/com.blankj.androidutilcode/databases/demo
-//
-//
-//getExternalStoragePath: /storage/emulated/0
-//getExternalAlarmsPath: /storage/emulated/0/Alarms
-//getExternalDcimPath: /storage/emulated/0/DCIM
-//getExternalDocumentsPath: /storage/emulated/0/Documents
-//getExternalDownloadsPath: /storage/emulated/0/Download
-//getExternalMoviesPath: /storage/emulated/0/Movies
-//getExternalMusicPath: /storage/emulated/0/Music
-//getExternalNotificationsPath: /storage/emulated/0/Notifications
-//getExternalPicturesPath: /storage/emulated/0/Pictures
-//getExternalPodcastsPath: /storage/emulated/0/Podcasts
-//getExternalRingtonesPath: /storage/emulated/0/Ringtones
-//getExternalAppCachePath: /storage/emulated/0/Android/data/com.blankj.androidutilcode/cache
-//getExternalAppFilePath: /storage/emulated/0/Android/data/com.blankj.androidutilcode/files
-//getExternalAppAlarmsPath: /storage/emulated/0/Android/data/com.blankj.androidutilcode/files/Alarms
-//getExternalAppDcimPath: /storage/emulated/0/Android/data/com.blankj.androidutilcode/files/DCIM
-//getExternalAppDocumentsPath: /storage/emulated/0/Android/data/com.blankj.androidutilcode/files/Documents
-//getExternalAppDownloadPath: /storage/emulated/0/Android/data/com.blankj.androidutilcode/files/Download
-//getExternalAppMoviesPath: /storage/emulated/0/Android/data/com.blankj.androidutilcode/files/Movies
-//getExternalAppMusicPath: /storage/emulated/0/Android/data/com.blankj.androidutilcode/files/Music
-//getExternalAppNotificationsPath: /storage/emulated/0/Android/data/com.blankj.androidutilcode/files/Notifications
-//getExternalAppPicturesPath: /storage/emulated/0/Android/data/com.blankj.androidutilcode/files/Pictures
-//getExternalAppPodcastsPath: /storage/emulated/0/Android/data/com.blankj.androidutilcode/files/Podcasts
-//getExternalAppRingtonesPath: /storage/emulated/0/Android/data/com.blankj.androidutilcode/files/Ringtones
-//getObbPath: /storage/emulated/0/Android/obb/com.blankj.androidutilcode

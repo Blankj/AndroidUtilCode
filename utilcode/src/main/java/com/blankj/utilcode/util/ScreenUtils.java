@@ -41,13 +41,12 @@ public final class ScreenUtils {
      */
     public static int getScreenWidth() {
         WindowManager wm = (WindowManager) Utils.getApp().getSystemService(Context.WINDOW_SERVICE);
-        if (wm == null) {
-            return Utils.getApp().getResources().getDisplayMetrics().widthPixels;
-        }
         Point point = new Point();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            //noinspection ConstantConditions
             wm.getDefaultDisplay().getRealSize(point);
         } else {
+            //noinspection ConstantConditions
             wm.getDefaultDisplay().getSize(point);
         }
         return point.x;
@@ -60,13 +59,12 @@ public final class ScreenUtils {
      */
     public static int getScreenHeight() {
         WindowManager wm = (WindowManager) Utils.getApp().getSystemService(Context.WINDOW_SERVICE);
-        if (wm == null) {
-            return Utils.getApp().getResources().getDisplayMetrics().heightPixels;
-        }
         Point point = new Point();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            //noinspection ConstantConditions
             wm.getDefaultDisplay().getRealSize(point);
         } else {
+            //noinspection ConstantConditions
             wm.getDefaultDisplay().getSize(point);
         }
         return point.y;
@@ -78,7 +76,7 @@ public final class ScreenUtils {
      * @return the density of screen
      */
     public static float getScreenDensity() {
-        return Utils.getApp().getResources().getDisplayMetrics().density;
+        return Resources.getSystem().getDisplayMetrics().density;
     }
 
     /**
@@ -87,7 +85,7 @@ public final class ScreenUtils {
      * @return the screen density expressed as dots-per-inch
      */
     public static int getScreenDensityDpi() {
-        return Utils.getApp().getResources().getDisplayMetrics().densityDpi;
+        return Resources.getSystem().getDisplayMetrics().densityDpi;
     }
 
     /**
@@ -96,8 +94,7 @@ public final class ScreenUtils {
      * @param activity The activity.
      */
     public static void setFullScreen(@NonNull final Activity activity) {
-        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN
-                | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
     /**
@@ -106,8 +103,7 @@ public final class ScreenUtils {
      * @param activity The activity.
      */
     public static void setNonFullScreen(@NonNull final Activity activity) {
-        activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN
-                | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
     /**
@@ -249,7 +245,8 @@ public final class ScreenUtils {
     public static boolean isScreenLock() {
         KeyguardManager km =
                 (KeyguardManager) Utils.getApp().getSystemService(Context.KEYGUARD_SERVICE);
-        return km != null && km.inKeyguardRestrictedInputMode();
+        //noinspection ConstantConditions
+        return km.inKeyguardRestrictedInputMode();
     }
 
     /**

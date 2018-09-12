@@ -57,7 +57,6 @@ public class BarNavActivity extends BaseBackActivity {
         tvAboutNav = findViewById(R.id.tv_about_nav);
         findViewById(R.id.btn_nav_show).setOnClickListener(this);
         findViewById(R.id.btn_nav_hide).setOnClickListener(this);
-        findViewById(R.id.btn_nav_immersive).setOnClickListener(this);
         findViewById(R.id.btn_nav_set_color).setOnClickListener(this);
         updateAboutNav();
     }
@@ -71,21 +70,18 @@ public class BarNavActivity extends BaseBackActivity {
     public void onWidgetClick(View view) {
         switch (view.getId()) {
             case R.id.btn_nav_show:
-                BarUtils.setNavBarVisibility(this, true);
-                BarUtils.setStatusBarColor(this, ContextCompat.getColor(UtilsApp.getInstance(), R.color.colorPrimary), 0);
-                BarUtils.addMarginTopEqualStatusBarHeight(rootLayout);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    BarUtils.setNavBarVisibility(this, true);
+                }
                 break;
             case R.id.btn_nav_hide:
-                BarUtils.setNavBarVisibility(this, false);
-                break;
-            case R.id.btn_nav_immersive:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    BarUtils.setNavBarImmersive(this);
+                    BarUtils.setNavBarVisibility(this, false);
                 }
                 break;
             case R.id.btn_nav_set_color:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    BarUtils.setNavBarColor(this, Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
+                    BarUtils.setNavBarColor(this, Color.argb(random.nextInt(256), random.nextInt(256), random.nextInt(256), random.nextInt(256)));
                 }
                 break;
         }
@@ -97,13 +93,15 @@ public class BarNavActivity extends BaseBackActivity {
             tvAboutNav.setText(new SpanUtils()
                     .appendLine("navHeight: " + BarUtils.getNavBarHeight())
                     .appendLine("isNavBarVisible: " + BarUtils.isNavBarVisible(this))
-                    .append("getNavBarColor: #" + Integer.toHexString(BarUtils.getNavBarColor(this)))
+                    .appendLine("getNavBarColor: #" + Integer.toHexString(BarUtils.getNavBarColor(this)))
+                    .append("isSupportNavBar: " + BarUtils.isSupportNavBar())
                     .create()
             );
         } else {
             tvAboutNav.setText(new SpanUtils()
                     .appendLine("navHeight: " + BarUtils.getNavBarHeight())
                     .appendLine("isNavBarVisible: " + BarUtils.isNavBarVisible(this))
+                    .append("isSupportNavBar: " + BarUtils.isSupportNavBar())
                     .create()
             );
         }
@@ -113,6 +111,6 @@ public class BarNavActivity extends BaseBackActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        BarUtils.setNavBarImmersive(this);
+        BarUtils.setNavBarVisibility(this, BarUtils.isNavBarVisible(this));
     }
 }

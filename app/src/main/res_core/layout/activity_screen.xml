@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@android:color/darker_gray">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,6 +27,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/screen_set_fullscreen" />
+
+        <Button
+            android:id="@+id/btn_set_non_fullscreen"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/screen_set_non_fullscreen" />
+
+        <Button
+            android:id="@+id/btn_toggle_fullscreen"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/screen_toggle_fullscreen" />
 
         <Button
             android:id="@+id/btn_set_landscape"

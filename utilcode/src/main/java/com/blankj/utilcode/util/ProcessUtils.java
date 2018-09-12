@@ -47,7 +47,7 @@ public final class ProcessUtils {
     public static String getForegroundProcessName() {
         ActivityManager am =
                 (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-        if (am == null) return null;
+        //noinspection ConstantConditions
         List<ActivityManager.RunningAppProcessInfo> pInfo = am.getRunningAppProcesses();
         if (pInfo != null && pInfo.size() > 0) {
             for (ActivityManager.RunningAppProcessInfo aInfo : pInfo) {
@@ -73,20 +73,19 @@ public final class ProcessUtils {
                         pm.getApplicationInfo(Utils.getApp().getPackageName(), 0);
                 AppOpsManager aom =
                         (AppOpsManager) Utils.getApp().getSystemService(Context.APP_OPS_SERVICE);
-                if (aom != null) {
-                    if (aom.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
-                            info.uid,
-                            info.packageName) != AppOpsManager.MODE_ALLOWED) {
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        Utils.getApp().startActivity(intent);
-                    }
-                    if (aom.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
-                            info.uid,
-                            info.packageName) != AppOpsManager.MODE_ALLOWED) {
-                        Log.i("ProcessUtils",
-                                "getForegroundProcessName: refuse to device usage stats.");
-                        return "";
-                    }
+                //noinspection ConstantConditions
+                if (aom.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
+                        info.uid,
+                        info.packageName) != AppOpsManager.MODE_ALLOWED) {
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    Utils.getApp().startActivity(intent);
+                }
+                if (aom.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
+                        info.uid,
+                        info.packageName) != AppOpsManager.MODE_ALLOWED) {
+                    Log.i("ProcessUtils",
+                            "getForegroundProcessName: refuse to device usage stats.");
+                    return "";
                 }
                 UsageStatsManager usageStatsManager = (UsageStatsManager) Utils.getApp()
                         .getSystemService(Context.USAGE_STATS_SERVICE);
@@ -125,7 +124,7 @@ public final class ProcessUtils {
     public static Set<String> getAllBackgroundProcesses() {
         ActivityManager am =
                 (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-        if (am == null) return Collections.emptySet();
+        //noinspection ConstantConditions
         List<ActivityManager.RunningAppProcessInfo> info = am.getRunningAppProcesses();
         Set<String> set = new HashSet<>();
         if (info != null) {
@@ -147,7 +146,7 @@ public final class ProcessUtils {
     public static Set<String> killAllBackgroundProcesses() {
         ActivityManager am =
                 (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-        if (am == null) return Collections.emptySet();
+        //noinspection ConstantConditions
         List<ActivityManager.RunningAppProcessInfo> info = am.getRunningAppProcesses();
         Set<String> set = new HashSet<>();
         for (ActivityManager.RunningAppProcessInfo aInfo : info) {
@@ -177,7 +176,7 @@ public final class ProcessUtils {
     public static boolean killBackgroundProcesses(@NonNull final String packageName) {
         ActivityManager am =
                 (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-        if (am == null) return false;
+        //noinspection ConstantConditions
         List<ActivityManager.RunningAppProcessInfo> info = am.getRunningAppProcesses();
         if (info == null || info.size() == 0) return true;
         for (ActivityManager.RunningAppProcessInfo aInfo : info) {
@@ -211,7 +210,7 @@ public final class ProcessUtils {
      */
     public static String getCurrentProcessName() {
         ActivityManager am = (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-        if (am == null) return null;
+        //noinspection ConstantConditions
         List<ActivityManager.RunningAppProcessInfo> info = am.getRunningAppProcesses();
         if (info == null || info.size() == 0) return null;
         int pid = Process.myPid();

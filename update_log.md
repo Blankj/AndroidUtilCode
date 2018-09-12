@@ -1,3 +1,6 @@
+* `18/09/12` 修复 KeyBoardUtils#fixAndroidBug5497，完善 ToastUtils，发布 1.20.2
+* `18/09/11` 新增 BarUtils#isSupportNavBar，删除 BarUtils#setNavBarImmersive
+* `18/09/10` 修复 KeyboardUtils 中 getWindowVisibleDisplayFrame 空指针异常，更新 BarUtils#isNavBarVisible
 * `18/09/06` 新增 PathUtils，发布 1.20.1
 * `18/09/05` 新增 KeyboardUtils#showSoftInputUsingToggle 和 KeyboardUtils#hideSoftInputUsingToggle
 * `18/09/04` 修复 SHA 算法名

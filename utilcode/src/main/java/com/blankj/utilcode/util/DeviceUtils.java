@@ -315,14 +315,9 @@ public final class DeviceUtils {
      *               request special boot modes, or null.
      */
     public static void reboot(final String reason) {
-        PowerManager mPowerManager =
-                (PowerManager) Utils.getApp().getSystemService(Context.POWER_SERVICE);
-        try {
-            if (mPowerManager == null) return;
-            mPowerManager.reboot(reason);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        PowerManager pm = (PowerManager) Utils.getApp().getSystemService(Context.POWER_SERVICE);
+        //noinspection ConstantConditions
+        pm.reboot(reason);
     }
 
     /**

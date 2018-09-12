@@ -2,6 +2,7 @@ package com.blankj.androidutilcode.feature.core.screen;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -47,6 +48,8 @@ public class ScreenActivity extends BaseActivity {
         ivScreenshot = findViewById(R.id.iv_screenshot);
         tvAboutScreen = findViewById(R.id.tv_about_screen);
         findViewById(R.id.btn_set_fullscreen).setOnClickListener(this);
+        findViewById(R.id.btn_set_non_fullscreen).setOnClickListener(this);
+        findViewById(R.id.btn_toggle_fullscreen).setOnClickListener(this);
         findViewById(R.id.btn_set_landscape).setOnClickListener(this);
         findViewById(R.id.btn_set_portrait).setOnClickListener(this);
         findViewById(R.id.btn_screenshot).setOnClickListener(this);
@@ -67,6 +70,12 @@ public class ScreenActivity extends BaseActivity {
             case R.id.btn_set_fullscreen:
                 ScreenUtils.setFullScreen(this);
                 break;
+            case R.id.btn_set_non_fullscreen:
+                ScreenUtils.setNonFullScreen(this);
+                break;
+            case R.id.btn_toggle_fullscreen:
+                ScreenUtils.toggleFullScreen(this);
+                break;
             case R.id.btn_set_landscape:
                 ScreenUtils.setLandscape(this);
                 break;
@@ -78,12 +87,12 @@ public class ScreenActivity extends BaseActivity {
                 break;
             case R.id.btn_set_sleep_duration:
                 ScreenUtils.setSleepDuration(100000);
-                updateAboutScreen();
                 break;
             case R.id.btn_test_adapt_screen:
                 ScreenAdaptActivity.start(this);
                 break;
         }
+        updateAboutScreen();
     }
 
     private void updateAboutScreen() {

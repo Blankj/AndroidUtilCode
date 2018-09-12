@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.20.1'
+implementation 'com.blankj:utilcode:1.20.2'
 ```
 
 
@@ -73,10 +73,10 @@ getActionBarHeight                   : 获取 ActionBar 高度
 setNotificationBarVisibility         : 设置通知栏是否可见
 getNavBarHeight                      : 获取导航栏高度
 setNavBarVisibility                  : 设置导航栏是否可见
-setNavBarImmersive                   : 设置导航栏沉浸式
+isNavBarVisible                      : 判断导航栏是否可见
 setNavBarColor                       : 设置导航栏颜色
 getNavBarColor                       : 获取导航栏颜色
-isNavBarVisible                      : 判断导航栏是否可见
+isSupportNavBar                      : 判断是否支持导航栏
 ```
 
 * ### 磁盘缓存相关 -> [CacheDiskUtils.java][cache_disk.java] -> [Test][cache_disk.test]

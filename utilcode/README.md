@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.20.1'
+implementation 'com.blankj:utilcode:1.20.2'
 ```
 
 
@@ -77,6 +77,7 @@ setNavBarImmersive
 setNavBarColor
 getNavBarColor
 isNavBarVisible
+isSupportNavBar
 ```
 
 * ### About CacheDisk -> [CacheDiskUtils.java][cache_disk.java] -> [Test][cache_disk.test]
