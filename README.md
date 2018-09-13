@@ -32,7 +32,7 @@ If this project helps you a lot and you want to support the project's developmen
 
 ## Contact
 
-[![Blog][blogsvg]][blog] [![jianshu][jianshusvg]][jianshu] [![weibo][weibosvg]][weibo] [![QQ0Group][qq0groupsvg]][qq0group] [![QQ1Group][qq1groupsvg]][qq1group]
+[![Blog][blogsvg]][blog] [![jianshu][jianshusvg]][jianshu] [![weibo][weibosvg]][weibo] [![QQGroup][qqgroupsvg]][qqgroup]
 
 
 ## [Update Log][update_log.md]
@@ -78,8 +78,5 @@ If this project helps you a lot and you want to support the project's developmen
 [weibosvg]: https://img.shields.io/badge/weibo-@__Blankj-34a48e.svg
 [weibo]: http://weibo.com/3076228982
 
-[qq0groupsvg]: https://img.shields.io/badge/QQ0群(满)-74721490-ff73a3.svg
-[qq0group]: https://shang.qq.com/wpa/qunwpa?idkey=62baf2c3ec6b0863155b0c7a10c71bba2608cb0b6532fc18515835e54c69bdd3
-
-[qq1groupsvg]: https://img.shields.io/badge/QQ1群-25206533-ff73a3.svg
-[qq1group]: https://shang.qq.com/wpa/qunwpa?idkey=d906789f84484465e2736f7b524366b4c23afeda38733d5c7b10fc3f6e406e9b
+[qqgroupsvg]: https://img.shields.io/badge/QQ群-25206533-34a48e.svg
+[qqgroup]: https://shang.qq.com/wpa/qunwpa?idkey=d906789f84484465e2736f7b524366b4c23afeda38733d5c7b10fc3f6e406e9b
