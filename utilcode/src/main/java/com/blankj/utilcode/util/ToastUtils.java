@@ -3,6 +3,7 @@ package com.blankj.utilcode.util;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
@@ -333,13 +334,13 @@ public final class ToastUtils {
 
         static IToast makeToast(Context context, CharSequence text, int duration) {
             if (NotificationManagerCompat.from(context).areNotificationsEnabled()) {
-                return new SystemToast(Toast.makeText(context, text, duration));
+                return new SystemToast(makeNormalToast(context, text, duration));
             }
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
-                return new ToastWithoutNotification(Toast.makeText(context, text, duration));
+                return new ToastWithoutNotification(makeNormalToast(context, text, duration));
             }
             Log.e("ToastUtils", "Toast is GG. In fact, next step is useless.");
-            return new SystemToast(Toast.makeText(context, text, duration));
+            return new SystemToast(makeNormalToast(context, text, duration));
         }
 
         static IToast newToast(Context context) {
@@ -351,6 +352,21 @@ public final class ToastUtils {
             }
             Log.e("ToastUtils", "Toast is GG. In fact, next step is useless.");
             return new SystemToast(new Toast(context));
+        }
+
+        private static Toast makeNormalToast(Context context, CharSequence text, int duration) {
+            if ("Xiaomi".equals(Build.MANUFACTURER)) {
+                Toast toast = new Toast(context);
+                int identifier = Resources.getSystem()
+                        .getIdentifier("transient_notification", "layout", "android");
+                View view = getView(identifier);
+                toast.setView(view);
+                toast.setDuration(duration);
+                TextView tv = view.findViewById(android.R.id.message);
+                tv.setText(text);
+                return toast;
+            }
+            return Toast.makeText(context, text, duration);
         }
     }
 

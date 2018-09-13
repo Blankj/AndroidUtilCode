@@ -1,3 +1,4 @@
+* `18/09/13` 修复 ToastUtils 在小米手机显示 Toast 带有 App 名，发布 1.20.3
 * `18/09/12` 修复 KeyBoardUtils#fixAndroidBug5497，完善 ToastUtils，发布 1.20.2
 * `18/09/11` 新增 BarUtils#isSupportNavBar，删除 BarUtils#setNavBarImmersive
 * `18/09/10` 修复 KeyboardUtils 中 getWindowVisibleDisplayFrame 空指针异常，更新 BarUtils#isNavBarVisible
