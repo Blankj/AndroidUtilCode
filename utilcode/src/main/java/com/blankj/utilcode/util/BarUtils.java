@@ -502,6 +502,18 @@ public final class BarUtils {
         blue = (int) (blue * a + 0.5);
         return Color.argb(255, red, green, blue);
     }
+    
+     private static boolean isStatusBarLightMode(int color){
+        int redValue = Color.red(color);
+        int greenValue = Color.green(color);
+        int blueValue = Color.blue(color);
+        int[] colors = new int[]{redValue,greenValue,blueValue};
+        int grayLevel = (int) (colors[0] * 0.299 + colors[1] * 0.587 + colors[2] * 0.114);
+        if(grayLevel>=192){
+            return true;
+        }
+        return false;
+    }
 
     private static View createColorStatusBarView(final Context context,
                                                  final int color,
