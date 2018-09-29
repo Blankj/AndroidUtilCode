@@ -13,8 +13,10 @@ class ReadmeCorePlugin implements Plugin<Project> {
             doLast {
                 println "readmeTask start..."
 
-                def readmeCN = project['readme'].readmeCnFile
-                def readmeEng = project['readme'].readmeFile
+                def ext = project['readme'] as ReadmeExtension
+                def readmeCN = ext.readmeCnFile
+                def readmeEng = ext.readmeFile
+
                 readmeOfUtilCode2Eng(readmeCN, readmeEng)
 
                 println "readmeTask finished."

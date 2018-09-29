@@ -3,7 +3,6 @@ package com.blankj.utilcode.util;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
@@ -45,13 +44,13 @@ public final class ToastUtils {
     private static final String  NULL          = "null";
 
     private static IToast sToast;
-    private static int sGravity     = -1;
-    private static int sXOffset     = -1;
-    private static int sYOffset     = -1;
-    private static int sBgColor     = COLOR_DEFAULT;
-    private static int sBgResource  = -1;
-    private static int sMsgColor    = COLOR_DEFAULT;
-    private static int sMsgTextSize = -1;
+    private static int    sGravity     = -1;
+    private static int    sXOffset     = -1;
+    private static int    sYOffset     = -1;
+    private static int    sBgColor     = COLOR_DEFAULT;
+    private static int    sBgResource  = -1;
+    private static int    sMsgColor    = COLOR_DEFAULT;
+    private static int    sMsgTextSize = -1;
 
     private ToastUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -213,12 +212,23 @@ public final class ToastUtils {
         }
     }
 
-    private static void show(@StringRes final int resId, final int duration) {
-        show(Utils.getApp().getResources().getText(resId).toString(), duration);
+    private static void show(final int resId, final int duration) {
+        try {
+            CharSequence text = Utils.getApp().getResources().getText(resId);
+            show(text, duration);
+        } catch (Exception ignore) {
+            show(String.valueOf(resId), duration);
+        }
     }
 
-    private static void show(@StringRes final int resId, final int duration, final Object... args) {
-        show(String.format(Utils.getApp().getResources().getString(resId), args), duration);
+    private static void show(final int resId, final int duration, final Object... args) {
+        try {
+            CharSequence text = Utils.getApp().getResources().getText(resId);
+            String format = String.format(text.toString(), args);
+            show(format, duration);
+        } catch (Exception ignore) {
+            show(String.valueOf(resId), duration);
+        }
     }
 
     private static void show(final String format, final int duration, final Object... args) {
@@ -356,14 +366,12 @@ public final class ToastUtils {
 
         private static Toast makeNormalToast(Context context, CharSequence text, int duration) {
             if ("Xiaomi".equals(Build.MANUFACTURER)) {
+                @SuppressLint("ShowToast")
+                View view = Toast.makeText(context, "", duration).getView();
                 Toast toast = new Toast(context);
-                int identifier = Resources.getSystem()
-                        .getIdentifier("transient_notification", "layout", "android");
-                View view = getView(identifier);
                 toast.setView(view);
+                toast.setText(text);
                 toast.setDuration(duration);
-                TextView tv = view.findViewById(android.R.id.message);
-                tv.setText(text);
                 return toast;
             }
             return Toast.makeText(context, text, duration);

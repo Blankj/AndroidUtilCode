@@ -1,8 +1,13 @@
-apply {
-    plugin('com.android.library')
-    from('readme.gradle')
+plugins {
+    id "com.android.library"
+    id "readme-sub"
 }
 
 // in config.gradle
 configAndroidDomain project
 configSubUtilDependencies project
+
+readme {
+    readmeFile file('README.md')
+    readmeCnFile file('README-CN.md')
+}

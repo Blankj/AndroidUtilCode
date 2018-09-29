@@ -730,7 +730,7 @@ public final class LogUtils {
 
         public final <T> Config addFormatter(final IFormatter<T> iFormatter) {
             if (iFormatter != null) {
-                I_FORMATTER_MAP.put(getTypeClassFromInterface(iFormatter), iFormatter);
+                I_FORMATTER_MAP.put(getTypeClassFromParadigm(iFormatter), iFormatter);
             }
             return this;
         }
@@ -755,8 +755,8 @@ public final class LogUtils {
         }
     }
 
-    public interface IFormatter<T> {
-        String format(T t);
+    public abstract static class IFormatter<T> {
+        public abstract String format(T t);
     }
 
     private static class TagHead {
@@ -1014,10 +1014,15 @@ public final class LogUtils {
         }
     }
 
-    static <T> Class getTypeClassFromInterface(final IFormatter<T> callback) {
-        if (callback == null) return null;
-        Type mySuperClass = callback.getClass().getGenericInterfaces()[0];
-        Type type = ((ParameterizedType) mySuperClass).getActualTypeArguments()[0];
+    static <T> Class getTypeClassFromParadigm(final IFormatter<T> formatter) {
+        Type[] genericInterfaces = formatter.getClass().getGenericInterfaces();
+        Type type;
+        if (genericInterfaces.length == 1) {
+            type = genericInterfaces[0];
+        } else {
+            type = formatter.getClass().getGenericSuperclass();
+        }
+        type = ((ParameterizedType) type).getActualTypeArguments()[0];
         while (type instanceof ParameterizedType) {
             type = ((ParameterizedType) type).getRawType();
         }
@@ -1037,13 +1042,23 @@ public final class LogUtils {
 
     private static Class getClassFromObject(final Object obj) {
         Class objClass = obj.getClass();
-        Type[] genericInterfaces = objClass.getGenericInterfaces();
-        if (genericInterfaces.length == 1) {
-            Type type = genericInterfaces[0];
-            while (type instanceof ParameterizedType) {
-                type = ((ParameterizedType) type).getRawType();
+        if (objClass.isAnonymousClass() || objClass.isSynthetic()) {
+            Type[] genericInterfaces = objClass.getGenericInterfaces();
+            String className;
+            if (genericInterfaces.length == 1) {// interface
+                Type type = genericInterfaces[0];
+                while (type instanceof ParameterizedType) {
+                    type = ((ParameterizedType) type).getRawType();
+                }
+                className = type.toString();
+            } else {// abstract class or lambda
+                Type type = objClass.getGenericSuperclass();
+                while (type instanceof ParameterizedType) {
+                    type = ((ParameterizedType) type).getRawType();
+                }
+                className = type.toString();
             }
-            String className = type.toString();
+
             if (className.startsWith("class ")) {
                 className = className.substring(6);
             } else if (className.startsWith("interface ")) {

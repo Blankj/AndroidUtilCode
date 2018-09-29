@@ -3,11 +3,15 @@ plugins {
     id "com.github.dcendents.android-maven" version "2.1"
     id "com.jfrog.bintray" version "1.8.0"
     id "tech.harmonysoft.oss.traute" version "1.1.8"
+    id "readme-core"
 }
 // in config.gradle
 configAndroidDomain project
 configUtilCodeDependencies project
-apply {
-    from('readme.gradle')
-    from("../bintrayUpload.gradle")
+
+readme {
+    readmeFile file('README.md')
+    readmeCnFile file('README-CN.md')
 }
+
+apply from: "../gradle/bintrayUpload.gradle"

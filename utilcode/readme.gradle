@@ -1,6 +1,0 @@
-apply plugin: 'com.blankj.readme.core'
-
-readme {
-    readmeFile file('README.md')
-    readmeCnFile file('README-CN.md')
-}

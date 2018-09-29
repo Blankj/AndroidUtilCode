@@ -197,10 +197,14 @@ public final class KeyboardUtils {
 
     /**
      * Fix the bug of 5497 in Android.
+     * <p>Don't set adjustResize</p>
      *
      * @param activity The activity.
      */
     public static void fixAndroidBug5497(final Activity activity) {
+//        Window window = activity.getWindow();
+//        int softInputMode = window.getAttributes().softInputMode;
+//        window.setSoftInputMode(softInputMode & ~WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         final FrameLayout contentView = activity.findViewById(android.R.id.content);
         final View contentViewChild = contentView.getChildAt(0);
         final int paddingBottom = contentViewChild.getPaddingBottom();

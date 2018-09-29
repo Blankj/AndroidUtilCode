@@ -73,11 +73,11 @@ public final class Utils {
     public static void init(final Application app) {
         if (sApplication == null) {
             if (app == null) {
-                Utils.sApplication = getApplicationByReflect();
+                sApplication = getApplicationByReflect();
             } else {
-                Utils.sApplication = app;
+                sApplication = app;
             }
-            Utils.sApplication.registerActivityLifecycleCallbacks(ACTIVITY_LIFECYCLE);
+            sApplication.registerActivityLifecycleCallbacks(ACTIVITY_LIFECYCLE);
         }
     }
 
