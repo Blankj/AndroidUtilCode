@@ -365,16 +365,10 @@ public final class ToastUtils {
         }
 
         private static Toast makeNormalToast(Context context, CharSequence text, int duration) {
-            if ("Xiaomi".equals(Build.MANUFACTURER)) {
-                @SuppressLint("ShowToast")
-                View view = Toast.makeText(context, "", duration).getView();
-                Toast toast = new Toast(context);
-                toast.setView(view);
-                toast.setText(text);
-                toast.setDuration(duration);
-                return toast;
-            }
-            return Toast.makeText(context, text, duration);
+            @SuppressLint("ShowToast")
+            Toast toast = Toast.makeText(context, "", duration);
+            toast.setText(text);
+            return toast;
         }
     }
 

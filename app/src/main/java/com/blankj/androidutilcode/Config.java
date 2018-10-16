@@ -2,8 +2,6 @@ package com.blankj.androidutilcode;
 
 import android.os.Environment;
 
-import com.blankj.utilcode.util.BusUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
 
 import java.io.File;
@@ -16,7 +14,7 @@ import java.io.File;
  *     desc  : config about constants
  * </pre>
  */
-public class Config implements BusUtils.IBus {
+public class Config {
 
     public static final String FILE_SEP = System.getProperty("file.separator");
     public static final String LINE_SEP = System.getProperty("line.separator");
@@ -36,15 +34,5 @@ public class Config implements BusUtils.IBus {
         }
         TEST_APK_PATH = CACHE_PATH + FILE_SEP + "test_install.apk";
 
-    }
-
-    @Override
-    public String getName() {
-        return "Config";
-    }
-
-    @Override
-    public void onEvent() {
-        ToastUtils.showShort("config");
     }
 }

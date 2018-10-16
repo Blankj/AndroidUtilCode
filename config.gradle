@@ -7,15 +7,17 @@ ext {
             minSdkVersion    : 14,
             targetSdkVersion : 27,
             versionCode      : 1_020_004,
-            versionName      : '1.20.4'// E.g. 1.9.72 => 1,009,072
+            versionName      : '1.20.4.10'// E.g. 1.9.72 => 1,009,072
     ]
 
     versionConfig = [
             // plugin
-            gradle       : '3.2.0',
+            gradle       : '3.2.1',
             kotlin       : '1.2.30',
             // lib
             support      : '27.1.1',
+            constraint   : '1.0.2',
+            bus          : '1.0',
             gson         : '2.8.2',
             glide        : '4.7.1',
             leakcanary   : '1.5.4',
@@ -34,11 +36,13 @@ ext {
                     appcompat_v7: "com.android.support:appcompat-v7:$versionConfig.support",
                     design      : "com.android.support:design:$versionConfig.support",
             ],
+            constraint          : "com.android.support.constraint:constraint-layout:$versionConfig.constraint",
             kotlin_stdlib_jdk7  : "org.jetbrains.kotlin:kotlin-stdlib-jdk7",
             leakcanary          : [
                     android      : "com.squareup.leakcanary:leakcanary-android:$versionConfig.leakcanary",
                     android_no_op: "com.squareup.leakcanary:leakcanary-android-no-op:$versionConfig.leakcanary",
             ],
+            bus                 : "com.blankj:bus:$versionConfig.bus",
             gson                : "com.google.code.gson:gson:$versionConfig.gson",
             glide               : "com.github.bumptech.glide:glide:$versionConfig.glide",
             retrofit            : "com.squareup.retrofit2:retrofit:$versionConfig.retrofit",
@@ -167,6 +171,7 @@ def configAppDependencies(Project pro) {
 
         implementation depConfig.support.appcompat_v7
         implementation depConfig.support.design
+        implementation depConfig.constraint
         implementation depConfig.free_proguard
         implementation 'com.r0adkll:slidableactivity:2.0.5'
         // LeakCanary
@@ -178,6 +183,8 @@ def configAppDependencies(Project pro) {
 
 def configUtilCodeDependencies(Project pro) {
     pro.dependencies {
+        api depConfig.bus
+
         compileOnly depConfig.support.appcompat_v7
         compileOnly depConfig.support.design
 

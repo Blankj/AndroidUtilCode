@@ -508,6 +508,30 @@ public final class FileUtils {
     /**
      * Delete the directory.
      *
+     * @param filePath The path of file.
+     * @return {@code true}: success<br>{@code false}: fail
+     */
+    public static boolean delete(final String filePath) {
+        return delete(getFileByPath(filePath));
+    }
+
+    /**
+     * Delete the directory.
+     *
+     * @param file The file.
+     * @return {@code true}: success<br>{@code false}: fail
+     */
+    public static boolean delete(final File file) {
+        if (file == null) return false;
+        if (file.isDirectory()) {
+            return deleteDir(file);
+        }
+        return deleteFile(file);
+    }
+
+    /**
+     * Delete the directory.
+     *
      * @param dirPath The path of directory.
      * @return {@code true}: success<br>{@code false}: fail
      */

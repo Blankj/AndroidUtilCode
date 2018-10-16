@@ -2,7 +2,6 @@ plugins {
     id "com.android.application"
 //    id "com.blankj.bus"
 }
-
 // in config.gradle
 configAndroidDomain project
 configAppDependencies project

@@ -1,7 +1,5 @@
 package com.blankj.utilcode.util;
 
-import android.util.Log;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -287,28 +285,18 @@ public final class ZipUtils {
             throws IOException {
         if (zipFile == null || destDir == null) return null;
         List<File> files = new ArrayList<>();
-        ZipFile zf = new ZipFile(zipFile);
-        Enumeration<?> entries = zf.entries();
+        ZipFile zip = new ZipFile(zipFile);
+        Enumeration<?> entries = zip.entries();
         if (isSpace(keyword)) {
             while (entries.hasMoreElements()) {
                 ZipEntry entry = ((ZipEntry) entries.nextElement());
-                String entryName = entry.getName();
-                if (entryName.contains("../")) {
-                    Log.e("ZipUtils", "it's dangerous!");
-                    return files;
-                }
-                if (!unzipChildFile(destDir, files, zf, entry, entryName)) return files;
+                if (!unzipChildFile(destDir, files, zip, entry)) return files;
             }
         } else {
             while (entries.hasMoreElements()) {
                 ZipEntry entry = ((ZipEntry) entries.nextElement());
-                String entryName = entry.getName();
-                if (entryName.contains("../")) {
-                    Log.e("ZipUtils", "it's dangerous!");
-                    return files;
-                }
-                if (entryName.contains(keyword)) {
-                    if (!unzipChildFile(destDir, files, zf, entry, entryName)) return files;
+                if (entry.getName().contains(keyword)) {
+                    if (!unzipChildFile(destDir, files, zip, entry)) return files;
                 }
             }
         }
@@ -317,20 +305,18 @@ public final class ZipUtils {
 
     private static boolean unzipChildFile(final File destDir,
                                           final List<File> files,
-                                          final ZipFile zf,
-                                          final ZipEntry entry,
-                                          final String entryName) throws IOException {
-        String filePath = destDir + File.separator + entryName;
-        File file = new File(filePath);
+                                          final ZipFile zip,
+                                          final ZipEntry entry) throws IOException {
+        File file = new File(destDir, entry.getName());
         files.add(file);
         if (entry.isDirectory()) {
-            if (!createOrExistsDir(file)) return false;
+            return createOrExistsDir(file);
         } else {
             if (!createOrExistsFile(file)) return false;
             InputStream in = null;
             OutputStream out = null;
             try {
-                in = new BufferedInputStream(zf.getInputStream(entry));
+                in = new BufferedInputStream(zip.getInputStream(entry));
                 out = new BufferedOutputStream(new FileOutputStream(file));
                 byte buffer[] = new byte[BUFFER_LEN];
                 int len;

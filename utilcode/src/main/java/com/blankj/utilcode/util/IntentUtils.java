@@ -2,6 +2,7 @@ package com.blankj.utilcode.util;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,7 +38,10 @@ public final class IntentUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isIntentAvailable(final Intent intent) {
-        return Utils.getApp().getPackageManager().queryIntentActivities(intent, 0).size() > 0;
+        return Utils.getApp()
+                .getPackageManager()
+                .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+                .size() > 0;
     }
 
     /**

@@ -252,6 +252,7 @@ copyDir                   : 复制目录
 copyFile                  : 复制文件
 moveDir                   : 移动目录
 moveFile                  : 移动文件
+delete                    : 删除文件或目录
 deleteDir                 : 删除目录
 deleteFile                : 删除文件
 deleteAllInDir            : 删除目录下所有东西
