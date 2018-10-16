@@ -173,6 +173,7 @@ init
 * ### About Device -> [DeviceUtils.java][device.java] -> [Demo][device.demo]
 ```
 isDeviceRooted
+isAdbEnabled
 getSDKVersionName
 getSDKVersionCode
 getAndroidID
@@ -252,6 +253,7 @@ copyDir
 copyFile
 moveDir
 moveFile
+delete
 deleteDir
 deleteFile
 deleteAllInDir

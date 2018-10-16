@@ -12,7 +12,6 @@ import com.blankj.androidutilcode.base.BaseDrawerActivity;
 import com.blankj.androidutilcode.feature.core.CoreUtilActivity;
 import com.blankj.androidutilcode.feature.sub.SubUtilActivity;
 import com.blankj.utilcode.util.BarUtils;
-import com.blankj.utilcode.util.EncryptUtils;
 
 /**
  * <pre>
