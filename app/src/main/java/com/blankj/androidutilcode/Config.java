@@ -33,6 +33,5 @@ public class Config {
             CACHE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath();
         }
         TEST_APK_PATH = CACHE_PATH + FILE_SEP + "test_install.apk";
-
     }
 }

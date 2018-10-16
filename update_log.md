@@ -1,3 +1,4 @@
+* `18/10/16` [add] BusUtils, DeviceUtils#isAdbEnabled. Publish v1.21.0.
 * `18/09/29` [fix] ToastUtils which causes crash in the some devices of Xiaomi. Publish v1.20.4.
 * `18/09/13` 修复 ToastUtils 在小米手机显示 Toast 带有 App 名，发布 1.20.3
 * `18/09/12` 修复 KeyBoardUtils#fixAndroidBug5497，完善 ToastUtils，发布 1.20.2

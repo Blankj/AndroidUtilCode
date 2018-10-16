@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.20.4'
+implementation 'com.blankj:utilcode:1.21.0'
 ```
 
 
@@ -173,6 +173,7 @@ init: 初始化
 * ### 设备相关 -> [DeviceUtils.java][device.java] -> [Demo][device.demo]
 ```
 isDeviceRooted   : 判断设备是否 rooted
+isAdbEnabled     : 判断设备 ADB 是否可用
 getSDKVersionName: 获取设备系统版本号
 getSDKVersionCode: 获取设备系统版本码
 getAndroidID     : 获取设备 AndroidID

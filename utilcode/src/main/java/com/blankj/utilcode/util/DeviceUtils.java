@@ -8,6 +8,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.RequiresPermission;
 import android.text.TextUtils;
 
@@ -49,6 +50,19 @@ public final class DeviceUtils {
             }
         }
         return false;
+    }
+
+    /**
+     * Return whether ADB is enabled.
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public static boolean isAdbEnabled() {
+        return Settings.Secure.getInt(
+                Utils.getApp().getContentResolver(),
+                Settings.Global.ADB_ENABLED, 0
+        ) > 0;
     }
 
     /**

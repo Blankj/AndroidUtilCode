@@ -2,6 +2,7 @@ package com.blankj.androidutilcode.feature.core.device;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -48,17 +49,32 @@ public class DeviceActivity extends BaseBackActivity {
         findViewById(R.id.btn_reboot_to_recovery).setOnClickListener(this);
         findViewById(R.id.btn_reboot_to_bootloader).setOnClickListener(this);
         TextView tvAboutDevice = findViewById(R.id.tv_about_device);
-        tvAboutDevice.setText(new SpanUtils()
-                .appendLine("isRoot: " + DeviceUtils.isDeviceRooted())
-                .appendLine("getSDKVersionName: " + DeviceUtils.getSDKVersionName())
-                .appendLine("getSDKVersionCode: " + DeviceUtils.getSDKVersionCode())
-                .appendLine("getAndroidID: " + DeviceUtils.getAndroidID())
-                .appendLine("getMacAddress: " + DeviceUtils.getMacAddress())
-                .appendLine("getManufacturer: " + DeviceUtils.getManufacturer())
-                .appendLine("getModel: " + DeviceUtils.getModel())
-                .append("getABIs: " + Arrays.asList(DeviceUtils.getABIs()))
-                .create()
-        );
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            tvAboutDevice.setText(new SpanUtils()
+                    .appendLine("isRoot: " + DeviceUtils.isDeviceRooted())
+                    .appendLine("isAdbEnabled: " + DeviceUtils.isAdbEnabled())
+                    .appendLine("getSDKVersionName: " + DeviceUtils.getSDKVersionName())
+                    .appendLine("getSDKVersionCode: " + DeviceUtils.getSDKVersionCode())
+                    .appendLine("getAndroidID: " + DeviceUtils.getAndroidID())
+                    .appendLine("getMacAddress: " + DeviceUtils.getMacAddress())
+                    .appendLine("getManufacturer: " + DeviceUtils.getManufacturer())
+                    .appendLine("getModel: " + DeviceUtils.getModel())
+                    .append("getABIs: " + Arrays.asList(DeviceUtils.getABIs()))
+                    .create()
+            );
+        } else {
+            tvAboutDevice.setText(new SpanUtils()
+                    .appendLine("isRoot: " + DeviceUtils.isDeviceRooted())
+                    .appendLine("getSDKVersionName: " + DeviceUtils.getSDKVersionName())
+                    .appendLine("getSDKVersionCode: " + DeviceUtils.getSDKVersionCode())
+                    .appendLine("getAndroidID: " + DeviceUtils.getAndroidID())
+                    .appendLine("getMacAddress: " + DeviceUtils.getMacAddress())
+                    .appendLine("getManufacturer: " + DeviceUtils.getManufacturer())
+                    .appendLine("getModel: " + DeviceUtils.getModel())
+                    .append("getABIs: " + Arrays.asList(DeviceUtils.getABIs()))
+                    .create()
+            );
+        }
     }
 
     @Override
