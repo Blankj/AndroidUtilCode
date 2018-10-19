@@ -12,8 +12,8 @@ ext {
 
     versionConfig = [
             // plugin
-            gradle       : '3.2.0',
-            kotlin       : '1.2.30',
+            gradle       : '3.2.1',
+            kotlin       : '1.2.71',
             // lib
             support      : '27.1.1',
             constraint   : '1.0.2',
@@ -37,7 +37,7 @@ ext {
                     design      : "com.android.support:design:$versionConfig.support",
             ],
             constraint          : "com.android.support.constraint:constraint-layout:$versionConfig.constraint",
-            kotlin_stdlib_jdk7  : "org.jetbrains.kotlin:kotlin-stdlib-jdk7",
+            kotlin_stdlib_jdk7  : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versionConfig.kotlin",
             leakcanary          : [
                     android      : "com.squareup.leakcanary:leakcanary-android:$versionConfig.leakcanary",
                     android_no_op: "com.squareup.leakcanary:leakcanary-android-no-op:$versionConfig.leakcanary",

@@ -1341,11 +1341,12 @@ public final class FragmentUtils {
      * @param fm The manager of fragment.
      */
     public static void popAll(@NonNull final FragmentManager fm, final boolean isImmediate) {
-        while (fm.getBackStackEntryCount() > 0) {
+        if (fm.getBackStackEntryCount() > 0) {
+            FragmentManager.BackStackEntry entry = fm.getBackStackEntryAt(0);
             if (isImmediate) {
-                fm.popBackStackImmediate();
+                fm.popBackStackImmediate(entry.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
             } else {
-                fm.popBackStack();
+                fm.popBackStack(entry.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         }
     }

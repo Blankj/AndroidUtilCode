@@ -8,6 +8,7 @@ buildscript {
 
     dependencies {
         classpath depConfig.gradle
+        classpath 'com.blankj:bus-gradle-plugin:1.0'
 //        classpath depConfig.kotlin_gradle_plugin
     }
 }
