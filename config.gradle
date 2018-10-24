@@ -177,7 +177,7 @@ def configAppDependencies(Project pro) {
         // LeakCanary
         debugImplementation depConfig.leakcanary.android
         releaseImplementation depConfig.leakcanary.android_no_op
-//        implementation 'com.blankj:utilcode:1.21.0'
+//        implementation 'com.blankj:utilcode:1.21.1'
     }
 }
 
