@@ -130,19 +130,16 @@ public final class SpanUtils {
 
     private SpannableStringBuilder mBuilder;
 
-    private int mType;
+    private       int mType;
     private final int mTypeCharSequence = 0;
     private final int mTypeImage        = 1;
     private final int mTypeSpace        = 2;
 
-    private CharSequence fontSizeTagCS = "[SpanUtils]";
-
-
     public SpanUtils() {
         mBuilder = new SpannableStringBuilder();
         mText = "";
+        mType = -1;
         setDefault();
-        append(fontSizeTagCS);
     }
 
     private void setDefault() {
@@ -179,17 +176,6 @@ public final class SpanUtils {
         imageResourceId = -1;
 
         spaceSize = -1;
-    }
-
-    /**
-     * The character used to get the font size (span start with image)
-     *
-     * @param fontSizeTagCS The character
-     * @return the single {@link SpanUtils} instance
-     */
-    public SpanUtils setFontSizeTagCS(CharSequence fontSizeTagCS) {
-        this.fontSizeTagCS = fontSizeTagCS;
-        return this;
     }
 
     /**
@@ -765,7 +751,7 @@ public final class SpanUtils {
      */
     public SpannableStringBuilder create() {
         applyLast();
-        return mBuilder.delete(0, fontSizeTagCS.length());
+        return mBuilder;
     }
 
     private void applyLast() {
@@ -885,6 +871,10 @@ public final class SpanUtils {
 
     private void updateImage() {
         int start = mBuilder.length();
+        if (start == 0) {
+            mBuilder.append(Character.toString((char) 2));
+            start = 1;
+        }
         mBuilder.append("<img>");
         int end = start + 5;
         if (imageBitmap != null) {
