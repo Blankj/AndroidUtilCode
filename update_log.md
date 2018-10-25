@@ -1,3 +1,4 @@
+* `18/10/25` [fix] SpanUtils#setLineHeight bug of multi lines. Publish v1.21.2.
 * `18/10/24` [fix] SpanUtils#appendImage on VIVO. Publish v1.21.1.
 * `18/10/16` [add] BusUtils, DeviceUtils#isAdbEnabled. Publish v1.21.0.
 * `18/09/29` [fix] ToastUtils which causes crash in the some devices of Xiaomi. Publish v1.20.4.

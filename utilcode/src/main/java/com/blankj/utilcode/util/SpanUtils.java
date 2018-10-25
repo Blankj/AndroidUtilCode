@@ -915,27 +915,27 @@ public final class SpanUtils {
         public void chooseHeight(final CharSequence text, final int start, final int end,
                                  final int spanstartv, final int v, final Paint.FontMetricsInt fm) {
             int need = height - (v + fm.descent - fm.ascent - spanstartv);
-//            if (need > 0) {
-            if (mVerticalAlignment == ALIGN_TOP) {
-                fm.descent += need;
-            } else if (mVerticalAlignment == ALIGN_CENTER) {
-                fm.descent += need / 2;
-                fm.ascent -= need / 2;
-            } else {
-                fm.ascent -= need;
+            if (need > 0) {
+                if (mVerticalAlignment == ALIGN_TOP) {
+                    fm.descent += need;
+                } else if (mVerticalAlignment == ALIGN_CENTER) {
+                    fm.descent += need / 2;
+                    fm.ascent -= need / 2;
+                } else {
+                    fm.ascent -= need;
+                }
             }
-//            }
             need = height - (v + fm.bottom - fm.top - spanstartv);
-//            if (need > 0) {
-            if (mVerticalAlignment == ALIGN_TOP) {
-                fm.top += need;
-            } else if (mVerticalAlignment == ALIGN_CENTER) {
-                fm.bottom += need / 2;
-                fm.top -= need / 2;
-            } else {
-                fm.top -= need;
+            if (need > 0) {
+                if (mVerticalAlignment == ALIGN_TOP) {
+                    fm.top += need;
+                } else if (mVerticalAlignment == ALIGN_CENTER) {
+                    fm.bottom += need / 2;
+                    fm.top -= need / 2;
+                } else {
+                    fm.top -= need;
+                }
             }
-//            }
         }
 
         @Override
