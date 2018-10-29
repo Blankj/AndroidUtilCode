@@ -61,7 +61,7 @@ public class SpanActivity extends BaseBackActivity {
 
     float    density;
     TextView tvAboutSpan;
-    TextView tvAboutAnimRainbow;
+    TextView tvAboutAnimSpan;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, SpanActivity.class);
@@ -96,7 +96,7 @@ public class SpanActivity extends BaseBackActivity {
         };
 
         tvAboutSpan = findViewById(R.id.tv_about_span);
-        tvAboutAnimRainbow = findViewById(R.id.tv_about_anim_span);
+        tvAboutAnimSpan = findViewById(R.id.tv_about_anim_span);
 
         // 响应点击事件的话必须设置以下属性
         tvAboutSpan.setMovementMethod(LinkMovementMethod.getInstance());
@@ -111,6 +111,27 @@ public class SpanActivity extends BaseBackActivity {
 
 
         tvAboutSpan.setText(new SpanUtils()
+                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_TOP)
+                .append("大图").setBackgroundColor(Color.LTGRAY)
+                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_TOP)
+                .append("顶部").setBackgroundColor(Color.LTGRAY)
+                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_TOP)
+                .appendLine("对齐").setBackgroundColor(Color.LTGRAY)
+
+                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_CENTER)
+                .append("大图").setBackgroundColor(Color.GREEN)
+                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_CENTER)
+                .append("居中").setBackgroundColor(Color.GREEN)
+                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_CENTER)
+                .appendLine("对齐").setBackgroundColor(Color.GREEN)
+
+                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_BOTTOM)
+                .append("大图").setBackgroundColor(Color.LTGRAY)
+                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_BOTTOM)
+                .append("底部").setBackgroundColor(Color.LTGRAY)
+                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_BOTTOM)
+                .appendLine("对齐").setBackgroundColor(Color.LTGRAY)
+
                 .appendLine("SpanUtils").setBackgroundColor(Color.LTGRAY).setBold().setForegroundColor(Color.YELLOW).setAlign(Layout.Alignment.ALIGN_CENTER)
                 .appendLine("前景色").setForegroundColor(Color.GREEN)
                 .appendLine("背景色").setBackgroundColor(Color.LTGRAY)
@@ -157,27 +178,6 @@ public class SpanActivity extends BaseBackActivity {
                 .append("底部").setBackgroundColor(Color.GREEN)
                 .appendImage(R.drawable.shape_spannable_block_low, SpanUtils.ALIGN_BOTTOM)
                 .appendLine("对齐").setBackgroundColor(Color.GREEN)
-
-                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_TOP)
-                .append("大图").setBackgroundColor(Color.LTGRAY)
-                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_TOP)
-                .append("顶部").setBackgroundColor(Color.LTGRAY)
-                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_TOP)
-                .appendLine("对齐").setBackgroundColor(Color.LTGRAY)
-
-                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_CENTER)
-                .append("大图").setBackgroundColor(Color.GREEN)
-                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_CENTER)
-                .append("居中").setBackgroundColor(Color.GREEN)
-                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_CENTER)
-                .appendLine("对齐").setBackgroundColor(Color.GREEN)
-
-                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_BOTTOM)
-                .append("大图").setBackgroundColor(Color.LTGRAY)
-                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_BOTTOM)
-                .append("底部").setBackgroundColor(Color.LTGRAY)
-                .appendImage(R.drawable.shape_spannable_block_high, SpanUtils.ALIGN_BOTTOM)
-                .appendLine("对齐").setBackgroundColor(Color.LTGRAY)
 
                 .append("测试空格").appendSpace(30, Color.LTGRAY).appendSpace(50, Color.GREEN).appendSpace(100).appendSpace(30, Color.LTGRAY).appendSpace(50, Color.GREEN)
                 .create());
@@ -239,7 +239,7 @@ public class SpanActivity extends BaseBackActivity {
                 mForegroundAlphaColorSpanGroup.setAlpha((Float) animation.getAnimatedValue());
 
                 // update
-                tvAboutAnimRainbow.setText(animSsb);
+                tvAboutAnimSpan.setText(animSsb);
             }
         });
 
