@@ -8,6 +8,7 @@
     android:padding="@dimen/spacing_16">
 
     <TextView
+        android:background="@color/light_black"
         android:id="@+id/tv_about_anim_span"
         style="@style/TextStyle"
         android:layout_width="match_parent"
