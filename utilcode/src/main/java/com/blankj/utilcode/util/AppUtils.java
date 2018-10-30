@@ -6,7 +6,6 @@ import android.app.ActivityManager;
 import android.app.AppOpsManager;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -421,12 +420,22 @@ public final class AppUtils {
      * Relaunch the application.
      */
     public static void relaunchApp() {
+        relaunchApp(false);
+    }
+
+    /**
+     * Relaunch the application.
+     *
+     * @param isKillProcess True to kill the process, false otherwise.
+     */
+    public static void relaunchApp(final boolean isKillProcess) {
         PackageManager packageManager = Utils.getApp().getPackageManager();
         Intent intent = packageManager.getLaunchIntentForPackage(Utils.getApp().getPackageName());
         if (intent == null) return;
-        ComponentName componentName = intent.getComponent();
-        Intent mainIntent = Intent.makeRestartActivityTask(componentName);
-        Utils.getApp().startActivity(mainIntent);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Utils.getApp().startActivity(intent);
+        if (!isKillProcess) return;
+        android.os.Process.killProcess(android.os.Process.myPid());
         System.exit(0);
     }
 

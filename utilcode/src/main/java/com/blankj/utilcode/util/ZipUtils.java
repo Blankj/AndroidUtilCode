@@ -287,18 +287,22 @@ public final class ZipUtils {
         List<File> files = new ArrayList<>();
         ZipFile zip = new ZipFile(zipFile);
         Enumeration<?> entries = zip.entries();
-        if (isSpace(keyword)) {
-            while (entries.hasMoreElements()) {
-                ZipEntry entry = ((ZipEntry) entries.nextElement());
-                if (!unzipChildFile(destDir, files, zip, entry)) return files;
-            }
-        } else {
-            while (entries.hasMoreElements()) {
-                ZipEntry entry = ((ZipEntry) entries.nextElement());
-                if (entry.getName().contains(keyword)) {
+        try {
+            if (isSpace(keyword)) {
+                while (entries.hasMoreElements()) {
+                    ZipEntry entry = ((ZipEntry) entries.nextElement());
                     if (!unzipChildFile(destDir, files, zip, entry)) return files;
                 }
+            } else {
+                while (entries.hasMoreElements()) {
+                    ZipEntry entry = ((ZipEntry) entries.nextElement());
+                    if (entry.getName().contains(keyword)) {
+                        if (!unzipChildFile(destDir, files, zip, entry)) return files;
+                    }
+                }
             }
+        } finally {
+            zip.close();
         }
         return files;
     }
@@ -358,10 +362,12 @@ public final class ZipUtils {
             throws IOException {
         if (zipFile == null) return null;
         List<String> paths = new ArrayList<>();
-        Enumeration<?> entries = new ZipFile(zipFile).entries();
+        ZipFile zip = new ZipFile(zipFile);
+        Enumeration<?> entries = zip.entries();
         while (entries.hasMoreElements()) {
             paths.add(((ZipEntry) entries.nextElement()).getName());
         }
+        zip.close();
         return paths;
     }
 
@@ -388,11 +394,13 @@ public final class ZipUtils {
             throws IOException {
         if (zipFile == null) return null;
         List<String> comments = new ArrayList<>();
-        Enumeration<?> entries = new ZipFile(zipFile).entries();
+        ZipFile zip = new ZipFile(zipFile);
+        Enumeration<?> entries = zip.entries();
         while (entries.hasMoreElements()) {
             ZipEntry entry = ((ZipEntry) entries.nextElement());
             comments.add(entry.getComment());
         }
+        zip.close();
         return comments;
     }
 
