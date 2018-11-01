@@ -184,6 +184,12 @@ public final class EncodeUtils {
         }
     }
 
+    /**
+     * Return the binary encoded string padded with one space
+     *
+     * @param input
+     * @return binary string
+     */
     public static String binEncode(final String input) {
         StringBuilder stringBuilder = new StringBuilder();
         for (char i : input.toCharArray()) {
@@ -192,6 +198,13 @@ public final class EncodeUtils {
         }
         return stringBuilder.toString();
     }
+
+    /**
+     * Return UTF-8 String from binary
+     * 
+     * @param input binary string
+     * @return UTF-8 String
+     */
     public static  String binDecode(final String input){
         String[] splitted = input.split(" ");
         StringBuilder sb = new StringBuilder();
