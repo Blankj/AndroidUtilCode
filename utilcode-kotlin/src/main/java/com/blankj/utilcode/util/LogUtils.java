@@ -400,7 +400,6 @@ public final class LogUtils {
             Log.println(type, tag, msg);
             return;
         }
-        StringBuilder sb = new StringBuilder();
         String[] lines = msg.split(LINE_SEP);
         for (String line : lines) {
             Log.println(type, tag, LEFT_BORDER + line);
@@ -575,16 +574,6 @@ public final class LogUtils {
 
     private static boolean createOrExistsDir(final File file) {
         return file != null && (file.exists() ? file.isDirectory() : file.mkdirs());
-    }
-
-    private static boolean isSpace(final String s) {
-        if (s == null) return true;
-        for (int i = 0, len = s.length(); i < len; ++i) {
-            if (!Character.isWhitespace(s.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
     }
 
     private static void input2File(final String input, final String filePath) {

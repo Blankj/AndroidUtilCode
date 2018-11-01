@@ -1,5 +1,7 @@
 package com.blankj.utilcode.util;
 
+import android.util.Log;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -291,12 +293,22 @@ public final class ZipUtils {
             if (isSpace(keyword)) {
                 while (entries.hasMoreElements()) {
                     ZipEntry entry = ((ZipEntry) entries.nextElement());
+                    String entryName = entry.getName();
+                    if (entryName.contains("../")) {
+                        Log.e("ZipUtils", "it's dangerous!");
+                        return files;
+                    }
                     if (!unzipChildFile(destDir, files, zip, entry)) return files;
                 }
             } else {
                 while (entries.hasMoreElements()) {
                     ZipEntry entry = ((ZipEntry) entries.nextElement());
-                    if (entry.getName().contains(keyword)) {
+                    String entryName = entry.getName();
+                    if (entryName.contains("../")) {
+                        Log.e("ZipUtils", "it's dangerous!");
+                        return files;
+                    }
+                    if (entryName.contains(keyword)) {
                         if (!unzipChildFile(destDir, files, zip, entry)) return files;
                     }
                 }
