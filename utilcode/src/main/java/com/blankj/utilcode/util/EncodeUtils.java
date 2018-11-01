@@ -183,4 +183,21 @@ public final class EncodeUtils {
             return Html.fromHtml(input);
         }
     }
+
+    public static String binEncode(final String input) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (char i : input.toCharArray()) {
+              stringBuilder.append(Integer.toBinaryString(i));
+              stringBuilder.append(' ');
+        }
+        return stringBuilder.toString();
+    }
+    public static  String binDecode(final String input){
+        String[] splitted = input.split(" ");
+        StringBuilder sb = new StringBuilder();
+        for(String i : splitted){
+            sb.append(((char) Integer.parseInt(i.replace(" ", ""), 2)));
+        }
+        return sb.toString();
+    }
 }
