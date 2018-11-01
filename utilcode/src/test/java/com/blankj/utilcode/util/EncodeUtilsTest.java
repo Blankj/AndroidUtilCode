@@ -70,4 +70,10 @@ public class EncodeUtilsTest extends BaseTest {
 
         assertEquals(html, EncodeUtils.htmlDecode(encodeHtml).toString());
     }
+    @Test
+    public void binEncode_binDecode(){
+        String test = "test";
+        String binary = EncodeUtils.binEncode(test);
+        assertEquals("test", EncodeUtils.binDecode(binary));
+    }
 }
