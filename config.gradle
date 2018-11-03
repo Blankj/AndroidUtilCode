@@ -160,6 +160,10 @@ def configLibAndroidDomain(Project pro) {
             }
         }
     }
+
+    pro.afterEvaluate {
+        generateReleaseBuildConfig.enabled = false
+    }
 }
 
 
