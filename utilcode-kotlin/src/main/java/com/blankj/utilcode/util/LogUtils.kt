@@ -69,7 +69,7 @@ private val CONFIG = Config()
 
 private val EXECUTOR = Executors.newSingleThreadExecutor()
 
-private val I_FORMATTER_MAP = SimpleArrayMap<Class<*>, IFormatter<*>>()
+private val I_FORMATTER_MAP = SimpleArrayMap<Class<*>, IFormatter<Any>>()
 
 fun getConfig(): Config {
     return CONFIG
@@ -173,21 +173,35 @@ fun xml(@TYPE type: Int, tag: String, content: String) {
 
 fun log(type: Int, tag: String?, vararg contents: Any) {
     if (!CONFIG.mLogSwitch || !CONFIG.mLog2ConsoleSwitch && !CONFIG.mLog2FileSwitch) return
-    val type_low = type and 0x0f
-    val type_high = type and 0xf0
-    if (type_low < CONFIG.mConsoleFilter && type_low < CONFIG.mFileFilter) return
+    val typeLow = type and 0x0f
+    val typeHigh = type and 0xf0
+    if (typeLow < CONFIG.mConsoleFilter && typeLow < CONFIG.mFileFilter) return
     val tagHead = processTagAndHead(tag)
-    val body = processBody(type_high, *contents)
-    if (CONFIG.mLog2ConsoleSwitch && type_low >= CONFIG.mConsoleFilter && type_high != FILE) {
-        print2Console(type_low, tagHead.tag, tagHead.consoleHead, body)
+    val body = processBody(typeHigh, *contents)
+    if (CONFIG.mLog2ConsoleSwitch && typeLow >= CONFIG.mConsoleFilter && typeHigh != FILE) {
+        print2Console(typeLow, tagHead.tag, tagHead.consoleHead, body)
     }
-    if ((CONFIG.mLog2FileSwitch || type_high == FILE) && type_low >= CONFIG.mFileFilter) {
-        print2File(type_low, tagHead.tag, tagHead.fileHead + body)
+    if ((CONFIG.mLog2FileSwitch || typeHigh == FILE) && typeLow >= CONFIG.mFileFilter) {
+        print2File(typeLow, tagHead.tag, tagHead.fileHead + body)
     }
 }
 
+
+fun isSpace(s: String?): Boolean {
+    if (s == null) return true
+    var i = 0
+    val len = s.length
+    while (i < len) {
+        if (!Character.isWhitespace(s[i])) {
+            return false
+        }
+        ++i
+    }
+    return true
+}
+
 private fun processTagAndHead(tag: String?): TagHead {
-    var tag = tag
+    var tag = NULL
     if (!CONFIG.mTagIsSpace && !CONFIG.mLogHeadSwitch) {
         tag = CONFIG.mGlobalTag
     } else {
@@ -196,7 +210,7 @@ private fun processTagAndHead(tag: String?): TagHead {
         if (stackIndex >= stackTrace.size) {
             val targetElement = stackTrace[3]
             val fileName = getFileName(targetElement)
-            if (CONFIG.mTagIsSpace && isSpace(tag)) {
+            if (CONFIG.mTagIsSpace) {
                 val index = fileName.indexOf('.')// Use proguard may not find '.'.
                 tag = if (index == -1) fileName else fileName.substring(0, index)
             }
@@ -304,19 +318,21 @@ private fun formatObject(obj: Any?): String {
     if (!I_FORMATTER_MAP.isEmpty) {
         val iFormatter = I_FORMATTER_MAP.get(getClassFromObject(obj))
         if (iFormatter != null) {
-
             return iFormatter.format(obj)
         }
     }
-    if (obj.javaClass.isArray) return LogFormatter.array2String(obj)
-    if (obj is Throwable) return LogFormatter.throwable2String(obj as Throwable?)
-    if (obj is Bundle) return LogFormatter.bundle2String((obj as Bundle?)!!)
-    return if (obj is Intent) LogFormatter.intent2String((obj as Intent?)!!) else obj.toString()
+    return when {
+        obj.javaClass.isArray -> return LogFormatter.array2String(obj)
+        obj is Throwable -> return LogFormatter.throwable2String(obj)
+        obj is Bundle -> return LogFormatter.bundle2String(obj)
+        obj is Intent -> LogFormatter.intent2String(obj)
+        else -> obj.toString()
+    }
 }
 
 private fun print2Console(type: Int,
                           tag: String,
-                          head: Array<String>,
+                          head: Array<String?>?,
                           msg: String) {
     if (CONFIG.mSingleTagSwitch) {
         printSingleTagMsg(type, tag, processSingleTagMsg(type, tag, head, msg))
@@ -334,7 +350,7 @@ private fun printBorder(type: Int, tag: String, isTop: Boolean) {
     }
 }
 
-private fun printHead(type: Int, tag: String, head: Array<String>?) {
+private fun printHead(type: Int, tag: String, head: Array<String?>?) {
     if (head != null) {
         for (aHead in head) {
             Log.println(type, tag, if (CONFIG.mLogBorderSwitch) LEFT_BORDER + aHead else aHead)
@@ -374,7 +390,7 @@ private fun printSubMsg(type: Int, tag: String, msg: String) {
 
 private fun processSingleTagMsg(type: Int,
                                 tag: String,
-                                head: Array<String>?,
+                                head: Array<String?>?,
                                 msg: String): String {
     val sb = StringBuilder()
     sb.append(PLACEHOLDER).append(LINE_SEP)
@@ -477,29 +493,27 @@ private fun createOrExistsFile(filePath: String): Boolean {
 
 private fun deleteDueLogs(filePath: String) {
     val file = File(filePath)
-    val parentFile = file.getParentFile()
-    val files = parentFile.listFiles(object : FilenameFilter() {
-        fun accept(dir: File, name: String): Boolean {
-            return name.matches(("^" + CONFIG.mFilePrefix + "-[0-9]{4}-[0-9]{2}-[0-9]{2}.txt$").toRegex())
-        }
-    })
-    if (files.size <= 0) return
+    val parentFile = file.parentFile
+    val files = parentFile.listFiles { _, name ->
+        name.matches(("^" + CONFIG.mFilePrefix + "-[0-9]{4}-[0-9]{2}-[0-9]{2}.txt$").toRegex())
+    }
+    if (files.isEmpty()) return
     val length = filePath.length
     val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     try {
         val curDay = filePath.substring(length - 14, length - 4)
-        val dueMillis = sdf.parse(curDay).getTime() - CONFIG.mSaveDays * 86400000L
+        val dueMillis = sdf.parse(curDay).time - CONFIG.mSaveDays * 86400000L
         for (aFile in files) {
             val name = aFile.getName()
             val l = name.length
             val logDay = name.substring(l - 14, l - 4)
-            if (sdf.parse(logDay).getTime() <= dueMillis) {
-                EXECUTOR.execute(Runnable {
+            if (sdf.parse(logDay).time <= dueMillis) {
+                EXECUTOR.execute {
                     val delete = aFile.delete()
                     if (!delete) {
                         Log.e("LogUtils", "delete $aFile failed!")
                     }
-                })
+                }
             }
         }
     } catch (e: ParseException) {
@@ -512,12 +526,12 @@ private fun printDeviceInfo(filePath: String) {
     var versionName = ""
     var versionCode = 0
     try {
-        val pi = Utils.getApp()
-                .getPackageManager()
-                .getPackageInfo(Utils.getApp().getPackageName(), 0)
+        val pi = getApp()
+                .packageManager
+                .getPackageInfo(getApp().packageName, 0)
         if (pi != null) {
-            versionName = pi!!.versionName
-            versionCode = pi!!.versionCode
+            versionName = pi.versionName
+            versionCode = pi.versionCode
         }
     } catch (e: PackageManager.NameNotFoundException) {
         e.printStackTrace()
@@ -568,7 +582,7 @@ class Config internal constructor() {
     var mFilePrefix = "util"// The file prefix of log.
     var mLogSwitch = true  // The switch of log.
     var mLog2ConsoleSwitch = true  // The logcat's switch of log.
-    var mGlobalTag: String? = null  // The global tag of log.
+    var mGlobalTag: String = ""  // The global tag of log.
     var mTagIsSpace = true  // The global tag is space.
     var mLogHeadSwitch = true  // The head's switch of log.
     var mLog2FileSwitch = false // The file's switch of log.
@@ -581,11 +595,13 @@ class Config internal constructor() {
     var mSaveDays = -1    // The save days of log.
 
     init {
-        if (mDefaultDir != null) return
-        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) && Utils.getApp().getExternalCacheDir() != null)
-            mDefaultDir = Utils.getApp().getExternalCacheDir() + FILE_SEP + "log" + FILE_SEP
-        else {
-            mDefaultDir = Utils.getApp().getCacheDir() + FILE_SEP + "log" + FILE_SEP
+        if (mDefaultDir == null) {
+            if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
+                    && getApp().externalCacheDir != null)
+                mDefaultDir = getApp().externalCacheDir.toString() + FILE_SEP + "log" + FILE_SEP
+            else {
+                mDefaultDir = getApp().cacheDir.toString() + FILE_SEP + "log" + FILE_SEP
+            }
         }
     }
 
@@ -678,10 +694,8 @@ class Config internal constructor() {
         return this
     }
 
-    fun <T> addFormatter(iFormatter: IFormatter<T>?): Config {
-        if (iFormatter != null) {
-            I_FORMATTER_MAP.put(getTypeClassFromParadigm(iFormatter), iFormatter)
-        }
+    fun addFormatter(iFormatter: IFormatter<Any>): Config {
+        I_FORMATTER_MAP.put(getTypeClassFromParadigm(iFormatter), iFormatter)
         return this
     }
 
@@ -709,7 +723,7 @@ abstract class IFormatter<T> {
 }
 
 private class TagHead internal constructor(internal var tag: String,
-                                           internal var consoleHead: Array<String>,
+                                           internal var consoleHead: Array<String?>?,
                                            internal var fileHead: String)
 
 private object LogFormatter {
