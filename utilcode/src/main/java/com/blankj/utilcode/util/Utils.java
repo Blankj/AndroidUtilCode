@@ -8,8 +8,6 @@ import android.app.Application.ActivityLifecycleCallbacks;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 import android.util.DisplayMetrics;
 
@@ -45,6 +43,9 @@ public final class Utils {
     private static Application sApplication;
 
     private static final ActivityLifecycleImpl ACTIVITY_LIFECYCLE = new ActivityLifecycleImpl();
+
+    private final static String PERMISSION_ACTIVITY_CLASS_NAME =
+            "com.blankj.utilcode.util.PermissionUtils$PermissionActivity";
 
     private Utils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -277,7 +278,7 @@ public final class Utils {
         }
 
         private void setTopActivity(final Activity activity) {
-            if (activity.getClass() == PermissionUtils.PermissionActivity.class) return;
+            if (PERMISSION_ACTIVITY_CLASS_NAME.equals(activity.getClass().getName())) return;
             if (mActivityList.contains(activity)) {
                 if (!mActivityList.getLast().equals(activity)) {
                     mActivityList.remove(activity);

@@ -7,7 +7,6 @@ import com.blankj.androidutilcode.base.BaseApplication;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.squareup.leakcanary.LeakCanary;
 
 import java.util.ArrayList;

@@ -18,6 +18,8 @@ import java.util.*
 private var sApplication: Application? = null
 
 private val ACTIVITY_LIFECYCLE = ActivityLifecycleImpl()
+private const val PERMISSION_ACTIVITY_CLASS_NAME =
+        "com.blankj.utilcode.util.PermissionUtils\$PermissionUtils.PermissionActivity"
 
 /**
  * Init utils.
@@ -190,6 +192,7 @@ internal class ActivityLifecycleImpl : ActivityLifecycleCallbacks {
             return topActivityByReflect
         }
         private set(activity) {
+            if (PERMISSION_ACTIVITY_CLASS_NAME == activity?.javaClass?.name) return;
             if (activity?.javaClass == PermissionUtils.PermissionActivity::class.java) return
             if (mActivityList.contains(activity)) {
                 if (!mActivityList.last.equals(activity)) {
