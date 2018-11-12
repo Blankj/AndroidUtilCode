@@ -1,5 +1,4 @@
 include ':app',
         ':buildSrc',
         ':subutil',
-        ':utilcode',
-        ':utilcode-kotlin'
+        ':utilcode'

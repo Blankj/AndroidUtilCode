@@ -111,6 +111,16 @@ public final class NetworkUtils {
         return ret;
     }
 
+
+    @RequiresPermission(INTERNET)
+    public static void isAvailableByDns(String ip) {
+
+    }
+
+    public interface Callback {
+        void call(boolean isSuccess);
+    }
+
     /**
      * Return whether mobile data is enabled.
      *

@@ -161,6 +161,7 @@ def configAppDependencies(Project pro) {
     pro.dependencies {
         implementation fileTree(include: ['*.jar'], dir: 'app/libs')
         implementation project(':utilcode')
+//        implementation project(':utilcode-kotlin')
         implementation project(':subutil')
 
         implementation dep.support.appcompat_v7

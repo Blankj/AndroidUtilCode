@@ -526,9 +526,9 @@ private fun printDeviceInfo(filePath: String) {
     var versionName = ""
     var versionCode = 0
     try {
-        val pi = getApp()
+        val pi = Utils.getApp()
                 .packageManager
-                .getPackageInfo(getApp().packageName, 0)
+                .getPackageInfo(Utils.getApp().packageName, 0)
         if (pi != null) {
             versionName = pi.versionName
             versionCode = pi.versionCode
@@ -597,10 +597,10 @@ class Config internal constructor() {
     init {
         if (mDefaultDir == null) {
             if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
-                    && getApp().externalCacheDir != null)
-                mDefaultDir = getApp().externalCacheDir.toString() + FILE_SEP + "log" + FILE_SEP
+                    && Utils.getApp().externalCacheDir != null)
+                mDefaultDir = Utils.getApp().externalCacheDir.toString() + FILE_SEP + "log" + FILE_SEP
             else {
-                mDefaultDir = getApp().cacheDir.toString() + FILE_SEP + "log" + FILE_SEP
+                mDefaultDir = Utils.getApp().cacheDir.toString() + FILE_SEP + "log" + FILE_SEP
             }
         }
     }

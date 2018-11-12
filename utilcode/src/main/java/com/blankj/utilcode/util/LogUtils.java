@@ -33,7 +33,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.UnknownHostException;
-import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -94,13 +93,13 @@ public final class LogUtils {
     private static final String MIDDLE_BORDER  = MIDDLE_CORNER + MIDDLE_DIVIDER + MIDDLE_DIVIDER;
     private static final String BOTTOM_BORDER  = BOTTOM_CORNER + SIDE_DIVIDER + SIDE_DIVIDER;
     private static final int    MAX_LEN        = 3000;
-    private static final Format FORMAT         =
-            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS ", Locale.getDefault());
     private static final String NOTHING        = "log nothing";
     private static final String NULL           = "null";
     private static final String ARGS           = "args";
     private static final String PLACEHOLDER    = " ";
     private static final Config CONFIG         = new Config();
+
+    private static final ThreadLocal<SimpleDateFormat> SDF_THREAD_LOCAL = new ThreadLocal<>();
 
     private static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
 
@@ -472,7 +471,7 @@ public final class LogUtils {
 
     private static void print2File(final int type, final String tag, final String msg) {
         Date now = new Date(System.currentTimeMillis());
-        String format = FORMAT.format(now);
+        String format = getSdf().format(now);
         String date = format.substring(0, 10);
         String time = format.substring(11);
         final String fullPath =
@@ -492,6 +491,16 @@ public final class LogUtils {
         final String content = sb.toString();
         input2File(content, fullPath);
     }
+
+    private static SimpleDateFormat getSdf() {
+        SimpleDateFormat simpleDateFormat = SDF_THREAD_LOCAL.get();
+        if (simpleDateFormat == null) {
+            simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            SDF_THREAD_LOCAL.set(simpleDateFormat);
+        }
+        return simpleDateFormat;
+    }
+
 
     private static boolean createOrExistsFile(final String filePath) {
         File file = new File(filePath);
@@ -612,8 +621,8 @@ public final class LogUtils {
     }
 
     public static class Config {
-        private String mDefaultDir;// The default storage directory of log.
-        private String mDir;       // The storage directory of log.
+        private String  mDefaultDir;// The default storage directory of log.
+        private String  mDir;       // The storage directory of log.
         private String  mFilePrefix        = "util";// The file prefix of log.
         private boolean mLogSwitch         = true;  // The switch of log.
         private boolean mLog2ConsoleSwitch = true;  // The logcat's switch of log.
