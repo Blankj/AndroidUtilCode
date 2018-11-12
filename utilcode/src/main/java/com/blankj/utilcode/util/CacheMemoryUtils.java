@@ -2,9 +2,11 @@ package com.blankj.utilcode.util;
 
 import android.support.annotation.NonNull;
 import android.support.v4.util.LruCache;
-import android.support.v4.util.SimpleArrayMap;
 
 import com.blankj.utilcode.constant.CacheConstants;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * <pre>
@@ -18,7 +20,7 @@ public final class CacheMemoryUtils implements CacheConstants {
 
     private static final int DEFAULT_MAX_COUNT = 256;
 
-    private static final SimpleArrayMap<String, CacheMemoryUtils> CACHE_MAP = new SimpleArrayMap<>();
+    private static final Map<String, CacheMemoryUtils> CACHE_MAP = new ConcurrentHashMap<>();
 
     private final String                       mCacheKey;
     private final LruCache<String, CacheValue> mMemoryCache;

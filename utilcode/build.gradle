@@ -10,6 +10,8 @@ plugins {
 configAndroidDomain project
 configUtilCodeDependencies project
 
+//dependencies.add("implementation", dep.kotlin_stdlib_jdk7)
+
 readme {
     readmeFile file('README.md')
     readmeCnFile file('README-CN.md')

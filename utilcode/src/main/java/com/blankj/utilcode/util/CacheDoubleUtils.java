@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.support.v4.util.SimpleArrayMap;
 
 import com.blankj.utilcode.constant.CacheConstants;
 
@@ -12,6 +11,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * <pre>
@@ -23,9 +24,10 @@ import java.io.Serializable;
  */
 public final class CacheDoubleUtils implements CacheConstants {
 
-    private static final SimpleArrayMap<String, CacheDoubleUtils> CACHE_MAP = new SimpleArrayMap<>();
-    private CacheMemoryUtils mCacheMemoryUtils;
-    private CacheDiskUtils   mCacheDiskUtils;
+    private static final Map<String, CacheDoubleUtils> CACHE_MAP = new ConcurrentHashMap<>();
+
+    private final CacheMemoryUtils mCacheMemoryUtils;
+    private final CacheDiskUtils   mCacheDiskUtils;
 
     /**
      * Return the single {@link CacheDoubleUtils} instance.

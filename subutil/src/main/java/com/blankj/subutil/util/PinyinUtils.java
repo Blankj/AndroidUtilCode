@@ -103,8 +103,8 @@ public final class PinyinUtils {
             else if (str.equals("单于")) return "chanyu";
         }
         char ch = name.charAt(0);
-        if (surnames.containsKey(ch)) {
-            return surnames.get(ch);
+        if (SURNAMES.containsKey(ch)) {
+            return SURNAMES.get(ch);
         }
         if (ch >= 0x4E00 && ch <= 0x9FA5) {
             int sp = (ch - 0x4E00) * 6;
@@ -127,7 +127,7 @@ public final class PinyinUtils {
     }
 
     // 多音字姓氏映射表
-    private static final SimpleArrayMap<Character, String> surnames;
+    private static final SimpleArrayMap<Character, String> SURNAMES;
 
     /**
      * 获取拼音对照表，对比过pinyin4j和其他方式，这样查表设计的好处就是读取快
@@ -138,42 +138,42 @@ public final class PinyinUtils {
     private static final String pinyinTable;
 
     static {
-        surnames = new SimpleArrayMap<>(35);
-        surnames.put('乐', "yue");
-        surnames.put('乘', "sheng");
-        surnames.put('乜', "nie");
-        surnames.put('仇', "qiu");
-        surnames.put('会', "gui");
-        surnames.put('便', "pian");
-        surnames.put('区', "ou");
-        surnames.put('单', "shan");
-        surnames.put('参', "shen");
-        surnames.put('句', "gou");
-        surnames.put('召', "shao");
-        surnames.put('员', "yun");
-        surnames.put('宓', "fu");
-        surnames.put('弗', "fei");
-        surnames.put('折', "she");
-        surnames.put('曾', "zeng");
-        surnames.put('朴', "piao");
-        surnames.put('查', "zha");
-        surnames.put('洗', "xian");
-        surnames.put('盖', "ge");
-        surnames.put('祭', "zhai");
-        surnames.put('种', "chong");
-        surnames.put('秘', "bi");
-        surnames.put('繁', "po");
-        surnames.put('缪', "miao");
-        surnames.put('能', "nai");
-        surnames.put('蕃', "pi");
-        surnames.put('覃', "qin");
-        surnames.put('解', "xie");
-        surnames.put('谌', "shan");
-        surnames.put('适', "kuo");
-        surnames.put('都', "du");
-        surnames.put('阿', "e");
-        surnames.put('难', "ning");
-        surnames.put('黑', "he");
+        SURNAMES = new SimpleArrayMap<>(35);
+        SURNAMES.put('乐', "yue");
+        SURNAMES.put('乘', "sheng");
+        SURNAMES.put('乜', "nie");
+        SURNAMES.put('仇', "qiu");
+        SURNAMES.put('会', "gui");
+        SURNAMES.put('便', "pian");
+        SURNAMES.put('区', "ou");
+        SURNAMES.put('单', "shan");
+        SURNAMES.put('参', "shen");
+        SURNAMES.put('句', "gou");
+        SURNAMES.put('召', "shao");
+        SURNAMES.put('员', "yun");
+        SURNAMES.put('宓', "fu");
+        SURNAMES.put('弗', "fei");
+        SURNAMES.put('折', "she");
+        SURNAMES.put('曾', "zeng");
+        SURNAMES.put('朴', "piao");
+        SURNAMES.put('查', "zha");
+        SURNAMES.put('洗', "xian");
+        SURNAMES.put('盖', "ge");
+        SURNAMES.put('祭', "zhai");
+        SURNAMES.put('种', "chong");
+        SURNAMES.put('秘', "bi");
+        SURNAMES.put('繁', "po");
+        SURNAMES.put('缪', "miao");
+        SURNAMES.put('能', "nai");
+        SURNAMES.put('蕃', "pi");
+        SURNAMES.put('覃', "qin");
+        SURNAMES.put('解', "xie");
+        SURNAMES.put('谌', "shan");
+        SURNAMES.put('适', "kuo");
+        SURNAMES.put('都', "du");
+        SURNAMES.put('阿', "e");
+        SURNAMES.put('难', "ning");
+        SURNAMES.put('黑', "he");
 
         //noinspection StringBufferReplaceableByString
         pinyinTable = new StringBuilder(125412)

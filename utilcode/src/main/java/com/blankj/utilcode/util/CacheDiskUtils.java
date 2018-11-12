@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.support.v4.util.SimpleArrayMap;
 
 import com.blankj.utilcode.constant.CacheConstants;
 
@@ -33,6 +32,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -49,7 +49,8 @@ public final class CacheDiskUtils implements CacheConstants {
     private static final long DEFAULT_MAX_SIZE  = Long.MAX_VALUE;
     private static final int  DEFAULT_MAX_COUNT = Integer.MAX_VALUE;
 
-    private static final SimpleArrayMap<String, CacheDiskUtils> CACHE_MAP = new SimpleArrayMap<>();
+    private static final Map<String, CacheDiskUtils> CACHE_MAP = new ConcurrentHashMap<>();
+
     private final String           mCacheKey;
     private final DiskCacheManager mDiskCacheManager;
 
@@ -602,14 +603,14 @@ public final class CacheDiskUtils implements CacheConstants {
     }
 
     private static final class DiskCacheManager {
-        private final AtomicLong    cacheSize;
-        private final AtomicInteger cacheCount;
-        private final long          sizeLimit;
-        private final int           countLimit;
+        private final AtomicLong      cacheSize;
+        private final AtomicInteger   cacheCount;
+        private final long            sizeLimit;
+        private final int             countLimit;
         private final Map<File, Long> lastUsageDates
                 = Collections.synchronizedMap(new HashMap<File, Long>());
-        private final File   cacheDir;
-        private final Thread mThread;
+        private final File            cacheDir;
+        private final Thread          mThread;
 
         private DiskCacheManager(final File cacheDir, final long sizeLimit, final int countLimit) {
             this.cacheDir = cacheDir;
