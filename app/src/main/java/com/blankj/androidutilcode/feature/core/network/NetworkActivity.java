@@ -23,8 +23,8 @@ import com.blankj.utilcode.util.ThreadUtils;
  */
 public class NetworkActivity extends BaseBackActivity {
 
-    TextView tvAboutNetwork;
-    TextView tvAboutNetworkAsync;
+    TextView               tvAboutNetwork;
+    TextView               tvAboutNetworkAsync;
     ThreadUtils.SimpleTask mSimpleTask = new ThreadUtils.SimpleTask<String>() {
         @Override
         public String doInBackground() {

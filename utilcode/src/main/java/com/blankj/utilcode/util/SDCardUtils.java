@@ -28,7 +28,7 @@ public final class SDCardUtils {
     /**
      * Return whether sdcard is enabled by environment.
      *
-     * @return true : enabled<br>false : disabled
+     * @return {@code true}: enabled<br>{@code false}: disabled
      */
     public static boolean isSDCardEnableByEnvironment() {
         return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
@@ -49,7 +49,7 @@ public final class SDCardUtils {
     /**
      * Return whether sdcard is enabled.
      *
-     * @return true : enabled<br>false : disabled
+     * @return {@code true}: enabled<br>{@code false}: disabled
      */
     public static boolean isSDCardEnable() {
         return !getSDCardPaths().isEmpty();

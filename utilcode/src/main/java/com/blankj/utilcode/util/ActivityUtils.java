@@ -13,6 +13,7 @@ import android.support.annotation.AnimRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
+import android.util.Log;
 import android.view.View;
 
 import java.util.List;
@@ -504,9 +505,10 @@ public final class ActivityUtils {
      * Start the activity.
      *
      * @param intent The description of the activity to start.
+     * @return {@code true}: success<br>{@code false}: fail
      */
-    public static void startActivity(@NonNull final Intent intent) {
-        startActivity(intent, Utils.getTopActivityOrApp(), null);
+    public static boolean startActivity(@NonNull final Intent intent) {
+        return startActivity(intent, Utils.getTopActivityOrApp(), null);
     }
 
     /**
@@ -514,10 +516,11 @@ public final class ActivityUtils {
      *
      * @param intent  The description of the activity to start.
      * @param options Additional options for how the Activity should be started.
+     * @return {@code true}: success<br>{@code false}: fail
      */
-    public static void startActivity(@NonNull final Intent intent,
-                                     @NonNull final Bundle options) {
-        startActivity(intent, Utils.getTopActivityOrApp(), options);
+    public static boolean startActivity(@NonNull final Intent intent,
+                                        @NonNull final Bundle options) {
+        return startActivity(intent, Utils.getTopActivityOrApp(), options);
     }
 
     /**
@@ -528,15 +531,19 @@ public final class ActivityUtils {
      *                  incoming activity.
      * @param exitAnim  A resource ID of the animation resource to use for the
      *                  outgoing activity.
+     * @return {@code true}: success<br>{@code false}: fail
      */
-    public static void startActivity(@NonNull final Intent intent,
-                                     @AnimRes final int enterAnim,
-                                     @AnimRes final int exitAnim) {
+    public static boolean startActivity(@NonNull final Intent intent,
+                                        @AnimRes final int enterAnim,
+                                        @AnimRes final int exitAnim) {
         Context context = Utils.getTopActivityOrApp();
-        startActivity(intent, context, getOptionsBundle(context, enterAnim, exitAnim));
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context instanceof Activity) {
-            ((Activity) context).overridePendingTransition(enterAnim, exitAnim);
+        boolean isSuccess = startActivity(intent, context, getOptionsBundle(context, enterAnim, exitAnim));
+        if (isSuccess) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context instanceof Activity) {
+                ((Activity) context).overridePendingTransition(enterAnim, exitAnim);
+            }
         }
+        return isSuccess;
     }
 
     /**
@@ -1505,9 +1512,13 @@ public final class ActivityUtils {
         startActivity(intent, context, options);
     }
 
-    private static void startActivity(final Intent intent,
-                                      final Context context,
-                                      final Bundle options) {
+    private static boolean startActivity(final Intent intent,
+                                         final Context context,
+                                         final Bundle options) {
+        if (!isIntentAvailable(intent)) {
+            Log.e("ActivityUtils", "intent is unavailable");
+            return false;
+        }
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
@@ -1516,29 +1527,42 @@ public final class ActivityUtils {
         } else {
             context.startActivity(intent);
         }
+        return true;
     }
 
-    private static void startActivityForResult(final Activity activity,
-                                               final Bundle extras,
-                                               final String pkg,
-                                               final String cls,
-                                               final int requestCode,
-                                               final Bundle options) {
+    private static boolean isIntentAvailable(final Intent intent) {
+        return Utils.getApp()
+                .getPackageManager()
+                .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+                .size() > 0;
+    }
+
+    private static boolean startActivityForResult(final Activity activity,
+                                                  final Bundle extras,
+                                                  final String pkg,
+                                                  final String cls,
+                                                  final int requestCode,
+                                                  final Bundle options) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         if (extras != null) intent.putExtras(extras);
         intent.setComponent(new ComponentName(pkg, cls));
-        startActivityForResult(intent, activity, requestCode, options);
+        return startActivityForResult(intent, activity, requestCode, options);
     }
 
-    private static void startActivityForResult(final Intent intent,
-                                               final Activity activity,
-                                               final int requestCode,
-                                               final Bundle options) {
+    private static boolean startActivityForResult(final Intent intent,
+                                                  final Activity activity,
+                                                  final int requestCode,
+                                                  final Bundle options) {
+        if (!isIntentAvailable(intent)) {
+            Log.e("ActivityUtils", "intent is unavailable");
+            return false;
+        }
         if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             activity.startActivityForResult(intent, requestCode, options);
         } else {
             activity.startActivityForResult(intent, requestCode);
         }
+        return true;
     }
 
     private static void startActivities(final Intent[] intents,

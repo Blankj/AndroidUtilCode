@@ -55,8 +55,8 @@ public class ImageActivity extends BaseActivity {
         RecyclerView rvImages = findViewById(R.id.rv_images);
         findViewById(R.id.btn_save).setOnClickListener(this);
 
-        src = ImageUtils.getBitmap(R.drawable.img_lena);
-        Bitmap round = ImageUtils.getBitmap(R.drawable.avatar_round);
+        src = ImageUtils.getBitmap(R.drawable.image_lena);
+        Bitmap round = ImageUtils.getBitmap(R.drawable.main_avatar_round);
         Bitmap watermark = ImageUtils.getBitmap(R.mipmap.ic_launcher);
 
         int width = src.getWidth();

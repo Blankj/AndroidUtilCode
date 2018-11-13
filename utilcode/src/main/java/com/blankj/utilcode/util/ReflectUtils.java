@@ -438,8 +438,7 @@ public final class ReflectUtils {
                 String name = method.getName();
                 try {
                     return reflect(object).method(name, args).get();
-                }
-                catch (ReflectException e) {
+                } catch (ReflectException e) {
                     if (isMap) {
                         Map<String, Object> map = (Map<String, Object>) object;
                         int length = (args == null ? 0 : args.length);

@@ -984,7 +984,7 @@ public final class ThreadUtils {
 
         private boolean isSchedule;
 
-        private volatile int state;
+        private volatile     int state;
         private static final int NEW         = 0;
         private static final int COMPLETING  = 1;
         private static final int CANCELLED   = 2;
@@ -1058,9 +1058,9 @@ public final class ThreadUtils {
     private static final class UtilsThreadFactory extends AtomicLong
             implements ThreadFactory {
         private static final AtomicInteger POOL_NUMBER = new AtomicInteger(1);
-        private final ThreadGroup group;
-        private final String      namePrefix;
-        private final int         priority;
+        private final        ThreadGroup   group;
+        private final        String        namePrefix;
+        private final        int           priority;
 
         UtilsThreadFactory(String prefix, int priority) {
             SecurityManager s = System.getSecurityManager();

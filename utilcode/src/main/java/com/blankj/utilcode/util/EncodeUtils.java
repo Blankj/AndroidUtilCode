@@ -193,22 +193,22 @@ public final class EncodeUtils {
     public static String binEncode(final String input) {
         StringBuilder stringBuilder = new StringBuilder();
         for (char i : input.toCharArray()) {
-              stringBuilder.append(Integer.toBinaryString(i));
-              stringBuilder.append(' ');
+            stringBuilder.append(Integer.toBinaryString(i));
+            stringBuilder.append(' ');
         }
         return stringBuilder.toString();
     }
 
     /**
      * Return UTF-8 String from binary
-     * 
+     *
      * @param input binary string
      * @return UTF-8 String
      */
-    public static  String binDecode(final String input){
+    public static String binDecode(final String input) {
         String[] splitted = input.split(" ");
         StringBuilder sb = new StringBuilder();
-        for(String i : splitted){
+        for (String i : splitted) {
             sb.append(((char) Integer.parseInt(i.replace(" ", ""), 2)));
         }
         return sb.toString();

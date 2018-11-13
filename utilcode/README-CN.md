@@ -26,6 +26,14 @@ finishAllActivities            : 结束所有 Activity
 finishAllActivitiesExceptNewest: 结束除最新之外的所有 Activity
 ```
 
+* ### AdaptScreen 相关 -> [AdaptScreenUtils.java][adaptScreen.java] -> [Demo][adaptScreen.demo]
+```
+adaptWidth:适配宽度
+adaptHeight:适配高度
+pt2Px: pt 转 px
+px2Pt: px 转 pt
+```
+
 * ### App 相关 -> [AppUtils.java][app.java] -> [Demo][app.demo]
 ```
 registerAppStatusChangedListener  : 注册 App 前后台切换监听器
@@ -582,11 +590,6 @@ isScreenLock               : 判断是否锁屏
 setSleepDuration           : 设置进入休眠时长
 getSleepDuration           : 获取进入休眠时长
 isTablet                   : 判断是否是平板
-adaptScreen4VerticalSlide  : 适配垂直滑动的屏幕
-adaptScreen4HorizontalSlide: 适配水平滑动的屏幕
-cancelAdaptScreen          : 取消适配屏幕
-restoreAdaptScreen         : 恢复适配屏幕
-isAdaptScreen              : 是否适配屏幕
 ```
 
 * ### SD 卡相关 -> [SDCardUtils.java][sdcard.java] -> [Demo][sdcard.demo]

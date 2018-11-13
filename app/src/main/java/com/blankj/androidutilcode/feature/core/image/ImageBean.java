@@ -16,7 +16,7 @@ import com.blankj.utilcode.util.Utils;
  */
 public class ImageBean {
 
-    int resId;
+    int    resId;
     String name;
     Bitmap image;
 

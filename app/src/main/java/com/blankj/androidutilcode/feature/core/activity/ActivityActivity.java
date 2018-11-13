@@ -35,9 +35,9 @@ import java.util.Random;
 public class ActivityActivity extends BaseBackActivity {
 
     ImageView viewSharedElement;
-    Random random = new Random();
-    private Bitmap bitmap;
-    private Intent intent;
+    Random    random = new Random();
+    private Bitmap   bitmap;
+    private Intent   intent;
     private Intent[] intents = new Intent[2];
 
     public static void start(Context context) {

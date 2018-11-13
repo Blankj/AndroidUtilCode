@@ -1,3 +1,4 @@
+* `18/11/12` [fix] SPUtils bug when use in multi threads. Publish v1.21.3.
 * `18/10/25` [fix] SpanUtils#setLineHeight bug of multi lines. Publish v1.21.2.
 * `18/10/24` [fix] SpanUtils#appendImage on VIVO. Publish v1.21.1.
 * `18/10/16` [add] BusUtils, DeviceUtils#isAdbEnabled. Publish v1.21.0.

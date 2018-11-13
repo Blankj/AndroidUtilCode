@@ -6,10 +6,8 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.app.Application.ActivityLifecycleCallbacks;
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.content.FileProvider;
-import android.util.DisplayMetrics;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -79,6 +77,13 @@ public final class Utils {
                 sApplication = app;
             }
             sApplication.registerActivityLifecycleCallbacks(ACTIVITY_LIFECYCLE);
+        } else {
+            if (app != null && app.getClass() != sApplication.getClass()) {
+                sApplication.unregisterActivityLifecycleCallbacks(ACTIVITY_LIFECYCLE);
+                ACTIVITY_LIFECYCLE.mActivityList.clear();
+                sApplication = app;
+                sApplication.registerActivityLifecycleCallbacks(ACTIVITY_LIFECYCLE);
+            }
         }
     }
 
@@ -145,62 +150,6 @@ public final class Utils {
             }
         }
         return false;
-    }
-
-    static final AdaptScreenArgs ADAPT_SCREEN_ARGS = new AdaptScreenArgs();
-
-    static void restoreAdaptScreen() {
-        final DisplayMetrics systemDm = Resources.getSystem().getDisplayMetrics();
-        final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
-        final Activity activity = ACTIVITY_LIFECYCLE.getTopActivity();
-        if (activity != null) {
-            final DisplayMetrics activityDm = activity.getResources().getDisplayMetrics();
-            if (ADAPT_SCREEN_ARGS.isVerticalSlide) {
-                activityDm.density = activityDm.widthPixels / (float) ADAPT_SCREEN_ARGS.sizeInPx;
-            } else {
-                activityDm.density = activityDm.heightPixels / (float) ADAPT_SCREEN_ARGS.sizeInPx;
-            }
-            activityDm.scaledDensity = activityDm.density * (systemDm.scaledDensity / systemDm.density);
-            activityDm.densityDpi = (int) (160 * activityDm.density);
-
-            appDm.density = activityDm.density;
-            appDm.scaledDensity = activityDm.scaledDensity;
-            appDm.densityDpi = activityDm.densityDpi;
-        } else {
-            if (ADAPT_SCREEN_ARGS.isVerticalSlide) {
-                appDm.density = appDm.widthPixels / (float) ADAPT_SCREEN_ARGS.sizeInPx;
-            } else {
-                appDm.density = appDm.heightPixels / (float) ADAPT_SCREEN_ARGS.sizeInPx;
-            }
-            appDm.scaledDensity = appDm.density * (systemDm.scaledDensity / systemDm.density);
-            appDm.densityDpi = (int) (160 * appDm.density);
-        }
-    }
-
-    static void cancelAdaptScreen() {
-        final DisplayMetrics systemDm = Resources.getSystem().getDisplayMetrics();
-        final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
-        final Activity activity = ACTIVITY_LIFECYCLE.getTopActivity();
-        if (activity != null) {
-            final DisplayMetrics activityDm = activity.getResources().getDisplayMetrics();
-            activityDm.density = systemDm.density;
-            activityDm.scaledDensity = systemDm.scaledDensity;
-            activityDm.densityDpi = systemDm.densityDpi;
-        }
-        appDm.density = systemDm.density;
-        appDm.scaledDensity = systemDm.scaledDensity;
-        appDm.densityDpi = systemDm.densityDpi;
-    }
-
-    static boolean isAdaptScreen() {
-        final DisplayMetrics systemDm = Resources.getSystem().getDisplayMetrics();
-        final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
-        return systemDm.density != appDm.density;
-    }
-
-    static class AdaptScreenArgs {
-        int     sizeInPx;
-        boolean isVerticalSlide;
     }
 
     static class ActivityLifecycleImpl implements ActivityLifecycleCallbacks {
@@ -342,12 +291,7 @@ public final class Utils {
 
         @Override
         public boolean onCreate() {
-            Context context = getContext();
-            if (context != null
-                    && context.getClass().getSimpleName().equals("TinkerPatchReflectApplication")) {
-                return true;
-            }
-            Utils.init(context);
+            Utils.init(getContext());
             return true;
         }
     }

@@ -32,8 +32,8 @@ public class FragmentActivity extends BaseActivity {
     };
 
     private BottomNavigationView navigation;
-    private Fragment[] mFragments = new Fragment[3];
-    private int curIndex;
+    private Fragment[]           mFragments = new Fragment[3];
+    private int                  curIndex;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, FragmentActivity.class);

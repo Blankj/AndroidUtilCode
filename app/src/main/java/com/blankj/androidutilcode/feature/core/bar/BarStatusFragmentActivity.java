@@ -30,12 +30,13 @@ public class BarStatusFragmentActivity extends BaseActivity {
     private int[] itemIds = new int[]{
             R.id.navigation_color,
             R.id.navigation_alpha,
-            R.id.navigation_image_view
+            R.id.navigation_image_view,
+            R.id.navigation_custom
     };
 
     private ViewPager            mVpStatusBar;
     private BottomNavigationView navigation;
-    private ArrayList<Fragment> mFragmentList = new ArrayList<>();
+    private ArrayList<Fragment>  mFragmentList = new ArrayList<>();
 
     public static void start(Context context) {
         Intent starter = new Intent(context, BarStatusFragmentActivity.class);
@@ -65,8 +66,9 @@ public class BarStatusFragmentActivity extends BaseActivity {
         mFragmentList.add(BarStatusColorFragment.newInstance());
         mFragmentList.add(BarStatusAlphaFragment.newInstance());
         mFragmentList.add(BarStatusImageViewFragment.newInstance());
+        mFragmentList.add(BarStatusCustomFragment.newInstance());
 
-        mVpStatusBar.setOffscreenPageLimit(2);
+        mVpStatusBar.setOffscreenPageLimit(3);
         mVpStatusBar.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -123,6 +125,9 @@ public class BarStatusFragmentActivity extends BaseActivity {
                     return true;
                 case R.id.navigation_image_view:
                     mVpStatusBar.setCurrentItem(2);
+                    return true;
+                case R.id.navigation_custom:
+                    mVpStatusBar.setCurrentItem(3);
                     return true;
             }
             return false;

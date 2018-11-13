@@ -123,7 +123,7 @@ public class BarStatusSwipeBackActivity extends BaseActivity {
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
                 btnRandomColor.setVisibility(View.GONE);
-                llContainer.setBackgroundResource(R.drawable.bg_bar);
+                llContainer.setBackgroundResource(R.drawable.bar_status_alpha_bg);
             } else {
                 btnRandomColor.setVisibility(View.VISIBLE);
                 llContainer.setBackgroundColor(Color.WHITE);

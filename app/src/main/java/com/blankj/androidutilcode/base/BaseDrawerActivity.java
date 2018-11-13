@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 
 import com.blankj.androidutilcode.Config;
 import com.blankj.androidutilcode.R;
+import com.blankj.utilcode.util.ActivityUtils;
 
 
 /**
@@ -32,10 +33,10 @@ public abstract class BaseDrawerActivity extends BaseActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.action_git_hub:
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Config.GITHUB)));
+                    ActivityUtils.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Config.GITHUB)));
                     break;
                 case R.id.action_blog:
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Config.BLOG)));
+                    ActivityUtils.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Config.BLOG)));
                     break;
             }
             return false;

@@ -95,9 +95,9 @@ public class LocationActivity extends BaseBackActivity {
                                     .appendLine("lastLongitude: " + lastLongitude)
                                     .appendLine("latitude: " + latitude)
                                     .appendLine("longitude: " + longitude)
-                                    .appendLine("getCountryName: " + country )
+                                    .appendLine("getCountryName: " + country)
                                     .appendLine("getLocality: " + locality)
-                                    .appendLine( "getStreet: " + street)
+                                    .appendLine("getStreet: " + street)
                                     .create()
                             );
                         }

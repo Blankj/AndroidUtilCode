@@ -367,7 +367,7 @@ public class ThreadUtilsTest {
     abstract static class TestScheduledTask<T> extends ThreadUtils.Task<T> {
 
         private static final AtomicInteger ATOMIC_INTEGER = new AtomicInteger();
-        private int mTimes;
+        private              int           mTimes;
         CountDownLatch mLatch;
 
         TestScheduledTask(final CountDownLatch latch, final int times) {

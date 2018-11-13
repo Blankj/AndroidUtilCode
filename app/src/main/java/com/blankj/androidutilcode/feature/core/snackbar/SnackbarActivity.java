@@ -75,7 +75,7 @@ public class SnackbarActivity extends BaseBackActivity {
                 SnackbarUtils.with(snackBarRootView)
                         .setMessage(getMsg(R.string.snackbar_short))
                         .setMessageColor(Color.WHITE)
-                        .setBgResource(R.drawable.shape_top_round_rect)
+                        .setBgResource(R.drawable.snackbar_custom_bg)
                         .show();
                 break;
 
@@ -83,7 +83,7 @@ public class SnackbarActivity extends BaseBackActivity {
                 SnackbarUtils.with(snackBarRootView)
                         .setMessage(getMsg(R.string.snackbar_short))
                         .setMessageColor(Color.WHITE)
-                        .setBgResource(R.drawable.shape_top_round_rect)
+                        .setBgResource(R.drawable.snackbar_custom_bg)
                         .setAction(getString(R.string.snackbar_click), Color.YELLOW, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -98,7 +98,7 @@ public class SnackbarActivity extends BaseBackActivity {
                         .setMessage(getMsg(R.string.snackbar_long))
                         .setMessageColor(Color.WHITE)
                         .setDuration(SnackbarUtils.LENGTH_LONG)
-                        .setBgResource(R.drawable.shape_top_round_rect)
+                        .setBgResource(R.drawable.snackbar_custom_bg)
                         .show();
                 break;
 
@@ -106,7 +106,7 @@ public class SnackbarActivity extends BaseBackActivity {
                 SnackbarUtils.with(snackBarRootView)
                         .setMessage(getMsg(R.string.snackbar_long))
                         .setMessageColor(Color.WHITE)
-                        .setBgResource(R.drawable.shape_top_round_rect)
+                        .setBgResource(R.drawable.snackbar_custom_bg)
                         .setDuration(SnackbarUtils.LENGTH_LONG)
                         .setAction(getString(R.string.snackbar_click), Color.YELLOW, new View.OnClickListener() {
                             @Override
@@ -122,7 +122,7 @@ public class SnackbarActivity extends BaseBackActivity {
                         .setMessage(getMsg(R.string.snackbar_indefinite))
                         .setMessageColor(Color.WHITE)
                         .setDuration(SnackbarUtils.LENGTH_INDEFINITE)
-                        .setBgResource(R.drawable.shape_top_round_rect)
+                        .setBgResource(R.drawable.snackbar_custom_bg)
                         .show();
                 break;
 
@@ -131,7 +131,7 @@ public class SnackbarActivity extends BaseBackActivity {
                         .setMessage(getMsg(R.string.snackbar_indefinite))
                         .setMessageColor(Color.WHITE)
                         .setDuration(SnackbarUtils.LENGTH_INDEFINITE)
-                        .setBgResource(R.drawable.shape_top_round_rect)
+                        .setBgResource(R.drawable.snackbar_custom_bg)
                         .setAction(getString(R.string.snackbar_click), Color.YELLOW, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

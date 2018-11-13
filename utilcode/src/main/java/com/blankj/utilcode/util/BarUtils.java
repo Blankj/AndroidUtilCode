@@ -327,6 +327,20 @@ public final class BarUtils {
     }
 
     /**
+     * Set the custom status bar.
+     *
+     * @param fakeStatusBar The fake status bar view.
+     */
+    public static void setStatusBarCustom(@NonNull final View fakeStatusBar) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
+        fakeStatusBar.setVisibility(View.VISIBLE);
+        transparentStatusBar((Activity) fakeStatusBar.getContext());
+        ViewGroup.LayoutParams layoutParams = fakeStatusBar.getLayoutParams();
+        layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        layoutParams.height = getStatusBarHeight();
+    }
+
+    /**
      * Set the status bar's color for DrawerLayout.
      * <p>DrawLayout must add {@code android:fitsSystemWindows="true"}</p>
      *

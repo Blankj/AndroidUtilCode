@@ -23,14 +23,14 @@ import com.blankj.utilcode.util.ToastUtils;
  */
 public class LocationService extends Service {
 
-    private boolean isSuccess;
-    private String lastLatitude  = "loading...";
-    private String lastLongitude = "loading...";
-    private String latitude      = "loading...";
-    private String longitude     = "loading...";
-    private String country       = "loading...";
-    private String locality      = "loading...";
-    private String street        = "loading...";
+    private boolean               isSuccess;
+    private String                lastLatitude  = "loading...";
+    private String                lastLongitude = "loading...";
+    private String                latitude      = "loading...";
+    private String                longitude     = "loading...";
+    private String                country       = "loading...";
+    private String                locality      = "loading...";
+    private String                street        = "loading...";
     private OnGetLocationListener mOnGetLocationListener;
 
     public void setOnGetLocationListener(OnGetLocationListener onGetLocationListener) {

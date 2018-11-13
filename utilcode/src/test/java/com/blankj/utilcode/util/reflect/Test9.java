@@ -10,8 +10,10 @@ package com.blankj.utilcode.util.reflect;
  */
 public interface Test9 {
     String substring(int beginIndex);
+
     String substring(int beginIndex, int endIndex);
 
     String substring(Integer beginIndex);
+
     String substring(Integer beginIndex, Integer endIndex);
 }

@@ -122,7 +122,7 @@ public class BarStatusDrawerActivity extends BaseDrawerActivity {
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
                 btnRandomColor.setVisibility(View.GONE);
-                flActivityContainer.setBackgroundResource(R.drawable.bg_bar);
+                flActivityContainer.setBackgroundResource(R.drawable.bar_status_alpha_bg);
             } else {
                 btnRandomColor.setVisibility(View.VISIBLE);
                 flActivityContainer.setBackgroundColor(Color.WHITE);

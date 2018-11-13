@@ -9,6 +9,7 @@ import android.view.View;
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.androidutilcode.feature.core.activity.ActivityActivity;
+import com.blankj.androidutilcode.feature.core.adaptScreen.AdaptScreenActivity;
 import com.blankj.androidutilcode.feature.core.app.AppActivity;
 import com.blankj.androidutilcode.feature.core.bar.BarActivity;
 import com.blankj.androidutilcode.feature.core.clean.CleanActivity;
@@ -17,7 +18,7 @@ import com.blankj.androidutilcode.feature.core.fragment.FragmentActivity;
 import com.blankj.androidutilcode.feature.core.image.ImageActivity;
 import com.blankj.androidutilcode.feature.core.keyboard.KeyboardActivity;
 import com.blankj.androidutilcode.feature.core.log.LogActivity;
-import com.blankj.androidutilcode.feature.core.meta_data.MetaDataActivity;
+import com.blankj.androidutilcode.feature.core.metaData.MetaDataActivity;
 import com.blankj.androidutilcode.feature.core.network.NetworkActivity;
 import com.blankj.androidutilcode.feature.core.path.PathActivity;
 import com.blankj.androidutilcode.feature.core.permission.PermissionActivity;
@@ -25,7 +26,6 @@ import com.blankj.androidutilcode.feature.core.phone.PhoneActivity;
 import com.blankj.androidutilcode.feature.core.process.ProcessActivity;
 import com.blankj.androidutilcode.feature.core.reflect.ReflectActivity;
 import com.blankj.androidutilcode.feature.core.resource.ResourceActivity;
-import com.blankj.androidutilcode.feature.core.screen.ScreenActivity;
 import com.blankj.androidutilcode.feature.core.sdcard.SDCardActivity;
 import com.blankj.androidutilcode.feature.core.snackbar.SnackbarActivity;
 import com.blankj.androidutilcode.feature.core.sp.SPActivity;
@@ -80,6 +80,10 @@ public class CoreUtilActivity extends BaseBackActivity {
 
     public void activityClick(View view) {
         ActivityActivity.start(this);
+    }
+
+    public void adaptScreenClick(View view) {
+        AdaptScreenActivity.start(this);
     }
 
     public void appClick(View view) {
@@ -148,10 +152,6 @@ public class CoreUtilActivity extends BaseBackActivity {
 
     public void resourceClick(View view) {
         ResourceActivity.start(this);
-    }
-
-    public void screenClick(View view) {
-        ScreenActivity.start(this);
     }
 
     public void sdcardClick(View view) {

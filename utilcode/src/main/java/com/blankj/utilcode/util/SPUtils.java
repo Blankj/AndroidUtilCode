@@ -22,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class SPUtils {
 
     private static final Map<String, SPUtils> SP_UTILS_MAP = new ConcurrentHashMap<>();
-    private SharedPreferences sp;
+    private              SharedPreferences    sp;
 
     /**
      * Return the single {@link SPUtils} instance

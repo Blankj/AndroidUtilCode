@@ -2,14 +2,11 @@ package com.blankj.androidutilcode.base;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-
-import com.blankj.utilcode.util.AdaptScreenUtils;
 
 /**
  * <pre>
@@ -64,10 +61,5 @@ public abstract class BaseActivity extends AppCompatActivity
     @Override
     public void onClick(final View view) {
         if (!isFastClick()) onWidgetClick(view);
-    }
-
-    @Override
-    public Resources getResources() {
-        return AdaptScreenUtils.adapt(super.getResources(), 300);
     }
 }

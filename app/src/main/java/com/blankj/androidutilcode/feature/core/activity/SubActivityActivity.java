@@ -40,7 +40,7 @@ public class SubActivityActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View contentView) {
-        ((View)flActivityContainer.getParent()).setBackgroundColor(Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
+        ((View) flActivityContainer.getParent()).setBackgroundColor(Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
     }
 
     @Override

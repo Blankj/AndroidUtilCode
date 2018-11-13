@@ -1,6 +1,7 @@
 package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -19,7 +20,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.app.NotificationManagerCompat;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -250,13 +250,7 @@ public final class ToastUtils {
             @Override
             public void run() {
                 cancel();
-                if (Utils.isAdaptScreen()) {
-                    Utils.cancelAdaptScreen();
-                    sToast = ToastFactory.makeToast(Utils.getApp(), text, duration);
-                    Utils.restoreAdaptScreen();
-                } else {
-                    sToast = ToastFactory.makeToast(Utils.getApp(), text, duration);
-                }
+                sToast = ToastFactory.makeToast(Utils.getApp(), text, duration);
                 final TextView tvMessage = sToast.getView().findViewById(android.R.id.message);
                 if (sMsgColor != COLOR_DEFAULT) {
                     tvMessage.setTextColor(sMsgColor);
@@ -346,22 +340,21 @@ public final class ToastUtils {
             if (NotificationManagerCompat.from(context).areNotificationsEnabled()) {
                 return new SystemToast(makeNormalToast(context, text, duration));
             }
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
-                return new ToastWithoutNotification(makeNormalToast(context, text, duration));
-            }
-            Log.e("ToastUtils", "Toast is GG. In fact, next step is useless.");
-            return new SystemToast(makeNormalToast(context, text, duration));
+
+            return new ToastWithoutNotification(makeNormalToast(context, text, duration));
+//            Log.e("ToastUtils", "Toast is GG. In fact, next step is useless.");
+//            return new SystemToast(makeNormalToast(context, text, duration));
         }
 
         static IToast newToast(Context context) {
             if (NotificationManagerCompat.from(context).areNotificationsEnabled()) {
                 return new SystemToast(new Toast(context));
             }
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
-                return new ToastWithoutNotification(new Toast(context));
-            }
-            Log.e("ToastUtils", "Toast is GG. In fact, next step is useless.");
-            return new SystemToast(new Toast(context));
+//            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
+            return new ToastWithoutNotification(new Toast(context));
+//            }
+//            Log.e("ToastUtils", "Toast is GG. In fact, next step is useless.");
+//            return new SystemToast(new Toast(context));
         }
 
         private static Toast makeNormalToast(Context context, CharSequence text, int duration) {
@@ -489,7 +482,14 @@ public final class ToastUtils {
             mView = mToast.getView();
             if (mView == null) return;
             Context context = mToast.getView().getContext();
-            mWM = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
+                mWM = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            } else {
+                Context topActivityOrApp = Utils.getTopActivityOrApp();
+                if (topActivityOrApp instanceof Activity) {
+                    mWM = ((Activity) topActivityOrApp).getWindowManager();
+                }
+            }
 
             final Configuration config = context.getResources().getConfiguration();
             final int gravity;

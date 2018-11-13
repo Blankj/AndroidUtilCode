@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.blankj.androidutilcode">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
@@ -69,11 +68,23 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.core.activity.ActivityActivity"
-            android:icon="@drawable/ic_activity_icon"
+            android:icon="@drawable/activity_activity_icon"
             android:launchMode="singleTop"
-            android:logo="@drawable/ic_activity_logo" />
+            android:logo="@drawable/activity_activity_logo" />
         <activity
             android:name=".feature.core.activity.SubActivityActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.adaptScreen.AdaptScreenActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.adaptScreen.CloseAdaptActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.adaptScreen.HeightActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.core.adaptScreen.WidthActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.core.app.AppActivity"
@@ -129,7 +140,7 @@
             android:launchMode="singleTop" />
 
         <activity
-            android:name=".feature.core.meta_data.MetaDataActivity"
+            android:name=".feature.core.metaData.MetaDataActivity"
             android:launchMode="singleTop">
             <meta-data
                 android:name="activity_meta_data"

@@ -5,8 +5,8 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileFilter;
 
-import static com.blankj.utilcode.util.TestConfig.PATH_FILE;
 import static com.blankj.utilcode.util.TestConfig.FILE_SEP;
+import static com.blankj.utilcode.util.TestConfig.PATH_FILE;
 import static com.blankj.utilcode.util.TestConfig.PATH_TEMP;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimaryOrigin">#3F51B5</color>
+    <color name="colorPrimaryDarkOrigin">#303F9F</color>
+    <color name="colorAccentOrigin">#FF4081</color>
+
     <color name="colorPrimary">#34A48E</color>
     <color name="colorPrimaryHalfTrans">#8034A48E</color>
     <color name="colorPrimaryDark">#245C50</color>
