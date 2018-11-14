@@ -17,30 +17,35 @@ ext {
 
     dep = [
             // plugin
-            gradle              : "com.android.tools.build:gradle:3.2.1",
-            kotlin_gradle_plugin: "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version",
+            gradle                     : "com.android.tools.build:gradle:3.2.1",
+            kotlin_gradle_plugin       : "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version",
+            android_maven_gradle_plugin: "com.github.dcendents:android-maven-gradle-plugin:2.1",
+            gradle_bintray_plugin      : "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4",
+            bus_gradle_plugin          : "com.blankj:bus-gradle-plugin:1.3",
 
             // lib
-            support             : [
+            support                    : [
                     appcompat_v7: "com.android.support:appcompat-v7:$support_version",
                     design      : "com.android.support:design:$support_version",
             ],
-            constraint          : "com.android.support.constraint:constraint-layout:1.1.3",
-            kotlin              : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
-            leakcanary          : [
+            constraint                 : "com.android.support.constraint:constraint-layout:1.1.3",
+            kotlin                     : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            leakcanary                 : [
                     android      : "com.squareup.leakcanary:leakcanary-android:$leakcanary_version",
                     android_no_op: "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version",
             ],
-            free_proguard       : "com.blankj:free-proguard:0.0.7",
-            bus                 : "com.blankj:bus:1.0",
-            adapt_screen        : "com.blankj:adapt-screen:0.0.3",
+            free_proguard              : "com.blankj:free-proguard:0.0.7",
+            bus                        : "com.blankj:bus:1.0",
+            adapt_screen               : "com.blankj:adapt-screen:0.0.3",
 
-            gson                : "com.google.code.gson:gson:2.8.2",
-            glide               : "com.github.bumptech.glide:glide:4.7.1",
-            retrofit            : "com.squareup.retrofit2:retrofit:2.4.0",
+            gson                       : "com.google.code.gson:gson:2.8.2",
+            glide                      : "com.github.bumptech.glide:glide:4.7.1",
+            retrofit                   : "com.squareup.retrofit2:retrofit:2.4.0",
+            javassist                  : "org.javassist:javassist:3.23.1-GA",
+            commons_io                 : "commons-io:commons-io:2.5",
 
-            junit               : "junit:junit:4.12",
-            robolectric         : "org.robolectric:robolectric:3.1.2",
+            junit                      : "junit:junit:4.12",
+            robolectric                : "org.robolectric:robolectric:3.1.2",
     ]
 
     configAndroidDomain = this.&configAndroidDomain
@@ -205,4 +210,4 @@ def configSubUtilDependencies(Project pro) {
         testImplementation dep.robolectric
     }
 }
-//./gradlew bintrayUpload
+//./gradlew utilcode:bintrayUpload

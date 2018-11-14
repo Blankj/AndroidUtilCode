@@ -1,8 +1,8 @@
 plugins {
     id "com.android.library"
-    id "com.github.dcendents.android-maven" version "2.1"
-    id "com.jfrog.bintray" version "1.8.0"
     id "tech.harmonysoft.oss.traute" version "1.1.8"
+    id "com.github.dcendents.android-maven"
+    id "com.jfrog.bintray"
     id "readme-core"
     id "kotlin-android"
 }
@@ -15,4 +15,4 @@ readme {
     readmeCnFile file('README-CN.md')
 }
 
-apply from: "../gradle/bintrayUpload.gradle"
+apply from: "../gradle/bintrayUploadAndroid.gradle"

@@ -2,14 +2,23 @@
 buildscript {
     apply from: 'config.gradle'
     repositories {
+        if (localDebugPlugin) {
+            maven() {
+                url uri(new File(project.rootDir, "maven"))
+            }
+        }
         google()
         jcenter()
     }
 
     dependencies {
         classpath dep.gradle
-//        classpath 'com.blankj:bus-gradle-plugin:1.3'
         classpath dep.kotlin_gradle_plugin
+
+        classpath dep.android_maven_gradle_plugin
+        classpath dep.gradle_bintray_plugin
+
+//      classpath dep.bus_gradle_plugin
     }
 }
 
