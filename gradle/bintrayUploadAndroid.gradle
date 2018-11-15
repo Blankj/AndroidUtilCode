@@ -63,6 +63,13 @@ install {
     }
 }
 
+if (project.hasProperty("kotlin")) {
+    // Disable creating javadocs
+    tasks.withType(Javadoc) {
+        enabled = false
+    }
+}
+
 // This generates sources.jar
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -71,6 +78,7 @@ task sourcesJar(type: Jar) {
 
 task javadoc(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
+    classpath += configurations.compile
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
 }
 

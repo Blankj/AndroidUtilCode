@@ -1,4 +1,38 @@
-include ':app',
+includeModule ':app',
         ':buildSrc',
-        ':subutil',
-        ':utilcode', ':bus-gradle-plugin'
+        ':bus-gradle-plugin',
+        ':libresource', ':pkgutilcode',
+        'launcher', 'subutil', 'utilcode'
+//,'libbase'
+
+def includeModule(String... names) {
+    names.each {
+        def fileName
+        if (it.startsWith(":")) {
+            fileName = it.substring(1, it.length())
+        } else {
+            fileName = it;
+        }
+        if (isModule(file(fileName))) {
+            include it
+        } else {
+            file(it).eachDir { dir ->
+                if (dir.name == 'build') return
+                include "$it-$dir.name"
+                project(":$it-${dir.name}").projectDir = dir
+            }
+        }
+    }
+}
+
+static boolean isModule(File file) {
+    File[] files = file.listFiles()
+    for (int i = 0; i < files.length; i++) {
+        if (files[i].name == 'build.gradle') {
+            return true;
+        }
+    }
+}
+
+
+

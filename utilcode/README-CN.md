@@ -28,10 +28,11 @@ finishAllActivitiesExceptNewest: 结束除最新之外的所有 Activity
 
 * ### AdaptScreen 相关 -> [AdaptScreenUtils.java][adaptScreen.java] -> [Demo][adaptScreen.demo]
 ```
-adaptWidth:适配宽度
-adaptHeight:适配高度
-pt2Px: pt 转 px
-px2Pt: px 转 pt
+adaptWidth : 适配宽度
+adaptHeight: 适配高度
+closeAdapt : 关闭适配（pt 等同于 dp）
+pt2Px      : pt 转 px
+px2Pt      : px 转 pt
 ```
 
 * ### App 相关 -> [AppUtils.java][app.java] -> [Demo][app.demo]
@@ -87,7 +88,7 @@ getNavBarColor                       : 获取导航栏颜色
 isSupportNavBar                      : 判断是否支持导航栏
 ```
 
-* ### 磁盘缓存相关 -> [CacheDiskUtils.java][cache_disk.java] -> [Test][cache_disk.test]
+* ### 磁盘缓存相关 -> [CacheDiskUtils.java][cacheDisk.java] -> [Test][cacheDisk.test]
 ```
 getInstance             : 获取缓存实例
 Instance.put            : 缓存中写入数据
@@ -105,7 +106,7 @@ Instance.remove         : 根据键值移除缓存
 Instance.clear          : 清除所有缓存
 ```
 
-* ### 二级缓存相关 -> [CacheDoubleUtils.java][cache_double.java] -> [Test][cache_double.test]
+* ### 二级缓存相关 -> [CacheDoubleUtils.java][cacheDouble.java] -> [Test][cacheDouble.test]
 ```
 getInstance                 : 获取缓存实例
 Instance.put                : 缓存中写入数据
@@ -124,7 +125,7 @@ Instance.remove             : 根据键值移除缓存
 Instance.clear              : 清除所有缓存
 ```
 
-* ### 内存缓存相关 -> [CacheMemoryUtils.java][cache_memory.java] -> [Test][cache_memory.test]
+* ### 内存缓存相关 -> [CacheMemoryUtils.java][cacheMemory.java] -> [Test][cacheMemory.test]
 ```
 getInstance           : 获取缓存实例
 Instance.put          : 缓存中写入数据
@@ -232,7 +233,7 @@ encryptRSA, encryptRSA2HexString, encryptRSA2Base64   : RSA 加密
 decryptRSA, decryptHexStringRSA, decryptBase64RSA     : RSA 解密
 ```
 
-* ### 文件相关 -> [FileIOUtils.java][fileio.java] -> [Test][fileio.test]
+* ### 文件相关 -> [fileIOUtils.java][fileIo.java] -> [Test][fileIo.test]
 ```
 writeFileFromIS            : 将输入流写入文件
 writeFileFromBytesByStream : 将字节数组写入文件
@@ -409,7 +410,7 @@ json                     : log 字符串之 json
 xml                      : log 字符串之 xml
 ```
 
-* ### MetaData 相关 -> [MetaDataUtils.java][meta_data.java] -> [Demo][meta_data.demo]
+* ### MetaData 相关 -> [MetaDataUtils.java][metaData.java] -> [Demo][metaData.demo]
 ```
 getMetaDataInApp     : 获取 application 的 meta-data 值
 getMetaDataInActivity: 获取 activity 的 meta-data 值
@@ -572,24 +573,24 @@ readRaw2List      : 从 raw 中按行读取字符串
 
 * ### 屏幕相关 -> [ScreenUtils.java][screen.java] -> [Demo][screen.demo]
 ```
-getScreenWidth             : 获取屏幕的宽度（单位：px）
-getScreenHeight            : 获取屏幕的高度（单位：px）
-getScreenDensity           : 获取屏幕密度
-getScreenDensityDpi        : 获取屏幕密度 DPI
-setFullScreen              : 设置屏幕为全屏
-setNonFullScreen           : 设置屏幕为非全屏
-toggleFullScreen           : 切换屏幕为全屏与否状态
-isFullScreen               : 判断屏幕是否为全屏
-setLandscape               : 设置屏幕为横屏
-setPortrait                : 设置屏幕为竖屏
-isLandscape                : 判断是否横屏
-isPortrait                 : 判断是否竖屏
-getScreenRotation          : 获取屏幕旋转角度
-screenShot                 : 截屏
-isScreenLock               : 判断是否锁屏
-setSleepDuration           : 设置进入休眠时长
-getSleepDuration           : 获取进入休眠时长
-isTablet                   : 判断是否是平板
+getScreenWidth     : 获取屏幕的宽度（单位：px）
+getScreenHeight    : 获取屏幕的高度（单位：px）
+getScreenDensity   : 获取屏幕密度
+getScreenDensityDpi: 获取屏幕密度 DPI
+setFullScreen      : 设置屏幕为全屏
+setNonFullScreen   : 设置屏幕为非全屏
+toggleFullScreen   : 切换屏幕为全屏与否状态
+isFullScreen       : 判断屏幕是否为全屏
+setLandscape       : 设置屏幕为横屏
+setPortrait        : 设置屏幕为竖屏
+isLandscape        : 判断是否横屏
+isPortrait         : 判断是否竖屏
+getScreenRotation  : 获取屏幕旋转角度
+screenShot         : 截屏
+isScreenLock       : 判断是否锁屏
+setSleepDuration   : 设置进入休眠时长
+getSleepDuration   : 获取进入休眠时长
+isTablet           : 判断是否是平板
 ```
 
 * ### SD 卡相关 -> [SDCardUtils.java][sdcard.java] -> [Demo][sdcard.demo]
@@ -806,20 +807,23 @@ getComments       : 获取压缩文件中的注释链表
 [activity.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ActivityUtils.java
 [activity.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/activity/ActivityActivity.java
 
+[adaptScreen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/AdaptScreenUtils.java
+[adaptScreen.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/adaptScreen/AdaptScreenActivity.java
+
 [app.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/AppUtils.java
 [app.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/app/AppActivity.java
 
 [bar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/BarUtils.java
 [bar.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/bar/BarActivity.java
 
-[cache_disk.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheDiskUtils.java
-[cache_disk.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheDiskUtilsTest.java
+[cacheDisk.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheDiskUtils.java
+[cacheDisk.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheDiskUtilsTest.java
 
-[cache_double.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheDoubleUtils.java
-[cache_double.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheDoubleUtilsTest.java
+[cacheDouble.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheDoubleUtils.java
+[cacheDouble.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheDoubleUtilsTest.java
 
-[cache_memory.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheMemoryUtils.java
-[cache_memory.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheMemoryUtilsTest.java
+[cacheMemory.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheMemoryUtils.java
+[cacheMemory.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheMemoryUtilsTest.java
 
 [clean.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CleanUtils.java
 [clean.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/clean/CleanActivity.java
@@ -843,8 +847,8 @@ getComments       : 获取压缩文件中的注释链表
 [encrypt.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/EncryptUtils.java
 [encrypt.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/EncryptUtilsTest.java
 
-[fileio.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/FileIOUtils.java
-[fileio.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/FileIOUtilsTest.java
+[fileIo.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/fileIOUtils.java
+[fileIo.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/fileIOUtilsTest.java
 
 [file.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/FileUtils.java
 [file.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/FileUtilsTest.java
@@ -863,8 +867,8 @@ getComments       : 获取压缩文件中的注释链表
 [log.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/LogUtils.java
 [log.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/log/LogActivity.java
 
-[meta_data.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/MetaDataUtils.java
-[meta_data.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/meta_data/MetaDataActivity.java
+[metaData.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/MetaDataUtils.java
+[metaData.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/metaData/MetaDataActivity.java
 
 [network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/NetworkUtils.java
 [network.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/network/NetworkActivity.java

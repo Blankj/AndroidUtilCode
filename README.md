@@ -1,6 +1,6 @@
 ![logo][logo]
 
-[![auc][aucsvg]][auc] [![api][apisvg]][api] [![build][buildsvg]][build] [![Insight][insightsvg]][insight] [![License][licensesvg]][license]
+[![auc][aucSvg]][auc] [![api][apiSvg]][api] [![build][buildSvg]][build] [![Insight][insightSvg]][insight] [![License][licenseSvg]][license]
 
 ## [README of Chinese][readme-cn]
 
@@ -32,7 +32,7 @@ If this project helps you a lot and you want to support the project's developmen
 
 ## Contact
 
-[![Blog][blogsvg]][blog] [![jianshu][jianshusvg]][jianshu] [![weibo][weibosvg]][weibo] [![QQGroup][qqgroupsvg]][qqgroup]
+[![Blog][blogSvg]][blog] [![jianshu][jianshuSvg]][jianshu] [![weibo][weiboSvg]][weibo] [![QQGroup][qqgroupSvg]][qqgroup]
 
 
 ## [Update Log][update_log.md]
@@ -41,19 +41,19 @@ If this project helps you a lot and you want to support the project's developmen
 
 [logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
-[aucsvg]: https://img.shields.io/badge/AndroidUtilCode-v1.21.2-brightgreen.svg
+[aucSvg]: https://img.shields.io/badge/AndroidUtilCode-v1.21.2-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
-[apisvg]: https://img.shields.io/badge/API-14+-brightgreen.svg
+[apiSvg]: https://img.shields.io/badge/API-14+-brightgreen.svg
 [api]: https://android-arsenal.com/api?level=14
 
-[buildsvg]: https://travis-ci.org/Blankj/AndroidUtilCode.svg?branch=master
+[buildSvg]: https://travis-ci.org/Blankj/AndroidUtilCode.svg?branch=master
 [build]: https://travis-ci.org/Blankj/AndroidUtilCode
 
-[insightsvg]: https://www.insight.io/repoBadge/github.com/Blankj/AndroidUtilCode
+[insightSvg]: https://www.insight.io/repoBadge/github.com/Blankj/AndroidUtilCode
 [insight]: https://insight.io/github.com/Blankj/AndroidUtilCode
 
-[licensesvg]: https://img.shields.io/badge/License-Apache--2.0-brightgreen.svg
+[licenseSvg]: https://img.shields.io/badge/License-Apache--2.0-brightgreen.svg
 [license]: https://github.com/Blankj/AndroidUtilCode/blob/master/LICENSE
 
 [readme]: https://github.com/Blankj/AndroidUtilCode
@@ -65,18 +65,18 @@ If this project helps you a lot and you want to support the project's developmen
 [subutil]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/README.md
 [subutil-cn]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/README-CN.md
 
-[update_log.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/update_log.md
+[changeLog.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/CHANGELOG.md
 
 [donate]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/donate.png
 
-[blogsvg]: https://img.shields.io/badge/Blog-@Blankj-34a48e.svg
+[blogSvg]: https://img.shields.io/badge/Blog-@Blankj-34a48e.svg
 [blog]: http://blankj.com
 
-[jianshusvg]: https://img.shields.io/badge/简书-@Blankj-34a48e.svg
+[jianshuSvg]: https://img.shields.io/badge/简书-@Blankj-34a48e.svg
 [jianshu]: http://www.jianshu.com/u/46702d5c6978
 
-[weibosvg]: https://img.shields.io/badge/weibo-@__Blankj-34a48e.svg
+[weiboSvg]: https://img.shields.io/badge/weibo-@__Blankj-34a48e.svg
 [weibo]: http://weibo.com/3076228982
 
-[qqgroupsvg]: https://img.shields.io/badge/QQ群-25206533-34a48e.svg
+[qqgroupSvg]: https://img.shields.io/badge/QQ群-25206533-34a48e.svg
 [qqgroup]: https://shang.qq.com/wpa/qunwpa?idkey=d906789f84484465e2736f7b524366b4c23afeda38733d5c7b10fc3f6e406e9b

@@ -50,30 +50,47 @@ ext {
 
     configAndroidDomain = this.&configAndroidDomain
     configAppDependencies = this.&configAppDependencies
-    configUtilCodeDependencies = this.&configUtilCodeDependencies
-    configSubUtilDependencies = this.&configSubUtilDependencies
 }
 
-def configAndroidDomain(Project pro) {
+def configAndroidDomain(Project pro, String applicationIdSuffix = "") {
+    configCommon(pro)
     if (pro.plugins.hasPlugin("com.android.application")) {
-        configAppAndroidDomain(pro)
+        configAppAndroidDomain(pro, applicationIdSuffix)
     } else {
         configLibAndroidDomain(pro)
     }
 }
 
-def configAppAndroidDomain(Project pro) {
+def configCommon(Project pro) {
+    pro.android {
+        compileSdkVersion rootProject.compileSdkVersion
+        defaultConfig {
+            minSdkVersion rootProject.minSdkVersion
+            versionCode rootProject.versionCode
+            versionName rootProject.versionName
+        }
+
+        lintOptions {
+            abortOnError false
+        }
+
+        testOptions.unitTests.all {
+            testLogging {
+                events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+            }
+        }
+    }
+}
+
+
+def configAppAndroidDomain(Project pro, String applicationIdSuffix = "") {
     configField(pro)
     configSigning(pro)
     configApkName(pro)
     pro.android {
-        compileSdkVersion rootProject.compileSdkVersion
         defaultConfig {
-            applicationId rootProject.applicationId
-            minSdkVersion rootProject.minSdkVersion
+            applicationId rootProject.applicationId + applicationIdSuffix
             targetSdkVersion rootProject.targetSdkVersion
-            versionCode rootProject.versionCode
-            versionName rootProject.versionName
         }
 
         buildTypes {
@@ -86,10 +103,6 @@ def configAppAndroidDomain(Project pro) {
         sourceSets {
             main.res.srcDirs += 'src/main/res-core'
             main.res.srcDirs += 'src/main/res-sub'
-        }
-
-        lintOptions {
-            abortOnError false
         }
     }
 }
@@ -131,28 +144,11 @@ def configApkName(Project pro) {
 
 def configLibAndroidDomain(Project pro) {
     pro.android {
-        compileSdkVersion rootProject.compileSdkVersion
-        defaultConfig {
-            minSdkVersion rootProject.minSdkVersion
-            versionCode rootProject.versionCode
-            versionName rootProject.versionName
-        }
-
         buildTypes {
             release {
                 minifyEnabled false
                 consumerProguardFiles 'proguard-rules.pro'
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            }
-        }
-
-        lintOptions {
-            abortOnError false
-        }
-
-        testOptions.unitTests.all {
-            testLogging {
-                events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
             }
         }
     }
@@ -164,50 +160,4 @@ def configLibAndroidDomain(Project pro) {
 }
 
 
-def configAppDependencies(Project pro) {
-    pro.dependencies {
-        implementation fileTree(include: ['*.jar'], dir: 'app/libs')
-        implementation project(':utilcode')
-        implementation project(':subutil')
-
-        implementation dep.support.appcompat_v7
-        implementation dep.support.design
-        implementation dep.constraint
-        implementation dep.free_proguard
-        implementation 'com.r0adkll:slidableactivity:2.0.5'
-        // LeakCanary
-        debugImplementation dep.leakcanary.android
-        releaseImplementation dep.leakcanary.android_no_op
-//        implementation 'com.blankj:utilcode:1.21.2'
-    }
-}
-
-def configUtilCodeDependencies(Project pro) {
-    pro.dependencies {
-        api dep.bus
-        api dep.kotlin
-
-        compileOnly dep.support.appcompat_v7
-        compileOnly dep.support.design
-
-        testImplementation dep.junit
-        testImplementation dep.robolectric
-        testImplementation dep.support.appcompat_v7
-    }
-}
-
-def configSubUtilDependencies(Project pro) {
-    pro.dependencies {
-        compileOnly dep.support.appcompat_v7
-        compileOnly dep.support.design
-        api dep.gson
-        api(dep.glide) {
-            exclude group: "com.android.support"
-        }
-        api dep.retrofit
-
-        testImplementation dep.junit
-        testImplementation dep.robolectric
-    }
-}
 //./gradlew utilcode:bintrayUpload

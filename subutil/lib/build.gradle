@@ -1,0 +1,25 @@
+plugins {
+    id "com.android.library"
+    id "readme-sub"
+}
+
+// in config.gradle
+configAndroidDomain project
+
+readme {
+    readmeFile file('README.md')
+    readmeCnFile file('README-CN.md')
+}
+
+dependencies {
+    compileOnly dep.support.appcompat_v7
+    compileOnly dep.support.design
+    api dep.gson
+    api(dep.glide) {
+        exclude group: "com.android.support"
+    }
+    api dep.retrofit
+
+    testImplementation dep.junit
+    testImplementation dep.robolectric
+}

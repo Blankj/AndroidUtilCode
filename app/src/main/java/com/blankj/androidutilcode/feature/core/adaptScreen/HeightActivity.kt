@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
 import com.blankj.androidutilcode.R
 import com.blankj.utilcode.util.AdaptScreenUtils
-import com.blankj.utilcode.util.LogUtils
 import kotlinx.android.synthetic.main.activity_adapt_height.*
 
 class HeightActivity : AppCompatActivity() {
@@ -30,8 +29,6 @@ class HeightActivity : AppCompatActivity() {
     }
 
     override fun getResources(): Resources {
-        val resources = super.getResources()
-        LogUtils.e(resources.displayMetrics)
-        return AdaptScreenUtils.adaptHeight(resources, 1920)
+        return AdaptScreenUtils.adaptHeight(super.getResources(), 1920)
     }
 }

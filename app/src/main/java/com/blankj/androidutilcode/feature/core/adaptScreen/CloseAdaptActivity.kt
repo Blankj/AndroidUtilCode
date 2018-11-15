@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
 import com.blankj.androidutilcode.R
 import com.blankj.utilcode.util.AdaptScreenUtils
-import com.blankj.utilcode.util.LogUtils
 
 class CloseAdaptActivity : AppCompatActivity() {
 
@@ -26,8 +25,6 @@ class CloseAdaptActivity : AppCompatActivity() {
     }
 
     override fun getResources(): Resources {
-        val resources = super.getResources()
-        LogUtils.e(resources.displayMetrics)
-        return AdaptScreenUtils.adaptWidth(resources, 1080, false)
+        return AdaptScreenUtils.closeAdapt(super.getResources())
     }
 }
