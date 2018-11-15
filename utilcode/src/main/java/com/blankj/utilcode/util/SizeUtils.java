@@ -161,6 +161,10 @@ public final class SizeUtils {
         } else {
             heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         }
+        // Compat for the version below Kitkat
+        if (Build.VERSION.SDK_INT < KITKAT) {
+            view.setLayoutParams(lp);
+        }
         view.measure(widthSpec, heightSpec);
         return new int[]{view.getMeasuredWidth(), view.getMeasuredHeight()};
     }
