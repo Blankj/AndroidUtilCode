@@ -1,0 +1,21 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+// in config.gradle
+configAndroidDomain project
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    api project(':lib-resource')
+    api project(':utilcode-lib')
+    api project(':subutil-lib')
+
+    api dep.support.appcompat_v7
+    api dep.support.design
+    api dep.support.multidex
+    api dep.constraint
+    api dep.kotlin
+    api dep.free_proguard
+    api 'com.r0adkll:slidableactivity:2.0.5'
+    compileOnly dep.leakcanary.android_no_op
+}

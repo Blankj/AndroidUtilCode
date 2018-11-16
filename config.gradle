@@ -27,6 +27,7 @@ ext {
             support                    : [
                     appcompat_v7: "com.android.support:appcompat-v7:$support_version",
                     design      : "com.android.support:design:$support_version",
+                    multidex    : "com.android.support:multidex:1.0.2",
             ],
             constraint                 : "com.android.support.constraint:constraint-layout:1.1.3",
             kotlin                     : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
@@ -91,6 +92,7 @@ def configAppAndroidDomain(Project pro, String applicationIdSuffix = "") {
         defaultConfig {
             applicationId rootProject.applicationId + applicationIdSuffix
             targetSdkVersion rootProject.targetSdkVersion
+            multiDexEnabled true
         }
 
         buildTypes {
@@ -104,6 +106,12 @@ def configAppAndroidDomain(Project pro, String applicationIdSuffix = "") {
             main.res.srcDirs += 'src/main/res-core'
             main.res.srcDirs += 'src/main/res-sub'
         }
+    }
+
+    pro.dependencies {
+        // LeakCanary
+        debugImplementation dep.leakcanary.android
+        releaseImplementation dep.leakcanary.android_no_op
     }
 }
 
@@ -158,6 +166,5 @@ def configLibAndroidDomain(Project pro) {
         generateDebugBuildConfig.enabled = false
     }
 }
-
 
 //./gradlew utilcode:bintrayUpload

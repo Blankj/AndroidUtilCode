@@ -1,7 +1,0 @@
-apply plugin: 'com.android.library'
-
-configAndroidDomain project
-
-dependencies {
-//    implementation project(':libbase')
-}

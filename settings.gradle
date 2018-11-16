@@ -1,8 +1,10 @@
 includeModule ':app',
         ':buildSrc',
         ':bus-gradle-plugin',
-        ':libresource', ':pkgutilcode',
-        'launcher', 'subutil', 'utilcode'
+        ':lib',
+        ':launcher',
+        ':subutil',
+        ':utilcode'
 //,'libbase'
 
 def includeModule(String... names) {
@@ -13,25 +15,28 @@ def includeModule(String... names) {
         } else {
             fileName = it;
         }
-        if (isModule(file(fileName))) {
+        File f = file(fileName)
+        if (!f.exists() || !f.isDirectory()) return
+        if (isModule(f)) {
             include it
         } else {
-            file(it).eachDir { dir ->
-                if (dir.name == 'build') return
-                include "$it-$dir.name"
-                project(":$it-${dir.name}").projectDir = dir
+            f.eachDir { dir ->
+                if (!isModule(dir)) return
+                include "${fileName}-${dir.name}"
+                project(":${fileName}-${dir.name}").projectDir = dir
             }
         }
     }
 }
 
-static boolean isModule(File file) {
-    File[] files = file.listFiles()
-    for (int i = 0; i < files.length; i++) {
-        if (files[i].name == 'build.gradle') {
-            return true;
+static boolean isModule(File dir) {
+    File[] files = dir.listFiles(new FilenameFilter() {
+        @Override
+        boolean accept(File file, String name) {
+            return name == 'build.gradle' || name == 'src'
         }
-    }
+    })
+    return files.size() == 2
 }
 
 

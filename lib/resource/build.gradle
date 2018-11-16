@@ -1,0 +1,11 @@
+apply plugin: 'com.android.library'
+
+configAndroidDomain project
+
+android {
+    sourceSets {
+        main.res.srcDirs += 'src/main/res-base'
+        main.res.srcDirs += 'src/main/res-subutil'
+        main.res.srcDirs += 'src/main/res-utilcode'
+    }
+}
