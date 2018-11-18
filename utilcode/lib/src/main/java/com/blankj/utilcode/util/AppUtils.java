@@ -282,24 +282,13 @@ public final class AppUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isAppInstalled(@NonNull final String packageName) {
-        return !isSpace(packageName)
-                && Utils.getApp().getPackageManager().getLaunchIntentForPackage(packageName) != null;
-    }
-
-    /**
-     * Return whether the app is installed.
-     *
-     * @param action   The Intent action, such as ACTION_VIEW.
-     * @param category The desired category.
-     * @return {@code true}: yes<br>{@code false}: no
-     */
-    public static boolean isAppInstalled(@NonNull final String action,
-                                         @NonNull final String category) {
-        Intent intent = new Intent(action);
-        intent.addCategory(category);
-        PackageManager pm = Utils.getApp().getPackageManager();
-        ResolveInfo info = pm.resolveActivity(intent, 0);
-        return info != null;
+        PackageManager packageManager = Utils.getApp().getPackageManager();
+        try {
+            return packageManager.getApplicationInfo(packageName, 0) != null;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**

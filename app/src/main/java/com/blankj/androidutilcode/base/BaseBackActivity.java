@@ -8,7 +8,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.blankj.androidutilcode.R;
@@ -43,21 +42,13 @@ public abstract class BaseBackActivity extends BaseActivity {
         mToolbar = findViewById(R.id.toolbar);
         flActivityContainer = findViewById(R.id.activity_container);
         if (layoutId > 0) {
-            flActivityContainer.addView(LayoutInflater.from(this).inflate(layoutId, flActivityContainer, false));
+            LayoutInflater.from(this).inflate(layoutId, flActivityContainer);
         }
         setSupportActionBar(mToolbar);
         getToolBar().setDisplayHomeAsUpEnabled(true);
 
         BarUtils.setStatusBarColor(this, ContextCompat.getColor(UtilsApp.getInstance(), R.color.colorPrimary), 0);
         BarUtils.addMarginTopEqualStatusBarHeight(rootLayout);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     protected ActionBar getToolBar() {

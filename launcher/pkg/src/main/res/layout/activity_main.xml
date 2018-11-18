@@ -12,7 +12,7 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/ctl"
+            android:id="@+id/launcherMainCtl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="@color/colorPrimary"
@@ -28,7 +28,7 @@
                 app:layout_collapseParallaxMultiplier="0.6" />
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/launcherMainToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin" />
@@ -37,7 +37,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <View
-        android:id="@+id/fake_status_bar"
+        android:id="@+id/launcherMainFakeStatusBar"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 

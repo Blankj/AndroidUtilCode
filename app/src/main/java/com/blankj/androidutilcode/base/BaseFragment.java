@@ -3,7 +3,6 @@ package com.blankj.androidutilcode.base;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -52,13 +51,13 @@ public abstract class BaseFragment extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView: ");
-        setBaseView(inflater, bindLayout());
+        setRootLayout(bindLayout());
         return mContentView;
     }
 
-    protected void setBaseView(@NonNull LayoutInflater inflater, @LayoutRes int layoutId) {
+    protected void setRootLayout(int layoutId) {
         if (layoutId <= 0) return;
-        mContentView = inflater.inflate(layoutId, null);
+        mContentView = mActivity.getLayoutInflater().inflate(layoutId, null);
     }
 
     @Override

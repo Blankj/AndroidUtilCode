@@ -5,8 +5,8 @@ ext {
     compileSdkVersion = 27
     minSdkVersion = 14
     targetSdkVersion = 27
-    versionCode = 1_021_003
-    versionName = '1.21.3'// E.g. 1.9.72 => 1,009,072
+    versionCode = 1_022_000
+    versionName = '1.22.0'// E.g. 1.9.72 => 1,009,072
 
     localDebugPlugin = false
 
@@ -53,10 +53,10 @@ ext {
     configAppDependencies = this.&configAppDependencies
 }
 
-def configAndroidDomain(Project pro, String applicationIdSuffix = "") {
+def configAndroidDomain(Project pro) {
     configCommon(pro)
     if (pro.plugins.hasPlugin("com.android.application")) {
-        configAppAndroidDomain(pro, applicationIdSuffix)
+        configAppAndroidDomain(pro)
     } else {
         configLibAndroidDomain(pro)
     }
@@ -84,15 +84,16 @@ def configCommon(Project pro) {
 }
 
 
-def configAppAndroidDomain(Project pro, String applicationIdSuffix = "") {
-    configField(pro)
+def configAppAndroidDomain(Project pro) {
     configSigning(pro)
     configApkName(pro)
+    String suffix = getSuffix(pro)
     pro.android {
         defaultConfig {
-            applicationId rootProject.applicationId + applicationIdSuffix
+            applicationId rootProject.applicationId + suffix
             targetSdkVersion rootProject.targetSdkVersion
             multiDexEnabled true
+            resValue "string", "app_name", rootProject.appName + suffix
         }
 
         buildTypes {
@@ -115,10 +116,13 @@ def configAppAndroidDomain(Project pro, String applicationIdSuffix = "") {
     }
 }
 
-def configField(Project pro) {
-    pro.android.defaultConfig {
-        resValue "string", "app_name", rootProject.appName
+private static String getSuffix(Project pro) {
+    String[] splits = pro.name.split("-")
+    String suffix = ""
+    if (splits.length == 2) {
+        suffix = "." + splits[0]
     }
+    return suffix
 }
 
 def configSigning(Project pro) {
@@ -167,4 +171,4 @@ def configLibAndroidDomain(Project pro) {
     }
 }
 
-//./gradlew utilcode:bintrayUpload
+//./gradlew clean utilcode-lib:bintrayUpload

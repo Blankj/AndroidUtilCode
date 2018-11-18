@@ -1,3 +1,6 @@
+* `18/11/18` [fix] ToastUtils don't show in the devices grater than API 24 when close the permission of notification. Publish v1.22.0.
+* `18/11/17` [fix] AppUtils#isAppInstalled don't work in no launcher app.
+* `18/11/16` [fix] ThreadUtils#cancel block the main thread.
 * `18/11/15` [add] module of bus-gradle-plugin and change style of gradle.
 * `18/11/14` [add] BusUtils.
 * `18/11/13` [add] AdaptScreenUtils.

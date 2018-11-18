@@ -50,7 +50,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashActivity"
+            android:name=".MainActivity"
             android:screenOrientation="user"
             android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
@@ -61,10 +61,10 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".MainActivity"
-            android:screenOrientation="user"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <!--<activity-->
+            <!--android:name=".MainActivity"-->
+            <!--android:screenOrientation="user"-->
+            <!--android:windowSoftInputMode="stateHidden|adjustPan" />-->
     </application>
 
 </manifest>

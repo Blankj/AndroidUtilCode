@@ -892,7 +892,7 @@ public final class ThreadUtils {
         ScheduledExecutorService scheduled = TASK_SCHEDULED.get(task);
         if (scheduled != null) {
             TASK_SCHEDULED.remove(task);
-            shutdownAndAwaitTermination(scheduled);
+            scheduled.shutdownNow();
         }
     }
 
@@ -947,22 +947,6 @@ public final class ThreadUtils {
                         type,
                         new UtilsThreadFactory("fixed(" + type + ")", priority)
                 );
-        }
-    }
-
-    private static void shutdownAndAwaitTermination(final ExecutorService pool) {
-        pool.shutdown();
-        try {
-            if (!pool.awaitTermination(60, TimeUnit.SECONDS)) {
-                pool.shutdownNow();
-                if (!pool.awaitTermination(60, TimeUnit.SECONDS)) {
-                    System.err.println("Pool did not terminate");
-                }
-            }
-        } catch (InterruptedException e) {
-            pool.shutdownNow();
-            Thread.currentThread().interrupt();
-            e.printStackTrace();
         }
     }
 

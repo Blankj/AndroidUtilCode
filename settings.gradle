@@ -1,11 +1,10 @@
 includeModule ':app',
         ':buildSrc',
         ':bus-gradle-plugin',
-        ':lib',
         ':launcher',
+        ':lib',
         ':subutil',
         ':utilcode'
-//,'libbase'
 
 def includeModule(String... names) {
     names.each {

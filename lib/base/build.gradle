@@ -1,5 +1,8 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+plugins {
+    id "com.android.library"
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+}
 
 // in config.gradle
 configAndroidDomain project
