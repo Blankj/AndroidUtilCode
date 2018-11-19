@@ -85,26 +85,26 @@ getSurnameFirstLetter
 
 
 
-[brightness.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/BrightnessUtils.java
+[brightness.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/subutil-lib/src/main/java/com/blankj/subutil/util/BrightnessUtils.java
 [brightness.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/sub/brightness/BrightnessActivity.java
 
-[clipboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/ClipboardUtils.java
-[clipboard.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/test/java/com/blankj/subutil/util/ClipboardUtilsTest.java
+[clipboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/subutil-lib/src/main/java/com/blankj/subutil/util/ClipboardUtils.java
+[clipboard.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/subutil-lib/src/test/java/com/blankj/subutil/util/ClipboardUtilsTest.java
 
-[clone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/CloneUtils.java
-[clone.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/test/java/com/blankj/subutil/util/CloneUtilsTest.java
+[clone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/subutil-lib/src/main/java/com/blankj/subutil/util/CloneUtils.java
+[clone.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/subutil-lib/src/test/java/com/blankj/subutil/util/CloneUtilsTest.java
 
-[coordinate.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/CoordinateUtils.java
-[coordinate.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/test/java/com/blankj/subutil/util/CoordinateUtilsTest.java
+[coordinate.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/subutil-lib/src/main/java/com/blankj/subutil/util/CoordinateUtils.java
+[coordinate.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/subutil-lib/src/test/java/com/blankj/subutil/util/CoordinateUtilsTest.java
 
-[flashlight.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/FlashlightUtils.java
+[flashlight.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/subutil-lib/src/main/java/com/blankj/subutil/util/FlashlightUtils.java
 [flashlight.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/sub/flashlight/FlashlightActivity.java
 
-[gson.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/GsonUtils.java
-[gson.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/test/java/com/blankj/subutil/util/GsonUtilsTest.java
+[gson.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/subutil-lib/src/main/java/com/blankj/subutil/util/GsonUtils.java
+[gson.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/subutil-lib/src/test/java/com/blankj/subutil/util/GsonUtilsTest.java
 
-[location.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/LocationUtils.java
+[location.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/subutil-lib/src/main/java/com/blankj/subutil/util/LocationUtils.java
 [location.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/sub/location/LocationActivity.java
 
-[pinyin.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/src/main/java/com/blankj/subutil/util/PinyinUtils.java
+[pinyin.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/subutil-lib/src/main/java/com/blankj/subutil/util/PinyinUtils.java
 [pinyin.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/sub/pinyin/PinyinActivity.java

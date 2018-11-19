@@ -10,8 +10,8 @@ plugins {
 configAndroidDomain project
 
 readme {
-    readmeFile file('README.md')
-    readmeCnFile file('README-CN.md')
+    readmeFile file('../README.md')
+    readmeCnFile file('../README-CN.md')
 }
 
 apply from: "../../gradle/bintrayUploadAndroid.gradle"

@@ -56,16 +56,16 @@
 
             <Button
                 style="@style/WideBtnStyle"
+                android:id="@+id/launcherMainCoreUtilBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="coreUtilClick"
                 android:text="@string/core_util" />
 
             <Button
                 style="@style/WideBtnStyle"
+                android:id="@+id/launcherMainSubUtilBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="subUtilClick"
                 android:text="@string/sub_util" />
 
         </LinearLayout>

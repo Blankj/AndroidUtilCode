@@ -2,7 +2,7 @@
 buildscript {
     apply from: 'config.gradle'
     repositories {
-        if (localDebugPlugin) {
+        if (bus.isDebug) {
             maven() {
                 url uri(new File(project.rootDir, "maven"))
             }

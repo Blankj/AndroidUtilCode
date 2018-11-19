@@ -60,7 +60,8 @@ class BusTransform extends Transform {
                 )
                 FileUtils.copyDirectory(dir, dest)
 
-                LogUtils.l("scan " + dirInput.name)
+                LogUtils.l("scan dir: " + dirInput.name)
+
                 busScan.scanDir(dir)
             }
 
@@ -78,16 +79,17 @@ class BusTransform extends Transform {
                 FileUtils.copyFile(jar, dest)
 
                 if (jumpScan(jarName)) {
-                    LogUtils.l("jump " + jarName)
+                    LogUtils.l("jump jar: " + jarName)
                     return
                 }
 
-                if (jarName.startsWith("com.blankj:bus:")) {
+                if (jarName.startsWith("com.blankj:utilcode:")
+                        || jarName.contains("utilcode-lib")) {
                     busScan.busJar = dest
                     return
                 }
 
-                LogUtils.l("scan " + jarName)
+                LogUtils.l("scan jar: " + jarName)
                 busScan.scanJar(jar)
             }
         }
@@ -100,7 +102,7 @@ class BusTransform extends Transform {
             BusInject.start(busScan.busMap, busScan.busJar)
         } else {
             LogUtils.l('u should <implementation "com.blankj:utilcode:1.30.+"> ' +
-                    'or <implementation "com.blankj:bus:1.0+">')
+                       'or <implementation "com.blankj:bus:1.0+">')
         }
 
         LogUtils.l(getName() + " finished: " + (System.currentTimeMillis() - stTime) + "ms")

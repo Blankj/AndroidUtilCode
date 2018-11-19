@@ -6,7 +6,7 @@ plugins {
 
 apply {
     from "../gradle/pluginPublish.gradle"
-    if (rootProject.localDebugPlugin) {
+    if (bus.isDebug) {
         plugin 'maven'
         from "../gradle/localMavenUpload.gradle"
     } else {
@@ -30,10 +30,12 @@ dependencies {
     implementation dep.javassist
     implementation dep.commons_io
     implementation dep.junit
+    implementation gradleApi()
+    implementation localGroovy()
 }
 
-group = rootProject.group
-version = rootProject.versionName
+group = bus.group
+version = bus.version
 
 //./gradlew bus-gradle-plugin:bintrayUpload
 //./gradlew publishPlugins

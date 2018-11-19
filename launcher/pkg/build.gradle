@@ -2,7 +2,6 @@ plugins {
     id "com.android.library"
     id 'kotlin-android'
     id 'kotlin-android-extensions'
-//    id "com.blankj.bus"
 }
 
 // in config.gradle
@@ -10,5 +9,5 @@ configAndroidDomain project
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':lib-base')
+    api project(':lib-base')
 }

@@ -10,8 +10,7 @@ class Config {
     public static final List<String> EXCEPTS = [
             'com.android.support:',
             'com.android.support.constraint:',
-            'android.arch.',
-            'com.blankj:utilcode:'
+            'android.arch.'
     ]
 
     public static final String FILE_SEP = System.getProperty("file.separator")
