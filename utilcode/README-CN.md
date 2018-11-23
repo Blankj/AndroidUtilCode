@@ -233,7 +233,7 @@ encryptRSA, encryptRSA2HexString, encryptRSA2Base64   : RSA 加密
 decryptRSA, decryptHexStringRSA, decryptBase64RSA     : RSA 解密
 ```
 
-* ### 文件相关 -> [fileIOUtils.java][fileIo.java] -> [Test][fileIo.test]
+* ### 文件相关 -> [FileIOUtils.java][fileIo.java] -> [Test][fileIo.test]
 ```
 writeFileFromIS            : 将输入流写入文件
 writeFileFromBytesByStream : 将字节数组写入文件
@@ -847,8 +847,8 @@ getComments       : 获取压缩文件中的注释链表
 [encrypt.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/EncryptUtils.java
 [encrypt.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/EncryptUtilsTest.java
 
-[fileIo.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/fileIOUtils.java
-[fileIo.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/fileIOUtilsTest.java
+[fileIo.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/FileIOUtils.java
+[fileIo.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/FileIOUtilsTest.java
 
 [file.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/FileUtils.java
 [file.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/FileUtilsTest.java

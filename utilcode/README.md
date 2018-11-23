@@ -233,7 +233,7 @@ encryptRSA, encryptRSA2HexString, encryptRSA2Base64
 decryptRSA, decryptHexStringRSA, decryptBase64RSA
 ```
 
-* ### About fileIO -> [fileIOUtils.java][fileIo.java] -> [Test][fileIo.test]
+* ### About fileIO -> [FileIOUtils.java][fileIo.java] -> [Test][fileIo.test]
 ```
 writeFileFromIS
 writeFileFromBytesByStream
@@ -847,8 +847,8 @@ getComments
 [encrypt.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/utilcode-lib/src/main/java/com/blankj/utilcode/util/EncryptUtils.java
 [encrypt.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/utilcode-lib/src/test/java/com/blankj/utilcode/util/EncryptUtilsTest.java
 
-[fileIo.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/utilcode-lib/src/main/java/com/blankj/utilcode/util/fileIOUtils.java
-[fileIo.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/utilcode-lib/src/test/java/com/blankj/utilcode/util/fileIOUtilsTest.java
+[fileIo.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/utilcode-lib/src/main/java/com/blankj/utilcode/util/FileIOUtils.java
+[fileIo.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/utilcode-lib/src/test/java/com/blankj/utilcode/util/FileIOUtilsTest.java
 
 [file.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/utilcode-lib/src/main/java/com/blankj/utilcode/util/FileUtils.java
 [file.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/utilcode-lib/src/test/java/com/blankj/utilcode/util/FileUtilsTest.java
