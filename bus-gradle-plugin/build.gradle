@@ -29,9 +29,24 @@ dependencies {
     implementation dep.gradle
     implementation dep.javassist
     implementation dep.commons_io
-    implementation dep.junit
     implementation gradleApi()
     implementation localGroovy()
+
+    testImplementation dep.junit
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDirs += 'src/main/java'
+        }
+    }
+
+    test {
+        groovy {
+            srcDirs += 'src/test/java'
+        }
+    }
 }
 
 group = bus.group

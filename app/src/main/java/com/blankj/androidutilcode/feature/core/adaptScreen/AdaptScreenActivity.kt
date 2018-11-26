@@ -6,12 +6,13 @@ import android.os.Bundle
 import android.view.View
 import com.blankj.androidutilcode.R
 import com.blankj.androidutilcode.base.BaseBackActivity
+import com.blankj.utilcode.util.BusUtils
 import kotlinx.android.synthetic.main.activity_adapt_screen.*
 
 class AdaptScreenActivity : BaseBackActivity() {
 
     companion object {
-        @JvmStatic
+        @BusUtils.Subscribe(name = "AdaptScreenActivity#start")
         fun start(context: Context) {
             val starter = Intent(context, AdaptScreenActivity::class.java)
             context.startActivity(starter)
@@ -27,7 +28,10 @@ class AdaptScreenActivity : BaseBackActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         adaptWidthBtn.setOnClickListener { WidthActivity.start(this) }
         adaptHeightBtn.setOnClickListener { HeightActivity.start(this) }
-        closeAdaptBtn.setOnClickListener { CloseAdaptActivity.start(this) }
+        closeAdaptBtn.setOnClickListener {
+            BusUtils.post<Any>("CloseAdaptActivity#start", this)
+//            CloseAdaptActivity.start(this)
+        }
     }
 
     override fun doBusiness() {}

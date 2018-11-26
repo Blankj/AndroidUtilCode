@@ -2,12 +2,20 @@ package com.blankj.bus
 
 import com.android.build.api.transform.*
 import com.android.build.gradle.internal.pipeline.TransformManager
+import com.blankj.util.JavassistUtils
 import com.blankj.util.JsonUtils
 import com.blankj.util.LogUtils
-import com.blankj.util.Utils
+
 import org.apache.commons.io.FileUtils
+import org.gradle.api.Project
 
 class BusTransform extends Transform {
+
+    Project mProject;
+
+    BusTransform(Project project) {
+        mProject = project
+    }
 
     @Override
     String getName() {
@@ -33,6 +41,7 @@ class BusTransform extends Transform {
     void transform(TransformInvocation transformInvocation)
             throws TransformException, InterruptedException, IOException {
         super.transform(transformInvocation)
+        JavassistUtils.init(mProject)
         LogUtils.l(getName() + " started")
 
         long stTime = System.currentTimeMillis();
@@ -44,13 +53,12 @@ class BusTransform extends Transform {
 
         outputProvider.deleteAll()
 
-        Config.initClassPool()
         BusScan busScan = new BusScan()
 
         inputs.each { TransformInput input ->
             input.directoryInputs.each { DirectoryInput dirInput ->// 遍历文件夹
                 File dir = dirInput.file
-                Config.mPool.appendClassPath(dir.absolutePath)
+                JavassistUtils.getPool().appendClassPath(dir.absolutePath)
 
                 def dest = outputProvider.getContentLocation(
                         dirInput.name,
@@ -67,7 +75,7 @@ class BusTransform extends Transform {
 
             input.jarInputs.each { JarInput jarInput ->// 遍历 jar 文件
                 File jar = jarInput.file
-                Config.mPool.appendClassPath(jarInput.file.absolutePath)
+                JavassistUtils.getPool().appendClassPath(jarInput.file.absolutePath)
 
                 def jarName = jarInput.name
                 def dest = outputProvider.getContentLocation(
@@ -86,6 +94,7 @@ class BusTransform extends Transform {
                 if (jarName.startsWith("com.blankj:utilcode:")
                         || jarName.contains("utilcode-lib")) {
                     busScan.busJar = dest
+                    LogUtils.l("bus jar: " + jarName)
                     return
                 }
 
@@ -95,14 +104,13 @@ class BusTransform extends Transform {
         }
 
         if (busScan.busJar != null) {
-            File jsonFile = new File(Utils.project.projectDir.getAbsolutePath(), "__bus__.json")
+            File jsonFile = new File(mProject.projectDir.getAbsolutePath(), "__bus__.json")
             String busJson = JsonUtils.getFormatJson(busScan.busMap)
+            LogUtils.l(jsonFile.toString() + ": " + busJson)
             FileUtils.write(jsonFile, busJson)
-            LogUtils.l(busJson)
             BusInject.start(busScan.busMap, busScan.busJar)
         } else {
-            LogUtils.l('u should <implementation "com.blankj:utilcode:1.30.+"> ' +
-                       'or <implementation "com.blankj:bus:1.0+">')
+            LogUtils.l('u should <implementation "com.blankj:utilcode:1.22.+">')
         }
 
         LogUtils.l(getName() + " finished: " + (System.currentTimeMillis() - stTime) + "ms")

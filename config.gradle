@@ -39,7 +39,7 @@ ext {
                     android      : "com.squareup.leakcanary:leakcanary-android:$leakcanary_version",
                     android_no_op: "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version",
             ],
-            free_proguard              : "com.blankj:free-proguard:0.0.7",
+            free_proguard              : "com.blankj:free-proguard:0.0.9",
             bus                        : "com.blankj:bus:1.0",
             adapt_screen               : "com.blankj:adapt-screen:0.0.3",
 
@@ -167,11 +167,11 @@ def configLibAndroidDomain(Project pro) {
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             }
         }
-    }
 
-    afterEvaluate {
-        generateReleaseBuildConfig.enabled = false
-        generateDebugBuildConfig.enabled = false
+        afterEvaluate {
+            generateReleaseBuildConfig.enabled = false
+            generateDebugBuildConfig.enabled = false
+        }
     }
 }
 

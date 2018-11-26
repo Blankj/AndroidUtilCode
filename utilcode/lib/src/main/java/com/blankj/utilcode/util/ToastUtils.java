@@ -441,6 +441,16 @@ public final class ToastUtils {
                 }
                 mParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_PANEL;
                 mParams.y = mToast.getYOffset() + getNavBarHeight();
+                if (Utils.getActivityLifecycle().getOnActivityDestroyedListener() == null) {
+                    Utils.getActivityLifecycle().setOnActivityDestroyedListener(
+                            new Utils.OnActivityDestroyedListener() {
+                                @Override
+                                public void onActivityDestroyed(Activity activity) {
+                                    cancel();
+                                }
+                            }
+                    );
+                }
             }
 
             final Configuration config = context.getResources().getConfiguration();

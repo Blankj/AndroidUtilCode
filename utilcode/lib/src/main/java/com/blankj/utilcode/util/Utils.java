@@ -42,8 +42,9 @@ public final class Utils {
 
     private static final ActivityLifecycleImpl ACTIVITY_LIFECYCLE = new ActivityLifecycleImpl();
 
-    private final static String PERMISSION_ACTIVITY_CLASS_NAME =
+    private static final String PERMISSION_ACTIVITY_CLASS_NAME =
             "com.blankj.utilcode.util.PermissionUtils$PermissionActivity";
+
 
     private Utils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -157,8 +158,18 @@ public final class Utils {
         final LinkedList<Activity>                        mActivityList      = new LinkedList<>();
         final HashMap<Object, OnAppStatusChangedListener> mStatusListenerMap = new HashMap<>();
 
+        private OnActivityDestroyedListener mOnActivityDestroyedListener;
+
         private int mForegroundCount = 0;
         private int mConfigCount     = 0;
+
+        OnActivityDestroyedListener getOnActivityDestroyedListener() {
+            return mOnActivityDestroyedListener;
+        }
+
+        void setOnActivityDestroyedListener(OnActivityDestroyedListener onActivityDestroyedListener) {
+            mOnActivityDestroyedListener = onActivityDestroyedListener;
+        }
 
         void addListener(final Object object, final OnAppStatusChangedListener listener) {
             mStatusListenerMap.put(object, listener);
@@ -212,6 +223,9 @@ public final class Utils {
         @Override
         public void onActivityDestroyed(Activity activity) {
             mActivityList.remove(activity);
+            if (mOnActivityDestroyedListener != null) {
+                mOnActivityDestroyedListener.onActivityDestroyed(activity);
+            }
         }
 
         private void postStatus(final boolean isForeground) {
@@ -304,5 +318,9 @@ public final class Utils {
         void onForeground();
 
         void onBackground();
+    }
+
+    public interface OnActivityDestroyedListener {
+        void onActivityDestroyed(Activity activity);
     }
 }

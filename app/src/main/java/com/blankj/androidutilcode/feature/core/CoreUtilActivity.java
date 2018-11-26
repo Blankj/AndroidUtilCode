@@ -9,7 +9,6 @@ import android.view.View;
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseBackActivity;
 import com.blankj.androidutilcode.feature.core.activity.ActivityActivity;
-import com.blankj.androidutilcode.feature.core.adaptScreen.AdaptScreenActivity;
 import com.blankj.androidutilcode.feature.core.app.AppActivity;
 import com.blankj.androidutilcode.feature.core.bar.BarActivity;
 import com.blankj.androidutilcode.feature.core.clean.CleanActivity;
@@ -31,6 +30,7 @@ import com.blankj.androidutilcode.feature.core.snackbar.SnackbarActivity;
 import com.blankj.androidutilcode.feature.core.sp.SPActivity;
 import com.blankj.androidutilcode.feature.core.span.SpanActivity;
 import com.blankj.androidutilcode.feature.core.toast.ToastActivity;
+import com.blankj.utilcode.util.BusUtils;
 import com.blankj.utilcode.util.Utils;
 
 /**
@@ -83,7 +83,8 @@ public class CoreUtilActivity extends BaseBackActivity {
     }
 
     public void adaptScreenClick(View view) {
-        AdaptScreenActivity.start(this);
+        BusUtils.post("AdaptScreenActivity#start", this);
+//        AdaptScreenActivity.start(this);
     }
 
     public void appClick(View view) {

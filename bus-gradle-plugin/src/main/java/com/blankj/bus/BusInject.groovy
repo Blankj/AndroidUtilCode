@@ -1,5 +1,6 @@
 package com.blankj.bus
 
+import com.blankj.util.JavassistUtils
 import com.blankj.util.ZipUtils
 import javassist.CtClass
 import javassist.CtMethod
@@ -13,7 +14,7 @@ class BusInject {
             File decompressedJar = new File(decompressedJarPath)
             ZipUtils.unzipFile(busJar, decompressedJar)
 
-            CtClass busUtils = Config.mPool.get(Config.CLASS_BUS_UTILS)
+            CtClass busUtils = JavassistUtils.getPool().get(Config.CLASS_BUS_UTILS)
             CtMethod callMethod = busUtils.getDeclaredMethod("post");
             callMethod.insertAfter(getInsertContent(bus));
             busUtils.writeFile(decompressedJarPath)
