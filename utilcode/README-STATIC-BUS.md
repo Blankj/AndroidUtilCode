@@ -2,7 +2,7 @@
 
 ## 关于
 
-组件化开发会涉及到模块与模块之间相互调用，而各模块之间又是解偶的，所以就产生了很多路由方案，或者是把接口下沉到 `base` 组件中，但在 **[StaticBus][bus]** 看来，它们都略显复杂，**[StaticBus][bus]** 只需调用一个静态函数便可自由穿梭于各个模块，就像一辆巴士，由于是基于静态函数来实现，所以称她为 **[StaticBus][bus]**。
+组件化开发会涉及到模块与模块之间相互调用，而各模块之间又是解偶的，所以就产生了很多路由方案，或者是把接口下沉到 `base` 组件中，但在 **[StaticBus][bus]** 看来，它们都略显复杂，**[StaticBus][bus]** 只需调用一个静态函数便可自由穿梭于各个模块，就像一辆巴士，由于是基于静态函数来实现，所以称她为 **[StaticBus][bus]**，如今已支持 Kotlin。
 
 
 ## 基本使用
@@ -13,7 +13,7 @@
 buildscript {
     dependencies {
         ...
-        classpath 'com.blankj:bus-gradle-plugin:1.3'
+        classpath 'com.blankj:bus-gradle-plugin:1.5'
     }
 }
 ```
@@ -27,7 +27,7 @@ apply plugin: "com.blankj.bus"
 给 base 模块添加 [AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode) 依赖：
 
 ```groovy
-api "com.blankj:utilcode:1.22.0"
+api "com.blankj:utilcode:1.22.1"
 ```
 
 比如 module0 中存在的 `Module0Activity.java`，我们通常都是在它内部写一个 `start` 函数来启动它，现在我们给它添加 `@BusUtils.Subscribe` 注解，并给注解的 `name` 赋唯一值，要注意，函数务必要 `public static` 哦：
@@ -62,6 +62,8 @@ boolean result = BusUtils.post("startModule0", context, "blankj", 18);
 
 
 ## 高级使用
+
+参看本项目的组件化即可。
 
 
 

@@ -1,14 +1,10 @@
 package com.blankj.utilcode.util;
 
-import android.support.annotation.Nullable;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * <pre>
@@ -28,24 +24,6 @@ public class BaseTest {
 
     @Test
     public void test() {
-        ThreadUtils.SimpleTask<String> task = new ThreadUtils.SimpleTask<String>() {
-            @Nullable
-            @Override
-            public String doInBackground() throws Throwable {
-                boolean fl = true;
-                while (fl) {
-                    System.out.println("haha");
-                }
-                return null;
-            }
 
-            @Override
-            public void onSuccess(@Nullable String result) {
-
-            }
-        };
-        ThreadUtils.executeByCpuWithDelay(task, 20, TimeUnit.SECONDS);
-//        task.cancel();
-//        ThreadUtils.cancel(task);
     }
 }

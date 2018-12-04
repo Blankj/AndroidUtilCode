@@ -55,15 +55,15 @@
             android:paddingRight="@dimen/spacing_16">
 
             <Button
-                style="@style/WideBtnStyle"
                 android:id="@+id/launcherMainCoreUtilBtn"
+                style="@style/WideBtnStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/core_util" />
 
             <Button
-                style="@style/WideBtnStyle"
                 android:id="@+id/launcherMainSubUtilBtn"
+                style="@style/WideBtnStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/sub_util" />

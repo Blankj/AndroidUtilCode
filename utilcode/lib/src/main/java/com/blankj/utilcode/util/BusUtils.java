@@ -1,6 +1,8 @@
 package com.blankj.utilcode.util;
 
 
+import android.util.Log;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -18,9 +20,20 @@ import java.lang.annotation.Target;
  */
 public final class BusUtils {
 
+    private static final Object NULL = new Object();
+
     public static <T> T post(String name, Object... objects) {
         if (name == null || name.length() == 0) return null;
-        return null;
+        Object o = injectShell(name, objects);
+        if (NULL.equals(o)) {
+            Log.e("BusUtils", "bus of <" + name + "> didn\'t exist.");
+            return null;
+        }
+        return (T) o;
+    }
+
+    private static Object injectShell(String name, Object[] objects) {
+        return NULL;
     }
 
     @Target({ElementType.METHOD})

@@ -4,27 +4,34 @@ import com.blankj.util.JavassistUtils
 import com.blankj.util.ZipUtils
 import javassist.CtClass
 import javassist.CtMethod
+import javassist.NotFoundException
 import org.apache.commons.io.FileUtils
 
 class BusInject {
 
     static void start(HashMap<String, String> bus, File busJar) {
-            String jarPath = busJar.getAbsolutePath()
-            String decompressedJarPath = jarPath.substring(0, jarPath.length() - 4);
-            File decompressedJar = new File(decompressedJarPath)
-            ZipUtils.unzipFile(busJar, decompressedJar)
+        String jarPath = busJar.getAbsolutePath()
+        String decompressedJarPath = jarPath.substring(0, jarPath.length() - 4);
+        File decompressedJar = new File(decompressedJarPath)
+        ZipUtils.unzipFile(busJar, decompressedJar)
 
-            CtClass busUtils = JavassistUtils.getPool().get(Config.CLASS_BUS_UTILS)
-            CtMethod callMethod = busUtils.getDeclaredMethod("post");
-            callMethod.insertAfter(getInsertContent(bus));
-            busUtils.writeFile(decompressedJarPath)
-            busUtils.defrost();
-            FileUtils.forceDelete(busJar)
-            ZipUtils.zipFile(decompressedJar, busJar)
-            FileUtils.forceDelete(decompressedJar)
+        CtClass busUtils = JavassistUtils.getPool().get(Config.BUS_UTILS_CLASS)
+        CtMethod callMethod;
+        try {
+            callMethod = busUtils.getDeclaredMethod("injectShell");
+            callMethod.insertAfter(getInsertContent(bus, false));
+        } catch (NotFoundException ignore) {
+            callMethod = busUtils.getDeclaredMethod("post");
+            callMethod.insertAfter(getInsertContent(bus, true));
+        }
+        busUtils.writeFile(decompressedJarPath)
+        busUtils.defrost();
+        FileUtils.forceDelete(busJar)
+        ZipUtils.zipFile(decompressedJar, busJar)
+        FileUtils.forceDelete(decompressedJar)
     }
 
-    private static String getInsertContent(HashMap<String, String> bus) {
+    private static String getInsertContent(HashMap<String, String> bus, boolean isLow) {
         StringBuilder sb = new StringBuilder();
         bus.each { String key, String val ->
             String name = key
@@ -72,7 +79,9 @@ class BusInject {
             }
             sb.append("}")
         }
-        sb.append('android.util.Log.e("BusUtils", "bus of <" + $1 + "> didn\'t exist.");')
+        if (isLow) {
+            sb.append('android.util.Log.e("BusUtils", "bus of <" + $1 + "> didn\'t exist.");')
+        }
         return sb.toString()
     }
 }

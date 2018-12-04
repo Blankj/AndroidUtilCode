@@ -19,6 +19,7 @@ class JavassistUtils {
         sPool = new ClassPool(null)
         sPool.appendSystemPath()
         // 加入本地 android 包
+        LogUtils.l(project.android.bootClasspath[0].toString())
         sPool.appendClassPath(project.android.bootClasspath[0].toString())
     }
 

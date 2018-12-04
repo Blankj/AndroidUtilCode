@@ -43,13 +43,13 @@ class MainActivity : BaseDrawerActivity() {
         BarUtils.setStatusBarAlpha4Drawer(this, mDrawerRootLayout, launcherMainFakeStatusBar, 0, false)
         BarUtils.addMarginTopEqualStatusBarHeight(launcherMainToolbar)
 
-//        launcherMainCoreUtilBtn.setOnClickListener {
-//            BusUtils.post<Any>("CoreUtilActivity#start", this)
-//        }
-//
-//        launcherMainSubUtilBtn.setOnClickListener {
-//            BusUtils.post<Any>("SubUtilActivity#start", this)
-//        }
+        launcherMainCoreUtilBtn.setOnClickListener {
+            BusUtils.post<Any>("CoreUtilActivity#start", this)
+        }
+
+        launcherMainSubUtilBtn.setOnClickListener {
+            BusUtils.post<Any>("SubUtilActivity#start", this)
+        }
     }
 
     override fun doBusiness() {
@@ -58,14 +58,6 @@ class MainActivity : BaseDrawerActivity() {
 
     override fun onWidgetClick(view: View) {
 
-    }
-
-    fun coreUtilClick(view: View) {
-
-    }
-
-    fun subUtilClick(view: View) {
-        BusUtils.post<Any>("SubUtilActivity#start", this)
     }
 
     override fun onBackPressed() {

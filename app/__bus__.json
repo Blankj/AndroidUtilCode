@@ -1,3 +1,4 @@
 {
-  "CloseAdaptActivity#start": "void com.blankj.androidutilcode.feature.core.adaptScreen.CloseAdaptActivity.start(android.content.Context)"
+  "CloseAdaptActivity#start": "void com.blankj.androidutilcode.feature.core.adaptScreen.CloseAdaptActivity.start(android.content.Context)",
+  "AdaptScreenActivity#start": "void com.blankj.androidutilcode.feature.core.adaptScreen.AdaptScreenActivityKt.start(android.content.Context)"
 }

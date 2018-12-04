@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.22.0'
+implementation 'com.blankj:utilcode:1.22.1'
 ```
 
 
@@ -87,6 +87,12 @@ setNavBarColor                       : 设置导航栏颜色
 getNavBarColor                       : 获取导航栏颜色
 isSupportNavBar                      : 判断是否支持导航栏
 ```
+
+* ### Bus 相关 -> [BusUtils.java][bus.java] -> [README][bus.readme]
+```
+post: 发送
+```
+
 
 * ### 磁盘缓存相关 -> [CacheDiskUtils.java][cacheDisk.java] -> [Test][cacheDisk.test]
 ```
@@ -815,6 +821,9 @@ getComments       : 获取压缩文件中的注释链表
 
 [bar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/BarUtils.java
 [bar.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/bar/BarActivity.java
+
+[bus.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/BusUtils.java
+[bus.readme]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/README-STATIC-BUS.md
 
 [cacheDisk.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CacheDiskUtils.java
 [cacheDisk.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/CacheDiskUtilsTest.java
