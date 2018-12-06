@@ -35,7 +35,7 @@
 [![Blog][blogSvg]][blog] [![jianshu][jianshuSvg]][jianshu] [![weibo][weiboSvg]][weibo] [![QQGroup][qqgroupSvg]][qqgroup]
 
 
-## [Update Log][updateLog.md]
+## [Change Log][changeLog.md]
 
 
 

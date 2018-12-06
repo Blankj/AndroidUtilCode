@@ -40,7 +40,6 @@ ext {
                     android_no_op: "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version",
             ],
             free_proguard              : "com.blankj:free-proguard:0.0.9",
-            bus                        : "com.blankj:bus:1.0",
             adapt_screen               : "com.blankj:adapt-screen:0.0.3",
 
             gson                       : "com.google.code.gson:gson:2.8.2",
