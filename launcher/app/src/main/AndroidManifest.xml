@@ -2,4 +2,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.blankj.launcher">
 
+    <application
+        android:name=".app.UtilsApp"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".pkg.MainActivity"
+            android:screenOrientation="user"
+            android:windowSoftInputMode="stateHidden|adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
 </manifest>

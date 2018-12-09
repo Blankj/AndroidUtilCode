@@ -8,3 +8,4 @@
 .externalNativeBuild
 /apk
 /maven
+__bus__.json

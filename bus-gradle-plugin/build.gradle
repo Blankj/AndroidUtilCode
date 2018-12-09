@@ -1,18 +1,18 @@
 plugins {
-    id 'groovy'
-    id 'java-gradle-plugin' // for gradlePlugin DSL
     id 'com.gradle.plugin-publish' version "0.10.0" //for pluginPublish.gradle
 }
 
 apply {
-    from "../gradle/pluginPublish.gradle"
+    plugin "groovy"
+    plugin "java-gradle-plugin"
+    from "${rootDir.path}/gradle/pluginPublish.gradle"
     if (bus.isDebug) {
         plugin 'maven'
-        from "../gradle/localMavenUpload.gradle"
+        from "${rootDir.path}/gradle/localMavenUpload.gradle"
     } else {
         plugin 'com.github.dcendents.android-maven'
         plugin 'com.jfrog.bintray'
-        from "../gradle/bintrayUploadJava.gradle"
+        from "${rootDir.path}/gradle/bintrayUploadJava.gradle"
     }
 }
 
@@ -26,7 +26,6 @@ gradlePlugin {
 }
 
 dependencies {
-    implementation dep.gradle
     implementation dep.javassist
     implementation dep.commons_io
     implementation gradleApi()

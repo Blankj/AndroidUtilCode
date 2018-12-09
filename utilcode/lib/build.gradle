@@ -1,13 +1,11 @@
-plugins {
-    id "com.android.library"
-    id "tech.harmonysoft.oss.traute" version "1.1.8"
-    id "com.github.dcendents.android-maven"
-    id "com.jfrog.bintray"
-    id "readme-core"
-    id "kotlin-android"
+apply {
+    from "${rootDir.path}/config_lib.gradle"
+
+    plugin "tech.harmonysoft.oss.traute"
+    plugin "com.github.dcendents.android-maven"
+    plugin "com.jfrog.bintray"
+    plugin "readme-core"
 }
-// in config.gradle
-configAndroidDomain project
 
 readme {
     readmeFile file('../README.md')

@@ -12,13 +12,9 @@ buildscript {
     }
 
     dependencies {
-        classpath dep.gradle
-        classpath dep.kotlin_gradle_plugin
-
-        classpath dep.android_maven_gradle_plugin
-        classpath dep.gradle_bintray_plugin
-
-        classpath dep.bus_gradle_plugin
+        for (plugin in dep.plugin) {
+            classpath plugin
+        }
     }
 }
 
