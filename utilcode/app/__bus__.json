@@ -1,0 +1,4 @@
+{
+  "CoreUtilActivity#start": "void com.blankj.utilcode.pkg.feature.CoreUtilActivity.start(android.content.Context)",
+  "AdaptScreenActivity#start": "void com.blankj.utilcode.pkg.feature.adaptScreen.AdaptScreenActivity.Companion.start(android.content.Context)"
+}

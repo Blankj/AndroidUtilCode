@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.View
 import com.blankj.base.BaseDrawerActivity
+import com.blankj.launcher.R
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.BusUtils

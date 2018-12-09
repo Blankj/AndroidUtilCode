@@ -1,4 +1,4 @@
-includeModule ':app',
+includeModule\
         ':buildSrc',
         ':bus-gradle-plugin',
         ':launcher',
@@ -6,8 +6,10 @@ includeModule ':app',
         ':subutil',
         ':utilcode'
 
+// 如果 name 以 '-' 开头，则剔除在外
 def includeModule(String... names) {
     names.each {
+        if (it.startsWith('-')) return
         def fileName
         if (it.startsWith(":")) {
             fileName = it.substring(1, it.length())

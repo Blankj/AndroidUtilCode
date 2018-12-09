@@ -33,6 +33,7 @@ api "com.blankj:utilcode:1.22.1"
 比如 module0 中存在的 `Module0Activity.java`，我们通常都是在它内部写一个 `start` 函数来启动它，现在我们给它添加 `@BusUtils.Subscribe` 注解，并给注解的 `name` 赋唯一值，要注意，函数务必要 `public static` 哦：
 
 ```java
+// java
 public class Module0Activity extends Activity {
 
     @BusUtils.Subscribe(name = "startModule0")
@@ -44,12 +45,31 @@ public class Module0Activity extends Activity {
         return true;
     }
 }
+
+// kotlin
+class Module0Activity : Activity() {
+
+    companion object {
+        @BusUtils.Subscribe(name = "startModule0")
+        fun start(context: Context, name: String, age: Int): Boolean {
+            val starter = Intent(context, Module0Activity::class.java)
+            starter.putExtra("name", name)
+            starter.putExtra("age", age)
+            context.startActivity(starter)
+            return true
+        }
+    }
+}
 ```
 
 在其他模块通过 `BusUtils.post("startModule0", Context, String, int)` 即可访问到它，一定要注意 `name` 之后的参数顺序和个数一定要和前面声明的函数相一致，其返回值也就是前面函数的返回值：
 
 ```java
+// java
 boolean result = BusUtils.post("startModule0", context, "blankj", 18);
+
+// kotlin
+val result = BusUtils.post("startModule0", context, "blankj", 18)
 ```
 
 点击编译之后会在该 application 模块中生成 `__bus__.json` 文件
@@ -64,6 +84,8 @@ boolean result = BusUtils.post("startModule0", context, "blankj", 18);
 ## 高级使用
 
 参看本项目的组件化即可。
+
+主要文件：settings.gradle
 
 
 

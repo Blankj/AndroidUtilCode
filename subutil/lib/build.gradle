@@ -1,10 +1,11 @@
-plugins {
-    id "com.android.library"
-    id "readme-sub"
-}
+apply {
+    from "${rootDir.path}/config_lib.gradle"
 
-// in config.gradle
-configAndroidDomain project
+    plugin "tech.harmonysoft.oss.traute"
+    plugin "com.github.dcendents.android-maven"
+    plugin "com.jfrog.bintray"
+    plugin "readme-sub"
+}
 
 readme {
     readmeFile file('../README.md')

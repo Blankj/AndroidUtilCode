@@ -12,17 +12,16 @@
     tools:openDrawer="start">
 
     <FrameLayout
-        android:id="@+id/baseBackActivityContainer"
+        android:id="@+id/drawerContainerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <android.support.design.widget.NavigationView
-        android:id="@+id/navView"
+        android:id="@+id/drawerNavView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/white"
-        android:fitsSystemWindows="false"
         app:headerLayout="@layout/activity_drawer_nav_header"
         app:menu="@menu/main_drawer" />
 

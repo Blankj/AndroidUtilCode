@@ -1,14 +1,10 @@
-plugins {
-    id "com.android.application"
-    id 'kotlin-android'
-    id 'kotlin-android-extensions'
-    id "com.blankj.bus"
+apply {
+    from "${rootDir.path}/config_app.gradle"
 }
-
-// in config.gradle
-configAndroidDomain project
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':launcher-pkg')
+    implementation project(':subutil-pkg')
+    implementation project(':utilcode-pkg')
 }

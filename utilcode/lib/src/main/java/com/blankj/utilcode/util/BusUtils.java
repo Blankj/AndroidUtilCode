@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  *     blog  : http://blankj.com
  *     time  : 2018/10/02
  *     desc  : utils about bus, and the site of
- *     https://github.com/Blankj/AndroidUtilCode/utilcode/README-STATIC-BUS.md
+ *     https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/README-STATIC-BUS.md
  *     will help u.
  * </pre>
  */

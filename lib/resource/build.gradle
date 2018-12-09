@@ -1,6 +1,6 @@
-apply plugin: 'com.android.library'
-
-configAndroidDomain project
+apply {
+    from "${rootDir.path}/config_lib.gradle"
+}
 
 android {
     sourceSets {

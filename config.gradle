@@ -20,158 +20,38 @@ ext {
     leakcanary_version = '1.5.4'
 
     dep = [
-            // plugin
-            gradle                     : "com.android.tools.build:gradle:3.2.1",
-            kotlin_gradle_plugin       : "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version",
-            android_maven_gradle_plugin: "com.github.dcendents:android-maven-gradle-plugin:2.1",
-            gradle_bintray_plugin      : "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4",
-            bus_gradle_plugin          : "com.blankj:bus-gradle-plugin:$bus.version",
+            plugin       : [
+                    "com.android.tools.build:gradle:3.2.1",
+                    "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version",
+                    "com.github.dcendents:android-maven-gradle-plugin:2.1",// 上传到 maven
+                    "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4",// 上传到 bintray
+                    "tech.harmonysoft:traute-gradle:1.1.8",// 注解转非空判断
+                    "com.blankj:bus-gradle-plugin:$bus.version",// 组件化 Static Bus
+            ],
 
             // lib
-            support                    : [
+            support      : [
                     appcompat_v7: "com.android.support:appcompat-v7:$support_version",
                     design      : "com.android.support:design:$support_version",
                     multidex    : "com.android.support:multidex:1.0.2",
             ],
-            constraint                 : "com.android.support.constraint:constraint-layout:1.1.3",
-            kotlin                     : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
-            leakcanary                 : [
+            constraint   : "com.android.support.constraint:constraint-layout:1.1.3",
+            kotlin       : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            leakcanary   : [
                     android      : "com.squareup.leakcanary:leakcanary-android:$leakcanary_version",
                     android_no_op: "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version",
             ],
-            free_proguard              : "com.blankj:free-proguard:0.0.9",
-            adapt_screen               : "com.blankj:adapt-screen:0.0.3",
+            free_proguard: "com.blankj:free-proguard:0.0.9",
+            adapt_screen : "com.blankj:adapt-screen:0.0.3",
 
-            gson                       : "com.google.code.gson:gson:2.8.2",
-            glide                      : "com.github.bumptech.glide:glide:4.7.1",
-            retrofit                   : "com.squareup.retrofit2:retrofit:2.4.0",
-            javassist                  : "org.javassist:javassist:3.24.0-GA",
-            commons_io                 : "commons-io:commons-io:2.5",
+            gson         : "com.google.code.gson:gson:2.8.2",
+            glide        : "com.github.bumptech.glide:glide:4.7.1",
+            retrofit     : "com.squareup.retrofit2:retrofit:2.4.0",
+            javassist    : "org.javassist:javassist:3.24.0-GA",
+            commons_io   : "commons-io:commons-io:2.5",
 
-            junit                      : "junit:junit:4.12",
-            robolectric                : "org.robolectric:robolectric:3.1.2",
+            junit        : "junit:junit:4.12",
+            robolectric  : "org.robolectric:robolectric:3.1.2",
     ]
-
-    configAndroidDomain = this.&configAndroidDomain
-    configAppDependencies = this.&configAppDependencies
 }
-
-def configAndroidDomain(Project pro) {
-    configCommon(pro)
-    if (pro.plugins.hasPlugin("com.android.application")) {
-        configAppAndroidDomain(pro)
-    } else {
-        configLibAndroidDomain(pro)
-    }
-}
-
-def configCommon(Project pro) {
-    pro.android {
-        compileSdkVersion rootProject.compileSdkVersion
-        defaultConfig {
-            minSdkVersion rootProject.minSdkVersion
-            versionCode rootProject.versionCode
-            versionName rootProject.versionName
-        }
-
-        lintOptions {
-            abortOnError false
-        }
-
-        testOptions.unitTests.all {
-            testLogging {
-                events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
-            }
-        }
-    }
-}
-
-
-def configAppAndroidDomain(Project pro) {
-    configSigning(pro)
-    configApkName(pro)
-    String suffix = getSuffix(pro)
-    pro.android {
-        defaultConfig {
-            applicationId rootProject.applicationId + suffix
-            targetSdkVersion rootProject.targetSdkVersion
-            multiDexEnabled true
-            resValue "string", "app_name", rootProject.appName + suffix
-        }
-
-        buildTypes {
-            release {
-                minifyEnabled true
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            }
-        }
-
-        sourceSets {
-            main.res.srcDirs += 'src/main/res-core'
-            main.res.srcDirs += 'src/main/res-sub'
-        }
-    }
-
-    pro.dependencies {
-        // LeakCanary
-        debugImplementation dep.leakcanary.android
-        releaseImplementation dep.leakcanary.android_no_op
-    }
-}
-
-private static String getSuffix(Project pro) {
-    String[] splits = pro.name.split("-")
-    String suffix = ""
-    if (splits.length == 2) {
-        suffix = "." + splits[0]
-    }
-    return suffix
-}
-
-def configSigning(Project pro) {
-    File signPropertiesFile = file('sign/keystore.properties')
-    if (!signPropertiesFile.exists()) return
-    pro.android {
-        Properties properties = new Properties()
-        properties.load(new FileInputStream(signPropertiesFile))
-        signingConfigs {
-            release {
-                storeFile file(properties['keystore'])
-                storePassword properties['storePassword']
-                keyAlias properties['keyAlias']
-                keyPassword properties['keyPassword']
-            }
-        }
-        buildTypes.release.signingConfig signingConfigs.release
-    }
-}
-
-def configApkName(Project pro) {
-    pro.android.applicationVariants.all { variant ->
-        if (variant.buildType.name != "debug") {
-            variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/apk")
-            variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
-                apkData.outputFileName = "util_" + variant.versionName.replace(".", "_") + ".apk"
-            }
-        }
-    }
-}
-
-def configLibAndroidDomain(Project pro) {
-    pro.android {
-        buildTypes {
-            release {
-                minifyEnabled false
-                consumerProguardFiles 'proguard-rules.pro'
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            }
-        }
-
-        afterEvaluate {
-            generateReleaseBuildConfig.enabled = false
-            generateDebugBuildConfig.enabled = false
-        }
-    }
-}
-
 //./gradlew clean utilcode-lib:bintrayUpload

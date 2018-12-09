@@ -19,7 +19,7 @@ import com.squareup.leakcanary.LeakCanary
 open class BaseApplication : MultiDexApplication() {
 
     companion object {
-        private lateinit var instance: BaseApplication
+        lateinit var instance: BaseApplication
     }
 
     private var isDebug: Boolean? = null
@@ -49,7 +49,7 @@ open class BaseApplication : MultiDexApplication() {
     }
 
     // init it in ur application
-    private fun initLog() {
+    fun initLog() {
         val config = LogUtils.getConfig()
                 .setLogSwitch(isDebug())// 设置 log 总开关，包括输出到控制台和文件，默认开
                 .setConsoleSwitch(isDebug())// 设置是否输出到控制台开关，默认开

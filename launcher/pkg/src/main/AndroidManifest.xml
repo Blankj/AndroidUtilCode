@@ -1,69 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.blankj.launcher.pkg">
+    package="com.blankj.launcher">
 
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-
-    <!-- bar -->
-    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
-
-    <!-- 读写内存 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <!-- network -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- permission -->
-    <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
-    <!-- phone -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-
-    <!-- process -->
-    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
-
-    <!-- screen -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-
-    <!-- flashlight -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
-
-    <!-- location -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-    <application
-        android:name=".UtilsApp"
-        android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
-        android:theme="@style/AppTheme">
+    <application>
         <activity
-            android:name=".MainActivity"
+            android:name=".pkg.MainActivity"
             android:screenOrientation="user"
-            android:windowSoftInputMode="stateHidden|adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <!--<activity-->
-            <!--android:name=".MainActivity"-->
-            <!--android:screenOrientation="user"-->
-            <!--android:windowSoftInputMode="stateHidden|adjustPan" />-->
+            android:windowSoftInputMode="stateHidden|adjustPan" />
     </application>
 
 </manifest>
