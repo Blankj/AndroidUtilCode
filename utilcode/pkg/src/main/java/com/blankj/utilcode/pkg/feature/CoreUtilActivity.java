@@ -9,6 +9,7 @@ import android.view.View;
 import com.blankj.base.BaseBackActivity;
 import com.blankj.utilcode.R;
 import com.blankj.utilcode.pkg.feature.activity.ActivityActivity;
+import com.blankj.utilcode.pkg.feature.adaptScreen.AdaptScreenActivity;
 import com.blankj.utilcode.pkg.feature.app.AppActivity;
 import com.blankj.utilcode.pkg.feature.bar.BarActivity;
 import com.blankj.utilcode.pkg.feature.clean.CleanActivity;
@@ -84,7 +85,7 @@ public class CoreUtilActivity extends BaseBackActivity {
     }
 
     public void adaptScreenClick(View view) {
-        BusUtils.post("AdaptScreenActivity#start", this);
+        AdaptScreenActivity.Companion.start(this);
     }
 
     public void appClick(View view) {
