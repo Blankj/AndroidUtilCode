@@ -51,6 +51,8 @@ class MainActivity : BaseDrawerActivity() {
         launcherMainSubUtilBtn.setOnClickListener {
             BusUtils.post<Any>("SubUtilActivity#start", this)
         }
+
+        BusUtils.post<Any>("showDialog")
     }
 
     override fun doBusiness() {
