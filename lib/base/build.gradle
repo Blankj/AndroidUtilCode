@@ -4,7 +4,6 @@ apply {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    api project(':lib-resource')
     api project(':utilcode-lib')
     api project(':subutil-lib')
 

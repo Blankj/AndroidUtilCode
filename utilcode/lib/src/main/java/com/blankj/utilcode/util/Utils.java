@@ -203,10 +203,7 @@ public final class Utils {
         }
 
         @Override
-        public void onActivityPaused(Activity activity) {/**/}
-
-        @Override
-        public void onActivityStopped(Activity activity) {
+        public void onActivityPaused(Activity activity) {/**/
             if (activity.isChangingConfigurations()) {
                 --mConfigCount;
             } else {
@@ -215,6 +212,11 @@ public final class Utils {
                     postStatus(false);
                 }
             }
+        }
+
+        @Override
+        public void onActivityStopped(Activity activity) {
+
         }
 
         @Override

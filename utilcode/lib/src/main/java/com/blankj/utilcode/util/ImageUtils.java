@@ -1170,16 +1170,11 @@ public final class ImageUtils {
         } else {
             scaleBitmap = stackBlur(scaleBitmap, (int) radius, recycle);
         }
-        if (scale == 1) {
+        if (scale == 1 || isReturnScale) {
             if (recycle && !src.isRecycled()) src.recycle();
             return scaleBitmap;
         }
-        Bitmap ret;
-        if (isReturnScale) {
-            ret = scaleBitmap;
-        } else {
-            ret = Bitmap.createScaledBitmap(scaleBitmap, width, height, true);
-        }
+        Bitmap ret = Bitmap.createScaledBitmap(scaleBitmap, width, height, true);
         if (!scaleBitmap.isRecycled()) scaleBitmap.recycle();
         if (recycle && !src.isRecycled()) src.recycle();
         return ret;
