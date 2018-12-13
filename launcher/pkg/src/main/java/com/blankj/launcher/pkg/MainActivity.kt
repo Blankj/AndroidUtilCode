@@ -1,20 +1,21 @@
 package com.blankj.launcher.pkg
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Color
-import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
+import android.view.KeyEvent
 import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.ImageView
 import com.blankj.base.BaseDrawerActivity
 import com.blankj.launcher.R
-import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.BarUtils
-import com.blankj.utilcode.util.BusUtils
-import com.blankj.utilcode.util.ImageUtils
+import com.blankj.utilcode.util.*
 import kotlinx.android.synthetic.main.activity_main.*
+
+
 
 
 /**
@@ -56,26 +57,9 @@ class MainActivity : BaseDrawerActivity() {
         }
 
         launcherMainSubUtilBtn.setOnClickListener {
-            BusUtils.post<Any>("showDialog")
-//            BusUtils.post<Any>("SubUtilActivity#start", this)
+            BusUtils.post<Any>("SubUtilActivity#start", this)
         }
-
-
-        contentView.post(Runnable {
-            val topActivity = ActivityUtils.getTopActivity() ?: return@Runnable
-            val decorView = topActivity.window.decorView as ViewGroup
-            val bitmapForView = ImageUtils.view2Bitmap(decorView)
-
-            val bitmap = ImageUtils.fastBlur(bitmapForView, 0.125f, 2f, true, true)
-
-            view = ImageView(topActivity)
-            view?.setImageBitmap(bitmap)
-            view?.tag = "blur"
-            decorView.addView(view, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
-            view?.visibility = View.GONE
-        })
-
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND, WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
     }
 
@@ -89,36 +73,5 @@ class MainActivity : BaseDrawerActivity() {
 
     override fun onBackPressed() {
         ActivityUtils.startHomeActivity()
-    }
-
-    override fun onResume() {
-        view?.visibility = View.GONE
-        super.onResume()
-    }
-
-    override fun onPause() {
-        view?.visibility = View.VISIBLE
-//        val topActivity = ActivityUtils.getTopActivity() ?: return
-//        val decorView = topActivity.window.decorView as ViewGroup
-//        val bitmapForView = ImageUtils.view2Bitmap(decorView)
-//
-//        val bitmap = ImageUtils.fastBlur(bitmapForView, 0.125f, 2f, true, true)
-//
-//        val view = ImageView(topActivity)
-//        view.setImageBitmap(bitmap)
-//        view.tag = "blur"
-//        decorView.addView(view, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
-//        val windowManager = topActivity.windowManager
-//        val mParams = WindowManager.LayoutParams()
-//
-//        mParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_PANEL
-//        mParams.height = WindowManager.LayoutParams.MATCH_PARENT
-//        mParams.width = WindowManager.LayoutParams.MATCH_PARENT
-//
-//        val view = ImageView(topActivity)
-//        view.setImageBitmap(bitmap)
-//        view.tag = "blur"
-//        windowManager.addView(view, mParams)
-        super.onPause()
     }
 }

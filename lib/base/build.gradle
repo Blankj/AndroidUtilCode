@@ -5,7 +5,6 @@ apply {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     api project(':utilcode-lib')
-    api project(':subutil-lib')
 
     api dep.support.appcompat_v7
     api dep.support.design

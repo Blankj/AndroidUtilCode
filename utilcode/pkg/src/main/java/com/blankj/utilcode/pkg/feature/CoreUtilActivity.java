@@ -12,6 +12,7 @@ import com.blankj.utilcode.pkg.feature.activity.ActivityActivity;
 import com.blankj.utilcode.pkg.feature.adaptScreen.AdaptScreenActivity;
 import com.blankj.utilcode.pkg.feature.app.AppActivity;
 import com.blankj.utilcode.pkg.feature.bar.BarActivity;
+import com.blankj.utilcode.pkg.feature.blur.BlurActivity;
 import com.blankj.utilcode.pkg.feature.clean.CleanActivity;
 import com.blankj.utilcode.pkg.feature.device.DeviceActivity;
 import com.blankj.utilcode.pkg.feature.fragment.FragmentActivity;
@@ -32,7 +33,6 @@ import com.blankj.utilcode.pkg.feature.sp.SPActivity;
 import com.blankj.utilcode.pkg.feature.span.SpanActivity;
 import com.blankj.utilcode.pkg.feature.toast.ToastActivity;
 import com.blankj.utilcode.util.BusUtils;
-import com.blankj.utilcode.util.Utils;
 
 /**
  * <pre>
@@ -62,7 +62,6 @@ public class CoreUtilActivity extends BaseBackActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View contentView) {
-        Utils.getApp();
         setTitle(R.string.core_util);
     }
 
@@ -94,6 +93,10 @@ public class CoreUtilActivity extends BaseBackActivity {
 
     public void barClick(View view) {
         BarActivity.start(this);
+    }
+
+    public void blurClick(View view) {
+        BlurActivity.start(this);
     }
 
     public void cleanClick(View view) {

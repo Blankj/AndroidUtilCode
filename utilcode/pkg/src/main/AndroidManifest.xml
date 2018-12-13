@@ -90,6 +90,13 @@
             android:name=".pkg.feature.bar.BarStatusSwipeBackActivity"
             android:launchMode="singleTop" />
         <activity
+            android:name=".pkg.feature.blur.BlurActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".pkg.feature.blur.TransparentActivity"
+            android:theme="@style/ActivityTranslucent"
+            android:launchMode="singleTop" />
+        <activity
             android:name=".pkg.feature.clean.CleanActivity"
             android:launchMode="singleTop" />
         <activity
@@ -156,7 +163,6 @@
         <meta-data
             android:name="app_meta_data"
             android:value="AppMetaData" />
-
     </application>
 
 

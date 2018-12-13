@@ -1,9 +1,9 @@
 includeModule\
         ':buildSrc',
         ':bus-gradle-plugin',
-        ':launcher',
+        ':-launcher',
         ':lib',
-        ':subutil',
+        ':-subutil',
         ':utilcode'
 
 // 如果 name 以 '-' 开头，则剔除在外

@@ -4,6 +4,7 @@
     <string name="demo_adapt_screen">AdaptScreenUtils Demo</string>
     <string name="demo_app">AppUtils Demo</string>
     <string name="demo_bar">BarUtils Demo</string>
+    <string name="demo_blur">BlurUtils Demo</string>
     <string name="demo_clean">CleanUtils Demo</string>
     <string name="demo_crash">CrashUtils Demo</string>
     <string name="demo_device">DeviceUtils Demo</string>
@@ -106,6 +107,9 @@
     <string name="bar_nav_hide">Hide Nav</string>
     <string name="bar_nav_immersive">Immersive Nav</string>
     <string name="bar_nav_color">Set Nav Color Random</string>
+
+    <!--Blur 相关-->
+    <string name="blur_text">Blur Text</string>
 
     <!--Clean 相关-->
     <string name="clean_internal_cache">Clean Internal Cache</string>
