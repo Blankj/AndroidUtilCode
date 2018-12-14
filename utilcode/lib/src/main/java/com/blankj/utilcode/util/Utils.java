@@ -160,8 +160,9 @@ public final class Utils {
 
         private OnActivityDestroyedListener mOnActivityDestroyedListener;
 
-        private int mForegroundCount = 0;
-        private int mConfigCount     = 0;
+        private int     mForegroundCount = 0;
+        private int     mConfigCount     = 0;
+        private boolean mIsBackground    = false;
 
         OnActivityDestroyedListener getOnActivityDestroyedListener() {
             return mOnActivityDestroyedListener;
@@ -186,9 +187,8 @@ public final class Utils {
 
         @Override
         public void onActivityStarted(Activity activity) {
-            setTopActivity(activity);
-            if (mForegroundCount <= 0) {
-                postStatus(true);
+            if (!mIsBackground) {
+                setTopActivity(activity);
             }
             if (mConfigCount < 0) {
                 ++mConfigCount;
@@ -200,6 +200,10 @@ public final class Utils {
         @Override
         public void onActivityResumed(Activity activity) {
             setTopActivity(activity);
+            if (mIsBackground) {
+                mIsBackground = false;
+                postStatus(true);
+            }
         }
 
         @Override
@@ -214,6 +218,7 @@ public final class Utils {
             } else {
                 --mForegroundCount;
                 if (mForegroundCount <= 0) {
+                    mIsBackground = true;
                     postStatus(false);
                 }
             }

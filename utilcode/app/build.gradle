@@ -5,4 +5,5 @@ apply {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':utilcode-pkg')
+    api dep.free_proguard
 }

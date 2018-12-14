@@ -21,9 +21,16 @@ android {
     }
 
     buildTypes {
+//        debug {
+//            minifyEnabled true
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            for (int i = 0; i < consumerProguardFiles.size(); i++) {
+//                println consumerProguardFiles[i].getAbsolutePath() + "<111"
+//            }
+////             consumerProguardFiles[0] + ",111 " + consumerProguardFiles[1].getAbsolutePath()
+//        }
         release {
             minifyEnabled true
-            consumerProguardFiles 'proguard-rules.pro'
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -61,7 +68,7 @@ def configSigning(Project pro) {
         properties.load(new FileInputStream(signPropertiesFile))
         signingConfigs {
             release {
-                storeFile file(properties['keystore'])
+                storeFile new File(signPropertiesFile.getParent(), properties['keystore'])
                 storePassword properties['storePassword']
                 keyAlias properties['keyAlias']
                 keyPassword properties['keyPassword']

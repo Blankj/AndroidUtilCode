@@ -17,6 +17,7 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.Utils;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -44,7 +45,7 @@ public class BlurActivity extends BaseBackActivity {
 
     @Override
     public int bindLayout() {
-        this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
+//        this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
         return R.layout.activity_blur;
     }
 
@@ -55,24 +56,19 @@ public class BlurActivity extends BaseBackActivity {
 
     @Override
     public void doBusiness() {
-//        AppUtils.registerAppStatusChangedListener(this, new Utils.OnAppStatusChangedListener() {
-//            @Override
-//            public void onForeground() {
-//                BlurActivity.leave(false);
-//            }
-//
-//            @Override
-//            public void onBackground() {
-//                BlurActivity.leave(true);
-//            }
-//        });
-        mContentView.postDelayed(new Runnable() {
+        AppUtils.registerAppStatusChangedListener(this, new Utils.OnAppStatusChangedListener() {
             @Override
-            public void run() {
-                DialogHelper.showAdaptScreenDialog();
+            public void onForeground() {
+                LogUtils.e();
+                BlurActivity.leave(false);
             }
-        }, 1000);
 
+            @Override
+            public void onBackground() {
+                LogUtils.e();
+                BlurActivity.leave(true);
+            }
+        });
     }
 
     @Override
@@ -91,24 +87,17 @@ public class BlurActivity extends BaseBackActivity {
         super.onResume();
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        if (hasFocus) {
-            leave(false);
-            LogUtils.e();
-        } else {
-            leave(true);
-            LogUtils.e();
-        }
-        super.onWindowFocusChanged(hasFocus);
-    }
-
-    @Override
-    protected void onUserLeaveHint() {
-        leave(true);
-        LogUtils.e();
-        super.onUserLeaveHint();
-    }
+//    @Override
+//    public void onWindowFocusChanged(boolean hasFocus) {
+//        if (hasFocus) {
+//            leave(false);
+//            LogUtils.e();
+//        } else {
+//            leave(true);
+//            LogUtils.e();
+//        }
+//        super.onWindowFocusChanged(hasFocus);
+//    }
 
 
     public static void leave(boolean isBlur) {
@@ -129,7 +118,7 @@ public class BlurActivity extends BaseBackActivity {
                         view,
                         new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
                 );
-                TransparentActivity.start();
+//                TransparentActivity.start();
             }
         } else {
             if (!isBlur) {
