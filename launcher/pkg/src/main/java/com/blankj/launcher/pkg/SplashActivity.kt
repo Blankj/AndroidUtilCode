@@ -2,7 +2,7 @@ package com.blankj.launcher.pkg
 
 import android.os.Bundle
 import android.view.View
-import com.blankj.base.BaseActivity
+import com.blankj.lib.base.BaseActivity
 
 class SplashActivity : BaseActivity() {
     override fun initData(bundle: Bundle?) {

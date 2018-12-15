@@ -5,12 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.view.View;
 
-import com.blankj.base.BaseApplication;
-import com.blankj.subutil.pkg.helper.DialogHelper;
-import com.blankj.utilcode.util.AppUtils;
-import com.blankj.utilcode.util.BusUtils;
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.Utils;
+import com.blankj.lib.base.BaseApplication;
 
 /**
  * <pre>

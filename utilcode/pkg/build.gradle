@@ -5,5 +5,4 @@ apply {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api project(':lib-base')
-    api 'com.jaredrummler:android-processes:1.1.1'
 }

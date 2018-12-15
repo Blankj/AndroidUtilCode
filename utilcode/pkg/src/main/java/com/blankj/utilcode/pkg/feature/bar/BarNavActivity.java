@@ -10,8 +10,8 @@ import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.widget.TextView;
 
-import com.blankj.base.BaseBackActivity;
-import com.blankj.utilcode.R;
+import com.blankj.lib.base.BaseBackActivity;
+import com.blankj.utilcode.pkg.R;
 import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.SpanUtils;
 

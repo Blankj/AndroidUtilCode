@@ -1,4 +1,4 @@
-package com.blankj.base
+package com.blankj.lib.base
 
 import android.content.Intent
 import android.net.Uri

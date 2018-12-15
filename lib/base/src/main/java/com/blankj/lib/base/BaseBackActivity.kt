@@ -1,4 +1,4 @@
-package com.blankj.base
+package com.blankj.lib.base
 
 import android.support.annotation.StringRes
 import android.support.v4.content.ContextCompat

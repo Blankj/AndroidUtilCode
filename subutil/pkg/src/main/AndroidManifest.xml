@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.blankj.subutil">
+    package="com.blankj.subutil.pkg">
 
     <!-- brightness -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
@@ -15,24 +15,24 @@
     <application>
 
         <activity
-            android:name=".pkg.feature.SubUtilActivity"
+            android:name=".feature.SubUtilActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.brightness.BrightnessActivity"
+            android:name=".feature.brightness.BrightnessActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.flashlight.FlashlightActivity"
+            android:name=".feature.flashlight.FlashlightActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.location.LocationActivity"
+            android:name=".feature.location.LocationActivity"
             android:launchMode="singleTop" />
 
         <service
-            android:name=".pkg.feature.location.LocationService"
+            android:name=".feature.location.LocationService"
             android:launchMode="singleTop" />
 
         <activity
-            android:name=".pkg.feature.pinyin.PinyinActivity"
+            android:name=".feature.pinyin.PinyinActivity"
             android:launchMode="singleTop" />
     </application>
 

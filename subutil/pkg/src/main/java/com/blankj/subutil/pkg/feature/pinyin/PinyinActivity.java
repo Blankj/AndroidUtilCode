@@ -7,8 +7,8 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
-import com.blankj.base.BaseBackActivity;
-import com.blankj.subutil.R;
+import com.blankj.lib.base.BaseBackActivity;
+import com.blankj.subutil.pkg.R;
 import com.blankj.subutil.util.PinyinUtils;
 
 /**

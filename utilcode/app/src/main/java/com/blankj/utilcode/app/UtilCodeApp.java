@@ -2,7 +2,8 @@ package com.blankj.utilcode.app;
 
 import android.content.Context;
 
-import com.blankj.base.BaseApplication;
+import com.blankj.lib.base.BaseApplication;
+import com.blankj.utilcode.util.Utils;
 
 
 /**
@@ -28,6 +29,7 @@ public class UtilCodeApp extends BaseApplication {
 
     @Override
     public void onCreate() {
+        Utils.init(this);
         super.onCreate();
         sInstance = this;
     }

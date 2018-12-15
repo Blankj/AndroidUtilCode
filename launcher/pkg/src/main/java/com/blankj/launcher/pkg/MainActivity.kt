@@ -1,21 +1,16 @@
 package com.blankj.launcher.pkg
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
-import android.view.KeyEvent
 import android.view.View
 import android.widget.ImageView
-import com.blankj.base.BaseDrawerActivity
-import com.blankj.launcher.R
-import com.blankj.utilcode.util.*
+import com.blankj.launcher.pkg.R
+import com.blankj.lib.base.BaseDrawerActivity
+import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.BusUtils
 import kotlinx.android.synthetic.main.activity_main.*
-
-
 
 
 /**

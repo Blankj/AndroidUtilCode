@@ -1,5 +1,8 @@
 # Change Log
 
+## v1.6
+修复 inject 时候 zip 操作不对导致混淆出错的问题
+
 ## v1.5
 升级 javassist 来修复 Kotlin 匿名类 NotFoundException
 

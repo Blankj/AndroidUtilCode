@@ -18,8 +18,8 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
-import com.blankj.utilcode.R;
-import com.blankj.base.BaseBackActivity;
+import com.blankj.utilcode.pkg.R;
+import com.blankj.lib.base.BaseBackActivity;
 import com.blankj.utilcode.util.SpanUtils;
 import com.blankj.utilcode.util.ToastUtils;
 

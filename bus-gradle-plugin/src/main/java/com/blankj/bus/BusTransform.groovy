@@ -68,11 +68,10 @@ class BusTransform extends Transform {
                 )
                 FileUtils.copyDirectory(dir, dest)
 
-                LogUtils.l("scan dir: " + dirInput.name)
+                LogUtils.l("scan dir: $dir [$dest]")
 
                 busScan.scanDir(dir)
             }
-
             input.jarInputs.each { JarInput jarInput ->// 遍历 jar 文件
                 File jar = jarInput.file
                 JavassistUtils.getPool().appendClassPath(jarInput.file.absolutePath)
@@ -86,21 +85,22 @@ class BusTransform extends Transform {
                 )
                 FileUtils.copyFile(jar, dest)
 
-                if (jumpScan(jarName)) {
-                    LogUtils.l("jump jar: " + jarName)
-                    return
-                }
-
                 if (jarName.startsWith("com.blankj:utilcode:")
                         || jarName.contains("utilcode-lib")) {
                     busScan.busJar = dest
-                    LogUtils.l("bus jar: " + jarName)
+                    LogUtils.l("bus jar: $jarName [$dest]")
                     return
                 }
 
-                LogUtils.l("scan jar: " + jarName)
+                if (jumpScan(jarName)) {
+                    LogUtils.l("jump jar: $jarName [$dest]")
+                    return
+                }
+
+                LogUtils.l("scan jar: $jarName [$dest]")
                 busScan.scanJar(jar)
             }
+
         }
 
         if (busScan.busJar != null) {

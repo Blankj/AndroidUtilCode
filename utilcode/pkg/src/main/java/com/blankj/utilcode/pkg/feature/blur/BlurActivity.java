@@ -7,12 +7,10 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.blankj.base.BaseBackActivity;
-import com.blankj.utilcode.R;
-import com.blankj.utilcode.pkg.helper.DialogHelper;
+import com.blankj.lib.base.BaseBackActivity;
+import com.blankj.utilcode.pkg.R;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.ImageUtils;
@@ -109,7 +107,7 @@ public class BlurActivity extends BaseBackActivity {
             if (isBlur) {
                 Bitmap bitmapForView = ImageUtils.view2Bitmap(decorView);
 
-                Bitmap bitmap = ImageUtils.fastBlur(bitmapForView, 0.125f, 2f, true, true);
+                Bitmap bitmap = ImageUtils.fastBlur(bitmapForView, 0.125f, 2f, true);
 
                 ImageView view = new ImageView(topActivity);
                 view.setImageBitmap(bitmap);

@@ -8,7 +8,10 @@ class Config {
             'com.android.support:',
             'com.android.support.constraint:',
             'android.arch.',
-            'com.blankj:'
+            'com.blankj:',
+            'org.jetbrains.kotlin:',
+            'org.jetbrains:',
+            'com.squareup.'
     ]
 
     public static final String FILE_SEP = System.getProperty("file.separator")

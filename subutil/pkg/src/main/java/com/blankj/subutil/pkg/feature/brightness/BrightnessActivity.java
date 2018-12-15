@@ -13,11 +13,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.blankj.base.BaseActivity;
-import com.blankj.subutil.R;
+import com.blankj.lib.base.BaseActivity;
+import com.blankj.subutil.pkg.R;
 import com.blankj.subutil.util.BrightnessUtils;
-import com.blankj.subutil.util.Utils;
 import com.blankj.utilcode.util.SpanUtils;
+import com.blankj.utilcode.util.Utils;
 
 /**
  * <pre>

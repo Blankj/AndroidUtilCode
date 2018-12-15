@@ -1,4 +1,4 @@
-package com.blankj.base.rv.listener;
+package com.blankj.lib.base.rv.listener;
 
 import android.view.View;
 

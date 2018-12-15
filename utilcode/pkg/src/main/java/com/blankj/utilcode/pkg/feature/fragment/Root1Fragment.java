@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.R;
-import com.blankj.base.BaseFragment;
+import com.blankj.utilcode.pkg.R;
+import com.blankj.lib.base.BaseFragment;
 import com.blankj.utilcode.util.FragmentUtils;
 
 import java.util.Random;

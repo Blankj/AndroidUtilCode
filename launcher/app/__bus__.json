@@ -1,5 +1,3 @@
 {
-  "SubUtilActivity#start": "void com.blankj.subutil.pkg.feature.SubUtilActivity.start(android.content.Context)",
-  "CoreUtilActivity#start": "void com.blankj.utilcode.pkg.feature.CoreUtilActivity.start(android.content.Context)",
-  "showDialog": "void com.blankj.launcher.app.UtilsApp.showDialog()"
+  "CoreUtilActivity#start": "void com.blankj.utilcode.pkg.feature.CoreUtilActivity.start(android.content.Context)"
 }

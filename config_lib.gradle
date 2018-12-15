@@ -10,12 +10,12 @@ android {
         minSdkVersion rootProject.minSdkVersion
         versionCode rootProject.versionCode
         versionName rootProject.versionName
+        consumerProguardFiles 'proguard-rules.pro'
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            consumerProguardFiles 'proguard-rules.pro'
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

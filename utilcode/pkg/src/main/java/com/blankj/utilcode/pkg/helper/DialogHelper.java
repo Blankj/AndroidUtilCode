@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
-import com.blankj.utilcode.R;
+import com.blankj.utilcode.pkg.R;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.PermissionUtils;

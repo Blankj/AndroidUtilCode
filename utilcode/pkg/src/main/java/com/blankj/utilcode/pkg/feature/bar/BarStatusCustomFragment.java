@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.blankj.utilcode.R;
-import com.blankj.base.BaseLazyFragment;
+import com.blankj.utilcode.pkg.R;
+import com.blankj.lib.base.BaseLazyFragment;
 import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.LogUtils;
 

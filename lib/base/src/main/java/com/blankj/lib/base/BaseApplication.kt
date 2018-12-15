@@ -1,8 +1,8 @@
-package com.blankj.base
+package com.blankj.lib.base
 
+import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
-import android.support.multidex.MultiDexApplication
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.CrashUtils
 import com.blankj.utilcode.util.LogUtils
@@ -16,7 +16,7 @@ import com.squareup.leakcanary.LeakCanary
  * desc  : base about application
  * ```
  */
-open class BaseApplication : MultiDexApplication() {
+open class BaseApplication : Application() {
 
     companion object {
         lateinit var instance: BaseApplication

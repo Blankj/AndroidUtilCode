@@ -13,9 +13,9 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.base.BaseBackActivity;
+import com.blankj.lib.base.BaseBackActivity;
 import com.blankj.utilcode.pkg.Config;
-import com.blankj.utilcode.R;
+import com.blankj.utilcode.pkg.R;
 import com.blankj.utilcode.pkg.feature.CoreUtilActivity;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;

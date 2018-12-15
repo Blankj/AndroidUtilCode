@@ -8,8 +8,8 @@ import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.view.Window;
 
-import com.blankj.base.BaseBackActivity;
-import com.blankj.utilcode.R;
+import com.blankj.lib.base.BaseBackActivity;
+import com.blankj.utilcode.pkg.R;
 
 import java.util.Random;
 

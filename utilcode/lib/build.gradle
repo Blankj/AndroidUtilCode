@@ -12,7 +12,7 @@ readme {
     readmeCnFile file('../README-CN.md')
 }
 
-apply from: "../../gradle/bintrayUploadAndroid.gradle"
+apply from: "${rootDir.path}/gradle/bintrayUploadAndroid.gradle"
 
 dependencies {
     compileOnly dep.support.appcompat_v7

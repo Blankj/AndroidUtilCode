@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.blankj.base.BaseBackActivity;
-import com.blankj.utilcode.R;
+import com.blankj.lib.base.BaseBackActivity;
+import com.blankj.utilcode.pkg.R;
 import com.blankj.utilcode.pkg.feature.activity.ActivityActivity;
 import com.blankj.utilcode.pkg.feature.adaptScreen.AdaptScreenActivity;
 import com.blankj.utilcode.pkg.feature.app.AppActivity;

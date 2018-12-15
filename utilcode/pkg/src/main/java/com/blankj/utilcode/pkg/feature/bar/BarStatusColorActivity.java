@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.blankj.base.BaseActivity;
-import com.blankj.utilcode.R;
+import com.blankj.lib.base.BaseActivity;
+import com.blankj.utilcode.pkg.R;
 import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.Utils;
 
