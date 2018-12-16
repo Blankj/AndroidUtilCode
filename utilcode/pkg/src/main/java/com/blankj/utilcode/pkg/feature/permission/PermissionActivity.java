@@ -9,9 +9,9 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
-import com.blankj.base.BaseBackActivity;
+import com.blankj.lib.base.BaseBackActivity;
 import com.blankj.utilcode.constant.PermissionConstants;
-import com.blankj.utilcode.R;
+import com.blankj.utilcode.pkg.R;
 import com.blankj.utilcode.pkg.helper.DialogHelper;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.PermissionUtils;

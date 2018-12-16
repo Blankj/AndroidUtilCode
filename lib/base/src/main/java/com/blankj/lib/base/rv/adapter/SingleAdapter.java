@@ -1,4 +1,4 @@
-package com.blankj.base.rv.adapter;
+package com.blankj.lib.base.rv.adapter;
 
 import android.support.annotation.LayoutRes;
 

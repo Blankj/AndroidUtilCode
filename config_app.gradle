@@ -21,9 +21,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled true
-            consumerProguardFiles 'proguard-rules.pro'
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -45,7 +48,7 @@ private String getSuffix() {
     String[] splits = project.name.split("-")
     String suffix = ""
     if (splits.length == 2) {
-        suffix = "." + splits[0]
+        suffix = "_" + splits[0]
     }
     return suffix
 }
@@ -61,7 +64,7 @@ def configSigning(Project pro) {
         properties.load(new FileInputStream(signPropertiesFile))
         signingConfigs {
             release {
-                storeFile file(properties['keystore'])
+                storeFile new File(signPropertiesFile.getParent(), properties['keystore'])
                 storePassword properties['storePassword']
                 keyAlias properties['keyAlias']
                 keyPassword properties['keyPassword']
@@ -75,9 +78,11 @@ def configSigning(Project pro) {
 def configApkName(Project pro) {
     pro.android.applicationVariants.all { variant ->
         if (variant.buildType.name != "debug") {
-            variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/apk")
+            variant.getPackageApplication().outputDirectory = new File("${rootDir.path}/apk")
             variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
-                apkData.outputFileName = "util_" + variant.versionName.replace(".", "_") + ".apk"
+                apkData.outputFileName = "util" + suffix +
+                                         "_" + variant.versionName.replace(".", "_") +
+                                         ".apk"
             }
         }
     }

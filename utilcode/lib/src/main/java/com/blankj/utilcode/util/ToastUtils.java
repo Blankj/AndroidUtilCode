@@ -251,7 +251,7 @@ public final class ToastUtils {
             @Override
             public void run() {
                 cancel();
-                iToast = ToastFactory.makeToast(Utils.getTopActivityOrApp(), text, duration);
+                iToast = ToastFactory.makeToast(Utils.getApp(), text, duration);
                 final TextView tvMessage = iToast.getView().findViewById(android.R.id.message);
                 if (sMsgColor != COLOR_DEFAULT) {
                     tvMessage.setTextColor(sMsgColor);
@@ -416,10 +416,17 @@ public final class ToastUtils {
     static class ToastWithoutNotification extends AbsToast {
 
         private WindowManager mWM;
-
-        private View mView;
+        private View          mView;
 
         private WindowManager.LayoutParams mParams = new WindowManager.LayoutParams();
+
+        private Utils.OnActivityDestroyedListener listener =
+                new Utils.OnActivityDestroyedListener() {
+                    @Override
+                    public void onActivityDestroyed(Activity activity) {
+                        cancel();
+                    }
+                };
 
         ToastWithoutNotification(Toast toast) {
             super(toast);
@@ -437,20 +444,12 @@ public final class ToastUtils {
             } else {
                 Context topActivityOrApp = Utils.getTopActivityOrApp();
                 if (topActivityOrApp instanceof Activity) {
-                    mWM = ((Activity) topActivityOrApp).getWindowManager();
+                    Activity topActivity = (Activity) topActivityOrApp;
+                    mWM = topActivity.getWindowManager();
+                    Utils.getActivityLifecycle().addOnActivityDestroyedListener(topActivity, listener);
                 }
                 mParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_PANEL;
                 mParams.y = mToast.getYOffset() + getNavBarHeight();
-                if (Utils.getActivityLifecycle().getOnActivityDestroyedListener() == null) {
-                    Utils.getActivityLifecycle().setOnActivityDestroyedListener(
-                            new Utils.OnActivityDestroyedListener() {
-                                @Override
-                                public void onActivityDestroyed(Activity activity) {
-                                    cancel();
-                                }
-                            }
-                    );
-                }
             }
 
             final Configuration config = context.getResources().getConfiguration();
@@ -496,7 +495,7 @@ public final class ToastUtils {
         public void cancel() {
             try {
                 if (mWM != null) {
-                    mWM.removeView(mView);
+                    mWM.removeViewImmediate(mView);
                 }
             } catch (Exception ignored) { /**/ }
             mView = null;

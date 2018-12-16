@@ -1,4 +1,4 @@
-package com.blankj.base.rv.adapter;
+package com.blankj.lib.base.rv.adapter;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -9,9 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.blankj.base.rv.BaseViewHolder;
-import com.blankj.base.rv.listener.OnItemClickListener;
-import com.blankj.base.rv.listener.OnItemLongClickListener;
+import com.blankj.lib.base.rv.BaseViewHolder;
+import com.blankj.lib.base.rv.listener.OnItemClickListener;
+import com.blankj.lib.base.rv.listener.OnItemLongClickListener;
 
 import java.util.List;
 

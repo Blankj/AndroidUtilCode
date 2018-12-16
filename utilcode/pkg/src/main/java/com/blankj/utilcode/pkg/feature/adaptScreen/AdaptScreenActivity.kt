@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.base.BaseBackActivity
-import com.blankj.utilcode.R
+import com.blankj.lib.base.BaseBackActivity
+import com.blankj.utilcode.pkg.R
 import kotlinx.android.synthetic.main.activity_adapt_screen.*
 
 class AdaptScreenActivity : BaseBackActivity() {

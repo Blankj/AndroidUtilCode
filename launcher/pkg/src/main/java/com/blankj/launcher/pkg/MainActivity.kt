@@ -4,8 +4,9 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.View
-import com.blankj.base.BaseDrawerActivity
-import com.blankj.launcher.R
+import android.widget.ImageView
+import com.blankj.launcher.pkg.R
+import com.blankj.lib.base.BaseDrawerActivity
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.BusUtils
@@ -30,6 +31,8 @@ class MainActivity : BaseDrawerActivity() {
         return R.layout.activity_main
     }
 
+    private var view: ImageView? = null
+
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
         launcherMainCtl.setExpandedTitleColor(Color.TRANSPARENT)
         setSupportActionBar(launcherMainToolbar)
@@ -51,6 +54,8 @@ class MainActivity : BaseDrawerActivity() {
         launcherMainSubUtilBtn.setOnClickListener {
             BusUtils.post<Any>("SubUtilActivity#start", this)
         }
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+
     }
 
     override fun doBusiness() {

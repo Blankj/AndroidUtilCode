@@ -7,8 +7,8 @@ import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.blankj.utilcode.R;
-import com.blankj.base.BaseBackActivity;
+import com.blankj.utilcode.pkg.R;
+import com.blankj.lib.base.BaseBackActivity;
 import com.blankj.utilcode.util.CleanUtils;
 import com.blankj.utilcode.util.SnackbarUtils;
 

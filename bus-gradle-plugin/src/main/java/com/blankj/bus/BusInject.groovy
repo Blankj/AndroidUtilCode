@@ -25,9 +25,9 @@ class BusInject {
             callMethod.insertAfter(getInsertContent(bus, true));
         }
         busUtils.writeFile(decompressedJarPath)
-        busUtils.defrost();
+        busUtils.defrost()
         FileUtils.forceDelete(busJar)
-        ZipUtils.zipFile(decompressedJar, busJar)
+        ZipUtils.zipFiles(Arrays.asList(decompressedJar.listFiles()), busJar)
         FileUtils.forceDelete(decompressedJar)
     }
 

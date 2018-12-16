@@ -1,3 +1,4 @@
+* `18/12/17` [fix] ToastUtils leak. Publish v1.22.2.
 * `18/12/09` [add] Component for the project.
 * `18/12/04` [add] BusUtils. Publish v1.22.1.
 * `18/11/18` [fix] ToastUtils don't show in the devices grater than API 24 when close the permission of notification. Publish v1.22.0.

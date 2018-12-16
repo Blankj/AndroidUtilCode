@@ -2,7 +2,7 @@ package com.blankj.subutil.app;
 
 import android.content.Context;
 
-import com.blankj.base.BaseApplication;
+import com.blankj.lib.base.BaseApplication;
 
 
 /**

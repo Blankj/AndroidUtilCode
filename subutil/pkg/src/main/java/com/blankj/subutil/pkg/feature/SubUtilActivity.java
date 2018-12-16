@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.blankj.base.BaseBackActivity;
-import com.blankj.subutil.R;
+import com.blankj.lib.base.BaseBackActivity;
+import com.blankj.subutil.pkg.R;
 import com.blankj.subutil.pkg.feature.brightness.BrightnessActivity;
 import com.blankj.subutil.pkg.feature.flashlight.FlashlightActivity;
 import com.blankj.subutil.pkg.feature.location.LocationActivity;

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.blankj.utilcode">
+    package="com.blankj.utilcode.pkg">
 
     <!-- app -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
@@ -33,130 +33,136 @@
 
     <application>
         <activity
-            android:name=".pkg.feature.CoreUtilActivity"
+            android:name=".feature.CoreUtilActivity"
             android:launchMode="singleTop" />
 
         <activity
-            android:name=".pkg.feature.activity.ActivityActivity"
+            android:name=".feature.activity.ActivityActivity"
             android:icon="@drawable/activity_activity_icon"
             android:launchMode="singleTop"
             android:logo="@drawable/activity_activity_logo" />
         <activity
-            android:name=".pkg.feature.activity.SubActivityActivity"
+            android:name=".feature.activity.SubActivityActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.adaptScreen.AdaptScreenActivity"
+            android:name=".feature.adaptScreen.AdaptScreenActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.adaptScreen.CloseAdaptActivity"
+            android:name=".feature.adaptScreen.CloseAdaptActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.adaptScreen.HeightActivity"
+            android:name=".feature.adaptScreen.HeightActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.adaptScreen.WidthActivity"
+            android:name=".feature.adaptScreen.WidthActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.app.AppActivity"
+            android:name=".feature.app.AppActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.bar.BarActivity"
+            android:name=".feature.bar.BarActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.bar.BarStatusActivity"
+            android:name=".feature.bar.BarStatusActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.bar.BarNotificationActivity"
+            android:name=".feature.bar.BarNotificationActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.bar.BarNavActivity"
+            android:name=".feature.bar.BarNavActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.bar.BarStatusAlphaActivity"
+            android:name=".feature.bar.BarStatusAlphaActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.bar.BarStatusColorActivity"
+            android:name=".feature.bar.BarStatusColorActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.bar.BarStatusDrawerActivity"
+            android:name=".feature.bar.BarStatusDrawerActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.bar.BarStatusFragmentActivity"
+            android:name=".feature.bar.BarStatusFragmentActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.bar.BarStatusImageViewActivity"
+            android:name=".feature.bar.BarStatusImageViewActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.bar.BarStatusSwipeBackActivity"
+            android:name=".feature.bar.BarStatusSwipeBackActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.clean.CleanActivity"
+            android:name=".feature.blur.BlurActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.device.DeviceActivity"
+            android:name=".feature.blur.TransparentActivity"
+            android:theme="@style/ActivityTranslucent"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.fragment.FragmentActivity"
+            android:name=".feature.clean.CleanActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.image.ImageActivity"
+            android:name=".feature.device.DeviceActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.keyboard.KeyboardActivity"
+            android:name=".feature.fragment.FragmentActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.image.ImageActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.keyboard.KeyboardActivity"
             android:launchMode="singleTop"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".pkg.feature.log.LogActivity"
+            android:name=".feature.log.LogActivity"
             android:launchMode="singleTop" />
 
         <activity
-            android:name=".pkg.feature.metaData.MetaDataActivity"
+            android:name=".feature.metaData.MetaDataActivity"
             android:launchMode="singleTop">
             <meta-data
                 android:name="activity_meta_data"
                 android:value="ActivityMetaData" />
         </activity>
         <activity
-            android:name=".pkg.feature.network.NetworkActivity"
+            android:name=".feature.network.NetworkActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.path.PathActivity"
+            android:name=".feature.path.PathActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.permission.PermissionActivity"
+            android:name=".feature.permission.PermissionActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.phone.PhoneActivity"
+            android:name=".feature.phone.PhoneActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.process.ProcessActivity"
+            android:name=".feature.process.ProcessActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.reflect.ReflectActivity"
+            android:name=".feature.reflect.ReflectActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.resource.ResourceActivity"
+            android:name=".feature.resource.ResourceActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.sdcard.SDCardActivity"
+            android:name=".feature.sdcard.SDCardActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.snackbar.SnackbarActivity"
+            android:name=".feature.snackbar.SnackbarActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.sp.SPActivity"
+            android:name=".feature.sp.SPActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.span.SpanActivity"
+            android:name=".feature.span.SpanActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".pkg.feature.toast.ToastActivity"
+            android:name=".feature.toast.ToastActivity"
             android:launchMode="singleTop" />
 
         <meta-data
             android:name="app_meta_data"
             android:value="AppMetaData" />
-
     </application>
 
 

@@ -14,8 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.blankj.utilcode.R;
-import com.blankj.base.BaseActivity;
+import com.blankj.utilcode.pkg.R;
+import com.blankj.lib.base.BaseActivity;
 import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.Utils;
 import com.r0adkll.slidr.Slidr;

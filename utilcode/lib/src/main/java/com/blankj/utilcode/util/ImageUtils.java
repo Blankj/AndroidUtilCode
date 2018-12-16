@@ -1108,17 +1108,16 @@ public final class ImageUtils {
                                   @FloatRange(
                                           from = 0, to = 25, fromInclusive = false
                                   ) final float radius) {
-        return fastBlur(src, scale, radius, false);
+        return fastBlur(src, scale, radius, false, false);
     }
 
     /**
      * Return the blur bitmap fast.
      * <p>zoom out, blur, zoom in</p>
      *
-     * @param src     The source of bitmap.
-     * @param scale   The scale(0...1).
-     * @param radius  The radius(0...25).
-     * @param recycle True to recycle the source of bitmap, false otherwise.
+     * @param src    The source of bitmap.
+     * @param scale  The scale(0...1).
+     * @param radius The radius(0...25).
      * @return the blur bitmap
      */
     public static Bitmap fastBlur(final Bitmap src,
@@ -1129,6 +1128,29 @@ public final class ImageUtils {
                                           from = 0, to = 25, fromInclusive = false
                                   ) final float radius,
                                   final boolean recycle) {
+        return fastBlur(src, scale, radius, recycle, false);
+    }
+
+    /**
+     * Return the blur bitmap fast.
+     * <p>zoom out, blur, zoom in</p>
+     *
+     * @param src           The source of bitmap.
+     * @param scale         The scale(0...1).
+     * @param radius        The radius(0...25).
+     * @param recycle       True to recycle the source of bitmap, false otherwise.
+     * @param isReturnScale True to return the scale blur bitmap, false otherwise.
+     * @return the blur bitmap
+     */
+    public static Bitmap fastBlur(final Bitmap src,
+                                  @FloatRange(
+                                          from = 0, to = 1, fromInclusive = false
+                                  ) final float scale,
+                                  @FloatRange(
+                                          from = 0, to = 25, fromInclusive = false
+                                  ) final float radius,
+                                  final boolean recycle,
+                                  final boolean isReturnScale) {
         if (isEmptyBitmap(src)) return null;
         int width = src.getWidth();
         int height = src.getHeight();
@@ -1148,7 +1170,7 @@ public final class ImageUtils {
         } else {
             scaleBitmap = stackBlur(scaleBitmap, (int) radius, recycle);
         }
-        if (scale == 1) {
+        if (scale == 1 || isReturnScale) {
             if (recycle && !src.isRecycled()) src.recycle();
             return scaleBitmap;
         }

@@ -5,12 +5,12 @@ ext {
     compileSdkVersion = 27
     minSdkVersion = 14
     targetSdkVersion = 27
-    versionCode = 1_022_001
-    versionName = '1.22.1'// E.g. 1.9.72 => 1,009,072
+    versionCode = 1_022_002
+    versionName = '1.22.2'// E.g. 1.9.72 => 1,009,072
 
     bus = [
             isDebug: false,
-            version: '1.5',
+            version: '1.6',
             group  : 'com.blankj'
     ]
 
@@ -41,7 +41,7 @@ ext {
                     android      : "com.squareup.leakcanary:leakcanary-android:$leakcanary_version",
                     android_no_op: "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version",
             ],
-            free_proguard: "com.blankj:free-proguard:0.0.9",
+            free_proguard: "com.blankj:free-proguard:0.0.7",
             adapt_screen : "com.blankj:adapt-screen:0.0.3",
 
             gson         : "com.google.code.gson:gson:2.8.2",

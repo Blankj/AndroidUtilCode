@@ -4,9 +4,9 @@ import android.support.annotation.LayoutRes;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.R;
-import com.blankj.base.rv.BaseViewHolder;
-import com.blankj.base.rv.adapter.SingleAdapter;
+import com.blankj.utilcode.pkg.R;
+import com.blankj.lib.base.rv.BaseViewHolder;
+import com.blankj.lib.base.rv.adapter.SingleAdapter;
 
 import java.util.List;
 

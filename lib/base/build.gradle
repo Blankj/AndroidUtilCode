@@ -4,8 +4,7 @@ apply {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    api project(':lib-resource')
-    api project(':utilcode-lib')
+//    api project(':utilcode-lib')
     api project(':subutil-lib')
 
     api dep.support.appcompat_v7
@@ -16,5 +15,5 @@ dependencies {
     api dep.free_proguard
     api 'com.r0adkll:slidableactivity:2.0.5'
     compileOnly dep.leakcanary.android_no_op
-//    implementation 'com.blankj:utilcode:1.22.1'
+    api 'com.blankj:utilcode:1.22.2'
 }

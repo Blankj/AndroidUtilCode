@@ -6,7 +6,7 @@ import android.content.res.Resources
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
-import com.blankj.utilcode.R
+import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.AdaptScreenUtils
 
 class CloseAdaptActivity : AppCompatActivity() {

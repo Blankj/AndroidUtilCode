@@ -11,8 +11,8 @@ import android.support.v4.app.Fragment;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.blankj.utilcode.R;
-import com.blankj.base.BaseActivity;
+import com.blankj.utilcode.pkg.R;
+import com.blankj.lib.base.BaseActivity;
 import com.blankj.utilcode.util.FragmentUtils;
 
 /**

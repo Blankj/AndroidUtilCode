@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.blankj.launcher">
+    package="com.blankj.launcher.app">
 
     <application
-        android:name=".app.UtilsApp"
+        android:name=".UtilsApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".pkg.MainActivity"
+            android:name="com.blankj.launcher.pkg.MainActivity"
             android:screenOrientation="user"
             android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
