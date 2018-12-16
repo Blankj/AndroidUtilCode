@@ -49,7 +49,7 @@ public final class AppUtils {
      */
     public static void registerAppStatusChangedListener(@NonNull final Object obj,
                                                         @NonNull final Utils.OnAppStatusChangedListener listener) {
-        Utils.getActivityLifecycle().addListener(obj, listener);
+        Utils.getActivityLifecycle().addOnAppStatusChangedListener(obj, listener);
     }
 
     /**
@@ -58,7 +58,7 @@ public final class AppUtils {
      * @param obj The object.
      */
     public static void unregisterAppStatusChangedListener(@NonNull final Object obj) {
-        Utils.getActivityLifecycle().removeListener(obj);
+        Utils.getActivityLifecycle().removeOnAppStatusChangedListener(obj);
     }
 
     /**

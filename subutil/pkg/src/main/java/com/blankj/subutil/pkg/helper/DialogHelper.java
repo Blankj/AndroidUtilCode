@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 
-import com.blankj.subutil.R.pkg;
+import com.blankj.subutil.pkg.R;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.PermissionUtils.OnRationaleListener.ShouldRequest;
