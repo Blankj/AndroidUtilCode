@@ -1873,6 +1873,30 @@ public final class ImageUtils {
     }
 
     /**
+     * Return the size of bitmap.
+     *
+     * @param filePath The path of file.
+     * @return the size of bitmap
+     */
+    public static int[] getSize(String filePath) {
+        return getSize(getFileByPath(filePath));
+    }
+
+    /**
+     * Return the size of bitmap.
+     *
+     * @param file The file.
+     * @return the size of bitmap
+     */
+    public static int[] getSize(File file) {
+        if (file == null) return new int[]{0, 0};
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        opts.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(file.getAbsolutePath(), opts);
+        return new int[]{opts.outWidth, opts.outHeight};
+    }
+
+    /**
      * Return the sample size.
      *
      * @param options   The options.

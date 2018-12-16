@@ -349,6 +349,7 @@ getImageType
 compressByScale
 compressByQuality
 compressBySampleSize
+getSize
 ```
 
 * ### About Intent -> [IntentUtils.java][intent.java]
