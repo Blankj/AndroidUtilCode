@@ -1,6 +1,6 @@
 ![logo][logo]
 
-[![auc][aucSvg]][auc] [![api][apiSvg]][api] [![build][buildSvg]][build] [![Insight][insightSvg]][insight] [![License][licenseSvg]][license]
+[![auc][aucSvg]][auc] [![api][apiSvg]][api] [![build][buildSvg]][build] [![License][licenseSvg]][license]
 
 ## [README of Chinese][readme-cn]
 
@@ -49,9 +49,6 @@ If this project helps you a lot and you want to support the project's developmen
 
 [buildSvg]: https://travis-ci.org/Blankj/AndroidUtilCode.svg?branch=master
 [build]: https://travis-ci.org/Blankj/AndroidUtilCode
-
-[insightSvg]: https://www.insight.io/repoBadge/github.com/Blankj/AndroidUtilCode
-[insight]: https://insight.io/github.com/Blankj/AndroidUtilCode
 
 [licenseSvg]: https://img.shields.io/badge/License-Apache--2.0-brightgreen.svg
 [license]: https://github.com/Blankj/AndroidUtilCode/blob/master/LICENSE
