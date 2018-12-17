@@ -7,6 +7,8 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * <pre>
@@ -20,7 +22,8 @@ import java.lang.annotation.Target;
  */
 public final class BusUtils {
 
-    private static final Object NULL = new Object();
+    private static final Object              NULL  = new Object();
+    private static final Map<Object, String> BUSES = new ConcurrentHashMap<>();
 
     public static <T> T post(String name, Object... objects) {
         if (name == null || name.length() == 0) return null;
