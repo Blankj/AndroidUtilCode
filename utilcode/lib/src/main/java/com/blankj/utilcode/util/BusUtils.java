@@ -25,7 +25,7 @@ public final class BusUtils {
     private static final Object              NULL  = new Object();
     private static final Map<Object, String> BUSES = new ConcurrentHashMap<>();
 
-    public static <T> T post(String name, Object... objects) {
+    public static <T> T post(final String name, final Object... objects) {
         if (name == null || name.length() == 0) return null;
         Object o = injectShell(name, objects);
         if (NULL.equals(o)) {
@@ -35,7 +35,18 @@ public final class BusUtils {
         return (T) o;
     }
 
-    private static Object injectShell(String name, Object[] objects) {
+
+    public static void register(final Object bus) {
+
+    }
+
+    public static void unregister(final Object bus) {
+
+    }
+
+
+
+    private static Object injectShell(final String name, final Object[] objects) {
         return NULL;
     }
 

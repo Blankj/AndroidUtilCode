@@ -399,16 +399,16 @@ public final class ToastUtils {
 
             @Override
             public void handleMessage(Message msg) {
-                try {
-                    impl.handleMessage(msg);
-                } catch (Exception e) {
-                    Log.e("ToastUtils", e.toString());
-                }
+                impl.handleMessage(msg);
             }
 
             @Override
             public void dispatchMessage(Message msg) {
-                impl.dispatchMessage(msg);
+                try {
+                    impl.dispatchMessage(msg);
+                } catch (Exception e) {
+                    Log.e("ToastUtils", e.toString());
+                }
             }
         }
     }
