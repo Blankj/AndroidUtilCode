@@ -1,3 +1,5 @@
+* `18/12/19` [fix] ToastUtils multi show crash when run API 25. Publish v1.22.4.
+* `18/12/18` [fix] ImageUtils recycle ret equals src. Publish v1.22.3.
 * `18/12/17` [fix] Utils$FileProvider4UtilCode not found. Publish v1.22.3.
 * `18/12/17` [fix] ToastUtils leak. Publish v1.22.2.
 * `18/12/09` [add] Component for the project.
