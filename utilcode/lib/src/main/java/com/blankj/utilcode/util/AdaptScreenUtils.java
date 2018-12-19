@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
 
 public final class AdaptScreenUtils {
 
-    private static boolean firstFlag = true;
+    private static boolean isInitMiui = false;
     private static Field   mTmpMetrics;
 
     private static DisplayMetrics appDm;
@@ -81,7 +81,7 @@ public final class AdaptScreenUtils {
     }
 
     private static DisplayMetrics getMiuiTmpMetrics(Resources resources) {
-        if (firstFlag) {
+        if (!isInitMiui) {
             DisplayMetrics ret = null;
             String simpleName = resources.getClass().getSimpleName();
             if ("MiuiResources".equals(simpleName) || "XResources".equals(simpleName)) {
@@ -93,7 +93,7 @@ public final class AdaptScreenUtils {
                     Log.e("AdaptScreenUtils", "no field of mTmpMetrics in resources.");
                 }
             }
-            firstFlag = false;
+            isInitMiui = true;
             return ret;
         }
         if (mTmpMetrics == null) return null;
