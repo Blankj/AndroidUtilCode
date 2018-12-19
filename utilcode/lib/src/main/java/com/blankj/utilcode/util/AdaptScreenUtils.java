@@ -2,9 +2,15 @@ package com.blankj.utilcode.util;
 
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
+import android.util.Log;
+
+import java.lang.reflect.Field;
 
 
 public final class AdaptScreenUtils {
+
+    private static boolean isInitMiui = false;
+    private static Field   mTmpMetrics;
 
     private static DisplayMetrics appDm;
 
@@ -12,7 +18,7 @@ public final class AdaptScreenUtils {
      * Adapt for the horizontal screen, and call it in [android.app.Activity.getResources].
      */
     public static Resources adaptWidth(Resources resources, int designWidth) {
-        DisplayMetrics dm = resources.getDisplayMetrics();
+        DisplayMetrics dm = getDisplayMetrics(resources);
         float newXdpi = dm.xdpi = (dm.widthPixels * 72f) / designWidth;
         setAppDmXdpi(newXdpi);
         return resources;
@@ -22,7 +28,7 @@ public final class AdaptScreenUtils {
      * Adapt for the vertical screen, and call it in [android.app.Activity.getResources].
      */
     public static Resources adaptHeight(Resources resources, int designHeight) {
-        DisplayMetrics dm = resources.getDisplayMetrics();
+        DisplayMetrics dm = getDisplayMetrics(resources);
         float newXdpi = dm.xdpi = (dm.heightPixels * 72f) / designHeight;
         setAppDmXdpi(newXdpi);
         return resources;
@@ -33,7 +39,7 @@ public final class AdaptScreenUtils {
      * @return the resource
      */
     public static Resources closeAdapt(Resources resources) {
-        DisplayMetrics dm = resources.getDisplayMetrics();
+        DisplayMetrics dm = getDisplayMetrics(resources);
         float newXdpi = dm.xdpi = dm.density * 72;
         setAppDmXdpi(newXdpi);
         return resources;
@@ -66,5 +72,35 @@ public final class AdaptScreenUtils {
             appDm = Utils.getApp().getResources().getDisplayMetrics();
         }
         appDm.xdpi = xdpi;
+    }
+
+    private static DisplayMetrics getDisplayMetrics(Resources resources) {
+        DisplayMetrics miuiDisplayMetrics = getMiuiTmpMetrics(resources);
+        if (miuiDisplayMetrics == null) return resources.getDisplayMetrics();
+        return miuiDisplayMetrics;
+    }
+
+    private static DisplayMetrics getMiuiTmpMetrics(Resources resources) {
+        if (!isInitMiui) {
+            DisplayMetrics ret = null;
+            String simpleName = resources.getClass().getSimpleName();
+            if ("MiuiResources".equals(simpleName) || "XResources".equals(simpleName)) {
+                try {
+                    mTmpMetrics = Resources.class.getDeclaredField("mTmpMetrics");
+                    mTmpMetrics.setAccessible(true);
+                    ret = (DisplayMetrics) mTmpMetrics.get(resources);
+                } catch (Exception e) {
+                    Log.e("AdaptScreenUtils", "no field of mTmpMetrics in resources.");
+                }
+            }
+            isInitMiui = true;
+            return ret;
+        }
+        if (mTmpMetrics == null) return null;
+        try {
+            return (DisplayMetrics) mTmpMetrics.get(resources);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

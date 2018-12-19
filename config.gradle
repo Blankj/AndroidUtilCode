@@ -5,8 +5,8 @@ ext {
     compileSdkVersion = 27
     minSdkVersion = 14
     targetSdkVersion = 27
-    versionCode = 1_022_004
-    versionName = '1.22.4'// E.g. 1.9.72 => 1,009,072
+    versionCode = 1_022_005
+    versionName = '1.22.5'// E.g. 1.9.72 => 1,009,072
 
     bus = [
             isDebug: false,
