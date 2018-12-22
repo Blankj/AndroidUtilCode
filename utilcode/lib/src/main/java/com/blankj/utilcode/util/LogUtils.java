@@ -347,8 +347,6 @@ public final class LogUtils {
                 return iFormatter.format(object);
             }
         }
-        if (object instanceof String || object instanceof JSONObject || object instanceof JSONArray)
-            return object.toString();
         if (object.getClass().isArray()) return LogFormatter.array2String(object);
         if (object instanceof Throwable) return LogFormatter.throwable2String((Throwable) object);
         if (object instanceof Bundle) return LogFormatter.bundle2String((Bundle) object);
@@ -1009,6 +1007,10 @@ public final class LogUtils {
         }
 
         static String object2String(Object object) {
+            if (object instanceof String || object instanceof JSONObject ||
+                    object instanceof JSONArray) {
+                return object.toString();
+            }
             Class<?> clazz = object.getClass();
             List<Field> tmp = Arrays.asList(clazz.getDeclaredFields());
             ArrayList<Field> list = new ArrayList<>(tmp);
@@ -1028,13 +1030,14 @@ public final class LogUtils {
             Field[] a = new Field[list.size()];
             Field[] fields = list.toArray(a);
             JSONObject jsonObject = new JSONObject();
-            for (Field field : fields) {
-                String fieldName = field.getName();
-                try {
+            try {
+                jsonObject.put("object", object.toString());
+                for (Field field : fields) {
+                    String fieldName = field.getName();
                     Object obj = field.get(object);
                     jsonObject.put(fieldName, obj);
-                } catch (Exception ignore) {
                 }
+            } catch (Exception ignore) {
             }
             return jsonObject.toString();
         }
