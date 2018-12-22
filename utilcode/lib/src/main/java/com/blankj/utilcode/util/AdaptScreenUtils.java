@@ -12,8 +12,6 @@ public final class AdaptScreenUtils {
     private static boolean isInitMiui = false;
     private static Field   mTmpMetrics;
 
-    private static DisplayMetrics appDm;
-
     /**
      * Adapt for the horizontal screen, and call it in [android.app.Activity.getResources].
      */
@@ -68,10 +66,7 @@ public final class AdaptScreenUtils {
     }
 
     private static void setAppDmXdpi(final float xdpi) {
-        if (appDm == null) {
-            appDm = Utils.getApp().getResources().getDisplayMetrics();
-        }
-        appDm.xdpi = xdpi;
+        Utils.getApp().getResources().getDisplayMetrics().xdpi = xdpi;
     }
 
     private static DisplayMetrics getDisplayMetrics(Resources resources) {
