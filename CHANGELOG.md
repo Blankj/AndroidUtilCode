@@ -1,4 +1,6 @@
-* `18/12/19` [fix] AdaptScreenUtils not work in MIUI on Android 5.1.1. Publish v1.22.5.
+* `18/12/22` [fix] AdaptScreenUtils#pt2px don't work when start webview. Publish v1.22.6.
+* `18/12/21` [add] LogUtils support print Map, Collection and Object to String.
+* `18/12/19` [fix] AdaptScreenUtils don't work in MIUI on Android 5.1.1. Publish v1.22.5.
 * `18/12/18` [fix] ToastUtils multi show crash when run API 25. Publish v1.22.4.
 * `18/12/18` [fix] ImageUtils recycle ret equals src. Publish v1.22.3.
 * `18/12/17` [fix] Utils$FileProvider4UtilCode not found. Publish v1.22.3.
