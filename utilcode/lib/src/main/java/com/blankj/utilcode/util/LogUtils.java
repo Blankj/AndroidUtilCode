@@ -30,16 +30,22 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -341,11 +347,15 @@ public final class LogUtils {
                 return iFormatter.format(object);
             }
         }
+        if (object instanceof String || object instanceof JSONObject || object instanceof JSONArray)
+            return object.toString();
         if (object.getClass().isArray()) return LogFormatter.array2String(object);
         if (object instanceof Throwable) return LogFormatter.throwable2String((Throwable) object);
         if (object instanceof Bundle) return LogFormatter.bundle2String((Bundle) object);
         if (object instanceof Intent) return LogFormatter.intent2String((Intent) object);
-        return object.toString();
+        if (object instanceof Map) return LogFormatter.map2String((Map) object);
+        if (object instanceof Collection) return LogFormatter.collection2String((Collection) object);
+        return LogFormatter.object2String(object);
     }
 
     private static void print2Console(final int type,
@@ -980,6 +990,53 @@ public final class LogUtils {
             }
             sb.append(" }");
             return sb.toString();
+        }
+
+        static String map2String(Map map) {
+            JSONObject jsonObject = new JSONObject(map);
+            return jsonObject.toString();
+        }
+
+        static String collection2String(Collection collection) {
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("size", collection.size());
+                jsonObject.put("data", collection);
+                return jsonObject.toString();
+            } catch (JSONException ignore) {
+                return collection.toString();
+            }
+        }
+
+        static String object2String(Object object) {
+            Class<?> clazz = object.getClass();
+            List<Field> tmp = Arrays.asList(clazz.getDeclaredFields());
+            ArrayList<Field> list = new ArrayList<>(tmp);
+            while (clazz != Object.class) {
+                clazz = clazz.getSuperclass();
+                if (clazz == null) {
+                    break;
+                }
+                Field[] fields = clazz.getDeclaredFields();
+                for (Field field : fields) {
+                    int modifier = field.getModifiers();
+                    if (Modifier.isPublic(modifier)) {
+                        list.add(field);
+                    }
+                }
+            }
+            Field[] a = new Field[list.size()];
+            Field[] fields = list.toArray(a);
+            JSONObject jsonObject = new JSONObject();
+            for (Field field : fields) {
+                String fieldName = field.getName();
+                try {
+                    Object obj = field.get(object);
+                    jsonObject.put(fieldName, obj);
+                } catch (Exception ignore) {
+                }
+            }
+            return jsonObject.toString();
         }
 
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
