@@ -1,3 +1,4 @@
+* `18/12/24` [fix] Utils$ActivityLifecycleImpl.consumeOnActivityDestroyedListener ConcurrentModificationException. Publish v1.22.7.
 * `18/12/22` [fix] AdaptScreenUtils#pt2px don't work when start webview. Publish v1.22.6.
 * `18/12/21` [add] LogUtils support print Map, Collection and Object to String.
 * `18/12/19` [fix] AdaptScreenUtils don't work in MIUI on Android 5.1.1. Publish v1.22.5.

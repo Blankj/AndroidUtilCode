@@ -12,6 +12,7 @@ import android.support.v4.content.FileProvider;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -286,14 +287,16 @@ public final class Utils {
         }
 
         private void consumeOnActivityDestroyedListener(Activity activity) {
-            Set<Map.Entry<Activity, Set<OnActivityDestroyedListener>>> entries = mDestroyedListenerMap.entrySet();
-            for (Map.Entry<Activity, Set<OnActivityDestroyedListener>> entry : entries) {
+            Iterator<Map.Entry<Activity, Set<OnActivityDestroyedListener>>> iterator
+                    = mDestroyedListenerMap.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<Activity, Set<OnActivityDestroyedListener>> entry = iterator.next();
                 if (entry.getKey() == activity) {
                     Set<OnActivityDestroyedListener> value = entry.getValue();
                     for (OnActivityDestroyedListener listener : value) {
                         listener.onActivityDestroyed(activity);
                     }
-                    removeOnActivityDestroyedListener(activity);
+                    iterator.remove();
                 }
             }
         }
