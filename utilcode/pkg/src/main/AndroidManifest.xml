@@ -94,8 +94,8 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.blur.TransparentActivity"
-            android:theme="@style/ActivityTranslucent"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:theme="@style/ActivityTranslucent" />
         <activity
             android:name=".feature.clean.CleanActivity"
             android:launchMode="singleTop" />

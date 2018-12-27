@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.blankj.utilcode.pkg.R;
 import com.blankj.lib.base.BaseBackActivity;
+import com.blankj.utilcode.pkg.helper.DialogHelper;
 import com.blankj.utilcode.util.SpanUtils;
 import com.blankj.utilcode.util.ToastUtils;
 
@@ -23,8 +24,6 @@ import com.blankj.utilcode.util.ToastUtils;
  * </pre>
  */
 public class ToastActivity extends BaseBackActivity {
-
-    View toastView;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, ToastActivity.class);
@@ -54,7 +53,7 @@ public class ToastActivity extends BaseBackActivity {
         findViewById(R.id.btn_show_custom_view).setOnClickListener(this);
         findViewById(R.id.btn_show_middle).setOnClickListener(this);
         findViewById(R.id.btn_cancel_toast).setOnClickListener(this);
-        toastView = findViewById(R.id.btn_cancel_toast);
+        findViewById(R.id.btn_show_toast_dialog).setOnClickListener(this);
     }
 
     @Override
@@ -116,6 +115,9 @@ public class ToastActivity extends BaseBackActivity {
 
         } else if (i == R.id.btn_cancel_toast) {
             ToastUtils.cancel();
+
+        } else if (i == R.id.btn_show_toast_dialog) {
+            DialogHelper.showToastDialog();
 
         }
     }

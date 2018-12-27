@@ -2,7 +2,10 @@ package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -24,9 +27,12 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.blankj.utilcode.R;
 
 import java.lang.reflect.Field;
 
@@ -415,6 +421,7 @@ public final class ToastUtils {
 
     static class ToastWithoutNotification extends AbsToast {
 
+        private Dialog        mDialog;
         private WindowManager mWM;
         private View          mView;
 
@@ -443,13 +450,26 @@ public final class ToastUtils {
                 mParams.y = mToast.getYOffset();
             } else {
                 Context topActivityOrApp = Utils.getTopActivityOrApp();
-                if (topActivityOrApp instanceof Activity) {
-                    Activity topActivity = (Activity) topActivityOrApp;
-                    mWM = topActivity.getWindowManager();
-                    Utils.getActivityLifecycle().addOnActivityDestroyedListener(topActivity, listener);
+                if (!(topActivityOrApp instanceof Activity)) {
+                    Log.e("ToastUtils", "Couldn't get top Activity.");
+                    return;
                 }
-                mParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_PANEL;
-                mParams.y = mToast.getYOffset() + getNavBarHeight();
+                Activity topActivity = (Activity) topActivityOrApp;
+                if (topActivity.isFinishing() || topActivity.isDestroyed()) {
+                    Log.e("ToastUtils", topActivity + " is useless");
+                    return;
+                }
+                if (topActivity.hasWindowFocus()) {
+                    mWM = topActivity.getWindowManager();
+                    mParams.type = WindowManager.LayoutParams.LAST_SUB_WINDOW;
+                    mParams.y = mToast.getYOffset() + getNavBarHeight();
+                } else {
+                    mDialog = new Dialog(topActivity, R.style.DialogTransparent);
+                    mDialog.setContentView(mView);
+                    Window window = mDialog.getWindow();
+                    mParams.y = mToast.getYOffset();
+                }
+                Utils.getActivityLifecycle().addOnActivityDestroyedListener(topActivity, listener);
             }
 
             final Configuration config = context.getResources().getConfiguration();
@@ -479,9 +499,17 @@ public final class ToastUtils {
             mParams.x = mToast.getXOffset();
             mParams.packageName = Utils.getApp().getPackageName();
 
-            try {
-                mWM.addView(mView, mParams);
-            } catch (Exception ignored) { /**/ }
+            if (mDialog != null) {
+                mDialog.getWindow().setAttributes(mParams);
+                mDialog.show();
+            } else {
+                try {
+                    if (mWM != null) {
+                        mWM.addView(mView, mParams);
+                    }
+                } catch (Exception ignored) { /**/ }
+            }
+
 
             HANDLER.postDelayed(new Runnable() {
                 @Override
@@ -498,6 +526,10 @@ public final class ToastUtils {
                     mWM.removeViewImmediate(mView);
                 }
             } catch (Exception ignored) { /**/ }
+            if (mDialog != null) {
+                mDialog.dismiss();
+                mDialog = null;
+            }
             mView = null;
             mWM = null;
             mToast = null;

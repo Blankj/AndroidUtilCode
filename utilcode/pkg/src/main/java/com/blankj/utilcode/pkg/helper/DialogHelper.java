@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.blankj.utilcode.pkg.R;
@@ -12,6 +13,7 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.PermissionUtils.OnRationaleListener.ShouldRequest;
+import com.blankj.utilcode.util.ToastUtils;
 
 /**
  * <pre>
@@ -124,6 +126,22 @@ public class DialogHelper {
         dialogView.findViewById(R.id.btn_show_soft_input).setOnClickListener(listener);
         dialogView.findViewById(R.id.btn_toggle_soft_input).setOnClickListener(listener);
         dialogView.findViewById(R.id.btn_close_dialog).setOnClickListener(listener);
+        dialog.show();
+    }
+
+    public static void showToastDialog() {
+        Activity topActivity = ActivityUtils.getTopActivity();
+        if (topActivity == null) return;
+        final View dialogView = LayoutInflater.from(topActivity).inflate(R.layout.dialog_toast, null);
+        dialogView.findViewById(R.id.btn_show_short_toast)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ToastUtils.showShort("Short");
+                    }
+                });
+        final AlertDialog dialog = new AlertDialog.Builder(topActivity).setView(dialogView).create();
+        dialog.setCanceledOnTouchOutside(false);
         dialog.show();
     }
 }

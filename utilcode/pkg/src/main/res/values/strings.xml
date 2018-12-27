@@ -282,6 +282,7 @@
     <string name="toast_custom_view">Custom View</string>
     <string name="toast_show_middle">Show Middle</string>
     <string name="toast_cancel">Cancel</string>
+    <string name="toast_show_toast_dialog">Show Toast Dialog</string>
 
     <string name="toast_short">Short</string>
     <string name="toast_long">Long</string>
