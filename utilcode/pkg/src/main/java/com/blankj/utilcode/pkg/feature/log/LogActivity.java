@@ -11,12 +11,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.lib.base.BaseApplication;
+import com.blankj.lib.base.BaseBackActivity;
 import com.blankj.utilcode.pkg.Config;
 import com.blankj.utilcode.pkg.R;
-import com.blankj.lib.base.BaseBackActivity;
 import com.blankj.utilcode.util.LogUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -41,14 +43,16 @@ public class LogActivity extends BaseBackActivity {
     private static final int    UPDATE_CONSOLE_FILTER = 0x01 << 8;
     private static final int    UPDATE_FILE_FILTER    = 0x01 << 9;
 
-    private static final String            JSON        = "{\"tools\": [{ \"name\":\"css format\" , \"site\":\"http://tools.w3cschool.cn/code/css\" },{ \"name\":\"JSON format\" , \"site\":\"http://tools.w3cschool.cn/code/JSON\" },{ \"name\":\"pwd check\" , \"site\":\"http://tools.w3cschool.cn/password/my_password_safe\" }]}";
-    private static final String            XML         = "<books><book><author>Jack Herrington</author><title>PHP Hacks</title><publisher>O'Reilly</publisher></book><book><author>Jack Herrington</author><title>Podcasting Hacks</title><publisher>O'Reilly</publisher></book></books>";
-    private static final int[]             ONE_D_ARRAY = new int[]{1, 2, 3};
-    private static final int[][]           TWO_D_ARRAY = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-    private static final Throwable         THROWABLE   = new NullPointerException();
-    private static final Bundle            BUNDLE      = new Bundle();
-    private static final Intent            INTENT      = new Intent();
-    private static final ArrayList<String> LIST        = new ArrayList<>();
+    private static final String              JSON        = "{\"tools\": [{ \"name\":\"css format\" , \"site\":\"http://tools.w3cschool.cn/code/css\" },{ \"name\":\"JSON format\" , \"site\":\"http://tools.w3cschool.cn/code/JSON\" },{ \"name\":\"pwd check\" , \"site\":\"http://tools.w3cschool.cn/password/my_password_safe\" }]}";
+    private static final String              XML         = "<books><book><author>Jack Herrington</author><title>PHP Hacks</title><publisher>O'Reilly</publisher></book><book><author>Jack Herrington</author><title>Podcasting Hacks</title><publisher>O'Reilly</publisher></book></books>";
+    private static final int[]               ONE_D_ARRAY = new int[]{1, 2, 3};
+    private static final int[][]             TWO_D_ARRAY = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    private static final Throwable           THROWABLE   = new NullPointerException();
+    private static final Bundle              BUNDLE      = new Bundle();
+    private static final Intent              INTENT      = new Intent();
+    private static final ArrayList<String>   LIST        = new ArrayList<>();
+    private static final Map<String, String> MAP         = new HashMap<>();
+    private static final Object              OBJECT      = new Config();
 
     private static final String LONG_STR;
 
@@ -95,6 +99,9 @@ public class LogActivity extends BaseBackActivity {
         LIST.add("hello");
         LIST.add("log");
         LIST.add("utils");
+
+        MAP.put("name", "AndroidUtilCode");
+        MAP.put("class", "LogUtils");
     }
 
     private TextView tvAboutLog;
@@ -169,6 +176,8 @@ public class LogActivity extends BaseBackActivity {
         findViewById(R.id.btn_log_bundle).setOnClickListener(this);
         findViewById(R.id.btn_log_intent).setOnClickListener(this);
         findViewById(R.id.btn_log_array_list).setOnClickListener(this);
+        findViewById(R.id.btn_log_map).setOnClickListener(this);
+        findViewById(R.id.btn_log_object).setOnClickListener(this);
         updateConfig(0);
     }
 
@@ -284,6 +293,12 @@ public class LogActivity extends BaseBackActivity {
 
         } else if (i1 == R.id.btn_log_array_list) {
             LogUtils.e(LIST);
+
+        } else if (i1 == R.id.btn_log_map) {
+            LogUtils.e(MAP);
+
+        } else if (i1 == R.id.btn_log_object) {
+            LogUtils.e(OBJECT);
 
         }
     }

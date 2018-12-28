@@ -181,4 +181,18 @@
         android:layout_height="wrap_content"
         android:text="@string/log_array_list" />
 
+    <Button
+        android:id="@+id/btn_log_map"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_map" />
+
+    <Button
+        android:id="@+id/btn_log_object"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_object" />
+
 </LinearLayout>

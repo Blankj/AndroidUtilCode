@@ -206,6 +206,8 @@
     <string name="log_bundle">Log Bundle</string>
     <string name="log_intent">Log Intent</string>
     <string name="log_array_list">Log Array List</string>
+    <string name="log_map">Log Map</string>
+    <string name="log_object">Log Object</string>
 
     <!--Permission 相关-->
     <string name="permission_open_app_settings">Open App Settings</string>
