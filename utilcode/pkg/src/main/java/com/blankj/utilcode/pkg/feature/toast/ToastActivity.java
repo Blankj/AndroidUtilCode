@@ -4,13 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 
-import com.blankj.utilcode.pkg.R;
 import com.blankj.lib.base.BaseBackActivity;
+import com.blankj.utilcode.pkg.R;
 import com.blankj.utilcode.pkg.helper.DialogHelper;
 import com.blankj.utilcode.util.SpanUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -61,6 +62,8 @@ public class ToastActivity extends BaseBackActivity {
 
     }
 
+    Handler mHandler = new Handler();
+
     @Override
     public void onWidgetClick(View view) {
         resetToast();
@@ -74,12 +77,19 @@ public class ToastActivity extends BaseBackActivity {
             }).start();
 
         } else if (i == R.id.btn_show_long_toast) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    ToastUtils.showLong(R.string.toast_long);
-                }
-            }).start();
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+            for (int j = 0; j < 10; j++) {
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtils.showLong(R.string.toast_long);
+                    }
+                }, 10 * j);
+            }
+//                }
+//            }).start();
 
         } else if (i == R.id.btn_show_green_font) {
             ToastUtils.setMsgColor(Color.GREEN);

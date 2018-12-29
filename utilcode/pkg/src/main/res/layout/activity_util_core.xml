@@ -182,4 +182,11 @@
         android:onClick="toastClick"
         android:text="@string/demo_toast" />
 
+    <Button
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="vibrateClick"
+        android:text="@string/demo_vibrate" />
+
 </LinearLayout>

@@ -31,6 +31,8 @@
     <!-- process -->
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
 
+    <!-- vibrate -->
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application>
         <activity
             android:name=".feature.CoreUtilActivity"
@@ -158,6 +160,9 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.toast.ToastActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.vibrate.VibrateActivity"
             android:launchMode="singleTop" />
 
         <meta-data

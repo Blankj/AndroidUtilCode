@@ -2,10 +2,8 @@ package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -421,17 +419,18 @@ public final class ToastUtils {
 
     static class ToastWithoutNotification extends AbsToast {
 
-        private Dialog        mDialog;
-        private WindowManager mWM;
         private View          mView;
+        private WindowManager mWM;
+        private Dialog        mDialog;
 
         private WindowManager.LayoutParams mParams = new WindowManager.LayoutParams();
 
-        private Utils.OnActivityDestroyedListener listener =
+        private static final Utils.OnActivityDestroyedListener LISTENER =
                 new Utils.OnActivityDestroyedListener() {
                     @Override
                     public void onActivityDestroyed(Activity activity) {
-                        cancel();
+                        if (iToast == null) return;
+                        iToast.cancel();
                     }
                 };
 
@@ -447,8 +446,7 @@ public final class ToastUtils {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
                 mWM = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
                 mParams.type = WindowManager.LayoutParams.TYPE_TOAST;
-                mParams.y = mToast.getYOffset();
-            } else {
+            } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1) {
                 Context topActivityOrApp = Utils.getTopActivityOrApp();
                 if (!(topActivityOrApp instanceof Activity)) {
                     Log.e("ToastUtils", "Couldn't get top Activity.");
@@ -461,15 +459,15 @@ public final class ToastUtils {
                 }
                 if (topActivity.hasWindowFocus()) {
                     mWM = topActivity.getWindowManager();
-                    mParams.type = WindowManager.LayoutParams.LAST_SUB_WINDOW;
-                    mParams.y = mToast.getYOffset() + getNavBarHeight();
+                    mParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
                 } else {
                     mDialog = new Dialog(topActivity, R.style.DialogTransparent);
                     mDialog.setContentView(mView);
-                    Window window = mDialog.getWindow();
-                    mParams.y = mToast.getYOffset();
                 }
-                Utils.getActivityLifecycle().addOnActivityDestroyedListener(topActivity, listener);
+                Utils.getActivityLifecycle().addOnActivityDestroyedListener(topActivity, LISTENER);
+            } else {
+                mWM = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+                mParams.type = WindowManager.LayoutParams.FIRST_SYSTEM_WINDOW + 37;
             }
 
             final Configuration config = context.getResources().getConfiguration();
@@ -480,6 +478,7 @@ public final class ToastUtils {
                 gravity = mToast.getGravity();
             }
 
+            mParams.y = mToast.getYOffset();
             mParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
             mParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
             mParams.format = PixelFormat.TRANSLUCENT;
@@ -500,7 +499,10 @@ public final class ToastUtils {
             mParams.packageName = Utils.getApp().getPackageName();
 
             if (mDialog != null) {
-                mDialog.getWindow().setAttributes(mParams);
+                Window window = mDialog.getWindow();
+                if (window == null) return;
+                mParams.windowAnimations = android.R.style.Animation_Dialog;
+                window.setAttributes(mParams);
                 mDialog.show();
             } else {
                 try {
@@ -509,7 +511,6 @@ public final class ToastUtils {
                     }
                 } catch (Exception ignored) { /**/ }
             }
-
 
             HANDLER.postDelayed(new Runnable() {
                 @Override

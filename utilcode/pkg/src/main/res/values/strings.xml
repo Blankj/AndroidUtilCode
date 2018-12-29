@@ -26,6 +26,7 @@
     <string name="demo_sp">SP Demo</string>
     <string name="demo_span">SpanUtils Demo</string>
     <string name="demo_toast">ToastUtils Demo</string>
+    <string name="demo_vibrate">VibrateUtils Demo</string>
 
     <!--Activity 相关-->
     <string name="activity_shared_element">Shared Element</string>
@@ -293,4 +294,9 @@
     <string name="toast_custom_bg">Custom Bg</string>
     <string name="toast_span">Spannable String</string>
     <string name="toast_middle">Middle</string>
+
+    <!--Vibrate 相关-->
+    <string name="vibrate_1000ms">Vibrate 1000ms</string>
+    <string name="vibrate_custom">Vibrate Custom</string>
+    <string name="vibrate_cancel">Cancel</string>
 </resources>

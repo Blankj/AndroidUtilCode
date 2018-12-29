@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.22.7'
+implementation 'com.blankj:utilcode:1.22.9'
 ```
 
 
@@ -33,6 +33,11 @@ adaptHeight
 closeAdapt
 pt2Px
 px2Pt
+```
+
+* ### About AntiShake -> [AntiShakeUtils.java][antiShake.java]
+```
+isValid
 ```
 
 * ### About App -> [AppUtils.java][app.java] -> [Demo][app.demo]
@@ -799,6 +804,12 @@ file2Uri
 uri2File
 ```
 
+* ### About Vibrate -> [VibrateUtils.java][vibrate.java] -> [Demo][demo.demo]
+```
+vibrate
+cancel
+```
+
 * ### About Zip -> [ZipUtils.java][zip.java] -> [Test][zip.test]
 ```
 zipFiles
@@ -813,10 +824,11 @@ getComments
 
 [activity.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ActivityUtils.java
 [activity.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/activity/ActivityActivity.java
-[activity.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/activity/ActivityActivity.java
 
 [adaptScreen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/AdaptScreenUtils.java
 [adaptScreen.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/adaptScreen/AdaptScreenActivity.kt
+
+[antiShake.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/AntiShakeUtils.java
 
 [app.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/AppUtils.java
 [app.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/app/AppActivity.java
@@ -942,6 +954,9 @@ getComments
 [toast.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/toast/ToastActivity.java
 
 [uri.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/UriUtils.java
+
+[vibrate.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/VibrateUtils.java
+[vibrate.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/vibrate/VibrateActivity.java
 
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ZipUtils.java
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/ZipUtilsTest.java

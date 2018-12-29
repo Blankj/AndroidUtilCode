@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.blankj.utilcode.pkg.R;
@@ -27,7 +26,7 @@ public class DialogHelper {
 
     public static void showRationaleDialog(final ShouldRequest shouldRequest) {
         Activity topActivity = ActivityUtils.getTopActivity();
-        if (topActivity == null) return;
+        if (topActivity == null || topActivity.isFinishing()) return;
         new AlertDialog.Builder(topActivity)
                 .setTitle(android.R.string.dialog_alert_title)
                 .setMessage(R.string.permission_rationale_message)
@@ -51,7 +50,7 @@ public class DialogHelper {
 
     public static void showOpenAppSettingDialog() {
         Activity topActivity = ActivityUtils.getTopActivity();
-        if (topActivity == null) return;
+        if (topActivity == null || topActivity.isFinishing()) return;
         new AlertDialog.Builder(topActivity)
                 .setTitle(android.R.string.dialog_alert_title)
                 .setMessage(R.string.permission_denied_forever_message)
@@ -74,7 +73,7 @@ public class DialogHelper {
 
     public static void showAdaptScreenDialog() {
         Activity topActivity = ActivityUtils.getTopActivity();
-        if (topActivity == null) return;
+        if (topActivity == null || topActivity.isFinishing()) return;
         new AlertDialog.Builder(topActivity)
                 .setTitle(android.R.string.dialog_alert_title)
                 .setMessage("Message!")
@@ -97,7 +96,7 @@ public class DialogHelper {
 
     public static void showKeyboardDialog() {
         Activity topActivity = ActivityUtils.getTopActivity();
-        if (topActivity == null) return;
+        if (topActivity == null || topActivity.isFinishing()) return;
         final View dialogView = LayoutInflater.from(topActivity).inflate(R.layout.dialog_keyboard, null);
         final EditText etInput = dialogView.findViewById(R.id.et_input);
         final AlertDialog dialog = new AlertDialog.Builder(topActivity).setView(dialogView).create();
@@ -131,7 +130,7 @@ public class DialogHelper {
 
     public static void showToastDialog() {
         Activity topActivity = ActivityUtils.getTopActivity();
-        if (topActivity == null) return;
+        if (topActivity == null || topActivity.isFinishing()) return;
         final View dialogView = LayoutInflater.from(topActivity).inflate(R.layout.dialog_toast, null);
         dialogView.findViewById(R.id.btn_show_short_toast)
                 .setOnClickListener(new View.OnClickListener() {
