@@ -1,3 +1,6 @@
+* `18/12/29` [add] AntiShakeUtils and VibrateUtils. Publish v1.22.9.
+* `18/12/28` [fix] ToastUtils show behind the dialog when close notification.
+* `18/12/27` [fix] LogUtils print StringBuilder failed.
 * `18/12/24` [fix] Utils$ActivityLifecycleImpl.consumeOnActivityDestroyedListener ConcurrentModificationException. Publish v1.22.7.
 * `18/12/22` [fix] AdaptScreenUtils#pt2px don't work when start webview. Publish v1.22.6.
 * `18/12/21` [add] LogUtils support print Map, Collection and Object to String.

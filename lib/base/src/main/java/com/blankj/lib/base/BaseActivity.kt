@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
+import com.blankj.utilcode.util.AntiShakeUtils
 
 /**
  * ```
@@ -18,16 +19,6 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
 
     protected lateinit var mContentView: View
     protected lateinit var mActivity: Activity
-    private var lastClick: Long = 0// the time of last click
-    private val isFastClick: Boolean
-        get() {
-            val now = System.currentTimeMillis()
-            if (now - lastClick >= 200) {
-                lastClick = now
-                return false
-            }
-            return true
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         mActivity = this
@@ -45,6 +36,8 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
     }
 
     override fun onClick(view: View) {
-        if (!isFastClick) onWidgetClick(view)
+        if (AntiShakeUtils.isValid(view, 200)) {
+            onWidgetClick(view)
+        }
     }
 }

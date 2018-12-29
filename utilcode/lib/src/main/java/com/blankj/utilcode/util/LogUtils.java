@@ -348,11 +348,11 @@ public final class LogUtils {
             }
         }
         if (object.getClass().isArray()) return LogFormatter.array2String(object);
+        if (object instanceof Map) return LogFormatter.map2String((Map) object);
+        if (object instanceof Collection) return LogFormatter.collection2String((Collection) object);
         if (object instanceof Throwable) return LogFormatter.throwable2String((Throwable) object);
         if (object instanceof Bundle) return LogFormatter.bundle2String((Bundle) object);
         if (object instanceof Intent) return LogFormatter.intent2String((Intent) object);
-        if (object instanceof Map) return LogFormatter.map2String((Map) object);
-        if (object instanceof Collection) return LogFormatter.collection2String((Collection) object);
         return LogFormatter.object2String(object);
     }
 
@@ -992,7 +992,7 @@ public final class LogUtils {
 
         static String map2String(Map map) {
             JSONObject jsonObject = new JSONObject(map);
-            return jsonObject.toString();
+            return LogFormatter.formatJson(jsonObject.toString());
         }
 
         static String collection2String(Collection collection) {
@@ -1000,14 +1000,14 @@ public final class LogUtils {
             try {
                 jsonObject.put("size", collection.size());
                 jsonObject.put("data", collection);
-                return jsonObject.toString();
+                return LogFormatter.formatJson(jsonObject.toString());
             } catch (JSONException ignore) {
                 return collection.toString();
             }
         }
 
         static String object2String(Object object) {
-            if (object instanceof String || object instanceof JSONObject ||
+            if (object instanceof CharSequence || object instanceof JSONObject ||
                     object instanceof JSONArray) {
                 return object.toString();
             }
@@ -1039,7 +1039,7 @@ public final class LogUtils {
                 }
             } catch (Exception ignore) {
             }
-            return jsonObject.toString();
+            return LogFormatter.formatJson(jsonObject.toString());
         }
 
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)

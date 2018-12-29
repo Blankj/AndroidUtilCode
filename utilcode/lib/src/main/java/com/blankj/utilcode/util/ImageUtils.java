@@ -690,7 +690,9 @@ public final class ImageUtils {
         rectF.inset((width - size) / 2f, (height - size) / 2f);
         Matrix matrix = new Matrix();
         matrix.setTranslate(rectF.left, rectF.top);
-        matrix.preScale((float) size / width, (float) size / height);
+        if (width != height) {
+            matrix.preScale((float) size / width, (float) size / height);
+        }
         BitmapShader shader = new BitmapShader(src, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         shader.setLocalMatrix(matrix);
         paint.setShader(shader);

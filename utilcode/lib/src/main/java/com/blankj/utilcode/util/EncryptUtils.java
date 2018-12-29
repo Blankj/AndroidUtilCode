@@ -21,6 +21,9 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.Mac;
 import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -942,13 +945,20 @@ public final class EncryptUtils {
                                             final boolean isEncrypt) {
         if (data == null || data.length == 0 || key == null || key.length == 0) return null;
         try {
-            SecretKeySpec keySpec = new SecretKeySpec(key, algorithm);
+            SecretKey secretKey;
+            if ("DES".equals(algorithm)) {
+                DESKeySpec desKey = new DESKeySpec(key);
+                SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(algorithm);
+                secretKey = keyFactory.generateSecret(desKey);
+            } else {
+                secretKey = new SecretKeySpec(key, algorithm);
+            }
             Cipher cipher = Cipher.getInstance(transformation);
             if (iv == null || iv.length == 0) {
-                cipher.init(isEncrypt ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE, keySpec);
+                cipher.init(isEncrypt ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE, secretKey);
             } else {
                 AlgorithmParameterSpec params = new IvParameterSpec(iv);
-                cipher.init(isEncrypt ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE, keySpec, params);
+                cipher.init(isEncrypt ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE, secretKey, params);
             }
             return cipher.doFinal(data);
         } catch (Throwable e) {

@@ -32,6 +32,7 @@ import com.blankj.utilcode.pkg.feature.snackbar.SnackbarActivity;
 import com.blankj.utilcode.pkg.feature.sp.SPActivity;
 import com.blankj.utilcode.pkg.feature.span.SpanActivity;
 import com.blankj.utilcode.pkg.feature.toast.ToastActivity;
+import com.blankj.utilcode.pkg.feature.vibrate.VibrateActivity;
 import com.blankj.utilcode.util.BusUtils;
 
 /**
@@ -177,5 +178,9 @@ public class CoreUtilActivity extends BaseBackActivity {
 
     public void toastClick(View view) {
         ToastActivity.start(this);
+    }
+
+    public void vibrateClick(View view) {
+        VibrateActivity.Companion.start(this);
     }
 }

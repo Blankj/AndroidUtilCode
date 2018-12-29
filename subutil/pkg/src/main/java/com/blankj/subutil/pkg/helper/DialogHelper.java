@@ -21,7 +21,7 @@ public class DialogHelper {
 
     public static void showRationaleDialog(final ShouldRequest shouldRequest) {
         Activity topActivity = ActivityUtils.getTopActivity();
-        if (topActivity == null) return;
+        if (topActivity == null || topActivity.isFinishing()) return;
         new AlertDialog.Builder(topActivity)
                 .setTitle(android.R.string.dialog_alert_title)
                 .setMessage(R.string.permission_rationale_message)
@@ -45,7 +45,7 @@ public class DialogHelper {
 
     public static void showOpenAppSettingDialog() {
         Activity topActivity = ActivityUtils.getTopActivity();
-        if (topActivity == null) return;
+        if (topActivity == null || topActivity.isFinishing()) return;
         new AlertDialog.Builder(topActivity)
                 .setTitle(android.R.string.dialog_alert_title)
                 .setMessage(R.string.permission_denied_forever_message)

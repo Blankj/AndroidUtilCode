@@ -12,6 +12,7 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.PermissionUtils.OnRationaleListener.ShouldRequest;
+import com.blankj.utilcode.util.ToastUtils;
 
 /**
  * <pre>
@@ -25,7 +26,7 @@ public class DialogHelper {
 
     public static void showRationaleDialog(final ShouldRequest shouldRequest) {
         Activity topActivity = ActivityUtils.getTopActivity();
-        if (topActivity == null) return;
+        if (topActivity == null || topActivity.isFinishing()) return;
         new AlertDialog.Builder(topActivity)
                 .setTitle(android.R.string.dialog_alert_title)
                 .setMessage(R.string.permission_rationale_message)
@@ -49,7 +50,7 @@ public class DialogHelper {
 
     public static void showOpenAppSettingDialog() {
         Activity topActivity = ActivityUtils.getTopActivity();
-        if (topActivity == null) return;
+        if (topActivity == null || topActivity.isFinishing()) return;
         new AlertDialog.Builder(topActivity)
                 .setTitle(android.R.string.dialog_alert_title)
                 .setMessage(R.string.permission_denied_forever_message)
@@ -72,7 +73,7 @@ public class DialogHelper {
 
     public static void showAdaptScreenDialog() {
         Activity topActivity = ActivityUtils.getTopActivity();
-        if (topActivity == null) return;
+        if (topActivity == null || topActivity.isFinishing()) return;
         new AlertDialog.Builder(topActivity)
                 .setTitle(android.R.string.dialog_alert_title)
                 .setMessage("Message!")
@@ -95,7 +96,7 @@ public class DialogHelper {
 
     public static void showKeyboardDialog() {
         Activity topActivity = ActivityUtils.getTopActivity();
-        if (topActivity == null) return;
+        if (topActivity == null || topActivity.isFinishing()) return;
         final View dialogView = LayoutInflater.from(topActivity).inflate(R.layout.dialog_keyboard, null);
         final EditText etInput = dialogView.findViewById(R.id.et_input);
         final AlertDialog dialog = new AlertDialog.Builder(topActivity).setView(dialogView).create();
@@ -124,6 +125,22 @@ public class DialogHelper {
         dialogView.findViewById(R.id.btn_show_soft_input).setOnClickListener(listener);
         dialogView.findViewById(R.id.btn_toggle_soft_input).setOnClickListener(listener);
         dialogView.findViewById(R.id.btn_close_dialog).setOnClickListener(listener);
+        dialog.show();
+    }
+
+    public static void showToastDialog() {
+        Activity topActivity = ActivityUtils.getTopActivity();
+        if (topActivity == null || topActivity.isFinishing()) return;
+        final View dialogView = LayoutInflater.from(topActivity).inflate(R.layout.dialog_toast, null);
+        dialogView.findViewById(R.id.btn_show_short_toast)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ToastUtils.showShort("Short");
+                    }
+                });
+        final AlertDialog dialog = new AlertDialog.Builder(topActivity).setView(dialogView).create();
+        dialog.setCanceledOnTouchOutside(false);
         dialog.show();
     }
 }
