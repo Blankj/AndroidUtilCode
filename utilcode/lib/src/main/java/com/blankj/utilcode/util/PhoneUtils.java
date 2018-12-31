@@ -12,6 +12,7 @@ import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import static android.Manifest.permission.CALL_PHONE;
@@ -95,8 +96,54 @@ public final class PhoneUtils {
             //noinspection ConstantConditions
             return tm.getImei();
         }
-        //noinspection ConstantConditions
-        return tm.getDeviceId();
+        String imei = tm.getDeviceId();
+        if (imei != null && imei.length() == 15){
+            return imei;
+        }else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                try {
+                    Class clazz = tm.getClass();
+                    Method method = clazz.getDeclaredMethod("getImei");
+                    method.setAccessible(true);
+                    imei = (String) method.invoke(tm);
+                } catch (Exception e){
+                }finally {
+                    return imei != null ? imei : "";
+                }
+            }else {
+                return "";
+            }
+        }
+    }
+
+    /**
+     * Return the IMEI.
+     * <p>Must hold
+     * {@code <uses-permission android:name="android.permission.READ_PHONE_STATE" />}</p>
+     *
+     * @param slotId of which deviceID is returned
+     * @return the IMEI
+     */
+    @SuppressLint("HardwareIds")
+    @RequiresPermission(READ_PHONE_STATE)
+    public static String getIMEI(int slotId){
+        TelephonyManager tm = (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            return tm.getImei(slotId);
+        }else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            String imei = null;
+            try {
+                Class clazz = tm.getClass();
+                Method method = clazz.getDeclaredMethod("getImei",int.class);
+                method.setAccessible(true);
+                imei = (String) method.invoke(tm,slotId);
+            } catch (Exception e){
+            }finally {
+                return imei != null ? imei : "";
+            }
+        }else {
+            return getIMEI();
+        }
     }
 
     /**
