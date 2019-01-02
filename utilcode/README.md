@@ -324,6 +324,13 @@ setBackgroundResource
 setBackground
 ```
 
+* ### About Gson -> [GsonUtils.java][gson.java] -> [Test][gson.test]
+```
+getGson
+toJson
+fromJson
+```
+
 * ### About Image -> [ImageUtils.java][image.java] -> [Demo][image.demo]
 ```
 bitmap2Bytes, bytes2Bitmap
@@ -878,6 +885,9 @@ getComments
 
 [fragment.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/FragmentUtils.java
 [fragment.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/fragment/FragmentActivity.java
+
+[gson.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/GsonUtils.java
+[gson.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/GsonUtilsTest.java
 
 [image.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ImageUtils.java
 [image.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/image/ImageActivity.java

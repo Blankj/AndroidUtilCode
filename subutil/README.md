@@ -51,13 +51,6 @@ Instance.isFlashlightOn
 isFlashlightEnable
 ```
 
-* ### About Gson -> [GsonUtils.java][gson.java] -> [Test][gson.test]
-```
-getGson
-toJson
-fromJson
-```
-
 * ### About Location -> [LocationUtils.java][location.java] -> [Demo][location.demo]
 ```
 isGpsEnabled
@@ -87,7 +80,6 @@ getSurnameFirstLetter
 
 [brightness.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/main/java/com/blankj/subutil/util/BrightnessUtils.java
 [brightness.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/pkg/src/main/java/com/blankj/subutil/pkg/feature/brightness/BrightnessActivity.java
-[brightness.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/pkg/src/main/java/com/blankj/subutil/pkg/feature/brightness/BrightnessActivity.java
 
 [clipboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/main/java/com/blankj/subutil/util/ClipboardUtils.java
 [clipboard.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/test/java/com/blankj/subutil/util/ClipboardUtilsTest.java
@@ -100,9 +92,6 @@ getSurnameFirstLetter
 
 [flashlight.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/main/java/com/blankj/subutil/util/FlashlightUtils.java
 [flashlight.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/pkg/src/main/java/com/blankj/subutil/pkg/feature/flashlight/FlashlightActivity.java
-
-[gson.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/main/java/com/blankj/subutil/util/GsonUtils.java
-[gson.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/test/java/com/blankj/subutil/util/GsonUtilsTest.java
 
 [location.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/main/java/com/blankj/subutil/util/LocationUtils.java
 [location.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/pkg/src/main/java/com/blankj/subutil/pkg/feature/location/LocationActivity.java
