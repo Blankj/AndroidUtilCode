@@ -41,7 +41,7 @@
 
 [logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
-[aucSvg]: https://img.shields.io/badge/AndroidUtilCode-v1.22.9-brightgreen.svg
+[aucSvg]: https://img.shields.io/badge/AndroidUtilCode-v1.22.10-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apiSvg]: https://img.shields.io/badge/API-14+-brightgreen.svg

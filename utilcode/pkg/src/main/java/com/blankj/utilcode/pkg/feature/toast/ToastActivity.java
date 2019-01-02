@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
@@ -42,7 +43,7 @@ public class ToastActivity extends BaseBackActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View contentView) {
+    public void initView(Bundle savedInstanceState, @NonNull View contentView) {
         setTitle(R.string.demo_toast);
 
         findViewById(R.id.btn_show_short_toast).setOnClickListener(this);
@@ -65,7 +66,7 @@ public class ToastActivity extends BaseBackActivity {
     Handler mHandler = new Handler();
 
     @Override
-    public void onWidgetClick(View view) {
+    public void onWidgetClick(@NonNull View view) {
         resetToast();
         int i = view.getId();
         if (i == R.id.btn_show_short_toast) {
@@ -77,19 +78,12 @@ public class ToastActivity extends BaseBackActivity {
             }).start();
 
         } else if (i == R.id.btn_show_long_toast) {
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-            for (int j = 0; j < 10; j++) {
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        ToastUtils.showLong(R.string.toast_long);
-                    }
-                }, 10 * j);
-            }
-//                }
-//            }).start();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    ToastUtils.showLong(R.string.toast_long);
+                }
+            }).start();
 
         } else if (i == R.id.btn_show_green_font) {
             ToastUtils.setMsgColor(Color.GREEN);

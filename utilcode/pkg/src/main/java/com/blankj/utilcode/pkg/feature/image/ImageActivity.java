@@ -6,14 +6,15 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.blankj.lib.base.BaseActivity;
 import com.blankj.utilcode.pkg.Config;
 import com.blankj.utilcode.pkg.R;
-import com.blankj.lib.base.BaseActivity;
 import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.ToastUtils;
 
@@ -49,7 +50,7 @@ public class ImageActivity extends BaseActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View contentView) {
+    public void initView(Bundle savedInstanceState, @NonNull View contentView) {
         RecyclerView rvImages = findViewById(R.id.rv_images);
         findViewById(R.id.btn_save).setOnClickListener(this);
 
@@ -96,7 +97,7 @@ public class ImageActivity extends BaseActivity {
     }
 
     @Override
-    public void onWidgetClick(View view) {
+    public void onWidgetClick(@NonNull View view) {
         int i = view.getId();
         if (i == R.id.btn_save) {
             boolean save = ImageUtils.save(src, Config.CACHE_PATH + "lena.jpg", Bitmap.CompressFormat.JPEG);

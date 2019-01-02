@@ -1,4 +1,4 @@
-package com.blankj.subutil.util;
+package com.blankj.utilcode.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

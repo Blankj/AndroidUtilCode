@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.22.9'
+implementation 'com.blankj:utilcode:1.22.10'
 ```
 
 
@@ -322,6 +322,13 @@ dispatchBackPress     : 处理 fragment 回退键
 setBackgroundColor    : 设置背景色
 setBackgroundResource : 设置背景资源
 setBackground         : 设置背景
+```
+
+* ### Gson 相关 -> [GsonUtils.java][gson.java] -> [Test][gson.test]
+```
+getGson : 获取 Gson 对象
+toJson  : 对象转 Json 串
+fromJson: Json 串转对象
 ```
 
 * ### 图片相关 -> [ImageUtils.java][image.java] -> [Demo][image.demo]
@@ -878,6 +885,9 @@ getComments       : 获取压缩文件中的注释链表
 
 [fragment.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/FragmentUtils.java
 [fragment.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/fragment/FragmentActivity.java
+
+[gson.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/GsonUtils.java
+[gson.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/GsonUtilsTest.java
 
 [image.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ImageUtils.java
 [image.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/image/ImageActivity.java

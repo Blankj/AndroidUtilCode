@@ -8,6 +8,7 @@ import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.Shader;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.SpannableStringBuilder;
@@ -18,8 +19,8 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
-import com.blankj.utilcode.pkg.R;
 import com.blankj.lib.base.BaseBackActivity;
+import com.blankj.utilcode.pkg.R;
 import com.blankj.utilcode.util.SpanUtils;
 import com.blankj.utilcode.util.ToastUtils;
 
@@ -74,7 +75,7 @@ public class SpanActivity extends BaseBackActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View contentView) {
+    public void initView(Bundle savedInstanceState, @NonNull View contentView) {
         setTitle(R.string.demo_span);
 
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -254,7 +255,7 @@ public class SpanActivity extends BaseBackActivity {
     }
 
     @Override
-    public void onWidgetClick(View view) {
+    public void onWidgetClick(@NonNull View view) {
 
     }
 

@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.blankj.utilcode.util.AntiShakeUtils
 
 /**
  * ```
@@ -28,18 +29,6 @@ abstract class BaseFragment : Fragment(), IBaseView {
     protected lateinit var mActivity: Activity
     protected lateinit var mInflater: LayoutInflater
     protected lateinit var mContentView: View
-
-    private var lastClick: Long = 0
-
-    private val isFastClick: Boolean
-        get() {
-            val now = System.currentTimeMillis()
-            if (now - lastClick >= 200) {
-                lastClick = now
-                return false
-            }
-            return true
-        }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -105,7 +94,9 @@ abstract class BaseFragment : Fragment(), IBaseView {
     }
 
     override fun onClick(view: View) {
-        if (!isFastClick) onWidgetClick(view)
+        if (AntiShakeUtils.isValid(view)) {
+            onWidgetClick(view)
+        }
     }
 
     fun <T : View> findViewById(@IdRes id: Int): T {

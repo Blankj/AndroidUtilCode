@@ -3,6 +3,7 @@ package com.blankj.utilcode.pkg.feature.bar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -52,7 +53,7 @@ public class BarStatusColorActivity extends BaseActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View contentView) {
+    public void initView(Bundle savedInstanceState, @NonNull View contentView) {
         findViewById(R.id.btn_random_color).setOnClickListener(this);
         findViewById(R.id.btn_set_transparent).setOnClickListener(this);
         mTvStatusAlpha = findViewById(R.id.tv_status_alpha);
@@ -70,7 +71,7 @@ public class BarStatusColorActivity extends BaseActivity {
     }
 
     @Override
-    public void onWidgetClick(View view) {
+    public void onWidgetClick(@NonNull View view) {
         int i = view.getId();
         if (i == R.id.btn_random_color) {
             mColor = 0xff000000 | mRandom.nextInt(0xffffff);

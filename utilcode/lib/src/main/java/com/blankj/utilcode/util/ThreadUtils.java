@@ -966,17 +966,13 @@ public final class ThreadUtils {
 
     public abstract static class Task<T> implements Runnable {
 
-        private boolean isSchedule;
-
-        private volatile     int state;
         private static final int NEW         = 0;
         private static final int COMPLETING  = 1;
         private static final int CANCELLED   = 2;
         private static final int EXCEPTIONAL = 3;
 
-        public Task() {
-            state = NEW;
-        }
+        private volatile int     state = NEW;
+        private          boolean isSchedule;
 
         @Nullable
         public abstract T doInBackground() throws Throwable;
@@ -992,6 +988,7 @@ public final class ThreadUtils {
         public void run() {
             try {
                 final T result = doInBackground();
+
                 if (state != NEW) return;
 
                 if (isSchedule) {
@@ -1037,11 +1034,16 @@ public final class ThreadUtils {
                 }
             });
         }
+
+        public boolean isCanceled() {
+            return state == CANCELLED;
+        }
     }
 
     private static final class UtilsThreadFactory extends AtomicLong
             implements ThreadFactory {
-        private static final AtomicInteger POOL_NUMBER = new AtomicInteger(1);
+        private static final AtomicInteger POOL_NUMBER      = new AtomicInteger(1);
+        private static final long          serialVersionUID = -9209200509960368598L;
         private final        ThreadGroup   group;
         private final        String        namePrefix;
         private final        int           priority;

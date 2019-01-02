@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
@@ -49,7 +50,7 @@ public class PermissionActivity extends BaseBackActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View contentView) {
+    public void initView(Bundle savedInstanceState, @NonNull View contentView) {
         setTitle(R.string.demo_permission);
 
         tvAboutPermission = findViewById(R.id.tv_about_permission);
@@ -77,7 +78,7 @@ public class PermissionActivity extends BaseBackActivity {
     }
 
     @Override
-    public void onWidgetClick(View view) {
+    public void onWidgetClick(@NonNull View view) {
         int i = view.getId();
         if (i == R.id.btn_open_app_settings) {
             PermissionUtils.launchAppDetailsSettings();

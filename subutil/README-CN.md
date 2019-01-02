@@ -51,13 +51,6 @@ Instance.isFlashlightOn  : 判断闪光灯是否打开
 isFlashlightEnable       : 判断设备是否支持闪光灯
 ```
 
-* ### Gson 相关 -> [GsonUtils.java][gson.java] -> [Test][gson.test]
-```
-getGson : 获取 Gson 对象
-toJson  : 对象转 Json 串
-fromJson: Json 串转对象
-```
-
 * ### 定位相关 -> [LocationUtils.java][location.java] -> [Demo][location.demo]
 ```
 isGpsEnabled     : 判断 Gps 是否可用

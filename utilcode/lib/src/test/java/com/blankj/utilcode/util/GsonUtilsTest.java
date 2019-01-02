@@ -1,4 +1,4 @@
-package com.blankj.subutil.util;
+package com.blankj.utilcode.util;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -54,19 +54,17 @@ public class GsonUtilsTest {
 
         public Person(String name) {
             this.name = name;
-            this.gender = gender;
-            this.address = address;
         }
 
         @Override
         public boolean equals(Object obj) {
             if (obj == this) return true;
-            if (obj == null || !(obj instanceof Person)) return false;
+            if (!(obj instanceof Person)) return false;
             Person p = (Person) obj;
             return equals(name, p.name) && p.gender == gender && equals(address, p.address);
         }
 
-        private boolean equals(final Object o1, final Object o2) {
+        private static boolean equals(final Object o1, final Object o2) {
             return o1 == o2 || (o1 != null && o1.equals(o2));
         }
     }

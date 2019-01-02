@@ -15,7 +15,6 @@ readme {
 dependencies {
     compileOnly dep.support.appcompat_v7
     compileOnly dep.support.design
-    api dep.gson
     api(dep.glide) {
         exclude group: "com.android.support"
     }
