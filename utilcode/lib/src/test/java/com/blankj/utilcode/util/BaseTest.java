@@ -1,10 +1,14 @@
 package com.blankj.utilcode.util;
 
+
+import android.util.Log;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowLog;
 
 /**
  * <pre>
@@ -15,15 +19,18 @@ import org.robolectric.annotation.Config;
  * </pre>
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE)
+@Config(manifest = Config.NONE, shadows = {ShadowLog.class})
 public class BaseTest {
 
     public BaseTest() {
+        ShadowLog.stream = System.out;
         Utils.init(RuntimeEnvironment.application);
     }
 
     @Test
     public void test() throws Exception {
+
+        Log.e("haha", "test: ");
 
 //        final CountDownLatch countDownLatch = new CountDownLatch(1);
 //        final Scanner scanner = new Scanner(System.in);

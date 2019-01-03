@@ -33,15 +33,18 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.reflect.Array;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -181,19 +184,19 @@ public final class LogUtils {
         log(FILE | type, tag, content);
     }
 
-    public static void json(final String content) {
+    public static void json(final Object content) {
         log(JSON | D, CONFIG.mGlobalTag, content);
     }
 
-    public static void json(@TYPE final int type, final String content) {
+    public static void json(@TYPE final int type, final Object content) {
         log(JSON | type, CONFIG.mGlobalTag, content);
     }
 
-    public static void json(final String tag, final String content) {
+    public static void json(final String tag, final Object content) {
         log(JSON | D, tag, content);
     }
 
-    public static void json(@TYPE final int type, final String tag, final String content) {
+    public static void json(@TYPE final int type, final String tag, final Object content) {
         log(JSON | type, tag, content);
     }
 
@@ -330,7 +333,7 @@ public final class LogUtils {
 
     private static String formatObject(int type, Object object) {
         if (object == null) return NULL;
-        if (type == JSON) return LogFormatter.formatJson(object.toString());
+        if (type == JSON) return LogFormatter.object2Json(object);
         if (type == XML) return LogFormatter.formatXml(object.toString());
         return formatObject(object);
     }
@@ -344,9 +347,6 @@ public final class LogUtils {
                 return iFormatter.format(object);
             }
         }
-        if (object instanceof Throwable) return LogFormatter.throwable2String((Throwable) object);
-        if (object instanceof Bundle) return LogFormatter.bundle2String((Bundle) object);
-        if (object instanceof Intent) return LogFormatter.intent2String((Intent) object);
         return LogFormatter.object2String(object);
     }
 
@@ -782,17 +782,19 @@ public final class LogUtils {
     }
 
     private static class LogFormatter {
-        static String formatJson(String json) {
-            try {
-                if (json.startsWith("{")) {
-                    json = new JSONObject(json).toString(4);
-                } else if (json.startsWith("[")) {
-                    json = new JSONArray(json).toString(4);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return json;
+
+        static String object2String(Object object) {
+            if (object.getClass().isArray()) return object2Json(object);
+            if (object instanceof Collection) return object2Json(object);
+            if (object instanceof Map) return object2Json(object);
+            if (object instanceof Throwable) return throwable2String((Throwable) object);
+            if (object instanceof Bundle) return bundle2String((Bundle) object);
+            if (object instanceof Intent) return intent2String((Intent) object);
+            return object.toString();
+        }
+
+        static String object2Json(Object object) {
+            return formatJson(GSON.toJson(object));
         }
 
         static String formatXml(String xml) {
@@ -810,7 +812,7 @@ public final class LogUtils {
             return xml;
         }
 
-        static String throwable2String(final Throwable e) {
+        private static String throwable2String(final Throwable e) {
             Throwable t = e;
             while (t != null) {
                 if (t instanceof UnknownHostException) {
@@ -830,7 +832,7 @@ public final class LogUtils {
             return sw.toString();
         }
 
-        static String bundle2String(Bundle bundle) {
+        private static String bundle2String(Bundle bundle) {
             Iterator<String> iterator = bundle.keySet().iterator();
             if (!iterator.hasNext()) {
                 return "Bundle {}";
@@ -851,7 +853,7 @@ public final class LogUtils {
             }
         }
 
-        static String intent2String(Intent intent) {
+        private static String intent2String(Intent intent) {
             StringBuilder sb = new StringBuilder(128);
             sb.append("Intent { ");
             boolean first = true;
@@ -961,8 +963,17 @@ public final class LogUtils {
             return sb.toString();
         }
 
-        static String object2String(Object object) {
-            return formatJson(GSON.toJson(object));
+        private static String formatJson(String json) {
+            try {
+                if (json.startsWith("{")) {
+                    json = new JSONObject(json).toString(4);
+                } else if (json.startsWith("[")) {
+                    json = new JSONArray(json).toString(4);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return json;
         }
 
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
