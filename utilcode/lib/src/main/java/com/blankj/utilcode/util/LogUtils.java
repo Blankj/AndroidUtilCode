@@ -33,7 +33,6 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.reflect.Array;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.UnknownHostException;
@@ -103,7 +102,8 @@ public final class LogUtils {
     private static final String ARGS           = "args";
     private static final String PLACEHOLDER    = " ";
     private static final Config CONFIG         = new Config();
-    private static final Gson   GSON           = new GsonBuilder().serializeNulls().create();
+    private static final Gson   GSON           = new GsonBuilder()
+            .setPrettyPrinting().serializeNulls().create();
 
     private static final ThreadLocal<SimpleDateFormat> SDF_THREAD_LOCAL = new ThreadLocal<>();
 
@@ -794,7 +794,10 @@ public final class LogUtils {
         }
 
         static String object2Json(Object object) {
-            return formatJson(GSON.toJson(object));
+            if (object instanceof CharSequence) {
+                return formatJson(object.toString());
+            }
+            return GSON.toJson(object);
         }
 
         static String formatXml(String xml) {
@@ -803,7 +806,7 @@ public final class LogUtils {
                 StreamResult xmlOutput = new StreamResult(new StringWriter());
                 Transformer transformer = TransformerFactory.newInstance().newTransformer();
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-                transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+                transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
                 transformer.transform(xmlInput, xmlOutput);
                 xml = xmlOutput.getWriter().toString().replaceFirst(">", ">" + LINE_SEP);
             } catch (Exception e) {
@@ -966,9 +969,9 @@ public final class LogUtils {
         private static String formatJson(String json) {
             try {
                 if (json.startsWith("{")) {
-                    json = new JSONObject(json).toString(4);
+                    json = new JSONObject(json).toString(2);
                 } else if (json.startsWith("[")) {
-                    json = new JSONArray(json).toString(4);
+                    json = new JSONArray(json).toString(2);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

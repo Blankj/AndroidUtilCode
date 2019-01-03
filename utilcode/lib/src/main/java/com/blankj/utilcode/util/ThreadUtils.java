@@ -6,9 +6,10 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.util.SparseArray;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -29,10 +30,8 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public final class ThreadUtils {
 
-    private static final Map<Integer, Map<Integer, ExecutorService>> TYPE_PRIORITY_POOLS =
-            new ConcurrentHashMap<>();
-    private static final Map<Task, ScheduledExecutorService>         TASK_SCHEDULED      =
-            new ConcurrentHashMap<>();
+    private static final SparseArray<SparseArray<ExecutorService>> TYPE_PRIORITY_POOLS = new SparseArray<>();
+    private static final Map<Task, ScheduledExecutorService>       TASK_SCHEDULED      = new HashMap<>();
 
     private static final byte TYPE_SINGLE = -1;
     private static final byte TYPE_CACHED = -2;
@@ -878,7 +877,7 @@ public final class ThreadUtils {
         }, initialDelay, period, unit);
     }
 
-    private static ScheduledExecutorService getScheduledByTask(final Task task) {
+    private synchronized static ScheduledExecutorService getScheduledByTask(final Task task) {
         ScheduledExecutorService scheduled = TASK_SCHEDULED.get(task);
         if (scheduled == null) {
             UtilsThreadFactory factory = new UtilsThreadFactory("scheduled", Thread.MAX_PRIORITY);
@@ -888,7 +887,7 @@ public final class ThreadUtils {
         return scheduled;
     }
 
-    private static void removeScheduleByTask(final Task task) {
+    private synchronized static void removeScheduleByTask(final Task task) {
         ScheduledExecutorService scheduled = TASK_SCHEDULED.get(task);
         if (scheduled != null) {
             TASK_SCHEDULED.remove(task);
@@ -900,11 +899,11 @@ public final class ThreadUtils {
         return getPoolByTypeAndPriority(type, Thread.NORM_PRIORITY);
     }
 
-    private static ExecutorService getPoolByTypeAndPriority(final int type, final int priority) {
+    private synchronized static ExecutorService getPoolByTypeAndPriority(final int type, final int priority) {
         ExecutorService pool;
-        Map<Integer, ExecutorService> priorityPools = TYPE_PRIORITY_POOLS.get(type);
+        SparseArray<ExecutorService> priorityPools = TYPE_PRIORITY_POOLS.get(type);
         if (priorityPools == null) {
-            priorityPools = new ConcurrentHashMap<>();
+            priorityPools = new SparseArray<>();
             pool = createPoolByTypeAndPriority(type, priority);
             priorityPools.put(priority, pool);
             TYPE_PRIORITY_POOLS.put(type, priorityPools);
@@ -921,6 +920,7 @@ public final class ThreadUtils {
     private static ExecutorService createPoolByTypeAndPriority(final int type, final int priority) {
         switch (type) {
             case TYPE_SINGLE:
+                System.out.println("hehe");
                 return Executors.newSingleThreadExecutor(
                         new UtilsThreadFactory("single", priority)
                 );

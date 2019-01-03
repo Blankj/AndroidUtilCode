@@ -1,8 +1,6 @@
 package com.blankj.utilcode.util;
 
 
-import android.util.Log;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -29,9 +27,6 @@ public class BaseTest {
 
     @Test
     public void test() throws Exception {
-
-        Log.e("haha", "test: ");
-
 //        final CountDownLatch countDownLatch = new CountDownLatch(1);
 //        final Scanner scanner = new Scanner(System.in);
 //        ExecutorService singlePool = ThreadUtils.getSinglePool();

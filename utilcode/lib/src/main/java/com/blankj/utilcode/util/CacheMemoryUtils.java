@@ -5,8 +5,8 @@ import android.support.v4.util.LruCache;
 
 import com.blankj.utilcode.constant.CacheConstants;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * <pre>
@@ -20,7 +20,7 @@ public final class CacheMemoryUtils implements CacheConstants {
 
     private static final int DEFAULT_MAX_COUNT = 256;
 
-    private static final Map<String, CacheMemoryUtils> CACHE_MAP = new ConcurrentHashMap<>();
+    private static final Map<String, CacheMemoryUtils> CACHE_MAP = new HashMap<>();
 
     private final String                       mCacheKey;
     private final LruCache<String, CacheValue> mMemoryCache;
@@ -54,8 +54,13 @@ public final class CacheMemoryUtils implements CacheConstants {
     public static CacheMemoryUtils getInstance(final String cacheKey, final int maxCount) {
         CacheMemoryUtils cache = CACHE_MAP.get(cacheKey);
         if (cache == null) {
-            cache = new CacheMemoryUtils(cacheKey, new LruCache<String, CacheValue>(maxCount));
-            CACHE_MAP.put(cacheKey, cache);
+            synchronized (CacheMemoryUtils.class) {
+                cache = CACHE_MAP.get(cacheKey);
+                if (cache == null) {
+                    cache = new CacheMemoryUtils(cacheKey, new LruCache<String, CacheValue>(maxCount));
+                    CACHE_MAP.put(cacheKey, cache);
+                }
+            }
         }
         return cache;
     }

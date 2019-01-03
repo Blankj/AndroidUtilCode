@@ -53,7 +53,6 @@ public class LogActivity extends BaseBackActivity {
     private static final Intent              INTENT      = new Intent();
     private static final ArrayList<String>   LIST        = new ArrayList<>();
     private static final Map<String, String> MAP         = new HashMap<>();
-    private static final Object              OBJECT      = new Config();
 
     private static final String LONG_STR;
 
@@ -297,9 +296,6 @@ public class LogActivity extends BaseBackActivity {
 
         } else if (i1 == R.id.btn_log_map) {
             LogUtils.e(MAP);
-
-        } else if (i1 == R.id.btn_log_object) {
-            LogUtils.e(OBJECT);
 
         }
     }

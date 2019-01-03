@@ -11,8 +11,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * <pre>
@@ -24,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public final class CacheDoubleUtils implements CacheConstants {
 
-    private static final Map<String, CacheDoubleUtils> CACHE_MAP = new ConcurrentHashMap<>();
+    private static final Map<String, CacheDoubleUtils> CACHE_MAP = new HashMap<>();
 
     private final CacheMemoryUtils mCacheMemoryUtils;
     private final CacheDiskUtils   mCacheDiskUtils;
@@ -50,8 +50,13 @@ public final class CacheDoubleUtils implements CacheConstants {
         final String cacheKey = cacheDiskUtils.toString() + "_" + cacheMemoryUtils.toString();
         CacheDoubleUtils cache = CACHE_MAP.get(cacheKey);
         if (cache == null) {
-            cache = new CacheDoubleUtils(cacheMemoryUtils, cacheDiskUtils);
-            CACHE_MAP.put(cacheKey, cache);
+            synchronized (CacheDoubleUtils.class) {
+                cache = CACHE_MAP.get(cacheKey);
+                if (cache == null) {
+                    cache = new CacheDoubleUtils(cacheMemoryUtils, cacheDiskUtils);
+                    CACHE_MAP.put(cacheKey, cache);
+                }
+            }
         }
         return cache;
     }
