@@ -3,6 +3,7 @@ package com.blankj.utilcode.pkg.feature.bar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.SeekBar;
@@ -43,7 +44,7 @@ public class BarStatusAlphaActivity extends BaseActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View contentView) {
+    public void initView(Bundle savedInstanceState, @NonNull View contentView) {
         findViewById(R.id.btn_set_transparent).setOnClickListener(this);
         mTvStatusAlpha = findViewById(R.id.tv_status_alpha);
         sbChangeAlpha = findViewById(R.id.sb_change_alpha);
@@ -59,7 +60,7 @@ public class BarStatusAlphaActivity extends BaseActivity {
     }
 
     @Override
-    public void onWidgetClick(View view) {
+    public void onWidgetClick(@NonNull View view) {
         int i = view.getId();
         if (i == R.id.btn_set_transparent) {
             sbChangeAlpha.setProgress(0);

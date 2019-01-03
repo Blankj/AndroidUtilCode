@@ -51,13 +51,6 @@ Instance.isFlashlightOn  : 判断闪光灯是否打开
 isFlashlightEnable       : 判断设备是否支持闪光灯
 ```
 
-* ### Gson 相关 -> [GsonUtils.java][gson.java] -> [Test][gson.test]
-```
-getGson : 获取 Gson 对象
-toJson  : 对象转 Json 串
-fromJson: Json 串转对象
-```
-
 * ### 定位相关 -> [LocationUtils.java][location.java] -> [Demo][location.demo]
 ```
 isGpsEnabled     : 判断 Gps 是否可用
@@ -87,7 +80,6 @@ getSurnameFirstLetter: 根据名字获取姓氏的首字母
 
 [brightness.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/main/java/com/blankj/subutil/util/BrightnessUtils.java
 [brightness.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/pkg/src/main/java/com/blankj/subutil/pkg/feature/brightness/BrightnessActivity.java
-[brightness.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/pkg/src/main/java/com/blankj/subutil/pkg/feature/brightness/BrightnessActivity.java
 
 [clipboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/main/java/com/blankj/subutil/util/ClipboardUtils.java
 [clipboard.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/test/java/com/blankj/subutil/util/ClipboardUtilsTest.java
@@ -100,9 +92,6 @@ getSurnameFirstLetter: 根据名字获取姓氏的首字母
 
 [flashlight.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/main/java/com/blankj/subutil/util/FlashlightUtils.java
 [flashlight.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/pkg/src/main/java/com/blankj/subutil/pkg/feature/flashlight/FlashlightActivity.java
-
-[gson.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/main/java/com/blankj/subutil/util/GsonUtils.java
-[gson.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/test/java/com/blankj/subutil/util/GsonUtilsTest.java
 
 [location.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/main/java/com/blankj/subutil/util/LocationUtils.java
 [location.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/pkg/src/main/java/com/blankj/subutil/pkg/feature/location/LocationActivity.java

@@ -3,13 +3,14 @@ package com.blankj.utilcode.pkg.feature.resource;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
+import com.blankj.lib.base.BaseBackActivity;
 import com.blankj.utilcode.pkg.Config;
 import com.blankj.utilcode.pkg.R;
-import com.blankj.lib.base.BaseBackActivity;
 import com.blankj.utilcode.util.ResourceUtils;
 import com.blankj.utilcode.util.SpanUtils;
 
@@ -39,7 +40,7 @@ public class ResourceActivity extends BaseBackActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View contentView) {
+    public void initView(Bundle savedInstanceState, @NonNull View contentView) {
         findViewById(R.id.btn_resource_test_assets).setOnClickListener(this);
         findViewById(R.id.btn_resource_test_raw).setOnClickListener(this);
         TextView tvAboutResource = findViewById(R.id.tv_about_resource);
@@ -57,7 +58,7 @@ public class ResourceActivity extends BaseBackActivity {
     }
 
     @Override
-    public void onWidgetClick(View view) {
+    public void onWidgetClick(@NonNull View view) {
         int i = view.getId();
         if (i == R.id.btn_resource_test_assets) {
             ResourceUtils.copyFileFromAssets("test", Config.CACHE_PATH + "/assets/test");

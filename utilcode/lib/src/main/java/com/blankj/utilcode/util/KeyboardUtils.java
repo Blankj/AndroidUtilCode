@@ -6,6 +6,9 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
@@ -40,6 +43,15 @@ public final class KeyboardUtils {
      * @param activity The activity.
      */
     public static void showSoftInput(final Activity activity) {
+        showSoftInput(activity, InputMethodManager.SHOW_FORCED);
+    }
+
+    /**
+     * Show the soft input.
+     *
+     * @param activity The activity.
+     */
+    public static void showSoftInput(final Activity activity, final int flags) {
         InputMethodManager imm =
                 (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         if (imm == null) return;
@@ -50,7 +62,12 @@ public final class KeyboardUtils {
             view.setFocusableInTouchMode(true);
             view.requestFocus();
         }
-        imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
+        imm.showSoftInput(view, flags, new ResultReceiver(new Handler()) {
+            @Override
+            protected void onReceiveResult(int resultCode, Bundle resultData) {
+                LogUtils.e(resultCode);
+            }
+        });
     }
 
     /**
@@ -59,13 +76,22 @@ public final class KeyboardUtils {
      * @param view The view.
      */
     public static void showSoftInput(final View view) {
+        showSoftInput(view, InputMethodManager.SHOW_FORCED);
+    }
+
+    /**
+     * Show the soft input.
+     *
+     * @param view The view.
+     */
+    public static void showSoftInput(final View view, final int flags) {
         InputMethodManager imm =
                 (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
         view.setFocusable(true);
         view.setFocusableInTouchMode(true);
         view.requestFocus();
         //noinspection ConstantConditions
-        imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
+        imm.showSoftInput(view, flags);
     }
 
     /**
@@ -261,7 +287,7 @@ public final class KeyboardUtils {
                     declaredField.setAccessible(true);
                 }
                 Object obj = declaredField.get(imm);
-                if (obj == null || !(obj instanceof View)) continue;
+                if (!(obj instanceof View)) continue;
                 View view = (View) obj;
                 if (view.getContext() == context) {
                     declaredField.set(imm, null);

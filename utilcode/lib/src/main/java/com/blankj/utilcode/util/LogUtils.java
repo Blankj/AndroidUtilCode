@@ -16,6 +16,9 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.util.SimpleArrayMap;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,22 +33,15 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -104,6 +100,7 @@ public final class LogUtils {
     private static final String ARGS           = "args";
     private static final String PLACEHOLDER    = " ";
     private static final Config CONFIG         = new Config();
+    private static final Gson   GSON           = new GsonBuilder().serializeNulls().create();
 
     private static final ThreadLocal<SimpleDateFormat> SDF_THREAD_LOCAL = new ThreadLocal<>();
 
@@ -347,9 +344,6 @@ public final class LogUtils {
                 return iFormatter.format(object);
             }
         }
-        if (object.getClass().isArray()) return LogFormatter.array2String(object);
-        if (object instanceof Map) return LogFormatter.map2String((Map) object);
-        if (object instanceof Collection) return LogFormatter.collection2String((Collection) object);
         if (object instanceof Throwable) return LogFormatter.throwable2String((Throwable) object);
         if (object instanceof Bundle) return LogFormatter.bundle2String((Bundle) object);
         if (object instanceof Intent) return LogFormatter.intent2String((Intent) object);
@@ -816,29 +810,6 @@ public final class LogUtils {
             return xml;
         }
 
-        static String array2String(Object object) {
-            if (object instanceof Object[]) {
-                return Arrays.deepToString((Object[]) object);
-            } else if (object instanceof boolean[]) {
-                return Arrays.toString((boolean[]) object);
-            } else if (object instanceof byte[]) {
-                return Arrays.toString((byte[]) object);
-            } else if (object instanceof char[]) {
-                return Arrays.toString((char[]) object);
-            } else if (object instanceof double[]) {
-                return Arrays.toString((double[]) object);
-            } else if (object instanceof float[]) {
-                return Arrays.toString((float[]) object);
-            } else if (object instanceof int[]) {
-                return Arrays.toString((int[]) object);
-            } else if (object instanceof long[]) {
-                return Arrays.toString((long[]) object);
-            } else if (object instanceof short[]) {
-                return Arrays.toString((short[]) object);
-            }
-            throw new IllegalArgumentException("Array has incompatible type: " + object.getClass());
-        }
-
         static String throwable2String(final Throwable e) {
             Throwable t = e;
             while (t != null) {
@@ -870,7 +841,7 @@ public final class LogUtils {
                 String key = iterator.next();
                 Object value = bundle.get(key);
                 sb.append(key).append('=');
-                if (value != null && value instanceof Bundle) {
+                if (value instanceof Bundle) {
                     sb.append(value == bundle ? "(this Bundle)" : bundle2String((Bundle) value));
                 } else {
                     sb.append(formatObject(value));
@@ -990,56 +961,8 @@ public final class LogUtils {
             return sb.toString();
         }
 
-        static String map2String(Map map) {
-            JSONObject jsonObject = new JSONObject(map);
-            return LogFormatter.formatJson(jsonObject.toString());
-        }
-
-        static String collection2String(Collection collection) {
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("size", collection.size());
-                jsonObject.put("data", collection);
-                return LogFormatter.formatJson(jsonObject.toString());
-            } catch (JSONException ignore) {
-                return collection.toString();
-            }
-        }
-
         static String object2String(Object object) {
-            if (object instanceof CharSequence || object instanceof JSONObject ||
-                    object instanceof JSONArray) {
-                return object.toString();
-            }
-            Class<?> clazz = object.getClass();
-            List<Field> tmp = Arrays.asList(clazz.getDeclaredFields());
-            ArrayList<Field> list = new ArrayList<>(tmp);
-            while (clazz != Object.class) {
-                clazz = clazz.getSuperclass();
-                if (clazz == null) {
-                    break;
-                }
-                Field[] fields = clazz.getDeclaredFields();
-                for (Field field : fields) {
-                    int modifier = field.getModifiers();
-                    if (Modifier.isPublic(modifier)) {
-                        list.add(field);
-                    }
-                }
-            }
-            Field[] a = new Field[list.size()];
-            Field[] fields = list.toArray(a);
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("object", object.toString());
-                for (Field field : fields) {
-                    String fieldName = field.getName();
-                    Object obj = field.get(object);
-                    jsonObject.put(fieldName, obj);
-                }
-            } catch (Exception ignore) {
-            }
-            return LogFormatter.formatJson(jsonObject.toString());
+            return formatJson(GSON.toJson(object));
         }
 
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.view.View;
@@ -59,7 +60,7 @@ public class ActivityActivity extends BaseBackActivity {
 
 
     @Override
-    public void initView(Bundle savedInstanceState, View contentView) {
+    public void initView(Bundle savedInstanceState, @NonNull View contentView) {
 
         setTitle(R.string.demo_activity);
 
@@ -119,7 +120,7 @@ public class ActivityActivity extends BaseBackActivity {
     }
 
     @Override
-    public void onWidgetClick(View view) {
+    public void onWidgetClick(@NonNull View view) {
         int i = view.getId();
         if (i == R.id.btn_clz) {
             ActivityUtils.startActivity(SubActivityActivity.class);

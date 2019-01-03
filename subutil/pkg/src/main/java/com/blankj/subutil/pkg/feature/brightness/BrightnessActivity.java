@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -89,7 +90,7 @@ public class BrightnessActivity extends BaseActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View contentView) {
+    public void initView(Bundle savedInstanceState, @NonNull View contentView) {
         tvBrightness = findViewById(R.id.tv_brightness);
         sbBrightness = findViewById(R.id.sb_brightness);
         tvWindowBrightness = findViewById(R.id.tv_window_brightness);
@@ -135,7 +136,7 @@ public class BrightnessActivity extends BaseActivity {
     }
 
     @Override
-    public void onWidgetClick(View view) {
+    public void onWidgetClick(@NonNull View view) {
 
     }
 

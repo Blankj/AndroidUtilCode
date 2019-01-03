@@ -2,10 +2,8 @@ package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
@@ -25,12 +23,9 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.blankj.utilcode.R;
 
 import java.lang.reflect.Field;
 
@@ -421,7 +416,6 @@ public final class ToastUtils {
 
         private View          mView;
         private WindowManager mWM;
-        private Dialog        mDialog;
 
         private WindowManager.LayoutParams mParams = new WindowManager.LayoutParams();
 
@@ -442,7 +436,7 @@ public final class ToastUtils {
         public void show() {
             mView = mToast.getView();
             if (mView == null) return;
-            Context context = mToast.getView().getContext();
+            final Context context = mToast.getView().getContext();
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
                 mWM = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
                 mParams.type = WindowManager.LayoutParams.TYPE_TOAST;
@@ -457,13 +451,8 @@ public final class ToastUtils {
                     Log.e("ToastUtils", topActivity + " is useless");
                     return;
                 }
-                if (topActivity.hasWindowFocus()) {
-                    mWM = topActivity.getWindowManager();
-                    mParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
-                } else {
-                    mDialog = new Dialog(topActivity, R.style.DialogTransparent);
-                    mDialog.setContentView(mView);
-                }
+                mWM = topActivity.getWindowManager();
+                mParams.type = WindowManager.LayoutParams.LAST_APPLICATION_WINDOW;
                 Utils.getActivityLifecycle().addOnActivityDestroyedListener(topActivity, LISTENER);
             } else {
                 mWM = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -471,12 +460,9 @@ public final class ToastUtils {
             }
 
             final Configuration config = context.getResources().getConfiguration();
-            final int gravity;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                gravity = Gravity.getAbsoluteGravity(mToast.getGravity(), config.getLayoutDirection());
-            } else {
-                gravity = mToast.getGravity();
-            }
+            final int gravity = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
+                    ? Gravity.getAbsoluteGravity(mToast.getGravity(), config.getLayoutDirection())
+                    : mToast.getGravity();
 
             mParams.y = mToast.getYOffset();
             mParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
@@ -498,19 +484,11 @@ public final class ToastUtils {
             mParams.x = mToast.getXOffset();
             mParams.packageName = Utils.getApp().getPackageName();
 
-            if (mDialog != null) {
-                Window window = mDialog.getWindow();
-                if (window == null) return;
-                mParams.windowAnimations = android.R.style.Animation_Dialog;
-                window.setAttributes(mParams);
-                mDialog.show();
-            } else {
-                try {
-                    if (mWM != null) {
-                        mWM.addView(mView, mParams);
-                    }
-                } catch (Exception ignored) { /**/ }
-            }
+            try {
+                if (mWM != null) {
+                    mWM.addView(mView, mParams);
+                }
+            } catch (Exception ignored) { /**/ }
 
             HANDLER.postDelayed(new Runnable() {
                 @Override
@@ -527,23 +505,9 @@ public final class ToastUtils {
                     mWM.removeViewImmediate(mView);
                 }
             } catch (Exception ignored) { /**/ }
-            if (mDialog != null) {
-                mDialog.dismiss();
-                mDialog = null;
-            }
             mView = null;
             mWM = null;
             mToast = null;
-        }
-
-        private int getNavBarHeight() {
-            Resources res = Resources.getSystem();
-            int resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android");
-            if (resourceId != 0) {
-                return res.getDimensionPixelSize(resourceId);
-            } else {
-                return 0;
-            }
         }
     }
 

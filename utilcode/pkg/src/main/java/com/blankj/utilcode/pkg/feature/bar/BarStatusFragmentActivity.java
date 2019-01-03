@@ -59,7 +59,7 @@ public class BarStatusFragmentActivity extends BaseActivity {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View contentView) {
+    public void initView(Bundle savedInstanceState, @NonNull View contentView) {
         mVpStatusBar = findViewById(R.id.vp_status_bar);
         navigation = findViewById(R.id.navigation_status_bar);
 
@@ -107,7 +107,7 @@ public class BarStatusFragmentActivity extends BaseActivity {
     }
 
     @Override
-    public void onWidgetClick(View view) {
+    public void onWidgetClick(@NonNull View view) {
 
     }
 

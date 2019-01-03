@@ -426,7 +426,7 @@ public class ThreadUtilsTest {
         }
     }
 
-    <T> void asyncTest(int threadCount, TestRunnable<T> runnable) throws Exception {
+    private <T> void asyncTest(int threadCount, TestRunnable<T> runnable) throws Exception {
         CountDownLatch latch = new CountDownLatch(threadCount);
         for (int i = 0; i < threadCount; i++) {
             runnable.run(i, latch);

@@ -2,12 +2,13 @@ package com.blankj.utilcode.pkg.feature.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
-import com.blankj.utilcode.pkg.R;
 import com.blankj.lib.base.BaseFragment;
+import com.blankj.utilcode.pkg.R;
 import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.LogUtils;
 
@@ -44,7 +45,7 @@ public class ChildFragment extends BaseFragment
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View contentView) {
+    public void initView(Bundle savedInstanceState, @NonNull View contentView) {
         Random random = new Random();
         FragmentUtils.setBackgroundColor(this, Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
         findViewById(R.id.btn_show_about_fragment).setOnClickListener(this);
@@ -58,7 +59,7 @@ public class ChildFragment extends BaseFragment
     }
 
     @Override
-    public void onWidgetClick(View view) {
+    public void onWidgetClick(@NonNull View view) {
         tvAboutFragment.setText("");
         int i = view.getId();
         if (i == R.id.btn_show_about_fragment) {

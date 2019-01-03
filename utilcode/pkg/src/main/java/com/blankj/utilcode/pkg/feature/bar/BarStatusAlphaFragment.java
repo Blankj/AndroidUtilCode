@@ -1,6 +1,7 @@
 package com.blankj.utilcode.pkg.feature.bar;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.SeekBar;
@@ -43,7 +44,7 @@ public class BarStatusAlphaFragment extends BaseLazyFragment {
     }
 
     @Override
-    public void initView(Bundle savedInstanceState, View contentView) {
+    public void initView(Bundle savedInstanceState, @NonNull View contentView) {
         fakeStatusBar = findViewById(R.id.fake_status_bar);
         mTvStatusAlpha = findViewById(R.id.tv_status_alpha);
         sbChangeAlpha = findViewById(R.id.sb_change_alpha);
@@ -60,7 +61,7 @@ public class BarStatusAlphaFragment extends BaseLazyFragment {
     }
 
     @Override
-    public void onWidgetClick(View view) {
+    public void onWidgetClick(@NonNull View view) {
         int i = view.getId();
         if (i == R.id.btn_set_transparent) {
             sbChangeAlpha.setProgress(0);

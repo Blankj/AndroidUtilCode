@@ -36,7 +36,7 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
     }
 
     override fun onClick(view: View) {
-        if (AntiShakeUtils.isValid(view, 200)) {
+        if (AntiShakeUtils.isValid(view)) {
             onWidgetClick(view)
         }
     }
