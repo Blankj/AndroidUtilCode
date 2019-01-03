@@ -1,5 +1,7 @@
 package com.blankj.utilcode.util;
 
+import android.app.Application;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -7,6 +9,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +27,7 @@ public class LogUtilsTest extends BaseTest {
     private static final String              XML         = "<books><book><author>Jack Herrington</author><title>PHP Hacks</title><publisher>O'Reilly</publisher></book><book><author>Jack Herrington</author><title>Podcasting Hacks</title><publisher>O'Reilly</publisher></book></books>";
     private static final int[]               ONE_D_ARRAY = new int[]{1, 2, 3};
     private static final int[][]             TWO_D_ARRAY = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-    private static final ArrayList<String>   LIST        = new ArrayList<>();
+    private static final ArrayList<Object>   LIST        = new ArrayList<>();
     private static final Map<String, String> MAP         = new HashMap<>();
 
     @Test
@@ -163,16 +166,29 @@ public class LogUtilsTest extends BaseTest {
         LIST.add("hello");
         LIST.add("log");
         LIST.add("utils");
+        LIST.add(new Application());
 
         MAP.put("name", "AndroidUtilCode");
         MAP.put("class", "LogUtils");
         LogUtils.d((Object) ONE_D_ARRAY);
         LogUtils.d((Object) TWO_D_ARRAY);
-        LogUtils.d(LIST);
+        LogUtils.d(formatJson(collection2String(LIST)));
         LogUtils.d(MAP);
 
-        LogUtils.d(formatJson(array2String(TWO_D_ARRAY)));
+        LogUtils.d(array2String(TWO_D_ARRAY));
     }
+
+    static String collection2String(Collection collection) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("size", collection.size());
+            jsonObject.put("data", collection);
+            return jsonObject.toString();
+        } catch (JSONException ignore) {
+            return collection.toString();
+        }
+    }
+
 
     private static String formatJson(String json) {
         try {

@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.blankj.lib.base.BaseBackActivity;
 import com.blankj.utilcode.pkg.R;
-import com.blankj.utilcode.pkg.data.DataManager;
+import com.blankj.utilcode.util.SPUtils;
+
+import java.util.Map;
 
 /**
  * <pre>
@@ -59,28 +61,40 @@ public class SPActivity extends BaseBackActivity {
     public void onWidgetClick(@NonNull View view) {
         int i = view.getId();
         if (i == R.id.btn_sp_put_string) {
-            DataManager.putString();
+            SPUtils.putStatic("STRING", "string");
 
         } else if (i == R.id.btn_sp_put_int) {
-            DataManager.putInt();
+            SPUtils.putStatic("INT", 21);
 
         } else if (i == R.id.btn_sp_put_long) {
-            DataManager.putLong();
+            SPUtils.putStatic("LONG", Long.MAX_VALUE);
 
         } else if (i == R.id.btn_sp_put_float) {
-            DataManager.putFloat();
+            SPUtils.putStatic("FLOAT", (float) Math.PI);
 
         } else if (i == R.id.btn_sp_put_boolean) {
-            DataManager.putBoolean();
+            SPUtils.putStatic("BOOLEAN", true);
 
         } else if (i == R.id.btn_sp_clear) {
-            DataManager.clear();
+            SPUtils.clearStatic();
 
         }
         updateAboutSp();
     }
 
     private void updateAboutSp() {
-        tvAboutSp.setText(DataManager.sp2String());
+        tvAboutSp.setText(sp2String());
+    }
+
+    public static String sp2String() {
+        StringBuilder sb = new StringBuilder();
+        Map<String, ?> map = SPUtils.getAllStatic();
+        for (Map.Entry<String, ?> entry : map.entrySet()) {
+            sb.append(entry.getKey())
+                    .append(": ")
+                    .append(entry.getValue())
+                    .append("\n");
+        }
+        return sb.toString();
     }
 }

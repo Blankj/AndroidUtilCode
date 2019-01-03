@@ -12,7 +12,7 @@ import android.view.View;
  *     desc  : utils about anti shake
  * </pre>
  */
-public class AntiShakeUtils {
+public final class AntiShakeUtils {
 
     private static final long DEFAULT_DURATION = 200;
     private static final int  TAG_KEY          = 0x7EFFFFFF;

@@ -702,6 +702,16 @@ create            : 创建样式字符串
 
 * ### SP 相关 -> [SPUtils.java][sp.java] -> [Demo][sp.demo]
 ```
+putStatic          : SP 中写入数据
+getStringStatic    : SP 中读取 String
+getIntStatic       : SP 中读取 int
+getLongStatic      : SP 中读取 long
+getFloatStatic     : SP 中读取 float
+getBooleanStatic   : SP 中读取 boolean
+getAllStatic       : SP 中获取所有键值对
+containsStatic     : SP 中是否存在该 key
+removeStatic       : SP 中移除该 key
+clearStatic        : SP 中清除所有数据
 getInstance        : 获取 SP 实例
 Instance.put       : SP 中写入数据
 Instance.getString : SP 中读取 String

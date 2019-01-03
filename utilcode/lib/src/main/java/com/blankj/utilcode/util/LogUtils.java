@@ -797,7 +797,11 @@ public final class LogUtils {
             if (object instanceof CharSequence) {
                 return formatJson(object.toString());
             }
-            return GSON.toJson(object);
+            try {
+                return GSON.toJson(object);
+            } catch (Throwable t) {
+                return object.toString();
+            }
         }
 
         static String formatXml(String xml) {
