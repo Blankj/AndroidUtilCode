@@ -102,6 +102,7 @@ public final class CacheMemoryUtils implements CacheConstants {
      * Return the value in cache.
      *
      * @param key The key of cache.
+     * @param <T> The value type.
      * @return the value if cache exists or null otherwise
      */
     public <T> T get(@NonNull final String key) {
@@ -113,12 +114,14 @@ public final class CacheMemoryUtils implements CacheConstants {
      *
      * @param key          The key of cache.
      * @param defaultValue The default value if the cache doesn't exist.
+     * @param <T>          The value type.
      * @return the value if cache exists or defaultValue otherwise
      */
     public <T> T get(@NonNull final String key, final T defaultValue) {
         CacheValue val = mMemoryCache.get(key);
         if (val == null) return defaultValue;
         if (val.dueTime == -1 || val.dueTime >= System.currentTimeMillis()) {
+            //noinspection unchecked
             return (T) val.value;
         }
         mMemoryCache.remove(key);

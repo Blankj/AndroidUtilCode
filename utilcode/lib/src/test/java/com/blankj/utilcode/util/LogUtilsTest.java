@@ -2,11 +2,14 @@ package com.blankj.utilcode.util;
 
 import android.app.Application;
 
+import com.google.gson.reflect.TypeToken;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -248,5 +251,10 @@ public class LogUtilsTest extends BaseTest {
         private static boolean equals(final Object o1, final Object o2) {
             return o1 == o2 || (o1 != null && o1.equals(o2));
         }
+    }
+
+    public <T> Type getCollectionType() {
+        return new TypeToken<Collection<T>>() {
+        }.getType();
     }
 }

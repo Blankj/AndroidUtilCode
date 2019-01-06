@@ -23,7 +23,7 @@
     <string name="demo_screen">ScreenUtils Demo</string>
     <string name="demo_sdcard">SDCardUtils Demo</string>
     <string name="demo_snackbar">Snackbar Demo</string>
-    <string name="demo_sp">SP Demo</string>
+    <string name="demo_spStatic">SPStatic Demo</string>
     <string name="demo_span">SpanUtils Demo</string>
     <string name="demo_toast">ToastUtils Demo</string>
     <string name="demo_vibrate">VibrateUtils Demo</string>

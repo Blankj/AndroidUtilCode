@@ -1023,7 +1023,7 @@ public final class LogUtils {
         }
     }
 
-    static <T> Class getTypeClassFromParadigm(final IFormatter<T> formatter) {
+    private static <T> Class getTypeClassFromParadigm(final IFormatter<T> formatter) {
         Type[] genericInterfaces = formatter.getClass().getGenericInterfaces();
         Type type;
         if (genericInterfaces.length == 1) {

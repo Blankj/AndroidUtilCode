@@ -153,7 +153,7 @@
             android:name=".feature.snackbar.SnackbarActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.sp.SPActivity"
+            android:name=".feature.spStatic.SPStaticActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.span.SpanActivity"

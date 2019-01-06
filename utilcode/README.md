@@ -98,6 +98,23 @@ isSupportNavBar
 post
 ```
 
+* ### About CacheDiskStatic -> [CacheDiskStaticUtils.java][cacheDiskStatic.java] -> [Test][cacheDiskStatic.test]
+```
+setDefaultCacheDiskUtils
+put
+getBytes
+getString
+getJSONObject
+getJSONArray
+getBitmap
+getDrawable
+getParcelable
+getSerializable
+getCacheSize
+getCacheCount
+remove
+clear
+```
 
 * ### About CacheDisk -> [CacheDiskUtils.java][cacheDisk.java] -> [Test][cacheDisk.test]
 ```
@@ -117,6 +134,25 @@ Instance.remove
 Instance.clear
 ```
 
+* ### About CacheDoubleStatic -> [CacheDoubleStaticUtils.java][cacheDoubleStatic.java] -> [Test][cacheDoubleStatic.test]
+```
+setDefaultCacheDoubleUtils
+put
+getBytes
+getString
+getJSONObject
+getJSONArray
+getBitmap
+getDrawable
+getParcelable
+getSerializable
+getCacheDiskSize
+getCacheDiskCount
+getCacheMemoryCount
+remove
+clear
+```
+
 * ### About CacheDouble -> [CacheDoubleUtils.java][cacheDouble.java] -> [Test][cacheDouble.test]
 ```
 getInstance
@@ -134,6 +170,16 @@ Instance.getCacheDiskCount
 Instance.getCacheMemoryCount
 Instance.remove
 Instance.clear
+```
+
+* ### About CacheMemoryStatic -> [CacheMemoryStaticUtils.java][cacheMemoryStatic.java] -> [Test][cacheMemoryStatic.test]
+```
+setDefaultCacheMemoryUtils
+put
+get
+getCacheCount
+remove
+clear
 ```
 
 * ### About CacheMemory -> [CacheMemoryUtils.java][cacheMemory.java] -> [Test][cacheMemory.test]
@@ -667,6 +713,7 @@ addView
 
 * ### About Span -> [SpanUtils.java][span.java] -> [Demo][span.demo]
 ```
+with
 setFlag
 setForegroundColor
 setBackgroundColor
@@ -700,7 +747,22 @@ appendSpace
 create
 ```
 
-* ### About SP -> [SPUtils.java][sp.java] -> [Demo][sp.demo]
+* ### About SPStatic -> [SPStaticUtils.java][spStatic.java] -> [Demo][spStatic.demo]
+```
+setDefaultSPUtils
+put
+getString
+getInt
+getLong
+getFloat
+getBoolean
+getAll
+contains
+remove
+clear
+```
+
+* ### About SP -> [SPUtils.java][sp.java]
 ```
 getInstance
 Instance.put
@@ -846,11 +908,20 @@ getComments
 [bus.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/BusUtils.java
 [bus.readme]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/README-STATIC-BUS.md
 
+[cacheDiskStatic.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CacheDiskStaticUtils.java
+[cacheDiskStatic.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/CacheDiskStaticUtilsTest.java
+
 [cacheDisk.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CacheDiskUtils.java
 [cacheDisk.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/CacheDiskUtilsTest.java
 
+[cacheDoubleStatic.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CacheDoubleStaticUtils.java
+[cacheDoubleStatic.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/CacheDoubleStaticUtilsTest.java
+
 [cacheDouble.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CacheDoubleUtils.java
 [cacheDouble.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/CacheDoubleUtilsTest.java
+
+[cacheMemoryStatic.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CacheMemoryStaticUtils.java
+[cacheMemoryStatic.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/CacheMemoryStaticUtilsTest.java
 
 [cacheMemory.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CacheMemoryUtils.java
 [cacheMemory.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/CacheMemoryUtilsTest.java
@@ -948,8 +1019,10 @@ getComments
 [span.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/SpanUtils.java
 [span.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/span/SpanActivity.java
 
+[spStatic.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/SPStaticUtils.java
+[spStatic.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/spStatic/SPStaticActivity.java
+
 [sp.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/SPUtils.java
-[sp.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/sp/SPActivity.java
 
 [string.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/StringUtils.java
 [string.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/StringUtilsTest.java

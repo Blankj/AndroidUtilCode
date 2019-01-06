@@ -27,10 +27,10 @@ import static org.junit.Assert.assertNull;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/06/13
- *     desc  : test CacheDoubleUtils
+ *     desc  : test CacheDoubleStaticUtils
  * </pre>
  */
-public class CacheDoubleUtilsTest extends BaseTest {
+public class CacheDoubleStaticUtilsTest extends BaseTest {
 
     private static final String           CACHE_PATH         = PATH_CACHE + "double" + FILE_SEP;
     private static final File             CACHE_FILE         = new File(CACHE_PATH);
@@ -48,7 +48,7 @@ public class CacheDoubleUtilsTest extends BaseTest {
 
     static {
         try {
-            JSON_OBJECT.put("class", "CacheDiskUtils");
+            JSON_OBJECT.put("class", "CacheDoubleUtils");
             JSON_OBJECT.put("author", "Blankj");
             JSON_ARRAY.put(0, JSON_OBJECT);
         } catch (JSONException e) {
@@ -58,23 +58,23 @@ public class CacheDoubleUtilsTest extends BaseTest {
 
     @Before
     public void setUp() {
-        CACHE_DOUBLE_UTILS.put("bytes", BYTES);
-        CACHE_DOUBLE_UTILS.put("string", STRING);
-        CACHE_DOUBLE_UTILS.put("jsonObject", JSON_OBJECT);
-        CACHE_DOUBLE_UTILS.put("jsonArray", JSON_ARRAY);
-        CACHE_DOUBLE_UTILS.put("bitmap", BITMAP);
-        CACHE_DOUBLE_UTILS.put("drawable", DRAWABLE);
-        CACHE_DOUBLE_UTILS.put("parcelable", PARCELABLE_TEST);
-        CACHE_DOUBLE_UTILS.put("serializable", SERIALIZABLE_TEST);
+        CacheDoubleStaticUtils.put("bytes", BYTES, CACHE_DOUBLE_UTILS);
+        CacheDoubleStaticUtils.put("string", STRING, CACHE_DOUBLE_UTILS);
+        CacheDoubleStaticUtils.put("jsonObject", JSON_OBJECT, CACHE_DOUBLE_UTILS);
+        CacheDoubleStaticUtils.put("jsonArray", JSON_ARRAY, CACHE_DOUBLE_UTILS);
+        CacheDoubleStaticUtils.put("bitmap", BITMAP, CACHE_DOUBLE_UTILS);
+        CacheDoubleStaticUtils.put("drawable", DRAWABLE, CACHE_DOUBLE_UTILS);
+        CacheDoubleStaticUtils.put("parcelable", PARCELABLE_TEST, CACHE_DOUBLE_UTILS);
+        CacheDoubleStaticUtils.put("serializable", SERIALIZABLE_TEST, CACHE_DOUBLE_UTILS);
     }
 
     @Test
     public void getBytes() {
-        assertEquals(STRING, new String(CACHE_DOUBLE_UTILS.getBytes("bytes")));
+        assertEquals(STRING, new String(CacheDoubleStaticUtils.getBytes("bytes", CACHE_DOUBLE_UTILS)));
         CACHE_MEMORY_UTILS.remove("bytes");
-        assertEquals(STRING, new String(CACHE_DOUBLE_UTILS.getBytes("bytes")));
+        assertEquals(STRING, new String(CacheDoubleStaticUtils.getBytes("bytes", CACHE_DOUBLE_UTILS)));
         CACHE_DISK_UTILS.remove("bytes");
-        assertNull(CACHE_DOUBLE_UTILS.getBytes("bytes"));
+        assertNull(CacheDoubleStaticUtils.getBytes("bytes"));
     }
 
     @Test

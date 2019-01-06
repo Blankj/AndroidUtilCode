@@ -120,6 +120,7 @@ public final class AppUtils {
     /**
      * Install the app silently.
      * <p>Without root permission must hold
+     * {@code android:sharedUserId="android.uid.shell"} and
      * {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
      *
      * @param filePath The path of file.
@@ -132,6 +133,7 @@ public final class AppUtils {
     /**
      * Install the app silently.
      * <p>Without root permission must hold
+     * {@code android:sharedUserId="android.uid.shell"} and
      * {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
      *
      * @param file The file.
@@ -145,6 +147,7 @@ public final class AppUtils {
     /**
      * Install the app silently.
      * <p>Without root permission must hold
+     * {@code android:sharedUserId="android.uid.shell"} and
      * {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
      *
      * @param filePath The path of file.
@@ -158,6 +161,7 @@ public final class AppUtils {
     /**
      * Install the app silently.
      * <p>Without root permission must hold
+     * {@code android:sharedUserId="android.uid.shell"} and
      * {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
      *
      * @param file   The file.
@@ -171,6 +175,7 @@ public final class AppUtils {
     /**
      * Install the app silently.
      * <p>Without root permission must hold
+     * {@code android:sharedUserId="android.uid.shell"} and
      * {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
      *
      * @param file     The file.
@@ -225,6 +230,7 @@ public final class AppUtils {
     /**
      * Uninstall the app silently.
      * <p>Without root permission must hold
+     * {@code android:sharedUserId="android.uid.shell"} and
      * {@code <uses-permission android:name="android.permission.DELETE_PACKAGES" />}</p>
      *
      * @param packageName The name of the package.
@@ -237,6 +243,7 @@ public final class AppUtils {
     /**
      * Uninstall the app silently.
      * <p>Without root permission must hold
+     * {@code android:sharedUserId="android.uid.shell"} and
      * {@code <uses-permission android:name="android.permission.DELETE_PACKAGES" />}</p>
      *
      * @param packageName The name of the package.
@@ -250,6 +257,7 @@ public final class AppUtils {
     /**
      * Uninstall the app silently.
      * <p>Without root permission must hold
+     * {@code android:sharedUserId="android.uid.shell"} and
      * {@code <uses-permission android:name="android.permission.DELETE_PACKAGES" />}</p>
      *
      * @param packageName The name of the package.

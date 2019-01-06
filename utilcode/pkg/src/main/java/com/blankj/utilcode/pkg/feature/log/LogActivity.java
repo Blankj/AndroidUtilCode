@@ -177,7 +177,6 @@ public class LogActivity extends BaseBackActivity {
         findViewById(R.id.btn_log_intent).setOnClickListener(this);
         findViewById(R.id.btn_log_array_list).setOnClickListener(this);
         findViewById(R.id.btn_log_map).setOnClickListener(this);
-        findViewById(R.id.btn_log_object).setOnClickListener(this);
         updateConfig(0);
     }
 

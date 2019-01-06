@@ -165,8 +165,8 @@
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="spClick"
-        android:text="@string/demo_sp" />
+        android:onClick="spStaticClick"
+        android:text="@string/demo_spStatic" />
 
     <Button
         style="@style/WideBtnStyle"

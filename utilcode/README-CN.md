@@ -98,6 +98,23 @@ isSupportNavBar                      : 判断是否支持导航栏
 post: 发送
 ```
 
+* ### 磁盘缓存相关 -> [CacheDiskStaticUtils.java][cacheDiskStatic.java] -> [Test][cacheDiskStatic.test]
+```
+setDefaultCacheDiskUtils: 设置默认磁盘缓存实例
+put                     : 缓存中写入数据
+getBytes                : 缓存中读取字节数组
+getString               : 缓存中读取 String
+getJSONObject           : 缓存中读取 JSONObject
+getJSONArray            : 缓存中读取 JSONArray
+getBitmap               : 缓存中读取 Bitmap
+getDrawable             : 缓存中读取 Drawable
+getParcelable           : 缓存中读取 Parcelable
+getSerializable         : 缓存中读取 Serializable
+getCacheSize            : 获取缓存大小
+getCacheCount           : 获取缓存个数
+remove                  : 根据键值移除缓存
+clear                   : 清除所有缓存
+```
 
 * ### 磁盘缓存相关 -> [CacheDiskUtils.java][cacheDisk.java] -> [Test][cacheDisk.test]
 ```
@@ -117,6 +134,25 @@ Instance.remove         : 根据键值移除缓存
 Instance.clear          : 清除所有缓存
 ```
 
+* ### 二级缓存相关 -> [CacheDoubleStaticUtils.java][cacheDoubleStatic.java] -> [Test][cacheDoubleStatic.test]
+```
+setDefaultCacheDoubleUtils: 设置默认二级缓存实例
+put                       : 缓存中写入数据
+getBytes                  : 缓存中读取字节数组
+getString                 : 缓存中读取 String
+getJSONObject             : 缓存中读取 JSONObject
+getJSONArray              : 缓存中读取 JSONArray
+getBitmap                 : 缓存中读取 Bitmap
+getDrawable               : 缓存中读取 Drawable
+getParcelable             : 缓存中读取 Parcelable
+getSerializable           : 缓存中读取 Serializable
+getCacheDiskSize          : 获取磁盘缓存大小
+getCacheDiskCount         : 获取磁盘缓存个数
+getCacheMemoryCount       : 获取内存缓存个数
+remove                    : 根据键值移除缓存
+clear                     : 清除所有缓存
+```
+
 * ### 二级缓存相关 -> [CacheDoubleUtils.java][cacheDouble.java] -> [Test][cacheDouble.test]
 ```
 getInstance                 : 获取缓存实例
@@ -134,6 +170,16 @@ Instance.getCacheDiskCount  : 获取磁盘缓存个数
 Instance.getCacheMemoryCount: 获取内存缓存个数
 Instance.remove             : 根据键值移除缓存
 Instance.clear              : 清除所有缓存
+```
+
+* ### 内存缓存相关 -> [CacheMemoryStaticUtils.java][cacheMemoryStatic.java] -> [Test][cacheMemoryStatic.test]
+```
+setDefaultCacheMemoryUtils: 设置默认内存缓存实例
+put                       : 缓存中写入数据
+get                       : 缓存中读取字节数组
+getCacheCount             : 获取缓存个数
+remove                    : 根据键值移除缓存
+clear                     : 清除所有缓存
 ```
 
 * ### 内存缓存相关 -> [CacheMemoryUtils.java][cacheMemory.java] -> [Test][cacheMemory.test]
@@ -667,6 +713,7 @@ addView        : 添加 snackbar 视图
 
 * ### SpannableString 相关 -> [SpanUtils.java][span.java] -> [Demo][span.demo]
 ```
+with              : 设置控件
 setFlag           : 设置标识
 setForegroundColor: 设置前景色
 setBackgroundColor: 设置背景色
@@ -700,18 +747,23 @@ appendSpace       : 追加空白
 create            : 创建样式字符串
 ```
 
-* ### SP 相关 -> [SPUtils.java][sp.java] -> [Demo][sp.demo]
+* ### SP 相关 -> [SPStaticUtils.java][spStatic.java] -> [Demo][spStatic.demo]
 ```
-putStatic          : SP 中写入数据
-getStringStatic    : SP 中读取 String
-getIntStatic       : SP 中读取 int
-getLongStatic      : SP 中读取 long
-getFloatStatic     : SP 中读取 float
-getBooleanStatic   : SP 中读取 boolean
-getAllStatic       : SP 中获取所有键值对
-containsStatic     : SP 中是否存在该 key
-removeStatic       : SP 中移除该 key
-clearStatic        : SP 中清除所有数据
+setDefaultSPUtils: 设置默认 SP 实例
+put              : SP 中写入数据
+getString        : SP 中读取 String
+getInt           : SP 中读取 int
+getLong          : SP 中读取 long
+getFloat         : SP 中读取 float
+getBoolean       : SP 中读取 boolean
+getAll           : SP 中获取所有键值对
+contains         : SP 中是否存在该 key
+remove           : SP 中移除该 key
+clear            : SP 中清除所有数据
+```
+
+* ### SP 相关 -> [SPUtils.java][sp.java]
+```
 getInstance        : 获取 SP 实例
 Instance.put       : SP 中写入数据
 Instance.getString : SP 中读取 String
@@ -856,11 +908,20 @@ getComments       : 获取压缩文件中的注释链表
 [bus.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/BusUtils.java
 [bus.readme]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/README-STATIC-BUS.md
 
+[cacheDiskStatic.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CacheDiskStaticUtils.java
+[cacheDiskStatic.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/CacheDiskStaticUtilsTest.java
+
 [cacheDisk.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CacheDiskUtils.java
 [cacheDisk.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/CacheDiskUtilsTest.java
 
+[cacheDoubleStatic.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CacheDoubleStaticUtils.java
+[cacheDoubleStatic.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/CacheDoubleStaticUtilsTest.java
+
 [cacheDouble.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CacheDoubleUtils.java
 [cacheDouble.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/CacheDoubleUtilsTest.java
+
+[cacheMemoryStatic.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CacheMemoryStaticUtils.java
+[cacheMemoryStatic.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/CacheMemoryStaticUtilsTest.java
 
 [cacheMemory.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CacheMemoryUtils.java
 [cacheMemory.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/CacheMemoryUtilsTest.java
@@ -958,8 +1019,10 @@ getComments       : 获取压缩文件中的注释链表
 [span.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/SpanUtils.java
 [span.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/span/SpanActivity.java
 
+[spStatic.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/SPStaticUtils.java
+[spStatic.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/spStatic/SPStaticActivity.java
+
 [sp.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/SPUtils.java
-[sp.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/sp/SPActivity.java
 
 [string.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/StringUtils.java
 [string.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/StringUtilsTest.java

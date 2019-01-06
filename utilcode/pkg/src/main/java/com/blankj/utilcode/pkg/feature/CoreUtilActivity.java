@@ -30,7 +30,7 @@ import com.blankj.utilcode.pkg.feature.reflect.ReflectActivity;
 import com.blankj.utilcode.pkg.feature.resource.ResourceActivity;
 import com.blankj.utilcode.pkg.feature.sdcard.SDCardActivity;
 import com.blankj.utilcode.pkg.feature.snackbar.SnackbarActivity;
-import com.blankj.utilcode.pkg.feature.sp.SPActivity;
+import com.blankj.utilcode.pkg.feature.spStatic.SPStaticActivity;
 import com.blankj.utilcode.pkg.feature.span.SpanActivity;
 import com.blankj.utilcode.pkg.feature.toast.ToastActivity;
 import com.blankj.utilcode.pkg.feature.vibrate.VibrateActivity;
@@ -169,8 +169,8 @@ public class CoreUtilActivity extends BaseBackActivity {
         SnackbarActivity.start(this);
     }
 
-    public void spClick(View view) {
-        SPActivity.start(this);
+    public void spStaticClick(View view) {
+        SPStaticActivity.start(this);
     }
 
     public void spannableClick(View view) {
