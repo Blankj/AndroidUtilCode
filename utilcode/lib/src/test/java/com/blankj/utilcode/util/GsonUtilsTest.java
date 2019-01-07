@@ -12,7 +12,7 @@ import org.junit.Test;
  *     desc  : test GsonUtils
  * </pre>
  */
-public class GsonUtilsTest {
+public class GsonUtilsTest extends BaseTest {
 
     @Test
     public void getGson() {

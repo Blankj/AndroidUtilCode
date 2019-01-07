@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *     desc  :
  * </pre>
  */
-public class ThreadUtilsTest {
+public class ThreadUtilsTest extends BaseTest {
 
     @Test
     public void executeByFixed() throws Exception {

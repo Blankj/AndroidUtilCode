@@ -19,7 +19,7 @@ import static junit.framework.TestCase.assertTrue;
  *     desc  : test ZipUtils
  * </pre>
  */
-public class ZipUtilsTest {
+public class ZipUtilsTest extends BaseTest {
 
     private String zipFile  = PATH_TEMP + "zipFile.zip";
     private String zipFiles = PATH_TEMP + "zipFiles.zip";

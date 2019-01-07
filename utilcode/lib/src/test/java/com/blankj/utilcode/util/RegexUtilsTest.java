@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
  *     desc  : test RegexUtils
  * </pre>
  */
-public class RegexUtilsTest {
+public class RegexUtilsTest extends BaseTest {
 
     @Test
     public void isMobileSimple() {

@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
  *     desc  : test FileUtils
  * </pre>
  */
-public class FileUtilsTest {
+public class FileUtilsTest extends BaseTest {
 
     private FileFilter mFilter = new FileFilter() {
         @Override
