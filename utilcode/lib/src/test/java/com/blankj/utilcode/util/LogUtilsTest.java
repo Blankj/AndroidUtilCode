@@ -31,7 +31,7 @@ public class LogUtilsTest extends BaseTest {
     private static final int[]               ONE_D_ARRAY = new int[]{1, 2, 3};
     private static final int[][]             TWO_D_ARRAY = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
     private static final ArrayList<Object>   LIST        = new ArrayList<>();
-    private static final Map<String, String> MAP         = new HashMap<>();
+    private static final Map<String, Object> MAP         = new HashMap<>();
 
     @Test
     public void testV() {
@@ -172,13 +172,11 @@ public class LogUtilsTest extends BaseTest {
         LIST.add(new Application());
 
         MAP.put("name", "AndroidUtilCode");
-        MAP.put("class", "LogUtils");
+        MAP.put("class", new Application());
         LogUtils.d((Object) ONE_D_ARRAY);
         LogUtils.d((Object) TWO_D_ARRAY);
-        LogUtils.d(formatJson(collection2String(LIST)));
+        LogUtils.d(LIST);
         LogUtils.d(MAP);
-
-        LogUtils.d(array2String(TWO_D_ARRAY));
     }
 
     static String collection2String(Collection collection) {
@@ -204,29 +202,6 @@ public class LogUtilsTest extends BaseTest {
             e.printStackTrace();
         }
         return json;
-    }
-
-    static String array2String(Object object) {
-        if (object instanceof Object[]) {
-            return Arrays.deepToString((Object[]) object);
-        } else if (object instanceof boolean[]) {
-            return Arrays.toString((boolean[]) object);
-        } else if (object instanceof byte[]) {
-            return Arrays.toString((byte[]) object);
-        } else if (object instanceof char[]) {
-            return Arrays.toString((char[]) object);
-        } else if (object instanceof double[]) {
-            return Arrays.toString((double[]) object);
-        } else if (object instanceof float[]) {
-            return Arrays.toString((float[]) object);
-        } else if (object instanceof int[]) {
-            return Arrays.toString((int[]) object);
-        } else if (object instanceof long[]) {
-            return Arrays.toString((long[]) object);
-        } else if (object instanceof short[]) {
-            return Arrays.toString((short[]) object);
-        }
-        throw new IllegalArgumentException("Array has incompatible type: " + object.getClass());
     }
 
 

@@ -204,4 +204,21 @@ public final class JsonUtils {
             return defaultValue;
         }
     }
+
+    public static String formatJson(final String json) {
+        return formatJson(json, 4);
+    }
+
+    public static String formatJson(final String json, final int indentSpaces) {
+        try {
+            if (json.startsWith("{")) {
+                return new JSONObject(json).toString(indentSpaces);
+            } else if (json.startsWith("[")) {
+                return new JSONArray(json).toString(indentSpaces);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
 }

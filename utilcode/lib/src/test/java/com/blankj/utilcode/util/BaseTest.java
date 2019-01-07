@@ -7,6 +7,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
+import org.robolectric.shadows.ShadowLooper;
 
 /**
  * <pre>
@@ -22,6 +23,8 @@ public class BaseTest {
 
     public BaseTest() {
         ShadowLog.stream = System.out;
+        ReflectUtils.reflect("com.blankj.utilcode.util.ThreadUtils$Deliver")
+                .field("MAIN_HANDLER", null);
         Utils.init(RuntimeEnvironment.application);
     }
 

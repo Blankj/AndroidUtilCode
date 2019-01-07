@@ -38,7 +38,9 @@ import java.lang.reflect.Type;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.Iterator;
@@ -784,9 +786,7 @@ public final class LogUtils {
     private static class LogFormatter {
 
         static String object2String(Object object) {
-            if (object.getClass().isArray()) return object2Json(object);
-            if (object instanceof Collection) return object2Json(object);
-            if (object instanceof Map) return object2Json(object);
+            if (object.getClass().isArray()) return array2String(object);
             if (object instanceof Throwable) return throwable2String((Throwable) object);
             if (object instanceof Bundle) return bundle2String((Bundle) object);
             if (object instanceof Intent) return intent2String((Intent) object);
@@ -798,7 +798,7 @@ public final class LogUtils {
                 return formatJson(object.toString());
             }
             try {
-                return GSON.toJson(object);
+                return formatJson(GSON.toJson(object));
             } catch (Throwable t) {
                 return object.toString();
             }
@@ -1020,6 +1020,29 @@ public final class LogUtils {
             }
             sb.append("NULL");
             sb.append("}");
+        }
+
+        private static String array2String(Object object) {
+            if (object instanceof Object[]) {
+                return Arrays.deepToString((Object[]) object);
+            } else if (object instanceof boolean[]) {
+                return Arrays.toString((boolean[]) object);
+            } else if (object instanceof byte[]) {
+                return Arrays.toString((byte[]) object);
+            } else if (object instanceof char[]) {
+                return Arrays.toString((char[]) object);
+            } else if (object instanceof double[]) {
+                return Arrays.toString((double[]) object);
+            } else if (object instanceof float[]) {
+                return Arrays.toString((float[]) object);
+            } else if (object instanceof int[]) {
+                return Arrays.toString((int[]) object);
+            } else if (object instanceof long[]) {
+                return Arrays.toString((long[]) object);
+            } else if (object instanceof short[]) {
+                return Arrays.toString((short[]) object);
+            }
+            throw new IllegalArgumentException("Array has incompatible type: " + object.getClass());
         }
     }
 
