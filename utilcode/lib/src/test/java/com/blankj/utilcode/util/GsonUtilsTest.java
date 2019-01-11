@@ -3,6 +3,9 @@ package com.blankj.utilcode.util;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * <pre>
@@ -22,28 +25,69 @@ public class GsonUtilsTest extends BaseTest {
 
     @Test
     public void toJson() {
-        Person person = new Person("Blankj");
+        Result<Person> result = new Result<>(new Person("Blankj"));
         Assert.assertEquals(
-                "{\"name\":\"Blankj\",\"gender\":0,\"address\":null}",
-                GsonUtils.toJson(person)
+                "{\"code\":200,\"message\":\"success\",\"data\":{\"name\":\"Blankj\",\"gender\":0,\"address\":null}}",
+                GsonUtils.toJson(result)
         );
         Assert.assertEquals(
-                "{\"name\":\"Blankj\",\"gender\":0}",
-                GsonUtils.toJson(person, false)
+                "{\"code\":200,\"message\":\"success\",\"data\":{\"name\":\"Blankj\",\"gender\":0}}",
+                GsonUtils.toJson(result, false)
         );
     }
 
     @Test
     public void fromJson() {
-        Person person = new Person("Blankj");
+        List<Person> people = new ArrayList<>();
+        people.add(new Person("Blankj"));
+        people.add(new Person("Ming"));
+        Result<List<Person>> result = new Result<>(people);
+
         Assert.assertEquals(
-                person,
-                GsonUtils.fromJson("{\"name\":\"Blankj\",\"gender\":0,\"address\":null}", Person.class)
+                GsonUtils.toJson(result),
+                GsonUtils.toJson(
+                        GsonUtils.fromJson(
+                                GsonUtils.toJson(result),
+                                GsonUtils.getType(Result.class, GsonUtils.getCollectionType(Person.class))
+                        )
+                )
+        );
+    }
+
+    @Test
+    public void getType() {
+        Assert.assertEquals(
+                "java.util.Collection<java.lang.String>",
+                GsonUtils.getCollectionType(String.class).toString()
         );
         Assert.assertEquals(
-                person,
-                GsonUtils.fromJson("{\"name\":\"Blankj\",\"gender\":0}", Person.class)
+                "java.util.Map<java.lang.String, java.lang.Integer>",
+                GsonUtils.getMapType(String.class, Integer.class).toString()
         );
+        Assert.assertEquals(
+                "java.lang.String[]",
+                GsonUtils.getArrayType(String.class).toString()
+        );
+        Assert.assertEquals(
+                "com.blankj.utilcode.util.GsonUtilsTest$Result<java.lang.String>",
+                GsonUtils.getType(Result.class, String.class).toString()
+        );
+        Assert.assertEquals(
+                "java.util.Map<java.lang.String, java.util.Collection<java.lang.String>>",
+                GsonUtils.getMapType(String.class, GsonUtils.getCollectionType(String.class)).toString()
+        );
+    }
+
+    static class Result<T> {
+        int    code;
+        String message;
+        T      data;
+
+        Result(T data) {
+            this.code = 200;
+            this.message = "success";
+            this.data = data;
+        }
     }
 
     static class Person {
@@ -52,20 +96,8 @@ public class GsonUtilsTest extends BaseTest {
         int    gender;
         String address;
 
-        public Person(String name) {
+        Person(String name) {
             this.name = name;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == this) return true;
-            if (!(obj instanceof Person)) return false;
-            Person p = (Person) obj;
-            return equals(name, p.name) && p.gender == gender && equals(address, p.address);
-        }
-
-        private static boolean equals(final Object o1, final Object o2) {
-            return o1 == o2 || (o1 != null && o1.equals(o2));
         }
     }
 }

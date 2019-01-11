@@ -1,18 +1,8 @@
 package com.blankj.utilcode.util;
 
-import android.app.Application;
-
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.Test;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +20,7 @@ public class LogUtilsTest extends BaseTest {
     private static final String              XML         = "<books><book><author>Jack Herrington</author><title>PHP Hacks</title><publisher>O'Reilly</publisher></book><book><author>Jack Herrington</author><title>Podcasting Hacks</title><publisher>O'Reilly</publisher></book></books>";
     private static final int[]               ONE_D_ARRAY = new int[]{1, 2, 3};
     private static final int[][]             TWO_D_ARRAY = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-    private static final ArrayList<Object>   LIST        = new ArrayList<>();
+    private static final ArrayList<String>   LIST        = new ArrayList<>();
     private static final Map<String, Object> MAP         = new HashMap<>();
 
     @Test
@@ -169,41 +159,18 @@ public class LogUtilsTest extends BaseTest {
         LIST.add("hello");
         LIST.add("log");
         LIST.add("utils");
-        LIST.add(new Application());
 
         MAP.put("name", "AndroidUtilCode");
-        MAP.put("class", new Application());
+        MAP.put("class", "LogUtils");
         LogUtils.d((Object) ONE_D_ARRAY);
         LogUtils.d((Object) TWO_D_ARRAY);
         LogUtils.d(LIST);
         LogUtils.d(MAP);
+        Object o = GsonUtils.fromJson(GsonUtils.toJson(LIST), GsonUtils.getCollectionType(String.class));
+        System.out.println(o);
+
+
     }
-
-    static String collection2String(Collection collection) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("size", collection.size());
-            jsonObject.put("data", collection);
-            return jsonObject.toString();
-        } catch (JSONException ignore) {
-            return collection.toString();
-        }
-    }
-
-
-    private static String formatJson(String json) {
-        try {
-            if (json.startsWith("{")) {
-                json = new JSONObject(json).toString(2);
-            } else if (json.startsWith("[")) {
-                json = new JSONArray(json).toString(2);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return json;
-    }
-
 
     static class Person {
 
@@ -226,10 +193,5 @@ public class LogUtilsTest extends BaseTest {
         private static boolean equals(final Object o1, final Object o2) {
             return o1 == o2 || (o1 != null && o1.equals(o2));
         }
-    }
-
-    public <T> Type getCollectionType() {
-        return new TypeToken<Collection<T>>() {
-        }.getType();
     }
 }

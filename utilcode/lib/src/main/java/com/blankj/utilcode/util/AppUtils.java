@@ -766,6 +766,28 @@ public final class AppUtils {
         return list;
     }
 
+    /**
+     * Return the application's package information.
+     *
+     * @return the application's package information
+     */
+    public static AppUtils.AppInfo getApkInfo(final File apkFile) {
+        if (apkFile == null || !apkFile.isFile() || !apkFile.exists()) return null;
+        return getApkInfo(apkFile.getAbsolutePath());
+    }
+
+    /**
+     * Return the application's package information.
+     *
+     * @return the application's package information
+     */
+    public static AppUtils.AppInfo getApkInfo(final String apkFilePath) {
+        if (isSpace(apkFilePath)) return null;
+        PackageManager pm = Utils.getApp().getPackageManager();
+        PackageInfo pi = pm.getPackageArchiveInfo(apkFilePath, 0);
+        return getBean(pm, pi);
+    }
+
     private static AppInfo getBean(final PackageManager pm, final PackageInfo pi) {
         if (pm == null || pi == null) return null;
         ApplicationInfo ai = pi.applicationInfo;

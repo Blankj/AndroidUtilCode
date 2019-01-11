@@ -69,6 +69,7 @@ getAppSignatureSHA256             : 获取应用签名的的 SHA256 值
 getAppSignatureMD5                : 获取应用签名的的 MD5 值
 getAppInfo                        : 获取 App 信息
 getAppsInfo                       : 获取所有已安装 App 信息
+getApkInfo                        : 获取 Apk 信息
 ```
 
 * ### 栏相关 -> [BarUtils.java][bar.java] -> [Demo][bar.demo]
@@ -372,9 +373,13 @@ setBackground         : 设置背景
 
 * ### Gson 相关 -> [GsonUtils.java][gson.java] -> [Test][gson.test]
 ```
-getGson : 获取 Gson 对象
-toJson  : 对象转 Json 串
-fromJson: Json 串转对象
+getGson          : 获取 Gson 对象
+toJson           : 对象转 Json 串
+fromJson         : Json 串转对象
+getCollectionType: 获取集合类型
+getMapType       : 获取字典类型
+getArrayType     : 获取数组类型
+getType          : 获取类型
 ```
 
 * ### 图片相关 -> [ImageUtils.java][image.java] -> [Demo][image.demo]

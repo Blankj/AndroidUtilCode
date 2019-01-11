@@ -69,6 +69,7 @@ getAppSignatureSHA256
 getAppSignatureMD5
 getAppInfo
 getAppsInfo
+getApkInfo
 ```
 
 * ### About Bar -> [BarUtils.java][bar.java] -> [Demo][bar.demo]
@@ -375,6 +376,10 @@ setBackground
 getGson
 toJson
 fromJson
+getCollectionType
+getMapType
+getArrayType
+getType
 ```
 
 * ### About Image -> [ImageUtils.java][image.java] -> [Demo][image.demo]

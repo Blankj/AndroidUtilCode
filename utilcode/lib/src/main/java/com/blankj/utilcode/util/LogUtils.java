@@ -39,13 +39,10 @@ import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.Iterator;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -798,7 +795,7 @@ public final class LogUtils {
                 return formatJson(object.toString());
             }
             try {
-                return formatJson(GSON.toJson(object));
+                return GSON.toJson(object);
             } catch (Throwable t) {
                 return object.toString();
             }

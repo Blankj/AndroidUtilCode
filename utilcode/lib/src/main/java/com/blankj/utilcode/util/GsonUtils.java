@@ -2,9 +2,12 @@ package com.blankj.utilcode.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.Reader;
 import java.lang.reflect.Type;
+import java.util.Collection;
+import java.util.Map;
 
 
 /**
@@ -108,6 +111,48 @@ public final class GsonUtils {
      */
     public static <T> T fromJson(final Reader reader, final Type type) {
         return GSON.fromJson(reader, type);
+    }
+
+    /**
+     * Return the type of collection with the {@code type}.
+     *
+     * @param type The type.
+     * @return the type of collection with the {@code type}
+     */
+    public static Type getCollectionType(final Type type) {
+        return TypeToken.getParameterized(Collection.class, type).getType();
+    }
+
+    /**
+     * Return the type of map with the {@code keyType} and {@code valueType}.
+     *
+     * @param keyType   The type of key.
+     * @param valueType The type of value.
+     * @return the type of map with the {@code keyType} and {@code valueType}
+     */
+    public static Type getMapType(final Type keyType, final Type valueType) {
+        return TypeToken.getParameterized(Map.class, keyType, valueType).getType();
+    }
+
+    /**
+     * Return the type of array with the {@code type}.
+     *
+     * @param type The type.
+     * @return the type of map with the {@code type}
+     */
+    public static Type getArrayType(final Type type) {
+        return TypeToken.getArray(type).getType();
+    }
+
+    /**
+     * Return the type of {@code rawType} with the {@code typeArguments}.
+     *
+     * @param rawType       The raw type.
+     * @param typeArguments The type of arguments.
+     * @return the type of map with the {@code type}
+     */
+    public static Type getType(final Type rawType, final Type... typeArguments) {
+        return TypeToken.getParameterized(rawType, typeArguments).getType();
     }
 
     /**
