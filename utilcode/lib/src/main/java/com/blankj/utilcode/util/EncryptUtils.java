@@ -1,7 +1,7 @@
 package com.blankj.utilcode.util;
 
 import android.util.Base64;
-
+import android.support.annotation.Size;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -624,7 +624,7 @@ public final class EncryptUtils {
      * @return the Base64-encode bytes of DES encryption
      */
     public static byte[] encryptDES2Base64(final byte[] data,
-                                           final byte[] key,
+                                           @Size(min = 8) final byte[] key,
                                            final String transformation,
                                            final byte[] iv) {
         return base64Encode(encryptDES(data, key, transformation, iv));
@@ -641,7 +641,7 @@ public final class EncryptUtils {
      * @return the hex string of DES encryption
      */
     public static String encryptDES2HexString(final byte[] data,
-                                              final byte[] key,
+                                              @Size(min = 8) final byte[] key,
                                               final String transformation,
                                               final byte[] iv) {
         return bytes2HexString(encryptDES(data, key, transformation, iv));
@@ -658,7 +658,7 @@ public final class EncryptUtils {
      * @return the bytes of DES encryption
      */
     public static byte[] encryptDES(final byte[] data,
-                                    final byte[] key,
+                                    @Size(min = 8) final byte[] key,
                                     final String transformation,
                                     final byte[] iv) {
         return symmetricTemplate(data, key, "DES", transformation, iv, true);
