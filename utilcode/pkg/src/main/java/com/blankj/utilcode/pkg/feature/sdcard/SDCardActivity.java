@@ -46,10 +46,7 @@ public class SDCardActivity extends BaseBackActivity {
         tvAboutSdcard.setText(new SpanUtils()
                 .appendLine("isSDCardEnableByEnvironment: " + SDCardUtils.isSDCardEnableByEnvironment())
                 .appendLine("getSDCardPathByEnvironment: " + SDCardUtils.getSDCardPathByEnvironment())
-                .appendLine("isSDCardEnable: " + SDCardUtils.isSDCardEnable())
-                .appendLine("getSDCardPaths: " + SDCardUtils.getSDCardPaths())
-                .appendLine("getInnerSDCardPaths: " + SDCardUtils.getSDCardPaths(true))
-                .appendLine("getOuterSDCardPaths: " + SDCardUtils.getSDCardPaths(false))
+                .appendLine("getSDCardInfo: " + SDCardUtils.getSDCardInfo())
                 .create()
         );
     }

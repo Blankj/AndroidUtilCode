@@ -132,7 +132,7 @@ public class DialogHelper {
         Activity topActivity = ActivityUtils.getTopActivity();
         if (topActivity == null || topActivity.isFinishing()) return;
         final View dialogView = LayoutInflater.from(topActivity).inflate(R.layout.dialog_toast, null);
-        dialogView.findViewById(R.id.btn_show_short_toast)
+        dialogView.findViewById(R.id.showShortToastBtn)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

@@ -8,11 +8,11 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Build;
 import android.support.annotation.ColorInt;
-import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.RequiresPermission;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.KeyCharacterMap;
@@ -23,7 +23,6 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 
 import java.lang.reflect.Method;
 
@@ -43,11 +42,9 @@ public final class BarUtils {
     // status bar
     ///////////////////////////////////////////////////////////////////////////
 
-    private static final int    DEFAULT_ALPHA = 112;
-    private static final String TAG_COLOR     = "TAG_COLOR";
-    private static final String TAG_ALPHA     = "TAG_ALPHA";
-    private static final String TAG_OFFSET    = "TAG_OFFSET";
-    private static final int    KEY_OFFSET    = -123;
+    private static final String TAG_STATUS_BAR = "TAG_STATUS_BAR";
+    private static final String TAG_OFFSET     = "TAG_OFFSET";
+    private static final int    KEY_OFFSET     = -123;
 
     private BarUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -85,13 +82,11 @@ public final class BarUtils {
                                               final boolean isVisible) {
         if (isVisible) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            showColorView(window);
-            showAlphaView(window);
+            showStatusBarView(window);
             addMarginTopEqualStatusBarHeight(window);
         } else {
             window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            hideColorView(window);
-            hideAlphaView(window);
+            hideStatusBarView(window);
             subtractMarginTopEqualStatusBarHeight(window);
         }
     }
@@ -196,9 +191,9 @@ public final class BarUtils {
      * @param activity The activity.
      * @param color    The status bar's color.
      */
-    public static void setStatusBarColor(@NonNull final Activity activity,
+    public static View setStatusBarColor(@NonNull final Activity activity,
                                          @ColorInt final int color) {
-        setStatusBarColor(activity, color, DEFAULT_ALPHA, false);
+        return setStatusBarColor(activity, color, false);
     }
 
     /**
@@ -206,31 +201,15 @@ public final class BarUtils {
      *
      * @param activity The activity.
      * @param color    The status bar's color.
-     * @param alpha    The status bar's alpha which isn't the same as alpha in the color.
-     */
-    public static void setStatusBarColor(@NonNull final Activity activity,
-                                         @ColorInt final int color,
-                                         @IntRange(from = 0, to = 255) final int alpha) {
-        setStatusBarColor(activity, color, alpha, false);
-    }
-
-    /**
-     * Set the status bar's color.
-     *
-     * @param activity The activity.
-     * @param color    The status bar's color.
-     * @param alpha    The status bar's alpha which isn't the same as alpha in the color.
      * @param isDecor  True to add fake status bar in DecorView,
      *                 false to add fake status bar in ContentView.
      */
-    public static void setStatusBarColor(@NonNull final Activity activity,
+    public static View setStatusBarColor(@NonNull final Activity activity,
                                          @ColorInt final int color,
-                                         @IntRange(from = 0, to = 255) final int alpha,
                                          final boolean isDecor) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        hideAlphaView(activity);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return null;
         transparentStatusBar(activity);
-        addStatusBarColor(activity, color, alpha, isDecor);
+        return applyStatusBarColor(activity, color, isDecor);
     }
 
     /**
@@ -241,89 +220,13 @@ public final class BarUtils {
      */
     public static void setStatusBarColor(@NonNull final View fakeStatusBar,
                                          @ColorInt final int color) {
-        setStatusBarColor(fakeStatusBar, color, DEFAULT_ALPHA);
-    }
-
-    /**
-     * Set the status bar's color.
-     *
-     * @param fakeStatusBar The fake status bar view.
-     * @param color         The status bar's color.
-     * @param alpha         The status bar's alpha which isn't the same as alpha in the color.
-     */
-    public static void setStatusBarColor(@NonNull final View fakeStatusBar,
-                                         @ColorInt final int color,
-                                         @IntRange(from = 0, to = 255) final int alpha) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
         fakeStatusBar.setVisibility(View.VISIBLE);
         transparentStatusBar((Activity) fakeStatusBar.getContext());
         ViewGroup.LayoutParams layoutParams = fakeStatusBar.getLayoutParams();
         layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
         layoutParams.height = getStatusBarHeight();
-        fakeStatusBar.setBackgroundColor(getStatusBarColor(color, alpha));
-    }
-
-    /**
-     * Set the status bar's alpha.
-     *
-     * @param activity The activity.
-     */
-    public static void setStatusBarAlpha(@NonNull final Activity activity) {
-        setStatusBarAlpha(activity, DEFAULT_ALPHA, false);
-    }
-
-    /**
-     * Set the status bar's alpha.
-     *
-     * @param activity The activity.
-     * @param alpha    The status bar's alpha.
-     */
-    public static void setStatusBarAlpha(@NonNull final Activity activity,
-                                         @IntRange(from = 0, to = 255) final int alpha) {
-        setStatusBarAlpha(activity, alpha, false);
-    }
-
-    /**
-     * Set the status bar's alpha.
-     *
-     * @param activity The activity.
-     * @param alpha    The status bar's alpha.
-     * @param isDecor  True to add fake status bar in DecorView,
-     *                 false to add fake status bar in ContentView.
-     */
-    public static void setStatusBarAlpha(@NonNull final Activity activity,
-                                         @IntRange(from = 0, to = 255) final int alpha,
-                                         final boolean isDecor) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        hideColorView(activity);
-        transparentStatusBar(activity);
-        addStatusBarAlpha(activity, alpha, isDecor);
-    }
-
-    /**
-     * Set the status bar's alpha.
-     *
-     * @param fakeStatusBar The fake status bar view.
-     */
-    public static void setStatusBarAlpha(@NonNull final View fakeStatusBar) {
-        setStatusBarAlpha(fakeStatusBar, DEFAULT_ALPHA);
-    }
-
-    /**
-     * Set the status bar's alpha.
-     *
-     * @param fakeStatusBar The fake status bar view.
-     * @param alpha         The status bar's alpha.
-     */
-    public static void setStatusBarAlpha(@NonNull final View fakeStatusBar,
-                                         @IntRange(from = 0, to = 255) final int alpha) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        fakeStatusBar.setVisibility(View.VISIBLE);
-        transparentStatusBar((Activity) fakeStatusBar.getContext());
-        ViewGroup.LayoutParams layoutParams = fakeStatusBar.getLayoutParams();
-        layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        layoutParams.height = getStatusBarHeight();
-        fakeStatusBar.setBackgroundColor(Color.argb(alpha, 0, 0, 0));
+        fakeStatusBar.setBackgroundColor(color);
     }
 
     /**
@@ -333,207 +236,115 @@ public final class BarUtils {
      */
     public static void setStatusBarCustom(@NonNull final View fakeStatusBar) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        fakeStatusBar.setVisibility(View.VISIBLE);
-        transparentStatusBar((Activity) fakeStatusBar.getContext());
-        ViewGroup.LayoutParams layoutParams = fakeStatusBar.getLayoutParams();
-        layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        layoutParams.height = getStatusBarHeight();
+        Context context = fakeStatusBar.getContext();
+        if (context instanceof Activity) {
+            fakeStatusBar.setVisibility(View.VISIBLE);
+            transparentStatusBar((Activity) context);
+            ViewGroup.LayoutParams layoutParams = fakeStatusBar.getLayoutParams();
+            if (layoutParams == null) {
+                layoutParams = new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        getStatusBarHeight()
+                );
+                fakeStatusBar.setLayoutParams(layoutParams);
+            } else {
+                layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                layoutParams.height = getStatusBarHeight();
+            }
+        } else {
+            Log.e("BarUtils", "fakeStatusBar's context is not instance of Activity.");
+        }
     }
 
     /**
      * Set the status bar's color for DrawerLayout.
      * <p>DrawLayout must add {@code android:fitsSystemWindows="true"}</p>
      *
-     * @param activity      The activity.
      * @param drawer        The DrawLayout.
      * @param fakeStatusBar The fake status bar view.
      * @param color         The status bar's color.
-     * @param isTop         True to set DrawerLayout at the top layer, false otherwise.
      */
-    public static void setStatusBarColor4Drawer(@NonNull final Activity activity,
-                                                @NonNull final DrawerLayout drawer,
+    public static void setStatusBarColor4Drawer(@NonNull final DrawerLayout drawer,
                                                 @NonNull final View fakeStatusBar,
-                                                @ColorInt final int color,
-                                                final boolean isTop) {
-        setStatusBarColor4Drawer(activity, drawer, fakeStatusBar, color, DEFAULT_ALPHA, isTop);
+                                                @ColorInt final int color) {
+        setStatusBarColor4Drawer(drawer, fakeStatusBar, color, false);
     }
 
     /**
      * Set the status bar's color for DrawerLayout.
      * <p>DrawLayout must add {@code android:fitsSystemWindows="true"}</p>
      *
-     * @param activity      The activity.
      * @param drawer        The DrawLayout.
      * @param fakeStatusBar The fake status bar view.
      * @param color         The status bar's color.
-     * @param alpha         The status bar's alpha which isn't the same as alpha in the color.
      * @param isTop         True to set DrawerLayout at the top layer, false otherwise.
      */
-    public static void setStatusBarColor4Drawer(@NonNull final Activity activity,
-                                                @NonNull final DrawerLayout drawer,
+    public static void setStatusBarColor4Drawer(@NonNull final DrawerLayout drawer,
                                                 @NonNull final View fakeStatusBar,
                                                 @ColorInt final int color,
-                                                @IntRange(from = 0, to = 255) final int alpha,
                                                 final boolean isTop) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
         drawer.setFitsSystemWindows(false);
-        transparentStatusBar(activity);
-        setStatusBarColor(fakeStatusBar, color, isTop ? alpha : 0);
-        for (int i = 0, len = drawer.getChildCount(); i < len; i++) {
-            drawer.getChildAt(i).setFitsSystemWindows(false);
-        }
-        if (isTop) {
-            hideAlphaView(activity);
-        } else {
-            addStatusBarAlpha(activity, alpha, false);
-        }
-    }
-
-    /**
-     * Set the status bar's alpha for DrawerLayout.
-     * <p>DrawLayout must add {@code android:fitsSystemWindows="true"}</p>
-     *
-     * @param activity      The activity.
-     * @param drawer        drawerLayout
-     * @param fakeStatusBar The fake status bar view.
-     * @param isTop         True to set DrawerLayout at the top layer, false otherwise.
-     */
-    public static void setStatusBarAlpha4Drawer(@NonNull final Activity activity,
-                                                @NonNull final DrawerLayout drawer,
-                                                @NonNull final View fakeStatusBar,
-                                                final boolean isTop) {
-        setStatusBarAlpha4Drawer(activity, drawer, fakeStatusBar, DEFAULT_ALPHA, isTop);
-    }
-
-    /**
-     * Set the status bar's alpha for DrawerLayout.
-     * <p>DrawLayout must add {@code android:fitsSystemWindows="true"}</p>
-     *
-     * @param activity      The activity.
-     * @param drawer        drawerLayout
-     * @param fakeStatusBar The fake status bar view.
-     * @param alpha         The status bar's alpha.
-     * @param isTop         True to set DrawerLayout at the top layer, false otherwise.
-     */
-    public static void setStatusBarAlpha4Drawer(@NonNull final Activity activity,
-                                                @NonNull final DrawerLayout drawer,
-                                                @NonNull final View fakeStatusBar,
-                                                @IntRange(from = 0, to = 255) final int alpha,
-                                                final boolean isTop) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        drawer.setFitsSystemWindows(false);
-        transparentStatusBar(activity);
-        setStatusBarAlpha(fakeStatusBar, isTop ? alpha : 0);
-        for (int i = 0, len = drawer.getChildCount(); i < len; i++) {
-            drawer.getChildAt(i).setFitsSystemWindows(false);
-        }
-        if (isTop) {
-            hideAlphaView(activity);
-        } else {
-            addStatusBarAlpha(activity, alpha, false);
+        Context context = fakeStatusBar.getContext();
+        if (context instanceof Activity) {
+            final Activity activity = (Activity) context;
+            transparentStatusBar(activity);
+            setStatusBarColor(fakeStatusBar, color);
+            for (int i = 0, count = drawer.getChildCount(); i < count; i++) {
+                drawer.getChildAt(i).setFitsSystemWindows(false);
+            }
+            if (isTop) {
+                hideStatusBarView(activity);
+            } else {
+                setStatusBarColor(activity, color, false);
+            }
         }
     }
 
-    private static void addStatusBarColor(final Activity activity,
-                                          final int color,
-                                          final int alpha,
-                                          boolean isDecor) {
+    private static View applyStatusBarColor(final Activity activity,
+                                            final int color,
+                                            boolean isDecor) {
         ViewGroup parent = isDecor ?
                 (ViewGroup) activity.getWindow().getDecorView() :
                 (ViewGroup) activity.findViewById(android.R.id.content);
-        View fakeStatusBarView = parent.findViewWithTag(TAG_COLOR);
+        View fakeStatusBarView = parent.findViewWithTag(TAG_STATUS_BAR);
         if (fakeStatusBarView != null) {
             if (fakeStatusBarView.getVisibility() == View.GONE) {
                 fakeStatusBarView.setVisibility(View.VISIBLE);
             }
-            fakeStatusBarView.setBackgroundColor(getStatusBarColor(color, alpha));
+            fakeStatusBarView.setBackgroundColor(color);
         } else {
-            parent.addView(createColorStatusBarView(activity, color, alpha));
+            fakeStatusBarView = createStatusBarView(activity, color);
+            parent.addView(fakeStatusBarView);
         }
+        return fakeStatusBarView;
     }
 
-    private static void addStatusBarAlpha(final Activity activity,
-                                          final int alpha,
-                                          boolean isDecor) {
-        ViewGroup parent = isDecor ?
-                (ViewGroup) activity.getWindow().getDecorView() :
-                (ViewGroup) activity.findViewById(android.R.id.content);
-        View fakeStatusBarView = parent.findViewWithTag(TAG_ALPHA);
-        if (fakeStatusBarView != null) {
-            if (fakeStatusBarView.getVisibility() == View.GONE) {
-                fakeStatusBarView.setVisibility(View.VISIBLE);
-            }
-            fakeStatusBarView.setBackgroundColor(Color.argb(alpha, 0, 0, 0));
-        } else {
-            parent.addView(createAlphaStatusBarView(activity, alpha));
-        }
+    private static void hideStatusBarView(final Activity activity) {
+        hideStatusBarView(activity.getWindow());
     }
 
-    private static void hideColorView(final Activity activity) {
-        hideColorView(activity.getWindow());
-    }
-
-    private static void hideAlphaView(final Activity activity) {
-        hideAlphaView(activity.getWindow());
-    }
-
-    private static void hideColorView(final Window window) {
+    private static void hideStatusBarView(final Window window) {
         ViewGroup decorView = (ViewGroup) window.getDecorView();
-        View fakeStatusBarView = decorView.findViewWithTag(TAG_COLOR);
+        View fakeStatusBarView = decorView.findViewWithTag(TAG_STATUS_BAR);
         if (fakeStatusBarView == null) return;
         fakeStatusBarView.setVisibility(View.GONE);
     }
 
-    private static void hideAlphaView(final Window window) {
+    private static void showStatusBarView(final Window window) {
         ViewGroup decorView = (ViewGroup) window.getDecorView();
-        View fakeStatusBarView = decorView.findViewWithTag(TAG_ALPHA);
-        if (fakeStatusBarView == null) return;
-        fakeStatusBarView.setVisibility(View.GONE);
-    }
-
-    private static void showColorView(final Window window) {
-        ViewGroup decorView = (ViewGroup) window.getDecorView();
-        View fakeStatusBarView = decorView.findViewWithTag(TAG_COLOR);
+        View fakeStatusBarView = decorView.findViewWithTag(TAG_STATUS_BAR);
         if (fakeStatusBarView == null) return;
         fakeStatusBarView.setVisibility(View.VISIBLE);
     }
 
-    private static void showAlphaView(final Window window) {
-        ViewGroup decorView = (ViewGroup) window.getDecorView();
-        View fakeStatusBarView = decorView.findViewWithTag(TAG_ALPHA);
-        if (fakeStatusBarView == null) return;
-        fakeStatusBarView.setVisibility(View.VISIBLE);
-    }
-
-    private static int getStatusBarColor(final int color, final int alpha) {
-        if (alpha == 0) return color;
-        float a = 1 - alpha / 255f;
-        int red = (color >> 16) & 0xff;
-        int green = (color >> 8) & 0xff;
-        int blue = color & 0xff;
-        red = (int) (red * a + 0.5);
-        green = (int) (green * a + 0.5);
-        blue = (int) (blue * a + 0.5);
-        return Color.argb(255, red, green, blue);
-    }
-
-    private static View createColorStatusBarView(final Context context,
-                                                 final int color,
-                                                 final int alpha) {
-        View statusBarView = new View(context);
-        statusBarView.setLayoutParams(new LinearLayout.LayoutParams(
+    private static View createStatusBarView(final Activity activity,
+                                            final int color) {
+        View statusBarView = new View(activity);
+        statusBarView.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight()));
-        statusBarView.setBackgroundColor(getStatusBarColor(color, alpha));
-        statusBarView.setTag(TAG_COLOR);
-        return statusBarView;
-    }
-
-    private static View createAlphaStatusBarView(final Context context, final int alpha) {
-        View statusBarView = new View(context);
-        statusBarView.setLayoutParams(new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight()));
-        statusBarView.setBackgroundColor(Color.argb(alpha, 0, 0, 0));
-        statusBarView.setTag(TAG_ALPHA);
+        statusBarView.setBackgroundColor(color);
+        statusBarView.setTag(TAG_STATUS_BAR);
         return statusBarView;
     }
 
@@ -642,10 +453,22 @@ public final class BarUtils {
      */
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     public static void setNavBarVisibility(@NonNull final Window window, boolean isVisible) {
+        final ViewGroup decorView = (ViewGroup) window.getDecorView();
+        for (int i = 0, count = decorView.getChildCount(); i < count; i++) {
+            final View child = decorView.getChildAt(i);
+            final int id = child.getId();
+            if (id != View.NO_ID) {
+                String resourceEntryName = Utils.getApp()
+                        .getResources()
+                        .getResourceEntryName(id);
+                if ("navigationBarBackground".equals(resourceEntryName)) {
+                    child.setVisibility(isVisible ? View.VISIBLE : View.INVISIBLE);
+                }
+            }
+        }
         final int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        final View decorView = window.getDecorView();
         if (isVisible) {
             decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() & ~uiOptions);
         } else {
@@ -670,9 +493,27 @@ public final class BarUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isNavBarVisible(@NonNull final Window window) {
-        View decorView = window.getDecorView();
-        int visibility = decorView.getSystemUiVisibility();
-        return (visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
+        boolean isVisible = false;
+        ViewGroup decorView = (ViewGroup) window.getDecorView();
+        for (int i = 0, count = decorView.getChildCount(); i < count; i++) {
+            final View child = decorView.getChildAt(i);
+            final int id = child.getId();
+            if (id != View.NO_ID) {
+                String resourceEntryName = Utils.getApp()
+                        .getResources()
+                        .getResourceEntryName(id);
+                if ("navigationBarBackground".equals(resourceEntryName)
+                        && child.getVisibility() == View.VISIBLE) {
+                    isVisible = true;
+                    break;
+                }
+            }
+        }
+        if (isVisible) {
+            int visibility = decorView.getSystemUiVisibility();
+            isVisible = (visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
+        }
+        return isVisible;
     }
 
     /**
@@ -727,7 +568,7 @@ public final class BarUtils {
     public static boolean isSupportNavBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             WindowManager wm = (WindowManager) Utils.getApp().getSystemService(Context.WINDOW_SERVICE);
-            //noinspection ConstantConditions
+            if (wm == null) return false;
             Display display = wm.getDefaultDisplay();
             Point size = new Point();
             Point realSize = new Point();

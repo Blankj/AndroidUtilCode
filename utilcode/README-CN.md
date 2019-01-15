@@ -210,6 +210,19 @@ closeIO       : 关闭 IO
 closeIOQuietly: 安静关闭 IO
 ```
 
+* ### 颜色相关 -> [ColorUtils.java][color.java]
+```
+getColor         : 获取颜色
+setAlphaComponent: 设置颜色透明度值
+setRedComponent  : 设置颜色红色值
+setGreenComponent: 设置颜色绿色值
+setBlueComponent : 设置颜色蓝色值
+string2Int       : 颜色串转颜色值
+int2RgbString    : 颜色值转 RGB 串
+int2ArgbString   : 颜色值转 ARGB 串
+getRandomColor   : 获取随机色
+```
+
 * ### 转换相关 -> [ConvertUtils.java][convert.java] -> [Test][convert.test]
 ```
 bytes2Bits, bits2Bytes                  : bytes 与 bits 互转
@@ -667,8 +680,7 @@ isTablet           : 判断是否是平板
 ```
 isSDCardEnableByEnvironment: 根据 Environment 判断 SD 卡是否可用
 getSDCardPathByEnvironment : 根据 Environment 获取 SD 卡路径
-isSDCardEnable             : 判断 SD 卡是否可用
-getSDCardPaths             : 获取 SD 卡路径
+getSDCardInfo              : 获取 SD 卡信息
 ```
 
 * ### 服务相关 -> [ServiceUtils.java][service.java]
@@ -935,6 +947,9 @@ getComments       : 获取压缩文件中的注释链表
 [clean.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/clean/CleanActivity.java
 
 [close.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CloseUtils.java
+
+[color.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ColorUtils.java
+[color.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/ColorUtilsTest.java
 
 [convert.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ConvertUtils.java
 [convert.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/ConvertUtilsTest.java

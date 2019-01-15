@@ -65,19 +65,19 @@
             android:name=".feature.bar.BarActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.bar.BarStatusActivity"
+            android:name=".feature.bar.BarNavActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.bar.BarNotificationActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.bar.BarNavActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".feature.bar.BarStatusAlphaActivity"
+            android:name=".feature.bar.BarStatusActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.bar.BarStatusColorActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.bar.BarStatusCustomActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.bar.BarStatusDrawerActivity"

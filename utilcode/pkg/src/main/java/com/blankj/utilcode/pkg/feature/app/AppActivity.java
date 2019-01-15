@@ -17,7 +17,6 @@ import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SpanUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.blankj.utilcode.util.Utils;
 
 /**
  * <pre>
@@ -44,17 +43,7 @@ public class AppActivity extends BaseBackActivity {
 
     @Override
     public void initData(@Nullable Bundle bundle) {
-        AppUtils.registerAppStatusChangedListener(this, new Utils.OnAppStatusChangedListener() {
-            @Override
-            public void onForeground() {
-                ToastUtils.showShort("foreground");
-            }
 
-            @Override
-            public void onBackground() {
-                ToastUtils.showShort("background");
-            }
-        });
     }
 
     @Override
@@ -160,11 +149,5 @@ public class AppActivity extends BaseBackActivity {
             AppUtils.exitApp();
 
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        AppUtils.unregisterAppStatusChangedListener(this);
-        super.onDestroy();
     }
 }

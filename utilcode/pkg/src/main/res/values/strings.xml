@@ -87,7 +87,7 @@
     <string name="bar_status_light_mode">Light Mode Status</string>
     <string name="bar_status_dark_mode">Dark Mode Status</string>
     <string name="bar_status_set_color">Set Color</string>
-    <string name="bar_status_set_alpha">Set Alpha</string>
+    <string name="bar_status_set_custom">Set Custom</string>
     <string name="bar_status_set_image_view">Set Image View</string>
     <string name="bar_status_set_fragment">Set Fragment</string>
     <string name="bar_status_set_swipe_back">Set Swipe Back</string>

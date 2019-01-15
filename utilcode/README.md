@@ -210,6 +210,19 @@ closeIO
 closeIOQuietly
 ```
 
+* ### About Color -> [ColorUtils.java][color.java]
+```
+getColor
+setAlphaComponent
+setRedComponent
+setGreenComponent
+setBlueComponent
+string2Int
+int2RgbString
+int2ArgbString
+getRandomColor
+```
+
 * ### About Convert -> [ConvertUtils.java][convert.java] -> [Test][convert.test]
 ```
 bytes2Bits, bits2Bytes
@@ -667,8 +680,7 @@ isTablet
 ```
 isSDCardEnableByEnvironment
 getSDCardPathByEnvironment
-isSDCardEnable
-getSDCardPaths
+getSDCardInfo
 ```
 
 * ### About Service -> [ServiceUtils.java][service.java]
@@ -935,6 +947,9 @@ getComments
 [clean.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/clean/CleanActivity.java
 
 [close.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CloseUtils.java
+
+[color.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ColorUtils.java
+[color.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/ColorUtilsTest.java
 
 [convert.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ConvertUtils.java
 [convert.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/ConvertUtilsTest.java

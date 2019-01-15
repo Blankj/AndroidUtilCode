@@ -94,7 +94,7 @@ public class CoreUtilActivity extends BaseBackActivity {
     }
 
     public void barClick(View view) {
-        BarActivity.start(this);
+        BarActivity.Companion.start(this);
     }
 
     public void blurClick(View view) {
@@ -178,7 +178,7 @@ public class CoreUtilActivity extends BaseBackActivity {
     }
 
     public void toastClick(View view) {
-        ToastActivity.start(this);
+        ToastActivity.Companion.start(this);
     }
 
     public void vibrateClick(View view) {
