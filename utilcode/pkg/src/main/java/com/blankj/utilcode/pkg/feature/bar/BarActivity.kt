@@ -36,15 +36,16 @@ class BarActivity : BaseBackActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
         setTitle(R.string.demo_bar)
 
-        statusBarAboutBtn.setOnClickListener(this);
-        statusBarSetColorBtn.setOnClickListener(this);
-        statusBarSetCustomBtn.setOnClickListener(this);
-        statusBarSetImageViewBtn.setOnClickListener(this);
-        statusBarSetFragmentBtn.setOnClickListener(this);
-        statusBarSetSwipeBackBtn.setOnClickListener(this);
-        statusBarSetDrawerBtn.setOnClickListener(this);
-        notificationBarAboutBtn.setOnClickListener(this);
-        navBarAboutBtn.setOnClickListener(this);
+        statusBarAboutBtn.setOnClickListener(this)
+        statusBarSetColorBtn.setOnClickListener(this)
+        statusBarSetAlphaBtn.setOnClickListener(this)
+        statusBarSetImageViewBtn.setOnClickListener(this)
+        statusBarSetCustomBtn.setOnClickListener(this)
+        statusBarSetFragmentBtn.setOnClickListener(this)
+        statusBarSetSwipeBackBtn.setOnClickListener(this)
+        statusBarSetDrawerBtn.setOnClickListener(this)
+        notificationBarAboutBtn.setOnClickListener(this)
+        navBarAboutBtn.setOnClickListener(this)
     }
 
     override fun doBusiness() {
@@ -55,8 +56,9 @@ class BarActivity : BaseBackActivity() {
         when (view.id) {
             R.id.statusBarAboutBtn -> BarStatusActivity.start(this)
             R.id.statusBarSetColorBtn -> BarStatusColorActivity.start(this)
-            R.id.statusBarSetCustomBtn -> BarStatusCustomActivity.start(this)
+            R.id.statusBarSetAlphaBtn -> BarStatusAlphaActivity.start(this)
             R.id.statusBarSetImageViewBtn -> BarStatusImageViewActivity.start(this)
+            R.id.statusBarSetCustomBtn -> BarStatusCustomActivity.start(this)
             R.id.statusBarSetFragmentBtn -> BarStatusFragmentActivity.start(this)
             R.id.statusBarSetSwipeBackBtn -> BarStatusSwipeBackActivity.start(this)
             R.id.statusBarSetDrawerBtn -> BarStatusDrawerActivity.start(this)

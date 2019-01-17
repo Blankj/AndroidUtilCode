@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.View
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ColorUtils
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_bar_status_color.*
  * desc  : demo about BarUtils
  * ```
  */
-class BarStatusColorActivity : BaseBackActivity() {
+class BarStatusColorActivity : BaseActivity() {
 
     companion object {
         fun start(context: Context) {

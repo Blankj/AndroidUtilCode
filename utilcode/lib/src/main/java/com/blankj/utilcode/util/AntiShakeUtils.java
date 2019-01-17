@@ -28,7 +28,10 @@ public final class AntiShakeUtils {
     public static boolean isValid(@NonNull View view, @IntRange(from = 0) long duration) {
         long curTime = System.currentTimeMillis();
         Object tag = view.getTag(TAG_KEY);
-        if (!(tag instanceof Long)) return true;
+        if (!(tag instanceof Long)) {
+            view.setTag(TAG_KEY, curTime);
+            return true;
+        }
         long preTime = (Long) tag;
         if (curTime - preTime <= duration) return false;
         view.setTag(TAG_KEY, curTime);

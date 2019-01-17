@@ -11,6 +11,7 @@ import android.widget.SeekBar
 import com.blankj.lib.base.BaseDrawerActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.Utils
 import kotlinx.android.synthetic.main.activity_bar_status_drawer.*
 import java.util.*
@@ -40,7 +41,6 @@ class BarStatusDrawerActivity : BaseDrawerActivity() {
     private val mColorListener = object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
             mAlpha = progress
-            statusAlphaTv.text = mAlpha.toString()
             updateStatusBar()
         }
 
@@ -53,18 +53,24 @@ class BarStatusDrawerActivity : BaseDrawerActivity() {
         }
     }
 
-    internal var mAlphaCheckedChangeListener: CompoundButton.OnCheckedChangeListener = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+    private var mAlphaCheckedChangeListener: CompoundButton.OnCheckedChangeListener = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
         if (isChecked) {
+            changeAlphaSb.visibility = View.VISIBLE
             randomColorBtn.visibility = View.GONE
+            setTransparentBtn.visibility = View.VISIBLE
+
             mDrawerContainerView.setBackgroundResource(R.drawable.bar_status_alpha_bg)
         } else {
+            changeAlphaSb.visibility = View.GONE
             randomColorBtn.visibility = View.VISIBLE
+            setTransparentBtn.visibility = View.GONE
+
             mDrawerContainerView.setBackgroundColor(Color.WHITE)
         }
         updateStatusBar()
     }
 
-    internal var mFrontCheckedChangeListener: CompoundButton.OnCheckedChangeListener = CompoundButton.OnCheckedChangeListener { buttonView, isChecked -> updateStatusBar() }
+    private var mFrontCheckedChangeListener: CompoundButton.OnCheckedChangeListener = CompoundButton.OnCheckedChangeListener { buttonView, isChecked -> updateStatusBar() }
 
     override fun initData(bundle: Bundle?) {
         mColor = ContextCompat.getColor(Utils.getApp(), R.color.colorPrimary)
@@ -78,14 +84,14 @@ class BarStatusDrawerActivity : BaseDrawerActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
         alphaCb.setOnCheckedChangeListener(mAlphaCheckedChangeListener)
         frontCb.setOnCheckedChangeListener(mFrontCheckedChangeListener)
-        randomColorBtn.setOnClickListener(this)
-        findViewById<View>(R.id.setTransparentBtn).setOnClickListener(this)
         changeAlphaSb.setOnSeekBarChangeListener(mColorListener)
-        statusAlphaTv.text = mAlpha.toString()
+        randomColorBtn.setOnClickListener(this)
+        setTransparentBtn.setOnClickListener(this)
+
+        setTransparentBtn.visibility = View.GONE
 
         updateStatusBar()
     }
-
 
     override fun doBusiness() {
 
@@ -94,7 +100,7 @@ class BarStatusDrawerActivity : BaseDrawerActivity() {
     override fun onWidgetClick(view: View) {
         when (view.id) {
             R.id.randomColorBtn -> {
-                mColor = -0x1000000 or mRandom.nextInt(0xffffff)
+                mColor = ColorUtils.getRandomColor()
                 updateStatusBar()
             }
             R.id.setTransparentBtn -> changeAlphaSb.progress = 0
@@ -103,9 +109,11 @@ class BarStatusDrawerActivity : BaseDrawerActivity() {
 
     private fun updateStatusBar() {
         if (alphaCb.isChecked) {
-//            BarUtils.setStatusBarAlpha4Drawer(mDrawerRootLayout, fakeStatusBar, mColor, frontCb.isChecked)
+            BarUtils.setStatusBarColor4Drawer(mDrawerRootLayout, fakeStatusBar, Color.argb(mAlpha, 0, 0, 0), frontCb.isChecked)
+            statusAboutTv.text = mAlpha.toString()
         } else {
             BarUtils.setStatusBarColor4Drawer(mDrawerRootLayout, fakeStatusBar, mColor, frontCb.isChecked)
+            statusAboutTv.text = ColorUtils.int2ArgbString(mColor)
         }
         BarUtils.addMarginTopEqualStatusBarHeight(alphaCb)// 其实这个只需要调用一次即可
     }

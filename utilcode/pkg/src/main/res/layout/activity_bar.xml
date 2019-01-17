@@ -29,11 +29,11 @@
         android:text="@string/bar_status_set_color" />
 
     <Button
-        android:id="@+id/statusBarSetCustomBtn"
+        android:id="@+id/statusBarSetAlphaBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/bar_status_set_custom" />
+        android:text="@string/bar_status_set_alpha" />
 
     <Button
         android:id="@+id/statusBarSetImageViewBtn"
@@ -41,6 +41,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/bar_status_set_image_view" />
+
+    <Button
+        android:id="@+id/statusBarSetCustomBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bar_status_set_custom" />
 
     <Button
         android:id="@+id/statusBarSetFragmentBtn"

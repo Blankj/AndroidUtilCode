@@ -5,7 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
 
@@ -18,7 +18,7 @@ import com.blankj.utilcode.util.BarUtils
  * desc  : demo about BarUtils
  * ```
  */
-class BarStatusCustomActivity : BaseBackActivity() {
+class BarStatusCustomActivity : BaseActivity() {
 
     companion object {
         fun start(context: Context) {

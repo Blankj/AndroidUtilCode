@@ -74,6 +74,9 @@
             android:name=".feature.bar.BarStatusActivity"
             android:launchMode="singleTop" />
         <activity
+            android:name=".feature.bar.BarStatusAlphaActivity"
+            android:launchMode="singleTop" />
+        <activity
             android:name=".feature.bar.BarStatusColorActivity"
             android:launchMode="singleTop" />
         <activity

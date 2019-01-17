@@ -201,7 +201,7 @@ public final class ColorUtils {
      * @return the random color
      */
     public static int getRandomColor(final boolean supportAlpha) {
-        int high = supportAlpha ? (int) (Math.random() * 0x100) << 24 : 0xFF000000;
-        return high | (int) (Math.random() * 0x1000000);
+        int high = supportAlpha ? (int) (Math.random() * 0xFF) << 24 : 0xFF000000;
+        return high | (int) (Math.random() * 0xFF0000);
     }
 }

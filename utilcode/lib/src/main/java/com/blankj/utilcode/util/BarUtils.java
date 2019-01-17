@@ -3,6 +3,7 @@ package com.blankj.utilcode.util;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -221,8 +222,10 @@ public final class BarUtils {
     public static void setStatusBarColor(@NonNull final View fakeStatusBar,
                                          @ColorInt final int color) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
+        Activity activity = getActivityByView(fakeStatusBar);
+        if (activity == null) return;
+        transparentStatusBar(activity);
         fakeStatusBar.setVisibility(View.VISIBLE);
-        transparentStatusBar((Activity) fakeStatusBar.getContext());
         ViewGroup.LayoutParams layoutParams = fakeStatusBar.getLayoutParams();
         layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
         layoutParams.height = getStatusBarHeight();
@@ -236,23 +239,20 @@ public final class BarUtils {
      */
     public static void setStatusBarCustom(@NonNull final View fakeStatusBar) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        Context context = fakeStatusBar.getContext();
-        if (context instanceof Activity) {
-            fakeStatusBar.setVisibility(View.VISIBLE);
-            transparentStatusBar((Activity) context);
-            ViewGroup.LayoutParams layoutParams = fakeStatusBar.getLayoutParams();
-            if (layoutParams == null) {
-                layoutParams = new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        getStatusBarHeight()
-                );
-                fakeStatusBar.setLayoutParams(layoutParams);
-            } else {
-                layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-                layoutParams.height = getStatusBarHeight();
-            }
+        Activity activity = getActivityByView(fakeStatusBar);
+        if (activity == null) return;
+        transparentStatusBar(activity);
+        fakeStatusBar.setVisibility(View.VISIBLE);
+        ViewGroup.LayoutParams layoutParams = fakeStatusBar.getLayoutParams();
+        if (layoutParams == null) {
+            layoutParams = new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    getStatusBarHeight()
+            );
+            fakeStatusBar.setLayoutParams(layoutParams);
         } else {
-            Log.e("BarUtils", "fakeStatusBar's context is not instance of Activity.");
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            layoutParams.height = getStatusBarHeight();
         }
     }
 
@@ -284,20 +284,18 @@ public final class BarUtils {
                                                 @ColorInt final int color,
                                                 final boolean isTop) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
+        Activity activity = getActivityByView(fakeStatusBar);
+        if (activity == null) return;
+        transparentStatusBar(activity);
         drawer.setFitsSystemWindows(false);
-        Context context = fakeStatusBar.getContext();
-        if (context instanceof Activity) {
-            final Activity activity = (Activity) context;
-            transparentStatusBar(activity);
-            setStatusBarColor(fakeStatusBar, color);
-            for (int i = 0, count = drawer.getChildCount(); i < count; i++) {
-                drawer.getChildAt(i).setFitsSystemWindows(false);
-            }
-            if (isTop) {
-                hideStatusBarView(activity);
-            } else {
-                setStatusBarColor(activity, color, false);
-            }
+        setStatusBarColor(fakeStatusBar, color);
+        for (int i = 0, count = drawer.getChildCount(); i < count; i++) {
+            drawer.getChildAt(i).setFitsSystemWindows(false);
+        }
+        if (isTop) {
+            hideStatusBarView(activity);
+        } else {
+            setStatusBarColor(activity, color, false);
         }
     }
 
@@ -579,5 +577,17 @@ public final class BarUtils {
         boolean menu = ViewConfiguration.get(Utils.getApp()).hasPermanentMenuKey();
         boolean back = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
         return !menu && !back;
+    }
+
+    private static Activity getActivityByView(@NonNull final View view) {
+        Context context = view.getContext();
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return (Activity) context;
+            }
+            context = ((ContextWrapper) context).getBaseContext();
+        }
+        Log.e("BarUtils", "the view's Context is not an Activity.");
+        return null;
     }
 }

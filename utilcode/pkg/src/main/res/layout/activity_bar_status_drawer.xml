@@ -34,7 +34,7 @@
             android:text="@string/bar_status_is_front" />
 
         <TextView
-            android:id="@+id/statusAlphaTv"
+            android:id="@+id/statusAboutTv"
             style="@style/TextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
