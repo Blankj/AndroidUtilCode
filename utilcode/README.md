@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.22.11'
+implementation 'com.blankj:utilcode:1.23.0'
 ```
 
 
@@ -10,6 +10,7 @@ implementation 'com.blankj:utilcode:1.22.11'
 
 * ### About Activity -> [ActivityUtils.java][activity.java] -> [Demo][activity.demo]
 ```
+getActivityByView
 isActivityExists
 startActivity
 startActivityForResult
@@ -81,9 +82,7 @@ setStatusBarLightMode
 addMarginTopEqualStatusBarHeight
 subtractMarginTopEqualStatusBarHeight
 setStatusBarColor
-setStatusBarAlpha
 setStatusBarColor4Drawer
-setStatusBarAlpha4Drawer
 getActionBarHeight
 setNotificationBarVisibility
 getNavBarHeight

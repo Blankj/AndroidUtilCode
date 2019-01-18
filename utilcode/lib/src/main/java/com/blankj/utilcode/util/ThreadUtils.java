@@ -128,7 +128,7 @@ public final class ThreadUtils {
      * @return a IO thread pool
      */
     public static ExecutorService getIoPool() {
-        return getPoolByTypeAndPriority(TYPE_CACHED);
+        return getPoolByTypeAndPriority(TYPE_IO);
     }
 
     /**
@@ -139,7 +139,7 @@ public final class ThreadUtils {
      * @return a IO thread pool
      */
     public static ExecutorService getIoPool(@IntRange(from = 1, to = 10) final int priority) {
-        return getPoolByTypeAndPriority(TYPE_CACHED, priority);
+        return getPoolByTypeAndPriority(TYPE_IO, priority);
     }
 
     /**

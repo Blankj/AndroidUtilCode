@@ -785,6 +785,8 @@ public final class AppUtils {
         if (isSpace(apkFilePath)) return null;
         PackageManager pm = Utils.getApp().getPackageManager();
         PackageInfo pi = pm.getPackageArchiveInfo(apkFilePath, 0);
+        ApplicationInfo appInfo = pi.applicationInfo;
+        appInfo.sourceDir = apkFilePath;
         return getBean(pm, pi);
     }
 
@@ -883,13 +885,15 @@ public final class AppUtils {
 
         @Override
         public String toString() {
-            return "pkg name: " + getPackageName() +
-                    "\napp icon: " + getIcon() +
-                    "\napp name: " + getName() +
-                    "\napp path: " + getPackagePath() +
-                    "\napp v name: " + getVersionName() +
-                    "\napp v code: " + getVersionCode() +
-                    "\nis system: " + isSystem();
+            return "{" +
+                    "\n  pkg name: " + getPackageName() +
+                    "\n  app icon: " + getIcon() +
+                    "\n  app name: " + getName() +
+                    "\n  app path: " + getPackagePath() +
+                    "\n  app v name: " + getVersionName() +
+                    "\n  app v code: " + getVersionCode() +
+                    "\n  is system: " + isSystem() +
+                    "}";
         }
     }
 

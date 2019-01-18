@@ -90,7 +90,7 @@ public class CoreUtilActivity extends BaseBackActivity {
     }
 
     public void appClick(View view) {
-        AppActivity.start(this);
+        AppActivity.Companion.start(this);
     }
 
     public void barClick(View view) {
@@ -142,7 +142,7 @@ public class CoreUtilActivity extends BaseBackActivity {
     }
 
     public void permissionClick(View view) {
-        PermissionActivity.start(this);
+        PermissionActivity.Companion.start(this);
     }
 
     public void phoneClick(View view) {
@@ -174,7 +174,7 @@ public class CoreUtilActivity extends BaseBackActivity {
     }
 
     public void spannableClick(View view) {
-        SpanActivity.start(this);
+        SpanActivity.Companion.start(this);
     }
 
     public void toastClick(View view) {

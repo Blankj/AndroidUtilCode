@@ -29,7 +29,7 @@ abstract class BaseBackActivity : BaseActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         BarUtils.setStatusBarColor(this, ContextCompat.getColor(Utils.getApp(), R.color.colorPrimary))
-        BarUtils.addMarginTopEqualStatusBarHeight(baseBackAppBarLayout)
+        BarUtils.addMarginTopEqualStatusBarHeight(backRootLayout)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

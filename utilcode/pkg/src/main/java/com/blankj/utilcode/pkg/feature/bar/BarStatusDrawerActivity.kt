@@ -88,6 +88,7 @@ class BarStatusDrawerActivity : BaseDrawerActivity() {
         randomColorBtn.setOnClickListener(this)
         setTransparentBtn.setOnClickListener(this)
 
+        changeAlphaSb.visibility = View.GONE
         setTransparentBtn.visibility = View.GONE
 
         updateStatusBar()
