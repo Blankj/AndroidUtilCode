@@ -15,5 +15,5 @@ dependencies {
     api dep.free_proguard
     api 'com.r0adkll:slidableactivity:2.0.5'
     compileOnly dep.leakcanary.android_no_op
-//    api 'com.blankj:utilcode:1.22.11'
+//    api 'com.blankj:utilcode:1.23.0'
 }

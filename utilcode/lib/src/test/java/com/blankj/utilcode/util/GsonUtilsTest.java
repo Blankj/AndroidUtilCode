@@ -48,7 +48,7 @@ public class GsonUtilsTest extends BaseTest {
                 GsonUtils.toJson(
                         GsonUtils.fromJson(
                                 GsonUtils.toJson(result),
-                                GsonUtils.getType(Result.class, GsonUtils.getCollectionType(Person.class))
+                                GsonUtils.getType(Result.class, GsonUtils.getListType(Person.class))
                         )
                 )
         );
@@ -58,7 +58,7 @@ public class GsonUtilsTest extends BaseTest {
     public void getType() {
         Assert.assertEquals(
                 "java.util.Collection<java.lang.String>",
-                GsonUtils.getCollectionType(String.class).toString()
+                GsonUtils.getListType(String.class).toString()
         );
         Assert.assertEquals(
                 "java.util.Map<java.lang.String, java.lang.Integer>",
@@ -74,7 +74,7 @@ public class GsonUtilsTest extends BaseTest {
         );
         Assert.assertEquals(
                 "java.util.Map<java.lang.String, java.util.Collection<java.lang.String>>",
-                GsonUtils.getMapType(String.class, GsonUtils.getCollectionType(String.class)).toString()
+                GsonUtils.getMapType(String.class, GsonUtils.getListType(String.class)).toString()
         );
     }
 

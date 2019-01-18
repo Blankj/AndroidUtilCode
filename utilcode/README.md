@@ -388,7 +388,8 @@ setBackground
 getGson
 toJson
 fromJson
-getCollectionType
+getListType
+getSetType
 getMapType
 getArrayType
 getType
