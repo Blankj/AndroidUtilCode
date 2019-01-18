@@ -14,7 +14,7 @@ import static org.junit.Assert.assertNull;
  *     desc  : test CacheMemoryUtils
  * </pre>
  */
-public class CacheMemoryUtilsTest {
+public class CacheMemoryUtilsTest extends BaseTest {
 
     private CacheMemoryUtils mCacheMemoryUtils1 = CacheMemoryUtils.getInstance();
     private CacheMemoryUtils mCacheMemoryUtils2 = CacheMemoryUtils.getInstance(3);

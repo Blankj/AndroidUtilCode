@@ -8,70 +8,70 @@
     android:padding="@dimen/spacing_16">
 
     <Button
-        android:id="@+id/btn_show_short_toast"
+        android:id="@+id/showShortToastBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/toast_show_short" />
 
     <Button
-        android:id="@+id/btn_show_long_toast"
+        android:id="@+id/showLongToastBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/toast_show_long" />
 
     <Button
-        android:id="@+id/btn_show_green_font"
+        android:id="@+id/showGreenFontBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/toast_show_green_font" />
 
     <Button
-        android:id="@+id/btn_show_bg_color"
+        android:id="@+id/showBgColorBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/toast_show_bg_color" />
 
     <Button
-        android:id="@+id/btn_show_bg_resource"
+        android:id="@+id/showBgResourceBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/toast_show_bg_resource" />
 
     <Button
-        android:id="@+id/btn_show_span"
+        android:id="@+id/showSpanBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/toast_show_span" />
 
     <Button
-        android:id="@+id/btn_show_custom_view"
+        android:id="@+id/showCustomViewBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/toast_show_custom_view" />
 
     <Button
-        android:id="@+id/btn_show_middle"
+        android:id="@+id/showMiddleBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/toast_show_middle" />
 
     <Button
-        android:id="@+id/btn_cancel_toast"
+        android:id="@+id/cancelToastBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/toast_cancel" />
 
     <Button
-        android:id="@+id/btn_show_toast_dialog"
+        android:id="@+id/showToastDialogBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

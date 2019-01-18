@@ -6,9 +6,9 @@
     android:orientation="vertical">
 
     <View
-        android:background="@drawable/bar_status_custom"
-        android:id="@+id/fake_status_bar"
+        android:id="@+id/fakeStatusBar"
         android:layout_width="match_parent"
-        android:layout_height="0dp" />
+        android:layout_height="0dp"
+        android:background="@drawable/bar_status_custom" />
 
 </LinearLayout>

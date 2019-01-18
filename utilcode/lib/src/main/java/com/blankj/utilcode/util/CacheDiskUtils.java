@@ -34,7 +34,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -52,7 +51,7 @@ public final class CacheDiskUtils implements CacheConstants {
     private static final int    DEFAULT_MAX_COUNT = Integer.MAX_VALUE;
     private static final String CACHE_PREFIX      = "cdu";
 
-    private static final Map<String, CacheDiskUtils> CACHE_MAP = new ConcurrentHashMap<>();
+    private static final Map<String, CacheDiskUtils> CACHE_MAP = new HashMap<>();
 
     private final String           mCacheKey;
     private final File             mCacheDir;
@@ -138,8 +137,13 @@ public final class CacheDiskUtils implements CacheConstants {
         final String cacheKey = cacheDir.getAbsoluteFile() + "_" + maxSize + "_" + maxCount;
         CacheDiskUtils cache = CACHE_MAP.get(cacheKey);
         if (cache == null) {
-            cache = new CacheDiskUtils(cacheKey, cacheDir, maxSize, maxCount);
-            CACHE_MAP.put(cacheKey, cache);
+            synchronized (CacheDiskUtils.class) {
+                cache = CACHE_MAP.get(cacheKey);
+                if (cache == null) {
+                    cache = new CacheDiskUtils(cacheKey, cacheDir, maxSize, maxCount);
+                    CACHE_MAP.put(cacheKey, cache);
+                }
+            }
         }
         return cache;
     }

@@ -120,6 +120,7 @@ public final class AppUtils {
     /**
      * Install the app silently.
      * <p>Without root permission must hold
+     * {@code android:sharedUserId="android.uid.shell"} and
      * {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
      *
      * @param filePath The path of file.
@@ -132,6 +133,7 @@ public final class AppUtils {
     /**
      * Install the app silently.
      * <p>Without root permission must hold
+     * {@code android:sharedUserId="android.uid.shell"} and
      * {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
      *
      * @param file The file.
@@ -145,6 +147,7 @@ public final class AppUtils {
     /**
      * Install the app silently.
      * <p>Without root permission must hold
+     * {@code android:sharedUserId="android.uid.shell"} and
      * {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
      *
      * @param filePath The path of file.
@@ -158,6 +161,7 @@ public final class AppUtils {
     /**
      * Install the app silently.
      * <p>Without root permission must hold
+     * {@code android:sharedUserId="android.uid.shell"} and
      * {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
      *
      * @param file   The file.
@@ -171,6 +175,7 @@ public final class AppUtils {
     /**
      * Install the app silently.
      * <p>Without root permission must hold
+     * {@code android:sharedUserId="android.uid.shell"} and
      * {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
      *
      * @param file     The file.
@@ -225,6 +230,7 @@ public final class AppUtils {
     /**
      * Uninstall the app silently.
      * <p>Without root permission must hold
+     * {@code android:sharedUserId="android.uid.shell"} and
      * {@code <uses-permission android:name="android.permission.DELETE_PACKAGES" />}</p>
      *
      * @param packageName The name of the package.
@@ -237,6 +243,7 @@ public final class AppUtils {
     /**
      * Uninstall the app silently.
      * <p>Without root permission must hold
+     * {@code android:sharedUserId="android.uid.shell"} and
      * {@code <uses-permission android:name="android.permission.DELETE_PACKAGES" />}</p>
      *
      * @param packageName The name of the package.
@@ -250,6 +257,7 @@ public final class AppUtils {
     /**
      * Uninstall the app silently.
      * <p>Without root permission must hold
+     * {@code android:sharedUserId="android.uid.shell"} and
      * {@code <uses-permission android:name="android.permission.DELETE_PACKAGES" />}</p>
      *
      * @param packageName The name of the package.
@@ -758,6 +766,30 @@ public final class AppUtils {
         return list;
     }
 
+    /**
+     * Return the application's package information.
+     *
+     * @return the application's package information
+     */
+    public static AppUtils.AppInfo getApkInfo(final File apkFile) {
+        if (apkFile == null || !apkFile.isFile() || !apkFile.exists()) return null;
+        return getApkInfo(apkFile.getAbsolutePath());
+    }
+
+    /**
+     * Return the application's package information.
+     *
+     * @return the application's package information
+     */
+    public static AppUtils.AppInfo getApkInfo(final String apkFilePath) {
+        if (isSpace(apkFilePath)) return null;
+        PackageManager pm = Utils.getApp().getPackageManager();
+        PackageInfo pi = pm.getPackageArchiveInfo(apkFilePath, 0);
+        ApplicationInfo appInfo = pi.applicationInfo;
+        appInfo.sourceDir = apkFilePath;
+        return getBean(pm, pi);
+    }
+
     private static AppInfo getBean(final PackageManager pm, final PackageInfo pi) {
         if (pm == null || pi == null) return null;
         ApplicationInfo ai = pi.applicationInfo;
@@ -853,13 +885,15 @@ public final class AppUtils {
 
         @Override
         public String toString() {
-            return "pkg name: " + getPackageName() +
-                    "\napp icon: " + getIcon() +
-                    "\napp name: " + getName() +
-                    "\napp path: " + getPackagePath() +
-                    "\napp v name: " + getVersionName() +
-                    "\napp v code: " + getVersionCode() +
-                    "\nis system: " + isSystem();
+            return "{" +
+                    "\n  pkg name: " + getPackageName() +
+                    "\n  app icon: " + getIcon() +
+                    "\n  app name: " + getName() +
+                    "\n  app path: " + getPackagePath() +
+                    "\n  app v name: " + getVersionName() +
+                    "\n  app v code: " + getVersionCode() +
+                    "\n  is system: " + isSystem() +
+                    "}";
         }
     }
 

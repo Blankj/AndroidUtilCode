@@ -8,34 +8,34 @@
     android:padding="@dimen/spacing_16">
 
     <TextView
-        android:id="@+id/tv_about_status"
+        android:id="@+id/aboutStatusTv"
         style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/btn_show_status"
+        android:id="@+id/showStatusBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/bar_status_show" />
 
     <Button
-        android:id="@+id/btn_hide_status"
+        android:id="@+id/hideStatusBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/bar_status_hide" />
 
     <Button
-        android:id="@+id/btn_light_mode"
+        android:id="@+id/lightModeBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/bar_status_light_mode" />
 
     <Button
-        android:id="@+id/btn_dark_mode"
+        android:id="@+id/darkModeBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

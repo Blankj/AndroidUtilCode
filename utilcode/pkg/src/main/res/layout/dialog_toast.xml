@@ -7,7 +7,7 @@
     android:padding="@dimen/spacing_16">
 
     <Button
-        android:id="@+id/btn_show_short_toast"
+        android:id="@+id/showShortToastBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

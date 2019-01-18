@@ -15,7 +15,7 @@ readme {
 apply from: "${rootDir.path}/gradle/bintrayUploadAndroid.gradle"
 
 dependencies {
-    api dep.gson
+    compile dep.gson
 
     compileOnly dep.support.appcompat_v7
     compileOnly dep.support.design

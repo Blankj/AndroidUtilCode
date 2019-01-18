@@ -301,7 +301,7 @@ public final class KeyboardUtils {
     }
 
     /**
-     * Click blankj area to hide soft input.
+     * Click blank area to hide soft input.
      * <p>Copy the following code in ur activity.</p>
      */
     public static void clickBlankArea2HideSoftInput() {

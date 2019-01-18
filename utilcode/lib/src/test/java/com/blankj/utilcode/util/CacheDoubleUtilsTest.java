@@ -7,6 +7,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
@@ -26,7 +27,7 @@ import static org.junit.Assert.assertNull;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/06/13
- *     desc  :
+ *     desc  : test CacheDoubleUtils
  * </pre>
  */
 public class CacheDoubleUtilsTest extends BaseTest {
@@ -45,12 +46,18 @@ public class CacheDoubleUtilsTest extends BaseTest {
     private static final CacheDiskUtils   CACHE_DISK_UTILS   = CacheDiskUtils.getInstance(CACHE_FILE);
     private static final CacheDoubleUtils CACHE_DOUBLE_UTILS = CacheDoubleUtils.getInstance(CACHE_MEMORY_UTILS, CACHE_DISK_UTILS);
 
-    @Before
-    public void setUp() throws Exception {
-        JSON_OBJECT.put("class", "CacheDoubleUtils");
-        JSON_OBJECT.put("author", "Blankj");
-        JSON_ARRAY.put(0, JSON_OBJECT);
+    static {
+        try {
+            JSON_OBJECT.put("class", "CacheDiskUtils");
+            JSON_OBJECT.put("author", "Blankj");
+            JSON_ARRAY.put(0, JSON_OBJECT);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
+    @Before
+    public void setUp() {
         CACHE_DOUBLE_UTILS.put("bytes", BYTES);
         CACHE_DOUBLE_UTILS.put("string", STRING);
         CACHE_DOUBLE_UTILS.put("jsonObject", JSON_OBJECT);

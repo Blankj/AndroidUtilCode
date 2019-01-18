@@ -38,6 +38,7 @@ import java.lang.reflect.Type;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.Iterator;
@@ -100,7 +101,8 @@ public final class LogUtils {
     private static final String ARGS           = "args";
     private static final String PLACEHOLDER    = " ";
     private static final Config CONFIG         = new Config();
-    private static final Gson   GSON           = new GsonBuilder().serializeNulls().create();
+    private static final Gson   GSON           = new GsonBuilder()
+            .setPrettyPrinting().serializeNulls().create();
 
     private static final ThreadLocal<SimpleDateFormat> SDF_THREAD_LOCAL = new ThreadLocal<>();
 
@@ -181,19 +183,19 @@ public final class LogUtils {
         log(FILE | type, tag, content);
     }
 
-    public static void json(final String content) {
+    public static void json(final Object content) {
         log(JSON | D, CONFIG.mGlobalTag, content);
     }
 
-    public static void json(@TYPE final int type, final String content) {
+    public static void json(@TYPE final int type, final Object content) {
         log(JSON | type, CONFIG.mGlobalTag, content);
     }
 
-    public static void json(final String tag, final String content) {
+    public static void json(final String tag, final Object content) {
         log(JSON | D, tag, content);
     }
 
-    public static void json(@TYPE final int type, final String tag, final String content) {
+    public static void json(@TYPE final int type, final String tag, final Object content) {
         log(JSON | type, tag, content);
     }
 
@@ -330,7 +332,7 @@ public final class LogUtils {
 
     private static String formatObject(int type, Object object) {
         if (object == null) return NULL;
-        if (type == JSON) return LogFormatter.formatJson(object.toString());
+        if (type == JSON) return LogFormatter.object2Json(object);
         if (type == XML) return LogFormatter.formatXml(object.toString());
         return formatObject(object);
     }
@@ -344,9 +346,6 @@ public final class LogUtils {
                 return iFormatter.format(object);
             }
         }
-        if (object instanceof Throwable) return LogFormatter.throwable2String((Throwable) object);
-        if (object instanceof Bundle) return LogFormatter.bundle2String((Bundle) object);
-        if (object instanceof Intent) return LogFormatter.intent2String((Intent) object);
         return LogFormatter.object2String(object);
     }
 
@@ -782,17 +781,24 @@ public final class LogUtils {
     }
 
     private static class LogFormatter {
-        static String formatJson(String json) {
-            try {
-                if (json.startsWith("{")) {
-                    json = new JSONObject(json).toString(4);
-                } else if (json.startsWith("[")) {
-                    json = new JSONArray(json).toString(4);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
+
+        static String object2String(Object object) {
+            if (object.getClass().isArray()) return array2String(object);
+            if (object instanceof Throwable) return throwable2String((Throwable) object);
+            if (object instanceof Bundle) return bundle2String((Bundle) object);
+            if (object instanceof Intent) return intent2String((Intent) object);
+            return object.toString();
+        }
+
+        static String object2Json(Object object) {
+            if (object instanceof CharSequence) {
+                return formatJson(object.toString());
             }
-            return json;
+            try {
+                return GSON.toJson(object);
+            } catch (Throwable t) {
+                return object.toString();
+            }
         }
 
         static String formatXml(String xml) {
@@ -801,7 +807,7 @@ public final class LogUtils {
                 StreamResult xmlOutput = new StreamResult(new StringWriter());
                 Transformer transformer = TransformerFactory.newInstance().newTransformer();
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-                transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+                transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
                 transformer.transform(xmlInput, xmlOutput);
                 xml = xmlOutput.getWriter().toString().replaceFirst(">", ">" + LINE_SEP);
             } catch (Exception e) {
@@ -810,7 +816,7 @@ public final class LogUtils {
             return xml;
         }
 
-        static String throwable2String(final Throwable e) {
+        private static String throwable2String(final Throwable e) {
             Throwable t = e;
             while (t != null) {
                 if (t instanceof UnknownHostException) {
@@ -830,7 +836,7 @@ public final class LogUtils {
             return sw.toString();
         }
 
-        static String bundle2String(Bundle bundle) {
+        private static String bundle2String(Bundle bundle) {
             Iterator<String> iterator = bundle.keySet().iterator();
             if (!iterator.hasNext()) {
                 return "Bundle {}";
@@ -851,7 +857,7 @@ public final class LogUtils {
             }
         }
 
-        static String intent2String(Intent intent) {
+        private static String intent2String(Intent intent) {
             StringBuilder sb = new StringBuilder(128);
             sb.append("Intent { ");
             boolean first = true;
@@ -961,8 +967,17 @@ public final class LogUtils {
             return sb.toString();
         }
 
-        static String object2String(Object object) {
-            return formatJson(GSON.toJson(object));
+        private static String formatJson(String json) {
+            try {
+                if (json.startsWith("{")) {
+                    json = new JSONObject(json).toString(2);
+                } else if (json.startsWith("[")) {
+                    json = new JSONArray(json).toString(2);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return json;
         }
 
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -1003,9 +1018,32 @@ public final class LogUtils {
             sb.append("NULL");
             sb.append("}");
         }
+
+        private static String array2String(Object object) {
+            if (object instanceof Object[]) {
+                return Arrays.deepToString((Object[]) object);
+            } else if (object instanceof boolean[]) {
+                return Arrays.toString((boolean[]) object);
+            } else if (object instanceof byte[]) {
+                return Arrays.toString((byte[]) object);
+            } else if (object instanceof char[]) {
+                return Arrays.toString((char[]) object);
+            } else if (object instanceof double[]) {
+                return Arrays.toString((double[]) object);
+            } else if (object instanceof float[]) {
+                return Arrays.toString((float[]) object);
+            } else if (object instanceof int[]) {
+                return Arrays.toString((int[]) object);
+            } else if (object instanceof long[]) {
+                return Arrays.toString((long[]) object);
+            } else if (object instanceof short[]) {
+                return Arrays.toString((short[]) object);
+            }
+            throw new IllegalArgumentException("Array has incompatible type: " + object.getClass());
+        }
     }
 
-    static <T> Class getTypeClassFromParadigm(final IFormatter<T> formatter) {
+    private static <T> Class getTypeClassFromParadigm(final IFormatter<T> formatter) {
         Type[] genericInterfaces = formatter.getClass().getGenericInterfaces();
         Type type;
         if (genericInterfaces.length == 1) {

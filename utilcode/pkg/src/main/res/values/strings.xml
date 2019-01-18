@@ -23,7 +23,7 @@
     <string name="demo_screen">ScreenUtils Demo</string>
     <string name="demo_sdcard">SDCardUtils Demo</string>
     <string name="demo_snackbar">Snackbar Demo</string>
-    <string name="demo_sp">SP Demo</string>
+    <string name="demo_spStatic">SPStatic Demo</string>
     <string name="demo_span">SpanUtils Demo</string>
     <string name="demo_toast">ToastUtils Demo</string>
     <string name="demo_vibrate">VibrateUtils Demo</string>
@@ -89,6 +89,7 @@
     <string name="bar_status_set_color">Set Color</string>
     <string name="bar_status_set_alpha">Set Alpha</string>
     <string name="bar_status_set_image_view">Set Image View</string>
+    <string name="bar_status_set_custom">Set Custom</string>
     <string name="bar_status_set_fragment">Set Fragment</string>
     <string name="bar_status_set_swipe_back">Set Swipe Back</string>
     <string name="bar_status_set_drawer">Set Drawer</string>
@@ -208,7 +209,6 @@
     <string name="log_intent">Log Intent</string>
     <string name="log_array_list">Log Array List</string>
     <string name="log_map">Log Map</string>
-    <string name="log_object">Log Object</string>
 
     <!--Permission 相关-->
     <string name="permission_open_app_settings">Open App Settings</string>

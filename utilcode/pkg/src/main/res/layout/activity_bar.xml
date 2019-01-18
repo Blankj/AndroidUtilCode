@@ -15,49 +15,56 @@
         android:text="@string/bar_about_status_bar" />
 
     <Button
-        android:id="@+id/btn_status_bar"
+        android:id="@+id/statusBarAboutBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/bar_status_about" />
 
     <Button
-        android:id="@+id/btn_status_bar_color"
+        android:id="@+id/statusBarSetColorBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/bar_status_set_color" />
 
     <Button
-        android:id="@+id/btn_status_bar_alpha"
+        android:id="@+id/statusBarSetAlphaBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/bar_status_set_alpha" />
 
     <Button
-        android:id="@+id/btn_status_bar_image_view"
+        android:id="@+id/statusBarSetImageViewBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/bar_status_set_image_view" />
 
     <Button
-        android:id="@+id/btn_status_bar_fragment"
+        android:id="@+id/statusBarSetCustomBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bar_status_set_custom" />
+
+    <Button
+        android:id="@+id/statusBarSetFragmentBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/bar_status_set_fragment" />
 
     <Button
-        android:id="@+id/btn_status_bar_swipe_back"
+        android:id="@+id/statusBarSetSwipeBackBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/bar_status_set_swipe_back" />
 
     <Button
-        android:id="@+id/btn_status_bar_drawer"
+        android:id="@+id/statusBarSetDrawerBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,7 +79,7 @@
         android:text="@string/bar_about_notification_bar" />
 
     <Button
-        android:id="@+id/btn_notification_bar"
+        android:id="@+id/notificationBarAboutBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -87,7 +94,7 @@
         android:text="@string/bar_about_nav_bar" />
 
     <Button
-        android:id="@+id/btn_nav_bar"
+        android:id="@+id/navBarAboutBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

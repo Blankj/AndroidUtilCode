@@ -11,7 +11,7 @@
         android:layout_height="2000dp">
 
         <LinearLayout
-            android:id="@+id/ll_container"
+            android:id="@+id/containerLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -51,7 +51,7 @@
             android:layout_width="360dp"
             android:layout_height="2000dp"
             android:layout_alignParentLeft="true"
-            android:layout_below="@id/ll_container"
+            android:layout_below="@id/containerLl"
             android:background="@color/colorAccentHalfTrans"
             android:gravity="center_horizontal"
             android:text="360dp" />
@@ -61,7 +61,7 @@
             android:layout_width="360dp"
             android:layout_height="2000dp"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/ll_container"
+            android:layout_below="@id/containerLl"
             android:background="@color/colorPrimaryHalfTrans"
             android:gravity="center_horizontal"
             android:text="360dp" />

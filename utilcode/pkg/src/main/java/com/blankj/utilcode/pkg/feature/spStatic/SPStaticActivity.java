@@ -1,4 +1,4 @@
-package com.blankj.utilcode.pkg.feature.sp;
+package com.blankj.utilcode.pkg.feature.spStatic;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.blankj.lib.base.BaseBackActivity;
 import com.blankj.utilcode.pkg.R;
-import com.blankj.utilcode.pkg.data.DataManager;
+import com.blankj.utilcode.util.SPStaticUtils;
+
+import java.util.Map;
 
 /**
  * <pre>
@@ -20,12 +22,12 @@ import com.blankj.utilcode.pkg.data.DataManager;
  *     desc  : demo about SPUtils
  * </pre>
  */
-public class SPActivity extends BaseBackActivity {
+public class SPStaticActivity extends BaseBackActivity {
 
     private TextView tvAboutSp;
 
     public static void start(Context context) {
-        Intent starter = new Intent(context, SPActivity.class);
+        Intent starter = new Intent(context, SPStaticActivity.class);
         context.startActivity(starter);
     }
 
@@ -59,28 +61,40 @@ public class SPActivity extends BaseBackActivity {
     public void onWidgetClick(@NonNull View view) {
         int i = view.getId();
         if (i == R.id.btn_sp_put_string) {
-            DataManager.putString();
+            SPStaticUtils.put("STRING", "string");
 
         } else if (i == R.id.btn_sp_put_int) {
-            DataManager.putInt();
+            SPStaticUtils.put("INT", 21);
 
         } else if (i == R.id.btn_sp_put_long) {
-            DataManager.putLong();
+            SPStaticUtils.put("LONG", Long.MAX_VALUE);
 
         } else if (i == R.id.btn_sp_put_float) {
-            DataManager.putFloat();
+            SPStaticUtils.put("FLOAT", (float) Math.PI);
 
         } else if (i == R.id.btn_sp_put_boolean) {
-            DataManager.putBoolean();
+            SPStaticUtils.put("BOOLEAN", true);
 
         } else if (i == R.id.btn_sp_clear) {
-            DataManager.clear();
+            SPStaticUtils.clear();
 
         }
         updateAboutSp();
     }
 
     private void updateAboutSp() {
-        tvAboutSp.setText(DataManager.sp2String());
+        tvAboutSp.setText(sp2String());
+    }
+
+    public static String sp2String() {
+        StringBuilder sb = new StringBuilder();
+        Map<String, ?> map = SPStaticUtils.getAll();
+        for (Map.Entry<String, ?> entry : map.entrySet()) {
+            sb.append(entry.getKey())
+                    .append(": ")
+                    .append(entry.getValue())
+                    .append("\n");
+        }
+        return sb.toString();
     }
 }

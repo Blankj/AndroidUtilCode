@@ -9,7 +9,7 @@
 
     <TextView
         android:background="@color/light_black"
-        android:id="@+id/tv_about_anim_span"
+        android:id="@+id/aboutAnimSpanTv"
         style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
         android:layerType="software" />
 
     <TextView
-        android:id="@+id/tv_about_span"
+        android:id="@+id/aboutSpanTv"
         style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

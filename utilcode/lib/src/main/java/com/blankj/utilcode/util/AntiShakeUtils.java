@@ -12,7 +12,7 @@ import android.view.View;
  *     desc  : utils about anti shake
  * </pre>
  */
-public class AntiShakeUtils {
+public final class AntiShakeUtils {
 
     private static final long DEFAULT_DURATION = 200;
     private static final int  TAG_KEY          = 0x7EFFFFFF;
@@ -28,9 +28,13 @@ public class AntiShakeUtils {
     public static boolean isValid(@NonNull View view, @IntRange(from = 0) long duration) {
         long curTime = System.currentTimeMillis();
         Object tag = view.getTag(TAG_KEY);
-        view.setTag(TAG_KEY, curTime);
-        if (!(tag instanceof Long)) return true;
+        if (!(tag instanceof Long)) {
+            view.setTag(TAG_KEY, curTime);
+            return true;
+        }
         long preTime = (Long) tag;
-        return curTime - preTime > duration;
+        if (curTime - preTime <= duration) return false;
+        view.setTag(TAG_KEY, curTime);
+        return true;
     }
 }

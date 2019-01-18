@@ -3,12 +3,12 @@ package com.blankj.utilcode.util;
 import android.content.Context;
 import android.os.Environment;
 import android.os.storage.StorageManager;
+import android.os.storage.StorageVolume;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -47,75 +47,98 @@ public final class SDCardUtils {
     }
 
     /**
-     * Return whether sdcard is enabled.
+     * Return the information of sdcard.
      *
-     * @return {@code true}: enabled<br>{@code false}: disabled
+     * @return the information of sdcard
      */
-    public static boolean isSDCardEnable() {
-        return !getSDCardPaths().isEmpty();
-    }
-
-    /**
-     * Return the paths of sdcard.
-     *
-     * @param removable True to return the paths of removable sdcard, false otherwise.
-     * @return the paths of sdcard
-     */
-    public static List<String> getSDCardPaths(final boolean removable) {
-        List<String> paths = new ArrayList<>();
+    public static List<SDCardInfo> getSDCardInfo() {
+        List<SDCardInfo> paths = new ArrayList<>();
         StorageManager sm =
                 (StorageManager) Utils.getApp().getSystemService(Context.STORAGE_SERVICE);
-        try {
-            Class<?> storageVolumeClazz = Class.forName("android.os.storage.StorageVolume");
-            //noinspection JavaReflectionMemberAccess
-            Method getVolumeList = StorageManager.class.getMethod("getVolumeList");
-            //noinspection JavaReflectionMemberAccess
-            Method getPath = storageVolumeClazz.getMethod("getPath");
-            Method isRemovable = storageVolumeClazz.getMethod("isRemovable");
-            Object result = getVolumeList.invoke(sm);
-            final int length = Array.getLength(result);
-            for (int i = 0; i < length; i++) {
-                Object storageVolumeElement = Array.get(result, i);
-                String path = (String) getPath.invoke(storageVolumeElement);
-                boolean res = (Boolean) isRemovable.invoke(storageVolumeElement);
-                if (removable == res) {
-                    paths.add(path);
+        if (sm == null) return paths;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            List<StorageVolume> storageVolumes = sm.getStorageVolumes();
+            try {
+                //noinspection JavaReflectionMemberAccess
+                Method getPathMethod = StorageVolume.class.getMethod("getPath");
+                for (StorageVolume storageVolume : storageVolumes) {
+                    boolean isRemovable = storageVolume.isRemovable();
+                    String state = storageVolume.getState();
+                    String path = (String) getPathMethod.invoke(storageVolume);
+                    paths.add(new SDCardInfo(path, state, isRemovable));
                 }
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            return paths;
+
+        } else {
+            try {
+                Class<?> storageVolumeClazz = Class.forName("android.os.storage.StorageVolume");
+                //noinspection JavaReflectionMemberAccess
+                Method getPathMethod = storageVolumeClazz.getMethod("getPath");
+                Method isRemovableMethod = storageVolumeClazz.getMethod("isRemovable");
+                //noinspection JavaReflectionMemberAccess
+                Method getVolumeStateMethod = StorageManager.class.getMethod("getVolumeState", String.class);
+                //noinspection JavaReflectionMemberAccess
+                Method getVolumeListMethod = StorageManager.class.getMethod("getVolumeList");
+                Object result = getVolumeListMethod.invoke(sm);
+                final int length = Array.getLength(result);
+                for (int i = 0; i < length; i++) {
+                    Object storageVolumeElement = Array.get(result, i);
+                    String path = (String) getPathMethod.invoke(storageVolumeElement);
+                    boolean isRemovable = (Boolean) isRemovableMethod.invoke(storageVolumeElement);
+                    String state = (String) getVolumeStateMethod.invoke(sm, path);
+                    paths.add(new SDCardInfo(path, state, isRemovable));
+                }
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            return paths;
         }
-        return paths;
     }
 
-    /**
-     * Return the paths of sdcard.
-     *
-     * @return the paths of sdcard
-     */
-    public static List<String> getSDCardPaths() {
-        StorageManager storageManager = (StorageManager) Utils.getApp()
-                .getSystemService(Context.STORAGE_SERVICE);
-        List<String> paths = new ArrayList<>();
-        try {
-            //noinspection JavaReflectionMemberAccess
-            Method getVolumePathsMethod = StorageManager.class.getMethod("getVolumePaths");
-            getVolumePathsMethod.setAccessible(true);
-            Object invoke = getVolumePathsMethod.invoke(storageManager);
-            paths = Arrays.asList((String[]) invoke);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+    public static class SDCardInfo {
+
+        private String  path;
+        private String  state;
+        private boolean isRemovable;
+
+        SDCardInfo(String path, String state, boolean isRemovable) {
+            this.path = path;
+            this.state = state;
+            this.isRemovable = isRemovable;
         }
-        return paths;
+
+        public String getPath() {
+            return path;
+        }
+
+        public String getState() {
+            return state;
+        }
+
+        public boolean isRemovable() {
+            return isRemovable;
+        }
+
+        @Override
+        public String toString() {
+            return "SDCardInfo {" +
+                    "path = " + path +
+                    ", state = " + state +
+                    ", isRemovable = " + isRemovable +
+                    '}';
+        }
     }
 }

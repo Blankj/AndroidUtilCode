@@ -1533,7 +1533,10 @@ public final class ImageUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isImage(final File file) {
-        return file != null && isImage(file.getPath());
+        if (file == null || !file.exists()) {
+            return false;
+        }
+        return isImage(file.getPath());
     }
 
     /**
@@ -1543,10 +1546,14 @@ public final class ImageUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isImage(final String filePath) {
-        String path = filePath.toUpperCase();
-        return path.endsWith(".PNG") || path.endsWith(".JPG")
-                || path.endsWith(".JPEG") || path.endsWith(".BMP")
-                || path.endsWith(".GIF") || path.endsWith(".WEBP");
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        try {
+            Bitmap bitmap = BitmapFactory.decodeFile(filePath, options);
+            return options.outWidth != -1 && options.outHeight != -1;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**

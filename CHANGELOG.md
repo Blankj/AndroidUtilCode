@@ -1,3 +1,8 @@
+* `19/01/17` [fix] Publish v1.23.0.
+* `19/01/16` [fix] BarUtils get Activity from view and delete the function of set status bar alpha.
+* `19/01/15` [add] ColorUtils.
+* `19/01/04` [add] CacheDiskStaticUtils, CacheDoubleStaticUtils, CacheMemoryStaticUtils.
+* `19/01/03` [add] SPStaticUtils.
 * `19/01/02` [fix] LogUtils log object. Publish v1.22.10.
 * `19/01/01` [add] GsonUtils.
 * `18/12/29` [add] AntiShakeUtils and VibrateUtils. Publish v1.22.9.

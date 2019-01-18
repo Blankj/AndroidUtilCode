@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.View
 import android.widget.ImageView
-import com.blankj.launcher.pkg.R
 import com.blankj.lib.base.BaseDrawerActivity
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.BarUtils
@@ -44,7 +43,7 @@ class MainActivity : BaseDrawerActivity() {
         mDrawerRootLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        BarUtils.setStatusBarAlpha4Drawer(this, mDrawerRootLayout, launcherMainFakeStatusBar, 0, false)
+        BarUtils.setStatusBarColor4Drawer(mDrawerRootLayout, launcherMainFakeStatusBar, Color.TRANSPARENT, false)
         BarUtils.addMarginTopEqualStatusBarHeight(launcherMainToolbar)
 
         launcherMainCoreUtilBtn.setOnClickListener {

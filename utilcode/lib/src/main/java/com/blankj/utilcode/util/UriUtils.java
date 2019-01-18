@@ -7,16 +7,13 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.os.ParcelFileDescriptor;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import java.io.File;
-import java.io.FileDescriptor;
 
 /**
  * <pre>
@@ -63,7 +60,7 @@ public final class UriUtils {
             Log.d("UriUtils", uri.toString() + " parse failed. -> 0");
             return null;
         } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
-            return getFileFromUri(uri, null, null);
+            return getFileFromUri(uri);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
                 && DocumentsContract.isDocumentUri(Utils.getApp(), uri)) {
             if ("com.android.externalstorage.documents".equals(authority)) {
@@ -81,7 +78,7 @@ public final class UriUtils {
                         Uri.parse("content://downloads/public_downloads"),
                         Long.valueOf(id)
                 );
-                return getFileFromUri(contentUri, null, null);
+                return getFileFromUri(contentUri);
             } else if ("com.android.providers.media.documents".equals(authority)) {
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
@@ -110,11 +107,11 @@ public final class UriUtils {
         }
     }
 
-    private static File getFileFromUri(@NonNull final Uri uri) {
+    private static File getFileFromUri(final Uri uri) {
         return getFileFromUri(uri, null, null);
     }
 
-    private static File getFileFromUri(@NonNull final Uri uri,
+    private static File getFileFromUri(final Uri uri,
                                        final String selection,
                                        final String[] selectionArgs) {
         CursorLoader cl = new CursorLoader(Utils.getApp());

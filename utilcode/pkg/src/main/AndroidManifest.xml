@@ -65,19 +65,22 @@
             android:name=".feature.bar.BarActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.bar.BarStatusActivity"
+            android:name=".feature.bar.BarNavActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.bar.BarNotificationActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.bar.BarNavActivity"
+            android:name=".feature.bar.BarStatusActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.bar.BarStatusAlphaActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.bar.BarStatusColorActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.bar.BarStatusCustomActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.bar.BarStatusDrawerActivity"
@@ -153,7 +156,7 @@
             android:name=".feature.snackbar.SnackbarActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.sp.SPActivity"
+            android:name=".feature.spStatic.SPStaticActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.span.SpanActivity"

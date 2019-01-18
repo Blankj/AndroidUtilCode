@@ -7,6 +7,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
@@ -46,12 +47,18 @@ public class CacheDiskUtilsTest extends BaseTest {
     private static final Bitmap           BITMAP            = Bitmap.createBitmap(100, 100, Bitmap.Config.RGB_565);
     private static final Drawable         DRAWABLE          = new BitmapDrawable(Utils.getApp().getResources(), BITMAP);
 
-    @Before
-    public void setUp() throws Exception {
-        JSON_OBJECT.put("class", "CacheDiskUtils");
-        JSON_OBJECT.put("author", "Blankj");
-        JSON_ARRAY.put(0, JSON_OBJECT);
+    static {
+        try {
+            JSON_OBJECT.put("class", "CacheDiskUtils");
+            JSON_OBJECT.put("author", "Blankj");
+            JSON_ARRAY.put(0, JSON_OBJECT);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
+    @Before
+    public void setUp() {
         CACHE_DISK_UTILS1.put("bytes1", BYTES, 60 * CacheDiskUtils.SEC);
         CACHE_DISK_UTILS1.put("string1", STRING, 60 * CacheDiskUtils.MIN);
         CACHE_DISK_UTILS1.put("jsonObject1", JSON_OBJECT, 24 * CacheDiskUtils.HOUR);

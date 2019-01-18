@@ -6,9 +6,9 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * <pre>
@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @SuppressLint("ApplySharedPref")
 public final class SPUtils {
 
-    private static final Map<String, SPUtils> SP_UTILS_MAP = new ConcurrentHashMap<>();
+    private static final Map<String, SPUtils> SP_UTILS_MAP = new HashMap<>();
     private              SharedPreferences    sp;
 
     /**
@@ -64,8 +64,13 @@ public final class SPUtils {
         if (isSpace(spName)) spName = "spUtils";
         SPUtils spUtils = SP_UTILS_MAP.get(spName);
         if (spUtils == null) {
-            spUtils = new SPUtils(spName, mode);
-            SP_UTILS_MAP.put(spName, spUtils);
+            synchronized (SPUtils.class) {
+                spUtils = SP_UTILS_MAP.get(spName);
+                if (spUtils == null) {
+                    spUtils = new SPUtils(spName, mode);
+                    SP_UTILS_MAP.put(spName, spUtils);
+                }
+            }
         }
         return spUtils;
     }

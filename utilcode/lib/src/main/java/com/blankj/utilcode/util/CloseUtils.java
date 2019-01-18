@@ -20,7 +20,7 @@ public final class CloseUtils {
     /**
      * Close the io stream.
      *
-     * @param closeables closeables
+     * @param closeables The closeables.
      */
     public static void closeIO(final Closeable... closeables) {
         if (closeables == null) return;
@@ -38,7 +38,7 @@ public final class CloseUtils {
     /**
      * Close the io stream quietly.
      *
-     * @param closeables closeables
+     * @param closeables The closeables.
      */
     public static void closeIOQuietly(final Closeable... closeables) {
         if (closeables == null) return;

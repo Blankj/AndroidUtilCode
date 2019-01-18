@@ -8,7 +8,6 @@ import android.support.annotation.StringDef;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.Arrays;
 
 
 /**
@@ -52,9 +51,11 @@ public final class PermissionConstants {
             permission.READ_CALL_LOG, permission.WRITE_CALL_LOG, permission.ADD_VOICEMAIL,
             permission.USE_SIP, permission.PROCESS_OUTGOING_CALLS, permission.ANSWER_PHONE_CALLS
     };
-    private static final String[] GROUP_PHONE_BELOW_O = Arrays.copyOf(
-            GROUP_PHONE, GROUP_PHONE.length - 1
-    );
+    private static final String[] GROUP_PHONE_BELOW_O = {
+            permission.READ_PHONE_STATE, permission.READ_PHONE_NUMBERS, permission.CALL_PHONE,
+            permission.READ_CALL_LOG, permission.WRITE_CALL_LOG, permission.ADD_VOICEMAIL,
+            permission.USE_SIP, permission.PROCESS_OUTGOING_CALLS
+    };
     private static final String[] GROUP_SENSORS       = {
             permission.BODY_SENSORS
     };

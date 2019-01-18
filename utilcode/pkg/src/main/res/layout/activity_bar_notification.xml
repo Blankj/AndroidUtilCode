@@ -8,7 +8,7 @@
     android:padding="@dimen/spacing_16">
 
     <Button
-        android:id="@+id/btn_show_notification"
+        android:id="@+id/showNotificationBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

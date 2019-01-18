@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ll_container"
+    android:id="@+id/containerLl"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -9,7 +9,7 @@
     android:orientation="vertical">
 
     <CheckBox
-        android:id="@+id/cb_alpha"
+        android:id="@+id/alphaCb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -17,14 +17,14 @@
         android:text="@string/bar_status_title_alpha" />
 
     <TextView
-        android:id="@+id/tv_status_alpha"
+        android:id="@+id/statusAboutTv"
         style="@style/TextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />
 
     <SeekBar
-        android:id="@+id/sb_change_alpha"
+        android:id="@+id/changeAlphaSb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/spacing_16"
@@ -34,7 +34,7 @@
         android:progress="112" />
 
     <Button
-        android:id="@+id/btn_random_color"
+        android:id="@+id/randomColorBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
         android:text="@string/bar_status_random_color" />
 
     <Button
-        android:id="@+id/btn_set_transparent"
+        android:id="@+id/setTransparentBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

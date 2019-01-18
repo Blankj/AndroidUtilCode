@@ -291,13 +291,23 @@ public final class ZipUtils {
             if (isSpace(keyword)) {
                 while (entries.hasMoreElements()) {
                     ZipEntry entry = ((ZipEntry) entries.nextElement());
-                    if (!unzipChildFile(destDir, files, zip, entry)) return files;
+                    String entryName = entry.getName();
+                    if (entryName.contains("../")) {
+                        System.err.println("entryName: " + entryName + " is dangerous!");
+                        continue;
+                    }
+                    if (!unzipChildFile(destDir, files, zip, entry, entryName)) return files;
                 }
             } else {
                 while (entries.hasMoreElements()) {
                     ZipEntry entry = ((ZipEntry) entries.nextElement());
-                    if (entry.getName().contains(keyword)) {
-                        if (!unzipChildFile(destDir, files, zip, entry)) return files;
+                    String entryName = entry.getName();
+                    if (entryName.contains("../")) {
+                        System.out.println("entryName: " + entryName + " is dangerous!");
+                        continue;
+                    }
+                    if (entryName.contains(keyword)) {
+                        if (!unzipChildFile(destDir, files, zip, entry, entryName)) return files;
                     }
                 }
             }
@@ -310,8 +320,9 @@ public final class ZipUtils {
     private static boolean unzipChildFile(final File destDir,
                                           final List<File> files,
                                           final ZipFile zip,
-                                          final ZipEntry entry) throws IOException {
-        File file = new File(destDir, entry.getName());
+                                          final ZipEntry entry,
+                                          final String name) throws IOException {
+        File file = new File(destDir, name);
         files.add(file);
         if (entry.isDirectory()) {
             return createOrExistsDir(file);
@@ -365,7 +376,13 @@ public final class ZipUtils {
         ZipFile zip = new ZipFile(zipFile);
         Enumeration<?> entries = zip.entries();
         while (entries.hasMoreElements()) {
-            paths.add(((ZipEntry) entries.nextElement()).getName());
+            String entryName = ((ZipEntry) entries.nextElement()).getName();
+            if (entryName.contains("../")) {
+                System.out.println("entryName: " + entryName + " is dangerous!");
+                paths.add(entryName);
+            } else {
+                paths.add(entryName);
+            }
         }
         zip.close();
         return paths;

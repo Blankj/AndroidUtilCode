@@ -1,10 +1,12 @@
 package com.blankj.utilcode.util;
 
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowLog;
 
 /**
  * <pre>
@@ -15,15 +17,19 @@ import org.robolectric.annotation.Config;
  * </pre>
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE)
+@Config(manifest = Config.NONE, shadows = {ShadowLog.class})
 public class BaseTest {
 
     public BaseTest() {
+        ShadowLog.stream = System.out;
+        ReflectUtils.reflect("com.blankj.utilcode.util.ThreadUtils$Deliver")
+                .field("MAIN_HANDLER", null);
         Utils.init(RuntimeEnvironment.application);
     }
 
     @Test
     public void test() throws Exception {
+
 
 //        final CountDownLatch countDownLatch = new CountDownLatch(1);
 //        final Scanner scanner = new Scanner(System.in);
@@ -111,5 +117,28 @@ public class BaseTest {
 //        ThreadUtils.cancel(task);
 //        countDownLatch.await();
 
+    }
+
+    static class Person {
+
+        String name;
+        int    gender;
+        String address;
+
+        public Person(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) return true;
+            if (!(obj instanceof Person)) return false;
+            Person p = (Person) obj;
+            return equals(name, p.name) && p.gender == gender && equals(address, p.address);
+        }
+
+        private static boolean equals(final Object o1, final Object o2) {
+            return o1 == o2 || (o1 != null && o1.equals(o2));
+        }
     }
 }
