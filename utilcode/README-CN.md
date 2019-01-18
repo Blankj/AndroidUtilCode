@@ -385,13 +385,14 @@ setBackground         : 设置背景
 
 * ### Gson 相关 -> [GsonUtils.java][gson.java] -> [Test][gson.test]
 ```
-getGson          : 获取 Gson 对象
-toJson           : 对象转 Json 串
-fromJson         : Json 串转对象
-getCollectionType: 获取集合类型
-getMapType       : 获取字典类型
-getArrayType     : 获取数组类型
-getType          : 获取类型
+getGson     : 获取 Gson 对象
+toJson      : 对象转 Json 串
+fromJson    : Json 串转对象
+getListType : 获取链表类型
+getSetType  : 获取集合类型
+getMapType  : 获取字典类型
+getArrayType: 获取数组类型
+getType     : 获取类型
 ```
 
 * ### 图片相关 -> [ImageUtils.java][image.java] -> [Demo][image.demo]

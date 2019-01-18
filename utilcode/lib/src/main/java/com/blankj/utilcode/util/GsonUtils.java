@@ -6,8 +6,9 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.Reader;
 import java.lang.reflect.Type;
-import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -114,13 +115,23 @@ public final class GsonUtils {
     }
 
     /**
-     * Return the type of collection with the {@code type}.
+     * Return the type of {@link List} with the {@code type}.
      *
      * @param type The type.
-     * @return the type of collection with the {@code type}
+     * @return the type of {@link List} with the {@code type}
      */
-    public static Type getCollectionType(final Type type) {
-        return TypeToken.getParameterized(Collection.class, type).getType();
+    public static Type getListType(final Type type) {
+        return TypeToken.getParameterized(List.class, type).getType();
+    }
+
+    /**
+     * Return the type of {@link Set} with the {@code type}.
+     *
+     * @param type The type.
+     * @return the type of {@link Set} with the {@code type}
+     */
+    public static Type getSetType(final Type type) {
+        return TypeToken.getParameterized(Set.class, type).getType();
     }
 
     /**

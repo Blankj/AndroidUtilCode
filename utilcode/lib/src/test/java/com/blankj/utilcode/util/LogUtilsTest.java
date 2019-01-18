@@ -166,7 +166,7 @@ public class LogUtilsTest extends BaseTest {
         LogUtils.d((Object) TWO_D_ARRAY);
         LogUtils.d(LIST);
         LogUtils.d(MAP);
-        Object o = GsonUtils.fromJson(GsonUtils.toJson(LIST), GsonUtils.getCollectionType(String.class));
+        Object o = GsonUtils.fromJson(GsonUtils.toJson(LIST), GsonUtils.getListType(String.class));
         System.out.println(o);
 
 

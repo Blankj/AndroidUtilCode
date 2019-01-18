@@ -11,48 +11,48 @@
     android:paddingTop="@dimen/spacing_16">
 
     <TextView
-        android:id="@+id/tv_about_sp"
+        android:id="@+id/aboutSpTv"
         style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/btn_sp_put_string"
+        android:id="@+id/spPutStringBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sp_put_string" />
 
     <Button
-        android:id="@+id/btn_sp_put_int"
+        android:id="@+id/spPutIntBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sp_put_int" />
 
     <Button
-        android:id="@+id/btn_sp_put_long"
+        android:id="@+id/spPutLongBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sp_put_long" />
 
     <Button
-        android:id="@+id/btn_sp_put_float"
+        android:id="@+id/spPutFloatBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sp_put_float" />
 
     <Button
-        android:id="@+id/btn_sp_put_boolean"
+        android:id="@+id/spPutBooleanBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sp_put_boolean" />
 
     <Button
-        android:id="@+id/btn_sp_clear"
+        android:id="@+id/spClearBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

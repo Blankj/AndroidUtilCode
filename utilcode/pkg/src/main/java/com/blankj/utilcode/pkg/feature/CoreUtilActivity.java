@@ -170,7 +170,7 @@ public class CoreUtilActivity extends BaseBackActivity {
     }
 
     public void spStaticClick(View view) {
-        SPStaticActivity.start(this);
+        SPStaticActivity.Companion.start(this);
     }
 
     public void spannableClick(View view) {
