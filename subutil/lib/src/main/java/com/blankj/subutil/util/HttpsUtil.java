@@ -13,13 +13,13 @@ import java.util.Scanner;
 public class HttpsUtil {
 
     private static final int CONNECT_TIMEOUT_TIME = 15000;
-    private static final int READ_TIMEOUT_TIME = 19000;
+    private static final int READ_TIMEOUT_TIME    = 19000;
 
     /**
      * POST + JSON
      *
      * @param data send data
-     * @param url target url
+     * @param url  target url
      * @return data receive from server
      * @author MilkZS
      */
@@ -31,7 +31,7 @@ public class HttpsUtil {
      * POST + FORM
      *
      * @param data send data
-     * @param url target url
+     * @param url  target url
      * @return data receive from serv
      * @author MilkZS
      */
@@ -43,7 +43,7 @@ public class HttpsUtil {
      * GET + JSON
      *
      * @param data send data
-     * @param url target url
+     * @param url  target url
      * @return data receive from server
      * @author MilkZS
      */
@@ -55,7 +55,7 @@ public class HttpsUtil {
      * GET + FORM
      *
      * @param data send data
-     * @param url target url
+     * @param url  target url
      * @return data receive from server
      * @author MilkZS
      */
