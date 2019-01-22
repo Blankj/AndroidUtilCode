@@ -53,7 +53,7 @@ public class PermissionHelper {
                 .rationale(new PermissionUtils.OnRationaleListener() {
                     @Override
                     public void rationale(ShouldRequest shouldRequest) {
-                        DialogHelper.showRationaleDialog(shouldRequest);
+                        DialogHelper.INSTANCE.showRationaleDialog(shouldRequest);
                     }
                 })
                 .callback(new PermissionUtils.FullCallback() {
@@ -68,7 +68,7 @@ public class PermissionHelper {
                     @Override
                     public void onDenied(List<String> permissionsDeniedForever, List<String> permissionsDenied) {
                         if (!permissionsDeniedForever.isEmpty()) {
-                            DialogHelper.showOpenAppSettingDialog();
+                            DialogHelper.INSTANCE.showOpenAppSettingDialog();
                         }
                         if (deniedListener != null) {
                             deniedListener.onPermissionDenied();

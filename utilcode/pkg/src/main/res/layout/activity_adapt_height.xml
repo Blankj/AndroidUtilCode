@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
         <FrameLayout
-            android:id="@+id/heightFl0"
+            android:id="@+id/adaptScreenHeightFl0"
             android:layout_width="360pt"
             android:layout_height="match_parent"
             android:background="@color/colorPrimaryOrigin">
@@ -39,13 +39,13 @@
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/heightFl1"
+            android:id="@+id/adaptScreenHeightFl1"
             android:layout_width="360pt"
             android:layout_height="1920pt"
-            app:layout_constraintLeft_toRightOf="@id/heightFl0">
+            app:layout_constraintLeft_toRightOf="@id/adaptScreenHeightFl0">
 
             <WebView
-                android:id="@+id/heightVebView"
+                android:id="@+id/adaptScreenHeightWebView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -63,7 +63,7 @@
             android:layout_width="360pt"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layout_constraintLeft_toRightOf="@id/heightFl1">
+            app:layout_constraintLeft_toRightOf="@id/adaptScreenHeightFl1">
 
             <TextView
                 android:layout_width="match_parent"

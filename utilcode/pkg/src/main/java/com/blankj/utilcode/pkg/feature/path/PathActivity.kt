@@ -1,49 +1,44 @@
-package com.blankj.utilcode.pkg.feature.path;
+package com.blankj.utilcode.pkg.feature.path
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.view.View;
-import android.widget.TextView;
-
-import com.blankj.lib.base.BaseBackActivity;
-import com.blankj.utilcode.pkg.R;
-import com.blankj.utilcode.util.PathUtils;
-import com.blankj.utilcode.util.SpanUtils;
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.view.View
+import com.blankj.lib.base.BaseBackActivity
+import com.blankj.utilcode.pkg.R
+import com.blankj.utilcode.util.PathUtils
+import com.blankj.utilcode.util.SpanUtils
+import kotlinx.android.synthetic.main.activity_path.*
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/10/13
- *     desc  : demo about PathUtils
- * </pre>
+ * ```
+ * author: Blankj
+ * blog  : http://blankj.com
+ * time  : 2016/10/13
+ * desc  : demo about PathUtils
+ * ```
  */
-public class PathActivity extends BaseBackActivity {
+class PathActivity : BaseBackActivity() {
 
-    public static void start(Context context) {
-        Intent starter = new Intent(context, PathActivity.class);
-        context.startActivity(starter);
+    companion object {
+        fun start(context: Context) {
+            val starter = Intent(context, PathActivity::class.java)
+            context.startActivity(starter)
+        }
     }
 
-    @Override
-    public void initData(@Nullable Bundle bundle) {
+    override fun initData(bundle: Bundle?) {
 
     }
 
-    @Override
-    public int bindLayout() {
-        return R.layout.activity_path;
+    override fun bindLayout(): Int {
+        return R.layout.activity_path
     }
 
-    @Override
-    public void initView(Bundle savedInstanceState, @NonNull View contentView) {
-        setTitle(R.string.demo_path);
+    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+        setTitle(R.string.demo_path)
 
-        TextView tvAboutMetaData = findViewById(R.id.tv_about_path);
-        tvAboutMetaData.setText(new SpanUtils()
+        SpanUtils.with(aboutPathTv)
                 .appendLine("getRootPath: " + PathUtils.getRootPath())
                 .appendLine("getDataPath: " + PathUtils.getDataPath())
                 .appendLine("getDownloadCachePath: " + PathUtils.getDownloadCachePath())
@@ -83,17 +78,14 @@ public class PathActivity extends BaseBackActivity {
                 .appendLine("getExternalAppDcimPath: " + PathUtils.getExternalAppDcimPath())
                 .appendLine("getExternalAppDocumentsPath: " + PathUtils.getExternalAppDocumentsPath())
                 .appendLine("getExternalAppObbPath: " + PathUtils.getExternalAppObbPath())
-                .append("")
-                .create());
+                .create()
     }
 
-    @Override
-    public void doBusiness() {
+    override fun doBusiness() {
 
     }
 
-    @Override
-    public void onWidgetClick(@NonNull View view) {
+    override fun onWidgetClick(view: View) {
 
     }
 }

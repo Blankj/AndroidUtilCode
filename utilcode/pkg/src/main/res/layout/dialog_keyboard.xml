@@ -11,35 +11,35 @@
         android:padding="@dimen/spacing_16">
 
         <Button
-            android:id="@+id/btn_hide_soft_input"
+            android:id="@+id/keyboardDialogHideSoftInputBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/keyboard_hide_soft_input" />
 
         <Button
-            android:id="@+id/btn_show_soft_input"
+            android:id="@+id/keyboardDialogShowSoftInputBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/keyboard_show_soft_input" />
 
         <Button
-            android:id="@+id/btn_toggle_soft_input"
+            android:id="@+id/keyboardDialogToggleSoftInputBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/keyboard_toggle_soft_input" />
 
         <Button
-            android:id="@+id/btn_close_dialog"
+            android:id="@+id/keyboardDialogCloseBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/keyboard_close_dialog" />
 
         <EditText
-            android:id="@+id/et_input"
+            android:id="@+id/inputEt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="text" />

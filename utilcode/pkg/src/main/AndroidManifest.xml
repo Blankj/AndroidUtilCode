@@ -95,13 +95,6 @@
             android:name=".feature.bar.BarStatusSwipeBackActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.blur.BlurActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".feature.blur.TransparentActivity"
-            android:launchMode="singleTop"
-            android:theme="@style/ActivityTranslucent" />
-        <activity
             android:name=".feature.clean.CleanActivity"
             android:launchMode="singleTop" />
         <activity

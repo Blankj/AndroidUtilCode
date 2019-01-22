@@ -11,45 +11,45 @@
         android:padding="@dimen/spacing_16">
 
         <TextView
-            android:id="@+id/tv_about_keyboard"
+            android:id="@+id/aboutKeyboardTv"
             style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/btn_hide_soft_input"
+            android:id="@+id/keyboardHideSoftInputBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_about_keyboard"
+            android:layout_below="@id/aboutKeyboardTv"
             android:text="@string/keyboard_hide_soft_input" />
 
         <Button
-            android:id="@+id/btn_show_soft_input"
+            android:id="@+id/keyboardShowSoftInputBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btn_hide_soft_input"
+            android:layout_below="@id/keyboardHideSoftInputBtn"
             android:text="@string/keyboard_show_soft_input" />
 
         <Button
-            android:id="@+id/btn_toggle_soft_input"
+            android:id="@+id/keyboardToggleSoftInputBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btn_show_soft_input"
+            android:layout_below="@id/keyboardShowSoftInputBtn"
             android:text="@string/keyboard_toggle_soft_input" />
 
         <Button
-            android:id="@+id/btn_keyboard_in_fragment"
+            android:id="@+id/keyboardInFragmentBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btn_toggle_soft_input"
+            android:layout_below="@id/keyboardToggleSoftInputBtn"
             android:text="@string/keyboard_show_dialog" />
 
         <EditText
-            android:id="@+id/et_input"
+            android:id="@+id/inputEt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"

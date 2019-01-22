@@ -61,10 +61,10 @@ public class ResourceActivity extends BaseBackActivity {
     public void onWidgetClick(@NonNull View view) {
         int i = view.getId();
         if (i == R.id.btn_resource_test_assets) {
-            ResourceUtils.copyFileFromAssets("test", Config.CACHE_PATH + "/assets/test");
+            ResourceUtils.copyFileFromAssets("test", Config.INSTANCE.getCACHE_PATH() + "/assets/test");
 
         } else if (i == R.id.btn_resource_test_raw) {
-            ResourceUtils.copyFileFromRaw(R.raw.test, Config.CACHE_PATH + "/raw/test.txt");
+            ResourceUtils.copyFileFromRaw(R.raw.test, Config.INSTANCE.getCACHE_PATH() + "/raw/test.txt");
 
         }
     }

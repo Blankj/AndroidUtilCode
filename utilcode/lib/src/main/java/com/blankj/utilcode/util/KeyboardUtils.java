@@ -50,24 +50,15 @@ public final class KeyboardUtils {
      * Show the soft input.
      *
      * @param activity The activity.
+     * @param flags    Provides additional operating flags.  Currently may be
+     *                 0 or have the {@link InputMethodManager#SHOW_IMPLICIT} bit set.
      */
     public static void showSoftInput(final Activity activity, final int flags) {
-        InputMethodManager imm =
-                (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        if (imm == null) return;
         View view = activity.getCurrentFocus();
         if (view == null) {
             view = new View(activity);
-            view.setFocusable(true);
-            view.setFocusableInTouchMode(true);
-            view.requestFocus();
         }
-        imm.showSoftInput(view, flags, new ResultReceiver(new Handler()) {
-            @Override
-            protected void onReceiveResult(int resultCode, Bundle resultData) {
-                LogUtils.e(resultCode);
-            }
-        });
+        showSoftInput(view, flags);
     }
 
     /**
@@ -82,26 +73,26 @@ public final class KeyboardUtils {
     /**
      * Show the soft input.
      *
-     * @param view The view.
+     * @param view  The view.
+     * @param flags Provides additional operating flags.  Currently may be
+     *              0 or have the {@link InputMethodManager#SHOW_IMPLICIT} bit set.
      */
     public static void showSoftInput(final View view, final int flags) {
         InputMethodManager imm =
                 (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm == null) return;
         view.setFocusable(true);
         view.setFocusableInTouchMode(true);
         view.requestFocus();
-        //noinspection ConstantConditions
-        imm.showSoftInput(view, flags);
-    }
-
-    /**
-     * Show the soft input using toggle.
-     *
-     * @param activity The activity.
-     */
-    public static void showSoftInputUsingToggle(final Activity activity) {
-        if (isSoftInputVisible(activity)) return;
-        toggleSoftInput();
+        imm.showSoftInput(view, flags, new ResultReceiver(new Handler()) {
+            @Override
+            protected void onReceiveResult(int resultCode, Bundle resultData) {
+                if (resultCode == InputMethodManager.RESULT_UNCHANGED_HIDDEN
+                        || resultCode == InputMethodManager.RESULT_HIDDEN) {
+                    toggleSoftInput();
+                }
+            }
+        });
     }
 
     /**
@@ -110,12 +101,11 @@ public final class KeyboardUtils {
      * @param activity The activity.
      */
     public static void hideSoftInput(final Activity activity) {
-        InputMethodManager imm =
-                (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        if (imm == null) return;
         View view = activity.getCurrentFocus();
-        if (view == null) view = new View(activity);
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        if (view == null) {
+            view = new View(activity);
+        }
+        hideSoftInput(view);
     }
 
     /**
@@ -126,18 +116,16 @@ public final class KeyboardUtils {
     public static void hideSoftInput(final View view) {
         InputMethodManager imm =
                 (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
-        //noinspection ConstantConditions
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
-
-    /**
-     * Hide the soft input.
-     *
-     * @param activity The activity.
-     */
-    public static void hideSoftInputUsingToggle(final Activity activity) {
-        if (!isSoftInputVisible(activity)) return;
-        toggleSoftInput();
+        if (imm == null) return;
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0, new ResultReceiver(new Handler()) {
+            @Override
+            protected void onReceiveResult(int resultCode, Bundle resultData) {
+                if (resultCode == InputMethodManager.RESULT_UNCHANGED_SHOWN
+                        || resultCode == InputMethodManager.RESULT_SHOWN) {
+                    toggleSoftInput();
+                }
+            }
+        });
     }
 
     /**

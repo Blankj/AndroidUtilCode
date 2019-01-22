@@ -8,34 +8,34 @@
     android:padding="@dimen/spacing_16">
 
     <TextView
-        android:id="@+id/tv_about_phone"
+        android:id="@+id/aboutPhoneTv"
         style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/btn_dial"
+        android:id="@+id/dialBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/phone_dial" />
 
     <Button
-        android:id="@+id/btn_call"
+        android:id="@+id/callBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/phone_call" />
 
     <Button
-        android:id="@+id/btn_send_sms"
+        android:id="@+id/sendSmsBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/phone_send_sms" />
 
     <Button
-        android:id="@+id/btn_send_sms_silent"
+        android:id="@+id/sendSmsSilentBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

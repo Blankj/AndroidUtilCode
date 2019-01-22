@@ -969,10 +969,11 @@ public final class AppUtils {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             data = Uri.fromFile(file);
         } else {
-            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             String authority = Utils.getApp().getPackageName() + ".utilcode.provider";
             data = FileProvider.getUriForFile(Utils.getApp(), authority, file);
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         }
+        Utils.getApp().grantUriPermission(Utils.getApp().getPackageName(), data, Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.setDataAndType(data, type);
         return isNewTask ? intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) : intent;
     }

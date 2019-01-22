@@ -8,14 +8,14 @@
     android:padding="@dimen/spacing_16">
 
     <Button
-        android:id="@+id/btn_save"
+        android:id="@+id/saveBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/image_save" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_images"
+        android:id="@+id/imagesRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

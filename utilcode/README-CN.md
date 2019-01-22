@@ -445,9 +445,7 @@ getCaptureIntent                 : 获取拍照的意图
 * ### 键盘相关 -> [KeyboardUtils.java][keyboard.java] -> [Demo][keyboard.demo]
 ```
 showSoftInput                     : 显示软键盘
-showSoftInputUsingToggle          : 显示软键盘用 toggle
 hideSoftInput                     : 隐藏软键盘
-hideSoftInputUsingToggle          : 隐藏软键盘用 toggle
 toggleSoftInput                   : 切换键盘显示与否状态
 isSoftInputVisible                : 判断软键盘是否可见
 registerSoftInputChangedListener  : 注册软键盘改变监听器
