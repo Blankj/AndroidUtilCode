@@ -138,7 +138,6 @@
     <string name="fragment_add_child">Add Child</string>
     <string name="fragment_pop">Pop</string>
     <string name="fragment_pop_to_root">Pop To Root</string>
-    <string name="fragment_pop_add">Pop Add</string>
     <string name="fragment_hide_demo0_show_demo1">Hide Demo0 Show Demo1</string>
     <string name="fragment_hide_demo1_show_demo0">Hide Demo1 Show Demo0</string>
     <string name="fragment_replace">Replace</string>
