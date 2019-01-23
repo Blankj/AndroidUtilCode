@@ -38,7 +38,7 @@ class SDCardActivity : BaseBackActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
         setTitle(R.string.demo_sdcard)
 
-        SpanUtils.with(aboutSdcardTv)
+        SpanUtils.with(sdcardAboutTv)
                 .appendLine("isSDCardEnableByEnvironment: " + SDCardUtils.isSDCardEnableByEnvironment())
                 .appendLine("getSDCardPathByEnvironment: " + SDCardUtils.getSDCardPathByEnvironment())
                 .appendLine("getSDCardInfo: " + SDCardUtils.getSDCardInfo())

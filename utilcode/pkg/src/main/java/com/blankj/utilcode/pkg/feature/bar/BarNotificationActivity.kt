@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.activity_bar_notification.*
 class BarNotificationActivity : BaseBackActivity() {
 
     companion object {
-
         fun start(context: Context) {
             val starter = Intent(context, BarNotificationActivity::class.java)
             context.startActivity(starter)

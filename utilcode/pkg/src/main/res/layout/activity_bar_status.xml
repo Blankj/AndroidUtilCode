@@ -14,28 +14,28 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/showStatusBtn"
+        android:id="@+id/barStatusShowBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/bar_status_show" />
 
     <Button
-        android:id="@+id/hideStatusBtn"
+        android:id="@+id/barStatusHideBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/bar_status_hide" />
 
     <Button
-        android:id="@+id/lightModeBtn"
+        android:id="@+id/barStatusLightModeBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/bar_status_light_mode" />
 
     <Button
-        android:id="@+id/darkModeBtn"
+        android:id="@+id/barStatusDarkModeBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

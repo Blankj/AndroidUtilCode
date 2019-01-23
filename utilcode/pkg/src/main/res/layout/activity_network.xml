@@ -8,19 +8,13 @@
     android:padding="@dimen/spacing_16">
 
     <TextView
-        android:id="@+id/tv_about_network"
-        style="@style/TextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/tv_about_network_async"
+        android:id="@+id/networkAboutTv"
         style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/btn_open_wireless_settings"
+        android:id="@+id/networkOpenWirelessSettingsBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +28,7 @@
         android:text="@string/network_set_data_enabled" />
 
     <Button
-        android:id="@+id/btn_set_wifi_enabled"
+        android:id="@+id/networkSetWifiEnabledBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

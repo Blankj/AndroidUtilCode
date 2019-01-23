@@ -57,7 +57,7 @@ public class GsonUtilsTest extends BaseTest {
     @Test
     public void getType() {
         Assert.assertEquals(
-                "java.util.Collection<java.lang.String>",
+                "java.util.List<java.lang.String>",
                 GsonUtils.getListType(String.class).toString()
         );
         Assert.assertEquals(

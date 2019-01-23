@@ -38,10 +38,10 @@ class BarStatusActivity : BaseBackActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
         setTitle(R.string.demo_bar)
 
-        showStatusBtn.setOnClickListener(this)
-        hideStatusBtn.setOnClickListener(this)
-        lightModeBtn.setOnClickListener(this)
-        darkModeBtn.setOnClickListener(this)
+        barStatusShowBtn.setOnClickListener(this)
+        barStatusHideBtn.setOnClickListener(this)
+        barStatusLightModeBtn.setOnClickListener(this)
+        barStatusDarkModeBtn.setOnClickListener(this)
         updateAboutStatus()
     }
 
@@ -51,10 +51,10 @@ class BarStatusActivity : BaseBackActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.showStatusBtn -> BarUtils.setStatusBarVisibility(this, true)
-            R.id.hideStatusBtn -> BarUtils.setStatusBarVisibility(this, false)
-            R.id.lightModeBtn -> BarUtils.setStatusBarLightMode(this, true)
-            R.id.darkModeBtn -> BarUtils.setStatusBarLightMode(this, false)
+            R.id.barStatusShowBtn -> BarUtils.setStatusBarVisibility(this, true)
+            R.id.barStatusHideBtn -> BarUtils.setStatusBarVisibility(this, false)
+            R.id.barStatusLightModeBtn -> BarUtils.setStatusBarLightMode(this, true)
+            R.id.barStatusDarkModeBtn -> BarUtils.setStatusBarLightMode(this, false)
         }
         updateAboutStatus()
     }
