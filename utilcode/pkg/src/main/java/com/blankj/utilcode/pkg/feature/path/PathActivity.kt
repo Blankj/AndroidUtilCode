@@ -38,7 +38,7 @@ class PathActivity : BaseBackActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
         setTitle(R.string.demo_path)
 
-        SpanUtils.with(aboutPathTv)
+        SpanUtils.with(pathAboutTv)
                 .appendLine("getRootPath: " + PathUtils.getRootPath())
                 .appendLine("getDataPath: " + PathUtils.getDataPath())
                 .appendLine("getDownloadCachePath: " + PathUtils.getDownloadCachePath())

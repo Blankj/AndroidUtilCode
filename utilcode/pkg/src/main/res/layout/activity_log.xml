@@ -8,76 +8,76 @@
     android:padding="@dimen/spacing_16">
 
     <TextView
-        android:id="@+id/aboutLogTv"
+        android:id="@+id/logAboutTv"
         style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/toggleLogBtn"
+        android:id="@+id/logToggleLogBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/log_toggle_log" />
 
     <Button
-        android:id="@+id/toggleConsoleBtn"
+        android:id="@+id/logToggleConsoleBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/log_toggle_console" />
 
     <Button
-        android:id="@+id/toggleTagBtn"
+        android:id="@+id/logToggleTagBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/log_toggle_tag" />
 
     <Button
-        android:id="@+id/toggleHeadBtn"
+        android:id="@+id/logToggleHeadBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/log_toggle_head" />
 
     <Button
-        android:id="@+id/toggleFileBtn"
+        android:id="@+id/logToggleFileBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/log_toggle_file" />
 
     <Button
-        android:id="@+id/toggleDirBtn"
+        android:id="@+id/logToggleDirBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/log_toggle_dir" />
 
     <Button
-        android:id="@+id/toggleBorderBtn"
+        android:id="@+id/logToggleBorderBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/log_toggle_border" />
 
     <Button
-        android:id="@+id/toggleSingleBtn"
+        android:id="@+id/logToggleSingleBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/log_toggle_single" />
 
     <Button
-        android:id="@+id/toggleConsoleFilterBtn"
+        android:id="@+id/logToggleConsoleFilterBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/log_toggle_console_filter" />
 
     <Button
-        android:id="@+id/toggleFileFilterBtn"
+        android:id="@+id/logToggleFileFilterBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

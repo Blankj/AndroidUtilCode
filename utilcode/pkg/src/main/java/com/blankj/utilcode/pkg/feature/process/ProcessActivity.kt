@@ -45,7 +45,7 @@ class ProcessActivity : BaseBackActivity() {
                 .appendLine("getAllBackgroundProcesses: " + getSetItems(set))
                 .appendLine("size: " + set.size)
                 .appendLine("isMainProcess: " + ProcessUtils.isMainProcess())
-                .append("getCurrentProcessName: " + ProcessUtils.getCurrentProcessName()!!)
+                .append("getCurrentProcessName: " + ProcessUtils.getCurrentProcessName())
                 .create()
     }
 

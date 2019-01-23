@@ -39,14 +39,14 @@ class PhoneActivity : BaseBackActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
         setTitle(R.string.demo_phone)
 
-        dialBtn.setOnClickListener(this)
-        callBtn.setOnClickListener(this)
-        sendSmsBtn.setOnClickListener(this)
-        sendSmsSilentBtn.setOnClickListener(this)
+        phoneDialBtn.setOnClickListener(this)
+        phoneCallBtn.setOnClickListener(this)
+        phoneSendSmsBtn.setOnClickListener(this)
+        phoneSendSmsSilentBtn.setOnClickListener(this)
 
         PermissionHelper.requestPhone(
                 {
-                    SpanUtils.with(aboutPhoneTv)
+                    SpanUtils.with(phoneAboutTv)
                             .appendLine("isPhone: " + PhoneUtils.isPhone())
                             .appendLine("getDeviceId: " + PhoneUtils.getDeviceId())
                             .appendLine("getIMEI: " + PhoneUtils.getIMEI())
@@ -60,7 +60,7 @@ class PhoneActivity : BaseBackActivity() {
                             .create()
                 },
                 {
-                    SpanUtils.with(aboutPhoneTv)
+                    SpanUtils.with(phoneAboutTv)
                             .appendLine("isPhone: " + PhoneUtils.isPhone())
                             .appendLine("getDeviceId: " + "need permission")
                             .appendLine("getIMEI: " + "need permission")
@@ -82,10 +82,10 @@ class PhoneActivity : BaseBackActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.dialBtn -> PhoneUtils.dial("10000")
-            R.id.callBtn -> PermissionHelper.requestPhone { PhoneUtils.call("10000") }
-            R.id.sendSmsBtn -> PhoneUtils.sendSms("10000", "sendSms")
-            R.id.sendSmsSilentBtn -> PermissionHelper.requestSms { PhoneUtils.sendSmsSilent("10000", "sendSmsSilent") }
+            R.id.phoneDialBtn -> PhoneUtils.dial("10000")
+            R.id.phoneCallBtn -> PermissionHelper.requestPhone { PhoneUtils.call("10000") }
+            R.id.phoneSendSmsBtn -> PhoneUtils.sendSms("10000", "sendSms")
+            R.id.phoneSendSmsSilentBtn -> PermissionHelper.requestSms { PhoneUtils.sendSmsSilent("10000", "sendSmsSilent") }
         }
     }
 }

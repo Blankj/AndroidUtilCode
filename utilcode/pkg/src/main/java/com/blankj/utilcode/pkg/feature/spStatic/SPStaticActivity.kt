@@ -19,43 +19,6 @@ import kotlinx.android.synthetic.main.activity_sp.*
  */
 class SPStaticActivity : BaseBackActivity() {
 
-    override fun initData(bundle: Bundle?) {
-
-    }
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_sp
-    }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        spPutStringBtn.setOnClickListener(this)
-        spPutIntBtn.setOnClickListener(this)
-        spPutLongBtn.setOnClickListener(this)
-        spPutFloatBtn.setOnClickListener(this)
-        spPutBooleanBtn.setOnClickListener(this)
-        spClearBtn.setOnClickListener(this)
-    }
-
-    override fun doBusiness() {
-        updateAboutSp()
-    }
-
-    override fun onWidgetClick(view: View) {
-        when (view.id) {
-            R.id.spPutStringBtn -> SPStaticUtils.put("STRING", "string")
-            R.id.spPutIntBtn -> SPStaticUtils.put("INT", 21)
-            R.id.spPutLongBtn -> SPStaticUtils.put("LONG", java.lang.Long.MAX_VALUE)
-            R.id.spPutFloatBtn -> SPStaticUtils.put("FLOAT", Math.PI.toFloat())
-            R.id.spPutBooleanBtn -> SPStaticUtils.put("BOOLEAN", true)
-            R.id.spClearBtn -> SPStaticUtils.clear()
-        }
-        updateAboutSp()
-    }
-
-    private fun updateAboutSp() {
-        aboutSpTv!!.text = sp2String()
-    }
-
     companion object {
 
         fun start(context: Context) {
@@ -74,5 +37,42 @@ class SPStaticActivity : BaseBackActivity() {
             }
             return sb.toString()
         }
+    }
+
+    override fun initData(bundle: Bundle?) {
+
+    }
+
+    override fun bindLayout(): Int {
+        return R.layout.activity_sp
+    }
+
+    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+        spStaticPutStringBtn.setOnClickListener(this)
+        spStaticPutIntBtn.setOnClickListener(this)
+        spStaticPutLongBtn.setOnClickListener(this)
+        spPutFloatBtn.setOnClickListener(this)
+        spStaticPutBooleanBtn.setOnClickListener(this)
+        spStaticClearBtn.setOnClickListener(this)
+    }
+
+    override fun doBusiness() {
+        updateAboutSp()
+    }
+
+    override fun onWidgetClick(view: View) {
+        when (view.id) {
+            R.id.spStaticPutStringBtn -> SPStaticUtils.put("STRING", "string")
+            R.id.spStaticPutIntBtn -> SPStaticUtils.put("INT", 21)
+            R.id.spStaticPutLongBtn -> SPStaticUtils.put("LONG", java.lang.Long.MAX_VALUE)
+            R.id.spPutFloatBtn -> SPStaticUtils.put("FLOAT", Math.PI.toFloat())
+            R.id.spStaticPutBooleanBtn -> SPStaticUtils.put("BOOLEAN", true)
+            R.id.spStaticClearBtn -> SPStaticUtils.clear()
+        }
+        updateAboutSp()
+    }
+
+    private fun updateAboutSp() {
+        spStaticAboutTv.text = sp2String()
     }
 }

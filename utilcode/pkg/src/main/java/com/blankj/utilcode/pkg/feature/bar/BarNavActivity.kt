@@ -67,7 +67,7 @@ class BarNavActivity : BaseBackActivity() {
     }
 
     private fun updateAboutNav() {
-        SpanUtils.with(aboutNavTv)
+        SpanUtils.with(barNavAboutTv)
                 .appendLine("navHeight: " + BarUtils.getNavBarHeight())
                 .appendLine("isNavBarVisible: " + BarUtils.isNavBarVisible(this))
                 .apply {

@@ -40,12 +40,12 @@ class DeviceActivity : BaseBackActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
         setTitle(R.string.demo_device)
 
-        shutdownBtn.setOnClickListener(this)
-        rebootBtn.setOnClickListener(this)
-        reboot2RecoveryBtn.setOnClickListener(this)
-        reboot2BootloaderBtn.setOnClickListener(this)
+        deviceShutdownBtn.setOnClickListener(this)
+        deviceRebootBtn.setOnClickListener(this)
+        deviceReboot2RecoveryBtn.setOnClickListener(this)
+        deviceReboot2BootloaderBtn.setOnClickListener(this)
 
-        SpanUtils.with(aboutDeviceTv)
+        SpanUtils.with(deviceAboutTv)
                 .appendLine("isRoot: " + DeviceUtils.isDeviceRooted())
                 .apply {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -68,10 +68,10 @@ class DeviceActivity : BaseBackActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.shutdownBtn -> DeviceUtils.shutdown()
-            R.id.rebootBtn -> DeviceUtils.reboot()
-            R.id.reboot2RecoveryBtn -> DeviceUtils.reboot2Recovery()
-            R.id.reboot2BootloaderBtn -> DeviceUtils.reboot2Bootloader()
+            R.id.deviceShutdownBtn -> DeviceUtils.shutdown()
+            R.id.deviceRebootBtn -> DeviceUtils.reboot()
+            R.id.deviceReboot2RecoveryBtn -> DeviceUtils.reboot2Recovery()
+            R.id.deviceReboot2BootloaderBtn -> DeviceUtils.reboot2Bootloader()
         }
     }
 }

@@ -47,19 +47,6 @@ object DialogHelper {
                 .show()
     }
 
-    fun showAdaptScreenDialog() {
-        val topActivity = ActivityUtils.getTopActivity()
-        if (topActivity == null || topActivity.isFinishing) return
-        AlertDialog.Builder(topActivity)
-                .setTitle(android.R.string.dialog_alert_title)
-                .setMessage("Message!")
-                .setPositiveButton(android.R.string.ok) { dialog, which -> }
-                .setNegativeButton(android.R.string.cancel) { dialog, which -> }
-                .setCancelable(false)
-                .create()
-                .show()
-    }
-
     fun showKeyboardDialog() {
         val topActivity = ActivityUtils.getTopActivity()
         if (topActivity == null || topActivity.isFinishing) return

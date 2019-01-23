@@ -138,16 +138,16 @@ class LogActivity : BaseBackActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
         setTitle(R.string.demo_log)
 
-        toggleLogBtn.setOnClickListener(this)
-        toggleConsoleBtn.setOnClickListener(this)
-        toggleTagBtn.setOnClickListener(this)
-        toggleHeadBtn.setOnClickListener(this)
-        toggleBorderBtn.setOnClickListener(this)
-        toggleSingleBtn.setOnClickListener(this)
-        toggleFileBtn.setOnClickListener(this)
-        toggleDirBtn.setOnClickListener(this)
-        toggleConsoleFilterBtn.setOnClickListener(this)
-        toggleFileFilterBtn.setOnClickListener(this)
+        logToggleLogBtn.setOnClickListener(this)
+        logToggleConsoleBtn.setOnClickListener(this)
+        logToggleTagBtn.setOnClickListener(this)
+        logToggleHeadBtn.setOnClickListener(this)
+        logToggleBorderBtn.setOnClickListener(this)
+        logToggleSingleBtn.setOnClickListener(this)
+        logToggleFileBtn.setOnClickListener(this)
+        logToggleDirBtn.setOnClickListener(this)
+        logToggleConsoleFilterBtn.setOnClickListener(this)
+        logToggleFileFilterBtn.setOnClickListener(this)
         logNoTagBtn.setOnClickListener(this)
         logWithTagBtn.setOnClickListener(this)
         logInNewThreadBtn.setOnClickListener(this)
@@ -172,16 +172,16 @@ class LogActivity : BaseBackActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.toggleLogBtn -> updateConfig(UPDATE_LOG)
-            R.id.toggleConsoleBtn -> updateConfig(UPDATE_CONSOLE)
-            R.id.toggleTagBtn -> updateConfig(UPDATE_TAG)
-            R.id.toggleHeadBtn -> updateConfig(UPDATE_HEAD)
-            R.id.toggleFileBtn -> updateConfig(UPDATE_FILE)
-            R.id.toggleDirBtn -> updateConfig(UPDATE_DIR)
-            R.id.toggleBorderBtn -> updateConfig(UPDATE_BORDER)
-            R.id.toggleSingleBtn -> updateConfig(UPDATE_SINGLE)
-            R.id.toggleConsoleFilterBtn -> updateConfig(UPDATE_CONSOLE_FILTER)
-            R.id.toggleFileFilterBtn -> updateConfig(UPDATE_FILE_FILTER)
+            R.id.logToggleLogBtn -> updateConfig(UPDATE_LOG)
+            R.id.logToggleConsoleBtn -> updateConfig(UPDATE_CONSOLE)
+            R.id.logToggleTagBtn -> updateConfig(UPDATE_TAG)
+            R.id.logToggleHeadBtn -> updateConfig(UPDATE_HEAD)
+            R.id.logToggleFileBtn -> updateConfig(UPDATE_FILE)
+            R.id.logToggleDirBtn -> updateConfig(UPDATE_DIR)
+            R.id.logToggleBorderBtn -> updateConfig(UPDATE_BORDER)
+            R.id.logToggleSingleBtn -> updateConfig(UPDATE_SINGLE)
+            R.id.logToggleConsoleFilterBtn -> updateConfig(UPDATE_CONSOLE_FILTER)
+            R.id.logToggleFileFilterBtn -> updateConfig(UPDATE_FILE_FILTER)
             R.id.logNoTagBtn -> {
                 LogUtils.v("verbose")
                 LogUtils.d("debug")
@@ -206,12 +206,12 @@ class LogActivity : BaseBackActivity() {
 
             }
             R.id.logNullBtn -> {
-                LogUtils.v(null as Any?)
-                LogUtils.d(null as Any?)
-                LogUtils.i(null as Any?)
-                LogUtils.w(null as Any?)
-                LogUtils.e(null as Any?)
-                LogUtils.a(null as Any?)
+                LogUtils.v(null)
+                LogUtils.d(null)
+                LogUtils.i(null)
+                LogUtils.w(null)
+                LogUtils.e(null)
+                LogUtils.a(null)
 
             }
             R.id.logManyParamsBtn -> {
@@ -245,8 +245,8 @@ class LogActivity : BaseBackActivity() {
 
             }
             R.id.logArrayBtn -> {
-                LogUtils.e(ONE_D_ARRAY as Any)
-                LogUtils.e(TWO_D_ARRAY as Any)
+                LogUtils.e(ONE_D_ARRAY)
+                LogUtils.e(TWO_D_ARRAY)
 
             }
             R.id.logThrowableBtn -> LogUtils.e(THROWABLE)
@@ -285,7 +285,7 @@ class LogActivity : BaseBackActivity() {
                 .setSingleTagSwitch(single)
                 .setConsoleFilter(consoleFilter)
                 .setFileFilter(fileFilter)
-        aboutLogTv.text = mConfig.toString()
+        logAboutTv.text = mConfig.toString()
     }
 
     private fun getDir(): String {

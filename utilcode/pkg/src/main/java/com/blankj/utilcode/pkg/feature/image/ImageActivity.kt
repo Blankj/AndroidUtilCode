@@ -52,7 +52,7 @@ class ImageActivity : BaseActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        saveBtn.setOnClickListener(this)
+        imageSaveBtn.setOnClickListener(this)
 
         src = ImageUtils.getBitmap(R.drawable.image_lena)
         val round = ImageUtils.getBitmap(R.drawable.main_avatar_round)
@@ -89,8 +89,8 @@ class ImageActivity : BaseActivity() {
             add(ImageBean(R.string.image_compress_by_sample_size, ImageUtils.compressBySampleSize(src, 2)))
         }
 
-        imagesRv.adapter = ImageAdapter(mList, R.layout.item_image)
-        imagesRv.layoutManager = LinearLayoutManager(this)
+        imageRv.adapter = ImageAdapter(mList, R.layout.item_image)
+        imageRv.layoutManager = LinearLayoutManager(this)
     }
 
     override fun doBusiness() {
@@ -99,7 +99,7 @@ class ImageActivity : BaseActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.saveBtn -> {
+            R.id.imageSaveBtn -> {
                 val save = ImageUtils.save(src, Config.CACHE_PATH + "lena.jpg", Bitmap.CompressFormat.JPEG)
                 ToastUtils.showLong(if (save) "successful" else "failed")
             }

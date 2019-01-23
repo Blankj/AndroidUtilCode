@@ -45,10 +45,10 @@ class PermissionActivity : BaseBackActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
         setTitle(R.string.demo_permission)
 
-        openAppSettingsBtn.setOnClickListener(this)
-        requestCalendarBtn.setOnClickListener(this)
-        requestRecordAudioBtn.setOnClickListener(this)
-        requestCalendarAndRecordAudioBtn.setOnClickListener(this)
+        permissionOpenAppSettingsBtn.setOnClickListener(this)
+        permissionRequestCalendarBtn.setOnClickListener(this)
+        permissionRequestRecordAudioBtn.setOnClickListener(this)
+        permissionRequestCalendarAndRecordAudioBtn.setOnClickListener(this)
 
         val sb = StringBuilder()
         for (s in PermissionUtils.getPermissions()) {
@@ -68,10 +68,10 @@ class PermissionActivity : BaseBackActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.openAppSettingsBtn -> PermissionUtils.launchAppDetailsSettings()
-            R.id.requestCalendarBtn -> requestCalendar()
-            R.id.requestRecordAudioBtn -> requestRecordAudio()
-            R.id.requestCalendarAndRecordAudioBtn -> requestCalendarAndRecordAudio()
+            R.id.permissionOpenAppSettingsBtn -> PermissionUtils.launchAppDetailsSettings()
+            R.id.permissionRequestCalendarBtn -> requestCalendar()
+            R.id.permissionRequestRecordAudioBtn -> requestRecordAudio()
+            R.id.permissionRequestCalendarAndRecordAudioBtn -> requestCalendarAndRecordAudio()
         }
     }
 
@@ -137,7 +137,7 @@ class PermissionActivity : BaseBackActivity() {
     }
 
     private fun updateAboutPermission() {
-        SpanUtils.with(aboutPermissionTv)
+        SpanUtils.with(permissionAboutTv)
                 .append(permissions).setBold()
                 .appendLine("READ_CALENDAR: " + PermissionUtils.isGranted(Manifest.permission.READ_CALENDAR))
                 .appendLine("RECORD_AUDIO: " + PermissionUtils.isGranted(Manifest.permission.RECORD_AUDIO))

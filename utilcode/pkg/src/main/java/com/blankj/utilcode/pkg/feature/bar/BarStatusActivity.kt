@@ -60,7 +60,7 @@ class BarStatusActivity : BaseBackActivity() {
     }
 
     private fun updateAboutStatus() {
-        aboutStatusTv.text = SpanUtils()
+        barStatusAboutTv.text = SpanUtils()
                 .appendLine("statusHeight: " + BarUtils.getStatusBarHeight())
                 .append("isStatusVisible: " + BarUtils.isStatusBarVisible(this))
                 .create()

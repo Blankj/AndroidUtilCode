@@ -41,7 +41,7 @@ class BarNotificationActivity : BaseBackActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
         setTitle(R.string.demo_bar)
 
-        showNotificationBtn.setOnClickListener(this)
+        barNotificationShowBtn.setOnClickListener(this)
     }
 
     override fun doBusiness() {
@@ -50,7 +50,7 @@ class BarNotificationActivity : BaseBackActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.showNotificationBtn -> {
+            R.id.barNotificationShowBtn -> {
                 BarUtils.setNotificationBarVisibility(true)
                 mHandler.postDelayed({ BarUtils.setNotificationBarVisibility(false) }, 2000)
             }

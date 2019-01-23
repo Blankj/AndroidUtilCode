@@ -68,7 +68,7 @@ class AppActivity : BaseBackActivity() {
                 .appendLine("getAppSignatureSHA1: " + AppUtils.getAppSignatureSHA1())
                 .appendLine("getAppSignatureSHA256: " + AppUtils.getAppSignatureSHA256())
                 .appendLine("getAppSignatureMD5: " + AppUtils.getAppSignatureMD5())
-                .append("getApkInfo: " + AppUtils.getApkInfo(AppUtils.getAppPath())!!)
+                .append("getApkInfo: " + AppUtils.getApkInfo(AppUtils.getAppPath()))
                 .create()
     }
 

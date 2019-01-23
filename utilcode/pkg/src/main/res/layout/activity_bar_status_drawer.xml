@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <View
-        android:id="@+id/fakeStatusBar"
+        android:id="@+id/barStatusDrawerFakeStatusBar"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
@@ -18,7 +18,7 @@
         android:paddingRight="@dimen/spacing_16">
 
         <CheckBox
-            android:id="@+id/alphaCb"
+            android:id="@+id/barStatusDrawerAlphaCb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -26,7 +26,7 @@
             android:text="@string/bar_status_title_alpha" />
 
         <CheckBox
-            android:id="@+id/frontCb"
+            android:id="@+id/barStatusDrawerFrontCb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -34,14 +34,14 @@
             android:text="@string/bar_status_is_front" />
 
         <TextView
-            android:id="@+id/statusAboutTv"
+            android:id="@+id/barStatusDrawerAboutTv"
             style="@style/TextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal" />
 
         <SeekBar
-            android:id="@+id/changeAlphaSb"
+            android:id="@+id/barStatusAlphaChangeAlphaSb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="255"
@@ -49,14 +49,14 @@
             android:progress="112" />
 
         <Button
-            android:id="@+id/randomColorBtn"
+            android:id="@+id/barStatusAlphaRandomColorBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/bar_status_random_color" />
 
         <Button
-            android:id="@+id/setTransparentBtn"
+            android:id="@+id/barStatusAlphaSetTransparentBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

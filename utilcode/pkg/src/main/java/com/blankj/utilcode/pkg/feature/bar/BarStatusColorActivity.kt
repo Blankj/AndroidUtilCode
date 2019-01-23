@@ -40,7 +40,7 @@ class BarStatusColorActivity : BaseActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        randomColorBtn.setOnClickListener(this)
+        barStatusColorRandomColorBtn.setOnClickListener(this)
 
         updateStatusBar()
     }
@@ -52,7 +52,7 @@ class BarStatusColorActivity : BaseActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.randomColorBtn -> {
+            R.id.barStatusColorRandomColorBtn -> {
                 mColor = ColorUtils.getRandomColor()
                 updateStatusBar()
             }
@@ -61,7 +61,7 @@ class BarStatusColorActivity : BaseActivity() {
 
     private fun updateStatusBar() {
         BarUtils.setStatusBarColor(this, mColor)
-        statusColorTv.text = String.format(ColorUtils.int2ArgbString(mColor))
-        BarUtils.addMarginTopEqualStatusBarHeight(statusColorTv)// 其实这个只需要调用一次即可
+        barStatusColorAboutTv.text = String.format(ColorUtils.int2ArgbString(mColor))
+        BarUtils.addMarginTopEqualStatusBarHeight(barStatusColorAboutTv)// 其实这个只需要调用一次即可
     }
 }

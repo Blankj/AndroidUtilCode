@@ -31,30 +31,30 @@ class BarStatusFragmentActivity : BaseActivity() {
     }
 
     private val itemIds = intArrayOf(
-            R.id.navigation_color,
-            R.id.navigation_alpha,
-            R.id.navigation_image_view,
-            R.id.navigation_custom
+            R.id.barStatusFragmentNavigationColor,
+            R.id.barStatusFragmentNavigationAlpha,
+            R.id.barStatusFragmentNavigationImageView,
+            R.id.barStatusFragmentNavigationCustom
     )
 
     private val mFragmentList = ArrayList<Fragment>()
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener l@{ item ->
         when (item.itemId) {
-            R.id.navigation_color -> {
-                statusBarVp.currentItem = 0
+            R.id.barStatusFragmentNavigationColor -> {
+                barStatusFragmentVp.currentItem = 0
                 return@l true
             }
-            R.id.navigation_alpha -> {
-                statusBarVp.currentItem = 1
+            R.id.barStatusFragmentNavigationAlpha -> {
+                barStatusFragmentVp.currentItem = 1
                 return@l true
             }
-            R.id.navigation_image_view -> {
-                statusBarVp.currentItem = 2
+            R.id.barStatusFragmentNavigationImageView -> {
+                barStatusFragmentVp.currentItem = 2
                 return@l true
             }
-            R.id.navigation_custom -> {
-                statusBarVp.currentItem = 3
+            R.id.barStatusFragmentNavigationCustom -> {
+                barStatusFragmentVp.currentItem = 3
                 return@l true
             }
             else -> false
@@ -75,8 +75,8 @@ class BarStatusFragmentActivity : BaseActivity() {
         mFragmentList.add(BarStatusImageViewFragment.newInstance())
         mFragmentList.add(BarStatusCustomFragment.newInstance())
 
-        statusBarVp.offscreenPageLimit = 3
-        statusBarVp.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
+        barStatusFragmentVp.offscreenPageLimit = 3
+        barStatusFragmentVp.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
             override fun getItem(position: Int): Fragment {
                 return mFragmentList[position]
             }
@@ -86,13 +86,13 @@ class BarStatusFragmentActivity : BaseActivity() {
             }
         }
 
-        statusBarVp.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        barStatusFragmentVp.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
 
             }
 
             override fun onPageSelected(position: Int) {
-                statusBarNav.selectedItemId = itemIds[position]
+                barStatusFragmentNav.selectedItemId = itemIds[position]
             }
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -100,7 +100,7 @@ class BarStatusFragmentActivity : BaseActivity() {
             }
         })
 
-        statusBarNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        barStatusFragmentNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
     override fun doBusiness() {

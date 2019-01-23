@@ -44,7 +44,7 @@ class KeyboardActivity : BaseBackActivity() {
         keyboardInFragmentBtn.setOnClickListener(this)
 
         KeyboardUtils.registerSoftInputChangedListener(this) { height ->
-            SpanUtils.with(aboutKeyboardTv)
+            SpanUtils.with(keyboardAboutTv)
                     .appendLine("isSoftInputVisible: " + KeyboardUtils.isSoftInputVisible(this@KeyboardActivity))
                     .append("height: $height")
                     .create()

@@ -1,3 +1,5 @@
+* `19/01/23` [add] Modify the demo of utilcode use kotlin. Publish v1.23.1.
+* `19/01/22` [fix] AppUtils#installApp.
 * `19/01/17` [fix] Publish v1.23.0.
 * `19/01/16` [fix] BarUtils get Activity from view and delete the function of set status bar alpha.
 * `19/01/15` [add] ColorUtils.

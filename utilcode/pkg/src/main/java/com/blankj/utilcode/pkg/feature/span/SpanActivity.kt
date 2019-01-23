@@ -42,21 +42,15 @@ class SpanActivity : BaseBackActivity() {
 
     private var lineHeight: Int = 0
     private var textSize: Float = 0f
-    private var valueAnimator: ValueAnimator? = null
+    private lateinit var valueAnimator: ValueAnimator
     private lateinit var mShader: Shader
     private var mShaderWidth: Float = 0f
     private lateinit var matrix: Matrix
-
     private lateinit var mBlurMaskFilterSpan: BlurMaskFilterSpan
-
     private lateinit var mShadowSpan: ShadowSpan
-
     private lateinit var mForegroundAlphaColorSpan: ForegroundAlphaColorSpan
-
     private lateinit var mForegroundAlphaColorSpanGroup: ForegroundAlphaColorSpanGroup
-
     private lateinit var mPrinterString: String
-
     internal var density: Float = 0f
 
     override fun initData(bundle: Bundle?) {
@@ -81,14 +75,14 @@ class SpanActivity : BaseBackActivity() {
             }
         }
 
-        lineHeight = aboutSpanTv.lineHeight
-        textSize = aboutSpanTv.textSize
+        lineHeight = spanAboutTv.lineHeight
+        textSize = spanAboutTv.textSize
         density = resources.displayMetrics.density
 
         //        initAnimSpan();
         //        startAnim();
 
-        SpanUtils.with(aboutSpanTv)
+        SpanUtils.with(spanAboutTv)
                 .appendLine("SpanUtils").setBackgroundColor(Color.LTGRAY).setBold().setForegroundColor(Color.YELLOW).setHorizontalAlign(Layout.Alignment.ALIGN_CENTER)
                 .appendLine("前景色").setForegroundColor(Color.GREEN)
                 .appendLine("背景色").setBackgroundColor(Color.LTGRAY)
@@ -198,7 +192,7 @@ class SpanActivity : BaseBackActivity() {
 
     private fun startAnim() {
         valueAnimator = ValueAnimator.ofFloat(0f, 1f)
-        valueAnimator!!.addUpdateListener { animation ->
+        valueAnimator.addUpdateListener { animation ->
             // shader
             matrix.reset()
             matrix.setTranslate(animation.animatedValue as Float * mShaderWidth, 0f)
@@ -218,13 +212,13 @@ class SpanActivity : BaseBackActivity() {
             mForegroundAlphaColorSpanGroup.alpha = animation.animatedValue as Float
 
             // update
-            aboutAnimSpanTv.text = animSsb
+            spanAboutAnimTv.text = animSsb
         }
 
-        valueAnimator!!.interpolator = LinearInterpolator()
-        valueAnimator!!.duration = (600 * 3).toLong()
-        valueAnimator!!.repeatCount = ValueAnimator.INFINITE
-        valueAnimator!!.start()
+        valueAnimator.interpolator = LinearInterpolator()
+        valueAnimator.duration = (600 * 3).toLong()
+        valueAnimator.repeatCount = ValueAnimator.INFINITE
+        valueAnimator.start()
     }
 
     override fun doBusiness() {
@@ -236,8 +230,8 @@ class SpanActivity : BaseBackActivity() {
     }
 
     override fun onDestroy() {
-        if (valueAnimator != null && valueAnimator!!.isRunning) {
-            valueAnimator!!.cancel()
+        if (valueAnimator.isRunning) {
+            valueAnimator.cancel()
         }
         super.onDestroy()
     }

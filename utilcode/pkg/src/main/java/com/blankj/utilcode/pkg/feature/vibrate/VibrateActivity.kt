@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.activity_vibrate.*
 class VibrateActivity : BaseBackActivity() {
 
     companion object {
-
         fun start(context: Context) {
             val starter = Intent(context, VibrateActivity::class.java)
             context.startActivity(starter)

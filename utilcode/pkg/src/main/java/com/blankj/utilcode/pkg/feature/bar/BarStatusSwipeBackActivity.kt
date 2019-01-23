@@ -15,7 +15,6 @@ import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.Utils
 import com.r0adkll.slidr.Slidr
 import kotlinx.android.synthetic.main.activity_bar_status_swipe_back.*
-import java.util.*
 
 /**
  * ```
@@ -34,14 +33,13 @@ class BarStatusSwipeBackActivity : BaseActivity() {
         }
     }
 
-    private var mRandom: Random = Random()
     private var mColor: Int = 0
     private var mAlpha: Int = 0
 
     private val mColorListener = object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
             mAlpha = progress
-            statusAboutTv.text = mAlpha.toString()
+            barStatusSwipeBackAboutTv.text = mAlpha.toString()
             updateStatusBar()
         }
 
@@ -56,17 +54,17 @@ class BarStatusSwipeBackActivity : BaseActivity() {
 
     private var mCheckedChangeListener: CompoundButton.OnCheckedChangeListener = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
         if (isChecked) {
-            changeAlphaSb.visibility = View.VISIBLE
-            randomColorBtn.visibility = View.GONE
-            setTransparentBtn.visibility = View.VISIBLE
+            barStatusSwipeBackChangeAlphaSb.visibility = View.VISIBLE
+            barStatusSwipeBackRandomColorBtn.visibility = View.GONE
+            barStatusSwipeBackSetTransparentBtn.visibility = View.VISIBLE
 
-            containerLl.setBackgroundResource(R.drawable.bar_status_alpha_bg)
+            barStatusSwipeBackContainerLl.setBackgroundResource(R.drawable.bar_status_alpha_bg)
         } else {
-            changeAlphaSb.visibility = View.GONE
-            randomColorBtn.visibility = View.VISIBLE
-            setTransparentBtn.visibility = View.GONE
+            barStatusSwipeBackChangeAlphaSb.visibility = View.GONE
+            barStatusSwipeBackRandomColorBtn.visibility = View.VISIBLE
+            barStatusSwipeBackSetTransparentBtn.visibility = View.GONE
 
-            containerLl.setBackgroundColor(Color.WHITE)
+            barStatusSwipeBackContainerLl.setBackgroundColor(Color.WHITE)
         }
         updateStatusBar()
     }
@@ -82,12 +80,12 @@ class BarStatusSwipeBackActivity : BaseActivity() {
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
         Slidr.attach(this)
-        alphaCb.setOnCheckedChangeListener(mCheckedChangeListener)
-        changeAlphaSb.setOnSeekBarChangeListener(mColorListener)
-        randomColorBtn.setOnClickListener(this)
-        setTransparentBtn.setOnClickListener(this)
+        barStatusSwipeBackAlphaCb.setOnCheckedChangeListener(mCheckedChangeListener)
+        barStatusSwipeBackChangeAlphaSb.setOnSeekBarChangeListener(mColorListener)
+        barStatusSwipeBackRandomColorBtn.setOnClickListener(this)
+        barStatusSwipeBackSetTransparentBtn.setOnClickListener(this)
 
-        setTransparentBtn.visibility = View.GONE
+        barStatusSwipeBackSetTransparentBtn.visibility = View.GONE
         updateStatusBar()
     }
 
@@ -102,18 +100,18 @@ class BarStatusSwipeBackActivity : BaseActivity() {
                 mColor = ColorUtils.getRandomColor()
                 updateStatusBar()
             }
-            R.id.setTransparentBtn -> changeAlphaSb.progress = 0
+            R.id.setTransparentBtn -> barStatusSwipeBackChangeAlphaSb.progress = 0
         }
     }
 
     private fun updateStatusBar() {
-        if (alphaCb.isChecked) {
+        if (barStatusSwipeBackAlphaCb.isChecked) {
             BarUtils.setStatusBarColor(this, Color.argb(mAlpha, 0, 0, 0))
-            statusAboutTv.text = mAlpha.toString()
+            barStatusSwipeBackAboutTv.text = mAlpha.toString()
         } else {
             BarUtils.setStatusBarColor(this, mColor)
-            statusAboutTv.text = ColorUtils.int2ArgbString(mColor)
+            barStatusSwipeBackAboutTv.text = ColorUtils.int2ArgbString(mColor)
         }
-        BarUtils.addMarginTopEqualStatusBarHeight(alphaCb)
+        BarUtils.addMarginTopEqualStatusBarHeight(barStatusSwipeBackAlphaCb)
     }
 }

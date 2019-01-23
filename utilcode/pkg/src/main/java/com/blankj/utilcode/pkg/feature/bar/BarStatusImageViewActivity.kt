@@ -33,7 +33,7 @@ class BarStatusImageViewActivity : BaseActivity() {
     private val translucentListener = object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
             mAlpha = progress
-            statusAlphaTv.text = mAlpha.toString()
+            barStatusImageViewAboutTv.text = mAlpha.toString()
             updateStatusBar()
         }
 
@@ -55,9 +55,9 @@ class BarStatusImageViewActivity : BaseActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTransparentBtn.setOnClickListener(this)
-        changeAlphaSb.setOnSeekBarChangeListener(translucentListener)
-        statusAlphaTv.text = mAlpha.toString()
+        barStatusImageViewSetTransparentBtn.setOnClickListener(this)
+        barStatusImageViewChangeAlphaSb.setOnSeekBarChangeListener(translucentListener)
+        barStatusImageViewAboutTv.text = mAlpha.toString()
 
         updateStatusBar()
     }
@@ -68,7 +68,7 @@ class BarStatusImageViewActivity : BaseActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.setTransparentBtn -> changeAlphaSb.progress = 0
+            R.id.setTransparentBtn -> barStatusImageViewChangeAlphaSb.progress = 0
         }
     }
 

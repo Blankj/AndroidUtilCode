@@ -183,7 +183,7 @@ class ActivityActivity : BaseBackActivity() {
                     0, 0)
                     .toBundle()
             2 -> return ActivityOptionsCompat.makeThumbnailScaleUpAnimation(activityViewSharedElement,
-                    bitmap!!,
+                    bitmap,
                     0, 0)
                     .toBundle()
             3 -> return ActivityOptionsCompat.makeSceneTransitionAnimation(this,
