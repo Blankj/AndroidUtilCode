@@ -41,7 +41,7 @@
             android:layout_gravity="center_horizontal" />
 
         <SeekBar
-            android:id="@+id/barStatusAlphaChangeAlphaSb"
+            android:id="@+id/barStatusDrawerChangeAlphaSb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="255"
@@ -49,14 +49,14 @@
             android:progress="112" />
 
         <Button
-            android:id="@+id/barStatusAlphaRandomColorBtn"
+            android:id="@+id/barStatusDrawerRandomColorBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/bar_status_random_color" />
 
         <Button
-            android:id="@+id/barStatusAlphaSetTransparentBtn"
+            android:id="@+id/barStatusDrawerSetTransparentBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

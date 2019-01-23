@@ -53,15 +53,15 @@ class BarStatusDrawerActivity : BaseDrawerActivity() {
 
     private var mAlphaCheckedChangeListener: CompoundButton.OnCheckedChangeListener = CompoundButton.OnCheckedChangeListener { _, isChecked ->
         if (isChecked) {
-            barStatusAlphaChangeAlphaSb.visibility = View.VISIBLE
-            barStatusAlphaRandomColorBtn.visibility = View.GONE
-            barStatusAlphaSetTransparentBtn.visibility = View.VISIBLE
+            barStatusDrawerChangeAlphaSb.visibility = View.VISIBLE
+            barStatusDrawerRandomColorBtn.visibility = View.GONE
+            barStatusDrawerSetTransparentBtn.visibility = View.VISIBLE
 
             mDrawerContainerView.setBackgroundResource(R.drawable.bar_status_alpha_bg)
         } else {
-            barStatusAlphaChangeAlphaSb.visibility = View.GONE
-            barStatusAlphaRandomColorBtn.visibility = View.VISIBLE
-            barStatusAlphaSetTransparentBtn.visibility = View.GONE
+            barStatusDrawerChangeAlphaSb.visibility = View.GONE
+            barStatusDrawerRandomColorBtn.visibility = View.VISIBLE
+            barStatusDrawerSetTransparentBtn.visibility = View.GONE
 
             mDrawerContainerView.setBackgroundColor(Color.WHITE)
         }
@@ -82,12 +82,12 @@ class BarStatusDrawerActivity : BaseDrawerActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
         barStatusDrawerAlphaCb.setOnCheckedChangeListener(mAlphaCheckedChangeListener)
         barStatusDrawerFrontCb.setOnCheckedChangeListener(mFrontCheckedChangeListener)
-        barStatusAlphaChangeAlphaSb.setOnSeekBarChangeListener(mColorListener)
-        barStatusAlphaRandomColorBtn.setOnClickListener(this)
-        barStatusAlphaSetTransparentBtn.setOnClickListener(this)
+        barStatusDrawerChangeAlphaSb.setOnSeekBarChangeListener(mColorListener)
+        barStatusDrawerRandomColorBtn.setOnClickListener(this)
+        barStatusDrawerSetTransparentBtn.setOnClickListener(this)
 
-        barStatusAlphaChangeAlphaSb.visibility = View.GONE
-        barStatusAlphaSetTransparentBtn.visibility = View.GONE
+        barStatusDrawerChangeAlphaSb.visibility = View.GONE
+        barStatusDrawerSetTransparentBtn.visibility = View.GONE
 
         updateStatusBar()
     }
@@ -98,11 +98,11 @@ class BarStatusDrawerActivity : BaseDrawerActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.randomColorBtn -> {
+            R.id.barStatusDrawerRandomColorBtn -> {
                 mColor = ColorUtils.getRandomColor()
                 updateStatusBar()
             }
-            R.id.setTransparentBtn -> barStatusAlphaChangeAlphaSb.progress = 0
+            R.id.barStatusDrawerSetTransparentBtn -> barStatusDrawerChangeAlphaSb.progress = 0
         }
     }
 

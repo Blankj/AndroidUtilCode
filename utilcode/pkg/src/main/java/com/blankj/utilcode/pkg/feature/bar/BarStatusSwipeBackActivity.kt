@@ -96,11 +96,11 @@ class BarStatusSwipeBackActivity : BaseActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.randomColorBtn -> {
+            R.id.barStatusSwipeBackRandomColorBtn -> {
                 mColor = ColorUtils.getRandomColor()
                 updateStatusBar()
             }
-            R.id.setTransparentBtn -> barStatusSwipeBackChangeAlphaSb.progress = 0
+            R.id.barStatusSwipeBackSetTransparentBtn -> barStatusSwipeBackChangeAlphaSb.progress = 0
         }
     }
 

@@ -20,6 +20,12 @@ import kotlinx.android.synthetic.main.fragment_bar_status_image_view.*
  */
 class BarStatusImageViewFragment : BaseLazyFragment() {
 
+    companion object {
+        fun newInstance(): BarStatusImageViewFragment {
+            return BarStatusImageViewFragment()
+        }
+    }
+
     private var mAlpha: Int = 0
 
     private val translucentListener = object : SeekBar.OnSeekBarChangeListener {
@@ -60,18 +66,11 @@ class BarStatusImageViewFragment : BaseLazyFragment() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.setTransparentBtn -> barStatusImageViewFragmentChangeAlphaSb.progress = 0
+            R.id.barStatusImageViewSetTransparentBtn -> barStatusImageViewFragmentChangeAlphaSb.progress = 0
         }
     }
 
     fun updateFakeStatusBar() {
         BarUtils.setStatusBarColor(barStatusImageViewFragmentFakeStatusBar, Color.argb(mAlpha, 0, 0, 0))
-    }
-
-    companion object {
-
-        fun newInstance(): BarStatusImageViewFragment {
-            return BarStatusImageViewFragment()
-        }
     }
 }

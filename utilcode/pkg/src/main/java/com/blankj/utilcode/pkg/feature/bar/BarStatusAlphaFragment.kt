@@ -66,7 +66,7 @@ class BarStatusAlphaFragment : BaseLazyFragment() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.setTransparentBtn -> barStatusAlphaFragmentChangeAlphaSb.progress = 0
+            R.id.barStatusAlphaSetTransparentBtn -> barStatusAlphaFragmentChangeAlphaSb.progress = 0
         }
     }
 

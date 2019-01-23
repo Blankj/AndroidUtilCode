@@ -68,7 +68,7 @@ class BarStatusImageViewActivity : BaseActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.setTransparentBtn -> barStatusImageViewChangeAlphaSb.progress = 0
+            R.id.barStatusImageViewSetTransparentBtn -> barStatusImageViewChangeAlphaSb.progress = 0
         }
     }
 
