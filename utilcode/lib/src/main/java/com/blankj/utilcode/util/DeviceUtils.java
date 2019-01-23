@@ -120,15 +120,15 @@ public final class DeviceUtils {
      */
     @RequiresPermission(allOf = {ACCESS_WIFI_STATE, INTERNET})
     public static String getMacAddress(final String... excepts) {
-        String macAddress = getMacAddressByWifiInfo();
-        if (isAddressNotInExcepts(macAddress, excepts)) {
-            return macAddress;
-        }
-        macAddress = getMacAddressByNetworkInterface();
+        String macAddress = getMacAddressByNetworkInterface();
         if (isAddressNotInExcepts(macAddress, excepts)) {
             return macAddress;
         }
         macAddress = getMacAddressByInetAddress();
+        if (isAddressNotInExcepts(macAddress, excepts)) {
+            return macAddress;
+        }
+        macAddress = getMacAddressByWifiInfo();
         if (isAddressNotInExcepts(macAddress, excepts)) {
             return macAddress;
         }
@@ -151,12 +151,13 @@ public final class DeviceUtils {
         return true;
     }
 
-    @SuppressLint({"HardwareIds", "MissingPermission", "WifiManagerLeak"})
+    @SuppressLint({"MissingPermission", "HardwareIds"})
     private static String getMacAddressByWifiInfo() {
         try {
-            WifiManager wifi = (WifiManager) Utils.getApp().getSystemService(Context.WIFI_SERVICE);
+            final WifiManager wifi = (WifiManager) Utils.getApp()
+                    .getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             if (wifi != null) {
-                WifiInfo info = wifi.getConnectionInfo();
+                final WifiInfo info = wifi.getConnectionInfo();
                 if (info != null) return info.getMacAddress();
             }
         } catch (Exception e) {

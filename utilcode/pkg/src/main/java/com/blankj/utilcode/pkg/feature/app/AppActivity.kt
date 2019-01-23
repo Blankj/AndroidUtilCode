@@ -45,15 +45,15 @@ class AppActivity : BaseBackActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
         setTitle(R.string.demo_app)
 
-        installAppBtn.setOnClickListener(this)
-        installAppSilentBtn.setOnClickListener(this)
-        uninstallAppBtn.setOnClickListener(this)
-        uninstallAppSilentBtn.setOnClickListener(this)
-        launchAppBtn.setOnClickListener(this)
-        relaunchAppBtn.setOnClickListener(this)
-        exitAppBtn.setOnClickListener(this)
-        launchAppDetailsSettingsBtn.setOnClickListener(this)
-        SpanUtils.with(aboutAppTv)
+        appInstallAppBtn.setOnClickListener(this)
+        appInstallAppSilentBtn.setOnClickListener(this)
+        appUninstallAppBtn.setOnClickListener(this)
+        appUninstallAppSilentBtn.setOnClickListener(this)
+        appLaunchAppBtn.setOnClickListener(this)
+        appRelaunchAppBtn.setOnClickListener(this)
+        appExitAppBtn.setOnClickListener(this)
+        appLaunchAppDetailsSettingsBtn.setOnClickListener(this)
+        SpanUtils.with(appAboutTv)
                 .appendLine("isAppRoot: " + AppUtils.isAppRoot())
                 .appendLine("isAppDebug: " + AppUtils.isAppDebug())
                 .appendLine("isAppSystem: " + AppUtils.isAppSystem())
@@ -68,7 +68,7 @@ class AppActivity : BaseBackActivity() {
                 .appendLine("getAppSignatureSHA1: " + AppUtils.getAppSignatureSHA1())
                 .appendLine("getAppSignatureSHA256: " + AppUtils.getAppSignatureSHA256())
                 .appendLine("getAppSignatureMD5: " + AppUtils.getAppSignatureMD5())
-                .append("getApkInfo: " + AppUtils.getApkInfo(AppUtils.getAppPath())!!)
+                .append("getApkInfo: " + AppUtils.getApkInfo(AppUtils.getAppPath()))
                 .create()
     }
 
@@ -78,7 +78,7 @@ class AppActivity : BaseBackActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.installAppBtn -> if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
+            R.id.appInstallAppBtn -> if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
                 ToastUtils.showShort(R.string.app_install_tips)
             } else {
                 PermissionHelper.requestStorage {
@@ -90,7 +90,7 @@ class AppActivity : BaseBackActivity() {
                     }
                 }
             }
-            R.id.installAppSilentBtn -> if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
+            R.id.appInstallAppSilentBtn -> if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
                 ToastUtils.showShort(R.string.app_install_tips)
             } else {
                 if (AppUtils.installAppSilent(Config.TEST_APK_PATH)) {
@@ -99,12 +99,12 @@ class AppActivity : BaseBackActivity() {
                     ToastUtils.showShort(R.string.install_unsuccessfully)
                 }
             }
-            R.id.uninstallAppBtn -> if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
+            R.id.appUninstallAppBtn -> if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
                 AppUtils.uninstallApp(Config.TEST_PKG)
             } else {
                 ToastUtils.showShort(R.string.app_uninstall_tips)
             }
-            R.id.uninstallAppSilentBtn -> if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
+            R.id.appUninstallAppSilentBtn -> if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
                 if (AppUtils.uninstallAppSilent(Config.TEST_PKG, false)) {
                     ToastUtils.showShort(R.string.uninstall_successfully)
                 } else {
@@ -113,10 +113,10 @@ class AppActivity : BaseBackActivity() {
             } else {
                 ToastUtils.showShort(R.string.app_uninstall_tips)
             }
-            R.id.launchAppBtn -> AppUtils.launchApp(this.packageName)
-            R.id.relaunchAppBtn -> AppUtils.relaunchApp()
-            R.id.launchAppDetailsSettingsBtn -> AppUtils.launchAppDetailsSettings()
-            R.id.exitAppBtn -> AppUtils.exitApp()
+            R.id.appLaunchAppBtn -> AppUtils.launchApp(this.packageName)
+            R.id.appRelaunchAppBtn -> AppUtils.relaunchApp()
+            R.id.appLaunchAppDetailsSettingsBtn -> AppUtils.launchAppDetailsSettings()
+            R.id.appExitAppBtn -> AppUtils.exitApp()
         }
     }
 }

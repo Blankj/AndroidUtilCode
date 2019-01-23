@@ -16,6 +16,7 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
 
     <!-- permission -->
     <uses-permission android:name="android.permission.READ_CALENDAR" />
@@ -94,13 +95,6 @@
         <activity
             android:name=".feature.bar.BarStatusSwipeBackActivity"
             android:launchMode="singleTop" />
-        <activity
-            android:name=".feature.blur.BlurActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".feature.blur.TransparentActivity"
-            android:launchMode="singleTop"
-            android:theme="@style/ActivityTranslucent" />
         <activity
             android:name=".feature.clean.CleanActivity"
             android:launchMode="singleTop" />

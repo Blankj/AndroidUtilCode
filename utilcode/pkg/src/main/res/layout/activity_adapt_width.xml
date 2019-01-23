@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
 
         <FrameLayout
-            android:id="@+id/widthFl0"
+            android:id="@+id/adaptScreenWidthFl0"
             android:layout_width="match_parent"
             android:layout_height="270pt"
             app:layout_constraintLeft_toLeftOf="parent">
@@ -41,13 +41,13 @@
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/widthFl1"
+            android:id="@+id/adaptScreenWidthFl1"
             android:layout_width="1080pt"
             android:layout_height="270pt"
-            app:layout_constraintTop_toBottomOf="@id/widthFl0">
+            app:layout_constraintTop_toBottomOf="@id/adaptScreenWidthFl0">
 
             <WebView
-                android:id="@+id/widthVebView"
+                android:id="@+id/adaptScreenWidthWebView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -62,10 +62,10 @@
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/widthFl2"
+            android:id="@+id/adaptScreenWidthFl2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/widthFl1">
+            app:layout_constraintTop_toBottomOf="@id/adaptScreenWidthFl1">
 
             <ImageView
                 android:layout_width="540pt"
@@ -87,10 +87,10 @@
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/widthFl3"
+            android:id="@+id/adaptScreenWidthFl3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/widthFl2">
+            app:layout_constraintTop_toBottomOf="@id/adaptScreenWidthFl2">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -112,10 +112,9 @@
         </FrameLayout>
 
         <LinearLayout
-            android:id="@+id/widthLl0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/widthFl3">
+            app:layout_constraintTop_toBottomOf="@id/adaptScreenWidthFl3">
 
             <TextView
                 android:layout_width="180pt"

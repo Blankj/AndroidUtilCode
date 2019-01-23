@@ -25,7 +25,7 @@ class WidthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_adapt_width)
 
-        widthVebView.setBackgroundColor(Color.parseColor("#f0d26d"))
+        adaptScreenWidthWebView.setBackgroundColor(Color.parseColor("#f0d26d"))
     }
 
     override fun getResources(): Resources {

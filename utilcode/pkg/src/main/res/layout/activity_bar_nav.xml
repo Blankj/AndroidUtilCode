@@ -8,27 +8,27 @@
     android:padding="@dimen/spacing_16">
 
     <TextView
-        android:id="@+id/aboutNavTv"
+        android:id="@+id/barNavAboutTv"
         style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/navShowBtn"
+        android:id="@+id/barNavShowBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/bar_nav_show" />
 
     <Button
-        android:id="@+id/navHideBtn"
+        android:id="@+id/barNavHideBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/bar_nav_hide" />
 
     <Button
-        android:id="@+id/navSetColorBtn"
+        android:id="@+id/barNavSetColorBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

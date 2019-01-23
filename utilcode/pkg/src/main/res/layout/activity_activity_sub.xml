@@ -8,7 +8,7 @@
     android:padding="@dimen/spacing_16">
 
     <ImageView
-        android:id="@+id/view_shared_element"
+        android:id="@+id/activityViewSharedElement"
         android:layout_width="@dimen/size_160"
         android:layout_height="@dimen/size_160"
         android:src="@drawable/main_avatar_round"

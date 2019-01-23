@@ -8,34 +8,34 @@
     android:padding="@dimen/spacing_16">
 
     <TextView
-        android:id="@+id/aboutPermissionTv"
+        android:id="@+id/permissionAboutTv"
         style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/openAppSettingsBtn"
+        android:id="@+id/permissionOpenAppSettingsBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/permission_open_app_settings" />
 
     <Button
-        android:id="@+id/requestCalendarBtn"
+        android:id="@+id/permissionRequestCalendarBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/permission_request_calendar" />
 
     <Button
-        android:id="@+id/requestRecordAudioBtn"
+        android:id="@+id/permissionRequestRecordAudioBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/permission_request_record_audio" />
 
     <Button
-        android:id="@+id/requestCalendarAndRecordAudioBtn"
+        android:id="@+id/permissionRequestCalendarAndRecordAudioBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

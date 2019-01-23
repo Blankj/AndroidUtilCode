@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.activity_bar_notification.*
 class BarNotificationActivity : BaseBackActivity() {
 
     companion object {
-
         fun start(context: Context) {
             val starter = Intent(context, BarNotificationActivity::class.java)
             context.startActivity(starter)
@@ -42,7 +41,7 @@ class BarNotificationActivity : BaseBackActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
         setTitle(R.string.demo_bar)
 
-        showNotificationBtn.setOnClickListener(this)
+        barNotificationShowBtn.setOnClickListener(this)
     }
 
     override fun doBusiness() {
@@ -51,7 +50,7 @@ class BarNotificationActivity : BaseBackActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.showNotificationBtn -> {
+            R.id.barNotificationShowBtn -> {
                 BarUtils.setNotificationBarVisibility(true)
                 mHandler.postDelayed({ BarUtils.setNotificationBarVisibility(false) }, 2000)
             }

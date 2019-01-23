@@ -60,7 +60,7 @@ public final class UriUtils {
             Log.d("UriUtils", uri.toString() + " parse failed. -> 0");
             return null;
         } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
-            return getFileFromUri(uri);
+            return getFileFromUri(uri, 1);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
                 && DocumentsContract.isDocumentUri(Utils.getApp(), uri)) {
             if ("com.android.externalstorage.documents".equals(authority)) {
@@ -78,7 +78,7 @@ public final class UriUtils {
                         Uri.parse("content://downloads/public_downloads"),
                         Long.valueOf(id)
                 );
-                return getFileFromUri(contentUri);
+                return getFileFromUri(contentUri, 3);
             } else if ("com.android.providers.media.documents".equals(authority)) {
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
@@ -91,29 +91,30 @@ public final class UriUtils {
                 } else if ("audio".equals(type)) {
                     contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
                 } else {
-                    Log.d("UriUtils", uri.toString() + " parse failed. -> 3");
+                    Log.d("UriUtils", uri.toString() + " parse failed. -> 4");
                     return null;
                 }
                 final String selection = "_id=?";
                 final String[] selectionArgs = new String[]{split[1]};
-                return getFileFromUri(contentUri, selection, selectionArgs);
+                return getFileFromUri(contentUri, selection, selectionArgs, 5);
             } else {
-                Log.d("UriUtils", uri.toString() + " parse failed. -> 4");
+                Log.d("UriUtils", uri.toString() + " parse failed. -> 6");
                 return null;
             }
         } else {
-            Log.d("UriUtils", uri.toString() + " parse failed. -> 5");
+            Log.d("UriUtils", uri.toString() + " parse failed. -> 7");
             return null;
         }
     }
 
-    private static File getFileFromUri(final Uri uri) {
-        return getFileFromUri(uri, null, null);
+    private static File getFileFromUri(final Uri uri, final int code) {
+        return getFileFromUri(uri, null, null, code);
     }
 
     private static File getFileFromUri(final Uri uri,
                                        final String selection,
-                                       final String[] selectionArgs) {
+                                       final String[] selectionArgs,
+                                       final int code) {
         CursorLoader cl = new CursorLoader(Utils.getApp());
         cl.setUri(uri);
         cl.setProjection(new String[]{"_data"});
@@ -124,7 +125,7 @@ public final class UriUtils {
             cursor.moveToFirst();
             return new File(cursor.getString(columnIndex));
         } catch (Exception e) {
-            Log.d("UriUtils", uri.toString() + " parse failed. -> 1");
+            Log.d("UriUtils", uri.toString() + " parse failed. -> " + code);
             return null;
         } finally {
             if (cursor != null) {

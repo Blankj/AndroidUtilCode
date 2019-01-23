@@ -476,6 +476,7 @@ public final class BarUtils {
 
     /**
      * Return whether the navigation bar visible.
+     * <p>Call it in onWindowFocusChanged will get right result.</p>
      *
      * @param activity The activity.
      * @return {@code true}: yes<br>{@code false}: no
@@ -486,6 +487,7 @@ public final class BarUtils {
 
     /**
      * Return whether the navigation bar visible.
+     * <p>Call it in onWindowFocusChanged will get right result.</p>
      *
      * @param window The window.
      * @return {@code true}: yes<br>{@code false}: no

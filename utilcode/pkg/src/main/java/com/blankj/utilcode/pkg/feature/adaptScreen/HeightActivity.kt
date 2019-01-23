@@ -25,7 +25,7 @@ class HeightActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_adapt_height)
 
-        heightVebView.setBackgroundColor(Color.parseColor("#f0d26d"))
+        adaptScreenHeightWebView.setBackgroundColor(Color.parseColor("#f0d26d"))
     }
 
     override fun getResources(): Resources {

@@ -42,16 +42,16 @@ class ToastActivity : BaseBackActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
         setTitle(R.string.demo_toast)
 
-        showShortToastBtn.setOnClickListener(this)
-        showLongToastBtn.setOnClickListener(this)
-        showGreenFontBtn.setOnClickListener(this)
-        showBgColorBtn.setOnClickListener(this)
-        showBgResourceBtn.setOnClickListener(this)
-        showSpanBtn.setOnClickListener(this)
-        showCustomViewBtn.setOnClickListener(this)
-        showMiddleBtn.setOnClickListener(this)
-        cancelToastBtn.setOnClickListener(this)
-        showToastDialogBtn.setOnClickListener(this)
+        toastShowShortBtn.setOnClickListener(this)
+        toastShowLongBtn.setOnClickListener(this)
+        toastShowGreenFontBtn.setOnClickListener(this)
+        toastShowBgColorBtn.setOnClickListener(this)
+        toastShowBgResourceBtn.setOnClickListener(this)
+        toastShowSpanBtn.setOnClickListener(this)
+        toastShowCustomViewBtn.setOnClickListener(this)
+        toastShowMiddleBtn.setOnClickListener(this)
+        toastCancelBtn.setOnClickListener(this)
+        toastShowToastDialogBtn.setOnClickListener(this)
     }
 
     override fun doBusiness() {
@@ -61,35 +61,35 @@ class ToastActivity : BaseBackActivity() {
     override fun onWidgetClick(view: View) {
         resetToast()
         when (view.id) {
-            R.id.showShortToastBtn -> Thread(Runnable { ToastUtils.showShort(R.string.toast_short) }).start()
-            R.id.showLongToastBtn -> Thread(Runnable { ToastUtils.showLong(R.string.toast_long) }).start()
-            R.id.showGreenFontBtn -> {
+            R.id.toastShowShortBtn -> Thread(Runnable { ToastUtils.showShort(R.string.toast_short) }).start()
+            R.id.toastShowLongBtn -> Thread(Runnable { ToastUtils.showLong(R.string.toast_long) }).start()
+            R.id.toastShowGreenFontBtn -> {
                 ToastUtils.setMsgColor(Color.GREEN)
                 ToastUtils.showLong(R.string.toast_green_font)
             }
-            R.id.showBgColorBtn -> {
+            R.id.toastShowBgColorBtn -> {
                 ToastUtils.setBgColor(ContextCompat.getColor(this, R.color.colorAccent))
                 ToastUtils.showLong(R.string.toast_bg_color)
             }
-            R.id.showBgResourceBtn -> {
+            R.id.toastShowBgResourceBtn -> {
                 ToastUtils.setBgResource(R.drawable.toast_shape_round_rect)
                 ToastUtils.showLong(R.string.toast_custom_bg)
             }
-            R.id.showSpanBtn -> ToastUtils.showLong(
+            R.id.toastShowSpanBtn -> ToastUtils.showLong(
                     SpanUtils()
                             .appendImage(R.mipmap.ic_launcher, SpanUtils.ALIGN_CENTER)
                             .appendSpace(32)
                             .append(getString(R.string.toast_span)).setFontSize(24, true)
                             .create()
             )
-            R.id.showCustomViewBtn -> Thread(Runnable { CustomToast.showLong(R.string.toast_custom_view) }).start()
-            R.id.showMiddleBtn -> {
+            R.id.toastShowCustomViewBtn -> Thread(Runnable { CustomToast.showLong(R.string.toast_custom_view) }).start()
+            R.id.toastShowMiddleBtn -> {
                 ToastUtils.setGravity(Gravity.CENTER, 0, 0)
                 ToastUtils.showLong(R.string.toast_middle)
 
             }
-            R.id.cancelToastBtn -> ToastUtils.cancel()
-            R.id.showToastDialogBtn -> DialogHelper.showToastDialog()
+            R.id.toastCancelBtn -> ToastUtils.cancel()
+            R.id.toastShowToastDialogBtn -> DialogHelper.showToastDialog()
         }
     }
 

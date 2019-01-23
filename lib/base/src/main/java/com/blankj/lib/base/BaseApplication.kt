@@ -83,7 +83,7 @@ open class BaseApplication : Application() {
         }
     }
 
-    protected fun isDebug(): Boolean {
+    fun isDebug(): Boolean {
         if (isDebug == null) isDebug = AppUtils.isAppDebug()
         return isDebug!!
     }

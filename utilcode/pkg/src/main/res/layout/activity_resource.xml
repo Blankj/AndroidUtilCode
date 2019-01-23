@@ -8,20 +8,20 @@
     android:padding="@dimen/spacing_16">
 
     <TextView
-        android:id="@+id/tv_about_resource"
+        android:id="@+id/resourceAboutTv"
         style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/btn_resource_test_assets"
+        android:id="@+id/resourceTestAssetsBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/resource_test_assets" />
 
     <Button
-        android:id="@+id/btn_resource_test_raw"
+        android:id="@+id/resourceTestRawBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

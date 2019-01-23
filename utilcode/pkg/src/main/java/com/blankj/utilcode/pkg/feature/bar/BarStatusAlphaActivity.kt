@@ -33,7 +33,7 @@ class BarStatusAlphaActivity : BaseActivity() {
     private val translucentListener = object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
             mAlpha = progress
-            statusAlphaTv.text = mAlpha.toString()
+            barStatusAlphaAboutTv.text = mAlpha.toString()
             updateStatusBar()
         }
 
@@ -55,9 +55,9 @@ class BarStatusAlphaActivity : BaseActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        findViewById<View>(R.id.setTransparentBtn).setOnClickListener(this)
-        changeAlphaSb.setOnSeekBarChangeListener(translucentListener)
-        statusAlphaTv.text = mAlpha.toString()
+        barStatusAlphaSetTransparentBtn.setOnClickListener(this)
+        barStatusAlphaChangeAlphaSb.setOnSeekBarChangeListener(translucentListener)
+        barStatusAlphaAboutTv.text = mAlpha.toString()
 
         updateStatusBar()
     }
@@ -69,12 +69,12 @@ class BarStatusAlphaActivity : BaseActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.setTransparentBtn -> changeAlphaSb.progress = 0
+            R.id.barStatusAlphaSetTransparentBtn -> barStatusAlphaChangeAlphaSb.progress = 0
         }
     }
 
     private fun updateStatusBar() {
         BarUtils.setStatusBarColor(this, Color.argb(mAlpha, 0, 0, 0))
-        BarUtils.addMarginTopEqualStatusBarHeight(statusAlphaTv)// 其实这个只需要调用一次即可
+        BarUtils.addMarginTopEqualStatusBarHeight(barStatusAlphaAboutTv)// 其实这个只需要调用一次即可
     }
 }

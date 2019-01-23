@@ -24,9 +24,9 @@ class AdaptScreenActivity : BaseBackActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        adaptWidthBtn.setOnClickListener { WidthActivity.start(this) }
-        adaptHeightBtn.setOnClickListener { HeightActivity.start(this) }
-        closeAdaptBtn.setOnClickListener { CloseAdaptActivity.start(this) }
+        adaptScreenAdaptWidthBtn.setOnClickListener { WidthActivity.start(this) }
+        adaptScreenAdaptHeightBtn.setOnClickListener { HeightActivity.start(this) }
+        adaptScreenCloseAdaptBtn.setOnClickListener { CloseAdaptActivity.start(this) }
     }
 
     override fun doBusiness() {}

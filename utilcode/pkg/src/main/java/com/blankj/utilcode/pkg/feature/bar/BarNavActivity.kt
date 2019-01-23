@@ -41,9 +41,9 @@ class BarNavActivity : BaseBackActivity() {
         (contentView.parent as View).setBackgroundColor(Color.GRAY)
         setTitle(R.string.demo_bar)
 
-        navShowBtn.setOnClickListener(this)
-        navHideBtn.setOnClickListener(this)
-        navSetColorBtn.setOnClickListener(this)
+        barNavShowBtn.setOnClickListener(this)
+        barNavHideBtn.setOnClickListener(this)
+        barNavSetColorBtn.setOnClickListener(this)
         updateAboutNav()
     }
 
@@ -53,13 +53,13 @@ class BarNavActivity : BaseBackActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.navShowBtn -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            R.id.barNavShowBtn -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 BarUtils.setNavBarVisibility(this, true)
             }
-            R.id.navHideBtn -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            R.id.barNavHideBtn -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 BarUtils.setNavBarVisibility(this, false)
             }
-            R.id.navSetColorBtn -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            R.id.barNavSetColorBtn -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 BarUtils.setNavBarColor(this, (Math.random() * 0xFFFFFFFF).toInt())
             }
         }
@@ -67,7 +67,7 @@ class BarNavActivity : BaseBackActivity() {
     }
 
     private fun updateAboutNav() {
-        SpanUtils.with(aboutNavTv)
+        SpanUtils.with(barNavAboutTv)
                 .appendLine("navHeight: " + BarUtils.getNavBarHeight())
                 .appendLine("isNavBarVisible: " + BarUtils.isNavBarVisible(this))
                 .apply {

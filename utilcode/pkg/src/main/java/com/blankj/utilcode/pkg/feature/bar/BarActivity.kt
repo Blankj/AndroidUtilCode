@@ -36,16 +36,16 @@ class BarActivity : BaseBackActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
         setTitle(R.string.demo_bar)
 
-        statusBarAboutBtn.setOnClickListener(this)
-        statusBarSetColorBtn.setOnClickListener(this)
-        statusBarSetAlphaBtn.setOnClickListener(this)
-        statusBarSetImageViewBtn.setOnClickListener(this)
-        statusBarSetCustomBtn.setOnClickListener(this)
-        statusBarSetFragmentBtn.setOnClickListener(this)
-        statusBarSetSwipeBackBtn.setOnClickListener(this)
-        statusBarSetDrawerBtn.setOnClickListener(this)
-        notificationBarAboutBtn.setOnClickListener(this)
-        navBarAboutBtn.setOnClickListener(this)
+        barStatusAboutBtn.setOnClickListener(this)
+        barStatusSetColorBtn.setOnClickListener(this)
+        barStatusSetAlphaBtn.setOnClickListener(this)
+        barStatusSetImageViewBtn.setOnClickListener(this)
+        barStatusSetCustomBtn.setOnClickListener(this)
+        barStatusSetFragmentBtn.setOnClickListener(this)
+        barStatusSetSwipeBackBtn.setOnClickListener(this)
+        barStatusSetDrawerBtn.setOnClickListener(this)
+        barNotificationAboutBtn.setOnClickListener(this)
+        barNavAboutBtn.setOnClickListener(this)
     }
 
     override fun doBusiness() {
@@ -54,16 +54,16 @@ class BarActivity : BaseBackActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.statusBarAboutBtn -> BarStatusActivity.start(this)
-            R.id.statusBarSetColorBtn -> BarStatusColorActivity.start(this)
-            R.id.statusBarSetAlphaBtn -> BarStatusAlphaActivity.start(this)
-            R.id.statusBarSetImageViewBtn -> BarStatusImageViewActivity.start(this)
-            R.id.statusBarSetCustomBtn -> BarStatusCustomActivity.start(this)
-            R.id.statusBarSetFragmentBtn -> BarStatusFragmentActivity.start(this)
-            R.id.statusBarSetSwipeBackBtn -> BarStatusSwipeBackActivity.start(this)
-            R.id.statusBarSetDrawerBtn -> BarStatusDrawerActivity.start(this)
-            R.id.notificationBarAboutBtn -> BarNotificationActivity.start(this)
-            R.id.navBarAboutBtn -> BarNavActivity.start(this)
+            R.id.barStatusAboutBtn -> BarStatusActivity.start(this)
+            R.id.barStatusSetColorBtn -> BarStatusColorActivity.start(this)
+            R.id.barStatusSetAlphaBtn -> BarStatusAlphaActivity.start(this)
+            R.id.barStatusSetImageViewBtn -> BarStatusImageViewActivity.start(this)
+            R.id.barStatusSetCustomBtn -> BarStatusCustomActivity.start(this)
+            R.id.barStatusSetFragmentBtn -> BarStatusFragmentActivity.start(this)
+            R.id.barStatusSetSwipeBackBtn -> BarStatusSwipeBackActivity.start(this)
+            R.id.barStatusSetDrawerBtn -> BarStatusDrawerActivity.start(this)
+            R.id.barNotificationAboutBtn -> BarNotificationActivity.start(this)
+            R.id.barNavAboutBtn -> BarNavActivity.start(this)
         }
     }
 }

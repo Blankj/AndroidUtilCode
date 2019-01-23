@@ -8,6 +8,8 @@ import android.app.Application.ActivityLifecycleCallbacks;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.content.FileProvider;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -143,9 +145,8 @@ public final class Utils {
     }
 
     static boolean isAppForeground() {
-        ActivityManager am =
-                (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-        //noinspection ConstantConditions
+        ActivityManager am = (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
+        if (am == null) return false;
         List<ActivityManager.RunningAppProcessInfo> info = am.getRunningAppProcesses();
         if (info == null || info.size() == 0) return false;
         for (ActivityManager.RunningAppProcessInfo aInfo : info) {
@@ -217,6 +218,7 @@ public final class Utils {
         public void onActivityDestroyed(Activity activity) {
             mActivityList.remove(activity);
             consumeOnActivityDestroyedListener(activity);
+            fixSoftInputLeaks(activity);
         }
 
         Activity getTopActivity() {
@@ -331,6 +333,33 @@ public final class Utils {
                 e.printStackTrace();
             }
             return null;
+        }
+
+        private static void fixSoftInputLeaks(final Context context) {
+            if (context == null) return;
+            InputMethodManager imm =
+                    (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
+            String[] strArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+            for (int i = 0; i < 4; i++) {
+                try {
+                    //noinspection ConstantConditions
+                    Field declaredField = imm.getClass().getDeclaredField(strArr[i]);
+                    if (declaredField == null) continue;
+                    if (!declaredField.isAccessible()) {
+                        declaredField.setAccessible(true);
+                    }
+                    Object obj = declaredField.get(imm);
+                    if (!(obj instanceof View)) continue;
+                    View view = (View) obj;
+                    if (view.getContext() == context) {
+                        declaredField.set(imm, null);
+                    } else {
+                        return;
+                    }
+                } catch (Throwable th) {
+                    th.printStackTrace();
+                }
+            }
         }
     }
 

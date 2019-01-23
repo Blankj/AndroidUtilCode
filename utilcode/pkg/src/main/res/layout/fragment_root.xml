@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_about_fragment"
+            android:id="@+id/fragmentRootAboutTv"
             style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -23,77 +23,70 @@
             android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/btn_show_about_fragment"
+            android:id="@+id/fragmentRootShowAboutBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fragment_show_stack" />
 
         <Button
-            android:id="@+id/btn_add"
+            android:id="@+id/fragmentRootAddBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fragment_add" />
 
         <Button
-            android:id="@+id/btn_add_hide"
+            android:id="@+id/fragmentRootAddHideBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fragment_add_hide" />
 
         <Button
-            android:id="@+id/btn_add_hide_stack"
+            android:id="@+id/fragmentRootAddHideStackBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fragment_add_hide_stack" />
 
         <Button
-            android:id="@+id/btn_add_show"
+            android:id="@+id/fragmentRootAddShowBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fragment_add_demo1_show" />
 
         <Button
-            android:id="@+id/btn_add_child"
+            android:id="@+id/fragmentRootAddChildBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fragment_add_child" />
 
         <Button
-            android:id="@+id/btn_pop_to_root"
+            android:id="@+id/fragmentRootPopToRootBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fragment_pop_to_root" />
 
         <Button
-            android:id="@+id/btn_pop_add"
-            style="@style/WideBtnStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/fragment_pop_add" />
-
-        <Button
-            android:id="@+id/btn_hide_show"
+            android:id="@+id/fragmentRootHideShowBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fragment_hide_demo0_show_demo1" />
 
         <Button
-            android:id="@+id/btn_replace"
+            android:id="@+id/fragmentRootReplaceBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fragment_replace" />
 
         <ImageView
-            android:id="@+id/iv_shared_element"
+            android:id="@+id/fragmentRootSharedElementIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/image_lena"

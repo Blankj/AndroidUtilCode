@@ -8,35 +8,35 @@
     android:padding="@dimen/spacing_16">
 
     <Button
-        android:id="@+id/btn_clean_internal_cache"
+        android:id="@+id/cleanInternalCacheBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/clean_internal_cache" />
 
     <Button
-        android:id="@+id/btn_clean_internal_files"
+        android:id="@+id/cleanInternalFilesBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/clean_internal_files" />
 
     <Button
-        android:id="@+id/btn_clean_internal_databases"
+        android:id="@+id/cleanInternalDatabasesBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/clean_internal_databases" />
 
     <Button
-        android:id="@+id/btn_clean_internal_sp"
+        android:id="@+id/cleanInternalSpBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/clean_internal_sp" />
 
     <Button
-        android:id="@+id/btn_clean_external_cache"
+        android:id="@+id/cleanExternalCacheBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

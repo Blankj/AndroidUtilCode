@@ -97,7 +97,7 @@ public final class ProcessUtils {
                             .queryUsageStats(UsageStatsManager.INTERVAL_BEST,
                                     beginTime, endTime);
                 }
-                if (usageStatsList == null || usageStatsList.isEmpty()) return null;
+                if (usageStatsList == null || usageStatsList.isEmpty()) return "";
                 UsageStats recentStats = null;
                 for (UsageStats usageStats : usageStatsList) {
                     if (recentStats == null
@@ -212,7 +212,7 @@ public final class ProcessUtils {
         ActivityManager am = (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
         //noinspection ConstantConditions
         List<ActivityManager.RunningAppProcessInfo> info = am.getRunningAppProcesses();
-        if (info == null || info.size() == 0) return null;
+        if (info == null || info.size() == 0) return "";
         int pid = Process.myPid();
         for (ActivityManager.RunningAppProcessInfo aInfo : info) {
             if (aInfo.pid == pid) {

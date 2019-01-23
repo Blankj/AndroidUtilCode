@@ -38,7 +38,7 @@ class BarStatusColorFragment : BaseLazyFragment() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        randomColorBtn.setOnClickListener(this)
+        barStatusColorFragmentRandomColorBtn.setOnClickListener(this)
         updateFakeStatusBar()
     }
 
@@ -48,7 +48,7 @@ class BarStatusColorFragment : BaseLazyFragment() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.randomColorBtn -> {
+            R.id.barStatusColorFragmentRandomColorBtn -> {
                 mColor = ColorUtils.getRandomColor()
                 updateFakeStatusBar()
             }
@@ -56,7 +56,7 @@ class BarStatusColorFragment : BaseLazyFragment() {
     }
 
     private fun updateFakeStatusBar() {
-        BarUtils.setStatusBarColor(fakeStatusBar, mColor)
-        statusColorTv.text = String.format(ColorUtils.int2ArgbString(mColor))
+        BarUtils.setStatusBarColor(barStatusColorFragmentFakeStatusBar, mColor)
+        barStatusColorFragmentAboutColorTv.text = String.format(ColorUtils.int2ArgbString(mColor))
     }
 }

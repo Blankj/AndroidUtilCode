@@ -5,10 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.*
 import android.os.Bundle
+import android.support.annotation.ColorInt
 import android.text.Layout
 import android.text.SpannableStringBuilder
 import android.text.TextPaint
+import android.text.style.CharacterStyle
 import android.text.style.ClickableSpan
+import android.text.style.UpdateAppearance
 import android.view.View
 import android.view.animation.LinearInterpolator
 import com.blankj.lib.base.BaseBackActivity
@@ -39,21 +42,15 @@ class SpanActivity : BaseBackActivity() {
 
     private var lineHeight: Int = 0
     private var textSize: Float = 0f
-    private var valueAnimator: ValueAnimator? = null
+    private lateinit var valueAnimator: ValueAnimator
     private lateinit var mShader: Shader
     private var mShaderWidth: Float = 0f
     private lateinit var matrix: Matrix
-
     private lateinit var mBlurMaskFilterSpan: BlurMaskFilterSpan
-
     private lateinit var mShadowSpan: ShadowSpan
-
     private lateinit var mForegroundAlphaColorSpan: ForegroundAlphaColorSpan
-
     private lateinit var mForegroundAlphaColorSpanGroup: ForegroundAlphaColorSpanGroup
-
     private lateinit var mPrinterString: String
-
     internal var density: Float = 0f
 
     override fun initData(bundle: Bundle?) {
@@ -78,14 +75,14 @@ class SpanActivity : BaseBackActivity() {
             }
         }
 
-        lineHeight = aboutSpanTv.lineHeight
-        textSize = aboutSpanTv.textSize
+        lineHeight = spanAboutTv.lineHeight
+        textSize = spanAboutTv.textSize
         density = resources.displayMetrics.density
 
         //        initAnimSpan();
         //        startAnim();
 
-        SpanUtils.with(aboutSpanTv)
+        SpanUtils.with(spanAboutTv)
                 .appendLine("SpanUtils").setBackgroundColor(Color.LTGRAY).setBold().setForegroundColor(Color.YELLOW).setHorizontalAlign(Layout.Alignment.ALIGN_CENTER)
                 .appendLine("前景色").setForegroundColor(Color.GREEN)
                 .appendLine("背景色").setBackgroundColor(Color.LTGRAY)
@@ -150,13 +147,13 @@ class SpanActivity : BaseBackActivity() {
                 .create()
 
 
-        //        aboutSpanTv.setText(new SpanUtils()
-        //                .append("行高顶部对齐").setLineHeight(3 * lineHeight, SpanUtils.ALIGN_TOP).setFontSize(20).setBackgroundColor(Color.GREEN)
-        //                .append("行高").setLineHeight(3 * lineHeight, SpanUtils.ALIGN_CENTER).setFontSize(40).setBackgroundColor(Color.LTGRAY)
-        //                .appendLine("行高顶部").setLineHeight(3 * lineHeight, SpanUtils.ALIGN_BOTTOM).setFontSize(60).setBackgroundColor(Color.LTGRAY)
-        //                .append("行高").setFontSize(100).setBackgroundColor(Color.GREEN)
-        //                .append("行高").setFontSize(20).setBackgroundColor(Color.LTGRAY).setUnderline().setVerticalAlign(SpanUtils.ALIGN_CENTER)
-        //                .create());
+//        SpanUtils.with(aboutSpanTv)
+//                .append("行高顶部对齐").setLineHeight(3 * lineHeight, SpanUtils.ALIGN_TOP).setFontSize(20).setBackgroundColor(Color.GREEN)
+//                .append("行高").setLineHeight(3 * lineHeight, SpanUtils.ALIGN_CENTER).setFontSize(40).setBackgroundColor(Color.LTGRAY)
+//                .appendLine("行高顶部").setLineHeight(3 * lineHeight, SpanUtils.ALIGN_BOTTOM).setFontSize(60).setBackgroundColor(Color.LTGRAY)
+//                .append("行高").setFontSize(100).setBackgroundColor(Color.GREEN)
+//                .append("行高").setFontSize(20).setBackgroundColor(Color.LTGRAY).setUnderline().setVerticalAlign(SpanUtils.ALIGN_CENTER)
+//                .create();
     }
 
     private fun initAnimSpan() {
@@ -195,7 +192,7 @@ class SpanActivity : BaseBackActivity() {
 
     private fun startAnim() {
         valueAnimator = ValueAnimator.ofFloat(0f, 1f)
-        valueAnimator!!.addUpdateListener { animation ->
+        valueAnimator.addUpdateListener { animation ->
             // shader
             matrix.reset()
             matrix.setTranslate(animation.animatedValue as Float * mShaderWidth, 0f)
@@ -215,13 +212,13 @@ class SpanActivity : BaseBackActivity() {
             mForegroundAlphaColorSpanGroup.alpha = animation.animatedValue as Float
 
             // update
-            aboutAnimSpanTv.text = animSsb
+            spanAboutAnimTv.text = animSsb
         }
 
-        valueAnimator!!.interpolator = LinearInterpolator()
-        valueAnimator!!.duration = (600 * 3).toLong()
-        valueAnimator!!.repeatCount = ValueAnimator.INFINITE
-        valueAnimator!!.start()
+        valueAnimator.interpolator = LinearInterpolator()
+        valueAnimator.duration = (600 * 3).toLong()
+        valueAnimator.repeatCount = ValueAnimator.INFINITE
+        valueAnimator.start()
     }
 
     override fun doBusiness() {
@@ -233,9 +230,69 @@ class SpanActivity : BaseBackActivity() {
     }
 
     override fun onDestroy() {
-        if (valueAnimator != null && valueAnimator!!.isRunning) {
-            valueAnimator!!.cancel()
+        if (valueAnimator.isRunning) {
+            valueAnimator.cancel()
         }
         super.onDestroy()
+    }
+}
+
+class BlurMaskFilterSpan(private var mRadius: Float) : CharacterStyle(), UpdateAppearance {
+    private var mFilter: MaskFilter? = null
+
+    var radius: Float
+        get() = mRadius
+        set(radius) {
+            mRadius = radius
+            mFilter = BlurMaskFilter(mRadius, BlurMaskFilter.Blur.NORMAL)
+        }
+
+    override fun updateDrawState(ds: TextPaint) {
+        ds.maskFilter = mFilter
+    }
+}
+
+class ForegroundAlphaColorSpan(@param:ColorInt private var mColor: Int) : CharacterStyle(), UpdateAppearance {
+
+    fun setAlpha(alpha: Int) {
+        mColor = Color.argb(alpha, Color.red(mColor), Color.green(mColor), Color.blue(mColor))
+    }
+
+    override fun updateDrawState(ds: TextPaint) {
+        ds.color = mColor
+    }
+}
+
+class ForegroundAlphaColorSpanGroup(private val mAlpha: Float) {
+
+    private val mSpans: ArrayList<ForegroundAlphaColorSpan> = ArrayList()
+
+    var alpha: Float
+        get() = mAlpha
+        set(alpha) {
+            val size = mSpans.size
+            var total = 1.0f * size.toFloat() * alpha
+            for (index in 0 until size) {
+                val span = mSpans[index]
+                if (total >= 1.0f) {
+                    span.setAlpha(255)
+                    total -= 1.0f
+                } else {
+                    span.setAlpha((total * 255).toInt())
+                    total = 0.0f
+                }
+            }
+        }
+
+    fun addSpan(span: ForegroundAlphaColorSpan) {
+        span.setAlpha((mAlpha * 255).toInt())
+        mSpans.add(span)
+    }
+}
+
+class ShadowSpan(private val radius: Float, var dx: Float, var dy: Float, private val shadowColor: Int) : CharacterStyle(), UpdateAppearance {
+
+    override fun updateDrawState(tp: TextPaint) {
+        tp.setShadowLayer(radius, dx, dy, shadowColor)
     }
 }

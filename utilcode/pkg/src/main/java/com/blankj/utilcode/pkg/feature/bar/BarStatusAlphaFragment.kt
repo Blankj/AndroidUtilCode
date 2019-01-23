@@ -31,7 +31,7 @@ class BarStatusAlphaFragment : BaseLazyFragment() {
     private val translucentListener = object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
             mAlpha = progress
-            statusAlphaTv.text = mAlpha.toString()
+            barStatusAlphaFragmentAboutTv.text = mAlpha.toString()
             updateFakeStatusBar()
         }
 
@@ -53,9 +53,9 @@ class BarStatusAlphaFragment : BaseLazyFragment() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        findViewById<View>(R.id.setTransparentBtn).setOnClickListener(this)
-        changeAlphaSb.setOnSeekBarChangeListener(translucentListener)
-        statusAlphaTv.text = mAlpha.toString()
+        barStatusAlphaFragmentSetTransparentBtn.setOnClickListener(this)
+        barStatusAlphaFragmentChangeAlphaSb.setOnSeekBarChangeListener(translucentListener)
+        barStatusAlphaFragmentAboutTv.text = mAlpha.toString()
 
         updateFakeStatusBar()
     }
@@ -66,11 +66,11 @@ class BarStatusAlphaFragment : BaseLazyFragment() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.setTransparentBtn -> changeAlphaSb.progress = 0
+            R.id.barStatusAlphaSetTransparentBtn -> barStatusAlphaFragmentChangeAlphaSb.progress = 0
         }
     }
 
     fun updateFakeStatusBar() {
-        BarUtils.setStatusBarColor(fakeStatusBar, Color.argb(mAlpha, 0, 0, 0))
+        BarUtils.setStatusBarColor(barStatusAlphaFragmentFakeStatusBar, Color.argb(mAlpha, 0, 0, 0))
     }
 }

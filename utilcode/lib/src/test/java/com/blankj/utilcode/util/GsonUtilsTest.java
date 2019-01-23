@@ -57,7 +57,7 @@ public class GsonUtilsTest extends BaseTest {
     @Test
     public void getType() {
         Assert.assertEquals(
-                "java.util.Collection<java.lang.String>",
+                "java.util.List<java.lang.String>",
                 GsonUtils.getListType(String.class).toString()
         );
         Assert.assertEquals(
@@ -73,7 +73,7 @@ public class GsonUtilsTest extends BaseTest {
                 GsonUtils.getType(Result.class, String.class).toString()
         );
         Assert.assertEquals(
-                "java.util.Map<java.lang.String, java.util.Collection<java.lang.String>>",
+                "java.util.Map<java.lang.String, java.util.List<java.lang.String>>",
                 GsonUtils.getMapType(String.class, GsonUtils.getListType(String.class)).toString()
         );
     }
