@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:ignore="MissingDefaultResource">
+
+    <RelativeLayout
+        android:layout_width="2000dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_up"
+            style="@style/TextStyle"
+            android:layout_width="2000dp"
+            android:layout_height="360dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorAccentHalfTrans"
+            android:gravity="center_vertical"
+            android:text="360dp" />
+
+        <TextView
+            android:id="@+id/tv_down"
+            style="@style/TextStyle"
+            android:layout_width="2000dp"
+            android:layout_height="360dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimaryHalfTrans"
+            android:gravity="center_vertical"
+            android:text="360dp" />
+
+    </RelativeLayout>
+</HorizontalScrollView>

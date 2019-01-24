@@ -1,0 +1,10 @@
+apply {
+    from "${rootDir.path}/config_app.gradle"
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':launcher-pkg')
+    implementation project(':subutil-pkg')
+    implementation project(':utilcode-pkg')
+}

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:ignore="MissingDefaultResource">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="2000dp">
+
+        <LinearLayout
+            android:id="@+id/containerLl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_show_system_toast"
+                style="@style/WideBtnStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/adapt_screen_system_toast" />
+
+            <Button
+                android:id="@+id/btn_show_util_toast"
+                style="@style/WideBtnStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/adapt_screen_util_toast" />
+
+            <Button
+                android:id="@+id/btn_system_dialog"
+                style="@style/WideBtnStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/adapt_screen_system_dialog" />
+
+            <Button
+                android:id="@+id/btn_system_dialog_without_adapt"
+                style="@style/WideBtnStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/adapt_screen_system_dialog_without_adapt" />
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/TextStyle"
+            android:layout_width="360dp"
+            android:layout_height="2000dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/containerLl"
+            android:background="@color/colorAccentHalfTrans"
+            android:gravity="center_horizontal"
+            android:text="360dp" />
+
+        <TextView
+            style="@style/TextStyle"
+            android:layout_width="360dp"
+            android:layout_height="2000dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/containerLl"
+            android:background="@color/colorPrimaryHalfTrans"
+            android:gravity="center_horizontal"
+            android:text="360dp" />
+
+    </RelativeLayout>
+</ScrollView>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/barStatusFragmentNavigationColor"
+        android:icon="@drawable/bar_status_nav_color"
+        android:title="@string/bar_status_title_color" />
+
+    <item
+        android:id="@+id/barStatusFragmentNavigationAlpha"
+        android:icon="@drawable/bar_status_nav_alpha"
+        android:title="@string/bar_status_title_alpha" />
+
+    <item
+        android:id="@+id/barStatusFragmentNavigationImageView"
+        android:icon="@drawable/bar_status_nav_image"
+        android:title="@string/bar_status_title_image_view" />
+
+    <item
+        android:id="@+id/barStatusFragmentNavigationCustom"
+        android:icon="@drawable/bar_status_nav_custom"
+        android:title="@string/bar_status_title_custom" />
+
+</menu>

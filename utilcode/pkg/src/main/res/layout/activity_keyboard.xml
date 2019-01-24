@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/rainbow_green">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="2000dp"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_16">
+
+        <TextView
+            android:id="@+id/keyboardAboutTv"
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/keyboardHideSoftInputBtn"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/keyboardAboutTv"
+            android:text="@string/keyboard_hide_soft_input" />
+
+        <Button
+            android:id="@+id/keyboardShowSoftInputBtn"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/keyboardHideSoftInputBtn"
+            android:text="@string/keyboard_show_soft_input" />
+
+        <Button
+            android:id="@+id/keyboardToggleSoftInputBtn"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/keyboardShowSoftInputBtn"
+            android:text="@string/keyboard_toggle_soft_input" />
+
+        <Button
+            android:id="@+id/keyboardInFragmentBtn"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/keyboardToggleSoftInputBtn"
+            android:text="@string/keyboard_show_dialog" />
+
+        <EditText
+            android:id="@+id/inputEt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:inputType="text" />
+
+    </RelativeLayout>
+</ScrollView>

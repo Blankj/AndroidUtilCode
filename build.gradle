@@ -2,13 +2,19 @@
 buildscript {
     apply from: 'config.gradle'
     repositories {
+        if (bus.isDebug) {
+            maven() {
+                url uri(new File(project.rootDir, "maven"))
+            }
+        }
         google()
         jcenter()
     }
 
     dependencies {
-        classpath depConfig.gradle
-//        classpath depConfig.kotlin_gradle_plugin
+        for (plugin in dep.plugin) {
+            classpath plugin
+        }
     }
 }
 
@@ -24,7 +30,7 @@ allprojects {
         resolutionStrategy.eachDependency {
             if (it.requested.group == 'com.android.support'
                     && !it.requested.name.contains('multidex')) {
-                it.useVersion versionConfig.support
+                it.useVersion support_version
             }
         }
     }

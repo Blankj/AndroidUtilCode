@@ -1,7 +1,0 @@
-plugins {
-    id "com.android.application"
-}
-
-// in config.gradle
-configAndroidDomain project
-configAppDependencies project

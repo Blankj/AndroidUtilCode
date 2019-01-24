@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".feature.adaptScreen.WidthActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/adaptScreenWidthFl0"
+            android:layout_width="match_parent"
+            android:layout_height="270pt"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+            <TextView
+                android:layout_width="540pt"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:background="@color/colorAccentOrigin"
+                android:gravity="center"
+                android:text="Width: 540pt\nFont: 30pt"
+                android:textColor="@android:color/black"
+                android:textSize="30pt" />
+
+            <TextView
+                android:layout_width="540pt"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:background="@color/colorPrimaryOrigin"
+                android:gravity="center"
+                android:text="Width: 540pt\nFont: 30sp"
+                android:textColor="@android:color/black"
+                android:textSize="30sp" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/adaptScreenWidthFl1"
+            android:layout_width="1080pt"
+            android:layout_height="270pt"
+            app:layout_constraintTop_toBottomOf="@id/adaptScreenWidthFl0">
+
+            <WebView
+                android:id="@+id/adaptScreenWidthWebView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="WebView\nWidth: 1080pt"
+                android:textColor="@android:color/black"
+                android:textSize="30pt" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/adaptScreenWidthFl2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/adaptScreenWidthFl1">
+
+            <ImageView
+                android:layout_width="540pt"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:adjustViewBounds="true"
+                android:src="@drawable/image_lena" />
+
+            <TextView
+                android:layout_width="540pt"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical|end"
+                android:background="@color/colorAccentOrigin"
+                android:gravity="center"
+                android:text="Left ImageView\nWidth: 540pt"
+                android:textColor="@android:color/black"
+                android:textSize="30pt" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/adaptScreenWidthFl3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/adaptScreenWidthFl2">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:adjustViewBounds="true"
+                android:src="@drawable/image_lena" />
+
+            <TextView
+                android:layout_width="540pt"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical|end"
+                android:background="@color/colorAccentOrigin"
+                android:gravity="center"
+                android:text="Left ImageView\nWidth: wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="30pt" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/adaptScreenWidthFl3">
+
+            <TextView
+                android:layout_width="180pt"
+                android:layout_height="270pt"
+                android:background="@color/colorAccentOrigin"
+                android:gravity="center"
+                android:text="1\nWidth: 180pt"
+                android:textColor="@android:color/black"
+                android:textSize="30pt" />
+
+            <TextView
+                android:id="@+id/width2Tv"
+                android:layout_width="360pt"
+                android:layout_height="270pt"
+                android:background="@color/colorPrimaryOrigin"
+                android:gravity="center"
+                android:text="2\nWidth: 360pt"
+                android:textColor="@android:color/black"
+                android:textSize="30pt" />
+
+            <TextView
+                android:id="@+id/width3Tv"
+                android:layout_width="540pt"
+                android:layout_height="270pt"
+                android:background="@color/colorPrimaryDarkOrigin"
+                android:gravity="center"
+                android:text="3\nWidth: 540pt"
+                android:textColor="@android:color/black"
+                android:textSize="30pt" />
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

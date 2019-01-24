@@ -3,7 +3,8 @@ package com.blankj.plugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-import static com.blankj.plugin.FormatUtils.LINE_SEP;
+import static FormatUtils.LINE_SEP;
+
 
 class ReadmeSubPlugin implements Plugin<Project> {
 
@@ -15,8 +16,10 @@ class ReadmeSubPlugin implements Plugin<Project> {
             doLast {
                 println "readmeTask start..."
 
-                def readmeCN = project['readme'].readmeCnFile
-                def readmeEng = project['readme'].readmeFile
+                def ext = project['readme'] as ReadmeExtension
+                def readmeCN = ext.readmeCnFile
+                def readmeEng = ext.readmeFile
+
                 readmeOfSubUtil2Eng(readmeCN, readmeEng)
 
                 println "readmeTask finished."

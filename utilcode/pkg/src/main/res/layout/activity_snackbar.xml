@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/spacing_128"
+    android:paddingLeft="@dimen/spacing_16"
+    android:paddingRight="@dimen/spacing_16"
+    android:paddingTop="@dimen/spacing_16">
+
+    <Button
+        android:id="@+id/snackbarShowShortBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/snackbar_show_short" />
+
+    <Button
+        android:id="@+id/snackbarShowShortWithActionBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/snackbar_show_short_with_action" />
+
+    <Button
+        android:id="@+id/snackbarShowLongBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/snackbar_show_long" />
+
+    <Button
+        android:id="@+id/snackbarShowLongWithActionBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/snackbar_show_long_with_action" />
+
+    <Button
+        android:id="@+id/snackbarShowIndefiniteBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/snackbar_show_indefinite" />
+
+    <Button
+        android:id="@+id/snackbarShowIndefiniteWithActionBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/snackbar_show_indefinite_with_action" />
+
+    <Button
+        android:id="@+id/snackbarAddViewBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/snackbar_add_view" />
+
+    <Button
+        android:id="@+id/snackbarAddViewWithActionBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/snackbar_add_view_with_action" />
+
+    <Button
+        android:id="@+id/snackbarShowSuccessBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/snackbar_show_success" />
+
+    <Button
+        android:id="@+id/snackbarShowWarningBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/snackbar_show_warning" />
+
+    <Button
+        android:id="@+id/snackbarShowErrorBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/snackbar_show_error" />
+
+
+    <Button
+        android:id="@+id/snackbarDismissBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/snackbar_dismiss" />
+
+</LinearLayout>

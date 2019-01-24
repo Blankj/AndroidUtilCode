@@ -1,8 +1,0 @@
-apply {
-    plugin('com.android.library')
-    from('readme.gradle')
-}
-
-// in config.gradle
-configAndroidDomain project
-configSubUtilDependencies project
