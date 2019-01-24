@@ -1,4 +1,4 @@
-package com.blankj.subutil.pkg.feature.flashlight
+package com.blankj.utilcode.pkg.feature.flashlight
 
 import android.content.Context
 import android.content.Intent

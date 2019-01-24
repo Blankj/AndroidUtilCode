@@ -1,4 +1,4 @@
-package com.blankj.subutil.pkg.feature.brightness
+package com.blankj.utilcode.pkg.feature.brightness
 
 import android.content.Context
 import android.content.Intent
