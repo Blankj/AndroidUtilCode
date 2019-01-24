@@ -36,14 +36,14 @@ class MainActivity : BaseDrawerActivity() {
         launcherMainCtl.setExpandedTitleColor(Color.TRANSPARENT)
         setSupportActionBar(launcherMainToolbar)
         val toggle = ActionBarDrawerToggle(this,
-                mDrawerRootLayout,
+                mBaseDrawerRootLayout,
                 launcherMainToolbar,
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close)
-        mDrawerRootLayout.addDrawerListener(toggle)
+        mBaseDrawerRootLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        BarUtils.setStatusBarColor4Drawer(mDrawerRootLayout, launcherMainFakeStatusBar, Color.TRANSPARENT, false)
+        BarUtils.setStatusBarColor4Drawer(mBaseDrawerRootLayout, launcherMainFakeStatusBar, Color.TRANSPARENT, false)
         BarUtils.addMarginTopEqualStatusBarHeight(launcherMainToolbar)
 
         launcherMainCoreUtilBtn.setOnClickListener {

@@ -124,8 +124,7 @@ public final class CrashUtils {
 
     /**
      * Initialization.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      */
     @RequiresPermission(WRITE_EXTERNAL_STORAGE)
     public static void init() {
@@ -134,8 +133,7 @@ public final class CrashUtils {
 
     /**
      * Initialization
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      *
      * @param crashDir The directory of saving crash information.
      */
@@ -146,8 +144,7 @@ public final class CrashUtils {
 
     /**
      * Initialization
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      *
      * @param crashDirPath The directory's path of saving crash information.
      */
@@ -158,8 +155,7 @@ public final class CrashUtils {
 
     /**
      * Initialization
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      *
      * @param onCrashListener The crash listener.
      */
@@ -170,8 +166,7 @@ public final class CrashUtils {
 
     /**
      * Initialization
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      *
      * @param crashDir        The directory of saving crash information.
      * @param onCrashListener The crash listener.
@@ -183,8 +178,7 @@ public final class CrashUtils {
 
     /**
      * Initialization
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      *
      * @param crashDirPath    The directory's path of saving crash information.
      * @param onCrashListener The crash listener.

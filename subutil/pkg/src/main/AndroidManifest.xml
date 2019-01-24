@@ -18,12 +18,6 @@
             android:name=".feature.SubUtilActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.brightness.BrightnessActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".feature.flashlight.FlashlightActivity"
-            android:launchMode="singleTop" />
-        <activity
             android:name=".feature.location.LocationActivity"
             android:launchMode="singleTop" />
 

@@ -81,14 +81,7 @@ class AppActivity : BaseBackActivity() {
             R.id.appInstallAppBtn -> if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
                 ToastUtils.showShort(R.string.app_install_tips)
             } else {
-                PermissionHelper.requestStorage {
-                    if (!FileUtils.isFileExists(Config.TEST_APK_PATH)) {
-                        ReleaseInstallApkTask(listener).execute()
-                    } else {
-                        listener.onReleased()
-                        LogUtils.d("test apk existed.")
-                    }
-                }
+                installApp()
             }
             R.id.appInstallAppSilentBtn -> if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
                 ToastUtils.showShort(R.string.app_install_tips)
@@ -118,6 +111,23 @@ class AppActivity : BaseBackActivity() {
             R.id.appLaunchAppDetailsSettingsBtn -> AppUtils.launchAppDetailsSettings()
             R.id.appExitAppBtn -> AppUtils.exitApp()
         }
+    }
+
+    private fun installApp() {
+        PermissionHelper.requestStorage(object : PermissionHelper.OnPermissionGrantedListener {
+            override fun onPermissionGranted() {
+                if (!FileUtils.isFileExists(Config.TEST_APK_PATH)) {
+                    ReleaseInstallApkTask(listener).execute()
+                } else {
+                    listener.onReleased()
+                    LogUtils.d("test apk existed.")
+                }
+            }
+        }, object : PermissionHelper.OnPermissionDeniedListener {
+            override fun onPermissionDenied() {
+                installApp()
+            }
+        })
     }
 }
 

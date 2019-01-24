@@ -115,8 +115,7 @@ public final class ProcessUtils {
 
     /**
      * Return all background processes.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />}</p>
      *
      * @return all background processes
      */
@@ -137,8 +136,7 @@ public final class ProcessUtils {
 
     /**
      * Kill all background processes.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />}</p>
      *
      * @return background processes were killed
      */
@@ -166,8 +164,7 @@ public final class ProcessUtils {
 
     /**
      * Kill background processes.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />}</p>
      *
      * @param packageName The name of the package.
      * @return {@code true}: success<br>{@code false}: fail

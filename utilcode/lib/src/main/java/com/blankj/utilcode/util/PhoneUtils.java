@@ -46,8 +46,7 @@ public final class PhoneUtils {
 
     /**
      * Return the unique device id.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.READ_PHONE_STATE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.READ_PHONE_STATE" />}</p>
      *
      * @return the unique device id
      */
@@ -79,8 +78,7 @@ public final class PhoneUtils {
 
     /**
      * Return the IMEI.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.READ_PHONE_STATE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.READ_PHONE_STATE" />}</p>
      *
      * @return the IMEI
      */
@@ -111,8 +109,7 @@ public final class PhoneUtils {
 
     /**
      * Return the IMEI.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.READ_PHONE_STATE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.READ_PHONE_STATE" />}</p>
      *
      * @param slotId of which deviceID is returned
      * @return the IMEI
@@ -140,8 +137,7 @@ public final class PhoneUtils {
 
     /**
      * Return the MEID.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.READ_PHONE_STATE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.READ_PHONE_STATE" />}</p>
      *
      * @return the MEID
      */
@@ -157,8 +153,7 @@ public final class PhoneUtils {
 
     /**
      * Return the MEID.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.READ_PHONE_STATE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.READ_PHONE_STATE" />}</p>
      *
      * @return the MEID
      */
@@ -174,8 +169,7 @@ public final class PhoneUtils {
 
     /**
      * Return the IMSI.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.READ_PHONE_STATE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.READ_PHONE_STATE" />}</p>
      *
      * @return the IMSI
      */
@@ -252,8 +246,7 @@ public final class PhoneUtils {
 
     /**
      * Return the phone status.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.READ_PHONE_STATE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.READ_PHONE_STATE" />}</p>
      *
      * @return DeviceId = 99000311726612<br>
      * DeviceSoftwareVersion = 00<br>

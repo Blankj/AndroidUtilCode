@@ -18,10 +18,12 @@
         <item name="android:textColor">@color/light_black</item>
     </style>
 
-    <style name="WideBtnStyle">
-        <item name="android:textSize">@dimen/font_24</item>
-        <item name="android:textColor">@color/light_black</item>
+    <style name="WideBtnStyle" parent="TextStyle">
         <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="CbStyle" parent="TextStyle">
+
     </style>
 
     <style name="AnimationActivity" parent="@android:style/Animation.Translucent">

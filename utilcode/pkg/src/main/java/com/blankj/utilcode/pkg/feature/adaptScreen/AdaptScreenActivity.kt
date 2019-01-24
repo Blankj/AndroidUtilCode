@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.blankj.lib.base.BaseBackActivity
 import com.blankj.utilcode.pkg.R
-import kotlinx.android.synthetic.main.activity_adapt_screen.*
+import kotlinx.android.synthetic.main.activity_adaptscreen.*
 
 class AdaptScreenActivity : BaseBackActivity() {
 
@@ -20,7 +20,7 @@ class AdaptScreenActivity : BaseBackActivity() {
     override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
-        return R.layout.activity_adapt_screen;
+        return R.layout.activity_adaptscreen;
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {

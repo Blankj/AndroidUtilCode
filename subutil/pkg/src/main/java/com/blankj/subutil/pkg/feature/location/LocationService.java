@@ -72,6 +72,10 @@ public class LocationService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        requestLocation();
+    }
+
+    private void requestLocation() {
         PermissionHelper.requestLocation(new PermissionHelper.OnPermissionGrantedListener() {
             @Override
             public void onPermissionGranted() {
@@ -84,6 +88,11 @@ public class LocationService extends Service {
                         Looper.loop();
                     }
                 }).start();
+            }
+        }, new PermissionHelper.OnPermissionDeniedListener() {
+            @Override
+            public void onPermissionDenied() {
+                requestLocation();
             }
         });
     }

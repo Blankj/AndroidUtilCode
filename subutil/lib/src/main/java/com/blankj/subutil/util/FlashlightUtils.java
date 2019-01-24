@@ -20,8 +20,6 @@ import static android.hardware.Camera.Parameters.FLASH_MODE_TORCH;
  */
 public final class FlashlightUtils {
 
-    private static final String TAG = "FlashlightUtils";
-
     private Camera mCamera;
 
     private FlashlightUtils() {
@@ -45,11 +43,11 @@ public final class FlashlightUtils {
         try {
             mCamera = Camera.open(0);
         } catch (Throwable t) {
-            Log.e(TAG, "register: ", t);
+            Log.e("FlashlightUtils", "register: ", t);
             return false;
         }
         if (mCamera == null) {
-            Log.e(TAG, "register: open camera failed!");
+            Log.e("FlashlightUtils", "register: open camera failed!");
             return false;
         }
         try {
@@ -76,7 +74,7 @@ public final class FlashlightUtils {
      */
     public void setFlashlightOn() {
         if (mCamera == null) {
-            Log.e(TAG, "setFlashlightOn: the utils of flashlight register failed!");
+            Log.e("FlashlightUtils", "setFlashlightOn: the utils of flashlight register failed!");
             return;
         }
         Camera.Parameters parameters = mCamera.getParameters();
@@ -91,7 +89,7 @@ public final class FlashlightUtils {
      */
     public void setFlashlightOff() {
         if (mCamera == null) {
-            Log.e(TAG, "setFlashlightOn: the utils of flashlight register failed!");
+            Log.e("FlashlightUtils", "setFlashlightOn: the utils of flashlight register failed!");
             return;
         }
         Camera.Parameters parameters = mCamera.getParameters();
@@ -108,7 +106,7 @@ public final class FlashlightUtils {
      */
     public boolean isFlashlightOn() {
         if (mCamera == null) {
-            Log.e(TAG, "setFlashlightOn: the utils of flashlight register failed!");
+            Log.e("FlashlightUtils", "setFlashlightOn: the utils of flashlight register failed!");
             return false;
         }
         Camera.Parameters parameters = mCamera.getParameters();

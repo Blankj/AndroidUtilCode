@@ -96,10 +96,16 @@
             android:name=".feature.bar.BarStatusSwipeBackActivity"
             android:launchMode="singleTop" />
         <activity
+            android:name=".feature.brightness.BrightnessActivity"
+            android:launchMode="singleTop" />
+        <activity
             android:name=".feature.clean.CleanActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.device.DeviceActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.flashlight.FlashlightActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.fragment.FragmentActivity"
@@ -114,7 +120,6 @@
         <activity
             android:name=".feature.log.LogActivity"
             android:launchMode="singleTop" />
-
         <activity
             android:name=".feature.metaData.MetaDataActivity"
             android:launchMode="singleTop">

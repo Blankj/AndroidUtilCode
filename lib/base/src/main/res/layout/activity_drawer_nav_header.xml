@@ -12,7 +12,7 @@
         android:src="@drawable/main_bg_header" />
 
     <ImageView
-        android:id="@+id/avatarIv"
+        android:id="@+id/baseDrawerNavHeaderAvatarIv"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_above="@+id/descTv"
@@ -24,7 +24,7 @@
         android:layout_height="80dp"
         android:layout_above="@+id/descTv"
         android:layout_marginLeft="@dimen/spacing_16"
-        android:layout_toRightOf="@id/avatarIv"
+        android:layout_toRightOf="@id/baseDrawerNavHeaderAvatarIv"
         android:gravity="center_vertical"
         android:text="@string/author"
         android:textColor="@color/white"

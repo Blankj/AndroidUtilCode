@@ -4,10 +4,12 @@
     <string name="demo_adapt_screen">AdaptScreenUtils Demo</string>
     <string name="demo_app">AppUtils Demo</string>
     <string name="demo_bar">BarUtils Demo</string>
+    <string name="demo_brightness">Brightness Demo</string>
     <string name="demo_blur">BlurUtils Demo</string>
     <string name="demo_clean">CleanUtils Demo</string>
     <string name="demo_crash">CrashUtils Demo</string>
     <string name="demo_device">DeviceUtils Demo</string>
+    <string name="demo_flashlight">Flashlight Demo</string>
     <string name="demo_fragment">FragmentUtils Demo</string>
     <string name="demo_image">ImageUtils Demo</string>
     <string name="demo_keyboard">KeyboardUtils Demo</string>
@@ -110,8 +112,8 @@
     <string name="bar_nav_immersive">Immersive Nav</string>
     <string name="bar_nav_color">Set Nav Color Random</string>
 
-    <!--Blur 相关-->
-    <string name="blur_text">Blur Text</string>
+    <!-- Brightness 相关 -->
+    <string name="brightness_set_auto_brightness">Set Auto Brightness</string>
 
     <!--Clean 相关-->
     <string name="clean_internal_cache">Clean Internal Cache</string>
@@ -125,6 +127,10 @@
     <string name="device_reboot">Reboot</string>
     <string name="device_reboot_to_recovery">Reboot To Recovery</string>
     <string name="device_reboot_to_bootloader">Reboot To Bootloader</string>
+
+    <!-- Flashlight相关 -->
+    <string name="flashlight_on">Set Flashlight On</string>
+    <string name="flashlight_off">Set Flashlight Off</string>
 
     <!--Fragment 相关-->
     <string name="fragment_zero">Fragment0</string>

@@ -16,17 +16,9 @@ import java.util.List;
  */
 public class PermissionHelper {
 
-    public static void requestCamera(final OnPermissionGrantedListener listener) {
-        request(listener, PermissionConstants.CAMERA);
-    }
-
-    public static void requestLocation(final OnPermissionGrantedListener listener) {
-        request(listener, PermissionConstants.LOCATION);
-    }
-
-    private static void request(final OnPermissionGrantedListener grantedListener,
-                                final @PermissionConstants.Permission String... permissions) {
-        request(grantedListener, null, permissions);
+    public static void requestLocation(final OnPermissionGrantedListener listener,
+                                       final OnPermissionDeniedListener deniedListener) {
+        request(listener, deniedListener, PermissionConstants.LOCATION);
     }
 
     private static void request(final OnPermissionGrantedListener grantedListener,
@@ -42,21 +34,22 @@ public class PermissionHelper {
                 .callback(new PermissionUtils.FullCallback() {
                     @Override
                     public void onGranted(List<String> permissionsGranted) {
+                        LogUtils.d(permissionsGranted);
                         if (grantedListener != null) {
                             grantedListener.onPermissionGranted();
                         }
-                        LogUtils.d(permissionsGranted);
                     }
 
                     @Override
                     public void onDenied(List<String> permissionsDeniedForever, List<String> permissionsDenied) {
+                        LogUtils.d(permissionsDeniedForever, permissionsDenied);
                         if (!permissionsDeniedForever.isEmpty()) {
                             DialogHelper.showOpenAppSettingDialog();
+                            return;
                         }
                         if (deniedListener != null) {
                             deniedListener.onPermissionDenied();
                         }
-                        LogUtils.d(permissionsDeniedForever, permissionsDenied);
                     }
                 })
                 .request();

@@ -14,45 +14,44 @@ import com.blankj.utilcode.util.PermissionUtils
  */
 object PermissionHelper {
 
-    fun requestStorage(listener: OnPermissionGrantedListener) {
-        request(listener, PermissionConstants.STORAGE)
+    fun requestCamera(listener: OnPermissionGrantedListener,
+                      deniedListener: OnPermissionDeniedListener) {
+        request(listener, deniedListener, PermissionConstants.CAMERA)
     }
 
-    fun requestPhone(listener: OnPermissionGrantedListener) {
-        request(listener, PermissionConstants.PHONE)
+    fun requestStorage(listener: OnPermissionGrantedListener,
+                       deniedListener: OnPermissionDeniedListener) {
+        request(listener, deniedListener, PermissionConstants.STORAGE)
     }
 
-    fun requestPhone(grantedListener: OnPermissionGrantedListener,
+    fun requestPhone(listener: OnPermissionGrantedListener,
                      deniedListener: OnPermissionDeniedListener) {
-        request(grantedListener, deniedListener, PermissionConstants.PHONE)
+        request(listener, deniedListener, PermissionConstants.PHONE)
     }
 
-    fun requestSms(listener: OnPermissionGrantedListener) {
-        request(listener, PermissionConstants.SMS)
-    }
-
-    private fun request(grantedListener: OnPermissionGrantedListener,
-                        @PermissionConstants.Permission vararg permissions: String) {
-        request(grantedListener, null, *permissions)
+    fun requestSms(listener: OnPermissionGrantedListener,
+                   deniedListener: OnPermissionDeniedListener) {
+        request(listener, deniedListener, PermissionConstants.SMS)
     }
 
     private fun request(grantedListener: OnPermissionGrantedListener,
-                        deniedListener: OnPermissionDeniedListener?,
+                        deniedListener: OnPermissionDeniedListener,
                         @PermissionConstants.Permission vararg permissions: String) {
         PermissionUtils.permission(*permissions)
                 .rationale { shouldRequest -> DialogHelper.showRationaleDialog(shouldRequest) }
                 .callback(object : PermissionUtils.FullCallback {
                     override fun onGranted(permissionsGranted: List<String>) {
-                        grantedListener.onPermissionGranted()
                         LogUtils.d(permissionsGranted)
+                        grantedListener.onPermissionGranted()
                     }
 
                     override fun onDenied(permissionsDeniedForever: List<String>, permissionsDenied: List<String>) {
+                        LogUtils.d(permissionsDeniedForever, permissionsDenied)
                         if (!permissionsDeniedForever.isEmpty()) {
                             DialogHelper.showOpenAppSettingDialog()
+                            return
                         }
-                        deniedListener?.onPermissionDenied()
-                        LogUtils.d(permissionsDeniedForever, permissionsDenied)
+                        deniedListener.onPermissionDenied()
                     }
                 })
                 .request()

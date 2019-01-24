@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.blankj.lib.base.BaseBackActivity
+import com.blankj.subutil.pkg.feature.brightness.BrightnessActivity
+import com.blankj.subutil.pkg.feature.flashlight.FlashlightActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.feature.activity.ActivityActivity
 import com.blankj.utilcode.pkg.feature.adaptScreen.AdaptScreenActivity
@@ -86,6 +88,10 @@ class CoreUtilActivity : BaseBackActivity() {
         BarActivity.start(this)
     }
 
+    fun brightnessClick(view: View) {
+        BrightnessActivity.start(this)
+    }
+
     fun cleanClick(view: View) {
         CleanActivity.start(this)
     }
@@ -96,6 +102,10 @@ class CoreUtilActivity : BaseBackActivity() {
 
     fun deviceClick(view: View) {
         DeviceActivity.start(this)
+    }
+
+    fun flashlightClick(view: View) {
+        FlashlightActivity.start(this)
     }
 
     fun fragmentClick(view: View) {

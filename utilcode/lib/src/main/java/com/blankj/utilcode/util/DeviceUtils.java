@@ -99,8 +99,7 @@ public final class DeviceUtils {
 
     /**
      * Return the MAC address.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />},
+     * <p>Must hold {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />},
      * {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
      *
      * @return the MAC address
@@ -112,8 +111,7 @@ public final class DeviceUtils {
 
     /**
      * Return the MAC address.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />},
+     * <p>Must hold {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />},
      * {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
      *
      * @return the MAC address

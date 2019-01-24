@@ -384,8 +384,7 @@ public final class BarUtils {
 
     /**
      * Set the notification bar's visibility.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />}</p>
      *
      * @param isVisible True to set notification bar visible, false otherwise.
      */

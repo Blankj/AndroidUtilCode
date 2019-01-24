@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.AdaptScreenUtils
-import kotlinx.android.synthetic.main.activity_adapt_height.*
+import kotlinx.android.synthetic.main.activity_adaptscreen_height.*
 
 class HeightActivity : AppCompatActivity() {
 
@@ -23,7 +23,7 @@ class HeightActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_adapt_height)
+        setContentView(R.layout.activity_adaptscreen_height)
 
         adaptScreenHeightWebView.setBackgroundColor(Color.parseColor("#f0d26d"))
     }
