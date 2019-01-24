@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.view.View
 import com.blankj.lib.base.BaseBackActivity
 import com.blankj.subutil.util.FlashlightUtils
+import com.blankj.subutil.util.LocationUtils.register
 import com.blankj.utilcode.pkg.R
+import com.blankj.utilcode.pkg.R.id.flashlightAboutTv
 import com.blankj.utilcode.pkg.helper.PermissionHelper
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -24,8 +26,24 @@ class FlashlightActivity : BaseBackActivity() {
 
     companion object {
         fun start(context: Context) {
-            val starter = Intent(context, FlashlightActivity::class.java)
-            context.startActivity(starter)
+            if (!FlashlightUtils.isFlashlightEnable()) {
+                ToastUtils.showLong("Didn't support flashlight.")
+                return
+            }
+            requestCameraPermission(context)
+        }
+
+        private fun requestCameraPermission(context: Context) {
+            PermissionHelper.requestCamera(object : PermissionHelper.OnPermissionGrantedListener {
+                override fun onPermissionGranted() {
+                    val starter = Intent(context, FlashlightActivity::class.java)
+                    context.startActivity(starter)
+                }
+            }, object : PermissionHelper.OnPermissionDeniedListener {
+                override fun onPermissionDenied() {
+                    requestCameraPermission(context)
+                }
+            })
         }
     }
 
@@ -43,25 +61,8 @@ class FlashlightActivity : BaseBackActivity() {
     }
 
     override fun doBusiness() {
-        if (!FlashlightUtils.isFlashlightEnable()) {
-            ToastUtils.showLong("Didn't support flashlight.")
-            finish()
-            return
-        }
-        register()
-    }
-
-    private fun register() {
-        PermissionHelper.requestCamera(object : PermissionHelper.OnPermissionGrantedListener {
-            override fun onPermissionGranted() {
-                FlashlightUtils.getInstance().register()
-                updateAboutFlashlight()
-            }
-        }, object : PermissionHelper.OnPermissionDeniedListener {
-            override fun onPermissionDenied() {
-                register()
-            }
-        })
+        FlashlightUtils.getInstance().register()
+        updateAboutFlashlight()
     }
 
     override fun onWidgetClick(view: View) {

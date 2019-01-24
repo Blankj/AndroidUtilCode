@@ -9,6 +9,7 @@ import com.blankj.utilcode.pkg.Config
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.PermissionHelper
 import com.blankj.utilcode.util.*
+import com.blankj.utilcode.util.AppUtils.installApp
 import kotlinx.android.synthetic.main.activity_app.*
 
 /**
@@ -23,8 +24,20 @@ class AppActivity : BaseBackActivity() {
 
     companion object {
         fun start(context: Context) {
-            val starter = Intent(context, AppActivity::class.java)
-            context.startActivity(starter)
+            requestStoragePermission(context)
+        }
+
+        private fun requestStoragePermission(context: Context) {
+            PermissionHelper.requestStorage(object : PermissionHelper.OnPermissionGrantedListener {
+                override fun onPermissionGranted() {
+                    val starter = Intent(context, AppActivity::class.java)
+                    context.startActivity(starter)
+                }
+            }, object : PermissionHelper.OnPermissionDeniedListener {
+                override fun onPermissionDenied() {
+                    requestStoragePermission(context)
+                }
+            })
         }
     }
 
@@ -81,7 +94,12 @@ class AppActivity : BaseBackActivity() {
             R.id.appInstallAppBtn -> if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
                 ToastUtils.showShort(R.string.app_install_tips)
             } else {
-                installApp()
+                if (!FileUtils.isFileExists(Config.TEST_APK_PATH)) {
+                    ReleaseInstallApkTask(listener).execute()
+                } else {
+                    listener.onReleased()
+                    LogUtils.d("test apk existed.")
+                }
             }
             R.id.appInstallAppSilentBtn -> if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
                 ToastUtils.showShort(R.string.app_install_tips)
@@ -112,26 +130,9 @@ class AppActivity : BaseBackActivity() {
             R.id.appExitAppBtn -> AppUtils.exitApp()
         }
     }
-
-    private fun installApp() {
-        PermissionHelper.requestStorage(object : PermissionHelper.OnPermissionGrantedListener {
-            override fun onPermissionGranted() {
-                if (!FileUtils.isFileExists(Config.TEST_APK_PATH)) {
-                    ReleaseInstallApkTask(listener).execute()
-                } else {
-                    listener.onReleased()
-                    LogUtils.d("test apk existed.")
-                }
-            }
-        }, object : PermissionHelper.OnPermissionDeniedListener {
-            override fun onPermissionDenied() {
-                installApp()
-            }
-        })
-    }
 }
 
-class ReleaseInstallApkTask(private val mListener: OnReleasedListener?) : ThreadUtils.SimpleTask<Void>() {
+class ReleaseInstallApkTask(private val mListener: OnReleasedListener) : ThreadUtils.SimpleTask<Void>() {
 
     override fun doInBackground(): Void? {
         ResourceUtils.copyFileFromAssets("test_install", Config.TEST_APK_PATH)
@@ -139,7 +140,7 @@ class ReleaseInstallApkTask(private val mListener: OnReleasedListener?) : Thread
     }
 
     override fun onSuccess(result: Void?) {
-        mListener?.onReleased()
+        mListener.onReleased()
     }
 
     fun execute() {

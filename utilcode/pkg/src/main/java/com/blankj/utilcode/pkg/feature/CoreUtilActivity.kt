@@ -5,15 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.blankj.lib.base.BaseBackActivity
-import com.blankj.subutil.pkg.feature.brightness.BrightnessActivity
-import com.blankj.subutil.pkg.feature.flashlight.FlashlightActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.feature.activity.ActivityActivity
 import com.blankj.utilcode.pkg.feature.adaptScreen.AdaptScreenActivity
 import com.blankj.utilcode.pkg.feature.app.AppActivity
 import com.blankj.utilcode.pkg.feature.bar.BarActivity
+import com.blankj.utilcode.pkg.feature.brightness.BrightnessActivity
 import com.blankj.utilcode.pkg.feature.clean.CleanActivity
 import com.blankj.utilcode.pkg.feature.device.DeviceActivity
+import com.blankj.utilcode.pkg.feature.flashlight.FlashlightActivity
 import com.blankj.utilcode.pkg.feature.fragment.FragmentActivity
 import com.blankj.utilcode.pkg.feature.image.ImageActivity
 import com.blankj.utilcode.pkg.feature.keyboard.KeyboardActivity

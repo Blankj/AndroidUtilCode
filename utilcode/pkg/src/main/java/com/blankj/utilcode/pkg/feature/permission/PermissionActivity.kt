@@ -80,16 +80,18 @@ class PermissionActivity : BaseBackActivity() {
                 .rationale { shouldRequest -> DialogHelper.showRationaleDialog(shouldRequest) }
                 .callback(object : PermissionUtils.FullCallback {
                     override fun onGranted(permissionsGranted: List<String>) {
-                        updateAboutPermission()
                         LogUtils.d(permissionsGranted)
+                        updateAboutPermission()
                     }
 
                     override fun onDenied(permissionsDeniedForever: List<String>,
                                           permissionsDenied: List<String>) {
+                        LogUtils.d(permissionsDeniedForever, permissionsDenied)
                         if (!permissionsDeniedForever.isEmpty()) {
                             DialogHelper.showOpenAppSettingDialog()
+                            return
                         }
-                        LogUtils.d(permissionsDeniedForever, permissionsDenied)
+                        requestCalendar()
                     }
                 })
                 .theme { activity -> ScreenUtils.setFullScreen(activity) }
@@ -101,16 +103,18 @@ class PermissionActivity : BaseBackActivity() {
                 .rationale { shouldRequest -> DialogHelper.showRationaleDialog(shouldRequest) }
                 .callback(object : PermissionUtils.FullCallback {
                     override fun onGranted(permissionsGranted: List<String>) {
-                        updateAboutPermission()
                         LogUtils.d(permissionsGranted)
+                        updateAboutPermission()
                     }
 
                     override fun onDenied(permissionsDeniedForever: List<String>,
                                           permissionsDenied: List<String>) {
+                        LogUtils.d(permissionsDeniedForever, permissionsDenied)
                         if (!permissionsDeniedForever.isEmpty()) {
                             DialogHelper.showOpenAppSettingDialog()
+                            return
                         }
-                        LogUtils.d(permissionsDeniedForever, permissionsDenied)
+                        requestRecordAudio()
                     }
                 })
                 .request()
@@ -121,16 +125,18 @@ class PermissionActivity : BaseBackActivity() {
                 .rationale { shouldRequest -> DialogHelper.showRationaleDialog(shouldRequest) }
                 .callback(object : PermissionUtils.FullCallback {
                     override fun onGranted(permissionsGranted: List<String>) {
-                        updateAboutPermission()
                         LogUtils.d(permissionsGranted)
+                        updateAboutPermission()
                     }
 
                     override fun onDenied(permissionsDeniedForever: List<String>,
                                           permissionsDenied: List<String>) {
+                        LogUtils.d(permissionsDeniedForever, permissionsDenied)
                         if (!permissionsDeniedForever.isEmpty()) {
                             DialogHelper.showOpenAppSettingDialog()
+                            return
                         }
-                        LogUtils.d(permissionsDeniedForever, permissionsDenied)
+                        requestCalendarAndRecordAudio()
                     }
                 })
                 .request()

@@ -5,9 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.blankj.lib.base.BaseBackActivity
+import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.PermissionHelper
 import com.blankj.utilcode.util.PhoneUtils
+import com.blankj.utilcode.util.PhoneUtils.sendSmsSilent
 import com.blankj.utilcode.util.SpanUtils
 import kotlinx.android.synthetic.main.activity_phone.*
 
@@ -23,8 +25,20 @@ class PhoneActivity : BaseBackActivity() {
 
     companion object {
         fun start(context: Context) {
-            val starter = Intent(context, PhoneActivity::class.java)
-            context.startActivity(starter)
+            requestPhoneAndSmsPermission(context)
+        }
+
+        private fun requestPhoneAndSmsPermission(context: Context) {
+            PermissionHelper.requestPhoneAndSms(object : PermissionHelper.OnPermissionGrantedListener {
+                override fun onPermissionGranted() {
+                    val starter = Intent(context, PhoneActivity::class.java)
+                    context.startActivity(starter)
+                }
+            }, object : PermissionHelper.OnPermissionDeniedListener {
+                override fun onPermissionDenied() {
+                    requestPhoneAndSmsPermission(context)
+                }
+            })
         }
     }
 
@@ -38,37 +52,23 @@ class PhoneActivity : BaseBackActivity() {
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
         setTitle(R.string.demo_phone)
-        requestPhonePermission()
+        SpanUtils.with(phoneAboutTv)
+                .appendLine("isPhone: " + PhoneUtils.isPhone())
+                .appendLine("getDeviceId: " + PhoneUtils.getDeviceId())
+                .appendLine("getIMEI: " + PhoneUtils.getIMEI())
+                .appendLine("getMEID: " + PhoneUtils.getMEID())
+                .appendLine("getIMSI: " + PhoneUtils.getIMSI())
+                .appendLine("getPhoneType: " + PhoneUtils.getPhoneType())
+                .appendLine("isSimCardReady: " + PhoneUtils.isSimCardReady())
+                .appendLine("getSimOperatorName: " + PhoneUtils.getSimOperatorName())
+                .appendLine("getSimOperatorByMnc: " + PhoneUtils.getSimOperatorByMnc())
+                .appendLine("getPhoneStatus: " + PhoneUtils.getPhoneStatus())
+                .create()
 
         phoneDialBtn.setOnClickListener(this)
         phoneCallBtn.setOnClickListener(this)
         phoneSendSmsBtn.setOnClickListener(this)
         phoneSendSmsSilentBtn.setOnClickListener(this)
-    }
-
-    private fun requestPhonePermission() {
-        PermissionHelper.requestPhone(
-                object : PermissionHelper.OnPermissionGrantedListener {
-                    override fun onPermissionGranted() {
-                        SpanUtils.with(phoneAboutTv)
-                                .appendLine("isPhone: " + PhoneUtils.isPhone())
-                                .appendLine("getDeviceId: " + PhoneUtils.getDeviceId())
-                                .appendLine("getIMEI: " + PhoneUtils.getIMEI())
-                                .appendLine("getMEID: " + PhoneUtils.getMEID())
-                                .appendLine("getIMSI: " + PhoneUtils.getIMSI())
-                                .appendLine("getPhoneType: " + PhoneUtils.getPhoneType())
-                                .appendLine("isSimCardReady: " + PhoneUtils.isSimCardReady())
-                                .appendLine("getSimOperatorName: " + PhoneUtils.getSimOperatorName())
-                                .appendLine("getSimOperatorByMnc: " + PhoneUtils.getSimOperatorByMnc())
-                                .appendLine("getPhoneStatus: " + PhoneUtils.getPhoneStatus())
-                                .create()
-                    }
-                },
-                object : PermissionHelper.OnPermissionDeniedListener {
-                    override fun onPermissionDenied() {
-                        requestPhonePermission()
-                    }
-                })
     }
 
     override fun doBusiness() {
@@ -78,37 +78,9 @@ class PhoneActivity : BaseBackActivity() {
     override fun onWidgetClick(view: View) {
         when (view.id) {
             R.id.phoneDialBtn -> PhoneUtils.dial("10000")
-            R.id.phoneCallBtn -> {
-                call()
-            }
+            R.id.phoneCallBtn -> PhoneUtils.call("10000")
             R.id.phoneSendSmsBtn -> PhoneUtils.sendSms("10000", "sendSms")
-            R.id.phoneSendSmsSilentBtn -> {
-                sendSmsSilent()
-            }
+            R.id.phoneSendSmsSilentBtn -> PhoneUtils.sendSmsSilent("10000", "sendSmsSilent")
         }
-    }
-
-    private fun call() {
-        PermissionHelper.requestPhone(object : PermissionHelper.OnPermissionGrantedListener {
-            override fun onPermissionGranted() {
-                PhoneUtils.call("10000")
-            }
-        }, object : PermissionHelper.OnPermissionDeniedListener {
-            override fun onPermissionDenied() {
-                call()
-            }
-        })
-    }
-
-    private fun sendSmsSilent() {
-        PermissionHelper.requestSms(object : PermissionHelper.OnPermissionGrantedListener {
-            override fun onPermissionGranted() {
-                PhoneUtils.sendSmsSilent("10000", "sendSmsSilent")
-            }
-        }, object : PermissionHelper.OnPermissionDeniedListener {
-            override fun onPermissionDenied() {
-                sendSmsSilent();
-            }
-        })
     }
 }
