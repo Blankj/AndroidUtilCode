@@ -1,6 +1,8 @@
 package com.blankj.utilcode.util;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -124,6 +126,17 @@ public final class PermissionUtils {
         PermissionActivity.start(Utils.getApp(), PermissionActivity.TYPE_WRITE_SETTINGS);
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
+    private static void startWriteSettingsActivity(final Activity activity, final int requestCode) {
+        Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+        intent.setData(Uri.parse("package:" + Utils.getApp().getPackageName()));
+        if (!isIntentAvailable(intent)) {
+            launchAppDetailsSettings();
+            return;
+        }
+        activity.startActivityForResult(intent, requestCode);
+    }
+
     /**
      * Return whether the app can draw on top of other apps.
      *
@@ -131,6 +144,16 @@ public final class PermissionUtils {
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
     public static boolean isGrantedDrawOverlays() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            AppOpsManager aom = (AppOpsManager) Utils.getApp().getSystemService(Context.APP_OPS_SERVICE);
+            if (aom == null) return false;
+            int mode = aom.checkOpNoThrow(
+                    "android:system_alert_window",
+                    android.os.Process.myUid(),
+                    Utils.getApp().getPackageName()
+            );
+            return mode == AppOpsManager.MODE_ALLOWED || mode == AppOpsManager.MODE_IGNORED;
+        }
         return Settings.canDrawOverlays(Utils.getApp());
     }
 
@@ -144,12 +167,24 @@ public final class PermissionUtils {
         PermissionActivity.start(Utils.getApp(), PermissionActivity.TYPE_DRAW_OVERLAYS);
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
+    private static void startOverlayPermissionActivity(final Activity activity, final int requestCode) {
+        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+        intent.setData(Uri.parse("package:" + Utils.getApp().getPackageName()));
+        if (!isIntentAvailable(intent)) {
+            launchAppDetailsSettings();
+            return;
+        }
+        activity.startActivityForResult(intent, requestCode);
+    }
+
     /**
      * Launch the application's details settings.
      */
     public static void launchAppDetailsSettings() {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.parse("package:" + Utils.getApp().getPackageName()));
+        if (!isIntentAvailable(intent)) return;
         Utils.getApp().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
@@ -161,6 +196,13 @@ public final class PermissionUtils {
      */
     public static PermissionUtils permission(@Permission final String... permissions) {
         return new PermissionUtils(permissions);
+    }
+
+    private static boolean isIntentAvailable(final Intent intent) {
+        return Utils.getApp()
+                .getPackageManager()
+                .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+                .size() > 0;
     }
 
     private PermissionUtils(final String... permissions) {
@@ -369,10 +411,10 @@ public final class PermissionUtils {
                 }
             } else if (byteExtra == TYPE_WRITE_SETTINGS) {
                 super.onCreate(savedInstanceState);
-                launchManageWriteSettings(this, TYPE_WRITE_SETTINGS);
+                startWriteSettingsActivity(this, TYPE_WRITE_SETTINGS);
             } else if (byteExtra == TYPE_DRAW_OVERLAYS) {
                 super.onCreate(savedInstanceState);
-                launchOverlayPermission(this, TYPE_DRAW_OVERLAYS);
+                startOverlayPermissionActivity(this, TYPE_DRAW_OVERLAYS);
             }
         }
 
@@ -393,31 +435,23 @@ public final class PermissionUtils {
         @Override
         protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             if (requestCode == TYPE_WRITE_SETTINGS) {
-                LogUtils.e(resultCode);
-                if (sSimpleCallback4WriteSettings != null) {
+                if (sSimpleCallback4WriteSettings == null) return;
+                if (isGrantedWriteSettings()) {
                     sSimpleCallback4WriteSettings.onGranted();
+                } else {
+                    sSimpleCallback4WriteSettings.onDenied();
                 }
                 sSimpleCallback4WriteSettings = null;
             } else if (requestCode == TYPE_DRAW_OVERLAYS) {
-                LogUtils.e(resultCode);
-                if (sSimpleCallback4DrawOverlays != null) {
+                if (sSimpleCallback4DrawOverlays == null) return;
+                if (isGrantedDrawOverlays()) {
                     sSimpleCallback4DrawOverlays.onGranted();
+                } else {
+                    sSimpleCallback4DrawOverlays.onDenied();
                 }
                 sSimpleCallback4DrawOverlays = null;
             }
             finish();
-        }
-
-        private static void launchManageWriteSettings(final Activity activity, final int requestCode) {
-            Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-            intent.setData(Uri.parse("package:" + Utils.getApp().getPackageName()));
-            activity.startActivityForResult(intent, requestCode);
-        }
-
-        private static void launchOverlayPermission(final Activity activity, final int requestCode) {
-            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-            intent.setData(Uri.parse("package:" + Utils.getApp().getPackageName()));
-            activity.startActivityForResult(intent, requestCode);
         }
     }
 

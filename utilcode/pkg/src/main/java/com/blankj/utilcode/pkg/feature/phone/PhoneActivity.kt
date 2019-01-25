@@ -5,11 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.blankj.lib.base.BaseBackActivity
-import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.PermissionHelper
 import com.blankj.utilcode.util.PhoneUtils
-import com.blankj.utilcode.util.PhoneUtils.sendSmsSilent
 import com.blankj.utilcode.util.SpanUtils
 import kotlinx.android.synthetic.main.activity_phone.*
 
@@ -25,10 +23,6 @@ class PhoneActivity : BaseBackActivity() {
 
     companion object {
         fun start(context: Context) {
-            requestPhoneAndSmsPermission(context)
-        }
-
-        private fun requestPhoneAndSmsPermission(context: Context) {
             PermissionHelper.requestPhoneAndSms(object : PermissionHelper.OnPermissionGrantedListener {
                 override fun onPermissionGranted() {
                     val starter = Intent(context, PhoneActivity::class.java)
@@ -36,7 +30,7 @@ class PhoneActivity : BaseBackActivity() {
                 }
             }, object : PermissionHelper.OnPermissionDeniedListener {
                 override fun onPermissionDenied() {
-                    requestPhoneAndSmsPermission(context)
+                    start(context)
                 }
             })
         }

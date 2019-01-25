@@ -129,8 +129,7 @@
     <string name="device_reboot_to_bootloader">Reboot To Bootloader</string>
 
     <!-- Flashlight相关 -->
-    <string name="flashlight_on">Set Flashlight On</string>
-    <string name="flashlight_off">Set Flashlight Off</string>
+    <string name="flashlight_status">Flashlight Status</string>
 
     <!--Fragment 相关-->
     <string name="fragment_zero">Fragment0</string>
@@ -220,6 +219,8 @@
     <string name="permission_request_calendar">Request Calendar</string>
     <string name="permission_request_record_audio">Request Record Audio</string>
     <string name="permission_request_calendar_and_record_audio">Request Calendar And Record Audio</string>
+    <string name="permission_request_write_settings">Request Write Settings</string>
+    <string name="permission_request_draw_overlays">Request Draw Overlays</string>
 
 
     <!--Phone 相关-->

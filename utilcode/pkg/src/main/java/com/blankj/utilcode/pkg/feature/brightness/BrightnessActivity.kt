@@ -6,7 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
-import com.blankj.lib.base.BaseActivity
+import com.blankj.lib.base.BaseBackActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BrightnessUtils
 import com.blankj.utilcode.util.PermissionUtils
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_brightness.*
  * desc  : demo about BrightnessUtils
  * ```
  */
-class BrightnessActivity : BaseActivity() {
+class BrightnessActivity : BaseBackActivity() {
 
     companion object {
         fun start(context: Context) {

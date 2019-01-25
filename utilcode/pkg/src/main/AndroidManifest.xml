@@ -21,6 +21,7 @@
     <!-- permission -->
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <!-- phone -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />

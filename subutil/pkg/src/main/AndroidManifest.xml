@@ -24,7 +24,6 @@
         <service
             android:name=".feature.location.LocationService"
             android:launchMode="singleTop" />
-
         <activity
             android:name=".feature.pinyin.PinyinActivity"
             android:launchMode="singleTop" />

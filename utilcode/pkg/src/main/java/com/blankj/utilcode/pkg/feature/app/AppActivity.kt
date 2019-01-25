@@ -9,7 +9,6 @@ import com.blankj.utilcode.pkg.Config
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.PermissionHelper
 import com.blankj.utilcode.util.*
-import com.blankj.utilcode.util.AppUtils.installApp
 import kotlinx.android.synthetic.main.activity_app.*
 
 /**
@@ -24,10 +23,6 @@ class AppActivity : BaseBackActivity() {
 
     companion object {
         fun start(context: Context) {
-            requestStoragePermission(context)
-        }
-
-        private fun requestStoragePermission(context: Context) {
             PermissionHelper.requestStorage(object : PermissionHelper.OnPermissionGrantedListener {
                 override fun onPermissionGranted() {
                     val starter = Intent(context, AppActivity::class.java)
@@ -35,7 +30,7 @@ class AppActivity : BaseBackActivity() {
                 }
             }, object : PermissionHelper.OnPermissionDeniedListener {
                 override fun onPermissionDenied() {
-                    requestStoragePermission(context)
+                    start(context)
                 }
             })
         }

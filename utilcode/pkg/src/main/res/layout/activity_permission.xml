@@ -39,6 +39,20 @@
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/permission_request_calendar" />
+        android:text="@string/permission_request_calendar_and_record_audio" />
+
+    <Button
+        android:id="@+id/permissionRequestWriteSettings"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/permission_request_write_settings" />
+
+    <Button
+        android:id="@+id/permissionRequestDrawOverlays"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/permission_request_draw_overlays" />
 
 </LinearLayout>

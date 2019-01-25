@@ -5,11 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.blankj.lib.base.BaseBackActivity
-import com.blankj.subutil.util.FlashlightUtils
-import com.blankj.subutil.util.LocationUtils.register
 import com.blankj.utilcode.pkg.R
-import com.blankj.utilcode.pkg.R.id.flashlightAboutTv
 import com.blankj.utilcode.pkg.helper.PermissionHelper
+import com.blankj.utilcode.util.FlashlightUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_flashlight.*
@@ -30,10 +28,6 @@ class FlashlightActivity : BaseBackActivity() {
                 ToastUtils.showLong("Didn't support flashlight.")
                 return
             }
-            requestCameraPermission(context)
-        }
-
-        private fun requestCameraPermission(context: Context) {
             PermissionHelper.requestCamera(object : PermissionHelper.OnPermissionGrantedListener {
                 override fun onPermissionGranted() {
                     val starter = Intent(context, FlashlightActivity::class.java)
@@ -41,7 +35,7 @@ class FlashlightActivity : BaseBackActivity() {
                 }
             }, object : PermissionHelper.OnPermissionDeniedListener {
                 override fun onPermissionDenied() {
-                    requestCameraPermission(context)
+                    start(context)
                 }
             })
         }
@@ -56,32 +50,29 @@ class FlashlightActivity : BaseBackActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        flashlightSetOnBtn.setOnClickListener(this)
-        flashlightSetOffBtn.setOnClickListener(this)
+        flashlightEnableCb.setOnCheckedChangeListener { buttonView, isChecked ->
+            FlashlightUtils.setFlashlightStatus(isChecked)
+            updateAboutFlashlight()
+        }
     }
 
     override fun doBusiness() {
-        FlashlightUtils.getInstance().register()
         updateAboutFlashlight()
     }
 
     override fun onWidgetClick(view: View) {
-        when (view.id) {
-            R.id.flashlightSetOnBtn -> FlashlightUtils.getInstance().setFlashlightOn()
-            R.id.flashlightSetOffBtn -> FlashlightUtils.getInstance().setFlashlightOff()
-        }
-        updateAboutFlashlight()
+
     }
 
     private fun updateAboutFlashlight() {
         SpanUtils.with(flashlightAboutTv)
                 .appendLine("isFlashlightEnable: " + FlashlightUtils.isFlashlightEnable())
-                .appendLine("isFlashlightOn: " + FlashlightUtils.getInstance().isFlashlightOn)
+                .appendLine("isFlashlightOn: " + FlashlightUtils.isFlashlightOn())
                 .create()
     }
 
     override fun onDestroy() {
-        FlashlightUtils.getInstance().unregister()
+        FlashlightUtils.destroy()
         super.onDestroy()
     }
 }
