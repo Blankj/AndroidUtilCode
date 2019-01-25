@@ -126,7 +126,7 @@ class SnackbarActivity : BaseBackActivity() {
                 SnackbarUtils.addView(R.layout.snackbar_custom, params)
                 val snackbarView = SnackbarUtils.getView()
                 if (snackbarView != null) {
-                    val tvSnackbarCustom = snackbarView.findViewById<TextView>(R.id.tv_snackbar_custom)
+                    val tvSnackbarCustom = snackbarView.findViewById<TextView>(R.id.snackbarCustomTv)
                     tvSnackbarCustom.text = "点我可消失"
                     snackbarView.setOnClickListener { SnackbarUtils.dismiss() }
                 }

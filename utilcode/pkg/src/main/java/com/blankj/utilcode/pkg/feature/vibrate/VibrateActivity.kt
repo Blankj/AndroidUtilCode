@@ -38,7 +38,7 @@ class VibrateActivity : BaseBackActivity() {
         setTitle(R.string.demo_vibrate)
         vibrate1000msBtn.setOnClickListener { VibrateUtils.vibrate(1000) }
         vibrateCustomBtn.setOnClickListener {
-            VibrateUtils.vibrate(longArrayOf(1000, 1000, 2000, 2000, 1000), 1)
+            VibrateUtils.vibrate(longArrayOf(0, 1000, 1000, 2000, 2000, 1000), 1)
         }
         vibrateCancelBtn.setOnClickListener { VibrateUtils.cancel() }
     }

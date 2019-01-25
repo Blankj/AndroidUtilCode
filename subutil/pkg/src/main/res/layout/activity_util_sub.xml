@@ -11,20 +11,6 @@
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="brightnessClick"
-        android:text="@string/demo_brightness" />
-
-    <Button
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="flashlightClick"
-        android:text="@string/demo_flashlight" />
-
-    <Button
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:onClick="locationClick"
         android:text="@string/demo_location" />
 

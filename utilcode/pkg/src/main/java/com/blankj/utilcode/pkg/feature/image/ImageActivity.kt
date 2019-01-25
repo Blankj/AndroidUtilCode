@@ -110,9 +110,9 @@ class ImageActivity : BaseActivity() {
 class ImageAdapter(list: List<ImageBean>, @LayoutRes layoutId: Int) : SingleAdapter<ImageBean>(list, layoutId) {
 
     override fun bind(holder: BaseViewHolder, data: ImageBean) {
-        val textView = holder.getView<TextView>(R.id.tv_image_name)
+        val textView = holder.getView<TextView>(R.id.imageItemNameTv)
         textView.text = data.name
-        val image = holder.getView<ImageView>(R.id.iv_image)
+        val image = holder.getView<ImageView>(R.id.imageItemIv)
         image.setImageBitmap(data.image)
     }
 }

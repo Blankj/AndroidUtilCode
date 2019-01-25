@@ -20,23 +20,23 @@ import kotlinx.android.synthetic.main.activity_drawer.*
  */
 abstract class BaseDrawerActivity : BaseActivity() {
 
-    protected lateinit var mDrawerRootLayout: DrawerLayout
-    protected lateinit var mDrawerContainerView: FrameLayout
+    protected lateinit var mBaseDrawerRootLayout: DrawerLayout
+    protected lateinit var mBaseDrawerContainerView: FrameLayout
 
     override fun setRootLayout(layoutId: Int) {
         super.setRootLayout(R.layout.activity_drawer)
         if (layoutId > 0) {
-            LayoutInflater.from(this).inflate(layoutId, drawerContainerView)
+            LayoutInflater.from(this).inflate(layoutId, baseDrawerContainerView)
         }
-        drawerNavView.setNavigationItemSelectedListener l@{ item ->
+        baseDrawerNavView.setNavigationItemSelectedListener l@{ item ->
             when (item.itemId) {
-                R.id.action_git_hub -> return@l goWeb(R.string.github)
-                R.id.action_blog -> return@l goWeb(R.string.blog)
+                R.id.baseDrawerActionGitHub -> return@l goWeb(R.string.github)
+                R.id.baseDrawerActionBlog -> return@l goWeb(R.string.blog)
             }
             false
         }
-        mDrawerRootLayout = drawerRootLayout
-        mDrawerContainerView = drawerContainerView
+        mBaseDrawerRootLayout = baseDrawerRootLayout
+        mBaseDrawerContainerView = baseDrawerContainerView
     }
 
     private fun goWeb(@StringRes id: Int): Boolean {

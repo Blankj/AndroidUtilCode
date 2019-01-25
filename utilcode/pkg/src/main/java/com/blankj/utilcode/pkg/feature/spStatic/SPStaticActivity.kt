@@ -7,7 +7,7 @@ import android.view.View
 import com.blankj.lib.base.BaseBackActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.SPStaticUtils
-import kotlinx.android.synthetic.main.activity_sp.*
+import kotlinx.android.synthetic.main.activity_spstatic.*
 
 /**
  * ```
@@ -44,7 +44,7 @@ class SPStaticActivity : BaseBackActivity() {
     }
 
     override fun bindLayout(): Int {
-        return R.layout.activity_sp
+        return R.layout.activity_spstatic
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {

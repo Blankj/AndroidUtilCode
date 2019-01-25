@@ -19,6 +19,7 @@
 
         <CheckBox
             android:id="@+id/barStatusDrawerAlphaCb"
+            style="@style/CbStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -27,6 +28,7 @@
 
         <CheckBox
             android:id="@+id/barStatusDrawerFrontCb"
+            style="@style/CbStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

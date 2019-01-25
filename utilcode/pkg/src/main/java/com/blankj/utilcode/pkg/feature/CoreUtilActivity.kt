@@ -10,8 +10,10 @@ import com.blankj.utilcode.pkg.feature.activity.ActivityActivity
 import com.blankj.utilcode.pkg.feature.adaptScreen.AdaptScreenActivity
 import com.blankj.utilcode.pkg.feature.app.AppActivity
 import com.blankj.utilcode.pkg.feature.bar.BarActivity
+import com.blankj.utilcode.pkg.feature.brightness.BrightnessActivity
 import com.blankj.utilcode.pkg.feature.clean.CleanActivity
 import com.blankj.utilcode.pkg.feature.device.DeviceActivity
+import com.blankj.utilcode.pkg.feature.flashlight.FlashlightActivity
 import com.blankj.utilcode.pkg.feature.fragment.FragmentActivity
 import com.blankj.utilcode.pkg.feature.image.ImageActivity
 import com.blankj.utilcode.pkg.feature.keyboard.KeyboardActivity
@@ -86,6 +88,10 @@ class CoreUtilActivity : BaseBackActivity() {
         BarActivity.start(this)
     }
 
+    fun brightnessClick(view: View) {
+        BrightnessActivity.start(this)
+    }
+
     fun cleanClick(view: View) {
         CleanActivity.start(this)
     }
@@ -96,6 +102,10 @@ class CoreUtilActivity : BaseBackActivity() {
 
     fun deviceClick(view: View) {
         DeviceActivity.start(this)
+    }
+
+    fun flashlightClick(view: View) {
+        FlashlightActivity.start(this)
     }
 
     fun fragmentClick(view: View) {

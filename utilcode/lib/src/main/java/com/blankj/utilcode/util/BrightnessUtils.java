@@ -1,9 +1,6 @@
-package com.blankj.subutil.util;
+package com.blankj.utilcode.util;
 
 import android.content.ContentResolver;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
@@ -15,7 +12,7 @@ import android.view.WindowManager;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/02/08
- *     desc  : 亮度相关工具类
+ *     desc  : utils about brightness
  * </pre>
  */
 public final class BrightnessUtils {
@@ -25,9 +22,9 @@ public final class BrightnessUtils {
     }
 
     /**
-     * 判断是否开启自动调节亮度
+     * Return whether automatic brightness mode is enabled.
      *
-     * @return {@code true}: 是<br>{@code false}: 否
+     * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isAutoBrightnessEnabled() {
         try {
@@ -43,22 +40,13 @@ public final class BrightnessUtils {
     }
 
     /**
-     * 设置是否开启自动调节亮度
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.WRITE_SETTINGS" />}</p>
-     * 并得到授权
+     * Enable or disable automatic brightness mode.
+     * <p>Must hold {@code <uses-permission android:name="android.permission.WRITE_SETTINGS" />}</p>
      *
-     * @param enabled {@code true}: 打开<br>{@code false}: 关闭
-     * @return {@code true}: 成功<br>{@code false}: 失败
+     * @param enabled True to enabled, false otherwise.
+     * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean setAutoBrightnessEnabled(final boolean enabled) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                && !Settings.System.canWrite(Utils.getApp())) {
-            Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
-            intent.setData(Uri.parse("package:" + Utils.getApp().getPackageName()));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            Utils.getApp().startActivity(intent);
-            return false;
-        }
         return Settings.System.putInt(
                 Utils.getApp().getContentResolver(),
                 Settings.System.SCREEN_BRIGHTNESS_MODE,
@@ -92,14 +80,6 @@ public final class BrightnessUtils {
      * @param brightness 亮度值
      */
     public static boolean setBrightness(@IntRange(from = 0, to = 255) final int brightness) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                && !Settings.System.canWrite(Utils.getApp())) {
-            Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
-            intent.setData(Uri.parse("package:" + Utils.getApp().getPackageName()));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            Utils.getApp().startActivity(intent);
-            return false;
-        }
         ContentResolver resolver = Utils.getApp().getContentResolver();
         boolean b = Settings.System.putInt(resolver, Settings.System.SCREEN_BRIGHTNESS, brightness);
         resolver.notifyChange(Settings.System.getUriFor("screen_brightness"), null);

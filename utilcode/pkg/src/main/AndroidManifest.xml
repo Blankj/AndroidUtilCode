@@ -21,6 +21,7 @@
     <!-- permission -->
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <!-- phone -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -96,10 +97,16 @@
             android:name=".feature.bar.BarStatusSwipeBackActivity"
             android:launchMode="singleTop" />
         <activity
+            android:name=".feature.brightness.BrightnessActivity"
+            android:launchMode="singleTop" />
+        <activity
             android:name=".feature.clean.CleanActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.device.DeviceActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.flashlight.FlashlightActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.fragment.FragmentActivity"
@@ -114,7 +121,6 @@
         <activity
             android:name=".feature.log.LogActivity"
             android:launchMode="singleTop" />
-
         <activity
             android:name=".feature.metaData.MetaDataActivity"
             android:launchMode="singleTop">

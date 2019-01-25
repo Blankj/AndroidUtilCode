@@ -3,16 +3,14 @@ package com.blankj.utilcode.pkg.feature.permission
 import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import com.blankj.lib.base.BaseBackActivity
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.DialogHelper
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.PermissionUtils
-import com.blankj.utilcode.util.ScreenUtils
-import com.blankj.utilcode.util.SpanUtils
+import com.blankj.utilcode.util.*
 import kotlinx.android.synthetic.main.activity_permission.*
 
 /**
@@ -49,6 +47,8 @@ class PermissionActivity : BaseBackActivity() {
         permissionRequestCalendarBtn.setOnClickListener(this)
         permissionRequestRecordAudioBtn.setOnClickListener(this)
         permissionRequestCalendarAndRecordAudioBtn.setOnClickListener(this)
+        permissionRequestWriteSettings.setOnClickListener(this)
+        permissionRequestDrawOverlays.setOnClickListener(this)
 
         val sb = StringBuilder()
         for (s in PermissionUtils.getPermissions()) {
@@ -72,6 +72,8 @@ class PermissionActivity : BaseBackActivity() {
             R.id.permissionRequestCalendarBtn -> requestCalendar()
             R.id.permissionRequestRecordAudioBtn -> requestRecordAudio()
             R.id.permissionRequestCalendarAndRecordAudioBtn -> requestCalendarAndRecordAudio()
+            R.id.permissionRequestWriteSettings -> requestWriteSettings()
+            R.id.permissionRequestDrawOverlays -> requestDrawOverlays()
         }
     }
 
@@ -80,16 +82,18 @@ class PermissionActivity : BaseBackActivity() {
                 .rationale { shouldRequest -> DialogHelper.showRationaleDialog(shouldRequest) }
                 .callback(object : PermissionUtils.FullCallback {
                     override fun onGranted(permissionsGranted: List<String>) {
-                        updateAboutPermission()
                         LogUtils.d(permissionsGranted)
+                        updateAboutPermission()
                     }
 
                     override fun onDenied(permissionsDeniedForever: List<String>,
                                           permissionsDenied: List<String>) {
+                        LogUtils.d(permissionsDeniedForever, permissionsDenied)
                         if (!permissionsDeniedForever.isEmpty()) {
                             DialogHelper.showOpenAppSettingDialog()
+                            return
                         }
-                        LogUtils.d(permissionsDeniedForever, permissionsDenied)
+                        requestCalendar()
                     }
                 })
                 .theme { activity -> ScreenUtils.setFullScreen(activity) }
@@ -101,16 +105,18 @@ class PermissionActivity : BaseBackActivity() {
                 .rationale { shouldRequest -> DialogHelper.showRationaleDialog(shouldRequest) }
                 .callback(object : PermissionUtils.FullCallback {
                     override fun onGranted(permissionsGranted: List<String>) {
-                        updateAboutPermission()
                         LogUtils.d(permissionsGranted)
+                        updateAboutPermission()
                     }
 
                     override fun onDenied(permissionsDeniedForever: List<String>,
                                           permissionsDenied: List<String>) {
+                        LogUtils.d(permissionsDeniedForever, permissionsDenied)
                         if (!permissionsDeniedForever.isEmpty()) {
                             DialogHelper.showOpenAppSettingDialog()
+                            return
                         }
-                        LogUtils.d(permissionsDeniedForever, permissionsDenied)
+                        requestRecordAudio()
                     }
                 })
                 .request()
@@ -121,19 +127,51 @@ class PermissionActivity : BaseBackActivity() {
                 .rationale { shouldRequest -> DialogHelper.showRationaleDialog(shouldRequest) }
                 .callback(object : PermissionUtils.FullCallback {
                     override fun onGranted(permissionsGranted: List<String>) {
-                        updateAboutPermission()
                         LogUtils.d(permissionsGranted)
+                        updateAboutPermission()
                     }
 
                     override fun onDenied(permissionsDeniedForever: List<String>,
                                           permissionsDenied: List<String>) {
+                        LogUtils.d(permissionsDeniedForever, permissionsDenied)
                         if (!permissionsDeniedForever.isEmpty()) {
                             DialogHelper.showOpenAppSettingDialog()
+                            return
                         }
-                        LogUtils.d(permissionsDeniedForever, permissionsDenied)
+                        requestCalendarAndRecordAudio()
                     }
                 })
                 .request()
+    }
+
+    private fun requestWriteSettings() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PermissionUtils.requestWriteSettings(object : PermissionUtils.SimpleCallback {
+                override fun onGranted() {
+                    ToastUtils.showLong("Write Settings is Granted")
+                }
+
+                override fun onDenied() {
+                    ToastUtils.showLong("Write Settings Denied")
+                }
+            })
+        }
+
+    }
+
+    private fun requestDrawOverlays() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PermissionUtils.requestDrawOverlays(object : PermissionUtils.SimpleCallback {
+                override fun onGranted() {
+                    ToastUtils.showLong("Draw Overlays is Granted")
+                }
+
+                override fun onDenied() {
+                    ToastUtils.showLong("Draw Overlays Denied")
+                }
+            })
+        }
+
     }
 
     private fun updateAboutPermission() {
@@ -141,6 +179,12 @@ class PermissionActivity : BaseBackActivity() {
                 .append(permissions).setBold()
                 .appendLine("READ_CALENDAR: " + PermissionUtils.isGranted(Manifest.permission.READ_CALENDAR))
                 .appendLine("RECORD_AUDIO: " + PermissionUtils.isGranted(Manifest.permission.RECORD_AUDIO))
+                .apply {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        appendLine("WRITE_SETTINGS: " + PermissionUtils.isGrantedWriteSettings())
+                        appendLine("DRAW_OVERLAYS: " + PermissionUtils.isGrantedDrawOverlays())
+                    }
+                }
                 .create()
     }
 }

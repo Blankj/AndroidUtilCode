@@ -21,7 +21,7 @@ class CloseAdaptActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_adapt_close)
+        setContentView(R.layout.activity_adaptscreen_close)
     }
 
     override fun getResources(): Resources {

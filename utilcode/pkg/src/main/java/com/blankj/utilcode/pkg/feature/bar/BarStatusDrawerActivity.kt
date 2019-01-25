@@ -57,13 +57,13 @@ class BarStatusDrawerActivity : BaseDrawerActivity() {
             barStatusDrawerRandomColorBtn.visibility = View.GONE
             barStatusDrawerSetTransparentBtn.visibility = View.VISIBLE
 
-            mDrawerContainerView.setBackgroundResource(R.drawable.bar_status_alpha_bg)
+            mBaseDrawerContainerView.setBackgroundResource(R.drawable.bar_status_alpha_bg)
         } else {
             barStatusDrawerChangeAlphaSb.visibility = View.GONE
             barStatusDrawerRandomColorBtn.visibility = View.VISIBLE
             barStatusDrawerSetTransparentBtn.visibility = View.GONE
 
-            mDrawerContainerView.setBackgroundColor(Color.WHITE)
+            mBaseDrawerContainerView.setBackgroundColor(Color.WHITE)
         }
         updateStatusBar()
     }
@@ -108,10 +108,10 @@ class BarStatusDrawerActivity : BaseDrawerActivity() {
 
     private fun updateStatusBar() {
         if (barStatusDrawerAlphaCb.isChecked) {
-            BarUtils.setStatusBarColor4Drawer(mDrawerRootLayout, barStatusDrawerFakeStatusBar, Color.argb(mAlpha, 0, 0, 0), barStatusDrawerFrontCb.isChecked)
+            BarUtils.setStatusBarColor4Drawer(mBaseDrawerRootLayout, barStatusDrawerFakeStatusBar, Color.argb(mAlpha, 0, 0, 0), barStatusDrawerFrontCb.isChecked)
             barStatusDrawerAboutTv.text = mAlpha.toString()
         } else {
-            BarUtils.setStatusBarColor4Drawer(mDrawerRootLayout, barStatusDrawerFakeStatusBar, mColor, barStatusDrawerFrontCb.isChecked)
+            BarUtils.setStatusBarColor4Drawer(mBaseDrawerRootLayout, barStatusDrawerFakeStatusBar, mColor, barStatusDrawerFrontCb.isChecked)
             barStatusDrawerAboutTv.text = ColorUtils.int2ArgbString(mColor)
         }
         BarUtils.addMarginTopEqualStatusBarHeight(barStatusDrawerAlphaCb)// 其实这个只需要调用一次即可

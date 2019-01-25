@@ -8,7 +8,7 @@ import com.blankj.lib.base.BaseBackActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.MetaDataUtils
 import com.blankj.utilcode.util.SpanUtils
-import kotlinx.android.synthetic.main.activity_meta_data.*
+import kotlinx.android.synthetic.main.activity_metadata.*
 
 /**
  * ```
@@ -32,7 +32,7 @@ class MetaDataActivity : BaseBackActivity() {
     }
 
     override fun bindLayout(): Int {
-        return R.layout.activity_meta_data
+        return R.layout.activity_metadata
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {

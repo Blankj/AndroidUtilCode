@@ -65,8 +65,7 @@ public final class NetworkUtils {
 
     /**
      * Return whether network is connected.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
      *
      * @return {@code true}: connected<br>{@code false}: disconnected
      */
@@ -147,7 +146,7 @@ public final class NetworkUtils {
     }
 
     /**
-     * Set mobile data enabled.
+     * Enable or disable mobile data.
      * <p>Must hold {@code android:sharedUserId="android.uid.system"},
      * {@code <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />}</p>
      *
@@ -171,8 +170,7 @@ public final class NetworkUtils {
 
     /**
      * Return whether using mobile data.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
      *
      * @return {@code true}: yes<br>{@code false}: no
      */
@@ -186,8 +184,7 @@ public final class NetworkUtils {
 
     /**
      * Return whether using 4G.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
      *
      * @return {@code true}: yes<br>{@code false}: no
      */
@@ -201,8 +198,7 @@ public final class NetworkUtils {
 
     /**
      * Return whether wifi is enabled.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />}</p>
      *
      * @return {@code true}: enabled<br>{@code false}: disabled
      */
@@ -215,9 +211,8 @@ public final class NetworkUtils {
     }
 
     /**
-     * Set wifi enabled.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />}</p>
+     * Enable or disable wifi.
+     * <p>Must hold {@code <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />}</p>
      *
      * @param enabled True to enabled, false otherwise.
      */
@@ -232,8 +227,7 @@ public final class NetworkUtils {
 
     /**
      * Return whether wifi is connected.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
      *
      * @return {@code true}: connected<br>{@code false}: disconnected
      */
@@ -248,8 +242,7 @@ public final class NetworkUtils {
 
     /**
      * Return whether wifi is available.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />},
+     * <p>Must hold {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />},
      * {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
      *
      * @return {@code true}: available<br>{@code false}: unavailable
@@ -273,8 +266,7 @@ public final class NetworkUtils {
 
     /**
      * Return type of network.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
      *
      * @return type of network
      * <ul>

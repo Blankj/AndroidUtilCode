@@ -8,23 +8,17 @@
     android:padding="@dimen/spacing_16">
 
     <TextView
-        android:id="@+id/tv_about_flashlight"
+        android:id="@+id/flashlightAboutTv"
         style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/btn_set_flashlight_on"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/flashlightEnableCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/flashlight_on" />
-
-    <Button
-        android:id="@+id/btn_set_flashlight_off"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/flashlight_off" />
+        android:layout_gravity="center_horizontal"
+        android:text="@string/flashlight_status" />
 
 </LinearLayout>

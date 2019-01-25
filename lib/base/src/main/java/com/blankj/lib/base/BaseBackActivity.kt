@@ -23,13 +23,13 @@ abstract class BaseBackActivity : BaseActivity() {
         super.setRootLayout(R.layout.activity_back)
         Slidr.attach(this)
         if (layoutId > 0) {
-            LayoutInflater.from(this).inflate(layoutId, drawerContainerView)
+            LayoutInflater.from(this).inflate(layoutId, baseBackContainerView)
         }
         setSupportActionBar(baseBackToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         BarUtils.setStatusBarColor(this, ContextCompat.getColor(Utils.getApp(), R.color.colorPrimary))
-        BarUtils.addMarginTopEqualStatusBarHeight(backRootLayout)
+        BarUtils.addMarginTopEqualStatusBarHeight(baseBackRootLayout)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
