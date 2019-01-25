@@ -1,4 +1,0 @@
-{
-  "SubUtilActivity#start": "void com.blankj.subutil.pkg.feature.SubUtilActivity.Companion.start(android.content.Context)",
-  "CoreUtilActivity#start": "void com.blankj.utilcode.pkg.feature.CoreUtilActivity.Companion.start(android.content.Context)"
-}

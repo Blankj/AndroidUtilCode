@@ -1,4 +1,5 @@
 *.iml
+*__bus__.json
 .gradle
 /local.properties
 .idea
@@ -8,4 +9,3 @@
 .externalNativeBuild
 /apk
 /maven
-__bus__.json
