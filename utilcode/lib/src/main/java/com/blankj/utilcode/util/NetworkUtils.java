@@ -284,7 +284,7 @@ public final class NetworkUtils {
         NetworkType netType = NetworkType.NETWORK_NO;
         NetworkInfo info = getActiveNetworkInfo();
         if (info != null && info.isAvailable()) {
-            if (info.getType() == ConnectivityManager.TYPE_ETHERNET) {
+            if (isEthernet()) {
                 netType = NetworkType.NETWORK_ETHERNET;
             } else if (info.getType() == ConnectivityManager.TYPE_WIFI) {
                 netType = NetworkType.NETWORK_WIFI;
@@ -334,6 +334,28 @@ public final class NetworkUtils {
             }
         }
         return netType;
+    }
+
+    /**
+     * Return whether using ethernet.
+     * <p>Must hold
+     * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    @RequiresPermission(ACCESS_NETWORK_STATE)
+    public static boolean isEthernet() {
+        final ConnectivityManager connectivityManager = (ConnectivityManager) Utils.getApp().getSystemService(Context.CONNECTIVITY_SERVICE);
+        final NetworkInfo ethernet = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_ETHERNET);
+        if (ethernet != null) {
+            NetworkInfo.State state = ethernet.getState();
+            if (null != state) {
+                if (state == NetworkInfo.State.CONNECTED || state == NetworkInfo.State.CONNECTING) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @RequiresPermission(ACCESS_NETWORK_STATE)
