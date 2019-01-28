@@ -1030,10 +1030,15 @@ public final class LogUtils {
 
         private static String formatJson(String json) {
             try {
-                if (json.startsWith("{")) {
-                    json = new JSONObject(json).toString(2);
-                } else if (json.startsWith("[")) {
-                    json = new JSONArray(json).toString(2);
+                for (int i = 0, len = json.length(); i < len; i++) {
+                    char c = json.charAt(i);
+                    if (c == '{') {
+                        return new JSONObject(json).toString(2);
+                    } else if (c == '[') {
+                        return new JSONArray(json).toString(2);
+                    } else if (!Character.isWhitespace(c)) {
+                        return json;
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

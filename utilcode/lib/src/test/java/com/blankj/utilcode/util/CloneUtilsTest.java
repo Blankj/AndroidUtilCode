@@ -35,7 +35,9 @@ public class CloneUtilsTest {
 
         @Override
         public String toString() {
-            return "{\"code\":" + code + ",\"message\":" + message + ",\"data\":" + data + "}";
+            return "{\"code\":" + primitive2String(code) +
+                    ",\"message\":" + primitive2String(message) +
+                    ",\"data\":" + primitive2String(data) + "}";
         }
     }
 
@@ -51,7 +53,15 @@ public class CloneUtilsTest {
 
         @Override
         public String toString() {
-            return "{\"name\":" + name + ",\"gender\":" + gender + ",\"address\":" + address + "}";
+            return "{\"name\":" + primitive2String(name) +
+                    ",\"gender\":" + primitive2String(gender) +
+                    ",\"address\":" + primitive2String(address) + "}";
         }
+    }
+
+    private static String primitive2String(final Object obj) {
+        if (obj == null) return "null";
+        if (obj instanceof CharSequence) return "\"" + obj.toString() + "\"";
+        return obj.toString();
     }
 }
