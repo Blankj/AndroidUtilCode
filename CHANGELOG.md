@@ -1,3 +1,6 @@
+* `19/01/29` [fix] LogUtils format json when json not start with '{'. Publish v1.23.3.
+* `19/01/28` [fix] KeyboardUtils#fixSoftInputLeaks don't work on the device of HuaWei.
+* `19/01/26` [fix] NetworkUtils#getNetworkType.
 * `19/01/25` [add] CloneUtils, PermissionUtils support request permission of WRITE_SETTINGS and DRAW_OVERLAYS. Publish v1.23.2.
 * `19/01/24` [add] BrightnessUtils and FlashlightUtils.
 * `19/01/23` [add] Modify the demo of utilcode use kotlin. Publish v1.23.1.

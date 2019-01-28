@@ -40,6 +40,7 @@ android {
 dependencies {
     // LeakCanary
     debugImplementation dep.leakcanary.android
+    debugImplementation dep.leakcanary.support_fragment
     releaseImplementation dep.leakcanary.android_no_op
 }
 

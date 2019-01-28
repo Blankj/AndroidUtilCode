@@ -211,10 +211,15 @@ public final class JsonUtils {
 
     public static String formatJson(final String json, final int indentSpaces) {
         try {
-            if (json.startsWith("{")) {
-                return new JSONObject(json).toString(indentSpaces);
-            } else if (json.startsWith("[")) {
-                return new JSONArray(json).toString(indentSpaces);
+            for (int i = 0, len = json.length(); i < len; i++) {
+                char c = json.charAt(i);
+                if (c == '{') {
+                    return new JSONObject(json).toString(indentSpaces);
+                } else if (c == '[') {
+                    return new JSONArray(json).toString(indentSpaces);
+                } else if (!Character.isWhitespace(c)) {
+                    return json;
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

@@ -25,8 +25,21 @@ class BrightnessActivity : BaseBackActivity() {
 
     companion object {
         fun start(context: Context) {
-            val starter = Intent(context, BrightnessActivity::class.java)
-            context.startActivity(starter)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                PermissionUtils.requestWriteSettings(object : PermissionUtils.SimpleCallback {
+                    override fun onGranted() {
+                        val starter = Intent(context, BrightnessActivity::class.java)
+                        context.startActivity(starter)
+                    }
+
+                    override fun onDenied() {
+                        start(context)
+                    }
+                })
+            } else {
+                val starter = Intent(context, BrightnessActivity::class.java)
+                context.startActivity(starter)
+            }
         }
     }
 
@@ -69,6 +82,7 @@ class BrightnessActivity : BaseBackActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
+        setTitle(R.string.demo_brightness)
 
         brightnessChangeSb.progress = BrightnessUtils.getBrightness()
         brightnessChangeSb.setOnSeekBarChangeListener(brightnessChangeListener)
@@ -79,19 +93,7 @@ class BrightnessActivity : BaseBackActivity() {
         updateWindowBrightness()
 
         brightnessSetAutoCb.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                PermissionUtils.requestWriteSettings(object : PermissionUtils.SimpleCallback {
-                    override fun onGranted() {
-                        BrightnessUtils.setAutoBrightnessEnabled(isChecked)
-                    }
-
-                    override fun onDenied() {
-
-                    }
-                })
-            } else {
-                BrightnessUtils.setAutoBrightnessEnabled(isChecked)
-            }
+            BrightnessUtils.setAutoBrightnessEnabled(isChecked)
         }
     }
 
@@ -105,13 +107,13 @@ class BrightnessActivity : BaseBackActivity() {
 
     private fun updateBrightness() {
         SpanUtils.with(brightnessAboutTv)
-                .append(BrightnessUtils.getBrightness().toString())
+                .append("getBrightness: " + BrightnessUtils.getBrightness())
                 .create()
     }
 
     private fun updateWindowBrightness() {
         SpanUtils.with(brightnessWindowAboutTv)
-                .append(BrightnessUtils.getWindowBrightness(window).toString())
+                .append("getWindowBrightness: " + BrightnessUtils.getWindowBrightness(window))
                 .create()
     }
 }

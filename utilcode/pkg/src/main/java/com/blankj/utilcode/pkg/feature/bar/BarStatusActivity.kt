@@ -38,31 +38,35 @@ class BarStatusActivity : BaseBackActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
         setTitle(R.string.demo_bar)
 
-        barStatusShowBtn.setOnClickListener(this)
-        barStatusHideBtn.setOnClickListener(this)
-        barStatusLightModeBtn.setOnClickListener(this)
-        barStatusDarkModeBtn.setOnClickListener(this)
-        updateAboutStatus()
+        barStatusVisibilityCb.isChecked = BarUtils.isStatusBarVisible(this)
+        barStatusVisibilityCb.setOnCheckedChangeListener { buttonView, isChecked ->
+            BarUtils.setStatusBarVisibility(this, isChecked)
+        }
+
+        barStatusLightModeCb.isChecked = BarUtils.isStatusBarLightMode(this)
+        barStatusLightModeCb.setOnCheckedChangeListener { buttonView, isChecked ->
+            BarUtils.setStatusBarLightMode(this, isChecked)
+        }
     }
 
     override fun doBusiness() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        updateAboutStatus()
+    }
+
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.barStatusShowBtn -> BarUtils.setStatusBarVisibility(this, true)
-            R.id.barStatusHideBtn -> BarUtils.setStatusBarVisibility(this, false)
-            R.id.barStatusLightModeBtn -> BarUtils.setStatusBarLightMode(this, true)
-            R.id.barStatusDarkModeBtn -> BarUtils.setStatusBarLightMode(this, false)
         }
         updateAboutStatus()
     }
 
     private fun updateAboutStatus() {
-        barStatusAboutTv.text = SpanUtils()
-                .appendLine("statusHeight: " + BarUtils.getStatusBarHeight())
-                .append("isStatusVisible: " + BarUtils.isStatusBarVisible(this))
+        SpanUtils.with(barStatusAboutTv)
+                .append("getStatusBarHeight: " + BarUtils.getStatusBarHeight())
                 .create()
     }
 }

@@ -79,7 +79,7 @@ object DialogHelper {
         dialogView.findViewById<View>(R.id.toastDialogShowShortToastBtn)
                 .setOnClickListener { ToastUtils.showShort("Short") }
         val dialog = AlertDialog.Builder(topActivity).setView(dialogView).create()
-        dialog.setCanceledOnTouchOutside(false)
+//        dialog.setCanceledOnTouchOutside(false)
         dialog.show()
     }
 }

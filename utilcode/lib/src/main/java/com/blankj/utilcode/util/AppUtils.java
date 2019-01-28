@@ -736,7 +736,7 @@ public final class AppUtils {
      * </ul>
      *
      * @param packageName The name of the package.
-     * @return 当前应用的 AppInfo
+     * @return the application's information
      */
     public static AppInfo getAppInfo(final String packageName) {
         try {

@@ -48,6 +48,8 @@ class SPStaticActivity : BaseBackActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
+        setTitle(R.string.demo_spStatic)
+
         spStaticPutStringBtn.setOnClickListener(this)
         spStaticPutIntBtn.setOnClickListener(this)
         spStaticPutLongBtn.setOnClickListener(this)

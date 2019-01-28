@@ -14,17 +14,17 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/resourceTestAssetsBtn"
+        android:id="@+id/resourceCopyFileFromAssets"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/resource_test_assets" />
+        android:text="@string/resource_copy_file_from_assets_2_cache" />
 
     <Button
-        android:id="@+id/resourceTestRawBtn"
+        android:id="@+id/resourceCopyFileFromRaw"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/resource_test_raw" />
+        android:text="@string/resource_copy_file_from_raw_2_cache" />
 
 </LinearLayout>

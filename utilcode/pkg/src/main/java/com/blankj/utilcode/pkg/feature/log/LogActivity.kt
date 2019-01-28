@@ -6,12 +6,14 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.CompoundButton
 import com.blankj.lib.base.BaseApplication
 import com.blankj.lib.base.BaseBackActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.PathUtils
+import com.blankj.utilcode.util.StringUtils
 import kotlinx.android.synthetic.main.activity_log.*
 import java.util.*
 
@@ -24,21 +26,11 @@ import java.util.*
  * desc  : demo about LogUtils
  * ```
  */
-class LogActivity : BaseBackActivity() {
+class LogActivity : BaseBackActivity(),
+        CompoundButton.OnCheckedChangeListener {
 
     companion object {
         private const val TAG = "CMJ"
-        private const val UPDATE_LOG = 0x01
-        private const val UPDATE_CONSOLE = 0x01 shl 1
-        private const val UPDATE_TAG = 0x01 shl 2
-        private const val UPDATE_HEAD = 0x01 shl 3
-        private const val UPDATE_FILE = 0x01 shl 4
-        private const val UPDATE_DIR = 0x01 shl 5
-        private const val UPDATE_BORDER = 0x01 shl 6
-        private const val UPDATE_SINGLE = 0x01 shl 7
-        private const val UPDATE_CONSOLE_FILTER = 0x01 shl 8
-        private const val UPDATE_FILE_FILTER = 0x01 shl 9
-
         private const val JSON = "{\"tools\": [{ \"name\":\"css format\" , \"site\":\"http://tools.w3cschool.cn/code/css\" },{ \"name\":\"JSON format\" , \"site\":\"http://tools.w3cschool.cn/code/JSON\" },{ \"name\":\"pwd check\" , \"site\":\"http://tools.w3cschool.cn/password/my_password_safe\" }]}"
         private const val XML = "<books><book><author>Jack Herrington</author><title>PHP Hacks</title><publisher>O'Reilly</publisher></book><book><author>Jack Herrington</author><title>Podcasting Hacks</title><publisher>O'Reilly</publisher></book></books>"
         private val ONE_D_ARRAY = intArrayOf(1, 2, 3)
@@ -107,17 +99,6 @@ class LogActivity : BaseBackActivity() {
 
     private val mConfig = LogUtils.getConfig()
 
-    private var dir: String = ""
-    private var globalTag = ""
-    private var log = true
-    private var console = true
-    private var head = true
-    private var file = false
-    private var border = true
-    private var single = true
-    private var consoleFilter = LogUtils.V
-    private var fileFilter = LogUtils.V
-
     private val mRunnable = Runnable {
         LogUtils.v("verbose")
         LogUtils.d("debug")
@@ -138,16 +119,40 @@ class LogActivity : BaseBackActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
         setTitle(R.string.demo_log)
 
-        logToggleLogBtn.setOnClickListener(this)
-        logToggleConsoleBtn.setOnClickListener(this)
-        logToggleTagBtn.setOnClickListener(this)
-        logToggleHeadBtn.setOnClickListener(this)
-        logToggleBorderBtn.setOnClickListener(this)
-        logToggleSingleBtn.setOnClickListener(this)
-        logToggleFileBtn.setOnClickListener(this)
-        logToggleDirBtn.setOnClickListener(this)
-        logToggleConsoleFilterBtn.setOnClickListener(this)
-        logToggleFileFilterBtn.setOnClickListener(this)
+        logSwitchCb.isChecked = mConfig.isLogSwitch
+        logSwitchCb.setOnCheckedChangeListener(this)
+
+        log2ConsoleSwitchCb.isChecked = mConfig.isLog2ConsoleSwitch
+        log2ConsoleSwitchCb.setOnCheckedChangeListener(this)
+
+        logGlobalTagCb.isChecked = !StringUtils.isSpace(mConfig.globalTag)
+        logGlobalTagCb.setOnCheckedChangeListener(this)
+        logGlobalTagCb.text = String.format("Global Tag: %s", mConfig.globalTag)
+
+        logHeadSwitchCb.isChecked = mConfig.isLogHeadSwitch
+        logHeadSwitchCb.setOnCheckedChangeListener(this)
+
+        log2FileSwitchCb.isChecked = mConfig.isLog2FileSwitch
+        log2FileSwitchCb.setOnCheckedChangeListener(this)
+
+        logDirCb.isChecked = mConfig.dir != mConfig.defaultDir
+        logDirCb.setOnCheckedChangeListener(this)
+        logDirCb.text = String.format("Dir: %s", mConfig.dir)
+
+        logBorderSwitchCb.isChecked = mConfig.isLogBorderSwitch
+        logBorderSwitchCb.setOnCheckedChangeListener(this)
+
+        logBorderSwitchCb.isChecked = mConfig.isSingleTagSwitch
+        logSingleTagSwitchCb.setOnCheckedChangeListener(this)
+
+        logConsoleFilterCb.isChecked = mConfig.consoleFilter != 'V'
+        logConsoleFilterCb.setOnCheckedChangeListener(this)
+        logConsoleFilterCb.text = String.format("ConsoleFilter: %s", mConfig.consoleFilter)
+
+        logFileFilterCb.isChecked = mConfig.fileFilter != 'V'
+        logFileFilterCb.setOnCheckedChangeListener(this)
+        logFileFilterCb.text = String.format("FileFilter: %s", mConfig.fileFilter)
+
         logNoTagBtn.setOnClickListener(this)
         logWithTagBtn.setOnClickListener(this)
         logInNewThreadBtn.setOnClickListener(this)
@@ -163,7 +168,7 @@ class LogActivity : BaseBackActivity() {
         logIntentBtn.setOnClickListener(this)
         logArrayListBtn.setOnClickListener(this)
         logMapBtn.setOnClickListener(this)
-        updateConfig(0)
+        updateAboutLog()
     }
 
     override fun doBusiness() {
@@ -172,16 +177,6 @@ class LogActivity : BaseBackActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.logToggleLogBtn -> updateConfig(UPDATE_LOG)
-            R.id.logToggleConsoleBtn -> updateConfig(UPDATE_CONSOLE)
-            R.id.logToggleTagBtn -> updateConfig(UPDATE_TAG)
-            R.id.logToggleHeadBtn -> updateConfig(UPDATE_HEAD)
-            R.id.logToggleFileBtn -> updateConfig(UPDATE_FILE)
-            R.id.logToggleDirBtn -> updateConfig(UPDATE_DIR)
-            R.id.logToggleBorderBtn -> updateConfig(UPDATE_BORDER)
-            R.id.logToggleSingleBtn -> updateConfig(UPDATE_SINGLE)
-            R.id.logToggleConsoleFilterBtn -> updateConfig(UPDATE_CONSOLE_FILTER)
-            R.id.logToggleFileFilterBtn -> updateConfig(UPDATE_FILE_FILTER)
             R.id.logNoTagBtn -> {
                 LogUtils.v("verbose")
                 LogUtils.d("debug")
@@ -189,7 +184,6 @@ class LogActivity : BaseBackActivity() {
                 LogUtils.w("warn")
                 LogUtils.e("error")
                 LogUtils.a("assert")
-
             }
             R.id.logWithTagBtn -> {
                 LogUtils.vTag("customTag", "verbose")
@@ -198,12 +192,10 @@ class LogActivity : BaseBackActivity() {
                 LogUtils.wTag("customTag", "warn")
                 LogUtils.eTag("customTag", "error")
                 LogUtils.aTag("customTag", "assert")
-
             }
             R.id.logInNewThreadBtn -> {
                 val thread = Thread(mRunnable)
                 thread.start()
-
             }
             R.id.logNullBtn -> {
                 LogUtils.v(null)
@@ -212,7 +204,6 @@ class LogActivity : BaseBackActivity() {
                 LogUtils.w(null)
                 LogUtils.e(null)
                 LogUtils.a(null)
-
             }
             R.id.logManyParamsBtn -> {
                 LogUtils.v("verbose0", "verbose1")
@@ -227,7 +218,6 @@ class LogActivity : BaseBackActivity() {
                 LogUtils.eTag("customTag", "error0", "error1")
                 LogUtils.a("assert0", "assert1")
                 LogUtils.aTag("customTag", "assert0", "assert1")
-
             }
             R.id.logLongBtn -> LogUtils.d(LONG_STR)
             R.id.logFileBtn -> for (i in 0..99) {
@@ -237,17 +227,14 @@ class LogActivity : BaseBackActivity() {
             R.id.logJsonBtn -> {
                 LogUtils.json(JSON)
                 LogUtils.json(LogUtils.I, JSON)
-
             }
             R.id.logXmlBtn -> {
                 LogUtils.xml(XML)
                 LogUtils.xml(LogUtils.I, XML)
-
             }
             R.id.logArrayBtn -> {
                 LogUtils.e(ONE_D_ARRAY)
                 LogUtils.e(TWO_D_ARRAY)
-
             }
             R.id.logThrowableBtn -> LogUtils.e(THROWABLE)
             R.id.logBundleBtn -> LogUtils.e(BUNDLE)
@@ -257,41 +244,44 @@ class LogActivity : BaseBackActivity() {
         }
     }
 
-    private fun updateConfig(args: Int) {
-        when (args) {
-            UPDATE_LOG -> log = !log
-            UPDATE_CONSOLE -> console = !console
-            UPDATE_TAG -> globalTag = if (globalTag == TAG) "" else TAG
-            UPDATE_HEAD -> head = !head
-            UPDATE_FILE -> file = !file
-            UPDATE_DIR -> dir =
-                    if (getDir().contains("test")) {
-                        ""
-                    } else {
-                        PathUtils.getInternalAppFilesPath() + System.getProperty("file.separator") + "test"
-                    }
-            UPDATE_BORDER -> border = !border
-            UPDATE_SINGLE -> single = !single
-            UPDATE_CONSOLE_FILTER -> consoleFilter = if (consoleFilter == LogUtils.V) LogUtils.W else LogUtils.V
-            UPDATE_FILE_FILTER -> fileFilter = if (fileFilter == LogUtils.V) LogUtils.I else LogUtils.V
+    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+        when (buttonView?.id) {
+            R.id.logSwitchCb -> mConfig.setLogSwitch(isChecked)
+            R.id.log2ConsoleSwitchCb -> mConfig.setConsoleSwitch(isChecked)
+            R.id.logGlobalTagCb -> {
+                if (isChecked) {
+                    mConfig.setGlobalTag(TAG)
+                } else {
+                    mConfig.setGlobalTag("")
+                }
+                logGlobalTagCb.text = String.format("Global Tag: %s", mConfig.globalTag)
+            }
+            R.id.logHeadSwitchCb -> mConfig.setLogHeadSwitch(isChecked)
+            R.id.log2FileSwitchCb -> mConfig.setLog2FileSwitch(isChecked)
+            R.id.logDirCb -> {
+                if (isChecked) {
+                    mConfig.setDir("")
+                } else {
+                    mConfig.setDir(PathUtils.getInternalAppFilesPath() + System.getProperty("file.separator") + "test")
+                }
+                logDirCb.text = String.format("Dir: %s", mConfig.dir)
+            }
+            R.id.logBorderSwitchCb -> mConfig.setBorderSwitch(isChecked)
+            R.id.logSingleTagSwitchCb -> mConfig.setSingleTagSwitch(isChecked)
+            R.id.logConsoleFilterCb -> {
+                mConfig.setConsoleFilter(if (isChecked) LogUtils.W else LogUtils.V)
+                logConsoleFilterCb.text = String.format("ConsoleFilter: %s", mConfig.consoleFilter)
+            }
+            R.id.logFileFilterCb -> {
+                mConfig.setFileFilter(if (isChecked) LogUtils.W else LogUtils.V)
+                logFileFilterCb.text = String.format("FileFilter: %s", mConfig.fileFilter)
+            }
         }
-        mConfig.setLogSwitch(log)
-                .setConsoleSwitch(console)
-                .setGlobalTag(globalTag)
-                .setLogHeadSwitch(head)
-                .setLog2FileSwitch(file)
-                .setDir(dir)
-                .setBorderSwitch(border)
-                .setSingleTagSwitch(single)
-                .setConsoleFilter(consoleFilter)
-                .setFileFilter(fileFilter)
-        logAboutTv.text = mConfig.toString()
+        updateAboutLog();
     }
 
-    private fun getDir(): String {
-        return mConfig.toString()
-                .split(System.getProperty("line.separator"))[5]
-                .substring(5)
+    private fun updateAboutLog() {
+        logAboutTv.text = mConfig.toString()
     }
 
     override fun onDestroy() {

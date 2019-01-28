@@ -22,7 +22,6 @@
             style="@style/CbStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_margin="4dp"
             android:text="@string/bar_status_title_alpha" />
 
@@ -31,7 +30,6 @@
             style="@style/CbStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_margin="4dp"
             android:text="@string/bar_status_is_front" />
 

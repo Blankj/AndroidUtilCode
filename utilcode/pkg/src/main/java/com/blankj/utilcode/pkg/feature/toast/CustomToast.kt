@@ -23,7 +23,7 @@ object CustomToast {
     private val HANDLER = Handler(Looper.getMainLooper())
 
     fun showShort(text: CharSequence) {
-        show(text, Toast.LENGTH_SHORT)
+        showReal(text, Toast.LENGTH_SHORT)
     }
 
     fun showShort(@StringRes resId: Int) {
@@ -39,7 +39,7 @@ object CustomToast {
     }
 
     fun showLong(text: CharSequence) {
-        show(text, Toast.LENGTH_LONG)
+        showReal(text, Toast.LENGTH_LONG)
     }
 
     fun showLong(@StringRes resId: Int) {
@@ -63,10 +63,10 @@ object CustomToast {
     }
 
     private fun show(format: String, duration: Int, vararg args: Any) {
-        show(String.format(format, *args), duration)
+        showReal(String.format(format, *args), duration)
     }
 
-    private fun show(text: CharSequence, duration: Int) {
+    private fun showReal(text: CharSequence, duration: Int) {
         HANDLER.post {
             val toastView: TextView
             if (duration == Toast.LENGTH_SHORT) {

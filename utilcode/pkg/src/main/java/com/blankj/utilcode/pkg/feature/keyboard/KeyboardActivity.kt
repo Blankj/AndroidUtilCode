@@ -67,34 +67,32 @@ class KeyboardActivity : BaseBackActivity() {
         }
     }
 
-    //    @Override
-    //    public boolean dispatchTouchEvent(MotionEvent ev) {
-    //        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-    //            View v = getCurrentFocus();
-    //            if (isShouldHideKeyboard(v, ev)) {
-    //                InputMethodManager imm =
-    //                        (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-    //                if (imm == null) return super.dispatchTouchEvent(ev);
-    //                imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-    //            }
-    //        }
-    //        return super.dispatchTouchEvent(ev);
-    //    }
-    //
-    //    // 根据 EditText 所在坐标和用户点击的坐标相对比，来判断是否隐藏键盘
-    //    private boolean isShouldHideKeyboard(View v, MotionEvent event) {
-    //        if (v != null && (v instanceof EditText)) {
-    //            int[] l = {0, 0};
-    //            v.getLocationInWindow(l);
-    //            int left = l[0],
-    //                    top = l[1],
-    //                    bottom = top + v.getHeight(),
-    //                    right = left + v.getWidth();
-    //            return !(event.getX() > left && event.getX() < right
-    //                    && event.getY() > top && event.getY() < bottom);
-    //        }
-    //        return false;
-    //    }
+//    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+//        if (ev.action == MotionEvent.ACTION_DOWN) {
+//            val v = currentFocus
+//            if (isShouldHideKeyboard(v, ev)) {
+//                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//                        ?: return super.dispatchTouchEvent(ev)
+//                imm.hideSoftInputFromWindow(v.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+//            }
+//        }
+//        return super.dispatchTouchEvent(ev)
+//    }
+//
+//    // 根据 EditText 所在坐标和用户点击的坐标相对比，来判断是否隐藏键盘
+//    private fun isShouldHideKeyboard(v: View?, event: MotionEvent): Boolean {
+//        if (v != null && v is EditText) {
+//            val l = intArrayOf(0, 0)
+//            v.getLocationInWindow(l)
+//            val left = l[0]
+//            val top = l[1]
+//            val bottom = top + v.height
+//            val right = left + v.width
+//            return !(event.x > left && event.x < right
+//                    && event.y > top && event.y < bottom)
+//        }
+//        return false
+//    }
 
     override fun onDestroy() {
         KeyboardUtils.unregisterSoftInputChangedListener(this)

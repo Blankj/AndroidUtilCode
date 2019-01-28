@@ -229,12 +229,12 @@ class SpanActivity : BaseBackActivity() {
 
     }
 
-    override fun onDestroy() {
-        if (valueAnimator.isRunning) {
-            valueAnimator.cancel()
-        }
-        super.onDestroy()
-    }
+//    override fun onDestroy() {
+//        if (valueAnimator.isRunning) {
+//            valueAnimator.cancel()
+//        }
+//        super.onDestroy()
+//    }
 }
 
 class BlurMaskFilterSpan(private var mRadius: Float) : CharacterStyle(), UpdateAppearance {
