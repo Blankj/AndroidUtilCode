@@ -626,7 +626,7 @@ public final class LogUtils {
         private String  mFilePrefix        = "util";// The file prefix of log.
         private boolean mLogSwitch         = true;  // The switch of log.
         private boolean mLog2ConsoleSwitch = true;  // The logcat's switch of log.
-        private String  mGlobalTag         = null;  // The global tag of log.
+        private String  mGlobalTag         = "";  // The global tag of log.
         private boolean mTagIsSpace        = true;  // The global tag is space.
         private boolean mLogHeadSwitch     = true;  // The head's switch of log.
         private boolean mLog2FileSwitch    = false; // The file's switch of log.
@@ -744,22 +744,83 @@ public final class LogUtils {
             return this;
         }
 
+        public String getDefaultDir() {
+            return mDefaultDir;
+        }
+
+        public String getDir() {
+            return mDir == null ? mDefaultDir : mDir;
+        }
+
+        public String getFilePrefix() {
+            return mFilePrefix;
+        }
+
+        public boolean isLogSwitch() {
+            return mLogSwitch;
+        }
+
+        public boolean isLog2ConsoleSwitch() {
+            return mLog2ConsoleSwitch;
+        }
+
+        public String getGlobalTag() {
+            if (isSpace(mGlobalTag)) return "null";
+            return mGlobalTag;
+        }
+
+        public boolean isLogHeadSwitch() {
+            return mLogHeadSwitch;
+        }
+
+        public boolean isLog2FileSwitch() {
+            return mLog2FileSwitch;
+        }
+
+        public boolean isLogBorderSwitch() {
+            return mLogBorderSwitch;
+        }
+
+        public boolean isSingleTagSwitch() {
+            return mSingleTagSwitch;
+        }
+
+        public char getConsoleFilter() {
+            return T[mConsoleFilter - V];
+        }
+
+        public char getFileFilter() {
+            return T[mFileFilter - V];
+        }
+
+        public int getStackDeep() {
+            return mStackDeep;
+        }
+
+        public int getStackOffset() {
+            return mStackOffset;
+        }
+
+        public int getSaveDays() {
+            return mSaveDays;
+        }
+
         @Override
         public String toString() {
-            return "switch: " + mLogSwitch
-                    + LINE_SEP + "console: " + mLog2ConsoleSwitch
-                    + LINE_SEP + "tag: " + (mTagIsSpace ? "null" : mGlobalTag)
-                    + LINE_SEP + "head: " + mLogHeadSwitch
-                    + LINE_SEP + "file: " + mLog2FileSwitch
-                    + LINE_SEP + "dir: " + (mDir == null ? mDefaultDir : mDir)
-                    + LINE_SEP + "filePrefix: " + mFilePrefix
-                    + LINE_SEP + "border: " + mLogBorderSwitch
-                    + LINE_SEP + "singleTag: " + mSingleTagSwitch
-                    + LINE_SEP + "consoleFilter: " + T[mConsoleFilter - V]
-                    + LINE_SEP + "fileFilter: " + T[mFileFilter - V]
-                    + LINE_SEP + "stackDeep: " + mStackDeep
-                    + LINE_SEP + "stackOffset: " + mStackOffset
-                    + LINE_SEP + "saveDays: " + mSaveDays
+            return "switch: " + isLogSwitch()
+                    + LINE_SEP + "console: " + isLog2ConsoleSwitch()
+                    + LINE_SEP + "tag: " + getGlobalTag()
+                    + LINE_SEP + "head: " + isLogHeadSwitch()
+                    + LINE_SEP + "file: " + isLog2FileSwitch()
+                    + LINE_SEP + "dir: " + getDir()
+                    + LINE_SEP + "filePrefix: " + getFilePrefix()
+                    + LINE_SEP + "border: " + isLogBorderSwitch()
+                    + LINE_SEP + "singleTag: " + isSingleTagSwitch()
+                    + LINE_SEP + "consoleFilter: " + getConsoleFilter()
+                    + LINE_SEP + "fileFilter: " + getFileFilter()
+                    + LINE_SEP + "stackDeep: " + getStackDeep()
+                    + LINE_SEP + "stackOffset: " + getStackOffset()
+                    + LINE_SEP + "saveDays: " + getSaveDays()
                     + LINE_SEP + "formatter: " + I_FORMATTER_MAP;
         }
     }

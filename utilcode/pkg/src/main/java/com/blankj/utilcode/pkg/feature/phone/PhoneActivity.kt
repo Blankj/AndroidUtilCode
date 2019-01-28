@@ -56,7 +56,7 @@ class PhoneActivity : BaseBackActivity() {
                 .appendLine("isSimCardReady: " + PhoneUtils.isSimCardReady())
                 .appendLine("getSimOperatorName: " + PhoneUtils.getSimOperatorName())
                 .appendLine("getSimOperatorByMnc: " + PhoneUtils.getSimOperatorByMnc())
-                .appendLine("getPhoneStatus: " + PhoneUtils.getPhoneStatus())
+                .append("getPhoneStatus: " + PhoneUtils.getPhoneStatus())
                 .create()
 
         phoneDialBtn.setOnClickListener(this)

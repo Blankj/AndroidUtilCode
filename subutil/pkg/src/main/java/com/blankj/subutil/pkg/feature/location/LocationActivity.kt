@@ -51,7 +51,7 @@ class LocationActivity : BaseBackActivity() {
                 override fun getLocation(lastLatitude: String, lastLongitude: String, latitude: String,
                                          longitude: String, country: String, locality: String, street: String) {
                     runOnUiThread {
-                        locationAboutTv.text = SpanUtils()
+                        SpanUtils.with(locationAboutTv)
                                 .appendLine("lastLatitude: $lastLatitude")
                                 .appendLine("lastLongitude: $lastLongitude")
                                 .appendLine("latitude: $latitude")
@@ -77,7 +77,7 @@ class LocationActivity : BaseBackActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
         setTitle(R.string.demo_location)
 
-        locationAboutTv.text = SpanUtils()
+        SpanUtils.with(locationAboutTv)
                 .appendLine("lastLatitude: unknown")
                 .appendLine("lastLongitude: unknown")
                 .appendLine("latitude: unknown")

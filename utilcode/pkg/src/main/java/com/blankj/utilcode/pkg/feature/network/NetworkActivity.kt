@@ -7,6 +7,7 @@ import android.text.SpannableStringBuilder
 import android.view.View
 import com.blankj.lib.base.BaseBackActivity
 import com.blankj.utilcode.pkg.R
+import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ThreadUtils
@@ -56,7 +57,28 @@ class NetworkActivity : BaseBackActivity() {
         setTitle(R.string.demo_network)
 
         networkOpenWirelessSettingsBtn.setOnClickListener(this)
-        networkSetWifiEnabledBtn.setOnClickListener(this)
+
+        networkMobileDataEnabledCb.setOnClickListener(this)
+
+        if (AppUtils.isAppSystem()) {
+            networkMobileDataEnabledCb.setOnCheckedChangeListener { buttonView, isChecked ->
+                NetworkUtils.setMobileDataEnabled(isChecked)
+                updateAboutNetwork()
+            }
+        } else {
+            networkMobileDataEnabledCb.isEnabled = false
+        }
+
+        networkWifiEnabledCb.setOnCheckedChangeListener { buttonView, isChecked ->
+            NetworkUtils.setWifiEnabled(isChecked)
+            updateAboutNetwork()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        networkMobileDataEnabledCb.isChecked = NetworkUtils.getMobileDataEnabled()
+        networkWifiEnabledCb.isChecked = NetworkUtils.getWifiEnabled()
         updateAboutNetwork()
     }
 
@@ -67,8 +89,6 @@ class NetworkActivity : BaseBackActivity() {
     override fun onWidgetClick(view: View) {
         when (view.id) {
             R.id.networkOpenWirelessSettingsBtn -> NetworkUtils.openWirelessSettings()
-            R.id.btn_set_data_enabled -> NetworkUtils.setMobileDataEnabled(!NetworkUtils.getMobileDataEnabled())
-            R.id.networkSetWifiEnabledBtn -> NetworkUtils.setWifiEnabled(!NetworkUtils.getWifiEnabled())
         }
         updateAboutNetwork()
     }

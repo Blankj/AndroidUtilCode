@@ -50,9 +50,11 @@ class FlashlightActivity : BaseBackActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        flashlightEnableCb.setOnCheckedChangeListener { buttonView, isChecked ->
+        setTitle(R.string.demo_flashlight)
+
+        flashlightStatusCb.isChecked = FlashlightUtils.isFlashlightOn()
+        flashlightStatusCb.setOnCheckedChangeListener { buttonView, isChecked ->
             FlashlightUtils.setFlashlightStatus(isChecked)
-            updateAboutFlashlight()
         }
     }
 
@@ -66,8 +68,7 @@ class FlashlightActivity : BaseBackActivity() {
 
     private fun updateAboutFlashlight() {
         SpanUtils.with(flashlightAboutTv)
-                .appendLine("isFlashlightEnable: " + FlashlightUtils.isFlashlightEnable())
-                .appendLine("isFlashlightOn: " + FlashlightUtils.isFlashlightOn())
+                .append("isFlashlightEnable: " + FlashlightUtils.isFlashlightEnable())
                 .create()
     }
 

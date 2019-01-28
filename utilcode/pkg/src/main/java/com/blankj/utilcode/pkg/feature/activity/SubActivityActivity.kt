@@ -34,6 +34,7 @@ class SubActivityActivity : BaseBackActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
+        setTitle(R.string.demo_activity)
         contentView.setBackgroundColor(ColorUtils.getRandomColor(false))
     }
 

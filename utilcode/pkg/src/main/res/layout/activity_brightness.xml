@@ -37,8 +37,7 @@
         style="@style/CbStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:layout_margin="4dp"
-        android:text="@string/brightness_set_auto_brightness" />
+        android:text="@string/brightness_auto_brightness" />
 
 </LinearLayout>

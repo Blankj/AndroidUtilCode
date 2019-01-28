@@ -335,15 +335,15 @@ public final class Utils {
             return null;
         }
 
-        private static void fixSoftInputLeaks(final Context context) {
-            if (context == null) return;
+        private static void fixSoftInputLeaks(final Activity activity) {
+            if (activity == null) return;
             InputMethodManager imm =
                     (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
-            String[] strArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
-            for (int i = 0; i < 4; i++) {
+            if (imm == null) return;
+            String[] leakViews = new String[]{"mLastSrvView", "mCurRootView", "mServedView", "mNextServedView"};
+            for (String leakView : leakViews) {
                 try {
-                    //noinspection ConstantConditions
-                    Field declaredField = imm.getClass().getDeclaredField(strArr[i]);
+                    Field declaredField = InputMethodManager.class.getDeclaredField(leakView);
                     if (declaredField == null) continue;
                     if (!declaredField.isAccessible()) {
                         declaredField.setAccessible(true);
@@ -351,10 +351,8 @@ public final class Utils {
                     Object obj = declaredField.get(imm);
                     if (!(obj instanceof View)) continue;
                     View view = (View) obj;
-                    if (view.getContext() == context) {
+                    if (view.getRootView() == activity.getWindow().getDecorView().getRootView()) {
                         declaredField.set(imm, null);
-                    } else {
-                        return;
                     }
                 } catch (Throwable th) {
                     th.printStackTrace();

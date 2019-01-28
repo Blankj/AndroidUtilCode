@@ -1,3 +1,5 @@
+* `19/01/28` [fix] KeyboardUtils#fixSoftInputLeaks didn't work on the device of HuaWei.
+* `19/01/27` [upd] demo
 * `19/01/25` [add] CloneUtils, PermissionUtils support request permission of WRITE_SETTINGS and DRAW_OVERLAYS. Publish v1.23.2.
 * `19/01/24` [add] BrightnessUtils and FlashlightUtils.
 * `19/01/23` [add] Modify the demo of utilcode use kotlin. Publish v1.23.1.

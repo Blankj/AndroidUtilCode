@@ -127,7 +127,6 @@ public final class BarUtils {
             if (decorView != null) {
                 int vis = decorView.getSystemUiVisibility();
                 if (isLightMode) {
-                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                     vis |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
                 } else {
                     vis &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
@@ -135,6 +134,33 @@ public final class BarUtils {
                 decorView.setSystemUiVisibility(vis);
             }
         }
+    }
+
+    /**
+     * Is the status bar light mode.
+     *
+     * @param activity The activity.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isStatusBarLightMode(@NonNull final Activity activity) {
+        return isStatusBarLightMode(activity.getWindow());
+    }
+
+    /**
+     * Is the status bar light mode.
+     *
+     * @param window The window.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isStatusBarLightMode(@NonNull final Window window) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            View decorView = window.getDecorView();
+            if (decorView != null) {
+                int vis = decorView.getSystemUiVisibility();
+                return (vis & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR) != 0;
+            }
+        }
+        return false;
     }
 
     /**
@@ -437,9 +463,10 @@ public final class BarUtils {
      * @param activity  The activity.
      * @param isVisible True to set navigation bar visible, false otherwise.
      */
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static void setNavBarVisibility(@NonNull final Activity activity, boolean isVisible) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
         setNavBarVisibility(activity.getWindow(), isVisible);
+
     }
 
     /**
@@ -448,8 +475,8 @@ public final class BarUtils {
      * @param window    The window.
      * @param isVisible True to set navigation bar visible, false otherwise.
      */
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
     public static void setNavBarVisibility(@NonNull final Window window, boolean isVisible) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
         final ViewGroup decorView = (ViewGroup) window.getDecorView();
         for (int i = 0, count = decorView.getChildCount(); i < count; i++) {
             final View child = decorView.getChildAt(i);

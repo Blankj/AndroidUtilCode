@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_resource.*
  * author: Blankj
  * blog  : http://blankj.com
  * time  : 2018/05/07
- * desc  :
+ * desc  : demo about ResourceUtils
  * ```
  */
 class ResourceActivity : BaseBackActivity() {
@@ -37,8 +37,10 @@ class ResourceActivity : BaseBackActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        resourceTestAssetsBtn.setOnClickListener(this)
-        resourceTestRawBtn.setOnClickListener(this)
+        setTitle(R.string.demo_resource)
+
+        resourceCopyFileFromAssets.setOnClickListener(this)
+        resourceCopyFileFromRaw.setOnClickListener(this)
 
         SpanUtils.with(resourceAboutTv)
                 .appendLine("readAssets2String: " + ResourceUtils.readAssets2String("test/test.txt"))
@@ -53,8 +55,8 @@ class ResourceActivity : BaseBackActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.resourceTestAssetsBtn -> ResourceUtils.copyFileFromAssets("test", Config.CACHE_PATH + "/assets/test")
-            R.id.resourceTestRawBtn -> ResourceUtils.copyFileFromRaw(R.raw.test, Config.CACHE_PATH + "/raw/test.txt")
+            R.id.resourceCopyFileFromAssets -> ResourceUtils.copyFileFromAssets("test", Config.CACHE_PATH + "/assets/test")
+            R.id.resourceCopyFileFromRaw -> ResourceUtils.copyFileFromRaw(R.raw.test, Config.CACHE_PATH + "/raw/test.txt")
         }
     }
 }

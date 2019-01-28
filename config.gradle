@@ -5,8 +5,8 @@ ext {
     compileSdkVersion = 27
     minSdkVersion = 14
     targetSdkVersion = 27
-    versionCode = 1_023_002
-    versionName = '1.23.2'// E.g. 1.9.72 => 1,009,072
+    versionCode = 1_023_003
+    versionName = '1.23.3'// E.g. 1.9.72 => 1,009,072
 
     bus = [
             isDebug: false,
@@ -17,7 +17,7 @@ ext {
     // lib version
     kotlin_version = '1.3.0'
     support_version = '27.1.1'
-    leakcanary_version = '1.5.4'
+    leakcanary_version = '1.6.3'
 
     dep = [
             plugin       : [
@@ -38,8 +38,9 @@ ext {
             constraint   : "com.android.support.constraint:constraint-layout:1.1.3",
             kotlin       : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
             leakcanary   : [
-                    android      : "com.squareup.leakcanary:leakcanary-android:$leakcanary_version",
-                    android_no_op: "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version",
+                    android         : "com.squareup.leakcanary:leakcanary-android:$leakcanary_version",
+                    android_no_op   : "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version",
+                    support_fragment: "com.squareup.leakcanary:leakcanary-support-fragment:$leakcanary_version"
             ],
             free_proguard: "com.blankj:free-proguard:0.0.7",
             adapt_screen : "com.blankj:adapt-screen:0.0.3",

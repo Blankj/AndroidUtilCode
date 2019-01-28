@@ -13,75 +13,71 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/logToggleLogBtn"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/logSwitchCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/log_toggle_log" />
+        android:text="@string/log_switch" />
 
-    <Button
-        android:id="@+id/logToggleConsoleBtn"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/log2ConsoleSwitchCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/log_toggle_console" />
+        android:text="@string/log_console_console" />
 
-    <Button
-        android:id="@+id/logToggleTagBtn"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/log_toggle_tag" />
+    <CheckBox
+        android:id="@+id/logGlobalTagCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/logToggleHeadBtn"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/logHeadSwitchCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/log_toggle_head" />
+        android:text="@string/log_head_switch" />
 
-    <Button
-        android:id="@+id/logToggleFileBtn"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/log2FileSwitchCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/log_toggle_file" />
+        android:text="@string/log_file_switch" />
 
-    <Button
-        android:id="@+id/logToggleDirBtn"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/log_toggle_dir" />
+    <CheckBox
+        android:id="@+id/logDirCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/logToggleBorderBtn"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/logBorderSwitchCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/log_toggle_border" />
+        android:text="@string/log_border_switch" />
 
-    <Button
-        android:id="@+id/logToggleSingleBtn"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/logSingleTagSwitchCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/log_toggle_single" />
+        android:text="@string/log_single_tag_switch" />
 
-    <Button
-        android:id="@+id/logToggleConsoleFilterBtn"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/log_toggle_console_filter" />
+    <CheckBox
+        android:id="@+id/logConsoleFilterCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/logToggleFileFilterBtn"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/log_toggle_file_filter" />
+    <CheckBox
+        android:id="@+id/logFileFilterCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/logNoTagBtn"

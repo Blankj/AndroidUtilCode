@@ -24,12 +24,20 @@ class AdaptScreenActivity : BaseBackActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        adaptScreenAdaptWidthBtn.setOnClickListener { WidthActivity.start(this) }
-        adaptScreenAdaptHeightBtn.setOnClickListener { HeightActivity.start(this) }
-        adaptScreenCloseAdaptBtn.setOnClickListener { CloseAdaptActivity.start(this) }
+        setTitle(R.string.demo_adapt_screen)
+
+        adaptScreenAdaptWidthBtn.setOnClickListener(this)
+        adaptScreenAdaptHeightBtn.setOnClickListener(this)
+        adaptScreenCloseAdaptBtn.setOnClickListener(this)
     }
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {}
+    override fun onWidgetClick(view: View) {
+        when (view.id) {
+            R.id.adaptScreenAdaptWidthBtn -> WidthActivity.start(this)
+            R.id.adaptScreenAdaptHeightBtn -> HeightActivity.start(this)
+            R.id.adaptScreenCloseAdaptBtn -> CloseAdaptActivity.start(this)
+        }
+    }
 }

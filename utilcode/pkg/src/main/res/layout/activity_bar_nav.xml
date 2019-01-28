@@ -13,19 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/barNavShowBtn"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/barNavVisibilityCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/bar_nav_show" />
-
-    <Button
-        android:id="@+id/barNavHideBtn"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/bar_nav_hide" />
+        android:text="@string/bar_nav_visibility" />
 
     <Button
         android:id="@+id/barNavSetColorBtn"

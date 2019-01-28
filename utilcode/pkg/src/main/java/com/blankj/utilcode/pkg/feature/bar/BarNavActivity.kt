@@ -9,6 +9,7 @@ import android.view.View
 import com.blankj.lib.base.BaseBackActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.SpanUtils
 import kotlinx.android.synthetic.main.activity_bar_nav.*
 
@@ -38,13 +39,18 @@ class BarNavActivity : BaseBackActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        (contentView.parent as View).setBackgroundColor(Color.GRAY)
         setTitle(R.string.demo_bar)
 
-        barNavShowBtn.setOnClickListener(this)
-        barNavHideBtn.setOnClickListener(this)
-        barNavSetColorBtn.setOnClickListener(this)
-        updateAboutNav()
+        contentView.setBackgroundColor(Color.GRAY)
+        if (!BarUtils.isSupportNavBar()) {
+            barNavVisibilityCb.visibility = View.GONE
+            barNavSetColorBtn.visibility = View.GONE
+        } else {
+            barNavVisibilityCb.setOnCheckedChangeListener { buttonView, isChecked ->
+                BarUtils.setNavBarVisibility(this, isChecked)
+            }
+            barNavSetColorBtn.setOnClickListener(this)
+        }
     }
 
     override fun doBusiness() {
@@ -53,14 +59,8 @@ class BarNavActivity : BaseBackActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.barNavShowBtn -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                BarUtils.setNavBarVisibility(this, true)
-            }
-            R.id.barNavHideBtn -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                BarUtils.setNavBarVisibility(this, false)
-            }
             R.id.barNavSetColorBtn -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                BarUtils.setNavBarColor(this, (Math.random() * 0xFFFFFFFF).toInt())
+                BarUtils.setNavBarColor(this, ColorUtils.getRandomColor())
             }
         }
         updateAboutNav()
@@ -69,10 +69,9 @@ class BarNavActivity : BaseBackActivity() {
     private fun updateAboutNav() {
         SpanUtils.with(barNavAboutTv)
                 .appendLine("navHeight: " + BarUtils.getNavBarHeight())
-                .appendLine("isNavBarVisible: " + BarUtils.isNavBarVisible(this))
                 .apply {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        appendLine("getNavBarColor: #" + Integer.toHexString(BarUtils.getNavBarColor(mActivity)))
+                        appendLine("getNavBarColor: " + ColorUtils.int2ArgbString(BarUtils.getNavBarColor(mActivity)))
                     }
                 }
                 .append("isSupportNavBar: " + BarUtils.isSupportNavBar())
@@ -81,6 +80,7 @@ class BarNavActivity : BaseBackActivity() {
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
+        barNavVisibilityCb.isChecked = BarUtils.isNavBarVisible(this)
         updateAboutNav()
     }
 }

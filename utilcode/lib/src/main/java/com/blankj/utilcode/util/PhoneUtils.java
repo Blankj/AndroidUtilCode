@@ -284,7 +284,7 @@ public final class PhoneUtils {
         str += "SimSerialNumber = " + tm.getSimSerialNumber() + "\n";
         str += "SimState = " + tm.getSimState() + "\n";
         str += "SubscriberId(IMSI) = " + tm.getSubscriberId() + "\n";
-        str += "VoiceMailNumber = " + tm.getVoiceMailNumber() + "\n";
+        str += "VoiceMailNumber = " + tm.getVoiceMailNumber();
         return str;
     }
 

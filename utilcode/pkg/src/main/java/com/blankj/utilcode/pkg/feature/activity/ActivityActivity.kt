@@ -54,7 +54,6 @@ class ActivityActivity : BaseBackActivity() {
 
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-
         setTitle(R.string.demo_activity)
 
         activityClzBtn.setOnClickListener(this)

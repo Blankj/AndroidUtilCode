@@ -20,18 +20,18 @@
         android:layout_height="wrap_content"
         android:text="@string/network_open_wireless_settings" />
 
-    <Button
-        android:id="@+id/btn_set_data_enabled"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/networkMobileDataEnabledCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/network_set_data_enabled" />
+        android:text="@string/network_data_enabled" />
 
-    <Button
-        android:id="@+id/networkSetWifiEnabledBtn"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/networkWifiEnabledCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/network_set_wifi_enabled" />
+        android:text="@string/network_wifi_enabled" />
 
 </LinearLayout>

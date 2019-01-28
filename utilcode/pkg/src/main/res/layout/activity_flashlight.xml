@@ -14,11 +14,10 @@
         android:layout_height="wrap_content" />
 
     <CheckBox
-        android:id="@+id/flashlightEnableCb"
+        android:id="@+id/flashlightStatusCb"
         style="@style/CbStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:text="@string/flashlight_status" />
 
 </LinearLayout>

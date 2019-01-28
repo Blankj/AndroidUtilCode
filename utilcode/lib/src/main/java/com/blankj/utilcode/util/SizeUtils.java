@@ -75,7 +75,7 @@ public final class SizeUtils {
      * metrics depending on its unit.
      */
     public static float applyDimension(final float value, final int unit) {
-        DisplayMetrics metrics = Utils.getApp().getResources().getDisplayMetrics();
+        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
         switch (unit) {
             case TypedValue.COMPLEX_UNIT_PX:
                 return value;

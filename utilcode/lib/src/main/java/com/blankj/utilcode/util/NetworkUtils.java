@@ -134,13 +134,13 @@ public final class NetworkUtils {
                 return tm.isDataEnabled();
             }
             @SuppressLint("PrivateApi")
-            Method getMobileDataEnabledMethod = tm.getClass().getDeclaredMethod("getDataEnabled");
+            Method getMobileDataEnabledMethod =
+                    tm.getClass().getDeclaredMethod("getDataEnabled");
             if (null != getMobileDataEnabledMethod) {
                 return (boolean) getMobileDataEnabledMethod.invoke(tm);
             }
-
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("NetworkUtils", "getMobileDataEnabled: ", e);
         }
         return false;
     }
@@ -151,21 +151,28 @@ public final class NetworkUtils {
      * {@code <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />}</p>
      *
      * @param enabled True to enabled, false otherwise.
+     * @return {@code true}: success<br>{@code false}: fail
      */
     @RequiresPermission(MODIFY_PHONE_STATE)
-    public static void setMobileDataEnabled(final boolean enabled) {
+    public static boolean setMobileDataEnabled(final boolean enabled) {
         try {
             TelephonyManager tm =
                     (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
-            if (tm == null) return;
-            Method setMobileDataEnabledMethod =
+            if (tm == null) return false;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                tm.setDataEnabled(enabled);
+                return false;
+            }
+            Method setDataEnabledMethod =
                     tm.getClass().getDeclaredMethod("setDataEnabled", boolean.class);
-            if (null != setMobileDataEnabledMethod) {
-                setMobileDataEnabledMethod.invoke(tm, enabled);
+            if (null != setDataEnabledMethod) {
+                setDataEnabledMethod.invoke(tm, enabled);
+                return true;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("NetworkUtils", "setMobileDataEnabled: ", e);
         }
+        return false;
     }
 
     /**
@@ -281,24 +288,22 @@ public final class NetworkUtils {
      */
     @RequiresPermission(ACCESS_NETWORK_STATE)
     public static NetworkType getNetworkType() {
-        NetworkType netType = NetworkType.NETWORK_NO;
+        if (isEthernet()) {
+            return NetworkType.NETWORK_ETHERNET;
+        }
         NetworkInfo info = getActiveNetworkInfo();
         if (info != null && info.isAvailable()) {
-            if (isEthernet()) {
-                netType = NetworkType.NETWORK_ETHERNET;
-            } else if (info.getType() == ConnectivityManager.TYPE_WIFI) {
-                netType = NetworkType.NETWORK_WIFI;
+            if (info.getType() == ConnectivityManager.TYPE_WIFI) {
+                return NetworkType.NETWORK_WIFI;
             } else if (info.getType() == ConnectivityManager.TYPE_MOBILE) {
                 switch (info.getSubtype()) {
-
                     case TelephonyManager.NETWORK_TYPE_GSM:
                     case TelephonyManager.NETWORK_TYPE_GPRS:
                     case TelephonyManager.NETWORK_TYPE_CDMA:
                     case TelephonyManager.NETWORK_TYPE_EDGE:
                     case TelephonyManager.NETWORK_TYPE_1xRTT:
                     case TelephonyManager.NETWORK_TYPE_IDEN:
-                        netType = NetworkType.NETWORK_2G;
-                        break;
+                        return NetworkType.NETWORK_2G;
 
                     case TelephonyManager.NETWORK_TYPE_TD_SCDMA:
                     case TelephonyManager.NETWORK_TYPE_EVDO_A:
@@ -310,30 +315,23 @@ public final class NetworkUtils {
                     case TelephonyManager.NETWORK_TYPE_EVDO_B:
                     case TelephonyManager.NETWORK_TYPE_EHRPD:
                     case TelephonyManager.NETWORK_TYPE_HSPAP:
-                        netType = NetworkType.NETWORK_3G;
-                        break;
+                        return NetworkType.NETWORK_3G;
 
                     case TelephonyManager.NETWORK_TYPE_IWLAN:
                     case TelephonyManager.NETWORK_TYPE_LTE:
-                        netType = NetworkType.NETWORK_4G;
-                        break;
-                    default:
+                        return NetworkType.NETWORK_4G;
 
+                    default:
                         String subtypeName = info.getSubtypeName();
                         if (subtypeName.equalsIgnoreCase("TD-SCDMA")
                                 || subtypeName.equalsIgnoreCase("WCDMA")
                                 || subtypeName.equalsIgnoreCase("CDMA2000")) {
-                            netType = NetworkType.NETWORK_3G;
-                        } else {
-                            netType = NetworkType.NETWORK_UNKNOWN;
+                            return NetworkType.NETWORK_3G;
                         }
-                        break;
                 }
-            } else {
-                netType = NetworkType.NETWORK_UNKNOWN;
             }
         }
-        return netType;
+        return NetworkType.NETWORK_UNKNOWN;
     }
 
     /**
@@ -344,18 +342,15 @@ public final class NetworkUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     @RequiresPermission(ACCESS_NETWORK_STATE)
-    public static boolean isEthernet() {
-        final ConnectivityManager connectivityManager = (ConnectivityManager) Utils.getApp().getSystemService(Context.CONNECTIVITY_SERVICE);
-        final NetworkInfo ethernet = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_ETHERNET);
-        if (ethernet != null) {
-            NetworkInfo.State state = ethernet.getState();
-            if (null != state) {
-                if (state == NetworkInfo.State.CONNECTED || state == NetworkInfo.State.CONNECTING) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    private static boolean isEthernet() {
+        final ConnectivityManager cm =
+                (ConnectivityManager) Utils.getApp().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm == null) return false;
+        final NetworkInfo info = cm.getNetworkInfo(ConnectivityManager.TYPE_ETHERNET);
+        if (info == null) return false;
+        NetworkInfo.State state = info.getState();
+        if (null == state) return false;
+        return state == NetworkInfo.State.CONNECTED || state == NetworkInfo.State.CONNECTING;
     }
 
     @RequiresPermission(ACCESS_NETWORK_STATE)
