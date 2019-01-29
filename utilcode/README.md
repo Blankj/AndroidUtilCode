@@ -972,7 +972,7 @@ getComments
 [cacheMemory.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/CacheMemoryUtilsTest.java
 
 [clean.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CleanUtils.java
-[clean.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/clean/CleanActivity.md
+[clean.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/clean/CleanActivity.kt
 
 [clone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CloneUtils.java
 [clone.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/CloneUtilsTest.java
@@ -988,7 +988,7 @@ getComments
 [crash.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CrashUtils.java
 
 [device.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/DeviceUtils.java
-[device.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/device/DeviceActivity.md
+[device.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/device/DeviceActivity.kt
 
 [empty.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/EmptyUtils.java
 [empty.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/EmptyUtilsTest.java
@@ -1009,42 +1009,42 @@ getComments
 [flashlight.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/flashlight/FlashlightActivity.kt
 
 [fragment.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/FragmentUtils.java
-[fragment.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/fragment/FragmentActivity.md
+[fragment.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/fragment/FragmentActivity.kt
 
 [gson.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/GsonUtils.java
 [gson.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/GsonUtilsTest.java
 
 [image.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ImageUtils.java
-[image.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/image/ImageActivity.md
+[image.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/image/ImageActivity.kt
 
 [intent.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/IntentUtils.java
 
 [keyboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/KeyboardUtils.java
-[keyboard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/keyboard/KeyboardActivity.md
+[keyboard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/keyboard/KeyboardActivity.kt
 
 [log.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/LogUtils.java
-[log.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/log/LogActivity.md
+[log.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/log/LogActivity.kt
 
 [metaData.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/MetaDataUtils.java
-[metaData.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/metaData/MetaDataActivity.md
+[metaData.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/metaData/MetaDataActivity.kt
 
 [network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/NetworkUtils.java
-[network.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/network/NetworkActivity.md
+[network.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/network/NetworkActivity.kt
 
 [object.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ObjectUtils.java
 [object.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/ObjectUtilsTest.java
 
 [path.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/PathUtils.java
-[path.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/path/PathActivity.md
+[path.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/path/PathActivity.kt
 
 [permission.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/PermissionUtils.java
-[permission.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/permission/PermissionActivity.md
+[permission.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/permission/PermissionActivity.kt
 
 [phone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/PhoneUtils.java
-[phone.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/phone/PhoneActivity.md
+[phone.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/phone/PhoneActivity.kt
 
 [process.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ProcessUtils.java
-[process.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/process/ProcessActivity.md
+[process.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/process/ProcessActivity.kt
 
 [reflect.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ReflectUtils.java
 [reflect.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/reflect/ReflectUtilsTest.java
@@ -1053,13 +1053,13 @@ getComments
 [regex.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/RegexUtilsTest.java
 
 [resource.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ResourceUtils.java
-[resource.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/resource/ResourceActivity.md
+[resource.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/resource/ResourceActivity.kt
 
 [screen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ScreenUtils.java
-[screen.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/screen/ScreenActivity.md
+[screen.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/screen/ScreenActivity.kt
 
 [sdcard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/SDCardUtils.java
-[sdcard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/sdcard/SDCardActivity.md
+[sdcard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/sdcard/SDCardActivity.kt
 
 [service.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ServiceUtils.java
 
@@ -1068,13 +1068,13 @@ getComments
 [size.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/SizeUtils.java
 
 [snackbar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/SnackbarUtils.java
-[snackbar.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/snackbar/SnackbarActivity.md
+[snackbar.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/snackbar/SnackbarActivity.kt
 
 [span.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/SpanUtils.java
-[span.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/span/SpanActivity.md
+[span.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/span/SpanActivity.kt
 
 [spStatic.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/SPStaticUtils.java
-[spStatic.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/spStatic/SPStaticActivity.md
+[spStatic.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/spStatic/SPStaticActivity.kt
 
 [sp.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/SPUtils.java
 
@@ -1088,12 +1088,12 @@ getComments
 [time.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/TimeUtilsTest.java
 
 [toast.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ToastUtils.java
-[toast.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/toast/ToastActivity.md
+[toast.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/toast/ToastActivity.kt
 
 [uri.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/UriUtils.java
 
 [vibrate.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/VibrateUtils.java
-[vibrate.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/vibrate/VibrateActivity.md
+[vibrate.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/vibrate/VibrateActivity.kt
 
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ZipUtils.java
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/ZipUtilsTest.java
