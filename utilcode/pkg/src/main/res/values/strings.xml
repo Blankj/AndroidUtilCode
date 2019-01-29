@@ -23,6 +23,7 @@
     <string name="demo_reflect">ReflectUtils Demo</string>
     <string name="demo_resource">ResourceUtils Demo</string>
     <string name="demo_screen">ScreenUtils Demo</string>
+    <string name="demo_rom">RomUtils Demo</string>
     <string name="demo_sdcard">SDCardUtils Demo</string>
     <string name="demo_snackbar">SnackbarUtils Demo</string>
     <string name="demo_spStatic">SPStaticUtils Demo</string>

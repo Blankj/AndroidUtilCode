@@ -26,6 +26,7 @@ import com.blankj.utilcode.pkg.feature.phone.PhoneActivity
 import com.blankj.utilcode.pkg.feature.process.ProcessActivity
 import com.blankj.utilcode.pkg.feature.reflect.ReflectActivity
 import com.blankj.utilcode.pkg.feature.resource.ResourceActivity
+import com.blankj.utilcode.pkg.feature.rom.RomActivity
 import com.blankj.utilcode.pkg.feature.sdcard.SDCardActivity
 import com.blankj.utilcode.pkg.feature.snackbar.SnackbarActivity
 import com.blankj.utilcode.pkg.feature.spStatic.SPStaticActivity
@@ -154,6 +155,10 @@ class CoreUtilActivity : BaseBackActivity() {
 
     fun resourceClick(view: View) {
         ResourceActivity.start(this)
+    }
+
+    fun romClick(view: View) {
+        RomActivity.start(this)
     }
 
     fun sdcardClick(view: View) {
