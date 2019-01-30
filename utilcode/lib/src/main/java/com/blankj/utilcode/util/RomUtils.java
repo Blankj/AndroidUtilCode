@@ -23,26 +23,33 @@ import java.util.Properties;
  */
 public final class RomUtils {
 
-    public static final String ROM_HUAWEI  = "huawei";
-    public static final String ROM_VIVO    = "vivo";
-    public static final String ROM_XIAOMI  = "xiaomi";
-    public static final String ROM_OPPO    = "oppo";
-    public static final String ROM_LEECO   = "leeco";
-    public static final String ROM_QIKU    = "qiku";
-    public static final String ROM_ZTE     = "zte";
-    public static final String ROM_ONEPLUS = "oneplus";
-    public static final String ROM_NUBIA   = "nubia";
-    public static final String ROM_SAMSUNG = "samsung";
-    public static final String ROM_MEIZU   = "meizu";
-    public static final String ROM_COOLPAD = "coolpad";
-    public static final String ROM_LENOVO  = "lenovo";
+    public static final String   ROM_HUAWEI  = "huawei";
+    public static final String   ROM_VIVO    = "vivo";
+    public static final String   ROM_XIAOMI  = "xiaomi";
+    public static final String   ROM_OPPO    = "oppo";
+    public static final String[] ROM_LEECO   = {"leeco", "letv"};
+    public static final String[] ROM_360     = {"360", "qiku"};
+    public static final String   ROM_ZTE     = "zte";
+    public static final String   ROM_ONEPLUS = "oneplus";
+    public static final String   ROM_NUBIA   = "nubia";
+
+    public static final String[] ROM_COOLPAD   = {"coolpad", "yulong"};
+    public static final String[] ROM_LG        = {"lg", "lge"};
+    public static final String   ROM_GOOGLE    = "google";
+    public static final String   ROM_SAMSUNG   = "samsung";
+    public static final String   ROM_MEIZU     = "meizu";
+    public static final String   ROM_LENOVO    = "lenovo";
+    public static final String   ROM_SMARTISAN = "smartisan";
+    public static final String   ROM_HTC       = "htc";
+    public static final String   ROM_SONY      = "sony";
+    public static final String   ROM_AMIGO     = "amigo";
 
     public static final  String VERSION_PROPERTY_HUAWEI  = "ro.build.version.emui";
     public static final  String VERSION_PROPERTY_VIVO    = "ro.vivo.os.build.display.id";
     public static final  String VERSION_PROPERTY_XIAOMI  = "ro.build.version.incremental";
     public static final  String VERSION_PROPERTY_OPPO    = "ro.build.version.opporom";
     public static final  String VERSION_PROPERTY_LEECO   = "ro.letv.release.version";
-    public static final  String VERSION_PROPERTY_QIKU    = "ro.build.uiversion";
+    public static final  String VERSION_PROPERTY_360     = "ro.build.uiversion";
     public static final  String VERSION_PROPERTY_ZTE     = "ro.build.MiFavor_version";
     public static final  String VERSION_PROPERTY_ONEPLUS = "ro.rom.version";
     public static final  String VERSION_PROPERTY_NUBIA   = "ro.build.rom.id";
@@ -96,16 +103,16 @@ public final class RomUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isLeeco() {
-        return ROM_LEECO.equals(getRomInfo().name);
+        return ROM_LEECO[0].equals(getRomInfo().name);
     }
 
     /**
-     * Return whether the rom is made by qiku.
+     * Return whether the rom is made by 360.
      *
      * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean isQiku() {
-        return ROM_QIKU.equals(getRomInfo().name);
+    public static boolean is360() {
+        return ROM_360[0].equals(getRomInfo().name);
     }
 
     /**
@@ -159,7 +166,7 @@ public final class RomUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isCoolpad() {
-        return ROM_COOLPAD.equals(getRomInfo().name);
+        return ROM_COOLPAD[0].equals(getRomInfo().name);
     }
 
     /**
@@ -181,7 +188,7 @@ public final class RomUtils {
         bean = new RomInfo();
         final String brandName = getBrand();
         final String manufacturer = getManufacturer();
-        if (ROM_HUAWEI.equals(brandName) || ROM_HUAWEI.equals(manufacturer)) {
+        if (isRightRom(brandName, manufacturer, ROM_HUAWEI)) {
             bean.name = ROM_HUAWEI;
             String version = getRomVersion(VERSION_PROPERTY_HUAWEI);
             String[] temp = version.split("_");
@@ -190,47 +197,84 @@ public final class RomUtils {
             } else {
                 bean.version = version;
             }
-        } else if (ROM_VIVO.equals(brandName) || ROM_VIVO.equals(manufacturer)) {
+            return bean;
+        }
+        if (isRightRom(brandName, manufacturer, ROM_VIVO)) {
             bean.name = ROM_VIVO;
             bean.version = getRomVersion(VERSION_PROPERTY_VIVO);
-        } else if (ROM_XIAOMI.equals(brandName) || ROM_XIAOMI.equals(manufacturer)) {
+            return bean;
+        }
+        if (isRightRom(brandName, manufacturer, ROM_XIAOMI)) {
             bean.name = ROM_XIAOMI;
             bean.version = getRomVersion(VERSION_PROPERTY_XIAOMI);
-        } else if (ROM_OPPO.equals(brandName) || ROM_OPPO.equals(manufacturer)) {
+            return bean;
+        }
+        if (isRightRom(brandName, manufacturer, ROM_OPPO)) {
             bean.name = ROM_OPPO;
             bean.version = getRomVersion(VERSION_PROPERTY_OPPO);
-        } else if (ROM_LEECO.equals(brandName) || ROM_LEECO.equals(manufacturer)) {
-            bean.name = ROM_LEECO;
+            return bean;
+        }
+        if (isRightRom(brandName, manufacturer, ROM_LEECO)) {
+            bean.name = ROM_LEECO[0];
             bean.version = getRomVersion(VERSION_PROPERTY_LEECO);
-        } else if (ROM_QIKU.equals(brandName) || ROM_QIKU.equals(manufacturer)) {
-            bean.name = ROM_QIKU;
-            bean.version = getRomVersion(VERSION_PROPERTY_QIKU);
-        } else if (ROM_ZTE.equals(brandName) || ROM_ZTE.equals(manufacturer)) {
+            return bean;
+        }
+
+        if (isRightRom(brandName, manufacturer, ROM_360)) {
+            bean.name = ROM_360[0];
+            bean.version = getRomVersion(VERSION_PROPERTY_360);
+            return bean;
+        }
+        if (isRightRom(brandName, manufacturer, ROM_ZTE)) {
             bean.name = ROM_ZTE;
             bean.version = getRomVersion(VERSION_PROPERTY_ZTE);
-        } else if (ROM_ONEPLUS.equals(brandName) || ROM_ONEPLUS.equals(manufacturer)) {
+            return bean;
+        }
+        if (isRightRom(brandName, manufacturer, ROM_ONEPLUS)) {
             bean.name = ROM_ONEPLUS;
             bean.version = getRomVersion(VERSION_PROPERTY_ONEPLUS);
-        } else if (ROM_NUBIA.equals(brandName) || ROM_NUBIA.equals(manufacturer)) {
+            return bean;
+        }
+        if (isRightRom(brandName, manufacturer, ROM_NUBIA)) {
             bean.name = ROM_NUBIA;
             bean.version = getRomVersion(VERSION_PROPERTY_NUBIA);
-        } else if (ROM_SAMSUNG.equals(brandName) || ROM_SAMSUNG.equals(manufacturer)) {
+            return bean;
+        }
+
+        if (isRightRom(brandName, manufacturer, ROM_COOLPAD)) {
+            bean.name = ROM_COOLPAD[0];
+        } else if (isRightRom(brandName, manufacturer, ROM_LG)) {
+            bean.name = ROM_LG[0];
+        } else if (isRightRom(brandName, manufacturer, ROM_GOOGLE)) {
+            bean.name = ROM_GOOGLE;
+        } else if (isRightRom(brandName, manufacturer, ROM_SAMSUNG)) {
             bean.name = ROM_SAMSUNG;
-            bean.version = getRomVersion("");
-        } else if (ROM_MEIZU.equals(brandName) || ROM_MEIZU.equals(manufacturer)) {
+        } else if (isRightRom(brandName, manufacturer, ROM_MEIZU)) {
             bean.name = ROM_MEIZU;
-            bean.version = getRomVersion("");
-        } else if (ROM_COOLPAD.equals(brandName) || ROM_COOLPAD.equals(manufacturer)) {
-            bean.name = ROM_COOLPAD;
-            bean.version = getRomVersion("");
-        } else if (ROM_LENOVO.equals(brandName) || ROM_LENOVO.equals(manufacturer)) {
+        } else if (isRightRom(brandName, manufacturer, ROM_LENOVO)) {
             bean.name = ROM_LENOVO;
-            bean.version = getRomVersion("");
+        } else if (isRightRom(brandName, manufacturer, ROM_SMARTISAN)) {
+            bean.name = ROM_SMARTISAN;
+        } else if (isRightRom(brandName, manufacturer, ROM_HTC)) {
+            bean.name = ROM_HTC;
+        } else if (isRightRom(brandName, manufacturer, ROM_SONY)) {
+            bean.name = ROM_SONY;
+        } else if (isRightRom(brandName, manufacturer, ROM_AMIGO)) {
+            bean.name = ROM_AMIGO;
         } else {
             bean.name = manufacturer;
-            bean.version = getRomVersion("");
         }
+        bean.version = getRomVersion("");
         return bean;
+    }
+
+    private static boolean isRightRom(final String brand, final String manufacturer, final String... names) {
+        for (String name : names) {
+            if (brand.contains(name) || manufacturer.contains(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static String getManufacturer() {
