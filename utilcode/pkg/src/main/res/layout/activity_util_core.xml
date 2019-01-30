@@ -158,13 +158,6 @@
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="romClick"
-        android:text="@string/demo_rom" />
-
-    <Button
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:onClick="sdcardClick"
         android:text="@string/demo_sdcard" />
 

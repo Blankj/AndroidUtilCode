@@ -150,9 +150,6 @@
             android:name=".feature.resource.ResourceActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.rom.RomActivity"
-            android:launchMode="singleTop" />
-        <activity
             android:name=".feature.sdcard.SDCardActivity"
             android:launchMode="singleTop" />
         <activity

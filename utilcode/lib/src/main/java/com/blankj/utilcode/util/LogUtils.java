@@ -110,6 +110,7 @@ public final class LogUtils {
 
     private static final SimpleArrayMap<Class, IFormatter> I_FORMATTER_MAP = new SimpleArrayMap<>();
 
+
     private LogUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }

@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.23.4'
+implementation 'com.blankj:utilcode:1.23.3'
 ```
 
 
@@ -281,6 +281,14 @@ reboot2Recovery
 reboot2Bootloader
 ```
 
+* ### About Flashlight -> [FlashlightUtils.java][flashlight.java] -> [Demo][flashlight.demo]
+```
+isFlashlightEnable
+isFlashlightOn
+setFlashlightStatus
+destroy
+```
+
 * ### About Encode -> [EncodeUtils.java][encode.java] -> [Test][encode.test]
 ```
 urlEncode
@@ -368,14 +376,6 @@ getDirName
 getFileName
 getFileNameNoExtension
 getFileExtension
-```
-
-* ### About Flashlight -> [FlashlightUtils.java][flashlight.java] -> [Demo][flashlight.demo]
-```
-isFlashlightEnable
-isFlashlightOn
-setFlashlightStatus
-destroy
 ```
 
 * ### About Fragment -> [FragmentUtils.java][fragment.java] -> [Demo][fragment.demo]

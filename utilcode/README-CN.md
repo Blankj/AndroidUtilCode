@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.23.4'
+implementation 'com.blankj:utilcode:1.23.3'
 ```
 
 
@@ -281,6 +281,14 @@ reboot2Recovery  : 重启到 recovery
 reboot2Bootloader: 重启到 bootloader
 ```
 
+* ### 闪光灯相关 -> [FlashlightUtils.java][flashlight.java] -> [Demo][flashlight.demo]
+```
+isFlashlightEnable : 判断设备是否支持闪光灯
+isFlashlightOn     : 判断闪光灯是否打开
+setFlashlightStatus: 设置闪光灯状态
+destroy            : 销毁
+```
+
 * ### 编码解码相关 -> [EncodeUtils.java][encode.java] -> [Test][encode.test]
 ```
 urlEncode          : URL 编码
@@ -368,14 +376,6 @@ getDirName                : 根据全路径获取最长目录
 getFileName               : 根据全路径获取文件名
 getFileNameNoExtension    : 根据全路径获取文件名不带拓展名
 getFileExtension          : 根据全路径获取文件拓展名
-```
-
-* ### 闪光灯相关 -> [FlashlightUtils.java][flashlight.java] -> [Demo][flashlight.demo]
-```
-isFlashlightEnable : 判断设备是否支持闪光灯
-isFlashlightOn     : 判断闪光灯是否打开
-setFlashlightStatus: 设置闪光灯状态
-destroy            : 销毁
 ```
 
 * ### Fragment 相关 -> [FragmentUtils.java][fragment.java] -> [Demo][fragment.demo]

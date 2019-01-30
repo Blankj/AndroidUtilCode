@@ -52,8 +52,6 @@ class DeviceActivity : BaseBackActivity() {
                         appendLine("isAdbEnabled: " + DeviceUtils.isAdbEnabled())
                     }
                 }
-                .appendLine("getImei: " + DeviceUtils.getImei())
-                .appendLine("getSerial: " + DeviceUtils.getSerial())
                 .appendLine("getSDKVersionName: " + DeviceUtils.getSDKVersionName())
                 .appendLine("getSDKVersionCode: " + DeviceUtils.getSDKVersionCode())
                 .appendLine("getAndroidID: " + DeviceUtils.getAndroidID())
