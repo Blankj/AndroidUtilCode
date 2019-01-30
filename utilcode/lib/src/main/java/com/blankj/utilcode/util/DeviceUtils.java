@@ -10,6 +10,8 @@ import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.RequiresPermission;
+import android.telecom.TelecomManager;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import java.io.File;
@@ -20,6 +22,7 @@ import java.util.Enumeration;
 
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
 import static android.Manifest.permission.INTERNET;
+import static android.Manifest.permission.READ_PHONE_STATE;
 
 /**
  * <pre>
@@ -43,7 +46,8 @@ public final class DeviceUtils {
     public static boolean isDeviceRooted() {
         String su = "su";
         String[] locations = {"/system/bin/", "/system/xbin/", "/sbin/", "/system/sd/xbin/",
-                "/system/bin/failsafe/", "/data/local/xbin/", "/data/local/bin/", "/data/local/"};
+                "/system/bin/failsafe/", "/data/local/xbin/", "/data/local/bin/", "/data/local/",
+                "/system/sbin/", "/usr/bin/", "/vendor/bin/"};
         for (String location : locations) {
             if (new File(location + su).exists()) {
                 return true;
@@ -63,6 +67,48 @@ public final class DeviceUtils {
                 Utils.getApp().getContentResolver(),
                 Settings.Global.ADB_ENABLED, 0
         ) > 0;
+    }
+
+    /**
+     * Return the imei of device.
+     *
+     * @return the imei of device
+     */
+    @SuppressLint("HardwareIds")
+    @RequiresPermission(value = READ_PHONE_STATE)
+    public static String getImei() {
+        String imei = "";
+        try {
+            TelephonyManager telephonyMgr = (TelephonyManager) Utils.getApp()
+                    .getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+            if (telephonyMgr != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    imei = telephonyMgr.getImei();
+                } else {
+                    imei = telephonyMgr.getDeviceId();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return imei;
+    }
+
+    /**
+     * Return the serial of device.
+     *
+     * @return the serial of device
+     */
+    @SuppressLint("HardwareIds")
+    @RequiresPermission(value = READ_PHONE_STATE)
+    public static String getSerial() {
+        String serial = "";
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
+            serial = Build.getSerial();
+        } else {
+            serial = Build.SERIAL;
+        }
+        return serial;
     }
 
     /**
