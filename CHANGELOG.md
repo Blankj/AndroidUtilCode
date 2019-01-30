@@ -1,3 +1,4 @@
+* `19/01/30` [add] RomUtils. Publish v1.23.4.
 * `19/01/29` [fix] LogUtils format json when json not start with '{'. Publish v1.23.3.
 * `19/01/28` [fix] KeyboardUtils#fixSoftInputLeaks don't work on the device of HuaWei.
 * `19/01/26` [fix] NetworkUtils#getNetworkType.
