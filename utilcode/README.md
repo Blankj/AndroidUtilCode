@@ -679,6 +679,30 @@ readRaw2String
 readRaw2List
 ```
 
+* ### About Rom -> [RomUtils.java][rom.java] -> [Demo][rom.demo]
+```
+isHuawei
+isVivo
+isXiaomi
+isOppo
+isLeeco
+is360
+isZte
+isOneplus
+isNubia
+isCoolpad
+isLg
+isGoogle
+isSamsung
+isMeizu
+isLenovo
+isSmartisan
+isHtc
+isSony
+isAmigo
+getRomInfo
+```
+
 * ### About Screen -> [ScreenUtils.java][screen.java] -> [Demo][screen.demo]
 ```
 getScreenWidth
