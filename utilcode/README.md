@@ -679,6 +679,30 @@ readRaw2String
 readRaw2List
 ```
 
+* ### About Rom -> [RomUtils.java][rom.java] -> [Demo][rom.demo]
+```
+isHuawei
+isVivo
+isXiaomi
+isOppo
+isLeeco
+is360
+isZte
+isOneplus
+isNubia
+isCoolpad
+isLg
+isGoogle
+isSamsung
+isMeizu
+isLenovo
+isSmartisan
+isHtc
+isSony
+isAmigo
+getRomInfo
+```
+
 * ### About Screen -> [ScreenUtils.java][screen.java] -> [Demo][screen.demo]
 ```
 getScreenWidth
@@ -1054,6 +1078,9 @@ getComments
 
 [resource.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ResourceUtils.java
 [resource.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/resource/ResourceActivity.kt
+
+[rom.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/RomUtils.java
+[rom.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/rom/RomActivity.kt
 
 [screen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ScreenUtils.java
 [screen.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/screen/ScreenActivity.kt

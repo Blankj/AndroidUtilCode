@@ -679,6 +679,30 @@ readRaw2String    : 从 raw 中读取字符串
 readRaw2List      : 从 raw 中按行读取字符串
 ```
 
+* ### Rom 相关 -> [RomUtils.java][rom.java] -> [Demo][rom.demo]
+```
+isHuawei   : 是否华为
+isVivo     : 是否 VIVO
+isXiaomi   : 是否小米
+isOppo     : 是否 OPPO
+isLeeco    : 是否乐视
+is360      : 是否 360
+isZte      : 是否中兴
+isOneplus  : 是否一加
+isNubia    : 是否努比亚
+isCoolpad  : 是否酷派
+isLg       : 是否 LG
+isGoogle   : 是否谷歌
+isSamsung  : 是否三星
+isMeizu    : 是否魅族
+isLenovo   : 是否联想
+isSmartisan: 是否锤子
+isHtc      : 是否 HTC
+isSony     : 是否索尼
+isAmigo    : 是否金立
+getRomInfo : 获取 ROM 信息
+```
+
 * ### 屏幕相关 -> [ScreenUtils.java][screen.java] -> [Demo][screen.demo]
 ```
 getScreenWidth     : 获取屏幕的宽度（单位：px）
@@ -1054,6 +1078,9 @@ getComments       : 获取压缩文件中的注释链表
 
 [resource.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ResourceUtils.java
 [resource.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/resource/ResourceActivity.kt
+
+[rom.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/RomUtils.java
+[rom.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/rom/RomActivity.kt
 
 [screen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ScreenUtils.java
 [screen.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/screen/ScreenActivity.kt
