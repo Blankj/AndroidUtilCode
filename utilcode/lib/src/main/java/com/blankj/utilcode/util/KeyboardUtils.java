@@ -269,16 +269,16 @@ public final class KeyboardUtils {
         String[] leakViews = new String[]{"mLastSrvView", "mCurRootView", "mServedView", "mNextServedView"};
         for (String leakView : leakViews) {
             try {
-                Field declaredField = InputMethodManager.class.getDeclaredField(leakView);
-                if (declaredField == null) continue;
-                if (!declaredField.isAccessible()) {
-                    declaredField.setAccessible(true);
+                Field leakViewField = InputMethodManager.class.getDeclaredField(leakView);
+                if (leakViewField == null) continue;
+                if (!leakViewField.isAccessible()) {
+                    leakViewField.setAccessible(true);
                 }
-                Object obj = declaredField.get(imm);
+                Object obj = leakViewField.get(imm);
                 if (!(obj instanceof View)) continue;
                 View view = (View) obj;
                 if (view.getRootView() == activity.getWindow().getDecorView().getRootView()) {
-                    declaredField.set(imm, null);
+                    leakViewField.set(imm, null);
                 }
             } catch (Throwable th) {
                 th.printStackTrace();

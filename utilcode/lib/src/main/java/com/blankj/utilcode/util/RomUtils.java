@@ -429,8 +429,8 @@ public final class RomUtils {
         try {
             @SuppressLint("PrivateApi")
             Class<?> clz = Class.forName("android.os.SystemProperties");
-            Method get = clz.getMethod("get", String.class, String.class);
-            return (String) get.invoke(clz, key, "");
+            Method getMethod = clz.getMethod("get", String.class, String.class);
+            return (String) getMethod.invoke(clz, key, "");
         } catch (Exception e) { /**/ }
         return "";
     }

@@ -62,7 +62,6 @@ class FragmentActivity : BaseActivity() {
         if (savedInstanceState != null) {
             curIndex = savedInstanceState.getInt("curIndex")
         }
-
         fragmentNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         mFragments[0] = RootFragment.newInstance()

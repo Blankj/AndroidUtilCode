@@ -11,12 +11,6 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/fragmentRootAboutTv"
-            style="@style/TextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <FrameLayout
             android:id="@+id/child_fragment_container"
             android:layout_width="match_parent"

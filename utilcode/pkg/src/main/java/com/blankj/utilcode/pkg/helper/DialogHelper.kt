@@ -1,9 +1,12 @@
 package com.blankj.utilcode.pkg.helper
 
 import android.support.v7.app.AlertDialog
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.KeyboardUtils
@@ -72,11 +75,22 @@ object DialogHelper {
         dialog.show()
     }
 
+    fun showFragmentDialog(info: CharSequence) {
+        val topActivity = ActivityUtils.getTopActivity()
+        if (topActivity == null || topActivity.isFinishing) return
+        val dialogView = LayoutInflater.from(topActivity).inflate(R.layout.dialog_fragment, null)
+        val aboutTv = dialogView.findViewById<TextView>(R.id.fragmentDialogAboutTv)
+        aboutTv.movementMethod = ScrollingMovementMethod.getInstance()
+        aboutTv.text = info
+        val dialog = AlertDialog.Builder(topActivity).setView(dialogView).create()
+        dialog.show()
+    }
+
     fun showToastDialog() {
         val topActivity = ActivityUtils.getTopActivity()
         if (topActivity == null || topActivity.isFinishing) return
         val dialogView = LayoutInflater.from(topActivity).inflate(R.layout.dialog_toast, null)
-        dialogView.findViewById<View>(R.id.toastDialogShowShortToastBtn)
+        dialogView.findViewById<Button>(R.id.toastDialogShowShortToastBtn)
                 .setOnClickListener { ToastUtils.showShort("Short") }
         val dialog = AlertDialog.Builder(topActivity).setView(dialogView).create()
 //        dialog.setCanceledOnTouchOutside(false)
