@@ -699,7 +699,8 @@ isLenovo
 isSmartisan
 isHtc
 isSony
-isAmigo
+isGionee
+isMotorola
 getRomInfo
 ```
 

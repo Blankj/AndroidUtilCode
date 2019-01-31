@@ -699,7 +699,8 @@ isLenovo   : 是否联想
 isSmartisan: 是否锤子
 isHtc      : 是否 HTC
 isSony     : 是否索尼
-isAmigo    : 是否金立
+isGionee   : 是否金立
+isMotorola : 是否摩托罗拉
 getRomInfo : 获取 ROM 信息
 ```
 
