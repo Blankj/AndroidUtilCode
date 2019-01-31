@@ -7,12 +7,6 @@
     android:orientation="vertical"
     android:padding="@dimen/spacing_16">
 
-    <TextView
-        android:id="@+id/fragmentRootAboutTv"
-        style="@style/TextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <Button
         android:id="@+id/fragmentRootShowAboutBtn"
         style="@style/WideBtnStyle"
