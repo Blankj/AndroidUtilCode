@@ -4,4 +4,5 @@
     style="@style/TextStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="@dimen/spacing_16"
     android:scrollbars="vertical" />
