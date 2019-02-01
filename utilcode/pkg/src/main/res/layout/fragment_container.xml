@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_16">
 
     <Button
         android:id="@+id/fragmentRootShowStackBtn"
