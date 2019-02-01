@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.PermissionHelper
 import com.blankj.utilcode.util.PhoneUtils
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_phone.*
  * desc  : demo about PhoneUtils
  * ```
  */
-class PhoneActivity : BaseBackActivity() {
+class PhoneActivity : BaseTitleBarActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -36,16 +36,17 @@ class PhoneActivity : BaseBackActivity() {
         }
     }
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_phone)
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_phone
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_phone)
         SpanUtils.with(phoneAboutTv)
                 .appendLine("isPhone: " + PhoneUtils.isPhone())
                 .appendLine("getDeviceId: " + PhoneUtils.getDeviceId())
@@ -65,9 +66,7 @@ class PhoneActivity : BaseBackActivity() {
         phoneSendSmsSilentBtn.setOnClickListener(this)
     }
 
-    override fun doBusiness() {
-
-    }
+    override fun doBusiness() {}
 
     override fun onWidgetClick(view: View) {
         when (view.id) {

@@ -28,6 +28,10 @@ class BarStatusAlphaActivity : BaseActivity() {
         }
     }
 
+    override fun isSwipeBack(): Boolean {
+        return true
+    }
+
     private var mAlpha: Int = 0
 
     private val translucentListener = object : SeekBar.OnSeekBarChangeListener {
@@ -37,13 +41,9 @@ class BarStatusAlphaActivity : BaseActivity() {
             updateStatusBar()
         }
 
-        override fun onStartTrackingTouch(seekBar: SeekBar) {
+        override fun onStartTrackingTouch(seekBar: SeekBar) {}
 
-        }
-
-        override fun onStopTrackingTouch(seekBar: SeekBar) {
-
-        }
+        override fun onStopTrackingTouch(seekBar: SeekBar) {}
     }
 
     override fun initData(bundle: Bundle?) {
@@ -63,9 +63,7 @@ class BarStatusAlphaActivity : BaseActivity() {
     }
 
 
-    override fun doBusiness() {
-
-    }
+    override fun doBusiness() {}
 
     override fun onWidgetClick(view: View) {
         when (view.id) {

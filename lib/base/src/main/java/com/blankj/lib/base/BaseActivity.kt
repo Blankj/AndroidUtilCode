@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import com.blankj.utilcode.util.*
+import com.r0adkll.slidr.Slidr
 
 /**
  * ```
@@ -20,6 +21,8 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
     protected lateinit var mContentView: View
     protected lateinit var mActivity: Activity
 
+    abstract fun isSwipeBack(): Boolean
+
     override fun onCreate(savedInstanceState: Bundle?) {
         mActivity = this
         super.onCreate(savedInstanceState)
@@ -27,6 +30,10 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
         setRootLayout(bindLayout())
         initView(savedInstanceState, mContentView)
         doBusiness()
+
+        if (isSwipeBack()) {
+            Slidr.attach(this)
+        }
         AppUtils.registerAppStatusChangedListener(this, object : Utils.OnAppStatusChangedListener {
             override fun onForeground() {
                 ToastUtils.showShort("foreground")

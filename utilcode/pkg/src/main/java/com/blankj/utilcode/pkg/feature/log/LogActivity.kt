@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.CompoundButton
 import com.blankj.lib.base.BaseApplication
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.LogUtils
@@ -26,7 +26,7 @@ import java.util.*
  * desc  : demo about LogUtils
  * ```
  */
-class LogActivity : BaseBackActivity(),
+class LogActivity : BaseTitleBarActivity(),
         CompoundButton.OnCheckedChangeListener {
 
     companion object {
@@ -108,17 +108,17 @@ class LogActivity : BaseBackActivity(),
         LogUtils.a("assert")
     }
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_log)
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_log
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_log)
-
         logSwitchCb.isChecked = mConfig.isLogSwitch
         logSwitchCb.setOnCheckedChangeListener(this)
 
@@ -171,9 +171,7 @@ class LogActivity : BaseBackActivity(),
         updateAboutLog()
     }
 
-    override fun doBusiness() {
-
-    }
+    override fun doBusiness() {}
 
     override fun onWidgetClick(view: View) {
         when (view.id) {

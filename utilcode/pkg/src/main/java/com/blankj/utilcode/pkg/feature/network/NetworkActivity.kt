@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.view.View
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.NetworkUtils
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_network.*
  * desc  : demo about NetworkUtils
  * ```
  */
-class NetworkActivity : BaseBackActivity() {
+class NetworkActivity : BaseTitleBarActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -45,20 +45,18 @@ class NetworkActivity : BaseBackActivity() {
         }
     }
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_network)
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_network
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_network)
-
         networkOpenWirelessSettingsBtn.setOnClickListener(this)
-
-        networkMobileDataEnabledCb.setOnClickListener(this)
 
         if (AppUtils.isAppSystem()) {
             networkMobileDataEnabledCb.setOnCheckedChangeListener { buttonView, isChecked ->

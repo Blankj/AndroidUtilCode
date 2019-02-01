@@ -5,10 +5,9 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.view.View
 import android.view.Window
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.ColorUtils
-import java.util.*
 
 /**
  * ```
@@ -18,13 +17,9 @@ import java.util.*
  * desc  : demo about ActivityUtils
  * ```
  */
-class SubActivityActivity : BaseBackActivity() {
+class SubActivityActivity : BaseTitleBarActivity() {
 
-    internal var random = Random()
-
-    override fun initData(bundle: Bundle?) {
-
-    }
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -33,18 +28,17 @@ class SubActivityActivity : BaseBackActivity() {
         return R.layout.activity_activity_sub
     }
 
+    override fun bindTitle(): String {
+        return getString(R.string.demo_activity)
+    }
+
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_activity)
         contentView.setBackgroundColor(ColorUtils.getRandomColor(false))
     }
 
-    override fun doBusiness() {
+    override fun doBusiness() {}
 
-    }
-
-    override fun onWidgetClick(view: View) {
-
-    }
+    override fun onWidgetClick(view: View) {}
 
     override fun onBackPressed() {
         super.onBackPressed()

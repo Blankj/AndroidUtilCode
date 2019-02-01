@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.PermissionHelper
 import com.blankj.utilcode.util.FlashlightUtils
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_flashlight.*
  * desc  : demo about FlashlightUtils
  * ```
  */
-class FlashlightActivity : BaseBackActivity() {
+class FlashlightActivity : BaseTitleBarActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -41,17 +41,17 @@ class FlashlightActivity : BaseBackActivity() {
         }
     }
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_flashlight)
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_flashlight
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_flashlight)
-
         flashlightStatusCb.isChecked = FlashlightUtils.isFlashlightOn()
         flashlightStatusCb.setOnCheckedChangeListener { buttonView, isChecked ->
             FlashlightUtils.setFlashlightStatus(isChecked)
@@ -62,9 +62,7 @@ class FlashlightActivity : BaseBackActivity() {
         updateAboutFlashlight()
     }
 
-    override fun onWidgetClick(view: View) {
-
-    }
+    override fun onWidgetClick(view: View) {}
 
     private fun updateAboutFlashlight() {
         SpanUtils.with(flashlightAboutTv)

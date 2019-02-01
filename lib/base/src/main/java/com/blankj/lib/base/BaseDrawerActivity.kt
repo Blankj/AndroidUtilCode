@@ -23,6 +23,10 @@ abstract class BaseDrawerActivity : BaseActivity() {
     protected lateinit var mBaseDrawerRootLayout: DrawerLayout
     protected lateinit var mBaseDrawerContainerView: FrameLayout
 
+    override fun isSwipeBack(): Boolean {
+        return false
+    }
+
     override fun setRootLayout(layoutId: Int) {
         super.setRootLayout(R.layout.activity_drawer)
         if (layoutId > 0) {

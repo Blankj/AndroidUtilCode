@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.RomUtils
 import com.blankj.utilcode.util.SpanUtils
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_rom.*
  * desc  : demo about RomUtils
  * ```
  */
-class RomActivity : BaseBackActivity() {
+class RomActivity : BaseTitleBarActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -27,27 +27,23 @@ class RomActivity : BaseBackActivity() {
         }
     }
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_rom)
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_rom
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_rom)
-
         SpanUtils.with(romAboutTv)
                 .append("getRomInfo: " + RomUtils.getRomInfo())
                 .create()
     }
 
-    override fun doBusiness() {
+    override fun doBusiness() {}
 
-    }
-
-    override fun onWidgetClick(view: View) {
-
-    }
+    override fun onWidgetClick(view: View) {}
 }

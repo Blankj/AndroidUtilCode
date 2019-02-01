@@ -7,7 +7,7 @@ import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
 import android.view.View
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.subutil.pkg.R
 import com.blankj.subutil.pkg.helper.PermissionHelper
 import com.blankj.utilcode.util.SpanUtils
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_location.*
  * desc  : demo about LocationUtils
  * ```
  */
-class LocationActivity : BaseBackActivity() {
+class LocationActivity : BaseTitleBarActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -41,9 +41,7 @@ class LocationActivity : BaseBackActivity() {
     private lateinit var mLocationService: LocationService
 
     private var conn: ServiceConnection = object : ServiceConnection {
-        override fun onServiceDisconnected(name: ComponentName) {
-
-        }
+        override fun onServiceDisconnected(name: ComponentName) {}
 
         override fun onServiceConnected(name: ComponentName, service: IBinder) {
             mLocationService = (service as LocationService.LocationBinder).service
@@ -66,17 +64,17 @@ class LocationActivity : BaseBackActivity() {
         }
     }
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_location)
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_location
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_location)
-
         SpanUtils.with(locationAboutTv)
                 .appendLine("lastLatitude: unknown")
                 .appendLine("lastLongitude: unknown")
@@ -92,9 +90,7 @@ class LocationActivity : BaseBackActivity() {
         bindService(Intent(this, LocationService::class.java), conn, Context.BIND_AUTO_CREATE)
     }
 
-    override fun onWidgetClick(view: View) {
-
-    }
+    override fun onWidgetClick(view: View) {}
 
     override fun onDestroy() {
         unbindService(conn)

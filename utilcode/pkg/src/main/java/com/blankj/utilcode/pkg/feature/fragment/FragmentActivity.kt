@@ -50,9 +50,11 @@ class FragmentActivity : BaseActivity() {
         }
     }
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun isSwipeBack(): Boolean {
+        return true
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_fragment
@@ -71,18 +73,14 @@ class FragmentActivity : BaseActivity() {
                 supportFragmentManager,
                 mFragments,
                 R.id.fragmentContainer,
-                arrayOf("0", "1", "2"),
+                arrayOf("RootFragment0", "RootFragment1", "RootFragment2"),
                 curIndex
         )
     }
 
-    override fun doBusiness() {
+    override fun doBusiness() {}
 
-    }
-
-    override fun onWidgetClick(view: View) {
-
-    }
+    override fun onWidgetClick(view: View) {}
 
     override fun onBackPressed() {
         if (!FragmentUtils.dispatchBackPress(supportFragmentManager)) {

@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.SnackbarUtils
 import com.blankj.utilcode.util.SpanUtils
@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.activity_snackbar.*
  * desc  : demo about SnackbarUtils
  * ```
  */
-class SnackbarActivity : BaseBackActivity() {
+class SnackbarActivity : BaseTitleBarActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -36,17 +36,17 @@ class SnackbarActivity : BaseBackActivity() {
 
     private lateinit var snackBarRootView: View
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_snackbar)
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_snackbar
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_snackbar)
-
         snackBarRootView = findViewById(android.R.id.content)
         snackbarShowShortBtn.setOnClickListener(this)
         snackbarShowShortWithActionBtn.setOnClickListener(this)
@@ -62,9 +62,7 @@ class SnackbarActivity : BaseBackActivity() {
         snackbarDismissBtn.setOnClickListener(this)
     }
 
-    override fun doBusiness() {
-
-    }
+    override fun doBusiness() {}
 
     override fun onWidgetClick(view: View) {
         when (view.id) {

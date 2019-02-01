@@ -30,7 +30,7 @@ abstract class BaseLazyFragment : BaseFragment() {
     }
 
     override fun doBusiness() {
-        if (userVisibleHint) {
+        if (userVisibleHint && !isDataLoaded) {
             doLazyBusiness()
             isDataLoaded = true
         }

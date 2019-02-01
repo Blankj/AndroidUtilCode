@@ -61,9 +61,11 @@ class BarStatusFragmentActivity : BaseActivity() {
         }
     }
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun isSwipeBack(): Boolean {
+        return true
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_bar_status_fragment
@@ -87,27 +89,19 @@ class BarStatusFragmentActivity : BaseActivity() {
         }
 
         barStatusFragmentVp.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-
-            }
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
             override fun onPageSelected(position: Int) {
                 barStatusFragmentNav.selectedItemId = itemIds[position]
             }
 
-            override fun onPageScrollStateChanged(state: Int) {
-
-            }
+            override fun onPageScrollStateChanged(state: Int) {}
         })
 
         barStatusFragmentNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
-    override fun doBusiness() {
+    override fun doBusiness() {}
 
-    }
-
-    override fun onWidgetClick(view: View) {
-
-    }
+    override fun onWidgetClick(view: View) {}
 }

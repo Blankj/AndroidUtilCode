@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.Gravity
 import android.view.View
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.DialogHelper
 import com.blankj.utilcode.util.SpanUtils
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_toast.*
  * desc  : demo about ToastUtils
  * ```
  */
-class ToastActivity : BaseBackActivity() {
+class ToastActivity : BaseTitleBarActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -31,17 +31,17 @@ class ToastActivity : BaseBackActivity() {
         }
     }
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_toast)
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_toast
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_toast)
-
         toastShowShortBtn.setOnClickListener(this)
         toastShowLongBtn.setOnClickListener(this)
         toastShowGreenFontBtn.setOnClickListener(this)
@@ -54,9 +54,7 @@ class ToastActivity : BaseBackActivity() {
         toastShowToastDialogBtn.setOnClickListener(this)
     }
 
-    override fun doBusiness() {
-
-    }
+    override fun doBusiness() {}
 
     override fun onWidgetClick(view: View) {
         resetToast()

@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.SpanUtils
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_bar_status.*
  * desc  : demo about BarUtils
  * ```
  */
-class BarStatusActivity : BaseBackActivity() {
+class BarStatusActivity : BaseTitleBarActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -27,17 +27,17 @@ class BarStatusActivity : BaseBackActivity() {
         }
     }
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_bar)
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_bar_status
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_bar)
-
         barStatusVisibilityCb.isChecked = BarUtils.isStatusBarVisible(this)
         barStatusVisibilityCb.setOnCheckedChangeListener { buttonView, isChecked ->
             BarUtils.setStatusBarVisibility(this, isChecked)
@@ -49,20 +49,14 @@ class BarStatusActivity : BaseBackActivity() {
         }
     }
 
-    override fun doBusiness() {
-
-    }
+    override fun doBusiness() {}
 
     override fun onResume() {
         super.onResume()
         updateAboutStatus()
     }
 
-    override fun onWidgetClick(view: View) {
-        when (view.id) {
-        }
-        updateAboutStatus()
-    }
+    override fun onWidgetClick(view: View) {}
 
     private fun updateAboutStatus() {
         SpanUtils.with(barStatusAboutTv)

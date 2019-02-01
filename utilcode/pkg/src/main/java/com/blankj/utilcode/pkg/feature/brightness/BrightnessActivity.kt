@@ -6,7 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BrightnessUtils
 import com.blankj.utilcode.util.PermissionUtils
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_brightness.*
  * desc  : demo about BrightnessUtils
  * ```
  */
-class BrightnessActivity : BaseBackActivity() {
+class BrightnessActivity : BaseTitleBarActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -49,13 +49,9 @@ class BrightnessActivity : BaseBackActivity() {
             updateBrightness()
         }
 
-        override fun onStartTrackingTouch(seekBar: SeekBar) {
+        override fun onStartTrackingTouch(seekBar: SeekBar) {}
 
-        }
-
-        override fun onStopTrackingTouch(seekBar: SeekBar) {
-
-        }
+        override fun onStopTrackingTouch(seekBar: SeekBar) {}
     }
 
     private val windowBrightnessChangeListener = object : SeekBar.OnSeekBarChangeListener {
@@ -64,26 +60,22 @@ class BrightnessActivity : BaseBackActivity() {
             updateWindowBrightness()
         }
 
-        override fun onStartTrackingTouch(seekBar: SeekBar) {
+        override fun onStartTrackingTouch(seekBar: SeekBar) {}
 
-        }
-
-        override fun onStopTrackingTouch(seekBar: SeekBar) {
-
-        }
+        override fun onStopTrackingTouch(seekBar: SeekBar) {}
     }
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_brightness)
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_brightness
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_brightness)
-
         brightnessChangeSb.progress = BrightnessUtils.getBrightness()
         brightnessChangeSb.setOnSeekBarChangeListener(brightnessChangeListener)
         updateBrightness()
@@ -97,13 +89,9 @@ class BrightnessActivity : BaseBackActivity() {
         }
     }
 
-    override fun doBusiness() {
+    override fun doBusiness() {}
 
-    }
-
-    override fun onWidgetClick(view: View) {
-
-    }
+    override fun onWidgetClick(view: View) {}
 
     private fun updateBrightness() {
         SpanUtils.with(brightnessAboutTv)

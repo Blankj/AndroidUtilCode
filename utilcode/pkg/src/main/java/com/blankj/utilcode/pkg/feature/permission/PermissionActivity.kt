@@ -6,7 +6,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.DialogHelper
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_permission.*
  * desc  : demo about PermissionUtils
  * ```
  */
-class PermissionActivity : BaseBackActivity() {
+class PermissionActivity : BaseTitleBarActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -32,17 +32,17 @@ class PermissionActivity : BaseBackActivity() {
 
     private lateinit var permissions: String
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_permission)
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_permission
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_permission)
-
         permissionOpenAppSettingsBtn.setOnClickListener(this)
         permissionRequestCalendarBtn.setOnClickListener(this)
         permissionRequestRecordAudioBtn.setOnClickListener(this)
@@ -62,9 +62,7 @@ class PermissionActivity : BaseBackActivity() {
         updateAboutPermission()
     }
 
-    override fun doBusiness() {
-
-    }
+    override fun doBusiness() {}
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
@@ -171,7 +169,6 @@ class PermissionActivity : BaseBackActivity() {
                 }
             })
         }
-
     }
 
     private fun updateAboutPermission() {

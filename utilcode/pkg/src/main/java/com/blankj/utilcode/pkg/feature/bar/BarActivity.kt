@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.R
 import kotlinx.android.synthetic.main.activity_bar.*
 
@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_bar.*
  * desc  : demo about BarUtils
  * ```
  */
-class BarActivity : BaseBackActivity() {
+class BarActivity : BaseTitleBarActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -25,17 +25,17 @@ class BarActivity : BaseBackActivity() {
         }
     }
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_bar)
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_bar
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_bar)
-
         barStatusAboutBtn.setOnClickListener(this)
         barStatusSetColorBtn.setOnClickListener(this)
         barStatusSetAlphaBtn.setOnClickListener(this)
@@ -48,9 +48,7 @@ class BarActivity : BaseBackActivity() {
         barNavAboutBtn.setOnClickListener(this)
     }
 
-    override fun doBusiness() {
-
-    }
+    override fun doBusiness() {}
 
     override fun onWidgetClick(view: View) {
         when (view.id) {

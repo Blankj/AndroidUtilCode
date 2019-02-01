@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.CleanUtils
 import com.blankj.utilcode.util.SnackbarUtils
@@ -20,7 +20,7 @@ import java.io.File
  * desc  : demo about CleanUtils
  * ```
  */
-class CleanActivity : BaseBackActivity() {
+class CleanActivity : BaseTitleBarActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -36,17 +36,17 @@ class CleanActivity : BaseBackActivity() {
     private lateinit var internalSp: String
     private lateinit var externalCache: String
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_clean)
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_clean
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_clean)
-
         snackBarRootView = findViewById(android.R.id.content)
         cleanInternalCacheBtn.setOnClickListener(this)
         cleanInternalFilesBtn.setOnClickListener(this)
@@ -64,9 +64,7 @@ class CleanActivity : BaseBackActivity() {
         }
     }
 
-    override fun doBusiness() {
-
-    }
+    override fun doBusiness() {}
 
     override fun onWidgetClick(view: View) {
         when (view.id) {

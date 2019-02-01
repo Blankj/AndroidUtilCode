@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.subutil.pkg.R
 import com.blankj.subutil.util.PinyinUtils
 import kotlinx.android.synthetic.main.activity_pinyin.*
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_pinyin.*
  * desc  : demo about PinyinUtils
  * ```
  */
-class PinyinActivity : BaseBackActivity() {
+class PinyinActivity : BaseTitleBarActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -26,17 +26,17 @@ class PinyinActivity : BaseBackActivity() {
         }
     }
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_pinyin)
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_pinyin
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_pinyin)
-
         val surnames = "乐乘乜仇会便区单参句召员宓弗折曾朴查洗盖祭种秘繁缪能蕃覃解谌适都阿难黑"
         val size = surnames.length
         val sb = StringBuilder("汉字转拼音: " + PinyinUtils.ccs2Pinyin("汉字转拼音", " ")
@@ -58,11 +58,7 @@ class PinyinActivity : BaseBackActivity() {
         pinyinAboutTv.text = sb.toString()
     }
 
-    override fun doBusiness() {
+    override fun doBusiness() {}
 
-    }
-
-    override fun onWidgetClick(view: View) {
-
-    }
+    override fun onWidgetClick(view: View) {}
 }

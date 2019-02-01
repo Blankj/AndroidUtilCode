@@ -1,12 +1,9 @@
 package com.blankj.lib.base
 
-import android.support.annotation.StringRes
-import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.MenuItem
 import com.blankj.utilcode.util.BarUtils
-import com.blankj.utilcode.util.Utils
-import com.r0adkll.slidr.Slidr
+import com.blankj.utilcode.util.ColorUtils
 import kotlinx.android.synthetic.main.activity_back.*
 
 /**
@@ -14,22 +11,25 @@ import kotlinx.android.synthetic.main.activity_back.*
  * author: blankj
  * blog  : http://blankj.com
  * time  : 2018/11/16
- * desc  : base about back activity
+ * desc  : base about title bar activity
  * ```
  */
-abstract class BaseBackActivity : BaseActivity() {
+abstract class BaseTitleBarActivity : BaseActivity() {
+
+    abstract fun bindTitle(): CharSequence
 
     override fun setRootLayout(layoutId: Int) {
         super.setRootLayout(R.layout.activity_back)
-        Slidr.attach(this)
         if (layoutId > 0) {
             LayoutInflater.from(this).inflate(layoutId, baseBackContainerView)
         }
         setSupportActionBar(baseBackToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        BarUtils.setStatusBarColor(this, ContextCompat.getColor(Utils.getApp(), R.color.colorPrimary))
+        BarUtils.setStatusBarColor(this, ColorUtils.getColor(R.color.colorPrimary))
         BarUtils.addMarginTopEqualStatusBarHeight(baseBackRootLayout)
+
+        supportActionBar?.title = bindTitle()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -39,7 +39,7 @@ abstract class BaseBackActivity : BaseActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun setTitle(@StringRes resId: Int) {
-        supportActionBar?.title = getString(resId)
+    override fun isSwipeBack(): Boolean {
+        return true
     }
 }

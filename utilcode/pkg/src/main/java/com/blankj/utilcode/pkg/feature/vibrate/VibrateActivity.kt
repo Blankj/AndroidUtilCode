@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.VibrateUtils
 import kotlinx.android.synthetic.main.activity_vibrate.*
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_vibrate.*
  * desc  : demo about VibrateUtils
  * ```
  */
-class VibrateActivity : BaseBackActivity() {
+class VibrateActivity : BaseTitleBarActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -26,16 +26,17 @@ class VibrateActivity : BaseBackActivity() {
         }
     }
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_vibrate)
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_vibrate
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_vibrate)
         vibrate1000msBtn.setOnClickListener { VibrateUtils.vibrate(1000) }
         vibrateCustomBtn.setOnClickListener {
             VibrateUtils.vibrate(longArrayOf(0, 1000, 1000, 2000, 2000, 1000), 1)
@@ -43,13 +44,9 @@ class VibrateActivity : BaseBackActivity() {
         vibrateCancelBtn.setOnClickListener { VibrateUtils.cancel() }
     }
 
-    override fun doBusiness() {
+    override fun doBusiness() {}
 
-    }
-
-    override fun onWidgetClick(view: View) {
-
-    }
+    override fun onWidgetClick(view: View) {}
 
     override fun onDestroy() {
         super.onDestroy()

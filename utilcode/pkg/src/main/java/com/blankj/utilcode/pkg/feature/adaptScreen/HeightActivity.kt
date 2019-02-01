@@ -5,13 +5,14 @@ import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.view.WindowManager
+import com.blankj.lib.base.BaseActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.AdaptScreenUtils
 import kotlinx.android.synthetic.main.activity_adaptscreen_height.*
 
-class HeightActivity : AppCompatActivity() {
+class HeightActivity : BaseActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -20,13 +21,24 @@ class HeightActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_adaptscreen_height)
+    override fun isSwipeBack(): Boolean {
+        return true
+    }
 
+    override fun initData(bundle: Bundle?) {}
+
+    override fun bindLayout(): Int {
+        return R.layout.activity_adaptscreen_height
+    }
+
+    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         adaptScreenHeightWebView.setBackgroundColor(Color.parseColor("#f0d26d"))
     }
+
+    override fun doBusiness() {}
+
+    override fun onWidgetClick(view: View) {}
 
     override fun getResources(): Resources {
         return AdaptScreenUtils.adaptHeight(super.getResources(), 1920)

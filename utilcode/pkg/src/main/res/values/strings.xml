@@ -133,12 +133,13 @@
     <string name="fragment_one">Fragment1</string>
     <string name="fragment_two">Fragment2</string>
     <string name="fragment_show_stack">Show Stack</string>
-    <string name="fragment_add">Add</string>
+    <string name="fragment_add_child">Add Child</string>
+    <string name="fragment_add_child_stack">Add Child Stack</string>
     <string name="fragment_add_hide">Add Hide</string>
     <string name="fragment_add_hide_stack">Add Hide Stack</string>
     <string name="fragment_add_demo1_show">Add Demo1 Show</string>
-    <string name="fragment_add_child">Add Child</string>
     <string name="fragment_pop">Pop</string>
+    <string name="fragment_remove">Remove</string>
     <string name="fragment_pop_to_root">Pop To Root</string>
     <string name="fragment_hide_demo0_show_demo1">Hide Demo0 Show Demo1</string>
     <string name="fragment_hide_demo1_show_demo0">Hide Demo1 Show Demo0</string>

@@ -35,13 +35,9 @@ class BarStatusImageViewFragment : BaseLazyFragment() {
             updateFakeStatusBar()
         }
 
-        override fun onStartTrackingTouch(seekBar: SeekBar) {
+        override fun onStartTrackingTouch(seekBar: SeekBar) {}
 
-        }
-
-        override fun onStopTrackingTouch(seekBar: SeekBar) {
-
-        }
+        override fun onStopTrackingTouch(seekBar: SeekBar) {}
     }
 
     override fun initData(bundle: Bundle?) {
