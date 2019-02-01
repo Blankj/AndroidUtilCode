@@ -11,6 +11,7 @@ import com.blankj.lib.base.BaseActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.FragmentUtils
 import kotlinx.android.synthetic.main.activity_fragment.*
+import kotlinx.android.synthetic.main.fragment_child.*
 
 /**
  * ```
@@ -29,7 +30,7 @@ class FragmentActivity : BaseActivity() {
         }
     }
 
-    private val mFragments = arrayOfNulls<Fragment>(3)
+    private val mFragments = arrayListOf<Fragment>()
     private var curIndex: Int = 0
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -66,9 +67,9 @@ class FragmentActivity : BaseActivity() {
         }
         fragmentNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        mFragments[0] = RootFragment.newInstance()
-        mFragments[1] = RootFragment.newInstance()
-        mFragments[2] = RootFragment.newInstance()
+        mFragments.add(RootFragment.newInstance())
+        mFragments.add(RootFragment.newInstance())
+        mFragments.add(RootFragment.newInstance())
         FragmentUtils.add(
                 supportFragmentManager,
                 mFragments,
@@ -83,14 +84,14 @@ class FragmentActivity : BaseActivity() {
     override fun onWidgetClick(view: View) {}
 
     override fun onBackPressed() {
-        if (!FragmentUtils.dispatchBackPress(supportFragmentManager)) {
+        if (!FragmentUtils.dispatchBackPress(mFragments[curIndex])) {
             super.onBackPressed()
         }
     }
 
     private fun showCurrentFragment(index: Int) {
         curIndex = index
-        FragmentUtils.showHide(index, *mFragments)
+        FragmentUtils.showHide(index, mFragments)
     }
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {

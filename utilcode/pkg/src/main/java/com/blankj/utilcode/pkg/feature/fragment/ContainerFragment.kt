@@ -8,6 +8,7 @@ import android.transition.*
 import android.view.View
 import com.blankj.lib.base.BaseLazyFragment
 import com.blankj.utilcode.pkg.R
+import com.blankj.utilcode.pkg.R.id.*
 import com.blankj.utilcode.pkg.helper.DialogHelper
 import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.FragmentUtils
@@ -122,7 +123,7 @@ class ContainerFragment : BaseLazyFragment(), FragmentUtils.OnBackClickListener 
                     fragmentManager!!,
                     addSharedElement(ChildFragment.newInstance()),
                     id,
-                    false,
+                    true,
                     fragmentRootSharedElementIv
             )
         }

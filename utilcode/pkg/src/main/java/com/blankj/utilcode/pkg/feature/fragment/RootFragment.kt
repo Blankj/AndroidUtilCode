@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_root.*
  * desc  : demo about FragmentUtils
  * ```
  */
-class RootFragment : BaseLazyFragment() {
+class RootFragment : BaseLazyFragment(), FragmentUtils.OnBackClickListener {
 
     companion object {
         fun newInstance(): RootFragment {
@@ -46,4 +46,14 @@ class RootFragment : BaseLazyFragment() {
     override fun doLazyBusiness() {}
 
     override fun onWidgetClick(view: View) {}
+
+    override fun onBackClick(): Boolean {
+        if (FragmentUtils.dispatchBackPress(childFragmentManager)) return true
+        return if (childFragmentManager.backStackEntryCount == 0) {
+            false
+        } else {
+            childFragmentManager.popBackStack()
+            true
+        }
+    }
 }

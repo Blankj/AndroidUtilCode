@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_child.*
  * desc  : demo about FragmentUtils
  * ```
  */
-class ChildFragment : BaseLazyFragment(), FragmentUtils.OnBackClickListener {
+class ChildFragment : BaseLazyFragment() {
 
     companion object {
         fun newInstance(): ChildFragment {
@@ -65,10 +65,5 @@ class ChildFragment : BaseLazyFragment(), FragmentUtils.OnBackClickListener {
             R.id.fragmentChildPopBtn -> FragmentUtils.pop(fragmentManager!!);
             R.id.fragmentChildRemoveBtn -> FragmentUtils.remove(this);
         }
-    }
-
-    override fun onBackClick(): Boolean {
-        LogUtils.d("child onBackClick")
-        return false
     }
 }
