@@ -940,7 +940,7 @@ file2Uri: file 转 uri
 uri2File: uri 转 file
 ```
 
-* ### 震动相关 -> [VibrateUtils.java][vibrate.java] -> [Demo][demo.demo]
+* ### 震动相关 -> [VibrateUtils.java][vibrate.java] -> [Demo][vibrate.demo]
 ```
 vibrate: 震动
 cancel : 取消
