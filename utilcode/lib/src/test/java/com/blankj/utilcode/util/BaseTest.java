@@ -29,8 +29,6 @@ public class BaseTest {
 
     @Test
     public void test() throws Exception {
-
-
 //        final CountDownLatch countDownLatch = new CountDownLatch(1);
 //        final Scanner scanner = new Scanner(System.in);
 //        ExecutorService singlePool = ThreadUtils.getSinglePool();

@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
-import com.blankj.utilcode.util.*
+import com.blankj.utilcode.util.AntiShakeUtils
+import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.Utils
 import com.r0adkll.slidr.Slidr
 
 /**
@@ -60,6 +63,5 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
     override fun onDestroy() {
         super.onDestroy()
         AppUtils.unregisterAppStatusChangedListener(this)
-        KeyboardUtils.fixSoftInputLeaks(this);
     }
 }

@@ -42,7 +42,7 @@ public final class RomUtils {
     private static final String[] ROM_HTC       = {"htc"};
     private static final String[] ROM_SONY      = {"sony"};
     private static final String[] ROM_GIONEE    = {"gionee", "amigo"};
-    private static final  String[] ROM_MOTOROLA  = {"motorola"};
+    private static final String[] ROM_MOTOROLA  = {"motorola"};
 
     private static final String VERSION_PROPERTY_HUAWEI  = "ro.build.version.emui";
     private static final String VERSION_PROPERTY_VIVO    = "ro.vivo.os.build.display.id";
@@ -449,8 +449,8 @@ public final class RomUtils {
 
         @Override
         public String toString() {
-            return "RomInfo{name: " + name +
-                    "\nversion: " + version + "}";
+            return "RomInfo{name=" + name +
+                    ", version=" + version + "}";
         }
     }
 }

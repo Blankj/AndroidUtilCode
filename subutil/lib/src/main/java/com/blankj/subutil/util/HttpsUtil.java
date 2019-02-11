@@ -10,7 +10,7 @@ import java.util.Scanner;
 /**
  * Create by MilkZS on 2019/1/9 13:36
  */
-public class HttpsUtil {
+public final class HttpsUtil {
 
     private static final int CONNECT_TIMEOUT_TIME = 15000;
     private static final int READ_TIMEOUT_TIME    = 19000;
