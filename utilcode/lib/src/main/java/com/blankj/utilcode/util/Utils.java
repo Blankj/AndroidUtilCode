@@ -42,14 +42,13 @@ import java.util.Set;
  */
 public final class Utils {
 
-    @SuppressLint("StaticFieldLeak")
-    private static Application sApplication;
-
-    private static final ActivityLifecycleImpl ACTIVITY_LIFECYCLE = new ActivityLifecycleImpl();
-
     private static final String PERMISSION_ACTIVITY_CLASS_NAME =
             "com.blankj.utilcode.util.PermissionUtils$PermissionActivity";
 
+    private static final ActivityLifecycleImpl ACTIVITY_LIFECYCLE = new ActivityLifecycleImpl();
+
+    @SuppressLint("StaticFieldLeak")
+    private static Application sApplication;
 
     private Utils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

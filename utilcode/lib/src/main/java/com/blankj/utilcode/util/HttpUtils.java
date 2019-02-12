@@ -4,13 +4,13 @@ import android.accounts.NetworkErrorException;
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.charset.IllegalCharsetNameException;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +31,9 @@ import javax.net.ssl.X509TrustManager;
  * </pre>
  */
 public class HttpUtils {
+
+    private static final String BOUNDARY    = java.util.UUID.randomUUID().toString();
+    private static final String TWO_HYPHENS = "--";
 
     private static final int CONNECT_TIMEOUT_TIME = 15000;
     private static final int READ_TIMEOUT_TIME    = 19000;
@@ -108,6 +111,11 @@ public class HttpUtils {
 //            printWriter.write(sb.toString());
 //            printWriter.flush();
 //            printWriter.close();
+
+//            DataOutputStream os;
+//            BufferedOutputStream outputStream = new BufferedOutputStream(conn.getOutputStream());
+//            outputStream.write(request.body.content);
+//            outputStream.close();
             int responseCode = conn.getResponseCode();
             if (responseCode == 200) {
                 InputStream is = conn.getInputStream();
@@ -156,6 +164,11 @@ public class HttpUtils {
                 conn.setRequestProperty(key, headerMap.get(key));
             }
         }
+    }
+
+    private static String checkCharset(final String charset) {
+        if (Charset.isSupported(charset)) return charset;
+        throw new IllegalCharsetNameException(charset);
     }
 
     private static boolean isSpace(final String s) {
@@ -209,10 +222,11 @@ public class HttpUtils {
         }
     }
 
-    public static final class RequestBody {
-        String mediaType;
-        byte[] content;
-        long   length;
+    public static class RequestBody {
+        String      mediaType;
+        byte[]      content;
+        InputStream is;
+        long        length;
 
         private RequestBody(String mediaType, byte[] content) {
             this.mediaType = mediaType;
@@ -226,18 +240,24 @@ public class HttpUtils {
             if (index == -1) return "utf-8";
             int st = index + 8;
             int end = mediaType.length();
+            if (st >= end) {
+                throw new IllegalArgumentException("MediaType is not correct: \"" + mediaType + "\"");
+            }
             for (int i = st; i < end; i++) {
                 char c = mediaType.charAt(i);
-                if ((c < 'a' || c > 'z') && (c < '0' || c > '9') && c != '-') {
-                    end = i;
-                    break;
-                }
+                if (c >= 'A' && c <= 'Z') continue;
+                if (c >= 'a' && c <= 'z') continue;
+                if (c >= '0' && c <= '9') continue;
+                if (c == '-' && i != 0) continue;
+                if (c == '+' && i != 0) continue;
+                if (c == ':' && i != 0) continue;
+                if (c == '_' && i != 0) continue;
+                if (c == '.' && i != 0) continue;
+                end = i;
+                break;
             }
-            if (st < end) {
-                String charset = mediaType.substring(st, end);
-                if (Charset.isSupported(charset)) return charset;
-            }
-            throw new IllegalArgumentException("MediaType is not correct: \"" + mediaType + "\"");
+            String charset = mediaType.substring(st, end);
+            return checkCharset(charset);
         }
 
         public static RequestBody create(String mediaType, byte[] content) {
@@ -249,13 +269,11 @@ public class HttpUtils {
         }
 
         public static RequestBody form(final Map<String, String> form, String charset) {
-            String mediaType = "application/x-www-form-urlencoded;charset=" + charset;
+            String mediaType = "application/x-www-form-urlencoded;charset=" + checkCharset(charset);
             if (form != null) {
                 final StringBuilder sb = new StringBuilder();
                 for (String key : form.keySet()) {
-                    if (sb.length() != 0) {
-                        sb.append("&");
-                    }
+                    if (sb.length() > 0) sb.append("&");
                     sb.append(key).append("=").append(form.get(key));
                 }
                 try {
@@ -272,7 +290,7 @@ public class HttpUtils {
         }
 
         public static RequestBody json(final String json, String charset) {
-            String mediaType = "application/json;charset=" + charset;
+            String mediaType = "application/json;charset=" + checkCharset(charset);
             if (json != null) {
                 try {
                     return new RequestBody(mediaType, json.getBytes(charset));
@@ -283,9 +301,11 @@ public class HttpUtils {
             return new RequestBody(mediaType, null);
         }
 
-        public static RequestBody file(String mediaType, final File file) {
-            return file(mediaType, file);
-        }
+//        public static RequestBody file(String mediaType, final File file) {
+//
+//            return new RequestBody(mediaType, );
+//        }
+
     }
 
 

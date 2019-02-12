@@ -13,8 +13,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -88,17 +86,8 @@ public final class CrashUtils {
                         "\nApp VersionName    : " + versionName +
                         "\nApp VersionCode    : " + versionCode +
                         "\n************* Log Head ****************\n\n";
-                sb.append(head);
-                StringWriter sw = new StringWriter();
-                PrintWriter pw = new PrintWriter(sw);
-                e.printStackTrace(pw);
-                Throwable cause = e.getCause();
-                while (cause != null) {
-                    cause.printStackTrace(pw);
-                    cause = cause.getCause();
-                }
-                pw.flush();
-                sb.append(sw.toString());
+                sb.append(head)
+                        .append(ThreadUtils.getFullStackTrace(e));
                 final String crashInfo = sb.toString();
                 final String fullPath = (dir == null ? defaultDir : dir) + time + ".txt";
                 if (createOrExistsFile(fullPath)) {

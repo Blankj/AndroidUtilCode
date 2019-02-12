@@ -28,14 +28,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -877,23 +875,7 @@ public final class LogUtils {
         }
 
         private static String throwable2String(final Throwable e) {
-            Throwable t = e;
-            while (t != null) {
-                if (t instanceof UnknownHostException) {
-                    return "";
-                }
-                t = t.getCause();
-            }
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            Throwable cause = e.getCause();
-            while (cause != null) {
-                cause.printStackTrace(pw);
-                cause = cause.getCause();
-            }
-            pw.flush();
-            return sw.toString();
+            return ThrowableUtils.getFullStackTrace(e);
         }
 
         private static String bundle2String(Bundle bundle) {
