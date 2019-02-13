@@ -11,71 +11,64 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/iv_screenshot"
+            android:id="@+id/screenScreenshotIv"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <TextView
-            android:id="@+id/tv_about_screen"
+            android:id="@+id/screenAboutTv"
             style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/btn_set_fullscreen"
+            android:id="@+id/screenFullscreenBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/screen_set_fullscreen" />
 
         <Button
-            android:id="@+id/btn_set_non_fullscreen"
+            android:id="@+id/screenNonFullscreenBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/screen_set_non_fullscreen" />
 
         <Button
-            android:id="@+id/btn_toggle_fullscreen"
+            android:id="@+id/screenToggleFullscreenBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/screen_toggle_fullscreen" />
 
         <Button
-            android:id="@+id/btn_set_landscape"
+            android:id="@+id/screenLandscapeBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/screen_set_landscape" />
 
         <Button
-            android:id="@+id/btn_set_portrait"
+            android:id="@+id/screenPortraitBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/screen_set_portrait" />
 
         <Button
-            android:id="@+id/btn_screenshot"
+            android:id="@+id/screenScreenshotBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/screen_screenshot" />
 
         <Button
-            android:id="@+id/btn_set_sleep_duration"
+            android:id="@+id/screenSetSleepDurationBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/screen_set_sleep_duration" />
-
-        <Button
-            android:id="@+id/btn_test_adapt_screen"
-            style="@style/WideBtnStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/screen_test_adapt_screen" />
 
     </LinearLayout>
 </ScrollView>

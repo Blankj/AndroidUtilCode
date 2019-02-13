@@ -11,6 +11,7 @@ implementation 'com.blankj:utilcode:1.23.5'
 * ### Activity 相关 -> [ActivityUtils.java][activity.java] -> [Demo][activity.demo]
 ```
 getActivityByView              : 根据视图获取 Activity
+getActivityByContext           : 根据上下文获取 Activity
 isActivityExists               : 判断 Activity 是否存在
 startActivity                  : 启动 Activity
 startActivityForResult         : 启动 Activity 为返回结果

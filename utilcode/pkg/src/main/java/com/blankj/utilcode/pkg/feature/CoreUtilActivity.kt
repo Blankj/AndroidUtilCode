@@ -27,6 +27,7 @@ import com.blankj.utilcode.pkg.feature.process.ProcessActivity
 import com.blankj.utilcode.pkg.feature.reflect.ReflectActivity
 import com.blankj.utilcode.pkg.feature.resource.ResourceActivity
 import com.blankj.utilcode.pkg.feature.rom.RomActivity
+import com.blankj.utilcode.pkg.feature.screen.ScreenActivity
 import com.blankj.utilcode.pkg.feature.sdcard.SDCardActivity
 import com.blankj.utilcode.pkg.feature.snackbar.SnackbarActivity
 import com.blankj.utilcode.pkg.feature.spStatic.SPStaticActivity
@@ -155,6 +156,10 @@ class CoreUtilActivity : BaseTitleBarActivity() {
 
     fun romClick(view: View) {
         RomActivity.start(this)
+    }
+
+    fun screenClick(view: View) {
+        ScreenActivity.start(this)
     }
 
     fun sdcardClick(view: View) {

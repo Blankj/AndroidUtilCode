@@ -87,7 +87,7 @@ public final class CrashUtils {
                         "\nApp VersionCode    : " + versionCode +
                         "\n************* Log Head ****************\n\n";
                 sb.append(head)
-                        .append(ThreadUtils.getFullStackTrace(e));
+                        .append(ThrowableUtils.getFullStackTrace(e));
                 final String crashInfo = sb.toString();
                 final String fullPath = (dir == null ? defaultDir : dir) + time + ".txt";
                 if (createOrExistsFile(fullPath)) {

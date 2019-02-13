@@ -39,8 +39,17 @@ public final class ActivityUtils {
      * @param view The view.
      * @return the activity by view.
      */
-    public static Activity getActivityByView(@NonNull final View view) {
-        Context context = view.getContext();
+    public static Activity getActivityByView(@NonNull View view) {
+        return getActivityByContext(view.getContext());
+    }
+
+    /**
+     * Return the activity by context.
+     *
+     * @param context The context.
+     * @return the activity by context.
+     */
+    public static Activity getActivityByContext(@NonNull Context context) {
         while (context instanceof ContextWrapper) {
             if (context instanceof Activity) {
                 return (Activity) context;
