@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>To Title Case</title>
+  <link href="http://code.jquery.com/qunit/qunit-1.12.0.css" rel="stylesheet">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="http://code.jquery.com/qunit/qunit-1.12.0.js"></script>
+  <script src="../to-title-case.js"></script>
+  <script>
+    (function($){
+      $.getJSON('tests.json', runTests);
+
+      function runTests(testCases) {
+        test('toTitleCase()', function(){
+          $.each(testCases, function(index, testCase){
+            deepEqual(testCase.input.toTitleCase(), testCase.expect,
+              testCase.expect);
+          });
+        });
+      }
+    })(jQuery);
+  </script>
+</body>
+</html>

@@ -13,6 +13,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.IllegalCharsetNameException;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.net.ssl.HostnameVerifier;
@@ -306,6 +307,10 @@ public class HttpUtils {
 //            return new RequestBody(mediaType, );
 //        }
 
+    }
+
+    public static class Response {
+        Map<String, List<String>> headers;
     }
 
 

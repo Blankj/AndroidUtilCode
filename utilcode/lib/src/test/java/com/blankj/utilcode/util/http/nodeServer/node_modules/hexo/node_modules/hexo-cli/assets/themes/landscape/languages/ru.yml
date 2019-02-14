@@ -1,0 +1,19 @@
+categories: Категории
+search: Поиск
+tags: Метки
+tagcloud: Облако меток
+tweets: Твиты
+prev: Назад
+next: Вперед
+comment: Комментарии
+archive_a: Архив
+archive_b: "Архив: %s"
+page: Страница %d
+recent_posts: Недавние записи
+newer: Следующий
+older: Предыдущий
+share: Поделиться
+powered_by: Создано с помощью
+rss_feed: RSS-каналы
+category: Категория
+tag: Метка

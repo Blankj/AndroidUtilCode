@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - "0.10"
+  - "0.12"
+  - "iojs"
+install:
+  - npm install
+script:
+  - npm run validate
+env:
+  global:
+    - secure: ZaVxQhRv9HYXTCqeS9T4XXGO1cGayL11os8jDZ6wqNkQAwkOw3QSL70iloN5DMzg4WXv8Pwp5I4EUDIcUwiu4UCbDgfn1vYoTfVEmDMBDni4xw3CRG7IT8gEijJItCaOdEzC+IBmpAFuVI8xcuic7WBYPKRnShWkZ1xwmHDSenc=
+    - secure: lh7gaH4G4RUvdjrocupakeFbx4JtF7AyLGXGfsJl+/PJFjvrB+Ahatb8sTcb5hDHTr+Ucunzawx1HBNE+k+7CyykKBQpsQNWT/q6vlL/PAjRpt501O46NEdfTm/RSTqHgIo9WINYIa/ZpCh2L0vAevduaT0GGFCaP9W7fpJaVhM=
