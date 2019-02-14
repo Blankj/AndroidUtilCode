@@ -7,13 +7,12 @@ var util = require('util');
 
 var app = express();
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(multer({ dest: '/tmp/' }).array('image'));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(multer({dest: '/tmp/'}).array('image'));
 app.use(cookieParser())
 
 // 创建 application/x-www-form-urlencoded 编码解析
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
-
+var urlencodedParser = bodyParser.urlencoded({extended: false})
 
 app.post('/process_post', urlencodedParser, function (req, res) {
 
@@ -63,7 +62,7 @@ app.get('/process_get', function (req, res) {
     res.end(JSON.stringify(response));
 })
 
-var server = app.listen(8081, "127.0.0.1", function () {
+var server = app.listen(8082, "127.0.0.1", function () {
     var host = server.address().address
     var port = server.address().port
 
