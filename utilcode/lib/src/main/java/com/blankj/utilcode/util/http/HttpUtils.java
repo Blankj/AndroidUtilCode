@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.Proxy;
 import java.net.URL;
 import java.security.cert.X509Certificate;
 import java.util.Deque;
@@ -80,7 +81,7 @@ public final class HttpUtils {
     }
 
     private static HttpURLConnection getConnection(final Request request) throws IOException {
-        HttpURLConnection conn = (HttpURLConnection) request.mURL.openConnection();
+        HttpURLConnection conn = (HttpURLConnection) request.mURL.openConnection(new Proxy());
         if (conn instanceof HttpsURLConnection) {
             HttpsURLConnection httpsConn = (HttpsURLConnection) conn;
             trustAllHosts(httpsConn);
