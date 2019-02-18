@@ -33,4 +33,6 @@ public class TestConfig {
     static final String PATH_FILE = TEST_PATH + "file" + FILE_SEP;
 
     static final String PATH_ZIP = TEST_PATH + "zip" + FILE_SEP;
+
+    public static final String PATH_HTTP = TEST_PATH + "http" + FILE_SEP;
 }

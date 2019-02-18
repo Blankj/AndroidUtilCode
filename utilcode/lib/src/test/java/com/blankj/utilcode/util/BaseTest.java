@@ -75,7 +75,7 @@ public class BaseTest {
 //            }
 //
 //            @Override
-//            public void onSuccess(@Nullable Void result) {
+//            public void onResponse(@Nullable Void result) {
 //                countDownLatch.countDown();
 //            }
 //
@@ -99,7 +99,7 @@ public class BaseTest {
 //            }
 //
 //            @Override
-//            public void onSuccess(@Nullable Void result) {
+//            public void onResponse(@Nullable Void result) {
 //                countDownLatch.countDown();
 //            }
 //
