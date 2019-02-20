@@ -340,8 +340,8 @@ public final class Utils {
                     (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
             if (imm == null) return;
             String[] leakViews = new String[]{"mLastSrvView", "mCurRootView", "mServedView", "mNextServedView"};
-            try {
-                for (String leakView : leakViews) {
+            for (String leakView : leakViews) {
+                try {
                     Field leakViewField = InputMethodManager.class.getDeclaredField(leakView);
                     if (leakViewField == null) continue;
                     if (!leakViewField.isAccessible()) {
@@ -353,8 +353,8 @@ public final class Utils {
                     if (view.getRootView() == activity.getWindow().getDecorView().getRootView()) {
                         leakViewField.set(imm, null);
                     }
-                }
-            } catch (Throwable ignore) { /**/ }
+                } catch (Throwable ignore) { /**/ }
+            }
         }
     }
 
