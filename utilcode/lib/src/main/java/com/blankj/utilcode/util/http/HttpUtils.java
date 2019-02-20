@@ -12,8 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.Proxy;
-import java.net.URL;
 import java.security.cert.X509Certificate;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -71,8 +69,10 @@ public final class HttpUtils {
 
     private static final Config CONFIG = new Config();
 
-    private HttpUtils() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
+
+
+    private HttpUtils(Config config) {
+
     }
 
     public static void call(@NonNull final Request request, @NonNull final ResponseCallback callback) {
@@ -81,7 +81,7 @@ public final class HttpUtils {
     }
 
     private static HttpURLConnection getConnection(final Request request) throws IOException {
-        HttpURLConnection conn = (HttpURLConnection) request.mURL.openConnection(new Proxy());
+        HttpURLConnection conn = (HttpURLConnection) request.mURL.openConnection();
         if (conn instanceof HttpsURLConnection) {
             HttpsURLConnection httpsConn = (HttpsURLConnection) conn;
             trustAllHosts(httpsConn);
@@ -225,18 +225,18 @@ public final class HttpUtils {
         private final Deque<Call> readyCalls   = new LinkedList<>();
         private final Deque<Call> runningCalls = new LinkedList<>();
 
-        synchronized void enqueue(Call call) {
-            // 不超过最大请求数并且不超过 host 最大请求数
-            if (runningCalls.size() < maxRequests && runningCallsForHost(call) < maxRequestsPerHost) {
-                // 添加到运行中的异步请求队列
-                runningAsyncCalls.add(call);
-                // 添加到线程池中运行
-                executorService().execute(call);
-            } else {
-                // 添加到就绪的异步请求队列
-                readyAsyncCalls.add(call);
-            }
-        }
+//        synchronized void enqueue(Call call) {
+//            // 不超过最大请求数并且不超过 host 最大请求数
+//            if (runningCalls.size() < maxRequests && runningCallsForHost(call) < maxRequestsPerHost) {
+//                // 添加到运行中的异步请求队列
+//                runningAsyncCalls.add(call);
+//                // 添加到线程池中运行
+//                executorService().execute(call);
+//            } else {
+//                // 添加到就绪的异步请求队列
+//                readyAsyncCalls.add(call);
+//            }
+//        }
     }
 
     static class Call implements Runnable {

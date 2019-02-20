@@ -8,6 +8,10 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
+import java.util.Scanner;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+
 /**
  * <pre>
  *     author: Blankj
@@ -29,36 +33,40 @@ public class BaseTest {
 
     @Test
     public void test() throws Exception {
-//        final CountDownLatch countDownLatch = new CountDownLatch(1);
-//        final Scanner scanner = new Scanner(System.in);
-//        ExecutorService singlePool = ThreadUtils.getSinglePool();
-//        singlePool.execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                for (int i = 0; i < 1000; i++) {
-//                    if (Thread.currentThread().isInterrupted()) {
-//                        break;
-//                    }
-//                    System.out.println(i);
-//                    try {
-//                        Thread.sleep(10);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//                System.out.println("scanner start");
-//                scanner.nextLine();
-//                System.out.println("scanner end");
-//
-//            }
-//        });
-//        Thread.sleep(200);
+        final CountDownLatch countDownLatch = new CountDownLatch(1);
+        final Scanner scanner = new Scanner(System.in);
+        ExecutorService singlePool = ThreadUtils.getSinglePool();
+        final Thread[] thread = new Thread[1];
+        singlePool.execute(new Runnable() {
+            @Override
+            public void run() {
+                thread[0] = Thread.currentThread();
+                for (int i = 0; i < 1000; i++) {
+                    if (Thread.currentThread().isInterrupted()) {
+                        break;
+                    }
+                    System.out.println(i);
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println("scanner start");
+                scanner.nextLine();
+                System.out.println("scanner end");
+
+            }
+        });
+        Thread.sleep(200);
+        thread[0].interrupt();
+        System.out.println("haha");
 //        singlePool.shutdownNow();
-//
-//
-//        countDownLatch.await();
 
 
+        countDownLatch.await();
+
+//
 //        final CountDownLatch countDownLatch = new CountDownLatch(1);
 //        final Scanner s = new Scanner(System.in);
 //        final ThreadUtils.SimpleTask<Void> task = new ThreadUtils.SimpleTask<Void>() {
@@ -75,7 +83,7 @@ public class BaseTest {
 //            }
 //
 //            @Override
-//            public void onResponse(@Nullable Void result) {
+//            public void onSuccess(@Nullable Void result) {
 //                countDownLatch.countDown();
 //            }
 //
@@ -99,7 +107,7 @@ public class BaseTest {
 //            }
 //
 //            @Override
-//            public void onResponse(@Nullable Void result) {
+//            public void onSuccess(@Nullable Void result) {
 //                countDownLatch.countDown();
 //            }
 //

@@ -920,7 +920,6 @@ public final class ThreadUtils {
     private static ExecutorService createPoolByTypeAndPriority(final int type, final int priority) {
         switch (type) {
             case TYPE_SINGLE:
-                System.out.println("hehe");
                 return Executors.newSingleThreadExecutor(
                         new UtilsThreadFactory("single", priority)
                 );
