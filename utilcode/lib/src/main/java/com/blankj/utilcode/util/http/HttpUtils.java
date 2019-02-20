@@ -70,14 +70,24 @@ public final class HttpUtils {
     private static final Config CONFIG = new Config();
 
 
+    private final  Config    mConfig;
+    private static HttpUtils sHttpUtils;
 
-    private HttpUtils(Config config) {
+    private HttpUtils(@NonNull Config config) {
+        mConfig = config;
+    }
 
+    public static HttpUtils getInstance(@NonNull Config config) {
+        if (sHttpUtils == null) {
+            synchronized (HttpUtils.class) {
+                sHttpUtils = new HttpUtils(config);
+            }
+        }
+        return sHttpUtils;
     }
 
     public static void call(@NonNull final Request request, @NonNull final ResponseCallback callback) {
         new Call(request, callback).run();
-
     }
 
     private static HttpURLConnection getConnection(final Request request) throws IOException {
@@ -216,6 +226,7 @@ public final class HttpUtils {
         private int     connectTimeout = CONNECT_TIMEOUT_TIME;
         private int     readTimeout    = READ_TIMEOUT_TIME;
         private boolean useCaches      = false;
+        private socke
     }
 
     public static class Dispatcher {
