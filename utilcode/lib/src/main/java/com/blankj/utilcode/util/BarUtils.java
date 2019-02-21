@@ -378,7 +378,12 @@ public final class BarUtils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             int option = View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-            window.getDecorView().setSystemUiVisibility(option);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                int vis = window.getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                window.getDecorView().setSystemUiVisibility(option | vis);
+            } else {
+                window.getDecorView().setSystemUiVisibility(option);
+            }
             window.setStatusBarColor(Color.TRANSPARENT);
         } else {
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

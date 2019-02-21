@@ -226,7 +226,6 @@ public final class HttpUtils {
         private int     connectTimeout = CONNECT_TIMEOUT_TIME;
         private int     readTimeout    = READ_TIMEOUT_TIME;
         private boolean useCaches      = false;
-        private socke
     }
 
     public static class Dispatcher {
