@@ -26,45 +26,43 @@ public class BaseTest {
 
     public BaseTest() {
         ShadowLog.stream = System.out;
-        ReflectUtils.reflect("com.blankj.utilcode.util.ThreadUtils$Deliver")
-                .field("MAIN_HANDLER", null);
         Utils.init(RuntimeEnvironment.application);
     }
 
     @Test
     public void test() throws Exception {
-        final CountDownLatch countDownLatch = new CountDownLatch(1);
-        final Scanner scanner = new Scanner(System.in);
-        ExecutorService singlePool = ThreadUtils.getSinglePool();
-        final Thread[] thread = new Thread[1];
-        singlePool.execute(new Runnable() {
-            @Override
-            public void run() {
-                thread[0] = Thread.currentThread();
-                for (int i = 0; i < 1000; i++) {
-                    if (Thread.currentThread().isInterrupted()) {
-                        break;
-                    }
-                    System.out.println(i);
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                System.out.println("scanner start");
-                scanner.nextLine();
-                System.out.println("scanner end");
-
-            }
-        });
-        Thread.sleep(200);
-        thread[0].interrupt();
-        System.out.println("haha");
+//        final CountDownLatch countDownLatch = new CountDownLatch(1);
+//        final Scanner scanner = new Scanner(System.in);
+//        ExecutorService singlePool = ThreadUtils.getSinglePool();
+//        final Thread[] thread = new Thread[1];
+//        singlePool.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                thread[0] = Thread.currentThread();
+//                for (int i = 0; i < 1000; i++) {
+//                    if (Thread.currentThread().isInterrupted()) {
+//                        break;
+//                    }
+//                    System.out.println(i);
+//                    try {
+//                        Thread.sleep(100);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                System.out.println("scanner start");
+//                scanner.nextLine();
+//                System.out.println("scanner end");
+//
+//            }
+//        });
+//        Thread.sleep(200);
+//        thread[0].interrupt();
+//        System.out.println("haha");
 //        singlePool.shutdownNow();
 
 
-        countDownLatch.await();
+//        countDownLatch.await();
 
 //
 //        final CountDownLatch countDownLatch = new CountDownLatch(1);

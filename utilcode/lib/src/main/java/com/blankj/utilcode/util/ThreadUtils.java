@@ -10,6 +10,7 @@ import android.util.SparseArray;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -37,6 +38,8 @@ public final class ThreadUtils {
     private static final byte TYPE_CACHED = -2;
     private static final byte TYPE_IO     = -4;
     private static final byte TYPE_CPU    = -8;
+
+    private static Executor sDeliver;
 
     private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
 
@@ -838,6 +841,15 @@ public final class ThreadUtils {
         task.cancel();
     }
 
+    /**
+     * Set the deliver.
+     *
+     * @param deliver The deliver.
+     */
+    public static void setDeliver(final Executor deliver) {
+        sDeliver = deliver;
+    }
+
     private static <T> void execute(final ExecutorService pool, final Task<T> task) {
         executeWithDelay(pool, task, 0, TimeUnit.MILLISECONDS);
     }
@@ -949,6 +961,20 @@ public final class ThreadUtils {
         }
     }
 
+    private static Executor getDeliver() {
+        if (sDeliver == null) {
+            sDeliver = new Executor() {
+                private final Handler mHandler = new Handler(Looper.getMainLooper());
+
+                @Override
+                public void execute(@NonNull Runnable command) {
+                    mHandler.post(command);
+                }
+            };
+        }
+        return sDeliver;
+    }
+
     public abstract static class SimpleTask<T> extends Task<T> {
 
         @Override
@@ -991,7 +1017,7 @@ public final class ThreadUtils {
                 if (state != NEW) return;
 
                 if (isSchedule) {
-                    Deliver.post(new Runnable() {
+                    getDeliver().execute(new Runnable() {
                         @Override
                         public void run() {
                             onSuccess(result);
@@ -999,7 +1025,7 @@ public final class ThreadUtils {
                     });
                 } else {
                     state = COMPLETING;
-                    Deliver.post(new Runnable() {
+                    getDeliver().execute(new Runnable() {
                         @Override
                         public void run() {
                             onSuccess(result);
@@ -1011,7 +1037,7 @@ public final class ThreadUtils {
                 if (state != NEW) return;
 
                 state = EXCEPTIONAL;
-                Deliver.post(new Runnable() {
+                getDeliver().execute(new Runnable() {
                     @Override
                     public void run() {
                         onFail(throwable);
@@ -1025,7 +1051,7 @@ public final class ThreadUtils {
             if (state != NEW) return;
 
             state = CANCELLED;
-            Deliver.post(new Runnable() {
+            getDeliver().execute(new Runnable() {
                 @Override
                 public void run() {
                     onCancel();
@@ -1043,13 +1069,10 @@ public final class ThreadUtils {
             implements ThreadFactory {
         private static final AtomicInteger POOL_NUMBER      = new AtomicInteger(1);
         private static final long          serialVersionUID = -9209200509960368598L;
-        private final        ThreadGroup   group;
         private final        String        namePrefix;
         private final        int           priority;
 
         UtilsThreadFactory(String prefix, int priority) {
-            SecurityManager s = System.getSecurityManager();
-            group = s != null ? s.getThreadGroup() : Thread.currentThread().getThreadGroup();
             namePrefix = prefix + "-pool-" +
                     POOL_NUMBER.getAndIncrement() +
                     "-thread-";
@@ -1057,7 +1080,7 @@ public final class ThreadUtils {
         }
 
         public Thread newThread(@NonNull Runnable r) {
-            Thread t = new Thread(group, r, namePrefix + getAndIncrement(), 0) {
+            Thread t = new Thread(r, namePrefix + getAndIncrement()) {
                 @Override
                 public void run() {
                     try {
@@ -1073,32 +1096,6 @@ public final class ThreadUtils {
             t.setPriority(priority);
             return t;
         }
-    }
 
-    private static class Deliver {
-
-        private static final Handler MAIN_HANDLER;
-
-        static {
-            Looper looper;
-            try {
-                looper = Looper.getMainLooper();
-            } catch (Exception e) {
-                looper = null;
-            }
-            if (looper != null) {
-                MAIN_HANDLER = new Handler(looper);
-            } else {
-                MAIN_HANDLER = null;
-            }
-        }
-
-        static void post(final Runnable runnable) {
-            if (MAIN_HANDLER != null) {
-                MAIN_HANDLER.post(runnable);
-            } else {
-                runnable.run();
-            }
-        }
     }
 }

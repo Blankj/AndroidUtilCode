@@ -2,6 +2,8 @@ package com.blankj.utilcode.util.http;
 
 import android.accounts.NetworkErrorException;
 import android.annotation.SuppressLint;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 
 import java.io.BufferedOutputStream;
@@ -12,10 +14,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.Proxy;
 import java.security.cert.X509Certificate;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.concurrent.Executor;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -39,8 +48,8 @@ public final class HttpUtils {
 
     private static final int CONNECT_TIMEOUT_TIME = 15000;
     private static final int READ_TIMEOUT_TIME    = 19000;
+    private static final int BUFFER_SIZE          = 8192;
 
-    private static final int BUFFER_SIZE = 8192;
 
     private static final TrustManager[] DEFAULT_TRUST_MANAGERS = new TrustManager[]{
             new X509TrustManager() {
@@ -226,27 +235,11 @@ public final class HttpUtils {
         private int     connectTimeout = CONNECT_TIMEOUT_TIME;
         private int     readTimeout    = READ_TIMEOUT_TIME;
         private boolean useCaches      = false;
-    }
 
-    public static class Dispatcher {
-        private int maxRequests        = 64;
-        private int maxRequestsPerHost = 5;
-
-        private final Deque<Call> readyCalls   = new LinkedList<>();
-        private final Deque<Call> runningCalls = new LinkedList<>();
-
-//        synchronized void enqueue(Call call) {
-//            // 不超过最大请求数并且不超过 host 最大请求数
-//            if (runningCalls.size() < maxRequests && runningCallsForHost(call) < maxRequestsPerHost) {
-//                // 添加到运行中的异步请求队列
-//                runningAsyncCalls.add(call);
-//                // 添加到线程池中运行
-//                executorService().execute(call);
-//            } else {
-//                // 添加到就绪的异步请求队列
-//                readyAsyncCalls.add(call);
-//            }
-//        }
+        private SSLConfig sslConfig    = SSLConfig.DEFAULT_SSL_CONFIG;
+        private Executor  workExecutor = ExecutorFactory.getDefaultWorkExecutor();
+        private Executor  mainExecutor = ExecutorFactory.getDefaultMainExecutor();
+        private Proxy     proxy        = null;
     }
 
     static class Call implements Runnable {

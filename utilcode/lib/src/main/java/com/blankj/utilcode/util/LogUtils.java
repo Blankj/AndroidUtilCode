@@ -473,8 +473,7 @@ public final class LogUtils {
         String date = format.substring(0, 10);
         String time = format.substring(11);
         final String fullPath =
-                (CONFIG.mDir == null ? CONFIG.mDefaultDir : CONFIG.mDir)
-                        + CONFIG.mFilePrefix + "-" + date + ".txt";
+                CONFIG.getDir() + CONFIG.getFilePrefix() + "-" + date + ".txt";
         if (!createOrExistsFile(fullPath)) {
             Log.e("LogUtils", "create " + fullPath + " failed!");
             return;
@@ -522,7 +521,7 @@ public final class LogUtils {
         File[] files = parentFile.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                return name.matches("^" + CONFIG.mFilePrefix + "-[0-9]{4}-[0-9]{2}-[0-9]{2}.txt$");
+                return name.matches("^" + CONFIG.getFilePrefix() + "-[0-9]{4}-[0-9]{2}-[0-9]{2}.txt$");
             }
         });
         if (files.length <= 0) return;
@@ -686,7 +685,7 @@ public final class LogUtils {
         }
 
         public Config setDir(final File dir) {
-            mDir = dir == null ? null : dir.getAbsolutePath() + FILE_SEP;
+            mDir = dir == null ? null : (dir.getAbsolutePath() + FILE_SEP);
             return this;
         }
 
@@ -762,7 +761,7 @@ public final class LogUtils {
         }
 
         public String getGlobalTag() {
-            if (isSpace(mGlobalTag)) return "null";
+            if (isSpace(mGlobalTag)) return "";
             return mGlobalTag;
         }
 

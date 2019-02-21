@@ -38,21 +38,14 @@ public final class SSLConfig {
         mHostnameVerifier = verifier;
     }
 
-    public static final HostnameVerifier DEFAULT_VERIFIER = new HostnameVerifier() {
+    public static final HostnameVerifier DEFAULT_VERIFIER           = new HostnameVerifier() {
         public boolean verify(String hostname, SSLSession session) {
             return true;
         }
     };
-
     public static final SSLSocketFactory DEFAULT_SSL_SOCKET_FACTORY = new DefaultSSLSocketFactory();
 
-    public SSLSocketFactory getSSLSocketFactory() {
-        return mSSLSocketFactory;
-    }
-
-    public HostnameVerifier getHostnameVerifier() {
-        return mHostnameVerifier;
-    }
+    public static final SSLConfig DEFAULT_SSL_CONFIG = new SSLConfig(DEFAULT_SSL_SOCKET_FACTORY, DEFAULT_VERIFIER);
 
     private static class DefaultSSLSocketFactory extends SSLSocketFactory {
 

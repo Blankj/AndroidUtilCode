@@ -888,6 +888,7 @@ executeByCustom         : 在自定义线程池执行任务
 executeByCustomWithDelay: 在自定义线程池延时执行任务
 executeByCustomAtFixRate: 在自定义线程池按固定频率执行任务
 cancel                  : 取消任务的执行
+setDeliver              : 设置任务结束后交付的线程
 ```
 
 * ### 时间相关 -> [TimeUtils.java][time.java] -> [Test][time.test]
