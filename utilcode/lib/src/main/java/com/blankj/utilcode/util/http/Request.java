@@ -22,7 +22,6 @@ import java.util.Map;
  */
 public final class Request {
 
-    String methodName;
     URL                 mURL;
     Map<String, String> mHeader;
     Body                mBody;

@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.Proxy;
+import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.concurrent.Executor;
 
@@ -31,7 +32,7 @@ public final class HttpUtils {
     private static final String TWO_HYPHENS = "--";
 
     private static final int CONNECT_TIMEOUT_TIME = 15000;
-    private static final int READ_TIMEOUT_TIME    = 19000;
+    private static final int READ_TIMEOUT_TIME    = 20000;
     private static final int BUFFER_SIZE          = 8192;
 
     private static final Config CONFIG = new Config();
@@ -64,6 +65,7 @@ public final class HttpUtils {
             httpsConn.setSSLSocketFactory(CONFIG.sslConfig.mSSLSocketFactory);
             httpsConn.setHostnameVerifier(CONFIG.sslConfig.mHostnameVerifier);
         }
+        System.out.println(conn.getHeaderField("USE"));
         addHeader(conn, request.mHeader);
         addBody(conn, request.mBody);
         conn.setConnectTimeout(CONFIG.connectTimeout);
@@ -179,13 +181,16 @@ public final class HttpUtils {
     }
 
     public static class Config {
-        private int     connectTimeout = CONNECT_TIMEOUT_TIME;
-        private int     readTimeout    = READ_TIMEOUT_TIME;
 
-        private SSLConfig sslConfig    = SSLConfig.DEFAULT_SSL_CONFIG;
-        private Executor  workExecutor = ExecutorFactory.getDefaultWorkExecutor();
-        private Executor  mainExecutor = ExecutorFactory.getDefaultMainExecutor();
-        private Proxy     proxy        = null;
+        private Executor workExecutor = ExecutorFactory.getDefaultWorkExecutor();
+        private Executor mainExecutor = ExecutorFactory.getDefaultMainExecutor();
+
+        private SSLConfig sslConfig      = SSLConfig.DEFAULT_SSL_CONFIG;
+        private int       connectTimeout = CONNECT_TIMEOUT_TIME;
+        private int       readTimeout    = READ_TIMEOUT_TIME;
+        private Charset   charset        = Charset.defaultCharset();
+
+        private Proxy proxy = null;
     }
 
     static class Call implements Runnable {
