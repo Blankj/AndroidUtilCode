@@ -22,9 +22,7 @@ import kotlinx.android.synthetic.main.activity_main.*
  */
 class MainActivity : BaseDrawerActivity() {
 
-    override fun initData(bundle: Bundle?) {
-
-    }
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_main
@@ -53,17 +51,11 @@ class MainActivity : BaseDrawerActivity() {
         launcherMainSubUtilBtn.setOnClickListener {
             BusUtils.post<Any>("SubUtilActivity#start", this)
         }
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
-
     }
 
-    override fun doBusiness() {
+    override fun doBusiness() {}
 
-    }
-
-    override fun onWidgetClick(view: View) {
-
-    }
+    override fun onWidgetClick(view: View) {}
 
     override fun onBackPressed() {
         ActivityUtils.startHomeActivity()

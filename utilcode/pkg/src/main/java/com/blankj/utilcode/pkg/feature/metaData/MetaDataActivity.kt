@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.MetaDataUtils
 import com.blankj.utilcode.util.SpanUtils
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_metadata.*
  * desc  : demo about MetaDataUtils
  * ```
  */
-class MetaDataActivity : BaseBackActivity() {
+class MetaDataActivity : BaseTitleBarActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -27,28 +27,24 @@ class MetaDataActivity : BaseBackActivity() {
         }
     }
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_meta_data)
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_metadata
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_meta_data)
-
         SpanUtils.with(metaDataAboutTv)
                 .appendLine("getMetaDataInApp: " + MetaDataUtils.getMetaDataInApp("app_meta_data"))
                 .append("getMetaDataInActivity: " + MetaDataUtils.getMetaDataInActivity(this, "activity_meta_data"))
                 .create()
     }
 
-    override fun doBusiness() {
+    override fun doBusiness() {}
 
-    }
-
-    override fun onWidgetClick(view: View) {
-
-    }
+    override fun onWidgetClick(view: View) {}
 }

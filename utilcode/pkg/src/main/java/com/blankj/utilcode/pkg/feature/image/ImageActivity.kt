@@ -43,9 +43,11 @@ class ImageActivity : BaseActivity() {
     internal lateinit var src: Bitmap
     private var mList: MutableList<ImageBean> = ArrayList()
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun isSwipeBack(): Boolean {
+        return true
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_image
@@ -93,9 +95,7 @@ class ImageActivity : BaseActivity() {
         imageRv.layoutManager = LinearLayoutManager(this)
     }
 
-    override fun doBusiness() {
-
-    }
+    override fun doBusiness() {}
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
@@ -118,7 +118,5 @@ class ImageAdapter(list: List<ImageBean>, @LayoutRes layoutId: Int) : SingleAdap
 }
 
 class ImageBean(@StringRes resId: Int, var image: Bitmap) {
-
     var name: String = StringUtils.getString(resId)
-
 }

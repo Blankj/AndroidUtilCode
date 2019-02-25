@@ -3,13 +3,11 @@ package com.blankj.utilcode.pkg.feature.bar
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.view.View
 import com.blankj.lib.base.BaseActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ColorUtils
-import com.blankj.utilcode.util.Utils
 import kotlinx.android.synthetic.main.activity_bar_status_color.*
 
 /**
@@ -29,10 +27,14 @@ class BarStatusColorActivity : BaseActivity() {
         }
     }
 
+    override fun isSwipeBack(): Boolean {
+        return true
+    }
+
     private var mColor: Int = 0
 
     override fun initData(bundle: Bundle?) {
-        mColor = ContextCompat.getColor(Utils.getApp(), R.color.colorPrimary)
+        mColor = ColorUtils.getColor(R.color.colorPrimary)
     }
 
     override fun bindLayout(): Int {
@@ -46,9 +48,7 @@ class BarStatusColorActivity : BaseActivity() {
     }
 
 
-    override fun doBusiness() {
-
-    }
+    override fun doBusiness() {}
 
     override fun onWidgetClick(view: View) {
         when (view.id) {

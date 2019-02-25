@@ -787,6 +787,7 @@ public final class AppUtils {
         PackageInfo pi = pm.getPackageArchiveInfo(apkFilePath, 0);
         ApplicationInfo appInfo = pi.applicationInfo;
         appInfo.sourceDir = apkFilePath;
+        appInfo.publicSourceDir = apkFilePath;
         return getBean(pm, pi);
     }
 

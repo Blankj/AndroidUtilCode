@@ -49,9 +49,7 @@ class LocationService : Service() {
             mOnGetLocationListener?.getLocation(lastLatitude, lastLongitude, latitude, longitude, country, locality, street)
         }
 
-        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {
-
-        }
+        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
     }
 
     fun setOnGetLocationListener(onGetLocationListener: OnGetLocationListener) {

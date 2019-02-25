@@ -360,21 +360,18 @@ public final class ToastUtils {
 
     static class SystemToast extends AbsToast {
 
-        private static Field sField_mTN;
-        private static Field sField_TN_Handler;
-
         SystemToast(Toast toast) {
             super(toast);
             if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1) {
                 try {
                     //noinspection JavaReflectionMemberAccess
-                    sField_mTN = Toast.class.getDeclaredField("mTN");
-                    sField_mTN.setAccessible(true);
-                    Object mTN = sField_mTN.get(toast);
-                    sField_TN_Handler = sField_mTN.getType().getDeclaredField("mHandler");
-                    sField_TN_Handler.setAccessible(true);
-                    Handler tnHandler = (Handler) sField_TN_Handler.get(mTN);
-                    sField_TN_Handler.set(mTN, new SafeHandler(tnHandler));
+                    Field mTNField = Toast.class.getDeclaredField("mTN");
+                    mTNField.setAccessible(true);
+                    Object mTN = mTNField.get(toast);
+                    Field mTNmHandlerField = mTNField.getType().getDeclaredField("mHandler");
+                    mTNmHandlerField.setAccessible(true);
+                    Handler tnHandler = (Handler) mTNmHandlerField.get(mTN);
+                    mTNmHandlerField.set(mTN, new SafeHandler(tnHandler));
                 } catch (Exception ignored) { /**/ }
             }
         }

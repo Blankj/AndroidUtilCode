@@ -5,6 +5,10 @@ import android.view.View
 import com.blankj.lib.base.BaseActivity
 
 class SplashActivity : BaseActivity() {
+    override fun isSwipeBack(): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun initData(bundle: Bundle?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

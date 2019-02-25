@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_16">
+
+    <Button
+        android:id="@+id/fragmentRootShowStackBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_show_stack" />
+
+    <Button
+        android:id="@+id/fragmentRootAddChildBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_add_child" />
+
+    <Button
+        android:id="@+id/fragmentRootAddChildStackBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_add_child_stack" />
+
+    <Button
+        android:id="@+id/fragmentRootAddHideBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_add_hide" />
+
+    <Button
+        android:id="@+id/fragmentRootAddHideStackBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_add_hide_stack" />
+
+
+    <Button
+        android:id="@+id/fragmentRootAddShowBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_add_demo1_show" />
+
+    <Button
+        android:id="@+id/fragmentRootPopToRootBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_pop_to_root" />
+
+    <Button
+        android:id="@+id/fragmentRootHideShowBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_hide_demo0_show_demo1" />
+
+    <Button
+        android:id="@+id/fragmentRootReplaceBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_replace" />
+
+    <ImageView
+        android:id="@+id/fragmentRootSharedElementIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/image_lena"
+        android:transitionName="@string/fragment_transition" />
+
+</LinearLayout>

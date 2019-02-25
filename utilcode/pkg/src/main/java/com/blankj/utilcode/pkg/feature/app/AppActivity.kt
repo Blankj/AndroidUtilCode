@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.Config
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.PermissionHelper
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_app.*
  * desc  : demo about AppUtils
  * ```
  */
-class AppActivity : BaseBackActivity() {
+class AppActivity : BaseTitleBarActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -42,17 +42,17 @@ class AppActivity : BaseBackActivity() {
         }
     }
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_app)
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_app
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_app)
-
         appInstallAppBtn.setOnClickListener(this)
         appInstallAppSilentBtn.setOnClickListener(this)
         appUninstallAppBtn.setOnClickListener(this)
@@ -80,9 +80,7 @@ class AppActivity : BaseBackActivity() {
                 .create()
     }
 
-    override fun doBusiness() {
-
-    }
+    override fun doBusiness() {}
 
     override fun onWidgetClick(view: View) {
         when (view.id) {

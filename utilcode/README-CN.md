@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.23.4'
+implementation 'com.blankj:utilcode:1.23.5'
 ```
 
 
@@ -11,6 +11,7 @@ implementation 'com.blankj:utilcode:1.23.4'
 * ### Activity 相关 -> [ActivityUtils.java][activity.java] -> [Demo][activity.demo]
 ```
 getActivityByView              : 根据视图获取 Activity
+getActivityByContext           : 根据上下文获取 Activity
 isActivityExists               : 判断 Activity 是否存在
 startActivity                  : 启动 Activity
 startActivityForResult         : 启动 Activity 为返回结果
@@ -699,7 +700,8 @@ isLenovo   : 是否联想
 isSmartisan: 是否锤子
 isHtc      : 是否 HTC
 isSony     : 是否索尼
-isAmigo    : 是否金立
+isGionee   : 是否金立
+isMotorola : 是否摩托罗拉
 getRomInfo : 获取 ROM 信息
 ```
 
@@ -886,6 +888,7 @@ executeByCustom         : 在自定义线程池执行任务
 executeByCustomWithDelay: 在自定义线程池延时执行任务
 executeByCustomAtFixRate: 在自定义线程池按固定频率执行任务
 cancel                  : 取消任务的执行
+setDeliver              : 设置任务结束后交付的线程
 ```
 
 * ### 时间相关 -> [TimeUtils.java][time.java] -> [Test][time.test]
@@ -939,7 +942,7 @@ file2Uri: file 转 uri
 uri2File: uri 转 file
 ```
 
-* ### 震动相关 -> [VibrateUtils.java][vibrate.java] -> [Demo][demo.demo]
+* ### 震动相关 -> [VibrateUtils.java][vibrate.java] -> [Demo][vibrate.demo]
 ```
 vibrate: 震动
 cancel : 取消

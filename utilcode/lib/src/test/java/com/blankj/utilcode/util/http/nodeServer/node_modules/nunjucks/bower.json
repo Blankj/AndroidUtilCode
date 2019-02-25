@@ -1,0 +1,19 @@
+{
+  "name": "nunjucks",
+  "main": "browser/nunjucks.js",
+  "ignore": [
+    "Makefile",
+    "package.json",
+    "tests",
+    "docs",
+    "index.js",
+    "nunjucks"
+  ],
+  "keywords": [
+    "jinja",
+    "template",
+    "templates",
+    "templating",
+    "browser"
+  ]
+}

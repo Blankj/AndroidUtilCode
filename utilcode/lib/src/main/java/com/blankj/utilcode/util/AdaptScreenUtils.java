@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
 public final class AdaptScreenUtils {
 
     private static boolean isInitMiui = false;
-    private static Field   mTmpMetrics;
+    private static Field   mTmpMetricsField;
 
     /**
      * Adapt for the horizontal screen, and call it in [android.app.Activity.getResources].
@@ -81,9 +81,10 @@ public final class AdaptScreenUtils {
             String simpleName = resources.getClass().getSimpleName();
             if ("MiuiResources".equals(simpleName) || "XResources".equals(simpleName)) {
                 try {
-                    mTmpMetrics = Resources.class.getDeclaredField("mTmpMetrics");
-                    mTmpMetrics.setAccessible(true);
-                    ret = (DisplayMetrics) mTmpMetrics.get(resources);
+                    //noinspection JavaReflectionMemberAccess
+                    mTmpMetricsField = Resources.class.getDeclaredField("mTmpMetrics");
+                    mTmpMetricsField.setAccessible(true);
+                    ret = (DisplayMetrics) mTmpMetricsField.get(resources);
                 } catch (Exception e) {
                     Log.e("AdaptScreenUtils", "no field of mTmpMetrics in resources.");
                 }
@@ -91,9 +92,9 @@ public final class AdaptScreenUtils {
             isInitMiui = true;
             return ret;
         }
-        if (mTmpMetrics == null) return null;
+        if (mTmpMetricsField == null) return null;
         try {
-            return (DisplayMetrics) mTmpMetrics.get(resources);
+            return (DisplayMetrics) mTmpMetricsField.get(resources);
         } catch (Exception e) {
             return null;
         }

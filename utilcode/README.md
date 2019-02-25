@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.23.4'
+implementation 'com.blankj:utilcode:1.23.5'
 ```
 
 
@@ -699,7 +699,8 @@ isLenovo
 isSmartisan
 isHtc
 isSony
-isAmigo
+isGionee
+isMotorola
 getRomInfo
 ```
 

@@ -37,13 +37,13 @@ class BarStatusImageViewActivity : BaseActivity() {
             updateStatusBar()
         }
 
-        override fun onStartTrackingTouch(seekBar: SeekBar) {
+        override fun onStartTrackingTouch(seekBar: SeekBar) {}
 
-        }
+        override fun onStopTrackingTouch(seekBar: SeekBar) {}
+    }
 
-        override fun onStopTrackingTouch(seekBar: SeekBar) {
-
-        }
+    override fun isSwipeBack(): Boolean {
+        return true
     }
 
     override fun initData(bundle: Bundle?) {
@@ -62,9 +62,7 @@ class BarStatusImageViewActivity : BaseActivity() {
         updateStatusBar()
     }
 
-    override fun doBusiness() {
-
-    }
+    override fun doBusiness() {}
 
     override fun onWidgetClick(view: View) {
         when (view.id) {

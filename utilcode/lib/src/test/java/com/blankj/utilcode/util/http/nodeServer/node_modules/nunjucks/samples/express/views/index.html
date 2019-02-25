@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+Hello, {{ username | default('poop') | safe }}! This is just some content.
+
+<div id="dynamic"></div>
+{% endblock %}

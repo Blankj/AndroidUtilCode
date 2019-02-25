@@ -403,7 +403,9 @@ public final class ConvertUtils {
     public static String inputStream2String(final InputStream is, final String charsetName) {
         if (is == null || isSpace(charsetName)) return "";
         try {
-            return new String(inputStream2Bytes(is), charsetName);
+            ByteArrayOutputStream baos = input2OutputStream(is);
+            if (baos == null) return "";
+            return baos.toString(charsetName);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return "";

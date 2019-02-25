@@ -14,7 +14,7 @@ import android.text.style.ClickableSpan
 import android.text.style.UpdateAppearance
 import android.view.View
 import android.view.animation.LinearInterpolator
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.activity_span.*
  * desc  : demo about SpanUtils
  * ```
  */
-class SpanActivity : BaseBackActivity() {
+class SpanActivity : BaseTitleBarActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -53,9 +53,11 @@ class SpanActivity : BaseBackActivity() {
     private lateinit var mPrinterString: String
     internal var density: Float = 0f
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_span)
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_span
@@ -221,13 +223,9 @@ class SpanActivity : BaseBackActivity() {
         valueAnimator.start()
     }
 
-    override fun doBusiness() {
+    override fun doBusiness() {}
 
-    }
-
-    override fun onWidgetClick(view: View) {
-
-    }
+    override fun onWidgetClick(view: View) {}
 
 //    override fun onDestroy() {
 //        if (valueAnimator.isRunning) {

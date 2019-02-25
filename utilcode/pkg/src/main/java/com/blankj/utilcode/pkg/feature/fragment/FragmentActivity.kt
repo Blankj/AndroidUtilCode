@@ -11,6 +11,7 @@ import com.blankj.lib.base.BaseActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.FragmentUtils
 import kotlinx.android.synthetic.main.activity_fragment.*
+import kotlinx.android.synthetic.main.fragment_child.*
 
 /**
  * ```
@@ -29,7 +30,7 @@ class FragmentActivity : BaseActivity() {
         }
     }
 
-    private val mFragments = arrayOfNulls<Fragment>(3)
+    private val mFragments = arrayListOf<Fragment>()
     private var curIndex: Int = 0
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -50,9 +51,11 @@ class FragmentActivity : BaseActivity() {
         }
     }
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun isSwipeBack(): Boolean {
+        return true
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_fragment
@@ -62,38 +65,33 @@ class FragmentActivity : BaseActivity() {
         if (savedInstanceState != null) {
             curIndex = savedInstanceState.getInt("curIndex")
         }
-
         fragmentNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        mFragments[0] = RootFragment.newInstance()
-        mFragments[1] = RootFragment.newInstance()
-        mFragments[2] = RootFragment.newInstance()
+        mFragments.add(RootFragment.newInstance())
+        mFragments.add(RootFragment.newInstance())
+        mFragments.add(RootFragment.newInstance())
         FragmentUtils.add(
                 supportFragmentManager,
                 mFragments,
                 R.id.fragmentContainer,
-                arrayOf("0", "1", "2"),
+                arrayOf("RootFragment0", "RootFragment1", "RootFragment2"),
                 curIndex
         )
     }
 
-    override fun doBusiness() {
+    override fun doBusiness() {}
 
-    }
-
-    override fun onWidgetClick(view: View) {
-
-    }
+    override fun onWidgetClick(view: View) {}
 
     override fun onBackPressed() {
-        if (!FragmentUtils.dispatchBackPress(supportFragmentManager)) {
+        if (!FragmentUtils.dispatchBackPress(mFragments[curIndex])) {
             super.onBackPressed()
         }
     }
 
     private fun showCurrentFragment(index: Int) {
         curIndex = index
-        FragmentUtils.showHide(index, *mFragments)
+        FragmentUtils.showHide(index, mFragments)
     }
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {

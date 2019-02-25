@@ -8,6 +8,10 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
+import java.util.Scanner;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Future;
+
 /**
  * <pre>
  *     author: Blankj
@@ -22,28 +26,58 @@ public class BaseTest {
 
     public BaseTest() {
         ShadowLog.stream = System.out;
-        ReflectUtils.reflect("com.blankj.utilcode.util.ThreadUtils$Deliver")
-                .field("MAIN_HANDLER", null);
         Utils.init(RuntimeEnvironment.application);
     }
 
     @Test
     public void test() throws Exception {
 
+        final Scanner scanner = new Scanner(System.in);
+
+        final CountDownLatch countDownLatch = new CountDownLatch(1);
+        final Future<?> submit = ThreadUtils.getSinglePool().submit(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("haha0");
+                scanner.nextLine();
+                System.out.println("haha");
+                if (Thread.currentThread().isInterrupted()) {
+                    System.out.println(1);
+                }
+                for (int i = 0; i < 1000000; i++) {
+                    if (Thread.currentThread().isInterrupted()) {
+                        break;
+                    }
+//                    try {
+//                        Thread.sleep(100);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+                    System.out.println(i);
+                }
+            }
+        });
+        Thread.sleep(500);
+        scanner.close();
+        Thread.sleep(500);
+        submit.cancel(true);
+        countDownLatch.await();
 
 //        final CountDownLatch countDownLatch = new CountDownLatch(1);
 //        final Scanner scanner = new Scanner(System.in);
 //        ExecutorService singlePool = ThreadUtils.getSinglePool();
+//        final Thread[] thread = new Thread[1];
 //        singlePool.execute(new Runnable() {
 //            @Override
 //            public void run() {
+//                thread[0] = Thread.currentThread();
 //                for (int i = 0; i < 1000; i++) {
 //                    if (Thread.currentThread().isInterrupted()) {
 //                        break;
 //                    }
 //                    System.out.println(i);
 //                    try {
-//                        Thread.sleep(10);
+//                        Thread.sleep(100);
 //                    } catch (InterruptedException e) {
 //                        e.printStackTrace();
 //                    }
@@ -55,12 +89,14 @@ public class BaseTest {
 //            }
 //        });
 //        Thread.sleep(200);
+//        thread[0].interrupt();
+//        System.out.println("haha");
 //        singlePool.shutdownNow();
-//
-//
+
+
 //        countDownLatch.await();
 
-
+//
 //        final CountDownLatch countDownLatch = new CountDownLatch(1);
 //        final Scanner s = new Scanner(System.in);
 //        final ThreadUtils.SimpleTask<Void> task = new ThreadUtils.SimpleTask<Void>() {

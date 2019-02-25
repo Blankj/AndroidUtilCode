@@ -1,14 +1,12 @@
 package com.blankj.utilcode.pkg.feature.bar
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.view.View
 import com.blankj.lib.base.BaseLazyFragment
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.Utils
 import kotlinx.android.synthetic.main.fragment_bar_status_color.*
 
 /**
@@ -30,7 +28,7 @@ class BarStatusColorFragment : BaseLazyFragment() {
     private var mColor: Int = 0
 
     override fun initData(bundle: Bundle?) {
-        mColor = ContextCompat.getColor(Utils.getApp(), R.color.colorPrimary)
+        mColor = ColorUtils.getColor(R.color.colorPrimary)
     }
 
     override fun bindLayout(): Int {

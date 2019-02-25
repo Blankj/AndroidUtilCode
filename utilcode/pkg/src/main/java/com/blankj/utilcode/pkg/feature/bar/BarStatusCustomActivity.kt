@@ -27,23 +27,21 @@ class BarStatusCustomActivity : BaseActivity() {
         }
     }
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun isSwipeBack(): Boolean {
+        return true
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_bar_status_custom
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_bar)
-    }
+    override fun initView(savedInstanceState: Bundle?, contentView: View) {}
 
     override fun doBusiness() {
         BarUtils.setStatusBarColor(this, Color.TRANSPARENT).setBackgroundResource(R.drawable.bar_status_custom)
     }
 
-    override fun onWidgetClick(view: View) {
-
-    }
+    override fun onWidgetClick(view: View) {}
 }

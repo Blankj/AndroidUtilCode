@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.DeviceUtils
 import com.blankj.utilcode.util.SpanUtils
@@ -20,13 +20,17 @@ import java.util.*
  * desc : demo about DeviceUtils
  * ```
  */
-class DeviceActivity : BaseBackActivity() {
+class DeviceActivity : BaseTitleBarActivity() {
 
     companion object {
         fun start(context: Context) {
             val starter = Intent(context, DeviceActivity::class.java)
             context.startActivity(starter)
         }
+    }
+
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_device)
     }
 
     override fun initData(bundle: Bundle?) {
@@ -38,8 +42,6 @@ class DeviceActivity : BaseBackActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_device)
-
         deviceShutdownBtn.setOnClickListener(this)
         deviceRebootBtn.setOnClickListener(this)
         deviceReboot2RecoveryBtn.setOnClickListener(this)
@@ -62,9 +64,7 @@ class DeviceActivity : BaseBackActivity() {
                 .create()
     }
 
-    override fun doBusiness() {
-
-    }
+    override fun doBusiness() {}
 
     override fun onWidgetClick(view: View) {
         when (view.id) {

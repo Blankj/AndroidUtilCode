@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.feature.activity.ActivityActivity
 import com.blankj.utilcode.pkg.feature.adaptScreen.AdaptScreenActivity
@@ -27,6 +27,7 @@ import com.blankj.utilcode.pkg.feature.process.ProcessActivity
 import com.blankj.utilcode.pkg.feature.reflect.ReflectActivity
 import com.blankj.utilcode.pkg.feature.resource.ResourceActivity
 import com.blankj.utilcode.pkg.feature.rom.RomActivity
+import com.blankj.utilcode.pkg.feature.screen.ScreenActivity
 import com.blankj.utilcode.pkg.feature.sdcard.SDCardActivity
 import com.blankj.utilcode.pkg.feature.snackbar.SnackbarActivity
 import com.blankj.utilcode.pkg.feature.spStatic.SPStaticActivity
@@ -43,7 +44,7 @@ import com.blankj.utilcode.util.BusUtils
  * desc  :
  * ```
  */
-class CoreUtilActivity : BaseBackActivity() {
+class CoreUtilActivity : BaseTitleBarActivity() {
 
     companion object {
         @BusUtils.Subscribe(name = "CoreUtilActivity#start")
@@ -53,25 +54,21 @@ class CoreUtilActivity : BaseBackActivity() {
         }
     }
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.core_util)
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_util_core
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.core_util)
-    }
+    override fun initView(savedInstanceState: Bundle?, contentView: View) {}
 
-    override fun doBusiness() {
+    override fun doBusiness() {}
 
-    }
-
-    override fun onWidgetClick(view: View) {
-
-    }
+    override fun onWidgetClick(view: View) {}
 
     fun activityClick(view: View) {
         ActivityActivity.start(this)
@@ -159,6 +156,10 @@ class CoreUtilActivity : BaseBackActivity() {
 
     fun romClick(view: View) {
         RomActivity.start(this)
+    }
+
+    fun screenClick(view: View) {
+        ScreenActivity.start(this)
     }
 
     fun sdcardClick(view: View) {

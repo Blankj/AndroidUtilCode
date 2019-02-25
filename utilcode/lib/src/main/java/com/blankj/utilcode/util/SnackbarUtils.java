@@ -185,9 +185,9 @@ public final class SnackbarUtils {
     /**
      * Show the snackbar.
      */
-    public void show() {
+    public Snackbar show() {
         final View view = this.view;
-        if (view == null) return;
+        if (view == null) return null;
         if (messageColor != COLOR_DEFAULT) {
             SpannableString spannableString = new SpannableString(message);
             ForegroundColorSpan colorSpan = new ForegroundColorSpan(messageColor);
@@ -217,6 +217,7 @@ public final class SnackbarUtils {
             snackbar.setAction(actionText, actionListener);
         }
         snackbar.show();
+        return snackbar;
     }
 
     /**

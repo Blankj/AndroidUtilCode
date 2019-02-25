@@ -25,9 +25,7 @@ class BarStatusCustomFragment : BaseLazyFragment() {
         }
     }
 
-    override fun initData(bundle: Bundle?) {
-
-    }
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.fragment_bar_status_custom
@@ -41,7 +39,5 @@ class BarStatusCustomFragment : BaseLazyFragment() {
         LogUtils.d("doLazyBusiness() called")
     }
 
-    override fun onWidgetClick(view: View) {
-
-    }
+    override fun onWidgetClick(view: View) {}
 }

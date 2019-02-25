@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.ProcessUtils
 import com.blankj.utilcode.util.SpanUtils
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_process.*
  * desc  : demo about ProcessUtils
  * ```
  */
-class ProcessActivity : BaseBackActivity() {
+class ProcessActivity : BaseTitleBarActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -27,17 +27,17 @@ class ProcessActivity : BaseBackActivity() {
         }
     }
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_process)
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_process
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_process)
-
         processKillAllBackgroundProcesses.setOnClickListener(this)
         val set = ProcessUtils.getAllBackgroundProcesses()
         SpanUtils.with(processAboutTv)
@@ -49,9 +49,7 @@ class ProcessActivity : BaseBackActivity() {
                 .create()
     }
 
-    override fun doBusiness() {
-
-    }
+    override fun doBusiness() {}
 
     override fun onWidgetClick(view: View) {
         when (view.id) {

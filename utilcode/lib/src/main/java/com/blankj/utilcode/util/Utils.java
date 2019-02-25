@@ -42,14 +42,13 @@ import java.util.Set;
  */
 public final class Utils {
 
-    @SuppressLint("StaticFieldLeak")
-    private static Application sApplication;
-
-    private static final ActivityLifecycleImpl ACTIVITY_LIFECYCLE = new ActivityLifecycleImpl();
-
     private static final String PERMISSION_ACTIVITY_CLASS_NAME =
             "com.blankj.utilcode.util.PermissionUtils$PermissionActivity";
 
+    private static final ActivityLifecycleImpl ACTIVITY_LIFECYCLE = new ActivityLifecycleImpl();
+
+    @SuppressLint("StaticFieldLeak")
+    private static Application sApplication;
 
     private Utils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -306,10 +305,10 @@ public final class Utils {
             try {
                 @SuppressLint("PrivateApi")
                 Class<?> activityThreadClass = Class.forName("android.app.ActivityThread");
-                Object activityThread = activityThreadClass.getMethod("currentActivityThread").invoke(null);
-                Field activitiesField = activityThreadClass.getDeclaredField("mActivityList");
-                activitiesField.setAccessible(true);
-                Map activities = (Map) activitiesField.get(activityThread);
+                Object currentActivityThreadMethod = activityThreadClass.getMethod("currentActivityThread").invoke(null);
+                Field mActivityListField = activityThreadClass.getDeclaredField("mActivityList");
+                mActivityListField.setAccessible(true);
+                Map activities = (Map) mActivityListField.get(currentActivityThreadMethod);
                 if (activities == null) return null;
                 for (Object activityRecord : activities.values()) {
                     Class activityRecordClass = activityRecord.getClass();
@@ -343,20 +342,18 @@ public final class Utils {
             String[] leakViews = new String[]{"mLastSrvView", "mCurRootView", "mServedView", "mNextServedView"};
             for (String leakView : leakViews) {
                 try {
-                    Field declaredField = InputMethodManager.class.getDeclaredField(leakView);
-                    if (declaredField == null) continue;
-                    if (!declaredField.isAccessible()) {
-                        declaredField.setAccessible(true);
+                    Field leakViewField = InputMethodManager.class.getDeclaredField(leakView);
+                    if (leakViewField == null) continue;
+                    if (!leakViewField.isAccessible()) {
+                        leakViewField.setAccessible(true);
                     }
-                    Object obj = declaredField.get(imm);
+                    Object obj = leakViewField.get(imm);
                     if (!(obj instanceof View)) continue;
                     View view = (View) obj;
                     if (view.getRootView() == activity.getWindow().getDecorView().getRootView()) {
-                        declaredField.set(imm, null);
+                        leakViewField.set(imm, null);
                     }
-                } catch (Throwable th) {
-                    th.printStackTrace();
-                }
+                } catch (Throwable ignore) { /**/ }
             }
         }
     }

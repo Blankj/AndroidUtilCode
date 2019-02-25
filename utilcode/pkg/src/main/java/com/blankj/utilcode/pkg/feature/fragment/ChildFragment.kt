@@ -1,14 +1,15 @@
 package com.blankj.utilcode.pkg.feature.fragment
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
-import com.blankj.lib.base.BaseFragment
+import com.blankj.lib.base.BaseLazyFragment
 import com.blankj.utilcode.pkg.R
+import com.blankj.utilcode.pkg.helper.DialogHelper
+import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.FragmentUtils
 import com.blankj.utilcode.util.LogUtils
-import java.util.*
+import com.blankj.utilcode.util.SpanUtils
+import kotlinx.android.synthetic.main.fragment_child.*
 
 /**
  * ```
@@ -18,63 +19,51 @@ import java.util.*
  * desc  : demo about FragmentUtils
  * ```
  */
-class ChildFragment : BaseFragment(), FragmentUtils.OnBackClickListener {
+class ChildFragment : BaseLazyFragment() {
 
-    private var tvAboutFragment: TextView? = null
-
-    override fun initData(bundle: Bundle?) {
-
+    companion object {
+        fun newInstance(): ChildFragment {
+            val args = Bundle()
+            val fragment = ChildFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.fragment_child
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        val random = Random()
-        FragmentUtils.setBackgroundColor(this, Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)))
-        findViewById<View>(R.id.fragmentRootShowAboutBtn).setOnClickListener(this)
-        findViewById<View>(R.id.btn_pop).setOnClickListener(this)
-        tvAboutFragment = findViewById(R.id.fragmentRootAboutTv)
+        FragmentUtils.setBackgroundColor(this, ColorUtils.getRandomColor(false))
+        fragmentChildShowStackBtn.setOnClickListener(this)
+        fragmentChildPopBtn.setOnClickListener(this)
+        fragmentChildRemoveBtn.setOnClickListener(this)
     }
 
-    override fun doBusiness() {
-
-    }
+    override fun doLazyBusiness() {}
 
     override fun onWidgetClick(view: View) {
-        tvAboutFragment!!.text = ""
-        val i = view.id
-        if (i == R.id.fragmentRootShowAboutBtn) {
-            tvAboutFragment!!.text = ("top: " + FragmentUtils.getSimpleName(FragmentUtils.getTop(fragmentManager!!))
-                    + "\ntopInStack: " + FragmentUtils.getSimpleName(FragmentUtils.getTopInStack(fragmentManager!!))
-                    + "\ntopShow: " + FragmentUtils.getSimpleName(FragmentUtils.getTopShow(fragmentManager!!))
-                    + "\ntopShowInStack: " + FragmentUtils.getSimpleName(FragmentUtils.getTopShowInStack(fragmentManager!!))
-                    + "\n---all of fragments---\n"
-                    + FragmentUtils.getAllFragments(fragmentManager!!).toString()
-                    + "\n----------------------\n\n"
-                    + "---stack top---\n"
-                    + FragmentUtils.getAllFragmentsInStack(fragmentManager!!).toString()
-                    + "\n---stack bottom---\n\n")
-
-            //            case R.id.btn_pop:
-            //                FragmentUtils.popFragment(getFragmentManager());
-            //                break;
-        }
-    }
-
-    override fun onBackClick(): Boolean {
-        LogUtils.d("demo2 onBackClick")
-        return false
-    }
-
-    companion object {
-
-        fun newInstance(): ChildFragment {
-            val args = Bundle()
-            val fragment = ChildFragment()
-            fragment.arguments = args
-            return fragment
+        when (view.id) {
+            R.id.fragmentChildShowStackBtn -> DialogHelper.showFragmentDialog(
+                    SpanUtils().appendLine("top: " + FragmentUtils.getSimpleName(FragmentUtils.getTop(fragmentManager!!)))
+                            .appendLine("topInStack: " + FragmentUtils.getSimpleName(FragmentUtils.getTopInStack(fragmentManager!!)))
+                            .appendLine("topShow: " + FragmentUtils.getSimpleName(FragmentUtils.getTopShow(fragmentManager!!)))
+                            .appendLine("topShowInStack: " + FragmentUtils.getSimpleName(FragmentUtils.getTopShowInStack(fragmentManager!!)))
+                            .appendLine()
+                            .appendLine("---all of fragments---")
+                            .appendLine(FragmentUtils.getAllFragments(fragmentManager!!).toString())
+                            .appendLine("----------------------")
+                            .appendLine()
+                            .appendLine("---stack top---")
+                            .appendLine(FragmentUtils.getAllFragmentsInStack(fragmentManager!!).toString())
+                            .appendLine("---stack bottom---")
+                            .create()
+            )
+            R.id.fragmentChildPopBtn -> FragmentUtils.pop(fragmentManager!!);
+            R.id.fragmentChildRemoveBtn -> FragmentUtils.remove(this);
         }
     }
 }

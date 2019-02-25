@@ -7,25 +7,26 @@
     android:orientation="vertical"
     android:padding="@dimen/spacing_16">
 
-    <TextView
-        android:id="@+id/fragmentRootAboutTv"
-        style="@style/TextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <Button
-        android:id="@+id/fragmentRootShowAboutBtn"
+        android:id="@+id/fragmentChildShowStackBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/fragment_show_stack" />
 
     <Button
-        android:id="@+id/btn_pop"
+        android:id="@+id/fragmentChildPopBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/fragment_pop" />
+
+    <Button
+        android:id="@+id/fragmentChildRemoveBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_remove" />
 
     <ImageView
         android:layout_width="wrap_content"

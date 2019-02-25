@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.Config
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.ResourceUtils
@@ -19,13 +19,17 @@ import kotlinx.android.synthetic.main.activity_resource.*
  * desc  : demo about ResourceUtils
  * ```
  */
-class ResourceActivity : BaseBackActivity() {
+class ResourceActivity : BaseTitleBarActivity() {
 
     companion object {
         fun start(context: Context) {
             val starter = Intent(context, ResourceActivity::class.java)
             context.startActivity(starter)
         }
+    }
+
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_resource)
     }
 
     override fun initData(bundle: Bundle?) {
@@ -37,8 +41,6 @@ class ResourceActivity : BaseBackActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        setTitle(R.string.demo_resource)
-
         resourceCopyFileFromAssets.setOnClickListener(this)
         resourceCopyFileFromRaw.setOnClickListener(this)
 
@@ -49,9 +51,7 @@ class ResourceActivity : BaseBackActivity() {
                 .create()
     }
 
-    override fun doBusiness() {
-
-    }
+    override fun doBusiness() {}
 
     override fun onWidgetClick(view: View) {
         when (view.id) {

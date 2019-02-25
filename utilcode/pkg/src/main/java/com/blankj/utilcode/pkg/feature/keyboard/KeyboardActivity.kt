@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseBackActivity
+import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.DialogHelper
 import com.blankj.utilcode.util.KeyboardUtils
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_keyboard.*
  * desc  : demo about KeyboardUtils
  * ```
  */
-class KeyboardActivity : BaseBackActivity() {
+class KeyboardActivity : BaseTitleBarActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -28,9 +28,11 @@ class KeyboardActivity : BaseBackActivity() {
         }
     }
 
-    override fun initData(bundle: Bundle?) {
-
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_keyboard)
     }
+
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_keyboard
@@ -51,9 +53,7 @@ class KeyboardActivity : BaseBackActivity() {
         }
     }
 
-    override fun doBusiness() {
-
-    }
+    override fun doBusiness() {}
 
     override fun onWidgetClick(view: View) {
         when (view.id) {

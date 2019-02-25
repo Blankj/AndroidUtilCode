@@ -41,7 +41,8 @@ public final class RomUtils {
     private static final String[] ROM_SMARTISAN = {"smartisan"};
     private static final String[] ROM_HTC       = {"htc"};
     private static final String[] ROM_SONY      = {"sony"};
-    private static final String[] ROM_AMIGO     = {"amigo"};
+    private static final String[] ROM_GIONEE    = {"gionee", "amigo"};
+    private static final String[] ROM_MOTOROLA  = {"motorola"};
 
     private static final String VERSION_PROPERTY_HUAWEI  = "ro.build.version.emui";
     private static final String VERSION_PROPERTY_VIVO    = "ro.vivo.os.build.display.id";
@@ -223,12 +224,21 @@ public final class RomUtils {
     }
 
     /**
-     * Return whether the rom is made by amigo.
+     * Return whether the rom is made by gionee.
      *
      * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean isAmigo() {
-        return ROM_AMIGO[0].equals(getRomInfo().name);
+    public static boolean isGionee() {
+        return ROM_GIONEE[0].equals(getRomInfo().name);
+    }
+
+    /**
+     * Return whether the rom is made by motorola.
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isMotorola() {
+        return ROM_MOTOROLA[0].equals(getRomInfo().name);
     }
 
     /**
@@ -312,8 +322,10 @@ public final class RomUtils {
             bean.name = ROM_HTC[0];
         } else if (isRightRom(brand, manufacturer, ROM_SONY)) {
             bean.name = ROM_SONY[0];
-        } else if (isRightRom(brand, manufacturer, ROM_AMIGO)) {
-            bean.name = ROM_AMIGO[0];
+        } else if (isRightRom(brand, manufacturer, ROM_GIONEE)) {
+            bean.name = ROM_GIONEE[0];
+        } else if (isRightRom(brand, manufacturer, ROM_MOTOROLA)) {
+            bean.name = ROM_MOTOROLA[0];
         } else {
             bean.name = manufacturer;
         }
@@ -417,8 +429,8 @@ public final class RomUtils {
         try {
             @SuppressLint("PrivateApi")
             Class<?> clz = Class.forName("android.os.SystemProperties");
-            Method get = clz.getMethod("get", String.class, String.class);
-            return (String) get.invoke(clz, key, "");
+            Method getMethod = clz.getMethod("get", String.class, String.class);
+            return (String) getMethod.invoke(clz, key, "");
         } catch (Exception e) { /**/ }
         return "";
     }
@@ -437,8 +449,8 @@ public final class RomUtils {
 
         @Override
         public String toString() {
-            return "RomInfo{name: " + name +
-                    "\nversion: " + version + "}";
+            return "RomInfo{name=" + name +
+                    ", version=" + version + "}";
         }
     }
 }

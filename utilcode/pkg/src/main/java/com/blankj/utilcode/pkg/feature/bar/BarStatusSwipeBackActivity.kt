@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.view.View
 import android.widget.CompoundButton
 import android.widget.SeekBar
@@ -12,7 +11,6 @@ import com.blankj.lib.base.BaseActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ColorUtils
-import com.blankj.utilcode.util.Utils
 import com.r0adkll.slidr.Slidr
 import kotlinx.android.synthetic.main.activity_bar_status_swipe_back.*
 
@@ -43,13 +41,9 @@ class BarStatusSwipeBackActivity : BaseActivity() {
             updateStatusBar()
         }
 
-        override fun onStartTrackingTouch(seekBar: SeekBar) {
+        override fun onStartTrackingTouch(seekBar: SeekBar) {}
 
-        }
-
-        override fun onStopTrackingTouch(seekBar: SeekBar) {
-
-        }
+        override fun onStopTrackingTouch(seekBar: SeekBar) {}
     }
 
     private var mCheckedChangeListener: CompoundButton.OnCheckedChangeListener = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
@@ -69,8 +63,12 @@ class BarStatusSwipeBackActivity : BaseActivity() {
         updateStatusBar()
     }
 
+    override fun isSwipeBack(): Boolean {
+        return true
+    }
+
     override fun initData(bundle: Bundle?) {
-        mColor = ContextCompat.getColor(Utils.getApp(), R.color.colorPrimary)
+        mColor = ColorUtils.getColor(R.color.colorPrimary)
         mAlpha = 112
     }
 
@@ -90,9 +88,7 @@ class BarStatusSwipeBackActivity : BaseActivity() {
     }
 
 
-    override fun doBusiness() {
-
-    }
+    override fun doBusiness() {}
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
