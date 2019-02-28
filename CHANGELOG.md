@@ -1,3 +1,5 @@
+* `19/02/28` [fix] ImageUtils#calculateInSampleSize. Publish v1.23.6.
+* `19/02/26` [fix] UriUtils#uri2File. Publish v1.23.5.
 * `19/01/31` [add] HttpUtils.
 * `19/01/30` [add] RomUtils. Publish v1.23.4.
 * `19/01/29` [fix] LogUtils format json when json not start with '{'. Publish v1.23.3.
