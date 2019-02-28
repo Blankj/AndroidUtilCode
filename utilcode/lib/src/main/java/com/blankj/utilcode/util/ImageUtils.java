@@ -1919,7 +1919,9 @@ public final class ImageUtils {
         int height = options.outHeight;
         int width = options.outWidth;
         int inSampleSize = 1;
-        while ((width >>= 1) >= maxWidth && (height >>= 1) >= maxHeight) {
+        while (height > maxHeight || width > maxWidth) {
+            height >>= 1;
+            width >>= 1;
             inSampleSize <<= 1;
         }
         return inSampleSize;
