@@ -607,7 +607,7 @@ public final class TimeUtils {
         if (span < 0)
             // U can read http://www.apihome.cn/api/java/Formatter.html to understand it.
             return String.format("%tc", millis);
-        if (span < 1000) {
+        if (span < TimeConstants.SEC) {
             return "刚刚";
         } else if (span < TimeConstants.MIN) {
             return String.format(Locale.getDefault(), "%d秒前", span / TimeConstants.SEC);
