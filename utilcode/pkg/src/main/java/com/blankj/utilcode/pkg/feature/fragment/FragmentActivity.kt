@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.fragment.app.Fragment
 import android.view.View
 import com.blankj.lib.base.BaseActivity
 import com.blankj.utilcode.pkg.R
@@ -30,7 +30,7 @@ class FragmentActivity : BaseActivity() {
         }
     }
 
-    private val mFragments = arrayListOf<Fragment>()
+    private val mFragments = arrayListOf<androidx.fragment.app.Fragment>()
     private var curIndex: Int = 0
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->

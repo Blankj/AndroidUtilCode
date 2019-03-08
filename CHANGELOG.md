@@ -1,3 +1,4 @@
+* `19/03/09` [fix] UriUtils#uri2File.
 * `19/03/08` [add] LogUtils support multi process. Publish v1.23.7.
 * `19/03/02` [fix] LogUtils#file.
 * `19/02/28` [fix] ImageUtils#calculateInSampleSize. Publish v1.23.6.

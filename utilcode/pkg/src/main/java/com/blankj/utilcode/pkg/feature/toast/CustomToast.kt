@@ -2,7 +2,7 @@ package com.blankj.utilcode.pkg.feature.toast
 
 import android.os.Handler
 import android.os.Looper
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import android.widget.TextView
 import android.widget.Toast
 

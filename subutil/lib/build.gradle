@@ -1,7 +1,7 @@
 apply {
     from "${rootDir.path}/config_lib.gradle"
 
-    plugin "tech.harmonysoft.oss.traute"
+//    plugin "tech.harmonysoft.oss.traute"
     plugin "com.github.dcendents.android-maven"
     plugin "com.jfrog.bintray"
     plugin "readme-sub"
@@ -13,8 +13,8 @@ readme {
 }
 
 dependencies {
-    compileOnly dep.support.appcompat_v7
-    compileOnly dep.support.design
+    compileOnly dep.appcompat
+    compileOnly dep.design
     api(dep.glide) {
         exclude group: "com.android.support"
     }

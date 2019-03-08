@@ -1,6 +1,6 @@
 package com.blankj.utilcode.pkg.helper
 
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View

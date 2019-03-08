@@ -2,7 +2,7 @@ package com.blankj.lib.base
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import com.blankj.utilcode.util.AntiShakeUtils

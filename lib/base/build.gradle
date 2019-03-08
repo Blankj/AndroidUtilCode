@@ -7,9 +7,9 @@ dependencies {
     api project(':utilcode-lib')
     api project(':subutil-lib')
 
-    api dep.support.appcompat_v7
-    api dep.support.design
-    api dep.support.multidex
+    api dep.appcompat
+    api dep.design
+    api dep.multidex
     api dep.constraint
     api dep.kotlin
     api dep.free_proguard

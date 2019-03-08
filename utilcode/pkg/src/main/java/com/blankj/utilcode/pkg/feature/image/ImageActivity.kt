@@ -6,9 +6,9 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.annotation.StringRes
-import android.support.v7.widget.LinearLayoutManager
+import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -92,7 +92,7 @@ class ImageActivity : BaseActivity() {
         }
 
         imageRv.adapter = ImageAdapter(mList, R.layout.item_image)
-        imageRv.layoutManager = LinearLayoutManager(this)
+        imageRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
     }
 
     override fun doBusiness() {}

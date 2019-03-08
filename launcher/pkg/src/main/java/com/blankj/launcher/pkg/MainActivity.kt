@@ -2,7 +2,7 @@ package com.blankj.launcher.pkg
 
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.app.ActionBarDrawerToggle
+import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.View
 import android.widget.ImageView
 import com.blankj.lib.base.BaseDrawerActivity

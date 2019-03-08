@@ -2,7 +2,7 @@ ext {
     applicationId = 'com.blankj.androidutilcode'
     appName = 'Util'
 
-    compileSdkVersion = 27
+    compileSdkVersion = 28
     minSdkVersion = 14
     targetSdkVersion = 27
     versionCode = 1_023_007
@@ -16,8 +16,8 @@ ext {
 
     // lib version
     kotlin_version = '1.3.0'
-    support_version = '27.1.1'
     leakcanary_version = '1.6.3'
+    androidx_version = '1.0.0'
 
     dep = [
             plugin       : [
@@ -30,19 +30,18 @@ ext {
             ],
 
             // lib
-            support      : [
-                    appcompat_v7: "com.android.support:appcompat-v7:$support_version",
-                    design      : "com.android.support:design:$support_version",
-                    multidex    : "com.android.support:multidex:1.0.2",
-            ],
-            constraint   : "com.android.support.constraint:constraint-layout:1.1.3",
+            appcompat    : "androidx.appcompat:appcompat:$androidx_version",
+            design       : "com.google.android.material:material:$androidx_version",
+            multidex     : "androidx.multidex:multidex:2.0.1",
+            constraint   : "androidx.constraintlayout:constraintlayout:1.1.3",
+
             kotlin       : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
             leakcanary   : [
                     android         : "com.squareup.leakcanary:leakcanary-android:$leakcanary_version",
                     android_no_op   : "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version",
                     support_fragment: "com.squareup.leakcanary:leakcanary-support-fragment:$leakcanary_version"
             ],
-            free_proguard: "com.blankj:free-proguard:0.0.7",
+            free_proguard: "com.blankj:free-proguard:0.0.12",
             adapt_screen : "com.blankj:adapt-screen:0.0.3",
 
             gson         : "com.google.code.gson:gson:2.8.2",

@@ -2,8 +2,8 @@ package com.blankj.lib.base
 
 import android.content.Intent
 import android.net.Uri
-import android.support.annotation.StringRes
-import android.support.v4.widget.DrawerLayout
+import androidx.annotation.StringRes
+import androidx.drawerlayout.widget.DrawerLayout
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import com.blankj.utilcode.util.ActivityUtils
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_drawer.*
  */
 abstract class BaseDrawerActivity : BaseActivity() {
 
-    protected lateinit var mBaseDrawerRootLayout: DrawerLayout
+    protected lateinit var mBaseDrawerRootLayout: androidx.drawerlayout.widget.DrawerLayout
     protected lateinit var mBaseDrawerContainerView: FrameLayout
 
     override fun isSwipeBack(): Boolean {
