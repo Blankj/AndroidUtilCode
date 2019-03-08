@@ -2140,7 +2140,6 @@ public final class ImageUtils {
                 final int r = (color >> 16) & 0xff;
                 final int g = (color >> 8) & 0xff;
                 final int b = color & 0xff;
-                //将颜色值 使用权值方式 生成灰度值 更加准确
                 int gray = (int) (0.3 * r + 0.59 * g + 0.11 * b);
                 int newPixel = colorToRGB(255, gray, gray, gray);
 
