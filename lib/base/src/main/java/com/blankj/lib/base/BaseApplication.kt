@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.CrashUtils
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ProcessUtils
 import com.squareup.leakcanary.LeakCanary
 
 /**
@@ -73,7 +74,8 @@ open class BaseApplication : Application() {
                         return "LogUtils Formatter ArrayList { " + list.toString() + " }"
                     }
                 })
-        LogUtils.d(config.toString())
+        LogUtils.i(config.toString())
+        LogUtils.e(ProcessUtils.getCurrentProcessName())
     }
 
     private fun initCrash() {

@@ -1,7 +1,9 @@
 package com.blankj.utilcode.util;
 
+import android.app.ActivityManager;
 import android.content.ClipData;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -40,6 +42,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
@@ -117,7 +120,7 @@ public final class LogUtils {
     }
 
     public static void v(final Object... contents) {
-        log(V, CONFIG.mGlobalTag, contents);
+        log(V, CONFIG.getGlobalTag(), contents);
     }
 
     public static void vTag(final String tag, final Object... contents) {
@@ -125,7 +128,7 @@ public final class LogUtils {
     }
 
     public static void d(final Object... contents) {
-        log(D, CONFIG.mGlobalTag, contents);
+        log(D, CONFIG.getGlobalTag(), contents);
     }
 
     public static void dTag(final String tag, final Object... contents) {
@@ -133,7 +136,7 @@ public final class LogUtils {
     }
 
     public static void i(final Object... contents) {
-        log(I, CONFIG.mGlobalTag, contents);
+        log(I, CONFIG.getGlobalTag(), contents);
     }
 
     public static void iTag(final String tag, final Object... contents) {
@@ -141,7 +144,7 @@ public final class LogUtils {
     }
 
     public static void w(final Object... contents) {
-        log(W, CONFIG.mGlobalTag, contents);
+        log(W, CONFIG.getGlobalTag(), contents);
     }
 
     public static void wTag(final String tag, final Object... contents) {
@@ -149,7 +152,7 @@ public final class LogUtils {
     }
 
     public static void e(final Object... contents) {
-        log(E, CONFIG.mGlobalTag, contents);
+        log(E, CONFIG.getGlobalTag(), contents);
     }
 
     public static void eTag(final String tag, final Object... contents) {
@@ -157,7 +160,7 @@ public final class LogUtils {
     }
 
     public static void a(final Object... contents) {
-        log(A, CONFIG.mGlobalTag, contents);
+        log(A, CONFIG.getGlobalTag(), contents);
     }
 
     public static void aTag(final String tag, final Object... contents) {
@@ -165,11 +168,11 @@ public final class LogUtils {
     }
 
     public static void file(final Object content) {
-        log(FILE | D, CONFIG.mGlobalTag, content);
+        log(FILE | D, CONFIG.getGlobalTag(), content);
     }
 
     public static void file(@TYPE final int type, final Object content) {
-        log(FILE | type, CONFIG.mGlobalTag, content);
+        log(FILE | type, CONFIG.getGlobalTag(), content);
     }
 
     public static void file(final String tag, final Object content) {
@@ -181,11 +184,11 @@ public final class LogUtils {
     }
 
     public static void json(final Object content) {
-        log(JSON | D, CONFIG.mGlobalTag, content);
+        log(JSON | D, CONFIG.getGlobalTag(), content);
     }
 
     public static void json(@TYPE final int type, final Object content) {
-        log(JSON | type, CONFIG.mGlobalTag, content);
+        log(JSON | type, CONFIG.getGlobalTag(), content);
     }
 
     public static void json(final String tag, final Object content) {
@@ -197,11 +200,11 @@ public final class LogUtils {
     }
 
     public static void xml(final String content) {
-        log(XML | D, CONFIG.mGlobalTag, content);
+        log(XML | D, CONFIG.getGlobalTag(), content);
     }
 
     public static void xml(@TYPE final int type, final String content) {
-        log(XML | type, CONFIG.mGlobalTag, content);
+        log(XML | type, CONFIG.getGlobalTag(), content);
     }
 
     public static void xml(final String tag, final String content) {
@@ -213,25 +216,27 @@ public final class LogUtils {
     }
 
     public static void log(final int type, final String tag, final Object... contents) {
-        if (!CONFIG.mLogSwitch || (!CONFIG.mLog2ConsoleSwitch && !CONFIG.mLog2FileSwitch)) return;
+        if (!CONFIG.isLogSwitch()) return;
         int type_low = type & 0x0f, type_high = type & 0xf0;
-        if (type_low < CONFIG.mConsoleFilter && type_low < CONFIG.mFileFilter) return;
-        final TagHead tagHead = processTagAndHead(tag);
-        String body = processBody(type_high, contents);
-        if (CONFIG.mLog2ConsoleSwitch && type_low >= CONFIG.mConsoleFilter && type_high != FILE) {
-            print2Console(type_low, tagHead.tag, tagHead.consoleHead, body);
-        }
-        if ((CONFIG.mLog2FileSwitch || type_high == FILE) && type_low >= CONFIG.mFileFilter) {
-            print2File(type_low, tagHead.tag, tagHead.fileHead + body);
+        if (CONFIG.isLog2ConsoleSwitch() || CONFIG.isLog2FileSwitch() || type_high == FILE) {
+            if (type_low < CONFIG.mConsoleFilter && type_low < CONFIG.mFileFilter) return;
+            final TagHead tagHead = processTagAndHead(tag);
+            final String body = processBody(type_high, contents);
+            if (CONFIG.isLog2ConsoleSwitch() && type_high != FILE && type_low >= CONFIG.mConsoleFilter) {
+                print2Console(type_low, tagHead.tag, tagHead.consoleHead, body);
+            }
+            if ((CONFIG.isLog2FileSwitch() || type_high == FILE) && type_low >= CONFIG.mFileFilter) {
+                print2File(type_low, tagHead.tag, tagHead.fileHead + body);
+            }
         }
     }
 
     private static TagHead processTagAndHead(String tag) {
-        if (!CONFIG.mTagIsSpace && !CONFIG.mLogHeadSwitch) {
-            tag = CONFIG.mGlobalTag;
+        if (!CONFIG.mTagIsSpace && !CONFIG.isLogHeadSwitch()) {
+            tag = CONFIG.getGlobalTag();
         } else {
             final StackTraceElement[] stackTrace = new Throwable().getStackTrace();
-            final int stackIndex = 3 + CONFIG.mStackOffset;
+            final int stackIndex = 3 + CONFIG.getStackOffset();
             if (stackIndex >= stackTrace.length) {
                 StackTraceElement targetElement = stackTrace[3];
                 final String fileName = getFileName(targetElement);
@@ -247,7 +252,7 @@ public final class LogUtils {
                 int index = fileName.indexOf('.');// Use proguard may not find '.'.
                 tag = index == -1 ? fileName : fileName.substring(0, index);
             }
-            if (CONFIG.mLogHeadSwitch) {
+            if (CONFIG.isLogHeadSwitch()) {
                 String tName = Thread.currentThread().getName();
                 final String head = new Formatter()
                         .format("%s, %s.%s(%s:%d)",
@@ -258,12 +263,12 @@ public final class LogUtils {
                                 targetElement.getLineNumber())
                         .toString();
                 final String fileHead = " [" + head + "]: ";
-                if (CONFIG.mStackDeep <= 1) {
+                if (CONFIG.getStackDeep() <= 1) {
                     return new TagHead(tag, new String[]{head}, fileHead);
                 } else {
                     final String[] consoleHead =
                             new String[Math.min(
-                                    CONFIG.mStackDeep,
+                                    CONFIG.getStackDeep(),
                                     stackTrace.length - stackIndex
                             )];
                     consoleHead[0] = head;
@@ -350,7 +355,7 @@ public final class LogUtils {
                                       final String tag,
                                       final String[] head,
                                       final String msg) {
-        if (CONFIG.mSingleTagSwitch) {
+        if (CONFIG.isSingleTagSwitch()) {
             printSingleTagMsg(type, tag, processSingleTagMsg(type, tag, head, msg));
         } else {
             printBorder(type, tag, true);
@@ -361,7 +366,7 @@ public final class LogUtils {
     }
 
     private static void printBorder(final int type, final String tag, boolean isTop) {
-        if (CONFIG.mLogBorderSwitch) {
+        if (CONFIG.isLogBorderSwitch()) {
             Log.println(type, tag, isTop ? TOP_BORDER : BOTTOM_BORDER);
         }
     }
@@ -369,9 +374,9 @@ public final class LogUtils {
     private static void printHead(final int type, final String tag, final String[] head) {
         if (head != null) {
             for (String aHead : head) {
-                Log.println(type, tag, CONFIG.mLogBorderSwitch ? LEFT_BORDER + aHead : aHead);
+                Log.println(type, tag, CONFIG.isLogBorderSwitch() ? LEFT_BORDER + aHead : aHead);
             }
-            if (CONFIG.mLogBorderSwitch) Log.println(type, tag, MIDDLE_BORDER);
+            if (CONFIG.isLogBorderSwitch()) Log.println(type, tag, MIDDLE_BORDER);
         }
     }
 
@@ -393,7 +398,7 @@ public final class LogUtils {
     }
 
     private static void printSubMsg(final int type, final String tag, final String msg) {
-        if (!CONFIG.mLogBorderSwitch) {
+        if (!CONFIG.isLogBorderSwitch()) {
             Log.println(type, tag, msg);
             return;
         }
@@ -410,7 +415,7 @@ public final class LogUtils {
                                               final String msg) {
         StringBuilder sb = new StringBuilder();
         sb.append(PLACEHOLDER).append(LINE_SEP);
-        if (CONFIG.mLogBorderSwitch) {
+        if (CONFIG.isLogBorderSwitch()) {
             sb.append(TOP_BORDER).append(LINE_SEP);
             if (head != null) {
                 for (String aHead : head) {
@@ -437,7 +442,7 @@ public final class LogUtils {
         int len = msg.length();
         int countOfSub = len / MAX_LEN;
         if (countOfSub > 0) {
-            if (CONFIG.mLogBorderSwitch) {
+            if (CONFIG.isLogBorderSwitch()) {
                 Log.println(type, tag, msg.substring(0, MAX_LEN) + LINE_SEP + BOTTOM_BORDER);
                 int index = MAX_LEN;
                 for (int i = 1; i < countOfSub; i++) {
@@ -473,7 +478,7 @@ public final class LogUtils {
         String date = format.substring(0, 10);
         String time = format.substring(11);
         final String fullPath =
-                CONFIG.getDir() + CONFIG.getFilePrefix() + "-" + date + ".txt";
+                CONFIG.getDir() + CONFIG.getFilePrefix() + "-" + date + "-" + CONFIG.getProcessName() + ".txt";
         if (!createOrExistsFile(fullPath)) {
             Log.e("LogUtils", "create " + fullPath + " failed!");
             return;
@@ -516,20 +521,21 @@ public final class LogUtils {
     }
 
     private static void deleteDueLogs(String filePath) {
+        if (CONFIG.getSaveDays() <= 0) return;
         File file = new File(filePath);
         File parentFile = file.getParentFile();
         File[] files = parentFile.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                return name.matches("^" + CONFIG.getFilePrefix() + "-[0-9]{4}-[0-9]{2}-[0-9]{2}.txt$");
+                return name.matches("^" + CONFIG.getFilePrefix() + "-[0-9]{4}-[0-9]{2}-[0-9]{2}-" + CONFIG.getProcessName() + ".txt$");
             }
         });
-        if (files.length <= 0) return;
+        if (files == null || files.length <= 0) return;
         final int length = filePath.length();
         final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         try {
             String curDay = filePath.substring(length - 14, length - 4);
-            long dueMillis = sdf.parse(curDay).getTime() - CONFIG.mSaveDays * 86400000L;
+            long dueMillis = sdf.parse(curDay).getTime() - CONFIG.getSaveDays() * 86400000L;
             for (final File aFile : files) {
                 String name = aFile.getName();
                 int l = name.length();
@@ -622,7 +628,7 @@ public final class LogUtils {
         private String  mFilePrefix        = "util";// The file prefix of log.
         private boolean mLogSwitch         = true;  // The switch of log.
         private boolean mLog2ConsoleSwitch = true;  // The logcat's switch of log.
-        private String  mGlobalTag         = "";  // The global tag of log.
+        private String  mGlobalTag         = "";    // The global tag of log.
         private boolean mTagIsSpace        = true;  // The global tag is space.
         private boolean mLogHeadSwitch     = true;  // The head's switch of log.
         private boolean mLog2FileSwitch    = false; // The file's switch of log.
@@ -633,6 +639,7 @@ public final class LogUtils {
         private int     mStackDeep         = 1;     // The stack's deep of log.
         private int     mStackOffset       = 0;     // The stack's offset of log.
         private int     mSaveDays          = -1;    // The save days of log.
+        private String  mProcessName       = getCurrentProcessName();
 
         private Config() {
             if (mDefaultDir != null) return;
@@ -740,6 +747,10 @@ public final class LogUtils {
             return this;
         }
 
+        public String getProcessName() {
+            return mProcessName;
+        }
+
         public String getDefaultDir() {
             return mDefaultDir;
         }
@@ -801,9 +812,26 @@ public final class LogUtils {
             return mSaveDays;
         }
 
+        private static String getCurrentProcessName() {
+            ActivityManager am = (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
+            if (am == null) return "";
+            List<ActivityManager.RunningAppProcessInfo> info = am.getRunningAppProcesses();
+            if (info == null || info.size() == 0) return "";
+            int pid = android.os.Process.myPid();
+            for (ActivityManager.RunningAppProcessInfo aInfo : info) {
+                if (aInfo.pid == pid) {
+                    if (aInfo.processName != null) {
+                        return aInfo.processName;
+                    }
+                }
+            }
+            return "";
+        }
+
         @Override
         public String toString() {
-            return "switch: " + isLogSwitch()
+            return "process: " + getProcessName()
+                    + LINE_SEP + "switch: " + isLogSwitch()
                     + LINE_SEP + "console: " + isLog2ConsoleSwitch()
                     + LINE_SEP + "tag: " + getGlobalTag()
                     + LINE_SEP + "head: " + isLogHeadSwitch()
