@@ -35,7 +35,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -45,6 +44,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.ByteBuffer;
 
 /**
  * <pre>
@@ -1595,6 +1595,130 @@ public final class ImageUtils {
         return getFileExtension(file.getAbsolutePath()).toUpperCase();
     }
 
+    /**
+     * Convert Bitmap to NV21 data.
+     *
+     * @param src    The source of bitmap in the format of{@link Bitmap.Config#ARGB_8888}.
+     * @param width  The width of NV21 data.
+     * @param height The height of NV21 data.
+     * @return NV21 data.
+     */
+    public static byte[] bitmapToNv21(Bitmap src, int width, int height) {
+        if (src != null && src.getWidth() >= width && src.getHeight() >= height) {
+            int[] argb = new int[width * height];
+            src.getPixels(argb, 0, width, 0, 0, width, height);
+            return argbToNv21(argb, width, height);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Convert ARGB data to NV21 data.
+     *
+     * @param argb   The ARGB data.
+     * @param width  The width of NV21 data.
+     * @param height The height of NV21 data.
+     * @return NV21 data.
+     */
+    private static byte[] argbToNv21(int[] argb, int width, int height) {
+        int frameSize = width * height;
+        int yIndex = 0;
+        int uvIndex = frameSize;
+        int index = 0;
+        byte[] nv21 = new byte[width * height * 3 / 2];
+        for (int j = 0; j < height; ++j) {
+            for (int i = 0; i < width; ++i) {
+                int R = (argb[index] & 0xFF0000) >> 16;
+                int G = (argb[index] & 0x00FF00) >> 8;
+                int B = argb[index] & 0x0000FF;
+                int Y = (66 * R + 129 * G + 25 * B + 128 >> 8) + 16;
+                int U = (-38 * R - 74 * G + 112 * B + 128 >> 8) + 128;
+                int V = (112 * R - 94 * G - 18 * B + 128 >> 8) + 128;
+                nv21[yIndex++] = (byte) (Y < 0 ? 0 : (Y > 255 ? 255 : Y));
+                if (j % 2 == 0 && index % 2 == 0 && uvIndex < nv21.length - 2) {
+                    nv21[uvIndex++] = (byte) (V < 0 ? 0 : (V > 255 ? 255 : V));
+                    nv21[uvIndex++] = (byte) (U < 0 ? 0 : (U > 255 ? 255 : U));
+                }
+
+                ++index;
+            }
+        }
+        return nv21;
+    }
+
+    /**
+     * Convert Bitmap to BGR data.
+     *
+     * @param src The source of bitmap in the format of{@link Bitmap.Config#ARGB_8888}.
+     * @return BGR data.
+     */
+    public static byte[] bitmapToBgr(Bitmap src) {
+        if (src == null) {
+            return null;
+        }
+        int bytes = src.getByteCount();
+
+        ByteBuffer buffer = ByteBuffer.allocate(bytes);
+        src.copyPixelsToBuffer(buffer);
+        byte[] temp = buffer.array();
+        byte[] pixels = new byte[(temp.length / 4) * 3];
+        for (int i = 0; i < temp.length / 4; i++) {
+            pixels[i * 3] = temp[i * 4 + 2];
+            pixels[i * 3 + 1] = temp[i * 4 + 1];
+            pixels[i * 3 + 2] = temp[i * 4];
+        }
+        return pixels;
+    }
+
+    /**
+     * Calculating the clarity of a picture based on Laplacian.
+     *
+     * @param file The file.
+     * @return The larger the value, the clearer the picture
+     */
+    public static double getLaplacian(File file){
+        if (file==null) return 0;
+        Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+        int[] grayImage = grayImage(bitmap);
+        int[] convolution = convolution(grayImage,bitmap.getWidth(),bitmap.getHeight());
+        double v = calcVariance(convolution);
+        return v;
+    }
+
+    /**
+     * Calculating the clarity of a picture based on Laplacian.
+     *
+     * @param filePath The path of file.
+     * @return The larger the value, the clearer the picture
+     */
+    public static double getLaplacian(String filePath){
+        if (filePath==null) return 0;
+        Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+        int[] grayImage = grayImage(bitmap);
+        int[] convolution = convolution(grayImage,bitmap.getWidth(),bitmap.getHeight());
+        double v = calcVariance(convolution);
+        return v;
+    }
+
+    /**
+     * Calculating the clarity of a picture based on Laplacian.
+     *
+     * @param src The source of bitmap.
+     * @return The larger the value, the clearer the picture
+     */
+    public static double getLaplacian(Bitmap src){
+        if (src==null) return 0;
+        int[] grayImage = grayImage(src);
+        int[] convolution = convolution(grayImage,src.getWidth(),src.getHeight());
+        double v = calcVariance(convolution);
+        return v;
+    }
+
+
+
+
+
     private static String getFileExtension(final String filePath) {
         if (isSpace(filePath)) return filePath;
         int lastPoi = filePath.lastIndexOf('.');
@@ -1982,4 +2106,120 @@ public final class ImageUtils {
             }
         }
     }
+
+
+
+
+    /**
+     * Convert color to rgb
+     */
+    private static int colorToRGB(int alpha, int red, int green, int blue) {
+        int newPixel = 0;
+        newPixel += alpha;
+        newPixel = newPixel << 8;
+        newPixel += red;
+        newPixel = newPixel << 8;
+        newPixel += green;
+        newPixel = newPixel << 8;
+        newPixel += blue;
+
+        return newPixel;
+    }
+
+    /**
+     * Convert image to grayscale array
+     */
+    private static int[] grayImage(Bitmap image) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+        int [] grey = new int[width * height];
+        for (int j = 0; j < height; j++) {
+            for (int i = 0; i < width; i++) {
+                final int color = image.getPixel(i, j);
+                long otColor = color;
+                final int r = (color >> 16) & 0xff;
+                final int g = (color >> 8) & 0xff;
+                final int b = color & 0xff;
+                //将颜色值 使用权值方式 生成灰度值 更加准确
+                int gray = (int) (0.3 * r + 0.59 * g + 0.11 * b);
+                int newPixel = colorToRGB(255, gray, gray, gray);
+
+                grey[i + j * width] = newPixel;
+            }
+        }
+        return grey;
+    }
+
+    /**
+     * Calculating convolution values through gray-scale arrays and Laplacian operators
+     */
+    private static int[] convolution(int[] gray,int width,int height) {
+        int[] lapras = new int[] { 0, -1, 0, -1, 4, -1, 0, -1, 0 };
+        int total = width * height;
+        int[] output = new int[total];
+
+        int offset = 0;
+        int k0 = 0, k1 = 0, k2 = 0;
+        int k3 = 0, k4 = 0, k5 = 0;
+        int k6 = 0, k7 = 0, k8 = 0;
+        k0 = lapras[0];
+        k1 = lapras[1];
+        k2 = lapras[2];
+        k3 = lapras[3];
+        k4 = lapras[4];
+        k5 = lapras[5];
+        k6 = lapras[6];
+        k7 = lapras[7];
+        k8 = lapras[8];
+
+        int sr = 0;
+        int r = 0;
+        for (int row = 1; row < height - 1; row++) {
+            offset = row * width;
+            for (int col = 1; col < width - 1; col++) {
+                // red
+                sr = k0 * ((gray[offset - width + col - 1] >> 16) & 0xff)
+                    + k1 * (gray[offset - width + col] & 0xff)
+                    + k2 * (gray[offset - width + col + 1] & 0xff)
+                    + k3 * (gray[offset + col - 1] & 0xff)
+                    + k4 * (gray[offset + col] & 0xff)
+                    + k5 * (gray[offset + col + 1] & 0xff)
+                    + k6 * (gray[offset + width + col - 1] & 0xff)
+                    + k7 * (gray[offset + width + col] & 0xff)
+                    + k8 * (gray[offset + width + col + 1] & 0xff);
+                r = sr;
+
+                r = r > 255 ? 255 :( (r < 0) ? 0: r);
+                output[offset+col]= r;
+
+                // for next pixel
+                sr = 0;
+            }
+        }
+        return output;
+    }
+
+    /**
+     * Calculating variance
+     * @param values Array used to calculate the variance
+     * @return Variance
+     */
+    private static double calcVariance(int[] values) {
+        double variance = 0;
+        double average = 0;
+        int i,len = values.length;
+        double sum=0, sum2=0;
+        for(i = 0; i< len; i ++){
+            sum += values[i];
+        }
+
+        average = sum/ len;
+
+        for(i = 0; i < len; i++){
+            sum2 += ((double)values[i]-average)*((double)values[i]-average);
+        }
+        variance = sum2/ len;
+        return variance;
+    }
+
 }
