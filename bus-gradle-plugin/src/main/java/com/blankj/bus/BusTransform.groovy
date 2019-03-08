@@ -105,10 +105,10 @@ class BusTransform extends Transform {
 
         if (busScan.busJar != null) {
             File jsonFile = new File(mProject.projectDir.getAbsolutePath(), "__bus__.json")
-            String busJson = JsonUtils.getFormatJson(busScan.busMap)
+            String busJson = JsonUtils.getFormatJson(busScan.busStaticMap)
             LogUtils.l(jsonFile.toString() + ": " + busJson)
             FileUtils.write(jsonFile, busJson)
-            BusInject.start(busScan.busMap, busScan.busJar)
+            BusInject.start(busScan.busStaticMap, busScan.busJar)
         } else {
             LogUtils.l('u should <implementation "com.blankj:utilcode:1.22.+">')
         }

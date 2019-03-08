@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.CrashUtils
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.MessengerUtils
 import com.squareup.leakcanary.LeakCanary
 
 /**
@@ -35,6 +36,7 @@ open class BaseApplication : Application() {
         initLeakCanary()
         initLog()
         initCrash()
+        MessengerUtils.init()
     }
 
     private fun initLeakCanary() {// 内存泄露检查工具
@@ -73,7 +75,7 @@ open class BaseApplication : Application() {
                         return "LogUtils Formatter ArrayList { " + list.toString() + " }"
                     }
                 })
-        LogUtils.d(config.toString())
+        LogUtils.file(config.toString())
     }
 
     private fun initCrash() {

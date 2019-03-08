@@ -45,11 +45,11 @@ class MainActivity : BaseDrawerActivity() {
         BarUtils.addMarginTopEqualStatusBarHeight(launcherMainToolbar)
 
         launcherMainCoreUtilBtn.setOnClickListener {
-            BusUtils.post<Any>("CoreUtilActivity#start", this)
+            BusUtils.postStatic<Any>("CoreUtilActivity#start", this)
         }
 
         launcherMainSubUtilBtn.setOnClickListener {
-            BusUtils.post<Any>("SubUtilActivity#start", this)
+            BusUtils.postStatic<Any>("SubUtilActivity#start", this)
         }
     }
 

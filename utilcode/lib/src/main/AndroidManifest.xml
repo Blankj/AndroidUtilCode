@@ -12,12 +12,19 @@
         <provider
             android:name="com.blankj.utilcode.util.Utils$FileProvider4UtilCode"
             android:authorities="${applicationId}.utilcode.provider"
-            android:exported="false"
             android:grantUriPermissions="true"
             android:multiprocess="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/util_code_provider_paths" />
         </provider>
+
+        <service
+            android:name="com.blankj.utilcode.util.MessengerUtils$ServerService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="${applicationId}.messenger" />
+            </intent-filter>
+        </service>
     </application>
 </manifest>

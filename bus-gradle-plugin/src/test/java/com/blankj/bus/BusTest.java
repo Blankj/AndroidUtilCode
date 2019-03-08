@@ -19,7 +19,7 @@ public class BusTest {
 //        mPool.appendSystemPath();
 //        mPool.appendClassPath(rootPath);
 //        mPool.appendClassPath("/Users/blankj/Library/Android/sdk/platforms/android-27/android.jar");
-//        HashMap<String, String> busMap = new HashMap<>();
+//        HashMap<String, String> busStaticMap = new HashMap<>();
 //        if (root.isDirectory()) {
 //            Collection<File> files = FileUtils.listFiles(root, new String[]{"class"}, true);
 //
@@ -38,21 +38,21 @@ public class BusTest {
 //                for (CtMethod method : methods) {
 //                    if (method.hasAnnotation(BusUtils.Subscribe.class)) {
 //                        String name = ((BusUtils.Subscribe) method.getAnnotation(BusUtils.Subscribe.class)).name();
-//                        if (busMap.containsKey(name)) {
+//                        if (busStaticMap.containsKey(name)) {
 //                            System.out.println("bus of " + name + " has registered." + method.getLongName());
 //                            continue;
 //                        }
 //                        String longMethodName = method.getLongName();
 //                        if (Modifier.isStatic(method.getModifiers())) {
 //                            String sign = method.getReturnType().getName() + ' ' + longMethodName;
-//                            busMap.put(name, sign);
+//                            busStaticMap.put(name, sign);
 //                        } else {// may be is kotlin
-//                            processKt(mPool, busMap, method, name, longMethodName);
+//                            processKt(mPool, busStaticMap, method, name, longMethodName);
 //                        }
 //                    }
 //                }
 //            }
-//            System.out.println(JsonUtils.getFormatJson(busMap));
+//            System.out.println(JsonUtils.getFormatJson(busStaticMap));
 //        }
 //        CtClass ctClass = mPool.makeClass("com.blankj.bus.BusUtils");
 //
@@ -64,13 +64,13 @@ public class BusTest {
 //
 //        CtMethod make = CtNewMethod.make(src, ctClass);
 //        ctClass.addMethod(make);
-//        make.insertAfter(getInsertContent(busMap));
+//        make.insertAfter(getInsertContent(busStaticMap));
 //        ctClass.debugWriteFile();
 //
 //    }
 //
 //    private void processKt(ClassPool mPool,
-//                           HashMap<String, String> busMap,
+//                           HashMap<String, String> busStaticMap,
 //                           CtMethod method, String name,
 //                           String longMethodName) throws NotFoundException {
 //        CtClass innerClass = method.getDeclaringClass();
@@ -85,7 +85,7 @@ public class BusTest {
 //                    + ".INSTANCE"
 //                    + longMethodName.substring(j);
 //            System.out.println(sign);
-//            busMap.put(name, sign);
+//            busStaticMap.put(name, sign);
 //        } catch (NotFoundException ignore) {
 //            String innerClassSimpleName = innerClass.getSimpleName();
 //            if (innerClassSimpleName.contains("$") && !innerClassSimpleName.endsWith("$")) {
@@ -97,7 +97,7 @@ public class BusTest {
 //                    String fieldName = ctField.getName();
 //                    String methodName = longMethodName.replace("$" + fieldName, "." + fieldName);
 //                    String sign = method.getReturnType().getName() + ' ' + methodName;
-//                    busMap.put(name, sign);
+//                    busStaticMap.put(name, sign);
 //                } catch (NotFoundException e) {
 //                    System.out.println(longMethodName + "is not static");
 //                }

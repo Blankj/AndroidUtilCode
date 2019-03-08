@@ -38,7 +38,8 @@
     <application>
         <activity
             android:name=".feature.CoreUtilActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:process=":remote" />
 
         <activity
             android:name=".feature.activity.ActivityActivity"
