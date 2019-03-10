@@ -16,6 +16,7 @@ import android.os.RemoteException;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -44,11 +45,11 @@ public class MessengerUtils {
 
     public static void init() {
         if (isMainProcess()) {
-            LogUtils.e();
+            LogUtils.e("init " + getCurrentProcessName());
             Intent intent = new Intent(Utils.getApp(), ServerService.class);
             Utils.getApp().startService(intent);
         } else {
-            LogUtils.e();
+            LogUtils.e("init " + getCurrentProcessName());
             registerClient();
         }
     }
@@ -79,14 +80,14 @@ public class MessengerUtils {
     public static void post(@NonNull String key, @NonNull Bundle data) {
         data.putString(KEY_STRING, key);
         if (sLocalClient != null) {
-            sLocalClient.sendMsg(data);
+            sLocalClient.sendMsg2Server(data);
         } else {
             Intent intent = new Intent(Utils.getApp(), ServerService.class);
             intent.putExtras(data);
             Utils.getApp().startService(intent);
         }
 //        if (otherAppClient != null) {
-//            otherAppClient.sendMsg(data);
+//            otherAppClient.sendMsg2Server(data);
 //        }
     }
 
@@ -149,16 +150,18 @@ public class MessengerUtils {
                 try {
                     mServer.send(subscribeMsg);
                 } catch (RemoteException e) {
-                    e.printStackTrace();
+                    Log.e("MessengerUtils", "onServiceConnected: ", e);
                 }
-                sendCachedMsg();
+                sendCachedMsg2Server();
             }
 
             @Override
             public void onServiceDisconnected(ComponentName name) {
-                LogUtils.d("client service disconnected", name);
+                Log.w("MessengerUtils", "client service disconnected:" + name);
                 mServer = null;
-//            connect();
+                if (!bind()) {
+                    Log.e("MessengerUtils", "client service rebind failed: " + name);
+                }
             }
         };
 
@@ -181,26 +184,37 @@ public class MessengerUtils {
             Utils.getApp().unbindService(mConn);
         }
 
-        void sendMsg(Bundle bundle) {
-            if (mServer != null) {
-                sendCachedMsg();
-                Message msg = Message.obtain(mHandler, SEND_MSG_TO_TARGET);
-                msg.setData(bundle);
-                msg.replyTo = mClient;
-                try {
-                    mServer.send(msg);
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-            } else {
+        void sendMsg2Server(Bundle bundle) {
+            if (mServer == null) {
                 mCached.addFirst(bundle);
+                LogUtils.d("save the bundle", bundle);
+            } else {
+                sendCachedMsg2Server();
+                if (!send2Server(bundle)) {
+                    mCached.addFirst(bundle);
+                }
             }
         }
 
-        private void sendCachedMsg() {
-            for (int i = mCached.size() - 1; i >= 0; i--) {
-                sendMsg(mCached.get(i));
-                mCached.remove(i);
+        private void sendCachedMsg2Server() {
+            if (mCached.isEmpty()) return;
+            for (int i = mCached.size() - 1; i >= 0; --i) {
+                if (send2Server(mCached.get(i))) {
+                    mCached.remove(i);
+                }
+            }
+        }
+
+        private boolean send2Server(Bundle bundle) {
+            Message msg = Message.obtain(mHandler, SEND_MSG_TO_TARGET);
+            msg.setData(bundle);
+            msg.replyTo = mClient;
+            try {
+                mServer.send(msg);
+                return true;
+            } catch (RemoteException e) {
+                Log.e("MessengerUtils", "send2Server: ", e);
+                return false;
             }
         }
     }

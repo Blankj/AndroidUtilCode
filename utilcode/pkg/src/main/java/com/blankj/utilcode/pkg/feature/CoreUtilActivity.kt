@@ -35,6 +35,8 @@ import com.blankj.utilcode.pkg.feature.span.SpanActivity
 import com.blankj.utilcode.pkg.feature.toast.ToastActivity
 import com.blankj.utilcode.pkg.feature.vibrate.VibrateActivity
 import com.blankj.utilcode.util.BusUtils
+import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.MessengerUtils
 
 /**
  * ```
@@ -61,6 +63,11 @@ class CoreUtilActivity : BaseTitleBarActivity() {
     override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
+        MessengerUtils.subscribe("core", object: MessengerUtils.MessageCallback {
+            override fun onMsgCallBack(data: Bundle?) {
+                LogUtils.eTag("Messenger", data)
+            }
+        })
         return R.layout.activity_util_core
     }
 

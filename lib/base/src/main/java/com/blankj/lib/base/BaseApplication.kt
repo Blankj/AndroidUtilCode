@@ -6,11 +6,7 @@ import android.support.multidex.MultiDex
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.CrashUtils
 import com.blankj.utilcode.util.LogUtils
-<<<<<<< HEAD
 import com.blankj.utilcode.util.MessengerUtils
-=======
-import com.blankj.utilcode.util.ProcessUtils
->>>>>>> master
 import com.squareup.leakcanary.LeakCanary
 
 /**

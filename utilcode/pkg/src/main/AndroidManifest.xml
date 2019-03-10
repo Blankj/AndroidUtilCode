@@ -38,14 +38,14 @@
     <application>
         <activity
             android:name=".feature.CoreUtilActivity"
-            android:launchMode="singleTop"
-            android:process=":remote" />
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".feature.activity.ActivityActivity"
             android:icon="@drawable/activity_activity_icon"
             android:launchMode="singleTop"
-            android:logo="@drawable/activity_activity_logo" />
+            android:logo="@drawable/activity_activity_logo"
+            android:process=":remote" />
         <activity
             android:name=".feature.activity.SubActivityActivity"
             android:launchMode="singleTop" />
