@@ -65,7 +65,8 @@ class AppActivity : BaseTitleBarActivity() {
                 .appendLine("isAppRoot: " + AppUtils.isAppRoot())
                 .appendLine("isAppDebug: " + AppUtils.isAppDebug())
                 .appendLine("isAppSystem: " + AppUtils.isAppSystem())
-                .appendLine("isAppForeground: " + AppUtils.isAppForeground())
+                .appendLine("isAppForeground: " + AppUtils.isAppForeground("com.blankj.androidutilcode"))
+                .appendLine("isAppRunning: " + AppUtils.isAppRunning("com.blankj.androidutilcode"))
                 .append("getAppIcon: ").appendImage(AppUtils.getAppIcon(), SpanUtils.ALIGN_CENTER)
                 .appendLine()
                 .appendLine("getAppPackageName: " + AppUtils.getAppPackageName())
@@ -76,6 +77,7 @@ class AppActivity : BaseTitleBarActivity() {
                 .appendLine("getAppSignatureSHA1: " + AppUtils.getAppSignatureSHA1())
                 .appendLine("getAppSignatureSHA256: " + AppUtils.getAppSignatureSHA256())
                 .appendLine("getAppSignatureMD5: " + AppUtils.getAppSignatureMD5())
+                .appendLine("getAppUid: " + AppUtils.getAppUid())
                 .append("getApkInfo: " + AppUtils.getApkInfo(AppUtils.getAppPath()))
                 .create()
     }

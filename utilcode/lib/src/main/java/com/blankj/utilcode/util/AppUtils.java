@@ -286,13 +286,13 @@ public final class AppUtils {
     /**
      * Return whether the app is installed.
      *
-     * @param packageName The name of the package.
+     * @param pkgName The name of the package.
      * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean isAppInstalled(@NonNull final String packageName) {
+    public static boolean isAppInstalled(@NonNull final String pkgName) {
         PackageManager packageManager = Utils.getApp().getPackageManager();
         try {
-            return packageManager.getApplicationInfo(packageName, 0) != null;
+            return packageManager.getApplicationInfo(pkgName, 0) != null;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             return false;
@@ -386,6 +386,46 @@ public final class AppUtils {
      */
     public static boolean isAppForeground(@NonNull final String packageName) {
         return !isSpace(packageName) && packageName.equals(getForegroundProcessName());
+    }
+
+
+    /**
+     * Return whether application is running.
+     *
+     * @param pkgName The name of the package.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isAppRunning(@NonNull final String pkgName) {
+        int uid;
+        PackageManager packageManager = Utils.getApp().getPackageManager();
+        try {
+            ApplicationInfo ai = packageManager.getApplicationInfo(pkgName, 0);
+            if (ai == null) return false;
+            uid = ai.uid;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+        ActivityManager am = (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
+        if (am != null) {
+            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(Integer.MAX_VALUE);
+            if (taskInfo != null && taskInfo.size() > 0) {
+                for (ActivityManager.RunningTaskInfo aInfo : taskInfo) {
+                    if (pkgName.equals(aInfo.baseActivity.getPackageName())) {
+                        return true;
+                    }
+                }
+            }
+            List<ActivityManager.RunningServiceInfo> serviceInfo = am.getRunningServices(Integer.MAX_VALUE);
+            if (serviceInfo != null && serviceInfo.size() > 0) {
+                for (ActivityManager.RunningServiceInfo aInfo : serviceInfo) {
+                    if (uid == aInfo.uid) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -695,6 +735,34 @@ public final class AppUtils {
      */
     public static String getAppSignatureMD5(final String packageName) {
         return getAppSignatureHash(packageName, "MD5");
+    }
+
+
+    /**
+     * Return the application's user-ID.
+     *
+     * @return the application's signature for MD5 value
+     */
+    public static int getAppUid() {
+        return getAppUid(Utils.getApp().getPackageName());
+    }
+
+    /**
+     * Return the application's user-ID.
+     *
+     * @param pkgName The name of the package.
+     * @return the application's signature for MD5 value
+     */
+    public static int getAppUid(String pkgName) {
+        try {
+            ApplicationInfo ai = Utils.getApp().getPackageManager().getApplicationInfo(pkgName, 0);
+            if (ai != null) {
+                return ai.uid;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     private static String getAppSignatureHash(final String packageName, final String algorithm) {

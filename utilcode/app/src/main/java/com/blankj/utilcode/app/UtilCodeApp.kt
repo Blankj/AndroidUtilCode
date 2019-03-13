@@ -3,6 +3,7 @@ package com.blankj.utilcode.app
 import android.content.Context
 
 import com.blankj.lib.base.BaseApplication
+import com.blankj.utilcode.util.MessengerUtils
 import com.blankj.utilcode.util.Utils
 
 
@@ -29,6 +30,7 @@ class UtilCodeApp : BaseApplication() {
         Utils.init(this)
         super.onCreate()
         instance = this
+        MessengerUtils.registerClient("com.blankj.androidutilcode")
     }
 }
 

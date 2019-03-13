@@ -149,6 +149,7 @@ public final class ProcessUtils {
         //noinspection ConstantConditions
         List<ActivityManager.RunningAppProcessInfo> info = am.getRunningAppProcesses();
         Set<String> set = new HashSet<>();
+        if (info == null) return set;
         for (ActivityManager.RunningAppProcessInfo aInfo : info) {
             for (String pkg : aInfo.pkgList) {
                 am.killBackgroundProcesses(pkg);
@@ -217,7 +218,7 @@ public final class ProcessUtils {
             return processName;
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return "";
         }
     }
 

@@ -7,6 +7,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -18,9 +20,13 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -35,13 +41,13 @@ public class MessengerUtils {
 
     private static ConcurrentHashMap<String, MessageCallback> subscribers = new ConcurrentHashMap<>();
 
-    private static List<Client> sClients = new ArrayList<>();
-    private static Client       sLocalClient;
+    private static Map<String, Client> sClientMap = new HashMap<>();
+    private static Client              sLocalClient;
 
-    private static final int    SUBSCRIBE          = 1;
-    private static final int    UNSUBSCRIBE        = -1;
-    private static final int    SEND_MSG_TO_TARGET = 2;
-    private static final String KEY_STRING         = "MESSENGER_UTILS";
+    private static final int    WHAT_SUBSCRIBE   = 0x00;
+    private static final int    WHAT_UNSUBSCRIBE = 0x01;
+    private static final int    WHAT_SEND        = 0x02;
+    private static final String KEY_STRING       = "MESSENGER_UTILS";
 
     public static void init() {
         if (isMainProcess()) {
@@ -51,6 +57,28 @@ public class MessengerUtils {
         } else {
             LogUtils.e("init " + getCurrentProcessName());
             registerClient();
+        }
+    }
+
+    public static void registerClient(final String pkgName) {
+        if (sClientMap.containsKey(pkgName)) {
+            Log.i("MessengerUtils", "registerClient: client registered: " + pkgName);
+            return;
+        }
+        Client client = new Client(pkgName);
+        if (client.bind()) {
+            sClientMap.put(pkgName, client);
+        } else {
+            Log.e("MessengerUtils", "registerClient: client bind failed: " + pkgName);
+        }
+    }
+
+    public static void unregisterClient(final String pkgName) {
+        if (sClientMap.containsKey(pkgName)) {
+            Client client = sClientMap.get(pkgName);
+            client.unbind();
+        } else {
+            Log.i("MessengerUtils", "unregisterClient: client didn't register: " + pkgName);
         }
     }
 
@@ -69,11 +97,11 @@ public class MessengerUtils {
         }
     }
 
-    public static void subscribe(String key, MessageCallback callback) {
+    public static void subscribe(@NonNull final String key, @NonNull final MessageCallback callback) {
         subscribers.put(key, callback);
     }
 
-    public static void unsubscribe(String key) {
+    public static void unsubscribe(@NonNull final String key) {
         subscribers.remove(key);
     }
 
@@ -86,14 +114,9 @@ public class MessengerUtils {
             intent.putExtras(data);
             Utils.getApp().startService(intent);
         }
-//        if (otherAppClient != null) {
-//            otherAppClient.sendMsg2Server(data);
-//        }
-    }
-
-
-    public static void onMsgReceive(Bundle bundle) {
-
+        for (Client client : sClientMap.values()) {
+            client.sendMsg2Server(data);
+        }
     }
 
     private static boolean isMainProcess() {
@@ -101,19 +124,59 @@ public class MessengerUtils {
     }
 
     private static String getCurrentProcessName() {
+        try {
+            File file = new File("/proc/" + android.os.Process.myPid() + "/" + "cmdline");
+            BufferedReader mBufferedReader = new BufferedReader(new FileReader(file));
+            String processName = mBufferedReader.readLine().trim();
+            mBufferedReader.close();
+            return processName;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    private static boolean isAppInstalled(@NonNull final String pkgName) {
+        PackageManager packageManager = Utils.getApp().getPackageManager();
+        try {
+            return packageManager.getApplicationInfo(pkgName, 0) != null;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private static boolean isAppRunning(@NonNull final String pkgName) {
+        int uid;
+        PackageManager packageManager = Utils.getApp().getPackageManager();
+        try {
+            ApplicationInfo ai = packageManager.getApplicationInfo(pkgName, 0);
+            if (ai == null) return false;
+            uid = ai.uid;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
         ActivityManager am = (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-        //noinspection ConstantConditions
-        List<ActivityManager.RunningAppProcessInfo> info = am.getRunningAppProcesses();
-        if (info == null || info.size() == 0) return "";
-        int pid = android.os.Process.myPid();
-        for (ActivityManager.RunningAppProcessInfo aInfo : info) {
-            if (aInfo.pid == pid) {
-                if (aInfo.processName != null) {
-                    return aInfo.processName;
+        if (am != null) {
+            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(Integer.MAX_VALUE);
+            if (taskInfo != null && taskInfo.size() > 0) {
+                for (ActivityManager.RunningTaskInfo aInfo : taskInfo) {
+                    if (pkgName.equals(aInfo.baseActivity.getPackageName())) {
+                        return true;
+                    }
+                }
+            }
+            List<ActivityManager.RunningServiceInfo> serviceInfo = am.getRunningServices(Integer.MAX_VALUE);
+            if (serviceInfo != null && serviceInfo.size() > 0) {
+                for (ActivityManager.RunningServiceInfo aInfo : serviceInfo) {
+                    if (uid == aInfo.uid) {
+                        return true;
+                    }
                 }
             }
         }
-        return "";
+        return false;
     }
 
     static class Client {
@@ -122,22 +185,22 @@ public class MessengerUtils {
         Messenger          mServer;
         LinkedList<Bundle> mCached = new LinkedList<>();
         @SuppressLint("HandlerLeak")
-        Handler mHandler = new Handler() {
+        Handler mReceiveServeMsgHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 Bundle data = msg.getData();
                 if (data != null) {
                     String key = data.getString(KEY_STRING);
                     if (key != null) {
-                        MessageCallback messageCallback = subscribers.get(key);
-                        if (messageCallback != null) {
-                            messageCallback.onMsgCallBack(data);
+                        MessageCallback callback = subscribers.get(key);
+                        if (callback != null) {
+                            callback.onMsgCallBack(data);
                         }
                     }
                 }
             }
         };
-        Messenger         mClient = new Messenger(mHandler);
+        Messenger         mClient = new Messenger(mReceiveServeMsgHandler);
         ServiceConnection mConn   = new ServiceConnection() {
 
             @Override
@@ -145,10 +208,10 @@ public class MessengerUtils {
                 LogUtils.d("client service connected", name);
                 mServer = new Messenger(service);
                 int key = getCurrentProcessName().hashCode();
-                Message subscribeMsg = Message.obtain(mHandler, SUBSCRIBE, key, 0);
-                subscribeMsg.replyTo = mClient;
+                Message msg = Message.obtain(mReceiveServeMsgHandler, WHAT_SUBSCRIBE, key, 0);
+                msg.replyTo = mClient;
                 try {
-                    mServer.send(subscribeMsg);
+                    mServer.send(msg);
                 } catch (RemoteException e) {
                     Log.e("MessengerUtils", "onServiceConnected: ", e);
                 }
@@ -170,17 +233,33 @@ public class MessengerUtils {
         }
 
         boolean bind() {
-            Intent intent;
             if (TextUtils.isEmpty(mPkgName)) {
-                intent = new Intent(Utils.getApp(), ServerService.class);
-            } else {
-                intent = new Intent(mPkgName + ".messenger");
-                intent.setPackage(mPkgName);
+                Intent intent = new Intent(Utils.getApp(), ServerService.class);
+                return Utils.getApp().bindService(intent, mConn, Context.BIND_AUTO_CREATE);
             }
-            return Utils.getApp().bindService(intent, mConn, Context.BIND_AUTO_CREATE);
+            if (isAppInstalled(mPkgName)) {
+                if (isAppRunning(mPkgName)) {
+                    Intent intent = new Intent(mPkgName + ".messenger");
+                    intent.setPackage(mPkgName);
+                    return Utils.getApp().bindService(intent, mConn, Context.BIND_AUTO_CREATE);
+                } else {
+                    Log.e("MessengerUtils", "bind: the app is not running -> " + mPkgName);
+                    return false;
+                }
+            } else {
+                Log.e("MessengerUtils", "bind: the app is not installed -> " + mPkgName);
+                return false;
+            }
         }
 
         void unbind() {
+            Message msg = Message.obtain(mReceiveServeMsgHandler, WHAT_UNSUBSCRIBE);
+            msg.replyTo = mClient;
+            try {
+                mServer.send(msg);
+            } catch (RemoteException e) {
+                Log.e("MessengerUtils", "unbind: ", e);
+            }
             Utils.getApp().unbindService(mConn);
         }
 
@@ -206,7 +285,7 @@ public class MessengerUtils {
         }
 
         private boolean send2Server(Bundle bundle) {
-            Message msg = Message.obtain(mHandler, SEND_MSG_TO_TARGET);
+            Message msg = Message.obtain(mReceiveServeMsgHandler, WHAT_SEND);
             msg.setData(bundle);
             msg.replyTo = mClient;
             try {
@@ -221,23 +300,23 @@ public class MessengerUtils {
 
     public static class ServerService extends Service {
 
-        private final ConcurrentHashMap<Integer, Messenger> messengerMap = new ConcurrentHashMap<>();
+        private final ConcurrentHashMap<Integer, Messenger> mClientMap = new ConcurrentHashMap<>();
 
         @SuppressLint("HandlerLeak")
-        private final Handler handler = new Handler() {
+        private final Handler mReceiveClientMsgHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 LogUtils.e(msg.toString());
-                int key = msg.arg1;
                 switch (msg.what) {
-                    case SUBSCRIBE:
-                        messengerMap.put(key, msg.replyTo);
+                    case WHAT_SUBSCRIBE:
+                        mClientMap.put(msg.arg1, msg.replyTo);
                         break;
-                    case SEND_MSG_TO_TARGET:
-                        sendMsg(msg);
+                    case WHAT_SEND:
+                        sendMsg2Client(msg);
+                        consumeServerProcessCallback(msg);
                         break;
-                    case UNSUBSCRIBE:
-                        messengerMap.remove(key);
+                    case WHAT_UNSUBSCRIBE:
+                        mClientMap.remove(msg.arg1);
                         break;
                     default:
                         super.handleMessage(msg);
@@ -245,7 +324,7 @@ public class MessengerUtils {
             }
         };
 
-        private final Messenger messenger = new Messenger(handler);
+        private final Messenger messenger = new Messenger(mReceiveClientMsgHandler);
 
         @Nullable
         @Override
@@ -260,39 +339,38 @@ public class MessengerUtils {
             if (intent != null) {
                 Bundle extras = intent.getExtras();
                 if (extras != null) {
-                    Message message = Message.obtain(handler, SEND_MSG_TO_TARGET);
-                    message.replyTo = messenger;
-                    message.setData(extras);
-                    sendMsg(message);
+                    Message msg = Message.obtain(mReceiveClientMsgHandler, WHAT_SEND);
+                    msg.replyTo = messenger;
+                    msg.setData(extras);
+                    sendMsg2Client(msg);
+                    consumeServerProcessCallback(msg);
                 }
             }
             return START_NOT_STICKY;
         }
 
-        private void sendMsg(Message msg) {
-            try {
-                Message msgToClient = Message.obtain(msg);
-                for (Messenger messenger : messengerMap.values()) {
-                    if (messenger != null) {
-                        Message m = new Message();
-                        m.copyFrom(msgToClient);
-                        messenger.send(m);
+        private void sendMsg2Client(final Message msg) {
+            for (Messenger client : mClientMap.values()) {
+                try {
+                    if (client != null) {
+                        client.send(msg);
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        private void consumeServerProcessCallback(final Message msg) {
+            Bundle data = msg.getData();
+            if (data != null) {
+                String key = data.getString(KEY_STRING);
+                if (key != null) {
+                    MessageCallback callback = subscribers.get(key);
+                    if (callback != null) {
+                        callback.onMsgCallBack(data);
                     }
                 }
-                Message m = new Message();
-                m.copyFrom(msgToClient);
-                Bundle data = msg.getData();
-                if (data != null) {
-                    String key = data.getString(KEY_STRING);
-                    if (key != null) {
-                        MessageCallback messageCallback = subscribers.get(key);
-                        if (messageCallback != null) {
-                            messageCallback.onMsgCallBack(data);
-                        }
-                    }
-                }
-            } catch (RemoteException e) {
-                e.printStackTrace();
             }
         }
     }

@@ -1008,7 +1008,6 @@ public final class ThreadUtils {
 
         public abstract void onFail(Throwable t);
 
-
         @Override
         public void run() {
             try {
@@ -1063,6 +1062,10 @@ public final class ThreadUtils {
         public boolean isCanceled() {
             return state == CANCELLED;
         }
+
+        public boolean isDone() {
+            return state != NEW;
+        }
     }
 
     private static final class UtilsThreadFactory extends AtomicLong
@@ -1096,6 +1099,5 @@ public final class ThreadUtils {
             t.setPriority(priority);
             return t;
         }
-
     }
 }

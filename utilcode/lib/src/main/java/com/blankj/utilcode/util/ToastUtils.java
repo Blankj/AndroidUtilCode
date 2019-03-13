@@ -12,7 +12,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
@@ -40,7 +39,6 @@ import java.lang.reflect.Field;
 public final class ToastUtils {
 
     private static final int     COLOR_DEFAULT = 0xFEFFFFFF;
-    private static final Handler HANDLER       = new Handler(Looper.getMainLooper());
     private static final String  NULL          = "null";
 
     private static IToast iToast;
@@ -245,7 +243,7 @@ public final class ToastUtils {
     }
 
     private static void show(final CharSequence text, final int duration) {
-        HANDLER.post(new Runnable() {
+        Utils.UTIL_HANDLER.post(new Runnable() {
             @SuppressLint("ShowToast")
             @Override
             public void run() {
@@ -268,7 +266,7 @@ public final class ToastUtils {
     }
 
     private static void show(final View view, final int duration) {
-        HANDLER.post(new Runnable() {
+        Utils.UTIL_HANDLER.post(new Runnable() {
             @Override
             public void run() {
                 cancel();
@@ -487,7 +485,7 @@ public final class ToastUtils {
                 }
             } catch (Exception ignored) { /**/ }
 
-            HANDLER.postDelayed(new Runnable() {
+            Utils.UTIL_HANDLER.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     cancel();

@@ -12,7 +12,10 @@ import android.view.Window
 import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.feature.CoreUtilActivity
-import com.blankj.utilcode.util.*
+import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.SpanUtils
 import kotlinx.android.synthetic.main.activity_activity.*
 import java.util.*
 
@@ -48,16 +51,6 @@ class ActivityActivity : BaseTitleBarActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
         }
-        var bundle = Bundle()
-        bundle.putString("activity", "ActivityActivity");
-        MessengerUtils.post("core", bundle)
-
-        MessengerUtils.subscribe("activity", object: MessengerUtils.MessageCallback {
-            override fun onMsgCallBack(data: Bundle?) {
-                LogUtils.eTag("Messenger", data)
-            }
-        })
-
         return R.layout.activity_activity
     }
 
@@ -113,12 +106,7 @@ class ActivityActivity : BaseTitleBarActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.activityClzBtn -> {
-                var bundle = Bundle()
-                bundle.putString("activity", "ActivityActivity");
-                MessengerUtils.post("activity", bundle)
-            }
-//            R.id.activityClzBtn -> ActivityUtils.startActivity(SubActivityActivity::class.java)
+            R.id.activityClzBtn -> ActivityUtils.startActivity(SubActivityActivity::class.java)
             R.id.activityClzOptBtn -> ActivityUtils.startActivity(SubActivityActivity::class.java,
                     getOption(random.nextInt(5)))
             R.id.activityClzAnimBtn -> ActivityUtils.startActivity(SubActivityActivity::class.java,

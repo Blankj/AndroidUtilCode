@@ -7,6 +7,8 @@ import android.app.Application;
 import android.app.Application.ActivityLifecycleCallbacks;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -20,6 +22,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * <pre>
@@ -46,9 +50,12 @@ public final class Utils {
             "com.blankj.utilcode.util.PermissionUtils$PermissionActivity";
 
     private static final ActivityLifecycleImpl ACTIVITY_LIFECYCLE = new ActivityLifecycleImpl();
+    private static final ExecutorService       UTIL_POOL          = Executors.newFixedThreadPool(3);
+    static final         Handler               UTIL_HANDLER       = new Handler(Looper.getMainLooper());
 
     @SuppressLint("StaticFieldLeak")
     private static Application sApplication;
+
 
     private Utils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -154,6 +161,11 @@ public final class Utils {
             }
         }
         return false;
+    }
+
+    static <T> Task<T> doAsync(final Task<T> task) {
+        UTIL_POOL.execute(task);
+        return task;
     }
 
     static class ActivityLifecycleImpl implements ActivityLifecycleCallbacks {
@@ -370,6 +382,59 @@ public final class Utils {
     ///////////////////////////////////////////////////////////////////////////
     // interface
     ///////////////////////////////////////////////////////////////////////////
+
+    public abstract static class Task<Result> implements Runnable {
+
+        private static final int NEW         = 0;
+        private static final int COMPLETING  = 1;
+        private static final int CANCELLED   = 2;
+        private static final int EXCEPTIONAL = 3;
+
+        private volatile int state = NEW;
+
+        abstract Result doInBackground();
+
+        private Callback<Result> mCallback;
+
+        public Task(final Callback<Result> callback) {
+            mCallback = callback;
+        }
+
+        @Override
+        public void run() {
+            try {
+                final Result t = doInBackground();
+
+                if (state != NEW) return;
+                state = COMPLETING;
+                UTIL_HANDLER.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mCallback.onCall(t);
+                    }
+                });
+            } catch (Throwable th) {
+                if (state != NEW) return;
+                state = EXCEPTIONAL;
+            }
+        }
+
+        public void cancel() {
+            state = CANCELLED;
+        }
+
+        public boolean isDone() {
+            return state != NEW;
+        }
+
+        public boolean isCanceled() {
+            return state == CANCELLED;
+        }
+    }
+
+    public interface Callback<T> {
+        void onCall(T data);
+    }
 
     public interface OnAppStatusChangedListener {
         void onForeground();

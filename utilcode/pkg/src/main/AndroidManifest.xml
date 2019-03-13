@@ -44,8 +44,7 @@
             android:name=".feature.activity.ActivityActivity"
             android:icon="@drawable/activity_activity_icon"
             android:launchMode="singleTop"
-            android:logo="@drawable/activity_activity_logo"
-            android:process=":remote" />
+            android:logo="@drawable/activity_activity_logo" />
         <activity
             android:name=".feature.activity.SubActivityActivity"
             android:launchMode="singleTop" />
@@ -100,6 +99,13 @@
         <activity
             android:name=".feature.brightness.BrightnessActivity"
             android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.bus.BusActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.bus.BusRemoteActivity"
+            android:launchMode="singleTop"
+            android:process=":remote" />
         <activity
             android:name=".feature.clean.CleanActivity"
             android:launchMode="singleTop" />

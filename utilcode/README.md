@@ -11,6 +11,7 @@ implementation 'com.blankj:utilcode:1.23.7'
 * ### About Activity -> [ActivityUtils.java][activity.java] -> [Demo][activity.demo]
 ```
 getActivityByView
+getActivityByContext
 isActivityExists
 startActivity
 startActivityForResult
@@ -54,6 +55,7 @@ isAppRoot
 isAppDebug
 isAppSystem
 isAppForeground
+isAppRunning
 launchApp
 relaunchApp
 launchAppDetailsSettings
@@ -526,7 +528,9 @@ getMetaDataInReceiver
 ```
 openWirelessSettings
 isConnected
-isAvailableByPing
+isAvailable[Async]      : 判断网络是否可用
+isAvailableByPing[Async]: 用 ping 判断网络是否可用
+isAvailableByDns[Async] : 用 DNS 判断网络是否可用
 getMobileDataEnabled
 setMobileDataEnabled
 isMobileData
@@ -534,11 +538,11 @@ is4G
 getWifiEnabled
 setWifiEnabled
 isWifiConnected
-isWifiAvailable
+isWifiAvailable[Async]  : 判断 wifi 数据是否可用
 getNetworkOperatorName
 getNetworkType
 getIPAddress
-getDomainAddress
+getDomainAddress[Async] : 获取域名 IP 地址
 getIpAddressByWifi
 getGatewayByWifi
 getNetMaskByWifi
@@ -745,7 +749,7 @@ isServiceRunning
 
 * ### About Shell -> [ShellUtils.java][shell.java]
 ```
-execCmd
+execCmd[Async]: 执行命令
 ```
 
 * ### About Size -> [SizeUtils.java][size.java]
@@ -887,6 +891,7 @@ executeByCustom
 executeByCustomWithDelay
 executeByCustomAtFixRate
 cancel
+setDeliver
 ```
 
 * ### About Time -> [TimeUtils.java][time.java] -> [Test][time.test]
@@ -940,7 +945,7 @@ file2Uri
 uri2File
 ```
 
-* ### About Vibrate -> [VibrateUtils.java][vibrate.java] -> [Demo][demo.demo]
+* ### About Vibrate -> [VibrateUtils.java][vibrate.java] -> [Demo][vibrate.demo]
 ```
 vibrate
 cancel
