@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.CleanUtils
 import com.blankj.utilcode.util.SnackbarUtils
@@ -20,7 +20,7 @@ import java.io.File
  * desc  : demo about CleanUtils
  * ```
  */
-class CleanActivity : BaseTitleBarActivity() {
+class CleanActivity : BaseTitleActivity() {
 
     companion object {
         fun start(context: Context) {

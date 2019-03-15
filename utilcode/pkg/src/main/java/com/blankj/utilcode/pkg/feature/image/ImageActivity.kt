@@ -10,18 +10,19 @@ import android.support.annotation.LayoutRes
 import android.support.annotation.StringRes
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.blankj.lib.base.BaseActivity
+import com.blankj.lib.base.BaseTaskActivity
 import com.blankj.lib.base.rv.BaseViewHolder
-import com.blankj.lib.base.rv.adapter.SingleAdapter
+import com.blankj.lib.base.rv.adapter.BaseAdapter
 import com.blankj.utilcode.pkg.Config
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.ImageUtils
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.StringUtils
 import com.blankj.utilcode.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_image.*
-import java.util.*
 
 /**
  * ```
@@ -31,7 +32,7 @@ import java.util.*
  * desc  : demo about ImageUtils
  * ```
  */
-class ImageActivity : BaseActivity() {
+class ImageActivity : BaseTaskActivity<List<ImageBean>>() {
 
     companion object {
         fun start(context: Context) {
@@ -40,22 +41,9 @@ class ImageActivity : BaseActivity() {
         }
     }
 
-    internal lateinit var src: Bitmap
-    private var mList: MutableList<ImageBean> = ArrayList()
+    private lateinit var src: Bitmap
 
-    override fun isSwipeBack(): Boolean {
-        return true
-    }
-
-    override fun initData(bundle: Bundle?) {}
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_image
-    }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        imageSaveBtn.setOnClickListener(this)
-
+    override fun doInBackground(): List<ImageBean> {
         src = ImageUtils.getBitmap(R.drawable.image_lena)
         val round = ImageUtils.getBitmap(R.drawable.main_avatar_round)
         val watermark = ImageUtils.getBitmap(R.mipmap.ic_launcher)
@@ -63,7 +51,7 @@ class ImageActivity : BaseActivity() {
         val width = src.width
         val height = src.height
 
-        mList.run {
+        return ArrayList<ImageBean>().apply {
             add(ImageBean(R.string.image_src, src))
             add(ImageBean(R.string.image_add_color, ImageUtils.drawColor(src, Color.parseColor("#8000FF00"))))
             add(ImageBean(R.string.image_scale, ImageUtils.scale(src, width / 2, height / 2)))
@@ -89,11 +77,34 @@ class ImageActivity : BaseActivity() {
             add(ImageBean(R.string.image_compress_by_quality_half, ImageUtils.compressByQuality(src, 50)))
             add(ImageBean(R.string.image_compress_by_quality_max_size, ImageUtils.compressByQuality(src, 10L * 1024)))// 10Kb
             add(ImageBean(R.string.image_compress_by_sample_size, ImageUtils.compressBySampleSize(src, 2)))
+            Thread.sleep(2000)
         }
-
-        imageRv.adapter = ImageAdapter(mList, R.layout.item_image)
-        imageRv.layoutManager = LinearLayoutManager(this)
     }
+
+    override fun runOnUiThread(data: List<ImageBean>) {
+        val imageAdapter = ImageAdapter(data, R.layout.item_image)
+        imageRv.adapter = imageAdapter
+        imageAdapter.headerView = View.inflate(this, R.layout.item_image_header, null);
+        initHeaderView(imageAdapter.headerView)
+        imageRv.layoutManager = LinearLayoutManager(this@ImageActivity)
+    }
+
+    private fun initHeaderView(headerView: View) {
+        headerView.findViewById<Button>(R.id.imageSaveBtn).setOnClickListener(this)
+    }
+
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_image)
+    }
+
+    override fun initData(bundle: Bundle?) {}
+
+    override fun bindLayout(): Int {
+        isSupportScroll = false
+        return R.layout.activity_image
+    }
+
+    override fun initView(savedInstanceState: Bundle?, contentView: View) {}
 
     override fun doBusiness() {}
 
@@ -107,13 +118,25 @@ class ImageActivity : BaseActivity() {
     }
 }
 
-class ImageAdapter(list: List<ImageBean>, @LayoutRes layoutId: Int) : SingleAdapter<ImageBean>(list, layoutId) {
+class ImageAdapter(list: List<ImageBean>, @LayoutRes val layoutId: Int) : BaseAdapter<ImageBean>() {
 
     override fun bind(holder: BaseViewHolder, data: ImageBean) {
         val textView = holder.getView<TextView>(R.id.imageItemNameTv)
         textView.text = data.name
         val image = holder.getView<ImageView>(R.id.imageItemIv)
         image.setImageBitmap(data.image)
+    }
+
+    override fun bindLayout(viewType: Int): Int {
+        if (viewType == VIEW_TYPE_HEADER) {
+            return R.layout.item_image_header
+        }
+        return layoutId
+    }
+
+    override fun onViewRecycled(holder: BaseViewHolder) {
+        super.onViewRecycled(holder)
+        LogUtils.e()
     }
 }
 

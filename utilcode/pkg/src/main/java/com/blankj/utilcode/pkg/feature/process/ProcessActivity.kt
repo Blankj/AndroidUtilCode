@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.ProcessUtils
 import com.blankj.utilcode.util.SpanUtils
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_process.*
  * desc  : demo about ProcessUtils
  * ```
  */
-class ProcessActivity : BaseTitleBarActivity() {
+class ProcessActivity : BaseTitleActivity() {
 
     companion object {
         fun start(context: Context) {

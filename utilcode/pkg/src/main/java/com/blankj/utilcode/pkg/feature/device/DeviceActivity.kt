@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.DeviceUtils
 import com.blankj.utilcode.util.SpanUtils
@@ -20,7 +20,7 @@ import java.util.*
  * desc : demo about DeviceUtils
  * ```
  */
-class DeviceActivity : BaseTitleBarActivity() {
+class DeviceActivity : BaseTitleActivity() {
 
     companion object {
         fun start(context: Context) {

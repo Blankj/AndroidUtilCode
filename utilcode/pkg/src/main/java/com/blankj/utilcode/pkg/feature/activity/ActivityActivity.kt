@@ -9,7 +9,7 @@ import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.view.View
 import android.view.Window
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.feature.CoreUtilActivity
 import com.blankj.utilcode.util.ActivityUtils
@@ -27,7 +27,7 @@ import java.util.*
  * desc  : demo about ActivityUtils
  * ```
  */
-class ActivityActivity : BaseTitleBarActivity() {
+class ActivityActivity : BaseTitleActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -36,8 +36,8 @@ class ActivityActivity : BaseTitleBarActivity() {
         }
     }
 
-    internal var random = Random()
-    lateinit var bitmap: Bitmap
+    private var random = Random()
+    private lateinit var bitmap: Bitmap
     internal lateinit var intent: Intent
     private val intents = arrayOfNulls<Intent>(2)
 

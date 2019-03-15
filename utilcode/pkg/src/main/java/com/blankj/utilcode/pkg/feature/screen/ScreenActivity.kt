@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ScreenUtils
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_screen.*
  * desc  : demo about RomUtils
  * ```
  */
-class ScreenActivity : BaseTitleBarActivity() {
+class ScreenActivity : BaseTitleActivity() {
 
     companion object {
         fun start(context: Context) {

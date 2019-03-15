@@ -7,7 +7,6 @@ import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.DialogHelper
 import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.FragmentUtils
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SpanUtils
 import kotlinx.android.synthetic.main.fragment_child.*
 

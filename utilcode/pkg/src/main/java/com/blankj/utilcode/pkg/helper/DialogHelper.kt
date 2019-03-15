@@ -26,7 +26,7 @@ object DialogHelper {
 
     fun showRationaleDialog(shouldRequest: ShouldRequest) {
         val topActivity = ActivityUtils.getTopActivity()
-        if (topActivity == null || topActivity.isFinishing) return
+        if (!ActivityUtils.isActivityAlive(topActivity)) return
         AlertDialog.Builder(topActivity)
                 .setTitle(android.R.string.dialog_alert_title)
                 .setMessage(R.string.permission_rationale_message)
@@ -39,7 +39,7 @@ object DialogHelper {
 
     fun showOpenAppSettingDialog() {
         val topActivity = ActivityUtils.getTopActivity()
-        if (topActivity == null || topActivity.isFinishing) return
+        if (!ActivityUtils.isActivityAlive(topActivity)) return
         AlertDialog.Builder(topActivity)
                 .setTitle(android.R.string.dialog_alert_title)
                 .setMessage(R.string.permission_denied_forever_message)
@@ -52,7 +52,7 @@ object DialogHelper {
 
     fun showKeyboardDialog() {
         val topActivity = ActivityUtils.getTopActivity()
-        if (topActivity == null || topActivity.isFinishing) return
+        if (!ActivityUtils.isActivityAlive(topActivity)) return
         val dialogView = LayoutInflater.from(topActivity).inflate(R.layout.dialog_keyboard, null)
         val etInput = dialogView.findViewById<EditText>(R.id.inputEt)
         val dialog = AlertDialog.Builder(topActivity).setView(dialogView).create()
@@ -77,7 +77,7 @@ object DialogHelper {
 
     fun showFragmentDialog(info: CharSequence) {
         val topActivity = ActivityUtils.getTopActivity()
-        if (topActivity == null || topActivity.isFinishing) return
+        if (!ActivityUtils.isActivityAlive(topActivity)) return
         val dialogView = LayoutInflater.from(topActivity).inflate(R.layout.dialog_fragment, null)
         val aboutTv = dialogView.findViewById<TextView>(R.id.fragmentDialogAboutTv)
         aboutTv.movementMethod = ScrollingMovementMethod.getInstance()
@@ -88,7 +88,7 @@ object DialogHelper {
 
     fun showToastDialog() {
         val topActivity = ActivityUtils.getTopActivity()
-        if (topActivity == null || topActivity.isFinishing) return
+        if (!ActivityUtils.isActivityAlive(topActivity)) return
         val dialogView = LayoutInflater.from(topActivity).inflate(R.layout.dialog_toast, null)
         dialogView.findViewById<Button>(R.id.toastDialogShowShortToastBtn)
                 .setOnClickListener { ToastUtils.showShort("Short") }

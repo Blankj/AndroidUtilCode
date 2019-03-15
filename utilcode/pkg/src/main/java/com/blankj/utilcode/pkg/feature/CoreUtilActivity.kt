@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.feature.activity.ActivityActivity
 import com.blankj.utilcode.pkg.feature.adaptScreen.AdaptScreenActivity
@@ -44,7 +44,7 @@ import com.blankj.utilcode.util.BusUtils
  * desc  :
  * ```
  */
-class CoreUtilActivity : BaseTitleBarActivity() {
+class CoreUtilActivity : BaseTitleActivity() {
 
     companion object {
         @BusUtils.Subscribe(name = "CoreUtilActivity#start")

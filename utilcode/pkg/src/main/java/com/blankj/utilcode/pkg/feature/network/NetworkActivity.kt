@@ -5,13 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.view.View
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.Utils
 import kotlinx.android.synthetic.main.activity_network.*
+import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * ```
@@ -21,10 +22,10 @@ import kotlinx.android.synthetic.main.activity_network.*
  * desc  : demo about NetworkUtils
  * ```
  */
-class NetworkActivity : BaseTitleBarActivity() {
+class NetworkActivity : BaseTitleActivity() {
 
     var cur: Int = 0
-    var count: Int = 0;
+    var count: AtomicInteger = AtomicInteger();
 
     companion object {
         fun start(context: Context) {
@@ -101,26 +102,39 @@ class NetworkActivity : BaseTitleBarActivity() {
                 .appendLine("getNetMaskByWifi: " + NetworkUtils.getNetMaskByWifi())
                 .append("getServerAddressByWifi: " + NetworkUtils.getServerAddressByWifi())
                 .create()
+        cur += 3
 
         wifiAvailableAsyncTask = NetworkUtils.isWifiAvailableAsync { data ->
-            spanSb = SpanUtils().appendLine(spanSb)
-                    .append("isWifiAvailable: $data")
-                    .create()
-            networkAboutTv.text = spanSb
+            val num = count.get()
+            if (num >= cur - 3) {
+                spanSb = SpanUtils().appendLine(spanSb)
+                        .append("isWifiAvailable: $data")
+                        .create()
+                networkAboutTv.text = spanSb
+            }
+            count.addAndGet(1)
         }
 
         availableAsyncTask = NetworkUtils.isAvailableAsync { data ->
-            spanSb = SpanUtils().appendLine(spanSb)
-                    .append("isAvailable: $data")
-                    .create()
-            networkAboutTv.text = spanSb
+            val num = count.get()
+            if (num >= cur - 3) {
+                spanSb = SpanUtils().appendLine(spanSb)
+                        .append("isAvailable: $data")
+                        .create()
+                networkAboutTv.text = spanSb
+            }
+            count.addAndGet(1)
         }
 
         domainAddressAsyncTask = NetworkUtils.getDomainAddressAsync("baidu.com") { data ->
-            spanSb = SpanUtils().appendLine(spanSb)
-                    .append("getBaiduDomainAddress: $data")
-                    .create()
-            networkAboutTv.text = spanSb
+            val num = count.get()
+            if (num >= cur - 3) {
+                spanSb = SpanUtils().appendLine(spanSb)
+                        .append("getBaiduDomainAddress: $data")
+                        .create()
+                networkAboutTv.text = spanSb
+            }
+            count.addAndGet(1)
         }
     }
 

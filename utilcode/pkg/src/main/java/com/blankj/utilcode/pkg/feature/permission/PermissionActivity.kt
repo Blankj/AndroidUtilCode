@@ -6,7 +6,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.DialogHelper
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_permission.*
  * desc  : demo about PermissionUtils
  * ```
  */
-class PermissionActivity : BaseTitleBarActivity() {
+class PermissionActivity : BaseTitleActivity() {
 
     companion object {
         fun start(context: Context) {

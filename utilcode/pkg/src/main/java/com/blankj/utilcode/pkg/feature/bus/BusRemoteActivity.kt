@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.MessengerUtils
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_bus_remote.*
  * desc  : demo about BusUtils
  * ```
  */
-class BusRemoteActivity : BaseTitleBarActivity() {
+class BusRemoteActivity : BaseTitleActivity() {
 
     companion object {
         const val BUS_KEY = "BusRemoteActivity"

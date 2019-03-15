@@ -1,58 +1,64 @@
-package com.blankj.lib.base
+package com.blankj.lib.base;
 
-import android.app.Application
-import android.content.Context
-import android.support.multidex.MultiDex
-import com.blankj.utilcode.util.AppUtils
-import com.blankj.utilcode.util.CrashUtils
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.MessengerUtils
-import com.squareup.leakcanary.LeakCanary
+import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
+
+import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.CrashUtils;
+import com.blankj.utilcode.util.LogUtils;
+import com.squareup.leakcanary.LeakCanary;
+
+import java.util.ArrayList;
 
 /**
- * ```
- * author: blankj
- * blog  : http://blankj.com
- * time  : 2018/11/16
- * desc  : base about application
- * ```
+ * <pre>
+ *     author: blankj
+ *     blog  : http://blankj.com
+ *     time  : 2018/11/16
+ *     desc  : base about application
+ * </pre>
  */
-open class BaseApplication : Application() {
+public class BaseApplication extends Application {
 
-    companion object {
-        lateinit var instance: BaseApplication
+    private static BaseApplication sInstance;
+
+    public static BaseApplication getInstance() {
+        return sInstance;
     }
 
-    private var isDebug: Boolean? = null
+    private Boolean isDebug;
 
-    override fun attachBaseContext(base: Context) {
-        super.attachBaseContext(base)
-        MultiDex.install(this)
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
-    override fun onCreate() {
-        super.onCreate()
-        instance = this
-        initLeakCanary()
-        initLog()
-        initCrash()
-        MessengerUtils.init()
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        sInstance = this;
+        initLeakCanary();
+        initLog();
+        initCrash();
+//        MessengerUtils.init();
     }
 
-    private fun initLeakCanary() {// 内存泄露检查工具
+    private void initLeakCanary() {// 内存泄露检查工具
         if (isDebug()) {
             if (LeakCanary.isInAnalyzerProcess(this)) {
                 // This process is dedicated to LeakCanary for heap analysis.
                 // You should not init your app in this process.
-                return
+                return;
             }
-            LeakCanary.install(this)
+            LeakCanary.install(this);
         }
     }
 
     // init it in ur application
-    fun initLog() {
-        val config = LogUtils.getConfig()
+    public void initLog() {
+        LogUtils.Config config = LogUtils.getConfig()
                 .setLogSwitch(isDebug())// 设置 log 总开关，包括输出到控制台和文件，默认开
                 .setConsoleSwitch(isDebug())// 设置是否输出到控制台开关，默认开
                 .setGlobalTag(null)// 设置 log 全局标签，默认为空
@@ -70,23 +76,27 @@ open class BaseApplication : Application() {
                 .setStackOffset(0)// 设置栈偏移，比如二次封装的话就需要设置，默认为 0
                 .setSaveDays(3)// 设置日志可保留天数，默认为 -1 表示无限时长
                 // 新增 ArrayList 格式化器，默认已支持 Array, Throwable, Bundle, Intent 的格式化输出
-                .addFormatter(object : LogUtils.IFormatter<ArrayList<*>>() {
-                    override fun format(list: ArrayList<*>?): String {
-                        return "LogUtils Formatter ArrayList { " + list.toString() + " }"
+                .addFormatter(new LogUtils.IFormatter<ArrayList>() {
+                    @Override
+                    public String format(ArrayList arrayList) {
+                        return "LogUtils Formatter ArrayList { " + arrayList.toString() + " }";
                     }
-                })
-        LogUtils.i(config.toString())
+                });
+        LogUtils.i(config.toString());
     }
 
-    private fun initCrash() {
-        CrashUtils.init { crashInfo, e ->
-            LogUtils.e(crashInfo)
-            AppUtils.relaunchApp()
-        }
+    private void initCrash() {
+        CrashUtils.init(new CrashUtils.OnCrashListener() {
+            @Override
+            public void onCrash(String crashInfo, Throwable e) {
+                LogUtils.e(crashInfo);
+                AppUtils.relaunchApp();
+            }
+        });
     }
 
-    fun isDebug(): Boolean {
-        if (isDebug == null) isDebug = AppUtils.isAppDebug()
-        return isDebug!!
+    private boolean isDebug() {
+        if (isDebug == null) isDebug = AppUtils.isAppDebug();
+        return isDebug;
     }
 }

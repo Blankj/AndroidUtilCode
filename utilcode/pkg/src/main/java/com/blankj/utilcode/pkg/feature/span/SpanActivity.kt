@@ -14,7 +14,7 @@ import android.text.style.ClickableSpan
 import android.text.style.UpdateAppearance
 import android.view.View
 import android.view.animation.LinearInterpolator
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.activity_span.*
  * desc  : demo about SpanUtils
  * ```
  */
-class SpanActivity : BaseTitleBarActivity() {
+class SpanActivity : BaseTitleActivity() {
 
     companion object {
         fun start(context: Context) {

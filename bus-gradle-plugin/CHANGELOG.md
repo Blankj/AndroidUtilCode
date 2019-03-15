@@ -1,5 +1,8 @@
 # Change Log
 
+## v1.7
+兼容 utilcodex
+
 ## v1.6
 修复 inject 时候 zip 操作不对导致混淆出错的问题
 

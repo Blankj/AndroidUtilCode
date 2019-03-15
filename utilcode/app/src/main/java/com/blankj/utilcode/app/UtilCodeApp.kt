@@ -1,9 +1,6 @@
 package com.blankj.utilcode.app
 
-import android.content.Context
-
 import com.blankj.lib.base.BaseApplication
-import com.blankj.utilcode.util.MessengerUtils
 import com.blankj.utilcode.util.Utils
 
 
@@ -22,15 +19,11 @@ class UtilCodeApp : BaseApplication() {
             private set
     }
 
-    override fun attachBaseContext(base: Context) {
-        super.attachBaseContext(base)
-    }
-
     override fun onCreate() {
         Utils.init(this)
         super.onCreate()
         instance = this
-        MessengerUtils.registerClient("com.blankj.androidutilcode")
+//        MessengerUtils.registerClient("com.blankj.androidutilcode")
     }
 }
 

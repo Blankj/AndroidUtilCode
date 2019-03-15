@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.Config
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.PermissionHelper
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_app.*
  * desc  : demo about AppUtils
  * ```
  */
-class AppActivity : BaseTitleBarActivity() {
+class AppActivity : BaseTitleActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -127,14 +127,13 @@ class AppActivity : BaseTitleBarActivity() {
     }
 }
 
-class ReleaseInstallApkTask(private val mListener: OnReleasedListener) : ThreadUtils.SimpleTask<Void>() {
+class ReleaseInstallApkTask(private val mListener: OnReleasedListener) : ThreadUtils.SimpleTask<Unit>() {
 
-    override fun doInBackground(): Void? {
+    override fun doInBackground() {
         ResourceUtils.copyFileFromAssets("test_install", Config.TEST_APK_PATH)
-        return null
     }
 
-    override fun onSuccess(result: Void?) {
+    override fun onSuccess(result: Unit) {
         mListener.onReleased()
     }
 

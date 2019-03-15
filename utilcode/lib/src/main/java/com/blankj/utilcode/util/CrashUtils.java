@@ -115,7 +115,7 @@ public final class CrashUtils {
      * Initialization.
      * <p>Must hold {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      */
-    @RequiresPermission(WRITE_EXTERNAL_STORAGE)
+    @SuppressLint("MissingPermission")
     public static void init() {
         init("");
     }
@@ -148,7 +148,7 @@ public final class CrashUtils {
      *
      * @param onCrashListener The crash listener.
      */
-    @RequiresPermission(WRITE_EXTERNAL_STORAGE)
+    @SuppressLint("MissingPermission")
     public static void init(final OnCrashListener onCrashListener) {
         init("", onCrashListener);
     }

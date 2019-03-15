@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.CompoundButton
 import com.blankj.lib.base.BaseApplication
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.LogUtils
@@ -26,7 +26,7 @@ import java.util.*
  * desc  : demo about LogUtils
  * ```
  */
-class LogActivity : BaseTitleBarActivity(),
+class LogActivity : BaseTitleActivity(),
         CompoundButton.OnCheckedChangeListener {
 
     companion object {
@@ -283,7 +283,7 @@ class LogActivity : BaseTitleBarActivity(),
     }
 
     override fun onDestroy() {
-        BaseApplication.instance.initLog()
+        BaseApplication.getInstance().initLog()
         super.onDestroy()
     }
 }

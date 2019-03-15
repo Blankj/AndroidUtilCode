@@ -9,8 +9,8 @@ import java.lang.reflect.Field;
 
 public final class AdaptScreenUtils {
 
-    private static boolean isInitMiui = false;
-    private static Field   mTmpMetricsField;
+    private static boolean sIsInit;
+    private static Field   sMetricsField;
 
     /**
      * Adapt for the horizontal screen, and call it in [android.app.Activity.getResources].
@@ -70,32 +70,44 @@ public final class AdaptScreenUtils {
     }
 
     private static DisplayMetrics getDisplayMetrics(Resources resources) {
-        DisplayMetrics miuiDisplayMetrics = getMiuiTmpMetrics(resources);
-        if (miuiDisplayMetrics == null) return resources.getDisplayMetrics();
-        return miuiDisplayMetrics;
+        DisplayMetrics realMetrics = getRealMetrics(resources);
+        if (realMetrics != null) return realMetrics;
+        return resources.getDisplayMetrics();
     }
 
-    private static DisplayMetrics getMiuiTmpMetrics(Resources resources) {
-        if (!isInitMiui) {
+    private static DisplayMetrics getRealMetrics(final Resources resources) {
+        if (!sIsInit) {
             DisplayMetrics ret = null;
-            String simpleName = resources.getClass().getSimpleName();
-            if ("MiuiResources".equals(simpleName) || "XResources".equals(simpleName)) {
-                try {
-                    //noinspection JavaReflectionMemberAccess
-                    mTmpMetricsField = Resources.class.getDeclaredField("mTmpMetrics");
-                    mTmpMetricsField.setAccessible(true);
-                    ret = (DisplayMetrics) mTmpMetricsField.get(resources);
-                } catch (Exception e) {
-                    Log.e("AdaptScreenUtils", "no field of mTmpMetrics in resources.");
+            Class resCls = resources.getClass();
+            Field[] declaredFields = resCls.getDeclaredFields();
+            while (ret == null && declaredFields != null && declaredFields.length > 0) {
+                for (Field field : declaredFields) {
+                    if (field.getType().isAssignableFrom(DisplayMetrics.class)) {
+                        field.setAccessible(true);
+                        sMetricsField = field;
+                        ret = getMetricsFromField(resources);
+                        if (ret != null) break;
+                    }
+                }
+                resCls = resCls.getSuperclass();
+                if (resCls != null) {
+                    declaredFields = resCls.getDeclaredFields();
+                } else {
+                    break;
                 }
             }
-            isInitMiui = true;
+            sIsInit = true;
             return ret;
         }
-        if (mTmpMetricsField == null) return null;
+        if (sMetricsField == null) return null;
+        return getMetricsFromField(resources);
+    }
+
+    private static DisplayMetrics getMetricsFromField(final Resources resources) {
         try {
-            return (DisplayMetrics) mTmpMetricsField.get(resources);
+            return (DisplayMetrics) sMetricsField.get(resources);
         } catch (Exception e) {
+            Log.e("AdaptScreenUtils", "getMetricsFromField: " + e);
             return null;
         }
     }

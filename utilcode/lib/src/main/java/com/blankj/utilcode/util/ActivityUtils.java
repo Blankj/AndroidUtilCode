@@ -1086,6 +1086,17 @@ public final class ActivityUtils {
     }
 
     /**
+     * Return whether the activity is alive.
+     *
+     * @param activity The activity.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isActivityAlive(final Activity activity) {
+        return activity != null && !activity.isFinishing()
+                && (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1 || !activity.isDestroyed());
+    }
+
+    /**
      * Return whether the activity exists in activity's stack.
      *
      * @param activity The activity.

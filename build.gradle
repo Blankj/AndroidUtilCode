@@ -2,9 +2,11 @@
 buildscript {
     apply from: 'config.gradle'
     repositories {
-        if (bus.isDebug) {
-            maven() {
-                url uri(new File(project.rootDir, "maven"))
+        if (!bus.isPublish) {
+            if (bus.isDebug) {
+                maven() {
+                    url uri(new File(project.rootDir, "maven"))
+                }
             }
         }
         google()
@@ -13,6 +15,9 @@ buildscript {
 
     dependencies {
         for (plugin in dep.plugin) {
+            if (bus.isPublish && plugin.contains("com.blankj:bus-gradle-plugin:")) {
+                continue
+            }
             classpath plugin
         }
     }

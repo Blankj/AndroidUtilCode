@@ -9,9 +9,10 @@ ext {
     versionName = '1.23.7'// E.g. 1.9.72 => 1,009,072
 
     bus = [
-            isDebug: false,
-            version: '1.6',
-            group  : 'com.blankj'
+            isPublish: false,
+            isDebug  : false,
+            version  : '1.7',
+            group    : 'com.blankj'
     ]
 
     // lib version

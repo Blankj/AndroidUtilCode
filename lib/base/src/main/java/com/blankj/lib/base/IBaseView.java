@@ -1,0 +1,31 @@
+package com.blankj.lib.base;
+
+import android.os.Bundle;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
+import android.view.View;
+
+
+/**
+ * <pre>
+ *     author: blankj
+ *     blog  : http://blankj.com
+ *     time  : 2018/11/16
+ *     desc  :
+ * </pre>
+ */
+public interface IBaseView extends View.OnClickListener {
+
+
+    void initData(@Nullable Bundle bundle);
+
+    int bindLayout();
+
+    void setRootLayout(@LayoutRes int layoutId);
+
+    void initView(@Nullable Bundle savedInstanceState, View contentView);
+
+    void doBusiness();
+
+    void onWidgetClick(View view);
+}

@@ -72,8 +72,8 @@ class BusScan {
                         busStaticMap.put(name, sign);
                     } else {// may be is kotlin
                         if (!processKt(method, name, methodLongName)) {
-                            int priority = ((BusUtils.Subscribe) method.getAnnotation(BusUtils.Subscribe.class)).priority();
-                            processEventBus(method, name, methodLongName);
+//                            int priority = ((BusUtils.Subscribe) method.getAnnotation(BusUtils.Subscribe.class)).priority();
+//                            processEventBus(method, name, methodLongName);
                         }
                     }
                 }

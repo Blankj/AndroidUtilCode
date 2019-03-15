@@ -4,11 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import kotlinx.android.synthetic.main.activity_adaptscreen.*
 
-class AdaptScreenActivity : BaseActivity() {
+class AdaptScreenActivity : BaseTitleActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -17,8 +17,8 @@ class AdaptScreenActivity : BaseActivity() {
         }
     }
 
-    override fun isSwipeBack(): Boolean {
-        return true
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_adapt_screen)
     }
 
     override fun initData(bundle: Bundle?) {}

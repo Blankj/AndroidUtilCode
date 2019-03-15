@@ -5,7 +5,6 @@ import com.android.build.gradle.internal.pipeline.TransformManager
 import com.blankj.util.JavassistUtils
 import com.blankj.util.JsonUtils
 import com.blankj.util.LogUtils
-
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
 
@@ -86,6 +85,7 @@ class BusTransform extends Transform {
                 FileUtils.copyFile(jar, dest)
 
                 if (jarName.startsWith("com.blankj:utilcode:")
+                        || jarName.startsWith("com.blankj:utilcodex:")
                         || jarName.contains("utilcode-lib")) {
                     busScan.busJar = dest
                     LogUtils.l("bus jar: $jarName [$dest]")
