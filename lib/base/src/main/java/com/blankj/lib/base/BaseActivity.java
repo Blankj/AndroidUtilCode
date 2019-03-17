@@ -50,6 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         initData(getIntent().getExtras());
         setRootLayout(bindLayout());
+        findViewById(android.R.id.content).setBackgroundColor(getResources().getColor(R.color.mediumGray));
         initView(savedInstanceState, mContentView);
         doBusiness();
 

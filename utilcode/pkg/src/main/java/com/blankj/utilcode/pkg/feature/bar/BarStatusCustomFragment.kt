@@ -31,7 +31,7 @@ class BarStatusCustomFragment : BaseLazyFragment() {
         return R.layout.fragment_bar_status_custom
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         BarUtils.setStatusBarCustom(barStatusCustomFragmentFakeStatusBar)
     }
 

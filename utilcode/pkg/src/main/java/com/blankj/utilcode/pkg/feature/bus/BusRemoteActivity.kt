@@ -45,7 +45,7 @@ class BusRemoteActivity : BaseTitleActivity() {
         return R.layout.activity_bus_remote
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         busRemotePostBtn.setOnClickListener(this)
         busRemotePost2MainBtn.setOnClickListener(this)
     }

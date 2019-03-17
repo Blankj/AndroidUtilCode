@@ -41,7 +41,7 @@ class DeviceActivity : BaseTitleActivity() {
         return R.layout.activity_device
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         deviceShutdownBtn.setOnClickListener(this)
         deviceRebootBtn.setOnClickListener(this)
         deviceReboot2RecoveryBtn.setOnClickListener(this)

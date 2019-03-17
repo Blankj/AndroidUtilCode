@@ -62,7 +62,7 @@ class BarStatusFragmentActivity : BaseActivity() {
     }
 
     override fun isSwipeBack(): Boolean {
-        return true
+        return false
     }
 
     override fun initData(bundle: Bundle?) {}
@@ -71,7 +71,7 @@ class BarStatusFragmentActivity : BaseActivity() {
         return R.layout.activity_bar_status_fragment
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         mFragmentList.add(BarStatusColorFragment.newInstance())
         mFragmentList.add(BarStatusAlphaFragment.newInstance())
         mFragmentList.add(BarStatusImageViewFragment.newInstance())

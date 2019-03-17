@@ -4,8 +4,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/spacing_16"
-    android:paddingRight="@dimen/spacing_16">
+    android:padding="@dimen/spacing_16">
 
     <Button
         style="@style/WideBtnStyle"

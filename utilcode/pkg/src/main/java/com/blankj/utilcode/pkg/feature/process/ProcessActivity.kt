@@ -37,7 +37,7 @@ class ProcessActivity : BaseTitleActivity() {
         return R.layout.activity_process
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         processKillAllBackgroundProcesses.setOnClickListener(this)
         val set = ProcessUtils.getAllBackgroundProcesses()
         SpanUtils.with(processAboutTv)

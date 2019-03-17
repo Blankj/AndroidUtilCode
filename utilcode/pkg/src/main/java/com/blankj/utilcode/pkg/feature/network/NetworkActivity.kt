@@ -46,7 +46,7 @@ class NetworkActivity : BaseTitleActivity() {
         return R.layout.activity_network
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         networkOpenWirelessSettingsBtn.setOnClickListener(this)
 
         if (AppUtils.isAppSystem()) {

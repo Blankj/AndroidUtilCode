@@ -46,7 +46,7 @@ class CleanActivity : BaseTitleActivity() {
         return R.layout.activity_clean
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         snackBarRootView = findViewById(android.R.id.content)
         cleanInternalCacheBtn.setOnClickListener(this)
         cleanInternalFilesBtn.setOnClickListener(this)

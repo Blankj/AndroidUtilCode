@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".feature.adaptScreen.CloseAdaptActivity">
+    android:fillViewport="true"
+    tools:context=".feature.adaptScreen.AdaptCloseActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,7 +19,8 @@
             android:gravity="center"
             android:text="Close Adapt\npt equals dp"
             android:textColor="@android:color/black"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/adaptScreenCloseAdaptDpTv"

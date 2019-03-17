@@ -52,7 +52,7 @@ class BarStatusSwipeBackActivity : BaseActivity() {
             barStatusSwipeBackRandomColorBtn.visibility = View.GONE
             barStatusSwipeBackSetTransparentBtn.visibility = View.VISIBLE
 
-            barStatusSwipeBackContainerLl.setBackgroundResource(R.drawable.bar_status_alpha_bg)
+            barStatusSwipeBackContainerLl.setBackgroundResource(R.drawable.image_lena)
         } else {
             barStatusSwipeBackChangeAlphaSb.visibility = View.GONE
             barStatusSwipeBackRandomColorBtn.visibility = View.VISIBLE
@@ -76,7 +76,7 @@ class BarStatusSwipeBackActivity : BaseActivity() {
         return R.layout.activity_bar_status_swipe_back
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         Slidr.attach(this)
         barStatusSwipeBackAlphaCb.setOnCheckedChangeListener(mCheckedChangeListener)
         barStatusSwipeBackChangeAlphaSb.setOnSeekBarChangeListener(mColorListener)

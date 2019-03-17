@@ -35,7 +35,7 @@ class ChildFragment : BaseLazyFragment() {
         return R.layout.fragment_child
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         FragmentUtils.setBackgroundColor(this, ColorUtils.getRandomColor(false))
         fragmentChildShowStackBtn.setOnClickListener(this)
         fragmentChildPopBtn.setOnClickListener(this)

@@ -27,7 +27,7 @@ class AdaptScreenActivity : BaseTitleActivity() {
         return R.layout.activity_adaptscreen;
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         adaptScreenAdaptWidthBtn.setOnClickListener(this)
         adaptScreenAdaptHeightBtn.setOnClickListener(this)
         adaptScreenCloseAdaptBtn.setOnClickListener(this)
@@ -37,9 +37,9 @@ class AdaptScreenActivity : BaseTitleActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.adaptScreenAdaptWidthBtn -> WidthActivity.start(this)
-            R.id.adaptScreenAdaptHeightBtn -> HeightActivity.start(this)
-            R.id.adaptScreenCloseAdaptBtn -> CloseAdaptActivity.start(this)
+            R.id.adaptScreenAdaptWidthBtn -> AdaptWidthActivity.start(this)
+            R.id.adaptScreenAdaptHeightBtn -> AdaptHeightActivity.start(this)
+            R.id.adaptScreenCloseAdaptBtn -> AdaptCloseActivity.start(this)
         }
     }
 }

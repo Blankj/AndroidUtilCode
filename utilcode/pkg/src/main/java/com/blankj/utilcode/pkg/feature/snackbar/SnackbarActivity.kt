@@ -46,7 +46,7 @@ class SnackbarActivity : BaseTitleActivity() {
         return R.layout.activity_snackbar
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         snackBarRootView = findViewById(android.R.id.content)
         snackbarShowShortBtn.setOnClickListener(this)
         snackbarShowShortWithActionBtn.setOnClickListener(this)

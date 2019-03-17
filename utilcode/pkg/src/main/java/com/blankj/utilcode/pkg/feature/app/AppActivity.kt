@@ -52,7 +52,7 @@ class AppActivity : BaseTitleActivity() {
         return R.layout.activity_app
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         appInstallAppBtn.setOnClickListener(this)
         appInstallAppSilentBtn.setOnClickListener(this)
         appUninstallAppBtn.setOnClickListener(this)

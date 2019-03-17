@@ -37,7 +37,7 @@ class MetaDataActivity : BaseTitleActivity() {
         return R.layout.activity_metadata
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         SpanUtils.with(metaDataAboutTv)
                 .appendLine("getMetaDataInApp: " + MetaDataUtils.getMetaDataInApp("app_meta_data"))
                 .append("getMetaDataInActivity: " + MetaDataUtils.getMetaDataInActivity(this, "activity_meta_data"))

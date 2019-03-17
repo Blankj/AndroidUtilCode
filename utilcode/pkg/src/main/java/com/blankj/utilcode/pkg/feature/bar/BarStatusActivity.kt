@@ -37,7 +37,7 @@ class BarStatusActivity : BaseTitleActivity() {
         return R.layout.activity_bar_status
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         barStatusVisibilityCb.isChecked = BarUtils.isStatusBarVisible(this)
         barStatusVisibilityCb.setOnCheckedChangeListener { buttonView, isChecked ->
             BarUtils.setStatusBarVisibility(this, isChecked)

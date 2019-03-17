@@ -36,7 +36,7 @@ class VibrateActivity : BaseTitleActivity() {
         return R.layout.activity_vibrate
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         vibrate1000msBtn.setOnClickListener { VibrateUtils.vibrate(1000) }
         vibrateCustomBtn.setOnClickListener {
             VibrateUtils.vibrate(longArrayOf(0, 1000, 1000, 2000, 2000, 1000), 1)

@@ -60,7 +60,7 @@ class FragmentActivity : BaseActivity() {
         return R.layout.activity_fragment
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         if (savedInstanceState != null) {
             curIndex = savedInstanceState.getInt("curIndex")
         }

@@ -39,7 +39,7 @@ class BarNotificationActivity : BaseTitleActivity() {
         return R.layout.activity_bar_notification
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         barNotificationShowBtn.setOnClickListener(this)
     }
 

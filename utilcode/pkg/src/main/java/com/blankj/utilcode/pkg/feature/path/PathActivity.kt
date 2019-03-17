@@ -37,7 +37,7 @@ class PathActivity : BaseTitleActivity() {
         return R.layout.activity_path
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         SpanUtils.with(pathAboutTv)
                 .appendLine("getRootPath: " + PathUtils.getRootPath())
                 .appendLine("getDataPath: " + PathUtils.getDataPath())

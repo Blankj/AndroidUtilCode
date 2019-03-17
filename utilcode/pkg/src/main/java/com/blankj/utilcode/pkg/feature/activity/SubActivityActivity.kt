@@ -32,8 +32,8 @@ class SubActivityActivity : BaseTitleActivity() {
         return getString(R.string.demo_activity)
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
-        contentView.setBackgroundColor(ColorUtils.getRandomColor(false))
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
+        contentView?.setBackgroundColor(ColorUtils.getRandomColor(false))
     }
 
     override fun doBusiness() {}

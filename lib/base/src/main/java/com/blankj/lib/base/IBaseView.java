@@ -23,7 +23,7 @@ public interface IBaseView extends View.OnClickListener {
 
     void setRootLayout(@LayoutRes int layoutId);
 
-    void initView(@Nullable Bundle savedInstanceState, View contentView);
+    void initView(@Nullable Bundle savedInstanceState, @Nullable View contentView);
 
     void doBusiness();
 

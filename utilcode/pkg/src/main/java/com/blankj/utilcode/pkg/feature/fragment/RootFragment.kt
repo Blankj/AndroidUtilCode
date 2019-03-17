@@ -34,7 +34,7 @@ class RootFragment : BaseLazyFragment(), FragmentUtils.OnBackClickListener {
         return R.layout.fragment_root
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         BarUtils.setStatusBarColor(rootFragmentFakeStatusBar, ColorUtils.getColor(R.color.colorPrimary))
         FragmentUtils.add(
                 childFragmentManager,

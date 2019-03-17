@@ -118,7 +118,7 @@ class LogActivity : BaseTitleActivity(),
         return R.layout.activity_log
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         logSwitchCb.isChecked = mConfig.isLogSwitch
         logSwitchCb.setOnCheckedChangeListener(this)
 

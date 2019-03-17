@@ -48,7 +48,7 @@ class SPStaticActivity : BaseTitleActivity() {
         return R.layout.activity_spstatic
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         spStaticPutStringBtn.setOnClickListener(this)
         spStaticPutIntBtn.setOnClickListener(this)
         spStaticPutLongBtn.setOnClickListener(this)

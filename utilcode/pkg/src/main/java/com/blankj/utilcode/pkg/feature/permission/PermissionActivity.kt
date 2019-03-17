@@ -42,7 +42,7 @@ class PermissionActivity : BaseTitleActivity() {
         return R.layout.activity_permission
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         permissionOpenAppSettingsBtn.setOnClickListener(this)
         permissionRequestCalendarBtn.setOnClickListener(this)
         permissionRequestRecordAudioBtn.setOnClickListener(this)

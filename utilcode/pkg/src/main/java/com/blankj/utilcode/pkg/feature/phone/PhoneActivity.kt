@@ -46,7 +46,7 @@ class PhoneActivity : BaseTitleActivity() {
         return R.layout.activity_phone
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         SpanUtils.with(phoneAboutTv)
                 .appendLine("isPhone: " + PhoneUtils.isPhone())
                 .appendLine("getDeviceId: " + PhoneUtils.getDeviceId())

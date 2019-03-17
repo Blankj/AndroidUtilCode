@@ -40,7 +40,7 @@ class ResourceActivity : BaseTitleActivity() {
         return R.layout.activity_resource
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         resourceCopyFileFromAssets.setOnClickListener(this)
         resourceCopyFileFromRaw.setOnClickListener(this)
 
@@ -55,8 +55,8 @@ class ResourceActivity : BaseTitleActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.resourceCopyFileFromAssets -> ResourceUtils.copyFileFromAssets("test", Config.CACHE_PATH + "/assets/test")
-            R.id.resourceCopyFileFromRaw -> ResourceUtils.copyFileFromRaw(R.raw.test, Config.CACHE_PATH + "/raw/test.txt")
+            R.id.resourceCopyFileFromAssets -> ResourceUtils.copyFileFromAssets("test", Config.CACHE_PATH + "assets/test")
+            R.id.resourceCopyFileFromRaw -> ResourceUtils.copyFileFromRaw(R.raw.test, Config.CACHE_PATH + "raw/test.txt")
         }
     }
 }

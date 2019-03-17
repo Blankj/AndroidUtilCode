@@ -64,7 +64,7 @@ class CoreUtilActivity : BaseTitleActivity() {
         return R.layout.activity_util_core
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {}
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {}
 
     override fun doBusiness() {}
 

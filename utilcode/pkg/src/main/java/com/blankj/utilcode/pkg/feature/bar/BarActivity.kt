@@ -35,7 +35,7 @@ class BarActivity : BaseTitleActivity() {
         return R.layout.activity_bar
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         barStatusAboutBtn.setOnClickListener(this)
         barStatusSetColorBtn.setOnClickListener(this)
         barStatusSetAlphaBtn.setOnClickListener(this)

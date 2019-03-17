@@ -41,7 +41,7 @@ class ToastActivity : BaseTitleActivity() {
         return R.layout.activity_toast
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         toastShowShortBtn.setOnClickListener(this)
         toastShowLongBtn.setOnClickListener(this)
         toastShowGreenFontBtn.setOnClickListener(this)

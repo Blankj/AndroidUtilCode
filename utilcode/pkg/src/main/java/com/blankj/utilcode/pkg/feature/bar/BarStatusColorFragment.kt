@@ -35,7 +35,7 @@ class BarStatusColorFragment : BaseLazyFragment() {
         return R.layout.fragment_bar_status_color
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         barStatusColorFragmentRandomColorBtn.setOnClickListener(this)
         updateFakeStatusBar()
     }

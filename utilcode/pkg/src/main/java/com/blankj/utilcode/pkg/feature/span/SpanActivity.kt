@@ -63,7 +63,7 @@ class SpanActivity : BaseTitleActivity() {
         return R.layout.activity_span
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         setTitle(R.string.demo_span)
 
         val clickableSpan = object : ClickableSpan() {

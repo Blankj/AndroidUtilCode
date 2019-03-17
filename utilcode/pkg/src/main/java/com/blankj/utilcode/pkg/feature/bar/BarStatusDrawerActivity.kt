@@ -51,7 +51,7 @@ class BarStatusDrawerActivity : BaseDrawerActivity() {
             barStatusDrawerRandomColorBtn.visibility = View.GONE
             barStatusDrawerSetTransparentBtn.visibility = View.VISIBLE
 
-            mBaseDrawerContainerView.setBackgroundResource(R.drawable.bar_status_alpha_bg)
+            mBaseDrawerContainerView.setBackgroundResource(R.drawable.image_lena)
         } else {
             barStatusDrawerChangeAlphaSb.visibility = View.GONE
             barStatusDrawerRandomColorBtn.visibility = View.VISIBLE
@@ -77,7 +77,7 @@ class BarStatusDrawerActivity : BaseDrawerActivity() {
         return R.layout.activity_bar_status_drawer
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         barStatusDrawerAlphaCb.setOnCheckedChangeListener(mAlphaCheckedChangeListener)
         barStatusDrawerFrontCb.setOnCheckedChangeListener(mFrontCheckedChangeListener)
         barStatusDrawerChangeAlphaSb.setOnSeekBarChangeListener(mColorListener)

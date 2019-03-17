@@ -30,7 +30,7 @@ class MainActivity : BaseDrawerActivity() {
 
     private var view: ImageView? = null
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         launcherMainCtl.setExpandedTitleColor(Color.TRANSPARENT)
         setSupportActionBar(launcherMainToolbar)
         val toggle = ActionBarDrawerToggle(this,

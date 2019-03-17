@@ -51,7 +51,7 @@ class FlashlightActivity : BaseTitleActivity() {
         return R.layout.activity_flashlight
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         flashlightStatusCb.isChecked = FlashlightUtils.isFlashlightOn()
         flashlightStatusCb.setOnCheckedChangeListener { buttonView, isChecked ->
             FlashlightUtils.setFlashlightStatus(isChecked)

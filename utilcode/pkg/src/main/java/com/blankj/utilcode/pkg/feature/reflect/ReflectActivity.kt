@@ -37,7 +37,7 @@ class ReflectActivity : BaseTitleActivity() {
         return R.layout.activity_reflect
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         SpanUtils.with(reflectAboutTv)
                 .appendLine("before reflect: " + ReflectUtils.reflect(TestPrivateStaticFinal::class.java).field("I1").get<Any>())
                 .append("after reflect: " + ReflectUtils.reflect(TestPrivateStaticFinal::class.java).field("I1", 2).field("I1").get<Any>())

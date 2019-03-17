@@ -7,9 +7,8 @@ import android.os.Bundle
 import android.view.View
 import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
-import com.blankj.utilcode.util.PermissionUtils
-import com.blankj.utilcode.util.ScreenUtils
-import com.blankj.utilcode.util.SpanUtils
+import com.blankj.utilcode.pkg.helper.DialogHelper
+import com.blankj.utilcode.util.*
 import kotlinx.android.synthetic.main.activity_screen.*
 
 
@@ -33,7 +32,7 @@ class ScreenActivity : BaseTitleActivity() {
                     }
 
                     override fun onDenied() {
-                        start(context)
+                        ToastUtils.showLong("No permission of write settings.")
                     }
                 })
             } else {
@@ -53,7 +52,7 @@ class ScreenActivity : BaseTitleActivity() {
         return R.layout.activity_screen
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         screenFullscreenBtn.setOnClickListener(this);
         screenNonFullscreenBtn.setOnClickListener(this);
         screenToggleFullscreenBtn.setOnClickListener(this);
@@ -68,12 +67,25 @@ class ScreenActivity : BaseTitleActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.screenFullscreenBtn -> ScreenUtils.setFullScreen(this)
-            R.id.screenNonFullscreenBtn -> ScreenUtils.setNonFullScreen(this)
-            R.id.screenToggleFullscreenBtn -> ScreenUtils.toggleFullScreen(this)
+            R.id.screenFullscreenBtn -> {
+                ScreenUtils.setFullScreen(this)
+                BarUtils.setStatusBarVisibility(this, false)
+            }
+            R.id.screenNonFullscreenBtn -> {
+                ScreenUtils.setNonFullScreen(this)
+                BarUtils.setStatusBarVisibility(this, true)
+            }
+            R.id.screenToggleFullscreenBtn -> {
+                ScreenUtils.toggleFullScreen(this)
+                if (ScreenUtils.isFullScreen(this)) {
+                    BarUtils.setStatusBarVisibility(this, false)
+                } else {
+                    BarUtils.setStatusBarVisibility(this, true)
+                }
+            }
             R.id.screenLandscapeBtn -> ScreenUtils.setLandscape(this)
             R.id.screenPortraitBtn -> ScreenUtils.setPortrait(this)
-            R.id.screenScreenshotBtn -> screenScreenshotIv.setImageBitmap(ScreenUtils.screenShot(this))
+            R.id.screenScreenshotBtn -> DialogHelper.showScreenshotDialog(ScreenUtils.screenShot(this))
             R.id.screenSetSleepDurationBtn -> ScreenUtils.setSleepDuration(100000)
         }
         updateAboutScreen()
@@ -83,6 +95,9 @@ class ScreenActivity : BaseTitleActivity() {
         SpanUtils.with(screenAboutTv)
                 .appendLine("getScreenWidth: " + ScreenUtils.getScreenWidth())
                 .appendLine("getScreenHeight: " + ScreenUtils.getScreenHeight())
+                .appendLine("getScreenDensity: " + ScreenUtils.getScreenDensity())
+                .appendLine("getScreenDensityDpi: " + ScreenUtils.getScreenDensityDpi())
+                .appendLine("isFullScreen: " + ScreenUtils.isFullScreen(this))
                 .appendLine("isLandscape: " + ScreenUtils.isLandscape())
                 .appendLine("isPortrait: " + ScreenUtils.isPortrait())
                 .appendLine("getScreenRotation: " + ScreenUtils.getScreenRotation(this))

@@ -54,7 +54,7 @@ class ActivityActivity : BaseTitleActivity() {
         return R.layout.activity_activity
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         activityClzBtn.setOnClickListener(this)
         activityClzOptBtn.setOnClickListener(this)
         activityClzAnimBtn.setOnClickListener(this)

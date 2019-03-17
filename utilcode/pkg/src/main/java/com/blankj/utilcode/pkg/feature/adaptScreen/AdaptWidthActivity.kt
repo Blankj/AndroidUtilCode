@@ -10,13 +10,13 @@ import android.view.WindowManager
 import com.blankj.lib.base.BaseActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.AdaptScreenUtils
-import kotlinx.android.synthetic.main.activity_adaptscreen_height.*
+import kotlinx.android.synthetic.main.activity_adaptscreen_width.*
 
-class HeightActivity : BaseActivity() {
+class AdaptWidthActivity : BaseActivity() {
 
     companion object {
         fun start(context: Context) {
-            val starter = Intent(context, HeightActivity::class.java)
+            val starter = Intent(context, AdaptWidthActivity::class.java)
             context.startActivity(starter)
         }
     }
@@ -28,12 +28,12 @@ class HeightActivity : BaseActivity() {
     override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
-        return R.layout.activity_adaptscreen_height
+        return R.layout.activity_adaptscreen_width
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        adaptScreenHeightWebView.setBackgroundColor(Color.parseColor("#f0d26d"))
+        adaptScreenWidthWebView.setBackgroundColor(Color.parseColor("#f0d26d"))
     }
 
     override fun doBusiness() {}
@@ -41,6 +41,6 @@ class HeightActivity : BaseActivity() {
     override fun onWidgetClick(view: View) {}
 
     override fun getResources(): Resources {
-        return AdaptScreenUtils.adaptHeight(super.getResources(), 1920)
+        return AdaptScreenUtils.adaptWidth(super.getResources(), 1080)
     }
 }

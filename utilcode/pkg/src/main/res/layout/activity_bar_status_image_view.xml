@@ -3,11 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/spacing_16"
-    android:paddingRight="@dimen/spacing_16"
-    android:paddingBottom="@dimen/spacing_16">
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="match_parent"
@@ -15,26 +11,34 @@
         android:scaleType="centerCrop"
         android:src="@drawable/image_lena" />
 
-    <TextView
-        android:id="@+id/barStatusImageViewAboutTv"
-        style="@style/TextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
-
-    <SeekBar
-        android:id="@+id/barStatusImageViewChangeAlphaSb"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:max="255"
-        android:padding="@dimen/spacing_8"
-        android:progress="112" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_16">
 
-    <Button
-        android:id="@+id/barStatusImageViewSetTransparentBtn"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/bar_status_set_transparent" />
+        <TextView
+            android:id="@+id/barStatusImageViewAboutTv"
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+
+        <SeekBar
+            android:id="@+id/barStatusImageViewChangeAlphaSb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="255"
+            android:padding="@dimen/spacing_8"
+            android:progress="112" />
+
+        <Button
+            android:id="@+id/barStatusImageViewSetTransparentBtn"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bar_status_set_transparent" />
+
+    </LinearLayout>
 
 </LinearLayout>

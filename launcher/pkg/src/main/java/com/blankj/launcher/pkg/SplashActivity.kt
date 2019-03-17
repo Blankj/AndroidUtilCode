@@ -17,7 +17,7 @@ class SplashActivity : BaseActivity() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

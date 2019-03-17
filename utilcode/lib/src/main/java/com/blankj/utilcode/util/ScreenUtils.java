@@ -7,7 +7,6 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Point;
 import android.os.Build;
 import android.provider.Settings;
@@ -113,14 +112,12 @@ public final class ScreenUtils {
      * @param activity The activity.
      */
     public static void toggleFullScreen(@NonNull final Activity activity) {
-        int fullScreenFlag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        boolean isFullScreen = isFullScreen(activity);
         Window window = activity.getWindow();
-        if ((window.getAttributes().flags & fullScreenFlag) == fullScreenFlag) {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN
-                    | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        if (isFullScreen) {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         } else {
-            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN
-                    | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
     }
 
@@ -246,7 +243,7 @@ public final class ScreenUtils {
     public static boolean isScreenLock() {
         KeyguardManager km =
                 (KeyguardManager) Utils.getApp().getSystemService(Context.KEYGUARD_SERVICE);
-        //noinspection ConstantConditions
+        if (km == null) return false;
         return km.inKeyguardRestrictedInputMode();
     }
 

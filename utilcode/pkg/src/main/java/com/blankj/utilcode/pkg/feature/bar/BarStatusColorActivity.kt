@@ -41,7 +41,7 @@ class BarStatusColorActivity : BaseActivity() {
         return R.layout.activity_bar_status_color
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         barStatusColorRandomColorBtn.setOnClickListener(this)
 
         updateStatusBar()

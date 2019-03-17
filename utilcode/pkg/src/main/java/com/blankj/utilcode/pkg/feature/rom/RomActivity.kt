@@ -37,7 +37,7 @@ class RomActivity : BaseTitleActivity() {
         return R.layout.activity_rom
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         SpanUtils.with(romAboutTv)
                 .append("getRomInfo: " + RomUtils.getRomInfo())
                 .create()
