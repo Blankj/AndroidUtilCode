@@ -95,6 +95,8 @@ class ScreenActivity : BaseTitleActivity() {
         SpanUtils.with(screenAboutTv)
                 .appendLine("getScreenWidth: " + ScreenUtils.getScreenWidth())
                 .appendLine("getScreenHeight: " + ScreenUtils.getScreenHeight())
+                .appendLine("getAppScreenWidth: " + ScreenUtils.getAppScreenWidth())
+                .appendLine("getAppScreenHeight: " + ScreenUtils.getAppScreenHeight())
                 .appendLine("getScreenDensity: " + ScreenUtils.getScreenDensity())
                 .appendLine("getScreenDensityDpi: " + ScreenUtils.getScreenDensityDpi())
                 .appendLine("isFullScreen: " + ScreenUtils.isFullScreen(this))

@@ -1,20 +1,20 @@
 package com.blankj.utilcode.pkg.helper
 
 import android.graphics.Bitmap
+import android.graphics.drawable.ColorDrawable
 import android.support.v7.app.AlertDialog
 import android.text.method.ScrollingMovementMethod
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import com.blankj.utilcode.pkg.R
-import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.KeyboardUtils
-import com.blankj.utilcode.util.PermissionUtils
+import com.blankj.utilcode.util.*
 import com.blankj.utilcode.util.PermissionUtils.OnRationaleListener.ShouldRequest
-import com.blankj.utilcode.util.ToastUtils
 
 /**
  * ```
@@ -56,7 +56,9 @@ object DialogHelper {
         val topActivity = ActivityUtils.getTopActivity()
         if (!ActivityUtils.isActivityAlive(topActivity)) return
         val dialogView = LayoutInflater.from(topActivity).inflate(R.layout.dialog_keyboard, null)
-        val dialog = AlertDialog.Builder(topActivity).setView(dialogView).create()
+        val dialog = AlertDialog.Builder(topActivity)
+                .setView(dialogView)
+                .create()
         dialog.setCanceledOnTouchOutside(false)
         val keyboardDialogEt = dialogView.findViewById<EditText>(R.id.keyboardDialogEt)
         val listener = View.OnClickListener { v ->
@@ -74,15 +76,18 @@ object DialogHelper {
         dialogView.findViewById<View>(R.id.keyboardDialogShowSoftInputBtn).setOnClickListener(listener)
         dialogView.findViewById<View>(R.id.keyboardDialogToggleSoftInputBtn).setOnClickListener(listener)
         dialogView.findViewById<View>(R.id.keyboardDialogCloseBtn).setOnClickListener(listener)
+
+        val window = dialog.window
+        window.requestFeature(Window.FEATURE_NO_TITLE)
+
         dialog.show()
 
-//        val attributes = dialog.window.attributes
-//        attributes.y = SizeUtils.dp2px(300f)
-//        attributes.height = ScreenUtils.getScreenHeight() / 2
-//        dialog.window.attributes = attributes
-//        dialog.window.decorView.setPadding(0, 0, 0, 0)
-
-        KeyboardUtils.fixAndroidBug5497(dialog.window)
+        window.setBackgroundDrawable(ColorDrawable(0))
+        val attributes = dialog.window.attributes
+        attributes.gravity = Gravity.BOTTOM
+        attributes.width = ScreenUtils.getAppScreenWidth()
+        attributes.height = ScreenUtils.getAppScreenHeight() //* 2 / 5
+        dialog.window.attributes = attributes
     }
 
     fun showFragmentDialog(info: CharSequence) {

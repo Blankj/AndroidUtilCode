@@ -41,12 +41,11 @@ public final class ScreenUtils {
      */
     public static int getScreenWidth() {
         WindowManager wm = (WindowManager) Utils.getApp().getSystemService(Context.WINDOW_SERVICE);
+        if (wm == null) return -1;
         Point point = new Point();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            //noinspection ConstantConditions
             wm.getDefaultDisplay().getRealSize(point);
         } else {
-            //noinspection ConstantConditions
             wm.getDefaultDisplay().getSize(point);
         }
         return point.x;
@@ -59,14 +58,39 @@ public final class ScreenUtils {
      */
     public static int getScreenHeight() {
         WindowManager wm = (WindowManager) Utils.getApp().getSystemService(Context.WINDOW_SERVICE);
+        if (wm == null) return -1;
         Point point = new Point();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            //noinspection ConstantConditions
             wm.getDefaultDisplay().getRealSize(point);
         } else {
-            //noinspection ConstantConditions
             wm.getDefaultDisplay().getSize(point);
         }
+        return point.y;
+    }
+
+    /**
+     * Return the application's width of screen, in pixel.
+     *
+     * @return the application's width of screen, in pixel
+     */
+    public static int getAppScreenWidth() {
+        WindowManager wm = (WindowManager) Utils.getApp().getSystemService(Context.WINDOW_SERVICE);
+        if (wm == null) return -1;
+        Point point = new Point();
+        wm.getDefaultDisplay().getSize(point);
+        return point.x;
+    }
+
+    /**
+     * Return the application's height of screen, in pixel.
+     *
+     * @return the application's height of screen, in pixel
+     */
+    public static int getAppScreenHeight() {
+        WindowManager wm = (WindowManager) Utils.getApp().getSystemService(Context.WINDOW_SERVICE);
+        if (wm == null) return -1;
+        Point point = new Point();
+        wm.getDefaultDisplay().getSize(point);
         return point.y;
     }
 
