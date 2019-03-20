@@ -1,0 +1,11 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.blankj.subutil">
+
+    <application>
+        <provider
+            android:name=".util.Utils$ContentProvider4SubUtil"
+            android:authorities="${applicationId}.subutil.content.provider"
+            android:exported="false"
+            android:multiprocess="true" />
+    </application>
+</manifest>

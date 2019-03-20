@@ -1,0 +1,56 @@
+plugins {
+    id 'com.gradle.plugin-publish' version "0.10.0" //for pluginPublish.gradle
+}
+
+apply {
+    plugin "groovy"
+    plugin "java-gradle-plugin"
+    from "${rootDir.path}/gradle/pluginPublish.gradle"
+    if (bus.isDebug) {
+        plugin "maven"
+        from "${rootDir.path}/gradle/localMavenUpload.gradle"
+    } else {
+        plugin "com.github.dcendents.android-maven"
+        plugin "com.jfrog.bintray"
+        from "${rootDir.path}/gradle/bintrayUploadJava.gradle"
+    }
+}
+
+gradlePlugin {
+    plugins {
+        busPlugin {
+            id = 'com.blankj.bus'
+            implementationClass = 'com.blankj.bus.BusPlugin'
+        }
+    }
+}
+
+dependencies {
+    implementation dep.plugin[0]
+    implementation dep.javassist
+    implementation dep.commons_io
+    implementation gradleApi()
+    implementation localGroovy()
+
+    testImplementation dep.junit
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDirs += 'src/main/java'
+        }
+    }
+
+    test {
+        groovy {
+            srcDirs += 'src/test/java'
+        }
+    }
+}
+
+group = bus.group
+version = bus.version
+
+//./gradlew bus-gradle-plugin:bintrayUpload
+//./gradlew publishPlugins

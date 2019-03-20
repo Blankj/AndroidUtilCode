@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_16">
+
+    <TextView
+        android:id="@+id/permissionAboutTv"
+        style="@style/TextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/permissionOpenAppSettingsBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/permission_open_app_settings" />
+
+    <Button
+        android:id="@+id/permissionRequestCalendarBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/permission_request_calendar" />
+
+    <Button
+        android:id="@+id/permissionRequestRecordAudioBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/permission_request_record_audio" />
+
+    <Button
+        android:id="@+id/permissionRequestCalendarAndRecordAudioBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/permission_request_calendar_and_record_audio" />
+
+    <Button
+        android:id="@+id/permissionRequestWriteSettings"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/permission_request_write_settings" />
+
+    <Button
+        android:id="@+id/permissionRequestDrawOverlays"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/permission_request_draw_overlays" />
+
+</LinearLayout>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:padding="@dimen/spacing_16">
+
+    <ImageView
+        android:id="@+id/activityViewSharedElement"
+        android:layout_width="@dimen/size_160"
+        android:layout_height="@dimen/size_160"
+        android:src="@drawable/main_avatar_round"
+        android:transitionName="@string/activity_shared_element" />
+
+</LinearLayout>

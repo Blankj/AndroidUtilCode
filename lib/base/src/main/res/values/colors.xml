@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryOrigin">#3F51B5</color>
+    <color name="colorPrimaryDarkOrigin">#303F9F</color>
+    <color name="colorAccentOrigin">#FF4081</color>
+
+    <color name="colorPrimary">#34A48E</color>
+    <color name="colorPrimaryHalfTrans">#8034A48E</color>
+    <color name="colorPrimaryDark">#245C50</color>
+    <color name="colorAccent">#FF73A3</color>
+    <color name="colorAccentHalfTrans">#80245C50</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="light_black">#191919</color>
+
+    <color name="rainbow_red">#bf0c43</color>
+    <color name="rainbow_yellow">#f9ba15</color>
+    <color name="rainbow_green">#8eac00</color>
+    <color name="rainbow_blue">#127a97</color>
+    <color name="rainbow_purple">#452b72</color>
+
+    <integer-array name="rainbow">
+        <item>@color/rainbow_red</item>
+        <item>@color/rainbow_yellow</item>
+        <item>@color/rainbow_green</item>
+        <item>@color/rainbow_blue</item>
+        <item>@color/rainbow_purple</item>
+    </integer-array>
+
+
+    <!--beautiful color-->
+    <color name="grapefruit">#ED5565</color>
+    <color name="grapefruitDark">#DA4453</color>
+
+    <color name="bittersweet">#FC6E51</color>
+    <color name="bittersweetDark">#E9573F</color>
+
+    <color name="sunflower">#FFCE54</color>
+    <color name="sunflowerDark">#F6BB42</color>
+
+    <color name="grass">#A0D468</color>
+    <color name="grassDark">#8CC152</color>
+
+    <color name="mint">#48CFAD</color>
+    <color name="mintDark">#37BC9B</color>
+
+    <color name="aqua">#4FC1E9</color>
+    <color name="aquaDark">#3BAFDA</color>
+
+    <color name="blueJeans">#5D9CEC</color>
+    <color name="blueJeansDark">#4A89DC</color>
+
+    <color name="lavander">#AC92EC</color>
+    <color name="lavanderDark">#967ADC</color>
+
+    <color name="pinkRose">#EC87C0</color>
+    <color name="pinkRoseDark">#D770AD</color>
+
+    <color name="lightGray">#F5F7FA</color>
+    <color name="lightGrayDark">#E6E9ED</color>
+
+    <color name="mediumGray">#CCD1D9</color>
+    <color name="mediumGrayDark">#AAB2BD</color>
+
+    <color name="darkGray">#656D78</color>
+    <color name="darkGrayDark">#434A54</color>
+</resources>

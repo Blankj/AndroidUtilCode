@@ -1,0 +1,32 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.blankj.subutil.pkg">
+
+    <!-- brightness -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <!-- flashlight -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <!-- location -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application>
+
+        <activity
+            android:name=".feature.SubUtilActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.location.LocationActivity"
+            android:launchMode="singleTop" />
+
+        <service
+            android:name=".feature.location.LocationService"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.pinyin.PinyinActivity"
+            android:launchMode="singleTop" />
+    </application>
+
+</manifest>

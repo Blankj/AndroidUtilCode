@@ -1,0 +1,90 @@
+apply {
+    plugin "com.android.application"
+    plugin "kotlin-android"
+    plugin "kotlin-android-extensions"
+    plugin "com.blankj.bus"
+}
+
+configSigning project
+configApkName project
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
+        applicationId rootProject.applicationId + suffix
+        targetSdkVersion rootProject.targetSdkVersion
+        multiDexEnabled true
+        resValue "string", "app_name", rootProject.appName + suffix
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+
+dependencies {
+    // LeakCanary
+    debugImplementation dep.leakcanary.android
+    debugImplementation dep.leakcanary.support_fragment
+    releaseImplementation dep.leakcanary.android_no_op
+}
+
+private String getSuffix() {
+    if (project.name == "launcher-app") return ""
+    String[] splits = project.name.split("-")
+    String suffix = ""
+    if (splits.length == 2) {
+        suffix = "_" + splits[0]
+    }
+    return suffix
+}
+
+def configSigning(Project pro) {
+
+    File signPropertiesFile = file("${rootDir.path}/sign/keystore.properties")
+    if (!signPropertiesFile.exists()) return
+
+    println "$pro.name config sign start..."
+    pro.android {
+        Properties properties = new Properties()
+        properties.load(new FileInputStream(signPropertiesFile))
+        signingConfigs {
+            release {
+                storeFile new File(signPropertiesFile.getParent(), properties['keystore'])
+                storePassword properties['storePassword']
+                keyAlias properties['keyAlias']
+                keyPassword properties['keyPassword']
+            }
+        }
+        buildTypes.release.signingConfig signingConfigs.release
+    }
+    println "$pro.name config sign end..."
+}
+
+def configApkName(Project pro) {
+    pro.android.applicationVariants.all { variant ->
+        if (variant.buildType.name != "debug") {
+            variant.getPackageApplication().outputDirectory = new File("${rootDir.path}/apk")
+            variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
+                apkData.outputFileName = "util" + suffix +
+                                         "_" + variant.versionName.replace(".", "_") +
+                                         ".apk"
+            }
+        }
+    }
+}

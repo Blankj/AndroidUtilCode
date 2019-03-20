@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>A quick app</title>
+
+    <style>
+      body {
+        background-color: #ccffcc;
+      }
+
+      .footer {
+        margin-top: 5em;
+        font-size: .75em;
+      }
+    </style>
+
+    <script src="/js/nunjucks.js"></script>
+    <script src="/js/templates.js"></script>
+    <script src="/js/app.js"></script>
+  </head>
+  <body>
+    {% block content %}{% endblock %}
+
+    <div class="footer">
+      {% block footer %}(c) James Long 2012{% endblock %}
+    </div>
+  </body>
+</html>

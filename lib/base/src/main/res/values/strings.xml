@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="github">https://github.com/Blankj/AndroidUtilCode</string>
+    <string name="blog">https://blankj.com</string>
+
+    <string name="core_util">Core Util</string>
+    <string name="sub_util">Sub Util</string>
+
+    <string name="author">Blankj</string>
+    <string name="demo_of_android_util_code">Demo of AndroidUtilCode</string>
+
+    <string name="navigation_drawer_open">navigation_drawer_open</string>
+    <string name="navigation_drawer_close">navigation_drawer_close</string>
+
+    <string name="permission_rationale_message">You have rejected us to apply for authorization, please agree to authorization, otherwise the function can\'t be used normally!</string>
+    <string name="permission_denied_forever_message">We need some of the permissions you rejected or the system failed to apply failed, please manually set to the page authorize, otherwise the function can\'t be used normally!</string>
+
+    <string name="crash_restart_tip">The application crashes, does it need to be restarted?</string>
+</resources>

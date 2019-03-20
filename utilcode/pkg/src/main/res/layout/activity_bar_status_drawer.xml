@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/barStatusDrawerFakeStatusBar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/spacing_16"
+        android:paddingRight="@dimen/spacing_16">
+
+        <CheckBox
+            android:id="@+id/barStatusDrawerAlphaCb"
+            style="@style/CbStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="@string/bar_status_title_alpha" />
+
+        <CheckBox
+            android:id="@+id/barStatusDrawerFrontCb"
+            style="@style/CbStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="@string/bar_status_is_front" />
+
+        <TextView
+            android:id="@+id/barStatusDrawerAboutTv"
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+
+        <SeekBar
+            android:id="@+id/barStatusDrawerChangeAlphaSb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="255"
+            android:padding="@dimen/spacing_8"
+            android:progress="112" />
+
+        <Button
+            android:id="@+id/barStatusDrawerRandomColorBtn"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bar_status_random_color" />
+
+        <Button
+            android:id="@+id/barStatusDrawerSetTransparentBtn"
+            style="@style/WideBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bar_status_set_transparent" />
+
+    </LinearLayout>
+</FrameLayout>

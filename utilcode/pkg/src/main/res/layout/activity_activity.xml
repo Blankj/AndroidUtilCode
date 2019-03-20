@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_16">
+
+    <ImageView
+        android:id="@+id/activityViewSharedElement"
+        android:layout_width="@dimen/size_40"
+        android:layout_height="@dimen/size_40"
+        android:src="@drawable/main_avatar_round"
+        android:transitionName="@string/activity_shared_element" />
+
+    <TextView
+        android:id="@+id/activityAboutTv"
+        style="@style/TextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/activityClzBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_clz" />
+
+    <Button
+        android:id="@+id/activityClzOptBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_clz_opt" />
+
+    <Button
+        android:id="@+id/activityClzAnimBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_clz_anim" />
+
+    <Button
+        android:id="@+id/activityActClzBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_act_clz" />
+
+    <Button
+        android:id="@+id/activityActClzOptBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_act_clz_opt" />
+
+    <Button
+        android:id="@+id/activityActClzSharedElementBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_act_clz_shared_element" />
+
+    <Button
+        android:id="@+id/activityActClzAnimBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_act_clz_anim" />
+
+    <Button
+        android:id="@+id/activityPkgClsBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_pkg_cls" />
+
+    <Button
+        android:id="@+id/activityPkgClsOptBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_pkg_cls_opt" />
+
+    <Button
+        android:id="@+id/activityPkgClsAnimBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_pkg_cls_anim" />
+
+    <Button
+        android:id="@+id/activityActPkgClsBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_act_pkg_cls" />
+
+    <Button
+        android:id="@+id/activityActPkgClsOptBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_act_pkg_cls_opt" />
+
+    <Button
+        android:id="@+id/activityActPkgClsSharedElementBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_act_pkg_cls_shared_element" />
+
+    <Button
+        android:id="@+id/activityActPkgClsAnimBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_act_pkg_cls_anim" />
+
+    <Button
+        android:id="@+id/activityIntentBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_intent" />
+
+    <Button
+        android:id="@+id/activityIntentOptBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_intent_opt" />
+
+    <Button
+        android:id="@+id/activityIntentSharedElementBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_intent_shared_element" />
+
+    <Button
+        android:id="@+id/activityIntentAnimBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_intent_anim" />
+
+    <Button
+        android:id="@+id/activityIntentsBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_intents" />
+
+    <Button
+        android:id="@+id/activityIntentsOptBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_intents_opt" />
+
+    <Button
+        android:id="@+id/activityIntentsAnimBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_intents_anim" />
+
+    <Button
+        android:id="@+id/activityActIntentsBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_act_intents" />
+
+    <Button
+        android:id="@+id/activityActIntentsOptBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_act_intents_opt" />
+
+    <Button
+        android:id="@+id/activityActIntentsAnimBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_act_intents_anim" />
+
+    <Button
+        android:id="@+id/activityStartHomeActivityBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_start_home_activity" />
+
+    <Button
+        android:id="@+id/activityFinishActivityBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_finish_activity" />
+
+    <Button
+        android:id="@+id/activityFinishToActivityBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_finish_to_activity" />
+
+    <Button
+        android:id="@+id/activityFinishAllActivitiesBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_finish_all_activities" />
+
+</LinearLayout>

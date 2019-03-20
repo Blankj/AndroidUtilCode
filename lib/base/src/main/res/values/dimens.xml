@@ -1,0 +1,22 @@
+<resources>
+    <dimen name="radius_16">16dp</dimen>
+
+    <dimen name="spacing_8">8dp</dimen>
+    <dimen name="spacing_16">16dp</dimen>
+    <dimen name="spacing_24">24dp</dimen>
+    <dimen name="spacing_128">128dp</dimen>
+
+    <dimen name="size_40">40dp</dimen>
+    <dimen name="size_160">160dp</dimen>
+
+    <dimen name="font_16">16sp</dimen>
+    <dimen name="font_20">20sp</dimen>
+    <dimen name="font_24">24sp</dimen>
+    <dimen name="font_40">40sp</dimen>
+
+    <dimen name="block_width">40dp</dimen>
+    <dimen name="block_low_height">8dp</dimen>
+    <dimen name="block_high_height">196dp</dimen>
+
+    <dimen name="offset_64">64dp</dimen>
+</resources>

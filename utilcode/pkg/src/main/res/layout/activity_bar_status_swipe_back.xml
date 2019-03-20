@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/barStatusSwipeBackContainerLl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <CheckBox
+        android:id="@+id/barStatusSwipeBackAlphaCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="@string/bar_status_title_alpha" />
+
+    <TextView
+        android:id="@+id/barStatusSwipeBackAboutTv"
+        style="@style/TextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+
+    <SeekBar
+        android:id="@+id/barStatusSwipeBackChangeAlphaSb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/spacing_16"
+        android:layout_marginRight="@dimen/spacing_16"
+        android:max="255"
+        android:padding="@dimen/spacing_8"
+        android:progress="112" />
+
+    <Button
+        android:id="@+id/barStatusSwipeBackRandomColorBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/spacing_16"
+        android:layout_marginRight="@dimen/spacing_16"
+        android:text="@string/bar_status_random_color" />
+
+    <Button
+        android:id="@+id/barStatusSwipeBackSetTransparentBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/spacing_16"
+        android:layout_marginRight="@dimen/spacing_16"
+        android:text="@string/bar_status_set_transparent" />
+
+</LinearLayout>

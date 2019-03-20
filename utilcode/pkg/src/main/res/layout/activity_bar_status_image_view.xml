@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/image_lena" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/spacing_16"
+            android:paddingRight="@dimen/spacing_16">
+
+            <TextView
+                android:id="@+id/barStatusImageViewAboutTv"
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" />
+
+            <SeekBar
+                android:id="@+id/barStatusImageViewChangeAlphaSb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="255"
+                android:padding="@dimen/spacing_8"
+                android:progress="112" />
+
+            <Button
+                android:id="@+id/barStatusImageViewSetTransparentBtn"
+                style="@style/WideBtnStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/bar_status_set_transparent" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

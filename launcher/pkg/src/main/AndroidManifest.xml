@@ -1,0 +1,11 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.blankj.launcher.pkg">
+
+    <application>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="user"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+    </application>
+
+</manifest>

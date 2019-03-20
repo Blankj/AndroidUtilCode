@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".feature.adaptScreen.HeightActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/adaptScreenHeightFl0"
+            android:layout_width="360pt"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryOrigin">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="960pt"
+                android:layout_gravity="top"
+                android:background="@color/colorAccentOrigin"
+                android:gravity="center"
+                android:text="Height: 960pt\nFont: 30pt"
+                android:textSize="30pt" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="960pt"
+                android:layout_gravity="bottom"
+                android:background="@color/colorPrimaryOrigin"
+                android:gravity="center"
+                android:text="Height: 960pt\nFont: 30sp"
+                android:textSize="30sp" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/adaptScreenHeightFl1"
+            android:layout_width="360pt"
+            android:layout_height="1920pt"
+            app:layout_constraintLeft_toRightOf="@id/adaptScreenHeightFl0">
+
+            <WebView
+                android:id="@+id/adaptScreenHeightWebView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="WebView\nHeight: 1920pt"
+                android:textColor="@android:color/black"
+                android:textSize="30pt" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="360pt"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toRightOf="@id/adaptScreenHeightFl1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="320pt"
+                android:background="@color/colorAccentOrigin"
+                android:gravity="center"
+                android:text="1\nHeight: 320pt"
+                android:textColor="@android:color/black"
+                android:textSize="30pt" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="640pt"
+                android:background="@color/colorPrimaryOrigin"
+                android:gravity="center"
+                android:text="2\nHeight: 640pt"
+                android:textColor="@android:color/black"
+                android:textSize="30pt" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="960pt"
+                android:background="@color/colorPrimaryDarkOrigin"
+                android:gravity="center"
+                android:text="3\nHeight: 960pt"
+                android:textColor="@android:color/black"
+                android:textSize="30pt" />
+        </LinearLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</HorizontalScrollView>

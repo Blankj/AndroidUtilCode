@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_16">
+
+    <TextView
+        android:id="@+id/logAboutTv"
+        style="@style/TextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:id="@+id/logSwitchCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/log_switch" />
+
+    <CheckBox
+        android:id="@+id/log2ConsoleSwitchCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/log_console_console" />
+
+    <CheckBox
+        android:id="@+id/logGlobalTagCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:id="@+id/logHeadSwitchCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/log_head_switch" />
+
+    <CheckBox
+        android:id="@+id/log2FileSwitchCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/log_file_switch" />
+
+    <CheckBox
+        android:id="@+id/logDirCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:id="@+id/logBorderSwitchCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/log_border_switch" />
+
+    <CheckBox
+        android:id="@+id/logSingleTagSwitchCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/log_single_tag_switch" />
+
+    <CheckBox
+        android:id="@+id/logConsoleFilterCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:id="@+id/logFileFilterCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/logNoTagBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_with_no_tag" />
+
+    <Button
+        android:id="@+id/logWithTagBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_with_tag" />
+
+    <Button
+        android:id="@+id/logInNewThreadBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_in_new_thread" />
+
+    <Button
+        android:id="@+id/logNullBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_null" />
+
+    <Button
+        android:id="@+id/logManyParamsBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_many_params" />
+
+    <Button
+        android:id="@+id/logLongBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_long_string" />
+
+    <Button
+        android:id="@+id/logFileBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_to_file" />
+
+    <Button
+        android:id="@+id/logJsonBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_json" />
+
+    <Button
+        android:id="@+id/logXmlBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_xml" />
+
+    <Button
+        android:id="@+id/logArrayBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_array" />
+
+    <Button
+        android:id="@+id/logThrowableBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_throwable" />
+
+    <Button
+        android:id="@+id/logBundleBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_bundle" />
+
+    <Button
+        android:id="@+id/logIntentBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_intent" />
+
+    <Button
+        android:id="@+id/logArrayListBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_array_list" />
+
+    <Button
+        android:id="@+id/logMapBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_map" />
+
+</LinearLayout>

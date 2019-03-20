@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="demo_location">LocationUtils Demo</string>
+    <string name="demo_pinyin">PinyinUtils Demo</string>
+</resources>

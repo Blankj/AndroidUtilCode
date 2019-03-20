@@ -1,0 +1,25 @@
+apply {
+    from "${rootDir.path}/config_lib.gradle"
+
+    plugin "tech.harmonysoft.oss.traute"
+    plugin "com.github.dcendents.android-maven"
+    plugin "com.jfrog.bintray"
+    plugin "readme-sub"
+}
+
+readme {
+    readmeFile file('../README.md')
+    readmeCnFile file('../README-CN.md')
+}
+
+dependencies {
+    compileOnly dep.support.appcompat_v7
+    compileOnly dep.support.design
+    api(dep.glide) {
+        exclude group: "com.android.support"
+    }
+    api dep.retrofit
+
+    testImplementation dep.junit
+    testImplementation dep.robolectric
+}

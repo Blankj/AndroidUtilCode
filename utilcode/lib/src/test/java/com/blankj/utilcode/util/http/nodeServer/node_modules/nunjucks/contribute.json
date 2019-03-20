@@ -1,0 +1,22 @@
+{
+    "name": "Nunjucks",
+    "description": "Nunjucks is a full featured templating engine for javascript. It is heavily inspired by jinja2.",
+    "repository": {
+        "url": "https://github.com/mozilla/nunjucks",
+        "license": "BSD 2-Clause",
+        "tests": "https://travis-ci.org/mozilla/nunjucks"
+    },
+    "participate": {
+        "home": "https://github.com/mozilla/nunjucks",
+        "docs": "https://github.com/mozilla/nunjucks"
+    },
+    "bugs": {
+        "list": "https://github.com/mozilla/nunjucks/issues",
+        "report": "https://github.com/mozilla/nunjucks/issues/new"
+    },
+    "keywords": [
+        "javascript",
+        "node.js",
+        "jinja"
+    ]
+}

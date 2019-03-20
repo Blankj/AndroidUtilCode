@@ -1,0 +1,23 @@
+plugins {
+    id 'groovy'
+    id 'java-gradle-plugin'
+}
+
+gradlePlugin {
+    plugins {
+        readmeCore {
+            id = 'readme-core'
+            implementationClass = 'com.blankj.plugin.ReadmeCorePlugin'
+        }
+
+        readmeSub {
+            id = 'readme-sub'
+            implementationClass = 'com.blankj.plugin.ReadmeSubPlugin'
+        }
+    }
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+}

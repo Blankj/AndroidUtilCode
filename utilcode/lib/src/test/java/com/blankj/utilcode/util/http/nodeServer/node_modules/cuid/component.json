@@ -1,0 +1,19 @@
+{
+  "name": "cuid",
+  "repo": "dilvie/cuid",
+  "description": "Collision-resistant ids optimized for horizontal scaling and performance",
+  "version": "1.3.0",
+  "keywords": [
+    "uid",
+    "unique id",
+    "guid",
+    "uuid"
+    ],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "main": "dist/browser-cuid.js",
+  "scripts": [
+    "dist/browser-cuid.js"
+  ]
+}

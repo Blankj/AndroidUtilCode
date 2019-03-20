@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="demo_activity">ActivityUtils Demo</string>
+    <string name="demo_adapt_screen">AdaptScreenUtils Demo</string>
+    <string name="demo_app">AppUtils Demo</string>
+    <string name="demo_bar">BarUtils Demo</string>
+    <string name="demo_brightness">BrightnessUtils Demo</string>
+    <string name="demo_blur">BlurUtils Demo</string>
+    <string name="demo_clean">CleanUtils Demo</string>
+    <string name="demo_crash">CrashUtils Demo</string>
+    <string name="demo_device">DeviceUtils Demo</string>
+    <string name="demo_flashlight">FlashlightUtils Demo</string>
+    <string name="demo_fragment">FragmentUtils Demo</string>
+    <string name="demo_image">ImageUtils Demo</string>
+    <string name="demo_keyboard">KeyboardUtils Demo</string>
+    <string name="demo_log">LogUtils Demo</string>
+    <string name="demo_meta_data">MetaDataUtils Demo</string>
+    <string name="demo_network">NetworkUtils Demo</string>
+    <string name="demo_path">PathUtils Demo</string>
+    <string name="demo_permission">PermissionUtils Demo</string>
+    <string name="demo_phone">PhoneUtils Demo</string>
+    <string name="demo_process">ProcessUtils Demo</string>
+    <string name="demo_reflect">ReflectUtils Demo</string>
+    <string name="demo_resource">ResourceUtils Demo</string>
+    <string name="demo_screen">ScreenUtils Demo</string>
+    <string name="demo_rom">RomUtils Demo</string>
+    <string name="demo_sdcard">SDCardUtils Demo</string>
+    <string name="demo_snackbar">SnackbarUtils Demo</string>
+    <string name="demo_spStatic">SPStaticUtils Demo</string>
+    <string name="demo_span">SpanUtils Demo</string>
+    <string name="demo_toast">ToastUtils Demo</string>
+    <string name="demo_vibrate">VibrateUtils Demo</string>
+
+    <!--Activity 相关-->
+    <string name="activity_shared_element">Shared Element</string>
+    <string name="activity_clz">Clz</string>
+    <string name="activity_clz_opt">Clz Opt</string>
+    <string name="activity_clz_anim">Clz Anim</string>
+    <string name="activity_act_clz">Act Clz</string>
+    <string name="activity_act_clz_opt">Act Clz Opt</string>
+    <string name="activity_act_clz_shared_element">Act Clz Shared Element</string>
+    <string name="activity_act_clz_anim">Act Clz Anim</string>
+    <string name="activity_pkg_cls">Pkg Cls</string>
+    <string name="activity_pkg_cls_opt">Pkg Cls Opt</string>
+    <string name="activity_pkg_cls_anim">Pkg Cls Anim</string>
+    <string name="activity_act_pkg_cls">Act Pkg Cls</string>
+    <string name="activity_act_pkg_cls_opt">Act Pkg Cls Opt</string>
+    <string name="activity_act_pkg_cls_shared_element">Act Pkg Cls Shared Element</string>
+    <string name="activity_act_pkg_cls_anim">Act Pkg Cls Anim</string>
+    <string name="activity_intent">Intent</string>
+    <string name="activity_intent_opt">Intent Opt</string>
+    <string name="activity_intent_shared_element">Intent Shared Element</string>
+    <string name="activity_intent_anim">Intent Anim</string>
+    <string name="activity_intents">Intents</string>
+    <string name="activity_intents_opt">Intents Opt</string>
+    <string name="activity_intents_anim">Intents Anim</string>
+    <string name="activity_act_intents">Act Intents</string>
+    <string name="activity_act_intents_opt">Act Intents Opt</string>
+    <string name="activity_act_intents_anim">Act Intents Anim</string>
+    <string name="activity_start_activities">Start Activities</string>
+    <string name="activity_start_home_activity">Start Home Activity</string>
+    <string name="activity_finish_activity">Finish MainActivity</string>
+    <string name="activity_finish_to_activity">Finish To MainActivity</string>
+    <string name="activity_finish_all_activities">Finish All Activities</string>
+
+    <!--App 相关-->
+    <string name="app_install">Install Test App</string>
+    <string name="app_install_tips">Test app have installed</string>
+    <string name="app_install_silent">Install Test App Silently</string>
+    <string name="install_successfully">Install successfully</string>
+    <string name="install_unsuccessfully">Install unsuccessfully</string>
+    <string name="app_uninstall">Uninstall Test App</string>
+    <string name="app_uninstall_tips">Please install test app first</string>
+    <string name="app_uninstall_silent">Uninstall App Silently</string>
+    <string name="uninstall_successfully">Uninstall successfully</string>
+    <string name="uninstall_unsuccessfully">Uninstall unsuccessfully</string>
+    <string name="app_launch">Launch App</string>
+    <string name="app_relaunch">Relaunch App</string>
+    <string name="app_launch_details_settings">Launch App Details Settings</string>
+    <string name="app_exit">Exit App</string>
+
+    <!--Bar 相关-->
+    <string name="bar_about_status_bar">About Status Bar</string>
+    <string name="bar_about_nav_bar">About Nav Bar</string>
+    <string name="bar_about_notification_bar">About Notification Bar</string>
+
+    <string name="bar_status_about">About Status</string>
+    <string name="bar_status_visibility">Status Visibility</string>
+    <string name="bar_status_light_mode">Light Mode</string>
+    <string name="bar_status_set_color">Set Color</string>
+    <string name="bar_status_set_alpha">Set Alpha</string>
+    <string name="bar_status_set_image_view">Set Image View</string>
+    <string name="bar_status_set_custom">Set Custom</string>
+    <string name="bar_status_set_fragment">Set Fragment</string>
+    <string name="bar_status_set_swipe_back">Set Swipe Back</string>
+    <string name="bar_status_set_drawer">Set Drawer</string>
+    <string name="bar_status_random_color">Random Color</string>
+    <string name="bar_status_set_transparent">Set Transparent</string>
+    <string name="bar_status_title_color">Color</string>
+    <string name="bar_status_title_alpha">Alpha</string>
+    <string name="bar_status_is_front">Front</string>
+    <string name="bar_status_title_image_view">Image</string>
+    <string name="bar_status_title_custom">Custom</string>
+
+    <string name="bar_notification_about">About Notification</string>
+    <string name="bar_notification_show">Show Notification And Hide After 2s</string>
+
+    <string name="bar_nav_about">About Nav</string>
+    <string name="bar_nav_visibility">Nav Visibility</string>
+    <string name="bar_nav_color">Set Nav Color Random</string>
+
+    <!-- Brightness 相关 -->
+    <string name="brightness_auto_brightness">Auto Brightness</string>
+
+    <!--Clean 相关-->
+    <string name="clean_internal_cache">Clean Internal Cache</string>
+    <string name="clean_internal_files">Clean Internal Files</string>
+    <string name="clean_internal_databases">Clean Internal Databases</string>
+    <string name="clean_internal_sp">Clean Internal SP</string>
+    <string name="clean_external_cache">Clean External Cache</string>
+
+    <!--Device 相关-->
+    <string name="device_shutdown">Shutdown</string>
+    <string name="device_reboot">Reboot</string>
+    <string name="device_reboot_to_recovery">Reboot To Recovery</string>
+    <string name="device_reboot_to_bootloader">Reboot To Bootloader</string>
+
+    <!-- Flashlight相关 -->
+    <string name="flashlight_status">Flashlight Status</string>
+
+    <!--Fragment 相关-->
+    <string name="fragment_zero">Fragment0</string>
+    <string name="fragment_one">Fragment1</string>
+    <string name="fragment_two">Fragment2</string>
+    <string name="fragment_show_stack">Show Stack</string>
+    <string name="fragment_add_child">Add Child</string>
+    <string name="fragment_add_child_stack">Add Child Stack</string>
+    <string name="fragment_add_hide">Add Hide</string>
+    <string name="fragment_add_hide_stack">Add Hide Stack</string>
+    <string name="fragment_add_demo1_show">Add Demo1 Show</string>
+    <string name="fragment_pop">Pop</string>
+    <string name="fragment_remove">Remove</string>
+    <string name="fragment_pop_to_root">Pop To Root</string>
+    <string name="fragment_hide_demo0_show_demo1">Hide Demo0 Show Demo1</string>
+    <string name="fragment_hide_demo1_show_demo0">Hide Demo1 Show Demo0</string>
+    <string name="fragment_replace">Replace</string>
+    <string name="fragment_transition">Transition</string>
+
+    <!--Image 相关-->
+    <string name="image_src">Src</string>
+    <string name="image_add_color">Add Color</string>
+    <string name="image_scale">Scale</string>
+    <string name="image_clip">Clip</string>
+    <string name="image_skew">Skew</string>
+    <string name="image_rotate">Rotate</string>
+    <string name="image_to_round">To Round</string>
+    <string name="image_to_round_border">To Round Border</string>
+    <string name="image_to_round_corner">To Round Corner</string>
+    <string name="image_to_round_corner_border">To Round Corner Border</string>
+    <string name="image_add_corner_border">Add Corner Border</string>
+    <string name="image_add_circle_border">Add Circle Border</string>
+    <string name="image_add_reflection">Add Reflection</string>
+    <string name="image_add_text_watermark">Add Text Watermark</string>
+    <string name="image_add_image_watermark">Add Image Watermark</string>
+    <string name="image_to_gray">Gray</string>
+    <string name="image_fast_blur">Fast Blur</string>
+    <string name="image_render_script_blur">Render Script Blur</string>
+    <string name="image_stack_blur">Stack Blur</string>
+    <string name="image_save">Save</string>
+    <string name="image_compress_by_scale">Compress By Scale</string>
+    <string name="image_compress_by_quality_half">Compress By Quality Half</string>
+    <string name="image_compress_by_quality_max_size">Compress By Quality Max Size</string>
+    <string name="image_compress_by_sample_size">Compress By Sample Size</string>
+
+
+    <!--Network 相关-->
+    <string name="network_open_wireless_settings">Open Wireless Settings</string>
+    <string name="network_data_enabled">Mobile Data Enabled</string>
+    <string name="network_wifi_enabled">Wifi Enabled</string>
+
+    <!--Keyboard 相关-->
+    <string name="keyboard_hide_soft_input">Hide Soft Input</string>
+    <string name="keyboard_show_soft_input">Show Soft Input</string>
+    <string name="keyboard_toggle_soft_input">Toggle Soft Input</string>
+    <string name="keyboard_show_dialog">Show Dialog</string>
+    <string name="keyboard_close_dialog">Close Dialog</string>
+
+    <!--log 相关-->
+    <string name="log_switch">Log Switch</string>
+    <string name="log_console_console">Console Switch</string>
+    <string name="log_head_switch">Head Switch</string>
+    <string name="log_file_switch">File Switch</string>
+    <string name="log_border_switch">Border Switch</string>
+    <string name="log_single_tag_switch">Single Tag Switch</string>
+    <string name="log_with_no_tag">Log With No Tag</string>
+    <string name="log_with_tag">Log With Tag</string>
+    <string name="log_in_new_thread">Log In New Thread</string>
+    <string name="log_null">Log Null</string>
+    <string name="log_many_params">Log Many Params</string>
+    <string name="log_long_string">Log Long String</string>
+    <string name="log_to_file">Log To File</string>
+    <string name="log_json">Log Json</string>
+    <string name="log_xml">Log Xml</string>
+    <string name="log_array">Log Array</string>
+    <string name="log_throwable">Log Throwable</string>
+    <string name="log_bundle">Log Bundle</string>
+    <string name="log_intent">Log Intent</string>
+    <string name="log_array_list">Log Array List</string>
+    <string name="log_map">Log Map</string>
+
+    <!--Permission 相关-->
+    <string name="permission_open_app_settings">Open App Settings</string>
+    <string name="permission_request_calendar">Request Calendar</string>
+    <string name="permission_request_record_audio">Request Record Audio</string>
+    <string name="permission_request_calendar_and_record_audio">Request Calendar And Record Audio</string>
+    <string name="permission_request_write_settings">Request Write Settings</string>
+    <string name="permission_request_draw_overlays">Request Draw Overlays</string>
+
+
+    <!--Phone 相关-->
+    <string name="phone_dial">Dial</string>
+    <string name="phone_call">Call</string>
+    <string name="phone_send_sms">Send SMS</string>
+    <string name="phone_send_sms_silent">Send SMS Silent</string>
+
+    <!--Process 相关-->
+    <string name="process_kill_all_background">Kill All Background Processes</string>
+
+    <!--Resource 相关-->
+    <string name="resource_copy_file_from_assets_2_cache">Copy File From Assets to Cache</string>
+    <string name="resource_copy_file_from_raw_2_cache">Copy File From Raw to Cache</string>
+
+    <!--Screen 相关-->
+    <string name="screen_set_fullscreen">Set Fullscreen</string>
+    <string name="screen_set_non_fullscreen">Set NonFullscreen</string>
+    <string name="screen_toggle_fullscreen">Toggle Fullscreen</string>
+    <string name="screen_set_landscape">Set Landscape</string>
+    <string name="screen_set_portrait">Set Portrait</string>
+    <string name="screen_screenshot">Screenshot</string>
+    <string name="screen_set_sleep_duration">Set Sleep Duration</string>
+    <string name="screen_test_adapt_screen">Test Adapt Screen</string>
+    <string name="adapt_screen_system_toast">System Toast</string>
+    <string name="adapt_screen_util_toast">Util Toast</string>
+    <string name="adapt_screen_system_dialog">System Dialog</string>
+    <string name="adapt_screen_system_dialog_without_adapt">System Dialog Without Adapt</string>
+
+    <!--SnackBar 相关-->
+    <string name="snackbar_show_short">Show Short Snackbar</string>
+    <string name="snackbar_show_short_with_action">Show Short Snackbar With Action</string>
+    <string name="snackbar_show_long">Show Long Snackbar</string>
+    <string name="snackbar_show_long_with_action">Show Long Snackbar With Action</string>
+    <string name="snackbar_show_indefinite">Show Indefinite Snackbar</string>
+    <string name="snackbar_show_indefinite_with_action">Show Indefinite Snackbar With Action</string>
+    <string name="snackbar_add_view">Add View</string>
+    <string name="snackbar_add_view_with_action">Add View With Action</string>
+    <string name="snackbar_show_success">Show Success</string>
+    <string name="snackbar_show_warning">Show Warning</string>
+    <string name="snackbar_show_error">Show Error</string>
+    <string name="snackbar_dismiss">Dismiss Snackbar</string>
+    <string name="snackbar_short">Short Snackbar</string>
+    <string name="snackbar_long">Long Snackbar</string>
+    <string name="snackbar_indefinite">Indefinite Snackbar</string>
+    <string name="snackbar_click">Click</string>
+    <string name="snackbar_custom_view">Custom View</string>
+    <string name="snackbar_success">Success</string>
+    <string name="snackbar_warning">Warning</string>
+    <string name="snackbar_error">Error</string>
+
+    <!--SP 相关-->
+    <string name="sp_put_string">Put String</string>
+    <string name="sp_put_int">Put Int</string>
+    <string name="sp_put_long">Put Long</string>
+    <string name="sp_put_float">Put Float</string>
+    <string name="sp_put_boolean">Put Boolean</string>
+    <string name="sp_clear">Clear</string>
+
+    <!--Toast 相关-->
+    <string name="toast_show_short">Show Short</string>
+    <string name="toast_show_long">Show Long</string>
+    <string name="toast_show_green_font">Show Green Font</string>
+    <string name="toast_show_bg_color">Show Bg Color</string>
+    <string name="toast_show_bg_resource">Show Bg Resource</string>
+    <string name="toast_show_span">Show Span</string>
+    <string name="toast_show_custom_view">Show Custom View</string>
+    <string name="toast_custom_view">Custom View</string>
+    <string name="toast_show_middle">Show Middle</string>
+    <string name="toast_cancel">Cancel</string>
+    <string name="toast_show_toast_dialog">Show Toast Dialog</string>
+
+    <string name="toast_short">Short</string>
+    <string name="toast_long">Long</string>
+    <string name="toast_green_font">Green Font</string>
+    <string name="toast_bg_color">Bg Color</string>
+    <string name="toast_custom_bg">Custom Bg</string>
+    <string name="toast_span">Spannable String</string>
+    <string name="toast_middle">Middle</string>
+
+    <!--Vibrate 相关-->
+    <string name="vibrate_1000ms">Vibrate 1000ms</string>
+    <string name="vibrate_custom">Vibrate Custom</string>
+    <string name="vibrate_cancel">Cancel</string>
+</resources>
