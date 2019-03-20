@@ -712,6 +712,8 @@ getRomInfo : 获取 ROM 信息
 ```
 getScreenWidth     : 获取屏幕的宽度（单位：px）
 getScreenHeight    : 获取屏幕的高度（单位：px）
+getAppScreenWidth  : 获取应用屏幕的宽度（单位：px）
+getAppScreenHeight : 获取应用屏幕的高度（单位：px）
 getScreenDensity   : 获取屏幕密度
 getScreenDensityDpi: 获取屏幕密度 DPI
 setFullScreen      : 设置屏幕为全屏

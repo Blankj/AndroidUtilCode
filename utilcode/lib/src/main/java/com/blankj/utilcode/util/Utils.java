@@ -1,15 +1,18 @@
 package com.blankj.utilcode.util;
 
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.app.Application.ActivityLifecycleCallbacks;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -168,6 +171,26 @@ public final class Utils {
         return task;
     }
 
+    private static void setAnimatorsEnabled() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && ValueAnimator.areAnimatorsEnabled()) {
+            return;
+        }
+        try {
+            //noinspection JavaReflectionMemberAccess
+            Field sDurationScaleField = ValueAnimator.class.getDeclaredField("sDurationScale");
+            sDurationScaleField.setAccessible(true);
+            float sDurationScale = (Float) sDurationScaleField.get(null);
+            if (sDurationScale == 0f) {
+                sDurationScaleField.set(null, 1f);
+                Log.i("Utils", "setAnimatorsEnabled: Animators are enabled now!");
+            }
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
     static class ActivityLifecycleImpl implements ActivityLifecycleCallbacks {
 
         final LinkedList<Activity>                            mActivityList         = new LinkedList<>();
@@ -180,6 +203,7 @@ public final class Utils {
 
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+            setAnimatorsEnabled();
             setTopActivity(activity);
         }
 

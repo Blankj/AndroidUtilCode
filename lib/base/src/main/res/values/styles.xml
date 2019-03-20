@@ -13,6 +13,10 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <style name="MainActivityTheme" parent="AppTheme">
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
+
     <style name="TextStyle">
         <item name="android:textSize">@dimen/font_16</item>
         <item name="android:textColor">@drawable/base_sel_button_txt_color</item>

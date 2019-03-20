@@ -54,6 +54,10 @@ class CoreUtilActivity : BaseTitleActivity() {
         }
     }
 
+    override fun isSwipeBack(): Boolean {
+        return false
+    }
+
     override fun bindTitle(): CharSequence {
         return getString(R.string.core_util)
     }

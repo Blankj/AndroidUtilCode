@@ -80,13 +80,16 @@ object DialogHelper {
         val window = dialog.window
         window.requestFeature(Window.FEATURE_NO_TITLE)
 
+        dialog.setOnShowListener { KeyboardUtils.fixAndroidBug5497(window) }
+
         dialog.show()
 
         window.setBackgroundDrawable(ColorDrawable(0))
         val attributes = dialog.window.attributes
         attributes.gravity = Gravity.BOTTOM
         attributes.width = ScreenUtils.getAppScreenWidth()
-        attributes.height = ScreenUtils.getAppScreenHeight() //* 2 / 5
+        attributes.height = ScreenUtils.getAppScreenHeight() * 2 / 5
+        attributes.windowAnimations = R.style.BottomDialogAnimation
         dialog.window.attributes = attributes
     }
 

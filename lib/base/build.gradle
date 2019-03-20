@@ -13,7 +13,7 @@ dependencies {
     api dep.constraint
     api dep.kotlin
     api dep.free_proguard
-    api 'com.r0adkll:slidableactivity:2.0.5'
+    api 'com.r0adkll:slidableactivity:2.0.6'
     compileOnly dep.leakcanary.android_no_op
 //    api 'com.blankj:utilcode:1.23.7'
 }

@@ -4,5 +4,5 @@ apply {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api project(':utilcode-pkg')
+    implementation project(':utilcode-pkg')
 }
