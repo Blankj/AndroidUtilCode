@@ -26,7 +26,7 @@ ext {
                     "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version",
                     "com.github.dcendents:android-maven-gradle-plugin:2.1",// 上传到 maven
                     "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4",// 上传到 bintray
-                    "tech.harmonysoft:traute-gradle:1.1.8",// 注解转非空判断
+                    "tech.harmonysoft:traute-gradle:1.1.10",// 注解转非空判断
                     "com.blankj:bus-gradle-plugin:$bus.version",// 组件化 Static Bus
             ],
 
@@ -43,7 +43,7 @@ ext {
                     android_no_op   : "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version",
                     support_fragment: "com.squareup.leakcanary:leakcanary-support-fragment:$leakcanary_version"
             ],
-            free_proguard: "com.blankj:free-proguard:0.0.7",
+            free_proguard: "com.blankj:free-proguard:1.0.0",
             adapt_screen : "com.blankj:adapt-screen:0.0.3",
 
             gson         : "com.google.code.gson:gson:2.8.2",

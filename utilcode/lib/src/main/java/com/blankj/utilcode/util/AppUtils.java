@@ -809,8 +809,8 @@ public final class AppUtils {
     public static AppInfo getAppInfo(final String packageName) {
         try {
             PackageManager pm = Utils.getApp().getPackageManager();
-            PackageInfo pi = pm.getPackageInfo(packageName, 0);
-            return getBean(pm, pi);
+            if (pm == null) return null;
+            return getBean(pm, pm.getPackageInfo(packageName, 0));
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             return null;
@@ -825,6 +825,7 @@ public final class AppUtils {
     public static List<AppInfo> getAppsInfo() {
         List<AppInfo> list = new ArrayList<>();
         PackageManager pm = Utils.getApp().getPackageManager();
+        if (pm == null) return list;
         List<PackageInfo> installedPackages = pm.getInstalledPackages(0);
         for (PackageInfo pi : installedPackages) {
             AppInfo ai = getBean(pm, pi);
@@ -852,7 +853,9 @@ public final class AppUtils {
     public static AppUtils.AppInfo getApkInfo(final String apkFilePath) {
         if (isSpace(apkFilePath)) return null;
         PackageManager pm = Utils.getApp().getPackageManager();
+        if (pm == null) return null;
         PackageInfo pi = pm.getPackageArchiveInfo(apkFilePath, 0);
+        if (pi == null) return null;
         ApplicationInfo appInfo = pi.applicationInfo;
         appInfo.sourceDir = apkFilePath;
         appInfo.publicSourceDir = apkFilePath;
@@ -860,7 +863,7 @@ public final class AppUtils {
     }
 
     private static AppInfo getBean(final PackageManager pm, final PackageInfo pi) {
-        if (pm == null || pi == null) return null;
+        if (pi == null) return null;
         ApplicationInfo ai = pi.applicationInfo;
         String packageName = pi.packageName;
         String name = ai.loadLabel(pm).toString();

@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:background="@color/light_black"
     android:padding="@dimen/spacing_16">
 
     <Button

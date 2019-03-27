@@ -16,12 +16,13 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
+import com.blankj.lib.base.slideBack.SlideBackLayout;
 import com.blankj.utilcode.util.AntiShakeUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
-import com.r0adkll.slidr.Slidr;
 
 /**
  * <pre>
@@ -53,10 +54,8 @@ public abstract class BaseActivity extends AppCompatActivity
         findViewById(android.R.id.content).setBackgroundColor(getResources().getColor(R.color.mediumGray));
         initView(savedInstanceState, mContentView);
         doBusiness();
+        initSwipeBack();
 
-        if (isSwipeBack()) {
-            Slidr.attach(this);
-        }
         AppUtils.registerAppStatusChangedListener(this, new Utils.OnAppStatusChangedListener() {
             @Override
             public void onForeground() {
@@ -89,5 +88,29 @@ public abstract class BaseActivity extends AppCompatActivity
         super.onDestroy();
         AppUtils.unregisterAppStatusChangedListener(this);
     }
+
+    private void initSwipeBack() {
+        if (isSwipeBack()) {
+            SlideBackLayout slideBackLayout = new SlideBackLayout(this);
+
+            ViewGroup decorView = (ViewGroup) getWindow().getDecorView();
+            View oldScreen = decorView.getChildAt(0);
+            decorView.removeViewAt(0);
+
+            slideBackLayout.addView(oldScreen);
+            decorView.addView(slideBackLayout, 0);
+            slideBackLayout.setSwipeBackListener(new SlideBackLayout.OnSwipeBackListener() {
+                @Override
+                public void completeSwipeBack() {
+//                    finish();
+                    ToastUtils.showLong("haha");
+                }
+            });
+
+
+        }
+    }
+
+
 }
 

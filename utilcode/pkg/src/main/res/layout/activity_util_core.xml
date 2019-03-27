@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.blankj.lib.base.slideBack.SlideBackLayout
+<com.blankj.lib.base.slideBack.SwipeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/slideBackLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    tools:context=".feature.CoreUtilActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -224,4 +227,4 @@
 
     </LinearLayout>
 
-</com.blankj.lib.base.slideBack.SlideBackLayout>
+</com.blankj.lib.base.slideBack.SwipeLayout>
