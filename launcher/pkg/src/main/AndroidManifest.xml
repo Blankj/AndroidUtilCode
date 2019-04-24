@@ -6,7 +6,6 @@
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="user"
-            android:theme="@style/MainActivityTheme"
             android:windowSoftInputMode="stateHidden" />
     </application>
 

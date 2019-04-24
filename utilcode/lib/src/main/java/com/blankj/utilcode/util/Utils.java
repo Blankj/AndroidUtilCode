@@ -160,7 +160,9 @@ public final class Utils {
         if (info == null || info.size() == 0) return false;
         for (ActivityManager.RunningAppProcessInfo aInfo : info) {
             if (aInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                return aInfo.processName.equals(Utils.getApp().getPackageName());
+                if (aInfo.processName.equals(Utils.getApp().getPackageName())) {
+                    return true;
+                }
             }
         }
         return false;

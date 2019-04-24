@@ -75,10 +75,9 @@ public final class PermissionUtils {
     public static List<String> getPermissions(final String packageName) {
         PackageManager pm = Utils.getApp().getPackageManager();
         try {
-            return Arrays.asList(
-                    pm.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS)
-                            .requestedPermissions
-            );
+            String[] permissions = pm.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS).requestedPermissions;
+            if (permissions == null) return Collections.emptyList();
+            return Arrays.asList(permissions);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             return Collections.emptyList();

@@ -8,6 +8,7 @@ import android.view.View
 import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.DeviceUtils
+import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SpanUtils
 import kotlinx.android.synthetic.main.activity_device.*
 import java.util.*
@@ -60,7 +61,9 @@ class DeviceActivity : BaseTitleActivity() {
                 .appendLine("getMacAddress: " + DeviceUtils.getMacAddress())
                 .appendLine("getManufacturer: " + DeviceUtils.getManufacturer())
                 .appendLine("getModel: " + DeviceUtils.getModel())
-                .append("getABIs: " + Arrays.asList(*DeviceUtils.getABIs()))
+                .appendLine("getABIs: " + Arrays.asList(*DeviceUtils.getABIs()))
+                .appendLine("isTablet: " + DeviceUtils.isTablet())
+                .append("isEmulator: " + DeviceUtils.isEmulator())
                 .create()
     }
 

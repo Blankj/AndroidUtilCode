@@ -119,10 +119,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.bar.BarStatusSwipeBackActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTop" />
-        <activity
             android:name=".feature.brightness.BrightnessActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
@@ -207,7 +203,8 @@
         <activity
             android:name=".feature.screen.ScreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop" >
+        </activity>
         <activity
             android:name=".feature.sdcard.SDCardActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

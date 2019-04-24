@@ -1,14 +1,5 @@
 package com.blankj.lib.base;
 
-/**
- * <pre>
- *     author: blankj
- *     blog  : http://blankj.com
- *     time  : 2019/03/14
- *     desc  :
- * </pre>
- */
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
@@ -16,11 +7,11 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.blankj.lib.base.slideBack.SlideBackLayout;
+import com.blankj.swipepanel.SwipePanel;
 import com.blankj.utilcode.util.AntiShakeUtils;
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
 
@@ -91,26 +82,18 @@ public abstract class BaseActivity extends AppCompatActivity
 
     private void initSwipeBack() {
         if (isSwipeBack()) {
-            SlideBackLayout slideBackLayout = new SlideBackLayout(this);
-
-            ViewGroup decorView = (ViewGroup) getWindow().getDecorView();
-            View oldScreen = decorView.getChildAt(0);
-            decorView.removeViewAt(0);
-
-            slideBackLayout.addView(oldScreen);
-            decorView.addView(slideBackLayout, 0);
-            slideBackLayout.setSwipeBackListener(new SlideBackLayout.OnSwipeBackListener() {
+            final SwipePanel swipeLayout = new SwipePanel(this);
+            swipeLayout.setLeftDrawable(R.drawable.base_back);
+            swipeLayout.setLeftEdgeSize(SizeUtils.dp2px(100));
+            swipeLayout.wrapView(mContentView);
+            swipeLayout.setOnFullSwipeListener(new SwipePanel.OnFullSwipeListener() {
                 @Override
-                public void completeSwipeBack() {
-//                    finish();
-                    ToastUtils.showLong("haha");
+                public void onFullSwipe(int direction) {
+                    finish();
+                    swipeLayout.close(direction);
                 }
             });
-
-
         }
     }
-
-
 }
 

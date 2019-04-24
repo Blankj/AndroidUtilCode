@@ -7,14 +7,6 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
-        <item name="android:windowActionBar">false</item>
-        <!--slider-->
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-    </style>
-
-    <style name="MainActivityTheme" parent="AppTheme">
-        <item name="android:windowIsTranslucent">false</item>
     </style>
 
     <style name="TextStyle">
@@ -33,7 +25,7 @@
 
     </style>
 
-    <style name="AnimationActivity" parent="@android:style/Animation.Translucent">
+    <style name="AnimationActivity" parent="@android:style/Animation">
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_left</item>
         <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
         <item name="android:activityCloseEnterAnimation">@anim/slide_in_right</item>

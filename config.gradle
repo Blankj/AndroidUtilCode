@@ -44,7 +44,7 @@ ext {
                     support_fragment: "com.squareup.leakcanary:leakcanary-support-fragment:$leakcanary_version"
             ],
             free_proguard: "com.blankj:free-proguard:1.0.0",
-            adapt_screen : "com.blankj:adapt-screen:0.0.3",
+            swipe_panel: "com.blankj:swipe-panel:1.0",
 
             gson         : "com.google.code.gson:gson:2.8.2",
             glide        : "com.github.bumptech.glide:glide:4.7.1",

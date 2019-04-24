@@ -38,8 +38,8 @@ import java.lang.reflect.Field;
  */
 public final class ToastUtils {
 
-    private static final int     COLOR_DEFAULT = 0xFEFFFFFF;
-    private static final String  NULL          = "null";
+    private static final int    COLOR_DEFAULT = 0xFEFFFFFF;
+    private static final String NULL          = "null";
 
     private static IToast iToast;
     private static int    sGravity     = -1;
@@ -435,7 +435,7 @@ public final class ToastUtils {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
                 mWM = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
                 mParams.type = WindowManager.LayoutParams.TYPE_TOAST;
-            } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1) {
+            } else {
                 Context topActivityOrApp = Utils.getTopActivityOrApp();
                 if (!(topActivityOrApp instanceof Activity)) {
                     Log.e("ToastUtils", "Couldn't get top Activity.");
@@ -449,10 +449,11 @@ public final class ToastUtils {
                 mWM = topActivity.getWindowManager();
                 mParams.type = WindowManager.LayoutParams.LAST_APPLICATION_WINDOW;
                 Utils.getActivityLifecycle().addOnActivityDestroyedListener(topActivity, LISTENER);
-            } else {
-                mWM = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-                mParams.type = WindowManager.LayoutParams.FIRST_SYSTEM_WINDOW + 37;
             }
+//            else {
+//                mWM = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+//                mParams.type = WindowManager.LayoutParams.FIRST_SYSTEM_WINDOW + 37;
+//            }
 
             final Configuration config = context.getResources().getConfiguration();
             final int gravity = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1

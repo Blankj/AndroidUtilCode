@@ -1,6 +1,8 @@
 package com.blankj.utilcode.util;
 
 
+import android.support.annotation.NonNull;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -8,9 +10,7 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
-import java.util.Scanner;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Future;
+import java.util.TreeSet;
 
 /**
  * <pre>
@@ -21,7 +21,7 @@ import java.util.concurrent.Future;
  * </pre>
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE, shadows = {ShadowLog.class})
+@Config(manifest = Config.NONE, shadows = {ShadowLog.class}, sdk = 19)
 public class BaseTest {
 
     public BaseTest() {
@@ -32,36 +32,47 @@ public class BaseTest {
     @Test
     public void test() throws Exception {
 
-        final Scanner scanner = new Scanner(System.in);
+        TreeSet<Person> people = new TreeSet<>();
+        people.add(new Person("1", 1, 0));
+        people.add(new Person("3", 3, 0));
+        people.add(new Person("3", 3, 1));
+        people.add(new Person("2", 2, 0));
+        for (Person person : people) {
+            System.out.println(person);
+        }
+        System.out.println(people);
 
-        final CountDownLatch countDownLatch = new CountDownLatch(1);
-        final Future<?> submit = ThreadUtils.getSinglePool().submit(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("haha0");
-                scanner.nextLine();
-                System.out.println("haha");
-                if (Thread.currentThread().isInterrupted()) {
-                    System.out.println(1);
-                }
-                for (int i = 0; i < 1000000; i++) {
-                    if (Thread.currentThread().isInterrupted()) {
-                        break;
-                    }
-//                    try {
-//                        Thread.sleep(100);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
+
+//        final Scanner scanner = new Scanner(System.in);
+//
+//        final CountDownLatch countDownLatch = new CountDownLatch(1);
+//        final Future<?> submit = ThreadUtils.getSinglePool().submit(new Runnable() {
+//            @Override
+//            public void run() {
+//                System.out.println("haha0");
+//                scanner.nextLine();
+//                System.out.println("haha");
+//                if (Thread.currentThread().isInterrupted()) {
+//                    System.out.println(1);
+//                }
+//                for (int i = 0; i < 1000000; i++) {
+//                    if (Thread.currentThread().isInterrupted()) {
+//                        break;
 //                    }
-                    System.out.println(i);
-                }
-            }
-        });
-        Thread.sleep(500);
-        scanner.close();
-        Thread.sleep(500);
-        submit.cancel(true);
-        countDownLatch.await();
+////                    try {
+////                        Thread.sleep(100);
+////                    } catch (InterruptedException e) {
+////                        e.printStackTrace();
+////                    }
+//                    System.out.println(i);
+//                }
+//            }
+//        });
+//        Thread.sleep(500);
+//        scanner.close();
+//        Thread.sleep(500);
+//        submit.cancel(true);
+//        countDownLatch.await();
 
 //        final CountDownLatch countDownLatch = new CountDownLatch(1);
 //        final Scanner scanner = new Scanner(System.in);
@@ -155,26 +166,34 @@ public class BaseTest {
 
     }
 
-    static class Person {
+    static class Person implements Comparable<Person> {
 
         String name;
-        int    gender;
-        String address;
+        int    age;
+        int    time;
 
         public Person(String name) {
             this.name = name;
         }
 
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == this) return true;
-            if (!(obj instanceof Person)) return false;
-            Person p = (Person) obj;
-            return equals(name, p.name) && p.gender == gender && equals(address, p.address);
+        public Person(String name, int age, int time) {
+            this.name = name;
+            this.age = age;
+            this.time = time;
         }
 
-        private static boolean equals(final Object o1, final Object o2) {
-            return o1 == o2 || (o1 != null && o1.equals(o2));
+        @Override
+        public String toString() {
+            return name + age + time;
+        }
+
+        @Override
+        public int compareTo(@NonNull Person o) {
+            int res = o.age - age;
+            if (res != 0) {
+                return res;
+            }
+            return time - o.time;
         }
     }
 }

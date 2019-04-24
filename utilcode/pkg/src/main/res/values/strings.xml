@@ -93,7 +93,6 @@
     <string name="bar_status_set_image_view">Set Image View</string>
     <string name="bar_status_set_custom">Set Custom</string>
     <string name="bar_status_set_fragment">Set Fragment</string>
-    <string name="bar_status_set_swipe_back">Set Swipe Back</string>
     <string name="bar_status_set_drawer">Set Drawer</string>
     <string name="bar_status_random_color">Random Color</string>
     <string name="bar_status_set_transparent">Set Transparent</string>

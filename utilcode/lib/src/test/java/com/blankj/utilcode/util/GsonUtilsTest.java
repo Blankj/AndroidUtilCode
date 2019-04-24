@@ -93,8 +93,6 @@ public class GsonUtilsTest extends BaseTest {
     static class Person {
 
         String name;
-        int    gender;
-        String address;
 
         Person(String name) {
             this.name = name;

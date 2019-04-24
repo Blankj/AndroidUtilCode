@@ -302,15 +302,4 @@ public final class ScreenUtils {
             return -123;
         }
     }
-
-    /**
-     * Return whether device is tablet.
-     *
-     * @return {@code true}: yes<br>{@code false}: no
-     */
-    public static boolean isTablet() {
-        return (Utils.getApp().getResources().getConfiguration().screenLayout
-                & Configuration.SCREENLAYOUT_SIZE_MASK)
-                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
-    }
 }

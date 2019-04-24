@@ -281,6 +281,8 @@ shutdown         : 关机
 reboot           : 重启
 reboot2Recovery  : 重启到 recovery
 reboot2Bootloader: 重启到 bootloader
+isTablet           : 判断是否是平板
+isEmulator         : 判断是否是模拟器
 ```
 
 * ### 闪光灯相关 -> [FlashlightUtils.java][flashlight.java] -> [Demo][flashlight.demo]
@@ -729,7 +731,6 @@ screenShot         : 截屏
 isScreenLock       : 判断是否锁屏
 setSleepDuration   : 设置进入休眠时长
 getSleepDuration   : 获取进入休眠时长
-isTablet           : 判断是否是平板
 ```
 
 * ### SD 卡相关 -> [SDCardUtils.java][sdcard.java] -> [Demo][sdcard.demo]

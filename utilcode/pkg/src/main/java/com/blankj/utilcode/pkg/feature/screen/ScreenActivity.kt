@@ -104,8 +104,7 @@ class ScreenActivity : BaseTitleActivity() {
                 .appendLine("isPortrait: " + ScreenUtils.isPortrait())
                 .appendLine("getScreenRotation: " + ScreenUtils.getScreenRotation(this))
                 .appendLine("isScreenLock: " + ScreenUtils.isScreenLock())
-                .appendLine("getSleepDuration: " + ScreenUtils.getSleepDuration())
-                .append("isTablet: " + ScreenUtils.isTablet())
+                .append("getSleepDuration: " + ScreenUtils.getSleepDuration())
                 .create()
     }
 }
