@@ -1,3 +1,4 @@
+* `19/04/24` [upd] The swipe panel.
 * `19/03/17` [fix] The ugly UI.
 * `19/03/14` [fix] AdaptScreenUtils didn't work on some HaWei tablet.
 * `19/03/08` [add] LogUtils support multi process. Publish v1.23.7.
