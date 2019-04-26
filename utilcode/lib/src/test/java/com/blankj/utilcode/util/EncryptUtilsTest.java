@@ -530,7 +530,6 @@ public class EncryptUtilsTest extends BaseTest {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        System.out.println(EncodeUtils.base64Decode(publicKey.getBytes()).length);
         assertTrue(
                 Arrays.equals(
                         EncryptUtils.decryptRSA(
@@ -538,11 +537,11 @@ public class EncryptUtilsTest extends BaseTest {
                                         dataRSA.getBytes(),
                                         base64Decode(publicKey.getBytes()),
                                         true,
-                                        "RSA/ECB/NoPadding"
+                                        "RSA/ECB/PKCS1Padding"
                                 ),
                                 base64Decode(privateKey.getBytes()),
                                 false,
-                                "RSA/ECB/NoPadding"
+                                "RSA/ECB/PKCS1Padding"
                         ),
                         dataRSA.getBytes()
                 )

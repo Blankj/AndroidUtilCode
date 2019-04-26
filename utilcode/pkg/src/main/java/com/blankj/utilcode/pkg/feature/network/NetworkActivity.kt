@@ -80,6 +80,8 @@ class NetworkActivity : BaseTitleActivity() {
         updateAboutNetwork()
     }
 
+    private lateinit var ipV4AddressAsyncTask: Utils.Task<String>
+    private lateinit var ipV6AddressAsyncTask: Utils.Task<String>
     private lateinit var wifiAvailableAsyncTask: Utils.Task<Boolean>
     private lateinit var availableAsyncTask: Utils.Task<Boolean>
     private lateinit var domainAddressAsyncTask: Utils.Task<String>
@@ -94,19 +96,39 @@ class NetworkActivity : BaseTitleActivity() {
                 .appendLine("isWifiConnected: " + NetworkUtils.isWifiConnected())
                 .appendLine("getNetworkOperatorName: " + NetworkUtils.getNetworkOperatorName())
                 .appendLine("getNetworkTypeName: " + NetworkUtils.getNetworkType())
-                .appendLine("getIPv4Address: " + NetworkUtils.getIPAddress(true))
-                .appendLine("getIPv6Address: " + NetworkUtils.getIPAddress(false))
                 .appendLine("getBroadcastIpAddress: " + NetworkUtils.getBroadcastIpAddress())
                 .appendLine("getIpAddressByWifi: " + NetworkUtils.getIpAddressByWifi())
                 .appendLine("getGatewayByWifi: " + NetworkUtils.getGatewayByWifi())
                 .appendLine("getNetMaskByWifi: " + NetworkUtils.getNetMaskByWifi())
                 .append("getServerAddressByWifi: " + NetworkUtils.getServerAddressByWifi())
                 .create()
-        cur += 3
+        cur += 5
+
+        ipV4AddressAsyncTask = NetworkUtils.getIPAddressAsync(true) { data ->
+            val num = count.get()
+            if (num >= cur - 5) {
+                spanSb = SpanUtils().appendLine(spanSb)
+                        .append("getIPv4Address: $data")
+                        .create()
+                networkAboutTv.text = spanSb
+            }
+            count.addAndGet(1)
+        }
+
+        ipV6AddressAsyncTask = NetworkUtils.getIPAddressAsync(false) { data ->
+            val num = count.get()
+            if (num >= cur - 5) {
+                spanSb = SpanUtils().appendLine(spanSb)
+                        .append("getIPv6Address: $data")
+                        .create()
+                networkAboutTv.text = spanSb
+            }
+            count.addAndGet(1)
+        }
 
         wifiAvailableAsyncTask = NetworkUtils.isWifiAvailableAsync { data ->
             val num = count.get()
-            if (num >= cur - 3) {
+            if (num >= cur - 5) {
                 spanSb = SpanUtils().appendLine(spanSb)
                         .append("isWifiAvailable: $data")
                         .create()
@@ -117,7 +139,7 @@ class NetworkActivity : BaseTitleActivity() {
 
         availableAsyncTask = NetworkUtils.isAvailableAsync { data ->
             val num = count.get()
-            if (num >= cur - 3) {
+            if (num >= cur - 5) {
                 spanSb = SpanUtils().appendLine(spanSb)
                         .append("isAvailable: $data")
                         .create()
@@ -128,7 +150,7 @@ class NetworkActivity : BaseTitleActivity() {
 
         domainAddressAsyncTask = NetworkUtils.getDomainAddressAsync("baidu.com") { data ->
             val num = count.get()
-            if (num >= cur - 3) {
+            if (num >= cur - 5) {
                 spanSb = SpanUtils().appendLine(spanSb)
                         .append("getBaiduDomainAddress: $data")
                         .create()
@@ -139,6 +161,8 @@ class NetworkActivity : BaseTitleActivity() {
     }
 
     override fun onDestroy() {
+        ipV4AddressAsyncTask.cancel()
+        ipV6AddressAsyncTask.cancel()
         wifiAvailableAsyncTask.cancel()
         availableAsyncTask.cancel()
         domainAddressAsyncTask.cancel()

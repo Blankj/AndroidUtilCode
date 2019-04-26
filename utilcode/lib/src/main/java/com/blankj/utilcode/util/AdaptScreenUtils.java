@@ -17,7 +17,7 @@ public final class AdaptScreenUtils {
      * Adapt for the horizontal screen, and call it in [android.app.Activity.getResources].
      */
     public static Resources adaptWidth(final Resources resources, final int designWidth) {
-        float newXdpi = (Resources.getSystem().getDisplayMetrics().widthPixels * 72f) / designWidth;
+        float newXdpi = (resources.getDisplayMetrics().widthPixels * 72f) / designWidth;
         applyDisplayMetrics(resources, newXdpi);
         return resources;
     }
@@ -26,9 +26,27 @@ public final class AdaptScreenUtils {
      * Adapt for the vertical screen, and call it in [android.app.Activity.getResources].
      */
     public static Resources adaptHeight(final Resources resources, final int designHeight) {
-        float newXdpi = (Resources.getSystem().getDisplayMetrics().heightPixels * 72f) / designHeight;
+        return adaptHeight(resources, designHeight, false);
+    }
+
+    /**
+     * Adapt for the vertical screen, and call it in [android.app.Activity.getResources].
+     */
+    public static Resources adaptHeight(final Resources resources, final int designHeight, final boolean includeNavBar) {
+        float screenHeight = resources.getDisplayMetrics().heightPixels * 72f
+                + (includeNavBar ? getNavBarHeight(resources) : 0);
+        float newXdpi = screenHeight / designHeight;
         applyDisplayMetrics(resources, newXdpi);
         return resources;
+    }
+
+    private static int getNavBarHeight(final Resources resources) {
+        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId != 0) {
+            return resources.getDimensionPixelSize(resourceId);
+        } else {
+            return 0;
+        }
     }
 
     /**

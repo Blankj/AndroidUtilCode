@@ -281,8 +281,8 @@ shutdown         : 关机
 reboot           : 重启
 reboot2Recovery  : 重启到 recovery
 reboot2Bootloader: 重启到 bootloader
-isTablet           : 判断是否是平板
-isEmulator         : 判断是否是模拟器
+isTablet         : 判断是否是平板
+isEmulator       : 判断是否是模拟器
 ```
 
 * ### 闪光灯相关 -> [FlashlightUtils.java][flashlight.java] -> [Demo][flashlight.demo]
@@ -543,7 +543,7 @@ isWifiConnected         : 判断 wifi 是否连接状态
 isWifiAvailable[Async]  : 判断 wifi 数据是否可用
 getNetworkOperatorName  : 获取移动网络运营商名称
 getNetworkType          : 获取当前网络类型
-getIPAddress            : 获取 IP 地址
+getIPAddress[Async]     : 获取 IP 地址
 getDomainAddress[Async] : 获取域名 IP 地址
 getIpAddressByWifi      : 根据 WiFi 获取网络 IP 地址
 getGatewayByWifi        : 根据 WiFi 获取网关 IP 地址

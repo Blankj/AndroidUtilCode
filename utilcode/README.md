@@ -281,6 +281,8 @@ shutdown
 reboot
 reboot2Recovery
 reboot2Bootloader
+isTablet
+isEmulator
 ```
 
 * ### About Flashlight -> [FlashlightUtils.java][flashlight.java] -> [Demo][flashlight.demo]
@@ -541,7 +543,7 @@ isWifiConnected
 isWifiAvailable[Async]  : 判断 wifi 数据是否可用
 getNetworkOperatorName
 getNetworkType
-getIPAddress
+getIPAddress[Async]     : 获取 IP 地址
 getDomainAddress[Async] : 获取域名 IP 地址
 getIpAddressByWifi
 getGatewayByWifi
@@ -712,6 +714,8 @@ getRomInfo
 ```
 getScreenWidth
 getScreenHeight
+getAppScreenWidth
+getAppScreenHeight
 getScreenDensity
 getScreenDensityDpi
 setFullScreen
@@ -727,7 +731,6 @@ screenShot
 isScreenLock
 setSleepDuration
 getSleepDuration
-isTablet
 ```
 
 * ### About SDCard -> [SDCardUtils.java][sdcard.java] -> [Demo][sdcard.demo]

@@ -46,6 +46,8 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
@@ -526,19 +528,19 @@ public final class LogUtils {
         File[] files = parentFile.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                return name.matches("^" + CONFIG.getFilePrefix() + "-[0-9]{4}-[0-9]{2}-[0-9]{2}-" + CONFIG.getProcessName() + ".txt$");
+                return name.matches("^" + CONFIG.getFilePrefix() + "-[0-9]{4}-[0-9]{2}-[0-9]{2}-.*\\.txt$");
             }
         });
         if (files == null || files.length <= 0) return;
         final int length = filePath.length();
         final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         try {
-            String curDay = filePath.substring(length - 14, length - 4);
+            String curDay = findDate(filePath);
             long dueMillis = sdf.parse(curDay).getTime() - CONFIG.getSaveDays() * 86400000L;
             for (final File aFile : files) {
                 String name = aFile.getName();
                 int l = name.length();
-                String logDay = name.substring(l - 14, l - 4);
+                String logDay = findDate(name);
                 if (sdf.parse(logDay).getTime() <= dueMillis) {
                     EXECUTOR.execute(new Runnable() {
                         @Override
@@ -554,6 +556,15 @@ public final class LogUtils {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    private static String findDate(String str) {
+        Pattern pattern = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+        Matcher matcher = pattern.matcher(str);
+        if (matcher.find()) {
+            return matcher.group();
+        }
+        return "";
     }
 
     private static void printDeviceInfo(final String filePath) {
@@ -817,7 +828,7 @@ public final class LogUtils {
                 BufferedReader mBufferedReader = new BufferedReader(new FileReader(file));
                 String processName = mBufferedReader.readLine().trim();
                 mBufferedReader.close();
-                return processName;
+                return processName.replace(":", "_");
             } catch (Exception e) {
                 e.printStackTrace();
                 return "";

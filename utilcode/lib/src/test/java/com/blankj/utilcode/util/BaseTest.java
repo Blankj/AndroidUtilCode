@@ -10,7 +10,7 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
-import java.util.TreeSet;
+import java.util.concurrent.Executor;
 
 /**
  * <pre>
@@ -21,28 +21,22 @@ import java.util.TreeSet;
  * </pre>
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE, shadows = {ShadowLog.class}, sdk = 19)
+@Config(manifest = Config.NONE, shadows = {ShadowLog.class})
 public class BaseTest {
 
     public BaseTest() {
         ShadowLog.stream = System.out;
+        ThreadUtils.setDeliver(new Executor() {
+            @Override
+            public void execute(@NonNull Runnable command) {
+                command.run();
+            }
+        });
         Utils.init(RuntimeEnvironment.application);
     }
 
     @Test
     public void test() throws Exception {
-
-        TreeSet<Person> people = new TreeSet<>();
-        people.add(new Person("1", 1, 0));
-        people.add(new Person("3", 3, 0));
-        people.add(new Person("3", 3, 1));
-        people.add(new Person("2", 2, 0));
-        for (Person person : people) {
-            System.out.println(person);
-        }
-        System.out.println(people);
-
-
 //        final Scanner scanner = new Scanner(System.in);
 //
 //        final CountDownLatch countDownLatch = new CountDownLatch(1);

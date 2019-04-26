@@ -4,8 +4,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
-import android.util.SparseArray;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,8 +30,8 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public final class ThreadUtils {
 
-    private static final SparseArray<SparseArray<ExecutorService>> TYPE_PRIORITY_POOLS = new SparseArray<>();
-    private static final Map<Task, ScheduledExecutorService>       TASK_SCHEDULED      = new HashMap<>();
+    private static final HashMap<Integer, Map<Integer, ExecutorService>> TYPE_PRIORITY_POOLS = new HashMap<>();
+    private static final Map<Task, ScheduledExecutorService>             TASK_SCHEDULED      = new HashMap<>();
 
     private static final byte TYPE_SINGLE = -1;
     private static final byte TYPE_CACHED = -2;
@@ -912,9 +912,9 @@ public final class ThreadUtils {
 
     private synchronized static ExecutorService getPoolByTypeAndPriority(final int type, final int priority) {
         ExecutorService pool;
-        SparseArray<ExecutorService> priorityPools = TYPE_PRIORITY_POOLS.get(type);
+        Map<Integer, ExecutorService> priorityPools = TYPE_PRIORITY_POOLS.get(type);
         if (priorityPools == null) {
-            priorityPools = new SparseArray<>();
+            priorityPools = new HashMap<>();
             pool = createPoolByTypeAndPriority(type, priority);
             priorityPools.put(priority, pool);
             TYPE_PRIORITY_POOLS.put(type, priorityPools);
@@ -998,9 +998,10 @@ public final class ThreadUtils {
         private volatile int     state = NEW;
         private          boolean isSchedule;
 
+        @Nullable
         public abstract T doInBackground() throws Throwable;
 
-        public abstract void onSuccess(T result);
+        public abstract void onSuccess(@Nullable T result);
 
         public abstract void onCancel();
 
@@ -1080,6 +1081,7 @@ public final class ThreadUtils {
             this.priority = priority;
         }
 
+        @Override
         public Thread newThread(@NonNull Runnable r) {
             Thread t = new Thread(r, namePrefix + getAndIncrement()) {
                 @Override
