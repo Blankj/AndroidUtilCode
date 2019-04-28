@@ -167,7 +167,6 @@ class ActivityActivity : BaseTitleActivity() {
     }
 
     private fun getOption(type: Int): Bundle? {
-        LogUtils.d(type)
         when (type) {
             0 -> return ActivityOptionsCompat.makeCustomAnimation(this,
                     R.anim.slide_in_right_1000,

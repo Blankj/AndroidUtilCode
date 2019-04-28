@@ -53,8 +53,13 @@ public final class UriUtils {
         Log.d("UriUtils", uri.toString());
         String authority = uri.getAuthority();
         String scheme = uri.getScheme();
+        String path = uri.getPath();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+                && path != null && path.startsWith("/external")) {
+            return new File(Environment.getExternalStorageDirectory().getAbsolutePath()
+                    + path.replace("/external", ""));
+        }
         if (ContentResolver.SCHEME_FILE.equals(scheme)) {
-            String path = uri.getPath();
             if (path != null) return new File(path);
             Log.d("UriUtils", uri.toString() + " parse failed. -> 0");
             return null;
