@@ -1,10 +1,11 @@
-includeModule\
+includeModule(
         ':buildSrc',
         ':bus-gradle-plugin',
         ':launcher',
         ':lib',
         ':subutil',
-        ':utilcode'
+        ':utilcode',
+)
 
 // 如果 name 以 '-' 开头，则剔除在外
 def includeModule(String... names) {
