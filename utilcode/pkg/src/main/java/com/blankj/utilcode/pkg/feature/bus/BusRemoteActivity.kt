@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.View
 import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
+import com.blankj.utilcode.util.BusUtils
 import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.MessengerUtils
 import kotlinx.android.synthetic.main.activity_bus_remote.*
 
 /**
@@ -51,7 +51,7 @@ class BusRemoteActivity : BaseTitleActivity() {
     }
 
     override fun doBusiness() {
-        MessengerUtils.subscribe(BUS_KEY, object : MessengerUtils.MessageCallback {
+        BusUtils.subscribe(BUS_KEY, object : BusUtils.MessageCallback {
             override fun onMsgCallBack(data: Bundle?) {
                 LogUtils.eTag("MessengerUtils", data)
             }
@@ -60,8 +60,8 @@ class BusRemoteActivity : BaseTitleActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.busRemotePostBtn -> MessengerUtils.post(BUS_KEY, BUNDLE)
-            R.id.busRemotePost2MainBtn -> MessengerUtils.post(BusActivity.BUS_KEY, BusActivity.BUNDLE)
+            R.id.busRemotePostBtn -> BusUtils.post(BUS_KEY, BUNDLE)
+            R.id.busRemotePost2MainBtn -> BusUtils.post(BusActivity.BUS_KEY, BusActivity.BUNDLE)
         }
     }
 }

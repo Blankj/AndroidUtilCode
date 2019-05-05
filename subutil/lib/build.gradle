@@ -19,7 +19,9 @@ dependencies {
         exclude group: "com.android.support"
     }
     api dep.retrofit
+    api dep.gson
 
     testImplementation dep.junit
     testImplementation dep.robolectric
+    testImplementation project(":utilcode-lib")
 }

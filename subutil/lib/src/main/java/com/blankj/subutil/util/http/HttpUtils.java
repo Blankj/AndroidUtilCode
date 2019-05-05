@@ -1,4 +1,4 @@
-package com.blankj.utilcode.util.http;
+package com.blankj.subutil.util.http;
 
 import android.accounts.NetworkErrorException;
 import android.support.annotation.NonNull;

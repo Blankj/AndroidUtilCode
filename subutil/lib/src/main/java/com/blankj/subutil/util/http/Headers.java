@@ -1,4 +1,4 @@
-package com.blankj.utilcode.util.http;
+package com.blankj.subutil.util.http;
 
 import java.util.HashMap;
 import java.util.List;

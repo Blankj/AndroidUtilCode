@@ -1,4 +1,4 @@
-package com.blankj.utilcode.util.http;
+package com.blankj.subutil.util.http;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
@@ -61,7 +61,7 @@ public final class SSLConfig {
                 PROTOCOL_ARRAY = new String[]{"SSLv3", "TLSv1"};
             }
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 DEFAULT_TRUST_MANAGERS = new TrustManager[]{
                         new X509ExtendedTrustManager() {
                             @SuppressLint("TrustAllX509TrustManager")

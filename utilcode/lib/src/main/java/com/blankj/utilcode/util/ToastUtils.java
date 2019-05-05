@@ -243,13 +243,15 @@ public final class ToastUtils {
     }
 
     private static void show(final CharSequence text, final int duration) {
-        Utils.UTIL_HANDLER.post(new Runnable() {
+        Utils.runOnUiThread(new Runnable() {
             @SuppressLint("ShowToast")
             @Override
             public void run() {
                 cancel();
                 iToast = ToastFactory.makeToast(Utils.getApp(), text, duration);
-                final TextView tvMessage = iToast.getView().findViewById(android.R.id.message);
+                final View toastView = iToast.getView();
+                if (toastView == null) return;
+                final TextView tvMessage = toastView.findViewById(android.R.id.message);
                 if (sMsgColor != COLOR_DEFAULT) {
                     tvMessage.setTextColor(sMsgColor);
                 }
@@ -266,7 +268,7 @@ public final class ToastUtils {
     }
 
     private static void show(final View view, final int duration) {
-        Utils.UTIL_HANDLER.post(new Runnable() {
+        Utils.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 cancel();
@@ -486,7 +488,7 @@ public final class ToastUtils {
                 }
             } catch (Exception ignored) { /**/ }
 
-            Utils.UTIL_HANDLER.postDelayed(new Runnable() {
+            Utils.runOnUiThreadDelayed(new Runnable() {
                 @Override
                 public void run() {
                     cancel();

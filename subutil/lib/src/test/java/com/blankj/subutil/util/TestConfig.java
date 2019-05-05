@@ -23,4 +23,7 @@ public class TestConfig {
         }
         TEST_PATH = projectPath + FILE_SEP + "src" + FILE_SEP + "test" + FILE_SEP + "res";
     }
+
+
+    public static final String PATH_HTTP = TEST_PATH + "http" + FILE_SEP;
 }

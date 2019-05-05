@@ -173,6 +173,22 @@ public final class Utils {
         return task;
     }
 
+    static void runOnUiThread(final Runnable runnable) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            runnable.run();
+        } else {
+            Utils.UTIL_HANDLER.post(runnable);
+        }
+    }
+
+    static void runOnUiThreadDelayed(final Runnable runnable, long delayMillis) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            runnable.run();
+        } else {
+            Utils.UTIL_HANDLER.postDelayed(runnable, delayMillis);
+        }
+    }
+
     private static void setAnimatorsEnabled() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && ValueAnimator.areAnimatorsEnabled()) {
             return;
