@@ -20,7 +20,7 @@
         </provider>
 
         <service
-            android:name="com.blankj.utilcode.util.MessengerUtils$ServerService"
+            android:name="com.blankj.utilcode.util.BusUtils$ServerService"
             android:exported="true">
             <intent-filter>
                 <action android:name="${applicationId}.messenger" />
