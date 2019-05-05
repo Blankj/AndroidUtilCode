@@ -53,7 +53,7 @@ class BusRemoteActivity : BaseTitleActivity() {
     override fun doBusiness() {
         BusUtils.subscribe(BUS_KEY, object : BusUtils.MessageCallback {
             override fun onMsgCallBack(data: Bundle?) {
-                LogUtils.eTag("MessengerUtils", data)
+                LogUtils.eTag("BusUtils", data)
             }
         })
     }

@@ -42,7 +42,7 @@ public class BaseApplication extends Application {
         initLeakCanary();
         initLog();
         initCrash();
-//        MessengerUtils.init();
+//        BusUtils.init();
     }
 
     private void initLeakCanary() {// 内存泄露检查工具

@@ -346,17 +346,17 @@ public final class BusUtils {
                 try {
                     mServer.send(msg);
                 } catch (RemoteException e) {
-                    Log.e("MessengerUtils", "onServiceConnected: ", e);
+                    Log.e("BusUtils", "onServiceConnected: ", e);
                 }
                 sendCachedMsg2Server();
             }
 
             @Override
             public void onServiceDisconnected(ComponentName name) {
-                Log.w("MessengerUtils", "client service disconnected:" + name);
+                Log.w("BusUtils", "client service disconnected:" + name);
                 mServer = null;
                 if (!bind()) {
-                    Log.e("MessengerUtils", "client service rebind failed: " + name);
+                    Log.e("BusUtils", "client service rebind failed: " + name);
                 }
             }
         };
@@ -376,11 +376,11 @@ public final class BusUtils {
                     intent.setPackage(mPkgName);
                     return Utils.getApp().bindService(intent, mConn, Context.BIND_AUTO_CREATE);
                 } else {
-                    Log.e("MessengerUtils", "bind: the app is not running -> " + mPkgName);
+                    Log.e("BusUtils", "bind: the app is not running -> " + mPkgName);
                     return false;
                 }
             } else {
-                Log.e("MessengerUtils", "bind: the app is not installed -> " + mPkgName);
+                Log.e("BusUtils", "bind: the app is not installed -> " + mPkgName);
                 return false;
             }
         }
@@ -391,7 +391,7 @@ public final class BusUtils {
             try {
                 mServer.send(msg);
             } catch (RemoteException e) {
-                Log.e("MessengerUtils", "unbind: ", e);
+                Log.e("BusUtils", "unbind: ", e);
             }
             Utils.getApp().unbindService(mConn);
         }
@@ -425,7 +425,7 @@ public final class BusUtils {
                 mServer.send(msg);
                 return true;
             } catch (RemoteException e) {
-                Log.e("MessengerUtils", "send2Server: ", e);
+                Log.e("BusUtils", "send2Server: ", e);
                 return false;
             }
         }

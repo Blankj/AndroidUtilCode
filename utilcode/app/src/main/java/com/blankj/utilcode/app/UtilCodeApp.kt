@@ -23,7 +23,7 @@ class UtilCodeApp : BaseApplication() {
         Utils.init(this)
         super.onCreate()
         instance = this
-//        MessengerUtils.registerClient("com.blankj.androidutilcode")
+//        BusUtils.registerClient("com.blankj.androidutilcode")
     }
 }
 
