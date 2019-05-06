@@ -16,13 +16,13 @@ ext {
     ]
 
     // lib version
-    kotlin_version = '1.3.0'
+    kotlin_version = '1.3.10'
     support_version = '27.1.1'
     leakcanary_version = '1.6.3'
 
     dep = [
             plugin       : [
-                    "com.android.tools.build:gradle:3.2.1",
+                    "com.android.tools.build:gradle:3.4.0",
                     "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version",
                     "com.github.dcendents:android-maven-gradle-plugin:2.1",// 上传到 maven
                     "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4",// 上传到 bintray
@@ -53,7 +53,7 @@ ext {
             commons_io   : "commons-io:commons-io:2.5",
 
             junit        : "junit:junit:4.12",
-            robolectric  : "org.robolectric:robolectric:3.1.2",
+            robolectric  : "org.robolectric:robolectric:4.2",
     ]
 }
 //./gradlew clean utilcode-lib:bintrayUpload
