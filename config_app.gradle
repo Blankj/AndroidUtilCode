@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat
+
 apply {
     plugin "com.android.application"
     plugin "kotlin-android"
@@ -84,9 +86,81 @@ def configApkName(Project pro) {
             variant.getPackageApplicationProvider().get().outputDirectory = new File("${rootDir.path}/apk")
             variant.getPackageApplicationProvider().get().outputScope.apkDatas.forEach { apkData ->
                 apkData.outputFileName = "util" + suffix +
-                                         "_" + variant.versionName.replace(".", "_") +
-                                         ".apk"
+                        "_" + variant.versionName.replace(".", "_") +
+                        ".apk"
             }
         }
     }
 }
+
+
+// 打印每一个任务的时间.
+class TimingsListener implements TaskExecutionListener, BuildListener {
+    private long startTime
+    private timings = []
+    private String filePath
+
+    TimingsListener(String filePath) {
+        this.filePath = filePath
+    }
+
+    @Override
+    void beforeExecute(Task task) {
+        startTime = System.currentTimeMillis()
+    }
+
+    @Override
+    void afterExecute(Task task, TaskState taskState) {
+        def ms = System.currentTimeMillis() - startTime
+        timings.add([ms, task.path])
+    }
+
+    @Override
+    void buildFinished(BuildResult result) {
+        ArrayList array = new ArrayList()
+        for (timing in timings) {
+            if (timing[0] >= 100) {
+                array.add(timing)
+            }
+        }
+        try {
+            if (!array.isEmpty()) {
+                Collections.sort(array, new Comparator() {
+                    @Override
+                    int compare(Object o1, Object o2) {
+                        return o2[0] - o1[0]
+                    }
+                })
+                println "Task timings:"
+                FileWriter fw = new FileWriter(new File(filePath), true)
+                array.each {
+                    fw.write(String.format("%7sms  %s\n", it[0], it[1]))
+                    printf "%7sms  %s\n", it
+                }
+                fw.flush()
+                fw.close()
+            } else {
+                new File(filePath).delete()
+            }
+        } catch (Exception e) {
+        }
+        array.clear()
+    }
+
+    @Override
+    void buildStarted(Gradle gradle) {}
+
+    @Override
+    void projectsEvaluated(Gradle gradle) {}
+
+    @Override
+    void projectsLoaded(Gradle gradle) {}
+
+    @Override
+    void settingsEvaluated(Settings settings) {}
+}
+
+def sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss")
+def file = new File(rootProject.buildDir.getAbsolutePath(),
+        "buildTime_" + sdf.format(new Date(System.currentTimeMillis())) + ".txt")
+gradle.addListener(new TimingsListener(file.getAbsolutePath()))

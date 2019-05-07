@@ -143,21 +143,37 @@ public final class PermissionUtils {
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
     public static boolean isGrantedDrawOverlays() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            AppOpsManager aom = (AppOpsManager) Utils.getApp().getSystemService(Context.APP_OPS_SERVICE);
-            if (aom == null) return false;
-            int mode = aom.checkOpNoThrow(
-                    "android:system_alert_window",
-                    android.os.Process.myUid(),
-                    Utils.getApp().getPackageName()
-            );
-            return mode == AppOpsManager.MODE_ALLOWED || mode == AppOpsManager.MODE_IGNORED;
-        }
         return Settings.canDrawOverlays(Utils.getApp());
+    }
+
+    /**
+     * Return whether the app can draw on top of other apps.
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public static boolean isGrantedDrawOverlays(final Utils.Callback<Boolean> callback) {
+        return Utils.UTIL_HANDLER.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                callback.onCall(isGrantedDrawOverlays());
+            }
+        }, 200);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public static void requestDrawOverlays(final SimpleCallback callback) {
+        isGrantedDrawOverlays(new Utils.Callback<Boolean>() {
+            @Override
+            public void onCall(Boolean data) {
+                if (data) {
+                    if (callback != null) callback.onGranted();
+                    return;
+                }
+                sSimpleCallback4DrawOverlays = callback;
+                PermissionActivity.start(Utils.getApp(), PermissionActivity.TYPE_DRAW_OVERLAYS);
+            }
+        });
         if (isGrantedDrawOverlays()) {
             if (callback != null) callback.onGranted();
             return;

@@ -30,11 +30,12 @@ public final class ShellUtils {
      * @param command  The command.
      * @param isRooted True to use root, false otherwise.
      * @param callback The callback.
+     * @return the task
      */
-    public static void execCmdAsync(final String command,
-                                    final boolean isRooted,
-                                    final Utils.Callback<CommandResult> callback) {
-        execCmdAsync(new String[]{command}, isRooted, true, callback);
+    public static Utils.Task<CommandResult> execCmdAsync(final String command,
+                                                         final boolean isRooted,
+                                                         final Utils.Callback<CommandResult> callback) {
+        return execCmdAsync(new String[]{command}, isRooted, true, callback);
     }
 
     /**
@@ -43,11 +44,12 @@ public final class ShellUtils {
      * @param commands The commands.
      * @param isRooted True to use root, false otherwise.
      * @param callback The callback.
+     * @return the task
      */
-    public static void execCmdAsync(final List<String> commands,
-                                    final boolean isRooted,
-                                    final Utils.Callback<CommandResult> callback) {
-        execCmdAsync(commands == null ? null : commands.toArray(new String[]{}), isRooted, true, callback);
+    public static Utils.Task<CommandResult> execCmdAsync(final List<String> commands,
+                                                         final boolean isRooted,
+                                                         final Utils.Callback<CommandResult> callback) {
+        return execCmdAsync(commands == null ? null : commands.toArray(new String[]{}), isRooted, true, callback);
     }
 
     /**
@@ -56,11 +58,12 @@ public final class ShellUtils {
      * @param commands The commands.
      * @param isRooted True to use root, false otherwise.
      * @param callback The callback.
+     * @return the task
      */
-    public static void execCmdAsync(final String[] commands,
-                                    final boolean isRooted,
-                                    final Utils.Callback<CommandResult> callback) {
-        execCmdAsync(commands, isRooted, true, callback);
+    public static Utils.Task<CommandResult> execCmdAsync(final String[] commands,
+                                                         final boolean isRooted,
+                                                         final Utils.Callback<CommandResult> callback) {
+        return execCmdAsync(commands, isRooted, true, callback);
     }
 
     /**
@@ -70,12 +73,13 @@ public final class ShellUtils {
      * @param isRooted        True to use root, false otherwise.
      * @param isNeedResultMsg True to return the message of result, false otherwise.
      * @param callback        The callback.
+     * @return the task
      */
-    public static void execCmdAsync(final String command,
-                                    final boolean isRooted,
-                                    final boolean isNeedResultMsg,
-                                    final Utils.Callback<CommandResult> callback) {
-        execCmdAsync(new String[]{command}, isRooted, isNeedResultMsg, callback);
+    public static Utils.Task<CommandResult> execCmdAsync(final String command,
+                                                         final boolean isRooted,
+                                                         final boolean isNeedResultMsg,
+                                                         final Utils.Callback<CommandResult> callback) {
+        return execCmdAsync(new String[]{command}, isRooted, isNeedResultMsg, callback);
     }
 
     /**
@@ -85,12 +89,13 @@ public final class ShellUtils {
      * @param isRooted        True to use root, false otherwise.
      * @param isNeedResultMsg True to return the message of result, false otherwise.
      * @param callback        The callback.
+     * @return the task
      */
-    public static void execCmdAsync(final List<String> commands,
-                                    final boolean isRooted,
-                                    final boolean isNeedResultMsg,
-                                    final Utils.Callback<CommandResult> callback) {
-        execCmdAsync(commands == null ? null : commands.toArray(new String[]{}),
+    public static Utils.Task<CommandResult> execCmdAsync(final List<String> commands,
+                                                         final boolean isRooted,
+                                                         final boolean isNeedResultMsg,
+                                                         final Utils.Callback<CommandResult> callback) {
+        return execCmdAsync(commands == null ? null : commands.toArray(new String[]{}),
                 isRooted,
                 isNeedResultMsg,
                 callback);
