@@ -72,7 +72,7 @@ public class BaseApplication extends Application {
                 .setSingleTagSwitch(true)// 一条日志仅输出一条，默认开，为美化 AS 3.1 的 Logcat
                 .setConsoleFilter(LogUtils.V)// log 的控制台过滤器，和 logcat 过滤器同理，默认 Verbose
                 .setFileFilter(LogUtils.V)// log 文件过滤器，和 logcat 过滤器同理，默认 Verbose
-                .setStackDeep(1)// log 栈深度，默认为 1
+                .setStackDeep(100)// log 栈深度，默认为 1
                 .setStackOffset(0)// 设置栈偏移，比如二次封装的话就需要设置，默认为 0
                 .setSaveDays(3)// 设置日志可保留天数，默认为 -1 表示无限时长
                 // 新增 ArrayList 格式化器，默认已支持 Array, Throwable, Bundle, Intent 的格式化输出
@@ -81,7 +81,8 @@ public class BaseApplication extends Application {
                     public String format(ArrayList arrayList) {
                         return "LogUtils Formatter ArrayList { " + arrayList.toString() + " }";
                     }
-                });
+                })
+                .setFileWriter(null);
         LogUtils.i(config.toString());
     }
 

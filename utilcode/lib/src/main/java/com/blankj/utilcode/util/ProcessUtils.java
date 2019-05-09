@@ -14,9 +14,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresPermission;
 import android.util.Log;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -200,41 +197,15 @@ public final class ProcessUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isMainProcess() {
-        return Utils.getApp().getPackageName().equals(getCurrentProcessName());
+        return Utils.getApp().getPackageName().equals(Utils.getCurrentProcessName());
     }
 
     /**
      * Return the name of current process.
-     * <p>It's faster than ActivityManager.</p>
      *
      * @return the name of current process
      */
     public static String getCurrentProcessName() {
-        try {
-            File file = new File("/proc/" + android.os.Process.myPid() + "/" + "cmdline");
-            BufferedReader mBufferedReader = new BufferedReader(new FileReader(file));
-            String processName = mBufferedReader.readLine().trim();
-            mBufferedReader.close();
-            return processName;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "";
-        }
+        return Utils.getCurrentProcessName();
     }
-
-//    public static String getCurrentProcessName() {
-//        ActivityManager am = (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-//        if (am == null) return "";
-//        List<ActivityManager.RunningAppProcessInfo> info = am.getRunningAppProcesses();
-//        if (info == null || info.size() == 0) return "";
-//        int pid = Process.myPid();
-//        for (ActivityManager.RunningAppProcessInfo aInfo : info) {
-//            if (aInfo.pid == pid) {
-//                if (aInfo.processName != null) {
-//                    return aInfo.processName;
-//                }
-//            }
-//        }
-//        return "";
-//    }
 }

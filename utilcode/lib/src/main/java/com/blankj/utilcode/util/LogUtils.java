@@ -23,10 +23,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -609,47 +607,52 @@ public final class LogUtils {
     }
 
     private static void input2File(final String input, final String filePath) {
-        EXECUTOR.execute(new Runnable() {
-            @Override
-            public void run() {
-                BufferedWriter bw = null;
-                try {
-                    bw = new BufferedWriter(new FileWriter(filePath, true));
-                    bw.write(input);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Log.e("LogUtils", "log to " + filePath + " failed!");
-                } finally {
+        if (CONFIG.mFileWriter == null) {
+            EXECUTOR.execute(new Runnable() {
+                @Override
+                public void run() {
+                    BufferedWriter bw = null;
                     try {
-                        if (bw != null) {
-                            bw.close();
-                        }
+                        bw = new BufferedWriter(new FileWriter(filePath, true));
+                        bw.write(input);
                     } catch (IOException e) {
                         e.printStackTrace();
+                        Log.e("LogUtils", "log to " + filePath + " failed!");
+                    } finally {
+                        try {
+                            if (bw != null) {
+                                bw.close();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
-        });
+            });
+        } else {
+            CONFIG.mFileWriter.write(filePath, input);
+        }
     }
 
-    public static class Config {
-        private String  mDefaultDir;// The default storage directory of log.
-        private String  mDir;       // The storage directory of log.
-        private String  mFilePrefix        = "util";// The file prefix of log.
-        private boolean mLogSwitch         = true;  // The switch of log.
-        private boolean mLog2ConsoleSwitch = true;  // The logcat's switch of log.
-        private String  mGlobalTag         = "";    // The global tag of log.
-        private boolean mTagIsSpace        = true;  // The global tag is space.
-        private boolean mLogHeadSwitch     = true;  // The head's switch of log.
-        private boolean mLog2FileSwitch    = false; // The file's switch of log.
-        private boolean mLogBorderSwitch   = true;  // The border's switch of log.
-        private boolean mSingleTagSwitch   = true;  // The single tag of log.
-        private int     mConsoleFilter     = V;     // The console's filter of log.
-        private int     mFileFilter        = V;     // The file's filter of log.
-        private int     mStackDeep         = 1;     // The stack's deep of log.
-        private int     mStackOffset       = 0;     // The stack's offset of log.
-        private int     mSaveDays          = -1;    // The save days of log.
-        private String  mProcessName       = getCurrentProcessName();
+    public static final class Config {
+        private String      mDefaultDir;// The default storage directory of log.
+        private String      mDir;       // The storage directory of log.
+        private String      mFilePrefix        = "util";// The file prefix of log.
+        private boolean     mLogSwitch         = true;  // The switch of log.
+        private boolean     mLog2ConsoleSwitch = true;  // The logcat's switch of log.
+        private String      mGlobalTag         = "";    // The global tag of log.
+        private boolean     mTagIsSpace        = true;  // The global tag is space.
+        private boolean     mLogHeadSwitch     = true;  // The head's switch of log.
+        private boolean     mLog2FileSwitch    = false; // The file's switch of log.
+        private boolean     mLogBorderSwitch   = true;  // The border's switch of log.
+        private boolean     mSingleTagSwitch   = true;  // The single tag of log.
+        private int         mConsoleFilter     = V;     // The console's filter of log.
+        private int         mFileFilter        = V;     // The file's filter of log.
+        private int         mStackDeep         = 1;     // The stack's deep of log.
+        private int         mStackOffset       = 0;     // The stack's offset of log.
+        private int         mSaveDays          = -1;    // The save days of log.
+        private String      mProcessName       = Utils.getCurrentProcessName();
+        private IFileWriter mFileWriter;
 
         private Config() {
             if (mDefaultDir != null) return;
@@ -661,17 +664,17 @@ public final class LogUtils {
             }
         }
 
-        public Config setLogSwitch(final boolean logSwitch) {
+        public final Config setLogSwitch(final boolean logSwitch) {
             mLogSwitch = logSwitch;
             return this;
         }
 
-        public Config setConsoleSwitch(final boolean consoleSwitch) {
+        public final Config setConsoleSwitch(final boolean consoleSwitch) {
             mLog2ConsoleSwitch = consoleSwitch;
             return this;
         }
 
-        public Config setGlobalTag(final String tag) {
+        public final Config setGlobalTag(final String tag) {
             if (isSpace(tag)) {
                 mGlobalTag = "";
                 mTagIsSpace = true;
@@ -682,17 +685,17 @@ public final class LogUtils {
             return this;
         }
 
-        public Config setLogHeadSwitch(final boolean logHeadSwitch) {
+        public final Config setLogHeadSwitch(final boolean logHeadSwitch) {
             mLogHeadSwitch = logHeadSwitch;
             return this;
         }
 
-        public Config setLog2FileSwitch(final boolean log2FileSwitch) {
+        public final Config setLog2FileSwitch(final boolean log2FileSwitch) {
             mLog2FileSwitch = log2FileSwitch;
             return this;
         }
 
-        public Config setDir(final String dir) {
+        public final Config setDir(final String dir) {
             if (isSpace(dir)) {
                 mDir = null;
             } else {
@@ -701,12 +704,12 @@ public final class LogUtils {
             return this;
         }
 
-        public Config setDir(final File dir) {
+        public final Config setDir(final File dir) {
             mDir = dir == null ? null : (dir.getAbsolutePath() + FILE_SEP);
             return this;
         }
 
-        public Config setFilePrefix(final String filePrefix) {
+        public final Config setFilePrefix(final String filePrefix) {
             if (isSpace(filePrefix)) {
                 mFilePrefix = "util";
             } else {
@@ -715,37 +718,37 @@ public final class LogUtils {
             return this;
         }
 
-        public Config setBorderSwitch(final boolean borderSwitch) {
+        public final Config setBorderSwitch(final boolean borderSwitch) {
             mLogBorderSwitch = borderSwitch;
             return this;
         }
 
-        public Config setSingleTagSwitch(final boolean singleTagSwitch) {
+        public final Config setSingleTagSwitch(final boolean singleTagSwitch) {
             mSingleTagSwitch = singleTagSwitch;
             return this;
         }
 
-        public Config setConsoleFilter(@TYPE final int consoleFilter) {
+        public final Config setConsoleFilter(@TYPE final int consoleFilter) {
             mConsoleFilter = consoleFilter;
             return this;
         }
 
-        public Config setFileFilter(@TYPE final int fileFilter) {
+        public final Config setFileFilter(@TYPE final int fileFilter) {
             mFileFilter = fileFilter;
             return this;
         }
 
-        public Config setStackDeep(@IntRange(from = 1) final int stackDeep) {
+        public final Config setStackDeep(@IntRange(from = 1) final int stackDeep) {
             mStackDeep = stackDeep;
             return this;
         }
 
-        public Config setStackOffset(@IntRange(from = 0) final int stackOffset) {
+        public final Config setStackOffset(@IntRange(from = 0) final int stackOffset) {
             mStackOffset = stackOffset;
             return this;
         }
 
-        public Config setSaveDays(@IntRange(from = 1) final int saveDays) {
+        public final Config setSaveDays(@IntRange(from = 1) final int saveDays) {
             mSaveDays = saveDays;
             return this;
         }
@@ -757,82 +760,74 @@ public final class LogUtils {
             return this;
         }
 
-        public String getProcessName() {
+        public final Config setFileWriter(final IFileWriter fileWriter) {
+            mFileWriter = fileWriter;
+            return this;
+        }
+
+        public final String getProcessName() {
             return mProcessName;
         }
 
-        public String getDefaultDir() {
+        public final String getDefaultDir() {
             return mDefaultDir;
         }
 
-        public String getDir() {
+        public final String getDir() {
             return mDir == null ? mDefaultDir : mDir;
         }
 
-        public String getFilePrefix() {
+        public final String getFilePrefix() {
             return mFilePrefix;
         }
 
-        public boolean isLogSwitch() {
+        public final boolean isLogSwitch() {
             return mLogSwitch;
         }
 
-        public boolean isLog2ConsoleSwitch() {
+        public final boolean isLog2ConsoleSwitch() {
             return mLog2ConsoleSwitch;
         }
 
-        public String getGlobalTag() {
+        public final String getGlobalTag() {
             if (isSpace(mGlobalTag)) return "";
             return mGlobalTag;
         }
 
-        public boolean isLogHeadSwitch() {
+        public final boolean isLogHeadSwitch() {
             return mLogHeadSwitch;
         }
 
-        public boolean isLog2FileSwitch() {
+        public final boolean isLog2FileSwitch() {
             return mLog2FileSwitch;
         }
 
-        public boolean isLogBorderSwitch() {
+        public final boolean isLogBorderSwitch() {
             return mLogBorderSwitch;
         }
 
-        public boolean isSingleTagSwitch() {
+        public final boolean isSingleTagSwitch() {
             return mSingleTagSwitch;
         }
 
-        public char getConsoleFilter() {
+        public final char getConsoleFilter() {
             return T[mConsoleFilter - V];
         }
 
-        public char getFileFilter() {
+        public final char getFileFilter() {
             return T[mFileFilter - V];
         }
 
-        public int getStackDeep() {
+        public final int getStackDeep() {
             return mStackDeep;
         }
 
-        public int getStackOffset() {
+        public final int getStackOffset() {
             return mStackOffset;
         }
 
-        public int getSaveDays() {
+        public final int getSaveDays() {
             return mSaveDays;
-        }
-
-        private static String getCurrentProcessName() {
-            try {
-                File file = new File("/proc/" + android.os.Process.myPid() + "/" + "cmdline");
-                BufferedReader mBufferedReader = new BufferedReader(new FileReader(file));
-                String processName = mBufferedReader.readLine().trim();
-                mBufferedReader.close();
-                return processName.replace(":", "_");
-            } catch (Exception e) {
-                e.printStackTrace();
-                return "";
-            }
         }
 
         @Override
@@ -860,7 +855,11 @@ public final class LogUtils {
         public abstract String format(T t);
     }
 
-    private static class TagHead {
+    public interface IFileWriter {
+        void write(String file, String content);
+    }
+
+    private final static class TagHead {
         String   tag;
         String[] consoleHead;
         String   fileHead;
@@ -872,7 +871,7 @@ public final class LogUtils {
         }
     }
 
-    private static class LogFormatter {
+    private final static class LogFormatter {
 
         static String object2String(Object object) {
             if (object.getClass().isArray()) return array2String(object);

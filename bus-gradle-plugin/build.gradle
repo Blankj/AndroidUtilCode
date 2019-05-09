@@ -27,7 +27,7 @@ gradlePlugin {
 
 dependencies {
     implementation "com.android.tools.build:gradle:3.4.0"
-    implementation 'com.android.tools.build:gradle-api:3.4.0'
+    implementation "com.android.tools.build:gradle-api:3.4.0"
 
     implementation dep.javassist
     implementation dep.commons_io

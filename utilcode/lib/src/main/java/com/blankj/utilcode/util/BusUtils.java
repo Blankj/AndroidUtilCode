@@ -21,9 +21,6 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -253,20 +250,7 @@ public final class BusUtils {
     }
 
     private static boolean isMainProcess() {
-        return Utils.getApp().getPackageName().equals(getCurrentProcessName());
-    }
-
-    private static String getCurrentProcessName() {
-        try {
-            File file = new File("/proc/" + android.os.Process.myPid() + "/" + "cmdline");
-            BufferedReader mBufferedReader = new BufferedReader(new FileReader(file));
-            String processName = mBufferedReader.readLine().trim();
-            mBufferedReader.close();
-            return processName;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "";
-        }
+        return Utils.getApp().getPackageName().equals(Utils.getCurrentProcessName());
     }
 
     private static boolean isAppInstalled(@NonNull final String pkgName) {
@@ -340,7 +324,7 @@ public final class BusUtils {
             public void onServiceConnected(ComponentName name, IBinder service) {
                 Log.d("BusUtils", "client service connected " + name);
                 mServer = new Messenger(service);
-                int key = getCurrentProcessName().hashCode();
+                int key = Utils.getCurrentProcessName().hashCode();
                 Message msg = Message.obtain(mReceiveServeMsgHandler, WHAT_SUBSCRIBE, key, 0);
                 msg.replyTo = mClient;
                 try {

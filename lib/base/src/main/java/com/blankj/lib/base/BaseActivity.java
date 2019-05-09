@@ -89,8 +89,8 @@ public abstract class BaseActivity extends AppCompatActivity
             swipeLayout.setOnFullSwipeListener(new SwipePanel.OnFullSwipeListener() {
                 @Override
                 public void onFullSwipe(int direction) {
-                    finish();
                     swipeLayout.close(direction);
+                    finish();
                 }
             });
         }
