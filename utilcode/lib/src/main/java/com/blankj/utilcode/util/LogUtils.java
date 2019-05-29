@@ -95,7 +95,7 @@ public final class LogUtils {
     private static final String TOP_BORDER     = TOP_CORNER + SIDE_DIVIDER + SIDE_DIVIDER;
     private static final String MIDDLE_BORDER  = MIDDLE_CORNER + MIDDLE_DIVIDER + MIDDLE_DIVIDER;
     private static final String BOTTOM_BORDER  = BOTTOM_CORNER + SIDE_DIVIDER + SIDE_DIVIDER;
-    private static final int    MAX_LEN        = 3000;
+    private static final int    MAX_LEN        = 1100;// fit for Chinese character
     private static final String NOTHING        = "log nothing";
     private static final String NULL           = "null";
     private static final String ARGS           = "args";
@@ -413,8 +413,8 @@ public final class LogUtils {
                                               final String[] head,
                                               final String msg) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PLACEHOLDER).append(LINE_SEP);
         if (CONFIG.isLogBorderSwitch()) {
+            sb.append(PLACEHOLDER).append(LINE_SEP);
             sb.append(TOP_BORDER).append(LINE_SEP);
             if (head != null) {
                 for (String aHead : head) {
@@ -428,6 +428,7 @@ public final class LogUtils {
             sb.append(BOTTOM_BORDER);
         } else {
             if (head != null) {
+                sb.append(PLACEHOLDER).append(LINE_SEP);
                 for (String aHead : head) {
                     sb.append(aHead).append(LINE_SEP);
                 }
@@ -439,7 +440,7 @@ public final class LogUtils {
 
     private static void printSingleTagMsg(final int type, final String tag, final String msg) {
         int len = msg.length();
-        int countOfSub = len / MAX_LEN;
+        int countOfSub = CONFIG.isLogBorderSwitch() ? (len - BOTTOM_BORDER.length()) / MAX_LEN : len / MAX_LEN;
         if (countOfSub > 0) {
             if (CONFIG.isLogBorderSwitch()) {
                 Log.println(type, tag, msg.substring(0, MAX_LEN) + LINE_SEP + BOTTOM_BORDER);
@@ -450,7 +451,7 @@ public final class LogUtils {
                             + LINE_SEP + BOTTOM_BORDER);
                     index += MAX_LEN;
                 }
-                if (index != len) {
+                if (index != len - BOTTOM_BORDER.length()) {
                     Log.println(type, tag, PLACEHOLDER + LINE_SEP + TOP_BORDER + LINE_SEP
                             + LEFT_BORDER + msg.substring(index, len));
                 }

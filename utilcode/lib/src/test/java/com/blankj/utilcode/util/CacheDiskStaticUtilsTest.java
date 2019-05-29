@@ -18,6 +18,7 @@ import java.io.Serializable;
 
 import static com.blankj.utilcode.util.TestConfig.FILE_SEP;
 import static com.blankj.utilcode.util.TestConfig.PATH_CACHE;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -72,10 +73,10 @@ public class CacheDiskStaticUtilsTest extends BaseTest {
         CacheDiskStaticUtils.put("string2", STRING, CACHE_DISK_UTILS2);
         CacheDiskStaticUtils.put("jsonObject2", JSON_OBJECT, CACHE_DISK_UTILS2);
         CacheDiskStaticUtils.put("jsonArray2", JSON_ARRAY, CACHE_DISK_UTILS2);
-        CacheDiskStaticUtils.put("parcelable2", PARCELABLE_TEST, CACHE_DISK_UTILS2);
-        CacheDiskStaticUtils.put("serializable2", SERIALIZABLE_TEST, CACHE_DISK_UTILS2);
         CacheDiskStaticUtils.put("bitmap2", BITMAP, CACHE_DISK_UTILS2);
         CacheDiskStaticUtils.put("drawable2", DRAWABLE, CACHE_DISK_UTILS2);
+        CacheDiskStaticUtils.put("parcelable2", PARCELABLE_TEST, CACHE_DISK_UTILS2);
+        CacheDiskStaticUtils.put("serializable2", SERIALIZABLE_TEST, CACHE_DISK_UTILS2);
     }
 
     @Test
@@ -117,7 +118,6 @@ public class CacheDiskStaticUtilsTest extends BaseTest {
         assertEquals(JSON_ARRAY.toString(), CacheDiskStaticUtils.getJSONArray("jsonArray1", null, CACHE_DISK_UTILS1).toString());
         assertNull(CacheDiskStaticUtils.getJSONArray("jsonArray2", null, CACHE_DISK_UTILS1));
 
-
         assertEquals(JSON_ARRAY.toString(), CacheDiskStaticUtils.getJSONArray("jsonArray2", CACHE_DISK_UTILS2).toString());
         assertEquals(JSON_ARRAY.toString(), CacheDiskStaticUtils.getJSONArray("jsonArray2", null, CACHE_DISK_UTILS2).toString());
         assertNull(CacheDiskStaticUtils.getJSONArray("jsonArray1", null, CACHE_DISK_UTILS2));
@@ -125,26 +125,48 @@ public class CacheDiskStaticUtilsTest extends BaseTest {
 
     @Test
     public void getBitmap() {
-        String bitmapString = "Bitmap (100 x 100) compressed as PNG with quality 100";
-        assertEquals(bitmapString, CacheDiskStaticUtils.getString("bitmap1", CACHE_DISK_UTILS1));
-        assertEquals(bitmapString, CacheDiskStaticUtils.getString("bitmap1", null, CACHE_DISK_UTILS1));
-        assertNull(CacheDiskStaticUtils.getString("bitmap2", null, CACHE_DISK_UTILS1));
+        assertArrayEquals(
+                ImageUtils.bitmap2Bytes(BITMAP, Bitmap.CompressFormat.PNG),
+                ImageUtils.bitmap2Bytes(CacheDiskStaticUtils.getBitmap("bitmap1", CACHE_DISK_UTILS1), Bitmap.CompressFormat.PNG)
+        );
+        assertArrayEquals(
+                ImageUtils.bitmap2Bytes(BITMAP, Bitmap.CompressFormat.PNG),
+                ImageUtils.bitmap2Bytes(CacheDiskStaticUtils.getBitmap("bitmap1", null, CACHE_DISK_UTILS1), Bitmap.CompressFormat.PNG)
+        );
+        assertNull(CacheDiskStaticUtils.getBitmap("bitmap2", null, CACHE_DISK_UTILS1));
 
-        assertEquals(bitmapString, CacheDiskStaticUtils.getString("bitmap2", CACHE_DISK_UTILS2));
-        assertEquals(bitmapString, CacheDiskStaticUtils.getString("bitmap2", null, CACHE_DISK_UTILS2));
-        assertNull(CacheDiskStaticUtils.getString("bitmap1", null, CACHE_DISK_UTILS2));
+        assertArrayEquals(
+                ImageUtils.bitmap2Bytes(BITMAP, Bitmap.CompressFormat.PNG),
+                ImageUtils.bitmap2Bytes(CacheDiskStaticUtils.getBitmap("bitmap2", CACHE_DISK_UTILS2), Bitmap.CompressFormat.PNG)
+        );
+        assertArrayEquals(
+                ImageUtils.bitmap2Bytes(BITMAP, Bitmap.CompressFormat.PNG),
+                ImageUtils.bitmap2Bytes(CacheDiskStaticUtils.getBitmap("bitmap2", null, CACHE_DISK_UTILS2), Bitmap.CompressFormat.PNG)
+        );
+        assertNull(CacheDiskStaticUtils.getBitmap("bitmap1", null, CACHE_DISK_UTILS2));
     }
 
     @Test
     public void getDrawable() {
-        String bitmapString = "Bitmap (100 x 100) compressed as PNG with quality 100";
-        assertEquals(bitmapString, CacheDiskStaticUtils.getString("drawable1", CACHE_DISK_UTILS1));
-        assertEquals(bitmapString, CacheDiskStaticUtils.getString("drawable1", null, CACHE_DISK_UTILS1));
-        assertNull(CacheDiskStaticUtils.getString("drawable2", null, CACHE_DISK_UTILS1));
+        assertArrayEquals(
+                ImageUtils.bitmap2Bytes(BITMAP, Bitmap.CompressFormat.PNG),
+                ImageUtils.drawable2Bytes(CacheDiskStaticUtils.getDrawable("drawable1", CACHE_DISK_UTILS1), Bitmap.CompressFormat.PNG)
+        );
+        assertArrayEquals(
+                ImageUtils.bitmap2Bytes(BITMAP, Bitmap.CompressFormat.PNG),
+                ImageUtils.drawable2Bytes(CacheDiskStaticUtils.getDrawable("drawable1", null, CACHE_DISK_UTILS1), Bitmap.CompressFormat.PNG)
+        );
+        assertNull(CacheDiskStaticUtils.getDrawable("drawable2", null, CACHE_DISK_UTILS1));
 
-        assertEquals(bitmapString, CacheDiskStaticUtils.getString("drawable2", CACHE_DISK_UTILS2));
-        assertEquals(bitmapString, CacheDiskStaticUtils.getString("drawable2", null, CACHE_DISK_UTILS2));
-        assertNull(CacheDiskStaticUtils.getString("drawable1", null, CACHE_DISK_UTILS2));
+        assertArrayEquals(
+                ImageUtils.bitmap2Bytes(BITMAP, Bitmap.CompressFormat.PNG),
+                ImageUtils.drawable2Bytes(CacheDiskStaticUtils.getDrawable("drawable2", CACHE_DISK_UTILS2), Bitmap.CompressFormat.PNG)
+        );
+        assertArrayEquals(
+                ImageUtils.bitmap2Bytes(BITMAP, Bitmap.CompressFormat.PNG),
+                ImageUtils.drawable2Bytes(CacheDiskStaticUtils.getDrawable("drawable2", null, CACHE_DISK_UTILS2), Bitmap.CompressFormat.PNG)
+        );
+        assertNull(CacheDiskStaticUtils.getDrawable("drawable1", null, CACHE_DISK_UTILS2));
     }
 
     @Test
@@ -200,8 +222,8 @@ public class CacheDiskStaticUtilsTest extends BaseTest {
         assertNotNull(CacheDiskStaticUtils.getString("string1", CACHE_DISK_UTILS1));
         assertNotNull(CacheDiskStaticUtils.getJSONObject("jsonObject1", CACHE_DISK_UTILS1));
         assertNotNull(CacheDiskStaticUtils.getJSONArray("jsonArray1", CACHE_DISK_UTILS1));
-        assertNotNull(CacheDiskStaticUtils.getString("bitmap1", CACHE_DISK_UTILS1));
-        assertNotNull(CacheDiskStaticUtils.getString("drawable1", CACHE_DISK_UTILS1));
+        assertNotNull(CacheDiskStaticUtils.getBitmap("bitmap1", CACHE_DISK_UTILS1));
+        assertNotNull(CacheDiskStaticUtils.getDrawable("drawable1", CACHE_DISK_UTILS1));
         assertNotNull(CacheDiskStaticUtils.getParcelable("parcelable1", ParcelableTest.CREATOR, CACHE_DISK_UTILS1));
         assertNotNull(CacheDiskStaticUtils.getSerializable("serializable1", CACHE_DISK_UTILS1));
         CacheDiskStaticUtils.clear(CACHE_DISK_UTILS1);
@@ -209,8 +231,8 @@ public class CacheDiskStaticUtilsTest extends BaseTest {
         assertNull(CacheDiskStaticUtils.getString("string1", CACHE_DISK_UTILS1));
         assertNull(CacheDiskStaticUtils.getJSONObject("jsonObject1", CACHE_DISK_UTILS1));
         assertNull(CacheDiskStaticUtils.getJSONArray("jsonArray1", CACHE_DISK_UTILS1));
-        assertNull(CacheDiskStaticUtils.getString("bitmap1", CACHE_DISK_UTILS1));
-        assertNull(CacheDiskStaticUtils.getString("drawable1", CACHE_DISK_UTILS1));
+        assertNull(CacheDiskStaticUtils.getBitmap("bitmap1", CACHE_DISK_UTILS1));
+        assertNull(CacheDiskStaticUtils.getDrawable("drawable1", CACHE_DISK_UTILS1));
         assertNull(CacheDiskStaticUtils.getParcelable("parcelable1", ParcelableTest.CREATOR, CACHE_DISK_UTILS1));
         assertNull(CacheDiskStaticUtils.getSerializable("serializable1", CACHE_DISK_UTILS1));
         assertEquals(0, CacheDiskStaticUtils.getCacheSize(CACHE_DISK_UTILS1));
@@ -221,8 +243,8 @@ public class CacheDiskStaticUtilsTest extends BaseTest {
         assertNotNull(CacheDiskStaticUtils.getString("string2", CACHE_DISK_UTILS2));
         assertNotNull(CacheDiskStaticUtils.getJSONObject("jsonObject2", CACHE_DISK_UTILS2));
         assertNotNull(CacheDiskStaticUtils.getJSONArray("jsonArray2", CACHE_DISK_UTILS2));
-        assertNotNull(CacheDiskStaticUtils.getString("bitmap2", CACHE_DISK_UTILS2));
-        assertNotNull(CacheDiskStaticUtils.getString("drawable2", CACHE_DISK_UTILS2));
+        assertNotNull(CacheDiskStaticUtils.getBitmap("bitmap2", CACHE_DISK_UTILS2));
+        assertNotNull(CacheDiskStaticUtils.getDrawable("drawable2", CACHE_DISK_UTILS2));
         assertNotNull(CacheDiskStaticUtils.getParcelable("parcelable2", ParcelableTest.CREATOR, CACHE_DISK_UTILS2));
         assertNotNull(CacheDiskStaticUtils.getSerializable("serializable2", CACHE_DISK_UTILS2));
         CacheDiskStaticUtils.clear(CACHE_DISK_UTILS2);
@@ -230,8 +252,8 @@ public class CacheDiskStaticUtilsTest extends BaseTest {
         assertNull(CacheDiskStaticUtils.getString("string2", CACHE_DISK_UTILS2));
         assertNull(CacheDiskStaticUtils.getJSONObject("jsonObject2", CACHE_DISK_UTILS2));
         assertNull(CacheDiskStaticUtils.getJSONArray("jsonArray2", CACHE_DISK_UTILS2));
-        assertNull(CacheDiskStaticUtils.getString("bitmap2", CACHE_DISK_UTILS2));
-        assertNull(CacheDiskStaticUtils.getString("drawable2", CACHE_DISK_UTILS2));
+        assertNull(CacheDiskStaticUtils.getBitmap("bitmap2", CACHE_DISK_UTILS2));
+        assertNull(CacheDiskStaticUtils.getDrawable("drawable2", CACHE_DISK_UTILS2));
         assertNull(CacheDiskStaticUtils.getParcelable("parcelable2", ParcelableTest.CREATOR, CACHE_DISK_UTILS2));
         assertNull(CacheDiskStaticUtils.getSerializable("serializable2", CACHE_DISK_UTILS2));
         assertEquals(0, CacheDiskStaticUtils.getCacheSize(CACHE_DISK_UTILS2));

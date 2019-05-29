@@ -133,7 +133,7 @@ class ReleaseInstallApkTask(private val mListener: OnReleasedListener) : ThreadU
         ResourceUtils.copyFileFromAssets("test_install", Config.TEST_APK_PATH)
     }
 
-    override fun onSuccess(result: Unit?) {
+    override fun onSuccess(result: Unit) {
         mListener.onReleased()
     }
 

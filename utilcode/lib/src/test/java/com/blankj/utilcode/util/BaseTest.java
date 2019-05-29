@@ -10,7 +10,9 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <pre>
@@ -37,6 +39,59 @@ public class BaseTest {
 
     @Test
     public void test() throws Exception {
+        ThreadUtils.executeBySingleAtFixRate(new ThreadUtils.SimpleTask<Void>() {
+            @Override
+            public Void doInBackground() throws Throwable {
+                System.out.println("haha");
+                return null;
+            }
+
+            @Override
+            public void onSuccess(Void result) {
+                System.out.println("onSuccess");
+            }
+        }, 1, TimeUnit.SECONDS);
+
+
+        final CountDownLatch countDownLatch = new CountDownLatch(1);
+////        for (int i = 0; i < 100; i++) {
+////            final int finalI = i;
+//            ThreadUtils.Task<Void> task = new ThreadUtils.Task<Void>() {
+//
+//                @Override
+//                public Void doInBackground() throws Throwable {
+//                    for (int j = 0; j < 10000; j++) {
+//                        Thread.sleep(100);
+//                        System.out.println(j);
+//                    }
+//                    return null;
+//                }
+//
+//                @Override
+//                public void onSuccess(@Nullable Void result) {
+//                    System.out.println(Thread.currentThread().getName());
+//                }
+//
+//                @Override
+//                public void onCancel() {
+//                    System.out.println("onCancel");
+//                }
+//
+//                @Override
+//                public void onFail(Throwable t) {
+//                    System.out.println(t + "onFail");
+//                }
+//            };
+//            ThreadUtils.executeBySingle(task);
+//
+////        }
+//        Thread.sleep(100);
+//        task.cancel();
+        Thread.sleep(1000000);
+        countDownLatch.countDown();
+        countDownLatch.await();
+
+
 //        final Scanner scanner = new Scanner(System.in);
 //
 //        final CountDownLatch countDownLatch = new CountDownLatch(1);

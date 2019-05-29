@@ -1,5 +1,6 @@
 package com.blankj.utilcode.pkg.helper
 
+import android.app.Dialog
 import android.graphics.Bitmap
 import android.graphics.drawable.ColorDrawable
 import android.support.v7.app.AlertDialog
@@ -7,7 +8,6 @@ import android.text.method.ScrollingMovementMethod
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -55,11 +55,9 @@ object DialogHelper {
     fun showKeyboardDialog() {
         val topActivity = ActivityUtils.getTopActivity()
         if (!ActivityUtils.isActivityAlive(topActivity)) return
+        val dialog = Dialog(topActivity)
         val dialogView = LayoutInflater.from(topActivity).inflate(R.layout.dialog_keyboard, null)
-        val dialog = AlertDialog.Builder(topActivity)
-                .setView(dialogView)
-                .create()
-        dialog.setCanceledOnTouchOutside(false)
+
         val keyboardDialogEt = dialogView.findViewById<EditText>(R.id.keyboardDialogEt)
         val listener = View.OnClickListener { v ->
             when (v.id) {
@@ -77,12 +75,11 @@ object DialogHelper {
         dialogView.findViewById<View>(R.id.keyboardDialogToggleSoftInputBtn).setOnClickListener(listener)
         dialogView.findViewById<View>(R.id.keyboardDialogCloseBtn).setOnClickListener(listener)
 
+        dialog.setContentView(dialogView)
+        dialog.setCanceledOnTouchOutside(false)
+
         val window = dialog.window
-        window.requestFeature(Window.FEATURE_NO_TITLE)
-
         dialog.setOnShowListener { KeyboardUtils.fixAndroidBug5497(window) }
-
-        dialog.show()
 
         window.setBackgroundDrawable(ColorDrawable(0))
         val attributes = dialog.window.attributes
@@ -91,6 +88,8 @@ object DialogHelper {
         attributes.height = ScreenUtils.getAppScreenHeight() * 2 / 5
         attributes.windowAnimations = R.style.BottomDialogAnimation
         dialog.window.attributes = attributes
+
+        dialog.show()
     }
 
     fun showFragmentDialog(info: CharSequence) {

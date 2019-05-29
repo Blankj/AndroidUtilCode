@@ -2,7 +2,6 @@ package com.blankj.utilcode.util;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -318,6 +317,7 @@ public final class PermissionUtils {
                     mOnRationaleListener.rationale(new ShouldRequest() {
                         @Override
                         public void again(boolean again) {
+                            activity.finish();
                             if (again) {
                                 startPermissionActivity();
                             } else {
@@ -413,7 +413,6 @@ public final class PermissionUtils {
                 super.onCreate(savedInstanceState);
 
                 if (sInstance.rationale(this)) {
-                    finish();
                     return;
                 }
                 if (sInstance.mPermissionsRequest != null) {

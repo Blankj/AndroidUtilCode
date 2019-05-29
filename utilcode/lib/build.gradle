@@ -1,5 +1,5 @@
 apply {
-    from "${rootDir.path}/config_lib.gradle"
+    from "${rootDir.path}/gradle/config/configLib.gradle"
 
     plugin "tech.harmonysoft.oss.traute"
     plugin "com.github.dcendents.android-maven"
@@ -12,15 +12,15 @@ readme {
     readmeCnFile file('../README-CN.md')
 }
 
-apply from: "${rootDir.path}/gradle/bintrayUploadAndroid.gradle"
+apply from: "${rootDir.path}/gradle/upload/bintrayUploadAndroid.gradle"
 
 dependencies {
-    compile dep.gson
+    compile gradle.ext.dep.gson
 
-    compileOnly dep.support.appcompat_v7
-    compileOnly dep.support.design
+    compileOnly gradle.ext.dep.support.appcompat_v7
+    compileOnly gradle.ext.dep.support.design
 
-    testImplementation dep.junit
-    testImplementation dep.robolectric
-    testImplementation dep.support.appcompat_v7
+    testImplementation gradle.ext.dep.junit
+    testImplementation gradle.ext.dep.robolectric
+    testImplementation gradle.ext.dep.support.appcompat_v7
 }

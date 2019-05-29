@@ -1,9 +1,8 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    apply from: 'config.gradle'
     repositories {
-        if (!bus.isPublish) {
-            if (bus.isDebug) {
+        if (!gradle.ext.bus.isPublish) {
+            if (gradle.ext.bus.isDebug) {
                 maven() {
                     url uri(new File(project.rootDir, "maven"))
                 }
@@ -14,15 +13,14 @@ buildscript {
     }
 
     dependencies {
-        for (plugin in dep.plugin) {
-            if (bus.isPublish && plugin.contains("com.blankj:bus-gradle-plugin:")) {
+        for (plugin in gradle.ext.dep.plugin) {
+            if (gradle.ext.bus.isPublish && plugin.contains("com.blankj:bus-gradle-plugin:")) {
                 continue
             }
             classpath plugin
         }
     }
 }
-
 allprojects {
     repositories {
         google()
@@ -35,7 +33,7 @@ allprojects {
         resolutionStrategy.eachDependency {
             if (it.requested.group == 'com.android.support'
                     && !it.requested.name.contains('multidex')) {
-                it.useVersion support_version
+                it.useVersion gradle.ext.support_version
             }
         }
     }

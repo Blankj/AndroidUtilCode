@@ -1052,8 +1052,8 @@ public final class SpanUtils {
 
     static class SpaceSpan extends ReplacementSpan {
 
-        private final int width;
-        private final int color;
+        private final int   width;
+        private final Paint paint = new Paint();
 
         private SpaceSpan(final int width) {
             this(width, Color.TRANSPARENT);
@@ -1062,7 +1062,8 @@ public final class SpanUtils {
         private SpaceSpan(final int width, final int color) {
             super();
             this.width = width;
-            this.color = color;
+            paint.setColor(color);
+            paint.setStyle(Paint.Style.FILL);
         }
 
         @Override
@@ -1079,16 +1080,7 @@ public final class SpanUtils {
                          @IntRange(from = 0) final int end,
                          final float x, final int top, final int y, final int bottom,
                          @NonNull final Paint paint) {
-            Paint.Style style = paint.getStyle();
-            int color = paint.getColor();
-
-            paint.setStyle(Paint.Style.FILL);
-            paint.setColor(this.color);
-
-            canvas.drawRect(x, top, x + width, bottom, paint);
-
-            paint.setStyle(style);
-            paint.setColor(color);
+            canvas.drawRect(x, top, x + width, bottom, this.paint);
         }
     }
 

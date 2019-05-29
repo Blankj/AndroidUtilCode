@@ -46,7 +46,7 @@ class LogActivity : BaseTitleActivity(),
         init {
             val sb = StringBuilder()
             sb.append("len = 10400\ncontent = \"")
-            for (i in 0..799) {
+            for (i in 0..1024) {
                 sb.append("Hello world. ")
             }
             sb.append("\"")
@@ -142,7 +142,7 @@ class LogActivity : BaseTitleActivity(),
         logBorderSwitchCb.isChecked = mConfig.isLogBorderSwitch
         logBorderSwitchCb.setOnCheckedChangeListener(this)
 
-        logBorderSwitchCb.isChecked = mConfig.isSingleTagSwitch
+        logSingleTagSwitchCb.isChecked = mConfig.isSingleTagSwitch
         logSingleTagSwitchCb.setOnCheckedChangeListener(this)
 
         logConsoleFilterCb.isChecked = mConfig.consoleFilter != 'V'
@@ -264,7 +264,9 @@ class LogActivity : BaseTitleActivity(),
                 }
                 logDirCb.text = String.format("Dir: %s", mConfig.dir)
             }
-            R.id.logBorderSwitchCb -> mConfig.setBorderSwitch(isChecked)
+            R.id.logBorderSwitchCb -> {
+                mConfig.setBorderSwitch(isChecked)
+            }
             R.id.logSingleTagSwitchCb -> mConfig.setSingleTagSwitch(isChecked)
             R.id.logConsoleFilterCb -> {
                 mConfig.setConsoleFilter(if (isChecked) LogUtils.W else LogUtils.V)

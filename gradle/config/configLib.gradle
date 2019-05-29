@@ -5,11 +5,11 @@ apply {
 }
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
+    compileSdkVersion gradle.ext.compileSdkVersion
     defaultConfig {
-        minSdkVersion rootProject.minSdkVersion
-        versionCode rootProject.versionCode
-        versionName rootProject.versionName
+        minSdkVersion gradle.ext.minSdkVersion
+        versionCode gradle.ext.versionCode
+        versionName gradle.ext.versionName
         consumerProguardFiles 'proguard-rules.pro'
     }
 

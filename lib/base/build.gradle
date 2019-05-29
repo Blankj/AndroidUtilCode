@@ -1,19 +1,19 @@
 apply {
-    from "${rootDir.path}/config_lib.gradle"
+    from "${rootDir.path}/gradle/config/configLib.gradle"
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    api project(':utilcode-lib')
-    api project(':subutil-lib')
+    api gradle.ext.dep.utilcode_lib
+    api gradle.ext.dep.subutil_lib
 
-    api dep.support.appcompat_v7
-    api dep.support.design
-    api dep.support.multidex
-    api dep.constraint
-    api dep.kotlin
-    api dep.free_proguard
-    api dep.swipe_panel
-    compileOnly dep.leakcanary.android_no_op
+    api gradle.ext.dep.support.appcompat_v7
+    api gradle.ext.dep.support.design
+    api gradle.ext.dep.support.multidex
+    api gradle.ext.dep.constraint
+    api gradle.ext.dep.kotlin
+    api gradle.ext.dep.free_proguard
+    api gradle.ext.dep.swipe_panel
+    compileOnly gradle.ext.dep.leakcanary.android_no_op
 //    api 'com.blankj:utilcode:1.23.7'
 }
