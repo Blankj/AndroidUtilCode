@@ -122,7 +122,7 @@ class CustomListener implements BuildListener {
             }
         })
 
-        def sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss")
+        def sdf = new java.text.SimpleDateFormat("yyyy-MM-dd-HH-mm-ss")
         file = new File(rootProject.buildDir.getAbsolutePath(),
                 "buildTime_" + sdf.format(new Date(System.currentTimeMillis())) + ".txt")
     }
