@@ -51,18 +51,18 @@ public final class BusUtils {
     private static final Map<String, Set<Bus>>   BUSES_MAP       = new HashMap<>();
     private static final Set<Sticky>             STICKIES        = new HashSet<>();
 
+    private static Object injectShell(final String name, final Object[] objects) {
+        return NULL;
+    }
+
     public static <T> T postStatic(final String name, final Object... objects) {
         if (name == null || name.length() == 0) return null;
         Object o = injectShell(name, objects);
         if (NULL.equals(o)) {
-            Log.e("BusUtils", "static bus of <" + name + "> didn\'t exist.");
+            com.blankj.utilcode.util.LogUtils.e("BusUtils", "static bus of <" + name + "> didn\'t exist.");
             return null;
         }
         return (T) o;
-    }
-
-    private static Object injectShell(final String name, final Object[] objects) {
-        return NULL;
     }
 
 

@@ -9,8 +9,6 @@ import com.google.common.base.Preconditions
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
 
-import java.util.function.Predicate
-
 class BusTransformAsm extends Transform {
 
     Project mProject;
@@ -36,7 +34,7 @@ class BusTransformAsm extends Transform {
 
     @Override
     boolean isIncremental() {
-        return true
+        return false
     }
 
     @Override
@@ -116,9 +114,7 @@ class BusTransformAsm extends Transform {
                 )
                 FileUtils.copyFile(jar, dest)
 
-                if (jarName.startsWith("com.blankj:utilcode:")
-                        || jarName.startsWith("com.blankj:utilcodex:")
-                        || jarName.contains("utilcode-lib")) {
+                if (jarName.contains("utilcode")) {
                     busScan.busJar = dest
                     LogUtils.l("bus jar: $jarName [$dest]")
                     return
