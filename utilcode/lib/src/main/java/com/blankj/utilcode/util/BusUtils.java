@@ -58,6 +58,7 @@ public final class BusUtils {
     public static <T> T postStatic(final String name, final Object... objects) {
         if (name == null || name.length() == 0) return null;
         Object o = injectShell(name, objects);
+        com.blankj.utilcode.util.LogUtils.e("BusUtils");
         if (NULL.equals(o)) {
             com.blankj.utilcode.util.LogUtils.e("BusUtils", "static bus of <" + name + "> didn\'t exist.");
             return null;

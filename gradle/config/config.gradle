@@ -7,12 +7,12 @@ gradle.ext {
     compileSdkVersion = 27
     minSdkVersion = 14
     targetSdkVersion = 27
-    versionCode = 1_023_007
-    versionName = '1.23.7'// E.g. 1.9.72 => 1,009,072
+    versionCode = 1_023_008
+    versionName = '1.23.8'// E.g. 1.9.72 => 1,009,072
 
     bus = [
             isPublish: false,
-            isDebug  : false,
+            isDebug  : true,
             version  : '1.7',
             group    : 'com.blankj'
     ]
@@ -185,4 +185,4 @@ class ModuleConfig {
                 " }\n"
     }
 }
-//./gradlew clean utilcode-lib:bintrayUpload
+//./gradlew clean :utilcode:lib:bintrayUpload
