@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.PermissionHelper
 import com.blankj.utilcode.util.FlashlightUtils
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_flashlight.*
  * desc  : demo about FlashlightUtils
  * ```
  */
-class FlashlightActivity : BaseTitleBarActivity() {
+class FlashlightActivity : BaseTitleActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -51,7 +51,7 @@ class FlashlightActivity : BaseTitleBarActivity() {
         return R.layout.activity_flashlight
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         flashlightStatusCb.isChecked = FlashlightUtils.isFlashlightOn()
         flashlightStatusCb.setOnCheckedChangeListener { buttonView, isChecked ->
             FlashlightUtils.setFlashlightStatus(isChecked)

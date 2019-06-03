@@ -6,11 +6,12 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BrightnessUtils
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.SpanUtils
+import com.blankj.utilcode.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_brightness.*
 
 /**
@@ -21,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_brightness.*
  * desc  : demo about BrightnessUtils
  * ```
  */
-class BrightnessActivity : BaseTitleBarActivity() {
+class BrightnessActivity : BaseTitleActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -33,7 +34,7 @@ class BrightnessActivity : BaseTitleBarActivity() {
                     }
 
                     override fun onDenied() {
-                        start(context)
+                        ToastUtils.showLong("No permission of write settings.")
                     }
                 })
             } else {
@@ -75,7 +76,7 @@ class BrightnessActivity : BaseTitleBarActivity() {
         return R.layout.activity_brightness
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         brightnessChangeSb.progress = BrightnessUtils.getBrightness()
         brightnessChangeSb.setOnSeekBarChangeListener(brightnessChangeListener)
         updateBrightness()

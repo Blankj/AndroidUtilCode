@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.Gravity
 import android.view.View
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.DialogHelper
 import com.blankj.utilcode.util.SpanUtils
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_toast.*
  * desc  : demo about ToastUtils
  * ```
  */
-class ToastActivity : BaseTitleBarActivity() {
+class ToastActivity : BaseTitleActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -41,7 +41,7 @@ class ToastActivity : BaseTitleBarActivity() {
         return R.layout.activity_toast
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         toastShowShortBtn.setOnClickListener(this)
         toastShowLongBtn.setOnClickListener(this)
         toastShowGreenFontBtn.setOnClickListener(this)

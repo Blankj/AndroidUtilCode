@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.SpanUtils
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_bar_status.*
  * desc  : demo about BarUtils
  * ```
  */
-class BarStatusActivity : BaseTitleBarActivity() {
+class BarStatusActivity : BaseTitleActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -37,7 +37,7 @@ class BarStatusActivity : BaseTitleBarActivity() {
         return R.layout.activity_bar_status
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         barStatusVisibilityCb.isChecked = BarUtils.isStatusBarVisible(this)
         barStatusVisibilityCb.setOnCheckedChangeListener { buttonView, isChecked ->
             BarUtils.setStatusBarVisibility(this, isChecked)

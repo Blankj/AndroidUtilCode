@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.subutil.pkg.R
 import com.blankj.subutil.pkg.feature.location.LocationActivity
 import com.blankj.subutil.pkg.feature.pinyin.PinyinActivity
@@ -18,7 +18,7 @@ import com.blankj.utilcode.util.BusUtils
  * desc  : MainActivity
  * ```
  */
-class SubUtilActivity : BaseTitleBarActivity() {
+class SubUtilActivity : BaseTitleActivity() {
 
     companion object {
         @BusUtils.Subscribe(name = "SubUtilActivity#start")
@@ -38,7 +38,7 @@ class SubUtilActivity : BaseTitleBarActivity() {
         return R.layout.activity_util_sub
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {}
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {}
 
     override fun doBusiness() {}
 

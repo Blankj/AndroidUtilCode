@@ -1,11 +1,14 @@
 <resources>
+    <dimen name="radius_4">4dp</dimen>
     <dimen name="radius_16">16dp</dimen>
 
+    <dimen name="spacing_6">6dp</dimen>
     <dimen name="spacing_8">8dp</dimen>
     <dimen name="spacing_16">16dp</dimen>
     <dimen name="spacing_24">24dp</dimen>
     <dimen name="spacing_128">128dp</dimen>
 
+    <dimen name="size_1">1dp</dimen>
     <dimen name="size_40">40dp</dimen>
     <dimen name="size_160">160dp</dimen>
 

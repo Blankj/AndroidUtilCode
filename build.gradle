@@ -1,10 +1,10 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    apply from: 'config.gradle'
     repositories {
-        if (bus.isDebug) {
+        if (gradle.ext.depConfig.plugin_bus.useLocal) {
             maven() {
-                url uri(new File(project.rootDir, "maven"))
+                // use for debug plugin local
+                url new File("busMaven")
             }
         }
         google()
@@ -12,8 +12,11 @@ buildscript {
     }
 
     dependencies {
-        for (plugin in dep.plugin) {
-            classpath plugin
+        // 根据 config 来 configClasspath 各 plugin
+        gradle.ext.depConfig.each { name, config ->
+            if (name.startsWith("plugin_") && config.isApply) {
+                classpath config.remotePath
+            }
         }
     }
 }
@@ -30,7 +33,7 @@ allprojects {
         resolutionStrategy.eachDependency {
             if (it.requested.group == 'com.android.support'
                     && !it.requested.name.contains('multidex')) {
-                it.useVersion support_version
+                it.useVersion gradle.ext.support_version
             }
         }
     }

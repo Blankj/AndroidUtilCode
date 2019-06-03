@@ -1,17 +1,17 @@
 package com.blankj.utilcode.util;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
@@ -27,11 +27,6 @@ import java.lang.reflect.Field;
  * </pre>
  */
 public final class KeyboardUtils {
-
-    private static int                        sDecorViewInvisibleHeightPre;
-    private static OnGlobalLayoutListener     onGlobalLayoutListener;
-    private static OnSoftInputChangedListener onSoftInputChangedListener;
-    private static int                        sContentViewInvisibleHeightPre5497;
 
     private KeyboardUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -81,6 +76,9 @@ public final class KeyboardUtils {
         InputMethodManager imm =
                 (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm == null) return;
+        // clear the focus of view
+        view.clearFocus();
+
         view.setFocusable(true);
         view.setFocusableInTouchMode(true);
         view.requestFocus();
@@ -138,21 +136,21 @@ public final class KeyboardUtils {
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
+    private static int sDecorViewDelta = 0;
+
     /**
      * Return whether soft input is visible.
      *
      * @param activity The activity.
      * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean isSoftInputVisible(final Activity activity) {
-        return getDecorViewInvisibleHeight(activity) > 0;
+    public static boolean isSoftInputVisible(@NonNull final Activity activity) {
+        return getDecorViewInvisibleHeight(activity.getWindow()) > 0;
     }
 
-    private static int sDecorViewDelta = 0;
-
-    private static int getDecorViewInvisibleHeight(final Activity activity) {
-        final View decorView = activity.getWindow().getDecorView();
-        if (decorView == null) return sDecorViewInvisibleHeightPre;
+    private static int getDecorViewInvisibleHeight(@NonNull final Window window) {
+        final View decorView = window.getDecorView();
+        if (decorView == null) return 0;
         final Rect outRect = new Rect();
         decorView.getWindowVisibleDisplayFrame(outRect);
         Log.d("KeyboardUtils", "getDecorViewInvisibleHeight: "
@@ -171,42 +169,36 @@ public final class KeyboardUtils {
      * @param activity The activity.
      * @param listener The soft input changed listener.
      */
-    public static void registerSoftInputChangedListener(final Activity activity,
-                                                        final OnSoftInputChangedListener listener) {
-        final int flags = activity.getWindow().getAttributes().flags;
-        if ((flags & WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS) != 0) {
-            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        }
-        final FrameLayout contentView = activity.findViewById(android.R.id.content);
-        sDecorViewInvisibleHeightPre = getDecorViewInvisibleHeight(activity);
-        onSoftInputChangedListener = listener;
-        onGlobalLayoutListener = new OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (onSoftInputChangedListener != null) {
-                    int height = getDecorViewInvisibleHeight(activity);
-                    if (sDecorViewInvisibleHeightPre != height) {
-                        onSoftInputChangedListener.onSoftInputChanged(height);
-                        sDecorViewInvisibleHeightPre = height;
-                    }
-                }
-            }
-        };
-        contentView.getViewTreeObserver()
-                .addOnGlobalLayoutListener(onGlobalLayoutListener);
+    public static void registerSoftInputChangedListener(@NonNull final Activity activity,
+                                                        @NonNull final OnSoftInputChangedListener listener) {
+        registerSoftInputChangedListener(activity.getWindow(), listener);
     }
 
     /**
-     * Unregister soft input changed listener.
+     * Register soft input changed listener.
      *
-     * @param activity The activity.
+     * @param window   The window.
+     * @param listener The soft input changed listener.
      */
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    public static void unregisterSoftInputChangedListener(final Activity activity) {
-        final View contentView = activity.findViewById(android.R.id.content);
-        contentView.getViewTreeObserver().removeOnGlobalLayoutListener(onGlobalLayoutListener);
-        onSoftInputChangedListener = null;
-        onGlobalLayoutListener = null;
+    public static void registerSoftInputChangedListener(@NonNull final Window window,
+                                                        @NonNull final OnSoftInputChangedListener listener) {
+        final int flags = window.getAttributes().flags;
+        if ((flags & WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS) != 0) {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
+        final FrameLayout contentView = window.findViewById(android.R.id.content);
+        final int[] decorViewInvisibleHeightPre = {getDecorViewInvisibleHeight(window)};
+        contentView.getViewTreeObserver()
+                .addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        int height = getDecorViewInvisibleHeight(window);
+                        if (decorViewInvisibleHeightPre[0] != height) {
+                            listener.onSoftInputChanged(height);
+                            decorViewInvisibleHeightPre[0] = height;
+                        }
+                    }
+                });
     }
 
     /**
@@ -215,35 +207,44 @@ public final class KeyboardUtils {
      *
      * @param activity The activity.
      */
-    public static void fixAndroidBug5497(final Activity activity) {
-//        Window window = activity.getWindow();
+    public static void fixAndroidBug5497(@NonNull final Activity activity) {
+        fixAndroidBug5497(activity.getWindow());
+    }
+
+    /**
+     * Fix the bug of 5497 in Android.
+     * <p>Don't set adjustResize</p>
+     *
+     * @param window The window.
+     */
+    public static void fixAndroidBug5497(@NonNull final Window window) {
 //        int softInputMode = window.getAttributes().softInputMode;
 //        window.setSoftInputMode(softInputMode & ~WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        final FrameLayout contentView = activity.findViewById(android.R.id.content);
+        final FrameLayout contentView = window.findViewById(android.R.id.content);
         final View contentViewChild = contentView.getChildAt(0);
         final int paddingBottom = contentViewChild.getPaddingBottom();
-        sContentViewInvisibleHeightPre5497 = getContentViewInvisibleHeight(activity);
+        final int[] contentViewInvisibleHeightPre5497 = {getContentViewInvisibleHeight(window)};
         contentView.getViewTreeObserver()
                 .addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
-                        int height = getContentViewInvisibleHeight(activity);
-                        if (sContentViewInvisibleHeightPre5497 != height) {
+                        int height = getContentViewInvisibleHeight(window);
+                        if (contentViewInvisibleHeightPre5497[0] != height) {
                             contentViewChild.setPadding(
                                     contentViewChild.getPaddingLeft(),
                                     contentViewChild.getPaddingTop(),
                                     contentViewChild.getPaddingRight(),
-                                    paddingBottom + getDecorViewInvisibleHeight(activity)
+                                    paddingBottom + getDecorViewInvisibleHeight(window)
                             );
-                            sContentViewInvisibleHeightPre5497 = height;
+                            contentViewInvisibleHeightPre5497[0] = height;
                         }
                     }
                 });
     }
 
-    private static int getContentViewInvisibleHeight(final Activity activity) {
-        final View contentView = activity.findViewById(android.R.id.content);
-        if (contentView == null) return sContentViewInvisibleHeightPre5497;
+    private static int getContentViewInvisibleHeight(final Window window) {
+        final View contentView = window.findViewById(android.R.id.content);
+        if (contentView == null) return 0;
         final Rect outRect = new Rect();
         contentView.getWindowVisibleDisplayFrame(outRect);
         Log.d("KeyboardUtils", "getContentViewInvisibleHeight: "
@@ -261,8 +262,17 @@ public final class KeyboardUtils {
      *
      * @param activity The activity.
      */
-    public static void fixSoftInputLeaks(final Activity activity) {
-        if (activity == null) return;
+    public static void fixSoftInputLeaks(@NonNull final Activity activity) {
+        fixSoftInputLeaks(activity.getWindow());
+    }
+
+    /**
+     * Fix the leaks of soft input.
+     * <p>Call the function in {@link Activity#onDestroy()}.</p>
+     *
+     * @param window The window.
+     */
+    public static void fixSoftInputLeaks(@NonNull final Window window) {
         InputMethodManager imm =
                 (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm == null) return;
@@ -277,7 +287,7 @@ public final class KeyboardUtils {
                 Object obj = leakViewField.get(imm);
                 if (!(obj instanceof View)) continue;
                 View view = (View) obj;
-                if (view.getRootView() == activity.getWindow().getDecorView().getRootView()) {
+                if (view.getRootView() == window.getDecorView().getRootView()) {
                     leakViewField.set(imm, null);
                 }
             } catch (Throwable ignore) { /**/ }

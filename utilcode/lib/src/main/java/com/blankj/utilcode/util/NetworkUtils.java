@@ -7,8 +7,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.text.format.Formatter;
 import android.util.Log;
 
@@ -76,6 +78,67 @@ public final class NetworkUtils {
     }
 
     /**
+     * Return whether network is available.
+     * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
+     *
+     * @param callback The callback.
+     * @return the task
+     */
+    @RequiresPermission(INTERNET)
+    public static Utils.Task<Boolean> isAvailableAsync(@NonNull final Utils.Callback<Boolean> callback) {
+        return Utils.doAsync(new Utils.Task<Boolean>(callback) {
+            @RequiresPermission(INTERNET)
+            @Override
+            public Boolean doInBackground() {
+                return isAvailable();
+            }
+        });
+    }
+
+    /**
+     * Return whether network is available.
+     * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    @RequiresPermission(INTERNET)
+    public static boolean isAvailable() {
+        return isAvailableByDns() || isAvailableByPing(null);
+    }
+
+    /**
+     * Return whether network is available using ping.
+     * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
+     * <p>The default ping ip: 223.5.5.5</p>
+     *
+     * @param callback The callback.
+     */
+    @RequiresPermission(INTERNET)
+    public static void isAvailableByPingAsync(final Utils.Callback<Boolean> callback) {
+        isAvailableByPingAsync("", callback);
+    }
+
+    /**
+     * Return whether network is available using ping.
+     * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
+     *
+     * @param ip       The ip address.
+     * @param callback The callback.
+     * @return the task
+     */
+    @RequiresPermission(INTERNET)
+    public static Utils.Task<Boolean> isAvailableByPingAsync(final String ip,
+                                                             @NonNull final Utils.Callback<Boolean> callback) {
+        return Utils.doAsync(new Utils.Task<Boolean>(callback) {
+            @RequiresPermission(INTERNET)
+            @Override
+            public Boolean doInBackground() {
+                return isAvailableByPing(ip);
+            }
+        });
+    }
+
+    /**
      * Return whether network is available using ping.
      * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
      * <p>The default ping ip: 223.5.5.5</p>
@@ -84,7 +147,7 @@ public final class NetworkUtils {
      */
     @RequiresPermission(INTERNET)
     public static boolean isAvailableByPing() {
-        return isAvailableByPing(null);
+        return isAvailableByPing("");
     }
 
     /**
@@ -95,11 +158,9 @@ public final class NetworkUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     @RequiresPermission(INTERNET)
-    public static boolean isAvailableByPing(String ip) {
-        if (ip == null || ip.length() <= 0) {
-            ip = "223.5.5.5";// default ping ip
-        }
-        ShellUtils.CommandResult result = ShellUtils.execCmd(String.format("ping -c 1 %s", ip), false);
+    public static boolean isAvailableByPing(final String ip) {
+        final String realIp = TextUtils.isEmpty(ip) ? "223.5.5.5" : ip;
+        ShellUtils.CommandResult result = ShellUtils.execCmd(String.format("ping -c 1 %s", realIp), false);
         boolean ret = result.result == 0;
         if (result.errorMsg != null) {
             Log.d("NetworkUtils", "isAvailableByPing() called" + result.errorMsg);
@@ -110,14 +171,66 @@ public final class NetworkUtils {
         return ret;
     }
 
-
+    /**
+     * Return whether network is available using domain.
+     * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
+     *
+     * @param callback The callback.
+     */
     @RequiresPermission(INTERNET)
-    public static void isAvailableByDns(String ip) {
-
+    public static void isAvailableByDnsAsync(final Utils.Callback<Boolean> callback) {
+        isAvailableByDnsAsync("", callback);
     }
 
-    public interface Callback {
-        void call(boolean isSuccess);
+    /**
+     * Return whether network is available using domain.
+     * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
+     *
+     * @param domain   The name of domain.
+     * @param callback The callback.
+     * @return the task
+     */
+    @RequiresPermission(INTERNET)
+    public static Utils.Task isAvailableByDnsAsync(final String domain,
+                                                   @NonNull final Utils.Callback<Boolean> callback) {
+        return Utils.doAsync(new Utils.Task<Boolean>(callback) {
+            @RequiresPermission(INTERNET)
+            @Override
+            public Boolean doInBackground() {
+                return isAvailableByDns(domain);
+            }
+        });
+    }
+
+    /**
+     * Return whether network is available using domain.
+     * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    @RequiresPermission(INTERNET)
+    public static boolean isAvailableByDns() {
+        return isAvailableByDns("");
+    }
+
+    /**
+     * Return whether network is available using domain.
+     * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
+     *
+     * @param domain The name of domain.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    @RequiresPermission(INTERNET)
+    public static boolean isAvailableByDns(final String domain) {
+        final String realDomain = TextUtils.isEmpty(domain) ? "www.baidu.com" : domain;
+        InetAddress inetAddress;
+        try {
+            inetAddress = InetAddress.getByName(realDomain);
+            return inetAddress != null;
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**
@@ -256,7 +369,26 @@ public final class NetworkUtils {
      */
     @RequiresPermission(allOf = {ACCESS_WIFI_STATE, INTERNET})
     public static boolean isWifiAvailable() {
-        return getWifiEnabled() && isAvailableByPing();
+        return getWifiEnabled() && isAvailable();
+    }
+
+    /**
+     * Return whether wifi is available.
+     * <p>Must hold {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />},
+     * {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
+     *
+     * @param callback The callback.
+     * @return the task
+     */
+    @RequiresPermission(allOf = {ACCESS_WIFI_STATE, INTERNET})
+    public static Utils.Task<Boolean> isWifiAvailableAsync(@NonNull final Utils.Callback<Boolean> callback) {
+        return Utils.doAsync(new Utils.Task<Boolean>(callback) {
+            @RequiresPermission(allOf = {ACCESS_WIFI_STATE, INTERNET})
+            @Override
+            public Boolean doInBackground() {
+                return isWifiAvailable();
+            }
+        });
     }
 
     /**
@@ -365,6 +497,25 @@ public final class NetworkUtils {
      * Return the ip address.
      * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
      *
+     * @param useIPv4  True to use ipv4, false otherwise.
+     * @param callback The callback.
+     * @return the task
+     */
+    public static Utils.Task<String> getIPAddressAsync(final boolean useIPv4,
+                                                       @NonNull final Utils.Callback<String> callback) {
+        return Utils.doAsync(new Utils.Task<String>(callback) {
+            @RequiresPermission(INTERNET)
+            @Override
+            public String doInBackground() {
+                return getIPAddress(useIPv4);
+            }
+        });
+    }
+
+    /**
+     * Return the ip address.
+     * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
+     *
      * @param useIPv4 True to use ipv4, false otherwise.
      * @return the ip address
      */
@@ -429,6 +580,26 @@ public final class NetworkUtils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    /**
+     * Return the domain address.
+     * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
+     *
+     * @param domain   The name of domain.
+     * @param callback The callback.
+     * @return the task
+     */
+    @RequiresPermission(INTERNET)
+    public static Utils.Task<String> getDomainAddressAsync(final String domain,
+                                                           @NonNull final Utils.Callback<String> callback) {
+        return Utils.doAsync(new Utils.Task<String>(callback) {
+            @RequiresPermission(INTERNET)
+            @Override
+            public String doInBackground() {
+                return getDomainAddress(domain);
+            }
+        });
     }
 
     /**

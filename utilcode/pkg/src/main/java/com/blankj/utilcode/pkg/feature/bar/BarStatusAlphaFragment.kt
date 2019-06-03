@@ -48,7 +48,7 @@ class BarStatusAlphaFragment : BaseLazyFragment() {
         return R.layout.fragment_bar_status_alpha
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         barStatusAlphaFragmentSetTransparentBtn.setOnClickListener(this)
         barStatusAlphaFragmentChangeAlphaSb.setOnSeekBarChangeListener(translucentListener)
         barStatusAlphaFragmentAboutTv.text = mAlpha.toString()

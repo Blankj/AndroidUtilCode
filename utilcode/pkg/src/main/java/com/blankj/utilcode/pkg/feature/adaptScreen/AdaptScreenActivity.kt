@@ -4,11 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import kotlinx.android.synthetic.main.activity_adaptscreen.*
 
-class AdaptScreenActivity : BaseActivity() {
+class AdaptScreenActivity : BaseTitleActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -17,8 +17,8 @@ class AdaptScreenActivity : BaseActivity() {
         }
     }
 
-    override fun isSwipeBack(): Boolean {
-        return true
+    override fun bindTitle(): CharSequence {
+        return getString(R.string.demo_adapt_screen)
     }
 
     override fun initData(bundle: Bundle?) {}
@@ -27,7 +27,7 @@ class AdaptScreenActivity : BaseActivity() {
         return R.layout.activity_adaptscreen;
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         adaptScreenAdaptWidthBtn.setOnClickListener(this)
         adaptScreenAdaptHeightBtn.setOnClickListener(this)
         adaptScreenCloseAdaptBtn.setOnClickListener(this)
@@ -37,9 +37,9 @@ class AdaptScreenActivity : BaseActivity() {
 
     override fun onWidgetClick(view: View) {
         when (view.id) {
-            R.id.adaptScreenAdaptWidthBtn -> WidthActivity.start(this)
-            R.id.adaptScreenAdaptHeightBtn -> HeightActivity.start(this)
-            R.id.adaptScreenCloseAdaptBtn -> CloseAdaptActivity.start(this)
+            R.id.adaptScreenAdaptWidthBtn -> AdaptWidthActivity.start(this)
+            R.id.adaptScreenAdaptHeightBtn -> AdaptHeightActivity.start(this)
+            R.id.adaptScreenCloseAdaptBtn -> AdaptCloseActivity.start(this)
         }
     }
 }

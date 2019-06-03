@@ -52,6 +52,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import java.io.InputStream;
+import java.io.Serializable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.ref.WeakReference;
@@ -132,7 +133,7 @@ public final class SpanUtils {
     private int spaceSize;
     private int spaceColor;
 
-    private SpannableStringBuilder mBuilder;
+    private SerializableSpannableStringBuilder mBuilder;
 
     private       int mType;
     private final int mTypeCharSequence = 0;
@@ -145,7 +146,7 @@ public final class SpanUtils {
     }
 
     public SpanUtils() {
-        mBuilder = new SpannableStringBuilder();
+        mBuilder = new SerializableSpannableStringBuilder();
         mText = "";
         mType = -1;
         setDefault();
@@ -1052,8 +1053,8 @@ public final class SpanUtils {
 
     static class SpaceSpan extends ReplacementSpan {
 
-        private final int width;
-        private final int color;
+        private final int   width;
+        private final Paint paint = new Paint();
 
         private SpaceSpan(final int width) {
             this(width, Color.TRANSPARENT);
@@ -1062,7 +1063,8 @@ public final class SpanUtils {
         private SpaceSpan(final int width, final int color) {
             super();
             this.width = width;
-            this.color = color;
+            paint.setColor(color);
+            paint.setStyle(Paint.Style.FILL);
         }
 
         @Override
@@ -1079,16 +1081,7 @@ public final class SpanUtils {
                          @IntRange(from = 0) final int end,
                          final float x, final int top, final int y, final int bottom,
                          @NonNull final Paint paint) {
-            Paint.Style style = paint.getStyle();
-            int color = paint.getColor();
-
-            paint.setStyle(Paint.Style.FILL);
-            paint.setColor(this.color);
-
-            canvas.drawRect(x, top, x + width, bottom, paint);
-
-            paint.setStyle(style);
-            paint.setColor(color);
+            canvas.drawRect(x, top, x + width, bottom, this.paint);
         }
     }
 
@@ -1412,6 +1405,12 @@ public final class SpanUtils {
         public void updateDrawState(final TextPaint tp) {
             tp.setShadowLayer(radius, dx, dy, shadowColor);
         }
+    }
+
+    private static class SerializableSpannableStringBuilder extends SpannableStringBuilder
+            implements Serializable {
+
+        private static final long serialVersionUID = 4909567650765875771L;
     }
 
     ///////////////////////////////////////////////////////////////////////////

@@ -1,3 +1,8 @@
+* `19/06/03` [fix] Refactoring framework. Publish v1.24.0.
+* `19/04/25` [fix] LogUtils delete due log.
+* `19/04/24` [upd] The swipe panel.
+* `19/03/17` [fix] The ugly UI.
+* `19/03/14` [fix] AdaptScreenUtils didn't work on some HaWei tablet.
 * `19/03/08` [add] LogUtils support multi process. Publish v1.23.7.
 * `19/03/02` [fix] LogUtils#file.
 * `19/02/28` [fix] ImageUtils#calculateInSampleSize. Publish v1.23.6.

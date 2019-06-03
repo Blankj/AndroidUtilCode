@@ -11,7 +11,6 @@ import com.blankj.lib.base.BaseActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.FragmentUtils
 import kotlinx.android.synthetic.main.activity_fragment.*
-import kotlinx.android.synthetic.main.fragment_child.*
 
 /**
  * ```
@@ -61,7 +60,7 @@ class FragmentActivity : BaseActivity() {
         return R.layout.activity_fragment
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         if (savedInstanceState != null) {
             curIndex = savedInstanceState.getInt("curIndex")
         }

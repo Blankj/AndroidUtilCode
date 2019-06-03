@@ -9,7 +9,7 @@ import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.view.View
 import android.view.Window
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.feature.CoreUtilActivity
 import com.blankj.utilcode.util.ActivityUtils
@@ -27,7 +27,7 @@ import java.util.*
  * desc  : demo about ActivityUtils
  * ```
  */
-class ActivityActivity : BaseTitleBarActivity() {
+class ActivityActivity : BaseTitleActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -36,8 +36,8 @@ class ActivityActivity : BaseTitleBarActivity() {
         }
     }
 
-    internal var random = Random()
-    lateinit var bitmap: Bitmap
+    private var random = Random()
+    private lateinit var bitmap: Bitmap
     internal lateinit var intent: Intent
     private val intents = arrayOfNulls<Intent>(2)
 
@@ -54,7 +54,7 @@ class ActivityActivity : BaseTitleBarActivity() {
         return R.layout.activity_activity
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         activityClzBtn.setOnClickListener(this)
         activityClzOptBtn.setOnClickListener(this)
         activityClzAnimBtn.setOnClickListener(this)
@@ -167,7 +167,6 @@ class ActivityActivity : BaseTitleBarActivity() {
     }
 
     private fun getOption(type: Int): Bundle? {
-        LogUtils.d(type)
         when (type) {
             0 -> return ActivityOptionsCompat.makeCustomAnimation(this,
                     R.anim.slide_in_right_1000,

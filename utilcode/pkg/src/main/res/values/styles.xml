@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BottomDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom_200</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom_200</item>
+    </style>
+</resources>

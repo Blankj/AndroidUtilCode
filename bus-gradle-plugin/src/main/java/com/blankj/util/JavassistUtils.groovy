@@ -1,6 +1,7 @@
 package com.blankj.util
 
 import javassist.ClassPool
+import javassist.CtClass
 import org.gradle.api.Project;
 
 /**
@@ -25,5 +26,11 @@ class JavassistUtils {
 
     static ClassPool getPool() {
         return sPool
+    }
+
+    static CtClass getClass(String classname) {
+        def ctClass = sPool.getCtClass(classname)
+        if (ctClass.isFrozen()) ctClass.defrost()
+        return ctClass
     }
 }

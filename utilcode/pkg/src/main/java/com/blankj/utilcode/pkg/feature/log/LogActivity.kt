@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.CompoundButton
 import com.blankj.lib.base.BaseApplication
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.LogUtils
@@ -26,7 +26,7 @@ import java.util.*
  * desc  : demo about LogUtils
  * ```
  */
-class LogActivity : BaseTitleBarActivity(),
+class LogActivity : BaseTitleActivity(),
         CompoundButton.OnCheckedChangeListener {
 
     companion object {
@@ -46,7 +46,7 @@ class LogActivity : BaseTitleBarActivity(),
         init {
             val sb = StringBuilder()
             sb.append("len = 10400\ncontent = \"")
-            for (i in 0..799) {
+            for (i in 0..1024) {
                 sb.append("Hello world. ")
             }
             sb.append("\"")
@@ -118,7 +118,7 @@ class LogActivity : BaseTitleBarActivity(),
         return R.layout.activity_log
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         logSwitchCb.isChecked = mConfig.isLogSwitch
         logSwitchCb.setOnCheckedChangeListener(this)
 
@@ -142,7 +142,7 @@ class LogActivity : BaseTitleBarActivity(),
         logBorderSwitchCb.isChecked = mConfig.isLogBorderSwitch
         logBorderSwitchCb.setOnCheckedChangeListener(this)
 
-        logBorderSwitchCb.isChecked = mConfig.isSingleTagSwitch
+        logSingleTagSwitchCb.isChecked = mConfig.isSingleTagSwitch
         logSingleTagSwitchCb.setOnCheckedChangeListener(this)
 
         logConsoleFilterCb.isChecked = mConfig.consoleFilter != 'V'
@@ -264,7 +264,9 @@ class LogActivity : BaseTitleBarActivity(),
                 }
                 logDirCb.text = String.format("Dir: %s", mConfig.dir)
             }
-            R.id.logBorderSwitchCb -> mConfig.setBorderSwitch(isChecked)
+            R.id.logBorderSwitchCb -> {
+                mConfig.setBorderSwitch(isChecked)
+            }
             R.id.logSingleTagSwitchCb -> mConfig.setSingleTagSwitch(isChecked)
             R.id.logConsoleFilterCb -> {
                 mConfig.setConsoleFilter(if (isChecked) LogUtils.W else LogUtils.V)
@@ -283,7 +285,7 @@ class LogActivity : BaseTitleBarActivity(),
     }
 
     override fun onDestroy() {
-        BaseApplication.instance.initLog()
+        BaseApplication.getInstance().initLog()
         super.onDestroy()
     }
 }

@@ -34,10 +34,10 @@ class BarStatusCustomActivity : BaseActivity() {
     override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
-        return R.layout.activity_bar_status_custom
+        return -1
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {}
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {}
 
     override fun doBusiness() {
         BarUtils.setStatusBarColor(this, Color.TRANSPARENT).setBackgroundResource(R.drawable.bar_status_custom)

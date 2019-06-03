@@ -29,7 +29,7 @@ class BarStatusAlphaActivity : BaseActivity() {
     }
 
     override fun isSwipeBack(): Boolean {
-        return true
+        return false
     }
 
     private var mAlpha: Int = 0
@@ -54,7 +54,7 @@ class BarStatusAlphaActivity : BaseActivity() {
         return R.layout.activity_bar_status_alpha
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         barStatusAlphaSetTransparentBtn.setOnClickListener(this)
         barStatusAlphaChangeAlphaSb.setOnSeekBarChangeListener(translucentListener)
         barStatusAlphaAboutTv.text = mAlpha.toString()

@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.feature.activity.ActivityActivity
 import com.blankj.utilcode.pkg.feature.adaptScreen.AdaptScreenActivity
@@ -44,7 +44,7 @@ import com.blankj.utilcode.util.BusUtils
  * desc  :
  * ```
  */
-class CoreUtilActivity : BaseTitleBarActivity() {
+class CoreUtilActivity : BaseTitleActivity() {
 
     companion object {
         @BusUtils.Subscribe(name = "CoreUtilActivity#start")
@@ -64,7 +64,7 @@ class CoreUtilActivity : BaseTitleBarActivity() {
         return R.layout.activity_util_core
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {}
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {}
 
     override fun doBusiness() {}
 
@@ -92,6 +92,10 @@ class CoreUtilActivity : BaseTitleBarActivity() {
 
     fun cleanClick(view: View) {
         CleanActivity.start(this)
+    }
+
+    fun busClick(view: View) {
+        BusUtils.postStatic<Any>("BusActivity#start", this)
     }
 
     fun crashClick(view: View) {

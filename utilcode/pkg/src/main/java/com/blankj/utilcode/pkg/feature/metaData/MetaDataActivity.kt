@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.MetaDataUtils
 import com.blankj.utilcode.util.SpanUtils
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_metadata.*
  * desc  : demo about MetaDataUtils
  * ```
  */
-class MetaDataActivity : BaseTitleBarActivity() {
+class MetaDataActivity : BaseTitleActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -37,7 +37,7 @@ class MetaDataActivity : BaseTitleBarActivity() {
         return R.layout.activity_metadata
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         SpanUtils.with(metaDataAboutTv)
                 .appendLine("getMetaDataInApp: " + MetaDataUtils.getMetaDataInApp("app_meta_data"))
                 .append("getMetaDataInActivity: " + MetaDataUtils.getMetaDataInActivity(this, "activity_meta_data"))

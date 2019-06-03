@@ -3,13 +3,17 @@ package com.blankj.utilcode.util;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.os.Debug;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.RequiresPermission;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import java.io.File;
@@ -348,4 +352,96 @@ public final class DeviceUtils {
     public static void reboot2Bootloader() {
         ShellUtils.execCmd("reboot bootloader", true);
     }
+
+
+    /**
+     * Return whether device is tablet.
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isTablet() {
+        return (Utils.getApp().getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
+    /**
+     * Return whether device is emulator.
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isEmulator() {
+        boolean checkProperty = Build.FINGERPRINT.startsWith("generic")
+                || Build.FINGERPRINT.toLowerCase().contains("vbox")
+                || Build.FINGERPRINT.toLowerCase().contains("test-keys")
+                || Build.MODEL.contains("google_sdk")
+                || Build.MODEL.contains("Emulator")
+                || Build.SERIAL.equalsIgnoreCase("unknown")
+                || Build.SERIAL.equalsIgnoreCase("android")
+                || Build.MODEL.contains("Android SDK built for x86")
+                || Build.MANUFACTURER.contains("Genymotion")
+                || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
+                || "google_sdk".equals(Build.PRODUCT);
+        if (checkProperty) return true;
+
+        boolean checkDebuggerConnected = Debug.isDebuggerConnected();
+        if (checkDebuggerConnected) return true;
+
+        String operatorName = "";
+        TelephonyManager tm = (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+        if (tm != null) {
+            String name = tm.getNetworkOperatorName();
+            if (name != null) {
+                operatorName = name;
+            }
+        }
+        boolean checkOperatorName = operatorName.toLowerCase().equals("android");
+        if (checkOperatorName) return true;
+
+        String url = "tel:" + "123456";
+        Intent intent = new Intent();
+        intent.setData(Uri.parse(url));
+        intent.setAction(Intent.ACTION_DIAL);
+        boolean checkDial = intent.resolveActivity(Utils.getApp().getPackageManager()) != null;
+        if (checkDial) return true;
+
+        return false;
+    }
+
+//    protected static final String PREFS_FILE      = "device_id.xml";
+//    protected static final String PREFS_DEVICE_ID = "device_id";
+//
+//    protected static UUID uuid;
+//
+//    public static String getDeviceId() {
+//        if (uuid == null) {
+//            synchronized (DeviceUtils.class) {
+//                if (uuid == null) {
+//                    final SharedPreferences prefs = Utils.getApp().getSharedPreferences(PREFS_FILE, 0);
+//                    final String id = prefs.getString(PREFS_DEVICE_ID, null);
+//
+//                    if (id != null) {
+//                        // Use the ids previously computed and stored in the prefs file
+//                        uuid = UUID.fromString(id);
+//
+//                    } else {
+//                        final String androidId = Settings.Secure.getString(Utils.getApp().getContentResolver(), Settings.Secure.ANDROID_ID);
+//                        try {
+//                            if (!"9774d56d682e549c".equals(androidId)) {
+//                                uuid = UUID.nameUUIDFromBytes(androidId.getBytes());
+//                            } else {
+//                                final String deviceId = ((TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+//                                uuid = deviceId != null ? UUID.nameUUIDFromBytes(deviceId.getBytes()) : UUID.randomUUID();
+//                            }
+//                        } catch (UnsupportedEncodingException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                        // Write the value out to the prefs file
+//                        prefs.edit().putString(PREFS_DEVICE_ID, uuid.toString()).commit();
+//                    }
+//
+//                }
+//            }
+//        }
+//    }
 }

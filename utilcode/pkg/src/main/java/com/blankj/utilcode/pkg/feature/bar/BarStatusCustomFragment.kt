@@ -2,8 +2,8 @@ package com.blankj.utilcode.pkg.feature.bar
 
 import android.os.Bundle
 import android.view.View
-
 import com.blankj.lib.base.BaseLazyFragment
+
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.LogUtils
@@ -31,7 +31,7 @@ class BarStatusCustomFragment : BaseLazyFragment() {
         return R.layout.fragment_bar_status_custom
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         BarUtils.setStatusBarCustom(barStatusCustomFragmentFakeStatusBar)
     }
 

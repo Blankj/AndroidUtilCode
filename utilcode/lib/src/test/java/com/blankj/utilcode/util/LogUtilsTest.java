@@ -27,7 +27,7 @@ public class LogUtilsTest extends BaseTest {
     public void testV() {
         LogUtils.v();
         LogUtils.v("");
-        LogUtils.v(null);
+        LogUtils.v((Object) null);
         LogUtils.v("hello");
         LogUtils.v("hello\nworld");
         LogUtils.v("hello", "world");
@@ -37,7 +37,7 @@ public class LogUtilsTest extends BaseTest {
     public void testVTag() {
         LogUtils.vTag("");
         LogUtils.vTag("", "");
-        LogUtils.vTag("TAG", null);
+        LogUtils.vTag("TAG", (Object) null);
         LogUtils.vTag("TAG", "hello");
         LogUtils.vTag("TAG", "hello\nworld");
         LogUtils.vTag("TAG", "hello", "world");
@@ -47,7 +47,7 @@ public class LogUtilsTest extends BaseTest {
     public void testD() {
         LogUtils.d();
         LogUtils.d("");
-        LogUtils.d(null);
+        LogUtils.d((Object) null);
         LogUtils.d("hello");
         LogUtils.d("hello\nworld");
         LogUtils.d("hello", "world");
@@ -57,7 +57,7 @@ public class LogUtilsTest extends BaseTest {
     public void testDTag() {
         LogUtils.dTag("");
         LogUtils.dTag("", "");
-        LogUtils.dTag("TAG", null);
+        LogUtils.dTag("TAG", (Object) null);
         LogUtils.dTag("TAG", "hello");
         LogUtils.dTag("TAG", "hello\nworld");
         LogUtils.dTag("TAG", "hello", "world");
@@ -67,7 +67,7 @@ public class LogUtilsTest extends BaseTest {
     public void testI() {
         LogUtils.i();
         LogUtils.i("");
-        LogUtils.i(null);
+        LogUtils.i((Object) null);
         LogUtils.i("hello");
         LogUtils.i("hello\nworld");
         LogUtils.i("hello", "world");
@@ -77,7 +77,7 @@ public class LogUtilsTest extends BaseTest {
     public void testITag() {
         LogUtils.iTag("");
         LogUtils.iTag("", "");
-        LogUtils.iTag("TAG", null);
+        LogUtils.iTag("TAG", (Object) null);
         LogUtils.iTag("TAG", "hello");
         LogUtils.iTag("TAG", "hello\nworld");
         LogUtils.iTag("TAG", "hello", "world");
@@ -87,7 +87,7 @@ public class LogUtilsTest extends BaseTest {
     public void testW() {
         LogUtils.w();
         LogUtils.w("");
-        LogUtils.w(null);
+        LogUtils.w((Object) null);
         LogUtils.w("hello");
         LogUtils.w("hello\nworld");
         LogUtils.w("hello", "world");
@@ -97,7 +97,7 @@ public class LogUtilsTest extends BaseTest {
     public void testWTag() {
         LogUtils.wTag("");
         LogUtils.wTag("", "");
-        LogUtils.wTag("TAG", null);
+        LogUtils.wTag("TAG", (Object) null);
         LogUtils.wTag("TAG", "hello");
         LogUtils.wTag("TAG", "hello\nworld");
         LogUtils.wTag("TAG", "hello", "world");
@@ -107,7 +107,7 @@ public class LogUtilsTest extends BaseTest {
     public void testE() {
         LogUtils.e();
         LogUtils.e("");
-        LogUtils.e(null);
+        LogUtils.e((Object) null);
         LogUtils.e("hello");
         LogUtils.e("hello\nworld");
         LogUtils.e("hello", "world");
@@ -117,7 +117,7 @@ public class LogUtilsTest extends BaseTest {
     public void testETag() {
         LogUtils.eTag("");
         LogUtils.eTag("", "");
-        LogUtils.eTag("TAG", null);
+        LogUtils.eTag("TAG", (Object) null);
         LogUtils.eTag("TAG", "hello");
         LogUtils.eTag("TAG", "hello\nworld");
         LogUtils.eTag("TAG", "hello", "world");
@@ -127,7 +127,7 @@ public class LogUtilsTest extends BaseTest {
     public void testA() {
         LogUtils.a();
         LogUtils.a("");
-        LogUtils.a(null);
+        LogUtils.a((Object) null);
         LogUtils.a("hello");
         LogUtils.a("hello\nworld");
         LogUtils.a("hello", "world");
@@ -137,7 +137,7 @@ public class LogUtilsTest extends BaseTest {
     public void testATag() {
         LogUtils.aTag("");
         LogUtils.aTag("", "");
-        LogUtils.aTag("TAG", null);
+        LogUtils.aTag("TAG", (Object) null);
         LogUtils.aTag("TAG", "hello");
         LogUtils.aTag("TAG", "hello\nworld");
         LogUtils.aTag("TAG", "hello", "world");

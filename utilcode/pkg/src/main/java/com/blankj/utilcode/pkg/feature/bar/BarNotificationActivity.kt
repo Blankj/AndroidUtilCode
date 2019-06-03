@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.base.BaseTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
 import kotlinx.android.synthetic.main.activity_bar_notification.*
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_bar_notification.*
  * desc  : demo about BarUtils
  * ```
  */
-class BarNotificationActivity : BaseTitleBarActivity() {
+class BarNotificationActivity : BaseTitleActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -39,7 +39,7 @@ class BarNotificationActivity : BaseTitleBarActivity() {
         return R.layout.activity_bar_notification
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         barNotificationShowBtn.setOnClickListener(this)
     }
 

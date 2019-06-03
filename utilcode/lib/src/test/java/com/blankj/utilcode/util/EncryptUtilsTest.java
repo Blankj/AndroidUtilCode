@@ -6,6 +6,11 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
+import java.security.Key;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Arrays;
 
 import static com.blankj.utilcode.util.TestConfig.PATH_ENCRYPT;
@@ -520,6 +525,11 @@ public class EncryptUtilsTest extends BaseTest {
 
     @Test
     public void encryptDecryptRSA() {
+        try {
+            genKeyPair();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
         assertTrue(
                 Arrays.equals(
                         EncryptUtils.decryptRSA(
@@ -580,4 +590,31 @@ public class EncryptUtilsTest extends BaseTest {
             throw new IllegalArgumentException();
         }
     }
+    
+     private static void genKeyPair() throws NoSuchAlgorithmException {  
+          
+        SecureRandom secureRandom = new SecureRandom();
+          
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+  
+        keyPairGenerator.initialize(1024, secureRandom);
+
+        KeyPair keyPair = keyPairGenerator.generateKeyPair();
+  
+        Key publicKey = keyPair.getPublic();
+  
+        Key privateKey = keyPair.getPrivate();
+  
+        byte[] publicKeyBytes = publicKey.getEncoded();  
+        byte[] privateKeyBytes = privateKey.getEncoded();  
+  
+        String publicKeyBase64 = EncodeUtils.base64Encode2String(publicKeyBytes);
+        String privateKeyBase64 = EncodeUtils.base64Encode2String(privateKeyBytes);
+  
+        System.out.println("publicKeyBase64.length():" + publicKeyBase64.length());  
+        System.out.println("publicKeyBase64:" + publicKeyBase64);  
+  
+        System.out.println("privateKeyBase64.length():" + privateKeyBase64.length());  
+        System.out.println("privateKeyBase64:" + privateKeyBase64);  
+    }  
 }

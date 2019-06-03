@@ -54,7 +54,7 @@ class BarStatusImageViewActivity : BaseActivity() {
         return R.layout.activity_bar_status_image_view
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         barStatusImageViewSetTransparentBtn.setOnClickListener(this)
         barStatusImageViewChangeAlphaSb.setOnSeekBarChangeListener(translucentListener)
         barStatusImageViewAboutTv.text = mAlpha.toString()

@@ -9,8 +9,8 @@ import android.text.SpannableStringBuilder
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.blankj.lib.base.BaseTitleActivity
 
-import com.blankj.lib.base.BaseTitleBarActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.SnackbarUtils
 import com.blankj.utilcode.util.SpanUtils
@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.activity_snackbar.*
  * desc  : demo about SnackbarUtils
  * ```
  */
-class SnackbarActivity : BaseTitleBarActivity() {
+class SnackbarActivity : BaseTitleActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -46,7 +46,7 @@ class SnackbarActivity : BaseTitleBarActivity() {
         return R.layout.activity_snackbar
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         snackBarRootView = findViewById(android.R.id.content)
         snackbarShowShortBtn.setOnClickListener(this)
         snackbarShowShortWithActionBtn.setOnClickListener(this)

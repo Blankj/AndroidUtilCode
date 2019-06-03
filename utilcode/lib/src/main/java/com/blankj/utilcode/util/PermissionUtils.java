@@ -2,7 +2,6 @@ package com.blankj.utilcode.util;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -75,10 +74,9 @@ public final class PermissionUtils {
     public static List<String> getPermissions(final String packageName) {
         PackageManager pm = Utils.getApp().getPackageManager();
         try {
-            return Arrays.asList(
-                    pm.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS)
-                            .requestedPermissions
-            );
+            String[] permissions = pm.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS).requestedPermissions;
+            if (permissions == null) return Collections.emptyList();
+            return Arrays.asList(permissions);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             return Collections.emptyList();
@@ -144,16 +142,6 @@ public final class PermissionUtils {
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
     public static boolean isGrantedDrawOverlays() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            AppOpsManager aom = (AppOpsManager) Utils.getApp().getSystemService(Context.APP_OPS_SERVICE);
-            if (aom == null) return false;
-            int mode = aom.checkOpNoThrow(
-                    "android:system_alert_window",
-                    android.os.Process.myUid(),
-                    Utils.getApp().getPackageName()
-            );
-            return mode == AppOpsManager.MODE_ALLOWED || mode == AppOpsManager.MODE_IGNORED;
-        }
         return Settings.canDrawOverlays(Utils.getApp());
     }
 
@@ -303,6 +291,7 @@ public final class PermissionUtils {
                     mOnRationaleListener.rationale(new ShouldRequest() {
                         @Override
                         public void again(boolean again) {
+                            activity.finish();
                             if (again) {
                                 startPermissionActivity();
                             } else {
@@ -398,7 +387,6 @@ public final class PermissionUtils {
                 super.onCreate(savedInstanceState);
 
                 if (sInstance.rationale(this)) {
-                    finish();
                     return;
                 }
                 if (sInstance.mPermissionsRequest != null) {
@@ -444,12 +432,17 @@ public final class PermissionUtils {
                 sSimpleCallback4WriteSettings = null;
             } else if (requestCode == TYPE_DRAW_OVERLAYS) {
                 if (sSimpleCallback4DrawOverlays == null) return;
-                if (isGrantedDrawOverlays()) {
-                    sSimpleCallback4DrawOverlays.onGranted();
-                } else {
-                    sSimpleCallback4DrawOverlays.onDenied();
-                }
-                sSimpleCallback4DrawOverlays = null;
+                Utils.runOnUiThreadDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (isGrantedDrawOverlays()) {
+                            sSimpleCallback4DrawOverlays.onGranted();
+                        } else {
+                            sSimpleCallback4DrawOverlays.onDenied();
+                        }
+                        sSimpleCallback4DrawOverlays = null;
+                    }
+                }, 100);
             }
             finish();
         }

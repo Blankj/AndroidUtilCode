@@ -7,7 +7,6 @@ import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.DialogHelper
 import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.FragmentUtils
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SpanUtils
 import kotlinx.android.synthetic.main.fragment_child.*
 
@@ -36,7 +35,7 @@ class ChildFragment : BaseLazyFragment() {
         return R.layout.fragment_child
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         FragmentUtils.setBackgroundColor(this, ColorUtils.getRandomColor(false))
         fragmentChildShowStackBtn.setOnClickListener(this)
         fragmentChildPopBtn.setOnClickListener(this)
