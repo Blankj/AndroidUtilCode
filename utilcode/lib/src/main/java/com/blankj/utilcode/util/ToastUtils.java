@@ -3,7 +3,6 @@ package com.blankj.utilcode.util;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
@@ -437,6 +436,7 @@ public final class ToastUtils {
                     @Override
                     public void onActivityDestroyed(Activity activity) {
                         if (iToast == null) return;
+                        activity.getWindow().getDecorView().setVisibility(View.GONE);
                         iToast.cancel();
                     }
                 };
@@ -468,35 +468,29 @@ public final class ToastUtils {
                 mParams.type = WindowManager.LayoutParams.LAST_APPLICATION_WINDOW;
                 Utils.getActivityLifecycle().addOnActivityDestroyedListener(topActivity, LISTENER);
             }
-//            else {
-//                mWM = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-//                mParams.type = WindowManager.LayoutParams.FIRST_SYSTEM_WINDOW + 37;
-//            }
 
-            final Configuration config = context.getResources().getConfiguration();
-            final int gravity = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
-                    ? Gravity.getAbsoluteGravity(mToast.getGravity(), config.getLayoutDirection())
-                    : mToast.getGravity();
-
-            mParams.y = mToast.getYOffset();
             mParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
             mParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
             mParams.format = PixelFormat.TRANSLUCENT;
             mParams.windowAnimations = android.R.style.Animation_Toast;
-
             mParams.setTitle("ToastWithoutNotification");
             mParams.flags = WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
                     | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                     | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
-            mParams.gravity = gravity;
-            if ((gravity & Gravity.HORIZONTAL_GRAVITY_MASK) == Gravity.FILL_HORIZONTAL) {
+            mParams.packageName = Utils.getApp().getPackageName();
+
+            mParams.gravity = mToast.getGravity();
+            if ((mParams.gravity & Gravity.HORIZONTAL_GRAVITY_MASK) == Gravity.FILL_HORIZONTAL) {
                 mParams.horizontalWeight = 1.0f;
             }
-            if ((gravity & Gravity.VERTICAL_GRAVITY_MASK) == Gravity.FILL_VERTICAL) {
+            if ((mParams.gravity & Gravity.VERTICAL_GRAVITY_MASK) == Gravity.FILL_VERTICAL) {
                 mParams.verticalWeight = 1.0f;
             }
+
             mParams.x = mToast.getXOffset();
-            mParams.packageName = Utils.getApp().getPackageName();
+            mParams.y = mToast.getYOffset();
+            mParams.horizontalMargin = mToast.getHorizontalMargin();
+            mParams.verticalMargin = mToast.getVerticalMargin();
 
             try {
                 if (mWM != null) {

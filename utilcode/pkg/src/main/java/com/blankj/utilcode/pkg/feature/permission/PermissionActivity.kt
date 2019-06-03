@@ -59,7 +59,7 @@ class PermissionActivity : BaseTitleActivity() {
 
     override fun onResume() {
         super.onResume()
-        updateAboutPermission()
+        Utils.runOnUiThreadDelayed(Runnable(this@PermissionActivity::updateAboutPermission), 100)
     }
 
     override fun doBusiness() {}
@@ -182,6 +182,5 @@ class PermissionActivity : BaseTitleActivity() {
                         appendLine("DRAW_OVERLAYS: " + PermissionUtils.isGrantedDrawOverlays())
                     }
                 }
-                .create()
     }
 }

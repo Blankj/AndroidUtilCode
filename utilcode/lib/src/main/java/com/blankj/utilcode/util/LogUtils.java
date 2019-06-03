@@ -101,8 +101,6 @@ public final class LogUtils {
     private static final String ARGS           = "args";
     private static final String PLACEHOLDER    = " ";
     private static final Config CONFIG         = new Config();
-    private static final Gson   GSON           = new GsonBuilder()
-            .setPrettyPrinting().serializeNulls().create();
 
     private static final ThreadLocal<SimpleDateFormat> SDF_THREAD_LOCAL = new ThreadLocal<>();
 
@@ -333,8 +331,8 @@ public final class LogUtils {
 
     private static String formatObject(int type, Object object) {
         if (object == null) return NULL;
-        if (type == JSON) return LogFormatter.object2Json(object);
-        if (type == XML) return LogFormatter.formatXml(object.toString());
+        if (type == JSON) return LogFormatter.object2String(object, JSON);
+        if (type == XML) return LogFormatter.object2String(object, XML);
         return formatObject(object);
     }
 
@@ -874,38 +872,23 @@ public final class LogUtils {
 
     private final static class LogFormatter {
 
+        private static final Gson GSON = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
+
         static String object2String(Object object) {
+            return object2String(object, -1);
+        }
+
+        static String object2String(Object object, int type) {
             if (object.getClass().isArray()) return array2String(object);
             if (object instanceof Throwable) return throwable2String((Throwable) object);
             if (object instanceof Bundle) return bundle2String((Bundle) object);
             if (object instanceof Intent) return intent2String((Intent) object);
+            if (type == JSON) {
+                return object2Json(object);
+            } else if (type == XML) {
+                return formatXml(object.toString());
+            }
             return object.toString();
-        }
-
-        static String object2Json(Object object) {
-            if (object instanceof CharSequence) {
-                return formatJson(object.toString());
-            }
-            try {
-                return GSON.toJson(object);
-            } catch (Throwable t) {
-                return object.toString();
-            }
-        }
-
-        static String formatXml(String xml) {
-            try {
-                Source xmlInput = new StreamSource(new StringReader(xml));
-                StreamResult xmlOutput = new StreamResult(new StringWriter());
-                Transformer transformer = TransformerFactory.newInstance().newTransformer();
-                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-                transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-                transformer.transform(xmlInput, xmlOutput);
-                xml = xmlOutput.getWriter().toString().replaceFirst(">", ">" + LINE_SEP);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return xml;
         }
 
         private static String throwable2String(final Throwable e) {
@@ -1043,24 +1026,6 @@ public final class LogUtils {
             return sb.toString();
         }
 
-        private static String formatJson(String json) {
-            try {
-                for (int i = 0, len = json.length(); i < len; i++) {
-                    char c = json.charAt(i);
-                    if (c == '{') {
-                        return new JSONObject(json).toString(2);
-                    } else if (c == '[') {
-                        return new JSONArray(json).toString(2);
-                    } else if (!Character.isWhitespace(c)) {
-                        return json;
-                    }
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return json;
-        }
-
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         private static void clipData2String(ClipData clipData, StringBuilder sb) {
             ClipData.Item item = clipData.getItemAt(0);
@@ -1098,6 +1063,50 @@ public final class LogUtils {
             }
             sb.append("NULL");
             sb.append("}");
+        }
+
+        private static String object2Json(Object object) {
+            if (object instanceof CharSequence) {
+                return formatJson(object.toString());
+            }
+            try {
+                return GSON.toJson(object);
+            } catch (Throwable t) {
+                return object.toString();
+            }
+        }
+
+        private static String formatJson(String json) {
+            try {
+                for (int i = 0, len = json.length(); i < len; i++) {
+                    char c = json.charAt(i);
+                    if (c == '{') {
+                        return new JSONObject(json).toString(2);
+                    } else if (c == '[') {
+                        return new JSONArray(json).toString(2);
+                    } else if (!Character.isWhitespace(c)) {
+                        return json;
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return json;
+        }
+
+        private static String formatXml(String xml) {
+            try {
+                Source xmlInput = new StreamSource(new StringReader(xml));
+                StreamResult xmlOutput = new StreamResult(new StringWriter());
+                Transformer transformer = TransformerFactory.newInstance().newTransformer();
+                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+                transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+                transformer.transform(xmlInput, xmlOutput);
+                xml = xmlOutput.getWriter().toString().replaceFirst(">", ">" + LINE_SEP);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return xml;
         }
 
         private static String array2String(Object object) {

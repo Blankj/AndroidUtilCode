@@ -1,4 +1,5 @@
 apply from: "${rootDir.path}/gradle/util/utils.gradle"
+apply from: "${rootDir.path}/gradle/config/configBuild.gradle"
 
 gradle.ext {
     applicationId = 'com.blankj.androidutilcode'
@@ -7,182 +8,140 @@ gradle.ext {
     compileSdkVersion = 27
     minSdkVersion = 14
     targetSdkVersion = 27
-    versionCode = 1_023_008
-    versionName = '1.23.8'// E.g. 1.9.72 => 1,009,072
-
-    bus = [
-            isPublish: false,
-            isDebug  : true,
-            version  : '1.7',
-            group    : 'com.blankj'
-    ]
+    versionCode = 1_024_000
+    versionName = '1.24.0'// E.g. 1.9.72 => 1,009,072
 
     // lib version
     kotlin_version = '1.3.10'
     support_version = '27.1.1'
     leakcanary_version = '1.6.3'
 
-    dep = [
-            plugin       : [
-                    "com.android.tools.build:gradle:3.4.0",
-                    "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version",
-                    "com.github.dcendents:android-maven-gradle-plugin:2.1",// 上传到 maven
-                    "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4",// 上传到 bintray
-                    "tech.harmonysoft:traute-gradle:1.1.10",// 注解转非空判断
-                    "com.blankj:bus-gradle-plugin:$bus.version",// 组件化 Static Bus
-            ],
+    dep = [:]
 
-            // lib
-            support      : [
-                    appcompat_v7: "com.android.support:appcompat-v7:$support_version",
-                    design      : "com.android.support:design:$support_version",
-                    multidex    : "com.android.support:multidex:1.0.2",
-            ],
-            constraint   : "com.android.support.constraint:constraint-layout:1.1.3",
-            kotlin       : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
-            leakcanary   : [
-                    android         : "com.squareup.leakcanary:leakcanary-android:$leakcanary_version",
-                    android_no_op   : "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version",
-                    support_fragment: "com.squareup.leakcanary:leakcanary-support-fragment:$leakcanary_version"
-            ],
-            free_proguard: "com.blankj:free-proguard:1.0.1",
-            swipe_panel  : "com.blankj:swipe-panel:1.1",
+    depConfig = [
+            plugin_gradle              : new DepConfig("com.android.tools.build:gradle:3.4.0"),
+            plugin_kotlin              : new DepConfig("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"),
+            plugin_maven               : new DepConfig("com.github.dcendents:android-maven-gradle-plugin:2.1"),// 上传到 maven
+            plugin_bintray             : new DepConfig("com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4"),// 上传到 bintray
+            plugin_traute              : new DepConfig("tech.harmonysoft:traute-gradle:1.1.10"),// 注解转非空判断
 
-            gson         : "com.google.code.gson:gson:2.8.2",
-            glide        : "com.github.bumptech.glide:glide:4.7.1",
-            retrofit     : "com.squareup.retrofit2:retrofit:2.4.0",
-            javassist    : "org.javassist:javassist:3.24.0-GA",
-            commons_io   : "commons-io:commons-io:2.5",
+            plugin_bus                 : new DepConfig(false/*是否本地调试*/, "", "com.blankj:bus-gradle-plugin:1.8", true),
 
-            junit        : "junit:junit:4.12",
-            robolectric  : "org.robolectric:robolectric:4.2",
-    ]
+            buildSrc                   : new DepConfig(":buildSrc"),
+            bus_gradle_plugin          : new DepConfig(":bus-gradle-plugin", false),
+            launcher_app               : new DepConfig(":launcher:app"),
+            launcher_pkg               : new DepConfig(":launcher:pkg"),
+            lib_base                   : new DepConfig(":lib:base"),
+            subutil_app                : new DepConfig(":subutil:app"),
+            subutil_lib                : new DepConfig(":subutil:lib"),
+            subutil_pkg                : new DepConfig(":subutil:pkg"),
+            utilcode_app               : new DepConfig(":utilcode:app"),
+            utilcode_lib               : new DepConfig(true, ":utilcode:lib", "com.blankj:utilcode:$versionName"),
+            utilcode_pkg               : new DepConfig(":utilcode:pkg"),
 
-    module = [
-            "buildSrc"         : [true, ":buildSrc", ""] as ModuleConfig,
-            "bus-gradle-plugin": [true, ":bus-gradle-plugin", ""] as ModuleConfig,
-            "launcher_app"     : [true, ":launcher:app", ""] as ModuleConfig,
-            "launcher_pkg"     : [true, ":launcher:pkg", ""] as ModuleConfig,
-            "lib_base"         : [true, ":lib:base", ""] as ModuleConfig,
-            "subutil_app"      : [true, ":subutil:app", ""] as ModuleConfig,
-            "subutil_lib"      : [true, ":subutil:lib", ""] as ModuleConfig,
-            "subutil_pkg"      : [true, ":subutil:pkg", ""] as ModuleConfig,
-            "utilcode_app"     : [true, ":utilcode:app", ""] as ModuleConfig,
-            "utilcode_lib"     : [true, ":utilcode:lib", "com.blankj:utilcode:$versionName"] as ModuleConfig,
-            "utilcode_pkg"     : [true, ":utilcode:pkg", ""] as ModuleConfig,
+            support_appcompat_v7       : new DepConfig("com.android.support:appcompat-v7:$support_version"),
+            support_design             : new DepConfig("com.android.support:design:$support_version"),
+            support_multidex           : new DepConfig("com.android.support:multidex:1.0.2"),
+
+            constraint                 : new DepConfig("com.android.support.constraint:constraint-layout:1.1.3"),
+            kotlin                     : new DepConfig("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"),
+
+            leakcanary_android         : new DepConfig("com.squareup.leakcanary:leakcanary-android:$leakcanary_version"),
+            leakcanary_android_no_op   : new DepConfig("com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"),
+            leakcanary_support_fragment: new DepConfig("com.squareup.leakcanary:leakcanary-support-fragment:$leakcanary_version"),
+
+            free_proguard              : new DepConfig("com.blankj:free-proguard:1.0.1"),
+            swipe_panel                : new DepConfig("com.blankj:swipe-panel:1.1"),
+
+            gson                       : new DepConfig("com.google.code.gson:gson:2.8.2"),
+            glide                      : new DepConfig("com.github.bumptech.glide:glide:4.7.1"),
+            retrofit                   : new DepConfig("com.squareup.retrofit2:retrofit:2.4.0"),
+            javassist                  : new DepConfig("org.javassist:javassist:3.24.0-GA"),
+            commons_io                 : new DepConfig("commons-io:commons-io:2.5"),
+
+            junit                      : new DepConfig("junit:junit:4.12"),
+            robolectric                : new DepConfig("org.robolectric:robolectric:4.2"),
     ]
 
     fn = [
-            includeModules: this.&includeModules,
+            includeDep: this.&includeDep,
     ]
 }
 
-def log(String msg) {
-    println("----> ${msg} <----")
-}
-
-gradle.ext.Utils = [
-        log: this.&log,
-]
-
-def includeModules() {// 根据 config 来 include 各 module
-    gradle.ext.module.each { k, v ->
-        if (v.isLocal) {
-            include v.localPath
+def includeDep() {// 根据 config 来 include 各 module
+    gradle.ext.Utils.log("includeDep -> depConfig = " + gradle.ext.Utils.object2String(gradle.ext.depConfig))
+    gradle.ext.depConfig.each { String name, DepConfig config ->
+        if (config.isApply) {
+            if (config.useLocal) {
+                include config.localPath
+            }
         }
     }
 }
 
-gradle.addBuildListener(new CustomListener())
+class DepConfig {
+    boolean useLocal // 是否使用本地的
+    String localPath // 本地路径
+    String remotePath// 远程路径
+    boolean isApply  // 是否应用
+    String path      // 最后的路径
+    String isDebug   // 是否调试
+    String groupId
+    String artifactId
+    String version
 
-class CustomListener implements BuildListener {
-
-    private timings = []
-    private File file
-
-    @Override
-    void buildStarted(Gradle gradle) {
-        gradle.ext.Utils.log("buildStarted")
-
-        gradle.addListener(new TaskExecutionListener() {
-
-            @Override
-            void beforeExecute(Task task) {
-                gradle.ext.Utils.log("beforeExecute")
-                task.ext.startTime = System.currentTimeMillis()
-            }
-
-            @Override
-            void afterExecute(Task task, TaskState state) {
-                gradle.ext.Utils.log("afterExecute")
-                def ms = System.currentTimeMillis() - task.ext.startTime
-                timings.add([ms, task.path])
-            }
-        })
-
-        def sdf = new java.text.SimpleDateFormat("yyyy-MM-dd-HH-mm-ss")
-        file = new File(rootProject.buildDir.getAbsolutePath(),
-                "buildTime_" + sdf.format(new Date(System.currentTimeMillis())) + ".txt")
+    DepConfig(String path) {
+        this(path, true)
     }
 
-    @Override
-    void settingsEvaluated(Settings settings) {
-
-    }
-
-    @Override
-    void projectsLoaded(Gradle gradle) {
-        gradle.ext.Utils.log("projectsLoaded")
-        gradle.ext.module.each { k, v ->// 动态把 module 添加到 dep 中
-            gradle.ext.dep[k] = v.isLocal ? gradle.rootProject.project(v.localPath) : v.url
+    DepConfig(String path, boolean isApply) {
+        if (path.startsWith(":")) {
+            this.useLocal = true
+            this.localPath = path
+            this.isApply = isApply
+        } else {
+            this.useLocal = false
+            this.remotePath = path
+            this.isApply = isApply
         }
-        gradle.ext.Utils.log("addModules2Dep: " + gradle.ext.dep.toString())
+        this.path = path
     }
 
-    @Override
-    void projectsEvaluated(Gradle gradle) {
-        gradle.ext.Utils.log("projectsEvaluated")
+    DepConfig(boolean useLocal, String localPath, String remotePath) {
+        this(useLocal, localPath, remotePath, true)
     }
 
-    @Override
-    void buildFinished(BuildResult result) {
-        ArrayList<Long> array = new ArrayList()
-        for (timing in timings) {
-            if (timing[0] >= 100) {
-                array.add(timing)
-            }
-        }
-        if (!array.isEmpty()) {
-            Collections.sort(array)
-            StringBuilder sb = new StringBuilder()
-            array.reverseEach {
-                sb.append(String.format("%7sms  %s\n", it[0], it[1]))
-            }
-            def content = sb.toString()
-            Utils.log(content)
-            com.android.utils.FileUtils.writeToFile(file, content)
-        }
-    }
-}
-
-class ModuleConfig {
-    boolean isLocal
-    String localPath
-    String url
-
-    ModuleConfig(boolean isLocal, String localPath, String url) {
-        this.isLocal = isLocal
+    DepConfig(boolean useLocal, String localPath, String remotePath, boolean isApply) {
+        this.useLocal = useLocal
         this.localPath = localPath
-        this.url = url
+        this.remotePath = remotePath
+        this.isApply = isApply
+        this.path = useLocal ? localPath : remotePath
     }
+
+    String getGroupId() {
+        String[] splits = remotePath.split(":")
+        return splits.length == 3 ? splits[0] : null
+    }
+
+    String getArtifactId() {
+        String[] splits = remotePath.split(":")
+        return splits.length == 3 ? splits[1] : null
+    }
+
+    String getVersion() {
+        String[] splits = remotePath.split(":")
+        return splits.length == 3 ? splits[2] : null
+    }
+
 
     @Override
     String toString() {
-        return "ModuleConfig { " +
-                "isLocal = '" + isLocal + "', " +
-                "localPath = '" + localPath + "', " +
-                "url = '" + url + "'" +
-                " }\n"
+        return "DepConfig { " +
+                "useLocal = " + useLocal + ", " +
+                "path = " + path + ", " +
+                "isApply = " + isApply + "" +
+                " }"
     }
 }
 //./gradlew clean :utilcode:lib:bintrayUpload

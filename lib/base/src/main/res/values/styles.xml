@@ -26,9 +26,13 @@
     </style>
 
     <style name="AnimationActivity" parent="@android:style/Animation">
+        <!-- A 打开 B，B 的出现动画 -->
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_left</item>
+        <!-- A 打开 B，A 的消失动画 -->
         <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <!-- B 关闭到 A，A 的出现动画 *时长要小于 B 的消失动画，否则会闪烁* -->
         <item name="android:activityCloseEnterAnimation">@anim/slide_in_right</item>
+        <!-- B 关闭到 A，B 的消失动画 *时长要小于 B 的消失动画，否则会闪烁* -->
         <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
     </style>
 </resources>

@@ -52,6 +52,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import java.io.InputStream;
+import java.io.Serializable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.ref.WeakReference;
@@ -132,7 +133,7 @@ public final class SpanUtils {
     private int spaceSize;
     private int spaceColor;
 
-    private SpannableStringBuilder mBuilder;
+    private SerializableSpannableStringBuilder mBuilder;
 
     private       int mType;
     private final int mTypeCharSequence = 0;
@@ -145,7 +146,7 @@ public final class SpanUtils {
     }
 
     public SpanUtils() {
-        mBuilder = new SpannableStringBuilder();
+        mBuilder = new SerializableSpannableStringBuilder();
         mText = "";
         mType = -1;
         setDefault();
@@ -1404,6 +1405,12 @@ public final class SpanUtils {
         public void updateDrawState(final TextPaint tp) {
             tp.setShadowLayer(radius, dx, dy, shadowColor);
         }
+    }
+
+    private static class SerializableSpannableStringBuilder extends SpannableStringBuilder
+            implements Serializable {
+
+        private static final long serialVersionUID = 4909567650765875771L;
     }
 
     ///////////////////////////////////////////////////////////////////////////

@@ -159,7 +159,7 @@ public final class Utils {
         return task;
     }
 
-    static void runOnUiThread(final Runnable runnable) {
+    public static void runOnUiThread(final Runnable runnable) {
         if (Looper.myLooper() == Looper.getMainLooper()) {
             runnable.run();
         } else {
@@ -167,12 +167,8 @@ public final class Utils {
         }
     }
 
-    static void runOnUiThreadDelayed(final Runnable runnable, long delayMillis) {
-        if (Looper.myLooper() == Looper.getMainLooper()) {
-            runnable.run();
-        } else {
-            Utils.UTIL_HANDLER.postDelayed(runnable, delayMillis);
-        }
+    public static void runOnUiThreadDelayed(final Runnable runnable, long delayMillis) {
+        Utils.UTIL_HANDLER.postDelayed(runnable, delayMillis);
     }
 
     static String getCurrentProcessName() {
@@ -321,9 +317,7 @@ public final class Utils {
         }
 
         @Override
-        public void onActivityPaused(Activity activity) {/**/
-
-        }
+        public void onActivityPaused(Activity activity) {/**/}
 
         @Override
         public void onActivityStopped(Activity activity) {
@@ -350,9 +344,14 @@ public final class Utils {
 
         Activity getTopActivity() {
             if (!mActivityList.isEmpty()) {
-                final Activity topActivity = mActivityList.getLast();
-                if (topActivity != null) {
-                    return topActivity;
+                for (int i = mActivityList.size() - 1; i >= 0; i--) {
+                    Activity activity = mActivityList.get(i);
+                    if (activity == null
+                            || activity.isFinishing()
+                            || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && activity.isDestroyed())) {
+                        continue;
+                    }
+                    return activity;
                 }
             }
             Activity topActivityByReflect = getTopActivityByReflect();

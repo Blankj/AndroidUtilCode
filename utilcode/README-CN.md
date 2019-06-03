@@ -20,6 +20,7 @@ startHomeActivity              : 回到桌面
 getActivityList                : 获取 Activity 栈链表
 getLauncherActivity            : 获取启动项 Activity
 getTopActivity                 : 获取栈顶 Activity
+isActivityAlive                : 判断 Activity 是否存活
 isActivityExistsInStack        : 判断 Activity 是否存在栈中
 finishActivity                 : 结束 Activity
 finishToActivity               : 结束到指定 Activity

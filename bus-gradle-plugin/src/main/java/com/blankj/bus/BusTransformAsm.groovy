@@ -114,7 +114,9 @@ class BusTransformAsm extends Transform {
                 )
                 FileUtils.copyFile(jar, dest)
 
-                if (jarName.contains("utilcode")) {
+                if (jarName.startsWith("com.blankj:utilcode:")
+                        || jarName.startsWith("com.blankj:utilcodex:")
+                        || jarName.equals(":utilcode:lib")) {
                     busScan.busJar = dest
                     LogUtils.l("bus jar: $jarName [$dest]")
                     return

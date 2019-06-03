@@ -2,7 +2,7 @@ apply {
     plugin "com.android.application"
     plugin "kotlin-android"
     plugin "kotlin-android-extensions"
-    if (!gradle.ext.bus.isPublish) {
+    if (gradle.ext.depConfig.plugin_bus.isApply) {
         plugin "com.blankj.bus"
     }
 }
@@ -50,9 +50,9 @@ android {
 
 dependencies {
     // LeakCanary
-    debugImplementation gradle.ext.dep.leakcanary.android
-    debugImplementation gradle.ext.dep.leakcanary.support_fragment
-    releaseImplementation gradle.ext.dep.leakcanary.android_no_op
+    debugImplementation gradle.ext.dep.leakcanary_android
+    debugImplementation gradle.ext.dep.leakcanary_support_fragment
+    releaseImplementation gradle.ext.dep.leakcanary_android_no_op
 }
 
 private String getSuffix() {

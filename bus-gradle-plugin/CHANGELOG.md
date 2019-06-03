@@ -1,5 +1,8 @@
 # Change Log
 
+## v1.8
+兼容最新工程组件化
+
 ## v1.7
 兼容 utilcodex
 
