@@ -85,7 +85,7 @@ public abstract class BaseActivity extends AppCompatActivity
             final SwipePanel swipeLayout = new SwipePanel(this);
             swipeLayout.setLeftDrawable(R.drawable.base_back);
             swipeLayout.setLeftEdgeSize(SizeUtils.dp2px(100));
-            swipeLayout.wrapView(mContentView);
+            swipeLayout.wrapView(findViewById(android.R.id.content));
             swipeLayout.setOnFullSwipeListener(new SwipePanel.OnFullSwipeListener() {
                 @Override
                 public void onFullSwipe(int direction) {

@@ -36,7 +36,7 @@ gradle.ext {
             subutil_lib                : new DepConfig(":subutil:lib"),
             subutil_pkg                : new DepConfig(":subutil:pkg"),
             utilcode_app               : new DepConfig(":utilcode:app"),
-            utilcode_lib               : new DepConfig(false, ":utilcode:lib", "com.blankj:utilcode:$versionName"),
+            utilcode_lib               : new DepConfig(true/*是否本地调试*/, ":utilcode:lib", "com.blankj:utilcode:$versionName"),
             utilcode_pkg               : new DepConfig(":utilcode:pkg"),
 
             support_appcompat_v7       : new DepConfig("com.android.support:appcompat-v7:$support_version"),
