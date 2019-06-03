@@ -15,5 +15,4 @@ dependencies {
     api gradle.ext.dep.free_proguard
     api gradle.ext.dep.swipe_panel
     compileOnly gradle.ext.dep.leakcanary_android_no_op
-//    api 'com.blankj:utilcode:1.23.7'
 }

@@ -23,5 +23,5 @@ dependencies {
 
     testImplementation gradle.ext.dep.junit
     testImplementation gradle.ext.dep.robolectric
-    testImplementation project(":utilcode:lib")
+    testImplementation gradle.ext.dep.utilcode_lib
 }

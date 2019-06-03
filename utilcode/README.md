@@ -2,7 +2,7 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.23.7'
+implementation 'com.blankj:utilcode:1.24.0'
 ```
 
 
@@ -20,6 +20,7 @@ startHomeActivity
 getActivityList
 getLauncherActivity
 getTopActivity
+isActivityAlive
 isActivityExistsInStack
 finishActivity
 finishToActivity
