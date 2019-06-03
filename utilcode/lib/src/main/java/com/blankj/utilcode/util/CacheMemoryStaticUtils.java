@@ -1,6 +1,6 @@
 package com.blankj.utilcode.util;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * <pre>

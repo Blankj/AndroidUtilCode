@@ -1,8 +1,5 @@
 package com.blankj.utilcode.util;
 
-
-import android.support.annotation.NonNull;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -29,7 +26,7 @@ public class BaseTest {
         ShadowLog.stream = System.out;
         ThreadUtils.setDeliver(new Executor() {
             @Override
-            public void execute(@NonNull Runnable command) {
+            public void execute(Runnable command) {
                 command.run();
             }
         });
@@ -201,8 +198,8 @@ public class BaseTest {
     static class Person implements Comparable<Person> {
 
         String name;
-        int age;
-        int time;
+        int    age;
+        int    time;
 
         public Person(String name) {
             this.name = name;
@@ -220,7 +217,7 @@ public class BaseTest {
         }
 
         @Override
-        public int compareTo(@NonNull Person o) {
+        public int compareTo(Person o) {
             int res = o.age - age;
             if (res != 0) {
                 return res;

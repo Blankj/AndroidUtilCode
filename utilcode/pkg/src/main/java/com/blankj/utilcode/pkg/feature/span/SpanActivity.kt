@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.*
 import android.os.Bundle
-import android.support.annotation.ColorInt
+import androidx.annotation.ColorInt
 import android.text.Layout
 import android.text.SpannableStringBuilder
 import android.text.TextPaint

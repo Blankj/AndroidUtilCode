@@ -8,7 +8,7 @@ dependencies {
     api gradle.ext.dep.subutil_lib
 
     api gradle.ext.dep.support_appcompat_v7
-    api gradle.ext.dep.support_design
+    api gradle.ext.dep.support_material
     api gradle.ext.dep.support_multidex
     api gradle.ext.dep.constraint
     api gradle.ext.dep.kotlin

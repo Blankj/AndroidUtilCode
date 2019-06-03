@@ -18,7 +18,7 @@ dependencies {
     compile gradle.ext.dep.gson
 
     compileOnly gradle.ext.dep.support_appcompat_v7
-    compileOnly gradle.ext.dep.support_design
+    compileOnly gradle.ext.dep.support_material
 
     testImplementation gradle.ext.dep.junit
     testImplementation gradle.ext.dep.robolectric

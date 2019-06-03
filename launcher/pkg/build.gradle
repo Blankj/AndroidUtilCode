@@ -4,5 +4,5 @@ apply {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api project(':lib:base')
+    api gradle.ext.dep.lib_base
 }

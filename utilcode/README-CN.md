@@ -5,7 +5,7 @@ Gradle:
 implementation 'com.blankj:utilcode:1.24.0'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.23.7'
+implementation 'com.blankj:utilcodex:1.24.0'
 ```
 
 

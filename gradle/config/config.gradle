@@ -5,7 +5,7 @@ gradle.ext {
     applicationId = 'com.blankj.androidutilcode'
     appName = 'Util'
 
-    compileSdkVersion = 27
+    compileSdkVersion = 28
     minSdkVersion = 14
     targetSdkVersion = 27
     versionCode = 1_024_000
@@ -13,8 +13,8 @@ gradle.ext {
 
     // lib version
     kotlin_version = '1.3.10'
-    support_version = '27.1.1'
     leakcanary_version = '1.6.3'
+    androidx_version = '1.0.0'
 
     dep = [:]
 
@@ -36,11 +36,11 @@ gradle.ext {
             subutil_lib                : new DepConfig(":subutil:lib"),
             subutil_pkg                : new DepConfig(":subutil:pkg"),
             utilcode_app               : new DepConfig(":utilcode:app"),
-            utilcode_lib               : new DepConfig(false, ":utilcode:lib", "com.blankj:utilcode:$versionName"),
+            utilcode_lib               : new DepConfig(true, ":utilcode:lib", "com.blankj:utilcode:$versionName"),
             utilcode_pkg               : new DepConfig(":utilcode:pkg"),
 
-            support_appcompat_v7       : new DepConfig("com.android.support:appcompat-v7:$support_version"),
-            support_design             : new DepConfig("com.android.support:design:$support_version"),
+            support_appcompat_v7       : new DepConfig("androidx.appcompat:appcompat:$androidx_version"),
+            support_material           : new DepConfig("com.google.android.material:material:$androidx_version"),
             support_multidex           : new DepConfig("com.android.support:multidex:1.0.2"),
 
             constraint                 : new DepConfig("com.android.support.constraint:constraint-layout:1.1.3"),

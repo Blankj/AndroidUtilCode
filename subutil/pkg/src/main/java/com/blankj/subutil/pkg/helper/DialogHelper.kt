@@ -1,6 +1,6 @@
 package com.blankj.subutil.pkg.helper
 
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import com.blankj.subutil.pkg.R
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.PermissionUtils

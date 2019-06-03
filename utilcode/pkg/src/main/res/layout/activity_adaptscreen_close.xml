@@ -8,7 +8,7 @@
     android:fillViewport="true"
     tools:context=".feature.adaptScreen.AdaptCloseActivity">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -43,6 +43,6 @@
             android:textSize="30pt"
             app:layout_constraintTop_toBottomOf="@id/adaptScreenCloseAdaptDpTv" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

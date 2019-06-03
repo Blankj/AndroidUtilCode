@@ -1,9 +1,10 @@
 package com.blankj.lib.base.rv;
 
-import android.support.annotation.NonNull;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.View;
+
+import androidx.annotation.NonNull;
 
 /**
  * <pre>

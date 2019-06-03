@@ -6,12 +6,12 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.StringRes
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.lib.base.BaseTaskActivity
 import com.blankj.lib.base.rv.BaseAdapter
 import com.blankj.lib.base.rv.BaseCell

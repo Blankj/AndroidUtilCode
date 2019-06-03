@@ -1,7 +1,8 @@
 package com.blankj.subutil.util.http;
 
 import android.accounts.NetworkErrorException;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;

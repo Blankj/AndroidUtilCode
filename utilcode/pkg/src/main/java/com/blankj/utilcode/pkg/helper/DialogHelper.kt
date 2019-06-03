@@ -3,7 +3,6 @@ package com.blankj.utilcode.pkg.helper
 import android.app.Dialog
 import android.graphics.Bitmap
 import android.graphics.drawable.ColorDrawable
-import android.support.v7.app.AlertDialog
 import android.text.method.ScrollingMovementMethod
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -12,9 +11,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.*
-import com.blankj.utilcode.util.PermissionUtils.OnRationaleListener.ShouldRequest
 
 /**
  * ```
@@ -26,7 +25,7 @@ import com.blankj.utilcode.util.PermissionUtils.OnRationaleListener.ShouldReques
  */
 object DialogHelper {
 
-    fun showRationaleDialog(shouldRequest: ShouldRequest) {
+    fun showRationaleDialog(shouldRequest: PermissionUtils.OnRationaleListener.ShouldRequest) {
         val topActivity = ActivityUtils.getTopActivity()
         AlertDialog.Builder(topActivity)
                 .setTitle(android.R.string.dialog_alert_title)

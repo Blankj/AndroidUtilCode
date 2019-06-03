@@ -8,11 +8,13 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.content.FileProvider;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.File;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 
 /**
  * <pre>
@@ -75,12 +77,19 @@ public final class UriUtils {
                 Log.d("UriUtils", uri.toString() + " parse failed. -> 1");
                 return null;
             } else if ("com.android.providers.downloads.documents".equals(authority)) {
-                final String id = DocumentsContract.getDocumentId(uri);
-                final Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"),
-                        Long.valueOf(id)
-                );
-                return getFileFromUri(contentUri, 2);
+                String id = DocumentsContract.getDocumentId(uri);
+                if (!TextUtils.isEmpty(id)) {
+                    if (id.startsWith("raw:")) {
+                        return new File(id.substring(4));
+                    }
+                    final Uri contentUri = ContentUris.withAppendedId(
+                            Uri.parse(Environment.DIRECTORY_DOWNLOADS),
+                            Long.valueOf(id)
+                    );
+                    return getFileFromUri(contentUri, 2);
+                }
+                Log.d("UriUtils", uri.toString() + " parse failed. -> 3");
+                return null;
             } else if ("com.android.providers.media.documents".equals(authority)) {
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");

@@ -1,6 +1,6 @@
 package com.blankj.utilcode.util;
 
-import android.support.v4.util.SimpleArrayMap;
+import androidx.collection.SimpleArrayMap;
 
 import com.blankj.utilcode.constant.RegexConstants;
 

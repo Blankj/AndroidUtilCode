@@ -1,8 +1,8 @@
 package com.blankj.utilcode.util;
 
 import android.content.res.Resources;
-import android.support.annotation.ArrayRes;
-import android.support.annotation.StringRes;
+import androidx.annotation.ArrayRes;
+import androidx.annotation.StringRes;
 
 /**
  * <pre>

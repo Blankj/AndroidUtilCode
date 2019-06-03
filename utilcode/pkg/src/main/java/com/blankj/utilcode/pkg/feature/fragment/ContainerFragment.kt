@@ -2,8 +2,8 @@ package com.blankj.utilcode.pkg.feature.fragment
 
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.RequiresApi
-import android.support.v4.app.Fragment
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import android.transition.*
 import android.view.View
 import com.blankj.lib.base.BaseLazyFragment
@@ -128,7 +128,7 @@ class ContainerFragment : BaseLazyFragment(), FragmentUtils.OnBackClickListener 
         }
     }
 
-    private fun addSharedElement(fragment: Fragment): Fragment {
+    private fun addSharedElement(fragment: androidx.fragment.app.Fragment): androidx.fragment.app.Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             fragment.sharedElementEnterTransition = DetailTransition()
             fragment.enterTransition = Fade()
