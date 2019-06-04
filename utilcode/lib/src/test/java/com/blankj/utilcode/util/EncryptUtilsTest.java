@@ -11,12 +11,10 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Arrays;
 
 import static com.blankj.utilcode.util.TestConfig.PATH_ENCRYPT;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -82,11 +80,9 @@ public class EncryptUtilsTest extends BaseTest {
                 blankjSHA1,
                 EncryptUtils.encryptSHA1ToString("blankj".getBytes())
         );
-        assertTrue(
-                Arrays.equals(
-                        hexString2Bytes(blankjSHA1),
-                        EncryptUtils.encryptSHA1("blankj".getBytes())
-                )
+        assertArrayEquals(
+                hexString2Bytes(blankjSHA1),
+                EncryptUtils.encryptSHA1("blankj".getBytes())
         );
     }
 
@@ -101,11 +97,9 @@ public class EncryptUtilsTest extends BaseTest {
                 blankjSHA224,
                 EncryptUtils.encryptSHA224ToString("blankj".getBytes())
         );
-        assertTrue(
-                Arrays.equals(
-                        hexString2Bytes(blankjSHA224),
-                        EncryptUtils.encryptSHA224("blankj".getBytes())
-                )
+        assertArrayEquals(
+                hexString2Bytes(blankjSHA224),
+                EncryptUtils.encryptSHA224("blankj".getBytes())
         );
     }
 
@@ -120,12 +114,10 @@ public class EncryptUtilsTest extends BaseTest {
                 blankjSHA256,
                 EncryptUtils.encryptSHA256ToString("blankj".getBytes())
         );
-        assertTrue(
-                Arrays.equals(
-                        hexString2Bytes(blankjSHA256),
-                        EncryptUtils.encryptSHA256("blankj".getBytes())
-                )
-        );
+        assertArrayEquals(
+                hexString2Bytes(blankjSHA256),
+                EncryptUtils.encryptSHA256("blankj".getBytes()));
+
     }
 
     @Test
@@ -139,11 +131,9 @@ public class EncryptUtilsTest extends BaseTest {
                 blankjSHA384,
                 EncryptUtils.encryptSHA384ToString("blankj".getBytes())
         );
-        assertTrue(
-                Arrays.equals(
-                        hexString2Bytes(blankjSHA384),
-                        EncryptUtils.encryptSHA384("blankj".getBytes())
-                )
+        assertArrayEquals(
+                hexString2Bytes(blankjSHA384),
+                EncryptUtils.encryptSHA384("blankj".getBytes())
         );
     }
 
@@ -158,11 +148,9 @@ public class EncryptUtilsTest extends BaseTest {
                 blankjSHA512,
                 EncryptUtils.encryptSHA512ToString("blankj".getBytes())
         );
-        assertTrue(
-                Arrays.equals(
-                        hexString2Bytes(blankjSHA512),
-                        EncryptUtils.encryptSHA512("blankj".getBytes())
-                )
+        assertArrayEquals(
+                hexString2Bytes(blankjSHA512),
+                EncryptUtils.encryptSHA512("blankj".getBytes())
         );
     }
 
@@ -181,11 +169,9 @@ public class EncryptUtilsTest extends BaseTest {
                 blankjHmacMD5,
                 EncryptUtils.encryptHmacMD5ToString("blankj".getBytes(), blankjHmackey.getBytes())
         );
-        assertTrue(
-                Arrays.equals(
-                        hexString2Bytes(blankjHmacMD5),
-                        EncryptUtils.encryptHmacMD5("blankj".getBytes(), blankjHmackey.getBytes())
-                )
+        assertArrayEquals(
+                hexString2Bytes(blankjHmacMD5),
+                EncryptUtils.encryptHmacMD5("blankj".getBytes(), blankjHmackey.getBytes())
         );
     }
 
@@ -200,11 +186,9 @@ public class EncryptUtilsTest extends BaseTest {
                 blankjHmacSHA1,
                 EncryptUtils.encryptHmacSHA1ToString("blankj".getBytes(), blankjHmackey.getBytes())
         );
-        assertTrue(
-                Arrays.equals(
-                        hexString2Bytes(blankjHmacSHA1),
-                        EncryptUtils.encryptHmacSHA1("blankj".getBytes(), blankjHmackey.getBytes())
-                )
+        assertArrayEquals(
+                hexString2Bytes(blankjHmacSHA1),
+                EncryptUtils.encryptHmacSHA1("blankj".getBytes(), blankjHmackey.getBytes())
         );
     }
 
@@ -219,11 +203,9 @@ public class EncryptUtilsTest extends BaseTest {
                 blankjHmacSHA224,
                 EncryptUtils.encryptHmacSHA224ToString("blankj".getBytes(), blankjHmackey.getBytes())
         );
-        assertTrue(
-                Arrays.equals(
-                        hexString2Bytes(blankjHmacSHA224),
-                        EncryptUtils.encryptHmacSHA224("blankj".getBytes(), blankjHmackey.getBytes())
-                )
+        assertArrayEquals(
+                hexString2Bytes(blankjHmacSHA224),
+                EncryptUtils.encryptHmacSHA224("blankj".getBytes(), blankjHmackey.getBytes())
         );
     }
 
@@ -238,11 +220,9 @@ public class EncryptUtilsTest extends BaseTest {
                 blankjHmacSHA256,
                 EncryptUtils.encryptHmacSHA256ToString("blankj".getBytes(), blankjHmackey.getBytes())
         );
-        assertTrue(
-                Arrays.equals(
-                        hexString2Bytes(blankjHmacSHA256),
-                        EncryptUtils.encryptHmacSHA256("blankj".getBytes(), blankjHmackey.getBytes())
-                )
+        assertArrayEquals(
+                hexString2Bytes(blankjHmacSHA256),
+                EncryptUtils.encryptHmacSHA256("blankj".getBytes(), blankjHmackey.getBytes())
         );
     }
 
@@ -257,11 +237,9 @@ public class EncryptUtilsTest extends BaseTest {
                 blankjHmacSHA384,
                 EncryptUtils.encryptHmacSHA384ToString("blankj".getBytes(), blankjHmackey.getBytes())
         );
-        assertTrue(
-                Arrays.equals(
-                        hexString2Bytes(blankjHmacSHA384),
-                        EncryptUtils.encryptHmacSHA384("blankj".getBytes(), blankjHmackey.getBytes())
-                )
+        assertArrayEquals(
+                hexString2Bytes(blankjHmacSHA384),
+                EncryptUtils.encryptHmacSHA384("blankj".getBytes(), blankjHmackey.getBytes())
         );
     }
 
@@ -275,11 +253,9 @@ public class EncryptUtilsTest extends BaseTest {
                 blankjHmacSHA512,
                 EncryptUtils.encryptHmacSHA512ToString("blankj".getBytes(), blankjHmackey.getBytes())
         );
-        assertTrue(
-                Arrays.equals(
-                        hexString2Bytes(blankjHmacSHA512),
-                        EncryptUtils.encryptHmacSHA512("blankj".getBytes(), blankjHmackey.getBytes())
-                )
+        assertArrayEquals(
+                hexString2Bytes(blankjHmacSHA512),
+                EncryptUtils.encryptHmacSHA512("blankj".getBytes(), blankjHmackey.getBytes())
         );
     }
 
@@ -293,73 +269,33 @@ public class EncryptUtilsTest extends BaseTest {
 
     @Test
     public void encryptDES() {
-        assertTrue(
-                Arrays.equals(
-                        bytesResDES,
-                        EncryptUtils.encryptDES(
-                                bytesDataDES,
-                                bytesKeyDES,
-                                "DES/ECB/NoPadding",
-                                null
-                        )
-                )
+        assertArrayEquals(
+                bytesResDES,
+                EncryptUtils.encryptDES(bytesDataDES, bytesKeyDES, "DES/ECB/NoPadding", null)
         );
         assertEquals(
                 resDES,
-                EncryptUtils.encryptDES2HexString(
-                        bytesDataDES,
-                        bytesKeyDES,
-                        "DES/ECB/NoPadding",
-                        null
-                )
+                EncryptUtils.encryptDES2HexString(bytesDataDES, bytesKeyDES, "DES/ECB/NoPadding", null)
         );
-        assertTrue(
-                Arrays.equals(
-                        base64Encode(bytesResDES),
-                        EncryptUtils.encryptDES2Base64(
-                                bytesDataDES,
-                                bytesKeyDES,
-                                "DES/ECB/NoPadding",
-                                null
-                        )
-                )
+        assertArrayEquals(
+                base64Encode(bytesResDES),
+                EncryptUtils.encryptDES2Base64(bytesDataDES, bytesKeyDES, "DES/ECB/NoPadding", null)
         );
     }
 
     @Test
     public void decryptDES() {
-        assertTrue(
-                Arrays.equals(
-                        bytesDataDES,
-                        EncryptUtils.decryptDES(
-                                bytesResDES,
-                                bytesKeyDES,
-                                "DES/ECB/NoPadding",
-                                null
-                        )
-                )
+        assertArrayEquals(
+                bytesDataDES,
+                EncryptUtils.decryptDES(bytesResDES, bytesKeyDES, "DES/ECB/NoPadding", null)
         );
-        assertTrue(
-                Arrays.equals(
-                        bytesDataDES,
-                        EncryptUtils.decryptHexStringDES(
-                                resDES,
-                                bytesKeyDES,
-                                "DES/ECB/NoPadding",
-                                null
-                        )
-                )
+        assertArrayEquals(
+                bytesDataDES,
+                EncryptUtils.decryptHexStringDES(resDES, bytesKeyDES, "DES/ECB/NoPadding", null)
         );
-        assertTrue(
-                Arrays.equals(
-                        bytesDataDES,
-                        EncryptUtils.decryptBase64DES(
-                                base64Encode(bytesResDES),
-                                bytesKeyDES,
-                                "DES/ECB/NoPadding",
-                                null
-                        )
-                )
+        assertArrayEquals(
+                bytesDataDES,
+                EncryptUtils.decryptBase64DES(base64Encode(bytesResDES), bytesKeyDES, "DES/ECB/NoPadding", null)
         );
     }
 
