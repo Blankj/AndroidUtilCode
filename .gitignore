@@ -9,3 +9,4 @@
 .externalNativeBuild
 /apk
 *.phrof
+/busMaven

@@ -59,7 +59,7 @@ dependencies {
 
 private String getSuffix() {
     if (project.path == ":launcher:app") return ""
-    return project.path.replace(":" , "_").substring(0, project.path.length() - 4)
+    return project.path.replace(":", "_").substring(0, project.path.length() - 4)
 }
 
 def configSigning(Project pro) {

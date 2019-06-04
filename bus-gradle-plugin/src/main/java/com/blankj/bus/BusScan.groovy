@@ -90,9 +90,9 @@ class BusScan {
             String temp = longMethodName.substring(0, i);
             int j = temp.lastIndexOf('.');
             String sign = method.getReturnType().getName() + ' ' +
-                          longMethodName.substring(0, j) +
-                          ".INSTANCE" +
-                          longMethodName.substring(j);
+                    longMethodName.substring(0, j) +
+                    ".INSTANCE" +
+                    longMethodName.substring(j);
             busStaticMap.put(name, sign);
             return true
         } catch (NotFoundException ignore) {

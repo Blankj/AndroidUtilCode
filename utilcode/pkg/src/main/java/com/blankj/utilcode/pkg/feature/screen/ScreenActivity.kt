@@ -87,7 +87,7 @@ class ScreenActivity : CommonTitleActivity() {
             R.id.screenScreenshotBtn -> DialogHelper.showScreenshotDialog(ScreenUtils.screenShot(this))
             R.id.screenSetSleepDurationBtn -> ScreenUtils.setSleepDuration(100000)
         }
-        Utils.runOnUiThreadDelayed(object: Runnable {
+        Utils.runOnUiThreadDelayed(object : Runnable {
             override fun run() {
                 updateAboutScreen()
             }

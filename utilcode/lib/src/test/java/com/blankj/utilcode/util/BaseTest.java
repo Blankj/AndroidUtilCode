@@ -201,8 +201,8 @@ public class BaseTest {
     static class Person implements Comparable<Person> {
 
         String name;
-        int age;
-        int time;
+        int    age;
+        int    time;
 
         public Person(String name) {
             this.name = name;

@@ -14,6 +14,7 @@ import java.security.SecureRandom;
 import java.util.Arrays;
 
 import static com.blankj.utilcode.util.TestConfig.PATH_ENCRYPT;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -38,11 +39,9 @@ public class EncryptUtilsTest extends BaseTest {
                 blankjMD2,
                 EncryptUtils.encryptMD2ToString("blankj".getBytes())
         );
-        assertTrue(
-                Arrays.equals(
-                        hexString2Bytes(blankjMD2),
-                        EncryptUtils.encryptMD2("blankj".getBytes())
-                )
+        assertArrayEquals(
+                hexString2Bytes(blankjMD2),
+                EncryptUtils.encryptMD2("blankj".getBytes())
         );
     }
 
@@ -57,11 +56,9 @@ public class EncryptUtilsTest extends BaseTest {
                 blankjMD5,
                 EncryptUtils.encryptMD5ToString("blankj".getBytes())
         );
-        assertTrue(
-                Arrays.equals(
-                        hexString2Bytes(blankjMD5),
-                        EncryptUtils.encryptMD5("blankj".getBytes())
-                )
+        assertArrayEquals(
+                hexString2Bytes(blankjMD5),
+                EncryptUtils.encryptMD5("blankj".getBytes())
         );
     }
 
@@ -375,73 +372,33 @@ public class EncryptUtilsTest extends BaseTest {
 
     @Test
     public void encrypt3DES() {
-        assertTrue(
-                Arrays.equals(
-                        bytesResDES3,
-                        EncryptUtils.encrypt3DES(
-                                bytesDataDES3,
-                                bytesKeyDES3,
-                                "DESede/ECB/NoPadding",
-                                null
-                        )
-                )
+        assertArrayEquals(
+                bytesResDES3,
+                EncryptUtils.encrypt3DES(bytesDataDES3, bytesKeyDES3, "DESede/ECB/NoPadding", null)
         );
         assertEquals(
                 res3DES,
-                EncryptUtils.encrypt3DES2HexString(
-                        bytesDataDES3,
-                        bytesKeyDES3,
-                        "DESede/ECB/NoPadding",
-                        null
-                )
+                EncryptUtils.encrypt3DES2HexString(bytesDataDES3, bytesKeyDES3, "DESede/ECB/NoPadding", null)
         );
-        assertTrue(
-                Arrays.equals(
-                        base64Encode(bytesResDES3),
-                        EncryptUtils.encrypt3DES2Base64(
-                                bytesDataDES3,
-                                bytesKeyDES3,
-                                "DESede/ECB/NoPadding",
-                                null
-                        )
-                )
+        assertArrayEquals(
+                base64Encode(bytesResDES3),
+                EncryptUtils.encrypt3DES2Base64(bytesDataDES3, bytesKeyDES3, "DESede/ECB/NoPadding", null)
         );
     }
 
     @Test
     public void decrypt3DES() {
-        assertTrue(
-                Arrays.equals(
-                        bytesDataDES3,
-                        EncryptUtils.decrypt3DES(
-                                bytesResDES3,
-                                bytesKeyDES3,
-                                "DESede/ECB/NoPadding",
-                                null
-                        )
-                )
+        assertArrayEquals(
+                bytesDataDES3,
+                EncryptUtils.decrypt3DES(bytesResDES3, bytesKeyDES3, "DESede/ECB/NoPadding", null)
         );
-        assertTrue(
-                Arrays.equals(
-                        bytesDataDES3,
-                        EncryptUtils.decryptHexString3DES(
-                                res3DES,
-                                bytesKeyDES3,
-                                "DESede/ECB/NoPadding",
-                                null
-                        )
-                )
+        assertArrayEquals(
+                bytesDataDES3,
+                EncryptUtils.decryptHexString3DES(res3DES, bytesKeyDES3, "DESede/ECB/NoPadding", null)
         );
-        assertTrue(
-                Arrays.equals(
-                        bytesDataDES3,
-                        EncryptUtils.decryptBase64_3DES(
-                                base64Encode(bytesResDES3),
-                                bytesKeyDES3,
-                                "DESede/ECB/NoPadding",
-                                null
-                        )
-                )
+        assertArrayEquals(
+                bytesDataDES3,
+                EncryptUtils.decryptBase64_3DES(base64Encode(bytesResDES3), bytesKeyDES3, "DESede/ECB/NoPadding", null)
         );
     }
 
@@ -454,68 +411,32 @@ public class EncryptUtilsTest extends BaseTest {
 
     @Test
     public void encryptAES() {
-        assertTrue(
-                Arrays.equals(
-                        bytesResAES,
-                        EncryptUtils.encryptAES(
-                                bytesDataAES,
-                                bytesKeyAES,
-                                "AES/ECB/NoPadding",
-                                null
-                        )
-                )
+        assertArrayEquals(
+                bytesResAES,
+                EncryptUtils.encryptAES(bytesDataAES, bytesKeyAES, "AES/ECB/NoPadding", null)
         );
         assertEquals(
                 resAES,
-                EncryptUtils.encryptAES2HexString(
-                        bytesDataAES,
-                        bytesKeyAES,
-                        "AES/ECB/NoPadding",
-                        null
-                )
+                EncryptUtils.encryptAES2HexString(bytesDataAES, bytesKeyAES, "AES/ECB/NoPadding", null)
         );
-        assertTrue(
-                Arrays.equals(
-                        base64Encode(bytesResAES),
-                        EncryptUtils.encryptAES2Base64(
-                                bytesDataAES,
-                                bytesKeyAES,
-                                "AES/ECB/NoPadding",
-                                null
-                        )
-                )
+        assertArrayEquals(
+                base64Encode(bytesResAES),
+                EncryptUtils.encryptAES2Base64(bytesDataAES, bytesKeyAES, "AES/ECB/NoPadding", null)
         );
     }
 
     @Test
     public void decryptAES() {
-        assertTrue(
-                Arrays.equals(
-                        bytesDataAES,
-                        EncryptUtils.decryptAES(bytesResAES, bytesKeyAES, "AES/ECB/NoPadding", null)
-                )
+        assertArrayEquals(
+                bytesDataAES,
+                EncryptUtils.decryptAES(bytesResAES, bytesKeyAES, "AES/ECB/NoPadding", null)
         );
-        assertTrue(
-                Arrays.equals(
-                        bytesDataAES,
-                        EncryptUtils.decryptHexStringAES(
-                                resAES,
-                                bytesKeyAES,
-                                "AES/ECB/NoPadding",
-                                null
-                        )
-                )
+        assertArrayEquals(
+                bytesDataAES,
+                EncryptUtils.decryptHexStringAES(resAES, bytesKeyAES, "AES/ECB/NoPadding", null)
         );
-        assertTrue(
-                Arrays.equals(
-                        bytesDataAES,
-                        EncryptUtils.decryptBase64AES(
-                                base64Encode(bytesResAES),
-                                bytesKeyAES,
-                                "AES/ECB/NoPadding",
-                                null
-                        )
-                )
+        assertArrayEquals(bytesDataAES,
+                EncryptUtils.decryptBase64AES(base64Encode(bytesResAES), bytesKeyAES, "AES/ECB/NoPadding", null)
         );
     }
 
@@ -530,22 +451,17 @@ public class EncryptUtilsTest extends BaseTest {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        assertTrue(
-                Arrays.equals(
-                        EncryptUtils.decryptRSA(
-                                EncryptUtils.encryptRSA(
-                                        dataRSA.getBytes(),
-                                        base64Decode(publicKey.getBytes()),
-                                        true,
-                                        "RSA/ECB/PKCS1Padding"
-                                ),
-                                base64Decode(privateKey.getBytes()),
-                                false,
-                                "RSA/ECB/PKCS1Padding"
-                        ),
-                        dataRSA.getBytes()
-                )
-        );
+        assertArrayEquals(EncryptUtils.decryptRSA(
+                EncryptUtils.encryptRSA(
+                        dataRSA.getBytes(),
+                        base64Decode(publicKey.getBytes()),
+                        true,
+                        "RSA/ECB/PKCS1Padding"
+                ),
+                base64Decode(privateKey.getBytes()),
+                false,
+                "RSA/ECB/PKCS1Padding"
+        ), dataRSA.getBytes());
     }
 
     private static byte[] base64Encode(final byte[] input) {
@@ -590,31 +506,31 @@ public class EncryptUtilsTest extends BaseTest {
             throw new IllegalArgumentException();
         }
     }
-    
-     private static void genKeyPair() throws NoSuchAlgorithmException {  
-          
+
+    private static void genKeyPair() throws NoSuchAlgorithmException {
+
         SecureRandom secureRandom = new SecureRandom();
-          
+
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
-  
+
         keyPairGenerator.initialize(1024, secureRandom);
 
         KeyPair keyPair = keyPairGenerator.generateKeyPair();
-  
+
         Key publicKey = keyPair.getPublic();
-  
+
         Key privateKey = keyPair.getPrivate();
-  
-        byte[] publicKeyBytes = publicKey.getEncoded();  
-        byte[] privateKeyBytes = privateKey.getEncoded();  
-  
+
+        byte[] publicKeyBytes = publicKey.getEncoded();
+        byte[] privateKeyBytes = privateKey.getEncoded();
+
         String publicKeyBase64 = EncodeUtils.base64Encode2String(publicKeyBytes);
         String privateKeyBase64 = EncodeUtils.base64Encode2String(privateKeyBytes);
-  
-        System.out.println("publicKeyBase64.length():" + publicKeyBase64.length());  
-        System.out.println("publicKeyBase64:" + publicKeyBase64);  
-  
-        System.out.println("privateKeyBase64.length():" + privateKeyBase64.length());  
-        System.out.println("privateKeyBase64:" + privateKeyBase64);  
-    }  
+
+        System.out.println("publicKeyBase64.length():" + publicKeyBase64.length());
+        System.out.println("publicKeyBase64:" + publicKeyBase64);
+
+        System.out.println("privateKeyBase64.length():" + privateKeyBase64.length());
+        System.out.println("privateKeyBase64:" + privateKeyBase64);
+    }
 }

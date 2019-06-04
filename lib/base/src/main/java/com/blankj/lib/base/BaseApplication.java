@@ -3,7 +3,11 @@ package com.blankj.lib.base;
 import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
-import com.blankj.utilcode.util.*;
+
+import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.CrashUtils;
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ProcessUtils;
 import com.squareup.leakcanary.LeakCanary;
 
 import java.util.ArrayList;

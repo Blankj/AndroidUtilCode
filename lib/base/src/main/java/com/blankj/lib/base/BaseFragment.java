@@ -31,9 +31,9 @@ public abstract class BaseFragment extends Fragment
     private static final String TAG                  = "BaseFragment";
     private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
 
-    protected Activity mActivity;
+    protected Activity       mActivity;
     protected LayoutInflater mInflater;
-    protected View     mContentView;
+    protected View           mContentView;
 
     private long lastClick = 0;
 

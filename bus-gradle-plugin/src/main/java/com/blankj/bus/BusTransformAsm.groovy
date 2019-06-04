@@ -52,7 +52,7 @@ class BusTransformAsm extends Transform {
         def referencedInputs = transformInvocation.getReferencedInputs()
         def isIncremental = transformInvocation.isIncremental()
 
-        if(!isIncremental) {
+        if (!isIncremental) {
             outputProvider.deleteAll();
         }
 
@@ -74,8 +74,8 @@ class BusTransformAsm extends Transform {
 
                 LogUtils.l("scan dir: $dir [$dest]")
 
-                if(isIncremental) {
-                    switch(status) {
+                if (isIncremental) {
+                    switch (status) {
                         case Status.NOTCHANGED:
                             break;
                         case Status.ADDED:
@@ -90,7 +90,7 @@ class BusTransformAsm extends Transform {
                     }
                 } else {
                     //Forgive me!, Some project will store 3rd-party aar for serveral copies in dexbuilder folder,,unknown issue.
-                    if(inDuplcatedClassSafeMode() & !isIncremental && !flagForCleanDexBuilderFolder) {
+                    if (inDuplcatedClassSafeMode() & !isIncremental && !flagForCleanDexBuilderFolder) {
                         cleanDexBuilderFolder(dest);
                         flagForCleanDexBuilderFolder = true;
                     }
