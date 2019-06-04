@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
@@ -846,7 +847,34 @@ public final class ThreadUtils {
      * @param task The task to cancel.
      */
     public static void cancel(final Task task) {
+        if (task == null) return;
         task.cancel();
+    }
+
+    /**
+     * Cancel the given tasks.
+     *
+     * @param tasks The tasks to cancel.
+     */
+    public static void cancel(final Task... tasks) {
+        if (tasks == null || tasks.length == 0) return;
+        for (Task task : tasks) {
+            if (task == null) continue;
+            task.cancel();
+        }
+    }
+
+    /**
+     * Cancel the given tasks.
+     *
+     * @param tasks The tasks to cancel.
+     */
+    public static void cancel(final List<Task> tasks) {
+        if (tasks == null || tasks.size() == 0) return;
+        for (Task task : tasks) {
+            if (task == null) continue;
+            task.cancel();
+        }
     }
 
     /**

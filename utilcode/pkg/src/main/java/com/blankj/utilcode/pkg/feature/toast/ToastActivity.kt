@@ -7,12 +7,11 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.Gravity
 import android.view.View
-import com.blankj.lib.base.BaseTitleActivity
+import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.DialogHelper
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
-import kotlinx.android.synthetic.main.activity_toast.*
 
 /**
  * ```
@@ -22,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_toast.*
  * desc  : demo about ToastUtils
  * ```
  */
-class ToastActivity : BaseTitleActivity() {
+class ToastActivity : CommonTitleActivity() {
 
     companion object {
         fun start(context: Context) {

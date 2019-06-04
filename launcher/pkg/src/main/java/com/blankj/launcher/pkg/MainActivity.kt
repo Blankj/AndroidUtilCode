@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.View
 import android.widget.ImageView
-import com.blankj.lib.base.BaseDrawerActivity
+import com.blankj.lib.common.CommonDrawerActivity
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.*
  * desc  : MainActivity
  * ```
  */
-class MainActivity : BaseDrawerActivity() {
+class MainActivity : CommonDrawerActivity() {
 
     override fun initData(bundle: Bundle?) {
 

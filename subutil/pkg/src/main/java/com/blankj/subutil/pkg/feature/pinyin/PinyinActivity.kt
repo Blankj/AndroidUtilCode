@@ -4,10 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleActivity
+import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.subutil.pkg.R
 import com.blankj.subutil.util.PinyinUtils
-import kotlinx.android.synthetic.main.activity_pinyin.*
 
 /**
  * ```
@@ -17,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_pinyin.*
  * desc  : demo about PinyinUtils
  * ```
  */
-class PinyinActivity : BaseTitleActivity() {
+class PinyinActivity : CommonTitleActivity() {
 
     companion object {
         fun start(context: Context) {

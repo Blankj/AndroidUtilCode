@@ -4,5 +4,5 @@ apply {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':utilcode:pkg')
+    implementation gradle.ext.dep.utilcode_pkg
 }

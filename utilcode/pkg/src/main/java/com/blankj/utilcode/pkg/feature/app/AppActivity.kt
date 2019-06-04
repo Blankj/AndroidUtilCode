@@ -4,12 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleActivity
+import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.Config
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.PermissionHelper
 import com.blankj.utilcode.util.*
-import kotlinx.android.synthetic.main.activity_app.*
 
 /**
  * ```
@@ -19,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_app.*
  * desc  : demo about AppUtils
  * ```
  */
-class AppActivity : BaseTitleActivity() {
+class AppActivity : CommonTitleActivity() {
 
     companion object {
         fun start(context: Context) {

@@ -9,13 +9,12 @@ import android.text.SpannableStringBuilder
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.blankj.lib.base.BaseTitleActivity
+import com.blankj.lib.common.CommonTitleActivity
 
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.SnackbarUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
-import kotlinx.android.synthetic.main.activity_snackbar.*
 
 /**
  * ```
@@ -25,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_snackbar.*
  * desc  : demo about SnackbarUtils
  * ```
  */
-class SnackbarActivity : BaseTitleActivity() {
+class SnackbarActivity : CommonTitleActivity() {
 
     companion object {
         fun start(context: Context) {

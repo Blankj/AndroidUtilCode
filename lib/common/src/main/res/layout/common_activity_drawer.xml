@@ -21,7 +21,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/white"
-        app:headerLayout="@layout/activity_drawer_nav_header"
+        app:headerLayout="@layout/common_activity_drawer_nav_header"
         app:menu="@menu/main_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

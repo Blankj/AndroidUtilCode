@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.CompoundButton
 import android.widget.SeekBar
-import com.blankj.lib.base.BaseDrawerActivity
+import com.blankj.lib.common.CommonDrawerActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ColorUtils
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_bar_status_drawer.*
  * desc  : demo about BarUtils
  * ```
  */
-class BarStatusDrawerActivity : BaseDrawerActivity() {
+class BarStatusDrawerActivity : CommonDrawerActivity() {
 
     companion object {
         fun start(context: Context) {

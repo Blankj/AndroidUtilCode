@@ -8,13 +8,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.CompoundButton
 import com.blankj.lib.base.BaseApplication
-import com.blankj.lib.base.BaseTitleActivity
+import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.PathUtils
 import com.blankj.utilcode.util.StringUtils
-import kotlinx.android.synthetic.main.activity_log.*
 import java.util.*
 
 
@@ -26,7 +25,7 @@ import java.util.*
  * desc  : demo about LogUtils
  * ```
  */
-class LogActivity : BaseTitleActivity(),
+class LogActivity : CommonTitleActivity(),
         CompoundButton.OnCheckedChangeListener {
 
     companion object {

@@ -12,7 +12,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.blankj.lib.base.BaseTaskActivity
+import com.blankj.lib.common.CommonTaskActivity
 import com.blankj.lib.base.rv.BaseAdapter
 import com.blankj.lib.base.rv.BaseCell
 import com.blankj.lib.base.rv.BaseViewHolder
@@ -21,7 +21,6 @@ import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.StringUtils
 import com.blankj.utilcode.util.ToastUtils
-import kotlinx.android.synthetic.main.activity_image.*
 
 /**
  * ```
@@ -31,7 +30,7 @@ import kotlinx.android.synthetic.main.activity_image.*
  * desc  : demo about ImageUtils
  * ```
  */
-class ImageActivity : BaseTaskActivity<List<BaseCell>>() {
+class ImageActivity : CommonTaskActivity<List<BaseCell>>() {
 
     companion object {
         fun start(context: Context) {

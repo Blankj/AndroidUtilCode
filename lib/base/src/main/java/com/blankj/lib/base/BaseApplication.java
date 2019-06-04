@@ -3,10 +3,7 @@ package com.blankj.lib.base;
 import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
-
-import com.blankj.utilcode.util.AppUtils;
-import com.blankj.utilcode.util.CrashUtils;
-import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.*;
 import com.squareup.leakcanary.LeakCanary;
 
 import java.util.ArrayList;
@@ -28,6 +25,7 @@ public class BaseApplication extends Application {
     }
 
     private Boolean isDebug;
+    private Boolean isMainProcess;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -99,5 +97,10 @@ public class BaseApplication extends Application {
     private boolean isDebug() {
         if (isDebug == null) isDebug = AppUtils.isAppDebug();
         return isDebug;
+    }
+
+    public boolean isMainProcess() {
+        if (isMainProcess == null) isMainProcess = ProcessUtils.isMainProcess();
+        return isMainProcess;
     }
 }

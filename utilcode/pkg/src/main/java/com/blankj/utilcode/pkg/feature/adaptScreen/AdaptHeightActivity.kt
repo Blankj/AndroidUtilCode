@@ -7,12 +7,12 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import com.blankj.lib.base.BaseActivity
+import com.blankj.lib.common.CommonBackActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.AdaptScreenUtils
 import kotlinx.android.synthetic.main.activity_adaptscreen_height.*
 
-class AdaptHeightActivity : BaseActivity() {
+class AdaptHeightActivity : CommonBackActivity() {
 
     companion object {
         fun start(context: Context) {

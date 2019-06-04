@@ -6,13 +6,12 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
-import com.blankj.lib.base.BaseTitleActivity
+import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BrightnessUtils
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
-import kotlinx.android.synthetic.main.activity_brightness.*
 
 /**
  * ```
@@ -22,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_brightness.*
  * desc  : demo about BrightnessUtils
  * ```
  */
-class BrightnessActivity : BaseTitleActivity() {
+class BrightnessActivity : CommonTitleActivity() {
 
     companion object {
         fun start(context: Context) {

@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleActivity
+import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.subutil.pkg.R
 import com.blankj.subutil.pkg.feature.location.LocationActivity
 import com.blankj.subutil.pkg.feature.pinyin.PinyinActivity
@@ -18,7 +18,7 @@ import com.blankj.utilcode.util.BusUtils
  * desc  : MainActivity
  * ```
  */
-class SubUtilActivity : BaseTitleActivity() {
+class SubUtilActivity : CommonTitleActivity() {
 
     companion object {
         @BusUtils.Subscribe(name = "SubUtilActivity#start")

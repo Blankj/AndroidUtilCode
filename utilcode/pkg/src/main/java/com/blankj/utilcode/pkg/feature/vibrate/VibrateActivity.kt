@@ -4,10 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleActivity
+import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.VibrateUtils
-import kotlinx.android.synthetic.main.activity_vibrate.*
 
 /**
  * ```
@@ -17,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_vibrate.*
  * desc  : demo about VibrateUtils
  * ```
  */
-class VibrateActivity : BaseTitleActivity() {
+class VibrateActivity : CommonTitleActivity() {
 
     companion object {
         fun start(context: Context) {

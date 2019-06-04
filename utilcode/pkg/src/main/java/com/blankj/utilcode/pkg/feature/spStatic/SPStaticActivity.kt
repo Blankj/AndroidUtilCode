@@ -4,10 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleActivity
+import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.SPStaticUtils
-import kotlinx.android.synthetic.main.activity_spstatic.*
 
 /**
  * ```
@@ -17,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_spstatic.*
  * desc  : demo about SPUtils
  * ```
  */
-class SPStaticActivity : BaseTitleActivity() {
+class SPStaticActivity : CommonTitleActivity() {
 
     companion object {
         fun start(context: Context) {

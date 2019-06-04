@@ -2,9 +2,9 @@ package com.blankj.launcher.pkg
 
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseActivity
+import com.blankj.lib.common.CommonBackActivity
 
-class SplashActivity : BaseActivity() {
+class SplashActivity : CommonBackActivity() {
     override fun isSwipeBack(): Boolean {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

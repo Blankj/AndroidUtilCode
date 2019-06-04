@@ -1,4 +1,4 @@
-package com.blankj.lib.base;
+package com.blankj.lib.common;
 
 import android.os.Bundle;
 import android.view.Gravity;
@@ -17,30 +17,32 @@ import com.blankj.utilcode.util.ThreadUtils;
  *     desc  : base about task activity
  * </pre>
  */
-public abstract class BaseTaskActivity<T> extends BaseTitleActivity {
-
-    private ProgressBar loadingView;
+public abstract class CommonTaskActivity<T> extends CommonTitleActivity {
 
     public abstract T doInBackground();
 
     public abstract void runOnUiThread(T data);
 
+    private ProgressBar loadingView;
+
+    private ThreadUtils.SimpleTask<T> bgTask = new ThreadUtils.SimpleTask<T>() {
+        @Override
+        public T doInBackground() throws Throwable {
+            return CommonTaskActivity.this.doInBackground();
+        }
+
+        @Override
+        public void onSuccess(T result) {
+            runOnUiThread(result);
+            setLoadingVisibility(false);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setLoadingVisibility(true);
-        ThreadUtils.executeByIo(new ThreadUtils.SimpleTask<T>() {
-            @Override
-            public T doInBackground() throws Throwable {
-                return BaseTaskActivity.this.doInBackground();
-            }
-
-            @Override
-            public void onSuccess(T result) {
-                runOnUiThread(result);
-                setLoadingVisibility(false);
-            }
-        });
+        ThreadUtils.executeByIo(bgTask);
     }
 
     void setLoadingVisibility(boolean isVisible) {
@@ -51,5 +53,11 @@ public abstract class BaseTaskActivity<T> extends BaseTitleActivity {
             baseTitleContentView.addView(loadingView, params);
         }
         loadingView.setVisibility(isVisible ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ThreadUtils.cancel(bgTask);
     }
 }

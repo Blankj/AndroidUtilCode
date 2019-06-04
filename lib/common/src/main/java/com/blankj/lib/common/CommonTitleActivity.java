@@ -1,4 +1,4 @@
-package com.blankj.lib.base;
+package com.blankj.lib.common;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.LayoutRes;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
 
+import com.blankj.common.R;
 import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.ColorUtils;
 
@@ -22,7 +23,7 @@ import com.blankj.utilcode.util.ColorUtils;
  *     desc  : base about title activity
  * </pre>
  */
-public abstract class BaseTitleActivity extends BaseActivity {
+public abstract class CommonTitleActivity extends CommonBackActivity {
 
     public abstract CharSequence bindTitle();
 
@@ -40,7 +41,7 @@ public abstract class BaseTitleActivity extends BaseActivity {
     @SuppressLint("ResourceType")
     @Override
     public void setRootLayout(@LayoutRes int layoutId) {
-        super.setRootLayout(R.layout.activity_base_title);
+        super.setRootLayout(R.layout.common_activity_title);
         baseTitleRootLayout = findViewById(R.id.baseTitleRootLayout);
         baseTitleToolbar = findViewById(R.id.baseTitleToolbar);
         if (layoutId > 0) {

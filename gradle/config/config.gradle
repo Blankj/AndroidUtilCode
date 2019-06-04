@@ -32,6 +32,7 @@ gradle.ext {
             launcher_app               : new DepConfig(":launcher:app"),
             launcher_pkg               : new DepConfig(":launcher:pkg"),
             lib_base                   : new DepConfig(":lib:base"),
+            lib_common                 : new DepConfig(":lib:common"),
             subutil_app                : new DepConfig(":subutil:app"),
             subutil_lib                : new DepConfig(":subutil:lib"),
             subutil_pkg                : new DepConfig(":subutil:pkg"),
