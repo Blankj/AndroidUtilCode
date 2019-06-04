@@ -25,10 +25,10 @@ gradle.ext {
             plugin_bintray             : new DepConfig("com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4"),// 上传到 bintray
             plugin_traute              : new DepConfig("tech.harmonysoft:traute-gradle:1.1.10"),// 注解转非空判断
 
-            plugin_bus                 : new DepConfig(false/*是否本地调试*/, "", "com.blankj:bus-gradle-plugin:1.8", true),
+            plugin_bus                 : new DepConfig(true/*是否本地调试*/, "", "com.blankj:bus-gradle-plugin:1.8", true),
 
             buildSrc                   : new DepConfig(":buildSrc"),
-            bus_gradle_plugin          : new DepConfig(":bus-gradle-plugin", false),
+            bus_gradle_plugin          : new DepConfig(":bus-gradle-plugin", true),
             launcher_app               : new DepConfig(":launcher:app"),
             launcher_pkg               : new DepConfig(":launcher:pkg"),
             lib_base                   : new DepConfig(":lib:base"),
