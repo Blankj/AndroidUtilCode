@@ -63,4 +63,11 @@ public class BaseAdapter<Cell extends BaseCell> extends RecyclerView.Adapter<Bas
     public int getItemCount() {
         return mData.size();
     }
+
+    @Override
+    public void onViewRecycled(@NonNull BaseViewHolder holder) {
+        super.onViewRecycled(holder);
+        int position = holder.getAdapterPosition();
+        mData.get(position).onViewRecycled(holder, position);
+    }
 }
