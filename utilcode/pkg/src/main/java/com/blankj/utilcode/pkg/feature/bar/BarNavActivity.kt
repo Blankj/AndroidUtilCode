@@ -10,6 +10,7 @@ import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.SpanUtils
+import kotlinx.android.synthetic.main.activity_bar_nav.*
 
 /**
  * ```

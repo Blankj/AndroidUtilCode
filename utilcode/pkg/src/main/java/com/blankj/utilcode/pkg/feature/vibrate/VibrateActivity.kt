@@ -7,6 +7,7 @@ import android.view.View
 import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.VibrateUtils
+import kotlinx.android.synthetic.main.activity_vibrate.*
 
 /**
  * ```

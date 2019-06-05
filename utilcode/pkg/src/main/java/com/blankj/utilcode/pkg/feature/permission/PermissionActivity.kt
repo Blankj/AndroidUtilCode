@@ -11,6 +11,7 @@ import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.DialogHelper
 import com.blankj.utilcode.util.*
+import kotlinx.android.synthetic.main.activity_permission.*
 
 /**
  * ```

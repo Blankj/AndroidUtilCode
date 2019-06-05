@@ -18,6 +18,7 @@ import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
+import kotlinx.android.synthetic.main.activity_span.*
 
 /**
  * ```

@@ -12,6 +12,7 @@ import com.blankj.utilcode.util.BrightnessUtils
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
+import kotlinx.android.synthetic.main.activity_brightness.*
 
 /**
  * ```

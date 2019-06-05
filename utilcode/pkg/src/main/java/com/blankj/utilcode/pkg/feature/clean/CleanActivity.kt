@@ -9,6 +9,7 @@ import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.CleanUtils
 import com.blankj.utilcode.util.SnackbarUtils
+import kotlinx.android.synthetic.main.activity_clean.*
 import java.io.File
 
 /**

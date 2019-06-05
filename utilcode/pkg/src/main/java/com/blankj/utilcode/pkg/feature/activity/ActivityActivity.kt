@@ -15,6 +15,7 @@ import com.blankj.utilcode.pkg.feature.CoreUtilActivity
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.SpanUtils
+import kotlinx.android.synthetic.main.activity_activity.*
 import java.util.*
 
 /**

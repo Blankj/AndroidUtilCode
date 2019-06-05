@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.PathUtils
 import com.blankj.utilcode.util.StringUtils
+import kotlinx.android.synthetic.main.activity_log.*
 import java.util.*
 
 

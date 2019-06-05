@@ -9,6 +9,7 @@ import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.PermissionHelper
 import com.blankj.utilcode.util.PhoneUtils
 import com.blankj.utilcode.util.SpanUtils
+import kotlinx.android.synthetic.main.activity_phone.*
 
 /**
  * ```

@@ -7,6 +7,7 @@ import android.view.View
 import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.subutil.pkg.R
 import com.blankj.subutil.util.PinyinUtils
+import kotlinx.android.synthetic.main.activity_pinyin.*
 
 /**
  * ```

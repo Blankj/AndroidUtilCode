@@ -11,6 +11,7 @@ import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.Utils
+import kotlinx.android.synthetic.main.activity_network.*
 import java.util.concurrent.atomic.AtomicInteger
 
 /**

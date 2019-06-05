@@ -496,7 +496,7 @@ public final class LogUtils {
 
     private static SimpleDateFormat getSdf() {
         if (simpleDateFormat == null) {
-            simpleDateFormat = new SimpleDateFormat("yyyy_MM_dd HH:mm:ss", Locale.getDefault());
+            simpleDateFormat = new SimpleDateFormat("yyyy_MM_dd HH:mm:ss.SSS ", Locale.getDefault());
         }
         return simpleDateFormat;
     }

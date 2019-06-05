@@ -9,6 +9,7 @@ import com.blankj.utilcode.pkg.Config
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.ResourceUtils
 import com.blankj.utilcode.util.SpanUtils
+import kotlinx.android.synthetic.main.activity_resource.*
 
 /**
  * ```

@@ -8,6 +8,7 @@ import android.view.View
 import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
+import kotlinx.android.synthetic.main.activity_bar_notification.*
 
 /**
  * ```

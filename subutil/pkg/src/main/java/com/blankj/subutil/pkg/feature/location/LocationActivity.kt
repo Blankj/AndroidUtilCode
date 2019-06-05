@@ -11,6 +11,7 @@ import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.subutil.pkg.R
 import com.blankj.subutil.pkg.helper.PermissionHelper
 import com.blankj.utilcode.util.SpanUtils
+import kotlinx.android.synthetic.main.activity_location.*
 
 /**
  * ```

@@ -1,0 +1,410 @@
+************* Log Head ****************
+Date of Log        : 2019_06_05
+Device Manufacturer: OnePlus
+Device Model       : ONEPLUS A6000
+Android Version    : 8.1.0
+Android SDK        : 27
+App VersionName    : 1.24.0
+App VersionCode    : 1024000
+************* Log Head ****************
+
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:31:29D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:31:29I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.407 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.413 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.414 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.415 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.416 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.418 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.419 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.420 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.421 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.422 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.423 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.423 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.424 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.425 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.425 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.426 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.427 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.428 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.428 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.429 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.431 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.432 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.433 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.433 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.434 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.434 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.435 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.435 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.436 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.436 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.437 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.437 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.438 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.439 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.439 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.440 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.440 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.441 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.441 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.442 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.442 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.443 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.444 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.444 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.445 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.445 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.446 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.446 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.447 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.447 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.448 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.448 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.449 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.449 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.450 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.450 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.451 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.452 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.452 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.453 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.453 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.454 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.454 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.455 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.455 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.456 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.456 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.457 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.457 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.458 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.458 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.459 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.459 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.460 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.460 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.461 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.461 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.462 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.462 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.463 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.463 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.464 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.464 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.465 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.465 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.466 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.466 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.467 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.467 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.467 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.468 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.468 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.469 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.469 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.470 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.470 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.471 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.471 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.471 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.472 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.472 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.473 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.473 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.474 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.474 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.475 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.475 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.476 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.476 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.477 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.477 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.478 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.478 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.479 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.480 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.480 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.481 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.481 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.482 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.482 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.483 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.483 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.484 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.485 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.485 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.486 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.487 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.487 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.488 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.488 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.488 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.489 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.489 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.490 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.490 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.491 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.491 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.492 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.492 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.492 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.493 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.493 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.494 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.494 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.495 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.495 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.495 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.496 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.496 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.497 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.497 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.498 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.498 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.499 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.499 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.499 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.500 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.500 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.501 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.501 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.502 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.502 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.503 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.503 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.503 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.504 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.504 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.505 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.505 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.506 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.506 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.507 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.507 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.507 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.508 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.508 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.509 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.509 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.510 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.510 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.510 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.511 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.511 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.512 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.512 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.513 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.513 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.514 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.514 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.514 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.515 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.515 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.516 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.516 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.517 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.517 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.517 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.518 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file
+20:40:24.518 D/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:222)]: test0 log to file
+20:40:24.519 I/LogActivity [main, com.blankj.utilcode.pkg.feature.log.LogActivity.onWidgetClick(LogActivity.kt:223)]: test0 log to file

@@ -8,6 +8,7 @@ import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BusUtils
 import com.blankj.utilcode.util.LogUtils
+import kotlinx.android.synthetic.main.activity_bus_remote.*
 
 /**
  * ```

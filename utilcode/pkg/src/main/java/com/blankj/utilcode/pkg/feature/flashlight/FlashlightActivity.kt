@@ -10,6 +10,7 @@ import com.blankj.utilcode.pkg.helper.PermissionHelper
 import com.blankj.utilcode.util.FlashlightUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
+import kotlinx.android.synthetic.main.activity_flashlight.*
 
 /**
  * ```

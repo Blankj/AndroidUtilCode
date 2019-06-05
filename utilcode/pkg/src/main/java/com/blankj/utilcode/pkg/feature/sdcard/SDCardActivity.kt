@@ -8,6 +8,7 @@ import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.SDCardUtils
 import com.blankj.utilcode.util.SpanUtils
+import kotlinx.android.synthetic.main.activity_sdcard.*
 
 /**
  * ```

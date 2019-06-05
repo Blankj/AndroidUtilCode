@@ -9,6 +9,7 @@ import com.blankj.utilcode.pkg.Config
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.PermissionHelper
 import com.blankj.utilcode.util.*
+import kotlinx.android.synthetic.main.activity_app.*
 
 /**
  * ```
