@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleActivity
+import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.DialogHelper
 import com.blankj.utilcode.util.KeyboardUtils
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_keyboard.*
  * desc  : demo about KeyboardUtils
  * ```
  */
-class KeyboardActivity : BaseTitleActivity() {
+class KeyboardActivity : CommonTitleActivity() {
 
     companion object {
         fun start(context: Context) {

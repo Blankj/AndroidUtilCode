@@ -6,11 +6,11 @@ import android.content.res.Resources
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import com.blankj.lib.base.BaseActivity
+import com.blankj.lib.common.CommonBackActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.AdaptScreenUtils
 
-class AdaptCloseActivity : BaseActivity() {
+class AdaptCloseActivity : CommonBackActivity() {
 
     companion object {
         fun start(context: Context) {

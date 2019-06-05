@@ -79,6 +79,7 @@ class CustomListener implements BuildListener {
         gradle.depConfig.each { name, config ->
             if (!config.isApply) return
             if (config.useLocal) {
+                if (config.localPath == "") return
                 gradle.ext.dep[name] = gradle.rootProject.findProject(config.localPath)
             } else {
                 gradle.ext.dep[name] = config.remotePath

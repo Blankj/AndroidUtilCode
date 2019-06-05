@@ -29,6 +29,9 @@ public abstract class BaseCell {
 
     public abstract void bind(@NonNull final BaseViewHolder holder, final int position);
 
+    public void onViewRecycled(@NonNull final BaseViewHolder holder, final int position) {
+    }
+
     protected int viewType;
 
     public BaseCell(int layoutId) {

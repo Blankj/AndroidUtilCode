@@ -12,10 +12,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.blankj.lib.base.BaseTaskActivity
 import com.blankj.lib.base.rv.BaseAdapter
 import com.blankj.lib.base.rv.BaseCell
 import com.blankj.lib.base.rv.BaseViewHolder
+import com.blankj.lib.common.CommonTaskActivity
 import com.blankj.utilcode.pkg.Config
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.ImageUtils
@@ -31,7 +31,7 @@ import kotlinx.android.synthetic.main.activity_image.*
  * desc  : demo about ImageUtils
  * ```
  */
-class ImageActivity : BaseTaskActivity<List<BaseCell>>() {
+class ImageActivity : CommonTaskActivity<List<BaseCell>>() {
 
     companion object {
         fun start(context: Context) {

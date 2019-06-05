@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleActivity
+import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.ReflectUtils
 import com.blankj.utilcode.util.SpanUtils
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_reflect.*
  * desc  : demo about ReflectUtils
  * ```
  */
-class ReflectActivity : BaseTitleActivity() {
+class ReflectActivity : CommonTitleActivity() {
 
     companion object {
         fun start(context: Context) {

@@ -9,12 +9,11 @@ import android.os.Bundle
 import androidx.core.app.ActivityOptionsCompat
 import android.view.View
 import android.view.Window
-import com.blankj.lib.base.BaseTitleActivity
+import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.feature.CoreUtilActivity
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.AppUtils
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SpanUtils
 import kotlinx.android.synthetic.main.activity_activity.*
 import java.util.*
@@ -27,7 +26,7 @@ import java.util.*
  * desc  : demo about ActivityUtils
  * ```
  */
-class ActivityActivity : BaseTitleActivity() {
+class ActivityActivity : CommonTitleActivity() {
 
     companion object {
         fun start(context: Context) {

@@ -881,13 +881,13 @@ public final class AppUtils {
      */
     public static class AppInfo {
 
-        private String packageName;
-        private String name;
+        private String   packageName;
+        private String   name;
         private Drawable icon;
-        private String packagePath;
-        private String versionName;
-        private int versionCode;
-        private boolean isSystem;
+        private String   packagePath;
+        private String   versionName;
+        private int      versionCode;
+        private boolean  isSystem;
 
         public Drawable getIcon() {
             return icon;

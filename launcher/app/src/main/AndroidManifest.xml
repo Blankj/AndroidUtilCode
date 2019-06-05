@@ -3,7 +3,7 @@
     package="com.blankj.launcher.app">
 
     <application
-        android:name=".UtilsApp"
+        android:name=".LauncherApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

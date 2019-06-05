@@ -23,14 +23,14 @@
         android:id="@+id/baseTitleStubScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout="@layout/activity_base_title_stub_scroll"
+        android:layout="@layout/common_activity_title_stub_scroll"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <ViewStub
         android:id="@+id/baseTitleStubNoScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout="@layout/activity_base_title_stub_no_scroll"
+        android:layout="@layout/common_activity_title_stub_no_scroll"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

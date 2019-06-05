@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import android.view.View
 import android.view.Window
-import com.blankj.lib.base.BaseTitleActivity
+import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.ColorUtils
 
@@ -17,7 +17,7 @@ import com.blankj.utilcode.util.ColorUtils
  * desc  : demo about ActivityUtils
  * ```
  */
-class SubActivityActivity : BaseTitleActivity() {
+class SubActivityActivity : CommonTitleActivity() {
 
     override fun initData(bundle: Bundle?) {}
 

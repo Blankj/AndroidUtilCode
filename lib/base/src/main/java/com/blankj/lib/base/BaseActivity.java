@@ -9,12 +9,7 @@ import android.view.View;
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.blankj.swipepanel.SwipePanel;
 import com.blankj.utilcode.util.AntiShakeUtils;
-import com.blankj.utilcode.util.AppUtils;
-import com.blankj.utilcode.util.SizeUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.blankj.utilcode.util.Utils;
 
 /**
  * <pre>
@@ -30,35 +25,14 @@ public abstract class BaseActivity extends AppCompatActivity
     protected View     mContentView;
     protected Activity mActivity;
 
-    public abstract boolean isSwipeBack();
-
-    /**
-     * 上次点击时间
-     */
-    private long lastClick = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mActivity = this;
         super.onCreate(savedInstanceState);
         initData(getIntent().getExtras());
         setRootLayout(bindLayout());
-        findViewById(android.R.id.content).setBackgroundColor(getResources().getColor(R.color.mediumGray));
         initView(savedInstanceState, mContentView);
         doBusiness();
-        initSwipeBack();
-
-        AppUtils.registerAppStatusChangedListener(this, new Utils.OnAppStatusChangedListener() {
-            @Override
-            public void onForeground() {
-                ToastUtils.showShort("foreground");
-            }
-
-            @Override
-            public void onBackground() {
-                ToastUtils.showShort("background");
-            }
-        });
     }
 
     @SuppressLint("ResourceType")
@@ -72,28 +46,6 @@ public abstract class BaseActivity extends AppCompatActivity
     public void onClick(View view) {
         if (AntiShakeUtils.isValid(view)) {
             onWidgetClick(view);
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        AppUtils.unregisterAppStatusChangedListener(this);
-    }
-
-    private void initSwipeBack() {
-        if (isSwipeBack()) {
-            final SwipePanel swipeLayout = new SwipePanel(this);
-            swipeLayout.setLeftDrawable(R.drawable.base_back);
-            swipeLayout.setLeftEdgeSize(SizeUtils.dp2px(100));
-            swipeLayout.wrapView(mContentView);
-            swipeLayout.setOnFullSwipeListener(new SwipePanel.OnFullSwipeListener() {
-                @Override
-                public void onFullSwipe(int direction) {
-                    swipeLayout.close(direction);
-                    finish();
-                }
-            });
         }
     }
 }

@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleActivity
+import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.DialogHelper
 import com.blankj.utilcode.util.*
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_screen.*
  * desc  : demo about RomUtils
  * ```
  */
-class ScreenActivity : BaseTitleActivity() {
+class ScreenActivity : CommonTitleActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -88,7 +88,11 @@ class ScreenActivity : BaseTitleActivity() {
             R.id.screenScreenshotBtn -> DialogHelper.showScreenshotDialog(ScreenUtils.screenShot(this))
             R.id.screenSetSleepDurationBtn -> ScreenUtils.setSleepDuration(100000)
         }
-        updateAboutScreen()
+        Utils.runOnUiThreadDelayed(object : Runnable {
+            override fun run() {
+                updateAboutScreen()
+            }
+        }, 36)
     }
 
     private fun updateAboutScreen() {

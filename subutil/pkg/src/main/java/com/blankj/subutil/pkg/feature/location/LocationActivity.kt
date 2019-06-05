@@ -7,7 +7,7 @@ import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
 import android.view.View
-import com.blankj.lib.base.BaseTitleActivity
+import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.subutil.pkg.R
 import com.blankj.subutil.pkg.helper.PermissionHelper
 import com.blankj.utilcode.util.SpanUtils
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_location.*
  * desc  : demo about LocationUtils
  * ```
  */
-class LocationActivity : BaseTitleActivity() {
+class LocationActivity : CommonTitleActivity() {
 
     companion object {
         fun start(context: Context) {

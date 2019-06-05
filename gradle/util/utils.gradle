@@ -9,7 +9,7 @@ def log(Object content) {
 }
 
 gradle.ext.Utils = [
-        log       : this.&log,
+        log          : this.&log,
         object2String: LogFormatter.&object2String,
 ]
 

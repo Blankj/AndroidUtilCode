@@ -102,7 +102,7 @@ public final class LogUtils {
     private static final String PLACEHOLDER    = " ";
     private static final Config CONFIG         = new Config();
 
-    private static final ThreadLocal<SimpleDateFormat> SDF_THREAD_LOCAL = new ThreadLocal<>();
+    private static SimpleDateFormat simpleDateFormat;
 
     private static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
 
@@ -214,7 +214,7 @@ public final class LogUtils {
 
     public static void log(final int type, final String tag, final Object... contents) {
         if (!CONFIG.isLogSwitch()) return;
-        int type_low = type & 0x0f, type_high = type & 0xf0;
+        final int type_low = type & 0x0f, type_high = type & 0xf0;
         if (CONFIG.isLog2ConsoleSwitch() || CONFIG.isLog2FileSwitch() || type_high == FILE) {
             if (type_low < CONFIG.mConsoleFilter && type_low < CONFIG.mFileFilter) return;
             final TagHead tagHead = processTagAndHead(tag);
@@ -223,7 +223,12 @@ public final class LogUtils {
                 print2Console(type_low, tagHead.tag, tagHead.consoleHead, body);
             }
             if ((CONFIG.isLog2FileSwitch() || type_high == FILE) && type_low >= CONFIG.mFileFilter) {
-                print2File(type_low, tagHead.tag, tagHead.fileHead + body);
+                EXECUTOR.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        print2File(type_low, tagHead.tag, tagHead.fileHead + body);
+                    }
+                });
             }
         }
     }
@@ -471,45 +476,40 @@ public final class LogUtils {
     }
 
     private static void print2File(final int type, final String tag, final String msg) {
-        Date now = new Date(System.currentTimeMillis());
-        String format = getSdf().format(now);
+        String format = getSdf().format(new Date());
         String date = format.substring(0, 10);
         String time = format.substring(11);
         final String fullPath =
-                CONFIG.getDir() + CONFIG.getFilePrefix() + "-" + date + "-" + CONFIG.getProcessName() + ".txt";
-        if (!createOrExistsFile(fullPath)) {
+                CONFIG.getDir() + CONFIG.getFilePrefix() + "_" + date + "_" + CONFIG.getProcessName() + ".txt";
+        if (!createOrExistsFile(fullPath, date)) {
             Log.e("LogUtils", "create " + fullPath + " failed!");
             return;
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append(time)
-                .append(T[type - V])
-                .append("/")
-                .append(tag)
-                .append(msg)
-                .append(LINE_SEP);
-        final String content = sb.toString();
+        final String content = time +
+                T[type - V] +
+                "/" +
+                tag +
+                msg +
+                LINE_SEP;
         input2File(content, fullPath);
     }
 
     private static SimpleDateFormat getSdf() {
-        SimpleDateFormat simpleDateFormat = SDF_THREAD_LOCAL.get();
         if (simpleDateFormat == null) {
-            simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-            SDF_THREAD_LOCAL.set(simpleDateFormat);
+            simpleDateFormat = new SimpleDateFormat("yyyy_MM_dd HH:mm:ss.SSS ", Locale.getDefault());
         }
         return simpleDateFormat;
     }
 
-    private static boolean createOrExistsFile(final String filePath) {
+    private static boolean createOrExistsFile(final String filePath, final String date) {
         File file = new File(filePath);
         if (file.exists()) return file.isFile();
         if (!createOrExistsDir(file.getParentFile())) return false;
         try {
-            deleteDueLogs(filePath);
+            deleteDueLogs(filePath, date);
             boolean isCreate = file.createNewFile();
             if (isCreate) {
-                printDeviceInfo(filePath);
+                printDeviceInfo(filePath, date);
             }
             return isCreate;
         } catch (IOException e) {
@@ -518,22 +518,20 @@ public final class LogUtils {
         }
     }
 
-    private static void deleteDueLogs(String filePath) {
+    private static void deleteDueLogs(final String filePath, final String date) {
         if (CONFIG.getSaveDays() <= 0) return;
         File file = new File(filePath);
         File parentFile = file.getParentFile();
         File[] files = parentFile.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                return name.matches("^" + CONFIG.getFilePrefix() + "-[0-9]{4}-[0-9]{2}-[0-9]{2}-.*\\.txt$");
+                return name.matches("^" + CONFIG.getFilePrefix() + "_[0-9]{4}_[0-9]{2}_[0-9]{2}_.*$");
             }
         });
         if (files == null || files.length <= 0) return;
-        final int length = filePath.length();
-        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd", Locale.getDefault());
         try {
-            String curDay = findDate(filePath);
-            long dueMillis = sdf.parse(curDay).getTime() - CONFIG.getSaveDays() * 86400000L;
+            long dueMillis = sdf.parse(date).getTime() - CONFIG.getSaveDays() * 86400000L;
             for (final File aFile : files) {
                 String name = aFile.getName();
                 int l = name.length();
@@ -556,7 +554,7 @@ public final class LogUtils {
     }
 
     private static String findDate(String str) {
-        Pattern pattern = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+        Pattern pattern = Pattern.compile("[0-9]{4}_[0-9]{2}_[0-9]{2}");
         Matcher matcher = pattern.matcher(str);
         if (matcher.find()) {
             return matcher.group();
@@ -564,7 +562,7 @@ public final class LogUtils {
         return "";
     }
 
-    private static void printDeviceInfo(final String filePath) {
+    private static void printDeviceInfo(final String filePath, final String date) {
         String versionName = "";
         int versionCode = 0;
         try {
@@ -578,9 +576,8 @@ public final class LogUtils {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        String time = filePath.substring(filePath.length() - 14, filePath.length() - 4);
         final String head = "************* Log Head ****************" +
-                "\nDate of Log        : " + time +
+                "\nDate of Log        : " + date +
                 "\nDevice Manufacturer: " + Build.MANUFACTURER +
                 "\nDevice Model       : " + Build.MODEL +
                 "\nAndroid Version    : " + Build.VERSION.RELEASE +
@@ -607,27 +604,22 @@ public final class LogUtils {
 
     private static void input2File(final String input, final String filePath) {
         if (CONFIG.mFileWriter == null) {
-            EXECUTOR.execute(new Runnable() {
-                @Override
-                public void run() {
-                    BufferedWriter bw = null;
-                    try {
-                        bw = new BufferedWriter(new FileWriter(filePath, true));
-                        bw.write(input);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Log.e("LogUtils", "log to " + filePath + " failed!");
-                    } finally {
-                        try {
-                            if (bw != null) {
-                                bw.close();
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+            BufferedWriter bw = null;
+            try {
+                bw = new BufferedWriter(new FileWriter(filePath, true));
+                bw.write(input);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e("LogUtils", "log to " + filePath + " failed!");
+            } finally {
+                try {
+                    if (bw != null) {
+                        bw.close();
                     }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            });
+            }
         } else {
             CONFIG.mFileWriter.write(filePath, input);
         }

@@ -1,4 +1,4 @@
-package com.blankj.lib.base;
+package com.blankj.lib.common;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.blankj.common.R;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.google.android.material.navigation.NavigationView;
@@ -25,7 +26,7 @@ import com.google.android.material.navigation.NavigationView;
  *     desc  : base about drawer activity
  * </pre>
  */
-public abstract class BaseDrawerActivity extends BaseActivity {
+public abstract class CommonDrawerActivity extends CommonBackActivity {
 
     protected DrawerLayout mBaseDrawerRootLayout;
     protected FrameLayout  mBaseDrawerContainerView;
@@ -51,7 +52,7 @@ public abstract class BaseDrawerActivity extends BaseActivity {
     @SuppressLint("ResourceType")
     @Override
     public void setRootLayout(@LayoutRes int layoutId) {
-        super.setRootLayout(R.layout.activity_drawer);
+        super.setRootLayout(R.layout.common_activity_drawer);
         mBaseDrawerRootLayout = findViewById(R.id.baseDrawerRootLayout);
         mBaseDrawerContainerView = findViewById(R.id.baseDrawerContainerView);
         if (layoutId > 0) {

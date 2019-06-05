@@ -7,7 +7,7 @@ import android.os.PersistableBundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.fragment.app.Fragment
 import android.view.View
-import com.blankj.lib.base.BaseActivity
+import com.blankj.lib.common.CommonBackActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.FragmentUtils
 import kotlinx.android.synthetic.main.activity_fragment.*
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_fragment.*
  * desc  : demo about FragmentUtils
  * ```
  */
-class FragmentActivity : BaseActivity() {
+class FragmentActivity : CommonBackActivity() {
 
     companion object {
         fun start(context: Context) {

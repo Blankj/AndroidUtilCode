@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.view.View
-import com.blankj.lib.base.BaseTitleActivity
+import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.NetworkUtils
@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicInteger
  * desc  : demo about NetworkUtils
  * ```
  */
-class NetworkActivity : BaseTitleActivity() {
+class NetworkActivity : CommonTitleActivity() {
 
     var cur: Int = 0
     var count: AtomicInteger = AtomicInteger();

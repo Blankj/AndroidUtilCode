@@ -2,7 +2,7 @@ package com.blankj.launcher.app;
 
 import android.content.Context;
 
-import com.blankj.lib.base.BaseApplication;
+import com.blankj.lib.common.CommonApplication;
 
 /**
  * <pre>
@@ -12,11 +12,11 @@ import com.blankj.lib.base.BaseApplication;
  *     desc  : app about utils
  * </pre>
  */
-public class UtilsApp extends BaseApplication {
+public class LauncherApp extends CommonApplication {
 
-    private static UtilsApp sInstance;
+    private static LauncherApp sInstance;
 
-    public static UtilsApp getInstance() {
+    public static LauncherApp getInstance() {
         return sInstance;
     }
 

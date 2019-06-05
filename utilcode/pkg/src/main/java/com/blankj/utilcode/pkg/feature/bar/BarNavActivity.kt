@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleActivity
+import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ColorUtils
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_bar_nav.*
  * desc  : demo about BarUtils
  * ```
  */
-class BarNavActivity : BaseTitleActivity() {
+class BarNavActivity : CommonTitleActivity() {
 
     companion object {
         fun start(context: Context) {

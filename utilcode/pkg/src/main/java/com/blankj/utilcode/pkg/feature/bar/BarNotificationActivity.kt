@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
-import com.blankj.lib.base.BaseTitleActivity
+import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
 import kotlinx.android.synthetic.main.activity_bar_notification.*
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_bar_notification.*
  * desc  : demo about BarUtils
  * ```
  */
-class BarNotificationActivity : BaseTitleActivity() {
+class BarNotificationActivity : CommonTitleActivity() {
 
     companion object {
         fun start(context: Context) {
