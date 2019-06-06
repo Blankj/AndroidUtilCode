@@ -1,3 +1,4 @@
+* `19/06/07` [fix] LogUtils file name contains ':'. Publish v1.24.2.
 * `19/06/06` [fix] LogUtils write to file. Publish v1.24.1.
 * `19/06/03` [fix] Refactoring framework. Publish v1.24.0.
 * `19/04/25` [fix] LogUtils delete due log.

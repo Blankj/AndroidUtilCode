@@ -27,7 +27,7 @@ apply plugin: "com.blankj.bus"
 给 base 模块添加 [AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode) 依赖：
 
 ```groovy
-api "com.blankj:utilcode:1.24.1"
+api "com.blankj:utilcode:1.24.2"
 ```
 
 比如 module0 中存在的 `Module0Activity.java`，我们通常都是在它内部写一个 `start` 函数来启动它，现在我们给它添加 `@BusUtils.Subscribe` 注解，并给注解的 `name` 赋唯一值，要注意，函数务必要 `public static` 哦：
