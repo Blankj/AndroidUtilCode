@@ -7,11 +7,10 @@ import android.os.PersistableBundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.view.View
-import com.blankj.lib.base.BaseActivity
+import com.blankj.lib.common.CommonBackActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.FragmentUtils
 import kotlinx.android.synthetic.main.activity_fragment.*
-import kotlinx.android.synthetic.main.fragment_child.*
 
 /**
  * ```
@@ -21,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_child.*
  * desc  : demo about FragmentUtils
  * ```
  */
-class FragmentActivity : BaseActivity() {
+class FragmentActivity : CommonBackActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -61,7 +60,7 @@ class FragmentActivity : BaseActivity() {
         return R.layout.activity_fragment
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         if (savedInstanceState != null) {
             curIndex = savedInstanceState.getInt("curIndex")
         }

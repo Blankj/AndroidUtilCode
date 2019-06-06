@@ -31,7 +31,7 @@ import java.util.List;
  */
 public final class FileIOUtils {
 
-    private static int sBufferSize = 8192;
+    private static int sBufferSize = 524288;
 
     private FileIOUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

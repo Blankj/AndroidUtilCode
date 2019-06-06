@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".feature.adaptScreen.WidthActivity">
+    android:fillViewport="true"
+    tools:context=".feature.adaptScreen.AdaptWidthActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,7 +15,8 @@
             android:id="@+id/adaptScreenWidthFl0"
             android:layout_width="match_parent"
             android:layout_height="270pt"
-            app:layout_constraintLeft_toLeftOf="parent">
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:layout_width="540pt"
@@ -44,6 +44,7 @@
             android:id="@+id/adaptScreenWidthFl1"
             android:layout_width="1080pt"
             android:layout_height="270pt"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/adaptScreenWidthFl0">
 
             <WebView

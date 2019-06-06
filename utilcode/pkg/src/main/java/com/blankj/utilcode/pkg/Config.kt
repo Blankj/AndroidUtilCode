@@ -25,7 +25,7 @@ object Config {
             cacheDir.absolutePath
         } else {
             Environment.getExternalStorageDirectory().absolutePath
-        }
-        TEST_APK_PATH = CACHE_PATH + FILE_SEP + "test_install.apk"
+        } + FILE_SEP
+        TEST_APK_PATH = CACHE_PATH + "test_install.apk"
     }
 }

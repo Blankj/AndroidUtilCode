@@ -3,7 +3,6 @@ package com.blankj.bus
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.AppPlugin
 import com.blankj.util.LogUtils
-
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

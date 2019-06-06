@@ -5,14 +5,13 @@ plugins {
 apply {
     plugin "groovy"
     plugin "java-gradle-plugin"
-    from "${rootDir.path}/gradle/pluginPublish.gradle"
-    if (bus.isDebug) {
+    from "${rootDir.path}/gradle/upload/pluginPublish.gradle"
+    if (gradle.ext.depConfig.plugin_bus.useLocal) {
         plugin "maven"
-        from "${rootDir.path}/gradle/localMavenUpload.gradle"
     } else {
         plugin "com.github.dcendents.android-maven"
         plugin "com.jfrog.bintray"
-        from "${rootDir.path}/gradle/bintrayUploadJava.gradle"
+        from "${rootDir.path}/gradle/upload/bintrayUploadJava.gradle"
     }
 }
 
@@ -26,13 +25,15 @@ gradlePlugin {
 }
 
 dependencies {
-    implementation dep.plugin[0]
-    implementation dep.javassist
-    implementation dep.commons_io
+    implementation "com.android.tools.build:gradle:3.4.0"
+    implementation "com.android.tools.build:gradle-api:3.4.0"
+
+    implementation gradle.ext.dep.javassist
+    implementation gradle.ext.dep.commons_io
     implementation gradleApi()
     implementation localGroovy()
 
-    testImplementation dep.junit
+    testImplementation gradle.ext.dep.junit
 }
 
 sourceSets {
@@ -49,8 +50,18 @@ sourceSets {
     }
 }
 
-group = bus.group
-version = bus.version
+group = gradle.ext.depConfig.plugin_bus.groupId
+version = gradle.ext.depConfig.plugin_bus.version
+
+if (gradle.ext.depConfig.plugin_bus.useLocal) {
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                repository(url: uri(new File(project.rootDir, "busMaven")))
+            }
+        }
+    }
+}
 
 //./gradlew bus-gradle-plugin:bintrayUpload
 //./gradlew publishPlugins

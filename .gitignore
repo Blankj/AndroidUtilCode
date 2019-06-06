@@ -8,4 +8,5 @@
 /captures
 .externalNativeBuild
 /apk
-/maven
+*.phrof
+/busMaven

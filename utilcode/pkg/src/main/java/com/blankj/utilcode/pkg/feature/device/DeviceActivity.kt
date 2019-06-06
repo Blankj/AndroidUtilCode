@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseTitleBarActivity
+import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.DeviceUtils
 import com.blankj.utilcode.util.SpanUtils
@@ -20,7 +20,7 @@ import java.util.*
  * desc : demo about DeviceUtils
  * ```
  */
-class DeviceActivity : BaseTitleBarActivity() {
+class DeviceActivity : CommonTitleActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -41,7 +41,7 @@ class DeviceActivity : BaseTitleBarActivity() {
         return R.layout.activity_device
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         deviceShutdownBtn.setOnClickListener(this)
         deviceRebootBtn.setOnClickListener(this)
         deviceReboot2RecoveryBtn.setOnClickListener(this)
@@ -60,7 +60,9 @@ class DeviceActivity : BaseTitleBarActivity() {
                 .appendLine("getMacAddress: " + DeviceUtils.getMacAddress())
                 .appendLine("getManufacturer: " + DeviceUtils.getManufacturer())
                 .appendLine("getModel: " + DeviceUtils.getModel())
-                .append("getABIs: " + Arrays.asList(*DeviceUtils.getABIs()))
+                .appendLine("getABIs: " + Arrays.asList(*DeviceUtils.getABIs()))
+                .appendLine("isTablet: " + DeviceUtils.isTablet())
+                .append("isEmulator: " + DeviceUtils.isEmulator())
                 .create()
     }
 

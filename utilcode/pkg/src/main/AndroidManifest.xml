@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.blankj.utilcode.pkg">
 
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
     <!-- app -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
@@ -10,6 +12,10 @@
     <!-- 读写内存 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- flashlight -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <!-- network -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -35,94 +41,128 @@
 
     <!-- vibrate -->
     <uses-permission android:name="android.permission.VIBRATE" />
+
     <application>
         <activity
             android:name=".feature.CoreUtilActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
 
         <activity
             android:name=".feature.activity.ActivityActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:icon="@drawable/activity_activity_icon"
             android:launchMode="singleTop"
             android:logo="@drawable/activity_activity_logo" />
         <activity
             android:name=".feature.activity.SubActivityActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.adaptScreen.AdaptScreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.adaptScreen.CloseAdaptActivity"
+            android:name=".feature.adaptScreen.AdaptCloseActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.adaptScreen.HeightActivity"
+            android:name=".feature.adaptScreen.AdaptHeightActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.adaptScreen.WidthActivity"
+            android:name=".feature.adaptScreen.AdaptWidthActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.app.AppActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.bar.BarActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.bar.BarNavActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.bar.BarNotificationActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.bar.BarStatusActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.bar.BarStatusAlphaActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.bar.BarStatusColorActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.bar.BarStatusCustomActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.bar.BarStatusDrawerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.bar.BarStatusFragmentActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.bar.BarStatusImageViewActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".feature.bar.BarStatusSwipeBackActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.brightness.BrightnessActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
+            android:name=".feature.bus.BusActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.bus.BusRemoteActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop"
+            android:process=":remote" />
+        <activity
             android:name=".feature.clean.CleanActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.device.DeviceActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.flashlight.FlashlightActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.fragment.FragmentActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.image.ImageActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.keyboard.KeyboardActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".feature.log.LogActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.metaData.MetaDataActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop">
             <meta-data
                 android:name="activity_meta_data"
@@ -130,48 +170,63 @@
         </activity>
         <activity
             android:name=".feature.network.NetworkActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.path.PathActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.permission.PermissionActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.phone.PhoneActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.process.ProcessActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.reflect.ReflectActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.resource.ResourceActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.rom.RomActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.screen.ScreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.sdcard.SDCardActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.snackbar.SnackbarActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.spStatic.SPStaticActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.span.SpanActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.toast.ToastActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.vibrate.VibrateActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
 
         <meta-data

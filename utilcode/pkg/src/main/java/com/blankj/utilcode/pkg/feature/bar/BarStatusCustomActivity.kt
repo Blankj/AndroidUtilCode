@@ -5,7 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseActivity
+import com.blankj.lib.common.CommonBackActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
 
@@ -18,7 +18,7 @@ import com.blankj.utilcode.util.BarUtils
  * desc  : demo about BarUtils
  * ```
  */
-class BarStatusCustomActivity : BaseActivity() {
+class BarStatusCustomActivity : CommonBackActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -34,10 +34,10 @@ class BarStatusCustomActivity : BaseActivity() {
     override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
-        return R.layout.activity_bar_status_custom
+        return -1
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {}
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {}
 
     override fun doBusiness() {
         BarUtils.setStatusBarColor(this, Color.TRANSPARENT).setBackgroundResource(R.drawable.bar_status_custom)

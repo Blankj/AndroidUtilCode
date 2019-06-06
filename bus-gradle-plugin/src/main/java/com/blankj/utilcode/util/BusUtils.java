@@ -11,5 +11,7 @@ public final class BusUtils {
     @Retention(RetentionPolicy.CLASS)
     public @interface Subscribe {
         String name() default "";
+
+        int priority() default 0;
     }
 }

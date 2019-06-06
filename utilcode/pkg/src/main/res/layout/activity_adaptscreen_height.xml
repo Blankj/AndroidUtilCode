@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<HorizontalScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".feature.adaptScreen.HeightActivity">
+    tools:context=".feature.adaptScreen.AdaptHeightActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="wrap_content"
@@ -16,7 +14,8 @@
             android:id="@+id/adaptScreenHeightFl0"
             android:layout_width="360pt"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimaryOrigin">
+            android:background="@color/colorPrimaryOrigin"
+            app:layout_constraintLeft_toLeftOf="parent">
 
             <TextView
                 android:layout_width="match_parent"
@@ -42,7 +41,8 @@
             android:id="@+id/adaptScreenHeightFl1"
             android:layout_width="360pt"
             android:layout_height="1920pt"
-            app:layout_constraintLeft_toRightOf="@id/adaptScreenHeightFl0">
+            app:layout_constraintLeft_toRightOf="@id/adaptScreenHeightFl0"
+            app:layout_constraintTop_toTopOf="parent">
 
             <WebView
                 android:id="@+id/adaptScreenHeightWebView"
@@ -92,7 +92,6 @@
                 android:textColor="@android:color/black"
                 android:textSize="30pt" />
         </LinearLayout>
-
 
     </android.support.constraint.ConstraintLayout>
 

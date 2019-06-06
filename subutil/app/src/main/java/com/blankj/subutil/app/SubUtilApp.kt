@@ -1,8 +1,7 @@
 package com.blankj.subutil.app
 
 import android.content.Context
-
-import com.blankj.lib.base.BaseApplication
+import com.blankj.lib.common.CommonApplication
 
 
 /**
@@ -13,7 +12,7 @@ import com.blankj.lib.base.BaseApplication
  * desc  : app about utils
  * ```
  */
-class SubUtilApp : BaseApplication() {
+class SubUtilApp : CommonApplication() {
 
     companion object {
         var instance: SubUtilApp? = null

@@ -41,7 +41,7 @@ public final class GsonUtils {
     /**
      * Gets pre-configured {@link Gson} instance.
      *
-     * @param serializeNulls determines if nulls will be serialized.
+     * @param serializeNulls Determines if nulls will be serialized.
      * @return {@link Gson} instance.
      */
     public static Gson getGson(final boolean serializeNulls) {
@@ -51,7 +51,7 @@ public final class GsonUtils {
     /**
      * Serializes an object into json.
      *
-     * @param object the object to serialize.
+     * @param object The object to serialize.
      * @return object serialized into json.
      */
     public static String toJson(final Object object) {
@@ -61,20 +61,43 @@ public final class GsonUtils {
     /**
      * Serializes an object into json.
      *
-     * @param object       the object to serialize.
-     * @param includeNulls determines if nulls will be included.
+     * @param object       The object to serialize.
+     * @param includeNulls Determines if nulls will be included.
      * @return object serialized into json.
      */
     public static String toJson(final Object object, final boolean includeNulls) {
         return includeNulls ? GSON.toJson(object) : GSON_NO_NULLS.toJson(object);
     }
 
+    /**
+     * Serializes an object into json.
+     *
+     * @param src       The object to serialize.
+     * @param typeOfSrc The specific genericized type of src.
+     * @return object serialized into json.
+     */
+    public static String toJson(final Object src, final Type typeOfSrc) {
+        return toJson(src, typeOfSrc, true);
+    }
+
+    /**
+     * Serializes an object into json.
+     *
+     * @param src          The object to serialize.
+     * @param typeOfSrc    The specific genericized type of src.
+     * @param includeNulls Determines if nulls will be included.
+     * @return object serialized into json.
+     */
+    public static String toJson(final Object src, final Type typeOfSrc, final boolean includeNulls) {
+        return includeNulls ? GSON.toJson(src, typeOfSrc) : GSON_NO_NULLS.toJson(src, typeOfSrc);
+    }
+
 
     /**
      * Converts {@link String} to given type.
      *
-     * @param json the json to convert.
-     * @param type type type json will be converted to.
+     * @param json The json to convert.
+     * @param type Type json will be converted to.
      * @return instance of type
      */
     public static <T> T fromJson(final String json, final Class<T> type) {

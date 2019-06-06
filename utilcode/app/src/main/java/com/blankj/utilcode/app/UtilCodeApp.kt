@@ -1,8 +1,6 @@
 package com.blankj.utilcode.app
 
-import android.content.Context
-
-import com.blankj.lib.base.BaseApplication
+import com.blankj.lib.common.CommonApplication
 import com.blankj.utilcode.util.Utils
 
 
@@ -14,21 +12,18 @@ import com.blankj.utilcode.util.Utils
  * desc  : app about utils
  * ```
  */
-class UtilCodeApp : BaseApplication() {
+class UtilCodeApp : CommonApplication() {
 
     companion object {
         lateinit var instance: UtilCodeApp
             private set
     }
 
-    override fun attachBaseContext(base: Context) {
-        super.attachBaseContext(base)
-    }
-
     override fun onCreate() {
         Utils.init(this)
         super.onCreate()
         instance = this
+//        BusUtils.registerClient("com.blankj.androidutilcode")
     }
 }
 

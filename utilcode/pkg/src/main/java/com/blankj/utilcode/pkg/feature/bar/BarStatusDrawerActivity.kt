@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.CompoundButton
 import android.widget.SeekBar
-import com.blankj.lib.base.BaseDrawerActivity
+import com.blankj.lib.common.CommonDrawerActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ColorUtils
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_bar_status_drawer.*
  * desc  : demo about BarUtils
  * ```
  */
-class BarStatusDrawerActivity : BaseDrawerActivity() {
+class BarStatusDrawerActivity : CommonDrawerActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -51,7 +51,7 @@ class BarStatusDrawerActivity : BaseDrawerActivity() {
             barStatusDrawerRandomColorBtn.visibility = View.GONE
             barStatusDrawerSetTransparentBtn.visibility = View.VISIBLE
 
-            mBaseDrawerContainerView.setBackgroundResource(R.drawable.bar_status_alpha_bg)
+            mBaseDrawerContainerView.setBackgroundResource(R.drawable.image_lena)
         } else {
             barStatusDrawerChangeAlphaSb.visibility = View.GONE
             barStatusDrawerRandomColorBtn.visibility = View.VISIBLE
@@ -77,7 +77,7 @@ class BarStatusDrawerActivity : BaseDrawerActivity() {
         return R.layout.activity_bar_status_drawer
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View) {
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         barStatusDrawerAlphaCb.setOnCheckedChangeListener(mAlphaCheckedChangeListener)
         barStatusDrawerFrontCb.setOnCheckedChangeListener(mFrontCheckedChangeListener)
         barStatusDrawerChangeAlphaSb.setOnSeekBarChangeListener(mColorListener)

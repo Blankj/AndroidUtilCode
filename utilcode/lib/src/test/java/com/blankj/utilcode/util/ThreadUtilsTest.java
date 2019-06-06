@@ -24,6 +24,7 @@ public class ThreadUtilsTest extends BaseTest {
                 final TestTask<String> task = new TestTask<String>(latch) {
                     @Override
                     public String doInBackground() throws Throwable {
+                        new ThreadGroup("name");
                         Thread.sleep(500 + index * 10);
                         if (index < 4) {
                             return Thread.currentThread() + " :" + index;
