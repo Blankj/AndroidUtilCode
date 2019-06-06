@@ -480,7 +480,9 @@ public final class LogUtils {
         String date = format.substring(0, 10);
         String time = format.substring(11);
         final String fullPath =
-                CONFIG.getDir() + CONFIG.getFilePrefix() + "_" + date + "_" + CONFIG.getProcessName() + ".txt";
+                CONFIG.getDir() + CONFIG.getFilePrefix() + "_"
+                        + date + "_" +
+                        CONFIG.getProcessName() + ".txt";
         if (!createOrExistsFile(fullPath, date)) {
             Log.e("LogUtils", "create " + fullPath + " failed!");
             return;
@@ -757,7 +759,8 @@ public final class LogUtils {
         }
 
         public final String getProcessName() {
-            return mProcessName;
+            if (mProcessName == null) return "";
+            return mProcessName.replace(":", "_");
         }
 
         public final String getDefaultDir() {
