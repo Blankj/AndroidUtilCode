@@ -46,5 +46,5 @@ class MetaDataActivity : CommonTitleActivity() {
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {}
+    override fun onDebouncingClick(view: View) {}
 }

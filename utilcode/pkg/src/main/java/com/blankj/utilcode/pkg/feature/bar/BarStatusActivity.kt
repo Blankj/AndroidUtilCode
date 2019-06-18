@@ -56,7 +56,7 @@ class BarStatusActivity : CommonTitleActivity() {
         updateAboutStatus()
     }
 
-    override fun onWidgetClick(view: View) {}
+    override fun onDebouncingClick(view: View) {}
 
     private fun updateAboutStatus() {
         SpanUtils.with(barStatusAboutTv)

@@ -48,11 +48,13 @@ class CleanActivity : CommonTitleActivity() {
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         snackBarRootView = findViewById(android.R.id.content)
-        cleanInternalCacheBtn.setOnClickListener(this)
-        cleanInternalFilesBtn.setOnClickListener(this)
-        cleanInternalDatabasesBtn.setOnClickListener(this)
-        cleanInternalSpBtn.setOnClickListener(this)
-        cleanExternalCacheBtn.setOnClickListener(this)
+        applyDebouncingClickListener(
+                cleanInternalCacheBtn,
+                cleanInternalFilesBtn,
+                cleanInternalDatabasesBtn,
+                cleanInternalSpBtn,
+                cleanExternalCacheBtn
+        )
 
         internalCachePath = cacheDir.path
         internalFilesPath = filesDir.path
@@ -66,7 +68,7 @@ class CleanActivity : CommonTitleActivity() {
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.cleanInternalCacheBtn -> showSnackbar(CleanUtils.cleanInternalCache(), internalCachePath)
             R.id.cleanInternalFilesBtn -> showSnackbar(CleanUtils.cleanInternalFiles(), internalFilesPath)

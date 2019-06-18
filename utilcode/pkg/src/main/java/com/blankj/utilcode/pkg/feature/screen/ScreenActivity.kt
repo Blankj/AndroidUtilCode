@@ -53,19 +53,21 @@ class ScreenActivity : CommonTitleActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        screenFullscreenBtn.setOnClickListener(this);
-        screenNonFullscreenBtn.setOnClickListener(this);
-        screenToggleFullscreenBtn.setOnClickListener(this);
-        screenLandscapeBtn.setOnClickListener(this);
-        screenPortraitBtn.setOnClickListener(this);
-        screenScreenshotBtn.setOnClickListener(this);
-        screenSetSleepDurationBtn.setOnClickListener(this);
+        applyDebouncingClickListener(
+                screenFullscreenBtn,
+                screenNonFullscreenBtn,
+                screenToggleFullscreenBtn,
+                screenLandscapeBtn,
+                screenPortraitBtn,
+                screenScreenshotBtn,
+                screenSetSleepDurationBtn
+        )
         updateAboutScreen();
     }
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.screenFullscreenBtn -> {
                 ScreenUtils.setFullScreen(this)

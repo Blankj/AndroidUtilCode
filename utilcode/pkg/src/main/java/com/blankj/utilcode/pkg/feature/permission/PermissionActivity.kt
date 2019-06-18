@@ -43,12 +43,14 @@ class PermissionActivity : CommonTitleActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        permissionOpenAppSettingsBtn.setOnClickListener(this)
-        permissionRequestCalendarBtn.setOnClickListener(this)
-        permissionRequestRecordAudioBtn.setOnClickListener(this)
-        permissionRequestCalendarAndRecordAudioBtn.setOnClickListener(this)
-        permissionRequestWriteSettings.setOnClickListener(this)
-        permissionRequestDrawOverlays.setOnClickListener(this)
+        applyDebouncingClickListener(
+                permissionOpenAppSettingsBtn,
+                permissionRequestCalendarBtn,
+                permissionRequestRecordAudioBtn,
+                permissionRequestCalendarAndRecordAudioBtn,
+                permissionRequestWriteSettings,
+                permissionRequestDrawOverlays
+        )
 
         val sb = StringBuilder()
         for (s in PermissionUtils.getPermissions()) {
@@ -64,7 +66,7 @@ class PermissionActivity : CommonTitleActivity() {
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.permissionOpenAppSettingsBtn -> PermissionUtils.launchAppDetailsSettings()
             R.id.permissionRequestCalendarBtn -> requestCalendar()

@@ -80,7 +80,7 @@ class FragmentActivity : CommonBackActivity() {
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {}
+    override fun onDebouncingClick(view: View) {}
 
     override fun onBackPressed() {
         if (!FragmentUtils.dispatchBackPress(mFragments[curIndex])) {

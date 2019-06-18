@@ -43,5 +43,5 @@ class BarStatusCustomActivity : CommonBackActivity() {
         BarUtils.setStatusBarColor(this, Color.TRANSPARENT).setBackgroundResource(R.drawable.bar_status_custom)
     }
 
-    override fun onWidgetClick(view: View) {}
+    override fun onDebouncingClick(view: View) {}
 }

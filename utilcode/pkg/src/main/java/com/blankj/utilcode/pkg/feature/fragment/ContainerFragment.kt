@@ -42,21 +42,22 @@ class ContainerFragment : BaseLazyFragment(), FragmentUtils.OnBackClickListener 
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         FragmentUtils.setBackgroundColor(this, ColorUtils.getRandomColor(false))
-        fragmentRootShowStackBtn.setOnClickListener(this)
-        fragmentRootAddChildBtn.setOnClickListener(this)
-        fragmentRootAddChildStackBtn.setOnClickListener(this)
-
-        fragmentRootAddHideBtn.setOnClickListener(this)
-        fragmentRootAddHideStackBtn.setOnClickListener(this)
-        fragmentRootAddShowBtn.setOnClickListener(this)
-        fragmentRootPopToRootBtn.setOnClickListener(this)
-        fragmentRootHideShowBtn.setOnClickListener(this)
-        fragmentRootReplaceBtn.setOnClickListener(this)
+        applyDebouncingClickListener(
+                fragmentRootShowStackBtn,
+                fragmentRootAddChildBtn,
+                fragmentRootAddChildStackBtn,
+                fragmentRootAddHideBtn,
+                fragmentRootAddHideStackBtn,
+                fragmentRootAddShowBtn,
+                fragmentRootPopToRootBtn,
+                fragmentRootHideShowBtn,
+                fragmentRootReplaceBtn
+        )
     }
 
     override fun doLazyBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.fragmentRootShowStackBtn -> DialogHelper.showFragmentDialog(
                     SpanUtils().appendLine("top: " + FragmentUtils.getSimpleName(FragmentUtils.getTop(fragmentManager!!)))

@@ -778,6 +778,10 @@ public final class SpanUtils {
         mType = type;
     }
 
+    public SpannableStringBuilder get() {
+        return mBuilder;
+    }
+
     /**
      * Create the span string.
      *

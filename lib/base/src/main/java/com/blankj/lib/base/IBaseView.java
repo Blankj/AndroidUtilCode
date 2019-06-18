@@ -2,6 +2,7 @@ package com.blankj.lib.base;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 
@@ -14,8 +15,7 @@ import android.view.View;
  *     desc  :
  * </pre>
  */
-public interface IBaseView extends View.OnClickListener {
-
+public interface IBaseView {
 
     void initData(@Nullable Bundle bundle);
 
@@ -27,5 +27,5 @@ public interface IBaseView extends View.OnClickListener {
 
     void doBusiness();
 
-    void onWidgetClick(View view);
+    void onDebouncingClick(@NonNull View view);
 }

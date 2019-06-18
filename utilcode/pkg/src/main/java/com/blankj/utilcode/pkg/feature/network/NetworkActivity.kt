@@ -47,7 +47,7 @@ class NetworkActivity : CommonTitleActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        networkOpenWirelessSettingsBtn.setOnClickListener(this)
+        applyDebouncingClickListener(networkOpenWirelessSettingsBtn)
 
         if (AppUtils.isAppSystem()) {
             networkMobileDataEnabledCb.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -73,7 +73,7 @@ class NetworkActivity : CommonTitleActivity() {
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.networkOpenWirelessSettingsBtn -> NetworkUtils.openWirelessSettings()
         }

@@ -46,8 +46,10 @@ class BusRemoteActivity : CommonTitleActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        busRemotePostBtn.setOnClickListener(this)
-        busRemotePost2MainBtn.setOnClickListener(this)
+        applyDebouncingClickListener(
+                busRemotePostBtn,
+                busRemotePost2MainBtn
+        )
     }
 
     override fun doBusiness() {
@@ -58,7 +60,7 @@ class BusRemoteActivity : CommonTitleActivity() {
         })
     }
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.busRemotePostBtn -> BusUtils.post(BUS_KEY, BUNDLE)
             R.id.busRemotePost2MainBtn -> BusUtils.post(BusActivity.BUS_KEY, BusActivity.BUNDLE)

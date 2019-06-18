@@ -1,7 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.blankj.utilcode">
 
+    <permission android:name="com.blankj.utilcode.util.bus" />
+
     <application>
+
         <activity
             android:name="com.blankj.utilcode.util.PermissionUtils$PermissionActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -12,6 +15,7 @@
         <provider
             android:name="com.blankj.utilcode.util.Utils$FileProvider4UtilCode"
             android:authorities="${applicationId}.utilcode.provider"
+            android:exported="false"
             android:grantUriPermissions="true"
             android:multiprocess="true">
             <meta-data
@@ -21,7 +25,7 @@
 
         <service
             android:name="com.blankj.utilcode.util.BusUtils$ServerService"
-            android:exported="true">
+            android:permission="com.blankj.utilcode.util.bus">
             <intent-filter>
                 <action android:name="${applicationId}.messenger" />
             </intent-filter>

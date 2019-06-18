@@ -38,7 +38,7 @@ class SubActivityActivity : CommonTitleActivity() {
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {}
+    override fun onDebouncingClick(view: View) {}
 
     override fun onBackPressed() {
         super.onBackPressed()

@@ -28,14 +28,16 @@ class AdaptScreenActivity : CommonTitleActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        adaptScreenAdaptWidthBtn.setOnClickListener(this)
-        adaptScreenAdaptHeightBtn.setOnClickListener(this)
-        adaptScreenCloseAdaptBtn.setOnClickListener(this)
+        applyDebouncingClickListener(
+                adaptScreenAdaptWidthBtn,
+                adaptScreenAdaptHeightBtn,
+                adaptScreenCloseAdaptBtn
+        )
     }
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.adaptScreenAdaptWidthBtn -> AdaptWidthActivity.start(this)
             R.id.adaptScreenAdaptHeightBtn -> AdaptHeightActivity.start(this)

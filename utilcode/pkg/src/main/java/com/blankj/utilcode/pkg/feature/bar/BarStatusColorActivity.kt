@@ -42,7 +42,7 @@ class BarStatusColorActivity : CommonBackActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        barStatusColorRandomColorBtn.setOnClickListener(this)
+        applyDebouncingClickListener(barStatusColorRandomColorBtn)
 
         updateStatusBar()
     }
@@ -50,7 +50,7 @@ class BarStatusColorActivity : CommonBackActivity() {
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.barStatusColorRandomColorBtn -> {
                 mColor = ColorUtils.getRandomColor()

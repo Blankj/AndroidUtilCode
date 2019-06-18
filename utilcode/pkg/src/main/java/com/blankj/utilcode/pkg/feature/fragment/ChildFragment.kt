@@ -37,14 +37,16 @@ class ChildFragment : BaseLazyFragment() {
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         FragmentUtils.setBackgroundColor(this, ColorUtils.getRandomColor(false))
-        fragmentChildShowStackBtn.setOnClickListener(this)
-        fragmentChildPopBtn.setOnClickListener(this)
-        fragmentChildRemoveBtn.setOnClickListener(this)
+        applyDebouncingClickListener(
+                fragmentChildShowStackBtn,
+                fragmentChildPopBtn,
+                fragmentChildRemoveBtn
+        )
     }
 
     override fun doLazyBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.fragmentChildShowStackBtn -> DialogHelper.showFragmentDialog(
                     SpanUtils().appendLine("top: " + FragmentUtils.getSimpleName(FragmentUtils.getTop(fragmentManager!!)))

@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.blankj.utilcode.pkg">
 
+    <uses-permission android:name="com.blankj.utilcode.util.bus" />
+
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <!-- app -->
@@ -133,6 +135,10 @@
             android:process=":remote" />
         <activity
             android:name=".feature.clean.CleanActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.click.ClickActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity

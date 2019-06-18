@@ -42,10 +42,11 @@ class DeviceActivity : CommonTitleActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        deviceShutdownBtn.setOnClickListener(this)
-        deviceRebootBtn.setOnClickListener(this)
-        deviceReboot2RecoveryBtn.setOnClickListener(this)
-        deviceReboot2BootloaderBtn.setOnClickListener(this)
+        applyDebouncingClickListener(deviceShutdownBtn,
+                deviceRebootBtn,
+                deviceReboot2RecoveryBtn,
+                deviceReboot2BootloaderBtn
+        )
 
         SpanUtils.with(deviceAboutTv)
                 .appendLine("isRoot: " + DeviceUtils.isDeviceRooted())
@@ -68,7 +69,7 @@ class DeviceActivity : CommonTitleActivity() {
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.deviceShutdownBtn -> DeviceUtils.shutdown()
             R.id.deviceRebootBtn -> DeviceUtils.reboot()

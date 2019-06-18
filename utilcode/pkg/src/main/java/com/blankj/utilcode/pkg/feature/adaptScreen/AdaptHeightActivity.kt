@@ -38,7 +38,7 @@ class AdaptHeightActivity : CommonBackActivity() {
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {}
+    override fun onDebouncingClick(view: View) {}
 
     override fun getResources(): Resources {
         return AdaptScreenUtils.adaptHeight(super.getResources(), 1920)

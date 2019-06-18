@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="demo_app_store">App Store Demo</string>
+    <string name="demo_country_code">Country Code Demo</string>
     <string name="demo_location">LocationUtils Demo</string>
     <string name="demo_pinyin">PinyinUtils Demo</string>
+
+    <!--App Store 相关-->
+    <string name="app_store_system">Go System App Store</string>
 </resources>

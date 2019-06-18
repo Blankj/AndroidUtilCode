@@ -387,7 +387,7 @@ public final class ToastUtils {
                     mTNmHandlerField.setAccessible(true);
                     Handler tnHandler = (Handler) mTNmHandlerField.get(mTN);
                     mTNmHandlerField.set(mTN, new SafeHandler(tnHandler));
-                } catch (Exception ignored) { /**/ }
+                } catch (Exception ignored) {/**/}
             }
         }
 
@@ -496,7 +496,7 @@ public final class ToastUtils {
                 if (mWM != null) {
                     mWM.addView(mView, mParams);
                 }
-            } catch (Exception ignored) { /**/ }
+            } catch (Exception ignored) {/**/}
 
             Utils.runOnUiThreadDelayed(new Runnable() {
                 @Override
@@ -512,7 +512,7 @@ public final class ToastUtils {
                 if (mWM != null) {
                     mWM.removeViewImmediate(mView);
                 }
-            } catch (Exception ignored) { /**/ }
+            } catch (Exception ignored) {/**/}
             mView = null;
             mWM = null;
             mToast = null;

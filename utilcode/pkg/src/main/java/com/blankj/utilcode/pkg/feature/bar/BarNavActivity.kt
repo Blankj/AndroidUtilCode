@@ -47,13 +47,13 @@ class BarNavActivity : CommonTitleActivity() {
             barNavVisibilityCb.setOnCheckedChangeListener { buttonView, isChecked ->
                 BarUtils.setNavBarVisibility(this, isChecked)
             }
-            barNavSetColorBtn.setOnClickListener(this)
+            applyDebouncingClickListener(barNavSetColorBtn)
         }
     }
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.barNavSetColorBtn -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 BarUtils.setNavBarColor(this, ColorUtils.getRandomColor())
