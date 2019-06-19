@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 
@@ -15,8 +16,7 @@ import androidx.annotation.Nullable;
  *     desc  :
  * </pre>
  */
-public interface IBaseView extends View.OnClickListener {
-
+public interface IBaseView {
 
     void initData(@Nullable Bundle bundle);
 
@@ -28,5 +28,5 @@ public interface IBaseView extends View.OnClickListener {
 
     void doBusiness();
 
-    void onWidgetClick(View view);
+    void onDebouncingClick(@NonNull View view);
 }

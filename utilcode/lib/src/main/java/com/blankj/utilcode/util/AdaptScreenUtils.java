@@ -14,7 +14,7 @@ public final class AdaptScreenUtils {
     private static List<Field> sMetricsFields;
 
     /**
-     * Adapt for the horizontal screen, and call it in [android.app.Activity.getResources].
+     * Adapt for the horizontal screen, and call it in {@link android.app.Activity#getResources()}.
      */
     public static Resources adaptWidth(final Resources resources, final int designWidth) {
         float newXdpi = (resources.getDisplayMetrics().widthPixels * 72f) / designWidth;
@@ -23,18 +23,18 @@ public final class AdaptScreenUtils {
     }
 
     /**
-     * Adapt for the vertical screen, and call it in [android.app.Activity.getResources].
+     * Adapt for the vertical screen, and call it in {@link android.app.Activity#getResources()}.
      */
     public static Resources adaptHeight(final Resources resources, final int designHeight) {
         return adaptHeight(resources, designHeight, false);
     }
 
     /**
-     * Adapt for the vertical screen, and call it in [android.app.Activity.getResources].
+     * Adapt for the vertical screen, and call it in {@link android.app.Activity#getResources()}.
      */
     public static Resources adaptHeight(final Resources resources, final int designHeight, final boolean includeNavBar) {
-        float screenHeight = resources.getDisplayMetrics().heightPixels * 72f
-                + (includeNavBar ? getNavBarHeight(resources) : 0);
+        float screenHeight = (resources.getDisplayMetrics().heightPixels
+                + (includeNavBar ? getNavBarHeight(resources) : 0)) * 72f;
         float newXdpi = screenHeight / designHeight;
         applyDisplayMetrics(resources, newXdpi);
         return resources;

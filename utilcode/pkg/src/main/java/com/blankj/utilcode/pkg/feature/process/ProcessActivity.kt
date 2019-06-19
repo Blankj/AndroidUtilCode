@@ -38,7 +38,7 @@ class ProcessActivity : CommonTitleActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        processKillAllBackgroundProcesses.setOnClickListener(this)
+        applyDebouncingClickListener(processKillAllBackgroundProcesses)
         val set = ProcessUtils.getAllBackgroundProcesses()
         SpanUtils.with(processAboutTv)
                 .appendLine("getForegroundProcessName: " + ProcessUtils.getForegroundProcessName()!!)
@@ -51,7 +51,7 @@ class ProcessActivity : CommonTitleActivity() {
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.processKillAllBackgroundProcesses -> {
                 val bgSet = ProcessUtils.getAllBackgroundProcesses()

@@ -60,15 +60,17 @@ class PhoneActivity : CommonTitleActivity() {
                 .append("getPhoneStatus: " + PhoneUtils.getPhoneStatus())
                 .create()
 
-        phoneDialBtn.setOnClickListener(this)
-        phoneCallBtn.setOnClickListener(this)
-        phoneSendSmsBtn.setOnClickListener(this)
-        phoneSendSmsSilentBtn.setOnClickListener(this)
+        applyDebouncingClickListener(
+                phoneDialBtn,
+                phoneCallBtn,
+                phoneSendSmsBtn,
+                phoneSendSmsSilentBtn
+        )
     }
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.phoneDialBtn -> PhoneUtils.dial("10000")
             R.id.phoneCallBtn -> PhoneUtils.call("10000")

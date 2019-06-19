@@ -40,12 +40,12 @@ class BarNotificationActivity : CommonTitleActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        barNotificationShowBtn.setOnClickListener(this)
+        applyDebouncingClickListener(barNotificationShowBtn)
     }
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.barNotificationShowBtn -> {
                 BarUtils.setNotificationBarVisibility(true)

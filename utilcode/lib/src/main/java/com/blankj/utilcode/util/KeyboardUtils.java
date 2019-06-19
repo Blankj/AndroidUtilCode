@@ -35,26 +35,12 @@ public final class KeyboardUtils {
 
     /**
      * Show the soft input.
-     *
-     * @param activity The activity.
      */
-    public static void showSoftInput(final Activity activity) {
-        showSoftInput(activity, InputMethodManager.SHOW_FORCED);
-    }
-
-    /**
-     * Show the soft input.
-     *
-     * @param activity The activity.
-     * @param flags    Provides additional operating flags.  Currently may be
-     *                 0 or have the {@link InputMethodManager#SHOW_IMPLICIT} bit set.
-     */
-    public static void showSoftInput(final Activity activity, final int flags) {
-        View view = activity.getCurrentFocus();
-        if (view == null) {
-            view = new View(activity);
-        }
-        showSoftInput(view, flags);
+    public static void showSoftInput() {
+        InputMethodManager imm =
+                (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm == null) return;
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
     /**
@@ -77,9 +63,6 @@ public final class KeyboardUtils {
         InputMethodManager imm =
                 (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm == null) return;
-        // clear the focus of view
-        view.clearFocus();
-
         view.setFocusable(true);
         view.setFocusableInTouchMode(true);
         view.requestFocus();
@@ -92,6 +75,7 @@ public final class KeyboardUtils {
                 }
             }
         });
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
     /**
@@ -133,7 +117,7 @@ public final class KeyboardUtils {
     public static void toggleSoftInput() {
         InputMethodManager imm =
                 (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
-        //noinspection ConstantConditions
+        if (imm == null) return;
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
@@ -291,7 +275,7 @@ public final class KeyboardUtils {
                 if (view.getRootView() == window.getDecorView().getRootView()) {
                     leakViewField.set(imm, null);
                 }
-            } catch (Throwable ignore) { /**/ }
+            } catch (Throwable ignore) {/**/}
         }
     }
 

@@ -53,14 +53,16 @@ class AppActivity : CommonTitleActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        appInstallAppBtn.setOnClickListener(this)
-        appInstallAppSilentBtn.setOnClickListener(this)
-        appUninstallAppBtn.setOnClickListener(this)
-        appUninstallAppSilentBtn.setOnClickListener(this)
-        appLaunchAppBtn.setOnClickListener(this)
-        appRelaunchAppBtn.setOnClickListener(this)
-        appExitAppBtn.setOnClickListener(this)
-        appLaunchAppDetailsSettingsBtn.setOnClickListener(this)
+        applyDebouncingClickListener(
+                appInstallAppBtn,
+                appInstallAppSilentBtn,
+                appUninstallAppBtn,
+                appUninstallAppSilentBtn,
+                appLaunchAppBtn,
+                appRelaunchAppBtn,
+                appExitAppBtn,
+                appLaunchAppDetailsSettingsBtn
+        )
         SpanUtils.with(appAboutTv)
                 .appendLine("isAppRoot: " + AppUtils.isAppRoot())
                 .appendLine("isAppDebug: " + AppUtils.isAppDebug())
@@ -84,7 +86,7 @@ class AppActivity : CommonTitleActivity() {
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.appInstallAppBtn -> if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
                 ToastUtils.showShort(R.string.app_install_tips)

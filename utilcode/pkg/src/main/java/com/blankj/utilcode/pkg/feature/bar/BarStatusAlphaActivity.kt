@@ -55,7 +55,7 @@ class BarStatusAlphaActivity : CommonBackActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        barStatusAlphaSetTransparentBtn.setOnClickListener(this)
+        applyDebouncingClickListener(barStatusAlphaSetTransparentBtn)
         barStatusAlphaChangeAlphaSb.setOnSeekBarChangeListener(translucentListener)
         barStatusAlphaAboutTv.text = mAlpha.toString()
 
@@ -65,7 +65,7 @@ class BarStatusAlphaActivity : CommonBackActivity() {
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.barStatusAlphaSetTransparentBtn -> barStatusAlphaChangeAlphaSb.progress = 0
         }

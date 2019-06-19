@@ -40,10 +40,12 @@ class KeyboardActivity : CommonTitleActivity() {
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         KeyboardUtils.fixAndroidBug5497(this)
-        keyboardHideSoftInputBtn.setOnClickListener(this)
-        keyboardShowSoftInputBtn.setOnClickListener(this)
-        keyboardToggleSoftInputBtn.setOnClickListener(this)
-        keyboardShowDialogBtn.setOnClickListener(this)
+        applyDebouncingClickListener(
+                keyboardHideSoftInputBtn,
+                keyboardShowSoftInputBtn,
+                keyboardToggleSoftInputBtn,
+                keyboardShowDialogBtn
+        )
 
         KeyboardUtils.registerSoftInputChangedListener(this) { height ->
             SpanUtils.with(keyboardAboutTv)
@@ -55,7 +57,7 @@ class KeyboardActivity : CommonTitleActivity() {
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.keyboardHideSoftInputBtn -> KeyboardUtils.hideSoftInput(this)
             R.id.keyboardShowSoftInputBtn -> KeyboardUtils.showSoftInput(keyboardEt)

@@ -497,7 +497,7 @@ public final class Utils {
                     if (view.getRootView() == activity.getWindow().getDecorView().getRootView()) {
                         leakViewField.set(imm, null);
                     }
-                } catch (Throwable ignore) { /**/ }
+                } catch (Throwable ignore) {/**/}
             }
         }
     }

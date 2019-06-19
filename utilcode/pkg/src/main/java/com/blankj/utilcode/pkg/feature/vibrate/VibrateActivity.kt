@@ -46,7 +46,7 @@ class VibrateActivity : CommonTitleActivity() {
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {}
+    override fun onDebouncingClick(view: View) {}
 
     override fun onDestroy() {
         super.onDestroy()

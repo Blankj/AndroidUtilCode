@@ -52,6 +52,7 @@ public final class ActivityUtils {
      * @return the activity by context.
      */
     public static Activity getActivityByContext(@NonNull Context context) {
+        if (context instanceof Activity) return (Activity) context;
         while (context instanceof ContextWrapper) {
             if (context instanceof Activity) {
                 return (Activity) context;
@@ -1085,6 +1086,16 @@ public final class ActivityUtils {
      */
     public static Activity getTopActivity() {
         return Utils.getActivityLifecycle().getTopActivity();
+    }
+
+    /**
+     * Return whether the activity is alive.
+     *
+     * @param context The context.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isActivityAlive(final Context context) {
+        return isActivityAlive(getActivityByContext(context));
     }
 
     /**

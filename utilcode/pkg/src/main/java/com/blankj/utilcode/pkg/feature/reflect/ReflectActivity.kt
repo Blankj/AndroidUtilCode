@@ -46,7 +46,7 @@ class ReflectActivity : CommonTitleActivity() {
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {}
+    override fun onDebouncingClick(view: View) {}
 
     override fun onDestroy() {
         ReflectUtils.reflect(TestPrivateStaticFinal::class.java).field("I1", 1)

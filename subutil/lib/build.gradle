@@ -15,6 +15,7 @@ readme {
 dependencies {
     compileOnly gradle.ext.dep.support_appcompat_v7
     compileOnly gradle.ext.dep.support_material
+    compileOnly gradle.ext.dep.utilcode_lib
     api(gradle.ext.dep.glide) {
         exclude group: "com.android.support"
     }

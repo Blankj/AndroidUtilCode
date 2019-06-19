@@ -153,27 +153,29 @@ class LogActivity : CommonTitleActivity(),
         logFileFilterCb.setOnCheckedChangeListener(this)
         logFileFilterCb.text = String.format("FileFilter: %s", mConfig.fileFilter)
 
-        logNoTagBtn.setOnClickListener(this)
-        logWithTagBtn.setOnClickListener(this)
-        logInNewThreadBtn.setOnClickListener(this)
-        logNullBtn.setOnClickListener(this)
-        logManyParamsBtn.setOnClickListener(this)
-        logLongBtn.setOnClickListener(this)
-        logFileBtn.setOnClickListener(this)
-        logJsonBtn.setOnClickListener(this)
-        logXmlBtn.setOnClickListener(this)
-        logArrayBtn.setOnClickListener(this)
-        logThrowableBtn.setOnClickListener(this)
-        logBundleBtn.setOnClickListener(this)
-        logIntentBtn.setOnClickListener(this)
-        logArrayListBtn.setOnClickListener(this)
-        logMapBtn.setOnClickListener(this)
+        applyDebouncingClickListener(
+                logNoTagBtn,
+                logWithTagBtn,
+                logInNewThreadBtn,
+                logNullBtn,
+                logManyParamsBtn,
+                logLongBtn,
+                logFileBtn,
+                logJsonBtn,
+                logXmlBtn,
+                logArrayBtn,
+                logThrowableBtn,
+                logBundleBtn,
+                logIntentBtn,
+                logArrayListBtn,
+                logMapBtn
+        )
         updateAboutLog()
     }
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.logNoTagBtn -> {
                 LogUtils.v("verbose")

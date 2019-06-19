@@ -12,6 +12,7 @@ import com.blankj.utilcode.pkg.feature.app.AppActivity
 import com.blankj.utilcode.pkg.feature.bar.BarActivity
 import com.blankj.utilcode.pkg.feature.brightness.BrightnessActivity
 import com.blankj.utilcode.pkg.feature.clean.CleanActivity
+import com.blankj.utilcode.pkg.feature.click.ClickActivity
 import com.blankj.utilcode.pkg.feature.device.DeviceActivity
 import com.blankj.utilcode.pkg.feature.flashlight.FlashlightActivity
 import com.blankj.utilcode.pkg.feature.fragment.FragmentActivity
@@ -35,6 +36,7 @@ import com.blankj.utilcode.pkg.feature.span.SpanActivity
 import com.blankj.utilcode.pkg.feature.toast.ToastActivity
 import com.blankj.utilcode.pkg.feature.vibrate.VibrateActivity
 import com.blankj.utilcode.util.BusUtils
+import kotlinx.android.synthetic.main.activity_util_core.*
 
 /**
  * ```
@@ -64,129 +66,78 @@ class CoreUtilActivity : CommonTitleActivity() {
         return R.layout.activity_util_core
     }
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {}
+    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
+        applyDebouncingClickListener(
+                coreUtilActivityBtn,
+                coreUtilAdaptScreenBtn,
+                coreUtilAppBtn,
+                coreUtilBarBtn,
+                coreUtilBrightnessBtn,
+                coreUtilBusBtn,
+                coreUtilCleanBtn,
+                coreUtilClickBtn,
+                coreUtilCrashBtn,
+                coreUtilDeviceBtn,
+                coreUtilFlashlightBtn,
+                coreUtilFragmentBtn,
+                coreUtilImageBtn,
+                coreUtilKeyboardBtn,
+                coreUtilLogBtn,
+                coreUtilMetaDataBtn,
+                coreUtilNetworkBtn,
+                coreUtilPathBtn,
+                coreUtilPermissionBtn,
+                coreUtilPhoneBtn,
+                coreUtilProcessBtn,
+                coreUtilReflectBtn,
+                coreUtilResourceBtn,
+                coreUtilRomBtn,
+                coreUtilScreenBtn,
+                coreUtilSdcardBtn,
+                coreUtilSnackbarBtn,
+                coreUtilSpStaticBtn,
+                coreUtilSpanBtn,
+                coreUtilToastBtn,
+                coreUtilVibrateBtn
+        )
+    }
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {}
-
-    fun activityClick(view: View) {
-        ActivityActivity.start(this)
-    }
-
-    fun adaptScreenClick(view: View) {
-        AdaptScreenActivity.start(this)
-    }
-
-    fun appClick(view: View) {
-        AppActivity.start(this)
-    }
-
-    fun barClick(view: View) {
-        BarActivity.start(this)
-    }
-
-    fun brightnessClick(view: View) {
-        BrightnessActivity.start(this)
-    }
-
-    fun cleanClick(view: View) {
-        CleanActivity.start(this)
-    }
-
-    fun busClick(view: View) {
-        BusUtils.postStatic<Any>("BusActivity#start", this)
-    }
-
-    fun crashClick(view: View) {
-        throw NullPointerException("crash test")
-    }
-
-    fun deviceClick(view: View) {
-        DeviceActivity.start(this)
-    }
-
-    fun flashlightClick(view: View) {
-        FlashlightActivity.start(this)
-    }
-
-    fun fragmentClick(view: View) {
-        FragmentActivity.start(this)
-    }
-
-    fun imageClick(view: View) {
-        ImageActivity.start(this)
-    }
-
-    fun keyboardClick(view: View) {
-        KeyboardActivity.start(this)
-    }
-
-    fun logClick(view: View) {
-        LogActivity.start(this)
-    }
-
-    fun metaDataClick(view: View) {
-        MetaDataActivity.start(this)
-    }
-
-    fun networkClick(view: View) {
-        NetworkActivity.start(this)
-    }
-
-    fun pathClick(view: View) {
-        PathActivity.start(this)
-    }
-
-    fun permissionClick(view: View) {
-        PermissionActivity.start(this)
-    }
-
-    fun phoneClick(view: View) {
-        PhoneActivity.start(this)
-    }
-
-    fun processClick(view: View) {
-        ProcessActivity.start(this)
-    }
-
-    fun reflectClick(view: View) {
-        ReflectActivity.start(this)
-    }
-
-    fun resourceClick(view: View) {
-        ResourceActivity.start(this)
-    }
-
-    fun romClick(view: View) {
-        RomActivity.start(this)
-    }
-
-    fun screenClick(view: View) {
-        ScreenActivity.start(this)
-    }
-
-    fun sdcardClick(view: View) {
-        SDCardActivity.start(this)
-    }
-
-    fun snackbarClick(view: View) {
-        SnackbarActivity.start(this)
-    }
-
-    fun spStaticClick(view: View) {
-        SPStaticActivity.start(this)
-    }
-
-    fun spannableClick(view: View) {
-        SpanActivity.start(this)
-    }
-
-    fun toastClick(view: View) {
-        ToastActivity.start(this)
-    }
-
-    fun vibrateClick(view: View) {
-        VibrateActivity.start(this)
+    override fun onDebouncingClick(view: View) {
+        when (view.id) {
+            R.id.coreUtilActivityBtn -> ActivityActivity.start(this)
+            R.id.coreUtilAdaptScreenBtn -> AdaptScreenActivity.start(this)
+            R.id.coreUtilAppBtn -> AppActivity.start(this)
+            R.id.coreUtilBarBtn -> BarActivity.start(this)
+            R.id.coreUtilBrightnessBtn -> BrightnessActivity.start(this)
+            R.id.coreUtilBusBtn -> BusUtils.postStatic<Any>("BusActivity#start", this)
+            R.id.coreUtilCleanBtn -> CleanActivity.start(this)
+            R.id.coreUtilClickBtn -> ClickActivity.start(this)
+            R.id.coreUtilCrashBtn -> throw NullPointerException("crash test")
+            R.id.coreUtilDeviceBtn -> DeviceActivity.start(this)
+            R.id.coreUtilFlashlightBtn -> FlashlightActivity.start(this)
+            R.id.coreUtilFragmentBtn -> FragmentActivity.start(this)
+            R.id.coreUtilImageBtn -> ImageActivity.start(this)
+            R.id.coreUtilKeyboardBtn -> KeyboardActivity.start(this)
+            R.id.coreUtilLogBtn -> LogActivity.start(this)
+            R.id.coreUtilMetaDataBtn -> MetaDataActivity.start(this)
+            R.id.coreUtilNetworkBtn -> NetworkActivity.start(this)
+            R.id.coreUtilNetworkBtn -> NetworkActivity.start(this)
+            R.id.coreUtilPathBtn -> PathActivity.start(this)
+            R.id.coreUtilPermissionBtn -> PermissionActivity.start(this)
+            R.id.coreUtilPhoneBtn -> PhoneActivity.start(this)
+            R.id.coreUtilProcessBtn -> ProcessActivity.start(this)
+            R.id.coreUtilReflectBtn -> ReflectActivity.start(this)
+            R.id.coreUtilResourceBtn -> ResourceActivity.start(this)
+            R.id.coreUtilRomBtn -> RomActivity.start(this)
+            R.id.coreUtilScreenBtn -> ScreenActivity.start(this)
+            R.id.coreUtilSdcardBtn -> SDCardActivity.start(this)
+            R.id.coreUtilSnackbarBtn -> SnackbarActivity.start(this)
+            R.id.coreUtilSpStaticBtn -> SPStaticActivity.start(this)
+            R.id.coreUtilSpanBtn -> SpanActivity.start(this)
+            R.id.coreUtilToastBtn -> ToastActivity.start(this)
+            R.id.coreUtilVibrateBtn -> VibrateActivity.start(this)
+        }
     }
 }

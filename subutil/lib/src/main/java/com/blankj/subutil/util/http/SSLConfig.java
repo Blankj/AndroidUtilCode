@@ -67,11 +67,11 @@ public final class SSLConfig {
                         new X509ExtendedTrustManager() {
                             @SuppressLint("TrustAllX509TrustManager")
                             @Override
-                            public void checkClientTrusted(X509Certificate[] chain, String authType) { /**/ }
+                            public void checkClientTrusted(X509Certificate[] chain, String authType) {/**/}
 
                             @SuppressLint("TrustAllX509TrustManager")
                             @Override
-                            public void checkServerTrusted(X509Certificate[] chain, String authType) { /**/ }
+                            public void checkServerTrusted(X509Certificate[] chain, String authType) {/**/}
 
                             @Override
                             public X509Certificate[] getAcceptedIssuers() {
@@ -80,19 +80,19 @@ public final class SSLConfig {
 
                             @SuppressLint("TrustAllX509TrustManager")
                             @Override
-                            public void checkClientTrusted(X509Certificate[] chain, String authType, Socket socket) { /**/ }
+                            public void checkClientTrusted(X509Certificate[] chain, String authType, Socket socket) {/**/}
 
                             @SuppressLint("TrustAllX509TrustManager")
                             @Override
-                            public void checkServerTrusted(X509Certificate[] chain, String authType, Socket socket) { /**/ }
+                            public void checkServerTrusted(X509Certificate[] chain, String authType, Socket socket) {/**/}
 
                             @SuppressLint("TrustAllX509TrustManager")
                             @Override
-                            public void checkClientTrusted(X509Certificate[] chain, String authType, SSLEngine engine) { /**/ }
+                            public void checkClientTrusted(X509Certificate[] chain, String authType, SSLEngine engine) {/**/}
 
                             @SuppressLint("TrustAllX509TrustManager")
                             @Override
-                            public void checkServerTrusted(X509Certificate[] chain, String authType, SSLEngine engine) { /**/ }
+                            public void checkServerTrusted(X509Certificate[] chain, String authType, SSLEngine engine) {/**/}
                         }
                 };
             } else {
@@ -100,11 +100,11 @@ public final class SSLConfig {
                         new X509TrustManager() {
                             @SuppressLint("TrustAllX509TrustManager")
                             @Override
-                            public void checkClientTrusted(X509Certificate[] chain, String authType) { /**/ }
+                            public void checkClientTrusted(X509Certificate[] chain, String authType) {/**/}
 
                             @SuppressLint("TrustAllX509TrustManager")
                             @Override
-                            public void checkServerTrusted(X509Certificate[] chain, String authType) { /**/ }
+                            public void checkServerTrusted(X509Certificate[] chain, String authType) {/**/}
 
                             @Override
                             public X509Certificate[] getAcceptedIssuers() {

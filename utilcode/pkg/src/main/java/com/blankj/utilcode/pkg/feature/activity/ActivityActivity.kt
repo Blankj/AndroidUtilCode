@@ -54,35 +54,37 @@ class ActivityActivity : CommonTitleActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        activityClzBtn.setOnClickListener(this)
-        activityClzOptBtn.setOnClickListener(this)
-        activityClzAnimBtn.setOnClickListener(this)
-        activityActClzBtn.setOnClickListener(this)
-        activityActClzOptBtn.setOnClickListener(this)
-        activityActClzSharedElementBtn.setOnClickListener(this)
-        activityActClzAnimBtn.setOnClickListener(this)
-        activityPkgClsBtn.setOnClickListener(this)
-        activityPkgClsOptBtn.setOnClickListener(this)
-        activityPkgClsAnimBtn.setOnClickListener(this)
-        activityActPkgClsBtn.setOnClickListener(this)
-        activityActPkgClsOptBtn.setOnClickListener(this)
-        activityActPkgClsSharedElementBtn.setOnClickListener(this)
-        activityActPkgClsAnimBtn.setOnClickListener(this)
-        activityIntentBtn.setOnClickListener(this)
-        activityIntentOptBtn.setOnClickListener(this)
-        activityIntentSharedElementBtn.setOnClickListener(this)
-        activityIntentAnimBtn.setOnClickListener(this)
-        activityIntentsBtn.setOnClickListener(this)
-        activityIntentsOptBtn.setOnClickListener(this)
-        activityIntentsAnimBtn.setOnClickListener(this)
-        activityActIntentsBtn.setOnClickListener(this)
-        activityActIntentsOptBtn.setOnClickListener(this)
-        activityActIntentsAnimBtn.setOnClickListener(this)
-        activityActClzSharedElementBtn.setOnClickListener(this)
-        activityStartHomeActivityBtn.setOnClickListener(this)
-        activityFinishActivityBtn.setOnClickListener(this)
-        activityFinishToActivityBtn.setOnClickListener(this)
-        activityFinishAllActivitiesBtn.setOnClickListener(this)
+        applyDebouncingClickListener(
+                activityClzBtn,
+                activityClzOptBtn,
+                activityClzAnimBtn,
+                activityActClzBtn,
+                activityActClzOptBtn,
+                activityActClzSharedElementBtn,
+                activityActClzAnimBtn,
+                activityPkgClsBtn,
+                activityPkgClsOptBtn,
+                activityPkgClsAnimBtn,
+                activityActPkgClsBtn,
+                activityActPkgClsOptBtn,
+                activityActPkgClsSharedElementBtn,
+                activityActPkgClsAnimBtn,
+                activityIntentBtn,
+                activityIntentOptBtn,
+                activityIntentSharedElementBtn,
+                activityIntentAnimBtn,
+                activityIntentsBtn,
+                activityIntentsOptBtn,
+                activityIntentsAnimBtn,
+                activityActIntentsBtn,
+                activityActIntentsOptBtn,
+                activityActIntentsAnimBtn,
+                activityActClzSharedElementBtn,
+                activityStartHomeActivityBtn,
+                activityFinishActivityBtn,
+                activityFinishToActivityBtn,
+                activityFinishAllActivitiesBtn
+        )
         SpanUtils.with(activityAboutTv)
                 .appendLine("isActivityExists: " + ActivityUtils.isActivityExists(AppUtils.getAppPackageName(), SubActivityActivity::class.java.name))
                 .appendLine("getLauncherActivity: " + ActivityUtils.getLauncherActivity(AppUtils.getAppPackageName()))
@@ -103,7 +105,7 @@ class ActivityActivity : CommonTitleActivity() {
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.activityClzBtn -> ActivityUtils.startActivity(SubActivityActivity::class.java)
             R.id.activityClzOptBtn -> ActivityUtils.startActivity(SubActivityActivity::class.java,

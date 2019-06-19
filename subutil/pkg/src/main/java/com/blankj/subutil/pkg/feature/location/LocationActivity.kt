@@ -90,7 +90,7 @@ class LocationActivity : CommonTitleActivity() {
         bindService(Intent(this, LocationService::class.java), conn, Context.BIND_AUTO_CREATE)
     }
 
-    override fun onWidgetClick(view: View) {}
+    override fun onDebouncingClick(view: View) {}
 
     override fun onDestroy() {
         unbindService(conn)

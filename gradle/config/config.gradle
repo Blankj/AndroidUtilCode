@@ -8,8 +8,8 @@ gradle.ext {
     compileSdkVersion = 28
     minSdkVersion = 14
     targetSdkVersion = 27
-    versionCode = 1_024_002
-    versionName = '1.24.2'// E.g. 1.9.72 => 1,009,072
+    versionCode = 1_024_003
+    versionName = '1.24.3'// E.g. 1.9.72 => 1,009,072
 
     // lib version
     kotlin_version = '1.3.10'
@@ -33,10 +33,14 @@ gradle.ext {
             launcher_pkg               : new DepConfig(":launcher:pkg"),
             lib_base                   : new DepConfig(":lib:base"),
             lib_common                 : new DepConfig(":lib:common"),
+
             subutil_app                : new DepConfig(":subutil:app"),
+            subutil_export             : new DepConfig(":subutil:export"),
             subutil_lib                : new DepConfig(":subutil:lib"),
             subutil_pkg                : new DepConfig(":subutil:pkg"),
+
             utilcode_app               : new DepConfig(":utilcode:app"),
+            utilcode_export            : new DepConfig(":utilcode:export"),
             utilcode_lib               : new DepConfig(true/*是否本地调试*/, ":utilcode:lib", "com.blankj:utilcode:$versionName"),
             utilcode_pkg               : new DepConfig(":utilcode:pkg"),
 

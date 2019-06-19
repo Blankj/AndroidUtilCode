@@ -36,20 +36,22 @@ class BarActivity : CommonTitleActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        barStatusAboutBtn.setOnClickListener(this)
-        barStatusSetColorBtn.setOnClickListener(this)
-        barStatusSetAlphaBtn.setOnClickListener(this)
-        barStatusSetImageViewBtn.setOnClickListener(this)
-        barStatusSetCustomBtn.setOnClickListener(this)
-        barStatusSetFragmentBtn.setOnClickListener(this)
-        barStatusSetDrawerBtn.setOnClickListener(this)
-        barNotificationAboutBtn.setOnClickListener(this)
-        barNavAboutBtn.setOnClickListener(this)
+        applyDebouncingClickListener(
+                barStatusAboutBtn,
+                barStatusSetColorBtn,
+                barStatusSetAlphaBtn,
+                barStatusSetImageViewBtn,
+                barStatusSetCustomBtn,
+                barStatusSetFragmentBtn,
+                barStatusSetDrawerBtn,
+                barNotificationAboutBtn,
+                barNavAboutBtn
+        )
     }
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.barStatusAboutBtn -> BarStatusActivity.start(this)
             R.id.barStatusSetColorBtn -> BarStatusColorActivity.start(this)

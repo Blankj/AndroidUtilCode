@@ -81,8 +81,10 @@ class BarStatusDrawerActivity : CommonDrawerActivity() {
         barStatusDrawerAlphaCb.setOnCheckedChangeListener(mAlphaCheckedChangeListener)
         barStatusDrawerFrontCb.setOnCheckedChangeListener(mFrontCheckedChangeListener)
         barStatusDrawerChangeAlphaSb.setOnSeekBarChangeListener(mColorListener)
-        barStatusDrawerRandomColorBtn.setOnClickListener(this)
-        barStatusDrawerSetTransparentBtn.setOnClickListener(this)
+        applyDebouncingClickListener(
+                barStatusDrawerRandomColorBtn,
+                barStatusDrawerSetTransparentBtn
+        )
 
         barStatusDrawerChangeAlphaSb.visibility = View.GONE
         barStatusDrawerSetTransparentBtn.visibility = View.GONE
@@ -92,7 +94,7 @@ class BarStatusDrawerActivity : CommonDrawerActivity() {
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.barStatusDrawerRandomColorBtn -> {
                 mColor = ColorUtils.getRandomColor()

@@ -42,21 +42,23 @@ class ToastActivity : CommonTitleActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        toastShowShortBtn.setOnClickListener(this)
-        toastShowLongBtn.setOnClickListener(this)
-        toastShowGreenFontBtn.setOnClickListener(this)
-        toastShowBgColorBtn.setOnClickListener(this)
-        toastShowBgResourceBtn.setOnClickListener(this)
-        toastShowSpanBtn.setOnClickListener(this)
-        toastShowCustomViewBtn.setOnClickListener(this)
-        toastShowMiddleBtn.setOnClickListener(this)
-        toastCancelBtn.setOnClickListener(this)
-        toastShowToastDialogBtn.setOnClickListener(this)
+        applyDebouncingClickListener(
+                toastShowShortBtn,
+                toastShowLongBtn,
+                toastShowGreenFontBtn,
+                toastShowBgColorBtn,
+                toastShowBgResourceBtn,
+                toastShowSpanBtn,
+                toastShowCustomViewBtn,
+                toastShowMiddleBtn,
+                toastCancelBtn,
+                toastShowToastDialogBtn
+        )
     }
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         resetToast()
         when (view.id) {
             R.id.toastShowShortBtn -> Thread(Runnable { ToastUtils.showShort(R.string.toast_short) }).start()

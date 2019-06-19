@@ -62,7 +62,7 @@ class FlashlightActivity : CommonTitleActivity() {
         updateAboutFlashlight()
     }
 
-    override fun onWidgetClick(view: View) {}
+    override fun onDebouncingClick(view: View) {}
 
     private fun updateAboutFlashlight() {
         SpanUtils.with(flashlightAboutTv)

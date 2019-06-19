@@ -35,7 +35,7 @@ class AdaptCloseActivity : CommonBackActivity() {
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {}
+    override fun onDebouncingClick(view: View) {}
 
     override fun getResources(): Resources {
         return AdaptScreenUtils.closeAdapt(super.getResources())

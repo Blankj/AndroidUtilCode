@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.blankj.utilcode.util.AntiShakeUtils;
+import com.blankj.utilcode.util.ClickUtils;
 
 /**
  * <pre>
@@ -32,11 +32,16 @@ public abstract class BaseFragment extends Fragment
     private static final String TAG                  = "BaseFragment";
     private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
 
+    private ClickUtils.OnDebouncingClickListener mDebouncingClick = new ClickUtils.OnDebouncingClickListener() {
+        @Override
+        public void onDebouncingClick(View v) {
+            BaseFragment.this.onDebouncingClick(v);
+        }
+    };
+
     protected Activity       mActivity;
     protected LayoutInflater mInflater;
     protected View           mContentView;
-
-    private long lastClick = 0;
 
     @Override
     public void onAttach(Context context) {
@@ -114,9 +119,8 @@ public abstract class BaseFragment extends Fragment
         super.onDestroy();
     }
 
-    @Override
-    public void onClick(View view) {
-        if (AntiShakeUtils.isValid(view)) onWidgetClick(view);
+    public void applyDebouncingClickListener(View... views) {
+        ClickUtils.applyGlobalDebouncing(views, mDebouncingClick);
     }
 
     public <T extends View> T findViewById(@IdRes int id) {

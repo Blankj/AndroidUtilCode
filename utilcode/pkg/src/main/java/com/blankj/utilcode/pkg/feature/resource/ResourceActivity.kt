@@ -41,8 +41,10 @@ class ResourceActivity : CommonTitleActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        resourceCopyFileFromAssets.setOnClickListener(this)
-        resourceCopyFileFromRaw.setOnClickListener(this)
+        applyDebouncingClickListener(
+                resourceCopyFileFromAssets,
+                resourceCopyFileFromRaw
+        )
 
         SpanUtils.with(resourceAboutTv)
                 .appendLine("readAssets2String: " + ResourceUtils.readAssets2String("test/test.txt"))
@@ -53,7 +55,7 @@ class ResourceActivity : CommonTitleActivity() {
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.resourceCopyFileFromAssets -> ResourceUtils.copyFileFromAssets("test", Config.CACHE_PATH + "assets/test")
             R.id.resourceCopyFileFromRaw -> ResourceUtils.copyFileFromRaw(R.raw.test, Config.CACHE_PATH + "raw/test.txt")

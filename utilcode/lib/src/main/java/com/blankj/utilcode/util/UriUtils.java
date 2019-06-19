@@ -11,10 +11,10 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 
-import java.io.File;
-
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
+
+import java.io.File;
 
 /**
  * <pre>
@@ -57,7 +57,7 @@ public final class UriUtils {
         String scheme = uri.getScheme();
         String path = uri.getPath();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
-                && path != null && path.startsWith("/external")) {
+                && path != null && path.startsWith("/external/")) {
             return new File(Environment.getExternalStorageDirectory().getAbsolutePath()
                     + path.replace("/external", ""));
         }
@@ -65,7 +65,8 @@ public final class UriUtils {
             if (path != null) return new File(path);
             Log.d("UriUtils", uri.toString() + " parse failed. -> 0");
             return null;
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
+        }// end 0
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
                 && DocumentsContract.isDocumentUri(Utils.getApp(), uri)) {
             if ("com.android.externalstorage.documents".equals(authority)) {
                 final String docId = DocumentsContract.getDocumentId(uri);
@@ -74,23 +75,29 @@ public final class UriUtils {
                 if ("primary".equalsIgnoreCase(type)) {
                     return new File(Environment.getExternalStorageDirectory() + "/" + split[1]);
                 }
-                Log.d("UriUtils", uri.toString() + " parse failed. -> 1");
+                Log.d("UriUtils", uri.toString() + " parse failed. -> 1_0");
                 return null;
-            } else if ("com.android.providers.downloads.documents".equals(authority)) {
-                String id = DocumentsContract.getDocumentId(uri);
+            }// end 1_0
+            else if ("com.android.providers.downloads.documents".equals(authority)) {
+                final String id = DocumentsContract.getDocumentId(uri);
                 if (!TextUtils.isEmpty(id)) {
                     if (id.startsWith("raw:")) {
                         return new File(id.substring(4));
                     }
-                    final Uri contentUri = ContentUris.withAppendedId(
-                            Uri.parse(Environment.DIRECTORY_DOWNLOADS),
-                            Long.valueOf(id)
-                    );
-                    return getFileFromUri(contentUri, 2);
+                    try {
+                        final Uri contentUri = ContentUris.withAppendedId(
+                                Uri.parse("content://downloads/public_downloads"),
+                                Long.valueOf(id)
+                        );
+                        return getFileFromUri(contentUri, "1_1");
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
                 }
-                Log.d("UriUtils", uri.toString() + " parse failed. -> 3");
+                Log.d("UriUtils", uri.toString() + " parse failed. -> 1_1");
                 return null;
-            } else if ("com.android.providers.media.documents".equals(authority)) {
+            }// end 1_1
+            else if ("com.android.providers.media.documents".equals(authority)) {
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
                 final String type = split[0];
@@ -102,34 +109,38 @@ public final class UriUtils {
                 } else if ("audio".equals(type)) {
                     contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
                 } else {
-                    Log.d("UriUtils", uri.toString() + " parse failed. -> 3");
+                    Log.d("UriUtils", uri.toString() + " parse failed. -> 1_2");
                     return null;
                 }
                 final String selection = "_id=?";
                 final String[] selectionArgs = new String[]{split[1]};
-                return getFileFromUri(contentUri, selection, selectionArgs, 4);
-            } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
-                return getFileFromUri(uri, 5);
-            } else {
-                Log.d("UriUtils", uri.toString() + " parse failed. -> 6");
+                return getFileFromUri(contentUri, selection, selectionArgs, "1_2");
+            }// end 1_2
+            else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+                return getFileFromUri(uri, "1_3");
+            }// end 1_3
+            else {
+                Log.d("UriUtils", uri.toString() + " parse failed. -> 1_4");
                 return null;
-            }
-        } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
-            return getFileFromUri(uri, 7);
-        } else {
-            Log.d("UriUtils", uri.toString() + " parse failed. -> 8");
+            }// end 1_4
+        }// end 1
+        else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+            return getFileFromUri(uri, "2");
+        }// end 2
+        else {
+            Log.d("UriUtils", uri.toString() + " parse failed. -> 3");
             return null;
-        }
+        }// end 3
     }
 
-    private static File getFileFromUri(final Uri uri, final int code) {
+    private static File getFileFromUri(final Uri uri, final String code) {
         return getFileFromUri(uri, null, null, code);
     }
 
     private static File getFileFromUri(final Uri uri,
                                        final String selection,
                                        final String[] selectionArgs,
-                                       final int code) {
+                                       final String code) {
         final Cursor cursor = Utils.getApp().getContentResolver().query(
                 uri, new String[]{"_data"}, selection, selectionArgs, null);
         if (cursor == null) {

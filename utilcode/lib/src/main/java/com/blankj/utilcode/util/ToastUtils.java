@@ -12,11 +12,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import androidx.annotation.ColorInt;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.LayoutRes;
-import androidx.annotation.StringRes;
-import androidx.core.app.NotificationManagerCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -24,6 +19,12 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.StringRes;
+import androidx.core.app.NotificationManagerCompat;
 
 import java.lang.reflect.Field;
 
@@ -387,7 +388,7 @@ public final class ToastUtils {
                     mTNmHandlerField.setAccessible(true);
                     Handler tnHandler = (Handler) mTNmHandlerField.get(mTN);
                     mTNmHandlerField.set(mTN, new SafeHandler(tnHandler));
-                } catch (Exception ignored) { /**/ }
+                } catch (Exception ignored) {/**/}
             }
         }
 
@@ -496,7 +497,7 @@ public final class ToastUtils {
                 if (mWM != null) {
                     mWM.addView(mView, mParams);
                 }
-            } catch (Exception ignored) { /**/ }
+            } catch (Exception ignored) {/**/}
 
             Utils.runOnUiThreadDelayed(new Runnable() {
                 @Override
@@ -512,7 +513,7 @@ public final class ToastUtils {
                 if (mWM != null) {
                     mWM.removeViewImmediate(mView);
                 }
-            } catch (Exception ignored) { /**/ }
+            } catch (Exception ignored) {/**/}
             mView = null;
             mWM = null;
             mToast = null;

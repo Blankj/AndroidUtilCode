@@ -9,7 +9,7 @@ import android.view.View;
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.blankj.utilcode.util.AntiShakeUtils;
+import com.blankj.utilcode.util.ClickUtils;
 
 /**
  * <pre>
@@ -21,6 +21,13 @@ import com.blankj.utilcode.util.AntiShakeUtils;
  */
 public abstract class BaseActivity extends AppCompatActivity
         implements IBaseView {
+
+    private View.OnClickListener mClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            onDebouncingClick(v);
+        }
+    };
 
     protected View     mContentView;
     protected Activity mActivity;
@@ -42,11 +49,9 @@ public abstract class BaseActivity extends AppCompatActivity
         setContentView(mContentView = LayoutInflater.from(this).inflate(layoutId, null));
     }
 
-    @Override
-    public void onClick(View view) {
-        if (AntiShakeUtils.isValid(view)) {
-            onWidgetClick(view);
-        }
+    public void applyDebouncingClickListener(View... views) {
+        ClickUtils.applyGlobalDebouncing(views, mClickListener);
+        ClickUtils.applyScale(views);
     }
 }
 

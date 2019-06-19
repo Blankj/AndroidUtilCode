@@ -49,19 +49,21 @@ class SPStaticActivity : CommonTitleActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        spStaticPutStringBtn.setOnClickListener(this)
-        spStaticPutIntBtn.setOnClickListener(this)
-        spStaticPutLongBtn.setOnClickListener(this)
-        spPutFloatBtn.setOnClickListener(this)
-        spStaticPutBooleanBtn.setOnClickListener(this)
-        spStaticClearBtn.setOnClickListener(this)
+        applyDebouncingClickListener(
+                spStaticPutStringBtn,
+                spStaticPutIntBtn,
+                spStaticPutLongBtn,
+                spPutFloatBtn,
+                spStaticPutBooleanBtn,
+                spStaticClearBtn
+        )
     }
 
     override fun doBusiness() {
         updateAboutSp()
     }
 
-    override fun onWidgetClick(view: View) {
+    override fun onDebouncingClick(view: View) {
         when (view.id) {
             R.id.spStaticPutStringBtn -> SPStaticUtils.put("STRING", "string")
             R.id.spStaticPutIntBtn -> SPStaticUtils.put("INT", 21)

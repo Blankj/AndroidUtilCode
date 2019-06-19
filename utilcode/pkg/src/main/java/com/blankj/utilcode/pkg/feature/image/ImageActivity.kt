@@ -102,7 +102,7 @@ class ImageActivity : CommonTaskActivity<List<BaseCell>>() {
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {}
+    override fun onDebouncingClick(view: View) {}
 }
 
 class ImageCell(@StringRes val resId: Int, private val image: Bitmap) : BaseCell(R.layout.item_image) {

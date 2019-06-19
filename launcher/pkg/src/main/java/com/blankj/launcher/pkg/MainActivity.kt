@@ -55,18 +55,20 @@ class MainActivity : CommonDrawerActivity() {
         BarUtils.setStatusBarColor4Drawer(mBaseDrawerRootLayout, launcherMainFakeStatusBar, Color.TRANSPARENT, false)
         BarUtils.addMarginTopEqualStatusBarHeight(launcherMainToolbar)
 
-        launcherMainCoreUtilBtn.setOnClickListener {
-            BusUtils.postStatic<Any>("CoreUtilActivity#start", this)
-        }
-
-        launcherMainSubUtilBtn.setOnClickListener {
-            BusUtils.postStatic<Any>("SubUtilActivity#start", this)
-        }
+        applyDebouncingClickListener(
+                launcherMainCoreUtilBtn,
+                launcherMainSubUtilBtn
+        )
     }
 
     override fun doBusiness() {}
 
-    override fun onWidgetClick(view: View) {}
+    override fun onDebouncingClick(view: View) {
+        when (view.id) {
+            R.id.launcherMainCoreUtilBtn -> BusUtils.postStatic<Any>("CoreUtilActivity#start", this)
+            R.id.launcherMainSubUtilBtn -> BusUtils.postStatic<Any>("SubUtilActivity#start", this)
+        }
+    }
 
     override fun onBackPressed() {
         ActivityUtils.startHomeActivity()
