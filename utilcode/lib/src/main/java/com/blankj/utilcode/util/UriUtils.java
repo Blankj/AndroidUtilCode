@@ -56,7 +56,7 @@ public final class UriUtils {
         String scheme = uri.getScheme();
         String path = uri.getPath();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
-                && path != null && path.startsWith("/external")) {
+                && path != null && path.startsWith("/external/")) {
             return new File(Environment.getExternalStorageDirectory().getAbsolutePath()
                     + path.replace("/external", ""));
         }
