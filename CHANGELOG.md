@@ -1,3 +1,4 @@
+* `19/06/20` [fix] BusUtils' permission. Publish v1.24.4.
 * `19/06/19` [fix] UriUtils. Publish v1.24.3.
 * `19/06/18` [add] ClickUtils, ViewUtils.
 * `19/06/07` [fix] LogUtils file name contains ':'. Publish v1.24.2.

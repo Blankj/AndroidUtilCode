@@ -8,8 +8,8 @@ gradle.ext {
     compileSdkVersion = 28
     minSdkVersion = 14
     targetSdkVersion = 27
-    versionCode = 1_024_003
-    versionName = '1.24.3'// E.g. 1.9.72 => 1,009,072
+    versionCode = 1_024_004
+    versionName = '1.24.4'// E.g. 1.9.72 => 1,009,072
 
     // lib version
     kotlin_version = '1.3.10'

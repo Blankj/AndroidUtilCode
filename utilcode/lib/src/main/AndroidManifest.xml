@@ -1,8 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.blankj.utilcode">
 
-    <permission android:name="com.blankj.utilcode.util.bus" />
-
     <application>
 
         <activity
@@ -23,9 +21,7 @@
                 android:resource="@xml/util_code_provider_paths" />
         </provider>
 
-        <service
-            android:name="com.blankj.utilcode.util.BusUtils$ServerService"
-            android:permission="com.blankj.utilcode.util.bus">
+        <service android:name="com.blankj.utilcode.util.BusUtils$ServerService">
             <intent-filter>
                 <action android:name="${applicationId}.messenger" />
             </intent-filter>

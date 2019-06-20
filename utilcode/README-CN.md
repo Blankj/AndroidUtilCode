@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.24.3'
+implementation 'com.blankj:utilcode:1.24.4'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.24.3'
+implementation 'com.blankj:utilcodex:1.24.4'
 ```
 
 
@@ -39,11 +39,6 @@ adaptHeight: 适配高度
 closeAdapt : 关闭适配（pt 等同于 dp）
 pt2Px      : pt 转 px
 px2Pt      : px 转 pt
-```
-
-* ### AntiShake 相关 -> [AntiShakeUtils.java][antiShake.java]
-```
-isValid: 是否有效
 ```
 
 * ### App 相关 -> [AppUtils.java][app.java] -> [Demo][app.demo]
@@ -975,8 +970,6 @@ getComments       : 获取压缩文件中的注释链表
 
 [adaptScreen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/AdaptScreenUtils.java
 [adaptScreen.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/adaptScreen/AdaptScreenActivity.kt
-
-[antiShake.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/AntiShakeUtils.java
 
 [app.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/AppUtils.java
 [app.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/app/AppActivity.kt

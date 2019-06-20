@@ -2,7 +2,9 @@ package com.blankj.lib.base.rv;
 
 import android.util.SparseArray;
 import android.util.SparseIntArray;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
@@ -42,5 +44,17 @@ public abstract class BaseCell {
     public BaseCell(View view) {
         viewType = getClass().hashCode();
         VIEW_SPARSE_ARRAY.put(viewType, view);
+    }
+
+    public static BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        int layoutByType = getLayoutByType(viewType);
+        if (layoutByType != -1) {
+            return new BaseViewHolder(LayoutInflater.from(parent.getContext()).inflate(layoutByType, parent, false));
+        }
+        View viewByType = getViewByType(viewType);
+        if (viewByType != null) {
+            return new BaseViewHolder(viewByType);
+        }
+        throw new RuntimeException("onCreateViewHolder: get holder from view type failed.");
     }
 }
