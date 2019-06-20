@@ -1,0 +1,9 @@
+apply {
+    from "${rootDir.path}/gradle/config/configLib.gradle"
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api gradle.ext.dep.utilcode_export
+    api gradle.ext.dep.lib_common
+}

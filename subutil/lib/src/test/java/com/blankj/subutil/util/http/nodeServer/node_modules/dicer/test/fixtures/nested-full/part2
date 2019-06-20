@@ -1,0 +1,12 @@
+--BbC04y
+Content-Disposition: attachment; filename="file.txt"
+Content-Type: text/plain
+
+contents
+--BbC04y
+Content-Disposition: attachment; filename="flowers.jpg"
+Content-Type: image/jpeg
+Content-Transfer-Encoding: binary
+
+contents
+--BbC04y--

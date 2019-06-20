@@ -1,0 +1,9 @@
+test/
+coverage/
+.jshintrc
+.travis.yml
+gulpfile.js
+*.log
+.idea/
+benchmark/
+docs/

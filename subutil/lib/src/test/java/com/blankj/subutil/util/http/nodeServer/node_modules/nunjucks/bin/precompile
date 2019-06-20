@@ -1,0 +1,70 @@
+#!/usr/bin/env node
+var path = require('path');
+var precompile = require('../src/precompile').precompile;
+var Environment = require('../src/environment').Environment;
+var lib = require('../src/lib');
+
+var yargs = require('yargs')
+
+    .usage('$0 [-f|--force] [-a|--filters <filters>] [-n|--name <name>] [-i|--include <regex>] [-x|--exclude <regex>] [-w|--wrapper <wrapper>] <path>')
+    .wrap(80)
+
+    .describe('help', 'Display this help message')
+        .boolean('help')
+        .alias('h', 'help')
+        .alias('?', 'help')
+
+    .describe('force', 'Force compilation to continue on error')
+        .boolean('force')
+        .alias('f', 'force')
+
+    .describe('filters', 'Give the compiler a comma-delimited list of asynchronous filters, required for correctly generating code')
+        .string('filters')
+        .alias('a', 'filters')
+
+    .describe('name', 'Specify the template name when compiling a single file')
+        .string('name')
+        .alias('n', 'n')
+
+    .describe('include', 'Include a file or folder which match the regex but would otherwise be excluded. You can use this flag multiple times')
+        .string('include' )
+        .default('include', ['\\.html$', '\\.jinja$'])
+        .alias('i', 'include')
+
+    .describe('exclude', 'Exclude a file or folder which match the regex but would otherwise be included. You can use this flag multiple times')
+        .string('exclude' )
+        .default('exclude', [])
+        .alias('x', 'exclude')
+
+    .describe('wrapper', 'Load a external plugin to change the output format of the precompiled templates (for example, "-w custom" will load a module named "nunjucks-custom")')
+        .string('wrapper')
+        .alias('w', 'wrapper')
+
+    .demand(1);
+
+var argv = yargs.argv;
+
+if (argv.help) {
+    yargs.showHelp();
+    process.exit(1);
+}
+
+var env = new Environment([]);
+
+lib.each([].concat(argv.filters).join(',').split(','), function(name) {
+    env.addFilter(name.trim(), function() {}, true);
+});
+
+if(argv.wrapper) {
+    argv.wrapper = require('nunjucks-' + argv.wrapper).wrapper;
+}
+
+console.log(precompile(argv._[0], {
+    env : env,
+    force : argv.force,
+    name : argv.name,
+    wrapper: argv.wrapper,
+
+    include : [].concat(argv.include),
+    exclude : [].concat(argv.exclude)
+}));

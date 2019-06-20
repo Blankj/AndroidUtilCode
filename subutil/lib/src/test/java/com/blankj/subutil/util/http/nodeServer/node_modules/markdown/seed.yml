@@ -1,0 +1,5 @@
+---
+  name: markdown-js
+  description: JavaScript implementation of Markdown
+  tags: markdown parser
+  version: 0.1.2

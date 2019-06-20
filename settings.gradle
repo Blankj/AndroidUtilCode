@@ -1,4 +1,3 @@
-include ':app',
-        ':buildSrc',
-        ':subutil',
-        ':utilcode'
+apply from: 'gradle/config/config.gradle'
+
+gradle.fn.includeDep()

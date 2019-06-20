@@ -1,0 +1,21 @@
+{
+  "opts": {
+    "template": "node_modules/minami",
+    "destination": "docs/",
+    "encoding": "utf8",
+    "recurse": true
+  },
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc"]
+  },
+  "plugins": ["plugins/markdown"],
+  "source": {
+    "include": ["lib", "README.md"],
+    "includePattern": ".js$"
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": true
+  }
+}

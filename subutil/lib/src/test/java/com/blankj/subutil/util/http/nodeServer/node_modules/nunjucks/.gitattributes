@@ -1,0 +1,6 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+# Checkout example and test fixtures with linux line ending
+# to guarantee test successes
+tests/** text eol=lf

@@ -1,0 +1,13 @@
+pluginBundle {
+    website = 'https://github.com/Blankj/StaticBus'
+    vcsUrl = 'https://github.com/Blankj/StaticBus.git'
+    description = 'A static bus use in modules.'
+    tags = ['gradle', 'plugin', 'static', 'bus', 'javassist']
+
+    plugins {
+        busPlugin {
+            // id is captured from java-gradle-plugin configuration
+            displayName = 'Gradle Bus plugin'
+        }
+    }
+}
