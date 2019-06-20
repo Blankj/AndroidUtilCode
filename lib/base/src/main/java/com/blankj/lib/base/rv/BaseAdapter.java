@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
@@ -39,19 +38,8 @@ public class BaseAdapter<Cell extends BaseCell> extends RecyclerView.Adapter<Bas
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (mContext == null) {
-            mContext = parent.getContext();
-            mInflater = LayoutInflater.from(mContext);
-        }
-        int layoutByType = BaseCell.getLayoutByType(viewType);
-        if (layoutByType != -1) {
-            return new BaseViewHolder(mInflater.inflate(layoutByType, parent, false));
-        }
-        View viewByType = BaseCell.getViewByType(viewType);
-        if (viewByType != null) {
-            return new BaseViewHolder(viewByType);
-        }
-        throw new RuntimeException("onCreateViewHolder: get holder from view type failed.");
+        BaseViewHolder baseViewHolder = Cell.onCreateViewHolder(parent, viewType);
+        return baseViewHolder;
     }
 
     @Override
@@ -61,6 +49,7 @@ public class BaseAdapter<Cell extends BaseCell> extends RecyclerView.Adapter<Bas
 
     @Override
     public int getItemCount() {
+        if (mData == null) return 0;
         return mData.size();
     }
 
