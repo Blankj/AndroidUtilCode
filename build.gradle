@@ -2,6 +2,18 @@
 buildscript {
     apply from: 'config.gradle'
     repositories {
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+            name '代替 jcenter()及mavenCentral()'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/jcenter'
+            name '代替 jcenter()'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/google'
+            name '代替 google()'
+        }
         if (bus.isDebug) {
             maven() {
                 url uri(new File(project.rootDir, "maven"))
@@ -20,6 +32,18 @@ buildscript {
 
 allprojects {
     repositories {
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+            name '代替 jcenter()及mavenCentral()'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/jcenter'
+            name '代替 jcenter()'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/google'
+            name '代替 google()'
+        }
         google()
         jcenter()
     }
