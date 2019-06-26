@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
  *     desc  : test TimeUtils
  * </pre>
  */
-public class TimeUtilsTest extends BaseTest {
+public class TimeUtilsTest  {
 
     private final DateFormat defaultFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
     private final DateFormat mFormat       = new SimpleDateFormat("yyyy MM dd HH:mm:ss", Locale.getDefault());
@@ -42,24 +42,30 @@ public class TimeUtilsTest extends BaseTest {
     public void millis2String() {
         assertEquals(timeString, TimeUtils.millis2String(timeMillis));
         assertEquals(timeStringFormat, TimeUtils.millis2String(timeMillis, mFormat));
+        assertEquals("2017年05月04日", TimeUtils.millis2String(timeMillis, "yyyy年MM月dd日"));
+        assertEquals("16时37分", TimeUtils.millis2String(timeMillis, "HH时mm分"));
     }
 
     @Test
     public void string2Millis() {
         assertEquals(timeMillis, TimeUtils.string2Millis(timeString));
         assertEquals(timeMillis, TimeUtils.string2Millis(timeStringFormat, mFormat));
+        assertEquals(TimeUtils.string2Millis("2017-05-04 16:37", "yyyy-MM-dd HH:mm"),
+                TimeUtils.string2Millis("2017年05月04日16时37分", "yyyy年MM月dd日HH时mm分"));
     }
 
     @Test
     public void string2Date() {
         assertEquals(timeDate, TimeUtils.string2Date(timeString));
         assertEquals(timeDate, TimeUtils.string2Date(timeStringFormat, mFormat));
+        assertEquals(timeDate, TimeUtils.string2Date("2017-05-04 16:37:29", "yyyy-MM-dd HH:mm:ss"));
     }
 
     @Test
     public void date2String() {
         assertEquals(timeString, TimeUtils.date2String(timeDate));
         assertEquals(timeStringFormat, TimeUtils.date2String(timeDate, mFormat));
+        assertEquals("2017-05-04 16:37:29", TimeUtils.date2String(timeDate, "yyyy-MM-dd HH:mm:ss"));
     }
 
     @Test
