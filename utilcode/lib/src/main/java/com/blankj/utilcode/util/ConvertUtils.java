@@ -1,6 +1,7 @@
 package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -402,7 +403,9 @@ public final class ConvertUtils {
     public static String inputStream2String(final InputStream is, final String charsetName) {
         if (is == null || isSpace(charsetName)) return "";
         try {
-            return new String(inputStream2Bytes(is), charsetName);
+            ByteArrayOutputStream baos = input2OutputStream(is);
+            if (baos == null) return "";
+            return baos.toString(charsetName);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return "";
@@ -578,7 +581,7 @@ public final class ConvertUtils {
      * @return value of px
      */
     public static int dp2px(final float dpValue) {
-        final float scale = Utils.getApp().getResources().getDisplayMetrics().density;
+        final float scale = Resources.getSystem().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
@@ -589,7 +592,7 @@ public final class ConvertUtils {
      * @return value of dp
      */
     public static int px2dp(final float pxValue) {
-        final float scale = Utils.getApp().getResources().getDisplayMetrics().density;
+        final float scale = Resources.getSystem().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
 
@@ -600,7 +603,7 @@ public final class ConvertUtils {
      * @return value of px
      */
     public static int sp2px(final float spValue) {
-        final float fontScale = Utils.getApp().getResources().getDisplayMetrics().scaledDensity;
+        final float fontScale = Resources.getSystem().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
 
@@ -611,7 +614,7 @@ public final class ConvertUtils {
      * @return value of sp
      */
     public static int px2sp(final float pxValue) {
-        final float fontScale = Utils.getApp().getResources().getDisplayMetrics().scaledDensity;
+        final float fontScale = Resources.getSystem().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
 

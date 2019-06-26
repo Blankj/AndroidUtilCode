@@ -5,7 +5,6 @@ import com.android.build.gradle.internal.pipeline.TransformManager
 import com.blankj.util.JavassistUtils
 import com.blankj.util.JsonUtils
 import com.blankj.util.LogUtils
-
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
 
@@ -86,7 +85,8 @@ class BusTransform extends Transform {
                 FileUtils.copyFile(jar, dest)
 
                 if (jarName.startsWith("com.blankj:utilcode:")
-                        || jarName.contains("utilcode-lib")) {
+                        || jarName.startsWith("com.blankj:utilcodex:")
+                        || jarName.equals(":utilcode:lib")) {
                     busScan.busJar = dest
                     LogUtils.l("bus jar: $jarName [$dest]")
                     return
@@ -105,10 +105,10 @@ class BusTransform extends Transform {
 
         if (busScan.busJar != null) {
             File jsonFile = new File(mProject.projectDir.getAbsolutePath(), "__bus__.json")
-            String busJson = JsonUtils.getFormatJson(busScan.busMap)
+            String busJson = JsonUtils.getFormatJson(busScan.busStaticMap)
             LogUtils.l(jsonFile.toString() + ": " + busJson)
             FileUtils.write(jsonFile, busJson)
-            BusInject.start(busScan.busMap, busScan.busJar)
+            BusInject.start(busScan.busStaticMap, busScan.busJar)
         } else {
             LogUtils.l('u should <implementation "com.blankj:utilcode:1.22.+">')
         }

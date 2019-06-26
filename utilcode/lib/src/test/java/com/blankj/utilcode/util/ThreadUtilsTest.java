@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *     desc  :
  * </pre>
  */
-public class ThreadUtilsTest {
+public class ThreadUtilsTest extends BaseTest {
 
     @Test
     public void executeByFixed() throws Exception {
@@ -24,6 +24,7 @@ public class ThreadUtilsTest {
                 final TestTask<String> task = new TestTask<String>(latch) {
                     @Override
                     public String doInBackground() throws Throwable {
+                        new ThreadGroup("name");
                         Thread.sleep(500 + index * 10);
                         if (index < 4) {
                             return Thread.currentThread() + " :" + index;
@@ -426,7 +427,7 @@ public class ThreadUtilsTest {
         }
     }
 
-    <T> void asyncTest(int threadCount, TestRunnable<T> runnable) throws Exception {
+    private <T> void asyncTest(int threadCount, TestRunnable<T> runnable) throws Exception {
         CountDownLatch latch = new CountDownLatch(threadCount);
         for (int i = 0; i < threadCount; i++) {
             runnable.run(i, latch);

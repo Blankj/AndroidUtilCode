@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
@@ -8,23 +7,23 @@
     android:padding="@dimen/spacing_16">
 
     <TextView
-        android:id="@+id/tv_about_resource"
+        android:id="@+id/resourceAboutTv"
         style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/btn_resource_test_assets"
+        android:id="@+id/resourceCopyFileFromAssets"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/resource_test_assets" />
+        android:text="@string/resource_copy_file_from_assets_2_cache" />
 
     <Button
-        android:id="@+id/btn_resource_test_raw"
+        android:id="@+id/resourceCopyFileFromRaw"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/resource_test_raw" />
+        android:text="@string/resource_copy_file_from_raw_2_cache" />
 
 </LinearLayout>

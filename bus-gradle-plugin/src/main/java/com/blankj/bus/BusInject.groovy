@@ -15,7 +15,7 @@ class BusInject {
         File decompressedJar = new File(decompressedJarPath)
         ZipUtils.unzipFile(busJar, decompressedJar)
 
-        CtClass busUtils = JavassistUtils.getPool().get(Config.BUS_UTILS_CLASS)
+        CtClass busUtils = JavassistUtils.getClass(Config.BUS_UTILS_CLASS)
         CtMethod callMethod;
         try {
             callMethod = busUtils.getDeclaredMethod("injectShell");

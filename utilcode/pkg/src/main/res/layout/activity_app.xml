@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
@@ -8,62 +7,62 @@
     android:padding="@dimen/spacing_16">
 
     <TextView
-        android:id="@+id/tv_about_app"
+        android:id="@+id/appAboutTv"
         style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/btn_install_app"
+        android:id="@+id/appInstallAppBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_install" />
 
     <Button
-        android:id="@+id/btn_install_app_silent"
+        android:id="@+id/appInstallAppSilentBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_install_silent" />
 
     <Button
-        android:id="@+id/btn_uninstall_app"
+        android:id="@+id/appUninstallAppBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_uninstall" />
 
     <Button
-        android:id="@+id/btn_uninstall_app_silent"
+        android:id="@+id/appUninstallAppSilentBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_uninstall_silent" />
 
     <Button
-        android:id="@+id/btn_launch_app"
+        android:id="@+id/appLaunchAppBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_launch" />
 
     <Button
-        android:id="@+id/btn_relaunch_app"
+        android:id="@+id/appRelaunchAppBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_relaunch" />
 
     <Button
-        android:id="@+id/btn_launch_app_details_settings"
+        android:id="@+id/appLaunchAppDetailsSettingsBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_launch_details_settings" />
 
     <Button
-        android:id="@+id/btn_exit_app"
+        android:id="@+id/appExitAppBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

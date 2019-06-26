@@ -690,7 +690,9 @@ public final class ImageUtils {
         rectF.inset((width - size) / 2f, (height - size) / 2f);
         Matrix matrix = new Matrix();
         matrix.setTranslate(rectF.left, rectF.top);
-        matrix.preScale((float) size / width, (float) size / height);
+        if (width != height) {
+            matrix.preScale((float) size / width, (float) size / height);
+        }
         BitmapShader shader = new BitmapShader(src, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         shader.setLocalMatrix(matrix);
         paint.setShader(shader);
@@ -1531,7 +1533,10 @@ public final class ImageUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isImage(final File file) {
-        return file != null && isImage(file.getPath());
+        if (file == null || !file.exists()) {
+            return false;
+        }
+        return isImage(file.getPath());
     }
 
     /**
@@ -1541,10 +1546,14 @@ public final class ImageUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isImage(final String filePath) {
-        String path = filePath.toUpperCase();
-        return path.endsWith(".PNG") || path.endsWith(".JPG")
-                || path.endsWith(".JPEG") || path.endsWith(".BMP")
-                || path.endsWith(".GIF") || path.endsWith(".WEBP");
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        try {
+            Bitmap bitmap = BitmapFactory.decodeFile(filePath, options);
+            return options.outWidth != -1 && options.outHeight != -1;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**
@@ -1910,7 +1919,9 @@ public final class ImageUtils {
         int height = options.outHeight;
         int width = options.outWidth;
         int inSampleSize = 1;
-        while ((width >>= 1) >= maxWidth && (height >>= 1) >= maxHeight) {
+        while (height > maxHeight || width > maxWidth) {
+            height >>= 1;
+            width >>= 1;
             inSampleSize <<= 1;
         }
         return inSampleSize;

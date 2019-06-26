@@ -4,28 +4,34 @@
     <string name="demo_adapt_screen">AdaptScreenUtils Demo</string>
     <string name="demo_app">AppUtils Demo</string>
     <string name="demo_bar">BarUtils Demo</string>
+    <string name="demo_brightness">BrightnessUtils Demo</string>
     <string name="demo_blur">BlurUtils Demo</string>
     <string name="demo_clean">CleanUtils Demo</string>
+    <string name="demo_click">ClickUtils Demo</string>
+    <string name="demo_bus">BusUtils Demo</string>
     <string name="demo_crash">CrashUtils Demo</string>
     <string name="demo_device">DeviceUtils Demo</string>
+    <string name="demo_flashlight">FlashlightUtils Demo</string>
     <string name="demo_fragment">FragmentUtils Demo</string>
     <string name="demo_image">ImageUtils Demo</string>
     <string name="demo_keyboard">KeyboardUtils Demo</string>
     <string name="demo_log">LogUtils Demo</string>
-    <string name="demo_meta_data">MetaData Demo</string>
+    <string name="demo_meta_data">MetaDataUtils Demo</string>
     <string name="demo_network">NetworkUtils Demo</string>
-    <string name="demo_path">Path Demo</string>
+    <string name="demo_path">PathUtils Demo</string>
     <string name="demo_permission">PermissionUtils Demo</string>
     <string name="demo_phone">PhoneUtils Demo</string>
     <string name="demo_process">ProcessUtils Demo</string>
     <string name="demo_reflect">ReflectUtils Demo</string>
     <string name="demo_resource">ResourceUtils Demo</string>
     <string name="demo_screen">ScreenUtils Demo</string>
+    <string name="demo_rom">RomUtils Demo</string>
     <string name="demo_sdcard">SDCardUtils Demo</string>
-    <string name="demo_snackbar">Snackbar Demo</string>
-    <string name="demo_sp">SP Demo</string>
+    <string name="demo_snackbar">SnackbarUtils Demo</string>
+    <string name="demo_spStatic">SPStaticUtils Demo</string>
     <string name="demo_span">SpanUtils Demo</string>
     <string name="demo_toast">ToastUtils Demo</string>
+    <string name="demo_vibrate">VibrateUtils Demo</string>
 
     <!--Activity 相关-->
     <string name="activity_shared_element">Shared Element</string>
@@ -81,15 +87,13 @@
     <string name="bar_about_notification_bar">About Notification Bar</string>
 
     <string name="bar_status_about">About Status</string>
-    <string name="bar_status_show">Show Status</string>
-    <string name="bar_status_hide">Hide Status</string>
-    <string name="bar_status_light_mode">Light Mode Status</string>
-    <string name="bar_status_dark_mode">Dark Mode Status</string>
+    <string name="bar_status_visibility">Status Visibility</string>
+    <string name="bar_status_light_mode">Light Mode</string>
     <string name="bar_status_set_color">Set Color</string>
     <string name="bar_status_set_alpha">Set Alpha</string>
     <string name="bar_status_set_image_view">Set Image View</string>
+    <string name="bar_status_set_custom">Set Custom</string>
     <string name="bar_status_set_fragment">Set Fragment</string>
-    <string name="bar_status_set_swipe_back">Set Swipe Back</string>
     <string name="bar_status_set_drawer">Set Drawer</string>
     <string name="bar_status_random_color">Random Color</string>
     <string name="bar_status_set_transparent">Set Transparent</string>
@@ -103,13 +107,11 @@
     <string name="bar_notification_show">Show Notification And Hide After 2s</string>
 
     <string name="bar_nav_about">About Nav</string>
-    <string name="bar_nav_show">Show Nav</string>
-    <string name="bar_nav_hide">Hide Nav</string>
-    <string name="bar_nav_immersive">Immersive Nav</string>
+    <string name="bar_nav_visibility">Nav Visibility</string>
     <string name="bar_nav_color">Set Nav Color Random</string>
 
-    <!--Blur 相关-->
-    <string name="blur_text">Blur Text</string>
+    <!-- Brightness 相关 -->
+    <string name="brightness_auto_brightness">Auto Brightness</string>
 
     <!--Clean 相关-->
     <string name="clean_internal_cache">Clean Internal Cache</string>
@@ -118,25 +120,37 @@
     <string name="clean_internal_sp">Clean Internal SP</string>
     <string name="clean_external_cache">Clean External Cache</string>
 
+    <!--Click 相关-->
+    <string name="click_scale_default">Click Scale Default</string>
+    <string name="click_scale_custom">Click Scale Custom</string>
+
+    <!--Bus 相关-->
+    <string name="bus_start_remote">Start Remote</string>
+    <string name="bus_post">Post</string>
+    <string name="bus_post_to_main">Post to Main</string>
+
     <!--Device 相关-->
     <string name="device_shutdown">Shutdown</string>
     <string name="device_reboot">Reboot</string>
     <string name="device_reboot_to_recovery">Reboot To Recovery</string>
     <string name="device_reboot_to_bootloader">Reboot To Bootloader</string>
 
+    <!-- Flashlight相关 -->
+    <string name="flashlight_status">Flashlight Status</string>
+
     <!--Fragment 相关-->
     <string name="fragment_zero">Fragment0</string>
     <string name="fragment_one">Fragment1</string>
     <string name="fragment_two">Fragment2</string>
     <string name="fragment_show_stack">Show Stack</string>
-    <string name="fragment_add">Add</string>
+    <string name="fragment_add_child">Add Child</string>
+    <string name="fragment_add_child_stack">Add Child Stack</string>
     <string name="fragment_add_hide">Add Hide</string>
     <string name="fragment_add_hide_stack">Add Hide Stack</string>
     <string name="fragment_add_demo1_show">Add Demo1 Show</string>
-    <string name="fragment_add_child">Add Child</string>
     <string name="fragment_pop">Pop</string>
+    <string name="fragment_remove">Remove</string>
     <string name="fragment_pop_to_root">Pop To Root</string>
-    <string name="fragment_pop_add">Pop Add</string>
     <string name="fragment_hide_demo0_show_demo1">Hide Demo0 Show Demo1</string>
     <string name="fragment_hide_demo1_show_demo0">Hide Demo1 Show Demo0</string>
     <string name="fragment_replace">Replace</string>
@@ -171,8 +185,8 @@
 
     <!--Network 相关-->
     <string name="network_open_wireless_settings">Open Wireless Settings</string>
-    <string name="network_set_data_enabled">Set Data Enabled</string>
-    <string name="network_set_wifi_enabled">Set Wifi Enabled</string>
+    <string name="network_data_enabled">Mobile Data Enabled</string>
+    <string name="network_wifi_enabled">Wifi Enabled</string>
 
     <!--Keyboard 相关-->
     <string name="keyboard_hide_soft_input">Hide Soft Input</string>
@@ -182,16 +196,12 @@
     <string name="keyboard_close_dialog">Close Dialog</string>
 
     <!--log 相关-->
-    <string name="log_toggle_log">Toggle Log</string>
-    <string name="log_toggle_console">Toggle Console</string>
-    <string name="log_toggle_tag">Toggle Tag</string>
-    <string name="log_toggle_head">Toggle Head</string>
-    <string name="log_toggle_border">Toggle Border</string>
-    <string name="log_toggle_single">Toggle Single</string>
-    <string name="log_toggle_console_filter">Toggle Console Filter</string>
-    <string name="log_toggle_file_filter">Toggle File Filter</string>
-    <string name="log_toggle_file">Toggle File</string>
-    <string name="log_toggle_dir">Toggle Dir</string>
+    <string name="log_switch">Log Switch</string>
+    <string name="log_console_console">Console Switch</string>
+    <string name="log_head_switch">Head Switch</string>
+    <string name="log_file_switch">File Switch</string>
+    <string name="log_border_switch">Border Switch</string>
+    <string name="log_single_tag_switch">Single Tag Switch</string>
     <string name="log_with_no_tag">Log With No Tag</string>
     <string name="log_with_tag">Log With Tag</string>
     <string name="log_in_new_thread">Log In New Thread</string>
@@ -206,12 +216,15 @@
     <string name="log_bundle">Log Bundle</string>
     <string name="log_intent">Log Intent</string>
     <string name="log_array_list">Log Array List</string>
+    <string name="log_map">Log Map</string>
 
     <!--Permission 相关-->
     <string name="permission_open_app_settings">Open App Settings</string>
     <string name="permission_request_calendar">Request Calendar</string>
     <string name="permission_request_record_audio">Request Record Audio</string>
     <string name="permission_request_calendar_and_record_audio">Request Calendar And Record Audio</string>
+    <string name="permission_request_write_settings">Request Write Settings</string>
+    <string name="permission_request_draw_overlays">Request Draw Overlays</string>
 
 
     <!--Phone 相关-->
@@ -224,8 +237,8 @@
     <string name="process_kill_all_background">Kill All Background Processes</string>
 
     <!--Resource 相关-->
-    <string name="resource_test_assets">Test Assets</string>
-    <string name="resource_test_raw">Test Raw</string>
+    <string name="resource_copy_file_from_assets_2_cache">Copy File From Assets to Cache</string>
+    <string name="resource_copy_file_from_raw_2_cache">Copy File From Raw to Cache</string>
 
     <!--Screen 相关-->
     <string name="screen_set_fullscreen">Set Fullscreen</string>
@@ -236,10 +249,6 @@
     <string name="screen_screenshot">Screenshot</string>
     <string name="screen_set_sleep_duration">Set Sleep Duration</string>
     <string name="screen_test_adapt_screen">Test Adapt Screen</string>
-    <string name="adapt_screen_system_toast">System Toast</string>
-    <string name="adapt_screen_util_toast">Util Toast</string>
-    <string name="adapt_screen_system_dialog">System Dialog</string>
-    <string name="adapt_screen_system_dialog_without_adapt">System Dialog Without Adapt</string>
 
     <!--SnackBar 相关-->
     <string name="snackbar_show_short">Show Short Snackbar</string>
@@ -282,6 +291,7 @@
     <string name="toast_custom_view">Custom View</string>
     <string name="toast_show_middle">Show Middle</string>
     <string name="toast_cancel">Cancel</string>
+    <string name="toast_show_toast_dialog">Show Toast Dialog</string>
 
     <string name="toast_short">Short</string>
     <string name="toast_long">Long</string>
@@ -290,4 +300,9 @@
     <string name="toast_custom_bg">Custom Bg</string>
     <string name="toast_span">Spannable String</string>
     <string name="toast_middle">Middle</string>
+
+    <!--Vibrate 相关-->
+    <string name="vibrate_1000ms">Vibrate 1000ms</string>
+    <string name="vibrate_custom">Vibrate Custom</string>
+    <string name="vibrate_cancel">Cancel</string>
 </resources>

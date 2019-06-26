@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.blankj.utilcode.util.Utils;
+
 /**
  * <pre>
  *     author: Blankj

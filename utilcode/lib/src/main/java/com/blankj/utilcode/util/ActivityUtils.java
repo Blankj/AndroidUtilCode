@@ -3,6 +3,7 @@ package com.blankj.utilcode.util;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -11,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.AnimRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.util.Log;
@@ -30,6 +32,33 @@ public final class ActivityUtils {
 
     private ActivityUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
+    }
+
+    /**
+     * Return the activity by view.
+     *
+     * @param view The view.
+     * @return the activity by view.
+     */
+    public static Activity getActivityByView(@NonNull View view) {
+        return getActivityByContext(view.getContext());
+    }
+
+    /**
+     * Return the activity by context.
+     *
+     * @param context The context.
+     * @return the activity by context.
+     */
+    public static Activity getActivityByContext(@NonNull Context context) {
+        if (context instanceof Activity) return (Activity) context;
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return (Activity) context;
+            }
+            context = ((ContextWrapper) context).getBaseContext();
+        }
+        return null;
     }
 
     /**
@@ -65,7 +94,7 @@ public final class ActivityUtils {
      * @param options Additional options for how the Activity should be started.
      */
     public static void startActivity(@NonNull final Class<? extends Activity> clz,
-                                     final Bundle options) {
+                                     @Nullable final Bundle options) {
         Context context = Utils.getTopActivityOrApp();
         startActivity(context, null, context.getPackageName(), clz.getName(), options);
     }
@@ -110,7 +139,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final Activity activity,
                                      @NonNull final Class<? extends Activity> clz,
-                                     final Bundle options) {
+                                     @Nullable final Bundle options) {
         startActivity(activity, null, activity.getPackageName(), clz.getName(), options);
     }
 
@@ -171,7 +200,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final Class<? extends Activity> clz,
-                                     @NonNull final Bundle options) {
+                                     @Nullable final Bundle options) {
         Context context = Utils.getTopActivityOrApp();
         startActivity(context, extras, context.getPackageName(), clz.getName(), options);
     }
@@ -222,7 +251,7 @@ public final class ActivityUtils {
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final Activity activity,
                                      @NonNull final Class<? extends Activity> clz,
-                                     @NonNull final Bundle options) {
+                                     @Nullable final Bundle options) {
         startActivity(activity, extras, activity.getPackageName(), clz.getName(), options);
     }
 
@@ -286,7 +315,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final String pkg,
                                      @NonNull final String cls,
-                                     final Bundle options) {
+                                     @Nullable final Bundle options) {
         startActivity(Utils.getTopActivityOrApp(), null, pkg, cls, options);
     }
 
@@ -335,7 +364,7 @@ public final class ActivityUtils {
     public static void startActivity(@NonNull final Activity activity,
                                      @NonNull final String pkg,
                                      @NonNull final String cls,
-                                     final Bundle options) {
+                                     @Nullable final Bundle options) {
         startActivity(activity, null, pkg, cls, options);
     }
 
@@ -401,7 +430,7 @@ public final class ActivityUtils {
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final String pkg,
                                      @NonNull final String cls,
-                                     final Bundle options) {
+                                     @Nullable final Bundle options) {
         startActivity(Utils.getTopActivityOrApp(), extras, pkg, cls, options);
     }
 
@@ -456,7 +485,7 @@ public final class ActivityUtils {
                                      @NonNull final Activity activity,
                                      @NonNull final String pkg,
                                      @NonNull final String cls,
-                                     final Bundle options) {
+                                     @Nullable final Bundle options) {
         startActivity(activity, extras, pkg, cls, options);
     }
 
@@ -519,7 +548,7 @@ public final class ActivityUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean startActivity(@NonNull final Intent intent,
-                                        @NonNull final Bundle options) {
+                                        @Nullable final Bundle options) {
         return startActivity(intent, Utils.getTopActivityOrApp(), options);
     }
 
@@ -566,7 +595,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final Activity activity,
                                      @NonNull final Intent intent,
-                                     final Bundle options) {
+                                     @Nullable final Bundle options) {
         startActivity(intent, activity, options);
     }
 
@@ -631,7 +660,7 @@ public final class ActivityUtils {
     public static void startActivityForResult(@NonNull final Activity activity,
                                               @NonNull final Class<? extends Activity> clz,
                                               final int requestCode,
-                                              final Bundle options) {
+                                              @Nullable final Bundle options) {
         startActivityForResult(activity, null, activity.getPackageName(), clz.getName(),
                 requestCode, options);
     }
@@ -709,7 +738,7 @@ public final class ActivityUtils {
                                               @NonNull final Activity activity,
                                               @NonNull final Class<? extends Activity> clz,
                                               final int requestCode,
-                                              @NonNull final Bundle options) {
+                                              @Nullable final Bundle options) {
         startActivityForResult(activity, extras, activity.getPackageName(), clz.getName(),
                 requestCode, options);
     }
@@ -794,7 +823,7 @@ public final class ActivityUtils {
                                               @NonNull final String pkg,
                                               @NonNull final String cls,
                                               final int requestCode,
-                                              final Bundle options) {
+                                              @Nullable final Bundle options) {
         startActivityForResult(activity, extras, pkg, cls, requestCode, options);
     }
 
@@ -873,7 +902,7 @@ public final class ActivityUtils {
     public static void startActivityForResult(@NonNull final Activity activity,
                                               @NonNull final Intent intent,
                                               final int requestCode,
-                                              final Bundle options) {
+                                              @Nullable final Bundle options) {
         startActivityForResult(intent, activity, requestCode, options);
     }
 
@@ -935,7 +964,7 @@ public final class ActivityUtils {
      * @param options Additional options for how the Activity should be started.
      */
     public static void startActivities(@NonNull final Intent[] intents,
-                                       final Bundle options) {
+                                       @Nullable final Bundle options) {
         startActivities(intents, Utils.getTopActivityOrApp(), options);
     }
 
@@ -978,7 +1007,7 @@ public final class ActivityUtils {
      */
     public static void startActivities(@NonNull final Activity activity,
                                        @NonNull final Intent[] intents,
-                                       final Bundle options) {
+                                       @Nullable final Bundle options) {
         startActivities(intents, activity, options);
     }
 
@@ -1056,6 +1085,27 @@ public final class ActivityUtils {
      */
     public static Activity getTopActivity() {
         return Utils.getActivityLifecycle().getTopActivity();
+    }
+
+    /**
+     * Return whether the activity is alive.
+     *
+     * @param context The context.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isActivityAlive(final Context context) {
+        return isActivityAlive(getActivityByContext(context));
+    }
+
+    /**
+     * Return whether the activity is alive.
+     *
+     * @param activity The activity.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isActivityAlive(final Activity activity) {
+        return activity != null && !activity.isFinishing()
+                && (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1 || !activity.isDestroyed());
     }
 
     /**
@@ -1505,7 +1555,7 @@ public final class ActivityUtils {
                                       final Bundle extras,
                                       final String pkg,
                                       final String cls,
-                                      final Bundle options) {
+                                      @Nullable final Bundle options) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         if (extras != null) intent.putExtras(extras);
         intent.setComponent(new ComponentName(pkg, cls));
@@ -1542,7 +1592,7 @@ public final class ActivityUtils {
                                                   final String pkg,
                                                   final String cls,
                                                   final int requestCode,
-                                                  final Bundle options) {
+                                                  @Nullable final Bundle options) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         if (extras != null) intent.putExtras(extras);
         intent.setComponent(new ComponentName(pkg, cls));
@@ -1552,7 +1602,7 @@ public final class ActivityUtils {
     private static boolean startActivityForResult(final Intent intent,
                                                   final Activity activity,
                                                   final int requestCode,
-                                                  final Bundle options) {
+                                                  @Nullable final Bundle options) {
         if (!isIntentAvailable(intent)) {
             Log.e("ActivityUtils", "intent is unavailable");
             return false;
@@ -1567,7 +1617,7 @@ public final class ActivityUtils {
 
     private static void startActivities(final Intent[] intents,
                                         final Context context,
-                                        final Bundle options) {
+                                        @Nullable final Bundle options) {
         if (!(context instanceof Activity)) {
             for (Intent intent : intents) {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

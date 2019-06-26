@@ -234,7 +234,7 @@ public final class FragmentUtils {
                            @NonNull final List<Fragment> adds,
                            @IdRes final int containerId,
                            final int showIndex) {
-        add(fm, adds.toArray(new Fragment[adds.size()]), containerId, null, showIndex);
+        add(fm, adds.toArray(new Fragment[0]), containerId, null, showIndex);
     }
 
     /**
@@ -464,7 +464,7 @@ public final class FragmentUtils {
                            @IdRes final int containerId,
                            final String tags[],
                            final int showIndex) {
-        add(fm, adds.toArray(new Fragment[adds.size()]), containerId, tags, showIndex);
+        add(fm, adds.toArray(new Fragment[0]), containerId, tags, showIndex);
     }
 
     /**
@@ -515,7 +515,7 @@ public final class FragmentUtils {
         operateNoAnim(fm,
                 TYPE_SHOW_FRAGMENT,
                 null,
-                fragments.toArray(new Fragment[fragments.size()])
+                fragments.toArray(new Fragment[0])
         );
     }
 
@@ -542,7 +542,7 @@ public final class FragmentUtils {
         operateNoAnim(fm,
                 TYPE_HIDE_FRAGMENT,
                 null,
-                fragments.toArray(new Fragment[fragments.size()])
+                fragments.toArray(new Fragment[0])
         );
     }
 
@@ -567,7 +567,7 @@ public final class FragmentUtils {
             putArgs(fragment, fragment != show);
         }
         operateNoAnim(show.getFragmentManager(), TYPE_SHOW_HIDE_FRAGMENT, show,
-                hide.toArray(new Fragment[hide.size()]));
+                hide.toArray(new Fragment[0]));
     }
 
     /**
@@ -1381,7 +1381,7 @@ public final class FragmentUtils {
         operateNoAnim(fm,
                 TYPE_REMOVE_FRAGMENT,
                 null,
-                fragments.toArray(new Fragment[fragments.size()])
+                fragments.toArray(new Fragment[0])
         );
     }
 

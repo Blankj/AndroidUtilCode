@@ -4,35 +4,34 @@
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/spacing_16"
-    android:paddingRight="@dimen/spacing_16">
+    android:padding="@dimen/spacing_16">
 
     <Button
+        android:id="@+id/subUtilAppStoreBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="brightnessClick"
-        android:text="@string/demo_brightness" />
+        android:text="@string/demo_app_store" />
 
     <Button
+        android:id="@+id/subUtilCountryCodeBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="flashlightClick"
-        android:text="@string/demo_flashlight" />
+        android:text="@string/demo_country_code" />
 
     <Button
+        android:id="@+id/subUtilLocationBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="locationClick"
         android:text="@string/demo_location" />
 
     <Button
+        android:id="@+id/subUtilPinyinBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="pinyinClick"
         android:text="@string/demo_pinyin" />
 
 </LinearLayout>

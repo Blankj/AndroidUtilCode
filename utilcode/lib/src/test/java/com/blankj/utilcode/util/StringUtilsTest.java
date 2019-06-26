@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
  *     desc  : test StringUtils
  * </pre>
  */
-public class StringUtilsTest {
+public class StringUtilsTest extends BaseTest {
 
     @Test
     public void isEmpty() {

@@ -13,8 +13,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -88,17 +86,8 @@ public final class CrashUtils {
                         "\nApp VersionName    : " + versionName +
                         "\nApp VersionCode    : " + versionCode +
                         "\n************* Log Head ****************\n\n";
-                sb.append(head);
-                StringWriter sw = new StringWriter();
-                PrintWriter pw = new PrintWriter(sw);
-                e.printStackTrace(pw);
-                Throwable cause = e.getCause();
-                while (cause != null) {
-                    cause.printStackTrace(pw);
-                    cause = cause.getCause();
-                }
-                pw.flush();
-                sb.append(sw.toString());
+                sb.append(head)
+                        .append(ThrowableUtils.getFullStackTrace(e));
                 final String crashInfo = sb.toString();
                 final String fullPath = (dir == null ? defaultDir : dir) + time + ".txt";
                 if (createOrExistsFile(fullPath)) {
@@ -124,18 +113,16 @@ public final class CrashUtils {
 
     /**
      * Initialization.
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      */
-    @RequiresPermission(WRITE_EXTERNAL_STORAGE)
+    @SuppressLint("MissingPermission")
     public static void init() {
         init("");
     }
 
     /**
      * Initialization
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      *
      * @param crashDir The directory of saving crash information.
      */
@@ -146,8 +133,7 @@ public final class CrashUtils {
 
     /**
      * Initialization
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      *
      * @param crashDirPath The directory's path of saving crash information.
      */
@@ -158,20 +144,18 @@ public final class CrashUtils {
 
     /**
      * Initialization
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      *
      * @param onCrashListener The crash listener.
      */
-    @RequiresPermission(WRITE_EXTERNAL_STORAGE)
+    @SuppressLint("MissingPermission")
     public static void init(final OnCrashListener onCrashListener) {
         init("", onCrashListener);
     }
 
     /**
      * Initialization
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      *
      * @param crashDir        The directory of saving crash information.
      * @param onCrashListener The crash listener.
@@ -183,8 +167,7 @@ public final class CrashUtils {
 
     /**
      * Initialization
-     * <p>Must hold
-     * {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
+     * <p>Must hold {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />}</p>
      *
      * @param crashDirPath    The directory's path of saving crash information.
      * @param onCrashListener The crash listener.

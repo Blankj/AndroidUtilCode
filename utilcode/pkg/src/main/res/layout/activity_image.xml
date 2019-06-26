@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:descendantFocusability="blocksDescendants"
-    android:orientation="vertical"
-    android:padding="@dimen/spacing_16">
+<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
 
-    <Button
-        android:id="@+id/btn_save"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/image_save" />
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical">-->
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_images"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/imageRv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:fadeScrollbars="false"
+        android:padding="@dimen/spacing_16"
+        android:scrollbarSize="6dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbarThumbVertical="@color/light_black"
+        android:scrollbars="vertical"
+        android:translationZ="-8dp" />
 
-</LinearLayout>
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="40dp"-->
+    <!--android:background="@color/light_black">-->
+
+    <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
+
+<!--</ScrollView>-->

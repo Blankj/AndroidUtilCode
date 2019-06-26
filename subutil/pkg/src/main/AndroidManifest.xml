@@ -1,13 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.blankj.subutil.pkg">
 
-    <!-- brightness -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-
-    <!-- flashlight -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
-
     <!-- location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -16,23 +9,25 @@
 
         <activity
             android:name=".feature.SubUtilActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.brightness.BrightnessActivity"
+            android:name=".feature.appStore.AppStoreActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.flashlight.FlashlightActivity"
+            android:name=".feature.countryCode.CountryCodeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.location.LocationActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
 
-        <service
-            android:name=".feature.location.LocationService"
-            android:launchMode="singleTop" />
-
+        <service android:name=".feature.location.LocationService" />
         <activity
             android:name=".feature.pinyin.PinyinActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
     </application>
 

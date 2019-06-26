@@ -1,0 +1,38 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+    </style>
+
+    <style name="TextStyle">
+        <item name="android:textSize">@dimen/font_16</item>
+        <item name="android:textColor">@drawable/base_sel_button_txt_color</item>
+    </style>
+
+    <style name="WideBtnStyle" parent="TextStyle">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:background">@drawable/base_sel_button_bg</item>
+        <item name="android:layout_marginTop">@dimen/spacing_6</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_6</item>
+    </style>
+
+    <style name="CbStyle" parent="TextStyle">
+
+    </style>
+
+    <style name="AnimationActivity" parent="@android:style/Animation">
+        <!-- A 打开 B，B 的出现动画 -->
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_left</item>
+        <!-- A 打开 B，A 的消失动画 -->
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <!-- B 关闭到 A，A 的出现动画 *时长要小于 B 的消失动画，否则会闪烁* -->
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_right</item>
+        <!-- B 关闭到 A，B 的消失动画 *时长要小于 B 的消失动画，否则会闪烁* -->
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+</resources>

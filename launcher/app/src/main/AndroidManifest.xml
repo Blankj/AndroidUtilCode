@@ -3,7 +3,7 @@
     package="com.blankj.launcher.app">
 
     <application
-        android:name=".UtilsApp"
+        android:name=".LauncherApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,8 +11,9 @@
 
         <activity
             android:name="com.blankj.launcher.pkg.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="user"
-            android:windowSoftInputMode="stateHidden|adjustPan">
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />

@@ -4,15 +4,17 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -29,17 +31,20 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public final class ThreadUtils {
 
-    private static final Map<Integer, Map<Integer, ExecutorService>> TYPE_PRIORITY_POOLS =
-            new ConcurrentHashMap<>();
-    private static final Map<Task, ScheduledExecutorService>         TASK_SCHEDULED      =
-            new ConcurrentHashMap<>();
+    private static final HashMap<Integer, Map<Integer, ExecutorService>> TYPE_PRIORITY_POOLS = new HashMap<>();
+    private static final Map<Task, ScheduledExecutorService>             TASK_SCHEDULED      = new HashMap<>();
+
+    private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
+
+    private static final ScheduledExecutorService SCHEDULED = Executors.newScheduledThreadPool(CPU_COUNT, new UtilsThreadFactory("scheduled", Thread.MAX_PRIORITY));
 
     private static final byte TYPE_SINGLE = -1;
     private static final byte TYPE_CACHED = -2;
     private static final byte TYPE_IO     = -4;
     private static final byte TYPE_CPU    = -8;
 
-    private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
+    private static Executor sDeliver;
+
 
     /**
      * Return whether the thread is the main thread.
@@ -129,7 +134,7 @@ public final class ThreadUtils {
      * @return a IO thread pool
      */
     public static ExecutorService getIoPool() {
-        return getPoolByTypeAndPriority(TYPE_CACHED);
+        return getPoolByTypeAndPriority(TYPE_IO);
     }
 
     /**
@@ -140,7 +145,7 @@ public final class ThreadUtils {
      * @return a IO thread pool
      */
     public static ExecutorService getIoPool(@IntRange(from = 1, to = 10) final int priority) {
-        return getPoolByTypeAndPriority(TYPE_CACHED, priority);
+        return getPoolByTypeAndPriority(TYPE_IO, priority);
     }
 
     /**
@@ -304,7 +309,13 @@ public final class ThreadUtils {
      * @param <T>  The type of the task's result.
      */
     public static <T> void executeBySingle(final Task<T> task) {
-        execute(getPoolByTypeAndPriority(TYPE_SINGLE), task);
+        getScheduledByTask(task).execute(new Runnable() {
+            @Override
+            public void run() {
+                getPoolByTypeAndPriority(TYPE_SINGLE).execute(task);
+            }
+        });
+//        execute(getPoolByTypeAndPriority(TYPE_SINGLE), task);
     }
 
     /**
@@ -836,7 +847,43 @@ public final class ThreadUtils {
      * @param task The task to cancel.
      */
     public static void cancel(final Task task) {
+        if (task == null) return;
         task.cancel();
+    }
+
+    /**
+     * Cancel the given tasks.
+     *
+     * @param tasks The tasks to cancel.
+     */
+    public static void cancel(final Task... tasks) {
+        if (tasks == null || tasks.length == 0) return;
+        for (Task task : tasks) {
+            if (task == null) continue;
+            task.cancel();
+        }
+    }
+
+    /**
+     * Cancel the given tasks.
+     *
+     * @param tasks The tasks to cancel.
+     */
+    public static void cancel(final List<Task> tasks) {
+        if (tasks == null || tasks.size() == 0) return;
+        for (Task task : tasks) {
+            if (task == null) continue;
+            task.cancel();
+        }
+    }
+
+    /**
+     * Set the deliver.
+     *
+     * @param deliver The deliver.
+     */
+    public static void setDeliver(final Executor deliver) {
+        sDeliver = deliver;
     }
 
     private static <T> void execute(final ExecutorService pool, final Task<T> task) {
@@ -869,7 +916,7 @@ public final class ThreadUtils {
                                                long initialDelay,
                                                final long period,
                                                final TimeUnit unit) {
-        task.isSchedule = true;
+        task.setSchedule(true);
         getScheduledByTask(task).scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
@@ -878,7 +925,7 @@ public final class ThreadUtils {
         }, initialDelay, period, unit);
     }
 
-    private static ScheduledExecutorService getScheduledByTask(final Task task) {
+    private synchronized static ScheduledExecutorService getScheduledByTask(final Task task) {
         ScheduledExecutorService scheduled = TASK_SCHEDULED.get(task);
         if (scheduled == null) {
             UtilsThreadFactory factory = new UtilsThreadFactory("scheduled", Thread.MAX_PRIORITY);
@@ -888,7 +935,7 @@ public final class ThreadUtils {
         return scheduled;
     }
 
-    private static void removeScheduleByTask(final Task task) {
+    private synchronized static void removeScheduleByTask(final Task task) {
         ScheduledExecutorService scheduled = TASK_SCHEDULED.get(task);
         if (scheduled != null) {
             TASK_SCHEDULED.remove(task);
@@ -900,11 +947,11 @@ public final class ThreadUtils {
         return getPoolByTypeAndPriority(type, Thread.NORM_PRIORITY);
     }
 
-    private static ExecutorService getPoolByTypeAndPriority(final int type, final int priority) {
+    private synchronized static ExecutorService getPoolByTypeAndPriority(final int type, final int priority) {
         ExecutorService pool;
         Map<Integer, ExecutorService> priorityPools = TYPE_PRIORITY_POOLS.get(type);
         if (priorityPools == null) {
-            priorityPools = new ConcurrentHashMap<>();
+            priorityPools = new HashMap<>();
             pool = createPoolByTypeAndPriority(type, priority);
             priorityPools.put(priority, pool);
             TYPE_PRIORITY_POOLS.put(type, priorityPools);
@@ -921,33 +968,51 @@ public final class ThreadUtils {
     private static ExecutorService createPoolByTypeAndPriority(final int type, final int priority) {
         switch (type) {
             case TYPE_SINGLE:
-                return Executors.newSingleThreadExecutor(
-                        new UtilsThreadFactory("single", priority)
-                );
+                return new ThreadPoolExecutor(1, 1,
+                        0L, TimeUnit.MILLISECONDS,
+                        new LinkedBlockingQueue<Runnable>(),
+                        new UtilsThreadFactory("single", priority, true));
             case TYPE_CACHED:
-                return Executors.newCachedThreadPool(
-                        new UtilsThreadFactory("cached", priority)
-                );
+                return new ThreadPoolExecutor(1, Math.max(CPU_COUNT * 8, 64),
+                        60L, TimeUnit.SECONDS,
+                        new SynchronousQueue<Runnable>(),
+                        new UtilsThreadFactory("cached", priority, false),
+                        new ThreadPoolExecutor.CallerRunsPolicy());
             case TYPE_IO:
-                return new ThreadPoolExecutor(2 * CPU_COUNT + 1,
-                        2 * CPU_COUNT + 1,
+                return new ThreadPoolExecutor(2 * CPU_COUNT + 1, 2 * CPU_COUNT + 1,
                         30, TimeUnit.SECONDS,
                         new LinkedBlockingQueue<Runnable>(128),
                         new UtilsThreadFactory("io", priority)
                 );
             case TYPE_CPU:
-                return new ThreadPoolExecutor(CPU_COUNT + 1,
-                        2 * CPU_COUNT + 1,
+                return new ThreadPoolExecutor(CPU_COUNT + 1, 2 * CPU_COUNT + 1,
                         30, TimeUnit.SECONDS,
                         new LinkedBlockingQueue<Runnable>(128),
                         new UtilsThreadFactory("cpu", priority)
                 );
             default:
-                return Executors.newFixedThreadPool(
-                        type,
-                        new UtilsThreadFactory("fixed(" + type + ")", priority)
+                return new ThreadPoolExecutor(type, type,
+                        0L, TimeUnit.MILLISECONDS,
+                        new LinkedBlockingQueue<Runnable>(128),
+                        new UtilsThreadFactory("fixed(" + type + ")", priority),
+                        new
+                                ThreadPoolExecutor.DiscardOldestPolicy()
                 );
         }
+    }
+
+    private static Executor getDeliver() {
+        if (sDeliver == null) {
+            sDeliver = new Executor() {
+                private final Handler mHandler = new Handler(Looper.getMainLooper());
+
+                @Override
+                public void execute(@NonNull Runnable command) {
+                    mHandler.post(command);
+                }
+            };
+        }
+        return sDeliver;
     }
 
     public abstract static class SimpleTask<T> extends Task<T> {
@@ -964,24 +1029,108 @@ public final class ThreadUtils {
 
     }
 
+//    private static final class FutureTask4UtilCode<V> extends FutureTask<V> {
+//
+//        private boolean isSchedule;
+//
+//        public FutureTask4UtilCode(@NonNull Callable<V> callable) {
+//            super(callable);
+//        }
+//
+//        @Override
+//        public void run() {
+//            super.runAndReset();
+//        }
+//
+//        public void setSchedule(boolean schedule) {
+//            isSchedule = schedule;
+//        }
+//    }
+//
+//    public abstract static class Task<T> implements Runnable {
+//
+//        public abstract T doInBackground() throws Throwable;
+//
+//        public abstract void onSuccess(T result);
+//
+//        public abstract void onCancel();
+//
+//        public abstract void onFail(Throwable t);
+//
+//        private FutureTask4UtilCode<T> mFutureTask;
+//
+//        public Task() {
+//            mFutureTask = new FutureTask4UtilCode<T>(new Callable<T>() {
+//                @Override
+//                public T call() {
+//                    try {
+//                        final T result = doInBackground();
+//                        getDeliver().execute(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                onSuccess(result);
+//                                removeScheduleByTask(Task.this);
+//                            }
+//                        });
+//                    } catch (final InterruptedException ignore) {
+//                        System.out.println(ignore);
+//                    } catch (final Throwable throwable) {
+//                        getDeliver().execute(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                onFail(throwable);
+//                                removeScheduleByTask(Task.this);
+//                            }
+//                        });
+//                    }
+//                    return null;
+//                }
+//            });
+//        }
+//
+//        @Override
+//        public void run() {
+//            mFutureTask.run();
+//        }
+//
+//        public void cancel() {
+//            cancel(true);
+//        }
+//
+//        public void cancel(boolean mayInterruptIfRunning) {
+//            mFutureTask.cancel(true);
+//        }
+//
+//        public boolean isCanceled() {
+//            return mFutureTask.isCancelled();
+//        }
+//
+//        public boolean isDone() {
+//            return mFutureTask.isDone();
+//        }
+//
+//        private void setSchedule(boolean schedule) {
+//            mFutureTask.setSchedule(schedule);
+//        }
+//    }
+
     public abstract static class Task<T> implements Runnable {
 
-        private boolean isSchedule;
-
-        private volatile     int state;
         private static final int NEW         = 0;
         private static final int COMPLETING  = 1;
         private static final int CANCELLED   = 2;
         private static final int EXCEPTIONAL = 3;
 
-        public Task() {
-            state = NEW;
-        }
+        private static final Object LOCK = "";
 
-        @Nullable
+        private volatile int     state = NEW;
+        private volatile boolean isSchedule;
+        private volatile Thread  runner;
+
+
         public abstract T doInBackground() throws Throwable;
 
-        public abstract void onSuccess(@Nullable T result);
+        public abstract void onSuccess(T result);
 
         public abstract void onCancel();
 
@@ -990,12 +1139,17 @@ public final class ThreadUtils {
 
         @Override
         public void run() {
+            if (state != NEW) return;
+            synchronized (LOCK) {
+                runner = Thread.currentThread();
+            }
             try {
                 final T result = doInBackground();
+
                 if (state != NEW) return;
 
                 if (isSchedule) {
-                    Deliver.post(new Runnable() {
+                    getDeliver().execute(new Runnable() {
                         @Override
                         public void run() {
                             onSuccess(result);
@@ -1003,7 +1157,7 @@ public final class ThreadUtils {
                     });
                 } else {
                     state = COMPLETING;
-                    Deliver.post(new Runnable() {
+                    getDeliver().execute(new Runnable() {
                         @Override
                         public void run() {
                             onSuccess(result);
@@ -1011,11 +1165,13 @@ public final class ThreadUtils {
                         }
                     });
                 }
+            } catch (InterruptedException ignore) {
+                System.out.println("InterruptedException");
             } catch (final Throwable throwable) {
                 if (state != NEW) return;
 
                 state = EXCEPTIONAL;
-                Deliver.post(new Runnable() {
+                getDeliver().execute(new Runnable() {
                     @Override
                     public void run() {
                         onFail(throwable);
@@ -1026,10 +1182,22 @@ public final class ThreadUtils {
         }
 
         public void cancel() {
+            cancel(true);
+        }
+
+        public void cancel(boolean mayInterruptIfRunning) {
             if (state != NEW) return;
+            if (mayInterruptIfRunning) {
+                synchronized (LOCK) {
+                    if (runner != null) {
+                        runner.interrupt();
+                    }
+                }
+            }
 
             state = CANCELLED;
-            Deliver.post(new Runnable() {
+
+            getDeliver().execute(new Runnable() {
                 @Override
                 public void run() {
                     onCancel();
@@ -1037,26 +1205,43 @@ public final class ThreadUtils {
                 }
             });
         }
+
+        public boolean isCanceled() {
+            return state == CANCELLED;
+        }
+
+        public boolean isDone() {
+            return state != NEW;
+        }
+
+        private void setSchedule(boolean isSchedule) {
+            this.isSchedule = isSchedule;
+        }
     }
 
     private static final class UtilsThreadFactory extends AtomicLong
             implements ThreadFactory {
-        private static final AtomicInteger POOL_NUMBER = new AtomicInteger(1);
-        private final        ThreadGroup   group;
+        private static final AtomicInteger POOL_NUMBER      = new AtomicInteger(1);
+        private static final long          serialVersionUID = -9209200509960368598L;
         private final        String        namePrefix;
         private final        int           priority;
+        private final        boolean       isDaemon;
 
         UtilsThreadFactory(String prefix, int priority) {
-            SecurityManager s = System.getSecurityManager();
-            group = s != null ? s.getThreadGroup() : Thread.currentThread().getThreadGroup();
+            this(prefix, priority, false);
+        }
+
+        UtilsThreadFactory(String prefix, int priority, boolean isDaemon) {
             namePrefix = prefix + "-pool-" +
                     POOL_NUMBER.getAndIncrement() +
                     "-thread-";
             this.priority = priority;
+            this.isDaemon = isDaemon;
         }
 
+        @Override
         public Thread newThread(@NonNull Runnable r) {
-            Thread t = new Thread(group, r, namePrefix + getAndIncrement(), 0) {
+            Thread t = new Thread(r, namePrefix + getAndIncrement()) {
                 @Override
                 public void run() {
                     try {
@@ -1066,38 +1251,15 @@ public final class ThreadUtils {
                     }
                 }
             };
-            if (t.isDaemon()) {
-                t.setDaemon(false);
-            }
+            t.setDaemon(isDaemon);
+            t.setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+                @Override
+                public void uncaughtException(Thread t, Throwable e) {
+                    System.out.println(e);
+                }
+            });
             t.setPriority(priority);
             return t;
-        }
-    }
-
-    private static class Deliver {
-
-        private static final Handler MAIN_HANDLER;
-
-        static {
-            Looper looper;
-            try {
-                looper = Looper.getMainLooper();
-            } catch (Exception e) {
-                looper = null;
-            }
-            if (looper != null) {
-                MAIN_HANDLER = new Handler(looper);
-            } else {
-                MAIN_HANDLER = null;
-            }
-        }
-
-        static void post(final Runnable runnable) {
-            if (MAIN_HANDLER != null) {
-                MAIN_HANDLER.post(runnable);
-            } else {
-                runnable.run();
-            }
         }
     }
 }

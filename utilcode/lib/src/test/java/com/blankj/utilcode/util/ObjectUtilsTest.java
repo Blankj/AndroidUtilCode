@@ -8,9 +8,6 @@ import android.util.SparseIntArray;
 import android.util.SparseLongArray;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -26,9 +23,7 @@ import static org.junit.Assert.assertTrue;
  *     desc  : test ObjectUtils
  * </pre>
  */
-@RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE, sdk = 23)
-public class ObjectUtilsTest {
+public class ObjectUtilsTest extends BaseTest {
 
     @Test
     public void isEmpty() {

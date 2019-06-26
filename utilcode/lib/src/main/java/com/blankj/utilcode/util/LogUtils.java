@@ -16,6 +16,9 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.util.SimpleArrayMap;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,30 +28,24 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
@@ -98,19 +95,18 @@ public final class LogUtils {
     private static final String TOP_BORDER     = TOP_CORNER + SIDE_DIVIDER + SIDE_DIVIDER;
     private static final String MIDDLE_BORDER  = MIDDLE_CORNER + MIDDLE_DIVIDER + MIDDLE_DIVIDER;
     private static final String BOTTOM_BORDER  = BOTTOM_CORNER + SIDE_DIVIDER + SIDE_DIVIDER;
-    private static final int    MAX_LEN        = 3000;
+    private static final int    MAX_LEN        = 1100;// fit for Chinese character
     private static final String NOTHING        = "log nothing";
     private static final String NULL           = "null";
     private static final String ARGS           = "args";
     private static final String PLACEHOLDER    = " ";
     private static final Config CONFIG         = new Config();
 
-    private static final ThreadLocal<SimpleDateFormat> SDF_THREAD_LOCAL = new ThreadLocal<>();
+    private static SimpleDateFormat simpleDateFormat;
 
     private static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
 
     private static final SimpleArrayMap<Class, IFormatter> I_FORMATTER_MAP = new SimpleArrayMap<>();
-
 
     private LogUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -121,7 +117,7 @@ public final class LogUtils {
     }
 
     public static void v(final Object... contents) {
-        log(V, CONFIG.mGlobalTag, contents);
+        log(V, CONFIG.getGlobalTag(), contents);
     }
 
     public static void vTag(final String tag, final Object... contents) {
@@ -129,7 +125,7 @@ public final class LogUtils {
     }
 
     public static void d(final Object... contents) {
-        log(D, CONFIG.mGlobalTag, contents);
+        log(D, CONFIG.getGlobalTag(), contents);
     }
 
     public static void dTag(final String tag, final Object... contents) {
@@ -137,7 +133,7 @@ public final class LogUtils {
     }
 
     public static void i(final Object... contents) {
-        log(I, CONFIG.mGlobalTag, contents);
+        log(I, CONFIG.getGlobalTag(), contents);
     }
 
     public static void iTag(final String tag, final Object... contents) {
@@ -145,7 +141,7 @@ public final class LogUtils {
     }
 
     public static void w(final Object... contents) {
-        log(W, CONFIG.mGlobalTag, contents);
+        log(W, CONFIG.getGlobalTag(), contents);
     }
 
     public static void wTag(final String tag, final Object... contents) {
@@ -153,7 +149,7 @@ public final class LogUtils {
     }
 
     public static void e(final Object... contents) {
-        log(E, CONFIG.mGlobalTag, contents);
+        log(E, CONFIG.getGlobalTag(), contents);
     }
 
     public static void eTag(final String tag, final Object... contents) {
@@ -161,7 +157,7 @@ public final class LogUtils {
     }
 
     public static void a(final Object... contents) {
-        log(A, CONFIG.mGlobalTag, contents);
+        log(A, CONFIG.getGlobalTag(), contents);
     }
 
     public static void aTag(final String tag, final Object... contents) {
@@ -169,11 +165,11 @@ public final class LogUtils {
     }
 
     public static void file(final Object content) {
-        log(FILE | D, CONFIG.mGlobalTag, content);
+        log(FILE | D, CONFIG.getGlobalTag(), content);
     }
 
     public static void file(@TYPE final int type, final Object content) {
-        log(FILE | type, CONFIG.mGlobalTag, content);
+        log(FILE | type, CONFIG.getGlobalTag(), content);
     }
 
     public static void file(final String tag, final Object content) {
@@ -184,28 +180,28 @@ public final class LogUtils {
         log(FILE | type, tag, content);
     }
 
-    public static void json(final String content) {
-        log(JSON | D, CONFIG.mGlobalTag, content);
+    public static void json(final Object content) {
+        log(JSON | D, CONFIG.getGlobalTag(), content);
     }
 
-    public static void json(@TYPE final int type, final String content) {
-        log(JSON | type, CONFIG.mGlobalTag, content);
+    public static void json(@TYPE final int type, final Object content) {
+        log(JSON | type, CONFIG.getGlobalTag(), content);
     }
 
-    public static void json(final String tag, final String content) {
+    public static void json(final String tag, final Object content) {
         log(JSON | D, tag, content);
     }
 
-    public static void json(@TYPE final int type, final String tag, final String content) {
+    public static void json(@TYPE final int type, final String tag, final Object content) {
         log(JSON | type, tag, content);
     }
 
     public static void xml(final String content) {
-        log(XML | D, CONFIG.mGlobalTag, content);
+        log(XML | D, CONFIG.getGlobalTag(), content);
     }
 
     public static void xml(@TYPE final int type, final String content) {
-        log(XML | type, CONFIG.mGlobalTag, content);
+        log(XML | type, CONFIG.getGlobalTag(), content);
     }
 
     public static void xml(final String tag, final String content) {
@@ -217,25 +213,32 @@ public final class LogUtils {
     }
 
     public static void log(final int type, final String tag, final Object... contents) {
-        if (!CONFIG.mLogSwitch || (!CONFIG.mLog2ConsoleSwitch && !CONFIG.mLog2FileSwitch)) return;
-        int type_low = type & 0x0f, type_high = type & 0xf0;
-        if (type_low < CONFIG.mConsoleFilter && type_low < CONFIG.mFileFilter) return;
-        final TagHead tagHead = processTagAndHead(tag);
-        String body = processBody(type_high, contents);
-        if (CONFIG.mLog2ConsoleSwitch && type_low >= CONFIG.mConsoleFilter && type_high != FILE) {
-            print2Console(type_low, tagHead.tag, tagHead.consoleHead, body);
-        }
-        if ((CONFIG.mLog2FileSwitch || type_high == FILE) && type_low >= CONFIG.mFileFilter) {
-            print2File(type_low, tagHead.tag, tagHead.fileHead + body);
+        if (!CONFIG.isLogSwitch()) return;
+        final int type_low = type & 0x0f, type_high = type & 0xf0;
+        if (CONFIG.isLog2ConsoleSwitch() || CONFIG.isLog2FileSwitch() || type_high == FILE) {
+            if (type_low < CONFIG.mConsoleFilter && type_low < CONFIG.mFileFilter) return;
+            final TagHead tagHead = processTagAndHead(tag);
+            final String body = processBody(type_high, contents);
+            if (CONFIG.isLog2ConsoleSwitch() && type_high != FILE && type_low >= CONFIG.mConsoleFilter) {
+                print2Console(type_low, tagHead.tag, tagHead.consoleHead, body);
+            }
+            if ((CONFIG.isLog2FileSwitch() || type_high == FILE) && type_low >= CONFIG.mFileFilter) {
+                EXECUTOR.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        print2File(type_low, tagHead.tag, tagHead.fileHead + body);
+                    }
+                });
+            }
         }
     }
 
     private static TagHead processTagAndHead(String tag) {
-        if (!CONFIG.mTagIsSpace && !CONFIG.mLogHeadSwitch) {
-            tag = CONFIG.mGlobalTag;
+        if (!CONFIG.mTagIsSpace && !CONFIG.isLogHeadSwitch()) {
+            tag = CONFIG.getGlobalTag();
         } else {
             final StackTraceElement[] stackTrace = new Throwable().getStackTrace();
-            final int stackIndex = 3 + CONFIG.mStackOffset;
+            final int stackIndex = 3 + CONFIG.getStackOffset();
             if (stackIndex >= stackTrace.length) {
                 StackTraceElement targetElement = stackTrace[3];
                 final String fileName = getFileName(targetElement);
@@ -251,7 +254,7 @@ public final class LogUtils {
                 int index = fileName.indexOf('.');// Use proguard may not find '.'.
                 tag = index == -1 ? fileName : fileName.substring(0, index);
             }
-            if (CONFIG.mLogHeadSwitch) {
+            if (CONFIG.isLogHeadSwitch()) {
                 String tName = Thread.currentThread().getName();
                 final String head = new Formatter()
                         .format("%s, %s.%s(%s:%d)",
@@ -262,12 +265,12 @@ public final class LogUtils {
                                 targetElement.getLineNumber())
                         .toString();
                 final String fileHead = " [" + head + "]: ";
-                if (CONFIG.mStackDeep <= 1) {
+                if (CONFIG.getStackDeep() <= 1) {
                     return new TagHead(tag, new String[]{head}, fileHead);
                 } else {
                     final String[] consoleHead =
                             new String[Math.min(
-                                    CONFIG.mStackDeep,
+                                    CONFIG.getStackDeep(),
                                     stackTrace.length - stackIndex
                             )];
                     consoleHead[0] = head;
@@ -333,8 +336,8 @@ public final class LogUtils {
 
     private static String formatObject(int type, Object object) {
         if (object == null) return NULL;
-        if (type == JSON) return LogFormatter.formatJson(object.toString());
-        if (type == XML) return LogFormatter.formatXml(object.toString());
+        if (type == JSON) return LogFormatter.object2String(object, JSON);
+        if (type == XML) return LogFormatter.object2String(object, XML);
         return formatObject(object);
     }
 
@@ -347,12 +350,6 @@ public final class LogUtils {
                 return iFormatter.format(object);
             }
         }
-        if (object.getClass().isArray()) return LogFormatter.array2String(object);
-        if (object instanceof Throwable) return LogFormatter.throwable2String((Throwable) object);
-        if (object instanceof Bundle) return LogFormatter.bundle2String((Bundle) object);
-        if (object instanceof Intent) return LogFormatter.intent2String((Intent) object);
-        if (object instanceof Map) return LogFormatter.map2String((Map) object);
-        if (object instanceof Collection) return LogFormatter.collection2String((Collection) object);
         return LogFormatter.object2String(object);
     }
 
@@ -360,7 +357,7 @@ public final class LogUtils {
                                       final String tag,
                                       final String[] head,
                                       final String msg) {
-        if (CONFIG.mSingleTagSwitch) {
+        if (CONFIG.isSingleTagSwitch()) {
             printSingleTagMsg(type, tag, processSingleTagMsg(type, tag, head, msg));
         } else {
             printBorder(type, tag, true);
@@ -371,7 +368,7 @@ public final class LogUtils {
     }
 
     private static void printBorder(final int type, final String tag, boolean isTop) {
-        if (CONFIG.mLogBorderSwitch) {
+        if (CONFIG.isLogBorderSwitch()) {
             Log.println(type, tag, isTop ? TOP_BORDER : BOTTOM_BORDER);
         }
     }
@@ -379,9 +376,9 @@ public final class LogUtils {
     private static void printHead(final int type, final String tag, final String[] head) {
         if (head != null) {
             for (String aHead : head) {
-                Log.println(type, tag, CONFIG.mLogBorderSwitch ? LEFT_BORDER + aHead : aHead);
+                Log.println(type, tag, CONFIG.isLogBorderSwitch() ? LEFT_BORDER + aHead : aHead);
             }
-            if (CONFIG.mLogBorderSwitch) Log.println(type, tag, MIDDLE_BORDER);
+            if (CONFIG.isLogBorderSwitch()) Log.println(type, tag, MIDDLE_BORDER);
         }
     }
 
@@ -403,7 +400,7 @@ public final class LogUtils {
     }
 
     private static void printSubMsg(final int type, final String tag, final String msg) {
-        if (!CONFIG.mLogBorderSwitch) {
+        if (!CONFIG.isLogBorderSwitch()) {
             Log.println(type, tag, msg);
             return;
         }
@@ -419,8 +416,8 @@ public final class LogUtils {
                                               final String[] head,
                                               final String msg) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PLACEHOLDER).append(LINE_SEP);
-        if (CONFIG.mLogBorderSwitch) {
+        if (CONFIG.isLogBorderSwitch()) {
+            sb.append(PLACEHOLDER).append(LINE_SEP);
             sb.append(TOP_BORDER).append(LINE_SEP);
             if (head != null) {
                 for (String aHead : head) {
@@ -434,6 +431,7 @@ public final class LogUtils {
             sb.append(BOTTOM_BORDER);
         } else {
             if (head != null) {
+                sb.append(PLACEHOLDER).append(LINE_SEP);
                 for (String aHead : head) {
                     sb.append(aHead).append(LINE_SEP);
                 }
@@ -445,9 +443,9 @@ public final class LogUtils {
 
     private static void printSingleTagMsg(final int type, final String tag, final String msg) {
         int len = msg.length();
-        int countOfSub = len / MAX_LEN;
+        int countOfSub = CONFIG.isLogBorderSwitch() ? (len - BOTTOM_BORDER.length()) / MAX_LEN : len / MAX_LEN;
         if (countOfSub > 0) {
-            if (CONFIG.mLogBorderSwitch) {
+            if (CONFIG.isLogBorderSwitch()) {
                 Log.println(type, tag, msg.substring(0, MAX_LEN) + LINE_SEP + BOTTOM_BORDER);
                 int index = MAX_LEN;
                 for (int i = 1; i < countOfSub; i++) {
@@ -456,7 +454,7 @@ public final class LogUtils {
                             + LINE_SEP + BOTTOM_BORDER);
                     index += MAX_LEN;
                 }
-                if (index != len) {
+                if (index != len - BOTTOM_BORDER.length()) {
                     Log.println(type, tag, PLACEHOLDER + LINE_SEP + TOP_BORDER + LINE_SEP
                             + LEFT_BORDER + msg.substring(index, len));
                 }
@@ -478,46 +476,42 @@ public final class LogUtils {
     }
 
     private static void print2File(final int type, final String tag, final String msg) {
-        Date now = new Date(System.currentTimeMillis());
-        String format = getSdf().format(now);
+        String format = getSdf().format(new Date());
         String date = format.substring(0, 10);
         String time = format.substring(11);
         final String fullPath =
-                (CONFIG.mDir == null ? CONFIG.mDefaultDir : CONFIG.mDir)
-                        + CONFIG.mFilePrefix + "-" + date + ".txt";
-        if (!createOrExistsFile(fullPath)) {
+                CONFIG.getDir() + CONFIG.getFilePrefix() + "_"
+                        + date + "_" +
+                        CONFIG.getProcessName() + ".txt";
+        if (!createOrExistsFile(fullPath, date)) {
             Log.e("LogUtils", "create " + fullPath + " failed!");
             return;
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append(time)
-                .append(T[type - V])
-                .append("/")
-                .append(tag)
-                .append(msg)
-                .append(LINE_SEP);
-        final String content = sb.toString();
+        final String content = time +
+                T[type - V] +
+                "/" +
+                tag +
+                msg +
+                LINE_SEP;
         input2File(content, fullPath);
     }
 
     private static SimpleDateFormat getSdf() {
-        SimpleDateFormat simpleDateFormat = SDF_THREAD_LOCAL.get();
         if (simpleDateFormat == null) {
-            simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-            SDF_THREAD_LOCAL.set(simpleDateFormat);
+            simpleDateFormat = new SimpleDateFormat("yyyy_MM_dd HH:mm:ss.SSS ", Locale.getDefault());
         }
         return simpleDateFormat;
     }
 
-    private static boolean createOrExistsFile(final String filePath) {
+    private static boolean createOrExistsFile(final String filePath, final String date) {
         File file = new File(filePath);
         if (file.exists()) return file.isFile();
         if (!createOrExistsDir(file.getParentFile())) return false;
         try {
-            deleteDueLogs(filePath);
+            deleteDueLogs(filePath, date);
             boolean isCreate = file.createNewFile();
             if (isCreate) {
-                printDeviceInfo(filePath);
+                printDeviceInfo(filePath, date);
             }
             return isCreate;
         } catch (IOException e) {
@@ -526,25 +520,24 @@ public final class LogUtils {
         }
     }
 
-    private static void deleteDueLogs(String filePath) {
+    private static void deleteDueLogs(final String filePath, final String date) {
+        if (CONFIG.getSaveDays() <= 0) return;
         File file = new File(filePath);
         File parentFile = file.getParentFile();
         File[] files = parentFile.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                return name.matches("^" + CONFIG.mFilePrefix + "-[0-9]{4}-[0-9]{2}-[0-9]{2}.txt$");
+                return name.matches("^" + CONFIG.getFilePrefix() + "_[0-9]{4}_[0-9]{2}_[0-9]{2}_.*$");
             }
         });
-        if (files.length <= 0) return;
-        final int length = filePath.length();
-        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        if (files == null || files.length <= 0) return;
+        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd", Locale.getDefault());
         try {
-            String curDay = filePath.substring(length - 14, length - 4);
-            long dueMillis = sdf.parse(curDay).getTime() - CONFIG.mSaveDays * 86400000L;
+            long dueMillis = sdf.parse(date).getTime() - CONFIG.getSaveDays() * 86400000L;
             for (final File aFile : files) {
                 String name = aFile.getName();
                 int l = name.length();
-                String logDay = name.substring(l - 14, l - 4);
+                String logDay = findDate(name);
                 if (sdf.parse(logDay).getTime() <= dueMillis) {
                     EXECUTOR.execute(new Runnable() {
                         @Override
@@ -562,7 +555,16 @@ public final class LogUtils {
         }
     }
 
-    private static void printDeviceInfo(final String filePath) {
+    private static String findDate(String str) {
+        Pattern pattern = Pattern.compile("[0-9]{4}_[0-9]{2}_[0-9]{2}");
+        Matcher matcher = pattern.matcher(str);
+        if (matcher.find()) {
+            return matcher.group();
+        }
+        return "";
+    }
+
+    private static void printDeviceInfo(final String filePath, final String date) {
         String versionName = "";
         int versionCode = 0;
         try {
@@ -576,9 +578,8 @@ public final class LogUtils {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        String time = filePath.substring(filePath.length() - 14, filePath.length() - 4);
         final String head = "************* Log Head ****************" +
-                "\nDate of Log        : " + time +
+                "\nDate of Log        : " + date +
                 "\nDevice Manufacturer: " + Build.MANUFACTURER +
                 "\nDevice Model       : " + Build.MODEL +
                 "\nAndroid Version    : " + Build.VERSION.RELEASE +
@@ -604,46 +605,47 @@ public final class LogUtils {
     }
 
     private static void input2File(final String input, final String filePath) {
-        EXECUTOR.execute(new Runnable() {
-            @Override
-            public void run() {
-                BufferedWriter bw = null;
+        if (CONFIG.mFileWriter == null) {
+            BufferedWriter bw = null;
+            try {
+                bw = new BufferedWriter(new FileWriter(filePath, true));
+                bw.write(input);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e("LogUtils", "log to " + filePath + " failed!");
+            } finally {
                 try {
-                    bw = new BufferedWriter(new FileWriter(filePath, true));
-                    bw.write(input);
+                    if (bw != null) {
+                        bw.close();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.e("LogUtils", "log to " + filePath + " failed!");
-                } finally {
-                    try {
-                        if (bw != null) {
-                            bw.close();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 }
             }
-        });
+        } else {
+            CONFIG.mFileWriter.write(filePath, input);
+        }
     }
 
-    public static class Config {
-        private String  mDefaultDir;// The default storage directory of log.
-        private String  mDir;       // The storage directory of log.
-        private String  mFilePrefix        = "util";// The file prefix of log.
-        private boolean mLogSwitch         = true;  // The switch of log.
-        private boolean mLog2ConsoleSwitch = true;  // The logcat's switch of log.
-        private String  mGlobalTag         = null;  // The global tag of log.
-        private boolean mTagIsSpace        = true;  // The global tag is space.
-        private boolean mLogHeadSwitch     = true;  // The head's switch of log.
-        private boolean mLog2FileSwitch    = false; // The file's switch of log.
-        private boolean mLogBorderSwitch   = true;  // The border's switch of log.
-        private boolean mSingleTagSwitch   = true;  // The single tag of log.
-        private int     mConsoleFilter     = V;     // The console's filter of log.
-        private int     mFileFilter        = V;     // The file's filter of log.
-        private int     mStackDeep         = 1;     // The stack's deep of log.
-        private int     mStackOffset       = 0;     // The stack's offset of log.
-        private int     mSaveDays          = -1;    // The save days of log.
+    public static final class Config {
+        private String      mDefaultDir;// The default storage directory of log.
+        private String      mDir;       // The storage directory of log.
+        private String      mFilePrefix        = "util";// The file prefix of log.
+        private boolean     mLogSwitch         = true;  // The switch of log.
+        private boolean     mLog2ConsoleSwitch = true;  // The logcat's switch of log.
+        private String      mGlobalTag         = "";    // The global tag of log.
+        private boolean     mTagIsSpace        = true;  // The global tag is space.
+        private boolean     mLogHeadSwitch     = true;  // The head's switch of log.
+        private boolean     mLog2FileSwitch    = false; // The file's switch of log.
+        private boolean     mLogBorderSwitch   = true;  // The border's switch of log.
+        private boolean     mSingleTagSwitch   = true;  // The single tag of log.
+        private int         mConsoleFilter     = V;     // The console's filter of log.
+        private int         mFileFilter        = V;     // The file's filter of log.
+        private int         mStackDeep         = 1;     // The stack's deep of log.
+        private int         mStackOffset       = 0;     // The stack's offset of log.
+        private int         mSaveDays          = -1;    // The save days of log.
+        private String      mProcessName       = Utils.getCurrentProcessName();
+        private IFileWriter mFileWriter;
 
         private Config() {
             if (mDefaultDir != null) return;
@@ -655,17 +657,17 @@ public final class LogUtils {
             }
         }
 
-        public Config setLogSwitch(final boolean logSwitch) {
+        public final Config setLogSwitch(final boolean logSwitch) {
             mLogSwitch = logSwitch;
             return this;
         }
 
-        public Config setConsoleSwitch(final boolean consoleSwitch) {
+        public final Config setConsoleSwitch(final boolean consoleSwitch) {
             mLog2ConsoleSwitch = consoleSwitch;
             return this;
         }
 
-        public Config setGlobalTag(final String tag) {
+        public final Config setGlobalTag(final String tag) {
             if (isSpace(tag)) {
                 mGlobalTag = "";
                 mTagIsSpace = true;
@@ -676,17 +678,17 @@ public final class LogUtils {
             return this;
         }
 
-        public Config setLogHeadSwitch(final boolean logHeadSwitch) {
+        public final Config setLogHeadSwitch(final boolean logHeadSwitch) {
             mLogHeadSwitch = logHeadSwitch;
             return this;
         }
 
-        public Config setLog2FileSwitch(final boolean log2FileSwitch) {
+        public final Config setLog2FileSwitch(final boolean log2FileSwitch) {
             mLog2FileSwitch = log2FileSwitch;
             return this;
         }
 
-        public Config setDir(final String dir) {
+        public final Config setDir(final String dir) {
             if (isSpace(dir)) {
                 mDir = null;
             } else {
@@ -695,12 +697,12 @@ public final class LogUtils {
             return this;
         }
 
-        public Config setDir(final File dir) {
-            mDir = dir == null ? null : dir.getAbsolutePath() + FILE_SEP;
+        public final Config setDir(final File dir) {
+            mDir = dir == null ? null : (dir.getAbsolutePath() + FILE_SEP);
             return this;
         }
 
-        public Config setFilePrefix(final String filePrefix) {
+        public final Config setFilePrefix(final String filePrefix) {
             if (isSpace(filePrefix)) {
                 mFilePrefix = "util";
             } else {
@@ -709,37 +711,37 @@ public final class LogUtils {
             return this;
         }
 
-        public Config setBorderSwitch(final boolean borderSwitch) {
+        public final Config setBorderSwitch(final boolean borderSwitch) {
             mLogBorderSwitch = borderSwitch;
             return this;
         }
 
-        public Config setSingleTagSwitch(final boolean singleTagSwitch) {
+        public final Config setSingleTagSwitch(final boolean singleTagSwitch) {
             mSingleTagSwitch = singleTagSwitch;
             return this;
         }
 
-        public Config setConsoleFilter(@TYPE final int consoleFilter) {
+        public final Config setConsoleFilter(@TYPE final int consoleFilter) {
             mConsoleFilter = consoleFilter;
             return this;
         }
 
-        public Config setFileFilter(@TYPE final int fileFilter) {
+        public final Config setFileFilter(@TYPE final int fileFilter) {
             mFileFilter = fileFilter;
             return this;
         }
 
-        public Config setStackDeep(@IntRange(from = 1) final int stackDeep) {
+        public final Config setStackDeep(@IntRange(from = 1) final int stackDeep) {
             mStackDeep = stackDeep;
             return this;
         }
 
-        public Config setStackOffset(@IntRange(from = 0) final int stackOffset) {
+        public final Config setStackOffset(@IntRange(from = 0) final int stackOffset) {
             mStackOffset = stackOffset;
             return this;
         }
 
-        public Config setSaveDays(@IntRange(from = 1) final int saveDays) {
+        public final Config setSaveDays(@IntRange(from = 1) final int saveDays) {
             mSaveDays = saveDays;
             return this;
         }
@@ -751,22 +753,94 @@ public final class LogUtils {
             return this;
         }
 
+        public final Config setFileWriter(final IFileWriter fileWriter) {
+            mFileWriter = fileWriter;
+            return this;
+        }
+
+        public final String getProcessName() {
+            if (mProcessName == null) return "";
+            return mProcessName.replace(":", "_");
+        }
+
+        public final String getDefaultDir() {
+            return mDefaultDir;
+        }
+
+        public final String getDir() {
+            return mDir == null ? mDefaultDir : mDir;
+        }
+
+        public final String getFilePrefix() {
+            return mFilePrefix;
+        }
+
+        public final boolean isLogSwitch() {
+            return mLogSwitch;
+        }
+
+        public final boolean isLog2ConsoleSwitch() {
+            return mLog2ConsoleSwitch;
+        }
+
+        public final String getGlobalTag() {
+            if (isSpace(mGlobalTag)) return "";
+            return mGlobalTag;
+        }
+
+        public final boolean isLogHeadSwitch() {
+            return mLogHeadSwitch;
+        }
+
+        public final boolean isLog2FileSwitch() {
+            return mLog2FileSwitch;
+        }
+
+        public final boolean isLogBorderSwitch() {
+            return mLogBorderSwitch;
+        }
+
+        public final boolean isSingleTagSwitch() {
+            return mSingleTagSwitch;
+        }
+
+        public final char getConsoleFilter() {
+            return T[mConsoleFilter - V];
+        }
+
+        public final char getFileFilter() {
+            return T[mFileFilter - V];
+        }
+
+        public final int getStackDeep() {
+            return mStackDeep;
+        }
+
+        public final int getStackOffset() {
+            return mStackOffset;
+        }
+
+        public final int getSaveDays() {
+            return mSaveDays;
+        }
+
         @Override
         public String toString() {
-            return "switch: " + mLogSwitch
-                    + LINE_SEP + "console: " + mLog2ConsoleSwitch
-                    + LINE_SEP + "tag: " + (mTagIsSpace ? "null" : mGlobalTag)
-                    + LINE_SEP + "head: " + mLogHeadSwitch
-                    + LINE_SEP + "file: " + mLog2FileSwitch
-                    + LINE_SEP + "dir: " + (mDir == null ? mDefaultDir : mDir)
-                    + LINE_SEP + "filePrefix: " + mFilePrefix
-                    + LINE_SEP + "border: " + mLogBorderSwitch
-                    + LINE_SEP + "singleTag: " + mSingleTagSwitch
-                    + LINE_SEP + "consoleFilter: " + T[mConsoleFilter - V]
-                    + LINE_SEP + "fileFilter: " + T[mFileFilter - V]
-                    + LINE_SEP + "stackDeep: " + mStackDeep
-                    + LINE_SEP + "stackOffset: " + mStackOffset
-                    + LINE_SEP + "saveDays: " + mSaveDays
+            return "process: " + getProcessName()
+                    + LINE_SEP + "switch: " + isLogSwitch()
+                    + LINE_SEP + "console: " + isLog2ConsoleSwitch()
+                    + LINE_SEP + "tag: " + getGlobalTag()
+                    + LINE_SEP + "head: " + isLogHeadSwitch()
+                    + LINE_SEP + "file: " + isLog2FileSwitch()
+                    + LINE_SEP + "dir: " + getDir()
+                    + LINE_SEP + "filePrefix: " + getFilePrefix()
+                    + LINE_SEP + "border: " + isLogBorderSwitch()
+                    + LINE_SEP + "singleTag: " + isSingleTagSwitch()
+                    + LINE_SEP + "consoleFilter: " + getConsoleFilter()
+                    + LINE_SEP + "fileFilter: " + getFileFilter()
+                    + LINE_SEP + "stackDeep: " + getStackDeep()
+                    + LINE_SEP + "stackOffset: " + getStackOffset()
+                    + LINE_SEP + "saveDays: " + getSaveDays()
                     + LINE_SEP + "formatter: " + I_FORMATTER_MAP;
         }
     }
@@ -775,7 +849,11 @@ public final class LogUtils {
         public abstract String format(T t);
     }
 
-    private static class TagHead {
+    public interface IFileWriter {
+        void write(String file, String content);
+    }
+
+    private final static class TagHead {
         String   tag;
         String[] consoleHead;
         String   fileHead;
@@ -787,79 +865,32 @@ public final class LogUtils {
         }
     }
 
-    private static class LogFormatter {
-        static String formatJson(String json) {
-            try {
-                if (json.startsWith("{")) {
-                    json = new JSONObject(json).toString(4);
-                } else if (json.startsWith("[")) {
-                    json = new JSONArray(json).toString(4);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return json;
+    private final static class LogFormatter {
+
+        private static final Gson GSON = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
+
+        static String object2String(Object object) {
+            return object2String(object, -1);
         }
 
-        static String formatXml(String xml) {
-            try {
-                Source xmlInput = new StreamSource(new StringReader(xml));
-                StreamResult xmlOutput = new StreamResult(new StringWriter());
-                Transformer transformer = TransformerFactory.newInstance().newTransformer();
-                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-                transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-                transformer.transform(xmlInput, xmlOutput);
-                xml = xmlOutput.getWriter().toString().replaceFirst(">", ">" + LINE_SEP);
-            } catch (Exception e) {
-                e.printStackTrace();
+        static String object2String(Object object, int type) {
+            if (object.getClass().isArray()) return array2String(object);
+            if (object instanceof Throwable) return throwable2String((Throwable) object);
+            if (object instanceof Bundle) return bundle2String((Bundle) object);
+            if (object instanceof Intent) return intent2String((Intent) object);
+            if (type == JSON) {
+                return object2Json(object);
+            } else if (type == XML) {
+                return formatXml(object.toString());
             }
-            return xml;
+            return object.toString();
         }
 
-        static String array2String(Object object) {
-            if (object instanceof Object[]) {
-                return Arrays.deepToString((Object[]) object);
-            } else if (object instanceof boolean[]) {
-                return Arrays.toString((boolean[]) object);
-            } else if (object instanceof byte[]) {
-                return Arrays.toString((byte[]) object);
-            } else if (object instanceof char[]) {
-                return Arrays.toString((char[]) object);
-            } else if (object instanceof double[]) {
-                return Arrays.toString((double[]) object);
-            } else if (object instanceof float[]) {
-                return Arrays.toString((float[]) object);
-            } else if (object instanceof int[]) {
-                return Arrays.toString((int[]) object);
-            } else if (object instanceof long[]) {
-                return Arrays.toString((long[]) object);
-            } else if (object instanceof short[]) {
-                return Arrays.toString((short[]) object);
-            }
-            throw new IllegalArgumentException("Array has incompatible type: " + object.getClass());
+        private static String throwable2String(final Throwable e) {
+            return ThrowableUtils.getFullStackTrace(e);
         }
 
-        static String throwable2String(final Throwable e) {
-            Throwable t = e;
-            while (t != null) {
-                if (t instanceof UnknownHostException) {
-                    return "";
-                }
-                t = t.getCause();
-            }
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            Throwable cause = e.getCause();
-            while (cause != null) {
-                cause.printStackTrace(pw);
-                cause = cause.getCause();
-            }
-            pw.flush();
-            return sw.toString();
-        }
-
-        static String bundle2String(Bundle bundle) {
+        private static String bundle2String(Bundle bundle) {
             Iterator<String> iterator = bundle.keySet().iterator();
             if (!iterator.hasNext()) {
                 return "Bundle {}";
@@ -870,7 +901,7 @@ public final class LogUtils {
                 String key = iterator.next();
                 Object value = bundle.get(key);
                 sb.append(key).append('=');
-                if (value != null && value instanceof Bundle) {
+                if (value instanceof Bundle) {
                     sb.append(value == bundle ? "(this Bundle)" : bundle2String((Bundle) value));
                 } else {
                     sb.append(formatObject(value));
@@ -880,7 +911,7 @@ public final class LogUtils {
             }
         }
 
-        static String intent2String(Intent intent) {
+        private static String intent2String(Intent intent) {
             StringBuilder sb = new StringBuilder(128);
             sb.append("Intent { ");
             boolean first = true;
@@ -990,58 +1021,6 @@ public final class LogUtils {
             return sb.toString();
         }
 
-        static String map2String(Map map) {
-            JSONObject jsonObject = new JSONObject(map);
-            return jsonObject.toString();
-        }
-
-        static String collection2String(Collection collection) {
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("size", collection.size());
-                jsonObject.put("data", collection);
-                return jsonObject.toString();
-            } catch (JSONException ignore) {
-                return collection.toString();
-            }
-        }
-
-        static String object2String(Object object) {
-            if (object instanceof String || object instanceof JSONObject ||
-                    object instanceof JSONArray) {
-                return object.toString();
-            }
-            Class<?> clazz = object.getClass();
-            List<Field> tmp = Arrays.asList(clazz.getDeclaredFields());
-            ArrayList<Field> list = new ArrayList<>(tmp);
-            while (clazz != Object.class) {
-                clazz = clazz.getSuperclass();
-                if (clazz == null) {
-                    break;
-                }
-                Field[] fields = clazz.getDeclaredFields();
-                for (Field field : fields) {
-                    int modifier = field.getModifiers();
-                    if (Modifier.isPublic(modifier)) {
-                        list.add(field);
-                    }
-                }
-            }
-            Field[] a = new Field[list.size()];
-            Field[] fields = list.toArray(a);
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("object", object.toString());
-                for (Field field : fields) {
-                    String fieldName = field.getName();
-                    Object obj = field.get(object);
-                    jsonObject.put(fieldName, obj);
-                }
-            } catch (Exception ignore) {
-            }
-            return jsonObject.toString();
-        }
-
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         private static void clipData2String(ClipData clipData, StringBuilder sb) {
             ClipData.Item item = clipData.getItemAt(0);
@@ -1080,9 +1059,76 @@ public final class LogUtils {
             sb.append("NULL");
             sb.append("}");
         }
+
+        private static String object2Json(Object object) {
+            if (object instanceof CharSequence) {
+                return formatJson(object.toString());
+            }
+            try {
+                return GSON.toJson(object);
+            } catch (Throwable t) {
+                return object.toString();
+            }
+        }
+
+        private static String formatJson(String json) {
+            try {
+                for (int i = 0, len = json.length(); i < len; i++) {
+                    char c = json.charAt(i);
+                    if (c == '{') {
+                        return new JSONObject(json).toString(2);
+                    } else if (c == '[') {
+                        return new JSONArray(json).toString(2);
+                    } else if (!Character.isWhitespace(c)) {
+                        return json;
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return json;
+        }
+
+        private static String formatXml(String xml) {
+            try {
+                Source xmlInput = new StreamSource(new StringReader(xml));
+                StreamResult xmlOutput = new StreamResult(new StringWriter());
+                Transformer transformer = TransformerFactory.newInstance().newTransformer();
+                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+                transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+                transformer.transform(xmlInput, xmlOutput);
+                xml = xmlOutput.getWriter().toString().replaceFirst(">", ">" + LINE_SEP);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return xml;
+        }
+
+        private static String array2String(Object object) {
+            if (object instanceof Object[]) {
+                return Arrays.deepToString((Object[]) object);
+            } else if (object instanceof boolean[]) {
+                return Arrays.toString((boolean[]) object);
+            } else if (object instanceof byte[]) {
+                return Arrays.toString((byte[]) object);
+            } else if (object instanceof char[]) {
+                return Arrays.toString((char[]) object);
+            } else if (object instanceof double[]) {
+                return Arrays.toString((double[]) object);
+            } else if (object instanceof float[]) {
+                return Arrays.toString((float[]) object);
+            } else if (object instanceof int[]) {
+                return Arrays.toString((int[]) object);
+            } else if (object instanceof long[]) {
+                return Arrays.toString((long[]) object);
+            } else if (object instanceof short[]) {
+                return Arrays.toString((short[]) object);
+            }
+            throw new IllegalArgumentException("Array has incompatible type: " + object.getClass());
+        }
     }
 
-    static <T> Class getTypeClassFromParadigm(final IFormatter<T> formatter) {
+    private static <T> Class getTypeClassFromParadigm(final IFormatter<T> formatter) {
         Type[] genericInterfaces = formatter.getClass().getGenericInterfaces();
         Type type;
         if (genericInterfaces.length == 1) {

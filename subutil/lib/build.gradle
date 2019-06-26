@@ -1,5 +1,5 @@
 apply {
-    from "${rootDir.path}/config_lib.gradle"
+    from "${rootDir.path}/gradle/config/configLib.gradle"
 
     plugin "tech.harmonysoft.oss.traute"
     plugin "com.github.dcendents.android-maven"
@@ -13,14 +13,16 @@ readme {
 }
 
 dependencies {
-    compileOnly dep.support.appcompat_v7
-    compileOnly dep.support.design
-    api dep.gson
-    api(dep.glide) {
+    compileOnly gradle.ext.dep.support_appcompat_v7
+    compileOnly gradle.ext.dep.support_design
+    compileOnly gradle.ext.dep.utilcode_lib
+    api(gradle.ext.dep.glide) {
         exclude group: "com.android.support"
     }
-    api dep.retrofit
+    api gradle.ext.dep.retrofit
+    api gradle.ext.dep.gson
 
-    testImplementation dep.junit
-    testImplementation dep.robolectric
+    testImplementation gradle.ext.dep.junit
+    testImplementation gradle.ext.dep.robolectric
+    testImplementation gradle.ext.dep.utilcode_lib
 }

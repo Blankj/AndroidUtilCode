@@ -24,6 +24,6 @@ public class TestUtils {
 
     @Test
     public void test() throws Exception {
-        System.out.println(-1 << 2);
+
     }
 }

@@ -1,10 +1,10 @@
 apply {
-    from "${rootDir.path}/config_app.gradle"
+    from "${rootDir.path}/gradle/config/configApp.gradle"
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':launcher-pkg')
-    implementation project(':subutil-pkg')
-    implementation project(':utilcode-pkg')
+    implementation gradle.ext.dep.launcher_pkg
+    implementation gradle.ext.dep.subutil_pkg
+    implementation gradle.ext.dep.utilcode_pkg
 }

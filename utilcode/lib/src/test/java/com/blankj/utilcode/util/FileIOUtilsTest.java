@@ -17,7 +17,7 @@ import static com.blankj.utilcode.util.TestConfig.PATH_TEMP;
  *     desc  : test FileIOUtils
  * </pre>
  */
-public class FileIOUtilsTest {
+public class FileIOUtilsTest extends BaseTest {
 
     @Test
     public void writeFileFromIS() throws Exception {

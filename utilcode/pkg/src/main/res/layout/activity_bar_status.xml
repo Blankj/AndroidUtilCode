@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
@@ -8,37 +7,23 @@
     android:padding="@dimen/spacing_16">
 
     <TextView
-        android:id="@+id/tv_about_status"
+        android:id="@+id/barStatusAboutTv"
         style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/btn_show_status"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/barStatusVisibilityCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/bar_status_show" />
+        android:text="@string/bar_status_visibility" />
 
-    <Button
-        android:id="@+id/btn_hide_status"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/bar_status_hide" />
-
-    <Button
-        android:id="@+id/btn_light_mode"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/barStatusLightModeCb"
+        style="@style/CbStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/bar_status_light_mode" />
-
-    <Button
-        android:id="@+id/btn_dark_mode"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/bar_status_dark_mode" />
 
 </LinearLayout>

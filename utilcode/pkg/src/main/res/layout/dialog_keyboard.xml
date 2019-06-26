@@ -1,133 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/mediumGray"
+    android:fillViewport="true">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:layout_height="1000dp"
         android:orientation="vertical"
         android:padding="@dimen/spacing_16">
 
         <Button
-            android:id="@+id/btn_hide_soft_input"
+            android:id="@+id/keyboardDialogHideSoftInputBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/keyboard_hide_soft_input" />
 
         <Button
-            android:id="@+id/btn_show_soft_input"
+            android:id="@+id/keyboardDialogShowSoftInputBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/keyboardDialogHideSoftInputBtn"
             android:text="@string/keyboard_show_soft_input" />
 
         <Button
-            android:id="@+id/btn_toggle_soft_input"
+            android:id="@+id/keyboardDialogToggleSoftInputBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/keyboardDialogShowSoftInputBtn"
             android:text="@string/keyboard_toggle_soft_input" />
 
         <Button
-            android:id="@+id/btn_close_dialog"
+            android:id="@+id/keyboardDialogCloseBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/keyboardDialogToggleSoftInputBtn"
             android:text="@string/keyboard_close_dialog" />
 
         <EditText
-            android:id="@+id/et_input"
+            android:id="@+id/keyboardDialogEt"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:inputType="text" />
 
-
-        <EditText
-            android:id="@+id/et_input1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="text" />
-
-
-        <EditText
-            android:id="@+id/et_input2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="text" />
-
-
-        <EditText
-            android:id="@+id/et_input3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="bottom"
-            android:inputType="text" />
-
-
-        <EditText
-            android:id="@+id/et_input4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="text" />
-
-
-        <EditText
-            android:id="@+id/et_input5"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="text" />
-
-
-        <EditText
-            android:id="@+id/et_input6"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/et_input7"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/et_input8"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/et_input9"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/et_input10"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/et_input11"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/et_input12"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/et_input13"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="text" />
-
-    </LinearLayout>
+    </RelativeLayout>
 </ScrollView>

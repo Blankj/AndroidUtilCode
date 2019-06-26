@@ -14,6 +14,8 @@ import android.provider.Settings;
 import android.support.annotation.RequiresPermission;
 import android.util.Log;
 
+import com.blankj.utilcode.util.Utils;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;

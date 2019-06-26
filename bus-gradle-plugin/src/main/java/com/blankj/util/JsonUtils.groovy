@@ -13,8 +13,9 @@ import com.google.gson.GsonBuilder
  */
 final class JsonUtils {
 
+    static final Gson GSON = new GsonBuilder().setPrettyPrinting().create()
+
     static String getFormatJson(Object object) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create()
-        return gson.toJson(object)
+        return GSON.toJson(object)
     }
 }

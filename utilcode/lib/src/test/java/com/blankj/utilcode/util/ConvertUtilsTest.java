@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
  *     desc  : test ConvertUtils
  * </pre>
  */
-public class ConvertUtilsTest {
+public class ConvertUtilsTest extends BaseTest {
 
     private byte[] mBytes    = new byte[]{0x00, 0x08, (byte) 0xdb, 0x33, 0x45, (byte) 0xab, 0x02, 0x23};
     private String hexString = "0008DB3345AB0223";

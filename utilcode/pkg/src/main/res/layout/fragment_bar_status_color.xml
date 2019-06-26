@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <View
-        android:id="@+id/fake_status_bar"
+        android:id="@+id/barStatusColorFragmentFakeStatusBar"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
@@ -19,33 +18,18 @@
         android:paddingRight="@dimen/spacing_16">
 
         <TextView
-            android:id="@+id/tv_status_alpha"
+            android:id="@+id/barStatusColorFragmentAboutColorTv"
             style="@style/TextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal" />
 
-        <SeekBar
-            android:id="@+id/sb_change_alpha"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:max="255"
-            android:padding="@dimen/spacing_8"
-            android:progress="112" />
-
         <Button
-            android:id="@+id/btn_random_color"
+            android:id="@+id/barStatusColorFragmentRandomColorBtn"
             style="@style/WideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/bar_status_random_color" />
-
-        <Button
-            android:id="@+id/btn_set_transparent"
-            style="@style/WideBtnStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/bar_status_set_transparent" />
 
     </LinearLayout>
 </LinearLayout>
