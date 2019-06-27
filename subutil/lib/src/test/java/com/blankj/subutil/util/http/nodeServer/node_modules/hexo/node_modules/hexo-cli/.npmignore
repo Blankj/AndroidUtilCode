@@ -1,8 +1,0 @@
-test/
-tmp/
-coverage/
-*.log
-.travis.yml
-.idea/
-appveyor.yml
-!assets/.gitignore

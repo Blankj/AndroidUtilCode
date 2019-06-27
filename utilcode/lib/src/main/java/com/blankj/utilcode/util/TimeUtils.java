@@ -24,10 +24,17 @@ public final class TimeUtils {
     private static final ThreadLocal<SimpleDateFormat> SDF_THREAD_LOCAL = new ThreadLocal<>();
 
     private static SimpleDateFormat getDefaultFormat() {
+        return getDateFormat("yyyy-MM-dd HH:mm:ss");
+    }
+
+    @NonNull
+    private static SimpleDateFormat getDateFormat(String pattern) {
         SimpleDateFormat simpleDateFormat = SDF_THREAD_LOCAL.get();
         if (simpleDateFormat == null) {
-            simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
             SDF_THREAD_LOCAL.set(simpleDateFormat);
+        } else {
+            simpleDateFormat.applyPattern(pattern);
         }
         return simpleDateFormat;
     }
@@ -50,6 +57,17 @@ public final class TimeUtils {
     /**
      * Milliseconds to the formatted time string.
      *
+     * @param millis  The milliseconds.
+     * @param pattern The pattern of date format, such as yyyy/MM/dd HH:mm
+     * @return the formatted time string
+     */
+    public static String millis2String(long millis, @NonNull final String pattern) {
+        return millis2String(millis, getDateFormat(pattern));
+    }
+
+    /**
+     * Milliseconds to the formatted time string.
+     *
      * @param millis The milliseconds.
      * @param format The format.
      * @return the formatted time string
@@ -67,6 +85,18 @@ public final class TimeUtils {
      */
     public static long string2Millis(final String time) {
         return string2Millis(time, getDefaultFormat());
+    }
+
+    /**
+     * Formatted time string to the milliseconds.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
+     *
+     * @param time    The formatted time string.
+     * @param pattern The pattern of date format, such as yyyy/MM/dd HH:mm
+     * @return the milliseconds
+     */
+    public static long string2Millis(final String time, @NonNull final String pattern) {
+        return string2Millis(time, getDateFormat(pattern));
     }
 
     /**
@@ -98,6 +128,18 @@ public final class TimeUtils {
 
     /**
      * Formatted time string to the date.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
+     *
+     * @param time    The formatted time string.
+     * @param pattern The pattern of date format, such as yyyy/MM/dd HH:mm
+     * @return the date
+     */
+    public static Date string2Date(final String time, @NonNull final String pattern) {
+        return string2Date(time, getDateFormat(pattern));
+    }
+
+    /**
+     * Formatted time string to the date.
      *
      * @param time   The formatted time string.
      * @param format The format.
@@ -121,6 +163,17 @@ public final class TimeUtils {
      */
     public static String date2String(final Date date) {
         return date2String(date, getDefaultFormat());
+    }
+
+    /**
+     * Date to the formatted time string.
+     *
+     * @param date    The date.
+     * @param pattern The pattern of date format, such as yyyy/MM/dd HH:mm
+     * @return the formatted time string
+     */
+    public static String date2String(final Date date, @NonNull final String pattern) {
+        return getDateFormat(pattern).format(date);
     }
 
     /**
@@ -1338,8 +1391,8 @@ public final class TimeUtils {
         return CHINESE_ZODIAC[year % 12];
     }
 
-    private static final int[]    ZODIAC_FLAGS = {20, 19, 21, 21, 21, 22, 23, 23, 23, 24, 23, 22};
-    private static final String[] ZODIAC       = {
+    private static final int[] ZODIAC_FLAGS = {20, 19, 21, 21, 21, 22, 23, 23, 23, 24, 23, 22};
+    private static final String[] ZODIAC = {
             "水瓶座", "双鱼座", "白羊座", "金牛座", "双子座", "巨蟹座",
             "狮子座", "处女座", "天秤座", "天蝎座", "射手座", "魔羯座"
     };
@@ -1431,4 +1484,5 @@ public final class TimeUtils {
         }
         return sb.toString();
     }
+
 }
