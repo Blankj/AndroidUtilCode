@@ -301,7 +301,7 @@ public final class Utils {
             }
             if (mConfigCount < 0) {
                 ++mConfigCount;
-                updateAppConfig(activity);
+//                updateAppConfig(activity);
             } else {
                 ++mForegroundCount;
             }

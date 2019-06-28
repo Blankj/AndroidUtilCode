@@ -1,6 +1,7 @@
 package com.blankj.subutil.util;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.telephony.TelephonyManager;
 
 import com.blankj.utilcode.util.Utils;
@@ -36,7 +37,7 @@ public class CountryUtils {
     }
 
     public static String getCountryByLanguage() {
-        return Utils.getApp().getResources().getConfiguration().locale.getCountry();
+        return Resources.getSystem().getConfiguration().locale.getCountry();
     }
 
     public static String getCountryBySim() {

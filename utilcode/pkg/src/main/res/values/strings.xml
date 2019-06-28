@@ -15,6 +15,7 @@
     <string name="demo_fragment">FragmentUtils Demo</string>
     <string name="demo_image">ImageUtils Demo</string>
     <string name="demo_keyboard">KeyboardUtils Demo</string>
+    <string name="demo_language">Language Demo</string>
     <string name="demo_log">LogUtils Demo</string>
     <string name="demo_meta_data">MetaDataUtils Demo</string>
     <string name="demo_network">NetworkUtils Demo</string>
@@ -195,7 +196,10 @@
     <string name="keyboard_show_dialog">Show Dialog</string>
     <string name="keyboard_close_dialog">Close Dialog</string>
 
-    <!--log 相关-->
+    <!--Language 相关-->
+    <string name="language">Language</string>
+
+    <!--Log 相关-->
     <string name="log_switch">Log Switch</string>
     <string name="log_console_console">Console Switch</string>
     <string name="log_head_switch">Head Switch</string>

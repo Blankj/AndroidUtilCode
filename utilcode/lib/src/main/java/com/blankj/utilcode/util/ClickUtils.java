@@ -1,5 +1,6 @@
 package com.blankj.utilcode.util;
 
+import android.os.SystemClock;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
@@ -186,6 +187,49 @@ public class ClickUtils {
 
         public abstract void onDebouncingClick(View v);
     }
+
+    public static abstract class OnMultiClickListener implements View.OnClickListener {
+
+        public static final  long LENGTH_SHORT         = 660;
+        public static final  long LENGTH_LONG          = 1000;
+        private static final int  COUNT_CONTINUOUS_TAP = 5;
+        private              long mMinClickInterval    = LENGTH_SHORT;
+        private              long mLastClickTime;
+        private              int  mThresholdClickCount = COUNT_CONTINUOUS_TAP;
+        private              int  mClickCount;
+
+        public OnMultiClickListener() {
+            this.mThresholdClickCount = COUNT_CONTINUOUS_TAP;
+            this.mMinClickInterval = LENGTH_SHORT;
+        }
+
+        public OnMultiClickListener(int clickCount, long interval) {
+            this.mThresholdClickCount = clickCount;
+            this.mMinClickInterval = interval;
+        }
+
+        public abstract void onMultiClick(View v);
+
+        @Override
+        public void onClick(View v) {
+
+            long currentTime = SystemClock.uptimeMillis();
+            long elapsedTime = currentTime - mLastClickTime;
+
+            mLastClickTime = currentTime;
+
+            if (elapsedTime < mMinClickInterval) {
+
+                if (++mClickCount >= COUNT_CONTINUOUS_TAP - 1) {
+                    mClickCount = 0;
+                    onMultiClick(v);
+                }
+            } else {
+                mClickCount = 0;
+            }
+        }
+    }
+
 
     private static class LazyHolder {
         private static final OnUtilsTouchListener INSTANCE = new OnUtilsTouchListener();

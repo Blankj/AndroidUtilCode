@@ -163,6 +163,10 @@
             android:launchMode="singleTop"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name=".feature.language.LanguageActivity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
             android:name=".feature.log.LogActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />

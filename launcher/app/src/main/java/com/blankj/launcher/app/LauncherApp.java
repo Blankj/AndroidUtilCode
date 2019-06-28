@@ -3,6 +3,9 @@ package com.blankj.launcher.app;
 import android.content.Context;
 
 import com.blankj.lib.common.CommonApplication;
+import com.blankj.utilcode.util.LanguageUtils;
+
+import java.util.Locale;
 
 /**
  * <pre>
@@ -29,6 +32,7 @@ public class LauncherApp extends CommonApplication {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
+        LanguageUtils.applyLanguage(getBaseContext(), Locale.SIMPLIFIED_CHINESE);
     }
 }
 

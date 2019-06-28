@@ -18,6 +18,7 @@ import com.blankj.utilcode.pkg.feature.flashlight.FlashlightActivity
 import com.blankj.utilcode.pkg.feature.fragment.FragmentActivity
 import com.blankj.utilcode.pkg.feature.image.ImageActivity
 import com.blankj.utilcode.pkg.feature.keyboard.KeyboardActivity
+import com.blankj.utilcode.pkg.feature.language.LanguageActivity
 import com.blankj.utilcode.pkg.feature.log.LogActivity
 import com.blankj.utilcode.pkg.feature.metaData.MetaDataActivity
 import com.blankj.utilcode.pkg.feature.network.NetworkActivity
@@ -82,6 +83,7 @@ class CoreUtilActivity : CommonTitleActivity() {
                 coreUtilFragmentBtn,
                 coreUtilImageBtn,
                 coreUtilKeyboardBtn,
+                coreUtilLanguageBtn,
                 coreUtilLogBtn,
                 coreUtilMetaDataBtn,
                 coreUtilNetworkBtn,
@@ -120,6 +122,7 @@ class CoreUtilActivity : CommonTitleActivity() {
             R.id.coreUtilFragmentBtn -> FragmentActivity.start(this)
             R.id.coreUtilImageBtn -> ImageActivity.start(this)
             R.id.coreUtilKeyboardBtn -> KeyboardActivity.start(this)
+            R.id.coreUtilLanguageBtn -> LanguageActivity.start(this)
             R.id.coreUtilLogBtn -> LogActivity.start(this)
             R.id.coreUtilMetaDataBtn -> MetaDataActivity.start(this)
             R.id.coreUtilNetworkBtn -> NetworkActivity.start(this)

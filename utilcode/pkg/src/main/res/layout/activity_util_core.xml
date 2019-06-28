@@ -108,6 +108,13 @@
         android:text="@string/demo_keyboard" />
 
     <Button
+        android:id="@+id/coreUtilLanguageBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_language" />
+
+    <Button
         android:id="@+id/coreUtilLogBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
