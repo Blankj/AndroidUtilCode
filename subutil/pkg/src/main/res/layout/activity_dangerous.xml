@@ -60,7 +60,6 @@
         style="@style/CbStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/network_data_enabled" />
-
+        android:text="@string/dangerous_data_enabled" />
 
 </LinearLayout>
