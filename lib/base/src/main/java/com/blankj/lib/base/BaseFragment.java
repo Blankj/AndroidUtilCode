@@ -32,10 +32,10 @@ public abstract class BaseFragment extends Fragment
     private static final String TAG                  = "BaseFragment";
     private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
 
-    private ClickUtils.OnDebouncingClickListener mDebouncingClick = new ClickUtils.OnDebouncingClickListener() {
+    private View.OnClickListener mClickListener = new View.OnClickListener() {
         @Override
-        public void onDebouncingClick(View v) {
-            BaseFragment.this.onDebouncingClick(v);
+        public void onClick(View v) {
+            onDebouncingClick(v);
         }
     };
 
@@ -120,7 +120,7 @@ public abstract class BaseFragment extends Fragment
     }
 
     public void applyDebouncingClickListener(View... views) {
-        ClickUtils.applyGlobalDebouncing(views, mDebouncingClick);
+        ClickUtils.applyGlobalDebouncing(views, mClickListener);
     }
 
     public <T extends View> T findViewById(@IdRes int id) {

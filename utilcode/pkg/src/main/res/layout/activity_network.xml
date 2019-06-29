@@ -20,13 +20,6 @@
         android:text="@string/network_open_wireless_settings" />
 
     <CheckBox
-        android:id="@+id/networkMobileDataEnabledCb"
-        style="@style/CbStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/network_data_enabled" />
-
-    <CheckBox
         android:id="@+id/networkWifiEnabledCb"
         style="@style/CbStyle"
         android:layout_width="wrap_content"

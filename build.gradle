@@ -1,6 +1,18 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+            name '代替 jcenter()及mavenCentral()'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/jcenter'
+            name '代替 jcenter()'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/google'
+            name '代替 google()'
+        }
         if (gradle.ext.depConfig.plugin_bus.useLocal) {
             maven() {
                 // use for debug plugin local
@@ -23,6 +35,18 @@ buildscript {
 
 allprojects {
     repositories {
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+            name '代替 jcenter()及mavenCentral()'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/jcenter'
+            name '代替 jcenter()'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/google'
+            name '代替 google()'
+        }
         google()
         jcenter()
     }

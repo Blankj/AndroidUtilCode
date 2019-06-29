@@ -7,14 +7,11 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.app.Application.ActivityLifecycleCallbacks;
 import android.content.Context;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -291,6 +288,7 @@ public final class Utils {
 
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+            LanguageUtils.applyLanguage(activity);
             setAnimatorsEnabled();
             setTopActivity(activity);
         }
@@ -302,7 +300,6 @@ public final class Utils {
             }
             if (mConfigCount < 0) {
                 ++mConfigCount;
-                updateAppConfig(activity);
             } else {
                 ++mForegroundCount;
             }
@@ -388,22 +385,6 @@ public final class Utils {
                 if (listeners.contains(listener)) return;
             }
             listeners.add(listener);
-        }
-
-        private void updateAppConfig(final Activity activity) {
-            Resources resources = Utils.getApp().getResources();
-            DisplayMetrics dm = resources.getDisplayMetrics();
-            Configuration config = resources.getConfiguration();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                config.setLocales(activity.getResources().getConfiguration().getLocales());
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                config.setLocale(activity.getResources().getConfiguration().locale);
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                Utils.getApp().createConfigurationContext(config);
-            } else {
-                resources.updateConfiguration(config, dm);
-            }
         }
 
         private void postStatus(final boolean isForeground) {

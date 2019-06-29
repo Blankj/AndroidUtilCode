@@ -1,5 +1,0 @@
-.DS_Store
-Makefile
-scripts/**
-tests/**
-.travis.yml

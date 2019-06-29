@@ -29,7 +29,6 @@ import static android.Manifest.permission.ACCESS_NETWORK_STATE;
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
 import static android.Manifest.permission.CHANGE_WIFI_STATE;
 import static android.Manifest.permission.INTERNET;
-import static android.Manifest.permission.MODIFY_PHONE_STATE;
 import static android.content.Context.WIFI_SERVICE;
 
 /**
@@ -53,7 +52,6 @@ public final class NetworkUtils {
         NETWORK_3G,
         NETWORK_2G,
         NETWORK_UNKNOWN,
-        NETWORK_NO
     }
 
     /**
@@ -260,36 +258,6 @@ public final class NetworkUtils {
     }
 
     /**
-     * Enable or disable mobile data.
-     * <p>Must hold {@code android:sharedUserId="android.uid.system"},
-     * {@code <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />}</p>
-     *
-     * @param enabled True to enabled, false otherwise.
-     * @return {@code true}: success<br>{@code false}: fail
-     */
-    @RequiresPermission(MODIFY_PHONE_STATE)
-    public static boolean setMobileDataEnabled(final boolean enabled) {
-        try {
-            TelephonyManager tm =
-                    (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
-            if (tm == null) return false;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                tm.setDataEnabled(enabled);
-                return false;
-            }
-            Method setDataEnabledMethod =
-                    tm.getClass().getDeclaredMethod("setDataEnabled", boolean.class);
-            if (null != setDataEnabledMethod) {
-                setDataEnabledMethod.invoke(tm, enabled);
-                return true;
-            }
-        } catch (Exception e) {
-            Log.e("NetworkUtils", "setMobileDataEnabled: ", e);
-        }
-        return false;
-    }
-
-    /**
      * Return whether using mobile data.
      * <p>Must hold {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
      *
@@ -416,7 +384,6 @@ public final class NetworkUtils {
      * <li>{@link NetworkUtils.NetworkType#NETWORK_3G      } </li>
      * <li>{@link NetworkUtils.NetworkType#NETWORK_2G      } </li>
      * <li>{@link NetworkUtils.NetworkType#NETWORK_UNKNOWN } </li>
-     * <li>{@link NetworkUtils.NetworkType#NETWORK_NO      } </li>
      * </ul>
      */
     @RequiresPermission(ACCESS_NETWORK_STATE)

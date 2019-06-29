@@ -37,12 +37,12 @@ public abstract class BaseCell {
     protected int viewType;
 
     public BaseCell(int layoutId) {
-        viewType = getClass().hashCode();
+        viewType = layoutId + getClass().hashCode();
         LAYOUT_SPARSE_ARRAY.put(viewType, layoutId);
     }
 
     public BaseCell(View view) {
-        viewType = getClass().hashCode();
+        viewType = view.hashCode() + getClass().hashCode();
         VIEW_SPARSE_ARRAY.put(viewType, view);
     }
 

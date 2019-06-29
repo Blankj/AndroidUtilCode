@@ -1035,10 +1035,27 @@ public final class ActivityUtils {
     /**
      * Start home activity.
      */
-    public static void startHomeActivity() {
+    public static void startHomeActivity() throws SecurityException {
         Intent homeIntent = new Intent(Intent.ACTION_MAIN);
         homeIntent.addCategory(Intent.CATEGORY_HOME);
+        homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(homeIntent);
+    }
+
+    /**
+     * Start the launcher activity.
+     */
+    public static void startLauncherActivity() {
+        startLauncherActivity(Utils.getApp().getPackageName());
+    }
+
+    /**
+     * Start the launcher activity.
+     *
+     * @param pkg The name of the package.
+     */
+    public static void startLauncherActivity(@NonNull final String pkg) {
+        startActivity(pkg, getLauncherActivity(pkg));
     }
 
     /**
@@ -1068,15 +1085,14 @@ public final class ActivityUtils {
     public static String getLauncherActivity(@NonNull final String pkg) {
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setPackage(pkg);
         PackageManager pm = Utils.getApp().getPackageManager();
         List<ResolveInfo> info = pm.queryIntentActivities(intent, 0);
-        for (ResolveInfo aInfo : info) {
-            if (aInfo.activityInfo.packageName.equals(pkg)) {
-                return aInfo.activityInfo.name;
-            }
+        ResolveInfo next = info.iterator().next();
+        if (next != null) {
+            return next.activityInfo.name;
         }
-        return "no " + pkg;
+        return "no launcher activity of " + pkg;
     }
 
     /**

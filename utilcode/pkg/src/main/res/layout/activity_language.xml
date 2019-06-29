@@ -6,52 +6,39 @@
     android:orientation="vertical"
     android:padding="@dimen/spacing_16">
 
-    <TextView
-        android:id="@+id/appAboutTv"
-        style="@style/TextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <Button
-        android:id="@+id/appInstallAppBtn"
+        android:id="@+id/languageApp"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_install" />
+        android:text="@string/language_app_context" />
 
     <Button
-        android:id="@+id/appUninstallAppBtn"
+        android:id="@+id/languageActivity"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_uninstall" />
+        android:text="@string/language_activity_context" />
 
     <Button
-        android:id="@+id/appLaunchAppBtn"
+        android:id="@+id/applySimpleChineseLanguage"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_launch" />
+        android:text="@string/language_apply_simple_chinese" />
 
     <Button
-        android:id="@+id/appRelaunchAppBtn"
+        android:id="@+id/applyAmericanLanguage"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_relaunch" />
+        android:text="@string/language_apply_american" />
 
     <Button
-        android:id="@+id/appLaunchAppDetailsSettingsBtn"
+        android:id="@+id/applySystemLanguage"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_launch_details_settings" />
-
-    <Button
-        android:id="@+id/appExitAppBtn"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/app_exit" />
+        android:text="@string/language_apply_system" />
 
 </LinearLayout>

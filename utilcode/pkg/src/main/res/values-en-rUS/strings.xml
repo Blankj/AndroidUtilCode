@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="demo_language">Language Demo</string>
+
+    <string name="language">Language</string>
+    <string name="language_app_context">Language App Context</string>
+    <string name="language_activity_context">Language Activity Context</string>
+    <string name="language_apply_simple_chinese">Apply Simple Chinese</string>
+    <string name="language_apply_american">Apply American</string>
+    <string name="language_apply_system">Apply System</string>
+
+</resources>

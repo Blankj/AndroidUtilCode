@@ -922,12 +922,9 @@ public final class SpanUtils {
 
     private void updateImage() {
         int start = mBuilder.length();
-        if (start == 0) {
-            mBuilder.append(Character.toString((char) 2));
-            start = 1;
-        }
-        mBuilder.append("<img>");
-        int end = start + 5;
+        mText = "<img>";
+        updateCharCharSequence();
+        int end = mBuilder.length();
         if (imageBitmap != null) {
             mBuilder.setSpan(new CustomImageSpan(imageBitmap, alignImage), start, end, flag);
         } else if (imageDrawable != null) {
@@ -941,8 +938,9 @@ public final class SpanUtils {
 
     private void updateSpace() {
         int start = mBuilder.length();
-        mBuilder.append("< >");
-        int end = start + 3;
+        mText = "< >";
+        updateCharCharSequence();
+        int end = mBuilder.length();
         mBuilder.setSpan(new SpaceSpan(spaceSize, spaceColor), start, end, flag);
     }
 

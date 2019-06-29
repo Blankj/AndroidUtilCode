@@ -19,20 +19,19 @@ import java.util.List;
  */
 public class BaseAdapter<Cell extends BaseCell> extends RecyclerView.Adapter<BaseViewHolder> {
 
+    public BaseCell       mEmptyCell;
+    public List<BaseCell> mHeaders;
     public List<Cell>     mData;
+    public List<BaseCell> mFooters;
     public Context        mContext;
     public LayoutInflater mInflater;
 
-    public void setData(@NonNull final List<Cell> data) {
-        mData = data;
-    }
-
-    public List<Cell> getData() {
-        return mData;
-    }
-
     @Override
     public final int getItemViewType(int position) {
+        int headerSize = getHeaderSize();
+        if (headerSize > position) {
+            return mHeaders.get(position).viewType;
+        }
         return mData.get(position).viewType;
     }
 
@@ -49,15 +48,43 @@ public class BaseAdapter<Cell extends BaseCell> extends RecyclerView.Adapter<Bas
     }
 
     @Override
-    public int getItemCount() {
-        if (mData == null) return 0;
-        return mData.size();
-    }
-
-    @Override
     public void onViewRecycled(@NonNull BaseViewHolder holder) {
         super.onViewRecycled(holder);
         int position = holder.getAdapterPosition();
         mData.get(position).onViewRecycled(holder, position);
     }
+
+    @Override
+    public int getItemCount() {
+        return getHeaderSize() + getDataSize() + getFooterSize();
+    }
+
+    public void setEmptyCell(BaseCell emptyCell) {
+        mEmptyCell = emptyCell;
+    }
+
+    private int getHeaderSize() {
+        if (mHeaders == null) return 0;
+        return mHeaders.size();
+    }
+
+    private int getDataSize() {
+        if (mData == null) return 0;
+        return mData.size();
+    }
+
+    private int getFooterSize() {
+        if (mFooters == null) return 0;
+        return mFooters.size();
+    }
+
+    public void setData(@NonNull final List<Cell> data) {
+        mData = data;
+    }
+
+    public List<Cell> getData() {
+        return mData;
+    }
+
+
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="demo_language">语言例子</string>
+
+    <string name="language">语言</string>
+    <string name="language_app_context">App 上下文语言</string>
+    <string name="language_activity_context">Activity 上下文语言</string>
+    <string name="language_apply_simple_chinese">应用简体中文</string>
+    <string name="language_apply_american">应用英语</string>
+    <string name="language_apply_system">应用系统语言</string>
+
+</resources>

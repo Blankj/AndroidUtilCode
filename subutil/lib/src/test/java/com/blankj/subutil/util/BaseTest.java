@@ -1,6 +1,8 @@
 package com.blankj.subutil.util;
 
 
+import com.blankj.utilcode.util.Utils;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;

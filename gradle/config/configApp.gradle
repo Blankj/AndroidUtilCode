@@ -87,10 +87,13 @@ def configSigning(Project pro) {
 def configApkName(Project pro) {
     pro.android.applicationVariants.all { variant ->
         if (variant.buildType.name != "debug") {
-            variant.getPackageApplicationProvider().get().outputDirectory = new File("${rootDir.path}/apk")
-            variant.getPackageApplicationProvider().get().outputScope.apkDatas.forEach { apkData ->
+            def artifact = variant.getPackageApplicationProvider().get()
+            artifact.outputDirectory = new File("${rootDir.path}/apk")
+            artifact.outputScope.apkDatas.forEach { apkData ->
                 apkData.outputFileName = "util" + suffix +
+                        (variant.flavorName == "" ? "" : ("_" + variant.flavorName)) +
                         "_" + variant.versionName.replace(".", "_") +
+                        "_" + variant.buildType.name +
                         ".apk"
             }
         }

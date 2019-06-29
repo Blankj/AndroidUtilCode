@@ -11,11 +11,12 @@
 
     <style name="TextStyle">
         <item name="android:textSize">@dimen/font_16</item>
-        <item name="android:textColor">@drawable/base_sel_button_txt_color</item>
+        <item name="android:textColor">@color/darkGrayDark</item>
     </style>
 
     <style name="WideBtnStyle" parent="TextStyle">
         <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@drawable/base_sel_button_txt_color</item>
         <item name="android:background">@drawable/base_sel_button_bg</item>
         <item name="android:layout_marginTop">@dimen/spacing_6</item>
         <item name="android:layout_marginBottom">@dimen/spacing_6</item>
