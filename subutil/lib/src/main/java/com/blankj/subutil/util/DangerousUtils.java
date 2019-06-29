@@ -4,9 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.PowerManager;
-import android.support.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+
+import androidx.annotation.RequiresPermission;
 
 import com.blankj.utilcode.util.ShellUtils;
 import com.blankj.utilcode.util.Utils;
