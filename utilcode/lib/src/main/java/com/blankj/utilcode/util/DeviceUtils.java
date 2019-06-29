@@ -9,7 +9,6 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Debug;
-import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.RequiresPermission;
@@ -293,66 +292,6 @@ public final class DeviceUtils {
             return new String[]{Build.CPU_ABI};
         }
     }
-
-    /**
-     * Shutdown the device
-     * <p>Requires root permission
-     * or hold {@code android:sharedUserId="android.uid.system"},
-     * {@code <uses-permission android:name="android.permission.SHUTDOWN/>}
-     * in manifest.</p>
-     */
-    public static void shutdown() {
-        ShellUtils.execCmd("reboot -p", true);
-        Intent intent = new Intent("android.intent.action.ACTION_REQUEST_SHUTDOWN");
-        intent.putExtra("android.intent.extra.KEY_CONFIRM", false);
-        Utils.getApp().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-    }
-
-    /**
-     * Reboot the device.
-     * <p>Requires root permission
-     * or hold {@code android:sharedUserId="android.uid.system"} in manifest.</p>
-     */
-    public static void reboot() {
-        ShellUtils.execCmd("reboot", true);
-        Intent intent = new Intent(Intent.ACTION_REBOOT);
-        intent.putExtra("nowait", 1);
-        intent.putExtra("interval", 1);
-        intent.putExtra("window", 0);
-        Utils.getApp().sendBroadcast(intent);
-    }
-
-    /**
-     * Reboot the device.
-     * <p>Requires root permission
-     * or hold {@code android:sharedUserId="android.uid.system"},
-     * {@code <uses-permission android:name="android.permission.REBOOT" />}</p>
-     *
-     * @param reason code to pass to the kernel (e.g., "recovery") to
-     *               request special boot modes, or null.
-     */
-    public static void reboot(final String reason) {
-        PowerManager pm = (PowerManager) Utils.getApp().getSystemService(Context.POWER_SERVICE);
-        //noinspection ConstantConditions
-        pm.reboot(reason);
-    }
-
-    /**
-     * Reboot the device to recovery.
-     * <p>Requires root permission.</p>
-     */
-    public static void reboot2Recovery() {
-        ShellUtils.execCmd("reboot recovery", true);
-    }
-
-    /**
-     * Reboot the device to bootloader.
-     * <p>Requires root permission.</p>
-     */
-    public static void reboot2Bootloader() {
-        ShellUtils.execCmd("reboot bootloader", true);
-    }
-
 
     /**
      * Return whether device is tablet.

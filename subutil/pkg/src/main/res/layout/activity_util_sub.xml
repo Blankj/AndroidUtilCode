@@ -14,11 +14,18 @@
         android:text="@string/demo_app_store" />
 
     <Button
-        android:id="@+id/subUtilCountryCodeBtn"
+        android:id="@+id/subUtilCountryBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/demo_country_code" />
+        android:text="@string/demo_country" />
+
+    <Button
+        android:id="@+id/subUtilDangerousBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_dangerous" />
 
     <Button
         android:id="@+id/subUtilLocationBtn"

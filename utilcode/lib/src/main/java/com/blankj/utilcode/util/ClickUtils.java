@@ -1,6 +1,5 @@
 package com.blankj.utilcode.util;
 
-import android.os.SystemClock;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
@@ -17,13 +16,24 @@ import android.view.View;
 public class ClickUtils {
 
     private static final int   SCALE                       = -1;
-    private static final float SCALE_DEFAULT_FACTOR        = -0.08f;
+    private static final float SCALE_DEFAULT_FACTOR        = -0.06f;
     private static final long  DEBOUNCING_DEFAULT_DURATION = 200;
 
+    /**
+     * Apply scale animation for the views' click.
+     *
+     * @param views The views.
+     */
     public static void applyScale(final View... views) {
         applyScale(views, null);
     }
 
+    /**
+     * Apply scale animation for the views' click.
+     *
+     * @param views        The views.
+     * @param scaleFactors The factors of scale for the views.
+     */
     public static void applyScale(final View[] views, final float[] scaleFactors) {
         if (views == null || views.length == 0) return;
         for (int i = 0; i < views.length; i++) {
@@ -38,38 +48,91 @@ public class ClickUtils {
         }
     }
 
+    /**
+     * Apply single debouncing for the view's click.
+     *
+     * @param view     The view.
+     * @param listener The listener.
+     */
     public static void applySingleDebouncing(final View view, final View.OnClickListener listener) {
         applySingleDebouncing(new View[]{view}, listener);
     }
 
+    /**
+     * Apply single debouncing for the view's click.
+     *
+     * @param view     The view.
+     * @param duration The duration of debouncing.
+     * @param listener The listener.
+     */
     public static void applySingleDebouncing(final View view, @IntRange(from = 0) long duration,
                                              final View.OnClickListener listener) {
         applySingleDebouncing(new View[]{view}, duration, listener);
     }
 
+    /**
+     * Apply single debouncing for the views' click.
+     *
+     * @param views    The views.
+     * @param listener The listener.
+     */
     public static void applySingleDebouncing(final View[] views, final View.OnClickListener listener) {
         applySingleDebouncing(views, DEBOUNCING_DEFAULT_DURATION, listener);
     }
 
+    /**
+     * Apply single debouncing for the views' click.
+     *
+     * @param views    The views.
+     * @param duration The duration of debouncing.
+     * @param listener The listener.
+     */
     public static void applySingleDebouncing(final View[] views,
                                              @IntRange(from = 0) long duration,
                                              final View.OnClickListener listener) {
         applyDebouncing(views, false, duration, listener);
     }
 
+    /**
+     * Apply global debouncing for the view's click.
+     *
+     * @param view     The view.
+     * @param listener The listener.
+     */
     public static void applyGlobalDebouncing(final View view, final View.OnClickListener listener) {
         applyGlobalDebouncing(new View[]{view}, listener);
     }
 
+    /**
+     * Apply global debouncing for the view's click.
+     *
+     * @param view     The view.
+     * @param duration The duration of debouncing.
+     * @param listener The listener.
+     */
     public static void applyGlobalDebouncing(final View view, @IntRange(from = 0) long duration,
                                              final View.OnClickListener listener) {
         applyGlobalDebouncing(new View[]{view}, duration, listener);
     }
 
+
+    /**
+     * Apply global debouncing for the views' click.
+     *
+     * @param views    The views.
+     * @param listener The listener.
+     */
     public static void applyGlobalDebouncing(final View[] views, final View.OnClickListener listener) {
         applyGlobalDebouncing(views, DEBOUNCING_DEFAULT_DURATION, listener);
     }
 
+    /**
+     * Apply global debouncing for the views' click.
+     *
+     * @param views    The views.
+     * @param duration The duration of debouncing.
+     * @param listener The listener.
+     */
     public static void applyGlobalDebouncing(final View[] views,
                                              @IntRange(from = 0) long duration,
                                              final View.OnClickListener listener) {
@@ -89,38 +152,6 @@ public class ClickUtils {
                     listener.onClick(v);
                 }
             });
-        }
-    }
-
-    private static class OnUtilsTouchListener implements View.OnTouchListener {
-
-        public static OnUtilsTouchListener getInstance() {
-            return LazyHolder.INSTANCE;
-        }
-
-        private OnUtilsTouchListener() {/**/}
-
-        @Override
-        public boolean onTouch(final View v, MotionEvent event) {
-            int action = event.getAction();
-            if (action == MotionEvent.ACTION_DOWN) {
-                processScale(v, true);
-            } else if (action == MotionEvent.ACTION_UP
-                    || action == MotionEvent.ACTION_CANCEL) {
-                processScale(v, false);
-            }
-            return false;
-        }
-
-        private void processScale(final View view, boolean isDown) {
-            Object tag = view.getTag(SCALE);
-            if (!(tag instanceof Float)) return;
-            float value = isDown ? 1 + (Float) tag : 1;
-            view.animate()
-                    .scaleX(value)
-                    .scaleY(value)
-                    .setDuration(100)
-                    .start();
         }
     }
 
@@ -170,6 +201,8 @@ public class ClickUtils {
             mDuration = duration;
         }
 
+        public abstract void onDebouncingClick(View v);
+
         @Override
         public final void onClick(View v) {
             if (mIsGlobal) {
@@ -184,52 +217,88 @@ public class ClickUtils {
                 }
             }
         }
-
-        public abstract void onDebouncingClick(View v);
     }
 
     public static abstract class OnMultiClickListener implements View.OnClickListener {
 
-        public static final  long LENGTH_SHORT         = 660;
-        public static final  long LENGTH_LONG          = 1000;
-        private static final int  COUNT_CONTINUOUS_TAP = 5;
-        private              long mMinClickInterval    = LENGTH_SHORT;
-        private              long mLastClickTime;
-        private              int  mThresholdClickCount = COUNT_CONTINUOUS_TAP;
-        private              int  mClickCount;
+        private static final long DEFAULT_INTERVAL = 666;
 
-        public OnMultiClickListener() {
-            this.mThresholdClickCount = COUNT_CONTINUOUS_TAP;
-            this.mMinClickInterval = LENGTH_SHORT;
+        private final int  mTriggerClickCount;
+        private final long mClickInterval;
+
+        private long mLastClickTime;
+        private int  mClickCount;
+
+        public OnMultiClickListener(int triggerClickCount) {
+            this(triggerClickCount, DEFAULT_INTERVAL);
         }
 
-        public OnMultiClickListener(int clickCount, long interval) {
-            this.mThresholdClickCount = clickCount;
-            this.mMinClickInterval = interval;
+        public OnMultiClickListener(int triggerClickCount, long clickInterval) {
+            this.mTriggerClickCount = triggerClickCount;
+            this.mClickInterval = clickInterval;
         }
 
-        public abstract void onMultiClick(View v);
+        public abstract void onTriggerClick(View v);
+
+        public abstract void onBeforeTriggerClick(View v, int count);
 
         @Override
         public void onClick(View v) {
+            if (mTriggerClickCount <= 1) {
+                onTriggerClick(v);
+                return;
+            }
+            long curTime = System.currentTimeMillis();
 
-            long currentTime = SystemClock.uptimeMillis();
-            long elapsedTime = currentTime - mLastClickTime;
-
-            mLastClickTime = currentTime;
-
-            if (elapsedTime < mMinClickInterval) {
-
-                if (++mClickCount >= COUNT_CONTINUOUS_TAP - 1) {
-                    mClickCount = 0;
-                    onMultiClick(v);
+            if (curTime - mLastClickTime < mClickInterval) {
+                mClickCount++;
+                if (mClickCount == mTriggerClickCount) {
+                    onTriggerClick(v);
+                } else if (mClickCount < mTriggerClickCount) {
+                    onBeforeTriggerClick(v, mClickCount);
+                } else {
+                    mClickCount = 1;
+                    onBeforeTriggerClick(v, mClickCount);
                 }
             } else {
-                mClickCount = 0;
+                mClickCount = 1;
+                onBeforeTriggerClick(v, mClickCount);
             }
+            mLastClickTime = curTime;
         }
     }
 
+    private static class OnUtilsTouchListener implements View.OnTouchListener {
+
+        public static OnUtilsTouchListener getInstance() {
+            return LazyHolder.INSTANCE;
+        }
+
+        private OnUtilsTouchListener() {/**/}
+
+        @Override
+        public boolean onTouch(final View v, MotionEvent event) {
+            int action = event.getAction();
+            if (action == MotionEvent.ACTION_DOWN) {
+                processScale(v, true);
+            } else if (action == MotionEvent.ACTION_UP
+                    || action == MotionEvent.ACTION_CANCEL) {
+                processScale(v, false);
+            }
+            return false;
+        }
+
+        private void processScale(final View view, boolean isDown) {
+            Object tag = view.getTag(SCALE);
+            if (!(tag instanceof Float)) return;
+            float value = isDown ? 1 + (Float) tag : 1;
+            view.animate()
+                    .scaleX(value)
+                    .scaleY(value)
+                    .setDuration(100)
+                    .start();
+        }
+    }
 
     private static class LazyHolder {
         private static final OnUtilsTouchListener INSTANCE = new OnUtilsTouchListener();

@@ -80,9 +80,6 @@ public final class UriUtils {
             else if ("com.android.providers.downloads.documents".equals(authority)) {
                 final String id = DocumentsContract.getDocumentId(uri);
                 if (!TextUtils.isEmpty(id)) {
-                    if (id.startsWith("raw:")) {
-                        return new File(id.substring(4));
-                    }
                     try {
                         final Uri contentUri = ContentUris.withAppendedId(
                                 Uri.parse("content://downloads/public_downloads"),
@@ -90,7 +87,9 @@ public final class UriUtils {
                         );
                         return getFileFromUri(contentUri, "1_1");
                     } catch (NumberFormatException e) {
-                        e.printStackTrace();
+                        if (id.startsWith("raw:")) {
+                            return new File(id.substring(4));
+                        }
                     }
                 }
                 Log.d("UriUtils", uri.toString() + " parse failed. -> 1_1");

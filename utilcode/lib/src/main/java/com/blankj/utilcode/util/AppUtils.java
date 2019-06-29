@@ -118,91 +118,6 @@ public final class AppUtils {
     }
 
     /**
-     * Install the app silently.
-     * <p>Without root permission must hold
-     * {@code android:sharedUserId="android.uid.shell"} and
-     * {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
-     *
-     * @param filePath The path of file.
-     * @return {@code true}: success<br>{@code false}: fail
-     */
-    public static boolean installAppSilent(final String filePath) {
-        return installAppSilent(getFileByPath(filePath), null);
-    }
-
-    /**
-     * Install the app silently.
-     * <p>Without root permission must hold
-     * {@code android:sharedUserId="android.uid.shell"} and
-     * {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
-     *
-     * @param file The file.
-     * @return {@code true}: success<br>{@code false}: fail
-     */
-    public static boolean installAppSilent(final File file) {
-        return installAppSilent(file, null);
-    }
-
-
-    /**
-     * Install the app silently.
-     * <p>Without root permission must hold
-     * {@code android:sharedUserId="android.uid.shell"} and
-     * {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
-     *
-     * @param filePath The path of file.
-     * @param params   The params of installation(e.g.,<code>-r</code>, <code>-s</code>).
-     * @return {@code true}: success<br>{@code false}: fail
-     */
-    public static boolean installAppSilent(final String filePath, final String params) {
-        return installAppSilent(getFileByPath(filePath), params);
-    }
-
-    /**
-     * Install the app silently.
-     * <p>Without root permission must hold
-     * {@code android:sharedUserId="android.uid.shell"} and
-     * {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
-     *
-     * @param file   The file.
-     * @param params The params of installation(e.g.,<code>-r</code>, <code>-s</code>).
-     * @return {@code true}: success<br>{@code false}: fail
-     */
-    public static boolean installAppSilent(final File file, final String params) {
-        return installAppSilent(file, params, isDeviceRooted());
-    }
-
-    /**
-     * Install the app silently.
-     * <p>Without root permission must hold
-     * {@code android:sharedUserId="android.uid.shell"} and
-     * {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
-     *
-     * @param file     The file.
-     * @param params   The params of installation(e.g.,<code>-r</code>, <code>-s</code>).
-     * @param isRooted True to use root, false otherwise.
-     * @return {@code true}: success<br>{@code false}: fail
-     */
-    public static boolean installAppSilent(final File file,
-                                           final String params,
-                                           final boolean isRooted) {
-        if (!isFileExists(file)) return false;
-        String filePath = '"' + file.getAbsolutePath() + '"';
-        String command = "LD_LIBRARY_PATH=/vendor/lib*:/system/lib* pm install " +
-                (params == null ? "" : params + " ")
-                + filePath;
-        ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, isRooted);
-        if (commandResult.successMsg != null
-                && commandResult.successMsg.toLowerCase().contains("success")) {
-            return true;
-        } else {
-            Log.e("AppUtils", "installAppSilent successMsg: " + commandResult.successMsg +
-                    ", errorMsg: " + commandResult.errorMsg);
-            return false;
-        }
-    }
-
-    /**
      * Uninstall the app.
      *
      * @param packageName The name of the package.
@@ -225,62 +140,6 @@ public final class AppUtils {
                                     final int requestCode) {
         if (isSpace(packageName)) return;
         activity.startActivityForResult(getUninstallAppIntent(packageName), requestCode);
-    }
-
-    /**
-     * Uninstall the app silently.
-     * <p>Without root permission must hold
-     * {@code android:sharedUserId="android.uid.shell"} and
-     * {@code <uses-permission android:name="android.permission.DELETE_PACKAGES" />}</p>
-     *
-     * @param packageName The name of the package.
-     * @return {@code true}: success<br>{@code false}: fail
-     */
-    public static boolean uninstallAppSilent(final String packageName) {
-        return uninstallAppSilent(packageName, false);
-    }
-
-    /**
-     * Uninstall the app silently.
-     * <p>Without root permission must hold
-     * {@code android:sharedUserId="android.uid.shell"} and
-     * {@code <uses-permission android:name="android.permission.DELETE_PACKAGES" />}</p>
-     *
-     * @param packageName The name of the package.
-     * @param isKeepData  Is keep the data.
-     * @return {@code true}: success<br>{@code false}: fail
-     */
-    public static boolean uninstallAppSilent(final String packageName, final boolean isKeepData) {
-        return uninstallAppSilent(packageName, isKeepData, isDeviceRooted());
-    }
-
-    /**
-     * Uninstall the app silently.
-     * <p>Without root permission must hold
-     * {@code android:sharedUserId="android.uid.shell"} and
-     * {@code <uses-permission android:name="android.permission.DELETE_PACKAGES" />}</p>
-     *
-     * @param packageName The name of the package.
-     * @param isKeepData  Is keep the data.
-     * @param isRooted    True to use root, false otherwise.
-     * @return {@code true}: success<br>{@code false}: fail
-     */
-    public static boolean uninstallAppSilent(final String packageName,
-                                             final boolean isKeepData,
-                                             final boolean isRooted) {
-        if (isSpace(packageName)) return false;
-        String command = "LD_LIBRARY_PATH=/vendor/lib*:/system/lib* pm uninstall "
-                + (isKeepData ? "-k " : "")
-                + packageName;
-        ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, isRooted);
-        if (commandResult.successMsg != null
-                && commandResult.successMsg.toLowerCase().contains("success")) {
-            return true;
-        } else {
-            Log.e("AppUtils", "uninstallAppSilent successMsg: " + commandResult.successMsg +
-                    ", errorMsg: " + commandResult.errorMsg);
-            return false;
-        }
     }
 
     /**
@@ -388,7 +247,6 @@ public final class AppUtils {
         return !isSpace(packageName) && packageName.equals(getForegroundProcessName());
     }
 
-
     /**
      * Return whether application is running.
      *
@@ -469,7 +327,10 @@ public final class AppUtils {
         PackageManager packageManager = Utils.getApp().getPackageManager();
         Intent intent = packageManager.getLaunchIntentForPackage(Utils.getApp().getPackageName());
         if (intent == null) return;
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(
+                Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
+        );
         Utils.getApp().startActivity(intent);
         if (!isKillProcess) return;
         android.os.Process.killProcess(android.os.Process.myPid());
@@ -989,19 +850,6 @@ public final class AppUtils {
             }
         }
         return true;
-    }
-
-    private static boolean isDeviceRooted() {
-        String su = "su";
-        String[] locations = {"/system/bin/", "/system/xbin/", "/sbin/", "/system/sd/xbin/",
-                "/system/bin/failsafe/", "/data/local/xbin/", "/data/local/bin/", "/data/local/",
-                "/system/sbin/", "/usr/bin/", "/vendor/bin/"};
-        for (String location : locations) {
-            if (new File(location + su).exists()) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private static final char HEX_DIGITS[] =

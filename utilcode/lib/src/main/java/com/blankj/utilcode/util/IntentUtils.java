@@ -436,7 +436,7 @@ public final class IntentUtils {
      * Return the intent of shutdown.
      * <p>Requires root permission
      * or hold {@code android:sharedUserId="android.uid.system"},
-     * {@code <uses-permission android:name="android.permission.SHUTDOWN/>}
+     * {@code <uses-permission android:name="android.permission.SHUTDOWN" />}
      * in manifest.</p>
      *
      * @return the intent of shutdown
@@ -449,7 +449,7 @@ public final class IntentUtils {
      * Return the intent of shutdown.
      * <p>Requires root permission
      * or hold {@code android:sharedUserId="android.uid.system"},
-     * {@code <uses-permission android:name="android.permission.SHUTDOWN/>}
+     * {@code <uses-permission android:name="android.permission.SHUTDOWN" />}
      * in manifest.</p>
      *
      * @param isNewTask True to add flag of new task, false otherwise.

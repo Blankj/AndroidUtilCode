@@ -69,12 +69,10 @@
     <!--App 相关-->
     <string name="app_install">Install Test App</string>
     <string name="app_install_tips">Test app have installed</string>
-    <string name="app_install_silent">Install Test App Silently</string>
     <string name="install_successfully">Install successfully</string>
     <string name="install_unsuccessfully">Install unsuccessfully</string>
     <string name="app_uninstall">Uninstall Test App</string>
     <string name="app_uninstall_tips">Please install test app first</string>
-    <string name="app_uninstall_silent">Uninstall App Silently</string>
     <string name="uninstall_successfully">Uninstall successfully</string>
     <string name="uninstall_unsuccessfully">Uninstall unsuccessfully</string>
     <string name="app_launch">Launch App</string>
@@ -122,19 +120,19 @@
     <string name="clean_external_cache">Clean External Cache</string>
 
     <!--Click 相关-->
-    <string name="click_scale_default">Click Scale Default</string>
-    <string name="click_scale_custom">Click Scale Custom</string>
+    <string name="click_scale_default">Click Scale Default(Global)</string>
+    <string name="click_scale_custom">Click Scale Custom(Global)</string>
+    <string name="click_global_debouncing">Click Global Debouncing</string>
+    <string name="click_single_debouncing">Click Single Debouncing</string>
+    <string name="click_multi">Click Multi</string>
+    <string name="click_single_tip">The view does not respond to clicks within 5 seconds.</string>
+    <string name="click_global_tip">The views which set global debouncing does not respond to clicks within 5 seconds.</string>
+
 
     <!--Bus 相关-->
     <string name="bus_start_remote">Start Remote</string>
     <string name="bus_post">Post</string>
     <string name="bus_post_to_main">Post to Main</string>
-
-    <!--Device 相关-->
-    <string name="device_shutdown">Shutdown</string>
-    <string name="device_reboot">Reboot</string>
-    <string name="device_reboot_to_recovery">Reboot To Recovery</string>
-    <string name="device_reboot_to_bootloader">Reboot To Bootloader</string>
 
     <!-- Flashlight相关 -->
     <string name="flashlight_status">Flashlight Status</string>
@@ -198,6 +196,11 @@
 
     <!--Language 相关-->
     <string name="language">Language</string>
+    <string name="language_app_context">Language App Context</string>
+    <string name="language_activity_context">Language Activity Context</string>
+    <string name="language_apply_simple_chinese">Apply Simple Chinese</string>
+    <string name="language_apply_american">Apply American</string>
+    <string name="language_apply_system">Apply System</string>
 
     <!--Log 相关-->
     <string name="log_switch">Log Switch</string>

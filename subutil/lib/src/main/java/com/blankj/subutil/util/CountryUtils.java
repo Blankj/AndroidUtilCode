@@ -20,6 +20,12 @@ public class CountryUtils {
 
     private static HashMap<String, String> countryCodeMap;
 
+    /**
+     * Return the country code by sim card.
+     *
+     * @param defaultValue The default value.
+     * @return the country code
+     */
     public static String getCountryCodeBySim(String defaultValue) {
         String code = getCountryCodeFromMap().get(getCountryBySim());
         if (code == null) {
@@ -28,6 +34,12 @@ public class CountryUtils {
         return code;
     }
 
+    /**
+     * Return the country code by system language.
+     *
+     * @param defaultValue The default value.
+     * @return the country code
+     */
     public static String getCountryCodeByLanguage(String defaultValue) {
         String code = getCountryCodeFromMap().get(getCountryByLanguage());
         if (code == null) {
@@ -36,16 +48,26 @@ public class CountryUtils {
         return code;
     }
 
-    public static String getCountryByLanguage() {
-        return Resources.getSystem().getConfiguration().locale.getCountry();
-    }
-
+    /**
+     * Return the country by sim card.
+     *
+     * @return the country
+     */
     public static String getCountryBySim() {
         TelephonyManager manager = (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
         if (manager != null) {
             return manager.getSimCountryIso().toUpperCase();
         }
         return "";
+    }
+
+    /**
+     * Return the country by system language.
+     *
+     * @return the country
+     */
+    public static String getCountryByLanguage() {
+        return Resources.getSystem().getConfiguration().locale.getCountry();
     }
 
     private static HashMap<String, String> getCountryCodeFromMap() {

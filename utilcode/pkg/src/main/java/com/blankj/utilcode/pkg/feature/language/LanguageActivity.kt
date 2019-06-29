@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.View
 import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
+import com.blankj.utilcode.util.LanguageUtils
 import com.blankj.utilcode.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_language.*
+import java.util.*
 
 /**
  * ```
@@ -37,23 +39,24 @@ class LanguageActivity : CommonTitleActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        applyDebouncingClickListener(languageApp, languageActivity)
+        applyDebouncingClickListener(
+                languageApp,
+                languageActivity,
+                applySimpleChineseLanguage,
+                applyAmericanLanguage,
+                applySystemLanguage
+        )
     }
 
     override fun doBusiness() {}
 
     override fun onDebouncingClick(view: View) {
         when (view.id) {
-            R.id.languageApp -> {
-                ToastUtils.showLong(R.string.language)
-            }
-            R.id.languageActivity -> {
-                ToastUtils.showLong(getString(R.string.language))
-            }
+            R.id.languageApp -> ToastUtils.showLong(R.string.language)
+            R.id.languageActivity -> ToastUtils.showLong(getString(R.string.language))
+            R.id.applySimpleChineseLanguage -> LanguageUtils.applyLanguage(Locale.SIMPLIFIED_CHINESE, null)
+            R.id.applyAmericanLanguage -> LanguageUtils.applyLanguage(Locale.US, null)
+            R.id.applySystemLanguage -> LanguageUtils.applySystemLanguage(null)
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 }

@@ -55,9 +55,7 @@ class AppActivity : CommonTitleActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         applyDebouncingClickListener(
                 appInstallAppBtn,
-                appInstallAppSilentBtn,
                 appUninstallAppBtn,
-                appUninstallAppSilentBtn,
                 appLaunchAppBtn,
                 appRelaunchAppBtn,
                 appExitAppBtn,
@@ -88,38 +86,23 @@ class AppActivity : CommonTitleActivity() {
 
     override fun onDebouncingClick(view: View) {
         when (view.id) {
-            R.id.appInstallAppBtn -> if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
-                ToastUtils.showShort(R.string.app_install_tips)
-            } else {
-                if (!FileUtils.isFileExists(Config.TEST_APK_PATH)) {
-                    ReleaseInstallApkTask(listener).execute()
+            R.id.appInstallAppBtn -> {
+                if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
+                    ToastUtils.showShort(R.string.app_install_tips)
                 } else {
-                    listener.onReleased()
-                    LogUtils.d("test apk existed.")
+                    if (!FileUtils.isFileExists(Config.TEST_APK_PATH)) {
+                        ReleaseInstallApkTask(listener).execute()
+                    } else {
+                        listener.onReleased()
+                    }
                 }
             }
-            R.id.appInstallAppSilentBtn -> if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
-                ToastUtils.showShort(R.string.app_install_tips)
-            } else {
-                if (AppUtils.installAppSilent(Config.TEST_APK_PATH)) {
-                    ToastUtils.showShort(R.string.install_successfully)
+            R.id.appUninstallAppBtn -> {
+                if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
+                    AppUtils.uninstallApp(Config.TEST_PKG)
                 } else {
-                    ToastUtils.showShort(R.string.install_unsuccessfully)
+                    ToastUtils.showShort(R.string.app_uninstall_tips)
                 }
-            }
-            R.id.appUninstallAppBtn -> if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
-                AppUtils.uninstallApp(Config.TEST_PKG)
-            } else {
-                ToastUtils.showShort(R.string.app_uninstall_tips)
-            }
-            R.id.appUninstallAppSilentBtn -> if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
-                if (AppUtils.uninstallAppSilent(Config.TEST_PKG, false)) {
-                    ToastUtils.showShort(R.string.uninstall_successfully)
-                } else {
-                    ToastUtils.showShort(R.string.uninstall_unsuccessfully)
-                }
-            } else {
-                ToastUtils.showShort(R.string.app_uninstall_tips)
             }
             R.id.appLaunchAppBtn -> AppUtils.launchApp(this.packageName)
             R.id.appRelaunchAppBtn -> AppUtils.relaunchApp()

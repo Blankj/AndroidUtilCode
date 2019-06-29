@@ -11,13 +11,34 @@
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/language" />
+        android:text="@string/language_app_context" />
 
     <Button
         android:id="@+id/languageActivity"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/language" />
+        android:text="@string/language_activity_context" />
+
+    <Button
+        android:id="@+id/applySimpleChineseLanguage"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/language_apply_simple_chinese" />
+
+    <Button
+        android:id="@+id/applyAmericanLanguage"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/language_apply_american" />
+
+    <Button
+        android:id="@+id/applySystemLanguage"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/language_apply_system" />
 
 </LinearLayout>

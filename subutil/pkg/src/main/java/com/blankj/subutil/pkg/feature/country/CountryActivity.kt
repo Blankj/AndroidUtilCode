@@ -1,4 +1,4 @@
-package com.blankj.subutil.pkg.feature.countryCode
+package com.blankj.subutil.pkg.feature.country
 
 import android.content.Context
 import android.content.Intent
@@ -8,7 +8,7 @@ import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.subutil.pkg.R
 import com.blankj.subutil.util.CountryUtils
 import com.blankj.utilcode.util.SpanUtils
-import kotlinx.android.synthetic.main.activity_country_code.*
+import kotlinx.android.synthetic.main.activity_country.*
 
 /**
  * ```
@@ -18,31 +18,31 @@ import kotlinx.android.synthetic.main.activity_country_code.*
  * desc  : demo about PinyinUtils
  * ```
  */
-class CountryCodeActivity : CommonTitleActivity() {
+class CountryActivity : CommonTitleActivity() {
 
     companion object {
         fun start(context: Context) {
-            val starter = Intent(context, CountryCodeActivity::class.java)
+            val starter = Intent(context, CountryActivity::class.java)
             context.startActivity(starter)
         }
     }
 
     override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_country_code)
+        return getString(R.string.demo_country)
     }
 
     override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
-        return R.layout.activity_country_code
+        return R.layout.activity_country
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        SpanUtils.with(countryCodeAboutTv)
-                .appendLine("getCountryByLanguage: " + CountryUtils.getCountryByLanguage())
-                .appendLine("getCountryBySim: " + CountryUtils.getCountryBySim())
-                .appendLine("getCountryCodeByLanguage: " + CountryUtils.getCountryCodeByLanguage("Default"))
+        SpanUtils.with(countryAboutTv)
                 .appendLine("getCountryCodeBySim: " + CountryUtils.getCountryCodeBySim("Default"))
+                .appendLine("getCountryCodeByLanguage: " + CountryUtils.getCountryCodeByLanguage("Default"))
+                .appendLine("getCountryBySim: " + CountryUtils.getCountryBySim())
+                .appendLine("getCountryByLanguage: " + CountryUtils.getCountryByLanguage())
                 .create()
     }
 
