@@ -12,32 +12,4 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/deviceShutdownBtn"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/device_shutdown" />
-
-    <Button
-        android:id="@+id/deviceRebootBtn"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/device_reboot" />
-
-    <Button
-        android:id="@+id/deviceReboot2RecoveryBtn"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/device_reboot_to_recovery" />
-
-    <Button
-        android:id="@+id/deviceReboot2BootloaderBtn"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/device_reboot_to_bootloader" />
-
 </LinearLayout>

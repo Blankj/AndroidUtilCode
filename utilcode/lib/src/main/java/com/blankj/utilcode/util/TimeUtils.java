@@ -27,7 +27,6 @@ public final class TimeUtils {
         return getDateFormat("yyyy-MM-dd HH:mm:ss");
     }
 
-    @NonNull
     private static SimpleDateFormat getDateFormat(String pattern) {
         SimpleDateFormat simpleDateFormat = SDF_THREAD_LOCAL.get();
         if (simpleDateFormat == null) {
@@ -89,7 +88,6 @@ public final class TimeUtils {
 
     /**
      * Formatted time string to the milliseconds.
-     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
      * @param time    The formatted time string.
      * @param pattern The pattern of date format, such as yyyy/MM/dd HH:mm
@@ -128,7 +126,6 @@ public final class TimeUtils {
 
     /**
      * Formatted time string to the date.
-     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
      *
      * @param time    The formatted time string.
      * @param pattern The pattern of date format, such as yyyy/MM/dd HH:mm

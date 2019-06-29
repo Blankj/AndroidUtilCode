@@ -6,12 +6,11 @@
     android:orientation="vertical"
     android:padding="@dimen/spacing_16">
 
-    <LinearLayout
+    <Button
         android:id="@+id/clickScaleDefaultBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
         android:text="@string/click_scale_default" />
 
     <Button
@@ -20,5 +19,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/click_scale_custom" />
+
+    <Button
+        android:id="@+id/clickSingleDebouncingBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/click_single_debouncing" />
+
+    <Button
+        android:id="@+id/clickGlobalDebouncingBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/click_global_debouncing" />
+
+    <Button
+        android:id="@+id/clickMultiBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/click_multi" />
 
 </LinearLayout>

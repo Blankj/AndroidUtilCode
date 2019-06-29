@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.24.4'
+implementation 'com.blankj:utilcode:1.24.6'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.24.4'
+implementation 'com.blankj:utilcodex:1.24.6'
 ```
 
 
@@ -46,9 +46,7 @@ px2Pt      : px 转 pt
 registerAppStatusChangedListener  : 注册 App 前后台切换监听器
 unregisterAppStatusChangedListener: 注销 App 前后台切换监听器
 installApp                        : 安装 App（支持 8.0）
-installAppSilent                  : 静默安装 App
 uninstallApp                      : 卸载 App
-uninstallAppSilent                : 静默卸载 App
 isAppInstalled                    : 判断 App 是否安装
 isAppRoot                         : 判断 App 是否有 root 权限
 isAppDebug                        : 判断 App 是否是 Debug 版本
@@ -214,6 +212,15 @@ cleanExternalCache   : 清除外部缓存
 cleanCustomDir       : 清除自定义目录下的文件
 ```
 
+* ### 点击相关 -> [ClickUtils.java][click.java] -> [Demo][click.demo]
+```
+applyScale                          : 应用点击缩放
+applySingleDebouncing               : 对单视图应用防抖点击
+applyGlobalDebouncing               : 对所有设置 GlobalDebouncing 的视图应用防抖点击
+ClickUtils#OnDebouncingClickListener: 防抖点击监听器
+ClickUtils#OnMultiClickListener     : 连续点击监听器
+```
+
 * ### 克隆相关 -> [CloneUtils.java][clone.java] -> [Test][clone.test]
 ```
 deepClone: 深度克隆
@@ -276,10 +283,6 @@ getMacAddress    : 获取设备 MAC 地址
 getManufacturer  : 获取设备厂商
 getModel         : 获取设备型号
 getABIs          : 获取设备 ABIs
-shutdown         : 关机
-reboot           : 重启
-reboot2Recovery  : 重启到 recovery
-reboot2Bootloader: 重启到 bootloader
 isTablet         : 判断是否是平板
 isEmulator       : 判断是否是模拟器
 ```
@@ -481,6 +484,12 @@ fixSoftInputLeaks                 : 修复软键盘内存泄漏
 clickBlankArea2HideSoftInput      : 点击屏幕空白区域隐藏软键盘
 ```
 
+* ### 语言相关 -> [LanguageUtils.java][language.java] -> [Demo][language.demo]
+```
+applySystemLanguage: 应用系统语言
+applyLanguage      : 应用语言
+```
+
 * ### 日志相关 -> [LogUtils.java][log.java] -> [Demo][log.demo]
 ```
 getConfig                : 获取 log 配置
@@ -533,7 +542,6 @@ isAvailable[Async]      : 判断网络是否可用
 isAvailableByPing[Async]: 用 ping 判断网络是否可用
 isAvailableByDns[Async] : 用 DNS 判断网络是否可用
 getMobileDataEnabled    : 判断移动数据是否打开
-setMobileDataEnabled    : 打开或关闭移动数据
 isMobileData            : 判断网络是否是移动数据
 is4G                    : 判断网络是否是 4G
 getWifiEnabled          : 判断 wifi 是否打开
@@ -1004,6 +1012,9 @@ getComments       : 获取压缩文件中的注释链表
 [clean.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CleanUtils.java
 [clean.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/clean/CleanActivity.kt
 
+[click.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ClickUtils.java
+[click.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/click/ClickActivity.kt
+
 [clone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CloneUtils.java
 [clone.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/CloneUtilsTest.java
 
@@ -1051,6 +1062,9 @@ getComments       : 获取压缩文件中的注释链表
 
 [keyboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/KeyboardUtils.java
 [keyboard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/keyboard/KeyboardActivity.kt
+
+[language.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/LanguageUtils.java
+[language.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/language/LanguageActivity.kt
 
 [log.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/LogUtils.java
 [log.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/log/LogActivity.kt

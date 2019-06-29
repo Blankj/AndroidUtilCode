@@ -7,13 +7,12 @@ import android.view.View
 import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.subutil.pkg.R
 import com.blankj.subutil.pkg.feature.appStore.AppStoreActivity
-import com.blankj.subutil.pkg.feature.countryCode.CountryCodeActivity
+import com.blankj.subutil.pkg.feature.country.CountryActivity
+import com.blankj.subutil.pkg.feature.dangerous.DangerousActivity
 import com.blankj.subutil.pkg.feature.location.LocationActivity
 import com.blankj.subutil.pkg.feature.pinyin.PinyinActivity
-import com.blankj.subutil.util.AppStoreUtils
 import com.blankj.utilcode.util.BusUtils
 import kotlinx.android.synthetic.main.activity_util_sub.*
-import kotlinx.android.synthetic.main.activity_util_sub.view.*
 
 /**
  * ```
@@ -46,7 +45,8 @@ class SubUtilActivity : CommonTitleActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         applyDebouncingClickListener(
                 subUtilAppStoreBtn,
-                subUtilCountryCodeBtn,
+                subUtilCountryBtn,
+                subUtilDangerousBtn,
                 subUtilLocationBtn,
                 subUtilPinyinBtn
         )
@@ -55,9 +55,10 @@ class SubUtilActivity : CommonTitleActivity() {
     override fun doBusiness() {}
 
     override fun onDebouncingClick(view: View) {
-        when(view.id) {
+        when (view.id) {
             R.id.subUtilAppStoreBtn -> AppStoreActivity.start(this)
-            R.id.subUtilCountryCodeBtn -> CountryCodeActivity.start(this)
+            R.id.subUtilCountryBtn -> CountryActivity.start(this)
+            R.id.subUtilDangerousBtn -> DangerousActivity.start(this)
             R.id.subUtilLocationBtn -> LocationActivity.start(this)
             R.id.subUtilPinyinBtn -> PinyinActivity.start(this)
         }

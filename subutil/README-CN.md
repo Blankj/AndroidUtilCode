@@ -6,6 +6,11 @@
 ## APIs
 
 
+* ### 应用商店相关 -> [AppStoreUtils.java][appStore.java] -> [Demo][appStore.demo]
+```
+getAppStoreIntent: 获取跳转应用商店意图
+```
+
 * ### 剪贴板相关 -> [ClipboardUtils.java][clipboard.java] -> [Test][clipboard.test]
 ```
 copyText  : 复制文本到剪贴板
@@ -24,6 +29,25 @@ gcj02ToWGS84: GCJ02 坐标转 WGS84 坐标
 wgs84ToGcj02: WGS84 坐标转 GCJ02 坐标
 bd09ToWGS84 : BD09 坐标转 WGS84 坐标
 wgs84ToBd09 : WGS84 坐标转 BD09 坐标
+```
+
+* ### 国家相关 -> [CountryUtils.java][country.java] -> [Demo][country.demo]
+```
+getCountryCodeBySim     : 根据 Sim 卡获取国家码
+getCountryCodeByLanguage: 根据系统语言获取国家码
+getCountryBySim         : 根据 Sim 卡获取国家
+getCountryByLanguage    : 根据系统语言获取国家
+```
+
+* ### 危险相关 -> [DangerousUtils.java][dangerous.java] -> [Demo][dangerous.demo]
+```
+installAppSilent    : 静默安装 App
+uninstallAppSilent  : 静默卸载 App
+shutdown            : 关机
+reboot              : 重启
+reboot2Recovery     : 重启到 recovery
+reboot2Bootloader   : 重启到 bootloader
+setMobileDataEnabled: 打开或关闭移动数据
 ```
 
 * ### 定位相关 -> [LocationUtils.java][location.java] -> [Demo][location.demo]
@@ -53,11 +77,20 @@ getSurnameFirstLetter: 根据名字获取姓氏的首字母
 
 
 
+[appStore.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/main/java/com/blankj/subutil/util/AppStoreUtils.java
+[appStore.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/pkg/src/main/java/com/blankj/subutil/pkg/feature/appStore/AppStoreActivity.kt
+
 [clipboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/main/java/com/blankj/subutil/util/ClipboardUtils.java
 [clipboard.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/test/java/com/blankj/subutil/util/ClipboardUtilsTest.java
 
 [coordinate.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/main/java/com/blankj/subutil/util/CoordinateUtils.java
 [coordinate.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/test/java/com/blankj/subutil/util/CoordinateUtilsTest.java
+
+[country.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/main/java/com/blankj/subutil/util/CountryUtils.java
+[country.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/pkg/src/main/java/com/blankj/subutil/pkg/feature/country/CountryActivity.kt
+
+[dangerous.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/main/java/com/blankj/subutil/util/DangerousUtils.java
+[dangerous.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/pkg/src/main/java/com/blankj/subutil/pkg/feature/dangerous/DangerousActivity.kt
 
 [location.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/lib/src/main/java/com/blankj/subutil/util/LocationUtils.java
 [location.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/pkg/src/main/java/com/blankj/subutil/pkg/feature/location/LocationActivity.kt

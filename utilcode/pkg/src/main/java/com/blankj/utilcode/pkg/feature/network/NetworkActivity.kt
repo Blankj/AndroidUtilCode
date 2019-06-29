@@ -7,7 +7,6 @@ import android.text.SpannableStringBuilder
 import android.view.View
 import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
-import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.Utils
@@ -49,15 +48,6 @@ class NetworkActivity : CommonTitleActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         applyDebouncingClickListener(networkOpenWirelessSettingsBtn)
 
-        if (AppUtils.isAppSystem()) {
-            networkMobileDataEnabledCb.setOnCheckedChangeListener { buttonView, isChecked ->
-                NetworkUtils.setMobileDataEnabled(isChecked)
-                updateAboutNetwork()
-            }
-        } else {
-            networkMobileDataEnabledCb.isEnabled = false
-        }
-
         networkWifiEnabledCb.setOnCheckedChangeListener { buttonView, isChecked ->
             NetworkUtils.setWifiEnabled(isChecked)
             updateAboutNetwork()
@@ -66,7 +56,6 @@ class NetworkActivity : CommonTitleActivity() {
 
     override fun onResume() {
         super.onResume()
-        networkMobileDataEnabledCb.isChecked = NetworkUtils.getMobileDataEnabled()
         networkWifiEnabledCb.isChecked = NetworkUtils.getWifiEnabled()
         updateAboutNetwork()
     }

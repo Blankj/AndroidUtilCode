@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.24.4'
+implementation 'com.blankj:utilcode:1.24.6'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.24.4'
+implementation 'com.blankj:utilcodex:1.24.6'
 ```
 
 
@@ -46,9 +46,7 @@ px2Pt
 registerAppStatusChangedListener
 unregisterAppStatusChangedListener
 installApp
-installAppSilent
 uninstallApp
-uninstallAppSilent
 isAppInstalled
 isAppRoot
 isAppDebug
@@ -214,6 +212,15 @@ cleanExternalCache
 cleanCustomDir
 ```
 
+* ### About Click -> [ClickUtils.java][click.java] -> [Demo][click.demo]
+```
+applyScale
+applySingleDebouncing
+applyGlobalDebouncing
+ClickUtils#OnDebouncingClickListener
+ClickUtils#OnMultiClickListener
+```
+
 * ### About Clone -> [CloneUtils.java][clone.java] -> [Test][clone.test]
 ```
 deepClone
@@ -276,10 +283,6 @@ getMacAddress
 getManufacturer
 getModel
 getABIs
-shutdown
-reboot
-reboot2Recovery
-reboot2Bootloader
 isTablet
 isEmulator
 ```
@@ -481,6 +484,12 @@ fixSoftInputLeaks
 clickBlankArea2HideSoftInput
 ```
 
+* ### About Language -> [LanguageUtils.java][language.java] -> [Demo][language.demo]
+```
+applySystemLanguage
+applyLanguage
+```
+
 * ### About Log -> [LogUtils.java][log.java] -> [Demo][log.demo]
 ```
 getConfig
@@ -533,7 +542,6 @@ isAvailable[Async]      : 判断网络是否可用
 isAvailableByPing[Async]: 用 ping 判断网络是否可用
 isAvailableByDns[Async] : 用 DNS 判断网络是否可用
 getMobileDataEnabled
-setMobileDataEnabled
 isMobileData
 is4G
 getWifiEnabled
@@ -1004,6 +1012,9 @@ getComments
 [clean.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CleanUtils.java
 [clean.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/clean/CleanActivity.kt
 
+[click.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/ClickUtils.java
+[click.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/click/ClickActivity.kt
+
 [clone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/CloneUtils.java
 [clone.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/test/java/com/blankj/utilcode/util/CloneUtilsTest.java
 
@@ -1051,6 +1062,9 @@ getComments
 
 [keyboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/KeyboardUtils.java
 [keyboard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/keyboard/KeyboardActivity.kt
+
+[language.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/LanguageUtils.java
+[language.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/language/LanguageActivity.kt
 
 [log.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/LogUtils.java
 [log.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/log/LogActivity.kt

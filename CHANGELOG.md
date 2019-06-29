@@ -1,3 +1,5 @@
+* `19/06/29` [add] ClickUtils#OnMultiClickListener, and remove dangerous function. Publish v1.24.6.
+* `19/06/28` [add] LanguageUtils. Publish v1.24.5.
 * `19/06/20` [fix] BusUtils' permission. Publish v1.24.4.
 * `19/06/19` [fix] UriUtils. Publish v1.24.3.
 * `19/06/18` [add] ClickUtils, ViewUtils.
