@@ -42,15 +42,14 @@ public class TimeUtilsTest  {
     public void millis2String() {
         assertEquals(timeString, TimeUtils.millis2String(timeMillis));
         assertEquals(timeStringFormat, TimeUtils.millis2String(timeMillis, mFormat));
-        assertEquals("2017年05月04日", TimeUtils.millis2String(timeMillis, "yyyy年MM月dd日"));
-        assertEquals("16时37分", TimeUtils.millis2String(timeMillis, "HH时mm分"));
+        assertEquals(timeStringFormat, TimeUtils.millis2String(timeMillis, "yyyy MM dd HH:mm:ss"));
     }
 
     @Test
     public void string2Millis() {
         assertEquals(timeMillis, TimeUtils.string2Millis(timeString));
         assertEquals(timeMillis, TimeUtils.string2Millis(timeStringFormat, mFormat));
-        assertEquals(timeMillis, TimeUtils.string2Millis(timeStringFormat, "yyyy年MM月dd日HH时mm分"));
+        assertEquals(timeMillis, TimeUtils.string2Millis(timeStringFormat, "yyyy MM dd HH:mm:ss"));
     }
 
     @Test
