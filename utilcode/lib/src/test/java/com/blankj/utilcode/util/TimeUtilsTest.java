@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
  *     desc  : test TimeUtils
  * </pre>
  */
-public class TimeUtilsTest  {
+public class TimeUtilsTest {
 
     private final DateFormat defaultFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
     private final DateFormat mFormat       = new SimpleDateFormat("yyyy MM dd HH:mm:ss", Locale.getDefault());
@@ -56,14 +56,14 @@ public class TimeUtilsTest  {
     public void string2Date() {
         assertEquals(timeDate, TimeUtils.string2Date(timeString));
         assertEquals(timeDate, TimeUtils.string2Date(timeStringFormat, mFormat));
-        assertEquals(timeDate, TimeUtils.string2Date(timeStringFormat, "yyyy-MM-dd HH:mm:ss"));
+        assertEquals(timeDate, TimeUtils.string2Date(timeStringFormat, "yyyy MM dd HH:mm:ss"));
     }
 
     @Test
     public void date2String() {
         assertEquals(timeString, TimeUtils.date2String(timeDate));
         assertEquals(timeStringFormat, TimeUtils.date2String(timeDate, mFormat));
-        assertEquals(timeStringFormat, TimeUtils.date2String(timeDate, "yyyy-MM-dd HH:mm:ss"));
+        assertEquals(timeStringFormat, TimeUtils.date2String(timeDate, "yyyy MM dd HH:mm:ss"));
     }
 
     @Test
