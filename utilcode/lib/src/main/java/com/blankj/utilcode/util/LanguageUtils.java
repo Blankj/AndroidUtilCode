@@ -36,26 +36,57 @@ public class LanguageUtils {
     /**
      * Apply the system language.
      *
-     * @param mainActivityClz The class of activity will be started after apply system language.
+     * @param activityClz The class of activity will be started after apply system language.
      */
-    public static void applySystemLanguage(final Class<? extends Activity> mainActivityClz) {
-        applyLanguage(Resources.getSystem().getConfiguration().locale, mainActivityClz, true);
+    public static void applySystemLanguage(final Class<? extends Activity> activityClz) {
+        applyLanguage(Resources.getSystem().getConfiguration().locale, activityClz, true);
+    }
+
+    /**
+     * Apply the system language.
+     *
+     * @param activityClassName The full class name of activity will be started after apply system language.
+     */
+    public static void applySystemLanguage(final String activityClassName) {
+        applyLanguage(Resources.getSystem().getConfiguration().locale, activityClassName, true);
     }
 
     /**
      * Apply the language.
      *
-     * @param locale          The language of locale.
-     * @param mainActivityClz The class of activity will be started after apply system language.
-     *                        It will start the launcher activity if the class is null.
+     * @param locale      The language of locale.
+     * @param activityClz The class of activity will be started after apply system language.
+     *                    It will start the launcher activity if the class is null.
      */
     public static void applyLanguage(@NonNull final Locale locale,
-                                     final Class<? extends Activity> mainActivityClz) {
-        applyLanguage(locale, mainActivityClz, false);
+                                     final Class<? extends Activity> activityClz) {
+        applyLanguage(locale, activityClz, false);
+    }
+
+    /**
+     * Apply the language.
+     *
+     * @param locale            The language of locale.
+     * @param activityClassName The class of activity will be started after apply system language.
+     *                          It will start the launcher activity if the class name is null.
+     */
+    public static void applyLanguage(@NonNull final Locale locale,
+                                     final String activityClassName) {
+        applyLanguage(locale, activityClassName, false);
     }
 
     private static void applyLanguage(@NonNull final Locale locale,
-                                      final Class<? extends Activity> mainActivityClz,
+                                      final Class<? extends Activity> activityClz,
+                                      final boolean isFollowSystem) {
+        if (activityClz == null) {
+            applyLanguage(locale, "", isFollowSystem);
+            return;
+        }
+        applyLanguage(locale, activityClz.getName(), isFollowSystem);
+    }
+
+    private static void applyLanguage(@NonNull final Locale locale,
+                                      final String activityClassName,
                                       final boolean isFollowSystem) {
         if (isFollowSystem) {
             SPUtils.getInstance().put(KEY_LOCALE, "");
@@ -67,13 +98,10 @@ public class LanguageUtils {
 
         updateLanguage(Utils.getApp(), locale);
 
-        Intent intent;
-        if (mainActivityClz == null) {
-            intent = new Intent();
-            intent.setComponent(new ComponentName(Utils.getApp(), getLauncherActivity()));
-        } else {
-            intent = new Intent(Utils.getApp(), mainActivityClz);
-        }
+        Intent intent = new Intent();
+        String realActivityClassName
+                = TextUtils.isEmpty(activityClassName) ? getLauncherActivity() : activityClassName;
+        intent.setComponent(new ComponentName(Utils.getApp(), realActivityClassName));
         intent.addFlags(
                 Intent.FLAG_ACTIVITY_NEW_TASK
                         | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK

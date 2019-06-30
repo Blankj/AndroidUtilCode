@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.24.6'
+implementation 'com.blankj:utilcode:1.24.7'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.24.6'
+implementation 'com.blankj:utilcodex:1.24.7'
 ```
 
 
