@@ -37,17 +37,17 @@ import java.lang.reflect.Field;
  */
 public final class ToastUtils {
 
-    private static final int    COLOR_DEFAULT = 0xFEFFFFFF;
-    private static final String NULL          = "null";
+    private static final int COLOR_DEFAULT = 0xFEFFFFFF;
+    private static final String NULL = "null";
 
     private static IToast iToast;
-    private static int    sGravity     = -1;
-    private static int    sXOffset     = -1;
-    private static int    sYOffset     = -1;
-    private static int    sBgColor     = COLOR_DEFAULT;
-    private static int    sBgResource  = -1;
-    private static int    sMsgColor    = COLOR_DEFAULT;
-    private static int    sMsgTextSize = -1;
+    private static int sGravity = -1;
+    private static int sXOffset = -1;
+    private static int sYOffset = -1;
+    private static int sBgColor = COLOR_DEFAULT;
+    private static int sBgResource = -1;
+    private static int sMsgColor = COLOR_DEFAULT;
+    private static int sMsgTextSize = -1;
 
     private ToastUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -283,6 +283,14 @@ public final class ToastUtils {
     }
 
     public static void show(final View view, final int duration) {
+        show(view, duration, sGravity, sXOffset, sYOffset);
+    }
+
+    public static void show(final View view, final int duration, final int gravity) {
+        show(view, duration, gravity, 0, 0);
+    }
+
+    public static void show(final View view, final int duration, final int gravity, final int xOffset, final int yOffset) {
         Utils.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -290,14 +298,13 @@ public final class ToastUtils {
                 iToast = ToastFactory.newToast(Utils.getApp());
                 iToast.setView(view);
                 iToast.setDuration(duration);
-                if (sGravity != -1 || sXOffset != -1 || sYOffset != -1) {
-                    iToast.setGravity(sGravity, sXOffset, sYOffset);
-                }
+                iToast.setGravity(gravity, xOffset, yOffset);
                 setBg();
                 iToast.show();
             }
         });
     }
+
 
     private static void setBg() {
         if (sBgResource != -1) {
@@ -426,7 +433,7 @@ public final class ToastUtils {
 
     static class ToastWithoutNotification extends AbsToast {
 
-        private View          mView;
+        private View mView;
         private WindowManager mWM;
 
         private WindowManager.LayoutParams mParams = new WindowManager.LayoutParams();
