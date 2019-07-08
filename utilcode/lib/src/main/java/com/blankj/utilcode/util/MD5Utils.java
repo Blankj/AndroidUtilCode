@@ -16,7 +16,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * MD5相关
  */
-public class MD5 {
+public class MD5Utils {
 
     /**
      * 得到文件的md5
