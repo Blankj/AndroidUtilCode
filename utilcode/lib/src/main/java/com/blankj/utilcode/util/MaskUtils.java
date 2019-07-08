@@ -14,7 +14,6 @@ import java.util.WeakHashMap;
  */
 public class MaskUtils {
     private static WeakHashMap<Window, View> viewMap = new WeakHashMap<>();
-
     public synchronized static void show(final Activity activity, @LayoutRes final int layoutId) {
         if (idMainThread()) {
             addView(activity, layoutId);
