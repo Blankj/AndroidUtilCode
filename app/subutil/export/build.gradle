@@ -1,0 +1,7 @@
+apply {
+    from "${rootDir.path}/buildLib.gradle"
+}
+
+dependencies {
+    api Config.depConfig.lib_common.dep
+}

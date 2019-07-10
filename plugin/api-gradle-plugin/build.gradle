@@ -1,0 +1,66 @@
+plugins {
+    id 'com.gradle.plugin-publish' version "0.10.0" //for pluginPublish.gradle
+}
+
+apply {
+    plugin "groovy"
+    plugin "java-gradle-plugin"
+    from "${rootDir.path}/gradle/upload/pluginPublish.gradle"
+    if (Config.depConfig.plugin_api.useLocal) {
+        plugin "maven"
+    } else {
+        plugin "com.github.dcendents.android-maven"
+        plugin "com.jfrog.bintray"
+        from "${rootDir.path}/gradle/upload/bintrayUploadJava.gradle"
+    }
+}
+
+gradlePlugin {
+    plugins {
+        busPlugin {
+            id = 'com.blankj.api'
+            implementationClass = 'com.blankj.api.ApiPlugin'
+        }
+    }
+}
+
+dependencies {
+    implementation "com.android.tools.build:gradle:3.4.1"
+    implementation "com.android.tools.build:gradle-api:3.4.1"
+
+    implementation Config.depConfig.commons_io.dep
+    implementation gradleApi()
+    implementation localGroovy()
+
+    testImplementation Config.depConfig.junit.dep
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDirs += 'src/main/java'
+        }
+    }
+
+    test {
+        groovy {
+            srcDirs += 'src/test/java'
+        }
+    }
+}
+
+group = Config.depConfig.plugin_api.groupId
+version = Config.depConfig.plugin_api.version
+
+if (Config.depConfig.plugin_api.useLocal) {
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                repository(url: uri(new File(project.rootDir.getPath() +  "/maven/api")))
+            }
+        }
+    }
+}
+
+//./gradlew api-gradle-plugin:bintrayUpload
+//./gradlew publishPlugins

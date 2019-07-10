@@ -1,6 +1,6 @@
-plugins {
-    id 'groovy'
-    id 'java-gradle-plugin'
+apply {
+    plugin 'groovy'
+    plugin 'java-gradle-plugin'
 }
 
 gradlePlugin {
@@ -20,4 +20,12 @@ gradlePlugin {
 dependencies {
     compile gradleApi()
     compile localGroovy()
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDirs += 'src/main/java'
+        }
+    }
 }

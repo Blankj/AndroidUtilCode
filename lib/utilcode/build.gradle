@@ -1,0 +1,27 @@
+apply {
+    from "${rootDir.path}/buildLib.gradle"
+
+    plugin "tech.harmonysoft.oss.traute"
+    plugin "com.github.dcendents.android-maven"
+    plugin "com.jfrog.bintray"
+    plugin "readme-core"
+}
+
+readme {
+    readmeFile file('./README.md')
+    readmeCnFile file('./README-CN.md')
+}
+
+apply from: "${rootDir.path}/gradle/upload/bintrayUploadAndroid.gradle"
+
+dependencies {
+    compile Config.depConfig.gson.dep
+
+    compileOnly Config.depConfig.support_appcompat_v7.dep
+    compileOnly Config.depConfig.support_design.dep
+
+    testImplementation Config.depConfig.junit.dep
+    testImplementation Config.depConfig.robolectric.dep
+    testImplementation Config.depConfig.support_appcompat_v7.dep
+    testImplementation Config.depConfig.lib_base.dep
+}

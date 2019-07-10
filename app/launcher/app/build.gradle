@@ -1,0 +1,8 @@
+apply {
+    from "${rootDir.path}/buildApp.gradle"
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api Config.depConfig.launcher_pkg.dep
+}

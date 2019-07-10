@@ -1,8 +1,8 @@
 apply {
-    from "${rootDir.path}/gradle/config/configLib.gradle"
+    from "${rootDir.path}/buildLib.gradle"
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api gradle.ext.dep.lib_base
+    api Config.depConfig.lib_base.dep
 }

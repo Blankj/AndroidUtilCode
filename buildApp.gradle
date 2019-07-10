@@ -1,0 +1,108 @@
+apply {
+    plugin "com.android.application"
+    plugin "kotlin-android"
+    plugin "kotlin-android-extensions"
+    if (Config.depConfig.plugin_bus.isApply) {
+        plugin "com.blankj.bus"
+    }
+    if (Config.depConfig.plugin_api.isApply) {
+        plugin "com.blankj.api"
+    }
+}
+
+configSigning()
+configApkName()
+
+android {
+    compileSdkVersion Config.compileSdkVersion
+    defaultConfig {
+        minSdkVersion Config.minSdkVersion
+        versionCode Config.versionCode
+        versionName Config.versionName
+        applicationId Config.applicationId + suffix
+        targetSdkVersion Config.targetSdkVersion
+        multiDexEnabled true
+        resValue "string", "app_name", Config.appName + suffix
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/*'
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    dexOptions {
+        preDexLibraries true
+        javaMaxHeapSize "8g"
+        maxProcessCount 8
+        dexInProcess = true
+    }
+}
+
+
+dependencies {
+    // LeakCanary
+    debugImplementation Config.depConfig.leakcanary_android.dep
+    debugImplementation Config.depConfig.leakcanary_support_fragment.dep
+    releaseImplementation Config.depConfig.leakcanary_android_no_op.dep
+
+    if (!project.toString().contains('launcher')) { // equals app:launcher:pkg
+        api Config.depConfig.mock.dep
+    }
+}
+
+def getSuffix() {
+    if (project.path == ":app:launcher:app") return ""
+    return project.path.replace(":", "_").substring(4, project.path.length() - 4)
+}
+
+def configSigning() {
+
+    File signPropertiesFile = file("${rootDir.path}/sign/keystore.properties")
+    if (!signPropertiesFile.exists()) return
+
+    GLog.log("$project.name config sign start...")
+    project.android {
+        Properties properties = new Properties()
+        properties.load(new FileInputStream(signPropertiesFile))
+        signingConfigs {
+            release {
+                storeFile new File(signPropertiesFile.getParent(), properties['keystore'])
+                storePassword properties['storePassword']
+                keyAlias properties['keyAlias']
+                keyPassword properties['keyPassword']
+            }
+        }
+        buildTypes.release.signingConfig signingConfigs.release
+    }
+    GLog.log("$project.name config sign end...")
+}
+
+def configApkName() {
+    project.android.applicationVariants.all { variant ->
+        if (variant.buildType.name != "debug") {
+            def artifact = variant.getPackageApplicationProvider().get()
+            artifact.outputDirectory = new File("${rootDir.path}/apk")
+            artifact.outputScope.apkDatas.forEach { apkData ->
+                apkData.outputFileName = "util" + suffix +
+                        (variant.flavorName == "" ? "" : ("_" + variant.flavorName)) +
+                        "_" + variant.versionName.replace(".", "_") +
+                        "_" + variant.buildType.name +
+                        ".apk"
+            }
+        }
+    }
+}

@@ -7,7 +7,7 @@ import com.blankj.lib.base.BaseApplication;
  *     author: blankj
  *     blog  : http://blankj.com
  *     time  : 2019/06/05
- *     desc  :
+ *     desc  : app about common
  * </pre>
  */
 public class CommonApplication extends BaseApplication {

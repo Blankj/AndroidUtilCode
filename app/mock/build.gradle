@@ -1,0 +1,11 @@
+apply {
+    from "${rootDir.path}/buildLib.gradle"
+}
+
+dependencies {
+    for (config in Config.depConfig) {
+        if (config.key.endsWith("_export")) {
+            api config.value.dep
+        }
+    }
+}

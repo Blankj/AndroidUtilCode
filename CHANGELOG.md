@@ -90,7 +90,7 @@
 * `18/06/13` 新增 CacheMemoryUtils 和 CacheDoubleUtils
 * `18/06/12` 完善 FragmentUtils#add 和 replace 新增 tag
 * `18/05/30` 完善 DeviceUtils#getMacAddress，发布 1.16.4 版本
-* `18/05/30` 修复 ToastUtils 在 targetSdkVersion 为 27 在 api 25 机器快速 show 两次崩溃的异常，发布 1.16.3 版本
+* `18/05/30` 修复 ToastUtils 在 targetSdkVersion 为 27 在 result 25 机器快速 show 两次崩溃的异常，发布 1.16.3 版本
 * `18/05/29` 完善 TimeUtils 的 timeSpan 带符号位，ToastUtils 去除弱引用，发布 1.16.2 版本
 * `18/05/25` 新增 AppUtils#registerAppStatusChangedListener 和 AppUtils#unregisterAppStatusChangedListener，发布 1.16.1 版本
 * `18/05/22` 新增 ThreadUtils，发布 1.16.0 版本

@@ -13,10 +13,14 @@ buildscript {
             url 'https://maven.aliyun.com/repository/google'
             name '代替 google()'
         }
-        if (gradle.ext.depConfig.plugin_bus.useLocal) {
-            maven() {
-                // use for debug plugin local
-                url new File("busMaven")
+
+        maven() {
+            // use for debug plugin local
+            if (Config.depConfig.plugin_bus.useLocal) {
+                url new File("maven/bus")
+            }
+            if (Config.depConfig.plugin_api.useLocal) {
+                url new File("maven/api")
             }
         }
         google()
@@ -25,7 +29,7 @@ buildscript {
 
     dependencies {
         // 根据 config 来 configClasspath 各 plugin
-        gradle.ext.depConfig.each { name, config ->
+        Config.depConfig.each { name, config ->
             if (name.startsWith("plugin_") && config.isApply) {
                 classpath config.remotePath
             }
@@ -57,7 +61,7 @@ allprojects {
         resolutionStrategy.eachDependency {
             if (it.requested.group == 'com.android.support'
                     && !it.requested.name.contains('multidex')) {
-                it.useVersion gradle.ext.support_version
+                it.useVersion Config.support_version
             }
         }
     }
