@@ -16,7 +16,7 @@ import com.blankj.utilcode.util.ColorUtils;
 
 /**
  * <pre>
- *     author: blankj
+ *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/11/16
  *     desc  : base about title activity

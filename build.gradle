@@ -1,27 +1,23 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
+        maven() {
+            // use for debug plugin local
+            if (Config.depConfig.plugin.bus.useLocal || Config.depConfig.plugin.api.useLocal) {
+                url new File("maven")
+            }
+        }
         maven {
             url 'https://maven.aliyun.com/repository/public'
-            name '代替 jcenter()及mavenCentral()'
+            name 'replace jcenter() and mavenCentral()'
         }
         maven {
             url 'https://maven.aliyun.com/repository/jcenter'
-            name '代替 jcenter()'
+            name 'replace jcenter()'
         }
         maven {
             url 'https://maven.aliyun.com/repository/google'
-            name '代替 google()'
-        }
-
-        maven() {
-            // use for debug plugin local
-            if (Config.depConfig.plugin_bus.useLocal) {
-                url new File("maven/bus")
-            }
-            if (Config.depConfig.plugin_api.useLocal) {
-                url new File("maven/api")
-            }
+            name 'replace google()'
         }
         google()
         jcenter()
@@ -29,8 +25,8 @@ buildscript {
 
     dependencies {
         // 根据 config 来 configClasspath 各 plugin
-        Config.depConfig.each { name, config ->
-            if (name.startsWith("plugin_") && config.isApply) {
+        Config.depConfig.plugin.each { name, config ->
+            if (config.isApply) {
                 classpath config.remotePath
             }
         }
@@ -41,15 +37,15 @@ allprojects {
     repositories {
         maven {
             url 'https://maven.aliyun.com/repository/public'
-            name '代替 jcenter()及mavenCentral()'
+            name 'replace jcenter() and mavenCentral()'
         }
         maven {
             url 'https://maven.aliyun.com/repository/jcenter'
-            name '代替 jcenter()'
+            name 'replace jcenter()'
         }
         maven {
             url 'https://maven.aliyun.com/repository/google'
-            name '代替 google()'
+            name 'replace google()'
         }
         google()
         jcenter()

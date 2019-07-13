@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  * <pre>
- *     author: blankj
+ *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/02/17
  * </pre>

@@ -18,7 +18,7 @@ import static android.Manifest.permission.MODIFY_PHONE_STATE;
 
 /**
  * <pre>
- *     author: blankj
+ *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/06/29
  *     desc  :

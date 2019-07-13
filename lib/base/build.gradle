@@ -4,15 +4,15 @@ apply {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    api Config.depConfig.lib_subutil.dep
-    api Config.depConfig.lib_utilcode.dep
+    api Config.depConfig.lib.subutil.dep
+    api Config.depConfig.lib.utilcode.dep
 
-    api Config.depConfig.support_appcompat_v7.dep
-    api Config.depConfig.support_design.dep
-    api Config.depConfig.support_multidex.dep
-    api Config.depConfig.constraint.dep
+    api Config.depConfig.support.appcompat_v7.dep
+    api Config.depConfig.support.design.dep
+    api Config.depConfig.support.multidex.dep
+    api Config.depConfig.support.constraint.dep
     api Config.depConfig.kotlin.dep
     api Config.depConfig.free_proguard.dep
     api Config.depConfig.swipe_panel.dep
-    compileOnly Config.depConfig.leakcanary_android_no_op.dep
+    compileOnly Config.depConfig.leakcanary.android_no_op.dep
 }

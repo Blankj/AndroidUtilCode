@@ -20,7 +20,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 /**
  * <pre>
- *     author: blankj
+ *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/02/08
  *     desc  : utils about http

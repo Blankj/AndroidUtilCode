@@ -7,12 +7,12 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -35,7 +35,9 @@ public final class ThreadUtils {
 
     private static final Map<Integer, Map<Integer, ExecutorService>> TYPE_PRIORITY_POOLS = new ConcurrentHashMap<>();
 
-    private static final Map<Task, TimerTask> TASK_TIMERTASK = new ConcurrentHashMap<>();
+    private static final Map<Task, TimerTask> TASK_TIMERTASK_MAP = new ConcurrentHashMap<>();
+
+    private static final Map<ExecutorService, List<Task>> POOL_TASK_MAP = new ConcurrentHashMap<>();
 
     private static final int   CPU_COUNT = Runtime.getRuntime().availableProcessors();
     private static final Timer TIMER     = new Timer();
@@ -873,16 +875,26 @@ public final class ThreadUtils {
     }
 
     /**
+     * Cancel the tasks in pool.
+     *
+     * @param executorService The pool.
+     */
+    public static void cancel(ExecutorService executorService) {
+        if (executorService instanceof ThreadPoolExecutor4Util) {
+            List<Task> tasks = POOL_TASK_MAP.get(executorService);
+            cancel(tasks);
+        } else {
+            Log.e("LogUtils", "The executorService is not ThreadUtils's pool.");
+        }
+    }
+
+    /**
      * Set the deliver.
      *
      * @param deliver The deliver.
      */
     public static void setDeliver(final Executor deliver) {
         sDeliver = deliver;
-    }
-
-    private static <T> void execute(final ExecutorService pool, final Task<T> task) {
-        pool.execute(task);
     }
 
     private static <T> void executeWithDelay(final ExecutorService pool,
@@ -892,13 +904,11 @@ public final class ThreadUtils {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                pool.execute(task);
+                execute(pool, task);
             }
         };
         TIMER.schedule(timerTask, unit.toMillis(delay));
-        synchronized (TASK_TIMERTASK) {
-            TASK_TIMERTASK.put(task, timerTask);
-        }
+        TASK_TIMERTASK_MAP.put(task, timerTask);
     }
 
     private static <T> void executeAtFixedRate(final ExecutorService pool,
@@ -910,18 +920,24 @@ public final class ThreadUtils {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                pool.execute(task);
+                execute(pool, task);
             }
         };
         TIMER.scheduleAtFixedRate(timerTask, unit.toMillis(initialDelay), unit.toMillis(period));
     }
 
-    private synchronized static void cancelTimerTask(final Task task) {
-        TimerTask timerTask = TASK_TIMERTASK.get(task);
-        if (timerTask != null) {
-            TASK_TIMERTASK.remove(task);
-            timerTask.cancel();
+    private static <T> void execute(final ExecutorService pool, final Task<T> task) {
+        pool.execute(task);
+        recordTask(pool, task);
+    }
+
+    private static <T> void recordTask(ExecutorService pool, Task<T> task) {
+        List<Task> tasks = POOL_TASK_MAP.get(pool);
+        if (tasks == null) {
+            tasks = new CopyOnWriteArrayList<>();
+            POOL_TASK_MAP.put(pool, tasks);
         }
+        tasks.add(task);
     }
 
     private static ExecutorService getPoolByTypeAndPriority(final int type) {
@@ -933,12 +949,10 @@ public final class ThreadUtils {
         ExecutorService pool;
         Map<Integer, ExecutorService> priorityPools = TYPE_PRIORITY_POOLS.get(type);
         if (priorityPools == null) {
-            priorityPools = new HashMap<>();
+            priorityPools = new ConcurrentHashMap<>();
             pool = ThreadPoolExecutor4Util.createPool(type, priority);
             priorityPools.put(priority, pool);
-            synchronized (TYPE_PRIORITY_POOLS) {
-                TYPE_PRIORITY_POOLS.put(type, priorityPools);
-            }
+            TYPE_PRIORITY_POOLS.put(type, priorityPools);
         } else {
             pool = priorityPools.get(priority);
             if (pool == null) {
@@ -947,20 +961,6 @@ public final class ThreadUtils {
             }
         }
         return pool;
-    }
-
-    private static Executor getGlobalDeliver() {
-        if (sDeliver == null) {
-            sDeliver = new Executor() {
-                private final Handler mHandler = new Handler(Looper.getMainLooper());
-
-                @Override
-                public void execute(@NonNull Runnable command) {
-                    mHandler.post(command);
-                }
-            };
-        }
-        return sDeliver;
     }
 
     static final class ThreadPoolExecutor4Util extends ThreadPoolExecutor {
@@ -1183,7 +1183,7 @@ public final class ThreadUtils {
                     });
                 }
             } catch (InterruptedException ignore) {
-                System.out.println("InterruptedException");
+
             } catch (final Throwable throwable) {
                 if (state != NEW) return;
 
@@ -1245,6 +1245,28 @@ public final class ThreadUtils {
                 return getGlobalDeliver();
             }
             return deliver;
+        }
+    }
+
+    private static Executor getGlobalDeliver() {
+        if (sDeliver == null) {
+            sDeliver = new Executor() {
+                private final Handler mHandler = new Handler(Looper.getMainLooper());
+
+                @Override
+                public void execute(@NonNull Runnable command) {
+                    mHandler.post(command);
+                }
+            };
+        }
+        return sDeliver;
+    }
+
+    private static void cancelTimerTask(final Task task) {
+        TimerTask timerTask = TASK_TIMERTASK_MAP.get(task);
+        if (timerTask != null) {
+            TASK_TIMERTASK_MAP.remove(task);
+            timerTask.cancel();
         }
     }
 }

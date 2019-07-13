@@ -8,7 +8,7 @@ import com.blankj.utilcode.util.SizeUtils;
 
 /**
  * <pre>
- *     author: blankj
+ *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/06/05
  *     desc  :

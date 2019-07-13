@@ -2,7 +2,7 @@ package com.blankj.subutil.util.http;
 
 /**
  * <pre>
- *     author: blankj
+ *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/02/17
  * </pre>

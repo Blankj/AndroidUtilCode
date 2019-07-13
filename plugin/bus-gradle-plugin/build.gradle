@@ -1,12 +1,11 @@
 plugins {
-    id 'com.gradle.plugin-publish' version "0.10.0" //for pluginPublish.gradle
+    id 'com.gradle.plugin-publish' version "0.10.0"
 }
 
 apply {
     plugin "groovy"
     plugin "java-gradle-plugin"
-    from "${rootDir.path}/gradle/upload/pluginPublish.gradle"
-    if (Config.depConfig.plugin_bus.useLocal) {
+    if (Config.depConfig.plugin.bus.useLocal) {
         plugin "maven"
     } else {
         plugin "com.github.dcendents.android-maven"
@@ -25,14 +24,12 @@ gradlePlugin {
 }
 
 dependencies {
-    implementation "com.android.tools.build:gradle:3.4.1"
-    implementation "com.android.tools.build:gradle-api:3.4.1"
-
+    implementation Config.depConfig.plugin.gradle.dep
     implementation Config.depConfig.commons_io.dep
     implementation gradleApi()
     implementation localGroovy()
 
-    testImplementation Config.depConfig.junit.dep
+    testImplementation Config.depConfig.test.junit.dep
 }
 
 sourceSets {
@@ -41,26 +38,35 @@ sourceSets {
             srcDirs += 'src/main/java'
         }
     }
-
-    test {
-        groovy {
-            srcDirs += 'src/test/java'
-        }
-    }
 }
 
-group = Config.depConfig.plugin_bus.groupId
-version = Config.depConfig.plugin_bus.version
+group = Config.depConfig.plugin.bus.groupId
+version = Config.depConfig.plugin.bus.version
 
-if (Config.depConfig.plugin_bus.useLocal) {
+if (Config.depConfig.plugin.bus.useLocal) {
     uploadArchives {
         repositories {
             mavenDeployer {
-                repository(url: uri(new File(project.rootDir.getPath() +  "/maven/bus")))
+                repository(url: uri(new File(project.rootDir.getPath() + "/maven")))
             }
         }
     }
 }
 
-//./gradlew bus-gradle-plugin:bintrayUpload
-//./gradlew publishPlugins
+pluginBundle {
+    website = 'https://github.com/Blankj/AndroidUtilCode'
+    vcsUrl = 'https://github.com/Blankj/AndroidUtilCode.git'
+    description = 'Plugin for BusUtils used as EventBus.'
+    tags = ['gradle', 'plugin', 'bus', 'eventbus', 'BusUtils', 'asm']
+
+    plugins {
+        busPlugin {
+            // id is captured from java-gradle-plugin configuration
+            displayName = 'Plugin for BusUtils used as EventBus.'
+        }
+    }
+}
+
+//./gradlew plugin:bus-gradle-plugin:uploadArchives
+//./gradlew plugin:bus-gradle-plugin:bintrayUpload
+//./gradlew plugin:bus-gradle-plugin:publishPlugins

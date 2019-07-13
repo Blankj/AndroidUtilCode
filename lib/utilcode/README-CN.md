@@ -104,7 +104,12 @@ getWindowBrightness     : 获取窗口亮度
 
 * ### Bus 相关 -> [BusUtils.java][bus.java] -> [README][bus.readme]
 ```
-post: 发送
+register   :注册
+unregister :注销
+post       :发送
+postSticky :发送粘性
+removeSticky:移除粘性
+toString_   : 查看插入的信息
 ```
 
 * ### 磁盘缓存相关 -> [CacheDiskStaticUtils.java][cacheDiskStatic.java] -> [Test][cacheDiskStatic.test]

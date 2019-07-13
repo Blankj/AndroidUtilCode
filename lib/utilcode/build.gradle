@@ -15,13 +15,13 @@ readme {
 apply from: "${rootDir.path}/gradle/upload/bintrayUploadAndroid.gradle"
 
 dependencies {
-    compile Config.depConfig.gson.dep
+    implementation Config.depConfig.gson.dep
 
-    compileOnly Config.depConfig.support_appcompat_v7.dep
-    compileOnly Config.depConfig.support_design.dep
+    compileOnly Config.depConfig.support.appcompat_v7.dep
+    compileOnly Config.depConfig.support.design.dep
 
-    testImplementation Config.depConfig.junit.dep
-    testImplementation Config.depConfig.robolectric.dep
-    testImplementation Config.depConfig.support_appcompat_v7.dep
-    testImplementation Config.depConfig.lib_base.dep
+    testImplementation Config.depConfig.test.junit.dep
+    testImplementation Config.depConfig.test.robolectric.dep
+    testImplementation Config.depConfig.support.appcompat_v7.dep
+    testImplementation Config.depConfig.lib.base.dep
 }

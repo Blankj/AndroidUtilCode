@@ -4,7 +4,7 @@ import com.blankj.lib.base.BaseApplication;
 
 /**
  * <pre>
- *     author: blankj
+ *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/06/05
  *     desc  : app about common

@@ -23,7 +23,7 @@ import javax.net.ssl.X509TrustManager;
 
 /**
  * <pre>
- *     author: blankj
+ *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/02/20
  * </pre>

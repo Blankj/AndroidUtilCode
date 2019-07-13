@@ -527,7 +527,6 @@ public final class LogUtils {
         File[] files = parentFile.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                System.out.println("haha");
                 return name.matches("^" + CONFIG.getFilePrefix() + "_[0-9]{4}_[0-9]{2}_[0-9]{2}_.*$");
             }
         });

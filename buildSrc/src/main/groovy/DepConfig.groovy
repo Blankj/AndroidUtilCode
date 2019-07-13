@@ -1,3 +1,11 @@
+/**
+ * <pre>
+ *     author: blankj
+ *     blog  : http://blankj.com
+ *     time  : 2019/07/13
+ *     desc  :
+ * </pre>
+ */
 class DepConfig {
     boolean useLocal // 是否使用本地的
     String localPath // 本地路径
@@ -54,9 +62,9 @@ class DepConfig {
     @Override
     String toString() {
         return "DepConfig { " +
-                "useLocal = " + useLocal + ", " +
-                "path = " + path + ", " +
-                "isApply = " + isApply + "" +
+                "useLocal = " + useLocal +
+                (dep == null ? ", path = " + path : (", dep = " + dep)) +
+                ", isApply = " + isApply +
                 " }"
     }
 }

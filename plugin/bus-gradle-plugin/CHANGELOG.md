@@ -1,5 +1,8 @@
 # Change Log
 
+## v2.0
+更改为 EventBus 模式
+
 ## v1.8
 兼容最新工程组件化
 

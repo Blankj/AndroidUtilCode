@@ -2,8 +2,8 @@ package com.blankj.api
 
 import com.android.build.api.transform.*
 import com.android.build.gradle.internal.pipeline.TransformManager
-import com.blankj.util.JsonUtils
-import com.blankj.util.LogUtils
+import com.blankj.api.util.JsonUtils
+import com.blankj.api.util.LogUtils
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
 
@@ -40,6 +40,8 @@ class ApiTransform extends Transform {
             throws TransformException, InterruptedException, IOException {
         super.transform(transformInvocation)
         LogUtils.l(getName() + " started")
+        File jsonFile = new File(mProject.projectDir.getAbsolutePath(), "__api__.json")
+        FileUtils.write(jsonFile, "{}")
 
         long stTime = System.currentTimeMillis()
 
@@ -112,7 +114,6 @@ class ApiTransform extends Transform {
                 apiDetails.put("implApis", apiScan.apiImplMap)
                 apiDetails.put("noImplApis", noImplApis)
                 String apiJson = JsonUtils.getFormatJson(apiDetails)
-                File jsonFile = new File(mProject.projectDir.getAbsolutePath(), "__api__.json")
                 LogUtils.l(jsonFile.toString() + ": " + apiJson)
                 FileUtils.write(jsonFile, apiJson)
                 ApiInject.start(apiScan.apiImplMap, apiScan.utilcodeJar)

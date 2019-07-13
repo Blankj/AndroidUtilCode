@@ -1,6 +1,6 @@
 package com.blankj.bus
 
-import com.blankj.util.ZipUtils
+import com.blankj.bus.util.ZipUtils
 import org.apache.commons.io.FileUtils
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassVisitor
@@ -9,7 +9,7 @@ import org.objectweb.asm.Opcodes
 
 class BusInject {
 
-    static void start(Map<String, String> busMap, File apiJar) {
+    static void start(Map<String, BusInfo> busMap, File apiJar) {
         String jarPath = apiJar.getAbsolutePath()
         String decompressedJarPath = jarPath.substring(0, jarPath.length() - 4);
         File decompressedJar = new File(decompressedJarPath)
@@ -18,9 +18,9 @@ class BusInject {
         File apiUtilsFile = new File(decompressedJarPath + Config.FILE_SEP + Config.BUS_UTILS_CLASS)
 
         ClassReader cr = new ClassReader(apiUtilsFile.bytes);
-        ClassWriter cw = new ClassWriter(cr, ClassWriter.COMPUTE_MAXS);
+        ClassWriter cw = new ClassWriter(cr, 0);
         ClassVisitor cv = new BusUtilsClassVisitor(cw, busMap);
-        cr.accept(cv, Opcodes.ASM5);
+        cr.accept(cv, ClassReader.SKIP_FRAMES);
 
         FileUtils.writeByteArrayToFile(apiUtilsFile, cw.toByteArray())
 

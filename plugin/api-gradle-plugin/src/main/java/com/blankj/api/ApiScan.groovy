@@ -1,12 +1,11 @@
 package com.blankj.api
 
-import com.blankj.util.ZipUtils
+import com.blankj.api.util.ZipUtils
 import groovy.io.FileType
 import org.apache.commons.io.FileUtils
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.ClassWriter
-import org.objectweb.asm.Opcodes
 
 class ApiScan {
 
@@ -35,9 +34,9 @@ class ApiScan {
             }
 
             ClassReader cr = new ClassReader(file.bytes);
-            ClassWriter cw = new ClassWriter(cr, ClassWriter.COMPUTE_MAXS);
+            ClassWriter cw = new ClassWriter(cr, 0);
             ClassVisitor cv = new ApiClassVisitor(cw, apiImplMap, apiClasses);
-            cr.accept(cv, Opcodes.ASM5);
+            cr.accept(cv, ClassReader.SKIP_FRAMES);
 
             FileUtils.writeByteArrayToFile(file, cw.toByteArray());
         }

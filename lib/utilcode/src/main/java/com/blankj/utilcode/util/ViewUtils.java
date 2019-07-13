@@ -5,7 +5,7 @@ import android.view.ViewGroup;
 
 /**
  * <pre>
- *     author: blankj
+ *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/06/18
  *     desc  : utils about view

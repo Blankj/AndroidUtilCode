@@ -11,7 +11,7 @@ import com.blankj.utilcode.util.ThreadUtils;
 
 /**
  * <pre>
- *     author: blankj
+ *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/03/14
  *     desc  : base about task activity

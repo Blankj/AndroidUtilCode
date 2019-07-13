@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 
 /**
  * <pre>
- *     author: blankj
+ *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/02/12
  *     desc  : utils about exception

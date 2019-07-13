@@ -1,3 +1,11 @@
+/**
+ * <pre>
+ *     author: blankj
+ *     blog  : http://blankj.com
+ *     time  : 2019/07/13
+ *     desc  :
+ * </pre>
+ */
 class GLog {
 
     static log(Object... contents) {
@@ -39,6 +47,7 @@ class GLog {
     static String object2String(Object object) {
         if (object == null) return "null";
         if (object.getClass().isArray()) return LogFormatter.array2String(object);
+        if (object instanceof List) return LogFormatter.list2String(object);
         if (object instanceof Map) return LogFormatter.map2String(object);
         if (object instanceof Throwable) return LogFormatter.throwable2String(object);
         return object.toString();
@@ -46,7 +55,7 @@ class GLog {
 
     static class LogFormatter {
 
-        private static String array2String(Object object) {
+        private static array2String(Object object) {
             if (object instanceof Object[]) {
                 return Arrays.deepToString((Object[]) object);
             } else if (object instanceof boolean[]) {
@@ -69,18 +78,49 @@ class GLog {
             throw new IllegalArgumentException("Array has incompatible type: " + object.getClass());
         }
 
+        private static list2String(List list) {
+            StringBuilder sb = new StringBuilder()
+            sb.append("[")
+            list.each { v ->
+                if (v instanceof Map || v instanceof List) {
+                    sb.append(String.format("$LogConst.LINE_SEP%${deep++ * 8}s${object2String(v)},", "", k))
+                    deep--
+                } else {
+                    sb.append(String.format("$LogConst.LINE_SEP%${deep * 8}s$v,", ""))
+                }
+            }
+            sb.deleteCharAt(sb.length() - 1)
+            if (deep - 1 == 0) {
+                sb.append("$LogConst.LINE_SEP]")
+            } else {
+                sb.append(String.format("$LogConst.LINE_SEP%${(deep - 1) * 8}s]", ""))
+            }
+            return sb.toString()
+        }
+
+        private static deep = 1;
+
         private static map2String(Map map) {
             StringBuilder sb = new StringBuilder()
             sb.append("[")
             map.each { k, v ->
-                sb.append(String.format("$LogConst.LINE_SEP%8s%-27s: $v,", "", k))
+                if (v instanceof Map || v instanceof List) {
+                    sb.append(String.format("$LogConst.LINE_SEP%${deep++ * 8}s%-26s: ${object2String(v)},", "", k))
+                    deep--
+                } else {
+                    sb.append(String.format("$LogConst.LINE_SEP%${deep * 8}s%-26s: $v,", "", k))
+                }
             }
             sb.deleteCharAt(sb.length() - 1)
-            sb.append("$LogConst.LINE_SEP]")
+            if (deep - 1 == 0) {
+                sb.append("$LogConst.LINE_SEP]")
+            } else {
+                sb.append(String.format("$LogConst.LINE_SEP%${(deep - 1) * 8}s]", ""))
+            }
             return sb.toString()
         }
 
-        private static String throwable2String(Throwable throwable) {
+        private static throwable2String(Throwable throwable) {
             final List<Throwable> throwableList = new ArrayList<>();
             while (throwable != null && !throwableList.contains(throwable)) {
                 throwableList.add(throwable);

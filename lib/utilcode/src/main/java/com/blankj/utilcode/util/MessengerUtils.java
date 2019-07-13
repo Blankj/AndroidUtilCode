@@ -28,7 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * <pre>
- *     author: blankj
+ *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/07/10
  *     desc  : utils about messenger
@@ -46,49 +46,61 @@ public class MessengerUtils {
     private static final int    WHAT_SEND        = 0x02;
     private static final String KEY_STRING       = "MESSENGER_UTILS";
 
-    public static void init() {
+    public static void register() {
         if (isMainProcess()) {
+            if (isServiceRunning(ServerService.class.getName())) {
+                Log.i("MessengerUtils", "Server service is running.");
+                return;
+            }
             Intent intent = new Intent(Utils.getApp(), ServerService.class);
             Utils.getApp().startService(intent);
+            return;
+        }
+        if (sLocalClient == null) {
+            Client client = new Client(null);
+            if (client.bind()) {
+                sLocalClient = client;
+            } else {
+                Log.e("MessengerUtils", "Bind service failed.");
+            }
         } else {
-            registerClient();
+            Log.i("MessengerUtils", "The client have been bind.");
         }
     }
 
-    public static void registerClient(final String pkgName) {
+    public static void unregister() {
+        if (isMainProcess()) {
+            if (!isServiceRunning(ServerService.class.getName())) {
+                Log.i("MessengerUtils", "Server service isn't running.");
+                return;
+            }
+            Intent intent = new Intent(Utils.getApp(), ServerService.class);
+            Utils.getApp().stopService(intent);
+        }
+        if (sLocalClient != null) {
+            sLocalClient.unbind();
+        }
+    }
+
+    public static void register(final String pkgName) {
         if (sClientMap.containsKey(pkgName)) {
-            Log.i("BusUtils", "registerClient: client registered: " + pkgName);
+            Log.i("MessengerUtils", "register: client registered: " + pkgName);
             return;
         }
         Client client = new Client(pkgName);
         if (client.bind()) {
             sClientMap.put(pkgName, client);
         } else {
-            Log.e("BusUtils", "registerClient: client bind failed: " + pkgName);
+            Log.e("MessengerUtils", "register: client bind failed: " + pkgName);
         }
     }
 
-    public static void unregisterClient(final String pkgName) {
+    public static void unregister(final String pkgName) {
         if (sClientMap.containsKey(pkgName)) {
             Client client = sClientMap.get(pkgName);
             client.unbind();
         } else {
-            Log.i("BusUtils", "unregisterClient: client didn't register: " + pkgName);
-        }
-    }
-
-    public static void registerClient() {
-        Client client = new Client(null);
-        if (client.bind()) {
-            sLocalClient = client;
-        } else {
-            Log.e("BusUtils", "bind service failed.");
-        }
-    }
-
-    public static void unregisterClient() {
-        if (sLocalClient != null) {
-            sLocalClient.unbind();
+            Log.i("MessengerUtils", "unregister: client didn't register: " + pkgName);
         }
     }
 
@@ -126,6 +138,18 @@ public class MessengerUtils {
             e.printStackTrace();
             return false;
         }
+    }
+
+    private static boolean isServiceRunning(final String className) {
+        ActivityManager am =
+                (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
+        //noinspection ConstantConditions
+        List<ActivityManager.RunningServiceInfo> info = am.getRunningServices(0x7FFFFFFF);
+        if (info == null || info.size() == 0) return false;
+        for (ActivityManager.RunningServiceInfo aInfo : info) {
+            if (className.equals(aInfo.service.getClassName())) return true;
+        }
+        return false;
     }
 
     private static boolean isAppRunning(@NonNull final String pkgName) {
@@ -176,7 +200,7 @@ public class MessengerUtils {
                     if (key != null) {
                         MessageCallback callback = subscribers.get(key);
                         if (callback != null) {
-                            callback.onMsgCallBack(data);
+                            callback.messageCall(data);
                         }
                     }
                 }
@@ -187,7 +211,7 @@ public class MessengerUtils {
 
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
-                Log.d("BusUtils", "client service connected " + name);
+                Log.d("MessengerUtils", "client service connected " + name);
                 mServer = new Messenger(service);
                 int key = Utils.getCurrentProcessName().hashCode();
                 Message msg = Message.obtain(mReceiveServeMsgHandler, WHAT_SUBSCRIBE, key, 0);
@@ -195,17 +219,17 @@ public class MessengerUtils {
                 try {
                     mServer.send(msg);
                 } catch (RemoteException e) {
-                    Log.e("BusUtils", "onServiceConnected: ", e);
+                    Log.e("MessengerUtils", "onServiceConnected: ", e);
                 }
                 sendCachedMsg2Server();
             }
 
             @Override
             public void onServiceDisconnected(ComponentName name) {
-                Log.w("BusUtils", "client service disconnected:" + name);
+                Log.w("MessengerUtils", "client service disconnected:" + name);
                 mServer = null;
                 if (!bind()) {
-                    Log.e("BusUtils", "client service rebind failed: " + name);
+                    Log.e("MessengerUtils", "client service rebind failed: " + name);
                 }
             }
         };
@@ -225,11 +249,11 @@ public class MessengerUtils {
                     intent.setPackage(mPkgName);
                     return Utils.getApp().bindService(intent, mConn, Context.BIND_AUTO_CREATE);
                 } else {
-                    Log.e("BusUtils", "bind: the app is not running -> " + mPkgName);
+                    Log.e("MessengerUtils", "bind: the app is not running -> " + mPkgName);
                     return false;
                 }
             } else {
-                Log.e("BusUtils", "bind: the app is not installed -> " + mPkgName);
+                Log.e("MessengerUtils", "bind: the app is not installed -> " + mPkgName);
                 return false;
             }
         }
@@ -240,15 +264,17 @@ public class MessengerUtils {
             try {
                 mServer.send(msg);
             } catch (RemoteException e) {
-                Log.e("BusUtils", "unbind: ", e);
+                Log.e("MessengerUtils", "unbind: ", e);
             }
-            Utils.getApp().unbindService(mConn);
+            try {
+                Utils.getApp().unbindService(mConn);
+            } catch (Exception ignore) {/*ignore*/}
         }
 
         void sendMsg2Server(Bundle bundle) {
             if (mServer == null) {
                 mCached.addFirst(bundle);
-                Log.i("BusUtils", "save the bundle " + bundle);
+                Log.i("MessengerUtils", "save the bundle " + bundle);
             } else {
                 sendCachedMsg2Server();
                 if (!send2Server(bundle)) {
@@ -274,7 +300,7 @@ public class MessengerUtils {
                 mServer.send(msg);
                 return true;
             } catch (RemoteException e) {
-                Log.e("BusUtils", "send2Server: ", e);
+                Log.e("MessengerUtils", "send2Server: ", e);
                 return false;
             }
         }
@@ -347,7 +373,7 @@ public class MessengerUtils {
                 if (key != null) {
                     MessageCallback callback = subscribers.get(key);
                     if (callback != null) {
-                        callback.onMsgCallBack(data);
+                        callback.messageCall(data);
                     }
                 }
             }
@@ -355,6 +381,6 @@ public class MessengerUtils {
     }
 
     public interface MessageCallback {
-        void onMsgCallBack(Bundle data);
+        void messageCall(Bundle data);
     }
 }

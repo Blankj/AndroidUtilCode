@@ -1,8 +1,0 @@
-apply {
-    from "${rootDir.path}/buildApp.gradle"
-}
-
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation Config.depConfig.subutil_pkg.dep
-}

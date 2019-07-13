@@ -31,19 +31,12 @@ afterEvaluate {
 }
 
 dependencies {
-    if (project.name == 'pkg') { // if module's name equals 'pkg'
-        if (project.toString().contains('launcher')) { // equals app:launcher:pkg
-            for (config in Config.depConfig) {// api all pkg except self
-                if (config.key.endsWith("_pkg") && config.key != "launcher_pkg") {
-                    api config.value.dep
-                }
-            }
-        } else {// other pkg ap all exports
-            for (config in Config.depConfig) {
-                if (config.key.endsWith("_export")) {
-                    api config.value.dep
-                }
-            }
+    if (project.name == 'pkg' || project.name == 'mock') {
+        // if module's name equals 'pkg', api all of export
+        for (def entrySet : ConfigUtils.getApplyExports().entrySet()) {
+            api entrySet.value.dep
         }
+    } else if (project.name == 'export') {
+        api Config.depConfig.lib.common.dep
     }
 }

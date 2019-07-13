@@ -2,8 +2,8 @@ package com.blankj.bus
 
 import com.android.build.api.transform.*
 import com.android.build.gradle.internal.pipeline.TransformManager
-import com.blankj.util.JsonUtils
-import com.blankj.util.LogUtils
+import com.blankj.bus.util.JsonUtils
+import com.blankj.bus.util.LogUtils
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
 
@@ -40,6 +40,8 @@ class BusTransform extends Transform {
             throws TransformException, InterruptedException, IOException {
         super.transform(transformInvocation)
         LogUtils.l(getName() + " started")
+        File jsonFile = new File(mProject.projectDir.getAbsolutePath(), "__bus__.json")
+        FileUtils.write(jsonFile, "{}")
 
         long stTime = System.currentTimeMillis()
 
@@ -102,8 +104,28 @@ class BusTransform extends Transform {
             if (busScan.busMap.isEmpty()) {
                 LogUtils.l("no bus.")
             } else {
-                String busJson = JsonUtils.getFormatJson(busScan.busMap)
-                File jsonFile = new File(mProject.projectDir.getAbsolutePath(), "__bus__.json")
+                Map<String, String> rightBus = [:]
+                Map wrongBus = [:]
+                busScan.busMap.each { String tag, List<BusInfo> infoList ->
+                    if (infoList.size() == 1) {
+                        BusInfo busInfo = infoList.get(0)
+                        if (busInfo.isParamSizeNoMoreThanOne) {
+                            rightBus.put(tag, busInfo.toString())
+                        } else {
+                            wrongBus.put(tag, busInfo.toString())
+                        }
+                    } else {
+                        List<String> infoString = []
+                        infoList.each { BusInfo info ->
+                            infoString.add(info.toString())
+                        }
+                        wrongBus.put(tag, infoString)
+                    }
+                }
+                Map busDetails = [:]
+                busDetails.put("rightBus", rightBus)
+                busDetails.put("wrongBus", wrongBus)
+                String busJson = JsonUtils.getFormatJson(busDetails)
                 LogUtils.l(jsonFile.toString() + ": " + busJson)
                 FileUtils.write(jsonFile, busJson)
                 BusInject.start(busScan.busMap, busScan.utilcodeJar)

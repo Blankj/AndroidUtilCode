@@ -11,7 +11,7 @@ import android.support.v4.app.NotificationManagerCompat;
 
 /**
  * <pre>
- *     author: blankj
+ *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/02/20
  *     desc  : utils about notification

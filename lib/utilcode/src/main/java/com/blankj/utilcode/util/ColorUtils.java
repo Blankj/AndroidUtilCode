@@ -10,7 +10,7 @@ import android.support.v4.content.ContextCompat;
 
 /**
  * <pre>
- *     author: blankj
+ *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/01/15
  *     desc  : utils about color

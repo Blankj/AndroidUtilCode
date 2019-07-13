@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * <pre>
- *     author: blankj
+ *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/01/15
  *     desc  : test ColorUtils

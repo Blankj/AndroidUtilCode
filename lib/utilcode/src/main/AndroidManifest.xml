@@ -21,7 +21,7 @@
                 android:resource="@xml/util_code_provider_paths" />
         </provider>
 
-        <service android:name="com.blankj.utilcode.util.BusUtils$ServerService">
+        <service android:name="com.blankj.utilcode.util.MessengerUtils$ServerService">
             <intent-filter>
                 <action android:name="${applicationId}.messenger" />
             </intent-filter>

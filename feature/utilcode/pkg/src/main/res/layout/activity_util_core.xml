@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/spacing_16"
+    android:paddingRight="@dimen/spacing_16"
+    tools:context=".feature.CoreUtilActivity">
+
+    <Button
+        android:id="@+id/coreUtilActivityBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_activity" />
+
+    <Button
+        android:id="@+id/coreUtilAdaptScreenBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_adapt_screen" />
+
+    <Button
+        android:id="@+id/coreUtilApiBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_api" />
+
+    <Button
+        android:id="@+id/coreUtilAppBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_app" />
+
+    <Button
+        android:id="@+id/coreUtilBarBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_bar" />
+
+    <Button
+        android:id="@+id/coreUtilBrightnessBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_brightness" />
+
+    <Button
+        android:id="@+id/coreUtilBusBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_bus" />
+
+    <Button
+        android:id="@+id/coreUtilCleanBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_clean" />
+
+    <Button
+        android:id="@+id/coreUtilClickBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_click" />
+
+    <Button
+        android:id="@+id/coreUtilCrashBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_crash" />
+
+    <Button
+        android:id="@+id/coreUtilDeviceBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_device" />
+
+    <Button
+        android:id="@+id/coreUtilFlashlightBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_flashlight" />
+
+    <Button
+        android:id="@+id/coreUtilFragmentBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_fragment" />
+
+    <Button
+        android:id="@+id/coreUtilImageBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_image" />
+
+    <Button
+        android:id="@+id/coreUtilKeyboardBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_keyboard" />
+
+    <Button
+        android:id="@+id/coreUtilLanguageBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_language" />
+
+    <Button
+        android:id="@+id/coreUtilLogBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_log" />
+
+    <Button
+        android:id="@+id/coreUtilMessengerBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_messenger" />
+
+    <Button
+        android:id="@+id/coreUtilMetaDataBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_meta_data" />
+
+    <Button
+        android:id="@+id/coreUtilNetworkBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_network" />
+
+    <Button
+        android:id="@+id/coreUtilPathBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_path" />
+
+    <Button
+        android:id="@+id/coreUtilPermissionBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_permission" />
+
+    <Button
+        android:id="@+id/coreUtilPhoneBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_phone" />
+
+    <Button
+        android:id="@+id/coreUtilProcessBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_process" />
+
+    <Button
+        android:id="@+id/coreUtilReflectBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_reflect" />
+
+    <Button
+        android:id="@+id/coreUtilResourceBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_resource" />
+
+    <Button
+        android:id="@+id/coreUtilRomBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_rom" />
+
+    <Button
+        android:id="@+id/coreUtilScreenBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_screen" />
+
+    <Button
+        android:id="@+id/coreUtilSdcardBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_sdcard" />
+
+    <Button
+        android:id="@+id/coreUtilSnackbarBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_snackbar" />
+
+    <Button
+        android:id="@+id/coreUtilSpStaticBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_spStatic" />
+
+    <Button
+        android:id="@+id/coreUtilSpanBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_span" />
+
+    <Button
+        android:id="@+id/coreUtilToastBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_toast" />
+
+    <Button
+        android:id="@+id/coreUtilVibrateBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo_vibrate" />
+
+</LinearLayout>
+

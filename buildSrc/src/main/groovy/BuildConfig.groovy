@@ -6,6 +6,14 @@ import org.gradle.api.initialization.Settings
 import org.gradle.api.invocation.Gradle
 import org.gradle.api.tasks.TaskState
 
+/**
+ * <pre>
+ *     author: blankj
+ *     blog  : http://blankj.com
+ *     time  : 2019/07/13
+ *     desc  :
+ * </pre>
+ */
 class BuildConfig {
 
     static addBuildListener(Gradle gradle) {
@@ -20,13 +28,13 @@ class BuildConfig {
         @Override
         void settingsEvaluated(Settings settings) {
             GLog.log("settingsEvaluated")
-            includeConfig(settings)
+            ConfigUtils.includeModule(settings)
         }
 
         @Override
         void projectsLoaded(Gradle gradle) {
             GLog.log("projectsLoaded")
-            configDep(gradle)
+            ConfigUtils.generateDep(gradle)
         }
 
         @Override
@@ -77,33 +85,6 @@ class BuildConfig {
                 GLog.log(content)
                 com.android.utils.FileUtils.writeToFile(file, content)
             }
-        }
-
-        private static includeConfig(Settings settings) {
-            GLog.log("depConfig = ${GLog.object2String(Config.depConfig)}")
-            Config.depConfig.each { String name, DepConfig config ->
-                if (config.isApply && config.useLocal) {
-                    settings.include config.localPath
-                }
-            }
-        }
-
-        /**
-         * 根据 depConfig 生成 dep
-         */
-        private static configDep(Gradle gradle) {
-            Config.depConfig.each { name, config ->
-                if (!config.isApply) return
-                if (config.useLocal) {
-                    if (config.localPath == "") return
-                    config.dep = gradle.rootProject.findProject(config.localPath)
-                    Config.dep[name] = config.dep
-                } else {
-                    config.dep = config.remotePath
-                    Config.dep[name] = config.dep
-                }
-            }
-            GLog.log("dep = ${GLog.object2String(Config.dep)}")
         }
     }
 }

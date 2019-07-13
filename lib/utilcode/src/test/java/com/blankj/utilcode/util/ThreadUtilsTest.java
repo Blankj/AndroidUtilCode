@@ -365,6 +365,43 @@ public class ThreadUtilsTest extends BaseTest {
         });
     }
 
+    @Test
+    public void cancelPoolTask() throws InterruptedException {
+        int count = 300;
+        final CountDownLatch countDownLatch = new CountDownLatch(count);
+        for (int i = 0; i < count; i++) {
+            final int finalI = i;
+            ThreadUtils.executeByCached(new ThreadUtils.Task<Integer>() {
+                @Override
+                public Integer doInBackground() throws Throwable {
+                    Thread.sleep(10 * finalI);
+                    return finalI;
+                }
+
+                @Override
+                public void onSuccess(Integer result) {
+                    System.out.println(result);
+                    if (result == 10) {
+                        ThreadUtils.cancel(ThreadUtils.getCachedPool());
+                    }
+                    countDownLatch.countDown();
+                }
+
+                @Override
+                public void onCancel() {
+                    System.out.println("onCancel: " + finalI);
+                    countDownLatch.countDown();
+                }
+
+                @Override
+                public void onFail(Throwable t) {
+                    countDownLatch.countDown();
+                }
+            });
+        }
+        countDownLatch.await();
+    }
+
     abstract static class TestScheduledTask<T> extends ThreadUtils.Task<T> {
 
         private static final AtomicInteger ATOMIC_INTEGER = new AtomicInteger();

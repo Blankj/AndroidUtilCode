@@ -2,10 +2,10 @@ apply {
     plugin "com.android.application"
     plugin "kotlin-android"
     plugin "kotlin-android-extensions"
-    if (Config.depConfig.plugin_bus.isApply) {
+    if (Config.depConfig.plugin.bus.isApply) {
         plugin "com.blankj.bus"
     }
-    if (Config.depConfig.plugin_api.isApply) {
+    if (Config.depConfig.plugin.api.isApply) {
         plugin "com.blankj.api"
     }
 }
@@ -55,12 +55,19 @@ android {
 
 dependencies {
     // LeakCanary
-    debugImplementation Config.depConfig.leakcanary_android.dep
-    debugImplementation Config.depConfig.leakcanary_support_fragment.dep
-    releaseImplementation Config.depConfig.leakcanary_android_no_op.dep
+    debugImplementation Config.depConfig.leakcanary.android.dep
+    debugImplementation Config.depConfig.leakcanary.support_fragment.dep
+    releaseImplementation Config.depConfig.leakcanary.android_no_op.dep
 
-    if (!project.toString().contains('launcher')) { // equals app:launcher:pkg
-        api Config.depConfig.mock.dep
+    // 根据 Config.pkgConfig 来依赖所有 pkg
+    for (def entrySet : ConfigUtils.getApplyPkgs().entrySet()) {
+        api entrySet.value.dep
+    }
+
+    // 如果 Config.pkgConfig 不为空，说明可能导入了部分 pkg，
+    // 那么可能有些 api 没有实现，需要导入 mock 层的 api
+    if (!Config.pkgConfig.isEmpty()) {
+        api Config.depConfig.feature.mock.dep
     }
 }
 

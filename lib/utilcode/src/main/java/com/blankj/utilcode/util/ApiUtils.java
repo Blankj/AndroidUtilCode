@@ -9,6 +9,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * <pre>
@@ -22,7 +23,7 @@ public final class ApiUtils {
 
     private static final String TAG = "ApiUtils";
 
-    private Map<Class, BaseApi> mApiMap           = new HashMap<>();
+    private Map<Class, BaseApi> mApiMap           = new ConcurrentHashMap<>();
     private Map<Class, Class>   mInjectApiImplMap = new HashMap<>();
 
     private ApiUtils() {
@@ -46,7 +47,7 @@ public final class ApiUtils {
      * @param <T>      The type.
      * @return the api
      */
-    public static <T extends BaseApi> T getApi(@NonNull Class<T> apiClass) {
+    public static <T extends BaseApi> T getApi(@NonNull final Class<T> apiClass) {
         return getInstance().getApiInner(apiClass);
     }
 
@@ -56,27 +57,33 @@ public final class ApiUtils {
 
     @Override
     public String toString() {
-        return "apis: " + mApiMap +
-                "\ninjectApis: " + mInjectApiImplMap;
+        return "ApiUtils: " + mInjectApiImplMap;
     }
 
     private static ApiUtils getInstance() {
         return LazyHolder.INSTANCE;
     }
 
-    private <Result> Result getApiInner(final @NonNull Class apiClass) {
+    private <Result> Result getApiInner(Class apiClass) {
         BaseApi api = mApiMap.get(apiClass);
         if (api == null) {
-            Class implClass = mInjectApiImplMap.get(apiClass);
-            if (implClass != null) {
-                try {
-                    api = (BaseApi) implClass.newInstance();
-                    mApiMap.put(apiClass, api);
-                } catch (Exception ignore) {/**/}
-            }
-            if (api == null) {
-                Log.e(TAG, apiClass + " is not impl.");
-                return null;
+            synchronized (this) {
+                api = mApiMap.get(apiClass);
+                if (api == null) {
+                    Class implClass = mInjectApiImplMap.get(apiClass);
+                    if (implClass != null) {
+                        try {
+                            api = (BaseApi) implClass.newInstance();
+                            mApiMap.put(apiClass, api);
+                        } catch (Exception ignore) {
+                            Log.e(TAG, "The <" + implClass + "> has no parameterless constructor.");
+                            return null;
+                        }
+                    } else {
+                        Log.e(TAG, "The <" + apiClass + "> doesn't implement.");
+                        return null;
+                    }
+                }
             }
         }
         //noinspection unchecked

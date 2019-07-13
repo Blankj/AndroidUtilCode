@@ -1,6 +1,6 @@
 package com.blankj.bus
 
-import com.blankj.util.ZipUtils
+import com.blankj.bus.util.ZipUtils
 import groovy.io.FileType
 import org.apache.commons.io.FileUtils
 import org.objectweb.asm.ClassReader
@@ -10,7 +10,7 @@ import org.objectweb.asm.Opcodes
 
 class BusScan {
 
-    Map<String, String> busMap = [:]
+    Map<String, List<BusInfo>> busMap = [:]
     File utilcodeJar
 
     void scanJar(File jar) {
@@ -34,9 +34,9 @@ class BusScan {
             }
 
             ClassReader cr = new ClassReader(file.bytes);
-            ClassWriter cw = new ClassWriter(cr, ClassWriter.COMPUTE_MAXS);
+            ClassWriter cw = new ClassWriter(cr, 0);
             ClassVisitor cv = new BusClassVisitor(cw, busMap);
-            cr.accept(cv, Opcodes.ASM5);
+            cr.accept(cv, ClassReader.SKIP_FRAMES);
 
             FileUtils.writeByteArrayToFile(file, cw.toByteArray());
         }

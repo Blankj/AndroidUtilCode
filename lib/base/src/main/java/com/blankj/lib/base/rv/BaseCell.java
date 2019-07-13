@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 /**
  * <pre>
- *     author: blankj
+ *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/03/16
  *     desc  :
