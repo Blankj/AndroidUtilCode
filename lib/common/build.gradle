@@ -1,7 +1,3 @@
-apply {
-    from "${rootDir.path}/buildLib.gradle"
-}
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api Config.depConfig.lib.base.dep

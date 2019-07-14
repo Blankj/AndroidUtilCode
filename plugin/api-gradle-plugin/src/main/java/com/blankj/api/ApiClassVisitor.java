@@ -18,14 +18,14 @@ import java.util.Map;
  */
 public class ApiClassVisitor extends ClassVisitor {
 
-    private Map<String, String> mApiImplMap;
-    private List<String>        mApiClasses;
-    private String              className;
-    private String              superClassName;
-    private boolean             hasAnnotation;
-    private boolean             isDebug;
+    private Map<String, ApiInfo> mApiImplMap;
+    private List<String>         mApiClasses;
+    private String               className;
+    private String               superClassName;
+    private boolean              hasAnnotation;
+    private boolean              isMock;
 
-    public ApiClassVisitor(ClassVisitor classVisitor, Map<String, String> apiImplMap, List<String> apiClasses) {
+    public ApiClassVisitor(ClassVisitor classVisitor, Map<String, ApiInfo> apiImplMap, List<String> apiClasses) {
         super(Opcodes.ASM5, classVisitor);
         mApiImplMap = apiImplMap;
         mApiClasses = apiClasses;
@@ -48,7 +48,7 @@ public class ApiClassVisitor extends ClassVisitor {
             return new AnnotationVisitor(Opcodes.ASM5, super.visitAnnotation(desc, visible)) {
                 @Override
                 public void visit(String name, Object value) {// 可获取注解的值
-                    isDebug = (boolean) value;
+                    isMock = (boolean) value;
                     super.visit(name, value);
                 }
             };
@@ -60,11 +60,11 @@ public class ApiClassVisitor extends ClassVisitor {
     public void visitEnd() {
         super.visitEnd();
         if (hasAnnotation) {
-            if (!isDebug) {// 如果不是 debug 的话，那么写入
-                mApiImplMap.put(superClassName, className);
-            } else {// debug 的话，如果 map 中已存在就不覆盖了
+            if (!isMock) {// 如果不是 mock 的话，那么直接写入
+                mApiImplMap.put(superClassName, new ApiInfo(className, false));
+            } else {// mock 的话，如果 map 中已存在就不覆盖了
                 if (!mApiImplMap.containsKey(superClassName)) {
-                    mApiImplMap.put(superClassName, className);
+                    mApiImplMap.put(superClassName, new ApiInfo(className, true));
                 }
             }
         }

@@ -1,3 +1,8 @@
+repositories {
+    google()
+    jcenter()
+}
+
 apply {
     plugin 'groovy'
     plugin 'java-gradle-plugin'
@@ -20,6 +25,7 @@ gradlePlugin {
 dependencies {
     implementation gradleApi()
     implementation localGroovy()
+    implementation "commons-io:commons-io:2.6"
 }
 
 sourceSets {

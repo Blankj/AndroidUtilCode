@@ -97,7 +97,7 @@ public final class ApiUtils {
     @Target({ElementType.TYPE})
     @Retention(RetentionPolicy.CLASS)
     public @interface Api {
-        boolean isDebug() default false;
+        boolean isMock() default false;
     }
 
     public abstract static class BaseApi {

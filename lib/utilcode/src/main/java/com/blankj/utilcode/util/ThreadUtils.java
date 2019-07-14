@@ -974,16 +974,13 @@ public final class ThreadUtils {
                             new UtilsThreadFactory("single", priority)
                     );
                 case TYPE_CACHED:
-                    ThreadPoolExecutor4Util cached = new ThreadPoolExecutor4Util(128, 128,
+                    return new ThreadPoolExecutor4Util(0, 128,
                             60L, TimeUnit.SECONDS,
                             new LinkedBlockingQueue4Util(),
                             new UtilsThreadFactory("cached", priority)
                     );
-                    // cached threads will be recycled
-                    cached.allowCoreThreadTimeOut(true);
-                    return cached;
                 case TYPE_IO:
-                    return new ThreadPoolExecutor4Util(2 * CPU_COUNT + 1, 2 * CPU_COUNT + 1,
+                    return new ThreadPoolExecutor4Util(0, 2 * CPU_COUNT + 1,
                             30, TimeUnit.SECONDS,
                             new LinkedBlockingQueue4Util(),
                             new UtilsThreadFactory("io", priority)

@@ -104,18 +104,30 @@ class ApiTransform extends Transform {
             if (apiScan.apiClasses.isEmpty()) {
                 LogUtils.l("no api.")
             } else {
+                Map implApis = [:]
                 List<String> noImplApis = []
+                apiScan.apiImplMap.each { key, value ->
+                    implApis.put(key, value.toString())
+                }
                 apiScan.apiClasses.each {
                     if (!apiScan.apiImplMap.containsKey(it)) {
                         noImplApis.add(it)
                     }
                 }
                 Map apiDetails = [:]
-                apiDetails.put("implApis", apiScan.apiImplMap)
+                apiDetails.put("implApis", implApis)
                 apiDetails.put("noImplApis", noImplApis)
                 String apiJson = JsonUtils.getFormatJson(apiDetails)
                 LogUtils.l(jsonFile.toString() + ": " + apiJson)
                 FileUtils.write(jsonFile, apiJson)
+
+                if (noImplApis.size() > 0) {
+                    def ext = mProject[Config.EXT_NAME] as ApiExtension
+                    if (ext.abortOnError) {
+                        throw new Exception("u should impl these apis: " + noImplApis +
+                                "\n u can check it in file: " + jsonFile.toString())
+                    }
+                }
                 ApiInject.start(apiScan.apiImplMap, apiScan.utilcodeJar)
             }
         } else {

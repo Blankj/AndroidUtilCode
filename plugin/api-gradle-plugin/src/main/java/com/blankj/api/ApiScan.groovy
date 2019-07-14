@@ -9,7 +9,7 @@ import org.objectweb.asm.ClassWriter
 
 class ApiScan {
 
-    Map<String, String> apiImplMap = [:]
+    Map<String, ApiInfo> apiImplMap = [:]
     List<String> apiClasses = []
     File utilcodeJar
 

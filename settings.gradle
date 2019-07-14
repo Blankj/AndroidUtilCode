@@ -1,1 +1,1 @@
-BuildConfig.addBuildListener(gradle)
+ConfigUtils.addBuildListener(gradle)

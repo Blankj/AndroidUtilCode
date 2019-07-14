@@ -3,6 +3,7 @@ package com.blankj.bus;
 import com.blankj.utilcode.util.BusUtils;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.Test;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
@@ -76,7 +77,8 @@ public class BusTest {
         });
     }
 
-    public static void main(String[] args) throws IOException {
+    @Test
+    public void testInject() throws IOException {
         inject2BusUtils(getBuses());
     }
 

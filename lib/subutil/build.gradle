@@ -1,6 +1,4 @@
 apply {
-    from "${rootDir.path}/buildLib.gradle"
-
     plugin "tech.harmonysoft.oss.traute"
     plugin "com.github.dcendents.android-maven"
     plugin "com.jfrog.bintray"

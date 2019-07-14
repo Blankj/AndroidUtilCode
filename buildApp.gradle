@@ -40,10 +40,6 @@ android {
         exclude 'META-INF/*'
     }
 
-    lintOptions {
-        abortOnError false
-    }
-
     dexOptions {
         preDexLibraries true
         javaMaxHeapSize "8g"
@@ -81,7 +77,7 @@ def configSigning() {
     File signPropertiesFile = file("${rootDir.path}/sign/keystore.properties")
     if (!signPropertiesFile.exists()) return
 
-    GLog.log("$project.name config sign start...")
+    GLog.d("${project.toString()} sign start...")
     project.android {
         Properties properties = new Properties()
         properties.load(new FileInputStream(signPropertiesFile))
@@ -95,7 +91,7 @@ def configSigning() {
         }
         buildTypes.release.signingConfig signingConfigs.release
     }
-    GLog.log("$project.name config sign end...")
+    GLog.d("${project.toString()} sign end...")
 }
 
 def configApkName() {

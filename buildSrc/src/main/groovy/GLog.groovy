@@ -8,17 +8,25 @@
  */
 class GLog {
 
-    static log(Object... contents) {
+    def static debugSwitch = true
+
+    static d(Object... contents) {
+        if (!debugSwitch) return contents
+        return l(contents)
+    }
+
+    static l(Object... contents) {
         StringBuilder sb = new StringBuilder()
         sb.append(LogConst.BORDER_TOP)
         sb.append(borderMsg(processContents(contents)))
         sb.append(LogConst.BORDER_BTM)
         print sb.toString()
+        return contents
     }
 
     private static borderMsg(String msg) {
         StringBuilder sb = new StringBuilder()
-        LogFormatter.object2String(msg).split(LogConst.LINE_SEP).each { line ->
+        object2String(msg).split(LogConst.LINE_SEP).each { line ->
             sb.append(LogConst.BORDER_LFT).append(line).append(LogConst.LINE_SEP)
         }
         return sb

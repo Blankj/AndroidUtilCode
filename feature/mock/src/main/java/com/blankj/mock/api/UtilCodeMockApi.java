@@ -14,7 +14,7 @@ import com.blankj.utilcode.util.ToastUtils;
  *     desc  :
  * </pre>
  */
-@ApiUtils.Api(isDebug = true)
+@ApiUtils.Api(isMock = true)
 public class UtilCodeMockApi extends UtilCodeApi {
 
     @Override

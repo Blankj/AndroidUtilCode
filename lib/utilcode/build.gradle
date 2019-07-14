@@ -1,18 +1,15 @@
 apply {
-    from "${rootDir.path}/buildLib.gradle"
-
     plugin "tech.harmonysoft.oss.traute"
     plugin "com.github.dcendents.android-maven"
     plugin "com.jfrog.bintray"
     plugin "readme-core"
+    from "${rootDir.path}/gradle/upload/bintrayUploadAndroid.gradle"
 }
 
 readme {
     readmeFile file('./README.md')
     readmeCnFile file('./README-CN.md')
 }
-
-apply from: "${rootDir.path}/gradle/upload/bintrayUploadAndroid.gradle"
 
 dependencies {
     implementation Config.depConfig.gson.dep

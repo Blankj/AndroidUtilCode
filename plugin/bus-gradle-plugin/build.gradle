@@ -67,6 +67,6 @@ pluginBundle {
     }
 }
 
-//./gradlew plugin:bus-gradle-plugin:uploadArchives
-//./gradlew plugin:bus-gradle-plugin:bintrayUpload
-//./gradlew plugin:bus-gradle-plugin:publishPlugins
+//./gradlew plugin:bus-gradle-plugin:uploadArchives // 上传到本地 maven
+//./gradlew plugin:bus-gradle-plugin:bintrayUpload  // 上传到 jcenter
+//./gradlew plugin:bus-gradle-plugin:publishPlugins // 上传到 gradle 插件库中

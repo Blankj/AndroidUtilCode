@@ -1,9 +1,9 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
-        maven() {
-            // use for debug plugin local
-            if (Config.depConfig.plugin.bus.useLocal || Config.depConfig.plugin.api.useLocal) {
+        // use for debug plugin local
+        if (Config.depConfig.plugin.bus.useLocal || Config.depConfig.plugin.api.useLocal) {
+            maven() {
                 url new File("maven")
             }
         }
@@ -24,11 +24,8 @@ buildscript {
     }
 
     dependencies {
-        // 根据 config 来 configClasspath 各 plugin
-        Config.depConfig.plugin.each { name, config ->
-            if (config.isApply) {
-                classpath config.remotePath
-            }
+        for (def entrySet : ConfigUtils.getApplyPlugins().entrySet()) {
+            classpath entrySet.value.dep
         }
     }
 }

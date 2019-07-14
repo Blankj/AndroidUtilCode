@@ -3,10 +3,10 @@ package com.blankj.api;
 import com.blankj.utilcode.util.ApiUtils;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.Test;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.Opcodes;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,12 +25,13 @@ import java.util.Map;
  */
 public class ApiTest {
 
-    public static void main(String[] args) throws IOException {
+    @Test
+    public void testInject() throws IOException {
         inject2ApiUtils(getApiImplMap());
     }
 
-    private static Map<String, String> getApiImplMap() throws IOException {
-        Map<String, String> apiImplMap = new HashMap<>();
+    private static Map<String, ApiInfo> getApiImplMap() throws IOException {
+        Map<String, ApiInfo> apiImplMap = new HashMap<>();
         List<String> apiClasses = new ArrayList<>();
 
         ClassReader cr = new ClassReader(TestApiImpl.class.getName());
@@ -43,7 +44,7 @@ public class ApiTest {
         return apiImplMap;
     }
 
-    private static void inject2ApiUtils(Map<String, String> apiImpls) throws IOException {
+    private static void inject2ApiUtils(Map<String, ApiInfo> apiImpls) throws IOException {
         ClassReader cr = new ClassReader(ApiUtils.class.getName());
         ClassWriter cw = new ClassWriter(cr, 0);
         ClassVisitor cv = new ApiUtilsClassVisitor(cw, apiImpls);
@@ -52,7 +53,7 @@ public class ApiTest {
         FileUtils.writeByteArrayToFile(new File("ApiUtils2333.class"), cw.toByteArray());
     }
 
-    @ApiUtils.Api
+    @ApiUtils.Api(isMock = true)
     public static class TestApiImpl extends TestApi {
 
         @Override

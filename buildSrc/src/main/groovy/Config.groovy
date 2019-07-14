@@ -23,7 +23,7 @@ class Config {
     static leakcanary_version = '1.6.3'
 
     // appConfig 配置的是可以跑 app 的模块，git 提交务必只包含 launcher
-    static appConfig = ['launcher', 'main']
+    static appConfig = ['launcher']
     // pkgConfig 配置的是要依赖的功能包，为空则依赖全部，git 提交务必为空
     static pkgConfig = ['main', 'utilcode']
 
@@ -38,8 +38,8 @@ class Config {
                     // 本地第一次上传插件新的版本需设置 useLocal = true, isApply = false
                     // 本地上传成功之后 isApply = true 即可应用插件来调试，后续版本更新无需设置 isApply = false
                     // 发布版本的话把 useLocal = false, isApply = false，发布成功后 isApply = true 即可使用远程库版本
-                    api    : new DepConfig(true/*是否本地调试*/, "", "com.blankj:api-gradle-plugin:1.0", true),
-                    bus    : new DepConfig(true/*是否本地调试*/, "", "com.blankj:bus-gradle-plugin:2.0", true),
+                    api    : new DepConfig(true/*是否本地调试*/, "com.blankj:api-gradle-plugin:1.0", true/*是否使用插件*/),
+                    bus    : new DepConfig(true/*是否本地调试*/, "com.blankj:bus-gradle-plugin:2.0", true/*是否使用插件*/),
             ],
 
             api_gradle_plugin: new DepConfig(":plugin:api-gradle-plugin", true),
@@ -98,7 +98,7 @@ class Config {
             gson             : new DepConfig("com.google.code.gson:gson:2.8.2"),
             glide            : new DepConfig("com.github.bumptech.glide:glide:4.7.1"),
             retrofit         : new DepConfig("com.squareup.retrofit2:retrofit:2.4.0"),
-            commons_io       : new DepConfig("commons-io:commons-io:2.5"),
+            commons_io       : new DepConfig("commons-io:commons-io:2.6"),
 
             test             : [
                     junit      : new DepConfig("junit:junit:4.12"),

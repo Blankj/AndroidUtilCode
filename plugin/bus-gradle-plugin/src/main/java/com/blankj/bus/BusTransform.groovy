@@ -128,6 +128,15 @@ class BusTransform extends Transform {
                 String busJson = JsonUtils.getFormatJson(busDetails)
                 LogUtils.l(jsonFile.toString() + ": " + busJson)
                 FileUtils.write(jsonFile, busJson)
+
+                if (wrongBus.size() > 0) {
+                    def ext = mProject[Config.EXT_NAME] as BusExtension
+                    if (ext.abortOnError) {
+                        throw new Exception("These buses is not right: " + wrongBus +
+                                "\n u can check it in file: " + jsonFile.toString())
+                    }
+                }
+
                 BusInject.start(busScan.busMap, busScan.utilcodeJar)
             }
         } else {

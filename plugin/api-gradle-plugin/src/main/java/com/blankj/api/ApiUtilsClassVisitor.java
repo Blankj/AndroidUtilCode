@@ -20,9 +20,9 @@ import java.util.Map;
  */
 public class ApiUtilsClassVisitor extends ClassVisitor {
 
-    private Map<String, String> mApiImplMap;
+    private Map<String, ApiInfo> mApiImplMap;
 
-    public ApiUtilsClassVisitor(ClassVisitor classVisitor, Map<String, String> apiImplMap) {
+    public ApiUtilsClassVisitor(ClassVisitor classVisitor, Map<String, ApiInfo> apiImplMap) {
         super(Opcodes.ASM5, classVisitor);
         mApiImplMap = apiImplMap;
     }
@@ -50,9 +50,9 @@ public class ApiUtilsClassVisitor extends ClassVisitor {
             @Override
             protected void onMethodExit(int opcode) {
                 super.onMethodExit(opcode);
-                for (Map.Entry<String, String> apiImplEntry : mApiImplMap.entrySet()) {
+                for (Map.Entry<String, ApiInfo> apiImplEntry : mApiImplMap.entrySet()) {
                     mv.visitVarInsn(Opcodes.ALOAD, 0);
-                    mv.visitLdcInsn(Type.getType("L" + apiImplEntry.getValue() + ";"));
+                    mv.visitLdcInsn(Type.getType("L" + apiImplEntry.getValue().implApiClass + ";"));
                     mv.visitMethodInsn(Opcodes.INVOKESPECIAL, "com/blankj/utilcode/util/ApiUtils", "registerImpl", "(Ljava/lang/Class;)V", false);
                 }
             }

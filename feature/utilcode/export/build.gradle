@@ -1,3 +1,0 @@
-apply {
-    from "${rootDir.path}/buildLib.gradle"
-}
