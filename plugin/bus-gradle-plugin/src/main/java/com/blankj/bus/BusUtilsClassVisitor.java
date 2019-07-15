@@ -20,10 +20,12 @@ import java.util.Map;
 public class BusUtilsClassVisitor extends ClassVisitor {
 
     private Map<String, List<BusInfo>> mBusMap;
+    private String mBusUtilsClass;
 
-    public BusUtilsClassVisitor(ClassVisitor classVisitor, Map<String, List<BusInfo>> busMap) {
+    public BusUtilsClassVisitor(ClassVisitor classVisitor, Map<String, List<BusInfo>> busMap, String busUtilsClass) {
         super(Opcodes.ASM5, classVisitor);
         mBusMap = busMap;
+        mBusUtilsClass = busUtilsClass.replace(".", "/");
     }
 
     @Override
@@ -67,7 +69,7 @@ public class BusUtilsClassVisitor extends ClassVisitor {
                     }
                     mv.visitInsn(busInfo.sticky ? ICONST_1 : ICONST_0);
                     mv.visitLdcInsn(busInfo.threadMode);
-                    mv.visitMethodInsn(INVOKESPECIAL, "com/blankj/utilcode/util/BusUtils", "registerBus", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;)V", false);
+                    mv.visitMethodInsn(INVOKESPECIAL, mBusUtilsClass, "registerBus", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;)V", false);
                 }
             }
         };

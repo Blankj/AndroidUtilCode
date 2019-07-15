@@ -14,6 +14,4 @@ class Config {
     ]
 
     public static final String FILE_SEP = System.getProperty("file.separator")
-
-    public static final String BUS_UTILS_CLASS = 'com.blankj.utilcode.util.BusUtils'.replace('.', FILE_SEP) + '.class'
 }

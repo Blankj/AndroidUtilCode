@@ -1,6 +1,5 @@
 package com.blankj.bus;
 
-import com.blankj.utilcode.util.BusUtils;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
@@ -67,7 +66,7 @@ public class BusTest {
     }
 
     @BusUtils.Bus(tag = "manyparam", threadMode = BusUtils.ThreadMode.SINGLE)
-    public void haha() {
+    public void haha(int a, int b) {
         final Thread thread = Thread.currentThread();
         System.out.println(new Callback() {
             @Override
@@ -87,7 +86,7 @@ public class BusTest {
 
         ClassReader cr = new ClassReader(BusTest.class.getName());
         ClassWriter cw = new ClassWriter(cr, 0);
-        ClassVisitor cv = new BusClassVisitor(cw, busMap);
+        ClassVisitor cv = new BusClassVisitor(cw, busMap, BusUtils.class.getName());
         cr.accept(cv, ClassReader.SKIP_FRAMES);
 
         System.out.println("busMap = " + busMap);
@@ -97,7 +96,7 @@ public class BusTest {
     private static void inject2BusUtils(Map<String, List<BusInfo>> busMap) throws IOException {
         ClassReader cr = new ClassReader(BusUtils.class.getName());
         ClassWriter cw = new ClassWriter(cr, 0);
-        ClassVisitor cv = new BusUtilsClassVisitor(cw, busMap);
+        ClassVisitor cv = new BusUtilsClassVisitor(cw, busMap, BusUtils.class.getName());
         cr.accept(cv, ClassReader.SKIP_FRAMES);
 
         FileUtils.writeByteArrayToFile(new File("BusUtils2333.class"), cw.toByteArray());

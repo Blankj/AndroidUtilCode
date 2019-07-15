@@ -40,10 +40,15 @@ class BusTransform extends Transform {
             throws TransformException, InterruptedException, IOException {
         super.transform(transformInvocation)
         LogUtils.l(getName() + " started")
+        long stTime = System.currentTimeMillis()
+
+        def ext = mProject[Config.EXT_NAME] as BusExtension
+        LogUtils.l(ext)
+        if (ext.busUtilsClass.trim().equals("")) {
+            throw new Exception("BusExtension is empty.")
+        }
         File jsonFile = new File(mProject.projectDir.getAbsolutePath(), "__bus__.json")
         FileUtils.write(jsonFile, "{}")
-
-        long stTime = System.currentTimeMillis()
 
         def inputs = transformInvocation.getInputs()
         def referencedInputs = transformInvocation.getReferencedInputs()
@@ -52,7 +57,7 @@ class BusTransform extends Transform {
 
         outputProvider.deleteAll()
 
-        BusScan busScan = new BusScan()
+        BusScan busScan = new BusScan(ext.busUtilsClass)
 
         inputs.each { TransformInput input ->
             input.directoryInputs.each { DirectoryInput dirInput ->// 遍历文件夹
@@ -66,9 +71,9 @@ class BusTransform extends Transform {
                 )
                 FileUtils.copyDirectory(dir, dest)
 
-                LogUtils.l("scan dir: $dir [$dest]")
+                LogUtils.l("scan dir: ${dirInput.file} -> $dest")
 
-                busScan.scanDir(dir)
+                busScan.scanDir(dest)
             }
             input.jarInputs.each { JarInput jarInput ->// 遍历 jar 文件
                 File jar = jarInput.file
@@ -82,25 +87,17 @@ class BusTransform extends Transform {
                 )
                 FileUtils.copyFile(jar, dest)
 
-                if (jarName.startsWith("com.blankj:utilcode:")
-                        || jarName.startsWith("com.blankj:utilcodex:")
-                        || jarName.equals(":lib:utilcode")) {
-                    busScan.utilcodeJar = dest
-                    LogUtils.l("utilcode jar: $jarName [$dest]")
-                    return
-                }
-
                 if (jumpScan(jarName)) {
-                    LogUtils.l("jump jar: $jarName [$dest]")
+                    LogUtils.l("jump jar: $jarName -> $dest")
                     return
                 }
 
-                LogUtils.l("scan jar: $jarName [$dest]")
-                busScan.scanJar(jar)
+                LogUtils.l("scan jar: $jarName -> $dest")
+                busScan.scanJar(dest)
             }
         }
 
-        if (busScan.utilcodeJar != null) {
+        if (busScan.busUtilsTransformFile != null) {
             if (busScan.busMap.isEmpty()) {
                 LogUtils.l("no bus.")
             } else {
@@ -123,6 +120,7 @@ class BusTransform extends Transform {
                     }
                 }
                 Map busDetails = [:]
+                busDetails.put("BusUtilsClass", ext.busUtilsClass)
                 busDetails.put("rightBus", rightBus)
                 busDetails.put("wrongBus", wrongBus)
                 String busJson = JsonUtils.getFormatJson(busDetails)
@@ -130,17 +128,16 @@ class BusTransform extends Transform {
                 FileUtils.write(jsonFile, busJson)
 
                 if (wrongBus.size() > 0) {
-                    def ext = mProject[Config.EXT_NAME] as BusExtension
                     if (ext.abortOnError) {
                         throw new Exception("These buses is not right: " + wrongBus +
                                 "\n u can check it in file: " + jsonFile.toString())
                     }
                 }
 
-                BusInject.start(busScan.busMap, busScan.utilcodeJar)
+                BusInject.start(busScan.busMap, busScan.busUtilsTransformFile, ext.busUtilsClass)
             }
         } else {
-            LogUtils.l('u should <implementation "com.blankj:utilcode(x):1.25.+">')
+            throw new Exception("No BusUtils of ${ext.busUtilsClass} in $mProject.")
         }
 
         LogUtils.l(getName() + " finished: " + (System.currentTimeMillis() - stTime) + "ms")

@@ -27,7 +27,8 @@ import java.util.Locale;
  */
 public class LanguageUtils {
 
-    private static final String KEY_LOCALE = "KEY_LOCALE";
+    private static final String KEY_LOCALE          = "KEY_LOCALE";
+    private static final String VALUE_FOLLOW_SYSTEM = "VALUE_FOLLOW_SYSTEM";
 
     private LanguageUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -89,7 +90,7 @@ public class LanguageUtils {
                                       final String activityClassName,
                                       final boolean isFollowSystem) {
         if (isFollowSystem) {
-            SPUtils.getInstance().put(KEY_LOCALE, "");
+            SPUtils.getInstance().put(KEY_LOCALE, VALUE_FOLLOW_SYSTEM);
         } else {
             String localLanguage = locale.getLanguage();
             String localCountry = locale.getCountry();
@@ -112,6 +113,10 @@ public class LanguageUtils {
     static void applyLanguage(@NonNull final Activity activity) {
         final String spLocale = SPUtils.getInstance().getString(KEY_LOCALE);
         if (TextUtils.isEmpty(spLocale)) {
+            return;
+        }
+
+        if (VALUE_FOLLOW_SYSTEM.equals(spLocale)) {
             Locale sysLocale = Resources.getSystem().getConfiguration().locale;
             updateLanguage(Utils.getApp(), sysLocale);
             updateLanguage(activity, sysLocale);

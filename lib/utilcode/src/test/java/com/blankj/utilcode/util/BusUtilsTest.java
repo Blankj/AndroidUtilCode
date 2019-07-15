@@ -86,6 +86,46 @@ public class BusUtilsTest extends BaseTest {
     }
 
     @Test
+    public void testMultiThread() {
+        final BusUtilsTest test = new BusUtilsTest();
+//        for (int i = 0; i < 100; i++) {
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    BusUtils.register(test);
+//                }
+//            }).start();
+//        }
+//        for (int i = 0; i < 100; i++) {
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    BusUtils.post(TAG_NO_PARAM);
+//                }
+//            }).start();
+//        }
+//        for (int i = 0; i < 100; i++) {
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    BusUtils.unregister(test);
+//                }
+//            }).start();
+//        }
+//        for (int i = 0; i < 100; i++) {
+//            final int finalI = i;
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    BusUtils.register(test);
+//                    BusUtils.post(TAG_ONE_PARAM, "" + finalI);
+//                    BusUtils.unregister(test);
+//                }
+//            }).start();
+//        }
+    }
+
+    @Test
     public void registerAndUnregister() {
         BusUtilsTest test = new BusUtilsTest();
 

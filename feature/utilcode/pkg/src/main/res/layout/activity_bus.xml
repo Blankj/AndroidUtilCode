@@ -54,5 +54,12 @@
         android:layout_height="wrap_content"
         android:text="@string/bus_remove_sticky" />
 
+    <Button
+        android:id="@+id/busStartCompare"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bus_start_compare" />
+
 
 </LinearLayout>

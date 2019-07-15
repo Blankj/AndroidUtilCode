@@ -66,7 +66,8 @@ class BusActivity : CommonTitleActivity() {
                 busPost,
                 busPostSticky,
                 busPost2IoThread,
-                busRemoveSticky
+                busRemoveSticky,
+                busStartCompare
         )
     }
 
@@ -98,6 +99,9 @@ class BusActivity : CommonTitleActivity() {
             }
             R.id.busRemoveSticky -> {
                 BusUtils.removeSticky(TAG_STICKY_BUS)
+            }
+            R.id.busStartCompare -> {
+                BusCompareActivity.start(this)
             }
         }
     }

@@ -20,5 +20,5 @@ dependencies {
     testImplementation Config.depConfig.test.junit.dep
     testImplementation Config.depConfig.test.robolectric.dep
     testImplementation Config.depConfig.support.appcompat_v7.dep
-    testImplementation Config.depConfig.lib.base.dep
+    testImplementation Config.depConfig.eventbus.dep
 }

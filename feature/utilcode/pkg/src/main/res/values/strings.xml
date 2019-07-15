@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="demo_activity">ActivityUtils Demo</string>
     <string name="demo_adapt_screen">AdaptScreenUtils Demo</string>
     <string name="demo_api">ApiUtils Demo</string>
@@ -143,6 +143,11 @@
     <string name="bus_post_sticky">Post Sticky</string>
     <string name="bus_post_to_io_thread">Post To IO Thread</string>
     <string name="bus_remove_sticky">Remove Sticky</string>
+    <string name="bus_start_compare">Start BusUtils Vs EventBus</string>
+    <string name="bus_compare_register_10000_times">Compare Register 10000 Times</string>
+    <string name="bus_compare_post_to_1_subscriber_1000000_times">Compare Post To 1 Subscriber 1000000 Times</string>
+    <string name="bus_compare_post_to_100_subscriber_100000_times">Compare Post To 100 Subscribers 100000 Times</string>
+    <string name="bus_compare_unregister_10000_times">Compare Unregister 10000 Times</string>
 
     <!-- Flashlight相关 -->
     <string name="flashlight_status">Flashlight Status</string>

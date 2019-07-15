@@ -28,11 +28,12 @@ public class BusClassVisitor extends ClassVisitor {
     private BusInfo busInfo;
     private String  tag;
     private String  funParamDesc;
-    private int     funDescIndex;
+    private String  mBusUtilsClass;
 
-    public BusClassVisitor(ClassVisitor classVisitor, Map<String, List<BusInfo>> busMap) {
+    public BusClassVisitor(ClassVisitor classVisitor, Map<String, List<BusInfo>> busMap, String busUtilsClass) {
         super(Opcodes.ASM5, classVisitor);
         mBusMap = busMap;
+        mBusUtilsClass = busUtilsClass.replace(".", "/");
     }
 
     @Override
@@ -50,7 +51,7 @@ public class BusClassVisitor extends ClassVisitor {
             @Override
             public AnnotationVisitor visitAnnotation(String desc1, boolean visible) {
                 final AnnotationVisitor av = super.visitAnnotation(desc1, visible);
-                if ("Lcom/blankj/utilcode/util/BusUtils$Bus;".equals(desc1)) {
+                if (("L" + mBusUtilsClass + "$Bus;").equals(desc1)) {
                     busInfo = new BusInfo(className, funName);
                     funParamDesc = desc.substring(1, desc.indexOf(")"));
                     return new AnnotationVisitor(Opcodes.ASM5, av) {

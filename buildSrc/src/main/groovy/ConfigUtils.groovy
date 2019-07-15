@@ -164,14 +164,14 @@ class ConfigUtils {
                     }
                 })
                 StringBuilder sb = new StringBuilder()
-                taskInfoList.each {
-                    sb.append(String.format("%7sms %s\n", it.exeDuration, it.task.path))
-                }
                 int buildSec = (System.currentTimeMillis() - startBuildMillis) / 1000;
                 int m = buildSec / 60;
                 int s = buildSec % 60;
-                def timeInfo = (m == 0 ? "${s}s" : "${m}m ${s}s")
+                def timeInfo = (m == 0 ? "${s}s" : "${m}m ${s}s (${buildSec}s)")
                 sb.append("BUILD FINISHED in $timeInfo")
+                taskInfoList.each {
+                    sb.append(String.format("%7sms %s\n", it.exeDuration, it.task.path))
+                }
                 def content = sb.toString()
                 GLog.l(content)
                 File file = new File(result.gradle.rootProject.buildDir.getAbsolutePath(),

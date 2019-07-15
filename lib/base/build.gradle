@@ -10,5 +10,6 @@ dependencies {
     api Config.depConfig.kotlin.dep
     api Config.depConfig.free_proguard.dep
     api Config.depConfig.swipe_panel.dep
+    api Config.depConfig.eventbus.dep
     compileOnly Config.depConfig.leakcanary.android_no_op.dep
 }
