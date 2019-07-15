@@ -3,6 +3,7 @@ package com.blankj.utilcode.pkg.feature.bus
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.annotation.Keep
 import android.view.View
 import com.blankj.lib.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
@@ -112,6 +113,7 @@ class BusActivity : CommonTitleActivity() {
         BusUtils.unregister(this)
     }
 
+    @Keep
     interface Callback {
         fun call(): String
     }

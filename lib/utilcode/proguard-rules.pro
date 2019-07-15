@@ -16,3 +16,9 @@
 #   public *;
 #}
 -dontwarn com.blankj.utilcode.**
+
+-keepclassmembers class * {
+    @com.blankj.utilcode.util.BusUtils$Bus <methods>;
+}
+
+-keepattributes *Annotation*

@@ -269,6 +269,7 @@ class BusCompareActivity : CommonTaskActivity<Unit>() {
     private fun setBtnEnabled(enable: Boolean) {
         busCompareRegister10000TimesBtn.isEnabled = enable
         busComparePostTo1Subscriber1000000TimesBtn.isEnabled = enable
+        busComparePostTo100Subscribers100000TimesBtn.isEnabled = enable
         busCompareUnregister10000TimesBtn.isEnabled = enable
     }
 

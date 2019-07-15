@@ -1,5 +1,5 @@
 apply plugin: 'kotlin-kapt'
 
 dependencies {
-    kapt 'org.greenrobot:eventbus-annotation-processor:3.0.1'
+    kapt Config.depConfig.eventbus.processor.dep
 }

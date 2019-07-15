@@ -99,7 +99,10 @@ class Config {
             glide            : new DepConfig("com.github.bumptech.glide:glide:4.7.1"),
             retrofit         : new DepConfig("com.squareup.retrofit2:retrofit:2.4.0"),
             commons_io       : new DepConfig("commons-io:commons-io:2.6"),
-            eventbus         : new DepConfig("org.greenrobot:eventbus:3.1.1"),
+            eventbus         : [
+                    lib      : new DepConfig("org.greenrobot:eventbus:3.1.1"),
+                    processor: new DepConfig("org.greenrobot:eventbus-annotation-processor:3.0.1")
+            ],
 
             test             : [
                     junit      : new DepConfig("junit:junit:4.12"),
