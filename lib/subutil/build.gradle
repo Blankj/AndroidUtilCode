@@ -1,0 +1,26 @@
+apply {
+    plugin "tech.harmonysoft.oss.traute"
+    plugin "com.github.dcendents.android-maven"
+    plugin "com.jfrog.bintray"
+    plugin "readme-sub"
+}
+
+readme {
+    readmeFile file('./README.md')
+    readmeCnFile file('./README-CN.md')
+}
+
+dependencies {
+    compileOnly Config.depConfig.support.appcompat.dep
+    compileOnly Config.depConfig.support.material.dep
+    compileOnly Config.depConfig.lib.utilcode.dep
+    api(Config.depConfig.glide.dep) {
+        exclude group: "com.android.support"
+    }
+    api Config.depConfig.retrofit.dep
+    api Config.depConfig.gson.dep
+
+    testImplementation Config.depConfig.lib.utilcode.dep
+    testImplementation Config.depConfig.test.junit.dep
+    testImplementation Config.depConfig.test.robolectric.dep
+}

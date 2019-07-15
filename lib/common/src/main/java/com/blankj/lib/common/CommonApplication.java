@@ -4,10 +4,10 @@ import com.blankj.lib.base.BaseApplication;
 
 /**
  * <pre>
- *     author: blankj
+ *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/06/05
- *     desc  :
+ *     desc  : app about common
  * </pre>
  */
 public class CommonApplication extends BaseApplication {

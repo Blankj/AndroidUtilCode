@@ -2,14 +2,13 @@ package com.blankj.lib.common;
 
 import android.os.Bundle;
 
-import com.blankj.common.R;
 import com.blankj.lib.base.BaseActivity;
 import com.blankj.swipepanel.SwipePanel;
 import com.blankj.utilcode.util.SizeUtils;
 
 /**
  * <pre>
- *     author: blankj
+ *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/06/05
  *     desc  :

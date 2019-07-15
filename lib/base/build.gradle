@@ -1,18 +1,15 @@
-apply {
-    from "${rootDir.path}/gradle/config/configLib.gradle"
-}
-
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    api gradle.ext.dep.utilcode_lib
-    api gradle.ext.dep.subutil_lib
+    api Config.depConfig.lib.subutil.dep
+    api Config.depConfig.lib.utilcode.dep
 
-    api gradle.ext.dep.support_appcompat_v7
-    api gradle.ext.dep.support_material
-    api gradle.ext.dep.support_multidex
-    api gradle.ext.dep.constraint
-    api gradle.ext.dep.kotlin
-    api gradle.ext.dep.free_proguard
-    api gradle.ext.dep.swipe_panel
-    compileOnly gradle.ext.dep.leakcanary_android_no_op
+    api Config.depConfig.support.appcompat.dep
+    api Config.depConfig.support.material.dep
+    api Config.depConfig.support.multidex.dep
+    api Config.depConfig.support.constraint.dep
+    api Config.depConfig.kotlin.dep
+    api Config.depConfig.free_proguard.dep
+    api Config.depConfig.swipe_panel.dep
+    api Config.depConfig.eventbus.lib.dep
+    compileOnly Config.depConfig.leakcanary.android_no_op.dep
 }

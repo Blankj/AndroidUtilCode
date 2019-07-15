@@ -1,4 +1,10 @@
-* `19/06/30` [add] LanguageUtils support activity's class name. Publish v1.24.7.
+* `19/07/15` [add] Publish v1.25.0.
+* `19/07/14` [upd] Bus plugin for use BusUtils. Publish bus plugin v2.0.
+* `19/07/13` [add] Api plugin for use ApiUtils. Publish api plugin v1.0.
+* `19/07/09` [upd] The frame of project.
+* `19/07/06` [upd] BusUtils which behave same as EventBus.
+* `19/07/03` [add] ApiUtils which decoupling modules.
+* `19/06/30` [add] LanguageUtils support activity's class name. Publish v1.25.0.
 * `19/06/29` [add] ClickUtils#OnMultiClickListener, and remove dangerous function. Publish v1.24.6.
 * `19/06/28` [add] LanguageUtils. Publish v1.24.5.
 * `19/06/20` [fix] BusUtils' permission. Publish v1.24.4.

@@ -6,8 +6,10 @@ import android.content.Context;
 import androidx.multidex.MultiDex;
 
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.BusUtils;
 import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.MessengerUtils;
 import com.blankj.utilcode.util.ProcessUtils;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 
 /**
  * <pre>
- *     author: blankj
+ *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/11/16
  *     desc  : base about application
@@ -45,7 +47,6 @@ public class BaseApplication extends Application {
         initLeakCanary();
         initLog();
         initCrash();
-//        BusUtils.init();
     }
 
     private void initLeakCanary() {// 内存泄露检查工具
@@ -70,7 +71,8 @@ public class BaseApplication extends Application {
                 .setLogHeadSwitch(true)// 设置 log 头信息开关，默认为开
                 .setLog2FileSwitch(false)// 打印 log 时是否存到文件的开关，默认关
                 .setDir("")// 当自定义路径为空时，写入应用的/cache/log/目录中
-                .setFilePrefix("")// 当文件前缀为空时，默认为"util"，即写入文件为"util-yyyy-MM-dd.txt"
+                .setFilePrefix("")// 当文件前缀为空时，默认为"util"，即写入文件为"util-yyyy-MM-dd$fileExtension"
+                .setFileExtension(".log")// 设置日志文件后缀
                 .setBorderSwitch(true)// 输出日志是否带边框开关，默认开
                 .setSingleTagSwitch(true)// 一条日志仅输出一条，默认开，为美化 AS 3.1 的 Logcat
                 .setConsoleFilter(LogUtils.V)// log 的控制台过滤器，和 logcat 过滤器同理，默认 Verbose

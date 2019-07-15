@@ -2,7 +2,7 @@ package com.blankj.lib.common;
 
 /**
  * <pre>
- *     author: blankj
+ *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/06/05
  *     desc  :

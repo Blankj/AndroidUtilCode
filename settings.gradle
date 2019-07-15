@@ -1,3 +1,1 @@
-apply from: 'gradle/config/config.gradle'
-
-gradle.fn.includeDep()
+ConfigUtils.addBuildListener(gradle)

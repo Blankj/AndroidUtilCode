@@ -11,7 +11,7 @@ import com.blankj.utilcode.util.ThreadUtils;
 
 /**
  * <pre>
- *     author: blankj
+ *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/03/14
  *     desc  : base about task activity
@@ -45,7 +45,7 @@ public abstract class CommonTaskActivity<T> extends CommonTitleActivity {
         ThreadUtils.executeByIo(bgTask);
     }
 
-    void setLoadingVisibility(boolean isVisible) {
+    public void setLoadingVisibility(boolean isVisible) {
         if (loadingView == null) {
             loadingView = new ProgressBar(this, null, android.R.attr.progressBarStyle);
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
