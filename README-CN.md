@@ -56,11 +56,11 @@
 [readme]: https://github.com/Blankj/AndroidUtilCode
 [readme-cn]: https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md
 
-[utilcode]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/README.md
-[utilcode-cn]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/README-CN.md
+[utilcode]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/README.md
+[utilcode-cn]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/README-CN.md
 
-[subutil]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/README.md
-[subutil-cn]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/README-CN.md
+[subutil]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/subutil/README.md
+[subutil-cn]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/subutil/README-CN.md
 
 [changeLog.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/CHANGELOG.md
 
