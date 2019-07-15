@@ -14,8 +14,8 @@ class Config {
     static compileSdkVersion = 27
     static minSdkVersion = 14
     static targetSdkVersion = 27
-    static versionCode = 1_024_007
-    static versionName = '1.24.7'// E.g. 1.9.72 => 1,009,072
+    static versionCode = 1_025_000
+    static versionName = '1.25.0'// E.g. 1.9.72 => 1,009,072
 
     // lib version
     static kotlin_version = '1.3.10'
@@ -25,7 +25,7 @@ class Config {
     // appConfig 配置的是可以跑 app 的模块，git 提交务必只包含 launcher
     static appConfig = ['launcher']
     // pkgConfig 配置的是要依赖的功能包，为空则依赖全部，git 提交务必为空
-    static pkgConfig = ['main', 'utilcode']
+    static pkgConfig = []
 
     static depConfig = [
             plugin           : [
@@ -38,12 +38,12 @@ class Config {
                     // 本地第一次上传插件新的版本需设置 useLocal = true, isApply = false
                     // 本地上传成功之后 isApply = true 即可应用插件来调试，后续版本更新无需设置 isApply = false
                     // 发布版本的话把 useLocal = false, isApply = false，发布成功后 isApply = true 即可使用远程库版本
-                    api    : new DepConfig(true/*是否本地调试*/, "com.blankj:api-gradle-plugin:1.0", true/*是否使用插件*/),
-                    bus    : new DepConfig(true/*是否本地调试*/, "com.blankj:bus-gradle-plugin:2.0", true/*是否使用插件*/),
+                    api    : new DepConfig(false/*是否本地调试*/, "com.blankj:api-gradle-plugin:1.0", true/*是否使用插件*/),
+                    bus    : new DepConfig(false/*是否本地调试*/, "com.blankj:bus-gradle-plugin:2.0", true/*是否使用插件*/),
             ],
 
-            api_gradle_plugin: new DepConfig(":plugin:api-gradle-plugin", true),
-            bus_gradle_plugin: new DepConfig(":plugin:bus-gradle-plugin", true),
+            api_gradle_plugin: new DepConfig(":plugin:api-gradle-plugin", false),
+            bus_gradle_plugin: new DepConfig(":plugin:bus-gradle-plugin", false),
 
             feature          : [
                     mock    : new DepConfig(":feature:mock"),
@@ -107,4 +107,4 @@ class Config {
             ],
     ]
 }
-//./gradlew clean :utilcode:lib:bintrayUpload
+//./gradlew clean :lib:utilcode:bintrayUpload

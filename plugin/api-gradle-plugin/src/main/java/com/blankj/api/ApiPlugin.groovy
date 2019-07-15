@@ -17,9 +17,6 @@ class ApiPlugin implements Plugin<Project> {
             project.extensions.create(Config.EXT_NAME, ApiExtension)
             def android = project.extensions.getByType(AppExtension)
             android.registerTransform(new ApiTransform(project))
-            project.afterEvaluate {
-                def ext = project[Config.EXT_NAME] as ApiExtension
-            }
         }
     }
 }

@@ -32,7 +32,7 @@ class DepConfig {
     }
 
     DepConfig(boolean useLocal, String path, boolean isApply) { // 自定义插件的构造函数
-        this(useLocal, "", path, true)
+        this(useLocal, "", path, isApply)
     }
 
     DepConfig(boolean useLocal, String localPath, String remotePath) {

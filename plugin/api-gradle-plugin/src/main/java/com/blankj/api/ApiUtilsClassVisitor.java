@@ -21,10 +21,12 @@ import java.util.Map;
 public class ApiUtilsClassVisitor extends ClassVisitor {
 
     private Map<String, ApiInfo> mApiImplMap;
+    private String               mApiUtilsClass;
 
-    public ApiUtilsClassVisitor(ClassVisitor classVisitor, Map<String, ApiInfo> apiImplMap) {
+    public ApiUtilsClassVisitor(ClassVisitor classVisitor, Map<String, ApiInfo> apiImplMap, String apiUtilsClass) {
         super(Opcodes.ASM5, classVisitor);
         mApiImplMap = apiImplMap;
+        mApiUtilsClass = apiUtilsClass.replace(".", "/");
     }
 
     @Override
@@ -53,7 +55,7 @@ public class ApiUtilsClassVisitor extends ClassVisitor {
                 for (Map.Entry<String, ApiInfo> apiImplEntry : mApiImplMap.entrySet()) {
                     mv.visitVarInsn(Opcodes.ALOAD, 0);
                     mv.visitLdcInsn(Type.getType("L" + apiImplEntry.getValue().implApiClass + ";"));
-                    mv.visitMethodInsn(Opcodes.INVOKESPECIAL, "com/blankj/utilcode/util/ApiUtils", "registerImpl", "(Ljava/lang/Class;)V", false);
+                    mv.visitMethodInsn(Opcodes.INVOKESPECIAL, mApiUtilsClass, "registerImpl", "(Ljava/lang/Class;)V", false);
                 }
             }
         };

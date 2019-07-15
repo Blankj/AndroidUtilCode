@@ -54,7 +54,7 @@ class BusScan {
             className = className.substring(0, className.length() - 6)
             if (busUtilsClass == className) {
                 busUtilsTransformFile = source
-                LogUtils.l("BusUtils transform file: $source")
+                LogUtils.l("<BusUtils transform file>: $source")
             }
 
             ClassReader cr = new ClassReader(file.bytes);

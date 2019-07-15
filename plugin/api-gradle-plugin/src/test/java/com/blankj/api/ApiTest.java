@@ -1,7 +1,5 @@
 package com.blankj.api;
 
-import com.blankj.utilcode.util.ApiUtils;
-
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.objectweb.asm.ClassReader;
@@ -36,7 +34,7 @@ public class ApiTest {
 
         ClassReader cr = new ClassReader(TestApiImpl.class.getName());
         ClassWriter cw = new ClassWriter(cr, 0);
-        ClassVisitor cv = new ApiClassVisitor(cw, apiImplMap, apiClasses);
+        ClassVisitor cv = new ApiClassVisitor(cw, apiImplMap, apiClasses, ApiUtils.class.getCanonicalName());
         cr.accept(cv, ClassReader.SKIP_FRAMES);
 
         System.out.println("apiImplMap = " + apiImplMap);
@@ -47,7 +45,7 @@ public class ApiTest {
     private static void inject2ApiUtils(Map<String, ApiInfo> apiImpls) throws IOException {
         ClassReader cr = new ClassReader(ApiUtils.class.getName());
         ClassWriter cw = new ClassWriter(cr, 0);
-        ClassVisitor cv = new ApiUtilsClassVisitor(cw, apiImpls);
+        ClassVisitor cv = new ApiUtilsClassVisitor(cw, apiImpls, ApiUtils.class.getCanonicalName());
         cr.accept(cv, ClassReader.SKIP_FRAMES);
 
         FileUtils.writeByteArrayToFile(new File("ApiUtils2333.class"), cw.toByteArray());

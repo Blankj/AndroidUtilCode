@@ -24,18 +24,20 @@ public class ApiClassVisitor extends ClassVisitor {
     private String               superClassName;
     private boolean              hasAnnotation;
     private boolean              isMock;
+    private String               mApiUtilsClass;
 
-    public ApiClassVisitor(ClassVisitor classVisitor, Map<String, ApiInfo> apiImplMap, List<String> apiClasses) {
+    public ApiClassVisitor(ClassVisitor classVisitor, Map<String, ApiInfo> apiImplMap, List<String> apiClasses, String apiUtilsClass) {
         super(Opcodes.ASM5, classVisitor);
         mApiImplMap = apiImplMap;
         mApiClasses = apiClasses;
+        mApiUtilsClass = apiUtilsClass.replace(".", "/");
     }
 
     @Override
     public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
         className = name;
         superClassName = superName;
-        if ("com/blankj/utilcode/util/ApiUtils$BaseApi".equals(superName)) {
+        if ((mApiUtilsClass + "$BaseApi").equals(superName)) {
             mApiClasses.add(name);
         }
         super.visit(version, access, name, signature, superName, interfaces);
@@ -43,7 +45,7 @@ public class ApiClassVisitor extends ClassVisitor {
 
     @Override
     public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
-        if ("Lcom/blankj/utilcode/util/ApiUtils$Api;".equals(desc)) {
+        if (("L" + mApiUtilsClass + "$Api;").equals(desc)) {
             hasAnnotation = true;
             return new AnnotationVisitor(Opcodes.ASM5, super.visitAnnotation(desc, visible)) {
                 @Override

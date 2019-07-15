@@ -68,8 +68,8 @@ dependencies {
 }
 
 def getSuffix() {
-    if (project.path == ":app:launcher:app") return ""
-    return project.path.replace(":", "_").substring(4, project.path.length() - 4)
+    if (project.path == ":feature:launcher:app") return ""
+    return project.path.replace(":", "_").substring(":feature".length(), project.path.length() - ":app".length())
 }
 
 def configSigning() {

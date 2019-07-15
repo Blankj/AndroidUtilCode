@@ -43,9 +43,9 @@ class BusTransform extends Transform {
         long stTime = System.currentTimeMillis()
 
         def ext = mProject[Config.EXT_NAME] as BusExtension
-        LogUtils.l(ext)
+        LogUtils.l("busExtension: $ext")
         if (ext.busUtilsClass.trim().equals("")) {
-            throw new Exception("BusExtension is empty.")
+            throw new Exception("BusExtension's busUtilsClass is empty.")
         }
         File jsonFile = new File(mProject.projectDir.getAbsolutePath(), "__bus__.json")
         FileUtils.write(jsonFile, "{}")

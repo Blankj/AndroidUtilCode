@@ -40,10 +40,16 @@ class ApiTransform extends Transform {
             throws TransformException, InterruptedException, IOException {
         super.transform(transformInvocation)
         LogUtils.l(getName() + " started")
+        long stTime = System.currentTimeMillis()
+
+        def ext = mProject[Config.EXT_NAME] as ApiExtension
+        LogUtils.l("apiExtension: $ext")
+        if (ext.apiUtilsClass.trim().equals("")) {
+            throw new Exception("ApiExtension's apiUtilsClass is empty.")
+        }
+
         File jsonFile = new File(mProject.projectDir.getAbsolutePath(), "__api__.json")
         FileUtils.write(jsonFile, "{}")
-
-        long stTime = System.currentTimeMillis()
 
         def inputs = transformInvocation.getInputs()
         def referencedInputs = transformInvocation.getReferencedInputs()
@@ -52,7 +58,7 @@ class ApiTransform extends Transform {
 
         outputProvider.deleteAll()
 
-        ApiScan apiScan = new ApiScan()
+        ApiScan apiScan = new ApiScan(ext.apiUtilsClass)
 
         inputs.each { TransformInput input ->
             input.directoryInputs.each { DirectoryInput dirInput ->// 遍历文件夹
@@ -66,9 +72,9 @@ class ApiTransform extends Transform {
                 )
                 FileUtils.copyDirectory(dir, dest)
 
-                LogUtils.l("scan dir: $dir [$dest]")
+                LogUtils.l("scan dir: ${dirInput.file} -> $dest")
 
-                apiScan.scanDir(dir)
+                apiScan.scanDir(dest)
             }
             input.jarInputs.each { JarInput jarInput ->// 遍历 jar 文件
                 File jar = jarInput.file
@@ -82,25 +88,18 @@ class ApiTransform extends Transform {
                 )
                 FileUtils.copyFile(jar, dest)
 
-                if (jarName.startsWith("com.blankj:utilcode:")
-                        || jarName.startsWith("com.blankj:utilcodex:")
-                        || jarName.equals(":lib:utilcode")) {
-                    apiScan.utilcodeJar = dest
-                    LogUtils.l("utilcode jar: $jarName [$dest]")
-                    return
-                }
-
                 if (jumpScan(jarName)) {
-                    LogUtils.l("jump jar: $jarName [$dest]")
+                    LogUtils.l("jump jar: $jarName -> $dest")
                     return
                 }
 
-                LogUtils.l("scan jar: $jarName [$dest]")
-                apiScan.scanJar(jar)
+                LogUtils.l("scan jar: $jarName -> $dest")
+                apiScan.scanJar(dest)
+
             }
         }
 
-        if (apiScan.utilcodeJar != null) {
+        if (apiScan.apiUtilsTransformFile != null) {
             if (apiScan.apiClasses.isEmpty()) {
                 LogUtils.l("no api.")
             } else {
@@ -115,6 +114,7 @@ class ApiTransform extends Transform {
                     }
                 }
                 Map apiDetails = [:]
+                apiDetails.put("ApiUtilsClass", ext.apiUtilsClass)
                 apiDetails.put("implApis", implApis)
                 apiDetails.put("noImplApis", noImplApis)
                 String apiJson = JsonUtils.getFormatJson(apiDetails)
@@ -122,16 +122,15 @@ class ApiTransform extends Transform {
                 FileUtils.write(jsonFile, apiJson)
 
                 if (noImplApis.size() > 0) {
-                    def ext = mProject[Config.EXT_NAME] as ApiExtension
                     if (ext.abortOnError) {
                         throw new Exception("u should impl these apis: " + noImplApis +
                                 "\n u can check it in file: " + jsonFile.toString())
                     }
                 }
-                ApiInject.start(apiScan.apiImplMap, apiScan.utilcodeJar)
+                ApiInject.start(apiScan.apiImplMap, apiScan.apiUtilsTransformFile, ext.apiUtilsClass)
             }
         } else {
-            LogUtils.l('u should <implementation "com.blankj:utilcode(x):1.25.+">')
+            throw new Exception("No ApiUtils of ${ext.apiUtilsClass} in $mProject.")
         }
 
         LogUtils.l(getName() + " finished: " + (System.currentTimeMillis() - stTime) + "ms")

@@ -20,7 +20,7 @@ import java.util.Map;
 public class BusUtilsClassVisitor extends ClassVisitor {
 
     private Map<String, List<BusInfo>> mBusMap;
-    private String mBusUtilsClass;
+    private String                     mBusUtilsClass;
 
     public BusUtilsClassVisitor(ClassVisitor classVisitor, Map<String, List<BusInfo>> busMap, String busUtilsClass) {
         super(Opcodes.ASM5, classVisitor);
