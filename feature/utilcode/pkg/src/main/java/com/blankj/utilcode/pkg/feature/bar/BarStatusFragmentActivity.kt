@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.view.View
-import com.blankj.lib.common.CommonBackActivity
+import com.blankj.common.CommonBackActivity
 import com.blankj.utilcode.pkg.R
 import kotlinx.android.synthetic.main.activity_bar_status_fragment.*
 import java.util.*

@@ -2,7 +2,7 @@ package com.blankj.utilcode.pkg.feature.bar
 
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.base.BaseLazyFragment
+import com.blankj.base.BaseLazyFragment
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ColorUtils

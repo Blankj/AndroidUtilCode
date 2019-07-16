@@ -1,4 +1,4 @@
-package com.blankj.lib.common;
+package com.blankj.common;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.LayoutRes;

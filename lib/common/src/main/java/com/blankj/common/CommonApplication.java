@@ -1,6 +1,6 @@
-package com.blankj.lib.common;
+package com.blankj.common;
 
-import com.blankj.lib.base.BaseApplication;
+import com.blankj.base.BaseApplication;
 
 /**
  * <pre>

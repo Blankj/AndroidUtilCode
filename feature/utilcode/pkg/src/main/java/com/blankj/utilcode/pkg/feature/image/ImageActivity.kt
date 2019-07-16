@@ -12,10 +12,10 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.blankj.lib.base.rv.BaseAdapter
-import com.blankj.lib.base.rv.BaseCell
-import com.blankj.lib.base.rv.BaseViewHolder
-import com.blankj.lib.common.CommonTaskActivity
+import com.blankj.base.rv.BaseAdapter
+import com.blankj.base.rv.BaseCell
+import com.blankj.base.rv.BaseViewHolder
+import com.blankj.common.CommonTaskActivity
 import com.blankj.utilcode.pkg.Config
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.ImageUtils

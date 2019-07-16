@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
-import com.blankj.lib.common.CommonTitleActivity
+import com.blankj.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.CleanUtils
 import com.blankj.utilcode.util.SnackbarUtils

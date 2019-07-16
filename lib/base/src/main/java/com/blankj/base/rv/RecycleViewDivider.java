@@ -1,4 +1,4 @@
-package com.blankj.lib.base.rv;
+package com.blankj.base.rv;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

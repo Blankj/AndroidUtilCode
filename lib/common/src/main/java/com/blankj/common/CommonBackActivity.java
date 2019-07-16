@@ -1,8 +1,8 @@
-package com.blankj.lib.common;
+package com.blankj.common;
 
 import android.os.Bundle;
 
-import com.blankj.lib.base.BaseActivity;
+import com.blankj.base.BaseActivity;
 import com.blankj.swipepanel.SwipePanel;
 import com.blankj.utilcode.util.SizeUtils;
 

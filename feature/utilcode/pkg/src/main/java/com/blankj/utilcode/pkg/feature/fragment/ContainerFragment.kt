@@ -6,7 +6,7 @@ import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
 import android.transition.*
 import android.view.View
-import com.blankj.lib.base.BaseLazyFragment
+import com.blankj.base.BaseLazyFragment
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.DialogHelper
 import com.blankj.utilcode.util.ColorUtils
