@@ -6,19 +6,21 @@
 
 组件化方案中各业务是相互隔离的，所以两个业务模块要通信的话，就需要通过路由或者接口下沉来完成，业界的方案都无法与 **[AucFrame](https://github.com/Blankj/AucFrameTemplate)** 完美融合，所以我就只好自己动手来完成一个更方便、精简、完美的 `ApiUtils`，它功能类似 SPI，但比 SPI 更适合于 Android，而且功能更强大。
 
-在 **[AucFrame](https://github.com/Blankj/AucFrameTemplate)** 架构中，我们可以通过 ApiUtils 来自由调用各模块的 APIs，各业务通过对外提供的 `export` 模块来供其他业务方使用，各业务方只需实现自身的 `export` 中的 APIs 即可。其 **[AucFrame](https://github.com/Blankj/AucFrameTemplate)** 结构如下图所示：
+在 **[AucFrame](https://github.com/Blankj/AucFrameTemplate)** 架构中，我们可以通过 `ApiUtils` 来自由调用各模块的 `apis`，各业务通过对外提供的 `export` 模块来供其他业务方使用，自身只需要实现自身的 `export` 中的 `apis` 即可。其 **[AucFrame](https://github.com/Blankj/AucFrameTemplate)** 的架构图如下所示：
 
 
 ![AucFrame](https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/auc_frame.png)
 
 `ApiUtils` 扮演的角色如下所示：
 
-![ApiUtilsPlayer](https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/communication.png)
+![ApiUtilsRole](https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/communication.png)
 
-图中还有提到 **[BusUtils](https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/plugin/bus-gradle-plugin)**，这是一个比 EventBus 更高效的模块内通讯工具，想了解的可以点进去看看哈。当然，`ApiUtils` 不仅在 **[AucFrame](https://github.com/Blankj/AucFrameTemplate)** 中可以使用，在正常项目中你也可以使用它来做业务隔离，下面来介绍其具体使用方式。
+图中还有提到 **[BusUtils](https://github.com/Blankj/AndroidUtilCode/blob/master/plugin/bus-gradle-plugin)**，这是一个比 EventBus 更高效的模块内通讯工具，想了解的可以点进去看看哈。当然，`ApiUtils` 不仅在 **[AucFrame](https://github.com/Blankj/AucFrameTemplate)** 中可以使用，在正常项目中你也可以使用它来做业务隔离，下面来介绍其具体使用方式。
 
 
 ## 使用
+
+### 配置
 
 在项目根目录的 `build.gradle` 中添加 `api` 插件：
 
@@ -59,7 +61,9 @@ android {
 
 当然，如果你项目是开启混淆的话，全量引入 **[AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode)** 也是可以的，混淆会帮你去除未使用到的类和方法。
 
-好了，插件和依赖都配置完毕，下面就让我们在项目中使用吧，我们举一个实际的例子，比如 `login` 模块中存在 `LoginActivity`，`main` 模块存在 `MainActivity`，这两个模块是平行的关系，两者互不依赖，现在我们通过 `ApiUtils` 让 `LoginActivity` 来启动 `MainActivity`，在 **[AucFrame](https://github.com/Blankj/AucFrameTemplate)** 中每个业务模块下都有 `export` 模块，类似于你们自己项目中的底层公共模块，因为是 `login` 来调用 `main` 模块，所以是 `mian` 模块需要提供 `api` 来供 `login` 来调，所以我们在 `main` 的 `export` 中加入一个继承自 `ApiUtils.BaseApi` 的抽象类 `MainApi`，并添加启动 `MainActivity` 的抽象方法，我们把方法搞得更复杂点，带上自定义的参数和返回值，具体如下所示：
+### 例子
+
+插件和依赖都配置完毕，下面就让我们在项目中使用吧，举一个实际的例子，比如 `login` 模块中存在 `LoginActivity`，`main` 模块存在 `MainActivity`，这两个模块是平行的关系，两者互不依赖，现在我们通过 `ApiUtils` 让 `LoginActivity` 来启动 `MainActivity`，在 **[AucFrame](https://github.com/Blankj/AucFrameTemplate)** 中每个业务模块下都有 `export` 模块，类似于你们自己项目中的底层公共模块，因为是 `login` 来调用 `main` 模块，所以是 `mian` 模块需要提供 `api` 来供 `login` 来调，所以我们在 `main` 的 `export` 中加入一个继承自 `ApiUtils.BaseApi` 的抽象类 `MainApi`，并添加启动 `MainActivity` 的抽象方法，我们把方法搞得更复杂点，带上自定义的参数和返回值，具体如下所示：
 
 ```java
 public abstract class MainApi extends ApiUtils.BaseApi {
@@ -199,9 +203,9 @@ public abstract class MainApi extends ApiUtils.BaseApi {
 
 ## 原理
 
-### api 插件的作用
+### api 插件原理分析
 
-可以参考下[源码传送门](https://github.com/Blankj/AndroidUtilCode/tree/master/plugin/api-gradle-plugin)，插件通过 Gradle 的 transform 来完成对 `ApiUtils.init()` 做注入，下面来一步步分析：
+api 插件的源码在这里：[api 插件源码传送门](https://github.com/Blankj/AndroidUtilCode/tree/master/plugin/api-gradle-plugin)，该插件通过 Gradle 的 transform 来完成对 `ApiUtils.init()` 做注入，下面来一步步分析：
 
 不明白 transform 的可以先去了解下，简单来说 transform 就是专门用来做字节码插入操作的，最常见的就是 AOP（面向切面编程），这部分我就不科普了，有兴趣的可以自己搜索了解。
 
@@ -250,7 +254,7 @@ public void visitEnd() {
 }
 ```
 
-然后往 `ApiUtils.init()` 插入扫描出来的内容，比如上面举例的 `MainApi`，那么其插入的代码如下所示：
+然后往 `ApiUtils.init()` 插入扫描出来的内容，比如上面举例的 `MainApi`，那么其最终插入的代码如下所示：
 
 ```java
 private void init() {
@@ -258,7 +262,43 @@ private void init() {
 }
 ```
 
-我们来看下 `registerImpl` 的实现：
+其 ASM 插入的代码如下所示：
+
+```java
+@Override
+public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
+    if (!"init".equals(name)) {
+        return super.visitMethod(access, name, descriptor, signature, exceptions);
+    }
+    // 往 init() 函数中写入
+    if (cv == null) return null;
+    MethodVisitor mv = cv.visitMethod(access, name, descriptor, signature, exceptions);
+    mv = new AdviceAdapter(Opcodes.ASM5, mv, access, name, descriptor) {
+        @Override
+        public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
+            return super.visitAnnotation(desc, visible);
+        }
+        @Override
+        protected void onMethodEnter() {
+            super.onMethodEnter();
+        }
+        @Override
+        protected void onMethodExit(int opcode) {
+            super.onMethodExit(opcode);
+            for (Map.Entry<String, ApiInfo> apiImplEntry : mApiImplMap.entrySet()) {
+                mv.visitVarInsn(Opcodes.ALOAD, 0);
+                mv.visitLdcInsn(Type.getType("L" + apiImplEntry.getValue().implApiClass + ";"));
+                mv.visitMethodInsn(Opcodes.INVOKESPECIAL, mApiUtilsClass, "registerImpl", "(Ljava/lang/Class;)V", false);
+            }
+        }
+    };
+    return mv;
+}
+```
+
+### ApiUtils 原理分析
+
+接下来看下 `ApiUtils.registerImpl` 的实现：
 
 ```java
 private void registerImpl(Class implClass) {

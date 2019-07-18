@@ -109,7 +109,7 @@ BusUtils.unregister(xxx);
 线程切换使用的是 ThreadUtils 中的线程池，它具有安全的 Cached 线程池，以及 MAIN, IO, CPU, CACHED, SINGLE 线程池，默认不设置的话就是在提交的线程 POSTING，使用的话就是在 `@BusUtils.Bus` 注解中设置 `threadMode = BusUtils.ThreadMode.xx` 即可。
 
 
-### 规范
+## 规范
 
 要想工具用得舒服，规范肯定要遵守的，所谓无规矩不成方圆，不然五花八门的问题肯定一堆堆，这里推荐如下规范：
 
@@ -125,6 +125,7 @@ BusUtils.unregister(xxx);
 ## 性能测试
 
 首先，把两者的事件定义好，因为比较的是事件达到的快慢，所以内部都是空实现即可，具体代码如下所示：
+
 ```java
 @Subscribe
 public void eventBusFun(String param) {
@@ -136,6 +137,7 @@ public void busUtilsFun(String param) {
 ```
 
 `BusUtils` 在编译时会根据 `@BusUtils.Bus` 注解生成一份记录 tag 和 方法签名的映射表，因为是在编译时完成的，这里我们通过反射来完成。
+
 ```java
 @Before
 public void setUp() throws Exception {
@@ -153,6 +155,7 @@ public void setUp() throws Exception {
 * 注销 10000 个订阅者，共执行 10 次取平均值
 
 测试机器如下所示：
+
 ```
 macOS: 2.2GHz Intel Core i7 16GB
 一加6: Android 9 8GB
@@ -161,6 +164,7 @@ macOS: 2.2GHz Intel Core i7 16GB
 在 Android 上，我们加入 `EventBus` 的注解处理器来提升 `EventBus` 效率，让其在最优情况下和 `BusUtils` 比较。
 
 接下来，我们把测试的模板代码写好，方便后续可以直接把两者比较的代码往回调中塞入即可，具体代码如下所示：
+
 ```java
 /**
  * @param name       传入的测试函数名
@@ -202,9 +206,11 @@ public interface CompareCallback {
     void restState();
 }
 ```
+
 下面就让我们来一一对比测试。
 
 ### 注册 10000 个订阅者，共执行 10 次取平均值
+
 ```java
 /**
  * 注册 10000 个订阅者，共执行 10 次取平均值
@@ -251,6 +257,7 @@ public void compareRegister10000Times() {
 ```
 
 ### 向 1 个订阅者发送 * 1000000 次，共执行 10 次取平均值
+
 ``` java
 /**
  * 向 1 个订阅者发送 * 1000000 次，共执行 10 次取平均值
@@ -298,6 +305,7 @@ private void comparePostTemplate(String name, int subscribeNum, int postTimes) {
 ```
 
 ### 向 100 个订阅者发送 * 10000 次，共执行 10 次取平均值
+
 ```java
 /**
  * 向 100 个订阅者发送 * 100000 次，共执行 10 次取平均值
@@ -368,7 +376,7 @@ public void compareUnregister10000Times() {
 // BusUtilsCostTime: 199
 ```
 
-### 结论
+## 结论
 
 为了方便观察，我们生成一份图表来比较两者之间的性能：
 
@@ -376,9 +384,9 @@ public void compareUnregister10000Times() {
 
 图表中分别对四个函数在 MacOS 和 OnePlus6 中的表现进行统计，每个函数中从左向右分别是 「MacOS 的 BusUtils」、「MacOS 的 EventBus」、「OnePlus6 的 BusUtils」、「OnePlus6 的 EventBus」，可以发现，BusUtils 在注册和注销上基本比 `EventBus` 要快上好几倍，BusUtils 在向少量订阅者发送多次事件比 `EventBus` 也快上好多，在向多个订阅者发送多次事件也比 `EventBus` 快上些许。
 
-基于以上说的这么多，如果你项目中事件总线用得比较频繁，那么可以试着用我的 `BusUtils` 来替代 `EventBus` 来提升性能，或者在新的项目中，你也可以使用性能更好的 `BusUtils`。
+基于以上说的这么多，如果你项目中事件总线用得比较频繁，那么可以试着用我的 `BusUtils` 来替代 `EventBus` 来提升性能，或者在新的项目中，你也可以直接使用性能更好的 `BusUtils`。
 
-下面我来总结下 `BusUtils` 的优点：
+下面来总结下 `BusUtils` 的优点：
 
 * `BusUtils` 是通过事件 `Tag` 来确定唯一事件的，所以接收函数支持无参或者一个参数，而 `EventBus` 只能通过 MessageEvent 来确定具体的接收者，只能接收一个参数，即便仅仅是通知，也需要定义一个 MessageEvent，所以，`BusUtils` 传参更灵活。
 * `BusUtils` 在应用到项目中后，编译后便会在 application 中生成 `__bus__.json` 事件列表，如上生成的事件列表如下所示：
@@ -412,14 +420,14 @@ public void compareUnregister10000Times() {
 所以，`BusUtils` 比 `EventBus` 更友好。
 
 * `BusUtils` 比 `EventBus` 代码少得太多，`BusUtils` 的源码只有区区 300 行，而 `EventBus` 3000 行肯定是不止的哈。
-* `BusUtils` 比 `EventBus` 性能更好，下面我会来对其进行性能对比。
+* `BusUtils` 比 `EventBus` 性能更好。
 
 
 ## 原理
 
-### bus 插件的作用
+### bus 插件原理分析
 
-可以参考下[源码传送门](https://github.com/Blankj/AndroidUtilCode/tree/master/plugin/bus-gradle-plugin)，插件通过 Gradle 的 transform 来完成对 `BusUtils.init()` 做注入，下面来一步步分析：
+bus 插件的源码在这里：[bus 插件源码传送门](https://github.com/Blankj/AndroidUtilCode/tree/master/plugin/bus-gradle-plugin)，该插件通过 Gradle 的 transform 来完成对 `BusUtils.init()` 做注入，下面来一步步分析：
 
 不明白 transform 的可以先去了解下，简单来说 transform 就是专门用来做字节码插入操作的，最常见的就是 AOP（面向切面编程），这部分我就不科普了，有兴趣的可以自己搜索了解。
 
@@ -506,7 +514,7 @@ public MethodVisitor visitMethod(int access, String funName, String desc, String
 }
 ```
 
-然后往 `BusUtils.init()` 插入扫描出来的内容，比如上面提到的 `oneParamFun` 这个函数，那么其插入的代码如下所示：
+然后往 `BusUtils.init()` 插入扫描出来的内容，比如上面提到的 `oneParamFun` 这个函数，那么其最终插入的代码如下所示：
 
 ```java
 
@@ -515,7 +523,58 @@ private void init() {
 }
 ```
 
-来看下 `registerBus` 的实现：
+其 ASM 插入的代码如下所示：
+
+```java
+@Override
+public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
+    if (!"init".equals(name)) {
+        return super.visitMethod(access, name, descriptor, signature, exceptions);
+    }
+    // 往 init() 函数中写入
+    if (cv == null) return null;
+    MethodVisitor mv = cv.visitMethod(access, name, descriptor, signature, exceptions);
+    mv = new AdviceAdapter(Opcodes.ASM5, mv, access, name, descriptor) {
+        @Override
+        public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
+            return super.visitAnnotation(desc, visible);
+        }
+        @Override
+        protected void onMethodEnter() {
+            super.onMethodEnter();
+        }
+        @Override
+        protected void onMethodExit(int opcode) {
+            super.onMethodExit(opcode);
+            for (Map.Entry<String, List<BusInfo>> busEntry : mBusMap.entrySet()) {
+                List<BusInfo> infoList = busEntry.getValue();
+                if (infoList.size() != 1) continue;
+                BusInfo busInfo = infoList.get(0);
+                if (!busInfo.isParamSizeNoMoreThanOne) continue;
+                mv.visitVarInsn(ALOAD, 0);
+                mv.visitLdcInsn(busEntry.getKey());
+                mv.visitLdcInsn(busInfo.className);
+                mv.visitLdcInsn(busInfo.funName);
+                if (busInfo.paramsInfo.size() == 1) {
+                    mv.visitLdcInsn(busInfo.paramsInfo.get(0).className);
+                    mv.visitLdcInsn(busInfo.paramsInfo.get(0).name);
+                } else {
+                    mv.visitLdcInsn("");
+                    mv.visitLdcInsn("");
+                }
+                mv.visitInsn(busInfo.sticky ? ICONST_1 : ICONST_0);
+                mv.visitLdcInsn(busInfo.threadMode);
+                mv.visitMethodInsn(INVOKESPECIAL, mBusUtilsClass, "registerBus", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;)V", false);
+            }
+        }
+    };
+    return mv;
+}
+```
+
+### BusUtils 原理分析
+
+接下来看下 `BusUtils.registerBus` 的实现：
 
 ```java
 private void registerBus(String tag,
