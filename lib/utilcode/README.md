@@ -41,6 +41,11 @@ pt2Px
 px2Pt
 ```
 
+* ### About Api -> [ApiUtils.java][api.java] -> [README][api.readme]
+```
+getApi
+```
+
 * ### About App -> [AppUtils.java][app.java] -> [Demo][app.demo]
 ```
 registerAppStatusChangedListener
@@ -984,6 +989,9 @@ getComments
 [adaptScreen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/AdaptScreenUtils.java
 [adaptScreen.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/adaptScreen/AdaptScreenActivity.kt
 
+[api.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ApiUtils.java
+[api.readme]: https://github.com/Blankj/AndroidUtilCode/blob/master/plugin/api-gradle-plugin
+
 [app.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/AppUtils.java
 [app.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/app/AppActivity.kt
 
@@ -994,7 +1002,7 @@ getComments
 [brightness.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/brightness/BrightnessActivity.kt
 
 [bus.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/BusUtils.java
-[bus.readme]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/README-STATIC-BUS.md
+[bus.readme]: https://github.com/Blankj/AndroidUtilCode/blob/master/plugin/bus-gradle-plugin
 
 [cacheDiskStatic.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/CacheDiskStaticUtils.java
 [cacheDiskStatic.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/CacheDiskStaticUtilsTest.java

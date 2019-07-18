@@ -38,6 +38,13 @@ public class ApiTest {
         cr.accept(cv, ClassReader.SKIP_FRAMES);
 
         System.out.println("apiImplMap = " + apiImplMap);
+
+        apiClasses = new ArrayList<>();
+        cr = new ClassReader(TestApi.class.getName());
+        cw = new ClassWriter(cr, 0);
+        cv = new ApiClassVisitor(cw, apiImplMap, apiClasses, ApiUtils.class.getCanonicalName());
+        cr.accept(cv, ClassReader.SKIP_FRAMES);
+
         System.out.println("apiClasses = " + apiClasses);
         return apiImplMap;
     }

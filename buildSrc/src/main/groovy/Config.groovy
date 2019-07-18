@@ -38,11 +38,11 @@ class Config {
                     // 本地第一次上传插件新的版本需设置 useLocal = true, isApply = false
                     // 本地上传成功之后 isApply = true 即可应用插件来调试，后续版本更新无需设置 isApply = false
                     // 发布版本的话把 useLocal = false, isApply = false，发布成功后 isApply = true 即可使用远程库版本
-                    api    : new DepConfig(false/*是否本地调试*/, "com.blankj:api-gradle-plugin:1.0", true/*是否使用插件*/),
+                    api    : new DepConfig(true/*是否本地调试*/, "com.blankj:api-gradle-plugin:1.0", true/*是否使用插件*/),
                     bus    : new DepConfig(false/*是否本地调试*/, "com.blankj:bus-gradle-plugin:2.0", true/*是否使用插件*/),
             ],
 
-            api_gradle_plugin: new DepConfig(":plugin:api-gradle-plugin", false),
+            api_gradle_plugin: new DepConfig(":plugin:api-gradle-plugin", true),
             bus_gradle_plugin: new DepConfig(":plugin:bus-gradle-plugin", false),
 
             feature          : [

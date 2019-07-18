@@ -1,3 +1,4 @@
+* `19/07/18` [add] README of ApiUtils and BusUtils.
 * `19/07/15` [add] Publish v1.25.0.
 * `19/07/14` [upd] Bus plugin for use BusUtils. Publish bus plugin v2.0.
 * `19/07/13` [add] Api plugin for use ApiUtils. Publish api plugin v1.0.

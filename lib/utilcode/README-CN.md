@@ -41,6 +41,11 @@ pt2Px      : pt 转 px
 px2Pt      : px 转 pt
 ```
 
+* ### Api 相关 -> [ApiUtils.java][api.java] -> [README][api.readme]
+```
+getApi: 获取 api 的实例
+```
+
 * ### App 相关 -> [AppUtils.java][app.java] -> [Demo][app.demo]
 ```
 registerAppStatusChangedListener  : 注册 App 前后台切换监听器
@@ -984,6 +989,9 @@ getComments       : 获取压缩文件中的注释链表
 [adaptScreen.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/AdaptScreenUtils.java
 [adaptScreen.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/adaptScreen/AdaptScreenActivity.kt
 
+[api.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ApiUtils.java
+[api.readme]: https://github.com/Blankj/AndroidUtilCode/blob/master/plugin/api-gradle-plugin
+
 [app.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/AppUtils.java
 [app.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/app/AppActivity.kt
 
@@ -994,7 +1002,7 @@ getComments       : 获取压缩文件中的注释链表
 [brightness.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/brightness/BrightnessActivity.kt
 
 [bus.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/BusUtils.java
-[bus.readme]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/README-STATIC-BUS.md
+[bus.readme]: https://github.com/Blankj/AndroidUtilCode/blob/master/plugin/bus-gradle-plugin
 
 [cacheDiskStatic.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/CacheDiskStaticUtils.java
 [cacheDiskStatic.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/CacheDiskStaticUtilsTest.java

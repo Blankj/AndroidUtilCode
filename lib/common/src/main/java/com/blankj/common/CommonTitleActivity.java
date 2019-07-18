@@ -50,7 +50,7 @@ public abstract class CommonTitleActivity extends CommonBackActivity {
                 mViewStub = findViewById(R.id.baseTitleStubNoScroll);
             }
             mViewStub.setVisibility(View.VISIBLE);
-            baseTitleContentView = findViewById(R.id.baseTitleContentView);
+            baseTitleContentView = findViewById(R.id.commonTitleContentView);
             LayoutInflater.from(this).inflate(layoutId, baseTitleContentView);
         }
         setTitleBar();

@@ -21,4 +21,4 @@ before_install:
   - yes | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;26.0.2"
 
 script:
-  - ./gradlew build connectedCheck
+  - ./gradlew aR
