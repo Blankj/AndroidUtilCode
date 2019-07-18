@@ -114,7 +114,7 @@ BusUtils.unregister(xxx);
 要想工具用得舒服，规范肯定要遵守的，所谓无规矩不成方圆，不然五花八门的问题肯定一堆堆，这里推荐如下规范：
 
 * 持有事件的类和函数确保确保都是 `public` 的。
-* 由于 `BusUtils` 是用于模块内调用，所以我们可以写一个 `BusConfig` 的类来保存一个模块内所有 bus 的 `Tag`，方便查找到使用方及调用方。
+* 由于 `BusUtils` 是用于模块内调用，所以可以写一个 `BusConfig` 的类来保存一个模块内所有 bus 的 `Tag`，方便查找到使用方及调用方。
 * `Tag` 中最好还能带有业务模块后缀名防止重复，是 sticky 类型的话也带上 sticky，指定具体线程的话也带上线程名，例如：`update_avatar_sticky_main_info` 这个 `Tag`，让人直接望文生义。
 * 如果能结合 **[AucFrame](https://github.com/Blankj/AucFrameTemplate)** 来使用，那就更规范不过了。
 
@@ -124,7 +124,7 @@ BusUtils.unregister(xxx);
 
 ## 性能测试
 
-首先，我们把两者的事件定义好，因为比较的是事件达到的快慢，所以内部都是空实现即可，具体代码如下所示：
+首先，把两者的事件定义好，因为比较的是事件达到的快慢，所以内部都是空实现即可，具体代码如下所示：
 ```java
 @Subscribe
 public void eventBusFun(String param) {
@@ -135,7 +135,7 @@ public void busUtilsFun(String param) {
 }
 ```
 
-我们的 BusUtils 在编译时会根据 `@BusUtils.Bus` 注解生成一份记录 tag 和 方法签名的映射表，因为是在编译时完成的，这里我们通过反射来完成。
+`BusUtils` 在编译时会根据 `@BusUtils.Bus` 注解生成一份记录 tag 和 方法签名的映射表，因为是在编译时完成的，这里我们通过反射来完成。
 ```java
 @Before
 public void setUp() throws Exception {
@@ -145,22 +145,22 @@ public void setUp() throws Exception {
 }
 ```
 
-我们通过比较如下几点的测试来完成对比：
+通过比较如下几点的测试来完成对比：
 
 * 注册 10000 个订阅者，共执行 10 次取平均值
 * 向 1 个订阅者发送 * 1000000 次，共执行 10 次取平均值
 * 向 100 个订阅者发送 * 100000 次，共执行 10 次取平均值
 * 注销 10000 个订阅者，共执行 10 次取平均值
 
-我们的测试机器如下所示：
+测试机器如下所示：
 ```
 macOS: 2.2GHz Intel Core i7 16GB
 一加6: Android 9 8GB
 ```
 
-在 Android 上我们加入 `EventBus` 的注解处理器来提升 `EventBus` 效率，让其在最优情况下和 `BusUtils` 比较。
+在 Android 上，我们加入 `EventBus` 的注解处理器来提升 `EventBus` 效率，让其在最优情况下和 `BusUtils` 比较。
 
-接下来，我们把测试的模板代码写好，方便我们后续可以直接把两者比较的代码往回调中塞入即可，具体代码如下所示：
+接下来，我们把测试的模板代码写好，方便后续可以直接把两者比较的代码往回调中塞入即可，具体代码如下所示：
 ```java
 /**
  * @param name       传入的测试函数名
@@ -378,6 +378,42 @@ public void compareUnregister10000Times() {
 
 基于以上说的这么多，如果你项目中事件总线用得比较频繁，那么可以试着用我的 `BusUtils` 来替代 `EventBus` 来提升性能，或者在新的项目中，你也可以使用性能更好的 `BusUtils`。
 
+下面我来总结下 `BusUtils` 的优点：
+
+* `BusUtils` 是通过事件 `Tag` 来确定唯一事件的，所以接收函数支持无参或者一个参数，而 `EventBus` 只能通过 MessageEvent 来确定具体的接收者，只能接收一个参数，即便仅仅是通知，也需要定义一个 MessageEvent，所以，`BusUtils` 传参更灵活。
+* `BusUtils` 在应用到项目中后，编译后便会在 application 中生成 `__bus__.json` 事件列表，如上生成的事件列表如下所示：
+
+```json
+{
+  "BusUtilsClass": "com.blankj.utilcode.util.BusUtils",
+  "rightBus": {
+    "noParamFun": "{ desc: com.blankj.utilcode.pkg.feature.bus.BusActivity#noParamFun(), threadMode: POSTING }",
+    "oneParamFun": "{ desc: com.blankj.utilcode.pkg.feature.bus.BusActivity#oneParamFun(java.lang.String param), threadMode: POSTING }"
+  },
+  "wrongBus": {}
+}
+```
+
+修改 `oneParamFun` 为两个参数的话，为了确保项目不会因为 `BusUtils` 在运行时崩溃，`api` 插件会使其在编译时就不过，此时 `__bus__.json` 文件如下所示，提示你参数个数不对：
+
+```json
+{
+  "BusUtilsClass": "com.blankj.utilcode.util.BusUtils",
+  "rightBus": {
+    "noParamFun": "{ desc: com.blankj.utilcode.pkg.feature.bus.BusActivity#noParamFun(), threadMode: POSTING }",
+  },
+  "wrongBus": {
+    "oneParamFun": "{ desc: com.blankj.utilcode.pkg.feature.bus.BusActivity#oneParamFun(java.lang.String param, java.lang.String param1), threadMode: POSTING, paramSize: 2 }"
+  }
+```
+
+同理，如果两个 bus 的 `Tag` 相同了，也会编译不过，提示你项目中存在 `Tag` 相同的 bus。
+
+所以，`BusUtils` 比 `EventBus` 更友好。
+
+* `BusUtils` 比 `EventBus` 代码少得太多，`BusUtils` 的源码只有区区 300 行，而 `EventBus` 3000 行肯定是不止的哈。
+* `BusUtils` 比 `EventBus` 性能更好，下面我会来对其进行性能对比。
+
 
 ## 原理
 
@@ -479,7 +515,7 @@ private void init() {
 }
 ```
 
-我们来看下 `registerBus` 的实现：
+来看下 `registerBus` 的实现：
 
 ```java
 private void registerBus(String tag,
@@ -489,7 +525,7 @@ private void registerBus(String tag,
 }
 ```
 
-很简单，就是往 `mTag_BusInfoMap` 中插入了 key 为 `tag`，value 为 `BusInfo` 的一个实例，这样我们便把一个事件保留了下来。
+很简单，就是往 `mTag_BusInfoMap` 中插入了 key 为 `tag`，value 为 `BusInfo` 的一个实例，这样便把一个事件保留了下来。
 
 接下来就是使用了，一开始我们都是先 register，源码如下所示：
 
@@ -515,7 +551,7 @@ private void registerInner(final Object bus) {
 
 我们获取 bus 的类名，然后对 `mClassName_BusesMap` 加锁来把它插入到 `mClassName_BusesMap` 的 value 的集合中，可以看到我们用了线程安全的 `CopyOnWriteArraySet` 集合，然后还需要处理下之前是否订阅过粘性事件 `processSticky`，到这里 register 便结束了。
 
-然后就是 `post` 来发送事件了，我们分析下源码：
+然后就是 `post` 来发送事件了，源码如下：
 
 ```java
 public static void post(final String tag) {
@@ -617,7 +653,7 @@ private void realInvokeMethod(final String tag, Object arg, BusInfo busInfo, boo
 }
 ```
 
-可以看到代码还是比较多的，不过别急，我们一步步来还是很简单的，首先去我们注入的 `mTag_BusInfoMap` 中查找是否有该 `tag` 的 `BusInfo`，没有的话就输出错误日志直接返回。
+可以看到代码还是比较多的，不过别急，我们一步步来还是很简单的，首先在我们之前注入的 `mTag_BusInfoMap` 中查找是否有该 `tag` 的 `BusInfo`，没有的话就输出错误日志直接返回。
 
 然后我们根据获取到的 `BusInfo` 来找到 `method` 实例，`BusInfo` 第一次会把 `method` 保存在实例中，之后调用的话直接从实例中取出 `method` 即可。
 
@@ -645,42 +681,3 @@ private void unregisterInner(final Object bus) {
 ```
 
 `unregister` 和 `register` 相反，就是从 `mClassName_BusesMap` 的 value 集合中移除，同样需要对 `mClassName_BusesMap` 加锁哦。
-
-
-## 总结
-
-下面我来总结下 `BusUtils` 的优点：
-
-* `BusUtils` 是通过事件 `Tag` 来确定唯一事件的，所以接收函数支持无参或者一个参数，而 `EventBus` 只能通过 MessageEvent 来确定具体的接收者，只能接收一个参数，即便仅仅是通知，也需要定义一个 MessageEvent，所以，`BusUtils` 传参更灵活。
-* `BusUtils` 在应用到项目中后，编译后便会在 application 中生成 `__bus__.json` 事件列表，如上生成的事件列表如下所示：
-
-```json
-{
-  "BusUtilsClass": "com.blankj.utilcode.util.BusUtils",
-  "rightBus": {
-    "noParamFun": "{ desc: com.blankj.utilcode.pkg.feature.bus.BusActivity#noParamFun(), threadMode: POSTING }",
-    "oneParamFun": "{ desc: com.blankj.utilcode.pkg.feature.bus.BusActivity#oneParamFun(java.lang.String param), threadMode: POSTING }"
-  },
-  "wrongBus": {}
-}
-```
-
-我们修改 `oneParamFun` 为两个参数的话，为了确保项目不会因为 `BusUtils` 在运行时崩溃，`api` 插件会使其在编译时就不过，此时 `__bus__.json` 文件如下所示，提示你参数个数不对：
-
-```json
-{
-  "BusUtilsClass": "com.blankj.utilcode.util.BusUtils",
-  "rightBus": {
-    "noParamFun": "{ desc: com.blankj.utilcode.pkg.feature.bus.BusActivity#noParamFun(), threadMode: POSTING }",
-  },
-  "wrongBus": {
-    "oneParamFun": "{ desc: com.blankj.utilcode.pkg.feature.bus.BusActivity#oneParamFun(java.lang.String param, java.lang.String param1), threadMode: POSTING, paramSize: 2 }"
-  }
-```
-
-同理，如果两个 bus 的 `Tag` 相同了，也会编译不过，提示你项目中存在 `Tag` 相同的 bus。
-
-所以，`BusUtils` 比 `EventBus` 更友好。
-
-* `BusUtils` 比 `EventBus` 代码少得太多，`BusUtils` 的源码只有区区 300 行，而 `EventBus` 3000 行肯定是不止的哈。
-* `BusUtils` 比 `EventBus` 性能更好，下面我们会来对其进行性能对比。
