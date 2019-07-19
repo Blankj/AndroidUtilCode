@@ -156,7 +156,7 @@ MainResult result = ApiUtils.getApi(MainApi.class)
 }
 ```
 
-如果项目中并没有实现 `MainApi` 的话，为了确保项目不会因为 `ApiUtils` 在运行时崩溃，`api` 插件会使其在编译时就不过，此时 `__api__.json` 文件如下所示，提示你需要实现 `MainApi`：
+如果项目中并没有实现 `MainApi` 的话，为了确保项目不会因为 `ApiUtils` 在运行时崩溃，`api` 插件会使其在编译时就不通过，此时 `__api__.json` 文件如下所示，提示你需要实现 `MainApi`：
 
 ```json
 {

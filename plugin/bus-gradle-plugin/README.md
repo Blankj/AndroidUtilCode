@@ -50,6 +50,15 @@ android {
 
 可以猜测到默认的 busUtilsClass 为 `com.blankj.utilcode.util.BusUtils` 哈。
 
+如果开启混淆的话还需要配置你的 `BusUtils` 中注解方法的防混淆，如果直接用 **[AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode)** 的话是不需要你配置的，我已经帮你做完了，配置你自己的 `BusUtils` 防混淆应该如下所示：
+
+```java
+-keepattributes *Annotation*
+-keepclassmembers class * {
+    @com.xxx.xxx.BusUtils$Bus <methods>;
+}
+```
+
 当然，如果你项目是开启混淆的话，全量引入 **[AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode)** 也是可以的，混淆会帮你去除未使用到的类和方法。
 
 好了，插件和依赖都配置完毕，下面介绍基本使用。
@@ -117,6 +126,7 @@ BusUtils.unregister(xxx);
 * 由于 `BusUtils` 是用于模块内调用，所以可以写一个 `BusConfig` 的类来保存一个模块内所有 bus 的 `Tag`，方便查找到使用方及调用方。
 * `Tag` 中最好还能带有业务模块后缀名防止重复，是 sticky 类型的话也带上 sticky，指定具体线程的话也带上线程名，例如：`update_avatar_sticky_main_info` 这个 `Tag`，让人直接望文生义。
 * 如果能结合 **[AucFrame](https://github.com/Blankj/AucFrameTemplate)** 来使用，那就更规范不过了。
+* 对 `BusUtils` 中事件传输的的 `bean` 都需要 `keep` 下来，否则开启混淆后会找不到该实体对象而报错。
 
 
 使用已经介绍完毕，下面我们来和 `EventBus` 对比下性能。
