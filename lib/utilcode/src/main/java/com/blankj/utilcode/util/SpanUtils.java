@@ -803,7 +803,6 @@ public final class SpanUtils {
         } else if (mType == mTypeSpace) {
             updateSpace();
         }
-        setDefault();
     }
 
     private void updateCharCharSequence() {
