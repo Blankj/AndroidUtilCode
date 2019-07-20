@@ -64,7 +64,9 @@ class ApiScan {
             ClassVisitor cv = new ApiClassVisitor(cw, apiImplMap, apiClasses, apiUtilsClass);
             cr.accept(cv, ClassReader.SKIP_FRAMES);
 
-            FileUtils.writeByteArrayToFile(file, cw.toByteArray());
+            if (cv.errorStr != null) {
+                throw new Exception(cv.errorStr)
+            }
         }
     }
 }

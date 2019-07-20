@@ -1,4 +1,4 @@
-package com.blankj.mock.api;
+package com.blankj.mock.utilcode;
 
 import android.content.Context;
 
@@ -15,7 +15,7 @@ import com.blankj.utilcode.util.ToastUtils;
  * </pre>
  */
 @ApiUtils.Api(isMock = true)
-public class UtilCodeMockApi extends UtilCodeApi {
+public class UtilCodeApiMock extends UtilCodeApi {
 
     @Override
     public void startUtilCodeActivity(Context context) {
