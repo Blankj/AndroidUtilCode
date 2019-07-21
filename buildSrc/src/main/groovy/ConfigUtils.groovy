@@ -146,7 +146,7 @@ class ConfigUtils {
                 int m = buildSec / 60;
                 int s = buildSec % 60;
                 def timeInfo = (m == 0 ? "${s}s" : "${m}m ${s}s (${buildSec}s)")
-                sb.append("BUILD FINISHED in $timeInfo")
+                sb.append("BUILD FINISHED in $timeInfo\n")
                 taskInfoList.each {
                     sb.append(String.format("%7sms %s\n", it.exeDuration, it.task.path))
                 }

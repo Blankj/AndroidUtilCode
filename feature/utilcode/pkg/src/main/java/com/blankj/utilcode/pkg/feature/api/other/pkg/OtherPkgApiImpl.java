@@ -9,7 +9,7 @@ import com.blankj.utilcode.util.ToastUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/07/10
- *     desc  :
+ *     desc  : demo about ApiUtils
  * </pre>
  */
 @ApiUtils.Api

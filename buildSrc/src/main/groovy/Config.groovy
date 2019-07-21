@@ -25,7 +25,7 @@ class Config {
     // appConfig 配置的是可以跑 app 的模块，git 提交务必只包含 launcher
     static appConfig = ['launcher']
     // pkgConfig 配置的是要依赖的功能包，为空则依赖全部，git 提交务必为空
-    static pkgConfig = []
+    static pkgConfig = ['utilcode']
 
     static depConfig = [
             plugin           : [

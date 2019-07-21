@@ -7,7 +7,7 @@ import com.blankj.utilcode.util.ApiUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/07/10
- *     desc  :
+ *     desc  : demo about ApiUtils
  * </pre>
  */
 public abstract class OtherModuleApi extends ApiUtils.BaseApi {
