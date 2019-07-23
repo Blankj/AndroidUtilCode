@@ -982,17 +982,17 @@ public final class ThreadUtils {
                 case TYPE_CACHED:
                     return new ThreadPoolExecutor4Util(0, 128,
                             60L, TimeUnit.SECONDS,
-                            new LinkedBlockingQueue4Util(),
+                            new LinkedBlockingQueue4Util(true),
                             new UtilsThreadFactory("cached", priority)
                     );
                 case TYPE_IO:
-                    return new ThreadPoolExecutor4Util(0, 2 * CPU_COUNT + 1,
+                    return new ThreadPoolExecutor4Util(2 * CPU_COUNT + 1, 2 * CPU_COUNT + 1,
                             30, TimeUnit.SECONDS,
                             new LinkedBlockingQueue4Util(),
                             new UtilsThreadFactory("io", priority)
                     );
                 case TYPE_CPU:
-                    return new ThreadPoolExecutor4Util(CPU_COUNT + 1, 2 * CPU_COUNT + 1,
+                    return new ThreadPoolExecutor4Util(CPU_COUNT + 1, CPU_COUNT + 1,
                             30, TimeUnit.SECONDS,
                             new LinkedBlockingQueue4Util(),
                             new UtilsThreadFactory("cpu", priority)
@@ -1052,20 +1052,20 @@ public final class ThreadUtils {
 
         private volatile ThreadPoolExecutor4Util mPool;
 
-        private int mCapacity = Integer.MAX_VALUE;
+        private boolean mIsAddSubThreadFirstThenAddQueue = false;
 
         LinkedBlockingQueue4Util() {
             super();
         }
 
-        LinkedBlockingQueue4Util(int capacity) {
+        LinkedBlockingQueue4Util(boolean isAddSubThreadFirstThenAddQueue) {
             super();
-            mCapacity = capacity;
+            mIsAddSubThreadFirstThenAddQueue = isAddSubThreadFirstThenAddQueue;
         }
 
         @Override
         public boolean offer(@NonNull Runnable runnable) {
-            if (mCapacity <= size() &&
+            if (mIsAddSubThreadFirstThenAddQueue &&
                     mPool != null && mPool.getPoolSize() < mPool.getMaximumPoolSize()) {
                 // create a non-core thread
                 return false;
