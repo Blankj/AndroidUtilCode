@@ -54,7 +54,7 @@ class LanguageActivity : CommonTitleActivity() {
         when (view.id) {
             R.id.languageApp -> ToastUtils.showLong(R.string.language)
             R.id.languageActivity -> ToastUtils.showLong(getString(R.string.language))
-            R.id.applySimpleChineseLanguage -> LanguageUtils.applyLanguage(Locale.SIMPLIFIED_CHINESE, "com.blankj.launcher.pkg.MainActivity")
+            R.id.applySimpleChineseLanguage -> LanguageUtils.applyLanguage(Locale.SIMPLIFIED_CHINESE, "com.blankj.main.pkg.MainActivity")
             R.id.applyAmericanLanguage -> LanguageUtils.applyLanguage(Locale.US, "")
             R.id.applySystemLanguage -> LanguageUtils.applySystemLanguage("")
         }

@@ -176,7 +176,7 @@ MainResult result = ApiUtils.getApi(MainApi.class)
 要想工具用得舒服，规范肯定要遵守的，所谓无规矩不成方圆，不然五花八门的问题肯定一堆堆，这里推荐如下规范：
 
 * `impl` 和 `api` 应该都是 `public` 的，而且 `impl` 中应该只存在一个无参的 `public` 构造函数（默认不写即可）。
-* `api` 中修改接口不要在老的接口上动手脚，更不要删除老的接口，而应该建立新的接口后，通知业务方来调用新的接口，还是上面的跳转 `main` 的例子，由于我们前期接口设计有问题，需要新增一个 `UserInfo` 的参数，具体如下所示：
+* `api` 中接口的修改我们遵循类似于官方 Android SDK 的升级，大部分情况是新接口的出现需要兼容老接口，如果老接口并不影响功能的正常使用，也就无需通知业务方更新为新接口，新的接口一般都是新的业务方来调用；除非老的接口存有问题或漏洞，我们明确需要删除它，那在删除它的同时，我们还需要把业务中调用老接口的地方统一替换为新的接口，类似于我们升级 Android SDK 的时候，某些 `api` 明确被官方删除了，那我们就需要强行替换为新的接口。还是上面的跳转 `main` 的例子，由于新的业务在跳转的时候需新增一个 `UserInfo` 的参数，具体如下所示：
 ```java
 // old
 public abstract class MainApi extends ApiUtils.BaseApi {
@@ -185,7 +185,6 @@ public abstract class MainApi extends ApiUtils.BaseApi {
 
 // good
 public abstract class MainApi extends ApiUtils.BaseApi {
-    @Deprecated
     public abstract MainResult startMainActivity(Context context, MainParam param);
 
     public abstract MainResult startMainActivity(Context context, MainParam param, UserInfo info);

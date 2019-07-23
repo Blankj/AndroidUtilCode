@@ -1,10 +1,10 @@
-## 比 EventBus 更高效的事件总线（BusUtils）
+# 比 EventBus 更高效的事件总线（BusUtils）
 
 ## 背景
 
 设计这个 `BusUtils` 其实是在做 [ApiUtils](https://github.com/Blankj/AndroidUtilCode/tree/master/plugin/api-gradle-plugin) 时顺手做的，因为两者实现方式基本一致，设计前我也没想着要和 greenrobot 的 `EventBus` 一较高低，但设计完总需要一个对比，所以就拿业界最优秀的事件总线 `EventBus` 比较一下吧，然后就发现我这区区 300 行不到的 `BusUtils` 性能比 `EventBus` 要高出好多，当然，这一切的前提都是在 `BusUtils` 是切实可用并且有效的，它也是一款线程安全的事件总线，这些我都在单测中有做过实际测试的，不吹不擂，后面我们拿数据说话，有小伙伴不相信的话也可以通过下载我的源码来比较即可，单测地址：[BusUtilsVsEventBusTest](https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/BusUtilsVsEventBusTest.java)，Android 测试地址：[BusCompareActivity](https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/bus/BusCompareActivity.kt)，`BusUtils` 在 **[AucFrame](https://github.com/Blankj/AucFrameTemplate)** 中的作用就是模块内传值，其扮演的角色如下所示：
 
-![BusUtilsPlayer](https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/communication.png)
+![BusUtilsRole](https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/communication.png)
 
 下面介绍其使用：
 
@@ -314,7 +314,7 @@ private void comparePostTemplate(String name, int subscribeNum, int postTimes) {
 }
 ```
 
-### 向 100 个订阅者发送 * 10000 次，共执行 10 次取平均值
+### 向 100 个订阅者发送 * 100000 次，共执行 10 次取平均值
 
 ```java
 /**
@@ -390,7 +390,7 @@ public void compareUnregister10000Times() {
 
 为了方便观察，我们生成一份图表来比较两者之间的性能：
 
-![BusUtilsVsEventBusChart](https://github.com/Blankj/AndroidUtilCode/blob/master/art/busutil_vs_eventbus.png)
+![BusUtilsVsEventBusChart](https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/busutil_vs_eventbus.png)
 
 图表中分别对四个函数在 MacOS 和 OnePlus6 中的表现进行统计，每个函数中从左向右分别是 「MacOS 的 BusUtils」、「MacOS 的 EventBus」、「OnePlus6 的 BusUtils」、「OnePlus6 的 EventBus」，可以发现，BusUtils 在注册和注销上基本比 `EventBus` 要快上好几倍，BusUtils 在向少量订阅者发送多次事件比 `EventBus` 也快上好多，在向多个订阅者发送多次事件也比 `EventBus` 快上些许。
 
