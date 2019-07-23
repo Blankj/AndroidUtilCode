@@ -2,7 +2,7 @@ package com.blankj.main.pkg
 
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.common.CommonBackActivity
+import com.blankj.common.CommonBackActivity
 
 class SplashActivity : CommonBackActivity() {
     override fun isSwipeBack(): Boolean {

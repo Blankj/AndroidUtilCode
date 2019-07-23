@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.common.CommonTaskActivity
+import com.blankj.common.CommonTaskActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BusUtils
 import com.blankj.utilcode.util.ThreadUtils

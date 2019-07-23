@@ -1,4 +1,4 @@
-package com.blankj.lib.base.rv;
+package com.blankj.base.rv;
 
 import androidx.annotation.IdRes;
 import androidx.recyclerview.widget.RecyclerView;

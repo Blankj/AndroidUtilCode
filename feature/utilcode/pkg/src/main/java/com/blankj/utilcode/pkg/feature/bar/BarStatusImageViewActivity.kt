@@ -6,7 +6,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
-import com.blankj.lib.common.CommonBackActivity
+import com.blankj.common.CommonBackActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
 import kotlinx.android.synthetic.main.activity_bar_status_image_view.*

@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import android.view.View
 import android.view.Window
-import com.blankj.lib.common.CommonTitleActivity
+import com.blankj.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.ColorUtils
 

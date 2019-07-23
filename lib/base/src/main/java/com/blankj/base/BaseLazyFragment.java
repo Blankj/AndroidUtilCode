@@ -1,4 +1,4 @@
-package com.blankj.lib.base;
+package com.blankj.base;
 
 import android.util.Log;
 

@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.common.CommonTitleActivity
+import com.blankj.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.feature.api.other.export.OtherModuleApi
 import com.blankj.utilcode.util.ApiUtils
@@ -16,10 +16,12 @@ import kotlinx.android.synthetic.main.activity_api.*
  * author: Blankj
  * blog  : http://blankj.com
  * time  : 2019/03/12
- * desc  : demo about BusUtils
+ * desc  : demo about ApiUtils
  * ```
  */
 class ApiActivity : CommonTitleActivity() {
+
+    private val api = ApiUtils.getApi(OtherModuleApi::class.java)
 
     companion object {
         fun start(context: Context) {
@@ -48,7 +50,6 @@ class ApiActivity : CommonTitleActivity() {
     override fun doBusiness() {}
 
     override fun onDebouncingClick(view: View) {
-        val api = ApiUtils.getApi(OtherModuleApi::class.java)
         when (view.id) {
             R.id.apiInvokeWithParams -> {
                 api.invokeWithParams(OtherModuleApi.ApiBean("params"))
@@ -57,9 +58,5 @@ class ApiActivity : CommonTitleActivity() {
                 ToastUtils.showShort(api.invokeWithReturnValue().name)
             }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 }

@@ -86,7 +86,7 @@ public class ApiUtils {
             }
         }
         //noinspection unchecked
-        return (Result) api.invoke();
+        return (Result) api;
     }
 
     private static class LazyHolder {
@@ -100,8 +100,5 @@ public class ApiUtils {
     }
 
     public abstract static class BaseApi {
-        private BaseApi invoke() {
-            return this;
-        }
     }
 }

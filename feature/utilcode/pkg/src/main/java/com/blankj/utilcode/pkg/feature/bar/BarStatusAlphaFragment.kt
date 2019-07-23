@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
-import com.blankj.lib.base.BaseLazyFragment
+import com.blankj.base.BaseLazyFragment
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.LogUtils

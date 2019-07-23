@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.lib.common.CommonTitleActivity
+import com.blankj.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.LanguageUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -54,7 +54,7 @@ class LanguageActivity : CommonTitleActivity() {
         when (view.id) {
             R.id.languageApp -> ToastUtils.showLong(R.string.language)
             R.id.languageActivity -> ToastUtils.showLong(getString(R.string.language))
-            R.id.applySimpleChineseLanguage -> LanguageUtils.applyLanguage(Locale.SIMPLIFIED_CHINESE, "com.blankj.launcher.pkg.MainActivity")
+            R.id.applySimpleChineseLanguage -> LanguageUtils.applyLanguage(Locale.SIMPLIFIED_CHINESE, "com.blankj.main.pkg.MainActivity")
             R.id.applyAmericanLanguage -> LanguageUtils.applyLanguage(Locale.US, "")
             R.id.applySystemLanguage -> LanguageUtils.applySystemLanguage("")
         }

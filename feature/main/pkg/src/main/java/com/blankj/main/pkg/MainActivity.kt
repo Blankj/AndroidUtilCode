@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.View
 import android.widget.ImageView
-import com.blankj.lib.common.CommonDrawerActivity
+import com.blankj.common.CommonDrawerActivity
 import com.blankj.subutil.export.api.SubUtilApi
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.export.api.UtilCodeApi

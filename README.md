@@ -1,4 +1,6 @@
-![logo][logo]
+[![logo][logo]](https://github.com/Blankj/AndroidUtilCode)
+
+[![frame][frame]](https://github.com/Blankj/AucFrameTemplate)
 
 [![auc][aucSvg]][auc] [![result][apiSvg]][result] [![build][buildSvg]][build] [![License][licenseSvg]][license]
 
@@ -41,6 +43,8 @@ If this project helps you a lot and you want to support the project's developmen
 
 [logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
+[frame]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/auc_frame.png
+
 [aucSvg]: https://img.shields.io/badge/AndroidUtilCode-v1.25.0-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
@@ -56,11 +60,11 @@ If this project helps you a lot and you want to support the project's developmen
 [readme]: https://github.com/Blankj/AndroidUtilCode
 [readme-cn]: https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md
 
-[utilcode]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/README.md
-[utilcode-cn]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/README-CN.md
+[utilcode]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/README.md
+[utilcode-cn]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/README-CN.md
 
-[subutil]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/README.md
-[subutil-cn]: https://github.com/Blankj/AndroidUtilCode/blob/master/subutil/README-CN.md
+[subutil]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/subutil/README.md
+[subutil-cn]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/subutil/README-CN.md
 
 [changeLog.md]: https://github.com/Blankj/AndroidUtilCode/blob/master/CHANGELOG.md
 

@@ -1,4 +1,4 @@
-package com.blankj.lib.base;
+package com.blankj.base;
 
 import android.app.Application;
 import android.content.Context;
@@ -6,10 +6,8 @@ import android.content.Context;
 import androidx.multidex.MultiDex;
 
 import com.blankj.utilcode.util.AppUtils;
-import com.blankj.utilcode.util.BusUtils;
 import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.MessengerUtils;
 import com.blankj.utilcode.util.ProcessUtils;
 import com.squareup.leakcanary.LeakCanary;
 

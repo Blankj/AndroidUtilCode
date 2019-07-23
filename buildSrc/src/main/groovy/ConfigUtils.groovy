@@ -59,28 +59,6 @@ class ConfigUtils {
         return applyExports
     }
 
-    static Map<String, DepConfig> getDepConfigByFilter(DepConfigFilter filter) {
-        return _getDepConfigByFilter("", Config.depConfig, filter)
-    }
-
-    private static _getDepConfigByFilter(String namePrefix, Map map, DepConfigFilter filter) {
-        def depConfigList = [:]
-        for (Map.Entry entry : map.entrySet()) {
-            def (name, value) = [entry.getKey(), entry.getValue()]
-            if (value instanceof Map) {
-                namePrefix += (name + '.')
-                depConfigList.putAll(_getDepConfigByFilter(namePrefix, value, filter))
-                namePrefix -= (name + '.')
-                continue
-            }
-            def config = value as DepConfig
-            if (filter == null || filter.accept(namePrefix + name, config)) {
-                depConfigList.put(namePrefix + name, config)
-            }
-        }
-        return depConfigList
-    }
-
     static addBuildListener(Gradle gradle) {
         gradle.addBuildListener(new ConfigBuildListener())
     }
@@ -89,6 +67,9 @@ class ConfigUtils {
 
         private List<TaskInfo> taskInfoList = []
         private long startBuildMillis
+
+        @Override
+        void buildStarted(Gradle gradle) {}
 
         @Override
         void settingsEvaluated(Settings settings) {
@@ -151,9 +132,6 @@ class ConfigUtils {
         }
 
         @Override
-        void buildStarted(Gradle gradle) {}
-
-        @Override
         void buildFinished(BuildResult result) {
             GLog.d("buildFinished")
             if (!taskInfoList.isEmpty()) {
@@ -168,7 +146,7 @@ class ConfigUtils {
                 int m = buildSec / 60;
                 int s = buildSec % 60;
                 def timeInfo = (m == 0 ? "${s}s" : "${m}m ${s}s (${buildSec}s)")
-                sb.append("BUILD FINISHED in $timeInfo")
+                sb.append("BUILD FINISHED in $timeInfo\n")
                 taskInfoList.each {
                     sb.append(String.format("%7sms %s\n", it.exeDuration, it.task.path))
                 }
@@ -184,6 +162,9 @@ class ConfigUtils {
          * 在 settings.gradle 中 根据 appConfig 和 pkgConfig 来 include 本地模块
          */
         private static includeModule(Settings settings) {
+            if (Config.pkgConfig.isEmpty()) {
+                Config.depConfig.feature.mock.isApply = false
+            }
             def config = getDepConfigByFilter(new DepConfigFilter() {
                 @Override
                 boolean accept(String name, DepConfig config) {
@@ -193,8 +174,8 @@ class ConfigUtils {
                             config.isApply = false
                         }
                     }
-                    if (!Config.pkgConfig.isEmpty()) {
-                        if (name.endsWith('.pkg')) {
+                    if (name.endsWith('.pkg')) {
+                        if (!Config.pkgConfig.isEmpty()) {
                             def pkgName = name.substring('feature.'.length(), name.length() - 4)
                             if (!Config.pkgConfig.contains(pkgName)) {
                                 config.isApply = false
@@ -245,6 +226,28 @@ class ConfigUtils {
                 this.exeDuration = exeDuration
             }
         }
+    }
+
+    static Map<String, DepConfig> getDepConfigByFilter(DepConfigFilter filter) {
+        return _getDepConfigByFilter("", Config.depConfig, filter)
+    }
+
+    private static _getDepConfigByFilter(String namePrefix, Map map, DepConfigFilter filter) {
+        def depConfigList = [:]
+        for (Map.Entry entry : map.entrySet()) {
+            def (name, value) = [entry.getKey(), entry.getValue()]
+            if (value instanceof Map) {
+                namePrefix += (name + '.')
+                depConfigList.putAll(_getDepConfigByFilter(namePrefix, value, filter))
+                namePrefix -= (name + '.')
+                continue
+            }
+            def config = value as DepConfig
+            if (filter == null || filter.accept(namePrefix + name, config)) {
+                depConfigList.put(namePrefix + name, config)
+            }
+        }
+        return depConfigList
     }
 
     interface DepConfigFilter {

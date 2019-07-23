@@ -7,8 +7,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.CompoundButton
-import com.blankj.lib.base.BaseApplication
-import com.blankj.lib.common.CommonTitleActivity
+import com.blankj.base.BaseApplication
+import com.blankj.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.LogUtils

@@ -61,8 +61,6 @@ class BusScan {
             ClassWriter cw = new ClassWriter(cr, 0);
             ClassVisitor cv = new BusClassVisitor(cw, busMap, busUtilsClass);
             cr.accept(cv, ClassReader.SKIP_FRAMES);
-
-            FileUtils.writeByteArrayToFile(file, cw.toByteArray());
         }
     }
 }

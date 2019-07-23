@@ -160,14 +160,7 @@ public final class NetworkUtils {
     public static boolean isAvailableByPing(final String ip) {
         final String realIp = TextUtils.isEmpty(ip) ? "223.5.5.5" : ip;
         ShellUtils.CommandResult result = ShellUtils.execCmd(String.format("ping -c 1 %s", realIp), false);
-        boolean ret = result.result == 0;
-        if (result.errorMsg != null) {
-            Log.d("NetworkUtils", "isAvailableByPing() called" + result.errorMsg);
-        }
-        if (result.successMsg != null) {
-            Log.d("NetworkUtils", "isAvailableByPing() called" + result.successMsg);
-        }
-        return ret;
+        return result.result == 0;
     }
 
     /**

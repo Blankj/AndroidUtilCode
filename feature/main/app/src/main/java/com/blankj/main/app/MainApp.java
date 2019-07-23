@@ -2,7 +2,7 @@ package com.blankj.main.app;
 
 import android.content.Context;
 
-import com.blankj.lib.common.CommonApplication;
+import com.blankj.common.CommonApplication;
 
 /**
  * <pre>

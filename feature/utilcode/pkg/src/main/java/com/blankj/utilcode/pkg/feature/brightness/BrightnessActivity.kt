@@ -6,7 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
-import com.blankj.lib.common.CommonTitleActivity
+import com.blankj.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BrightnessUtils
 import com.blankj.utilcode.util.PermissionUtils
