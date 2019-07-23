@@ -10,7 +10,9 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <pre>
@@ -37,6 +39,25 @@ public class BaseTest {
 
     @Test
     public void test() throws Exception {
+        CountDownLatch latch = new CountDownLatch(1);
 
+        for (int i = 0; i < 100; i++) {
+            final int finalI = i;
+            ThreadUtils.executeByCpu(new ThreadUtils.SimpleTask<Void>() {
+                @Override
+                public Void doInBackground() throws Throwable {
+                    System.out.println("" + Thread.currentThread() + finalI);
+                    Thread.sleep(100);
+                    return null;
+                }
+
+                @Override
+                public void onSuccess(Void result) {
+
+                }
+            });
+        }
+
+        latch.await(1, TimeUnit.SECONDS);
     }
 }
