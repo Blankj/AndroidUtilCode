@@ -45,7 +45,7 @@ apply plugin: "com.blankj.api"
 api "com.blankj:utilcode:latest_version"
 ```
 
-如果你单纯只想引入 `ApiUtils` 也是可以的，需要你自己拷贝一份这个类放到你工程里，然后在 app 下的 `build.gradle` 中 配置 api 的 SDL 域如下所示：
+如果你单纯只想引入 `ApiUtils` 也是可以的，需要你自己拷贝一份这个类放到你工程里，然后在 app 下的 `build.gradle` 中 配置 api 的 DSL 域如下所示：
 
 ```groovy
 api {

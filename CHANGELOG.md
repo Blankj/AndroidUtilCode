@@ -1,3 +1,6 @@
+* `19/07/26` [add] ContainerUtils. Publish v1.25.2.
+* `19/07/25` [fix] PermissionUtils' NullPointException.
+* `19/07/24` [fix] ZipUtils#unzipFile.
 * `19/07/23` [fix] ThreadUtils of cache pool. Publish v1.25.1.
 * `19/07/18` [add] README of ApiUtils and BusUtils.
 * `19/07/15` [add] Publish v1.25.0.

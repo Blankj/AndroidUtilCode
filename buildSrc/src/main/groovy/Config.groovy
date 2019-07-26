@@ -14,8 +14,8 @@ class Config {
     static compileSdkVersion = 27
     static minSdkVersion = 14
     static targetSdkVersion = 27
-    static versionCode = 1_025_001
-    static versionName = '1.25.1'// E.g. 1.9.72 => 1,009,072
+    static versionCode = 1_025_002
+    static versionName = '1.25.2'// E.g. 1.9.72 => 1,009,072
 
     // lib version
     static kotlin_version = '1.3.10'
@@ -71,10 +71,11 @@ class Config {
             ],
 
             lib              : [
-                    base    : new DepConfig(":lib:base"),
-                    common  : new DepConfig(":lib:common"),
-                    subutil : new DepConfig(":lib:subutil"),
-                    utilcode: new DepConfig(true/*是否本地调试*/, ":lib:utilcode", "com.blankj:utilcode:$versionName"),
+                    base     : new DepConfig(":lib:base"),
+                    common   : new DepConfig(":lib:common"),
+                    subutil  : new DepConfig(":lib:subutil"),
+                    utilcode : new DepConfig(true/*是否本地调试*/, ":lib:utilcode", "com.blankj:utilcode:$versionName"),
+                    utildebug: new DepConfig(true/*是否本地调试*/, ":lib:utildebug", "com.blankj:utildebug:$versionName"),
             ],
 
             support          : [
