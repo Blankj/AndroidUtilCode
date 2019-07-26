@@ -16,7 +16,7 @@ configApkName()
 android {
     compileSdkVersion Config.compileSdkVersion
     defaultConfig {
-        minSdkVersion Config.minSdkVersion
+        minSdkVersion 16
         versionCode Config.versionCode
         versionName Config.versionName
         applicationId Config.applicationId + suffix
@@ -56,6 +56,9 @@ dependencies {
     debugImplementation Config.depConfig.leakcanary.android.dep
     debugImplementation Config.depConfig.leakcanary.support_fragment.dep
     releaseImplementation Config.depConfig.leakcanary.android_no_op.dep
+
+    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:1.1.8'
+    releaseImplementation 'com.didichuxing.doraemonkit:doraemonkit-no-op:1.1.8'
 
     // 根据 Config.pkgConfig 来依赖所有 pkg
     for (def entrySet : ConfigUtils.getApplyPkgs().entrySet()) {

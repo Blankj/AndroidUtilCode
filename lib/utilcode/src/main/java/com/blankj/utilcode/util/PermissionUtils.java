@@ -410,7 +410,9 @@ public final class PermissionUtils {
         public void onRequestPermissionsResult(int requestCode,
                                                @NonNull String[] permissions,
                                                @NonNull int[] grantResults) {
-            sInstance.onRequestPermissionsResult(this);
+            if (sInstance != null && sInstance.mPermissionsRequest != null) {
+                sInstance.onRequestPermissionsResult(this);
+            }
             finish();
         }
 

@@ -88,7 +88,6 @@ class ConfigUtils {
                 void beforeEvaluate(Project project) {
                     if (project.subprojects.isEmpty()) {
                         if (project.path.contains(":plugin:")) {
-                            // 插件的话自己写 build.gradle
                             return
                         }
                         if (project.name == "app") {

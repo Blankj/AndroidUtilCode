@@ -9,6 +9,7 @@ import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ProcessUtils;
+import com.didichuxing.doraemonkit.DoraemonKit;
 import com.squareup.leakcanary.LeakCanary;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
+        DoraemonKit.install(this);
         initLeakCanary();
         initLog();
         initCrash();

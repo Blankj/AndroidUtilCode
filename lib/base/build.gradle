@@ -12,4 +12,5 @@ dependencies {
     api Config.depConfig.swipe_panel.dep
     api Config.depConfig.eventbus.lib.dep
     compileOnly Config.depConfig.leakcanary.android_no_op.dep
+    compileOnly 'com.didichuxing.doraemonkit:doraemonkit-no-op:1.1.8'
 }

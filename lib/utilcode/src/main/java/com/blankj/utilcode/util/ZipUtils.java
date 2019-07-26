@@ -293,7 +293,7 @@ public final class ZipUtils {
             if (isSpace(keyword)) {
                 while (entries.hasMoreElements()) {
                     ZipEntry entry = ((ZipEntry) entries.nextElement());
-                    String entryName = entry.getName();
+                    String entryName = entry.getName().replace("\\", "/");
                     if (entryName.contains("../")) {
                         Log.e("ZipUtils", "entryName: " + entryName + " is dangerous!");
                         continue;
@@ -303,7 +303,7 @@ public final class ZipUtils {
             } else {
                 while (entries.hasMoreElements()) {
                     ZipEntry entry = ((ZipEntry) entries.nextElement());
-                    String entryName = entry.getName();
+                    String entryName = entry.getName().replace("\\", "/");
                     if (entryName.contains("../")) {
                         Log.e("ZipUtils", "entryName: " + entryName + " is dangerous!");
                         continue;
@@ -378,7 +378,7 @@ public final class ZipUtils {
         ZipFile zip = new ZipFile(zipFile);
         Enumeration<?> entries = zip.entries();
         while (entries.hasMoreElements()) {
-            String entryName = ((ZipEntry) entries.nextElement()).getName();
+            String entryName = ((ZipEntry) entries.nextElement()).getName().replace("\\", "/");;
             if (entryName.contains("../")) {
                 Log.e("ZipUtils", "entryName: " + entryName + " is dangerous!");
                 paths.add(entryName);

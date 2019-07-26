@@ -1,6 +1,5 @@
 package com.blankj.utilcode.util;
 
-import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -39,7 +38,7 @@ import androidx.annotation.Nullable;
  */
 public final class ThreadUtils {
 
-    private static final Map<Integer, Map<Integer, ExecutorService>> TYPE_PRIORITY_POOLS = new ConcurrentHashMap<>();
+    private static final Map<Integer, Map<Integer, ExecutorService>> TYPE_PRIORITY_POOLS = new HashMap<>();
 
     private static final Map<Task, TimerTask> TASK_TIMERTASK_MAP = new ConcurrentHashMap<>();
 
@@ -950,23 +949,24 @@ public final class ThreadUtils {
         return getPoolByTypeAndPriority(type, Thread.NORM_PRIORITY);
     }
 
-    @SuppressLint("UseSparseArrays")
-    private synchronized static ExecutorService getPoolByTypeAndPriority(final int type, final int priority) {
-        ExecutorService pool;
-        Map<Integer, ExecutorService> priorityPools = TYPE_PRIORITY_POOLS.get(type);
-        if (priorityPools == null) {
-            priorityPools = new ConcurrentHashMap<>();
-            pool = ThreadPoolExecutor4Util.createPool(type, priority);
-            priorityPools.put(priority, pool);
-            TYPE_PRIORITY_POOLS.put(type, priorityPools);
-        } else {
-            pool = priorityPools.get(priority);
-            if (pool == null) {
+    private static ExecutorService getPoolByTypeAndPriority(final int type, final int priority) {
+        synchronized (TYPE_PRIORITY_POOLS) {
+            ExecutorService pool;
+            Map<Integer, ExecutorService> priorityPools = TYPE_PRIORITY_POOLS.get(type);
+            if (priorityPools == null) {
+                priorityPools = new ConcurrentHashMap<>();
                 pool = ThreadPoolExecutor4Util.createPool(type, priority);
                 priorityPools.put(priority, pool);
+                TYPE_PRIORITY_POOLS.put(type, priorityPools);
+            } else {
+                pool = priorityPools.get(priority);
+                if (pool == null) {
+                    pool = ThreadPoolExecutor4Util.createPool(type, priority);
+                    priorityPools.put(priority, pool);
+                }
             }
+            return pool;
         }
-        return pool;
     }
 
     static final class ThreadPoolExecutor4Util extends ThreadPoolExecutor {
@@ -992,9 +992,9 @@ public final class ThreadUtils {
                             new UtilsThreadFactory("io", priority)
                     );
                 case TYPE_CPU:
-                    return new ThreadPoolExecutor4Util(CPU_COUNT + 1, CPU_COUNT + 1,
+                    return new ThreadPoolExecutor4Util(CPU_COUNT + 1, 2 * CPU_COUNT + 1,
                             30, TimeUnit.SECONDS,
-                            new LinkedBlockingQueue4Util(),
+                            new LinkedBlockingQueue4Util(true),
                             new UtilsThreadFactory("cpu", priority)
                     );
                 default:
@@ -1052,7 +1052,7 @@ public final class ThreadUtils {
 
         private volatile ThreadPoolExecutor4Util mPool;
 
-        private boolean mIsAddSubThreadFirstThenAddQueue = false;
+        private int mCapacity = Integer.MAX_VALUE;
 
         LinkedBlockingQueue4Util() {
             super();
@@ -1060,12 +1060,19 @@ public final class ThreadUtils {
 
         LinkedBlockingQueue4Util(boolean isAddSubThreadFirstThenAddQueue) {
             super();
-            mIsAddSubThreadFirstThenAddQueue = isAddSubThreadFirstThenAddQueue;
+            if (isAddSubThreadFirstThenAddQueue) {
+                mCapacity = 0;
+            }
+        }
+
+        LinkedBlockingQueue4Util(int capacity) {
+            super();
+            mCapacity = capacity;
         }
 
         @Override
         public boolean offer(@NonNull Runnable runnable) {
-            if (mIsAddSubThreadFirstThenAddQueue &&
+            if (mCapacity <= size() &&
                     mPool != null && mPool.getPoolSize() < mPool.getMaximumPoolSize()) {
                 // create a non-core thread
                 return false;
