@@ -1,8 +1,10 @@
 package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
@@ -21,8 +23,10 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import static android.Manifest.permission.ACCESS_NETWORK_STATE;
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
@@ -50,7 +54,8 @@ public final class NetworkUtils {
         NETWORK_4G,
         NETWORK_3G,
         NETWORK_2G,
-        NETWORK_UNKNOWN
+        NETWORK_UNKNOWN,
+        NETWORK_NO
     }
 
     /**
@@ -376,6 +381,7 @@ public final class NetworkUtils {
      * <li>{@link NetworkUtils.NetworkType#NETWORK_3G      } </li>
      * <li>{@link NetworkUtils.NetworkType#NETWORK_2G      } </li>
      * <li>{@link NetworkUtils.NetworkType#NETWORK_UNKNOWN } </li>
+     * <li>{@link NetworkUtils.NetworkType#NETWORK_NO      } </li>
      * </ul>
      */
     @RequiresPermission(ACCESS_NETWORK_STATE)
@@ -419,11 +425,15 @@ public final class NetworkUtils {
                                 || subtypeName.equalsIgnoreCase("WCDMA")
                                 || subtypeName.equalsIgnoreCase("CDMA2000")) {
                             return NetworkType.NETWORK_3G;
+                        } else {
+                            return NetworkType.NETWORK_UNKNOWN;
                         }
                 }
+            } else {
+                return NetworkType.NETWORK_UNKNOWN;
             }
         }
-        return NetworkType.NETWORK_UNKNOWN;
+        return NetworkType.NETWORK_NO;
     }
 
     /**
@@ -631,5 +641,100 @@ public final class NetworkUtils {
         WifiManager wm = (WifiManager) Utils.getApp().getSystemService(Context.WIFI_SERVICE);
         if (wm == null) return "";
         return Formatter.formatIpAddress(wm.getDhcpInfo().serverAddress);
+    }
+
+    /**
+     * Register the status of network changed listener.
+     *
+     * @param listener The status of network changed listener
+     */
+    public static void registerNetworkStatusChangedListener(OnNetworkStatusChangedListener listener) {
+        NetworkChangedReceiver.getInstance().registerListener(listener);
+    }
+
+    /**
+     * unregister the status of network changed listener.
+     *
+     * @param listener The status of network changed listener
+     */
+    public static void unregisterOnNetworkChangedListener(OnNetworkStatusChangedListener listener) {
+        NetworkChangedReceiver.getInstance().unregisterListener(listener);
+    }
+
+    public static final class NetworkChangedReceiver extends BroadcastReceiver {
+
+        private static NetworkChangedReceiver getInstance() {
+            return LazyHolder.INSTANCE;
+        }
+
+        private NetworkType                         mType;
+        private Set<OnNetworkStatusChangedListener> mListeners = new HashSet<>();
+
+        void registerListener(final OnNetworkStatusChangedListener listener) {
+            if (listener == null) return;
+            Utils.runOnUiThread(new Runnable() {
+                @SuppressLint("MissingPermission")
+                @Override
+                public void run() {
+                    int preSize = mListeners.size();
+                    mListeners.add(listener);
+                    if (preSize == 0 && mListeners.size() == 1) {
+                        mType = getNetworkType();
+                        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+                        Utils.getApp().registerReceiver(NetworkChangedReceiver.getInstance(), intentFilter);
+                    }
+                }
+            });
+        }
+
+        void unregisterListener(final OnNetworkStatusChangedListener listener) {
+            if (listener == null) return;
+            Utils.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    int preSize = mListeners.size();
+                    mListeners.remove(listener);
+                    if (preSize == 1 && mListeners.size() == 0) {
+                        Utils.getApp().unregisterReceiver(NetworkChangedReceiver.getInstance());
+                    }
+                }
+            });
+        }
+
+        @SuppressLint("MissingPermission")
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
+                // debouncing
+                Utils.runOnUiThreadDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        NetworkType networkType = NetworkUtils.getNetworkType();
+                        if (mType == networkType) return;
+                        LogUtils.e(networkType);
+                        mType = networkType;
+                        if (networkType == NetworkType.NETWORK_NO) {
+                            for (OnNetworkStatusChangedListener listener : mListeners) {
+                                listener.onDisconnected();
+                            }
+                        } else {
+                            for (OnNetworkStatusChangedListener listener : mListeners) {
+                                listener.onConnected(networkType);
+                            }
+                        }
+                    }
+                }, 1000);
+            }
+        }
+
+        private static class LazyHolder {
+            private static final NetworkChangedReceiver INSTANCE = new NetworkChangedReceiver();
+        }
+    }
+
+    public interface OnNetworkStatusChangedListener {
+        void onDisconnected();
+
+        void onConnected(NetworkType networkType);
     }
 }

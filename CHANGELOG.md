@@ -1,3 +1,5 @@
+* `19/07/28` [add] NetworkUtils#(un)registerNetworkStatusChangedListener. Publish v1.25.3.
+* `19/07/27` [fix] ThreadUtils memory leak.
 * `19/07/26` [add] ContainerUtils. Publish v1.25.2.
 * `19/07/25` [fix] PermissionUtils' NullPointException.
 * `19/07/24` [fix] ZipUtils#unzipFile.
