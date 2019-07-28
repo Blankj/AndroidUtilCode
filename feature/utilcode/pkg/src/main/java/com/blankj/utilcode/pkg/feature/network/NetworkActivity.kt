@@ -9,9 +9,9 @@ import com.blankj.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SpanUtils
-import com.blankj.utilcode.util.Utils
+import com.blankj.utilcode.util.ThreadUtils
+import com.blankj.utilcode.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_network.*
-import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * ```
@@ -21,10 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger
  * desc  : demo about NetworkUtils
  * ```
  */
-class NetworkActivity : CommonTitleActivity() {
-
-    var cur: Int = 0
-    var count: AtomicInteger = AtomicInteger();
+class NetworkActivity : CommonTitleActivity(), NetworkUtils.OnNetworkStatusChangedListener {
 
     companion object {
         fun start(context: Context) {
@@ -32,8 +29,6 @@ class NetworkActivity : CommonTitleActivity() {
             context.startActivity(starter)
         }
     }
-
-    private lateinit var spanSb: SpannableStringBuilder
 
     override fun bindTitle(): CharSequence {
         return getString(R.string.demo_network)
@@ -52,6 +47,7 @@ class NetworkActivity : CommonTitleActivity() {
             NetworkUtils.setWifiEnabled(isChecked)
             updateAboutNetwork()
         }
+        NetworkUtils.registerNetworkStatusChangedListener(this)
     }
 
     override fun onResume() {
@@ -66,18 +62,45 @@ class NetworkActivity : CommonTitleActivity() {
         when (view.id) {
             R.id.networkOpenWirelessSettingsBtn -> NetworkUtils.openWirelessSettings()
         }
-        updateAboutNetwork()
     }
 
-    private lateinit var ipV4AddressAsyncTask: Utils.Task<String>
-    private lateinit var ipV6AddressAsyncTask: Utils.Task<String>
-    private lateinit var wifiAvailableAsyncTask: Utils.Task<Boolean>
-    private lateinit var availableAsyncTask: Utils.Task<Boolean>
-    private lateinit var domainAddressAsyncTask: Utils.Task<String>
+    private lateinit var task: ThreadUtils.SimpleTask<String>
 
     private fun updateAboutNetwork() {
-        spanSb = SpanUtils.with(networkAboutTv)
-                .appendLine("isConnected: " + NetworkUtils.isConnected())
+
+        SpanUtils.with(networkAboutTv)
+                .append(getSpan())
+                .appendLine("")
+                .appendLine("")
+                .appendLine("")
+                .appendLine("")
+                .appendLine("Loading...")
+                .create()
+
+        task = object : ThreadUtils.SimpleTask<String>() {
+
+            override fun doInBackground(): String {
+                val sb: StringBuilder = StringBuilder();
+                sb.appendln("getIPv4Address: ${NetworkUtils.getIPAddress(true)}")
+                sb.appendln("getIPv6Address: ${NetworkUtils.getIPAddress(false)}")
+                sb.appendln("isWifiAvailable: ${NetworkUtils.isWifiAvailable()}")
+                sb.appendln("isAvailable: ${NetworkUtils.isAvailable()}")
+                sb.appendln("getBaiduDomainAddress: ${NetworkUtils.getDomainAddress("baidu.com")}")
+                return sb.toString()
+            }
+
+            override fun onSuccess(result: String) {
+                SpanUtils.with(networkAboutTv)
+                        .append(getSpan())
+                        .append(result)
+                        .create()
+            }
+        }
+        ThreadUtils.executeByCached(task)
+    }
+
+    private fun getSpan(): SpannableStringBuilder {
+        return SpanUtils().appendLine("isConnected: " + NetworkUtils.isConnected())
                 .appendLine("getMobileDataEnabled: " + NetworkUtils.getMobileDataEnabled())
                 .appendLine("isMobileData: " + NetworkUtils.isMobileData())
                 .appendLine("is4G: " + NetworkUtils.is4G())
@@ -89,72 +112,23 @@ class NetworkActivity : CommonTitleActivity() {
                 .appendLine("getIpAddressByWifi: " + NetworkUtils.getIpAddressByWifi())
                 .appendLine("getGatewayByWifi: " + NetworkUtils.getGatewayByWifi())
                 .appendLine("getNetMaskByWifi: " + NetworkUtils.getNetMaskByWifi())
-                .append("getServerAddressByWifi: " + NetworkUtils.getServerAddressByWifi())
+                .appendLine("getServerAddressByWifi: " + NetworkUtils.getServerAddressByWifi())
                 .create()
-        cur += 5
+    }
 
-        ipV4AddressAsyncTask = NetworkUtils.getIPAddressAsync(true) { data ->
-            val num = count.get()
-            if (num >= cur - 5) {
-                spanSb = SpanUtils().appendLine(spanSb)
-                        .append("getIPv4Address: $data")
-                        .create()
-                networkAboutTv.text = spanSb
-            }
-            count.addAndGet(1)
-        }
+    override fun onDisconnected() {
+        ToastUtils.showLong("onDisconnected")
+    }
 
-        ipV6AddressAsyncTask = NetworkUtils.getIPAddressAsync(false) { data ->
-            val num = count.get()
-            if (num >= cur - 5) {
-                spanSb = SpanUtils().appendLine(spanSb)
-                        .append("getIPv6Address: $data")
-                        .create()
-                networkAboutTv.text = spanSb
-            }
-            count.addAndGet(1)
-        }
+    override fun onConnected(networkType: NetworkUtils.NetworkType) {
 
-        wifiAvailableAsyncTask = NetworkUtils.isWifiAvailableAsync { data ->
-            val num = count.get()
-            if (num >= cur - 5) {
-                spanSb = SpanUtils().appendLine(spanSb)
-                        .append("isWifiAvailable: $data")
-                        .create()
-                networkAboutTv.text = spanSb
-            }
-            count.addAndGet(1)
-        }
 
-        availableAsyncTask = NetworkUtils.isAvailableAsync { data ->
-            val num = count.get()
-            if (num >= cur - 5) {
-                spanSb = SpanUtils().appendLine(spanSb)
-                        .append("isAvailable: $data")
-                        .create()
-                networkAboutTv.text = spanSb
-            }
-            count.addAndGet(1)
-        }
-
-        domainAddressAsyncTask = NetworkUtils.getDomainAddressAsync("baidu.com") { data ->
-            val num = count.get()
-            if (num >= cur - 5) {
-                spanSb = SpanUtils().appendLine(spanSb)
-                        .append("getBaiduDomainAddress: $data")
-                        .create()
-                networkAboutTv.text = spanSb
-            }
-            count.addAndGet(1)
-        }
+        ToastUtils.showLong("onConnected: ${networkType.name}")
     }
 
     override fun onDestroy() {
-        ipV4AddressAsyncTask.cancel()
-        ipV6AddressAsyncTask.cancel()
-        wifiAvailableAsyncTask.cancel()
-        availableAsyncTask.cancel()
-        domainAddressAsyncTask.cancel()
+        task.cancel()
+        NetworkUtils.unregisterOnNetworkChangedListener(this)
         super.onDestroy()
     }
 }

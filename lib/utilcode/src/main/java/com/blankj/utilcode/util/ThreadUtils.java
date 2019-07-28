@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -40,9 +39,7 @@ public final class ThreadUtils {
 
     private static final Map<Integer, Map<Integer, ExecutorService>> TYPE_PRIORITY_POOLS = new HashMap<>();
 
-    private static final Map<Task, TimerTask> TASK_TIMERTASK_MAP = new ConcurrentHashMap<>();
-
-    private static final Map<ExecutorService, List<Task>> POOL_TASK_MAP = new ConcurrentHashMap<>();
+    private static final Map<Task, TaskInfo> TASK_TASKINFO_MAP = new ConcurrentHashMap<>();
 
     private static final int   CPU_COUNT = Runtime.getRuntime().availableProcessors();
     private static final Timer TIMER     = new Timer();
@@ -886,8 +883,11 @@ public final class ThreadUtils {
      */
     public static void cancel(ExecutorService executorService) {
         if (executorService instanceof ThreadPoolExecutor4Util) {
-            List<Task> tasks = POOL_TASK_MAP.get(executorService);
-            cancel(tasks);
+            for (Map.Entry<Task, TaskInfo> taskTaskInfoEntry : TASK_TASKINFO_MAP.entrySet()) {
+                if (taskTaskInfoEntry.getValue().mService == executorService) {
+                    cancel(taskTaskInfoEntry.getKey());
+                }
+            }
         } else {
             Log.e("LogUtils", "The executorService is not ThreadUtils's pool.");
         }
@@ -909,11 +909,10 @@ public final class ThreadUtils {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                execute(pool, task);
+                execute(pool, task, this);
             }
         };
         TIMER.schedule(timerTask, unit.toMillis(delay));
-        TASK_TIMERTASK_MAP.put(task, timerTask);
     }
 
     private static <T> void executeAtFixedRate(final ExecutorService pool,
@@ -925,24 +924,20 @@ public final class ThreadUtils {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                execute(pool, task);
+                execute(pool, task, this);
             }
         };
         TIMER.scheduleAtFixedRate(timerTask, unit.toMillis(initialDelay), unit.toMillis(period));
     }
 
     private static <T> void execute(final ExecutorService pool, final Task<T> task) {
-        pool.execute(task);
-        recordTask(pool, task);
+        execute(pool, task, null);
     }
 
-    private static <T> void recordTask(ExecutorService pool, Task<T> task) {
-        List<Task> tasks = POOL_TASK_MAP.get(pool);
-        if (tasks == null) {
-            tasks = new CopyOnWriteArrayList<>();
-            POOL_TASK_MAP.put(pool, tasks);
-        }
-        tasks.add(task);
+    private static <T> void execute(final ExecutorService pool, final Task<T> task,
+                                    final TimerTask timerTask) {
+        pool.execute(task);
+        TASK_TASKINFO_MAP.put(task, new TaskInfo(timerTask, pool));
     }
 
     private static ExecutorService getPoolByTypeAndPriority(final int type) {
@@ -1273,10 +1268,19 @@ public final class ThreadUtils {
     }
 
     private static void cancelTimerTask(final Task task) {
-        TimerTask timerTask = TASK_TIMERTASK_MAP.get(task);
+        TaskInfo timerTask = TASK_TASKINFO_MAP.get(task);
         if (timerTask != null) {
-            TASK_TIMERTASK_MAP.remove(task);
-            timerTask.cancel();
+            TASK_TASKINFO_MAP.remove(task);
+        }
+    }
+
+    private static class TaskInfo {
+        private TimerTask       mTimerTask;
+        private ExecutorService mService;
+
+        private TaskInfo(TimerTask timerTask, ExecutorService service) {
+            mTimerTask = timerTask;
+            mService = service;
         }
     }
 }
