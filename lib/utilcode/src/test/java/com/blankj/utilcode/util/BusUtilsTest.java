@@ -239,6 +239,14 @@ public class BusUtilsTest extends BaseTest {
         System.out.println("BusUtils.toString_() = " + BusUtils.toString_());
     }
 
+    @Test
+    public void testBase() {
+        BaseTest t = new BusUtilsTest();
+        BusUtils.register(t);
+        BusUtils.post("base", 1);
+        BusUtils.unregister(t);
+    }
+
     public interface Callback {
         String call();
     }

@@ -11,15 +11,15 @@ class Config {
     static applicationId = 'com.blankj.androidutilcode'
     static appName = 'Util'
 
-    static compileSdkVersion = 27
+    static compileSdkVersion = 28
     static minSdkVersion = 14
-    static targetSdkVersion = 27
-    static versionCode = 1_025_003
-    static versionName = '1.25.3'// E.g. 1.9.72 => 1,009,072
+    static targetSdkVersion = 28
+    static versionCode = 1_025_004
+    static versionName = '1.25.4'// E.g. 1.9.72 => 1,009,072
 
     // lib version
     static kotlin_version = '1.3.10'
-    static support_version = '27.1.1'
+    static support_version = '28.0.0'
     static leakcanary_version = '1.6.3'
 
     // appConfig 配置的是可以跑 app 的模块，git 提交务必只包含 launcher

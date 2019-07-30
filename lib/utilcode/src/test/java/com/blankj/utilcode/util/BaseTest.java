@@ -24,6 +24,11 @@ import java.util.concurrent.Executor;
 @Config(manifest = Config.NONE, shadows = {ShadowLog.class})
 public class BaseTest {
 
+    @BusUtils.Bus(tag = "base")
+    public void noParamFun(int i) {
+        System.out.println("base" + i);
+    }
+
     public BaseTest() {
         ShadowLog.stream = System.out;
         ThreadUtils.setDeliver(new Executor() {
@@ -33,6 +38,8 @@ public class BaseTest {
             }
         });
         Utils.init(RuntimeEnvironment.application);
+        ReflectUtils getInstance = ReflectUtils.reflect(BusUtils.class).method("getInstance");
+        getInstance.method("registerBus", "base", BaseTest.class.getName(), "noParamFun", "int", "i", false, "POSTING");
     }
 
     @Test

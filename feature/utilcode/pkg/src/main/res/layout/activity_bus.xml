@@ -34,6 +34,13 @@
         android:text="@string/bus_post" />
 
     <Button
+        android:id="@+id/busPostBasicType"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bus_post_basic_type" />
+
+    <Button
         android:id="@+id/busPostSticky"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"

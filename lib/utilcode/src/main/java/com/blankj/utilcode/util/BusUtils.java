@@ -8,10 +8,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
@@ -27,8 +31,10 @@ public final class BusUtils {
     private static final Object NULL = "nULl";
     private static final String TAG  = "BusUtils";
 
+    private final Map<String, BusInfo> mTag_BusInfoMap = new HashMap<>();
+
     private final Map<String, Set<Object>>         mClassName_BusesMap          = new ConcurrentHashMap<>();
-    private final Map<String, BusInfo>             mTag_BusInfoMap              = new HashMap<>();
+    private final Map<String, List<String>>        mClassName_TagsMap           = new HashMap<>();
     private final Map<String, Map<String, Object>> mClassName_Tag_Arg4StickyMap = new ConcurrentHashMap<>();
 
     private BusUtils() {
@@ -90,7 +96,8 @@ public final class BusUtils {
 
     private void registerInner(final Object bus) {
         if (bus == null) return;
-        String className = bus.getClass().getName();
+        Class aClass = bus.getClass();
+        String className = aClass.getName();
         synchronized (mClassName_BusesMap) {
             Set<Object> buses = mClassName_BusesMap.get(className);
             if (buses == null) {
@@ -98,6 +105,27 @@ public final class BusUtils {
                 mClassName_BusesMap.put(className, buses);
             }
             buses.add(bus);
+        }
+        List<String> tags = mClassName_TagsMap.get(className);
+        if (tags == null) {
+            synchronized (mClassName_TagsMap) {
+                tags = mClassName_TagsMap.get(className);
+                if (tags == null) {
+                    tags = new ArrayList<>();
+                    for (Map.Entry<String, BusInfo> entry : mTag_BusInfoMap.entrySet()) {
+                        BusInfo value = entry.getValue();
+                        try {
+                            if (Class.forName(value.className).isAssignableFrom(aClass)) {
+                                tags.add(entry.getKey());
+                                value.classNames.add(className);
+                            }
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    mClassName_TagsMap.put(className, tags);
+                }
+            }
         }
         processSticky(bus);
     }
@@ -150,7 +178,7 @@ public final class BusUtils {
             if ("".equals(busInfo.paramType)) {
                 return Class.forName(busInfo.className).getDeclaredMethod(busInfo.funName);
             } else {
-                return Class.forName(busInfo.className).getDeclaredMethod(busInfo.funName, Class.forName(busInfo.paramType));
+                return Class.forName(busInfo.className).getDeclaredMethod(busInfo.funName, getClassName(busInfo.paramType));
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -158,6 +186,29 @@ public final class BusUtils {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private Class getClassName(String paramType) throws ClassNotFoundException {
+        switch (paramType) {
+            case "boolean":
+                return boolean.class;
+            case "int":
+                return int.class;
+            case "long":
+                return long.class;
+            case "short":
+                return short.class;
+            case "byte":
+                return byte.class;
+            case "double":
+                return double.class;
+            case "float":
+                return float.class;
+            case "char":
+                return char.class;
+            default:
+                return Class.forName(paramType);
+        }
     }
 
     private void invokeMethod(final String tag, final Object arg, final BusInfo busInfo, final boolean sticky) {
@@ -189,8 +240,14 @@ public final class BusUtils {
     }
 
     private void realInvokeMethod(final String tag, Object arg, BusInfo busInfo, boolean sticky) {
-        Set<Object> buses = mClassName_BusesMap.get(busInfo.className);
-        if (buses == null || buses.size() == 0) {
+        Set<Object> buses = new HashSet<>();
+        for (String className : busInfo.classNames) {
+            Set<Object> subBuses = mClassName_BusesMap.get(className);
+            if (subBuses != null && !subBuses.isEmpty()) {
+                buses.addAll(subBuses);
+            }
+        }
+        if (buses.size() == 0) {
             if (!sticky) {
                 Log.e(TAG, "The bus of tag <" + tag + "> was not registered before.");
                 return;
@@ -258,13 +315,14 @@ public final class BusUtils {
 
     private static final class BusInfo {
 
-        String  className;
-        String  funName;
-        String  paramType;
-        String  paramName;
-        boolean sticky;
-        String  threadMode;
-        Method  method;
+        String       className;
+        String       funName;
+        String       paramType;
+        String       paramName;
+        boolean      sticky;
+        String       threadMode;
+        Method       method;
+        List<String> classNames;
 
         BusInfo(String className, String funName, String paramType, String paramName,
                 boolean sticky, String threadMode) {
@@ -274,6 +332,7 @@ public final class BusUtils {
             this.paramName = paramName;
             this.sticky = sticky;
             this.threadMode = threadMode;
+            this.classNames = new CopyOnWriteArrayList<>();
         }
 
         @Override

@@ -140,6 +140,7 @@
     <string name="bus_register">Register</string>
     <string name="bus_unregister">Unregister</string>
     <string name="bus_post">Post</string>
+    <string name="bus_post_basic_type">Post Basic Type</string>
     <string name="bus_post_sticky">Post Sticky</string>
     <string name="bus_post_to_io_thread">Post To IO Thread</string>
     <string name="bus_remove_sticky">Remove Sticky</string>

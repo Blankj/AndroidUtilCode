@@ -9,12 +9,11 @@ import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.blankj.base.rv.BaseAdapter
-import com.blankj.base.rv.BaseCell
-import com.blankj.base.rv.BaseViewHolder
+import com.blankj.base.rv.BaseItem
+import com.blankj.base.rv.BaseItemAdapter
+import com.blankj.base.rv.ItemViewHolder
 import com.blankj.common.CommonTaskActivity
 import com.blankj.utilcode.pkg.Config
 import com.blankj.utilcode.pkg.R
@@ -31,7 +30,7 @@ import kotlinx.android.synthetic.main.activity_image.*
  * desc  : demo about ImageUtils
  * ```
  */
-class ImageActivity : CommonTaskActivity<List<BaseCell>>() {
+class ImageActivity : CommonTaskActivity<List<ImageCell>>() {
 
     companion object {
         fun start(context: Context) {
@@ -42,7 +41,7 @@ class ImageActivity : CommonTaskActivity<List<BaseCell>>() {
 
     private lateinit var src: Bitmap
 
-    override fun doInBackground(): List<BaseCell> {
+    override fun doInBackground(): List<ImageCell> {
         src = ImageUtils.getBitmap(R.drawable.image_lena)
         val round = ImageUtils.getBitmap(R.drawable.main_avatar_round)
         val watermark = ImageUtils.getBitmap(R.mipmap.ic_launcher)
@@ -50,8 +49,8 @@ class ImageActivity : CommonTaskActivity<List<BaseCell>>() {
         val width = src.width
         val height = src.height
 
-        return ArrayList<BaseCell>().apply {
-            add(HeaderCell(src))
+        return ArrayList<ImageCell>().apply {
+            add(ImageCell(src))
             add(ImageCell(R.string.image_src, src))
             add(ImageCell(R.string.image_add_color, ImageUtils.drawColor(src, Color.parseColor("#8000FF00"))))
             add(ImageCell(R.string.image_scale, ImageUtils.scale(src, width / 2, height / 2)))
@@ -80,9 +79,10 @@ class ImageActivity : CommonTaskActivity<List<BaseCell>>() {
         }
     }
 
-    override fun runOnUiThread(data: List<BaseCell>) {
-        val imageAdapter = BaseAdapter<BaseCell>()
-        imageAdapter.data = data
+    override fun runOnUiThread(data: List<ImageCell>) {
+        val imageAdapter = BaseItemAdapter<ImageCell>()
+        imageAdapter.setHasStableIds(true)
+        imageAdapter.items = data
         imageRv.adapter = imageAdapter
         imageRv.layoutManager = LinearLayoutManager(this@ImageActivity)
     }
@@ -105,20 +105,33 @@ class ImageActivity : CommonTaskActivity<List<BaseCell>>() {
     override fun onDebouncingClick(view: View) {}
 }
 
-class ImageCell(@StringRes val resId: Int, private val image: Bitmap) : BaseCell(R.layout.item_image) {
+class ImageCell : BaseItem<ImageCell> {
 
-    override fun bind(holder: BaseViewHolder, position: Int) {
-        holder.findViewById<TextView>(R.id.imageItemNameTv).text = StringUtils.getString(resId)
-        holder.findViewById<ImageView>(R.id.imageItemIv).setImageBitmap(image)
+    private lateinit var mSrc: Bitmap
+    private var mResId: Int = 0
+    private lateinit var mImage: Bitmap
+
+    constructor(src: Bitmap) : super(R.layout.item_image_header) {
+        mSrc = src
     }
-}
 
-class HeaderCell(private val src: Bitmap) : BaseCell(R.layout.item_image_header) {
+    constructor(@StringRes resId: Int, image: Bitmap) : super(R.layout.item_image) {
+        mResId = resId
+        mImage = image
+    }
 
-    override fun bind(holder: BaseViewHolder, position: Int) {
-        holder.findViewById<Button>(R.id.imageSaveBtn).setOnClickListener {
-            val save = ImageUtils.save(src, Config.CACHE_PATH + "lena.jpg", Bitmap.CompressFormat.JPEG)
-            ToastUtils.showLong(if (save) "successful" else "failed")
+    override fun bind(holder: ItemViewHolder, position: Int) {
+        if (isViewType(R.layout.item_image_header)) {
+            holder.setOnClickListener(R.id.imageSaveBtn) {
+                val save = ImageUtils.save(mSrc, Config.CACHE_PATH + "lena.jpg", Bitmap.CompressFormat.JPEG)
+                ToastUtils.showLong(if (save) "successful" else "failed")
+            }
+            return
+        }
+        if (isViewType(R.layout.item_image)) {
+            holder.findViewById<TextView>(R.id.imageItemNameTv).text = StringUtils.getString(mResId)
+            holder.findViewById<ImageView>(R.id.imageItemIv).setImageBitmap(mImage)
+            return
         }
     }
 }

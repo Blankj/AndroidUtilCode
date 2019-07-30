@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 
+import java.util.List;
+
 /**
  * <pre>
  *     author: Blankj
@@ -13,11 +15,11 @@ import android.view.View;
  *     desc  :
  * </pre>
  */
-public class BaseViewHolder extends RecyclerView.ViewHolder {
+public class ItemViewHolder extends RecyclerView.ViewHolder {
 
     private SparseArray<View> viewArray = new SparseArray<>();
 
-    public BaseViewHolder(View itemView) {
+    public ItemViewHolder(View itemView) {
         super(itemView);
     }
 
@@ -29,5 +31,13 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
             viewArray.put(viewId, view);
         }
         return (T) view;
+    }
+
+    public void setOnClickListener(@IdRes final int viewId, View.OnClickListener listener) {
+        findViewById(viewId).setOnClickListener(listener);
+    }
+
+    public void setOnLongClickListener(@IdRes final int viewId, View.OnLongClickListener listener) {
+        findViewById(viewId).setOnLongClickListener(listener);
     }
 }
