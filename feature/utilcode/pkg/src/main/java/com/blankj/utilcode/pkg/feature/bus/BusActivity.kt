@@ -5,11 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.Keep
-import com.blankj.lib.common.CommonTitleActivity
+import com.blankj.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BusUtils
 import com.blankj.utilcode.util.Utils
 import kotlinx.android.synthetic.main.activity_bus.*
+import kotlin.random.Random
 
 /**
  * ```
@@ -20,6 +21,11 @@ import kotlinx.android.synthetic.main.activity_bus.*
  * ```
  */
 class BusActivity : CommonTitleActivity() {
+
+    @BusUtils.Bus(tag = TAG_BASIC_TYPE)
+    fun test(param: Int) {
+        busAboutTv.text = param.toString()
+    }
 
     @BusUtils.Bus(tag = TAG_BUS)
     fun test(param: String) {
@@ -40,6 +46,7 @@ class BusActivity : CommonTitleActivity() {
     }
 
     companion object {
+        const val TAG_BASIC_TYPE = "tag_basic_type"
         const val TAG_BUS = "tag_bus"
         const val TAG_STICKY_BUS = "tag_sticky_bus"
         const val TAG_IO = "tag_io"
@@ -65,6 +72,7 @@ class BusActivity : CommonTitleActivity() {
                 busRegister,
                 busUnregister,
                 busPost,
+                busPostBasicType,
                 busPostSticky,
                 busPost2IoThread,
                 busRemoveSticky,
@@ -87,6 +95,9 @@ class BusActivity : CommonTitleActivity() {
             }
             R.id.busPost -> {
                 BusUtils.post(TAG_BUS, TAG_BUS)
+            }
+            R.id.busPostBasicType -> {
+                BusUtils.post(TAG_BASIC_TYPE, Random(System.currentTimeMillis()).nextInt())
             }
             R.id.busPostSticky -> {
                 BusUtils.postSticky(TAG_STICKY_BUS, object : Callback {

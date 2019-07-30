@@ -1,3 +1,4 @@
+* `19/07/29` [fix] BusUtils post father class useless. KeyboardUtils#hideSoft bug. Publish v1.25.4.
 * `19/07/28` [add] NetworkUtils#(un)registerNetworkStatusChangedListener. Publish v1.25.3.
 * `19/07/27` [fix] ThreadUtils memory leak.
 * `19/07/26` [add] ContainerUtils. Publish v1.25.2.

@@ -27,13 +27,6 @@ import androidx.annotation.StringRes;
 import androidx.core.app.NotificationManagerCompat;
 
 import java.lang.reflect.Field;
-import java.nio.ByteBuffer;
-import java.nio.channels.AsynchronousFileChannel;
-import java.nio.channels.CompletionHandler;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.concurrent.Future;
 
 /**
  * <pre>
@@ -455,6 +448,16 @@ public final class ToastUtils {
 
         @Override
         public void show() {
+            Utils.runOnUiThreadDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    realShow();
+                }
+            }, 300);
+        }
+
+        private void realShow() {
+            if (mToast == null) return;
             mView = mToast.getView();
             if (mView == null) return;
             final Context context = mToast.getView().getContext();

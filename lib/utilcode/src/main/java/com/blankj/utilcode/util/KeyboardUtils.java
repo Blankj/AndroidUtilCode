@@ -88,14 +88,15 @@ public final class KeyboardUtils {
     public static void hideSoftInput(@NonNull final Activity activity) {
         View view = activity.getCurrentFocus();
         if (view == null) {
-            View focusView = activity.getWindow().getDecorView().findViewWithTag("keyboardTagView");
+            View decorView = activity.getWindow().getDecorView();
+            View focusView = decorView.findViewWithTag("keyboardTagView");
             if (focusView == null) {
                 view = new EditText(activity);
                 view.setTag("keyboardTagView");
+                ((ViewGroup) decorView).addView(view, 0, 0);
             } else {
                 view = focusView;
             }
-            ((ViewGroup) activity.getWindow().getDecorView()).addView(view, 0, 0);
             view.requestFocus();
         }
         hideSoftInput(view);

@@ -84,6 +84,7 @@ public class BusClassVisitor extends ClassVisitor {
                     if ("this".equals(name)) {
                         return;
                     }
+                    System.out.println("funParamDesc: " + funParamDesc + ", desc: " + desc);
                     funParamDesc = funParamDesc.substring(desc.length());// 每次去除参数直到为 ""，那么之后的就不是参数了
                     busInfo.paramsInfo.add(new BusInfo.ParamsInfo(Type.getType(desc).getClassName(), name));
                     if (busInfo.isParamSizeNoMoreThanOne && busInfo.paramsInfo.size() > 1) {

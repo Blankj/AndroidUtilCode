@@ -1183,7 +1183,7 @@ public final class ThreadUtils {
                         @Override
                         public void run() {
                             onSuccess(result);
-                            cancelTimerTask(Task.this);
+                            removeTask(Task.this);
                         }
                     });
                 }
@@ -1197,7 +1197,7 @@ public final class ThreadUtils {
                     @Override
                     public void run() {
                         onFail(throwable);
-                        cancelTimerTask(Task.this);
+                        removeTask(Task.this);
                     }
                 });
             }
@@ -1223,7 +1223,7 @@ public final class ThreadUtils {
                 @Override
                 public void run() {
                     onCancel();
-                    cancelTimerTask(Task.this);
+                    removeTask(Task.this);
                 }
             });
         }
@@ -1267,11 +1267,8 @@ public final class ThreadUtils {
         return sDeliver;
     }
 
-    private static void cancelTimerTask(final Task task) {
-        TaskInfo timerTask = TASK_TASKINFO_MAP.get(task);
-        if (timerTask != null) {
-            TASK_TASKINFO_MAP.remove(task);
-        }
+    private static void removeTask(final Task task) {
+        TASK_TASKINFO_MAP.remove(task);
     }
 
     private static class TaskInfo {
