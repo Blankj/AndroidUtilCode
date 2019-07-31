@@ -128,7 +128,7 @@ class NetworkActivity : CommonTitleActivity(), NetworkUtils.OnNetworkStatusChang
 
     override fun onDestroy() {
         task.cancel()
-        NetworkUtils.unregisterOnNetworkChangedListener(this)
+        NetworkUtils.unregisterNetworkStatusChangedListener(this)
         super.onDestroy()
     }
 }

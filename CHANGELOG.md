@@ -1,3 +1,5 @@
+* `19/07/31` [add] DeviceUtils#getUniqueDeviceId, DeviceUtils#isSameDevice. Publish v1.25.5.
+* `19/07/30` [fix] ThreadUtils's task can only be executed once. PhoneUtils#getIMEI wrong.
 * `19/07/29` [fix] BusUtils post father class useless. KeyboardUtils#hideSoft bug. Publish v1.25.4.
 * `19/07/28` [add] NetworkUtils#(un)registerNetworkStatusChangedListener. Publish v1.25.3.
 * `19/07/27` [fix] ThreadUtils memory leak.

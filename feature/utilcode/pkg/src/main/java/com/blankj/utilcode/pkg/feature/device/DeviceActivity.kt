@@ -57,7 +57,9 @@ class DeviceActivity : CommonTitleActivity() {
                 .appendLine("getModel: " + DeviceUtils.getModel())
                 .appendLine("getABIs: " + Arrays.asList(*DeviceUtils.getABIs()))
                 .appendLine("isTablet: " + DeviceUtils.isTablet())
-                .append("isEmulator: " + DeviceUtils.isEmulator())
+                .appendLine("isEmulator: " + DeviceUtils.isEmulator())
+                .appendLine("getUniqueDeviceId: " + DeviceUtils.getUniqueDeviceId("util"))
+                .appendLine("isSameDevice: " + DeviceUtils.isSameDevice(DeviceUtils.getUniqueDeviceId()))
                 .create()
     }
 

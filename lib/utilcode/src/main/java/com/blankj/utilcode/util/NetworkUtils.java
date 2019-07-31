@@ -657,7 +657,7 @@ public final class NetworkUtils {
      *
      * @param listener The status of network changed listener
      */
-    public static void unregisterOnNetworkChangedListener(OnNetworkStatusChangedListener listener) {
+    public static void unregisterNetworkStatusChangedListener(OnNetworkStatusChangedListener listener) {
         NetworkChangedReceiver.getInstance().unregisterListener(listener);
     }
 

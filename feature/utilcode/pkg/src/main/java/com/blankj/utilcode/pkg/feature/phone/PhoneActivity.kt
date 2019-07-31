@@ -50,6 +50,7 @@ class PhoneActivity : CommonTitleActivity() {
         SpanUtils.with(phoneAboutTv)
                 .appendLine("isPhone: " + PhoneUtils.isPhone())
                 .appendLine("getDeviceId: " + PhoneUtils.getDeviceId())
+                .appendLine("getSerial: " + PhoneUtils.getSerial())
                 .appendLine("getIMEI: " + PhoneUtils.getIMEI())
                 .appendLine("getMEID: " + PhoneUtils.getMEID())
                 .appendLine("getIMSI: " + PhoneUtils.getIMSI())

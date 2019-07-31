@@ -1519,7 +1519,7 @@ public final class FragmentUtils {
      * @return the top fragment
      */
     public static Fragment getTop(@NonNull final FragmentManager fm) {
-        return getTopIsInStack(fm, false);
+        return getTopIsInStack(fm, null, false);
     }
 
     /**
@@ -1529,10 +1529,11 @@ public final class FragmentUtils {
      * @return the top fragment in stack
      */
     public static Fragment getTopInStack(@NonNull final FragmentManager fm) {
-        return getTopIsInStack(fm, true);
+        return getTopIsInStack(fm, null, true);
     }
 
     private static Fragment getTopIsInStack(@NonNull final FragmentManager fm,
+                                            Fragment parentFragment,
                                             final boolean isInStack) {
         List<Fragment> fragments = getFragments(fm);
         for (int i = fragments.size() - 1; i >= 0; --i) {
@@ -1541,10 +1542,10 @@ public final class FragmentUtils {
                 if (isInStack) {
                     Bundle args = fragment.getArguments();
                     if (args != null && args.getBoolean(ARGS_IS_ADD_STACK)) {
-                        return fragment;
+                        return getTopIsInStack(fragment.getChildFragmentManager(), parentFragment, true);
                     }
                 } else {
-                    return fragment;
+                    return getTopIsInStack(fragment.getChildFragmentManager(), parentFragment, false);
                 }
             }
         }
@@ -1558,7 +1559,7 @@ public final class FragmentUtils {
      * @return the top fragment which is shown
      */
     public static Fragment getTopShow(@NonNull final FragmentManager fm) {
-        return getTopShowIsInStack(fm, false);
+        return getTopShowIsInStack(fm, null, false);
     }
 
     /**
@@ -1568,10 +1569,11 @@ public final class FragmentUtils {
      * @return the top fragment which is shown in stack
      */
     public static Fragment getTopShowInStack(@NonNull final FragmentManager fm) {
-        return getTopShowIsInStack(fm, true);
+        return getTopShowIsInStack(fm, null, true);
     }
 
     private static Fragment getTopShowIsInStack(@NonNull final FragmentManager fm,
+                                                Fragment parentFragment,
                                                 final boolean isInStack) {
         List<Fragment> fragments = getFragments(fm);
         for (int i = fragments.size() - 1; i >= 0; --i) {
@@ -1583,14 +1585,14 @@ public final class FragmentUtils {
                 if (isInStack) {
                     Bundle args = fragment.getArguments();
                     if (args != null && args.getBoolean(ARGS_IS_ADD_STACK)) {
-                        return fragment;
+                        return getTopShowIsInStack(fragment.getChildFragmentManager(), fragment, true);
                     }
                 } else {
-                    return fragment;
+                    return getTopShowIsInStack(fragment.getChildFragmentManager(), fragment, false);
                 }
             }
         }
-        return null;
+        return parentFragment;
     }
 
     /**

@@ -90,11 +90,11 @@ public class LanguageUtils {
                                       final String activityClassName,
                                       final boolean isFollowSystem) {
         if (isFollowSystem) {
-            SPUtils.getInstance().put(KEY_LOCALE, VALUE_FOLLOW_SYSTEM);
+            Utils.getSpUtils4Utils().put(KEY_LOCALE, VALUE_FOLLOW_SYSTEM);
         } else {
             String localLanguage = locale.getLanguage();
             String localCountry = locale.getCountry();
-            SPUtils.getInstance().put(KEY_LOCALE, localLanguage + "$" + localCountry);
+            Utils.getSpUtils4Utils().put(KEY_LOCALE, localLanguage + "$" + localCountry);
         }
 
         updateLanguage(Utils.getApp(), locale);
@@ -111,7 +111,7 @@ public class LanguageUtils {
     }
 
     static void applyLanguage(@NonNull final Activity activity) {
-        final String spLocale = SPUtils.getInstance().getString(KEY_LOCALE);
+        final String spLocale = Utils.getSpUtils4Utils().getString(KEY_LOCALE);
         if (TextUtils.isEmpty(spLocale)) {
             return;
         }
