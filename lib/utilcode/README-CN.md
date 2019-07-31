@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.25.4'
+implementation 'com.blankj:utilcode:1.25.5'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.25.4'
+implementation 'com.blankj:utilcodex:1.25.5'
 ```
 
 
@@ -295,6 +295,8 @@ getModel         : 获取设备型号
 getABIs          : 获取设备 ABIs
 isTablet         : 判断是否是平板
 isEmulator       : 判断是否是模拟器
+getUniqueDeviceId: 获取唯一设备 ID
+isSameDevice     : 判断是否同一设备
 ```
 
 * ### 闪光灯相关 -> [FlashlightUtils.java][flashlight.java] -> [Demo][flashlight.demo]
@@ -546,26 +548,28 @@ getMetaDataInReceiver: 获取 receiver 的 meta-data 值
 
 * ### 网络相关 -> [NetworkUtils.java][network.java] -> [Demo][network.demo]
 ```
-openWirelessSettings    : 打开网络设置界面
-isConnected             : 判断网络是否连接
-isAvailable[Async]      : 判断网络是否可用
-isAvailableByPing[Async]: 用 ping 判断网络是否可用
-isAvailableByDns[Async] : 用 DNS 判断网络是否可用
-getMobileDataEnabled    : 判断移动数据是否打开
-isMobileData            : 判断网络是否是移动数据
-is4G                    : 判断网络是否是 4G
-getWifiEnabled          : 判断 wifi 是否打开
-setWifiEnabled          : 打开或关闭 wifi
-isWifiConnected         : 判断 wifi 是否连接状态
-isWifiAvailable[Async]  : 判断 wifi 数据是否可用
-getNetworkOperatorName  : 获取移动网络运营商名称
-getNetworkType          : 获取当前网络类型
-getIPAddress[Async]     : 获取 IP 地址
-getDomainAddress[Async] : 获取域名 IP 地址
-getIpAddressByWifi      : 根据 WiFi 获取网络 IP 地址
-getGatewayByWifi        : 根据 WiFi 获取网关 IP 地址
-getNetMaskByWifi        : 根据 WiFi 获取子网掩码 IP 地址
-getServerAddressByWifi  : 根据 WiFi 获取服务端 IP 地址
+openWirelessSettings                  : 打开网络设置界面
+isConnected                           : 判断网络是否连接
+isAvailable[Async]                    : 判断网络是否可用
+isAvailableByPing[Async]              : 用 ping 判断网络是否可用
+isAvailableByDns[Async]               : 用 DNS 判断网络是否可用
+getMobileDataEnabled                  : 判断移动数据是否打开
+isMobileData                          : 判断网络是否是移动数据
+is4G                                  : 判断网络是否是 4G
+getWifiEnabled                        : 判断 wifi 是否打开
+setWifiEnabled                        : 打开或关闭 wifi
+isWifiConnected                       : 判断 wifi 是否连接状态
+isWifiAvailable[Async]                : 判断 wifi 数据是否可用
+getNetworkOperatorName                : 获取移动网络运营商名称
+getNetworkType                        : 获取当前网络类型
+getIPAddress[Async]                   : 获取 IP 地址
+getDomainAddress[Async]               : 获取域名 IP 地址
+getIpAddressByWifi                    : 根据 WiFi 获取网络 IP 地址
+getGatewayByWifi                      : 根据 WiFi 获取网关 IP 地址
+getNetMaskByWifi                      : 根据 WiFi 获取子网掩码 IP 地址
+getServerAddressByWifi                : 根据 WiFi 获取服务端 IP 地址
+registerNetworkStatusChangedListener  : 注册网络状态改变监听器
+unregisterNetworkStatusChangedListener: 注销网络状态改变监听器
 ```
 
 * ### 对象相关 -> [ObjectUtils.java][object.java] -> [Test][object.test]

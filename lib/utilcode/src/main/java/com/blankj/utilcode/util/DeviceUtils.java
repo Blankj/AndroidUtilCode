@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
-import android.os.Debug;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -21,9 +20,11 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
+import java.util.UUID;
 
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
 import static android.Manifest.permission.INTERNET;
+import static android.content.Context.WIFI_SERVICE;
 
 /**
  * <pre>
@@ -99,6 +100,7 @@ public final class DeviceUtils {
                 Utils.getApp().getContentResolver(),
                 Settings.Secure.ANDROID_ID
         );
+        if ("9774d56d682e549c".equals(id)) return "";
         return id == null ? "" : id;
     }
 
@@ -111,7 +113,25 @@ public final class DeviceUtils {
      */
     @RequiresPermission(allOf = {ACCESS_WIFI_STATE, INTERNET})
     public static String getMacAddress() {
+        String macAddress = getMacAddress((String[]) null);
+        if (!macAddress.equals("") || getWifiEnabled()) return macAddress;
+        setWifiEnabled(true);
+        setWifiEnabled(false);
         return getMacAddress((String[]) null);
+    }
+
+    private static boolean getWifiEnabled() {
+        @SuppressLint("WifiManagerLeak")
+        WifiManager manager = (WifiManager) Utils.getApp().getSystemService(WIFI_SERVICE);
+        if (manager == null) return false;
+        return manager.isWifiEnabled();
+    }
+
+    private static void setWifiEnabled(final boolean enabled) {
+        @SuppressLint("WifiManagerLeak")
+        WifiManager manager = (WifiManager) Utils.getApp().getSystemService(WIFI_SERVICE);
+        if (manager == null) return;
+        manager.setWifiEnabled(enabled);
     }
 
     /**
@@ -158,7 +178,7 @@ public final class DeviceUtils {
     private static String getMacAddressByWifiInfo() {
         try {
             final WifiManager wifi = (WifiManager) Utils.getApp()
-                    .getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                    .getApplicationContext().getSystemService(WIFI_SERVICE);
             if (wifi != null) {
                 final WifiInfo info = wifi.getConnectionInfo();
                 if (info != null) return info.getMacAddress();
@@ -316,16 +336,11 @@ public final class DeviceUtils {
                 || Build.FINGERPRINT.toLowerCase().contains("test-keys")
                 || Build.MODEL.contains("google_sdk")
                 || Build.MODEL.contains("Emulator")
-                || Build.SERIAL.equalsIgnoreCase("unknown")
-                || Build.SERIAL.equalsIgnoreCase("android")
                 || Build.MODEL.contains("Android SDK built for x86")
                 || Build.MANUFACTURER.contains("Genymotion")
                 || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
                 || "google_sdk".equals(Build.PRODUCT);
         if (checkProperty) return true;
-
-        boolean checkDebuggerConnected = Debug.isDebuggerConnected();
-        if (checkDebuggerConnected) return true;
 
         String operatorName = "";
         TelephonyManager tm = (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
@@ -342,46 +357,118 @@ public final class DeviceUtils {
         Intent intent = new Intent();
         intent.setData(Uri.parse(url));
         intent.setAction(Intent.ACTION_DIAL);
-        boolean checkDial = intent.resolveActivity(Utils.getApp().getPackageManager()) != null;
+        boolean checkDial = intent.resolveActivity(Utils.getApp().getPackageManager()) == null;
         if (checkDial) return true;
+
+//        boolean checkDebuggerConnected = Debug.isDebuggerConnected();
+//        if (checkDebuggerConnected) return true;
 
         return false;
     }
 
-//    protected static final String PREFS_FILE      = "device_id.xml";
-//    protected static final String PREFS_DEVICE_ID = "device_id";
-//
-//    protected static UUID uuid;
-//
-//    public static String getDeviceId() {
-//        if (uuid == null) {
-//            synchronized (DeviceUtils.class) {
-//                if (uuid == null) {
-//                    final SharedPreferences prefs = Utils.getApp().getSharedPreferences(PREFS_FILE, 0);
-//                    final String id = prefs.getString(PREFS_DEVICE_ID, null);
-//
-//                    if (id != null) {
-//                        // Use the ids previously computed and stored in the prefs file
-//                        uuid = UUID.fromString(id);
-//
-//                    } else {
-//                        final String androidId = Settings.Secure.getString(Utils.getApp().getContentResolver(), Settings.Secure.ANDROID_ID);
-//                        try {
-//                            if (!"9774d56d682e549c".equals(androidId)) {
-//                                uuid = UUID.nameUUIDFromBytes(androidId.getBytes());
-//                            } else {
-//                                final String deviceId = ((TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
-//                                uuid = deviceId != null ? UUID.nameUUIDFromBytes(deviceId.getBytes()) : UUID.randomUUID();
-//                            }
-//                        } catch (UnsupportedEncodingException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                        // Write the value out to the prefs file
-//                        prefs.edit().putString(PREFS_DEVICE_ID, uuid.toString()).commit();
-//                    }
-//
-//                }
-//            }
-//        }
-//    }
+
+    private static final    String KEY_UDID = "KEY_UDID";
+    private volatile static String udid;
+
+    /**
+     * Return the unique device id.
+     * <pre>{1}{UUID(macAddress)}</pre>
+     * <pre>{2}{UUID(deviceId  )}</pre>
+     * <pre>{3}{UUID(androidId )}</pre>
+     * <pre>{4}{UUID(random    )}</pre>
+     *
+     * @return the unique device id
+     */
+    @SuppressLint({"MissingPermission", "HardwareIds"})
+    public static String getUniqueDeviceId() {
+        return getUniqueDeviceId("");
+    }
+
+    /**
+     * Return the unique device id.
+     * <pre>{prefix}{1}{UUID(macAddress)}</pre>
+     * <pre>{prefix}{2}{UUID(deviceId  )}</pre>
+     * <pre>{prefix}{3}{UUID(androidId )}</pre>
+     * <pre>{prefix}{4}{UUID(random    )}</pre>
+     *
+     * @param prefix The prefix of the unique device id.
+     * @return the unique device id
+     */
+    @SuppressLint({"MissingPermission", "HardwareIds"})
+    public static String getUniqueDeviceId(String prefix) {
+        if (udid == null) {
+            synchronized (DeviceUtils.class) {
+                if (udid == null) {
+                    final String id = Utils.getSpUtils4Utils().getString(KEY_UDID, null);
+                    if (id != null) {
+                        udid = id;
+                        return udid;
+                    }
+                    try {
+                        String macAddress = getMacAddress();
+                        if (!macAddress.equals("")) {
+                            return saveUdid(prefix + 1, macAddress);
+                        }
+
+                        final String androidId = getAndroidID();
+                        if (!TextUtils.isEmpty(androidId)) {
+                            return saveUdid(prefix + 2, androidId);
+                        }
+
+                        final String deviceId = ((TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+                        if (!TextUtils.isEmpty(deviceId)) {
+                            return saveUdid(prefix + 3, deviceId);
+                        }
+
+                    } catch (Exception ignore) {/**/}
+                    return saveUdid(prefix + 4, "");
+                }
+            }
+        }
+        return udid;
+    }
+
+    @SuppressLint({"MissingPermission", "HardwareIds"})
+    public static boolean isSameDevice(final String uniqueDeviceId) {
+        // {prefix}{type}{32id}
+        if (TextUtils.isEmpty(uniqueDeviceId) && uniqueDeviceId.length() < 33) return false;
+        if (uniqueDeviceId.equals(udid)) return true;
+        final String cachedId = Utils.getSpUtils4Utils().getString(KEY_UDID, null);
+        if (uniqueDeviceId.equals(cachedId)) return true;
+        int st = uniqueDeviceId.length() - 33;
+        String type = uniqueDeviceId.substring(st, st + 1);
+        if (type.startsWith("1")) {
+            String macAddress = getMacAddress();
+            if (macAddress.equals("")) {
+                return false;
+            }
+            return uniqueDeviceId.substring(st + 1).equals(getUdid("", macAddress));
+        } else if (type.startsWith("2")) {
+            final String androidId = getAndroidID();
+            if (TextUtils.isEmpty(androidId)) {
+                return false;
+            }
+            return uniqueDeviceId.substring(st + 1).equals(getUdid("", androidId));
+        } else if (type.startsWith("3")) {
+            final String deviceId = ((TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+            if (TextUtils.isEmpty(deviceId)) {
+                return false;
+            }
+            return uniqueDeviceId.substring(st + 1).equals(getUdid("", deviceId));
+        }
+        return false;
+    }
+
+    private static String saveUdid(String prefix, String id) {
+        udid = getUdid(prefix, id);
+        SPUtils.getInstance().put(KEY_UDID, udid);
+        return udid;
+    }
+
+    private static String getUdid(String prefix, String id) {
+        if (id.equals("")) {
+            return prefix + UUID.randomUUID().toString().replace("-", "");
+        }
+        return prefix + UUID.nameUUIDFromBytes(id.getBytes()).toString().replace("-", "");
+    }
 }

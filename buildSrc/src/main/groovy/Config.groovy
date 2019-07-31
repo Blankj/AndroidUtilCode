@@ -15,8 +15,8 @@ class Config {
     static minSdkVersion = 14
 
     static targetSdkVersion = 28
-    static versionCode = 1_025_004
-    static versionName = '1.25.4'// E.g. 1.9.72 => 1,009,072
+    static versionCode = 1_025_005
+    static versionName = '1.25.5'// E.g. 1.9.72 => 1,009,072
 
     // lib version
     static kotlin_version = '1.3.10'

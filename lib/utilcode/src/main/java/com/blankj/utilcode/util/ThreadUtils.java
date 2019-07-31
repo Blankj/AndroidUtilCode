@@ -314,7 +314,7 @@ public final class ThreadUtils {
      * @param <T>  The type of the task's result.
      */
     public static <T> void executeBySingle(final Task<T> task) {
-        getPoolByTypeAndPriority(TYPE_SINGLE).execute(task);
+        execute(getPoolByTypeAndPriority(TYPE_SINGLE), task);
     }
 
     /**
@@ -902,42 +902,60 @@ public final class ThreadUtils {
         sDeliver = deliver;
     }
 
+    private static <T> void execute(final ExecutorService pool, final Task<T> task) {
+        execute(pool, task, 0, 0, null);
+    }
+
     private static <T> void executeWithDelay(final ExecutorService pool,
                                              final Task<T> task,
                                              final long delay,
                                              final TimeUnit unit) {
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                execute(pool, task, this);
-            }
-        };
-        TIMER.schedule(timerTask, unit.toMillis(delay));
+        execute(pool, task, delay, 0, unit);
     }
 
     private static <T> void executeAtFixedRate(final ExecutorService pool,
                                                final Task<T> task,
-                                               long initialDelay,
+                                               long delay,
                                                final long period,
                                                final TimeUnit unit) {
-        task.setSchedule(true);
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                execute(pool, task, this);
-            }
-        };
-        TIMER.scheduleAtFixedRate(timerTask, unit.toMillis(initialDelay), unit.toMillis(period));
-    }
-
-    private static <T> void execute(final ExecutorService pool, final Task<T> task) {
-        execute(pool, task, null);
+        execute(pool, task, delay, period, unit);
     }
 
     private static <T> void execute(final ExecutorService pool, final Task<T> task,
-                                    final TimerTask timerTask) {
-        pool.execute(task);
-        TASK_TASKINFO_MAP.put(task, new TaskInfo(timerTask, pool));
+                                    long delay, final long period, final TimeUnit unit) {
+        TaskInfo taskInfo;
+        synchronized (TASK_TASKINFO_MAP) {
+            if (TASK_TASKINFO_MAP.get(task) != null) {
+                Log.e("ThreadUtils", "Task can only be executed once.");
+                return;
+            }
+            taskInfo = new TaskInfo(pool);
+            TASK_TASKINFO_MAP.put(task, taskInfo);
+        }
+        if (period == 0) {
+            if (delay == 0) {
+                pool.execute(task);
+            } else {
+                TimerTask timerTask = new TimerTask() {
+                    @Override
+                    public void run() {
+                        pool.execute(task);
+                    }
+                };
+                taskInfo.mTimerTask = timerTask;
+                TIMER.schedule(timerTask, unit.toMillis(delay));
+            }
+        } else {
+            task.setSchedule(true);
+            TimerTask timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    pool.execute(task);
+                }
+            };
+            taskInfo.mTimerTask = timerTask;
+            TIMER.scheduleAtFixedRate(timerTask, unit.toMillis(delay), unit.toMillis(period));
+        }
     }
 
     private static ExecutorService getPoolByTypeAndPriority(final int type) {
@@ -1137,18 +1155,18 @@ public final class ThreadUtils {
     public abstract static class Task<T> implements Runnable {
 
         private static final int NEW         = 0;
-        private static final int COMPLETING  = 1;
-        private static final int CANCELLED   = 2;
-        private static final int EXCEPTIONAL = 3;
+        private static final int RUNNING     = 1;
+        private static final int EXCEPTIONAL = 2;
+        private static final int COMPLETING  = 3;
+        private static final int CANCELLED   = 4;
+        private static final int INTERRUPTED = 5;
 
-        private static final Object LOCK = "";
+        private final AtomicInteger state = new AtomicInteger(NEW);
 
-        private volatile int     state = NEW;
         private volatile boolean isSchedule;
         private volatile Thread  runner;
 
         private Executor deliver;
-
 
         public abstract T doInBackground() throws Throwable;
 
@@ -1158,19 +1176,23 @@ public final class ThreadUtils {
 
         public abstract void onFail(Throwable t);
 
-
         @Override
         public void run() {
-            if (state != NEW) return;
-            synchronized (LOCK) {
+            if (isSchedule) {
+                if (runner == null) {
+                    if (!state.compareAndSet(NEW, RUNNING)) return;
+                    runner = Thread.currentThread();
+                } else {
+                    if (state.get() != RUNNING) return;
+                }
+            } else {
+                if (!state.compareAndSet(NEW, RUNNING)) return;
                 runner = Thread.currentThread();
             }
             try {
                 final T result = doInBackground();
-
-                if (state != NEW) return;
-
                 if (isSchedule) {
+                    if (state.get() != RUNNING) return;
                     getDeliver().execute(new Runnable() {
                         @Override
                         public void run() {
@@ -1178,7 +1200,7 @@ public final class ThreadUtils {
                         }
                     });
                 } else {
-                    state = COMPLETING;
+                    if (!state.compareAndSet(RUNNING, COMPLETING)) return;
                     getDeliver().execute(new Runnable() {
                         @Override
                         public void run() {
@@ -1188,11 +1210,9 @@ public final class ThreadUtils {
                     });
                 }
             } catch (InterruptedException ignore) {
-
+                state.set(INTERRUPTED);
             } catch (final Throwable throwable) {
-                if (state != NEW) return;
-
-                state = EXCEPTIONAL;
+                if (!state.compareAndSet(RUNNING, EXCEPTIONAL)) return;
                 getDeliver().execute(new Runnable() {
                     @Override
                     public void run() {
@@ -1208,16 +1228,15 @@ public final class ThreadUtils {
         }
 
         public void cancel(boolean mayInterruptIfRunning) {
-            if (state != NEW) return;
+            synchronized (state) {
+                if (state.get() > RUNNING) return;
+                state.set(CANCELLED);
+            }
             if (mayInterruptIfRunning) {
-                synchronized (LOCK) {
-                    if (runner != null) {
-                        runner.interrupt();
-                    }
+                if (runner != null) {
+                    runner.interrupt();
                 }
             }
-
-            state = CANCELLED;
 
             getDeliver().execute(new Runnable() {
                 @Override
@@ -1229,11 +1248,11 @@ public final class ThreadUtils {
         }
 
         public boolean isCanceled() {
-            return state == CANCELLED;
+            return state.get() >= CANCELLED;
         }
 
         public boolean isDone() {
-            return state != NEW;
+            return state.get() > RUNNING;
         }
 
         public Task<T> setDeliver(Executor deliver) {
@@ -1275,8 +1294,7 @@ public final class ThreadUtils {
         private TimerTask       mTimerTask;
         private ExecutorService mService;
 
-        private TaskInfo(TimerTask timerTask, ExecutorService service) {
-            mTimerTask = timerTask;
+        private TaskInfo(ExecutorService service) {
             mService = service;
         }
     }
