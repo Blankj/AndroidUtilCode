@@ -279,11 +279,7 @@ public final class KeyboardUtils {
             if (ev.getAction() == MotionEvent.ACTION_DOWN) {
                 View v = getCurrentFocus();
                 if (isShouldHideKeyboard(v, ev)) {
-                    InputMethodManager imm =
-                            (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken(),
-                            InputMethodManager.HIDE_NOT_ALWAYS
-                    );
+                    KeyboardUtils.hideSoftInput(this);
                 }
             }
             return super.dispatchTouchEvent(ev);

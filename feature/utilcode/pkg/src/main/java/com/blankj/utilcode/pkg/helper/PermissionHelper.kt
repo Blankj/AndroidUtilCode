@@ -24,9 +24,9 @@ object PermissionHelper {
         request(listener, deniedListener, PermissionConstants.STORAGE)
     }
 
-    fun requestPhoneAndSms(listener: OnPermissionGrantedListener,
-                           deniedListener: OnPermissionDeniedListener) {
-        request(listener, deniedListener, PermissionConstants.PHONE, PermissionConstants.SMS)
+    fun requestPhone(listener: OnPermissionGrantedListener,
+                     deniedListener: OnPermissionDeniedListener) {
+        request(listener, deniedListener, PermissionConstants.PHONE)
     }
 
     private fun request(grantedListener: OnPermissionGrantedListener,

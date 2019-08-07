@@ -1,5 +1,8 @@
 # Change Log
 
+## v2.1
+支持 Tag 一对多，同 Tag 可设置事件优先级
+
 ## v2.0
 更改为 EventBus 模式
 

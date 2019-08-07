@@ -30,6 +30,7 @@ public abstract class CommonBackActivity extends BaseActivity {
             final SwipePanel swipeLayout = new SwipePanel(this);
             swipeLayout.setLeftDrawable(R.drawable.base_back);
             swipeLayout.setLeftEdgeSize(SizeUtils.dp2px(100));
+            swipeLayout.setLeftSwipeColor(getResources().getColor(R.color.colorPrimary));
             swipeLayout.wrapView(findViewById(android.R.id.content));
             swipeLayout.setOnFullSwipeListener(new SwipePanel.OnFullSwipeListener() {
                 @Override

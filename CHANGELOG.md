@@ -1,3 +1,6 @@
+* `19/08/08` [add] BusUtils#post tag support one-to-many. Publish v1.25.6.
+* `19/08/04` [add] ThreadUtils#Task support timeout.
+* `19/08/01` [upd] EncryptUtils#rsa.
 * `19/07/31` [add] DeviceUtils#getUniqueDeviceId, DeviceUtils#isSameDevice. Publish v1.25.5.
 * `19/07/30` [fix] ThreadUtils's task can only be executed once. PhoneUtils#getIMEI wrong.
 * `19/07/29` [fix] BusUtils post father class useless. KeyboardUtils#hideSoft bug. Publish v1.25.4.

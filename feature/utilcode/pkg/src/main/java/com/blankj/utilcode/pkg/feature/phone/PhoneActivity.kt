@@ -23,7 +23,7 @@ class PhoneActivity : CommonTitleActivity() {
 
     companion object {
         fun start(context: Context) {
-            PermissionHelper.requestPhoneAndSms(object : PermissionHelper.OnPermissionGrantedListener {
+            PermissionHelper.requestPhone(object : PermissionHelper.OnPermissionGrantedListener {
                 override fun onPermissionGranted() {
                     val starter = Intent(context, PhoneActivity::class.java)
                     context.startActivity(starter)
@@ -64,8 +64,7 @@ class PhoneActivity : CommonTitleActivity() {
         applyDebouncingClickListener(
                 phoneDialBtn,
                 phoneCallBtn,
-                phoneSendSmsBtn,
-                phoneSendSmsSilentBtn
+                phoneSendSmsBtn
         )
     }
 
@@ -76,7 +75,6 @@ class PhoneActivity : CommonTitleActivity() {
             R.id.phoneDialBtn -> PhoneUtils.dial("10000")
             R.id.phoneCallBtn -> PhoneUtils.call("10000")
             R.id.phoneSendSmsBtn -> PhoneUtils.sendSms("10000", "sendSms")
-            R.id.phoneSendSmsSilentBtn -> PhoneUtils.sendSmsSilent("10000", "sendSmsSilent")
         }
     }
 }

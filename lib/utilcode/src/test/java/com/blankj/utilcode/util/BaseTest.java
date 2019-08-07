@@ -38,8 +38,6 @@ public class BaseTest {
             }
         });
         Utils.init(RuntimeEnvironment.application);
-        ReflectUtils getInstance = ReflectUtils.reflect(BusUtils.class).method("getInstance");
-        getInstance.method("registerBus", "base", BaseTest.class.getName(), "noParamFun", "int", "i", false, "POSTING");
     }
 
     @Test

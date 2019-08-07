@@ -24,7 +24,7 @@ class DangerousActivity : CommonTitleActivity() {
 
     companion object {
         fun start(context: Context) {
-            PermissionHelper.requestStorage(object : PermissionHelper.OnPermissionGrantedListener {
+            PermissionHelper.requestStorageAndSms(object : PermissionHelper.OnPermissionGrantedListener {
                 override fun onPermissionGranted() {
                     val starter = Intent(context, DangerousActivity::class.java)
                     context.startActivity(starter)
@@ -64,7 +64,8 @@ class DangerousActivity : CommonTitleActivity() {
                 dangerousShutdownBtn,
                 dangerousRebootBtn,
                 dangerousReboot2RecoveryBtn,
-                dangerousReboot2BootloaderBtn
+                dangerousReboot2BootloaderBtn,
+                dangerousSendSmsSilentBtn
         )
 
         if (AppUtils.isAppSystem()) {
@@ -111,6 +112,8 @@ class DangerousActivity : CommonTitleActivity() {
             R.id.dangerousRebootBtn -> DangerousUtils.reboot()
             R.id.dangerousReboot2RecoveryBtn -> DangerousUtils.reboot2Recovery()
             R.id.dangerousReboot2BootloaderBtn -> DangerousUtils.reboot2Bootloader()
+            R.id.dangerousReboot2BootloaderBtn -> DangerousUtils.reboot2Bootloader()
+            R.id.dangerousSendSmsSilentBtn -> DangerousUtils.sendSmsSilent("10000", "sendSmsSilent")
         }
     }
 }

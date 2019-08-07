@@ -101,22 +101,32 @@ class BusTransform extends Transform {
             if (busScan.busMap.isEmpty()) {
                 LogUtils.l("no bus.")
             } else {
-                Map<String, String> rightBus = [:]
-                Map wrongBus = [:]
                 busScan.busMap.each { String tag, List<BusInfo> infoList ->
-                    if (infoList.size() == 1) {
-                        BusInfo busInfo = infoList.get(0)
-                        if (busInfo.isParamSizeNoMoreThanOne) {
-                            rightBus.put(tag, busInfo.toString())
+                    infoList.sort(new Comparator<BusInfo>() {
+                        @Override
+                        int compare(BusInfo t0, BusInfo t1) {
+                            return t1.priority - t0.priority
+                        }
+                    })
+                }
+
+                Map<String, List<String>> rightBus = [:]
+                Map<String, List<String>> wrongBus = [:]
+                busScan.busMap.each { String tag, List<BusInfo> infoList ->
+                    List<String> rightInfoString = []
+                    List<String> wrongInfoString = []
+                    infoList.each { BusInfo info ->
+                        if (info.isParamSizeNoMoreThanOne) {
+                            rightInfoString.add(info.toString())
                         } else {
-                            wrongBus.put(tag, busInfo.toString())
+                            wrongInfoString.add(info.toString())
                         }
-                    } else {
-                        List<String> infoString = []
-                        infoList.each { BusInfo info ->
-                            infoString.add(info.toString())
-                        }
-                        wrongBus.put(tag, infoString)
+                    }
+                    if (!rightInfoString.isEmpty()) {
+                        rightBus.put(tag, rightInfoString)
+                    }
+                    if (!wrongInfoString.isEmpty()) {
+                        wrongBus.put(tag, wrongInfoString)
                     }
                 }
                 Map busDetails = [:]

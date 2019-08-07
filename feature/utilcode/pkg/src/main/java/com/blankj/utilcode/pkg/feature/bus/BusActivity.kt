@@ -1,5 +1,6 @@
 package com.blankj.utilcode.pkg.feature.bus
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -30,6 +31,14 @@ class BusActivity : CommonTitleActivity() {
     @BusUtils.Bus(tag = TAG_BUS)
     fun test(param: String) {
         busAboutTv.text = param
+    }
+
+    @SuppressLint("SetTextI18n")
+    @BusUtils.Bus(tag = TAG_BUS, priority = 1)
+    fun testSameTag(param: String) {
+        if (busAboutTv.text.toString().equals(TAG_BUS)) {
+            busAboutTv.text = "${busAboutTv.text} * 2"
+        }
     }
 
     @BusUtils.Bus(tag = TAG_STICKY_BUS, sticky = true)
