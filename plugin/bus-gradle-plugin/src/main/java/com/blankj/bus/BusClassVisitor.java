@@ -62,6 +62,8 @@ public class BusClassVisitor extends ClassVisitor {
                                 tag = (String) value;
                             } else if ("sticky".equals(name) && (Boolean) value) {
                                 busInfo.sticky = true;
+                            } else if ("priority".equals(name)) {
+                                busInfo.priority = (int) value;
                             }
                         }
 
@@ -84,7 +86,6 @@ public class BusClassVisitor extends ClassVisitor {
                     if ("this".equals(name)) {
                         return;
                     }
-                    System.out.println("funParamDesc: " + funParamDesc + ", desc: " + desc);
                     funParamDesc = funParamDesc.substring(desc.length());// 每次去除参数直到为 ""，那么之后的就不是参数了
                     busInfo.paramsInfo.add(new BusInfo.ParamsInfo(Type.getType(desc).getClassName(), name));
                     if (busInfo.isParamSizeNoMoreThanOne && busInfo.paramsInfo.size() > 1) {
@@ -101,15 +102,6 @@ public class BusClassVisitor extends ClassVisitor {
                     if (infoList == null) {
                         infoList = new ArrayList<>();
                         mBusMap.put(tag, infoList);
-                    } else if (infoList.size() == 0) {
-                        mBusMap.put(tag, infoList);
-                    } else if (infoList.size() == 1) {
-                        BusInfo info0 = infoList.get(0);
-                        info0.isTagRepeat = true;
-
-                        busInfo.isTagRepeat = true;
-                    } else {
-                        busInfo.isTagRepeat = true;
                     }
                     infoList.add(busInfo);
                 }

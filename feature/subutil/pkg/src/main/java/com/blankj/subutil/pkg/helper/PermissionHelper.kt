@@ -14,9 +14,9 @@ import com.blankj.utilcode.util.PermissionUtils
  */
 object PermissionHelper {
 
-    fun requestStorage(listener: OnPermissionGrantedListener,
-                       deniedListener: OnPermissionDeniedListener) {
-        request(listener, deniedListener, PermissionConstants.STORAGE)
+    fun requestStorageAndSms(listener: OnPermissionGrantedListener,
+                             deniedListener: OnPermissionDeniedListener) {
+        request(listener, deniedListener, PermissionConstants.STORAGE, PermissionConstants.SMS)
     }
 
     fun requestLocation(listener: OnPermissionGrantedListener,

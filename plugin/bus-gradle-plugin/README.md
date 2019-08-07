@@ -19,7 +19,7 @@
 buildscript {
     dependencies {
         ...
-        classpath 'com.blankj:bus-gradle-plugin:2.0'
+        classpath 'com.blankj:bus-gradle-plugin:2.1'
     }
 }
 ```
@@ -36,10 +36,10 @@ apply plugin: "com.blankj.bus"
 api "com.blankj:utilcode:latest_version
 ```
 
-如果你单纯只想引入 `BusUtils` 也是可以的，需要你自己拷贝一份这个类放到你工程里，记得还要拷贝 `ThreadUtils` 哦，然后在 app 下的 `build.gradle` 中 配置 bus 的 SDL 域如下所示：
+如果你单纯只想引入 `BusUtils` 也是可以的，需要你自己拷贝一份这个类放到你工程里，记得还要拷贝 `ThreadUtils` 哦，然后在 app 下的 `build.gradle` 中 配置 bus 的 DSL 域如下所示：
 
 ```groovy
-api {
+bus {
     busUtilsClass "com.xxx.xxx.BusUtils"
 }
 
@@ -425,7 +425,7 @@ public void compareUnregister10000Times() {
   }
 ```
 
-同理，如果两个 bus 的 `Tag` 相同了，也会编译不过，提示你项目中存在 `Tag` 相同的 bus。
+~~同理，如果两个 bus 的 `Tag` 相同了，也会编译不过，提示你项目中存在 `Tag` 相同的 bus。~~（2.1 版本已支持 Tag 一对多及事件优先级）
 
 所以，`BusUtils` 比 `EventBus` 更友好。
 
@@ -750,3 +750,6 @@ private void unregisterInner(final Object bus) {
 ```
 
 `unregister` 和 `register` 相反，就是从 `mClassName_BusesMap` 的 value 集合中移除，同样需要对 `mClassName_BusesMap` 加锁哦。
+
+
+## [Change Log](https://github.com/Blankj/AndroidUtilCode/blob/master/plugin/bus-gradle-plugin/CHANGELOG.md)

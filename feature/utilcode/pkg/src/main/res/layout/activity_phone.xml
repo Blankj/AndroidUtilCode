@@ -33,11 +33,4 @@
         android:layout_height="wrap_content"
         android:text="@string/phone_send_sms" />
 
-    <Button
-        android:id="@+id/phoneSendSmsSilentBtn"
-        style="@style/WideBtnStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/phone_send_sms_silent" />
-
 </LinearLayout>

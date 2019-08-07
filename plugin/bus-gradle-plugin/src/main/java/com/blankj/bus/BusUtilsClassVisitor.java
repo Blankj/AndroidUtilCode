@@ -53,23 +53,24 @@ public class BusUtilsClassVisitor extends ClassVisitor {
                 super.onMethodExit(opcode);
                 for (Map.Entry<String, List<BusInfo>> busEntry : mBusMap.entrySet()) {
                     List<BusInfo> infoList = busEntry.getValue();
-                    if (infoList.size() != 1) continue;
-                    BusInfo busInfo = infoList.get(0);
-                    if (!busInfo.isParamSizeNoMoreThanOne) continue;
-                    mv.visitVarInsn(ALOAD, 0);
-                    mv.visitLdcInsn(busEntry.getKey());
-                    mv.visitLdcInsn(busInfo.className);
-                    mv.visitLdcInsn(busInfo.funName);
-                    if (busInfo.paramsInfo.size() == 1) {
-                        mv.visitLdcInsn(busInfo.paramsInfo.get(0).className);
-                        mv.visitLdcInsn(busInfo.paramsInfo.get(0).name);
-                    } else {
-                        mv.visitLdcInsn("");
-                        mv.visitLdcInsn("");
+                    for (BusInfo busInfo : infoList) {
+                        if (!busInfo.isParamSizeNoMoreThanOne) continue;
+                        mv.visitVarInsn(ALOAD, 0);
+                        mv.visitLdcInsn(busEntry.getKey());
+                        mv.visitLdcInsn(busInfo.className);
+                        mv.visitLdcInsn(busInfo.funName);
+                        if (busInfo.paramsInfo.size() == 1) {
+                            mv.visitLdcInsn(busInfo.paramsInfo.get(0).className);
+                            mv.visitLdcInsn(busInfo.paramsInfo.get(0).name);
+                        } else {
+                            mv.visitLdcInsn("");
+                            mv.visitLdcInsn("");
+                        }
+                        mv.visitInsn(busInfo.sticky ? ICONST_1 : ICONST_0);
+                        mv.visitLdcInsn(busInfo.threadMode);
+                        mv.visitIntInsn(SIPUSH, busInfo.priority);
+                        mv.visitMethodInsn(INVOKESPECIAL, mBusUtilsClass, "registerBus", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;I)V", false);
                     }
-                    mv.visitInsn(busInfo.sticky ? ICONST_1 : ICONST_0);
-                    mv.visitLdcInsn(busInfo.threadMode);
-                    mv.visitMethodInsn(INVOKESPECIAL, mBusUtilsClass, "registerBus", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;)V", false);
                 }
             }
         };

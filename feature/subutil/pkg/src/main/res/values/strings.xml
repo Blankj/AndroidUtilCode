@@ -21,6 +21,7 @@
     <string name="dangerous_reboot">Reboot</string>
     <string name="dangerous_reboot_to_recovery">Reboot To Recovery</string>
     <string name="dangerous_reboot_to_bootloader">Reboot To Bootloader</string>
+    <string name="dangerous_send_sms_silent">Send SMS Silent</string>
     <string name="dangerous_data_enabled">Mobile Data Enabled</string>
 
 

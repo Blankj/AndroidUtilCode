@@ -4,9 +4,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import androidx.annotation.IntRange;
-import androidx.annotation.NonNull;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,9 +20,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+import androidx.annotation.CallSuper;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 /**
  * <pre>
@@ -1160,11 +1157,14 @@ public final class ThreadUtils {
         private static final int COMPLETING  = 3;
         private static final int CANCELLED   = 4;
         private static final int INTERRUPTED = 5;
+        private static final int TIMEOUT     = 6;
 
         private final AtomicInteger state = new AtomicInteger(NEW);
 
         private volatile boolean isSchedule;
         private volatile Thread  runner;
+
+        private Timer mTimer;
 
         private Executor deliver;
 
@@ -1205,19 +1205,19 @@ public final class ThreadUtils {
                         @Override
                         public void run() {
                             onSuccess(result);
-                            removeTask(Task.this);
+                            onDone();
                         }
                     });
                 }
             } catch (InterruptedException ignore) {
-                state.set(INTERRUPTED);
+                state.compareAndSet(CANCELLED, INTERRUPTED);
             } catch (final Throwable throwable) {
                 if (!state.compareAndSet(RUNNING, EXCEPTIONAL)) return;
                 getDeliver().execute(new Runnable() {
                     @Override
                     public void run() {
                         onFail(throwable);
-                        removeTask(Task.this);
+                        onDone();
                     }
                 });
             }
@@ -1242,10 +1242,22 @@ public final class ThreadUtils {
                 @Override
                 public void run() {
                     onCancel();
-                    removeTask(Task.this);
+                    onDone();
                 }
             });
         }
+
+        private void timeout() {
+            synchronized (state) {
+                if (state.get() > RUNNING) return;
+                state.set(TIMEOUT);
+            }
+            if (runner != null) {
+                runner.interrupt();
+            }
+            onDone();
+        }
+
 
         public boolean isCanceled() {
             return state.get() >= CANCELLED;
@@ -1260,6 +1272,19 @@ public final class ThreadUtils {
             return this;
         }
 
+        public void setTimeout(final long timeoutMillis, final OnTimeoutListener listener) {
+            mTimer = new Timer();
+            mTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    if (!isDone() && listener != null) {
+                        timeout();
+                        listener.onTimeout();
+                    }
+                }
+            }, timeoutMillis);
+        }
+
         private void setSchedule(boolean isSchedule) {
             this.isSchedule = isSchedule;
         }
@@ -1269,6 +1294,19 @@ public final class ThreadUtils {
                 return getGlobalDeliver();
             }
             return deliver;
+        }
+
+        @CallSuper
+        protected void onDone() {
+            TASK_TASKINFO_MAP.remove(this);
+            if (mTimer != null) {
+                mTimer.cancel();
+                mTimer = null;
+            }
+        }
+
+        public interface OnTimeoutListener {
+            void onTimeout();
         }
     }
 
@@ -1284,10 +1322,6 @@ public final class ThreadUtils {
             };
         }
         return sDeliver;
-    }
-
-    private static void removeTask(final Task task) {
-        TASK_TASKINFO_MAP.remove(task);
     }
 
     private static class TaskInfo {

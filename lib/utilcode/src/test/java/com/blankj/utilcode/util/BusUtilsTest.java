@@ -3,7 +3,12 @@ package com.blankj.utilcode.util;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <pre>
@@ -28,6 +33,11 @@ public class BusUtilsTest extends BaseTest {
     @BusUtils.Bus(tag = TAG_NO_PARAM)
     public void noParamFun() {
         System.out.println("noParam");
+    }
+
+    @BusUtils.Bus(tag = TAG_NO_PARAM)
+    public void noParamSameTagFun() {
+        System.out.println("sameTag: noParam");
     }
 
     @BusUtils.Bus(tag = TAG_ONE_PARAM)
@@ -96,6 +106,8 @@ public class BusUtilsTest extends BaseTest {
 //                }
 //            }).start();
 //        }
+//        CountDownLatch countDownLatch = new CountDownLatch(1);
+//        BusUtils.register(test);
 //        for (int i = 0; i < 100; i++) {
 //            new Thread(new Runnable() {
 //                @Override
@@ -104,6 +116,12 @@ public class BusUtilsTest extends BaseTest {
 //                }
 //            }).start();
 //        }
+//        try {
+//            countDownLatch.await(1, TimeUnit.SECONDS);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        BusUtils.unregister(test);
 //        for (int i = 0; i < 100; i++) {
 //            new Thread(new Runnable() {
 //                @Override
@@ -241,10 +259,23 @@ public class BusUtilsTest extends BaseTest {
 
     @Test
     public void testBase() {
+        ReflectUtils getInstance = ReflectUtils.reflect(BusUtils.class).method("getInstance");
+        getInstance.method("registerBus", "base", BaseTest.class.getName(), "noParamFun", "int", "i", false, "POSTING");
+
         BaseTest t = new BusUtilsTest();
         BusUtils.register(t);
         BusUtils.post("base", 1);
         BusUtils.unregister(t);
+    }
+
+    @Test
+    public void testSameTag() {
+        ReflectUtils.reflect(BusUtils.class).method("getInstance")
+                .method("registerBus", TAG_NO_PARAM, BusUtilsTest.class.getName(), "noParamSameTagFun", "", "", false, "POSTING", 2);
+        BusUtilsTest test = new BusUtilsTest();
+        BusUtils.register(test);
+        BusUtils.post(TAG_NO_PARAM);
+        BusUtils.unregister(test);
     }
 
     public interface Callback {

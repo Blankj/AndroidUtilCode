@@ -261,7 +261,6 @@
     <string name="phone_dial">Dial</string>
     <string name="phone_call">Call</string>
     <string name="phone_send_sms">Send SMS</string>
-    <string name="phone_send_sms_silent">Send SMS Silent</string>
 
     <!--Process 相关-->
     <string name="process_kill_all_background">Kill All Background Processes</string>

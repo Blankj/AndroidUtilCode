@@ -3,7 +3,10 @@ package com.blankj.utilcode.pkg.feature.keyboard
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import com.blankj.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.DialogHelper
@@ -82,9 +85,7 @@ class KeyboardActivity : CommonTitleActivity() {
 //        if (ev.action == MotionEvent.ACTION_DOWN) {
 //            val v = currentFocus
 //            if (isShouldHideKeyboard(v, ev)) {
-//                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//                        ?: return super.dispatchTouchEvent(ev)
-//                imm.hideSoftInputFromWindow(v.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+//                KeyboardUtils.hideSoftInput(this);
 //            }
 //        }
 //        return super.dispatchTouchEvent(ev)

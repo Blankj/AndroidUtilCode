@@ -402,6 +402,34 @@ public class ThreadUtilsTest extends BaseTest {
         countDownLatch.await();
     }
 
+    @Test
+    public void testTimeout() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+        ThreadUtils.SimpleTask<Boolean> task = new ThreadUtils.SimpleTask<Boolean>() {
+            @Override
+            public Boolean doInBackground() throws Throwable {
+                System.out.println("doInBackground start");
+                Thread.sleep(2000);
+                System.out.println("doInBackground end");
+                return null;
+            }
+
+            @Override
+            public void onSuccess(Boolean result) {
+                System.out.println("onSuccess");
+            }
+        };
+        task.setTimeout(1000, new ThreadUtils.Task.OnTimeoutListener() {
+            @Override
+            public void onTimeout() {
+                System.out.println("onTimeout");
+            }
+        });
+        ThreadUtils.executeByCached(task);
+
+        latch.await(3, TimeUnit.SECONDS);
+    }
+
     abstract static class TestScheduledTask<T> extends ThreadUtils.Task<T> {
 
         private static final AtomicInteger ATOMIC_INTEGER = new AtomicInteger();

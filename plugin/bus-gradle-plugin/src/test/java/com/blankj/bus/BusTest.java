@@ -9,6 +9,7 @@ import org.objectweb.asm.ClassWriter;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,8 +34,8 @@ public class BusTest {
         System.out.println("noParam");
     }
 
-    @BusUtils.Bus(tag = TAG_NO_PARAM)
-    public void sameTagFun() {
+    @BusUtils.Bus(tag = TAG_NO_PARAM, priority = 1)
+    public void sameTagP1Fun() {
         System.out.println("noParam");
     }
 
@@ -89,6 +90,14 @@ public class BusTest {
         ClassVisitor cv = new BusClassVisitor(cw, busMap, BusUtils.class.getName());
         cr.accept(cv, ClassReader.SKIP_FRAMES);
 
+        for (List<BusInfo> value : busMap.values()) {
+            value.sort(new Comparator<BusInfo>() {
+                @Override
+                public int compare(BusInfo t0, BusInfo t1) {
+                    return t1.priority - t0.priority;
+                }
+            });
+        }
         System.out.println("busMap = " + busMap);
         return busMap;
     }

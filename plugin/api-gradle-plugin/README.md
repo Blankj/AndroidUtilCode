@@ -352,3 +352,6 @@ public abstract static class BaseApi {
 这段代码很好理解，而且加了同步锁操作，防止多线程生成多个 `impl`，然后，根据传进来的 `api` 的 class，我们通过注入的 `map` 中找到具体的 `impl` 的 class，如果缓存中有就取缓存中的，没有的话就通过 `newInstance` 来实例化一个 `impl`，并放入缓存中，最终返回其 `impl`。因为是通过 `newInstance` 来实例化 `impl`，这也解释了为什么 `impl` 中需保留无参构造函数，而且只有在使用时才会初始化，而不是一股脑把所有的 `api` 都初始化。
 
 简易实用，不到 100 行代码实现模块间跳转的 `ApiUtils` 已介绍完毕，接下来你就可以小试牛刀了。
+
+
+## [Change Log](https://github.com/Blankj/AndroidUtilCode/blob/master/plugin/api-gradle-plugin/CHANGELOG.md)

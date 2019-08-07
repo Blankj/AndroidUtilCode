@@ -55,11 +55,18 @@
         android:layout_height="wrap_content"
         android:text="@string/dangerous_reboot_to_bootloader" />
 
+    <Button
+        android:id="@+id/dangerousSendSmsSilentBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dangerous_reboot_to_bootloader" />
+
     <CheckBox
         android:id="@+id/dangerousMobileDataEnabledCb"
         style="@style/CbStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/dangerous_data_enabled" />
+        android:text="@string/dangerous_send_sms_silent" />
 
 </LinearLayout>

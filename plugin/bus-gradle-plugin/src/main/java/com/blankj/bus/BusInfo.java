@@ -18,8 +18,8 @@ public class BusInfo {
     public List<ParamsInfo> paramsInfo;               // 参数列表信息
     public boolean          sticky;                   // 是否粘性
     public String           threadMode;               // 线程模式
+    public int              priority;                 // 优先级
     public boolean          isParamSizeNoMoreThanOne; // 参数是否不多于 1 个
-    public boolean          isTagRepeat;              // 是否存在相同的 tag
 
     public BusInfo(String className, String funName) {
         this.className = className;
@@ -27,8 +27,8 @@ public class BusInfo {
         paramsInfo = new ArrayList<>();
         sticky = false;
         threadMode = "POSTING";
+        priority = 0;
         isParamSizeNoMoreThanOne = true;
-        isTagRepeat = false;
     }
 
     @Override
@@ -37,8 +37,8 @@ public class BusInfo {
         return "{ desc: " + className + "#" + funName +
                 "(" + paramsInfoString.substring(1, paramsInfoString.length() - 1) + ")" +
                 (!sticky ? "" : ", sticky: true") +
-                ", threadMode: " + threadMode +
-                (!isTagRepeat ? "" : ", isTagRepeat: true") +
+                (threadMode.equals("POSTING") ? "" : ", threadMode: " + threadMode) +
+                (priority == 0 ? "" : ", priority: " + priority) +
                 (isParamSizeNoMoreThanOne ? "" : ", paramSize: " + paramsInfo.size()) +
                 " }";
     }

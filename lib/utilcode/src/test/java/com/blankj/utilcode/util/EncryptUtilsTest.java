@@ -1,6 +1,7 @@
 package com.blankj.utilcode.util;
 
 import android.util.Base64;
+import android.util.Pair;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -376,27 +377,34 @@ public class EncryptUtilsTest extends BaseTest {
         );
     }
 
-    private String publicKey  = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCWuAuSCrzUXC1l4ixXBeBfotUtkALrAjLM5UHiVfOFHrRJHM41HSeHVm56UZHgJlwk80R8juu1ykuhkgrilTv7H+3MpZdIunvndDElgdgk8aI2Ip4GUlemUDvCtWd3ychWEh4kYQ8CeInQvNM08imoLFldvbjWt/IkGK+BcGzamQIDAQAB";
-    private String privateKey = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJa4C5IKvNRcLWXiLFcF4F+i1S2QAusCMszlQeJV84UetEkczjUdJ4dWbnpRkeAmXCTzRHyO67XKS6GSCuKVO/sf7cyll0i6e+d0MSWB2CTxojYingZSV6ZQO8K1Z3fJyFYSHiRhDwJ4idC80zTyKagsWV29uNa38iQYr4FwbNqZAgMBAAECgYAxV1k6W1eMMg0OsKeRabQVuwoNG3tJEnQtDdSu0zKg3vdohAyh6MR7EvmiA7g86HH8CsPd/y/9WJe/8j6sBO0Ye9gt7eyQ2NiwWvlTuwNmngcSTapVvVI6NEyJFMfQt9PB1EHLNAXlz8jtJUyA7C48jReQD9p/SzAP0VxG7lwyMQJBAOjE7hAZ/6fyP3DB1fG7jr9gONZcz3TUaqx6BUn4GKZnckW08ht9Xqcqft5Hthu8BbLM9ptQ0U8QZekrJwD6ya0CQQClwstZMPu8jLhsgugVwodcG1mPEOiw9Yjnmt9+WTI07Ll2uFv//hRXBnahBBnZbucUYEbUY3kqUX9b3e9TmEodAkEAybPMbxt4VDoxCy6Mi/pxChkBZ4/pHV3sSiU6bAyWn6vIc+sGWRfca5MBePA/N+1IKtY9Y/02QwL8rH5+P/URyQJAL/hdjORGFdzLimuf6pwvPBKWKncEQCHuisghIZmClBpl2duklELddAnkztg2+tvDd/wcw14+NGb9aoKhvhl2aQJAbvcgoPU+xs0CjeexH+TS2S/jKkTRpvP2CpPK/k71m13xWdE8RtMkYY1measRmlIwOfWze7ll/PGT4dxWf31FNg==";
-    private String dataRSA    = "BlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBla12345678";
-
     @Test
-    public void encryptDecryptRSA() {
-        try {
-            genKeyPair();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+    public void encryptDecryptRSA() throws Exception {
+        int keySize = 1024;
+        Pair<String, String> publicPrivateKey = genKeyPair(keySize);
+
+        String publicKey = publicPrivateKey.first;
+        String privateKey = publicPrivateKey.second;
+        String dataRSA = "BlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBlankjBl";
+        System.out.println("publicKeyBase64:" + publicKey);
+        System.out.println("privateKeyBase64:" + privateKey);
+
+        System.out.println(EncryptUtils.encryptRSA2HexString(
+                dataRSA.getBytes(),
+                base64Decode(publicKey.getBytes()),
+                keySize,
+                "RSA/None/PKCS1Padding"
+        ));
+
         assertArrayEquals(EncryptUtils.decryptRSA(
                 EncryptUtils.encryptRSA(
                         dataRSA.getBytes(),
                         base64Decode(publicKey.getBytes()),
-                        true,
-                        "RSA/ECB/PKCS1Padding"
+                        keySize,
+                        "RSA/None/PKCS1Padding"
                 ),
                 base64Decode(privateKey.getBytes()),
-                false,
-                "RSA/ECB/PKCS1Padding"
+                keySize,
+                "RSA/None/PKCS1Padding"
         ), dataRSA.getBytes());
     }
 
@@ -443,13 +451,25 @@ public class EncryptUtilsTest extends BaseTest {
         }
     }
 
-    private static void genKeyPair() throws NoSuchAlgorithmException {
+    private Pair<String, String> genKeyPair(int size) throws NoSuchAlgorithmException {
+
+        if (size == 1024) {
+            return Pair.create(
+                    "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCYHGvdORdwsK5i+s9rKaMPL1O5eDK2XwNHRUWaxmGB/cxLxeinJrrqdAN+mME7XtGN9bklnOR3MUBQLVnWIn/IU0pnIJY9DpPTVc7x+1zFb8UUq1N0BBo/NpUG5olxuQULuAAHZOg28pnP/Pcb5XVEvpNKL0HaWjN8pu/Dzf8gZwIDAQAB",
+                    "MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAJgca905F3CwrmL6z2spow8vU7l4MrZfA0dFRZrGYYH9zEvF6Kcmuup0A36YwTte0Y31uSWc5HcxQFAtWdYif8hTSmcglj0Ok9NVzvH7XMVvxRSrU3QEGj82lQbmiXG5BQu4AAdk6Dbymc/89xvldUS+k0ovQdpaM3ym78PN/yBnAgMBAAECgYAFdX+pgNMGiFC53KZ1AhmIAfrPPTEUunQzqpjE5Tm6oJEkZwXiedFbeK5nbLQCnXSH07nBT9AjNvFH71i6BqLvT1l3/ezPq9pmRPriHfWQQ3/J3ASf1O9F9CkYbq/s/qqkXEFcl8PdYQV0xU/kS4jZPP+60Lv3sPkLg2DpkhM+AQJBANTl+/v6sBqqQSS0Anl5nE15Ck3XGBcq0nvATHfFkJYtG9rrXz3ZoRATLxF1iJYwGSAtirhev9W7qFayjci0ztcCQQC25/kkFbeMEWT6/kyV8wcPIog1mKy8RVB9+2l6C8AzbWBPZYtLlB7uaGSJeZBTEGfvRYzpFm5xO0JqwCfDddjxAkBmxtgM3wqg9MwaAeSn6/Nu2x4EUfBJTtzp7P19XJzeQsyNtM73ttYwQnKYhRr5FiMrC5FKTENj1QIBSJV17QNlAkAL5cUAAuWgl9UQuo/yxQ81fdKMYfUCfiPBPiRbSv5imf/Eyl8oOGdWrLW1d5HaxVttZgHHe60NcoRce0la3oSRAkAe8OqLsm9ryXNvBtZxSG+1JUvePVxpRSlJdZIAUKxN6XQE0S9aEe/IkNDBgVeiUEtop76R2NkkGtGTwzbzl0gm"
+            );
+        } else if (size == 2048) {
+            return Pair.create(
+                    "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjLLeJZIO7dfQKb6tHE+TlhvD1m3UdTefKvl4uNQboDXy2ztgPcksjLDXxsT+znxMBh4RpXxfVPgnrcSLewGVhTb3uXh9sWo6tvvshNaMKBTebaZePhE7grq+LHH3NILscVssK24rDSvIquZ4nUbDipF/Iscge4LwnypcCuun/3RCn4HYzXW+0YFFZC8Vq4zabIxtzzkvgZlAlvuD6tT76Uuo5kD8b36yYNALI+ZStOj283wlL8PgyyitRGaqCH+MjWYqDb5C0DN31kcoSU7ARTGWgNNAoexAdNujkBvVRFyR2cH9FpjJDu18Oa8v9uSjlRftVWPj0OQXE7vRUsrrawIDAQAB",
+                    "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCMst4lkg7t19Apvq0cT5OWG8PWbdR1N58q+Xi41BugNfLbO2A9ySyMsNfGxP7OfEwGHhGlfF9U+CetxIt7AZWFNve5eH2xajq2++yE1owoFN5tpl4+ETuCur4scfc0guxxWywrbisNK8iq5nidRsOKkX8ixyB7gvCfKlwK66f/dEKfgdjNdb7RgUVkLxWrjNpsjG3POS+BmUCW+4Pq1PvpS6jmQPxvfrJg0Asj5lK06PbzfCUvw+DLKK1EZqoIf4yNZioNvkLQM3fWRyhJTsBFMZaA00Ch7EB026OQG9VEXJHZwf0WmMkO7Xw5ry/25KOVF+1VY+PQ5BcTu9FSyutrAgMBAAECggEAHJQ4i2kfnzA3GEOi5h1D3TnGjcfBYA3sRs5ltyVedyx+KAnngqVaZzmEmtto5ohY6OUysGqS8q91X9aMfm/T7zs7FnFjFqZ9Rq3lXRY3YezbQWqJuhHGBMfp2R1NGV1+qYfbcPbvx70dBZnK5id5kKv9JxNLhcsTFUGFcLJtbXXixY2CGiS/dIbFvFHGMbAz3+9l9HXaL4AS7KQXvnauwJW1a5vIAVFYZVBj0qY9Viy2vq6ShH+9pdxOSsWBt08WpxIhjkTr+ZkFck67la2Jn0SBlClB0FIygTqbAmsM3p1nqcR55jdx3hfs31rIfM1Rx5epMm48KYErb2ktowngAQKBgQDL9FEumMMagPy4+EjR1puFHNvADlAi8tIUNt1W5zKKnd+T6gYGn8nqiiy5pvwLLUp8JISmq50tMC3cgAPw+G4kIe5zoBO2EU9X6aPhMd/ScUlVdk0IzEMXa3kMAOjOInWvoevJ4cwWcBPH2aRuDg5wZdh3TpB9LQP4uQ0QHwmE3wKBgQCwmkL6rJDrNo1GNUsjw+WIsXkuS3PYJahbg/uhRdGSsX2BRIPQVCRJP7MkgaUMhZRilt1ROfQy4d2BPxTxvUiGJcKfpsW8xi39PrYWZC5TvEA839q39Uak+ISCsYtZaHk5dvzmE9nF5gv0ivjCr81N2/1KwXO8VmNofzWUqNd+9QKBgQCs39QICRgm2Ppd1qXyp1N/SuzBJ+CpHuUOmUqXpLRkZljiSVT+PGar1J8AZhfxaVxfSZzeoUxCxzm4UxIEKK9DFTfG7gKHKrj0LWfpM5siB0A/nlzBflHIAiLCF+s8/lx+mGMB5dBVnH5HwaTsXCHFB66pwgAa+hMJueDmr0gkRQKBgDKhd1Rwxvd4Y1ZejxVI43SmFOzt2t98JGFgXHLnFmdtFWNLJlNC3EhXx99Of+gwH9OIFxljeRxhXuTgFfwcXT+AceTdplExrBuvr/qJbDK7hNsu/oDBBCjlyu/BQQc4CZEtCOJZjJTNGF5avWjrh/urd1nITosPZV6fIdhl86pFAoGAfOwK0Wte6gO5glAHP9RNktDeyFJCfFH1KUFiAG7XUww6bRpL2fEAqBIcDVgsS565ihxDSbUjgQgg/Ckh2+iBrwf1K9ViO4XUuwWqRS26rn4Is/W5kbPtnC4HS5cQIH1aWi3xUMJcWxV4ZrwiMVdw91leYWC0IbXC/yrc/PBW+sE="
+            );
+        }
 
         SecureRandom secureRandom = new SecureRandom();
 
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
 
-        keyPairGenerator.initialize(1024, secureRandom);
+        keyPairGenerator.initialize(size, secureRandom);
 
         KeyPair keyPair = keyPairGenerator.generateKeyPair();
 
@@ -463,10 +483,6 @@ public class EncryptUtilsTest extends BaseTest {
         String publicKeyBase64 = EncodeUtils.base64Encode2String(publicKeyBytes);
         String privateKeyBase64 = EncodeUtils.base64Encode2String(privateKeyBytes);
 
-        System.out.println("publicKeyBase64.length():" + publicKeyBase64.length());
-        System.out.println("publicKeyBase64:" + publicKeyBase64);
-
-        System.out.println("privateKeyBase64.length():" + privateKeyBase64.length());
-        System.out.println("privateKeyBase64:" + privateKeyBase64);
+        return Pair.create(publicKeyBase64, privateKeyBase64);
     }
 }

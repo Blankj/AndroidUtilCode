@@ -15,8 +15,8 @@ class Config {
     static minSdkVersion = 14
 
     static targetSdkVersion = 28
-    static versionCode = 1_025_005
-    static versionName = '1.25.5'// E.g. 1.9.72 => 1,009,072
+    static versionCode = 1_025_006
+    static versionName = '1.25.6'// E.g. 1.9.72 => 1,009,072
 
     // lib version
     static kotlin_version = '1.3.10'
@@ -38,9 +38,9 @@ class Config {
 
                     // 本地第一次上传插件新的版本需设置 useLocal = true, isApply = false
                     // 本地上传成功之后 isApply = true 即可应用插件来调试，后续版本更新无需设置 isApply = false
-                    // 发布版本的话把 useLocal = false, isApply = false，发布成功后 isApply = true 即可使用远程库版本
+                    // 发布版本的话把 useLocal = false, isApply = false，更新版本号，发布成功后 isApply = true 即可使用远程库版本
                     api    : new DepConfig(false/*是否本地调试*/, "com.blankj:api-gradle-plugin:1.0", true/*是否使用插件*/),
-                    bus    : new DepConfig(false/*是否本地调试*/, "com.blankj:bus-gradle-plugin:2.0", true/*是否使用插件*/),
+                    bus    : new DepConfig(false/*是否本地调试*/, "com.blankj:bus-gradle-plugin:2.1", true/*是否使用插件*/),
             ],
 
             api_gradle_plugin: new DepConfig(":plugin:api-gradle-plugin", false),

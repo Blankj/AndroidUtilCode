@@ -1,10 +1,17 @@
 package com.blankj.subutil.util;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.PowerManager;
+<<<<<<< HEAD
+=======
+import android.support.annotation.RequiresPermission;
+import android.telephony.SmsManager;
+>>>>>>> 1.25.6
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.RequiresPermission;
@@ -14,8 +21,10 @@ import com.blankj.utilcode.util.Utils;
 
 import java.io.File;
 import java.lang.reflect.Method;
+import java.util.List;
 
 import static android.Manifest.permission.MODIFY_PHONE_STATE;
+import static android.Manifest.permission.SEND_SMS;
 
 /**
  * <pre>
@@ -300,5 +309,27 @@ public class DangerousUtils {
             Log.e("NetworkUtils", "setMobileDataEnabled: ", e);
         }
         return false;
+    }
+
+    /**
+     * Send sms silently.
+     * <p>Must hold {@code <uses-permission android:name="android.permission.SEND_SMS" />}</p>
+     *
+     * @param phoneNumber The phone number.
+     * @param content     The content.
+     */
+    @RequiresPermission(SEND_SMS)
+    public static void sendSmsSilent(final String phoneNumber, final String content) {
+        if (TextUtils.isEmpty(content)) return;
+        PendingIntent sentIntent = PendingIntent.getBroadcast(Utils.getApp(), 0, new Intent("send"), 0);
+        SmsManager smsManager = SmsManager.getDefault();
+        if (content.length() >= 70) {
+            List<String> ms = smsManager.divideMessage(content);
+            for (String str : ms) {
+                smsManager.sendTextMessage(phoneNumber, null, str, sentIntent, null);
+            }
+        } else {
+            smsManager.sendTextMessage(phoneNumber, null, content, sentIntent, null);
+        }
     }
 }
