@@ -29,7 +29,7 @@ class Config {
 
     static depConfig = [
             plugin           : [
-                    gradle : new DepConfig("com.android.tools.build:gradle:3.4.0"),
+                    gradle : new DepConfig("com.android.tools.build:gradle:3.4.2"),
                     kotlin : new DepConfig("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"),
                     maven  : new DepConfig("com.github.dcendents:android-maven-gradle-plugin:2.1"),// 上传到 maven
                     bintray: new DepConfig("com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4"),// 上传到 bintray
