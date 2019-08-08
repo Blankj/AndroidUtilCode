@@ -44,7 +44,7 @@ If this project helps you a lot and you want to support the project's developmen
 
 欢迎加入我的知识星球「**[基你太美](https://t.zsxq.com/FmeqfYF)**」学习 [AucFrame](https://blankj.com/2019/07/22/auc-frame/) 框架，目前一期内测已结束，二期已开，有兴趣进群的可以加我微信（备注：基你太美二期）。
 
-![我的二维码](http://ww1.sinaimg.cn/large/b75b8776ly1g5otzlun3wj20a80a6q4x.jpg)
+![我的二维码](https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/wechat.png)
 
 
 [logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
