@@ -7,11 +7,12 @@ import android.os.Bundle
 import android.support.annotation.Keep
 import android.view.View
 import com.blankj.common.CommonTitleActivity
-import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BusUtils
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.Utils
 import kotlinx.android.synthetic.main.activity_bus.*
 import kotlin.random.Random
+
 
 /**
  * ```
@@ -54,6 +55,11 @@ class BusActivity : CommonTitleActivity() {
         })
     }
 
+    @BusUtils.Bus(tag = "_PusNotifyData", sticky = true, threadMode = BusUtils.ThreadMode.MAIN)
+    fun onPusNotifyData(pusNotifyData: PusNotifyData) {
+        LogUtils.e("haha")
+    }
+
     companion object {
         const val TAG_BASIC_TYPE = "tag_basic_type"
         const val TAG_BUS = "tag_bus"
@@ -67,13 +73,13 @@ class BusActivity : CommonTitleActivity() {
     }
 
     override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_bus)
+        return getString(com.blankj.utilcode.pkg.R.string.demo_bus)
     }
 
     override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
-        return R.layout.activity_bus
+        return com.blankj.utilcode.pkg.R.layout.activity_bus
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
@@ -95,33 +101,33 @@ class BusActivity : CommonTitleActivity() {
 
     override fun onDebouncingClick(view: View) {
         when (view.id) {
-            R.id.busRegister -> {
+            com.blankj.utilcode.pkg.R.id.busRegister -> {
                 BusUtils.register(this)
             }
-            R.id.busUnregister -> {
+            com.blankj.utilcode.pkg.R.id.busUnregister -> {
                 BusUtils.unregister(this)
                 busAboutTv.text = ""
             }
-            R.id.busPost -> {
+            com.blankj.utilcode.pkg.R.id.busPost -> {
                 BusUtils.post(TAG_BUS, TAG_BUS)
             }
-            R.id.busPostBasicType -> {
+            com.blankj.utilcode.pkg.R.id.busPostBasicType -> {
                 BusUtils.post(TAG_BASIC_TYPE, Random(System.currentTimeMillis()).nextInt())
             }
-            R.id.busPostSticky -> {
+            com.blankj.utilcode.pkg.R.id.busPostSticky -> {
                 BusUtils.postSticky(TAG_STICKY_BUS, object : Callback {
                     override fun call(): String {
                         return TAG_STICKY_BUS
                     }
                 })
             }
-            R.id.busPost2IoThread -> {
+            com.blankj.utilcode.pkg.R.id.busPost2IoThread -> {
                 BusUtils.post(TAG_IO)
             }
-            R.id.busRemoveSticky -> {
+            com.blankj.utilcode.pkg.R.id.busRemoveSticky -> {
                 BusUtils.removeSticky(TAG_STICKY_BUS)
             }
-            R.id.busStartCompare -> {
+            com.blankj.utilcode.pkg.R.id.busStartCompare -> {
                 BusCompareActivity.start(this)
             }
         }
