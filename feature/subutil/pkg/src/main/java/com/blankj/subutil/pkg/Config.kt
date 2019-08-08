@@ -26,6 +26,6 @@ object Config {
         } else {
             Environment.getExternalStorageDirectory().absolutePath
         } + FILE_SEP
-        TEST_APK_PATH = CACHE_PATH + "test_install_silent.apk"
+        TEST_APK_PATH = CACHE_PATH + "test_install.apk"
     }
 }

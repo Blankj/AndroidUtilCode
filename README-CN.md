@@ -51,7 +51,7 @@
 
 [frame]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/auc_frame_cn.png
 
-[aucSvg]: https://img.shields.io/badge/AndroidUtilCode-v1.25.6-brightgreen.svg
+[aucSvg]: https://img.shields.io/badge/AndroidUtilCode-v1.25.7-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apiSvg]: https://img.shields.io/badge/API-14+-brightgreen.svg
