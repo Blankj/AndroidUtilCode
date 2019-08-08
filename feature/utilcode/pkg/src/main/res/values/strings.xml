@@ -64,6 +64,7 @@
     <string name="activity_act_intents_anim">Act Intents Anim</string>
     <string name="activity_start_activities">Start Activities</string>
     <string name="activity_start_home_activity">Start Home Activity</string>
+    <string name="activity_start_launcher_activity">Start Launcher Activity</string>
     <string name="activity_finish_activity">Finish MainActivity</string>
     <string name="activity_finish_to_activity">Finish To MainActivity</string>
     <string name="activity_finish_all_activities">Finish All Activities</string>

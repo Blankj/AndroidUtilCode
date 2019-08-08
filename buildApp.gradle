@@ -22,7 +22,6 @@ android {
         applicationId Config.applicationId + suffix
         targetSdkVersion Config.targetSdkVersion
         multiDexEnabled true
-        resValue "string", "app_name", Config.appName + suffix
     }
 
     buildTypes {
@@ -30,10 +29,13 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             applicationIdSuffix ".debug"
+            resValue "string", "app_name", Config.appName + suffix + ".debug"
         }
+
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue "string", "app_name", Config.appName + suffix
         }
     }
 
@@ -64,9 +66,7 @@ dependencies {
         api entrySet.value.dep
     }
 
-    // 如果 Config.pkgConfig 不为空，说明可能导入了部分 pkg，
-    // 那么可能有些 api 没有实现，需要导入 mock 层的 api
-    if (!Config.pkgConfig.isEmpty()) {
+    if (Config.depConfig.feature.mock.isApply) {
         api Config.depConfig.feature.mock.dep
     }
 }
