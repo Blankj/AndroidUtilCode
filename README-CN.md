@@ -40,12 +40,18 @@
 ## [Change Log][changeLog.md]
 
 
+## 打个小广告
+
+欢迎加入我的知识星球「**[基你太美](https://t.zsxq.com/FmeqfYF)**」学习 [AucFrame](https://blankj.com/2019/07/22/auc-frame/) 框架，目前一期内测已结束，二期已开，有兴趣进群的可以加我微信（备注：基你太美二期）。
+
+![我的二维码](https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/wechat.png)
+
 
 [logo]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/logo.png
 
-[frame]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/auc_frame.png
+[frame]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/auc_frame_cn.png
 
-[aucSvg]: https://img.shields.io/badge/AndroidUtilCode-v1.25.6-brightgreen.svg
+[aucSvg]: https://img.shields.io/badge/AndroidUtilCode-v1.25.7-brightgreen.svg
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apiSvg]: https://img.shields.io/badge/API-14+-brightgreen.svg

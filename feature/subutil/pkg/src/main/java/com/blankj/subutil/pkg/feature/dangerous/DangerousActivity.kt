@@ -121,7 +121,7 @@ class DangerousActivity : CommonTitleActivity() {
 class ReleaseInstallApkTask(private val mListener: OnReleasedListener) : ThreadUtils.SimpleTask<Unit>() {
 
     override fun doInBackground() {
-        ResourceUtils.copyFileFromAssets("test_install_silent", Config.TEST_APK_PATH)
+        ResourceUtils.copyFileFromAssets("test_install", Config.TEST_APK_PATH)
     }
 
     override fun onSuccess(result: Unit) {

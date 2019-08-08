@@ -58,7 +58,6 @@ class PhoneActivity : CommonTitleActivity() {
                 .appendLine("isSimCardReady: " + PhoneUtils.isSimCardReady())
                 .appendLine("getSimOperatorName: " + PhoneUtils.getSimOperatorName())
                 .appendLine("getSimOperatorByMnc: " + PhoneUtils.getSimOperatorByMnc())
-                .append("getPhoneStatus: " + PhoneUtils.getPhoneStatus())
                 .create()
 
         applyDebouncingClickListener(

@@ -1,6 +1,6 @@
 package com.blankj.utilcode.app
 
-import com.blankj.lib.common.CommonApplication
+import com.blankj.common.CommonApplication
 import com.blankj.utilcode.util.Utils
 
 

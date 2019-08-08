@@ -1,3 +1,4 @@
+* `19/08/09` [fix] https://www.virustotal.com/gui/home/upload with ESET-NOD32. Publish v1.25.7.
 * `19/08/08` [add] BusUtils#post tag support one-to-many. Publish v1.25.6.
 * `19/08/04` [add] ThreadUtils#Task support timeout.
 * `19/08/01` [upd] EncryptUtils#rsa.
