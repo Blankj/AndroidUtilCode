@@ -1,3 +1,5 @@
+import org.gradle.internal.impldep.org.apache.http.util.EntityUtils
+
 /**
  * <pre>
  *     author: blankj

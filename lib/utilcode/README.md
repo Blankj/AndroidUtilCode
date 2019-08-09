@@ -22,6 +22,7 @@ startActivities
 startHomeActivity
 getActivityList
 getLauncherActivity
+getMainActivities
 getTopActivity
 isActivityAlive
 isActivityExistsInStack
@@ -394,6 +395,7 @@ getDirName
 getFileName
 getFileNameNoExtension
 getFileExtension
+notifySystemToScan
 ```
 
 * ### About Fragment -> [FragmentUtils.java][fragment.java] -> [Demo][fragment.demo]
@@ -650,11 +652,9 @@ getPhoneType
 isSimCardReady
 getSimOperatorName
 getSimOperatorByMnc
-getPhoneStatus
 dial
 call
 sendSms
-sendSmsSilent
 ```
 
 * ### About Process -> [ProcessUtils.java][process.java] -> [Demo][process.demo]

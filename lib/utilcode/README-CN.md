@@ -22,6 +22,7 @@ startActivities                : 启动多个 Activity
 startHomeActivity              : 回到桌面
 getActivityList                : 获取 Activity 栈链表
 getLauncherActivity            : 获取启动项 Activity
+getMainActivities              : 获取主的 Activity 们
 getTopActivity                 : 获取栈顶 Activity
 isActivityAlive                : 判断 Activity 是否存活
 isActivityExistsInStack        : 判断 Activity 是否存在栈中
@@ -394,6 +395,7 @@ getDirName                : 根据全路径获取最长目录
 getFileName               : 根据全路径获取文件名
 getFileNameNoExtension    : 根据全路径获取文件名不带拓展名
 getFileExtension          : 根据全路径获取文件拓展名
+notifySystemToScan        : 通知系统扫描文件
 ```
 
 * ### Fragment 相关 -> [FragmentUtils.java][fragment.java] -> [Demo][fragment.demo]
@@ -650,11 +652,9 @@ getPhoneType       : 获取移动终端类型
 isSimCardReady     : 判断 sim 卡是否准备好
 getSimOperatorName : 获取 Sim 卡运营商名称
 getSimOperatorByMnc: 获取 Sim 卡运营商名称
-getPhoneStatus     : 获取手机状态信息
 dial               : 跳至拨号界面
 call               : 拨打 phoneNumber
 sendSms            : 跳至发送短信界面
-sendSmsSilent      : 发送短信
 ```
 
 * ### 进程相关 -> [ProcessUtils.java][process.java] -> [Demo][process.demo]
