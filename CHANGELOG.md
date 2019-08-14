@@ -1,4 +1,4 @@
-* `19/08/13` [add] MapUtils and MapUtilsTest.
+* `19/08/13` [add] MapUtils and MapUtilsTest. Publish v1.25.8.
 * `19/08/12` [add] CollectionUtils and CollectionUtilsTest.
 * `19/08/11` [add] ArrayUtils and ArrayUtilsTest.
 * `19/08/09` [fix] https://www.virustotal.com/gui/home/upload with ESET-NOD32. Publish v1.25.7.
