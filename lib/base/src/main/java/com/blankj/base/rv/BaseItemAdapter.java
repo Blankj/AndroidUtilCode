@@ -25,7 +25,7 @@ public class BaseItemAdapter<Item extends BaseItem> extends RecyclerView.Adapter
         this(false);
     }
 
-    public BaseItemAdapter( boolean hasStableIds) {
+    public BaseItemAdapter(boolean hasStableIds) {
         setHasStableIds(hasStableIds);
     }
 

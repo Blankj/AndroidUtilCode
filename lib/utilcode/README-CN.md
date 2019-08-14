@@ -78,6 +78,43 @@ getAppsInfo                       : 获取所有已安装 App 信息
 getApkInfo                        : 获取 Apk 信息
 ```
 
+* ### 数组相关 -> [ArrayUtils.java][array.java] -> [Test][array.test]
+```
+newArray          : 新建数组
+newLongArray      : 新建长整型数组
+newIntArray       : 新建整型数组
+newShortArray     : 新建 short 数组
+newCharArray      : 新建字符数组
+newByteArray      : 新建字节数组
+newDoubleArray    : 新建双精度数组
+newFloatArray     : 新建浮点数数组
+newBooleanArray   : 新建 boolean 数组
+isEmpty           : 判断数组是否为空
+getLength         : 获取数组长度
+isSameLength      : 判断两数组长度是否相等
+get               : 获取数组的索引值
+set               : 设置数组的索引值
+equals            : 判断数组是否相等
+reverse           : 逆序数组
+copy              : 拷贝数组
+subArray          : 截取数组
+add               : 增加数组
+remove            : 移除指定的索引
+removeElement     : 移除指定的元素
+indexOf           : 查找第一个元素的索引
+lastIndexOf       : 查找最后一个元素的索引
+contains          : 判断是否包含该元素
+toPrimitive       : 装箱数组转基本类型数组
+toObject          : 基本类型数组转装箱数组
+asList            : 转为链表
+asUnmodifiableList: 转为不可变链表
+asArrayList       : 转为数组链表
+asLinkedList      : 转为双向链表
+sort              : 排序
+forAllDo          : 对所有元素做操作
+toString          : 数组转为字符串
+```
+
 * ### 栏相关 -> [BarUtils.java][bar.java] -> [Demo][bar.demo]
 ```
 getStatusBarHeight                   : 获取状态栏高度（px）
@@ -241,6 +278,46 @@ deepClone: 深度克隆
 ```
 closeIO       : 关闭 IO
 closeIOQuietly: 安静关闭 IO
+```
+
+* ### 集合相关 -> [CollectionUtils.java][collection.java] -> [Test][collection.test]
+```
+newUnmodifiableList[NotNull]: 新建只读[非空]链表
+newArrayList[NotNull]       : 新建数组型[非空]链表
+newLinkedList[NotNull]      : 新建指针型[非空]链表
+newHashSet[NotNull]         : 新建哈希[非空]集合
+newTreeSet[NotNull]         : 新建有序[非空]集合
+newSynchronizedCollection   : 新建同步集合
+newUnmodifiableCollection   : 新建只读集合
+union                       : 获取并集
+intersection                : 获取交集
+disjunction                 : 获取并集减交集
+subtract                    : 获取差集
+containsAny                 : 判断是否有交集
+getCardinalityMap           : 获取集合中所有元素的基数
+isSubCollection             : 是否子集
+isProperSubCollection       : 是否真子集
+isEqualCollection           : 判断集合是否相等
+cardinality                 : 获取集合中元素的基数
+find                        : 查找第一个符合条件的元素
+forAllDo                    : 对所有元素做操作
+filter                      : 删除原集合中不符合条件的元素
+select                      : 查找出所有符合条件的元素并返回新集合
+selectRejected              : 查找出所有不符合条件的元素并返回新集合
+transform                   : 对原集合进行转变
+collect                     : 转变为新的集合
+countMatches                : 查找到匹配的元素个数
+exists                      : 判断集合是否存在符合条件的元素
+addIgnoreNull               : 新增元素如果不为空
+addAll                      : 新增多个元素
+get                         : 获取集合元素
+size                        : 获取集合个数
+sizeIsEmpty                 : 判断个数是否为零
+isEmpty                     : 判断是否为空
+isNotEmpty                  : 判断是否非空
+retainAll                   : 保留元素
+removeAll                   : 删除下来
+toString                    : 集合转为字符串
 ```
 
 * ### 颜色相关 -> [ColorUtils.java][color.java]
@@ -538,6 +615,21 @@ aTag                     : 自定义 tag 的 Assert 日志
 file                     : log 到文件
 json                     : log 字符串之 json
 xml                      : log 字符串之 xml
+```
+
+* ### Map 相关 -> [MapUtils.java][map.java] -> [Test][map.test]
+```
+newUnmodifiableMap: 创建 UnmodifiableMap
+newHashMap        : 创建 HashMap
+newLinkedHashMap  : 创建 LinkedHashMap
+newTreeMap        : 创建 TreeMap
+newHashTable      : 创建 HashTable
+isEmpty           : 判断 Map 是否为空
+isNotEmpty        : 判断 Map 是否非空
+size              : 获取 Map 元素个数
+forAllDo          : 对所有元素做操作
+transform         : 对集合做转变
+toString          : Map 转为字符串
 ```
 
 * ### MetaData 相关 -> [MetaDataUtils.java][metaData.java] -> [Demo][metaData.demo]
@@ -999,6 +1091,9 @@ getComments       : 获取压缩文件中的注释链表
 [app.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/AppUtils.java
 [app.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/app/AppActivity.kt
 
+[array.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ArrayUtils.java
+[array.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/ArrayUtilsTest.java
+
 [bar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/BarUtils.java
 [bar.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/bar/BarActivity.kt
 
@@ -1036,6 +1131,9 @@ getComments       : 获取压缩文件中的注释链表
 [clone.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/CloneUtilsTest.java
 
 [close.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/CloseUtils.java
+
+[collection.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/CollectionUtils.java
+[collection.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/CollectionUtilsTest.java
 
 [color.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ColorUtils.java
 [color.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/ColorUtilsTest.java
@@ -1085,6 +1183,9 @@ getComments       : 获取压缩文件中的注释链表
 
 [log.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/LogUtils.java
 [log.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/log/LogActivity.kt
+
+[map.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/MapUtils.java
+[map.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/MapUtilsTest.java
 
 [metaData.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/MetaDataUtils.java
 [metaData.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/metaData/MetaDataActivity.kt

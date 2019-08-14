@@ -78,6 +78,43 @@ getAppsInfo
 getApkInfo
 ```
 
+* ### About Array -> [ArrayUtils.java][array.java] -> [Test][array.test]
+```
+newArray
+newLongArray
+newIntArray
+newShortArray
+newCharArray
+newByteArray
+newDoubleArray
+newFloatArray
+newBooleanArray
+isEmpty
+getLength
+isSameLength
+get
+set
+equals
+reverse
+copy
+subArray
+add
+remove
+removeElement
+indexOf
+lastIndexOf
+contains
+toPrimitive
+toObject
+asList
+asUnmodifiableList
+asArrayList
+asLinkedList
+sort
+forAllDo
+toString
+```
+
 * ### About Bar -> [BarUtils.java][bar.java] -> [Demo][bar.demo]
 ```
 getStatusBarHeight
@@ -241,6 +278,46 @@ deepClone
 ```
 closeIO
 closeIOQuietly
+```
+
+* ### About Collection -> [CollectionUtils.java][collection.java] -> [Test][collection.test]
+```
+newUnmodifiableList[NotNull]: 新建只读[非空]链表
+newArrayList[NotNull]       : 新建数组型[非空]链表
+newLinkedList[NotNull]      : 新建指针型[非空]链表
+newHashSet[NotNull]         : 新建哈希[非空]集合
+newTreeSet[NotNull]         : 新建有序[非空]集合
+newSynchronizedCollection
+newUnmodifiableCollection
+union
+intersection
+disjunction
+subtract
+containsAny
+getCardinalityMap
+isSubCollection
+isProperSubCollection
+isEqualCollection
+cardinality
+find
+forAllDo
+filter
+select
+selectRejected
+transform
+collect
+countMatches
+exists
+addIgnoreNull
+addAll
+get
+size
+sizeIsEmpty
+isEmpty
+isNotEmpty
+retainAll
+removeAll
+toString
 ```
 
 * ### About Color -> [ColorUtils.java][color.java]
@@ -538,6 +615,21 @@ aTag
 file
 json
 xml
+```
+
+* ### About Map -> [MapUtils.java][map.java] -> [Test][map.test]
+```
+newUnmodifiableMap
+newHashMap
+newLinkedHashMap
+newTreeMap
+newHashTable
+isEmpty
+isNotEmpty
+size
+forAllDo
+transform
+toString
 ```
 
 * ### About MetaData -> [MetaDataUtils.java][metaData.java] -> [Demo][metaData.demo]
@@ -999,6 +1091,9 @@ getComments
 [app.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/AppUtils.java
 [app.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/app/AppActivity.kt
 
+[array.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ArrayUtils.java
+[array.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/ArrayUtilsTest.java
+
 [bar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/BarUtils.java
 [bar.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/bar/BarActivity.kt
 
@@ -1036,6 +1131,9 @@ getComments
 [clone.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/CloneUtilsTest.java
 
 [close.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/CloseUtils.java
+
+[collection.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/CollectionUtils.java
+[collection.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/CollectionUtilsTest.java
 
 [color.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ColorUtils.java
 [color.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/ColorUtilsTest.java
@@ -1085,6 +1183,9 @@ getComments
 
 [log.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/LogUtils.java
 [log.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/log/LogActivity.kt
+
+[map.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/MapUtils.java
+[map.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/MapUtilsTest.java
 
 [metaData.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/MetaDataUtils.java
 [metaData.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/metaData/MetaDataActivity.kt

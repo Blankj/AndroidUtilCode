@@ -170,6 +170,7 @@ public final class FileIOUtils {
                 byte[] data = new byte[sBufferSize];
                 for (int len; (len = is.read(data)) != -1; ) {
                     os.write(data, 0, len);
+                    curSize += len;
                     listener.onProgressUpdate(curSize / totalSize);
                 }
             }
@@ -312,11 +313,6 @@ public final class FileIOUtils {
         if (bytes == null) return false;
         return writeFileFromIS(file, new ByteArrayInputStream(bytes), append, listener);
     }
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    // writeFileFromBytesByChannel
-    ///////////////////////////////////////////////////////////////////////////
 
     /**
      * Write file from bytes by channel.
@@ -730,6 +726,10 @@ public final class FileIOUtils {
         }
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // readFile2BytesByStream without progress
+    ///////////////////////////////////////////////////////////////////////////
+
     /**
      * Return the bytes in file by stream.
      *
@@ -737,7 +737,7 @@ public final class FileIOUtils {
      * @return the bytes in file
      */
     public static byte[] readFile2BytesByStream(final String filePath) {
-        return readFile2BytesByStream(getFileByPath(filePath));
+        return readFile2BytesByStream(getFileByPath(filePath), null);
     }
 
     /**
@@ -747,16 +747,55 @@ public final class FileIOUtils {
      * @return the bytes in file
      */
     public static byte[] readFile2BytesByStream(final File file) {
+        return readFile2BytesByStream(file, null);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // readFile2BytesByStream with progress
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Return the bytes in file by stream.
+     *
+     * @param filePath The path of file.
+     * @param listener The progress update listener.
+     * @return the bytes in file
+     */
+    public static byte[] readFile2BytesByStream(final String filePath,
+                                                final OnProgressUpdateListener listener) {
+        return readFile2BytesByStream(getFileByPath(filePath));
+    }
+
+    /**
+     * Return the bytes in file by stream.
+     *
+     * @param file     The file.
+     * @param listener The progress update listener.
+     * @return the bytes in file
+     */
+    public static byte[] readFile2BytesByStream(final File file,
+                                                final OnProgressUpdateListener listener) {
         if (!isFileExists(file)) return null;
         try {
             ByteArrayOutputStream os = null;
-            InputStream is = new BufferedInputStream(new FileInputStream(file));
+            InputStream is = new BufferedInputStream(new FileInputStream(file), sBufferSize);
             try {
                 os = new ByteArrayOutputStream();
                 byte[] b = new byte[sBufferSize];
                 int len;
-                while ((len = is.read(b, 0, sBufferSize)) != -1) {
-                    os.write(b, 0, len);
+                if (listener == null) {
+                    while ((len = is.read(b, 0, sBufferSize)) != -1) {
+                        os.write(b, 0, len);
+                    }
+                } else {
+                    double totalSize = is.available();
+                    int curSize = 0;
+                    listener.onProgressUpdate(0);
+                    while ((len = is.read(b, 0, sBufferSize)) != -1) {
+                        os.write(b, 0, len);
+                        curSize += len;
+                        listener.onProgressUpdate(curSize / totalSize);
+                    }
                 }
                 return os.toByteArray();
             } catch (IOException e) {

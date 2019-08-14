@@ -1,3 +1,6 @@
+* `19/08/13` [add] MapUtils and MapUtilsTest.
+* `19/08/12` [add] CollectionUtils and CollectionUtilsTest.
+* `19/08/11` [add] ArrayUtils and ArrayUtilsTest.
 * `19/08/09` [fix] https://www.virustotal.com/gui/home/upload with ESET-NOD32. Publish v1.25.7.
 * `19/08/08` [add] BusUtils#post tag support one-to-many. Publish v1.25.6.
 * `19/08/04` [add] ThreadUtils#Task support timeout.
