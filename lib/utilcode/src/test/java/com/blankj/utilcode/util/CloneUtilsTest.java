@@ -11,7 +11,7 @@ import org.junit.Test;
  *     desc  : test CloneUtils
  * </pre>
  */
-public class CloneUtilsTest {
+public class CloneUtilsTest extends BaseTest {
 
     @Test
     public void deepClone() {

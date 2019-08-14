@@ -81,6 +81,7 @@ class ActivityActivity : CommonTitleActivity() {
                 activityActIntentsAnimBtn,
                 activityActClzSharedElementBtn,
                 activityStartHomeActivityBtn,
+                activityStartLauncherActivityBtn,
                 activityFinishActivityBtn,
                 activityFinishToActivityBtn,
                 activityFinishAllActivitiesBtn
@@ -88,6 +89,7 @@ class ActivityActivity : CommonTitleActivity() {
         SpanUtils.with(activityAboutTv)
                 .appendLine("isActivityExists: " + ActivityUtils.isActivityExists(AppUtils.getAppPackageName(), SubActivityActivity::class.java.name))
                 .appendLine("getLauncherActivity: " + ActivityUtils.getLauncherActivity(AppUtils.getAppPackageName()))
+                .appendLine("getMainActivities: " + ActivityUtils.getMainActivities())
                 .appendLine("getTopActivity: " + ActivityUtils.getTopActivity())
                 .appendLine("isActivityExistsInStack: " + ActivityUtils.isActivityExistsInStack(CoreUtilActivity::class.java))
                 .append("getActivityIcon: ")
@@ -161,6 +163,7 @@ class ActivityActivity : CommonTitleActivity() {
             R.id.activityActIntentsAnimBtn -> ActivityUtils.startActivities(this, intents,
                     R.anim.fade_in_1000, R.anim.fade_out_1000)
             R.id.activityStartHomeActivityBtn -> ActivityUtils.startHomeActivity()
+            R.id.activityStartLauncherActivityBtn -> ActivityUtils.startLauncherActivity()
             R.id.activityFinishActivityBtn -> ActivityUtils.finishActivity(CoreUtilActivity::class.java)
             R.id.activityFinishToActivityBtn -> ActivityUtils.finishToActivity(CoreUtilActivity::class.java, false, true)
             R.id.activityFinishAllActivitiesBtn -> ActivityUtils.finishAllActivities()

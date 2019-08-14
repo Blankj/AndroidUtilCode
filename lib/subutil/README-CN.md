@@ -48,6 +48,7 @@ reboot              : 重启
 reboot2Recovery     : 重启到 recovery
 reboot2Bootloader   : 重启到 bootloader
 setMobileDataEnabled: 打开或关闭移动数据
+sendSmsSilent       : 发送短信
 ```
 
 * ### 定位相关 -> [LocationUtils.java][location.java] -> [Demo][location.demo]

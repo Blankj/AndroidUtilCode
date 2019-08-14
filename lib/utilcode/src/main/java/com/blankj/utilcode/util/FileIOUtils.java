@@ -1,8 +1,10 @@
 package com.blankj.utilcode.util;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -37,6 +39,10 @@ public final class FileIOUtils {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // writeFileFromIS without progress
+    ///////////////////////////////////////////////////////////////////////////
+
     /**
      * Write file from input stream.
      *
@@ -45,7 +51,7 @@ public final class FileIOUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean writeFileFromIS(final String filePath, final InputStream is) {
-        return writeFileFromIS(getFileByPath(filePath), is, false);
+        return writeFileFromIS(getFileByPath(filePath), is, false, null);
     }
 
     /**
@@ -59,7 +65,7 @@ public final class FileIOUtils {
     public static boolean writeFileFromIS(final String filePath,
                                           final InputStream is,
                                           final boolean append) {
-        return writeFileFromIS(getFileByPath(filePath), is, append);
+        return writeFileFromIS(getFileByPath(filePath), is, append, null);
     }
 
     /**
@@ -70,7 +76,7 @@ public final class FileIOUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean writeFileFromIS(final File file, final InputStream is) {
-        return writeFileFromIS(file, is, false);
+        return writeFileFromIS(file, is, false, null);
     }
 
     /**
@@ -84,13 +90,89 @@ public final class FileIOUtils {
     public static boolean writeFileFromIS(final File file,
                                           final InputStream is,
                                           final boolean append) {
-        if (!createOrExistsFile(file) || is == null) return false;
+        return writeFileFromIS(file, is, append, null);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // writeFileFromIS with progress
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Write file from input stream.
+     *
+     * @param filePath The path of file.
+     * @param is       The input stream.
+     * @param listener The progress update listener.
+     * @return {@code true}: success<br>{@code false}: fail
+     */
+    public static boolean writeFileFromIS(final String filePath,
+                                          final InputStream is,
+                                          final OnProgressUpdateListener listener) {
+        return writeFileFromIS(getFileByPath(filePath), is, false, listener);
+    }
+
+    /**
+     * Write file from input stream.
+     *
+     * @param filePath The path of file.
+     * @param is       The input stream.
+     * @param append   True to append, false otherwise.
+     * @param listener The progress update listener.
+     * @return {@code true}: success<br>{@code false}: fail
+     */
+    public static boolean writeFileFromIS(final String filePath,
+                                          final InputStream is,
+                                          final boolean append,
+                                          final OnProgressUpdateListener listener) {
+        return writeFileFromIS(getFileByPath(filePath), is, append, listener);
+    }
+
+    /**
+     * Write file from input stream.
+     *
+     * @param file     The file.
+     * @param is       The input stream.
+     * @param listener The progress update listener.
+     * @return {@code true}: success<br>{@code false}: fail
+     */
+    public static boolean writeFileFromIS(final File file,
+                                          final InputStream is,
+                                          final OnProgressUpdateListener listener) {
+        return writeFileFromIS(file, is, false, listener);
+    }
+
+    /**
+     * Write file from input stream.
+     *
+     * @param file     The file.
+     * @param is       The input stream.
+     * @param append   True to append, false otherwise.
+     * @param listener The progress update listener.
+     * @return {@code true}: success<br>{@code false}: fail
+     */
+    public static boolean writeFileFromIS(final File file,
+                                          final InputStream is,
+                                          final boolean append,
+                                          final OnProgressUpdateListener listener) {
+        if (is == null || !createOrExistsFile(file)) return false;
         OutputStream os = null;
         try {
-            os = new BufferedOutputStream(new FileOutputStream(file, append));
-            byte data[] = new byte[sBufferSize];
-            for (int len; (len = is.read(data)) != -1; ) {
-                os.write(data, 0, len);
+            os = new BufferedOutputStream(new FileOutputStream(file, append), sBufferSize);
+            if (listener == null) {
+                byte[] data = new byte[sBufferSize];
+                for (int len; (len = is.read(data)) != -1; ) {
+                    os.write(data, 0, len);
+                }
+            } else {
+                double totalSize = is.available();
+                int curSize = 0;
+                listener.onProgressUpdate(0);
+                byte[] data = new byte[sBufferSize];
+                for (int len; (len = is.read(data)) != -1; ) {
+                    os.write(data, 0, len);
+                    curSize += len;
+                    listener.onProgressUpdate(curSize / totalSize);
+                }
             }
             return true;
         } catch (IOException e) {
@@ -112,6 +194,11 @@ public final class FileIOUtils {
         }
     }
 
+
+    ///////////////////////////////////////////////////////////////////////////
+    // writeFileFromBytesByStream without progress
+    ///////////////////////////////////////////////////////////////////////////
+
     /**
      * Write file from bytes by stream.
      *
@@ -120,7 +207,7 @@ public final class FileIOUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean writeFileFromBytesByStream(final String filePath, final byte[] bytes) {
-        return writeFileFromBytesByStream(getFileByPath(filePath), bytes, false);
+        return writeFileFromBytesByStream(getFileByPath(filePath), bytes, false, null);
     }
 
     /**
@@ -134,7 +221,7 @@ public final class FileIOUtils {
     public static boolean writeFileFromBytesByStream(final String filePath,
                                                      final byte[] bytes,
                                                      final boolean append) {
-        return writeFileFromBytesByStream(getFileByPath(filePath), bytes, append);
+        return writeFileFromBytesByStream(getFileByPath(filePath), bytes, append, null);
     }
 
     /**
@@ -145,7 +232,7 @@ public final class FileIOUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean writeFileFromBytesByStream(final File file, final byte[] bytes) {
-        return writeFileFromBytesByStream(file, bytes, false);
+        return writeFileFromBytesByStream(file, bytes, false, null);
     }
 
     /**
@@ -159,24 +246,72 @@ public final class FileIOUtils {
     public static boolean writeFileFromBytesByStream(final File file,
                                                      final byte[] bytes,
                                                      final boolean append) {
-        if (bytes == null || !createOrExistsFile(file)) return false;
-        BufferedOutputStream bos = null;
-        try {
-            bos = new BufferedOutputStream(new FileOutputStream(file, append));
-            bos.write(bytes);
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            try {
-                if (bos != null) {
-                    bos.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        return writeFileFromBytesByStream(file, bytes, append, null);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // writeFileFromBytesByStream with progress
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Write file from bytes by stream.
+     *
+     * @param filePath The path of file.
+     * @param bytes    The bytes.
+     * @param listener The progress update listener.
+     * @return {@code true}: success<br>{@code false}: fail
+     */
+    public static boolean writeFileFromBytesByStream(final String filePath,
+                                                     final byte[] bytes,
+                                                     final OnProgressUpdateListener listener) {
+        return writeFileFromBytesByStream(getFileByPath(filePath), bytes, false, listener);
+    }
+
+    /**
+     * Write file from bytes by stream.
+     *
+     * @param filePath The path of file.
+     * @param bytes    The bytes.
+     * @param append   True to append, false otherwise.
+     * @param listener The progress update listener.
+     * @return {@code true}: success<br>{@code false}: fail
+     */
+    public static boolean writeFileFromBytesByStream(final String filePath,
+                                                     final byte[] bytes,
+                                                     final boolean append,
+                                                     final OnProgressUpdateListener listener) {
+        return writeFileFromBytesByStream(getFileByPath(filePath), bytes, append, listener);
+    }
+
+    /**
+     * Write file from bytes by stream.
+     *
+     * @param file     The file.
+     * @param bytes    The bytes.
+     * @param listener The progress update listener.
+     * @return {@code true}: success<br>{@code false}: fail
+     */
+    public static boolean writeFileFromBytesByStream(final File file,
+                                                     final byte[] bytes,
+                                                     final OnProgressUpdateListener listener) {
+        return writeFileFromBytesByStream(file, bytes, false, listener);
+    }
+
+    /**
+     * Write file from bytes by stream.
+     *
+     * @param file     The file.
+     * @param bytes    The bytes.
+     * @param append   True to append, false otherwise.
+     * @param listener The progress update listener.
+     * @return {@code true}: success<br>{@code false}: fail
+     */
+    public static boolean writeFileFromBytesByStream(final File file,
+                                                     final byte[] bytes,
+                                                     final boolean append,
+                                                     final OnProgressUpdateListener listener) {
+        if (bytes == null) return false;
+        return writeFileFromIS(file, new ByteArrayInputStream(bytes), append, listener);
     }
 
     /**
@@ -236,7 +371,7 @@ public final class FileIOUtils {
                                                       final byte[] bytes,
                                                       final boolean append,
                                                       final boolean isForce) {
-        if (bytes == null) return false;
+        if (bytes == null || !createOrExistsFile(file)) return false;
         FileChannel fc = null;
         try {
             fc = new FileOutputStream(file, append).getChannel();
@@ -591,6 +726,10 @@ public final class FileIOUtils {
         }
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // readFile2BytesByStream without progress
+    ///////////////////////////////////////////////////////////////////////////
+
     /**
      * Return the bytes in file by stream.
      *
@@ -598,7 +737,7 @@ public final class FileIOUtils {
      * @return the bytes in file
      */
     public static byte[] readFile2BytesByStream(final String filePath) {
-        return readFile2BytesByStream(getFileByPath(filePath));
+        return readFile2BytesByStream(getFileByPath(filePath), null);
     }
 
     /**
@@ -608,9 +747,74 @@ public final class FileIOUtils {
      * @return the bytes in file
      */
     public static byte[] readFile2BytesByStream(final File file) {
+        return readFile2BytesByStream(file, null);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // readFile2BytesByStream with progress
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Return the bytes in file by stream.
+     *
+     * @param filePath The path of file.
+     * @param listener The progress update listener.
+     * @return the bytes in file
+     */
+    public static byte[] readFile2BytesByStream(final String filePath,
+                                                final OnProgressUpdateListener listener) {
+        return readFile2BytesByStream(getFileByPath(filePath));
+    }
+
+    /**
+     * Return the bytes in file by stream.
+     *
+     * @param file     The file.
+     * @param listener The progress update listener.
+     * @return the bytes in file
+     */
+    public static byte[] readFile2BytesByStream(final File file,
+                                                final OnProgressUpdateListener listener) {
         if (!isFileExists(file)) return null;
         try {
-            return is2Bytes(new FileInputStream(file));
+            ByteArrayOutputStream os = null;
+            InputStream is = new BufferedInputStream(new FileInputStream(file), sBufferSize);
+            try {
+                os = new ByteArrayOutputStream();
+                byte[] b = new byte[sBufferSize];
+                int len;
+                if (listener == null) {
+                    while ((len = is.read(b, 0, sBufferSize)) != -1) {
+                        os.write(b, 0, len);
+                    }
+                } else {
+                    double totalSize = is.available();
+                    int curSize = 0;
+                    listener.onProgressUpdate(0);
+                    while ((len = is.read(b, 0, sBufferSize)) != -1) {
+                        os.write(b, 0, len);
+                        curSize += len;
+                        listener.onProgressUpdate(curSize / totalSize);
+                    }
+                }
+                return os.toByteArray();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            } finally {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    if (os != null) {
+                        os.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return null;
@@ -777,5 +981,11 @@ public final class FileIOUtils {
                 e.printStackTrace();
             }
         }
+    }
+
+    public interface OnProgressUpdateListener {
+
+        void onProgressUpdate(double progress);
+
     }
 }

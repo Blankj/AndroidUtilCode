@@ -10,6 +10,7 @@ import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
@@ -19,6 +20,8 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -1055,7 +1058,9 @@ public final class ActivityUtils {
      * @param pkg The name of the package.
      */
     public static void startLauncherActivity(@NonNull final String pkg) {
-        startActivity(pkg, getLauncherActivity(pkg));
+        String launcherActivity = getLauncherActivity(pkg);
+        if (TextUtils.isEmpty(launcherActivity)) return;
+        startActivity(pkg, launcherActivity);
     }
 
     /**
@@ -1088,11 +1093,47 @@ public final class ActivityUtils {
         intent.setPackage(pkg);
         PackageManager pm = Utils.getApp().getPackageManager();
         List<ResolveInfo> info = pm.queryIntentActivities(intent, 0);
-        ResolveInfo next = info.iterator().next();
-        if (next != null) {
-            return next.activityInfo.name;
+        int size = info.size();
+        if (size == 0) return "";
+        for (int i = 0; i < size; i++) {
+            ResolveInfo ri = info.get(i);
+            if (ri.activityInfo.processName.equals(pkg)) {
+                return ri.activityInfo.name;
+            }
         }
-        return "no launcher activity of " + pkg;
+        return info.get(0).activityInfo.name;
+    }
+
+    /**
+     * Return the list of main activities.
+     *
+     * @return the list of main activities
+     */
+    public static List<String> getMainActivities() {
+        return getMainActivities(Utils.getApp().getPackageName());
+    }
+
+    /**
+     * Return the list of main activities.
+     *
+     * @param pkg The name of the package.
+     * @return the list of main activities
+     */
+    public static List<String> getMainActivities(@NonNull final String pkg) {
+        List<String> ret = new ArrayList<>();
+        Intent intent = new Intent(Intent.ACTION_MAIN, null);
+        intent.setPackage(pkg);
+        PackageManager pm = Utils.getApp().getPackageManager();
+        List<ResolveInfo> info = pm.queryIntentActivities(intent, 0);
+        int size = info.size();
+        if (size == 0) return ret;
+        for (int i = 0; i < size; i++) {
+            ResolveInfo ri = info.get(i);
+            if (ri.activityInfo.processName.equals(pkg)) {
+                ret.add(ri.activityInfo.name);
+            }
+        }
+        return ret;
     }
 
     /**

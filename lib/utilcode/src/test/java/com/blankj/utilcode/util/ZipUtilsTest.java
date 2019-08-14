@@ -1,5 +1,6 @@
 package com.blankj.utilcode.util;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -58,8 +59,8 @@ public class ZipUtilsTest extends BaseTest {
         System.out.println(ZipUtils.getComments(zipFile));
     }
 
-//    @After
-//    public void tearDown() {
-//        FileUtils.deleteAllInDir(PATH_TEMP);
-//    }
+    @After
+    public void tearDown() {
+        FileUtils.deleteAllInDir(PATH_TEMP);
+    }
 }

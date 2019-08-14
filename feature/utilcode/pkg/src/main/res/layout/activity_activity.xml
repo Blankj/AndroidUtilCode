@@ -195,6 +195,13 @@
         android:text="@string/activity_start_home_activity" />
 
     <Button
+        android:id="@+id/activityStartLauncherActivityBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_start_launcher_activity" />
+
+    <Button
         android:id="@+id/activityFinishActivityBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"

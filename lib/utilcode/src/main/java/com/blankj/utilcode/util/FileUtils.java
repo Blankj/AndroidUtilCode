@@ -1,5 +1,8 @@
 package com.blankj.utilcode.util;
 
+import android.content.Intent;
+import android.net.Uri;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -1182,6 +1185,28 @@ public final class FileUtils {
         int lastSep = filePath.lastIndexOf(File.separator);
         if (lastPoi == -1 || lastSep >= lastPoi) return "";
         return filePath.substring(lastPoi + 1);
+    }
+
+    /**
+     * Notify system to scan the file.
+     *
+     * @param file The file.
+     */
+    public static void notifySystemToScan(final File file) {
+        if (file == null || !file.exists()) return;
+        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri uri = Uri.fromFile(file);
+        intent.setData(uri);
+        Utils.getApp().sendBroadcast(intent);
+    }
+
+    /**
+     * Notify system to scan the file.
+     *
+     * @param filePath The path of file.
+     */
+    public static void notifySystemToScan(final String filePath) {
+        notifySystemToScan(getFileByPath(filePath));
     }
 
     ///////////////////////////////////////////////////////////////////////////

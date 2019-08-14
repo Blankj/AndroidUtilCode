@@ -1,4 +1,5 @@
 import org.apache.commons.io.FileUtils
+import org.apache.groovy.json.internal.ArrayUtils
 import org.gradle.BuildListener
 import org.gradle.BuildResult
 import org.gradle.api.Project
@@ -9,6 +10,7 @@ import org.gradle.api.execution.TaskExecutionListener
 import org.gradle.api.initialization.Settings
 import org.gradle.api.invocation.Gradle
 import org.gradle.api.tasks.TaskState
+import org.gradle.internal.impldep.org.apache.commons.collections.MapUtils
 
 import java.text.SimpleDateFormat
 

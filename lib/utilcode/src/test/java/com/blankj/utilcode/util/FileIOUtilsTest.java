@@ -1,12 +1,11 @@
 package com.blankj.utilcode.util;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.FileInputStream;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
-import static com.blankj.utilcode.util.TestConfig.PATH_FILE;
 import static com.blankj.utilcode.util.TestConfig.PATH_TEMP;
 
 /**
@@ -21,74 +20,68 @@ public class FileIOUtilsTest extends BaseTest {
 
     @Test
     public void writeFileFromIS() throws Exception {
-        Assert.assertTrue(FileIOUtils.writeFileFromIS(PATH_TEMP + "UTF8.txt", new FileInputStream(PATH_FILE + "UTF8.txt"), false));
-        Assert.assertTrue(FileIOUtils.writeFileFromIS(PATH_TEMP + "UTF8.txt", new FileInputStream(PATH_FILE + "UTF8.txt"), true));
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 100000; i++) {
+            sb.append(String.format("%5dFileIOUtilsTest\n", i));
+        }
+        InputStream is = ConvertUtils.string2InputStream(sb.toString(), "UTF-8");
+
+        FileIOUtils.writeFileFromIS(PATH_TEMP + "writeFileFromIS.txt", is, new FileIOUtils.OnProgressUpdateListener() {
+            @Override
+            public void onProgressUpdate(double progress) {
+                System.out.println(String.format("%.2f", progress));
+            }
+        });
     }
 
     @Test
-    public void writeFileFromBytes() {
-//        String p = path + "test.txt";
-//        String p1 = path + "copy.zip";
-//        byte[] data = new byte[(1 << 20) * 100];
-//        long st, end;
-//        FileUtils.deleteFile(p);
-//
-//        st = System.currentTimeMillis();
-//        for (int i = 0; i < 100; i++) {
-//            FileIOUtils.writeFileFromBytesByStream(p, data, true);
-//        }
-//        end = System.currentTimeMillis();
-//        System.out.println(end - st);
-//        FileUtils.deleteFile(p);
-//
-//        st = System.currentTimeMillis();
-//        for (int i = 0; i < 100; i++) {
-//            FileIOUtils.writeFileFromBytesByChannel(p, data, true);
-//        }
-//        end = System.currentTimeMillis();
-//        System.out.println(end - st);
-//        FileUtils.deleteFile(p);
-//
-//        st = System.currentTimeMillis();
-//        for (int i = 0; i < 100; i++) {
-//            FileIOUtils.writeFileFromBytesByMap(p, data, true, false);
-//        }
-//        end = System.currentTimeMillis();
-//        System.out.println(end - st);
-//        FileUtils.deleteFile(p);
+    public void writeFileFromBytesByStream() throws Exception {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 100000; i++) {
+            sb.append(String.format("%5dFileIOUtilsTest\n", i));
+        }
+        byte[] bytes = sb.toString().getBytes(StandardCharsets.UTF_8);
+
+        FileIOUtils.writeFileFromBytesByStream(PATH_TEMP + "writeFileFromBytesByStream.txt", bytes, new FileIOUtils.OnProgressUpdateListener() {
+            @Override
+            public void onProgressUpdate(double progress) {
+                System.out.println(String.format("%.2f", progress));
+            }
+        });
     }
 
     @Test
     public void writeFileFromString() {
-
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 10; i++) {
+            sb.append(i).append("FileIOUtilsTest\n");
+        }
+        FileIOUtils.writeFileFromString(PATH_TEMP + "writeFileFromString.txt", sb.toString());
     }
 
     @Test
     public void readFile2List() {
-
+        writeFileFromString();
+        for (String s : FileIOUtils.readFile2List(PATH_TEMP + "writeFileFromString.txt")) {
+            System.out.println(s);
+        }
     }
 
     @Test
     public void readFile2String() {
-
+        writeFileFromString();
+        System.out.println(FileIOUtils.readFile2String(PATH_TEMP + "writeFileFromString.txt"));
     }
 
     @Test
-    public void readFile2Bytes() {
-//        String p = path + "test.app.zip";
-//        long st, end;
-//        st = System.currentTimeMillis();
-//        FileIOUtils.readFile2BytesByStream(p);
-//        end = System.currentTimeMillis();
-//        System.out.println(end - st);
-//        st = System.currentTimeMillis();
-//        FileIOUtils.readFile2BytesByChannel(p);
-//        end = System.currentTimeMillis();
-//        System.out.println(end - st);
-//        st = System.currentTimeMillis();
-//        FileIOUtils.readFile2BytesByMap(p);
-//        end = System.currentTimeMillis();
-//        System.out.println(end - st);
+    public void readFile2Bytes() throws Exception {
+        writeFileFromBytesByStream();
+        FileIOUtils.readFile2BytesByStream(PATH_TEMP + "writeFileFromIS.txt", new FileIOUtils.OnProgressUpdateListener() {
+            @Override
+            public void onProgressUpdate(double progress) {
+                System.out.println(String.format("%.2f", progress));
+            }
+        });
     }
 
     @After

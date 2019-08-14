@@ -48,6 +48,7 @@ reboot
 reboot2Recovery
 reboot2Bootloader
 setMobileDataEnabled
+sendSmsSilent
 ```
 
 * ### About Location -> [LocationUtils.java][location.java] -> [Demo][location.demo]
