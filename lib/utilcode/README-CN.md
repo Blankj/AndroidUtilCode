@@ -628,7 +628,7 @@ isEmpty           : 判断 Map 是否为空
 isNotEmpty        : 判断 Map 是否非空
 size              : 获取 Map 元素个数
 forAllDo          : 对所有元素做操作
-transform         : 对集合做转变
+transform         : 对 Map 做转变
 toString          : Map 转为字符串
 ```
 

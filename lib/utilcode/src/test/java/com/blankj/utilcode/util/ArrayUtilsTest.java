@@ -53,7 +53,6 @@ public class ArrayUtilsTest extends BaseTest {
         Object emptyArr1 = new int[]{};
         Assert.assertTrue(ArrayUtils.isSameLength(null, emptyArr1));
         Assert.assertTrue(ArrayUtils.isSameLength(new boolean[0], emptyArr1));
-
     }
 
     @Test
@@ -188,6 +187,10 @@ public class ArrayUtilsTest extends BaseTest {
 
         List<Integer> list = ArrayUtils.asList(1, 2, 3, 4);
         System.out.println(list);
+
+        List<Integer> list1 = ArrayUtils.asUnmodifiableList(1, 2, 3, 4);
+        list1.set(0,2);
+        System.out.println(list1);
     }
 
     @Test
