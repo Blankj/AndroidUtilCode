@@ -234,6 +234,16 @@ public class TimeUtilsTest extends BaseTest {
     }
 
     @Test
+    public void isAm() {
+        assertFalse(TimeUtils.isAm(timeMillis));
+    }
+
+    @Test
+    public void isPm() {
+        assertTrue(TimeUtils.isPm(timeMillis));
+    }
+
+    @Test
     public void getWeekIndex() {
         assertEquals(5, TimeUtils.getValueByCalendarField(timeString, Calendar.DAY_OF_WEEK));
         assertEquals(5, TimeUtils.getValueByCalendarField(timeString, Calendar.DAY_OF_WEEK));

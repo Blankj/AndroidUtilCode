@@ -1036,6 +1036,8 @@ isToday
 isLeapYear
 getChineseWeek
 getUSWeek
+isAm
+isPm
 getValueByCalendarField
 getChineseZodiac
 getZodiac
