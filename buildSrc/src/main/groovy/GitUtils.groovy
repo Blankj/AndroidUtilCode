@@ -1,6 +1,5 @@
 import org.gradle.api.Action
 import org.gradle.api.Project
-import org.gradle.api.Task
 import org.gradle.api.invocation.Gradle
 
 import java.text.SimpleDateFormat
@@ -34,55 +33,43 @@ class GitUtils {
     }
 
     static void addGitPushTask(Project project) {
-        project.task("gitPush", new Action<Task>() {
-            @Override
-            void execute(Task task) {
-                task.doLast {
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd")
-                    String date = simpleDateFormat.format(new Date())
-                    GLog.d(ShellUtils.execCmd([
-                            "git add -A",
-                            "git commit -m \"see $date log\"",
-                            "git push origin $sCurBranchName"
-                    ] as String[]))
-                }
-            }
-        })
+        project.task("gitPush").doLast {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd")
+            String date = simpleDateFormat.format(new Date())
+            GLog.d(ShellUtils.execCmd([
+                    "git add -A",
+                    "git commit -m \"see $date log\"",
+                    "git push origin $sCurBranchName"
+            ] as String[]))
+        }
     }
 
     static void addGitPushAndMerge2MasterTask(Project project) {
-        project.task("gitPushAndMerge2Master", new Action<Task>() {
-            @Override
-            void execute(Task task) {
-                task.doLast {
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd")
-                    String date = simpleDateFormat.format(new Date())
-                    GLog.d(ShellUtils.execCmd([
-                            "git add -A",
-                            "git commit -m \"see $date log\"",
-                            "git push origin $sCurBranchName",
-                            "git checkout master",
-                            "git merge $sCurBranchName",
-                            "git push origin master",
-                            "git checkout $sCurBranchName",
-                    ] as String[]))
-                }
-            }
-        })
+        project.task("gitPushAndMerge2Master").doLast {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd")
+            String date = simpleDateFormat.format(new Date())
+            GLog.d(ShellUtils.execCmd([
+                    "git add -A",
+                    "git commit -m \"see $date log\"",
+                    "git push origin $sCurBranchName",
+                    "git checkout master",
+                    "git merge $sCurBranchName",
+                    "git push origin master",
+                    "git checkout $sCurBranchName",
+            ] as String[]))
+        }
     }
 
     static void addGitNewBranchTask(Project project) {
-        project.task("gitNewBranch", new Action<Task>() {
-            @Override
-            void execute(Task task) {
-                task.doLast {
-                    GLog.d(ShellUtils.execCmd([
-                            "git checkout master",
-                            "git checkout -b ${Config.versionName}",
-                            "git push origin ${Config.versionName}:${Config.versionName}",
-                    ] as String[]))
-                }
-            }
-        })
+        project.task("gitNewBranch").doLast {
+            GLog.d(ShellUtils.execCmd([
+                    "git checkout master",
+                    "git checkout -b ${Config.versionName}",
+                    "git push origin ${Config.versionName}:${Config.versionName}",
+            ] as String[]))
+        }
     }
 }
+// ./gradlew gitPush
+// ./gradlew gitPushAndMerge2Master
+// ./gradlew gitNewBranch
