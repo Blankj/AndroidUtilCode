@@ -1036,6 +1036,8 @@ isToday                 : 判断是否今天
 isLeapYear              : 判断是否闰年
 getChineseWeek          : 获取中式星期
 getUSWeek               : 获取美式式星期
+isAm                    : 判断是否上午
+isPm                    : 判断是否下午
 getValueByCalendarField : 根据日历字段获取值
 getChineseZodiac        : 获取生肖
 getZodiac               : 获取星座
