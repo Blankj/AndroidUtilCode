@@ -23,6 +23,8 @@ class GitUtils {
             void execute(Project project) {
                 sCurBranchName = getGitBranch()
                 addGitPushTask(project)
+                addGitPushAndMerge2MasterTask(project)
+                addGitNewBranchTask(project)
             }
         })
     }
@@ -48,8 +50,8 @@ class GitUtils {
         })
     }
 
-    static void addGitPush2MasterTask(Project project) {
-        project.task("gitPush2Master", new Action<Task>() {
+    static void addGitPushAndMerge2MasterTask(Project project) {
+        project.task("gitPushAndMerge2Master", new Action<Task>() {
             @Override
             void execute(Task task) {
                 task.doLast {
@@ -58,7 +60,26 @@ class GitUtils {
                     GLog.d(ShellUtils.execCmd([
                             "git add -A",
                             "git commit -m \"see $date log\"",
-                            "git push origin $sCurBranchName"
+                            "git push origin $sCurBranchName",
+                            "git checkout master",
+                            "git merge $sCurBranchName",
+                            "git push origin master",
+                            "git checkout $sCurBranchName",
+                    ] as String[]))
+                }
+            }
+        })
+    }
+
+    static void addGitNewBranchTask(Project project) {
+        project.task("gitNewBranch", new Action<Task>() {
+            @Override
+            void execute(Task task) {
+                task.doLast {
+                    GLog.d(ShellUtils.execCmd([
+                            "git checkout master",
+                            "git checkout -b ${Config.versionName}",
+                            "git push origin ${Config.versionName}:${Config.versionName}",
                     ] as String[]))
                 }
             }
