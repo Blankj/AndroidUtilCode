@@ -1,6 +1,5 @@
 package com.blankj.utilcode.util;
 
-import android.support.annotation.NonNull;
 import android.util.Pair;
 
 import java.util.Collections;
@@ -64,8 +63,11 @@ public class MapUtils {
     }
 
     @SafeVarargs
-    public static <K, V> TreeMap<K, V> newTreeMap(@NonNull final Comparator<K> comparator,
+    public static <K, V> TreeMap<K, V> newTreeMap(final Comparator<K> comparator,
                                                   final Pair<K, V>... pairs) {
+        if (comparator == null) {
+            throw new IllegalArgumentException("comparator must not be null");
+        }
         TreeMap<K, V> map = new TreeMap<>(comparator);
         if (pairs == null || pairs.length == 0) {
             return map;

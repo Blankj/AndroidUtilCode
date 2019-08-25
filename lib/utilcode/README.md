@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.25.8'
+implementation 'com.blankj:utilcode:1.25.9'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.25.8'
+implementation 'com.blankj:utilcodex:1.25.9'
 ```
 
 
@@ -1036,6 +1036,8 @@ isToday
 isLeapYear
 getChineseWeek
 getUSWeek
+isAm
+isPm
 getValueByCalendarField
 getChineseZodiac
 getZodiac
@@ -1067,6 +1069,15 @@ vibrate
 cancel
 ```
 
+* ### About View -> [ViewUtils.java][view.java]
+```
+setViewEnabled
+runOnUiThread
+runOnUiThreadDelayed
+isLayoutRtl
+fixScrollViewTopping
+```
+
 * ### About Zip -> [ZipUtils.java][zip.java] -> [Test][zip.test]
 ```
 zipFiles
@@ -1076,6 +1087,10 @@ unzipFileByKeyword
 getFilesPath
 getComments
 ```
+
+
+
+
 
 
 
@@ -1185,7 +1200,7 @@ getComments
 [log.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/log/LogActivity.kt
 
 [map.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/MapUtils.java
-[map.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/MapUtilsTest.java
+[map.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/MapUtilsTest.java
 
 [metaData.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/MetaDataUtils.java
 [metaData.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/metaData/MetaDataActivity.kt
@@ -1259,6 +1274,8 @@ getComments
 
 [vibrate.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/VibrateUtils.java
 [vibrate.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/vibrate/VibrateActivity.kt
+
+[view.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ViewUtils.java
 
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ZipUtils.java
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/ZipUtilsTest.java

@@ -36,10 +36,13 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
@@ -231,6 +234,21 @@ public final class LogUtils {
                 });
             }
         }
+    }
+
+    public static List<File> getLogFiles() {
+        String dir = CONFIG.getDir();
+        File logDir = new File(dir);
+        if (!logDir.exists()) return new ArrayList<>();
+        File[] files = logDir.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return isMatchLogFileName(name);
+            }
+        });
+        List<File> list = new ArrayList<>();
+        Collections.addAll(list, files);
+        return list;
     }
 
     private static TagHead processTagAndHead(String tag) {
@@ -527,7 +545,7 @@ public final class LogUtils {
         File[] files = parentFile.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                return name.matches("^" + CONFIG.getFilePrefix() + "_[0-9]{4}_[0-9]{2}_[0-9]{2}_.*$");
+                return isMatchLogFileName(name);
             }
         });
         if (files == null || files.length <= 0) return;
@@ -553,6 +571,10 @@ public final class LogUtils {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    private static boolean isMatchLogFileName(String name) {
+        return name.matches("^" + CONFIG.getFilePrefix() + "_[0-9]{4}_[0-9]{2}_[0-9]{2}_.*$");
     }
 
     private static String findDate(String str) {

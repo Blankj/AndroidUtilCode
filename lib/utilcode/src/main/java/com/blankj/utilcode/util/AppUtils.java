@@ -866,7 +866,7 @@ public final class AppUtils {
         return true;
     }
 
-    private static final char HEX_DIGITS[] =
+    private static final char[] HEX_DIGITS =
             {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     private static byte[] hashTemplate(final byte[] data, final String algorithm) {

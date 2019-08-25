@@ -34,6 +34,8 @@ class ReadmeCorePlugin implements Plugin<Project> {
                 sb.append("* ### About ").append(utilsName).append(line.substring(line.indexOf(" -> ")))
             } else if (line.contains(": ") && !line.contains("[")) {
                 sb.append(line.substring(0, line.indexOf(':')).trim())
+            } else if (line.contains("打个小广告") || line.contains("知识星球") || line.contains("我的二维码")) {
+                return
             } else {
                 sb.append(line)
             }

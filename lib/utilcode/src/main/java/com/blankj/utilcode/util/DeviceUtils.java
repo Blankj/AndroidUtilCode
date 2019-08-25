@@ -23,6 +23,7 @@ import java.util.Enumeration;
 import java.util.UUID;
 
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
+import static android.Manifest.permission.CHANGE_WIFI_STATE;
 import static android.Manifest.permission.INTERNET;
 import static android.content.Context.WIFI_SERVICE;
 
@@ -107,11 +108,12 @@ public final class DeviceUtils {
     /**
      * Return the MAC address.
      * <p>Must hold {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />},
-     * {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
+     * {@code <uses-permission android:name="android.permission.INTERNET" />},
+     * {@code <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />}</p>
      *
      * @return the MAC address
      */
-    @RequiresPermission(allOf = {ACCESS_WIFI_STATE, INTERNET})
+    @RequiresPermission(allOf = {ACCESS_WIFI_STATE, INTERNET, CHANGE_WIFI_STATE})
     public static String getMacAddress() {
         String macAddress = getMacAddress((String[]) null);
         if (!macAddress.equals("") || getWifiEnabled()) return macAddress;
@@ -127,10 +129,18 @@ public final class DeviceUtils {
         return manager.isWifiEnabled();
     }
 
+    /**
+     * Enable or disable wifi.
+     * <p>Must hold {@code <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />}</p>
+     *
+     * @param enabled True to enabled, false otherwise.
+     */
+    @RequiresPermission(CHANGE_WIFI_STATE)
     private static void setWifiEnabled(final boolean enabled) {
         @SuppressLint("WifiManagerLeak")
         WifiManager manager = (WifiManager) Utils.getApp().getSystemService(WIFI_SERVICE);
         if (manager == null) return;
+        if (enabled == manager.isWifiEnabled()) return;
         manager.setWifiEnabled(enabled);
     }
 
@@ -373,9 +383,8 @@ public final class DeviceUtils {
     /**
      * Return the unique device id.
      * <pre>{1}{UUID(macAddress)}</pre>
-     * <pre>{2}{UUID(deviceId  )}</pre>
-     * <pre>{3}{UUID(androidId )}</pre>
-     * <pre>{4}{UUID(random    )}</pre>
+     * <pre>{2}{UUID(androidId )}</pre>
+     * <pre>{9}{UUID(random    )}</pre>
      *
      * @return the unique device id
      */
@@ -387,9 +396,8 @@ public final class DeviceUtils {
     /**
      * Return the unique device id.
      * <pre>{prefix}{1}{UUID(macAddress)}</pre>
-     * <pre>{prefix}{2}{UUID(deviceId  )}</pre>
-     * <pre>{prefix}{3}{UUID(androidId )}</pre>
-     * <pre>{prefix}{4}{UUID(random    )}</pre>
+     * <pre>{prefix}{2}{UUID(androidId )}</pre>
+     * <pre>{prefix}{9}{UUID(random    )}</pre>
      *
      * @param prefix The prefix of the unique device id.
      * @return the unique device id
@@ -415,13 +423,8 @@ public final class DeviceUtils {
                             return saveUdid(prefix + 2, androidId);
                         }
 
-                        final String deviceId = ((TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
-                        if (!TextUtils.isEmpty(deviceId)) {
-                            return saveUdid(prefix + 3, deviceId);
-                        }
-
                     } catch (Exception ignore) {/**/}
-                    return saveUdid(prefix + 4, "");
+                    return saveUdid(prefix + 9, "");
                 }
             }
         }
@@ -449,12 +452,6 @@ public final class DeviceUtils {
                 return false;
             }
             return uniqueDeviceId.substring(st + 1).equals(getUdid("", androidId));
-        } else if (type.startsWith("3")) {
-            final String deviceId = ((TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
-            if (TextUtils.isEmpty(deviceId)) {
-                return false;
-            }
-            return uniqueDeviceId.substring(st + 1).equals(getUdid("", deviceId));
         }
         return false;
     }

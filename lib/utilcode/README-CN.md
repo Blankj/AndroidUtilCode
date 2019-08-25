@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.25.8'
+implementation 'com.blankj:utilcode:1.25.9'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.25.8'
+implementation 'com.blankj:utilcodex:1.25.9'
 ```
 
 
@@ -628,7 +628,7 @@ isEmpty           : 判断 Map 是否为空
 isNotEmpty        : 判断 Map 是否非空
 size              : 获取 Map 元素个数
 forAllDo          : 对所有元素做操作
-transform         : 对集合做转变
+transform         : 对 Map 做转变
 toString          : Map 转为字符串
 ```
 
@@ -1036,6 +1036,8 @@ isToday                 : 判断是否今天
 isLeapYear              : 判断是否闰年
 getChineseWeek          : 获取中式星期
 getUSWeek               : 获取美式式星期
+isAm                    : 判断是否上午
+isPm                    : 判断是否下午
 getValueByCalendarField : 根据日历字段获取值
 getChineseZodiac        : 获取生肖
 getZodiac               : 获取星座
@@ -1067,6 +1069,15 @@ vibrate: 震动
 cancel : 取消
 ```
 
+* ### 视图相关 -> [ViewUtils.java][view.java]
+```
+setViewEnabled      : 设置视图是否可用
+runOnUiThread       : 在 UI 线程运行
+runOnUiThreadDelayed: 在 UI 线程延迟运行
+isLayoutRtl         : 布局是否从右到左
+fixScrollViewTopping: 修复 ScrollView 置顶问题
+```
+
 * ### 压缩相关 -> [ZipUtils.java][zip.java] -> [Test][zip.test]
 ```
 zipFiles          : 批量压缩文件
@@ -1076,6 +1087,13 @@ unzipFileByKeyword: 解压带有关键字的文件
 getFilesPath      : 获取压缩文件中的文件路径链表
 getComments       : 获取压缩文件中的注释链表
 ```
+
+
+## 打个小广告
+
+欢迎加入我的知识星球「**[基你太美](https://t.zsxq.com/FmeqfYF)**」，我会在星球中分享 [AucFrame](https://blankj.com/2019/07/22/auc-frame/) 框架、大厂面经、[AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode) 更详尽的说明...一切我所了解的知识，你可以通过支付进入我的星球「**[基你太美](https://t.zsxq.com/FmeqfYF)**」进行体验，加入后优先观看星球中精华的部分，如果觉得星球的内容对自身没有收益，你可以自行申请退款退出星球，也没必要加我好友；**如果你已确定要留在我的星球，可以通过扫描如下二维码（备注：基你太美）加我个人微信，发送给我你的星球 ID，方便我后续拉你进群(PS：进得越早价格越便宜)。**
+
+![我的二维码](https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/wechat.png)
 
 
 
@@ -1259,6 +1277,8 @@ getComments       : 获取压缩文件中的注释链表
 
 [vibrate.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/VibrateUtils.java
 [vibrate.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/vibrate/VibrateActivity.kt
+
+[view.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ViewUtils.java
 
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ZipUtils.java
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/ZipUtilsTest.java

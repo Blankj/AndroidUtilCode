@@ -111,15 +111,7 @@ public final class KeyboardUtils {
         InputMethodManager imm =
                 (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm == null) return;
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0, new ResultReceiver(new Handler()) {
-            @Override
-            protected void onReceiveResult(int resultCode, Bundle resultData) {
-                if (resultCode == InputMethodManager.RESULT_UNCHANGED_SHOWN
-                        || resultCode == InputMethodManager.RESULT_SHOWN) {
-                    toggleSoftInput();
-                }
-            }
-        });
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     /**

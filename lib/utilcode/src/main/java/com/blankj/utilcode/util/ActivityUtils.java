@@ -14,15 +14,15 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.AnimRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
-
-
-import java.util.ArrayList;
-import java.util.List;
+import androidx.fragment.app.Fragment;
 
 /**
  * <pre>
@@ -953,6 +953,309 @@ public final class ActivityUtils {
     }
 
     /**
+     * Start the activity.
+     *
+     * @param fragment    The fragment.
+     * @param clz         The activity class.
+     * @param requestCode if &gt;= 0, this code will be returned in
+     *                    onActivityResult() when the activity exits.
+     */
+    public static void startActivityForResult(@NonNull final Fragment fragment,
+                                              @NonNull final Class<? extends Activity> clz,
+                                              final int requestCode) {
+        startActivityForResult(fragment, null, Utils.getApp().getPackageName(), clz.getName(),
+                requestCode, null);
+    }
+
+    /**
+     * Start the activity.
+     *
+     * @param fragment    The fragment.
+     * @param clz         The activity class.
+     * @param requestCode if &gt;= 0, this code will be returned in
+     *                    onActivityResult() when the activity exits.
+     * @param options     Additional options for how the Activity should be started.
+     */
+    public static void startActivityForResult(@NonNull final Fragment fragment,
+                                              @NonNull final Class<? extends Activity> clz,
+                                              final int requestCode,
+                                              @Nullable final Bundle options) {
+        startActivityForResult(fragment, null, Utils.getApp().getPackageName(), clz.getName(),
+                requestCode, options);
+    }
+
+    /**
+     * Start the activity.
+     *
+     * @param fragment       The fragment.
+     * @param clz            The activity class.
+     * @param requestCode    if &gt;= 0, this code will be returned in
+     *                       onActivityResult() when the activity exits.
+     * @param sharedElements The names of the shared elements to transfer to the called
+     *                       Activity and their associated Views.
+     */
+    public static void startActivityForResult(@NonNull final Fragment fragment,
+                                              @NonNull final Class<? extends Activity> clz,
+                                              final int requestCode,
+                                              final View... sharedElements) {
+        startActivityForResult(fragment, null, Utils.getApp().getPackageName(), clz.getName(),
+                requestCode, getOptionsBundle(fragment, sharedElements));
+    }
+
+    /**
+     * Start the activity.
+     *
+     * @param fragment    The fragment.
+     * @param clz         The activity class.
+     * @param requestCode if &gt;= 0, this code will be returned in
+     *                    onActivityResult() when the activity exits.
+     * @param enterAnim   A resource ID of the animation resource to use for the
+     *                    incoming activity.
+     * @param exitAnim    A resource ID of the animation resource to use for the
+     *                    outgoing activity.
+     */
+    public static void startActivityForResult(@NonNull final Fragment fragment,
+                                              @NonNull final Class<? extends Activity> clz,
+                                              final int requestCode,
+                                              @AnimRes final int enterAnim,
+                                              @AnimRes final int exitAnim) {
+        startActivityForResult(fragment, null, Utils.getApp().getPackageName(), clz.getName(),
+                requestCode, getOptionsBundle(fragment, enterAnim, exitAnim));
+    }
+
+    /**
+     * Start the activity.
+     *
+     * @param extras      The Bundle of extras to add to this intent.
+     * @param fragment    The fragment.
+     * @param clz         The activity class.
+     * @param requestCode if &gt;= 0, this code will be returned in
+     *                    onActivityResult() when the activity exits.
+     */
+    public static void startActivityForResult(@NonNull final Bundle extras,
+                                              @NonNull final Fragment fragment,
+                                              @NonNull final Class<? extends Activity> clz,
+                                              final int requestCode) {
+        startActivityForResult(fragment, extras, Utils.getApp().getPackageName(), clz.getName(),
+                requestCode, null);
+    }
+
+    /**
+     * Start the activity.
+     *
+     * @param extras      The Bundle of extras to add to this intent.
+     * @param fragment    The fragment.
+     * @param clz         The activity class.
+     * @param requestCode if &gt;= 0, this code will be returned in
+     *                    onActivityResult() when the activity exits.
+     * @param options     Additional options for how the Activity should be started.
+     */
+    public static void startActivityForResult(@NonNull final Bundle extras,
+                                              @NonNull final Fragment fragment,
+                                              @NonNull final Class<? extends Activity> clz,
+                                              final int requestCode,
+                                              @Nullable final Bundle options) {
+        startActivityForResult(fragment, extras, Utils.getApp().getPackageName(), clz.getName(),
+                requestCode, options);
+    }
+
+    /**
+     * Start the activity.
+     *
+     * @param extras         The Bundle of extras to add to this intent.
+     * @param fragment       The fragment.
+     * @param clz            The activity class.
+     * @param requestCode    if &gt;= 0, this code will be returned in
+     *                       onActivityResult() when the activity exits.
+     * @param sharedElements The names of the shared elements to transfer to the called
+     *                       Activity and their associated Views.
+     */
+    public static void startActivityForResult(@NonNull final Bundle extras,
+                                              @NonNull final Fragment fragment,
+                                              @NonNull final Class<? extends Activity> clz,
+                                              final int requestCode,
+                                              final View... sharedElements) {
+        startActivityForResult(fragment, extras, Utils.getApp().getPackageName(), clz.getName(),
+                requestCode, getOptionsBundle(fragment, sharedElements));
+    }
+
+    /**
+     * Start the activity.
+     *
+     * @param extras      The Bundle of extras to add to this intent.
+     * @param fragment    The fragment.
+     * @param clz         The activity class.
+     * @param requestCode if &gt;= 0, this code will be returned in
+     *                    onActivityResult() when the activity exits.
+     * @param enterAnim   A resource ID of the animation resource to use for the
+     *                    incoming activity.
+     * @param exitAnim    A resource ID of the animation resource to use for the
+     *                    outgoing activity.
+     */
+    public static void startActivityForResult(@NonNull final Bundle extras,
+                                              @NonNull final Fragment fragment,
+                                              @NonNull final Class<? extends Activity> clz,
+                                              final int requestCode,
+                                              @AnimRes final int enterAnim,
+                                              @AnimRes final int exitAnim) {
+        startActivityForResult(fragment, extras, Utils.getApp().getPackageName(), clz.getName(),
+                requestCode, getOptionsBundle(fragment, enterAnim, exitAnim));
+    }
+
+    /**
+     * Start the activity for result.
+     *
+     * @param fragment    The fragment.
+     * @param extras      The Bundle of extras to add to this intent.
+     * @param pkg         The name of the package.
+     * @param cls         The name of the class.
+     * @param requestCode if &gt;= 0, this code will be returned in
+     *                    onActivityResult() when the activity exits.
+     */
+    public static void startActivityForResult(@NonNull final Bundle extras,
+                                              @NonNull final Fragment fragment,
+                                              @NonNull final String pkg,
+                                              @NonNull final String cls,
+                                              final int requestCode) {
+        startActivityForResult(fragment, extras, pkg, cls, requestCode, null);
+    }
+
+    /**
+     * Start the activity for result.
+     *
+     * @param extras      The Bundle of extras to add to this intent.
+     * @param fragment    The fragment.
+     * @param pkg         The name of the package.
+     * @param cls         The name of the class.
+     * @param requestCode if &gt;= 0, this code will be returned in
+     *                    onActivityResult() when the activity exits.
+     * @param options     Additional options for how the Activity should be started.
+     */
+    public static void startActivityForResult(@NonNull final Bundle extras,
+                                              @NonNull final Fragment fragment,
+                                              @NonNull final String pkg,
+                                              @NonNull final String cls,
+                                              final int requestCode,
+                                              @Nullable final Bundle options) {
+        startActivityForResult(fragment, extras, pkg, cls, requestCode, options);
+    }
+
+    /**
+     * Start the activity for result.
+     *
+     * @param extras         The Bundle of extras to add to this intent.
+     * @param fragment       The fragment.
+     * @param pkg            The name of the package.
+     * @param cls            The name of the class.
+     * @param requestCode    if &gt;= 0, this code will be returned in
+     *                       onActivityResult() when the activity exits.
+     * @param sharedElements The names of the shared elements to transfer to the called
+     *                       Activity and their associated Views.
+     */
+    public static void startActivityForResult(@NonNull final Bundle extras,
+                                              @NonNull final Fragment fragment,
+                                              @NonNull final String pkg,
+                                              @NonNull final String cls,
+                                              final int requestCode,
+                                              final View... sharedElements) {
+        startActivityForResult(fragment, extras, pkg, cls,
+                requestCode, getOptionsBundle(fragment, sharedElements));
+    }
+
+    /**
+     * Start the activity for result.
+     *
+     * @param extras      The Bundle of extras to add to this intent.
+     * @param pkg         The name of the package.
+     * @param cls         The name of the class.
+     * @param requestCode if &gt;= 0, this code will be returned in
+     *                    onActivityResult() when the activity exits.
+     * @param enterAnim   A resource ID of the animation resource to use for the
+     *                    incoming activity.
+     * @param exitAnim    A resource ID of the animation resource to use for the
+     *                    outgoing activity.
+     */
+    public static void startActivityForResult(@NonNull final Bundle extras,
+                                              @NonNull final Fragment fragment,
+                                              @NonNull final String pkg,
+                                              @NonNull final String cls,
+                                              final int requestCode,
+                                              @AnimRes final int enterAnim,
+                                              @AnimRes final int exitAnim) {
+        startActivityForResult(fragment, extras, pkg, cls,
+                requestCode, getOptionsBundle(fragment, enterAnim, exitAnim));
+    }
+
+    /**
+     * Start the activity for result.
+     *
+     * @param fragment    The fragment.
+     * @param intent      The description of the activity to start.
+     * @param requestCode if &gt;= 0, this code will be returned in
+     *                    onActivityResult() when the activity exits.
+     */
+    public static void startActivityForResult(@NonNull final Fragment fragment,
+                                              @NonNull final Intent intent,
+                                              final int requestCode) {
+        startActivityForResult(intent, fragment, requestCode, null);
+    }
+
+    /**
+     * Start the activity for result.
+     *
+     * @param fragment    The fragment.
+     * @param intent      The description of the activity to start.
+     * @param requestCode if &gt;= 0, this code will be returned in
+     *                    onActivityResult() when the activity exits.
+     * @param options     Additional options for how the Activity should be started.
+     */
+    public static void startActivityForResult(@NonNull final Fragment fragment,
+                                              @NonNull final Intent intent,
+                                              final int requestCode,
+                                              @Nullable final Bundle options) {
+        startActivityForResult(intent, fragment, requestCode, options);
+    }
+
+    /**
+     * Start the activity for result.
+     *
+     * @param fragment       The fragment.
+     * @param intent         The description of the activity to start.
+     * @param requestCode    if &gt;= 0, this code will be returned in
+     *                       onActivityResult() when the activity exits.
+     * @param sharedElements The names of the shared elements to transfer to the called
+     *                       Activity and their associated Views.
+     */
+    public static void startActivityForResult(@NonNull final Fragment fragment,
+                                              @NonNull final Intent intent,
+                                              final int requestCode,
+                                              final View... sharedElements) {
+        startActivityForResult(intent, fragment,
+                requestCode, getOptionsBundle(fragment, sharedElements));
+    }
+
+    /**
+     * Start the activity for result.
+     *
+     * @param fragment    The fragment.
+     * @param intent      The description of the activity to start.
+     * @param requestCode if &gt;= 0, this code will be returned in
+     *                    onActivityResult() when the activity exits.
+     * @param enterAnim   A resource ID of the animation resource to use for the
+     *                    incoming activity.
+     * @param exitAnim    A resource ID of the animation resource to use for the
+     *                    outgoing activity.
+     */
+    public static void startActivityForResult(@NonNull final Fragment fragment,
+                                              @NonNull final Intent intent,
+                                              final int requestCode,
+                                              @AnimRes final int enterAnim,
+                                              @AnimRes final int exitAnim) {
+        startActivityForResult(intent, fragment,
+                requestCode, getOptionsBundle(fragment, enterAnim, exitAnim));
+    }
+
+    /**
      * Start activities.
      *
      * @param intents The descriptions of the activities to start.
@@ -1688,10 +1991,57 @@ public final class ActivityUtils {
         }
     }
 
+    private static boolean startActivityForResult(final Fragment fragment,
+                                                  final Bundle extras,
+                                                  final String pkg,
+                                                  final String cls,
+                                                  final int requestCode,
+                                                  @Nullable final Bundle options) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        if (extras != null) intent.putExtras(extras);
+        intent.setComponent(new ComponentName(pkg, cls));
+        return startActivityForResult(intent, fragment, requestCode, options);
+    }
+
+    private static boolean startActivityForResult(final Intent intent,
+                                                  final Fragment fragment,
+                                                  final int requestCode,
+                                                  @Nullable final Bundle options) {
+        if (!isIntentAvailable(intent)) {
+            Log.e("ActivityUtils", "intent is unavailable");
+            return false;
+        }
+        if (fragment.getActivity() == null) {
+            Log.e("ActivityUtils", "Fragment " + fragment + " not attached to Activity");
+            return false;
+        }
+        if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            fragment.startActivityForResult(intent, requestCode, options);
+        } else {
+            fragment.startActivityForResult(intent, requestCode);
+        }
+        return true;
+    }
+
+    private static Bundle getOptionsBundle(final Fragment fragment,
+                                           final int enterAnim,
+                                           final int exitAnim) {
+        Activity activity = fragment.getActivity();
+        if (activity == null) return null;
+        return ActivityOptionsCompat.makeCustomAnimation(activity, enterAnim, exitAnim).toBundle();
+    }
+
     private static Bundle getOptionsBundle(final Context context,
                                            final int enterAnim,
                                            final int exitAnim) {
         return ActivityOptionsCompat.makeCustomAnimation(context, enterAnim, exitAnim).toBundle();
+    }
+
+    private static Bundle getOptionsBundle(final Fragment fragment,
+                                           final View[] sharedElements) {
+        Activity activity = fragment.getActivity();
+        if (activity == null) return null;
+        return getOptionsBundle(activity, sharedElements);
     }
 
     private static Bundle getOptionsBundle(final Activity activity,

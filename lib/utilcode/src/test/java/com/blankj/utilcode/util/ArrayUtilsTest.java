@@ -53,7 +53,6 @@ public class ArrayUtilsTest extends BaseTest {
         Object emptyArr1 = new int[]{};
         Assert.assertTrue(ArrayUtils.isSameLength(null, emptyArr1));
         Assert.assertTrue(ArrayUtils.isSameLength(new boolean[0], emptyArr1));
-
     }
 
     @Test

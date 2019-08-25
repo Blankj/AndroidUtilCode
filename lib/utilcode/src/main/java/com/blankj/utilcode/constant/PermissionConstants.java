@@ -64,7 +64,7 @@ public final class PermissionConstants {
             permission.RECEIVE_WAP_PUSH, permission.RECEIVE_MMS,
     };
     private static final String[] GROUP_STORAGE       = {
-            permission.READ_EXTERNAL_STORAGE, permission.WRITE_EXTERNAL_STORAGE
+            permission.READ_EXTERNAL_STORAGE, permission.WRITE_EXTERNAL_STORAGE,
     };
 
     @StringDef({CALENDAR, CAMERA, CONTACTS, LOCATION, MICROPHONE, PHONE, SENSORS, SMS, STORAGE,})

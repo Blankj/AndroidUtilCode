@@ -32,39 +32,39 @@ public class ArrayUtils {
      */
     @SafeVarargs
     public static <T> T[] newArray(T... array) {
-        return copy(array);
+        return array;
     }
 
     public static long[] newLongArray(long... array) {
-        return copy(array);
+        return array;
     }
 
     public static int[] newIntArray(int... array) {
-        return copy(array);
+        return array;
     }
 
     public static short[] newShortArray(short... array) {
-        return copy(array);
+        return array;
     }
 
     public static char[] newCharArray(char... array) {
-        return copy(array);
+        return array;
     }
 
     public static byte[] newByteArray(byte... array) {
-        return copy(array);
+        return array;
     }
 
     public static double[] newDoubleArray(double... array) {
-        return copy(array);
+        return array;
     }
 
     public static float[] newFloatArray(float... array) {
-        return copy(array);
+        return array;
     }
 
     public static boolean[] newBooleanArray(boolean... array) {
-        return copy(array);
+        return array;
     }
 
     /**
