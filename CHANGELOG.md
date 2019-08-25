@@ -1,3 +1,7 @@
+* `19/08/25` [upd] ImageUtils#getImageType. [add] LogUtils# Publish v1.25.9.
+* `19/08/24` [fix] PhoneUtils#getIMEI crash on SDK 29.
+* `19/08/23` [add] ViewUtils#isLayoutRtl.
+* `19/08/22` [add] LogUtils#getLogFiles.
 * `19/08/13` [add] MapUtils and MapUtilsTest. Publish v1.25.8.
 * `19/08/12` [add] CollectionUtils and CollectionUtilsTest.
 * `19/08/11` [add] ArrayUtils and ArrayUtilsTest.
