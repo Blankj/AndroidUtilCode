@@ -15,7 +15,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.util.Pair;
 import android.text.TextUtils;
 import android.util.Log;
@@ -2026,7 +2025,7 @@ public final class ActivityUtils {
     private static Bundle getOptionsBundle(final Fragment fragment,
                                            final int enterAnim,
                                            final int exitAnim) {
-        FragmentActivity activity = fragment.getActivity();
+        Activity activity = fragment.getActivity();
         if (activity == null) return null;
         return ActivityOptionsCompat.makeCustomAnimation(activity, enterAnim, exitAnim).toBundle();
     }
@@ -2039,7 +2038,7 @@ public final class ActivityUtils {
 
     private static Bundle getOptionsBundle(final Fragment fragment,
                                            final View[] sharedElements) {
-        FragmentActivity activity = fragment.getActivity();
+        Activity activity = fragment.getActivity();
         if (activity == null) return null;
         return getOptionsBundle(activity, sharedElements);
     }
