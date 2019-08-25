@@ -32,5 +32,7 @@ public class TestConfig {
 
     static final String PATH_FILE = TEST_PATH + "file" + FILE_SEP;
 
+    static final String PATH_IMAGE = TEST_PATH + "image" + FILE_SEP;
+
     static final String PATH_ZIP = TEST_PATH + "zip" + FILE_SEP;
 }

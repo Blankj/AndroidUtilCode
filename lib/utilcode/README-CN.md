@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.25.8'
+implementation 'com.blankj:utilcode:1.25.9'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.25.8'
+implementation 'com.blankj:utilcodex:1.25.9'
 ```
 
 
@@ -1069,6 +1069,15 @@ vibrate: 震动
 cancel : 取消
 ```
 
+* ### 视图相关 -> [ViewUtils.java][view.java]
+```
+setViewEnabled      : 设置视图是否可用
+runOnUiThread       : 在 UI 线程运行
+runOnUiThreadDelayed: 在 UI 线程延迟运行
+isLayoutRtl         : 布局是否从右到左
+fixScrollViewTopping: 修复 ScrollView 置顶问题
+```
+
 * ### 压缩相关 -> [ZipUtils.java][zip.java] -> [Test][zip.test]
 ```
 zipFiles          : 批量压缩文件
@@ -1261,6 +1270,8 @@ getComments       : 获取压缩文件中的注释链表
 
 [vibrate.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/VibrateUtils.java
 [vibrate.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/vibrate/VibrateActivity.kt
+
+[view.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ViewUtils.java
 
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ZipUtils.java
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/ZipUtilsTest.java

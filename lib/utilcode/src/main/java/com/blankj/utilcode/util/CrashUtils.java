@@ -41,7 +41,7 @@ public final class CrashUtils {
 
     private static final String FILE_SEP = System.getProperty("file.separator");
     @SuppressLint("SimpleDateFormat")
-    private static final Format FORMAT   = new SimpleDateFormat("MM-dd HH-mm-ss");
+    private static final Format FORMAT   = new SimpleDateFormat("MM-dd_HH-mm-ss");
 
     private static final UncaughtExceptionHandler DEFAULT_UNCAUGHT_EXCEPTION_HANDLER;
     private static final UncaughtExceptionHandler UNCAUGHT_EXCEPTION_HANDLER;

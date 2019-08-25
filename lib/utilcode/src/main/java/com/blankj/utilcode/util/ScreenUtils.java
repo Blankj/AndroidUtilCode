@@ -100,7 +100,7 @@ public final class ScreenUtils {
      * @return the density of screen
      */
     public static float getScreenDensity() {
-        return Resources.getSystem().getDisplayMetrics().density;
+        return Utils.getApp().getResources().getDisplayMetrics().density;
     }
 
     /**
@@ -109,7 +109,7 @@ public final class ScreenUtils {
      * @return the screen density expressed as dots-per-inch
      */
     public static int getScreenDensityDpi() {
-        return Resources.getSystem().getDisplayMetrics().densityDpi;
+        return Utils.getApp().getResources().getDisplayMetrics().densityDpi;
     }
 
     /**

@@ -1,24 +1,20 @@
 package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresPermission;
-import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.List;
 
 import static android.Manifest.permission.CALL_PHONE;
 import static android.Manifest.permission.READ_PHONE_STATE;
-import static android.Manifest.permission.SEND_SMS;
 
 /**
  * <pre>
@@ -46,6 +42,7 @@ public final class PhoneUtils {
 
     /**
      * Return the unique device id.
+     * <p>If the version of SDK is greater than 28, it will return an empty string.</p>
      * <p>Must hold {@code <uses-permission android:name="android.permission.READ_PHONE_STATE" />}</p>
      *
      * @return the unique device id
@@ -53,6 +50,9 @@ public final class PhoneUtils {
     @SuppressLint("HardwareIds")
     @RequiresPermission(READ_PHONE_STATE)
     public static String getDeviceId() {
+        if (Build.VERSION.SDK_INT >= 29) {
+            return "";
+        }
         TelephonyManager tm = getTelephonyManager();
         String deviceId = tm.getDeviceId();
         if (!TextUtils.isEmpty(deviceId)) return deviceId;
@@ -78,6 +78,7 @@ public final class PhoneUtils {
 
     /**
      * Return the IMEI.
+     * <p>If the version of SDK is greater than 28, it will return an empty string.</p>
      * <p>Must hold {@code <uses-permission android:name="android.permission.READ_PHONE_STATE" />}</p>
      *
      * @return the IMEI
@@ -89,6 +90,7 @@ public final class PhoneUtils {
 
     /**
      * Return the MEID.
+     * <p>If the version of SDK is greater than 28, it will return an empty string.</p>
      * <p>Must hold {@code <uses-permission android:name="android.permission.READ_PHONE_STATE" />}</p>
      *
      * @return the MEID
@@ -101,6 +103,9 @@ public final class PhoneUtils {
     @SuppressLint("HardwareIds")
     @RequiresPermission(READ_PHONE_STATE)
     public static String getImeiOrMeid(boolean isImei) {
+        if (Build.VERSION.SDK_INT >= 29) {
+            return "";
+        }
         TelephonyManager tm = getTelephonyManager();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (isImei) {
