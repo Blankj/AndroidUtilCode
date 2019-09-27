@@ -55,11 +55,6 @@ class BusActivity : CommonTitleActivity() {
         })
     }
 
-    @BusUtils.Bus(tag = "_PusNotifyData", sticky = true, threadMode = BusUtils.ThreadMode.MAIN)
-    fun onPusNotifyData(pusNotifyData: PusNotifyData) {
-        LogUtils.e("haha")
-    }
-
     companion object {
         const val TAG_BASIC_TYPE = "tag_basic_type"
         const val TAG_BUS = "tag_bus"

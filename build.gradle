@@ -44,6 +44,9 @@ allprojects {
             url 'https://maven.aliyun.com/repository/google'
             name 'replace google()'
         }
+        maven {
+            url "https://jitpack.io"
+        }
         google()
         jcenter()
     }

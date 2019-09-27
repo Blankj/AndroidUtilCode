@@ -94,6 +94,7 @@ class PermissionActivity : CommonTitleActivity() {
                             return
                         }
                         requestCalendar()
+                        ToastUtils.showLong("Calendar Denied")
                     }
                 })
                 .theme { activity -> ScreenUtils.setFullScreen(activity) }
@@ -117,6 +118,7 @@ class PermissionActivity : CommonTitleActivity() {
                             return
                         }
                         requestRecordAudio()
+                        ToastUtils.showLong("RecordAudio Denied")
                     }
                 })
                 .request()
@@ -139,6 +141,7 @@ class PermissionActivity : CommonTitleActivity() {
                             return
                         }
                         requestCalendarAndRecordAudio()
+                        ToastUtils.showLong("Calendar or RecordAudio Denied")
                     }
                 })
                 .request()
@@ -184,5 +187,6 @@ class PermissionActivity : CommonTitleActivity() {
                         appendLine("DRAW_OVERLAYS: " + PermissionUtils.isGrantedDrawOverlays())
                     }
                 }
+                .create()
     }
 }

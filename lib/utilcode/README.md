@@ -447,13 +447,9 @@ isFile
 createOrExistsDir
 createOrExistsFile
 createFileByDeleteOldFile
-copyDir
-copyFile
-moveDir
-moveFile
+copy
+move
 delete
-deleteDir
-deleteFile
 deleteAllInDir
 deleteFilesInDir
 deleteFilesInDirWithFilter
@@ -462,10 +458,8 @@ listFilesInDirWithFilter
 getFileLastModified
 getFileCharsetSimple
 getFileLines
-getDirSize
-getFileSize
-getDirLength
-getFileLength
+getSize
+getLength
 getFileMD5
 getFileMD5ToString
 getDirName
@@ -790,6 +784,17 @@ getReplaceAll
 
 * ### About Resource -> [ResourceUtils.java][resource.java] -> [Demo][resource.demo]
 ```
+getDrawable
+getIdByName
+getStringIdByName
+getColorIdByName
+getDimenIdByName
+getDrawableIdByName
+getMipmapIdByName
+getLayoutIdByName
+getStyleIdByName
+getAnimIdByName
+getMenuIdByName
 copyFileFromAssets
 readAssets2String
 readAssets2List

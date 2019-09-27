@@ -73,54 +73,54 @@ public class FileUtilsTest extends BaseTest {
     public void createOrExistsDir() {
         assertTrue(FileUtils.createOrExistsDir(PATH_FILE + "new Dir"));
         assertTrue(FileUtils.createOrExistsDir(PATH_FILE));
-        assertTrue(FileUtils.deleteDir(PATH_FILE + "new Dir"));
+        assertTrue(FileUtils.delete(PATH_FILE + "new Dir"));
     }
 
     @Test
     public void createOrExistsFile() {
         assertTrue(FileUtils.createOrExistsFile(PATH_FILE + "new File"));
         assertFalse(FileUtils.createOrExistsFile(PATH_FILE));
-        assertTrue(FileUtils.deleteFile(PATH_FILE + "new File"));
+        assertTrue(FileUtils.delete(PATH_FILE + "new File"));
     }
 
     @Test
     public void createFileByDeleteOldFile() {
         assertTrue(FileUtils.createFileByDeleteOldFile(PATH_FILE + "new File"));
         assertFalse(FileUtils.createFileByDeleteOldFile(PATH_FILE));
-        assertTrue(FileUtils.deleteFile(PATH_FILE + "new File"));
+        assertTrue(FileUtils.delete(PATH_FILE + "new File"));
     }
 
     @Test
     public void copyDir() {
-        assertFalse(FileUtils.copyDir(PATH_FILE, PATH_FILE, mListener));
-        assertFalse(FileUtils.copyDir(PATH_FILE, PATH_FILE + "new Dir", mListener));
-        assertTrue(FileUtils.copyDir(PATH_FILE, PATH_TEMP, mListener));
-        assertTrue(FileUtils.deleteDir(PATH_TEMP));
+        assertFalse(FileUtils.copy(PATH_FILE, PATH_FILE, mListener));
+        assertFalse(FileUtils.copy(PATH_FILE, PATH_FILE + "new Dir", mListener));
+        assertTrue(FileUtils.copy(PATH_FILE, PATH_TEMP, mListener));
+        assertTrue(FileUtils.delete(PATH_TEMP));
     }
 
     @Test
     public void copyFile() {
-        assertFalse(FileUtils.copyFile(PATH_FILE + "GBK.txt", PATH_FILE + "GBK.txt", mListener));
-        assertTrue(FileUtils.copyFile(PATH_FILE + "GBK.txt", PATH_FILE + "new Dir" + FILE_SEP + "GBK.txt", mListener));
-        assertTrue(FileUtils.copyFile(PATH_FILE + "GBK.txt", PATH_TEMP + "GBK.txt", mListener));
-        assertTrue(FileUtils.deleteDir(PATH_FILE + "new Dir"));
-        assertTrue(FileUtils.deleteDir(PATH_TEMP));
+        assertFalse(FileUtils.copy(PATH_FILE + "GBK.txt", PATH_FILE + "GBK.txt", mListener));
+        assertTrue(FileUtils.copy(PATH_FILE + "GBK.txt", PATH_FILE + "new Dir" + FILE_SEP + "GBK.txt", mListener));
+        assertTrue(FileUtils.copy(PATH_FILE + "GBK.txt", PATH_TEMP + "GBK.txt", mListener));
+        assertTrue(FileUtils.delete(PATH_FILE + "new Dir"));
+        assertTrue(FileUtils.delete(PATH_TEMP));
     }
 
     @Test
     public void moveDir() {
-        assertFalse(FileUtils.moveDir(PATH_FILE, PATH_FILE, mListener));
-        assertFalse(FileUtils.moveDir(PATH_FILE, PATH_FILE + "new Dir", mListener));
-        assertTrue(FileUtils.moveDir(PATH_FILE, PATH_TEMP, mListener));
-        assertTrue(FileUtils.moveDir(PATH_TEMP, PATH_FILE, mListener));
+        assertFalse(FileUtils.move(PATH_FILE, PATH_FILE, mListener));
+        assertFalse(FileUtils.move(PATH_FILE, PATH_FILE + "new Dir", mListener));
+        assertTrue(FileUtils.move(PATH_FILE, PATH_TEMP, mListener));
+        assertTrue(FileUtils.move(PATH_TEMP, PATH_FILE, mListener));
     }
 
     @Test
     public void moveFile() {
-        assertFalse(FileUtils.moveFile(PATH_FILE + "GBK.txt", PATH_FILE + "GBK.txt", mListener));
-        assertTrue(FileUtils.moveFile(PATH_FILE + "GBK.txt", PATH_TEMP + "GBK.txt", mListener));
-        assertTrue(FileUtils.moveFile(PATH_TEMP + "GBK.txt", PATH_FILE + "GBK.txt", mListener));
-        FileUtils.deleteDir(PATH_TEMP);
+        assertFalse(FileUtils.move(PATH_FILE + "GBK.txt", PATH_FILE + "GBK.txt", mListener));
+        assertTrue(FileUtils.move(PATH_FILE + "GBK.txt", PATH_TEMP + "GBK.txt", mListener));
+        assertTrue(FileUtils.move(PATH_TEMP + "GBK.txt", PATH_FILE + "GBK.txt", mListener));
+        FileUtils.delete(PATH_TEMP);
     }
 
     @Test
@@ -155,17 +155,17 @@ public class FileUtilsTest extends BaseTest {
 
     @Test
     public void getDirSize() {
-        System.out.println(FileUtils.getDirSize(PATH_FILE));
+        System.out.println(FileUtils.getSize(PATH_FILE));
     }
 
     @Test
     public void getFileSize() {
-        System.out.println(FileUtils.getFileSize(PATH_FILE + "UTF8.txt"));
+        System.out.println(FileUtils.getSize(PATH_FILE + "UTF8.txt"));
     }
 
     @Test
     public void getDirLength() {
-        System.out.println(FileUtils.getDirLength(PATH_FILE));
+        System.out.println(FileUtils.getLength(PATH_FILE));
     }
 
     @Test

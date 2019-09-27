@@ -30,9 +30,7 @@ public final class ServiceUtils {
      * @return all of the services are running
      */
     public static Set getAllRunningServices() {
-        ActivityManager am =
-                (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-        //noinspection ConstantConditions
+        ActivityManager am = (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
         List<RunningServiceInfo> info = am.getRunningServices(0x7FFFFFFF);
         Set<String> names = new HashSet<>();
         if (info == null || info.size() == 0) return null;
@@ -166,9 +164,7 @@ public final class ServiceUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isServiceRunning(final String className) {
-        ActivityManager am =
-                (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-        //noinspection ConstantConditions
+        ActivityManager am = (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
         List<RunningServiceInfo> info = am.getRunningServices(0x7FFFFFFF);
         if (info == null || info.size() == 0) return false;
         for (RunningServiceInfo aInfo : info) {

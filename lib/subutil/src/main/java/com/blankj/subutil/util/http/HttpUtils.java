@@ -140,7 +140,7 @@ public final class HttpUtils {
         OutputStream os = null;
         try {
             os = new BufferedOutputStream(new FileOutputStream(file));
-            byte data[] = new byte[8192];
+            byte[] data = new byte[8192];
             for (int len; (len = is.read(data)) != -1; ) {
                 os.write(data, 0, len);
             }

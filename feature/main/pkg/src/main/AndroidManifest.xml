@@ -5,7 +5,6 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTask"
             android:screenOrientation="user"
             android:windowSoftInputMode="stateHidden" />
     </application>

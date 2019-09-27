@@ -73,15 +73,12 @@ class ImageActivity : CommonTaskActivity<List<ImageCell>>() {
             }
             add(ImageCell(R.string.image_stack_blur, ImageUtils.stackBlur(src, 10)))
             add(ImageCell(R.string.image_compress_by_scale, ImageUtils.compressByScale(src, 0.5f, 0.5f)))
-            add(ImageCell(R.string.image_compress_by_quality_half, ImageUtils.compressByQuality(src, 50)))
-            add(ImageCell(R.string.image_compress_by_quality_max_size, ImageUtils.compressByQuality(src, 10L * 1024)))// 10Kb
             add(ImageCell(R.string.image_compress_by_sample_size, ImageUtils.compressBySampleSize(src, 2)))
         }
     }
 
     override fun runOnUiThread(data: List<ImageCell>) {
         val imageAdapter = BaseItemAdapter<ImageCell>()
-        imageAdapter.setHasStableIds(true)
         imageAdapter.items = data
         imageRv.adapter = imageAdapter
         imageRv.layoutManager = LinearLayoutManager(this@ImageActivity)

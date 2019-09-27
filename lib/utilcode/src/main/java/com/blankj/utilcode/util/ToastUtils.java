@@ -345,7 +345,6 @@ public final class ToastUtils {
     private static View getView(@LayoutRes final int layoutId) {
         LayoutInflater inflate =
                 (LayoutInflater) Utils.getApp().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        //noinspection ConstantConditions
         return inflate.inflate(layoutId, null);
     }
 

@@ -309,6 +309,7 @@
     <string name="sp_put_long">Put Long</string>
     <string name="sp_put_float">Put Float</string>
     <string name="sp_put_boolean">Put Boolean</string>
+    <string name="sp_put_string_set">Put String Set</string>
     <string name="sp_clear">Clear</string>
 
     <!--Toast 相关-->

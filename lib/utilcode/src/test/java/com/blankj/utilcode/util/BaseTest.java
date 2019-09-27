@@ -12,6 +12,8 @@ import org.robolectric.shadows.ShadowLog;
 
 import java.util.concurrent.Executor;
 
+import static com.blankj.utilcode.util.TestConfig.PATH_FILE;
+
 /**
  * <pre>
  *     author: Blankj
@@ -42,6 +44,7 @@ public class BaseTest {
 
     @Test
     public void test() throws Exception {
-
+        String[] list = FileUtils.getFileByPath(PATH_FILE).list();
+        System.out.println(ArrayUtils.toString(list));
     }
 }

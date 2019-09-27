@@ -447,14 +447,10 @@ isFile                    : 判断是否是文件
 createOrExistsDir         : 判断目录是否存在，不存在则判断是否创建成功
 createOrExistsFile        : 判断文件是否存在，不存在则判断是否创建成功
 createFileByDeleteOldFile : 判断文件是否存在，存在则在创建之前删除
-copyDir                   : 复制目录
-copyFile                  : 复制文件
-moveDir                   : 移动目录
-moveFile                  : 移动文件
+copy                      : 复制文件或目录
+move                      : 移动文件或目录
 delete                    : 删除文件或目录
-deleteDir                 : 删除目录
-deleteFile                : 删除文件
-deleteAllInDir            : 删除目录下所有东西
+deleteAllInDir            : 删除目录下所有内容
 deleteFilesInDir          : 删除目录下所有文件
 deleteFilesInDirWithFilter: 删除目录下所有过滤的文件
 listFilesInDir            : 获取目录下所有文件
@@ -462,10 +458,8 @@ listFilesInDirWithFilter  : 获取目录下所有过滤的文件
 getFileLastModified       : 获取文件最后修改的毫秒时间戳
 getFileCharsetSimple      : 简单获取文件编码格式
 getFileLines              : 获取文件行数
-getDirSize                : 获取目录大小
-getFileSize               : 获取文件大小
-getDirLength              : 获取目录长度
-getFileLength             : 获取文件长度
+getSize                   : 获取文件或目录大小
+getLength                 : 获取文件或目录长度
 getFileMD5                : 获取文件的 MD5 校验码
 getFileMD5ToString        : 获取文件的 MD5 校验码
 getDirName                : 根据全路径获取最长目录
@@ -790,12 +784,23 @@ getReplaceAll  : 替换所有正则匹配的部分
 
 * ### 资源相关 -> [ResourceUtils.java][resource.java] -> [Demo][resource.demo]
 ```
-copyFileFromAssets: 从 assets 中拷贝文件
-readAssets2String : 从 assets 中读取字符串
-readAssets2List   : 从 assets 中按行读取字符串
-copyFileFromRaw   : 从 raw 中拷贝文件
-readRaw2String    : 从 raw 中读取字符串
-readRaw2List      : 从 raw 中按行读取字符串
+getDrawable        : 获取 Drawable
+getIdByName        : 根据名字获取 ID
+getStringIdByName  : 根据名字获取 string ID
+getColorIdByName   : 根据名字获取 color ID
+getDimenIdByName   : 根据名字获取 dimen ID
+getDrawableIdByName: 根据名字获取 dimen ID
+getMipmapIdByName  : 根据名字获取 mipmap ID
+getLayoutIdByName  : 根据名字获取 layout ID
+getStyleIdByName   : 根据名字获取 style ID
+getAnimIdByName    : 根据名字获取 anim ID
+getMenuIdByName    : 根据名字获取 menu ID
+copyFileFromAssets : 从 assets 中拷贝文件
+readAssets2String  : 从 assets 中读取字符串
+readAssets2List    : 从 assets 中按行读取字符串
+copyFileFromRaw    : 从 raw 中拷贝文件
+readRaw2String     : 从 raw 中读取字符串
+readRaw2List       : 从 raw 中按行读取字符串
 ```
 
 * ### Rom 相关 -> [RomUtils.java][rom.java] -> [Demo][rom.demo]

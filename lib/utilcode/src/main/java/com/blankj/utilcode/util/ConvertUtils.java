@@ -561,17 +561,25 @@ public final class ConvertUtils {
      */
     public static Bitmap view2Bitmap(final View view) {
         if (view == null) return null;
-        Bitmap ret =
-                Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(ret);
-        Drawable bgDrawable = view.getBackground();
-        if (bgDrawable != null) {
-            bgDrawable.draw(canvas);
+        boolean drawingCacheEnabled = view.isDrawingCacheEnabled();
+        boolean willNotCacheDrawing = view.willNotCacheDrawing();
+        view.setDrawingCacheEnabled(true);
+        view.setWillNotCacheDrawing(false);
+        final Bitmap drawingCache = view.getDrawingCache();
+        Bitmap bitmap;
+        if (null == drawingCache) {
+            view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+            view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+            view.buildDrawingCache();
+            bitmap = Bitmap.createBitmap(view.getDrawingCache());
         } else {
-            canvas.drawColor(Color.WHITE);
+            bitmap = Bitmap.createBitmap(drawingCache);
         }
-        view.draw(canvas);
-        return ret;
+        view.destroyDrawingCache();
+        view.setWillNotCacheDrawing(willNotCacheDrawing);
+        view.setDrawingCacheEnabled(drawingCacheEnabled);
+        return bitmap;
     }
 
     /**
@@ -581,7 +589,7 @@ public final class ConvertUtils {
      * @return value of px
      */
     public static int dp2px(final float dpValue) {
-        final float scale = Utils.getApp().getResources().getDisplayMetrics().density;
+        final float scale = Resources.getSystem().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
@@ -592,7 +600,7 @@ public final class ConvertUtils {
      * @return value of dp
      */
     public static int px2dp(final float pxValue) {
-        final float scale = Utils.getApp().getResources().getDisplayMetrics().density;
+        final float scale = Resources.getSystem().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
 
@@ -603,7 +611,7 @@ public final class ConvertUtils {
      * @return value of px
      */
     public static int sp2px(final float spValue) {
-        final float fontScale = Utils.getApp().getResources().getDisplayMetrics().scaledDensity;
+        final float fontScale = Resources.getSystem().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
 
@@ -614,7 +622,7 @@ public final class ConvertUtils {
      * @return value of sp
      */
     public static int px2sp(final float pxValue) {
-        final float fontScale = Utils.getApp().getResources().getDisplayMetrics().scaledDensity;
+        final float fontScale = Resources.getSystem().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
 

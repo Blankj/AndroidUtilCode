@@ -50,7 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity
 
     public void applyDebouncingClickListener(View... views) {
         ClickUtils.applyGlobalDebouncing(views, mClickListener);
-        ClickUtils.applyScale(views);
+        ClickUtils.applyPressedViewScale(views);
     }
 }
 

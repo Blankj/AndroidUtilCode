@@ -16,7 +16,7 @@ configApkName()
 android {
     compileSdkVersion Config.compileSdkVersion
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion Config.minSdkVersion
         versionCode Config.versionCode
         versionName Config.versionName
         applicationId Config.applicationId + suffix

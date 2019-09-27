@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.blankj.common.CommonTitleActivity
 import com.blankj.utilcode.pkg.R
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ReflectUtils
 import com.blankj.utilcode.util.SpanUtils
 import kotlinx.android.synthetic.main.activity_reflect.*
@@ -38,10 +39,12 @@ class ReflectActivity : CommonTitleActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
+        LogUtils.e(TestPrivateStaticFinal.STR)
         SpanUtils.with(reflectAboutTv)
-                .appendLine("before reflect: " + ReflectUtils.reflect(TestPrivateStaticFinal::class.java).field("I1").get<Any>())
-                .append("after reflect: " + ReflectUtils.reflect(TestPrivateStaticFinal::class.java).field("I1", 2).field("I1").get<Any>())
+                .appendLine("before reflect: " + ReflectUtils.reflect(TestPrivateStaticFinal::class.java).field("STR").get<Any>())
+                .append("after reflect: " + ReflectUtils.reflect(TestPrivateStaticFinal::class.java).field("STR", "reflect success").field("STR").get<Any>())
                 .create()
+        LogUtils.e(TestPrivateStaticFinal.STR)
     }
 
     override fun doBusiness() {}
@@ -49,11 +52,7 @@ class ReflectActivity : CommonTitleActivity() {
     override fun onDebouncingClick(view: View) {}
 
     override fun onDestroy() {
-        ReflectUtils.reflect(TestPrivateStaticFinal::class.java).field("I1", 1)
+//        ReflectUtils.reflect(TestPrivateStaticFinal::class.java).field("STR", "str")
         super.onDestroy()
     }
-}
-
-object TestPrivateStaticFinal {
-    val I1 = 1
 }

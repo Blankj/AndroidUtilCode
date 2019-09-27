@@ -12,7 +12,6 @@
         <activity
             android:name="com.blankj.main.pkg.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTask"
             android:screenOrientation="user"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>

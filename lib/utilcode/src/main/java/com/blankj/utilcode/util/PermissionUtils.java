@@ -2,14 +2,12 @@ package com.blankj.utilcode.util;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
@@ -121,7 +119,7 @@ public final class PermissionUtils {
             return;
         }
         sSimpleCallback4WriteSettings = callback;
-        PermissionActivity.start(Utils.getApp(), PermissionActivity.TYPE_WRITE_SETTINGS);
+        PermissionActivityImpl.start(PermissionActivityImpl.TYPE_WRITE_SETTINGS);
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -152,7 +150,7 @@ public final class PermissionUtils {
             return;
         }
         sSimpleCallback4DrawOverlays = callback;
-        PermissionActivity.start(Utils.getApp(), PermissionActivity.TYPE_DRAW_OVERLAYS);
+        PermissionActivityImpl.start(PermissionActivityImpl.TYPE_DRAW_OVERLAYS);
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -278,7 +276,7 @@ public final class PermissionUtils {
     private void startPermissionActivity() {
         mPermissionsDenied = new ArrayList<>();
         mPermissionsDeniedForever = new ArrayList<>();
-        PermissionActivity.start(Utils.getApp(), PermissionActivity.TYPE_RUNTIME);
+        PermissionActivityImpl.start(PermissionActivityImpl.TYPE_RUNTIME);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -353,77 +351,84 @@ public final class PermissionUtils {
         requestCallback();
     }
 
-
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public static class PermissionActivity extends Activity {
+    static final class PermissionActivityImpl extends Utils.TransActivityDelegate {
 
         private static final String TYPE                = "TYPE";
-        public static final  int    TYPE_RUNTIME        = 0x01;
-        public static final  int    TYPE_WRITE_SETTINGS = 0x02;
-        public static final  int    TYPE_DRAW_OVERLAYS  = 0x03;
+        private static final int    TYPE_RUNTIME        = 0x01;
+        private static final int    TYPE_WRITE_SETTINGS = 0x02;
+        private static final int    TYPE_DRAW_OVERLAYS  = 0x03;
 
-        public static void start(final Context context, int type) {
-            Intent starter = new Intent(context, PermissionActivity.class);
-            starter.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            starter.putExtra(TYPE, type);
-            context.startActivity(starter);
+        private static PermissionActivityImpl INSTANCE = new PermissionActivityImpl();
+
+        public static void start(final int type) {
+            Utils.TransActivity.start(new Utils.Consumer<Intent>() {
+                @Override
+                public void consume(Intent data) {
+                    data.putExtra(TYPE, type);
+                }
+            }, INSTANCE);
         }
 
         @Override
-        protected void onCreate(@Nullable Bundle savedInstanceState) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+        public void onCreateBefore(Activity activity, @Nullable Bundle savedInstanceState) {
+            super.onCreateBefore(activity, savedInstanceState);
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
                     | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
-            int byteExtra = getIntent().getIntExtra(TYPE, TYPE_RUNTIME);
-            if (byteExtra == TYPE_RUNTIME) {
+            int type = activity.getIntent().getIntExtra(TYPE, -1);
+            if (type == TYPE_RUNTIME) {
                 if (sInstance == null) {
-                    super.onCreate(savedInstanceState);
                     Log.e("PermissionUtils", "request permissions failed");
-                    finish();
+                    activity.finish();
                     return;
                 }
                 if (sInstance.mThemeCallback != null) {
-                    sInstance.mThemeCallback.onActivityCreate(this);
+                    sInstance.mThemeCallback.onActivityCreate(activity);
                 }
-                super.onCreate(savedInstanceState);
-
-                if (sInstance.rationale(this)) {
+                if (sInstance.rationale(activity)) {
                     return;
                 }
                 if (sInstance.mPermissionsRequest != null) {
                     int size = sInstance.mPermissionsRequest.size();
                     if (size <= 0) {
-                        finish();
+                        activity.finish();
                         return;
                     }
-                    requestPermissions(sInstance.mPermissionsRequest.toArray(new String[size]), 1);
+                    activity.requestPermissions(sInstance.mPermissionsRequest.toArray(new String[size]), 1);
                 }
-            } else if (byteExtra == TYPE_WRITE_SETTINGS) {
-                super.onCreate(savedInstanceState);
-                startWriteSettingsActivity(this, TYPE_WRITE_SETTINGS);
-            } else if (byteExtra == TYPE_DRAW_OVERLAYS) {
-                super.onCreate(savedInstanceState);
-                startOverlayPermissionActivity(this, TYPE_DRAW_OVERLAYS);
+            } else if (type == TYPE_WRITE_SETTINGS) {
+                startWriteSettingsActivity(activity, TYPE_WRITE_SETTINGS);
+            } else if (type == TYPE_DRAW_OVERLAYS) {
+                startOverlayPermissionActivity(activity, TYPE_DRAW_OVERLAYS);
+            } else {
+                activity.finish();
+                Log.e("PermissionUtils", "type is wrong.");
             }
         }
 
         @Override
-        public void onRequestPermissionsResult(int requestCode,
-                                               @NonNull String[] permissions,
-                                               @NonNull int[] grantResults) {
+        public void onRequestPermissionsResult(Activity activity,
+                                               int requestCode,
+                                               String[] permissions,
+                                               int[] grantResults) {
+            super.onRequestPermissionsResult(activity, requestCode, permissions, grantResults);
             if (sInstance != null && sInstance.mPermissionsRequest != null) {
-                sInstance.onRequestPermissionsResult(this);
+                sInstance.onRequestPermissionsResult(activity);
             }
-            finish();
+            activity.finish();
         }
 
+
         @Override
-        public boolean dispatchTouchEvent(MotionEvent ev) {
-            finish();
+        public boolean dispatchTouchEvent(Activity activity, MotionEvent ev) {
+            super.dispatchTouchEvent(activity, ev);
+            activity.finish();
             return true;
         }
 
         @Override
-        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(activity, requestCode, resultCode, data);
             if (requestCode == TYPE_WRITE_SETTINGS) {
                 if (sSimpleCallback4WriteSettings == null) return;
                 if (isGrantedWriteSettings()) {
@@ -446,7 +451,7 @@ public final class PermissionUtils {
                     }
                 }, 100);
             }
-            finish();
+            activity.finish();
         }
     }
 

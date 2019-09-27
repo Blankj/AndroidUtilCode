@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="FloatAnimation">
+        <item name="android:windowEnterAnimation">@anim/float_in</item>
+        <item name="android:windowExitAnimation">@anim/float_out</item>
+    </style>
+
+    <style name="InfoTitleStyle">
+        <item name="android:textColor">@color/darkGrayDark</item>
+        <item name="android:textSize">@dimen/font_normal</item>
+    </style>
+
+    <style name="InfoContentStyle">
+        <item name="android:textColor">@color/darkGray</item>
+        <item name="android:textSize">@dimen/font_small</item>
+    </style>
+
+    <style name="InputStyle" parent="InfoContentStyle">
+        <item name="android:background">@drawable/du_shape_input_bg</item>
+        <item name="android:elevation">2dp</item>
+        <item name="android:inputType">text</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textColor">@color/darkGrayDark</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:textSize">@dimen/font_normal</item>
+    </style>
+
+    <style name="SwitchStyle">
+        <item name="android:thumb">@drawable/du_switch_thumb</item>
+        <item name="android:track">@drawable/du_switch_track</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+</resources>

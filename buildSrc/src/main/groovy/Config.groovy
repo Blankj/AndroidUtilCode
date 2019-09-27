@@ -12,10 +12,10 @@ class Config {
     static appName = 'Util'
 
     static compileSdkVersion = 28
-    static minSdkVersion = 14
+    static minSdkVersion = 16
     static targetSdkVersion = 28
-    static versionCode = 1_025_009
-    static versionName = '1.25.9'// E.g. 1.9.72 => 1,009,072
+    static versionCode = 1_025_010
+    static versionName = '1.25.10-alpha3'// E.g. 1.9.72 => 1,009,072
 
     // lib version
     static kotlin_version = '1.3.10'
@@ -94,7 +94,7 @@ class Config {
             ],
 
             free_proguard    : new DepConfig("com.blankj:free-proguard:1.0.1"),
-            swipe_panel      : new DepConfig("com.blankj:swipe-panel:1.1"),
+            swipe_panel      : new DepConfig("com.blankj:swipe-panel:1.2"),
 
             gson             : new DepConfig("com.google.code.gson:gson:2.8.2"),
             glide            : new DepConfig("com.github.bumptech.glide:glide:4.7.1"),
@@ -104,6 +104,7 @@ class Config {
                     lib      : new DepConfig("org.greenrobot:eventbus:3.1.1"),
                     processor: new DepConfig("org.greenrobot:eventbus-annotation-processor:3.0.1")
             ],
+            photo_view       : new DepConfig("com.github.chrisbanes:PhotoView:2.0.0"),
 
             test             : [
                     junit      : new DepConfig("junit:junit:4.12"),

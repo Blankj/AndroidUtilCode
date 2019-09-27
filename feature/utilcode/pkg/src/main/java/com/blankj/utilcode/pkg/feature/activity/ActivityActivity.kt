@@ -14,6 +14,7 @@ import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.feature.CoreUtilActivity
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SpanUtils
 import kotlinx.android.synthetic.main.activity_activity.*
 import java.util.*
@@ -166,7 +167,10 @@ class ActivityActivity : CommonTitleActivity() {
             R.id.activityStartLauncherActivityBtn -> ActivityUtils.startLauncherActivity()
             R.id.activityFinishActivityBtn -> ActivityUtils.finishActivity(CoreUtilActivity::class.java)
             R.id.activityFinishToActivityBtn -> ActivityUtils.finishToActivity(CoreUtilActivity::class.java, false, true)
-            R.id.activityFinishAllActivitiesBtn -> ActivityUtils.finishAllActivities()
+            R.id.activityFinishAllActivitiesBtn -> {
+//                ActivityUtils.finishAllActivities()
+                ActivityUtils.startActivityForResult(Bundle(), this, SubActivityActivity::class.java, 10)
+            }
         }
     }
 
@@ -196,5 +200,10 @@ class ActivityActivity : CommonTitleActivity() {
                     .toBundle()
             else -> return null
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        LogUtils.e(requestCode, resultCode, data)
     }
 }

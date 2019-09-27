@@ -195,11 +195,11 @@ public class CacheDiskUtilsTest extends BaseTest {
 
     @Test
     public void getCacheSize() {
-        System.out.println(FileUtils.getDirLength(DISK1_FILE));
-        assertEquals(FileUtils.getDirLength(DISK1_FILE), CACHE_DISK_UTILS1.getCacheSize());
+        System.out.println(FileUtils.getLength(DISK1_FILE));
+        assertEquals(FileUtils.getLength(DISK1_FILE), CACHE_DISK_UTILS1.getCacheSize());
 
-        System.out.println(FileUtils.getDirLength(DISK2_FILE));
-        assertEquals(FileUtils.getDirLength(DISK2_FILE), CACHE_DISK_UTILS2.getCacheSize());
+        System.out.println(FileUtils.getLength(DISK2_FILE));
+        assertEquals(FileUtils.getLength(DISK2_FILE), CACHE_DISK_UTILS2.getCacheSize());
     }
 
     @Test

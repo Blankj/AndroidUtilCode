@@ -255,7 +255,6 @@ public class DangerousUtils {
      */
     public static void reboot(final String reason) {
         PowerManager pm = (PowerManager) Utils.getApp().getSystemService(Context.POWER_SERVICE);
-        //noinspection ConstantConditions
         pm.reboot(reason);
     }
 

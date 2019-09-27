@@ -157,18 +157,25 @@ public final class ImageUtils {
      */
     public static Bitmap view2Bitmap(final View view) {
         if (view == null) return null;
-        Bitmap ret = Bitmap.createBitmap(view.getWidth(),
-                view.getHeight(),
-                Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(ret);
-        Drawable bgDrawable = view.getBackground();
-        if (bgDrawable != null) {
-            bgDrawable.draw(canvas);
+        boolean drawingCacheEnabled = view.isDrawingCacheEnabled();
+        boolean willNotCacheDrawing = view.willNotCacheDrawing();
+        view.setDrawingCacheEnabled(true);
+        view.setWillNotCacheDrawing(false);
+        final Bitmap drawingCache = view.getDrawingCache();
+        Bitmap bitmap;
+        if (null == drawingCache) {
+            view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+            view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+            view.buildDrawingCache();
+            bitmap = Bitmap.createBitmap(view.getDrawingCache());
         } else {
-            canvas.drawColor(Color.WHITE);
+            bitmap = Bitmap.createBitmap(drawingCache);
         }
-        view.draw(canvas);
-        return ret;
+        view.destroyDrawingCache();
+        view.setWillNotCacheDrawing(willNotCacheDrawing);
+        view.setDrawingCacheEnabled(drawingCacheEnabled);
+        return bitmap;
     }
 
     /**
@@ -1737,26 +1744,26 @@ public final class ImageUtils {
     }
 
     /**
-     * Return the compressed bitmap using quality.
+     * Return the compressed data using quality.
      *
      * @param src     The source of bitmap.
      * @param quality The quality.
-     * @return the compressed bitmap
+     * @return the compressed data using quality
      */
-    public static Bitmap compressByQuality(final Bitmap src,
+    public static byte[] compressByQuality(final Bitmap src,
                                            @IntRange(from = 0, to = 100) final int quality) {
         return compressByQuality(src, quality, false);
     }
 
     /**
-     * Return the compressed bitmap using quality.
+     * Return the compressed data using quality.
      *
      * @param src     The source of bitmap.
      * @param quality The quality.
      * @param recycle True to recycle the source of bitmap, false otherwise.
-     * @return the compressed bitmap
+     * @return the compressed data using quality
      */
-    public static Bitmap compressByQuality(final Bitmap src,
+    public static byte[] compressByQuality(final Bitmap src,
                                            @IntRange(from = 0, to = 100) final int quality,
                                            final boolean recycle) {
         if (isEmptyBitmap(src)) return null;
@@ -1764,32 +1771,32 @@ public final class ImageUtils {
         src.compress(Bitmap.CompressFormat.JPEG, quality, baos);
         byte[] bytes = baos.toByteArray();
         if (recycle && !src.isRecycled()) src.recycle();
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        return bytes;
     }
 
     /**
-     * Return the compressed bitmap using quality.
+     * Return the compressed data using quality.
      *
      * @param src         The source of bitmap.
      * @param maxByteSize The maximum size of byte.
-     * @return the compressed bitmap
+     * @return the compressed data using quality
      */
-    public static Bitmap compressByQuality(final Bitmap src, final long maxByteSize) {
+    public static byte[] compressByQuality(final Bitmap src, final long maxByteSize) {
         return compressByQuality(src, maxByteSize, false);
     }
 
     /**
-     * Return the compressed bitmap using quality.
+     * Return the compressed data using quality.
      *
      * @param src         The source of bitmap.
      * @param maxByteSize The maximum size of byte.
      * @param recycle     True to recycle the source of bitmap, false otherwise.
-     * @return the compressed bitmap
+     * @return the compressed data using quality
      */
-    public static Bitmap compressByQuality(final Bitmap src,
+    public static byte[] compressByQuality(final Bitmap src,
                                            final long maxByteSize,
                                            final boolean recycle) {
-        if (isEmptyBitmap(src) || maxByteSize <= 0) return null;
+        if (isEmptyBitmap(src) || maxByteSize <= 0) return new byte[0];
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         src.compress(CompressFormat.JPEG, 100, baos);
         byte[] bytes;
@@ -1826,7 +1833,7 @@ public final class ImageUtils {
             }
         }
         if (recycle && !src.isRecycled()) src.recycle();
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        return bytes;
     }
 
     /**
@@ -1934,7 +1941,7 @@ public final class ImageUtils {
      * @param maxHeight The maximum height.
      * @return the sample size
      */
-    private static int calculateInSampleSize(final BitmapFactory.Options options,
+    public static int calculateInSampleSize(final BitmapFactory.Options options,
                                              final int maxWidth,
                                              final int maxHeight) {
         int height = options.outHeight;

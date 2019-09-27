@@ -410,6 +410,33 @@ public final class AppUtils {
     }
 
     /**
+     * Return the application's icon resource identifier.
+     *
+     * @return the application's icon resource identifier
+     */
+    public static int getAppIconId() {
+        return getAppIconId(Utils.getApp().getPackageName());
+    }
+
+    /**
+     * Return the application's icon resource identifier.
+     *
+     * @param packageName The name of the package.
+     * @return the application's icon resource identifier
+     */
+    public static int getAppIconId(final String packageName) {
+        if (isSpace(packageName)) return 0;
+        try {
+            PackageManager pm = Utils.getApp().getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(packageName, 0);
+            return pi == null ? 0 : pi.applicationInfo.icon;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
      * Return the application's package name.
      *
      * @return the application's package name
@@ -958,7 +985,6 @@ public final class AppUtils {
     private static String getForegroundProcessName() {
         ActivityManager am =
                 (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-        //noinspection ConstantConditions
         List<ActivityManager.RunningAppProcessInfo> pInfo = am.getRunningAppProcesses();
         if (pInfo != null && pInfo.size() > 0) {
             for (ActivityManager.RunningAppProcessInfo aInfo : pInfo) {
@@ -984,7 +1010,6 @@ public final class AppUtils {
                         pm.getApplicationInfo(Utils.getApp().getPackageName(), 0);
                 AppOpsManager aom =
                         (AppOpsManager) Utils.getApp().getSystemService(Context.APP_OPS_SERVICE);
-                //noinspection ConstantConditions
                 if (aom.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
                         info.uid,
                         info.packageName) != AppOpsManager.MODE_ALLOWED) {

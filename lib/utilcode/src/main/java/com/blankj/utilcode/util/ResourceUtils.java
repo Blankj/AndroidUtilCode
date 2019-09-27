@@ -1,6 +1,9 @@
 package com.blankj.utilcode.util;
 
+import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.RawRes;
+import android.support.v4.content.ContextCompat;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -29,6 +32,16 @@ public final class ResourceUtils {
 
     private ResourceUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
+    }
+
+    /**
+     * Return the drawable by identifier.
+     *
+     * @param id The identifier.
+     * @return the drawable by identifier
+     */
+    public static Drawable getDrawable(@DrawableRes int id) {
+        return ContextCompat.getDrawable(Utils.getApp(), id);
     }
 
     /**
@@ -142,7 +155,7 @@ public final class ResourceUtils {
         boolean res = true;
         try {
             String[] assets = Utils.getApp().getAssets().list(assetsFilePath);
-            if (assets.length > 0) {
+            if (assets != null && assets.length > 0) {
                 for (String asset : assets) {
                     res &= copyFileFromAssets(assetsFilePath + "/" + asset, destFilePath + "/" + asset);
                 }
@@ -314,7 +327,7 @@ public final class ResourceUtils {
         OutputStream os = null;
         try {
             os = new BufferedOutputStream(new FileOutputStream(file, append));
-            byte data[] = new byte[BUFFER_SIZE];
+            byte[] data = new byte[BUFFER_SIZE];
             int len;
             while ((len = is.read(data, 0, BUFFER_SIZE)) != -1) {
                 os.write(data, 0, len);

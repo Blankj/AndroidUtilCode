@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp">
+
+    <ImageView
+        android:id="@+id/menuItemIconIv"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:padding="8dp"
+        tools:src="@drawable/du_ic_icon_default" />
+
+    <TextView
+        android:id="@+id/menuItemNameTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="@color/darkGrayDark"
+        android:textSize="@dimen/font_small"
+        tools:text="name" />
+</LinearLayout>

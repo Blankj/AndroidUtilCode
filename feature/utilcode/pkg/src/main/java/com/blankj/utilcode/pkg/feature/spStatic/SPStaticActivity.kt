@@ -55,6 +55,7 @@ class SPStaticActivity : CommonTitleActivity() {
                 spStaticPutLongBtn,
                 spPutFloatBtn,
                 spStaticPutBooleanBtn,
+                spStaticPutStringSetBtn,
                 spStaticClearBtn
         )
     }
@@ -70,6 +71,7 @@ class SPStaticActivity : CommonTitleActivity() {
             R.id.spStaticPutLongBtn -> SPStaticUtils.put("LONG", java.lang.Long.MAX_VALUE)
             R.id.spPutFloatBtn -> SPStaticUtils.put("FLOAT", Math.PI.toFloat())
             R.id.spStaticPutBooleanBtn -> SPStaticUtils.put("BOOLEAN", true)
+            R.id.spStaticPutStringSetBtn -> SPStaticUtils.put("SET", setOf("1", "2"))
             R.id.spStaticClearBtn -> SPStaticUtils.clear()
         }
         updateAboutSp()

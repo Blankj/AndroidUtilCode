@@ -1,4 +1,6 @@
-* `19/08/25` [upd] ImageUtils#getImageType. [add] LogUtils# Publish v1.25.9.
+* `19/08/27` [add] DebugUtils.
+* `19/08/26` [fix] PermissionUtils NPE.
+* `19/08/25` [upd] ImageUtils#getImageType. [add] LogUtils#getLogFiles. Publish v1.25.9.
 * `19/08/24` [fix] PhoneUtils#getIMEI crash on SDK 29.
 * `19/08/23` [add] ViewUtils#isLayoutRtl.
 * `19/08/22` [add] LogUtils#getLogFiles.

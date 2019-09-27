@@ -51,6 +51,13 @@
         android:text="@string/sp_put_boolean" />
 
     <Button
+        android:id="@+id/spStaticPutStringSetBtn"
+        style="@style/WideBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sp_put_string_set" />
+
+    <Button
         android:id="@+id/spStaticClearBtn"
         style="@style/WideBtnStyle"
         android:layout_width="match_parent"

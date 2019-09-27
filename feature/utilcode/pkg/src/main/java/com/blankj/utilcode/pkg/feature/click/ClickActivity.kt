@@ -45,8 +45,8 @@ class ClickActivity : CommonTitleActivity() {
                 clickMultiBtn
         )
 
-        ClickUtils.applyScale(clickScaleDefaultBtn)
-        ClickUtils.applyScale(arrayOf(clickScaleCustomBtn), floatArrayOf(-0.5f))
+        ClickUtils.applyPressedViewScale(clickScaleDefaultBtn)
+        ClickUtils.applyPressedViewScale(arrayOf(clickScaleCustomBtn), floatArrayOf(-0.5f))
         ClickUtils.applySingleDebouncing(clickSingleDebouncingBtn, 5000) {
             SnackbarUtils.with(mContentView)
                     .setMessage(StringUtils.getString(R.string.click_single_tip))
