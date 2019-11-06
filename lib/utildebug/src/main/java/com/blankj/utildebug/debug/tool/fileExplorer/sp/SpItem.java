@@ -105,7 +105,7 @@ public class SpItem extends BaseItem<SpItem> {
             goIv.setVisibility(View.GONE);
             contentRl.setOnClickListener(null);
         } else {
-            ClickUtils.applyPressedViewScale(holder.itemView);
+            ClickUtils.applyPressedBgDark(holder.itemView);
             aSwitch.setVisibility(View.GONE);
             goIv.setVisibility(View.VISIBLE);
             contentRl.setOnClickListener(new View.OnClickListener() {

@@ -56,7 +56,8 @@ public class FloatEditText extends EditText {
             public void onFocusChange(View v, boolean hasFocus) {
                 WindowManager.LayoutParams params = floatView.getLayoutParams();
                 if ((params.flags & WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE) == WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE) {
-                    params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
+                    params.flags = params.flags & ~WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+                    params.flags |= WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
                     WindowHelper.updateViewLayout(floatView, params);
                     KeyboardUtils.showSoftInput(v);
                 }

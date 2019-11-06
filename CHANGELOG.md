@@ -1,3 +1,8 @@
+* `19/10/30` [add] Publish bus plugin v2.3. Publish api plugin v1.1.
+* `19/10/24` [upd] Demo's UI.
+* `19/10/22` [add] NotificationUtils.
+* `19/10/20` [add] UiMessageUtils.
+* `19/09/20` [add] ShadowUtils.
 * `19/08/27` [add] DebugUtils.
 * `19/08/26` [fix] PermissionUtils NPE.
 * `19/08/25` [upd] ImageUtils#getImageType. [add] LogUtils#getLogFiles. Publish v1.25.9.

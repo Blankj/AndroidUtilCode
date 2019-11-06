@@ -54,7 +54,7 @@ public class AppInfoItem extends BaseItem<AppInfoItem> {
         titleTv.setText(mTitle);
         contentTv.setText(mContent);
         if (mListener != null) {
-            ClickUtils.applyPressedViewScale(holder.itemView);
+            ClickUtils.applyPressedBgDark(holder.itemView);
             ClickUtils.applyGlobalDebouncing(holder.itemView, mListener);
             holder.findViewById(R.id.baseInfoGoIv).setVisibility(View.VISIBLE);
         } else {

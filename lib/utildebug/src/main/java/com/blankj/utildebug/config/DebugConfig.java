@@ -1,10 +1,9 @@
 package com.blankj.utildebug.config;
 
-import android.view.WindowManager;
+import android.view.View;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ScreenUtils;
-import com.blankj.utildebug.base.view.BaseContentFloatView;
 
 /**
  * <pre>
@@ -44,28 +43,64 @@ public class DebugConfig {
         return getSp().getBoolean(NO_MORE_REMINDER, false);
     }
 
-    public static void saveFloatViewY(BaseContentFloatView floatView, int y) {
-        getSp().put(floatView.getClass().getSimpleName() + ".y", y);
+    public static void saveViewY(View view, int y) {
+        if (ScreenUtils.isPortrait()) {
+            getSp().put(view.getClass().getSimpleName() + ".yP", y);
+        } else {
+            getSp().put(view.getClass().getSimpleName() + ".yL", y);
+        }
     }
 
-    public static int getFloatViewY(BaseContentFloatView floatView) {
-        return getSp().getInt(floatView.getClass().getSimpleName() + ".y", 0);
+    public static int getViewY(View view) {
+        return getViewY(view, 0);
     }
 
-    public static void saveFloatViewHeight(BaseContentFloatView floatView, int height) {
-        getSp().put(floatView.getClass().getSimpleName() + ".height", height);
+    public static int getViewY(View view, int defaultVal) {
+        if (ScreenUtils.isPortrait()) {
+            return getSp().getInt(view.getClass().getSimpleName() + ".yP", defaultVal);
+        } else {
+            return getSp().getInt(view.getClass().getSimpleName() + ".yL", defaultVal);
+        }
     }
 
-    public static int getFloatViewHeight(BaseContentFloatView floatView) {
-        return getSp().getInt(floatView.getClass().getSimpleName() + ".height", WindowManager.LayoutParams.WRAP_CONTENT);
+    public static void saveViewX(View view, int x) {
+        if (ScreenUtils.isPortrait()) {
+            getSp().put(view.getClass().getSimpleName() + ".xP", x);
+        } else {
+            getSp().put(view.getClass().getSimpleName() + ".xL", x);
+        }
     }
 
-    public static void saveFloatViewAlpha(BaseContentFloatView floatView, float alpha) {
-        getSp().put(floatView.getClass().getSimpleName() + ".alpha", alpha);
+    public static int getViewX(View view) {
+        if (ScreenUtils.isPortrait()) {
+            return getSp().getInt(view.getClass().getSimpleName() + ".xP");
+        } else {
+            return getSp().getInt(view.getClass().getSimpleName() + ".xL");
+        }
     }
 
-    public static float getFloatViewAlpha(BaseContentFloatView floatView) {
-        return getSp().getFloat(floatView.getClass().getSimpleName() + ".alpha", 1f);
+    public static void saveViewHeight(View view, int height) {
+        if (ScreenUtils.isPortrait()) {
+            getSp().put(view.getClass().getSimpleName() + ".heightP", height);
+        } else {
+            getSp().put(view.getClass().getSimpleName() + ".heightL", height);
+        }
+    }
+
+    public static int getViewHeight(View view, int height) {
+        if (ScreenUtils.isPortrait()) {
+            return getSp().getInt(view.getClass().getSimpleName() + ".heightP", height);
+        } else {
+            return getSp().getInt(view.getClass().getSimpleName() + ".heightL", height);
+        }
+    }
+
+    public static void saveViewAlpha(View view, float alpha) {
+        getSp().put(view.getClass().getSimpleName() + ".alpha", alpha);
+    }
+
+    public static float getViewAlpha(View view) {
+        return getSp().getFloat(view.getClass().getSimpleName() + ".alpha", 1f);
     }
 
     private static SPUtils getSp() {

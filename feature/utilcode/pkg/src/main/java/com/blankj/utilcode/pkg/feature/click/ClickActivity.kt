@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.common.CommonTitleActivity
+import android.widget.Button
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.activity.CommonActivityTitleView
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.*
 import kotlinx.android.synthetic.main.activity_click.*
@@ -17,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_click.*
  * desc  : demo about CleanUtils
  * ```
  */
-class ClickActivity : CommonTitleActivity() {
+class ClickActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -26,11 +28,9 @@ class ClickActivity : CommonTitleActivity() {
         }
     }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_click)
+    override fun bindTitleRes(): Int {
+        return R.string.demo_click
     }
-
-    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_click
@@ -38,15 +38,19 @@ class ClickActivity : CommonTitleActivity() {
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         applyDebouncingClickListener(
-                clickScaleDefaultBtn,
-                clickScaleCustomBtn,
-                clickSingleDebouncingBtn,
-                clickGlobalDebouncingBtn,
-                clickMultiBtn
+                clickViewScaleDefaultBtn,
+                clickViewScaleCustomBtn,
+                clickViewAlphaDefaultBtn,
+                clickBgAlphaDefaultBtn,
+                clickBgDarkDefaultBtn
         )
 
-        ClickUtils.applyPressedViewScale(clickScaleDefaultBtn)
-        ClickUtils.applyPressedViewScale(arrayOf(clickScaleCustomBtn), floatArrayOf(-0.5f))
+        ClickUtils.applyPressedViewScale(clickViewScaleDefaultBtn)
+        ClickUtils.applyPressedViewScale(clickViewScaleCustomBtn, -0.5f)
+        ClickUtils.applyPressedViewAlpha(clickViewAlphaDefaultBtn)
+        ClickUtils.applyPressedBgAlpha(clickBgAlphaDefaultBtn)
+        ClickUtils.applyPressedBgDark(clickBgDarkDefaultBtn)
+
         ClickUtils.applySingleDebouncing(clickSingleDebouncingBtn, 5000) {
             SnackbarUtils.with(mContentView)
                     .setMessage(StringUtils.getString(R.string.click_single_tip))
@@ -72,24 +76,11 @@ class ClickActivity : CommonTitleActivity() {
         })
     }
 
-    override fun doBusiness() {}
-
     override fun onDebouncingClick(view: View) {
-        when (view.id) {
-            R.id.clickScaleDefaultBtn -> {
-                SnackbarUtils.with(mContentView)
-                        .setMessage(StringUtils.getString(R.string.click_scale_default))
-                        .setBgColor(ColorUtils.getRandomColor(false))
-                        .setDuration(SnackbarUtils.LENGTH_LONG)
-                        .show()
-            }
-            R.id.clickScaleCustomBtn -> {
-                SnackbarUtils.with(mContentView)
-                        .setMessage(StringUtils.getString(R.string.click_scale_custom))
-                        .setBgColor(ColorUtils.getRandomColor(false))
-                        .setDuration(SnackbarUtils.LENGTH_LONG)
-                        .show()
-            }
-        }
+        SnackbarUtils.with(mContentView)
+                .setMessage((view as Button).text)
+                .setBgColor(ColorUtils.getRandomColor(false))
+                .setDuration(SnackbarUtils.LENGTH_LONG)
+                .show()
     }
 }

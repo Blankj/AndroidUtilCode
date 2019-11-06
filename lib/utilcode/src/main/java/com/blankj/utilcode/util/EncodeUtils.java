@@ -68,7 +68,8 @@ public final class EncodeUtils {
     public static String urlDecode(final String input, final String charsetName) {
         if (input == null || input.length() == 0) return "";
         try {
-            return URLDecoder.decode(input, charsetName);
+            String safeInput = input.replaceAll("%(?![0-9a-fA-F]{2})", "%25").replaceAll("\\+", "%2B");
+            return URLDecoder.decode(safeInput, charsetName);
         } catch (UnsupportedEncodingException e) {
             throw new AssertionError(e);
         }
@@ -187,7 +188,7 @@ public final class EncodeUtils {
     /**
      * Return the binary encoded string padded with one space
      *
-     * @param input
+     * @param input The input.
      * @return binary string
      */
     public static String binEncode(final String input) {

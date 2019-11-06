@@ -1,0 +1,9 @@
+apply {
+    plugin "com.github.dcendents.android-maven"
+    plugin "com.jfrog.bintray"
+    from "${rootDir.path}/gradle/upload/bintrayUploadAndroid.gradle"
+}
+
+dependencies {
+
+}

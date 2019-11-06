@@ -3,16 +3,15 @@ package com.blankj.utilcode.pkg.feature.brightness
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.os.Bundle
-import android.view.View
 import android.widget.SeekBar
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.activity.CommonActivityItemsView
+import com.blankj.common.activity.CommonActivityTitleView
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemSeekBar
+import com.blankj.common.item.CommonItemSwitch
 import com.blankj.utilcode.pkg.R
-import com.blankj.utilcode.util.BrightnessUtils
-import com.blankj.utilcode.util.PermissionUtils
-import com.blankj.utilcode.util.SpanUtils
-import com.blankj.utilcode.util.ToastUtils
-import kotlinx.android.synthetic.main.activity_brightness.*
+import com.blankj.utilcode.util.*
 
 /**
  * ```
@@ -22,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_brightness.*
  * desc  : demo about BrightnessUtils
  * ```
  */
-class BrightnessActivity : CommonTitleActivity() {
+class BrightnessActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -44,65 +43,40 @@ class BrightnessActivity : CommonTitleActivity() {
         }
     }
 
-    private val brightnessChangeListener = object : SeekBar.OnSeekBarChangeListener {
-        override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-            BrightnessUtils.setBrightness(progress)
-            updateBrightness()
-        }
 
-        override fun onStartTrackingTouch(seekBar: SeekBar) {}
-
-        override fun onStopTrackingTouch(seekBar: SeekBar) {}
+    override fun bindTitleRes(): Int {
+        return R.string.demo_brightness
     }
 
-    private val windowBrightnessChangeListener = object : SeekBar.OnSeekBarChangeListener {
-        override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-            BrightnessUtils.setWindowBrightness(window, progress)
-            updateWindowBrightness()
-        }
+    override fun bindItems(): MutableList<CommonItem<*>> {
+        return CollectionUtils.newArrayList(
+                CommonItemSeekBar("getBrightness", 255, BrightnessUtils.getBrightness(), object : SeekBar.OnSeekBarChangeListener {
+                    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                        BrightnessUtils.setBrightness(progress)
+                    }
 
-        override fun onStartTrackingTouch(seekBar: SeekBar) {}
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
-        override fun onStopTrackingTouch(seekBar: SeekBar) {}
-    }
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+                }),
+                CommonItemSeekBar("getWindowBrightness", 255, BrightnessUtils.getWindowBrightness(window), object : SeekBar.OnSeekBarChangeListener {
+                    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                        BrightnessUtils.setWindowBrightness(window, progress)
+                    }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_brightness)
-    }
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
-    override fun initData(bundle: Bundle?) {}
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_brightness
-    }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        brightnessChangeSb.progress = BrightnessUtils.getBrightness()
-        brightnessChangeSb.setOnSeekBarChangeListener(brightnessChangeListener)
-        updateBrightness()
-
-        brightnessWindowChangeSb.progress = BrightnessUtils.getWindowBrightness(window)
-        brightnessWindowChangeSb.setOnSeekBarChangeListener(windowBrightnessChangeListener)
-        updateWindowBrightness()
-
-        brightnessSetAutoCb.setOnCheckedChangeListener { buttonView, isChecked ->
-            BrightnessUtils.setAutoBrightnessEnabled(isChecked)
-        }
-    }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {}
-
-    private fun updateBrightness() {
-        SpanUtils.with(brightnessAboutTv)
-                .append("getBrightness: " + BrightnessUtils.getBrightness())
-                .create()
-    }
-
-    private fun updateWindowBrightness() {
-        SpanUtils.with(brightnessWindowAboutTv)
-                .append("getWindowBrightness: " + BrightnessUtils.getWindowBrightness(window))
-                .create()
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+                }),
+                CommonItemSwitch(
+                        R.string.brightness_auto_brightness,
+                        Utils.Func1 {
+                            BrightnessUtils.isAutoBrightnessEnabled()
+                        },
+                        Utils.Func1 {
+                            BrightnessUtils.setAutoBrightnessEnabled(it)
+                        }
+                )
+        )
     }
 }

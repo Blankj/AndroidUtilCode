@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.ScreenUtils;
-import com.blankj.utildebug.DebugUtils;
+import com.blankj.utilcode.util.Utils;
 
 /**
  * <pre>
@@ -19,29 +19,21 @@ import com.blankj.utildebug.DebugUtils;
 public class WindowHelper {
 
     private static WindowManager sWM;
-    private static int           windowHeight;
 
     private WindowHelper() {
     }
 
-    public static void updateViewLayout(View view, ViewGroup.LayoutParams params) {
+    public static void updateViewLayout(final View view, ViewGroup.LayoutParams params) {
         getWindowManager().updateViewLayout(view, params);
     }
 
     public static int getAppWindowHeight() {
-        if (windowHeight == 0) {
-            windowHeight = ScreenUtils.getAppScreenHeight();
-        }
-        return windowHeight;
-    }
-
-    public static void updateWindowHeight() {
-        windowHeight = ScreenUtils.getAppScreenHeight();
+        return ScreenUtils.getAppScreenHeight();
     }
 
     public static WindowManager getWindowManager() {
         if (sWM == null) {
-            sWM = (WindowManager) DebugUtils.getApp().getSystemService(Context.WINDOW_SERVICE);
+            sWM = (WindowManager) Utils.getApp().getSystemService(Context.WINDOW_SERVICE);
         }
         return sWM;
     }

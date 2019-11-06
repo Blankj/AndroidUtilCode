@@ -1,5 +1,6 @@
 package com.blankj.utildebug.base.view;
 
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -16,11 +18,11 @@ import com.blankj.swipepanel.SwipePanel;
 import com.blankj.utilcode.util.ClickUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.TouchUtils;
 import com.blankj.utildebug.R;
-import com.blankj.utildebug.base.drawable.ShadowUtils;
 import com.blankj.utildebug.base.view.listener.OnRefreshListener;
 import com.blankj.utildebug.config.DebugConfig;
-import com.blankj.utildebug.helper.TouchHelper;
+import com.blankj.utildebug.helper.ShadowHelper;
 import com.blankj.utildebug.helper.WindowHelper;
 
 import java.util.Stack;
@@ -37,6 +39,7 @@ public abstract class BaseContentFloatView<T extends BaseContentFloatView<T>> ex
 
     private static final int ROTATE_DELAY = 30;
 
+    private LinearLayout       bcfRootLayout;
     private RelativeLayout     bcfTitleRl;
     private ImageView          bcfCloseIv;
     private TextView           bcfTitleTv;
@@ -44,7 +47,6 @@ public abstract class BaseContentFloatView<T extends BaseContentFloatView<T>> ex
     private SwipePanel         swipePanel;
     private BaseContentView<T> mContentView;
 
-    private int               mTitleBarHeight;
     private OnRefreshListener mRefreshListener;
     private Runnable          mRotateRunnable = new Runnable() {
         @Override
@@ -74,10 +76,11 @@ public abstract class BaseContentFloatView<T extends BaseContentFloatView<T>> ex
     }
 
     public BaseContentFloatView() {
+        bcfRootLayout = findViewById(R.id.bcfRootLayout);
+        ShadowHelper.applyFloatView(bcfRootLayout);
+
         initTitleBar();
         initSwipePanel();
-        View bcfRootLl = findViewById(R.id.bcfRootLl);
-        ShadowUtils.apply(bcfRootLl, new ShadowUtils.Builder().setShadowRadius(SizeUtils.dp2px(8)));
 
         if (bindContentLayout() != NO_ID) {
             //noinspection unchecked
@@ -91,20 +94,6 @@ public abstract class BaseContentFloatView<T extends BaseContentFloatView<T>> ex
                 public void onAttach() {
                 }
             }.attach((T) this, true);
-        }
-
-        if (mLayoutParams.height == WindowManager.LayoutParams.WRAP_CONTENT) {
-            post(new Runnable() {
-                @Override
-                public void run() {
-                    int contentHeight = 0;
-                    if (mContentView != null) {
-                        contentHeight = mContentView.getHeight();
-                    }
-                    mLayoutParams.height = contentHeight + bcfTitleRl.getHeight() + SizeUtils.dp2px(8 + 8 + 4);
-                    WindowHelper.updateViewLayout(BaseContentFloatView.this, mLayoutParams);
-                }
-            });
         }
     }
 
@@ -165,9 +154,9 @@ public abstract class BaseContentFloatView<T extends BaseContentFloatView<T>> ex
 
     @Override
     protected void onDetachedFromWindow() {
-        DebugConfig.saveFloatViewY(this, mLayoutParams.y);
-        DebugConfig.saveFloatViewHeight(this, mLayoutParams.height);
-        DebugConfig.saveFloatViewAlpha(this, mLayoutParams.alpha);
+        DebugConfig.saveViewY(this, mLayoutParams.y);
+        DebugConfig.saveViewHeight(this, mLayoutParams.height);
+        DebugConfig.saveViewAlpha(this, mLayoutParams.alpha);
         super.onDetachedFromWindow();
     }
 
@@ -188,23 +177,15 @@ public abstract class BaseContentFloatView<T extends BaseContentFloatView<T>> ex
         bcfTitleTv = findViewById(R.id.bcfTitleTv);
         bcfAdjustIv = findViewById(R.id.bcfAdjustIv);
 
-        bcfCloseIv.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
-        ClickUtils.applyPressedBgDark(bcfTitleRl);
-        ClickUtils.applyPressedBgDark(bcfCloseIv, 0.8f);
-        ClickUtils.applyPressedBgDark(bcfAdjustIv, 0.8f);
-
         bcfTitleTv.setText(bindTitle());
 
+        ClickUtils.applyPressedBgDark(bcfTitleRl);
         bcfTitleRl.setOnClickListener(new ClickUtils.OnMultiClickListener(2) {
             @Override
             public void onTriggerClick(View v) {
                 mLayoutParams.alpha = mLayoutParams.alpha == 0.5f ? 1f : 0.5f;
                 WindowHelper.updateViewLayout(BaseContentFloatView.this, mLayoutParams);
+                DebugConfig.saveViewAlpha(BaseContentFloatView.this, mLayoutParams.alpha);
             }
 
             @Override
@@ -214,53 +195,76 @@ public abstract class BaseContentFloatView<T extends BaseContentFloatView<T>> ex
                 }
             }
         });
-        TouchHelper.applyDrag(bcfTitleRl, new TouchHelper.OnDragListener() {
+        TouchUtils.setOnTouchListener(bcfTitleRl, new TouchUtils.OnTouchUtilsListener() {
             @Override
-            public void onDown(View v, int x, int y, MotionEvent event) {
+            public boolean onDown(View view, int x, int y, MotionEvent event) {
+                return true;
             }
 
             @Override
-            public void onMove(View view, int x, int y, int dx, int dy, MotionEvent event) {
-//                bcfTitleTv.setText("(" + mLayoutParams.x + ", " + mLayoutParams.y + ")" + mLayoutParams.height);
-                mLayoutParams.y = Math.min(Math.max(mLayoutParams.y - dy, 0), WindowHelper.getAppWindowHeight() - getWindowHeight());
+            public boolean onMove(View view, int direction, int x, int y, int dx, int dy, int totalX, int totalY, MotionEvent event) {
+                mLayoutParams.y = Math.min(Math.max(mLayoutParams.y + dy, 0), WindowHelper.getAppWindowHeight() - bcfRootLayout.getHeight());
                 WindowHelper.updateViewLayout(BaseContentFloatView.this, mLayoutParams);
+                return true;
             }
 
             @Override
-            public void onStop(View view, int x, int y, MotionEvent event) {
+            public boolean onStop(View view, int direction, int x, int y, int totalX, int totalY, int vx, int vy, MotionEvent event) {
+                DebugConfig.saveViewY(BaseContentFloatView.this, mLayoutParams.y);
+                return true;
             }
         });
 
+        ClickUtils.applyPressedBgDark(bcfCloseIv, 0.8f);
+        bcfCloseIv.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+
+        ClickUtils.applyPressedBgDark(bcfAdjustIv, 0.8f);
         bcfAdjustIv.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 FloatToast.showLong(FloatToast.WARNING, StringUtils.getString(R.string.du_adjust_tips));
             }
         });
-        TouchHelper.applyDrag(bcfAdjustIv, new TouchHelper.OnDragListener() {
+        TouchUtils.setOnTouchListener(bcfAdjustIv, new TouchUtils.OnTouchUtilsListener() {
+
+            private int minHeight;
 
             @Override
-            public void onDown(View v, int x, int y, MotionEvent event) {
-                if (mTitleBarHeight == 0) {
-                    mTitleBarHeight = findViewById(R.id.bcfTitleRl).getHeight();
-                }
-            }
-
-            @Override
-            public void onMove(View view, int x, int y, int dx, int dy, MotionEvent event) {
-//                bcfTitleTv.setText("(" + mLayoutParams.x + ", " + mLayoutParams.y + ")" + mLayoutParams.height);
-                mLayoutParams.height = Math.min(Math.max(getWindowHeight() - dy, mTitleBarHeight + SizeUtils.dp2px(30)), WindowHelper.getAppWindowHeight() - mLayoutParams.y);
+            public boolean onDown(View view, int x, int y, MotionEvent event) {
+                int[] locations = new int[2];
+                getLocationOnScreen(locations);
+                mLayoutParams.height = WindowHelper.getAppWindowHeight() - locations[1];
                 WindowHelper.updateViewLayout(BaseContentFloatView.this, mLayoutParams);
+
+                minHeight = bcfTitleRl.getHeight() + SizeUtils.dp2px(30);
+                return true;
             }
 
             @Override
-            public void onStop(View view, int x, int y, MotionEvent event) {
+            public boolean onMove(View view, int direction, int x, int y, int dx, final int dy, int totalX, int totalY, MotionEvent event) {
+                ViewGroup.LayoutParams layoutParams = bcfRootLayout.getLayoutParams();
+                layoutParams.height = Math.min(Math.max(bcfRootLayout.getHeight() + dy, minHeight), mLayoutParams.height);
+                bcfRootLayout.setLayoutParams(layoutParams);
+                return true;
+            }
+
+            @Override
+            public boolean onStop(View view, int direction, int x, int y, int totalX, int totalY, int vx, int vy, MotionEvent event) {
+                mLayoutParams.height = bcfRootLayout.getHeight();
+                WindowHelper.updateViewLayout(BaseContentFloatView.this, mLayoutParams);
+                DebugConfig.saveViewHeight(BaseContentFloatView.this, mLayoutParams.height);
+                return true;
             }
         });
     }
 
     private void initSwipePanel() {
-        swipePanel = findViewById(R.id.baseFloatSwipePanel);
+        swipePanel = findViewById(R.id.bcfSwipePanel);
         swipePanel.setOnFullSwipeListener(new SwipePanel.OnFullSwipeListener() {
             @Override
             public void onFullSwipe(int direction) {
@@ -304,18 +308,39 @@ public abstract class BaseContentFloatView<T extends BaseContentFloatView<T>> ex
     @Override
     protected void onCreateLayoutParams() {
         super.onCreateLayoutParams();
-        mLayoutParams.gravity = Gravity.CENTER | Gravity.BOTTOM;
+        mLayoutParams.gravity = Gravity.TOP;
         mLayoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+        mLayoutParams.height = DebugConfig.getViewHeight(BaseContentFloatView.this, WindowManager.LayoutParams.WRAP_CONTENT);
         mLayoutParams.windowAnimations = R.style.FloatAnimation;
-        mLayoutParams.height = DebugConfig.getFloatViewHeight(this);
-        mLayoutParams.y = DebugConfig.getFloatViewY(this);
-        mLayoutParams.alpha = DebugConfig.getFloatViewAlpha(this);
+        mLayoutParams.alpha = DebugConfig.getViewAlpha(this);
+        mLayoutParams.y = DebugConfig.getViewY(this);
+        post(new Runnable() {
+            @Override
+            public void run() {
+                wrapWindow();
+            }
+        });
     }
 
-    private int getWindowHeight() {
-        if (mLayoutParams.height == WindowManager.LayoutParams.WRAP_CONTENT) {
-            return BaseContentFloatView.this.getHeight();
+    @Override
+    protected void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        wrapWindow();
+    }
+
+    private void wrapWindow() {
+        int[] locations = new int[2];
+        getLocationOnScreen(locations);
+        int floatViewHeight = DebugConfig.getViewHeight(BaseContentFloatView.this, bcfRootLayout.getHeight());
+        if (locations[1] + floatViewHeight > WindowHelper.getAppWindowHeight()) {
+            floatViewHeight = WindowHelper.getAppWindowHeight() - locations[1];
         }
-        return mLayoutParams.height;
+        mLayoutParams.height = floatViewHeight;
+
+        WindowHelper.updateViewLayout(BaseContentFloatView.this, mLayoutParams);
+
+        ViewGroup.LayoutParams layoutParams = bcfRootLayout.getLayoutParams();
+        layoutParams.height = mLayoutParams.height;
+        bcfRootLayout.setLayoutParams(layoutParams);
     }
 }

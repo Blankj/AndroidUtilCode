@@ -20,7 +20,7 @@
 
         <TextView
             android:id="@+id/barStatusAlphaFragmentAboutTv"
-            style="@style/TextStyle"
+            style="@style/CommonTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal" />
@@ -35,7 +35,7 @@
 
         <Button
             android:id="@+id/barStatusAlphaFragmentSetTransparentBtn"
-            style="@style/WideBtnStyle"
+            style="@style/CommonWideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/bar_status_set_transparent" />

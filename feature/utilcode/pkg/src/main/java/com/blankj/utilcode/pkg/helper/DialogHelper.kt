@@ -8,10 +8,7 @@ import android.text.method.ScrollingMovementMethod
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.*
 import com.blankj.utilcode.util.PermissionUtils.OnRationaleListener.ShouldRequest

@@ -40,33 +40,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mainRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/spacing_16"
-            android:paddingRight="@dimen/spacing_16">
-
-            <Button
-                android:id="@+id/launcherMainCoreUtilBtn"
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/core_util" />
-
-            <Button
-                android:id="@+id/launcherMainSubUtilBtn"
-                style="@style/WideBtnStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/sub_util" />
-
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

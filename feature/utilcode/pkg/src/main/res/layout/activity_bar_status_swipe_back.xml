@@ -17,7 +17,7 @@
 
     <TextView
         android:id="@+id/barStatusSwipeBackAboutTv"
-        style="@style/TextStyle"
+        style="@style/CommonTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />
@@ -34,7 +34,7 @@
 
     <Button
         android:id="@+id/barStatusSwipeBackRandomColorBtn"
-        style="@style/WideBtnStyle"
+        style="@style/CommonWideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/spacing_16"
@@ -43,7 +43,7 @@
 
     <Button
         android:id="@+id/barStatusSwipeBackSetTransparentBtn"
-        style="@style/WideBtnStyle"
+        style="@style/CommonWideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/spacing_16"

@@ -7,13 +7,13 @@
 
     <TextView
         android:id="@+id/keyboardAboutTv"
-        style="@style/TextStyle"
+        style="@style/CommonTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/keyboardHideSoftInputBtn"
-        style="@style/WideBtnStyle"
+        style="@style/CommonWideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/keyboardAboutTv"
@@ -21,7 +21,7 @@
 
     <Button
         android:id="@+id/keyboardShowSoftInputBtn"
-        style="@style/WideBtnStyle"
+        style="@style/CommonWideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/keyboardHideSoftInputBtn"
@@ -29,7 +29,7 @@
 
     <Button
         android:id="@+id/keyboardToggleSoftInputBtn"
-        style="@style/WideBtnStyle"
+        style="@style/CommonWideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/keyboardShowSoftInputBtn"
@@ -37,7 +37,7 @@
 
     <Button
         android:id="@+id/keyboardShowDialogBtn"
-        style="@style/WideBtnStyle"
+        style="@style/CommonWideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/keyboardToggleSoftInputBtn"

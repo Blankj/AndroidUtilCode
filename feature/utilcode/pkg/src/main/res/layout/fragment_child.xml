@@ -8,21 +8,21 @@
 
     <Button
         android:id="@+id/fragmentChildShowStackBtn"
-        style="@style/WideBtnStyle"
+        style="@style/CommonWideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/fragment_show_stack" />
 
     <Button
         android:id="@+id/fragmentChildPopBtn"
-        style="@style/WideBtnStyle"
+        style="@style/CommonWideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/fragment_pop" />
 
     <Button
         android:id="@+id/fragmentChildRemoveBtn"
-        style="@style/WideBtnStyle"
+        style="@style/CommonWideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/fragment_remove" />

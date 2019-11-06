@@ -1,5 +1,11 @@
 # Change Log
 
+## v2.3
+新增 onlyScanLibRegex, jumpScanLibRegex 的 DSL
+
+## v2.2
+修复含有 for 循环的字段导致 out of index 的 bug
+
 ## v2.1
 支持 Tag 一对多，同 Tag 可设置事件优先级
 

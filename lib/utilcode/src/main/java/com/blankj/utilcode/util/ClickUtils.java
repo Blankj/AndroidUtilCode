@@ -8,7 +8,6 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.support.annotation.IntRange;
@@ -40,9 +39,6 @@ public class ClickUtils {
 
     private static final int   PRESSED_BG_DARK_STYLE         = 5;
     private static final float PRESSED_BG_DARK_DEFAULT_VALUE = 0.1f;
-
-    private static final int PRESSED_BG_PADDING_STYLE         = 6;
-    private static final int PRESSED_BG_PADDING_DEFAULT_VALUE = dp2px(2);
 
     private static final int  DEBOUNCING_TAG           = -7;
     private static final long DEBOUNCING_DEFAULT_VALUE = 200;
@@ -175,25 +171,6 @@ public class ClickUtils {
         applyPressedBgStyle(view, PRESSED_BG_DARK_STYLE, darkAlpha);
     }
 
-    /**
-     * Apply padding for the view's background.
-     *
-     * @param view The views.
-     */
-    public static void applyPressedBgPadding(View view) {
-        applyPressedBgPadding(view, PRESSED_BG_PADDING_DEFAULT_VALUE);
-    }
-
-    /**
-     * Apply padding for the view's background.
-     *
-     * @param view    The views.
-     * @param padding The padding.
-     */
-    public static void applyPressedBgPadding(View view, float padding) {
-        applyPressedBgStyle(view, PRESSED_BG_PADDING_STYLE, padding);
-    }
-
     private static void applyPressedBgStyle(View view, int style, float value) {
         if (view == null) return;
         Drawable background = view.getBackground();
@@ -218,10 +195,6 @@ public class ClickUtils {
             pressed = createAlphaDrawable(pressed, value);
         } else if (style == PRESSED_BG_DARK_STYLE) {
             pressed = createDarkDrawable(pressed, value);
-        } else if (style == PRESSED_BG_PADDING_STYLE) {
-            LayerDrawable layerDrawable = new LayerDrawable(new Drawable[]{pressed});
-            layerDrawable.setLayerInset(0, (int) value, (int) value, (int) value, (int) value);
-            pressed = layerDrawable;
         }
 
         Drawable disable = src.getConstantState().newDrawable().mutate();
@@ -519,7 +492,7 @@ public class ClickUtils {
             view.animate()
                     .scaleX(value)
                     .scaleY(value)
-                    .setDuration(100)
+                    .setDuration(200)
                     .start();
         }
 

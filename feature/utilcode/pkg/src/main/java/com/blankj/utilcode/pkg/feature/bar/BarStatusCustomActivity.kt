@@ -3,9 +3,7 @@ package com.blankj.utilcode.pkg.feature.bar
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.os.Bundle
-import android.view.View
-import com.blankj.common.CommonBackActivity
+import com.blankj.common.activity.CommonActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
 
@@ -18,7 +16,7 @@ import com.blankj.utilcode.util.BarUtils
  * desc  : demo about BarUtils
  * ```
  */
-class BarStatusCustomActivity : CommonBackActivity() {
+class BarStatusCustomActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -27,21 +25,7 @@ class BarStatusCustomActivity : CommonBackActivity() {
         }
     }
 
-    override fun isSwipeBack(): Boolean {
-        return true
-    }
-
-    override fun initData(bundle: Bundle?) {}
-
-    override fun bindLayout(): Int {
-        return -1
-    }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {}
-
     override fun doBusiness() {
         BarUtils.setStatusBarColor(this, Color.TRANSPARENT).setBackgroundResource(R.drawable.bar_status_custom)
     }
-
-    override fun onDebouncingClick(view: View) {}
 }

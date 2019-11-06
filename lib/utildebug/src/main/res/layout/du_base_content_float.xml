@@ -4,16 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:id="@+id/bcfRootLl"
+        android:id="@+id/bcfRootLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/du_shape_base_float_bg"
         android:orientation="vertical">
+
+        <com.blankj.swipepanel.SwipePanel
+            android:id="@+id/bcfSwipePanel"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:isTopCenter="true"
+            app:isTopEnabled="false"
+            app:leftDrawable="@drawable/du_ic_swipe_back"
+            app:leftEdgeSize="20dp"
+            app:leftSwipeColor="@color/darkGray"
+            app:topDrawable="@drawable/du_rotate_refresh"
+            app:topEdgeSize="500dp"
+            app:topSwipeColor="@color/darkGray">
+
+        </com.blankj.swipepanel.SwipePanel>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/du_shape_shadow" />
 
         <RelativeLayout
             android:id="@+id/bcfTitleRl"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:background="@drawable/du_shape_base_float_title_bg"
             android:paddingLeft="8dp"
             android:paddingTop="4dp"
@@ -55,26 +76,6 @@
                 android:src="@drawable/du_ic_title_bar_adjustable" />
 
         </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="@drawable/du_shape_shadow" />
-
-        <com.blankj.swipepanel.SwipePanel
-            android:id="@+id/baseFloatSwipePanel"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:isTopCenter="true"
-            app:isTopEnabled="false"
-            app:leftDrawable="@drawable/du_ic_swipe_back"
-            app:leftEdgeSize="20dp"
-            app:leftSwipeColor="@color/darkGray"
-            app:topDrawable="@drawable/du_rotate_refresh"
-            app:topEdgeSize="500dp"
-            app:topSwipeColor="@color/darkGray">
-
-        </com.blankj.swipepanel.SwipePanel>
 
     </LinearLayout>
 </merge>

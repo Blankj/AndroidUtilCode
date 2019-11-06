@@ -2,14 +2,17 @@ package com.blankj.utilcode.pkg.feature.app
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.view.View
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.activity.CommonActivityItemsView
+import com.blankj.common.activity.CommonActivityTitleView
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemClick
+import com.blankj.common.item.CommonItemImage
+import com.blankj.common.item.CommonItemTitle
 import com.blankj.utilcode.pkg.Config
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.PermissionHelper
 import com.blankj.utilcode.util.*
-import kotlinx.android.synthetic.main.activity_app.*
 
 /**
  * ```
@@ -19,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_app.*
  * desc  : demo about AppUtils
  * ```
  */
-class AppActivity : CommonTitleActivity() {
+class AppActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -42,73 +45,62 @@ class AppActivity : CommonTitleActivity() {
         }
     }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_app)
+    override fun bindTitleRes(): Int {
+        return R.string.demo_app
     }
 
-    override fun initData(bundle: Bundle?) {}
+    override fun bindItems(): List<CommonItem<*>> {
+        return CollectionUtils.newArrayList(
+                CommonItemTitle("isAppRoot", AppUtils.isAppRoot().toString()),
+                CommonItemTitle("isAppDebug", AppUtils.isAppDebug().toString()),
+                CommonItemTitle("isAppSystem", AppUtils.isAppSystem().toString()),
+                CommonItemTitle("isAppForeground", AppUtils.isAppForeground(AppUtils.getAppPackageName()).toString()),
+                CommonItemTitle("isAppRunning", AppUtils.isAppRunning(AppUtils.getAppPackageName()).toString()),
+                CommonItemImage("getAppIcon") {
+                    it.setImageDrawable(AppUtils.getAppIcon())
+                },
+                CommonItemTitle("getAppPackageName", AppUtils.getAppPackageName()),
+                CommonItemTitle("getAppName", AppUtils.getAppName()),
+                CommonItemTitle("getAppPath", AppUtils.getAppPath()),
+                CommonItemTitle("getAppVersionName", AppUtils.getAppVersionName()),
+                CommonItemTitle("getAppVersionCode", AppUtils.getAppVersionCode().toString()),
+                CommonItemTitle("getAppSignatureSHA1", AppUtils.getAppSignatureSHA1()),
+                CommonItemTitle("getAppSignatureSHA256", AppUtils.getAppSignatureSHA256()),
+                CommonItemTitle("getAppSignatureMD5", AppUtils.getAppSignatureMD5()),
+                CommonItemTitle("getAppUid", AppUtils.getAppUid().toString()),
+                CommonItemTitle("getApkInfo", AppUtils.getApkInfo(AppUtils.getAppPath()).toString()),
 
-    override fun bindLayout(): Int {
-        return R.layout.activity_app
-    }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        applyDebouncingClickListener(
-                appInstallAppBtn,
-                appUninstallAppBtn,
-                appLaunchAppBtn,
-                appRelaunchAppBtn,
-                appExitAppBtn,
-                appLaunchAppDetailsSettingsBtn
-        )
-        SpanUtils.with(appAboutTv)
-                .appendLine("isAppRoot: " + AppUtils.isAppRoot())
-                .appendLine("isAppDebug: " + AppUtils.isAppDebug())
-                .appendLine("isAppSystem: " + AppUtils.isAppSystem())
-                .appendLine("isAppForeground: " + AppUtils.isAppForeground("com.blankj.androidutilcode"))
-                .appendLine("isAppRunning: " + AppUtils.isAppRunning("com.blankj.androidutilcode"))
-                .append("getAppIcon: ").appendImage(AppUtils.getAppIcon(), SpanUtils.ALIGN_CENTER)
-                .appendLine()
-                .appendLine("getAppPackageName: " + AppUtils.getAppPackageName())
-                .appendLine("getAppName: " + AppUtils.getAppName())
-                .appendLine("getAppPath: " + AppUtils.getAppPath())
-                .appendLine("getAppVersionName: " + AppUtils.getAppVersionName())
-                .appendLine("getAppVersionCode: " + AppUtils.getAppVersionCode())
-                .appendLine("getAppSignatureSHA1: " + AppUtils.getAppSignatureSHA1())
-                .appendLine("getAppSignatureSHA256: " + AppUtils.getAppSignatureSHA256())
-                .appendLine("getAppSignatureMD5: " + AppUtils.getAppSignatureMD5())
-                .appendLine("getAppUid: " + AppUtils.getAppUid())
-                .append("getApkInfo: " + AppUtils.getApkInfo(AppUtils.getAppPath()))
-                .create()
-    }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {
-        when (view.id) {
-            R.id.appInstallAppBtn -> {
-                if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
-                    ToastUtils.showShort(R.string.app_install_tips)
-                } else {
-                    if (!FileUtils.isFileExists(Config.TEST_APK_PATH)) {
-                        ReleaseInstallApkTask(listener).execute()
+                CommonItemClick(R.string.app_install) {
+                    if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
+                        ToastUtils.showShort(R.string.app_install_tips)
                     } else {
-                        listener.onReleased()
+                        if (!FileUtils.isFileExists(Config.TEST_APK_PATH)) {
+                            ReleaseInstallApkTask(listener).execute()
+                        } else {
+                            listener.onReleased()
+                        }
                     }
+                },
+                CommonItemClick(R.string.app_uninstall) {
+                    if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
+                        AppUtils.uninstallApp(Config.TEST_PKG)
+                    } else {
+                        ToastUtils.showShort(R.string.app_uninstall_tips)
+                    }
+                },
+                CommonItemClick(R.string.app_launch) {
+                    AppUtils.launchApp(this.packageName)
+                },
+                CommonItemClick(R.string.app_relaunch) {
+                    AppUtils.relaunchApp()
+                },
+                CommonItemClick(R.string.app_launch_details_settings, true) {
+                    AppUtils.launchAppDetailsSettings()
+                },
+                CommonItemClick(R.string.app_exit) {
+                    AppUtils.exitApp()
                 }
-            }
-            R.id.appUninstallAppBtn -> {
-                if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
-                    AppUtils.uninstallApp(Config.TEST_PKG)
-                } else {
-                    ToastUtils.showShort(R.string.app_uninstall_tips)
-                }
-            }
-            R.id.appLaunchAppBtn -> AppUtils.launchApp(this.packageName)
-            R.id.appRelaunchAppBtn -> AppUtils.relaunchApp()
-            R.id.appLaunchAppDetailsSettingsBtn -> AppUtils.launchAppDetailsSettings()
-            R.id.appExitAppBtn -> AppUtils.exitApp()
-        }
+        )
     }
 }
 

@@ -18,6 +18,8 @@ import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -604,7 +606,7 @@ public final class FileUtils {
      * @return the files in directory
      */
     public static List<File> listFilesInDir(final String dirPath) {
-        return listFilesInDir(dirPath, false);
+        return listFilesInDir(dirPath, null);
     }
 
     /**
@@ -615,7 +617,31 @@ public final class FileUtils {
      * @return the files in directory
      */
     public static List<File> listFilesInDir(final File dir) {
-        return listFilesInDir(dir, false);
+        return listFilesInDir(dir, null);
+    }
+
+    /**
+     * Return the files in directory.
+     * <p>Doesn't traverse subdirectories</p>
+     *
+     * @param dirPath    The path of directory.
+     * @param comparator The comparator to determine the order of the list.
+     * @return the files in directory
+     */
+    public static List<File> listFilesInDir(final String dirPath, Comparator<File> comparator) {
+        return listFilesInDir(getFileByPath(dirPath), false);
+    }
+
+    /**
+     * Return the files in directory.
+     * <p>Doesn't traverse subdirectories</p>
+     *
+     * @param dir        The directory.
+     * @param comparator The comparator to determine the order of the list.
+     * @return the files in directory
+     */
+    public static List<File> listFilesInDir(final File dir, Comparator<File> comparator) {
+        return listFilesInDir(dir, false, comparator);
     }
 
     /**
@@ -637,12 +663,40 @@ public final class FileUtils {
      * @return the files in directory
      */
     public static List<File> listFilesInDir(final File dir, final boolean isRecursive) {
+        return listFilesInDir(dir, isRecursive, null);
+    }
+
+    /**
+     * Return the files in directory.
+     *
+     * @param dirPath     The path of directory.
+     * @param isRecursive True to traverse subdirectories, false otherwise.
+     * @param comparator  The comparator to determine the order of the list.
+     * @return the files in directory
+     */
+    public static List<File> listFilesInDir(final String dirPath,
+                                            final boolean isRecursive,
+                                            final Comparator<File> comparator) {
+        return listFilesInDir(getFileByPath(dirPath), isRecursive, comparator);
+    }
+
+    /**
+     * Return the files in directory.
+     *
+     * @param dir         The directory.
+     * @param isRecursive True to traverse subdirectories, false otherwise.
+     * @param comparator  The comparator to determine the order of the list.
+     * @return the files in directory
+     */
+    public static List<File> listFilesInDir(final File dir,
+                                            final boolean isRecursive,
+                                            final Comparator<File> comparator) {
         return listFilesInDirWithFilter(dir, new FileFilter() {
             @Override
             public boolean accept(File pathname) {
                 return true;
             }
-        }, isRecursive);
+        }, isRecursive, comparator);
     }
 
     /**
@@ -655,7 +709,7 @@ public final class FileUtils {
      */
     public static List<File> listFilesInDirWithFilter(final String dirPath,
                                                       final FileFilter filter) {
-        return listFilesInDirWithFilter(getFileByPath(dirPath), filter, false);
+        return listFilesInDirWithFilter(getFileByPath(dirPath), filter);
     }
 
     /**
@@ -668,7 +722,37 @@ public final class FileUtils {
      */
     public static List<File> listFilesInDirWithFilter(final File dir,
                                                       final FileFilter filter) {
-        return listFilesInDirWithFilter(dir, filter, false);
+        return listFilesInDirWithFilter(dir, filter, false, null);
+    }
+
+    /**
+     * Return the files that satisfy the filter in directory.
+     * <p>Doesn't traverse subdirectories</p>
+     *
+     * @param dirPath    The path of directory.
+     * @param filter     The filter.
+     * @param comparator The comparator to determine the order of the list.
+     * @return the files that satisfy the filter in directory
+     */
+    public static List<File> listFilesInDirWithFilter(final String dirPath,
+                                                      final FileFilter filter,
+                                                      final Comparator<File> comparator) {
+        return listFilesInDirWithFilter(getFileByPath(dirPath), filter, comparator);
+    }
+
+    /**
+     * Return the files that satisfy the filter in directory.
+     * <p>Doesn't traverse subdirectories</p>
+     *
+     * @param dir        The directory.
+     * @param filter     The filter.
+     * @param comparator The comparator to determine the order of the list.
+     * @return the files that satisfy the filter in directory
+     */
+    public static List<File> listFilesInDirWithFilter(final File dir,
+                                                      final FileFilter filter,
+                                                      final Comparator<File> comparator) {
+        return listFilesInDirWithFilter(dir, filter, false, comparator);
     }
 
     /**
@@ -696,8 +780,51 @@ public final class FileUtils {
     public static List<File> listFilesInDirWithFilter(final File dir,
                                                       final FileFilter filter,
                                                       final boolean isRecursive) {
-        if (!isDir(dir)) return null;
+        return listFilesInDirWithFilter(dir, filter, isRecursive, null);
+    }
+
+
+    /**
+     * Return the files that satisfy the filter in directory.
+     *
+     * @param dirPath     The path of directory.
+     * @param filter      The filter.
+     * @param isRecursive True to traverse subdirectories, false otherwise.
+     * @param comparator  The comparator to determine the order of the list.
+     * @return the files that satisfy the filter in directory
+     */
+    public static List<File> listFilesInDirWithFilter(final String dirPath,
+                                                      final FileFilter filter,
+                                                      final boolean isRecursive,
+                                                      final Comparator<File> comparator) {
+        return listFilesInDirWithFilter(getFileByPath(dirPath), filter, isRecursive, comparator);
+    }
+
+    /**
+     * Return the files that satisfy the filter in directory.
+     *
+     * @param dir         The directory.
+     * @param filter      The filter.
+     * @param isRecursive True to traverse subdirectories, false otherwise.
+     * @param comparator  The comparator to determine the order of the list.
+     * @return the files that satisfy the filter in directory
+     */
+    public static List<File> listFilesInDirWithFilter(final File dir,
+                                                      final FileFilter filter,
+                                                      final boolean isRecursive,
+                                                      final Comparator<File> comparator) {
+        List<File> files = listFilesInDirWithFilterInner(dir, filter, isRecursive);
+        if (comparator != null) {
+            Collections.sort(files, comparator);
+        }
+        return files;
+    }
+
+    private static List<File> listFilesInDirWithFilterInner(final File dir,
+                                                            final FileFilter filter,
+                                                            final boolean isRecursive) {
         List<File> list = new ArrayList<>();
+        if (!isDir(dir)) return list;
         File[] files = dir.listFiles();
         if (files != null && files.length != 0) {
             for (File file : files) {
@@ -705,8 +832,7 @@ public final class FileUtils {
                     list.add(file);
                 }
                 if (isRecursive && file.isDirectory()) {
-                    //noinspection ConstantConditions
-                    list.addAll(listFilesInDirWithFilter(file, filter, true));
+                    list.addAll(listFilesInDirWithFilterInner(file, filter, true));
                 }
             }
         }
@@ -752,6 +878,7 @@ public final class FileUtils {
      * @return the charset of file simply
      */
     public static String getFileCharsetSimple(final File file) {
+        if (file == null) return "";
         int p = 0;
         InputStream is = null;
         try {
@@ -778,6 +905,105 @@ public final class FileUtils {
             default:
                 return "GBK";
         }
+    }
+
+    /**
+     * Return whether the charset of file is utf8.
+     *
+     * @param filePath The path of file.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isUtf8(final String filePath) {
+        return isUtf8(getFileByPath(filePath));
+    }
+
+    /**
+     * Return whether the charset of file is utf8.
+     *
+     * @param file The file.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isUtf8(final File file) {
+        if (file == null) return false;
+        InputStream is = null;
+        try {
+            byte[] bytes = new byte[24];
+            is = new BufferedInputStream(new FileInputStream(file));
+            int read = is.read(bytes);
+            if (read != -1) {
+                byte[] readArr = new byte[read];
+                System.arraycopy(bytes, 0, readArr, 0, read);
+                return isUtf8(readArr) == 100;
+            } else {
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (is != null) {
+                    is.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    private static int isUtf8(byte[] raw) {
+        int i, len;
+        int utf8 = 0, ascii = 0;
+        if (raw.length > 3) {
+            if ((raw[0] == (byte) 0xEF) && (raw[1] == (byte) 0xBB) && (raw[2] == (byte) 0xBF)) {
+                return 100;
+            }
+        }
+        len = raw.length;
+        int child = 0;
+        for (i = 0; i < len; ) {
+            if ((raw[i] & (byte) 0xFF) == (byte) 0xFF || (raw[i] & (byte) 0xFE) == (byte) 0xFE) {
+                return 0;
+            }
+            if (child == 0) {
+                if ((raw[i] & (byte) 0x7F) == raw[i] && raw[i] != 0) {
+                    ascii++;
+                } else if ((raw[i] & (byte) 0xC0) == (byte) 0xC0) {
+                    for (int bit = 0; bit < 8; bit++) {
+                        if ((((byte) (0x80 >> bit)) & raw[i]) == ((byte) (0x80 >> bit))) {
+                            child = bit;
+                        } else {
+                            break;
+                        }
+                    }
+                    utf8++;
+                }
+                i++;
+            } else {
+                child = (raw.length - i > child) ? child : (raw.length - i);
+                boolean currentNotUtf8 = false;
+                for (int children = 0; children < child; children++) {
+                    if ((raw[i + children] & ((byte) 0x80)) != ((byte) 0x80)) {
+                        if ((raw[i + children] & (byte) 0x7F) == raw[i + children] && raw[i] != 0) {
+                            ascii++;
+                        }
+                        currentNotUtf8 = true;
+                    }
+                }
+                if (currentNotUtf8) {
+                    utf8--;
+                    i++;
+                } else {
+                    utf8 += child;
+                    i += child;
+                }
+                child = 0;
+            }
+        }
+        if (ascii == len) {
+            return 100;
+        }
+        return (int) (100 * ((float) (utf8 + ascii) / (float) len));
     }
 
     /**

@@ -2,9 +2,11 @@ package com.blankj.utilcode.pkg.feature
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.view.View
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.activity.CommonActivityItemsView
+import com.blankj.common.activity.CommonActivityTitleView
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemClick
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.feature.activity.ActivityActivity
 import com.blankj.utilcode.pkg.feature.adaptScreen.AdaptScreenActivity
@@ -25,6 +27,7 @@ import com.blankj.utilcode.pkg.feature.log.LogActivity
 import com.blankj.utilcode.pkg.feature.messenger.MessengerActivity
 import com.blankj.utilcode.pkg.feature.metaData.MetaDataActivity
 import com.blankj.utilcode.pkg.feature.network.NetworkActivity
+import com.blankj.utilcode.pkg.feature.notification.NotificationActivity
 import com.blankj.utilcode.pkg.feature.path.PathActivity
 import com.blankj.utilcode.pkg.feature.permission.PermissionActivity
 import com.blankj.utilcode.pkg.feature.phone.PhoneActivity
@@ -34,12 +37,13 @@ import com.blankj.utilcode.pkg.feature.resource.ResourceActivity
 import com.blankj.utilcode.pkg.feature.rom.RomActivity
 import com.blankj.utilcode.pkg.feature.screen.ScreenActivity
 import com.blankj.utilcode.pkg.feature.sdcard.SDCardActivity
+import com.blankj.utilcode.pkg.feature.shadow.ShadowActivity
 import com.blankj.utilcode.pkg.feature.snackbar.SnackbarActivity
 import com.blankj.utilcode.pkg.feature.spStatic.SPStaticActivity
 import com.blankj.utilcode.pkg.feature.span.SpanActivity
 import com.blankj.utilcode.pkg.feature.toast.ToastActivity
 import com.blankj.utilcode.pkg.feature.vibrate.VibrateActivity
-import kotlinx.android.synthetic.main.activity_util_core.*
+import com.blankj.utilcode.util.CollectionUtils
 
 /**
  * ```
@@ -49,7 +53,7 @@ import kotlinx.android.synthetic.main.activity_util_core.*
  * desc  :
  * ```
  */
-class CoreUtilActivity : CommonTitleActivity() {
+class CoreUtilActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -58,94 +62,120 @@ class CoreUtilActivity : CommonTitleActivity() {
         }
     }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.core_util)
+    override fun bindTitleRes(): Int {
+        return R.string.core_util
     }
 
-    override fun initData(bundle: Bundle?) {}
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_util_core
-    }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        applyDebouncingClickListener(
-                coreUtilActivityBtn,
-                coreUtilAdaptScreenBtn,
-                coreUtilApiBtn,
-                coreUtilAppBtn,
-                coreUtilBarBtn,
-                coreUtilBrightnessBtn,
-                coreUtilBusBtn,
-                coreUtilCleanBtn,
-                coreUtilClickBtn,
-                coreUtilCrashBtn,
-                coreUtilDeviceBtn,
-                coreUtilFlashlightBtn,
-                coreUtilFragmentBtn,
-                coreUtilImageBtn,
-                coreUtilKeyboardBtn,
-                coreUtilLanguageBtn,
-                coreUtilLogBtn,
-                coreUtilMessengerBtn,
-                coreUtilMetaDataBtn,
-                coreUtilNetworkBtn,
-                coreUtilPathBtn,
-                coreUtilPermissionBtn,
-                coreUtilPhoneBtn,
-                coreUtilProcessBtn,
-                coreUtilReflectBtn,
-                coreUtilResourceBtn,
-                coreUtilRomBtn,
-                coreUtilScreenBtn,
-                coreUtilSdcardBtn,
-                coreUtilSnackbarBtn,
-                coreUtilSpStaticBtn,
-                coreUtilSpanBtn,
-                coreUtilToastBtn,
-                coreUtilVibrateBtn
+    override fun bindItems(): MutableList<CommonItem<*>> {
+        return CollectionUtils.newArrayList(
+                CommonItemClick(R.string.demo_activity, true) {
+                    ActivityActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_adapt_screen, true) {
+                    AdaptScreenActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_api, true) {
+                    ApiActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_app, true) {
+                    AppActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_bar, true) {
+                    BarActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_brightness, true) {
+                    BrightnessActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_bus, true) {
+                    BusActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_clean, true) {
+                    CleanActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_click, true) {
+                    ClickActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_crash) {
+                    throw NullPointerException("crash test")
+                },
+                CommonItemClick(R.string.demo_device, true) {
+                    DeviceActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_flashlight, true) {
+                    FlashlightActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_fragment, true) {
+                    FragmentActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_image, true) {
+                    ImageActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_keyboard, true) {
+                    KeyboardActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_language, true) {
+                    LanguageActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_log, true) {
+                    LogActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_messenger, true) {
+                    MessengerActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_meta_data, true) {
+                    MetaDataActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_network, true) {
+                    NetworkActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_notification, true) {
+                    NotificationActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_path, true) {
+                    PathActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_permission, true) {
+                    PermissionActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_phone, true) {
+                    PhoneActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_process, true) {
+                    ProcessActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_reflect, true) {
+                    ReflectActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_resource, true) {
+                    ResourceActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_rom, true) {
+                    RomActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_screen, true) {
+                    ScreenActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_sdcard, true) {
+                    SDCardActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_shadow, true) {
+                    ShadowActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_snackbar, true) {
+                    SnackbarActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_spStatic, true) {
+                    SPStaticActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_span, true) {
+                    SpanActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_toast, true) {
+                    ToastActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_vibrate, true) {
+                    VibrateActivity.start(this)
+                }
         )
-    }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {
-        when (view.id) {
-            R.id.coreUtilActivityBtn -> ActivityActivity.start(this)
-            R.id.coreUtilAdaptScreenBtn -> AdaptScreenActivity.start(this)
-            R.id.coreUtilApiBtn -> ApiActivity.start(this)
-            R.id.coreUtilAppBtn -> AppActivity.start(this)
-            R.id.coreUtilBarBtn -> BarActivity.start(this)
-            R.id.coreUtilBrightnessBtn -> BrightnessActivity.start(this)
-            R.id.coreUtilBusBtn -> BusActivity.start(this)
-            R.id.coreUtilCleanBtn -> CleanActivity.start(this)
-            R.id.coreUtilClickBtn -> ClickActivity.start(this)
-            R.id.coreUtilCrashBtn -> throw NullPointerException("crash test")
-            R.id.coreUtilDeviceBtn -> DeviceActivity.start(this)
-            R.id.coreUtilFlashlightBtn -> FlashlightActivity.start(this)
-            R.id.coreUtilFragmentBtn -> FragmentActivity.start(this)
-            R.id.coreUtilImageBtn -> ImageActivity.start(this)
-            R.id.coreUtilKeyboardBtn -> KeyboardActivity.start(this)
-            R.id.coreUtilLanguageBtn -> LanguageActivity.start(this)
-            R.id.coreUtilLogBtn -> LogActivity.start(this)
-            R.id.coreUtilMessengerBtn -> MessengerActivity.start(this)
-            R.id.coreUtilMetaDataBtn -> MetaDataActivity.start(this)
-            R.id.coreUtilNetworkBtn -> NetworkActivity.start(this)
-            R.id.coreUtilNetworkBtn -> NetworkActivity.start(this)
-            R.id.coreUtilPathBtn -> PathActivity.start(this)
-            R.id.coreUtilPermissionBtn -> PermissionActivity.start(this)
-            R.id.coreUtilPhoneBtn -> PhoneActivity.start(this)
-            R.id.coreUtilProcessBtn -> ProcessActivity.start(this)
-            R.id.coreUtilReflectBtn -> ReflectActivity.start(this)
-            R.id.coreUtilResourceBtn -> ResourceActivity.start(this)
-            R.id.coreUtilRomBtn -> RomActivity.start(this)
-            R.id.coreUtilScreenBtn -> ScreenActivity.start(this)
-            R.id.coreUtilSdcardBtn -> SDCardActivity.start(this)
-            R.id.coreUtilSnackbarBtn -> SnackbarActivity.start(this)
-            R.id.coreUtilSpStaticBtn -> SPStaticActivity.start(this)
-            R.id.coreUtilSpanBtn -> SpanActivity.start(this)
-            R.id.coreUtilToastBtn -> ToastActivity.start(this)
-            R.id.coreUtilVibrateBtn -> VibrateActivity.start(this)
-        }
     }
 }

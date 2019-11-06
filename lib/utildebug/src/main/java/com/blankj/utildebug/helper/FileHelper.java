@@ -49,7 +49,7 @@ public class FileHelper {
                 }
             }
         }
-        if (StringUtils.equals(FileUtils.getFileCharsetSimple(file), "UTF-8")) {
+        if (FileUtils.isUtf8(file)) {
             return UTF8;
         }
         return UNKNOWN;

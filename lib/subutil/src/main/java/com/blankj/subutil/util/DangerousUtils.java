@@ -222,26 +222,42 @@ public class DangerousUtils {
      * or hold {@code android:sharedUserId="android.uid.system"},
      * {@code <uses-permission android:name="android.permission.SHUTDOWN" />}
      * in manifest.</p>
+     *
+     * @return {@code true}: success<br>{@code false}: fail
      */
-    public static void shutdown() {
-        ShellUtils.execCmd("reboot -p", true);
-        Intent intent = new Intent("android.intent.action.ACTION_REQUEST_SHUTDOWN");
-        intent.putExtra("android.intent.extra.KEY_CONFIRM", false);
-        Utils.getApp().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+    public static boolean shutdown() {
+        try {
+            ShellUtils.CommandResult result = ShellUtils.execCmd("reboot -p", true);
+            if (result.result == 0) return true;
+            Intent intent = new Intent("android.intent.action.ACTION_REQUEST_SHUTDOWN");
+            intent.putExtra("android.intent.extra.KEY_CONFIRM", false);
+            Utils.getApp().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**
      * Reboot the device.
      * <p>Requires root permission
      * or hold {@code android:sharedUserId="android.uid.system"} in manifest.</p>
+     *
+     * @return {@code true}: success<br>{@code false}: fail
      */
-    public static void reboot() {
-        ShellUtils.execCmd("reboot", true);
-        Intent intent = new Intent(Intent.ACTION_REBOOT);
-        intent.putExtra("nowait", 1);
-        intent.putExtra("interval", 1);
-        intent.putExtra("window", 0);
-        Utils.getApp().sendBroadcast(intent);
+    public static boolean reboot() {
+        try {
+            ShellUtils.CommandResult result = ShellUtils.execCmd("reboot", true);
+            if (result.result == 0) return true;
+            Intent intent = new Intent(Intent.ACTION_REBOOT);
+            intent.putExtra("nowait", 1);
+            intent.putExtra("interval", 1);
+            intent.putExtra("window", 0);
+            Utils.getApp().sendBroadcast(intent);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**
@@ -252,26 +268,38 @@ public class DangerousUtils {
      *
      * @param reason code to pass to the kernel (e.g., "recovery") to
      *               request special boot modes, or null.
+     * @return {@code true}: success<br>{@code false}: fail
      */
-    public static void reboot(final String reason) {
-        PowerManager pm = (PowerManager) Utils.getApp().getSystemService(Context.POWER_SERVICE);
-        pm.reboot(reason);
+    public static boolean reboot(final String reason) {
+        try {
+            PowerManager pm = (PowerManager) Utils.getApp().getSystemService(Context.POWER_SERVICE);
+            pm.reboot(reason);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**
      * Reboot the device to recovery.
      * <p>Requires root permission.</p>
+     *
+     * @return {@code true}: success<br>{@code false}: fail
      */
-    public static void reboot2Recovery() {
-        ShellUtils.execCmd("reboot recovery", true);
+    public static boolean reboot2Recovery() {
+        ShellUtils.CommandResult result = ShellUtils.execCmd("reboot recovery", true);
+        return result.result == 0;
     }
 
     /**
      * Reboot the device to bootloader.
      * <p>Requires root permission.</p>
+     *
+     * @return {@code true}: success<br>{@code false}: fail
      */
-    public static void reboot2Bootloader() {
-        ShellUtils.execCmd("reboot bootloader", true);
+    public static boolean reboot2Bootloader() {
+        ShellUtils.CommandResult result = ShellUtils.execCmd("reboot bootloader", true);
+        return result.result == 0;
     }
 
 
@@ -295,10 +323,8 @@ public class DangerousUtils {
             }
             Method setDataEnabledMethod =
                     tm.getClass().getDeclaredMethod("setDataEnabled", boolean.class);
-            if (null != setDataEnabledMethod) {
-                setDataEnabledMethod.invoke(tm, enabled);
-                return true;
-            }
+            setDataEnabledMethod.invoke(tm, enabled);
+            return true;
         } catch (Exception e) {
             Log.e("NetworkUtils", "setMobileDataEnabled: ", e);
         }

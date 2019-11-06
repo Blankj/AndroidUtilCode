@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/spanAboutAnimTv"
-        style="@style/TextStyle"
+        style="@style/CommonTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start"
@@ -16,7 +16,7 @@
 
     <TextView
         android:id="@+id/spanAboutTv"
-        style="@style/TextStyle"
+        style="@style/CommonTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"

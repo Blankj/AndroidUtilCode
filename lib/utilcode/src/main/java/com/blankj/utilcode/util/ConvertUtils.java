@@ -5,7 +5,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -568,9 +567,7 @@ public final class ConvertUtils {
         final Bitmap drawingCache = view.getDrawingCache();
         Bitmap bitmap;
         if (null == drawingCache) {
-            view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-            view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+            view.layout(0, 0, view.getWidth(), view.getHeight());
             view.buildDrawingCache();
             bitmap = Bitmap.createBitmap(view.getDrawingCache());
         } else {

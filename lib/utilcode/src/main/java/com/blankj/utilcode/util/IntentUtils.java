@@ -93,7 +93,7 @@ public final class IntentUtils {
      */
     public static Intent getInstallAppIntent(final File file, final boolean isNewTask) {
         if (file == null) return null;
-        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Intent intent = new Intent();
         Uri data;
         String type = "application/vnd.android.package-archive";
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
@@ -425,7 +425,7 @@ public final class IntentUtils {
                                             final String className,
                                             final Bundle bundle,
                                             final boolean isNewTask) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Intent intent = new Intent();
         if (bundle != null) intent.putExtras(bundle);
         ComponentName cn = new ComponentName(packageName, className);
         intent.setComponent(cn);

@@ -17,7 +17,7 @@ import android.view.ViewGroup;
  *     desc  :
  * </pre>
  */
-public abstract class BaseItem<T extends BaseItem<T>> {
+public abstract class BaseItem<T extends BaseItem> {
 
     private static final SparseIntArray    LAYOUT_SPARSE_ARRAY = new SparseIntArray();
     private static final SparseArray<View> VIEW_SPARSE_ARRAY   = new SparseArray<>();
@@ -80,12 +80,12 @@ public abstract class BaseItem<T extends BaseItem<T>> {
     }
 
     public void update() {
-        int index = getIndex();
-        if (index == -1) return;
-        getAdapter().notifyItemChanged(index);
+        //noinspection unchecked
+        getAdapter().updateItem((T) this);
     }
 
     public int getIndex() {
+        //noinspection SuspiciousMethodCalls
         return getAdapter().getItems().indexOf(this);
     }
 }

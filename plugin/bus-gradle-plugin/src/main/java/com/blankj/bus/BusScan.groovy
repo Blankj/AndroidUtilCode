@@ -60,7 +60,11 @@ class BusScan {
             ClassReader cr = new ClassReader(file.bytes);
             ClassWriter cw = new ClassWriter(cr, 0);
             ClassVisitor cv = new BusClassVisitor(cw, busMap, busUtilsClass);
-            cr.accept(cv, ClassReader.SKIP_FRAMES);
+            try {
+                cr.accept(cv, ClassReader.SKIP_FRAMES);
+            } catch (Exception ignore) {
+                ignore.printStackTrace()
+            }
         }
     }
 }

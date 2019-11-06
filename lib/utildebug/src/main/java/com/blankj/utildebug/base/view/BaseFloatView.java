@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.Utils;
 import com.blankj.utildebug.DebugUtils;
 import com.blankj.utildebug.R;
@@ -39,10 +38,10 @@ public abstract class BaseFloatView extends RelativeLayout
     public BaseFloatView() {
         super(DebugUtils.getApp());
         setId(R.id.baseFloatView);
-        inflate(getContext(), bindLayout(), this);
+        if (bindLayout() != NO_ID) {
+            inflate(getContext(), bindLayout(), this);
+        }
         onCreateLayoutParams();
-
-//        ShadowHelper.applyFloatView(this);
     }
 
     void createFloatView() {
@@ -60,6 +59,11 @@ public abstract class BaseFloatView extends RelativeLayout
         }
         mLayoutParams.format = PixelFormat.TRANSPARENT;
         mLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+        try {
+            int currentFlags = (Integer) mLayoutParams.getClass().getField("privateFlags").get(mLayoutParams);
+            mLayoutParams.getClass().getField("privateFlags").set(mLayoutParams, currentFlags | 0x00000040);
+        } catch (Exception ignore) {
+        }
     }
 
     public void show() {
@@ -78,7 +82,7 @@ public abstract class BaseFloatView extends RelativeLayout
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        AppUtils.registerAppStatusChangedListener(this, this);
+        AppUtils.registerAppStatusChangedListener(this);
     }
 
     @Override
@@ -88,12 +92,12 @@ public abstract class BaseFloatView extends RelativeLayout
     }
 
     @Override
-    public void onForeground() {
+    public void onForeground(Activity activity) {
         setVisibility(VISIBLE);
     }
 
     @Override
-    public void onBackground() {
+    public void onBackground(Activity activity) {
         setVisibility(GONE);
     }
 

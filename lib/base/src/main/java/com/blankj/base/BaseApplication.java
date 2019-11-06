@@ -3,13 +3,13 @@ package com.blankj.base;
 import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ProcessUtils;
 import com.blankj.utildebug.DebugUtils;
-import com.blankj.utildebug.debug.IDebug;
 import com.didichuxing.doraemonkit.DoraemonKit;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -40,6 +40,8 @@ public class BaseApplication extends Application {
         MultiDex.install(this);
     }
 
+//    provider
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -48,7 +50,6 @@ public class BaseApplication extends Application {
         initLeakCanary();
         initLog();
         initCrash();
-        DebugUtils.install(new ArrayList<IDebug>());
     }
 
     private void initLeakCanary() {// 内存泄露检查工具

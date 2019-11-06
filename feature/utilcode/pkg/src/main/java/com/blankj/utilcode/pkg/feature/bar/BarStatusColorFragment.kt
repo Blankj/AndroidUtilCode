@@ -25,11 +25,9 @@ class BarStatusColorFragment : BaseLazyFragment() {
         }
     }
 
-    private var mColor: Int = 0
+    private var mColor: Int = ColorUtils.getColor(R.color.colorPrimary)
 
-    override fun initData(bundle: Bundle?) {
-        mColor = ColorUtils.getColor(R.color.colorPrimary)
-    }
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.fragment_bar_status_color

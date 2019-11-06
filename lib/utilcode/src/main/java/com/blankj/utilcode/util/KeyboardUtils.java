@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.ResultReceiver;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
@@ -135,7 +136,6 @@ public final class KeyboardUtils {
 
     private static int getDecorViewInvisibleHeight(@NonNull final Window window) {
         final View decorView = window.getDecorView();
-        if (decorView == null) return 0;
         final Rect outRect = new Rect();
         decorView.getWindowVisibleDisplayFrame(outRect);
         Log.d("KeyboardUtils", "getDecorViewInvisibleHeight: "
@@ -279,15 +279,15 @@ public final class KeyboardUtils {
 
         // Return whether touch the view.
         private boolean isShouldHideKeyboard(View v, MotionEvent event) {
-            if (v != null && (v instanceof EditText)) {
+            if ((v instanceof EditText)) {
                 int[] l = {0, 0};
-                v.getLocationInWindow(l);
+                v.getLocationOnScreen(l);
                 int left = l[0],
                         top = l[1],
                         bottom = top + v.getHeight(),
                         right = left + v.getWidth();
-                return !(event.getX() > left && event.getX() < right
-                        && event.getY() > top && event.getY() < bottom);
+                return !(event.getRawX() > left && event.getRawX() < right
+                        && event.getRawY() > top && event.getRawY() < bottom);
             }
             return false;
         }

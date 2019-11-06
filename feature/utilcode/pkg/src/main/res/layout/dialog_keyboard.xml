@@ -13,14 +13,14 @@
 
         <Button
             android:id="@+id/keyboardDialogHideSoftInputBtn"
-            style="@style/WideBtnStyle"
+            style="@style/CommonWideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/keyboard_hide_soft_input" />
 
         <Button
             android:id="@+id/keyboardDialogShowSoftInputBtn"
-            style="@style/WideBtnStyle"
+            style="@style/CommonWideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/keyboardDialogHideSoftInputBtn"
@@ -28,7 +28,7 @@
 
         <Button
             android:id="@+id/keyboardDialogToggleSoftInputBtn"
-            style="@style/WideBtnStyle"
+            style="@style/CommonWideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/keyboardDialogShowSoftInputBtn"
@@ -36,7 +36,7 @@
 
         <Button
             android:id="@+id/keyboardDialogCloseBtn"
-            style="@style/WideBtnStyle"
+            style="@style/CommonWideBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/keyboardDialogToggleSoftInputBtn"

@@ -5,16 +5,16 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
-import android.widget.CompoundButton
 import com.blankj.base.BaseApplication
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.activity.CommonActivityItemsView
+import com.blankj.common.activity.CommonActivityTitleView
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemClick
+import com.blankj.common.item.CommonItemSwitch
 import com.blankj.utilcode.pkg.R
-import com.blankj.utilcode.util.AppUtils
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.PathUtils
-import com.blankj.utilcode.util.StringUtils
-import kotlinx.android.synthetic.main.activity_log.*
+import com.blankj.utilcode.util.*
+import java.io.File
 import java.util.*
 
 
@@ -26,8 +26,7 @@ import java.util.*
  * desc  : demo about LogUtils
  * ```
  */
-class LogActivity : CommonTitleActivity(),
-        CompoundButton.OnCheckedChangeListener {
+class LogActivity : CommonActivity() {
 
     companion object {
         private const val TAG = "CMJ"
@@ -108,182 +107,168 @@ class LogActivity : CommonTitleActivity(),
         LogUtils.a("assert")
     }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_log)
+
+    override fun bindTitleRes(): Int {
+        return R.string.demo_log
     }
 
-    override fun initData(bundle: Bundle?) {}
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_log
-    }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        logSwitchCb.isChecked = mConfig.isLogSwitch
-        logSwitchCb.setOnCheckedChangeListener(this)
-
-        log2ConsoleSwitchCb.isChecked = mConfig.isLog2ConsoleSwitch
-        log2ConsoleSwitchCb.setOnCheckedChangeListener(this)
-
-        logGlobalTagCb.isChecked = !StringUtils.isSpace(mConfig.globalTag)
-        logGlobalTagCb.setOnCheckedChangeListener(this)
-        logGlobalTagCb.text = String.format("Global Tag: %s", mConfig.globalTag)
-
-        logHeadSwitchCb.isChecked = mConfig.isLogHeadSwitch
-        logHeadSwitchCb.setOnCheckedChangeListener(this)
-
-        log2FileSwitchCb.isChecked = mConfig.isLog2FileSwitch
-        log2FileSwitchCb.setOnCheckedChangeListener(this)
-
-        logDirCb.isChecked = mConfig.dir != mConfig.defaultDir
-        logDirCb.setOnCheckedChangeListener(this)
-        logDirCb.text = String.format("Dir: %s", mConfig.dir)
-
-        logBorderSwitchCb.isChecked = mConfig.isLogBorderSwitch
-        logBorderSwitchCb.setOnCheckedChangeListener(this)
-
-        logSingleTagSwitchCb.isChecked = mConfig.isSingleTagSwitch
-        logSingleTagSwitchCb.setOnCheckedChangeListener(this)
-
-        logConsoleFilterCb.isChecked = mConfig.consoleFilter != 'V'
-        logConsoleFilterCb.setOnCheckedChangeListener(this)
-        logConsoleFilterCb.text = String.format("ConsoleFilter: %s", mConfig.consoleFilter)
-
-        logFileFilterCb.isChecked = mConfig.fileFilter != 'V'
-        logFileFilterCb.setOnCheckedChangeListener(this)
-        logFileFilterCb.text = String.format("FileFilter: %s", mConfig.fileFilter)
-
-        applyDebouncingClickListener(
-                logNoTagBtn,
-                logWithTagBtn,
-                logInNewThreadBtn,
-                logNullBtn,
-                logManyParamsBtn,
-                logLongBtn,
-                logFileBtn,
-                logJsonBtn,
-                logXmlBtn,
-                logArrayBtn,
-                logThrowableBtn,
-                logBundleBtn,
-                logIntentBtn,
-                logArrayListBtn,
-                logMapBtn
+    override fun bindItems(): List<CommonItem<*>> {
+        return CollectionUtils.newArrayList(
+                CommonItemSwitch(
+                        R.string.log_switch,
+                        Utils.Func1 {
+                            mConfig.isLogSwitch
+                        },
+                        Utils.Func1 {
+                            mConfig.isLogSwitch = it
+                        }
+                ),
+                CommonItemSwitch(
+                        R.string.log_console_console,
+                        Utils.Func1 {
+                            mConfig.isLog2ConsoleSwitch
+                        },
+                        Utils.Func1 {
+                            mConfig.isLog2FileSwitch = it
+                        }
+                ),
+                CommonItemClick("Global Tag", if (mConfig.globalTag == "") "\"\"" else mConfig.globalTag).setOnClickUpdateContentListener {
+                    if (StringUtils.isSpace(mConfig.globalTag)) {
+                        mConfig.globalTag = TAG
+                    } else {
+                        mConfig.globalTag = ""
+                    }
+                    return@setOnClickUpdateContentListener if (mConfig.globalTag == "") "\"\"" else mConfig.globalTag
+                },
+                CommonItemSwitch(
+                        R.string.log_head_switch,
+                        Utils.Func1 {
+                            mConfig.isLogHeadSwitch
+                        },
+                        Utils.Func1 {
+                            mConfig.isLogHeadSwitch = it
+                        }
+                ),
+                CommonItemSwitch(
+                        R.string.log_file_switch,
+                        Utils.Func1 {
+                            mConfig.isLog2FileSwitch
+                        },
+                        Utils.Func1 {
+                            mConfig.isLog2FileSwitch = it
+                        }
+                ),
+                CommonItemClick("Dir", mConfig.dir).setOnClickUpdateContentListener {
+                    if (mConfig.dir != mConfig.defaultDir) {
+                        mConfig.dir = mConfig.defaultDir
+                    } else {
+                        mConfig.setDir(File(PathUtils.getInternalAppFilesPath(), "log"))
+                    }
+                    return@setOnClickUpdateContentListener mConfig.dir
+                },
+                CommonItemSwitch(
+                        R.string.log_border_switch,
+                        Utils.Func1 {
+                            mConfig.isLogBorderSwitch
+                        },
+                        Utils.Func1 {
+                            mConfig.setBorderSwitch(it)
+                        }
+                ),
+                CommonItemSwitch(
+                        R.string.log_single_tag_switch,
+                        Utils.Func1 {
+                            mConfig.isSingleTagSwitch
+                        },
+                        Utils.Func1 {
+                            mConfig.setSingleTagSwitch(it)
+                        }
+                ),
+                CommonItemClick("ConsoleFilter", mConfig.consoleFilter.toString()).setOnClickUpdateContentListener {
+                    mConfig.setConsoleFilter(if (mConfig.consoleFilter == 'V') LogUtils.W else LogUtils.V)
+                    return@setOnClickUpdateContentListener mConfig.consoleFilter.toString()
+                },
+                CommonItemClick("FileFilter", mConfig.fileFilter.toString()).setOnClickUpdateContentListener {
+                    mConfig.setFileFilter(if (mConfig.fileFilter == 'V') LogUtils.W else LogUtils.V)
+                    return@setOnClickUpdateContentListener mConfig.fileFilter.toString()
+                },
+                CommonItemClick(R.string.log_with_no_tag) {
+                    LogUtils.v("verbose")
+                    LogUtils.d("debug")
+                    LogUtils.i("info")
+                    LogUtils.w("warn")
+                    LogUtils.e("error")
+                    LogUtils.a("assert")
+                },
+                CommonItemClick(R.string.log_with_tag) {
+                    LogUtils.vTag("customTag", "verbose")
+                    LogUtils.dTag("customTag", "debug")
+                    LogUtils.iTag("customTag", "info")
+                    LogUtils.wTag("customTag", "warn")
+                    LogUtils.eTag("customTag", "error")
+                    LogUtils.aTag("customTag", "assert")
+                },
+                CommonItemClick(R.string.log_in_new_thread) {
+                    val thread = Thread(mRunnable)
+                    thread.start()
+                },
+                CommonItemClick(R.string.log_null) {
+                    LogUtils.v(null)
+                    LogUtils.d(null)
+                    LogUtils.i(null)
+                    LogUtils.w(null)
+                    LogUtils.e(null)
+                    LogUtils.a(null)
+                },
+                CommonItemClick(R.string.log_many_params) {
+                    LogUtils.v("verbose0", "verbose1")
+                    LogUtils.vTag("customTag", "verbose0", "verbose1")
+                    LogUtils.d("debug0", "debug1")
+                    LogUtils.dTag("customTag", "debug0", "debug1")
+                    LogUtils.i("info0", "info1")
+                    LogUtils.iTag("customTag", "info0", "info1")
+                    LogUtils.w("warn0", "warn1")
+                    LogUtils.wTag("customTag", "warn0", "warn1")
+                    LogUtils.e("error0", "error1")
+                    LogUtils.eTag("customTag", "error0", "error1")
+                    LogUtils.a("assert0", "assert1")
+                    LogUtils.aTag("customTag", "assert0", "assert1")
+                },
+                CommonItemClick(R.string.log_long_string) {
+                    LogUtils.d(LONG_STR)
+                },
+                CommonItemClick(R.string.log_to_file) {
+                    LogUtils.file("test0 log to file")
+                    LogUtils.file(LogUtils.I, "test0 log to file")
+                },
+                CommonItemClick(R.string.log_json) {
+                    LogUtils.json(JSON)
+                    LogUtils.json(LogUtils.I, JSON)
+                },
+                CommonItemClick(R.string.log_xml) {
+                    LogUtils.xml(XML)
+                    LogUtils.xml(LogUtils.I, XML)
+                },
+                CommonItemClick(R.string.log_array) {
+                    LogUtils.e(ONE_D_ARRAY)
+                    LogUtils.e(TWO_D_ARRAY)
+                },
+                CommonItemClick(R.string.log_throwable) {
+                    LogUtils.e(THROWABLE)
+                },
+                CommonItemClick(R.string.log_bundle) {
+                    LogUtils.e(BUNDLE)
+                },
+                CommonItemClick(R.string.log_intent) {
+                    LogUtils.e(INTENT)
+                },
+                CommonItemClick(R.string.log_array_list) {
+                    LogUtils.e(LIST)
+                },
+                CommonItemClick(R.string.log_map) {
+                    LogUtils.e(MAP)
+                }
         )
-        updateAboutLog()
-    }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {
-        when (view.id) {
-            R.id.logNoTagBtn -> {
-                LogUtils.v("verbose")
-                LogUtils.d("debug")
-                LogUtils.i("info")
-                LogUtils.w("warn")
-                LogUtils.e("error")
-                LogUtils.a("assert")
-            }
-            R.id.logWithTagBtn -> {
-                LogUtils.vTag("customTag", "verbose")
-                LogUtils.dTag("customTag", "debug")
-                LogUtils.iTag("customTag", "info")
-                LogUtils.wTag("customTag", "warn")
-                LogUtils.eTag("customTag", "error")
-                LogUtils.aTag("customTag", "assert")
-            }
-            R.id.logInNewThreadBtn -> {
-                val thread = Thread(mRunnable)
-                thread.start()
-            }
-            R.id.logNullBtn -> {
-                LogUtils.v(null)
-                LogUtils.d(null)
-                LogUtils.i(null)
-                LogUtils.w(null)
-                LogUtils.e(null)
-                LogUtils.a(null)
-            }
-            R.id.logManyParamsBtn -> {
-                LogUtils.v("verbose0", "verbose1")
-                LogUtils.vTag("customTag", "verbose0", "verbose1")
-                LogUtils.d("debug0", "debug1")
-                LogUtils.dTag("customTag", "debug0", "debug1")
-                LogUtils.i("info0", "info1")
-                LogUtils.iTag("customTag", "info0", "info1")
-                LogUtils.w("warn0", "warn1")
-                LogUtils.wTag("customTag", "warn0", "warn1")
-                LogUtils.e("error0", "error1")
-                LogUtils.eTag("customTag", "error0", "error1")
-                LogUtils.a("assert0", "assert1")
-                LogUtils.aTag("customTag", "assert0", "assert1")
-            }
-            R.id.logLongBtn -> LogUtils.d(LONG_STR)
-            R.id.logFileBtn -> for (i in 0..99) {
-                LogUtils.file("test0 log to file")
-                LogUtils.file(LogUtils.I, "test0 log to file")
-            }
-            R.id.logJsonBtn -> {
-                LogUtils.json(JSON)
-                LogUtils.json(LogUtils.I, JSON)
-            }
-            R.id.logXmlBtn -> {
-                LogUtils.xml(XML)
-                LogUtils.xml(LogUtils.I, XML)
-            }
-            R.id.logArrayBtn -> {
-                LogUtils.e(ONE_D_ARRAY)
-                LogUtils.e(TWO_D_ARRAY)
-            }
-            R.id.logThrowableBtn -> LogUtils.e(THROWABLE)
-            R.id.logBundleBtn -> LogUtils.e(BUNDLE)
-            R.id.logIntentBtn -> LogUtils.e(INTENT)
-            R.id.logArrayListBtn -> LogUtils.e(LIST)
-            R.id.logMapBtn -> LogUtils.e(MAP)
-        }
-    }
-
-    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-        when (buttonView?.id) {
-            R.id.logSwitchCb -> mConfig.setLogSwitch(isChecked)
-            R.id.log2ConsoleSwitchCb -> mConfig.setConsoleSwitch(isChecked)
-            R.id.logGlobalTagCb -> {
-                if (isChecked) {
-                    mConfig.setGlobalTag(TAG)
-                } else {
-                    mConfig.setGlobalTag("")
-                }
-                logGlobalTagCb.text = String.format("Global Tag: %s", mConfig.globalTag)
-            }
-            R.id.logHeadSwitchCb -> mConfig.setLogHeadSwitch(isChecked)
-            R.id.log2FileSwitchCb -> mConfig.setLog2FileSwitch(isChecked)
-            R.id.logDirCb -> {
-                if (isChecked) {
-                    mConfig.setDir("")
-                } else {
-                    mConfig.setDir(PathUtils.getInternalAppFilesPath() + System.getProperty("file.separator") + "test")
-                }
-                logDirCb.text = String.format("Dir: %s", mConfig.dir)
-            }
-            R.id.logBorderSwitchCb -> {
-                mConfig.setBorderSwitch(isChecked)
-            }
-            R.id.logSingleTagSwitchCb -> mConfig.setSingleTagSwitch(isChecked)
-            R.id.logConsoleFilterCb -> {
-                mConfig.setConsoleFilter(if (isChecked) LogUtils.W else LogUtils.V)
-                logConsoleFilterCb.text = String.format("ConsoleFilter: %s", mConfig.consoleFilter)
-            }
-            R.id.logFileFilterCb -> {
-                mConfig.setFileFilter(if (isChecked) LogUtils.W else LogUtils.V)
-                logFileFilterCb.text = String.format("FileFilter: %s", mConfig.fileFilter)
-            }
-        }
-        updateAboutLog();
-    }
-
-    private fun updateAboutLog() {
-        logAboutTv.text = mConfig.toString()
     }
 
     override fun onDestroy() {

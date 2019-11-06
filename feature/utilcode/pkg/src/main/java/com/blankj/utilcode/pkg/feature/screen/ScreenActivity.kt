@@ -3,13 +3,14 @@ package com.blankj.utilcode.pkg.feature.screen
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.os.Bundle
-import android.view.View
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemClick
+import com.blankj.common.item.CommonItemSwitch
+import com.blankj.common.item.CommonItemTitle
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.DialogHelper
 import com.blankj.utilcode.util.*
-import kotlinx.android.synthetic.main.activity_screen.*
 
 
 /**
@@ -20,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_screen.*
  * desc  : demo about RomUtils
  * ```
  */
-class ScreenActivity : CommonTitleActivity() {
+class ScreenActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -42,75 +43,53 @@ class ScreenActivity : CommonTitleActivity() {
         }
     }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_screen)
+    override fun bindTitleRes(): Int {
+        return R.string.demo_screen
     }
 
-    override fun initData(bundle: Bundle?) {}
+    override fun bindItems(): MutableList<CommonItem<*>> {
+        return CollectionUtils.newArrayList(
+                CommonItemTitle("getScreenWidth", ScreenUtils.getScreenWidth().toString()),
+                CommonItemTitle("getScreenHeight", ScreenUtils.getScreenHeight().toString()),
+                CommonItemTitle("getAppScreenWidth", ScreenUtils.getAppScreenWidth().toString()),
+                CommonItemTitle("getAppScreenHeight", ScreenUtils.getAppScreenHeight().toString()),
+                CommonItemTitle("getScreenDensity", ScreenUtils.getScreenDensity().toString()),
+                CommonItemTitle("getScreenDensityDpi", ScreenUtils.getScreenDensityDpi().toString()),
+                CommonItemTitle("getScreenRotation", ScreenUtils.getScreenRotation(this).toString()),
+                CommonItemTitle("isScreenLock", ScreenUtils.isScreenLock().toString()),
+                CommonItemTitle("getSleepDuration", ScreenUtils.getSleepDuration().toString()),
 
-    override fun bindLayout(): Int {
-        return R.layout.activity_screen
-    }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        applyDebouncingClickListener(
-                screenFullscreenBtn,
-                screenNonFullscreenBtn,
-                screenToggleFullscreenBtn,
-                screenLandscapeBtn,
-                screenPortraitBtn,
-                screenScreenshotBtn,
-                screenSetSleepDurationBtn
-        )
-        updateAboutScreen();
-    }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {
-        when (view.id) {
-            R.id.screenFullscreenBtn -> {
-                ScreenUtils.setFullScreen(this)
-                BarUtils.setStatusBarVisibility(this, false)
-            }
-            R.id.screenNonFullscreenBtn -> {
-                ScreenUtils.setNonFullScreen(this)
-                BarUtils.setStatusBarVisibility(this, true)
-            }
-            R.id.screenToggleFullscreenBtn -> {
-                ScreenUtils.toggleFullScreen(this)
-                if (ScreenUtils.isFullScreen(this)) {
-                    BarUtils.setStatusBarVisibility(this, false)
-                } else {
-                    BarUtils.setStatusBarVisibility(this, true)
+                CommonItemSwitch(
+                        "isFullScreen",
+                        Utils.Func1 {
+                            ScreenUtils.isFullScreen(this)
+                        },
+                        Utils.Func1 {
+                            if (it) {
+                                ScreenUtils.setFullScreen(this)
+                                BarUtils.setStatusBarVisibility(this, false)
+                            } else {
+                                ScreenUtils.setNonFullScreen(this)
+                                BarUtils.setStatusBarVisibility(this, true)
+                            }
+                        }
+                ),
+                CommonItemSwitch(
+                        "isLandscape",
+                        Utils.Func1 {
+                            ScreenUtils.isLandscape()
+                        },
+                        Utils.Func1 {
+                            if (it) {
+                                ScreenUtils.setLandscape(this)
+                            } else {
+                                ScreenUtils.setPortrait(this)
+                            }
+                        }
+                ),
+                CommonItemClick(R.string.screen_screenshot) {
+                    DialogHelper.showScreenshotDialog(ScreenUtils.screenShot(this))
                 }
-            }
-            R.id.screenLandscapeBtn -> ScreenUtils.setLandscape(this)
-            R.id.screenPortraitBtn -> ScreenUtils.setPortrait(this)
-            R.id.screenScreenshotBtn -> DialogHelper.showScreenshotDialog(ScreenUtils.screenShot(this))
-            R.id.screenSetSleepDurationBtn -> ScreenUtils.setSleepDuration(100000)
-        }
-        Utils.runOnUiThreadDelayed(object : Runnable {
-            override fun run() {
-                updateAboutScreen()
-            }
-        }, 36)
-    }
-
-    private fun updateAboutScreen() {
-        SpanUtils.with(screenAboutTv)
-                .appendLine("getScreenWidth: " + ScreenUtils.getScreenWidth())
-                .appendLine("getScreenHeight: " + ScreenUtils.getScreenHeight())
-                .appendLine("getAppScreenWidth: " + ScreenUtils.getAppScreenWidth())
-                .appendLine("getAppScreenHeight: " + ScreenUtils.getAppScreenHeight())
-                .appendLine("getScreenDensity: " + ScreenUtils.getScreenDensity())
-                .appendLine("getScreenDensityDpi: " + ScreenUtils.getScreenDensityDpi())
-                .appendLine("isFullScreen: " + ScreenUtils.isFullScreen(this))
-                .appendLine("isLandscape: " + ScreenUtils.isLandscape())
-                .appendLine("isPortrait: " + ScreenUtils.isPortrait())
-                .appendLine("getScreenRotation: " + ScreenUtils.getScreenRotation(this))
-                .appendLine("isScreenLock: " + ScreenUtils.isScreenLock())
-                .append("getSleepDuration: " + ScreenUtils.getSleepDuration())
-                .create()
+        )
     }
 }

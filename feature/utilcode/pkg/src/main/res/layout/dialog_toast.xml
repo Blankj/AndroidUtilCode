@@ -8,7 +8,7 @@
 
     <Button
         android:id="@+id/toastDialogShowShortToastBtn"
-        style="@style/WideBtnStyle"
+        style="@style/CommonWideBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/toast_show_short" />

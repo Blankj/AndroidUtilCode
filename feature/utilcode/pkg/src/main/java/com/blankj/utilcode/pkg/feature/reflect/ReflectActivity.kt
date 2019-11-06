@@ -2,14 +2,12 @@ package com.blankj.utilcode.pkg.feature.reflect
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.view.View
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemTitle
 import com.blankj.utilcode.pkg.R
-import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.CollectionUtils
 import com.blankj.utilcode.util.ReflectUtils
-import com.blankj.utilcode.util.SpanUtils
-import kotlinx.android.synthetic.main.activity_reflect.*
 
 /**
  * ```
@@ -19,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_reflect.*
  * desc  : demo about ReflectUtils
  * ```
  */
-class ReflectActivity : CommonTitleActivity() {
+class ReflectActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -28,31 +26,16 @@ class ReflectActivity : CommonTitleActivity() {
         }
     }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_reflect)
+    override fun bindTitleRes(): Int {
+        return R.string.demo_reflect
     }
 
-    override fun initData(bundle: Bundle?) {}
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_reflect
-    }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        LogUtils.e(TestPrivateStaticFinal.STR)
-        SpanUtils.with(reflectAboutTv)
-                .appendLine("before reflect: " + ReflectUtils.reflect(TestPrivateStaticFinal::class.java).field("STR").get<Any>())
-                .append("after reflect: " + ReflectUtils.reflect(TestPrivateStaticFinal::class.java).field("STR", "reflect success").field("STR").get<Any>())
-                .create()
-        LogUtils.e(TestPrivateStaticFinal.STR)
-    }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {}
-
-    override fun onDestroy() {
-//        ReflectUtils.reflect(TestPrivateStaticFinal::class.java).field("STR", "str")
-        super.onDestroy()
+    override fun bindItems(): MutableList<CommonItem<*>> {
+        return CollectionUtils.newArrayList(
+                CommonItemTitle("source value", TestPrivateStaticFinal.STR),
+                CommonItemTitle("reflect get", ReflectUtils.reflect(TestPrivateStaticFinal::class.java).field("STR").get<String>()),
+                CommonItemTitle("after reflect get", ReflectUtils.reflect(TestPrivateStaticFinal::class.java).field("STR", "reflect success").field("STR").get<String>()),
+                CommonItemTitle("source value", TestPrivateStaticFinal.STR)
+        )
     }
 }

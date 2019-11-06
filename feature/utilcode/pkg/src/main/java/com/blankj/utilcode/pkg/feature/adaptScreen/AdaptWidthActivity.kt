@@ -7,12 +7,12 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import com.blankj.common.CommonBackActivity
+import com.blankj.common.activity.CommonActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.AdaptScreenUtils
 import kotlinx.android.synthetic.main.activity_adaptscreen_width.*
 
-class AdaptWidthActivity : CommonBackActivity() {
+class AdaptWidthActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -20,12 +20,6 @@ class AdaptWidthActivity : CommonBackActivity() {
             context.startActivity(starter)
         }
     }
-
-    override fun isSwipeBack(): Boolean {
-        return true
-    }
-
-    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_adaptscreen_width
@@ -35,10 +29,6 @@ class AdaptWidthActivity : CommonBackActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         adaptScreenWidthWebView.setBackgroundColor(Color.parseColor("#f0d26d"))
     }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {}
 
     override fun getResources(): Resources {
         return AdaptScreenUtils.adaptWidth(super.getResources(), 1080)

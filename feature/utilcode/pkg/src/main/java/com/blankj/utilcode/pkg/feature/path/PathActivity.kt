@@ -2,13 +2,12 @@ package com.blankj.utilcode.pkg.feature.path
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.view.View
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemTitle
 import com.blankj.utilcode.pkg.R
+import com.blankj.utilcode.util.CollectionUtils
 import com.blankj.utilcode.util.PathUtils
-import com.blankj.utilcode.util.SpanUtils
-import kotlinx.android.synthetic.main.activity_path.*
 
 /**
  * ```
@@ -18,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_path.*
  * desc  : demo about PathUtils
  * ```
  */
-class PathActivity : CommonTitleActivity() {
+class PathActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -27,61 +26,51 @@ class PathActivity : CommonTitleActivity() {
         }
     }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_path)
+    override fun bindTitleRes(): Int {
+        return R.string.demo_path
     }
 
-    override fun initData(bundle: Bundle?) {}
+    override fun bindItems(): MutableList<CommonItem<*>> {
+        return CollectionUtils.newArrayList(
+                CommonItemTitle("getRootPath", PathUtils.getRootPath()),
+                CommonItemTitle("getDataPath", PathUtils.getDataPath()),
+                CommonItemTitle("getDownloadCachePath", PathUtils.getDownloadCachePath()),
 
-    override fun bindLayout(): Int {
-        return R.layout.activity_path
+                CommonItemTitle("getInternalAppDataPath", PathUtils.getInternalAppDataPath()),
+                CommonItemTitle("getInternalAppCodeCacheDir", PathUtils.getInternalAppCodeCacheDir()),
+                CommonItemTitle("getInternalAppCachePath", PathUtils.getInternalAppCachePath()),
+                CommonItemTitle("getInternalAppDbsPath", PathUtils.getInternalAppDbsPath()),
+                CommonItemTitle("getInternalAppDbPath", PathUtils.getInternalAppDbPath("demo")),
+                CommonItemTitle("getInternalAppFilesPath", PathUtils.getInternalAppFilesPath()),
+                CommonItemTitle("getInternalAppSpPath", PathUtils.getInternalAppSpPath()),
+                CommonItemTitle("getInternalAppNoBackupFilesPath", PathUtils.getInternalAppNoBackupFilesPath()),
+
+                CommonItemTitle("getExternalStoragePath", PathUtils.getExternalStoragePath()),
+                CommonItemTitle("getExternalMusicPath", PathUtils.getExternalMusicPath()),
+                CommonItemTitle("getExternalPodcastsPath", PathUtils.getExternalPodcastsPath()),
+                CommonItemTitle("getExternalRingtonesPath", PathUtils.getExternalRingtonesPath()),
+                CommonItemTitle("getExternalAlarmsPath", PathUtils.getExternalAlarmsPath()),
+                CommonItemTitle("getExternalNotificationsPath", PathUtils.getExternalNotificationsPath()),
+                CommonItemTitle("getExternalPicturesPath", PathUtils.getExternalPicturesPath()),
+                CommonItemTitle("getExternalMoviesPath", PathUtils.getExternalMoviesPath()),
+                CommonItemTitle("getExternalDownloadsPath", PathUtils.getExternalDownloadsPath()),
+                CommonItemTitle("getExternalDcimPath", PathUtils.getExternalDcimPath()),
+                CommonItemTitle("getExternalDocumentsPath", PathUtils.getExternalDocumentsPath()),
+
+                CommonItemTitle("getExternalAppDataPath", PathUtils.getExternalAppDataPath()),
+                CommonItemTitle("getExternalAppCachePath", PathUtils.getExternalAppCachePath()),
+                CommonItemTitle("getExternalAppFilesPath", PathUtils.getExternalAppFilesPath()),
+                CommonItemTitle("getExternalAppMusicPath", PathUtils.getExternalAppMusicPath()),
+                CommonItemTitle("getExternalAppPodcastsPath", PathUtils.getExternalAppPodcastsPath()),
+                CommonItemTitle("getExternalAppRingtonesPath", PathUtils.getExternalAppRingtonesPath()),
+                CommonItemTitle("getExternalAppAlarmsPath", PathUtils.getExternalAppAlarmsPath()),
+                CommonItemTitle("getExternalAppNotificationsPath", PathUtils.getExternalAppNotificationsPath()),
+                CommonItemTitle("getExternalAppPicturesPath", PathUtils.getExternalAppPicturesPath()),
+                CommonItemTitle("getExternalAppMoviesPath", PathUtils.getExternalAppMoviesPath()),
+                CommonItemTitle("getExternalAppDownloadPath", PathUtils.getExternalAppDownloadPath()),
+                CommonItemTitle("getExternalAppDcimPath", PathUtils.getExternalAppDcimPath()),
+                CommonItemTitle("getExternalAppDocumentsPath", PathUtils.getExternalAppDocumentsPath()),
+                CommonItemTitle("getExternalAppObbPath", PathUtils.getExternalAppObbPath())
+        )
     }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        SpanUtils.with(pathAboutTv)
-                .appendLine("getRootPath: " + PathUtils.getRootPath())
-                .appendLine("getDataPath: " + PathUtils.getDataPath())
-                .appendLine("getDownloadCachePath: " + PathUtils.getDownloadCachePath())
-
-                .appendLine("getInternalAppDataPath: " + PathUtils.getInternalAppDataPath())
-                .appendLine("getInternalAppCodeCacheDir: " + PathUtils.getInternalAppCodeCacheDir())
-                .appendLine("getInternalAppCachePath: " + PathUtils.getInternalAppCachePath())
-                .appendLine("getInternalAppDbsPath: " + PathUtils.getInternalAppDbsPath())
-                .appendLine("getInternalAppDbPath: " + PathUtils.getInternalAppDbPath("demo"))
-                .appendLine("getInternalAppFilesPath: " + PathUtils.getInternalAppFilesPath())
-                .appendLine("getInternalAppSpPath: " + PathUtils.getInternalAppSpPath())
-                .appendLine("getInternalAppNoBackupFilesPath: " + PathUtils.getInternalAppNoBackupFilesPath())
-
-                .appendLine("getExternalStoragePath: " + PathUtils.getExternalStoragePath())
-                .appendLine("getExternalMusicPath: " + PathUtils.getExternalMusicPath())
-                .appendLine("getExternalPodcastsPath: " + PathUtils.getExternalPodcastsPath())
-                .appendLine("getExternalRingtonesPath: " + PathUtils.getExternalRingtonesPath())
-                .appendLine("getExternalAlarmsPath: " + PathUtils.getExternalAlarmsPath())
-                .appendLine("getExternalNotificationsPath: " + PathUtils.getExternalNotificationsPath())
-                .appendLine("getExternalPicturesPath: " + PathUtils.getExternalPicturesPath())
-                .appendLine("getExternalMoviesPath: " + PathUtils.getExternalMoviesPath())
-                .appendLine("getExternalDownloadsPath: " + PathUtils.getExternalDownloadsPath())
-                .appendLine("getExternalDcimPath: " + PathUtils.getExternalDcimPath())
-                .appendLine("getExternalDocumentsPath: " + PathUtils.getExternalDocumentsPath())
-
-                .appendLine("getExternalAppDataPath: " + PathUtils.getExternalAppDataPath())
-                .appendLine("getExternalAppCachePath: " + PathUtils.getExternalAppCachePath())
-                .appendLine("getExternalAppFilesPath: " + PathUtils.getExternalAppFilesPath())
-                .appendLine("getExternalAppMusicPath: " + PathUtils.getExternalAppMusicPath())
-                .appendLine("getExternalAppPodcastsPath: " + PathUtils.getExternalAppPodcastsPath())
-                .appendLine("getExternalAppRingtonesPath: " + PathUtils.getExternalAppRingtonesPath())
-                .appendLine("getExternalAppAlarmsPath: " + PathUtils.getExternalAppAlarmsPath())
-                .appendLine("getExternalAppNotificationsPath: " + PathUtils.getExternalAppNotificationsPath())
-                .appendLine("getExternalAppPicturesPath: " + PathUtils.getExternalAppPicturesPath())
-                .appendLine("getExternalAppMoviesPath: " + PathUtils.getExternalAppMoviesPath())
-                .appendLine("getExternalAppDownloadPath: " + PathUtils.getExternalAppDownloadPath())
-                .appendLine("getExternalAppDcimPath: " + PathUtils.getExternalAppDcimPath())
-                .appendLine("getExternalAppDocumentsPath: " + PathUtils.getExternalAppDocumentsPath())
-                .appendLine("getExternalAppObbPath: " + PathUtils.getExternalAppObbPath())
-                .create()
-    }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {}
 }

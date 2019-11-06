@@ -14,7 +14,7 @@ import android.text.style.ClickableSpan
 import android.text.style.UpdateAppearance
 import android.view.View
 import android.view.animation.LinearInterpolator
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.activity_span.*
  * desc  : demo about SpanUtils
  * ```
  */
-class SpanActivity : CommonTitleActivity() {
+class SpanActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -51,21 +51,13 @@ class SpanActivity : CommonTitleActivity() {
     private lateinit var mForegroundAlphaColorSpan: ForegroundAlphaColorSpan
     private lateinit var mForegroundAlphaColorSpanGroup: ForegroundAlphaColorSpanGroup
     private lateinit var mPrinterString: String
-    internal var density: Float = 0f
+    private var density: Float = 0f
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_span)
-    }
-
-    override fun initData(bundle: Bundle?) {}
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_span
+    override fun bindTitleRes(): Int {
+        return R.string.demo_span
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        setTitle(R.string.demo_span)
-
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
                 ToastUtils.showShort("事件触发了")
@@ -80,9 +72,6 @@ class SpanActivity : CommonTitleActivity() {
         lineHeight = spanAboutTv.lineHeight
         textSize = spanAboutTv.textSize
         density = resources.displayMetrics.density
-
-        //        initAnimSpan();
-        //        startAnim();
 
         SpanUtils.with(spanAboutTv)
                 .appendLine("SpanUtils").setBackgroundColor(Color.LTGRAY).setBold().setForegroundColor(Color.YELLOW).setHorizontalAlign(Layout.Alignment.ALIGN_CENTER)
@@ -148,6 +137,8 @@ class SpanActivity : CommonTitleActivity() {
                 .append("测试空格").appendSpace(30, Color.LTGRAY).appendSpace(50, Color.GREEN).appendSpace(100).appendSpace(30, Color.LTGRAY).appendSpace(50, Color.GREEN)
                 .create()
 
+        //        initAnimSpan();
+        //        startAnim();
     }
 
     private fun initAnimSpan() {
@@ -219,12 +210,12 @@ class SpanActivity : CommonTitleActivity() {
 
     override fun onDebouncingClick(view: View) {}
 
-//    override fun onDestroy() {
-//        if (valueAnimator.isRunning) {
-//            valueAnimator.cancel()
-//        }
-//        super.onDestroy()
-//    }
+    override fun onDestroy() {
+        if (valueAnimator != null && valueAnimator.isRunning) {
+            valueAnimator.cancel()
+        }
+        super.onDestroy()
+    }
 }
 
 class BlurMaskFilterSpan(private var mRadius: Float) : CharacterStyle(), UpdateAppearance {

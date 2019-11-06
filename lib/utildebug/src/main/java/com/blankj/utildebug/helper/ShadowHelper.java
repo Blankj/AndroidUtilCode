@@ -17,26 +17,18 @@ public class ShadowHelper {
 
     public static void applyDebugIcon(View view) {
         ShadowUtils.apply(view, new ShadowUtils.Builder()
-                .setDrawableRadius(SizeUtils.getMeasuredWidth(view) / 2)
-                .setShadowRadius(SizeUtils.dp2px(8))
-                .setShadowColor(0xb0_ffffff, 0xb0_000000)
+                .setCircle()
+                .setShadowColor(0xc0_ffffff, 0x60_ffffff)
         );
     }
 
     public static void applyFloatView(View view) {
-        ShadowUtils.apply(view, new ShadowUtils.Builder()
-                .setDrawableRadius(SizeUtils.dp2px(8))
-                .setShadowRadius(SizeUtils.dp2px(8))
-                .setShadowColor(0xb0_000000)
-        );
+        ShadowUtils.apply(view, new ShadowUtils.Builder().setShadowRadius(SizeUtils.dp2px(8)));
     }
 
     public static void applyMenu(View view) {
-        view.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-//        ShadowUtils.apply(view, new ShadowUtils.Builder()
-//                .setDrawableRadius(SizeUtils.dp2px(4))
-//                .setShadowRadius(SizeUtils.dp2px(4), SizeUtils.dp2px(4))
-//                .setShadowColor(0xb0_000000)
-//        );
+        ShadowUtils.apply(view, new ShadowUtils.Builder()
+                .setShadowRadius(SizeUtils.dp2px(4))
+        );
     }
 }

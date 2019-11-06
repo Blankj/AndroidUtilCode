@@ -1,20 +1,27 @@
 package com.blankj.utildebug.debug.tool.fileExplorer;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.constant.PermissionConstants;
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ClickUtils;
 import com.blankj.utilcode.util.CollectionUtils;
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.PathUtils;
+import com.blankj.utilcode.util.PermissionUtils;
+import com.blankj.utilcode.util.SDCardUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
+import com.blankj.utilcode.util.UriUtils;
 import com.blankj.utildebug.R;
 import com.blankj.utildebug.base.rv.BaseItem;
 import com.blankj.utildebug.base.rv.ItemViewHolder;
+import com.blankj.utildebug.base.view.FloatToast;
 import com.blankj.utildebug.debug.tool.fileExplorer.image.ImageViewer;
 import com.blankj.utildebug.debug.tool.fileExplorer.sp.SpViewerContentView;
 import com.blankj.utildebug.helper.FileHelper;
@@ -36,9 +43,12 @@ import java.util.List;
  */
 public class FileItem extends BaseItem<FileItem> {
 
+    private static final ArrayList<FileItem> EMPTY = CollectionUtils.newArrayList(new FileItem());
+
     private FileItem mParent;
     private File     mFile;
     private String   mName;
+    private boolean  isSdcard;
 
     private RelativeLayout fileContentRl;
     private ImageView      fileTypeIv;
@@ -46,17 +56,22 @@ public class FileItem extends BaseItem<FileItem> {
     private TextView       fileInfoTv;
     private TextView       fileMenuDeleteTv;
 
+    public FileItem(File file, String name) {
+        this(file, name, false);
+    }
+
+    public FileItem(File file, String name, boolean isSdcard) {
+        super(R.layout.du_item_file);
+        mFile = file;
+        mName = name;
+        this.isSdcard = isSdcard;
+    }
+
     public FileItem(FileItem parent, File file) {
         super(R.layout.du_item_file);
         mParent = parent;
         mFile = file;
         mName = file.getName();
-    }
-
-    public FileItem(File file, String name) {
-        super(R.layout.du_item_file);
-        mFile = file;
-        mName = name;
     }
 
     public FileItem() {
@@ -80,11 +95,16 @@ public class FileItem extends BaseItem<FileItem> {
         fileMenuDeleteTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FileUtils.delete(mFile);
-                getAdapter().removeItem(FileItem.this, true);
-                if (getAdapter().getItems().isEmpty()) {
-                    getAdapter().addItem(new FileItem());
-                    getAdapter().notifyDataSetChanged();
+                boolean delete = FileUtils.delete(mFile);
+                if (delete) {
+                    getAdapter().removeItem(FileItem.this, true);
+                    if (getAdapter().getItems().isEmpty()) {
+                        getAdapter().addItem(new FileItem());
+                        getAdapter().notifyDataSetChanged();
+                        v.getRootView().findViewById(R.id.fileExplorerSearchEt).setVisibility(View.GONE);
+                    }
+                } else {
+                    FloatToast.showLong(FloatToast.WARNING, "Delete failed!");
                 }
             }
         });
@@ -92,12 +112,29 @@ public class FileItem extends BaseItem<FileItem> {
 
         if (mFile.isDirectory()) {
             fileTypeIv.setImageResource(R.drawable.du_ic_debug_file_explorer);
-            fileInfoTv.setText(String.format("%s  %s", StringUtils.getString(R.string.du_file_item_num, mFile.list().length), TimeUtils.millis2String(mFile.lastModified(), "yyyy.MM.dd")));
+            fileInfoTv.setText(String.format("%s  %s", StringUtils.getString(R.string.du_file_item_num, CollectionUtils.size(mFile.list())), TimeUtils.millis2String(mFile.lastModified(), "yyyy.MM.dd")));
             fileContentRl.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    FileExplorerFloatView floatView = (FileExplorerFloatView) v.getRootView();
-                    FileContentView.show(floatView, FileItem.this);
+                public void onClick(final View v) {
+                    if (isSdcard) {
+                        PermissionUtils.permission(PermissionConstants.STORAGE)
+                                .callback(new PermissionUtils.SimpleCallback() {
+                                    @Override
+                                    public void onGranted() {
+                                        FileExplorerFloatView floatView = (FileExplorerFloatView) v.getRootView();
+                                        FileContentView.show(floatView, FileItem.this);
+                                    }
+
+                                    @Override
+                                    public void onDenied() {
+                                        FloatToast.showShort("Permission of storage denied!");
+                                    }
+                                })
+                                .request();
+                    } else {
+                        FileExplorerFloatView floatView = (FileExplorerFloatView) v.getRootView();
+                        FileContentView.show(floatView, FileItem.this);
+                    }
                 }
             });
         } else {
@@ -125,7 +162,17 @@ public class FileItem extends BaseItem<FileItem> {
                     }
                 });
             } else {
-                fileContentRl.setOnClickListener(null);
+                fileContentRl.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setData(UriUtils.file2Uri(mFile));
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                        ActivityUtils.startActivity(intent);
+                    }
+                });
                 fileTypeIv.setImageResource(R.drawable.du_ic_item_file_default);
             }
         }
@@ -137,11 +184,7 @@ public class FileItem extends BaseItem<FileItem> {
 
     public static List<FileItem> getFileItems(final FileItem parent) {
         if (parent == null) return getFileItems();
-        List<File> files = FileUtils.listFilesInDir(parent.getFile());
-        if (CollectionUtils.isEmpty(files)) {
-            return CollectionUtils.newArrayList(new FileItem());
-        }
-        Collections.sort(files, new Comparator<File>() {
+        List<File> files = FileUtils.listFilesInDir(parent.getFile(), new Comparator<File>() {
             @Override
             public int compare(File o1, File o2) {
                 if (o1.isDirectory() && o2.isFile()) {
@@ -177,6 +220,16 @@ public class FileItem extends BaseItem<FileItem> {
                 fileItems.add(new FileItem(externalDataFile, "external"));
             }
         }
+        List<String> mountedSDCardPath = SDCardUtils.getMountedSDCardPath();
+        if (!mountedSDCardPath.isEmpty()) {
+            for (int i = 0; i < mountedSDCardPath.size(); i++) {
+                String path = mountedSDCardPath.get(i);
+                File sdPath = new File(path);
+                if (sdPath.exists()) {
+                    fileItems.add(new FileItem(sdPath, "sdcard" + i + "_" + sdPath.getName(), true));
+                }
+            }
+        }
         return fileItems;
     }
 
@@ -187,5 +240,9 @@ public class FileItem extends BaseItem<FileItem> {
                 return item.mName.toLowerCase().contains(key.toLowerCase());
             }
         });
+    }
+
+    public static boolean isEmptyItems(List<FileItem> items) {
+        return EMPTY == items;
     }
 }

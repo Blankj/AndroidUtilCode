@@ -28,20 +28,30 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
 
     protected Drawable mDivider;
 
-    protected int mOrientation;
+    protected int     mOrientation;
+    protected boolean mShowFooterDivider;
 
     protected final Rect mBounds = new Rect();
 
     public RecycleViewDivider(Context context, int orientation, @DrawableRes int resId) {
-        this(context, orientation, ContextCompat.getDrawable(context, resId));
+        this(context, orientation, resId, false);
     }
 
     public RecycleViewDivider(Context context, int orientation, @NonNull Drawable divider) {
-        setOrientation(orientation);
-        mDivider = divider;
+        this(context, orientation, divider, false);
     }
 
-    public void setOrientation(int orientation) {
+    public RecycleViewDivider(Context context, int orientation, @DrawableRes int resId, boolean showFooterDivider) {
+        this(context, orientation, ContextCompat.getDrawable(context, resId), showFooterDivider);
+    }
+
+    public RecycleViewDivider(Context context, int orientation, @NonNull Drawable divider, boolean showFooterDivider) {
+        setOrientation(orientation);
+        mDivider = divider;
+        mShowFooterDivider = showFooterDivider;
+    }
+
+    private void setOrientation(int orientation) {
         if (orientation != HORIZONTAL && orientation != VERTICAL) {
             throw new IllegalArgumentException(
                     "Invalid orientation. It should be either HORIZONTAL or VERTICAL");
@@ -78,6 +88,7 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
 
         final int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {
+            if (i == childCount - 1 && !mShowFooterDivider) continue;
             final View child = parent.getChildAt(i);
             parent.getDecoratedBoundsWithMargins(child, mBounds);
             final int bottom = mBounds.bottom + Math.round(ViewCompat.getTranslationY(child));
@@ -105,6 +116,7 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
 
         final int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {
+            if (i == childCount - 1 && !mShowFooterDivider) continue;
             final View child = parent.getChildAt(i);
             parent.getLayoutManager().getDecoratedBoundsWithMargins(child, mBounds);
             final int right = mBounds.right + Math.round(ViewCompat.getTranslationX(child));

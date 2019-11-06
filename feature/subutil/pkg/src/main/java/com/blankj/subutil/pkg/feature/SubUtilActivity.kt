@@ -2,16 +2,18 @@ package com.blankj.subutil.pkg.feature
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.view.View
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.activity.CommonActivityItemsView
+import com.blankj.common.activity.CommonActivityTitleView
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemClick
 import com.blankj.subutil.pkg.R
 import com.blankj.subutil.pkg.feature.appStore.AppStoreActivity
 import com.blankj.subutil.pkg.feature.country.CountryActivity
 import com.blankj.subutil.pkg.feature.dangerous.DangerousActivity
 import com.blankj.subutil.pkg.feature.location.LocationActivity
 import com.blankj.subutil.pkg.feature.pinyin.PinyinActivity
-import kotlinx.android.synthetic.main.activity_util_sub.*
+import com.blankj.utilcode.util.CollectionUtils
 
 /**
  * ```
@@ -21,7 +23,7 @@ import kotlinx.android.synthetic.main.activity_util_sub.*
  * desc  : MainActivity
  * ```
  */
-class SubUtilActivity : CommonTitleActivity() {
+class SubUtilActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -30,35 +32,28 @@ class SubUtilActivity : CommonTitleActivity() {
         }
     }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.sub_util)
+
+    override fun bindTitleRes(): Int {
+        return R.string.sub_util
     }
 
-    override fun initData(bundle: Bundle?) {}
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_util_sub
-    }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        applyDebouncingClickListener(
-                subUtilAppStoreBtn,
-                subUtilCountryBtn,
-                subUtilDangerousBtn,
-                subUtilLocationBtn,
-                subUtilPinyinBtn
+    override fun bindItems(): List<CommonItem<*>> {
+        return CollectionUtils.newArrayList(
+                CommonItemClick(R.string.demo_app_store, true) {
+                    AppStoreActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_country, true) {
+                    CountryActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_dangerous, true) {
+                    DangerousActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_location, true) {
+                    LocationActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_pinyin, true) {
+                    PinyinActivity.start(this)
+                }
         )
-    }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {
-        when (view.id) {
-            R.id.subUtilAppStoreBtn -> AppStoreActivity.start(this)
-            R.id.subUtilCountryBtn -> CountryActivity.start(this)
-            R.id.subUtilDangerousBtn -> DangerousActivity.start(this)
-            R.id.subUtilLocationBtn -> LocationActivity.start(this)
-            R.id.subUtilPinyinBtn -> PinyinActivity.start(this)
-        }
     }
 }

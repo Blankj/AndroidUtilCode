@@ -149,6 +149,13 @@ public class FileUtilsTest extends BaseTest {
     }
 
     @Test
+    public void isUtf8() {
+        assertTrue(FileUtils.isUtf8(PATH_FILE + "UTF8.txt"));
+        assertFalse(FileUtils.isUtf8(PATH_FILE + "UTF16BE.txt"));
+        assertFalse(FileUtils.isUtf8(PATH_FILE + "Unicode.txt"));
+    }
+
+    @Test
     public void getFileLines() {
         assertEquals(7, FileUtils.getFileLines(PATH_FILE + "UTF8.txt"));
     }

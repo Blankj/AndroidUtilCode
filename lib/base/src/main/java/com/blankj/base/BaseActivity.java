@@ -28,8 +28,8 @@ public abstract class BaseActivity extends AppCompatActivity
         }
     };
 
-    protected View     mContentView;
-    protected Activity mActivity;
+    public View     mContentView;
+    public Activity mActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

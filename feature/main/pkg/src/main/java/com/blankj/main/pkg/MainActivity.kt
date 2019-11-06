@@ -4,12 +4,15 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.View
-import android.widget.ImageView
-import com.blankj.common.CommonDrawerActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemClick
 import com.blankj.subutil.export.api.SubUtilApi
-import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.export.api.UtilCodeApi
-import com.blankj.utilcode.util.*
+import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.ApiUtils
+import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.CollectionUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -21,59 +24,43 @@ import kotlinx.android.synthetic.main.activity_main.*
  * desc  : MainActivity
  * ```
  */
-class MainActivity : CommonDrawerActivity() {
+class MainActivity : CommonActivity() {
 
-    override fun initData(bundle: Bundle?) {
+    override fun isSwipeBack(): Boolean {
+        return false
+    }
 
-        PermissionUtils.permission(PermissionConstants.CALENDAR)
-                .callback(object : PermissionUtils.SimpleCallback {
-                    override fun onGranted() {
-                        LogUtils.e()
-                    }
-
-                    override fun onDenied() {
-                        LogUtils.e()
-                    }
-                })
+    override fun bindDrawer(): Boolean {
+        return true
     }
 
     override fun bindLayout(): Int {
         return R.layout.activity_main
     }
 
-    private var view: ImageView? = null
-
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
+        super.initView(savedInstanceState, contentView)
+        setCommonItems(mainRv, CollectionUtils.newArrayList<CommonItem<*>>(
+                CommonItemClick(R.string.core_util, true) {
+                    ApiUtils.getApi(UtilCodeApi::class.java).startUtilCodeActivity(this)
+                },
+                CommonItemClick(R.string.sub_util, true) {
+                    ApiUtils.getApi(SubUtilApi::class.java).startSubUtilActivity(this)
+                }
+        ))
+
         launcherMainCtl.setExpandedTitleColor(Color.TRANSPARENT)
         setSupportActionBar(launcherMainToolbar)
         val toggle = ActionBarDrawerToggle(this,
-                mBaseDrawerRootLayout,
+                drawerView.mBaseDrawerRootLayout,
                 launcherMainToolbar,
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close)
-        mBaseDrawerRootLayout.addDrawerListener(toggle)
+        drawerView.mBaseDrawerRootLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        BarUtils.setStatusBarColor4Drawer(mBaseDrawerRootLayout, launcherMainFakeStatusBar, Color.TRANSPARENT, false)
+        BarUtils.setStatusBarColor4Drawer(drawerView.mBaseDrawerRootLayout, launcherMainFakeStatusBar, Color.TRANSPARENT, false)
         BarUtils.addMarginTopEqualStatusBarHeight(launcherMainToolbar)
-
-        applyDebouncingClickListener(
-                launcherMainCoreUtilBtn,
-                launcherMainSubUtilBtn
-        )
-    }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {
-        when (view.id) {
-            R.id.launcherMainCoreUtilBtn -> {
-                ApiUtils.getApi(UtilCodeApi::class.java).startUtilCodeActivity(this)
-            }
-            R.id.launcherMainSubUtilBtn -> {
-                ApiUtils.getApi(SubUtilApi::class.java).startSubUtilActivity(this)
-            }
-        }
     }
 
     override fun onBackPressed() {

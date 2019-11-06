@@ -394,7 +394,7 @@ public final class DeviceUtils {
 
     /**
      * Return the unique device id.
-     * <pre>{prefix}{1}{UUID(macAddress)}</pre>
+     * <pre>android 10 deprecated {prefix}{1}{UUID(macAddress)}</pre>
      * <pre>{prefix}{2}{UUID(androidId )}</pre>
      * <pre>{prefix}{9}{UUID(random    )}</pre>
      *
@@ -412,11 +412,6 @@ public final class DeviceUtils {
                         return udid;
                     }
                     try {
-                        String macAddress = getMacAddress();
-                        if (!macAddress.equals("")) {
-                            return saveUdid(prefix + 1, macAddress);
-                        }
-
                         final String androidId = getAndroidID();
                         if (!TextUtils.isEmpty(androidId)) {
                             return saveUdid(prefix + 2, androidId);
@@ -439,13 +434,7 @@ public final class DeviceUtils {
         if (uniqueDeviceId.equals(cachedId)) return true;
         int st = uniqueDeviceId.length() - 33;
         String type = uniqueDeviceId.substring(st, st + 1);
-        if (type.startsWith("1")) {
-            String macAddress = getMacAddress();
-            if (macAddress.equals("")) {
-                return false;
-            }
-            return uniqueDeviceId.substring(st + 1).equals(getUdid("", macAddress));
-        } else if (type.startsWith("2")) {
+        if (type.startsWith("2")) {
             final String androidId = getAndroidID();
             if (TextUtils.isEmpty(androidId)) {
                 return false;

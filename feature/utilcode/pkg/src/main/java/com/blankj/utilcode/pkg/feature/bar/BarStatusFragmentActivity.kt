@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.view.View
-import com.blankj.common.CommonBackActivity
+import com.blankj.common.activity.CommonActivity
 import com.blankj.utilcode.pkg.R
 import kotlinx.android.synthetic.main.activity_bar_status_fragment.*
 import java.util.*
@@ -21,7 +21,7 @@ import java.util.*
  * desc  : demo about BarUtils
  * ```
  */
-class BarStatusFragmentActivity : CommonBackActivity() {
+class BarStatusFragmentActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {

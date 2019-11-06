@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/04/20
- *     desc  : URI 相关
+ *     desc  : utils about uri
  * </pre>
  */
 public final class UriUtils {

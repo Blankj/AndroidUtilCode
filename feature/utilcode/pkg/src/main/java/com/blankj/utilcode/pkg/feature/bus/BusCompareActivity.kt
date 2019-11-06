@@ -2,14 +2,17 @@ package com.blankj.utilcode.pkg.feature.bus
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.view.View
-import com.blankj.common.CommonTaskActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.activity.CommonActivityTitleView
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemClick
+import com.blankj.common.item.CommonItemTitle
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BusUtils
+import com.blankj.utilcode.util.CollectionUtils
 import com.blankj.utilcode.util.ThreadUtils
-import kotlinx.android.synthetic.main.activity_busutils_vs_eventbus.*
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.util.*
 
 
@@ -21,15 +24,9 @@ import java.util.*
  * desc  : demo about BusUtils
  * ```
  */
-class BusCompareActivity : CommonTaskActivity<Unit>() {
+class BusCompareActivity : CommonActivity() {
 
-    override fun doInBackground() {
-
-    }
-
-    override fun runOnUiThread(data: Unit?) {
-
-    }
+    private val titleItem: CommonItemTitle = CommonItemTitle("", true)
 
     companion object {
         fun start(context: Context) {
@@ -38,44 +35,26 @@ class BusCompareActivity : CommonTaskActivity<Unit>() {
         }
     }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_bus)
+    override fun bindTitleRes(): Int {
+        return R.string.demo_bus
     }
 
-    override fun initData(bundle: Bundle?) {}
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_busutils_vs_eventbus
-    }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        applyDebouncingClickListener(
-                busCompareRegister10000TimesBtn,
-                busComparePostTo1Subscriber1000000TimesBtn,
-                busComparePostTo100Subscribers100000TimesBtn,
-                busCompareUnregister10000TimesBtn
+    override fun bindItems(): List<CommonItem<*>> {
+        return CollectionUtils.newArrayList(
+                titleItem,
+                CommonItemClick(R.string.bus_compare_register_10000_times) {
+                    compareRegister10000Times()
+                },
+                CommonItemClick(R.string.bus_compare_post_to_1_subscriber_1000000_times) {
+                    comparePostTo1Subscriber1000000Times()
+                },
+                CommonItemClick(R.string.bus_compare_post_to_100_subscriber_100000_times) {
+                    comparePostTo100Subscribers100000Times()
+                },
+                CommonItemClick(R.string.bus_compare_unregister_10000_times) {
+                    compareUnregister10000Times()
+                }
         )
-    }
-
-    override fun doBusiness() {
-
-    }
-
-    override fun onDebouncingClick(view: View) {
-        when (view.id) {
-            R.id.busCompareRegister10000TimesBtn -> {
-                compareRegister10000Times()
-            }
-            R.id.busComparePostTo1Subscriber1000000TimesBtn -> {
-                comparePostTo1Subscriber1000000Times()
-            }
-            R.id.busComparePostTo100Subscribers100000TimesBtn -> {
-                comparePostTo100Subscribers100000Times()
-            }
-            R.id.busCompareUnregister10000TimesBtn -> {
-                compareUnregister10000Times()
-            }
-        }
     }
 
     override fun onDestroy() {
@@ -116,7 +95,15 @@ class BusCompareActivity : CommonTaskActivity<Unit>() {
             }
         }, object : OnFinishCallback {
             override fun onFinish() {
+                for (test in eventBusTests) {
+                    EventBus.getDefault().unregister(test)
+                }
+                eventBusTests.clear()
 
+                for (test in busUtilsTests) {
+                    BusUtils.unregister(test)
+                }
+                busUtilsTests.clear()
             }
         })
     }
@@ -216,8 +203,9 @@ class BusCompareActivity : CommonTaskActivity<Unit>() {
      */
     private fun compareWithEventBus(name: String, sampleSize: Int, times: Int,
                                     callback: CompareCallback, onFinishCallback: OnFinishCallback) {
-        setLoadingVisibility(true)
-        setBtnEnabled(false)
+        showLoading {
+            ThreadUtils.cancel(ThreadUtils.getCpuPool())
+        }
         ThreadUtils.executeByCpu(object : ThreadUtils.Task<String>() {
             override fun doInBackground(): String {
                 val dur = Array(2) { LongArray(sampleSize) }
@@ -247,41 +235,41 @@ class BusCompareActivity : CommonTaskActivity<Unit>() {
 
             override fun onSuccess(result: String?) {
                 onFinishCallback.onFinish()
-                setBtnEnabled(true)
-                setLoadingVisibility(false)
-                this@BusCompareActivity.busCompareAboutTv.text = result
+                dismissLoading()
+                titleItem?.title = result
             }
 
             override fun onCancel() {
                 onFinishCallback.onFinish()
-                setLoadingVisibility(false)
-                setBtnEnabled(true)
+                dismissLoading()
             }
 
             override fun onFail(t: Throwable?) {
                 onFinishCallback.onFinish()
-                setLoadingVisibility(false)
-                setBtnEnabled(true)
+                dismissLoading()
             }
         })
     }
+}
 
-    private fun setBtnEnabled(enable: Boolean) {
-        busCompareRegister10000TimesBtn.isEnabled = enable
-        busComparePostTo1Subscriber1000000TimesBtn.isEnabled = enable
-        busComparePostTo100Subscribers100000TimesBtn.isEnabled = enable
-        busCompareUnregister10000TimesBtn.isEnabled = enable
+interface CompareCallback {
+    fun runEventBus()
+
+    fun runBusUtils()
+
+    fun restState()
+}
+
+interface OnFinishCallback {
+    fun onFinish()
+}
+
+class BusEvent {
+    @Subscribe
+    fun eventBusFun(param: String) {
     }
 
-    interface CompareCallback {
-        fun runEventBus()
-
-        fun runBusUtils()
-
-        fun restState()
-    }
-
-    interface OnFinishCallback {
-        fun onFinish()
+    @BusUtils.Bus(tag = "busUtilsFun")
+    fun busUtilsFun(param: String) {
     }
 }

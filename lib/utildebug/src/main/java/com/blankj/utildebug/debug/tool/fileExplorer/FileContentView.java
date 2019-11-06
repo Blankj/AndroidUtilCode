@@ -54,6 +54,10 @@ public class FileContentView extends BaseContentView<FileExplorerFloatView> {
         fileExplorerSearchEt = findViewById(R.id.fileExplorerSearchEt);
         fileExplorerRv = findViewById(R.id.fileExplorerRv);
 
+        if (FileItem.isEmptyItems(mSrcItems)) {
+            fileExplorerSearchEt.setVisibility(GONE);
+        }
+
         mAdapter = new BaseItemAdapter<>();
         mAdapter.setItems(mSrcItems);
         fileExplorerRv.setAdapter(mAdapter);

@@ -2,13 +2,16 @@ package com.blankj.utilcode.pkg.feature.language
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.view.View
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.activity.CommonActivityItemsView
+import com.blankj.common.activity.CommonActivityTitleView
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemClick
 import com.blankj.utilcode.pkg.R
+import com.blankj.utilcode.pkg.feature.CoreUtilActivity
+import com.blankj.utilcode.util.CollectionUtils
 import com.blankj.utilcode.util.LanguageUtils
 import com.blankj.utilcode.util.ToastUtils
-import kotlinx.android.synthetic.main.activity_language.*
 import java.util.*
 
 /**
@@ -19,7 +22,7 @@ import java.util.*
  * desc  : demo about VibrateUtils
  * ```
  */
-class LanguageActivity : CommonTitleActivity() {
+class LanguageActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -28,35 +31,27 @@ class LanguageActivity : CommonTitleActivity() {
         }
     }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_language)
+    override fun bindTitleRes(): Int {
+        return R.string.demo_language
     }
 
-    override fun initData(bundle: Bundle?) {}
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_language
-    }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        applyDebouncingClickListener(
-                languageApp,
-                languageActivity,
-                applySimpleChineseLanguage,
-                applyAmericanLanguage,
-                applySystemLanguage
+    override fun bindItems(): List<CommonItem<*>> {
+        return CollectionUtils.newArrayList(
+                CommonItemClick(R.string.language_app_context) {
+                    ToastUtils.showLong(R.string.language)
+                },
+                CommonItemClick(R.string.language_activity_context) {
+                    ToastUtils.showLong(getString(R.string.language))
+                },
+                CommonItemClick(R.string.language_apply_simple_chinese) {
+                    LanguageUtils.applyLanguage(Locale.SIMPLIFIED_CHINESE, CoreUtilActivity::class.java)
+                },
+                CommonItemClick(R.string.language_apply_american) {
+                    LanguageUtils.applyLanguage(Locale.US, "")
+                },
+                CommonItemClick(R.string.language_apply_system) {
+                    LanguageUtils.applySystemLanguage("")
+                }
         )
-    }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {
-        when (view.id) {
-            R.id.languageApp -> ToastUtils.showLong(R.string.language)
-            R.id.languageActivity -> ToastUtils.showLong(getString(R.string.language))
-            R.id.applySimpleChineseLanguage -> LanguageUtils.applyLanguage(Locale.SIMPLIFIED_CHINESE, "com.blankj.main.pkg.MainActivity")
-            R.id.applyAmericanLanguage -> LanguageUtils.applyLanguage(Locale.US, "")
-            R.id.applySystemLanguage -> LanguageUtils.applySystemLanguage("")
-        }
     }
 }

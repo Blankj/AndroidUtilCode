@@ -121,6 +121,7 @@ getStatusBarHeight                   : 获取状态栏高度（px）
 setStatusBarVisibility               : 设置状态栏是否可见
 isStatusBarVisible                   : 判断状态栏是否可见
 setStatusBarLightMode                : 设置状态栏是否为浅色模式
+isStatusBarLightMode                 : 判断状态栏是否为浅色模式
 addMarginTopEqualStatusBarHeight     : 为 view 增加 MarginTop 为状态栏高度
 subtractMarginTopEqualStatusBarHeight: 为 view 减少 MarginTop 为状态栏高度
 setStatusBarColor                    : 设置状态栏颜色
@@ -133,6 +134,8 @@ isNavBarVisible                      : 判断导航栏是否可见
 setNavBarColor                       : 设置导航栏颜色
 getNavBarColor                       : 获取导航栏颜色
 isSupportNavBar                      : 判断是否支持导航栏
+setNavBarLightMode                   : 设置状态栏是否为浅色模式
+isNavBarLightMode                    : 判断状态栏是否为浅色模式
 ```
 
 * ### 亮度相关 -> [BrightnessUtils.java][brightness.java] -> [Demo][brightness.demo]
@@ -262,7 +265,10 @@ cleanCustomDir       : 清除自定义目录下的文件
 
 * ### 点击相关 -> [ClickUtils.java][click.java] -> [Demo][click.demo]
 ```
-applyScale                          : 应用点击缩放
+applyPressedViewScale               : 应用点击后对视图缩放
+applyPressedViewAlpha               : 应用点击后对视图改变透明度
+applyPressedBgAlpha                 : 应用点击后对背景改变透明度
+applyPressedBgDark                  : 应用点击后对背景加深
 applySingleDebouncing               : 对单视图应用防抖点击
 applyGlobalDebouncing               : 对所有设置 GlobalDebouncing 的视图应用防抖点击
 ClickUtils#OnDebouncingClickListener: 防抖点击监听器
@@ -660,6 +666,15 @@ registerNetworkStatusChangedListener  : 注册网络状态改变监听器
 unregisterNetworkStatusChangedListener: 注销网络状态改变监听器
 ```
 
+* ### 对象相关 -> [NotificationUtils.java][notification.java] -> [Demo][notification.demo]
+```
+areNotificationsEnabled     : 判断通知是否可用
+notify                      : 发送通知
+cancel                      : 取消通知
+cancelAll                   : 取消所有通知
+setNotificationBarVisibility: 设置通知栏是否可见
+```
+
 * ### 对象相关 -> [ObjectUtils.java][object.java] -> [Test][object.test]
 ```
 isEmpty       : 判断对象是否为空
@@ -856,6 +871,7 @@ getSleepDuration   : 获取进入休眠时长
 isSDCardEnableByEnvironment: 根据 Environment 判断 SD 卡是否可用
 getSDCardPathByEnvironment : 根据 Environment 获取 SD 卡路径
 getSDCardInfo              : 获取 SD 卡信息
+getMountedSDCardPath       : 获取已挂载的 SD 卡路径
 ```
 
 * ### 服务相关 -> [ServiceUtils.java][service.java]
@@ -866,6 +882,11 @@ stopService          : 停止服务
 bindService          : 绑定服务
 unbindService        : 解绑服务
 isServiceRunning     : 判断服务是否运行
+```
+
+* ### 阴影相关 -> [ShadowUtils.java][shadow.java] -> [Demo][shadow.demo]
+```
+apply: 应用阴影
 ```
 
 * ### Shell 相关 -> [ShellUtils.java][shell.java]
@@ -1062,6 +1083,18 @@ showCustomLong : 显示长时自定义吐司
 cancel         : 取消吐司显示
 ```
 
+* ### 触摸相关 -> [TouchUtils.java][touch.java]
+```
+setOnTouchListener: 设置触摸事件
+```
+
+* ### UI 消息相关 -> [UiMessageUtils.java][uiMessage.java]
+```
+send          : 发送消息
+addListener   : 新增消息监听器
+removeListener: 移除消息监听器
+```
+
 * ### URI 相关 -> [UriUtils.java][uri.java]
 ```
 file2Uri: file 转 uri
@@ -1216,6 +1249,9 @@ getComments       : 获取压缩文件中的注释链表
 [network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/NetworkUtils.java
 [network.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/network/NetworkActivity.kt
 
+[notification.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/NotificationUtils.java
+[notification.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/notification/NotificationActivity.kt
+
 [object.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ObjectUtils.java
 [object.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/ObjectUtilsTest.java
 
@@ -1251,6 +1287,9 @@ getComments       : 获取压缩文件中的注释链表
 
 [service.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ServiceUtils.java
 
+[shadow.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ShadowUtils.java
+[shadow.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/shadow/ShadowActivity.kt
+
 [shell.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ShellUtils.java
 
 [size.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/SizeUtils.java
@@ -1277,6 +1316,10 @@ getComments       : 获取压缩文件中的注释链表
 
 [toast.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ToastUtils.java
 [toast.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/toast/ToastActivity.kt
+
+[touch.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/TouchUtils.java
+
+[uiMessage.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UiMessageUtils.java
 
 [uri.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UriUtils.java
 

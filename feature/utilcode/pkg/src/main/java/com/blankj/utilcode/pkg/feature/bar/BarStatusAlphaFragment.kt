@@ -26,7 +26,7 @@ class BarStatusAlphaFragment : BaseLazyFragment() {
         }
     }
 
-    private var mAlpha: Int = 0
+    private var mAlpha: Int = 112
 
     private val translucentListener = object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
@@ -40,9 +40,7 @@ class BarStatusAlphaFragment : BaseLazyFragment() {
         override fun onStopTrackingTouch(seekBar: SeekBar) {}
     }
 
-    override fun initData(bundle: Bundle?) {
-        mAlpha = 112
-    }
+    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.fragment_bar_status_alpha

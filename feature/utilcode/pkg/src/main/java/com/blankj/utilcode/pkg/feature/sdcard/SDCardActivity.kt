@@ -2,13 +2,12 @@ package com.blankj.utilcode.pkg.feature.sdcard
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.view.View
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemTitle
 import com.blankj.utilcode.pkg.R
+import com.blankj.utilcode.util.CollectionUtils
 import com.blankj.utilcode.util.SDCardUtils
-import com.blankj.utilcode.util.SpanUtils
-import kotlinx.android.synthetic.main.activity_sdcard.*
 
 /**
  * ```
@@ -18,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_sdcard.*
  * desc  : demo about SDCardUtils
  * ```
  */
-class SDCardActivity : CommonTitleActivity() {
+class SDCardActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -27,25 +26,16 @@ class SDCardActivity : CommonTitleActivity() {
         }
     }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_sdcard)
+    override fun bindTitleRes(): Int {
+        return R.string.demo_sdcard
     }
 
-    override fun initData(bundle: Bundle?) {}
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_sdcard
+    override fun bindItems(): MutableList<CommonItem<*>> {
+        return CollectionUtils.newArrayList(
+                CommonItemTitle("isSDCardEnableByEnvironment", SDCardUtils.isSDCardEnableByEnvironment().toString()),
+                CommonItemTitle("getSDCardPathByEnvironment", SDCardUtils.getSDCardPathByEnvironment()),
+                CommonItemTitle("getSDCardInfo", SDCardUtils.getSDCardInfo().toString()),
+                CommonItemTitle("getMountedSDCardPath", SDCardUtils.getMountedSDCardPath().toString())
+        )
     }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        SpanUtils.with(sdcardAboutTv)
-                .appendLine("isSDCardEnableByEnvironment: " + SDCardUtils.isSDCardEnableByEnvironment())
-                .appendLine("getSDCardPathByEnvironment: " + SDCardUtils.getSDCardPathByEnvironment())
-                .appendLine("getSDCardInfo: " + SDCardUtils.getSDCardInfo())
-                .create()
-    }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {}
 }

@@ -2,15 +2,17 @@ package com.blankj.utilcode.pkg.feature.flashlight
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.view.View
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.activity.CommonActivityTitleView
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemSwitch
+import com.blankj.common.item.CommonItemTitle
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.PermissionHelper
+import com.blankj.utilcode.util.CollectionUtils
 import com.blankj.utilcode.util.FlashlightUtils
-import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
-import kotlinx.android.synthetic.main.activity_flashlight.*
+import com.blankj.utilcode.util.Utils
 
 /**
  * ```
@@ -20,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_flashlight.*
  * desc  : demo about FlashlightUtils
  * ```
  */
-class FlashlightActivity : CommonTitleActivity() {
+class FlashlightActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -41,33 +43,25 @@ class FlashlightActivity : CommonTitleActivity() {
         }
     }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_flashlight)
+    override fun bindTitleRes(): Int {
+        return R.string.demo_flashlight
     }
 
-    override fun initData(bundle: Bundle?) {}
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_flashlight
-    }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        flashlightStatusCb.isChecked = FlashlightUtils.isFlashlightOn()
-        flashlightStatusCb.setOnCheckedChangeListener { buttonView, isChecked ->
-            FlashlightUtils.setFlashlightStatus(isChecked)
+    override fun bindItems(): List<CommonItem<*>> {
+        return CollectionUtils.newArrayList<CommonItem<*>>().apply {
+            add(CommonItemTitle("isFlashlightEnable", FlashlightUtils.isFlashlightEnable().toString()))
+            if (FlashlightUtils.isFlashlightEnable()) {
+                add(CommonItemSwitch(
+                        R.string.flashlight_status,
+                        Utils.Func1 {
+                            FlashlightUtils.isFlashlightOn()
+                        },
+                        Utils.Func1 {
+                            FlashlightUtils.setFlashlightStatus(it)
+                        }
+                ))
+            }
         }
-    }
-
-    override fun doBusiness() {
-        updateAboutFlashlight()
-    }
-
-    override fun onDebouncingClick(view: View) {}
-
-    private fun updateAboutFlashlight() {
-        SpanUtils.with(flashlightAboutTv)
-                .append("isFlashlightEnable: " + FlashlightUtils.isFlashlightEnable())
-                .create()
     }
 
     override fun onDestroy() {

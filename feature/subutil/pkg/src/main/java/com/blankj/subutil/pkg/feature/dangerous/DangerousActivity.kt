@@ -2,15 +2,15 @@ package com.blankj.subutil.pkg.feature.dangerous
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.view.View
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemClick
+import com.blankj.common.item.CommonItemSwitch
 import com.blankj.subutil.pkg.Config
 import com.blankj.subutil.pkg.R
 import com.blankj.subutil.pkg.helper.PermissionHelper
 import com.blankj.subutil.util.DangerousUtils
 import com.blankj.utilcode.util.*
-import kotlinx.android.synthetic.main.activity_dangerous.*
 
 /**
  * ```
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_dangerous.*
  * desc  : demo about dangerous
  * ```
  */
-class DangerousActivity : CommonTitleActivity() {
+class DangerousActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -47,74 +47,57 @@ class DangerousActivity : CommonTitleActivity() {
         }
     }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_dangerous)
+    override fun bindTitleRes(): Int {
+        return R.string.demo_dangerous
     }
 
-    override fun initData(bundle: Bundle?) {}
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_dangerous
-    }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        applyDebouncingClickListener(
-                dangerousInstallAppSilentBtn,
-                dangerousUninstallAppSilentBtn,
-                dangerousShutdownBtn,
-                dangerousRebootBtn,
-                dangerousReboot2RecoveryBtn,
-                dangerousReboot2BootloaderBtn,
-                dangerousSendSmsSilentBtn
+    override fun bindItems(): MutableList<CommonItem<*>> {
+        return CollectionUtils.newArrayList(
+                CommonItemClick(R.string.dangerous_install_silent) {
+                    if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
+                        ToastUtils.showShort(R.string.dangerous_app_install_tips)
+                    } else {
+                        if (!FileUtils.isFileExists(Config.TEST_APK_PATH)) {
+                            ReleaseInstallApkTask(listener).execute()
+                        } else {
+                            listener.onReleased()
+                        }
+                    }
+                },
+                CommonItemClick(R.string.dangerous_uninstall_silent) {
+                    if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
+                        if (DangerousUtils.uninstallAppSilent(Config.TEST_PKG, false)) {
+                            ToastUtils.showShort(R.string.dangerous_uninstall_successfully)
+                        } else {
+                            ToastUtils.showShort(R.string.dangerous_uninstall_unsuccessfully)
+                        }
+                    } else {
+                        ToastUtils.showShort(R.string.dangerous_app_uninstall_tips)
+                    }
+                },
+                CommonItemClick(R.string.dangerous_shutdown) {
+                    ToastUtils.showShort(DangerousUtils.shutdown().toString())
+                },
+                CommonItemClick(R.string.dangerous_reboot) {
+                    ToastUtils.showShort(DangerousUtils.reboot().toString())
+                },
+                CommonItemClick(R.string.dangerous_reboot_to_recovery) {
+                    ToastUtils.showShort(DangerousUtils.reboot2Recovery().toString())
+                },
+                CommonItemClick(R.string.dangerous_reboot_to_bootloader) {
+                    ToastUtils.showShort(DangerousUtils.reboot2Bootloader().toString())
+                },
+                CommonItemSwitch(R.string.dangerous_data_enabled, Utils.Func1 {
+                    NetworkUtils.getMobileDataEnabled()
+                }, Utils.Func1 {
+                    if (AppUtils.isAppSystem()) {
+                        DangerousUtils.setMobileDataEnabled(it)
+                    }
+                }),
+                CommonItemClick(R.string.dangerous_send_sms_silent) {
+                    DangerousUtils.sendSmsSilent("10000", "sendSmsSilent")
+                }
         )
-
-        if (AppUtils.isAppSystem()) {
-            dangerousMobileDataEnabledCb.setOnCheckedChangeListener { buttonView, isChecked ->
-                DangerousUtils.setMobileDataEnabled(isChecked)
-            }
-        } else {
-            dangerousMobileDataEnabledCb.isEnabled = false
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        dangerousMobileDataEnabledCb.isChecked = NetworkUtils.getMobileDataEnabled()
-    }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {
-        when (view.id) {
-            R.id.dangerousInstallAppSilentBtn -> {
-                if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
-                    ToastUtils.showShort(R.string.dangerous_app_install_tips)
-                } else {
-                    if (!FileUtils.isFileExists(Config.TEST_APK_PATH)) {
-                        ReleaseInstallApkTask(listener).execute()
-                    } else {
-                        listener.onReleased()
-                    }
-                }
-            }
-            R.id.dangerousUninstallAppSilentBtn -> {
-                if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
-                    if (DangerousUtils.uninstallAppSilent(Config.TEST_PKG, false)) {
-                        ToastUtils.showShort(R.string.dangerous_uninstall_successfully)
-                    } else {
-                        ToastUtils.showShort(R.string.dangerous_uninstall_unsuccessfully)
-                    }
-                } else {
-                    ToastUtils.showShort(R.string.dangerous_app_uninstall_tips)
-                }
-            }
-            R.id.dangerousShutdownBtn -> DangerousUtils.shutdown()
-            R.id.dangerousRebootBtn -> DangerousUtils.reboot()
-            R.id.dangerousReboot2RecoveryBtn -> DangerousUtils.reboot2Recovery()
-            R.id.dangerousReboot2BootloaderBtn -> DangerousUtils.reboot2Bootloader()
-            R.id.dangerousReboot2BootloaderBtn -> DangerousUtils.reboot2Bootloader()
-            R.id.dangerousSendSmsSilentBtn -> DangerousUtils.sendSmsSilent("10000", "sendSmsSilent")
-        }
     }
 }
 

@@ -45,21 +45,19 @@ public final class AppUtils {
     /**
      * Register the status of application changed listener.
      *
-     * @param obj      The object.
      * @param listener The status of application changed listener
      */
-    public static void registerAppStatusChangedListener(@NonNull final Object obj,
-                                                        @NonNull final Utils.OnAppStatusChangedListener listener) {
-        Utils.getActivityLifecycle().addOnAppStatusChangedListener(obj, listener);
+    public static void registerAppStatusChangedListener(@NonNull final Utils.OnAppStatusChangedListener listener) {
+        Utils.getActivityLifecycle().addOnAppStatusChangedListener(listener);
     }
 
     /**
      * Unregister the status of application changed listener.
      *
-     * @param obj The object.
+     * @param listener The status of application changed listener
      */
-    public static void unregisterAppStatusChangedListener(@NonNull final Object obj) {
-        Utils.getActivityLifecycle().removeOnAppStatusChangedListener(obj);
+    public static void unregisterAppStatusChangedListener(@NonNull final Utils.OnAppStatusChangedListener listener) {
+        Utils.getActivityLifecycle().removeOnAppStatusChangedListener(listener);
     }
 
     /**
@@ -859,14 +857,14 @@ public final class AppUtils {
         @Override
         public String toString() {
             return "{" +
-                    "\n  pkg name: " + getPackageName() +
-                    "\n  app icon: " + getIcon() +
-                    "\n  app name: " + getName() +
-                    "\n  app path: " + getPackagePath() +
-                    "\n  app v name: " + getVersionName() +
-                    "\n  app v code: " + getVersionCode() +
-                    "\n  is system: " + isSystem() +
-                    "}";
+                    "\n    pkg name: " + getPackageName() +
+                    "\n    app icon: " + getIcon() +
+                    "\n    app name: " + getName() +
+                    "\n    app path: " + getPackagePath() +
+                    "\n    app v name: " + getVersionName() +
+                    "\n    app v code: " + getVersionCode() +
+                    "\n    is system: " + isSystem() +
+                    "\n}";
         }
     }
 
@@ -924,7 +922,7 @@ public final class AppUtils {
     }
 
     private static Intent getInstallAppIntent(final File file, final boolean isNewTask) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Intent intent = new Intent();
         Uri data;
         String type = "application/vnd.android.package-archive";
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {

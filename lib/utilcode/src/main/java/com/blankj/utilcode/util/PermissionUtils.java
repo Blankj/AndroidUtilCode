@@ -253,6 +253,8 @@ public final class PermissionUtils {
     public void request() {
         mPermissionsGranted = new ArrayList<>();
         mPermissionsRequest = new ArrayList<>();
+        mPermissionsDenied = new ArrayList<>();
+        mPermissionsDeniedForever = new ArrayList<>();
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             mPermissionsGranted.addAll(mPermissions);
             requestCallback();
@@ -274,8 +276,6 @@ public final class PermissionUtils {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void startPermissionActivity() {
-        mPermissionsDenied = new ArrayList<>();
-        mPermissionsDeniedForever = new ArrayList<>();
         PermissionActivityImpl.start(PermissionActivityImpl.TYPE_RUNTIME);
     }
 
@@ -333,12 +333,11 @@ public final class PermissionUtils {
         }
         if (mFullCallback != null) {
             if (mPermissionsRequest.size() == 0
-                    || mPermissions.size() == mPermissionsGranted.size()) {
+                    || mPermissionsGranted.size() > 0) {
                 mFullCallback.onGranted(mPermissionsGranted);
-            } else {
-                if (!mPermissionsDenied.isEmpty()) {
-                    mFullCallback.onDenied(mPermissionsDeniedForever, mPermissionsDenied);
-                }
+            }
+            if (!mPermissionsDenied.isEmpty()) {
+                mFullCallback.onDenied(mPermissionsDeniedForever, mPermissionsDenied);
             }
             mFullCallback = null;
         }
@@ -352,7 +351,7 @@ public final class PermissionUtils {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    static final class PermissionActivityImpl extends Utils.TransActivityDelegate {
+    static final class PermissionActivityImpl extends Utils.TransActivity.TransActivityDelegate {
 
         private static final String TYPE                = "TYPE";
         private static final int    TYPE_RUNTIME        = 0x01;
@@ -362,17 +361,17 @@ public final class PermissionUtils {
         private static PermissionActivityImpl INSTANCE = new PermissionActivityImpl();
 
         public static void start(final int type) {
-            Utils.TransActivity.start(new Utils.Consumer<Intent>() {
+            Utils.TransActivity.start(new Utils.Func1<Void, Intent>() {
                 @Override
-                public void consume(Intent data) {
+                public Void call(Intent data) {
                     data.putExtra(TYPE, type);
+                    return null;
                 }
             }, INSTANCE);
         }
 
         @Override
-        public void onCreateBefore(Activity activity, @Nullable Bundle savedInstanceState) {
-            super.onCreateBefore(activity, savedInstanceState);
+        public void onCreated(Activity activity, @Nullable Bundle savedInstanceState) {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
                     | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
             int type = activity.getIntent().getIntExtra(TYPE, -1);
@@ -411,7 +410,6 @@ public final class PermissionUtils {
                                                int requestCode,
                                                String[] permissions,
                                                int[] grantResults) {
-            super.onRequestPermissionsResult(activity, requestCode, permissions, grantResults);
             if (sInstance != null && sInstance.mPermissionsRequest != null) {
                 sInstance.onRequestPermissionsResult(activity);
             }
@@ -421,14 +419,12 @@ public final class PermissionUtils {
 
         @Override
         public boolean dispatchTouchEvent(Activity activity, MotionEvent ev) {
-            super.dispatchTouchEvent(activity, ev);
             activity.finish();
             return true;
         }
 
         @Override
         public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
-            super.onActivityResult(activity, requestCode, resultCode, data);
             if (requestCode == TYPE_WRITE_SETTINGS) {
                 if (sSimpleCallback4WriteSettings == null) return;
                 if (isGrantedWriteSettings()) {

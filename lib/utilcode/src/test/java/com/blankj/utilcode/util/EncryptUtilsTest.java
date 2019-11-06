@@ -339,9 +339,9 @@ public class EncryptUtilsTest extends BaseTest {
         );
     }
 
-    private String dataAES      = "11111111111111111111111111111111";
+    private String dataAES      = "111111111111111111111111111111111";
     private String keyAES       = "11111111111111111111111111111111";
-    private String resAES       = "E56E26F5608B8D268F2556E198A0E01B";
+    private String resAES       = "393FBBBC2C774BE50A106A50393E623AC3790781D015BB854359587256581F6D";
     private byte[] bytesDataAES = hexString2Bytes(dataAES);
     private byte[] bytesKeyAES  = hexString2Bytes(keyAES);
     private byte[] bytesResAES  = hexString2Bytes(resAES);
@@ -350,15 +350,15 @@ public class EncryptUtilsTest extends BaseTest {
     public void encryptAES() {
         assertArrayEquals(
                 bytesResAES,
-                EncryptUtils.encryptAES(bytesDataAES, bytesKeyAES, "AES/ECB/NoPadding", null)
+                EncryptUtils.encryptAES(bytesDataAES, bytesKeyAES, "AES/ECB/PKCS5Padding", null)
         );
         assertEquals(
                 resAES,
-                EncryptUtils.encryptAES2HexString(bytesDataAES, bytesKeyAES, "AES/ECB/NoPadding", null)
+                EncryptUtils.encryptAES2HexString(bytesDataAES, bytesKeyAES, "AES/ECB/PKCS5Padding", null)
         );
         assertArrayEquals(
                 base64Encode(bytesResAES),
-                EncryptUtils.encryptAES2Base64(bytesDataAES, bytesKeyAES, "AES/ECB/NoPadding", null)
+                EncryptUtils.encryptAES2Base64(bytesDataAES, bytesKeyAES, "AES/ECB/PKCS5Padding", null)
         );
     }
 
@@ -366,14 +366,14 @@ public class EncryptUtilsTest extends BaseTest {
     public void decryptAES() {
         assertArrayEquals(
                 bytesDataAES,
-                EncryptUtils.decryptAES(bytesResAES, bytesKeyAES, "AES/ECB/NoPadding", null)
+                EncryptUtils.decryptAES(bytesResAES, bytesKeyAES, "AES/ECB/PKCS5Padding", null)
         );
         assertArrayEquals(
                 bytesDataAES,
-                EncryptUtils.decryptHexStringAES(resAES, bytesKeyAES, "AES/ECB/NoPadding", null)
+                EncryptUtils.decryptHexStringAES(resAES, bytesKeyAES, "AES/ECB/PKCS5Padding", null)
         );
         assertArrayEquals(bytesDataAES,
-                EncryptUtils.decryptBase64AES(base64Encode(bytesResAES), bytesKeyAES, "AES/ECB/NoPadding", null)
+                EncryptUtils.decryptBase64AES(base64Encode(bytesResAES), bytesKeyAES, "AES/ECB/PKCS5Padding", null)
         );
     }
 

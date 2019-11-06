@@ -3,14 +3,16 @@ package com.blankj.utilcode.pkg.feature.bar
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.os.Bundle
-import android.view.View
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemClick
+import com.blankj.common.item.CommonItemSwitch
+import com.blankj.common.item.CommonItemTitle
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.CollectionUtils
 import com.blankj.utilcode.util.ColorUtils
-import com.blankj.utilcode.util.SpanUtils
-import kotlinx.android.synthetic.main.activity_bar_nav.*
+import com.blankj.utilcode.util.Utils
 
 /**
  * ```
@@ -20,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_bar_nav.*
  * desc  : demo about BarUtils
  * ```
  */
-class BarNavActivity : CommonTitleActivity() {
+class BarNavActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -29,54 +31,48 @@ class BarNavActivity : CommonTitleActivity() {
         }
     }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_bar)
+    override fun bindTitleRes(): Int {
+        return R.string.demo_bar
     }
 
-    override fun initData(bundle: Bundle?) {}
+    override fun bindItems(): List<CommonItem<*>> {
+        return CollectionUtils.newArrayList<CommonItem<*>>().apply {
+            add(CommonItemTitle("navHeight", BarUtils.getNavBarHeight().toString()))
+            add(CommonItemTitle("isSupportNavBar", BarUtils.isSupportNavBar().toString()))
+            if (BarUtils.isSupportNavBar()) {
+                add(CommonItemSwitch(
+                        R.string.bar_nav_visibility,
+                        Utils.Func1 {
+                            BarUtils.isNavBarVisible(this@BarNavActivity)
+                        },
+                        Utils.Func1 {
+                            BarUtils.setNavBarVisibility(this@BarNavActivity, it)
+                        }
+                ))
 
-    override fun bindLayout(): Int {
-        return R.layout.activity_bar_nav
-    }
+                add(CommonItemSwitch(
+                        R.string.bar_nav_light_mode,
+                        Utils.Func1 {
+                            BarUtils.isNavBarLightMode(this@BarNavActivity)
+                        },
+                        Utils.Func1 {
+                            BarUtils.setNavBarLightMode(this@BarNavActivity, it)
+                        }
+                ))
 
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        if (!BarUtils.isSupportNavBar()) {
-            barNavVisibilityCb.visibility = View.GONE
-            barNavSetColorBtn.visibility = View.GONE
-        } else {
-            barNavVisibilityCb.setOnCheckedChangeListener { buttonView, isChecked ->
-                BarUtils.setNavBarVisibility(this, isChecked)
-            }
-            applyDebouncingClickListener(barNavSetColorBtn)
-        }
-    }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {
-        when (view.id) {
-            R.id.barNavSetColorBtn -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                BarUtils.setNavBarColor(this, ColorUtils.getRandomColor())
-            }
-        }
-        updateAboutNav()
-    }
-
-    private fun updateAboutNav() {
-        SpanUtils.with(barNavAboutTv)
-                .appendLine("navHeight: " + BarUtils.getNavBarHeight())
-                .apply {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        appendLine("getNavBarColor: " + ColorUtils.int2ArgbString(BarUtils.getNavBarColor(mActivity)))
-                    }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    add(CommonItemClick("getNavBarColor: ${ColorUtils.int2ArgbString(BarUtils.getNavBarColor(this@BarNavActivity))}").setOnItemClickListener() { _, item, _ ->
+                        BarUtils.setNavBarColor(this@BarNavActivity, ColorUtils.getRandomColor())
+                        itemsView.updateItems(bindItems())
+                        item.title = "getNavBarColor: ${ColorUtils.int2ArgbString(BarUtils.getNavBarColor(this@BarNavActivity))}"
+                    })
                 }
-                .append("isSupportNavBar: " + BarUtils.isSupportNavBar())
-                .create();
+            }
+        }
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
-        barNavVisibilityCb.isChecked = BarUtils.isNavBarVisible(this)
-        updateAboutNav()
+        itemsView.updateItems(bindItems())
     }
 }

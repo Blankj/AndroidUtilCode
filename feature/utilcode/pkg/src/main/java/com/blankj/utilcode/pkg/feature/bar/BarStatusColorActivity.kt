@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.blankj.common.CommonBackActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemClick
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.CollectionUtils
 import com.blankj.utilcode.util.ColorUtils
-import kotlinx.android.synthetic.main.activity_bar_status_color.*
 
 /**
  * ```
@@ -18,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_bar_status_color.*
  * desc  : demo about BarUtils
  * ```
  */
-class BarStatusColorActivity : CommonBackActivity() {
+class BarStatusColorActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -27,41 +29,25 @@ class BarStatusColorActivity : CommonBackActivity() {
         }
     }
 
-    override fun isSwipeBack(): Boolean {
-        return true
-    }
+    private var mColor: Int = ColorUtils.getColor(R.color.colorPrimary)
 
-    private var mColor: Int = 0
-
-    override fun initData(bundle: Bundle?) {
-        mColor = ColorUtils.getColor(R.color.colorPrimary)
-    }
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_bar_status_color
+    override fun bindItems(): List<CommonItem<*>> {
+        return CollectionUtils.newArrayList<CommonItem<*>>(
+                CommonItemClick(R.string.bar_status_random_color, ColorUtils.int2ArgbString(mColor)).setOnClickUpdateContentListener {
+                    updateStatusBar()
+                    mColor = ColorUtils.getRandomColor()
+                    return@setOnClickUpdateContentListener ColorUtils.int2ArgbString(mColor)
+                }
+        )
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        applyDebouncingClickListener(barStatusColorRandomColorBtn)
-
+        super.initView(savedInstanceState, contentView)
         updateStatusBar()
-    }
-
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {
-        when (view.id) {
-            R.id.barStatusColorRandomColorBtn -> {
-                mColor = ColorUtils.getRandomColor()
-                updateStatusBar()
-            }
-        }
     }
 
     private fun updateStatusBar() {
         BarUtils.setStatusBarColor(this, mColor)
-        barStatusColorAboutTv.text = String.format(ColorUtils.int2ArgbString(mColor))
-        BarUtils.addMarginTopEqualStatusBarHeight(barStatusColorAboutTv)// 其实这个只需要调用一次即可
+        BarUtils.addMarginTopEqualStatusBarHeight(findViewById(R.id.commonItemRv))// 其实这个只需要调用一次即可
     }
 }

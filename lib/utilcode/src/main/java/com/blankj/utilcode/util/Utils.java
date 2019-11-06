@@ -12,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
@@ -29,6 +28,7 @@ import java.io.FileReader;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -36,7 +36,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * <pre>
@@ -60,7 +59,7 @@ import java.util.concurrent.Executors;
 public final class Utils {
 
     private static final ActivityLifecycleImpl ACTIVITY_LIFECYCLE = new ActivityLifecycleImpl();
-    private static final ExecutorService       UTIL_POOL          = Executors.newFixedThreadPool(3);
+    private static final ExecutorService       UTIL_POOL          = ThreadUtils.getCachedPool();
     private static final Handler               UTIL_HANDLER       = new Handler(Looper.getMainLooper());
 
     @SuppressLint("StaticFieldLeak")
@@ -99,6 +98,12 @@ public final class Utils {
                 sApplication = app;
             }
             sApplication.registerActivityLifecycleCallbacks(ACTIVITY_LIFECYCLE);
+            UTIL_POOL.execute(new Runnable() {
+                @Override
+                public void run() {
+                    AdaptScreenUtils.preLoad();
+                }
+            });
         } else {
             if (app != null && app.getClass() != sApplication.getClass()) {
                 sApplication.unregisterActivityLifecycleCallbacks(ACTIVITY_LIFECYCLE);
@@ -187,7 +192,6 @@ public final class Utils {
         for (String leakView : leakViews) {
             try {
                 Field leakViewField = InputMethodManager.class.getDeclaredField(leakView);
-                if (leakViewField == null) continue;
                 if (!leakViewField.isAccessible()) {
                     leakViewField.setAccessible(true);
                 }
@@ -312,13 +316,13 @@ public final class Utils {
         private static final Map<TransActivity, TransActivityDelegate> CALLBACK_MAP = new HashMap<>();
         private static       TransActivityDelegate                     sDelegate;
 
-        public static void start(final Utils.Consumer<Intent> consumer,
+        public static void start(final Func1<Void, Intent> consumer,
                                  final TransActivityDelegate delegate) {
             if (delegate == null) return;
             Intent starter = new Intent(Utils.getApp(), TransActivity.class);
             starter.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             if (consumer != null) {
-                consumer.consume(starter);
+                consumer.call(starter);
             }
             Utils.getApp().startActivity(starter);
             sDelegate = delegate;
@@ -326,6 +330,7 @@ public final class Utils {
 
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
+            overridePendingTransition(0, 0);
             if (sDelegate == null) {
                 super.onCreate(savedInstanceState);
                 finish();
@@ -356,6 +361,7 @@ public final class Utils {
 
         @Override
         protected void onPause() {
+            overridePendingTransition(0, 0);
             super.onPause();
             TransActivityDelegate callback = CALLBACK_MAP.get(this);
             if (callback == null) return;
@@ -412,42 +418,31 @@ public final class Utils {
             }
             return super.dispatchTouchEvent(ev);
         }
-    }
 
-    public abstract static class TransActivityDelegate {
-        @CallSuper
-        public void onCreateBefore(Activity activity, @Nullable Bundle savedInstanceState) {/**/}
+        public abstract static class TransActivityDelegate {
+            public void onCreateBefore(Activity activity, @Nullable Bundle savedInstanceState) {/**/}
 
-        @CallSuper
-        public void onCreated(Activity activity, @Nullable Bundle savedInstanceState) {/**/}
+            public void onCreated(Activity activity, @Nullable Bundle savedInstanceState) {/**/}
 
-        @CallSuper
-        public void onStarted(Activity activity) {/**/}
+            public void onStarted(Activity activity) {/**/}
 
-        @CallSuper
-        public void onDestroy(Activity activity) {/**/}
+            public void onDestroy(Activity activity) {/**/}
 
-        @CallSuper
-        public void onResumed(Activity activity) {/**/}
+            public void onResumed(Activity activity) {/**/}
 
-        @CallSuper
-        public void onPaused(Activity activity) {/**/}
+            public void onPaused(Activity activity) {/**/}
 
-        @CallSuper
-        public void onStopped(Activity activity) {/**/}
+            public void onStopped(Activity activity) {/**/}
 
-        @CallSuper
-        public void onSaveInstanceState(Activity activity, Bundle outState) {/**/}
+            public void onSaveInstanceState(Activity activity, Bundle outState) {/**/}
 
-        @CallSuper
-        public void onRequestPermissionsResult(Activity activity, int requestCode, String[] permissions, int[] grantResults) {/**/}
+            public void onRequestPermissionsResult(Activity activity, int requestCode, String[] permissions, int[] grantResults) {/**/}
 
-        @CallSuper
-        public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {/**/}
+            public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {/**/}
 
-        @CallSuper
-        public boolean dispatchTouchEvent(Activity activity, MotionEvent ev) {
-            return false;
+            public boolean dispatchTouchEvent(Activity activity, MotionEvent ev) {
+                return false;
+            }
         }
     }
 
@@ -458,7 +453,7 @@ public final class Utils {
     static class ActivityLifecycleImpl implements ActivityLifecycleCallbacks {
 
         final LinkedList<Activity>                             mActivityList         = new LinkedList<>();
-        final Map<Object, OnAppStatusChangedListener>          mStatusListenerMap    = new HashMap<>();
+        final List<OnAppStatusChangedListener>                 mStatusListeners      = new ArrayList<>();
         final Map<Activity, List<OnActivityDestroyedListener>> mDestroyedListenerMap = new HashMap<>();
 
         private int     mForegroundCount = 0;
@@ -489,7 +484,7 @@ public final class Utils {
             setTopActivity(activity);
             if (mIsBackground) {
                 mIsBackground = false;
-                postStatus(true);
+                postStatus(activity, true);
             }
             processHideSoftInputOnActivityDestroy(activity, false);
         }
@@ -507,7 +502,7 @@ public final class Utils {
                 --mForegroundCount;
                 if (mForegroundCount <= 0) {
                     mIsBackground = true;
-                    postStatus(false);
+                    postStatus(activity, false);
                 }
             }
             processHideSoftInputOnActivityDestroy(activity, true);
@@ -542,13 +537,12 @@ public final class Utils {
             return topActivityByReflect;
         }
 
-        void addOnAppStatusChangedListener(final Object object,
-                                           final OnAppStatusChangedListener listener) {
-            mStatusListenerMap.put(object, listener);
+        void addOnAppStatusChangedListener(final OnAppStatusChangedListener listener) {
+            mStatusListeners.add(listener);
         }
 
-        void removeOnAppStatusChangedListener(final Object object) {
-            mStatusListenerMap.remove(object);
+        void removeOnAppStatusChangedListener(final OnAppStatusChangedListener listener) {
+            mStatusListeners.remove(listener);
         }
 
         void removeOnActivityDestroyedListener(final Activity activity) {
@@ -595,20 +589,19 @@ public final class Utils {
             }
         }
 
-        private void postStatus(final boolean isForeground) {
-            if (mStatusListenerMap.isEmpty()) return;
-            for (OnAppStatusChangedListener onAppStatusChangedListener : mStatusListenerMap.values()) {
-                if (onAppStatusChangedListener == null) return;
+        private void postStatus(final Activity activity, final boolean isForeground) {
+            if (mStatusListeners.isEmpty()) return;
+            for (OnAppStatusChangedListener statusListener : mStatusListeners) {
                 if (isForeground) {
-                    onAppStatusChangedListener.onForeground();
+                    statusListener.onForeground(activity);
                 } else {
-                    onAppStatusChangedListener.onBackground();
+                    statusListener.onBackground(activity);
                 }
             }
         }
 
         private void setTopActivity(final Activity activity) {
-            if (TransActivity.class == activity.getClass()) return;
+//            if (TransActivity.class == activity.getClass()) return;
             if (mActivityList.contains(activity)) {
                 if (!mActivityList.getLast().equals(activity)) {
                     mActivityList.remove(activity);
@@ -654,7 +647,7 @@ public final class Utils {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e("Utils", e.getMessage());
             }
             return null;
         }
@@ -665,6 +658,10 @@ public final class Utils {
         @Override
         public boolean onCreate() {
             Utils.init(getContext());
+            try {
+                Class.forName("com.blankj.utildebug.DebugUtils");
+            } catch (ClassNotFoundException ignore) {
+            }
             return true;
         }
     }
@@ -727,20 +724,16 @@ public final class Utils {
     }
 
     public interface OnAppStatusChangedListener {
-        void onForeground();
+        void onForeground(Activity activity);
 
-        void onBackground();
+        void onBackground(Activity activity);
     }
 
     public interface OnActivityDestroyedListener {
         void onActivityDestroyed(Activity activity);
     }
 
-    public interface Producer<T> {
-        T produce();
-    }
-
-    public interface Consumer<T> {
-        void consume(T data);
+    public interface Func1<Ret, Par> {
+        Ret call(Par param);
     }
 }

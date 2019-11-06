@@ -36,6 +36,37 @@ public abstract class BaseItem<T extends BaseItem> {
 
     public abstract void bind(@NonNull final ItemViewHolder holder, final int position);
 
+    void bindViewHolder(@NonNull final ItemViewHolder holder, final int position) {
+        if (mOnItemClickListener != null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mOnItemClickListener != null) {
+                        //noinspection unchecked
+                        mOnItemClickListener.onItemClick(holder, (T) BaseItem.this, getIndex());
+                    }
+                }
+            });
+        } else {
+            holder.itemView.setOnClickListener(null);
+        }
+        if (mOnItemLongClickListener != null) {
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (mOnItemLongClickListener != null) {
+                        //noinspection unchecked
+                        return mOnItemLongClickListener.onItemLongClick(holder, (T) BaseItem.this, getIndex());
+                    }
+                    return false;
+                }
+            });
+        } else {
+            holder.itemView.setOnLongClickListener(null);
+        }
+        bind(holder, position);
+    }
+
     public void onViewRecycled(@NonNull final ItemViewHolder holder, final int position) {/**/}
 
     public long getItemId() {
@@ -44,6 +75,8 @@ public abstract class BaseItem<T extends BaseItem> {
 
     private int viewType;
     BaseItemAdapter<T> mAdapter;
+    private OnItemClickListener<T>     mOnItemClickListener;
+    private OnItemLongClickListener<T> mOnItemLongClickListener;
 
     public BaseItem(@LayoutRes int layoutId) {
         viewType = getViewTypeByLayoutId(layoutId);
@@ -77,5 +110,41 @@ public abstract class BaseItem<T extends BaseItem> {
 
     private int getViewTypeByView(@NonNull View view) {
         return view.hashCode() + getClass().hashCode();
+    }
+
+    public void update() {
+        //noinspection unchecked
+        getAdapter().updateItem((T) this);
+    }
+
+    public int getIndex() {
+        //noinspection SuspiciousMethodCalls
+        return getAdapter().getItems().indexOf(this);
+    }
+
+    public OnItemClickListener<T> getOnItemClickListener() {
+        return mOnItemClickListener;
+    }
+
+    public T setOnItemClickListener(OnItemClickListener<T> onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
+        return (T) this;
+    }
+
+    public OnItemLongClickListener<T> getOnItemLongClickListener() {
+        return mOnItemLongClickListener;
+    }
+
+    public T setOnItemLongClickListener(OnItemLongClickListener<T> onItemLongClickListener) {
+        mOnItemLongClickListener = onItemLongClickListener;
+        return (T) this;
+    }
+
+    public interface OnItemClickListener<T> {
+        void onItemClick(ItemViewHolder holder, T item, int position);
+    }
+
+    public interface OnItemLongClickListener<T> {
+        boolean onItemLongClick(ItemViewHolder holder, T item, int position);
     }
 }

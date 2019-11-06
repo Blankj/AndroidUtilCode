@@ -17,9 +17,9 @@ import java.util.List;
  *     desc  :
  * </pre>
  */
-public class BaseItemAdapter<Item extends BaseItem<Item>> extends RecyclerView.Adapter<ItemViewHolder> {
+public class BaseItemAdapter<Item extends BaseItem> extends RecyclerView.Adapter<ItemViewHolder> {
 
-    public List<Item> mItems;
+    public  List<Item>   mItems;
     private RecyclerView mRecyclerView;
 
     public BaseItemAdapter() {
@@ -150,6 +150,17 @@ public class BaseItemAdapter<Item extends BaseItem<Item>> extends RecyclerView.A
     // operate
     ///////////////////////////////////////////////////////////////////////////
 
+    public void updateItem(@NonNull final Item item) {
+        int itemIndex = mItems.indexOf(item);
+        if (itemIndex != -1) {
+            notifyItemChanged(itemIndex);
+        }
+    }
+
+    public void updateItem(@IntRange(from = 0) final int index) {
+        notifyItemChanged(index);
+    }
+
     public void addItem(@NonNull final Item item) {
         addItem(item, false);
     }
@@ -210,10 +221,10 @@ public class BaseItemAdapter<Item extends BaseItem<Item>> extends RecyclerView.A
         return replaceItems(items, false);
     }
 
-    public boolean replaceItems(@NonNull final List<Item> items, boolean notifyDataSetChanged) {
+    public boolean replaceItems(@NonNull final List<Item> items, boolean notifyChanged) {
         mItems.clear();
         boolean added = mItems.addAll(items);
-        if (notifyDataSetChanged) notifyDataSetChanged();
+        if (notifyChanged) notifyDataSetChanged();
         return added;
     }
 
@@ -227,12 +238,12 @@ public class BaseItemAdapter<Item extends BaseItem<Item>> extends RecyclerView.A
         return removedItem;
     }
 
-    public int removeItem(@NonNull final Item object) {
-        return removeItem(object, false);
+    public int removeItem(@NonNull final Item item) {
+        return removeItem(item, false);
     }
 
-    public int removeItem(@NonNull final Item object, boolean notifyRemoved) {
-        int itemIndex = mItems.indexOf(object);
+    public int removeItem(@NonNull final Item item, boolean notifyRemoved) {
+        int itemIndex = mItems.indexOf(item);
         if (itemIndex != -1) {
             mItems.remove(itemIndex);
             if (notifyRemoved) notifyItemRemoved(itemIndex);

@@ -2,14 +2,14 @@ package com.blankj.utilcode.pkg.feature.phone
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.view.View
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemClick
+import com.blankj.common.item.CommonItemTitle
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.PermissionHelper
+import com.blankj.utilcode.util.CollectionUtils
 import com.blankj.utilcode.util.PhoneUtils
-import com.blankj.utilcode.util.SpanUtils
-import kotlinx.android.synthetic.main.activity_phone.*
 
 /**
  * ```
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_phone.*
  * desc  : demo about PhoneUtils
  * ```
  */
-class PhoneActivity : CommonTitleActivity() {
+class PhoneActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -36,44 +36,26 @@ class PhoneActivity : CommonTitleActivity() {
         }
     }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_phone)
+    override fun bindTitleRes(): Int {
+        return R.string.demo_phone
     }
 
-    override fun initData(bundle: Bundle?) {}
+    override fun bindItems(): MutableList<CommonItem<*>> {
+        return CollectionUtils.newArrayList(
+                CommonItemTitle("isPhone", PhoneUtils.isPhone().toString()),
+                CommonItemTitle("getDeviceId", PhoneUtils.getDeviceId()),
+                CommonItemTitle("getSerial", PhoneUtils.getSerial()),
+                CommonItemTitle("getIMEI", PhoneUtils.getIMEI()),
+                CommonItemTitle("getMEID", PhoneUtils.getMEID()),
+                CommonItemTitle("getIMSI", PhoneUtils.getIMSI()),
+                CommonItemTitle("getPhoneType", PhoneUtils.getPhoneType().toString()),
+                CommonItemTitle("isSimCardReady", PhoneUtils.isSimCardReady().toString()),
+                CommonItemTitle("getSimOperatorName", PhoneUtils.getSimOperatorName()),
+                CommonItemTitle("getSimOperatorByMnc", PhoneUtils.getSimOperatorByMnc()),
 
-    override fun bindLayout(): Int {
-        return R.layout.activity_phone
-    }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        SpanUtils.with(phoneAboutTv)
-                .appendLine("isPhone: " + PhoneUtils.isPhone())
-                .appendLine("getDeviceId: " + PhoneUtils.getDeviceId())
-                .appendLine("getSerial: " + PhoneUtils.getSerial())
-                .appendLine("getIMEI: " + PhoneUtils.getIMEI())
-                .appendLine("getMEID: " + PhoneUtils.getMEID())
-                .appendLine("getIMSI: " + PhoneUtils.getIMSI())
-                .appendLine("getPhoneType: " + PhoneUtils.getPhoneType())
-                .appendLine("isSimCardReady: " + PhoneUtils.isSimCardReady())
-                .appendLine("getSimOperatorName: " + PhoneUtils.getSimOperatorName())
-                .appendLine("getSimOperatorByMnc: " + PhoneUtils.getSimOperatorByMnc())
-                .create()
-
-        applyDebouncingClickListener(
-                phoneDialBtn,
-                phoneCallBtn,
-                phoneSendSmsBtn
+                CommonItemClick(R.string.phone_dial) { PhoneUtils.dial("10000") },
+                CommonItemClick(R.string.phone_call) { PhoneUtils.call("10000") },
+                CommonItemClick(R.string.phone_send_sms) { PhoneUtils.sendSms("10000", "sendSms") }
         )
-    }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {
-        when (view.id) {
-            R.id.phoneDialBtn -> PhoneUtils.dial("10000")
-            R.id.phoneCallBtn -> PhoneUtils.call("10000")
-            R.id.phoneSendSmsBtn -> PhoneUtils.sendSms("10000", "sendSms")
-        }
     }
 }

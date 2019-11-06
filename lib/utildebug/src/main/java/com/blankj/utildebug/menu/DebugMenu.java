@@ -26,6 +26,8 @@ public class DebugMenu extends BaseContentFloatView<DebugMenu> {
 
     private List<IDebug> mDebugs;
 
+    private BaseItemAdapter<DebugMenuItem> mAdapter;
+
     private RecyclerView debugMenuRv;
 
     public static DebugMenu getInstance() {
@@ -62,13 +64,20 @@ public class DebugMenu extends BaseContentFloatView<DebugMenu> {
         setSwipeBackEnabled(false);
 
         debugMenuRv = findViewById(R.id.debugMenuRv);
-        BaseItemAdapter<DebugMenuItem> adapter = new BaseItemAdapter<>();
-        adapter.setItems(DebugMenuItem.getDebugMenuItems(mDebugs));
-        debugMenuRv.setAdapter(adapter);
+        mAdapter = new BaseItemAdapter<>();
+        mAdapter.setItems(DebugMenuItem.getDebugMenuItems(mDebugs));
+        debugMenuRv.setAdapter(mAdapter);
         debugMenuRv.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     public void setDebugs(List<IDebug> debugs) {
         mDebugs = debugs;
+    }
+
+    public void addDebugs(List<IDebug> debugs) {
+        if (debugs == null || debugs.size() == 0) return;
+        mDebugs.addAll(debugs);
+        if (mAdapter == null) return;
+        mAdapter.notifyDataSetChanged();
     }
 }

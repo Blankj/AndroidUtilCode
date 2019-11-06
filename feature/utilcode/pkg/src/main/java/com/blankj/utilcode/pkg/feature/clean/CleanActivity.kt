@@ -2,14 +2,16 @@ package com.blankj.utilcode.pkg.feature.clean
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.os.Environment
-import android.view.View
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.activity.CommonActivityItemsView
+import com.blankj.common.activity.CommonActivityTitleView
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemClick
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.CleanUtils
+import com.blankj.utilcode.util.CollectionUtils
+import com.blankj.utilcode.util.SDCardUtils
 import com.blankj.utilcode.util.SnackbarUtils
-import kotlinx.android.synthetic.main.activity_clean.*
 import java.io.File
 
 /**
@@ -20,7 +22,7 @@ import java.io.File
  * desc  : demo about CleanUtils
  * ```
  */
-class CleanActivity : CommonTitleActivity() {
+class CleanActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -29,64 +31,41 @@ class CleanActivity : CommonTitleActivity() {
         }
     }
 
-    private lateinit var snackBarRootView: View
-    private lateinit var internalCachePath: String
-    private lateinit var internalFilesPath: String
-    private lateinit var internalDbs: String
-    private lateinit var internalSp: String
-    private lateinit var externalCache: String
-
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_clean)
+    override fun bindTitleRes(): Int {
+        return R.string.demo_clean
     }
 
-    override fun initData(bundle: Bundle?) {}
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_clean
-    }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        snackBarRootView = findViewById(android.R.id.content)
-        applyDebouncingClickListener(
-                cleanInternalCacheBtn,
-                cleanInternalFilesBtn,
-                cleanInternalDatabasesBtn,
-                cleanInternalSpBtn,
-                cleanExternalCacheBtn
-        )
-
-        internalCachePath = cacheDir.path
-        internalFilesPath = filesDir.path
-        internalDbs = filesDir.parent + File.separator + "databases"
-        internalSp = filesDir.parent + File.separator + "shared_prefs"
-
-        if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
-            externalCache = externalCacheDir.absolutePath
-        }
-    }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {
-        when (view.id) {
-            R.id.cleanInternalCacheBtn -> showSnackbar(CleanUtils.cleanInternalCache(), internalCachePath)
-            R.id.cleanInternalFilesBtn -> showSnackbar(CleanUtils.cleanInternalFiles(), internalFilesPath)
-            R.id.cleanInternalDatabasesBtn -> showSnackbar(CleanUtils.cleanInternalDbs(), internalDbs)
-            R.id.cleanInternalSpBtn -> showSnackbar(CleanUtils.cleanInternalSp(), internalSp)
-            R.id.cleanExternalCacheBtn -> showSnackbar(CleanUtils.cleanExternalCache(), externalCache)
+    override fun bindItems(): List<CommonItem<*>> {
+        return CollectionUtils.newArrayList<CommonItem<*>>().apply {
+            add(CommonItemClick(R.string.clean_internal_cache) {
+                showSnackbar(CleanUtils.cleanInternalCache(), cacheDir.path)
+            })
+            add(CommonItemClick(R.string.clean_internal_files) {
+                showSnackbar(CleanUtils.cleanInternalFiles(), filesDir.path)
+            })
+            add(CommonItemClick(R.string.clean_internal_databases) {
+                showSnackbar(CleanUtils.cleanInternalDbs(), filesDir.parent + File.separator + "databases")
+            })
+            add(CommonItemClick(R.string.clean_internal_sp) {
+                showSnackbar(CleanUtils.cleanInternalSp(), filesDir.parent + File.separator + "shared_prefs")
+            })
+            if (SDCardUtils.isSDCardEnableByEnvironment()) {
+                add(CommonItemClick(R.string.clean_external_cache) {
+                    showSnackbar(CleanUtils.cleanExternalCache(), externalCacheDir?.absolutePath)
+                })
+            }
         }
     }
 
     private fun showSnackbar(isSuccess: Boolean, path: String?) {
-        SnackbarUtils.with(snackBarRootView)
+        SnackbarUtils.with(mContentView)
                 .setDuration(SnackbarUtils.LENGTH_LONG)
                 .apply {
                     if (isSuccess) {
-                        setMessage("clean \"$path\" dir success")
+                        setMessage("clean \"$path\" dir successful.")
                         showSuccess()
                     } else {
-                        setMessage("clean \"$path\" dir failed")
+                        setMessage("clean \"$path\" dir failed.")
                         showError()
                     }
                 }

@@ -11,8 +11,10 @@ import android.util.Log;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -207,7 +209,7 @@ public final class CrashUtils {
             public Boolean call() {
                 BufferedWriter bw = null;
                 try {
-                    bw = new BufferedWriter(new FileWriter(filePath, true));
+                    bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath, true), "UTF-8"));
                     bw.write(input);
                     return true;
                 } catch (IOException e) {

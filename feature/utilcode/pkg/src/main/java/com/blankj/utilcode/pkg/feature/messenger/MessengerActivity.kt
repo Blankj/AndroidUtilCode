@@ -3,12 +3,15 @@ package com.blankj.utilcode.pkg.feature.messenger
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.activity.CommonActivityItemsView
+import com.blankj.common.activity.CommonActivityTitleView
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemClick
 import com.blankj.utilcode.pkg.R
+import com.blankj.utilcode.util.CollectionUtils
 import com.blankj.utilcode.util.MessengerUtils
 import com.blankj.utilcode.util.SnackbarUtils
-import kotlinx.android.synthetic.main.activity_messenger.*
 
 /**
  * ```
@@ -18,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_messenger.*
  * desc  : demo about MessengerUtils
  * ```
  */
-class MessengerActivity : CommonTitleActivity() {
+class MessengerActivity : CommonActivity() {
 
     companion object {
         const val MESSENGER_KEY = "MessengerActivity"
@@ -36,40 +39,27 @@ class MessengerActivity : CommonTitleActivity() {
         }
     }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_messenger)
+    override fun bindTitleRes(): Int {
+        return R.string.demo_messenger
     }
 
-    override fun initData(bundle: Bundle?) {}
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_messenger
-    }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        applyDebouncingClickListener(
-                messengerPost2MainServerBtn,
-                messengerStartRemoteBtn
+    override fun bindItems(): List<CommonItem<*>> {
+        return CollectionUtils.newArrayList(
+                CommonItemClick(R.string.messenger_post_to_main_server) {
+                    MessengerUtils.post(MESSENGER_KEY, BUNDLE)
+                },
+                CommonItemClick(R.string.messenger_start_remote) {
+                    MessengerRemoteActivity.start(this)
+                }
         )
     }
 
     override fun doBusiness() {
-        MessengerUtils.subscribe(MESSENGER_KEY, object : MessengerUtils.MessageCallback {
-            override fun messageCall(data: Bundle?) {
-                SnackbarUtils.with(mContentView)
-                        .setMessage(data!!.getString(MESSENGER_KEY))
-                        .setDuration(SnackbarUtils.LENGTH_INDEFINITE)
-                        .show()
-            }
-        })
-    }
-
-    override fun onDebouncingClick(view: View) {
-        when (view.id) {
-            R.id.messengerPost2MainServerBtn -> {
-                MessengerUtils.post(MESSENGER_KEY, BUNDLE)
-            }
-            R.id.messengerStartRemoteBtn -> MessengerRemoteActivity.start(this)
+        MessengerUtils.subscribe(MESSENGER_KEY) { data ->
+            SnackbarUtils.with(mContentView)
+                    .setMessage(data.getString(MESSENGER_KEY) ?: "")
+                    .setDuration(SnackbarUtils.LENGTH_INDEFINITE)
+                    .show()
         }
     }
 

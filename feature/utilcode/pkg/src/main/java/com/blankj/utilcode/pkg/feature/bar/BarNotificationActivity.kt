@@ -2,13 +2,14 @@ package com.blankj.utilcode.pkg.feature.bar
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.os.Handler
-import android.view.View
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.activity.CommonActivityTitleView
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemClick
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
-import kotlinx.android.synthetic.main.activity_bar_notification.*
+import com.blankj.utilcode.util.CollectionUtils
 
 /**
  * ```
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_bar_notification.*
  * desc  : demo about BarUtils
  * ```
  */
-class BarNotificationActivity : CommonTitleActivity() {
+class BarNotificationActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -29,29 +30,17 @@ class BarNotificationActivity : CommonTitleActivity() {
 
     private val mHandler = Handler()
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_bar)
+    override fun bindTitleRes(): Int {
+        return R.string.demo_bar
     }
 
-    override fun initData(bundle: Bundle?) {}
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_bar_notification
-    }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        applyDebouncingClickListener(barNotificationShowBtn)
-    }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {
-        when (view.id) {
-            R.id.barNotificationShowBtn -> {
-                BarUtils.setNotificationBarVisibility(true)
-                mHandler.postDelayed({ BarUtils.setNotificationBarVisibility(false) }, 2000)
-            }
-        }
+    override fun bindItems(): List<CommonItem<*>> {
+        return CollectionUtils.newArrayList(
+                CommonItemClick(R.string.bar_notification_show) {
+                    BarUtils.setNotificationBarVisibility(true)
+                    mHandler.postDelayed({ BarUtils.setNotificationBarVisibility(false) }, 2000)
+                }
+        )
     }
 
     override fun onDestroy() {

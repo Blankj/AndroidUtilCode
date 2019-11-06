@@ -2,13 +2,15 @@ package com.blankj.utilcode.pkg.feature.adaptScreen
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.view.View
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.activity.CommonActivityItemsView
+import com.blankj.common.activity.CommonActivityTitleView
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemClick
 import com.blankj.utilcode.pkg.R
-import kotlinx.android.synthetic.main.activity_adaptscreen.*
+import com.blankj.utilcode.util.CollectionUtils
 
-class AdaptScreenActivity : CommonTitleActivity() {
+class AdaptScreenActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -17,31 +19,21 @@ class AdaptScreenActivity : CommonTitleActivity() {
         }
     }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_adapt_screen)
+    override fun bindTitleRes(): Int {
+        return R.string.demo_adapt_screen
     }
 
-    override fun initData(bundle: Bundle?) {}
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_adaptscreen;
-    }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        applyDebouncingClickListener(
-                adaptScreenAdaptWidthBtn,
-                adaptScreenAdaptHeightBtn,
-                adaptScreenCloseAdaptBtn
+    override fun bindItems(): List<CommonItem<*>> {
+        return CollectionUtils.newArrayList(
+                CommonItemClick(R.string.adaptScreen_adapt_width, true) {
+                    AdaptWidthActivity.start(this)
+                },
+                CommonItemClick(R.string.adaptScreen_adapt_height, true) {
+                    AdaptHeightActivity.start(this)
+                },
+                CommonItemClick(R.string.adaptScreen_adapt_close, true) {
+                    AdaptCloseActivity.start(this)
+                }
         )
-    }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {
-        when (view.id) {
-            R.id.adaptScreenAdaptWidthBtn -> AdaptWidthActivity.start(this)
-            R.id.adaptScreenAdaptHeightBtn -> AdaptHeightActivity.start(this)
-            R.id.adaptScreenCloseAdaptBtn -> AdaptCloseActivity.start(this)
-        }
     }
 }

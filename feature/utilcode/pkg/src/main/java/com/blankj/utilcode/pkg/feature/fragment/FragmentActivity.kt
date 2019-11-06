@@ -7,7 +7,7 @@ import android.os.PersistableBundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.view.View
-import com.blankj.common.CommonBackActivity
+import com.blankj.common.activity.CommonActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.FragmentUtils
 import kotlinx.android.synthetic.main.activity_fragment.*
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_fragment.*
  * desc  : demo about FragmentUtils
  * ```
  */
-class FragmentActivity : CommonBackActivity() {
+class FragmentActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -49,12 +49,6 @@ class FragmentActivity : CommonBackActivity() {
             else -> false
         }
     }
-
-    override fun isSwipeBack(): Boolean {
-        return true
-    }
-
-    override fun initData(bundle: Bundle?) {}
 
     override fun bindLayout(): Int {
         return R.layout.activity_fragment

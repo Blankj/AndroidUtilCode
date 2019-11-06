@@ -13,6 +13,14 @@ apply {
 configSigning()
 configApkName()
 
+bus {
+    onlyScanLibRegex = '^([:]|(com\\.blankj)).+$'
+}
+
+api {
+    onlyScanLibRegex = '^([:]|(com\\.blankj)).+$'
+}
+
 android {
     compileSdkVersion Config.compileSdkVersion
     defaultConfig {
@@ -57,6 +65,9 @@ dependencies {
     debugImplementation Config.depConfig.leakcanary.android.dep
     debugImplementation Config.depConfig.leakcanary.support_fragment.dep
     releaseImplementation Config.depConfig.leakcanary.android_no_op.dep
+
+    debugImplementation Config.depConfig.lib.utildebug.dep
+    releaseImplementation Config.depConfig.lib.utildebug_no_op.dep
 
     debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:1.1.8'
     releaseImplementation 'com.didichuxing.doraemonkit:doraemonkit-no-op:1.1.8'
