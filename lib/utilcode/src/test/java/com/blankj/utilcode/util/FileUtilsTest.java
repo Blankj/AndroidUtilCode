@@ -142,6 +142,8 @@ public class FileUtilsTest extends BaseTest {
 
     @Test
     public void getFileCharsetSimple() {
+        System.out.println(FileUtils.getFileSize(PATH_FILE + "GBKEmpty.txt"));
+        assertEquals("GBK", FileUtils.getFileCharsetSimple(PATH_FILE + "GBKEmpty.txt"));
         assertEquals("GBK", FileUtils.getFileCharsetSimple(PATH_FILE + "GBK.txt"));
         assertEquals("Unicode", FileUtils.getFileCharsetSimple(PATH_FILE + "Unicode.txt"));
         assertEquals("UTF-8", FileUtils.getFileCharsetSimple(PATH_FILE + "UTF8.txt"));
