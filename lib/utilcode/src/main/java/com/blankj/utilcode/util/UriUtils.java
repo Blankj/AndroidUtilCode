@@ -25,7 +25,7 @@ import java.lang.reflect.Method;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/04/20
- *     desc  : URI 相关
+ *     desc  : utils about uri
  * </pre>
  */
 public final class UriUtils {
@@ -61,12 +61,17 @@ public final class UriUtils {
         String scheme = uri.getScheme();
         String path = uri.getPath();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
-                && path != null && path.startsWith("/external/")) {
-            File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
-                    + path.replace("/external", ""));
-            if (file.exists()) {
-                Log.d("UriUtils", uri.toString() + " -> /external");
-                return file;
+                && path != null) {
+            String[] externals = new String[]{"/external", "/external_path"};
+            for (String external : externals) {
+                if (path.startsWith(external + "/")) {
+                    File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
+                            + path.replace(external, ""));
+                    if (file.exists()) {
+                        Log.d("UriUtils", uri.toString() + " -> " + external);
+                        return file;
+                    }
+                }
             }
         }
         if (ContentResolver.SCHEME_FILE.equals(scheme)) {

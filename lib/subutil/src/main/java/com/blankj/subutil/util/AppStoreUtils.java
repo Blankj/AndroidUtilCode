@@ -75,7 +75,8 @@ public class AppStoreUtils {
         }
 
         Uri uri = Uri.parse("market://details?id=" + packageName);
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        Intent intent = new Intent();
+        intent.setData(uri);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         List<ResolveInfo> resolveInfos = Utils.getApp().getPackageManager()
                 .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
@@ -114,7 +115,7 @@ public class AppStoreUtils {
     }
 
     private static Intent getNormalAppStoreIntent() {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Intent intent = new Intent();
         Uri uri = Uri.parse("market://details?id=" + Utils.getApp().getPackageName());
         intent.setData(uri);
         if (getAvailableIntentSize(intent) > 0) {

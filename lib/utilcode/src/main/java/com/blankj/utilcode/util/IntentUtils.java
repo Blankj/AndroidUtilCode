@@ -425,7 +425,7 @@ public final class IntentUtils {
                                             final String className,
                                             final Bundle bundle,
                                             final boolean isNewTask) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Intent intent = new Intent();
         if (bundle != null) intent.putExtras(bundle);
         ComponentName cn = new ComponentName(packageName, className);
         intent.setComponent(cn);

@@ -26,7 +26,7 @@ public final class RegexConstants {
     /**
      * Regex of telephone number.
      */
-    public static final String REGEX_TEL           = "^0\\d{2,3}[- ]?\\d{7,8}";
+    public static final String REGEX_TEL           = "^0\\d{2,3}[- ]?\\d{7,8}$";
     /**
      * Regex of id card number which length is 15.
      */

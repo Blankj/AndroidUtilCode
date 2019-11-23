@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
         android:scaleType="centerCrop"
-        android:src="@drawable/main_bg_header" />
+        android:src="@drawable/common_bg_header" />
 
     <ImageView
         android:id="@+id/baseDrawerNavHeaderAvatarIv"
@@ -16,7 +16,7 @@
         android:layout_height="80dp"
         android:layout_above="@+id/descTv"
         android:layout_marginLeft="@dimen/spacing_16"
-        android:src="@drawable/main_avatar_round" />
+        android:src="@drawable/common_avatar_round" />
 
     <TextView
         android:layout_width="match_parent"

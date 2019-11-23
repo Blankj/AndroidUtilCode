@@ -227,32 +227,28 @@ public final class ToastUtils {
     }
 
     private static void show(final int resId, final int duration) {
+        show(resId, duration, (Object) null);
+    }
+
+    private static void show(final int resId, final int duration, final Object... args) {
         try {
             CharSequence text = Utils.getApp().getResources().getText(resId);
+            if (args != null) {
+                text = String.format(text.toString(), args);
+            }
             show(text, duration);
         } catch (Exception ignore) {
             show(String.valueOf(resId), duration);
         }
     }
 
-    private static void show(final int resId, final int duration, final Object... args) {
-        try {
-            CharSequence text = Utils.getApp().getResources().getText(resId);
-            String format = String.format(text.toString(), args);
-            show(format, duration);
-        } catch (Exception ignore) {
-            show(String.valueOf(resId), duration);
-        }
-    }
-
     private static void show(final String format, final int duration, final Object... args) {
-        String text;
-        if (format == null) {
+        String text = format;
+        if (text == null) {
             text = NULL;
         } else {
-            text = String.format(format, args);
-            if (text == null) {
-                text = NULL;
+            if (args != null) {
+                text = String.format(format, args);
             }
         }
         show(text, duration);
@@ -346,7 +342,6 @@ public final class ToastUtils {
     private static View getView(@LayoutRes final int layoutId) {
         LayoutInflater inflate =
                 (LayoutInflater) Utils.getApp().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        //noinspection ConstantConditions
         return inflate.inflate(layoutId, null);
     }
 

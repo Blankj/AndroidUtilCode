@@ -11,3 +11,4 @@ local.properties
 /apk
 *.phrof
 /maven
+/reports

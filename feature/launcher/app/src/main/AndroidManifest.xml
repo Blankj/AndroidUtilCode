@@ -12,8 +12,8 @@
         <activity
             android:name="com.blankj.main.pkg.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTask"
             android:screenOrientation="user"
+            android:theme="@style/SplashTheme"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

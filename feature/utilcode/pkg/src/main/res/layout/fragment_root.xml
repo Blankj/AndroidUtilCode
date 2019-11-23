@@ -10,6 +10,7 @@
         android:layout_height="0dp" />
 
     <ScrollView
+        style="@style/CommonScrollStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
@@ -17,7 +18,7 @@
         <FrameLayout
             android:id="@+id/rootFragmentContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></FrameLayout>
+            android:layout_height="wrap_content" />
 
     </ScrollView>
 

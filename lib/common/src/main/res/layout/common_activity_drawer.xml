@@ -21,6 +21,6 @@
         android:layout_gravity="start"
         android:background="@color/white"
         app:headerLayout="@layout/common_activity_drawer_nav_header"
-        app:menu="@menu/main_drawer" />
+        app:menu="@menu/common_drawer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

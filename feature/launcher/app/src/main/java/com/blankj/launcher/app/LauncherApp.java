@@ -3,6 +3,7 @@ package com.blankj.launcher.app;
 import android.content.Context;
 
 import com.blankj.common.CommonApplication;
+import com.blankj.utilcode.util.ResourceUtils;
 
 /**
  * <pre>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="baseFloatView" type="id" />
+    <item name="baseContentView" type="id" />
+</resources>

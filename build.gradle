@@ -1,8 +1,9 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+    ConfigUtils.init(gradle)
     repositories {
         // use for debug plugin local
-        if (Config.depConfig.plugin.bus.useLocal || Config.depConfig.plugin.api.useLocal) {
+        if (Config.depConfig.plugin_bus.useLocal || Config.depConfig.plugin_api.useLocal) {
             maven() {
                 url new File("maven")
             }
@@ -43,6 +44,9 @@ allprojects {
         maven {
             url 'https://maven.aliyun.com/repository/google'
             name 'replace google()'
+        }
+        maven {
+            url "https://jitpack.io"
         }
         google()
         jcenter()

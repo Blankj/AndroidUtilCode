@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="12dp"
+    android:paddingTop="8dp"
+    android:paddingRight="12dp"
+    android:paddingBottom="8dp">
+
+    <TextView
+        android:id="@+id/commonItemTitleTv"
+        style="@style/CommonItemTitleStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="title" />
+
+    <com.blankj.base.view.EmptyGoneTextView
+        android:id="@+id/commonItemContentTv"
+        style="@style/CommonItemContentStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        tools:text="content" />
+
+    <SeekBar
+        android:id="@+id/commonItemSb"
+        style="@style/CommonSeekBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp" />
+
+</LinearLayout>

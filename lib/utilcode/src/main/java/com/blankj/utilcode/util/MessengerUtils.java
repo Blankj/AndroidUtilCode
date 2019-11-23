@@ -148,7 +148,6 @@ public class MessengerUtils {
     private static boolean isServiceRunning(final String className) {
         ActivityManager am =
                 (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-        //noinspection ConstantConditions
         List<ActivityManager.RunningServiceInfo> info = am.getRunningServices(0x7FFFFFFF);
         if (info == null || info.size() == 0) return false;
         for (ActivityManager.RunningServiceInfo aInfo : info) {

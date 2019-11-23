@@ -98,6 +98,10 @@ public final class AdaptScreenUtils {
         applyOtherDisplayMetrics(resources, newXdpi);
     }
 
+    static void preLoad() {
+        applyDisplayMetrics(Resources.getSystem(), Resources.getSystem().getDisplayMetrics().xdpi);
+    }
+
     private static void applyOtherDisplayMetrics(final Resources resources, final float newXdpi) {
         if (sMetricsFields == null) {
             sMetricsFields = new ArrayList<>();

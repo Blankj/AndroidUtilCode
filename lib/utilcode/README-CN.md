@@ -121,10 +121,12 @@ getStatusBarHeight                   : 获取状态栏高度（px）
 setStatusBarVisibility               : 设置状态栏是否可见
 isStatusBarVisible                   : 判断状态栏是否可见
 setStatusBarLightMode                : 设置状态栏是否为浅色模式
+isStatusBarLightMode                 : 判断状态栏是否为浅色模式
 addMarginTopEqualStatusBarHeight     : 为 view 增加 MarginTop 为状态栏高度
 subtractMarginTopEqualStatusBarHeight: 为 view 减少 MarginTop 为状态栏高度
 setStatusBarColor                    : 设置状态栏颜色
 setStatusBarColor4Drawer             : 为 DrawerLayout 设置状态栏颜色
+transparentStatusBar                 : 透明状态栏
 getActionBarHeight                   : 获取 ActionBar 高度
 setNotificationBarVisibility         : 设置通知栏是否可见
 getNavBarHeight                      : 获取导航栏高度
@@ -133,6 +135,8 @@ isNavBarVisible                      : 判断导航栏是否可见
 setNavBarColor                       : 设置导航栏颜色
 getNavBarColor                       : 获取导航栏颜色
 isSupportNavBar                      : 判断是否支持导航栏
+setNavBarLightMode                   : 设置状态栏是否为浅色模式
+isNavBarLightMode                    : 判断状态栏是否为浅色模式
 ```
 
 * ### 亮度相关 -> [BrightnessUtils.java][brightness.java] -> [Demo][brightness.demo]
@@ -262,7 +266,10 @@ cleanCustomDir       : 清除自定义目录下的文件
 
 * ### 点击相关 -> [ClickUtils.java][click.java] -> [Demo][click.demo]
 ```
-applyScale                          : 应用点击缩放
+applyPressedViewScale               : 应用点击后对视图缩放
+applyPressedViewAlpha               : 应用点击后对视图改变透明度
+applyPressedBgAlpha                 : 应用点击后对背景改变透明度
+applyPressedBgDark                  : 应用点击后对背景加深
 applySingleDebouncing               : 对单视图应用防抖点击
 applyGlobalDebouncing               : 对所有设置 GlobalDebouncing 的视图应用防抖点击
 ClickUtils#OnDebouncingClickListener: 防抖点击监听器
@@ -447,14 +454,10 @@ isFile                    : 判断是否是文件
 createOrExistsDir         : 判断目录是否存在，不存在则判断是否创建成功
 createOrExistsFile        : 判断文件是否存在，不存在则判断是否创建成功
 createFileByDeleteOldFile : 判断文件是否存在，存在则在创建之前删除
-copyDir                   : 复制目录
-copyFile                  : 复制文件
-moveDir                   : 移动目录
-moveFile                  : 移动文件
+copy                      : 复制文件或目录
+move                      : 移动文件或目录
 delete                    : 删除文件或目录
-deleteDir                 : 删除目录
-deleteFile                : 删除文件
-deleteAllInDir            : 删除目录下所有东西
+deleteAllInDir            : 删除目录下所有内容
 deleteFilesInDir          : 删除目录下所有文件
 deleteFilesInDirWithFilter: 删除目录下所有过滤的文件
 listFilesInDir            : 获取目录下所有文件
@@ -462,10 +465,8 @@ listFilesInDirWithFilter  : 获取目录下所有过滤的文件
 getFileLastModified       : 获取文件最后修改的毫秒时间戳
 getFileCharsetSimple      : 简单获取文件编码格式
 getFileLines              : 获取文件行数
-getDirSize                : 获取目录大小
-getFileSize               : 获取文件大小
-getDirLength              : 获取目录长度
-getFileLength             : 获取文件长度
+getSize                   : 获取文件或目录大小
+getLength                 : 获取文件或目录长度
 getFileMD5                : 获取文件的 MD5 校验码
 getFileMD5ToString        : 获取文件的 MD5 校验码
 getDirName                : 根据全路径获取最长目录
@@ -666,6 +667,15 @@ registerNetworkStatusChangedListener  : 注册网络状态改变监听器
 unregisterNetworkStatusChangedListener: 注销网络状态改变监听器
 ```
 
+* ### 对象相关 -> [NotificationUtils.java][notification.java] -> [Demo][notification.demo]
+```
+areNotificationsEnabled     : 判断通知是否可用
+notify                      : 发送通知
+cancel                      : 取消通知
+cancelAll                   : 取消所有通知
+setNotificationBarVisibility: 设置通知栏是否可见
+```
+
 * ### 对象相关 -> [ObjectUtils.java][object.java] -> [Test][object.test]
 ```
 isEmpty       : 判断对象是否为空
@@ -790,12 +800,23 @@ getReplaceAll  : 替换所有正则匹配的部分
 
 * ### 资源相关 -> [ResourceUtils.java][resource.java] -> [Demo][resource.demo]
 ```
-copyFileFromAssets: 从 assets 中拷贝文件
-readAssets2String : 从 assets 中读取字符串
-readAssets2List   : 从 assets 中按行读取字符串
-copyFileFromRaw   : 从 raw 中拷贝文件
-readRaw2String    : 从 raw 中读取字符串
-readRaw2List      : 从 raw 中按行读取字符串
+getDrawable        : 获取 Drawable
+getIdByName        : 根据名字获取 ID
+getStringIdByName  : 根据名字获取 string ID
+getColorIdByName   : 根据名字获取 color ID
+getDimenIdByName   : 根据名字获取 dimen ID
+getDrawableIdByName: 根据名字获取 dimen ID
+getMipmapIdByName  : 根据名字获取 mipmap ID
+getLayoutIdByName  : 根据名字获取 layout ID
+getStyleIdByName   : 根据名字获取 style ID
+getAnimIdByName    : 根据名字获取 anim ID
+getMenuIdByName    : 根据名字获取 menu ID
+copyFileFromAssets : 从 assets 中拷贝文件
+readAssets2String  : 从 assets 中读取字符串
+readAssets2List    : 从 assets 中按行读取字符串
+copyFileFromRaw    : 从 raw 中拷贝文件
+readRaw2String     : 从 raw 中读取字符串
+readRaw2List       : 从 raw 中按行读取字符串
 ```
 
 * ### Rom 相关 -> [RomUtils.java][rom.java] -> [Demo][rom.demo]
@@ -851,6 +872,7 @@ getSleepDuration   : 获取进入休眠时长
 isSDCardEnableByEnvironment: 根据 Environment 判断 SD 卡是否可用
 getSDCardPathByEnvironment : 根据 Environment 获取 SD 卡路径
 getSDCardInfo              : 获取 SD 卡信息
+getMountedSDCardPath       : 获取已挂载的 SD 卡路径
 ```
 
 * ### 服务相关 -> [ServiceUtils.java][service.java]
@@ -861,6 +883,11 @@ stopService          : 停止服务
 bindService          : 绑定服务
 unbindService        : 解绑服务
 isServiceRunning     : 判断服务是否运行
+```
+
+* ### 阴影相关 -> [ShadowUtils.java][shadow.java] -> [Demo][shadow.demo]
+```
+apply: 应用阴影
 ```
 
 * ### Shell 相关 -> [ShellUtils.java][shell.java]
@@ -1057,6 +1084,18 @@ showCustomLong : 显示长时自定义吐司
 cancel         : 取消吐司显示
 ```
 
+* ### 触摸相关 -> [TouchUtils.java][touch.java]
+```
+setOnTouchListener: 设置触摸事件
+```
+
+* ### UI 消息相关 -> [UiMessageUtils.java][uiMessage.java]
+```
+send          : 发送消息
+addListener   : 新增消息监听器
+removeListener: 移除消息监听器
+```
+
 * ### URI 相关 -> [UriUtils.java][uri.java]
 ```
 file2Uri: file 转 uri
@@ -1211,6 +1250,9 @@ getComments       : 获取压缩文件中的注释链表
 [network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/NetworkUtils.java
 [network.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/network/NetworkActivity.kt
 
+[notification.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/NotificationUtils.java
+[notification.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/notification/NotificationActivity.kt
+
 [object.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ObjectUtils.java
 [object.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/ObjectUtilsTest.java
 
@@ -1246,6 +1288,9 @@ getComments       : 获取压缩文件中的注释链表
 
 [service.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ServiceUtils.java
 
+[shadow.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ShadowUtils.java
+[shadow.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/shadow/ShadowActivity.kt
+
 [shell.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ShellUtils.java
 
 [size.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/SizeUtils.java
@@ -1272,6 +1317,10 @@ getComments       : 获取压缩文件中的注释链表
 
 [toast.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ToastUtils.java
 [toast.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/toast/ToastActivity.kt
+
+[touch.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/TouchUtils.java
+
+[uiMessage.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UiMessageUtils.java
 
 [uri.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UriUtils.java
 

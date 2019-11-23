@@ -125,15 +125,13 @@ public final class BarUtils {
                                              final boolean isLightMode) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             View decorView = window.getDecorView();
-            if (decorView != null) {
-                int vis = decorView.getSystemUiVisibility();
-                if (isLightMode) {
-                    vis |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-                } else {
-                    vis &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-                }
-                decorView.setSystemUiVisibility(vis);
+            int vis = decorView.getSystemUiVisibility();
+            if (isLightMode) {
+                vis |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            } else {
+                vis &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
             }
+            decorView.setSystemUiVisibility(vis);
         }
     }
 
@@ -156,10 +154,8 @@ public final class BarUtils {
     public static boolean isStatusBarLightMode(@NonNull final Window window) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             View decorView = window.getDecorView();
-            if (decorView != null) {
-                int vis = decorView.getSystemUiVisibility();
-                return (vis & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR) != 0;
-            }
+            int vis = decorView.getSystemUiVisibility();
+            return (vis & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR) != 0;
         }
         return false;
     }
@@ -238,6 +234,34 @@ public final class BarUtils {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return null;
         transparentStatusBar(activity);
         return applyStatusBarColor(activity, color, isDecor);
+    }
+
+
+    /**
+     * Set the status bar's color.
+     *
+     * @param window The window.
+     * @param color  The status bar's color.
+     */
+    public static View setStatusBarColor(@NonNull final Window window,
+                                         @ColorInt final int color) {
+        return setStatusBarColor(window, color, false);
+    }
+
+    /**
+     * Set the status bar's color.
+     *
+     * @param window  The window.
+     * @param color   The status bar's color.
+     * @param isDecor True to add fake status bar in DecorView,
+     *                false to add fake status bar in ContentView.
+     */
+    public static View setStatusBarColor(@NonNull final Window window,
+                                         @ColorInt final int color,
+                                         final boolean isDecor) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return null;
+        transparentStatusBar(window);
+        return applyStatusBarColor(window, color, isDecor);
     }
 
     /**
@@ -329,9 +353,15 @@ public final class BarUtils {
     private static View applyStatusBarColor(final Activity activity,
                                             final int color,
                                             boolean isDecor) {
+        return applyStatusBarColor(activity.getWindow(), color, isDecor);
+    }
+
+    private static View applyStatusBarColor(final Window window,
+                                            final int color,
+                                            boolean isDecor) {
         ViewGroup parent = isDecor ?
-                (ViewGroup) activity.getWindow().getDecorView() :
-                (ViewGroup) activity.findViewById(android.R.id.content);
+                (ViewGroup) window.getDecorView() :
+                (ViewGroup) window.findViewById(android.R.id.content);
         View fakeStatusBarView = parent.findViewWithTag(TAG_STATUS_BAR);
         if (fakeStatusBarView != null) {
             if (fakeStatusBarView.getVisibility() == View.GONE) {
@@ -339,7 +369,7 @@ public final class BarUtils {
             }
             fakeStatusBarView.setBackgroundColor(color);
         } else {
-            fakeStatusBarView = createStatusBarView(activity, color);
+            fakeStatusBarView = createStatusBarView(window.getContext(), color);
             parent.addView(fakeStatusBarView);
         }
         return fakeStatusBarView;
@@ -363,9 +393,9 @@ public final class BarUtils {
         fakeStatusBarView.setVisibility(View.VISIBLE);
     }
 
-    private static View createStatusBarView(final Activity activity,
+    private static View createStatusBarView(final Context context,
                                             final int color) {
-        View statusBarView = new View(activity);
+        View statusBarView = new View(context);
         statusBarView.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight()));
         statusBarView.setBackgroundColor(color);
@@ -373,18 +403,18 @@ public final class BarUtils {
         return statusBarView;
     }
 
-    private static void transparentStatusBar(final Activity activity) {
+    public static void transparentStatusBar(final Activity activity) {
+        transparentStatusBar(activity.getWindow());
+    }
+
+    public static void transparentStatusBar(final Window window) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        Window window = activity.getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             int option = View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                int vis = window.getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-                window.getDecorView().setSystemUiVisibility(option | vis);
-            } else {
-                window.getDecorView().setSystemUiVisibility(option);
-            }
+            int vis = window.getDecorView().getSystemUiVisibility();
+            window.getDecorView().setSystemUiVisibility(option | vis);
             window.setStatusBarColor(Color.TRANSPARENT);
         } else {
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -567,6 +597,7 @@ public final class BarUtils {
      */
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     public static void setNavBarColor(@NonNull final Window window, @ColorInt final int color) {
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setNavigationBarColor(color);
     }
 
@@ -611,6 +642,62 @@ public final class BarUtils {
         boolean menu = ViewConfiguration.get(Utils.getApp()).hasPermanentMenuKey();
         boolean back = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
         return !menu && !back;
+    }
+
+    /**
+     * Set the nav bar's light mode.
+     *
+     * @param activity    The activity.
+     * @param isLightMode True to set nav bar light mode, false otherwise.
+     */
+    public static void setNavBarLightMode(@NonNull final Activity activity,
+                                          final boolean isLightMode) {
+        setStatusBarLightMode(activity.getWindow(), isLightMode);
+    }
+
+    /**
+     * Set the nav bar's light mode.
+     *
+     * @param window      The window.
+     * @param isLightMode True to set nav bar light mode, false otherwise.
+     */
+    public static void setNavBarLightMode(@NonNull final Window window,
+                                          final boolean isLightMode) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            View decorView = window.getDecorView();
+            int vis = decorView.getSystemUiVisibility();
+            if (isLightMode) {
+                vis |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+            } else {
+                vis &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+            }
+            decorView.setSystemUiVisibility(vis);
+        }
+    }
+
+    /**
+     * Is the nav bar light mode.
+     *
+     * @param activity The activity.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isNavBarLightMode(@NonNull final Activity activity) {
+        return isStatusBarLightMode(activity.getWindow());
+    }
+
+    /**
+     * Is the nav bar light mode.
+     *
+     * @param window The window.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isNavBarLightMode(@NonNull final Window window) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            View decorView = window.getDecorView();
+            int vis = decorView.getSystemUiVisibility();
+            return (vis & View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR) != 0;
+        }
+        return false;
     }
 
     private static Activity getActivityByView(@NonNull final View view) {

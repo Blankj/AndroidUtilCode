@@ -28,7 +28,7 @@
 buildscript {
     dependencies {
         ...
-        classpath 'com.blankj:api-gradle-plugin:1.0'
+        classpath 'com.blankj:api-gradle-plugin:1.1'
     }
 }
 ```

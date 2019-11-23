@@ -1,6 +1,6 @@
 package com.blankj.utilcode.util;
 
-import androidx.annotation.RawRes;
+import android.graphics.drawable.Drawable;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -14,6 +14,10 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.RawRes;
+import androidx.core.content.ContextCompat;
 
 /**
  * <pre>
@@ -29,6 +33,16 @@ public final class ResourceUtils {
 
     private ResourceUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
+    }
+
+    /**
+     * Return the drawable by identifier.
+     *
+     * @param id The identifier.
+     * @return the drawable by identifier
+     */
+    public static Drawable getDrawable(@DrawableRes int id) {
+        return ContextCompat.getDrawable(Utils.getApp(), id);
     }
 
     /**
@@ -142,7 +156,7 @@ public final class ResourceUtils {
         boolean res = true;
         try {
             String[] assets = Utils.getApp().getAssets().list(assetsFilePath);
-            if (assets.length > 0) {
+            if (assets != null && assets.length > 0) {
                 for (String asset : assets) {
                     res &= copyFileFromAssets(assetsFilePath + "/" + asset, destFilePath + "/" + asset);
                 }
@@ -314,7 +328,7 @@ public final class ResourceUtils {
         OutputStream os = null;
         try {
             os = new BufferedOutputStream(new FileOutputStream(file, append));
-            byte data[] = new byte[BUFFER_SIZE];
+            byte[] data = new byte[BUFFER_SIZE];
             int len;
             while ((len = is.read(data, 0, BUFFER_SIZE)) != -1) {
                 os.write(data, 0, len);

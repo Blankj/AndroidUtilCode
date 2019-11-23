@@ -121,6 +121,7 @@ getStatusBarHeight
 setStatusBarVisibility
 isStatusBarVisible
 setStatusBarLightMode
+isStatusBarLightMode
 addMarginTopEqualStatusBarHeight
 subtractMarginTopEqualStatusBarHeight
 setStatusBarColor
@@ -133,6 +134,8 @@ isNavBarVisible
 setNavBarColor
 getNavBarColor
 isSupportNavBar
+setNavBarLightMode
+isNavBarLightMode
 ```
 
 * ### About Brightness -> [BrightnessUtils.java][brightness.java] -> [Demo][brightness.demo]
@@ -262,7 +265,10 @@ cleanCustomDir
 
 * ### About Click -> [ClickUtils.java][click.java] -> [Demo][click.demo]
 ```
-applyScale
+applyPressedViewScale
+applyPressedViewAlpha
+applyPressedBgAlpha
+applyPressedBgDark
 applySingleDebouncing
 applyGlobalDebouncing
 ClickUtils#OnDebouncingClickListener
@@ -447,13 +453,9 @@ isFile
 createOrExistsDir
 createOrExistsFile
 createFileByDeleteOldFile
-copyDir
-copyFile
-moveDir
-moveFile
+copy
+move
 delete
-deleteDir
-deleteFile
 deleteAllInDir
 deleteFilesInDir
 deleteFilesInDirWithFilter
@@ -462,10 +464,8 @@ listFilesInDirWithFilter
 getFileLastModified
 getFileCharsetSimple
 getFileLines
-getDirSize
-getFileSize
-getDirLength
-getFileLength
+getSize
+getLength
 getFileMD5
 getFileMD5ToString
 getDirName
@@ -666,6 +666,15 @@ registerNetworkStatusChangedListener
 unregisterNetworkStatusChangedListener
 ```
 
+* ### About Notification -> [NotificationUtils.java][notification.java] -> [Demo][notification.demo]
+```
+areNotificationsEnabled
+notify
+cancel
+cancelAll
+setNotificationBarVisibility
+```
+
 * ### About Object -> [ObjectUtils.java][object.java] -> [Test][object.test]
 ```
 isEmpty
@@ -790,6 +799,17 @@ getReplaceAll
 
 * ### About Resource -> [ResourceUtils.java][resource.java] -> [Demo][resource.demo]
 ```
+getDrawable
+getIdByName
+getStringIdByName
+getColorIdByName
+getDimenIdByName
+getDrawableIdByName
+getMipmapIdByName
+getLayoutIdByName
+getStyleIdByName
+getAnimIdByName
+getMenuIdByName
 copyFileFromAssets
 readAssets2String
 readAssets2List
@@ -851,6 +871,7 @@ getSleepDuration
 isSDCardEnableByEnvironment
 getSDCardPathByEnvironment
 getSDCardInfo
+getMountedSDCardPath
 ```
 
 * ### About Service -> [ServiceUtils.java][service.java]
@@ -861,6 +882,11 @@ stopService
 bindService
 unbindService
 isServiceRunning
+```
+
+* ### About Shadow -> [ShadowUtils.java][shadow.java] -> [Demo][shadow.demo]
+```
+apply
 ```
 
 * ### About Shell -> [ShellUtils.java][shell.java]
@@ -1057,6 +1083,18 @@ showCustomLong
 cancel
 ```
 
+* ### About Touch -> [TouchUtils.java][touch.java]
+```
+setOnTouchListener
+```
+
+* ### About UiMessage -> [UiMessageUtils.java][uiMessage.java]
+```
+send
+addListener
+removeListener
+```
+
 * ### About Uri -> [UriUtils.java][uri.java]
 ```
 file2Uri
@@ -1208,6 +1246,9 @@ getComments
 [network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/NetworkUtils.java
 [network.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/network/NetworkActivity.kt
 
+[notification.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/NotificationUtils.java
+[notification.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/notification/NotificationActivity.kt
+
 [object.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ObjectUtils.java
 [object.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/ObjectUtilsTest.java
 
@@ -1243,6 +1284,9 @@ getComments
 
 [service.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ServiceUtils.java
 
+[shadow.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ShadowUtils.java
+[shadow.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/shadow/ShadowActivity.kt
+
 [shell.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ShellUtils.java
 
 [size.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/SizeUtils.java
@@ -1269,6 +1313,10 @@ getComments
 
 [toast.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ToastUtils.java
 [toast.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/toast/ToastActivity.kt
+
+[touch.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/TouchUtils.java
+
+[uiMessage.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UiMessageUtils.java
 
 [uri.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UriUtils.java
 

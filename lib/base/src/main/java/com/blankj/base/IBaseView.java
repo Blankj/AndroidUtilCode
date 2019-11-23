@@ -22,7 +22,7 @@ public interface IBaseView {
 
     int bindLayout();
 
-    void setRootLayout(@LayoutRes int layoutId);
+    void setContentView();
 
     void initView(@Nullable Bundle savedInstanceState, @Nullable View contentView);
 

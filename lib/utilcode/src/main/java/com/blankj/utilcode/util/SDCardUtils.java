@@ -53,8 +53,7 @@ public final class SDCardUtils {
      */
     public static List<SDCardInfo> getSDCardInfo() {
         List<SDCardInfo> paths = new ArrayList<>();
-        StorageManager sm =
-                (StorageManager) Utils.getApp().getSystemService(Context.STORAGE_SERVICE);
+        StorageManager sm = (StorageManager) Utils.getApp().getSystemService(Context.STORAGE_SERVICE);
         if (sm == null) return paths;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             List<StorageVolume> storageVolumes = sm.getStorageVolumes();
@@ -74,8 +73,6 @@ public final class SDCardUtils {
             } catch (InvocationTargetException e) {
                 e.printStackTrace();
             }
-            return paths;
-
         } else {
             try {
                 Class<?> storageVolumeClazz = Class.forName("android.os.storage.StorageVolume");
@@ -104,8 +101,27 @@ public final class SDCardUtils {
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-            return paths;
         }
+        return paths;
+    }
+
+    /**
+     * Return the ptah of mounted sdcard.
+     *
+     * @return the ptah of mounted sdcard.
+     */
+    public static List<String> getMountedSDCardPath() {
+        List<String> path = new ArrayList<>();
+        List<SDCardInfo> sdCardInfo = getSDCardInfo();
+        if (sdCardInfo == null || sdCardInfo.isEmpty()) return path;
+        for (SDCardInfo cardInfo : sdCardInfo) {
+            String state = cardInfo.state;
+            if (state == null) continue;
+            if ("mounted".equals(state.toLowerCase())) {
+                path.add(cardInfo.path);
+            }
+        }
+        return path;
     }
 
     public static class SDCardInfo {

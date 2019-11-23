@@ -4,14 +4,13 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.os.Bundle
 import android.os.IBinder
-import android.view.View
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemTitle
 import com.blankj.subutil.pkg.R
 import com.blankj.subutil.pkg.helper.PermissionHelper
-import com.blankj.utilcode.util.SpanUtils
-import kotlinx.android.synthetic.main.activity_location.*
+import com.blankj.utilcode.util.CollectionUtils
 
 /**
  * ```
@@ -21,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_location.*
  * desc  : demo about LocationUtils
  * ```
  */
-class LocationActivity : CommonTitleActivity() {
+class LocationActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -49,48 +48,42 @@ class LocationActivity : CommonTitleActivity() {
                 override fun getLocation(lastLatitude: String, lastLongitude: String, latitude: String,
                                          longitude: String, country: String, locality: String, street: String) {
                     runOnUiThread {
-                        SpanUtils.with(locationAboutTv)
-                                .appendLine("lastLatitude: $lastLatitude")
-                                .appendLine("lastLongitude: $lastLongitude")
-                                .appendLine("latitude: $latitude")
-                                .appendLine("longitude: $longitude")
-                                .appendLine("getCountryName: $country")
-                                .appendLine("getLocality: $locality")
-                                .appendLine("getStreet: $street")
-                                .create()
+                        itemsView.updateItems(
+                                CollectionUtils.newArrayList<CommonItem<*>>(
+                                        CommonItemTitle("lastLatitude", lastLatitude),
+                                        CommonItemTitle("lastLongitude", lastLongitude),
+                                        CommonItemTitle("latitude", latitude),
+                                        CommonItemTitle("longitude", longitude),
+                                        CommonItemTitle("getCountryName", country),
+                                        CommonItemTitle("getLocality", locality),
+                                        CommonItemTitle("getStreet", street)
+                                )
+                        )
                     }
                 }
             })
         }
     }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_location)
+    override fun bindTitleRes(): Int {
+        return R.string.demo_location
     }
 
-    override fun initData(bundle: Bundle?) {}
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_location
-    }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        SpanUtils.with(locationAboutTv)
-                .appendLine("lastLatitude: unknown")
-                .appendLine("lastLongitude: unknown")
-                .appendLine("latitude: unknown")
-                .appendLine("longitude: unknown")
-                .appendLine("getCountryName: unknown")
-                .appendLine("getLocality: unknown")
-                .appendLine("getStreet: unknown")
-                .create()
+    override fun bindItems(): MutableList<CommonItem<*>> {
+        return CollectionUtils.newArrayList(
+                CommonItemTitle("lastLatitude", "unknown"),
+                CommonItemTitle("lastLongitude", "unknown"),
+                CommonItemTitle("latitude", "unknown"),
+                CommonItemTitle("longitude", "unknown"),
+                CommonItemTitle("getCountryName", "unknown"),
+                CommonItemTitle("getLocality", "unknown"),
+                CommonItemTitle("getStreet", "unknown")
+        )
     }
 
     override fun doBusiness() {
         bindService(Intent(this, LocationService::class.java), conn, Context.BIND_AUTO_CREATE)
     }
-
-    override fun onDebouncingClick(view: View) {}
 
     override fun onDestroy() {
         unbindService(conn)

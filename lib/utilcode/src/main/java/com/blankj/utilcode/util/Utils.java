@@ -7,18 +7,18 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.app.Application.ActivityLifecycleCallbacks;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-
-import androidx.core.content.FileProvider;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,15 +26,18 @@ import java.io.FileReader;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.FragmentActivity;
 
 /**
  * <pre>
@@ -57,11 +60,8 @@ import java.util.concurrent.Executors;
  */
 public final class Utils {
 
-    private static final String PERMISSION_ACTIVITY_CLASS_NAME =
-            "com.blankj.utilcode.util.PermissionUtils$PermissionActivity";
-
     private static final ActivityLifecycleImpl ACTIVITY_LIFECYCLE = new ActivityLifecycleImpl();
-    private static final ExecutorService       UTIL_POOL          = Executors.newFixedThreadPool(3);
+    private static final ExecutorService       UTIL_POOL          = ThreadUtils.getCachedPool();
     private static final Handler               UTIL_HANDLER       = new Handler(Looper.getMainLooper());
 
     @SuppressLint("StaticFieldLeak")
@@ -100,6 +100,12 @@ public final class Utils {
                 sApplication = app;
             }
             sApplication.registerActivityLifecycleCallbacks(ACTIVITY_LIFECYCLE);
+            UTIL_POOL.execute(new Runnable() {
+                @Override
+                public void run() {
+                    AdaptScreenUtils.preLoad();
+                }
+            });
         } else {
             if (app != null && app.getClass() != sApplication.getClass()) {
                 sApplication.unregisterActivityLifecycleCallbacks(ACTIVITY_LIFECYCLE);
@@ -188,7 +194,6 @@ public final class Utils {
         for (String leakView : leakViews) {
             try {
                 Field leakViewField = InputMethodManager.class.getDeclaredField(leakView);
-                if (leakViewField == null) continue;
                 if (!leakViewField.isAccessible()) {
                     leakViewField.setAccessible(true);
                 }
@@ -304,11 +309,154 @@ public final class Utils {
         }
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // TransActivity
+    ///////////////////////////////////////////////////////////////////////////
+
+    public static final class TransActivity extends FragmentActivity {
+
+        private static final Map<TransActivity, TransActivityDelegate> CALLBACK_MAP = new HashMap<>();
+        private static       TransActivityDelegate                     sDelegate;
+
+        public static void start(final Func1<Void, Intent> consumer,
+                                 final TransActivityDelegate delegate) {
+            if (delegate == null) return;
+            Intent starter = new Intent(Utils.getApp(), TransActivity.class);
+            starter.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            if (consumer != null) {
+                consumer.call(starter);
+            }
+            Utils.getApp().startActivity(starter);
+            sDelegate = delegate;
+        }
+
+        @Override
+        protected void onCreate(@Nullable Bundle savedInstanceState) {
+            overridePendingTransition(0, 0);
+            if (sDelegate == null) {
+                super.onCreate(savedInstanceState);
+                finish();
+                return;
+            }
+            CALLBACK_MAP.put(this, sDelegate);
+            sDelegate.onCreateBefore(this, savedInstanceState);
+            super.onCreate(savedInstanceState);
+            sDelegate.onCreated(this, savedInstanceState);
+            sDelegate = null;
+        }
+
+        @Override
+        protected void onStart() {
+            super.onStart();
+            TransActivityDelegate callback = CALLBACK_MAP.get(this);
+            if (callback == null) return;
+            callback.onStarted(this);
+        }
+
+        @Override
+        protected void onResume() {
+            super.onResume();
+            TransActivityDelegate callback = CALLBACK_MAP.get(this);
+            if (callback == null) return;
+            callback.onResumed(this);
+        }
+
+        @Override
+        protected void onPause() {
+            overridePendingTransition(0, 0);
+            super.onPause();
+            TransActivityDelegate callback = CALLBACK_MAP.get(this);
+            if (callback == null) return;
+            callback.onPaused(this);
+        }
+
+        @Override
+        protected void onStop() {
+            super.onStop();
+            TransActivityDelegate callback = CALLBACK_MAP.get(this);
+            if (callback == null) return;
+            callback.onStopped(this);
+        }
+
+        @Override
+        protected void onSaveInstanceState(Bundle outState) {
+            super.onSaveInstanceState(outState);
+            TransActivityDelegate callback = CALLBACK_MAP.get(this);
+            if (callback == null) return;
+            callback.onSaveInstanceState(this, outState);
+        }
+
+        @Override
+        protected void onDestroy() {
+            super.onDestroy();
+            TransActivityDelegate callback = CALLBACK_MAP.get(this);
+            if (callback == null) return;
+            callback.onDestroy(this);
+            CALLBACK_MAP.remove(this);
+        }
+
+        @Override
+        public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            TransActivityDelegate callback = CALLBACK_MAP.get(this);
+            if (callback == null) return;
+            callback.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+        }
+
+        @Override
+        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
+            TransActivityDelegate callback = CALLBACK_MAP.get(this);
+            if (callback == null) return;
+            callback.onActivityResult(this, requestCode, resultCode, data);
+        }
+
+        @Override
+        public boolean dispatchTouchEvent(MotionEvent ev) {
+            TransActivityDelegate callback = CALLBACK_MAP.get(this);
+            if (callback == null) return super.dispatchTouchEvent(ev);
+            if (callback.dispatchTouchEvent(this, ev)) {
+                return true;
+            }
+            return super.dispatchTouchEvent(ev);
+        }
+
+        public abstract static class TransActivityDelegate {
+            public void onCreateBefore(Activity activity, @Nullable Bundle savedInstanceState) {/**/}
+
+            public void onCreated(Activity activity, @Nullable Bundle savedInstanceState) {/**/}
+
+            public void onStarted(Activity activity) {/**/}
+
+            public void onDestroy(Activity activity) {/**/}
+
+            public void onResumed(Activity activity) {/**/}
+
+            public void onPaused(Activity activity) {/**/}
+
+            public void onStopped(Activity activity) {/**/}
+
+            public void onSaveInstanceState(Activity activity, Bundle outState) {/**/}
+
+            public void onRequestPermissionsResult(Activity activity, int requestCode, String[] permissions, int[] grantResults) {/**/}
+
+            public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {/**/}
+
+            public boolean dispatchTouchEvent(Activity activity, MotionEvent ev) {
+                return false;
+            }
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // lifecycle
+    ///////////////////////////////////////////////////////////////////////////
+
     static class ActivityLifecycleImpl implements ActivityLifecycleCallbacks {
 
-        final LinkedList<Activity>                            mActivityList         = new LinkedList<>();
-        final Map<Object, OnAppStatusChangedListener>         mStatusListenerMap    = new HashMap<>();
-        final Map<Activity, Set<OnActivityDestroyedListener>> mDestroyedListenerMap = new HashMap<>();
+        final LinkedList<Activity>                             mActivityList         = new LinkedList<>();
+        final List<OnAppStatusChangedListener>                 mStatusListeners      = new ArrayList<>();
+        final Map<Activity, List<OnActivityDestroyedListener>> mDestroyedListenerMap = new HashMap<>();
 
         private int     mForegroundCount = 0;
         private int     mConfigCount     = 0;
@@ -338,7 +486,7 @@ public final class Utils {
             setTopActivity(activity);
             if (mIsBackground) {
                 mIsBackground = false;
-                postStatus(true);
+                postStatus(activity, true);
             }
             processHideSoftInputOnActivityDestroy(activity, false);
         }
@@ -356,7 +504,7 @@ public final class Utils {
                 --mForegroundCount;
                 if (mForegroundCount <= 0) {
                     mIsBackground = true;
-                    postStatus(false);
+                    postStatus(activity, false);
                 }
             }
             processHideSoftInputOnActivityDestroy(activity, true);
@@ -391,13 +539,12 @@ public final class Utils {
             return topActivityByReflect;
         }
 
-        void addOnAppStatusChangedListener(final Object object,
-                                           final OnAppStatusChangedListener listener) {
-            mStatusListenerMap.put(object, listener);
+        void addOnAppStatusChangedListener(final OnAppStatusChangedListener listener) {
+            mStatusListeners.add(listener);
         }
 
-        void removeOnAppStatusChangedListener(final Object object) {
-            mStatusListenerMap.remove(object);
+        void removeOnAppStatusChangedListener(final OnAppStatusChangedListener listener) {
+            mStatusListeners.remove(listener);
         }
 
         void removeOnActivityDestroyedListener(final Activity activity) {
@@ -408,12 +555,11 @@ public final class Utils {
         void addOnActivityDestroyedListener(final Activity activity,
                                             final OnActivityDestroyedListener listener) {
             if (activity == null || listener == null) return;
-            Set<OnActivityDestroyedListener> listeners;
-            if (!mDestroyedListenerMap.containsKey(activity)) {
-                listeners = new HashSet<>();
+            List<OnActivityDestroyedListener> listeners = mDestroyedListenerMap.get(activity);
+            if (listeners == null) {
+                listeners = new CopyOnWriteArrayList<>();
                 mDestroyedListenerMap.put(activity, listeners);
             } else {
-                listeners = mDestroyedListenerMap.get(activity);
                 if (listeners.contains(listener)) return;
             }
             listeners.add(listener);
@@ -436,26 +582,28 @@ public final class Utils {
                 Utils.runOnUiThreadDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        activity.getWindow().setSoftInputMode(((Integer) tag));
+                        Window window = activity.getWindow();
+                        if (window != null) {
+                            window.setSoftInputMode(((Integer) tag));
+                        }
                     }
                 }, 100);
             }
         }
 
-        private void postStatus(final boolean isForeground) {
-            if (mStatusListenerMap.isEmpty()) return;
-            for (OnAppStatusChangedListener onAppStatusChangedListener : mStatusListenerMap.values()) {
-                if (onAppStatusChangedListener == null) return;
+        private void postStatus(final Activity activity, final boolean isForeground) {
+            if (mStatusListeners.isEmpty()) return;
+            for (OnAppStatusChangedListener statusListener : mStatusListeners) {
                 if (isForeground) {
-                    onAppStatusChangedListener.onForeground();
+                    statusListener.onForeground(activity);
                 } else {
-                    onAppStatusChangedListener.onBackground();
+                    statusListener.onBackground(activity);
                 }
             }
         }
 
         private void setTopActivity(final Activity activity) {
-            if (PERMISSION_ACTIVITY_CLASS_NAME.equals(activity.getClass().getName())) return;
+//            if (TransActivity.class == activity.getClass()) return;
             if (mActivityList.contains(activity)) {
                 if (!mActivityList.getLast().equals(activity)) {
                     mActivityList.remove(activity);
@@ -467,12 +615,12 @@ public final class Utils {
         }
 
         private void consumeOnActivityDestroyedListener(Activity activity) {
-            Iterator<Map.Entry<Activity, Set<OnActivityDestroyedListener>>> iterator
+            Iterator<Map.Entry<Activity, List<OnActivityDestroyedListener>>> iterator
                     = mDestroyedListenerMap.entrySet().iterator();
             while (iterator.hasNext()) {
-                Map.Entry<Activity, Set<OnActivityDestroyedListener>> entry = iterator.next();
+                Map.Entry<Activity, List<OnActivityDestroyedListener>> entry = iterator.next();
                 if (entry.getKey() == activity) {
-                    Set<OnActivityDestroyedListener> value = entry.getValue();
+                    List<OnActivityDestroyedListener> value = entry.getValue();
                     for (OnActivityDestroyedListener listener : value) {
                         listener.onActivityDestroyed(activity);
                     }
@@ -500,16 +648,8 @@ public final class Utils {
                         return (Activity) activityField.get(activityRecord);
                     }
                 }
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                Log.e("Utils", e.getMessage());
             }
             return null;
         }
@@ -520,6 +660,10 @@ public final class Utils {
         @Override
         public boolean onCreate() {
             Utils.init(getContext());
+            try {
+                Class.forName("com.blankj.utildebug.DebugUtils");
+            } catch (Exception ignore) {
+            }
             return true;
         }
     }
@@ -582,12 +726,16 @@ public final class Utils {
     }
 
     public interface OnAppStatusChangedListener {
-        void onForeground();
+        void onForeground(Activity activity);
 
-        void onBackground();
+        void onBackground(Activity activity);
     }
 
     public interface OnActivityDestroyedListener {
         void onActivityDestroyed(Activity activity);
+    }
+
+    public interface Func1<Ret, Par> {
+        Ret call(Par param);
     }
 }

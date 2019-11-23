@@ -2,12 +2,12 @@ package com.blankj.utilcode.pkg.feature.vibrate
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.view.View
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemClick
 import com.blankj.utilcode.pkg.R
+import com.blankj.utilcode.util.CollectionUtils
 import com.blankj.utilcode.util.VibrateUtils
-import kotlinx.android.synthetic.main.activity_vibrate.*
 
 /**
  * ```
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_vibrate.*
  * desc  : demo about VibrateUtils
  * ```
  */
-class VibrateActivity : CommonTitleActivity() {
+class VibrateActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -26,27 +26,19 @@ class VibrateActivity : CommonTitleActivity() {
         }
     }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_vibrate)
+    override fun bindTitleRes(): Int {
+        return R.string.demo_vibrate
     }
 
-    override fun initData(bundle: Bundle?) {}
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_vibrate
+    override fun bindItems(): MutableList<CommonItem<*>> {
+        return CollectionUtils.newArrayList(
+                CommonItemClick(R.string.vibrate_1000ms) { VibrateUtils.vibrate(1000) },
+                CommonItemClick(R.string.vibrate_custom) {
+                    VibrateUtils.vibrate(longArrayOf(0, 1000, 1000, 2000, 2000, 1000), 1)
+                },
+                CommonItemClick(R.string.vibrate_cancel) { VibrateUtils.cancel() }
+        )
     }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        vibrate1000msBtn.setOnClickListener { VibrateUtils.vibrate(1000) }
-        vibrateCustomBtn.setOnClickListener {
-            VibrateUtils.vibrate(longArrayOf(0, 1000, 1000, 2000, 2000, 1000), 1)
-        }
-        vibrateCancelBtn.setOnClickListener { VibrateUtils.cancel() }
-    }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {}
 
     override fun onDestroy() {
         super.onDestroy()

@@ -46,21 +46,19 @@ public final class AppUtils {
     /**
      * Register the status of application changed listener.
      *
-     * @param obj      The object.
      * @param listener The status of application changed listener
      */
-    public static void registerAppStatusChangedListener(@NonNull final Object obj,
-                                                        @NonNull final Utils.OnAppStatusChangedListener listener) {
-        Utils.getActivityLifecycle().addOnAppStatusChangedListener(obj, listener);
+    public static void registerAppStatusChangedListener(@NonNull final Utils.OnAppStatusChangedListener listener) {
+        Utils.getActivityLifecycle().addOnAppStatusChangedListener(listener);
     }
 
     /**
      * Unregister the status of application changed listener.
      *
-     * @param obj The object.
+     * @param listener The status of application changed listener
      */
-    public static void unregisterAppStatusChangedListener(@NonNull final Object obj) {
-        Utils.getActivityLifecycle().removeOnAppStatusChangedListener(obj);
+    public static void unregisterAppStatusChangedListener(@NonNull final Utils.OnAppStatusChangedListener listener) {
+        Utils.getActivityLifecycle().removeOnAppStatusChangedListener(listener);
     }
 
     /**
@@ -407,6 +405,33 @@ public final class AppUtils {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    /**
+     * Return the application's icon resource identifier.
+     *
+     * @return the application's icon resource identifier
+     */
+    public static int getAppIconId() {
+        return getAppIconId(Utils.getApp().getPackageName());
+    }
+
+    /**
+     * Return the application's icon resource identifier.
+     *
+     * @param packageName The name of the package.
+     * @return the application's icon resource identifier
+     */
+    public static int getAppIconId(final String packageName) {
+        if (isSpace(packageName)) return 0;
+        try {
+            PackageManager pm = Utils.getApp().getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(packageName, 0);
+            return pi == null ? 0 : pi.applicationInfo.icon;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return 0;
         }
     }
 
@@ -833,14 +858,14 @@ public final class AppUtils {
         @Override
         public String toString() {
             return "{" +
-                    "\n  pkg name: " + getPackageName() +
-                    "\n  app icon: " + getIcon() +
-                    "\n  app name: " + getName() +
-                    "\n  app path: " + getPackagePath() +
-                    "\n  app v name: " + getVersionName() +
-                    "\n  app v code: " + getVersionCode() +
-                    "\n  is system: " + isSystem() +
-                    "}";
+                    "\n    pkg name: " + getPackageName() +
+                    "\n    app icon: " + getIcon() +
+                    "\n    app name: " + getName() +
+                    "\n    app path: " + getPackagePath() +
+                    "\n    app v name: " + getVersionName() +
+                    "\n    app v code: " + getVersionCode() +
+                    "\n    is system: " + isSystem() +
+                    "\n}";
         }
     }
 
@@ -959,7 +984,6 @@ public final class AppUtils {
     private static String getForegroundProcessName() {
         ActivityManager am =
                 (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-        //noinspection ConstantConditions
         List<ActivityManager.RunningAppProcessInfo> pInfo = am.getRunningAppProcesses();
         if (pInfo != null && pInfo.size() > 0) {
             for (ActivityManager.RunningAppProcessInfo aInfo : pInfo) {
@@ -985,7 +1009,6 @@ public final class AppUtils {
                         pm.getApplicationInfo(Utils.getApp().getPackageName(), 0);
                 AppOpsManager aom =
                         (AppOpsManager) Utils.getApp().getSystemService(Context.APP_OPS_SERVICE);
-                //noinspection ConstantConditions
                 if (aom.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
                         info.uid,
                         info.packageName) != AppOpsManager.MODE_ALLOWED) {

@@ -234,6 +234,7 @@ public final class ReflectUtils {
                 modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
             } catch (NoSuchFieldException ignore) {
                 // runs in android will happen
+                field.setAccessible(true);
             }
         }
         return field;

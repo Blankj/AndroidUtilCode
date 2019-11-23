@@ -62,10 +62,10 @@ class ApiScan {
             ClassReader cr = new ClassReader(file.bytes);
             ClassWriter cw = new ClassWriter(cr, 0);
             ClassVisitor cv = new ApiClassVisitor(cw, apiImplMap, apiClasses, apiUtilsClass);
-            cr.accept(cv, ClassReader.SKIP_FRAMES);
-
-            if (cv.errorStr != null) {
-                throw new Exception(cv.errorStr)
+            try {
+                cr.accept(cv, ClassReader.SKIP_FRAMES);
+            } catch (Exception ignore) {
+                ignore.printStackTrace()
             }
         }
     }

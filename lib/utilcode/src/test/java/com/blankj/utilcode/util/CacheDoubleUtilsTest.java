@@ -151,7 +151,7 @@ public class CacheDoubleUtilsTest extends BaseTest {
 
     @Test
     public void getCacheDiskSize() {
-        assertEquals(FileUtils.getDirLength(CACHE_FILE), CACHE_DOUBLE_UTILS.getCacheDiskSize());
+        assertEquals(FileUtils.getLength(CACHE_FILE), CACHE_DOUBLE_UTILS.getCacheDiskSize());
     }
 
     @Test

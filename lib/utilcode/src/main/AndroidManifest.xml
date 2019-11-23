@@ -4,7 +4,7 @@
     <application>
 
         <activity
-            android:name="com.blankj.utilcode.util.PermissionUtils$PermissionActivity"
+            android:name="com.blankj.utilcode.util.Utils$TransActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:multiprocess="true"
             android:theme="@style/ActivityTranslucent"

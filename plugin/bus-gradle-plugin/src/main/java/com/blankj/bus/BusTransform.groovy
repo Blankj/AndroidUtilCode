@@ -7,6 +7,8 @@ import com.blankj.bus.util.LogUtils
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
 
+import java.util.regex.Pattern
+
 class BusTransform extends Transform {
 
     Project mProject;
@@ -87,7 +89,7 @@ class BusTransform extends Transform {
                 )
                 FileUtils.copyFile(jar, dest)
 
-                if (jumpScan(jarName)) {
+                if (jumpScan(jarName, ext)) {
                     LogUtils.l("jump jar: $jarName -> $dest")
                     return
                 }
@@ -153,14 +155,26 @@ class BusTransform extends Transform {
         LogUtils.l(getName() + " finished: " + (System.currentTimeMillis() - stTime) + "ms")
     }
 
-    private static jumpScan(String jarName) {
-        boolean isExcept = false
-        for (String except : Config.EXCEPTS) {
-            if (jarName.startsWith(except)) {
-                isExcept = true
-                break
+    private static jumpScan(String jarName, BusExtension ext) {
+        if (jarName.contains("utilcode")) {
+            return false
+        }
+
+        if (ext.onlyScanLibRegex != null && ext.onlyScanLibRegex.trim().length() > 0) {
+            return !Pattern.matches(ext.onlyScanLibRegex, jarName)
+        }
+
+        if (ext.jumpScanLibRegex != null && ext.jumpScanLibRegex.trim().length() > 0) {
+            if (Pattern.matches(ext.jumpScanLibRegex, jarName)) {
+                return true
             }
         }
-        return isExcept
+
+        for (exclude in Config.EXCLUDE_LIBS_START_WITH) {
+            if (jarName.startsWith(exclude)) {
+                return true
+            }
+        }
+        return false
     }
 }

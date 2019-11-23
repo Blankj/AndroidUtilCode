@@ -29,6 +29,9 @@ public class BusTest {
     private static final String TAG_NO_PARAM_STICKY  = "TagNoParamSticky";
     private static final String TAG_ONE_PARAM_STICKY = "TagOneParamSticky";
 
+    private String[] arr = new String[]{"0", "1"};
+    private String[] arr2 = new String[]{"0", "1"};
+
     @BusUtils.Bus(tag = TAG_NO_PARAM)
     public void noParamFun() {
         System.out.println("noParam");
@@ -61,6 +64,12 @@ public class BusTest {
 
     @BusUtils.Bus(tag = TAG_ONE_PARAM_STICKY, sticky = true)
     public void oneParamStickyFun(Callback callback) {
+        for (String str : arr) {
+            System.out.println(str);
+        }
+        for (String str1 : arr2) {
+            System.out.println(str1);
+        }
         if (callback != null) {
             System.out.println(callback.call());
         }

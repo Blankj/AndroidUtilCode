@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.blankj.utildebug.base.view.SwipeRightMenu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+
+    <RelativeLayout
+        android:id="@+id/itemSpContentRl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/itemSpGoIv"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/itemSpTitleTv"
+                style="@style/InfoTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="title" />
+
+            <com.blankj.utildebug.base.view.EmptyGoneTextView
+                android:id="@+id/itemSpContentTv"
+                style="@style/InfoContentStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                tools:text="content" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/itemSpGoIv"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="8dp"
+            android:src="@drawable/du_ic_item_go"
+            android:visibility="gone" />
+
+        <Switch
+            android:id="@+id/itemSpSwitch"
+            style="@style/SwitchStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/itemSpDeleteTv"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:background="@color/grapefruit"
+        android:gravity="center"
+        android:text="@string/du_menu_delete"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_normal" />
+
+</com.blankj.utildebug.base.view.SwipeRightMenu>

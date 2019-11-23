@@ -2,13 +2,14 @@ package com.blankj.utilcode.pkg.feature.metaData
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.view.View
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.activity.CommonActivityItemsView
+import com.blankj.common.activity.CommonActivityTitleView
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemTitle
 import com.blankj.utilcode.pkg.R
+import com.blankj.utilcode.util.CollectionUtils
 import com.blankj.utilcode.util.MetaDataUtils
-import com.blankj.utilcode.util.SpanUtils
-import kotlinx.android.synthetic.main.activity_metadata.*
 
 /**
  * ```
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_metadata.*
  * desc  : demo about MetaDataUtils
  * ```
  */
-class MetaDataActivity : CommonTitleActivity() {
+class MetaDataActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -27,24 +28,14 @@ class MetaDataActivity : CommonTitleActivity() {
         }
     }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_meta_data)
+    override fun bindTitleRes(): Int {
+        return R.string.demo_meta_data
     }
 
-    override fun initData(bundle: Bundle?) {}
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_metadata
+    override fun bindItems(): List<CommonItem<*>> {
+        return CollectionUtils.newArrayList(
+                CommonItemTitle("getMetaDataInApp", MetaDataUtils.getMetaDataInApp("app_meta_data")),
+                CommonItemTitle("getMetaDataInActivity", MetaDataUtils.getMetaDataInActivity(this, "activity_meta_data"))
+        )
     }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        SpanUtils.with(metaDataAboutTv)
-                .appendLine("getMetaDataInApp: " + MetaDataUtils.getMetaDataInApp("app_meta_data"))
-                .append("getMetaDataInActivity: " + MetaDataUtils.getMetaDataInActivity(this, "activity_meta_data"))
-                .create()
-    }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {}
 }

@@ -1,7 +1,7 @@
 apply {
-    plugin "tech.harmonysoft.oss.traute"
-    plugin "com.github.dcendents.android-maven"
-    plugin "com.jfrog.bintray"
+    plugin Config.depConfig.plugin_traute.pluginId
+    plugin Config.depConfig.plugin_maven.pluginId
+    plugin Config.depConfig.plugin_bintray.pluginId
     plugin "readme-core"
     from "${rootDir.path}/gradle/upload/bintrayUploadAndroid.gradle"
 }
@@ -14,11 +14,11 @@ readme {
 dependencies {
     implementation Config.depConfig.gson.dep
 
-    compileOnly Config.depConfig.support.appcompat.dep
-    compileOnly Config.depConfig.support.material.dep
+    compileOnly Config.depConfig.support_appcompat.dep
+    compileOnly Config.depConfig.support_material.dep
 
-    testImplementation Config.depConfig.test.junit.dep
-    testImplementation Config.depConfig.test.robolectric.dep
-    testImplementation Config.depConfig.support.appcompat.dep
-    testImplementation Config.depConfig.eventbus.lib.dep
+    testImplementation Config.depConfig.test_junit.dep
+    testImplementation Config.depConfig.test_robolectric.dep
+    testImplementation Config.depConfig.support_appcompat.dep
+    testImplementation Config.depConfig.eventbus_lib.dep
 }

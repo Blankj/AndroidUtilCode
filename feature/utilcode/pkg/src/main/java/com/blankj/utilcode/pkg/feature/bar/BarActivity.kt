@@ -2,11 +2,16 @@ package com.blankj.utilcode.pkg.feature.bar
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.view.View
-import com.blankj.common.CommonTitleActivity
+import com.blankj.common.activity.CommonActivity
+import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemClick
+import com.blankj.common.item.CommonItemTitle
 import com.blankj.utilcode.pkg.R
-import kotlinx.android.synthetic.main.activity_bar.*
+import com.blankj.utilcode.pkg.feature.bar.nav.BarNavActivity
+import com.blankj.utilcode.pkg.feature.bar.notification.BarNotificationActivity
+import com.blankj.utilcode.pkg.feature.bar.status.*
+import com.blankj.utilcode.pkg.feature.bar.status.fragment.BarStatusFragmentActivity
+import com.blankj.utilcode.util.CollectionUtils
 
 /**
  * ```
@@ -16,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_bar.*
  * desc  : demo about BarUtils
  * ```
  */
-class BarActivity : CommonTitleActivity() {
+class BarActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -25,43 +30,42 @@ class BarActivity : CommonTitleActivity() {
         }
     }
 
-    override fun bindTitle(): CharSequence {
-        return getString(R.string.demo_bar)
+    override fun bindTitleRes(): Int {
+        return R.string.demo_bar
     }
 
-    override fun initData(bundle: Bundle?) {}
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_bar
-    }
-
-    override fun initView(savedInstanceState: Bundle?, contentView: View?) {
-        applyDebouncingClickListener(
-                barStatusAboutBtn,
-                barStatusSetColorBtn,
-                barStatusSetAlphaBtn,
-                barStatusSetImageViewBtn,
-                barStatusSetCustomBtn,
-                barStatusSetFragmentBtn,
-                barStatusSetDrawerBtn,
-                barNotificationAboutBtn,
-                barNavAboutBtn
+    override fun bindItems(): List<CommonItem<*>> {
+        return CollectionUtils.newArrayList(
+                CommonItemTitle(R.string.bar_about_status_bar, true),
+                CommonItemClick(R.string.bar_status_about, true) {
+                    BarStatusActivity.start(this)
+                },
+                CommonItemClick(R.string.bar_status_set_color, true) {
+                    BarStatusActivityColor.start(this)
+                },
+                CommonItemClick(R.string.bar_status_set_alpha, true) {
+                    BarStatusActivityAlpha.start(this)
+                },
+                CommonItemClick(R.string.bar_status_set_image_view, true) {
+                    BarStatusActivityImageView.start(this)
+                },
+                CommonItemClick(R.string.bar_status_set_custom, true) {
+                    BarStatusActivityCustom.start(this)
+                },
+                CommonItemClick(R.string.bar_status_set_fragment, true) {
+                    BarStatusFragmentActivity.start(this)
+                },
+                CommonItemClick(R.string.bar_status_set_drawer, true) {
+                    BarStatusActivityDrawer.start(this)
+                },
+                CommonItemTitle(R.string.bar_about_notification_bar, true),
+                CommonItemClick(R.string.bar_notification_about, true) {
+                    BarNotificationActivity.start(this)
+                },
+                CommonItemTitle(R.string.bar_about_nav_bar, true),
+                CommonItemClick(R.string.bar_nav_about, true) {
+                    BarNavActivity.start(this)
+                }
         )
-    }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {
-        when (view.id) {
-            R.id.barStatusAboutBtn -> BarStatusActivity.start(this)
-            R.id.barStatusSetColorBtn -> BarStatusColorActivity.start(this)
-            R.id.barStatusSetAlphaBtn -> BarStatusAlphaActivity.start(this)
-            R.id.barStatusSetImageViewBtn -> BarStatusImageViewActivity.start(this)
-            R.id.barStatusSetCustomBtn -> BarStatusCustomActivity.start(this)
-            R.id.barStatusSetFragmentBtn -> BarStatusFragmentActivity.start(this)
-            R.id.barStatusSetDrawerBtn -> BarStatusDrawerActivity.start(this)
-            R.id.barNotificationAboutBtn -> BarNotificationActivity.start(this)
-            R.id.barNavAboutBtn -> BarNavActivity.start(this)
-        }
     }
 }
