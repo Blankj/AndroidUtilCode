@@ -291,6 +291,8 @@ public final class PermissionUtils {
                         public void again(boolean again) {
                             activity.finish();
                             if (again) {
+                                mPermissionsDenied = new ArrayList<>();
+                                mPermissionsDeniedForever = new ArrayList<>();
                                 startPermissionActivity();
                             } else {
                                 requestCallback();

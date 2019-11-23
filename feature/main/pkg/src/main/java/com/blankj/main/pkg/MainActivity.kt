@@ -38,6 +38,11 @@ class MainActivity : CommonActivity() {
         return R.layout.activity_main
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        window.setBackgroundDrawable(null)
+        super.onCreate(savedInstanceState)
+    }
+
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         super.initView(savedInstanceState, contentView)
         setCommonItems(mainRv, CollectionUtils.newArrayList<CommonItem<*>>(

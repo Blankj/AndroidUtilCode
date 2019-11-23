@@ -3,15 +3,11 @@ package com.blankj.utilcode.pkg.feature.activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
-import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
-import android.view.Window
 import android.widget.ImageView
 import com.blankj.base.rv.ItemViewHolder
 import com.blankj.common.activity.CommonActivity
-import com.blankj.common.activity.CommonActivityItemsView
-import com.blankj.common.activity.CommonActivityTitleView
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick
 import com.blankj.common.item.CommonItemImage
@@ -54,7 +50,7 @@ class ActivityActivity : CommonActivity() {
 
         return CollectionUtils.newArrayList(
                 elementItem,
-                CommonItemTitle("isActivityExists", ActivityUtils.isActivityExists(AppUtils.getAppPackageName(), SubActivityActivity::class.java.name).toString()),
+                CommonItemTitle("isActivityExists(${SubActivityActivity::class.java.name})", ActivityUtils.isActivityExists(AppUtils.getAppPackageName(), SubActivityActivity::class.java.name).toString()),
                 CommonItemTitle("getLauncherActivity", ActivityUtils.getLauncherActivity(AppUtils.getAppPackageName())),
                 CommonItemTitle("getMainActivities", ActivityUtils.getMainActivities().toString()),
                 CommonItemTitle("getTopActivity", ActivityUtils.getTopActivity().toString()),
@@ -156,8 +152,8 @@ class ActivityActivity : CommonActivity() {
     private fun getOption(activityItem: ActivityItem): Bundle? {
         when (Random().nextInt(5)) {
             0 -> return ActivityOptionsCompat.makeCustomAnimation(this,
-                    R.anim.slide_in_right_1000,
-                    R.anim.slide_out_left_1000)
+                    R.anim.slide_right_in_1000,
+                    R.anim.slide_left_out_1000)
                     .toBundle()
             1 -> return ActivityOptionsCompat.makeScaleUpAnimation(activityItem.element,
                     activityItem.element.width / 2,
@@ -185,12 +181,10 @@ class ActivityItem : CommonItem<ActivityItem> {
 
     lateinit var element: ImageView;
 
-    constructor() : super(R.layout.activity_activity_item_iv)
+    constructor() : super(R.layout.activity_item_shared_element_activity)
 
     override fun bind(holder: ItemViewHolder, position: Int) {
         super.bind(holder, position)
-        if (isViewType(R.layout.activity_activity_item_iv)) {
-            element = holder.findViewById(R.id.activityViewSharedElement)
-        }
+        element = holder.findViewById(R.id.activityViewSharedElement)
     }
 }

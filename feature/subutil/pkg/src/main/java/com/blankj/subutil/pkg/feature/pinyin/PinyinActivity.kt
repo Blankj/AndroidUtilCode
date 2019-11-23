@@ -40,7 +40,7 @@ class PinyinActivity : CommonActivity() {
         for (i in 0 until size) {
             val surname = surnames[i].toString()
             sb.append(String.format(
-                    "\n%s 正确: %-6s 错误: %-6s",
+                    "\n%s 正确: %-8s 错误: %-8s",
                     surname,
                     PinyinUtils.getSurnamePinyin(surname),
                     PinyinUtils.ccs2Pinyin(surname)

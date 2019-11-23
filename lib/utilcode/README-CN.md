@@ -126,6 +126,7 @@ addMarginTopEqualStatusBarHeight     : 为 view 增加 MarginTop 为状态栏高
 subtractMarginTopEqualStatusBarHeight: 为 view 减少 MarginTop 为状态栏高度
 setStatusBarColor                    : 设置状态栏颜色
 setStatusBarColor4Drawer             : 为 DrawerLayout 设置状态栏颜色
+transparentStatusBar                 : 透明状态栏
 getActionBarHeight                   : 获取 ActionBar 高度
 setNotificationBarVisibility         : 设置通知栏是否可见
 getNavBarHeight                      : 获取导航栏高度

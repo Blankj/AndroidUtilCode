@@ -1,20 +1,20 @@
 package com.blankj.base;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.ClickUtils;
 
 /**
@@ -28,7 +28,8 @@ import com.blankj.utilcode.util.ClickUtils;
 public abstract class BaseFragment extends Fragment
         implements IBaseView {
 
-    private static final String TAG                  = "BaseFragment";
+    private static Boolean isDebug;
+
     private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
 
     private View.OnClickListener mClickListener = new View.OnClickListener() {
@@ -38,23 +39,51 @@ public abstract class BaseFragment extends Fragment
         }
     };
 
-    protected Activity       mActivity;
-    protected LayoutInflater mInflater;
-    protected View           mContentView;
+    protected AppCompatActivity mActivity;
+    protected LayoutInflater    mInflater;
+    protected View              mContentView;
+
+    protected boolean mIsVisibleToUser;
+    protected boolean mIsBusinessDone;
+    protected boolean mIsInPager;
+
+    /**
+     * @return true true {@link #doBusiness()} will lazy in view pager, false otherwise
+     */
+    public boolean isLazy() {
+        return false;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        log("setUserVisibleHint: " + isVisibleToUser);
+        super.setUserVisibleHint(isVisibleToUser);
+        mIsInPager = true;
+        if (isVisibleToUser) mIsVisibleToUser = true;
+        if (isLazy()) {
+            if (!mIsBusinessDone && isVisibleToUser && mContentView != null) {
+                mIsBusinessDone = true;
+                doBusiness();
+            }
+        }
+    }
 
     @Override
     public void onAttach(Context context) {
+        log("onAttach");
         super.onAttach(context);
-        mActivity = (Activity) context;
+        mActivity = (AppCompatActivity) context;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate: ");
+        log("onCreate");
         super.onCreate(savedInstanceState);
+        FragmentManager fm = getFragmentManager();
+        if (fm == null) return;
         if (savedInstanceState != null) {
             boolean isSupportHidden = savedInstanceState.getBoolean(STATE_SAVE_IS_HIDDEN);
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            FragmentTransaction ft = fm.beginTransaction();
             if (isSupportHidden) {
                 ft.hide(this);
             } else {
@@ -62,59 +91,67 @@ public abstract class BaseFragment extends Fragment
             }
             ft.commitAllowingStateLoss();
         }
+        Bundle bundle = getArguments();
+        initData(bundle);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: ");
+        log("onCreateView");
+        super.onCreateView(inflater, container, savedInstanceState);
         mInflater = inflater;
-        setRootLayout(bindLayout());
+        setContentView();
         return mContentView;
     }
 
-    @SuppressLint("ResourceType")
     @Override
-    public void setRootLayout(@LayoutRes int layoutId) {
-        if (layoutId <= 0) return;
-        mContentView = mInflater.inflate(layoutId, null);
+    public void setContentView() {
+        if (bindLayout() <= 0) return;
+        mContentView = mInflater.inflate(bindLayout(), null);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "onViewCreated: ");
+        log("onViewCreated");
         super.onViewCreated(view, savedInstanceState);
-        Bundle bundle = getArguments();
-        initData(bundle);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "onActivityCreated: ");
+        log("onActivityCreated");
         super.onActivityCreated(savedInstanceState);
         initView(savedInstanceState, mContentView);
-        doBusiness();
+        if (!mIsInPager || !isLazy() || mIsVisibleToUser) {
+            mIsBusinessDone = true;
+            doBusiness();
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        log("onHiddenChanged: " + hidden);
+        super.onHiddenChanged(hidden);
     }
 
     @Override
     public void onDestroyView() {
-        Log.d(TAG, "onDestroyView: ");
-        if (mContentView != null) {
-            ((ViewGroup) mContentView.getParent()).removeView(mContentView);
-        }
+        log("onDestroyView");
         super.onDestroyView();
+        mIsVisibleToUser = false;
+        mIsBusinessDone = false;
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        Log.d(TAG, "onSaveInstanceState: ");
+        log("onSaveInstanceState");
         super.onSaveInstanceState(outState);
         outState.putBoolean(STATE_SAVE_IS_HIDDEN, isHidden());
     }
 
     @Override
     public void onDestroy() {
-        Log.d(TAG, "onDestroy: ");
+        log("onDestroy");
         super.onDestroy();
     }
 
@@ -125,5 +162,14 @@ public abstract class BaseFragment extends Fragment
     public <T extends View> T findViewById(@IdRes int id) {
         if (mContentView == null) throw new NullPointerException("ContentView is null.");
         return mContentView.findViewById(id);
+    }
+
+    protected void log(String msg) {
+        if (isDebug == null) {
+            isDebug = AppUtils.isAppDebug();
+        }
+        if (isDebug) {
+            Log.d("BaseFragment", getClass().getSimpleName() + ": " + msg);
+        }
     }
 }

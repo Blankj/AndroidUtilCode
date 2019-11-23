@@ -7,18 +7,23 @@
  * </pre>
  */
 class DepConfig {
+    boolean isApply  // 是否应用
     boolean useLocal // 是否使用本地的
     String localPath // 本地路径
     String remotePath// 远程路径
-    boolean isApply  // 是否应用
-    String path      // 最后的路径
+    String pluginPath// 插件路径
+    String pluginId  // 插件 ID
     def dep          // 根据条件生成项目最终的依赖项
 
-    DepConfig(String path) {
-        this(path, true)
+    DepConfig() {
+        isApply = true
     }
 
-    DepConfig(String path, boolean isApply) {
+    DepConfig(String path) {
+        this(true, path)
+    }
+
+    DepConfig(boolean isApply, String path) {
         if (path.startsWith(":")) {
             this.useLocal = true
             this.localPath = path
@@ -28,23 +33,26 @@ class DepConfig {
             this.remotePath = path
             this.isApply = isApply
         }
-        this.path = path
-    }
-
-    DepConfig(boolean useLocal, String path, boolean isApply) { // 自定义插件的构造函数
-        this(useLocal, "", path, isApply)
     }
 
     DepConfig(boolean useLocal, String localPath, String remotePath) {
-        this(useLocal, localPath, remotePath, true)
+        this(true, useLocal, localPath, remotePath)
     }
 
-    DepConfig(boolean useLocal, String localPath, String remotePath, boolean isApply) {
+    DepConfig(boolean isApply, boolean useLocal, String localPath) {
+        this(isApply, useLocal, localPath, null)
+    }
+
+    DepConfig(boolean isApply, boolean useLocal, String localPath, String remotePath) {
+        this.isApply = isApply
         this.useLocal = useLocal
         this.localPath = localPath
         this.remotePath = remotePath
-        this.isApply = isApply
-        this.path = useLocal ? localPath : remotePath
+    }
+
+    String getPath() {
+        if (pluginPath != null) return pluginPath
+        return useLocal ? localPath : remotePath
     }
 
     String getGroupId() {
@@ -62,13 +70,15 @@ class DepConfig {
         return splits.length == 3 ? splits[2] : null
     }
 
-
     @Override
     String toString() {
-        return "DepConfig { " +
-                "useLocal = " + useLocal +
+        return "{ isApply = ${getFlag(isApply)}" +
+                ", useLocal = ${getFlag(useLocal)}" +
                 (dep == null ? ", path = " + path : (", dep = " + dep)) +
-                ", isApply = " + isApply +
                 " }"
+    }
+
+    static String getFlag(boolean b) {
+        return b ? "✅" : "❌"
     }
 }

@@ -3,12 +3,14 @@ package com.blankj.utilcode.pkg.feature.bar
 import android.content.Context
 import android.content.Intent
 import com.blankj.common.activity.CommonActivity
-import com.blankj.common.activity.CommonActivityItemsView
-import com.blankj.common.activity.CommonActivityTitleView
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick
 import com.blankj.common.item.CommonItemTitle
 import com.blankj.utilcode.pkg.R
+import com.blankj.utilcode.pkg.feature.bar.nav.BarNavActivity
+import com.blankj.utilcode.pkg.feature.bar.notification.BarNotificationActivity
+import com.blankj.utilcode.pkg.feature.bar.status.*
+import com.blankj.utilcode.pkg.feature.bar.status.fragment.BarStatusFragmentActivity
 import com.blankj.utilcode.util.CollectionUtils
 
 /**
@@ -39,22 +41,22 @@ class BarActivity : CommonActivity() {
                     BarStatusActivity.start(this)
                 },
                 CommonItemClick(R.string.bar_status_set_color, true) {
-                    BarStatusColorActivity.start(this)
+                    BarStatusActivityColor.start(this)
                 },
                 CommonItemClick(R.string.bar_status_set_alpha, true) {
-                    BarStatusAlphaActivity.start(this)
+                    BarStatusActivityAlpha.start(this)
                 },
                 CommonItemClick(R.string.bar_status_set_image_view, true) {
-                    BarStatusImageViewActivity.start(this)
+                    BarStatusActivityImageView.start(this)
                 },
                 CommonItemClick(R.string.bar_status_set_custom, true) {
-                    BarStatusCustomActivity.start(this)
+                    BarStatusActivityCustom.start(this)
                 },
                 CommonItemClick(R.string.bar_status_set_fragment, true) {
                     BarStatusFragmentActivity.start(this)
                 },
                 CommonItemClick(R.string.bar_status_set_drawer, true) {
-                    BarStatusDrawerActivity.start(this)
+                    BarStatusActivityDrawer.start(this)
                 },
                 CommonItemTitle(R.string.bar_about_notification_bar, true),
                 CommonItemClick(R.string.bar_notification_about, true) {

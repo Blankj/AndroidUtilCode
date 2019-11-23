@@ -83,39 +83,39 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.bar.BarNavActivity"
+            android:name=".feature.bar.nav.BarNavActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.bar.BarNotificationActivity"
+            android:name=".feature.bar.notification.BarNotificationActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.bar.BarStatusActivity"
+            android:name=".feature.bar.status.BarStatusActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.bar.BarStatusAlphaActivity"
+            android:name=".feature.bar.status.BarStatusActivityAlpha"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.bar.BarStatusColorActivity"
+            android:name=".feature.bar.status.BarStatusActivityColor"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.bar.BarStatusCustomActivity"
+            android:name=".feature.bar.status.BarStatusActivityCustom"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.bar.BarStatusDrawerActivity"
+            android:name=".feature.bar.status.BarStatusActivityDrawer"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.bar.BarStatusFragmentActivity"
+            android:name=".feature.bar.status.fragment.BarStatusFragmentActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
-            android:name=".feature.bar.BarStatusImageViewActivity"
+            android:name=".feature.bar.status.BarStatusActivityImageView"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity

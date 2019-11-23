@@ -20,6 +20,7 @@
     <string name="demo_log">LogUtils Demo</string>
     <string name="demo_messenger">MessengerUtils Demo</string>
     <string name="demo_meta_data">MetaDataUtils Demo</string>
+    <string name="demo_mvp">Mvp Demo</string>
     <string name="demo_network">NetworkUtils Demo</string>
     <string name="demo_path">PathUtils Demo</string>
     <string name="demo_notification">Notification Demo</string>
@@ -137,7 +138,7 @@
 
     <!--Click 相关-->
     <string name="click_view_scale_default">Click View Scale Default</string>
-    <string name="click_view_scale_custom">Click View Scale Custom</string>
+    <string name="click_view_scale_half">Click View Scale 50%</string>
     <string name="click_view_alpha_default">Click View Alpha Default</string>
     <string name="click_bg_alpha_default">Click Bg Alpha Default</string>
     <string name="click_bg_dark_default">Click Bg Dark Default</string>

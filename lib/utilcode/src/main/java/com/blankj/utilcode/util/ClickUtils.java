@@ -3,8 +3,8 @@ package com.blankj.utilcode.util;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -38,7 +38,7 @@ public class ClickUtils {
     private static final float PRESSED_BG_ALPHA_DEFAULT_VALUE = 0.9f;
 
     private static final int   PRESSED_BG_DARK_STYLE         = 5;
-    private static final float PRESSED_BG_DARK_DEFAULT_VALUE = 0.1f;
+    private static final float PRESSED_BG_DARK_DEFAULT_VALUE = 0.9f;
 
     private static final int  DEBOUNCING_TAG           = -7;
     private static final long DEBOUNCING_DEFAULT_VALUE = 200;
@@ -222,22 +222,25 @@ public class ClickUtils {
     }
 
     private static Drawable createDarkDrawable(Drawable drawable, float alpha) {
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT
-                && !(drawable instanceof ColorDrawable)) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT && !(drawable instanceof ColorDrawable)) {
             Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
             Canvas myCanvas = new Canvas(bitmap);
-            drawable.setAlpha((int) (alpha * 255));
-            drawable.setColorFilter(setAlphaComponent(Color.BLACK, alpha), PorterDuff.Mode.DST_ATOP);
+            drawable.setColorFilter(getDarkColorFilter(alpha));
             drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
             drawable.draw(myCanvas);
             return new BitmapDrawable(Resources.getSystem(), bitmap);
         }
-        drawable.setColorFilter(setAlphaComponent(Color.BLACK, alpha), PorterDuff.Mode.DST_ATOP);
+        drawable.setColorFilter(getDarkColorFilter(alpha));
         return drawable;
     }
 
-    private static int setAlphaComponent(int color, float alpha) {
-        return (color & 0x00ffffff) | ((int) (alpha * 255.0f + 0.5f) << 24);
+    private static ColorMatrixColorFilter getDarkColorFilter(float darkAlpha) {
+        return new ColorMatrixColorFilter(new ColorMatrix(new float[]{
+                darkAlpha, 0, 0, 0, 0,
+                0, darkAlpha, 0, 0, 0,
+                0, 0, darkAlpha, 0, 0,
+                0, 0, 0, 2, 0
+        }));
     }
 
     /**

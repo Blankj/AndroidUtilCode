@@ -1,7 +1,5 @@
 package com.blankj.common.activity;
 
-import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
@@ -19,7 +17,7 @@ import com.blankj.base.BaseActivity;
 import com.blankj.base.rv.BaseItemAdapter;
 import com.blankj.base.rv.RecycleViewDivider;
 import com.blankj.common.R;
-import com.blankj.common.dialog.CommonLoadingDialog;
+import com.blankj.common.dialog.CommonDialogLoading;
 import com.blankj.common.item.CommonItem;
 import com.blankj.swipepanel.SwipePanel;
 import com.blankj.utilcode.util.SizeUtils;
@@ -40,7 +38,7 @@ public abstract class CommonActivity extends BaseActivity {
     private CommonActivityTitleView  mTitleView;
     private CommonActivityDrawerView mDrawerView;
 
-    private CommonLoadingDialog mLoadingDialog;
+    private CommonDialogLoading mDialogLoading;
 
     public View commonContentView;
 
@@ -116,8 +114,7 @@ public abstract class CommonActivity extends BaseActivity {
 
         mDrawerView = bindDrawerView();
         if (mDrawerView == null) {
-            boolean bindDrawer = bindDrawer();
-            if (bindDrawer) {
+            if (bindDrawer()) {
                 mDrawerView = new CommonActivityDrawerView(this);
             }
         }
@@ -135,21 +132,22 @@ public abstract class CommonActivity extends BaseActivity {
         return View.NO_ID;
     }
 
-    @SuppressLint("ResourceType")
     @Override
-    public void setRootLayout(int layoutId) {
+    public void setContentView() {
         if (mTitleView != null) {
-            super.setRootLayout(mTitleView.bindLayout());
+            mContentView = LayoutInflater.from(this).inflate(mTitleView.bindLayout(), null);
+            setContentView(mContentView);
             commonContentView = mTitleView.getContentView();
         } else if (mDrawerView != null) {
-            super.setRootLayout(mDrawerView.bindLayout());
+            mContentView = LayoutInflater.from(this).inflate(mDrawerView.bindLayout(), null);
+            setContentView(mContentView);
             commonContentView = mDrawerView.getContentView();
         } else {
             if (mItemsView != null) {
-                super.setRootLayout(mItemsView.bindLayout());
-                mItemsView.initView();
+                mContentView = LayoutInflater.from(this).inflate(mItemsView.bindLayout(), null);
+                setContentView(mContentView);
             } else {
-                super.setRootLayout(layoutId);
+                super.setContentView();
             }
             commonContentView = mContentView;
             return;
@@ -157,10 +155,9 @@ public abstract class CommonActivity extends BaseActivity {
 
         if (mItemsView != null) {
             LayoutInflater.from(this).inflate(mItemsView.bindLayout(), (ViewGroup) commonContentView);
-            mItemsView.initView();
         } else {
-            if (layoutId > 0) {
-                LayoutInflater.from(this).inflate(layoutId, (ViewGroup) commonContentView);
+            if (bindLayout() > 0) {
+                LayoutInflater.from(this).inflate(bindLayout(), (ViewGroup) commonContentView);
             }
         }
     }
@@ -182,8 +179,12 @@ public abstract class CommonActivity extends BaseActivity {
         }
     }
 
+    @CallSuper
     @Override
     public void initView(@Nullable Bundle savedInstanceState, @Nullable View contentView) {
+        if (mItemsView != null) {
+            mItemsView.initView();
+        }
     }
 
     @Override
@@ -206,18 +207,18 @@ public abstract class CommonActivity extends BaseActivity {
         showLoading(null);
     }
 
-    public void showLoading(DialogInterface.OnCancelListener listener) {
-        if (mLoadingDialog != null) {
+    public void showLoading(Runnable listener) {
+        if (mDialogLoading != null) {
             dismissLoading();
         }
-        mLoadingDialog = new CommonLoadingDialog(this, listener);
-        mLoadingDialog.show();
+        mDialogLoading = new CommonDialogLoading().init(this, listener);
+        mDialogLoading.show();
     }
 
     public void dismissLoading() {
-        if (mLoadingDialog != null) {
-            mLoadingDialog.dismiss();
-            mLoadingDialog = null;
+        if (mDialogLoading != null) {
+            mDialogLoading.dismiss();
+            mDialogLoading = null;
         }
     }
 
@@ -250,5 +251,9 @@ public abstract class CommonActivity extends BaseActivity {
 
     public void updateCommonItem(int position) {
         mCommonItemAdapter.notifyItemChanged(position);
+    }
+
+    public BaseItemAdapter<CommonItem> getCommonItemAdapter() {
+        return mCommonItemAdapter;
     }
 }

@@ -118,10 +118,9 @@ class PermissionActivity : CommonActivity() {
                                           permissionsDenied: List<String>) {
                         LogUtils.d(permissionsDeniedForever, permissionsDenied)
                         if (permissionsDeniedForever.isNotEmpty()) {
-                            showSnackbar(true, "Calendar is denied forever")
+                            showSnackbar(false, "Calendar is denied forever")
                         } else {
-                            showSnackbar(true, "Calendar is denied")
-                            requestCalendar()
+                            showSnackbar(false, "Calendar is denied")
                         }
                         itemsView.updateItems(bindItems())
                     }
@@ -147,7 +146,6 @@ class PermissionActivity : CommonActivity() {
                             showSnackbar(false, "Microphone is denied forever")
                         } else {
                             showSnackbar(false, "Microphone is denied")
-                            requestRecordAudio()
                         }
                         itemsView.updateItems(bindItems())
                     }
@@ -174,7 +172,6 @@ class PermissionActivity : CommonActivity() {
                             showSnackbar(false, "Calendar or Microphone is denied forever")
                         } else {
                             showSnackbar(false, "Calendar or Microphone is denied")
-                            requestCalendarAndRecordAudio()
                         }
                         itemsView.updateItems(bindItems())
                     }

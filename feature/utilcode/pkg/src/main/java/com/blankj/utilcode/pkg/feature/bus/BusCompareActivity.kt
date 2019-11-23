@@ -3,7 +3,6 @@ package com.blankj.utilcode.pkg.feature.bus
 import android.content.Context
 import android.content.Intent
 import com.blankj.common.activity.CommonActivity
-import com.blankj.common.activity.CommonActivityTitleView
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick
 import com.blankj.common.item.CommonItemTitle
@@ -14,6 +13,7 @@ import com.blankj.utilcode.util.ThreadUtils
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.util.*
+import java.util.concurrent.CopyOnWriteArrayList
 
 
 /**
@@ -66,8 +66,8 @@ class BusCompareActivity : CommonActivity() {
      * 注册 10000 个订阅者，共执行 10 次取平均值
      */
     private fun compareRegister10000Times() {
-        val eventBusTests = java.util.ArrayList<BusEvent>()
-        val busUtilsTests = java.util.ArrayList<BusEvent>()
+        val eventBusTests = CopyOnWriteArrayList<BusEvent>()
+        val busUtilsTests = CopyOnWriteArrayList<BusEvent>()
 
         compareWithEventBus("Register 10000 times.", 10, 10000, object : CompareCallback {
             override fun runEventBus() {
@@ -203,9 +203,7 @@ class BusCompareActivity : CommonActivity() {
      */
     private fun compareWithEventBus(name: String, sampleSize: Int, times: Int,
                                     callback: CompareCallback, onFinishCallback: OnFinishCallback) {
-        showLoading {
-            ThreadUtils.cancel(ThreadUtils.getCpuPool())
-        }
+        showLoading()
         ThreadUtils.executeByCpu(object : ThreadUtils.Task<String>() {
             override fun doInBackground(): String {
                 val dur = Array(2) { LongArray(sampleSize) }

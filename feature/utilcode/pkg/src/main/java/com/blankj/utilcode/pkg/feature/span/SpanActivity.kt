@@ -18,7 +18,7 @@ import com.blankj.common.activity.CommonActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
-import kotlinx.android.synthetic.main.activity_span.*
+import kotlinx.android.synthetic.main.span_activity.*
 
 /**
  * ```
@@ -57,7 +57,12 @@ class SpanActivity : CommonActivity() {
         return R.string.demo_span
     }
 
+    override fun bindLayout(): Int {
+        return R.layout.span_activity
+    }
+
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
+        super.initView(savedInstanceState, contentView)
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
                 ToastUtils.showShort("事件触发了")
@@ -210,12 +215,12 @@ class SpanActivity : CommonActivity() {
 
     override fun onDebouncingClick(view: View) {}
 
-    override fun onDestroy() {
-        if (valueAnimator != null && valueAnimator.isRunning) {
-            valueAnimator.cancel()
-        }
-        super.onDestroy()
-    }
+//    override fun onDestroy() {
+//        if (valueAnimator.isRunning) {
+//            valueAnimator.cancel()
+//        }
+//        super.onDestroy()
+//    }
 }
 
 class BlurMaskFilterSpan(private var mRadius: Float) : CharacterStyle(), UpdateAppearance {

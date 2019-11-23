@@ -1141,6 +1141,48 @@ public final class EncryptUtils {
         return null;
     }
 
+    /**
+     * Return the bytes of RC4 encryption/decryption.
+     *
+     * @param data The data.
+     * @param key  The key.
+     */
+    public static byte[] rc4(byte[] data, byte[] key) {
+        if (data == null || data.length == 0 || key == null) return null;
+        if (key.length < 1 || key.length > 256) {
+            throw new IllegalArgumentException("key must be between 1 and 256 bytes");
+        }
+        final byte[] iS = new byte[256];
+        final byte[] iK = new byte[256];
+        int keyLen = key.length;
+        for (int i = 0; i < 256; i++) {
+            iS[i] = (byte) i;
+            iK[i] = key[i % keyLen];
+        }
+        int j = 0;
+        byte tmp;
+        for (int i = 0; i < 256; i++) {
+            j = (j + iS[i] + iK[i]) & 0xFF;
+            tmp = iS[j];
+            iS[j] = iS[i];
+            iS[i] = tmp;
+        }
+
+        final byte[] ret = new byte[data.length];
+        int i = 0, k, t;
+        for (int counter = 0; counter < data.length; counter++) {
+            i = (i + 1) & 0xFF;
+            j = (j + iS[i]) & 0xFF;
+            tmp = iS[j];
+            iS[j] = iS[i];
+            iS[i] = tmp;
+            t = (iS[i] + iS[j]) & 0xFF;
+            k = iS[t];
+            ret[counter] = (byte) (data[counter] ^ k);
+        }
+        return ret;
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     // other utils methods
     ///////////////////////////////////////////////////////////////////////////

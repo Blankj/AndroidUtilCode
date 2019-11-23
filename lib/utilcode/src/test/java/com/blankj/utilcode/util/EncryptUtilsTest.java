@@ -408,6 +408,14 @@ public class EncryptUtilsTest extends BaseTest {
         ), dataRSA.getBytes());
     }
 
+    private String dataRc4 = "111111111111111111111";
+    private String keyRc4  = "111111111111";
+
+    @Test
+    public void rc4() throws Exception {
+        System.out.println(new String(EncryptUtils.rc4(EncryptUtils.rc4(dataRc4.getBytes(), keyRc4.getBytes()), keyRc4.getBytes())));
+    }
+
     private static byte[] base64Encode(final byte[] input) {
         return Base64.encode(input, Base64.NO_WRAP);
     }

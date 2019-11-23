@@ -20,10 +20,11 @@ class AdaptHeightActivity : CommonActivity() {
     }
 
     override fun bindLayout(): Int {
-        return R.layout.activity_adaptscreen_height
+        return R.layout.adaptscreen_height_activity
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
+        super.initView(savedInstanceState, contentView)
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
 

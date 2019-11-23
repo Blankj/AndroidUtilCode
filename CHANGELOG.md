@@ -1,3 +1,4 @@
+* `19/11/22` [fix] Adapt the project for Gradle version of 6.0.
 * `19/10/30` [add] Publish bus plugin v2.3. Publish api plugin v1.1.
 * `19/10/24` [upd] Demo's UI.
 * `19/10/22` [add] NotificationUtils.

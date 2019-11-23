@@ -41,6 +41,7 @@
         android:layout_height="16dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/common_ic_item_go" />
+        android:src="@drawable/common_ic_item_go"
+        android:visibility="gone" />
 
 </RelativeLayout>

@@ -2,7 +2,7 @@
 <resources>
 
     <style name="BottomDialogAnimation">
-        <item name="android:windowEnterAnimation">@anim/slide_in_bottom_200</item>
-        <item name="android:windowExitAnimation">@anim/slide_out_bottom_200</item>
+        <item name="android:windowEnterAnimation">@anim/slide_bottom_in_200</item>
+        <item name="android:windowExitAnimation">@anim/slide_bottom_out_200</item>
     </style>
 </resources>

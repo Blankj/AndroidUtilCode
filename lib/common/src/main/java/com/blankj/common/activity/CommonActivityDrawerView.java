@@ -6,11 +6,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.blankj.base.BaseActivity;
 import com.blankj.common.R;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.StringUtils;
@@ -25,9 +25,9 @@ import com.blankj.utilcode.util.StringUtils;
  */
 public class CommonActivityDrawerView {
 
-    public BaseActivity mBaseActivity;
-    public DrawerLayout mBaseDrawerRootLayout;
-    public FrameLayout  mBaseDrawerContainerView;
+    public AppCompatActivity mBaseActivity;
+    public DrawerLayout      mBaseDrawerRootLayout;
+    public FrameLayout       mBaseDrawerContainerView;
 
     private NavigationView.OnNavigationItemSelectedListener mListener = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -42,7 +42,7 @@ public class CommonActivityDrawerView {
         }
     };
 
-    public CommonActivityDrawerView(@NonNull BaseActivity activity) {
+    public CommonActivityDrawerView(@NonNull AppCompatActivity activity) {
         mBaseActivity = activity;
     }
 

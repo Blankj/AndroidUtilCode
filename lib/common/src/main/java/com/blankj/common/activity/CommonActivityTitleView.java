@@ -4,13 +4,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
 
-import com.blankj.base.BaseActivity;
 import com.blankj.common.R;
 import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.ColorUtils;
@@ -25,7 +25,7 @@ import com.blankj.utilcode.util.ColorUtils;
  */
 public class CommonActivityTitleView {
 
-    public BaseActivity      mBaseActivity;
+    public AppCompatActivity mBaseActivity;
     public CharSequence      mTitle;
     public boolean           mIsSupportScroll;
     public CoordinatorLayout baseTitleRootLayout;
@@ -33,19 +33,19 @@ public class CommonActivityTitleView {
     public FrameLayout       baseTitleContentView;
     public ViewStub          mViewStub;
 
-    public CommonActivityTitleView(@NonNull BaseActivity activity, @StringRes int resId) {
+    public CommonActivityTitleView(@NonNull AppCompatActivity activity, @StringRes int resId) {
         this(activity, activity.getString(resId), true);
     }
 
-    public CommonActivityTitleView(@NonNull BaseActivity activity, @NonNull CharSequence title) {
+    public CommonActivityTitleView(@NonNull AppCompatActivity activity, @NonNull CharSequence title) {
         this(activity, title, true);
     }
 
-    public CommonActivityTitleView(@NonNull BaseActivity activity, @StringRes int resId, boolean isSupportScroll) {
+    public CommonActivityTitleView(@NonNull AppCompatActivity activity, @StringRes int resId, boolean isSupportScroll) {
         this(activity, activity.getString(resId), isSupportScroll);
     }
 
-    public CommonActivityTitleView(@NonNull BaseActivity activity, @NonNull CharSequence title, boolean isSupportScroll) {
+    public CommonActivityTitleView(@NonNull AppCompatActivity activity, @NonNull CharSequence title, boolean isSupportScroll) {
         mBaseActivity = activity;
         mTitle = title;
         mIsSupportScroll = isSupportScroll;

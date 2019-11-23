@@ -140,6 +140,7 @@ public final class UiMessageUtils implements Handler.Callback {
                 if (DEBUG) {
                     if (!callbacks.contains(listener)) {
                         Log.w(TAG, "Trying to remove specific listener that is not registered. ID " + id + ", " + listener);
+                        return;
                     }
                 }
                 callbacks.remove(listener);

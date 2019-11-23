@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
@@ -311,7 +312,7 @@ public final class Utils {
     // TransActivity
     ///////////////////////////////////////////////////////////////////////////
 
-    public static final class TransActivity extends Activity {
+    public static final class TransActivity extends FragmentActivity {
 
         private static final Map<TransActivity, TransActivityDelegate> CALLBACK_MAP = new HashMap<>();
         private static       TransActivityDelegate                     sDelegate;

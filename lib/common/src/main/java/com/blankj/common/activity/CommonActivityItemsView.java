@@ -1,10 +1,10 @@
 package com.blankj.common.activity;
 
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.blankj.base.BaseActivity;
 import com.blankj.base.rv.BaseItemAdapter;
 import com.blankj.base.rv.RecycleViewDivider;
 import com.blankj.common.R;
@@ -22,18 +22,18 @@ import java.util.List;
  */
 public class CommonActivityItemsView {
 
-    public  BaseActivity                mBaseActivity;
+    public  AppCompatActivity           mBaseActivity;
     private List<CommonItem>            mItems;
     public  BaseItemAdapter<CommonItem> mCommonItemAdapter;
     public  RecyclerView                mCommonItemRv;
 
-    public CommonActivityItemsView(@NonNull BaseActivity activity, @NonNull List<CommonItem> items) {
+    public CommonActivityItemsView(@NonNull AppCompatActivity activity, @NonNull List<CommonItem> items) {
         mBaseActivity = activity;
         mItems = items;
     }
 
     public int bindLayout() {
-        return R.layout.common_activity_item;
+        return R.layout.common_item;
     }
 
     public void initView() {

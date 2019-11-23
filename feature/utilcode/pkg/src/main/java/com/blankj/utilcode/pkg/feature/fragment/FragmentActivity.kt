@@ -10,7 +10,7 @@ import android.view.View
 import com.blankj.common.activity.CommonActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.FragmentUtils
-import kotlinx.android.synthetic.main.activity_fragment.*
+import kotlinx.android.synthetic.main.fragment_activity.*
 
 /**
  * ```
@@ -51,10 +51,11 @@ class FragmentActivity : CommonActivity() {
     }
 
     override fun bindLayout(): Int {
-        return R.layout.activity_fragment
+        return R.layout.fragment_activity
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
+        super.initView(savedInstanceState, contentView)
         if (savedInstanceState != null) {
             curIndex = savedInstanceState.getInt("curIndex")
         }
@@ -71,10 +72,6 @@ class FragmentActivity : CommonActivity() {
                 curIndex
         )
     }
-
-    override fun doBusiness() {}
-
-    override fun onDebouncingClick(view: View) {}
 
     override fun onBackPressed() {
         if (!FragmentUtils.dispatchBackPress(mFragments[curIndex])) {

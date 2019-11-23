@@ -88,6 +88,7 @@ class NetworkActivity : CommonActivity(), NetworkUtils.OnNetworkStatusChangedLis
     }
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
+        super.initView(savedInstanceState, contentView)
         NetworkUtils.registerNetworkStatusChangedListener(this)
         updateItems()
     }

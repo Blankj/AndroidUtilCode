@@ -93,7 +93,7 @@ public final class IntentUtils {
      */
     public static Intent getInstallAppIntent(final File file, final boolean isNewTask) {
         if (file == null) return null;
-        Intent intent = new Intent();
+        Intent intent = new Intent(Intent.ACTION_VIEW);
         Uri data;
         String type = "application/vnd.android.package-archive";
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {

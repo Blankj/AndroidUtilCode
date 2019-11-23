@@ -235,6 +235,34 @@ public final class BarUtils {
         return applyStatusBarColor(activity, color, isDecor);
     }
 
+
+    /**
+     * Set the status bar's color.
+     *
+     * @param window The window.
+     * @param color  The status bar's color.
+     */
+    public static View setStatusBarColor(@NonNull final Window window,
+                                         @ColorInt final int color) {
+        return setStatusBarColor(window, color, false);
+    }
+
+    /**
+     * Set the status bar's color.
+     *
+     * @param window  The window.
+     * @param color   The status bar's color.
+     * @param isDecor True to add fake status bar in DecorView,
+     *                false to add fake status bar in ContentView.
+     */
+    public static View setStatusBarColor(@NonNull final Window window,
+                                         @ColorInt final int color,
+                                         final boolean isDecor) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return null;
+        transparentStatusBar(window);
+        return applyStatusBarColor(window, color, isDecor);
+    }
+
     /**
      * Set the status bar's color.
      *
@@ -324,9 +352,15 @@ public final class BarUtils {
     private static View applyStatusBarColor(final Activity activity,
                                             final int color,
                                             boolean isDecor) {
+        return applyStatusBarColor(activity.getWindow(), color, isDecor);
+    }
+
+    private static View applyStatusBarColor(final Window window,
+                                            final int color,
+                                            boolean isDecor) {
         ViewGroup parent = isDecor ?
-                (ViewGroup) activity.getWindow().getDecorView() :
-                (ViewGroup) activity.findViewById(android.R.id.content);
+                (ViewGroup) window.getDecorView() :
+                (ViewGroup) window.findViewById(android.R.id.content);
         View fakeStatusBarView = parent.findViewWithTag(TAG_STATUS_BAR);
         if (fakeStatusBarView != null) {
             if (fakeStatusBarView.getVisibility() == View.GONE) {
@@ -334,7 +368,7 @@ public final class BarUtils {
             }
             fakeStatusBarView.setBackgroundColor(color);
         } else {
-            fakeStatusBarView = createStatusBarView(activity, color);
+            fakeStatusBarView = createStatusBarView(window.getContext(), color);
             parent.addView(fakeStatusBarView);
         }
         return fakeStatusBarView;
@@ -358,9 +392,9 @@ public final class BarUtils {
         fakeStatusBarView.setVisibility(View.VISIBLE);
     }
 
-    private static View createStatusBarView(final Activity activity,
+    private static View createStatusBarView(final Context context,
                                             final int color) {
-        View statusBarView = new View(activity);
+        View statusBarView = new View(context);
         statusBarView.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight()));
         statusBarView.setBackgroundColor(color);
@@ -368,11 +402,11 @@ public final class BarUtils {
         return statusBarView;
     }
 
-    private static void transparentStatusBar(final Activity activity) {
+    public static void transparentStatusBar(final Activity activity) {
         transparentStatusBar(activity.getWindow());
     }
 
-    private static void transparentStatusBar(final Window window) {
+    public static void transparentStatusBar(final Window window) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
