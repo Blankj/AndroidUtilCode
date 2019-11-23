@@ -12,7 +12,7 @@ class Config {
     static appName = 'Util'
 
     static compileSdkVersion = 28
-    static minSdkVersion = 16
+    static minSdkVersion = 14
     static targetSdkVersion = 28
     static versionCode = 1_026_000
     static versionName = '1.26.0'// E.g. 1.9.72 => 1,009,072
