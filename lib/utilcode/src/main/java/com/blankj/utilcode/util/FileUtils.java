@@ -18,6 +18,7 @@ import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -36,6 +37,8 @@ import javax.net.ssl.HttpsURLConnection;
 public final class FileUtils {
 
     private static final String LINE_SEP = System.getProperty("line.separator");
+
+    private static final int BYTE_SIZE = 8;
 
     private FileUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -903,8 +906,102 @@ public final class FileUtils {
             case 0xfeff:
                 return "UTF-16BE";
             default:
-                return "GBK";
+                try {
+                    if (isUtf8(file)) {
+                        return "UTF-8";
+                    } else {
+                        return "GBK";
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return "GBK";
+                }
         }
+    }
+
+    /**
+     * Return whether the charset of file is utf8.
+     *
+     * @param file The file.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    private static boolean isUtf8(File file) throws Exception {
+        BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+        // 读取第一个字节
+        int code = bis.read();
+        do {
+            BitSet bitSet = convert2BitSet(code);
+            if (bitSet.get(0)) {
+                // 多字节时，再读取N个字节
+                if (!checkMultiByte(bis, bitSet)) {
+                    bis.close();
+                    return false;
+                }
+            }
+            // 单字节时什么都不用做，再次读取字节
+            code = bis.read();
+        } while (code != -1);
+        bis.close();
+        return true;
+    }
+
+
+    /**
+     * 检测多字节，判断是否符合utf8编码
+     */
+    private static boolean checkMultiByte(BufferedInputStream bis, BitSet bitSet) throws Exception {
+        int count = getCountOfSequential(bitSet);
+        // 已经读取了一个字节，不能再读取
+        byte[] bytes = new byte[count - 1];
+        bis.read(bytes);
+        for (byte b : bytes) {
+            if (!checkUtf8Byte(b)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    /**
+     * 检测bitSet中从开始有多少个连续的1
+     */
+    private static int getCountOfSequential(BitSet bitSet) {
+        int count = 0;
+        for (int i = 0; i < BYTE_SIZE; i++) {
+            if (bitSet.get(i)) {
+                count++;
+            } else {
+                break;
+            }
+        }
+        return count;
+    }
+
+
+    /**
+     * 检测单字节，判断是否为utf8
+     */
+    private static boolean checkUtf8Byte(byte b) throws Exception {
+        BitSet bitSet = convert2BitSet(b);
+        return bitSet.get(0) && !bitSet.get(1);
+    }
+
+
+    /**
+     * 将整形转为BitSet
+     */
+    private static BitSet convert2BitSet(int code) {
+        BitSet bitSet = new BitSet(BYTE_SIZE);
+
+        for (int i = 0; i < BYTE_SIZE; i++) {
+            int tmp3 = code >> (BYTE_SIZE - i - 1);
+            int tmp2 = 0x1 & tmp3;
+            if (tmp2 == 1) {
+                bitSet.set(i);
+            }
+        }
+        return bitSet;
     }
 
     /**
@@ -914,97 +1011,15 @@ public final class FileUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isUtf8(final String filePath) {
-        return isUtf8(getFileByPath(filePath));
-    }
-
-    /**
-     * Return whether the charset of file is utf8.
-     *
-     * @param file The file.
-     * @return {@code true}: yes<br>{@code false}: no
-     */
-    public static boolean isUtf8(final File file) {
-        if (file == null) return false;
-        InputStream is = null;
         try {
-            byte[] bytes = new byte[24];
-            is = new BufferedInputStream(new FileInputStream(file));
-            int read = is.read(bytes);
-            if (read != -1) {
-                byte[] readArr = new byte[read];
-                System.arraycopy(bytes, 0, readArr, 0, read);
-                return isUtf8(readArr) == 100;
-            } else {
-                return false;
-            }
-        } catch (IOException e) {
+            return isUtf8(getFileByPath(filePath));
+        } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (is != null) {
-                    is.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            return false;
         }
-        return false;
     }
 
-    private static int isUtf8(byte[] raw) {
-        int i, len;
-        int utf8 = 0, ascii = 0;
-        if (raw.length > 3) {
-            if ((raw[0] == (byte) 0xEF) && (raw[1] == (byte) 0xBB) && (raw[2] == (byte) 0xBF)) {
-                return 100;
-            }
-        }
-        len = raw.length;
-        int child = 0;
-        for (i = 0; i < len; ) {
-            if ((raw[i] & (byte) 0xFF) == (byte) 0xFF || (raw[i] & (byte) 0xFE) == (byte) 0xFE) {
-                return 0;
-            }
-            if (child == 0) {
-                if ((raw[i] & (byte) 0x7F) == raw[i] && raw[i] != 0) {
-                    ascii++;
-                } else if ((raw[i] & (byte) 0xC0) == (byte) 0xC0) {
-                    for (int bit = 0; bit < 8; bit++) {
-                        if ((((byte) (0x80 >> bit)) & raw[i]) == ((byte) (0x80 >> bit))) {
-                            child = bit;
-                        } else {
-                            break;
-                        }
-                    }
-                    utf8++;
-                }
-                i++;
-            } else {
-                child = (raw.length - i > child) ? child : (raw.length - i);
-                boolean currentNotUtf8 = false;
-                for (int children = 0; children < child; children++) {
-                    if ((raw[i + children] & ((byte) 0x80)) != ((byte) 0x80)) {
-                        if ((raw[i + children] & (byte) 0x7F) == raw[i + children] && raw[i] != 0) {
-                            ascii++;
-                        }
-                        currentNotUtf8 = true;
-                    }
-                }
-                if (currentNotUtf8) {
-                    utf8--;
-                    i++;
-                } else {
-                    utf8 += child;
-                    i += child;
-                }
-                child = 0;
-            }
-        }
-        if (ascii == len) {
-            return 100;
-        }
-        return (int) (100 * ((float) (utf8 + ascii) / (float) len));
-    }
+
 
     /**
      * Return the number of lines of file.
