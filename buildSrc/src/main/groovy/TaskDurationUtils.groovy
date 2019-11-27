@@ -69,7 +69,7 @@ class TaskDurationUtils {
                         sb.append(String.format("%7sms %s\n", it.exeDuration, it.task.path))
                     }
                     def content = sb.toString()
-//                    GLog.d(content)
+                    GLog.d(content)
                     File file = new File(grd.rootProject.buildDir.getAbsolutePath(),
                             "build_time_records_" + new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date()) + ".txt")
                     file.getParentFile().mkdirs()
