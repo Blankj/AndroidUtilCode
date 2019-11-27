@@ -233,15 +233,15 @@ public class TimeUtilsTest extends BaseTest {
         assertEquals("Thursday", TimeUtils.getUSWeek(timeMillis));
     }
 
-    @Test
-    public void isAm() {
-        assertFalse(TimeUtils.isAm(timeMillis));
-    }
-
-    @Test
-    public void isPm() {
-        assertTrue(TimeUtils.isPm(timeMillis));
-    }
+    //@Test
+    //public void isAm() {
+    //    assertFalse(TimeUtils.isAm(timeMillis));
+    //}
+    //
+    //@Test
+    //public void isPm() {
+    //    assertTrue(TimeUtils.isPm(timeMillis));
+    //}
 
     @Test
     public void getWeekIndex() {

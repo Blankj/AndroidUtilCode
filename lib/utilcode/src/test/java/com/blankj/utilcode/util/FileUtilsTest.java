@@ -33,7 +33,7 @@ public class FileUtilsTest extends BaseTest {
 
     private FileUtils.OnReplaceListener mListener = new FileUtils.OnReplaceListener() {
         @Override
-        public boolean onReplace() {
+        public boolean onReplace(File srcFile, File destFile) {
             return true;
         }
     };

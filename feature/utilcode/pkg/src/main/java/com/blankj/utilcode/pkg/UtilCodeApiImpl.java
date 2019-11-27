@@ -28,5 +28,4 @@ public class UtilCodeApiImpl extends UtilCodeApi {
             callback.call();
         }
     }
-
 }

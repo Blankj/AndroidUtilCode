@@ -24,6 +24,7 @@ import com.blankj.utilcode.pkg.feature.language.LanguageActivity
 import com.blankj.utilcode.pkg.feature.log.LogActivity
 import com.blankj.utilcode.pkg.feature.messenger.MessengerActivity
 import com.blankj.utilcode.pkg.feature.metaData.MetaDataActivity
+import com.blankj.utilcode.pkg.feature.mvp.MvpActivity
 import com.blankj.utilcode.pkg.feature.network.NetworkActivity
 import com.blankj.utilcode.pkg.feature.notification.NotificationActivity
 import com.blankj.utilcode.pkg.feature.path.PathActivity
@@ -122,6 +123,9 @@ class CoreUtilActivity : CommonActivity() {
                 },
                 CommonItemClick(R.string.demo_meta_data, true) {
                     MetaDataActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_mvp, true) {
+                    MvpActivity.start(this)
                 },
                 CommonItemClick(R.string.demo_network, true) {
                     NetworkActivity.start(this)

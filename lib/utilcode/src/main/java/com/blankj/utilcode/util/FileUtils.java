@@ -1,7 +1,10 @@
 package com.blankj.utilcode.util;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.net.Uri;
+import android.os.Build;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -58,7 +61,23 @@ public final class FileUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isFileExists(final String filePath) {
-        return isFileExists(getFileByPath(filePath));
+        if (Build.VERSION.SDK_INT < 29) {
+            return isFileExists(getFileByPath(filePath));
+        } else {
+            try {
+                Uri uri = Uri.parse(filePath);
+                ContentResolver cr = Utils.getApp().getContentResolver();
+                AssetFileDescriptor afd = cr.openAssetFileDescriptor(uri, "r");
+                if (afd == null) return false;
+                try {
+                    afd.close();
+                } catch (IOException ignore) {
+                }
+            } catch (FileNotFoundException e) {
+                return false;
+            }
+            return true;
+        }
     }
 
     /**
@@ -399,15 +418,6 @@ public final class FileUtils {
         String destPath = destDir.getPath() + File.separator;
         if (destPath.contains(srcPath)) return false;
         if (!srcDir.exists() || !srcDir.isDirectory()) return false;
-        if (destDir.exists()) {
-            if (listener == null || listener.onReplace()) {// require delete the old directory
-                if (!deleteAllInDir(destDir)) {// unsuccessfully delete then return false
-                    return false;
-                }
-            } else {
-                return true;
-            }
-        }
         if (!createOrExistsDir(destDir)) return false;
         File[] files = srcDir.listFiles();
         for (File file : files) {
@@ -431,7 +441,7 @@ public final class FileUtils {
         // srcFile doesn't exist or isn't a file then return false
         if (!srcFile.exists() || !srcFile.isFile()) return false;
         if (destFile.exists()) {
-            if (listener == null || listener.onReplace()) {// require delete the old file
+            if (listener == null || listener.onReplace(srcFile, destFile)) {// require delete the old file
                 if (!destFile.delete()) {// unsuccessfully delete then return false
                     return false;
                 }
@@ -879,6 +889,7 @@ public final class FileUtils {
      */
     public static String getFileCharsetSimple(final File file) {
         if (file == null) return "";
+        if (isUtf8(file)) return "UTF-8";
         int p = 0;
         InputStream is = null;
         try {
@@ -896,8 +907,6 @@ public final class FileUtils {
             }
         }
         switch (p) {
-            case 0xefbb:
-                return "UTF-8";
             case 0xfffe:
                 return "Unicode";
             case 0xfeff:
@@ -951,6 +960,14 @@ public final class FileUtils {
         return false;
     }
 
+    /**
+     * UTF-8编码方式
+     * ----------------------------------------------
+     * 0xxxxxxx
+     * 110xxxxx 10xxxxxx
+     * 1110xxxx 10xxxxxx 10xxxxxx
+     * 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
+     */
     private static int isUtf8(byte[] raw) {
         int i, len;
         int utf8 = 0, ascii = 0;
@@ -962,13 +979,16 @@ public final class FileUtils {
         len = raw.length;
         int child = 0;
         for (i = 0; i < len; ) {
+            // UTF-8 byte shouldn't be FF and FE
             if ((raw[i] & (byte) 0xFF) == (byte) 0xFF || (raw[i] & (byte) 0xFE) == (byte) 0xFE) {
                 return 0;
             }
             if (child == 0) {
+                // ASCII format is 0x0*******
                 if ((raw[i] & (byte) 0x7F) == raw[i] && raw[i] != 0) {
                     ascii++;
                 } else if ((raw[i] & (byte) 0xC0) == (byte) 0xC0) {
+                    // 0x11****** maybe is UTF-8
                     for (int bit = 0; bit < 8; bit++) {
                         if ((((byte) (0x80 >> bit)) & raw[i]) == ((byte) (0x80 >> bit))) {
                             child = bit;
@@ -983,8 +1003,10 @@ public final class FileUtils {
                 child = (raw.length - i > child) ? child : (raw.length - i);
                 boolean currentNotUtf8 = false;
                 for (int children = 0; children < child; children++) {
+                    // format must is 0x10******
                     if ((raw[i + children] & ((byte) 0x80)) != ((byte) 0x80)) {
                         if ((raw[i + children] & (byte) 0x7F) == raw[i + children] && raw[i] != 0) {
+                            // ASCII format is 0x0*******
                             ascii++;
                         }
                         currentNotUtf8 = true;
@@ -1000,6 +1022,7 @@ public final class FileUtils {
                 child = 0;
             }
         }
+        // UTF-8 contains ASCII
         if (ascii == len) {
             return 100;
         }
@@ -1375,7 +1398,7 @@ public final class FileUtils {
     ///////////////////////////////////////////////////////////////////////////
 
     public interface OnReplaceListener {
-        boolean onReplace();
+        boolean onReplace(File srcFile, File destFile);
     }
 
     ///////////////////////////////////////////////////////////////////////////

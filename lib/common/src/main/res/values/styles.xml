@@ -10,7 +10,7 @@
     </style>
 
     <style name="SplashTheme" parent="AppTheme">
-        <item name="android:windowDisablePreview">true</item>
+<!--        <item name="android:windowDisablePreview">true</item>-->
     </style>
 
 

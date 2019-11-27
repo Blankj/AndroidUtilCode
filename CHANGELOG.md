@@ -1,7 +1,10 @@
+* `19/11/28` [add] Publish v1.26.0.
+* `19/11/27` [add] Shadow demo.
+* `19/11/26` [add] MVP demo.
 * `19/11/22` [fix] Adapt the project for Gradle version of 6.0.
 * `19/10/30` [add] Publish bus plugin v2.3. Publish api plugin v1.1.
 * `19/10/24` [upd] Demo's UI.
-* `19/10/22` [add] NotificationUtils.
+* `19/10/22` [add] NotificationUtils and demo.
 * `19/10/20` [add] UiMessageUtils.
 * `19/09/20` [add] ShadowUtils.
 * `19/08/27` [add] DebugUtils.

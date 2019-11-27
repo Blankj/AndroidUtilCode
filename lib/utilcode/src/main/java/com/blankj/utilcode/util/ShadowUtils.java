@@ -39,24 +39,24 @@ public class ShadowUtils {
     public static void apply(View... views) {
         if (views == null) return;
         for (View view : views) {
-            apply(view, new Builder());
+            apply(view, new Config());
         }
     }
 
-    public static void apply(View view, Builder builder) {
+    public static void apply(View view, Config builder) {
         if (view == null || builder == null) return;
         Drawable background = view.getBackground();
         Object tag = view.getTag(SHADOW_TAG);
         if (tag instanceof Drawable) {
             ViewCompat.setBackground(view, (Drawable) tag);
         } else {
-            background = builder.create(background);
+            background = builder.apply(background);
             ViewCompat.setBackground(view, background);
             view.setTag(SHADOW_TAG, background);
         }
     }
 
-    public static class Builder {
+    public static class Config {
 
         private static final int SHADOW_COLOR_DEFAULT = 0xb0_000000;
         private static final int SHADOW_SIZE          = dp2px(8);
@@ -70,10 +70,10 @@ public class ShadowUtils {
         private int     mShadowColorPressed   = SHADOW_COLOR_DEFAULT;
         private boolean isCircle              = false;
 
-        public Builder() {
+        public Config() {
         }
 
-        public Builder setShadowRadius(float radius) {
+        public Config setShadowRadius(float radius) {
             this.mShadowRadius = radius;
             if (isCircle) {
                 throw new IllegalArgumentException("Set circle needn't set radius.");
@@ -81,7 +81,7 @@ public class ShadowUtils {
             return this;
         }
 
-        public Builder setCircle() {
+        public Config setCircle() {
             isCircle = true;
             if (mShadowRadius != -1) {
                 throw new IllegalArgumentException("Set circle needn't set radius.");
@@ -89,37 +89,37 @@ public class ShadowUtils {
             return this;
         }
 
-        public Builder setShadowSize(int size) {
+        public Config setShadowSize(int size) {
             return setShadowSize(size, size);
         }
 
-        public Builder setShadowSize(int sizeNormal, int sizePressed) {
+        public Config setShadowSize(int sizeNormal, int sizePressed) {
             this.mShadowSizeNormal = sizeNormal;
             this.mShadowSizePressed = sizePressed;
             return this;
         }
 
-        public Builder setShadowMaxSize(int maxSize) {
+        public Config setShadowMaxSize(int maxSize) {
             return setShadowMaxSize(maxSize, maxSize);
         }
 
-        public Builder setShadowMaxSize(int maxSizeNormal, int maxSizePressed) {
+        public Config setShadowMaxSize(int maxSizeNormal, int maxSizePressed) {
             this.mShadowMaxSizeNormal = maxSizeNormal;
             this.mShadowMaxSizePressed = maxSizePressed;
             return this;
         }
 
-        public Builder setShadowColor(int color) {
+        public Config setShadowColor(int color) {
             return setShadowColor(color, color);
         }
 
-        public Builder setShadowColor(int colorNormal, int colorPressed) {
+        public Config setShadowColor(int colorNormal, int colorPressed) {
             this.mShadowColorNormal = colorNormal;
             this.mShadowColorPressed = colorPressed;
             return this;
         }
 
-        public Drawable create(Drawable src) {
+        Drawable apply(Drawable src) {
             if (src == null) {
                 src = new ColorDrawable(Color.TRANSPARENT);
             }
@@ -182,10 +182,10 @@ public class ShadowUtils {
         // used to calculate content padding
         private static final double COS_45 = Math.cos(Math.toRadians(45));
 
-        private float mShadowMultiplier = 1.5f;
+        private float mShadowMultiplier = 1f;
 
-        private float mShadowTopScale    = 0.25f;
-        private float mShadowHorizScale  = 0.5f;
+        private float mShadowTopScale    = 1f;
+        private float mShadowHorizScale  = 1f;
         private float mShadowBottomScale = 1f;
 
         private Paint mCornerShadowPaint;
@@ -367,9 +367,9 @@ public class ShadowUtils {
             final float shadowOffsetHorizontal = mRawShadowSize - (mRawShadowSize * mShadowHorizScale);
             final float shadowOffsetBottom = mRawShadowSize - (mRawShadowSize * mShadowBottomScale);
 
-            final float shadowScaleHorizontal = shadowOffset / (shadowOffset + shadowOffsetHorizontal);
-            final float shadowScaleTop = shadowOffset / (shadowOffset + shadowOffsetTop);
-            final float shadowScaleBottom = shadowOffset / (shadowOffset + shadowOffsetBottom);
+            final float shadowScaleHorizontal = shadowOffset == 0 ? 1 : shadowOffset / (shadowOffset + shadowOffsetHorizontal);
+            final float shadowScaleTop = shadowOffset == 0 ? 1 : shadowOffset / (shadowOffset + shadowOffsetTop);
+            final float shadowScaleBottom = shadowOffset == 0 ? 1 : shadowOffset / (shadowOffset + shadowOffsetBottom);
 
             // LT
             int saved = canvas.save();
