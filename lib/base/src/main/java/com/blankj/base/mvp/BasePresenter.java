@@ -24,11 +24,11 @@ public abstract class BasePresenter<V extends BaseView> implements LifecycleObse
     private V                     mView;
     private Map<Class, BaseModel> mModelMap = new HashMap<>();
 
-    public abstract void onAttachView(V mView);
+    public abstract void onAttachView();
 
-    public void setView(V view) {
+    void bindView(V view) {
         this.mView = view;
-        onAttachView(view);
+        onAttachView();
     }
 
     public V getView() {
@@ -63,7 +63,7 @@ public abstract class BasePresenter<V extends BaseView> implements LifecycleObse
         }
         for (BaseModel model : mModelMap.values()) {
             if (model != null) {
-                model.onDestroyModel();
+                model.destroy();
             }
         }
         mModelMap.clear();
@@ -71,7 +71,7 @@ public abstract class BasePresenter<V extends BaseView> implements LifecycleObse
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
-    public void onLifecycleChanged(LifecycleOwner owner, Lifecycle.Event event) {/**/
+    public void onLifecycleChanged(LifecycleOwner owner, Lifecycle.Event event) {
         LogUtils.e(event.toString());
     }
 }

@@ -184,6 +184,10 @@
                 android:value="ActivityMetaData" />
         </activity>
         <activity
+            android:name=".feature.mvp.MvpActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop" />
+        <activity
             android:name=".feature.network.NetworkActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />

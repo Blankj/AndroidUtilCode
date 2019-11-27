@@ -15,7 +15,7 @@ class Config {
     static minSdkVersion = 14
     static targetSdkVersion = 28
     static versionCode = 1_026_000
-    static versionName = '1.26.0'// E.g. 1.9.72 => 1,009,072
+    static versionName = '1.26.0-alpha1'// E.g. 1.9.72 => 1,009,072
 
     // lib version
     static kotlin_version = '1.3.50'
@@ -44,7 +44,7 @@ class Config {
             lib_utildebug              : new DepConfig(true, true, ":lib:utildebug", "com.blankj:utildebug:1.25.10-alpha5"),
             lib_utildebug_no_op        : new DepConfig(true, true, ":lib:utildebug-no-op", "com.blankj:utildebug-no-op:1.25.10-alpha5"),
             /*Never delete this line*/
-            plugin_gradle              : new DepConfig(pluginPath: "com.android.tools.build:gradle:3.5.2"),
+            plugin_gradle              : new DepConfig(pluginPath: "com.android.tools.build:gradle:3.4.2"),
             plugin_kotlin              : new DepConfig(pluginPath: "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"),
             plugin_maven               : new DepConfig(pluginPath: "com.github.dcendents:android-maven-gradle-plugin:2.1", pluginId: "com.github.dcendents.android-maven"),// 上传到 maven
             plugin_bintray             : new DepConfig(pluginPath: "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4", pluginId: "com.jfrog.bintray"),// 上传到 bintray

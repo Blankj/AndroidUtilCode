@@ -110,33 +110,33 @@ class SpanActivity : CommonActivity() {
                 .appendLine("阴影效果").setFontSize(64, true).setBackgroundColor(Color.BLACK).setShadow(24f, 8f, 8f, Color.WHITE)
 
                 .append("小图").setBackgroundColor(Color.GREEN)
-                .appendImage(R.drawable.span_shape_block_low, SpanUtils.ALIGN_TOP)
+                .appendImage(R.drawable.span_block_low, SpanUtils.ALIGN_TOP)
                 .append("顶部").setBackgroundColor(Color.GREEN)
-                .appendImage(R.drawable.span_shape_block_low, SpanUtils.ALIGN_CENTER)
+                .appendImage(R.drawable.span_block_low, SpanUtils.ALIGN_CENTER)
                 .append("居中").setBackgroundColor(Color.GREEN)
-                .appendImage(R.drawable.span_shape_block_low, SpanUtils.ALIGN_BASELINE)
+                .appendImage(R.drawable.span_block_low, SpanUtils.ALIGN_BASELINE)
                 .append("底部").setBackgroundColor(Color.GREEN)
-                .appendImage(R.drawable.span_shape_block_low, SpanUtils.ALIGN_BOTTOM)
+                .appendImage(R.drawable.span_block_low, SpanUtils.ALIGN_BOTTOM)
                 .appendLine("对齐").setBackgroundColor(Color.GREEN)
-                .appendImage(R.drawable.span_shape_block_high, SpanUtils.ALIGN_TOP)
+                .appendImage(R.drawable.span_block_high, SpanUtils.ALIGN_TOP)
                 .append("大图").setBackgroundColor(Color.LTGRAY)
-                .appendImage(R.drawable.span_shape_block_high, SpanUtils.ALIGN_TOP)
+                .appendImage(R.drawable.span_block_high, SpanUtils.ALIGN_TOP)
                 .append("顶部").setBackgroundColor(Color.LTGRAY)
-                .appendImage(R.drawable.span_shape_block_high, SpanUtils.ALIGN_TOP)
+                .appendImage(R.drawable.span_block_high, SpanUtils.ALIGN_TOP)
                 .appendLine("对齐").setBackgroundColor(Color.LTGRAY)
 
-                .appendImage(R.drawable.span_shape_block_high, SpanUtils.ALIGN_CENTER)
+                .appendImage(R.drawable.span_block_high, SpanUtils.ALIGN_CENTER)
                 .append("大图").setBackgroundColor(Color.GREEN)
-                .appendImage(R.drawable.span_shape_block_high, SpanUtils.ALIGN_CENTER)
+                .appendImage(R.drawable.span_block_high, SpanUtils.ALIGN_CENTER)
                 .append("居中").setBackgroundColor(Color.GREEN)
-                .appendImage(R.drawable.span_shape_block_high, SpanUtils.ALIGN_CENTER)
+                .appendImage(R.drawable.span_block_high, SpanUtils.ALIGN_CENTER)
                 .appendLine("对齐").setBackgroundColor(Color.GREEN)
 
-                .appendImage(R.drawable.span_shape_block_high, SpanUtils.ALIGN_BOTTOM)
+                .appendImage(R.drawable.span_block_high, SpanUtils.ALIGN_BOTTOM)
                 .append("大图").setBackgroundColor(Color.LTGRAY)
-                .appendImage(R.drawable.span_shape_block_high, SpanUtils.ALIGN_BOTTOM)
+                .appendImage(R.drawable.span_block_high, SpanUtils.ALIGN_BOTTOM)
                 .append("底部").setBackgroundColor(Color.LTGRAY)
-                .appendImage(R.drawable.span_shape_block_high, SpanUtils.ALIGN_BOTTOM)
+                .appendImage(R.drawable.span_block_high, SpanUtils.ALIGN_BOTTOM)
                 .appendLine("对齐").setBackgroundColor(Color.LTGRAY)
 
                 .append("测试空格").appendSpace(30, Color.LTGRAY).appendSpace(50, Color.GREEN).appendSpace(100).appendSpace(30, Color.LTGRAY).appendSpace(50, Color.GREEN)
@@ -201,7 +201,7 @@ class SpanActivity : CommonActivity() {
             // printer
             mForegroundAlphaColorSpanGroup.alpha = animation.animatedValue as Float
 
-            // update
+            // showMsg
             spanAboutAnimTv.text = animSsb
         }
 

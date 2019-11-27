@@ -57,7 +57,7 @@ class ToastActivity : CommonActivity() {
                 },
                 CommonItemClick(R.string.toast_show_bg_resource) {
                     resetToast()
-                    ToastUtils.setBgResource(R.drawable.toast_shape_round_rect)
+                    ToastUtils.setBgResource(R.drawable.toast_round_rect)
                     ToastUtils.showLong(R.string.toast_custom_bg)
                 },
                 CommonItemClick(R.string.toast_show_span) {
