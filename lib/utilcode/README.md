@@ -126,6 +126,7 @@ addMarginTopEqualStatusBarHeight
 subtractMarginTopEqualStatusBarHeight
 setStatusBarColor
 setStatusBarColor4Drawer
+transparentStatusBar
 getActionBarHeight
 setNotificationBarVisibility
 getNavBarHeight

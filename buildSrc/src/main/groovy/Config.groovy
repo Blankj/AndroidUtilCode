@@ -15,8 +15,8 @@ class Config {
     static minSdkVersion = 14
 
     static targetSdkVersion = 28
-    static versionCode = 1_026_000
-    static versionName = '1.26.0'// E.g. 1.9.72 => 1,009,072
+    static versionCode = 1_026_001
+    static versionName = '1.26.1'// E.g. 1.9.72 => 1,009,072
 
     // lib version
     static kotlin_version = '1.3.50'
@@ -41,7 +41,7 @@ class Config {
             lib_base                   : new DepConfig(true, true, ":lib:base"),
             lib_common                 : new DepConfig(true, true, ":lib:common"),
             lib_subutil                : new DepConfig(true, true, ":lib:subutil"),
-            lib_utilcode               : new DepConfig(true, true, ":lib:utilcode", "com.blankj:utilcode:1.25.10-alpha5"),
+            lib_utilcode               : new DepConfig(true, true, ":lib:utilcode", "com.blankj:utilcode:1.26.0"),
             lib_utildebug              : new DepConfig(true, true, ":lib:utildebug", "com.blankj:utildebug:1.25.10-alpha5"),
             lib_utildebug_no_op        : new DepConfig(true, true, ":lib:utildebug-no-op", "com.blankj:utildebug-no-op:1.25.10-alpha5"),
             /*Never delete this line*/

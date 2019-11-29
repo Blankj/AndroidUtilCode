@@ -667,7 +667,7 @@ registerNetworkStatusChangedListener  : 注册网络状态改变监听器
 unregisterNetworkStatusChangedListener: 注销网络状态改变监听器
 ```
 
-* ### 对象相关 -> [NotificationUtils.java][notification.java] -> [Demo][notification.demo]
+* ### 通知相关 -> [NotificationUtils.java][notification.java] -> [Demo][notification.demo]
 ```
 areNotificationsEnabled     : 判断通知是否可用
 notify                      : 发送通知

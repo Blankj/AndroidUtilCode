@@ -7,8 +7,6 @@ import android.net.Uri
 import android.os.Bundle
 import com.blankj.base.BaseApplication
 import com.blankj.common.activity.CommonActivity
-import com.blankj.common.activity.CommonActivityItemsView
-import com.blankj.common.activity.CommonActivityTitleView
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick
 import com.blankj.common.item.CommonItemSwitch
@@ -129,7 +127,7 @@ class LogActivity : CommonActivity() {
                             mConfig.isLog2ConsoleSwitch
                         },
                         Utils.Func1 {
-                            mConfig.isLog2FileSwitch = it
+                            mConfig.setConsoleSwitch(it)
                         }
                 ),
                 CommonItemClick("Global Tag", if (mConfig.globalTag == "") "\"\"" else mConfig.globalTag).setOnClickUpdateContentListener {
