@@ -195,10 +195,6 @@ public final class KeyboardUtils {
      * @param window The window.
      */
     public static void unregisterSoftInputChangedListener(@NonNull final Window window) {
-        final int flags = window.getAttributes().flags;
-        if ((flags & WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS) != 0) {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        }
         final FrameLayout contentView = window.findViewById(android.R.id.content);
         Object tag = contentView.getTag(TAG_ON_GLOBAL_LAYOUT_LISTENER);
         if (tag instanceof OnGlobalLayoutListener) {
