@@ -2,8 +2,8 @@ package com.blankj.main.pkg
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.View
+import androidx.appcompat.app.ActionBarDrawerToggle
 import com.blankj.common.activity.CommonActivity
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick

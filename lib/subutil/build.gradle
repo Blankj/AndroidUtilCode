@@ -13,14 +13,14 @@ readme {
 dependencies {
     compileOnly Config.depConfig.support_appcompat.dep
     compileOnly Config.depConfig.support_material.dep
-    compileOnly Config.depConfig.lib_utilcode.dep
+    compileOnly Config.depConfig.lib_utilcodex.dep
     api(Config.depConfig.glide.dep) {
         exclude group: "com.android.support"
     }
     api Config.depConfig.retrofit.dep
     api Config.depConfig.gson.dep
 
-    testImplementation Config.depConfig.lib_utilcode.dep
+    testImplementation Config.depConfig.lib_utilcodex.dep
     testImplementation Config.depConfig.test_junit.dep
     testImplementation Config.depConfig.test_robolectric.dep
 }

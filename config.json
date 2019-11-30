@@ -20,7 +20,7 @@
     {"isApply": true, "useLocal": true, "localPath": ":lib:base"},
     {"isApply": true, "useLocal": true, "localPath": ":lib:common"},
     {"isApply": true, "useLocal": true, "localPath": ":lib:subutil"},
-    {"isApply": true, "useLocal": true, "localPath": ":lib:utilcode", "remotePath": "com.blankj:utilcode:1.26.0"},
+    {"isApply": true, "useLocal": true, "localPath": ":lib:utilcodex", "remotePath": "com.blankj:utilcodex:1.26.0"},
     {"isApply": true, "useLocal": true, "localPath": ":lib:utildebug", "remotePath": "com.blankj:utildebug:1.25.10-alpha5"},
     {"isApply": true, "useLocal": true, "localPath": ":lib:utildebug-no-op", "remotePath": "com.blankj:utildebug-no-op:1.25.10-alpha5"}
   ]

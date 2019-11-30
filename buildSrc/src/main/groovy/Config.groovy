@@ -41,7 +41,7 @@ class Config {
             lib_base                   : new DepConfig(true, true, ":lib:base"),
             lib_common                 : new DepConfig(true, true, ":lib:common"),
             lib_subutil                : new DepConfig(true, true, ":lib:subutil"),
-            lib_utilcode               : new DepConfig(true, true, ":lib:utilcode", "com.blankj:utilcode:1.26.0"),
+            lib_utilcodex              : new DepConfig(true, true, ":lib:utilcodex", "com.blankj:utilcodex:1.26.0"),
             lib_utildebug              : new DepConfig(true, true, ":lib:utildebug", "com.blankj:utildebug:1.25.10-alpha5"),
             lib_utildebug_no_op        : new DepConfig(true, true, ":lib:utildebug-no-op", "com.blankj:utildebug-no-op:1.25.10-alpha5"),
             /*Never delete this line*/
