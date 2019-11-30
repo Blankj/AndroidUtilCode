@@ -58,7 +58,7 @@ allprojects {
         resolutionStrategy.eachDependency {
             if (it.requested.group == 'com.android.support'
                     && !it.requested.name.contains('multidex')) {
-                it.useVersion Config.support_version
+                it.useVersion Config.supportVersion
             }
         }
     }

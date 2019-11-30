@@ -30,6 +30,5 @@ public class BaseTest {
 
     @Test
     public void test() throws Exception {
-        System.out.println("1234");
     }
 }
