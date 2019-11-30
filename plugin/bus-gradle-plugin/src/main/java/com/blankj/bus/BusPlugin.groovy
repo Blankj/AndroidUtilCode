@@ -12,7 +12,7 @@ class BusPlugin implements Plugin<Project> {
     void apply(Project project) {
         if (project.plugins.hasPlugin(AppPlugin)) {
             LogUtils.init(project)
-            LogUtils.l('project(' + project.toString() + ') apply api gradle plugin!')
+            LogUtils.l('project(' + project.toString() + ') apply bus gradle plugin!')
             project.extensions.create(Config.EXT_NAME, BusExtension)
             def android = project.extensions.getByType(AppExtension)
             android.registerTransform(new BusTransform(project))

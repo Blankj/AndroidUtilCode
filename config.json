@@ -5,8 +5,8 @@
   "pkgConfig": [],
   "proConfigDesc": "proConfig 配置的是使用本地还是仓库，优先级低于 appConfig 和 pkgConfig",
   "proConfig": [
-    {"isApply": false, "useLocal": true, "localPath": ":plugin:api-gradle-plugin"},
-    {"isApply": false, "useLocal": true, "localPath": ":plugin:bus-gradle-plugin"},
+    {"isApply": true, "useLocal": true, "localPath": ":plugin:api-gradle-plugin"},
+    {"isApply": true, "useLocal": true, "localPath": ":plugin:bus-gradle-plugin"},
     {"isApply": true, "useLocal": true, "localPath": ":feature:mock"},
     {"isApply": true, "useLocal": true, "localPath": ":feature:launcher:app"},
     {"isApply": true, "useLocal": true, "localPath": ":feature:main:app"},

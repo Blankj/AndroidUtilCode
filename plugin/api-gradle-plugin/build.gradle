@@ -24,7 +24,7 @@ gradlePlugin {
 }
 
 dependencies {
-    implementation Config.depConfig.plugin_gradle.dep
+    compileOnly Config.depConfig.plugin_gradle.dep
     implementation Config.depConfig.commons_io.dep
     implementation gradleApi()
     implementation localGroovy()

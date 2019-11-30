@@ -1,5 +1,8 @@
 # Change Log
 
+## v2.4
+去除 gradle 版本依赖的问题
+
 ## v2.3
 新增 onlyScanLibRegex, jumpScanLibRegex 的 DSL
 
