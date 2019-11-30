@@ -67,7 +67,7 @@ class Config {
             leakcanary_android_no_op   : new DepConfig("com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"),
             leakcanary_support_fragment: new DepConfig("com.squareup.leakcanary:leakcanary-support-fragment:$leakcanary_version"),
 
-            free_proguard              : new DepConfig("com.blankj:free-proguard:1.0.1"),
+            free_proguard              : new DepConfig("com.blankj:free-proguard:1.0.2"),
             swipe_panel                : new DepConfig("com.blankj:swipe-panel:1.2"),
 
             gson                       : new DepConfig("com.google.code.gson:gson:2.8.6"),
