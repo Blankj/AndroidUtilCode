@@ -4,6 +4,7 @@ import com.android.build.api.transform.*
 import com.android.build.gradle.internal.pipeline.TransformManager
 import com.blankj.api.util.JsonUtils
 import com.blankj.api.util.LogUtils
+import com.blankj.api.util.ZipUtils
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
 
@@ -24,7 +25,7 @@ class ApiTransform extends Transform {
 
     @Override
     Set<QualifiedContent.ContentType> getInputTypes() {
-        return TransformManager.CONTENT_CLASS
+        return TransformManager.CONTENT_JARS
     }
 
     @Override
@@ -62,6 +63,8 @@ class ApiTransform extends Transform {
 
         ApiScan apiScan = new ApiScan(ext.apiUtilsClass)
 
+        File javaResJar
+
         inputs.each { TransformInput input ->
             input.directoryInputs.each { DirectoryInput dirInput ->// 遍历文件夹
                 File dir = dirInput.file
@@ -90,6 +93,12 @@ class ApiTransform extends Transform {
                 )
                 FileUtils.copyFile(jar, dest)
 
+                if (javaResJar == null && jarInput.contentTypes == TransformManager.CONTENT_RESOURCES) {
+                    LogUtils.l("resources jar: $jarName -> $dest")
+                    javaResJar = dest
+                    return
+                }
+
                 if (jumpScan(jarName, ext)) {
                     LogUtils.l("jump jar: $jarName -> $dest")
                     return
@@ -101,48 +110,63 @@ class ApiTransform extends Transform {
             }
         }
 
-        if (apiScan.apiUtilsTransformFile != null) {
-            if (apiScan.apiClasses.isEmpty()) {
-                LogUtils.l("no api.")
-            } else {
-                Map implApis = [:]
-                List<String> noImplApis = []
-                apiScan.apiImplMap.each { key, value ->
-                    implApis.put(key, value.toString())
-                }
-                apiScan.apiClasses.each {
-                    if (!apiScan.apiImplMap.containsKey(it)) {
-                        noImplApis.add(it)
-                    }
-                }
-                Map apiDetails = [:]
-                apiDetails.put("ApiUtilsClass", ext.apiUtilsClass)
-                apiDetails.put("implApis", implApis)
-                apiDetails.put("noImplApis", noImplApis)
-                String apiJson = JsonUtils.getFormatJson(apiDetails)
-                LogUtils.l(jsonFile.toString() + ": " + apiJson)
-                FileUtils.write(jsonFile, apiJson)
-
-                if (noImplApis.size() > 0) {
-                    if (ext.abortOnError) {
-                        throw new Exception("u should impl these apis: " + noImplApis +
-                                "\n u can check it in file: " + jsonFile.toString())
-                    }
-                }
-                ApiInject.start(apiScan.apiImplMap, apiScan.apiUtilsTransformFile, ext.apiUtilsClass)
-            }
+        if (apiScan.apiClasses.isEmpty()) {
+            LogUtils.l("no api.")
         } else {
-            throw new Exception("No ApiUtils of ${ext.apiUtilsClass} in $mProject.")
+            if (javaResJar == null) {
+                LogUtils.w("javaResJar didn't existed.")
+            } else {
+                injectApis2Assets(javaResJar, apiScan)
+                print2__api__(apiScan, ext, jsonFile)
+            }
         }
 
         LogUtils.l(getName() + " finished: " + (System.currentTimeMillis() - stTime) + "ms")
     }
 
-    private static jumpScan(String jarName, ApiExtension ext) {
-        if (jarName.contains("utilcode")) {
-            return false
+    private static void injectApis2Assets(File javaResJar, ApiScan apiScan) {
+        String javaResPath = javaResJar.getAbsolutePath()
+        File unzipJavaResDir = new File(javaResPath.substring(0, javaResPath.lastIndexOf(".")))
+        unzipJavaResDir.mkdirs()
+        ZipUtils.unzipFile(javaResJar, unzipJavaResDir)
+        File apiDir = new File(unzipJavaResDir, Config.API_PATH)
+        apiDir.mkdirs()
+        apiScan.apiImplMap.each { key, value ->
+            File apiClassDir = new File(apiDir, key)
+            apiClassDir.mkdir()
+            File apiClassImplDir = new File(apiClassDir, value.implApiClass + "-" + value.isMock)
+            apiClassImplDir.createNewFile()
         }
+        javaResJar.delete()
+        ZipUtils.zipFiles(Arrays.asList(unzipJavaResDir.listFiles()), javaResJar)
+    }
 
+    private static void print2__api__(ApiScan apiScan, ApiExtension ext, File jsonFile) {
+        Map implApis = [:]
+        List<String> noImplApis = []
+        apiScan.apiImplMap.each { key, value ->
+            implApis.put(key, value.toString())
+        }
+        apiScan.apiClasses.each {
+            if (!apiScan.apiImplMap.containsKey(it)) {
+                noImplApis.add(it)
+            }
+        }
+        Map apiDetails = [:]
+        apiDetails.put("ApiUtilsClass", ext.apiUtilsClass)
+        apiDetails.put("implApis", implApis)
+        apiDetails.put("noImplApis", noImplApis)
+        String apiJson = JsonUtils.getFormatJson(apiDetails)
+        LogUtils.l(jsonFile.toString() + ": " + apiJson)
+        FileUtils.write(jsonFile, apiJson)
+
+        if (noImplApis.size() > 0) {
+            LogUtils.w("u should impl these apis: " + noImplApis +
+                    "\n u can check it in file: " + jsonFile.toString())
+        }
+    }
+
+    private static jumpScan(String jarName, ApiExtension ext) {
         if (ext.onlyScanLibRegex != null && ext.onlyScanLibRegex.trim().length() > 0) {
             return !Pattern.matches(ext.onlyScanLibRegex, jarName)
         }
