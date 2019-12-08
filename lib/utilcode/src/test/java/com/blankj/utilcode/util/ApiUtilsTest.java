@@ -15,7 +15,7 @@ public class ApiUtilsTest extends BaseTest {
 
     @Before
     public void setUp() throws Exception {
-        ApiUtils.register(TestApiImpl.class);
+        ApiUtils.registerApi(TestApiImpl.class);
     }
 
     @Test

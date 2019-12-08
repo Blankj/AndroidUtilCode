@@ -31,6 +31,12 @@ public class BusInfo {
         isParamSizeNoMoreThanOne = true;
     }
 
+    public String getFileDesc() {
+        return className + "-" + funName + "-"
+                + (paramsInfo.size() == 0 ? "-" : paramsInfo.get(0).className + "-" + paramsInfo.get(0).name) + "-"
+                + sticky + "-" + threadMode + "-" + priority;
+    }
+
     @Override
     public String toString() {
         String paramsInfoString = paramsInfo.toString();

@@ -11,7 +11,6 @@ import org.objectweb.asm.ClassWriter
 class BusScan {
 
     Map<String, List<BusInfo>> busMap = [:]
-    File busUtilsTransformFile
     String busUtilsClass
 
     BusScan(String busUtilsClass) {
@@ -52,10 +51,6 @@ class BusScan {
             def className = packagePath.replace(Config.FILE_SEP, ".")
             // delete .class
             className = className.substring(0, className.length() - 6)
-            if (busUtilsClass == className) {
-                busUtilsTransformFile = source
-                LogUtils.l("<BusUtils transform file>: $source")
-            }
 
             ClassReader cr = new ClassReader(file.bytes);
             ClassWriter cw = new ClassWriter(cr, 0);

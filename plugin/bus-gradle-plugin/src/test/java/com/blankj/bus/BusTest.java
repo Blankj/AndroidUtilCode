@@ -1,13 +1,10 @@
 package com.blankj.bus;
 
-
-import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -29,7 +26,7 @@ public class BusTest {
     private static final String TAG_NO_PARAM_STICKY  = "TagNoParamSticky";
     private static final String TAG_ONE_PARAM_STICKY = "TagOneParamSticky";
 
-    private String[] arr = new String[]{"0", "1"};
+    private String[] arr  = new String[]{"0", "1"};
     private String[] arr2 = new String[]{"0", "1"};
 
     @BusUtils.Bus(tag = TAG_NO_PARAM)
@@ -88,7 +85,7 @@ public class BusTest {
 
     @Test
     public void testInject() throws IOException {
-        inject2BusUtils(getBuses());
+        getBuses();
     }
 
     private static Map<String, List<BusInfo>> getBuses() throws IOException {
@@ -109,15 +106,6 @@ public class BusTest {
         }
         System.out.println("busMap = " + busMap);
         return busMap;
-    }
-
-    private static void inject2BusUtils(Map<String, List<BusInfo>> busMap) throws IOException {
-        ClassReader cr = new ClassReader(BusUtils.class.getName());
-        ClassWriter cw = new ClassWriter(cr, 0);
-        ClassVisitor cv = new BusUtilsClassVisitor(cw, busMap, BusUtils.class.getName());
-        cr.accept(cv, ClassReader.SKIP_FRAMES);
-
-        FileUtils.writeByteArrayToFile(new File("BusUtils2333.class"), cw.toByteArray());
     }
 
     public interface Callback {
