@@ -234,7 +234,7 @@ public class ClickUtils {
                 darkAlpha, 0, 0, 0, 0,
                 0, darkAlpha, 0, 0, 0,
                 0, 0, darkAlpha, 0, 0,
-                0, 0, 0, 2, 0
+                0, 0, 0, 1, 0
         }));
     }
 
