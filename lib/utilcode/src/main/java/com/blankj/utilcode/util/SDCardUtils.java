@@ -1,7 +1,9 @@
 package com.blankj.utilcode.util;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Environment;
+import android.os.StatFs;
 import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
 
@@ -67,11 +69,11 @@ public final class SDCardUtils {
                     paths.add(new SDCardInfo(path, state, isRemovable));
                 }
             } catch (NoSuchMethodException e) {
-                e.printStackTrace();
+                LogUtils.d(e);
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                LogUtils.d(e);
             } catch (InvocationTargetException e) {
-                e.printStackTrace();
+                LogUtils.d(e);
             }
         } else {
             try {
@@ -93,13 +95,13 @@ public final class SDCardUtils {
                     paths.add(new SDCardInfo(path, state, isRemovable));
                 }
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+                LogUtils.d(e);
             } catch (InvocationTargetException e) {
-                e.printStackTrace();
+                LogUtils.d(e);
             } catch (NoSuchMethodException e) {
-                e.printStackTrace();
+                LogUtils.d(e);
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                LogUtils.d(e);
             }
         }
         return paths;
@@ -117,11 +119,43 @@ public final class SDCardUtils {
         for (SDCardInfo cardInfo : sdCardInfo) {
             String state = cardInfo.state;
             if (state == null) continue;
-            if ("mounted".equals(state.toLowerCase())) {
+            if (Environment.MEDIA_MOUNTED.equals(state.toLowerCase())) {
                 path.add(cardInfo.path);
             }
         }
         return path;
+    }
+
+    /**
+     * Get the available space size in bytes for APP, the external storage first.
+     *
+     * @return Available space size
+     */
+    public static long getAvailableSpaceSize() {
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+            return getAvailableSpaceSize(Environment.getExternalStorageDirectory().toString());
+        }
+        return getAvailableSpaceSize(Utils.getApp().getFilesDir().getAbsolutePath());
+    }
+
+    /**
+     * Get the available space size in bytes for the specified path.
+     *
+     * @return Available space size
+     */
+    public static long getAvailableSpaceSize(String path) {
+        try {
+            StatFs stat = new StatFs(path);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                return stat.getAvailableBlocksLong() * stat.getBlockSizeLong();
+            } else {
+                //noinspection deprecation
+                return (long) stat.getAvailableBlocks() * (long) stat.getBlockSize();
+            }
+        } catch (RuntimeException e) {
+            LogUtils.d(e);
+            return 0;
+        }
     }
 
     public static class SDCardInfo {
