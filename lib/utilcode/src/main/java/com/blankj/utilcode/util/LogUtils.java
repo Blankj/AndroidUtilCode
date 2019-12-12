@@ -248,6 +248,9 @@ public final class LogUtils {
             }
         });
         List<File> list = new ArrayList<>();
+        if (files == null) {
+            return list;
+        }
         Collections.addAll(list, files);
         return list;
     }
