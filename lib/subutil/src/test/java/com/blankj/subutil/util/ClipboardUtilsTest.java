@@ -4,9 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,13 +16,7 @@ import static org.junit.Assert.assertEquals;
  *     desc  : ClipboardUtils 单元测试
  * </pre>
  */
-@RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE)
-public class ClipboardUtilsTest {
-
-    static {
-        TestUtils.init();
-    }
+public class ClipboardUtilsTest extends BaseTest {
 
     @Test
     public void testText() throws Exception {

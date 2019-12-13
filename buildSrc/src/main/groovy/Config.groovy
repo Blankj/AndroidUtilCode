@@ -82,7 +82,7 @@ class Config {
             photo_view                 : new DepConfig("com.github.chrisbanes:PhotoView:2.0.0"),
 
             test_junit                 : new DepConfig("junit:junit:4.12"),
-            test_robolectric           : new DepConfig("org.robolectric:robolectric:4.2"),
+            test_robolectric           : new DepConfig("org.robolectric:robolectric:4.3.1"),
     ]
 }
 //./gradlew clean :lib:utilcode:bintrayUpload
