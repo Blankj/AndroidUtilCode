@@ -4,12 +4,15 @@ import android.content.Context;
 import android.os.Environment;
 import android.os.storage.StorageManager;
 
-import org.junit.After;
 import org.junit.Test;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowEnvironment;
 import org.robolectric.shadows.ShadowStatFs;
 import org.robolectric.shadows.ShadowStorageManager;
+
+import java.io.File;
+import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -22,34 +25,41 @@ import static org.junit.Assert.assertTrue;
  */
 public class SDCardUtilsTest extends BaseTest {
 
-    @After
-    public void tearDown() throws Exception {
-        ShadowEnvironment.setExternalStorageState(Environment.MEDIA_REMOVED);
-        ShadowStatFs.reset();
-    }
-
     @Test
-    public void testSDCard() {
+    public void testSDCardEnable() {
         ShadowEnvironment.setExternalStorageState(Environment.MEDIA_MOUNTED);
         assertTrue(SDCardUtils.isSDCardEnableByEnvironment());
         assertNotEquals(SDCardUtils.getSDCardPathByEnvironment(), "");
-        assertTrue(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).exists());
+        File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        System.out.println(file.getAbsolutePath());
+        assertTrue(file.exists());
+    }
 
-        StorageManager sm = (StorageManager) Utils.getApp().getSystemService(Context.STORAGE_SERVICE);
+    @Test
+    public void testSDCardInfo() {
+        ShadowEnvironment.setExternalStorageState(Environment.MEDIA_MOUNTED);
+        StorageManager sm = (StorageManager) RuntimeEnvironment.application.getSystemService(Context.STORAGE_SERVICE);
         ShadowStorageManager shadowStorageManager = Shadows.shadowOf(sm);
-        shadowStorageManager.resetStorageVolumeList();
-        assertEquals(SDCardUtils.getSDCardInfo().size(), 0);
+        System.out.println(Arrays.deepToString(shadowStorageManager.getVolumeList()));
+        System.out.println(Arrays.deepToString(SDCardUtils.getMountedSDCardPath().toArray()));
+    }
 
+    @Test
+    public void testAvailableSpaceSize() {
+        ShadowEnvironment.setExternalStorageState(Environment.MEDIA_MOUNTED);
+        ShadowStatFs.reset();
         String extPath = Environment.getExternalStorageDirectory().toString();
+        System.out.println(extPath);
         ShadowStatFs.registerStats(extPath, 5, 1, 4);
         assertEquals(SDCardUtils.getAvailableSpaceSize(), ShadowStatFs.BLOCK_SIZE * 4);
         ShadowEnvironment.setExternalStorageState(Environment.MEDIA_REMOVED);
         assertFalse(SDCardUtils.isSDCardEnableByEnvironment());
-
         String innPath = Utils.getApp().getFilesDir().getAbsolutePath();
+        System.out.println(innPath);
         ShadowEnvironment.addExternalDir(innPath);
         ShadowStatFs.registerStats(innPath, 10, 8, 2);
         assertEquals(SDCardUtils.getAvailableSpaceSize(), ShadowStatFs.BLOCK_SIZE * 2);
+        assertEquals(SDCardUtils.getAvailableSpaceSize(innPath), ShadowStatFs.BLOCK_SIZE * 2);
     }
 
 }
