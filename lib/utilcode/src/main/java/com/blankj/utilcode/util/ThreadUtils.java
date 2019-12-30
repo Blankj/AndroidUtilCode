@@ -56,6 +56,14 @@ public final class ThreadUtils {
         return Looper.myLooper() == Looper.getMainLooper();
     }
 
+    public static void runOnUiThread(final Runnable runnable) {
+        Utils.runOnUiThread(runnable);
+    }
+
+    public static void runOnUiThreadDelayed(final Runnable runnable, long delayMillis) {
+        Utils.runOnUiThreadDelayed(runnable, delayMillis);
+    }
+
     /**
      * Return a thread pool that reuses a fixed number of threads
      * operating off a shared unbounded queue, using the provided

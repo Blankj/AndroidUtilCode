@@ -1,3 +1,4 @@
+* `19/12/08` [add] Publish bus plugin v2.5.
 * `19/12/06` [add] Publish api plugin v1.3.
 * `19/11/30` [add] Publish bus plugin v2.4. Publish api plugin v1.2.
 * `19/11/28` [add] Publish v1.26.0.

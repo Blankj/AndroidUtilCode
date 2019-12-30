@@ -33,15 +33,15 @@ public final class ApiUtils {
     private ApiUtils() {
     }
 
-    private void registerImpl(Class implClass) {
+    private void registerApiInner(Class implClass) {
         if (implClass == null) return;
         Class superclass = implClass.getSuperclass();
         if (superclass == null) return;
         mInjectApiImplMap.put(superclass, implClass);
     }
 
-    public static void register(Class implClass) {
-        getInstance().registerImpl(implClass);
+    public static void registerApi(Class implClass) {
+        getInstance().registerApiInner(implClass);
     }
 
     /**

@@ -1009,7 +1009,7 @@ public final class SpanUtils {
         @Override
         public void chooseHeight(final CharSequence text, final int start, final int end,
                                  final int spanstartv, final int v, final Paint.FontMetricsInt fm) {
-            LogUtils.e(fm, sfm);
+//            LogUtils.e(fm, sfm);
             if (sfm == null) {
                 sfm = new Paint.FontMetricsInt();
                 sfm.top = fm.top;
@@ -1049,7 +1049,7 @@ public final class SpanUtils {
             if (end == ((Spanned) text).getSpanEnd(this)) {
                 sfm = null;
             }
-            LogUtils.e(fm, sfm);
+//            LogUtils.e(fm, sfm);
         }
     }
 

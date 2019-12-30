@@ -580,6 +580,9 @@ clickBlankArea2HideSoftInput
 ```
 applySystemLanguage
 applyLanguage
+isAppliedSystemLanguage
+isAppliedLanguage
+getCurrentLocale
 ```
 
 * ### About Log -> [LogUtils.java][log.java] -> [Demo][log.demo]
@@ -1010,6 +1013,8 @@ toSBC
 * ### About Thread -> [ThreadUtils.java][thread.java] -> [Test][thread.test]
 ```
 isMainThread
+runOnUiThread
+runOnUiThreadDelayed
 getFixedPool
 getSinglePool
 getCachedPool

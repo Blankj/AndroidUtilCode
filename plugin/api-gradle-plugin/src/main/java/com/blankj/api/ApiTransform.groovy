@@ -116,29 +116,12 @@ class ApiTransform extends Transform {
             if (javaResJar == null) {
                 LogUtils.w("javaResJar didn't existed.")
             } else {
-                injectApis2Assets(javaResJar, apiScan)
                 print2__api__(apiScan, ext, jsonFile)
+                injectApis2Assets(javaResJar, apiScan)
             }
         }
 
         LogUtils.l(getName() + " finished: " + (System.currentTimeMillis() - stTime) + "ms")
-    }
-
-    private static void injectApis2Assets(File javaResJar, ApiScan apiScan) {
-        String javaResPath = javaResJar.getAbsolutePath()
-        File unzipJavaResDir = new File(javaResPath.substring(0, javaResPath.lastIndexOf(".")))
-        unzipJavaResDir.mkdirs()
-        ZipUtils.unzipFile(javaResJar, unzipJavaResDir)
-        File apiDir = new File(unzipJavaResDir, Config.API_PATH)
-        apiDir.mkdirs()
-        apiScan.apiImplMap.each { key, value ->
-            File apiClassDir = new File(apiDir, key)
-            apiClassDir.mkdir()
-            File apiClassImplDir = new File(apiClassDir, value.implApiClass + "-" + value.isMock)
-            apiClassImplDir.createNewFile()
-        }
-        javaResJar.delete()
-        ZipUtils.zipFiles(Arrays.asList(unzipJavaResDir.listFiles()), javaResJar)
     }
 
     private static void print2__api__(ApiScan apiScan, ApiExtension ext, File jsonFile) {
@@ -164,6 +147,23 @@ class ApiTransform extends Transform {
             LogUtils.w("u should impl these apis: " + noImplApis +
                     "\n u can check it in file: " + jsonFile.toString())
         }
+    }
+
+    private static void injectApis2Assets(File javaResJar, ApiScan apiScan) {
+        String javaResPath = javaResJar.getAbsolutePath()
+        File unzipJavaResDir = new File(javaResPath.substring(0, javaResPath.lastIndexOf(".")))
+        unzipJavaResDir.mkdirs()
+        ZipUtils.unzipFile(javaResJar, unzipJavaResDir)
+        File apiDir = new File(unzipJavaResDir, Config.API_PATH)
+        apiDir.mkdirs()
+        apiScan.apiImplMap.each { key, value ->
+            File apiClassDir = new File(apiDir, key)
+            apiClassDir.mkdir()
+            File apiClassImplFile = new File(apiClassDir, value.getFileDesc())
+            apiClassImplFile.createNewFile()
+        }
+        javaResJar.delete()
+        ZipUtils.zipFiles(Arrays.asList(unzipJavaResDir.listFiles()), javaResJar)
     }
 
     private static jumpScan(String jarName, ApiExtension ext) {

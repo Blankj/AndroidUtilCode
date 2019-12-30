@@ -41,7 +41,7 @@ class ShadowActivity : CommonActivity() {
         super.initView(savedInstanceState, contentView)
         ShadowUtils.apply(shadowRectView, Config().setShadowRadius(0.01f).setShadowColor(Color.BLUE, Color.GREEN))
         ShadowUtils.apply(shadowRoundRectView, Config().setShadowRadius(
-                SizeUtils.dp2px(16f).toFloat()).setShadowColor(Color.RED, Color.BLUE))
+                SizeUtils.dp2px(16f).toFloat()))
         ShadowUtils.apply(shadowCircleView, Config().setCircle().setShadowColor(Color.GREEN, Color.BLUE))
     }
 }

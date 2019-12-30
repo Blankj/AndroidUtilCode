@@ -20,6 +20,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +57,16 @@ public final class ActivityUtils {
      */
     public static Activity getActivityByContext(Context context) {
         if (context instanceof Activity) return (Activity) context;
+        if (context != null && context.getClass().getName().equals("com.android.internal.policy.DecorContext")) {
+            try {
+                Field mActivityContextField = context.getClass().getDeclaredField("mActivityContext");
+                mActivityContextField.setAccessible(true);
+                //noinspection unchecked
+                return ((WeakReference<Activity>) mActivityContextField.get(context)).get();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         while (context instanceof ContextWrapper) {
             if (context instanceof Activity) {
                 return (Activity) context;
