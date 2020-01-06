@@ -272,6 +272,7 @@ applyPressedBgAlpha                 : 应用点击后对背景改变透明度
 applyPressedBgDark                  : 应用点击后对背景加深
 applySingleDebouncing               : 对单视图应用防抖点击
 applyGlobalDebouncing               : 对所有设置 GlobalDebouncing 的视图应用防抖点击
+back2HomeFriendly                   : 友好地返回桌面
 ClickUtils#OnDebouncingClickListener: 防抖点击监听器
 ClickUtils#OnMultiClickListener     : 连续点击监听器
 ```

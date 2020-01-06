@@ -1,5 +1,6 @@
 package com.blankj.utilcode.util;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -345,9 +346,55 @@ public class ClickUtils {
         }
     }
 
-    private static int dp2px(final float dpValue) {
-        final float scale = Resources.getSystem().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
+    private static final long TIP_DURATION = 2000L;
+    private static       long sLastClickMillis;
+    private static       int  sClickCount;
+
+    public static void back2HomeFriendly(final CharSequence tip) {
+        back2HomeFriendly(tip, TIP_DURATION, Back2HomeFriendlyListener.DEFAULT);
+    }
+
+    public static void back2HomeFriendly(@NonNull final CharSequence tip,
+                                         final long duration,
+                                         @NonNull Back2HomeFriendlyListener listener) {
+        long nowMillis = System.currentTimeMillis();
+        if (nowMillis - sLastClickMillis < duration) {
+            sClickCount++;
+            if (sClickCount == 2) {
+                startHomeActivity();
+                listener.dismiss();
+                sLastClickMillis = 0;
+            }
+        } else {
+            sClickCount = 1;
+            listener.show(tip, duration);
+            sLastClickMillis = nowMillis;
+        }
+    }
+
+    public interface Back2HomeFriendlyListener {
+        Back2HomeFriendlyListener DEFAULT = new Back2HomeFriendlyListener() {
+            @Override
+            public void show(CharSequence text, long duration) {
+                Utils.toastShowShort(text);
+            }
+
+            @Override
+            public void dismiss() {
+                Utils.toastCancel();
+            }
+        };
+
+        void show(CharSequence text, long duration);
+
+        void dismiss();
+    }
+
+    private static void startHomeActivity() {
+        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+        homeIntent.addCategory(Intent.CATEGORY_HOME);
+        homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Utils.getApp().startActivity(homeIntent);
     }
 
     public static abstract class OnDebouncingClickListener implements View.OnClickListener {

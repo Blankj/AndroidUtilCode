@@ -651,7 +651,7 @@ public final class BarUtils {
      */
     public static void setNavBarLightMode(@NonNull final Activity activity,
                                           final boolean isLightMode) {
-        setStatusBarLightMode(activity.getWindow(), isLightMode);
+        setNavBarLightMode(activity.getWindow(), isLightMode);
     }
 
     /**

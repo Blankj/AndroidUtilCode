@@ -2,6 +2,7 @@ package com.blankj.api
 
 import com.android.build.gradle.AppExtension
 import com.blankj.api.util.LogUtils
+import org.gradle.api.Action
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -14,7 +15,12 @@ class ApiPlugin implements Plugin<Project> {
             LogUtils.l('project(' + project.toString() + ') apply api gradle plugin!')
             project.extensions.create(Config.EXT_NAME, ApiExtension)
             def android = project.extensions.getByType(AppExtension)
-            android.registerTransform(new ApiTransform(project))
+            project.afterEvaluate(new Action<Project>() {
+                @Override
+                void execute(Project project1) {
+                    project1.android.registerTransform(new ApiTransform(project1))
+                }
+            })
         }
     }
 }
