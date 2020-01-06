@@ -47,7 +47,33 @@ public final class RegexUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isMobileExact(final CharSequence input) {
-        return isMatch(RegexConstants.REGEX_MOBILE_EXACT, input);
+        return isMobileExact(input, null);
+    }
+
+    /**
+     * Return whether input matches regex of exact mobile.
+     *
+     * @param input       The input.
+     * @param newSegments The new segments of mobile number.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isMobileExact(final CharSequence input, List<String> newSegments) {
+        boolean match = isMatch(RegexConstants.REGEX_MOBILE_EXACT, input);
+        if (match) return true;
+        if (newSegments == null) return false;
+        if (input == null || input.length() != 11) return false;
+        String content = input.toString();
+        for (char c : content.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        for (String newSegment : newSegments) {
+            if (content.startsWith(newSegment)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

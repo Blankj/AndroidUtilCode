@@ -13,12 +13,16 @@ apply {
 configSigning()
 configApkName()
 
-bus {
-    onlyScanLibRegex = '^([:]|(com\\.blankj)).+$'
+if (Config.depConfig.plugin_bus.isApply) {
+    bus {
+        onlyScanLibRegex = '^([:]|(com\\.blankj)).+$'
+    }
 }
 
-api {
-    onlyScanLibRegex = '^([:]|(com\\.blankj)).+$'
+if (Config.depConfig.plugin_api.isApply) {
+    api {
+        onlyScanLibRegex = '^([:]|(com\\.blankj)).+$'
+    }
 }
 
 android {

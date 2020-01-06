@@ -192,24 +192,23 @@ public final class ResourceUtils {
      * @return the content of assets
      */
     public static String readAssets2String(final String assetsFilePath, final String charsetName) {
-        InputStream is;
         try {
-            is = Utils.getApp().getAssets().open(assetsFilePath);
+            InputStream is = Utils.getApp().getAssets().open(assetsFilePath);
+            byte[] bytes = is2Bytes(is);// close stream in it
+            if (bytes == null) return null;
+            if (isSpace(charsetName)) {
+                return new String(bytes);
+            } else {
+                try {
+                    return new String(bytes, charsetName);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                    return "";
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
             return null;
-        }
-        byte[] bytes = is2Bytes(is);
-        if (bytes == null) return null;
-        if (isSpace(charsetName)) {
-            return new String(bytes);
-        } else {
-            try {
-                return new String(bytes, charsetName);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-                return "";
-            }
         }
     }
 
@@ -275,7 +274,7 @@ public final class ResourceUtils {
      */
     public static String readRaw2String(@RawRes final int resId, final String charsetName) {
         InputStream is = Utils.getApp().getResources().openRawResource(resId);
-        byte[] bytes = is2Bytes(is);
+        byte[] bytes = is2Bytes(is);// close stream in it
         if (bytes == null) return null;
         if (isSpace(charsetName)) {
             return new String(bytes);

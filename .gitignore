@@ -12,3 +12,4 @@ local.properties
 *.phrof
 /maven
 /reports
+*/reports

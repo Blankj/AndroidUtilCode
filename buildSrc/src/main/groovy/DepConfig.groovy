@@ -50,6 +50,11 @@ class DepConfig {
         this.remotePath = remotePath
     }
 
+    void setPluginPath(String pluginPath){
+        this.pluginPath = pluginPath
+        this.remotePath = pluginPath
+    }
+
     String getPath() {
         if (pluginPath != null) return pluginPath
         return useLocal ? localPath : remotePath

@@ -272,6 +272,7 @@ applyPressedBgAlpha                 : 应用点击后对背景改变透明度
 applyPressedBgDark                  : 应用点击后对背景加深
 applySingleDebouncing               : 对单视图应用防抖点击
 applyGlobalDebouncing               : 对所有设置 GlobalDebouncing 的视图应用防抖点击
+back2HomeFriendly                   : 友好地返回桌面
 ClickUtils#OnDebouncingClickListener: 防抖点击监听器
 ClickUtils#OnMultiClickListener     : 连续点击监听器
 ```
@@ -578,8 +579,11 @@ clickBlankArea2HideSoftInput      : 点击屏幕空白区域隐藏软键盘
 
 * ### 语言相关 -> [LanguageUtils.java][language.java] -> [Demo][language.demo]
 ```
-applySystemLanguage: 应用系统语言
-applyLanguage      : 应用语言
+applySystemLanguage    : 应用系统语言
+applyLanguage          : 应用语言
+isAppliedSystemLanguage: 判断是否使用系统语言
+isAppliedLanguage      : 判断是否使用某语言
+getCurrentLocale       : 获取当前语言
 ```
 
 * ### 日志相关 -> [LogUtils.java][log.java] -> [Demo][log.demo]
@@ -1010,6 +1014,8 @@ toSBC           : 转化为全角字符
 * ### 线程相关 -> [ThreadUtils.java][thread.java] -> [Test][thread.test]
 ```
 isMainThread            : 判断当前是否主线程
+runOnUiThread           : 运行在主线程
+runOnUiThreadDelayed    : 延时运行在主线程
 getFixedPool            : 获取固定线程池
 getSinglePool           : 获取单线程池
 getCachedPool           : 获取缓冲线程池

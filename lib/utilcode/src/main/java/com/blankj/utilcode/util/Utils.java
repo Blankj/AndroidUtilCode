@@ -211,6 +211,14 @@ public final class Utils {
         return SPUtils.getInstance("Utils");
     }
 
+    static void toastShowShort(final CharSequence text) {
+        ToastUtils.showShort(text);
+    }
+
+    static void toastCancel() {
+        ToastUtils.cancel();
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     // private method
     ///////////////////////////////////////////////////////////////////////////

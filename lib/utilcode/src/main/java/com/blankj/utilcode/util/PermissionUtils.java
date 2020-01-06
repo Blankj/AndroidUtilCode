@@ -281,7 +281,7 @@ public final class PermissionUtils {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private boolean rationale(final Activity activity) {
+    private boolean rationale(final Activity activity, final Runnable againRunnable) {
         boolean isRationale = false;
         if (mOnRationaleListener != null) {
             for (String permission : mPermissionsRequest) {
@@ -290,12 +290,12 @@ public final class PermissionUtils {
                     mOnRationaleListener.rationale(new ShouldRequest() {
                         @Override
                         public void again(boolean again) {
-                            activity.finish();
                             if (again) {
                                 mPermissionsDenied = new ArrayList<>();
                                 mPermissionsDeniedForever = new ArrayList<>();
-                                startPermissionActivity();
+                                againRunnable.run();
                             } else {
+                                activity.finish();
                                 requestCallback();
                             }
                         }
@@ -374,7 +374,7 @@ public final class PermissionUtils {
         }
 
         @Override
-        public void onCreated(Activity activity, @Nullable Bundle savedInstanceState) {
+        public void onCreated(final Activity activity, @Nullable Bundle savedInstanceState) {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
                     | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
             int type = activity.getIntent().getIntExtra(TYPE, -1);
@@ -387,17 +387,15 @@ public final class PermissionUtils {
                 if (sInstance.mThemeCallback != null) {
                     sInstance.mThemeCallback.onActivityCreate(activity);
                 }
-                if (sInstance.rationale(activity)) {
+                if (sInstance.rationale(activity, new Runnable() {
+                    @Override
+                    public void run() {
+                        requestPermissions(activity);
+                    }
+                })) {
                     return;
                 }
-                if (sInstance.mPermissionsRequest != null) {
-                    int size = sInstance.mPermissionsRequest.size();
-                    if (size <= 0) {
-                        activity.finish();
-                        return;
-                    }
-                    activity.requestPermissions(sInstance.mPermissionsRequest.toArray(new String[size]), 1);
-                }
+                requestPermissions(activity);
             } else if (type == TYPE_WRITE_SETTINGS) {
                 startWriteSettingsActivity(activity, TYPE_WRITE_SETTINGS);
             } else if (type == TYPE_DRAW_OVERLAYS) {
@@ -405,6 +403,17 @@ public final class PermissionUtils {
             } else {
                 activity.finish();
                 Log.e("PermissionUtils", "type is wrong.");
+            }
+        }
+
+        private void requestPermissions(Activity activity) {
+            if (sInstance.mPermissionsRequest != null) {
+                int size = sInstance.mPermissionsRequest.size();
+                if (size <= 0) {
+                    activity.finish();
+                    return;
+                }
+                activity.requestPermissions(sInstance.mPermissionsRequest.toArray(new String[size]), 1);
             }
         }
 

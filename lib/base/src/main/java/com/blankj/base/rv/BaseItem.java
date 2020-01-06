@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -116,6 +118,14 @@ public abstract class BaseItem<T extends BaseItem> {
     public void update() {
         //noinspection unchecked
         getAdapter().updateItem((T) this);
+    }
+
+    public List<T> getItems() {
+        return getAdapter().getItems();
+    }
+
+    public int getCount() {
+        return getAdapter().getItemCount();
     }
 
     public int getIndex() {

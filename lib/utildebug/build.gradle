@@ -5,7 +5,7 @@ apply {
 }
 
 dependencies {
-    implementation Config.depConfig.lib_utilcodex.dep
+    implementation Config.depConfig.lib_utilcode.dep
     implementation Config.depConfig.swipe_panel.dep
     implementation Config.depConfig.photo_view.dep
     compileOnly Config.depConfig.support_appcompat.dep

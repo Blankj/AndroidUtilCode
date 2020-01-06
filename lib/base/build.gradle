@@ -1,7 +1,7 @@
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     api Config.depConfig.lib_subutil.dep
-    api Config.depConfig.lib_utilcodex.dep
+    api Config.depConfig.lib_utilcode.dep
 
     api Config.depConfig.support_appcompat.dep
     api Config.depConfig.support_material.dep

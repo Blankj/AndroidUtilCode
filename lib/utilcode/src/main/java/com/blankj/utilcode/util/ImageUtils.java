@@ -1557,7 +1557,7 @@ public final class ImageUtils {
         options.inJustDecodeBounds = true;
         try {
             Bitmap bitmap = BitmapFactory.decodeFile(filePath, options);
-            return options.outWidth != -1 && options.outHeight != -1;
+            return bitmap != null && options.outWidth != -1 && options.outHeight != -1;
         } catch (Exception e) {
             return false;
         }
@@ -1942,8 +1942,8 @@ public final class ImageUtils {
      * @return the sample size
      */
     public static int calculateInSampleSize(final BitmapFactory.Options options,
-                                             final int maxWidth,
-                                             final int maxHeight) {
+                                            final int maxWidth,
+                                            final int maxHeight) {
         int height = options.outHeight;
         int width = options.outWidth;
         int inSampleSize = 1;

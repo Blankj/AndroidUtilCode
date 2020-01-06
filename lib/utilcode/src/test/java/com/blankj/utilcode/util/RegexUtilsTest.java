@@ -26,6 +26,7 @@ public class RegexUtilsTest extends BaseTest {
     public void isMobileExact() {
         assertFalse(RegexUtils.isMobileExact("11111111111"));
         assertTrue(RegexUtils.isMobileExact("13888880000"));
+        assertTrue(RegexUtils.isMobileExact("12088880000", CollectionUtils.newArrayList("120")));
     }
 
     @Test

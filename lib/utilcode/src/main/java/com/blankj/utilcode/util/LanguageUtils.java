@@ -1,7 +1,6 @@
 package com.blankj.utilcode.util;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -10,14 +9,15 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import java.util.List;
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
 
 /**
  * <pre>
@@ -37,21 +37,12 @@ public class LanguageUtils {
     }
 
     /**
-     * Apply the system language in the {@link Application#onCreate()}.
+     * Apply the system language.
+     * It will not restart Activity. u can put it in ur {@link Activity#onCreate(Bundle)}.
      */
-    public static void applySystemLanguageInAppOnCreate() {
+    public static void applySystemLanguage() {
         if (isAppliedSystemLanguage()) return;
         applyLanguage(Resources.getSystem().getConfiguration().locale, "", true, false);
-    }
-
-    /**
-     * Apply the language in the {@link Application#onCreate()}.
-     *
-     * @param locale The language of locale.
-     */
-    public static void applyLanguageInAppOnCreate(@NonNull final Locale locale) {
-        if (isAppliedLanguage()) return;
-        applyLanguage(locale, "", false, false);
     }
 
     /**
@@ -70,6 +61,17 @@ public class LanguageUtils {
      */
     public static void applySystemLanguage(final String activityClassName) {
         applyLanguage(Resources.getSystem().getConfiguration().locale, activityClassName, true, true);
+    }
+
+    /**
+     * Apply the language.
+     * It will not restart Activity. u can put it in ur {@link Activity#onCreate(Bundle)}.
+     *
+     * @param locale The language of locale.
+     */
+    public static void applyLanguage(@NonNull final Locale locale) {
+        if (isAppliedLanguage()) return;
+        applyLanguage(locale, "", false, false);
     }
 
     /**

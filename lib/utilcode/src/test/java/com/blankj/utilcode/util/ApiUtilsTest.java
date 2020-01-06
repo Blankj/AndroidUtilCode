@@ -11,13 +11,11 @@ import org.junit.Test;
  *     desc  :
  * </pre>
  */
-public class ApiUtilsTest {
+public class ApiUtilsTest extends BaseTest {
 
     @Before
     public void setUp() throws Exception {
-        ReflectUtils.reflect(ApiUtils.class)
-                .method("getInstance")
-                .method("registerImpl", TestApiImpl.class);
+        ApiUtils.registerApi(TestApiImpl.class);
     }
 
     @Test
