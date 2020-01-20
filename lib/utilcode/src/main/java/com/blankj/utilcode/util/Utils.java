@@ -66,7 +66,6 @@ public final class Utils {
     @SuppressLint("StaticFieldLeak")
     private static Application sApplication;
 
-
     private Utils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
@@ -610,7 +609,6 @@ public final class Utils {
         }
 
         private void setTopActivity(final Activity activity) {
-//            if (TransActivity.class == activity.getClass()) return;
             if (mActivityList.contains(activity)) {
                 if (!mActivityList.getLast().equals(activity)) {
                     mActivityList.remove(activity);

@@ -152,7 +152,6 @@ public final class AppUtils {
         try {
             return packageManager.getApplicationInfo(pkgName, 0) != null;
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
             return false;
         }
     }

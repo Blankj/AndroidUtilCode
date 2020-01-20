@@ -39,6 +39,17 @@ public final class KeyboardUtils {
     /**
      * Show the soft input.
      */
+    public static void showSoftInput() {
+        InputMethodManager imm = (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm == null) {
+            return;
+        }
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+    /**
+     * Show the soft input.
+     */
     public static void showSoftInput(@NonNull Activity activity) {
         if (!isSoftInputVisible(activity)) {
             toggleSoftInput();
@@ -93,7 +104,7 @@ public final class KeyboardUtils {
             if (focusView == null) {
                 view = new EditText(activity);
                 view.setTag("keyboardTagView");
-                ((ViewGroup) decorView).addView(view, 0, 0);
+                ((ViewGroup) decorView).addView(view, 1, 1);
             } else {
                 view = focusView;
             }
@@ -112,6 +123,22 @@ public final class KeyboardUtils {
                 (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm == null) return;
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    private static long millis;
+
+    /**
+     * Hide the soft input.
+     *
+     * @param activity The activity.
+     */
+    public static void hideSoftInputByToggle(final Activity activity) {
+        long nowMillis = System.currentTimeMillis();
+        long delta = nowMillis - millis;
+        if (KeyboardUtils.isSoftInputVisible(activity) && delta > 500) {
+            KeyboardUtils.toggleSoftInput();
+        }
+        millis = nowMillis;
     }
 
     /**

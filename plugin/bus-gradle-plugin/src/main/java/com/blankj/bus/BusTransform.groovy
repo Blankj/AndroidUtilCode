@@ -1,10 +1,10 @@
 package com.blankj.bus
 
 import com.android.build.api.transform.*
+import com.android.build.gradle.api.ApplicationVariant
 import com.android.build.gradle.internal.pipeline.TransformManager
 import com.blankj.bus.util.JsonUtils
 import com.blankj.bus.util.LogUtils
-import com.blankj.bus.util.ZipUtils
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
 
@@ -25,7 +25,7 @@ class BusTransform extends Transform {
 
     @Override
     Set<QualifiedContent.ContentType> getInputTypes() {
-        return TransformManager.CONTENT_JARS
+        return TransformManager.CONTENT_CLASS
     }
 
     @Override
@@ -62,8 +62,6 @@ class BusTransform extends Transform {
 
         BusScan busScan = new BusScan(ext.busUtilsClass)
 
-        File javaResJar
-
         inputs.each { TransformInput input ->
             input.directoryInputs.each { DirectoryInput dirInput ->// 遍历文件夹
                 File dir = dirInput.file
@@ -92,12 +90,6 @@ class BusTransform extends Transform {
                 )
                 FileUtils.copyFile(jar, dest)
 
-                if (javaResJar == null && jarInput.contentTypes == TransformManager.CONTENT_RESOURCES) {
-                    LogUtils.l("resources jar: $jarName -> $dest")
-                    javaResJar = dest
-                    return
-                }
-
                 if (jumpScan(jarName, ext)) {
                     LogUtils.l("jump jar: $jarName -> $dest")
                     return
@@ -111,13 +103,9 @@ class BusTransform extends Transform {
         if (busScan.busMap.isEmpty()) {
             LogUtils.l("no bus.")
         } else {
-            if (javaResJar == null) {
-                LogUtils.w("javaResJar didn't existed.")
-            } else {
-                print2__bus__(busScan, ext, jsonFile)
-                injectBuses2Assets(javaResJar, busScan)
-            }
+            print2__bus__(busScan, ext, jsonFile)
         }
+        processBusWithAssets(outputProvider, busScan)
 
         LogUtils.l(getName() + " finished: " + (System.currentTimeMillis() - stTime) + "ms")
     }
@@ -165,23 +153,40 @@ class BusTransform extends Transform {
         }
     }
 
-    private static void injectBuses2Assets(File javaResJar, BusScan busScan) {
-        String javaResPath = javaResJar.getAbsolutePath()
-        File unzipJavaResDir = new File(javaResPath.substring(0, javaResPath.lastIndexOf(".")))
-        unzipJavaResDir.mkdirs()
-        ZipUtils.unzipFile(javaResJar, unzipJavaResDir)
-        File busDir = new File(unzipJavaResDir, Config.BUS_PATH)
-        busDir.mkdirs()
-        busScan.busMap.each { String tag, List<BusInfo> infoList ->
-            File busTagDir = new File(busDir, tag)
-            busTagDir.mkdir()
-            for (info in infoList) {
-                File busInfoFile = new File(busTagDir, info.getFileDesc())
-                busInfoFile.createNewFile()
+    private void processBusWithAssets(TransformOutputProvider outputProvider, BusScan busScan) {
+        def dest = outputProvider.getContentLocation(
+                Config.BUS_PATH,
+                TransformManager.CONTENT_CLASS,
+                TransformManager.PROJECT_ONLY,
+                Format.DIRECTORY
+        )
+
+        String variantName = ""
+        while (dest.getParentFile().getName() != getName()) {
+            variantName = dest.getParentFile().getName().capitalize() + variantName
+            dest = dest.getParentFile()
+        }
+        LogUtils.l("get variant name from ${getName()}Dir: " + variantName)
+
+        mProject.android.applicationVariants.all { ApplicationVariant variant ->
+            if (variant.name.capitalize() == variantName) {
+                File assetsDir = variant.mergeAssetsProvider.get().outputDir.get().asFile
+                File busDir = new File(assetsDir, Config.BUS_PATH)
+                busDir.deleteDir()
+                if (!busScan.busMap.isEmpty()) {
+                    busDir.mkdirs()
+                    LogUtils.l("${busDir.getAbsolutePath()} -> bus inject assets dir")
+                    busScan.busMap.each { String tag, List<BusInfo> infoList ->
+                        File busTagDir = new File(busDir, tag)
+                        busTagDir.mkdir()
+                        for (info in infoList) {
+                            File busInfoFile = new File(busTagDir, info.getFileDesc())
+                            busInfoFile.createNewFile()
+                        }
+                    }
+                }
             }
         }
-        javaResJar.delete()
-        ZipUtils.zipFiles(Arrays.asList(unzipJavaResDir.listFiles()), javaResJar)
     }
 
     private static jumpScan(String jarName, BusExtension ext) {

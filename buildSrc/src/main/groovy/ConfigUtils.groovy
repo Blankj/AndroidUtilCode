@@ -14,10 +14,10 @@ import org.gradle.api.invocation.Gradle
 class ConfigUtils {
 
     static init(Gradle gradle) {
+        GitUtils.init(gradle)
         generateDep(gradle)
         addCommonGradle(gradle)
         TaskDurationUtils.init(gradle)
-        GitUtils.init(gradle)
     }
 
     /**

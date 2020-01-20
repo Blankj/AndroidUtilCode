@@ -1,10 +1,10 @@
 package com.blankj.api
 
 import com.android.build.api.transform.*
+import com.android.build.gradle.api.ApplicationVariant
 import com.android.build.gradle.internal.pipeline.TransformManager
 import com.blankj.api.util.JsonUtils
 import com.blankj.api.util.LogUtils
-import com.blankj.api.util.ZipUtils
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
 
@@ -25,7 +25,7 @@ class ApiTransform extends Transform {
 
     @Override
     Set<QualifiedContent.ContentType> getInputTypes() {
-        return TransformManager.CONTENT_JARS
+        return TransformManager.CONTENT_CLASS
     }
 
     @Override
@@ -63,8 +63,6 @@ class ApiTransform extends Transform {
 
         ApiScan apiScan = new ApiScan(ext.apiUtilsClass)
 
-        File javaResJar
-
         inputs.each { TransformInput input ->
             input.directoryInputs.each { DirectoryInput dirInput ->// 遍历文件夹
                 File dir = dirInput.file
@@ -93,12 +91,6 @@ class ApiTransform extends Transform {
                 )
                 FileUtils.copyFile(jar, dest)
 
-                if (javaResJar == null && jarInput.contentTypes == TransformManager.CONTENT_RESOURCES) {
-                    LogUtils.l("resources jar: $jarName -> $dest")
-                    javaResJar = dest
-                    return
-                }
-
                 if (jumpScan(jarName, ext)) {
                     LogUtils.l("jump jar: $jarName -> $dest")
                     return
@@ -113,13 +105,9 @@ class ApiTransform extends Transform {
         if (apiScan.apiClasses.isEmpty()) {
             LogUtils.l("no api.")
         } else {
-            if (javaResJar == null) {
-                LogUtils.w("javaResJar didn't existed.")
-            } else {
-                print2__api__(apiScan, ext, jsonFile)
-                injectApis2Assets(javaResJar, apiScan)
-            }
+            print2__api__(apiScan, ext, jsonFile)
         }
+        processApiWithAssets(outputProvider, apiScan)
 
         LogUtils.l(getName() + " finished: " + (System.currentTimeMillis() - stTime) + "ms")
     }
@@ -149,21 +137,39 @@ class ApiTransform extends Transform {
         }
     }
 
-    private static void injectApis2Assets(File javaResJar, ApiScan apiScan) {
-        String javaResPath = javaResJar.getAbsolutePath()
-        File unzipJavaResDir = new File(javaResPath.substring(0, javaResPath.lastIndexOf(".")))
-        unzipJavaResDir.mkdirs()
-        ZipUtils.unzipFile(javaResJar, unzipJavaResDir)
-        File apiDir = new File(unzipJavaResDir, Config.API_PATH)
-        apiDir.mkdirs()
-        apiScan.apiImplMap.each { key, value ->
-            File apiClassDir = new File(apiDir, key)
-            apiClassDir.mkdir()
-            File apiClassImplFile = new File(apiClassDir, value.getFileDesc())
-            apiClassImplFile.createNewFile()
+
+    private void processApiWithAssets(TransformOutputProvider outputProvider, ApiScan apiScan) {
+        def dest = outputProvider.getContentLocation(
+                Config.API_PATH,
+                TransformManager.CONTENT_CLASS,
+                TransformManager.PROJECT_ONLY,
+                Format.DIRECTORY
+        )
+
+        String variantName = ""
+        while (dest.getParentFile().getName() != getName()) {
+            variantName = dest.getParentFile().getName().capitalize() + variantName
+            dest = dest.getParentFile()
         }
-        javaResJar.delete()
-        ZipUtils.zipFiles(Arrays.asList(unzipJavaResDir.listFiles()), javaResJar)
+        LogUtils.l("get variant name from ${getName()}Dir: " + variantName)
+
+        mProject.android.applicationVariants.all { ApplicationVariant variant ->
+            if (variant.name.capitalize() == variantName) {
+                File assetsDir = variant.mergeAssetsProvider.get().outputDir.get().asFile
+                File apiDir = new File(assetsDir, Config.API_PATH)
+                apiDir.deleteDir()
+                if (!apiScan.apiImplMap.isEmpty()) {
+                    apiDir.mkdirs()
+                    LogUtils.l("${apiDir.getAbsolutePath()} -> api inject assets dir")
+                    apiScan.apiImplMap.each { key, value ->
+                        File apiClassDir = new File(apiDir, key)
+                        apiClassDir.mkdir()
+                        File apiClassImplFile = new File(apiClassDir, value.getFileDesc())
+                        apiClassImplFile.createNewFile()
+                    }
+                }
+            }
+        }
     }
 
     private static jumpScan(String jarName, ApiExtension ext) {

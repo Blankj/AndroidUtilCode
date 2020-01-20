@@ -8,6 +8,7 @@ import android.graphics.ColorFilter;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -16,8 +17,10 @@ import android.os.Build;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
+import android.util.Log;
 import android.util.StateSet;
 import android.view.MotionEvent;
+import android.view.TouchDelegate;
 import android.view.View;
 
 /**
@@ -344,6 +347,34 @@ public class ClickUtils {
                 }
             });
         }
+    }
+
+    public static void expandClickArea(@NonNull final View view, final int expandSize) {
+        expandClickArea(view, expandSize, expandSize, expandSize, expandSize);
+    }
+
+    public static void expandClickArea(@NonNull final View view,
+                                       final int expandSizeTop,
+                                       final int expandSizeLeft,
+                                       final int expandSizeRight,
+                                       final int expandSizeBottom) {
+        final View parentView = (View) view.getParent();
+        if (parentView == null) {
+            Log.e("ClickUtils", "expandClickArea must have parent view.");
+            return;
+        }
+        parentView.post(new Runnable() {
+            @Override
+            public void run() {
+                final Rect rect = new Rect();
+                view.getHitRect(rect);
+                rect.top -= expandSizeTop;
+                rect.bottom += expandSizeBottom;
+                rect.left -= expandSizeLeft;
+                rect.right += expandSizeRight;
+                parentView.setTouchDelegate(new TouchDelegate(rect, view));
+            }
+        });
     }
 
     private static final long TIP_DURATION = 2000L;

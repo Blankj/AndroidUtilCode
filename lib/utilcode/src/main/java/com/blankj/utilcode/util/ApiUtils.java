@@ -27,21 +27,10 @@ public final class ApiUtils {
 
     private static final String PREFIX = "blankj.api/";
 
-    private Map<Class, BaseApi> mApiMap           = new ConcurrentHashMap<>();
-    private Map<Class, Class>   mInjectApiImplMap = new HashMap<>();
+    private Map<Class, Object> apiClass_apiInstance_map  = new ConcurrentHashMap<>();
+    private Map<Class, Class>  apiClass_apiImplClass_map = new HashMap<>();
 
     private ApiUtils() {
-    }
-
-    private void registerApiInner(Class implClass) {
-        if (implClass == null) return;
-        Class superclass = implClass.getSuperclass();
-        if (superclass == null) return;
-        mInjectApiImplMap.put(superclass, implClass);
-    }
-
-    public static void registerApi(Class implClass) {
-        getInstance().registerApiInner(implClass);
     }
 
     /**
@@ -64,7 +53,7 @@ public final class ApiUtils {
         getAllApis();
         StringBuilder sb = new StringBuilder();
         sb.append("ApiUtils {");
-        for (Map.Entry<Class, Class> entry : mInjectApiImplMap.entrySet()) {
+        for (Map.Entry<Class, Class> entry : apiClass_apiImplClass_map.entrySet()) {
             sb.append("\n    ")
                     .append(entry.getKey().getName())
                     .append(": ")
@@ -79,16 +68,16 @@ public final class ApiUtils {
     }
 
     private <Result> Result getApiInner(Class apiClass) {
-        BaseApi api = mApiMap.get(apiClass);
-        if (api == null) {
+        Object apiInstance = apiClass_apiInstance_map.get(apiClass);
+        if (apiInstance == null) {
             synchronized (this) {
-                api = mApiMap.get(apiClass);
-                if (api == null) {
+                apiInstance = apiClass_apiInstance_map.get(apiClass);
+                if (apiInstance == null) {
                     Class implClass = getApiImplClass(apiClass);
                     if (implClass != null) {
                         try {
-                            api = (BaseApi) implClass.newInstance();
-                            mApiMap.put(apiClass, api);
+                            apiInstance = implClass.newInstance();
+                            apiClass_apiInstance_map.put(apiClass, apiInstance);
                         } catch (Exception ignore) {
                             Log.e(TAG, "The api of <" + implClass + "> has no parameterless constructor.");
                             return null;
@@ -101,11 +90,11 @@ public final class ApiUtils {
             }
         }
         //noinspection unchecked
-        return (Result) api;
+        return (Result) apiInstance;
     }
 
     private Class getApiImplClass(Class apiClass) {
-        Class apiImplClass = mInjectApiImplMap.get(apiClass);
+        Class apiImplClass = apiClass_apiImplClass_map.get(apiClass);
         if (apiImplClass != null) return apiImplClass;
         try {
             String[] apiImpls = Utils.getApp().getAssets().list(PREFIX + apiClass.getName());
@@ -133,26 +122,39 @@ public final class ApiUtils {
                 return null;
             }
             apiImplClass = Class.forName(className);
+            return registerApiInner(apiClass, apiImplClass);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private Class registerApiInner(Class apiClass, Class apiImplClass) {
+        if (apiImplClass == null) return null;
+        if (apiClass == null) {
             Class superclass = apiImplClass.getSuperclass();
-            if (superclass != null) {
-                //noinspection unchecked
-                if (apiClass.isAssignableFrom(apiImplClass)) {
-                    mInjectApiImplMap.put(apiClass, apiImplClass);
-                    return apiImplClass;
-                } else {
-                    Log.e(TAG, "<" + apiImplClass.getName() + ">'s superClass is <"
-                            + superclass.getName() + ">, not <" + apiClass.getName() + ">");
-                    return null;
-                }
-            } else {
-                Log.e(TAG, "<" + apiImplClass.getName() + ">'s superClass is <" +
-                        "null>, not <" + apiClass.getName() + ">");
+            if (superclass == null) {
+                Log.e(TAG, "<" + apiImplClass.getName() + ">'s superClass is null");
                 return null;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            apiClass = superclass;
+        }
+        //noinspection unchecked
+        if (apiClass.isAssignableFrom(apiImplClass)) {
+            apiClass_apiImplClass_map.put(apiClass, apiImplClass);
+            return apiImplClass;
+        } else {
+            Log.e(TAG, "<" + apiImplClass.getName() + ">'s superClass is <"
+                    + apiClass.getName() + ">, not <" + apiClass.getName() + ">");
             return null;
         }
+
+    }
+
+    static void registerApi(Class<? extends BaseApi> implClass) {
+        getInstance().registerApiInner(null, implClass);
     }
 
     private void getAllApis() {
