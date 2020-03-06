@@ -590,7 +590,12 @@ public MethodVisitor visitMethod(int access, String name, String descriptor, Str
 private void registerBus(String tag,
                          String className, String funName, String paramType, String paramName,
                          boolean sticky, String threadMode) {
-    mTag_BusInfoMap.put(tag, new BusInfo(className, funName, paramType, paramName, sticky, threadMode));
+    List<BusInfo> busInfoList = mTag_BusInfoListMap.get(tag);
+    if (busInfoList == null) {
+        busInfoList = new ArrayList<>();
+        mTag_BusInfoListMap.put(tag, busInfoList);
+    }
+    busInfoList.add(new BusInfo(className, funName, paramType, paramName, sticky, threadMode, priority));
 }
 ```
 
