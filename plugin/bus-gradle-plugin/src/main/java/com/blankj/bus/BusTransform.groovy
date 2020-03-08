@@ -170,7 +170,15 @@ class BusTransform extends Transform {
 
         mProject.android.applicationVariants.all { ApplicationVariant variant ->
             if (variant.name.capitalize() == variantName) {
-                File assetsDir = variant.mergeAssetsProvider.get().outputDir.get().asFile
+                File assetsDir
+                if (variant.mergeAssets != null) {
+                    if (variant.mergeAssets.outputDir instanceof File) {
+                        assetsDir = variant.mergeAssets.outputDir
+                    }
+                }
+                if (assetsDir == null) {
+                    assetsDir = variant.mergeAssetsProvider.get().outputDir.get().asFile
+                }
                 File busDir = new File(assetsDir, Config.BUS_PATH)
                 busDir.deleteDir()
                 if (!busScan.busMap.isEmpty()) {

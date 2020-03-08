@@ -232,7 +232,7 @@ public final class ToastUtils {
     private static void show(final int resId, final int duration, final Object... args) {
         try {
             CharSequence text = Utils.getApp().getResources().getText(resId);
-            if (args != null) {
+            if (args != null && args.length > 0) {
                 text = String.format(text.toString(), args);
             }
             show(text, duration);
@@ -246,7 +246,7 @@ public final class ToastUtils {
         if (text == null) {
             text = NULL;
         } else {
-            if (args != null) {
+            if (args != null && args.length > 0) {
                 text = String.format(format, args);
             }
         }

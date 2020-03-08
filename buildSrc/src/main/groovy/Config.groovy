@@ -11,17 +11,16 @@ class Config {
     static applicationId = 'com.blankj.androidutilcode'
     static appName = 'Util'
 
-    static compileSdkVersion = 28
+    static compileSdkVersion = 29
     static minSdkVersion = 14
-    static targetSdkVersion = 28
+    static targetSdkVersion = 29
     static versionCode = 1_026_001
-    static versionName = '1.26.1-alpha0'// E.g. 1.9.72 => 1,009,072
+    static versionName = '1.26.1-alpha3'// E.g. 1.9.72 => 1,009,072
 
     // lib version
-    static gradlePluginVersion = '3.5.2'
+    static gradlePluginVersion = '3.5.0'
     static kotlinVersion = '1.3.50'
     static supportVersion = '28.0.0'
-    static leakcanaryVersion = '1.6.3'
 
     static depConfig = [
             /*Never delete this line*/
@@ -54,10 +53,10 @@ class Config {
             // 本地第一次上传插件新的版本需设置 isApply = false, useLocal = true
             // 本地上传成功之后 isApply = true 即可应用插件来调试，后续版本更新无需设置 isApply = false
             // 发布版本的话把 isApply = false, useLocal = false，更新版本号，发布成功后 isApply = true 即可使用远程库版本
-            plugin_api                 : new DepConfig(isApply: false, useLocal: true, pluginPath: "com.blankj:api-gradle-plugin:1.3-r4", pluginId: "com.blankj.api"),
+            plugin_api                 : new DepConfig(isApply: true, useLocal: false, pluginPath: "com.blankj:api-gradle-plugin:1.4-r1", pluginId: "com.blankj.api"),
             //./gradlew plugin:api-gradle-plugin:uploadArchives // 上传到本地 maven
             //./gradlew plugin:api-gradle-plugin:bintrayUpload  // 上传到 jcenter
-            plugin_bus                 : new DepConfig(isApply: true, useLocal: true, pluginPath: "com.blankj:bus-gradle-plugin:2.5", pluginId: "com.blankj.bus"),
+            plugin_bus                 : new DepConfig(isApply: true, useLocal: false, pluginPath: "com.blankj:bus-gradle-plugin:2.6-r2", pluginId: "com.blankj.bus"),
             //./gradlew plugin:bus-gradle-plugin:uploadArchives // 上传到本地 maven
             //./gradlew plugin:bus-gradle-plugin:bintrayUpload  // 上传到 jcenter
 
@@ -68,9 +67,7 @@ class Config {
 
             kotlin                     : new DepConfig("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"),
 
-            leakcanary_android         : new DepConfig("com.squareup.leakcanary:leakcanary-android:$leakcanaryVersion"),
-            leakcanary_android_no_op   : new DepConfig("com.squareup.leakcanary:leakcanary-android-no-op:$leakcanaryVersion"),
-            leakcanary_support_fragment: new DepConfig("com.squareup.leakcanary:leakcanary-support-fragment:$leakcanaryVersion"),
+            leakcanary_android         : new DepConfig("com.squareup.leakcanary:leakcanary-android:2.1"),
 
             free_proguard              : new DepConfig("com.blankj:free-proguard:1.0.2"),
             swipe_panel                : new DepConfig("com.blankj:swipe-panel:1.2"),
@@ -86,7 +83,7 @@ class Config {
             photo_view                 : new DepConfig("com.github.chrisbanes:PhotoView:2.0.0"),
 
             test_junit                 : new DepConfig("junit:junit:4.12"),
-            test_robolectric           : new DepConfig("org.robolectric:robolectric:4.2"),
+            test_robolectric           : new DepConfig("org.robolectric:robolectric:4.3.1"),
     ]
 }
 //./gradlew clean :lib:utilcode:bintrayUpload

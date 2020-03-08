@@ -67,8 +67,6 @@ android {
 dependencies {
     // LeakCanary
     debugImplementation Config.depConfig.leakcanary_android.dep
-    debugImplementation Config.depConfig.leakcanary_support_fragment.dep
-    releaseImplementation Config.depConfig.leakcanary_android_no_op.dep
 
     debugImplementation Config.depConfig.lib_utildebug.dep
     releaseImplementation Config.depConfig.lib_utildebug_no_op.dep
@@ -84,8 +82,8 @@ dependencies {
 }
 
 def getSuffix() {
-    if (project.path == ":feature:launcher:app") return ""
-    return project.path.replace(":", "_").substring(":feature".length(), project.path.length() - ":app".length())
+    if (project.path == ":feature_launcher_app") return ""
+    return "." + project.path.substring(":feature_".length(), project.path.length() - "_app".length())
 }
 
 def configSigning() {

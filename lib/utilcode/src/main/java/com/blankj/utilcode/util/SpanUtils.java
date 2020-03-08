@@ -49,6 +49,7 @@ import android.text.style.URLSpan;
 import android.text.style.UnderlineSpan;
 import android.text.style.UpdateAppearance;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import java.io.InputStream;
@@ -512,6 +513,39 @@ public final class SpanUtils {
             mTextView.setMovementMethod(LinkMovementMethod.getInstance());
         }
         this.clickSpan = clickSpan;
+        return this;
+    }
+
+    /**
+     * Set the span of click.
+     * <p>Must set {@code view.setMovementMethod(LinkMovementMethod.getInstance())}</p>
+     *
+     * @param color         The color of click span.
+     * @param underlineText True to support underline, false otherwise.
+     * @param listener      The listener of click span.
+     * @return the single {@link SpanUtils} instance
+     */
+    public SpanUtils setClickSpan(@ColorInt final int color,
+                                  final boolean underlineText,
+                                  final View.OnClickListener listener) {
+        if (mTextView != null && mTextView.getMovementMethod() == null) {
+            mTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+        this.clickSpan = new ClickableSpan() {
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint paint) {
+                paint.setColor(color);
+                paint.setUnderlineText(underlineText);
+            }
+
+            @Override
+            public void onClick(@NonNull View widget) {
+                if (listener != null) {
+                    listener.onClick(widget);
+                }
+            }
+        };
         return this;
     }
 

@@ -14,10 +14,10 @@ import org.gradle.api.invocation.Gradle
 class ConfigUtils {
 
     static init(Gradle gradle) {
-        GitUtils.init(gradle)
         generateDep(gradle)
         addCommonGradle(gradle)
         TaskDurationUtils.init(gradle)
+        GitUtils.init(gradle)
     }
 
     /**
@@ -47,10 +47,10 @@ class ConfigUtils {
             void beforeEvaluate(Project project) {
                 // 在 project 的 build.gradle 前 do sth.
                 if (project.subprojects.isEmpty()) {
-                    if (project.path.contains(":plugin:")) {
+                    if (project.name.startsWith("plugin")) {
                         return
                     }
-                    if (project.name == "app") {
+                    if (project.name.endsWith("_app")) {
                         GLog.l(project.toString() + " applies buildApp.gradle")
                         project.apply {
                             from "${project.rootDir.path}/buildApp.gradle"

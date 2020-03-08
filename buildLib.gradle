@@ -24,20 +24,19 @@ android {
     lintOptions {
         abortOnError false
     }
-}
 
-afterEvaluate {
-    generateReleaseBuildConfig.enabled = false
-    generateDebugBuildConfig.enabled = false
+//    viewBinding {
+//        enabled = true
+//    }
 }
 
 dependencies {
-    if (project.name == 'pkg' || project.name == 'mock') {
+    if (project.name.endsWith("_pkg") || project.name.endsWith("_mock")) {
         // if module's name equals 'pkg', api all of export
         for (def entrySet : ConfigUtils.getApplyExports().entrySet()) {
             api entrySet.value.dep
         }
-    } else if (project.name == 'export') {
+    } else if (project.name.endsWith("_export")) {
         api Config.depConfig.lib_common.dep
     }
 }

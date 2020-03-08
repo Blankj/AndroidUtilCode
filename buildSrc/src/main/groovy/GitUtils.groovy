@@ -19,12 +19,6 @@ class GitUtils {
     static void init(Gradle gradle) {
         rootProject = gradle.rootProject
         addGitHelpTask()
-//        gradle.rootProject(new Action<Project>() {
-//            @Override
-//            void execute(Project project) {
-//                addGitHelpTask()
-//            }
-//        })
     }
 
     static def addGitHelpTask() {

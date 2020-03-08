@@ -1,3 +1,7 @@
+* `20/01/20` [upd] Publish v1.26.1.
+* `20/01/19` [add] Publish bus plugin v1.4.
+* `20/01/18` [add] Publish api plugin v2.6.
+* `20/01/17` [upd] Leak Canary to v2.1.
 * `19/12/08` [add] Publish bus plugin v2.5.
 * `19/12/06` [add] Publish api plugin v1.3.
 * `19/11/30` [add] Publish bus plugin v2.4. Publish api plugin v1.2.

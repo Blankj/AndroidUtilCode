@@ -75,6 +75,10 @@ class DepConfig {
         return splits.length == 3 ? splits[2] : null
     }
 
+    String getLocalPath() {
+        return ":" + localPath.replace(":", "_").substring(1)
+    }
+
     @Override
     String toString() {
         return "{ isApply = ${getFlag(isApply)}" +

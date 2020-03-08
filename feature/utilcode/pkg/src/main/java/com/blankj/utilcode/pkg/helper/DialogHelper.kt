@@ -88,7 +88,7 @@ object DialogHelper {
                 contentView.findViewById<View>(R.id.keyboardDialogCloseBtn).setOnClickListener(listener)
 
                 dialog.dialog.setOnShowListener(DialogInterface.OnShowListener {
-                    KeyboardUtils.fixAndroidBug5497(dialog.dialog.window)
+                    KeyboardUtils.fixAndroidBug5497(dialog.dialog.window!!)
                 })
             }
 

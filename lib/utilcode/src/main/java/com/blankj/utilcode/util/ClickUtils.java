@@ -447,7 +447,12 @@ public class ClickUtils {
                 return true;
             }
             long preTime = (Long) tag;
-            if (curTime - preTime <= duration) return false;
+            if (curTime - preTime < 0) {
+                view.setTag(DEBOUNCING_TAG, curTime);
+                return false;
+            } else if (curTime - preTime <= duration) {
+                return false;
+            }
             view.setTag(DEBOUNCING_TAG, curTime);
             return true;
         }

@@ -155,7 +155,26 @@ class ApiTransform extends Transform {
 
         mProject.android.applicationVariants.all { ApplicationVariant variant ->
             if (variant.name.capitalize() == variantName) {
-                File assetsDir = variant.mergeAssetsProvider.get().outputDir.get().asFile
+                File assetsDir
+                if (variant.mergeAssets != null) {
+                    if (variant.mergeAssets.outputDir instanceof File) {
+                        assetsDir = variant.mergeAssets.outputDir
+                    }
+                }
+                if (assetsDir == null) {
+                    assetsDir = variant.mergeAssetsProvider.get().outputDir.get().asFile
+                }
+
+                File resourceDir
+                if (variant.processJavaResources != null) {
+                    if (variant.processJavaResources.getOutputs().getFiles().getFiles().getAt(0) != null) {
+                        resourceDir = variant.processJavaResources.getOutputs().getFiles().getFiles().getAt(0)
+                    }
+                }
+                if (resourceDir == null) {
+                    resourceDir = variant.processJavaResourcesProvider.get().getOutputs().getFiles().getFiles().getAt(0)
+                }
+
                 File apiDir = new File(assetsDir, Config.API_PATH)
                 apiDir.deleteDir()
                 if (!apiScan.apiImplMap.isEmpty()) {

@@ -2,7 +2,6 @@ package com.blankj.utilcode.util;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Build;
@@ -135,7 +134,7 @@ public final class KeyboardUtils {
     public static void hideSoftInputByToggle(final Activity activity) {
         long nowMillis = System.currentTimeMillis();
         long delta = nowMillis - millis;
-        if (KeyboardUtils.isSoftInputVisible(activity) && delta > 500) {
+        if (KeyboardUtils.isSoftInputVisible(activity) && Math.abs(delta) > 500) {
             KeyboardUtils.toggleSoftInput();
         }
         millis = nowMillis;
@@ -353,21 +352,6 @@ public final class KeyboardUtils {
         } else {
             return 0;
         }
-    }
-
-    private static Activity getActivityByView(@NonNull View view) {
-        return getActivityByContext(view.getContext());
-    }
-
-    private static Activity getActivityByContext(Context context) {
-        if (context instanceof Activity) return (Activity) context;
-        while (context instanceof ContextWrapper) {
-            if (context instanceof Activity) {
-                return (Activity) context;
-            }
-            context = ((ContextWrapper) context).getBaseContext();
-        }
-        return null;
     }
 
 ///////////////////////////////////////////////////////////////////////////

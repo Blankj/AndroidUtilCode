@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -20,6 +21,7 @@ import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -1171,7 +1173,9 @@ public final class ThreadUtils {
         private volatile boolean isSchedule;
         private volatile Thread  runner;
 
-        private Timer mTimer;
+        private Timer             mTimer;
+        private long              mTimeoutMillis;
+        private OnTimeoutListener mTimeoutListener;
 
         private Executor deliver;
 
@@ -1189,12 +1193,27 @@ public final class ThreadUtils {
                 if (runner == null) {
                     if (!state.compareAndSet(NEW, RUNNING)) return;
                     runner = Thread.currentThread();
+                    if (mTimeoutListener != null) {
+                        Log.w("ThreadUtils", "Scheduled task doesn't support timeout.");
+                    }
                 } else {
                     if (state.get() != RUNNING) return;
                 }
             } else {
                 if (!state.compareAndSet(NEW, RUNNING)) return;
                 runner = Thread.currentThread();
+                if (mTimeoutListener != null) {
+                    mTimer = new Timer();
+                    mTimer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            if (!isDone() && mTimeoutListener != null) {
+                                timeout();
+                                mTimeoutListener.onTimeout();
+                            }
+                        }
+                    }, mTimeoutMillis);
+                }
             }
             try {
                 final T result = doInBackground();
@@ -1279,17 +1298,13 @@ public final class ThreadUtils {
             return this;
         }
 
-        public void setTimeout(final long timeoutMillis, final OnTimeoutListener listener) {
-            mTimer = new Timer();
-            mTimer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    if (!isDone() && listener != null) {
-                        timeout();
-                        listener.onTimeout();
-                    }
-                }
-            }, timeoutMillis);
+        /**
+         * Scheduled task doesn't support timeout.
+         */
+        public Task<T> setTimeout(final long timeoutMillis, final OnTimeoutListener listener) {
+            mTimeoutMillis = timeoutMillis;
+            mTimeoutListener = listener;
+            return this;
         }
 
         private void setSchedule(boolean isSchedule) {
@@ -1309,11 +1324,37 @@ public final class ThreadUtils {
             if (mTimer != null) {
                 mTimer.cancel();
                 mTimer = null;
+                mTimeoutListener = null;
             }
         }
 
         public interface OnTimeoutListener {
             void onTimeout();
+        }
+    }
+
+    public static class SyncValue<T> {
+
+        private CountDownLatch mLatch = new CountDownLatch(1);
+        private AtomicBoolean  mFlag  = new AtomicBoolean();
+        private T              mValue;
+
+        public void setValue(T value) {
+            if (mFlag.compareAndSet(false, true)) {
+                mValue = value;
+                mLatch.countDown();
+            }
+        }
+
+        public T getValue() {
+            if (!mFlag.get()) {
+                try {
+                    mLatch.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return mValue;
         }
     }
 

@@ -40,13 +40,15 @@ public final class ActivityUtils {
     }
 
     /**
-     * Return the activity by view.
+     * Return the activity by context.
      *
-     * @param view The view.
-     * @return the activity by view.
+     * @param context The context.
+     * @return the activity by context.
      */
-    public static Activity getActivityByView(@NonNull View view) {
-        return getActivityByContext(view.getContext());
+    public static Activity getAliveActivityByContext(Context context) {
+        Activity activity = getActivityByContext(context);
+        if (!isActivityAlive(activity)) return null;
+        return activity;
     }
 
     /**

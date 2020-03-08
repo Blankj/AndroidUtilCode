@@ -13,7 +13,7 @@ implementation 'com.blankj:utilcodex:1.26.0'
 
 * ### About Activity -> [ActivityUtils.java][activity.java] -> [Demo][activity.demo]
 ```
-getActivityByView
+getAliveActivityByContext
 getActivityByContext
 isActivityExists
 startActivity
@@ -272,6 +272,8 @@ applyPressedBgAlpha
 applyPressedBgDark
 applySingleDebouncing
 applyGlobalDebouncing
+expandClickArea
+back2HomeFriendly
 ClickUtils#OnDebouncingClickListener
 ClickUtils#OnMultiClickListener
 ```

@@ -1,5 +1,7 @@
 import groovy.json.JsonSlurper
 
+rootProject.name = 'AndroidUtil'
+
 /**
  * 在 config.json 中 根据 appConfig 和 pkgConfig 来 include 本地模块
  */
@@ -7,6 +9,8 @@ def config = new JsonSlurper().parse(file("./config.json"))
 
 for (def pro in config.proConfig) {
     String localPath = pro.localPath
+
+    println "haha" + pro
 
     if (localPath == ":feature:mock") {
         if (config.pkgConfig.isEmpty()) {
@@ -27,7 +31,9 @@ for (def pro in config.proConfig) {
     }
 
     if (pro.useLocal && pro.isApply) {
-        include pro.localPath
+        String proPath = ":" + pro.localPath.replace(":", "_").substring(1)
+        include proPath
+        project(proPath).projectDir = new File(".${pro.localPath.replace(":", "/")}")
     }
 }
 

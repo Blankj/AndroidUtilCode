@@ -13,8 +13,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -22,6 +22,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -319,7 +321,7 @@ public final class Utils {
     // TransActivity
     ///////////////////////////////////////////////////////////////////////////
 
-    public static final class TransActivity extends FragmentActivity {
+    public static final class TransActivity extends AppCompatActivity {
 
         private static final Map<TransActivity, TransActivityDelegate> CALLBACK_MAP = new HashMap<>();
         private static       TransActivityDelegate                     sDelegate;
@@ -469,14 +471,14 @@ public final class Utils {
         private boolean mIsBackground    = false;
 
         @Override
-        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        public void onActivityCreated(@NotNull Activity activity, Bundle savedInstanceState) {
             LanguageUtils.applyLanguage(activity);
             setAnimatorsEnabled();
             setTopActivity(activity);
         }
 
         @Override
-        public void onActivityStarted(Activity activity) {
+        public void onActivityStarted(@NotNull Activity activity) {
             if (!mIsBackground) {
                 setTopActivity(activity);
             }
@@ -488,7 +490,7 @@ public final class Utils {
         }
 
         @Override
-        public void onActivityResumed(final Activity activity) {
+        public void onActivityResumed(@NotNull final Activity activity) {
             setTopActivity(activity);
             if (mIsBackground) {
                 mIsBackground = false;
@@ -498,7 +500,7 @@ public final class Utils {
         }
 
         @Override
-        public void onActivityPaused(Activity activity) {
+        public void onActivityPaused(@NotNull Activity activity) {
 
         }
 
@@ -517,10 +519,10 @@ public final class Utils {
         }
 
         @Override
-        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {/**/}
+        public void onActivitySaveInstanceState(@NotNull Activity activity, Bundle outState) {/**/}
 
         @Override
-        public void onActivityDestroyed(Activity activity) {
+        public void onActivityDestroyed(@NotNull Activity activity) {
             mActivityList.remove(activity);
             consumeOnActivityDestroyedListener(activity);
             fixSoftInputLeaks(activity.getWindow());

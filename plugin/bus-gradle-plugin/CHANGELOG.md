@@ -1,5 +1,8 @@
 # Change Log
 
+## v2.6(2020/01/11)
+优化插入到 assets 文件中的方式
+
 ## v2.5
 更新注入模式为插入到 assets 文件中，不再往 BusUtils 中插入代码，为支持 adb install-multiple 作准备
 

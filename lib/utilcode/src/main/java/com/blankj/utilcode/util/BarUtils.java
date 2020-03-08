@@ -25,6 +25,8 @@ import android.view.ViewGroup.MarginLayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
 
+import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import static android.Manifest.permission.EXPAND_STATUS_BAR;
@@ -272,7 +274,7 @@ public final class BarUtils {
     public static void setStatusBarColor(@NonNull final View fakeStatusBar,
                                          @ColorInt final int color) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        Activity activity = getActivityByView(fakeStatusBar);
+        Activity activity = getActivityByContext(fakeStatusBar.getContext());
         if (activity == null) return;
         transparentStatusBar(activity);
         fakeStatusBar.setVisibility(View.VISIBLE);
@@ -289,7 +291,7 @@ public final class BarUtils {
      */
     public static void setStatusBarCustom(@NonNull final View fakeStatusBar) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        Activity activity = getActivityByView(fakeStatusBar);
+        Activity activity = getActivityByContext(fakeStatusBar.getContext());
         if (activity == null) return;
         transparentStatusBar(activity);
         fakeStatusBar.setVisibility(View.VISIBLE);
@@ -334,7 +336,7 @@ public final class BarUtils {
                                                 @ColorInt final int color,
                                                 final boolean isTop) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        Activity activity = getActivityByView(fakeStatusBar);
+        Activity activity = getActivityByContext(fakeStatusBar.getContext());
         if (activity == null) return;
         transparentStatusBar(activity);
         drawer.setFitsSystemWindows(false);
@@ -699,15 +701,24 @@ public final class BarUtils {
         return false;
     }
 
-    private static Activity getActivityByView(@NonNull final View view) {
-        Context context = view.getContext();
+    private static Activity getActivityByContext(Context context) {
+        if (context instanceof Activity) return (Activity) context;
+        if (context != null && context.getClass().getName().equals("com.android.internal.policy.DecorContext")) {
+            try {
+                Field mActivityContextField = context.getClass().getDeclaredField("mActivityContext");
+                mActivityContextField.setAccessible(true);
+                //noinspection unchecked
+                return ((WeakReference<Activity>) mActivityContextField.get(context)).get();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         while (context instanceof ContextWrapper) {
             if (context instanceof Activity) {
                 return (Activity) context;
             }
             context = ((ContextWrapper) context).getBaseContext();
         }
-        Log.e("BarUtils", "the view's Context is not an Activity.");
         return null;
     }
 }

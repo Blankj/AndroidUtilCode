@@ -13,7 +13,7 @@ implementation 'com.blankj:utilcodex:1.26.0'
 
 * ### Activity 相关 -> [ActivityUtils.java][activity.java] -> [Demo][activity.demo]
 ```
-getActivityByView              : 根据视图获取 Activity
+getAliveActivityByContext      : 根据上下文获取存活的 Activity
 getActivityByContext           : 根据上下文获取 Activity
 isActivityExists               : 判断 Activity 是否存在
 startActivity                  : 启动 Activity
@@ -135,8 +135,8 @@ isNavBarVisible                      : 判断导航栏是否可见
 setNavBarColor                       : 设置导航栏颜色
 getNavBarColor                       : 获取导航栏颜色
 isSupportNavBar                      : 判断是否支持导航栏
-setNavBarLightMode                   : 设置状态栏是否为浅色模式
-isNavBarLightMode                    : 判断状态栏是否为浅色模式
+setNavBarLightMode                   : 设置导航栏是否为浅色模式
+isNavBarLightMode                    : 判断导航栏是否为浅色模式
 ```
 
 * ### 亮度相关 -> [BrightnessUtils.java][brightness.java] -> [Demo][brightness.demo]

@@ -378,7 +378,7 @@ public final class ZipUtils {
         ZipFile zip = new ZipFile(zipFile);
         Enumeration<?> entries = zip.entries();
         while (entries.hasMoreElements()) {
-            String entryName = ((ZipEntry) entries.nextElement()).getName().replace("\\", "/");;
+            String entryName = ((ZipEntry) entries.nextElement()).getName().replace("\\", "/");
             if (entryName.contains("../")) {
                 Log.e("ZipUtils", "entryName: " + entryName + " is dangerous!");
                 paths.add(entryName);
