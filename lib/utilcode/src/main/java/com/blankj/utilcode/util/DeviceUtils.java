@@ -438,7 +438,7 @@ public final class DeviceUtils {
         if (udid == null) {
             synchronized (DeviceUtils.class) {
                 if (udid == null) {
-                    final String id = Utils.getSpUtils4Utils().getString(KEY_UDID, null);
+                    final String id = UtilsBridge.getSpUtils4Utils().getString(KEY_UDID, null);
                     if (id != null) {
                         udid = id;
                         return udid;
@@ -466,7 +466,7 @@ public final class DeviceUtils {
         // {prefix}{type}{32id}
         if (TextUtils.isEmpty(uniqueDeviceId) && uniqueDeviceId.length() < 33) return false;
         if (uniqueDeviceId.equals(udid)) return true;
-        final String cachedId = Utils.getSpUtils4Utils().getString(KEY_UDID, null);
+        final String cachedId = UtilsBridge.getSpUtils4Utils().getString(KEY_UDID, null);
         if (uniqueDeviceId.equals(cachedId)) return true;
         int st = uniqueDeviceId.length() - 33;
         String type = uniqueDeviceId.substring(st, st + 1);

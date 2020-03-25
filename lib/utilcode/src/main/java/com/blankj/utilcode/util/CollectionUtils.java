@@ -373,7 +373,7 @@ public final class CollectionUtils {
      */
     public static boolean isProperSubCollection(final Collection a, final Collection b) {
         if (a == null || b == null) return false;
-        return a.size() < b.size() && CollectionUtils.isSubCollection(a, b);
+        return a.size() < b.size() && isSubCollection(a, b);
     }
 
     /**

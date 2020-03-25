@@ -37,19 +37,19 @@ class BarStatusActivity : CommonActivity() {
                 CommonItemTitle("getStatusBarHeight", BarUtils.getStatusBarHeight().toString()),
                 CommonItemSwitch(
                         R.string.bar_status_visibility,
-                        Utils.Func1 {
+                        Utils.Supplier {
                             BarUtils.isStatusBarVisible(this)
                         },
-                        Utils.Func1 {
+                        Utils.Consumer {
                             BarUtils.setStatusBarVisibility(this, it)
                         }
                 ),
                 CommonItemSwitch(
                         R.string.bar_status_light_mode,
-                        Utils.Func1 {
+                        Utils.Supplier {
                             BarUtils.isStatusBarLightMode(this)
                         },
-                        Utils.Func1 {
+                        Utils.Consumer {
                             BarUtils.setStatusBarLightMode(this, it)
                         }
                 )

@@ -1,6 +1,5 @@
 package com.blankj.utilcode.util;
 
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -349,6 +348,12 @@ public class ClickUtils {
         }
     }
 
+    /**
+     * Expand the click area of ​​the view
+     *
+     * @param view       The view.
+     * @param expandSize The size.
+     */
     public static void expandClickArea(@NonNull final View view, final int expandSize) {
         expandClickArea(view, expandSize, expandSize, expandSize, expandSize);
     }
@@ -392,7 +397,7 @@ public class ClickUtils {
         if (nowMillis - sLastClickMillis < duration) {
             sClickCount++;
             if (sClickCount == 2) {
-                startHomeActivity();
+                UtilsBridge.startHomeActivity();
                 listener.dismiss();
                 sLastClickMillis = 0;
             }
@@ -407,25 +412,18 @@ public class ClickUtils {
         Back2HomeFriendlyListener DEFAULT = new Back2HomeFriendlyListener() {
             @Override
             public void show(CharSequence text, long duration) {
-                Utils.toastShowShort(text);
+                UtilsBridge.toastShowShort(text);
             }
 
             @Override
             public void dismiss() {
-                Utils.toastCancel();
+                UtilsBridge.toastCancel();
             }
         };
 
         void show(CharSequence text, long duration);
 
         void dismiss();
-    }
-
-    private static void startHomeActivity() {
-        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-        homeIntent.addCategory(Intent.CATEGORY_HOME);
-        homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Utils.getApp().startActivity(homeIntent);
     }
 
     public static abstract class OnDebouncingClickListener implements View.OnClickListener {

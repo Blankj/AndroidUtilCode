@@ -21,31 +21,37 @@ import java.util.Set;
  */
 public final class GsonUtils {
 
-    private static final Gson GSON = createGson(true);
+    private static Gson sGsonDefault;
 
-    private static final Gson GSON_NO_NULLS = createGson(false);
+    private static Gson sGsonDelegate;
 
     private GsonUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**
-     * Gets pre-configured {@link Gson} instance.
+     * Set the delegate of gson.
+     *
+     * @param delegate The delegate.
+     */
+    public static void setGsonDelegate(Gson delegate) {
+        sGsonDelegate = delegate;
+    }
+
+    /**
+     * Get the {@link Gson} instance.
      *
      * @return {@link Gson} instance.
      */
     public static Gson getGson() {
-        return getGson(true);
-    }
-
-    /**
-     * Gets pre-configured {@link Gson} instance.
-     *
-     * @param serializeNulls Determines if nulls will be serialized.
-     * @return {@link Gson} instance.
-     */
-    public static Gson getGson(final boolean serializeNulls) {
-        return serializeNulls ? GSON_NO_NULLS : GSON;
+        if (sGsonDelegate != null) {
+            return sGsonDelegate;
+        }
+        if (sGsonDefault != null) {
+            return sGsonDefault;
+        }
+        sGsonDefault = createGson();
+        return sGsonDefault;
     }
 
     /**
@@ -55,18 +61,7 @@ public final class GsonUtils {
      * @return object serialized into json.
      */
     public static String toJson(final Object object) {
-        return toJson(object, true);
-    }
-
-    /**
-     * Serializes an object into json.
-     *
-     * @param object       The object to serialize.
-     * @param includeNulls Determines if nulls will be included.
-     * @return object serialized into json.
-     */
-    public static String toJson(final Object object, final boolean includeNulls) {
-        return includeNulls ? GSON.toJson(object) : GSON_NO_NULLS.toJson(object);
+        return getGson().toJson(object);
     }
 
     /**
@@ -77,21 +72,8 @@ public final class GsonUtils {
      * @return object serialized into json.
      */
     public static String toJson(final Object src, final Type typeOfSrc) {
-        return toJson(src, typeOfSrc, true);
+        return getGson().toJson(src, typeOfSrc);
     }
-
-    /**
-     * Serializes an object into json.
-     *
-     * @param src          The object to serialize.
-     * @param typeOfSrc    The specific genericized type of src.
-     * @param includeNulls Determines if nulls will be included.
-     * @return object serialized into json.
-     */
-    public static String toJson(final Object src, final Type typeOfSrc, final boolean includeNulls) {
-        return includeNulls ? GSON.toJson(src, typeOfSrc) : GSON_NO_NULLS.toJson(src, typeOfSrc);
-    }
-
 
     /**
      * Converts {@link String} to given type.
@@ -101,7 +83,7 @@ public final class GsonUtils {
      * @return instance of type
      */
     public static <T> T fromJson(final String json, final Class<T> type) {
-        return GSON.fromJson(json, type);
+        return sGsonDefault.fromJson(json, type);
     }
 
     /**
@@ -112,7 +94,7 @@ public final class GsonUtils {
      * @return instance of type
      */
     public static <T> T fromJson(final String json, final Type type) {
-        return GSON.fromJson(json, type);
+        return sGsonDefault.fromJson(json, type);
     }
 
     /**
@@ -123,7 +105,7 @@ public final class GsonUtils {
      * @return instance of type
      */
     public static <T> T fromJson(final Reader reader, final Class<T> type) {
-        return GSON.fromJson(reader, type);
+        return sGsonDefault.fromJson(reader, type);
     }
 
     /**
@@ -134,7 +116,7 @@ public final class GsonUtils {
      * @return instance of type
      */
     public static <T> T fromJson(final Reader reader, final Type type) {
-        return GSON.fromJson(reader, type);
+        return sGsonDefault.fromJson(reader, type);
     }
 
     /**
@@ -189,15 +171,11 @@ public final class GsonUtils {
         return TypeToken.getParameterized(rawType, typeArguments).getType();
     }
 
-    /**
-     * Create a pre-configured {@link Gson} instance.
-     *
-     * @param serializeNulls determines if nulls will be serialized.
-     * @return {@link Gson} instance.
-     */
-    private static Gson createGson(final boolean serializeNulls) {
-        final GsonBuilder builder = new GsonBuilder();
-        if (serializeNulls) builder.serializeNulls();
-        return builder.create();
+    static Gson getGson4LogUtils() {
+        return new GsonBuilder().setPrettyPrinting().serializeNulls().create();
+    }
+
+    private static Gson createGson() {
+        return new GsonBuilder().serializeNulls().disableHtmlEscaping().create();
     }
 }

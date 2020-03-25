@@ -1,8 +1,10 @@
 package com.blankj.utilcode.util;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -15,6 +17,7 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Locale;
 
@@ -113,11 +116,11 @@ public class LanguageUtils {
                                       final boolean isFollowSystem,
                                       final boolean isNeedStartActivity) {
         if (isFollowSystem) {
-            Utils.getSpUtils4Utils().put(KEY_LOCALE, VALUE_FOLLOW_SYSTEM);
+            UtilsBridge.getSpUtils4Utils().put(KEY_LOCALE, VALUE_FOLLOW_SYSTEM);
         } else {
             String localLanguage = locale.getLanguage();
             String localCountry = locale.getCountry();
-            Utils.getSpUtils4Utils().put(KEY_LOCALE, localLanguage + "$" + localCountry);
+            UtilsBridge.getSpUtils4Utils().put(KEY_LOCALE, localLanguage + "$" + localCountry);
         }
 
         updateLanguage(Utils.getApp(), locale);
@@ -137,7 +140,7 @@ public class LanguageUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isAppliedSystemLanguage() {
-        return VALUE_FOLLOW_SYSTEM.equals(Utils.getSpUtils4Utils().getString(KEY_LOCALE));
+        return VALUE_FOLLOW_SYSTEM.equals(UtilsBridge.getSpUtils4Utils().getString(KEY_LOCALE));
     }
 
     /**
@@ -146,7 +149,7 @@ public class LanguageUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isAppliedLanguage() {
-        return !TextUtils.isEmpty(Utils.getSpUtils4Utils().getString(KEY_LOCALE));
+        return !TextUtils.isEmpty(UtilsBridge.getSpUtils4Utils().getString(KEY_LOCALE));
     }
 
     /**
@@ -159,7 +162,7 @@ public class LanguageUtils {
     }
 
     static void applyLanguage(@NonNull final Activity activity) {
-        final String spLocale = Utils.getSpUtils4Utils().getString(KEY_LOCALE);
+        final String spLocale = UtilsBridge.getSpUtils4Utils().getString(KEY_LOCALE);
         if (TextUtils.isEmpty(spLocale)) {
             return;
         }
@@ -182,22 +185,34 @@ public class LanguageUtils {
         updateLanguage(activity, settingLocale);
     }
 
-    private static void updateLanguage(Context context, Locale locale) {
+    private static void updateLanguage(final Context context, Locale locale) {
         Resources resources = context.getResources();
         Configuration config = resources.getConfiguration();
         Locale contextLocale = config.locale;
-        if (equals(contextLocale.getLanguage(), locale.getLanguage())
-                && equals(contextLocale.getCountry(), locale.getCountry())) {
+        if (isSameLocale(contextLocale, locale)) {
             return;
         }
         DisplayMetrics dm = resources.getDisplayMetrics();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             config.setLocale(locale);
-            context.createConfigurationContext(config);
+            if (context instanceof Application) {
+                Context newContext = context.createConfigurationContext(config);
+                try {
+                    //noinspection JavaReflectionMemberAccess
+                    Field mBaseField = ContextWrapper.class.getDeclaredField("mBase");
+                    mBaseField.setAccessible(true);
+                    mBaseField.set(context, newContext);
+                } catch (Exception ignored) {/**/}
+            }
         } else {
             config.locale = locale;
         }
         resources.updateConfiguration(config, dm);
+    }
+
+    private static boolean isSameLocale(Locale locale, Locale contextLocale) {
+        return equals(contextLocale.getLanguage(), locale.getLanguage())
+                && equals(contextLocale.getCountry(), locale.getCountry());
     }
 
     private static boolean equals(final CharSequence s1, final CharSequence s2) {

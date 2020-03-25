@@ -1,7 +1,5 @@
 import groovy.json.JsonSlurper
 
-rootProject.name = 'AndroidUtil'
-
 /**
  * 在 config.json 中 根据 appConfig 和 pkgConfig 来 include 本地模块
  */
@@ -9,8 +7,6 @@ def config = new JsonSlurper().parse(file("./config.json"))
 
 for (def pro in config.proConfig) {
     String localPath = pro.localPath
-
-    println "haha" + pro
 
     if (localPath == ":feature:mock") {
         if (config.pkgConfig.isEmpty()) {
@@ -31,9 +27,8 @@ for (def pro in config.proConfig) {
     }
 
     if (pro.useLocal && pro.isApply) {
-        String proPath = ":" + pro.localPath.replace(":", "_").substring(1)
-        include proPath
-        project(proPath).projectDir = new File(".${pro.localPath.replace(":", "/")}")
+        include pro.localPath
+        project(pro.localPath).name = pro.localPath.substring(1).replace(":", "_")
     }
 }
 
@@ -48,7 +43,8 @@ for (def pro in config.proConfig) {
     if (localPath != null) localPath = "\"$localPath\""
     if (remotePath != null) remotePath = "\"$remotePath\""
     boolean isApply = pro.isApply
-    proDeps.add(String.format("%-12s%-27s: new DepConfig($isApply, $useLocal, $localPath%s),", "", name, remotePath == null ? "" : ", $remotePath"))
+    proDeps.add(String.format("%-12s%-27s: new DepConfig(%-5s, %-5s, $localPath%s),",
+            "", name, isApply, useLocal, remotePath == null ? "" : ", $remotePath"))
 }
 
 def configFile = file('./buildSrc/src/main/groovy/Config.groovy')

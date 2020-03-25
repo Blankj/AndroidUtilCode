@@ -1,24 +1,28 @@
 package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.PixelFormat;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.View;
 
 import com.blankj.utilcode.constant.MemoryConstants;
 import com.blankj.utilcode.constant.TimeConstants;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 
 /**
  * <pre>
@@ -140,7 +144,7 @@ public final class ConvertUtils {
      * @return the bytes
      */
     public static byte[] hexString2Bytes(String hexString) {
-        if (isSpace(hexString)) return null;
+        if (UtilsBridge.isSpace(hexString)) return new byte[0];
         int len = hexString.length();
         if (len % 2 != 0) {
             hexString = "0" + hexString;
@@ -149,12 +153,12 @@ public final class ConvertUtils {
         char[] hexBytes = hexString.toUpperCase().toCharArray();
         byte[] ret = new byte[len >> 1];
         for (int i = 0; i < len; i += 2) {
-            ret[i >> 1] = (byte) (hex2Int(hexBytes[i]) << 4 | hex2Int(hexBytes[i + 1]));
+            ret[i >> 1] = (byte) (hex2Dec(hexBytes[i]) << 4 | hex2Dec(hexBytes[i + 1]));
         }
         return ret;
     }
 
-    private static int hex2Int(final char hexChar) {
+    private static int hex2Dec(final char hexChar) {
         if (hexChar >= '0' && hexChar <= '9') {
             return hexChar - '0';
         } else if (hexChar >= 'A' && hexChar <= 'F') {
@@ -162,6 +166,204 @@ public final class ConvertUtils {
         } else {
             throw new IllegalArgumentException();
         }
+    }
+
+    /**
+     * Bytes to string.
+     */
+    public static String bytes2String(final byte[] bytes) {
+        return bytes2String(bytes, "");
+    }
+
+    /**
+     * Bytes to string.
+     */
+    public static String bytes2String(final byte[] bytes, final String charsetName) {
+        if (bytes == null) return null;
+        try {
+            return new String(bytes, getSafeCharset(charsetName));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return new String(bytes);
+        }
+    }
+
+    /**
+     * String to bytes.
+     */
+    public static byte[] string2Bytes(final String string) {
+        return string2Bytes(string, "");
+    }
+
+    /**
+     * String to bytes.
+     */
+    public static byte[] string2Bytes(final String string, final String charsetName) {
+        if (string == null) return null;
+        try {
+            return string.getBytes(getSafeCharset(charsetName));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return string.getBytes();
+        }
+    }
+
+    /**
+     * Bytes to JSONObject.
+     */
+    public static JSONObject bytes2JSONObject(final byte[] bytes) {
+        if (bytes == null) return null;
+        try {
+            return new JSONObject(new String(bytes));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * JSONObject to bytes.
+     */
+    public static byte[] jsonObject2Bytes(final JSONObject jsonObject) {
+        if (jsonObject == null) return null;
+        return jsonObject.toString().getBytes();
+    }
+
+    /**
+     * Bytes to JSONArray.
+     */
+    public static JSONArray bytes2JSONArray(final byte[] bytes) {
+        if (bytes == null) return null;
+        try {
+            return new JSONArray(new String(bytes));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * JSONArray to bytes.
+     */
+    public static byte[] jsonArray2Bytes(final JSONArray jsonArray) {
+        if (jsonArray == null) return null;
+        return jsonArray.toString().getBytes();
+    }
+
+    /**
+     * Bytes to Parcelable
+     */
+    public static <T> T bytes2Parcelable(final byte[] bytes,
+                                         final Parcelable.Creator<T> creator) {
+        if (bytes == null) return null;
+        Parcel parcel = Parcel.obtain();
+        parcel.unmarshall(bytes, 0, bytes.length);
+        parcel.setDataPosition(0);
+        T result = creator.createFromParcel(parcel);
+        parcel.recycle();
+        return result;
+    }
+
+    /**
+     * Parcelable to bytes.
+     */
+    public static byte[] parcelable2Bytes(final Parcelable parcelable) {
+        if (parcelable == null) return null;
+        Parcel parcel = Parcel.obtain();
+        parcelable.writeToParcel(parcel, 0);
+        byte[] bytes = parcel.marshall();
+        parcel.recycle();
+        return bytes;
+    }
+
+    /**
+     * Bytes to Serializable.
+     */
+    public static Object bytes2Object(final byte[] bytes) {
+        if (bytes == null) return null;
+        ObjectInputStream ois = null;
+        try {
+            ois = new ObjectInputStream(new ByteArrayInputStream(bytes));
+            return ois.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                if (ois != null) {
+                    ois.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Serializable to bytes.
+     */
+    public static byte[] serializable2Bytes(final Serializable serializable) {
+        if (serializable == null) return null;
+        ByteArrayOutputStream baos;
+        ObjectOutputStream oos = null;
+        try {
+            oos = new ObjectOutputStream(baos = new ByteArrayOutputStream());
+            oos.writeObject(serializable);
+            return baos.toByteArray();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                if (oos != null) {
+                    oos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Bytes to bitmap.
+     */
+    public static Bitmap bytes2Bitmap(final byte[] bytes) {
+        return UtilsBridge.bytes2Bitmap(bytes);
+    }
+
+    /**
+     * Bitmap to bytes.
+     */
+    public static byte[] bitmap2Bytes(final Bitmap bitmap) {
+        return UtilsBridge.bitmap2Bytes(bitmap);
+    }
+
+    /**
+     * Bitmap to bytes.
+     */
+    public static byte[] bitmap2Bytes(final Bitmap bitmap, final Bitmap.CompressFormat format, int quality) {
+        return UtilsBridge.bitmap2Bytes(bitmap, format, quality);
+    }
+
+    /**
+     * Bytes to drawable.
+     */
+    public static Drawable bytes2Drawable(final byte[] bytes) {
+        return UtilsBridge.bytes2Drawable(bytes);
+    }
+
+    /**
+     * Drawable to bytes.
+     */
+    public static byte[] drawable2Bytes(final Drawable drawable) {
+        return UtilsBridge.drawable2Bytes(drawable);
+    }
+
+    /**
+     * Drawable to bytes.
+     */
+    public static byte[] drawable2Bytes(final Drawable drawable, final Bitmap.CompressFormat format, int quality) {
+        return UtilsBridge.drawable2Bytes(drawable, format, quality);
     }
 
     /**
@@ -295,9 +497,6 @@ public final class ConvertUtils {
 
     /**
      * Input stream to output stream.
-     *
-     * @param is The input stream.
-     * @return output stream
      */
     public static ByteArrayOutputStream input2OutputStream(final InputStream is) {
         if (is == null) return null;
@@ -323,9 +522,6 @@ public final class ConvertUtils {
 
     /**
      * Output stream to input stream.
-     *
-     * @param out The output stream.
-     * @return input stream
      */
     public ByteArrayInputStream output2InputStream(final OutputStream out) {
         if (out == null) return null;
@@ -334,9 +530,6 @@ public final class ConvertUtils {
 
     /**
      * Input stream to bytes.
-     *
-     * @param is The input stream.
-     * @return bytes
      */
     public static byte[] inputStream2Bytes(final InputStream is) {
         if (is == null) return null;
@@ -345,9 +538,6 @@ public final class ConvertUtils {
 
     /**
      * Bytes to input stream.
-     *
-     * @param bytes The bytes.
-     * @return input stream
      */
     public static InputStream bytes2InputStream(final byte[] bytes) {
         if (bytes == null || bytes.length <= 0) return null;
@@ -356,9 +546,6 @@ public final class ConvertUtils {
 
     /**
      * Output stream to bytes.
-     *
-     * @param out The output stream.
-     * @return bytes
      */
     public static byte[] outputStream2Bytes(final OutputStream out) {
         if (out == null) return null;
@@ -367,9 +554,6 @@ public final class ConvertUtils {
 
     /**
      * Bytes to output stream.
-     *
-     * @param bytes The bytes.
-     * @return output stream
      */
     public static OutputStream bytes2OutputStream(final byte[] bytes) {
         if (bytes == null || bytes.length <= 0) return null;
@@ -394,17 +578,13 @@ public final class ConvertUtils {
 
     /**
      * Input stream to string.
-     *
-     * @param is          The input stream.
-     * @param charsetName The name of charset.
-     * @return string
      */
     public static String inputStream2String(final InputStream is, final String charsetName) {
-        if (is == null || isSpace(charsetName)) return "";
+        if (is == null) return "";
         try {
             ByteArrayOutputStream baos = input2OutputStream(is);
             if (baos == null) return "";
-            return baos.toString(charsetName);
+            return baos.toString(getSafeCharset(charsetName));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return "";
@@ -413,15 +593,11 @@ public final class ConvertUtils {
 
     /**
      * String to input stream.
-     *
-     * @param string      The string.
-     * @param charsetName The name of charset.
-     * @return input stream
      */
     public static InputStream string2InputStream(final String string, final String charsetName) {
-        if (string == null || isSpace(charsetName)) return null;
+        if (string == null) return null;
         try {
-            return new ByteArrayInputStream(string.getBytes(charsetName));
+            return new ByteArrayInputStream(string.getBytes(getSafeCharset(charsetName)));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return null;
@@ -430,15 +606,11 @@ public final class ConvertUtils {
 
     /**
      * Output stream to string.
-     *
-     * @param out         The output stream.
-     * @param charsetName The name of charset.
-     * @return string
      */
     public static String outputStream2String(final OutputStream out, final String charsetName) {
-        if (out == null || isSpace(charsetName)) return "";
+        if (out == null) return "";
         try {
-            return new String(outputStream2Bytes(out), charsetName);
+            return new String(outputStream2Bytes(out), getSafeCharset(charsetName));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return "";
@@ -447,15 +619,11 @@ public final class ConvertUtils {
 
     /**
      * String to output stream.
-     *
-     * @param string      The string.
-     * @param charsetName The name of charset.
-     * @return output stream
      */
     public static OutputStream string2OutputStream(final String string, final String charsetName) {
-        if (string == null || isSpace(charsetName)) return null;
+        if (string == null) return null;
         try {
-            return bytes2OutputStream(string.getBytes(charsetName));
+            return bytes2OutputStream(string.getBytes(getSafeCharset(charsetName)));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return null;
@@ -463,177 +631,59 @@ public final class ConvertUtils {
     }
 
     /**
-     * Bitmap to bytes.
-     *
-     * @param bitmap The bitmap.
-     * @param format The format of bitmap.
-     * @return bytes
-     */
-    public static byte[] bitmap2Bytes(final Bitmap bitmap, final Bitmap.CompressFormat format) {
-        if (bitmap == null) return null;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(format, 100, baos);
-        return baos.toByteArray();
-    }
-
-    /**
-     * Bytes to bitmap.
-     *
-     * @param bytes The bytes.
-     * @return bitmap
-     */
-    public static Bitmap bytes2Bitmap(final byte[] bytes) {
-        return (bytes == null || bytes.length == 0)
-                ? null
-                : BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-    }
-
-    /**
      * Drawable to bitmap.
-     *
-     * @param drawable The drawable.
-     * @return bitmap
      */
     public static Bitmap drawable2Bitmap(final Drawable drawable) {
-        if (drawable instanceof BitmapDrawable) {
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-            if (bitmapDrawable.getBitmap() != null) {
-                return bitmapDrawable.getBitmap();
-            }
-        }
-        Bitmap bitmap;
-        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
-            bitmap = Bitmap.createBitmap(1, 1,
-                    drawable.getOpacity() != PixelFormat.OPAQUE
-                            ? Bitmap.Config.ARGB_8888
-                            : Bitmap.Config.RGB_565);
-        } else {
-            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
-                    drawable.getIntrinsicHeight(),
-                    drawable.getOpacity() != PixelFormat.OPAQUE
-                            ? Bitmap.Config.ARGB_8888
-                            : Bitmap.Config.RGB_565);
-        }
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-        return bitmap;
+        return UtilsBridge.drawable2Bitmap(drawable);
     }
 
     /**
      * Bitmap to drawable.
-     *
-     * @param bitmap The bitmap.
-     * @return drawable
      */
     public static Drawable bitmap2Drawable(final Bitmap bitmap) {
-        return bitmap == null ? null : new BitmapDrawable(Utils.getApp().getResources(), bitmap);
-    }
-
-    /**
-     * Drawable to bytes.
-     *
-     * @param drawable The drawable.
-     * @param format   The format of bitmap.
-     * @return bytes
-     */
-    public static byte[] drawable2Bytes(final Drawable drawable,
-                                        final Bitmap.CompressFormat format) {
-        return drawable == null ? null : bitmap2Bytes(drawable2Bitmap(drawable), format);
-    }
-
-    /**
-     * Bytes to drawable.
-     *
-     * @param bytes The bytes.
-     * @return drawable
-     */
-    public static Drawable bytes2Drawable(final byte[] bytes) {
-        return bytes == null ? null : bitmap2Drawable(bytes2Bitmap(bytes));
+        return UtilsBridge.bitmap2Drawable(bitmap);
     }
 
     /**
      * View to bitmap.
-     *
-     * @param view The view.
-     * @return bitmap
      */
     public static Bitmap view2Bitmap(final View view) {
-        if (view == null) return null;
-        boolean drawingCacheEnabled = view.isDrawingCacheEnabled();
-        boolean willNotCacheDrawing = view.willNotCacheDrawing();
-        view.setDrawingCacheEnabled(true);
-        view.setWillNotCacheDrawing(false);
-        final Bitmap drawingCache = view.getDrawingCache();
-        Bitmap bitmap;
-        if (null == drawingCache) {
-            view.layout(0, 0, view.getWidth(), view.getHeight());
-            view.buildDrawingCache();
-            bitmap = Bitmap.createBitmap(view.getDrawingCache());
-        } else {
-            bitmap = Bitmap.createBitmap(drawingCache);
-        }
-        view.destroyDrawingCache();
-        view.setWillNotCacheDrawing(willNotCacheDrawing);
-        view.setDrawingCacheEnabled(drawingCacheEnabled);
-        return bitmap;
+        return UtilsBridge.view2Bitmap(view);
     }
 
     /**
      * Value of dp to value of px.
-     *
-     * @param dpValue The value of dp.
-     * @return value of px
      */
     public static int dp2px(final float dpValue) {
-        final float scale = Resources.getSystem().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
+        return UtilsBridge.dp2px(dpValue);
     }
 
     /**
      * Value of px to value of dp.
-     *
-     * @param pxValue The value of px.
-     * @return value of dp
      */
     public static int px2dp(final float pxValue) {
-        final float scale = Resources.getSystem().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
+        return UtilsBridge.px2dp(pxValue);
     }
 
     /**
      * Value of sp to value of px.
-     *
-     * @param spValue The value of sp.
-     * @return value of px
      */
     public static int sp2px(final float spValue) {
-        final float fontScale = Resources.getSystem().getDisplayMetrics().scaledDensity;
-        return (int) (spValue * fontScale + 0.5f);
+        return UtilsBridge.sp2px(spValue);
     }
 
     /**
      * Value of px to value of sp.
-     *
-     * @param pxValue The value of px.
-     * @return value of sp
      */
     public static int px2sp(final float pxValue) {
-        final float fontScale = Resources.getSystem().getDisplayMetrics().scaledDensity;
-        return (int) (pxValue / fontScale + 0.5f);
+        return UtilsBridge.px2sp(pxValue);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-    // other utils methods
-    ///////////////////////////////////////////////////////////////////////////
-
-    private static boolean isSpace(final String s) {
-        if (s == null) return true;
-        for (int i = 0, len = s.length(); i < len; ++i) {
-            if (!Character.isWhitespace(s.charAt(i))) {
-                return false;
-            }
+    private static String getSafeCharset(String charsetName) {
+        String cn = charsetName;
+        if (UtilsBridge.isSpace(charsetName) || !Charset.isSupported(charsetName)) {
+            cn = "UTF-8";
         }
-        return true;
+        return cn;
     }
 }

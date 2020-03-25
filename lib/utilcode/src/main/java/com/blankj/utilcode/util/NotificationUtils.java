@@ -53,22 +53,22 @@ public class NotificationUtils {
     /**
      * Post a notification to be shown in the status bar.
      *
-     * @param id    An identifier for this notification.
-     * @param func1 The function of create the builder of notification.
+     * @param id       An identifier for this notification.
+     * @param consumer The consumer of create the builder of notification.
      */
-    public static void notify(int id, Utils.Func1<Void, NotificationCompat.Builder> func1) {
-        notify(null, id, ChannelConfig.DEFAULT_CHANNEL_CONFIG, func1);
+    public static void notify(int id, Utils.Consumer<NotificationCompat.Builder> consumer) {
+        notify(null, id, ChannelConfig.DEFAULT_CHANNEL_CONFIG, consumer);
     }
 
     /**
      * Post a notification to be shown in the status bar.
      *
-     * @param tag   A string identifier for this notification.  May be {@code null}.
-     * @param id    An identifier for this notification.
-     * @param func1 The function of create the builder of notification.
+     * @param tag      A string identifier for this notification.  May be {@code null}.
+     * @param id       An identifier for this notification.
+     * @param consumer The consumer of create the builder of notification.
      */
-    public static void notify(String tag, int id, Utils.Func1<Void, NotificationCompat.Builder> func1) {
-        notify(tag, id, ChannelConfig.DEFAULT_CHANNEL_CONFIG, func1);
+    public static void notify(String tag, int id, Utils.Consumer<NotificationCompat.Builder> consumer) {
+        notify(tag, id, ChannelConfig.DEFAULT_CHANNEL_CONFIG, consumer);
     }
 
     /**
@@ -76,10 +76,10 @@ public class NotificationUtils {
      *
      * @param id            An identifier for this notification.
      * @param channelConfig The notification channel of config.
-     * @param func1         The function of create the builder of notification.
+     * @param consumer      The consumer of create the builder of notification.
      */
-    public static void notify(int id, ChannelConfig channelConfig, Utils.Func1<Void, NotificationCompat.Builder> func1) {
-        notify(null, id, channelConfig, func1);
+    public static void notify(int id, ChannelConfig channelConfig, Utils.Consumer<NotificationCompat.Builder> consumer) {
+        notify(null, id, channelConfig, consumer);
     }
 
     /**
@@ -88,11 +88,12 @@ public class NotificationUtils {
      * @param tag           A string identifier for this notification.  May be {@code null}.
      * @param id            An identifier for this notification.
      * @param channelConfig The notification channel of config.
-     * @param func1         The function of create the builder of notification.
+     * @param consumer      The consumer of create the builder of notification.
      */
-    public static void notify(String tag, int id, ChannelConfig channelConfig, Utils.Func1<Void, NotificationCompat.Builder> func1) {
+    public static void notify(String tag, int id, ChannelConfig channelConfig, Utils.Consumer<NotificationCompat.Builder> consumer) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager nm = (NotificationManager) Utils.getApp().getSystemService(Context.NOTIFICATION_SERVICE);
+            //noinspection ConstantConditions
             nm.createNotificationChannel(channelConfig.getNotificationChannel());
         }
 
@@ -102,7 +103,7 @@ public class NotificationUtils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             builder.setChannelId(channelConfig.mNotificationChannel.getId());
         }
-        func1.call(builder);
+        consumer.accept(builder);
 
         nmc.notify(tag, id, builder.build());
     }

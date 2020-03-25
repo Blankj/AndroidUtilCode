@@ -13,6 +13,8 @@ implementation 'com.blankj:utilcodex:1.26.0'
 
 * ### Activity 相关 -> [ActivityUtils.java][activity.java] -> [Demo][activity.demo]
 ```
+addActivityLifecycleCallbacks  : 新增 Activity 生命周期监听
+removeActivityLifecycleCallbacks: 移除 Activity 生命周期监听
 getAliveActivityByContext      : 根据上下文获取存活的 Activity
 getActivityByContext           : 根据上下文获取 Activity
 isActivityExists               : 判断 Activity 是否存在
@@ -347,6 +349,12 @@ getRandomColor   : 获取随机色
 bytes2Bits, bits2Bytes                  : bytes 与 bits 互转
 bytes2Chars, chars2Bytes                : bytes 与 chars 互转
 bytes2HexString, hexString2Bytes        : bytes 与 hexString 互转
+bytes2String, string2Bytes              : bytes 与 string 互转
+bytes2JSONObject, jsonObject2Bytes      : bytes 与 JSONObject 互转
+bytes2JSONArray, jsonArray2Bytes        : bytes 与 JSONArray 互转
+bytes2Parcelable, parcelable2Bytes      : bytes 与 Parcelable 互转
+bytes2Object, serializable2Bytes        : bytes 与 Object 互转
+bytes2Bitmap, bitmap2Bytes              : bytes 与 Bitmap 互转
 memorySize2Byte, byte2MemorySize        : 以 unit 为单位的内存大小与字节数互转
 byte2FitMemorySize                      : 字节数转合适内存大小
 timeSpan2Millis, millis2TimeSpan        : 以 unit 为单位的时间长度与毫秒时间戳互转
@@ -403,6 +411,8 @@ base64Encode2String: Base64 编码
 base64Decode       : Base64 解码
 htmlEncode         : Html 编码
 htmlDecode         : Html 解码
+binaryEncode       : 二进制编码
+binaryDecode       : 二进制解码
 ```
 
 * ### 加密解密相关 -> [EncryptUtils.java][encrypt.java] -> [Test][encrypt.test]
@@ -429,6 +439,7 @@ encryptAES, encryptAES2HexString, encryptAES2Base64   : AES 加密
 decryptAES, decryptHexStringAES, decryptBase64AES     : AES 解密
 encryptRSA, encryptRSA2HexString, encryptRSA2Base64   : RSA 加密
 decryptRSA, decryptHexStringRSA, decryptBase64RSA     : RSA 解密
+rc4                                                   : rc4 加解密
 ```
 
 * ### 文件相关 -> [FileIOUtils.java][fileIo.java] -> [Test][fileIo.test]

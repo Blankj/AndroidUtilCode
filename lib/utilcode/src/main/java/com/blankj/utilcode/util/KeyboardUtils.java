@@ -19,6 +19,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
+import java.lang.reflect.Field;
+
 /**
  * <pre>
  *     author: Blankj
@@ -247,8 +249,8 @@ public final class KeyboardUtils {
      * @param window The window.
      */
     public static void fixAndroidBug5497(@NonNull final Window window) {
-//        int softInputMode = window.getAttributes().softInputMode;
-//        window.setSoftInputMode(softInputMode & ~WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        int softInputMode = window.getAttributes().softInputMode;
+        window.setSoftInputMode(softInputMode & ~WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         final FrameLayout contentView = window.findViewById(android.R.id.content);
         final View contentViewChild = contentView.getChildAt(0);
         final int paddingBottom = contentViewChild.getPaddingBottom();
@@ -300,7 +302,24 @@ public final class KeyboardUtils {
      * @param window The window.
      */
     public static void fixSoftInputLeaks(@NonNull final Window window) {
-        Utils.fixSoftInputLeaks(window);
+        InputMethodManager imm =
+                (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm == null) return;
+        String[] leakViews = new String[]{"mLastSrvView", "mCurRootView", "mServedView", "mNextServedView"};
+        for (String leakView : leakViews) {
+            try {
+                Field leakViewField = InputMethodManager.class.getDeclaredField(leakView);
+                if (!leakViewField.isAccessible()) {
+                    leakViewField.setAccessible(true);
+                }
+                Object obj = leakViewField.get(imm);
+                if (!(obj instanceof View)) continue;
+                View view = (View) obj;
+                if (view.getRootView() == window.getDecorView().getRootView()) {
+                    leakViewField.set(imm, null);
+                }
+            } catch (Throwable ignore) {/**/}
+        }
     }
 
     /**

@@ -152,6 +152,20 @@ public final class BusUtils {
         return "BusUtils: " + mTag_BusInfoListMap;
     }
 
+    static Runnable getPreLoadRunnable() {
+        return new Runnable() {
+            @Override
+            public void run() {
+                preLoad();
+            }
+        };
+    }
+
+    private static void preLoad() {
+        //noinspection ResultOfMethodCallIgnored
+        getInstance();
+    }
+
     private static BusUtils getInstance() {
         return LazyHolder.INSTANCE;
     }
@@ -288,7 +302,7 @@ public final class BusUtils {
         };
         switch (busInfo.threadMode) {
             case "MAIN":
-                Utils.runOnUiThread(runnable);
+                UtilsBridge.runOnUiThread(runnable);
                 return;
             case "IO":
                 ThreadUtils.getIoPool().execute(runnable);

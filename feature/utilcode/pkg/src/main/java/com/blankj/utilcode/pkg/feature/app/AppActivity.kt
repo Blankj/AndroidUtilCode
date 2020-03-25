@@ -49,6 +49,11 @@ class AppActivity : CommonActivity() {
         return R.string.demo_app
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        LogUtils.e(requestCode, resultCode)
+    }
+
     override fun bindItems(): List<CommonItem<*>> {
         return CollectionUtils.newArrayList(
                 CommonItemTitle("isAppRoot", AppUtils.isAppRoot().toString()),

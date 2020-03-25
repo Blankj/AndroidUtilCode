@@ -87,9 +87,9 @@ class DangerousActivity : CommonActivity() {
                 CommonItemClick(R.string.dangerous_reboot_to_bootloader) {
                     ToastUtils.showShort(DangerousUtils.reboot2Bootloader().toString())
                 },
-                CommonItemSwitch(R.string.dangerous_data_enabled, Utils.Func1 {
+                CommonItemSwitch(R.string.dangerous_data_enabled, Utils.Supplier {
                     NetworkUtils.getMobileDataEnabled()
-                }, Utils.Func1 {
+                }, Utils.Consumer {
                     if (AppUtils.isAppSystem()) {
                         DangerousUtils.setMobileDataEnabled(it)
                     }

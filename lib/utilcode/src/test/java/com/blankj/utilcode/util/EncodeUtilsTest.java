@@ -2,11 +2,8 @@ package com.blankj.utilcode.util;
 
 import org.junit.Test;
 
-import java.util.Arrays;
-
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * <pre>
@@ -60,7 +57,7 @@ public class EncodeUtilsTest extends BaseTest {
     @Test
     public void binEncode_binDecode() {
         String test = "test";
-        String binary = EncodeUtils.binEncode(test);
-        assertEquals("test", EncodeUtils.binDecode(binary));
+        String binary = EncodeUtils.binaryEncode(test);
+        assertEquals("test", EncodeUtils.binaryDecode(binary));
     }
 }

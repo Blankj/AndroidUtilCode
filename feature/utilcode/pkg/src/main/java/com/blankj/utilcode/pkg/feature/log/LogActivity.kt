@@ -114,19 +114,19 @@ class LogActivity : CommonActivity() {
         return CollectionUtils.newArrayList(
                 CommonItemSwitch(
                         R.string.log_switch,
-                        Utils.Func1 {
+                        Utils.Supplier {
                             mConfig.isLogSwitch
                         },
-                        Utils.Func1 {
+                        Utils.Consumer {
                             mConfig.isLogSwitch = it
                         }
                 ),
                 CommonItemSwitch(
                         R.string.log_console_console,
-                        Utils.Func1 {
+                        Utils.Supplier {
                             mConfig.isLog2ConsoleSwitch
                         },
-                        Utils.Func1 {
+                        Utils.Consumer {
                             mConfig.setConsoleSwitch(it)
                         }
                 ),
@@ -140,19 +140,19 @@ class LogActivity : CommonActivity() {
                 },
                 CommonItemSwitch(
                         R.string.log_head_switch,
-                        Utils.Func1 {
+                        Utils.Supplier {
                             mConfig.isLogHeadSwitch
                         },
-                        Utils.Func1 {
+                        Utils.Consumer {
                             mConfig.isLogHeadSwitch = it
                         }
                 ),
                 CommonItemSwitch(
                         R.string.log_file_switch,
-                        Utils.Func1 {
+                        Utils.Supplier {
                             mConfig.isLog2FileSwitch
                         },
-                        Utils.Func1 {
+                        Utils.Consumer {
                             mConfig.isLog2FileSwitch = it
                         }
                 ),
@@ -166,19 +166,19 @@ class LogActivity : CommonActivity() {
                 },
                 CommonItemSwitch(
                         R.string.log_border_switch,
-                        Utils.Func1 {
+                        Utils.Supplier {
                             mConfig.isLogBorderSwitch
                         },
-                        Utils.Func1 {
+                        Utils.Consumer {
                             mConfig.setBorderSwitch(it)
                         }
                 ),
                 CommonItemSwitch(
                         R.string.log_single_tag_switch,
-                        Utils.Func1 {
+                        Utils.Supplier {
                             mConfig.isSingleTagSwitch
                         },
-                        Utils.Func1 {
+                        Utils.Consumer {
                             mConfig.setSingleTagSwitch(it)
                         }
                 ),

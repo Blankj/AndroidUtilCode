@@ -14,8 +14,6 @@ import com.blankj.utilcode.util.ClickUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.Utils;
 
-import kotlin.Unit;
-
 /**
  * <pre>
  *     author: blankj
@@ -26,23 +24,23 @@ import kotlin.Unit;
  */
 public class CommonItemSwitch extends CommonItem {
 
-    private CharSequence               mTitle;
-    private CharSequence               mContent;
-    private boolean                    mState;
-    private Utils.Func1<Boolean, Unit> mGetStateFunc1;
-    private Utils.Func1<Unit, Boolean> mSetStateFunc1;
+    private CharSequence            mTitle;
+    private CharSequence            mContent;
+    private boolean                 mState;
+    private Utils.Supplier<Boolean> mGetStateSupplier;
+    private Utils.Consumer<Boolean> mSetStateConsumer;
 
 
-    public CommonItemSwitch(@StringRes int title, @NonNull Utils.Func1<Boolean, Unit> getStateFun1, @NonNull Utils.Func1<Unit, Boolean> setStateFun1) {
-        this(StringUtils.getString(title), getStateFun1, setStateFun1);
+    public CommonItemSwitch(@StringRes int title, @NonNull Utils.Supplier<Boolean> getStateSupplier, @NonNull Utils.Consumer<Boolean> setStateConsumer) {
+        this(StringUtils.getString(title), getStateSupplier, setStateConsumer);
     }
 
-    public CommonItemSwitch(@NonNull CharSequence title, @NonNull Utils.Func1<Boolean, Unit> getStateFun1, @NonNull Utils.Func1<Unit, Boolean> setStateFun1) {
+    public CommonItemSwitch(@NonNull CharSequence title, @NonNull Utils.Supplier<Boolean> getStateSupplier, @NonNull Utils.Consumer<Boolean> setStateConsumer) {
         super(R.layout.common_item_title_switch);
         mTitle = title;
-        mGetStateFunc1 = getStateFun1;
-        mSetStateFunc1 = setStateFun1;
-        mState = getStateFun1.call(null);
+        mGetStateSupplier = getStateSupplier;
+        mSetStateConsumer = setStateConsumer;
+        mState = getStateSupplier.get();
         mContent = String.valueOf(mState);
     }
 
@@ -69,8 +67,8 @@ public class CommonItemSwitch extends CommonItem {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSetStateFunc1.call(!mState);
-                mState = mGetStateFunc1.call(null);
+                mSetStateConsumer.accept(!mState);
+                mState = mGetStateSupplier.get();
                 contentTv.setText(String.valueOf(mState));
                 switchView.setChecked(mState);
             }

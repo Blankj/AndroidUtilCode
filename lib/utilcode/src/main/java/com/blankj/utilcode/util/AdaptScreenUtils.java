@@ -98,7 +98,16 @@ public final class AdaptScreenUtils {
         applyOtherDisplayMetrics(resources, newXdpi);
     }
 
-    static void preLoad() {
+    static Runnable getPreLoadRunnable() {
+        return new Runnable() {
+            @Override
+            public void run() {
+                preLoad();
+            }
+        };
+    }
+
+    private static void preLoad() {
         applyDisplayMetrics(Resources.getSystem(), Resources.getSystem().getDisplayMetrics().xdpi);
     }
 

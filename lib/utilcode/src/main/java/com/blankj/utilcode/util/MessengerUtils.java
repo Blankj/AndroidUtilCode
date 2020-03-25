@@ -127,13 +127,14 @@ public class MessengerUtils {
     }
 
     private static boolean isMainProcess() {
-        return Utils.getApp().getPackageName().equals(Utils.getCurrentProcessName());
+        return Utils.getApp().getPackageName().equals(UtilsBridge.getCurrentProcessName());
     }
 
     private static boolean isAppInstalled(@NonNull final String pkgName) {
-        PackageManager packageManager = Utils.getApp().getPackageManager();
+        PackageManager pm = Utils.getApp().getPackageManager();
         try {
-            return packageManager.getApplicationInfo(pkgName, 0) != null;
+            ApplicationInfo info = pm.getApplicationInfo(pkgName, 0);
+            return info != null && info.enabled;
         } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
@@ -211,7 +212,7 @@ public class MessengerUtils {
             public void onServiceConnected(ComponentName name, IBinder service) {
                 Log.d("MessengerUtils", "client service connected " + name);
                 mServer = new Messenger(service);
-                int key = Utils.getCurrentProcessName().hashCode();
+                int key = UtilsBridge.getCurrentProcessName().hashCode();
                 Message msg = Message.obtain(mReceiveServeMsgHandler, WHAT_SUBSCRIBE, key, 0);
                 msg.replyTo = mClient;
                 try {

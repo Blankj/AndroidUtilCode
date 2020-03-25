@@ -23,6 +23,6 @@ public interface IMvp {
     }
 
     interface Model {
-        void requestUpdateMsg(final Utils.Func1<Void, String> func1);
+        void requestUpdateMsg(final Utils.Consumer<String> consumer);
     }
 }

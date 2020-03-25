@@ -3,7 +3,6 @@ package com.blankj.utilcode.pkg.feature.flashlight
 import android.content.Context
 import android.content.Intent
 import com.blankj.common.activity.CommonActivity
-import com.blankj.common.activity.CommonActivityTitleView
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemSwitch
 import com.blankj.common.item.CommonItemTitle
@@ -53,10 +52,10 @@ class FlashlightActivity : CommonActivity() {
             if (FlashlightUtils.isFlashlightEnable()) {
                 add(CommonItemSwitch(
                         R.string.flashlight_status,
-                        Utils.Func1 {
+                        Utils.Supplier {
                             FlashlightUtils.isFlashlightOn()
                         },
-                        Utils.Func1 {
+                        Utils.Consumer {
                             FlashlightUtils.setFlashlightStatus(it)
                         }
                 ))

@@ -56,47 +56,47 @@ class PermissionActivity : CommonActivity() {
             add(CommonItemClick(R.string.permission_open_app_settings, true) { PermissionUtils.launchAppDetailsSettings() })
             add(CommonItemSwitch(
                     R.string.permission_calendar_status,
-                    Utils.Func1 {
-                        return@Func1 PermissionUtils.isGranted(Manifest.permission.READ_CALENDAR)
+                    Utils.Supplier {
+                        return@Supplier PermissionUtils.isGranted(Manifest.permission.READ_CALENDAR)
                     },
-                    Utils.Func1 {
+                    Utils.Consumer {
                         requestCalendar()
                     }
             ))
             add(CommonItemSwitch(
                     R.string.permission_record_audio_status,
-                    Utils.Func1 {
-                        return@Func1 PermissionUtils.isGranted(Manifest.permission.RECORD_AUDIO)
+                    Utils.Supplier {
+                        return@Supplier PermissionUtils.isGranted(Manifest.permission.RECORD_AUDIO)
                     },
-                    Utils.Func1 {
+                    Utils.Consumer {
                         requestRecordAudio()
                     }
             ))
             add(CommonItemSwitch(
                     R.string.permission_calendar_and_record_audio_status,
-                    Utils.Func1 {
-                        return@Func1 PermissionUtils.isGranted(Manifest.permission.READ_CALENDAR, Manifest.permission.RECORD_AUDIO)
+                    Utils.Supplier {
+                        return@Supplier PermissionUtils.isGranted(Manifest.permission.READ_CALENDAR, Manifest.permission.RECORD_AUDIO)
                     },
-                    Utils.Func1 {
+                    Utils.Consumer {
                         requestCalendarAndRecordAudio()
                     }
             ))
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 add(CommonItemSwitch(
                         R.string.permission_write_settings_status,
-                        Utils.Func1 {
-                            return@Func1 PermissionUtils.isGrantedWriteSettings()
+                        Utils.Supplier {
+                            return@Supplier PermissionUtils.isGrantedWriteSettings()
                         },
-                        Utils.Func1 {
+                        Utils.Consumer {
                             requestWriteSettings()
                         }
                 ))
                 add(CommonItemSwitch(
                         R.string.permission_write_settings_status,
-                        Utils.Func1 {
-                            return@Func1 PermissionUtils.isGrantedDrawOverlays()
+                        Utils.Supplier {
+                            return@Supplier PermissionUtils.isGrantedDrawOverlays()
                         },
-                        Utils.Func1 {
+                        Utils.Consumer {
                             requestDrawOverlays()
                         }
                 ))

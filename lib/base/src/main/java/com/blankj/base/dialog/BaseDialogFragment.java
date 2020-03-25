@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.Utils;
+import com.blankj.utilcode.util.ThreadUtils;
 
 /**
  * <pre>
@@ -118,7 +118,7 @@ public class BaseDialogFragment extends DialogFragment {
     }
 
     public void show(final String tag) {
-        Utils.runOnUiThread(new Runnable() {
+        ThreadUtils.runOnUiThread(new Runnable() {
             @SuppressLint("CommitTransaction")
             @Override
             public void run() {
@@ -136,7 +136,7 @@ public class BaseDialogFragment extends DialogFragment {
 
     @Override
     public void dismiss() {
-        Utils.runOnUiThread(new Runnable() {
+        ThreadUtils.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (ActivityUtils.isActivityAlive(mActivity)) {

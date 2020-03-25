@@ -3,7 +3,6 @@ package com.blankj.utilcode.util;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -13,7 +12,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.RequiresPermission;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.KeyCharacterMap;
@@ -25,8 +23,6 @@ import android.view.ViewGroup.MarginLayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
 
-import java.lang.ref.WeakReference;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import static android.Manifest.permission.EXPAND_STATUS_BAR;
@@ -274,7 +270,7 @@ public final class BarUtils {
     public static void setStatusBarColor(@NonNull final View fakeStatusBar,
                                          @ColorInt final int color) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        Activity activity = getActivityByContext(fakeStatusBar.getContext());
+        Activity activity = UtilsBridge.getActivityByContext(fakeStatusBar.getContext());
         if (activity == null) return;
         transparentStatusBar(activity);
         fakeStatusBar.setVisibility(View.VISIBLE);
@@ -291,7 +287,7 @@ public final class BarUtils {
      */
     public static void setStatusBarCustom(@NonNull final View fakeStatusBar) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        Activity activity = getActivityByContext(fakeStatusBar.getContext());
+        Activity activity = UtilsBridge.getActivityByContext(fakeStatusBar.getContext());
         if (activity == null) return;
         transparentStatusBar(activity);
         fakeStatusBar.setVisibility(View.VISIBLE);
@@ -336,7 +332,7 @@ public final class BarUtils {
                                                 @ColorInt final int color,
                                                 final boolean isTop) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        Activity activity = getActivityByContext(fakeStatusBar.getContext());
+        Activity activity = UtilsBridge.getActivityByContext(fakeStatusBar.getContext());
         if (activity == null) return;
         transparentStatusBar(activity);
         drawer.setFitsSystemWindows(false);
@@ -699,26 +695,5 @@ public final class BarUtils {
             return (vis & View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR) != 0;
         }
         return false;
-    }
-
-    private static Activity getActivityByContext(Context context) {
-        if (context instanceof Activity) return (Activity) context;
-        if (context != null && context.getClass().getName().equals("com.android.internal.policy.DecorContext")) {
-            try {
-                Field mActivityContextField = context.getClass().getDeclaredField("mActivityContext");
-                mActivityContextField.setAccessible(true);
-                //noinspection unchecked
-                return ((WeakReference<Activity>) mActivityContextField.get(context)).get();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        while (context instanceof ContextWrapper) {
-            if (context instanceof Activity) {
-                return (Activity) context;
-            }
-            context = ((ContextWrapper) context).getBaseContext();
-        }
-        return null;
     }
 }

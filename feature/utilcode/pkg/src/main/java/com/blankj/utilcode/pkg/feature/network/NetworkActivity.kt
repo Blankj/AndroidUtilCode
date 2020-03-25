@@ -73,10 +73,10 @@ class NetworkActivity : CommonActivity(), NetworkUtils.OnNetworkStatusChangedLis
 
                 CommonItemSwitch(
                         R.string.network_wifi_enabled,
-                        Utils.Func1 {
+                        Utils.Supplier {
                             NetworkUtils.getWifiEnabled()
                         },
-                        Utils.Func1 {
+                        Utils.Consumer {
                             NetworkUtils.setWifiEnabled(it)
                             ThreadUtils.executeByIo(getItemsTask())
                         }

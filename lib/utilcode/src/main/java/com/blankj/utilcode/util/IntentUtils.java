@@ -54,7 +54,7 @@ public final class IntentUtils {
      * @return the intent of install app
      */
     public static Intent getInstallAppIntent(final String filePath) {
-        return getInstallAppIntent(getFileByPath(filePath), false);
+        return getInstallAppIntent(UtilsBridge.getFileByPath(filePath));
     }
 
     /**
@@ -66,32 +66,6 @@ public final class IntentUtils {
      * @return the intent of install app
      */
     public static Intent getInstallAppIntent(final File file) {
-        return getInstallAppIntent(file, false);
-    }
-
-    /**
-     * Return the intent of install app.
-     * <p>Target APIs greater than 25 must hold
-     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
-     *
-     * @param filePath  The path of file.
-     * @param isNewTask True to add flag of new task, false otherwise.
-     * @return the intent of install app
-     */
-    public static Intent getInstallAppIntent(final String filePath, final boolean isNewTask) {
-        return getInstallAppIntent(getFileByPath(filePath), isNewTask);
-    }
-
-    /**
-     * Return the intent of install app.
-     * <p>Target APIs greater than 25 must hold
-     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
-     *
-     * @param file      The file.
-     * @param isNewTask True to add flag of new task, false otherwise.
-     * @return the intent of install app
-     */
-    public static Intent getInstallAppIntent(final File file, final boolean isNewTask) {
         if (file == null) return null;
         Intent intent = new Intent(Intent.ACTION_VIEW);
         Uri data;
@@ -104,7 +78,7 @@ public final class IntentUtils {
             data = FileProvider.getUriForFile(Utils.getApp(), authority, file);
         }
         intent.setDataAndType(data, type);
-        return getIntent(intent, isNewTask);
+        return intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 
     /**
@@ -114,20 +88,9 @@ public final class IntentUtils {
      * @return the intent of uninstall app
      */
     public static Intent getUninstallAppIntent(final String packageName) {
-        return getUninstallAppIntent(packageName, false);
-    }
-
-    /**
-     * Return the intent of uninstall app.
-     *
-     * @param packageName The name of the package.
-     * @param isNewTask   True to add flag of new task, false otherwise.
-     * @return the intent of uninstall app
-     */
-    public static Intent getUninstallAppIntent(final String packageName, final boolean isNewTask) {
         Intent intent = new Intent(Intent.ACTION_DELETE);
         intent.setData(Uri.parse("package:" + packageName));
-        return getIntent(intent, isNewTask);
+        return intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 
     /**
@@ -137,20 +100,14 @@ public final class IntentUtils {
      * @return the intent of launch app
      */
     public static Intent getLaunchAppIntent(final String packageName) {
-        return getLaunchAppIntent(packageName, false);
-    }
-
-    /**
-     * Return the intent of launch app.
-     *
-     * @param packageName The name of the package.
-     * @param isNewTask   True to add flag of new task, false otherwise.
-     * @return the intent of launch app
-     */
-    public static Intent getLaunchAppIntent(final String packageName, final boolean isNewTask) {
-        Intent intent = Utils.getApp().getPackageManager().getLaunchIntentForPackage(packageName);
-        if (intent == null) return null;
-        return getIntent(intent, isNewTask);
+        String launcherActivity = UtilsBridge.getLauncherActivity(packageName);
+        if (!launcherActivity.isEmpty()) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+            intent.setClassName(packageName, launcherActivity);
+            return intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        return null;
     }
 
     /**
@@ -442,23 +399,14 @@ public final class IntentUtils {
      * @return the intent of shutdown
      */
     public static Intent getShutdownIntent() {
-        return getShutdownIntent(false);
-    }
-
-    /**
-     * Return the intent of shutdown.
-     * <p>Requires root permission
-     * or hold {@code android:sharedUserId="android.uid.system"},
-     * {@code <uses-permission android:name="android.permission.SHUTDOWN" />}
-     * in manifest.</p>
-     *
-     * @param isNewTask True to add flag of new task, false otherwise.
-     * @return the intent of shutdown
-     */
-    public static Intent getShutdownIntent(final boolean isNewTask) {
-        Intent intent = new Intent("android.intent.action.ACTION_REQUEST_SHUTDOWN");
+        Intent intent;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            intent = new Intent(Intent.ACTION_SHUTDOWN);
+        } else {
+            intent = new Intent("com.android.internal.intent.action.REQUEST_SHUTDOWN");
+        }
         intent.putExtra("android.intent.extra.KEY_CONFIRM", false);
-        return getIntent(intent, isNewTask);
+        return intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 
     /**

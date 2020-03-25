@@ -73,10 +73,10 @@ class BarStatusActivityDrawer : CommonActivity() {
         })
 
         return CollectionUtils.newArrayList(
-                CommonItemSwitch(R.string.bar_status_title_alpha, Utils.Func1 {
+                CommonItemSwitch(R.string.bar_status_title_alpha, Utils.Supplier {
                     updateStatusBar()
-                    return@Func1 mAlphaStatus
-                }, Utils.Func1 {
+                    return@Supplier mAlphaStatus
+                }, Utils.Consumer {
                     mAlphaStatus = it
                     if (mAlphaStatus) {
                         barStatusDrawerRootLl.setBackgroundResource(R.drawable.image_lena)
@@ -86,9 +86,9 @@ class BarStatusActivityDrawer : CommonActivity() {
                         commonItemAdapter.replaceItem(2, randomColorItem, true)
                     }
                 }),
-                CommonItemSwitch(R.string.bar_status_is_front, Utils.Func1 {
-                    return@Func1 mFrontStatus
-                }, Utils.Func1 {
+                CommonItemSwitch(R.string.bar_status_is_front, Utils.Supplier {
+                    return@Supplier mFrontStatus
+                }, Utils.Consumer {
                     mFrontStatus = it
                     updateStatusBar()
                 }),

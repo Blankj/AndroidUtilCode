@@ -4,14 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.support.annotation.Keep
 import com.blankj.common.activity.CommonActivity
-import com.blankj.common.activity.CommonActivityTitleView
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick
 import com.blankj.common.item.CommonItemTitle
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BusUtils
 import com.blankj.utilcode.util.CollectionUtils
-import com.blankj.utilcode.util.Utils
+import com.blankj.utilcode.util.ThreadUtils
 import kotlin.random.Random
 
 
@@ -52,7 +51,7 @@ class BusActivity : CommonActivity() {
     @BusUtils.Bus(tag = TAG_IO, threadMode = BusUtils.ThreadMode.IO)
     fun testIo() {
         val currentThread = Thread.currentThread().toString()
-        Utils.runOnUiThread(Runnable {
+        ThreadUtils.runOnUiThread(Runnable {
             titleItem.title = currentThread
         })
     }
