@@ -4,7 +4,9 @@
 
 随着项目业务越来越多，开发出一套好的组件化方案势在必行，如果还在探寻一套好的组件化架构，那么 **[AucFrame](https://github.com/Blankj/AucFrameTemplate)** 想必会是你的菜。
 
-组件化方案中各业务是相互隔离的，所以两个业务模块要通信的话，就需要通过路由或者接口下沉来完成，业界的方案都无法与 **[AucFrame](https://github.com/Blankj/AucFrameTemplate)** 完美融合，所以我就只好自己动手来完成一个更方便、精简、完美的 `ApiUtils`，它功能类似 SPI，但比 SPI 更适合于 Android，而且功能更强大。
+组件化方案中各业务是相互隔离的，所以两个业务模块要通信的话，就需要通过路由或者接口下沉来完成，业界的方案都无法与 **[AucFrame](https://github.com/Blankj/AucFrameTemplate)** 完美融合，所以我就只好自己动手来完成一个更方便、精简、完美的 `ApiUtils`。
+
+它功能类似 SPI，但比 SPI 更适合于 Android，而且功能更强大，这里也吐槽下 Android 中使用 ServiceLoader 会引起的 ANR 的问题，虽然 kotlinx 中 R8 加入了 FastServiceLoader，但如果不用 kotlinx 的项目还是无法解决 ANR 的问题；我也试过把 AutoService 中生成的内容放入到 assets 文件中，仅仅只有些许提升，还是无法从根上解决问题。
 
 在 **[AucFrame](https://github.com/Blankj/AucFrameTemplate)** 架构中，我们可以通过 `ApiUtils` 来自由调用各模块的 `apis`，各业务通过对外提供的 `export` 模块来供其他业务方使用，自身只需要实现自身的 `export` 中的 `apis` 即可。其 **[AucFrame](https://github.com/Blankj/AucFrameTemplate)** 的架构图如下所示：
 

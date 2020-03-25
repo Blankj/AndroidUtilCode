@@ -31,7 +31,7 @@ class UtilsBridge {
 
     static void init() {
         initUtilsActivityLifecycleImpl();
-        preLoad(BusUtils.getPreLoadRunnable(), AdaptScreenUtils.getPreLoadRunnable());
+        preLoad(AdaptScreenUtils.getPreLoadRunnable());
     }
 
     ///////////////////////////////////////////////////////////////////////////

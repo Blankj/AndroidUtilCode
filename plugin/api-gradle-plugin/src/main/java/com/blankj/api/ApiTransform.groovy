@@ -1,7 +1,6 @@
 package com.blankj.api
 
 import com.android.build.api.transform.*
-import com.android.build.gradle.api.ApplicationVariant
 import com.android.build.gradle.internal.pipeline.TransformManager
 import com.blankj.api.util.JsonUtils
 import com.blankj.api.util.LogUtils
@@ -102,96 +101,48 @@ class ApiTransform extends Transform {
             }
         }
 
-        if (apiScan.apiClasses.isEmpty()) {
-            LogUtils.l("no api.")
+        if (apiScan.apiUtilsTransformFile != null) {
+            if (apiScan.apiClasses.isEmpty()) {
+                LogUtils.l("no api.")
+            } else {
+                Map implApis = [:]
+                List<String> noImplApis = []
+                apiScan.apiImplMap.each { key, value ->
+                    implApis.put(key, value.toString())
+                }
+                apiScan.apiClasses.each {
+                    if (!apiScan.apiImplMap.containsKey(it)) {
+                        noImplApis.add(it)
+                    }
+                }
+                Map apiDetails = [:]
+                apiDetails.put("ApiUtilsClass", ext.apiUtilsClass)
+                apiDetails.put("implApis", implApis)
+                apiDetails.put("noImplApis", noImplApis)
+                String apiJson = JsonUtils.getFormatJson(apiDetails)
+                LogUtils.l(jsonFile.toString() + ": " + apiJson)
+                FileUtils.write(jsonFile, apiJson)
+
+                if (noImplApis.size() > 0) {
+                    if (ext.abortOnError) {
+                        throw new Exception("u should impl these apis: " + noImplApis +
+                                "\n u can check it in file: " + jsonFile.toString())
+                    }
+                }
+                ApiInject.start(apiScan.apiImplMap, apiScan.apiUtilsTransformFile, ext.apiUtilsClass)
+            }
         } else {
-            print2__api__(apiScan, ext, jsonFile)
+            throw new Exception("No ApiUtils of ${ext.apiUtilsClass} in $mProject.")
         }
-        processApiWithAssets(outputProvider, apiScan)
 
         LogUtils.l(getName() + " finished: " + (System.currentTimeMillis() - stTime) + "ms")
     }
 
-    private static void print2__api__(ApiScan apiScan, ApiExtension ext, File jsonFile) {
-        Map implApis = [:]
-        List<String> noImplApis = []
-        apiScan.apiImplMap.each { key, value ->
-            implApis.put(key, value.toString())
-        }
-        apiScan.apiClasses.each {
-            if (!apiScan.apiImplMap.containsKey(it)) {
-                noImplApis.add(it)
-            }
-        }
-        Map apiDetails = [:]
-        apiDetails.put("ApiUtilsClass", ext.apiUtilsClass)
-        apiDetails.put("implApis", implApis)
-        apiDetails.put("noImplApis", noImplApis)
-        String apiJson = JsonUtils.getFormatJson(apiDetails)
-        LogUtils.l(jsonFile.toString() + ": " + apiJson)
-        FileUtils.write(jsonFile, apiJson)
-
-        if (noImplApis.size() > 0) {
-            LogUtils.w("u should impl these apis: " + noImplApis +
-                    "\n u can check it in file: " + jsonFile.toString())
-        }
-    }
-
-
-    private void processApiWithAssets(TransformOutputProvider outputProvider, ApiScan apiScan) {
-        def dest = outputProvider.getContentLocation(
-                Config.API_PATH,
-                TransformManager.CONTENT_CLASS,
-                TransformManager.PROJECT_ONLY,
-                Format.DIRECTORY
-        )
-
-        String variantName = ""
-        while (dest.getParentFile().getName() != getName()) {
-            variantName = dest.getParentFile().getName().capitalize() + variantName
-            dest = dest.getParentFile()
-        }
-        LogUtils.l("get variant name from ${getName()}Dir: " + variantName)
-
-        mProject.android.applicationVariants.all { ApplicationVariant variant ->
-            if (variant.name.capitalize() == variantName) {
-                File assetsDir
-                if (variant.mergeAssets != null) {
-                    if (variant.mergeAssets.outputDir instanceof File) {
-                        assetsDir = variant.mergeAssets.outputDir
-                    }
-                }
-                if (assetsDir == null) {
-                    assetsDir = variant.mergeAssetsProvider.get().outputDir.get().asFile
-                }
-
-                File resourceDir
-                if (variant.processJavaResources != null) {
-                    if (variant.processJavaResources.getOutputs().getFiles().getFiles().getAt(0) != null) {
-                        resourceDir = variant.processJavaResources.getOutputs().getFiles().getFiles().getAt(0)
-                    }
-                }
-                if (resourceDir == null) {
-                    resourceDir = variant.processJavaResourcesProvider.get().getOutputs().getFiles().getFiles().getAt(0)
-                }
-
-                File apiDir = new File(assetsDir, Config.API_PATH)
-                apiDir.deleteDir()
-                if (!apiScan.apiImplMap.isEmpty()) {
-                    apiDir.mkdirs()
-                    LogUtils.l("${apiDir.getAbsolutePath()} -> api inject assets dir")
-                    apiScan.apiImplMap.each { key, value ->
-                        File apiClassDir = new File(apiDir, key)
-                        apiClassDir.mkdir()
-                        File apiClassImplFile = new File(apiClassDir, value.getFileDesc())
-                        apiClassImplFile.createNewFile()
-                    }
-                }
-            }
-        }
-    }
-
     private static jumpScan(String jarName, ApiExtension ext) {
+        if (jarName.contains("utilcode")) {
+            return false
+        }
+
         if (ext.onlyScanLibRegex != null && ext.onlyScanLibRegex.trim().length() > 0) {
             return !Pattern.matches(ext.onlyScanLibRegex, jarName)
         }

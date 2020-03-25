@@ -39,7 +39,7 @@ public class ApiClassVisitor extends ClassVisitor {
         className = name;
         superClassName = superName;
         if ((mApiUtilsClass + "$BaseApi").equals(superName)) {
-            mApiClasses.add(name.replace("/", "."));
+            mApiClasses.add(name);
         }
         super.visit(version, access, name, signature, superName, interfaces);
     }
@@ -63,18 +63,16 @@ public class ApiClassVisitor extends ClassVisitor {
     public void visitEnd() {
         super.visitEnd();
         if (hasAnnotation) {
-            String key = superClassName.replace("/", ".");
-            String value = className.replace("/", ".");
             if (!isMock) {// 如果不是 mock 的话
-                ApiInfo apiInfo = mApiImplMap.get(key);
+                ApiInfo apiInfo = mApiImplMap.get(superClassName);
                 if (apiInfo == null) {
-                    mApiImplMap.put(key, new ApiInfo(value, false));
+                    mApiImplMap.put(superClassName, new ApiInfo(className, false));
                 } else {// 存在一个 api 多个实现就报错
-                    errorStr = "<" + value + "> and <" + apiInfo.implApiClass + "> impl same api of <" + superClassName + ">";
+                    errorStr = "<" + className + "> and <" + apiInfo.implApiClass + "> impl same api of <" + superClassName + ">";
                 }
             } else {// mock 的话，如果 map 中已存在就不覆盖了
-                if (!mApiImplMap.containsKey(key)) {
-                    mApiImplMap.put(key, new ApiInfo(value, true));
+                if (!mApiImplMap.containsKey(superClassName)) {
+                    mApiImplMap.put(superClassName, new ApiInfo(className, true));
                 }
             }
         }

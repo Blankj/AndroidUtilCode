@@ -1,10 +1,8 @@
 package com.blankj.utilcode.util;
 
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import android.util.Log;
 
-import java.io.IOException;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -25,12 +23,21 @@ public final class ApiUtils {
 
     private static final String TAG = "ApiUtils";
 
-    private static final String PREFIX = "blankj.api/";
-
-    private Map<Class, Object> apiClass_apiInstance_map  = new ConcurrentHashMap<>();
-    private Map<Class, Class>  apiClass_apiImplClass_map = new HashMap<>();
+    private Map<Class, BaseApi> mApiMap           = new ConcurrentHashMap<>();
+    private Map<Class, Class>   mInjectApiImplMap = new HashMap<>();
 
     private ApiUtils() {
+        init();
+    }
+
+    /**
+     * It'll be injected the implClasses who have {@link ApiUtils.Api} annotation
+     * by function of {@link ApiUtils#registerImpl} when execute transform task.
+     */
+    private void init() {/*inject*/}
+
+    private void registerImpl(Class implClass) {
+        mInjectApiImplMap.put(implClass.getSuperclass(), implClass);
     }
 
     /**
@@ -44,23 +51,17 @@ public final class ApiUtils {
         return getInstance().getApiInner(apiClass);
     }
 
+    public static void register(Class<? extends BaseApi> implClass) {
+        getInstance().registerImpl(implClass);
+    }
+
     public static String toString_() {
         return getInstance().toString();
     }
 
     @Override
     public String toString() {
-        getAllApis();
-        StringBuilder sb = new StringBuilder();
-        sb.append("ApiUtils {");
-        for (Map.Entry<Class, Class> entry : apiClass_apiImplClass_map.entrySet()) {
-            sb.append("\n    ")
-                    .append(entry.getKey().getName())
-                    .append(": ")
-                    .append(entry.getValue().getName());
-        }
-        sb.append("\n}");
-        return sb.toString();
+        return "ApiUtils: " + mInjectApiImplMap;
     }
 
     private static ApiUtils getInstance() {
@@ -68,108 +69,29 @@ public final class ApiUtils {
     }
 
     private <Result> Result getApiInner(Class apiClass) {
-        Object apiInstance = apiClass_apiInstance_map.get(apiClass);
-        if (apiInstance == null) {
-            synchronized (this) {
-                apiInstance = apiClass_apiInstance_map.get(apiClass);
-                if (apiInstance == null) {
-                    Class implClass = getApiImplClass(apiClass);
-                    if (implClass != null) {
-                        try {
-                            apiInstance = implClass.newInstance();
-                            apiClass_apiInstance_map.put(apiClass, apiInstance);
-                        } catch (Exception ignore) {
-                            Log.e(TAG, "The api of <" + implClass + "> has no parameterless constructor.");
-                            return null;
-                        }
-                    } else {
-                        Log.e(TAG, "The api of <" + apiClass + "> doesn't implement.");
-                        return null;
-                    }
-                }
-            }
+        BaseApi api = mApiMap.get(apiClass);
+        if (api != null) {
+            return (Result) api;
         }
-        //noinspection unchecked
-        return (Result) apiInstance;
-    }
-
-    private Class getApiImplClass(Class apiClass) {
-        Class apiImplClass = apiClass_apiImplClass_map.get(apiClass);
-        if (apiImplClass != null) return apiImplClass;
-        try {
-            String[] apiImpls = Utils.getApp().getAssets().list(PREFIX + apiClass.getName());
-            if (apiImpls == null) {
-                return null;
+        synchronized (this) {
+            api = mApiMap.get(apiClass);
+            if (api != null) {
+                return (Result) api;
             }
-            if (apiImpls.length != 1) {
-                Log.e(TAG, "The api of <" + apiClass + "> has more than one implement.");
-                return null;
-            }
-            String apiImpl = apiImpls[0];
-            if (TextUtils.isEmpty(apiImpl)) {
-                Log.e(TAG, "The api of <" + apiClass + ">'s name is empty.");
-                return null;
-            }
-            String[] apiImpl_isMock = apiImpl.split("-");
-            if (apiImpl_isMock.length != 2) {
-                Log.e(TAG, "The api of <" + apiClass + ">'s implement <" + apiImpl
-                        + "> which format of name is wrong.");
-                return null;
-            }
-            String className = apiImpl_isMock[0];
-            boolean isMock = Boolean.parseBoolean(apiImpl_isMock[1]);
-            if (TextUtils.isEmpty(className)) {
-                return null;
-            }
-            apiImplClass = Class.forName(className);
-            return registerApiInner(apiClass, apiImplClass);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private Class registerApiInner(Class apiClass, Class apiImplClass) {
-        if (apiImplClass == null) return null;
-        if (apiClass == null) {
-            Class superclass = apiImplClass.getSuperclass();
-            if (superclass == null) {
-                Log.e(TAG, "<" + apiImplClass.getName() + ">'s superClass is null");
-                return null;
-            }
-            apiClass = superclass;
-        }
-        //noinspection unchecked
-        if (apiClass.isAssignableFrom(apiImplClass)) {
-            apiClass_apiImplClass_map.put(apiClass, apiImplClass);
-            return apiImplClass;
-        } else {
-            Log.e(TAG, "<" + apiImplClass.getName() + ">'s superClass is <"
-                    + apiClass.getName() + ">, not <" + apiClass.getName() + ">");
-            return null;
-        }
-
-    }
-
-    static void registerApi(Class<? extends BaseApi> implClass) {
-        getInstance().registerApiInner(null, implClass);
-    }
-
-    private void getAllApis() {
-        try {
-            String[] apis = Utils.getApp().getAssets().list(PREFIX);
-            if (apis == null) return;
-            for (String api : apis) {
+            Class implClass = mInjectApiImplMap.get(apiClass);
+            if (implClass != null) {
                 try {
-                    getApiImplClass(Class.forName(api));
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                    api = (BaseApi) implClass.newInstance();
+                    mApiMap.put(apiClass, api);
+                    return (Result) api;
+                } catch (Exception ignore) {
+                    Log.e(TAG, "The <" + implClass + "> has no parameterless constructor.");
+                    return null;
                 }
+            } else {
+                Log.e(TAG, "The <" + apiClass + "> doesn't implement.");
+                return null;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -183,6 +105,6 @@ public final class ApiUtils {
         boolean isMock() default false;
     }
 
-    public abstract static class BaseApi {
+    public static class BaseApi {
     }
 }

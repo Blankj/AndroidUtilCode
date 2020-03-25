@@ -29,7 +29,6 @@ dependencies {
     implementation gradleApi()
     implementation localGroovy()
 
-    testImplementation Config.depConfig.plugin_gradle.dep
     testImplementation Config.depConfig.test_junit.dep
 }
 

@@ -53,10 +53,10 @@ class Config {
             // 本地第一次上传插件新的版本需设置 isApply = false, useLocal = true
             // 本地上传成功之后 isApply = true 即可应用插件来调试，后续版本更新无需设置 isApply = false
             // 发布版本的话把 isApply = false, useLocal = false，更新版本号，发布成功后 isApply = true 即可使用远程库版本
-            plugin_api                 : new DepConfig(isApply: false, useLocal: true, pluginPath: "com.blankj:api-gradle-plugin:1.4-r1", pluginId: "com.blankj.api"),
+            plugin_api                 : new DepConfig(isApply: true, useLocal: false, pluginPath: "com.blankj:api-gradle-plugin:1.2", pluginId: "com.blankj.api"),
             //./gradlew plugin:api-gradle-plugin:uploadArchives // 上传到本地 maven
             //./gradlew plugin:api-gradle-plugin:bintrayUpload  // 上传到 jcenter
-            plugin_bus                 : new DepConfig(isApply: true, useLocal: false, pluginPath: "com.blankj:bus-gradle-plugin:2.6-r2", pluginId: "com.blankj.bus"),
+            plugin_bus                 : new DepConfig(isApply: true, useLocal: false, pluginPath: "com.blankj:bus-gradle-plugin:2.4", pluginId: "com.blankj.bus"),
             //./gradlew plugin:bus-gradle-plugin:uploadArchives // 上传到本地 maven
             //./gradlew plugin:bus-gradle-plugin:bintrayUpload  // 上传到 jcenter
 

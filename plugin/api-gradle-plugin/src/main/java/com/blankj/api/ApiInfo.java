@@ -18,10 +18,6 @@ public class ApiInfo {
         this.isMock = isMock;
     }
 
-    public String getFileDesc() {
-        return implApiClass + "-" + isMock;
-    }
-
     @Override
     public String toString() {
         return "{ implApiClass: " + implApiClass +

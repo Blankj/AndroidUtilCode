@@ -1,10 +1,12 @@
 package com.blankj.api;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +25,7 @@ public class ApiTest {
 
     @Test
     public void testInject() throws IOException {
-        getApiImplMap();
+        inject2ApiUtils(getApiImplMap());
     }
 
     private static Map<String, ApiInfo> getApiImplMap() throws IOException {
@@ -45,6 +47,15 @@ public class ApiTest {
 
         System.out.println("apiClasses = " + apiClasses);
         return apiImplMap;
+    }
+
+    private static void inject2ApiUtils(Map<String, ApiInfo> apiImpls) throws IOException {
+        ClassReader cr = new ClassReader(ApiUtils.class.getName());
+        ClassWriter cw = new ClassWriter(cr, 0);
+        ClassVisitor cv = new ApiUtilsClassVisitor(cw, apiImpls, ApiUtils.class.getCanonicalName());
+        cr.accept(cv, ClassReader.SKIP_FRAMES);
+
+        FileUtils.writeByteArrayToFile(new File("ApiUtils2333.class"), cw.toByteArray());
     }
 
     @ApiUtils.Api(isMock = true)

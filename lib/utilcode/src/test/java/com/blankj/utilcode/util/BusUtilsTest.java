@@ -78,15 +78,15 @@ public class BusUtilsTest extends BaseTest {
 
     @Before
     public void setUp() throws Exception {
-        BusUtils.registerBus(TAG_NO_PARAM, BusUtilsTest.class.getName(), "noParamFun", "", "", false, "POSTING", 0);
-        BusUtils.registerBus(TAG_ONE_PARAM, BusUtilsTest.class.getName(), "oneParamFun", String.class.getName(), "param", false, "POSTING", 0);
-        BusUtils.registerBus(TAG_NO_PARAM_STICKY, BusUtilsTest.class.getName(), "noParamStickyFun", "", "", true, "POSTING", 0);
-        BusUtils.registerBus(TAG_ONE_PARAM_STICKY, BusUtilsTest.class.getName(), "oneParamStickyFun", Callback.class.getName(), "callback", true, "POSTING", 0);
+        BusUtils.registerBus4Test(TAG_NO_PARAM, BusUtilsTest.class.getName(), "noParamFun", "", "", false, "POSTING", 0);
+        BusUtils.registerBus4Test(TAG_ONE_PARAM, BusUtilsTest.class.getName(), "oneParamFun", String.class.getName(), "param", false, "POSTING", 0);
+        BusUtils.registerBus4Test(TAG_NO_PARAM_STICKY, BusUtilsTest.class.getName(), "noParamStickyFun", "", "", true, "POSTING", 0);
+        BusUtils.registerBus4Test(TAG_ONE_PARAM_STICKY, BusUtilsTest.class.getName(), "oneParamStickyFun", Callback.class.getName(), "callback", true, "POSTING", 0);
 
-        BusUtils.registerBus(TAG_IO, BusUtilsTest.class.getName(), "ioFun", CountDownLatch.class.getName(), "latch", false, "IO", 0);
-        BusUtils.registerBus(TAG_CPU, BusUtilsTest.class.getName(), "cpuFun", CountDownLatch.class.getName(), "latch", false, "CPU", 0);
-        BusUtils.registerBus(TAG_CACHED, BusUtilsTest.class.getName(), "cachedFun", CountDownLatch.class.getName(), "latch", false, "CACHED", 0);
-        BusUtils.registerBus(TAG_SINGLE, BusUtilsTest.class.getName(), "singleFun", CountDownLatch.class.getName(), "latch", false, "SINGLE", 0);
+        BusUtils.registerBus4Test(TAG_IO, BusUtilsTest.class.getName(), "ioFun", CountDownLatch.class.getName(), "latch", false, "IO", 0);
+        BusUtils.registerBus4Test(TAG_CPU, BusUtilsTest.class.getName(), "cpuFun", CountDownLatch.class.getName(), "latch", false, "CPU", 0);
+        BusUtils.registerBus4Test(TAG_CACHED, BusUtilsTest.class.getName(), "cachedFun", CountDownLatch.class.getName(), "latch", false, "CACHED", 0);
+        BusUtils.registerBus4Test(TAG_SINGLE, BusUtilsTest.class.getName(), "singleFun", CountDownLatch.class.getName(), "latch", false, "SINGLE", 0);
     }
 
     @Test
@@ -253,8 +253,7 @@ public class BusUtilsTest extends BaseTest {
 
     @Test
     public void testBase() {
-        ReflectUtils getInstance = ReflectUtils.reflect(BusUtils.class).method("getInstance");
-        getInstance.method("registerBus", "base", BaseTest.class.getName(), "noParamFun", "int", "i", false, "POSTING");
+        BusUtils.registerBus4Test("base", BaseTest.class.getName(), "noParamFun", "int", "i", false, "POSTING", 0);
 
         BaseTest t = new BusUtilsTest();
         BusUtils.register(t);
@@ -264,8 +263,8 @@ public class BusUtilsTest extends BaseTest {
 
     @Test
     public void testSameTag() {
-        ReflectUtils.reflect(BusUtils.class).method("getInstance")
-                .method("registerBus", TAG_NO_PARAM, BusUtilsTest.class.getName(), "noParamSameTagFun", "", "", false, "POSTING", 2);
+        BusUtils.registerBus4Test(TAG_NO_PARAM, BusUtilsTest.class.getName(), "noParamSameTagFun", "", "", false, "POSTING", 2);
+
         BusUtilsTest test = new BusUtilsTest();
         BusUtils.register(test);
         BusUtils.post(TAG_NO_PARAM);
