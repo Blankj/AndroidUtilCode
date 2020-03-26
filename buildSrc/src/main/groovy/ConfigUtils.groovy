@@ -27,7 +27,7 @@ class ConfigUtils {
         def configs = [:]
         for (Map.Entry<String, DepConfig> entry : Config.depConfig.entrySet()) {
             def (name, config) = [entry.key, entry.value]
-            if (name.startsWith("plugin_")) {
+            if (entry.value.pluginPath) {
                 config.dep = config.pluginPath
             } else {
                 if (config.useLocal) {
@@ -74,7 +74,7 @@ class ConfigUtils {
     static getApplyPlugins() {
         def plugins = [:]
         for (Map.Entry<String, DepConfig> entry : Config.depConfig.entrySet()) {
-            if (entry.value.isApply && entry.value.pluginPath != null) {
+            if (entry.value.isApply && entry.value.pluginPath) {
                 plugins.put(entry.key, entry.value)
             }
         }

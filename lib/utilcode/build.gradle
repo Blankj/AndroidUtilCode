@@ -1,9 +1,6 @@
 apply {
     plugin Config.depConfig.plugin_traute.pluginId
-    plugin Config.depConfig.plugin_maven.pluginId
-    plugin Config.depConfig.plugin_bintray.pluginId
     plugin "readme-core"
-    from "${rootDir.path}/gradle/upload/bintrayUploadAndroid.gradle"
 }
 
 readme {
@@ -27,10 +24,6 @@ android {
             consumerProguardFiles 'proguard-rules.pro'
         }
     }
-
-    lintOptions {
-        abortOnError false
-    }
 }
 
 dependencies {
@@ -45,3 +38,14 @@ dependencies {
     testImplementation Config.depConfig.support_appcompat_v7.dep
     testImplementation Config.depConfig.eventbus_lib.dep
 }
+
+
+ext {
+    name = "UtilCode"
+    groupId = Config.depConfig.lib_utilcode.groupId
+    artifactId = Config.depConfig.lib_utilcode.artifactId
+    versionName = Config.depConfig.lib_utilcode.version
+    siteUrl = "https://github.com/Blankj/AndroidUtilCode"
+}
+
+apply from: "${rootDir.path}/gradle/publish.gradle"

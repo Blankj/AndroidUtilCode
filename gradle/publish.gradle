@@ -1,0 +1,135 @@
+apply plugin: Config.depConfig.plugin_maven.pluginId
+apply plugin: Config.depConfig.plugin_bintray.pluginId
+
+def isAndroid() {
+    return project.getPlugins().hasPlugin('com.android.application') ||
+            project.getPlugins().hasPlugin('com.android.library')
+}
+
+def configurePom(pom) {
+    pom.project {
+        name project.ext.name
+        groupId = project.ext.groupId
+        artifactId = project.ext.artifactId
+        version = project.ext.versionName
+        packaging isAndroid() ? "aar" : "jar"
+        description project.ext.name
+        url project.ext.siteUrl
+
+        scm {
+            url project.ext.siteUrl
+            connection project.ext.siteUrl
+            developerConnection project.ext.siteUrl + ".git"
+        }
+
+        licenses {
+            license {
+                name 'The Apache Software License, Version 2.0'
+                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+            }
+        }
+
+        developers {
+            developer {
+                id "Blankj"
+                name "Blankj"
+            }
+        }
+    }
+}
+
+tasks.create("mavenLocal", Upload) {
+    configuration = configurations.archives
+
+    repositories {
+        mavenDeployer {
+            repository(url: uri(new File(project.rootDir.getPath() + "/mavenLocal")))
+
+            configurePom(pom)
+        }
+    }
+}
+
+install {
+    repositories.mavenInstaller {
+        configurePom(pom)
+    }
+}
+
+if (isAndroid()) {
+    // This generates sources.jar
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.source
+    }
+
+    task javadoc(type: Javadoc) {
+        source = android.sourceSets.main.java.source
+        classpath += configurations.compile
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+} else {
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+}
+
+if (project.hasProperty("kotlin")) {
+    // Disable creating javadocs
+    tasks.withType(Javadoc) {
+        enabled = false
+    }
+}
+
+// javadoc configuration
+javadoc {
+    options {
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        version project.ext.versionName
+        links "http://docs.oracle.com/javase/7/docs/api"
+        title "${project.ext.name} ${project.ext.versionName}"
+    }
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+
+Properties properties = new Properties()
+File localPropertiesFile = project.rootProject.file("local.properties");
+if (localPropertiesFile.exists()) {
+    properties.load(localPropertiesFile.newDataInputStream())
+}
+
+def bintrayUser = properties.getProperty("bintrayUser")
+def bintrayKey = properties.getProperty("bintrayKey")
+
+// bintray configuration
+bintray {
+    user = bintrayUser
+    key = bintrayKey
+    configurations = ['archives']
+    override = false
+    pkg {
+        repo = "maven"
+        name = project.ext.name
+        websiteUrl = project.ext.siteUrl
+        vcsUrl = project.ext.siteUrl + '.git'
+        licenses = ["Apache-2.0"]
+    }
+}

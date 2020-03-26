@@ -1,9 +1,3 @@
-apply {
-    plugin "com.github.dcendents.android-maven"
-    plugin "com.jfrog.bintray"
-    from "${rootDir.path}/gradle/upload/bintrayUploadAndroid.gradle"
-}
-
 dependencies {
     implementation Config.depConfig.lib_utilcode.dep
     implementation Config.depConfig.swipe_panel.dep
