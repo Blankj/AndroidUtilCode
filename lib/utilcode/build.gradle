@@ -39,13 +39,11 @@ dependencies {
     testImplementation Config.depConfig.eventbus_lib.dep
 }
 
-
-ext {
+apply from: "${rootDir.path}/gradle/publish.gradle"
+publish {
     name = "UtilCode"
     groupId = Config.depConfig.lib_utilcode.groupId
     artifactId = Config.depConfig.lib_utilcode.artifactId
-    versionName = Config.depConfig.lib_utilcode.version
-    siteUrl = "https://github.com/Blankj/AndroidUtilCode"
+    version = Config.depConfig.lib_utilcode.version
+    website = "https://github.com/Blankj/AndroidUtilCode"
 }
-
-apply from: "${rootDir.path}/gradle/publish.gradle"

@@ -47,14 +47,14 @@ pluginBundle {
     }
 }
 
-ext {
+apply from: "${rootDir.path}/gradle/publish.gradle"
+publish {
     name = "BusPlugin"
     groupId = Config.depConfig.plugin_bus.groupId
     artifactId = Config.depConfig.plugin_bus.artifactId
-    versionName = Config.depConfig.plugin_bus.version
-    siteUrl = "https://github.com/Blankj/AndroidUtilCode"
+    version = Config.depConfig.plugin_bus.version
+    website = "https://github.com/Blankj/AndroidUtilCode"
 }
-apply from: "${rootDir.path}/gradle/publish.gradle"
 
 //./gradlew plugin:lib_bus-gradle-plugin:mavenLocal    // 上传到本地 mavenLocal
 //./gradlew plugin:lib_bus-gradle-plugin:bintrayUpload  // 上传到 jcenter

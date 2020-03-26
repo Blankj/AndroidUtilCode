@@ -15,7 +15,7 @@ class Config {
     static minSdkVersion = 14
     static targetSdkVersion = 29
     static versionCode = 1_026_001
-    static versionName = '1.26.1-alpha8'// E.g. 1.9.72 => 1,009,072
+    static versionName = '1.26.1-r5'// E.g. 1.9.72 => 1,009,072
 
     // lib version
     static gradlePluginVersion = '3.5.0'
@@ -50,15 +50,14 @@ class Config {
             plugin_bintray             : new DepConfig(pluginPath: "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4", pluginId: "com.jfrog.bintray"),// 上传到 bintray
             plugin_traute              : new DepConfig(pluginPath: "tech.harmonysoft:traute-gradle:1.1.10", pluginId: "tech.harmonysoft.oss.traute"),// 注解转非空判断
 
-            // 本地第一次上传插件新的版本需设置 isApply = false, useLocal = true
-            // 本地上传成功之后 isApply = true 即可应用插件来调试，后续版本更新无需设置 isApply = false
-            // 发布版本的话把 isApply = false, useLocal = false，更新版本号，发布成功后 isApply = true 即可使用远程库版本
-            plugin_api                 : new DepConfig(isApply: true, useLocal: false, pluginPath: "com.blankj:api-gradle-plugin:1.2", pluginId: "com.blankj.api"),
-            //./gradlew plugin:api-gradle-plugin:uploadArchives // 上传到本地 maven
-            //./gradlew plugin:api-gradle-plugin:bintrayUpload  // 上传到 jcenter
+            // 上传新版本插件更新 pluginPath 中的版本号，并设置 isApply = false
+            // 通过 mavenLocal 上传本地版本，设置 isApply = true 即可应用插件来调试，最后通过 bintrayUpload 来发布插件
+            plugin_api                 : new DepConfig(isApply: true, useLocal: false, pluginPath: "com.blankj:api-gradle-plugin:1.2-r0", pluginId: "com.blankj.api"),
+            //./gradlew plugin:plugin_api-gradle-plugin:mavenLocal     // 上传到本地 mavenLocal
+            //./gradlew plugin:plugin_api-gradle-plugin:bintrayUpload  // 上传到 jcenter
             plugin_bus                 : new DepConfig(isApply: true, useLocal: false, pluginPath: "com.blankj:bus-gradle-plugin:2.4", pluginId: "com.blankj.bus"),
-            //./gradlew plugin:bus-gradle-plugin:uploadArchives // 上传到本地 maven
-            //./gradlew plugin:bus-gradle-plugin:bintrayUpload  // 上传到 jcenter
+            //./gradlew plugin:plugin_bus-gradle-plugin:mavenLocal     // 上传到本地 mavenLocal
+            //./gradlew plugin:plugin_bus-gradle-plugin:bintrayUpload  // 上传到 jcenter
 
             support_appcompat_v7       : new DepConfig("com.android.support:appcompat-v7:$supportVersion"),
             support_design             : new DepConfig("com.android.support:design:$supportVersion"),

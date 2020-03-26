@@ -1,4 +1,4 @@
-package com.blankj.plugin
+package com.blankj.plugin.readme
 
 class ReadmeExtension {
 

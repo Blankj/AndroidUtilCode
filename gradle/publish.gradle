@@ -1,25 +1,90 @@
-apply plugin: Config.depConfig.plugin_maven.pluginId
-apply plugin: Config.depConfig.plugin_bintray.pluginId
+/*
+ 1. must add the following classpath in root build.gradle
+ classpath "com.github.dcendents:android-maven-gradle-plugin:2.1"
+ classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4"
 
-def isAndroid() {
-    return project.getPlugins().hasPlugin('com.android.application') ||
-            project.getPlugins().hasPlugin('com.android.library')
+ 2. add bintrayUser, bintrayKey in root local.properties
+
+ 3. apply this file in the publish module
+ apply from: "${rootDir.path}/gradle/publish.gradle"
+ publish {
+    name = "UtilCode"
+    groupId = "com.blankj"
+    artifactId = "utilcode"
+    version = "xx.xx"
+    website = "https://github.com/Blankj/AndroidUtilCode"
+ }
+
+ 4. execute following command to publish
+ ./gradlew bintrayUpload    -> upload to bintray
+ ./gradlew mavenLocal       -> upload to local maven
+*/
+
+apply plugin: "com.github.dcendents.android-maven"
+apply plugin: "com.jfrog.bintray"
+
+extensions.create('publish', PublishExtension)
+
+afterEvaluate {
+    def ext = project['publish'] as PublishExtension
+    loadBintray(ext)
+    configMaven(project, ext)
+    configBintray(project, ext)
+    configJavadoc(project, ext)
 }
 
-def configurePom(pom) {
+private void loadBintray(PublishExtension ext) {
+    Properties properties = new Properties()
+    File localPropertiesFile = project.rootProject.file("local.properties");
+    if (localPropertiesFile.exists()) {
+        properties.load(localPropertiesFile.newDataInputStream())
+        ext.bintrayUser = properties.getProperty("bintrayUser")
+        ext.bintrayKey = properties.getProperty("bintrayKey")
+    }
+}
+
+def configMaven(Project project, PublishExtension ext) {
+    project.group = ext.groupId
+    project.version = ext.version
+
+    project.install {
+        repositories.mavenInstaller {
+            configPom(pom, ext)
+        }
+    }
+
+    project.tasks.create("mavenLocal", Upload) {
+        configuration = project.configurations.archives
+
+        repositories.mavenDeployer {
+            repository(url: uri(new File(project.rootDir.getPath() + "/mavenLocal")))
+            configPom(pom, ext)
+        }
+
+        doFirst {
+            checkExt(project, ext)
+        }
+    }
+
+    project.tasks.findByName("bintrayUpload").doFirst {
+        checkExt(project, ext)
+    }
+}
+
+def configPom(pom, PublishExtension ext) {
     pom.project {
-        name project.ext.name
-        groupId = project.ext.groupId
-        artifactId = project.ext.artifactId
-        version = project.ext.versionName
+        name ext.name
+        groupId ext.groupId
+        artifactId ext.artifactId
+        version ext.version
         packaging isAndroid() ? "aar" : "jar"
-        description project.ext.name
-        url project.ext.siteUrl
+        description ext.name
+        url ext.website
 
         scm {
-            url project.ext.siteUrl
-            connection project.ext.siteUrl
-            developerConnection project.ext.siteUrl + ".git"
+            url ext.website
+            connection ext.website
+            developerConnection ext.website + ".git"
         }
 
         licenses {
@@ -31,105 +96,128 @@ def configurePom(pom) {
 
         developers {
             developer {
-                id "Blankj"
-                name "Blankj"
+                id ext.bintrayUser
+                name ext.bintrayUser
             }
         }
     }
 }
 
-tasks.create("mavenLocal", Upload) {
-    configuration = configurations.archives
+static def checkExt(Project project, PublishExtension ext) {
+    if (ext.isBintrayEmpty()) {
+        throw new NullPointerException("U should set bintrayUser and bintrayKey in local.properties")
+    }
+    ext.check()
+}
 
-    repositories {
-        mavenDeployer {
-            repository(url: uri(new File(project.rootDir.getPath() + "/mavenLocal")))
-
-            configurePom(pom)
+def configBintray(Project project, PublishExtension ext) {
+    project.bintray {
+        user = ext.bintrayUser
+        key = ext.bintrayKey
+        configurations = ['archives']
+        override = false
+        publish = true
+        pkg {
+            repo = "maven"
+            name = ext.name
+            websiteUrl = ext.website
+            vcsUrl = ext.website + '.git'
+            licenses = ["Apache-2.0"]
         }
     }
 }
 
-install {
-    repositories.mavenInstaller {
-        configurePom(pom)
+private void configJavadoc(Project project, PublishExtension ext) {
+    if (isAndroid()) {
+        // This generates sources.jar
+        task sourcesJar(type: Jar) {
+            classifier = 'sources'
+            from android.sourceSets.main.java.source
+        }
+
+        task javadoc(type: Javadoc) {
+            source = android.sourceSets.main.java.source
+            classpath += configurations.compile
+            classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+        }
+
+        task javadocJar(type: Jar, dependsOn: javadoc) {
+            classifier = 'javadoc'
+            from javadoc.destinationDir
+        }
+    } else {
+        task sourcesJar(type: Jar, dependsOn: classes) {
+            classifier = 'sources'
+            from sourceSets.main.allSource
+        }
+
+        task javadocJar(type: Jar, dependsOn: javadoc) {
+            classifier = 'javadoc'
+            from javadoc.destinationDir
+        }
+    }
+
+    if (project.hasProperty("kotlin")) {
+        // Disable creating javadocs
+        project.tasks.withType(Javadoc) {
+            enabled = false
+        }
+    }
+
+    javadoc {
+        options {
+            encoding "UTF-8"
+            charSet 'UTF-8'
+            author true
+            version ext.version
+            links "http://docs.oracle.com/javase/7/docs/api"
+            title "${ext.name} ${ext.version}"
+        }
+    }
+
+    artifacts {
+        archives javadocJar
+        archives sourcesJar
     }
 }
 
-if (isAndroid()) {
-    // This generates sources.jar
-    task sourcesJar(type: Jar) {
-        classifier = 'sources'
-        from android.sourceSets.main.java.source
-    }
-
-    task javadoc(type: Javadoc) {
-        source = android.sourceSets.main.java.source
-        classpath += configurations.compile
-        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    }
-
-    task javadocJar(type: Jar, dependsOn: javadoc) {
-        classifier = 'javadoc'
-        from javadoc.destinationDir
-    }
-} else {
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'sources'
-        from sourceSets.main.allSource
-    }
-
-    task javadocJar(type: Jar, dependsOn: javadoc) {
-        classifier = 'javadoc'
-        from javadoc.destinationDir
-    }
+def isAndroid() {
+    return project.getPlugins().hasPlugin('com.android.application') ||
+            project.getPlugins().hasPlugin('com.android.library')
 }
 
-if (project.hasProperty("kotlin")) {
-    // Disable creating javadocs
-    tasks.withType(Javadoc) {
-        enabled = false
+class PublishExtension {
+    String name
+    String groupId
+    String artifactId
+    String version
+    String website
+
+    String bintrayUser
+    String bintrayKey
+
+    void check() {
+        checkField(name, "name")
+        checkField(groupId, "groupId")
+        checkField(artifactId, "artifactId")
+        checkField(version, "version")
+        checkField(website, "website")
+
+        checkField(bintrayUser, "bintrayUser")
+        checkField(bintrayKey, "bintrayKey")
     }
-}
 
-// javadoc configuration
-javadoc {
-    options {
-        encoding "UTF-8"
-        charSet 'UTF-8'
-        author true
-        version project.ext.versionName
-        links "http://docs.oracle.com/javase/7/docs/api"
-        title "${project.ext.name} ${project.ext.versionName}"
+    void checkField(String field, String fieldName) {
+        if (isEmpty(field)) {
+            throw new NullPointerException("$fieldName is empty!!")
+        }
     }
-}
 
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
+    boolean isBintrayEmpty() {
+        return isEmpty(bintrayUser) || isEmpty(bintrayKey)
+    }
 
-
-Properties properties = new Properties()
-File localPropertiesFile = project.rootProject.file("local.properties");
-if (localPropertiesFile.exists()) {
-    properties.load(localPropertiesFile.newDataInputStream())
-}
-
-def bintrayUser = properties.getProperty("bintrayUser")
-def bintrayKey = properties.getProperty("bintrayKey")
-
-// bintray configuration
-bintray {
-    user = bintrayUser
-    key = bintrayKey
-    configurations = ['archives']
-    override = false
-    pkg {
-        repo = "maven"
-        name = project.ext.name
-        websiteUrl = project.ext.siteUrl
-        vcsUrl = project.ext.siteUrl + '.git'
-        licenses = ["Apache-2.0"]
+    boolean isEmpty(String str) {
+        return str == null || str.length() == 0
     }
 }
