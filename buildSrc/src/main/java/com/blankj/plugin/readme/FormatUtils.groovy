@@ -3,7 +3,7 @@ package com.blankj.plugin.readme
 class FormatUtils {
 
     static def LINE_SEP = System.getProperty("line.separator")
-    static def LONG_SPACE = "                                        "
+    static def LONG_SPACE = "                                                                  "
 
     static def format(File readmeCN) {
         def sb = new StringBuilder(),

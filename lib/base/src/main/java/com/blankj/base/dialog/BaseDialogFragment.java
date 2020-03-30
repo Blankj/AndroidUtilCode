@@ -1,7 +1,9 @@
 package com.blankj.base.dialog;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ThreadUtils;
 
 /**
@@ -34,16 +37,26 @@ public class BaseDialogFragment extends DialogFragment {
     protected FragmentActivity mActivity;
     protected View             mContentView;
 
-    public BaseDialogFragment init(FragmentActivity activity, DialogLayoutCallback listener) {
-        mActivity = activity;
+    public BaseDialogFragment init(Context context, DialogLayoutCallback listener) {
+        mActivity = getFragmentActivity(context);
         mDialogLayoutCallback = listener;
         return this;
     }
 
-    public BaseDialogFragment init(FragmentActivity activity, DialogCallback dialogCallback) {
-        mActivity = activity;
+    public BaseDialogFragment init(Context context, DialogCallback dialogCallback) {
+        mActivity = getFragmentActivity(context);
         mDialogCallback = dialogCallback;
         return this;
+    }
+
+    private FragmentActivity getFragmentActivity(Context context) {
+        Activity activity = ActivityUtils.getActivityByContext(context);
+        if (activity == null) return null;
+        if (activity instanceof FragmentActivity) {
+            return (FragmentActivity) activity;
+        }
+        LogUtils.w(context + "not instanceof FragmentActivity");
+        return null;
     }
 
     @Override
@@ -59,10 +72,19 @@ public class BaseDialogFragment extends DialogFragment {
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog;
         if (mDialogCallback != null) {
-            return mDialogCallback.bindDialog(mActivity);
+            dialog = mDialogCallback.bindDialog(mActivity);
+        } else {
+            dialog = super.onCreateDialog(savedInstanceState);
         }
-        return super.onCreateDialog(savedInstanceState);
+        Window window = dialog.getWindow();
+        if (mDialogCallback != null) {
+            mDialogCallback.setWindowStyle(window);
+        } else if (mDialogLayoutCallback != null) {
+            mDialogLayoutCallback.setWindowStyle(window);
+        }
+        return dialog;
     }
 
     @Nullable
@@ -81,20 +103,6 @@ public class BaseDialogFragment extends DialogFragment {
             return;
         }
         super.onViewCreated(view, savedInstanceState);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Dialog dialog = getDialog();
-        if (dialog == null) return;
-        Window window = dialog.getWindow();
-        if (window == null) return;
-        if (mDialogCallback != null) {
-            mDialogCallback.setWindowStyle(window);
-        } else if (mDialogLayoutCallback != null) {
-            mDialogLayoutCallback.setWindowStyle(window);
-        }
     }
 
     @Override
@@ -128,7 +136,7 @@ public class BaseDialogFragment extends DialogFragment {
                     if (prev != null) {
                         fm.beginTransaction().remove(prev);
                     }
-                    BaseDialogFragment.super.showNow(fm, tag);
+                    BaseDialogFragment.super.show(fm, tag);
                 }
             }
         });

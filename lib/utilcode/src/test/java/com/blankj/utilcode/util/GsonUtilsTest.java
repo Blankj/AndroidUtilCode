@@ -20,7 +20,6 @@ public class GsonUtilsTest extends BaseTest {
     @Test
     public void getGson() {
         Assert.assertNotNull(GsonUtils.getGson());
-        Assert.assertNotNull(GsonUtils.getGson(false));
     }
 
     @Test
@@ -29,10 +28,6 @@ public class GsonUtilsTest extends BaseTest {
         Assert.assertEquals(
                 "{\"code\":200,\"message\":\"success\",\"data\":{\"name\":\"Blankj\",\"gender\":0,\"address\":null}}",
                 GsonUtils.toJson(result)
-        );
-        Assert.assertEquals(
-                "{\"code\":200,\"message\":\"success\",\"data\":{\"name\":\"Blankj\",\"gender\":0}}",
-                GsonUtils.toJson(result, false)
         );
     }
 

@@ -73,7 +73,7 @@ public final class ApiUtils {
         if (api != null) {
             return (Result) api;
         }
-        synchronized (this) {
+        synchronized (apiClass) {
             api = mApiMap.get(apiClass);
             if (api != null) {
                 return (Result) api;

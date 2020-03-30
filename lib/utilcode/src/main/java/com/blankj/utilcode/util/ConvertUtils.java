@@ -13,16 +13,20 @@ import com.blankj.utilcode.constant.TimeConstants;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <pre>
@@ -34,12 +38,13 @@ import java.nio.charset.Charset;
  */
 public final class ConvertUtils {
 
+    private static final int    BUFFER_SIZE = 8192;
+    private static final char[] hexDigits   =
+            {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+
     private ConvertUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
-
-    private static final char[] hexDigits =
-            {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     /**
      * Bytes to bits.
@@ -478,21 +483,8 @@ public final class ConvertUtils {
      *                  </ul>
      * @return fit time span
      */
-    @SuppressLint("DefaultLocale")
     public static String millis2FitTimeSpan(long millis, int precision) {
-        if (millis <= 0 || precision <= 0) return null;
-        StringBuilder sb = new StringBuilder();
-        String[] units = {"天", "小时", "分钟", "秒", "毫秒"};
-        int[] unitLen = {86400000, 3600000, 60000, 1000, 1};
-        precision = Math.min(precision, 5);
-        for (int i = 0; i < precision; i++) {
-            if (millis >= unitLen[i]) {
-                long mode = millis / unitLen[i];
-                millis -= mode * unitLen[i];
-                sb.append(mode).append(units[i]);
-            }
-        }
-        return sb.toString();
+        return UtilsBridge.millis2FitTimeSpan(millis, precision);
     }
 
     /**
@@ -502,9 +494,9 @@ public final class ConvertUtils {
         if (is == null) return null;
         try {
             ByteArrayOutputStream os = new ByteArrayOutputStream();
-            byte[] b = new byte[MemoryConstants.KB];
+            byte[] b = new byte[BUFFER_SIZE];
             int len;
-            while ((len = is.read(b, 0, MemoryConstants.KB)) != -1) {
+            while ((len = is.read(b, 0, BUFFER_SIZE)) != -1) {
                 os.write(b, 0, len);
             }
             return os;
@@ -627,6 +619,35 @@ public final class ConvertUtils {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public static List<String> inputStream2Lines(final InputStream is) {
+        return inputStream2Lines(is, "");
+    }
+
+    public static List<String> inputStream2Lines(final InputStream is,
+                                                 final String charsetName) {
+        BufferedReader reader = null;
+        try {
+            List<String> list = new ArrayList<>();
+            reader = new BufferedReader(new InputStreamReader(is, getSafeCharset(charsetName)));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                list.add(line);
+            }
+            return list;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

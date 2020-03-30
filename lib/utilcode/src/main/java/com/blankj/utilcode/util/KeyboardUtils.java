@@ -2,7 +2,6 @@ package com.blankj.utilcode.util;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
@@ -171,7 +170,7 @@ public final class KeyboardUtils {
         Log.d("KeyboardUtils", "getDecorViewInvisibleHeight: "
                 + (decorView.getBottom() - outRect.bottom));
         int delta = Math.abs(decorView.getBottom() - outRect.bottom);
-        if (delta <= getNavBarHeight() + getStatusBarHeight()) {
+        if (delta <= UtilsBridge.getNavBarHeight() + UtilsBridge.getStatusBarHeight()) {
             sDecorViewDelta = delta;
             return 0;
         }
@@ -281,7 +280,7 @@ public final class KeyboardUtils {
         Log.d("KeyboardUtils", "getContentViewInvisibleHeight: "
                 + (contentView.getBottom() - outRect.bottom));
         int delta = Math.abs(contentView.getBottom() - outRect.bottom);
-        if (delta <= getStatusBarHeight() + getNavBarHeight()) {
+        if (delta <= UtilsBridge.getStatusBarHeight() + UtilsBridge.getNavBarHeight()) {
             return 0;
         }
         return delta;
@@ -357,26 +356,9 @@ public final class KeyboardUtils {
         */
     }
 
-    private static int getStatusBarHeight() {
-        Resources resources = Utils.getApp().getResources();
-        int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
-        return resources.getDimensionPixelSize(resourceId);
-    }
-
-    private static int getNavBarHeight() {
-        Resources res = Utils.getApp().getResources();
-        int resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android");
-        if (resourceId != 0) {
-            return res.getDimensionPixelSize(resourceId);
-        } else {
-            return 0;
-        }
-    }
-
-///////////////////////////////////////////////////////////////////////////
-// interface
-///////////////////////////////////////////////////////////////////////////
-
+    ///////////////////////////////////////////////////////////////////////////
+    // interface
+    ///////////////////////////////////////////////////////////////////////////
     public interface OnSoftInputChangedListener {
         void onSoftInputChanged(int height);
     }

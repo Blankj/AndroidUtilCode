@@ -1,5 +1,7 @@
 package com.blankj.utilcode.util;
 
+import com.blankj.utilcode.constant.RegexConstants;
+
 import org.junit.Test;
 
 import java.util.Arrays;

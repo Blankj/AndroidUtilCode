@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresPermission;
 import android.view.View;
 
 import com.google.gson.Gson;
@@ -18,6 +21,9 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.LinkedList;
+import java.util.List;
+
+import static android.Manifest.permission.CALL_PHONE;
 
 /**
  * <pre>
@@ -30,7 +36,7 @@ import java.util.LinkedList;
 class UtilsBridge {
 
     static void init() {
-        initUtilsActivityLifecycleImpl();
+        UtilsActivityLifecycleImpl.INSTANCE.init();
         preLoad(AdaptScreenUtils.getPreLoadRunnable());
     }
 
@@ -74,6 +80,10 @@ class UtilsBridge {
         return ActivityUtils.isActivityAlive(activity);
     }
 
+    static String getLauncherActivity() {
+        return ActivityUtils.getLauncherActivity();
+    }
+
     static String getLauncherActivity(final String pkg) {
         return ActivityUtils.getLauncherActivity(pkg);
     }
@@ -98,12 +108,35 @@ class UtilsBridge {
         }
     }
 
+    static boolean isAppRunning(@NonNull final String pkgName) {
+        return AppUtils.isAppRunning(pkgName);
+    }
+
+    static boolean isAppInstalled(final String pkgName) {
+        return AppUtils.isAppInstalled(pkgName);
+    }
+
     static String getAppVersionName() {
         return AppUtils.getAppVersionName();
     }
 
     static int getAppVersionCode() {
         return AppUtils.getAppVersionCode();
+    }
+
+    static boolean isAppDebug() {
+        return AppUtils.isAppDebug();
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // BarUtils
+    ///////////////////////////////////////////////////////////////////////////
+    static int getStatusBarHeight() {
+        return BarUtils.getStatusBarHeight();
+    }
+
+    static int getNavBarHeight() {
+        return BarUtils.getNavBarHeight();
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -166,6 +199,10 @@ class UtilsBridge {
         return ConvertUtils.inputStream2Bytes(is);
     }
 
+    static List<String> inputStream2Lines(final InputStream is, final String charsetName) {
+        return ConvertUtils.inputStream2Lines(is, charsetName);
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     // EncodeUtils
     ///////////////////////////////////////////////////////////////////////////
@@ -189,21 +226,20 @@ class UtilsBridge {
     ///////////////////////////////////////////////////////////////////////////
     static boolean writeFileFromBytes(final File file,
                                       final byte[] bytes) {
-        return FileIOUtils.writeFileFromBytesByMap(file, bytes, true);
+        return FileIOUtils.writeFileFromBytesByChannel(file, bytes, true);
     }
 
     static byte[] readFile2Bytes(final File file) {
-        return FileIOUtils.readFile2BytesByMap(file);
+        return FileIOUtils.readFile2BytesByChannel(file);
     }
 
     static boolean writeFileFromString(final String filePath, final String content) {
         return FileIOUtils.writeFileFromString(filePath, content);
     }
 
-    static boolean writeFileFromIS(final File file, final InputStream is) {
-        return FileIOUtils.writeFileFromIS(file, is);
+    static boolean writeFileFromIS(final String filePath, final InputStream is) {
+        return FileIOUtils.writeFileFromIS(filePath, is);
     }
-
 
     ///////////////////////////////////////////////////////////////////////////
     // FileUtils
@@ -286,26 +322,45 @@ class UtilsBridge {
         return ImageUtils.bitmap2Drawable(bitmap);
     }
 
-    static Intent getShutdownIntent() {
-        return IntentUtils.getShutdownIntent();
-    }
-
     ///////////////////////////////////////////////////////////////////////////
     // IntentUtils
     ///////////////////////////////////////////////////////////////////////////
-    static Intent getLaunchAppIntent(final String packageName) {
-        return IntentUtils.getLaunchAppIntent(packageName);
+    static boolean isIntentAvailable(final Intent intent) {
+        return IntentUtils.isIntentAvailable(intent);
+    }
+
+    static Intent getLaunchAppIntent(final String pkgName) {
+        return IntentUtils.getLaunchAppIntent(pkgName);
     }
 
     static Intent getInstallAppIntent(final File file) {
         return IntentUtils.getInstallAppIntent(file);
     }
 
-    static Intent getUninstallAppIntent(final String packageName) {
-        return IntentUtils.getUninstallAppIntent(packageName);
+    static Intent getUninstallAppIntent(final String pkgName) {
+        return IntentUtils.getUninstallAppIntent(pkgName);
+    }
+
+    static Intent getDialIntent(final String phoneNumber) {
+        return IntentUtils.getDialIntent(phoneNumber);
+    }
+
+    @RequiresPermission(CALL_PHONE)
+    static Intent getCallIntent(final String phoneNumber) {
+        return IntentUtils.getCallIntent(phoneNumber);
+    }
+
+    static Intent getSendSmsIntent(final String phoneNumber, final String content) {
+        return IntentUtils.getSendSmsIntent(phoneNumber, content);
     }
 
 
+    ///////////////////////////////////////////////////////////////////////////
+    // JsonUtils
+    ///////////////////////////////////////////////////////////////////////////
+    static String formatJson(String json) {
+        return JsonUtils.formatJson(json);
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // KeyboardUtils
@@ -324,12 +379,30 @@ class UtilsBridge {
     ///////////////////////////////////////////////////////////////////////////
     // ProcessUtils
     ///////////////////////////////////////////////////////////////////////////
+    static boolean isMainProcess() {
+        return ProcessUtils.isMainProcess();
+    }
+
     static String getForegroundProcessName() {
         return ProcessUtils.getForegroundProcessName();
     }
 
     static String getCurrentProcessName() {
         return ProcessUtils.getCurrentProcessName();
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // SDCardUtils
+    ///////////////////////////////////////////////////////////////////////////
+    static boolean isSDCardEnableByEnvironment() {
+        return SDCardUtils.isSDCardEnableByEnvironment();
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // ServiceUtils
+    ///////////////////////////////////////////////////////////////////////////
+    static boolean isServiceRunning(final String className) {
+        return ServiceUtils.isServiceRunning(className);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -372,6 +445,10 @@ class UtilsBridge {
         return StringUtils.isSpace(s);
     }
 
+    static boolean equals(final CharSequence s1, final CharSequence s2) {
+        return StringUtils.equals(s1, s2);
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // ThreadUtils
@@ -397,6 +474,13 @@ class UtilsBridge {
     }
 
     ///////////////////////////////////////////////////////////////////////////
+    // TimeUtils
+    ///////////////////////////////////////////////////////////////////////////
+    static String millis2FitTimeSpan(long millis, int precision) {
+        return TimeUtils.millis2FitTimeSpan(millis, precision);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
     // ToastUtils
     ///////////////////////////////////////////////////////////////////////////
     static void toastShowShort(final CharSequence text) {
@@ -407,17 +491,17 @@ class UtilsBridge {
         ToastUtils.cancel();
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-    // private
-    ///////////////////////////////////////////////////////////////////////////
-    private static void initUtilsActivityLifecycleImpl() {
-        UtilsActivityLifecycleImpl.INSTANCE.init();
-    }
-
     private static void preLoad(final Runnable... runs) {
         for (final Runnable r : runs) {
             ThreadUtils.getCachedPool().execute(r);
         }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // UriUtils
+    ///////////////////////////////////////////////////////////////////////////
+    static Uri file2Uri(final File file) {
+        return UriUtils.file2Uri(file);
     }
 
     ///////////////////////////////////////////////////////////////////////////

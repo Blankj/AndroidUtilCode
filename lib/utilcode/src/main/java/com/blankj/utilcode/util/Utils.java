@@ -40,7 +40,7 @@ public final class Utils {
      *
      * @param app application
      */
-    static void init(final Application app) {
+    public static void init(final Application app) {
         if (sApp != null) return;
         sApp = app;
         UtilsBridge.init();

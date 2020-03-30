@@ -17,10 +17,6 @@ public class UtilsFileProvider extends FileProvider {
     public boolean onCreate() {
         //noinspection ConstantConditions
         Utils.init((Application) getContext().getApplicationContext());
-//            try {
-//                Class.forName("com.blankj.utildebug.DebugUtils");
-//            } catch (ClassNotFoundException ignore) {
-//            }
         return true;
     }
 }

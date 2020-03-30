@@ -18,7 +18,7 @@ import org.robolectric.shadows.ShadowLog;
  * </pre>
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE, shadows = { ShadowLog.class })
+@Config(manifest = Config.NONE,shadows = { ShadowLog.class })
 public class BaseTest {
 
     @BusUtils.Bus(tag = "base")

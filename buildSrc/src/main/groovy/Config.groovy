@@ -15,7 +15,7 @@ class Config {
     static minSdkVersion = 14
     static targetSdkVersion = 29
     static versionCode = 1_026_001
-    static versionName = '1.26.1-r5'// E.g. 1.9.72 => 1,009,072
+    static versionName = '1.26.1-release0'// E.g. 1.9.72 => 1,009,072
 
     // lib version
     static gradlePluginVersion = '3.5.0'
@@ -52,7 +52,7 @@ class Config {
 
             // 上传新版本插件更新 pluginPath 中的版本号，并设置 isApply = false
             // 通过 mavenLocal 上传本地版本，设置 isApply = true 即可应用插件来调试，最后通过 bintrayUpload 来发布插件
-            plugin_api                 : new DepConfig(isApply: true, useLocal: false, pluginPath: "com.blankj:api-gradle-plugin:1.2-r0", pluginId: "com.blankj.api"),
+            plugin_api                 : new DepConfig(isApply: true, useLocal: false, pluginPath: "com.blankj:api-gradle-plugin:1.2", pluginId: "com.blankj.api"),
             //./gradlew plugin:plugin_api-gradle-plugin:mavenLocal     // 上传到本地 mavenLocal
             //./gradlew plugin:plugin_api-gradle-plugin:bintrayUpload  // 上传到 jcenter
             plugin_bus                 : new DepConfig(isApply: true, useLocal: false, pluginPath: "com.blankj:bus-gradle-plugin:2.4", pluginId: "com.blankj.bus"),

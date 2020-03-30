@@ -56,6 +56,7 @@ class NetworkActivity : CommonActivity(), NetworkUtils.OnNetworkStatusChangedLis
                 CommonItemTitle("getMobileDataEnabled", NetworkUtils.getMobileDataEnabled().toString()),
                 CommonItemTitle("isMobileData", NetworkUtils.isMobileData().toString()),
                 CommonItemTitle("is4G", NetworkUtils.is4G().toString()),
+                CommonItemTitle("is5G", NetworkUtils.is5G().toString()),
                 CommonItemTitle("isWifiConnected", NetworkUtils.isWifiConnected().toString()),
                 CommonItemTitle("getNetworkOperatorName", NetworkUtils.getNetworkOperatorName()),
                 CommonItemTitle("getNetworkTypeName", NetworkUtils.getNetworkType().toString()),

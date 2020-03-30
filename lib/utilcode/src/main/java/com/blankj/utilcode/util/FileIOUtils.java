@@ -383,6 +383,10 @@ public final class FileIOUtils {
         FileChannel fc = null;
         try {
             fc = new FileOutputStream(file, append).getChannel();
+            if (fc == null) {
+                Log.e("FileIOUtils", "fc is null.");
+                return false;
+            }
             fc.position(fc.size());
             fc.write(ByteBuffer.wrap(bytes));
             if (isForce) fc.force(true);
@@ -465,6 +469,10 @@ public final class FileIOUtils {
         FileChannel fc = null;
         try {
             fc = new FileOutputStream(file, append).getChannel();
+            if (fc == null) {
+                Log.e("FileIOUtils", "fc is null.");
+                return false;
+            }
             MappedByteBuffer mbb = fc.map(FileChannel.MapMode.READ_WRITE, fc.size(), bytes.length);
             mbb.put(bytes);
             if (isForce) mbb.force();
@@ -856,6 +864,10 @@ public final class FileIOUtils {
         FileChannel fc = null;
         try {
             fc = new RandomAccessFile(file, "r").getChannel();
+            if (fc == null) {
+                Log.e("FileIOUtils", "fc is null.");
+                return new byte[0];
+            }
             ByteBuffer byteBuffer = ByteBuffer.allocate((int) fc.size());
             while (true) {
                 if (!((fc.read(byteBuffer)) > 0)) break;
@@ -896,6 +908,10 @@ public final class FileIOUtils {
         FileChannel fc = null;
         try {
             fc = new RandomAccessFile(file, "r").getChannel();
+            if (fc == null) {
+                Log.e("FileIOUtils", "fc is null.");
+                return new byte[0];
+            }
             int size = (int) fc.size();
             MappedByteBuffer mbb = fc.map(FileChannel.MapMode.READ_ONLY, 0, size).load();
             byte[] result = new byte[size];

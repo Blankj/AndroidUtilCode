@@ -13,26 +13,26 @@ implementation 'com.blankj:utilcodex:1.26.0'
 
 * ### Activity 相关 -> [ActivityUtils.java][activity.java] -> [Demo][activity.demo]
 ```
-addActivityLifecycleCallbacks  : 新增 Activity 生命周期监听
+addActivityLifecycleCallbacks   : 新增 Activity 生命周期监听
 removeActivityLifecycleCallbacks: 移除 Activity 生命周期监听
-getAliveActivityByContext      : 根据上下文获取存活的 Activity
-getActivityByContext           : 根据上下文获取 Activity
-isActivityExists               : 判断 Activity 是否存在
-startActivity                  : 启动 Activity
-startActivityForResult         : 启动 Activity 为返回结果
-startActivities                : 启动多个 Activity
-startHomeActivity              : 回到桌面
-getActivityList                : 获取 Activity 栈链表
-getLauncherActivity            : 获取启动项 Activity
-getMainActivities              : 获取主的 Activity 们
-getTopActivity                 : 获取栈顶 Activity
-isActivityAlive                : 判断 Activity 是否存活
-isActivityExistsInStack        : 判断 Activity 是否存在栈中
-finishActivity                 : 结束 Activity
-finishToActivity               : 结束到指定 Activity
-finishOtherActivities          : 结束所有其他类型的 Activity
-finishAllActivities            : 结束所有 Activity
-finishAllActivitiesExceptNewest: 结束除最新之外的所有 Activity
+getAliveActivityByContext       : 根据上下文获取存活的 Activity
+getActivityByContext            : 根据上下文获取 Activity
+isActivityExists                : 判断 Activity 是否存在
+startActivity                   : 启动 Activity
+startActivityForResult          : 启动 Activity 为返回结果
+startActivities                 : 启动多个 Activity
+startHomeActivity               : 回到桌面
+getActivityList                 : 获取 Activity 栈链表
+getLauncherActivity             : 获取启动项 Activity
+getMainActivities               : 获取主的 Activity 们
+getTopActivity                  : 获取栈顶 Activity
+isActivityAlive                 : 判断 Activity 是否存活
+isActivityExistsInStack         : 判断 Activity 是否存在栈中
+finishActivity                  : 结束 Activity
+finishToActivity                : 结束到指定 Activity
+finishOtherActivities           : 结束所有其他类型的 Activity
+finishAllActivities             : 结束所有 Activity
+finishAllActivitiesExceptNewest : 结束除最新之外的所有 Activity
 ```
 
 * ### AdaptScreen 相关 -> [AdaptScreenUtils.java][adaptScreen.java] -> [Demo][adaptScreen.demo]
@@ -364,7 +364,7 @@ inputStream2Bytes, bytes2InputStream    : inputStream 与 bytes 互转
 outputStream2Bytes, bytes2OutputStream  : outputStream 与 bytes 互转
 inputStream2String, string2InputStream  : inputStream 与 string 按编码互转
 outputStream2String, string2OutputStream: outputStream 与 string 按编码互转
-bitmap2Bytes, bytes2Bitmap              : bitmap 与 bytes 互转
+inputStream2Lines                       : inputStream 转 文本行
 drawable2Bitmap, bitmap2Drawable        : drawable 与 bitmap 互转
 drawable2Bytes, bytes2Drawable          : drawable 与 bytes 互转
 view2Bitmap                             : view 转 Bitmap
@@ -519,14 +519,16 @@ setBackground         : 设置背景
 
 * ### Gson 相关 -> [GsonUtils.java][gson.java] -> [Test][gson.test]
 ```
-getGson     : 获取 Gson 对象
-toJson      : 对象转 Json 串
-fromJson    : Json 串转对象
-getListType : 获取链表类型
-getSetType  : 获取集合类型
-getMapType  : 获取字典类型
-getArrayType: 获取数组类型
-getType     : 获取类型
+setGsonDelegate: 设置默认的 Gson 代理对象
+setGson        : 设置 Gson 对象
+getGson        : 获取 Gson 对象
+toJson         : 对象转 Json 串
+fromJson       : Json 串转对象
+getListType    : 获取链表类型
+getSetType     : 获取集合类型
+getMapType     : 获取字典类型
+getArrayType   : 获取数组类型
+getType        : 获取类型
 ```
 
 * ### 图片相关 -> [ImageUtils.java][image.java] -> [Demo][image.demo]
@@ -680,6 +682,7 @@ getGatewayByWifi                      : 根据 WiFi 获取网关 IP 地址
 getNetMaskByWifi                      : 根据 WiFi 获取子网掩码 IP 地址
 getServerAddressByWifi                : 根据 WiFi 获取服务端 IP 地址
 registerNetworkStatusChangedListener  : 注册网络状态改变监听器
+isRegistered                          : 判断是否注册网络状态改变监听器
 unregisterNetworkStatusChangedListener: 注销网络状态改变监听器
 ```
 
@@ -694,12 +697,14 @@ setNotificationBarVisibility: 设置通知栏是否可见
 
 * ### 对象相关 -> [ObjectUtils.java][object.java] -> [Test][object.test]
 ```
-isEmpty       : 判断对象是否为空
-isNotEmpty    : 判断对象是否非空
-equals        : 判断对象是否相等
-requireNonNull: 检查对象非空
-getOrDefault  : 获取非空或默认对象
-hashCode      : 获取对象哈希值
+isEmpty          : 判断对象是否为空
+isNotEmpty       : 判断对象是否非空
+equals           : 判断对象是否相等
+compare          : 比较对象大小
+requireNonNull(s): 要求对象非空
+getOrDefault     : 获取非空或默认对象
+toString         : 转字符串
+hashCode(s)      : 获取对象哈希值
 ```
 
 * ### 路径相关 -> [PathUtils.java][path.java] -> [Demo][path.demo]
@@ -795,23 +800,37 @@ get        : 获取反射想要获取的
 
 * ### 正则相关 -> [RegexUtils.java][regex.java] -> [Test][regex.test]
 ```
-isMobileSimple : 简单验证手机号
-isMobileExact  : 精确验证手机号
-isTel          : 验证电话号码
-isIDCard15     : 验证身份证号码 15 位
-isIDCard18     : 简单验证身份证号码 18 位
-isIDCard18Exact: 精确验证身份证号码 18 位
-isEmail        : 验证邮箱
-isURL          : 验证 URL
-isZh           : 验证汉字
-isUsername     : 验证用户名
-isDate         : 验证 yyyy-MM-dd 格式的日期校验，已考虑平闰年
-isIP           : 验证 IP 地址
-isMatch        : 判断是否匹配正则
-getMatches     : 获取正则匹配的部分
-getSplits      : 获取正则匹配分组
-getReplaceFirst: 替换正则匹配的第一部分
-getReplaceAll  : 替换所有正则匹配的部分
+isMobileSimple                           : 简单验证手机号
+isMobileExact                            : 精确验证手机号
+isTel                                    : 验证电话号码
+isIDCard15                               : 验证身份证号码 15 位
+isIDCard18                               : 简单验证身份证号码 18 位
+isIDCard18Exact                          : 精确验证身份证号码 18 位
+isEmail                                  : 验证邮箱
+isURL                                    : 验证 URL
+isZh                                     : 验证汉字
+isUsername                               : 验证用户名
+isDate                                   : 验证 yyyy-MM-dd 格式的日期校验，已考虑平闰年
+isIP                                     : 验证 IP 地址
+isMatch                                  : 判断是否匹配正则
+getMatches                               : 获取正则匹配的部分
+getSplits                                : 获取正则匹配分组
+getReplaceFirst                          : 替换正则匹配的第一部分
+getReplaceAll                            : 替换所有正则匹配的部分
+RegexConstants.REGEX_DOUBLE_BYTE_CHAR    : 双字节
+RegexConstants.REGEX_BLANK_LINE          : 空行
+RegexConstants.REGEX_QQ_NUM              : QQ 号
+RegexConstants.REGEX_CHINA_POSTAL_CODE   : 邮编
+RegexConstants.REGEX_INTEGER             : 整数
+RegexConstants.REGEX_POSITIVE_INTEGER    : 正整数
+RegexConstants.REGEX_NEGATIVE_INTEGER    : 负整数
+RegexConstants.REGEX_NOT_NEGATIVE_INTEGER: 非负整数
+RegexConstants.REGEX_NOT_POSITIVE_INTEGER: 非正整数
+RegexConstants.REGEX_FLOAT               : 浮点数
+RegexConstants.REGEX_POSITIVE_FLOAT      : 正浮点数
+RegexConstants.REGEX_NEGATIVE_FLOAT      : 负浮点数
+RegexConstants.REGEX_NOT_NEGATIVE_FLOAT  : 非负浮点数
+RegexConstants.REGEX_NOT_POSITIVE_FLOAT  : 非正浮点数
 ```
 
 * ### 资源相关 -> [ResourceUtils.java][resource.java] -> [Demo][resource.demo]
@@ -889,6 +908,8 @@ isSDCardEnableByEnvironment: 根据 Environment 判断 SD 卡是否可用
 getSDCardPathByEnvironment : 根据 Environment 获取 SD 卡路径
 getSDCardInfo              : 获取 SD 卡信息
 getMountedSDCardPath       : 获取已挂载的 SD 卡路径
+getTotalSize               : 获取 SD 卡总大小
+getAvailableSize           : 获取 SD 卡可用大小
 ```
 
 * ### 服务相关 -> [ServiceUtils.java][service.java]
@@ -1021,6 +1042,8 @@ lowerFirstLetter: 首字母小写
 reverse         : 反转字符串
 toDBC           : 转化为半角字符
 toSBC           : 转化为全角字符
+getString       : 获取字符资源
+getStringArray  : 获取字符数组资源
 ```
 
 * ### 线程相关 -> [ThreadUtils.java][thread.java] -> [Test][thread.test]

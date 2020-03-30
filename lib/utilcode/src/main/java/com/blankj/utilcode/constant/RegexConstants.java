@@ -84,6 +84,10 @@ public final class RegexConstants {
      */
     public static final String REGEX_CHINA_POSTAL_CODE    = "[1-9]\\d{5}(?!\\d)";
     /**
+     * Regex of integer.
+     */
+    public static final String REGEX_INTEGER              = "^(-?[1-9]\\d*)|0$";
+    /**
      * Regex of positive integer.
      */
     public static final String REGEX_POSITIVE_INTEGER     = "^[1-9]\\d*$";
@@ -91,10 +95,6 @@ public final class RegexConstants {
      * Regex of negative integer.
      */
     public static final String REGEX_NEGATIVE_INTEGER     = "^-[1-9]\\d*$";
-    /**
-     * Regex of integer.
-     */
-    public static final String REGEX_INTEGER              = "^-?[1-9]\\d*$";
     /**
      * Regex of non-negative integer.
      */
@@ -106,11 +106,23 @@ public final class RegexConstants {
     /**
      * Regex of positive float.
      */
+    public static final String REGEX_FLOAT                = "^-?([1-9]\\d*\\.\\d*|0\\.\\d*[1-9]\\d*|0?\\.0+|0)$";
+    /**
+     * Regex of positive float.
+     */
     public static final String REGEX_POSITIVE_FLOAT       = "^[1-9]\\d*\\.\\d*|0\\.\\d*[1-9]\\d*$";
     /**
      * Regex of negative float.
      */
     public static final String REGEX_NEGATIVE_FLOAT       = "^-[1-9]\\d*\\.\\d*|-0\\.\\d*[1-9]\\d*$";
+    /**
+     * Regex of positive float.
+     */
+    public static final String REGEX_NOT_NEGATIVE_FLOAT   = "^[1-9]\\d*\\.\\d*|0\\.\\d*[1-9]\\d*|0?\\.0+|0$";
+    /**
+     * Regex of negative float.
+     */
+    public static final String REGEX_NOT_POSITIVE_FLOAT   = "^(-([1-9]\\d*\\.\\d*|0\\.\\d*[1-9]\\d*))|0?\\.0+|0$";
 
     ///////////////////////////////////////////////////////////////////////////
     // If u want more please visit http://toutiao.com/i6231678548520731137

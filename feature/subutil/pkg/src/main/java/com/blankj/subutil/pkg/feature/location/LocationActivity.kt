@@ -24,7 +24,7 @@ class LocationActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
-            PermissionHelper.requestLocation(object : PermissionHelper.OnPermissionGrantedListener {
+            PermissionHelper.requestLocation(context, object : PermissionHelper.OnPermissionGrantedListener {
                 override fun onPermissionGranted() {
                     val starter = Intent(context, LocationActivity::class.java)
                     context.startActivity(starter)

@@ -1585,7 +1585,7 @@ public final class TimeUtils {
         return millis / unit;
     }
 
-    private static String millis2FitTimeSpan(long millis, int precision) {
+    static String millis2FitTimeSpan(long millis, int precision) {
         if (precision <= 0) return null;
         precision = Math.min(precision, 5);
         String[] units = {"天", "小时", "分钟", "秒", "毫秒"};

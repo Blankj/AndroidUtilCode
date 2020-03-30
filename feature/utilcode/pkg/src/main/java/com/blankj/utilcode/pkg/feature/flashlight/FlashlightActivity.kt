@@ -29,7 +29,7 @@ class FlashlightActivity : CommonActivity() {
                 ToastUtils.showLong("Didn't support flashlight.")
                 return
             }
-            PermissionHelper.requestCamera(object : PermissionHelper.OnPermissionGrantedListener {
+            PermissionHelper.requestCamera(context, object : PermissionHelper.OnPermissionGrantedListener {
                 override fun onPermissionGranted() {
                     val starter = Intent(context, FlashlightActivity::class.java)
                     context.startActivity(starter)

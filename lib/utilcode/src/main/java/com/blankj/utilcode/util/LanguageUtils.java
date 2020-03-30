@@ -6,8 +6,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
@@ -18,7 +16,6 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 
 import java.lang.reflect.Field;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -127,7 +124,7 @@ public class LanguageUtils {
 
         if (isNeedStartActivity) {
             Intent intent = new Intent();
-            String realActivityClassName = TextUtils.isEmpty(activityClassName) ? getLauncherActivity() : activityClassName;
+            String realActivityClassName = TextUtils.isEmpty(activityClassName) ? UtilsBridge.getLauncherActivity() : activityClassName;
             intent.setComponent(new ComponentName(Utils.getApp(), realActivityClassName));
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             Utils.getApp().startActivity(intent);
@@ -211,36 +208,7 @@ public class LanguageUtils {
     }
 
     private static boolean isSameLocale(Locale locale, Locale contextLocale) {
-        return equals(contextLocale.getLanguage(), locale.getLanguage())
-                && equals(contextLocale.getCountry(), locale.getCountry());
-    }
-
-    private static boolean equals(final CharSequence s1, final CharSequence s2) {
-        if (s1 == s2) return true;
-        int length;
-        if (s1 != null && s2 != null && (length = s1.length()) == s2.length()) {
-            if (s1 instanceof String && s2 instanceof String) {
-                return s1.equals(s2);
-            } else {
-                for (int i = 0; i < length; i++) {
-                    if (s1.charAt(i) != s2.charAt(i)) return false;
-                }
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static String getLauncherActivity() {
-        Intent intent = new Intent(Intent.ACTION_MAIN, null);
-        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        intent.setPackage(Utils.getApp().getPackageName());
-        PackageManager pm = Utils.getApp().getPackageManager();
-        List<ResolveInfo> info = pm.queryIntentActivities(intent, 0);
-        ResolveInfo next = info.iterator().next();
-        if (next != null) {
-            return next.activityInfo.name;
-        }
-        return "no launcher activity";
+        return UtilsBridge.equals(contextLocale.getLanguage(), locale.getLanguage())
+                && UtilsBridge.equals(contextLocale.getCountry(), locale.getCountry());
     }
 }

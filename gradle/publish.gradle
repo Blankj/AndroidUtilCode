@@ -5,7 +5,7 @@
 
  2. add bintrayUser, bintrayKey in root local.properties
 
- 3. apply this file in the publish module
+ 3. copy the file to the directory of gradle, and apply the file in the module
  apply from: "${rootDir.path}/gradle/publish.gradle"
  publish {
     name = "UtilCode"
@@ -207,17 +207,17 @@ class PublishExtension {
         checkField(bintrayKey, "bintrayKey")
     }
 
-    void checkField(String field, String fieldName) {
+    boolean isBintrayEmpty() {
+        return isEmpty(bintrayUser) || isEmpty(bintrayKey)
+    }
+
+    static void checkField(String field, String fieldName) {
         if (isEmpty(field)) {
             throw new NullPointerException("$fieldName is empty!!")
         }
     }
 
-    boolean isBintrayEmpty() {
-        return isEmpty(bintrayUser) || isEmpty(bintrayKey)
-    }
-
-    boolean isEmpty(String str) {
+    static boolean isEmpty(String str) {
         return str == null || str.length() == 0
     }
 }

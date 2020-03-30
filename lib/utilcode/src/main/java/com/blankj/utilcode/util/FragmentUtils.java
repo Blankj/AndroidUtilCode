@@ -1549,7 +1549,7 @@ public final class FragmentUtils {
                 }
             }
         }
-        return null;
+        return parentFragment;
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.blankj.utilcode.pkg.helper
 
+import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.graphics.drawable.ColorDrawable
@@ -30,9 +31,8 @@ import com.blankj.utilcode.util.PermissionUtils.OnRationaleListener.ShouldReques
  */
 object DialogHelper {
 
-    fun showRationaleDialog(shouldRequest: ShouldRequest) {
-        val topActivity = ActivityUtils.getTopActivity() ?: return
-        CommonDialogContent().init(topActivity as FragmentActivity,
+    fun showRationaleDialog(context: Context, shouldRequest: ShouldRequest) {
+        CommonDialogContent().init(context,
                 StringUtils.getString(android.R.string.dialog_alert_title),
                 StringUtils.getString(R.string.permission_rationale_message),
                 Pair(StringUtils.getString(android.R.string.ok), View.OnClickListener {
@@ -43,9 +43,8 @@ object DialogHelper {
                 })).show()
     }
 
-    fun showOpenAppSettingDialog() {
-        val topActivity = ActivityUtils.getTopActivity() ?: return
-        CommonDialogContent().init(topActivity as FragmentActivity,
+    fun showOpenAppSettingDialog(context: Context) {
+        CommonDialogContent().init(context,
                 StringUtils.getString(android.R.string.dialog_alert_title),
                 StringUtils.getString(R.string.permission_denied_forever_message),
                 Pair(StringUtils.getString(android.R.string.ok), View.OnClickListener {
@@ -56,9 +55,8 @@ object DialogHelper {
                 .show()
     }
 
-    fun showKeyboardDialog() {
-        val topActivity = ActivityUtils.getTopActivity() ?: return
-        BaseDialogFragment().init(topActivity as FragmentActivity, object : DialogLayoutCallback {
+    fun showKeyboardDialog(context: Context) {
+        BaseDialogFragment().init(context, object : DialogLayoutCallback {
             override fun bindTheme(): Int {
                 return View.NO_ID
             }

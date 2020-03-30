@@ -6,22 +6,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.net.LinkProperties;
-import android.net.Network;
-import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
-import android.net.NetworkRequest;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.text.format.Formatter;
 import android.util.Log;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;
 import java.net.InetAddress;
@@ -39,7 +32,6 @@ import static android.Manifest.permission.ACCESS_NETWORK_STATE;
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
 import static android.Manifest.permission.CHANGE_WIFI_STATE;
 import static android.Manifest.permission.INTERNET;
-import static android.content.ContentValues.TAG;
 import static android.content.Context.WIFI_SERVICE;
 
 /**
@@ -59,6 +51,7 @@ public final class NetworkUtils {
     public enum NetworkType {
         NETWORK_ETHERNET,
         NETWORK_WIFI,
+        NETWORK_5G,
         NETWORK_4G,
         NETWORK_3G,
         NETWORK_2G,
@@ -441,6 +434,8 @@ public final class NetworkUtils {
                     case TelephonyManager.NETWORK_TYPE_LTE:
                         return NetworkType.NETWORK_4G;
 
+                    case TelephonyManager.NETWORK_TYPE_NR:
+                        return NetworkType.NETWORK_5G;
                     default:
                         String subtypeName = info.getSubtypeName();
                         if (subtypeName.equalsIgnoreCase("TD-SCDMA")
@@ -670,8 +665,18 @@ public final class NetworkUtils {
      *
      * @param listener The status of network changed listener
      */
-    public static void registerNetworkStatusChangedListener(OnNetworkStatusChangedListener listener) {
+    public static void registerNetworkStatusChangedListener(final OnNetworkStatusChangedListener listener) {
         NetworkChangedReceiver.getInstance().registerListener(listener);
+    }
+
+    /**
+     * Return whether the status of battery status changed listener registered.
+     *
+     * @param listener The listener
+     * @return True to registered, false otherwise.
+     */
+    public static boolean isRegistered(final OnNetworkStatusChangedListener listener) {
+        return NetworkChangedReceiver.getInstance().isRegistered(listener);
     }
 
     /**
@@ -679,7 +684,7 @@ public final class NetworkUtils {
      *
      * @param listener The status of network changed listener
      */
-    public static void unregisterNetworkStatusChangedListener(OnNetworkStatusChangedListener listener) {
+    public static void unregisterNetworkStatusChangedListener(final OnNetworkStatusChangedListener listener) {
         NetworkChangedReceiver.getInstance().unregisterListener(listener);
     }
 
@@ -707,6 +712,11 @@ public final class NetworkUtils {
                     }
                 }
             });
+        }
+
+        boolean isRegistered(final OnNetworkStatusChangedListener listener) {
+            if (listener == null) return false;
+            return mListeners.contains(listener);
         }
 
         void unregisterListener(final OnNetworkStatusChangedListener listener) {
@@ -754,79 +764,79 @@ public final class NetworkUtils {
         }
     }
 
-    /**
-     * Register the status of network changed listener.
-     */
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @RequiresPermission(ACCESS_NETWORK_STATE)
-    public static void registerNetworkStatusChangedListener() {
-        ConnectivityManager cm = (ConnectivityManager) Utils.getApp().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (cm == null) return;
-        NetworkCallbackImpl networkCallback = NetworkCallbackImpl.LazyHolder.INSTANCE;
-        NetworkRequest.Builder builder = new NetworkRequest.Builder();
-        NetworkRequest request = builder.build();
-        cm.registerNetworkCallback(new NetworkRequest.Builder().build(), networkCallback);
-    }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public static final class NetworkCallbackImpl extends ConnectivityManager.NetworkCallback {
-
-        @Override
-        public void onAvailable(@NotNull Network network) {
-            super.onAvailable(network);
-            LogUtils.d(TAG, "onAvailable: " + network);
-        }
-
-        @Override
-        public void onLosing(@NonNull Network network, int maxMsToLive) {
-            super.onLosing(network, maxMsToLive);
-            LogUtils.d(TAG, "onLosing: " + network);
-        }
-
-        @Override
-        public void onLost(@NotNull Network network) {
-            super.onLost(network);
-            LogUtils.e(TAG, "onLost: " + network);
-        }
-
-        @Override
-        public void onUnavailable() {
-            super.onUnavailable();
-            LogUtils.e(TAG, "onUnavailable");
-        }
-
-        @Override
-        public void onCapabilitiesChanged(@NotNull Network network, @NotNull NetworkCapabilities cap) {
-            super.onCapabilitiesChanged(network, cap);
-            if (cap.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)) {
-                if (cap.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                    LogUtils.d(TAG, "onCapabilitiesChanged: 网络类型为wifi");
-                } else if (cap.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                    LogUtils.d(TAG, "onCapabilitiesChanged: 蜂窝网络");
-                } else {
-                    LogUtils.d(TAG, "onCapabilitiesChanged: 其他网络");
-                }
-                LogUtils.d(TAG, "onCapabilitiesChanged: " + network + ", " + cap);
-            }
-        }
-
-        @Override
-        public void onLinkPropertiesChanged(@NonNull Network network, @NonNull LinkProperties lp) {
-            super.onLinkPropertiesChanged(network, lp);
-            LogUtils.d(TAG, "onLinkPropertiesChanged: " + network + ", " + lp);
-        }
-
-        @Override
-        public void onBlockedStatusChanged(@NonNull Network network, boolean blocked) {
-            super.onBlockedStatusChanged(network, blocked);
-            LogUtils.d(TAG, "onBlockedStatusChanged: " + network + ", " + blocked);
-        }
-
-        private static class LazyHolder {
-            private static final NetworkCallbackImpl INSTANCE = new NetworkCallbackImpl();
-        }
-    }
+//    /**
+//     * Register the status of network changed listener.
+//     */
+//    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+//    @RequiresPermission(ACCESS_NETWORK_STATE)
+//    public static void registerNetworkStatusChangedListener() {
+//        ConnectivityManager cm = (ConnectivityManager) Utils.getApp().getSystemService(Context.CONNECTIVITY_SERVICE);
+//        if (cm == null) return;
+//        NetworkCallbackImpl networkCallback = NetworkCallbackImpl.LazyHolder.INSTANCE;
+//        NetworkRequest.Builder builder = new NetworkRequest.Builder();
+//        NetworkRequest request = builder.build();
+//        cm.registerNetworkCallback(new NetworkRequest.Builder().build(), networkCallback);
+//    }
+//
+//
+//    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+//    public static final class NetworkCallbackImpl extends ConnectivityManager.NetworkCallback {
+//
+//        @Override
+//        public void onAvailable(@NotNull Network network) {
+//            super.onAvailable(network);
+//            LogUtils.d(TAG, "onAvailable: " + network);
+//        }
+//
+//        @Override
+//        public void onLosing(@NonNull Network network, int maxMsToLive) {
+//            super.onLosing(network, maxMsToLive);
+//            LogUtils.d(TAG, "onLosing: " + network);
+//        }
+//
+//        @Override
+//        public void onLost(@NotNull Network network) {
+//            super.onLost(network);
+//            LogUtils.e(TAG, "onLost: " + network);
+//        }
+//
+//        @Override
+//        public void onUnavailable() {
+//            super.onUnavailable();
+//            LogUtils.e(TAG, "onUnavailable");
+//        }
+//
+//        @Override
+//        public void onCapabilitiesChanged(@NotNull Network network, @NotNull NetworkCapabilities cap) {
+//            super.onCapabilitiesChanged(network, cap);
+//            if (cap.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)) {
+//                if (cap.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+//                    LogUtils.d(TAG, "onCapabilitiesChanged: 网络类型为wifi");
+//                } else if (cap.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+//                    LogUtils.d(TAG, "onCapabilitiesChanged: 蜂窝网络");
+//                } else {
+//                    LogUtils.d(TAG, "onCapabilitiesChanged: 其他网络");
+//                }
+//                LogUtils.d(TAG, "onCapabilitiesChanged: " + network + ", " + cap);
+//            }
+//        }
+//
+//        @Override
+//        public void onLinkPropertiesChanged(@NonNull Network network, @NonNull LinkProperties lp) {
+//            super.onLinkPropertiesChanged(network, lp);
+//            LogUtils.d(TAG, "onLinkPropertiesChanged: " + network + ", " + lp);
+//        }
+//
+//        @Override
+//        public void onBlockedStatusChanged(@NonNull Network network, boolean blocked) {
+//            super.onBlockedStatusChanged(network, blocked);
+//            LogUtils.d(TAG, "onBlockedStatusChanged: " + network + ", " + blocked);
+//        }
+//
+//        private static class LazyHolder {
+//            private static final NetworkCallbackImpl INSTANCE = new NetworkCallbackImpl();
+//        }
+//    }
 
     public interface OnNetworkStatusChangedListener {
         void onDisconnected();

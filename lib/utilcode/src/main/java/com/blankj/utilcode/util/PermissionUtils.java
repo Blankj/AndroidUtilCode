@@ -37,8 +37,6 @@ import static com.blankj.utilcode.constant.PermissionConstants.Permission;
  */
 public final class PermissionUtils {
 
-    private static List<String> sPermissions = null;
-
     private static PermissionUtils sInstance;
 
     private String[]            mPermissionsParam;
@@ -127,7 +125,7 @@ public final class PermissionUtils {
     private static void startWriteSettingsActivity(final Activity activity, final int requestCode) {
         Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
         intent.setData(Uri.parse("package:" + Utils.getApp().getPackageName()));
-        if (!isIntentAvailable(intent)) {
+        if (!UtilsBridge.isIntentAvailable(intent)) {
             launchAppDetailsSettings();
             return;
         }
@@ -158,7 +156,7 @@ public final class PermissionUtils {
     private static void startOverlayPermissionActivity(final Activity activity, final int requestCode) {
         Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
         intent.setData(Uri.parse("package:" + Utils.getApp().getPackageName()));
-        if (!isIntentAvailable(intent)) {
+        if (!UtilsBridge.isIntentAvailable(intent)) {
             launchAppDetailsSettings();
             return;
         }
@@ -171,7 +169,7 @@ public final class PermissionUtils {
     public static void launchAppDetailsSettings() {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.parse("package:" + Utils.getApp().getPackageName()));
-        if (!isIntentAvailable(intent)) return;
+        if (!UtilsBridge.isIntentAvailable(intent)) return;
         Utils.getApp().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
@@ -183,13 +181,6 @@ public final class PermissionUtils {
      */
     public static PermissionUtils permission(@Permission final String... permissions) {
         return new PermissionUtils(permissions);
-    }
-
-    private static boolean isIntentAvailable(final Intent intent) {
-        return Utils.getApp()
-                .getPackageManager()
-                .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-                .size() > 0;
     }
 
     private PermissionUtils(final String... permissions) {
@@ -296,25 +287,12 @@ public final class PermissionUtils {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private boolean rationale(final Activity activity, final Runnable againRunnable) {
+    private boolean shouldRationale(final UtilsTransActivity activity, final Runnable againRunnable) {
         boolean isRationale = false;
         if (mOnRationaleListener != null) {
             for (String permission : mPermissionsRequest) {
                 if (activity.shouldShowRequestPermissionRationale(permission)) {
-                    getPermissionsStatus(activity);
-                    mOnRationaleListener.rationale(new ShouldRequest() {
-                        @Override
-                        public void again(boolean again) {
-                            if (again) {
-                                mPermissionsDenied = new ArrayList<>();
-                                mPermissionsDeniedForever = new ArrayList<>();
-                                againRunnable.run();
-                            } else {
-                                activity.finish();
-                                requestCallback();
-                            }
-                        }
-                    });
+                    rationalInner(activity, againRunnable);
                     isRationale = true;
                     break;
                 }
@@ -322,6 +300,23 @@ public final class PermissionUtils {
             mOnRationaleListener = null;
         }
         return isRationale;
+    }
+
+    private void rationalInner(final UtilsTransActivity activity, final Runnable againRunnable) {
+        getPermissionsStatus(activity);
+        mOnRationaleListener.rationale(activity, new ShouldRequest() {
+            @Override
+            public void again(boolean again) {
+                if (again) {
+                    mPermissionsDenied = new ArrayList<>();
+                    mPermissionsDeniedForever = new ArrayList<>();
+                    againRunnable.run();
+                } else {
+                    activity.finish();
+                    requestCallback();
+                }
+            }
+        });
     }
 
     private void getPermissionsStatus(final Activity activity) {
@@ -385,7 +380,7 @@ public final class PermissionUtils {
         }
 
         @Override
-        public void onCreated(final Activity activity, @Nullable Bundle savedInstanceState) {
+        public void onCreated(final UtilsTransActivity activity, @Nullable Bundle savedInstanceState) {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
                     | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
             int type = activity.getIntent().getIntExtra(TYPE, -1);
@@ -398,7 +393,7 @@ public final class PermissionUtils {
                 if (sInstance.mThemeCallback != null) {
                     sInstance.mThemeCallback.onActivityCreate(activity);
                 }
-                if (sInstance.rationale(activity, new Runnable() {
+                if (sInstance.shouldRationale(activity, new Runnable() {
                     @Override
                     public void run() {
                         requestPermissions(activity);
@@ -429,7 +424,7 @@ public final class PermissionUtils {
         }
 
         @Override
-        public void onRequestPermissionsResult(Activity activity,
+        public void onRequestPermissionsResult(UtilsTransActivity activity,
                                                int requestCode,
                                                String[] permissions,
                                                int[] grantResults) {
@@ -441,13 +436,13 @@ public final class PermissionUtils {
 
 
         @Override
-        public boolean dispatchTouchEvent(Activity activity, MotionEvent ev) {
+        public boolean dispatchTouchEvent(UtilsTransActivity activity, MotionEvent ev) {
             activity.finish();
             return true;
         }
 
         @Override
-        public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+        public void onActivityResult(UtilsTransActivity activity, int requestCode, int resultCode, Intent data) {
             if (requestCode == TYPE_WRITE_SETTINGS) {
                 if (sSimpleCallback4WriteSettings == null) return;
                 if (isGrantedWriteSettings()) {
@@ -480,7 +475,7 @@ public final class PermissionUtils {
 
     public interface OnRationaleListener {
 
-        void rationale(ShouldRequest shouldRequest);
+        void rationale(UtilsTransActivity activity, ShouldRequest shouldRequest);
 
         interface ShouldRequest {
             void again(boolean again);

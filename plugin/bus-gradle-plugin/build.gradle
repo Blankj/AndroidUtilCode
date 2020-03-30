@@ -23,6 +23,7 @@ dependencies {
     implementation localGroovy()
 
     testImplementation Config.depConfig.test_junit.dep
+    testImplementation Config.depConfig.plugin_gradle.dep
 }
 
 sourceSets {

@@ -84,6 +84,10 @@ public final class SpanUtils {
 
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
+    public static SpanUtils with(final TextView textView) {
+        return new SpanUtils(textView);
+    }
+
     private TextView      mTextView;
     private CharSequence  mText;
     private int           flag;
@@ -135,6 +139,7 @@ public final class SpanUtils {
     private int spaceColor;
 
     private SerializableSpannableStringBuilder mBuilder;
+    private boolean isCreated;
 
     private       int mType;
     private final int mTypeCharSequence = 0;
@@ -826,10 +831,14 @@ public final class SpanUtils {
         if (mTextView != null) {
             mTextView.setText(mBuilder);
         }
+        isCreated = true;
         return mBuilder;
     }
 
     private void applyLast() {
+        if (isCreated) {
+            return;
+        }
         if (mType == mTypeCharSequence) {
             updateCharCharSequence();
         } else if (mType == mTypeImage) {
@@ -1447,13 +1456,5 @@ public final class SpanUtils {
             implements Serializable {
 
         private static final long serialVersionUID = 4909567650765875771L;
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-    // static
-    ///////////////////////////////////////////////////////////////////////////
-
-    public static SpanUtils with(final TextView textView) {
-        return new SpanUtils(textView);
     }
 }

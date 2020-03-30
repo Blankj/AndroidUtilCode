@@ -1,12 +1,15 @@
 package com.blankj.common.dialog;
 
-import android.support.v4.app.FragmentActivity;
+import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 
 import com.blankj.base.dialog.BaseDialogFragment;
 import com.blankj.base.dialog.DialogLayoutCallback;
 import com.blankj.common.R;
+import com.blankj.utilcode.util.BarUtils;
 
 /**
  * <pre>
@@ -18,8 +21,8 @@ import com.blankj.common.R;
  */
 public class CommonDialogLoading extends BaseDialogFragment {
 
-    public CommonDialogLoading init(FragmentActivity activity, final Runnable onCancelListener) {
-        super.init(activity, new DialogLayoutCallback() {
+    public CommonDialogLoading init(Context context, final Runnable onCancelListener) {
+        super.init(context, new DialogLayoutCallback() {
             @Override
             public int bindTheme() {
                 return R.style.CommonLoadingDialogStyle;
@@ -40,7 +43,9 @@ public class CommonDialogLoading extends BaseDialogFragment {
             }
 
             @Override
-            public void setWindowStyle(Window window) {
+            public void setWindowStyle(final Window window) {
+                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                BarUtils.setStatusBarColor(window, Color.TRANSPARENT);
             }
 
             @Override

@@ -90,11 +90,11 @@ public final class AppUtils {
      * @param pkgName The name of the package.
      * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean isAppInstalled(@NonNull final String pkgName) {
+    public static boolean isAppInstalled(final String pkgName) {
+        if (UtilsBridge.isSpace(pkgName)) return false;
         PackageManager pm = Utils.getApp().getPackageManager();
         try {
-            ApplicationInfo info = pm.getApplicationInfo(pkgName, 0);
-            return info != null && info.enabled;
+            return pm.getApplicationInfo(pkgName, 0).enabled;
         } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
@@ -187,11 +187,11 @@ public final class AppUtils {
      * <p>Target APIs greater than 21 must hold
      * {@code <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />}</p>
      *
-     * @param packageName The name of the package.
+     * @param pkgName The name of the package.
      * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean isAppForeground(@NonNull final String packageName) {
-        return !UtilsBridge.isSpace(packageName) && packageName.equals(UtilsBridge.getForegroundProcessName());
+    public static boolean isAppForeground(@NonNull final String pkgName) {
+        return !UtilsBridge.isSpace(pkgName) && pkgName.equals(UtilsBridge.getForegroundProcessName());
     }
 
     /**
@@ -200,7 +200,8 @@ public final class AppUtils {
      * @param pkgName The name of the package.
      * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean isAppRunning(@NonNull final String pkgName) {
+    public static boolean isAppRunning(final String pkgName) {
+        if (UtilsBridge.isSpace(pkgName)) return false;
         ApplicationInfo ai = Utils.getApp().getApplicationInfo();
         int uid = ai.uid;
         ActivityManager am = (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);

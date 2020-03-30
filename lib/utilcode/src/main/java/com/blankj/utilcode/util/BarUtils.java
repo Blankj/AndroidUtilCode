@@ -679,7 +679,7 @@ public final class BarUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isNavBarLightMode(@NonNull final Activity activity) {
-        return isStatusBarLightMode(activity.getWindow());
+        return isNavBarLightMode(activity.getWindow());
     }
 
     /**

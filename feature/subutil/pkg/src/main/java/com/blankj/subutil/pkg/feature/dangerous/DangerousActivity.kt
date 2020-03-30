@@ -24,7 +24,7 @@ class DangerousActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
-            PermissionHelper.requestStorageAndSms(object : PermissionHelper.OnPermissionGrantedListener {
+            PermissionHelper.requestStorageAndSms(context, object : PermissionHelper.OnPermissionGrantedListener {
                 override fun onPermissionGranted() {
                     val starter = Intent(context, DangerousActivity::class.java)
                     context.startActivity(starter)

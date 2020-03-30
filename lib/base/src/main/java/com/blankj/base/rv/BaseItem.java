@@ -115,6 +115,7 @@ public abstract class BaseItem<T extends BaseItem> {
     }
 
     public void update() {
+        if (getAdapter() == null) return;
         //noinspection unchecked
         getAdapter().updateItem((T) this);
     }

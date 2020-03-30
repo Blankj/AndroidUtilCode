@@ -1046,7 +1046,7 @@ public final class LogUtils {
 
         private static String object2Json(Object object) {
             if (object instanceof CharSequence) {
-                return formatJson(object.toString());
+                return UtilsBridge.formatJson(object.toString());
             }
             try {
                 return UtilsBridge.getGson4LogUtils().toJson(object);

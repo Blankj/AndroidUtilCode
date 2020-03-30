@@ -1,6 +1,5 @@
 package com.blankj.utilcode.util;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -131,27 +130,27 @@ public class UtilsTransActivity extends AppCompatActivity {
     }
 
     public abstract static class TransActivityDelegate {
-        public void onCreateBefore(Activity activity, @Nullable Bundle savedInstanceState) {/**/}
+        public void onCreateBefore(UtilsTransActivity activity, @Nullable Bundle savedInstanceState) {/**/}
 
-        public void onCreated(Activity activity, @Nullable Bundle savedInstanceState) {/**/}
+        public void onCreated(UtilsTransActivity activity, @Nullable Bundle savedInstanceState) {/**/}
 
-        public void onStarted(Activity activity) {/**/}
+        public void onStarted(UtilsTransActivity activity) {/**/}
 
-        public void onDestroy(Activity activity) {/**/}
+        public void onDestroy(UtilsTransActivity activity) {/**/}
 
-        public void onResumed(Activity activity) {/**/}
+        public void onResumed(UtilsTransActivity activity) {/**/}
 
-        public void onPaused(Activity activity) {/**/}
+        public void onPaused(UtilsTransActivity activity) {/**/}
 
-        public void onStopped(Activity activity) {/**/}
+        public void onStopped(UtilsTransActivity activity) {/**/}
 
-        public void onSaveInstanceState(Activity activity, Bundle outState) {/**/}
+        public void onSaveInstanceState(UtilsTransActivity activity, Bundle outState) {/**/}
 
-        public void onRequestPermissionsResult(Activity activity, int requestCode, String[] permissions, int[] grantResults) {/**/}
+        public void onRequestPermissionsResult(UtilsTransActivity activity, int requestCode, String[] permissions, int[] grantResults) {/**/}
 
-        public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {/**/}
+        public void onActivityResult(UtilsTransActivity activity, int requestCode, int resultCode, Intent data) {/**/}
 
-        public boolean dispatchTouchEvent(Activity activity, MotionEvent ev) {
+        public boolean dispatchTouchEvent(UtilsTransActivity activity, MotionEvent ev) {
             return false;
         }
     }

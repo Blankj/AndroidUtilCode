@@ -200,7 +200,7 @@ public final class ProcessUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isMainProcess() {
-        return Utils.getApp().getPackageName().equals(UtilsBridge.getCurrentProcessName());
+        return Utils.getApp().getPackageName().equals(getCurrentProcessName());
     }
 
     /**

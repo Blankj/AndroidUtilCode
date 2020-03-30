@@ -111,8 +111,8 @@ public class CacheDoubleUtilsTest extends BaseTest {
         assertEquals(BITMAP, CACHE_DOUBLE_UTILS.getBitmap("bitmap"));
         CACHE_MEMORY_UTILS.remove("bitmap");
         assertArrayEquals(
-                ImageUtils.bitmap2Bytes(BITMAP, Bitmap.CompressFormat.PNG),
-                ImageUtils.bitmap2Bytes(CACHE_DOUBLE_UTILS.getBitmap("bitmap"), Bitmap.CompressFormat.PNG)
+                ImageUtils.bitmap2Bytes(BITMAP, Bitmap.CompressFormat.PNG, 100),
+                ImageUtils.bitmap2Bytes(CACHE_DOUBLE_UTILS.getBitmap("bitmap"), Bitmap.CompressFormat.PNG, 100)
         );
         CACHE_DISK_UTILS.remove("bitmap");
         assertNull(CACHE_DOUBLE_UTILS.getBitmap("bitmap"));
@@ -124,8 +124,8 @@ public class CacheDoubleUtilsTest extends BaseTest {
         assertEquals(DRAWABLE, CACHE_DOUBLE_UTILS.getDrawable("drawable"));
         CACHE_MEMORY_UTILS.remove("drawable");
         assertArrayEquals(
-                ImageUtils.bitmap2Bytes(BITMAP, Bitmap.CompressFormat.PNG),
-                ImageUtils.drawable2Bytes(CACHE_DOUBLE_UTILS.getDrawable("drawable"), Bitmap.CompressFormat.PNG)
+                ImageUtils.bitmap2Bytes(BITMAP, Bitmap.CompressFormat.PNG, 100),
+                ImageUtils.drawable2Bytes(CACHE_DOUBLE_UTILS.getDrawable("drawable"), Bitmap.CompressFormat.PNG, 100)
         );
         CACHE_DISK_UTILS.remove("drawable");
         assertNull(CACHE_DOUBLE_UTILS.getDrawable("drawable"));

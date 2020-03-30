@@ -27,15 +27,16 @@ android {
 }
 
 dependencies {
-    implementation Config.depConfig.gson.dep
+    compileOnly Config.depConfig.gson.dep
 
-    implementation Config.depConfig.support_appcompat_v7.dep
+    compileOnly Config.depConfig.support_appcompat_v7.dep
     compileOnly Config.depConfig.support_design.dep
 
     testImplementation Config.depConfig.test_junit.dep
     testImplementation Config.depConfig.test_robolectric.dep
     testImplementation Config.depConfig.gson.dep
     testImplementation Config.depConfig.support_appcompat_v7.dep
+    testImplementation Config.depConfig.support_design.dep
     testImplementation Config.depConfig.eventbus_lib.dep
 }
 

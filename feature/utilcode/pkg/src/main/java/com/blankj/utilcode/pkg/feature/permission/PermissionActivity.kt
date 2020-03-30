@@ -106,7 +106,7 @@ class PermissionActivity : CommonActivity() {
 
     private fun requestCalendar() {
         PermissionUtils.permission(PermissionConstants.CALENDAR)
-                .rationale { shouldRequest -> DialogHelper.showRationaleDialog(shouldRequest) }
+                .rationale { activity, shouldRequest -> DialogHelper.showRationaleDialog(activity, shouldRequest) }
                 .callback(object : PermissionUtils.FullCallback {
                     override fun onGranted(permissionsGranted: List<String>) {
                         LogUtils.d(permissionsGranted)
@@ -131,7 +131,7 @@ class PermissionActivity : CommonActivity() {
 
     private fun requestRecordAudio() {
         PermissionUtils.permission(PermissionConstants.MICROPHONE)
-                .rationale { shouldRequest -> DialogHelper.showRationaleDialog(shouldRequest) }
+                .rationale { activity, shouldRequest -> DialogHelper.showRationaleDialog(activity, shouldRequest) }
                 .callback(object : PermissionUtils.FullCallback {
                     override fun onGranted(permissionsGranted: List<String>) {
                         LogUtils.d(permissionsGranted)
@@ -155,7 +155,7 @@ class PermissionActivity : CommonActivity() {
 
     private fun requestCalendarAndRecordAudio() {
         PermissionUtils.permission(PermissionConstants.CALENDAR, PermissionConstants.MICROPHONE)
-                .rationale { shouldRequest -> DialogHelper.showRationaleDialog(shouldRequest) }
+                .rationale { activity, shouldRequest -> DialogHelper.showRationaleDialog(activity, shouldRequest) }
                 .callback(object : PermissionUtils.FullCallback {
                     override fun onGranted(permissionsGranted: List<String>) {
                         LogUtils.d(permissionsGranted)
