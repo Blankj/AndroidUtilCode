@@ -1,5 +1,6 @@
 package com.blankj.utilcode.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
@@ -161,6 +162,7 @@ public final class ScreenUtils {
      *
      * @param activity The activity.
      */
+    @SuppressLint("SourceLockedOrientationActivity")
     public static void setLandscape(@NonNull final Activity activity) {
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
@@ -170,6 +172,7 @@ public final class ScreenUtils {
      *
      * @param activity The activity.
      */
+    @SuppressLint("SourceLockedOrientationActivity")
     public static void setPortrait(@NonNull final Activity activity) {
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
