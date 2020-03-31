@@ -100,17 +100,12 @@ public final class IntentUtils {
      * @return the intent of launch app
      */
     public static Intent getLaunchAppIntent(final String pkgName) {
-//        String launcherActivity = UtilsBridge.getLauncherActivity(pkgName);
-//        LogUtils.e(launcherActivity);
-//        if (UtilsBridge.isSpace(launcherActivity)) return null;
-//        Intent intent = new Intent(Intent.ACTION_MAIN);
-//        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-//        intent.setClassName(pkgName, launcherActivity);
-//        return intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-        Intent intent = Utils.getApp().getPackageManager().getLaunchIntentForPackage(pkgName);
-        if (intent == null) return null;
-        return getIntent(intent, true);
+        String launcherActivity = UtilsBridge.getLauncherActivity(pkgName);
+        if (UtilsBridge.isSpace(launcherActivity)) return null;
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        intent.setClassName(pkgName, launcherActivity);
+        return intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 
     /**

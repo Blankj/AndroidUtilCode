@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.lang.reflect.Type;
-import java.util.LinkedList;
 import java.util.List;
 
 import static android.Manifest.permission.CALL_PHONE;
@@ -69,8 +68,8 @@ class UtilsBridge {
         UtilsActivityLifecycleImpl.INSTANCE.removeActivityLifecycleCallbacks(activity, callbacks);
     }
 
-    static LinkedList<Activity> getActivityList() {
-        return UtilsActivityLifecycleImpl.INSTANCE.mActivityList;
+    static List<Activity> getActivityList() {
+        return UtilsActivityLifecycleImpl.INSTANCE.getActivityList();
     }
 
     ///////////////////////////////////////////////////////////////////////////

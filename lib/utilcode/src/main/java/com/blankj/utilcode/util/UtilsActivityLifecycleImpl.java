@@ -1,7 +1,6 @@
 package com.blankj.utilcode.util;
 
 import android.animation.ValueAnimator;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.arch.lifecycle.Lifecycle;
@@ -35,7 +34,7 @@ final class UtilsActivityLifecycleImpl implements Application.ActivityLifecycleC
 
     static final UtilsActivityLifecycleImpl INSTANCE = new UtilsActivityLifecycleImpl();
 
-    final LinkedList<Activity> mActivityList = new LinkedList<>();
+    private final LinkedList<Activity> mActivityList = new LinkedList<>();
 
     private final List<Utils.OnAppStatusChangedListener>                 mStatusListeners               = new ArrayList<>();
     private final Map<Activity, List<Utils.OnActivityDestroyedListener>> mDestroyedListenerMap          = new HashMap<>();
@@ -51,20 +50,23 @@ final class UtilsActivityLifecycleImpl implements Application.ActivityLifecycleC
     }
 
     Activity getTopActivity() {
-        if (!mActivityList.isEmpty()) {
-            for (int i = mActivityList.size() - 1; i >= 0; i--) {
-                Activity activity = mActivityList.get(i);
-                if (!UtilsBridge.isActivityAlive(activity)) {
-                    continue;
-                }
-                return activity;
+        List<Activity> activityList = getActivityList();
+        for (Activity activity : activityList) {
+            if (!UtilsBridge.isActivityAlive(activity)) {
+                continue;
             }
+            return activity;
         }
-        Activity topActivityByReflect = getTopActivityByReflect();
-        if (topActivityByReflect != null) {
-            setTopActivity(topActivityByReflect);
+        return null;
+    }
+
+    List<Activity> getActivityList() {
+        if (!mActivityList.isEmpty()) {
+            return mActivityList;
         }
-        return topActivityByReflect;
+        List<Activity> reflectActivities = getActivitiesByReflect();
+        mActivityList.addAll(reflectActivities);
+        return mActivityList;
     }
 
     void addOnAppStatusChangedListener(final Utils.OnAppStatusChangedListener listener) {
@@ -240,12 +242,12 @@ final class UtilsActivityLifecycleImpl implements Application.ActivityLifecycleC
 
     private void setTopActivity(final Activity activity) {
         if (mActivityList.contains(activity)) {
-            if (!mActivityList.getLast().equals(activity)) {
+            if (!mActivityList.getFirst().equals(activity)) {
                 mActivityList.remove(activity);
-                mActivityList.addLast(activity);
+                mActivityList.addFirst(activity);
             }
         } else {
-            mActivityList.addLast(activity);
+            mActivityList.addFirst(activity);
         }
     }
 
@@ -292,29 +294,86 @@ final class UtilsActivityLifecycleImpl implements Application.ActivityLifecycleC
         }
     }
 
-    private Activity getTopActivityByReflect() {
+    private List<Activity> getActivitiesByReflect() {
+        LinkedList<Activity> list = new LinkedList<>();
+        Activity topActivity = null;
         try {
-            @SuppressLint("PrivateApi")
-            Class<?> activityThreadClass = Class.forName("android.app.ActivityThread");
-            Object currentActivityThreadMethod = activityThreadClass.getMethod("currentActivityThread").invoke(null);
-            Field mActivityListField = activityThreadClass.getDeclaredField("mActivityList");
-            mActivityListField.setAccessible(true);
-            Map activities = (Map) mActivityListField.get(currentActivityThreadMethod);
-            if (activities == null) return null;
-            for (Object activityRecord : activities.values()) {
-                Class activityRecordClass = activityRecord.getClass();
-                Field pausedField = activityRecordClass.getDeclaredField("paused");
-                pausedField.setAccessible(true);
-                if (!pausedField.getBoolean(activityRecord)) {
-                    Field activityField = activityRecordClass.getDeclaredField("activity");
-                    activityField.setAccessible(true);
-                    return (Activity) activityField.get(activityRecord);
+            Object activityThread = getActivityThread();
+            Field mActivitiesField = activityThread.getClass().getDeclaredField("mActivities");
+            mActivitiesField.setAccessible(true);
+            Object mActivities = mActivitiesField.get(activityThread);
+            if (!(mActivities instanceof Map)) {
+                return list;
+            }
+            Map<Object, Object> binder_activityClientRecord_map = (Map<Object, Object>) mActivities;
+            for (Object activityRecord : binder_activityClientRecord_map.values()) {
+                Class activityClientRecordClass = activityRecord.getClass();
+                Field activityField = activityClientRecordClass.getDeclaredField("activity");
+                activityField.setAccessible(true);
+                Activity activity = (Activity) activityField.get(activityRecord);
+                if (topActivity == null) {
+                    Field pausedField = activityClientRecordClass.getDeclaredField("paused");
+                    pausedField.setAccessible(true);
+                    if (!pausedField.getBoolean(activityRecord)) {
+                        topActivity = activity;
+                    } else {
+                        list.add(activity);
+                    }
+                } else {
+                    list.add(activity);
                 }
             }
         } catch (Exception e) {
-            Log.e("UtilsActivityLifecycle", e.getMessage());
+            Log.e("UtilsActivityLifecycle", "getActivitiesByReflect: " + e.getMessage());
         }
-        return null;
+        if (topActivity != null) {
+            list.addFirst(topActivity);
+        }
+        return list;
+    }
+
+    private Object getActivityThread() {
+        Object activityThread = getActivityThreadInActivityThreadStaticField();
+        if (activityThread != null) return activityThread;
+        activityThread = getActivityThreadInActivityThreadStaticMethod();
+        if (activityThread != null) return activityThread;
+        return getActivityThreadInLoadedApkField();
+    }
+
+    private Object getActivityThreadInActivityThreadStaticField() {
+        try {
+            Class activityThreadClass = Class.forName("android.app.ActivityThread");
+            Field sCurrentActivityThreadField = activityThreadClass.getDeclaredField("sCurrentActivityThread");
+            sCurrentActivityThreadField.setAccessible(true);
+            return sCurrentActivityThreadField.get(null);
+        } catch (Exception e) {
+            Log.e("UtilsActivityLifecycle", "getActivityThreadInActivityThreadStaticField: " + e.getMessage());
+            return null;
+        }
+    }
+
+    private Object getActivityThreadInActivityThreadStaticMethod() {
+        try {
+            Class activityThreadClass = Class.forName("android.app.ActivityThread");
+            return activityThreadClass.getMethod("currentActivityThread").invoke(null);
+        } catch (Exception e) {
+            Log.e("UtilsActivityLifecycle", "getActivityThreadInActivityThreadStaticMethod: " + e.getMessage());
+            return null;
+        }
+    }
+
+    private Object getActivityThreadInLoadedApkField() {
+        try {
+            Field mLoadedApkField = Application.class.getDeclaredField("mLoadedApk");
+            mLoadedApkField.setAccessible(true);
+            Object mLoadedApk = mLoadedApkField.get(Utils.getApp());
+            Field mActivityThreadField = mLoadedApk.getClass().getDeclaredField("mActivityThread");
+            mActivityThreadField.setAccessible(true);
+            return mActivityThreadField.get(mLoadedApk);
+        } catch (Exception e) {
+            Log.e("UtilsActivityLifecycle", "getActivityThreadInLoadedApkField: " + e.getMessage());
+            return null;
+        }
     }
 
     /**
