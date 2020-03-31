@@ -286,11 +286,11 @@ class UtilsBridge {
     ///////////////////////////////////////////////////////////////////////////
     // ImageUtils
     ///////////////////////////////////////////////////////////////////////////
-    public static byte[] bitmap2Bytes(final Bitmap bitmap) {
+    static byte[] bitmap2Bytes(final Bitmap bitmap) {
         return ImageUtils.bitmap2Bytes(bitmap);
     }
 
-    public static byte[] bitmap2Bytes(final Bitmap bitmap, final Bitmap.CompressFormat format, int quality) {
+    static byte[] bitmap2Bytes(final Bitmap bitmap, final Bitmap.CompressFormat format, int quality) {
         return ImageUtils.bitmap2Bytes(bitmap, format, quality);
     }
 
@@ -408,26 +408,26 @@ class UtilsBridge {
     ///////////////////////////////////////////////////////////////////////////
     // ShellUtils
     ///////////////////////////////////////////////////////////////////////////
-    static ShellCommandResult execCmd(final String command, final boolean isRooted) {
-        return ShellCommandResult.parse(ShellUtils.execCmd(command, isRooted));
+    static ShellUtils.CommandResult execCmd(final String command, final boolean isRooted) {
+        return ShellUtils.execCmd(command, isRooted);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     // SizeUtils
     ///////////////////////////////////////////////////////////////////////////
-    public static int dp2px(final float dpValue) {
+    static int dp2px(final float dpValue) {
         return SizeUtils.dp2px(dpValue);
     }
 
-    public static int px2dp(final float pxValue) {
+    static int px2dp(final float pxValue) {
         return SizeUtils.px2dp(pxValue);
     }
 
-    public static int sp2px(final float spValue) {
+    static int sp2px(final float spValue) {
         return SizeUtils.sp2px(spValue);
     }
 
-    public static int px2sp(final float pxValue) {
+    static int px2sp(final float pxValue) {
         return SizeUtils.px2sp(pxValue);
     }
 
@@ -508,28 +508,5 @@ class UtilsBridge {
     // class
     ///////////////////////////////////////////////////////////////////////////
     static abstract class Task<T> extends ThreadUtils.SimpleTask<T> {
-    }
-
-    static class ShellCommandResult {
-        int    result;
-        String successMsg;
-        String errorMsg;
-
-        private ShellCommandResult(ShellUtils.CommandResult result) {
-            this.result = result.result;
-            this.successMsg = result.successMsg;
-            this.errorMsg = result.errorMsg;
-        }
-
-        static ShellCommandResult parse(ShellUtils.CommandResult result) {
-            return new ShellCommandResult(result);
-        }
-
-        @Override
-        public String toString() {
-            return "result: " + result + "\n" +
-                    "successMsg: " + successMsg + "\n" +
-                    "errorMsg: " + errorMsg;
-        }
     }
 }

@@ -106,7 +106,7 @@ public final class AppUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isAppRoot() {
-        UtilsBridge.ShellCommandResult result = UtilsBridge.execCmd("echo root", true);
+        ShellUtils.CommandResult result = UtilsBridge.execCmd("echo root", true);
         if (result.result == 0) return true;
         if (result.errorMsg != null) {
             Log.d("AppUtils", "isAppRoot() called" + result.errorMsg);

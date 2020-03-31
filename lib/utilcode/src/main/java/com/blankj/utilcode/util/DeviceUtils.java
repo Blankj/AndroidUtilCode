@@ -265,7 +265,7 @@ public final class DeviceUtils {
     }
 
     private static String getMacAddressByFile() {
-        UtilsBridge.ShellCommandResult result = UtilsBridge.execCmd("getprop wifi.interface", false);
+        ShellUtils.CommandResult result = UtilsBridge.execCmd("getprop wifi.interface", false);
         if (result.result == 0) {
             String name = result.successMsg;
             if (name != null) {
