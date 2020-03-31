@@ -71,7 +71,7 @@ class Config {
             free_proguard              : new DepConfig("com.blankj:free-proguard:1.0.2"),
             swipe_panel                : new DepConfig("com.blankj:swipe-panel:1.2"),
 
-            gson                       : new DepConfig("com.google.code.gson:gson:2.8.6"),
+            gson                       : new DepConfig("com.google.code.gson:gson:2.8.5"),
             glide                      : new DepConfig("com.github.bumptech.glide:glide:4.7.1"),
             retrofit                   : new DepConfig("com.squareup.retrofit2:retrofit:2.4.0"),
             commons_io                 : new DepConfig("commons-io:commons-io:2.6"),

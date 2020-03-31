@@ -27,7 +27,7 @@ android {
 }
 
 dependencies {
-    compileOnly Config.depConfig.gson.dep
+    implementation Config.depConfig.gson.dep
 
     compileOnly Config.depConfig.support_appcompat_v7.dep
     compileOnly Config.depConfig.support_design.dep
