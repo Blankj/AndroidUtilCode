@@ -3,12 +3,11 @@ package com.blankj.subutil.pkg.feature
 import android.content.Context
 import android.content.Intent
 import com.blankj.common.activity.CommonActivity
-import com.blankj.common.activity.CommonActivityItemsView
-import com.blankj.common.activity.CommonActivityTitleView
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick
 import com.blankj.subutil.pkg.R
 import com.blankj.subutil.pkg.feature.appStore.AppStoreActivity
+import com.blankj.subutil.pkg.feature.battery.BatteryActivity
 import com.blankj.subutil.pkg.feature.country.CountryActivity
 import com.blankj.subutil.pkg.feature.dangerous.DangerousActivity
 import com.blankj.subutil.pkg.feature.location.LocationActivity
@@ -41,6 +40,9 @@ class SubUtilActivity : CommonActivity() {
         return CollectionUtils.newArrayList(
                 CommonItemClick(R.string.demo_app_store, true) {
                     AppStoreActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_battery, true) {
+                    BatteryActivity.start(this)
                 },
                 CommonItemClick(R.string.demo_country, true) {
                     CountryActivity.start(this)

@@ -2,6 +2,7 @@ package com.blankj.api
 
 class ApiExtension {
 
+    boolean abortOnError = true
     String apiUtilsClass = "com.blankj.utilcode.util.ApiUtils";
     String onlyScanLibRegex = ""
     String jumpScanLibRegex = ""
@@ -9,7 +10,8 @@ class ApiExtension {
     @Override
     String toString() {
         return "ApiExtension { " +
-                "apiUtilsClass: " + apiUtilsClass +
+                "abortOnError: " + abortOnError +
+                ", apiUtilsClass: " + apiUtilsClass +
                 (onlyScanLibRegex == "" ? "" : ", onlyScanLibRegex: " + onlyScanLibRegex) +
                 (jumpScanLibRegex == "" ? "" : ", jumpScanLibRegex: " + jumpScanLibRegex) +
                 " }";

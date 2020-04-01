@@ -52,6 +52,7 @@ public final class NetworkUtils {
     public enum NetworkType {
         NETWORK_ETHERNET,
         NETWORK_WIFI,
+        NETWORK_5G,
         NETWORK_4G,
         NETWORK_3G,
         NETWORK_2G,
@@ -85,12 +86,12 @@ public final class NetworkUtils {
      * Return whether network is available.
      * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
      *
-     * @param callback The callback.
+     * @param consumer The consumer.
      * @return the task
      */
     @RequiresPermission(INTERNET)
-    public static Utils.Task<Boolean> isAvailableAsync(@NonNull final Utils.Callback<Boolean> callback) {
-        return Utils.doAsync(new Utils.Task<Boolean>(callback) {
+    public static Utils.Task<Boolean> isAvailableAsync(@NonNull final Utils.Consumer<Boolean> consumer) {
+        return UtilsBridge.doAsync(new Utils.Task<Boolean>(consumer) {
             @RequiresPermission(INTERNET)
             @Override
             public Boolean doInBackground() {
@@ -115,11 +116,11 @@ public final class NetworkUtils {
      * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
      * <p>The default ping ip: 223.5.5.5</p>
      *
-     * @param callback The callback.
+     * @param consumer The consumer.
      */
     @RequiresPermission(INTERNET)
-    public static void isAvailableByPingAsync(final Utils.Callback<Boolean> callback) {
-        isAvailableByPingAsync("", callback);
+    public static void isAvailableByPingAsync(final Utils.Consumer<Boolean> consumer) {
+        isAvailableByPingAsync("", consumer);
     }
 
     /**
@@ -127,13 +128,13 @@ public final class NetworkUtils {
      * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
      *
      * @param ip       The ip address.
-     * @param callback The callback.
+     * @param consumer The consumer.
      * @return the task
      */
     @RequiresPermission(INTERNET)
     public static Utils.Task<Boolean> isAvailableByPingAsync(final String ip,
-                                                             @NonNull final Utils.Callback<Boolean> callback) {
-        return Utils.doAsync(new Utils.Task<Boolean>(callback) {
+                                                             @NonNull final Utils.Consumer<Boolean> consumer) {
+        return UtilsBridge.doAsync(new Utils.Task<Boolean>(consumer) {
             @RequiresPermission(INTERNET)
             @Override
             public Boolean doInBackground() {
@@ -172,11 +173,11 @@ public final class NetworkUtils {
      * Return whether network is available using domain.
      * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
      *
-     * @param callback The callback.
+     * @param consumer The consumer.
      */
     @RequiresPermission(INTERNET)
-    public static void isAvailableByDnsAsync(final Utils.Callback<Boolean> callback) {
-        isAvailableByDnsAsync("", callback);
+    public static void isAvailableByDnsAsync(final Utils.Consumer<Boolean> consumer) {
+        isAvailableByDnsAsync("", consumer);
     }
 
     /**
@@ -184,13 +185,13 @@ public final class NetworkUtils {
      * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
      *
      * @param domain   The name of domain.
-     * @param callback The callback.
+     * @param consumer The consumer.
      * @return the task
      */
     @RequiresPermission(INTERNET)
     public static Utils.Task isAvailableByDnsAsync(final String domain,
-                                                   @NonNull final Utils.Callback<Boolean> callback) {
-        return Utils.doAsync(new Utils.Task<Boolean>(callback) {
+                                                   @NonNull final Utils.Consumer<Boolean> consumer) {
+        return UtilsBridge.doAsync(new Utils.Task<Boolean>(consumer) {
             @RequiresPermission(INTERNET)
             @Override
             public Boolean doInBackground() {
@@ -284,6 +285,20 @@ public final class NetworkUtils {
     }
 
     /**
+     * Return whether using 4G.
+     * <p>Must hold {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    @RequiresPermission(ACCESS_NETWORK_STATE)
+    public static boolean is5G() {
+        NetworkInfo info = getActiveNetworkInfo();
+        return info != null
+                && info.isAvailable()
+                && info.getSubtype() == TelephonyManager.NETWORK_TYPE_NR;
+    }
+
+    /**
      * Return whether wifi is enabled.
      * <p>Must hold {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />}</p>
      *
@@ -344,12 +359,12 @@ public final class NetworkUtils {
      * <p>Must hold {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />},
      * {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
      *
-     * @param callback The callback.
+     * @param consumer The consumer.
      * @return the task
      */
     @RequiresPermission(allOf = {ACCESS_WIFI_STATE, INTERNET})
-    public static Utils.Task<Boolean> isWifiAvailableAsync(@NonNull final Utils.Callback<Boolean> callback) {
-        return Utils.doAsync(new Utils.Task<Boolean>(callback) {
+    public static Utils.Task<Boolean> isWifiAvailableAsync(@NonNull final Utils.Consumer<Boolean> consumer) {
+        return UtilsBridge.doAsync(new Utils.Task<Boolean>(consumer) {
             @RequiresPermission(allOf = {ACCESS_WIFI_STATE, INTERNET})
             @Override
             public Boolean doInBackground() {
@@ -420,6 +435,8 @@ public final class NetworkUtils {
                     case TelephonyManager.NETWORK_TYPE_LTE:
                         return NetworkType.NETWORK_4G;
 
+                    case TelephonyManager.NETWORK_TYPE_NR:
+                        return NetworkType.NETWORK_5G;
                     default:
                         String subtypeName = info.getSubtypeName();
                         if (subtypeName.equalsIgnoreCase("TD-SCDMA")
@@ -469,12 +486,12 @@ public final class NetworkUtils {
      * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
      *
      * @param useIPv4  True to use ipv4, false otherwise.
-     * @param callback The callback.
+     * @param consumer The consumer.
      * @return the task
      */
     public static Utils.Task<String> getIPAddressAsync(final boolean useIPv4,
-                                                       @NonNull final Utils.Callback<String> callback) {
-        return Utils.doAsync(new Utils.Task<String>(callback) {
+                                                       @NonNull final Utils.Consumer<String> consumer) {
+        return UtilsBridge.doAsync(new Utils.Task<String>(consumer) {
             @RequiresPermission(INTERNET)
             @Override
             public String doInBackground() {
@@ -558,13 +575,13 @@ public final class NetworkUtils {
      * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
      *
      * @param domain   The name of domain.
-     * @param callback The callback.
+     * @param consumer The consumer.
      * @return the task
      */
     @RequiresPermission(INTERNET)
     public static Utils.Task<String> getDomainAddressAsync(final String domain,
-                                                           @NonNull final Utils.Callback<String> callback) {
-        return Utils.doAsync(new Utils.Task<String>(callback) {
+                                                           @NonNull final Utils.Consumer<String> consumer) {
+        return UtilsBridge.doAsync(new Utils.Task<String>(consumer) {
             @RequiresPermission(INTERNET)
             @Override
             public String doInBackground() {
@@ -649,8 +666,18 @@ public final class NetworkUtils {
      *
      * @param listener The status of network changed listener
      */
-    public static void registerNetworkStatusChangedListener(OnNetworkStatusChangedListener listener) {
+    public static void registerNetworkStatusChangedListener(final OnNetworkStatusChangedListener listener) {
         NetworkChangedReceiver.getInstance().registerListener(listener);
+    }
+
+    /**
+     * Return whether the status of battery status changed listener registered.
+     *
+     * @param listener The listener
+     * @return True to registered, false otherwise.
+     */
+    public static boolean isRegistered(final OnNetworkStatusChangedListener listener) {
+        return NetworkChangedReceiver.getInstance().isRegistered(listener);
     }
 
     /**
@@ -658,7 +685,7 @@ public final class NetworkUtils {
      *
      * @param listener The status of network changed listener
      */
-    public static void unregisterNetworkStatusChangedListener(OnNetworkStatusChangedListener listener) {
+    public static void unregisterNetworkStatusChangedListener(final OnNetworkStatusChangedListener listener) {
         NetworkChangedReceiver.getInstance().unregisterListener(listener);
     }
 
@@ -673,7 +700,7 @@ public final class NetworkUtils {
 
         void registerListener(final OnNetworkStatusChangedListener listener) {
             if (listener == null) return;
-            Utils.runOnUiThread(new Runnable() {
+            UtilsBridge.runOnUiThread(new Runnable() {
                 @SuppressLint("MissingPermission")
                 @Override
                 public void run() {
@@ -688,9 +715,14 @@ public final class NetworkUtils {
             });
         }
 
+        boolean isRegistered(final OnNetworkStatusChangedListener listener) {
+            if (listener == null) return false;
+            return mListeners.contains(listener);
+        }
+
         void unregisterListener(final OnNetworkStatusChangedListener listener) {
             if (listener == null) return;
-            Utils.runOnUiThread(new Runnable() {
+            UtilsBridge.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     int preSize = mListeners.size();
@@ -707,12 +739,11 @@ public final class NetworkUtils {
         public void onReceive(Context context, Intent intent) {
             if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
                 // debouncing
-                Utils.runOnUiThreadDelayed(new Runnable() {
+                UtilsBridge.runOnUiThreadDelayed(new Runnable() {
                     @Override
                     public void run() {
                         NetworkType networkType = NetworkUtils.getNetworkType();
                         if (mType == networkType) return;
-                        LogUtils.e(networkType);
                         mType = networkType;
                         if (networkType == NetworkType.NETWORK_NO) {
                             for (OnNetworkStatusChangedListener listener : mListeners) {
@@ -732,6 +763,80 @@ public final class NetworkUtils {
             private static final NetworkChangedReceiver INSTANCE = new NetworkChangedReceiver();
         }
     }
+
+//    /**
+//     * Register the status of network changed listener.
+//     */
+//    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+//    @RequiresPermission(ACCESS_NETWORK_STATE)
+//    public static void registerNetworkStatusChangedListener() {
+//        ConnectivityManager cm = (ConnectivityManager) Utils.getApp().getSystemService(Context.CONNECTIVITY_SERVICE);
+//        if (cm == null) return;
+//        NetworkCallbackImpl networkCallback = NetworkCallbackImpl.LazyHolder.INSTANCE;
+//        NetworkRequest.Builder builder = new NetworkRequest.Builder();
+//        NetworkRequest request = builder.build();
+//        cm.registerNetworkCallback(new NetworkRequest.Builder().build(), networkCallback);
+//    }
+//
+//
+//    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+//    public static final class NetworkCallbackImpl extends ConnectivityManager.NetworkCallback {
+//
+//        @Override
+//        public void onAvailable(@NotNull Network network) {
+//            super.onAvailable(network);
+//            LogUtils.d(TAG, "onAvailable: " + network);
+//        }
+//
+//        @Override
+//        public void onLosing(@NonNull Network network, int maxMsToLive) {
+//            super.onLosing(network, maxMsToLive);
+//            LogUtils.d(TAG, "onLosing: " + network);
+//        }
+//
+//        @Override
+//        public void onLost(@NotNull Network network) {
+//            super.onLost(network);
+//            LogUtils.e(TAG, "onLost: " + network);
+//        }
+//
+//        @Override
+//        public void onUnavailable() {
+//            super.onUnavailable();
+//            LogUtils.e(TAG, "onUnavailable");
+//        }
+//
+//        @Override
+//        public void onCapabilitiesChanged(@NotNull Network network, @NotNull NetworkCapabilities cap) {
+//            super.onCapabilitiesChanged(network, cap);
+//            if (cap.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)) {
+//                if (cap.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+//                    LogUtils.d(TAG, "onCapabilitiesChanged: 网络类型为wifi");
+//                } else if (cap.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+//                    LogUtils.d(TAG, "onCapabilitiesChanged: 蜂窝网络");
+//                } else {
+//                    LogUtils.d(TAG, "onCapabilitiesChanged: 其他网络");
+//                }
+//                LogUtils.d(TAG, "onCapabilitiesChanged: " + network + ", " + cap);
+//            }
+//        }
+//
+//        @Override
+//        public void onLinkPropertiesChanged(@NonNull Network network, @NonNull LinkProperties lp) {
+//            super.onLinkPropertiesChanged(network, lp);
+//            LogUtils.d(TAG, "onLinkPropertiesChanged: " + network + ", " + lp);
+//        }
+//
+//        @Override
+//        public void onBlockedStatusChanged(@NonNull Network network, boolean blocked) {
+//            super.onBlockedStatusChanged(network, blocked);
+//            LogUtils.d(TAG, "onBlockedStatusChanged: " + network + ", " + blocked);
+//        }
+//
+//        private static class LazyHolder {
+//            private static final NetworkCallbackImpl INSTANCE = new NetworkCallbackImpl();
+//        }
+//    }
 
     public interface OnNetworkStatusChangedListener {
         void onDisconnected();

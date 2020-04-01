@@ -80,69 +80,69 @@ class ImageActivity : CommonActivity() {
                     }
                 })
             })
-            add(CommonItemImage(R.string.image_src, Utils.Func1 {
+            add(CommonItemImage(R.string.image_src, Utils.Consumer {
                 it.setImageBitmap(src)
             }))
-            add(CommonItemImage(R.string.image_add_color, Utils.Func1 {
+            add(CommonItemImage(R.string.image_add_color, Utils.Consumer {
                 it.setImageBitmap(ImageUtils.drawColor(src, Color.parseColor("#8000FF00")))
             }))
-            add(CommonItemImage(R.string.image_scale, Utils.Func1 {
+            add(CommonItemImage(R.string.image_scale, Utils.Consumer {
                 it.setImageBitmap(ImageUtils.scale(src, width / 2, height / 2))
             }))
-            add(CommonItemImage(R.string.image_clip, Utils.Func1 {
+            add(CommonItemImage(R.string.image_clip, Utils.Consumer {
                 it.setImageBitmap(ImageUtils.clip(src, 0, 0, width / 2, height / 2))
             }))
-            add(CommonItemImage(R.string.image_skew, Utils.Func1 {
+            add(CommonItemImage(R.string.image_skew, Utils.Consumer {
                 it.setImageBitmap(ImageUtils.skew(src, 0.2f, 0.1f))
             }))
-            add(CommonItemImage(R.string.image_rotate, Utils.Func1 {
+            add(CommonItemImage(R.string.image_rotate, Utils.Consumer {
                 it.setImageBitmap(ImageUtils.rotate(src, 90, (width / 2).toFloat(), (height / 2).toFloat()))
             }))
             add(CommonItemImage(R.string.image_to_round) { it ->
                 it.setImageBitmap(ImageUtils.toRound(src))
             })
-            add(CommonItemImage(R.string.image_to_round_border, Utils.Func1 {
+            add(CommonItemImage(R.string.image_to_round_border, Utils.Consumer {
                 it.setImageBitmap(ImageUtils.toRound(src, 16, Color.GREEN))
             }))
-            add(CommonItemImage(R.string.image_to_round_corner, Utils.Func1 {
+            add(CommonItemImage(R.string.image_to_round_corner, Utils.Consumer {
                 it.setImageBitmap(ImageUtils.toRoundCorner(src, 80f))
             }))
-            add(CommonItemImage(R.string.image_to_round_corner_border, Utils.Func1 {
+            add(CommonItemImage(R.string.image_to_round_corner_border, Utils.Consumer {
                 it.setImageBitmap(ImageUtils.toRoundCorner(src, 80f, 16, Color.GREEN))
             }))
-            add(CommonItemImage(R.string.image_add_corner_border, Utils.Func1 {
+            add(CommonItemImage(R.string.image_add_corner_border, Utils.Consumer {
                 it.setImageBitmap(ImageUtils.addCornerBorder(src, 16, Color.GREEN, 0f))
             }))
-            add(CommonItemImage(R.string.image_add_circle_border, Utils.Func1 {
+            add(CommonItemImage(R.string.image_add_circle_border, Utils.Consumer {
                 it.setImageBitmap(ImageUtils.addCircleBorder(round, 16, Color.GREEN))
             }))
-            add(CommonItemImage(R.string.image_add_reflection, Utils.Func1 {
+            add(CommonItemImage(R.string.image_add_reflection, Utils.Consumer {
                 it.setImageBitmap(ImageUtils.addReflection(src, 80))
             }))
-            add(CommonItemImage(R.string.image_add_text_watermark, Utils.Func1 {
+            add(CommonItemImage(R.string.image_add_text_watermark, Utils.Consumer {
                 it.setImageBitmap(ImageUtils.addTextWatermark(src, "blankj", 40, Color.GREEN, 0f, 0f))
             }))
-            add(CommonItemImage(R.string.image_add_image_watermark, Utils.Func1 {
+            add(CommonItemImage(R.string.image_add_image_watermark, Utils.Consumer {
                 it.setImageBitmap(ImageUtils.addImageWatermark(src, watermark, 0, 0, 0x88))
             }))
-            add(CommonItemImage(R.string.image_to_gray, Utils.Func1 {
+            add(CommonItemImage(R.string.image_to_gray, Utils.Consumer {
                 it.setImageBitmap(ImageUtils.toGray(src))
             }))
-            add(CommonItemImage(R.string.image_fast_blur, Utils.Func1 {
+            add(CommonItemImage(R.string.image_fast_blur, Utils.Consumer {
                 it.setImageBitmap(ImageUtils.fastBlur(src, 0.1f, 5f))
             }))
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                add(CommonItemImage(R.string.image_render_script_blur, Utils.Func1 {
+                add(CommonItemImage(R.string.image_render_script_blur, Utils.Consumer {
                     it.setImageBitmap(ImageUtils.renderScriptBlur(src, 10f))
                 }))
             }
-            add(CommonItemImage(R.string.image_stack_blur, Utils.Func1 {
+            add(CommonItemImage(R.string.image_stack_blur, Utils.Consumer {
                 it.setImageBitmap(ImageUtils.stackBlur(src, 10))
             }))
-            add(CommonItemImage(R.string.image_compress_by_scale, Utils.Func1 {
+            add(CommonItemImage(R.string.image_compress_by_scale, Utils.Consumer {
                 it.setImageBitmap(ImageUtils.compressByScale(src, 0.5f, 0.5f))
             }))
-            add(CommonItemImage(R.string.image_compress_by_sample_size, Utils.Func1 {
+            add(CommonItemImage(R.string.image_compress_by_sample_size, Utils.Consumer {
                 it.setImageBitmap(ImageUtils.compressBySampleSize(src, 2))
             }))
         }

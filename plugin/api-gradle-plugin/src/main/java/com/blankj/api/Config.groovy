@@ -3,7 +3,6 @@ package com.blankj.api
 class Config {
 
     public static final String EXT_NAME = 'api'
-    public static final String API_PATH = "assets/blankj.api"
 
     public static final List<String> EXCLUDE_LIBS_START_WITH = [
             'com.android.support',

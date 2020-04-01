@@ -41,13 +41,34 @@ public final class ActivityUtils {
     }
 
     /**
-     * Return the activity by view.
+     * Add callbacks of activity lifecycle.
      *
-     * @param view The view.
-     * @return the activity by view.
+     * @param activity  The activity.
+     * @param callbacks The callbacks.
      */
-    public static Activity getActivityByView(@NonNull View view) {
-        return getActivityByContext(view.getContext());
+    public static void addActivityLifecycleCallbacks(final Activity activity,
+                                                     final Utils.ActivityLifecycleCallbacks callbacks) {
+        UtilsBridge.addActivityLifecycleCallbacks(activity, callbacks);
+    }
+
+    /**
+     * Remove callbacks of activity lifecycle.
+     *
+     * @param activity The activity.
+     */
+    public static void removeActivityLifecycleCallbacks(final Activity activity) {
+        UtilsBridge.removeActivityLifecycleCallbacks(activity);
+    }
+
+    /**
+     * Remove callbacks of activity lifecycle.
+     *
+     * @param activity  The activity.
+     * @param callbacks The callbacks.
+     */
+    public static void removeActivityLifecycleCallbacks(final Activity activity,
+                                                        final Utils.ActivityLifecycleCallbacks callbacks) {
+        UtilsBridge.removeActivityLifecycleCallbacks(activity, callbacks);
     }
 
     /**
@@ -57,6 +78,12 @@ public final class ActivityUtils {
      * @return the activity by context.
      */
     public static Activity getActivityByContext(Context context) {
+        Activity activity = getActivityByContextInner(context);
+        if (!isActivityAlive(activity)) return null;
+        return activity;
+    }
+
+    private static Activity getActivityByContextInner(Context context) {
         if (context instanceof Activity) return (Activity) context;
         if (context != null && context.getClass().getName().equals("com.android.internal.policy.DecorContext")) {
             try {
@@ -88,9 +115,10 @@ public final class ActivityUtils {
                                            @NonNull final String cls) {
         Intent intent = new Intent();
         intent.setClassName(pkg, cls);
-        return !(Utils.getApp().getPackageManager().resolveActivity(intent, 0) == null ||
-                intent.resolveActivity(Utils.getApp().getPackageManager()) == null ||
-                Utils.getApp().getPackageManager().queryIntentActivities(intent, 0).size() == 0);
+        PackageManager pm = Utils.getApp().getPackageManager();
+        return !(pm.resolveActivity(intent, 0) == null ||
+                intent.resolveActivity(pm) == null ||
+                pm.queryIntentActivities(intent, 0).size() == 0);
     }
 
     /**
@@ -99,7 +127,7 @@ public final class ActivityUtils {
      * @param clz The activity class.
      */
     public static void startActivity(@NonNull final Class<? extends Activity> clz) {
-        Context context = Utils.getTopActivityOrApp();
+        Context context = UtilsBridge.getTopActivityOrApp();
         startActivity(context, null, context.getPackageName(), clz.getName(), null);
     }
 
@@ -111,7 +139,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final Class<? extends Activity> clz,
                                      @Nullable final Bundle options) {
-        Context context = Utils.getTopActivityOrApp();
+        Context context = UtilsBridge.getTopActivityOrApp();
         startActivity(context, null, context.getPackageName(), clz.getName(), options);
     }
 
@@ -127,7 +155,7 @@ public final class ActivityUtils {
     public static void startActivity(@NonNull final Class<? extends Activity> clz,
                                      @AnimRes final int enterAnim,
                                      @AnimRes final int exitAnim) {
-        Context context = Utils.getTopActivityOrApp();
+        Context context = UtilsBridge.getTopActivityOrApp();
         startActivity(context, null, context.getPackageName(), clz.getName(),
                 getOptionsBundle(context, enterAnim, exitAnim));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context instanceof Activity) {
@@ -203,7 +231,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final Class<? extends Activity> clz) {
-        Context context = Utils.getTopActivityOrApp();
+        Context context = UtilsBridge.getTopActivityOrApp();
         startActivity(context, extras, context.getPackageName(), clz.getName(), null);
     }
 
@@ -217,7 +245,7 @@ public final class ActivityUtils {
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final Class<? extends Activity> clz,
                                      @Nullable final Bundle options) {
-        Context context = Utils.getTopActivityOrApp();
+        Context context = UtilsBridge.getTopActivityOrApp();
         startActivity(context, extras, context.getPackageName(), clz.getName(), options);
     }
 
@@ -235,7 +263,7 @@ public final class ActivityUtils {
                                      @NonNull final Class<? extends Activity> clz,
                                      @AnimRes final int enterAnim,
                                      @AnimRes final int exitAnim) {
-        Context context = Utils.getTopActivityOrApp();
+        Context context = UtilsBridge.getTopActivityOrApp();
         startActivity(context, extras, context.getPackageName(), clz.getName(),
                 getOptionsBundle(context, enterAnim, exitAnim));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context instanceof Activity) {
@@ -319,7 +347,7 @@ public final class ActivityUtils {
      */
     public static void startActivity(@NonNull final String pkg,
                                      @NonNull final String cls) {
-        startActivity(Utils.getTopActivityOrApp(), null, pkg, cls, null);
+        startActivity(UtilsBridge.getTopActivityOrApp(), null, pkg, cls, null);
     }
 
     /**
@@ -332,7 +360,7 @@ public final class ActivityUtils {
     public static void startActivity(@NonNull final String pkg,
                                      @NonNull final String cls,
                                      @Nullable final Bundle options) {
-        startActivity(Utils.getTopActivityOrApp(), null, pkg, cls, options);
+        startActivity(UtilsBridge.getTopActivityOrApp(), null, pkg, cls, options);
     }
 
     /**
@@ -349,7 +377,7 @@ public final class ActivityUtils {
                                      @NonNull final String cls,
                                      @AnimRes final int enterAnim,
                                      @AnimRes final int exitAnim) {
-        Context context = Utils.getTopActivityOrApp();
+        Context context = UtilsBridge.getTopActivityOrApp();
         startActivity(context, null, pkg, cls, getOptionsBundle(context, enterAnim, exitAnim));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context instanceof Activity) {
             ((Activity) context).overridePendingTransition(enterAnim, exitAnim);
@@ -432,7 +460,7 @@ public final class ActivityUtils {
     public static void startActivity(@NonNull final Bundle extras,
                                      @NonNull final String pkg,
                                      @NonNull final String cls) {
-        startActivity(Utils.getTopActivityOrApp(), extras, pkg, cls, null);
+        startActivity(UtilsBridge.getTopActivityOrApp(), extras, pkg, cls, null);
     }
 
     /**
@@ -447,7 +475,7 @@ public final class ActivityUtils {
                                      @NonNull final String pkg,
                                      @NonNull final String cls,
                                      @Nullable final Bundle options) {
-        startActivity(Utils.getTopActivityOrApp(), extras, pkg, cls, options);
+        startActivity(UtilsBridge.getTopActivityOrApp(), extras, pkg, cls, options);
     }
 
     /**
@@ -466,7 +494,7 @@ public final class ActivityUtils {
                                      @NonNull final String cls,
                                      @AnimRes final int enterAnim,
                                      @AnimRes final int exitAnim) {
-        Context context = Utils.getTopActivityOrApp();
+        Context context = UtilsBridge.getTopActivityOrApp();
         startActivity(context, extras, pkg, cls, getOptionsBundle(context, enterAnim, exitAnim));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context instanceof Activity) {
             ((Activity) context).overridePendingTransition(enterAnim, exitAnim);
@@ -553,7 +581,7 @@ public final class ActivityUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean startActivity(@NonNull final Intent intent) {
-        return startActivity(intent, Utils.getTopActivityOrApp(), null);
+        return startActivity(intent, UtilsBridge.getTopActivityOrApp(), null);
     }
 
     /**
@@ -565,7 +593,7 @@ public final class ActivityUtils {
      */
     public static boolean startActivity(@NonNull final Intent intent,
                                         @Nullable final Bundle options) {
-        return startActivity(intent, Utils.getTopActivityOrApp(), options);
+        return startActivity(intent, UtilsBridge.getTopActivityOrApp(), options);
     }
 
     /**
@@ -581,7 +609,7 @@ public final class ActivityUtils {
     public static boolean startActivity(@NonNull final Intent intent,
                                         @AnimRes final int enterAnim,
                                         @AnimRes final int exitAnim) {
-        Context context = Utils.getTopActivityOrApp();
+        Context context = UtilsBridge.getTopActivityOrApp();
         boolean isSuccess = startActivity(intent, context, getOptionsBundle(context, enterAnim, exitAnim));
         if (isSuccess) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context instanceof Activity) {
@@ -1273,7 +1301,7 @@ public final class ActivityUtils {
      * @param intents The descriptions of the activities to start.
      */
     public static void startActivities(@NonNull final Intent[] intents) {
-        startActivities(intents, Utils.getTopActivityOrApp(), null);
+        startActivities(intents, UtilsBridge.getTopActivityOrApp(), null);
     }
 
     /**
@@ -1284,7 +1312,7 @@ public final class ActivityUtils {
      */
     public static void startActivities(@NonNull final Intent[] intents,
                                        @Nullable final Bundle options) {
-        startActivities(intents, Utils.getTopActivityOrApp(), options);
+        startActivities(intents, UtilsBridge.getTopActivityOrApp(), options);
     }
 
     /**
@@ -1299,7 +1327,7 @@ public final class ActivityUtils {
     public static void startActivities(@NonNull final Intent[] intents,
                                        @AnimRes final int enterAnim,
                                        @AnimRes final int exitAnim) {
-        Context context = Utils.getTopActivityOrApp();
+        Context context = UtilsBridge.getTopActivityOrApp();
         startActivities(intents, context, getOptionsBundle(context, enterAnim, exitAnim));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context instanceof Activity) {
             ((Activity) context).overridePendingTransition(enterAnim, exitAnim);
@@ -1384,7 +1412,7 @@ public final class ActivityUtils {
      * @return the list of activity
      */
     public static List<Activity> getActivityList() {
-        return Utils.getActivityList();
+        return UtilsBridge.getActivityList();
     }
 
     /**
@@ -1403,18 +1431,14 @@ public final class ActivityUtils {
      * @return the name of launcher activity
      */
     public static String getLauncherActivity(@NonNull final String pkg) {
+        if (UtilsBridge.isSpace(pkg)) return "";
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intent.setPackage(pkg);
         PackageManager pm = Utils.getApp().getPackageManager();
         List<ResolveInfo> info = pm.queryIntentActivities(intent, 0);
-        int size = info.size();
-        if (size == 0) return "";
-        for (int i = 0; i < size; i++) {
-            ResolveInfo ri = info.get(i);
-            if (ri.activityInfo.processName.equals(pkg)) {
-                return ri.activityInfo.name;
-            }
+        if (info == null || info.size() == 0) {
+            return "";
         }
         return info.get(0).activityInfo.name;
     }
@@ -1457,7 +1481,7 @@ public final class ActivityUtils {
      * @return the top activity in activity's stack
      */
     public static Activity getTopActivity() {
-        return Utils.getActivityLifecycle().getTopActivity();
+        return UtilsBridge.getTopActivity();
     }
 
     /**
@@ -1488,7 +1512,7 @@ public final class ActivityUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isActivityExistsInStack(@NonNull final Activity activity) {
-        List<Activity> activities = Utils.getActivityList();
+        List<Activity> activities = UtilsBridge.getActivityList();
         for (Activity aActivity : activities) {
             if (aActivity.equals(activity)) {
                 return true;
@@ -1504,7 +1528,7 @@ public final class ActivityUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isActivityExistsInStack(@NonNull final Class<? extends Activity> clz) {
-        List<Activity> activities = Utils.getActivityList();
+        List<Activity> activities = UtilsBridge.getActivityList();
         for (Activity aActivity : activities) {
             if (aActivity.getClass().equals(clz)) {
                 return true;
@@ -1568,7 +1592,7 @@ public final class ActivityUtils {
      */
     public static void finishActivity(@NonNull final Class<? extends Activity> clz,
                                       final boolean isLoadAnim) {
-        List<Activity> activities = Utils.getActivityList();
+        List<Activity> activities = UtilsBridge.getActivityList();
         for (Activity activity : activities) {
             if (activity.getClass().equals(clz)) {
                 activity.finish();
@@ -1591,7 +1615,7 @@ public final class ActivityUtils {
     public static void finishActivity(@NonNull final Class<? extends Activity> clz,
                                       @AnimRes final int enterAnim,
                                       @AnimRes final int exitAnim) {
-        List<Activity> activities = Utils.getActivityList();
+        List<Activity> activities = UtilsBridge.getActivityList();
         for (Activity activity : activities) {
             if (activity.getClass().equals(clz)) {
                 activity.finish();
@@ -1621,7 +1645,7 @@ public final class ActivityUtils {
     public static boolean finishToActivity(@NonNull final Activity activity,
                                            final boolean isIncludeSelf,
                                            final boolean isLoadAnim) {
-        List<Activity> activities = Utils.getActivityList();
+        List<Activity> activities = UtilsBridge.getActivityList();
         for (int i = activities.size() - 1; i >= 0; --i) {
             Activity aActivity = activities.get(i);
             if (aActivity.equals(activity)) {
@@ -1649,7 +1673,7 @@ public final class ActivityUtils {
                                            final boolean isIncludeSelf,
                                            @AnimRes final int enterAnim,
                                            @AnimRes final int exitAnim) {
-        List<Activity> activities = Utils.getActivityList();
+        List<Activity> activities = UtilsBridge.getActivityList();
         for (int i = activities.size() - 1; i >= 0; --i) {
             Activity aActivity = activities.get(i);
             if (aActivity.equals(activity)) {
@@ -1684,7 +1708,7 @@ public final class ActivityUtils {
     public static boolean finishToActivity(@NonNull final Class<? extends Activity> clz,
                                            final boolean isIncludeSelf,
                                            final boolean isLoadAnim) {
-        List<Activity> activities = Utils.getActivityList();
+        List<Activity> activities = UtilsBridge.getActivityList();
         for (int i = activities.size() - 1; i >= 0; --i) {
             Activity aActivity = activities.get(i);
             if (aActivity.getClass().equals(clz)) {
@@ -1712,7 +1736,7 @@ public final class ActivityUtils {
                                            final boolean isIncludeSelf,
                                            @AnimRes final int enterAnim,
                                            @AnimRes final int exitAnim) {
-        List<Activity> activities = Utils.getActivityList();
+        List<Activity> activities = UtilsBridge.getActivityList();
         for (int i = activities.size() - 1; i >= 0; --i) {
             Activity aActivity = activities.get(i);
             if (aActivity.getClass().equals(clz)) {
@@ -1744,7 +1768,7 @@ public final class ActivityUtils {
      */
     public static void finishOtherActivities(@NonNull final Class<? extends Activity> clz,
                                              final boolean isLoadAnim) {
-        List<Activity> activities = Utils.getActivityList();
+        List<Activity> activities = UtilsBridge.getActivityList();
         for (int i = activities.size() - 1; i >= 0; i--) {
             Activity activity = activities.get(i);
             if (!activity.getClass().equals(clz)) {
@@ -1765,7 +1789,7 @@ public final class ActivityUtils {
     public static void finishOtherActivities(@NonNull final Class<? extends Activity> clz,
                                              @AnimRes final int enterAnim,
                                              @AnimRes final int exitAnim) {
-        List<Activity> activities = Utils.getActivityList();
+        List<Activity> activities = UtilsBridge.getActivityList();
         for (int i = activities.size() - 1; i >= 0; i--) {
             Activity activity = activities.get(i);
             if (!activity.getClass().equals(clz)) {
@@ -1787,7 +1811,7 @@ public final class ActivityUtils {
      * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
      */
     public static void finishAllActivities(final boolean isLoadAnim) {
-        List<Activity> activityList = Utils.getActivityList();
+        List<Activity> activityList = UtilsBridge.getActivityList();
         for (int i = activityList.size() - 1; i >= 0; --i) {// remove from top
             Activity activity = activityList.get(i);
             // sActivityList remove the index activity at onActivityDestroyed
@@ -1808,7 +1832,7 @@ public final class ActivityUtils {
      */
     public static void finishAllActivities(@AnimRes final int enterAnim,
                                            @AnimRes final int exitAnim) {
-        List<Activity> activityList = Utils.getActivityList();
+        List<Activity> activityList = UtilsBridge.getActivityList();
         for (int i = activityList.size() - 1; i >= 0; --i) {// remove from top
             Activity activity = activityList.get(i);
             // sActivityList remove the index activity at onActivityDestroyed
@@ -1830,7 +1854,7 @@ public final class ActivityUtils {
      * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
      */
     public static void finishAllActivitiesExceptNewest(final boolean isLoadAnim) {
-        List<Activity> activities = Utils.getActivityList();
+        List<Activity> activities = UtilsBridge.getActivityList();
         for (int i = activities.size() - 2; i >= 0; i--) {
             finishActivity(activities.get(i), isLoadAnim);
         }
@@ -1846,7 +1870,7 @@ public final class ActivityUtils {
      */
     public static void finishAllActivitiesExceptNewest(@AnimRes final int enterAnim,
                                                        @AnimRes final int exitAnim) {
-        List<Activity> activities = Utils.getActivityList();
+        List<Activity> activities = UtilsBridge.getActivityList();
         for (int i = activities.size() - 2; i >= 0; i--) {
             finishActivity(activities.get(i), enterAnim, exitAnim);
         }

@@ -4,7 +4,6 @@ import com.android.build.api.transform.*
 import com.android.build.gradle.internal.pipeline.TransformManager
 import com.blankj.bus.util.JsonUtils
 import com.blankj.bus.util.LogUtils
-import com.blankj.bus.util.ZipUtils
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
 
@@ -25,7 +24,7 @@ class BusTransform extends Transform {
 
     @Override
     Set<QualifiedContent.ContentType> getInputTypes() {
-        return TransformManager.CONTENT_JARS
+        return TransformManager.CONTENT_CLASS
     }
 
     @Override
@@ -62,8 +61,6 @@ class BusTransform extends Transform {
 
         BusScan busScan = new BusScan(ext.busUtilsClass)
 
-        File javaResJar
-
         inputs.each { TransformInput input ->
             input.directoryInputs.each { DirectoryInput dirInput ->// 遍历文件夹
                 File dir = dirInput.file
@@ -92,12 +89,6 @@ class BusTransform extends Transform {
                 )
                 FileUtils.copyFile(jar, dest)
 
-                if (javaResJar == null && jarInput.contentTypes == TransformManager.CONTENT_RESOURCES) {
-                    LogUtils.l("resources jar: $jarName -> $dest")
-                    javaResJar = dest
-                    return
-                }
-
                 if (jumpScan(jarName, ext)) {
                     LogUtils.l("jump jar: $jarName -> $dest")
                     return
@@ -108,83 +99,67 @@ class BusTransform extends Transform {
             }
         }
 
-        if (busScan.busMap.isEmpty()) {
-            LogUtils.l("no bus.")
-        } else {
-            if (javaResJar == null) {
-                LogUtils.w("javaResJar didn't existed.")
+        if (busScan.busUtilsTransformFile != null) {
+            if (busScan.busMap.isEmpty()) {
+                LogUtils.l("no bus.")
             } else {
-                print2__bus__(busScan, ext, jsonFile)
-                injectBuses2Assets(javaResJar, busScan)
+                busScan.busMap.each { String tag, List<BusInfo> infoList ->
+                    infoList.sort(new Comparator<BusInfo>() {
+                        @Override
+                        int compare(BusInfo t0, BusInfo t1) {
+                            return t1.priority - t0.priority
+                        }
+                    })
+                }
+
+                Map<String, List<String>> rightBus = [:]
+                Map<String, List<String>> wrongBus = [:]
+                busScan.busMap.each { String tag, List<BusInfo> infoList ->
+                    List<String> rightInfoString = []
+                    List<String> wrongInfoString = []
+                    infoList.each { BusInfo info ->
+                        if (info.isParamSizeNoMoreThanOne) {
+                            rightInfoString.add(info.toString())
+                        } else {
+                            wrongInfoString.add(info.toString())
+                        }
+                    }
+                    if (!rightInfoString.isEmpty()) {
+                        rightBus.put(tag, rightInfoString)
+                    }
+                    if (!wrongInfoString.isEmpty()) {
+                        wrongBus.put(tag, wrongInfoString)
+                    }
+                }
+                Map busDetails = [:]
+                busDetails.put("BusUtilsClass", ext.busUtilsClass)
+                busDetails.put("rightBus", rightBus)
+                busDetails.put("wrongBus", wrongBus)
+                String busJson = JsonUtils.getFormatJson(busDetails)
+                LogUtils.l(jsonFile.toString() + ": " + busJson)
+                FileUtils.write(jsonFile, busJson)
+
+                if (wrongBus.size() > 0) {
+                    if (ext.abortOnError) {
+                        throw new Exception("These buses is not right: " + wrongBus +
+                                "\n u can check it in file: " + jsonFile.toString())
+                    }
+                }
+
+                BusInject.start(busScan.busMap, busScan.busUtilsTransformFile, ext.busUtilsClass)
             }
+        } else {
+            throw new Exception("No BusUtils of ${ext.busUtilsClass} in $mProject.")
         }
 
         LogUtils.l(getName() + " finished: " + (System.currentTimeMillis() - stTime) + "ms")
     }
 
-    private static void print2__bus__(BusScan busScan, BusExtension ext, File jsonFile) {
-        busScan.busMap.each { String tag, List<BusInfo> infoList ->
-            infoList.sort(new Comparator<BusInfo>() {
-                @Override
-                int compare(BusInfo t0, BusInfo t1) {
-                    return t1.priority - t0.priority
-                }
-            })
-        }
-
-        Map<String, List<String>> rightBus = [:]
-        Map<String, List<String>> wrongBus = [:]
-        busScan.busMap.each { String tag, List<BusInfo> infoList ->
-            List<String> rightInfoString = []
-            List<String> wrongInfoString = []
-            infoList.each { BusInfo info ->
-                if (info.isParamSizeNoMoreThanOne && info.priority >= 0) {
-                    rightInfoString.add(info.toString())
-                } else {
-                    wrongInfoString.add(info.toString())
-                }
-            }
-            if (!rightInfoString.isEmpty()) {
-                rightBus.put(tag, rightInfoString)
-            }
-            if (!wrongInfoString.isEmpty()) {
-                wrongBus.put(tag, wrongInfoString)
-            }
-        }
-        Map busDetails = [:]
-        busDetails.put("BusUtilsClass", ext.busUtilsClass)
-        busDetails.put("rightBus", rightBus)
-        busDetails.put("wrongBus", wrongBus)
-        String busJson = JsonUtils.getFormatJson(busDetails)
-        LogUtils.l(jsonFile.toString() + ": " + busJson)
-        FileUtils.write(jsonFile, busJson)
-
-        if (wrongBus.size() > 0) {
-            throw new IllegalArgumentException("These buses is not right: " + wrongBus +
-                    "\n u can check it in file: " + jsonFile.toString())
-        }
-    }
-
-    private static void injectBuses2Assets(File javaResJar, BusScan busScan) {
-        String javaResPath = javaResJar.getAbsolutePath()
-        File unzipJavaResDir = new File(javaResPath.substring(0, javaResPath.lastIndexOf(".")))
-        unzipJavaResDir.mkdirs()
-        ZipUtils.unzipFile(javaResJar, unzipJavaResDir)
-        File busDir = new File(unzipJavaResDir, Config.BUS_PATH)
-        busDir.mkdirs()
-        busScan.busMap.each { String tag, List<BusInfo> infoList ->
-            File busTagDir = new File(busDir, tag)
-            busTagDir.mkdir()
-            for (info in infoList) {
-                File busInfoFile = new File(busTagDir, info.getFileDesc())
-                busInfoFile.createNewFile()
-            }
-        }
-        javaResJar.delete()
-        ZipUtils.zipFiles(Arrays.asList(unzipJavaResDir.listFiles()), javaResJar)
-    }
-
     private static jumpScan(String jarName, BusExtension ext) {
+        if (jarName.contains("utilcode")) {
+            return false
+        }
+
         if (ext.onlyScanLibRegex != null && ext.onlyScanLibRegex.trim().length() > 0) {
             return !Pattern.matches(ext.onlyScanLibRegex, jarName)
         }

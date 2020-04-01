@@ -10,7 +10,6 @@ import com.blankj.utilcode.util.Utils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
-import kotlin.Unit;
 
 /**
  * <pre>
@@ -22,17 +21,17 @@ import kotlin.Unit;
  */
 public class CommonItemImage extends CommonItem {
 
-    private CharSequence                 mTitle;
-    private Utils.Func1<Unit, ImageView> mSetImageFunc1;
+    private CharSequence              mTitle;
+    private Utils.Consumer<ImageView> mSetImageConsumer;
 
-    public CommonItemImage(@StringRes int title, @NonNull Utils.Func1<Unit, ImageView> setImageFunc1) {
-        this(StringUtils.getString(title), setImageFunc1);
+    public CommonItemImage(@StringRes int title, @NonNull Utils.Consumer<ImageView> setImageConsumer) {
+        this(StringUtils.getString(title), setImageConsumer);
     }
 
-    public CommonItemImage(@NonNull CharSequence title, @NonNull Utils.Func1<Unit, ImageView> setImageFunc1) {
+    public CommonItemImage(@NonNull CharSequence title, @NonNull Utils.Consumer<ImageView> setImageConsumer) {
         super(R.layout.common_item_title_image);
         mTitle = title;
-        mSetImageFunc1 = setImageFunc1;
+        mSetImageConsumer = setImageConsumer;
     }
 
     @Override
@@ -42,6 +41,6 @@ public class CommonItemImage extends CommonItem {
 
         titleTv.setText(mTitle);
         ImageView commonItemIv = holder.findViewById(R.id.commonItemIv);
-        mSetImageFunc1.call(commonItemIv);
+        mSetImageConsumer.accept(commonItemIv);
     }
 }

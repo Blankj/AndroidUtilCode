@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.26.0'
+implementation 'com.blankj:utilcode:1.27.0'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.26.0'
+implementation 'com.blankj:utilcodex:1.27.0'
 ```
 
 
@@ -13,7 +13,9 @@ implementation 'com.blankj:utilcodex:1.26.0'
 
 * ### About Activity -> [ActivityUtils.java][activity.java] -> [Demo][activity.demo]
 ```
-getActivityByView
+addActivityLifecycleCallbacks
+removeActivityLifecycleCallbacks
+getAliveActivityByContext
 getActivityByContext
 isActivityExists
 startActivity
@@ -272,6 +274,8 @@ applyPressedBgAlpha
 applyPressedBgDark
 applySingleDebouncing
 applyGlobalDebouncing
+expandClickArea
+back2HomeFriendly
 ClickUtils#OnDebouncingClickListener
 ClickUtils#OnMultiClickListener
 ```
@@ -345,6 +349,12 @@ getRandomColor
 bytes2Bits, bits2Bytes
 bytes2Chars, chars2Bytes
 bytes2HexString, hexString2Bytes
+bytes2String, string2Bytes
+bytes2JSONObject, jsonObject2Bytes
+bytes2JSONArray, jsonArray2Bytes
+bytes2Parcelable, parcelable2Bytes
+bytes2Object, serializable2Bytes
+bytes2Bitmap, bitmap2Bytes
 memorySize2Byte, byte2MemorySize
 byte2FitMemorySize
 timeSpan2Millis, millis2TimeSpan
@@ -354,7 +364,7 @@ inputStream2Bytes, bytes2InputStream
 outputStream2Bytes, bytes2OutputStream
 inputStream2String, string2InputStream
 outputStream2String, string2OutputStream
-bitmap2Bytes, bytes2Bitmap
+inputStream2Lines
 drawable2Bitmap, bitmap2Drawable
 drawable2Bytes, bytes2Drawable
 view2Bitmap
@@ -401,6 +411,8 @@ base64Encode2String
 base64Decode
 htmlEncode
 htmlDecode
+binaryEncode
+binaryDecode
 ```
 
 * ### About Encrypt -> [EncryptUtils.java][encrypt.java] -> [Test][encrypt.test]
@@ -427,6 +439,7 @@ encryptAES, encryptAES2HexString, encryptAES2Base64
 decryptAES, decryptHexStringAES, decryptBase64AES
 encryptRSA, encryptRSA2HexString, encryptRSA2Base64
 decryptRSA, decryptHexStringRSA, decryptBase64RSA
+rc4
 ```
 
 * ### About FileIO -> [FileIOUtils.java][fileIo.java] -> [Test][fileIo.test]
@@ -506,6 +519,8 @@ setBackground
 
 * ### About Gson -> [GsonUtils.java][gson.java] -> [Test][gson.test]
 ```
+setGsonDelegate
+setGson
 getGson
 toJson
 fromJson
@@ -667,6 +682,7 @@ getGatewayByWifi
 getNetMaskByWifi
 getServerAddressByWifi
 registerNetworkStatusChangedListener
+isRegistered
 unregisterNetworkStatusChangedListener
 ```
 
@@ -684,9 +700,11 @@ setNotificationBarVisibility
 isEmpty
 isNotEmpty
 equals
-requireNonNull
+compare
+requireNonNull(s)
 getOrDefault
-hashCode
+toString
+hashCode(s)
 ```
 
 * ### About Path -> [PathUtils.java][path.java] -> [Demo][path.demo]
@@ -799,6 +817,20 @@ getMatches
 getSplits
 getReplaceFirst
 getReplaceAll
+RegexConstants.REGEX_DOUBLE_BYTE_CHAR
+RegexConstants.REGEX_BLANK_LINE
+RegexConstants.REGEX_QQ_NUM
+RegexConstants.REGEX_CHINA_POSTAL_CODE
+RegexConstants.REGEX_INTEGER
+RegexConstants.REGEX_POSITIVE_INTEGER
+RegexConstants.REGEX_NEGATIVE_INTEGER
+RegexConstants.REGEX_NOT_NEGATIVE_INTEGER
+RegexConstants.REGEX_NOT_POSITIVE_INTEGER
+RegexConstants.REGEX_FLOAT
+RegexConstants.REGEX_POSITIVE_FLOAT
+RegexConstants.REGEX_NEGATIVE_FLOAT
+RegexConstants.REGEX_NOT_NEGATIVE_FLOAT
+RegexConstants.REGEX_NOT_POSITIVE_FLOAT
 ```
 
 * ### About Resource -> [ResourceUtils.java][resource.java] -> [Demo][resource.demo]
@@ -876,6 +908,8 @@ isSDCardEnableByEnvironment
 getSDCardPathByEnvironment
 getSDCardInfo
 getMountedSDCardPath
+getTotalSize
+getAvailableSize
 ```
 
 * ### About Service -> [ServiceUtils.java][service.java]
@@ -1008,6 +1042,8 @@ lowerFirstLetter
 reverse
 toDBC
 toSBC
+getString
+getStringArray
 ```
 
 * ### About Thread -> [ThreadUtils.java][thread.java] -> [Test][thread.test]

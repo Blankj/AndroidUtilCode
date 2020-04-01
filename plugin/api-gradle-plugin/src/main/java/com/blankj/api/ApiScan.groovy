@@ -1,6 +1,6 @@
 package com.blankj.api
 
-
+import com.blankj.api.util.LogUtils
 import com.blankj.api.util.ZipUtils
 import groovy.io.FileType
 import org.apache.commons.io.FileUtils
@@ -12,6 +12,7 @@ class ApiScan {
 
     Map<String, ApiInfo> apiImplMap = [:]
     List<String> apiClasses = []
+    File apiUtilsTransformFile
     String apiUtilsClass
 
     ApiScan(String apiUtilsClass) {
@@ -53,6 +54,10 @@ class ApiScan {
             def className = packagePath.replace(Config.FILE_SEP, ".")
             // delete .class
             className = className.substring(0, className.length() - 6)
+            if (apiUtilsClass == className) {
+                apiUtilsTransformFile = source
+                LogUtils.l("<ApiUtils transform file>: $source")
+            }
 
             ClassReader cr = new ClassReader(file.bytes);
             ClassWriter cw = new ClassWriter(cr, 0);

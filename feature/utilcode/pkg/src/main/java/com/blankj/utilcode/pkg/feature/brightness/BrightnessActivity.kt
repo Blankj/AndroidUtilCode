@@ -5,8 +5,6 @@ import android.content.Intent
 import android.os.Build
 import android.widget.SeekBar
 import com.blankj.common.activity.CommonActivity
-import com.blankj.common.activity.CommonActivityItemsView
-import com.blankj.common.activity.CommonActivityTitleView
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemSeekBar
 import com.blankj.common.item.CommonItemSwitch
@@ -70,10 +68,10 @@ class BrightnessActivity : CommonActivity() {
                 }),
                 CommonItemSwitch(
                         R.string.brightness_auto_brightness,
-                        Utils.Func1 {
+                        Utils.Supplier {
                             BrightnessUtils.isAutoBrightnessEnabled()
                         },
-                        Utils.Func1 {
+                        Utils.Consumer {
                             BrightnessUtils.setAutoBrightnessEnabled(it)
                         }
                 )

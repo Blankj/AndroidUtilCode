@@ -26,6 +26,17 @@ public class ApiUtils {
     private Map<Class, Class>   mInjectApiImplMap = new HashMap<>();
 
     private ApiUtils() {
+        init();
+    }
+
+    /**
+     * It'll be injected the implClasses who have {@link ApiUtils.Api} annotation
+     * by function of {@link ApiUtils#registerImpl} when execute transform task.
+     */
+    private void init() {/*inject*/}
+
+    private void registerImpl(Class implClass) {
+        mInjectApiImplMap.put(implClass.getSuperclass(), implClass);
     }
 
     /**

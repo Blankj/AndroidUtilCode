@@ -1,5 +1,6 @@
 package com.blankj.common.dialog;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
@@ -11,8 +12,6 @@ import com.blankj.base.dialog.BaseDialogFragment;
 import com.blankj.base.dialog.DialogLayoutCallback;
 import com.blankj.common.R;
 import com.blankj.utilcode.util.ClickUtils;
-
-import androidx.fragment.app.FragmentActivity;
 
 /**
  * <pre>
@@ -32,10 +31,10 @@ public class CommonDialogContent extends BaseDialogFragment {
     private TextView       cdcBottomPositiveTv;
     private TextView       cdcBottomNegativeTv;
 
-    public CommonDialogContent init(FragmentActivity activity, final CharSequence title, final CharSequence content,
+    public CommonDialogContent init(Context context, final CharSequence title, final CharSequence content,
                                     final Pair<CharSequence, View.OnClickListener> positiveBtnAction,
                                     final Pair<CharSequence, View.OnClickListener> negativeBtnAction) {
-        super.init(activity, new DialogLayoutCallback() {
+        super.init(context, new DialogLayoutCallback() {
             @Override
             public int bindTheme() {
                 return R.style.CommonContentDialogStyle;

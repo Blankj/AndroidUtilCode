@@ -14,62 +14,98 @@ import java.text.SimpleDateFormat
  */
 class GitUtils {
 
-    private static String sCurBranchName;
+    private static Project rootProject;
 
     static void init(Gradle gradle) {
-        gradle.rootProject(new Action<Project>() {
-            @Override
-            void execute(Project project) {
-                sCurBranchName = getGitBranch()
-                addGitPushTask(project)
-                addGitPushAndMerge2MasterTask(project)
-                addGitNewBranchTask(project)
+        rootProject = gradle.rootProject
+        addGitHelpTask()
+    }
+
+    static def addGitHelpTask() {
+        rootProject.task("gitHelp").doLast {
+            def commands = [
+                    "                 ############## input command code #################",
+                    "                 #          [1] Git Push                           #",
+                    "                 #          [2] Git Push And Merge to Master       #",
+                    "                 #          [3] Git New Branch                     #",
+                    "                 #          [0] exit                               #",
+                    "                 ###################################################",
+            ]
+            String commandTips = String.join(System.getProperty("line.separator"), commands)
+            while (true) {
+                GLog.l(commandTips)
+                Scanner scanner = new Scanner(System.in)
+                def input = scanner.next()
+                GLog.l(input)
+                switch (input) {
+                    case "1":
+                        gitPush()
+                        break
+                    case "2":
+                        gitPushAndMerge2Master()
+                        break
+                    case "3":
+                        gitNewBranch()
+                        break
+                    case "0":
+                        return
+                }
             }
-        })
-    }
-
-    static def getGitBranch() {
-        return ShellUtils.execCmd('git symbolic-ref --short -q HEAD').successMsg
-    }
-
-    static void addGitPushTask(Project project) {
-        project.task("gitPush").doLast {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd")
-            String date = simpleDateFormat.format(new Date())
-            GLog.d(ShellUtils.execCmd([
-                    "git add -A",
-                    "git commit -m \"see $date log\"",
-                    "git push origin $sCurBranchName"
-            ] as String[]))
         }
     }
 
-    static void addGitPushAndMerge2MasterTask(Project project) {
-        project.task("gitPushAndMerge2Master").doLast {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd")
-            String date = simpleDateFormat.format(new Date())
-            GLog.d(ShellUtils.execCmd([
-                    "git add -A",
-                    "git commit -m \"see $date log\"",
-                    "git push origin $sCurBranchName",
-                    "git checkout master",
-                    "git merge $sCurBranchName",
-                    "git push origin master",
-                    "git checkout $sCurBranchName",
-            ] as String[]))
-        }
+    static void gitPush() {
+        String branchName = getGitBranch()
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd")
+        String date = simpleDateFormat.format(new Date())
+        exeCmd(
+                "git add -A",
+                "git commit -m \"see $date log\"",
+                "git push origin $branchName"
+        )
     }
 
-    static void addGitNewBranchTask(Project project) {
-        project.task("gitNewBranch").doLast {
-            GLog.d(ShellUtils.execCmd([
-                    "git checkout master",
-                    "git checkout -b ${Config.versionName}",
-                    "git push origin ${Config.versionName}:${Config.versionName}",
-            ] as String[]))
+    static void gitPushAndMerge2Master() {
+        String branchName = getGitBranch()
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd")
+        String date = simpleDateFormat.format(new Date())
+        exeCmd(
+                "git add -A",
+                "git commit -m \"see $date log\"",
+                "git push origin $branchName",
+                "git checkout master",
+                "git merge $branchName",
+                "git push origin master",
+                "git checkout $branchName"
+        )
+    }
+
+    static void gitNewBranch() {
+        exeCmd(
+                "git checkout master",
+                "git checkout -b ${Config.versionName}",
+                "git push origin ${Config.versionName}:${Config.versionName}",
+        )
+    }
+
+    private static def getGitBranch() {
+        return exeCmd("git symbolic-ref --short -q HEAD")
+    }
+
+    private static def exeCmd(String... cmds) {
+        String output = ""
+        for (def cmd in cmds) {
+            output = _exeCmd(cmd)
         }
+        return output
+    }
+
+    private static def _exeCmd(String cmd) {
+        def output = new StringBuilder()
+        GLog.l("Execute command: ${cmd}")
+        def cmdResult = ShellUtils.execCmd(cmd)
+        GLog.l("$cmdResult")
+        return cmdResult.successMsg
     }
 }
-// ./gradlew gitPush
-// ./gradlew gitPushAndMerge2Master
-// ./gradlew gitNewBranch
+// ./gradlew gitHelp

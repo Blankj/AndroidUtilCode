@@ -12,5 +12,4 @@ dependencies {
     api Config.depConfig.swipe_panel.dep
     api Config.depConfig.eventbus_lib.dep
     compileOnly Config.depConfig.lib_utildebug_no_op.dep
-    compileOnly Config.depConfig.leakcanary_android_no_op.dep
 }

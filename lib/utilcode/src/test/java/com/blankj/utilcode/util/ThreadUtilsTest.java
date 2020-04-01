@@ -405,7 +405,7 @@ public class ThreadUtilsTest extends BaseTest {
     @Test
     public void testTimeout() throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(1);
-        ThreadUtils.SimpleTask<Boolean> task = new ThreadUtils.SimpleTask<Boolean>() {
+        ThreadUtils.Task<Boolean> task = new ThreadUtils.SimpleTask<Boolean>() {
             @Override
             public Boolean doInBackground() throws Throwable {
                 System.out.println("doInBackground start");
@@ -418,8 +418,7 @@ public class ThreadUtilsTest extends BaseTest {
             public void onSuccess(Boolean result) {
                 System.out.println("onSuccess");
             }
-        };
-        task.setTimeout(1000, new ThreadUtils.Task.OnTimeoutListener() {
+        }.setTimeout(1000, new ThreadUtils.Task.OnTimeoutListener() {
             @Override
             public void onTimeout() {
                 System.out.println("onTimeout");

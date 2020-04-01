@@ -5,7 +5,7 @@ buildscript {
         // use for debug plugin local
         if (Config.depConfig.plugin_bus.useLocal || Config.depConfig.plugin_api.useLocal) {
             maven() {
-                url new File("maven")
+                url new File("mavenLocal")
             }
         }
         maven {

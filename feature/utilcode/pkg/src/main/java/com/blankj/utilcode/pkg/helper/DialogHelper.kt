@@ -1,5 +1,6 @@
 package com.blankj.utilcode.pkg.helper
 
+import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.graphics.drawable.ColorDrawable
@@ -29,22 +30,22 @@ import com.blankj.utilcode.util.*
  */
 object DialogHelper {
 
-    fun showRationaleDialog(shouldRequest: PermissionUtils.OnRationaleListener.ShouldRequest) {
-        val topActivity = ActivityUtils.getTopActivity() ?: return
-        CommonDialogContent().init(topActivity as FragmentActivity,
-                StringUtils.getString(android.R.string.dialog_alert_title),
-                StringUtils.getString(R.string.permission_rationale_message),
-                Pair(StringUtils.getString(android.R.string.ok), View.OnClickListener {
-                    shouldRequest.again(true)
-                }),
-                Pair(StringUtils.getString(android.R.string.cancel), View.OnClickListener {
-                    shouldRequest.again(false)
-                })).show()
+    fun showRationaleDialog(context: Context, shouldRequest: PermissionUtils.OnRationaleListener.ShouldRequest) {
+        fun showRationaleDialog(context: Context, shouldRequest: PermissionUtils.OnRationaleListener.ShouldRequest) {
+            CommonDialogContent().init(context,
+                    StringUtils.getString(android.R.string.dialog_alert_title),
+                    StringUtils.getString(R.string.permission_rationale_message),
+                    Pair(StringUtils.getString(android.R.string.ok), View.OnClickListener {
+                        shouldRequest.again(true)
+                    }),
+                    Pair(StringUtils.getString(android.R.string.cancel), View.OnClickListener {
+                        shouldRequest.again(false)
+                    })).show()
+        }
     }
 
-    fun showOpenAppSettingDialog() {
-        val topActivity = ActivityUtils.getTopActivity() ?: return
-        CommonDialogContent().init(topActivity as FragmentActivity,
+    fun showOpenAppSettingDialog(context: Context) {
+        CommonDialogContent().init(context,
                 StringUtils.getString(android.R.string.dialog_alert_title),
                 StringUtils.getString(R.string.permission_denied_forever_message),
                 Pair(StringUtils.getString(android.R.string.ok), View.OnClickListener {
@@ -55,9 +56,8 @@ object DialogHelper {
                 .show()
     }
 
-    fun showKeyboardDialog() {
-        val topActivity = ActivityUtils.getTopActivity() ?: return
-        BaseDialogFragment().init(topActivity as FragmentActivity, object : DialogLayoutCallback {
+    fun showKeyboardDialog(context: Context) {
+        BaseDialogFragment().init(context, object : DialogLayoutCallback {
             override fun bindTheme(): Int {
                 return View.NO_ID
             }
@@ -87,7 +87,7 @@ object DialogHelper {
                 contentView.findViewById<View>(R.id.keyboardDialogCloseBtn).setOnClickListener(listener)
 
                 dialog.dialog.setOnShowListener(DialogInterface.OnShowListener {
-                    KeyboardUtils.fixAndroidBug5497(dialog.dialog.window)
+                    KeyboardUtils.fixAndroidBug5497(dialog.dialog.window!!)
                 })
             }
 

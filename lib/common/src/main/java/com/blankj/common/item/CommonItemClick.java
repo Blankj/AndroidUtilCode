@@ -11,7 +11,6 @@ import com.blankj.utilcode.util.Utils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
-import kotlin.Unit;
 
 /**
  * <pre>
@@ -103,11 +102,11 @@ public class CommonItemClick extends CommonItem<CommonItemClick> {
         });
     }
 
-    public CommonItemClick setOnClickUpdateContentListener(@NonNull final Utils.Func1<CharSequence, Unit> func1) {
+    public CommonItemClick setOnClickUpdateContentListener(@NonNull final Utils.Supplier<CharSequence> supplier) {
         setOnItemClickListener(new OnItemClickListener<CommonItemClick>() {
             @Override
             public void onItemClick(ItemViewHolder holder, CommonItemClick item, int position) {
-                item.mContent = func1.call(null);
+                item.mContent = supplier.get();
                 update();
             }
         });

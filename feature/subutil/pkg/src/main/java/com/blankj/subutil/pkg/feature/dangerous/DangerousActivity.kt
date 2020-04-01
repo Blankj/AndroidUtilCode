@@ -24,7 +24,7 @@ class DangerousActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
-            PermissionHelper.requestStorageAndSms(object : PermissionHelper.OnPermissionGrantedListener {
+            PermissionHelper.requestStorageAndSms(context, object : PermissionHelper.OnPermissionGrantedListener {
                 override fun onPermissionGranted() {
                     val starter = Intent(context, DangerousActivity::class.java)
                     context.startActivity(starter)
@@ -87,9 +87,9 @@ class DangerousActivity : CommonActivity() {
                 CommonItemClick(R.string.dangerous_reboot_to_bootloader) {
                     ToastUtils.showShort(DangerousUtils.reboot2Bootloader().toString())
                 },
-                CommonItemSwitch(R.string.dangerous_data_enabled, Utils.Func1 {
+                CommonItemSwitch(R.string.dangerous_data_enabled, Utils.Supplier {
                     NetworkUtils.getMobileDataEnabled()
-                }, Utils.Func1 {
+                }, Utils.Consumer {
                     if (AppUtils.isAppSystem()) {
                         DangerousUtils.setMobileDataEnabled(it)
                     }

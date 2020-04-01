@@ -1,12 +1,9 @@
-package com.blankj.plugin
+package com.blankj.plugin.readme
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-import static FormatUtils.LINE_SEP
-
-
-class ReadmeSubPlugin implements Plugin<Project> {
+class ReadmeCorePlugin implements Plugin<Project> {
 
     @Override
     void apply(Project project) {
@@ -20,33 +17,32 @@ class ReadmeSubPlugin implements Plugin<Project> {
                 def readmeCN = ext.readmeCnFile
                 def readmeEng = ext.readmeFile
 
-                readmeOfSubUtil2Eng(readmeCN, readmeEng)
+                readmeOfUtilCode2Eng(readmeCN, readmeEng)
 
                 println "readmeTask finished."
             }
         }
     }
 
-    static def readmeOfSubUtil2Eng(File readmeCN, File readmeEng) {
+    static def readmeOfUtilCode2Eng(File readmeCN, File readmeEng) {
         FormatUtils.format(readmeCN)
-        def lines = readmeCN.readLines("UTF-8"),
-            sb = new StringBuilder("## How to use" + LINE_SEP
-                    + LINE_SEP +
-                    "You should copy the following classes which you want to use in your project." + LINE_SEP),
-            i = 3,
-            size = lines.size()
-        for (; i < size; ++i) {
-            String line = lines.get(i)
+        def lines = readmeCN.readLines("UTF-8")
+        def sb = new StringBuilder()
+        readmeCN.eachLine { line ->
             if (line.contains("* ###")) {
                 String utilsName = line.substring(line.indexOf("[") + 1, line.indexOf("Utils"))
                 sb.append("* ### About ").append(utilsName).append(line.substring(line.indexOf(" -> ")))
             } else if (line.contains(": ") && !line.contains("[")) {
                 sb.append(line.substring(0, line.indexOf(':')).trim())
+            } else if (line.contains("打个小广告") || line.contains("知识星球") || line.contains("我的二维码")) {
+                return
             } else {
                 sb.append(line)
             }
-            sb.append(LINE_SEP)
+            sb.append(FormatUtils.LINE_SEP)
         }
         readmeEng.write(sb.toString(), "UTF-8")
     }
 }
+
+

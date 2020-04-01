@@ -50,7 +50,7 @@ class DepConfig {
         this.remotePath = remotePath
     }
 
-    void setPluginPath(String pluginPath){
+    void setPluginPath(String pluginPath) {
         this.pluginPath = pluginPath
         this.remotePath = pluginPath
     }
@@ -73,6 +73,10 @@ class DepConfig {
     String getVersion() {
         String[] splits = remotePath.split(":")
         return splits.length == 3 ? splits[2] : null
+    }
+
+    String getProjectPath() {
+        return localPath.substring(0, localPath.lastIndexOf(":")) + ":" + localPath.substring(1).replace(":", "_")
     }
 
     @Override

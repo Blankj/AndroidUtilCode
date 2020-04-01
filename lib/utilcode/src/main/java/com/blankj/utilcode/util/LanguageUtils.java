@@ -1,11 +1,11 @@
 package com.blankj.utilcode.util;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
@@ -14,7 +14,7 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
-import java.util.List;
+import java.lang.reflect.Field;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
@@ -114,18 +114,18 @@ public class LanguageUtils {
                                       final boolean isFollowSystem,
                                       final boolean isNeedStartActivity) {
         if (isFollowSystem) {
-            Utils.getSpUtils4Utils().put(KEY_LOCALE, VALUE_FOLLOW_SYSTEM);
+            UtilsBridge.getSpUtils4Utils().put(KEY_LOCALE, VALUE_FOLLOW_SYSTEM);
         } else {
             String localLanguage = locale.getLanguage();
             String localCountry = locale.getCountry();
-            Utils.getSpUtils4Utils().put(KEY_LOCALE, localLanguage + "$" + localCountry);
+            UtilsBridge.getSpUtils4Utils().put(KEY_LOCALE, localLanguage + "$" + localCountry);
         }
 
         updateLanguage(Utils.getApp(), locale);
 
         if (isNeedStartActivity) {
             Intent intent = new Intent();
-            String realActivityClassName = TextUtils.isEmpty(activityClassName) ? getLauncherActivity() : activityClassName;
+            String realActivityClassName = TextUtils.isEmpty(activityClassName) ? UtilsBridge.getLauncherActivity() : activityClassName;
             intent.setComponent(new ComponentName(Utils.getApp(), realActivityClassName));
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             Utils.getApp().startActivity(intent);
@@ -138,7 +138,7 @@ public class LanguageUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isAppliedSystemLanguage() {
-        return VALUE_FOLLOW_SYSTEM.equals(Utils.getSpUtils4Utils().getString(KEY_LOCALE));
+        return VALUE_FOLLOW_SYSTEM.equals(UtilsBridge.getSpUtils4Utils().getString(KEY_LOCALE));
     }
 
     /**
@@ -147,7 +147,7 @@ public class LanguageUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isAppliedLanguage() {
-        return !TextUtils.isEmpty(Utils.getSpUtils4Utils().getString(KEY_LOCALE));
+        return !TextUtils.isEmpty(UtilsBridge.getSpUtils4Utils().getString(KEY_LOCALE));
     }
 
     /**
@@ -160,7 +160,7 @@ public class LanguageUtils {
     }
 
     static void applyLanguage(@NonNull final Activity activity) {
-        final String spLocale = Utils.getSpUtils4Utils().getString(KEY_LOCALE);
+        final String spLocale = UtilsBridge.getSpUtils4Utils().getString(KEY_LOCALE);
         if (TextUtils.isEmpty(spLocale)) {
             return;
         }
@@ -183,50 +183,33 @@ public class LanguageUtils {
         updateLanguage(activity, settingLocale);
     }
 
-    private static void updateLanguage(Context context, Locale locale) {
+    private static void updateLanguage(final Context context, Locale locale) {
         Resources resources = context.getResources();
         Configuration config = resources.getConfiguration();
         Locale contextLocale = config.locale;
-        if (equals(contextLocale.getLanguage(), locale.getLanguage())
-                && equals(contextLocale.getCountry(), locale.getCountry())) {
+        if (isSameLocale(contextLocale, locale)) {
             return;
         }
         DisplayMetrics dm = resources.getDisplayMetrics();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             config.setLocale(locale);
-            context.createConfigurationContext(config);
+            if (context instanceof Application) {
+                Context newContext = context.createConfigurationContext(config);
+                try {
+                    //noinspection JavaReflectionMemberAccess
+                    Field mBaseField = ContextWrapper.class.getDeclaredField("mBase");
+                    mBaseField.setAccessible(true);
+                    mBaseField.set(context, newContext);
+                } catch (Exception ignored) {/**/}
+            }
         } else {
             config.locale = locale;
         }
         resources.updateConfiguration(config, dm);
     }
 
-    private static boolean equals(final CharSequence s1, final CharSequence s2) {
-        if (s1 == s2) return true;
-        int length;
-        if (s1 != null && s2 != null && (length = s1.length()) == s2.length()) {
-            if (s1 instanceof String && s2 instanceof String) {
-                return s1.equals(s2);
-            } else {
-                for (int i = 0; i < length; i++) {
-                    if (s1.charAt(i) != s2.charAt(i)) return false;
-                }
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static String getLauncherActivity() {
-        Intent intent = new Intent(Intent.ACTION_MAIN, null);
-        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        intent.setPackage(Utils.getApp().getPackageName());
-        PackageManager pm = Utils.getApp().getPackageManager();
-        List<ResolveInfo> info = pm.queryIntentActivities(intent, 0);
-        ResolveInfo next = info.iterator().next();
-        if (next != null) {
-            return next.activityInfo.name;
-        }
-        return "no launcher activity";
+    private static boolean isSameLocale(Locale locale, Locale contextLocale) {
+        return UtilsBridge.equals(contextLocale.getLanguage(), locale.getLanguage())
+                && UtilsBridge.equals(contextLocale.getCountry(), locale.getCountry());
     }
 }

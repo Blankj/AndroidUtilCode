@@ -1,11 +1,10 @@
 package com.blankj.subutil.pkg.helper
 
+import android.content.Context
 import android.util.Pair
 import android.view.View
-import androidx.fragment.app.FragmentActivity
 import com.blankj.common.dialog.CommonDialogContent
 import com.blankj.subutil.pkg.R
-import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.PermissionUtils.OnRationaleListener.ShouldRequest
 import com.blankj.utilcode.util.StringUtils
@@ -20,9 +19,8 @@ import com.blankj.utilcode.util.StringUtils
  */
 object DialogHelper {
 
-    fun showRationaleDialog(shouldRequest: ShouldRequest) {
-        val topActivity = ActivityUtils.getTopActivity() ?: return
-        CommonDialogContent().init(topActivity as FragmentActivity?,
+    fun showRationaleDialog(context: Context, shouldRequest: ShouldRequest) {
+        CommonDialogContent().init(context,
                 StringUtils.getString(android.R.string.dialog_alert_title),
                 StringUtils.getString(R.string.permission_rationale_message),
                 Pair(StringUtils.getString(android.R.string.ok), View.OnClickListener {
@@ -34,9 +32,8 @@ object DialogHelper {
                 .show()
     }
 
-    fun showOpenAppSettingDialog() {
-        val topActivity = ActivityUtils.getTopActivity() ?: return
-        CommonDialogContent().init(topActivity as FragmentActivity?,
+    fun showOpenAppSettingDialog(context: Context) {
+        CommonDialogContent().init(context,
                 StringUtils.getString(android.R.string.dialog_alert_title),
                 StringUtils.getString(R.string.permission_denied_forever_message),
                 Pair(StringUtils.getString(android.R.string.ok), View.OnClickListener {

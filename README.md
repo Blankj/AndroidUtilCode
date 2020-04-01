@@ -51,7 +51,7 @@ If this project helps you a lot and you want to support the project's developmen
 
 [frame]: https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/auc_frame.png
 
-[aucSvg]: https://img.shields.io/badge/AndroidUtilCode-v1.26.0-brightgreen.svg
+[aucSvg]: https://github.com/Blankj/AndroidUtilCode/workflows/Android%20CI/badge.svg?branch=master
 [auc]: https://github.com/Blankj/AndroidUtilCode
 
 [apiSvg]: https://img.shields.io/badge/API-14+-brightgreen.svg

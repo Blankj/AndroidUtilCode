@@ -1,5 +1,6 @@
 package com.blankj.utilcode.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
@@ -100,7 +101,7 @@ public final class ScreenUtils {
      * @return the density of screen
      */
     public static float getScreenDensity() {
-        return Utils.getApp().getResources().getDisplayMetrics().density;
+        return Resources.getSystem().getDisplayMetrics().density;
     }
 
     /**
@@ -109,7 +110,7 @@ public final class ScreenUtils {
      * @return the screen density expressed as dots-per-inch
      */
     public static int getScreenDensityDpi() {
-        return Utils.getApp().getResources().getDisplayMetrics().densityDpi;
+        return Resources.getSystem().getDisplayMetrics().densityDpi;
     }
 
     /**
@@ -161,6 +162,7 @@ public final class ScreenUtils {
      *
      * @param activity The activity.
      */
+    @SuppressLint("SourceLockedOrientationActivity")
     public static void setLandscape(@NonNull final Activity activity) {
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
@@ -170,6 +172,7 @@ public final class ScreenUtils {
      *
      * @param activity The activity.
      */
+    @SuppressLint("SourceLockedOrientationActivity")
     public static void setPortrait(@NonNull final Activity activity) {
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }

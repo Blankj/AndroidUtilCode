@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.26.0'
+implementation 'com.blankj:utilcode:1.27.0'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.26.0'
+implementation 'com.blankj:utilcodex:1.27.0'
 ```
 
 
@@ -13,24 +13,26 @@ implementation 'com.blankj:utilcodex:1.26.0'
 
 * ### Activity 相关 -> [ActivityUtils.java][activity.java] -> [Demo][activity.demo]
 ```
-getActivityByView              : 根据视图获取 Activity
-getActivityByContext           : 根据上下文获取 Activity
-isActivityExists               : 判断 Activity 是否存在
-startActivity                  : 启动 Activity
-startActivityForResult         : 启动 Activity 为返回结果
-startActivities                : 启动多个 Activity
-startHomeActivity              : 回到桌面
-getActivityList                : 获取 Activity 栈链表
-getLauncherActivity            : 获取启动项 Activity
-getMainActivities              : 获取主的 Activity 们
-getTopActivity                 : 获取栈顶 Activity
-isActivityAlive                : 判断 Activity 是否存活
-isActivityExistsInStack        : 判断 Activity 是否存在栈中
-finishActivity                 : 结束 Activity
-finishToActivity               : 结束到指定 Activity
-finishOtherActivities          : 结束所有其他类型的 Activity
-finishAllActivities            : 结束所有 Activity
-finishAllActivitiesExceptNewest: 结束除最新之外的所有 Activity
+addActivityLifecycleCallbacks   : 新增 Activity 生命周期监听
+removeActivityLifecycleCallbacks: 移除 Activity 生命周期监听
+getAliveActivityByContext       : 根据上下文获取存活的 Activity
+getActivityByContext            : 根据上下文获取 Activity
+isActivityExists                : 判断 Activity 是否存在
+startActivity                   : 启动 Activity
+startActivityForResult          : 启动 Activity 为返回结果
+startActivities                 : 启动多个 Activity
+startHomeActivity               : 回到桌面
+getActivityList                 : 获取 Activity 栈链表
+getLauncherActivity             : 获取启动项 Activity
+getMainActivities               : 获取主的 Activity 们
+getTopActivity                  : 获取栈顶 Activity
+isActivityAlive                 : 判断 Activity 是否存活
+isActivityExistsInStack         : 判断 Activity 是否存在栈中
+finishActivity                  : 结束 Activity
+finishToActivity                : 结束到指定 Activity
+finishOtherActivities           : 结束所有其他类型的 Activity
+finishAllActivities             : 结束所有 Activity
+finishAllActivitiesExceptNewest : 结束除最新之外的所有 Activity
 ```
 
 * ### AdaptScreen 相关 -> [AdaptScreenUtils.java][adaptScreen.java] -> [Demo][adaptScreen.demo]
@@ -135,8 +137,8 @@ isNavBarVisible                      : 判断导航栏是否可见
 setNavBarColor                       : 设置导航栏颜色
 getNavBarColor                       : 获取导航栏颜色
 isSupportNavBar                      : 判断是否支持导航栏
-setNavBarLightMode                   : 设置状态栏是否为浅色模式
-isNavBarLightMode                    : 判断状态栏是否为浅色模式
+setNavBarLightMode                   : 设置导航栏是否为浅色模式
+isNavBarLightMode                    : 判断导航栏是否为浅色模式
 ```
 
 * ### 亮度相关 -> [BrightnessUtils.java][brightness.java] -> [Demo][brightness.demo]
@@ -272,6 +274,7 @@ applyPressedBgAlpha                 : 应用点击后对背景改变透明度
 applyPressedBgDark                  : 应用点击后对背景加深
 applySingleDebouncing               : 对单视图应用防抖点击
 applyGlobalDebouncing               : 对所有设置 GlobalDebouncing 的视图应用防抖点击
+expandClickArea                     : 扩大点击区域
 back2HomeFriendly                   : 友好地返回桌面
 ClickUtils#OnDebouncingClickListener: 防抖点击监听器
 ClickUtils#OnMultiClickListener     : 连续点击监听器
@@ -346,6 +349,12 @@ getRandomColor   : 获取随机色
 bytes2Bits, bits2Bytes                  : bytes 与 bits 互转
 bytes2Chars, chars2Bytes                : bytes 与 chars 互转
 bytes2HexString, hexString2Bytes        : bytes 与 hexString 互转
+bytes2String, string2Bytes              : bytes 与 string 互转
+bytes2JSONObject, jsonObject2Bytes      : bytes 与 JSONObject 互转
+bytes2JSONArray, jsonArray2Bytes        : bytes 与 JSONArray 互转
+bytes2Parcelable, parcelable2Bytes      : bytes 与 Parcelable 互转
+bytes2Object, serializable2Bytes        : bytes 与 Object 互转
+bytes2Bitmap, bitmap2Bytes              : bytes 与 Bitmap 互转
 memorySize2Byte, byte2MemorySize        : 以 unit 为单位的内存大小与字节数互转
 byte2FitMemorySize                      : 字节数转合适内存大小
 timeSpan2Millis, millis2TimeSpan        : 以 unit 为单位的时间长度与毫秒时间戳互转
@@ -355,7 +364,7 @@ inputStream2Bytes, bytes2InputStream    : inputStream 与 bytes 互转
 outputStream2Bytes, bytes2OutputStream  : outputStream 与 bytes 互转
 inputStream2String, string2InputStream  : inputStream 与 string 按编码互转
 outputStream2String, string2OutputStream: outputStream 与 string 按编码互转
-bitmap2Bytes, bytes2Bitmap              : bitmap 与 bytes 互转
+inputStream2Lines                       : inputStream 转 文本行
 drawable2Bitmap, bitmap2Drawable        : drawable 与 bitmap 互转
 drawable2Bytes, bytes2Drawable          : drawable 与 bytes 互转
 view2Bitmap                             : view 转 Bitmap
@@ -402,6 +411,8 @@ base64Encode2String: Base64 编码
 base64Decode       : Base64 解码
 htmlEncode         : Html 编码
 htmlDecode         : Html 解码
+binaryEncode       : 二进制编码
+binaryDecode       : 二进制解码
 ```
 
 * ### 加密解密相关 -> [EncryptUtils.java][encrypt.java] -> [Test][encrypt.test]
@@ -428,6 +439,7 @@ encryptAES, encryptAES2HexString, encryptAES2Base64   : AES 加密
 decryptAES, decryptHexStringAES, decryptBase64AES     : AES 解密
 encryptRSA, encryptRSA2HexString, encryptRSA2Base64   : RSA 加密
 decryptRSA, decryptHexStringRSA, decryptBase64RSA     : RSA 解密
+rc4                                                   : rc4 加解密
 ```
 
 * ### 文件相关 -> [FileIOUtils.java][fileIo.java] -> [Test][fileIo.test]
@@ -507,14 +519,16 @@ setBackground         : 设置背景
 
 * ### Gson 相关 -> [GsonUtils.java][gson.java] -> [Test][gson.test]
 ```
-getGson     : 获取 Gson 对象
-toJson      : 对象转 Json 串
-fromJson    : Json 串转对象
-getListType : 获取链表类型
-getSetType  : 获取集合类型
-getMapType  : 获取字典类型
-getArrayType: 获取数组类型
-getType     : 获取类型
+setGsonDelegate: 设置默认的 Gson 代理对象
+setGson        : 设置 Gson 对象
+getGson        : 获取 Gson 对象
+toJson         : 对象转 Json 串
+fromJson       : Json 串转对象
+getListType    : 获取链表类型
+getSetType     : 获取集合类型
+getMapType     : 获取字典类型
+getArrayType   : 获取数组类型
+getType        : 获取类型
 ```
 
 * ### 图片相关 -> [ImageUtils.java][image.java] -> [Demo][image.demo]
@@ -668,6 +682,7 @@ getGatewayByWifi                      : 根据 WiFi 获取网关 IP 地址
 getNetMaskByWifi                      : 根据 WiFi 获取子网掩码 IP 地址
 getServerAddressByWifi                : 根据 WiFi 获取服务端 IP 地址
 registerNetworkStatusChangedListener  : 注册网络状态改变监听器
+isRegistered                          : 判断是否注册网络状态改变监听器
 unregisterNetworkStatusChangedListener: 注销网络状态改变监听器
 ```
 
@@ -682,12 +697,14 @@ setNotificationBarVisibility: 设置通知栏是否可见
 
 * ### 对象相关 -> [ObjectUtils.java][object.java] -> [Test][object.test]
 ```
-isEmpty       : 判断对象是否为空
-isNotEmpty    : 判断对象是否非空
-equals        : 判断对象是否相等
-requireNonNull: 检查对象非空
-getOrDefault  : 获取非空或默认对象
-hashCode      : 获取对象哈希值
+isEmpty          : 判断对象是否为空
+isNotEmpty       : 判断对象是否非空
+equals           : 判断对象是否相等
+compare          : 比较对象大小
+requireNonNull(s): 要求对象非空
+getOrDefault     : 获取非空或默认对象
+toString         : 转字符串
+hashCode(s)      : 获取对象哈希值
 ```
 
 * ### 路径相关 -> [PathUtils.java][path.java] -> [Demo][path.demo]
@@ -783,23 +800,37 @@ get        : 获取反射想要获取的
 
 * ### 正则相关 -> [RegexUtils.java][regex.java] -> [Test][regex.test]
 ```
-isMobileSimple : 简单验证手机号
-isMobileExact  : 精确验证手机号
-isTel          : 验证电话号码
-isIDCard15     : 验证身份证号码 15 位
-isIDCard18     : 简单验证身份证号码 18 位
-isIDCard18Exact: 精确验证身份证号码 18 位
-isEmail        : 验证邮箱
-isURL          : 验证 URL
-isZh           : 验证汉字
-isUsername     : 验证用户名
-isDate         : 验证 yyyy-MM-dd 格式的日期校验，已考虑平闰年
-isIP           : 验证 IP 地址
-isMatch        : 判断是否匹配正则
-getMatches     : 获取正则匹配的部分
-getSplits      : 获取正则匹配分组
-getReplaceFirst: 替换正则匹配的第一部分
-getReplaceAll  : 替换所有正则匹配的部分
+isMobileSimple                           : 简单验证手机号
+isMobileExact                            : 精确验证手机号
+isTel                                    : 验证电话号码
+isIDCard15                               : 验证身份证号码 15 位
+isIDCard18                               : 简单验证身份证号码 18 位
+isIDCard18Exact                          : 精确验证身份证号码 18 位
+isEmail                                  : 验证邮箱
+isURL                                    : 验证 URL
+isZh                                     : 验证汉字
+isUsername                               : 验证用户名
+isDate                                   : 验证 yyyy-MM-dd 格式的日期校验，已考虑平闰年
+isIP                                     : 验证 IP 地址
+isMatch                                  : 判断是否匹配正则
+getMatches                               : 获取正则匹配的部分
+getSplits                                : 获取正则匹配分组
+getReplaceFirst                          : 替换正则匹配的第一部分
+getReplaceAll                            : 替换所有正则匹配的部分
+RegexConstants.REGEX_DOUBLE_BYTE_CHAR    : 双字节
+RegexConstants.REGEX_BLANK_LINE          : 空行
+RegexConstants.REGEX_QQ_NUM              : QQ 号
+RegexConstants.REGEX_CHINA_POSTAL_CODE   : 邮编
+RegexConstants.REGEX_INTEGER             : 整数
+RegexConstants.REGEX_POSITIVE_INTEGER    : 正整数
+RegexConstants.REGEX_NEGATIVE_INTEGER    : 负整数
+RegexConstants.REGEX_NOT_NEGATIVE_INTEGER: 非负整数
+RegexConstants.REGEX_NOT_POSITIVE_INTEGER: 非正整数
+RegexConstants.REGEX_FLOAT               : 浮点数
+RegexConstants.REGEX_POSITIVE_FLOAT      : 正浮点数
+RegexConstants.REGEX_NEGATIVE_FLOAT      : 负浮点数
+RegexConstants.REGEX_NOT_NEGATIVE_FLOAT  : 非负浮点数
+RegexConstants.REGEX_NOT_POSITIVE_FLOAT  : 非正浮点数
 ```
 
 * ### 资源相关 -> [ResourceUtils.java][resource.java] -> [Demo][resource.demo]
@@ -877,6 +908,8 @@ isSDCardEnableByEnvironment: 根据 Environment 判断 SD 卡是否可用
 getSDCardPathByEnvironment : 根据 Environment 获取 SD 卡路径
 getSDCardInfo              : 获取 SD 卡信息
 getMountedSDCardPath       : 获取已挂载的 SD 卡路径
+getTotalSize               : 获取 SD 卡总大小
+getAvailableSize           : 获取 SD 卡可用大小
 ```
 
 * ### 服务相关 -> [ServiceUtils.java][service.java]
@@ -1009,6 +1042,8 @@ lowerFirstLetter: 首字母小写
 reverse         : 反转字符串
 toDBC           : 转化为半角字符
 toSBC           : 转化为全角字符
+getString       : 获取字符资源
+getStringArray  : 获取字符数组资源
 ```
 
 * ### 线程相关 -> [ThreadUtils.java][thread.java] -> [Test][thread.test]

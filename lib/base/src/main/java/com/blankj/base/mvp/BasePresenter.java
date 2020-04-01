@@ -67,11 +67,11 @@ public abstract class BasePresenter<V extends BaseView> implements LifecycleObse
             }
         }
         mModelMap.clear();
-        LogUtils.e("onDestroyPresenter");
+        LogUtils.i("onDestroyPresenter");
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
     public void onLifecycleChanged(LifecycleOwner owner, Lifecycle.Event event) {
-        LogUtils.e(event.toString());
+        LogUtils.i(event.toString());
     }
 }

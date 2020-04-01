@@ -11,7 +11,6 @@ import com.blankj.utilcode.util.Utils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
-import kotlin.Unit;
 
 /**
  * <pre>
@@ -23,15 +22,15 @@ import kotlin.Unit;
  */
 public class CommonItemTitle extends CommonItem {
 
-    private CharSequence                    mTitle;
-    private Utils.Func1<CharSequence, Unit> mGetTitleFunc1;
-    private boolean                         mIsTitleCenter;
-    private CharSequence                    mContent;
+    private CharSequence                 mTitle;
+    private Utils.Supplier<CharSequence> mGetTitleSupplier;
+    private boolean                      mIsTitleCenter;
+    private CharSequence                 mContent;
 
-    public CommonItemTitle(@NonNull Utils.Func1<CharSequence, Unit> getTitleFunc1, boolean isTitleCenter) {
+    public CommonItemTitle(@NonNull Utils.Supplier<CharSequence> getTitleSupplier, boolean isTitleCenter) {
         super(R.layout.common_item_title_content);
-        mTitle = mGetTitleFunc1.call(null);
-        mGetTitleFunc1 = getTitleFunc1;
+        mTitle = mGetTitleSupplier.get();
+        mGetTitleSupplier = getTitleSupplier;
         mIsTitleCenter = isTitleCenter;
     }
 
@@ -54,8 +53,8 @@ public class CommonItemTitle extends CommonItem {
     @Override
     public void bind(@NonNull ItemViewHolder holder, int position) {
         super.bind(holder, position);
-        if (mGetTitleFunc1 != null) {
-            mTitle = mGetTitleFunc1.call(null);
+        if (mGetTitleSupplier != null) {
+            mTitle = mGetTitleSupplier.get();
         }
         final TextView titleTv = holder.findViewById(R.id.commonItemTitleTv);
         final TextView contentTv = holder.findViewById(R.id.commonItemContentTv);

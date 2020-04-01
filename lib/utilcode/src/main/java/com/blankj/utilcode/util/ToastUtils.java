@@ -20,13 +20,14 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Field;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.core.app.NotificationManagerCompat;
-
-import java.lang.reflect.Field;
 
 /**
  * <pre>
@@ -233,7 +234,7 @@ public final class ToastUtils {
     private static void show(final int resId, final int duration, final Object... args) {
         try {
             CharSequence text = Utils.getApp().getResources().getText(resId);
-            if (args != null) {
+            if (args != null && args.length > 0) {
                 text = String.format(text.toString(), args);
             }
             show(text, duration);
@@ -247,7 +248,7 @@ public final class ToastUtils {
         if (text == null) {
             text = NULL;
         } else {
-            if (args != null) {
+            if (args != null && args.length > 0) {
                 text = String.format(format, args);
             }
         }
@@ -255,7 +256,7 @@ public final class ToastUtils {
     }
 
     private static void show(final CharSequence text, final int duration) {
-        Utils.runOnUiThread(new Runnable() {
+        UtilsBridge.runOnUiThread(new Runnable() {
             @SuppressLint("ShowToast")
             @Override
             public void run() {
@@ -280,7 +281,7 @@ public final class ToastUtils {
     }
 
     private static void show(final View view, final int duration) {
-        Utils.runOnUiThread(new Runnable() {
+        UtilsBridge.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 cancel();
@@ -427,23 +428,13 @@ public final class ToastUtils {
 
         private WindowManager.LayoutParams mParams = new WindowManager.LayoutParams();
 
-        private static final Utils.OnActivityDestroyedListener LISTENER =
-                new Utils.OnActivityDestroyedListener() {
-                    @Override
-                    public void onActivityDestroyed(Activity activity) {
-                        if (iToast == null) return;
-                        activity.getWindow().getDecorView().setVisibility(View.GONE);
-                        iToast.cancel();
-                    }
-                };
-
         ToastWithoutNotification(Toast toast) {
             super(toast);
         }
 
         @Override
         public void show() {
-            Utils.runOnUiThreadDelayed(new Runnable() {
+            UtilsBridge.runOnUiThreadDelayed(new Runnable() {
                 @Override
                 public void run() {
                     realShow();
@@ -460,7 +451,7 @@ public final class ToastUtils {
                 mWM = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
                 mParams.type = WindowManager.LayoutParams.TYPE_TOAST;
             } else {
-                Context topActivityOrApp = Utils.getTopActivityOrApp();
+                Context topActivityOrApp = UtilsBridge.getTopActivityOrApp();
                 if (!(topActivityOrApp instanceof Activity)) {
                     Log.e("ToastUtils", "Couldn't get top Activity.");
                     return;
@@ -472,7 +463,7 @@ public final class ToastUtils {
                 }
                 mWM = topActivity.getWindowManager();
                 mParams.type = WindowManager.LayoutParams.LAST_APPLICATION_WINDOW;
-                Utils.getActivityLifecycle().addOnActivityDestroyedListener(topActivity, LISTENER);
+                UtilsBridge.addActivityLifecycleCallbacks(topActivity, getActivityLifecycleCallbacks());
             }
 
             mParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
@@ -504,12 +495,23 @@ public final class ToastUtils {
                 }
             } catch (Exception ignored) {/**/}
 
-            Utils.runOnUiThreadDelayed(new Runnable() {
+            UtilsBridge.runOnUiThreadDelayed(new Runnable() {
                 @Override
                 public void run() {
                     cancel();
                 }
             }, mToast.getDuration() == Toast.LENGTH_SHORT ? 2000 : 3500);
+        }
+
+        private Utils.ActivityLifecycleCallbacks getActivityLifecycleCallbacks() {
+            return new Utils.ActivityLifecycleCallbacks() {
+                @Override
+                public void onActivityDestroyed(@NonNull Activity activity) {
+                    if (iToast == null) return;
+                    activity.getWindow().getDecorView().setVisibility(View.GONE);
+                    iToast.cancel();
+                }
+            };
         }
 
         @Override

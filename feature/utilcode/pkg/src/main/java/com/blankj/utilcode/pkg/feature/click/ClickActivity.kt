@@ -34,22 +34,22 @@ class ClickActivity : CommonActivity() {
 
     override fun bindItems(): MutableList<CommonItem<*>> {
         return CollectionUtils.newArrayList(
-                ClickItem(R.string.click_view_scale_default, Utils.Func1 {
+                ClickItem(R.string.click_view_scale_default, Utils.Consumer {
                     ClickUtils.applyPressedViewScale(it)
                 }),
-                ClickItem(R.string.click_view_scale_half, Utils.Func1 {
+                ClickItem(R.string.click_view_scale_half, Utils.Consumer {
                     ClickUtils.applyPressedViewScale(it, -0.5f)
                 }),
-                ClickItem(R.string.click_view_alpha_default, Utils.Func1 {
+                ClickItem(R.string.click_view_alpha_default, Utils.Consumer {
                     ClickUtils.applyPressedViewAlpha(it)
                 }),
-                ClickItem(R.string.click_bg_alpha_default, Utils.Func1 {
+                ClickItem(R.string.click_bg_alpha_default, Utils.Consumer {
                     ClickUtils.applyPressedBgAlpha(it)
                 }),
-                ClickItem(R.string.click_bg_dark_default, Utils.Func1 {
+                ClickItem(R.string.click_bg_dark_default, Utils.Consumer {
                     ClickUtils.applyPressedBgDark(it)
                 }),
-                ClickItem(R.string.click_single_debouncing, Utils.Func1 {
+                ClickItem(R.string.click_single_debouncing, Utils.Consumer {
                     ClickUtils.applyPressedBgDark(it)
                     ClickUtils.applySingleDebouncing(it, 5000) {
                         SnackbarUtils.with(mContentView)
@@ -59,7 +59,7 @@ class ClickActivity : CommonActivity() {
                                 .show()
                     }
                 }),
-                ClickItem(R.string.click_global_debouncing, Utils.Func1 {
+                ClickItem(R.string.click_global_debouncing, Utils.Consumer {
                     ClickUtils.applyPressedBgDark(it)
                     ClickUtils.applySingleDebouncing(it, 5000) {
                         SnackbarUtils.with(mContentView)
@@ -69,7 +69,7 @@ class ClickActivity : CommonActivity() {
                                 .show()
                     }
                 }),
-                ClickItem(R.string.click_multi, Utils.Func1 {
+                ClickItem(R.string.click_multi, Utils.Consumer {
                     ClickUtils.applyPressedBgDark(it)
                     it.setOnClickListener(object : ClickUtils.OnMultiClickListener(5) {
                         override fun onTriggerClick(v: View) {
@@ -92,11 +92,11 @@ class ClickActivity : CommonActivity() {
 
 class ClickItem : CommonItem<ClickItem> {
 
-    private val mFunc1: Utils.Func1<Unit, View>;
+    private val mConsumer: Utils.Consumer<View>;
     private val mTitle: String
 
-    constructor(@StringRes title: Int, func1: Utils.Func1<Unit, View>) : super(R.layout.common_item_title_click) {
-        mFunc1 = func1
+    constructor(@StringRes title: Int, consumer: Utils.Consumer<View>) : super(R.layout.common_item_title_click) {
+        mConsumer = consumer
         mTitle = StringUtils.getString(title)
     }
 
@@ -110,6 +110,6 @@ class ClickItem : CommonItem<ClickItem> {
                     .setDuration(SnackbarUtils.LENGTH_LONG)
                     .show()
         }
-        mFunc1.call(holder.itemView)
+        mConsumer.accept(holder.itemView)
     }
 }

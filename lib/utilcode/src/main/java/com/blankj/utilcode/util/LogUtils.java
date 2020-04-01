@@ -3,32 +3,19 @@ package com.blankj.utilcode.util;
 import android.content.ClipData;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import androidx.annotation.IntDef;
-import androidx.annotation.IntRange;
-import androidx.annotation.RequiresApi;
-import androidx.collection.SimpleArrayMap;
 import android.util.Log;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.lang.annotation.Retention;
@@ -57,6 +44,11 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+
+import androidx.annotation.IntDef;
+import androidx.annotation.IntRange;
+import androidx.annotation.RequiresApi;
+import androidx.collection.SimpleArrayMap;
 
 /**
  * <pre>
@@ -261,7 +253,7 @@ public final class LogUtils {
             if (stackIndex >= stackTrace.length) {
                 StackTraceElement targetElement = stackTrace[3];
                 final String fileName = getFileName(targetElement);
-                if (CONFIG.mTagIsSpace && isSpace(tag)) {
+                if (CONFIG.mTagIsSpace && UtilsBridge.isSpace(tag)) {
                     int index = fileName.indexOf('.');// Use proguard may not find '.'.
                     tag = index == -1 ? fileName : fileName.substring(0, index);
                 }
@@ -269,7 +261,7 @@ public final class LogUtils {
             }
             StackTraceElement targetElement = stackTrace[stackIndex];
             final String fileName = getFileName(targetElement);
-            if (CONFIG.mTagIsSpace && isSpace(tag)) {
+            if (CONFIG.mTagIsSpace && UtilsBridge.isSpace(tag)) {
                 int index = fileName.indexOf('.');// Use proguard may not find '.'.
                 tag = index == -1 ? fileName : fileName.substring(0, index);
             }
@@ -512,7 +504,7 @@ public final class LogUtils {
                 tag +
                 msg +
                 LINE_SEP;
-        input2File(content, fullPath);
+        input2File(fullPath, content);
     }
 
     private static SimpleDateFormat getSdf() {
@@ -525,7 +517,7 @@ public final class LogUtils {
     private static boolean createOrExistsFile(final String filePath, final String date) {
         File file = new File(filePath);
         if (file.exists()) return file.isFile();
-        if (!createOrExistsDir(file.getParentFile())) return false;
+        if (!UtilsBridge.createOrExistsDir(file.getParentFile())) return false;
         try {
             deleteDueLogs(filePath, date);
             boolean isCreate = file.createNewFile();
@@ -588,63 +580,21 @@ public final class LogUtils {
     }
 
     private static void printDeviceInfo(final String filePath, final String date) {
-        String versionName = "";
-        int versionCode = 0;
-        try {
-            PackageInfo pi = Utils.getApp()
-                    .getPackageManager()
-                    .getPackageInfo(Utils.getApp().getPackageName(), 0);
-            if (pi != null) {
-                versionName = pi.versionName;
-                versionCode = pi.versionCode;
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
         final String head = "************* Log Head ****************" +
                 "\nDate of Log        : " + date +
                 "\nDevice Manufacturer: " + Build.MANUFACTURER +
                 "\nDevice Model       : " + Build.MODEL +
                 "\nAndroid Version    : " + Build.VERSION.RELEASE +
                 "\nAndroid SDK        : " + Build.VERSION.SDK_INT +
-                "\nApp VersionName    : " + versionName +
-                "\nApp VersionCode    : " + versionCode +
+                "\nApp VersionName    : " + UtilsBridge.getAppVersionName() +
+                "\nApp VersionCode    : " + UtilsBridge.getAppVersionCode() +
                 "\n************* Log Head ****************\n\n";
-        input2File(head, filePath);
+        input2File(filePath, head);
     }
 
-    private static boolean createOrExistsDir(final File file) {
-        return file != null && (file.exists() ? file.isDirectory() : file.mkdirs());
-    }
-
-    private static boolean isSpace(final String s) {
-        if (s == null) return true;
-        for (int i = 0, len = s.length(); i < len; ++i) {
-            if (!Character.isWhitespace(s.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static void input2File(final String input, final String filePath) {
+    private static void input2File(final String filePath, final String input) {
         if (CONFIG.mFileWriter == null) {
-            BufferedWriter bw = null;
-            try {
-                bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath, true), "UTF-8"));
-                bw.write(input);
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.e("LogUtils", "log to " + filePath + " failed!");
-            } finally {
-                try {
-                    if (bw != null) {
-                        bw.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            UtilsBridge.writeFileFromString(filePath, input);
         } else {
             CONFIG.mFileWriter.write(filePath, input);
         }
@@ -668,17 +618,17 @@ public final class LogUtils {
         private int         mStackDeep         = 1;     // The stack's deep of log.
         private int         mStackOffset       = 0;     // The stack's offset of log.
         private int         mSaveDays          = -1;    // The save days of log.
-        private String      mProcessName       = Utils.getCurrentProcessName();
+        private String      mProcessName       = UtilsBridge.getCurrentProcessName();
         private IFileWriter mFileWriter;
 
         private Config() {
-            if (mDefaultDir != null) return;
-            if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
-                    && Utils.getApp().getExternalCacheDir() != null)
-                mDefaultDir = Utils.getApp().getExternalCacheDir() + FILE_SEP + "log" + FILE_SEP;
-            else {
-                mDefaultDir = Utils.getApp().getCacheDir() + FILE_SEP + "log" + FILE_SEP;
-            }
+            mDefaultDir = Utils.getApp().getFilesDir() + FILE_SEP + "log" + FILE_SEP;
+            mFileWriter = new IFileWriter() {
+                @Override
+                public void write(String file, String content) {
+
+                }
+            };
         }
 
         public final Config setLogSwitch(final boolean logSwitch) {
@@ -692,7 +642,7 @@ public final class LogUtils {
         }
 
         public final Config setGlobalTag(final String tag) {
-            if (isSpace(tag)) {
+            if (UtilsBridge.isSpace(tag)) {
                 mGlobalTag = "";
                 mTagIsSpace = true;
             } else {
@@ -713,7 +663,7 @@ public final class LogUtils {
         }
 
         public final Config setDir(final String dir) {
-            if (isSpace(dir)) {
+            if (UtilsBridge.isSpace(dir)) {
                 mDir = null;
             } else {
                 mDir = dir.endsWith(FILE_SEP) ? dir : dir + FILE_SEP;
@@ -727,7 +677,7 @@ public final class LogUtils {
         }
 
         public final Config setFilePrefix(final String filePrefix) {
-            if (isSpace(filePrefix)) {
+            if (UtilsBridge.isSpace(filePrefix)) {
                 mFilePrefix = "util";
             } else {
                 mFilePrefix = filePrefix;
@@ -736,7 +686,7 @@ public final class LogUtils {
         }
 
         public final Config setFileExtension(final String fileExtension) {
-            if (isSpace(fileExtension)) {
+            if (UtilsBridge.isSpace(fileExtension)) {
                 mFileExtension = ".txt";
             } else {
                 if (fileExtension.startsWith(".")) {
@@ -825,7 +775,7 @@ public final class LogUtils {
         }
 
         public final String getGlobalTag() {
-            if (isSpace(mGlobalTag)) return "";
+            if (UtilsBridge.isSpace(mGlobalTag)) return "";
             return mGlobalTag;
         }
 
@@ -908,15 +858,14 @@ public final class LogUtils {
 
     private final static class LogFormatter {
 
-        private static final Gson GSON = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
-
         static String object2String(Object object) {
             return object2String(object, -1);
         }
 
         static String object2String(Object object, int type) {
             if (object.getClass().isArray()) return array2String(object);
-            if (object instanceof Throwable) return throwable2String((Throwable) object);
+            if (object instanceof Throwable)
+                return UtilsBridge.getFullStackTrace((Throwable) object);
             if (object instanceof Bundle) return bundle2String((Bundle) object);
             if (object instanceof Intent) return intent2String((Intent) object);
             if (type == JSON) {
@@ -925,10 +874,6 @@ public final class LogUtils {
                 return formatXml(object.toString());
             }
             return object.toString();
-        }
-
-        private static String throwable2String(final Throwable e) {
-            return ThrowableUtils.getFullStackTrace(e);
         }
 
         private static String bundle2String(Bundle bundle) {
@@ -1103,10 +1048,10 @@ public final class LogUtils {
 
         private static String object2Json(Object object) {
             if (object instanceof CharSequence) {
-                return formatJson(object.toString());
+                return UtilsBridge.formatJson(object.toString());
             }
             try {
-                return GSON.toJson(object);
+                return UtilsBridge.getGson4LogUtils().toJson(object);
             } catch (Throwable t) {
                 return object.toString();
             }

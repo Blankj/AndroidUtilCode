@@ -1,3 +1,12 @@
+---
+name: Bug report
+about: Make AndroidUtilCode more perfect!
+title: "[BUG]"
+labels: bug
+assignees: Blankj
+
+---
+
 ## Describe the bug
 
 A clear and concise description of what the bug is.
@@ -39,6 +48,6 @@ put the stack of crash here
 If applicable, add screenshots to help explain your problem.
 
 
-Please delete the current line and the followings.
+## Please delete the current line and the following.
 
 Thank you for supporting [AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode).

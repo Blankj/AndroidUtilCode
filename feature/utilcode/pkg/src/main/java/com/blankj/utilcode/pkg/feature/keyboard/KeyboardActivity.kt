@@ -67,7 +67,7 @@ class KeyboardActivity : CommonActivity() {
                 },
                 CommonItemClick(R.string.keyboard_show_dialog) {
                     keyboardEt.clearFocus()
-                    DialogHelper.showKeyboardDialog()
+                    DialogHelper.showKeyboardDialog(this)
                 }
         )
     }

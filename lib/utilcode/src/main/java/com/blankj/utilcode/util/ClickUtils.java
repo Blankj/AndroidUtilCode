@@ -1,6 +1,5 @@
 package com.blankj.utilcode.util;
 
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -8,13 +7,16 @@ import android.graphics.ColorFilter;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
+import android.util.Log;
 import android.util.StateSet;
 import android.view.MotionEvent;
+import android.view.TouchDelegate;
 import android.view.View;
 
 import androidx.annotation.IntRange;
@@ -347,6 +349,40 @@ public class ClickUtils {
         }
     }
 
+    /**
+     * Expand the click area of ​​the view
+     *
+     * @param view       The view.
+     * @param expandSize The size.
+     */
+    public static void expandClickArea(@NonNull final View view, final int expandSize) {
+        expandClickArea(view, expandSize, expandSize, expandSize, expandSize);
+    }
+
+    public static void expandClickArea(@NonNull final View view,
+                                       final int expandSizeTop,
+                                       final int expandSizeLeft,
+                                       final int expandSizeRight,
+                                       final int expandSizeBottom) {
+        final View parentView = (View) view.getParent();
+        if (parentView == null) {
+            Log.e("ClickUtils", "expandClickArea must have parent view.");
+            return;
+        }
+        parentView.post(new Runnable() {
+            @Override
+            public void run() {
+                final Rect rect = new Rect();
+                view.getHitRect(rect);
+                rect.top -= expandSizeTop;
+                rect.bottom += expandSizeBottom;
+                rect.left -= expandSizeLeft;
+                rect.right += expandSizeRight;
+                parentView.setTouchDelegate(new TouchDelegate(rect, view));
+            }
+        });
+    }
+
     private static final long TIP_DURATION = 2000L;
     private static       long sLastClickMillis;
     private static       int  sClickCount;
@@ -362,7 +398,7 @@ public class ClickUtils {
         if (nowMillis - sLastClickMillis < duration) {
             sClickCount++;
             if (sClickCount == 2) {
-                startHomeActivity();
+                UtilsBridge.startHomeActivity();
                 listener.dismiss();
                 sLastClickMillis = 0;
             }
@@ -377,25 +413,18 @@ public class ClickUtils {
         Back2HomeFriendlyListener DEFAULT = new Back2HomeFriendlyListener() {
             @Override
             public void show(CharSequence text, long duration) {
-                Utils.toastShowShort(text);
+                UtilsBridge.toastShowShort(text);
             }
 
             @Override
             public void dismiss() {
-                Utils.toastCancel();
+                UtilsBridge.toastCancel();
             }
         };
 
         void show(CharSequence text, long duration);
 
         void dismiss();
-    }
-
-    private static void startHomeActivity() {
-        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-        homeIntent.addCategory(Intent.CATEGORY_HOME);
-        homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Utils.getApp().startActivity(homeIntent);
     }
 
     public static abstract class OnDebouncingClickListener implements View.OnClickListener {
@@ -417,7 +446,12 @@ public class ClickUtils {
                 return true;
             }
             long preTime = (Long) tag;
-            if (curTime - preTime <= duration) return false;
+            if (curTime - preTime < 0) {
+                view.setTag(DEBOUNCING_TAG, curTime);
+                return false;
+            } else if (curTime - preTime <= duration) {
+                return false;
+            }
             view.setTag(DEBOUNCING_TAG, curTime);
             return true;
         }

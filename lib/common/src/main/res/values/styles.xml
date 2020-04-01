@@ -10,7 +10,7 @@
     </style>
 
     <style name="SplashTheme" parent="AppTheme">
-<!--        <item name="android:windowDisablePreview">true</item>-->
+        <!--        <item name="android:windowDisablePreview">true</item>-->
     </style>
 
 
@@ -59,18 +59,20 @@
         <item name="android:background">@null</item>
     </style>
 
-    <style name="CommonLoadingDialogStyle" parent="android:Theme.Dialog">
+    <style name="CommonLoadingDialogStyle">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:backgroundDimEnabled">true</item>
+        <item name="statusBarBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">false</item>
     </style>
 
-    <style name="CommonContentDialogStyle" parent="android:Theme.Dialog">
+    <style name="CommonContentDialogStyle">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsFloating">true</item>
         <item name="android:windowMinWidthMajor">85%</item>
         <item name="android:windowMinWidthMinor">85%</item>
     </style>

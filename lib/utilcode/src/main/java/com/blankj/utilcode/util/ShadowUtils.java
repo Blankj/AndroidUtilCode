@@ -1,7 +1,6 @@
 package com.blankj.utilcode.util;
 
 import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -59,7 +58,7 @@ public class ShadowUtils {
     public static class Config {
 
         private static final int SHADOW_COLOR_DEFAULT = 0xb0_000000;
-        private static final int SHADOW_SIZE          = dp2px(8);
+        private static final int SHADOW_SIZE          = UtilsBridge.dp2px(8);
 
         private float   mShadowRadius         = -1;
         private float   mShadowSizeNormal     = -1;
@@ -138,7 +137,7 @@ public class ShadowUtils {
         }
 
         private float getShadowRadius() {
-            if (mShadowRadius == -1) {
+            if (mShadowRadius < 0) {
                 mShadowRadius = 0;
             }
             return mShadowRadius;
@@ -170,11 +169,6 @@ public class ShadowUtils {
                 mShadowMaxSizePressed = getShadowSizePressed();
             }
             return mShadowMaxSizePressed;
-        }
-
-        private static int dp2px(final float dpValue) {
-            final float scale = Resources.getSystem().getDisplayMetrics().density;
-            return (int) (dpValue * scale + 0.5f);
         }
     }
 

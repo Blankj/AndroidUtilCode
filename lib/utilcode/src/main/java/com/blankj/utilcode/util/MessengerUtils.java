@@ -1,14 +1,11 @@
 package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
-import android.app.ActivityManager;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -27,7 +24,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -52,8 +48,8 @@ public class MessengerUtils {
     private static final String KEY_STRING       = "MESSENGER_UTILS";
 
     public static void register() {
-        if (isMainProcess()) {
-            if (isServiceRunning(ServerService.class.getName())) {
+        if (UtilsBridge.isMainProcess()) {
+            if (UtilsBridge.isServiceRunning(ServerService.class.getName())) {
                 Log.i("MessengerUtils", "Server service is running.");
                 return;
             }
@@ -74,8 +70,8 @@ public class MessengerUtils {
     }
 
     public static void unregister() {
-        if (isMainProcess()) {
-            if (!isServiceRunning(ServerService.class.getName())) {
+        if (UtilsBridge.isMainProcess()) {
+            if (!UtilsBridge.isServiceRunning(ServerService.class.getName())) {
                 Log.i("MessengerUtils", "Server service isn't running.");
                 return;
             }
@@ -103,6 +99,7 @@ public class MessengerUtils {
     public static void unregister(final String pkgName) {
         if (sClientMap.containsKey(pkgName)) {
             Client client = sClientMap.get(pkgName);
+            sClientMap.remove(pkgName);
             client.unbind();
         } else {
             Log.i("MessengerUtils", "unregister: client didn't register: " + pkgName);
@@ -129,64 +126,6 @@ public class MessengerUtils {
         for (Client client : sClientMap.values()) {
             client.sendMsg2Server(data);
         }
-    }
-
-    private static boolean isMainProcess() {
-        return Utils.getApp().getPackageName().equals(Utils.getCurrentProcessName());
-    }
-
-    private static boolean isAppInstalled(@NonNull final String pkgName) {
-        PackageManager packageManager = Utils.getApp().getPackageManager();
-        try {
-            return packageManager.getApplicationInfo(pkgName, 0) != null;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    private static boolean isServiceRunning(final String className) {
-        ActivityManager am =
-                (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningServiceInfo> info = am.getRunningServices(0x7FFFFFFF);
-        if (info == null || info.size() == 0) return false;
-        for (ActivityManager.RunningServiceInfo aInfo : info) {
-            if (className.equals(aInfo.service.getClassName())) return true;
-        }
-        return false;
-    }
-
-    private static boolean isAppRunning(@NonNull final String pkgName) {
-        int uid;
-        PackageManager packageManager = Utils.getApp().getPackageManager();
-        try {
-            ApplicationInfo ai = packageManager.getApplicationInfo(pkgName, 0);
-            if (ai == null) return false;
-            uid = ai.uid;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }
-        ActivityManager am = (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-        if (am != null) {
-            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(Integer.MAX_VALUE);
-            if (taskInfo != null && taskInfo.size() > 0) {
-                for (ActivityManager.RunningTaskInfo aInfo : taskInfo) {
-                    if (pkgName.equals(aInfo.baseActivity.getPackageName())) {
-                        return true;
-                    }
-                }
-            }
-            List<ActivityManager.RunningServiceInfo> serviceInfo = am.getRunningServices(Integer.MAX_VALUE);
-            if (serviceInfo != null && serviceInfo.size() > 0) {
-                for (ActivityManager.RunningServiceInfo aInfo : serviceInfo) {
-                    if (uid == aInfo.uid) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
     }
 
     static class Client {
@@ -217,7 +156,7 @@ public class MessengerUtils {
             public void onServiceConnected(ComponentName name, IBinder service) {
                 Log.d("MessengerUtils", "client service connected " + name);
                 mServer = new Messenger(service);
-                int key = Utils.getCurrentProcessName().hashCode();
+                int key = UtilsBridge.getCurrentProcessName().hashCode();
                 Message msg = Message.obtain(mReceiveServeMsgHandler, WHAT_SUBSCRIBE, key, 0);
                 msg.replyTo = mClient;
                 try {
@@ -247,8 +186,8 @@ public class MessengerUtils {
                 Intent intent = new Intent(Utils.getApp(), ServerService.class);
                 return Utils.getApp().bindService(intent, mConn, Context.BIND_AUTO_CREATE);
             }
-            if (isAppInstalled(mPkgName)) {
-                if (isAppRunning(mPkgName)) {
+            if (UtilsBridge.isAppInstalled(mPkgName)) {
+                if (UtilsBridge.isAppRunning(mPkgName)) {
                     Intent intent = new Intent(mPkgName + ".messenger");
                     intent.setPackage(mPkgName);
                     return Utils.getApp().bindService(intent, mConn, Context.BIND_AUTO_CREATE);

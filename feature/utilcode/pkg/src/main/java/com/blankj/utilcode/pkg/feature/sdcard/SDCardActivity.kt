@@ -7,6 +7,7 @@ import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemTitle
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.CollectionUtils
+import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.SDCardUtils
 
 /**
@@ -31,11 +32,19 @@ class SDCardActivity : CommonActivity() {
     }
 
     override fun bindItems(): MutableList<CommonItem<*>> {
-        return CollectionUtils.newArrayList(
+        val mountedSDCardPath = SDCardUtils.getMountedSDCardPath()
+        val sizeItems = CollectionUtils.collect(mountedSDCardPath) { input ->
+            val totalInfo = "total: " + ConvertUtils.byte2FitMemorySize(SDCardUtils.getTotalSize(input))
+            val availableInfo = "available: " + ConvertUtils.byte2FitMemorySize(SDCardUtils.getAvailableSize(input))
+            CommonItemTitle(input, "$totalInfo, $availableInfo")
+        }
+        val result: ArrayList<CommonItem<*>> = CollectionUtils.newArrayList(
                 CommonItemTitle("isSDCardEnableByEnvironment", SDCardUtils.isSDCardEnableByEnvironment().toString()),
                 CommonItemTitle("getSDCardPathByEnvironment", SDCardUtils.getSDCardPathByEnvironment()),
                 CommonItemTitle("getSDCardInfo", SDCardUtils.getSDCardInfo().toString()),
-                CommonItemTitle("getMountedSDCardPath", SDCardUtils.getMountedSDCardPath().toString())
+                CommonItemTitle("getMountedSDCardPath", mountedSDCardPath.toString())
         )
+        result.addAll(sizeItems)
+        return result
     }
 }

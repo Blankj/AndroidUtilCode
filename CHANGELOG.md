@@ -1,5 +1,8 @@
-* `19/12/08` [add] Publish bus plugin v2.5.
-* `19/12/06` [add] Publish api plugin v1.3.
+* `20/03/31` [add] Publish v1.27.0.
+* `20/03/30` [add] BatteryUtils.
+* `20/03/27` [add] publish.gradle.
+* `20/03/20` [add] UtilsBridge to clean the utils.
+* `20/01/17` [upd] Leak Canary to v2.1.
 * `19/11/30` [add] Publish bus plugin v2.4. Publish api plugin v1.2.
 * `19/11/28` [add] Publish v1.26.0.
 * `19/11/27` [add] Shadow demo.
