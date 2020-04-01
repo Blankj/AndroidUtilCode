@@ -11,7 +11,7 @@ assignees: Blankj
 
 A clear and concise description of what the bug is.
 
-- The version of utilcode: <!-- e.g. 1.16.3 -->
+- The version of AndroidUtilCode: <!-- e.g. utilcode:1.16.3 or utilcodex:1.16.3 -->
 - The device: <!-- e.g. Nexus 5X -->
 - The version of device: <!-- API 27 -->
 

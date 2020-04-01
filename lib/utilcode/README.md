@@ -663,26 +663,26 @@ getMetaDataInReceiver
 ```
 openWirelessSettings
 isConnected
-isAvailable[Async]                    : 判断网络是否可用
-isAvailableByPing[Async]              : 用 ping 判断网络是否可用
-isAvailableByDns[Async]               : 用 DNS 判断网络是否可用
+isAvailable[Async]                      : 判断网络是否可用
+isAvailableByPing[Async]                : 用 ping 判断网络是否可用
+isAvailableByDns[Async]                 : 用 DNS 判断网络是否可用
 getMobileDataEnabled
 isMobileData
 is4G
 getWifiEnabled
 setWifiEnabled
 isWifiConnected
-isWifiAvailable[Async]                : 判断 wifi 数据是否可用
+isWifiAvailable[Async]                  : 判断 wifi 数据是否可用
 getNetworkOperatorName
 getNetworkType
-getIPAddress[Async]                   : 获取 IP 地址
-getDomainAddress[Async]               : 获取域名 IP 地址
+getIPAddress[Async]                     : 获取 IP 地址
+getDomainAddress[Async]                 : 获取域名 IP 地址
 getIpAddressByWifi
 getGatewayByWifi
 getNetMaskByWifi
 getServerAddressByWifi
 registerNetworkStatusChangedListener
-isRegistered
+isRegisteredNetworkStatusChangedListener
 unregisterNetworkStatusChangedListener
 ```
 
