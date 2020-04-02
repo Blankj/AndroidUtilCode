@@ -1,3 +1,4 @@
+* `20/04/02` [fix] PathUtils sdcard enable state is wrong; ActivityUtils finish activity wrong; Publish v1.27.1.
 * `20/03/31` [add] Publish v1.27.0.
 * `20/03/30` [add] BatteryUtils in subutil.
 * `20/03/27` [add] publish.gradle.

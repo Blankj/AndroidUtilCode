@@ -6,8 +6,6 @@ import android.app.Application;
 import android.arch.lifecycle.Lifecycle;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
@@ -133,14 +131,9 @@ final class UtilsActivityLifecycleImpl implements Application.ActivityLifecycleC
     // lifecycle start
     ///////////////////////////////////////////////////////////////////////////
     @Override
-    public void onActivityPreCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(@NotNull Activity activity, Bundle savedInstanceState) {
         UtilsBridge.applyLanguage(activity);
         setAnimatorsEnabled();
-        setTopActivity(activity);
-    }
-
-    @Override
-    public void onActivityCreated(@NotNull Activity activity, Bundle savedInstanceState) {
         setTopActivity(activity);
         consumeActivityLifecycleCallbacks(activity, Lifecycle.Event.ON_CREATE);
     }
