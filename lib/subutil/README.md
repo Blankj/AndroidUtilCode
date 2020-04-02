@@ -14,7 +14,7 @@ getAppStoreIntent
 * ### About Battery -> [BatteryUtils.java][battery.java] -> [Demo][battery.demo]
 ```
 registerBatteryStatusChangedListener
-isRegistered
+isRegisteredBatteryStatusChangedListener
 unregisterBatteryStatusChangedListener
 ```
 

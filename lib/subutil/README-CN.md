@@ -13,9 +13,9 @@ getAppStoreIntent: 获取跳转应用商店意图
 
 * ### 电池相关 -> [BatteryUtils.java][battery.java] -> [Demo][battery.demo]
 ```
-registerBatteryStatusChangedListener  : 注册电池状态改变监听器
-isRegistered                          : 判断是否注册电池状态改变监听器
-unregisterBatteryStatusChangedListener: 注销电池状态改变监听器
+registerBatteryStatusChangedListener    : 注册电池状态改变监听器
+isRegisteredBatteryStatusChangedListener: 判断是否注册电池状态改变监听器
+unregisterBatteryStatusChangedListener  : 注销电池状态改变监听器
 ```
 
 * ### 剪贴板相关 -> [ClipboardUtils.java][clipboard.java] -> [Test][clipboard.test]

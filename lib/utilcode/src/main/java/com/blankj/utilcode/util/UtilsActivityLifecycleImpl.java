@@ -132,14 +132,9 @@ final class UtilsActivityLifecycleImpl implements Application.ActivityLifecycleC
     // lifecycle start
     ///////////////////////////////////////////////////////////////////////////
     @Override
-    public void onActivityPreCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(@NonNull Activity activity, Bundle savedInstanceState) {
         UtilsBridge.applyLanguage(activity);
         setAnimatorsEnabled();
-        setTopActivity(activity);
-    }
-
-    @Override
-    public void onActivityCreated(@NonNull Activity activity, Bundle savedInstanceState) {
         setTopActivity(activity);
         consumeActivityLifecycleCallbacks(activity, Lifecycle.Event.ON_CREATE);
     }

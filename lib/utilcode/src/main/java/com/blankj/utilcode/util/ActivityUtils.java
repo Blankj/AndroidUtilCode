@@ -1646,15 +1646,14 @@ public final class ActivityUtils {
                                            final boolean isIncludeSelf,
                                            final boolean isLoadAnim) {
         List<Activity> activities = UtilsBridge.getActivityList();
-        for (int i = activities.size() - 1; i >= 0; --i) {
-            Activity aActivity = activities.get(i);
-            if (aActivity.equals(activity)) {
+        for (Activity act : activities) {
+            if (act.equals(activity)) {
                 if (isIncludeSelf) {
-                    finishActivity(aActivity, isLoadAnim);
+                    finishActivity(act, isLoadAnim);
                 }
                 return true;
             }
-            finishActivity(aActivity, isLoadAnim);
+            finishActivity(act, isLoadAnim);
         }
         return false;
     }
@@ -1674,15 +1673,14 @@ public final class ActivityUtils {
                                            @AnimRes final int enterAnim,
                                            @AnimRes final int exitAnim) {
         List<Activity> activities = UtilsBridge.getActivityList();
-        for (int i = activities.size() - 1; i >= 0; --i) {
-            Activity aActivity = activities.get(i);
-            if (aActivity.equals(activity)) {
+        for (Activity act : activities) {
+            if (act.equals(activity)) {
                 if (isIncludeSelf) {
-                    finishActivity(aActivity, enterAnim, exitAnim);
+                    finishActivity(act, enterAnim, exitAnim);
                 }
                 return true;
             }
-            finishActivity(aActivity, enterAnim, exitAnim);
+            finishActivity(act, enterAnim, exitAnim);
         }
         return false;
     }
@@ -1709,15 +1707,14 @@ public final class ActivityUtils {
                                            final boolean isIncludeSelf,
                                            final boolean isLoadAnim) {
         List<Activity> activities = UtilsBridge.getActivityList();
-        for (int i = activities.size() - 1; i >= 0; --i) {
-            Activity aActivity = activities.get(i);
-            if (aActivity.getClass().equals(clz)) {
+        for (Activity act : activities) {
+            if (act.getClass().equals(clz)) {
                 if (isIncludeSelf) {
-                    finishActivity(aActivity, isLoadAnim);
+                    finishActivity(act, isLoadAnim);
                 }
                 return true;
             }
-            finishActivity(aActivity, isLoadAnim);
+            finishActivity(act, isLoadAnim);
         }
         return false;
     }
@@ -1737,15 +1734,14 @@ public final class ActivityUtils {
                                            @AnimRes final int enterAnim,
                                            @AnimRes final int exitAnim) {
         List<Activity> activities = UtilsBridge.getActivityList();
-        for (int i = activities.size() - 1; i >= 0; --i) {
-            Activity aActivity = activities.get(i);
-            if (aActivity.getClass().equals(clz)) {
+        for (Activity act : activities) {
+            if (act.getClass().equals(clz)) {
                 if (isIncludeSelf) {
-                    finishActivity(aActivity, enterAnim, exitAnim);
+                    finishActivity(act, enterAnim, exitAnim);
                 }
                 return true;
             }
-            finishActivity(aActivity, enterAnim, exitAnim);
+            finishActivity(act, enterAnim, exitAnim);
         }
         return false;
     }
@@ -1769,10 +1765,9 @@ public final class ActivityUtils {
     public static void finishOtherActivities(@NonNull final Class<? extends Activity> clz,
                                              final boolean isLoadAnim) {
         List<Activity> activities = UtilsBridge.getActivityList();
-        for (int i = activities.size() - 1; i >= 0; i--) {
-            Activity activity = activities.get(i);
-            if (!activity.getClass().equals(clz)) {
-                finishActivity(activity, isLoadAnim);
+        for (Activity act : activities) {
+            if (!act.getClass().equals(clz)) {
+                finishActivity(act, isLoadAnim);
             }
         }
     }
@@ -1790,10 +1785,9 @@ public final class ActivityUtils {
                                              @AnimRes final int enterAnim,
                                              @AnimRes final int exitAnim) {
         List<Activity> activities = UtilsBridge.getActivityList();
-        for (int i = activities.size() - 1; i >= 0; i--) {
-            Activity activity = activities.get(i);
-            if (!activity.getClass().equals(clz)) {
-                finishActivity(activity, enterAnim, exitAnim);
+        for (Activity act : activities) {
+            if (!act.getClass().equals(clz)) {
+                finishActivity(act, enterAnim, exitAnim);
             }
         }
     }
@@ -1812,12 +1806,11 @@ public final class ActivityUtils {
      */
     public static void finishAllActivities(final boolean isLoadAnim) {
         List<Activity> activityList = UtilsBridge.getActivityList();
-        for (int i = activityList.size() - 1; i >= 0; --i) {// remove from top
-            Activity activity = activityList.get(i);
+        for (Activity act : activityList) {
             // sActivityList remove the index activity at onActivityDestroyed
-            activity.finish();
+            act.finish();
             if (!isLoadAnim) {
-                activity.overridePendingTransition(0, 0);
+                act.overridePendingTransition(0, 0);
             }
         }
     }
@@ -1833,11 +1826,10 @@ public final class ActivityUtils {
     public static void finishAllActivities(@AnimRes final int enterAnim,
                                            @AnimRes final int exitAnim) {
         List<Activity> activityList = UtilsBridge.getActivityList();
-        for (int i = activityList.size() - 1; i >= 0; --i) {// remove from top
-            Activity activity = activityList.get(i);
+        for (Activity act : activityList) {
             // sActivityList remove the index activity at onActivityDestroyed
-            activity.finish();
-            activity.overridePendingTransition(enterAnim, exitAnim);
+            act.finish();
+            act.overridePendingTransition(enterAnim, exitAnim);
         }
     }
 
@@ -1855,7 +1847,7 @@ public final class ActivityUtils {
      */
     public static void finishAllActivitiesExceptNewest(final boolean isLoadAnim) {
         List<Activity> activities = UtilsBridge.getActivityList();
-        for (int i = activities.size() - 2; i >= 0; i--) {
+        for (int i = 1; i < activities.size() - 1; i++) {
             finishActivity(activities.get(i), isLoadAnim);
         }
     }
@@ -1871,7 +1863,7 @@ public final class ActivityUtils {
     public static void finishAllActivitiesExceptNewest(@AnimRes final int enterAnim,
                                                        @AnimRes final int exitAnim) {
         List<Activity> activities = UtilsBridge.getActivityList();
-        for (int i = activities.size() - 2; i >= 0; i--) {
+        for (int i = 1; i < activities.size() - 1; i++) {
             finishActivity(activities.get(i), enterAnim, exitAnim);
         }
     }

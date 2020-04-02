@@ -40,28 +40,28 @@ public class BatteryUtils {
     }
 
     /**
-     * Register the status of battery status changed listener.
+     * Register the status of battery changed listener.
      *
-     * @param listener The status of battery status changed listener
+     * @param listener The status of battery changed listener.
      */
     public static void registerBatteryStatusChangedListener(final OnBatteryStatusChangedListener listener) {
         BatteryChangedReceiver.getInstance().registerListener(listener);
     }
 
     /**
-     * Return whether the status of battery status changed listener registered.
+     * Return whether the status of battery changed listener has been registered.
      *
-     * @param listener The listener
-     * @return True to registered, false otherwise.
+     * @param listener The status of battery changed listener.
+     * @return true to registered, false otherwise.
      */
     public static boolean isRegistered(final OnBatteryStatusChangedListener listener) {
         return BatteryChangedReceiver.getInstance().isRegistered(listener);
     }
 
     /**
-     * unregister the status of battery status changed listener.
+     * Unregister the status of battery changed listener.
      *
-     * @param listener The status of battery status changed listener
+     * @param listener The status of battery changed listener.
      */
     public static void unregisterBatteryStatusChangedListener(final OnBatteryStatusChangedListener listener) {
         BatteryChangedReceiver.getInstance().unregisterListener(listener);

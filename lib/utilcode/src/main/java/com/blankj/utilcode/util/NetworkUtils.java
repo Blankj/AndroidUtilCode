@@ -671,19 +671,19 @@ public final class NetworkUtils {
     }
 
     /**
-     * Return whether the status of battery status changed listener registered.
+     * Return whether the status of network changed listener has been registered.
      *
      * @param listener The listener
-     * @return True to registered, false otherwise.
+     * @return true to registered, false otherwise.
      */
-    public static boolean isRegistered(final OnNetworkStatusChangedListener listener) {
+    public static boolean isRegisteredNetworkStatusChangedListener(final OnNetworkStatusChangedListener listener) {
         return NetworkChangedReceiver.getInstance().isRegistered(listener);
     }
 
     /**
-     * unregister the status of network changed listener.
+     * Unregister the status of network changed listener.
      *
-     * @param listener The status of network changed listener
+     * @param listener The status of network changed listener.
      */
     public static void unregisterNetworkStatusChangedListener(final OnNetworkStatusChangedListener listener) {
         NetworkChangedReceiver.getInstance().unregisterListener(listener);

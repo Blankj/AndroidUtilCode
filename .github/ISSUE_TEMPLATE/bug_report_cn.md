@@ -11,7 +11,7 @@ assignees: Blankj
 
 简洁地描述下 Bug。
 
-- AndroidUtilCode 的版本：<!-- 例如 utilcode:1.16.3 或 utilcodex:1.16.3 -->
+- AndroidUtilCode 的版本：<!-- 例如 utilcode:1.16.3 或 utilcodex:1.16.3（这里面是注释，内容需要放在外面） -->
 - 出现 Bug 的设备型号：<!-- 例如 Nexus 5X -->
 - 设备的 Android 版本：<!-- 例如 API 27 -->
 
