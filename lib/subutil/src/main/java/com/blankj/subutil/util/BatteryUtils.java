@@ -16,7 +16,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import androidx.annotation.IntDef;
-import androidx.annotation.NonNull;
 
 /**
  * <pre>
@@ -26,7 +25,7 @@ import androidx.annotation.NonNull;
  *     desc  :
  * </pre>
  */
-public class BatteryUtils {
+public final class BatteryUtils {
 
     @IntDef({BatteryStatus.UNKNOWN, BatteryStatus.DISCHARGING, BatteryStatus.CHARGING,
             BatteryStatus.NOT_CHARGING, BatteryStatus.FULL})
@@ -137,7 +136,7 @@ public class BatteryUtils {
         void onBatteryStatusChanged(Status status);
     }
 
-    public static class Status {
+    public static final class Status {
         private int level;
         @BatteryStatus
         private int status;
@@ -164,7 +163,6 @@ public class BatteryUtils {
             this.status = status;
         }
 
-        @NonNull
         @Override
         public String toString() {
             return batteryStatus2String(status) + ": " + level + "%";

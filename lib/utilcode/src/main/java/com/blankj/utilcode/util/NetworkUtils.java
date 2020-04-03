@@ -783,7 +783,7 @@ public final class NetworkUtils {
 //    public static final class NetworkCallbackImpl extends ConnectivityManager.NetworkCallback {
 //
 //        @Override
-//        public void onAvailable(@NotNull Network network) {
+//        public void onAvailable(@NonNull Network network) {
 //            super.onAvailable(network);
 //            LogUtils.d(TAG, "onAvailable: " + network);
 //        }
@@ -795,7 +795,7 @@ public final class NetworkUtils {
 //        }
 //
 //        @Override
-//        public void onLost(@NotNull Network network) {
+//        public void onLost(@NonNull Network network) {
 //            super.onLost(network);
 //            LogUtils.e(TAG, "onLost: " + network);
 //        }
@@ -807,7 +807,7 @@ public final class NetworkUtils {
 //        }
 //
 //        @Override
-//        public void onCapabilitiesChanged(@NotNull Network network, @NotNull NetworkCapabilities cap) {
+//        public void onCapabilitiesChanged(@NonNull Network network, @NonNull NetworkCapabilities cap) {
 //            super.onCapabilitiesChanged(network, cap);
 //            if (cap.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)) {
 //                if (cap.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {

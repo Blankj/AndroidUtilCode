@@ -11,11 +11,10 @@ import android.view.WindowManager;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,9 +34,8 @@ final class UtilsActivityLifecycleImpl implements Application.ActivityLifecycleC
 
     private final LinkedList<Activity> mActivityList = new LinkedList<>();
 
-    private final List<Utils.OnAppStatusChangedListener>                 mStatusListeners               = new ArrayList<>();
-    private final Map<Activity, List<Utils.OnActivityDestroyedListener>> mDestroyedListenerMap          = new HashMap<>();
-    private final Map<Activity, List<Utils.ActivityLifecycleCallbacks>>  mActivityLifecycleCallbacksMap = new HashMap<>();
+    private final List<Utils.OnAppStatusChangedListener>                mStatusListeners               = new ArrayList<>();
+    private final Map<Activity, List<Utils.ActivityLifecycleCallbacks>> mActivityLifecycleCallbacksMap = new ConcurrentHashMap<>();
 
     private int     mForegroundCount = 0;
     private int     mConfigCount     = 0;
@@ -128,6 +126,31 @@ final class UtilsActivityLifecycleImpl implements Application.ActivityLifecycleC
         }
     }
 
+    private void consumeActivityLifecycleCallbacks(Activity activity, Lifecycle.Event event) {
+        List<Utils.ActivityLifecycleCallbacks> listeners = mActivityLifecycleCallbacksMap.get(activity);
+        if (listeners != null) {
+            for (Utils.ActivityLifecycleCallbacks listener : listeners) {
+                listener.onLifecycleChanged(activity, event);
+                if (event.equals(Lifecycle.Event.ON_CREATE)) {
+                    listener.onActivityCreated(activity);
+                } else if (event.equals(Lifecycle.Event.ON_START)) {
+                    listener.onActivityStarted(activity);
+                } else if (event.equals(Lifecycle.Event.ON_RESUME)) {
+                    listener.onActivityResumed(activity);
+                } else if (event.equals(Lifecycle.Event.ON_PAUSE)) {
+                    listener.onActivityPaused(activity);
+                } else if (event.equals(Lifecycle.Event.ON_STOP)) {
+                    listener.onActivityStopped(activity);
+                } else if (event.equals(Lifecycle.Event.ON_DESTROY)) {
+                    listener.onActivityDestroyed(activity);
+                }
+            }
+            if (event.equals(Lifecycle.Event.ON_DESTROY)) {
+                mActivityLifecycleCallbacksMap.remove(activity);
+            }
+        }
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     // lifecycle start
     ///////////////////////////////////////////////////////////////////////////
@@ -189,7 +212,6 @@ final class UtilsActivityLifecycleImpl implements Application.ActivityLifecycleC
     @Override
     public void onActivityDestroyed(@NonNull Activity activity) {
         mActivityList.remove(activity);
-        consumeOnActivityDestroyedListener(activity);
         UtilsBridge.fixSoftInputLeaks(activity);
         consumeActivityLifecycleCallbacks(activity, Lifecycle.Event.ON_DESTROY);
     }
@@ -242,49 +264,6 @@ final class UtilsActivityLifecycleImpl implements Application.ActivityLifecycleC
             }
         } else {
             mActivityList.addFirst(activity);
-        }
-    }
-
-    private void consumeOnActivityDestroyedListener(Activity activity) {
-        Iterator<Map.Entry<Activity, List<Utils.OnActivityDestroyedListener>>> iterator
-                = mDestroyedListenerMap.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<Activity, List<Utils.OnActivityDestroyedListener>> entry = iterator.next();
-            if (entry.getKey() == activity) {
-                List<Utils.OnActivityDestroyedListener> value = entry.getValue();
-                for (Utils.OnActivityDestroyedListener listener : value) {
-                    listener.onActivityDestroyed(activity);
-                }
-                iterator.remove();
-            }
-        }
-    }
-
-    private void consumeActivityLifecycleCallbacks(Activity activity, Lifecycle.Event event) {
-        Iterator<Map.Entry<Activity, List<Utils.ActivityLifecycleCallbacks>>> iterator
-                = mActivityLifecycleCallbacksMap.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<Activity, List<Utils.ActivityLifecycleCallbacks>> entry = iterator.next();
-            if (entry.getKey() == activity) {
-                List<Utils.ActivityLifecycleCallbacks> value = entry.getValue();
-                for (Utils.ActivityLifecycleCallbacks listener : value) {
-                    listener.onLifecycleChanged(activity, event);
-                    if (event.equals(Lifecycle.Event.ON_CREATE)) {
-                        listener.onActivityCreated(activity);
-                    } else if (event.equals(Lifecycle.Event.ON_START)) {
-                        listener.onActivityStarted(activity);
-                    } else if (event.equals(Lifecycle.Event.ON_RESUME)) {
-                        listener.onActivityResumed(activity);
-                    } else if (event.equals(Lifecycle.Event.ON_PAUSE)) {
-                        listener.onActivityPaused(activity);
-                    } else if (event.equals(Lifecycle.Event.ON_STOP)) {
-                        listener.onActivityStopped(activity);
-                    } else if (event.equals(Lifecycle.Event.ON_DESTROY)) {
-                        listener.onActivityDestroyed(activity);
-                        iterator.remove();
-                    }
-                }
-            }
         }
     }
 
