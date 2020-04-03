@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.os.Build;
 import android.support.annotation.NonNull;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.text.SimpleDateFormat;
@@ -92,7 +90,7 @@ public final class CrashUtils {
                                                                         final OnCrashListener onCrashListener) {
         return new UncaughtExceptionHandler() {
             @Override
-            public void uncaughtException(@NotNull final Thread t, @NotNull final Throwable e) {
+            public void uncaughtException(@NonNull final Thread t, @NonNull final Throwable e) {
                 final String time = new SimpleDateFormat("MM-dd_HH-mm-ss").format(new Date());
                 final StringBuilder sb = new StringBuilder();
                 final String head = "************* Log Head ****************" +

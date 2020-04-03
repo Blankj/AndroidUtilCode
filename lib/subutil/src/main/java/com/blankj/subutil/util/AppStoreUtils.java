@@ -21,7 +21,7 @@ import java.util.List;
  *     desc  : utils about app store
  * </pre>
  */
-public class AppStoreUtils {
+public final class AppStoreUtils {
 
     private static final String TAG = "AppStoreUtils";
 

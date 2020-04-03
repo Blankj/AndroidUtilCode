@@ -44,7 +44,7 @@ class ClickActivity : CommonActivity() {
                     ClickUtils.applyPressedViewAlpha(it)
                 }),
                 ClickItem(R.string.click_bg_alpha_default, Utils.Consumer {
-                    ClickUtils.applyPressedBgAlpha(it)
+                    ClickUtils.applyPressedBgAlpha(it, 0.6f)
                 }),
                 ClickItem(R.string.click_bg_dark_default, Utils.Consumer {
                     ClickUtils.applyPressedBgDark(it)

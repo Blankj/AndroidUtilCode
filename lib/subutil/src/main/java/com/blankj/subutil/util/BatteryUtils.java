@@ -11,8 +11,6 @@ import android.support.annotation.IntDef;
 import com.blankj.utilcode.util.ThreadUtils;
 import com.blankj.utilcode.util.Utils;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.HashSet;
@@ -26,7 +24,7 @@ import java.util.Set;
  *     desc  :
  * </pre>
  */
-public class BatteryUtils {
+public final class BatteryUtils {
 
     @IntDef({BatteryStatus.UNKNOWN, BatteryStatus.DISCHARGING, BatteryStatus.CHARGING,
             BatteryStatus.NOT_CHARGING, BatteryStatus.FULL})
@@ -137,7 +135,7 @@ public class BatteryUtils {
         void onBatteryStatusChanged(Status status);
     }
 
-    public static class Status {
+    public static final class Status {
         private int level;
         @BatteryStatus
         private int status;
@@ -164,7 +162,6 @@ public class BatteryUtils {
             this.status = status;
         }
 
-        @NotNull
         @Override
         public String toString() {
             return batteryStatus2String(status) + ": " + level + "%";

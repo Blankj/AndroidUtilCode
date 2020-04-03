@@ -83,22 +83,37 @@ public final class ActivityUtils {
     }
 
     private static Activity getActivityByContextInner(Context context) {
-        if (context instanceof Activity) return (Activity) context;
-        if (context != null && context.getClass().getName().equals("com.android.internal.policy.DecorContext")) {
-            try {
-                Field mActivityContextField = context.getClass().getDeclaredField("mActivityContext");
-                mActivityContextField.setAccessible(true);
-                //noinspection unchecked
-                return ((WeakReference<Activity>) mActivityContextField.get(context)).get();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        if (context == null) return null;
+        List<Context> list = new ArrayList<>();
         while (context instanceof ContextWrapper) {
             if (context instanceof Activity) {
                 return (Activity) context;
             }
+            Activity activity = getActivityFromDecorContext(context);
+            if (activity != null) return activity;
+            list.add(context);
             context = ((ContextWrapper) context).getBaseContext();
+            if (context == null) {
+                return null;
+            }
+            if (list.contains(context)) {
+                // loop context
+                return null;
+            }
+        }
+        return null;
+    }
+
+    private static Activity getActivityFromDecorContext(Context context) {
+        if (context == null) return null;
+        if (context.getClass().getName().equals("com.android.internal.policy.DecorContext")) {
+            try {
+                Field mActivityContextField = context.getClass().getDeclaredField("mActivityContext");
+                mActivityContextField.setAccessible(true);
+                //noinspection ConstantConditions,unchecked
+                return ((WeakReference<Activity>) mActivityContextField.get(context)).get();
+            } catch (Exception ignore) {
+            }
         }
         return null;
     }

@@ -213,23 +213,23 @@ public class ClickUtils {
     }
 
     private static Drawable createAlphaDrawable(Drawable drawable, float alpha) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             DrawableWrapperBefore21 drawableWrapper = new DrawableWrapperBefore21(drawable);
             drawableWrapper.setAlphaFix((int) (alpha * 255));
             return drawableWrapper;
-        }
-        drawable.setAlpha((int) (alpha * 255));
-        return drawable;
+//        }
+//        drawable.setAlpha((int) (alpha * 255));
+//        return drawable;
     }
 
     private static Drawable createDarkDrawable(Drawable drawable, float alpha) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             DrawableWrapperBefore21 drawableWrapper = new DrawableWrapperBefore21(drawable);
             drawableWrapper.setColorFilterFix(getDarkColorFilter(alpha));
             return drawableWrapper;
-        }
-        drawable.setColorFilter(getDarkColorFilter(alpha));
-        return drawable;
+//        }
+//        drawable.setColorFilter(getDarkColorFilter(alpha));
+//        return drawable;
     }
 
     private static ColorMatrixColorFilter getDarkColorFilter(float darkAlpha) {

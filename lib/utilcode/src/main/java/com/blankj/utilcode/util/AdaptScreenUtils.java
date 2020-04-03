@@ -153,8 +153,7 @@ public final class AdaptScreenUtils {
     private static DisplayMetrics getMetricsFromField(final Resources resources, final Field field) {
         try {
             return (DisplayMetrics) field.get(resources);
-        } catch (Exception e) {
-            Log.e("AdaptScreenUtils", "getMetricsFromField: " + e);
+        } catch (Exception ignore) {
             return null;
         }
     }
