@@ -67,6 +67,9 @@ class CoreUtilActivity : CommonActivity() {
 
     override fun bindItems(): MutableList<CommonItem<*>> {
         return CollectionUtils.newArrayList(
+                CommonItemClick(R.string.demo_shadow, true) {
+                    ShadowActivity.start(this)
+                },
                 CommonItemClick(R.string.demo_activity, true) {
                     ActivityActivity.start(this)
                 },
@@ -160,9 +163,7 @@ class CoreUtilActivity : CommonActivity() {
                 CommonItemClick(R.string.demo_sdcard, true) {
                     SDCardActivity.start(this)
                 },
-                CommonItemClick(R.string.demo_shadow, true) {
-                    ShadowActivity.start(this)
-                },
+
                 CommonItemClick(R.string.demo_snackbar, true) {
                     SnackbarActivity.start(this)
                 },
