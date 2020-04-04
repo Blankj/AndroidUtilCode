@@ -83,6 +83,8 @@ public final class IntentUtils {
 
     /**
      * Return the intent of uninstall app.
+     * <p>Target APIs greater than 25 must hold
+     * Must hold {@code <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />}</p>
      *
      * @param pkgName The name of the package.
      * @return the intent of uninstall app
