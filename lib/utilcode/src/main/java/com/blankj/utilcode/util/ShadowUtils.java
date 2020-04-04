@@ -56,7 +56,7 @@ public class ShadowUtils {
 
     public static class Config {
 
-        private static final int SHADOW_COLOR_DEFAULT = 0xb0_000000;
+        private static final int SHADOW_COLOR_DEFAULT = 0x44000000;
         private static final int SHADOW_SIZE          = UtilsBridge.dp2px(8);
 
         private float   mShadowRadius         = -1;
@@ -215,7 +215,7 @@ public class ShadowUtils {
                               float shadowSize, float maxShadowSize, int shadowColor, boolean isCircle) {
             super(content);
             mShadowStartColor = shadowColor;
-            mShadowEndColor = 0;
+            mShadowEndColor = mShadowStartColor & 0x00ffffff;
             this.isCircle = isCircle;
             if (isCircle) {
                 mShadowMultiplier = 1;
@@ -438,18 +438,17 @@ public class ShadowUtils {
                 mCornerShadowPath.rLineTo(-mShadowSize, 0);
                 // outer arc
                 mCornerShadowPath.arcTo(outerBounds, 180f, 180f, false);
-                mCornerShadowPath.arcTo(outerBounds, 360f, 180f, false);
+                mCornerShadowPath.arcTo(outerBounds, 0f, 180f, false);
                 // inner arc
-                mCornerShadowPath.arcTo(innerBounds, 540f, -180f, false);
-                mCornerShadowPath.arcTo(innerBounds, 360f, -180f, false);
+                mCornerShadowPath.arcTo(innerBounds, 180f, 180f, false);
+                mCornerShadowPath.arcTo(innerBounds, 0f, 180f, false);
                 mCornerShadowPath.close();
 
                 float shadowRadius = -outerBounds.top;
                 if (shadowRadius > 0f) {
                     float startRatio = size / shadowRadius;
                     mCornerShadowPaint.setShader(new RadialGradient(0, 0, shadowRadius,
-                            new int[]{0, mShadowStartColor, mShadowEndColor},
-                            new float[]{0f, startRatio, 1f},
+                            new int[]{0, mShadowStartColor, mShadowEndColor}, new float[]{0.0F, startRatio, 1.0F},
                             Shader.TileMode.CLAMP));
                 }
                 return;
@@ -477,8 +476,7 @@ public class ShadowUtils {
             if (shadowRadius > 0f) {
                 float startRatio = mCornerRadius / shadowRadius;
                 mCornerShadowPaint.setShader(new RadialGradient(0, 0, shadowRadius,
-                        new int[]{0, mShadowStartColor, mShadowEndColor},
-                        new float[]{0f, startRatio, 1f},
+                        new int[]{0, mShadowStartColor, mShadowEndColor}, new float[]{0F, startRatio, 1F},
                         Shader.TileMode.CLAMP));
             }
 
@@ -486,8 +484,7 @@ public class ShadowUtils {
             // this is why edge shadow shader has some extra space
             // When drawing bottom edge shadow, we use that extra space.
             mEdgeShadowPaint.setShader(new LinearGradient(0, innerBounds.top, 0, outerBounds.top,
-                    new int[]{mShadowStartColor, mShadowEndColor},
-                    new float[]{0f, 1f}, Shader.TileMode.CLAMP));
+                    mShadowStartColor, mShadowEndColor, Shader.TileMode.CLAMP));
             mEdgeShadowPaint.setAntiAlias(false);
         }
 

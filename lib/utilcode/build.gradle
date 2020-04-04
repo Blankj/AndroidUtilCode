@@ -48,3 +48,7 @@ publish {
     version = Config.depConfig.lib_utilcode.version
     website = "https://github.com/Blankj/AndroidUtilCode"
 }
+
+afterEvaluate {
+    verifyReleaseResources.enabled(false)
+}
