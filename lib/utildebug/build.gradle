@@ -10,3 +10,7 @@ dependencies {
     testImplementation Config.depConfig.test_robolectric.dep
     testImplementation Config.depConfig.support_appcompat.dep
 }
+
+afterEvaluate {
+    verifyReleaseResources.enabled(false)
+}
