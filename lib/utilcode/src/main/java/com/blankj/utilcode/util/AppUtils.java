@@ -76,6 +76,8 @@ public final class AppUtils {
 
     /**
      * Uninstall the app.
+     * <p>Target APIs greater than 25 must hold
+     * Must hold {@code <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />}</p>
      *
      * @param packageName The name of the package.
      */

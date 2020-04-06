@@ -1,4 +1,5 @@
-* `20/04/03` [fix] UtilsActivityLifecycleImpl#HashMap#remove IllegalStateException Bug. Publish v1.27.2.
+* `20/04/04` [fix] ShadowUtils bug running on lower version devices. Publish v1.27.2.
+* `20/04/03` [fix] UtilsActivityLifecycleImpl#HashMap#remove IllegalStateException bug.
 * `20/04/02` [fix] PathUtils sdcard enable state is wrong; ActivityUtils finish activity wrong; Publish v1.27.1.
 * `20/03/31` [add] Publish v1.27.0.
 * `20/03/30` [add] BatteryUtils in subutil.

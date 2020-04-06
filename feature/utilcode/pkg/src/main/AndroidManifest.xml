@@ -4,6 +4,7 @@
     <!-- app -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
 
     <!-- bar -->
     <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />

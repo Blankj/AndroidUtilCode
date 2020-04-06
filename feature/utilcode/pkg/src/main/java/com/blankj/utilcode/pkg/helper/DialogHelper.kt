@@ -31,17 +31,15 @@ import com.blankj.utilcode.util.*
 object DialogHelper {
 
     fun showRationaleDialog(context: Context, shouldRequest: PermissionUtils.OnRationaleListener.ShouldRequest) {
-        fun showRationaleDialog(context: Context, shouldRequest: PermissionUtils.OnRationaleListener.ShouldRequest) {
-            CommonDialogContent().init(context,
-                    StringUtils.getString(android.R.string.dialog_alert_title),
-                    StringUtils.getString(R.string.permission_rationale_message),
-                    Pair(StringUtils.getString(android.R.string.ok), View.OnClickListener {
-                        shouldRequest.again(true)
-                    }),
-                    Pair(StringUtils.getString(android.R.string.cancel), View.OnClickListener {
-                        shouldRequest.again(false)
-                    })).show()
-        }
+        CommonDialogContent().init(context,
+                StringUtils.getString(android.R.string.dialog_alert_title),
+                StringUtils.getString(R.string.permission_rationale_message),
+                Pair(StringUtils.getString(android.R.string.ok), View.OnClickListener {
+                    shouldRequest.again(true)
+                }),
+                Pair(StringUtils.getString(android.R.string.cancel), View.OnClickListener {
+                    shouldRequest.again(false)
+                })).show()
     }
 
     fun showOpenAppSettingDialog(context: Context) {
