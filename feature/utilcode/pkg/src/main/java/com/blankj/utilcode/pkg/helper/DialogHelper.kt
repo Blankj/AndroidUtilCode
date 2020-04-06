@@ -19,7 +19,6 @@ import com.blankj.base.dialog.DialogLayoutCallback
 import com.blankj.common.dialog.CommonDialogContent
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.*
-import com.blankj.utilcode.util.PermissionUtils.OnRationaleListener.ShouldRequest
 
 /**
  * ```
@@ -31,7 +30,7 @@ import com.blankj.utilcode.util.PermissionUtils.OnRationaleListener.ShouldReques
  */
 object DialogHelper {
 
-    fun showRationaleDialog(context: Context, shouldRequest: ShouldRequest) {
+    fun showRationaleDialog(context: Context, shouldRequest: PermissionUtils.OnRationaleListener.ShouldRequest) {
         CommonDialogContent().init(context,
                 StringUtils.getString(android.R.string.dialog_alert_title),
                 StringUtils.getString(R.string.permission_rationale_message),
