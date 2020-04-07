@@ -1,7 +1,6 @@
 ---
 name: 提交 Bug
 about: 让工具类更完美！
-title: "[BUG]"
 labels: bug
 assignees: Blankj
 

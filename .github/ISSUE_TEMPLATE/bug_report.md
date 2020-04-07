@@ -1,7 +1,6 @@
 ---
 name: Bug report
 about: Make AndroidUtilCode more perfect!
-title: "[BUG]"
 labels: bug
 assignees: Blankj
 

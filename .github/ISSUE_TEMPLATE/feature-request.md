@@ -1,7 +1,6 @@
 ---
 name: Feature request
 about: Make AndroidUtilCode more perfect!
-title: "[FEATURE]"
 labels: help wanted
 assignees: Blankj
 
