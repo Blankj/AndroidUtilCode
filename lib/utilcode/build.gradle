@@ -39,6 +39,10 @@ dependencies {
     testImplementation Config.depConfig.eventbus_lib.dep
 }
 
+afterEvaluate {
+    verifyReleaseResources.enabled(false)
+}
+
 apply from: "${rootDir.path}/gradle/publish.gradle"
 publish {
     name = "UtilCodeX"
@@ -46,8 +50,4 @@ publish {
     artifactId = Config.depConfig.lib_utilcode.artifactId
     version = Config.depConfig.lib_utilcode.version
     website = "https://github.com/Blankj/AndroidUtilCode"
-}
-
-afterEvaluate {
-    verifyReleaseResources.enabled(false)
 }

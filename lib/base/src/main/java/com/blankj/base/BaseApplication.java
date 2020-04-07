@@ -84,7 +84,7 @@ public class BaseApplication extends Application {
             @Override
             public void onCrash(String crashInfo, Throwable e) {
                 LogUtils.e(crashInfo);
-                AppUtils.relaunchApp(true);
+                AppUtils.relaunchApp();
             }
         });
     }

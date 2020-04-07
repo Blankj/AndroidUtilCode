@@ -1,3 +1,5 @@
+* `20/04/08` [fix] CrashUtils DefaultUncaughtExceptionHandler is wrong; LogUtils write file failed. Publish v1.27.3.
+* `20/04/07` [mdf] GsonUtils#getGson() method public.
 * `20/04/04` [fix] ShadowUtils bug running on lower version devices. Publish v1.27.2.
 * `20/04/03` [fix] UtilsActivityLifecycleImpl#HashMap#remove IllegalStateException bug.
 * `20/04/02` [fix] PathUtils sdcard enable state is wrong; ActivityUtils finish activity wrong; Publish v1.27.1.

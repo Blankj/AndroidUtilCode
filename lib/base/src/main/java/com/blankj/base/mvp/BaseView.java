@@ -5,7 +5,6 @@ import java.util.Map;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.Lifecycle;
 
 /**
  * <pre>
@@ -19,20 +18,17 @@ public abstract class BaseView<V extends BaseView> {
 
     private FragmentActivity mActivity;
     private Fragment         mFragment;
-    private Lifecycle        mLifecycle;
     Map<Class, BasePresenter<V>> mPresenterMap = new HashMap<>();
 
     public abstract void onDestroyView();
 
     public BaseView(FragmentActivity activity) {
         mActivity = activity;
-        mLifecycle = activity.getLifecycle();
     }
 
     public BaseView(Fragment fragment) {
         mFragment = fragment;
         mActivity = fragment.getActivity();
-        mLifecycle = fragment.getLifecycle();
     }
 
     public <T extends FragmentActivity> T getActivity() {
@@ -49,9 +45,6 @@ public abstract class BaseView<V extends BaseView> {
         mPresenterMap.put(presenter.getClass(), presenter);
         //noinspection unchecked
         presenter.bindView((V) this);
-        if (mLifecycle != null) {
-            mLifecycle.addObserver(presenter);
-        }
     }
 
     public <P extends BasePresenter<V>> P getPresenter(Class<P> presenterClass) {

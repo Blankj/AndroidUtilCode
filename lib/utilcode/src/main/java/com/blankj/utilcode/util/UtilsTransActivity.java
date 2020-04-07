@@ -1,5 +1,6 @@
 package com.blankj.utilcode.util;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -7,6 +8,7 @@ import android.view.MotionEvent;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,18 +26,33 @@ public class UtilsTransActivity extends AppCompatActivity {
     private static       TransActivityDelegate                          sDelegate;
 
     public static void start(final TransActivityDelegate delegate) {
-        start(null, delegate);
+        start(null, null, delegate);
     }
 
     public static void start(final Utils.Consumer<Intent> consumer,
                              final TransActivityDelegate delegate) {
+        start(null, consumer, delegate);
+    }
+
+    public static void start(final Activity activity,
+                             final TransActivityDelegate delegate) {
+        start(activity, null, delegate);
+    }
+
+    public static void start(final Activity activity,
+                             final Utils.Consumer<Intent> consumer,
+                             final TransActivityDelegate delegate) {
         if (delegate == null) return;
         Intent starter = new Intent(Utils.getApp(), UtilsTransActivity.class);
-        starter.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (consumer != null) {
             consumer.accept(starter);
         }
-        Utils.getApp().startActivity(starter);
+        if (activity == null) {
+            starter.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Utils.getApp().startActivity(starter);
+        } else {
+            activity.startActivity(starter);
+        }
         sDelegate = delegate;
     }
 
@@ -131,27 +148,27 @@ public class UtilsTransActivity extends AppCompatActivity {
     }
 
     public abstract static class TransActivityDelegate {
-        public void onCreateBefore(UtilsTransActivity activity, @Nullable Bundle savedInstanceState) {/**/}
+        public void onCreateBefore(@NonNull UtilsTransActivity activity, @Nullable Bundle savedInstanceState) {/**/}
 
-        public void onCreated(UtilsTransActivity activity, @Nullable Bundle savedInstanceState) {/**/}
+        public void onCreated(@NonNull UtilsTransActivity activity, @Nullable Bundle savedInstanceState) {/**/}
 
-        public void onStarted(UtilsTransActivity activity) {/**/}
+        public void onStarted(@NonNull UtilsTransActivity activity) {/**/}
 
-        public void onDestroy(UtilsTransActivity activity) {/**/}
+        public void onDestroy(@NonNull UtilsTransActivity activity) {/**/}
 
-        public void onResumed(UtilsTransActivity activity) {/**/}
+        public void onResumed(@NonNull UtilsTransActivity activity) {/**/}
 
-        public void onPaused(UtilsTransActivity activity) {/**/}
+        public void onPaused(@NonNull UtilsTransActivity activity) {/**/}
 
-        public void onStopped(UtilsTransActivity activity) {/**/}
+        public void onStopped(@NonNull UtilsTransActivity activity) {/**/}
 
-        public void onSaveInstanceState(UtilsTransActivity activity, Bundle outState) {/**/}
+        public void onSaveInstanceState(@NonNull UtilsTransActivity activity, Bundle outState) {/**/}
 
-        public void onRequestPermissionsResult(UtilsTransActivity activity, int requestCode, String[] permissions, int[] grantResults) {/**/}
+        public void onRequestPermissionsResult(@NonNull UtilsTransActivity activity, int requestCode, String[] permissions, int[] grantResults) {/**/}
 
-        public void onActivityResult(UtilsTransActivity activity, int requestCode, int resultCode, Intent data) {/**/}
+        public void onActivityResult(@NonNull UtilsTransActivity activity, int requestCode, int resultCode, Intent data) {/**/}
 
-        public boolean dispatchTouchEvent(UtilsTransActivity activity, MotionEvent ev) {
+        public boolean dispatchTouchEvent(@NonNull UtilsTransActivity activity, MotionEvent ev) {
             return false;
         }
     }

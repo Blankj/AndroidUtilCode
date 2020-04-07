@@ -1,6 +1,7 @@
 package com.blankj.utilcode.util;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -71,6 +72,10 @@ class UtilsBridge {
 
     static List<Activity> getActivityList() {
         return UtilsActivityLifecycleImpl.INSTANCE.getActivityList();
+    }
+
+    static Application getApplicationByReflect() {
+        return UtilsActivityLifecycleImpl.INSTANCE.getApplicationByReflect();
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -237,8 +242,8 @@ class UtilsBridge {
         return FileIOUtils.readFile2BytesByChannel(file);
     }
 
-    static boolean writeFileFromString(final String filePath, final String content) {
-        return FileIOUtils.writeFileFromString(filePath, content);
+    static boolean writeFileFromString(final String filePath, final String content, final boolean append) {
+        return FileIOUtils.writeFileFromString(filePath, content, append);
     }
 
     static boolean writeFileFromIS(final String filePath, final InputStream is) {
@@ -506,11 +511,5 @@ class UtilsBridge {
     ///////////////////////////////////////////////////////////////////////////
     static Uri file2Uri(final File file) {
         return UriUtils.file2Uri(file);
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-    // class
-    ///////////////////////////////////////////////////////////////////////////
-    static abstract class Task<T> extends ThreadUtils.SimpleTask<T> {
     }
 }

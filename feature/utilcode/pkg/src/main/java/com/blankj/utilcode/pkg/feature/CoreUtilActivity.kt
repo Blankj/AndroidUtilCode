@@ -2,6 +2,8 @@ package com.blankj.utilcode.pkg.feature
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
+import android.widget.TextView
 import com.blankj.common.activity.CommonActivity
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick
@@ -43,6 +45,7 @@ import com.blankj.utilcode.pkg.feature.span.SpanActivity
 import com.blankj.utilcode.pkg.feature.toast.ToastActivity
 import com.blankj.utilcode.pkg.feature.vibrate.VibrateActivity
 import com.blankj.utilcode.util.CollectionUtils
+import com.blankj.utilcode.util.UtilsTransActivity
 
 /**
  * ```
@@ -174,6 +177,15 @@ class CoreUtilActivity : CommonActivity() {
                 },
                 CommonItemClick(R.string.demo_toast, true) {
                     ToastActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_trans_activity, true) {
+                    UtilsTransActivity.start(this, object : UtilsTransActivity.TransActivityDelegate() {
+                        override fun onCreated(activity: UtilsTransActivity, savedInstanceState: Bundle?) {
+                            super.onCreated(activity, savedInstanceState)
+                            activity.setContentView(R.layout.common_dialog_loading)
+                            activity.findViewById<TextView>(R.id.utilActionLoadingMsgTv).text = "Trans Activity is showing..."
+                        }
+                    })
                 },
                 CommonItemClick(R.string.demo_vibrate, true) {
                     VibrateActivity.start(this)

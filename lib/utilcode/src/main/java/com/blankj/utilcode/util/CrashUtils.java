@@ -22,6 +22,8 @@ public final class CrashUtils {
 
     private static final String FILE_SEP = System.getProperty("file.separator");
 
+    private static final UncaughtExceptionHandler DEFAULT_UNCAUGHT_EXCEPTION_HANDLER = Thread.getDefaultUncaughtExceptionHandler();
+
     private CrashUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
@@ -80,7 +82,12 @@ public final class CrashUtils {
     public static void init(final String crashDirPath, final OnCrashListener onCrashListener) {
         String dirPath;
         if (UtilsBridge.isSpace(crashDirPath)) {
-            dirPath = Utils.getApp().getFilesDir() + FILE_SEP + "crash" + FILE_SEP;
+            if (UtilsBridge.isSDCardEnableByEnvironment()
+                    && Utils.getApp().getExternalFilesDir(null) != null)
+                dirPath = Utils.getApp().getExternalFilesDir(null) + FILE_SEP + "crash" + FILE_SEP;
+            else {
+                dirPath = Utils.getApp().getFilesDir() + FILE_SEP + "crash" + FILE_SEP;
+            }
         } else {
             dirPath = crashDirPath.endsWith(FILE_SEP) ? crashDirPath : crashDirPath + FILE_SEP;
         }
@@ -92,7 +99,7 @@ public final class CrashUtils {
         return new UncaughtExceptionHandler() {
             @Override
             public void uncaughtException(@NonNull final Thread t, @NonNull final Throwable e) {
-                final String time = new SimpleDateFormat("MM-dd_HH-mm-ss").format(new Date());
+                final String time = new SimpleDateFormat("yyyy_MM_dd-HH_mm_ss").format(new Date());
                 final StringBuilder sb = new StringBuilder();
                 final String head = "************* Log Head ****************" +
                         "\nTime Of Crash      : " + time +
@@ -106,15 +113,14 @@ public final class CrashUtils {
                 sb.append(head).append(UtilsBridge.getFullStackTrace(e));
                 final String crashInfo = sb.toString();
                 final String crashFile = dirPath + time + ".txt";
-                UtilsBridge.writeFileFromString(crashFile, crashInfo);
+                UtilsBridge.writeFileFromString(crashFile, crashInfo, true);
 
                 if (onCrashListener != null) {
                     onCrashListener.onCrash(crashInfo, e);
                 }
 
-                UncaughtExceptionHandler handler = Thread.getDefaultUncaughtExceptionHandler();
-                if (handler != null) {
-                    handler.uncaughtException(t, e);
+                if (DEFAULT_UNCAUGHT_EXCEPTION_HANDLER != null) {
+                    DEFAULT_UNCAUGHT_EXCEPTION_HANDLER.uncaughtException(t, e);
                 }
             }
         };

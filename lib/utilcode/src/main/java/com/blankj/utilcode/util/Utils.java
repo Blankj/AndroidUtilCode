@@ -54,14 +54,16 @@ public final class Utils {
      */
     public static Application getApp() {
         if (sApp != null) return sApp;
-        throw new NullPointerException("UtilsFileProvider load failed.");
+        sApp = UtilsBridge.getApplicationByReflect();
+        if (sApp != null) return sApp;
+        throw new NullPointerException("UtilsFileProvider load failed && reflect failed.");
     }
 
     ///////////////////////////////////////////////////////////////////////////
     // interface
     ///////////////////////////////////////////////////////////////////////////
 
-    public abstract static class Task<Result> extends UtilsBridge.Task<Result> {
+    public abstract static class Task<Result> extends ThreadUtils.SimpleTask<Result> {
 
         private Consumer<Result> mConsumer;
 
@@ -98,10 +100,6 @@ public final class Utils {
         public void onActivityDestroyed(@NonNull Activity activity) {/**/}
 
         public void onLifecycleChanged(@NonNull Activity activity, Lifecycle.Event event) {/**/}
-    }
-
-    public interface OnActivityDestroyedListener {
-        void onActivityDestroyed(Activity activity);
     }
 
     public interface Consumer<T> {

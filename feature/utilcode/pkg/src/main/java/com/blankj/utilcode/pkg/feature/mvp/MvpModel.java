@@ -31,7 +31,7 @@ public class MvpModel extends BaseModel implements IMvp.Model {
         ThreadUtils.executeByCached(addAutoDestroyTask(new ThreadUtils.SimpleTask<String>() {
             @Override
             public String doInBackground() throws Throwable {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 return "msg: " + index++;
             }
 

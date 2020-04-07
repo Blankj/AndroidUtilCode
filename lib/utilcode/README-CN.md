@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.27.2'
+implementation 'com.blankj:utilcode:1.27.3'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.27.2'
+implementation 'com.blankj:utilcodex:1.27.3'
 ```
 
 
@@ -1143,6 +1143,11 @@ file2Uri: file 转 uri
 uri2File: uri 转 file
 ```
 
+* ### UtilsTransActivity -> [UtilsTransActivity.java][trans.java]
+```
+start: 启动透明 Activity
+```
+
 * ### 震动相关 -> [VibrateUtils.java][vibrate.java] -> [Demo][vibrate.demo]
 ```
 vibrate: 震动
@@ -1364,6 +1369,8 @@ getComments       : 获取压缩文件中的注释链表
 [uiMessage.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UiMessageUtils.java
 
 [uri.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UriUtils.java
+
+[trans.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UtilsTransActivity.java
 
 [vibrate.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/VibrateUtils.java
 [vibrate.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/vibrate/VibrateActivity.kt
