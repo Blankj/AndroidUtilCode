@@ -66,7 +66,7 @@ public final class GsonUtils {
         return GSONS.get(key);
     }
 
-    private static Gson getGson() {
+    public static Gson getGson() {
         Gson gsonDelegate = GSONS.get(KEY_DELEGATE);
         if (gsonDelegate != null) {
             return gsonDelegate;
