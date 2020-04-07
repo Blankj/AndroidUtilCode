@@ -1,8 +1,9 @@
 package com.blankj.utilcode.util;
 
-import android.support.annotation.NonNull;
 
 import org.junit.Test;
+
+import androidx.annotation.NonNull;
 
 /**
  * <pre>
