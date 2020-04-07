@@ -593,7 +593,7 @@ public final class LogUtils {
 
     private static void input2File(final String filePath, final String input) {
         if (CONFIG.mFileWriter == null) {
-            UtilsBridge.writeFileFromString(filePath, input);
+            UtilsBridge.writeFileFromString(filePath, input, true);
         } else {
             CONFIG.mFileWriter.write(filePath, input);
         }
@@ -621,13 +621,12 @@ public final class LogUtils {
         private IFileWriter mFileWriter;
 
         private Config() {
-            mDefaultDir = Utils.getApp().getFilesDir() + FILE_SEP + "log" + FILE_SEP;
-            mFileWriter = new IFileWriter() {
-                @Override
-                public void write(String file, String content) {
-
-                }
-            };
+            if (UtilsBridge.isSDCardEnableByEnvironment()
+                    && Utils.getApp().getExternalFilesDir(null) != null)
+                mDefaultDir = Utils.getApp().getExternalFilesDir(null) + FILE_SEP + "log" + FILE_SEP;
+            else {
+                mDefaultDir = Utils.getApp().getFilesDir() + FILE_SEP + "log" + FILE_SEP;
+            }
         }
 
         public final Config setLogSwitch(final boolean logSwitch) {
@@ -863,7 +862,8 @@ public final class LogUtils {
 
         static String object2String(Object object, int type) {
             if (object.getClass().isArray()) return array2String(object);
-            if (object instanceof Throwable) return UtilsBridge.getFullStackTrace((Throwable) object);
+            if (object instanceof Throwable)
+                return UtilsBridge.getFullStackTrace((Throwable) object);
             if (object instanceof Bundle) return bundle2String((Bundle) object);
             if (object instanceof Intent) return intent2String((Intent) object);
             if (type == JSON) {

@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.27.2'
+implementation 'com.blankj:utilcode:1.27.3'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.27.2'
+implementation 'com.blankj:utilcodex:1.27.3'
 ```
 
 
@@ -1143,6 +1143,11 @@ file2Uri
 uri2File
 ```
 
+* ### UtilsTransActivity -> [UtilsTransActivity.java][trans.java]
+```
+start
+```
+
 * ### About Vibrate -> [VibrateUtils.java][vibrate.java] -> [Demo][vibrate.demo]
 ```
 vibrate
@@ -1361,6 +1366,8 @@ getComments
 [uiMessage.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UiMessageUtils.java
 
 [uri.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UriUtils.java
+
+[trans.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UtilsTransActivity.java
 
 [vibrate.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/VibrateUtils.java
 [vibrate.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/vibrate/VibrateActivity.kt

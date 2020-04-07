@@ -37,6 +37,7 @@
     <string name="demo_spStatic">SPStaticUtils Demo</string>
     <string name="demo_span">SpanUtils Demo</string>
     <string name="demo_toast">ToastUtils Demo</string>
+    <string name="demo_trans_activity">TransActivity Demo</string>
     <string name="demo_vibrate">VibrateUtils Demo</string>
 
     <!--Activity 相关-->
