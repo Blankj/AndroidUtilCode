@@ -260,8 +260,8 @@ class UtilsBridge {
         return FileUtils.getFileByPath(filePath);
     }
 
-    static boolean deleteFilesInDir(final File dir) {
-        return FileUtils.deleteFilesInDir(dir);
+    static boolean deleteAllInDir(final File dir) {
+        return FileUtils.deleteAllInDir(dir);
     }
 
     static boolean createOrExistsFile(final File file) {
