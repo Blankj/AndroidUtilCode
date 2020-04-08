@@ -1,3 +1,4 @@
+* `20/04/08` [fix] ActivityUtils#finish bug. Publish v1.27.5.
 * `20/04/08` [fix] CleanUtils clean dir not work. FileUtils#isFileExists. Publish v1.27.4.
 * `20/04/08` [fix] CrashUtils DefaultUncaughtExceptionHandler is wrong; LogUtils write file failed; Utils#getApp failed run on remote process. Publish v1.27.3.
 * `20/04/07` [mdf] GsonUtils#getGson() method public.

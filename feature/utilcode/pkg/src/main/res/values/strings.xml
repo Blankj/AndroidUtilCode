@@ -71,6 +71,7 @@
     <string name="activity_start_launcher_activity">Start Launcher Activity</string>
     <string name="activity_finish_activity">Finish CoreUtilActivity</string>
     <string name="activity_finish_to_activity">Finish To CoreUtilActivity</string>
+    <string name="activity_finish_all_activities_except_newest">Finish All Activities Except Newest</string>
     <string name="activity_finish_all_activities">Finish All Activities</string>
 
     <!--Api 相关-->
