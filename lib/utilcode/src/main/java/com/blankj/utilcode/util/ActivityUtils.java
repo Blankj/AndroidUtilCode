@@ -1862,7 +1862,7 @@ public final class ActivityUtils {
      */
     public static void finishAllActivitiesExceptNewest(final boolean isLoadAnim) {
         List<Activity> activities = UtilsBridge.getActivityList();
-        for (int i = 1; i < activities.size() - 1; i++) {
+        for (int i = 1; i < activities.size(); i++) {
             finishActivity(activities.get(i), isLoadAnim);
         }
     }
@@ -1878,7 +1878,7 @@ public final class ActivityUtils {
     public static void finishAllActivitiesExceptNewest(@AnimRes final int enterAnim,
                                                        @AnimRes final int exitAnim) {
         List<Activity> activities = UtilsBridge.getActivityList();
-        for (int i = 1; i < activities.size() - 1; i++) {
+        for (int i = 1; i < activities.size(); i++) {
             finishActivity(activities.get(i), enterAnim, exitAnim);
         }
     }

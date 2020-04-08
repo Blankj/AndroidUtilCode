@@ -53,6 +53,7 @@ class ActivityActivity : CommonActivity() {
                 CommonItemTitle("isActivityExists(${SubActivityActivity::class.java.name})", ActivityUtils.isActivityExists(AppUtils.getAppPackageName(), SubActivityActivity::class.java.name).toString()),
                 CommonItemTitle("getLauncherActivity", ActivityUtils.getLauncherActivity(AppUtils.getAppPackageName())),
                 CommonItemTitle("getMainActivities", ActivityUtils.getMainActivities().toString()),
+                CommonItemTitle("getActivityList", CollectionUtils.collect(ActivityUtils.getActivityList()) { input -> input.javaClass.simpleName }.toString()),
                 CommonItemTitle("getTopActivity", ActivityUtils.getTopActivity().toString()),
                 CommonItemTitle("isActivityExistsInStack", ActivityUtils.isActivityExistsInStack(CoreUtilActivity::class.java).toString()),
                 CommonItemImage("getActivityIcon") {
@@ -142,6 +143,9 @@ class ActivityActivity : CommonActivity() {
                 },
                 CommonItemClick(R.string.activity_finish_to_activity, true) {
                     ActivityUtils.finishToActivity(CoreUtilActivity::class.java, false, true)
+                },
+                CommonItemClick(R.string.activity_finish_all_activities_except_newest, true) {
+                    ActivityUtils.finishAllActivitiesExceptNewest()
                 },
                 CommonItemClick(R.string.activity_finish_all_activities, true) {
                     ActivityUtils.finishAllActivities()
