@@ -1,7 +1,6 @@
 ---
 name: 提交需求
 about: 让工具类更健全！
-title: "[FEATURE]"
 labels: help wanted
 assignees: Blankj
 

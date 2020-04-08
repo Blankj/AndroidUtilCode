@@ -3,6 +3,7 @@ package com.blankj.utilcode.util;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
@@ -49,14 +50,17 @@ public final class Utils {
 
     /**
      * Return the Application object.
+     * <p>Main process get app by UtilsFileProvider,
+     * and other process get app by reflect.</p>
      *
      * @return the Application object
      */
     public static Application getApp() {
         if (sApp != null) return sApp;
-        sApp = UtilsBridge.getApplicationByReflect();
-        if (sApp != null) return sApp;
-        throw new NullPointerException("UtilsFileProvider load failed && reflect failed.");
+        init(UtilsBridge.getApplicationByReflect());
+        if (sApp == null) throw new NullPointerException("reflect failed.");
+        Log.i("Utils", UtilsBridge.getCurrentProcessName() + " reflect app success.");
+        return sApp;
     }
 
     ///////////////////////////////////////////////////////////////////////////
