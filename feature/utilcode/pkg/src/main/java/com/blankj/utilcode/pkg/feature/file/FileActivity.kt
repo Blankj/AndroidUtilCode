@@ -42,13 +42,13 @@ class FileActivity : CommonActivity() {
                 CommonItemTitle("isFileExists: " + PathUtils.getExternalAppFilesPath(), "" + FileUtils.isFileExists(PathUtils.getExternalAppFilesPath())),
                 CommonItemTitle("isFileExists: " + PathUtils.getExternalStoragePath(), "" + FileUtils.isFileExists(PathUtils.getExternalStoragePath())),
                 CommonItemTitle("isFileExists: " + PathUtils.getDownloadCachePath(), "" + FileUtils.isFileExists(PathUtils.getDownloadCachePath())),
-                CommonItemTitle("isFileExists: " + PathUtils.getExternalDownloadsPath(), "" + FileUtils.isFileExists(PathUtils.getExternalDownloadsPath() + "/" + "app-release.apk1")),
+                CommonItemTitle("isFileExists: " + PathUtils.getExternalDownloadsPath(), "" + FileUtils.isFileExists(PathUtils.getExternalDownloadsPath())),
 
                 CommonItemTitle("isFileExists: " + PathUtils.getInternalAppFilesPath(), "" + FileUtils.isFileExists(File(PathUtils.getInternalAppFilesPath()))),
                 CommonItemTitle("isFileExists: " + PathUtils.getExternalAppFilesPath(), "" + FileUtils.isFileExists(File(PathUtils.getExternalAppFilesPath()))),
                 CommonItemTitle("isFileExists: " + PathUtils.getExternalStoragePath(), "" + FileUtils.isFileExists(File(PathUtils.getExternalStoragePath()))),
                 CommonItemTitle("isFileExists: " + PathUtils.getDownloadCachePath(), "" + FileUtils.isFileExists(File(PathUtils.getDownloadCachePath()))),
-                CommonItemTitle("isFileExists: " + PathUtils.getExternalDownloadsPath(), "" + FileUtils.isFileExists(File(PathUtils.getExternalDownloadsPath() + "/" + "app-release.apk1")))
+                CommonItemTitle("isFileExists: " + PathUtils.getExternalDownloadsPath(), "" + FileUtils.isFileExists(File(PathUtils.getExternalDownloadsPath())))
         )
     }
 
