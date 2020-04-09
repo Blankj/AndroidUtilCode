@@ -1,7 +1,6 @@
 package com.blankj.utilcode.pkg
 
-import android.os.Environment
-import com.blankj.utilcode.util.Utils
+import com.blankj.utilcode.util.PathUtils
 
 /**
  * ```
@@ -12,20 +11,8 @@ import com.blankj.utilcode.util.Utils
  * ```
  */
 object Config {
-
     val FILE_SEP = System.getProperty("file.separator")
     val LINE_SEP = System.getProperty("line.separator")
     const val TEST_PKG = "com.blankj.testinstall"
-    val CACHE_PATH: String
-    val TEST_APK_PATH: String
-
-    init {
-        val cacheDir = Utils.getApp().externalCacheDir
-        CACHE_PATH = if (cacheDir != null) {
-            cacheDir.absolutePath
-        } else {
-            Environment.getExternalStorageDirectory().absolutePath
-        } + FILE_SEP
-        TEST_APK_PATH = CACHE_PATH + "test_install.apk"
-    }
+    val TEST_APK_PATH: String = PathUtils.getCachePathExternalFirst() + FILE_SEP + "test_install.apk"
 }

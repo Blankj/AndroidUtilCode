@@ -8,18 +8,6 @@ buildscript {
                 url new File("mavenLocal")
             }
         }
-        maven {
-            url 'https://maven.aliyun.com/repository/public'
-            name 'replace jcenter() and mavenCentral()'
-        }
-        maven {
-            url 'https://maven.aliyun.com/repository/jcenter'
-            name 'replace jcenter()'
-        }
-        maven {
-            url 'https://maven.aliyun.com/repository/google'
-            name 'replace google()'
-        }
         google()
         jcenter()
     }
@@ -33,21 +21,6 @@ buildscript {
 
 allprojects {
     repositories {
-        maven {
-            url 'https://maven.aliyun.com/repository/public'
-            name 'replace jcenter() and mavenCentral()'
-        }
-        maven {
-            url 'https://maven.aliyun.com/repository/jcenter'
-            name 'replace jcenter()'
-        }
-        maven {
-            url 'https://maven.aliyun.com/repository/google'
-            name 'replace google()'
-        }
-        maven {
-            url "https://jitpack.io"
-        }
         google()
         jcenter()
     }
