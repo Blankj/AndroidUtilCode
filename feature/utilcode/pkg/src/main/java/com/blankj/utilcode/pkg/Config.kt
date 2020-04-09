@@ -14,5 +14,6 @@ object Config {
     val FILE_SEP = System.getProperty("file.separator")
     val LINE_SEP = System.getProperty("line.separator")
     const val TEST_PKG = "com.blankj.testinstall"
-    val TEST_APK_PATH: String = PathUtils.getCachePathExternalFirst() + FILE_SEP + "test_install.apk"
+    val CACHE_PATH = PathUtils.getCachePathExternalFirst() + FILE_SEP
+    val TEST_APK_PATH: String = CACHE_PATH + "test_install.apk"
 }
