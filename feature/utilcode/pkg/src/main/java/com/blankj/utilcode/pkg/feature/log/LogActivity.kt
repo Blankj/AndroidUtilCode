@@ -130,7 +130,7 @@ class LogActivity : CommonActivity() {
                             mConfig.setConsoleSwitch(it)
                         }
                 ),
-                CommonItemClick("Global Tag", if (mConfig.globalTag == "") "\"\"" else mConfig.globalTag).setOnClickUpdateContentListener {
+                CommonItemClick("Global Tag", if (mConfig.globalTag == "") "null" else mConfig.globalTag).setOnClickUpdateContentListener {
                     if (StringUtils.isSpace(mConfig.globalTag)) {
                         mConfig.globalTag = TAG
                     } else {

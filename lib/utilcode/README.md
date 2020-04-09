@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.27.5'
+implementation 'com.blankj:utilcode:1.27.6'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.27.5'
+implementation 'com.blankj:utilcodex:1.27.6'
 ```
 
 
@@ -709,6 +709,7 @@ hashCode(s)
 
 * ### About Path -> [PathUtils.java][path.java] -> [Demo][path.demo]
 ```
+join
 getRootPath
 getDataPath
 getDownloadCachePath
@@ -745,6 +746,10 @@ getExternalAppDownloadPath
 getExternalAppDcimPath
 getExternalAppDocumentsPath
 getExternalAppObbPath
+getRootPathExternalFirst
+getAppDataPathExternalFirst
+getFilesPathExternalFirst
+getCachePathExternalFirst
 ```
 
 * ### About Permission -> [PermissionUtils.java][permission.java] -> [Demo][permission.demo]
@@ -1049,6 +1054,7 @@ getStringArray
 * ### About Thread -> [ThreadUtils.java][thread.java] -> [Test][thread.test]
 ```
 isMainThread
+getMainHandler
 runOnUiThread
 runOnUiThreadDelayed
 getFixedPool
@@ -1139,6 +1145,7 @@ removeListener
 
 * ### About Uri -> [UriUtils.java][uri.java]
 ```
+res2Uri
 file2Uri
 uri2File
 ```

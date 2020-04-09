@@ -4,5 +4,6 @@
     style="@style/CommonTextStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/common_content_dialog_bg"
     android:padding="@dimen/spacing_16"
     android:scrollbars="vertical" />

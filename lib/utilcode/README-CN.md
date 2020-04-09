@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.27.5'
+implementation 'com.blankj:utilcode:1.27.6'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.27.5'
+implementation 'com.blankj:utilcodex:1.27.6'
 ```
 
 
@@ -709,6 +709,7 @@ hashCode(s)      : 获取对象哈希值
 
 * ### 路径相关 -> [PathUtils.java][path.java] -> [Demo][path.demo]
 ```
+join                           : 连接路径
 getRootPath                    : 获取根路径
 getDataPath                    : 获取数据路径
 getDownloadCachePath           : 获取下载缓存路径
@@ -745,6 +746,10 @@ getExternalAppDownloadPath     : 获取外存应用下载路径
 getExternalAppDcimPath         : 获取外存应用数码相机图片路径
 getExternalAppDocumentsPath    : 获取外存应用文档路径
 getExternalAppObbPath          : 获取外存应用 OBB 路径
+getRootPathExternalFirst       : 优先获取外部根路径
+getAppDataPathExternalFirst    : 优先获取外部数据路径
+getFilesPathExternalFirst      : 优先获取外部文件路径
+getCachePathExternalFirst      : 优先获取外部缓存路径
 ```
 
 * ### 权限相关 -> [PermissionUtils.java][permission.java] -> [Demo][permission.demo]
@@ -1049,6 +1054,7 @@ getStringArray  : 获取字符数组资源
 * ### 线程相关 -> [ThreadUtils.java][thread.java] -> [Test][thread.test]
 ```
 isMainThread            : 判断当前是否主线程
+getMainHandler          : 获取主线程 Handler
 runOnUiThread           : 运行在主线程
 runOnUiThreadDelayed    : 延时运行在主线程
 getFixedPool            : 获取固定线程池
@@ -1139,6 +1145,7 @@ removeListener: 移除消息监听器
 
 * ### URI 相关 -> [UriUtils.java][uri.java]
 ```
+res2Uri : res 转 uri
 file2Uri: file 转 uri
 uri2File: uri 转 file
 ```

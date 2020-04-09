@@ -18,6 +18,7 @@ import com.blankj.utilcode.pkg.feature.bus.BusActivity
 import com.blankj.utilcode.pkg.feature.clean.CleanActivity
 import com.blankj.utilcode.pkg.feature.click.ClickActivity
 import com.blankj.utilcode.pkg.feature.device.DeviceActivity
+import com.blankj.utilcode.pkg.feature.file.FileActivity
 import com.blankj.utilcode.pkg.feature.flashlight.FlashlightActivity
 import com.blankj.utilcode.pkg.feature.fragment.FragmentActivity
 import com.blankj.utilcode.pkg.feature.image.ImageActivity
@@ -102,6 +103,9 @@ class CoreUtilActivity : CommonActivity() {
                 },
                 CommonItemClick(R.string.demo_device, true) {
                     DeviceActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_file, true) {
+                    FileActivity.start(this)
                 },
                 CommonItemClick(R.string.demo_flashlight, true) {
                     FlashlightActivity.start(this)
