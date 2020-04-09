@@ -2,6 +2,7 @@ package com.blankj.utilcode.util;
 
 import android.os.Build;
 import android.os.Environment;
+import android.text.TextUtils;
 
 import java.io.File;
 
@@ -13,10 +14,55 @@ import java.io.File;
  *     desc  : utils about path
  * </pre>
  */
-public class PathUtils {
+public final class PathUtils {
+
+    private static final char SEP = File.separatorChar;
 
     private PathUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
+    }
+
+    /**
+     * Join the path.
+     *
+     * @param parent The parent of path.
+     * @param child  The child path.
+     * @return the path
+     */
+    public static String join(String parent, String child) {
+        if (TextUtils.isEmpty(child)) return parent;
+        if (parent == null) {
+            parent = "";
+        }
+        int len = parent.length();
+        String legalSegment = getLegalSegment(child);
+        String newPath;
+        if (len == 0) {
+            newPath = SEP + legalSegment;
+        } else if (parent.charAt(len - 1) == SEP) {
+            newPath = parent + legalSegment;
+        } else {
+            newPath = parent + SEP + legalSegment;
+        }
+        return newPath;
+    }
+
+    private static String getLegalSegment(String segment) {
+        int st = -1, end = -1;
+        char[] charArray = segment.toCharArray();
+        for (int i = 0; i < charArray.length; i++) {
+            char c = charArray[i];
+            if (c != SEP) {
+                if (st == -1) {
+                    st = i;
+                }
+                end = i;
+            }
+        }
+        if (st >= 0 && end >= st) {
+            return segment.substring(st, end + 1);
+        }
+        throw new IllegalArgumentException("segment of <" + segment + "> is illegal");
     }
 
     /**
@@ -384,6 +430,38 @@ public class PathUtils {
     public static String getExternalAppObbPath() {
         if (!UtilsBridge.isSDCardEnableByEnvironment()) return "";
         return getAbsolutePath(Utils.getApp().getObbDir());
+    }
+
+    public static String getRootPathExternalFirst() {
+        String rootPath = getExternalStoragePath();
+        if (TextUtils.isEmpty(rootPath)) {
+            rootPath = getRootPath();
+        }
+        return rootPath;
+    }
+
+    public static String getAppDataPathExternalFirst() {
+        String appDataPath = getExternalAppDataPath();
+        if (TextUtils.isEmpty(appDataPath)) {
+            appDataPath = getInternalAppDataPath();
+        }
+        return appDataPath;
+    }
+
+    public static String getFilesPathExternalFirst() {
+        String filePath = getExternalAppFilesPath();
+        if (TextUtils.isEmpty(filePath)) {
+            filePath = getInternalAppFilesPath();
+        }
+        return filePath;
+    }
+
+    public static String getCachePathExternalFirst() {
+        String appPath = getExternalAppCachePath();
+        if (TextUtils.isEmpty(appPath)) {
+            appPath = getInternalAppCachePath();
+        }
+        return appPath;
     }
 
     private static String getAbsolutePath(final File file) {

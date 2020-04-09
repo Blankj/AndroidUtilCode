@@ -61,6 +61,10 @@ public final class ThreadUtils {
         return Looper.myLooper() == Looper.getMainLooper();
     }
 
+    public static Handler getMainHandler() {
+        return HANDLER;
+    }
+
     public static void runOnUiThread(final Runnable runnable) {
         if (Looper.myLooper() == Looper.getMainLooper()) {
             runnable.run();

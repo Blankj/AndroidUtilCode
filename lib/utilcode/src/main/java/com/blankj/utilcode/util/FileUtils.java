@@ -57,7 +57,11 @@ public final class FileUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isFileExists(final File file) {
-        return file != null && isFileExists(file.getAbsolutePath());
+        if (file == null) return false;
+        if (file.exists()) {
+            return true;
+        }
+        return isFileExists(file.getAbsolutePath());
     }
 
     /**
@@ -67,27 +71,31 @@ public final class FileUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isFileExists(final String filePath) {
-        if (Build.VERSION.SDK_INT < 29) {
-            File file = getFileByPath(filePath);
-            return file != null && file.exists();
+        File file = getFileByPath(filePath);
+        if (file == null) return false;
+        if (file.exists()) {
+            return true;
         }
         return isFileExists29(filePath);
     }
 
     private static boolean isFileExists29(String filePath) {
-        try {
-            Uri uri = Uri.parse(filePath);
-            ContentResolver cr = Utils.getApp().getContentResolver();
-            AssetFileDescriptor afd = cr.openAssetFileDescriptor(uri, "r");
-            if (afd == null) return false;
+        if (Build.VERSION.SDK_INT >= 29) {
             try {
-                afd.close();
-            } catch (IOException ignore) {
+                Uri uri = Uri.parse(filePath);
+                ContentResolver cr = Utils.getApp().getContentResolver();
+                AssetFileDescriptor afd = cr.openAssetFileDescriptor(uri, "r");
+                if (afd == null) return false;
+                try {
+                    afd.close();
+                } catch (IOException ignore) {
+                }
+            } catch (FileNotFoundException e) {
+                return false;
             }
-        } catch (FileNotFoundException e) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     /**

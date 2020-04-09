@@ -15,21 +15,20 @@
         android:minWidth="100dp"
         android:minHeight="40dp"
         android:paddingLeft="20dp"
-        android:paddingTop="8dp"
+        android:paddingTop="10dp"
         android:paddingRight="20dp"
-        android:paddingBottom="8dp">
+        android:paddingBottom="10dp">
 
         <com.blankj.common.view.RotateView
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginTop="1dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:background="@drawable/common_loading" />
 
         <TextView
             android:id="@+id/utilActionLoadingMsgTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="4dp"
             android:lineSpacingExtra="2dp"
             android:text="Loading..."
             android:textColor="@color/white"
