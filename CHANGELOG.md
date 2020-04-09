@@ -1,5 +1,5 @@
 * `20/04/10` [fix] FileUtils#isFileExists; FragmentUtils#getTop bug. Publish v1.27.6.
-* `20/04/09` [add] UriUtils#res2Uri; ThreadUtils#getMainHandler; PathUtils#getxxPathExternalFirst.
+* `20/04/09` [add] UriUtils#res2Uri, UriUtils#uri2File support QQBrowser; ThreadUtils#getMainHandler; PathUtils#getxxPathExternalFirst.
 * `20/04/08` [fix] ActivityUtils#finish bug. Publish v1.27.5.
 * `20/04/08` [fix] CleanUtils clean dir not work. FileUtils#isFileExists. Publish v1.27.4.
 * `20/04/08` [fix] CrashUtils DefaultUncaughtExceptionHandler is wrong; LogUtils write file failed; Utils#getApp failed run on remote process. Publish v1.27.3.
