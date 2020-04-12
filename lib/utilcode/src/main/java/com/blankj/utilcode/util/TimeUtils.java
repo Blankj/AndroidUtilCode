@@ -1,5 +1,6 @@
 package com.blankj.utilcode.util;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.constant.TimeConstants;
@@ -10,7 +11,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * <pre>
@@ -22,19 +25,26 @@ import java.util.Locale;
  */
 public final class TimeUtils {
 
-    private static final ThreadLocal<SimpleDateFormat> SDF_THREAD_LOCAL = new ThreadLocal<>();
+    private static final ThreadLocal<Map<String, SimpleDateFormat>> SDF_THREAD_LOCAL
+            = new ThreadLocal<Map<String, SimpleDateFormat>>() {
+        @Override
+        protected Map<String, SimpleDateFormat> initialValue() {
+            return new HashMap<>();
+        }
+    };
 
     private static SimpleDateFormat getDefaultFormat() {
-        return getDateFormat("yyyy-MM-dd HH:mm:ss");
+        return getSafeDateFormat("yyyy-MM-dd HH:mm:ss");
     }
 
-    private static SimpleDateFormat getDateFormat(String pattern) {
-        SimpleDateFormat simpleDateFormat = SDF_THREAD_LOCAL.get();
+    @SuppressLint("SimpleDateFormat")
+    public static SimpleDateFormat getSafeDateFormat(String pattern) {
+        Map<String, SimpleDateFormat> sdfMap = SDF_THREAD_LOCAL.get();
+        //noinspection ConstantConditions
+        SimpleDateFormat simpleDateFormat = sdfMap.get(pattern);
         if (simpleDateFormat == null) {
-            simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
-            SDF_THREAD_LOCAL.set(simpleDateFormat);
-        } else {
-            simpleDateFormat.applyPattern(pattern);
+            simpleDateFormat = new SimpleDateFormat(pattern);
+            sdfMap.put(pattern, simpleDateFormat);
         }
         return simpleDateFormat;
     }
@@ -62,7 +72,7 @@ public final class TimeUtils {
      * @return the formatted time string
      */
     public static String millis2String(long millis, @NonNull final String pattern) {
-        return millis2String(millis, getDateFormat(pattern));
+        return millis2String(millis, getSafeDateFormat(pattern));
     }
 
     /**
@@ -95,7 +105,7 @@ public final class TimeUtils {
      * @return the milliseconds
      */
     public static long string2Millis(final String time, @NonNull final String pattern) {
-        return string2Millis(time, getDateFormat(pattern));
+        return string2Millis(time, getSafeDateFormat(pattern));
     }
 
     /**
@@ -133,7 +143,7 @@ public final class TimeUtils {
      * @return the date
      */
     public static Date string2Date(final String time, @NonNull final String pattern) {
-        return string2Date(time, getDateFormat(pattern));
+        return string2Date(time, getSafeDateFormat(pattern));
     }
 
     /**
@@ -171,7 +181,7 @@ public final class TimeUtils {
      * @return the formatted time string
      */
     public static String date2String(final Date date, @NonNull final String pattern) {
-        return getDateFormat(pattern).format(date);
+        return getSafeDateFormat(pattern).format(date);
     }
 
     /**

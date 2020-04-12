@@ -243,7 +243,7 @@ public final class KeyboardUtils {
 
     /**
      * Fix the bug of 5497 in Android.
-     * <p>Don't set adjustResize</p>
+     * <p>It will clean the adjustResize</p>
      *
      * @param window The window.
      */

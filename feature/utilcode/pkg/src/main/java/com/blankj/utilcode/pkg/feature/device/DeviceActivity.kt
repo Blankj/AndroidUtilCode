@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import com.blankj.common.activity.CommonActivity
-import com.blankj.common.activity.CommonActivityItemsView
-import com.blankj.common.activity.CommonActivityTitleView
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemTitle
 import com.blankj.utilcode.pkg.R

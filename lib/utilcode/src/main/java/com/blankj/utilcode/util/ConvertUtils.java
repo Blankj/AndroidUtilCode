@@ -418,16 +418,32 @@ public final class ConvertUtils {
      */
     @SuppressLint("DefaultLocale")
     public static String byte2FitMemorySize(final long byteSize) {
+        return byte2FitMemorySize(byteSize, 3);
+    }
+
+    /**
+     * Size of byte to fit size of memory.
+     * <p>to three decimal places</p>
+     *
+     * @param byteSize  Size of byte.
+     * @param precision The precision
+     * @return fit size of memory
+     */
+    @SuppressLint("DefaultLocale")
+    public static String byte2FitMemorySize(final long byteSize, int precision) {
+        if (precision < 0) {
+            throw new IllegalArgumentException("precision shouldn't be less than zero!");
+        }
         if (byteSize < 0) {
-            return "shouldn't be less than zero!";
+            throw new IllegalArgumentException("byteSize shouldn't be less than zero!");
         } else if (byteSize < MemoryConstants.KB) {
-            return String.format("%.3fB", (double) byteSize);
+            return String.format("%." + precision + "fB", (double) byteSize);
         } else if (byteSize < MemoryConstants.MB) {
-            return String.format("%.3fKB", (double) byteSize / MemoryConstants.KB);
+            return String.format("%." + precision + "fKB", (double) byteSize / MemoryConstants.KB);
         } else if (byteSize < MemoryConstants.GB) {
-            return String.format("%.3fMB", (double) byteSize / MemoryConstants.MB);
+            return String.format("%." + precision + "fMB", (double) byteSize / MemoryConstants.MB);
         } else {
-            return String.format("%.3fGB", (double) byteSize / MemoryConstants.GB);
+            return String.format("%." + precision + "fGB", (double) byteSize / MemoryConstants.GB);
         }
     }
 

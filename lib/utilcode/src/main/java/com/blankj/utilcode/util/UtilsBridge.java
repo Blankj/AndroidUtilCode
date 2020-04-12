@@ -276,6 +276,14 @@ class UtilsBridge {
         return FileUtils.createFileByDeleteOldFile(file);
     }
 
+    static long getFsTotalSize(String path) {
+        return FileUtils.getFsTotalSize(path);
+    }
+
+    static long getFsAvailableSize(String path) {
+        return FileUtils.getFsAvailableSize(path);
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     // GsonUtils
     ///////////////////////////////////////////////////////////////////////////
@@ -402,6 +410,10 @@ class UtilsBridge {
     ///////////////////////////////////////////////////////////////////////////
     // SDCardUtils
     ///////////////////////////////////////////////////////////////////////////
+    static String getSDCardPathByEnvironment() {
+        return SDCardUtils.getSDCardPathByEnvironment();
+    }
+
     static boolean isSDCardEnableByEnvironment() {
         return SDCardUtils.isSDCardEnableByEnvironment();
     }

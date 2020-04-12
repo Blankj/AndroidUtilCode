@@ -1,3 +1,6 @@
+* `20/04/13` [add] NumberUtils. Publish v1.28.0.
+* `20/04/12` [opt] TimeUtils#SDF_THREAD_LOCAL.
+* `20/04/11` [add] SDCardUtils#getXxTotalSize, SDCardUtils#getXxAvailableSize. FileUtils#getFsTotalSize, FileUtils#getFsAvailableSize.
 * `20/04/10` [fix] FileUtils#isFileExists; FragmentUtils#getTop bug. Publish v1.27.6.
 * `20/04/09` [add] UriUtils#res2Uri, UriUtils#uri2File support QQBrowser; ThreadUtils#getMainHandler; PathUtils#getxxPathExternalFirst.
 * `20/04/08` [fix] ActivityUtils#finish bug. Publish v1.27.5.
