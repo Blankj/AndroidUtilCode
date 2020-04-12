@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.27.6'
+implementation 'com.blankj:utilcode:1.28.0'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.27.6'
+implementation 'com.blankj:utilcodex:1.28.0'
 ```
 
 
@@ -487,6 +487,8 @@ getFileName
 getFileNameNoExtension
 getFileExtension
 notifySystemToScan
+getFsTotalSize
+getFsAvailableSize
 ```
 
 * ### About Fragment -> [FragmentUtils.java][fragment.java] -> [Demo][fragment.demo]
@@ -693,6 +695,12 @@ notify
 cancel
 cancelAll
 setNotificationBarVisibility
+```
+
+* ### About Number -> [NumberUtils.java][number.java] -> [Test][number.test]
+```
+format
+float2Double
 ```
 
 * ### About Object -> [ObjectUtils.java][object.java] -> [Test][object.test]
@@ -913,8 +921,10 @@ isSDCardEnableByEnvironment
 getSDCardPathByEnvironment
 getSDCardInfo
 getMountedSDCardPath
-getTotalSize
-getAvailableSize
+getExternalTotalSize
+getExternalAvailableSize
+getInternalTotalSize
+getInternalAvailableSize
 ```
 
 * ### About Service -> [ServiceUtils.java][service.java]
@@ -1086,6 +1096,7 @@ setDeliver
 
 * ### About Time -> [TimeUtils.java][time.java] -> [Test][time.test]
 ```
+getSafeDateFormat
 millis2String
 string2Millis
 string2Date
@@ -1302,6 +1313,9 @@ getComments
 
 [notification.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/NotificationUtils.java
 [notification.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/notification/NotificationActivity.kt
+
+[number.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/NumberUtils.java
+[number.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/NumberUtilsTest.java
 
 [object.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ObjectUtils.java
 [object.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/ObjectUtilsTest.java

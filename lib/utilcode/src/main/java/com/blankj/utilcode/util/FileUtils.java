@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.net.Uri;
 import android.os.Build;
+import android.os.StatFs;
+import android.text.TextUtils;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -76,10 +78,10 @@ public final class FileUtils {
         if (file.exists()) {
             return true;
         }
-        return isFileExists29(filePath);
+        return isFileExistsApi29(filePath);
     }
 
-    private static boolean isFileExists29(String filePath) {
+    private static boolean isFileExistsApi29(String filePath) {
         if (Build.VERSION.SDK_INT >= 29) {
             try {
                 Uri uri = Uri.parse(filePath);
@@ -1382,6 +1384,15 @@ public final class FileUtils {
     /**
      * Notify system to scan the file.
      *
+     * @param filePath The path of file.
+     */
+    public static void notifySystemToScan(final String filePath) {
+        notifySystemToScan(getFileByPath(filePath));
+    }
+
+    /**
+     * Notify system to scan the file.
+     *
      * @param file The file.
      */
     public static void notifySystemToScan(final File file) {
@@ -1393,12 +1404,45 @@ public final class FileUtils {
     }
 
     /**
-     * Notify system to scan the file.
+     * Return the total size of file system.
      *
-     * @param filePath The path of file.
+     * @param anyPathInFs Any path in file system.
+     * @return the total size of file system
      */
-    public static void notifySystemToScan(final String filePath) {
-        notifySystemToScan(getFileByPath(filePath));
+    public static long getFsTotalSize(String anyPathInFs) {
+        if (TextUtils.isEmpty(anyPathInFs)) return 0;
+        StatFs statFs = new StatFs(anyPathInFs);
+        long blockSize;
+        long totalSize;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            blockSize = statFs.getBlockSizeLong();
+            totalSize = statFs.getBlockCountLong();
+        } else {
+            blockSize = statFs.getBlockSize();
+            totalSize = statFs.getBlockCount();
+        }
+        return blockSize * totalSize;
+    }
+
+    /**
+     * Return the available size of file system.
+     *
+     * @param anyPathInFs Any path in file system.
+     * @return the available size of file system
+     */
+    public static long getFsAvailableSize(final String anyPathInFs) {
+        if (TextUtils.isEmpty(anyPathInFs)) return 0;
+        StatFs statFs = new StatFs(anyPathInFs);
+        long blockSize;
+        long availableSize;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            blockSize = statFs.getBlockSizeLong();
+            availableSize = statFs.getAvailableBlocksLong();
+        } else {
+            blockSize = statFs.getBlockSize();
+            availableSize = statFs.getAvailableBlocks();
+        }
+        return blockSize * availableSize;
     }
 
     ///////////////////////////////////////////////////////////////////////////

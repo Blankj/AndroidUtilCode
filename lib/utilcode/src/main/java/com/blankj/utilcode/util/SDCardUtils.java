@@ -2,9 +2,9 @@ package com.blankj.utilcode.util;
 
 import android.content.Context;
 import android.os.Environment;
-import android.os.StatFs;
 import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
+import android.text.format.Formatter;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
@@ -125,44 +125,41 @@ public final class SDCardUtils {
         return path;
     }
 
+
     /**
-     * Return the total size of sdcard.
+     * Return the total size of external storage
      *
-     * @param path The path.
-     * @return the total size of sdcard
+     * @return the total size of external storage
      */
-    public static long getTotalSize(String path) {
-        StatFs statFs = new StatFs(path);
-        long blockSize;
-        long totalSize;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            blockSize = statFs.getBlockSizeLong();
-            totalSize = statFs.getBlockCountLong();
-        } else {
-            blockSize = statFs.getBlockSize();
-            totalSize = statFs.getBlockCount();
-        }
-        return blockSize * totalSize;
+    public static long getExternalTotalSize() {
+        return UtilsBridge.getFsTotalSize(getSDCardPathByEnvironment());
     }
 
     /**
-     * Return the available size of sdcard.
+     * Return the available size of external storage.
      *
-     * @param path The path.
-     * @return the available size of sdcard
+     * @return the available size of external storage
      */
-    public static long getAvailableSize(final String path) {
-        StatFs statFs = new StatFs(path);
-        long blockSize;
-        long availableSize;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            blockSize = statFs.getBlockSizeLong();
-            availableSize = statFs.getAvailableBlocksLong();
-        } else {
-            blockSize = statFs.getBlockSize();
-            availableSize = statFs.getAvailableBlocks();
-        }
-        return blockSize * availableSize;
+    public static long getExternalAvailableSize() {
+        return UtilsBridge.getFsAvailableSize(getSDCardPathByEnvironment());
+    }
+
+    /**
+     * Return the total size of internal storage
+     *
+     * @return the total size of internal storage
+     */
+    public static long getInternalTotalSize() {
+        return UtilsBridge.getFsTotalSize(Environment.getDataDirectory().getAbsolutePath());
+    }
+
+    /**
+     * Return the available size of internal storage.
+     *
+     * @return the available size of internal storage
+     */
+    public static long getInternalAvailableSize() {
+        return UtilsBridge.getFsAvailableSize(Environment.getDataDirectory().getAbsolutePath());
     }
 
     public static class SDCardInfo {
@@ -170,11 +167,15 @@ public final class SDCardUtils {
         private String  path;
         private String  state;
         private boolean isRemovable;
+        private long    totalSize;
+        private long    availableSize;
 
         SDCardInfo(String path, String state, boolean isRemovable) {
             this.path = path;
             this.state = state;
             this.isRemovable = isRemovable;
+            this.totalSize = UtilsBridge.getFsTotalSize(path);
+            this.availableSize = UtilsBridge.getFsAvailableSize(path);
         }
 
         public String getPath() {
@@ -189,12 +190,22 @@ public final class SDCardUtils {
             return isRemovable;
         }
 
+        public long getTotalSize() {
+            return totalSize;
+        }
+
+        public long getAvailableSize() {
+            return availableSize;
+        }
+
         @Override
         public String toString() {
             return "SDCardInfo {" +
                     "path = " + path +
                     ", state = " + state +
                     ", isRemovable = " + isRemovable +
+                    ", totalSize = " + Formatter.formatFileSize(Utils.getApp(), totalSize) +
+                    ", availableSize = " + Formatter.formatFileSize(Utils.getApp(), availableSize) +
                     '}';
         }
     }

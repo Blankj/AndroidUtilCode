@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.27.6'
+implementation 'com.blankj:utilcode:1.28.0'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.27.6'
+implementation 'com.blankj:utilcodex:1.28.0'
 ```
 
 
@@ -487,6 +487,8 @@ getFileName               : 根据全路径获取文件名
 getFileNameNoExtension    : 根据全路径获取文件名不带拓展名
 getFileExtension          : 根据全路径获取文件拓展名
 notifySystemToScan        : 通知系统扫描文件
+getFsTotalSize            : 获取文件系统总大小
+getFsAvailableSize        : 获取文件系统可用大小
 ```
 
 * ### Fragment 相关 -> [FragmentUtils.java][fragment.java] -> [Demo][fragment.demo]
@@ -693,6 +695,12 @@ notify                      : 发送通知
 cancel                      : 取消通知
 cancelAll                   : 取消所有通知
 setNotificationBarVisibility: 设置通知栏是否可见
+```
+
+* ### 数字相关 -> [NumberUtils.java][number.java] -> [Test][number.test]
+```
+format      : 格式化
+float2Double: 浮点转双精度
 ```
 
 * ### 对象相关 -> [ObjectUtils.java][object.java] -> [Test][object.test]
@@ -913,8 +921,10 @@ isSDCardEnableByEnvironment: 根据 Environment 判断 SD 卡是否可用
 getSDCardPathByEnvironment : 根据 Environment 获取 SD 卡路径
 getSDCardInfo              : 获取 SD 卡信息
 getMountedSDCardPath       : 获取已挂载的 SD 卡路径
-getTotalSize               : 获取 SD 卡总大小
-getAvailableSize           : 获取 SD 卡可用大小
+getExternalTotalSize       : 获取外置 SD 卡总大小
+getExternalAvailableSize   : 获取外置 SD 卡可用大小
+getInternalTotalSize       : 获取内置 SD 卡总大小
+getInternalAvailableSize   : 获取内置 SD 卡可用大小
 ```
 
 * ### 服务相关 -> [ServiceUtils.java][service.java]
@@ -1086,6 +1096,7 @@ setDeliver              : 设置任务结束后交付的线程
 
 * ### 时间相关 -> [TimeUtils.java][time.java] -> [Test][time.test]
 ```
+getSafeDateFormat       : 获取安全的日期格式
 millis2String           : 将时间戳转为时间字符串
 string2Millis           : 将时间字符串转为时间戳
 string2Date             : 将时间字符串转为 Date 类型
@@ -1305,6 +1316,9 @@ getComments       : 获取压缩文件中的注释链表
 
 [notification.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/NotificationUtils.java
 [notification.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/notification/NotificationActivity.kt
+
+[number.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/NumberUtils.java
+[number.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/NumberUtilsTest.java
 
 [object.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ObjectUtils.java
 [object.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/ObjectUtilsTest.java
