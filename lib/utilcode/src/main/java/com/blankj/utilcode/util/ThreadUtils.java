@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -20,6 +21,7 @@ import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -33,9 +35,11 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public final class ThreadUtils {
 
+    private static final Handler HANDLER = new Handler(Looper.getMainLooper());
+
     private static final Map<Integer, Map<Integer, ExecutorService>> TYPE_PRIORITY_POOLS = new HashMap<>();
 
-    private static final Map<Task, TaskInfo> TASK_TASKINFO_MAP = new ConcurrentHashMap<>();
+    private static final Map<Task, ExecutorService> TASK_POOL_MAP = new ConcurrentHashMap<>();
 
     private static final int   CPU_COUNT = Runtime.getRuntime().availableProcessors();
     private static final Timer TIMER     = new Timer();
@@ -54,6 +58,22 @@ public final class ThreadUtils {
      */
     public static boolean isMainThread() {
         return Looper.myLooper() == Looper.getMainLooper();
+    }
+
+    public static Handler getMainHandler() {
+        return HANDLER;
+    }
+
+    public static void runOnUiThread(final Runnable runnable) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            runnable.run();
+        } else {
+            HANDLER.post(runnable);
+        }
+    }
+
+    public static void runOnUiThreadDelayed(final Runnable runnable, long delayMillis) {
+        HANDLER.postDelayed(runnable, delayMillis);
     }
 
     /**
@@ -879,13 +899,13 @@ public final class ThreadUtils {
      */
     public static void cancel(ExecutorService executorService) {
         if (executorService instanceof ThreadPoolExecutor4Util) {
-            for (Map.Entry<Task, TaskInfo> taskTaskInfoEntry : TASK_TASKINFO_MAP.entrySet()) {
-                if (taskTaskInfoEntry.getValue().mService == executorService) {
+            for (Map.Entry<Task, ExecutorService> taskTaskInfoEntry : TASK_POOL_MAP.entrySet()) {
+                if (taskTaskInfoEntry.getValue() == executorService) {
                     cancel(taskTaskInfoEntry.getKey());
                 }
             }
         } else {
-            Log.e("LogUtils", "The executorService is not ThreadUtils's pool.");
+            Log.e("ThreadUtils", "The executorService is not ThreadUtils's pool.");
         }
     }
 
@@ -919,14 +939,12 @@ public final class ThreadUtils {
 
     private static <T> void execute(final ExecutorService pool, final Task<T> task,
                                     long delay, final long period, final TimeUnit unit) {
-        TaskInfo taskInfo;
-        synchronized (TASK_TASKINFO_MAP) {
-            if (TASK_TASKINFO_MAP.get(task) != null) {
+        synchronized (TASK_POOL_MAP) {
+            if (TASK_POOL_MAP.get(task) != null) {
                 Log.e("ThreadUtils", "Task can only be executed once.");
                 return;
             }
-            taskInfo = new TaskInfo(pool);
-            TASK_TASKINFO_MAP.put(task, taskInfo);
+            TASK_POOL_MAP.put(task, pool);
         }
         if (period == 0) {
             if (delay == 0) {
@@ -938,7 +956,6 @@ public final class ThreadUtils {
                         pool.execute(task);
                     }
                 };
-                taskInfo.mTimerTask = timerTask;
                 TIMER.schedule(timerTask, unit.toMillis(delay));
             }
         } else {
@@ -949,7 +966,6 @@ public final class ThreadUtils {
                     pool.execute(task);
                 }
             };
-            taskInfo.mTimerTask = timerTask;
             TIMER.scheduleAtFixedRate(timerTask, unit.toMillis(delay), unit.toMillis(period));
         }
     }
@@ -1090,7 +1106,7 @@ public final class ThreadUtils {
         }
     }
 
-    private static final class UtilsThreadFactory extends AtomicLong
+    static final class UtilsThreadFactory extends AtomicLong
             implements ThreadFactory {
         private static final AtomicInteger POOL_NUMBER      = new AtomicInteger(1);
         private static final long          serialVersionUID = -9209200509960368598L;
@@ -1163,7 +1179,9 @@ public final class ThreadUtils {
         private volatile boolean isSchedule;
         private volatile Thread  runner;
 
-        private Timer mTimer;
+        private Timer             mTimer;
+        private long              mTimeoutMillis;
+        private OnTimeoutListener mTimeoutListener;
 
         private Executor deliver;
 
@@ -1181,12 +1199,27 @@ public final class ThreadUtils {
                 if (runner == null) {
                     if (!state.compareAndSet(NEW, RUNNING)) return;
                     runner = Thread.currentThread();
+                    if (mTimeoutListener != null) {
+                        Log.w("ThreadUtils", "Scheduled task doesn't support timeout.");
+                    }
                 } else {
                     if (state.get() != RUNNING) return;
                 }
             } else {
                 if (!state.compareAndSet(NEW, RUNNING)) return;
                 runner = Thread.currentThread();
+                if (mTimeoutListener != null) {
+                    mTimer = new Timer();
+                    mTimer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            if (!isDone() && mTimeoutListener != null) {
+                                timeout();
+                                mTimeoutListener.onTimeout();
+                            }
+                        }
+                    }, mTimeoutMillis);
+                }
             }
             try {
                 final T result = doInBackground();
@@ -1271,17 +1304,13 @@ public final class ThreadUtils {
             return this;
         }
 
-        public void setTimeout(final long timeoutMillis, final OnTimeoutListener listener) {
-            mTimer = new Timer();
-            mTimer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    if (!isDone() && listener != null) {
-                        timeout();
-                        listener.onTimeout();
-                    }
-                }
-            }, timeoutMillis);
+        /**
+         * Scheduled task doesn't support timeout.
+         */
+        public Task<T> setTimeout(final long timeoutMillis, final OnTimeoutListener listener) {
+            mTimeoutMillis = timeoutMillis;
+            mTimeoutListener = listener;
+            return this;
         }
 
         private void setSchedule(boolean isSchedule) {
@@ -1297,10 +1326,11 @@ public final class ThreadUtils {
 
         @CallSuper
         protected void onDone() {
-            TASK_TASKINFO_MAP.remove(this);
+            TASK_POOL_MAP.remove(this);
             if (mTimer != null) {
                 mTimer.cancel();
                 mTimer = null;
+                mTimeoutListener = null;
             }
         }
 
@@ -1309,26 +1339,40 @@ public final class ThreadUtils {
         }
     }
 
+    public static class SyncValue<T> {
+
+        private CountDownLatch mLatch = new CountDownLatch(1);
+        private AtomicBoolean  mFlag  = new AtomicBoolean();
+        private T              mValue;
+
+        public void setValue(T value) {
+            if (mFlag.compareAndSet(false, true)) {
+                mValue = value;
+                mLatch.countDown();
+            }
+        }
+
+        public T getValue() {
+            if (!mFlag.get()) {
+                try {
+                    mLatch.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return mValue;
+        }
+    }
+
     private static Executor getGlobalDeliver() {
         if (sDeliver == null) {
             sDeliver = new Executor() {
-                private final Handler mHandler = new Handler(Looper.getMainLooper());
-
                 @Override
                 public void execute(@NonNull Runnable command) {
-                    mHandler.post(command);
+                    runOnUiThread(command);
                 }
             };
         }
         return sDeliver;
-    }
-
-    private static class TaskInfo {
-        private TimerTask       mTimerTask;
-        private ExecutorService mService;
-
-        private TaskInfo(ExecutorService service) {
-            mService = service;
-        }
     }
 }

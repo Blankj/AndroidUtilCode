@@ -49,6 +49,7 @@ import android.text.style.URLSpan;
 import android.text.style.UnderlineSpan;
 import android.text.style.UpdateAppearance;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import java.io.InputStream;
@@ -82,6 +83,10 @@ public final class SpanUtils {
     }
 
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+
+    public static SpanUtils with(final TextView textView) {
+        return new SpanUtils(textView);
+    }
 
     private TextView      mTextView;
     private CharSequence  mText;
@@ -134,6 +139,7 @@ public final class SpanUtils {
     private int spaceColor;
 
     private SerializableSpannableStringBuilder mBuilder;
+    private boolean isCreated;
 
     private       int mType;
     private final int mTypeCharSequence = 0;
@@ -516,6 +522,39 @@ public final class SpanUtils {
     }
 
     /**
+     * Set the span of click.
+     * <p>Must set {@code view.setMovementMethod(LinkMovementMethod.getInstance())}</p>
+     *
+     * @param color         The color of click span.
+     * @param underlineText True to support underline, false otherwise.
+     * @param listener      The listener of click span.
+     * @return the single {@link SpanUtils} instance
+     */
+    public SpanUtils setClickSpan(@ColorInt final int color,
+                                  final boolean underlineText,
+                                  final View.OnClickListener listener) {
+        if (mTextView != null && mTextView.getMovementMethod() == null) {
+            mTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+        this.clickSpan = new ClickableSpan() {
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint paint) {
+                paint.setColor(color);
+                paint.setUnderlineText(underlineText);
+            }
+
+            @Override
+            public void onClick(@NonNull View widget) {
+                if (listener != null) {
+                    listener.onClick(widget);
+                }
+            }
+        };
+        return this;
+    }
+
+    /**
      * Set the span of url.
      * <p>Must set {@code view.setMovementMethod(LinkMovementMethod.getInstance())}</p>
      *
@@ -792,10 +831,14 @@ public final class SpanUtils {
         if (mTextView != null) {
             mTextView.setText(mBuilder);
         }
+        isCreated = true;
         return mBuilder;
     }
 
     private void applyLast() {
+        if (isCreated) {
+            return;
+        }
         if (mType == mTypeCharSequence) {
             updateCharCharSequence();
         } else if (mType == mTypeImage) {
@@ -1009,7 +1052,7 @@ public final class SpanUtils {
         @Override
         public void chooseHeight(final CharSequence text, final int start, final int end,
                                  final int spanstartv, final int v, final Paint.FontMetricsInt fm) {
-            LogUtils.e(fm, sfm);
+//            LogUtils.e(fm, sfm);
             if (sfm == null) {
                 sfm = new Paint.FontMetricsInt();
                 sfm.top = fm.top;
@@ -1049,7 +1092,7 @@ public final class SpanUtils {
             if (end == ((Spanned) text).getSpanEnd(this)) {
                 sfm = null;
             }
-            LogUtils.e(fm, sfm);
+//            LogUtils.e(fm, sfm);
         }
     }
 
@@ -1413,13 +1456,5 @@ public final class SpanUtils {
             implements Serializable {
 
         private static final long serialVersionUID = 4909567650765875771L;
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-    // static
-    ///////////////////////////////////////////////////////////////////////////
-
-    public static SpanUtils with(final TextView textView) {
-        return new SpanUtils(textView);
     }
 }

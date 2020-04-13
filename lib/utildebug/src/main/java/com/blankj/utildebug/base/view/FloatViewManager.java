@@ -2,7 +2,7 @@ package com.blankj.utildebug.base.view;
 
 import android.view.WindowManager;
 
-import com.blankj.utilcode.util.Utils;
+import com.blankj.utilcode.util.ThreadUtils;
 import com.blankj.utildebug.helper.WindowHelper;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class FloatViewManager {
     }
 
     public void show(final BaseFloatView view) {
-        Utils.runOnUiThread(new Runnable() {
+        ThreadUtils.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (mFloatViews.contains(view)) return;
@@ -45,7 +45,7 @@ public class FloatViewManager {
     }
 
     public void dismiss(final BaseFloatView view) {
-        Utils.runOnUiThread(new Runnable() {
+        ThreadUtils.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (!mFloatViews.contains(view)) return;

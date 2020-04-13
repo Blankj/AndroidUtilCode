@@ -11,6 +11,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.blankj.utilcode.util.IntentUtils;
 import com.blankj.utilcode.util.ShellUtils;
 import com.blankj.utilcode.util.Utils;
 
@@ -229,9 +230,7 @@ public class DangerousUtils {
         try {
             ShellUtils.CommandResult result = ShellUtils.execCmd("reboot -p", true);
             if (result.result == 0) return true;
-            Intent intent = new Intent("android.intent.action.ACTION_REQUEST_SHUTDOWN");
-            intent.putExtra("android.intent.extra.KEY_CONFIRM", false);
-            Utils.getApp().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            Utils.getApp().startActivity(IntentUtils.getShutdownIntent());
             return true;
         } catch (Exception e) {
             return false;

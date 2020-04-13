@@ -1,4 +1,4 @@
-package com.blankj.plugin
+package com.blankj.plugin.readme
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -30,8 +30,12 @@ class ReadmeCorePlugin implements Plugin<Project> {
         def sb = new StringBuilder()
         readmeCN.eachLine { line ->
             if (line.contains("* ###")) {
-                String utilsName = line.substring(line.indexOf("[") + 1, line.indexOf("Utils"))
-                sb.append("* ### About ").append(utilsName).append(line.substring(line.indexOf(" -> ")))
+                if (line.contains("UtilsTransActivity")) {
+                    sb.append(line)
+                } else {
+                    String utilsName = line.substring(line.indexOf("[") + 1, line.indexOf("Utils"))
+                    sb.append("* ### About ").append(utilsName).append(line.substring(line.indexOf(" -> ")))
+                }
             } else if (line.contains(": ") && !line.contains("[")) {
                 sb.append(line.substring(0, line.indexOf(':')).trim())
             } else if (line.contains("打个小广告") || line.contains("知识星球") || line.contains("我的二维码")) {

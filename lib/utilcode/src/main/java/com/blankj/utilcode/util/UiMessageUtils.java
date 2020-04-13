@@ -1,7 +1,5 @@
 package com.blankj.utilcode.util;
 
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -23,7 +21,7 @@ import java.util.List;
 public final class UiMessageUtils implements Handler.Callback {
 
     private static final String  TAG   = "UiMessageUtils";
-    private static final boolean DEBUG = isAppDebug();
+    private static final boolean DEBUG = UtilsBridge.isAppDebug();
 
     private final Handler   mHandler = new Handler(Looper.getMainLooper(), this);
     private final UiMessage mMessage = new UiMessage(null);
@@ -234,17 +232,6 @@ public final class UiMessageUtils implements Handler.Callback {
             stringBuilder.append(msg.toString());
 
             Log.v(TAG, stringBuilder.toString());
-        }
-    }
-
-    private static boolean isAppDebug() {
-        try {
-            PackageManager pm = Utils.getApp().getPackageManager();
-            ApplicationInfo ai = pm.getApplicationInfo(Utils.getApp().getPackageName(), 0);
-            return ai != null && (ai.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            return false;
         }
     }
 

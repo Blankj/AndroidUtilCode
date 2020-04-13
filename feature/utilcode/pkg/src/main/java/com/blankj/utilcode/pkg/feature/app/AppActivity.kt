@@ -3,8 +3,6 @@ package com.blankj.utilcode.pkg.feature.app
 import android.content.Context
 import android.content.Intent
 import com.blankj.common.activity.CommonActivity
-import com.blankj.common.activity.CommonActivityItemsView
-import com.blankj.common.activity.CommonActivityTitleView
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick
 import com.blankj.common.item.CommonItemImage
@@ -26,7 +24,7 @@ class AppActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
-            PermissionHelper.requestStorage(object : PermissionHelper.OnPermissionGrantedListener {
+            PermissionHelper.requestStorage(context, object : PermissionHelper.OnPermissionGrantedListener {
                 override fun onPermissionGranted() {
                     val starter = Intent(context, AppActivity::class.java)
                     context.startActivity(starter)
@@ -47,6 +45,11 @@ class AppActivity : CommonActivity() {
 
     override fun bindTitleRes(): Int {
         return R.string.demo_app
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        LogUtils.e(requestCode, resultCode)
     }
 
     override fun bindItems(): List<CommonItem<*>> {

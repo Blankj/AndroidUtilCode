@@ -55,7 +55,7 @@ public class ViewUtils {
      * @param runnable The runnable
      */
     public static void runOnUiThread(final Runnable runnable) {
-        Utils.runOnUiThread(runnable);
+        UtilsBridge.runOnUiThread(runnable);
     }
 
     /**
@@ -63,7 +63,7 @@ public class ViewUtils {
      * @param delayMillis The delay (in milliseconds) until the Runnable will be executed.
      */
     public static void runOnUiThreadDelayed(final Runnable runnable, long delayMillis) {
-        Utils.runOnUiThreadDelayed(runnable, delayMillis);
+        UtilsBridge.runOnUiThreadDelayed(runnable, delayMillis);
     }
 
     /**

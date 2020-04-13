@@ -2,6 +2,8 @@ package com.blankj.utilcode.pkg.feature
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
+import android.widget.TextView
 import com.blankj.common.activity.CommonActivity
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick
@@ -16,6 +18,7 @@ import com.blankj.utilcode.pkg.feature.bus.BusActivity
 import com.blankj.utilcode.pkg.feature.clean.CleanActivity
 import com.blankj.utilcode.pkg.feature.click.ClickActivity
 import com.blankj.utilcode.pkg.feature.device.DeviceActivity
+import com.blankj.utilcode.pkg.feature.file.FileActivity
 import com.blankj.utilcode.pkg.feature.flashlight.FlashlightActivity
 import com.blankj.utilcode.pkg.feature.fragment.FragmentActivity
 import com.blankj.utilcode.pkg.feature.image.ImageActivity
@@ -43,6 +46,7 @@ import com.blankj.utilcode.pkg.feature.span.SpanActivity
 import com.blankj.utilcode.pkg.feature.toast.ToastActivity
 import com.blankj.utilcode.pkg.feature.vibrate.VibrateActivity
 import com.blankj.utilcode.util.CollectionUtils
+import com.blankj.utilcode.util.UtilsTransActivity
 
 /**
  * ```
@@ -99,6 +103,9 @@ class CoreUtilActivity : CommonActivity() {
                 },
                 CommonItemClick(R.string.demo_device, true) {
                     DeviceActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_file, true) {
+                    FileActivity.start(this)
                 },
                 CommonItemClick(R.string.demo_flashlight, true) {
                     FlashlightActivity.start(this)
@@ -174,6 +181,15 @@ class CoreUtilActivity : CommonActivity() {
                 },
                 CommonItemClick(R.string.demo_toast, true) {
                     ToastActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_trans_activity, true) {
+                    UtilsTransActivity.start(this, object : UtilsTransActivity.TransActivityDelegate() {
+                        override fun onCreated(activity: UtilsTransActivity, savedInstanceState: Bundle?) {
+                            super.onCreated(activity, savedInstanceState)
+                            activity.setContentView(R.layout.common_dialog_loading)
+                            activity.findViewById<TextView>(R.id.utilActionLoadingMsgTv).text = "Trans Activity is showing..."
+                        }
+                    })
                 },
                 CommonItemClick(R.string.demo_vibrate, true) {
                     VibrateActivity.start(this)

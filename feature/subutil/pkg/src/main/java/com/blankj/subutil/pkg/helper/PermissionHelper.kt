@@ -1,5 +1,6 @@
 package com.blankj.subutil.pkg.helper
 
+import android.content.Context
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.PermissionUtils
@@ -14,21 +15,22 @@ import com.blankj.utilcode.util.PermissionUtils
  */
 object PermissionHelper {
 
-    fun requestStorageAndSms(listener: OnPermissionGrantedListener,
+    fun requestStorageAndSms(context: Context, listener: OnPermissionGrantedListener,
                              deniedListener: OnPermissionDeniedListener) {
-        request(listener, deniedListener, PermissionConstants.STORAGE, PermissionConstants.SMS)
+        request(context, listener, deniedListener, PermissionConstants.STORAGE, PermissionConstants.SMS)
     }
 
-    fun requestLocation(listener: OnPermissionGrantedListener,
+    fun requestLocation(context: Context, listener: OnPermissionGrantedListener,
                         deniedListener: OnPermissionDeniedListener) {
-        request(listener, deniedListener, PermissionConstants.LOCATION)
+        request(context, listener, deniedListener, PermissionConstants.LOCATION)
     }
 
-    private fun request(grantedListener: OnPermissionGrantedListener?,
+    private fun request(context: Context,
+                        grantedListener: OnPermissionGrantedListener?,
                         deniedListener: OnPermissionDeniedListener?,
                         @PermissionConstants.Permission vararg permissions: String) {
         PermissionUtils.permission(*permissions)
-                .rationale { shouldRequest -> DialogHelper.showRationaleDialog(shouldRequest) }
+                .rationale { activity, shouldRequest -> DialogHelper.showRationaleDialog(activity, shouldRequest) }
                 .callback(object : PermissionUtils.FullCallback {
                     override fun onGranted(permissionsGranted: List<String>) {
                         LogUtils.d(permissionsGranted)
@@ -38,7 +40,7 @@ object PermissionHelper {
                     override fun onDenied(permissionsDeniedForever: List<String>, permissionsDenied: List<String>) {
                         LogUtils.d(permissionsDeniedForever, permissionsDenied)
                         if (!permissionsDeniedForever.isEmpty()) {
-                            DialogHelper.showOpenAppSettingDialog()
+                            DialogHelper.showOpenAppSettingDialog(context)
                             return
                         }
                         deniedListener?.onPermissionDenied()

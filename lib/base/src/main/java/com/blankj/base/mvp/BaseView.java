@@ -1,8 +1,13 @@
 package com.blankj.base.mvp;
 
+import android.app.Activity;
 import android.arch.lifecycle.Lifecycle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+
+import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,20 +24,17 @@ public abstract class BaseView<V extends BaseView> {
 
     private FragmentActivity mActivity;
     private Fragment         mFragment;
-    private Lifecycle        mLifecycle;
     Map<Class, BasePresenter<V>> mPresenterMap = new HashMap<>();
 
     public abstract void onDestroyView();
 
     public BaseView(FragmentActivity activity) {
         mActivity = activity;
-        mLifecycle = activity.getLifecycle();
     }
 
     public BaseView(Fragment fragment) {
         mFragment = fragment;
         mActivity = fragment.getActivity();
-        mLifecycle = fragment.getLifecycle();
     }
 
     public <T extends FragmentActivity> T getActivity() {
@@ -49,9 +51,6 @@ public abstract class BaseView<V extends BaseView> {
         mPresenterMap.put(presenter.getClass(), presenter);
         //noinspection unchecked
         presenter.bindView((V) this);
-        if (mLifecycle != null) {
-            mLifecycle.addObserver(presenter);
-        }
     }
 
     public <P extends BasePresenter<V>> P getPresenter(Class<P> presenterClass) {

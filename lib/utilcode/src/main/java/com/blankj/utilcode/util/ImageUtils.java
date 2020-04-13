@@ -34,6 +34,7 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 
 import java.io.BufferedOutputStream;
@@ -64,13 +65,24 @@ public final class ImageUtils {
      * Bitmap to bytes.
      *
      * @param bitmap The bitmap.
-     * @param format The format of bitmap.
      * @return bytes
      */
-    public static byte[] bitmap2Bytes(final Bitmap bitmap, final CompressFormat format) {
+    public static byte[] bitmap2Bytes(final Bitmap bitmap) {
+        return bitmap2Bytes(bitmap, CompressFormat.PNG, 100);
+    }
+
+    /**
+     * Bitmap to bytes.
+     *
+     * @param bitmap  The bitmap.
+     * @param format  The format of bitmap.
+     * @param quality The quality.
+     * @return bytes
+     */
+    public static byte[] bitmap2Bytes(final Bitmap bitmap, final CompressFormat format, int quality) {
         if (bitmap == null) return null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(format, 100, baos);
+        bitmap.compress(format, quality, baos);
         return baos.toByteArray();
     }
 
@@ -132,11 +144,21 @@ public final class ImageUtils {
      * Drawable to bytes.
      *
      * @param drawable The drawable.
+     * @return bytes
+     */
+    public static byte[] drawable2Bytes(final Drawable drawable) {
+        return drawable == null ? null : bitmap2Bytes(drawable2Bitmap(drawable));
+    }
+
+    /**
+     * Drawable to bytes.
+     *
+     * @param drawable The drawable.
      * @param format   The format of bitmap.
      * @return bytes
      */
-    public static byte[] drawable2Bytes(final Drawable drawable, final CompressFormat format) {
-        return drawable == null ? null : bitmap2Bytes(drawable2Bitmap(drawable), format);
+    public static byte[] drawable2Bytes(final Drawable drawable, final CompressFormat format, int quality) {
+        return drawable == null ? null : bitmap2Bytes(drawable2Bitmap(drawable), format, quality);
     }
 
     /**
@@ -214,7 +236,7 @@ public final class ImageUtils {
      * @return bitmap
      */
     public static Bitmap getBitmap(final String filePath) {
-        if (isSpace(filePath)) return null;
+        if (UtilsBridge.isSpace(filePath)) return null;
         return BitmapFactory.decodeFile(filePath);
     }
 
@@ -227,7 +249,7 @@ public final class ImageUtils {
      * @return bitmap
      */
     public static Bitmap getBitmap(final String filePath, final int maxWidth, final int maxHeight) {
-        if (isSpace(filePath)) return null;
+        if (UtilsBridge.isSpace(filePath)) return null;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(filePath, options);
@@ -257,7 +279,7 @@ public final class ImageUtils {
      */
     public static Bitmap getBitmap(final InputStream is, final int maxWidth, final int maxHeight) {
         if (is == null) return null;
-        byte[] bytes = input2Byte(is);
+        byte[] bytes = UtilsBridge.inputStream2Bytes(is);
         return getBitmap(bytes, 0, maxWidth, maxHeight);
     }
 
@@ -1468,7 +1490,7 @@ public final class ImageUtils {
     public static boolean save(final Bitmap src,
                                final String filePath,
                                final CompressFormat format) {
-        return save(src, getFileByPath(filePath), format, false);
+        return save(src, UtilsBridge.getFileByPath(filePath), format, false);
     }
 
     /**
@@ -1496,7 +1518,7 @@ public final class ImageUtils {
                                final String filePath,
                                final CompressFormat format,
                                final boolean recycle) {
-        return save(src, getFileByPath(filePath), format, recycle);
+        return save(src, UtilsBridge.getFileByPath(filePath), format, recycle);
     }
 
     /**
@@ -1512,7 +1534,10 @@ public final class ImageUtils {
                                final File file,
                                final CompressFormat format,
                                final boolean recycle) {
-        if (isEmptyBitmap(src) || !createFileByDeleteOldFile(file)) return false;
+        if (isEmptyBitmap(src) || !UtilsBridge.createFileByDeleteOldFile(file)) {
+            Log.e("ImageUtils", "create or delete file <" + file + "> failed.");
+            return false;
+        }
         OutputStream os = null;
         boolean ret = false;
         try {
@@ -1557,7 +1582,7 @@ public final class ImageUtils {
         options.inJustDecodeBounds = true;
         try {
             Bitmap bitmap = BitmapFactory.decodeFile(filePath, options);
-            return options.outWidth != -1 && options.outHeight != -1;
+            return bitmap != null && options.outWidth != -1 && options.outHeight != -1;
         } catch (Exception e) {
             return false;
         }
@@ -1570,7 +1595,7 @@ public final class ImageUtils {
      * @return the type of image
      */
     public static ImageType getImageType(final String filePath) {
-        return getImageType(getFileByPath(filePath));
+        return getImageType(UtilsBridge.getFileByPath(filePath));
     }
 
     /**
@@ -1614,7 +1639,7 @@ public final class ImageUtils {
     }
 
     private static ImageType getImageType(final byte[] bytes) {
-        String type = bytes2HexString(bytes).toUpperCase();
+        String type = UtilsBridge.bytes2HexString(bytes).toUpperCase();
         if (type.contains("FFD8FF")) {
             return ImageType.TYPE_JPG;
         } else if (type.contains("89504E47")) {
@@ -1633,22 +1658,6 @@ public final class ImageUtils {
             return ImageType.TYPE_UNKNOWN;
         }
     }
-
-    private static final char[] hexDigits =
-            {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-
-    private static String bytes2HexString(final byte[] bytes) {
-        if (bytes == null) return "";
-        int len = bytes.length;
-        if (len <= 0) return "";
-        char[] ret = new char[len << 1];
-        for (int i = 0, j = 0; i < len; i++) {
-            ret[j++] = hexDigits[bytes[i] >> 4 & 0x0f];
-            ret[j++] = hexDigits[bytes[i] & 0x0f];
-        }
-        return new String(ret);
-    }
-
 
     private static boolean isJPEG(final byte[] b) {
         return b.length >= 2
@@ -1916,7 +1925,7 @@ public final class ImageUtils {
      * @return the size of bitmap
      */
     public static int[] getSize(String filePath) {
-        return getSize(getFileByPath(filePath));
+        return getSize(UtilsBridge.getFileByPath(filePath));
     }
 
     /**
@@ -1942,8 +1951,8 @@ public final class ImageUtils {
      * @return the sample size
      */
     public static int calculateInSampleSize(final BitmapFactory.Options options,
-                                             final int maxWidth,
-                                             final int maxHeight) {
+                                            final int maxWidth,
+                                            final int maxHeight) {
         int height = options.outHeight;
         int width = options.outWidth;
         int inSampleSize = 1;
@@ -1953,62 +1962,6 @@ public final class ImageUtils {
             inSampleSize <<= 1;
         }
         return inSampleSize;
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-    // other utils methods
-    ///////////////////////////////////////////////////////////////////////////
-
-    private static File getFileByPath(final String filePath) {
-        return isSpace(filePath) ? null : new File(filePath);
-    }
-
-    private static boolean createFileByDeleteOldFile(final File file) {
-        if (file == null) return false;
-        if (file.exists() && !file.delete()) return false;
-        if (!createOrExistsDir(file.getParentFile())) return false;
-        try {
-            return file.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    private static boolean createOrExistsDir(final File file) {
-        return file != null && (file.exists() ? file.isDirectory() : file.mkdirs());
-    }
-
-    private static boolean isSpace(final String s) {
-        if (s == null) return true;
-        for (int i = 0, len = s.length(); i < len; ++i) {
-            if (!Character.isWhitespace(s.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static byte[] input2Byte(final InputStream is) {
-        if (is == null) return null;
-        try {
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-            byte[] b = new byte[1024];
-            int len;
-            while ((len = is.read(b, 0, 1024)) != -1) {
-                os.write(b, 0, len);
-            }
-            return os.toByteArray();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     public enum ImageType {

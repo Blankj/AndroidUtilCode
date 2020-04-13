@@ -27,17 +27,17 @@ public class MvpModel extends BaseModel implements IMvp.Model {
     }
 
     @Override
-    public void requestUpdateMsg(final Utils.Func1<Void, String> func1) {
+    public void requestUpdateMsg(final Utils.Consumer<String> consumer) {
         ThreadUtils.executeByCached(addAutoDestroyTask(new ThreadUtils.SimpleTask<String>() {
             @Override
             public String doInBackground() throws Throwable {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 return "msg: " + index++;
             }
 
             @Override
             public void onSuccess(String result) {
-                func1.call(result);
+                consumer.accept(result);
             }
         }));
     }

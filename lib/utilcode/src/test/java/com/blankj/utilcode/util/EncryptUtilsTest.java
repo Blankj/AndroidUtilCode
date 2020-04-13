@@ -1,6 +1,5 @@
 package com.blankj.utilcode.util;
 
-import android.util.Base64;
 import android.util.Pair;
 
 import org.junit.Assert;
@@ -39,7 +38,7 @@ public class EncryptUtilsTest extends BaseTest {
                 EncryptUtils.encryptMD2ToString("blankj".getBytes())
         );
         assertArrayEquals(
-                hexString2Bytes(blankjMD2),
+                UtilsBridge.hexString2Bytes(blankjMD2),
                 EncryptUtils.encryptMD2("blankj".getBytes())
         );
     }
@@ -56,7 +55,7 @@ public class EncryptUtilsTest extends BaseTest {
                 EncryptUtils.encryptMD5ToString("blankj".getBytes())
         );
         assertArrayEquals(
-                hexString2Bytes(blankjMD5),
+                UtilsBridge.hexString2Bytes(blankjMD5),
                 EncryptUtils.encryptMD5("blankj".getBytes())
         );
     }
@@ -82,7 +81,7 @@ public class EncryptUtilsTest extends BaseTest {
                 EncryptUtils.encryptSHA1ToString("blankj".getBytes())
         );
         assertArrayEquals(
-                hexString2Bytes(blankjSHA1),
+                UtilsBridge.hexString2Bytes(blankjSHA1),
                 EncryptUtils.encryptSHA1("blankj".getBytes())
         );
     }
@@ -99,7 +98,7 @@ public class EncryptUtilsTest extends BaseTest {
                 EncryptUtils.encryptSHA224ToString("blankj".getBytes())
         );
         assertArrayEquals(
-                hexString2Bytes(blankjSHA224),
+                UtilsBridge.hexString2Bytes(blankjSHA224),
                 EncryptUtils.encryptSHA224("blankj".getBytes())
         );
     }
@@ -116,7 +115,7 @@ public class EncryptUtilsTest extends BaseTest {
                 EncryptUtils.encryptSHA256ToString("blankj".getBytes())
         );
         assertArrayEquals(
-                hexString2Bytes(blankjSHA256),
+                UtilsBridge.hexString2Bytes(blankjSHA256),
                 EncryptUtils.encryptSHA256("blankj".getBytes()));
 
     }
@@ -133,7 +132,7 @@ public class EncryptUtilsTest extends BaseTest {
                 EncryptUtils.encryptSHA384ToString("blankj".getBytes())
         );
         assertArrayEquals(
-                hexString2Bytes(blankjSHA384),
+                UtilsBridge.hexString2Bytes(blankjSHA384),
                 EncryptUtils.encryptSHA384("blankj".getBytes())
         );
     }
@@ -150,7 +149,7 @@ public class EncryptUtilsTest extends BaseTest {
                 EncryptUtils.encryptSHA512ToString("blankj".getBytes())
         );
         assertArrayEquals(
-                hexString2Bytes(blankjSHA512),
+                UtilsBridge.hexString2Bytes(blankjSHA512),
                 EncryptUtils.encryptSHA512("blankj".getBytes())
         );
     }
@@ -171,7 +170,7 @@ public class EncryptUtilsTest extends BaseTest {
                 EncryptUtils.encryptHmacMD5ToString("blankj".getBytes(), blankjHmackey.getBytes())
         );
         assertArrayEquals(
-                hexString2Bytes(blankjHmacMD5),
+                UtilsBridge.hexString2Bytes(blankjHmacMD5),
                 EncryptUtils.encryptHmacMD5("blankj".getBytes(), blankjHmackey.getBytes())
         );
     }
@@ -188,7 +187,7 @@ public class EncryptUtilsTest extends BaseTest {
                 EncryptUtils.encryptHmacSHA1ToString("blankj".getBytes(), blankjHmackey.getBytes())
         );
         assertArrayEquals(
-                hexString2Bytes(blankjHmacSHA1),
+                UtilsBridge.hexString2Bytes(blankjHmacSHA1),
                 EncryptUtils.encryptHmacSHA1("blankj".getBytes(), blankjHmackey.getBytes())
         );
     }
@@ -205,7 +204,7 @@ public class EncryptUtilsTest extends BaseTest {
                 EncryptUtils.encryptHmacSHA224ToString("blankj".getBytes(), blankjHmackey.getBytes())
         );
         assertArrayEquals(
-                hexString2Bytes(blankjHmacSHA224),
+                UtilsBridge.hexString2Bytes(blankjHmacSHA224),
                 EncryptUtils.encryptHmacSHA224("blankj".getBytes(), blankjHmackey.getBytes())
         );
     }
@@ -222,7 +221,7 @@ public class EncryptUtilsTest extends BaseTest {
                 EncryptUtils.encryptHmacSHA256ToString("blankj".getBytes(), blankjHmackey.getBytes())
         );
         assertArrayEquals(
-                hexString2Bytes(blankjHmacSHA256),
+                UtilsBridge.hexString2Bytes(blankjHmacSHA256),
                 EncryptUtils.encryptHmacSHA256("blankj".getBytes(), blankjHmackey.getBytes())
         );
     }
@@ -239,7 +238,7 @@ public class EncryptUtilsTest extends BaseTest {
                 EncryptUtils.encryptHmacSHA384ToString("blankj".getBytes(), blankjHmackey.getBytes())
         );
         assertArrayEquals(
-                hexString2Bytes(blankjHmacSHA384),
+                UtilsBridge.hexString2Bytes(blankjHmacSHA384),
                 EncryptUtils.encryptHmacSHA384("blankj".getBytes(), blankjHmackey.getBytes())
         );
     }
@@ -255,7 +254,7 @@ public class EncryptUtilsTest extends BaseTest {
                 EncryptUtils.encryptHmacSHA512ToString("blankj".getBytes(), blankjHmackey.getBytes())
         );
         assertArrayEquals(
-                hexString2Bytes(blankjHmacSHA512),
+                UtilsBridge.hexString2Bytes(blankjHmacSHA512),
                 EncryptUtils.encryptHmacSHA512("blankj".getBytes(), blankjHmackey.getBytes())
         );
     }
@@ -264,9 +263,9 @@ public class EncryptUtilsTest extends BaseTest {
     private String dataDES      = "0008DB3345AB0223";
     private String keyDES       = "6801020304050607";
     private String resDES       = "1F7962581118F360";
-    private byte[] bytesDataDES = hexString2Bytes(dataDES);
-    private byte[] bytesKeyDES  = hexString2Bytes(keyDES);
-    private byte[] bytesResDES  = hexString2Bytes(resDES);
+    private byte[] bytesDataDES = UtilsBridge.hexString2Bytes(dataDES);
+    private byte[] bytesKeyDES  = UtilsBridge.hexString2Bytes(keyDES);
+    private byte[] bytesResDES  = UtilsBridge.hexString2Bytes(resDES);
 
     @Test
     public void encryptDES() {
@@ -279,7 +278,7 @@ public class EncryptUtilsTest extends BaseTest {
                 EncryptUtils.encryptDES2HexString(bytesDataDES, bytesKeyDES, "DES/ECB/NoPadding", null)
         );
         assertArrayEquals(
-                base64Encode(bytesResDES),
+                UtilsBridge.base64Encode(bytesResDES),
                 EncryptUtils.encryptDES2Base64(bytesDataDES, bytesKeyDES, "DES/ECB/NoPadding", null)
         );
     }
@@ -296,16 +295,16 @@ public class EncryptUtilsTest extends BaseTest {
         );
         assertArrayEquals(
                 bytesDataDES,
-                EncryptUtils.decryptBase64DES(base64Encode(bytesResDES), bytesKeyDES, "DES/ECB/NoPadding", null)
+                EncryptUtils.decryptBase64DES(UtilsBridge.base64Encode(bytesResDES), bytesKeyDES, "DES/ECB/NoPadding", null)
         );
     }
 
     private String data3DES      = "1111111111111111";
     private String key3DES       = "111111111111111111111111111111111111111111111111";
     private String res3DES       = "F40379AB9E0EC533";
-    private byte[] bytesDataDES3 = hexString2Bytes(data3DES);
-    private byte[] bytesKeyDES3  = hexString2Bytes(key3DES);
-    private byte[] bytesResDES3  = hexString2Bytes(res3DES);
+    private byte[] bytesDataDES3 = UtilsBridge.hexString2Bytes(data3DES);
+    private byte[] bytesKeyDES3  = UtilsBridge.hexString2Bytes(key3DES);
+    private byte[] bytesResDES3  = UtilsBridge.hexString2Bytes(res3DES);
 
     @Test
     public void encrypt3DES() {
@@ -318,7 +317,7 @@ public class EncryptUtilsTest extends BaseTest {
                 EncryptUtils.encrypt3DES2HexString(bytesDataDES3, bytesKeyDES3, "DESede/ECB/NoPadding", null)
         );
         assertArrayEquals(
-                base64Encode(bytesResDES3),
+                UtilsBridge.base64Encode(bytesResDES3),
                 EncryptUtils.encrypt3DES2Base64(bytesDataDES3, bytesKeyDES3, "DESede/ECB/NoPadding", null)
         );
     }
@@ -335,16 +334,16 @@ public class EncryptUtilsTest extends BaseTest {
         );
         assertArrayEquals(
                 bytesDataDES3,
-                EncryptUtils.decryptBase64_3DES(base64Encode(bytesResDES3), bytesKeyDES3, "DESede/ECB/NoPadding", null)
+                EncryptUtils.decryptBase64_3DES(UtilsBridge.base64Encode(bytesResDES3), bytesKeyDES3, "DESede/ECB/NoPadding", null)
         );
     }
 
     private String dataAES      = "111111111111111111111111111111111";
     private String keyAES       = "11111111111111111111111111111111";
     private String resAES       = "393FBBBC2C774BE50A106A50393E623AC3790781D015BB854359587256581F6D";
-    private byte[] bytesDataAES = hexString2Bytes(dataAES);
-    private byte[] bytesKeyAES  = hexString2Bytes(keyAES);
-    private byte[] bytesResAES  = hexString2Bytes(resAES);
+    private byte[] bytesDataAES = UtilsBridge.hexString2Bytes(dataAES);
+    private byte[] bytesKeyAES  = UtilsBridge.hexString2Bytes(keyAES);
+    private byte[] bytesResAES  = UtilsBridge.hexString2Bytes(resAES);
 
     @Test
     public void encryptAES() {
@@ -357,7 +356,7 @@ public class EncryptUtilsTest extends BaseTest {
                 EncryptUtils.encryptAES2HexString(bytesDataAES, bytesKeyAES, "AES/ECB/PKCS5Padding", null)
         );
         assertArrayEquals(
-                base64Encode(bytesResAES),
+                UtilsBridge.base64Encode(bytesResAES),
                 EncryptUtils.encryptAES2Base64(bytesDataAES, bytesKeyAES, "AES/ECB/PKCS5Padding", null)
         );
     }
@@ -373,7 +372,7 @@ public class EncryptUtilsTest extends BaseTest {
                 EncryptUtils.decryptHexStringAES(resAES, bytesKeyAES, "AES/ECB/PKCS5Padding", null)
         );
         assertArrayEquals(bytesDataAES,
-                EncryptUtils.decryptBase64AES(base64Encode(bytesResAES), bytesKeyAES, "AES/ECB/PKCS5Padding", null)
+                EncryptUtils.decryptBase64AES(UtilsBridge.base64Encode(bytesResAES), bytesKeyAES, "AES/ECB/PKCS5Padding", null)
         );
     }
 
@@ -390,7 +389,7 @@ public class EncryptUtilsTest extends BaseTest {
 
         System.out.println(EncryptUtils.encryptRSA2HexString(
                 dataRSA.getBytes(),
-                base64Decode(publicKey.getBytes()),
+                UtilsBridge.base64Decode(publicKey.getBytes()),
                 keySize,
                 "RSA/None/PKCS1Padding"
         ));
@@ -398,11 +397,11 @@ public class EncryptUtilsTest extends BaseTest {
         assertArrayEquals(EncryptUtils.decryptRSA(
                 EncryptUtils.encryptRSA(
                         dataRSA.getBytes(),
-                        base64Decode(publicKey.getBytes()),
+                        UtilsBridge.base64Decode(publicKey.getBytes()),
                         keySize,
                         "RSA/None/PKCS1Padding"
                 ),
-                base64Decode(privateKey.getBytes()),
+                UtilsBridge.base64Decode(privateKey.getBytes()),
                 keySize,
                 "RSA/None/PKCS1Padding"
         ), dataRSA.getBytes());
@@ -414,49 +413,6 @@ public class EncryptUtilsTest extends BaseTest {
     @Test
     public void rc4() throws Exception {
         System.out.println(new String(EncryptUtils.rc4(EncryptUtils.rc4(dataRc4.getBytes(), keyRc4.getBytes()), keyRc4.getBytes())));
-    }
-
-    private static byte[] base64Encode(final byte[] input) {
-        return Base64.encode(input, Base64.NO_WRAP);
-    }
-
-    private static byte[] base64Decode(final byte[] input) {
-        return Base64.decode(input, Base64.NO_WRAP);
-    }
-
-    private static byte[] hexString2Bytes(String hexString) {
-        if (isSpace(hexString)) return null;
-        int len = hexString.length();
-        if (len % 2 != 0) {
-            hexString = "0" + hexString;
-            len = len + 1;
-        }
-        char[] hexBytes = hexString.toUpperCase().toCharArray();
-        byte[] ret = new byte[len >> 1];
-        for (int i = 0; i < len; i += 2) {
-            ret[i >> 1] = (byte) (hex2Int(hexBytes[i]) << 4 | hex2Int(hexBytes[i + 1]));
-        }
-        return ret;
-    }
-
-    private static boolean isSpace(final String s) {
-        if (s == null) return true;
-        for (int i = 0, len = s.length(); i < len; ++i) {
-            if (!Character.isWhitespace(s.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static int hex2Int(final char hexChar) {
-        if (hexChar >= '0' && hexChar <= '9') {
-            return hexChar - '0';
-        } else if (hexChar >= 'A' && hexChar <= 'F') {
-            return hexChar - 'A' + 10;
-        } else {
-            throw new IllegalArgumentException();
-        }
     }
 
     private Pair<String, String> genKeyPair(int size) throws NoSuchAlgorithmException {

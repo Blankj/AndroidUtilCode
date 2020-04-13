@@ -39,9 +39,14 @@ class ShadowActivity : CommonActivity() {
 
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         super.initView(savedInstanceState, contentView)
-        ShadowUtils.apply(shadowRectView, Config().setShadowRadius(0.01f).setShadowColor(Color.BLUE, Color.GREEN))
-        ShadowUtils.apply(shadowRoundRectView, Config().setShadowRadius(
-                SizeUtils.dp2px(16f).toFloat()).setShadowColor(Color.RED, Color.BLUE))
-        ShadowUtils.apply(shadowCircleView, Config().setCircle().setShadowColor(Color.GREEN, Color.BLUE))
+        ShadowUtils.apply(shadowRectView, Config().setShadowColor(0x44000000, 0x55000000))
+        ShadowUtils.apply(shadowRoundRectView, Config().setShadowColor(0x44000000, 0x55000000).setShadowRadius(
+                SizeUtils.dp2px(16f).toFloat()))
+        ShadowUtils.apply(shadowCircleView, Config().setCircle().setShadowColor(0x44000000, 0x55000000))
+
+        ShadowUtils.apply(shadowRectView1, Config().setShadowColor(0x44000000, 0x55000000))
+        ShadowUtils.apply(shadowRoundRectView1, Config().setShadowColor(0x44000000, 0x55000000).setShadowRadius(
+                SizeUtils.dp2px(16f).toFloat()))
+        ShadowUtils.apply(shadowCircleView1, Config().setCircle().setShadowColor(0x44000000, 0x55000000))
     }
 }

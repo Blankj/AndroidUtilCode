@@ -2,11 +2,11 @@ apply {
     plugin "com.android.application"
     plugin "kotlin-android"
     plugin "kotlin-android-extensions"
-    if (Config.depConfig.plugin_bus.isApply) {
-        plugin Config.depConfig.plugin_bus.pluginId
-    }
     if (Config.depConfig.plugin_api.isApply) {
         plugin Config.depConfig.plugin_api.pluginId
+    }
+    if (Config.depConfig.plugin_bus.isApply) {
+        plugin Config.depConfig.plugin_bus.pluginId
     }
 }
 
@@ -67,8 +67,6 @@ android {
 dependencies {
     // LeakCanary
     debugImplementation Config.depConfig.leakcanary_android.dep
-    debugImplementation Config.depConfig.leakcanary_support_fragment.dep
-    releaseImplementation Config.depConfig.leakcanary_android_no_op.dep
 
     debugImplementation Config.depConfig.lib_utildebug.dep
     releaseImplementation Config.depConfig.lib_utildebug_no_op.dep
@@ -84,8 +82,8 @@ dependencies {
 }
 
 def getSuffix() {
-    if (project.path == ":feature:launcher:app") return ""
-    return project.path.replace(":", "_").substring(":feature".length(), project.path.length() - ":app".length())
+    if (project.name == "feature_launcher_app") return ""
+    return "." + project.name.substring("feature_".length(), project.name.length() - "_app".length())
 }
 
 def configSigning() {

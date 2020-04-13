@@ -1,12 +1,12 @@
 package com.blankj.base.mvp;
 
+import android.app.Activity;
 import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleObserver;
-import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.OnLifecycleEvent;
-import android.support.annotation.CallSuper;
+import android.support.annotation.NonNull;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +19,7 @@ import java.util.Map;
  *     desc  :
  * </pre>
  */
-public abstract class BasePresenter<V extends BaseView> implements LifecycleObserver {
+public abstract class BasePresenter<V extends BaseView> extends Utils.ActivityLifecycleCallbacks {
 
     private V                     mView;
     private Map<Class, BaseModel> mModelMap = new HashMap<>();
@@ -29,6 +29,7 @@ public abstract class BasePresenter<V extends BaseView> implements LifecycleObse
     void bindView(V view) {
         this.mView = view;
         onAttachView();
+        ActivityUtils.addActivityLifecycleCallbacks(mView.getActivity(), this);
     }
 
     public V getView() {
@@ -54,9 +55,16 @@ public abstract class BasePresenter<V extends BaseView> implements LifecycleObse
         return null;
     }
 
-    @CallSuper
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    public void onDestroyPresenter() {
+    @Override
+    public void onLifecycleChanged(@NonNull Activity activity, Lifecycle.Event event) {
+        super.onLifecycleChanged(activity, event);
+        if (event == Lifecycle.Event.ON_DESTROY) {
+            destroyPresenter();
+        }
+        LogUtils.i("onLifecycleChanged: " + event);
+    }
+
+    private void destroyPresenter() {
         if (mView != null) {
             mView.mPresenterMap.remove(this.getClass());
             mView.onDestroyView();
@@ -67,11 +75,5 @@ public abstract class BasePresenter<V extends BaseView> implements LifecycleObse
             }
         }
         mModelMap.clear();
-        LogUtils.e("onDestroyPresenter");
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
-    public void onLifecycleChanged(LifecycleOwner owner, Lifecycle.Event event) {
-        LogUtils.e(event.toString());
     }
 }

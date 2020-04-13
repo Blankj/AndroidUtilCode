@@ -5,17 +5,16 @@ import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.net.Uri;
 import android.os.Build;
+import android.os.StatFs;
+import android.text.TextUtils;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URL;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
@@ -24,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -51,7 +49,21 @@ public final class FileUtils {
      * @return the file
      */
     public static File getFileByPath(final String filePath) {
-        return isSpace(filePath) ? null : new File(filePath);
+        return UtilsBridge.isSpace(filePath) ? null : new File(filePath);
+    }
+
+    /**
+     * Return whether the file exists.
+     *
+     * @param file The file.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isFileExists(final File file) {
+        if (file == null) return false;
+        if (file.exists()) {
+            return true;
+        }
+        return isFileExists(file.getAbsolutePath());
     }
 
     /**
@@ -61,9 +73,16 @@ public final class FileUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isFileExists(final String filePath) {
-        if (Build.VERSION.SDK_INT < 29) {
-            return isFileExists(getFileByPath(filePath));
-        } else {
+        File file = getFileByPath(filePath);
+        if (file == null) return false;
+        if (file.exists()) {
+            return true;
+        }
+        return isFileExistsApi29(filePath);
+    }
+
+    private static boolean isFileExistsApi29(String filePath) {
+        if (Build.VERSION.SDK_INT >= 29) {
             try {
                 Uri uri = Uri.parse(filePath);
                 ContentResolver cr = Utils.getApp().getContentResolver();
@@ -78,16 +97,7 @@ public final class FileUtils {
             }
             return true;
         }
-    }
-
-    /**
-     * Return whether the file exists.
-     *
-     * @param file The file.
-     * @return {@code true}: yes<br>{@code false}: no
-     */
-    public static boolean isFileExists(final File file) {
-        return file != null && file.exists();
+        return false;
     }
 
     /**
@@ -114,7 +124,7 @@ public final class FileUtils {
         // file doesn't exist then return false
         if (!file.exists()) return false;
         // the new name is space then return false
-        if (isSpace(newName)) return false;
+        if (UtilsBridge.isSpace(newName)) return false;
         // the new name equals old name then return true
         if (newName.equals(file.getName())) return true;
         File newFile = new File(file.getParent() + File.separator + newName);
@@ -451,7 +461,7 @@ public final class FileUtils {
         }
         if (!createOrExistsDir(destFile.getParentFile())) return false;
         try {
-            return writeFileFromIS(destFile, new FileInputStream(srcFile))
+            return UtilsBridge.writeFileFromIS(destFile.getAbsolutePath(), new FileInputStream(srcFile))
                     && !(isMove && !deleteFile(srcFile));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -1111,7 +1121,7 @@ public final class FileUtils {
      */
     private static String getDirSize(final File dir) {
         long len = getDirLength(dir);
-        return len == -1 ? "" : byte2FitMemorySize(len);
+        return len == -1 ? "" : UtilsBridge.byte2FitMemorySize(len);
     }
 
     /**
@@ -1122,7 +1132,7 @@ public final class FileUtils {
      */
     private static String getFileSize(final File file) {
         long len = getFileLength(file);
-        return len == -1 ? "" : byte2FitMemorySize(len);
+        return len == -1 ? "" : UtilsBridge.byte2FitMemorySize(len);
     }
 
     /**
@@ -1213,7 +1223,7 @@ public final class FileUtils {
      * @return the md5 of file
      */
     public static String getFileMD5ToString(final String filePath) {
-        File file = isSpace(filePath) ? null : new File(filePath);
+        File file = UtilsBridge.isSpace(filePath) ? null : new File(filePath);
         return getFileMD5ToString(file);
     }
 
@@ -1224,7 +1234,7 @@ public final class FileUtils {
      * @return the md5 of file
      */
     public static String getFileMD5ToString(final File file) {
-        return bytes2HexString(getFileMD5(file));
+        return UtilsBridge.bytes2HexString(getFileMD5(file));
     }
 
     /**
@@ -1288,7 +1298,7 @@ public final class FileUtils {
      * @return the file's path of directory
      */
     public static String getDirName(final String filePath) {
-        if (isSpace(filePath)) return "";
+        if (UtilsBridge.isSpace(filePath)) return "";
         int lastSep = filePath.lastIndexOf(File.separator);
         return lastSep == -1 ? "" : filePath.substring(0, lastSep + 1);
     }
@@ -1311,7 +1321,7 @@ public final class FileUtils {
      * @return the name of file
      */
     public static String getFileName(final String filePath) {
-        if (isSpace(filePath)) return "";
+        if (UtilsBridge.isSpace(filePath)) return "";
         int lastSep = filePath.lastIndexOf(File.separator);
         return lastSep == -1 ? filePath : filePath.substring(lastSep + 1);
     }
@@ -1334,7 +1344,7 @@ public final class FileUtils {
      * @return the name of file without extension
      */
     public static String getFileNameNoExtension(final String filePath) {
-        if (isSpace(filePath)) return "";
+        if (UtilsBridge.isSpace(filePath)) return "";
         int lastPoi = filePath.lastIndexOf('.');
         int lastSep = filePath.lastIndexOf(File.separator);
         if (lastSep == -1) {
@@ -1364,11 +1374,20 @@ public final class FileUtils {
      * @return the extension of file
      */
     public static String getFileExtension(final String filePath) {
-        if (isSpace(filePath)) return "";
+        if (UtilsBridge.isSpace(filePath)) return "";
         int lastPoi = filePath.lastIndexOf('.');
         int lastSep = filePath.lastIndexOf(File.separator);
         if (lastPoi == -1 || lastSep >= lastPoi) return "";
         return filePath.substring(lastPoi + 1);
+    }
+
+    /**
+     * Notify system to scan the file.
+     *
+     * @param filePath The path of file.
+     */
+    public static void notifySystemToScan(final String filePath) {
+        notifySystemToScan(getFileByPath(filePath));
     }
 
     /**
@@ -1385,12 +1404,45 @@ public final class FileUtils {
     }
 
     /**
-     * Notify system to scan the file.
+     * Return the total size of file system.
      *
-     * @param filePath The path of file.
+     * @param anyPathInFs Any path in file system.
+     * @return the total size of file system
      */
-    public static void notifySystemToScan(final String filePath) {
-        notifySystemToScan(getFileByPath(filePath));
+    public static long getFsTotalSize(String anyPathInFs) {
+        if (TextUtils.isEmpty(anyPathInFs)) return 0;
+        StatFs statFs = new StatFs(anyPathInFs);
+        long blockSize;
+        long totalSize;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            blockSize = statFs.getBlockSizeLong();
+            totalSize = statFs.getBlockCountLong();
+        } else {
+            blockSize = statFs.getBlockSize();
+            totalSize = statFs.getBlockCount();
+        }
+        return blockSize * totalSize;
+    }
+
+    /**
+     * Return the available size of file system.
+     *
+     * @param anyPathInFs Any path in file system.
+     * @return the available size of file system
+     */
+    public static long getFsAvailableSize(final String anyPathInFs) {
+        if (TextUtils.isEmpty(anyPathInFs)) return 0;
+        StatFs statFs = new StatFs(anyPathInFs);
+        long blockSize;
+        long availableSize;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            blockSize = statFs.getBlockSizeLong();
+            availableSize = statFs.getAvailableBlocksLong();
+        } else {
+            blockSize = statFs.getBlockSize();
+            availableSize = statFs.getAvailableBlocks();
+        }
+        return blockSize * availableSize;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1399,78 +1451,5 @@ public final class FileUtils {
 
     public interface OnReplaceListener {
         boolean onReplace(File srcFile, File destFile);
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-    // other utils methods
-    ///////////////////////////////////////////////////////////////////////////
-
-    private static final char[] HEX_DIGITS =
-            {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-
-    private static String bytes2HexString(final byte[] bytes) {
-        if (bytes == null) return "";
-        int len = bytes.length;
-        if (len <= 0) return "";
-        char[] ret = new char[len << 1];
-        for (int i = 0, j = 0; i < len; i++) {
-            ret[j++] = HEX_DIGITS[bytes[i] >> 4 & 0x0f];
-            ret[j++] = HEX_DIGITS[bytes[i] & 0x0f];
-        }
-        return new String(ret);
-    }
-
-    private static String byte2FitMemorySize(final long byteNum) {
-        if (byteNum < 0) {
-            return "shouldn't be less than zero!";
-        } else if (byteNum < 1024) {
-            return String.format(Locale.getDefault(), "%.3fB", (double) byteNum);
-        } else if (byteNum < 1048576) {
-            return String.format(Locale.getDefault(), "%.3fKB", (double) byteNum / 1024);
-        } else if (byteNum < 1073741824) {
-            return String.format(Locale.getDefault(), "%.3fMB", (double) byteNum / 1048576);
-        } else {
-            return String.format(Locale.getDefault(), "%.3fGB", (double) byteNum / 1073741824);
-        }
-    }
-
-    private static boolean isSpace(final String s) {
-        if (s == null) return true;
-        for (int i = 0, len = s.length(); i < len; ++i) {
-            if (!Character.isWhitespace(s.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static boolean writeFileFromIS(final File file,
-                                           final InputStream is) {
-        OutputStream os = null;
-        try {
-            os = new BufferedOutputStream(new FileOutputStream(file));
-            byte[] data = new byte[8192];
-            int len;
-            while ((len = is.read(data, 0, 8192)) != -1) {
-                os.write(data, 0, len);
-            }
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                if (os != null) {
-                    os.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }

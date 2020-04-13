@@ -36,7 +36,7 @@ public class BusUtilsVsEventBusTest extends BaseTest {
     /**
      * 注册 10000 个订阅者，共执行 10 次取平均值
      */
-    @Test
+//    @Test
     public void compareRegister10000Times() {
         final List<BusUtilsVsEventBusTest> eventBusTests = new ArrayList<>();
         final List<BusUtilsVsEventBusTest> busUtilsTests = new ArrayList<>();
@@ -74,7 +74,7 @@ public class BusUtilsVsEventBusTest extends BaseTest {
     /**
      * 向 1 个订阅者发送 * 1000000 次，共执行 10 次取平均值
      */
-    @Test
+//    @Test
     public void comparePostTo1Subscriber1000000Times() {
         comparePostTemplate("Post to 1 subscriber 1000000 times.", 1, 1000000);
     }
@@ -82,7 +82,7 @@ public class BusUtilsVsEventBusTest extends BaseTest {
     /**
      * 向 100 个订阅者发送 * 100000 次，共执行 10 次取平均值
      */
-    @Test
+//    @Test
     public void comparePostTo100Subscribers100000Times() {
         comparePostTemplate("Post to 100 subscribers 100000 times.", 100, 100000);
     }
@@ -121,7 +121,7 @@ public class BusUtilsVsEventBusTest extends BaseTest {
     /**
      * 注销 10000 个订阅者，共执行 10 次取平均值
      */
-    @Test
+//    @Test
     public void compareUnregister10000Times() {
         final List<BusUtilsVsEventBusTest> tests = new ArrayList<>();
         for (int i = 0; i < 10000; i++) {

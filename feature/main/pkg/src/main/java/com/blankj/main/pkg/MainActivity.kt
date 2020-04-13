@@ -9,9 +9,9 @@ import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick
 import com.blankj.subutil.export.api.SubUtilApi
 import com.blankj.utilcode.export.api.UtilCodeApi
-import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ApiUtils
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.CollectionUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -69,6 +69,6 @@ class MainActivity : CommonActivity() {
     }
 
     override fun onBackPressed() {
-        ActivityUtils.startHomeActivity()
+        ClickUtils.back2HomeFriendly("Press again to exit.")
     }
 }

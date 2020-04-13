@@ -1,6 +1,7 @@
 package com.blankj.utilcode.util;
 
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.util.LongSparseArray;
 import android.support.v4.util.SimpleArrayMap;
@@ -10,7 +11,9 @@ import android.util.SparseIntArray;
 import android.util.SparseLongArray;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Map;
 
 /**
@@ -185,12 +188,39 @@ public final class ObjectUtils {
     }
 
     /**
+     * Returns 0 if the arguments are identical and {@code
+     * c.compare(a, b)} otherwise.
+     * Consequently, if both arguments are {@code null} 0
+     * is returned.
+     */
+    public static <T> int compare(T a, T b, @NonNull Comparator<? super T> c) {
+        return (a == b) ? 0 : c.compare(a, b);
+    }
+
+    /**
+     * Checks that the specified object reference is not {@code null}.
+     */
+    public static <T> T requireNonNull(T obj) {
+        if (obj == null) throw new NullPointerException();
+        return obj;
+    }
+
+    /**
+     * Checks that the specified object reference is not {@code null} and
+     * throws a customized {@link NullPointerException} if it is.
+     */
+    public static <T> T requireNonNull(T obj, String ifNullTip) {
+        if (obj == null) throw new NullPointerException(ifNullTip);
+        return obj;
+    }
+
+    /**
      * Require the objects are not null.
      *
      * @param objects The object.
      * @throws NullPointerException if any object is null in objects
      */
-    public static void requireNonNull(final Object... objects) {
+    public static void requireNonNulls(final Object... objects) {
         if (objects == null) throw new NullPointerException();
         for (Object object : objects) {
             if (object == null) throw new NullPointerException();
@@ -213,6 +243,23 @@ public final class ObjectUtils {
     }
 
     /**
+     * Returns the result of calling {@code toString} for a non-{@code
+     * null} argument and {@code "null"} for a {@code null} argument.
+     */
+    public static String toString(Object obj) {
+        return String.valueOf(obj);
+    }
+
+    /**
+     * Returns the result of calling {@code toString} on the first
+     * argument if the first argument is not {@code null} and returns
+     * the second argument otherwise.
+     */
+    public static String toString(Object o, String nullDefault) {
+        return (o != null) ? o.toString() : nullDefault;
+    }
+
+    /**
      * Return the hash code of object.
      *
      * @param o The object.
@@ -220,5 +267,12 @@ public final class ObjectUtils {
      */
     public static int hashCode(final Object o) {
         return o != null ? o.hashCode() : 0;
+    }
+
+    /**
+     * Return the hash code of objects.
+     */
+    public static int hashCodes(Object... values) {
+        return Arrays.hashCode(values);
     }
 }

@@ -34,6 +34,18 @@ public final class UriUtils {
     }
 
     /**
+     * Resource to uri.
+     * <p>res2Uri([res type]/[res name]) -> res2Uri(drawable/icon), res2Uri(raw/icon)</p>
+     * <p>res2Uri([resource_id]) -> res2Uri(R.drawable.icon)</p>
+     *
+     * @param resPath The path of res.
+     * @return uri
+     */
+    public static Uri res2Uri(String resPath) {
+        return Uri.parse("android.resource://" + Utils.getApp().getPackageName() + "/" + resPath);
+    }
+
+    /**
      * File to uri.
      *
      * @param file The file.
@@ -59,8 +71,7 @@ public final class UriUtils {
         String authority = uri.getAuthority();
         String scheme = uri.getScheme();
         String path = uri.getPath();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
-                && path != null) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && path != null) {
             String[] externals = new String[]{"/external", "/external_path"};
             for (String external : externals) {
                 if (path.startsWith(external + "/")) {
@@ -193,6 +204,18 @@ public final class UriUtils {
                                        final String selection,
                                        final String[] selectionArgs,
                                        final String code) {
+        if ("com.google.android.apps.photos.content".equals(uri.getAuthority())) {
+            if (!TextUtils.isEmpty(uri.getLastPathSegment())) {
+                return new File(uri.getLastPathSegment());
+            }
+        } else if ("com.tencent.mtt.fileprovider".equals(uri.getAuthority())) {
+            String path = uri.getPath();
+            if (!TextUtils.isEmpty(path)) {
+                File fileDir = Environment.getExternalStorageDirectory();
+                return new File(fileDir, path.substring("/QQBrowser".length(), path.length()));
+            }
+        }
+
         final Cursor cursor = Utils.getApp().getContentResolver().query(
                 uri, new String[]{"_data"}, selection, selectionArgs, null);
         if (cursor == null) {

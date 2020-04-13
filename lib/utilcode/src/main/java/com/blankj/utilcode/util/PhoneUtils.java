@@ -2,9 +2,6 @@ package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
@@ -274,15 +271,9 @@ public final class PhoneUtils {
      * Skip to dial.
      *
      * @param phoneNumber The phone number.
-     * @return {@code true}: operate successfully<br>{@code false}: otherwise
      */
-    public static boolean dial(final String phoneNumber) {
-        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
-        if (isIntentAvailable(intent)) {
-            Utils.getApp().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-            return true;
-        }
-        return false;
+    public static void dial(final String phoneNumber) {
+        Utils.getApp().startActivity(UtilsBridge.getDialIntent(phoneNumber));
     }
 
     /**
@@ -290,16 +281,10 @@ public final class PhoneUtils {
      * <p>Must hold {@code <uses-permission android:name="android.permission.CALL_PHONE" />}</p>
      *
      * @param phoneNumber The phone number.
-     * @return {@code true}: operate successfully<br>{@code false}: otherwise
      */
     @RequiresPermission(CALL_PHONE)
-    public static boolean call(final String phoneNumber) {
-        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
-        if (isIntentAvailable(intent)) {
-            Utils.getApp().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-            return true;
-        }
-        return false;
+    public static void call(final String phoneNumber) {
+        Utils.getApp().startActivity(UtilsBridge.getCallIntent(phoneNumber));
     }
 
     /**
@@ -307,27 +292,12 @@ public final class PhoneUtils {
      *
      * @param phoneNumber The phone number.
      * @param content     The content.
-     * @return {@code true}: operate successfully<br>{@code false}: otherwise
      */
-    public static boolean sendSms(final String phoneNumber, final String content) {
-        Uri uri = Uri.parse("smsto:" + phoneNumber);
-        Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-        if (isIntentAvailable(intent)) {
-            intent.putExtra("sms_body", content);
-            Utils.getApp().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-            return true;
-        }
-        return false;
+    public static void sendSms(final String phoneNumber, final String content) {
+        Utils.getApp().startActivity(UtilsBridge.getSendSmsIntent(phoneNumber, content));
     }
 
     private static TelephonyManager getTelephonyManager() {
         return (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
-    }
-
-    private static boolean isIntentAvailable(final Intent intent) {
-        return Utils.getApp()
-                .getPackageManager()
-                .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-                .size() > 0;
     }
 }

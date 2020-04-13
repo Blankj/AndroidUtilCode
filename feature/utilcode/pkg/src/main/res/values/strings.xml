@@ -6,12 +6,12 @@
     <string name="demo_app">AppUtils Demo</string>
     <string name="demo_bar">BarUtils Demo</string>
     <string name="demo_brightness">BrightnessUtils Demo</string>
-    <string name="demo_blur">BlurUtils Demo</string>
+    <string name="demo_bus">BusUtils Demo</string>
     <string name="demo_clean">CleanUtils Demo</string>
     <string name="demo_click">ClickUtils Demo</string>
-    <string name="demo_bus">BusUtils Demo</string>
     <string name="demo_crash">CrashUtils Demo</string>
     <string name="demo_device">DeviceUtils Demo</string>
+    <string name="demo_file">FileUtils Demo</string>
     <string name="demo_flashlight">FlashlightUtils Demo</string>
     <string name="demo_fragment">FragmentUtils Demo</string>
     <string name="demo_image">ImageUtils Demo</string>
@@ -37,6 +37,7 @@
     <string name="demo_spStatic">SPStaticUtils Demo</string>
     <string name="demo_span">SpanUtils Demo</string>
     <string name="demo_toast">ToastUtils Demo</string>
+    <string name="demo_trans_activity">TransActivity Demo</string>
     <string name="demo_vibrate">VibrateUtils Demo</string>
 
     <!--Activity 相关-->
@@ -70,6 +71,7 @@
     <string name="activity_start_launcher_activity">Start Launcher Activity</string>
     <string name="activity_finish_activity">Finish CoreUtilActivity</string>
     <string name="activity_finish_to_activity">Finish To CoreUtilActivity</string>
+    <string name="activity_finish_all_activities_except_newest">Finish All Activities Except Newest</string>
     <string name="activity_finish_all_activities">Finish All Activities</string>
 
     <!--Api 相关-->

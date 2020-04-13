@@ -3,8 +3,11 @@ package com.blankj.utilcode.util;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.ColorFilter;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -13,8 +16,10 @@ import android.os.Build;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
+import android.util.Log;
 import android.util.StateSet;
 import android.view.MotionEvent;
+import android.view.TouchDelegate;
 import android.view.View;
 
 /**
@@ -198,7 +203,7 @@ public class ClickUtils {
         }
 
         Drawable disable = src.getConstantState().newDrawable().mutate();
-        disable = createAlphaDrawable(pressed, 0.5f);
+        disable = createAlphaDrawable(disable, 0.5f);
 
         StateListDrawable drawable = new StateListDrawable();
         drawable.addState(new int[]{android.R.attr.state_pressed}, pressed);
@@ -208,30 +213,23 @@ public class ClickUtils {
     }
 
     private static Drawable createAlphaDrawable(Drawable drawable, float alpha) {
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT
-                && !(drawable instanceof ColorDrawable)) {
-            Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-            Canvas myCanvas = new Canvas(bitmap);
-            drawable.setAlpha((int) (alpha * 255));
-            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-            drawable.draw(myCanvas);
-            return new BitmapDrawable(Resources.getSystem(), bitmap);
-        }
-        drawable.setAlpha((int) (alpha * 255));
-        return drawable;
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            DrawableWrapperBefore21 drawableWrapper = new DrawableWrapperBefore21(drawable);
+            drawableWrapper.setAlphaFix((int) (alpha * 255));
+            return drawableWrapper;
+//        }
+//        drawable.setAlpha((int) (alpha * 255));
+//        return drawable;
     }
 
     private static Drawable createDarkDrawable(Drawable drawable, float alpha) {
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT && !(drawable instanceof ColorDrawable)) {
-            Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-            Canvas myCanvas = new Canvas(bitmap);
-            drawable.setColorFilter(getDarkColorFilter(alpha));
-            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-            drawable.draw(myCanvas);
-            return new BitmapDrawable(Resources.getSystem(), bitmap);
-        }
-        drawable.setColorFilter(getDarkColorFilter(alpha));
-        return drawable;
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            DrawableWrapperBefore21 drawableWrapper = new DrawableWrapperBefore21(drawable);
+            drawableWrapper.setColorFilterFix(getDarkColorFilter(alpha));
+            return drawableWrapper;
+//        }
+//        drawable.setColorFilter(getDarkColorFilter(alpha));
+//        return drawable;
     }
 
     private static ColorMatrixColorFilter getDarkColorFilter(float darkAlpha) {
@@ -350,9 +348,82 @@ public class ClickUtils {
         }
     }
 
-    private static int dp2px(final float dpValue) {
-        final float scale = Resources.getSystem().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
+    /**
+     * Expand the click area of ​​the view
+     *
+     * @param view       The view.
+     * @param expandSize The size.
+     */
+    public static void expandClickArea(@NonNull final View view, final int expandSize) {
+        expandClickArea(view, expandSize, expandSize, expandSize, expandSize);
+    }
+
+    public static void expandClickArea(@NonNull final View view,
+                                       final int expandSizeTop,
+                                       final int expandSizeLeft,
+                                       final int expandSizeRight,
+                                       final int expandSizeBottom) {
+        final View parentView = (View) view.getParent();
+        if (parentView == null) {
+            Log.e("ClickUtils", "expandClickArea must have parent view.");
+            return;
+        }
+        parentView.post(new Runnable() {
+            @Override
+            public void run() {
+                final Rect rect = new Rect();
+                view.getHitRect(rect);
+                rect.top -= expandSizeTop;
+                rect.bottom += expandSizeBottom;
+                rect.left -= expandSizeLeft;
+                rect.right += expandSizeRight;
+                parentView.setTouchDelegate(new TouchDelegate(rect, view));
+            }
+        });
+    }
+
+    private static final long TIP_DURATION = 2000L;
+    private static       long sLastClickMillis;
+    private static       int  sClickCount;
+
+    public static void back2HomeFriendly(final CharSequence tip) {
+        back2HomeFriendly(tip, TIP_DURATION, Back2HomeFriendlyListener.DEFAULT);
+    }
+
+    public static void back2HomeFriendly(@NonNull final CharSequence tip,
+                                         final long duration,
+                                         @NonNull Back2HomeFriendlyListener listener) {
+        long nowMillis = System.currentTimeMillis();
+        if (nowMillis - sLastClickMillis < duration) {
+            sClickCount++;
+            if (sClickCount == 2) {
+                UtilsBridge.startHomeActivity();
+                listener.dismiss();
+                sLastClickMillis = 0;
+            }
+        } else {
+            sClickCount = 1;
+            listener.show(tip, duration);
+            sLastClickMillis = nowMillis;
+        }
+    }
+
+    public interface Back2HomeFriendlyListener {
+        Back2HomeFriendlyListener DEFAULT = new Back2HomeFriendlyListener() {
+            @Override
+            public void show(CharSequence text, long duration) {
+                UtilsBridge.toastShowShort(text);
+            }
+
+            @Override
+            public void dismiss() {
+                UtilsBridge.toastCancel();
+            }
+        };
+
+        void show(CharSequence text, long duration);
+
+        void dismiss();
     }
 
     public static abstract class OnDebouncingClickListener implements View.OnClickListener {
@@ -374,7 +445,12 @@ public class ClickUtils {
                 return true;
             }
             long preTime = (Long) tag;
-            if (curTime - preTime <= duration) return false;
+            if (curTime - preTime < 0) {
+                view.setTag(DEBOUNCING_TAG, curTime);
+                return false;
+            } else if (curTime - preTime <= duration) {
+                return false;
+            }
             view.setTag(DEBOUNCING_TAG, curTime);
             return true;
         }
@@ -507,6 +583,62 @@ public class ClickUtils {
 
         private static class LazyHolder {
             private static final OnUtilsTouchListener INSTANCE = new OnUtilsTouchListener();
+        }
+    }
+
+    static class DrawableWrapperBefore21 extends ShadowUtils.DrawableWrapper {
+
+        private BitmapDrawable mBitmapDrawable = null;
+
+        //低版本ColorDrawable.setColorFilter无效，这里直接用画笔画上
+        private Paint mColorPaint = null;
+
+        public DrawableWrapperBefore21(Drawable drawable) {
+            super(drawable);
+            if (drawable instanceof ColorDrawable) {
+                mColorPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
+                mColorPaint.setColor(((ColorDrawable) drawable).getColor());
+            }
+        }
+
+        @Override
+        public void setColorFilter(ColorFilter cf) {
+            //低版本StateListDrawable.selectDrawable会重置ColorFilter
+        }
+
+        public void setColorFilterFix(ColorFilter cf) {
+            super.setColorFilter(cf);
+            if (mColorPaint != null) {
+                mColorPaint.setColorFilter(cf);
+            }
+        }
+
+        @Override
+        public void setAlpha(int alpha) {
+            //低版本StateListDrawable.selectDrawable会重置Alpha
+        }
+
+        public void setAlphaFix(int alpha) {
+            super.setAlpha(alpha);
+            if (mColorPaint != null) {
+                mColorPaint.setColor(((ColorDrawable) getWrappedDrawable()).getColor());
+            }
+        }
+
+        @Override
+        public void draw(Canvas canvas) {
+            if (mBitmapDrawable == null) {
+                Bitmap bitmap = Bitmap.createBitmap(getBounds().width(), getBounds().height(), Bitmap.Config.ARGB_8888);
+                Canvas myCanvas = new Canvas(bitmap);
+                if (mColorPaint != null) {
+                    myCanvas.drawRect(getBounds(), mColorPaint);
+                } else {
+                    super.draw(myCanvas);
+                }
+                mBitmapDrawable = new BitmapDrawable(Resources.getSystem(), bitmap);
+                mBitmapDrawable.setBounds(getBounds());
+            }
+            mBitmapDrawable.draw(canvas);
         }
     }
 }

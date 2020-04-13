@@ -28,6 +28,7 @@ for (def pro in config.proConfig) {
 
     if (pro.useLocal && pro.isApply) {
         include pro.localPath
+        project(pro.localPath).name = pro.localPath.substring(1).replace(":", "_")
     }
 }
 
@@ -42,7 +43,8 @@ for (def pro in config.proConfig) {
     if (localPath != null) localPath = "\"$localPath\""
     if (remotePath != null) remotePath = "\"$remotePath\""
     boolean isApply = pro.isApply
-    proDeps.add(String.format("%-12s%-27s: new DepConfig($isApply, $useLocal, $localPath%s),", "", name, remotePath == null ? "" : ", $remotePath"))
+    proDeps.add(String.format("%-12s%-27s: new DepConfig(%-5s, %-5s, $localPath%s),",
+            "", name, isApply, useLocal, remotePath == null ? "" : ", $remotePath"))
 }
 
 def configFile = file('./buildSrc/src/main/groovy/Config.groovy')

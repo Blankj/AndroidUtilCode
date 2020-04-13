@@ -1,10 +1,7 @@
-package com.blankj.plugin
+package com.blankj.plugin.readme
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-
-import static FormatUtils.LINE_SEP
-
 
 class ReadmeSubPlugin implements Plugin<Project> {
 
@@ -30,9 +27,9 @@ class ReadmeSubPlugin implements Plugin<Project> {
     static def readmeOfSubUtil2Eng(File readmeCN, File readmeEng) {
         FormatUtils.format(readmeCN)
         def lines = readmeCN.readLines("UTF-8"),
-            sb = new StringBuilder("## How to use" + LINE_SEP
-                    + LINE_SEP +
-                    "You should copy the following classes which you want to use in your project." + LINE_SEP),
+            sb = new StringBuilder("## How to use" + FormatUtils.LINE_SEP
+                    + FormatUtils.LINE_SEP +
+                    "You should copy the following classes which you want to use in your project." + FormatUtils.LINE_SEP),
             i = 3,
             size = lines.size()
         for (; i < size; ++i) {
@@ -45,7 +42,7 @@ class ReadmeSubPlugin implements Plugin<Project> {
             } else {
                 sb.append(line)
             }
-            sb.append(LINE_SEP)
+            sb.append(FormatUtils.LINE_SEP)
         }
         readmeEng.write(sb.toString(), "UTF-8")
     }

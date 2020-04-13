@@ -128,7 +128,7 @@ public final class BusUtils {
                             try {
                                 if (Class.forName(busInfo.className).isAssignableFrom(aClass)) {
                                     tags.add(entry.getKey());
-                                    busInfo.classNames.add(className);
+                                    busInfo.subClassNames.add(className);
                                 }
                             } catch (ClassNotFoundException e) {
                                 e.printStackTrace();
@@ -234,7 +234,7 @@ public final class BusUtils {
         };
         switch (busInfo.threadMode) {
             case "MAIN":
-                Utils.runOnUiThread(runnable);
+                ThreadUtils.runOnUiThread(runnable);
                 return;
             case "IO":
                 ThreadUtils.getIoPool().execute(runnable);
@@ -255,8 +255,8 @@ public final class BusUtils {
 
     private void realInvokeMethod(final String tag, Object arg, BusInfo busInfo, boolean sticky) {
         Set<Object> buses = new HashSet<>();
-        for (String className : busInfo.classNames) {
-            Set<Object> subBuses = mClassName_BusesMap.get(className);
+        for (String subClassName : busInfo.subClassNames) {
+            Set<Object> subBuses = mClassName_BusesMap.get(subClassName);
             if (subBuses != null && !subBuses.isEmpty()) {
                 buses.addAll(subBuses);
             }
@@ -331,6 +331,12 @@ public final class BusUtils {
         }
     }
 
+    static void registerBus4Test(String tag,
+                                 String className, String funName, String paramType, String paramName,
+                                 boolean sticky, String threadMode, int priority) {
+        getInstance().registerBus(tag, className, funName, paramType, paramName, sticky, threadMode, priority);
+    }
+
     private static final class BusInfo {
 
         String       className;
@@ -341,7 +347,7 @@ public final class BusUtils {
         String       threadMode;
         int          priority;
         Method       method;
-        List<String> classNames;
+        List<String> subClassNames;
 
         BusInfo(String className, String funName, String paramType, String paramName,
                 boolean sticky, String threadMode, int priority) {
@@ -352,7 +358,7 @@ public final class BusUtils {
             this.sticky = sticky;
             this.threadMode = threadMode;
             this.priority = priority;
-            this.classNames = new CopyOnWriteArrayList<>();
+            this.subClassNames = new CopyOnWriteArrayList<>();
         }
 
         @Override

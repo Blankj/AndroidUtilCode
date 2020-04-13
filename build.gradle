@@ -5,20 +5,8 @@ buildscript {
         // use for debug plugin local
         if (Config.depConfig.plugin_bus.useLocal || Config.depConfig.plugin_api.useLocal) {
             maven() {
-                url new File("maven")
+                url new File("mavenLocal")
             }
-        }
-        maven {
-            url 'https://maven.aliyun.com/repository/public'
-            name 'replace jcenter() and mavenCentral()'
-        }
-        maven {
-            url 'https://maven.aliyun.com/repository/jcenter'
-            name 'replace jcenter()'
-        }
-        maven {
-            url 'https://maven.aliyun.com/repository/google'
-            name 'replace google()'
         }
         google()
         jcenter()
@@ -33,21 +21,7 @@ buildscript {
 
 allprojects {
     repositories {
-        maven {
-            url 'https://maven.aliyun.com/repository/public'
-            name 'replace jcenter() and mavenCentral()'
-        }
-        maven {
-            url 'https://maven.aliyun.com/repository/jcenter'
-            name 'replace jcenter()'
-        }
-        maven {
-            url 'https://maven.aliyun.com/repository/google'
-            name 'replace google()'
-        }
-        maven {
-            url "https://jitpack.io"
-        }
+        maven { url "https://jitpack.io" }
         google()
         jcenter()
     }
@@ -58,7 +32,7 @@ allprojects {
         resolutionStrategy.eachDependency {
             if (it.requested.group == 'com.android.support'
                     && !it.requested.name.contains('multidex')) {
-                it.useVersion Config.support_version
+                it.useVersion Config.supportVersion
             }
         }
     }

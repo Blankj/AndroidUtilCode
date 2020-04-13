@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.26.0'
+implementation 'com.blankj:utilcode:1.28.0'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.26.0'
+implementation 'com.blankj:utilcodex:1.28.0'
 ```
 
 
@@ -13,7 +13,9 @@ implementation 'com.blankj:utilcodex:1.26.0'
 
 * ### About Activity -> [ActivityUtils.java][activity.java] -> [Demo][activity.demo]
 ```
-getActivityByView
+addActivityLifecycleCallbacks
+removeActivityLifecycleCallbacks
+getAliveActivityByContext
 getActivityByContext
 isActivityExists
 startActivity
@@ -272,6 +274,8 @@ applyPressedBgAlpha
 applyPressedBgDark
 applySingleDebouncing
 applyGlobalDebouncing
+expandClickArea
+back2HomeFriendly
 ClickUtils#OnDebouncingClickListener
 ClickUtils#OnMultiClickListener
 ```
@@ -345,6 +349,12 @@ getRandomColor
 bytes2Bits, bits2Bytes
 bytes2Chars, chars2Bytes
 bytes2HexString, hexString2Bytes
+bytes2String, string2Bytes
+bytes2JSONObject, jsonObject2Bytes
+bytes2JSONArray, jsonArray2Bytes
+bytes2Parcelable, parcelable2Bytes
+bytes2Object, serializable2Bytes
+bytes2Bitmap, bitmap2Bytes
 memorySize2Byte, byte2MemorySize
 byte2FitMemorySize
 timeSpan2Millis, millis2TimeSpan
@@ -354,7 +364,7 @@ inputStream2Bytes, bytes2InputStream
 outputStream2Bytes, bytes2OutputStream
 inputStream2String, string2InputStream
 outputStream2String, string2OutputStream
-bitmap2Bytes, bytes2Bitmap
+inputStream2Lines
 drawable2Bitmap, bitmap2Drawable
 drawable2Bytes, bytes2Drawable
 view2Bitmap
@@ -401,6 +411,8 @@ base64Encode2String
 base64Decode
 htmlEncode
 htmlDecode
+binaryEncode
+binaryDecode
 ```
 
 * ### About Encrypt -> [EncryptUtils.java][encrypt.java] -> [Test][encrypt.test]
@@ -427,6 +439,7 @@ encryptAES, encryptAES2HexString, encryptAES2Base64
 decryptAES, decryptHexStringAES, decryptBase64AES
 encryptRSA, encryptRSA2HexString, encryptRSA2Base64
 decryptRSA, decryptHexStringRSA, decryptBase64RSA
+rc4
 ```
 
 * ### About FileIO -> [FileIOUtils.java][fileIo.java] -> [Test][fileIo.test]
@@ -474,6 +487,8 @@ getFileName
 getFileNameNoExtension
 getFileExtension
 notifySystemToScan
+getFsTotalSize
+getFsAvailableSize
 ```
 
 * ### About Fragment -> [FragmentUtils.java][fragment.java] -> [Demo][fragment.demo]
@@ -506,6 +521,8 @@ setBackground
 
 * ### About Gson -> [GsonUtils.java][gson.java] -> [Test][gson.test]
 ```
+setGsonDelegate
+setGson
 getGson
 toJson
 fromJson
@@ -580,6 +597,9 @@ clickBlankArea2HideSoftInput
 ```
 applySystemLanguage
 applyLanguage
+isAppliedSystemLanguage
+isAppliedLanguage
+getCurrentLocale
 ```
 
 * ### About Log -> [LogUtils.java][log.java] -> [Demo][log.demo]
@@ -645,25 +665,26 @@ getMetaDataInReceiver
 ```
 openWirelessSettings
 isConnected
-isAvailable[Async]                    : 判断网络是否可用
-isAvailableByPing[Async]              : 用 ping 判断网络是否可用
-isAvailableByDns[Async]               : 用 DNS 判断网络是否可用
+isAvailable[Async]                      : 判断网络是否可用
+isAvailableByPing[Async]                : 用 ping 判断网络是否可用
+isAvailableByDns[Async]                 : 用 DNS 判断网络是否可用
 getMobileDataEnabled
 isMobileData
 is4G
 getWifiEnabled
 setWifiEnabled
 isWifiConnected
-isWifiAvailable[Async]                : 判断 wifi 数据是否可用
+isWifiAvailable[Async]                  : 判断 wifi 数据是否可用
 getNetworkOperatorName
 getNetworkType
-getIPAddress[Async]                   : 获取 IP 地址
-getDomainAddress[Async]               : 获取域名 IP 地址
+getIPAddress[Async]                     : 获取 IP 地址
+getDomainAddress[Async]                 : 获取域名 IP 地址
 getIpAddressByWifi
 getGatewayByWifi
 getNetMaskByWifi
 getServerAddressByWifi
 registerNetworkStatusChangedListener
+isRegisteredNetworkStatusChangedListener
 unregisterNetworkStatusChangedListener
 ```
 
@@ -676,18 +697,27 @@ cancelAll
 setNotificationBarVisibility
 ```
 
+* ### About Number -> [NumberUtils.java][number.java] -> [Test][number.test]
+```
+format
+float2Double
+```
+
 * ### About Object -> [ObjectUtils.java][object.java] -> [Test][object.test]
 ```
 isEmpty
 isNotEmpty
 equals
-requireNonNull
+compare
+requireNonNull(s)
 getOrDefault
-hashCode
+toString
+hashCode(s)
 ```
 
 * ### About Path -> [PathUtils.java][path.java] -> [Demo][path.demo]
 ```
+join
 getRootPath
 getDataPath
 getDownloadCachePath
@@ -724,6 +754,10 @@ getExternalAppDownloadPath
 getExternalAppDcimPath
 getExternalAppDocumentsPath
 getExternalAppObbPath
+getRootPathExternalFirst
+getAppDataPathExternalFirst
+getFilesPathExternalFirst
+getCachePathExternalFirst
 ```
 
 * ### About Permission -> [PermissionUtils.java][permission.java] -> [Demo][permission.demo]
@@ -796,6 +830,20 @@ getMatches
 getSplits
 getReplaceFirst
 getReplaceAll
+RegexConstants.REGEX_DOUBLE_BYTE_CHAR
+RegexConstants.REGEX_BLANK_LINE
+RegexConstants.REGEX_QQ_NUM
+RegexConstants.REGEX_CHINA_POSTAL_CODE
+RegexConstants.REGEX_INTEGER
+RegexConstants.REGEX_POSITIVE_INTEGER
+RegexConstants.REGEX_NEGATIVE_INTEGER
+RegexConstants.REGEX_NOT_NEGATIVE_INTEGER
+RegexConstants.REGEX_NOT_POSITIVE_INTEGER
+RegexConstants.REGEX_FLOAT
+RegexConstants.REGEX_POSITIVE_FLOAT
+RegexConstants.REGEX_NEGATIVE_FLOAT
+RegexConstants.REGEX_NOT_NEGATIVE_FLOAT
+RegexConstants.REGEX_NOT_POSITIVE_FLOAT
 ```
 
 * ### About Resource -> [ResourceUtils.java][resource.java] -> [Demo][resource.demo]
@@ -873,6 +921,10 @@ isSDCardEnableByEnvironment
 getSDCardPathByEnvironment
 getSDCardInfo
 getMountedSDCardPath
+getExternalTotalSize
+getExternalAvailableSize
+getInternalTotalSize
+getInternalAvailableSize
 ```
 
 * ### About Service -> [ServiceUtils.java][service.java]
@@ -1005,11 +1057,16 @@ lowerFirstLetter
 reverse
 toDBC
 toSBC
+getString
+getStringArray
 ```
 
 * ### About Thread -> [ThreadUtils.java][thread.java] -> [Test][thread.test]
 ```
 isMainThread
+getMainHandler
+runOnUiThread
+runOnUiThreadDelayed
 getFixedPool
 getSinglePool
 getCachedPool
@@ -1039,6 +1096,7 @@ setDeliver
 
 * ### About Time -> [TimeUtils.java][time.java] -> [Test][time.test]
 ```
+getSafeDateFormat
 millis2String
 string2Millis
 string2Date
@@ -1098,8 +1156,14 @@ removeListener
 
 * ### About Uri -> [UriUtils.java][uri.java]
 ```
+res2Uri
 file2Uri
 uri2File
+```
+
+* ### UtilsTransActivity -> [UtilsTransActivity.java][trans.java]
+```
+start
 ```
 
 * ### About Vibrate -> [VibrateUtils.java][vibrate.java] -> [Demo][vibrate.demo]
@@ -1250,6 +1314,9 @@ getComments
 [notification.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/NotificationUtils.java
 [notification.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/notification/NotificationActivity.kt
 
+[number.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/NumberUtils.java
+[number.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/NumberUtilsTest.java
+
 [object.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ObjectUtils.java
 [object.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/ObjectUtilsTest.java
 
@@ -1320,6 +1387,8 @@ getComments
 [uiMessage.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UiMessageUtils.java
 
 [uri.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UriUtils.java
+
+[trans.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UtilsTransActivity.java
 
 [vibrate.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/VibrateUtils.java
 [vibrate.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/vibrate/VibrateActivity.kt

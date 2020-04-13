@@ -1,7 +1,5 @@
 package com.blankj.utilcode.util;
 
-import android.util.Base64;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -63,7 +61,7 @@ public final class EncryptUtils {
      * @return the hex string of MD2 encryption
      */
     public static String encryptMD2ToString(final byte[] data) {
-        return bytes2HexString(encryptMD2(data));
+        return UtilsBridge.bytes2HexString(encryptMD2(data));
     }
 
     /**
@@ -96,9 +94,9 @@ public final class EncryptUtils {
      */
     public static String encryptMD5ToString(final String data, final String salt) {
         if (data == null && salt == null) return "";
-        if (salt == null) return bytes2HexString(encryptMD5(data.getBytes()));
-        if (data == null) return bytes2HexString(encryptMD5(salt.getBytes()));
-        return bytes2HexString(encryptMD5((data + salt).getBytes()));
+        if (salt == null) return UtilsBridge.bytes2HexString(encryptMD5(data.getBytes()));
+        if (data == null) return UtilsBridge.bytes2HexString(encryptMD5(salt.getBytes()));
+        return UtilsBridge.bytes2HexString(encryptMD5((data + salt).getBytes()));
     }
 
     /**
@@ -108,7 +106,7 @@ public final class EncryptUtils {
      * @return the hex string of MD5 encryption
      */
     public static String encryptMD5ToString(final byte[] data) {
-        return bytes2HexString(encryptMD5(data));
+        return UtilsBridge.bytes2HexString(encryptMD5(data));
     }
 
     /**
@@ -120,12 +118,12 @@ public final class EncryptUtils {
      */
     public static String encryptMD5ToString(final byte[] data, final byte[] salt) {
         if (data == null && salt == null) return "";
-        if (salt == null) return bytes2HexString(encryptMD5(data));
-        if (data == null) return bytes2HexString(encryptMD5(salt));
+        if (salt == null) return UtilsBridge.bytes2HexString(encryptMD5(data));
+        if (data == null) return UtilsBridge.bytes2HexString(encryptMD5(salt));
         byte[] dataSalt = new byte[data.length + salt.length];
         System.arraycopy(data, 0, dataSalt, 0, data.length);
         System.arraycopy(salt, 0, dataSalt, data.length, salt.length);
-        return bytes2HexString(encryptMD5(dataSalt));
+        return UtilsBridge.bytes2HexString(encryptMD5(dataSalt));
     }
 
     /**
@@ -145,7 +143,7 @@ public final class EncryptUtils {
      * @return the hex string of file's MD5 encryption
      */
     public static String encryptMD5File2String(final String filePath) {
-        File file = isSpace(filePath) ? null : new File(filePath);
+        File file = UtilsBridge.isSpace(filePath) ? null : new File(filePath);
         return encryptMD5File2String(file);
     }
 
@@ -156,7 +154,7 @@ public final class EncryptUtils {
      * @return the bytes of file's MD5 encryption
      */
     public static byte[] encryptMD5File(final String filePath) {
-        File file = isSpace(filePath) ? null : new File(filePath);
+        File file = UtilsBridge.isSpace(filePath) ? null : new File(filePath);
         return encryptMD5File(file);
     }
 
@@ -167,7 +165,7 @@ public final class EncryptUtils {
      * @return the hex string of file's MD5 encryption
      */
     public static String encryptMD5File2String(final File file) {
-        return bytes2HexString(encryptMD5File(file));
+        return UtilsBridge.bytes2HexString(encryptMD5File(file));
     }
 
     /**
@@ -222,7 +220,7 @@ public final class EncryptUtils {
      * @return the hex string of SHA1 encryption
      */
     public static String encryptSHA1ToString(final byte[] data) {
-        return bytes2HexString(encryptSHA1(data));
+        return UtilsBridge.bytes2HexString(encryptSHA1(data));
     }
 
     /**
@@ -253,7 +251,7 @@ public final class EncryptUtils {
      * @return the hex string of SHA224 encryption
      */
     public static String encryptSHA224ToString(final byte[] data) {
-        return bytes2HexString(encryptSHA224(data));
+        return UtilsBridge.bytes2HexString(encryptSHA224(data));
     }
 
     /**
@@ -284,7 +282,7 @@ public final class EncryptUtils {
      * @return the hex string of SHA256 encryption
      */
     public static String encryptSHA256ToString(final byte[] data) {
-        return bytes2HexString(encryptSHA256(data));
+        return UtilsBridge.bytes2HexString(encryptSHA256(data));
     }
 
     /**
@@ -315,7 +313,7 @@ public final class EncryptUtils {
      * @return the hex string of SHA384 encryption
      */
     public static String encryptSHA384ToString(final byte[] data) {
-        return bytes2HexString(encryptSHA384(data));
+        return UtilsBridge.bytes2HexString(encryptSHA384(data));
     }
 
     /**
@@ -346,7 +344,7 @@ public final class EncryptUtils {
      * @return the hex string of SHA512 encryption
      */
     public static String encryptSHA512ToString(final byte[] data) {
-        return bytes2HexString(encryptSHA512(data));
+        return UtilsBridge.bytes2HexString(encryptSHA512(data));
     }
 
     /**
@@ -366,7 +364,7 @@ public final class EncryptUtils {
      * @param algorithm The name of hash encryption.
      * @return the bytes of hash encryption
      */
-    private static byte[] hashTemplate(final byte[] data, final String algorithm) {
+    static byte[] hashTemplate(final byte[] data, final String algorithm) {
         if (data == null || data.length <= 0) return null;
         try {
             MessageDigest md = MessageDigest.getInstance(algorithm);
@@ -402,7 +400,7 @@ public final class EncryptUtils {
      * @return the hex string of HmacMD5 encryption
      */
     public static String encryptHmacMD5ToString(final byte[] data, final byte[] key) {
-        return bytes2HexString(encryptHmacMD5(data, key));
+        return UtilsBridge.bytes2HexString(encryptHmacMD5(data, key));
     }
 
     /**
@@ -436,7 +434,7 @@ public final class EncryptUtils {
      * @return the hex string of HmacSHA1 encryption
      */
     public static String encryptHmacSHA1ToString(final byte[] data, final byte[] key) {
-        return bytes2HexString(encryptHmacSHA1(data, key));
+        return UtilsBridge.bytes2HexString(encryptHmacSHA1(data, key));
     }
 
     /**
@@ -470,7 +468,7 @@ public final class EncryptUtils {
      * @return the hex string of HmacSHA224 encryption
      */
     public static String encryptHmacSHA224ToString(final byte[] data, final byte[] key) {
-        return bytes2HexString(encryptHmacSHA224(data, key));
+        return UtilsBridge.bytes2HexString(encryptHmacSHA224(data, key));
     }
 
     /**
@@ -504,7 +502,7 @@ public final class EncryptUtils {
      * @return the hex string of HmacSHA256 encryption
      */
     public static String encryptHmacSHA256ToString(final byte[] data, final byte[] key) {
-        return bytes2HexString(encryptHmacSHA256(data, key));
+        return UtilsBridge.bytes2HexString(encryptHmacSHA256(data, key));
     }
 
     /**
@@ -538,7 +536,7 @@ public final class EncryptUtils {
      * @return the hex string of HmacSHA384 encryption
      */
     public static String encryptHmacSHA384ToString(final byte[] data, final byte[] key) {
-        return bytes2HexString(encryptHmacSHA384(data, key));
+        return UtilsBridge.bytes2HexString(encryptHmacSHA384(data, key));
     }
 
     /**
@@ -572,7 +570,7 @@ public final class EncryptUtils {
      * @return the hex string of HmacSHA512 encryption
      */
     public static String encryptHmacSHA512ToString(final byte[] data, final byte[] key) {
-        return bytes2HexString(encryptHmacSHA512(data, key));
+        return UtilsBridge.bytes2HexString(encryptHmacSHA512(data, key));
     }
 
     /**
@@ -627,7 +625,7 @@ public final class EncryptUtils {
                                            final byte[] key,
                                            final String transformation,
                                            final byte[] iv) {
-        return base64Encode(encryptDES(data, key, transformation, iv));
+        return UtilsBridge.base64Encode(encryptDES(data, key, transformation, iv));
     }
 
     /**
@@ -644,7 +642,7 @@ public final class EncryptUtils {
                                               final byte[] key,
                                               final String transformation,
                                               final byte[] iv) {
-        return bytes2HexString(encryptDES(data, key, transformation, iv));
+        return UtilsBridge.bytes2HexString(encryptDES(data, key, transformation, iv));
     }
 
     /**
@@ -678,7 +676,7 @@ public final class EncryptUtils {
                                           final byte[] key,
                                           final String transformation,
                                           final byte[] iv) {
-        return decryptDES(base64Decode(data), key, transformation, iv);
+        return decryptDES(UtilsBridge.base64Decode(data), key, transformation, iv);
     }
 
     /**
@@ -695,7 +693,7 @@ public final class EncryptUtils {
                                              final byte[] key,
                                              final String transformation,
                                              final byte[] iv) {
-        return decryptDES(hexString2Bytes(data), key, transformation, iv);
+        return decryptDES(UtilsBridge.hexString2Bytes(data), key, transformation, iv);
     }
 
     /**
@@ -733,7 +731,7 @@ public final class EncryptUtils {
                                             final byte[] key,
                                             final String transformation,
                                             final byte[] iv) {
-        return base64Encode(encrypt3DES(data, key, transformation, iv));
+        return UtilsBridge.base64Encode(encrypt3DES(data, key, transformation, iv));
     }
 
     /**
@@ -750,7 +748,7 @@ public final class EncryptUtils {
                                                final byte[] key,
                                                final String transformation,
                                                final byte[] iv) {
-        return bytes2HexString(encrypt3DES(data, key, transformation, iv));
+        return UtilsBridge.bytes2HexString(encrypt3DES(data, key, transformation, iv));
     }
 
     /**
@@ -784,7 +782,7 @@ public final class EncryptUtils {
                                             final byte[] key,
                                             final String transformation,
                                             final byte[] iv) {
-        return decrypt3DES(base64Decode(data), key, transformation, iv);
+        return decrypt3DES(UtilsBridge.base64Decode(data), key, transformation, iv);
     }
 
     /**
@@ -801,7 +799,7 @@ public final class EncryptUtils {
                                               final byte[] key,
                                               final String transformation,
                                               final byte[] iv) {
-        return decrypt3DES(hexString2Bytes(data), key, transformation, iv);
+        return decrypt3DES(UtilsBridge.hexString2Bytes(data), key, transformation, iv);
     }
 
     /**
@@ -839,7 +837,7 @@ public final class EncryptUtils {
                                            final byte[] key,
                                            final String transformation,
                                            final byte[] iv) {
-        return base64Encode(encryptAES(data, key, transformation, iv));
+        return UtilsBridge.base64Encode(encryptAES(data, key, transformation, iv));
     }
 
     /**
@@ -856,7 +854,7 @@ public final class EncryptUtils {
                                               final byte[] key,
                                               final String transformation,
                                               final byte[] iv) {
-        return bytes2HexString(encryptAES(data, key, transformation, iv));
+        return UtilsBridge.bytes2HexString(encryptAES(data, key, transformation, iv));
     }
 
     /**
@@ -890,7 +888,7 @@ public final class EncryptUtils {
                                           final byte[] key,
                                           final String transformation,
                                           final byte[] iv) {
-        return decryptAES(base64Decode(data), key, transformation, iv);
+        return decryptAES(UtilsBridge.base64Decode(data), key, transformation, iv);
     }
 
     /**
@@ -907,7 +905,7 @@ public final class EncryptUtils {
                                              final byte[] key,
                                              final String transformation,
                                              final byte[] iv) {
-        return decryptAES(hexString2Bytes(data), key, transformation, iv);
+        return decryptAES(UtilsBridge.hexString2Bytes(data), key, transformation, iv);
     }
 
     /**
@@ -984,7 +982,7 @@ public final class EncryptUtils {
                                            final byte[] publicKey,
                                            final int keySize,
                                            final String transformation) {
-        return base64Encode(encryptRSA(data, publicKey, keySize, transformation));
+        return UtilsBridge.base64Encode(encryptRSA(data, publicKey, keySize, transformation));
     }
 
     /**
@@ -1000,7 +998,7 @@ public final class EncryptUtils {
                                               final byte[] publicKey,
                                               final int keySize,
                                               final String transformation) {
-        return bytes2HexString(encryptRSA(data, publicKey, keySize, transformation));
+        return UtilsBridge.bytes2HexString(encryptRSA(data, publicKey, keySize, transformation));
     }
 
     /**
@@ -1032,7 +1030,7 @@ public final class EncryptUtils {
                                           final byte[] privateKey,
                                           final int keySize,
                                           final String transformation) {
-        return decryptRSA(base64Decode(data), privateKey, keySize, transformation);
+        return decryptRSA(UtilsBridge.base64Decode(data), privateKey, keySize, transformation);
     }
 
     /**
@@ -1048,7 +1046,7 @@ public final class EncryptUtils {
                                              final byte[] privateKey,
                                              final int keySize,
                                              final String transformation) {
-        return decryptRSA(hexString2Bytes(data), privateKey, keySize, transformation);
+        return decryptRSA(UtilsBridge.hexString2Bytes(data), privateKey, keySize, transformation);
     }
 
     /**
@@ -1183,72 +1181,10 @@ public final class EncryptUtils {
         return ret;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-    // other utils methods
-    ///////////////////////////////////////////////////////////////////////////
-
     private static byte[] joins(final byte[] prefix, final byte[] suffix) {
         byte[] ret = new byte[prefix.length + suffix.length];
         System.arraycopy(prefix, 0, ret, 0, prefix.length);
         System.arraycopy(suffix, 0, ret, prefix.length, suffix.length);
         return ret;
-    }
-
-    private static final char[] HEX_DIGITS =
-            {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-
-    private static String bytes2HexString(final byte[] bytes) {
-        if (bytes == null) return "";
-        int len = bytes.length;
-        if (len <= 0) return "";
-        char[] ret = new char[len << 1];
-        for (int i = 0, j = 0; i < len; i++) {
-            ret[j++] = HEX_DIGITS[bytes[i] >> 4 & 0x0f];
-            ret[j++] = HEX_DIGITS[bytes[i] & 0x0f];
-        }
-        return new String(ret);
-    }
-
-    private static byte[] hexString2Bytes(String hexString) {
-        if (isSpace(hexString)) return null;
-        int len = hexString.length();
-        if (len % 2 != 0) {
-            hexString = "0" + hexString;
-            len = len + 1;
-        }
-        char[] hexBytes = hexString.toUpperCase().toCharArray();
-        byte[] ret = new byte[len >> 1];
-        for (int i = 0; i < len; i += 2) {
-            ret[i >> 1] = (byte) (hex2Dec(hexBytes[i]) << 4 | hex2Dec(hexBytes[i + 1]));
-        }
-        return ret;
-    }
-
-    private static int hex2Dec(final char hexChar) {
-        if (hexChar >= '0' && hexChar <= '9') {
-            return hexChar - '0';
-        } else if (hexChar >= 'A' && hexChar <= 'F') {
-            return hexChar - 'A' + 10;
-        } else {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    private static byte[] base64Encode(final byte[] input) {
-        return Base64.encode(input, Base64.NO_WRAP);
-    }
-
-    private static byte[] base64Decode(final byte[] input) {
-        return Base64.decode(input, Base64.NO_WRAP);
-    }
-
-    private static boolean isSpace(final String s) {
-        if (s == null) return true;
-        for (int i = 0, len = s.length(); i < len; ++i) {
-            if (!Character.isWhitespace(s.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
     }
 }

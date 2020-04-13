@@ -23,7 +23,7 @@ class PhoneActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
-            PermissionHelper.requestPhone(object : PermissionHelper.OnPermissionGrantedListener {
+            PermissionHelper.requestPhone(context, object : PermissionHelper.OnPermissionGrantedListener {
                 override fun onPermissionGranted() {
                     val starter = Intent(context, PhoneActivity::class.java)
                     context.startActivity(starter)

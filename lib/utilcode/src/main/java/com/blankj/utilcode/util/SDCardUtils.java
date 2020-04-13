@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
+import android.text.format.Formatter;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
@@ -40,7 +41,7 @@ public final class SDCardUtils {
      * @return the path of sdcard by environment
      */
     public static String getSDCardPathByEnvironment() {
-        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+        if (isSDCardEnableByEnvironment()) {
             return Environment.getExternalStorageDirectory().getAbsolutePath();
         }
         return "";
@@ -124,16 +125,57 @@ public final class SDCardUtils {
         return path;
     }
 
+
+    /**
+     * Return the total size of external storage
+     *
+     * @return the total size of external storage
+     */
+    public static long getExternalTotalSize() {
+        return UtilsBridge.getFsTotalSize(getSDCardPathByEnvironment());
+    }
+
+    /**
+     * Return the available size of external storage.
+     *
+     * @return the available size of external storage
+     */
+    public static long getExternalAvailableSize() {
+        return UtilsBridge.getFsAvailableSize(getSDCardPathByEnvironment());
+    }
+
+    /**
+     * Return the total size of internal storage
+     *
+     * @return the total size of internal storage
+     */
+    public static long getInternalTotalSize() {
+        return UtilsBridge.getFsTotalSize(Environment.getDataDirectory().getAbsolutePath());
+    }
+
+    /**
+     * Return the available size of internal storage.
+     *
+     * @return the available size of internal storage
+     */
+    public static long getInternalAvailableSize() {
+        return UtilsBridge.getFsAvailableSize(Environment.getDataDirectory().getAbsolutePath());
+    }
+
     public static class SDCardInfo {
 
         private String  path;
         private String  state;
         private boolean isRemovable;
+        private long    totalSize;
+        private long    availableSize;
 
         SDCardInfo(String path, String state, boolean isRemovable) {
             this.path = path;
             this.state = state;
             this.isRemovable = isRemovable;
+            this.totalSize = UtilsBridge.getFsTotalSize(path);
+            this.availableSize = UtilsBridge.getFsAvailableSize(path);
         }
 
         public String getPath() {
@@ -148,12 +190,22 @@ public final class SDCardUtils {
             return isRemovable;
         }
 
+        public long getTotalSize() {
+            return totalSize;
+        }
+
+        public long getAvailableSize() {
+            return availableSize;
+        }
+
         @Override
         public String toString() {
             return "SDCardInfo {" +
                     "path = " + path +
                     ", state = " + state +
                     ", isRemovable = " + isRemovable +
+                    ", totalSize = " + Formatter.formatFileSize(Utils.getApp(), totalSize) +
+                    ", availableSize = " + Formatter.formatFileSize(Utils.getApp(), availableSize) +
                     '}';
         }
     }

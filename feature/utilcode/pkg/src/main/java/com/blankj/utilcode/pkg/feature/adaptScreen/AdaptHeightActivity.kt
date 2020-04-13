@@ -9,6 +9,8 @@ import android.view.WindowManager
 import com.blankj.common.activity.CommonActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.AdaptScreenUtils
+import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.LogUtils
 
 class AdaptHeightActivity : CommonActivity() {
 
@@ -26,6 +28,11 @@ class AdaptHeightActivity : CommonActivity() {
     override fun initView(savedInstanceState: Bundle?, contentView: View?) {
         super.initView(savedInstanceState, contentView)
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        LogUtils.e(BarUtils.getStatusBarHeight())
     }
 
     override fun getResources(): Resources {

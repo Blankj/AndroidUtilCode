@@ -1,7 +1,5 @@
 apply {
     plugin Config.depConfig.plugin_traute.pluginId
-    plugin Config.depConfig.plugin_maven.pluginId
-    plugin Config.depConfig.plugin_bintray.pluginId
     plugin "readme-sub"
 }
 

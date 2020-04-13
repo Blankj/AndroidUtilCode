@@ -22,7 +22,8 @@ import java.util.Set;
 public final class SPUtils {
 
     private static final Map<String, SPUtils> SP_UTILS_MAP = new HashMap<>();
-    private              SharedPreferences    sp;
+
+    private SharedPreferences sp;
 
     /**
      * Return the single {@link SPUtils} instance

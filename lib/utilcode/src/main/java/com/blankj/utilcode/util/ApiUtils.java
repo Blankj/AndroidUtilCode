@@ -51,6 +51,10 @@ public final class ApiUtils {
         return getInstance().getApiInner(apiClass);
     }
 
+    public static void register(Class<? extends BaseApi> implClass) {
+        getInstance().registerImpl(implClass);
+    }
+
     public static String toString_() {
         return getInstance().toString();
     }
@@ -66,28 +70,29 @@ public final class ApiUtils {
 
     private <Result> Result getApiInner(Class apiClass) {
         BaseApi api = mApiMap.get(apiClass);
-        if (api == null) {
-            synchronized (this) {
-                api = mApiMap.get(apiClass);
-                if (api == null) {
-                    Class implClass = mInjectApiImplMap.get(apiClass);
-                    if (implClass != null) {
-                        try {
-                            api = (BaseApi) implClass.newInstance();
-                            mApiMap.put(apiClass, api);
-                        } catch (Exception ignore) {
-                            Log.e(TAG, "The <" + implClass + "> has no parameterless constructor.");
-                            return null;
-                        }
-                    } else {
-                        Log.e(TAG, "The <" + apiClass + "> doesn't implement.");
-                        return null;
-                    }
+        if (api != null) {
+            return (Result) api;
+        }
+        synchronized (apiClass) {
+            api = mApiMap.get(apiClass);
+            if (api != null) {
+                return (Result) api;
+            }
+            Class implClass = mInjectApiImplMap.get(apiClass);
+            if (implClass != null) {
+                try {
+                    api = (BaseApi) implClass.newInstance();
+                    mApiMap.put(apiClass, api);
+                    return (Result) api;
+                } catch (Exception ignore) {
+                    Log.e(TAG, "The <" + implClass + "> has no parameterless constructor.");
+                    return null;
                 }
+            } else {
+                Log.e(TAG, "The <" + apiClass + "> doesn't implement.");
+                return null;
             }
         }
-        //noinspection unchecked
-        return (Result) api;
     }
 
     private static class LazyHolder {
@@ -100,6 +105,6 @@ public final class ApiUtils {
         boolean isMock() default false;
     }
 
-    public abstract static class BaseApi {
+    public static class BaseApi {
     }
 }

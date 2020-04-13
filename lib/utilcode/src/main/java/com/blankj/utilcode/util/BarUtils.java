@@ -3,7 +3,6 @@ package com.blankj.utilcode.util;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -13,7 +12,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.RequiresPermission;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.KeyCharacterMap;
@@ -57,7 +55,7 @@ public final class BarUtils {
      * @return the status bar's height
      */
     public static int getStatusBarHeight() {
-        Resources resources = Utils.getApp().getResources();
+        Resources resources = Resources.getSystem();
         int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
         return resources.getDimensionPixelSize(resourceId);
     }
@@ -272,7 +270,7 @@ public final class BarUtils {
     public static void setStatusBarColor(@NonNull final View fakeStatusBar,
                                          @ColorInt final int color) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        Activity activity = getActivityByView(fakeStatusBar);
+        Activity activity = UtilsBridge.getActivityByContext(fakeStatusBar.getContext());
         if (activity == null) return;
         transparentStatusBar(activity);
         fakeStatusBar.setVisibility(View.VISIBLE);
@@ -289,7 +287,7 @@ public final class BarUtils {
      */
     public static void setStatusBarCustom(@NonNull final View fakeStatusBar) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        Activity activity = getActivityByView(fakeStatusBar);
+        Activity activity = UtilsBridge.getActivityByContext(fakeStatusBar.getContext());
         if (activity == null) return;
         transparentStatusBar(activity);
         fakeStatusBar.setVisibility(View.VISIBLE);
@@ -334,7 +332,7 @@ public final class BarUtils {
                                                 @ColorInt final int color,
                                                 final boolean isTop) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        Activity activity = getActivityByView(fakeStatusBar);
+        Activity activity = UtilsBridge.getActivityByContext(fakeStatusBar.getContext());
         if (activity == null) return;
         transparentStatusBar(activity);
         drawer.setFitsSystemWindows(false);
@@ -433,7 +431,7 @@ public final class BarUtils {
         TypedValue tv = new TypedValue();
         if (Utils.getApp().getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
             return TypedValue.complexToDimensionPixelSize(
-                    tv.data, Utils.getApp().getResources().getDisplayMetrics()
+                    tv.data, Resources.getSystem().getDisplayMetrics()
             );
         }
         return 0;
@@ -483,7 +481,7 @@ public final class BarUtils {
      * @return the navigation bar's height
      */
     public static int getNavBarHeight() {
-        Resources res = Utils.getApp().getResources();
+        Resources res = Resources.getSystem();
         int resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android");
         if (resourceId != 0) {
             return res.getDimensionPixelSize(resourceId);
@@ -517,9 +515,7 @@ public final class BarUtils {
             final View child = decorView.getChildAt(i);
             final int id = child.getId();
             if (id != View.NO_ID) {
-                String resourceEntryName = Utils.getApp()
-                        .getResources()
-                        .getResourceEntryName(id);
+                String resourceEntryName = Resources.getSystem().getResourceEntryName(id);
                 if ("navigationBarBackground".equals(resourceEntryName)) {
                     child.setVisibility(isVisible ? View.VISIBLE : View.INVISIBLE);
                 }
@@ -560,9 +556,7 @@ public final class BarUtils {
             final View child = decorView.getChildAt(i);
             final int id = child.getId();
             if (id != View.NO_ID) {
-                String resourceEntryName = Utils.getApp()
-                        .getResources()
-                        .getResourceEntryName(id);
+                String resourceEntryName = Resources.getSystem().getResourceEntryName(id);
                 if ("navigationBarBackground".equals(resourceEntryName)
                         && child.getVisibility() == View.VISIBLE) {
                     isVisible = true;
@@ -651,7 +645,7 @@ public final class BarUtils {
      */
     public static void setNavBarLightMode(@NonNull final Activity activity,
                                           final boolean isLightMode) {
-        setStatusBarLightMode(activity.getWindow(), isLightMode);
+        setNavBarLightMode(activity.getWindow(), isLightMode);
     }
 
     /**
@@ -681,7 +675,7 @@ public final class BarUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isNavBarLightMode(@NonNull final Activity activity) {
-        return isStatusBarLightMode(activity.getWindow());
+        return isNavBarLightMode(activity.getWindow());
     }
 
     /**
@@ -697,17 +691,5 @@ public final class BarUtils {
             return (vis & View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR) != 0;
         }
         return false;
-    }
-
-    private static Activity getActivityByView(@NonNull final View view) {
-        Context context = view.getContext();
-        while (context instanceof ContextWrapper) {
-            if (context instanceof Activity) {
-                return (Activity) context;
-            }
-            context = ((ContextWrapper) context).getBaseContext();
-        }
-        Log.e("BarUtils", "the view's Context is not an Activity.");
-        return null;
     }
 }

@@ -12,12 +12,12 @@ gradlePlugin {
     plugins {
         readmeCore {
             id = 'readme-core'
-            implementationClass = 'com.blankj.plugin.ReadmeCorePlugin'
+            implementationClass = 'com.blankj.plugin.readme.ReadmeCorePlugin'
         }
 
         readmeSub {
             id = 'readme-sub'
-            implementationClass = 'com.blankj.plugin.ReadmeSubPlugin'
+            implementationClass = 'com.blankj.plugin.readme.ReadmeSubPlugin'
         }
     }
 }

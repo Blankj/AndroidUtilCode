@@ -61,10 +61,10 @@ class ScreenActivity : CommonActivity() {
 
                 CommonItemSwitch(
                         "isFullScreen",
-                        Utils.Func1 {
+                        Utils.Supplier {
                             ScreenUtils.isFullScreen(this)
                         },
-                        Utils.Func1 {
+                        Utils.Consumer {
                             if (it) {
                                 ScreenUtils.setFullScreen(this)
                                 BarUtils.setStatusBarVisibility(this, false)
@@ -76,10 +76,10 @@ class ScreenActivity : CommonActivity() {
                 ),
                 CommonItemSwitch(
                         "isLandscape",
-                        Utils.Func1 {
+                        Utils.Supplier {
                             ScreenUtils.isLandscape()
                         },
-                        Utils.Func1 {
+                        Utils.Consumer {
                             if (it) {
                                 ScreenUtils.setLandscape(this)
                             } else {

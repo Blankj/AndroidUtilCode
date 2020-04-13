@@ -11,6 +11,13 @@
 getAppStoreIntent: 获取跳转应用商店意图
 ```
 
+* ### 电池相关 -> [BatteryUtils.java][battery.java] -> [Demo][battery.demo]
+```
+registerBatteryStatusChangedListener    : 注册电池状态改变监听器
+isRegisteredBatteryStatusChangedListener: 判断是否注册电池状态改变监听器
+unregisterBatteryStatusChangedListener  : 注销电池状态改变监听器
+```
+
 * ### 剪贴板相关 -> [ClipboardUtils.java][clipboard.java] -> [Test][clipboard.test]
 ```
 copyText  : 复制文本到剪贴板
@@ -80,6 +87,9 @@ getSurnameFirstLetter: 根据名字获取姓氏的首字母
 
 [appStore.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/subutil/src/main/java/com/blankj/subutil/util/AppStoreUtils.java
 [appStore.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/subutil/pkg/src/main/java/com/blankj/subutil/pkg/feature/appStore/AppStoreActivity.kt
+
+[battery.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/subutil/src/main/java/com/blankj/subutil/util/BatteryUtils.java
+[battery.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/subutil/pkg/src/main/java/com/blankj/subutil/pkg/feature/battery/BatteryActivity.kt
 
 [clipboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/subutil/src/main/java/com/blankj/subutil/util/ClipboardUtils.java
 [clipboard.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/subutil/src/test/java/com/blankj/subutil/util/ClipboardUtilsTest.java

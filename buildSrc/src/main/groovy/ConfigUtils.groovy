@@ -27,11 +27,11 @@ class ConfigUtils {
         def configs = [:]
         for (Map.Entry<String, DepConfig> entry : Config.depConfig.entrySet()) {
             def (name, config) = [entry.key, entry.value]
-            if (name.startsWith("plugin_")) {
+            if (entry.value.pluginPath) {
                 config.dep = config.pluginPath
             } else {
                 if (config.useLocal) {
-                    config.dep = gradle.rootProject.findProject(config.localPath)
+                    config.dep = gradle.rootProject.findProject(config.projectPath)
                 } else {
                     config.dep = config.remotePath
                 }
@@ -47,10 +47,10 @@ class ConfigUtils {
             void beforeEvaluate(Project project) {
                 // 在 project 的 build.gradle 前 do sth.
                 if (project.subprojects.isEmpty()) {
-                    if (project.path.contains(":plugin:")) {
+                    if (project.name.startsWith("plugin")) {
                         return
                     }
-                    if (project.name == "app") {
+                    if (project.name.endsWith("_app")) {
                         GLog.l(project.toString() + " applies buildApp.gradle")
                         project.apply {
                             from "${project.rootDir.path}/buildApp.gradle"
@@ -74,7 +74,7 @@ class ConfigUtils {
     static getApplyPlugins() {
         def plugins = [:]
         for (Map.Entry<String, DepConfig> entry : Config.depConfig.entrySet()) {
-            if (entry.value.isApply && entry.value.pluginPath != null) {
+            if (entry.value.isApply && entry.value.pluginPath) {
                 plugins.put(entry.key, entry.value)
             }
         }

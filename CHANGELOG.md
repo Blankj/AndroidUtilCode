@@ -1,3 +1,24 @@
+* `20/04/13` [add] NumberUtils. Publish v1.28.0.
+* `20/04/12` [opt] TimeUtils#SDF_THREAD_LOCAL.
+* `20/04/11` [add] SDCardUtils#getXxTotalSize, SDCardUtils#getXxAvailableSize. FileUtils#getFsTotalSize, FileUtils#getFsAvailableSize.
+* `20/04/10` [fix] FileUtils#isFileExists; FragmentUtils#getTop bug. Publish v1.27.6.
+* `20/04/09` [add] UriUtils#res2Uri, UriUtils#uri2File support QQBrowser; ThreadUtils#getMainHandler; PathUtils#getxxPathExternalFirst.
+* `20/04/08` [fix] ActivityUtils#finish bug. Publish v1.27.5.
+* `20/04/08` [fix] CleanUtils clean dir not work. FileUtils#isFileExists. Publish v1.27.4.
+* `20/04/08` [fix] CrashUtils DefaultUncaughtExceptionHandler is wrong; LogUtils write file failed; Utils#getApp failed run on remote process. Publish v1.27.3.
+* `20/04/07` [mdf] GsonUtils#getGson() method public.
+* `20/04/04` [fix] ShadowUtils bug running on lower version devices. Publish v1.27.2.
+* `20/04/03` [fix] UtilsActivityLifecycleImpl#HashMap#remove IllegalStateException bug.
+* `20/04/02` [fix] PathUtils sdcard enable state is wrong; ActivityUtils finish activity wrong; Publish v1.27.1.
+* `20/03/31` [add] Publish v1.27.0.
+* `20/03/30` [add] BatteryUtils in subutil.
+* `20/03/27` [add] publish.gradle.
+* `20/03/24` [add] UtilsBridge to clean the utils.
+* `20/03/22` [upd] GsonUtils support custom gson.
+* `20/03/20` [add] ActivityUtils#addActivityLifecycleCallbacks, ActivityUtils#removeActivityLifecycleCallbacks.
+* `20/01/17` [upd] Leak Canary to v2.1.
+* `20/01/06` [add] ClickUtils#expandClickArea, ClickUtils#back2HomeFriendly
+* `19/11/30` [add] Publish bus plugin v2.4. Publish api plugin v1.2.
 * `19/11/28` [add] Publish v1.26.0.
 * `19/11/27` [add] Shadow demo.
 * `19/11/26` [add] MVP demo.

@@ -317,7 +317,9 @@ public abstract class BaseContentFloatView<T extends BaseContentFloatView<T>> ex
         post(new Runnable() {
             @Override
             public void run() {
-                wrapWindow();
+                if (getParent() != null) {
+                    wrapWindow();
+                }
             }
         });
     }

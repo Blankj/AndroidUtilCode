@@ -5,13 +5,6 @@ plugins {
 apply {
     plugin "groovy"
     plugin "java-gradle-plugin"
-    if (Config.depConfig.plugin_bus.useLocal) {
-        plugin "maven"
-    } else {
-        plugin Config.depConfig.plugin_maven.pluginId
-        plugin Config.depConfig.plugin_bintray.pluginId
-        from "${rootDir.path}/gradle/upload/bintrayUploadJava.gradle"
-    }
 }
 
 gradlePlugin {
@@ -30,25 +23,13 @@ dependencies {
     implementation localGroovy()
 
     testImplementation Config.depConfig.test_junit.dep
+    testImplementation Config.depConfig.plugin_gradle.dep
 }
 
 sourceSets {
     main {
         groovy {
             srcDirs += 'src/main/java'
-        }
-    }
-}
-
-group = Config.depConfig.plugin_bus.groupId
-version = Config.depConfig.plugin_bus.version
-
-if (Config.depConfig.plugin_bus.useLocal) {
-    uploadArchives {
-        repositories {
-            mavenDeployer {
-                repository(url: uri(new File(project.rootDir.getPath() + "/maven")))
-            }
         }
     }
 }
@@ -67,6 +48,15 @@ pluginBundle {
     }
 }
 
-//./gradlew plugin:bus-gradle-plugin:uploadArchives // 上传到本地 maven
-//./gradlew plugin:bus-gradle-plugin:bintrayUpload  // 上传到 jcenter
-//./gradlew plugin:bus-gradle-plugin:publishPlugins // 上传到 gradle 插件库中
+apply from: "${rootDir.path}/gradle/publish.gradle"
+publish {
+    name = "BusPlugin"
+    groupId = Config.depConfig.plugin_bus.groupId
+    artifactId = Config.depConfig.plugin_bus.artifactId
+    version = Config.depConfig.plugin_bus.version
+    website = "https://github.com/Blankj/AndroidUtilCode"
+}
+
+//./gradlew plugin:lib_bus-gradle-plugin:mavenLocal    // 上传到本地 mavenLocal
+//./gradlew plugin:lib_bus-gradle-plugin:bintrayUpload  // 上传到 jcenter
+//./gradlew plugin:lib_bus-gradle-plugin:publishPlugins // 上传到 gradle 插件库中

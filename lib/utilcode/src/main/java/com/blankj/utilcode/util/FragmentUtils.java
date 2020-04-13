@@ -1542,14 +1542,14 @@ public final class FragmentUtils {
                 if (isInStack) {
                     Bundle args = fragment.getArguments();
                     if (args != null && args.getBoolean(ARGS_IS_ADD_STACK)) {
-                        return getTopIsInStack(fragment.getChildFragmentManager(), parentFragment, true);
+                        return getTopIsInStack(fragment.getChildFragmentManager(), fragment, true);
                     }
                 } else {
-                    return getTopIsInStack(fragment.getChildFragmentManager(), parentFragment, false);
+                    return getTopIsInStack(fragment.getChildFragmentManager(), fragment, false);
                 }
             }
         }
-        return null;
+        return parentFragment;
     }
 
     /**

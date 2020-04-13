@@ -1,17 +1,15 @@
-apply {
-    plugin "com.github.dcendents.android-maven"
-    plugin "com.jfrog.bintray"
-    from "${rootDir.path}/gradle/upload/bintrayUploadAndroid.gradle"
-}
-
 dependencies {
     implementation Config.depConfig.lib_utilcode.dep
     implementation Config.depConfig.swipe_panel.dep
     implementation Config.depConfig.photo_view.dep
-    compileOnly Config.depConfig.support_appcompat_v7.dep
+    implementation Config.depConfig.support_appcompat_v7.dep
     compileOnly Config.depConfig.support_design.dep
 
     testImplementation Config.depConfig.test_junit.dep
     testImplementation Config.depConfig.test_robolectric.dep
     testImplementation Config.depConfig.support_appcompat_v7.dep
+}
+
+afterEvaluate {
+    verifyReleaseResources.enabled(false)
 }

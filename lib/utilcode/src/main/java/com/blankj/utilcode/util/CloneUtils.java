@@ -1,7 +1,5 @@
 package com.blankj.utilcode.util;
 
-import com.google.gson.Gson;
-
 import java.lang.reflect.Type;
 
 /**
@@ -28,8 +26,7 @@ public final class CloneUtils {
      */
     public static <T> T deepClone(final T data, final Type type) {
         try {
-            Gson gson = new Gson();
-            return gson.fromJson(gson.toJson(data), type);
+            return UtilsBridge.fromJson(UtilsBridge.toJson(data), type);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
