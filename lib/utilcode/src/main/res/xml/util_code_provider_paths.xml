@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
     <root-path
-        name="root"
+        name="root_path"
         path="" />
 
     <files-path
@@ -22,5 +22,9 @@
 
     <external-cache-path
         name="external_cache_path"
+        path="." />
+
+    <external-media-path
+        name="external_media_path"
         path="." />
 </paths>

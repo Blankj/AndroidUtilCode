@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.28.0'
+implementation 'com.blankj:utilcode:1.28.1'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.28.0'
+implementation 'com.blankj:utilcodex:1.28.1'
 ```
 
 
@@ -346,6 +346,7 @@ getRandomColor
 
 * ### About Convert -> [ConvertUtils.java][convert.java] -> [Test][convert.test]
 ```
+int2HexString, hexString2Int
 bytes2Bits, bits2Bytes
 bytes2Chars, chars2Bytes
 bytes2HexString, hexString2Bytes
@@ -1147,7 +1148,7 @@ cancel
 setOnTouchListener
 ```
 
-* ### About UiMessage -> [UiMessageUtils.java][uiMessage.java]
+* ### About UiMessage -> [UiMessageUtils.java][uiMessage.java] -> [Demo][uiMessage.demo]
 ```
 send
 addListener
@@ -1385,6 +1386,7 @@ getComments
 [touch.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/TouchUtils.java
 
 [uiMessage.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UiMessageUtils.java
+[uiMessage.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/uiMessage/UiMessageActivity.kt
 
 [uri.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UriUtils.java
 

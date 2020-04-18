@@ -649,7 +649,7 @@ public final class FileUtils {
      * @return the files in directory
      */
     public static List<File> listFilesInDir(final String dirPath, Comparator<File> comparator) {
-        return listFilesInDir(getFileByPath(dirPath), false);
+        return listFilesInDir(getFileByPath(dirPath), false, comparator);
     }
 
     /**

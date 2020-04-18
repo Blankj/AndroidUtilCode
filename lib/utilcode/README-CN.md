@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.28.0'
+implementation 'com.blankj:utilcode:1.28.1'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.28.0'
+implementation 'com.blankj:utilcodex:1.28.1'
 ```
 
 
@@ -346,6 +346,7 @@ getRandomColor   : 获取随机色
 
 * ### 转换相关 -> [ConvertUtils.java][convert.java] -> [Test][convert.test]
 ```
+int2HexString, hexString2Int            : int 与 hexString 互转
 bytes2Bits, bits2Bytes                  : bytes 与 bits 互转
 bytes2Chars, chars2Bytes                : bytes 与 chars 互转
 bytes2HexString, hexString2Bytes        : bytes 与 hexString 互转
@@ -1147,7 +1148,7 @@ cancel         : 取消吐司显示
 setOnTouchListener: 设置触摸事件
 ```
 
-* ### UI 消息相关 -> [UiMessageUtils.java][uiMessage.java]
+* ### UI 消息相关 -> [UiMessageUtils.java][uiMessage.java] -> [Demo][uiMessage.demo]
 ```
 send          : 发送消息
 addListener   : 新增消息监听器
@@ -1388,6 +1389,7 @@ getComments       : 获取压缩文件中的注释链表
 [touch.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/TouchUtils.java
 
 [uiMessage.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UiMessageUtils.java
+[uiMessage.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/uiMessage/UiMessageActivity.kt
 
 [uri.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UriUtils.java
 

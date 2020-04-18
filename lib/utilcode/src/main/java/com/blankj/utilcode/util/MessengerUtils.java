@@ -202,7 +202,8 @@ public class MessengerUtils {
         }
 
         void unbind() {
-            Message msg = Message.obtain(mReceiveServeMsgHandler, WHAT_UNSUBSCRIBE);
+            int key = UtilsBridge.getCurrentProcessName().hashCode();
+            Message msg = Message.obtain(mReceiveServeMsgHandler, WHAT_UNSUBSCRIBE, key, 0);
             msg.replyTo = mClient;
             try {
                 mServer.send(msg);

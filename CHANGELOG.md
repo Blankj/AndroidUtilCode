@@ -1,3 +1,7 @@
+* `20/04/18` [fix] PermissionUtils#callback. Publish v1.28.1.
+* `20/04/17` [fix] ImageUtils#view2Bitmap, ImageUtils.getBitmap(InputStream).
+* `20/04/16` [add] ConvertUtils#int2HexString, hexString2Int.
+* `20/04/15` [add] UiMessageUtils' demo.
 * `20/04/13` [add] NumberUtils. Publish v1.28.0.
 * `20/04/12` [opt] TimeUtils#SDF_THREAD_LOCAL.
 * `20/04/11` [add] SDCardUtils#getXxTotalSize, SDCardUtils#getXxAvailableSize. FileUtils#getFsTotalSize, FileUtils#getFsAvailableSize.

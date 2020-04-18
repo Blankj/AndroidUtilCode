@@ -429,10 +429,10 @@ public final class PermissionUtils {
                                                int requestCode,
                                                String[] permissions,
                                                int[] grantResults) {
+            activity.finish();
             if (sInstance != null && sInstance.mPermissionsRequest != null) {
                 sInstance.onRequestPermissionsResult(activity);
             }
-            activity.finish();
         }
 
 
@@ -444,6 +444,7 @@ public final class PermissionUtils {
 
         @Override
         public void onActivityResult(UtilsTransActivity activity, int requestCode, int resultCode, Intent data) {
+            activity.finish();
             if (requestCode == TYPE_WRITE_SETTINGS) {
                 if (sSimpleCallback4WriteSettings == null) return;
                 if (isGrantedWriteSettings()) {
@@ -466,7 +467,6 @@ public final class PermissionUtils {
                     }
                 }, 100);
             }
-            activity.finish();
         }
     }
 

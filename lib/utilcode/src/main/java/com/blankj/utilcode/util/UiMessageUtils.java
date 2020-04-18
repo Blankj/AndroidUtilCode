@@ -272,10 +272,8 @@ public final class UiMessageUtils implements Handler.Callback {
             b.append("{ id=");
             b.append(getId());
 
-            if (getObject() != null) {
-                b.append(" obj=");
-                b.append(getObject());
-            }
+            b.append(", obj=");
+            b.append(getObject());
 
             b.append(" }");
             return b.toString();

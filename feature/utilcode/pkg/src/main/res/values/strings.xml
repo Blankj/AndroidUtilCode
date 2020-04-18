@@ -37,6 +37,7 @@
     <string name="demo_spStatic">SPStaticUtils Demo</string>
     <string name="demo_span">SpanUtils Demo</string>
     <string name="demo_toast">ToastUtils Demo</string>
+    <string name="demo_uiMessage">UiMessage Demo</string>
     <string name="demo_trans_activity">TransActivity Demo</string>
     <string name="demo_vibrate">VibrateUtils Demo</string>
 
@@ -337,7 +338,6 @@
     <string name="toast_show_middle">Show Middle</string>
     <string name="toast_cancel">Cancel</string>
     <string name="toast_show_toast_dialog">Show Toast Dialog</string>
-
     <string name="toast_short">Short</string>
     <string name="toast_long">Long</string>
     <string name="toast_green_font">Green Font</string>
@@ -345,6 +345,13 @@
     <string name="toast_custom_bg">Custom Bg</string>
     <string name="toast_span">Spannable String</string>
     <string name="toast_middle">Middle</string>
+
+    <!--UiMessage 相关-->
+    <string name="uiMessage_add_listener_id">Add Listener Id</string>
+    <string name="uiMessage_remove_all_id">Remove All Id</string>
+    <string name="uiMessage_add_listener">Add Listener</string>
+    <string name="uiMessage_remove_listener">Remove Listener</string>
+    <string name="uiMessage_send">Send</string>
 
     <!--Vibrate 相关-->
     <string name="vibrate_1000ms">Vibrate 1000ms</string>
