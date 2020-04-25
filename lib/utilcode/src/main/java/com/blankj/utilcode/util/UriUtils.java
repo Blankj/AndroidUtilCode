@@ -71,6 +71,18 @@ public final class UriUtils {
      * @return file
      */
     public static File uri2File(@NonNull final Uri uri) {
+        File file = uri2FileReal(uri);
+        if (file != null) return file;
+        return copyUri2Cache(uri);
+    }
+
+    /**
+     * Uri to file.
+     *
+     * @param uri The uri.
+     * @return file
+     */
+    private static File uri2FileReal(@NonNull final Uri uri) {
         Log.d("UriUtils", uri.toString());
         String authority = uri.getAuthority();
         String scheme = uri.getScheme();
@@ -173,11 +185,8 @@ public final class UriUtils {
                     }
                 }
 
-                // copy file to accessible cache using streams
-                InputStream is = uri2InputStream(uri);
-                File file = new File(Utils.getApp().getCacheDir(), "" + System.currentTimeMillis());
-                UtilsBridge.writeFileFromIS(file.getAbsolutePath(), is);
-                return file;
+                Log.d("UriUtils", uri.toString() + " parse failed. -> 1_1");
+                return null;
             }// end 1_1
             else if ("com.android.providers.media.documents".equals(authority)) {
                 final String docId = DocumentsContract.getDocumentId(uri);
@@ -265,6 +274,14 @@ public final class UriUtils {
         } finally {
             cursor.close();
         }
+    }
+
+    private static File copyUri2Cache(Uri uri) {
+        Log.d("UriUtils", "copyUri2Cache() called");
+        InputStream is = uri2InputStream(uri);
+        File file = new File(Utils.getApp().getCacheDir(), "" + System.currentTimeMillis());
+        UtilsBridge.writeFileFromIS(file.getAbsolutePath(), is);
+        return file;
     }
 
     /**
