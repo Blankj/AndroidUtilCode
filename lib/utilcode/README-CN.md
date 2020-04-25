@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.28.1'
+implementation 'com.blankj:utilcode:1.28.2'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.28.1'
+implementation 'com.blankj:utilcodex:1.28.2'
 ```
 
 
@@ -1157,9 +1157,10 @@ removeListener: 移除消息监听器
 
 * ### URI 相关 -> [UriUtils.java][uri.java]
 ```
-res2Uri : res 转 uri
-file2Uri: file 转 uri
-uri2File: uri 转 file
+res2Uri        : res 转 uri
+file2Uri       : file 转 uri
+uri2File       : uri 转 file
+uri2InputStream: uri 转 InputStream
 ```
 
 * ### UtilsTransActivity -> [UtilsTransActivity.java][trans.java]

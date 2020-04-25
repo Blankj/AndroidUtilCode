@@ -1,3 +1,8 @@
+* `20/04/25` [fix] UriUtils#uri2File Unknown URI. Publish 1.28.2.
+* `20/04/24` [add] SnackbarUtils support show on the top; UriUtils#uri2InputStream.
+* `20/04/23` [fix] UriUtils#uri2File not support HW; TransActivity crash below 21.
+* `20/04/23` [fix] PhoneUtils#getSerial, PhoneUtils#getSerial crash on Android 10.
+* `20/04/20` [fix] ImageUtils#isImage.
 * `20/04/18` [fix] PermissionUtils#callback. Publish v1.28.1.
 * `20/04/17` [fix] ImageUtils#view2Bitmap, ImageUtils.getBitmap(InputStream).
 * `20/04/16` [add] ConvertUtils#int2HexString, hexString2Int.

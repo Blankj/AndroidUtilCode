@@ -1,11 +1,13 @@
 package com.blankj.utilcode.util;
 
+import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -13,6 +15,8 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.widget.FrameLayout;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -186,8 +190,33 @@ public final class SnackbarUtils {
      * Show the snackbar.
      */
     public Snackbar show() {
-        final View view = this.view;
+        return show(false);
+    }
+
+    /**
+     * Show the snackbar.
+     *
+     * @param isShowTop True to show the snack bar on the top, false otherwise.
+     */
+    public Snackbar show(boolean isShowTop) {
+        View view = this.view;
         if (view == null) return null;
+        if (isShowTop) {
+            ViewGroup suitableParent = findSuitableParentCopyFromSnackbar(view);
+            View topSnackBarContainer = suitableParent.findViewWithTag("topSnackBarCoordinatorLayout");
+            if (topSnackBarContainer == null) {
+                CoordinatorLayout topSnackBarCoordinatorLayout = new CoordinatorLayout(view.getContext());
+                topSnackBarCoordinatorLayout.setTag("topSnackBarCoordinatorLayout");
+                topSnackBarCoordinatorLayout.setRotation(180);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    // bring to front
+                    topSnackBarCoordinatorLayout.setElevation(100);
+                }
+                suitableParent.addView(topSnackBarCoordinatorLayout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                topSnackBarContainer = topSnackBarCoordinatorLayout;
+            }
+            view = topSnackBarContainer;
+        }
         if (messageColor != COLOR_DEFAULT) {
             SpannableString spannableString = new SpannableString(message);
             ForegroundColorSpan colorSpan = new ForegroundColorSpan(messageColor);
@@ -199,7 +228,13 @@ public final class SnackbarUtils {
             sReference = new WeakReference<>(Snackbar.make(view, message, duration));
         }
         final Snackbar snackbar = sReference.get();
-        final View snackbarView = snackbar.getView();
+        final Snackbar.SnackbarLayout snackbarView = (Snackbar.SnackbarLayout) snackbar.getView();
+        if (isShowTop) {
+            for (int i = 0; i < snackbarView.getChildCount(); i++) {
+                View child = snackbarView.getChildAt(i);
+                child.setRotation(180);
+            }
+        }
         if (bgResource != -1) {
             snackbarView.setBackgroundResource(bgResource);
         } else if (bgColor != COLOR_DEFAULT) {
@@ -224,30 +259,57 @@ public final class SnackbarUtils {
      * Show the snackbar with success style.
      */
     public void showSuccess() {
+        showSuccess(false);
+    }
+
+    /**
+     * Show the snackbar with success style.
+     *
+     * @param isShowTop True to show the snack bar on the top, false otherwise.
+     */
+    public void showSuccess(boolean isShowTop) {
         bgColor = COLOR_SUCCESS;
         messageColor = COLOR_MESSAGE;
         actionTextColor = COLOR_MESSAGE;
-        show();
+        show(isShowTop);
     }
 
     /**
      * Show the snackbar with warning style.
      */
     public void showWarning() {
+        showWarning(false);
+    }
+
+    /**
+     * Show the snackbar with warning style.
+     *
+     * @param isShowTop True to show the snackbar on the top, false otherwise.
+     */
+    public void showWarning(boolean isShowTop) {
         bgColor = COLOR_WARNING;
         messageColor = COLOR_MESSAGE;
         actionTextColor = COLOR_MESSAGE;
-        show();
+        show(isShowTop);
     }
 
     /**
      * Show the snackbar with error style.
      */
     public void showError() {
+        showError(false);
+    }
+
+    /**
+     * Show the snackbar with error style.
+     *
+     * @param isShowTop True to show the snackbar on the top, false otherwise.
+     */
+    public void showError(boolean isShowTop) {
         bgColor = COLOR_ERROR;
         messageColor = COLOR_MESSAGE;
         actionTextColor = COLOR_MESSAGE;
-        show();
+        show(isShowTop);
     }
 
     /**
@@ -304,5 +366,30 @@ public final class SnackbarUtils {
             Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) view;
             layout.addView(child, params);
         }
+    }
+
+    private static ViewGroup findSuitableParentCopyFromSnackbar(View view) {
+        ViewGroup fallback = null;
+
+        do {
+            if (view instanceof CoordinatorLayout) {
+                return (ViewGroup) view;
+            }
+
+            if (view instanceof FrameLayout) {
+                if (view.getId() == android.R.id.content) {
+                    return (ViewGroup) view;
+                }
+
+                fallback = (ViewGroup) view;
+            }
+
+            if (view != null) {
+                ViewParent parent = view.getParent();
+                view = parent instanceof View ? (View) parent : null;
+            }
+        } while (view != null);
+
+        return fallback;
     }
 }

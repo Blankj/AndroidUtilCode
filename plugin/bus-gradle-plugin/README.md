@@ -61,6 +61,19 @@ android {
 
 当然，如果你项目是开启混淆的话，全量引入 **[AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode)** 也是可以的，混淆会帮你去除未使用到的类和方法。
 
+bus 完整的 DSL 如下所示：
+
+```groovy
+bus {
+    abortOnError boolean   // bus 扫描有问题是否终止编译，默认 true
+    busUtilsClass String   // BusUtils 类的路径，默认 'com.blankj.utilcode.util.BusUtils'
+    onlyScanLibRegex String// 设置 transform 只扫描库的正则，比如 auc 配置的 '^([:]|(com\\.blankj)).+$'，
+                           // [:] 表示扫描本地 module，因为本地 module 在 transform 中的 jar 包名是以 : 开头的，比如 :feature:utilcode:feature_utilcode_pkg，
+                           // com.blankj 表示扫描远端仓库以 com.blankj 开头的，比如 com.blankj:utilcode:xx
+    jumpScanLibRegex String// 和 onlyScanLibRegex 类似，不过是指要跳过哪些扫描的，和 onlyScanLibRegex 不能共存，onlyScanLibRegex 优先级更高
+}
+```
+
 好了，插件和依赖都配置完毕，下面介绍基本使用。
 
 ### 基本使用
@@ -412,7 +425,7 @@ public void compareUnregister10000Times() {
 }
 ```
 
-修改 `oneParamFun` 为两个参数的话，为了确保项目不会因为 `BusUtils` 在运行时崩溃，`api` 插件会使其在编译时就不过，此时 `__bus__.json` 文件如下所示，提示你参数个数不对：
+修改 `oneParamFun` 为两个参数的话，为了确保项目不会因为 `BusUtils` 在运行时崩溃，`bus` 插件会使其在编译时就不过，此时 `__bus__.json` 文件如下所示，提示你参数个数不对：
 
 ```json
 {

@@ -11,6 +11,7 @@ import com.blankj.common.activity.CommonActivity
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick
 import com.blankj.common.item.CommonItemImage
+import com.blankj.common.item.CommonItemTitle
 import com.blankj.utilcode.pkg.Config
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.*
@@ -25,6 +26,9 @@ import java.util.*
  * ```
  */
 class ImageActivity : CommonActivity() {
+
+    private val savePath = Config.CACHE_PATH + "lena.jpg"
+    private val titleItem: CommonItemTitle = CommonItemTitle("isImage: $savePath", "");
 
     companion object {
         fun start(context: Context) {
@@ -57,23 +61,27 @@ class ImageActivity : CommonActivity() {
         val width = src.width
         val height = src.height
 
+        titleItem.setContent(ImageUtils.isImage(savePath).toString())
+
         return CollectionUtils.newArrayList<CommonItem<*>>().apply {
-            add(CommonItemClick(R.string.image_save) {
-                val savePath = Config.CACHE_PATH + "lena.jpg"
+            add(titleItem)
+            add(CommonItemClick("Save to $savePath") {
                 ThreadUtils.executeBySingle(object : ThreadUtils.SimpleTask<Boolean>() {
                     override fun doInBackground(): Boolean {
                         return ImageUtils.save(src, savePath, Bitmap.CompressFormat.JPEG)
                     }
 
                     override fun onSuccess(result: Boolean) {
+                        titleItem.setContent(ImageUtils.isImage(savePath).toString())
+                        titleItem.update()
                         SnackbarUtils.with(mContentView)
                                 .setDuration(SnackbarUtils.LENGTH_LONG)
                                 .apply {
                                     if (result) {
-                                        setMessage("save to \"$savePath\" successful.")
+                                        setMessage("save successful.")
                                                 .showSuccess()
                                     } else {
-                                        setMessage("save to \"$savePath\" failed.")
+                                        setMessage("save failed.")
                                                 .showError()
                                     }
                                 }

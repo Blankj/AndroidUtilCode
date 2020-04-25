@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.28.1'
+implementation 'com.blankj:utilcode:1.28.2'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.28.1'
+implementation 'com.blankj:utilcodex:1.28.2'
 ```
 
 
@@ -1160,6 +1160,7 @@ removeListener
 res2Uri
 file2Uri
 uri2File
+uri2InputStream
 ```
 
 * ### UtilsTransActivity -> [UtilsTransActivity.java][trans.java]
