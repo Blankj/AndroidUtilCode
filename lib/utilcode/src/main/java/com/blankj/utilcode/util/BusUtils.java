@@ -34,7 +34,7 @@ public final class BusUtils {
     private final Map<String, List<BusInfo>> mTag_BusInfoListMap = new HashMap<>();
 
     private final Map<String, Set<Object>>         mClassName_BusesMap          = new ConcurrentHashMap<>();
-    private final Map<String, List<String>>        mClassName_TagsMap           = new HashMap<>();
+    private final Map<String, List<String>>        mClassName_TagsMap           = new ConcurrentHashMap<>();
     private final Map<String, Map<String, Object>> mClassName_Tag_Arg4StickyMap = new ConcurrentHashMap<>();
 
     private BusUtils() {
@@ -122,7 +122,7 @@ public final class BusUtils {
             synchronized (mClassName_TagsMap) {
                 tags = mClassName_TagsMap.get(className);
                 if (tags == null) {
-                    tags = new ArrayList<>();
+                    tags = new CopyOnWriteArrayList<>();
                     for (Map.Entry<String, List<BusInfo>> entry : mTag_BusInfoListMap.entrySet()) {
                         for (BusInfo busInfo : entry.getValue()) {
                             try {

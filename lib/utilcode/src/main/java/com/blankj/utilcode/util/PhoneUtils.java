@@ -48,7 +48,7 @@ public final class PhoneUtils {
     @SuppressLint("HardwareIds")
     @RequiresPermission(READ_PHONE_STATE)
     public static String getDeviceId() {
-        if (Build.VERSION.SDK_INT >= 29) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             return "";
         }
         TelephonyManager tm = getTelephonyManager();
@@ -71,6 +71,14 @@ public final class PhoneUtils {
     @SuppressLint("HardwareIds")
     @RequiresPermission(READ_PHONE_STATE)
     public static String getSerial() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            try {
+                return Build.getSerial();
+            } catch (SecurityException e) {
+                e.printStackTrace();
+                return "";
+            }
+        }
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? Build.getSerial() : Build.SERIAL;
     }
 
@@ -101,7 +109,7 @@ public final class PhoneUtils {
     @SuppressLint("HardwareIds")
     @RequiresPermission(READ_PHONE_STATE)
     public static String getImeiOrMeid(boolean isImei) {
-        if (Build.VERSION.SDK_INT >= 29) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             return "";
         }
         TelephonyManager tm = getTelephonyManager();
@@ -201,6 +209,14 @@ public final class PhoneUtils {
     @SuppressLint("HardwareIds")
     @RequiresPermission(READ_PHONE_STATE)
     public static String getIMSI() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            try {
+                getTelephonyManager().getSubscriberId();
+            } catch (SecurityException e) {
+                e.printStackTrace();
+                return "";
+            }
+        }
         return getTelephonyManager().getSubscriberId();
     }
 

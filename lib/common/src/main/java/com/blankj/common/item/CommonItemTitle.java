@@ -75,8 +75,25 @@ public class CommonItemTitle extends CommonItem {
     }
 
     public void setTitle(CharSequence title) {
+        setTitle(title, true);
+    }
+
+    public void setContent(CharSequence content) {
+        setContent(content, true);
+    }
+
+    public void setTitle(CharSequence title, boolean isUpdate) {
         mTitle = title;
-        update();
+        if (isUpdate) {
+            update();
+        }
+    }
+
+    public void setContent(CharSequence content, boolean isUpdate) {
+        mContent = content;
+        if (isUpdate) {
+            update();
+        }
     }
 
     public CharSequence getTitle() {

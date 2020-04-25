@@ -1590,11 +1590,11 @@ public final class ImageUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isImage(final String filePath) {
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
         try {
-            Bitmap bitmap = BitmapFactory.decodeFile(filePath, options);
-            return bitmap != null && options.outWidth != -1 && options.outHeight != -1;
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(filePath, options);
+            return options.outWidth > 0 && options.outHeight > 0;
         } catch (Exception e) {
             return false;
         }

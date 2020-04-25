@@ -8,10 +8,10 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.Reader;
 import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import androidx.annotation.NonNull;
 
@@ -30,7 +30,7 @@ public final class GsonUtils {
     private static final String KEY_DELEGATE  = "delegateGson";
     private static final String KEY_LOG_UTILS = "logUtilsGson";
 
-    private static final Map<String, Gson> GSONS = new HashMap<>();
+    private static final Map<String, Gson> GSONS = new ConcurrentHashMap<>();
 
     private GsonUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -86,7 +86,7 @@ public final class GsonUtils {
      * @param object The object to serialize.
      * @return object serialized into json.
      */
-    public static String toJson(@NonNull final Object object) {
+    public static String toJson(final Object object) {
         return toJson(getGson(), object);
     }
 
@@ -97,7 +97,7 @@ public final class GsonUtils {
      * @param typeOfSrc The specific genericized type of src.
      * @return object serialized into json.
      */
-    public static String toJson(@NonNull final Object src, @NonNull final Type typeOfSrc) {
+    public static String toJson(final Object src, @NonNull final Type typeOfSrc) {
         return toJson(getGson(), src, typeOfSrc);
     }
 
@@ -108,7 +108,7 @@ public final class GsonUtils {
      * @param object The object to serialize.
      * @return object serialized into json.
      */
-    public static String toJson(@NonNull final Gson gson, @NonNull final Object object) {
+    public static String toJson(@NonNull final Gson gson, final Object object) {
         return gson.toJson(object);
     }
 
@@ -120,7 +120,7 @@ public final class GsonUtils {
      * @param typeOfSrc The specific genericized type of src.
      * @return object serialized into json.
      */
-    public static String toJson(@NonNull final Gson gson, @NonNull final Object src, @NonNull final Type typeOfSrc) {
+    public static String toJson(@NonNull final Gson gson, final Object src, @NonNull final Type typeOfSrc) {
         return gson.toJson(src, typeOfSrc);
     }
 
@@ -131,7 +131,7 @@ public final class GsonUtils {
      * @param type Type json will be converted to.
      * @return instance of type
      */
-    public static <T> T fromJson(@NonNull final String json, @NonNull final Class<T> type) {
+    public static <T> T fromJson(final String json, @NonNull final Class<T> type) {
         return fromJson(getGson(), json, type);
     }
 
@@ -142,7 +142,7 @@ public final class GsonUtils {
      * @param type type type json will be converted to.
      * @return instance of type
      */
-    public static <T> T fromJson(@NonNull final String json, @NonNull final Type type) {
+    public static <T> T fromJson(final String json, @NonNull final Type type) {
         return fromJson(getGson(), json, type);
     }
 
@@ -176,7 +176,7 @@ public final class GsonUtils {
      * @param type Type json will be converted to.
      * @return instance of type
      */
-    public static <T> T fromJson(@NonNull final Gson gson, @NonNull final String json, @NonNull final Class<T> type) {
+    public static <T> T fromJson(@NonNull final Gson gson, final String json, @NonNull final Class<T> type) {
         return gson.fromJson(json, type);
     }
 
@@ -188,7 +188,7 @@ public final class GsonUtils {
      * @param type type type json will be converted to.
      * @return instance of type
      */
-    public static <T> T fromJson(@NonNull final Gson gson, @NonNull final String json, @NonNull final Type type) {
+    public static <T> T fromJson(@NonNull final Gson gson, final String json, @NonNull final Type type) {
         return gson.fromJson(json, type);
     }
 
@@ -200,7 +200,7 @@ public final class GsonUtils {
      * @param type   type type json will be converted to.
      * @return instance of type
      */
-    public static <T> T fromJson(@NonNull final Gson gson, @NonNull final Reader reader, @NonNull final Class<T> type) {
+    public static <T> T fromJson(@NonNull final Gson gson, final Reader reader, @NonNull final Class<T> type) {
         return gson.fromJson(reader, type);
     }
 
@@ -212,7 +212,7 @@ public final class GsonUtils {
      * @param type   type type json will be converted to.
      * @return instance of type
      */
-    public static <T> T fromJson(@NonNull final Gson gson, @NonNull final Reader reader, @NonNull final Type type) {
+    public static <T> T fromJson(@NonNull final Gson gson, final Reader reader, @NonNull final Type type) {
         return gson.fromJson(reader, type);
     }
 
