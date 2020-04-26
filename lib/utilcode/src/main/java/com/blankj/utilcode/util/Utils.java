@@ -43,9 +43,20 @@ public final class Utils {
      * @param app application
      */
     public static void init(final Application app) {
-        if (sApp != null) return;
+        if (app == null) {
+            Log.e("Utils", "app is null.");
+            return;
+        }
+        if (sApp == null) {
+            sApp = app;
+            UtilsBridge.init(sApp);
+            UtilsBridge.preLoad();
+            return;
+        }
+        if (sApp.equals(app)) return;
+        UtilsBridge.unInit(sApp);
         sApp = app;
-        UtilsBridge.init();
+        UtilsBridge.init(sApp);
     }
 
     /**

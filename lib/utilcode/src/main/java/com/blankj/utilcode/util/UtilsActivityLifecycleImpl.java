@@ -42,9 +42,13 @@ final class UtilsActivityLifecycleImpl implements Application.ActivityLifecycleC
     private int     mConfigCount     = 0;
     private boolean mIsBackground    = false;
 
-    void init() {
+    void init(Application app) {
+        app.registerActivityLifecycleCallbacks(this);
+    }
+
+    void unInit(Application app) {
         mActivityList.clear();
-        Utils.getApp().registerActivityLifecycleCallbacks(this);
+        app.unregisterActivityLifecycleCallbacks(this);
     }
 
     Activity getTopActivity() {
