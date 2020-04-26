@@ -1,3 +1,4 @@
+* `20/04/26` [fix] Utils#init fit tinker. Publish 1.28.3.
 * `20/04/25` [fix] UriUtils#uri2File Unknown URI. Publish 1.28.2.
 * `20/04/24` [add] SnackbarUtils support show on the top; UriUtils#uri2InputStream.
 * `20/04/23` [fix] UriUtils#uri2File not support HW; TransActivity crash below 21.
