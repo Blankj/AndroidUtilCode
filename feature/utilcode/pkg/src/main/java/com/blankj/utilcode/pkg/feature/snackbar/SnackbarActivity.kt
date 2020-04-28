@@ -39,22 +39,37 @@ class SnackbarActivity : CommonActivity() {
 
     override fun bindItems(): MutableList<CommonItem<*>> {
         return CollectionUtils.newArrayList(
-                CommonItemClick(R.string.snackbar_show_short) {
+                CommonItemClick(R.string.snackbar_short) {
                     SnackbarUtils.with(mContentView)
                             .setMessage(getMsg(R.string.snackbar_short))
                             .setMessageColor(Color.WHITE)
                             .setBgResource(R.drawable.snackbar_custom_bg)
                             .show()
                 },
-                CommonItemClick(R.string.snackbar_show_short_with_action) {
+                CommonItemClick(R.string.snackbar_short_top) {
                     SnackbarUtils.with(mContentView)
-                            .setMessage(getMsg(R.string.snackbar_short))
+                            .setMessage(getMsg(R.string.snackbar_short_top))
+                            .setMessageColor(Color.WHITE)
+                            .setBgResource(R.drawable.snackbar_custom_bg)
+                            .show(true)
+                },
+                CommonItemClick(R.string.snackbar_short_with_action) {
+                    SnackbarUtils.with(mContentView)
+                            .setMessage(getMsg(R.string.snackbar_short_with_action))
                             .setMessageColor(Color.WHITE)
                             .setBgResource(R.drawable.snackbar_custom_bg)
                             .setAction(getString(R.string.snackbar_click), Color.YELLOW) { ToastUtils.showShort(getString(R.string.snackbar_click)) }
                             .show()
                 },
-                CommonItemClick(R.string.snackbar_show_long) {
+                CommonItemClick(R.string.snackbar_short_with_action_top) {
+                    SnackbarUtils.with(mContentView)
+                            .setMessage(getMsg(R.string.snackbar_short_with_action_top))
+                            .setMessageColor(Color.WHITE)
+                            .setBgResource(R.drawable.snackbar_custom_bg)
+                            .setAction(getString(R.string.snackbar_click), Color.YELLOW) { ToastUtils.showShort(getString(R.string.snackbar_click)) }
+                            .show(true)
+                },
+                CommonItemClick(R.string.snackbar_long) {
                     SnackbarUtils.with(mContentView)
                             .setMessage(getMsg(R.string.snackbar_long))
                             .setMessageColor(Color.WHITE)
@@ -62,16 +77,16 @@ class SnackbarActivity : CommonActivity() {
                             .setBgResource(R.drawable.snackbar_custom_bg)
                             .show()
                 },
-                CommonItemClick(R.string.snackbar_show_long_with_action) {
+                CommonItemClick(R.string.snackbar_long_with_action) {
                     SnackbarUtils.with(mContentView)
-                            .setMessage(getMsg(R.string.snackbar_long))
+                            .setMessage(getMsg(R.string.snackbar_long_with_action))
                             .setMessageColor(Color.WHITE)
                             .setBgResource(R.drawable.snackbar_custom_bg)
                             .setDuration(SnackbarUtils.LENGTH_LONG)
                             .setAction(getString(R.string.snackbar_click), Color.YELLOW) { ToastUtils.showShort(getString(R.string.snackbar_click)) }
                             .show()
                 },
-                CommonItemClick(R.string.snackbar_show_indefinite) {
+                CommonItemClick(R.string.snackbar_indefinite) {
                     SnackbarUtils.with(mContentView)
                             .setMessage(getMsg(R.string.snackbar_indefinite))
                             .setMessageColor(Color.WHITE)
@@ -79,9 +94,9 @@ class SnackbarActivity : CommonActivity() {
                             .setBgResource(R.drawable.snackbar_custom_bg)
                             .show()
                 },
-                CommonItemClick(R.string.snackbar_show_indefinite_with_action) {
+                CommonItemClick(R.string.snackbar_indefinite_with_action) {
                     SnackbarUtils.with(mContentView)
-                            .setMessage(getMsg(R.string.snackbar_indefinite))
+                            .setMessage(getMsg(R.string.snackbar_indefinite_with_action))
                             .setMessageColor(Color.WHITE)
                             .setDuration(SnackbarUtils.LENGTH_INDEFINITE)
                             .setBgResource(R.drawable.snackbar_custom_bg)
@@ -113,17 +128,17 @@ class SnackbarActivity : CommonActivity() {
                         snackbarView.setOnClickListener { SnackbarUtils.dismiss() }
                     }
                 },
-                CommonItemClick(R.string.snackbar_show_success) {
+                CommonItemClick(R.string.snackbar_success) {
                     SnackbarUtils.with(mContentView)
                             .setMessage(getMsg(R.string.snackbar_success))
                             .showSuccess()
                 },
-                CommonItemClick(R.string.snackbar_show_warning) {
+                CommonItemClick(R.string.snackbar_warning) {
                     SnackbarUtils.with(mContentView)
                             .setMessage(getMsg(R.string.snackbar_warning))
                             .showWarning()
                 },
-                CommonItemClick(R.string.snackbar_show_error) {
+                CommonItemClick(R.string.snackbar_error) {
                     SnackbarUtils.with(mContentView)
                             .setMessage(getMsg(R.string.snackbar_error))
                             .showError()

@@ -37,6 +37,7 @@
     <string name="demo_spStatic">SPStaticUtils Demo</string>
     <string name="demo_span">SpanUtils Demo</string>
     <string name="demo_toast">ToastUtils Demo</string>
+    <string name="demo_uiMessage">UiMessage Demo</string>
     <string name="demo_trans_activity">TransActivity Demo</string>
     <string name="demo_vibrate">VibrateUtils Demo</string>
 
@@ -206,7 +207,6 @@
     <string name="image_fast_blur">Fast Blur</string>
     <string name="image_render_script_blur">Render Script Blur</string>
     <string name="image_stack_blur">Stack Blur</string>
-    <string name="image_save">Save</string>
     <string name="image_compress_by_scale">Compress By Scale</string>
     <string name="image_compress_by_quality_half">Compress By Quality Half</string>
     <string name="image_compress_by_quality_max_size">Compress By Quality Max Size</string>
@@ -294,26 +294,22 @@
     <string name="screen_screenshot">Screenshot</string>
 
     <!--SnackBar 相关-->
-    <string name="snackbar_show_short">Show Short Snackbar</string>
-    <string name="snackbar_show_short_with_action">Show Short Snackbar With Action</string>
-    <string name="snackbar_show_long">Show Long Snackbar</string>
-    <string name="snackbar_show_long_with_action">Show Long Snackbar With Action</string>
-    <string name="snackbar_show_indefinite">Show Indefinite Snackbar</string>
-    <string name="snackbar_show_indefinite_with_action">Show Indefinite Snackbar With Action</string>
+    <string name="snackbar_short">Short Snackbar</string>
+    <string name="snackbar_short_top">Short Snackbar Top</string>
+    <string name="snackbar_short_with_action">Short Snackbar With Action</string>
+    <string name="snackbar_short_with_action_top">Short Snackbar With Action Top</string>
+    <string name="snackbar_long">Long Snackbar</string>
+    <string name="snackbar_long_with_action">Long Snackbar With Action</string>
+    <string name="snackbar_indefinite">Indefinite Snackbar</string>
+    <string name="snackbar_indefinite_with_action">Indefinite Snackbar With Action</string>
     <string name="snackbar_add_view">Add View</string>
     <string name="snackbar_add_view_with_action">Add View With Action</string>
-    <string name="snackbar_show_success">Show Success</string>
-    <string name="snackbar_show_warning">Show Warning</string>
-    <string name="snackbar_show_error">Show Error</string>
-    <string name="snackbar_dismiss">Dismiss Snackbar</string>
-    <string name="snackbar_short">Short Snackbar</string>
-    <string name="snackbar_long">Long Snackbar</string>
-    <string name="snackbar_indefinite">Indefinite Snackbar</string>
-    <string name="snackbar_click">Click</string>
-    <string name="snackbar_custom_view">Custom View</string>
     <string name="snackbar_success">Success</string>
     <string name="snackbar_warning">Warning</string>
     <string name="snackbar_error">Error</string>
+    <string name="snackbar_dismiss">Dismiss Snackbar</string>
+    <string name="snackbar_click">Click</string>
+    <string name="snackbar_custom_view">Custom View</string>
     <string name="snackbar_click_to_dismiss">Click To Dismiss</string>
 
     <!--SP 相关-->
@@ -337,7 +333,6 @@
     <string name="toast_show_middle">Show Middle</string>
     <string name="toast_cancel">Cancel</string>
     <string name="toast_show_toast_dialog">Show Toast Dialog</string>
-
     <string name="toast_short">Short</string>
     <string name="toast_long">Long</string>
     <string name="toast_green_font">Green Font</string>
@@ -345,6 +340,13 @@
     <string name="toast_custom_bg">Custom Bg</string>
     <string name="toast_span">Spannable String</string>
     <string name="toast_middle">Middle</string>
+
+    <!--UiMessage 相关-->
+    <string name="uiMessage_add_listener_id">Add Listener Id</string>
+    <string name="uiMessage_remove_all_id">Remove All Id</string>
+    <string name="uiMessage_add_listener">Add Listener</string>
+    <string name="uiMessage_remove_listener">Remove Listener</string>
+    <string name="uiMessage_send">Send</string>
 
     <!--Vibrate 相关-->
     <string name="vibrate_1000ms">Vibrate 1000ms</string>

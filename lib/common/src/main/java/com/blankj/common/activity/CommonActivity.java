@@ -209,7 +209,7 @@ public abstract class CommonActivity extends BaseActivity {
 
     public void showLoading(Runnable listener) {
         if (mDialogLoading != null) {
-            dismissLoading();
+            return;
         }
         mDialogLoading = new CommonDialogLoading().init(this, listener);
         mDialogLoading.show();

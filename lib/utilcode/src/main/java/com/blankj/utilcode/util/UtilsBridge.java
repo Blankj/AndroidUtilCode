@@ -35,8 +35,15 @@ import static android.Manifest.permission.CALL_PHONE;
  */
 class UtilsBridge {
 
-    static void init() {
-        UtilsActivityLifecycleImpl.INSTANCE.init();
+    static void init(Application app) {
+        UtilsActivityLifecycleImpl.INSTANCE.init(app);
+    }
+
+    static void unInit(Application app) {
+        UtilsActivityLifecycleImpl.INSTANCE.unInit(app);
+    }
+
+    static void preLoad() {
         preLoad(AdaptScreenUtils.getPreLoadRunnable());
     }
 

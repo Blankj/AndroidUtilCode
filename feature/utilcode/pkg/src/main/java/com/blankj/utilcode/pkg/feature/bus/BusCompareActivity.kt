@@ -157,39 +157,47 @@ class BusCompareActivity : CommonActivity() {
      * 注销 10000 个订阅者，共执行 10 次取平均值
      */
     private fun compareUnregister10000Times() {
-        val tests = ArrayList<BusEvent>()
-        for (i in 0..9999) {
-            val test = BusEvent()
-            EventBus.getDefault().register(test)
-            BusUtils.register(test)
-            tests.add(test)
-        }
-
-        compareWithEventBus("Unregister 10000 times.", 10, 1, object : CompareCallback {
-            override fun runEventBus() {
-                for (test in tests) {
-                    EventBus.getDefault().unregister(test)
-                }
-            }
-
-            override fun runBusUtils() {
-                for (test in tests) {
-                    BusUtils.unregister(test)
-                }
-            }
-
-            override fun restState() {
-                for (test in tests) {
+        showLoading()
+        ThreadUtils.executeBySingle(object : ThreadUtils.SimpleTask<List<BusEvent>>() {
+            override fun doInBackground(): List<BusEvent> {
+                val tests = ArrayList<BusEvent>()
+                for (i in 0..9999) {
+                    val test = BusEvent()
                     EventBus.getDefault().register(test)
                     BusUtils.register(test)
+                    tests.add(test)
                 }
+                return tests
             }
-        }, object : OnFinishCallback {
-            override fun onFinish() {
-                for (test in tests) {
-                    EventBus.getDefault().unregister(test)
-                    BusUtils.unregister(test)
-                }
+
+            override fun onSuccess(tests: List<BusEvent>) {
+                compareWithEventBus("Unregister 10000 times.", 10, 1, object : CompareCallback {
+                    override fun runEventBus() {
+                        for (test in tests) {
+                            EventBus.getDefault().unregister(test)
+                        }
+                    }
+
+                    override fun runBusUtils() {
+                        for (test in tests) {
+                            BusUtils.unregister(test)
+                        }
+                    }
+
+                    override fun restState() {
+                        for (test in tests) {
+                            EventBus.getDefault().register(test)
+                            BusUtils.register(test)
+                        }
+                    }
+                }, object : OnFinishCallback {
+                    override fun onFinish() {
+                        for (test in tests) {
+                            EventBus.getDefault().unregister(test)
+                            BusUtils.unregister(test)
+                        }
+                    }
+                })
             }
         })
     }
