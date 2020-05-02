@@ -1,5 +1,8 @@
 # Change Log
 
+## v2.5(2020/04/29)
+重构使用 base-transform
+
 ## v2.4
 去除 gradle 版本依赖的问题
 

@@ -47,7 +47,7 @@ class ConfigUtils {
             void beforeEvaluate(Project project) {
                 // 在 project 的 build.gradle 前 do sth.
                 if (project.subprojects.isEmpty()) {
-                    if (project.name.startsWith("plugin")) {
+                    if (project.path.startsWith(":plugin")) {
                         return
                     }
                     if (project.name.endsWith("_app")) {

@@ -1,3 +1,8 @@
+* `20/05/03` [add] Publish bus plugin v2.5. Publish api plugin v1.3. Publish. Publish 1.28.4.
+* `20/04/30` [add] BaseItem support partialUpdate.
+* `20/04/29` [add] Publish plugin lib com.blankj:base-transform:1.0.
+* `20/04/28` [fix] LanguageUtils#applyLanguage.
+* `20/04/27` [fix] BarUtils#isNavBarVisible.
 * `20/04/26` [fix] Utils#init fit tinker. Publish 1.28.3.
 * `20/04/25` [fix] UriUtils#uri2File Unknown URI. Publish 1.28.2.
 * `20/04/24` [add] SnackbarUtils support show on the top; UriUtils#uri2InputStream.

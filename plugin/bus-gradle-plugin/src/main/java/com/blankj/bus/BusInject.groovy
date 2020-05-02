@@ -1,6 +1,6 @@
 package com.blankj.bus
 
-import com.blankj.bus.util.ZipUtils
+import com.blankj.base_transform.util.ZipUtils
 import org.apache.commons.io.FileUtils
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassVisitor
@@ -26,20 +26,20 @@ class BusInject {
             ZipUtils.zipFiles(Arrays.asList(decompressedJar.listFiles()), busUtilsTransformFile)
             FileUtils.forceDelete(decompressedJar)
         } else {
-            File apiUtilsFile = new File(
+            File busUtilsFile = new File(
                     busUtilsTransformFile.getAbsolutePath() + Config.FILE_SEP +
                             busUtilsClass.replace('.', Config.FILE_SEP) + '.class'
             )
 
-            inject2BusUtils(apiUtilsFile, busMap, busUtilsClass)
+            inject2BusUtils(busUtilsFile, busMap, busUtilsClass)
         }
     }
 
-    private static void inject2BusUtils(File apiUtilsFile, Map<String, BusInfo> busMap, String busUtilsClass) {
-        ClassReader cr = new ClassReader(apiUtilsFile.bytes);
+    private static void inject2BusUtils(File busUtilsFile, Map<String, BusInfo> busMap, String busUtilsClass) {
+        ClassReader cr = new ClassReader(busUtilsFile.bytes);
         ClassWriter cw = new ClassWriter(cr, 0);
         ClassVisitor cv = new BusUtilsClassVisitor(cw, busMap, busUtilsClass);
         cr.accept(cv, ClassReader.SKIP_FRAMES);
-        FileUtils.writeByteArrayToFile(apiUtilsFile, cw.toByteArray())
+        FileUtils.writeByteArrayToFile(busUtilsFile, cw.toByteArray())
     }
 }

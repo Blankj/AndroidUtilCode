@@ -447,7 +447,6 @@ public final class PermissionUtils {
 
         @Override
         public void onDestroy(final UtilsTransActivity activity) {
-            //如果是unity调用，app从后台切回，当前activity会被强制关闭，此时正常流程不会触发，所以在这里检测
             if (currentRequestCode != -1) {
                 checkRequestCallback(currentRequestCode);
                 currentRequestCode = -1;
@@ -471,17 +470,12 @@ public final class PermissionUtils {
                 sSimpleCallback4WriteSettings = null;
             } else if (requestCode == TYPE_DRAW_OVERLAYS) {
                 if (sSimpleCallback4DrawOverlays == null) return;
-                UtilsBridge.runOnUiThreadDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (isGrantedDrawOverlays()) {
-                            sSimpleCallback4DrawOverlays.onGranted();
-                        } else {
-                            sSimpleCallback4DrawOverlays.onDenied();
-                        }
-                        sSimpleCallback4DrawOverlays = null;
-                    }
-                }, 100);
+                if (isGrantedDrawOverlays()) {
+                    sSimpleCallback4DrawOverlays.onGranted();
+                } else {
+                    sSimpleCallback4DrawOverlays.onDenied();
+                }
+                sSimpleCallback4DrawOverlays = null;
             }
         }
     }

@@ -32,7 +32,7 @@ class TaskDurationUtils {
             @Override
             void afterExecute(Task task, TaskState state) {
                 def exeDuration = System.currentTimeMillis() - task.ext.startTime
-                if (exeDuration >= 100) {
+                if (exeDuration >= 500) {
                     taskInfoList.add(new TaskInfo(task: task, exeDuration: exeDuration))
                 }
             }
