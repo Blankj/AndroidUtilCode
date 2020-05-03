@@ -55,6 +55,15 @@ public class BaseItemAdapter<Item extends BaseItem> extends RecyclerView.Adapter
     }
 
     @Override
+    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position, @NonNull List<Object> payloads) {
+        if (payloads.isEmpty()) {
+            super.onBindViewHolder(holder, position, payloads);
+            return;
+        }
+        mItems.get(position).partialUpdate(payloads);
+    }
+
+    @Override
     public int getItemCount() {
         return mItems.size();
     }
@@ -152,14 +161,41 @@ public class BaseItemAdapter<Item extends BaseItem> extends RecyclerView.Adapter
     ///////////////////////////////////////////////////////////////////////////
 
     public void updateItem(@NonNull final Item item) {
-        int itemIndex = mItems.indexOf(item);
-        if (itemIndex != -1) {
-            notifyItemChanged(itemIndex);
-        }
+        updateItems(item, 1, null);
     }
 
     public void updateItem(@IntRange(from = 0) final int index) {
-        notifyItemChanged(index);
+        updateItems(index, 1, null);
+    }
+
+    public void updateItem(@NonNull final Item item, Object payload) {
+        updateItems(item, 1, payload);
+    }
+
+    public void updateItem(@IntRange(from = 0) final int index, Object payload) {
+        updateItems(index, 1, payload);
+    }
+
+    public void updateItems(@NonNull final Item item, int itemCount) {
+        int itemIndex = mItems.indexOf(item);
+        if (itemIndex != -1) {
+            updateItems(itemIndex, itemCount);
+        }
+    }
+
+    public void updateItems(@IntRange(from = 0) final int index, int itemCount) {
+        updateItems(index, itemCount, null);
+    }
+
+    public void updateItems(@NonNull final Item item, int itemCount, Object payload) {
+        int itemIndex = mItems.indexOf(item);
+        if (itemIndex != -1) {
+            updateItems(itemIndex, itemCount, payload);
+        }
+    }
+
+    public void updateItems(@IntRange(from = 0) final int index, int itemCount, Object payload) {
+        notifyItemRangeChanged(index, itemCount, payload);
     }
 
     public void addItem(@NonNull final Item item) {

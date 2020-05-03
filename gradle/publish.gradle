@@ -54,6 +54,7 @@ def configMaven(Project project, PublishExtension ext) {
     }
 
     project.tasks.create("mavenLocal", Upload) {
+        group("publishing")
         configuration = project.configurations.archives
 
         repositories.mavenDeployer {

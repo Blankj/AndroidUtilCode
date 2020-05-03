@@ -86,6 +86,7 @@ object DialogHelper {
 
                 dialog.dialog.setOnShowListener(DialogInterface.OnShowListener {
                     KeyboardUtils.fixAndroidBug5497(dialog.dialog.window!!)
+                    KeyboardUtils.showSoftInput()
                 })
             }
 

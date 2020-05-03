@@ -1,6 +1,6 @@
 package com.blankj.api
 
-import com.blankj.api.util.ZipUtils
+import com.blankj.base_transform.util.ZipUtils
 import org.apache.commons.io.FileUtils
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassVisitor

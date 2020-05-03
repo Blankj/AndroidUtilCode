@@ -369,6 +369,8 @@ public final class PermissionUtils {
         private static final int    TYPE_WRITE_SETTINGS = 0x02;
         private static final int    TYPE_DRAW_OVERLAYS  = 0x03;
 
+        private static int currentRequestCode = -1;
+
         private static PermissionActivityImpl INSTANCE = new PermissionActivityImpl();
 
         public static void start(final int type) {
@@ -404,8 +406,10 @@ public final class PermissionUtils {
                 }
                 requestPermissions(activity);
             } else if (type == TYPE_WRITE_SETTINGS) {
+                currentRequestCode = TYPE_WRITE_SETTINGS;
                 startWriteSettingsActivity(activity, TYPE_WRITE_SETTINGS);
             } else if (type == TYPE_DRAW_OVERLAYS) {
+                currentRequestCode = TYPE_DRAW_OVERLAYS;
                 startOverlayPermissionActivity(activity, TYPE_DRAW_OVERLAYS);
             } else {
                 activity.finish();
@@ -443,8 +447,20 @@ public final class PermissionUtils {
         }
 
         @Override
+        public void onDestroy(final UtilsTransActivity activity) {
+            if (currentRequestCode != -1) {
+                checkRequestCallback(currentRequestCode);
+                currentRequestCode = -1;
+            }
+            super.onDestroy(activity);
+        }
+
+        @Override
         public void onActivityResult(UtilsTransActivity activity, int requestCode, int resultCode, Intent data) {
             activity.finish();
+        }
+
+        private void checkRequestCallback(int requestCode) {
             if (requestCode == TYPE_WRITE_SETTINGS) {
                 if (sSimpleCallback4WriteSettings == null) return;
                 if (isGrantedWriteSettings()) {
@@ -455,17 +471,12 @@ public final class PermissionUtils {
                 sSimpleCallback4WriteSettings = null;
             } else if (requestCode == TYPE_DRAW_OVERLAYS) {
                 if (sSimpleCallback4DrawOverlays == null) return;
-                UtilsBridge.runOnUiThreadDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (isGrantedDrawOverlays()) {
-                            sSimpleCallback4DrawOverlays.onGranted();
-                        } else {
-                            sSimpleCallback4DrawOverlays.onDenied();
-                        }
-                        sSimpleCallback4DrawOverlays = null;
-                    }
-                }, 100);
+                if (isGrantedDrawOverlays()) {
+                    sSimpleCallback4DrawOverlays.onGranted();
+                } else {
+                    sSimpleCallback4DrawOverlays.onDenied();
+                }
+                sSimpleCallback4DrawOverlays = null;
             }
         }
     }

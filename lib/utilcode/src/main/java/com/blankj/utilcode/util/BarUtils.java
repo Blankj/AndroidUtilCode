@@ -516,7 +516,7 @@ public final class BarUtils {
             final View child = decorView.getChildAt(i);
             final int id = child.getId();
             if (id != View.NO_ID) {
-                String resourceEntryName = Resources.getSystem().getResourceEntryName(id);
+                String resourceEntryName = getResNameById(id);
                 if ("navigationBarBackground".equals(resourceEntryName)) {
                     child.setVisibility(isVisible ? View.VISIBLE : View.INVISIBLE);
                 }
@@ -557,7 +557,7 @@ public final class BarUtils {
             final View child = decorView.getChildAt(i);
             final int id = child.getId();
             if (id != View.NO_ID) {
-                String resourceEntryName = Resources.getSystem().getResourceEntryName(id);
+                String resourceEntryName = getResNameById(id);
                 if ("navigationBarBackground".equals(resourceEntryName)
                         && child.getVisibility() == View.VISIBLE) {
                     isVisible = true;
@@ -570,6 +570,14 @@ public final class BarUtils {
             isVisible = (visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
         }
         return isVisible;
+    }
+
+    private static String getResNameById(int id) {
+        try {
+            return Utils.getApp().getResources().getResourceEntryName(id);
+        } catch (Exception ignore) {
+            return "";
+        }
     }
 
     /**

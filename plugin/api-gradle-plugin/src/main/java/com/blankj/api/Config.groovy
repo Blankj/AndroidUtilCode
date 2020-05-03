@@ -1,5 +1,7 @@
 package com.blankj.api
 
+import com.blankj.base_transform.BaseTransformConfig
+
 class Config {
 
     public static final String EXT_NAME = 'api'
@@ -15,5 +17,5 @@ class Config {
             'com.github.bumptech.glide'
     ]
 
-    public static final String FILE_SEP = System.getProperty("file.separator")
+    public static final String FILE_SEP = BaseTransformConfig.FILE_SEP
 }

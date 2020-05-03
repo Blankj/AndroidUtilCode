@@ -98,14 +98,23 @@ public final class KeyboardUtils {
      * @param activity The activity.
      */
     public static void hideSoftInput(@NonNull final Activity activity) {
-        View view = activity.getCurrentFocus();
+        hideSoftInput(activity.getWindow());
+    }
+
+    /**
+     * Hide the soft input.
+     *
+     * @param window The window.
+     */
+    public static void hideSoftInput(@NonNull final Window window) {
+        View view = window.getCurrentFocus();
         if (view == null) {
-            View decorView = activity.getWindow().getDecorView();
+            View decorView = window.getDecorView();
             View focusView = decorView.findViewWithTag("keyboardTagView");
             if (focusView == null) {
-                view = new EditText(activity);
+                view = new EditText(window.getContext());
                 view.setTag("keyboardTagView");
-                ((ViewGroup) decorView).addView(view, 1, 1);
+                ((ViewGroup) decorView).addView(view, 0, 0);
             } else {
                 view = focusView;
             }

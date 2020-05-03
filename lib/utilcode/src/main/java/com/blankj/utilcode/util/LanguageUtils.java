@@ -70,7 +70,7 @@ public class LanguageUtils {
      * @param locale The language of locale.
      */
     public static void applyLanguage(@NonNull final Locale locale) {
-        if (isAppliedLanguage()) return;
+        if (isAppliedLanguage(locale)) return;
         applyLanguage(locale, "", false, false);
     }
 
@@ -116,9 +116,7 @@ public class LanguageUtils {
         if (isFollowSystem) {
             UtilsBridge.getSpUtils4Utils().put(KEY_LOCALE, VALUE_FOLLOW_SYSTEM);
         } else {
-            String localLanguage = locale.getLanguage();
-            String localCountry = locale.getCountry();
-            UtilsBridge.getSpUtils4Utils().put(KEY_LOCALE, localLanguage + "$" + localCountry);
+            UtilsBridge.getSpUtils4Utils().put(KEY_LOCALE, locale2String(locale));
         }
 
         updateLanguage(Utils.getApp(), locale);
@@ -151,6 +149,25 @@ public class LanguageUtils {
     }
 
     /**
+     * Return whether applied the language by {@link LanguageUtils}.
+     *
+     * @param locale The locale.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isAppliedLanguage(Locale locale) {
+        final String spLocale = UtilsBridge.getSpUtils4Utils().getString(KEY_LOCALE);
+        if (TextUtils.isEmpty(spLocale)) {
+            return false;
+        }
+        if (VALUE_FOLLOW_SYSTEM.equals(spLocale)) {
+            return false;
+        }
+        Locale settingLocale = string2Locale(spLocale);
+        if (settingLocale == null) return false;
+        return isSameLocale(settingLocale, locale);
+    }
+
+    /**
      * Return the locale.
      *
      * @return the locale
@@ -160,7 +177,7 @@ public class LanguageUtils {
     }
 
     static void applyLanguage(@NonNull final Activity activity) {
-        final String spLocale = UtilsBridge.getSpUtils4Utils().getString(KEY_LOCALE);
+        String spLocale = UtilsBridge.getSpUtils4Utils().getString(KEY_LOCALE);
         if (TextUtils.isEmpty(spLocale)) {
             return;
         }
@@ -172,16 +189,27 @@ public class LanguageUtils {
             return;
         }
 
-        String[] language_country = spLocale.split("\\$");
-        if (language_country.length != 2) {
-            Log.e("LanguageUtils", "The string of " + spLocale + " is not in the correct format.");
-            return;
-        }
-
-        Locale settingLocale = new Locale(language_country[0], language_country[1]);
+        Locale settingLocale = string2Locale(spLocale);
+        if (settingLocale == null) return;
         updateLanguage(Utils.getApp(), settingLocale);
         updateLanguage(activity, settingLocale);
     }
+
+    private static String locale2String(Locale locale) {
+        String localLanguage = locale.getLanguage();
+        String localCountry = locale.getCountry();
+        return localLanguage + "$" + localCountry;
+    }
+
+    private static Locale string2Locale(String str) {
+        String[] language_country = str.split("\\$");
+        if (language_country.length != 2) {
+            Log.e("LanguageUtils", "The string of " + str + " is not in the correct format.");
+            return null;
+        }
+        return new Locale(language_country[0], language_country[1]);
+    }
+
 
     private static void updateLanguage(final Context context, Locale locale) {
         Resources resources = context.getResources();
@@ -208,8 +236,8 @@ public class LanguageUtils {
         resources.updateConfiguration(config, dm);
     }
 
-    private static boolean isSameLocale(Locale locale, Locale contextLocale) {
-        return UtilsBridge.equals(contextLocale.getLanguage(), locale.getLanguage())
-                && UtilsBridge.equals(contextLocale.getCountry(), locale.getCountry());
+    private static boolean isSameLocale(Locale l0, Locale l1) {
+        return UtilsBridge.equals(l1.getLanguage(), l0.getLanguage())
+                && UtilsBridge.equals(l1.getCountry(), l0.getCountry());
     }
 }
