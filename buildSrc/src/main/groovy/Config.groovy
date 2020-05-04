@@ -20,7 +20,7 @@ class Config {
     // lib version
     static gradlePluginVersion = '3.5.2'
     static kotlinVersion = '1.3.50'
-    static androidxVersion = '1.0.0'
+    static androidxVersion = '1.1.0'
 
     static depConfig = [
             /*Never delete this line*/
@@ -60,14 +60,14 @@ class Config {
             //./gradlew clean plugin:plugin_bus-gradle-plugin:mavenLocal     // 上传到本地 mavenLocal
             //./gradlew clean plugin:plugin_bus-gradle-plugin:bintrayUpload  // 上传到 jcenter
 
-            androidx_appcompat          : new DepConfig("androidx.appcompat:appcompat:$androidxVersion"),
-            androidx_material           : new DepConfig("com.google.android.material:material:$androidxVersion"),
-            androidx_multidex           : new DepConfig("androidx.multidex:multidex:2.0.0"),
-            androidx_constraint         : new DepConfig("androidx.constraintlayout:constraintlayout:1.1.3"),
+            androidx_appcompat         : new DepConfig("androidx.appcompat:appcompat:$androidxVersion"),
+            androidx_material          : new DepConfig("com.google.android.material:material:$androidxVersion"),
+            androidx_multidex          : new DepConfig("androidx.multidex:multidex:2.0.0"),
+            androidx_constraint        : new DepConfig("androidx.constraintlayout:constraintlayout:1.1.3"),
 
             kotlin                     : new DepConfig("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"),
 
-            leakcanary_android         : new DepConfig("com.squareup.leakcanary:leakcanary-android:2.1"),
+            leakcanary                 : new DepConfig("com.squareup.leakcanary:leakcanary-android:2.1"),
 
             free_proguard              : new DepConfig("com.blankj:free-proguard:1.0.2"),
             swipe_panel                : new DepConfig("com.blankj:swipe-panel:1.2"),
