@@ -3,10 +3,10 @@ dependencies {
     api Config.depConfig.lib_subutil.dep
     api Config.depConfig.lib_utilcode.dep
 
-    api Config.depConfig.support_appcompat.dep
-    api Config.depConfig.support_material.dep
-    api Config.depConfig.support_multidex.dep
-    api Config.depConfig.support_constraint.dep
+    api Config.depConfig.androidx_appcompat.dep
+    api Config.depConfig.androidx_material.dep
+    api Config.depConfig.androidx_multidex.dep
+    api Config.depConfig.androidx_constraint.dep
     api Config.depConfig.kotlin.dep
     api Config.depConfig.free_proguard.dep
     api Config.depConfig.swipe_panel.dep

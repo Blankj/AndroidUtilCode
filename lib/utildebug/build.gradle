@@ -1,6 +1,6 @@
 dependencies {
-    compileOnly Config.depConfig.support_appcompat.dep
-    compileOnly Config.depConfig.support_material.dep
+    compileOnly Config.depConfig.androidx_appcompat.dep
+    compileOnly Config.depConfig.androidx_material.dep
 
     implementation Config.depConfig.lib_utilcode.dep
     implementation Config.depConfig.swipe_panel.dep
@@ -8,7 +8,7 @@ dependencies {
 
     testImplementation Config.depConfig.test_junit.dep
     testImplementation Config.depConfig.test_robolectric.dep
-    testImplementation Config.depConfig.support_appcompat.dep
+    testImplementation Config.depConfig.androidx_appcompat.dep
 }
 
 afterEvaluate {
