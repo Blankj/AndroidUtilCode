@@ -67,7 +67,7 @@ class Config {
 
             kotlin                     : new DepConfig("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"),
 
-            leakcanary_android         : new DepConfig("com.squareup.leakcanary:leakcanary-android:2.1"),
+            leakcanary                 : new DepConfig("com.squareup.leakcanary:leakcanary-android:2.1"),
 
             free_proguard              : new DepConfig("com.blankj:free-proguard:1.0.2"),
             swipe_panel                : new DepConfig("com.blankj:swipe-panel:1.2"),
