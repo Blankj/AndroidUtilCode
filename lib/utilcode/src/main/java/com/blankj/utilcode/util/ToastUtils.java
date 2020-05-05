@@ -495,7 +495,7 @@ public final class ToastUtils {
         private void setToastParams() {
             mParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
             mParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
-            mParams.format = PixelFormat.TRANSPARENT;
+            mParams.format = PixelFormat.TRANSLUCENT;
             mParams.windowAnimations = android.R.style.Animation_Toast;
             mParams.setTitle("ToastWithoutNotification");
             mParams.flags = WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
