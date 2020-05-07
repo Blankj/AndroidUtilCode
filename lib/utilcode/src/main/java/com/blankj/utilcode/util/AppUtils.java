@@ -108,11 +108,7 @@ public final class AppUtils {
      */
     public static boolean isAppRoot() {
         ShellUtils.CommandResult result = UtilsBridge.execCmd("echo root", true);
-        if (result.result == 0) return true;
-        if (result.errorMsg != null) {
-            Log.d("AppUtils", "isAppRoot() called" + result.errorMsg);
-        }
-        return false;
+        return result.result == 0;
     }
 
     /**
