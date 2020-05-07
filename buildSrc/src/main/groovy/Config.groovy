@@ -20,7 +20,7 @@ class Config {
     // lib version
     static gradlePluginVersion = '3.5.2'
     static kotlinVersion = '1.3.50'
-    static androidxVersion = '1.1.0'
+    static androidxVersion = '1.0.0'
 
     static depConfig = [
             /*Never delete this line*/
