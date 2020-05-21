@@ -6,7 +6,6 @@ import android.graphics.Bitmap
 import android.graphics.drawable.ColorDrawable
 import android.support.v4.app.FragmentActivity
 import android.text.method.ScrollingMovementMethod
-import android.util.Pair
 import android.view.Gravity
 import android.view.View
 import android.view.Window
@@ -16,9 +15,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.blankj.base.dialog.BaseDialogFragment
 import com.blankj.base.dialog.DialogLayoutCallback
-import com.blankj.common.dialog.CommonDialogContent
 import com.blankj.utilcode.pkg.R
-import com.blankj.utilcode.util.*
+import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.KeyboardUtils
+import com.blankj.utilcode.util.ScreenUtils
+import com.blankj.utilcode.util.ToastUtils
 
 /**
  * ```
@@ -29,30 +30,6 @@ import com.blankj.utilcode.util.*
  * ```
  */
 object DialogHelper {
-
-    fun showRationaleDialog(context: Context, shouldRequest: PermissionUtils.OnRationaleListener.ShouldRequest) {
-        CommonDialogContent().init(context,
-                StringUtils.getString(android.R.string.dialog_alert_title),
-                StringUtils.getString(R.string.permission_rationale_message),
-                Pair(StringUtils.getString(android.R.string.ok), View.OnClickListener {
-                    shouldRequest.again(true)
-                }),
-                Pair(StringUtils.getString(android.R.string.cancel), View.OnClickListener {
-                    shouldRequest.again(false)
-                })).show()
-    }
-
-    fun showOpenAppSettingDialog(context: Context) {
-        CommonDialogContent().init(context,
-                StringUtils.getString(android.R.string.dialog_alert_title),
-                StringUtils.getString(R.string.permission_denied_forever_message),
-                Pair(StringUtils.getString(android.R.string.ok), View.OnClickListener {
-                    PermissionUtils.launchAppDetailsSettings()
-                }),
-                Pair(StringUtils.getString(android.R.string.cancel), View.OnClickListener {
-                }))
-                .show()
-    }
 
     fun showKeyboardDialog(context: Context) {
         BaseDialogFragment().init(context, object : DialogLayoutCallback {

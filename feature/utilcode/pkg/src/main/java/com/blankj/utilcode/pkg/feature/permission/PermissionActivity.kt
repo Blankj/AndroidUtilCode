@@ -5,13 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import com.blankj.common.activity.CommonActivity
+import com.blankj.common.helper.PermissionHelper
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick
 import com.blankj.common.item.CommonItemSwitch
 import com.blankj.common.item.CommonItemTitle
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.pkg.R
-import com.blankj.utilcode.pkg.helper.DialogHelper
 import com.blankj.utilcode.util.*
 
 /**
@@ -106,7 +106,7 @@ class PermissionActivity : CommonActivity() {
 
     private fun requestCalendar() {
         PermissionUtils.permission(PermissionConstants.CALENDAR)
-                .rationale { activity, shouldRequest -> DialogHelper.showRationaleDialog(activity, shouldRequest) }
+                .rationale { activity, shouldRequest -> PermissionHelper.showRationaleDialog(activity, shouldRequest) }
                 .callback(object : PermissionUtils.FullCallback {
                     override fun onGranted(permissionsGranted: List<String>) {
                         LogUtils.d(permissionsGranted)
@@ -131,7 +131,7 @@ class PermissionActivity : CommonActivity() {
 
     private fun requestRecordAudio() {
         PermissionUtils.permission(PermissionConstants.MICROPHONE)
-                .rationale { activity, shouldRequest -> DialogHelper.showRationaleDialog(activity, shouldRequest) }
+                .rationale { activity, shouldRequest -> PermissionHelper.showRationaleDialog(activity, shouldRequest) }
                 .callback(object : PermissionUtils.FullCallback {
                     override fun onGranted(permissionsGranted: List<String>) {
                         LogUtils.d(permissionsGranted)
@@ -155,7 +155,7 @@ class PermissionActivity : CommonActivity() {
 
     private fun requestCalendarAndRecordAudio() {
         PermissionUtils.permission(PermissionConstants.CALENDAR, PermissionConstants.MICROPHONE)
-                .rationale { activity, shouldRequest -> DialogHelper.showRationaleDialog(activity, shouldRequest) }
+                .rationale { activity, shouldRequest -> PermissionHelper.showRationaleDialog(activity, shouldRequest) }
                 .callback(object : PermissionUtils.FullCallback {
                     override fun onGranted(permissionsGranted: List<String>) {
                         LogUtils.d(permissionsGranted)

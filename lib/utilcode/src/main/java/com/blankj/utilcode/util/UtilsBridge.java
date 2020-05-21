@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -216,6 +217,10 @@ class UtilsBridge {
         return ConvertUtils.inputStream2Bytes(is);
     }
 
+    static ByteArrayOutputStream input2OutputStream(final InputStream is) {
+        return ConvertUtils.input2OutputStream(is);
+    }
+
     static List<String> inputStream2Lines(final InputStream is, final String charsetName) {
         return ConvertUtils.inputStream2Lines(is, charsetName);
     }
@@ -291,6 +296,10 @@ class UtilsBridge {
 
     static long getFsAvailableSize(String path) {
         return FileUtils.getFsAvailableSize(path);
+    }
+
+    static void notifySystemToScan(File file) {
+        FileUtils.notifySystemToScan(file);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -379,6 +388,10 @@ class UtilsBridge {
         return IntentUtils.getSendSmsIntent(phoneNumber, content);
     }
 
+    static Intent getLaunchAppDetailsSettingsIntent(final String pkgName, final boolean isNewTask) {
+        return IntentUtils.getLaunchAppDetailsSettingsIntent(pkgName, isNewTask);
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // JsonUtils
@@ -404,6 +417,10 @@ class UtilsBridge {
     ///////////////////////////////////////////////////////////////////////////
     // PermissionUtils
     ///////////////////////////////////////////////////////////////////////////
+    static boolean isGranted(final String... permissions) {
+        return PermissionUtils.isGranted(permissions);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     static boolean isGrantedDrawOverlays() {
         return PermissionUtils.isGrantedDrawOverlays();
@@ -539,5 +556,9 @@ class UtilsBridge {
     ///////////////////////////////////////////////////////////////////////////
     static Uri file2Uri(final File file) {
         return UriUtils.file2Uri(file);
+    }
+
+    static File uri2File(final Uri uri) {
+        return UriUtils.uri2File(uri);
     }
 }

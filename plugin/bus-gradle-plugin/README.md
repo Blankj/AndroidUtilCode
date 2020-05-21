@@ -19,7 +19,7 @@
 buildscript {
     dependencies {
         ...
-        classpath 'com.blankj:bus-gradle-plugin:2.4'
+        classpath 'com.blankj:bus-gradle-plugin:2.6'
     }
 }
 ```

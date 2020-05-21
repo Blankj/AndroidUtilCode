@@ -47,6 +47,7 @@ import com.blankj.utilcode.pkg.feature.toast.ToastActivity
 import com.blankj.utilcode.pkg.feature.uiMessage.UiMessageActivity
 import com.blankj.utilcode.pkg.feature.vibrate.VibrateActivity
 import com.blankj.utilcode.util.CollectionUtils
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.UtilsTransActivity
 
 /**
@@ -199,5 +200,10 @@ class CoreUtilActivity : CommonActivity() {
                     VibrateActivity.start(this)
                 }
         )
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        LogUtils.e(requestCode, requestCode)
     }
 }

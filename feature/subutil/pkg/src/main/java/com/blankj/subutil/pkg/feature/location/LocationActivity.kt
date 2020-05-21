@@ -6,11 +6,13 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.IBinder
 import com.blankj.common.activity.CommonActivity
+import com.blankj.common.helper.PermissionHelper
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemTitle
 import com.blankj.subutil.pkg.R
-import com.blankj.subutil.pkg.helper.PermissionHelper
+import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.CollectionUtils
+import com.blankj.utilcode.util.PermissionUtils
 
 /**
  * ```
@@ -24,16 +26,15 @@ class LocationActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
-            PermissionHelper.requestLocation(context, object : PermissionHelper.OnPermissionGrantedListener {
-                override fun onPermissionGranted() {
+            PermissionHelper.request(context, object : PermissionUtils.SimpleCallback {
+                override fun onGranted() {
                     val starter = Intent(context, LocationActivity::class.java)
                     context.startActivity(starter)
                 }
-            }, object : PermissionHelper.OnPermissionDeniedListener {
-                override fun onPermissionDenied() {
-                    start(context)
+
+                override fun onDenied() {
                 }
-            })
+            }, PermissionConstants.LOCATION)
         }
     }
 

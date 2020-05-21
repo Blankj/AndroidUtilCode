@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -658,6 +659,27 @@ public final class NetworkUtils {
         WifiManager wm = (WifiManager) Utils.getApp().getSystemService(Context.WIFI_SERVICE);
         if (wm == null) return "";
         return Formatter.formatIpAddress(wm.getDhcpInfo().serverAddress);
+    }
+
+    /**
+     * Return the ssid.
+     *
+     * @return the ssid.
+     */
+    @RequiresPermission(ACCESS_WIFI_STATE)
+    public static String getSSID() {
+        WifiManager wm = (WifiManager) Utils.getApp().getApplicationContext().getSystemService(WIFI_SERVICE);
+        if (wm == null) return "";
+        WifiInfo wi = wm.getConnectionInfo();
+        if (wi == null) return "";
+        String ssid = wi.getSSID();
+        if (TextUtils.isEmpty(ssid)) {
+            return "";
+        }
+        if (ssid.length() > 2 && ssid.charAt(0) == '"' && ssid.charAt(ssid.length() - 1) == '"') {
+            return ssid.substring(1, ssid.length() - 1);
+        }
+        return ssid;
     }
 
     /**

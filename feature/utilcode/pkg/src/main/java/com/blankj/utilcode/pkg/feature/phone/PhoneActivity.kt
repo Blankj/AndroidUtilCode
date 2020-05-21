@@ -3,12 +3,14 @@ package com.blankj.utilcode.pkg.feature.phone
 import android.content.Context
 import android.content.Intent
 import com.blankj.common.activity.CommonActivity
+import com.blankj.common.helper.PermissionHelper
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick
 import com.blankj.common.item.CommonItemTitle
+import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.pkg.R
-import com.blankj.utilcode.pkg.helper.PermissionHelper
 import com.blankj.utilcode.util.CollectionUtils
+import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.PhoneUtils
 
 /**
@@ -23,16 +25,15 @@ class PhoneActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
-            PermissionHelper.requestPhone(context, object : PermissionHelper.OnPermissionGrantedListener {
-                override fun onPermissionGranted() {
+            PermissionHelper.request(context, object : PermissionUtils.SimpleCallback {
+                override fun onGranted() {
                     val starter = Intent(context, PhoneActivity::class.java)
                     context.startActivity(starter)
                 }
-            }, object : PermissionHelper.OnPermissionDeniedListener {
-                override fun onPermissionDenied() {
-                    start(context)
+
+                override fun onDenied() {
                 }
-            })
+            }, PermissionConstants.PHONE)
         }
     }
 

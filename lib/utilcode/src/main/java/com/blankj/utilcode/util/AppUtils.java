@@ -1,6 +1,7 @@
 package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -9,8 +10,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -278,13 +277,37 @@ public final class AppUtils {
     /**
      * Launch the application's details settings.
      *
-     * @param packageName The name of the package.
+     * @param pkgName The name of the package.
      */
-    public static void launchAppDetailsSettings(final String packageName) {
-        if (UtilsBridge.isSpace(packageName)) return;
-        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        intent.setData(Uri.parse("package:" + packageName));
-        Utils.getApp().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+    public static void launchAppDetailsSettings(final String pkgName) {
+        if (UtilsBridge.isSpace(pkgName)) return;
+        Intent intent = UtilsBridge.getLaunchAppDetailsSettingsIntent(pkgName, true);
+        if (!UtilsBridge.isIntentAvailable(intent)) return;
+        Utils.getApp().startActivity(intent);
+    }
+
+    /**
+     * Launch the application's details settings.
+     *
+     * @param activity    The activity.
+     * @param requestCode The requestCode.
+     */
+    public static void launchAppDetailsSettings(final Activity activity, final int requestCode) {
+        launchAppDetailsSettings(activity, requestCode, Utils.getApp().getPackageName());
+    }
+
+    /**
+     * Launch the application's details settings.
+     *
+     * @param activity    The activity.
+     * @param requestCode The requestCode.
+     * @param pkgName     The name of the package.
+     */
+    public static void launchAppDetailsSettings(final Activity activity, final int requestCode, final String pkgName) {
+        if (activity == null || UtilsBridge.isSpace(pkgName)) return;
+        Intent intent = UtilsBridge.getLaunchAppDetailsSettingsIntent(pkgName, false);
+        if (!UtilsBridge.isIntentAvailable(intent)) return;
+        activity.startActivityForResult(intent, requestCode);
     }
 
     /**
