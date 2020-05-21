@@ -76,7 +76,7 @@ class DepConfig {
     }
 
     String getProjectPath() {
-        return localPath.substring(0, localPath.lastIndexOf(":")) + ":" + localPath.substring(1).replace(":", "_")
+        return ":" + localPath.substring(1).replace(":", "_")
     }
 
     @Override

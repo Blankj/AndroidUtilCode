@@ -1,5 +1,7 @@
 package com.blankj.utilcode.util;
 
+import android.Manifest;
+import android.content.ContentValues;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -22,7 +24,10 @@ import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
@@ -45,6 +50,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.FloatRange;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
@@ -1502,7 +1508,7 @@ public final class ImageUtils {
     public static boolean save(final Bitmap src,
                                final String filePath,
                                final CompressFormat format) {
-        return save(src, UtilsBridge.getFileByPath(filePath), format, false);
+        return save(src, filePath, format, 100, false);
     }
 
     /**
@@ -1514,7 +1520,7 @@ public final class ImageUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean save(final Bitmap src, final File file, final CompressFormat format) {
-        return save(src, file, format, false);
+        return save(src, file, format, 100, false);
     }
 
     /**
@@ -1530,7 +1536,7 @@ public final class ImageUtils {
                                final String filePath,
                                final CompressFormat format,
                                final boolean recycle) {
-        return save(src, UtilsBridge.getFileByPath(filePath), format, recycle);
+        return save(src, filePath, format, 100, recycle);
     }
 
     /**
@@ -1546,7 +1552,91 @@ public final class ImageUtils {
                                final File file,
                                final CompressFormat format,
                                final boolean recycle) {
-        if (isEmptyBitmap(src) || !UtilsBridge.createFileByDeleteOldFile(file)) {
+        return save(src, file, format, 100, recycle);
+    }
+
+    /**
+     * Save the bitmap.
+     *
+     * @param src      The source of bitmap.
+     * @param filePath The path of file.
+     * @param format   The format of the image.
+     * @param quality  Hint to the compressor, 0-100. 0 meaning compress for
+     *                 small size, 100 meaning compress for max quality. Some
+     *                 formats, like PNG which is lossless, will ignore the
+     *                 quality setting
+     * @return {@code true}: success<br>{@code false}: fail
+     */
+    public static boolean save(final Bitmap src,
+                               final String filePath,
+                               final CompressFormat format,
+                               final int quality) {
+        return save(src, UtilsBridge.getFileByPath(filePath), format, quality, false);
+    }
+
+    /**
+     * Save the bitmap.
+     *
+     * @param src    The source of bitmap.
+     * @param file   The file.
+     * @param format The format of the image.
+     * @return {@code true}: success<br>{@code false}: fail
+     */
+    public static boolean save(final Bitmap src,
+                               final File file,
+                               final CompressFormat format,
+                               final int quality) {
+        return save(src, file, format, quality, false);
+    }
+
+    /**
+     * Save the bitmap.
+     *
+     * @param src      The source of bitmap.
+     * @param filePath The path of file.
+     * @param format   The format of the image.
+     * @param quality  Hint to the compressor, 0-100. 0 meaning compress for
+     *                 small size, 100 meaning compress for max quality. Some
+     *                 formats, like PNG which is lossless, will ignore the
+     *                 quality setting
+     * @param recycle  True to recycle the source of bitmap, false otherwise.
+     * @return {@code true}: success<br>{@code false}: fail
+     */
+    public static boolean save(final Bitmap src,
+                               final String filePath,
+                               final CompressFormat format,
+                               final int quality,
+                               final boolean recycle) {
+        return save(src, UtilsBridge.getFileByPath(filePath), format, quality, recycle);
+    }
+
+    /**
+     * Save the bitmap.
+     *
+     * @param src     The source of bitmap.
+     * @param file    The file.
+     * @param format  The format of the image.
+     * @param quality Hint to the compressor, 0-100. 0 meaning compress for
+     *                small size, 100 meaning compress for max quality. Some
+     *                formats, like PNG which is lossless, will ignore the
+     *                quality setting
+     * @param recycle True to recycle the source of bitmap, false otherwise.
+     * @return {@code true}: success<br>{@code false}: fail
+     */
+    public static boolean save(final Bitmap src,
+                               final File file,
+                               final CompressFormat format,
+                               final int quality,
+                               final boolean recycle) {
+        if (isEmptyBitmap(src)) {
+            Log.e("ImageUtils", "bitmap is empty.");
+            return false;
+        }
+        if (src.isRecycled()) {
+            Log.e("ImageUtils", "bitmap is recycled.");
+            return false;
+        }
+        if (!UtilsBridge.createFileByDeleteOldFile(file)) {
             Log.e("ImageUtils", "create or delete file <" + file + "> failed.");
             return false;
         }
@@ -1554,7 +1644,7 @@ public final class ImageUtils {
         boolean ret = false;
         try {
             os = new BufferedOutputStream(new FileOutputStream(file));
-            ret = src.compress(format, 100, os);
+            ret = src.compress(format, quality, os);
             if (recycle && !src.isRecycled()) src.recycle();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1568,6 +1658,80 @@ public final class ImageUtils {
             }
         }
         return ret;
+    }
+
+    @Nullable
+    public static File save2Album(final Bitmap src,
+                                  final CompressFormat format) {
+        return save2Album(src, format, 100, false);
+    }
+
+    @Nullable
+    public static File save2Album(final Bitmap src,
+                                  final CompressFormat format,
+                                  final boolean recycle) {
+        return save2Album(src, format, 100, recycle);
+    }
+
+    @Nullable
+    public static File save2Album(final Bitmap src,
+                                  final CompressFormat format,
+                                  final int quality) {
+        return save2Album(src, format, quality, false);
+    }
+
+    @Nullable
+    public static File save2Album(final Bitmap src,
+                                  final CompressFormat format,
+                                  final int quality,
+                                  final boolean recycle) {
+        String suffix = CompressFormat.JPEG.equals(format) ? "JPG" : format.name();
+        String fileName = System.currentTimeMillis() + "_" + quality + "." + suffix;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            if (!UtilsBridge.isGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                Log.e("ImageUtils", "save to album need storage permission");
+                return null;
+            }
+            File picDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+            File destFile = new File(picDir, Utils.getApp().getPackageName() + "/" + fileName);
+            if (!save(src, destFile, format, quality, recycle)) {
+                return null;
+            }
+            UtilsBridge.notifySystemToScan(destFile);
+            return destFile;
+        } else {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, fileName);
+            contentValues.put(MediaStore.Images.Media.MIME_TYPE, "image/*");
+            Uri contentUri;
+            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+            } else {
+                contentUri = MediaStore.Images.Media.INTERNAL_CONTENT_URI;
+            }
+            contentValues.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_DCIM + "/" + Utils.getApp().getPackageName());
+            Uri uri = Utils.getApp().getContentResolver().insert(contentUri, contentValues);
+            if (uri == null) {
+                return null;
+            }
+            OutputStream os = null;
+            try {
+                os = Utils.getApp().getContentResolver().openOutputStream(uri);
+                src.compress(format, quality, os);
+                return UtilsBridge.uri2File(uri);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            } finally {
+                try {
+                    if (os != null) {
+                        os.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**

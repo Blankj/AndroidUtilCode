@@ -350,14 +350,22 @@ public final class ToastUtils {
 
         static IToast makeToast(Context context, CharSequence text, int duration) {
             if (NotificationManagerCompat.from(context).areNotificationsEnabled()) {
-                return new SystemToast(makeNormalToast(context, text, duration));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (!UtilsBridge.isGrantedDrawOverlays()) {
+                        return new SystemToast(makeNormalToast(context, text, duration));
+                    }
+                }
             }
             return new ToastWithoutNotification(makeNormalToast(context, text, duration));
         }
 
         static IToast newToast(Context context) {
             if (NotificationManagerCompat.from(context).areNotificationsEnabled()) {
-                return new SystemToast(new Toast(context));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (!UtilsBridge.isGrantedDrawOverlays()) {
+                        return new SystemToast(new Toast(context));
+                    }
+                }
             }
             return new ToastWithoutNotification(new Toast(context));
         }

@@ -117,9 +117,19 @@ public final class IntentUtils {
      * @return the intent of launch app details settings
      */
     public static Intent getLaunchAppDetailsSettingsIntent(final String pkgName) {
+        return getLaunchAppDetailsSettingsIntent(pkgName, false);
+    }
+
+    /**
+     * Return the intent of launch app details settings.
+     *
+     * @param pkgName The name of the package.
+     * @return the intent of launch app details settings
+     */
+    public static Intent getLaunchAppDetailsSettingsIntent(final String pkgName, final boolean isNewTask) {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.parse("package:" + pkgName));
-        return getIntent(intent, true);
+        return getIntent(intent, isNewTask);
     }
 
     /**

@@ -376,7 +376,11 @@ public final class FileIOUtils {
                                                       final byte[] bytes,
                                                       final boolean append,
                                                       final boolean isForce) {
-        if (bytes == null || !UtilsBridge.createOrExistsFile(file)) {
+        if (bytes == null) {
+            Log.e("FileIOUtils", "bytes is null.");
+            return false;
+        }
+        if (!UtilsBridge.createOrExistsFile(file)) {
             Log.e("FileIOUtils", "create file <" + file + "> failed.");
             return false;
         }

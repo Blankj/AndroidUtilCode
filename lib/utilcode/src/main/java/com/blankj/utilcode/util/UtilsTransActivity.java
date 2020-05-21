@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,27 +24,36 @@ import androidx.appcompat.app.AppCompatActivity;
 public class UtilsTransActivity extends AppCompatActivity {
 
     private static final Map<UtilsTransActivity, TransActivityDelegate> CALLBACK_MAP = new HashMap<>();
-    private static       TransActivityDelegate                          sDelegate;
+
+    protected static final String EXTRA_DELEGATE = "extra_delegate";
 
     public static void start(final TransActivityDelegate delegate) {
-        start(null, null, delegate);
+        start(null, null, delegate, UtilsTransActivity.class);
     }
 
     public static void start(final Utils.Consumer<Intent> consumer,
                              final TransActivityDelegate delegate) {
-        start(null, consumer, delegate);
+        start(null, consumer, delegate, UtilsTransActivity.class);
     }
 
     public static void start(final Activity activity,
                              final TransActivityDelegate delegate) {
-        start(activity, null, delegate);
+        start(activity, null, delegate, UtilsTransActivity.class);
     }
 
     public static void start(final Activity activity,
                              final Utils.Consumer<Intent> consumer,
                              final TransActivityDelegate delegate) {
+        start(activity, consumer, delegate, UtilsTransActivity.class);
+    }
+
+    protected static void start(final Activity activity,
+                                final Utils.Consumer<Intent> consumer,
+                                final TransActivityDelegate delegate,
+                                final Class<?> cls) {
         if (delegate == null) return;
-        Intent starter = new Intent(Utils.getApp(), UtilsTransActivity.class);
+        Intent starter = new Intent(Utils.getApp(), cls);
+        starter.putExtra(EXTRA_DELEGATE, delegate);
         if (consumer != null) {
             consumer.accept(starter);
         }
@@ -53,22 +63,22 @@ public class UtilsTransActivity extends AppCompatActivity {
         } else {
             activity.startActivity(starter);
         }
-        sDelegate = delegate;
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         overridePendingTransition(0, 0);
-        if (sDelegate == null) {
+        Serializable extra = getIntent().getSerializableExtra(EXTRA_DELEGATE);
+        if (!(extra instanceof TransActivityDelegate)) {
             super.onCreate(savedInstanceState);
             finish();
             return;
         }
-        CALLBACK_MAP.put(this, sDelegate);
-        sDelegate.onCreateBefore(this, savedInstanceState);
+        TransActivityDelegate delegate = (TransActivityDelegate) extra;
+        CALLBACK_MAP.put(this, delegate);
+        delegate.onCreateBefore(this, savedInstanceState);
         super.onCreate(savedInstanceState);
-        sDelegate.onCreated(this, savedInstanceState);
-        sDelegate = null;
+        delegate.onCreated(this, savedInstanceState);
     }
 
     @Override
@@ -147,7 +157,7 @@ public class UtilsTransActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
-    public abstract static class TransActivityDelegate {
+    public abstract static class TransActivityDelegate implements Serializable {
         public void onCreateBefore(@NonNull UtilsTransActivity activity, @Nullable Bundle savedInstanceState) {/**/}
 
         public void onCreated(@NonNull UtilsTransActivity activity, @Nullable Bundle savedInstanceState) {/**/}

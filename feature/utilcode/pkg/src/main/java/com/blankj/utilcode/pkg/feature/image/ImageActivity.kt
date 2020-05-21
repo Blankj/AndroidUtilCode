@@ -8,13 +8,16 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import com.blankj.common.activity.CommonActivity
+import com.blankj.common.helper.PermissionHelper
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick
 import com.blankj.common.item.CommonItemImage
 import com.blankj.common.item.CommonItemTitle
+import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.pkg.Config
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.*
+import java.io.File
 import java.util.*
 
 /**
@@ -32,8 +35,15 @@ class ImageActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
-            val starter = Intent(context, ImageActivity::class.java)
-            context.startActivity(starter)
+            PermissionHelper.request(context, object : PermissionUtils.SimpleCallback {
+                override fun onGranted() {
+                    val starter = Intent(context, ImageActivity::class.java)
+                    context.startActivity(starter)
+                }
+
+                override fun onDenied() {
+                }
+            }, PermissionConstants.STORAGE)
         }
     }
 
@@ -79,10 +89,31 @@ class ImageActivity : CommonActivity() {
                                 .apply {
                                     if (result) {
                                         setMessage("save successful.")
-                                                .showSuccess()
+                                                .showSuccess(true)
                                     } else {
                                         setMessage("save failed.")
-                                                .showError()
+                                                .showError(true)
+                                    }
+                                }
+                    }
+                })
+            })
+            add(CommonItemClick("Save to Album") {
+                ThreadUtils.executeBySingle(object : ThreadUtils.SimpleTask<File?>() {
+                    override fun doInBackground(): File? {
+                        return ImageUtils.save2Album(src, Bitmap.CompressFormat.JPEG)
+                    }
+
+                    override fun onSuccess(result: File?) {
+                        SnackbarUtils.with(mContentView)
+                                .setDuration(SnackbarUtils.LENGTH_LONG)
+                                .apply {
+                                    if (result != null) {
+                                        setMessage("save successful.")
+                                                .showSuccess(true)
+                                    } else {
+                                        setMessage("save failed.")
+                                                .showError(true)
                                     }
                                 }
                     }

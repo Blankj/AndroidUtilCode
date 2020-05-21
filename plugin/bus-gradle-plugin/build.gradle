@@ -40,5 +40,5 @@ publish {
     website = "https://github.com/Blankj/AndroidUtilCode"
 }
 
-//./gradlew clean plugin:plugin_bus-gradle-plugin:mavenLocal    // 上传到本地 mavenLocal
-//./gradlew clean plugin:plugin_bus-gradle-plugin:bintrayUpload // 上传到 jcenter
+//./gradlew clean :plugin_bus-gradle-plugin:mavenLocal    // 上传到本地 mavenLocal
+//./gradlew clean :plugin_bus-gradle-plugin:bintrayUpload // 上传到 jcenter

@@ -22,11 +22,10 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
-
-import static com.blankj.utilcode.constant.PermissionConstants.Permission;
 
 /**
  * <pre>
@@ -42,6 +41,7 @@ public final class PermissionUtils {
 
     private String[]            mPermissionsParam;
     private OnRationaleListener mOnRationaleListener;
+    private SingleCallback      mSingleCallback;
     private SimpleCallback      mSimpleCallback;
     private FullCallback        mFullCallback;
     private ThemeCallback       mThemeCallback;
@@ -168,10 +168,9 @@ public final class PermissionUtils {
      * Launch the application's details settings.
      */
     public static void launchAppDetailsSettings() {
-        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        intent.setData(Uri.parse("package:" + Utils.getApp().getPackageName()));
+        Intent intent = UtilsBridge.getLaunchAppDetailsSettingsIntent(Utils.getApp().getPackageName(), true);
         if (!UtilsBridge.isIntentAvailable(intent)) return;
-        Utils.getApp().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        Utils.getApp().startActivity(intent);
     }
 
     /**
@@ -180,7 +179,7 @@ public final class PermissionUtils {
      * @param permissions The permissions.
      * @return the single {@link PermissionUtils} instance
      */
-    public static PermissionUtils permission(@Permission final String... permissions) {
+    public static PermissionUtils permission(@PermissionConstants.Permission final String... permissions) {
         return new PermissionUtils(permissions);
     }
 
@@ -197,6 +196,17 @@ public final class PermissionUtils {
      */
     public PermissionUtils rationale(final OnRationaleListener listener) {
         mOnRationaleListener = listener;
+        return this;
+    }
+
+    /**
+     * Set the simple call back.
+     *
+     * @param callback the single call back
+     * @return the single {@link PermissionUtils} instance
+     */
+    public PermissionUtils callback(final SingleCallback callback) {
+        mSingleCallback = callback;
         return this;
     }
 
@@ -238,7 +248,7 @@ public final class PermissionUtils {
      */
     public void request() {
         if (mPermissionsParam == null || mPermissionsParam.length <= 0) {
-            Log.e("PermissionUtils", "No permissions to request.");
+            Log.w("PermissionUtils", "No permissions to request.");
             return;
         }
 
@@ -334,6 +344,11 @@ public final class PermissionUtils {
     }
 
     private void requestCallback() {
+        if (mSingleCallback != null) {
+            mSingleCallback.callback(mPermissionsDenied.isEmpty(),
+                    mPermissionsGranted, mPermissionsDeniedForever, mPermissionsDenied);
+            mSingleCallback = null;
+        }
         if (mSimpleCallback != null) {
             if (mPermissionsDenied.isEmpty()) {
                 mSimpleCallback.onGranted();
@@ -494,6 +509,12 @@ public final class PermissionUtils {
         }
     }
 
+    public interface SingleCallback {
+        void callback(boolean isAllGranted, @NonNull List<String> granted,
+                      @NonNull List<String> deniedForever, @NonNull List<String> denied);
+    }
+
+
     public interface SimpleCallback {
         void onGranted();
 
@@ -501,9 +522,9 @@ public final class PermissionUtils {
     }
 
     public interface FullCallback {
-        void onGranted(List<String> permissionsGranted);
+        void onGranted(@NonNull List<String> granted);
 
-        void onDenied(List<String> permissionsDeniedForever, List<String> permissionsDenied);
+        void onDenied(@NonNull List<String> deniedForever, @NonNull List<String> denied);
     }
 
     public interface ThemeCallback {

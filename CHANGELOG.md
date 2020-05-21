@@ -1,3 +1,7 @@
+* `20/05/21` [add] Publish bus plugin v2.6. Publish api plugin v1.4. Publish. Publish 1.28.5.
+* `20/05/19` [fix] FileUtils#copyOrMoveDird NPE.
+* `20/05/18` [add] IntentUtils#getLaunchAppDetailsSettingsIntent support isNewTask.
+* `20/05/17` [add] ImageUtils#save2Album, NetworkUtils#getSSID, UtilsTransActivity4MainProcess.
 * `20/05/03` [add] Publish bus plugin v2.5. Publish api plugin v1.3. Publish. Publish 1.28.4.
 * `20/04/30` [add] BaseItem support partialUpdate.
 * `20/04/29` [add] Publish plugin lib com.blankj:base-transform:1.0.
