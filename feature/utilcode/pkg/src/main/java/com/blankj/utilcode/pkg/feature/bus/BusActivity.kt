@@ -2,7 +2,6 @@ package com.blankj.utilcode.pkg.feature.bus
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.support.annotation.Keep
 import com.blankj.common.activity.CommonActivity
 import com.blankj.common.item.CommonItem

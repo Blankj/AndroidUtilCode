@@ -1,13 +1,15 @@
-* `20/05/21` [add] Publish bus plugin v2.6. Publish api plugin v1.4. Publish. Publish 1.28.5.
+* `20/05/23` [fix] BusUtils#postSticky times not right. Publish v1.28.6.
+* `20/05/22` [add] IntentUtils#getInstallAppIntent support Uri param. Publish.
+* `20/05/21` [add] Publish bus plugin v2.6. Publish api plugin v1.4. Publish. Publish v1.28.5.
 * `20/05/19` [fix] FileUtils#copyOrMoveDird NPE.
 * `20/05/18` [add] IntentUtils#getLaunchAppDetailsSettingsIntent support isNewTask.
 * `20/05/17` [add] ImageUtils#save2Album, NetworkUtils#getSSID, UtilsTransActivity4MainProcess.
-* `20/05/03` [add] Publish bus plugin v2.5. Publish api plugin v1.3. Publish. Publish 1.28.4.
+* `20/05/03` [add] Publish bus plugin v2.5. Publish api plugin v1.3. Publish. Publish v1.28.4.
 * `20/04/30` [add] BaseItem support partialUpdate.
 * `20/04/29` [add] Publish plugin lib com.blankj:base-transform:1.0.
 * `20/04/28` [fix] LanguageUtils#applyLanguage.
 * `20/04/27` [fix] BarUtils#isNavBarVisible.
-* `20/04/26` [fix] Utils#init fit tinker. Publish 1.28.3.
+* `20/04/26` [fix] Utils#init fit tinker. Publish v1.28.3.
 * `20/04/25` [fix] UriUtils#uri2File Unknown URI. Publish 1.28.2.
 * `20/04/24` [add] SnackbarUtils support show on the top; UriUtils#uri2InputStream.
 * `20/04/23` [fix] UriUtils#uri2File not support HW; TransActivity crash below 21.

@@ -10,6 +10,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -68,8 +69,22 @@ public final class AppUtils {
      * @param file The file.
      */
     public static void installApp(final File file) {
-        if (!UtilsBridge.isFileExists(file)) return;
-        Utils.getApp().startActivity(UtilsBridge.getInstallAppIntent(file));
+        Intent installAppIntent = UtilsBridge.getInstallAppIntent(file);
+        if (installAppIntent == null) return;
+        Utils.getApp().startActivity(installAppIntent);
+    }
+
+    /**
+     * Install the app.
+     * <p>Target APIs greater than 25 must hold
+     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
+     *
+     * @param uri The uri.
+     */
+    public static void installApp(final Uri uri) {
+        Intent installAppIntent = UtilsBridge.getInstallAppIntent(uri);
+        if (installAppIntent == null) return;
+        Utils.getApp().startActivity(installAppIntent);
     }
 
     /**

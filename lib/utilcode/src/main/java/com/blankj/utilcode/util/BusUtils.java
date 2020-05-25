@@ -147,7 +147,7 @@ public final class BusUtils {
         if (tagArgMap == null) return;
         synchronized (mClassName_Tag_Arg4StickyMap) {
             for (Map.Entry<String, Object> tagArgEntry : tagArgMap.entrySet()) {
-                postInner(tagArgEntry.getKey(), tagArgEntry.getValue());
+                postStickyInner(tagArgEntry.getKey(), tagArgEntry.getValue(), true);
             }
         }
     }
@@ -176,15 +176,19 @@ public final class BusUtils {
             return;
         }
         for (BusInfo busInfo : busInfoList) {
-            if (busInfo.method == null) {
-                Method method = getMethodByBusInfo(busInfo);
-                if (method == null) {
-                    return;
-                }
-                busInfo.method = method;
-            }
-            invokeMethod(tag, arg, busInfo, sticky);
+            invokeBus(tag, arg, busInfo, sticky);
         }
+    }
+
+    private void invokeBus(String tag, Object arg, BusInfo busInfo, boolean sticky) {
+        if (busInfo.method == null) {
+            Method method = getMethodByBusInfo(busInfo);
+            if (method == null) {
+                return;
+            }
+            busInfo.method = method;
+        }
+        invokeMethod(tag, arg, busInfo, sticky);
     }
 
     private Method getMethodByBusInfo(BusInfo busInfo) {
@@ -287,6 +291,10 @@ public final class BusUtils {
     }
 
     private void postStickyInner(final String tag, final Object arg) {
+        postStickyInner(tag, arg, false);
+    }
+
+    private void postStickyInner(final String tag, final Object arg, boolean isInvokeOnlySticky) {
         List<BusInfo> busInfoList = mTag_BusInfoListMap.get(tag);
         if (busInfoList == null) {
             Log.e(TAG, "The bus of tag <" + tag + "> is not exists.");
@@ -294,8 +302,10 @@ public final class BusUtils {
         }
         for (BusInfo busInfo : busInfoList) {
             if (!busInfo.sticky) { // not sticky bus will post directly.
-                postInner(tag, arg);
-                return;
+                if (!isInvokeOnlySticky) {
+                    invokeBus(tag, arg, busInfo, false);
+                }
+                continue;
             }
             synchronized (mClassName_Tag_Arg4StickyMap) {
                 Map<String, Object> tagArgMap = mClassName_Tag_Arg4StickyMap.get(busInfo.className);
@@ -305,7 +315,7 @@ public final class BusUtils {
                 }
                 tagArgMap.put(tag, arg);
             }
-            postInner(tag, arg, true);
+            invokeBus(tag, arg, busInfo, true);
         }
     }
 

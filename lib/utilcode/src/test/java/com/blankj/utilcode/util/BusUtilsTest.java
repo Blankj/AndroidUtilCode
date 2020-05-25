@@ -45,6 +45,11 @@ public class BusUtilsTest extends BaseTest {
         System.out.println("noParamSticky");
     }
 
+    @BusUtils.Bus(tag = TAG_NO_PARAM_STICKY)
+    public void foo() {
+        System.out.println("foo");
+    }
+
     @BusUtils.Bus(tag = TAG_ONE_PARAM_STICKY, sticky = true)
     public void oneParamStickyFun(Callback callback) {
         if (callback != null) {
@@ -81,12 +86,22 @@ public class BusUtilsTest extends BaseTest {
         BusUtils.registerBus4Test(TAG_NO_PARAM, BusUtilsTest.class.getName(), "noParamFun", "", "", false, "POSTING", 0);
         BusUtils.registerBus4Test(TAG_ONE_PARAM, BusUtilsTest.class.getName(), "oneParamFun", String.class.getName(), "param", false, "POSTING", 0);
         BusUtils.registerBus4Test(TAG_NO_PARAM_STICKY, BusUtilsTest.class.getName(), "noParamStickyFun", "", "", true, "POSTING", 0);
+        BusUtils.registerBus4Test(TAG_NO_PARAM_STICKY, BusUtilsTest.class.getName(), "foo", "", "", false, "POSTING", 0);
         BusUtils.registerBus4Test(TAG_ONE_PARAM_STICKY, BusUtilsTest.class.getName(), "oneParamStickyFun", Callback.class.getName(), "callback", true, "POSTING", 0);
 
         BusUtils.registerBus4Test(TAG_IO, BusUtilsTest.class.getName(), "ioFun", CountDownLatch.class.getName(), "latch", false, "IO", 0);
         BusUtils.registerBus4Test(TAG_CPU, BusUtilsTest.class.getName(), "cpuFun", CountDownLatch.class.getName(), "latch", false, "CPU", 0);
         BusUtils.registerBus4Test(TAG_CACHED, BusUtilsTest.class.getName(), "cachedFun", CountDownLatch.class.getName(), "latch", false, "CACHED", 0);
         BusUtils.registerBus4Test(TAG_SINGLE, BusUtilsTest.class.getName(), "singleFun", CountDownLatch.class.getName(), "latch", false, "SINGLE", 0);
+    }
+
+    @Test
+    public void testSticky() {
+        BusUtils.postSticky(TAG_NO_PARAM_STICKY);
+        BusUtilsTest test = new BusUtilsTest();
+        BusUtils.register(test);
+
+        BusUtils.postSticky(TAG_NO_PARAM_STICKY);
     }
 
     @Test
