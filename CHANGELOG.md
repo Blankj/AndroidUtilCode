@@ -1,5 +1,6 @@
+* `20/05/28` [fix] IntentUtils#getInstallAppIntent file exist wrong. Publish v1.29.0.
 * `20/05/23` [fix] BusUtils#postSticky times not right. Publish v1.28.6.
-* `20/05/22` [add] IntentUtils#getInstallAppIntent support Uri param. Publish.
+* `20/05/22` [add] IntentUtils#getInstallAppIntent support Uri param.
 * `20/05/21` [add] Publish bus plugin v2.6. Publish api plugin v1.4. Publish. Publish v1.28.5.
 * `20/05/19` [fix] FileUtils#copyOrMoveDird NPE.
 * `20/05/18` [add] IntentUtils#getLaunchAppDetailsSettingsIntent support isNewTask.
