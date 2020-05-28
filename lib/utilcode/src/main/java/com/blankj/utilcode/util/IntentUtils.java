@@ -66,7 +66,7 @@ public final class IntentUtils {
      * @return the intent of install app
      */
     public static Intent getInstallAppIntent(final File file) {
-        if (UtilsBridge.isFileExists(file)) return null;
+        if (!UtilsBridge.isFileExists(file)) return null;
         Uri uri;
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             uri = Uri.fromFile(file);
