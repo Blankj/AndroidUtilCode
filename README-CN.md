@@ -1,6 +1,6 @@
 [![logo][logo]](https://github.com/Blankj/AndroidUtilCode)
 
-<!--<a href="https://tracking.gitads.io/?repo=AndroidUtilCode"> <img src="https://images.gitads.io/AndroidUtilCode" alt="GitAds"/> </a>-->
+<a href="https://tracking.gitads.io/?repo=AndroidUtilCode"> <img src="https://images.gitads.io/AndroidUtilCode" alt="GitAds"/> </a>
 
 [![frame][frame]](https://github.com/Blankj/AucFrameTemplate)
 
