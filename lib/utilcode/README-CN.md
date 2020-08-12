@@ -8,6 +8,8 @@ implementation 'com.blankj:utilcode:1.29.0'
 implementation 'com.blankj:utilcodex:1.29.0'
 ```
 
+<a href="https://tracking.gitads.io/?repo=AndroidUtilCode"> <img src="https://images.gitads.io/AndroidUtilCode" alt="GitAds"/> </a>
+
 
 ## APIs
 
@@ -1157,15 +1159,20 @@ removeListener: 移除消息监听器
 
 * ### URI 相关 -> [UriUtils.java][uri.java]
 ```
-res2Uri        : res 转 uri
-file2Uri       : file 转 uri
-uri2File       : uri 转 file
-uri2Bytes      : uri 转 bytes
+res2Uri  : res 转 uri
+file2Uri : file 转 uri
+uri2File : uri 转 file
+uri2Bytes: uri 转 bytes
 ```
 
 * ### UtilsTransActivity -> [UtilsTransActivity.java][trans.java]
 ```
-start: 启动透明 Activity
+start: 启动随当前线程的透明 Activity
+```
+
+* ### UtilsTransActivity4MainProcess -> [UtilsTransActivity4MainProcess.java][trans4Main.java]
+```
+start: 启动主线程的透明 Activity
 ```
 
 * ### 震动相关 -> [VibrateUtils.java][vibrate.java] -> [Demo][vibrate.demo]
@@ -1395,6 +1402,8 @@ getComments       : 获取压缩文件中的注释链表
 [uri.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UriUtils.java
 
 [trans.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UtilsTransActivity.java
+
+[trans4Main.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UtilsTransActivity4MainProcess.java
 
 [vibrate.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/VibrateUtils.java
 [vibrate.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/vibrate/VibrateActivity.kt

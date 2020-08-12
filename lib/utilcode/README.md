@@ -8,6 +8,8 @@ implementation 'com.blankj:utilcode:1.29.0'
 implementation 'com.blankj:utilcodex:1.29.0'
 ```
 
+<a href="https://tracking.gitads.io/?repo=AndroidUtilCode"> <img src="https://images.gitads.io/AndroidUtilCode" alt="GitAds"/> </a>
+
 
 ## APIs
 
@@ -1160,10 +1162,15 @@ removeListener
 res2Uri
 file2Uri
 uri2File
-uri2InputStream
+uri2Bytes
 ```
 
 * ### UtilsTransActivity -> [UtilsTransActivity.java][trans.java]
+```
+start
+```
+
+* ### UtilsTransActivity4MainProcess -> [UtilsTransActivity4MainProcess.java][trans4Main.java]
 ```
 start
 ```
@@ -1392,6 +1399,8 @@ getComments
 [uri.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UriUtils.java
 
 [trans.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UtilsTransActivity.java
+
+[trans4Main.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UtilsTransActivity4MainProcess.java
 
 [vibrate.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/VibrateUtils.java
 [vibrate.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/vibrate/VibrateActivity.kt
