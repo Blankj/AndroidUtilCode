@@ -19,12 +19,10 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/08/27
- *     desc  : utils about zip
- * </pre>
+ * author: Blankj
+ * blog  : http://blankj.com
+ * time  : 2016/08/27
+ * desc  : utils about zip
  */
 public final class ZipUtils {
 
@@ -39,7 +37,7 @@ public final class ZipUtils {
      *
      * @param srcFiles    The source of files.
      * @param zipFilePath The path of ZIP file.
-     * @return {@code true}: success<br>{@code false}: fail
+     * @return {@code true}: success {@code false}: fail
      * @throws IOException if an I/O error has occurred
      */
     public static boolean zipFiles(final Collection<String> srcFiles,
@@ -54,7 +52,7 @@ public final class ZipUtils {
      * @param srcFilePaths The paths of source files.
      * @param zipFilePath  The path of ZIP file.
      * @param comment      The comment.
-     * @return {@code true}: success<br>{@code false}: fail
+     * @return {@code true}: success {@code false}: fail
      * @throws IOException if an I/O error has occurred
      */
     public static boolean zipFiles(final Collection<String> srcFilePaths,
@@ -82,7 +80,7 @@ public final class ZipUtils {
      *
      * @param srcFiles The source of files.
      * @param zipFile  The ZIP file.
-     * @return {@code true}: success<br>{@code false}: fail
+     * @return {@code true}: success {@code false}: fail
      * @throws IOException if an I/O error has occurred
      */
     public static boolean zipFiles(final Collection<File> srcFiles, final File zipFile)
@@ -96,7 +94,7 @@ public final class ZipUtils {
      * @param srcFiles The source of files.
      * @param zipFile  The ZIP file.
      * @param comment  The comment.
-     * @return {@code true}: success<br>{@code false}: fail
+     * @return {@code true}: success {@code false}: fail
      * @throws IOException if an I/O error has occurred
      */
     public static boolean zipFiles(final Collection<File> srcFiles,
@@ -124,7 +122,7 @@ public final class ZipUtils {
      *
      * @param srcFilePath The path of source file.
      * @param zipFilePath The path of ZIP file.
-     * @return {@code true}: success<br>{@code false}: fail
+     * @return {@code true}: success {@code false}: fail
      * @throws IOException if an I/O error has occurred
      */
     public static boolean zipFile(final String srcFilePath,
@@ -139,7 +137,7 @@ public final class ZipUtils {
      * @param srcFilePath The path of source file.
      * @param zipFilePath The path of ZIP file.
      * @param comment     The comment.
-     * @return {@code true}: success<br>{@code false}: fail
+     * @return {@code true}: success {@code false}: fail
      * @throws IOException if an I/O error has occurred
      */
     public static boolean zipFile(final String srcFilePath,
@@ -154,7 +152,7 @@ public final class ZipUtils {
      *
      * @param srcFile The source of file.
      * @param zipFile The ZIP file.
-     * @return {@code true}: success<br>{@code false}: fail
+     * @return {@code true}: success {@code false}: fail
      * @throws IOException if an I/O error has occurred
      */
     public static boolean zipFile(final File srcFile,
@@ -169,7 +167,7 @@ public final class ZipUtils {
      * @param srcFile The source of file.
      * @param zipFile The ZIP file.
      * @param comment The comment.
-     * @return {@code true}: success<br>{@code false}: fail
+     * @return {@code true}: success {@code false}: fail
      * @throws IOException if an I/O error has occurred
      */
     public static boolean zipFile(final File srcFile,
@@ -261,7 +259,7 @@ public final class ZipUtils {
      *
      * @param zipFilePath The path of ZIP file.
      * @param destDirPath The path of destination directory.
-     * @param keyword     The keyboard.
+     * @param keyword     The keywoard.
      * @return the unzipped files
      * @throws IOException if unzip unsuccessfully
      */
@@ -277,7 +275,7 @@ public final class ZipUtils {
      *
      * @param zipFile The ZIP file.
      * @param destDir The destination directory.
-     * @param keyword The keyboard.
+     * @param keyword The keywoard.
      * @return the unzipped files
      * @throws IOException if unzip unsuccessfully
      */
