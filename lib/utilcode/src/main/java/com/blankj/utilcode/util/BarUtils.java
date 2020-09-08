@@ -7,11 +7,13 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.RequiresPermission;
 import android.support.v4.widget.DrawerLayout;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.KeyCharacterMap;
@@ -565,9 +567,26 @@ public final class BarUtils {
             }
         }
         if (isVisible) {
+
+            // 对于三星手机，android10以下非OneUI2的版本，比如 s8，note8 等设备上，导航栏显示存在bug："当用户隐藏导航栏时显示输入法的时候导航栏会跟随显示"，会导致隐藏输入法之后判断错误
+            // 这个问题在 OneUI 2 & android 10 版本已修复
+            String manufacturer = "";
+            if (!TextUtils.isEmpty(Build.MANUFACTURER )){
+                manufacturer = Build.MANUFACTURER.trim();
+            }
+            if (manufacturer.toLowerCase().contains("samsung")
+                    && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                try {
+                    return Settings.Global.getInt(window.getContext().getContentResolver(), "navigationbar_hide_bar_enabled") == 0;
+                } catch (Exception e) {
+                    //nothing to do
+                }
+            }
+
             int visibility = decorView.getSystemUiVisibility();
             isVisible = (visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
         }
+
         return isVisible;
     }
 
