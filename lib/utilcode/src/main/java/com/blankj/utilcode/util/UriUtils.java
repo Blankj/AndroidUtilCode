@@ -177,13 +177,15 @@ public final class UriUtils {
                 return null;
             }// end 1_0
             else if ("com.android.providers.downloads.documents".equals(authority)) {
-                final String id = DocumentsContract.getDocumentId(uri);
+                String id = DocumentsContract.getDocumentId(uri);
                 if (TextUtils.isEmpty(id)) {
                     Log.d("UriUtils", uri.toString() + " parse failed(id is null). -> 1_1");
                     return null;
                 }
                 if (id.startsWith("raw:")) {
                     return new File(id.substring(4));
+                } else if (id.startsWith("msf:")) {
+                    id = id.split(":")[1];
                 }
 
                 String[] contentUriPrefixesToTry = new String[]{
