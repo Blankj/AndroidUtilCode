@@ -53,9 +53,4 @@ public class MvpView extends BaseView<MvpView>
     public void showMsg(CharSequence msg) {
         ToastUtils.showLong(msg);
     }
-
-    @Override
-    public void onDestroyView() {
-
-    }
 }

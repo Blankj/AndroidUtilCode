@@ -335,9 +335,7 @@ final class UtilsActivityLifecycleImpl implements Application.ActivityLifecycleC
     private Object getActivityThread() {
         Object activityThread = getActivityThreadInActivityThreadStaticField();
         if (activityThread != null) return activityThread;
-        activityThread = getActivityThreadInActivityThreadStaticMethod();
-        if (activityThread != null) return activityThread;
-        return getActivityThreadInLoadedApkField();
+        return getActivityThreadInActivityThreadStaticMethod();
     }
 
     private Object getActivityThreadInActivityThreadStaticField() {
@@ -358,20 +356,6 @@ final class UtilsActivityLifecycleImpl implements Application.ActivityLifecycleC
             return activityThreadClass.getMethod("currentActivityThread").invoke(null);
         } catch (Exception e) {
             Log.e("UtilsActivityLifecycle", "getActivityThreadInActivityThreadStaticMethod: " + e.getMessage());
-            return null;
-        }
-    }
-
-    private Object getActivityThreadInLoadedApkField() {
-        try {
-            Field mLoadedApkField = Application.class.getDeclaredField("mLoadedApk");
-            mLoadedApkField.setAccessible(true);
-            Object mLoadedApk = mLoadedApkField.get(Utils.getApp());
-            Field mActivityThreadField = mLoadedApk.getClass().getDeclaredField("mActivityThread");
-            mActivityThreadField.setAccessible(true);
-            return mActivityThreadField.get(mLoadedApk);
-        } catch (Exception e) {
-            Log.e("UtilsActivityLifecycle", "getActivityThreadInLoadedApkField: " + e.getMessage());
             return null;
         }
     }

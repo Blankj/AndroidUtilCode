@@ -1,5 +1,7 @@
 package com.blankj.utilcode.util;
 
+import android.os.Build;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,6 +11,7 @@ import java.security.Key;
 import java.security.KeyFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -1085,12 +1088,18 @@ public final class EncryptUtils {
         }
         try {
             Key rsaKey;
+            KeyFactory keyFactory;
+            if (Build.VERSION.SDK_INT < 28) {
+                keyFactory = KeyFactory.getInstance("RSA", "BC");
+            } else {
+                keyFactory = KeyFactory.getInstance("RSA");
+            }
             if (isEncrypt) {
                 X509EncodedKeySpec keySpec = new X509EncodedKeySpec(key);
-                rsaKey = KeyFactory.getInstance("RSA").generatePublic(keySpec);
+                rsaKey = keyFactory.generatePublic(keySpec);
             } else {
                 PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(key);
-                rsaKey = KeyFactory.getInstance("RSA").generatePrivate(keySpec);
+                rsaKey = keyFactory.generatePrivate(keySpec);
             }
             if (rsaKey == null) return null;
             Cipher cipher = Cipher.getInstance(transformation);
@@ -1134,6 +1143,8 @@ public final class EncryptUtils {
         } catch (IllegalBlockSizeException e) {
             e.printStackTrace();
         } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        } catch (NoSuchProviderException e) {
             e.printStackTrace();
         }
         return null;

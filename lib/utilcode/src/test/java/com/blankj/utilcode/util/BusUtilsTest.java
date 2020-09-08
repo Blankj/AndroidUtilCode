@@ -1,5 +1,7 @@
 package com.blankj.utilcode.util;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -41,11 +43,6 @@ public class BusUtilsTest extends BaseTest {
     }
 
     @BusUtils.Bus(tag = TAG_NO_PARAM_STICKY, sticky = true)
-    public void noParamStickyFun() {
-        System.out.println("noParamSticky");
-    }
-
-    @BusUtils.Bus(tag = TAG_NO_PARAM_STICKY)
     public void foo() {
         System.out.println("foo");
     }
@@ -86,7 +83,7 @@ public class BusUtilsTest extends BaseTest {
         BusUtils.registerBus4Test(TAG_NO_PARAM, BusUtilsTest.class.getName(), "noParamFun", "", "", false, "POSTING", 0);
         BusUtils.registerBus4Test(TAG_ONE_PARAM, BusUtilsTest.class.getName(), "oneParamFun", String.class.getName(), "param", false, "POSTING", 0);
         BusUtils.registerBus4Test(TAG_NO_PARAM_STICKY, BusUtilsTest.class.getName(), "noParamStickyFun", "", "", true, "POSTING", 0);
-        BusUtils.registerBus4Test(TAG_NO_PARAM_STICKY, BusUtilsTest.class.getName(), "foo", "", "", false, "POSTING", 0);
+        BusUtils.registerBus4Test(TAG_NO_PARAM_STICKY, BusUtilsTest.class.getName(), "foo", "", "", true, "POSTING", 0);
         BusUtils.registerBus4Test(TAG_ONE_PARAM_STICKY, BusUtilsTest.class.getName(), "oneParamStickyFun", Callback.class.getName(), "callback", true, "POSTING", 0);
 
         BusUtils.registerBus4Test(TAG_IO, BusUtilsTest.class.getName(), "ioFun", CountDownLatch.class.getName(), "latch", false, "IO", 0);
@@ -95,13 +92,52 @@ public class BusUtilsTest extends BaseTest {
         BusUtils.registerBus4Test(TAG_SINGLE, BusUtilsTest.class.getName(), "singleFun", CountDownLatch.class.getName(), "latch", false, "SINGLE", 0);
     }
 
+    @BusUtils.Bus(tag = TAG_NO_PARAM_STICKY, sticky = true)
+    public void noParamStickyFun() {
+//        BusUtils.removeSticky(TAG_NO_PARAM_STICKY);
+        System.out.println("noParamSticky");
+    }
+
+    @Subscribe(sticky = true)
+    public void eventBusFun(String param) {
+        System.out.println(param);
+    }
+
+    @Subscribe(sticky = true)
+    public void eventBusFun1(String param) {
+        System.out.println("foo");
+    }
+
+    @Test
+    public void testEventBusSticky() {
+        EventBus.getDefault().postSticky("test");
+        System.out.println("----");
+
+        BusUtilsTest test = new BusUtilsTest();
+        EventBus.getDefault().register(new BusUtilsTest());
+        EventBus.getDefault().register(new BusUtilsTest());
+        EventBus.getDefault().register(new BusUtilsTest());
+
+        System.out.println("----");
+
+        EventBus.getDefault().postSticky("test");
+        EventBus.getDefault().postSticky("test");
+    }
+
     @Test
     public void testSticky() {
         BusUtils.postSticky(TAG_NO_PARAM_STICKY);
-        BusUtilsTest test = new BusUtilsTest();
-        BusUtils.register(test);
+        System.out.println("----");
 
-        BusUtils.postSticky(TAG_NO_PARAM_STICKY);
+        BusUtilsTest test = new BusUtilsTest();
+        BusUtils.register(new BusUtilsTest());
+        BusUtils.register(new BusUtilsTest());
+        BusUtils.register(new BusUtilsTest());
+
+        System.out.println("----");
+
+        BusUtils.post(TAG_NO_PARAM_STICKY);
+//        BusUtils.post(TAG_NO_PARAM_STICKY);
     }
 
     @Test

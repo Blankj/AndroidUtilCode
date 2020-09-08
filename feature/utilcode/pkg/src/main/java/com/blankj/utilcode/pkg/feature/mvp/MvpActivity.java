@@ -1,5 +1,7 @@
 package com.blankj.utilcode.pkg.feature.mvp;
 
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;

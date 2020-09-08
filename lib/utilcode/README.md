@@ -8,8 +8,6 @@ implementation 'com.blankj:utilcode:1.29.0'
 implementation 'com.blankj:utilcodex:1.29.0'
 ```
 
-<a href="https://tracking.gitads.io/?repo=AndroidUtilCode"> <img src="https://images.gitads.io/AndroidUtilCode" alt="GitAds"/> </a>
-
 
 ## APIs
 

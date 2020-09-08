@@ -15,6 +15,7 @@
     <string name="demo_flashlight">FlashlightUtils Demo</string>
     <string name="demo_fragment">FragmentUtils Demo</string>
     <string name="demo_image">ImageUtils Demo</string>
+    <string name="demo_intent">IntentUtils Demo</string>
     <string name="demo_keyboard">KeyboardUtils Demo</string>
     <string name="demo_language">Language Demo</string>
     <string name="demo_log">LogUtils Demo</string>

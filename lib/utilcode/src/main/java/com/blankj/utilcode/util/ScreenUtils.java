@@ -242,14 +242,14 @@ public final class ScreenUtils {
         decorView.setDrawingCacheEnabled(true);
         decorView.setWillNotCacheDrawing(false);
         Bitmap bmp = decorView.getDrawingCache();
-        if (bmp == null) {
+        if (bmp == null || bmp.isRecycled()) {
             decorView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
                     View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
             decorView.layout(0, 0, decorView.getMeasuredWidth(), decorView.getMeasuredHeight());
             decorView.buildDrawingCache();
             bmp = Bitmap.createBitmap(decorView.getDrawingCache());
         }
-        if (bmp == null) return null;
+        if (bmp == null || bmp.isRecycled()) return null;
         DisplayMetrics dm = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
         Bitmap ret;

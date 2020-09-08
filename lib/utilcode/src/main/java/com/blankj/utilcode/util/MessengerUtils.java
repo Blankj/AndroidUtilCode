@@ -92,12 +92,14 @@ public class MessengerUtils {
     }
 
     public static void unregister(final String pkgName) {
-        if (sClientMap.containsKey(pkgName)) {
-            Client client = sClientMap.get(pkgName);
-            sClientMap.remove(pkgName);
-            client.unbind();
-        } else {
+        if (!sClientMap.containsKey(pkgName)) {
             Log.i("MessengerUtils", "unregister: client didn't register: " + pkgName);
+            return;
+        }
+        Client client = sClientMap.get(pkgName);
+        sClientMap.remove(pkgName);
+        if (client != null) {
+            client.unbind();
         }
     }
 
@@ -133,13 +135,12 @@ public class MessengerUtils {
             @Override
             public void handleMessage(Message msg) {
                 Bundle data = msg.getData();
-                if (data != null) {
-                    String key = data.getString(KEY_STRING);
-                    if (key != null) {
-                        MessageCallback callback = subscribers.get(key);
-                        if (callback != null) {
-                            callback.messageCall(data);
-                        }
+                data.setClassLoader(MessengerUtils.class.getClassLoader());
+                String key = data.getString(KEY_STRING);
+                if (key != null) {
+                    MessageCallback callback = subscribers.get(key);
+                    if (callback != null) {
+                        callback.messageCall(data);
                     }
                 }
             }
@@ -153,6 +154,7 @@ public class MessengerUtils {
                 mServer = new Messenger(service);
                 int key = UtilsBridge.getCurrentProcessName().hashCode();
                 Message msg = Message.obtain(mReceiveServeMsgHandler, WHAT_SUBSCRIBE, key, 0);
+                msg.getData().setClassLoader(MessengerUtils.class.getClassLoader());
                 msg.replyTo = mClient;
                 try {
                     mServer.send(msg);
@@ -233,6 +235,7 @@ public class MessengerUtils {
 
         private boolean send2Server(Bundle bundle) {
             Message msg = Message.obtain(mReceiveServeMsgHandler, WHAT_SEND);
+            bundle.setClassLoader(MessengerUtils.class.getClassLoader());
             msg.setData(bundle);
             msg.replyTo = mClient;
             try {

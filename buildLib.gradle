@@ -1,34 +1,5 @@
-apply {
-    plugin "com.android.library"
-    plugin "kotlin-android"
-    plugin "kotlin-android-extensions"
-}
-
-android {
-    compileSdkVersion Config.compileSdkVersion
-    defaultConfig {
-        minSdkVersion Config.minSdkVersion
-        versionCode Config.versionCode
-        versionName Config.versionName
-        consumerProguardFiles 'proguard-rules.pro'
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            consumerProguardFiles 'proguard-rules.pro'
-        }
-    }
-
-    lintOptions {
-        abortOnError false
-    }
-
-//    viewBinding {
-//        enabled = true
-//    }
-}
+apply plugin: "com.android.library"
+apply from: "${rootDir.path}/buildCommon.gradle"
 
 dependencies {
     if (project.name.endsWith("_pkg") || project.name.endsWith("_mock")) {

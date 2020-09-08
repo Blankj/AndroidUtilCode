@@ -22,6 +22,7 @@ import com.blankj.utilcode.pkg.feature.file.FileActivity
 import com.blankj.utilcode.pkg.feature.flashlight.FlashlightActivity
 import com.blankj.utilcode.pkg.feature.fragment.FragmentActivity
 import com.blankj.utilcode.pkg.feature.image.ImageActivity
+import com.blankj.utilcode.pkg.feature.intent.IntentActivity
 import com.blankj.utilcode.pkg.feature.keyboard.KeyboardActivity
 import com.blankj.utilcode.pkg.feature.language.LanguageActivity
 import com.blankj.utilcode.pkg.feature.log.LogActivity
@@ -117,6 +118,9 @@ class CoreUtilActivity : CommonActivity() {
                 },
                 CommonItemClick(R.string.demo_image, true) {
                     ImageActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_intent, true) {
+                    IntentActivity.start(this)
                 },
                 CommonItemClick(R.string.demo_keyboard, true) {
                     KeyboardActivity.start(this)

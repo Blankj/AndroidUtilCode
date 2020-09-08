@@ -17,7 +17,7 @@
     {"isApply": true, "useLocal": true, "localPath": ":feature:subutil:export"},
     {"isApply": true, "useLocal": true, "localPath": ":feature:utilcode:app"},
     {"isApply": true, "useLocal": true, "localPath": ":feature:utilcode:pkg"},
-    {"isApply": true, "useLocal": true, "localPath": ":feature:utilcode:export"},
+    {"isApply": true, "useLocal": true, "localPath": ":feature:utilcode:export", "remotePath": "com.blankj:utilcode-export:1.1"},
     {"isApply": true, "useLocal": true, "localPath": ":lib:base"},
     {"isApply": true, "useLocal": true, "localPath": ":lib:common"},
     {"isApply": true, "useLocal": true, "localPath": ":lib:subutil"},

@@ -19,7 +19,7 @@ class Config {
 
     // lib version
     static gradlePluginVersion = '3.5.0'
-    static kotlinVersion = '1.3.50'
+    static kotlinVersion = '1.3.72'
     static supportVersion = '28.0.0'
 
     static depConfig = [
@@ -37,7 +37,7 @@ class Config {
             feature_subutil_export     : new DepConfig(true , true , ":feature:subutil:export"),
             feature_utilcode_app       : new DepConfig(false, true , ":feature:utilcode:app"),
             feature_utilcode_pkg       : new DepConfig(true , true , ":feature:utilcode:pkg"),
-            feature_utilcode_export    : new DepConfig(true , true , ":feature:utilcode:export"),
+            feature_utilcode_export    : new DepConfig(true , true , ":feature:utilcode:export", "com.blankj:utilcode-export:1.1"),
             lib_base                   : new DepConfig(true , true , ":lib:base"),
             lib_common                 : new DepConfig(true , true , ":lib:common"),
             lib_subutil                : new DepConfig(true , true , ":lib:subutil"),

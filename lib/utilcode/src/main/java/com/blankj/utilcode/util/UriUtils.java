@@ -10,7 +10,6 @@ import android.os.Environment;
 import android.os.storage.StorageManager;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
@@ -54,7 +53,8 @@ public final class UriUtils {
      * @param file The file.
      * @return uri
      */
-    public static Uri file2Uri(@NonNull final File file) {
+    public static Uri file2Uri(final File file) {
+        if (!UtilsBridge.isFileExists(file)) return null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             String authority = Utils.getApp().getPackageName() + ".utilcode.provider";
             return FileProvider.getUriForFile(Utils.getApp(), authority, file);
@@ -69,7 +69,8 @@ public final class UriUtils {
      * @param uri The uri.
      * @return file
      */
-    public static File uri2File(@NonNull final Uri uri) {
+    public static File uri2File(final Uri uri) {
+        if (uri == null) return null;
         File file = uri2FileReal(uri);
         if (file != null) return file;
         return copyUri2Cache(uri);
@@ -81,7 +82,7 @@ public final class UriUtils {
      * @param uri The uri.
      * @return file
      */
-    private static File uri2FileReal(@NonNull final Uri uri) {
+    private static File uri2FileReal(final Uri uri) {
         Log.d("UriUtils", uri.toString());
         String authority = uri.getAuthority();
         String scheme = uri.getScheme();
@@ -188,6 +189,13 @@ public final class UriUtils {
                     id = id.split(":")[1];
                 }
 
+                long availableId = 0;
+                try {
+                    availableId = Long.parseLong(id);
+                } catch (Exception e) {
+                    return null;
+                }
+
                 String[] contentUriPrefixesToTry = new String[]{
                         "content://downloads/public_downloads",
                         "content://downloads/all_downloads",
@@ -195,7 +203,7 @@ public final class UriUtils {
                 };
 
                 for (String contentUriPrefix : contentUriPrefixesToTry) {
-                    Uri contentUri = ContentUris.withAppendedId(Uri.parse(contentUriPrefix), Long.valueOf(id));
+                    Uri contentUri = ContentUris.withAppendedId(Uri.parse(contentUriPrefix), availableId);
                     try {
                         File file = getFileFromUri(contentUri, "1_1");
                         if (file != null) {
@@ -325,6 +333,7 @@ public final class UriUtils {
      * @return the input stream
      */
     public static byte[] uri2Bytes(Uri uri) {
+        if (uri == null) return null;
         InputStream is = null;
         try {
             is = Utils.getApp().getContentResolver().openInputStream(uri);

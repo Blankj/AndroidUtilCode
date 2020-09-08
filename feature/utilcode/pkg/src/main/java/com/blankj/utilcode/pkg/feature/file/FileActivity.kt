@@ -18,7 +18,7 @@ import java.io.File
  * author: Blankj
  * blog  : http://blankj.com
  * time  : 2016/09/29
- * desc  : demo about ClickUtils
+ * desc  : demo about FileUtils
  * ```
  */
 class FileActivity : CommonActivity() {

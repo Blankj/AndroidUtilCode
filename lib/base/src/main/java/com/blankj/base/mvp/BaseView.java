@@ -1,13 +1,12 @@
 package com.blankj.base.mvp;
 
-import android.app.Activity;
 import android.arch.lifecycle.Lifecycle;
-import android.support.annotation.NonNull;
+import android.arch.lifecycle.LifecycleObserver;
+import android.arch.lifecycle.OnLifecycleEvent;
+import android.support.annotation.CallSuper;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-
-import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.Utils;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,45 +19,95 @@ import java.util.Map;
  *     desc  :
  * </pre>
  */
-public abstract class BaseView<V extends BaseView> {
+public class BaseView<V extends BaseView> implements LifecycleObserver {
 
-    private FragmentActivity mActivity;
-    private Fragment         mFragment;
-    Map<Class, BasePresenter<V>> mPresenterMap = new HashMap<>();
+    public static final String TAG = "UtilsMVP";
 
-    public abstract void onDestroyView();
-
-    public BaseView(FragmentActivity activity) {
-        mActivity = activity;
-    }
+    private FragmentActivity                mActivity;
+    private Fragment                        mFragment;
+    private Lifecycle                       mLifecycle;
+    private Map<Class<?>, BasePresenter<V>> mPresenterMap = new HashMap<>();
 
     public BaseView(Fragment fragment) {
         mFragment = fragment;
         mActivity = fragment.getActivity();
+        mLifecycle = mFragment.getLifecycle();
+        addLifecycle(this);
+    }
+
+    public BaseView(FragmentActivity activity) {
+        mActivity = activity;
+        mLifecycle = mActivity.getLifecycle();
+        addLifecycle(this);
+    }
+
+    public BaseView(Lifecycle lifecycle) {
+        mLifecycle = lifecycle;
+        addLifecycle(this);
     }
 
     public <T extends FragmentActivity> T getActivity() {
+        if (mActivity == null) {
+            return null;
+        }
         //noinspection unchecked
         return (T) mActivity;
     }
 
     public <T extends Fragment> T getFragment() {
+        if (mFragment == null) {
+            return null;
+        }
         //noinspection unchecked
         return (T) mFragment;
     }
 
-    public void addPresenter(BasePresenter<V> presenter) {
+    public V addPresenter(BasePresenter<V> presenter) {
+        if (presenter == null) return (V) this;
         mPresenterMap.put(presenter.getClass(), presenter);
         //noinspection unchecked
         presenter.bindView((V) this);
+        return (V) this;
     }
 
     public <P extends BasePresenter<V>> P getPresenter(Class<P> presenterClass) {
-        BasePresenter<V> basePresenter = mPresenterMap.get(presenterClass);
-        if (basePresenter != null) {
-            //noinspection unchecked
-            return (P) basePresenter;
+        if (presenterClass == null) {
+            throw new IllegalArgumentException("presenterClass is null!");
         }
-        return null;
+        BasePresenter<V> basePresenter = mPresenterMap.get(presenterClass);
+        if (basePresenter == null) {
+            throw new IllegalArgumentException("presenter of <" + presenterClass.getSimpleName() + "> is not added!");
+        }
+        //noinspection unchecked
+        return (P) basePresenter;
+    }
+
+    @CallSuper
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    public void onDestroy() {
+        Log.i(TAG, "destroy view: " + getClass().getSimpleName());
+        removeLifecycle(this);
+        for (BasePresenter<V> presenter : mPresenterMap.values()) {
+            if (presenter != null) {
+                presenter.onDestroy();
+            }
+        }
+        mPresenterMap.clear();
+    }
+
+    private void addLifecycle(LifecycleObserver observer) {
+        if (mLifecycle == null) {
+            Log.w(TAG, "addLifecycle: mLifecycle is null");
+            return;
+        }
+        mLifecycle.addObserver(observer);
+    }
+
+    private void removeLifecycle(LifecycleObserver observer) {
+        if (mLifecycle == null) {
+            Log.w(TAG, "removeLifecycle: mLifecycle is null");
+            return;
+        }
+        mLifecycle.removeObserver(observer);
     }
 }

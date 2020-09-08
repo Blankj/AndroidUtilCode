@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
@@ -142,7 +143,7 @@ public final class KeyboardUtils {
      * @param activity The activity.
      */
     public static void hideSoftInputByToggle(final Activity activity) {
-        long nowMillis = System.currentTimeMillis();
+        long nowMillis = SystemClock.uptimeMillis();
         long delta = nowMillis - millis;
         if (Math.abs(delta) > 500 && KeyboardUtils.isSoftInputVisible(activity)) {
             KeyboardUtils.toggleSoftInput();
@@ -231,7 +232,8 @@ public final class KeyboardUtils {
      * @param window The window.
      */
     public static void unregisterSoftInputChangedListener(@NonNull final Window window) {
-        final FrameLayout contentView = window.findViewById(android.R.id.content);
+        final View contentView = window.findViewById(android.R.id.content);
+        if (contentView == null) return;
         Object tag = contentView.getTag(TAG_ON_GLOBAL_LAYOUT_LISTENER);
         if (tag instanceof OnGlobalLayoutListener) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

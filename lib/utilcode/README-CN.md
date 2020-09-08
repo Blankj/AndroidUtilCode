@@ -8,8 +8,6 @@ implementation 'com.blankj:utilcode:1.29.0'
 implementation 'com.blankj:utilcodex:1.29.0'
 ```
 
-<a href="https://tracking.gitads.io/?repo=AndroidUtilCode"> <img src="https://images.gitads.io/AndroidUtilCode" alt="GitAds"/> </a>
-
 
 ## APIs
 
@@ -344,6 +342,7 @@ string2Int       : 颜色串转颜色值
 int2RgbString    : 颜色值转 RGB 串
 int2ArgbString   : 颜色值转 ARGB 串
 getRandomColor   : 获取随机色
+isLightColor     : 判断是否亮色
 ```
 
 * ### 转换相关 -> [ConvertUtils.java][convert.java] -> [Test][convert.test]
@@ -378,6 +377,11 @@ sp2px, px2sp                            : sp 与 px 互转
 * ### 崩溃相关 -> [CrashUtils.java][crash.java]
 ```
 init: 初始化
+```
+
+* ### 防抖相关 -> [DebouncingUtils.java][debouncing.java]
+```
+isValid: 是否有效
 ```
 
 * ### 设备相关 -> [DeviceUtils.java][device.java] -> [Demo][device.demo]
@@ -578,6 +582,7 @@ getLaunchAppIntent               : 获取打开 App 的意图
 getLaunchAppDetailsSettingsIntent: 获取 App 具体设置的意图
 getShareTextIntent               : 获取分享文本的意图
 getShareImageIntent              : 获取分享图片的意图
+getShareTextImageIntent          : 获取分享图文的意图
 getComponentIntent               : 获取其他应用组件的意图
 getShutdownIntent                : 获取关机的意图
 getCaptureIntent                 : 获取拍照的意图
@@ -1272,6 +1277,8 @@ getComments       : 获取压缩文件中的注释链表
 [convert.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/ConvertUtilsTest.java
 
 [crash.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/CrashUtils.java
+
+[debouncing.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/DebouncingUtils.java
 
 [device.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/DeviceUtils.java
 [device.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/device/DeviceActivity.kt

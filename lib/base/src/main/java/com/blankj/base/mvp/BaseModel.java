@@ -1,10 +1,9 @@
 package com.blankj.base.mvp;
 
-import com.blankj.utilcode.util.ThreadUtils;
-import com.blankj.utilcode.util.ToastUtils;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
+import android.support.annotation.CallSuper;
+import android.util.Log;
 
 /**
  * <pre>
@@ -16,24 +15,14 @@ import java.util.List;
  */
 public abstract class BaseModel {
 
-    private List<ThreadUtils.Task> mTasks = new ArrayList<>();
+    LiveData<Object> mData = new MutableLiveData<>();
 
-    public abstract void onCreateModel();
+    private static final String TAG = BaseView.TAG;
 
-    public abstract void onDestroyModel();
+    public abstract void onCreate();
 
-    public <T> ThreadUtils.Task<T> addAutoDestroyTask(ThreadUtils.Task<T> task) {
-        if (task == null) return null;
-        mTasks.add(task);
-        return task;
-    }
-
-    void destroy() {
-        onDestroyModel();
-        for (ThreadUtils.Task task : mTasks) {
-            if (task == null) continue;
-            task.cancel();
-            ToastUtils.showLong("Mvp Task Canceled.");
-        }
+    @CallSuper
+    public void onDestroy() {
+        Log.i(TAG, "destroy model: " + getClass().getSimpleName());
     }
 }

@@ -13,6 +13,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
+import android.os.SystemClock;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
@@ -45,8 +46,7 @@ public class ClickUtils {
     private static final int   PRESSED_BG_DARK_STYLE         = 5;
     private static final float PRESSED_BG_DARK_DEFAULT_VALUE = 0.9f;
 
-    private static final int  DEBOUNCING_TAG           = -7;
-    private static final long DEBOUNCING_DEFAULT_VALUE = 200;
+    private static final long DEBOUNCING_DEFAULT_VALUE = 1000;
 
     private ClickUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -213,23 +213,15 @@ public class ClickUtils {
     }
 
     private static Drawable createAlphaDrawable(Drawable drawable, float alpha) {
-//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            DrawableWrapperBefore21 drawableWrapper = new DrawableWrapperBefore21(drawable);
-            drawableWrapper.setAlphaFix((int) (alpha * 255));
-            return drawableWrapper;
-//        }
-//        drawable.setAlpha((int) (alpha * 255));
-//        return drawable;
+        ClickDrawableWrapper drawableWrapper = new ClickDrawableWrapper(drawable);
+        drawableWrapper.setAlpha((int) (alpha * 255));
+        return drawableWrapper;
     }
 
     private static Drawable createDarkDrawable(Drawable drawable, float alpha) {
-//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            DrawableWrapperBefore21 drawableWrapper = new DrawableWrapperBefore21(drawable);
-            drawableWrapper.setColorFilterFix(getDarkColorFilter(alpha));
-            return drawableWrapper;
-//        }
-//        drawable.setColorFilter(getDarkColorFilter(alpha));
-//        return drawable;
+        ClickDrawableWrapper drawableWrapper = new ClickDrawableWrapper(drawable);
+        drawableWrapper.setColorFilter(getDarkColorFilter(alpha));
+        return drawableWrapper;
     }
 
     private static ColorMatrixColorFilter getDarkColorFilter(float darkAlpha) {
@@ -393,8 +385,8 @@ public class ClickUtils {
     public static void back2HomeFriendly(@NonNull final CharSequence tip,
                                          final long duration,
                                          @NonNull Back2HomeFriendlyListener listener) {
-        long nowMillis = System.currentTimeMillis();
-        if (nowMillis - sLastClickMillis < duration) {
+        long nowMillis = SystemClock.elapsedRealtime();
+        if (Math.abs(nowMillis - sLastClickMillis) < duration) {
             sClickCount++;
             if (sClickCount == 2) {
                 UtilsBridge.startHomeActivity();
@@ -438,21 +430,7 @@ public class ClickUtils {
         };
 
         private static boolean isValid(@NonNull final View view, final long duration) {
-            long curTime = System.currentTimeMillis();
-            Object tag = view.getTag(DEBOUNCING_TAG);
-            if (!(tag instanceof Long)) {
-                view.setTag(DEBOUNCING_TAG, curTime);
-                return true;
-            }
-            long preTime = (Long) tag;
-            if (curTime - preTime < 0) {
-                view.setTag(DEBOUNCING_TAG, curTime);
-                return false;
-            } else if (curTime - preTime <= duration) {
-                return false;
-            }
-            view.setTag(DEBOUNCING_TAG, curTime);
-            return true;
+            return UtilsBridge.isValid(view, duration);
         }
 
         private long    mDuration;
@@ -586,14 +564,14 @@ public class ClickUtils {
         }
     }
 
-    static class DrawableWrapperBefore21 extends ShadowUtils.DrawableWrapper {
+    static class ClickDrawableWrapper extends ShadowUtils.DrawableWrapper {
 
         private BitmapDrawable mBitmapDrawable = null;
 
-        //低版本ColorDrawable.setColorFilter无效，这里直接用画笔画上
+        // 低版本ColorDrawable.setColorFilter无效，这里直接用画笔画上
         private Paint mColorPaint = null;
 
-        public DrawableWrapperBefore21(Drawable drawable) {
+        public ClickDrawableWrapper(Drawable drawable) {
             super(drawable);
             if (drawable instanceof ColorDrawable) {
                 mColorPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
@@ -603,25 +581,23 @@ public class ClickUtils {
 
         @Override
         public void setColorFilter(ColorFilter cf) {
-            //低版本StateListDrawable.selectDrawable会重置ColorFilter
-        }
-
-        public void setColorFilterFix(ColorFilter cf) {
             super.setColorFilter(cf);
-            if (mColorPaint != null) {
-                mColorPaint.setColorFilter(cf);
+            // 低版本 StateListDrawable.selectDrawable 会重置 ColorFilter
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                if (mColorPaint != null) {
+                    mColorPaint.setColorFilter(cf);
+                }
             }
         }
 
         @Override
         public void setAlpha(int alpha) {
-            //低版本StateListDrawable.selectDrawable会重置Alpha
-        }
-
-        public void setAlphaFix(int alpha) {
             super.setAlpha(alpha);
-            if (mColorPaint != null) {
-                mColorPaint.setColor(((ColorDrawable) getWrappedDrawable()).getColor());
+            // 低版本 StateListDrawable.selectDrawable 会重置 Alpha
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                if (mColorPaint != null) {
+                    mColorPaint.setColor(((ColorDrawable) getWrappedDrawable()).getColor());
+                }
             }
         }
 

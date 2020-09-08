@@ -7,44 +7,47 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 /**
- * Create by Faramarz Afzali on 2020/9/5
+ * <pre>
+ *     author: Blankj
+ *     blog  : http://blankj.com
+ *     time  : 2018/03/22
+ *     desc  : TemperatureUtils 单元测试
+ * </pre>
  */
-
-
 @RunWith(JUnit4.class)
-public class TestTempConversion {
+public class TemperatureUtilsTest {
 
     private float delta = 1e-15f;
 
     @Test
-    public void testCToF() {
+    public void cToF() {
         Assert.assertEquals(32f, TemperatureUtils.cToF(0f), delta);
     }
 
     @Test
-    public void testCToK() {
+    public void cToK() {
         Assert.assertEquals(273.15f, TemperatureUtils.cToK(0f), delta);
     }
 
 
     @Test
-    public void testFToC() {
+    public void fToC() {
         Assert.assertEquals(-17.777779f, TemperatureUtils.fToC(0f), delta);
     }
 
     @Test
-    public void testFToK() {
+    public void fToK() {
         Assert.assertEquals(255.3722222222f, TemperatureUtils.fToK(0f), delta);
     }
 
 
     @Test
-    public void testKToC() {
+    public void kToC() {
         Assert.assertEquals(-273.15f, TemperatureUtils.kToC(0f), delta);
     }
 
     @Test
-    public void testKToF() {
+    public void kToF() {
         Assert.assertEquals(-459.67f, TemperatureUtils.kToF(0f), delta);
     }
 

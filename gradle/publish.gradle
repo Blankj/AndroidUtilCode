@@ -58,17 +58,17 @@ def configMaven(Project project, PublishExtension ext) {
         configuration = project.configurations.archives
 
         repositories.mavenDeployer {
-            repository(url: uri(new File(project.rootDir.getPath() + "/mavenLocal")))
+            repository(url: uri("${project.rootDir.path}/mavenLocal"))
             configPom(pom, ext)
         }
 
         doFirst {
-            checkExt(project, ext)
+            ext.check(false)
         }
     }
 
     project.tasks.findByName("bintrayUpload").doFirst {
-        checkExt(project, ext)
+        ext.check(true)
     }
 }
 
@@ -102,13 +102,23 @@ def configPom(pom, PublishExtension ext) {
             }
         }
     }
-}
 
-static def checkExt(Project project, PublishExtension ext) {
-    if (ext.isBintrayEmpty()) {
-        throw new NullPointerException("U should set bintrayUser and bintrayKey in local.properties")
+    pom.whenConfigured {
+        // 检测 module 中的 dependencies 是否有源码依赖
+        // 如果是源码依赖，而且没有在 config 中配置 remotePath，那么发布到仓库，其他地方依赖该库时会找不到源码的那个库
+        it.dependencies.findAll { dep -> dep.version == "unspecified" }.collect { dep ->
+            DepConfig config = Config.depConfig.get(dep.artifactId)
+            if (config == null || config.version == null) {
+                // 源码依赖而且没有在 config 中配置 remotePath，直接报错
+                System.err.println("The module of <" + dep.artifactId + "> should publish to maven first.")
+                throw new RuntimeException()
+            }
+            dep.groupId = config.groupId
+            dep.version = config.version
+            // 源码依赖，但配置了 remotePath，让 pom 中写入 remotePath
+            GLog.l("Please check <${dep.groupId}:${dep.artifactId}:${dep.version}> is published.")
+        }
     }
-    ext.check()
 }
 
 def configBintray(Project project, PublishExtension ext) {
@@ -197,15 +207,18 @@ class PublishExtension {
     String bintrayUser
     String bintrayKey
 
-    void check() {
+    void check(boolean isBintray) {
         checkField(name, "name")
         checkField(groupId, "groupId")
         checkField(artifactId, "artifactId")
         checkField(version, "version")
         checkField(website, "website")
 
-        checkField(bintrayUser, "bintrayUser")
-        checkField(bintrayKey, "bintrayKey")
+        if (isBintray) {
+            if (isBintrayEmpty()) {
+                throw new NullPointerException("U should set bintrayUser and bintrayKey in local.properties")
+            }
+        }
     }
 
     boolean isBintrayEmpty() {

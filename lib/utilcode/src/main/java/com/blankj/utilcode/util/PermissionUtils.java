@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.WindowManager;
 
@@ -88,13 +89,40 @@ public final class PermissionUtils {
      * @param permissions The permissions.
      * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean isGranted(final String... permissions) {
-        for (String permission : permissions) {
+    public static boolean isGranted(@Permission final String... permissions) {
+        Pair<List<String>, List<String>> requestAndDeniedPermissions = getRequestAndDeniedPermissions(permissions);
+        List<String> deniedPermissions = requestAndDeniedPermissions.second;
+        if (!deniedPermissions.isEmpty()) {
+            return false;
+        }
+        List<String> requestPermissions = requestAndDeniedPermissions.first;
+        for (String permission : requestPermissions) {
             if (!isGranted(permission)) {
                 return false;
             }
         }
         return true;
+    }
+
+    private static Pair<List<String>, List<String>> getRequestAndDeniedPermissions(final String... permissionsParam) {
+        List<String> requestPermissions = new ArrayList<>();
+        List<String> deniedPermissions = new ArrayList<>();
+        List<String> appPermissions = getPermissions();
+        for (String param : permissionsParam) {
+            boolean isIncludeInManifest = false;
+            String[] permissions = PermissionConstants.getPermissions(param);
+            for (String permission : permissions) {
+                if (appPermissions.contains(permission)) {
+                    requestPermissions.add(permission);
+                    isIncludeInManifest = true;
+                }
+            }
+            if (!isIncludeInManifest) {
+                deniedPermissions.add(param);
+                Log.e("PermissionUtils", "U should add the permission of " + param + " in manifest.");
+            }
+        }
+        return Pair.create(requestPermissions, deniedPermissions);
     }
 
     private static boolean isGranted(final String permission) {
@@ -259,21 +287,10 @@ public final class PermissionUtils {
         mPermissionsDenied = new ArrayList<>();
         mPermissionsDeniedForever = new ArrayList<>();
 
-        List<String> appPermissions = getPermissions();
-        for (String param : mPermissionsParam) {
-            boolean isIncludeInManifest = false;
-            String[] permissions = PermissionConstants.getPermissions(param);
-            for (String permission : permissions) {
-                if (appPermissions.contains(permission)) {
-                    mPermissions.add(permission);
-                    isIncludeInManifest = true;
-                }
-            }
-            if (!isIncludeInManifest) {
-                mPermissionsDenied.add(param);
-                Log.e("PermissionUtils", "U should add the permission of " + param + " in manifest.");
-            }
-        }
+        Pair<List<String>, List<String>> requestAndDeniedPermissions = getRequestAndDeniedPermissions(mPermissionsParam);
+        mPermissions.addAll(requestAndDeniedPermissions.first);
+        mPermissionsDenied.addAll(requestAndDeniedPermissions.second);
+
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             mPermissionsGranted.addAll(mPermissions);
             requestCallback();
