@@ -30,11 +30,11 @@ import static android.Manifest.permission.EXPAND_STATUS_BAR;
 public class NotificationUtils {
 
     public static final int IMPORTANCE_UNSPECIFIED = -1000;
-    public static final int IMPORTANCE_NONE        = 0;
-    public static final int IMPORTANCE_MIN         = 1;
-    public static final int IMPORTANCE_LOW         = 2;
-    public static final int IMPORTANCE_DEFAULT     = 3;
-    public static final int IMPORTANCE_HIGH        = 4;
+    public static final int IMPORTANCE_NONE = 0;
+    public static final int IMPORTANCE_MIN = 1;
+    public static final int IMPORTANCE_LOW = 2;
+    public static final int IMPORTANCE_DEFAULT = 3;
+    public static final int IMPORTANCE_HIGH = 4;
 
     @IntDef({IMPORTANCE_UNSPECIFIED, IMPORTANCE_NONE, IMPORTANCE_MIN, IMPORTANCE_LOW, IMPORTANCE_DEFAULT, IMPORTANCE_HIGH})
     @Retention(RetentionPolicy.SOURCE)
@@ -106,6 +106,46 @@ public class NotificationUtils {
         consumer.accept(builder);
 
         nmc.notify(tag, id, builder.build());
+    }
+
+
+    /**
+     * @param id              An identifier for this notification.
+     * @param imageRes        The image that display on notification bar.
+     * @param color           The accent color of notification.
+     * @param title           Title of notification.
+     * @param body            Content body of notification.
+     * @param bigContentTitle The big title when notification popup is visible for the first time.
+     * @param contentList     The list that will be shown when user drag down the notification bar.
+     * @param channelName     Channel name of notification.
+     */
+    public static void expandableNotify(Context context, int id, int imageRes, int color,
+                                        String title, String body, String bigContentTitle,
+                                        String[] contentList, String channelName) {
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        String channelId = "channel-id";
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel mChannel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
+            notificationManager.createNotificationChannel(mChannel);
+        }
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, channelId)
+                .setSmallIcon(imageRes)
+                .setContentTitle(title)
+                .setColor(color)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentText(body);
+
+        NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+        inboxStyle.setBigContentTitle(bigContentTitle);
+
+        for (String s : contentList) {
+            inboxStyle.addLine(s);
+        }
+
+        mBuilder.setStyle(inboxStyle);
+        mBuilder.setAutoCancel(true);
+        notificationManager.notify(id, mBuilder.build());
     }
 
     /**
