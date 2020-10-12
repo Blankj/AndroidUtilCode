@@ -1709,7 +1709,7 @@ public final class ImageUtils {
                 contentUri = MediaStore.Images.Media.INTERNAL_CONTENT_URI;
             }
             contentValues.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_DCIM + "/" + Utils.getApp().getPackageName());
-            contentValues.put(MediaStore.Video.Media.IS_PENDING, 1);
+            contentValues.put(MediaStore.MediaColumns.IS_PENDING, 1);
             Uri uri = Utils.getApp().getContentResolver().insert(contentUri, contentValues);
             if (uri == null) {
                 return null;
@@ -1720,7 +1720,7 @@ public final class ImageUtils {
                 src.compress(format, quality, os);
 
                 contentValues.clear();
-                contentValues.put(MediaStore.Video.Media.IS_PENDING, 0);
+                contentValues.put(MediaStore.MediaColumns.IS_PENDING, 0);
                 Utils.getApp().getContentResolver().update(uri, contentValues, null, null);
 
                 return UtilsBridge.uri2File(uri);
