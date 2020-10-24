@@ -1,5 +1,6 @@
 package com.blankj.common.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import com.blankj.common.R;
 import com.blankj.common.dialog.CommonDialogLoading;
 import com.blankj.common.item.CommonItem;
 import com.blankj.swipepanel.SwipePanel;
+import com.blankj.utilcode.util.LanguageUtils;
 import com.blankj.utilcode.util.SizeUtils;
 
 import java.util.List;
@@ -42,6 +44,11 @@ public abstract class CommonActivity extends BaseActivity {
     private CommonDialogLoading mDialogLoading;
 
     public View commonContentView;
+
+//    @Override
+//    protected void attachBaseContext(Context newBase) {
+//        super.attachBaseContext(LanguageUtils.attachBaseContext(newBase));
+//    }
 
     ///////////////////////////////////////////////////////////////////////////
     // title view

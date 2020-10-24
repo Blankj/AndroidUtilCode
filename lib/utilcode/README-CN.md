@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.29.0'
+implementation 'com.blankj:utilcode:1.30.0'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.29.0'
+implementation 'com.blankj:utilcodex:1.30.0'
 ```
 
 
@@ -13,7 +13,7 @@ implementation 'com.blankj:utilcodex:1.29.0'
 
 * ### Activity 相关 -> [ActivityUtils.java][activity.java] -> [Demo][activity.demo]
 ```
-addActivityLifecycleCallbacks   : 新增 Activity 生命周期监听
+addActivityLifecycleCallbacks   : 增加 Activity 生命周期监听
 removeActivityLifecycleCallbacks: 移除 Activity 生命周期监听
 getAliveActivityByContext       : 根据上下文获取存活的 Activity
 getActivityByContext            : 根据上下文获取 Activity
@@ -280,6 +280,18 @@ ClickUtils#OnDebouncingClickListener: 防抖点击监听器
 ClickUtils#OnMultiClickListener     : 连续点击监听器
 ```
 
+* ### 剪贴板相关 -> [ClipboardUtils.java][clipboard.java] -> [Demo][clipboard.demo]
+```
+copyText             : 复制文本到剪贴板
+getText              : 获取剪贴板的文本
+copyUri              : 复制 uri 到剪贴板
+getUri               : 获取剪贴板的 uri
+copyIntent           : 复制意图到剪贴板
+getIntent            : 获取剪贴板的意图
+addChangedListener   : 增加剪贴板监听器
+removeChangedListener: 移除剪贴板监听器
+```
+
 * ### 克隆相关 -> [CloneUtils.java][clone.java] -> [Test][clone.test]
 ```
 deepClone: 深度克隆
@@ -319,8 +331,8 @@ transform                   : 对原集合进行转变
 collect                     : 转变为新的集合
 countMatches                : 查找到匹配的元素个数
 exists                      : 判断集合是否存在符合条件的元素
-addIgnoreNull               : 新增元素如果不为空
-addAll                      : 新增多个元素
+addIgnoreNull               : 增加元素如果不为空
+addAll                      : 增加多个元素
 get                         : 获取集合元素
 size                        : 获取集合个数
 sizeIsEmpty                 : 判断个数是否为零
@@ -342,6 +354,7 @@ string2Int       : 颜色串转颜色值
 int2RgbString    : 颜色值转 RGB 串
 int2ArgbString   : 颜色值转 ARGB 串
 getRandomColor   : 获取随机色
+isLightColor     : 判断是否亮色
 ```
 
 * ### 转换相关 -> [ConvertUtils.java][convert.java] -> [Test][convert.test]
@@ -375,7 +388,15 @@ sp2px, px2sp                            : sp 与 px 互转
 
 * ### 崩溃相关 -> [CrashUtils.java][crash.java]
 ```
-init: 初始化
+init                  : 初始化
+CrashInfo.addExtraHead: 增加额外头部
+CrashInfo.getThrowable: 获取崩溃异常
+CrashInfo.toString    : 获取崩溃信息
+```
+
+* ### 防抖相关 -> [DebouncingUtils.java][debouncing.java]
+```
+isValid: 是否有效
 ```
 
 * ### 设备相关 -> [DeviceUtils.java][device.java] -> [Demo][device.demo]
@@ -494,7 +515,7 @@ getFsAvailableSize        : 获取文件系统可用大小
 
 * ### Fragment 相关 -> [FragmentUtils.java][fragment.java] -> [Demo][fragment.demo]
 ```
-add                   : 新增 fragment
+add                   : 增加 fragment
 show                  : 显示 fragment
 hide                  : 隐藏 fragment
 showHide              : 先显示后隐藏 fragment
@@ -559,6 +580,7 @@ fastBlur                        : 快速模糊
 renderScriptBlur                : renderScript 模糊图片
 stackBlur                       : stack 模糊图片
 save                            : 保存图片
+save2Album                      : 保存图片到相册
 isImage                         : 根据文件名判断文件是否为图片
 getImageType                    : 获取图片类型
 compressByScale                 : 按缩放压缩
@@ -576,6 +598,7 @@ getLaunchAppIntent               : 获取打开 App 的意图
 getLaunchAppDetailsSettingsIntent: 获取 App 具体设置的意图
 getShareTextIntent               : 获取分享文本的意图
 getShareImageIntent              : 获取分享图片的意图
+getShareTextImageIntent          : 获取分享图文的意图
 getComponentIntent               : 获取其他应用组件的意图
 getShutdownIntent                : 获取关机的意图
 getCaptureIntent                 : 获取拍照的意图
@@ -596,47 +619,57 @@ clickBlankArea2HideSoftInput      : 点击屏幕空白区域隐藏软键盘
 
 * ### 语言相关 -> [LanguageUtils.java][language.java] -> [Demo][language.demo]
 ```
-applySystemLanguage    : 应用系统语言
-applyLanguage          : 应用语言
-isAppliedSystemLanguage: 判断是否使用系统语言
-isAppliedLanguage      : 判断是否使用某语言
-getCurrentLocale       : 获取当前语言
+applySystemLanguage     : 设置系统语言
+applyLanguage           : 设置语言
+isAppliedLanguage       : 是否设置了语言
+getAppliedLanguage      : 获取设置的语言
+getContextLanguage      : 获取上下文的语言
+getAppContextLanguage   : 获取应用上下文的语言
+getSystemLanguage       : 获取系统的语言
+updateAppContextLanguage: 更新应用上下文语言
+attachBaseContext       : 如果设置语言无效则在 Activity#attachBaseContext 调用它
 ```
 
 * ### 日志相关 -> [LogUtils.java][log.java] -> [Demo][log.demo]
 ```
-getConfig                : 获取 log 配置
-Config.setLogSwitch      : 设置 log 总开关
-Config.setConsoleSwitch  : 设置 log 控制台开关
-Config.setGlobalTag      : 设置 log 全局 tag
-Config.setLogHeadSwitch  : 设置 log 头部信息开关
-Config.setLog2FileSwitch : 设置 log 文件开关
-Config.setDir            : 设置 log 文件存储目录
-Config.setFilePrefix     : 设置 log 文件前缀
-Config.setBorderSwitch   : 设置 log 边框开关
-Config.setSingleTagSwitch: 设置 log 单一 tag 开关（为美化 AS 3.1 的 Logcat）
-Config.setConsoleFilter  : 设置 log 控制台过滤器
-Config.setFileFilter     : 设置 log 文件过滤器
-Config.setStackDeep      : 设置 log 栈深度
-Config.setStackOffset    : 设置 log 栈偏移
-Config.setSaveDays       : 设置 log 可保留天数
-Config.addFormatter      : 新增 log 格式化器
-log                      : 自定义 tag 的 type 日志
-v                        : tag 为类名的 Verbose 日志
-vTag                     : 自定义 tag 的 Verbose 日志
-d                        : tag 为类名的 Debug 日志
-dTag                     : 自定义 tag 的 Debug 日志
-i                        : tag 为类名的 Info 日志
-iTag                     : 自定义 tag 的 Info 日志
-w                        : tag 为类名的 Warn 日志
-wTag                     : 自定义 tag 的 Warn 日志
-e                        : tag 为类名的 Error 日志
-eTag                     : 自定义 tag 的 Error 日志
-a                        : tag 为类名的 Assert 日志
-aTag                     : 自定义 tag 的 Assert 日志
-file                     : log 到文件
-json                     : log 字符串之 json
-xml                      : log 字符串之 xml
+getConfig                        : 获取 log 配置
+Config.setLogSwitch              : 设置 log 总开关
+Config.setConsoleSwitch          : 设置 log 控制台开关
+Config.setGlobalTag              : 设置 log 全局 tag
+Config.setLogHeadSwitch          : 设置 log 头部信息开关
+Config.setLog2FileSwitch         : 设置 log 文件开关
+Config.setDir                    : 设置 log 文件存储目录
+Config.setFilePrefix             : 设置 log 文件前缀
+Config.setBorderSwitch           : 设置 log 边框开关
+Config.setSingleTagSwitch        : 设置 log 单一 tag 开关（为美化 AS 3.1 的 Logcat）
+Config.setConsoleFilter          : 设置 log 控制台过滤器
+Config.setFileFilter             : 设置 log 文件过滤器
+Config.setStackDeep              : 设置 log 栈深度
+Config.setStackOffset            : 设置 log 栈偏移
+Config.setSaveDays               : 设置 log 可保留天数
+Config.addFormatter              : 增加 log 格式化器
+Config.setFileWriter             : 设置文件写入器
+Config.setOnConsoleOutputListener: 设置控制台输出监听器
+Config.setOnFileOutputListener   : 设置文件输出监听器
+Config.addFileExtraHead          : 增加 log 文件头部
+log                              : 自定义 tag 的 type 日志
+v                                : tag 为类名的 Verbose 日志
+vTag                             : 自定义 tag 的 Verbose 日志
+d                                : tag 为类名的 Debug 日志
+dTag                             : 自定义 tag 的 Debug 日志
+i                                : tag 为类名的 Info 日志
+iTag                             : 自定义 tag 的 Info 日志
+w                                : tag 为类名的 Warn 日志
+wTag                             : 自定义 tag 的 Warn 日志
+e                                : tag 为类名的 Error 日志
+eTag                             : 自定义 tag 的 Error 日志
+a                                : tag 为类名的 Assert 日志
+aTag                             : 自定义 tag 的 Assert 日志
+file                             : log 到文件
+json                             : log 字符串之 json
+xml                              : log 字符串之 xml
+getCurrentLogFilePath            : 获取当前日志文件路径
+getLogFiles                      : 获取所有日志
 ```
 
 * ### Map 相关 -> [MapUtils.java][map.java] -> [Test][map.test]
@@ -763,6 +796,13 @@ getCachePathExternalFirst      : 优先获取外部缓存路径
 
 * ### 权限相关 -> [PermissionUtils.java][permission.java] -> [Demo][permission.demo]
 ```
+permission              : 设置请求权限
+permissionGroup         : 设置请求权限组
+permission.explain      : 设置权限请求前的解释
+permission.rationale    : 设置拒绝权限后再次请求的回调接口
+permission.callback     : 设置回调
+permission.theme        : 设置主题
+permission.request      : 开始请求
 getPermissions          : 获取应用权限
 isGranted               : 判断权限是否被授予
 isGrantedWriteSettings  : 判断修改系统权限是否被授予
@@ -770,11 +810,6 @@ requestWriteSettings    : 申请修改系统权限
 isGrantedDrawOverlays   : 判断悬浮窗权限是否被授予
 requestDrawOverlays     : 申请悬浮窗权限
 launchAppDetailsSettings: 打开应用具体设置
-permission              : 设置请求权限
-rationale               : 设置拒绝权限后再次请求的回调接口
-callback                : 设置回调
-theme                   : 设置主题
-request                 : 开始请求
 ```
 
 * ### 手机相关 -> [PhoneUtils.java][phone.java] -> [Demo][phone.demo]
@@ -1060,6 +1095,7 @@ toDBC           : 转化为半角字符
 toSBC           : 转化为全角字符
 getString       : 获取字符资源
 getStringArray  : 获取字符数组资源
+format          : 格式化字符串
 ```
 
 * ### 线程相关 -> [ThreadUtils.java][thread.java] -> [Test][thread.test]
@@ -1131,16 +1167,23 @@ getZodiac               : 获取星座
 
 * ### 吐司相关 -> [ToastUtils.java][toast.java] -> [Demo][toast.demo]
 ```
-setGravity     : 设置吐司位置
-setBgColor     : 设置背景颜色
-setBgResource  : 设置背景资源
-setMsgColor    : 设置消息颜色
-setMsgTextSize : 设置消息字体大小
-showShort      : 显示短时吐司
-showLong       : 显示长时吐司
-showCustomShort: 显示短时自定义吐司
-showCustomLong : 显示长时自定义吐司
-cancel         : 取消吐司显示
+make                     : 制作吐司
+make.setMode             : 设置模式
+make.setGravity          : 设置位置
+make.setBgColor          : 设置背景颜色
+make.setBgResource       : 设置背景资源
+make.setTextColor        : 设置字体颜色
+make.setTextSize         : 设置字体大小
+make.setDurationIsLong   : 设置是否长时间显示
+make.setLeftIcon         : 设置左侧图标
+make.setTopIcon          : 设置顶部图标
+make.setRightIcon        : 设置右侧图标
+make.setBottomIcon       : 设置底部图标
+make.setNotUseSystemToast: 设置不使用系统吐司
+make.show                : 显示吐司
+showShort                : 显示短时吐司
+showLong                 : 显示长时吐司
+cancel                   : 取消吐司显示
 ```
 
 * ### 触摸相关 -> [TouchUtils.java][touch.java]
@@ -1151,21 +1194,26 @@ setOnTouchListener: 设置触摸事件
 * ### UI 消息相关 -> [UiMessageUtils.java][uiMessage.java] -> [Demo][uiMessage.demo]
 ```
 send          : 发送消息
-addListener   : 新增消息监听器
+addListener   : 增加消息监听器
 removeListener: 移除消息监听器
 ```
 
 * ### URI 相关 -> [UriUtils.java][uri.java]
 ```
-res2Uri        : res 转 uri
-file2Uri       : file 转 uri
-uri2File       : uri 转 file
-uri2Bytes      : uri 转 bytes
+res2Uri  : res 转 uri
+file2Uri : file 转 uri
+uri2File : uri 转 file
+uri2Bytes: uri 转 bytes
 ```
 
 * ### UtilsTransActivity -> [UtilsTransActivity.java][trans.java]
 ```
-start: 启动透明 Activity
+start: 启动随当前线程的透明 Activity
+```
+
+* ### UtilsTransActivity4MainProcess -> [UtilsTransActivity4MainProcess.java][trans4Main.java]
+```
+start: 启动主线程的透明 Activity
 ```
 
 * ### 震动相关 -> [VibrateUtils.java][vibrate.java] -> [Demo][vibrate.demo]
@@ -1181,6 +1229,15 @@ runOnUiThread       : 在 UI 线程运行
 runOnUiThreadDelayed: 在 UI 线程延迟运行
 isLayoutRtl         : 布局是否从右到左
 fixScrollViewTopping: 修复 ScrollView 置顶问题
+layoutId2View       : layoutId 转为 view
+```
+
+* ### 音量相关 -> [VolumeUtils.java][volume.java]
+```
+getVolume   : 获取音量
+setVolume   : 设置音量
+getMaxVolume: 获取最大音量
+getMinVolume: 获取最小音量
 ```
 
 * ### 压缩相关 -> [ZipUtils.java][zip.java] -> [Test][zip.test]
@@ -1250,6 +1307,9 @@ getComments       : 获取压缩文件中的注释链表
 [click.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ClickUtils.java
 [click.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/click/ClickActivity.kt
 
+[clipboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ClipboardUtils.java
+[clipboard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/clipboard/ClipboardActivity.kt
+
 [clone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/CloneUtils.java
 [clone.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/CloneUtilsTest.java
 
@@ -1265,6 +1325,8 @@ getComments       : 获取压缩文件中的注释链表
 [convert.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/ConvertUtilsTest.java
 
 [crash.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/CrashUtils.java
+
+[debouncing.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/DebouncingUtils.java
 
 [device.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/DeviceUtils.java
 [device.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/device/DeviceActivity.kt
@@ -1396,10 +1458,15 @@ getComments       : 获取压缩文件中的注释链表
 
 [trans.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UtilsTransActivity.java
 
+[trans4Main.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/UtilsTransActivity4MainProcess.java
+
 [vibrate.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/VibrateUtils.java
 [vibrate.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/vibrate/VibrateActivity.kt
 
 [view.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ViewUtils.java
+
+[volume.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/VolumeUtils.java
+[volume.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/volume/VolumeActivity.kt
 
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ZipUtils.java
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/ZipUtilsTest.java

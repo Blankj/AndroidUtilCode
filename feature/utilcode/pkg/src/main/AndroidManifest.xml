@@ -140,6 +140,10 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
+            android:name=".feature.clipboard.ClipboardActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop" />
+        <activity
             android:name=".feature.device.DeviceActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
@@ -157,6 +161,10 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.image.ImageActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.intent.IntentActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
@@ -186,7 +194,7 @@
             android:launchMode="singleTop">
             <meta-data
                 android:name="activity_meta_data"
-                android:value="ActivityMetaData" />
+                android:value="D1234567890123456789012345678901234567890" />
         </activity>
         <activity
             android:name=".feature.mvp.MvpActivity"
@@ -253,14 +261,17 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.toast.ToastActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTop" />
+            android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
             android:name=".feature.uiMessage.UiMessageActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
             android:name=".feature.vibrate.VibrateActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.volume.VolumeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
 

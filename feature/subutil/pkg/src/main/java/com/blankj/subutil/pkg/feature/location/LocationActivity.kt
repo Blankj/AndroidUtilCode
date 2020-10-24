@@ -24,6 +24,14 @@ import com.blankj.utilcode.util.PermissionUtils
  */
 class LocationActivity : CommonActivity() {
 
+    private var lastLatitude: String = "unknown"
+    private var lastLongitude: String = "unknown"
+    private var latitude: String = "unknown"
+    private var longitude: String = "unknown"
+    private var country: String = "unknown"
+    private var locality: String = "unknown"
+    private var street: String = "unknown"
+
     companion object {
         fun start(context: Context) {
             PermissionHelper.request(context, object : PermissionUtils.SimpleCallback {
@@ -48,18 +56,17 @@ class LocationActivity : CommonActivity() {
             mLocationService.setOnGetLocationListener(object : LocationService.OnGetLocationListener {
                 override fun getLocation(lastLatitude: String, lastLongitude: String, latitude: String,
                                          longitude: String, country: String, locality: String, street: String) {
+                    this@LocationActivity.apply {
+                        this.lastLatitude = lastLatitude
+                        this.lastLongitude = lastLongitude
+                        this.latitude = latitude
+                        this.longitude = longitude
+                        this.country = country
+                        this.locality = locality
+                        this.street = street
+                    }
                     runOnUiThread {
-                        itemsView.updateItems(
-                                CollectionUtils.newArrayList<CommonItem<*>>(
-                                        CommonItemTitle("lastLatitude", lastLatitude),
-                                        CommonItemTitle("lastLongitude", lastLongitude),
-                                        CommonItemTitle("latitude", latitude),
-                                        CommonItemTitle("longitude", longitude),
-                                        CommonItemTitle("getCountryName", country),
-                                        CommonItemTitle("getLocality", locality),
-                                        CommonItemTitle("getStreet", street)
-                                )
-                        )
+                        itemsView.updateItems(bindItems())
                     }
                 }
             })
@@ -72,13 +79,13 @@ class LocationActivity : CommonActivity() {
 
     override fun bindItems(): MutableList<CommonItem<*>> {
         return CollectionUtils.newArrayList(
-                CommonItemTitle("lastLatitude", "unknown"),
-                CommonItemTitle("lastLongitude", "unknown"),
-                CommonItemTitle("latitude", "unknown"),
-                CommonItemTitle("longitude", "unknown"),
-                CommonItemTitle("getCountryName", "unknown"),
-                CommonItemTitle("getLocality", "unknown"),
-                CommonItemTitle("getStreet", "unknown")
+                CommonItemTitle("lastLatitude", lastLatitude),
+                CommonItemTitle("lastLongitude", lastLongitude),
+                CommonItemTitle("latitude", latitude),
+                CommonItemTitle("longitude", longitude),
+                CommonItemTitle("getCountryName", country),
+                CommonItemTitle("getLocality", locality),
+                CommonItemTitle("getStreet", street)
         )
     }
 

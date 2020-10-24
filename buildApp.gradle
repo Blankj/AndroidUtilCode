@@ -1,7 +1,6 @@
 apply {
     plugin "com.android.application"
-    plugin "kotlin-android"
-    plugin "kotlin-android-extensions"
+    from  "${rootDir.path}/buildCommon.gradle"
     if (Config.depConfig.plugin_api.isApply) {
         plugin Config.depConfig.plugin_api.pluginId
     }
@@ -26,11 +25,7 @@ if (Config.depConfig.plugin_api.isApply) {
 }
 
 android {
-    compileSdkVersion Config.compileSdkVersion
     defaultConfig {
-        minSdkVersion Config.minSdkVersion
-        versionCode Config.versionCode
-        versionName Config.versionName
         applicationId Config.applicationId + suffix
         targetSdkVersion Config.targetSdkVersion
         multiDexEnabled true

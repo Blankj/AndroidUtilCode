@@ -17,11 +17,13 @@ import com.blankj.utilcode.pkg.feature.brightness.BrightnessActivity
 import com.blankj.utilcode.pkg.feature.bus.BusActivity
 import com.blankj.utilcode.pkg.feature.clean.CleanActivity
 import com.blankj.utilcode.pkg.feature.click.ClickActivity
+import com.blankj.utilcode.pkg.feature.clipboard.ClipboardActivity
 import com.blankj.utilcode.pkg.feature.device.DeviceActivity
 import com.blankj.utilcode.pkg.feature.file.FileActivity
 import com.blankj.utilcode.pkg.feature.flashlight.FlashlightActivity
 import com.blankj.utilcode.pkg.feature.fragment.FragmentActivity
 import com.blankj.utilcode.pkg.feature.image.ImageActivity
+import com.blankj.utilcode.pkg.feature.intent.IntentActivity
 import com.blankj.utilcode.pkg.feature.keyboard.KeyboardActivity
 import com.blankj.utilcode.pkg.feature.language.LanguageActivity
 import com.blankj.utilcode.pkg.feature.log.LogActivity
@@ -46,8 +48,11 @@ import com.blankj.utilcode.pkg.feature.span.SpanActivity
 import com.blankj.utilcode.pkg.feature.toast.ToastActivity
 import com.blankj.utilcode.pkg.feature.uiMessage.UiMessageActivity
 import com.blankj.utilcode.pkg.feature.vibrate.VibrateActivity
+import com.blankj.utilcode.pkg.feature.volume.VolumeActivity
+import com.blankj.utilcode.pkg.helper.DialogHelper
 import com.blankj.utilcode.util.CollectionUtils
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ThreadUtils
 import com.blankj.utilcode.util.UtilsTransActivity
 
 /**
@@ -75,6 +80,9 @@ class CoreUtilActivity : CommonActivity() {
         return CollectionUtils.newArrayList(
                 CommonItemClick(R.string.demo_activity, true) {
                     ActivityActivity.start(this)
+                    ThreadUtils.runOnUiThreadDelayed(Runnable {
+
+                    }, 2000)
                 },
                 CommonItemClick(R.string.demo_adapt_screen, true) {
                     AdaptScreenActivity.start(this)
@@ -100,6 +108,9 @@ class CoreUtilActivity : CommonActivity() {
                 CommonItemClick(R.string.demo_click, true) {
                     ClickActivity.start(this)
                 },
+                CommonItemClick(R.string.demo_clipboard, true) {
+                    ClipboardActivity.start(this)
+                },
                 CommonItemClick(R.string.demo_crash) {
                     throw NullPointerException("crash test")
                 },
@@ -117,6 +128,9 @@ class CoreUtilActivity : CommonActivity() {
                 },
                 CommonItemClick(R.string.demo_image, true) {
                     ImageActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_intent, true) {
+                    IntentActivity.start(this)
                 },
                 CommonItemClick(R.string.demo_keyboard, true) {
                     KeyboardActivity.start(this)
@@ -198,6 +212,9 @@ class CoreUtilActivity : CommonActivity() {
                 },
                 CommonItemClick(R.string.demo_vibrate, true) {
                     VibrateActivity.start(this)
+                },
+                CommonItemClick(R.string.demo_volume, true) {
+                    VolumeActivity.start(this)
                 }
         )
     }

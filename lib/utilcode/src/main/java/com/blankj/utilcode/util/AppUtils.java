@@ -1,6 +1,5 @@
 package com.blankj.utilcode.util;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
@@ -11,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 
 import java.io.File;
@@ -524,13 +524,35 @@ public final class AppUtils {
         if (UtilsBridge.isSpace(packageName)) return null;
         try {
             PackageManager pm = Utils.getApp().getPackageManager();
-            @SuppressLint("PackageManagerGetSignatures")
-            PackageInfo pi = pm.getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
+            PackageInfo pi;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                pi = pm.getPackageInfo(packageName, PackageManager.GET_SIGNING_CERTIFICATES);
+            } else {
+                pi = pm.getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
+            }
             return pi == null ? null : pi.signatures;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * Return the application's signature.
+     *
+     * @param file The file.
+     * @return the application's signature
+     */
+    public static Signature[] getAppSignature(final File file) {
+        if (file == null) return null;
+        PackageManager pm = Utils.getApp().getPackageManager();
+        PackageInfo pi;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            pi = pm.getPackageArchiveInfo(file.getAbsolutePath(), PackageManager.GET_SIGNING_CERTIFICATES);
+        } else {
+            pi = pm.getPackageArchiveInfo(file.getAbsolutePath(), PackageManager.GET_SIGNATURES);
+        }
+        return pi == null ? null : pi.signatures;
     }
 
     /**
@@ -611,8 +633,8 @@ public final class AppUtils {
             return Utils.getApp().getPackageManager().getApplicationInfo(pkgName, 0).uid;
         } catch (Exception e) {
             e.printStackTrace();
+            return -1;
         }
-        return -1;
     }
 
     private static String getAppSignatureHash(final String packageName, final String algorithm) {

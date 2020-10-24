@@ -44,7 +44,7 @@ apply plugin: "com.blankj.api"
 给你的项目添加 **[AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode)** 依赖：
 
 ```groovy
-api "com.blankj:utilcode:latest_version"
+api "com.blankj:utilcode:latest.release"
 ```
 
 如果你单纯只想引入 `ApiUtils` 也是可以的，需要你自己拷贝一份这个类放到你工程里，然后在 app 下的 `build.gradle` 中 配置 api 的 DSL 域如下所示：

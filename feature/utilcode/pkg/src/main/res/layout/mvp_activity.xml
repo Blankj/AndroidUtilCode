@@ -14,4 +14,17 @@
         android:text="Get Update Msg"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/mvpMeasureWidthTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        android:padding="8dp"
+        android:text="测量文本框长度"
+        android:textColor="@color/darkGray"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mvpUpdateTv" />
+
 </android.support.constraint.ConstraintLayout>

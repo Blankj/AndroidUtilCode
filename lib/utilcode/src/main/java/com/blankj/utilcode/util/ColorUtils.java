@@ -204,4 +204,14 @@ public final class ColorUtils {
         int high = supportAlpha ? (int) (Math.random() * 0x100) << 24 : 0xFF000000;
         return high | (int) (Math.random() * 0x1000000);
     }
+
+    /**
+     * Return whether the color is light.
+     *
+     * @param color The color.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public boolean isLightColor(@ColorInt int color) {
+        return 0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color) >= 127.5;
+    }
 }

@@ -9,12 +9,14 @@
     <string name="demo_bus">BusUtils Demo</string>
     <string name="demo_clean">CleanUtils Demo</string>
     <string name="demo_click">ClickUtils Demo</string>
+    <string name="demo_clipboard">ClipboardUtils Demo</string>
     <string name="demo_crash">CrashUtils Demo</string>
     <string name="demo_device">DeviceUtils Demo</string>
     <string name="demo_file">FileUtils Demo</string>
     <string name="demo_flashlight">FlashlightUtils Demo</string>
     <string name="demo_fragment">FragmentUtils Demo</string>
     <string name="demo_image">ImageUtils Demo</string>
+    <string name="demo_intent">IntentUtils Demo</string>
     <string name="demo_keyboard">KeyboardUtils Demo</string>
     <string name="demo_language">Language Demo</string>
     <string name="demo_log">LogUtils Demo</string>
@@ -40,6 +42,7 @@
     <string name="demo_uiMessage">UiMessage Demo</string>
     <string name="demo_trans_activity">TransActivity Demo</string>
     <string name="demo_vibrate">VibrateUtils Demo</string>
+    <string name="demo_volume">VolumeUtils Demo</string>
 
     <!--Activity 相关-->
     <string name="activity_shared_element">Shared Element</string>
@@ -226,18 +229,19 @@
     <string name="keyboard_close_dialog">Close Dialog</string>
 
     <!--Language 相关-->
-    <string name="language">Language</string>
-    <string name="language_app_context">Language App Context</string>
-    <string name="language_activity_context">Language Activity Context</string>
+    <string name="language_relaunch_app">Relaunch App</string>
     <string name="language_apply_simple_chinese">Apply Simple Chinese</string>
     <string name="language_apply_american">Apply American</string>
+    <string name="language_apply_english">Apply English</string>
     <string name="language_apply_system">Apply System</string>
 
     <!--Log 相关-->
     <string name="log_switch">Log Switch</string>
-    <string name="log_console_console">Console Switch</string>
+    <string name="log_console_switch">Console Switch</string>
+    <string name="log_console_listener_switch">Console Listener Switch</string>
     <string name="log_head_switch">Head Switch</string>
     <string name="log_file_switch">File Switch</string>
+    <string name="log_file_listener_switch">File Listener Switch</string>
     <string name="log_border_switch">Border Switch</string>
     <string name="log_single_tag_switch">Single Tag Switch</string>
     <string name="log_with_no_tag">Log With No Tag</string>
@@ -324,15 +328,22 @@
     <!--Toast 相关-->
     <string name="toast_show_short">Show Short</string>
     <string name="toast_show_long">Show Long</string>
+    <string name="toast_show_null">Show Null</string>
+    <string name="toast_show_empty">Show Empty</string>
     <string name="toast_show_green_font">Show Green Font</string>
     <string name="toast_show_bg_color">Show Bg Color</string>
     <string name="toast_show_bg_resource">Show Bg Resource</string>
     <string name="toast_show_span">Show Span</string>
+    <string name="toast_show_left_icon">Show Left Icon</string>
+    <string name="toast_show_dark_mode">Show Dark Mode</string>
+    <string name="toast_show_long_string">Show Long String</string>
+    <string name="toast_long_string">A toast is a view containing a quick little message for the user. The ToastUtils class helps you create and show those.</string>
     <string name="toast_show_custom_view">Show Custom View</string>
     <string name="toast_custom_view">Custom View</string>
     <string name="toast_show_middle">Show Middle</string>
     <string name="toast_cancel">Cancel</string>
     <string name="toast_show_toast_dialog">Show Toast Dialog</string>
+    <string name="toast_show_toast_when_start_activity">Show Toast When Start Activity</string>
     <string name="toast_short">Short</string>
     <string name="toast_long">Long</string>
     <string name="toast_green_font">Green Font</string>

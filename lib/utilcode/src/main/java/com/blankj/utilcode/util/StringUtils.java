@@ -4,6 +4,8 @@ import android.content.res.Resources;
 import androidx.annotation.ArrayRes;
 import androidx.annotation.StringRes;
 
+import java.util.IllegalFormatException;
+
 /**
  * <pre>
  *     author: Blankj
@@ -117,7 +119,7 @@ public final class StringUtils {
     public static String upperFirstLetter(final String s) {
         if (s == null || s.length() == 0) return "";
         if (!Character.isLowerCase(s.charAt(0))) return s;
-        return String.valueOf((char) (s.charAt(0) - 32)) + s.substring(1);
+        return (char) (s.charAt(0) - 32) + s.substring(1);
     }
 
     /**
@@ -202,11 +204,7 @@ public final class StringUtils {
      * @return the string value associated with a particular resource ID.
      */
     public static String getString(@StringRes int id) {
-        try {
-            return Utils.getApp().getResources().getString(id);
-        } catch (Resources.NotFoundException ignore) {
-            return "";
-        }
+        return getString(id, (Object[]) null);
     }
 
     /**
@@ -218,9 +216,10 @@ public final class StringUtils {
      */
     public static String getString(@StringRes int id, Object... formatArgs) {
         try {
-            return Utils.getApp().getString(id, formatArgs);
-        } catch (Resources.NotFoundException ignore) {
-            return "";
+            return format(Utils.getApp().getString(id), formatArgs);
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+            return String.valueOf(id);
         }
     }
 
@@ -233,8 +232,30 @@ public final class StringUtils {
     public static String[] getStringArray(@ArrayRes int id) {
         try {
             return Utils.getApp().getResources().getStringArray(id);
-        } catch (Resources.NotFoundException ignore) {
-            return new String[0];
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+            return new String[]{String.valueOf(id)};
         }
+    }
+
+    /**
+     * Format the string.
+     *
+     * @param str  The string.
+     * @param args The args.
+     * @return a formatted string.
+     */
+    public static String format(String str, Object... args) {
+        String text = str;
+        if (text != null) {
+            if (args != null && args.length > 0) {
+                try {
+                    text = String.format(str, args);
+                } catch (IllegalFormatException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return text;
     }
 }

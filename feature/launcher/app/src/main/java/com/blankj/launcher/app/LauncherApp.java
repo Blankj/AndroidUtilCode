@@ -1,9 +1,6 @@
 package com.blankj.launcher.app;
 
-import android.content.Context;
-
 import com.blankj.common.CommonApplication;
-import com.blankj.utilcode.util.ResourceUtils;
 
 /**
  * <pre>
@@ -19,11 +16,6 @@ public class LauncherApp extends CommonApplication {
 
     public static LauncherApp getInstance() {
         return sInstance;
-    }
-
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
     }
 
     @Override

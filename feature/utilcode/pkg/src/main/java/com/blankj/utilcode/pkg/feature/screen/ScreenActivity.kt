@@ -3,6 +3,8 @@ package com.blankj.utilcode.pkg.feature.screen
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.widget.ImageView
+import android.widget.TextView
 import com.blankj.common.activity.CommonActivity
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick
@@ -61,10 +63,8 @@ class ScreenActivity : CommonActivity() {
 
                 CommonItemSwitch(
                         "isFullScreen",
-                        Utils.Supplier {
-                            ScreenUtils.isFullScreen(this)
-                        },
-                        Utils.Consumer {
+                        { ScreenUtils.isFullScreen(this) },
+                        {
                             if (it) {
                                 ScreenUtils.setFullScreen(this)
                                 BarUtils.setStatusBarVisibility(this, false)
@@ -76,10 +76,8 @@ class ScreenActivity : CommonActivity() {
                 ),
                 CommonItemSwitch(
                         "isLandscape",
-                        Utils.Supplier {
-                            ScreenUtils.isLandscape()
-                        },
-                        Utils.Consumer {
+                        { ScreenUtils.isLandscape() },
+                        {
                             if (it) {
                                 ScreenUtils.setLandscape(this)
                             } else {
@@ -88,7 +86,15 @@ class ScreenActivity : CommonActivity() {
                         }
                 ),
                 CommonItemClick(R.string.screen_screenshot) {
-                    DialogHelper.showScreenshotDialog(ScreenUtils.screenShot(this))
+                    val iv :ImageView = ImageView(this)
+                    iv.setImageResource(R.mipmap.ic_launcher)
+
+                    val tv: TextView = TextView(this)
+                    tv.setText("wowowowwowo")
+
+                    DialogHelper.showScreenshotDialog(ImageUtils.view2Bitmap(tv))
+
+//                    DialogHelper.showScreenshotDialog(ScreenUtils.screenShot(this))
                 }
         )
     }

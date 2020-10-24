@@ -119,71 +119,77 @@ class ImageActivity : CommonActivity() {
                     }
                 })
             })
-            add(CommonItemImage(R.string.image_src, Utils.Consumer {
+            add(CommonItemImage(R.string.image_src) {
                 it.setImageBitmap(src)
-            }))
-            add(CommonItemImage(R.string.image_add_color, Utils.Consumer {
+            })
+            add(CommonItemImage(R.string.image_add_color) {
                 it.setImageBitmap(ImageUtils.drawColor(src, Color.parseColor("#8000FF00")))
-            }))
-            add(CommonItemImage(R.string.image_scale, Utils.Consumer {
+            })
+            add(CommonItemImage(R.string.image_scale) {
                 it.setImageBitmap(ImageUtils.scale(src, width / 2, height / 2))
-            }))
-            add(CommonItemImage(R.string.image_clip, Utils.Consumer {
+            })
+            add(CommonItemImage(R.string.image_clip) {
                 it.setImageBitmap(ImageUtils.clip(src, 0, 0, width / 2, height / 2))
-            }))
-            add(CommonItemImage(R.string.image_skew, Utils.Consumer {
+            })
+            add(CommonItemImage(R.string.image_skew) {
                 it.setImageBitmap(ImageUtils.skew(src, 0.2f, 0.1f))
-            }))
-            add(CommonItemImage(R.string.image_rotate, Utils.Consumer {
+            })
+            add(CommonItemImage(R.string.image_rotate) {
                 it.setImageBitmap(ImageUtils.rotate(src, 90, (width / 2).toFloat(), (height / 2).toFloat()))
-            }))
-            add(CommonItemImage(R.string.image_to_round) { it ->
+            })
+            add(CommonItemImage(R.string.image_to_round) {
                 it.setImageBitmap(ImageUtils.toRound(src))
             })
-            add(CommonItemImage(R.string.image_to_round_border, Utils.Consumer {
+            add(CommonItemImage(R.string.image_to_round_border) {
                 it.setImageBitmap(ImageUtils.toRound(src, 16, Color.GREEN))
-            }))
-            add(CommonItemImage(R.string.image_to_round_corner, Utils.Consumer {
+            })
+            add(CommonItemImage(R.string.image_to_round_corner) {
                 it.setImageBitmap(ImageUtils.toRoundCorner(src, 80f))
-            }))
-            add(CommonItemImage(R.string.image_to_round_corner_border, Utils.Consumer {
-                it.setImageBitmap(ImageUtils.toRoundCorner(src, 80f, 16, Color.GREEN))
-            }))
-            add(CommonItemImage(R.string.image_add_corner_border, Utils.Consumer {
-                it.setImageBitmap(ImageUtils.addCornerBorder(src, 16, Color.GREEN, 0f))
-            }))
-            add(CommonItemImage(R.string.image_add_circle_border, Utils.Consumer {
-                it.setImageBitmap(ImageUtils.addCircleBorder(round, 16, Color.GREEN))
-            }))
-            add(CommonItemImage(R.string.image_add_reflection, Utils.Consumer {
+            })
+            add(CommonItemImage(R.string.image_to_round_corner_border) {
+                it.setImageBitmap(ImageUtils.toRoundCorner(src, 80f, 16f, Color.GREEN))
+            })
+            add(CommonItemImage(R.string.image_to_round_corner_border) {
+                it.setImageBitmap(ImageUtils.toRoundCorner(src, floatArrayOf(0f, 0f, 80f, 80f, 0f, 0f, 80f, 80f), 16f, Color.GREEN))
+            })
+            add(CommonItemImage(R.string.image_add_corner_border) {
+                it.setImageBitmap(ImageUtils.addCornerBorder(src, 16f, Color.GREEN, 80f))
+            })
+            add(CommonItemImage(R.string.image_add_corner_border) {
+                it.setImageBitmap(ImageUtils.addCornerBorder(src, 16f, Color.GREEN, floatArrayOf(0f, 0f, 80f, 80f, 0f, 0f, 80f, 80f)))
+            })
+            add(CommonItemImage(R.string.image_add_circle_border) {
+                it.setImageBitmap(ImageUtils.addCircleBorder(src, 16f, Color.GREEN))
+            })
+            add(CommonItemImage(R.string.image_add_reflection) {
                 it.setImageBitmap(ImageUtils.addReflection(src, 80))
-            }))
-            add(CommonItemImage(R.string.image_add_text_watermark, Utils.Consumer {
+            })
+            add(CommonItemImage(R.string.image_add_text_watermark) {
                 it.setImageBitmap(ImageUtils.addTextWatermark(src, "blankj", 40, Color.GREEN, 0f, 0f))
-            }))
-            add(CommonItemImage(R.string.image_add_image_watermark, Utils.Consumer {
+            })
+            add(CommonItemImage(R.string.image_add_image_watermark) {
                 it.setImageBitmap(ImageUtils.addImageWatermark(src, watermark, 0, 0, 0x88))
-            }))
-            add(CommonItemImage(R.string.image_to_gray, Utils.Consumer {
+            })
+            add(CommonItemImage(R.string.image_to_gray) {
                 it.setImageBitmap(ImageUtils.toGray(src))
-            }))
-            add(CommonItemImage(R.string.image_fast_blur, Utils.Consumer {
+            })
+            add(CommonItemImage(R.string.image_fast_blur) {
                 it.setImageBitmap(ImageUtils.fastBlur(src, 0.1f, 5f))
-            }))
+            })
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                add(CommonItemImage(R.string.image_render_script_blur, Utils.Consumer {
+                add(CommonItemImage(R.string.image_render_script_blur) {
                     it.setImageBitmap(ImageUtils.renderScriptBlur(src, 10f))
-                }))
+                })
             }
-            add(CommonItemImage(R.string.image_stack_blur, Utils.Consumer {
+            add(CommonItemImage(R.string.image_stack_blur) {
                 it.setImageBitmap(ImageUtils.stackBlur(src, 10))
-            }))
-            add(CommonItemImage(R.string.image_compress_by_scale, Utils.Consumer {
+            })
+            add(CommonItemImage(R.string.image_compress_by_scale) {
                 it.setImageBitmap(ImageUtils.compressByScale(src, 0.5f, 0.5f))
-            }))
-            add(CommonItemImage(R.string.image_compress_by_sample_size, Utils.Consumer {
+            })
+            add(CommonItemImage(R.string.image_compress_by_sample_size) {
                 it.setImageBitmap(ImageUtils.compressBySampleSize(src, 2))
-            }))
+            })
         }
     }
 

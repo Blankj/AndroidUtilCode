@@ -11,6 +11,7 @@ import com.blankj.common.item.CommonItemClick
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.DialogHelper
 import com.blankj.utilcode.util.CollectionUtils
+import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
 
@@ -38,30 +39,18 @@ class ToastActivity : CommonActivity() {
     override fun bindItems(): MutableList<CommonItem<*>> {
         return CollectionUtils.newArrayList(
                 CommonItemClick(R.string.toast_show_short) {
-                    resetToast()
                     Thread(Runnable { ToastUtils.showShort(R.string.toast_short) }).start()
                 },
                 CommonItemClick(R.string.toast_show_long) {
-                    resetToast()
                     Thread(Runnable { ToastUtils.showLong(R.string.toast_long) }).start()
                 },
-                CommonItemClick(R.string.toast_show_green_font) {
-                    resetToast()
-                    ToastUtils.setMsgColor(Color.GREEN)
-                    ToastUtils.showLong(R.string.toast_green_font)
+                CommonItemClick(R.string.toast_show_null) {
+                    ToastUtils.showLong(null)
                 },
-                CommonItemClick(R.string.toast_show_bg_color) {
-                    resetToast()
-                    ToastUtils.setBgColor(ContextCompat.getColor(this, R.color.colorAccent))
-                    ToastUtils.showLong(R.string.toast_bg_color)
-                },
-                CommonItemClick(R.string.toast_show_bg_resource) {
-                    resetToast()
-                    ToastUtils.setBgResource(R.drawable.toast_round_rect)
-                    ToastUtils.showLong(R.string.toast_custom_bg)
+                CommonItemClick(R.string.toast_show_empty) {
+                    ToastUtils.showLong("")
                 },
                 CommonItemClick(R.string.toast_show_span) {
-                    resetToast()
                     ToastUtils.showLong(
                             SpanUtils()
                                     .appendImage(R.mipmap.ic_launcher, SpanUtils.ALIGN_CENTER)
@@ -70,34 +59,40 @@ class ToastActivity : CommonActivity() {
                                     .create()
                     )
                 },
-                CommonItemClick(R.string.toast_show_custom_view) {
-                    resetToast()
-                    Thread(Runnable { CustomToast.showLong(R.string.toast_custom_view) }).start()
+                CommonItemClick(R.string.toast_show_long_string) {
+                    ToastUtils.showLong(R.string.toast_long_string)
+                },
+                CommonItemClick(R.string.toast_show_green_font) {
+                    ToastUtils.make().setTextColor(Color.GREEN).setDurationIsLong(true).show(R.string.toast_green_font)
+                },
+                CommonItemClick(R.string.toast_show_bg_color) {
+                    ToastUtils.make().setBgColor(ColorUtils.getColor(R.color.colorAccent)).show(R.string.toast_bg_color)
+                },
+                CommonItemClick(R.string.toast_show_bg_resource) {
+                    ToastUtils.make().setBgResource(R.drawable.toast_round_rect).show(R.string.toast_custom_bg)
+                },
+                CommonItemClick(R.string.toast_show_left_icon) {
+                    ToastUtils.make().setLeftIcon(R.mipmap.ic_launcher).show(R.string.toast_show_left_icon)
+                },
+                CommonItemClick(R.string.toast_show_dark_mode) {
+                    ToastUtils.make().setTopIcon(R.mipmap.ic_launcher).setMode(ToastUtils.MODE.DARK).show(R.string.toast_show_dark_mode)
                 },
                 CommonItemClick(R.string.toast_show_middle) {
-                    resetToast()
-                    ToastUtils.setGravity(Gravity.CENTER, 0, 0)
-                    ToastUtils.showLong(R.string.toast_middle)
+                    ToastUtils.make().setGravity(Gravity.CENTER, 0, 0).show(R.string.toast_middle)
+                },
+                CommonItemClick(R.string.toast_show_custom_view) {
+                    Thread(Runnable { CustomToast.showLong(R.string.toast_custom_view) }).start()
                 },
                 CommonItemClick(R.string.toast_cancel) {
                     ToastUtils.cancel()
                 },
                 CommonItemClick(R.string.toast_show_toast_dialog) {
-                    resetToast()
                     DialogHelper.showToastDialog()
+                },
+                CommonItemClick(R.string.toast_show_toast_when_start_activity) {
+                    ToastUtils.showLong(R.string.toast_show_toast_when_start_activity)
+                    start(this)
                 }
         )
-    }
-
-    override fun onDestroy() {
-        resetToast()
-        super.onDestroy()
-    }
-
-    private fun resetToast() {
-        ToastUtils.setMsgColor(-0x1000001)
-        ToastUtils.setBgColor(-0x1000001)
-        ToastUtils.setBgResource(-1)
-        ToastUtils.setGravity(-1, -1, -1)
     }
 }

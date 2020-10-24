@@ -154,9 +154,10 @@ public final class RegexUtils {
                 CITY_MAP.put("64", "宁夏");
                 CITY_MAP.put("65", "新疆");
 
-                CITY_MAP.put("71", "台湾");
+                CITY_MAP.put("71", "台湾老");
                 CITY_MAP.put("81", "香港");
                 CITY_MAP.put("82", "澳门");
+                CITY_MAP.put("83", "台湾新");
                 CITY_MAP.put("91", "国外");
             }
             if (CITY_MAP.get(input.subSequence(0, 2).toString()) != null) {

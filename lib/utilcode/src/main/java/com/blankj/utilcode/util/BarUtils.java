@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Build;
+import android.provider.Settings;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.KeyCharacterMap;
@@ -56,7 +57,7 @@ public final class BarUtils {
      * @return the status bar's height
      */
     public static int getStatusBarHeight() {
-        Resources resources = Resources.getSystem();
+        Resources resources = Utils.getApp().getResources();
         int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
         return resources.getDimensionPixelSize(resourceId);
     }
@@ -432,7 +433,7 @@ public final class BarUtils {
         TypedValue tv = new TypedValue();
         if (Utils.getApp().getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
             return TypedValue.complexToDimensionPixelSize(
-                    tv.data, Resources.getSystem().getDisplayMetrics()
+                    tv.data, Utils.getApp().getResources().getDisplayMetrics()
             );
         }
         return 0;
@@ -482,7 +483,7 @@ public final class BarUtils {
      * @return the navigation bar's height
      */
     public static int getNavBarHeight() {
-        Resources res = Resources.getSystem();
+        Resources res = Utils.getApp().getResources();
         int resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android");
         if (resourceId != 0) {
             return res.getDimensionPixelSize(resourceId);
@@ -566,9 +567,22 @@ public final class BarUtils {
             }
         }
         if (isVisible) {
+            // 对于三星手机，android10以下非OneUI2的版本，比如 s8，note8 等设备上，
+            // 导航栏显示存在bug："当用户隐藏导航栏时显示输入法的时候导航栏会跟随显示"，会导致隐藏输入法之后判断错误
+            // 这个问题在 OneUI 2 & android 10 版本已修复
+            if (UtilsBridge.isSamsung()
+                    && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
+                    && Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                try {
+                    return Settings.Global.getInt(Utils.getApp().getContentResolver(), "navigationbar_hide_bar_enabled") == 0;
+                } catch (Exception ignore) {
+                }
+            }
+
             int visibility = decorView.getSystemUiVisibility();
             isVisible = (visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
         }
+
         return isVisible;
     }
 

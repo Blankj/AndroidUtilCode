@@ -1168,7 +1168,7 @@ public final class FileUtils {
      * @return the length of directory
      */
     private static long getDirLength(final File dir) {
-        if (!isDir(dir)) return -1;
+        if (!isDir(dir)) return 0;
         long len = 0;
         File[] files = dir.listFiles();
         if (files != null && files.length > 0) {
