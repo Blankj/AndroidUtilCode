@@ -50,12 +50,8 @@ class FlashlightActivity : CommonActivity() {
             if (FlashlightUtils.isFlashlightEnable()) {
                 add(CommonItemSwitch(
                         R.string.flashlight_status,
-                        Utils.Supplier {
-                            FlashlightUtils.isFlashlightOn()
-                        },
-                        Utils.Consumer {
-                            FlashlightUtils.setFlashlightStatus(it)
-                        }
+                        { FlashlightUtils.isFlashlightOn() },
+                        { FlashlightUtils.setFlashlightStatus(it) }
                 ))
             }
         }

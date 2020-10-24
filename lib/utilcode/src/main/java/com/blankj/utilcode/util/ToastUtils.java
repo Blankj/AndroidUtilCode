@@ -2,32 +2,42 @@ package com.blankj.utilcode.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.CallSuper;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
 import android.support.annotation.StringRes;
 import android.support.v4.app.NotificationManagerCompat;
-import android.util.Log;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
+import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.R;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
 
 /**
@@ -40,20 +50,49 @@ import java.lang.reflect.Field;
  */
 public final class ToastUtils {
 
-    private static final int    COLOR_DEFAULT = 0xFEFFFFFF;
-    private static final String NULL          = "null";
+    @StringDef({MODE.LIGHT, MODE.DARK})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface MODE {
+        String LIGHT = "light";
+        String DARK  = "dark";
+    }
+
+    private static final String     TAG_TOAST           = "TAG_TOAST";
+    private static final int        COLOR_DEFAULT       = 0xFEFFFFFF;
+    private static final String     NULL                = "toast null";
+    private static final String     NOTHING             = "toast nothing";
+    private static final ToastUtils DEFAULT_TOAST_UTILS = make();
 
     private static IToast iToast;
-    private static int    sGravity     = -1;
-    private static int    sXOffset     = -1;
-    private static int    sYOffset     = -1;
-    private static int    sBgColor     = COLOR_DEFAULT;
-    private static int    sBgResource  = -1;
-    private static int    sMsgColor    = COLOR_DEFAULT;
-    private static int    sMsgTextSize = -1;
 
-    private ToastUtils() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
+    private String     mMode;
+    private int        mGravity            = -1;
+    private int        mXOffset            = -1;
+    private int        mYOffset            = -1;
+    private int        mBgColor            = COLOR_DEFAULT;
+    private int        mBgResource         = -1;
+    private int        mTextColor          = COLOR_DEFAULT;
+    private int        mTextSize           = -1;
+    private boolean    isLong              = false;
+    private Drawable[] mIcons              = new Drawable[4];
+    private boolean    isNotUseSystemToast = false;
+
+    /**
+     * Make a toast.
+     *
+     * @return the single {@link ToastUtils} instance
+     */
+    public static ToastUtils make() {
+        return new ToastUtils();
+    }
+
+    /**
+     * @param mode The mode.
+     * @return the single {@link ToastUtils} instance
+     */
+    public final ToastUtils setMode(@MODE String mode) {
+        mMode = mode;
+        return this;
     }
 
     /**
@@ -62,47 +101,161 @@ public final class ToastUtils {
      * @param gravity The gravity.
      * @param xOffset X-axis offset, in pixel.
      * @param yOffset Y-axis offset, in pixel.
+     * @return the single {@link ToastUtils} instance
      */
-    public static void setGravity(final int gravity, final int xOffset, final int yOffset) {
-        sGravity = gravity;
-        sXOffset = xOffset;
-        sYOffset = yOffset;
+    public final ToastUtils setGravity(final int gravity, final int xOffset, final int yOffset) {
+        mGravity = gravity;
+        mXOffset = xOffset;
+        mYOffset = yOffset;
+        return this;
     }
 
     /**
      * Set the color of background.
      *
      * @param backgroundColor The color of background.
+     * @return the single {@link ToastUtils} instance
      */
-    public static void setBgColor(@ColorInt final int backgroundColor) {
-        sBgColor = backgroundColor;
+    public final ToastUtils setBgColor(@ColorInt final int backgroundColor) {
+        mBgColor = backgroundColor;
+        return this;
     }
 
     /**
      * Set the resource of background.
      *
      * @param bgResource The resource of background.
+     * @return the single {@link ToastUtils} instance
      */
-    public static void setBgResource(@DrawableRes final int bgResource) {
-        sBgResource = bgResource;
+    public final ToastUtils setBgResource(@DrawableRes final int bgResource) {
+        mBgResource = bgResource;
+        return this;
     }
 
     /**
-     * Set the color of message.
+     * Set the text color of toast.
      *
-     * @param msgColor The color of message.
+     * @param msgColor The text color of toast.
+     * @return the single {@link ToastUtils} instance
      */
-    public static void setMsgColor(@ColorInt final int msgColor) {
-        sMsgColor = msgColor;
+    public final ToastUtils setTextColor(@ColorInt final int msgColor) {
+        mTextColor = msgColor;
+        return this;
     }
 
     /**
-     * Set the text size of message.
+     * Set the text size of toast.
      *
-     * @param textSize The text size of message.
+     * @param textSize The text size of toast.
+     * @return the single {@link ToastUtils} instance
      */
-    public static void setMsgTextSize(final int textSize) {
-        sMsgTextSize = textSize;
+    public final ToastUtils setTextSize(final int textSize) {
+        mTextSize = textSize;
+        return this;
+    }
+
+    /**
+     * Set the toast for a long period of time.
+     *
+     * @return the single {@link ToastUtils} instance
+     */
+    public final ToastUtils setDurationIsLong(boolean isLong) {
+        this.isLong = isLong;
+        return this;
+    }
+
+    /**
+     * Set the left icon of toast.
+     *
+     * @param resId The left icon resource identifier.
+     * @return the single {@link ToastUtils} instance
+     */
+    public final ToastUtils setLeftIcon(@DrawableRes int resId) {
+        return setLeftIcon(ContextCompat.getDrawable(Utils.getApp(), resId));
+    }
+
+    /**
+     * Set the left icon of toast.
+     *
+     * @param drawable The left icon drawable.
+     * @return the single {@link ToastUtils} instance
+     */
+    public final ToastUtils setLeftIcon(Drawable drawable) {
+        mIcons[0] = drawable;
+        return this;
+    }
+
+    /**
+     * Set the top icon of toast.
+     *
+     * @param resId The top icon resource identifier.
+     * @return the single {@link ToastUtils} instance
+     */
+    public final ToastUtils setTopIcon(@DrawableRes int resId) {
+        return setTopIcon(ContextCompat.getDrawable(Utils.getApp(), resId));
+    }
+
+    /**
+     * Set the top icon of toast.
+     *
+     * @param drawable The top icon drawable.
+     * @return the single {@link ToastUtils} instance
+     */
+    public final ToastUtils setTopIcon(Drawable drawable) {
+        mIcons[1] = drawable;
+        return this;
+    }
+
+    /**
+     * Set the right icon of toast.
+     *
+     * @param resId The right icon resource identifier.
+     * @return the single {@link ToastUtils} instance
+     */
+    public final ToastUtils setRightIcon(@DrawableRes int resId) {
+        return setRightIcon(ContextCompat.getDrawable(Utils.getApp(), resId));
+    }
+
+    /**
+     * Set the right icon of toast.
+     *
+     * @param drawable The right icon drawable.
+     * @return the single {@link ToastUtils} instance
+     */
+    public final ToastUtils setRightIcon(Drawable drawable) {
+        mIcons[2] = drawable;
+        return this;
+    }
+
+    /**
+     * Set the left bottom of toast.
+     *
+     * @param resId The bottom icon resource identifier.
+     * @return the single {@link ToastUtils} instance
+     */
+    public final ToastUtils setBottomIcon(int resId) {
+        return setBottomIcon(ContextCompat.getDrawable(Utils.getApp(), resId));
+    }
+
+    /**
+     * Set the bottom icon of toast.
+     *
+     * @param drawable The bottom icon drawable.
+     * @return the single {@link ToastUtils} instance
+     */
+    public final ToastUtils setBottomIcon(Drawable drawable) {
+        mIcons[3] = drawable;
+        return this;
+    }
+
+    /**
+     * Set not use system toast.
+     *
+     * @return the single {@link ToastUtils} instance
+     */
+    public final ToastUtils setNotUseSystemToast() {
+        isNotUseSystemToast = true;
+        return this;
     }
 
     /**
@@ -110,8 +263,95 @@ public final class ToastUtils {
      *
      * @param text The text.
      */
+    public final void show(final CharSequence text) {
+        show(text, getDuration(), this);
+    }
+
+    /**
+     * Show the toast for a short period of time.
+     *
+     * @param resId The resource id for text.
+     */
+    public final void show(@StringRes final int resId) {
+        show(UtilsBridge.getString(resId), getDuration(), this);
+    }
+
+    /**
+     * Show the toast for a short period of time.
+     *
+     * @param resId The resource id for text.
+     * @param args  The args.
+     */
+    public final void show(@StringRes final int resId, final Object... args) {
+        show(UtilsBridge.getString(resId, args), getDuration(), this);
+    }
+
+    /**
+     * Show the toast for a short period of time.
+     *
+     * @param format The format.
+     * @param args   The args.
+     */
+    public final void show(final String format, final Object... args) {
+        show(UtilsBridge.format(format, args), getDuration(), this);
+    }
+
+    /**
+     * Show custom toast.
+     */
+    public final void show(final View view) {
+        show(view, getDuration(), this);
+    }
+
+    private int getDuration() {
+        return isLong ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT;
+    }
+
+    private View tryApplyUtilsToastView(final CharSequence text) {
+        if (!MODE.DARK.equals(mMode) && !MODE.LIGHT.equals(mMode)
+                && mIcons[0] == null && mIcons[1] == null && mIcons[2] == null && mIcons[3] == null) {
+            return null;
+        }
+
+        View toastView = UtilsBridge.layoutId2View(R.layout.utils_toast_view);
+        TextView messageTv = toastView.findViewById(android.R.id.message);
+        if (MODE.DARK.equals(mMode)) {
+            GradientDrawable bg = (GradientDrawable) toastView.getBackground().mutate();
+            bg.setColor(Color.parseColor("#BB000000"));
+            messageTv.setTextColor(Color.WHITE);
+        }
+        messageTv.setText(text);
+        if (mIcons[0] != null) {
+            View leftIconView = toastView.findViewById(R.id.utvLeftIconView);
+            ViewCompat.setBackground(leftIconView, mIcons[0]);
+            leftIconView.setVisibility(View.VISIBLE);
+        }
+        if (mIcons[1] != null) {
+            View topIconView = toastView.findViewById(R.id.utvTopIconView);
+            ViewCompat.setBackground(topIconView, mIcons[1]);
+            topIconView.setVisibility(View.VISIBLE);
+        }
+        if (mIcons[2] != null) {
+            View rightIconView = toastView.findViewById(R.id.utvRightIconView);
+            ViewCompat.setBackground(rightIconView, mIcons[2]);
+            rightIconView.setVisibility(View.VISIBLE);
+        }
+        if (mIcons[3] != null) {
+            View bottomIconView = toastView.findViewById(R.id.utvBottomIconView);
+            ViewCompat.setBackground(bottomIconView, mIcons[3]);
+            bottomIconView.setVisibility(View.VISIBLE);
+        }
+        return toastView;
+    }
+
+
+    /**
+     * Show the toast for a short period of time.
+     *
+     * @param text The text.
+     */
     public static void showShort(final CharSequence text) {
-        show(text == null ? NULL : text, Toast.LENGTH_SHORT);
+        show(text, Toast.LENGTH_SHORT, DEFAULT_TOAST_UTILS);
     }
 
     /**
@@ -120,7 +360,7 @@ public final class ToastUtils {
      * @param resId The resource id for text.
      */
     public static void showShort(@StringRes final int resId) {
-        show(resId, Toast.LENGTH_SHORT);
+        show(UtilsBridge.getString(resId), Toast.LENGTH_SHORT, DEFAULT_TOAST_UTILS);
     }
 
     /**
@@ -130,7 +370,7 @@ public final class ToastUtils {
      * @param args  The args.
      */
     public static void showShort(@StringRes final int resId, final Object... args) {
-        show(resId, Toast.LENGTH_SHORT, args);
+        show(UtilsBridge.getString(resId, args), Toast.LENGTH_SHORT, DEFAULT_TOAST_UTILS);
     }
 
     /**
@@ -140,7 +380,7 @@ public final class ToastUtils {
      * @param args   The args.
      */
     public static void showShort(final String format, final Object... args) {
-        show(format, Toast.LENGTH_SHORT, args);
+        show(UtilsBridge.format(format, args), Toast.LENGTH_SHORT, DEFAULT_TOAST_UTILS);
     }
 
     /**
@@ -149,7 +389,7 @@ public final class ToastUtils {
      * @param text The text.
      */
     public static void showLong(final CharSequence text) {
-        show(text == null ? NULL : text, Toast.LENGTH_LONG);
+        show(text, Toast.LENGTH_LONG, DEFAULT_TOAST_UTILS);
     }
 
     /**
@@ -158,7 +398,7 @@ public final class ToastUtils {
      * @param resId The resource id for text.
      */
     public static void showLong(@StringRes final int resId) {
-        show(resId, Toast.LENGTH_LONG);
+        show(UtilsBridge.getString(resId), Toast.LENGTH_LONG, DEFAULT_TOAST_UTILS);
     }
 
     /**
@@ -168,7 +408,7 @@ public final class ToastUtils {
      * @param args  The args.
      */
     public static void showLong(@StringRes final int resId, final Object... args) {
-        show(resId, Toast.LENGTH_LONG, args);
+        show(UtilsBridge.getString(resId), Toast.LENGTH_LONG, DEFAULT_TOAST_UTILS);
     }
 
     /**
@@ -178,45 +418,7 @@ public final class ToastUtils {
      * @param args   The args.
      */
     public static void showLong(final String format, final Object... args) {
-        show(format, Toast.LENGTH_LONG, args);
-    }
-
-    /**
-     * Show custom toast for a short period of time.
-     *
-     * @param layoutId ID for an XML layout resource to load.
-     */
-    public static View showCustomShort(@LayoutRes final int layoutId) {
-        return showCustomShort(getView(layoutId));
-    }
-
-    /**
-     * Show custom toast for a short period of time.
-     *
-     * @param view The view of toast.
-     */
-    public static View showCustomShort(final View view) {
-        show(view, Toast.LENGTH_SHORT);
-        return view;
-    }
-
-    /**
-     * Show custom toast for a long period of time.
-     *
-     * @param layoutId ID for an XML layout resource to load.
-     */
-    public static View showCustomLong(@LayoutRes final int layoutId) {
-        return showCustomLong(getView(layoutId));
-    }
-
-    /**
-     * Show custom toast for a long period of time.
-     *
-     * @param view The view of toast.
-     */
-    public static View showCustomLong(final View view) {
-        show(view, Toast.LENGTH_LONG);
-        return view;
+        show(UtilsBridge.format(format, args), Toast.LENGTH_LONG, DEFAULT_TOAST_UTILS);
     }
 
     /**
@@ -225,93 +427,79 @@ public final class ToastUtils {
     public static void cancel() {
         if (iToast != null) {
             iToast.cancel();
+            iToast = null;
         }
     }
 
-    private static void show(final int resId, final int duration) {
-        show(resId, duration, (Object) null);
+    private static void show(final CharSequence text, final int duration, final ToastUtils utils) {
+        show(null, getToastFriendlyText(text), duration, utils);
     }
 
-    private static void show(final int resId, final int duration, final Object... args) {
-        try {
-            CharSequence text = Utils.getApp().getResources().getText(resId);
-            if (args != null && args.length > 0) {
-                text = String.format(text.toString(), args);
-            }
-            show(text, duration);
-        } catch (Exception ignore) {
-            show(String.valueOf(resId), duration);
-        }
+    private static void show(final View view, final int duration, final ToastUtils utils) {
+        show(view, null, duration, utils);
     }
 
-    private static void show(final String format, final int duration, final Object... args) {
-        String text = format;
-        if (text == null) {
-            text = NULL;
-        } else {
-            if (args != null && args.length > 0) {
-                text = String.format(format, args);
-            }
-        }
-        show(text, duration);
-    }
-
-    private static void show(final CharSequence text, final int duration) {
-        show(null, text, duration);
-    }
-
-    private static void show(final View view, final int duration) {
-        show(view, null, duration);
-    }
-
-    private static void show(@Nullable final View view, final CharSequence text, final int duration) {
+    private static void show(@Nullable final View view, final CharSequence text, final int duration, final ToastUtils utils) {
         UtilsBridge.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 cancel();
-                iToast = newToast();
+                iToast = newToast(utils);
                 if (view != null) {
-                    iToast.setView(view);
+                    iToast.setToastView(view);
                 } else {
-                    iToast.setMsgView(text);
+                    iToast.setToastView(text);
                 }
-                iToast.setDuration(duration);
-                if (sGravity != -1 || sXOffset != -1 || sYOffset != -1) {
-                    iToast.setGravity(sGravity, sXOffset, sYOffset);
-                }
-                iToast.show();
+                iToast.show(duration);
             }
         });
     }
 
+    private static CharSequence getToastFriendlyText(CharSequence src) {
+        CharSequence text = src;
+        if (text == null) {
+            text = NULL;
+        } else if (text.length() == 0) {
+            text = NOTHING;
+        }
+        return text;
+    }
 
-    private static IToast newToast() {
-        if (NotificationManagerCompat.from(Utils.getApp()).areNotificationsEnabled()) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+    private static IToast newToast(ToastUtils toastUtils) {
+        if (!toastUtils.isNotUseSystemToast) {
+            if (NotificationManagerCompat.from(Utils.getApp()).areNotificationsEnabled()) {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                    return new SystemToast(toastUtils);
+                }
                 if (!UtilsBridge.isGrantedDrawOverlays()) {
-                    return new SystemToast(new Toast(Utils.getApp()));
+                    return new SystemToast(toastUtils);
                 }
             }
         }
-        return new ToastWithoutNotification(new Toast(Utils.getApp()));
+
+        // no notification
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
+            return new WindowManagerToast(toastUtils, WindowManager.LayoutParams.TYPE_TOAST);
+        } else if (UtilsBridge.isGrantedDrawOverlays()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                new WindowManagerToast(toastUtils, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
+            } else {
+                new WindowManagerToast(toastUtils, WindowManager.LayoutParams.TYPE_PHONE);
+            }
+        }
+        return new ActivityToast(toastUtils);
     }
 
-    private static View getView(@LayoutRes final int layoutId) {
-        LayoutInflater inflate =
-                (LayoutInflater) Utils.getApp().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        return inflate.inflate(layoutId, null);
-    }
+    static final class SystemToast extends AbsToast {
 
-    static class SystemToast extends AbsToast {
-
-        SystemToast(Toast toast) {
-            super(toast);
+        SystemToast(ToastUtils toastUtils) {
+            super(toastUtils);
             if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1) {
                 try {
                     //noinspection JavaReflectionMemberAccess
                     Field mTNField = Toast.class.getDeclaredField("mTN");
                     mTNField.setAccessible(true);
-                    Object mTN = mTNField.get(toast);
+                    Object mTN = mTNField.get(mToast);
                     Field mTNmHandlerField = mTNField.getType().getDeclaredField("mHandler");
                     mTNmHandlerField.setAccessible(true);
                     Handler tnHandler = (Handler) mTNmHandlerField.get(mTN);
@@ -321,14 +509,10 @@ public final class ToastUtils {
         }
 
         @Override
-        public void show() {
+        public void show(int duration) {
+            if (mToast == null) return;
+            mToast.setDuration(duration);
             mToast.show();
-        }
-
-        @Override
-        public void cancel() {
-            mToast.cancel();
-            super.cancel();
         }
 
         static class SafeHandler extends Handler {
@@ -339,82 +523,38 @@ public final class ToastUtils {
             }
 
             @Override
-            public void handleMessage(Message msg) {
+            public void handleMessage(@NonNull Message msg) {
                 impl.handleMessage(msg);
             }
 
             @Override
-            public void dispatchMessage(Message msg) {
+            public void dispatchMessage(@NonNull Message msg) {
                 try {
                     impl.dispatchMessage(msg);
                 } catch (Exception e) {
-                    Log.e("ToastUtils", e.toString());
+                    e.printStackTrace();
                 }
             }
         }
     }
 
-    static class ToastWithoutNotification extends AbsToast {
+    static final class WindowManagerToast extends AbsToast {
 
         private WindowManager mWM;
 
-        private WindowManager.LayoutParams mParams = new WindowManager.LayoutParams();
+        private WindowManager.LayoutParams mParams;
 
-        ToastWithoutNotification(Toast toast) {
-            super(toast);
+        private Utils.ActivityLifecycleCallbacks mActivityLifecycleCallbacks;
+
+        WindowManagerToast(ToastUtils toastUtils, int type) {
+            super(toastUtils);
+            mParams = new WindowManager.LayoutParams();
+            mParams.type = type;
         }
 
         @Override
-        public void show() {
+        public void show(final int duration) {
             if (mToast == null) return;
-            boolean isActivityContext = false;
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
-                mWM = (WindowManager) Utils.getApp().getSystemService(Context.WINDOW_SERVICE);
-                mParams.type = WindowManager.LayoutParams.TYPE_TOAST;
-            } else if (UtilsBridge.isGrantedDrawOverlays()) {
-                mWM = (WindowManager) Utils.getApp().getSystemService(Context.WINDOW_SERVICE);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    mParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-                } else {
-                    mParams.type = WindowManager.LayoutParams.TYPE_PHONE;
-                }
-            } else {
-                Context topActivityOrApp = UtilsBridge.getTopActivityOrApp();
-                if (!(topActivityOrApp instanceof Activity)) {
-                    Log.w("ToastUtils", "Couldn't get top Activity.");
-                    // try to use system toast
-                    new SystemToast(mToast).show();
-                    return;
-                }
-                Activity topActivity = (Activity) topActivityOrApp;
-                if (topActivity.isFinishing() || topActivity.isDestroyed()) {
-                    Log.w("ToastUtils", topActivity + " is useless");
-                    // try to use system toast
-                    new SystemToast(mToast).show();
-                    return;
-                }
-                isActivityContext = true;
-                mWM = topActivity.getWindowManager();
-                mParams.type = WindowManager.LayoutParams.LAST_APPLICATION_WINDOW;
-                UtilsBridge.addActivityLifecycleCallbacks(topActivity, getActivityLifecycleCallbacks());
-            }
-
-            setToastParams();
-
-            final long duration = mToast.getDuration() == Toast.LENGTH_SHORT ? 2000 : 3500;
-            if (isActivityContext) {
-                UtilsBridge.runOnUiThreadDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        setToast(duration);
-                    }
-                }, 300);
-            } else {
-                setToast(duration);
-            }
-        }
-
-        private void setToastParams() {
             mParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
             mParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
             mParams.format = PixelFormat.TRANSLUCENT;
@@ -437,9 +577,8 @@ public final class ToastUtils {
             mParams.y = mToast.getYOffset();
             mParams.horizontalMargin = mToast.getHorizontalMargin();
             mParams.verticalMargin = mToast.getVerticalMargin();
-        }
 
-        private void setToast(long duration) {
+            mWM = (WindowManager) Utils.getApp().getSystemService(Context.WINDOW_SERVICE);
             try {
                 if (mWM != null) {
                     mWM.addView(mToastView, mParams);
@@ -451,18 +590,7 @@ public final class ToastUtils {
                 public void run() {
                     cancel();
                 }
-            }, duration);
-        }
-
-        private Utils.ActivityLifecycleCallbacks getActivityLifecycleCallbacks() {
-            return new Utils.ActivityLifecycleCallbacks() {
-                @Override
-                public void onActivityDestroyed(@NonNull Activity activity) {
-                    if (iToast == null) return;
-                    activity.getWindow().getDecorView().setVisibility(View.GONE);
-                    iToast.cancel();
-                }
-            };
+            }, duration == Toast.LENGTH_SHORT ? 2000 : 3500);
         }
 
         @Override
@@ -470,95 +598,205 @@ public final class ToastUtils {
             try {
                 if (mWM != null) {
                     mWM.removeViewImmediate(mToastView);
+                    mWM = null;
                 }
             } catch (Exception ignored) {/**/}
-            mWM = null;
             super.cancel();
+        }
+    }
+
+    static final class ActivityToast extends AbsToast {
+
+        private static int sShowingIndex = 0;
+
+        private Utils.ActivityLifecycleCallbacks mActivityLifecycleCallbacks;
+
+        ActivityToast(ToastUtils toastUtils) {
+            super(toastUtils);
+        }
+
+        @Override
+        public void show(int duration) {
+            if (mToast == null) return;
+            if (!UtilsBridge.isAppForeground()) {
+                // try to use system toast
+                showSystemToast(duration);
+                return;
+            }
+            boolean hasAliveActivity = false;
+            for (final Activity activity : UtilsBridge.getActivityList()) {
+                if (!UtilsBridge.isActivityAlive(activity)) {
+                    continue;
+                }
+                hasAliveActivity = true;
+                showWithActivity(activity, sShowingIndex, true);
+            }
+            if (hasAliveActivity) {
+                registerLifecycleCallback();
+                UtilsBridge.runOnUiThreadDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        cancel();
+                    }
+                }, duration == Toast.LENGTH_SHORT ? 2000 : 3500);
+
+                ++sShowingIndex;
+            } else {
+                // try to use system toast
+                showSystemToast(duration);
+            }
+        }
+
+        @Override
+        public void cancel() {
+            if (isShowing()) {
+                unregisterLifecycleCallback();
+                for (Activity activity : UtilsBridge.getActivityList()) {
+                    if (!UtilsBridge.isActivityAlive(activity)) {
+                        continue;
+                    }
+                    final Window window = activity.getWindow();
+                    if (window != null) {
+                        ViewGroup decorView = (ViewGroup) window.getDecorView();
+                        View toastView = decorView.findViewWithTag(TAG_TOAST + (sShowingIndex - 1));
+                        if (toastView != null) {
+                            try {
+                                decorView.removeView(toastView);
+                            } catch (Exception ignored) {/**/}
+                        }
+                    }
+                }
+            }
+            super.cancel();
+        }
+
+        private void showSystemToast(int duration) {
+            SystemToast systemToast = new SystemToast(mToastUtils);
+            systemToast.mToast = mToast;
+            systemToast.show(duration);
+        }
+
+        private void showWithActivity(final Activity activity, final int index, boolean useAnim) {
+            final Window window = activity.getWindow();
+            if (window != null) {
+                final ViewGroup decorView = (ViewGroup) window.getDecorView();
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
+                );
+                lp.gravity = mToast.getGravity();
+                lp.bottomMargin = mToast.getYOffset() + UtilsBridge.getNavBarHeight();
+                lp.leftMargin = mToast.getXOffset();
+                View toastViewSnapshot = getToastViewSnapshot(index);
+                if (useAnim) {
+                    toastViewSnapshot.setAlpha(0);
+                    toastViewSnapshot.animate().alpha(1).setDuration(200).start();
+                }
+                decorView.addView(toastViewSnapshot, lp);
+            }
+        }
+
+        private View getToastViewSnapshot(final int index) {
+            Bitmap bitmap = UtilsBridge.view2Bitmap(mToastView);
+            ImageView toastIv = new ImageView(Utils.getApp());
+            toastIv.setTag(TAG_TOAST + index);
+            toastIv.setImageBitmap(bitmap);
+            return toastIv;
+        }
+
+        private void registerLifecycleCallback() {
+            final int index = sShowingIndex;
+            mActivityLifecycleCallbacks = new Utils.ActivityLifecycleCallbacks() {
+                @Override
+                public void onActivityCreated(@NonNull Activity activity) {
+                    if (isShowing()) {
+                        showWithActivity(activity, index, false);
+                    }
+                }
+            };
+            UtilsBridge.addActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
+        }
+
+        private void unregisterLifecycleCallback() {
+            UtilsBridge.removeActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
+            mActivityLifecycleCallbacks = null;
+        }
+
+        private boolean isShowing() {
+            return mActivityLifecycleCallbacks != null;
         }
     }
 
     static abstract class AbsToast implements IToast {
 
-        protected Toast mToast;
-        protected View  mToastView;
+        protected Toast      mToast;
+        protected ToastUtils mToastUtils;
+        protected View       mToastView;
 
-        AbsToast(Toast toast) {
-            mToast = toast;
+        AbsToast(ToastUtils toastUtils) {
+            mToast = new Toast(Utils.getApp());
+            mToastUtils = toastUtils;
+
+            if (mToastUtils.mGravity != -1 || mToastUtils.mXOffset != -1 || mToastUtils.mYOffset != -1) {
+                mToast.setGravity(mToastUtils.mGravity, mToastUtils.mXOffset, mToastUtils.mYOffset);
+            }
         }
 
         @Override
-        public void setView(View view) {
+        public void setToastView(View view) {
             mToastView = view;
             mToast.setView(mToastView);
         }
 
         @Override
-        public void setMsgView(CharSequence text) {
+        public void setToastView(CharSequence text) {
+            View utilsToastView = mToastUtils.tryApplyUtilsToastView(text);
+            if (utilsToastView != null) {
+                setToastView(utilsToastView);
+                return;
+            }
+
             mToastView = mToast.getView();
             if (mToastView == null || mToastView.findViewById(android.R.id.message) == null) {
-                mToastView = ToastUtils.getView(R.layout.toast_layout);
-                mToast.setView(mToastView);
+                setToastView(UtilsBridge.layoutId2View(R.layout.utils_toast_view));
             }
 
-            TextView tvMessage = mToastView.findViewById(android.R.id.message);
-            tvMessage.setText(text);
-            if (sMsgColor != COLOR_DEFAULT) {
-                tvMessage.setTextColor(sMsgColor);
+            TextView messageTv = mToastView.findViewById(android.R.id.message);
+            messageTv.setText(text);
+            if (mToastUtils.mTextColor != COLOR_DEFAULT) {
+                messageTv.setTextColor(mToastUtils.mTextColor);
             }
-            if (sMsgTextSize != -1) {
-                tvMessage.setTextSize(sMsgTextSize);
+            if (mToastUtils.mTextSize != -1) {
+                messageTv.setTextSize(mToastUtils.mTextSize);
             }
-            setBg(tvMessage);
+            setBg(messageTv);
         }
 
-        private void setBg(final TextView tvMsg) {
-            if (sBgResource != -1) {
-                mToastView.setBackgroundResource(sBgResource);
-                tvMsg.setBackgroundColor(Color.TRANSPARENT);
-            } else if (sBgColor != COLOR_DEFAULT) {
-                Drawable tvBg = mToastView.getBackground();
-                Drawable msgBg = tvMsg.getBackground();
-                if (tvBg != null && msgBg != null) {
-                    tvBg.setColorFilter(new PorterDuffColorFilter(sBgColor, PorterDuff.Mode.SRC_IN));
-                    tvMsg.setBackgroundColor(Color.TRANSPARENT);
-                } else if (tvBg != null) {
-                    tvBg.setColorFilter(new PorterDuffColorFilter(sBgColor, PorterDuff.Mode.SRC_IN));
+        protected void setBg(final TextView msgTv) {
+            if (mToastUtils.mBgResource != -1) {
+                mToastView.setBackgroundResource(mToastUtils.mBgResource);
+                msgTv.setBackgroundColor(Color.TRANSPARENT);
+            } else if (mToastUtils.mBgColor != COLOR_DEFAULT) {
+                Drawable toastBg = mToastView.getBackground();
+                Drawable msgBg = msgTv.getBackground();
+                if (toastBg != null && msgBg != null) {
+                    toastBg.mutate().setColorFilter(new PorterDuffColorFilter(mToastUtils.mBgColor, PorterDuff.Mode.SRC_IN));
+                    msgTv.setBackgroundColor(Color.TRANSPARENT);
+                } else if (toastBg != null) {
+                    toastBg.mutate().setColorFilter(new PorterDuffColorFilter(mToastUtils.mBgColor, PorterDuff.Mode.SRC_IN));
                 } else if (msgBg != null) {
-                    msgBg.setColorFilter(new PorterDuffColorFilter(sBgColor, PorterDuff.Mode.SRC_IN));
+                    msgBg.mutate().setColorFilter(new PorterDuffColorFilter(mToastUtils.mBgColor, PorterDuff.Mode.SRC_IN));
                 } else {
-                    mToastView.setBackgroundColor(sBgColor);
+                    mToastView.setBackgroundColor(mToastUtils.mBgColor);
                 }
             }
         }
 
         @Override
-        public View getView() {
-            return mToastView;
-        }
-
-        @Override
-        public void setDuration(int duration) {
-            mToast.setDuration(duration);
-        }
-
-        @Override
-        public void setGravity(int gravity, int xOffset, int yOffset) {
-            mToast.setGravity(gravity, xOffset, yOffset);
-        }
-
-        @Override
-        public void setText(int resId) {
-            mToast.setText(resId);
-        }
-
-        @Override
-        public void setText(CharSequence s) {
-            mToast.setText(s);
-        }
-
-        @Override
         @CallSuper
         public void cancel() {
+            if (mToast != null) {
+                mToast.cancel();
+            }
             mToast = null;
             mToastView = null;
         }
@@ -566,22 +804,35 @@ public final class ToastUtils {
 
     interface IToast {
 
-        void show();
+        void setToastView(View view);
+
+        void setToastView(CharSequence text);
+
+        void show(int duration);
 
         void cancel();
+    }
 
-        void setView(View view);
+    public static final class UtilsMaxWidthRelativeLayout extends RelativeLayout {
 
-        void setMsgView(CharSequence text);
+        private static final int SPACING = UtilsBridge.dp2px(80);
 
-        View getView();
+        public UtilsMaxWidthRelativeLayout(Context context) {
+            super(context);
+        }
 
-        void setDuration(int duration);
+        public UtilsMaxWidthRelativeLayout(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
 
-        void setGravity(int gravity, int xOffset, int yOffset);
+        public UtilsMaxWidthRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+            super(context, attrs, defStyleAttr);
+        }
 
-        void setText(@StringRes int resId);
-
-        void setText(CharSequence s);
+        @Override
+        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+            int widthMaxSpec = MeasureSpec.makeMeasureSpec(UtilsBridge.getAppScreenWidth() - SPACING, MeasureSpec.AT_MOST);
+            super.onMeasure(widthMaxSpec, heightMeasureSpec);
+        }
     }
 }

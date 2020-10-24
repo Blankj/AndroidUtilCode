@@ -1,4 +1,11 @@
-* `20/09/06` [add] DebouncingUtils.
+* `20/10/24` [add] Publish v1.30.0.
+* `20/10/23` [fix] LanguageUtils crash on some device.
+* `20/10/21` [add] LogUtils.Config#setOnConsoleOutputListener, setOnFileOutputListener, addFileExtraHead. LogUtils.getCurrentLogFilePath.
+* `20/10/20` [opt] ToastUtils.
+* `20/10/12` [add] PermissionUtils#explain.
+* `20/10/10` [add] ClipboardUtils.
+* `20/10/08` [add] VolumeUtils.
+* `20/09/06` [add] DebouncingUtils#isValid.
 * `20/09/04` [fix] ToastUtils adapt SDK 30.
 * `20/05/28` [fix] IntentUtils#getInstallAppIntent file exist wrong. Publish v1.29.0.
 * `20/05/23` [fix] BusUtils#postSticky times not right. Publish v1.28.6.

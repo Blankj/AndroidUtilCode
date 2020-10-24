@@ -9,9 +9,12 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Parcelable;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.RequiresPermission;
+import android.support.annotation.StringRes;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.google.gson.Gson;
@@ -24,7 +27,9 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.lang.reflect.Type;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.Manifest.permission.CALL_PHONE;
 
@@ -65,6 +70,14 @@ class UtilsBridge {
         UtilsActivityLifecycleImpl.INSTANCE.removeOnAppStatusChangedListener(listener);
     }
 
+    static void addActivityLifecycleCallbacks(final Utils.ActivityLifecycleCallbacks callbacks) {
+        UtilsActivityLifecycleImpl.INSTANCE.addActivityLifecycleCallbacks(callbacks);
+    }
+
+    static void removeActivityLifecycleCallbacks(final Utils.ActivityLifecycleCallbacks callbacks) {
+        UtilsActivityLifecycleImpl.INSTANCE.removeActivityLifecycleCallbacks(callbacks);
+    }
+
     static void addActivityLifecycleCallbacks(final Activity activity,
                                               final Utils.ActivityLifecycleCallbacks callbacks) {
         UtilsActivityLifecycleImpl.INSTANCE.addActivityLifecycleCallbacks(activity, callbacks);
@@ -92,10 +105,6 @@ class UtilsBridge {
     ///////////////////////////////////////////////////////////////////////////
     static boolean isActivityAlive(final Activity activity) {
         return ActivityUtils.isActivityAlive(activity);
-    }
-
-    static String getLauncherActivity() {
-        return ActivityUtils.getLauncherActivity();
     }
 
     static String getLauncherActivity(final String pkg) {
@@ -126,6 +135,10 @@ class UtilsBridge {
         }
     }
 
+    static boolean isAppForeground() {
+        return AppUtils.isAppForeground();
+    }
+
     static boolean isAppRunning(@NonNull final String pkgName) {
         return AppUtils.isAppRunning(pkgName);
     }
@@ -134,16 +147,12 @@ class UtilsBridge {
         return AppUtils.isAppInstalled(pkgName);
     }
 
-    static String getAppVersionName() {
-        return AppUtils.getAppVersionName();
-    }
-
-    static int getAppVersionCode() {
-        return AppUtils.getAppVersionCode();
-    }
-
     static boolean isAppDebug() {
         return AppUtils.isAppDebug();
+    }
+
+    static void relaunchApp() {
+        AppUtils.relaunchApp();
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -419,13 +428,6 @@ class UtilsBridge {
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // LanguageUtils
-    ///////////////////////////////////////////////////////////////////////////
-    static void applyLanguage(final Activity activity) {
-        LanguageUtils.applyLanguage(activity);
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
     // PermissionUtils
     ///////////////////////////////////////////////////////////////////////////
     static boolean isGranted(final String... permissions) {
@@ -460,12 +462,15 @@ class UtilsBridge {
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // SDCardUtils
+    // ScreenUtils
     ///////////////////////////////////////////////////////////////////////////
-    static String getSDCardPathByEnvironment() {
-        return SDCardUtils.getSDCardPathByEnvironment();
+    static int getAppScreenWidth() {
+        return ScreenUtils.getAppScreenWidth();
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // SDCardUtils
+    ///////////////////////////////////////////////////////////////////////////
     static boolean isSDCardEnableByEnvironment() {
         return SDCardUtils.isSDCardEnableByEnvironment();
     }
@@ -519,6 +524,18 @@ class UtilsBridge {
 
     static boolean equals(final CharSequence s1, final CharSequence s2) {
         return StringUtils.equals(s1, s2);
+    }
+
+    static String getString(@StringRes int id) {
+        return StringUtils.getString(id);
+    }
+
+    static String getString(@StringRes int id, Object... formatArgs) {
+        return StringUtils.getString(id, formatArgs);
+    }
+
+    static String format(String str, Object... args) {
+        return StringUtils.format(str, args);
     }
 
 
@@ -578,5 +595,89 @@ class UtilsBridge {
 
     static File uri2File(final Uri uri) {
         return UriUtils.uri2File(uri);
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // ViewUtils
+    ///////////////////////////////////////////////////////////////////////////
+    static View layoutId2View(@LayoutRes final int layoutId) {
+        return ViewUtils.layoutId2View(layoutId);
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Common
+    ///////////////////////////////////////////////////////////////////////////
+    static final class FileHead {
+
+        private String                        mName;
+        private LinkedHashMap<String, String> mFirst = new LinkedHashMap<>();
+        private LinkedHashMap<String, String> mLast  = new LinkedHashMap<>();
+
+        FileHead(String name) {
+            mName = name;
+        }
+
+        void addFirst(String key, String value) {
+            append2Host(mFirst, key, value);
+        }
+
+        void append(Map<String, String> extra) {
+            append2Host(mLast, extra);
+        }
+
+        void append(String key, String value) {
+            append2Host(mLast, key, value);
+        }
+
+        private void append2Host(Map<String, String> host, Map<String, String> extra) {
+            if (extra == null || extra.isEmpty()) {
+                return;
+            }
+            for (Map.Entry<String, String> entry : extra.entrySet()) {
+                append2Host(host, entry.getKey(), entry.getValue());
+            }
+        }
+
+        private void append2Host(Map<String, String> host, String key, String value) {
+            if (TextUtils.isEmpty(key) || TextUtils.isEmpty(value)) {
+                return;
+            }
+            int delta = 19 - key.length(); // 19 is length of "Device Manufacturer"
+            if (delta > 0) {
+                key = key + "                   ".substring(0, delta);
+            }
+            host.put(key, value);
+        }
+
+        public String getAppended() {
+            StringBuilder sb = new StringBuilder();
+            for (Map.Entry<String, String> entry : mLast.entrySet()) {
+                sb.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+            }
+            return sb.toString();
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            String border = "************* " + mName + " Head ****************\n";
+            sb.append(border);
+            for (Map.Entry<String, String> entry : mFirst.entrySet()) {
+                sb.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+            }
+
+            sb.append("Rom Info           : ").append(RomUtils.getRomInfo()).append("\n");
+            sb.append("Device Manufacturer: ").append(Build.MANUFACTURER).append("\n");
+            sb.append("Device Model       : ").append(Build.MODEL).append("\n");
+            sb.append("Android Version    : ").append(Build.VERSION.RELEASE).append("\n");
+            sb.append("Android SDK        : ").append(Build.VERSION.SDK_INT).append("\n");
+            sb.append("App VersionName    : ").append(AppUtils.getAppVersionName()).append("\n");
+            sb.append("App VersionCode    : ").append(AppUtils.getAppVersionCode()).append("\n");
+
+            sb.append(getAppended());
+            return sb.append(border).append("\n").toString();
+        }
     }
 }

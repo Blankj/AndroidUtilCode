@@ -65,7 +65,7 @@ public final class FlashlightUtils {
                     parameters.setFlashMode(FLASH_MODE_TORCH);
                     mCamera.setParameters(parameters);
                 } catch (IOException e) {
-                    Log.e("FlashlightUtils", "setFlashlightStatusOn: ", e);
+                    e.printStackTrace();
                 }
             }
         } else {

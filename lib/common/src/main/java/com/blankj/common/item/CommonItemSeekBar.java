@@ -21,22 +21,22 @@ import com.blankj.utilcode.util.StringUtils;
  */
 public class CommonItemSeekBar extends CommonItem {
 
-    private CharSequence                    mTitle;
-    private CharSequence                    mContent;
-    private int                             mMaxProgress;
-    private int                             mCurProgress;
-    private SeekBar.OnSeekBarChangeListener mOnSeekBarChangeListener;
+    private CharSequence     mTitle;
+    private CharSequence     mContent;
+    private int              mMaxProgress;
+    private int              mCurProgress;
+    private ProgressListener mProgressListener;
 
-    public CommonItemSeekBar(@StringRes int title, int maxProgress, int curProgress, @NonNull SeekBar.OnSeekBarChangeListener itemClickListener) {
-        this(StringUtils.getString(title), maxProgress, curProgress, itemClickListener);
+    public CommonItemSeekBar(@StringRes int title, int maxProgress, @NonNull ProgressListener listener) {
+        this(StringUtils.getString(title), maxProgress, listener);
     }
 
-    public CommonItemSeekBar(@NonNull CharSequence title, int maxProgress, int curProgress, @NonNull SeekBar.OnSeekBarChangeListener itemClickListener) {
+    public CommonItemSeekBar(@NonNull CharSequence title, int maxProgress, @NonNull ProgressListener listener) {
         super(R.layout.common_item_title_seekbar);
         mTitle = title;
         mMaxProgress = maxProgress;
-        mCurProgress = curProgress;
-        mOnSeekBarChangeListener = itemClickListener;
+        mCurProgress = listener.getCurValue();
+        mProgressListener = listener;
         mContent = String.valueOf(mCurProgress);
     }
 
@@ -62,19 +62,21 @@ public class CommonItemSeekBar extends CommonItem {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mOnSeekBarChangeListener.onProgressChanged(seekBar, progress, fromUser);
-                mCurProgress = progress;
-                contentTv.setText(String.valueOf(progress));
+                mProgressListener.onProgressChanged(seekBar, progress, fromUser);
+                int curValue = mProgressListener.getCurValue();
+                mCurProgress = curValue;
+                contentTv.setText(String.valueOf(curValue));
+                seekBar.setProgress(curValue);
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                mOnSeekBarChangeListener.onStartTrackingTouch(seekBar);
+                mProgressListener.onStartTrackingTouch(seekBar);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                mOnSeekBarChangeListener.onStartTrackingTouch(seekBar);
+                mProgressListener.onStopTrackingTouch(seekBar);
             }
         });
     }
@@ -86,5 +88,18 @@ public class CommonItemSeekBar extends CommonItem {
 
     public CharSequence getTitle() {
         return mTitle;
+    }
+
+    public static abstract class ProgressListener implements SeekBar.OnSeekBarChangeListener {
+
+        public abstract int getCurValue();
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+        }
     }
 }

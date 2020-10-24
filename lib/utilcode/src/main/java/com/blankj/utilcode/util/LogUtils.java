@@ -36,6 +36,7 @@ import java.util.Formatter;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -228,6 +229,10 @@ public final class LogUtils {
         }
     }
 
+    public static String getCurrentLogFilePath() {
+        return getCurrentLogFilePath(new Date());
+    }
+
     public static List<File> getLogFiles() {
         String dir = CONFIG.getDir();
         File logDir = new File(dir);
@@ -379,16 +384,16 @@ public final class LogUtils {
 
     private static void printBorder(final int type, final String tag, boolean isTop) {
         if (CONFIG.isLogBorderSwitch()) {
-            Log.println(type, tag, isTop ? TOP_BORDER : BOTTOM_BORDER);
+            print2Console(type, tag, isTop ? TOP_BORDER : BOTTOM_BORDER);
         }
     }
 
     private static void printHead(final int type, final String tag, final String[] head) {
         if (head != null) {
             for (String aHead : head) {
-                Log.println(type, tag, CONFIG.isLogBorderSwitch() ? LEFT_BORDER + aHead : aHead);
+                print2Console(type, tag, CONFIG.isLogBorderSwitch() ? LEFT_BORDER + aHead : aHead);
             }
-            if (CONFIG.isLogBorderSwitch()) Log.println(type, tag, MIDDLE_BORDER);
+            if (CONFIG.isLogBorderSwitch()) print2Console(type, tag, MIDDLE_BORDER);
         }
     }
 
@@ -411,13 +416,13 @@ public final class LogUtils {
 
     private static void printSubMsg(final int type, final String tag, final String msg) {
         if (!CONFIG.isLogBorderSwitch()) {
-            Log.println(type, tag, msg);
+            print2Console(type, tag, msg);
             return;
         }
         StringBuilder sb = new StringBuilder();
         String[] lines = msg.split(LINE_SEP);
         for (String line : lines) {
-            Log.println(type, tag, LEFT_BORDER + line);
+            print2Console(type, tag, LEFT_BORDER + line);
         }
     }
 
@@ -456,55 +461,69 @@ public final class LogUtils {
         int countOfSub = CONFIG.isLogBorderSwitch() ? (len - BOTTOM_BORDER.length()) / MAX_LEN : len / MAX_LEN;
         if (countOfSub > 0) {
             if (CONFIG.isLogBorderSwitch()) {
-                Log.println(type, tag, msg.substring(0, MAX_LEN) + LINE_SEP + BOTTOM_BORDER);
+                print2Console(type, tag, msg.substring(0, MAX_LEN) + LINE_SEP + BOTTOM_BORDER);
                 int index = MAX_LEN;
                 for (int i = 1; i < countOfSub; i++) {
-                    Log.println(type, tag, PLACEHOLDER + LINE_SEP + TOP_BORDER + LINE_SEP
+                    print2Console(type, tag, PLACEHOLDER + LINE_SEP + TOP_BORDER + LINE_SEP
                             + LEFT_BORDER + msg.substring(index, index + MAX_LEN)
                             + LINE_SEP + BOTTOM_BORDER);
                     index += MAX_LEN;
                 }
                 if (index != len - BOTTOM_BORDER.length()) {
-                    Log.println(type, tag, PLACEHOLDER + LINE_SEP + TOP_BORDER + LINE_SEP
+                    print2Console(type, tag, PLACEHOLDER + LINE_SEP + TOP_BORDER + LINE_SEP
                             + LEFT_BORDER + msg.substring(index, len));
                 }
             } else {
-                Log.println(type, tag, msg.substring(0, MAX_LEN));
+                print2Console(type, tag, msg.substring(0, MAX_LEN));
                 int index = MAX_LEN;
                 for (int i = 1; i < countOfSub; i++) {
-                    Log.println(type, tag,
+                    print2Console(type, tag,
                             PLACEHOLDER + LINE_SEP + msg.substring(index, index + MAX_LEN));
                     index += MAX_LEN;
                 }
                 if (index != len) {
-                    Log.println(type, tag, PLACEHOLDER + LINE_SEP + msg.substring(index, len));
+                    print2Console(type, tag, PLACEHOLDER + LINE_SEP + msg.substring(index, len));
                 }
             }
         } else {
-            Log.println(type, tag, msg);
+            print2Console(type, tag, msg);
+        }
+    }
+
+    private static void print2Console(int type, String tag, String msg) {
+        Log.println(type, tag, msg);
+        if (CONFIG.mOnConsoleOutputListener != null) {
+            CONFIG.mOnConsoleOutputListener.onConsoleOutput(type, tag, msg);
         }
     }
 
     private static void print2File(final int type, final String tag, final String msg) {
-        String format = getSdf().format(new Date());
+        Date d = new Date();
+        String format = getSdf().format(d);
         String date = format.substring(0, 10);
-        String time = format.substring(11);
-        final String fullPath =
-                CONFIG.getDir() + CONFIG.getFilePrefix() + "_"
-                        + date + "_" +
-                        CONFIG.getProcessName() + CONFIG.getFileExtension();
-        if (!createOrExistsFile(fullPath, date)) {
-            Log.e("LogUtils", "create " + fullPath + " failed!");
+        String currentLogFilePath = getCurrentLogFilePath(d);
+        if (!createOrExistsFile(currentLogFilePath, date)) {
+            Log.e("LogUtils", "create " + currentLogFilePath + " failed!");
             return;
         }
+        String time = format.substring(11);
         final String content = time +
                 T[type - V] +
                 "/" +
                 tag +
                 msg +
                 LINE_SEP;
-        input2File(fullPath, content);
+        input2File(currentLogFilePath, content);
     }
+
+    private static String getCurrentLogFilePath(Date d) {
+        String format = getSdf().format(d);
+        String date = format.substring(0, 10);
+        return CONFIG.getDir() + CONFIG.getFilePrefix() + "_"
+                + date + "_" +
+                CONFIG.getProcessName() + CONFIG.getFileExtension();
+    }
+
 
     private static SimpleDateFormat getSdf() {
         if (simpleDateFormat == null) {
@@ -579,16 +598,8 @@ public final class LogUtils {
     }
 
     private static void printDeviceInfo(final String filePath, final String date) {
-        final String head = "************* Log Head ****************" +
-                "\nDate of Log        : " + date +
-                "\nDevice Manufacturer: " + Build.MANUFACTURER +
-                "\nDevice Model       : " + Build.MODEL +
-                "\nAndroid Version    : " + Build.VERSION.RELEASE +
-                "\nAndroid SDK        : " + Build.VERSION.SDK_INT +
-                "\nApp VersionName    : " + UtilsBridge.getAppVersionName() +
-                "\nApp VersionCode    : " + UtilsBridge.getAppVersionCode() +
-                "\n************* Log Head ****************\n\n";
-        input2File(filePath, head);
+        CONFIG.mFileHead.addFirst("Date of Log", date);
+        input2File(filePath, CONFIG.mFileHead.toString());
     }
 
     private static void input2File(final String filePath, final String input) {
@@ -597,28 +608,34 @@ public final class LogUtils {
         } else {
             CONFIG.mFileWriter.write(filePath, input);
         }
+        if (CONFIG.mOnFileOutputListener != null) {
+            CONFIG.mOnFileOutputListener.onFileOutput(filePath, input);
+        }
     }
 
     public static final class Config {
-        private String      mDefaultDir;// The default storage directory of log.
-        private String      mDir;       // The storage directory of log.
-        private String      mFilePrefix        = "util";// The file prefix of log.
-        private String      mFileExtension     = ".txt";// The file extension of log.
-        private boolean     mLogSwitch         = true;  // The switch of log.
-        private boolean     mLog2ConsoleSwitch = true;  // The logcat's switch of log.
-        private String      mGlobalTag         = "";    // The global tag of log.
-        private boolean     mTagIsSpace        = true;  // The global tag is space.
-        private boolean     mLogHeadSwitch     = true;  // The head's switch of log.
-        private boolean     mLog2FileSwitch    = false; // The file's switch of log.
-        private boolean     mLogBorderSwitch   = true;  // The border's switch of log.
-        private boolean     mSingleTagSwitch   = true;  // The single tag of log.
-        private int         mConsoleFilter     = V;     // The console's filter of log.
-        private int         mFileFilter        = V;     // The file's filter of log.
-        private int         mStackDeep         = 1;     // The stack's deep of log.
-        private int         mStackOffset       = 0;     // The stack's offset of log.
-        private int         mSaveDays          = -1;    // The save days of log.
-        private String      mProcessName       = UtilsBridge.getCurrentProcessName();
-        private IFileWriter mFileWriter;
+        private String                  mDefaultDir;                // The default storage directory of log.
+        private String                  mDir;                       // The storage directory of log.
+        private String                  mFilePrefix        = "util";// The file prefix of log.
+        private String                  mFileExtension     = ".txt";// The file extension of log.
+        private boolean                 mLogSwitch         = true;  // The switch of log.
+        private boolean                 mLog2ConsoleSwitch = true;  // The logcat's switch of log.
+        private String                  mGlobalTag         = "";    // The global tag of log.
+        private boolean                 mTagIsSpace        = true;  // The global tag is space.
+        private boolean                 mLogHeadSwitch     = true;  // The head's switch of log.
+        private boolean                 mLog2FileSwitch    = false; // The file's switch of log.
+        private boolean                 mLogBorderSwitch   = true;  // The border's switch of log.
+        private boolean                 mSingleTagSwitch   = true;  // The single tag of log.
+        private int                     mConsoleFilter     = V;     // The console's filter of log.
+        private int                     mFileFilter        = V;     // The file's filter of log.
+        private int                     mStackDeep         = 1;     // The stack's deep of log.
+        private int                     mStackOffset       = 0;     // The stack's offset of log.
+        private int                     mSaveDays          = -1;    // The save days of log.
+        private String                  mProcessName       = UtilsBridge.getCurrentProcessName();
+        private IFileWriter             mFileWriter;
+        private OnConsoleOutputListener mOnConsoleOutputListener;
+        private OnFileOutputListener    mOnFileOutputListener;
+        private UtilsBridge.FileHead    mFileHead          = new UtilsBridge.FileHead("Log");
 
         private Config() {
             if (UtilsBridge.isSDCardEnableByEnvironment()
@@ -743,6 +760,26 @@ public final class LogUtils {
             return this;
         }
 
+        public final Config setOnConsoleOutputListener(final OnConsoleOutputListener listener) {
+            mOnConsoleOutputListener = listener;
+            return this;
+        }
+
+        public final Config setOnFileOutputListener(final OnFileOutputListener listener) {
+            mOnFileOutputListener = listener;
+            return this;
+        }
+
+        public final Config addFileExtraHead(final Map<String, String> fileExtraHead) {
+            mFileHead.append(fileExtraHead);
+            return this;
+        }
+
+        public final Config addFileExtraHead(final String key, final String value) {
+            mFileHead.append(key, value);
+            return this;
+        }
+
         public final String getProcessName() {
             if (mProcessName == null) return "";
             return mProcessName.replace(":", "_");
@@ -813,24 +850,36 @@ public final class LogUtils {
             return mSaveDays;
         }
 
+        public final boolean haveSetOnConsoleOutputListener() {
+            return mOnConsoleOutputListener != null;
+        }
+
+        public final boolean haveSetOnFileOutputListener() {
+            return mOnFileOutputListener != null;
+        }
+
         @Override
         public String toString() {
             return "process: " + getProcessName()
-                    + LINE_SEP + "switch: " + isLogSwitch()
-                    + LINE_SEP + "console: " + isLog2ConsoleSwitch()
-                    + LINE_SEP + "tag: " + getGlobalTag()
-                    + LINE_SEP + "head: " + isLogHeadSwitch()
-                    + LINE_SEP + "file: " + isLog2FileSwitch()
+                    + LINE_SEP + "logSwitch: " + isLogSwitch()
+                    + LINE_SEP + "consoleSwitch: " + isLog2ConsoleSwitch()
+                    + LINE_SEP + "tag: " + (getGlobalTag().equals("") ? "null" : getGlobalTag())
+                    + LINE_SEP + "headSwitch: " + isLogHeadSwitch()
+                    + LINE_SEP + "fileSwitch: " + isLog2FileSwitch()
                     + LINE_SEP + "dir: " + getDir()
                     + LINE_SEP + "filePrefix: " + getFilePrefix()
-                    + LINE_SEP + "border: " + isLogBorderSwitch()
-                    + LINE_SEP + "singleTag: " + isSingleTagSwitch()
+                    + LINE_SEP + "borderSwitch: " + isLogBorderSwitch()
+                    + LINE_SEP + "singleTagSwitch: " + isSingleTagSwitch()
                     + LINE_SEP + "consoleFilter: " + getConsoleFilter()
                     + LINE_SEP + "fileFilter: " + getFileFilter()
                     + LINE_SEP + "stackDeep: " + getStackDeep()
                     + LINE_SEP + "stackOffset: " + getStackOffset()
                     + LINE_SEP + "saveDays: " + getSaveDays()
-                    + LINE_SEP + "formatter: " + I_FORMATTER_MAP;
+                    + LINE_SEP + "formatter: " + I_FORMATTER_MAP
+                    + LINE_SEP + "fileWriter: " + mFileWriter
+                    + LINE_SEP + "onConsoleOutputListener: " + mOnConsoleOutputListener
+                    + LINE_SEP + "onFileOutputListener: " + mOnFileOutputListener
+                    + LINE_SEP + "fileExtraHeader: " + mFileHead.getAppended();
         }
     }
 
@@ -840,6 +889,14 @@ public final class LogUtils {
 
     public interface IFileWriter {
         void write(String file, String content);
+    }
+
+    public interface OnConsoleOutputListener {
+        void onConsoleOutput(@TYPE int type, String tag, String content);
+    }
+
+    public interface OnFileOutputListener {
+        void onFileOutput(String filePath, String content);
     }
 
     private final static class TagHead {

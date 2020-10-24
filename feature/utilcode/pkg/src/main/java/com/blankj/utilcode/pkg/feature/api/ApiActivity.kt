@@ -3,8 +3,6 @@ package com.blankj.utilcode.pkg.feature.api
 import android.content.Context
 import android.content.Intent
 import com.blankj.common.activity.CommonActivity
-import com.blankj.common.activity.CommonActivityItemsView
-import com.blankj.common.activity.CommonActivityTitleView
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick
 import com.blankj.utilcode.pkg.R
@@ -34,7 +32,7 @@ class ApiActivity : CommonActivity() {
         return R.string.demo_api
     }
 
-    override fun bindItems(): List<CommonItem<*>> {
+    override fun bindItems(): MutableList<CommonItem<*>> {
         return CollectionUtils.newArrayList(
                 CommonItemClick(R.string.api_invoke_with_params) {
                     ApiUtils.getApi(OtherModuleApi::class.java).invokeWithParams(OtherModuleApi.ApiBean("params"))

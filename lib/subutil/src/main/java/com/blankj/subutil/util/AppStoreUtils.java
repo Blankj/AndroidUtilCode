@@ -1,13 +1,12 @@
 package com.blankj.subutil.util;
 
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.text.TextUtils;
 import android.util.Log;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.RomUtils;
 import com.blankj.utilcode.util.Utils;
 
@@ -88,7 +87,7 @@ public final class AppStoreUtils {
         for (ResolveInfo resolveInfo : resolveInfos) {
             String pkgName = resolveInfo.activityInfo.packageName;
             if (!GOOGLE_PLAY_APP_STORE_PACKAGE_NAME.equals(pkgName)) {
-                if (isAppSystem(pkgName)) {
+                if (AppUtils.isAppSystem(pkgName)) {
                     intent.setPackage(pkgName);
                     return intent;
                 }
@@ -103,25 +102,6 @@ public final class AppStoreUtils {
 
         intent.setPackage(resolveInfos.get(0).activityInfo.packageName);
         return intent;
-    }
-
-    private static boolean go2NormalAppStore(String packageName) {
-        Intent intent = getNormalAppStoreIntent();
-        if (intent == null) return false;
-        intent.setData(Uri.parse("market://details?id=" + packageName));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Utils.getApp().startActivity(intent);
-        return true;
-    }
-
-    private static Intent getNormalAppStoreIntent() {
-        Intent intent = new Intent();
-        Uri uri = Uri.parse("market://details?id=" + Utils.getApp().getPackageName());
-        intent.setData(uri);
-        if (getAvailableIntentSize(intent) > 0) {
-            return intent;
-        }
-        return null;
     }
 
     private static Intent getSamsungAppStoreIntent(final String packageName) {
@@ -151,17 +131,5 @@ public final class AppStoreUtils {
         return Utils.getApp().getPackageManager()
                 .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
                 .size();
-    }
-
-    private static boolean isAppSystem(final String packageName) {
-        if (TextUtils.isEmpty(packageName)) return false;
-        try {
-            PackageManager pm = Utils.getApp().getPackageManager();
-            ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
-            return ai != null && (ai.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 }

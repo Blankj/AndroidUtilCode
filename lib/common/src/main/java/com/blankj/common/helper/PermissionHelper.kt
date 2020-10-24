@@ -19,7 +19,7 @@ import com.blankj.utilcode.util.*
 object PermissionHelper {
 
     fun request(context: Context, callback: PermissionUtils.SimpleCallback,
-                @PermissionConstants.Permission vararg permissions: String) {
+                @PermissionConstants.PermissionGroup vararg permissions: String) {
         PermissionUtils.permission(*permissions)
                 .rationale { activity, shouldRequest -> showRationaleDialog(activity, shouldRequest) }
                 .callback(object : PermissionUtils.SingleCallback {
@@ -64,6 +64,20 @@ object PermissionHelper {
                 }),
                 Pair(StringUtils.getString(android.R.string.cancel), View.OnClickListener {
                     shouldRequest.again(false)
+                }))
+                .show()
+    }
+
+    fun showExplainDialog(context: Context, denied: List<String>, shouldRequest: PermissionUtils.OnExplainListener.ShouldRequest) {
+        CommonDialogContent().init(context,
+                StringUtils.getString(android.R.string.dialog_alert_title),
+                "We needs the permissions of $denied to test the utils of permission.",
+                Pair(StringUtils.getString(android.R.string.ok), View.OnClickListener {
+                    shouldRequest.start(true)
+                }),
+                Pair(StringUtils.getString(android.R.string.cancel), View.OnClickListener {
+                    ToastUtils.showShort("request failed.")
+                    shouldRequest.start(false)
                 }))
                 .show()
     }

@@ -1,6 +1,5 @@
 package com.blankj.utilcode.util;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
@@ -633,8 +632,8 @@ public final class AppUtils {
             return Utils.getApp().getPackageManager().getApplicationInfo(pkgName, 0).uid;
         } catch (Exception e) {
             e.printStackTrace();
+            return -1;
         }
-        return -1;
     }
 
     private static String getAppSignatureHash(final String packageName, final String algorithm) {

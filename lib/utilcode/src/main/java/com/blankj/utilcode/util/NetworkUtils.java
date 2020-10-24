@@ -15,7 +15,6 @@ import android.support.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.text.format.Formatter;
-import android.util.Log;
 
 import java.lang.reflect.Method;
 import java.net.InetAddress;
@@ -227,8 +226,8 @@ public final class NetworkUtils {
             return inetAddress != null;
         } catch (UnknownHostException e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
     /**
@@ -251,7 +250,7 @@ public final class NetworkUtils {
                 return (boolean) getMobileDataEnabledMethod.invoke(tm);
             }
         } catch (Exception e) {
-            Log.e("NetworkUtils", "getMobileDataEnabled: ", e);
+            e.printStackTrace();
         }
         return false;
     }

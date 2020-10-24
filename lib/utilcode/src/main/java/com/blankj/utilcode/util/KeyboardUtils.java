@@ -143,7 +143,7 @@ public final class KeyboardUtils {
      * @param activity The activity.
      */
     public static void hideSoftInputByToggle(final Activity activity) {
-        long nowMillis = SystemClock.uptimeMillis();
+        long nowMillis = SystemClock.elapsedRealtime();
         long delta = nowMillis - millis;
         if (Math.abs(delta) > 500 && KeyboardUtils.isSoftInputVisible(activity)) {
             KeyboardUtils.toggleSoftInput();

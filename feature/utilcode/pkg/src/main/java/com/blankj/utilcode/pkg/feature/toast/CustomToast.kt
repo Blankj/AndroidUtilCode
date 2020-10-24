@@ -1,14 +1,11 @@
 package com.blankj.utilcode.pkg.feature.toast
 
-import android.os.Handler
-import android.os.Looper
 import android.support.annotation.StringRes
 import android.widget.TextView
-import android.widget.Toast
-
 import com.blankj.utilcode.pkg.R
+import com.blankj.utilcode.util.StringUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.blankj.utilcode.util.Utils
+import com.blankj.utilcode.util.ViewUtils
 
 /**
  * ```
@@ -20,62 +17,42 @@ import com.blankj.utilcode.util.Utils
  */
 object CustomToast {
 
-    private val HANDLER = Handler(Looper.getMainLooper())
-
     fun showShort(text: CharSequence) {
-        showReal(text, Toast.LENGTH_SHORT)
+        show(text, false)
     }
 
     fun showShort(@StringRes resId: Int) {
-        show(resId, Toast.LENGTH_SHORT)
+        show(StringUtils.getString(resId), false)
     }
 
     fun showShort(@StringRes resId: Int, vararg args: Any) {
-        show(resId, Toast.LENGTH_SHORT, *args)
+        show(StringUtils.getString(resId, args), false)
     }
 
     fun showShort(format: String, vararg args: Any) {
-        show(format, Toast.LENGTH_SHORT, *args)
+        show(StringUtils.format(format, args), false)
     }
 
     fun showLong(text: CharSequence) {
-        showReal(text, Toast.LENGTH_LONG)
+        show(text, true)
     }
 
     fun showLong(@StringRes resId: Int) {
-        show(resId, Toast.LENGTH_LONG)
+        show(StringUtils.getString(resId), true)
     }
 
     fun showLong(@StringRes resId: Int, vararg args: Any) {
-        show(resId, Toast.LENGTH_LONG, *args)
+        show(StringUtils.getString(resId, args), true)
     }
 
     fun showLong(format: String, vararg args: Any) {
-        show(format, Toast.LENGTH_LONG, *args)
+        show(StringUtils.format(format, args), true)
     }
 
-    private fun show(@StringRes resId: Int, duration: Int) {
-        show(Utils.getApp().resources.getString(resId), duration)
-    }
-
-    private fun show(@StringRes resId: Int, duration: Int, vararg args: Any) {
-        show(String.format(Utils.getApp().resources.getString(resId), *args), duration)
-    }
-
-    private fun show(format: String, duration: Int, vararg args: Any) {
-        showReal(String.format(format, *args), duration)
-    }
-
-    private fun showReal(text: CharSequence, duration: Int) {
-        HANDLER.post {
-            val toastView: TextView
-            if (duration == Toast.LENGTH_SHORT) {
-                toastView = ToastUtils.showCustomShort(R.layout.toast_custom) as TextView
-            } else {
-                toastView = ToastUtils.showCustomLong(R.layout.toast_custom) as TextView
-            }
-            toastView.text = text
-        }
+    private fun show(text: CharSequence, isLong: Boolean) {
+        val textView = ViewUtils.layoutId2View(R.layout.toast_custom) as TextView
+        textView.text = text
+        ToastUtils.make().setDurationIsLong(isLong).show(textView)
     }
 
     fun cancel() {

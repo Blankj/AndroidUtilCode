@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.29.0'
+implementation 'com.blankj:utilcode:1.30.0'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.29.0'
+implementation 'com.blankj:utilcodex:1.30.0'
 ```
 
 
@@ -280,6 +280,18 @@ ClickUtils#OnDebouncingClickListener
 ClickUtils#OnMultiClickListener
 ```
 
+* ### About Clipboard -> [ClipboardUtils.java][clipboard.java] -> [Demo][clipboard.demo]
+```
+copyText
+getText
+copyUri
+getUri
+copyIntent
+getIntent
+addChangedListener
+removeChangedListener
+```
+
 * ### About Clone -> [CloneUtils.java][clone.java] -> [Test][clone.test]
 ```
 deepClone
@@ -342,6 +354,7 @@ string2Int
 int2RgbString
 int2ArgbString
 getRandomColor
+isLightColor
 ```
 
 * ### About Convert -> [ConvertUtils.java][convert.java] -> [Test][convert.test]
@@ -376,6 +389,14 @@ sp2px, px2sp
 * ### About Crash -> [CrashUtils.java][crash.java]
 ```
 init
+CrashInfo.addExtraHead
+CrashInfo.getThrowable
+CrashInfo.toString
+```
+
+* ### About Debouncing -> [DebouncingUtils.java][debouncing.java]
+```
+isValid
 ```
 
 * ### About Device -> [DeviceUtils.java][device.java] -> [Demo][device.demo]
@@ -559,6 +580,7 @@ fastBlur
 renderScriptBlur
 stackBlur
 save
+save2Album
 isImage
 getImageType
 compressByScale
@@ -576,6 +598,7 @@ getLaunchAppIntent
 getLaunchAppDetailsSettingsIntent
 getShareTextIntent
 getShareImageIntent
+getShareTextImageIntent
 getComponentIntent
 getShutdownIntent
 getCaptureIntent
@@ -598,9 +621,13 @@ clickBlankArea2HideSoftInput
 ```
 applySystemLanguage
 applyLanguage
-isAppliedSystemLanguage
 isAppliedLanguage
-getCurrentLocale
+getAppliedLanguage
+getContextLanguage
+getAppContextLanguage
+getSystemLanguage
+updateAppContextLanguage
+attachBaseContext
 ```
 
 * ### About Log -> [LogUtils.java][log.java] -> [Demo][log.demo]
@@ -621,6 +648,10 @@ Config.setStackDeep
 Config.setStackOffset
 Config.setSaveDays
 Config.addFormatter
+Config.setFileWriter
+Config.setOnConsoleOutputListener
+Config.setOnFileOutputListener
+Config.addFileExtraHead
 log
 v
 vTag
@@ -637,6 +668,8 @@ aTag
 file
 json
 xml
+getCurrentLogFilePath
+getLogFiles
 ```
 
 * ### About Map -> [MapUtils.java][map.java] -> [Test][map.test]
@@ -763,6 +796,13 @@ getCachePathExternalFirst
 
 * ### About Permission -> [PermissionUtils.java][permission.java] -> [Demo][permission.demo]
 ```
+permission
+permissionGroup
+permission.explain
+permission.rationale
+permission.callback
+permission.theme
+permission.request
 getPermissions
 isGranted
 isGrantedWriteSettings
@@ -770,11 +810,6 @@ requestWriteSettings
 isGrantedDrawOverlays
 requestDrawOverlays
 launchAppDetailsSettings
-permission
-rationale
-callback
-theme
-request
 ```
 
 * ### About Phone -> [PhoneUtils.java][phone.java] -> [Demo][phone.demo]
@@ -1060,6 +1095,7 @@ toDBC
 toSBC
 getString
 getStringArray
+format
 ```
 
 * ### About Thread -> [ThreadUtils.java][thread.java] -> [Test][thread.test]
@@ -1131,15 +1167,22 @@ getZodiac
 
 * ### About Toast -> [ToastUtils.java][toast.java] -> [Demo][toast.demo]
 ```
-setGravity
-setBgColor
-setBgResource
-setMsgColor
-setMsgTextSize
+make
+make.setMode
+make.setGravity
+make.setBgColor
+make.setBgResource
+make.setTextColor
+make.setTextSize
+make.setDurationIsLong
+make.setLeftIcon
+make.setTopIcon
+make.setRightIcon
+make.setBottomIcon
+make.setNotUseSystemToast
+make.show
 showShort
 showLong
-showCustomShort
-showCustomLong
 cancel
 ```
 
@@ -1186,6 +1229,15 @@ runOnUiThread
 runOnUiThreadDelayed
 isLayoutRtl
 fixScrollViewTopping
+layoutId2View
+```
+
+* ### About Volume -> [VolumeUtils.java][volume.java]
+```
+getVolume
+setVolume
+getMaxVolume
+getMinVolume
 ```
 
 * ### About Zip -> [ZipUtils.java][zip.java] -> [Test][zip.test]
@@ -1252,6 +1304,9 @@ getComments
 [click.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ClickUtils.java
 [click.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/click/ClickActivity.kt
 
+[clipboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ClipboardUtils.java
+[clipboard.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/clipboard/ClipboardActivity.kt
+
 [clone.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/CloneUtils.java
 [clone.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/CloneUtilsTest.java
 
@@ -1267,6 +1322,8 @@ getComments
 [convert.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/ConvertUtilsTest.java
 
 [crash.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/CrashUtils.java
+
+[debouncing.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/DebouncingUtils.java
 
 [device.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/DeviceUtils.java
 [device.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/device/DeviceActivity.kt
@@ -1404,6 +1461,9 @@ getComments
 [vibrate.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/vibrate/VibrateActivity.kt
 
 [view.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ViewUtils.java
+
+[volume.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/VolumeUtils.java
+[volume.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/utilcode/pkg/src/main/java/com/blankj/utilcode/pkg/feature/volume/VolumeActivity.kt
 
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/ZipUtils.java
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/test/java/com/blankj/utilcode/util/ZipUtilsTest.java

@@ -5,11 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import com.blankj.base.BaseApplication
 import com.blankj.common.activity.CommonActivity
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick
 import com.blankj.common.item.CommonItemSwitch
+import com.blankj.common.item.CommonItemTitle
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.*
 import java.io.File
@@ -112,23 +114,21 @@ class LogActivity : CommonActivity() {
 
     override fun bindItems(): List<CommonItem<*>> {
         return CollectionUtils.newArrayList(
+                CommonItemTitle("getLogFiles", LogUtils.getLogFiles().toString()),
                 CommonItemSwitch(
                         R.string.log_switch,
-                        Utils.Supplier {
-                            mConfig.isLogSwitch
-                        },
-                        Utils.Consumer {
-                            mConfig.isLogSwitch = it
-                        }
+                        { mConfig.isLogSwitch },
+                        { mConfig.isLogSwitch = it }
                 ),
                 CommonItemSwitch(
-                        R.string.log_console_console,
-                        Utils.Supplier {
-                            mConfig.isLog2ConsoleSwitch
-                        },
-                        Utils.Consumer {
-                            mConfig.setConsoleSwitch(it)
-                        }
+                        R.string.log_console_switch,
+                        { mConfig.isLog2ConsoleSwitch },
+                        { mConfig.setConsoleSwitch(it) }
+                ),
+                CommonItemSwitch(
+                        R.string.log_console_listener_switch,
+                        { mConfig.haveSetOnConsoleOutputListener() },
+                        { mConfig.setOnConsoleOutputListener { type, tag, content -> Log.println(type, tag, content) } }
                 ),
                 CommonItemClick("Global Tag", if (mConfig.globalTag == "") "null" else mConfig.globalTag).setOnClickUpdateContentListener {
                     if (StringUtils.isSpace(mConfig.globalTag)) {
@@ -140,47 +140,41 @@ class LogActivity : CommonActivity() {
                 },
                 CommonItemSwitch(
                         R.string.log_head_switch,
-                        Utils.Supplier {
-                            mConfig.isLogHeadSwitch
-                        },
-                        Utils.Consumer {
-                            mConfig.isLogHeadSwitch = it
-                        }
+                        { mConfig.isLogHeadSwitch },
+                        { mConfig.isLogHeadSwitch = it }
                 ),
                 CommonItemSwitch(
                         R.string.log_file_switch,
-                        Utils.Supplier {
-                            mConfig.isLog2FileSwitch
-                        },
-                        Utils.Consumer {
-                            mConfig.isLog2FileSwitch = it
-                        }
+                        { mConfig.isLog2FileSwitch },
+                        { mConfig.isLog2FileSwitch = it }
+                ),
+                CommonItemSwitch(
+                        R.string.log_file_listener_switch,
+                        { mConfig.haveSetOnFileOutputListener() },
+                        { mConfig.setOnFileOutputListener { filePath, content -> Log.d("LogActivity", filePath + "\n" + content) } }
                 ),
                 CommonItemClick("Dir", mConfig.dir).setOnClickUpdateContentListener {
                     if (mConfig.dir != mConfig.defaultDir) {
                         mConfig.dir = mConfig.defaultDir
                     } else {
-                        mConfig.setDir(File(PathUtils.getInternalAppFilesPath(), "log"))
+                        mConfig.setDir(File(PathUtils.getExternalAppFilesPath(), "log"))
                     }
                     return@setOnClickUpdateContentListener mConfig.dir
                 },
                 CommonItemSwitch(
                         R.string.log_border_switch,
-                        Utils.Supplier {
-                            mConfig.isLogBorderSwitch
-                        },
-                        Utils.Consumer {
-                            mConfig.setBorderSwitch(it)
-                        }
+                        { mConfig.isLogBorderSwitch },
+                        { mConfig.setBorderSwitch(it) }
                 ),
                 CommonItemSwitch(
                         R.string.log_single_tag_switch,
-                        Utils.Supplier {
-                            mConfig.isSingleTagSwitch
-                        },
-                        Utils.Consumer {
-                            mConfig.setSingleTagSwitch(it)
-                        }
+                        { mConfig.isSingleTagSwitch },
+                        { mConfig.setSingleTagSwitch(it) }
+                ),
+                CommonItemSwitch(
+                        R.string.log_single_tag_switch,
+                        { mConfig.isSingleTagSwitch },
+                        { mConfig.setSingleTagSwitch(it) }
                 ),
                 CommonItemClick("ConsoleFilter", mConfig.consoleFilter.toString()).setOnClickUpdateContentListener {
                     mConfig.setConsoleFilter(if (mConfig.consoleFilter == 'V') LogUtils.W else LogUtils.V)

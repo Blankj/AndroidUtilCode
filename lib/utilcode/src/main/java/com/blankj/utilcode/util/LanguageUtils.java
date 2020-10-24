@@ -1,21 +1,15 @@
 package com.blankj.utilcode.util;
 
 import android.app.Activity;
-import android.app.Application;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.ContextWrapper;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.util.Log;
 
-import java.lang.reflect.Field;
 import java.util.Locale;
 
 /**
@@ -37,105 +31,70 @@ public class LanguageUtils {
 
     /**
      * Apply the system language.
-     * It will not restart Activity. u can put it in ur {@link Activity#onCreate(Bundle)}.
      */
     public static void applySystemLanguage() {
-        if (isAppliedSystemLanguage()) return;
-        applyLanguage(Resources.getSystem().getConfiguration().locale, "", true, false);
+        applySystemLanguage(false);
     }
 
     /**
      * Apply the system language.
      *
-     * @param activityClz The class of activity will be started after apply system language.
+     * @param isRelaunchApp True to relaunch app, false to recreate all activities.
      */
-    public static void applySystemLanguage(final Class<? extends Activity> activityClz) {
-        applyLanguage(Resources.getSystem().getConfiguration().locale, activityClz, true, true);
-    }
-
-    /**
-     * Apply the system language.
-     *
-     * @param activityClassName The full class name of activity will be started after apply system language.
-     */
-    public static void applySystemLanguage(final String activityClassName) {
-        applyLanguage(Resources.getSystem().getConfiguration().locale, activityClassName, true, true);
+    public static void applySystemLanguage(final boolean isRelaunchApp) {
+        applyLanguageReal(null, isRelaunchApp);
     }
 
     /**
      * Apply the language.
-     * It will not restart Activity. u can put it in ur {@link Activity#onCreate(Bundle)}.
      *
      * @param locale The language of locale.
      */
     public static void applyLanguage(@NonNull final Locale locale) {
-        if (isAppliedLanguage(locale)) return;
-        applyLanguage(locale, "", false, false);
+        applyLanguage(locale, false);
     }
 
     /**
      * Apply the language.
      *
-     * @param locale      The language of locale.
-     * @param activityClz The class of activity will be started after apply system language.
-     *                    It will start the launcher activity if the class is null.
+     * @param locale        The language of locale.
+     * @param isRelaunchApp True to relaunch app, false to recreate all activities.
      */
     public static void applyLanguage(@NonNull final Locale locale,
-                                     final Class<? extends Activity> activityClz) {
-        applyLanguage(locale, activityClz, false, true);
+                                     final boolean isRelaunchApp) {
+        applyLanguageReal(locale, isRelaunchApp);
     }
 
-    /**
-     * Apply the language.
-     *
-     * @param locale            The language of locale.
-     * @param activityClassName The class of activity will be started after apply system language.
-     *                          It will start the launcher activity if the class name is null.
-     */
-    public static void applyLanguage(@NonNull final Locale locale,
-                                     final String activityClassName) {
-        applyLanguage(locale, activityClassName, false, true);
-    }
-
-    private static void applyLanguage(@NonNull final Locale locale,
-                                      final Class<? extends Activity> activityClz,
-                                      final boolean isFollowSystem,
-                                      final boolean isNeedStartActivity) {
-        if (activityClz == null) {
-            applyLanguage(locale, "", isFollowSystem, isNeedStartActivity);
-            return;
-        }
-        applyLanguage(locale, activityClz.getName(), isFollowSystem, isNeedStartActivity);
-    }
-
-    private static void applyLanguage(@NonNull final Locale locale,
-                                      final String activityClassName,
-                                      final boolean isFollowSystem,
-                                      final boolean isNeedStartActivity) {
-        if (isFollowSystem) {
-            UtilsBridge.getSpUtils4Utils().put(KEY_LOCALE, VALUE_FOLLOW_SYSTEM);
+    private static void applyLanguageReal(final Locale locale,
+                                          final boolean isRelaunchApp) {
+        if (locale == null) {
+            UtilsBridge.getSpUtils4Utils().put(KEY_LOCALE, VALUE_FOLLOW_SYSTEM, true);
         } else {
-            UtilsBridge.getSpUtils4Utils().put(KEY_LOCALE, locale2String(locale));
+            UtilsBridge.getSpUtils4Utils().put(KEY_LOCALE, locale2String(locale), true);
         }
 
-        updateLanguage(Utils.getApp(), locale);
-
-        if (isNeedStartActivity) {
-            Intent intent = new Intent();
-            String realActivityClassName = TextUtils.isEmpty(activityClassName) ? UtilsBridge.getLauncherActivity() : activityClassName;
-            intent.setComponent(new ComponentName(Utils.getApp(), realActivityClassName));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            Utils.getApp().startActivity(intent);
-        }
+        Locale destLocal = locale == null ? getLocal(Resources.getSystem().getConfiguration()) : locale;
+        updateAppContextLanguage(destLocal, new Utils.Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean success) {
+                if (success) {
+                    restart(isRelaunchApp);
+                } else {
+                    // use relaunch app
+                    UtilsBridge.relaunchApp();
+                }
+            }
+        });
     }
 
-    /**
-     * Return whether applied the system language by {@link LanguageUtils}.
-     *
-     * @return {@code true}: yes<br>{@code false}: no
-     */
-    public static boolean isAppliedSystemLanguage() {
-        return VALUE_FOLLOW_SYSTEM.equals(UtilsBridge.getSpUtils4Utils().getString(KEY_LOCALE));
+    private static void restart(final boolean isRelaunchApp) {
+        if (isRelaunchApp) {
+            UtilsBridge.relaunchApp();
+        } else {
+            for (Activity activity : UtilsBridge.getActivityList()) {
+                activity.recreate();
+            }
+        }
     }
 
     /**
@@ -144,7 +103,7 @@ public class LanguageUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isAppliedLanguage() {
-        return !TextUtils.isEmpty(UtilsBridge.getSpUtils4Utils().getString(KEY_LOCALE));
+        return getAppliedLanguage() != null;
     }
 
     /**
@@ -153,90 +112,206 @@ public class LanguageUtils {
      * @param locale The locale.
      * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean isAppliedLanguage(Locale locale) {
-        final String spLocale = UtilsBridge.getSpUtils4Utils().getString(KEY_LOCALE);
-        if (TextUtils.isEmpty(spLocale)) {
+    public static boolean isAppliedLanguage(@NonNull Locale locale) {
+        Locale appliedLocale = getAppliedLanguage();
+        if (appliedLocale == null) {
             return false;
         }
-        if (VALUE_FOLLOW_SYSTEM.equals(spLocale)) {
-            return false;
-        }
-        Locale settingLocale = string2Locale(spLocale);
-        if (settingLocale == null) return false;
-        return isSameLocale(settingLocale, locale);
+        return isSameLocale(locale, appliedLocale);
     }
 
     /**
-     * Return the locale.
+     * Return the applied locale.
      *
-     * @return the locale
+     * @return the applied locale
      */
-    public static Locale getCurrentLocale() {
-        return Utils.getApp().getResources().getConfiguration().locale;
+    public static Locale getAppliedLanguage() {
+        final String spLocaleStr = UtilsBridge.getSpUtils4Utils().getString(KEY_LOCALE);
+        if (TextUtils.isEmpty(spLocaleStr) || VALUE_FOLLOW_SYSTEM.equals(spLocaleStr)) {
+            return null;
+        }
+        return string2Locale(spLocaleStr);
     }
 
-    static void applyLanguage(@NonNull final Activity activity) {
+    /**
+     * Return the locale of context.
+     *
+     * @return the locale of context
+     */
+    public static Locale getContextLanguage(Context context) {
+        return getLocal(context.getResources().getConfiguration());
+    }
+
+    /**
+     * Return the locale of applicationContext.
+     *
+     * @return the locale of applicationContext
+     */
+    public static Locale getAppContextLanguage() {
+        return getContextLanguage(Utils.getApp());
+    }
+
+    /**
+     * Return the locale of system
+     *
+     * @return the locale of system
+     */
+    public static Locale getSystemLanguage() {
+        return getLocal(Resources.getSystem().getConfiguration());
+    }
+
+    /**
+     * Update the locale of applicationContext.
+     *
+     * @param destLocale The dest locale.
+     * @param consumer   The consumer.
+     */
+    public static void updateAppContextLanguage(@NonNull Locale destLocale, @Nullable Utils.Consumer<Boolean> consumer) {
+        pollCheckAppContextLocal(destLocale, 0, consumer);
+    }
+
+    static void pollCheckAppContextLocal(final Locale destLocale, final int index, final Utils.Consumer<Boolean> consumer) {
+        Resources appResources = Utils.getApp().getResources();
+        Configuration appConfig = appResources.getConfiguration();
+        Locale appLocal = getLocal(appConfig);
+
+        setLocal(appConfig, destLocale);
+
+        Utils.getApp().getResources().updateConfiguration(appConfig, appResources.getDisplayMetrics());
+
+        if (consumer == null) return;
+
+        if (isSameLocale(appLocal, destLocale)) {
+            consumer.accept(true);
+        } else {
+            if (index < 20) {
+                UtilsBridge.runOnUiThreadDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        pollCheckAppContextLocal(destLocale, index + 1, consumer);
+                    }
+                }, 16);
+                return;
+            }
+            Log.e("LanguageUtils", "appLocal didn't update.");
+            consumer.accept(false);
+        }
+    }
+
+    /**
+     * If applyLanguage not work, try to call it in {@link Activity#attachBaseContext(Context)}.
+     *
+     * @param context The baseContext.
+     * @return the context with language
+     */
+    public static Context attachBaseContext(Context context) {
+        String spLocaleStr = UtilsBridge.getSpUtils4Utils().getString(KEY_LOCALE);
+        if (TextUtils.isEmpty(spLocaleStr) || VALUE_FOLLOW_SYSTEM.equals(spLocaleStr)) {
+            return context;
+        }
+
+        Locale settingsLocale = string2Locale(spLocaleStr);
+        if (settingsLocale == null) return context;
+
+        Resources resources = context.getResources();
+        Configuration config = resources.getConfiguration();
+
+        setLocal(config, settingsLocale);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            return context.createConfigurationContext(config);
+        } else {
+            resources.updateConfiguration(config, resources.getDisplayMetrics());
+            return context;
+        }
+    }
+
+    static void applyLanguage(final Activity activity) {
         String spLocale = UtilsBridge.getSpUtils4Utils().getString(KEY_LOCALE);
         if (TextUtils.isEmpty(spLocale)) {
             return;
         }
 
+        Locale destLocal;
         if (VALUE_FOLLOW_SYSTEM.equals(spLocale)) {
-            Locale sysLocale = Resources.getSystem().getConfiguration().locale;
-            updateLanguage(Utils.getApp(), sysLocale);
-            updateLanguage(activity, sysLocale);
-            return;
+            destLocal = getLocal(Resources.getSystem().getConfiguration());
+        } else {
+            destLocal = string2Locale(spLocale);
         }
 
-        Locale settingLocale = string2Locale(spLocale);
-        if (settingLocale == null) return;
-        updateLanguage(Utils.getApp(), settingLocale);
-        updateLanguage(activity, settingLocale);
+        if (destLocal == null) return;
+
+        updateConfiguration(activity, destLocal);
+        updateConfiguration(Utils.getApp(), destLocal);
+    }
+
+    private static void updateConfiguration(Context context, Locale destLocal) {
+        Resources resources = context.getResources();
+        Configuration config = resources.getConfiguration();
+        setLocal(config, destLocal);
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
     }
 
     private static String locale2String(Locale locale) {
-        String localLanguage = locale.getLanguage();
-        String localCountry = locale.getCountry();
+        String localLanguage = locale.getLanguage(); // this may be empty
+        String localCountry = locale.getCountry(); // this may be empty
         return localLanguage + "$" + localCountry;
     }
 
     private static Locale string2Locale(String str) {
-        String[] language_country = str.split("\\$");
-        if (language_country.length != 2) {
+        Locale locale = string2LocaleReal(str);
+        if (locale == null) {
             Log.e("LanguageUtils", "The string of " + str + " is not in the correct format.");
-            return null;
+            UtilsBridge.getSpUtils4Utils().remove(KEY_LOCALE);
         }
-        return new Locale(language_country[0], language_country[1]);
+        return locale;
     }
 
+    private static Locale string2LocaleReal(String str) {
+        if (!isRightFormatLocalStr(str)) {
+            return null;
+        }
 
-    private static void updateLanguage(final Context context, Locale locale) {
-        Resources resources = context.getResources();
-        Configuration config = resources.getConfiguration();
-        Locale contextLocale = config.locale;
-        if (isSameLocale(contextLocale, locale)) {
-            return;
+        try {
+            int splitIndex = str.indexOf("$");
+            return new Locale(str.substring(0, splitIndex), str.substring(splitIndex + 1));
+        } catch (Exception ignore) {
+            return null;
         }
-        DisplayMetrics dm = resources.getDisplayMetrics();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            config.setLocale(locale);
-            if (context instanceof Application) {
-                Context newContext = context.createConfigurationContext(config);
-                try {
-                    //noinspection JavaReflectionMemberAccess
-                    Field mBaseField = ContextWrapper.class.getDeclaredField("mBase");
-                    mBaseField.setAccessible(true);
-                    mBaseField.set(context, newContext);
-                } catch (Exception ignored) {/**/}
+    }
+
+    private static boolean isRightFormatLocalStr(String localStr) {
+        char[] chars = localStr.toCharArray();
+        int count = 0;
+        for (char c : chars) {
+            if (c == '$') {
+                if (count >= 1) {
+                    return false;
+                }
+                ++count;
             }
-        } else {
-            config.locale = locale;
         }
-        resources.updateConfiguration(config, dm);
+        return count == 1;
     }
 
     private static boolean isSameLocale(Locale l0, Locale l1) {
         return UtilsBridge.equals(l1.getLanguage(), l0.getLanguage())
                 && UtilsBridge.equals(l1.getCountry(), l0.getCountry());
+    }
+
+    private static Locale getLocal(Configuration configuration) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return configuration.getLocales().get(0);
+        } else {
+            return configuration.locale;
+        }
+    }
+
+    private static void setLocal(Configuration configuration, Locale locale) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            configuration.setLocale(locale);
+        } else {
+            configuration.locale = locale;
+        }
     }
 }

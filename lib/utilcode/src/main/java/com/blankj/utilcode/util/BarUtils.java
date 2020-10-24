@@ -13,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.RequiresPermission;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.KeyCharacterMap;
@@ -56,7 +57,7 @@ public final class BarUtils {
      * @return the status bar's height
      */
     public static int getStatusBarHeight() {
-        Resources resources = Resources.getSystem();
+        Resources resources = Utils.getApp().getResources();
         int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
         return resources.getDimensionPixelSize(resourceId);
     }
@@ -432,7 +433,7 @@ public final class BarUtils {
         TypedValue tv = new TypedValue();
         if (Utils.getApp().getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
             return TypedValue.complexToDimensionPixelSize(
-                    tv.data, Resources.getSystem().getDisplayMetrics()
+                    tv.data, Utils.getApp().getResources().getDisplayMetrics()
             );
         }
         return 0;
@@ -482,7 +483,7 @@ public final class BarUtils {
      * @return the navigation bar's height
      */
     public static int getNavBarHeight() {
-        Resources res = Resources.getSystem();
+        Resources res = Utils.getApp().getResources();
         int resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android");
         if (resourceId != 0) {
             return res.getDimensionPixelSize(resourceId);

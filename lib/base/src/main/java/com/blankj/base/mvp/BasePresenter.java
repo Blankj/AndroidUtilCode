@@ -47,9 +47,9 @@ public abstract class BasePresenter<V extends BaseView> {
             model.onCreate();
             return model;
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            Log.e("BasePresenter", "getModel", e);
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            Log.e("BasePresenter", "getModel", e);
         }
         return null;
     }

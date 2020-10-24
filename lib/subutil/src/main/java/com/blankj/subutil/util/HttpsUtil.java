@@ -8,7 +8,11 @@ import java.net.URL;
 import java.util.Scanner;
 
 /**
- * Create by MilkZS on 2019/1/9 13:36
+ * <pre>
+ *     author: MilkZS
+ *     time  : 2019/01/09
+ *     desc  : https 工具类
+ * </pre>
  */
 public final class HttpsUtil {
 

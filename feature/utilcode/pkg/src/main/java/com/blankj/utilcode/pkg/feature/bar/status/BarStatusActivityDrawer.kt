@@ -15,7 +15,6 @@ import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.CollectionUtils
 import com.blankj.utilcode.util.ColorUtils
-import com.blankj.utilcode.util.Utils
 import kotlinx.android.synthetic.main.bar_status_drawer_activity.*
 
 
@@ -61,37 +60,43 @@ class BarStatusActivityDrawer : CommonActivity() {
             return@setOnClickUpdateContentListener ColorUtils.int2ArgbString(mColor)
         }
 
-        val alphaItem: CommonItem<*> = CommonItemSeekBar("Status Bar Alpha", 255, mAlpha, object : SeekBar.OnSeekBarChangeListener {
+        val alphaItem: CommonItem<*> = CommonItemSeekBar("Status Bar Alpha", 255, object : CommonItemSeekBar.ProgressListener() {
+            override fun getCurValue(): Int {
+                return mAlpha
+            }
+
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 mAlpha = progress
                 updateStatusBar()
             }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
 
         return CollectionUtils.newArrayList(
-                CommonItemSwitch(R.string.bar_status_title_alpha, Utils.Supplier {
-                    updateStatusBar()
-                    return@Supplier mAlphaStatus
-                }, Utils.Consumer {
-                    mAlphaStatus = it
-                    if (mAlphaStatus) {
-                        barStatusDrawerRootLl.setBackgroundResource(R.drawable.image_lena)
-                        commonItemAdapter.replaceItem(2, alphaItem, true)
-                    } else {
-                        barStatusDrawerRootLl.setBackgroundColor(Color.TRANSPARENT)
-                        commonItemAdapter.replaceItem(2, randomColorItem, true)
-                    }
-                }),
-                CommonItemSwitch(R.string.bar_status_is_front, Utils.Supplier {
-                    return@Supplier mFrontStatus
-                }, Utils.Consumer {
-                    mFrontStatus = it
-                    updateStatusBar()
-                }),
+                CommonItemSwitch(
+                        R.string.bar_status_title_alpha,
+                        {
+                            updateStatusBar()
+                            mAlphaStatus
+                        },
+                        {
+                            mAlphaStatus = it
+                            if (mAlphaStatus) {
+                                barStatusDrawerRootLl.setBackgroundResource(R.drawable.image_lena)
+                                commonItemAdapter.replaceItem(2, alphaItem, true)
+                            } else {
+                                barStatusDrawerRootLl.setBackgroundColor(Color.TRANSPARENT)
+                                commonItemAdapter.replaceItem(2, randomColorItem, true)
+                            }
+                        }
+                ),
+                CommonItemSwitch(
+                        R.string.bar_status_is_front,
+                        { mFrontStatus },
+                        {
+                            mFrontStatus = it
+                            updateStatusBar()
+                        }
+                ),
                 randomColorItem
         )
     }

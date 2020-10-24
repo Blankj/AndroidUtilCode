@@ -3,8 +3,6 @@ package com.blankj.utilcode.pkg.feature.metaData
 import android.content.Context
 import android.content.Intent
 import com.blankj.common.activity.CommonActivity
-import com.blankj.common.activity.CommonActivityItemsView
-import com.blankj.common.activity.CommonActivityTitleView
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemTitle
 import com.blankj.utilcode.pkg.R
@@ -35,7 +33,7 @@ class MetaDataActivity : CommonActivity() {
     override fun bindItems(): List<CommonItem<*>> {
         return CollectionUtils.newArrayList(
                 CommonItemTitle("getMetaDataInApp", MetaDataUtils.getMetaDataInApp("app_meta_data")),
-                CommonItemTitle("getMetaDataInActivity", MetaDataUtils.getMetaDataInActivity(this, "activity_meta_data"))
+                CommonItemTitle("getMetaDataInActivity", MetaDataUtils.getMetaDataInActivity(this, "activity_meta_data").substring(1))
         )
     }
 }

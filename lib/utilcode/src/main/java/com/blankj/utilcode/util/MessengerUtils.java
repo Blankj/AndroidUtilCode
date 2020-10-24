@@ -159,7 +159,7 @@ public class MessengerUtils {
                 try {
                     mServer.send(msg);
                 } catch (RemoteException e) {
-                    Log.e("MessengerUtils", "onServiceConnected: ", e);
+                    e.printStackTrace();
                 }
                 sendCachedMsg2Server();
             }
@@ -205,7 +205,7 @@ public class MessengerUtils {
             try {
                 mServer.send(msg);
             } catch (RemoteException e) {
-                Log.e("MessengerUtils", "unbind: ", e);
+                e.printStackTrace();
             }
             try {
                 Utils.getApp().unbindService(mConn);
@@ -242,7 +242,7 @@ public class MessengerUtils {
                 mServer.send(msg);
                 return true;
             } catch (RemoteException e) {
-                Log.e("MessengerUtils", "send2Server: ", e);
+                e.printStackTrace();
                 return false;
             }
         }

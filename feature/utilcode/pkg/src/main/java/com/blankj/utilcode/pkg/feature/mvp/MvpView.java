@@ -1,12 +1,16 @@
 package com.blankj.utilcode.pkg.feature.mvp;
 
-import android.support.v4.app.FragmentActivity;
+import android.text.Layout;
 import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.base.mvp.BaseView;
 import com.blankj.utilcode.pkg.R;
+import com.blankj.utilcode.pkg.feature.fragment.FragmentActivity;
 import com.blankj.utilcode.util.ClickUtils;
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SizeUtils;
+import com.blankj.utilcode.util.ThreadUtils;
 import com.blankj.utilcode.util.ToastUtils;
 
 /**
@@ -21,8 +25,10 @@ public class MvpView extends BaseView<MvpView>
         implements IMvp.View {
 
     private TextView mvpTv;
+    private TextView mvpMeasureWidthTv;
+    private int      i = 0;
 
-    public MvpView(FragmentActivity activity) {
+    public MvpView(MvpActivity activity) {
         super(activity);
         mvpTv = activity.findViewById(R.id.mvpUpdateTv);
         ClickUtils.applyPressedBgDark(mvpTv);
@@ -32,6 +38,23 @@ public class MvpView extends BaseView<MvpView>
                 getPresenter(MvpPresenter.class).updateMsg();
             }
         });
+
+        mvpMeasureWidthTv = activity.findViewById(R.id.mvpMeasureWidthTv);
+
+        measure();
+    }
+
+    private void measure() {
+        ThreadUtils.runOnUiThreadDelayed(new Runnable() {
+            @Override
+            public void run() {
+                float textWidth = Layout.getDesiredWidth(mvpMeasureWidthTv.getText(), mvpMeasureWidthTv.getPaint()) + SizeUtils.dp2px(16);
+                float textWidth2 = mvpMeasureWidthTv.getPaint().measureText(mvpMeasureWidthTv.getText().toString()) + SizeUtils.dp2px(16);
+                LogUtils.i(mvpMeasureWidthTv.getWidth(), textWidth, textWidth2);
+                mvpMeasureWidthTv.setText(mvpMeasureWidthTv.getText().toString() + i);
+                measure();
+            }
+        }, 1000);
     }
 
     @Override

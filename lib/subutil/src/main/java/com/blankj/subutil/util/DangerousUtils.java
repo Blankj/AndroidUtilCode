@@ -325,7 +325,7 @@ public class DangerousUtils {
             setDataEnabledMethod.invoke(tm, enabled);
             return true;
         } catch (Exception e) {
-            Log.e("NetworkUtils", "setMobileDataEnabled: ", e);
+            e.printStackTrace();
         }
         return false;
     }

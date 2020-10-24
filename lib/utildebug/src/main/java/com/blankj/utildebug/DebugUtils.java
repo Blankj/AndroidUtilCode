@@ -5,6 +5,7 @@ import android.app.Application;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 
 import com.blankj.utilcode.util.Utils;
 import com.blankj.utildebug.debug.IDebug;
@@ -71,6 +72,10 @@ public class DebugUtils {
 
         @Override
         public void onActivityResumed(Activity activity) {
+            ViewParent parent = DebugIcon.getInstance().getParent();
+            if (parent != null) {
+                ((ViewGroup) parent).removeView(DebugIcon.getInstance());
+            }
             ((ViewGroup) activity.findViewById(android.R.id.content)).addView(DebugIcon.getInstance(), mParams);
         }
 

@@ -42,12 +42,30 @@ public final class ActivityUtils {
     /**
      * Add callbacks of activity lifecycle.
      *
+     * @param callbacks The callbacks.
+     */
+    public static void addActivityLifecycleCallbacks(final Utils.ActivityLifecycleCallbacks callbacks) {
+        UtilsBridge.addActivityLifecycleCallbacks(callbacks);
+    }
+
+    /**
+     * Add callbacks of activity lifecycle.
+     *
      * @param activity  The activity.
      * @param callbacks The callbacks.
      */
     public static void addActivityLifecycleCallbacks(final Activity activity,
                                                      final Utils.ActivityLifecycleCallbacks callbacks) {
         UtilsBridge.addActivityLifecycleCallbacks(activity, callbacks);
+    }
+
+    /**
+     * Remove callbacks of activity lifecycle.
+     *
+     * @param callbacks The callbacks.
+     */
+    public static void removeActivityLifecycleCallbacks(final Utils.ActivityLifecycleCallbacks callbacks) {
+        UtilsBridge.removeActivityLifecycleCallbacks(callbacks);
     }
 
     /**

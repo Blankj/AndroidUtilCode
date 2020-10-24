@@ -52,7 +52,7 @@ class AppActivity : CommonActivity() {
         LogUtils.e(requestCode, resultCode)
     }
 
-    override fun bindItems(): List<CommonItem<*>> {
+    override fun bindItems(): MutableList<CommonItem<*>> {
         return CollectionUtils.newArrayList(
                 CommonItemTitle("isAppRoot", AppUtils.isAppRoot().toString()),
                 CommonItemTitle("isAppDebug", AppUtils.isAppDebug().toString()),

@@ -8,7 +8,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -31,8 +30,7 @@ public final class BusUtils {
     private static final Object NULL = "nULl";
     private static final String TAG  = "BusUtils";
 
-    private final Map<String, List<BusInfo>> mTag_BusInfoListMap = new HashMap<>();
-
+    private final Map<String, List<BusInfo>>       mTag_BusInfoListMap          = new ConcurrentHashMap<>();
     private final Map<String, Set<Object>>         mClassName_BusesMap          = new ConcurrentHashMap<>();
     private final Map<String, List<String>>        mClassName_TagsMap           = new ConcurrentHashMap<>();
     private final Map<String, Map<String, Object>> mClassName_Tag_Arg4StickyMap = new ConcurrentHashMap<>();
@@ -58,7 +56,7 @@ public final class BusUtils {
                              boolean sticky, String threadMode, int priority) {
         List<BusInfo> busInfoList = mTag_BusInfoListMap.get(tag);
         if (busInfoList == null) {
-            busInfoList = new ArrayList<>();
+            busInfoList = new CopyOnWriteArrayList<>();
             mTag_BusInfoListMap.put(tag, busInfoList);
         }
         busInfoList.add(new BusInfo(tag, className, funName, paramType, paramName, sticky, threadMode, priority));

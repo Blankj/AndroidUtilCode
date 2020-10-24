@@ -74,15 +74,16 @@ public class BaseApplication extends Application {
                         return "LogUtils Formatter ArrayList { " + arrayList.toString() + " }";
                     }
                 })
-                .setFileWriter(null);
+                .addFileExtraHead("ExtraKey", "ExtraValue");
         LogUtils.i(config.toString());
     }
 
     private void initCrash() {
         CrashUtils.init(new CrashUtils.OnCrashListener() {
             @Override
-            public void onCrash(String crashInfo, Throwable e) {
-                LogUtils.e(crashInfo);
+            public void onCrash(CrashUtils.CrashInfo crashInfo) {
+                crashInfo.addExtraHead("extraKey", "extraValue");
+                LogUtils.e(crashInfo.toString());
                 AppUtils.relaunchApp();
             }
         });
