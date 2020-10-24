@@ -1,9 +1,10 @@
 package com.blankj.base.mvp;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.support.annotation.CallSuper;
 import android.util.Log;
+
+import androidx.annotation.CallSuper;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 /**
  * <pre>

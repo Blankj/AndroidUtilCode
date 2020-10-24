@@ -1,13 +1,14 @@
 package com.blankj.utilcode.util;
 
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import androidx.annotation.NonNull;
 
 /**
  * <pre>
