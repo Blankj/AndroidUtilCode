@@ -477,7 +477,7 @@ public final class ToastUtils {
             }
         }
 
-        // no notification
+        // not use system or notification disable
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
             return new WindowManagerToast(toastUtils, WindowManager.LayoutParams.TYPE_TOAST);
         } else if (UtilsBridge.isGrantedDrawOverlays()) {
