@@ -14,8 +14,8 @@ class Config {
     static compileSdkVersion = 29
     static minSdkVersion = 14
     static targetSdkVersion = 29
-    static versionCode = 1_030_000
-    static versionName = '1.30.0'// E.g. 1.9.72 => 1,009,072
+    static versionCode = 1_030_001
+    static versionName = '1.30.1'// E.g. 1.9.72 => 1,009,072
 
     // lib version
     static gradlePluginVersion = '3.5.0'

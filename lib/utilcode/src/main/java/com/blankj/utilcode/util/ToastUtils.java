@@ -57,11 +57,11 @@ public final class ToastUtils {
         String DARK  = "dark";
     }
 
-    private static final String     TAG_TOAST           = "TAG_TOAST";
-    private static final int        COLOR_DEFAULT       = 0xFEFFFFFF;
-    private static final String     NULL                = "toast null";
-    private static final String     NOTHING             = "toast nothing";
-    private static final ToastUtils DEFAULT_TOAST_UTILS = make();
+    private static final String     TAG_TOAST     = "TAG_TOAST";
+    private static final int        COLOR_DEFAULT = 0xFEFFFFFF;
+    private static final String     NULL          = "toast null";
+    private static final String     NOTHING       = "toast nothing";
+    private static final ToastUtils DEFAULT_MAKER = make();
 
     private static IToast iToast;
 
@@ -259,6 +259,15 @@ public final class ToastUtils {
     }
 
     /**
+     * Return the default {@link ToastUtils} instance.
+     *
+     * @return the default {@link ToastUtils} instance
+     */
+    public static ToastUtils getDefaultMaker() {
+        return DEFAULT_MAKER;
+    }
+
+    /**
      * Show the toast for a short period of time.
      *
      * @param text The text.
@@ -351,7 +360,7 @@ public final class ToastUtils {
      * @param text The text.
      */
     public static void showShort(final CharSequence text) {
-        show(text, Toast.LENGTH_SHORT, DEFAULT_TOAST_UTILS);
+        show(text, Toast.LENGTH_SHORT, DEFAULT_MAKER);
     }
 
     /**
@@ -360,7 +369,7 @@ public final class ToastUtils {
      * @param resId The resource id for text.
      */
     public static void showShort(@StringRes final int resId) {
-        show(UtilsBridge.getString(resId), Toast.LENGTH_SHORT, DEFAULT_TOAST_UTILS);
+        show(UtilsBridge.getString(resId), Toast.LENGTH_SHORT, DEFAULT_MAKER);
     }
 
     /**
@@ -370,7 +379,7 @@ public final class ToastUtils {
      * @param args  The args.
      */
     public static void showShort(@StringRes final int resId, final Object... args) {
-        show(UtilsBridge.getString(resId, args), Toast.LENGTH_SHORT, DEFAULT_TOAST_UTILS);
+        show(UtilsBridge.getString(resId, args), Toast.LENGTH_SHORT, DEFAULT_MAKER);
     }
 
     /**
@@ -380,7 +389,7 @@ public final class ToastUtils {
      * @param args   The args.
      */
     public static void showShort(final String format, final Object... args) {
-        show(UtilsBridge.format(format, args), Toast.LENGTH_SHORT, DEFAULT_TOAST_UTILS);
+        show(UtilsBridge.format(format, args), Toast.LENGTH_SHORT, DEFAULT_MAKER);
     }
 
     /**
@@ -389,7 +398,7 @@ public final class ToastUtils {
      * @param text The text.
      */
     public static void showLong(final CharSequence text) {
-        show(text, Toast.LENGTH_LONG, DEFAULT_TOAST_UTILS);
+        show(text, Toast.LENGTH_LONG, DEFAULT_MAKER);
     }
 
     /**
@@ -398,7 +407,7 @@ public final class ToastUtils {
      * @param resId The resource id for text.
      */
     public static void showLong(@StringRes final int resId) {
-        show(UtilsBridge.getString(resId), Toast.LENGTH_LONG, DEFAULT_TOAST_UTILS);
+        show(UtilsBridge.getString(resId), Toast.LENGTH_LONG, DEFAULT_MAKER);
     }
 
     /**
@@ -408,7 +417,7 @@ public final class ToastUtils {
      * @param args  The args.
      */
     public static void showLong(@StringRes final int resId, final Object... args) {
-        show(UtilsBridge.getString(resId), Toast.LENGTH_LONG, DEFAULT_TOAST_UTILS);
+        show(UtilsBridge.getString(resId), Toast.LENGTH_LONG, DEFAULT_MAKER);
     }
 
     /**
@@ -418,7 +427,7 @@ public final class ToastUtils {
      * @param args   The args.
      */
     public static void showLong(final String format, final Object... args) {
-        show(UtilsBridge.format(format, args), Toast.LENGTH_LONG, DEFAULT_TOAST_UTILS);
+        show(UtilsBridge.format(format, args), Toast.LENGTH_LONG, DEFAULT_MAKER);
     }
 
     /**

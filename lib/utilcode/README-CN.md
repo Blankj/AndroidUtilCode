@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.30.0'
+implementation 'com.blankj:utilcode:1.30.1'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.30.0'
+implementation 'com.blankj:utilcodex:1.30.1'
 ```
 
 
@@ -1181,6 +1181,7 @@ make.setRightIcon        : 设置右侧图标
 make.setBottomIcon       : 设置底部图标
 make.setNotUseSystemToast: 设置不使用系统吐司
 make.show                : 显示吐司
+getDefaultMaker          : 获取默认制作实例（控制 showShort、showLong 样式）
 showShort                : 显示短时吐司
 showLong                 : 显示长时吐司
 cancel                   : 取消吐司显示

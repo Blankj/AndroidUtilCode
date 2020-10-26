@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *     desc  : utils about debouncing
  * </pre>
  */
-class DebouncingUtils {
+public class DebouncingUtils {
 
     private static final int               CACHE_SIZE               = 64;
     private static final Map<String, Long> KEY_MILLIS_MAP           = new ConcurrentHashMap<>(CACHE_SIZE);

@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.30.0'
+implementation 'com.blankj:utilcode:1.30.1'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.30.0'
+implementation 'com.blankj:utilcodex:1.30.1'
 ```
 
 
@@ -1181,6 +1181,7 @@ make.setRightIcon
 make.setBottomIcon
 make.setNotUseSystemToast
 make.show
+getDefaultMaker
 showShort
 showLong
 cancel
