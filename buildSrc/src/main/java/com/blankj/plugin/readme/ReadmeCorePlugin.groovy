@@ -38,7 +38,7 @@ class ReadmeCorePlugin implements Plugin<Project> {
                 }
             } else if (line.contains(": ") && !line.contains("[")) {
                 sb.append(line.substring(0, line.indexOf(':')).trim())
-            } else if (line.contains("打个小广告") || line.contains("知识星球") || line.contains("我的二维码")) {
+            } else if (line.contains("打个小广告") || line.contains("基你太美")) {
                 return
             } else {
                 sb.append(line)

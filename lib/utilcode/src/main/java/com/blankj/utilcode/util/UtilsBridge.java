@@ -101,6 +101,10 @@ class UtilsBridge {
         return UtilsActivityLifecycleImpl.INSTANCE.getApplicationByReflect();
     }
 
+    static boolean isAppForeground() {
+        return UtilsActivityLifecycleImpl.INSTANCE.isAppForeground();
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     // ActivityUtils
     ///////////////////////////////////////////////////////////////////////////
@@ -127,19 +131,6 @@ class UtilsBridge {
     ///////////////////////////////////////////////////////////////////////////
     // AppUtils
     ///////////////////////////////////////////////////////////////////////////
-    static Context getTopActivityOrApp() {
-        if (AppUtils.isAppForeground()) {
-            Activity topActivity = getTopActivity();
-            return topActivity == null ? Utils.getApp() : topActivity;
-        } else {
-            return Utils.getApp();
-        }
-    }
-
-    static boolean isAppForeground() {
-        return AppUtils.isAppForeground();
-    }
-
     static boolean isAppRunning(@NonNull final String pkgName) {
         return AppUtils.isAppRunning(pkgName);
     }

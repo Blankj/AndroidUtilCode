@@ -41,7 +41,7 @@ public final class PermissionConstants {
             permission.READ_CONTACTS, permission.WRITE_CONTACTS, permission.GET_ACCOUNTS
     };
     private static final String[] GROUP_LOCATION             = {
-            permission.ACCESS_FINE_LOCATION, permission.ACCESS_COARSE_LOCATION
+            permission.ACCESS_FINE_LOCATION, permission.ACCESS_COARSE_LOCATION, permission.ACCESS_BACKGROUND_LOCATION
     };
     private static final String[] GROUP_MICROPHONE           = {
             permission.RECORD_AUDIO

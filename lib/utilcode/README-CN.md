@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.30.0'
+implementation 'com.blankj:utilcode:1.30.1'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.30.0'
+implementation 'com.blankj:utilcodex:1.30.1'
 ```
 
 
@@ -1181,6 +1181,7 @@ make.setRightIcon        : 设置右侧图标
 make.setBottomIcon       : 设置底部图标
 make.setNotUseSystemToast: 设置不使用系统吐司
 make.show                : 显示吐司
+getDefaultMaker          : 获取默认制作实例（控制 showShort、showLong 样式）
 showShort                : 显示短时吐司
 showLong                 : 显示长时吐司
 cancel                   : 取消吐司显示
@@ -1253,9 +1254,7 @@ getComments       : 获取压缩文件中的注释链表
 
 ## 打个小广告
 
-欢迎加入我的知识星球「**[基你太美](https://t.zsxq.com/FmeqfYF)**」，我会在星球中分享 [AucFrame](https://blankj.com/2019/07/22/auc-frame/) 框架、大厂面经、[AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode) 更详尽的说明...一切我所了解的知识，你可以通过支付进入我的星球「**[基你太美](https://t.zsxq.com/FmeqfYF)**」进行体验，加入后优先观看星球中精华的部分，如果觉得星球的内容对自身没有收益，你可以自行申请退款退出星球，也没必要加我好友；**如果你已确定要留在我的星球，可以通过扫描如下二维码（备注：基你太美）加我个人微信，发送给我你的星球 ID，方便我后续拉你进群(PS：进得越早价格越便宜)。**
-
-![我的二维码](https://raw.githubusercontent.com/Blankj/AndroidUtilCode/master/art/wechat.png)
+欢迎加入我的小专栏「**[基你太美](https://xiaozhuanlan.com/Blankj)**」一起学习。
 
 
 

@@ -96,6 +96,10 @@ final class UtilsActivityLifecycleImpl implements Application.ActivityLifecycleC
         });
     }
 
+    boolean isAppForeground() {
+        return !mIsBackground;
+    }
+
     private void addActivityLifecycleCallbacksInner(final Activity activity,
                                                     final Utils.ActivityLifecycleCallbacks callbacks) {
         List<Utils.ActivityLifecycleCallbacks> callbacksList = mActivityLifecycleCallbacksMap.get(activity);
