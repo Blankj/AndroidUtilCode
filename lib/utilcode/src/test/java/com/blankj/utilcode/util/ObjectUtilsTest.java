@@ -2,6 +2,8 @@ package com.blankj.utilcode.util;
 
 import android.support.v4.util.LongSparseArray;
 import android.support.v4.util.SimpleArrayMap;
+import android.text.Editable;
+import android.text.SpannableStringBuilder;
 import android.util.SparseArray;
 import android.util.SparseBooleanArray;
 import android.util.SparseIntArray;

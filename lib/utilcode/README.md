@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.30.1'
+implementation 'com.blankj:utilcode:1.30.2'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.30.1'
+implementation 'com.blankj:utilcodex:1.30.2'
 ```
 
 
@@ -71,10 +71,10 @@ getAppName
 getAppPath
 getAppVersionName
 getAppVersionCode
-getAppSignature
-getAppSignatureSHA1
-getAppSignatureSHA256
-getAppSignatureMD5
+getAppSignatures
+getAppSignaturesSHA1
+getAppSignaturesSHA256
+getAppSignaturesMD5
 getAppInfo
 getAppsInfo
 getApkInfo
@@ -412,6 +412,7 @@ getModel
 getABIs
 isTablet
 isEmulator
+isDevelopmentSettingsEnabled
 getUniqueDeviceId
 isSameDevice
 ```

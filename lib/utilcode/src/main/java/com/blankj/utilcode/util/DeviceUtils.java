@@ -387,6 +387,19 @@ public final class DeviceUtils {
         return false;
     }
 
+    /**
+     * Whether user has enabled development settings.
+     *
+     * @return whether user has enabled development settings.
+     */
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public static boolean isDevelopmentSettingsEnabled() {
+        return Settings.Global.getInt(
+                Utils.getApp().getContentResolver(),
+                Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0
+        ) > 0;
+    }
+
 
     private static final    String KEY_UDID = "KEY_UDID";
     private volatile static String udid;
