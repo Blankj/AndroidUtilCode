@@ -210,7 +210,7 @@ public final class PermissionUtils {
      * @return the single {@link PermissionUtils} instance
      */
     public static PermissionUtils permissionGroup(@PermissionGroup final String... permissions) {
-        return new PermissionUtils(permissions);
+        return permission(permissions);
     }
 
     /**

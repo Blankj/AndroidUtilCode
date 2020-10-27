@@ -75,9 +75,9 @@ class AppActivity : CommonActivity(), Utils.OnAppStatusChangedListener {
                 CommonItemTitle("getAppPath", AppUtils.getAppPath()),
                 CommonItemTitle("getAppVersionName", AppUtils.getAppVersionName()),
                 CommonItemTitle("getAppVersionCode", AppUtils.getAppVersionCode().toString()),
-                CommonItemTitle("getAppSignatureSHA1", AppUtils.getAppSignatureSHA1()),
-                CommonItemTitle("getAppSignatureSHA256", AppUtils.getAppSignatureSHA256()),
-                CommonItemTitle("getAppSignatureMD5", AppUtils.getAppSignatureMD5()),
+                CommonItemTitle("getAppSignaturesSHA1", AppUtils.getAppSignaturesSHA1().toString()),
+                CommonItemTitle("getAppSignaturesSHA256", AppUtils.getAppSignaturesSHA256().toString()),
+                CommonItemTitle("getAppSignaturesMD5", AppUtils.getAppSignaturesMD5().toString()),
                 CommonItemTitle("getAppUid", AppUtils.getAppUid().toString()),
                 CommonItemTitle("getApkInfo", AppUtils.getApkInfo(AppUtils.getAppPath()).toString()),
 

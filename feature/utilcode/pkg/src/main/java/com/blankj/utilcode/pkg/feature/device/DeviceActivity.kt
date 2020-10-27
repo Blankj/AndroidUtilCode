@@ -46,6 +46,9 @@ class DeviceActivity : CommonActivity() {
             add(CommonItemTitle("getABIs", Arrays.asList(*DeviceUtils.getABIs()).toString()))
             add(CommonItemTitle("isTablet", DeviceUtils.isTablet().toString()))
             add(CommonItemTitle("isEmulator", DeviceUtils.isEmulator().toString()))
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                add(CommonItemTitle("isDevelopmentSettingsEnabled", DeviceUtils.isDevelopmentSettingsEnabled().toString()))
+            }
             add(CommonItemTitle("getUniqueDeviceId", DeviceUtils.getUniqueDeviceId("util")))
             add(CommonItemTitle("isSameDevice", DeviceUtils.isSameDevice(DeviceUtils.getUniqueDeviceId()).toString()))
         }

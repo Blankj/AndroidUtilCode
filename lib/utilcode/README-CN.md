@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.30.1'
+implementation 'com.blankj:utilcode:1.30.2'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.30.1'
+implementation 'com.blankj:utilcodex:1.30.2'
 ```
 
 
@@ -71,10 +71,10 @@ getAppName                        : 获取 App 名称
 getAppPath                        : 获取 App 路径
 getAppVersionName                 : 获取 App 版本号
 getAppVersionCode                 : 获取 App 版本码
-getAppSignature                   : 获取 App 签名
-getAppSignatureSHA1               : 获取应用签名的的 SHA1 值
-getAppSignatureSHA256             : 获取应用签名的的 SHA256 值
-getAppSignatureMD5                : 获取应用签名的的 MD5 值
+getAppSignatures                  : 获取 App 签名
+getAppSignaturesSHA1              : 获取应用签名的的 SHA1 值
+getAppSignaturesSHA256            : 获取应用签名的的 SHA256 值
+getAppSignaturesMD5               : 获取应用签名的的 MD5 值
 getAppInfo                        : 获取 App 信息
 getAppsInfo                       : 获取所有已安装 App 信息
 getApkInfo                        : 获取 Apk 信息
@@ -401,19 +401,20 @@ isValid: 是否有效
 
 * ### 设备相关 -> [DeviceUtils.java][device.java] -> [Demo][device.demo]
 ```
-isDeviceRooted   : 判断设备是否 rooted
-isAdbEnabled     : 判断设备 ADB 是否可用
-getSDKVersionName: 获取设备系统版本号
-getSDKVersionCode: 获取设备系统版本码
-getAndroidID     : 获取设备 AndroidID
-getMacAddress    : 获取设备 MAC 地址
-getManufacturer  : 获取设备厂商
-getModel         : 获取设备型号
-getABIs          : 获取设备 ABIs
-isTablet         : 判断是否是平板
-isEmulator       : 判断是否是模拟器
-getUniqueDeviceId: 获取唯一设备 ID
-isSameDevice     : 判断是否同一设备
+isDeviceRooted              : 判断设备是否 rooted
+isAdbEnabled                : 判断设备 ADB 是否可用
+getSDKVersionName           : 获取设备系统版本号
+getSDKVersionCode           : 获取设备系统版本码
+getAndroidID                : 获取设备 AndroidID
+getMacAddress               : 获取设备 MAC 地址
+getManufacturer             : 获取设备厂商
+getModel                    : 获取设备型号
+getABIs                     : 获取设备 ABIs
+isTablet                    : 判断是否是平板
+isEmulator                  : 判断是否是模拟器
+isDevelopmentSettingsEnabled: 开发者选项是否打开
+getUniqueDeviceId           : 获取唯一设备 ID
+isSameDevice                : 判断是否同一设备
 ```
 
 * ### 闪光灯相关 -> [FlashlightUtils.java][flashlight.java] -> [Demo][flashlight.demo]
