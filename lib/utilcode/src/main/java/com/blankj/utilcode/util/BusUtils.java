@@ -8,7 +8,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -357,7 +356,7 @@ public final class BusUtils {
             synchronized (mClassName_Tag_Arg4StickyMap) {
                 Map<String, Object> tagArgMap = mClassName_Tag_Arg4StickyMap.get(busInfo.className);
                 if (tagArgMap == null) {
-                    tagArgMap = new HashMap<>();
+                    tagArgMap = new ConcurrentHashMap<>();
                     mClassName_Tag_Arg4StickyMap.put(busInfo.className, tagArgMap);
                 }
                 tagArgMap.put(tag, arg);

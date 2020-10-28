@@ -1,3 +1,7 @@
+afterEvaluate {
+    verifyReleaseResources.enabled(false)
+}
+
 dependencies {
     implementation Config.depConfig.lib_utilcode.dep
     implementation Config.depConfig.swipe_panel.dep
