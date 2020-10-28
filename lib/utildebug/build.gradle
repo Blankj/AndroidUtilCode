@@ -1,3 +1,7 @@
+afterEvaluate {
+    verifyReleaseResources.enabled(false)
+}
+
 dependencies {
     compileOnly Config.depConfig.androidx_appcompat.dep
     compileOnly Config.depConfig.androidx_material.dep
