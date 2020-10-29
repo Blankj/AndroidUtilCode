@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -53,8 +54,7 @@ public class MessengerUtils {
                 Log.i("MessengerUtils", "Server service is running.");
                 return;
             }
-            Intent intent = new Intent(Utils.getApp(), ServerService.class);
-            Utils.getApp().startService(intent);
+            startServiceCompat(new Intent(Utils.getApp(), ServerService.class));
             return;
         }
         if (sLocalClient == null) {
@@ -123,10 +123,23 @@ public class MessengerUtils {
         } else {
             Intent intent = new Intent(Utils.getApp(), ServerService.class);
             intent.putExtras(data);
-            Utils.getApp().startService(intent);
+            startServiceCompat(intent);
         }
         for (Client client : sClientMap.values()) {
             client.sendMsg2Server(data);
+        }
+    }
+
+    private static void startServiceCompat(Intent intent) {
+        try {
+            intent.setFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Utils.getApp().startForegroundService(intent);
+            } else {
+                Utils.getApp().startService(intent);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
