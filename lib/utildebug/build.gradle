@@ -1,3 +1,7 @@
+afterEvaluate {
+    verifyReleaseResources.enabled(false)
+}
+
 dependencies {
     implementation Config.depConfig.lib_utilcode.dep
     implementation Config.depConfig.swipe_panel.dep
@@ -8,8 +12,4 @@ dependencies {
     testImplementation Config.depConfig.test_junit.dep
     testImplementation Config.depConfig.test_robolectric.dep
     testImplementation Config.depConfig.support_appcompat_v7.dep
-}
-
-afterEvaluate {
-    verifyReleaseResources.enabled(false)
 }

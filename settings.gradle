@@ -27,8 +27,9 @@ for (def pro in config.proConfig) {
     }
 
     if (pro.useLocal && pro.isApply) {
-        include pro.localPath
-        project(pro.localPath).name = pro.localPath.substring(1).replace(":", "_")
+        def projectPath = ":" + localPath.substring(1).replace(":", "_")
+        include projectPath
+        project(projectPath).projectDir = file(localPath.substring(1).replace(":", "/"))
     }
 }
 

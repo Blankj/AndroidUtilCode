@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
@@ -97,14 +98,23 @@ public final class KeyboardUtils {
      * @param activity The activity.
      */
     public static void hideSoftInput(@NonNull final Activity activity) {
-        View view = activity.getCurrentFocus();
+        hideSoftInput(activity.getWindow());
+    }
+
+    /**
+     * Hide the soft input.
+     *
+     * @param window The window.
+     */
+    public static void hideSoftInput(@NonNull final Window window) {
+        View view = window.getCurrentFocus();
         if (view == null) {
-            View decorView = activity.getWindow().getDecorView();
+            View decorView = window.getDecorView();
             View focusView = decorView.findViewWithTag("keyboardTagView");
             if (focusView == null) {
-                view = new EditText(activity);
+                view = new EditText(window.getContext());
                 view.setTag("keyboardTagView");
-                ((ViewGroup) decorView).addView(view, 1, 1);
+                ((ViewGroup) decorView).addView(view, 0, 0);
             } else {
                 view = focusView;
             }
@@ -133,9 +143,9 @@ public final class KeyboardUtils {
      * @param activity The activity.
      */
     public static void hideSoftInputByToggle(final Activity activity) {
-        long nowMillis = System.currentTimeMillis();
+        long nowMillis = SystemClock.elapsedRealtime();
         long delta = nowMillis - millis;
-        if (KeyboardUtils.isSoftInputVisible(activity) && Math.abs(delta) > 500) {
+        if (Math.abs(delta) > 500 && KeyboardUtils.isSoftInputVisible(activity)) {
             KeyboardUtils.toggleSoftInput();
         }
         millis = nowMillis;
@@ -222,7 +232,8 @@ public final class KeyboardUtils {
      * @param window The window.
      */
     public static void unregisterSoftInputChangedListener(@NonNull final Window window) {
-        final FrameLayout contentView = window.findViewById(android.R.id.content);
+        final View contentView = window.findViewById(android.R.id.content);
+        if (contentView == null) return;
         Object tag = contentView.getTag(TAG_ON_GLOBAL_LAYOUT_LISTENER);
         if (tag instanceof OnGlobalLayoutListener) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

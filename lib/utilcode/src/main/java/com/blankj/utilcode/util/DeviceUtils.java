@@ -116,7 +116,7 @@ public final class DeviceUtils {
     @RequiresPermission(allOf = {ACCESS_WIFI_STATE, INTERNET, CHANGE_WIFI_STATE})
     public static String getMacAddress() {
         String macAddress = getMacAddress((String[]) null);
-        if (!macAddress.equals("") || getWifiEnabled()) return macAddress;
+        if (!TextUtils.isEmpty(macAddress) || getWifiEnabled()) return macAddress;
         setWifiEnabled(true);
         setWifiEnabled(false);
         return getMacAddress((String[]) null);
@@ -173,11 +173,17 @@ public final class DeviceUtils {
     }
 
     private static boolean isAddressNotInExcepts(final String address, final String... excepts) {
+        if (TextUtils.isEmpty(address)) {
+            return false;
+        }
+        if ("02:00:00:00:00:00".equals(address)) {
+            return false;
+        }
         if (excepts == null || excepts.length == 0) {
-            return !"02:00:00:00:00:00".equals(address);
+            return true;
         }
         for (String filter : excepts) {
-            if (address.equals(filter)) {
+            if (filter != null && filter.equals(address)) {
                 return false;
             }
         }
@@ -191,7 +197,12 @@ public final class DeviceUtils {
                     .getApplicationContext().getSystemService(WIFI_SERVICE);
             if (wifi != null) {
                 final WifiInfo info = wifi.getConnectionInfo();
-                if (info != null) return info.getMacAddress();
+                if (info != null) {
+                    String macAddress = info.getMacAddress();
+                    if (!TextUtils.isEmpty(macAddress)) {
+                        return macAddress;
+                    }
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -374,6 +385,19 @@ public final class DeviceUtils {
 //        if (checkDebuggerConnected) return true;
 
         return false;
+    }
+
+    /**
+     * Whether user has enabled development settings.
+     *
+     * @return whether user has enabled development settings.
+     */
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public static boolean isDevelopmentSettingsEnabled() {
+        return Settings.Global.getInt(
+                Utils.getApp().getContentResolver(),
+                Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0
+        ) > 0;
     }
 
 

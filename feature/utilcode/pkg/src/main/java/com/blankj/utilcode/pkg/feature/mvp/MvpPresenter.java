@@ -1,6 +1,7 @@
 package com.blankj.utilcode.pkg.feature.mvp;
 
 import com.blankj.base.mvp.BasePresenter;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.Utils;
 
 /**
@@ -15,7 +16,7 @@ public class MvpPresenter extends BasePresenter<MvpView>
         implements IMvp.Presenter {
 
     @Override
-    public void onAttachView() {
+    public void onBindView() {
     }
 
     @Override
@@ -24,8 +25,12 @@ public class MvpPresenter extends BasePresenter<MvpView>
         getModel(MvpModel.class).requestUpdateMsg(new Utils.Consumer<String>() {
             @Override
             public void accept(String s) {
-                getView().showMsg(s);
-                getView().setLoadingVisible(false);
+                if (isAlive()) {
+                    getView().showMsg(s);
+                    getView().setLoadingVisible(false);
+                } else {
+                    LogUtils.iTag(MvpView.TAG, "destroyed");
+                }
             }
         });
     }

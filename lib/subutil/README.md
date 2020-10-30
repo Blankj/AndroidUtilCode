@@ -18,16 +18,6 @@ isRegisteredBatteryStatusChangedListener
 unregisterBatteryStatusChangedListener
 ```
 
-* ### About Clipboard -> [ClipboardUtils.java][clipboard.java] -> [Test][clipboard.test]
-```
-copyText
-getText
-copyUri
-getUri
-copyIntent
-getIntent
-```
-
 * ### About Coordinate -> [CoordinateUtils.java][coordinate.java] -> [Test][coordinate.test]
 ```
 bd09ToGcj02
@@ -90,9 +80,6 @@ getSurnameFirstLetter
 
 [battery.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/subutil/src/main/java/com/blankj/subutil/util/BatteryUtils.java
 [battery.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/subutil/pkg/src/main/java/com/blankj/subutil/pkg/feature/battery/BatteryActivity.kt
-
-[clipboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/subutil/src/main/java/com/blankj/subutil/util/ClipboardUtils.java
-[clipboard.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/subutil/src/test/java/com/blankj/subutil/util/ClipboardUtilsTest.java
 
 [coordinate.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/subutil/src/main/java/com/blankj/subutil/util/CoordinateUtils.java
 [coordinate.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/subutil/src/test/java/com/blankj/subutil/util/CoordinateUtilsTest.java

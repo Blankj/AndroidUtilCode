@@ -248,34 +248,19 @@ public final class UiMessageUtils implements Handler.Callback {
         }
 
         public int getId() {
-            isUiThread();
             return mMessage.what;
         }
 
         public Object getObject() {
-            isUiThread();
             return mMessage.obj;
-        }
-
-        private void isUiThread() {
-            if (null == mMessage) {
-                throw new IllegalStateException("You can't use LocalMessage instance from a non-UI thread. " +
-                        "Extract the data from LocalMessage and don't hold a reference to it outside of handleMessage()");
-            }
         }
 
         @Override
         public String toString() {
-            isUiThread();
-            final StringBuilder b = new StringBuilder();
-            b.append("{ id=");
-            b.append(getId());
-
-            b.append(", obj=");
-            b.append(getObject());
-
-            b.append(" }");
-            return b.toString();
+            return "{ " +
+                    "id=" + getId() +
+                    ", obj=" + getObject() +
+                    " }";
         }
     }
 

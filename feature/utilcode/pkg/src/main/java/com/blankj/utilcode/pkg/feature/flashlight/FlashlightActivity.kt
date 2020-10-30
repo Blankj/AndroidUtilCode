@@ -3,15 +3,13 @@ package com.blankj.utilcode.pkg.feature.flashlight
 import android.content.Context
 import android.content.Intent
 import com.blankj.common.activity.CommonActivity
+import com.blankj.common.helper.PermissionHelper
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemSwitch
 import com.blankj.common.item.CommonItemTitle
+import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.pkg.R
-import com.blankj.utilcode.pkg.helper.PermissionHelper
-import com.blankj.utilcode.util.CollectionUtils
-import com.blankj.utilcode.util.FlashlightUtils
-import com.blankj.utilcode.util.ToastUtils
-import com.blankj.utilcode.util.Utils
+import com.blankj.utilcode.util.*
 
 /**
  * ```
@@ -29,16 +27,16 @@ class FlashlightActivity : CommonActivity() {
                 ToastUtils.showLong("Didn't support flashlight.")
                 return
             }
-            PermissionHelper.requestCamera(context, object : PermissionHelper.OnPermissionGrantedListener {
-                override fun onPermissionGranted() {
+            PermissionHelper.request(context, object : PermissionUtils.SimpleCallback {
+                override fun onGranted() {
                     val starter = Intent(context, FlashlightActivity::class.java)
                     context.startActivity(starter)
                 }
-            }, object : PermissionHelper.OnPermissionDeniedListener {
-                override fun onPermissionDenied() {
-                    start(context)
+
+                override fun onDenied() {
+                    LogUtils.e("permission denied")
                 }
-            })
+            }, PermissionConstants.CAMERA)
         }
     }
 
@@ -52,12 +50,8 @@ class FlashlightActivity : CommonActivity() {
             if (FlashlightUtils.isFlashlightEnable()) {
                 add(CommonItemSwitch(
                         R.string.flashlight_status,
-                        Utils.Supplier {
-                            FlashlightUtils.isFlashlightOn()
-                        },
-                        Utils.Consumer {
-                            FlashlightUtils.setFlashlightStatus(it)
-                        }
+                        { FlashlightUtils.isFlashlightOn() },
+                        { FlashlightUtils.setFlashlightStatus(it) }
                 ))
             }
         }

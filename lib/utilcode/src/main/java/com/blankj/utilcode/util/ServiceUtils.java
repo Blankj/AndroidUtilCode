@@ -5,6 +5,7 @@ import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.support.annotation.NonNull;
 
 import java.util.HashSet;
@@ -30,7 +31,7 @@ public final class ServiceUtils {
      *
      * @return all of the services are running
      */
-    public static Set getAllRunningServices() {
+    public static Set<String> getAllRunningServices() {
         ActivityManager am = (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
         List<RunningServiceInfo> info = am.getRunningServices(0x7FFFFFFF);
         Set<String> names = new HashSet<>();
@@ -60,8 +61,25 @@ public final class ServiceUtils {
      * @param cls The service class.
      */
     public static void startService(@NonNull final Class<?> cls) {
-        Intent intent = new Intent(Utils.getApp(), cls);
-        Utils.getApp().startService(intent);
+        startService(new Intent(Utils.getApp(), cls));
+    }
+
+    /**
+     * Start the service.
+     *
+     * @param intent The intent.
+     */
+    public static void startService(Intent intent) {
+        try {
+            intent.setFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Utils.getApp().startForegroundService(intent);
+            } else {
+                Utils.getApp().startService(intent);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -86,8 +104,22 @@ public final class ServiceUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean stopService(@NonNull final Class<?> cls) {
-        Intent intent = new Intent(Utils.getApp(), cls);
-        return Utils.getApp().stopService(intent);
+        return stopService(new Intent(Utils.getApp(), cls));
+    }
+
+    /**
+     * Stop the service.
+     *
+     * @param intent The intent.
+     * @return {@code true}: success<br>{@code false}: fail
+     */
+    public static boolean stopService(@NonNull Intent intent) {
+        try {
+            return Utils.getApp().stopService(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**
@@ -135,8 +167,33 @@ public final class ServiceUtils {
     public static void bindService(@NonNull final Class<?> cls,
                                    @NonNull final ServiceConnection conn,
                                    final int flags) {
-        Intent intent = new Intent(Utils.getApp(), cls);
-        Utils.getApp().bindService(intent, conn, flags);
+        bindService(new Intent(Utils.getApp(), cls), conn, flags);
+    }
+
+    /**
+     * Bind the service.
+     *
+     * @param intent The intent.
+     * @param conn   The ServiceConnection object.
+     * @param flags  Operation options for the binding.
+     *               <ul>
+     *               <li>0</li>
+     *               <li>{@link Context#BIND_AUTO_CREATE}</li>
+     *               <li>{@link Context#BIND_DEBUG_UNBIND}</li>
+     *               <li>{@link Context#BIND_NOT_FOREGROUND}</li>
+     *               <li>{@link Context#BIND_ABOVE_CLIENT}</li>
+     *               <li>{@link Context#BIND_ALLOW_OOM_MANAGEMENT}</li>
+     *               <li>{@link Context#BIND_WAIVE_PRIORITY}</li>
+     *               </ul>
+     */
+    public static void bindService(@NonNull final Intent intent,
+                                   @NonNull final ServiceConnection conn,
+                                   final int flags) {
+        try {
+            Utils.getApp().bindService(intent, conn, flags);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -165,12 +222,16 @@ public final class ServiceUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isServiceRunning(@NonNull final String className) {
-        ActivityManager am = (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-        List<RunningServiceInfo> info = am.getRunningServices(0x7FFFFFFF);
-        if (info == null || info.size() == 0) return false;
-        for (RunningServiceInfo aInfo : info) {
-            if (className.equals(aInfo.service.getClassName())) return true;
+        try {
+            ActivityManager am = (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
+            List<RunningServiceInfo> info = am.getRunningServices(0x7FFFFFFF);
+            if (info == null || info.size() == 0) return false;
+            for (RunningServiceInfo aInfo : info) {
+                if (className.equals(aInfo.service.getClassName())) return true;
+            }
+            return false;
+        } catch (Exception ignore) {
+            return false;
         }
-        return false;
     }
 }

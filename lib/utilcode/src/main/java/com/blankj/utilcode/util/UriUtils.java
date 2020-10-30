@@ -10,12 +10,14 @@ import android.os.Environment;
 import android.os.storage.StorageManager;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 
@@ -51,7 +53,8 @@ public final class UriUtils {
      * @param file The file.
      * @return uri
      */
-    public static Uri file2Uri(@NonNull final File file) {
+    public static Uri file2Uri(final File file) {
+        if (!UtilsBridge.isFileExists(file)) return null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             String authority = Utils.getApp().getPackageName() + ".utilcode.provider";
             return FileProvider.getUriForFile(Utils.getApp(), authority, file);
@@ -66,22 +69,54 @@ public final class UriUtils {
      * @param uri The uri.
      * @return file
      */
-    public static File uri2File(@NonNull final Uri uri) {
+    public static File uri2File(final Uri uri) {
+        if (uri == null) return null;
+        File file = uri2FileReal(uri);
+        if (file != null) return file;
+        return copyUri2Cache(uri);
+    }
+
+    /**
+     * Uri to file.
+     *
+     * @param uri The uri.
+     * @return file
+     */
+    private static File uri2FileReal(final Uri uri) {
         Log.d("UriUtils", uri.toString());
         String authority = uri.getAuthority();
         String scheme = uri.getScheme();
         String path = uri.getPath();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && path != null) {
-            String[] externals = new String[]{"/external", "/external_path"};
+            String[] externals = new String[]{"/external/", "/external_path/"};
+            File file = null;
             for (String external : externals) {
-                if (path.startsWith(external + "/")) {
-                    File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
-                            + path.replace(external, ""));
+                if (path.startsWith(external)) {
+                    file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
+                            + path.replace(external, "/"));
                     if (file.exists()) {
                         Log.d("UriUtils", uri.toString() + " -> " + external);
                         return file;
                     }
                 }
+            }
+            file = null;
+            if (path.startsWith("/files_path/")) {
+                file = new File(Utils.getApp().getFilesDir().getAbsolutePath()
+                        + path.replace("/files_path/", "/"));
+            } else if (path.startsWith("/cache_path/")) {
+                file = new File(Utils.getApp().getCacheDir().getAbsolutePath()
+                        + path.replace("/cache_path/", "/"));
+            } else if (path.startsWith("/external_files_path/")) {
+                file = new File(Utils.getApp().getExternalFilesDir(null).getAbsolutePath()
+                        + path.replace("/external_files_path/", "/"));
+            } else if (path.startsWith("/external_cache_path/")) {
+                file = new File(Utils.getApp().getExternalCacheDir().getAbsolutePath()
+                        + path.replace("/external_cache_path/", "/"));
+            }
+            if (file != null && file.exists()) {
+                Log.d("UriUtils", uri.toString() + " -> " + path);
+                return file;
             }
         }
         if (ContentResolver.SCHEME_FILE.equals(scheme)) {
@@ -143,20 +178,41 @@ public final class UriUtils {
                 return null;
             }// end 1_0
             else if ("com.android.providers.downloads.documents".equals(authority)) {
-                final String id = DocumentsContract.getDocumentId(uri);
-                if (!TextUtils.isEmpty(id)) {
+                String id = DocumentsContract.getDocumentId(uri);
+                if (TextUtils.isEmpty(id)) {
+                    Log.d("UriUtils", uri.toString() + " parse failed(id is null). -> 1_1");
+                    return null;
+                }
+                if (id.startsWith("raw:")) {
+                    return new File(id.substring(4));
+                } else if (id.startsWith("msf:")) {
+                    id = id.split(":")[1];
+                }
+
+                long availableId = 0;
+                try {
+                    availableId = Long.parseLong(id);
+                } catch (Exception e) {
+                    return null;
+                }
+
+                String[] contentUriPrefixesToTry = new String[]{
+                        "content://downloads/public_downloads",
+                        "content://downloads/all_downloads",
+                        "content://downloads/my_downloads"
+                };
+
+                for (String contentUriPrefix : contentUriPrefixesToTry) {
+                    Uri contentUri = ContentUris.withAppendedId(Uri.parse(contentUriPrefix), availableId);
                     try {
-                        final Uri contentUri = ContentUris.withAppendedId(
-                                Uri.parse("content://downloads/public_downloads"),
-                                Long.valueOf(id)
-                        );
-                        return getFileFromUri(contentUri, "1_1");
-                    } catch (NumberFormatException e) {
-                        if (id.startsWith("raw:")) {
-                            return new File(id.substring(4));
+                        File file = getFileFromUri(contentUri, "1_1");
+                        if (file != null) {
+                            return file;
                         }
+                    } catch (Exception ignore) {
                     }
                 }
+
                 Log.d("UriUtils", uri.toString() + " parse failed. -> 1_1");
                 return null;
             }// end 1_1
@@ -214,6 +270,11 @@ public final class UriUtils {
                 File fileDir = Environment.getExternalStorageDirectory();
                 return new File(fileDir, path.substring("/QQBrowser".length(), path.length()));
             }
+        } else if ("com.huawei.hidisk.fileprovider".equals(uri.getAuthority())) {
+            String path = uri.getPath();
+            if (!TextUtils.isEmpty(path)) {
+                return new File(path.replace("/root", ""));
+            }
         }
 
         final Cursor cursor = Utils.getApp().getContentResolver().query(
@@ -240,6 +301,55 @@ public final class UriUtils {
             return null;
         } finally {
             cursor.close();
+        }
+    }
+
+    private static File copyUri2Cache(Uri uri) {
+        Log.d("UriUtils", "copyUri2Cache() called");
+        InputStream is = null;
+        try {
+            is = Utils.getApp().getContentResolver().openInputStream(uri);
+            File file = new File(Utils.getApp().getCacheDir(), "" + System.currentTimeMillis());
+            UtilsBridge.writeFileFromIS(file.getAbsolutePath(), is);
+            return file;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * uri to input stream.
+     *
+     * @param uri The uri.
+     * @return the input stream
+     */
+    public static byte[] uri2Bytes(Uri uri) {
+        if (uri == null) return null;
+        InputStream is = null;
+        try {
+            is = Utils.getApp().getContentResolver().openInputStream(uri);
+            return UtilsBridge.inputStream2Bytes(is);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            Log.d("UriUtils", "uri to bytes failed.");
+            return null;
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

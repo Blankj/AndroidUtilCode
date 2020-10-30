@@ -7,9 +7,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Parcelable;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.RequiresPermission;
+import android.support.annotation.StringRes;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.google.gson.Gson;
@@ -17,11 +22,14 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.lang.reflect.Type;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.Manifest.permission.CALL_PHONE;
 
@@ -35,8 +43,15 @@ import static android.Manifest.permission.CALL_PHONE;
  */
 class UtilsBridge {
 
-    static void init() {
-        UtilsActivityLifecycleImpl.INSTANCE.init();
+    static void init(Application app) {
+        UtilsActivityLifecycleImpl.INSTANCE.init(app);
+    }
+
+    static void unInit(Application app) {
+        UtilsActivityLifecycleImpl.INSTANCE.unInit(app);
+    }
+
+    static void preLoad() {
         preLoad(AdaptScreenUtils.getPreLoadRunnable());
     }
 
@@ -53,6 +68,14 @@ class UtilsBridge {
 
     static void removeOnAppStatusChangedListener(final Utils.OnAppStatusChangedListener listener) {
         UtilsActivityLifecycleImpl.INSTANCE.removeOnAppStatusChangedListener(listener);
+    }
+
+    static void addActivityLifecycleCallbacks(final Utils.ActivityLifecycleCallbacks callbacks) {
+        UtilsActivityLifecycleImpl.INSTANCE.addActivityLifecycleCallbacks(callbacks);
+    }
+
+    static void removeActivityLifecycleCallbacks(final Utils.ActivityLifecycleCallbacks callbacks) {
+        UtilsActivityLifecycleImpl.INSTANCE.removeActivityLifecycleCallbacks(callbacks);
     }
 
     static void addActivityLifecycleCallbacks(final Activity activity,
@@ -77,15 +100,15 @@ class UtilsBridge {
         return UtilsActivityLifecycleImpl.INSTANCE.getApplicationByReflect();
     }
 
+    static boolean isAppForeground() {
+        return UtilsActivityLifecycleImpl.INSTANCE.isAppForeground();
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     // ActivityUtils
     ///////////////////////////////////////////////////////////////////////////
     static boolean isActivityAlive(final Activity activity) {
         return ActivityUtils.isActivityAlive(activity);
-    }
-
-    static String getLauncherActivity() {
-        return ActivityUtils.getLauncherActivity();
     }
 
     static String getLauncherActivity(final String pkg) {
@@ -107,15 +130,6 @@ class UtilsBridge {
     ///////////////////////////////////////////////////////////////////////////
     // AppUtils
     ///////////////////////////////////////////////////////////////////////////
-    static Context getTopActivityOrApp() {
-        if (AppUtils.isAppForeground()) {
-            Activity topActivity = getTopActivity();
-            return topActivity == null ? Utils.getApp() : topActivity;
-        } else {
-            return Utils.getApp();
-        }
-    }
-
     static boolean isAppRunning(@NonNull final String pkgName) {
         return AppUtils.isAppRunning(pkgName);
     }
@@ -124,16 +138,12 @@ class UtilsBridge {
         return AppUtils.isAppInstalled(pkgName);
     }
 
-    static String getAppVersionName() {
-        return AppUtils.getAppVersionName();
-    }
-
-    static int getAppVersionCode() {
-        return AppUtils.getAppVersionCode();
-    }
-
     static boolean isAppDebug() {
         return AppUtils.isAppDebug();
+    }
+
+    static void relaunchApp() {
+        AppUtils.relaunchApp();
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -207,8 +217,19 @@ class UtilsBridge {
         return ConvertUtils.inputStream2Bytes(is);
     }
 
+    static ByteArrayOutputStream input2OutputStream(final InputStream is) {
+        return ConvertUtils.input2OutputStream(is);
+    }
+
     static List<String> inputStream2Lines(final InputStream is, final String charsetName) {
         return ConvertUtils.inputStream2Lines(is, charsetName);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // DebouncingUtils
+    ///////////////////////////////////////////////////////////////////////////
+    static boolean isValid(@NonNull final View view, final long duration) {
+        return DebouncingUtils.isValid(view, duration);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -284,6 +305,10 @@ class UtilsBridge {
         return FileUtils.getFsAvailableSize(path);
     }
 
+    static void notifySystemToScan(File file) {
+        FileUtils.notifySystemToScan(file);
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     // GsonUtils
     ///////////////////////////////////////////////////////////////////////////
@@ -353,6 +378,10 @@ class UtilsBridge {
         return IntentUtils.getInstallAppIntent(file);
     }
 
+    static Intent getInstallAppIntent(final Uri uri) {
+        return IntentUtils.getInstallAppIntent(uri);
+    }
+
     static Intent getUninstallAppIntent(final String pkgName) {
         return IntentUtils.getUninstallAppIntent(pkgName);
     }
@@ -368,6 +397,10 @@ class UtilsBridge {
 
     static Intent getSendSmsIntent(final String phoneNumber, final String content) {
         return IntentUtils.getSendSmsIntent(phoneNumber, content);
+    }
+
+    static Intent getLaunchAppDetailsSettingsIntent(final String pkgName, final boolean isNewTask) {
+        return IntentUtils.getLaunchAppDetailsSettingsIntent(pkgName, isNewTask);
     }
 
 
@@ -386,10 +419,15 @@ class UtilsBridge {
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // LanguageUtils
+    // PermissionUtils
     ///////////////////////////////////////////////////////////////////////////
-    static void applyLanguage(final Activity activity) {
-        LanguageUtils.applyLanguage(activity);
+    static boolean isGranted(final String... permissions) {
+        return PermissionUtils.isGranted(permissions);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    static boolean isGrantedDrawOverlays() {
+        return PermissionUtils.isGrantedDrawOverlays();
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -408,12 +446,22 @@ class UtilsBridge {
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // SDCardUtils
+    // RomUtils
     ///////////////////////////////////////////////////////////////////////////
-    static String getSDCardPathByEnvironment() {
-        return SDCardUtils.getSDCardPathByEnvironment();
+    static boolean isSamsung() {
+        return RomUtils.isSamsung();
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // ScreenUtils
+    ///////////////////////////////////////////////////////////////////////////
+    static int getAppScreenWidth() {
+        return ScreenUtils.getAppScreenWidth();
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // SDCardUtils
+    ///////////////////////////////////////////////////////////////////////////
     static boolean isSDCardEnableByEnvironment() {
         return SDCardUtils.isSDCardEnableByEnvironment();
     }
@@ -469,6 +517,18 @@ class UtilsBridge {
         return StringUtils.equals(s1, s2);
     }
 
+    static String getString(@StringRes int id) {
+        return StringUtils.getString(id);
+    }
+
+    static String getString(@StringRes int id, Object... formatArgs) {
+        return StringUtils.getString(id, formatArgs);
+    }
+
+    static String format(String str, Object... args) {
+        return StringUtils.format(str, args);
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // ThreadUtils
@@ -522,5 +582,93 @@ class UtilsBridge {
     ///////////////////////////////////////////////////////////////////////////
     static Uri file2Uri(final File file) {
         return UriUtils.file2Uri(file);
+    }
+
+    static File uri2File(final Uri uri) {
+        return UriUtils.uri2File(uri);
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // ViewUtils
+    ///////////////////////////////////////////////////////////////////////////
+    static View layoutId2View(@LayoutRes final int layoutId) {
+        return ViewUtils.layoutId2View(layoutId);
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Common
+    ///////////////////////////////////////////////////////////////////////////
+    static final class FileHead {
+
+        private String                        mName;
+        private LinkedHashMap<String, String> mFirst = new LinkedHashMap<>();
+        private LinkedHashMap<String, String> mLast  = new LinkedHashMap<>();
+
+        FileHead(String name) {
+            mName = name;
+        }
+
+        void addFirst(String key, String value) {
+            append2Host(mFirst, key, value);
+        }
+
+        void append(Map<String, String> extra) {
+            append2Host(mLast, extra);
+        }
+
+        void append(String key, String value) {
+            append2Host(mLast, key, value);
+        }
+
+        private void append2Host(Map<String, String> host, Map<String, String> extra) {
+            if (extra == null || extra.isEmpty()) {
+                return;
+            }
+            for (Map.Entry<String, String> entry : extra.entrySet()) {
+                append2Host(host, entry.getKey(), entry.getValue());
+            }
+        }
+
+        private void append2Host(Map<String, String> host, String key, String value) {
+            if (TextUtils.isEmpty(key) || TextUtils.isEmpty(value)) {
+                return;
+            }
+            int delta = 19 - key.length(); // 19 is length of "Device Manufacturer"
+            if (delta > 0) {
+                key = key + "                   ".substring(0, delta);
+            }
+            host.put(key, value);
+        }
+
+        public String getAppended() {
+            StringBuilder sb = new StringBuilder();
+            for (Map.Entry<String, String> entry : mLast.entrySet()) {
+                sb.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+            }
+            return sb.toString();
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            String border = "************* " + mName + " Head ****************\n";
+            sb.append(border);
+            for (Map.Entry<String, String> entry : mFirst.entrySet()) {
+                sb.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+            }
+
+            sb.append("Rom Info           : ").append(RomUtils.getRomInfo()).append("\n");
+            sb.append("Device Manufacturer: ").append(Build.MANUFACTURER).append("\n");
+            sb.append("Device Model       : ").append(Build.MODEL).append("\n");
+            sb.append("Android Version    : ").append(Build.VERSION.RELEASE).append("\n");
+            sb.append("Android SDK        : ").append(Build.VERSION.SDK_INT).append("\n");
+            sb.append("App VersionName    : ").append(AppUtils.getAppVersionName()).append("\n");
+            sb.append("App VersionCode    : ").append(AppUtils.getAppVersionCode()).append("\n");
+
+            sb.append(getAppended());
+            return sb.append(border).append("\n").toString();
+        }
     }
 }

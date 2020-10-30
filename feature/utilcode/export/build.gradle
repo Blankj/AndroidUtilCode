@@ -1,0 +1,10 @@
+apply from: "${rootDir.path}/gradle/publish.gradle"
+publish {
+    def depConfig = Config.depConfig.feature_utilcode_export
+    name = "UtilCodeExport"
+    groupId = depConfig.groupId
+    artifactId = depConfig.artifactId
+    version = depConfig.version
+    website = "https://github.com/Blankj/UtilCodeExport"
+}
+//./gradlew :feature_utilcode_export:mavenLocal   // 上传到本地 mavenLocal

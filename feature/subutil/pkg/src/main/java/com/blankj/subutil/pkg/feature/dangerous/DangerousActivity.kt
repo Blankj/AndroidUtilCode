@@ -3,13 +3,14 @@ package com.blankj.subutil.pkg.feature.dangerous
 import android.content.Context
 import android.content.Intent
 import com.blankj.common.activity.CommonActivity
+import com.blankj.common.helper.PermissionHelper
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick
 import com.blankj.common.item.CommonItemSwitch
 import com.blankj.subutil.pkg.Config
 import com.blankj.subutil.pkg.R
-import com.blankj.subutil.pkg.helper.PermissionHelper
 import com.blankj.subutil.util.DangerousUtils
+import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.*
 
 /**
@@ -24,16 +25,15 @@ class DangerousActivity : CommonActivity() {
 
     companion object {
         fun start(context: Context) {
-            PermissionHelper.requestStorageAndSms(context, object : PermissionHelper.OnPermissionGrantedListener {
-                override fun onPermissionGranted() {
+            PermissionHelper.request(context, object : PermissionUtils.SimpleCallback {
+                override fun onGranted() {
                     val starter = Intent(context, DangerousActivity::class.java)
                     context.startActivity(starter)
                 }
-            }, object : PermissionHelper.OnPermissionDeniedListener {
-                override fun onPermissionDenied() {
-                    start(context)
+
+                override fun onDenied() {
                 }
-            })
+            }, PermissionConstants.STORAGE, PermissionConstants.SMS)
         }
     }
 
@@ -87,13 +87,15 @@ class DangerousActivity : CommonActivity() {
                 CommonItemClick(R.string.dangerous_reboot_to_bootloader) {
                     ToastUtils.showShort(DangerousUtils.reboot2Bootloader().toString())
                 },
-                CommonItemSwitch(R.string.dangerous_data_enabled, Utils.Supplier {
-                    NetworkUtils.getMobileDataEnabled()
-                }, Utils.Consumer {
-                    if (AppUtils.isAppSystem()) {
-                        DangerousUtils.setMobileDataEnabled(it)
-                    }
-                }),
+                CommonItemSwitch(
+                        R.string.dangerous_data_enabled,
+                        { NetworkUtils.getMobileDataEnabled() },
+                        {
+                            if (AppUtils.isAppSystem()) {
+                                DangerousUtils.setMobileDataEnabled(it)
+                            }
+                        }
+                ),
                 CommonItemClick(R.string.dangerous_send_sms_silent) {
                     DangerousUtils.sendSmsSilent("10000", "sendSmsSilent")
                 }

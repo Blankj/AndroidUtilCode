@@ -167,7 +167,7 @@ public class SwipeRightMenu extends LinearLayout {
                             if (isOpen()) {
                                 if (isTouchPointInView(mContentView, x, y)) {
                                     close(true);
-                                    final long now = SystemClock.uptimeMillis();
+                                    final long now = SystemClock.elapsedRealtime();
                                     final MotionEvent cancelEvent = MotionEvent.obtain(now, now,
                                             MotionEvent.ACTION_CANCEL, 0.0f, 0.0f, 0);
                                     super.dispatchTouchEvent(cancelEvent);
@@ -292,7 +292,7 @@ public class SwipeRightMenu extends LinearLayout {
     }
 
     private void cancelChildViewTouch() {
-        final long now = SystemClock.uptimeMillis();
+        final long now = SystemClock.elapsedRealtime();
         final MotionEvent cancelEvent = MotionEvent.obtain(now, now,
                 MotionEvent.ACTION_CANCEL, 0.0f, 0.0f, 0);
         final int childCount = getChildCount();

@@ -47,15 +47,15 @@ class BarStatusFragmentAlpha : CommonFragment() {
 
     private fun getItems(): List<CommonItem<*>> {
         return CollectionUtils.newArrayList<CommonItem<*>>(
-                CommonItemSeekBar("Status Bar Alpha", 255, mAlpha, object : SeekBar.OnSeekBarChangeListener {
+                CommonItemSeekBar("Status Bar Alpha", 255, object : CommonItemSeekBar.ProgressListener() {
+                    override fun getCurValue(): Int {
+                        return mAlpha
+                    }
+
                     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                         mAlpha = progress
                         updateFakeStatusBar()
                     }
-
-                    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
-                    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
                 }).apply {
                     backgroundColor = ColorUtils.setAlphaComponent(backgroundColor, 0.5f)
                 }

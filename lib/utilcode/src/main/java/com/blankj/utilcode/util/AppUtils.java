@@ -1,6 +1,6 @@
 package com.blankj.utilcode.util;
 
-import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -8,9 +8,10 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.content.pm.SigningInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.provider.Settings;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -69,8 +70,22 @@ public final class AppUtils {
      * @param file The file.
      */
     public static void installApp(final File file) {
-        if (!UtilsBridge.isFileExists(file)) return;
-        Utils.getApp().startActivity(UtilsBridge.getInstallAppIntent(file));
+        Intent installAppIntent = UtilsBridge.getInstallAppIntent(file);
+        if (installAppIntent == null) return;
+        Utils.getApp().startActivity(installAppIntent);
+    }
+
+    /**
+     * Install the app.
+     * <p>Target APIs greater than 25 must hold
+     * {@code <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />}</p>
+     *
+     * @param uri The uri.
+     */
+    public static void installApp(final Uri uri) {
+        Intent installAppIntent = UtilsBridge.getInstallAppIntent(uri);
+        if (installAppIntent == null) return;
+        Utils.getApp().startActivity(installAppIntent);
     }
 
     /**
@@ -108,11 +123,7 @@ public final class AppUtils {
      */
     public static boolean isAppRoot() {
         ShellUtils.CommandResult result = UtilsBridge.execCmd("echo root", true);
-        if (result.result == 0) return true;
-        if (result.errorMsg != null) {
-            Log.d("AppUtils", "isAppRoot() called" + result.errorMsg);
-        }
-        return false;
+        return result.result == 0;
     }
 
     /**
@@ -169,18 +180,7 @@ public final class AppUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isAppForeground() {
-        ActivityManager am = (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
-        if (am == null) return false;
-        List<ActivityManager.RunningAppProcessInfo> info = am.getRunningAppProcesses();
-        if (info == null || info.size() == 0) return false;
-        for (ActivityManager.RunningAppProcessInfo aInfo : info) {
-            if (aInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                if (aInfo.processName.equals(Utils.getApp().getPackageName())) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return UtilsBridge.isAppForeground();
     }
 
     /**
@@ -282,13 +282,37 @@ public final class AppUtils {
     /**
      * Launch the application's details settings.
      *
-     * @param packageName The name of the package.
+     * @param pkgName The name of the package.
      */
-    public static void launchAppDetailsSettings(final String packageName) {
-        if (UtilsBridge.isSpace(packageName)) return;
-        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        intent.setData(Uri.parse("package:" + packageName));
-        Utils.getApp().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+    public static void launchAppDetailsSettings(final String pkgName) {
+        if (UtilsBridge.isSpace(pkgName)) return;
+        Intent intent = UtilsBridge.getLaunchAppDetailsSettingsIntent(pkgName, true);
+        if (!UtilsBridge.isIntentAvailable(intent)) return;
+        Utils.getApp().startActivity(intent);
+    }
+
+    /**
+     * Launch the application's details settings.
+     *
+     * @param activity    The activity.
+     * @param requestCode The requestCode.
+     */
+    public static void launchAppDetailsSettings(final Activity activity, final int requestCode) {
+        launchAppDetailsSettings(activity, requestCode, Utils.getApp().getPackageName());
+    }
+
+    /**
+     * Launch the application's details settings.
+     *
+     * @param activity    The activity.
+     * @param requestCode The requestCode.
+     * @param pkgName     The name of the package.
+     */
+    public static void launchAppDetailsSettings(final Activity activity, final int requestCode, final String pkgName) {
+        if (activity == null || UtilsBridge.isSpace(pkgName)) return;
+        Intent intent = UtilsBridge.getLaunchAppDetailsSettingsIntent(pkgName, false);
+        if (!UtilsBridge.isIntentAvailable(intent)) return;
+        activity.startActivityForResult(intent, requestCode);
     }
 
     /**
@@ -475,8 +499,8 @@ public final class AppUtils {
      *
      * @return the application's signature
      */
-    public static Signature[] getAppSignature() {
-        return getAppSignature(Utils.getApp().getPackageName());
+    public static Signature[] getAppSignatures() {
+        return getAppSignatures(Utils.getApp().getPackageName());
     }
 
     /**
@@ -485,16 +509,56 @@ public final class AppUtils {
      * @param packageName The name of the package.
      * @return the application's signature
      */
-    public static Signature[] getAppSignature(final String packageName) {
+    public static Signature[] getAppSignatures(final String packageName) {
         if (UtilsBridge.isSpace(packageName)) return null;
         try {
             PackageManager pm = Utils.getApp().getPackageManager();
-            @SuppressLint("PackageManagerGetSignatures")
-            PackageInfo pi = pm.getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
-            return pi == null ? null : pi.signatures;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                PackageInfo pi = pm.getPackageInfo(packageName, PackageManager.GET_SIGNING_CERTIFICATES);
+                if (pi == null) return null;
+
+                SigningInfo signingInfo = pi.signingInfo;
+                if (signingInfo.hasMultipleSigners()) {
+                    return signingInfo.getApkContentsSigners();
+                } else {
+                    return signingInfo.getSigningCertificateHistory();
+                }
+            } else {
+                PackageInfo pi = pm.getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
+                if (pi == null) return null;
+
+                return pi.signatures;
+            }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    /**
+     * Return the application's signature.
+     *
+     * @param file The file.
+     * @return the application's signature
+     */
+    public static Signature[] getAppSignatures(final File file) {
+        if (file == null) return null;
+        PackageManager pm = Utils.getApp().getPackageManager();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            PackageInfo pi = pm.getPackageArchiveInfo(file.getAbsolutePath(), PackageManager.GET_SIGNING_CERTIFICATES);
+            if (pi == null) return null;
+
+            SigningInfo signingInfo = pi.signingInfo;
+            if (signingInfo.hasMultipleSigners()) {
+                return signingInfo.getApkContentsSigners();
+            } else {
+                return signingInfo.getSigningCertificateHistory();
+            }
+        } else {
+            PackageInfo pi = pm.getPackageArchiveInfo(file.getAbsolutePath(), PackageManager.GET_SIGNATURES);
+            if (pi == null) return null;
+
+            return pi.signatures;
         }
     }
 
@@ -503,8 +567,8 @@ public final class AppUtils {
      *
      * @return the application's signature for SHA1 value
      */
-    public static String getAppSignatureSHA1() {
-        return getAppSignatureSHA1(Utils.getApp().getPackageName());
+    public static List<String> getAppSignaturesSHA1() {
+        return getAppSignaturesSHA1(Utils.getApp().getPackageName());
     }
 
     /**
@@ -513,8 +577,8 @@ public final class AppUtils {
      * @param packageName The name of the package.
      * @return the application's signature for SHA1 value
      */
-    public static String getAppSignatureSHA1(final String packageName) {
-        return getAppSignatureHash(packageName, "SHA1");
+    public static List<String> getAppSignaturesSHA1(final String packageName) {
+        return getAppSignaturesHash(packageName, "SHA1");
     }
 
     /**
@@ -522,8 +586,8 @@ public final class AppUtils {
      *
      * @return the application's signature for SHA256 value
      */
-    public static String getAppSignatureSHA256() {
-        return getAppSignatureSHA256(Utils.getApp().getPackageName());
+    public static List<String> getAppSignaturesSHA256() {
+        return getAppSignaturesSHA256(Utils.getApp().getPackageName());
     }
 
     /**
@@ -532,8 +596,8 @@ public final class AppUtils {
      * @param packageName The name of the package.
      * @return the application's signature for SHA256 value
      */
-    public static String getAppSignatureSHA256(final String packageName) {
-        return getAppSignatureHash(packageName, "SHA256");
+    public static List<String> getAppSignaturesSHA256(final String packageName) {
+        return getAppSignaturesHash(packageName, "SHA256");
     }
 
     /**
@@ -541,8 +605,8 @@ public final class AppUtils {
      *
      * @return the application's signature for MD5 value
      */
-    public static String getAppSignatureMD5() {
-        return getAppSignatureMD5(Utils.getApp().getPackageName());
+    public static List<String> getAppSignaturesMD5() {
+        return getAppSignaturesMD5(Utils.getApp().getPackageName());
     }
 
     /**
@@ -551,10 +615,9 @@ public final class AppUtils {
      * @param packageName The name of the package.
      * @return the application's signature for MD5 value
      */
-    public static String getAppSignatureMD5(final String packageName) {
-        return getAppSignatureHash(packageName, "MD5");
+    public static List<String> getAppSignaturesMD5(final String packageName) {
+        return getAppSignaturesHash(packageName, "MD5");
     }
-
 
     /**
      * Return the application's user-ID.
@@ -576,16 +639,21 @@ public final class AppUtils {
             return Utils.getApp().getPackageManager().getApplicationInfo(pkgName, 0).uid;
         } catch (Exception e) {
             e.printStackTrace();
+            return -1;
         }
-        return -1;
     }
 
-    private static String getAppSignatureHash(final String packageName, final String algorithm) {
-        if (UtilsBridge.isSpace(packageName)) return "";
-        Signature[] signature = getAppSignature(packageName);
-        if (signature == null || signature.length <= 0) return "";
-        return UtilsBridge.bytes2HexString(UtilsBridge.hashTemplate(signature[0].toByteArray(), algorithm))
-                .replaceAll("(?<=[0-9A-F]{2})[0-9A-F]{2}", ":$0");
+    private static List<String> getAppSignaturesHash(final String packageName, final String algorithm) {
+        ArrayList<String> result = new ArrayList<>();
+        if (UtilsBridge.isSpace(packageName)) return result;
+        Signature[] signatures = getAppSignatures(packageName);
+        if (signatures == null || signatures.length <= 0) return result;
+        for (Signature signature : signatures) {
+            String hash = UtilsBridge.bytes2HexString(UtilsBridge.hashTemplate(signature.toByteArray(), algorithm))
+                    .replaceAll("(?<=[0-9A-F]{2})[0-9A-F]{2}", ":$0");
+            result.add(hash);
+        }
+        return result;
     }
 
     /**

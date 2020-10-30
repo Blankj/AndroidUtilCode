@@ -38,6 +38,9 @@ public abstract class BaseItem<T extends BaseItem> {
 
     public abstract void bind(@NonNull final ItemViewHolder holder, final int position);
 
+    public void partialUpdate(List<Object> payloads) {
+    }
+
     void bindViewHolder(@NonNull final ItemViewHolder holder, final int position) {
         if (mOnItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -4,9 +4,7 @@ buildscript {
     repositories {
         // use for debug plugin local
         if (Config.depConfig.plugin_bus.useLocal || Config.depConfig.plugin_api.useLocal) {
-            maven() {
-                url new File("mavenLocal")
-            }
+            maven() { url uri("${project.rootDir.path}/mavenLocal") }
         }
         google()
         jcenter()
@@ -21,6 +19,7 @@ buildscript {
 
 allprojects {
     repositories {
+        maven() { url uri("${project.rootDir.path}/mavenLocal") }
         maven { url "https://jitpack.io" }
         google()
         jcenter()

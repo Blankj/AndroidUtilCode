@@ -430,12 +430,14 @@ public final class FileUtils {
         if (!srcDir.exists() || !srcDir.isDirectory()) return false;
         if (!createOrExistsDir(destDir)) return false;
         File[] files = srcDir.listFiles();
-        for (File file : files) {
-            File oneDestFile = new File(destPath + file.getName());
-            if (file.isFile()) {
-                if (!copyOrMoveFile(file, oneDestFile, listener, isMove)) return false;
-            } else if (file.isDirectory()) {
-                if (!copyOrMoveDir(file, oneDestFile, listener, isMove)) return false;
+        if (files != null && files.length > 0) {
+            for (File file : files) {
+                File oneDestFile = new File(destPath + file.getName());
+                if (file.isFile()) {
+                    if (!copyOrMoveFile(file, oneDestFile, listener, isMove)) return false;
+                } else if (file.isDirectory()) {
+                    if (!copyOrMoveDir(file, oneDestFile, listener, isMove)) return false;
+                }
             }
         }
         return !isMove || deleteDir(srcDir);
@@ -506,7 +508,7 @@ public final class FileUtils {
         // dir isn't a directory then return false
         if (!dir.isDirectory()) return false;
         File[] files = dir.listFiles();
-        if (files != null && files.length != 0) {
+        if (files != null && files.length > 0) {
             for (File file : files) {
                 if (file.isFile()) {
                     if (!file.delete()) return false;
@@ -846,7 +848,7 @@ public final class FileUtils {
         List<File> list = new ArrayList<>();
         if (!isDir(dir)) return list;
         File[] files = dir.listFiles();
-        if (files != null && files.length != 0) {
+        if (files != null && files.length > 0) {
             for (File file : files) {
                 if (filter.accept(file)) {
                     list.add(file);
@@ -1166,10 +1168,10 @@ public final class FileUtils {
      * @return the length of directory
      */
     private static long getDirLength(final File dir) {
-        if (!isDir(dir)) return -1;
+        if (!isDir(dir)) return 0;
         long len = 0;
         File[] files = dir.listFiles();
-        if (files != null && files.length != 0) {
+        if (files != null && files.length > 0) {
             for (File file : files) {
                 if (file.isDirectory()) {
                     len += getDirLength(file);
@@ -1398,8 +1400,7 @@ public final class FileUtils {
     public static void notifySystemToScan(final File file) {
         if (file == null || !file.exists()) return;
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        Uri uri = Uri.fromFile(file);
-        intent.setData(uri);
+        intent.setData(Uri.parse("file://" + file.getAbsolutePath()));
         Utils.getApp().sendBroadcast(intent);
     }
 

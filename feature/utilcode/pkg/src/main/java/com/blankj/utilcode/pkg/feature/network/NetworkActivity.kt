@@ -65,6 +65,7 @@ class NetworkActivity : CommonActivity(), NetworkUtils.OnNetworkStatusChangedLis
                 CommonItemTitle("getGatewayByWifi", NetworkUtils.getGatewayByWifi()),
                 CommonItemTitle("getNetMaskByWifi", NetworkUtils.getNetMaskByWifi()),
                 CommonItemTitle("getServerAddressByWifi", NetworkUtils.getServerAddressByWifi()),
+                CommonItemTitle("getSSID", NetworkUtils.getSSID()),
 
                 CommonItemTitle("getIPv4Address", NetworkUtils.getIPAddress(true)),
                 CommonItemTitle("getIPv6Address", NetworkUtils.getIPAddress(false)),
@@ -74,10 +75,8 @@ class NetworkActivity : CommonActivity(), NetworkUtils.OnNetworkStatusChangedLis
 
                 CommonItemSwitch(
                         R.string.network_wifi_enabled,
-                        Utils.Supplier {
-                            NetworkUtils.getWifiEnabled()
-                        },
-                        Utils.Consumer {
+                        { NetworkUtils.getWifiEnabled() },
+                        {
                             NetworkUtils.setWifiEnabled(it)
                             ThreadUtils.executeByIo(getItemsTask())
                         }

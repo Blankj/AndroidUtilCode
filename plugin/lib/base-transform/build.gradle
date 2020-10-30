@@ -1,0 +1,31 @@
+apply {
+    plugin "groovy"
+    plugin "java-gradle-plugin"
+}
+
+dependencies {
+    compileOnly Config.depConfig.plugin_gradle.dep
+    implementation Config.depConfig.commons_io.dep
+    implementation gradleApi()
+    implementation localGroovy()
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDirs += 'src/main/java'
+        }
+    }
+}
+
+apply from: "${rootDir.path}/gradle/publish.gradle"
+publish {
+    name = "BaseTransform"
+    groupId = Config.depConfig.plugin_lib_base_transform.groupId
+    artifactId = Config.depConfig.plugin_lib_base_transform.artifactId
+    version = Config.depConfig.plugin_lib_base_transform.version
+    website = "https://github.com/Blankj/AndroidUtilCode"
+}
+
+//./gradlew clean plugin:lib:plugin_lib_base-transform:mavenLocal     // 上传到本地 mavenLocal
+//./gradlew clean plugin:lib:plugin_lib_base-transform:bintrayUpload  // 上传到 gradle 插件库中

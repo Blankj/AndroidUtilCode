@@ -18,16 +18,6 @@ isRegisteredBatteryStatusChangedListener: 判断是否注册电池状态改变�
 unregisterBatteryStatusChangedListener  : 注销电池状态改变监听器
 ```
 
-* ### 剪贴板相关 -> [ClipboardUtils.java][clipboard.java] -> [Test][clipboard.test]
-```
-copyText  : 复制文本到剪贴板
-getText   : 获取剪贴板的文本
-copyUri   : 复制 uri 到剪贴板
-getUri    : 获取剪贴板的 uri
-copyIntent: 复制意图到剪贴板
-getIntent : 获取剪贴板的意图
-```
-
 * ### 坐标转换相关 -> [CoordinateUtils.java][coordinate.java] -> [Test][coordinate.test]
 ```
 bd09ToGcj02 : BD09 坐标转 GCJ02 坐标
@@ -90,9 +80,6 @@ getSurnameFirstLetter: 根据名字获取姓氏的首字母
 
 [battery.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/subutil/src/main/java/com/blankj/subutil/util/BatteryUtils.java
 [battery.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/feature/subutil/pkg/src/main/java/com/blankj/subutil/pkg/feature/battery/BatteryActivity.kt
-
-[clipboard.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/subutil/src/main/java/com/blankj/subutil/util/ClipboardUtils.java
-[clipboard.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/subutil/src/test/java/com/blankj/subutil/util/ClipboardUtilsTest.java
 
 [coordinate.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/subutil/src/main/java/com/blankj/subutil/util/CoordinateUtils.java
 [coordinate.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/lib/subutil/src/test/java/com/blankj/subutil/util/CoordinateUtilsTest.java

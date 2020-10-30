@@ -79,7 +79,7 @@ public final class CollectionUtils {
     }
 
     @SafeVarargs
-    public static <E> List<E> newLinkedList(E... array) {
+    public static <E> LinkedList<E> newLinkedList(E... array) {
         LinkedList<E> list = new LinkedList<>();
         if (array == null || array.length == 0) return list;
         for (E e : array) {
@@ -89,7 +89,7 @@ public final class CollectionUtils {
     }
 
     @SafeVarargs
-    public static <E> List<E> newLinkedListNotNull(E... array) {
+    public static <E> LinkedList<E> newLinkedListNotNull(E... array) {
         LinkedList<E> list = new LinkedList<>();
         if (array == null || array.length == 0) return list;
         for (E e : array) {

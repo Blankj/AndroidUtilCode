@@ -1,5 +1,7 @@
 package com.blankj.utilcode.util;
 
+import android.os.Build;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,15 +12,11 @@ import java.security.KeyFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.AlgorithmParameterSpec;
-import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.Mac;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
@@ -1085,12 +1083,18 @@ public final class EncryptUtils {
         }
         try {
             Key rsaKey;
+            KeyFactory keyFactory;
+            if (Build.VERSION.SDK_INT < 28) {
+                keyFactory = KeyFactory.getInstance("RSA", "BC");
+            } else {
+                keyFactory = KeyFactory.getInstance("RSA");
+            }
             if (isEncrypt) {
                 X509EncodedKeySpec keySpec = new X509EncodedKeySpec(key);
-                rsaKey = KeyFactory.getInstance("RSA").generatePublic(keySpec);
+                rsaKey = keyFactory.generatePublic(keySpec);
             } else {
                 PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(key);
-                rsaKey = KeyFactory.getInstance("RSA").generatePrivate(keySpec);
+                rsaKey = keyFactory.generatePrivate(keySpec);
             }
             if (rsaKey == null) return null;
             Cipher cipher = Cipher.getInstance(transformation);
@@ -1123,17 +1127,7 @@ public final class EncryptUtils {
             } else {
                 return cipher.doFinal(data);
             }
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
