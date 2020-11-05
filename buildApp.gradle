@@ -1,0 +1,120 @@
+apply {
+    plugin "com.android.application"
+    from  "${rootDir.path}/buildCommon.gradle"
+    if (Config.depConfig.plugin_api.isApply) {
+        plugin Config.depConfig.plugin_api.pluginId
+    }
+    if (Config.depConfig.plugin_bus.isApply) {
+        plugin Config.depConfig.plugin_bus.pluginId
+    }
+}
+
+configSigning()
+configApkName()
+
+if (Config.depConfig.plugin_bus.isApply) {
+    bus {
+        onlyScanLibRegex = '^([:]|(com\\.blankj)).+$'
+    }
+}
+
+if (Config.depConfig.plugin_api.isApply) {
+    api {
+        onlyScanLibRegex = '^([:]|(com\\.blankj)).+$'
+    }
+}
+
+android {
+    defaultConfig {
+        applicationId Config.applicationId + suffix
+        targetSdkVersion Config.targetSdkVersion
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            applicationIdSuffix ".debug"
+            resValue "string", "app_name", Config.appName + suffix + ".debug"
+        }
+
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue "string", "app_name", Config.appName + suffix
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/*'
+    }
+
+    dexOptions {
+        preDexLibraries true
+        javaMaxHeapSize "8g"
+        maxProcessCount 8
+        dexInProcess = true
+    }
+}
+
+
+dependencies {
+    // LeakCanary
+    debugImplementation Config.depConfig.leakcanary.dep
+
+    debugImplementation Config.depConfig.lib_utildebug.dep
+    releaseImplementation Config.depConfig.lib_utildebug_no_op.dep
+
+    // 根据 Config.pkgConfig 来依赖所有 pkg
+    for (def entrySet : ConfigUtils.getApplyPkgs().entrySet()) {
+        api entrySet.value.dep
+    }
+
+    if (Config.depConfig.feature_mock.isApply) {
+        api Config.depConfig.feature_mock.dep
+    }
+}
+
+def getSuffix() {
+    if (project.name == "feature_launcher_app") return ""
+    return "." + project.name.substring("feature_".length(), project.name.length() - "_app".length())
+}
+
+def configSigning() {
+
+    File signPropertiesFile = file("${rootDir.path}/sign/keystore.properties")
+    if (!signPropertiesFile.exists()) return
+
+    GLog.d("${project.toString()} sign start...")
+    project.android {
+        Properties properties = new Properties()
+        properties.load(new FileInputStream(signPropertiesFile))
+        signingConfigs {
+            release {
+                storeFile new File(signPropertiesFile.getParent(), properties['keystore'])
+                storePassword properties['storePassword']
+                keyAlias properties['keyAlias']
+                keyPassword properties['keyPassword']
+            }
+        }
+        buildTypes.release.signingConfig signingConfigs.release
+    }
+    GLog.d("${project.toString()} sign end...")
+}
+
+def configApkName() {
+    project.android.applicationVariants.all { variant ->
+        if (variant.buildType.name != "debug") {
+            def artifact = variant.getPackageApplicationProvider().get()
+            artifact.outputDirectory = new File("${rootDir.path}/apk")
+            artifact.outputScope.apkDatas.forEach { apkData ->
+                apkData.outputFileName = "util" + suffix +
+                        (variant.flavorName == "" ? "" : ("_" + variant.flavorName)) +
+                        "_" + variant.versionName.replace(".", "_") +
+                        "_" + variant.buildType.name +
+                        ".apk"
+            }
+        }
+    }
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--parent type is RelativeLayout-->
+
+    <ImageView
+        android:id="@+id/debugIconIv"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/du_ic_icon_default" />
+
+</merge>

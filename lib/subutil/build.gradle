@@ -1,0 +1,24 @@
+apply {
+    plugin Config.depConfig.plugin_traute.pluginId
+    plugin "readme-sub"
+}
+
+readme {
+    readmeFile file('./README.md')
+    readmeCnFile file('./README-CN.md')
+}
+
+dependencies {
+    compileOnly Config.depConfig.support_appcompat_v7.dep
+    compileOnly Config.depConfig.support_design.dep
+    compileOnly Config.depConfig.lib_utilcode.dep
+    api(Config.depConfig.glide.dep) {
+        exclude group: "com.android.support"
+    }
+    api Config.depConfig.retrofit.dep
+    api Config.depConfig.gson.dep
+
+    testImplementation Config.depConfig.lib_utilcode.dep
+    testImplementation Config.depConfig.test_junit.dep
+    testImplementation Config.depConfig.test_robolectric.dep
+}

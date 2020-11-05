@@ -1,0 +1,57 @@
+<resources>
+
+    <string name="du_menus">Menus</string>
+    <string name="du_tools">Tools</string>
+    <string name="du_performance">Performance</string>
+    <string name="du_ui">UI</string>
+    <string name="du_biz">Business</string>
+    <string name="du_uncategorized">Uncategorized</string>
+
+    <string name="de_permission_tips">DebugUtils need draw over other app permission.</string>
+    <string name="du_adjust_tips">Drag the button to adjust the height of the window.</string>
+    <string name="du_search_tips">Enter the keywords you want to filter.</string>
+    <string name="du_reminder">Reminder</string>
+    <string name="du_reminder_content">Drag the title bar to move the window.\nDouble click the title bar to toggle the transparent of window.</string>
+    <string name="du_reminder_no_more">No more prompts next time.</string>
+    <string name="du_cancel">Cancel</string>
+    <string name="du_confirm">Confirm</string>
+
+    <string name="du_menu_delete">Delete</string>
+    <string name="du_menu_rename">Rename</string>
+
+    <!--App Info-->
+    <string name="du_app_info">App Info</string>
+    <string name="du_app_info_pkg_name">Package Name</string>
+    <string name="du_app_info_version_name">Version Name</string>
+    <string name="du_app_info_version_code">Version Code</string>
+    <string name="du_app_info_min_sdk_version">Min SDK Version</string>
+    <string name="du_app_info_target_sdk_version">Target SDK Version</string>
+    <string name="du_app_info_open_app_info_page">Open App Info Page</string>
+
+    <!--Device Info-->
+    <string name="du_device_info">Device Info</string>
+    <string name="du_device_info_name">Name</string>
+    <string name="du_device_info_android_version">Android Version</string>
+    <string name="du_device_info_adb_enabled">ADB Enabled</string>
+    <string name="du_device_info_support_abis">Support ABIs</string>
+    <string name="du_device_info_screen_info">Screen Info</string>
+    <string name="du_device_info_open_development_settings_page">Open Development Settings Page</string>
+
+    <!--File Explorer-->
+    <string name="du_file_explorer">File Explorer</string>
+    <string name="du_file_item_num">%1$d items</string>
+
+    <!--Logcat-->
+    <string name="du_logcat">Logcat</string>
+
+    <!--Restart App-->
+    <string name="du_restart_app">Restart App</string>
+
+    <!--Clear Storage-->
+    <string name="du_clear_storage">Clear Storage</string>
+
+    <!--Clear Cache-->
+    <string name="du_clear_cache">Clear Cache</string>
+
+
+</resources>

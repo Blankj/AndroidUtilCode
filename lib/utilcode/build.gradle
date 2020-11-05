@@ -1,0 +1,54 @@
+apply {
+    plugin Config.depConfig.plugin_traute.pluginId
+    plugin "readme-core"
+}
+
+readme {
+    readmeFile file('./README.md')
+    readmeCnFile file('./README-CN.md')
+}
+
+android {
+    compileSdkVersion Config.compileSdkVersion
+    defaultConfig {
+        minSdkVersion Config.minSdkVersion
+        versionCode Config.versionCode
+        versionName Config.versionName
+        consumerProguardFiles 'proguard-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            consumerProguardFiles 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation Config.depConfig.gson.dep
+
+    compileOnly Config.depConfig.support_appcompat_v7.dep
+    compileOnly Config.depConfig.support_design.dep
+
+    testImplementation Config.depConfig.test_junit.dep
+    testImplementation Config.depConfig.test_robolectric.dep
+    testImplementation Config.depConfig.gson.dep
+    testImplementation Config.depConfig.support_appcompat_v7.dep
+    testImplementation Config.depConfig.support_design.dep
+    testImplementation Config.depConfig.eventbus_lib.dep
+}
+
+afterEvaluate {
+    verifyReleaseResources.enabled(false)
+}
+
+apply from: "${rootDir.path}/gradle/publish.gradle"
+publish {
+    name = "UtilCode"
+    groupId = Config.depConfig.lib_utilcode.groupId
+    artifactId = Config.depConfig.lib_utilcode.artifactId
+    version = Config.depConfig.lib_utilcode.version
+    website = "https://github.com/Blankj/AndroidUtilCode"
+}

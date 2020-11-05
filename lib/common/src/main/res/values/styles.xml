@@ -1,0 +1,90 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+    </style>
+
+    <style name="SplashTheme" parent="AppTheme">
+        <!--        <item name="android:windowDisablePreview">true</item>-->
+    </style>
+
+
+    <style name="CommonItemTitleStyle">
+        <item name="android:textColor">@color/darkGrayDark</item>
+        <item name="android:textSize">@dimen/font_16</item>
+    </style>
+
+    <style name="CommonItemContentStyle">
+        <item name="android:textColor">@color/darkGray</item>
+        <item name="android:textSize">@dimen/font_14</item>
+    </style>
+
+    <style name="CommonTextStyle">
+        <item name="android:textSize">@dimen/font_16</item>
+        <item name="android:textColor">@color/darkGrayDark</item>
+    </style>
+
+    <style name="CommonScrollStyle">
+        <item name="android:overScrollMode">never</item>
+        <item name="android:scrollbarSize">@dimen/size_4</item>
+        <item name="android:fadeScrollbars">true</item>
+        <item name="android:scrollbarStyle">outsideOverlay</item>
+        <item name="android:scrollbarThumbVertical">@drawable/common_scrollbar_thumb</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:descendantFocusability">afterDescendants</item>
+    </style>
+
+    <style name="CommonWideBtnStyle" parent="CommonTextStyle">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:paddingTop">@dimen/spacing_6</item>
+        <item name="android:paddingBottom">@dimen/spacing_6</item>
+        <item name="android:textColor">@drawable/common_button_txt_color</item>
+        <item name="android:background">@drawable/common_button_bg</item>
+    </style>
+
+    <style name="CommonSwitchStyle">
+        <item name="android:thumb">@drawable/common_switch_thumb</item>
+        <item name="android:track">@drawable/common_switch_track</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="CommonSeekBarStyle">
+        <item name="android:progressDrawable">@drawable/common_seekbar_progress</item>
+        <item name="android:thumb">@drawable/common_seekbar_thumb</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="CommonLoadingDialogStyle">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="statusBarBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <style name="CommonContentDialogStyle">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowMinWidthMajor">85%</item>
+        <item name="android:windowMinWidthMinor">85%</item>
+    </style>
+
+    <style name="AnimationActivity" parent="@android:style/Animation">
+        <!-- A 打开 B，B 的出现动画 -->
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_left</item>
+        <!-- A 打开 B，A 的消失动画 -->
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <!-- B 关闭到 A，A 的出现动画 *时长要小于 B 的消失动画，否则会闪烁* -->
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_right</item>
+        <!-- B 关闭到 A，B 的消失动画 *时长要小于 B 的消失动画，否则会闪烁* -->
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+</resources>

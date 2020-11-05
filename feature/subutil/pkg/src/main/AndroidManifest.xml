@@ -1,0 +1,55 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.blankj.subutil.pkg"
+    android:sharedUserId="android.uid.shell">
+
+    <!--dangerous-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
+    <uses-permission android:name="android.permission.INSTALL_PACKAGES" /><!--installAppSilent-->
+    <uses-permission android:name="android.permission.DELETE_PACKAGES" /><!--uninstallAppSilent-->
+    <uses-permission android:name="android.permission.SHUTDOWN" /><!--shutdown-->
+    <uses-permission android:name="android.permission.REBOOT" /><!--reboot-->
+    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" /><!--setMobileDataEnabled-->
+
+    <!-- location -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application>
+
+        <activity
+            android:name=".feature.SubUtilActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.appStore.AppStoreActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.battery.BatteryActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.country.CountryActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.dangerous.DangerousActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".feature.location.LocationActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop" />
+
+        <service android:name=".feature.location.LocationService" />
+        <activity
+            android:name=".feature.pinyin.PinyinActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop" />
+    </application>
+
+</manifest>

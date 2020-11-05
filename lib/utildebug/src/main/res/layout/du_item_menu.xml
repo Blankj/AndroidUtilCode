@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="12dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="12dp"
+    android:layout_marginBottom="16dp"
+    android:background="@drawable/du_shape_item_menu_bg"
+    android:elevation="18dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/menuCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:singleLine="true"
+        android:textColor="@color/darkGrayDark"
+        android:textSize="@dimen/font_normal"
+        android:textStyle="bold"
+        tools:text="title" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/menuRv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:overScrollMode="never" />
+</LinearLayout>

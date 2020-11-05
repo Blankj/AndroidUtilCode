@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.blankj.utildebug.base.view.SwipeRightMenu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+
+    <RelativeLayout
+        android:id="@+id/fileContentRl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="12dp"
+        android:paddingTop="8dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="8dp">
+
+        <ImageView
+            android:id="@+id/fileTypeIv"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            tools:src="@drawable/du_ic_debug_file_explorer" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/fileTypeIv"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/fileNameTv"
+                style="@style/InfoTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                tools:text="title" />
+
+            <TextView
+                android:id="@+id/fileInfoTv"
+                style="@style/InfoContentStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                tools:text="content" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/fileMenuDeleteTv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="-200dp"
+        android:background="@color/grapefruit"
+        android:gravity="center"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="@string/du_menu_delete"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_normal" />
+
+</com.blankj.utildebug.base.view.SwipeRightMenu>

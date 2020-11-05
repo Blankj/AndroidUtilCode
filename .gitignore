@@ -1,8 +1,15 @@
 *.iml
+__api__.json
+__bus__.json
 .gradle
-/local.properties
+local.properties
 .idea
 .DS_Store
 /build
 /captures
 .externalNativeBuild
+/apk
+*.phrof
+/mavenLocal
+/reports
+*/reports

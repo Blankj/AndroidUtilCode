@@ -1,0 +1,57 @@
+<resources>
+
+    <string name="du_menus">菜单</string>
+    <string name="du_tools">常用工具</string>
+    <string name="du_performance">性能监控</string>
+    <string name="du_ui">视觉工具</string>
+    <string name="du_biz">业务工具</string>
+    <string name="du_uncategorized">未归类</string>
+
+    <string name="de_permission_tips">请授权「显示在其他应用上层」的权限。</string>
+    <string name="du_adjust_tips">拖动按钮以调整窗口的高度。</string>
+    <string name="du_search_tips">输入想要过滤的关键字</string>
+    <string name="du_reminder">温馨提示</string>
+    <string name="du_reminder_content">拖动标题栏以移动窗口。\n双击标题栏以切换窗口的透明度。</string>
+    <string name="du_reminder_no_more">下次不再提示</string>
+    <string name="du_cancel">取消</string>
+    <string name="du_confirm">确认</string>
+
+    <string name="du_menu_delete">删除</string>
+    <string name="du_menu_rename">重命名</string>
+
+    <!--App Info-->
+    <string name="du_app_info">应用信息</string>
+    <string name="du_app_info_pkg_name">包名</string>
+    <string name="du_app_info_version_name">版本名</string>
+    <string name="du_app_info_version_code">版本号</string>
+    <string name="du_app_info_min_sdk_version">支持最低系统版本号</string>
+    <string name="du_app_info_target_sdk_version">目标系统版本号</string>
+    <string name="du_app_info_open_app_info_page">跳转应用信息页</string>
+
+    <!--Device Info-->
+    <string name="du_device_info">设备信息</string>
+    <string name="du_device_info_name">名称</string>
+    <string name="du_device_info_android_version">系统版本</string>
+    <string name="du_device_info_adb_enabled">ADB 是否开启</string>
+    <string name="du_device_info_support_abis">支持的 ABIs</string>
+    <string name="du_device_info_screen_info">屏幕信息</string>
+    <string name="du_device_info_open_development_settings_page">跳转开发者选项页</string>
+
+    <!--File Explorer-->
+    <string name="du_file_explorer">沙盒浏览</string>
+    <string name="du_file_item_num">%1$d 项</string>
+
+    <!--Logcat-->
+    <string name="du_logcat">日志抓取</string>
+
+    <!--Restart-->
+    <string name="du_restart_app">重启应用</string>
+
+    <!--Clear Storage-->
+    <string name="du_clear_storage">清除数据</string>
+
+    <!--Clear Cache-->
+    <string name="du_clear_cache">清除缓存</string>
+
+
+</resources>

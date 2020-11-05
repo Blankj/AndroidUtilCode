@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="demo_app_store">App Store Demo</string>
+    <string name="demo_battery">Battery Demo</string>
+    <string name="demo_country">Country Demo</string>
+    <string name="demo_dangerous">Dangerous Demo</string>
+    <string name="demo_location">LocationUtils Demo</string>
+    <string name="demo_pinyin">PinyinUtils Demo</string>
+
+    <!--App Store 相关-->
+    <string name="app_store_system">Go System App Store In WeChat Page</string>
+
+    <string name="dangerous_install_silent">Install Test App Silently</string>
+    <string name="dangerous_uninstall_silent">Uninstall App Silently</string>
+    <string name="dangerous_app_install_tips">Test app have installed</string>
+    <string name="dangerous_install_successfully">Install successfully</string>
+    <string name="dangerous_install_unsuccessfully">Install unsuccessfully</string>
+    <string name="dangerous_app_uninstall_tips">Please install test app first</string>
+    <string name="dangerous_uninstall_successfully">Uninstall successfully</string>
+    <string name="dangerous_uninstall_unsuccessfully">Uninstall unsuccessfully</string>
+    <string name="dangerous_shutdown">Shutdown</string>
+    <string name="dangerous_reboot">Reboot</string>
+    <string name="dangerous_reboot_to_recovery">Reboot To Recovery</string>
+    <string name="dangerous_reboot_to_bootloader">Reboot To Bootloader</string>
+    <string name="dangerous_send_sms_silent">Send SMS Silent</string>
+    <string name="dangerous_data_enabled">Mobile Data Enabled</string>
+</resources>
