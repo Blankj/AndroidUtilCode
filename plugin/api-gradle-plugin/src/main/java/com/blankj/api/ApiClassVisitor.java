@@ -25,7 +25,7 @@ public class ApiClassVisitor extends ClassVisitor {
     private boolean              hasAnnotation;
     private boolean              isMock;
     private String               mApiUtilsClass;
-    public  String               errorStr;
+//     public  String               errorStr;
 
     public ApiClassVisitor(ClassVisitor classVisitor, Map<String, ApiInfo> apiImplMap, List<String> apiClasses, String apiUtilsClass) {
         super(Opcodes.ASM5, classVisitor);
@@ -65,10 +65,10 @@ public class ApiClassVisitor extends ClassVisitor {
         if (hasAnnotation) {
             if (!isMock) {// 如果不是 mock 的话
                 ApiInfo apiInfo = mApiImplMap.get(superClassName);
-                if (apiInfo == null) {
+                if (apiInfo == null || apiInfo.isMock) {//非mock优先
                     mApiImplMap.put(superClassName, new ApiInfo(className, false));
-                } else {// 存在一个 api 多个实现就报错
-                    errorStr = "<" + className + "> and <" + apiInfo.implApiClass + "> impl same api of <" + superClassName + ">";
+                } else {// 存在多个非mock实现就报错
+                    throw new Exception("<" + className + "> and <" + apiInfo.implApiClass + "> impl same api of <" + superClassName + ">");
                 }
             } else {// mock 的话，如果 map 中已存在就不覆盖了
                 if (!mApiImplMap.containsKey(superClassName)) {
