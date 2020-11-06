@@ -6,7 +6,6 @@ import android.widget.TextView;
 
 import com.blankj.base.mvp.BaseView;
 import com.blankj.utilcode.pkg.R;
-import com.blankj.utilcode.pkg.feature.fragment.FragmentActivity;
 import com.blankj.utilcode.util.ClickUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SizeUtils;
@@ -22,7 +21,7 @@ import com.blankj.utilcode.util.ToastUtils;
  * </pre>
  */
 public class MvpView extends BaseView<MvpView>
-        implements IMvp.View {
+        implements MvpMvp.View {
 
     private TextView mvpTv;
     private TextView mvpMeasureWidthTv;

@@ -1,7 +1,5 @@
 package com.blankj.base.mvp;
 
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.CallSuper;
 import android.util.Log;
 
@@ -68,9 +66,5 @@ public abstract class BasePresenter<V extends BaseView> {
 
     public boolean isAlive() {
         return isAlive;
-    }
-
-    public void getSafeData() {
-        new ViewModelProvider(getView().getActivity(), new ViewModelProvider.NewInstanceFactory()).get(ViewModel.class);
     }
 }

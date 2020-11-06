@@ -1,7 +1,5 @@
 package com.blankj.base.mvp;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.CallSuper;
 import android.util.Log;
 
@@ -14,8 +12,6 @@ import android.util.Log;
  * </pre>
  */
 public abstract class BaseModel {
-
-    LiveData<Object> mData = new MutableLiveData<>();
 
     private static final String TAG = BaseView.TAG;
 

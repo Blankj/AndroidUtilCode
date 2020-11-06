@@ -12,7 +12,7 @@ import com.blankj.utilcode.util.Utils;
  *     desc  :
  * </pre>
  */
-public class MvpModel extends BaseModel implements IMvp.Model {
+public class MvpModel extends BaseModel implements MvpMvp.Model {
 
     private int index;
 

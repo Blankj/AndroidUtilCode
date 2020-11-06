@@ -10,7 +10,7 @@ import com.blankj.utilcode.util.Utils;
  *     desc  :
  * </pre>
  */
-public interface IMvp {
+public interface MvpMvp {
 
     interface View {
         void setLoadingVisible(boolean visible);
