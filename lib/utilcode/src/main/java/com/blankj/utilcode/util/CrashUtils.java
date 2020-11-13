@@ -31,7 +31,6 @@ public final class CrashUtils {
     /**
      * Initialization.
      */
-    @SuppressLint("MissingPermission")
     public static void init() {
         init("");
     }

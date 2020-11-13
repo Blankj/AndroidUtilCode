@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -23,12 +24,18 @@ import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.CopyOnWriteArraySet;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_NETWORK_STATE;
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
 import static android.Manifest.permission.CHANGE_WIFI_STATE;
@@ -687,6 +694,7 @@ public final class NetworkUtils {
      *
      * @param listener The status of network changed listener
      */
+    @RequiresPermission(ACCESS_NETWORK_STATE)
     public static void registerNetworkStatusChangedListener(final OnNetworkStatusChangedListener listener) {
         NetworkChangedReceiver.getInstance().registerListener(listener);
     }
@@ -710,6 +718,123 @@ public final class NetworkUtils {
         NetworkChangedReceiver.getInstance().unregisterListener(listener);
     }
 
+    @RequiresPermission(allOf = {ACCESS_WIFI_STATE, ACCESS_COARSE_LOCATION})
+    public static WifiScanResults getWifiScanResult() {
+        WifiScanResults result = new WifiScanResults();
+        if (!getWifiEnabled()) return result;
+        @SuppressLint("WifiManagerLeak")
+        WifiManager wm = (WifiManager) Utils.getApp().getSystemService(WIFI_SERVICE);
+        //noinspection ConstantConditions
+        List<ScanResult> results = wm.getScanResults();
+        if (results != null) {
+            result.setAllResults(results);
+        }
+        return result;
+    }
+
+    private static final long                                 SCAN_PERIOD_MILLIS    = 3000;
+    private static final Set<Utils.Consumer<WifiScanResults>> SCAN_RESULT_CONSUMERS = new CopyOnWriteArraySet<>();
+    private static       Timer                                sScanWifiTimer;
+    private static       WifiScanResults                      sPreWifiScanResults;
+
+    @RequiresPermission(allOf = {ACCESS_WIFI_STATE, CHANGE_WIFI_STATE, ACCESS_COARSE_LOCATION})
+    public static void addOnWifiChangedConsumer(final Utils.Consumer<WifiScanResults> consumer) {
+        if (consumer == null) return;
+        UtilsBridge.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (SCAN_RESULT_CONSUMERS.isEmpty()) {
+                    SCAN_RESULT_CONSUMERS.add(consumer);
+                    startScanWifi();
+                    return;
+                }
+                consumer.accept(sPreWifiScanResults);
+                SCAN_RESULT_CONSUMERS.add(consumer);
+            }
+        });
+    }
+
+    private static void startScanWifi() {
+        sPreWifiScanResults = new WifiScanResults();
+        sScanWifiTimer = new Timer();
+        sScanWifiTimer.schedule(new TimerTask() {
+            @RequiresPermission(allOf = {ACCESS_WIFI_STATE, CHANGE_WIFI_STATE, ACCESS_COARSE_LOCATION})
+            @Override
+            public void run() {
+                startScanWifiIfEnabled();
+                WifiScanResults scanResults = getWifiScanResult();
+                if (isSameScanResults(sPreWifiScanResults.allResults, scanResults.allResults)) {
+                    return;
+                }
+                sPreWifiScanResults = scanResults;
+                UtilsBridge.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (Utils.Consumer<WifiScanResults> consumer : SCAN_RESULT_CONSUMERS) {
+                            consumer.accept(sPreWifiScanResults);
+                        }
+                    }
+                });
+            }
+        }, 0, SCAN_PERIOD_MILLIS);
+    }
+
+    @RequiresPermission(allOf = {ACCESS_WIFI_STATE, CHANGE_WIFI_STATE})
+    private static void startScanWifiIfEnabled() {
+        if (!getWifiEnabled()) return;
+        @SuppressLint("WifiManagerLeak")
+        WifiManager wm = (WifiManager) Utils.getApp().getSystemService(WIFI_SERVICE);
+        //noinspection ConstantConditions
+        wm.startScan();
+    }
+
+    public static void removeOnWifiChangedConsumer(final Utils.Consumer<WifiScanResults> consumer) {
+        if (consumer == null) return;
+        UtilsBridge.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                SCAN_RESULT_CONSUMERS.remove(consumer);
+                if (SCAN_RESULT_CONSUMERS.isEmpty()) {
+                    stopScanWifi();
+                }
+            }
+        });
+    }
+
+    private static void stopScanWifi() {
+        if (sScanWifiTimer != null) {
+            sScanWifiTimer.cancel();
+            sScanWifiTimer = null;
+        }
+    }
+
+    private static boolean isSameScanResults(List<ScanResult> l1, List<ScanResult> l2) {
+        if (l1 == null && l2 == null) {
+            return true;
+        }
+        if (l1 == null || l2 == null) {
+            return false;
+        }
+        if (l1.size() != l2.size()) {
+            return false;
+        }
+        for (int i = 0; i < l1.size(); i++) {
+            ScanResult r1 = l1.get(i);
+            ScanResult r2 = l2.get(i);
+            if (!isSameScanResultContent(r1, r2)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean isSameScanResultContent(ScanResult r1, ScanResult r2) {
+        return r1 != null && r2 != null && UtilsBridge.equals(r1.BSSID, r2.BSSID)
+                && UtilsBridge.equals(r1.SSID, r2.SSID)
+                && UtilsBridge.equals(r1.capabilities, r2.capabilities)
+                && r1.level == r2.level;
+    }
+
     public static final class NetworkChangedReceiver extends BroadcastReceiver {
 
         private static NetworkChangedReceiver getInstance() {
@@ -719,11 +844,12 @@ public final class NetworkUtils {
         private NetworkType                         mType;
         private Set<OnNetworkStatusChangedListener> mListeners = new HashSet<>();
 
+        @RequiresPermission(ACCESS_NETWORK_STATE)
         void registerListener(final OnNetworkStatusChangedListener listener) {
             if (listener == null) return;
             UtilsBridge.runOnUiThread(new Runnable() {
-                @SuppressLint("MissingPermission")
                 @Override
+                @RequiresPermission(ACCESS_NETWORK_STATE)
                 public void run() {
                     int preSize = mListeners.size();
                     mListeners.add(listener);
@@ -755,13 +881,13 @@ public final class NetworkUtils {
             });
         }
 
-        @SuppressLint("MissingPermission")
         @Override
         public void onReceive(Context context, Intent intent) {
             if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
                 // debouncing
                 UtilsBridge.runOnUiThreadDelayed(new Runnable() {
                     @Override
+                    @RequiresPermission(ACCESS_NETWORK_STATE)
                     public void run() {
                         NetworkType networkType = NetworkUtils.getNetworkType();
                         if (mType == networkType) return;
@@ -863,5 +989,46 @@ public final class NetworkUtils {
         void onDisconnected();
 
         void onConnected(NetworkType networkType);
+    }
+
+    public static final class WifiScanResults {
+
+        private List<ScanResult> allResults    = new ArrayList<>();
+        private List<ScanResult> filterResults = new ArrayList<>();
+
+        public WifiScanResults() {
+        }
+
+        public List<ScanResult> getAllResults() {
+            return allResults;
+        }
+
+        public List<ScanResult> getFilterResults() {
+            return filterResults;
+        }
+
+        public void setAllResults(List<ScanResult> allResults) {
+            this.allResults = allResults;
+            filterResults = filterScanResult(allResults);
+        }
+
+        private static List<ScanResult> filterScanResult(final List<ScanResult> results) {
+            if (results == null || results.isEmpty()) {
+                return new ArrayList<>();
+            }
+            LinkedHashMap<String, ScanResult> map = new LinkedHashMap<>(results.size());
+            for (ScanResult result : results) {
+                if (TextUtils.isEmpty(result.SSID)) {
+                    continue;
+                }
+                ScanResult resultInMap = map.get(result.SSID);
+                if (resultInMap != null && resultInMap.level >= result.level) {
+                    continue;
+                }
+                map.put(result.SSID, result);
+            }
+            return new ArrayList<>(map.values());
+        }
+
     }
 }

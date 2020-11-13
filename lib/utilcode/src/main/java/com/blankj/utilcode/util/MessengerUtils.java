@@ -1,6 +1,7 @@
 package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
@@ -301,6 +302,12 @@ public class MessengerUtils {
 
         @Override
         public int onStartCommand(Intent intent, int flags, int startId) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Notification notification = UtilsBridge.getNotification(
+                        NotificationUtils.ChannelConfig.DEFAULT_CHANNEL_CONFIG, null
+                );
+                startForeground(1, notification);
+            }
             if (intent != null) {
                 Bundle extras = intent.getExtras();
                 if (extras != null) {

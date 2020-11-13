@@ -3,8 +3,6 @@ package com.blankj.base.mvp;
 import android.util.Log;
 
 import androidx.annotation.CallSuper;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 /**
  * <pre>
@@ -15,8 +13,6 @@ import androidx.lifecycle.MutableLiveData;
  * </pre>
  */
 public abstract class BaseModel {
-
-    LiveData<Object> mData = new MutableLiveData<>();
 
     private static final String TAG = BaseView.TAG;
 

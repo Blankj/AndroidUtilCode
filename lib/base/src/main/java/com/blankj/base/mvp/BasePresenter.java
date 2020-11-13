@@ -70,8 +70,4 @@ public abstract class BasePresenter<V extends BaseView> {
     public boolean isAlive() {
         return isAlive;
     }
-
-    public void getSafeData() {
-        new ViewModelProvider(getView().getActivity(), new ViewModelProvider.NewInstanceFactory()).get(ViewModel.class);
-    }
 }

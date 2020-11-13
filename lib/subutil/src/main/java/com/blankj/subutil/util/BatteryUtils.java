@@ -77,7 +77,6 @@ public final class BatteryUtils {
         void registerListener(final OnBatteryStatusChangedListener listener) {
             if (listener == null) return;
             ThreadUtils.runOnUiThread(new Runnable() {
-                @SuppressLint("MissingPermission")
                 @Override
                 public void run() {
                     int preSize = mListeners.size();
@@ -110,7 +109,6 @@ public final class BatteryUtils {
             });
         }
 
-        @SuppressLint("MissingPermission")
         @Override
         public void onReceive(Context context, final Intent intent) {
             if (Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())) {

@@ -1,8 +1,13 @@
 package com.blankj.utilcode.util;
 
+import android.app.ActivityManager;
+import android.content.Context;
+import android.os.Build;
 import android.os.Environment;
 
 import java.io.File;
+
+import androidx.annotation.RequiresApi;
 
 /**
  * <pre>
@@ -88,5 +93,12 @@ public final class CleanUtils {
      */
     public static boolean cleanCustomDir(final String dirPath) {
         return UtilsBridge.deleteAllInDir(UtilsBridge.getFileByPath(dirPath));
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public static void cleanAppUserData() {
+        ActivityManager am = (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
+        //noinspection ConstantConditions
+        am.clearApplicationUserData();
     }
 }

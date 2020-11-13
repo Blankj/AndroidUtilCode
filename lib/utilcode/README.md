@@ -2,10 +2,10 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.30.4'
+implementation 'com.blankj:utilcode:1.30.5'
 
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.30.4'
+implementation 'com.blankj:utilcodex:1.30.5'
 ```
 
 
@@ -721,6 +721,9 @@ getServerAddressByWifi
 registerNetworkStatusChangedListener
 isRegisteredNetworkStatusChangedListener
 unregisterNetworkStatusChangedListener
+getWifiScanResult
+addOnWifiChangedConsumer
+removeOnWifiChangedConsumer
 ```
 
 * ### About Notification -> [NotificationUtils.java][notification.java] -> [Demo][notification.demo]

@@ -21,7 +21,7 @@ import com.blankj.utilcode.util.ToastUtils;
  * </pre>
  */
 public class MvpView extends BaseView<MvpView>
-        implements IMvp.View {
+        implements MvpMvp.View {
 
     private TextView mvpTv;
     private TextView mvpMeasureWidthTv;

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -302,7 +303,7 @@ public final class FragmentUtils {
                            final boolean isHide,
                            final boolean isAddStack) {
         putArgs(add, new Args(containerId, tag, isHide, isAddStack));
-        operateNoAnim(fm, TYPE_ADD_FRAGMENT, null, add);
+        operateNoAnim(TYPE_ADD_FRAGMENT, fm, null, add);
     }
 
     /**
@@ -490,7 +491,7 @@ public final class FragmentUtils {
                 putArgs(adds[i], new Args(containerId, tags[i], showIndex != i, false));
             }
         }
-        operateNoAnim(fm, TYPE_ADD_FRAGMENT, null, adds);
+        operateNoAnim(TYPE_ADD_FRAGMENT, fm, null, adds);
     }
 
     /**
@@ -500,7 +501,7 @@ public final class FragmentUtils {
      */
     public static void show(@NonNull final Fragment show) {
         putArgs(show, false);
-        operateNoAnim(show.getFragmentManager(), TYPE_SHOW_FRAGMENT, null, show);
+        operateNoAnim(TYPE_SHOW_FRAGMENT, show.getFragmentManager(), null, show);
     }
 
     /**
@@ -513,11 +514,7 @@ public final class FragmentUtils {
         for (Fragment show : fragments) {
             putArgs(show, false);
         }
-        operateNoAnim(fm,
-                TYPE_SHOW_FRAGMENT,
-                null,
-                fragments.toArray(new Fragment[0])
-        );
+        operateNoAnim(TYPE_SHOW_FRAGMENT, fm, null, fragments.toArray(new Fragment[0]));
     }
 
     /**
@@ -527,7 +524,7 @@ public final class FragmentUtils {
      */
     public static void hide(@NonNull final Fragment hide) {
         putArgs(hide, true);
-        operateNoAnim(hide.getFragmentManager(), TYPE_HIDE_FRAGMENT, null, hide);
+        operateNoAnim(TYPE_HIDE_FRAGMENT, hide.getFragmentManager(), null, hide);
     }
 
     /**
@@ -540,11 +537,38 @@ public final class FragmentUtils {
         for (Fragment hide : fragments) {
             putArgs(hide, true);
         }
-        operateNoAnim(fm,
-                TYPE_HIDE_FRAGMENT,
-                null,
-                fragments.toArray(new Fragment[0])
-        );
+        operateNoAnim(TYPE_HIDE_FRAGMENT, fm, null, fragments.toArray(new Fragment[0]));
+    }
+
+    /**
+     * Show fragment then hide other fragment.
+     *
+     * @param show The fragment will be show.
+     * @param hide The fragment will be hide.
+     */
+    public static void showHide(@NonNull final Fragment show,
+                                @NonNull final Fragment hide) {
+        showHide(show, Collections.singletonList(hide));
+    }
+
+    /**
+     * Show fragment then hide other fragment.
+     *
+     * @param showIndex The index of fragment will be shown.
+     * @param fragments The fragment will be hide.
+     */
+    public static void showHide(final int showIndex, @NonNull final Fragment... fragments) {
+        showHide(fragments[showIndex], fragments);
+    }
+
+    /**
+     * Show fragment then hide other fragment.
+     *
+     * @param show The fragment will be show.
+     * @param hide The fragment will be hide.
+     */
+    public static void showHide(@NonNull final Fragment show, @NonNull final Fragment... hide) {
+        showHide(show, Arrays.asList(hide));
     }
 
     /**
@@ -567,32 +591,9 @@ public final class FragmentUtils {
         for (Fragment fragment : hide) {
             putArgs(fragment, fragment != show);
         }
-        operateNoAnim(show.getFragmentManager(), TYPE_SHOW_HIDE_FRAGMENT, show,
-                hide.toArray(new Fragment[0]));
+        operateNoAnim(TYPE_SHOW_HIDE_FRAGMENT, show.getFragmentManager(), show, hide.toArray(new Fragment[0]));
     }
 
-    /**
-     * Show fragment then hide other fragment.
-     *
-     * @param showIndex The index of fragment will be shown.
-     * @param fragments The fragment will be hide.
-     */
-    public static void showHide(final int showIndex, @NonNull final Fragment... fragments) {
-        showHide(fragments[showIndex], fragments);
-    }
-
-    /**
-     * Show fragment then hide other fragment.
-     *
-     * @param show The fragment will be show.
-     * @param hide The fragment will be hide.
-     */
-    public static void showHide(@NonNull final Fragment show, @NonNull final Fragment... hide) {
-        for (Fragment fragment : hide) {
-            putArgs(fragment, fragment != show);
-        }
-        operateNoAnim(show.getFragmentManager(), TYPE_SHOW_HIDE_FRAGMENT, show, hide);
-    }
 
     /**
      * Show fragment then hide other fragment.
@@ -601,10 +602,47 @@ public final class FragmentUtils {
      * @param hide The fragment will be hide.
      */
     public static void showHide(@NonNull final Fragment show,
-                                @NonNull final Fragment hide) {
-        putArgs(show, false);
-        putArgs(hide, true);
-        operateNoAnim(show.getFragmentManager(), TYPE_SHOW_HIDE_FRAGMENT, show, hide);
+                                @NonNull final Fragment hide, @AnimatorRes @AnimRes final int enterAnim,
+                                @AnimatorRes @AnimRes final int exitAnim,
+                                @AnimatorRes @AnimRes final int popEnterAnim,
+                                @AnimatorRes @AnimRes final int popExitAnim) {
+        showHide(show, Collections.singletonList(hide), enterAnim, exitAnim, popEnterAnim, popExitAnim);
+    }
+
+    /**
+     * Show fragment then hide other fragment.
+     *
+     * @param showIndex The index of fragment will be shown.
+     * @param fragments The fragments will be hide.
+     */
+    public static void showHide(final int showIndex, @NonNull final List<Fragment> fragments,
+                                @AnimatorRes @AnimRes final int enterAnim,
+                                @AnimatorRes @AnimRes final int exitAnim,
+                                @AnimatorRes @AnimRes final int popEnterAnim,
+                                @AnimatorRes @AnimRes final int popExitAnim) {
+        showHide(fragments.get(showIndex), fragments, enterAnim, exitAnim, popEnterAnim, popExitAnim);
+    }
+
+    /**
+     * Show fragment then hide other fragment.
+     *
+     * @param show The fragment will be show.
+     * @param hide The fragment will be hide.
+     */
+    public static void showHide(@NonNull final Fragment show, @NonNull final List<Fragment> hide,
+                                @AnimatorRes @AnimRes final int enterAnim,
+                                @AnimatorRes @AnimRes final int exitAnim,
+                                @AnimatorRes @AnimRes final int popEnterAnim,
+                                @AnimatorRes @AnimRes final int popExitAnim) {
+        for (Fragment fragment : hide) {
+            putArgs(fragment, fragment != show);
+        }
+        FragmentManager fm = show.getFragmentManager();
+        if (fm != null) {
+            FragmentTransaction ft = fm.beginTransaction();
+            addAnim(ft, enterAnim, exitAnim, popEnterAnim, popExitAnim);
+            operate(TYPE_SHOW_HIDE_FRAGMENT, fm, ft, show, hide.toArray(new Fragment[0]));
+        }
     }
 
     /**
@@ -1358,7 +1396,7 @@ public final class FragmentUtils {
      * @param remove The fragment will be removed.
      */
     public static void remove(@NonNull final Fragment remove) {
-        operateNoAnim(remove.getFragmentManager(), TYPE_REMOVE_FRAGMENT, null, remove);
+        operateNoAnim(TYPE_REMOVE_FRAGMENT, remove.getFragmentManager(), null, remove);
     }
 
     /**
@@ -1368,8 +1406,7 @@ public final class FragmentUtils {
      * @param isIncludeSelf True to include the fragment, false otherwise.
      */
     public static void removeTo(@NonNull final Fragment removeTo, final boolean isIncludeSelf) {
-        operateNoAnim(removeTo.getFragmentManager(), TYPE_REMOVE_TO_FRAGMENT,
-                isIncludeSelf ? removeTo : null, removeTo);
+        operateNoAnim(TYPE_REMOVE_TO_FRAGMENT, removeTo.getFragmentManager(), isIncludeSelf ? removeTo : null, removeTo);
     }
 
     /**
@@ -1379,11 +1416,7 @@ public final class FragmentUtils {
      */
     public static void removeAll(@NonNull final FragmentManager fm) {
         List<Fragment> fragments = getFragments(fm);
-        operateNoAnim(fm,
-                TYPE_REMOVE_FRAGMENT,
-                null,
-                fragments.toArray(new Fragment[0])
-        );
+        operateNoAnim(TYPE_REMOVE_FRAGMENT, fm, null, fragments.toArray(new Fragment[0]));
     }
 
     private static void putArgs(final Fragment fragment, final Args args) {
@@ -1415,8 +1448,7 @@ public final class FragmentUtils {
                 bundle.getBoolean(ARGS_IS_ADD_STACK));
     }
 
-    private static void operateNoAnim(@Nullable final FragmentManager fm,
-                                      final int type,
+    private static void operateNoAnim(final int type, @Nullable final FragmentManager fm,
                                       final Fragment src,
                                       Fragment... dest) {
         if (fm == null) return;

@@ -2,6 +2,7 @@ package com.blankj.utilcode.util;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -31,6 +32,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RequiresPermission;
 import androidx.annotation.StringRes;
+import androidx.core.app.NotificationCompat;
 
 import static android.Manifest.permission.CALL_PHONE;
 
@@ -417,6 +419,14 @@ class UtilsBridge {
     ///////////////////////////////////////////////////////////////////////////
     static void fixSoftInputLeaks(final Activity activity) {
         KeyboardUtils.fixSoftInputLeaks(activity);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // NotificationUtils
+    ///////////////////////////////////////////////////////////////////////////
+    static Notification getNotification(NotificationUtils.ChannelConfig channelConfig,
+                                        Utils.Consumer<NotificationCompat.Builder> consumer) {
+        return NotificationUtils.getNotification(channelConfig, consumer);
     }
 
     ///////////////////////////////////////////////////////////////////////////
