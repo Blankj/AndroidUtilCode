@@ -211,7 +211,7 @@ public final class ColorUtils {
      * @param color The color.
      * @return {@code true}: yes<br>{@code false}: no
      */
-    public boolean isLightColor(@ColorInt int color) {
+    public static boolean isLightColor(@ColorInt int color) {
         return 0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color) >= 127.5;
     }
 }
