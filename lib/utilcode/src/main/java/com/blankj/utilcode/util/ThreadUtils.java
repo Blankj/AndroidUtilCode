@@ -1185,7 +1185,7 @@ public final class ThreadUtils {
 
         private Executor deliver;
 
-        public abstract T doInBackground() throws Throwable;
+        public abstract T doInBackground() throws Throwable,NullPointerException;
 
         public abstract void onSuccess(T result);
 
@@ -1214,15 +1214,21 @@ public final class ThreadUtils {
                         @Override
                         public void run() {
                             if (!isDone() && mTimeoutListener != null) {
-                                timeout();
-                                mTimeoutListener.onTimeout();
+                                try {
+                                    timeout();
+                                    mTimeoutListener.onTimeout();
+                                }catch(NullPointerException e)
+                                {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                     }, mTimeoutMillis);
                 }
             }
             try {
-                final T result = doInBackground();
+
+                    final T result = doInBackground();
                 if (isSchedule) {
                     if (state.get() != RUNNING) return;
                     getDeliver().execute(new Runnable() {
@@ -1241,7 +1247,11 @@ public final class ThreadUtils {
                         }
                     });
                 }
-            } catch (InterruptedException ignore) {
+            } catch(NullPointerException e)
+            {
+                e.printStackTrace();
+            }
+            catch (InterruptedException ignore) {
                 state.compareAndSet(CANCELLED, INTERRUPTED);
             } catch (final Throwable throwable) {
                 if (!state.compareAndSet(RUNNING, EXCEPTIONAL)) return;
