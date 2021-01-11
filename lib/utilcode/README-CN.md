@@ -11,7 +11,7 @@ implementation 'com.blankj:utilcodex:1.30.5'
 
 ## APIs
 
-* ### Activity 相关 -> [ActivityUtils.java][activity.java] -> [Demo][activity.demo]
+* ### Activity 相关 -> [ActivityUtils.java][activity.java]
 ```
 addActivityLifecycleCallbacks   : 增加 Activity 生命周期监听
 removeActivityLifecycleCallbacks: 移除 Activity 生命周期监听
