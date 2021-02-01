@@ -136,12 +136,44 @@ public final class ShellUtils {
     /**
      * Execute the command.
      *
+     * @param command  The command.
+     * @param envp     The environment variable settings.
+     * @param isRooted True to use root, false otherwise.
+     * @return the single {@link CommandResult} instance
+     */
+    public static CommandResult execCmd(final String command, final List<String> envp, final boolean isRooted) {
+        return execCmd(new String[]{command},
+                envp == null ? null : envp.toArray(new String[]{}),
+                isRooted,
+                true);
+    }
+
+    /**
+     * Execute the command.
+     *
      * @param commands The commands.
      * @param isRooted True to use root, false otherwise.
      * @return the single {@link CommandResult} instance
      */
     public static CommandResult execCmd(final List<String> commands, final boolean isRooted) {
         return execCmd(commands == null ? null : commands.toArray(new String[]{}), isRooted, true);
+    }
+
+    /**
+     * Execute the command.
+     *
+     * @param commands The commands.
+     * @param envp     The environment variable settings.
+     * @param isRooted True to use root, false otherwise.
+     * @return the single {@link CommandResult} instance
+     */
+    public static CommandResult execCmd(final List<String> commands,
+                                        final List<String> envp,
+                                        final boolean isRooted) {
+        return execCmd(commands == null ? null : commands.toArray(new String[]{}),
+                envp == null ? null : envp.toArray(new String[]{}),
+                isRooted,
+                true);
     }
 
     /**
@@ -172,6 +204,40 @@ public final class ShellUtils {
     /**
      * Execute the command.
      *
+     * @param command         The command.
+     * @param envp            The environment variable settings.
+     * @param isRooted        True to use root, false otherwise.
+     * @param isNeedResultMsg True to return the message of result, false otherwise.
+     * @return the single {@link CommandResult} instance
+     */
+    public static CommandResult execCmd(final String command,
+                                        final List<String> envp,
+                                        final boolean isRooted,
+                                        final boolean isNeedResultMsg) {
+        return execCmd(new String[]{command}, envp == null ? null : envp.toArray(new String[]{}),
+                isRooted,
+                isNeedResultMsg);
+    }
+
+    /**
+     * Execute the command.
+     *
+     * @param command         The command.
+     * @param envp            The environment variable settings array.
+     * @param isRooted        True to use root, false otherwise.
+     * @param isNeedResultMsg True to return the message of result, false otherwise.
+     * @return the single {@link CommandResult} instance
+     */
+    public static CommandResult execCmd(final String command,
+                                        final String[] envp,
+                                        final boolean isRooted,
+                                        final boolean isNeedResultMsg) {
+        return execCmd(new String[]{command}, envp, isRooted, isNeedResultMsg);
+    }
+
+    /**
+     * Execute the command.
+     *
      * @param commands        The commands.
      * @param isRooted        True to use root, false otherwise.
      * @param isNeedResultMsg True to return the message of result, false otherwise.
@@ -196,6 +262,26 @@ public final class ShellUtils {
     public static CommandResult execCmd(final String[] commands,
                                         final boolean isRooted,
                                         final boolean isNeedResultMsg) {
+        return execCmd(commands, null, isRooted, isNeedResultMsg);
+    }
+
+    /**
+     * Execute the command.
+     *
+     * @param commands        The commands.
+     * @param envp            Array of strings, each element of which
+     *                        has environment variable settings in the format
+     *                        <i>name</i>=<i>value</i>, or
+     *                        <tt>null</tt> if the subprocess should inherit
+     *                        the environment of the current process.
+     * @param isRooted        True to use root, false otherwise.
+     * @param isNeedResultMsg True to return the message of result, false otherwise.
+     * @return the single {@link CommandResult} instance
+     */
+    public static CommandResult execCmd(final String[] commands,
+                                        final String[] envp,
+                                        final boolean isRooted,
+                                        final boolean isNeedResultMsg) {
         int result = -1;
         if (commands == null || commands.length == 0) {
             return new CommandResult(result, "", "");
@@ -207,7 +293,7 @@ public final class ShellUtils {
         StringBuilder errorMsg = null;
         DataOutputStream os = null;
         try {
-            process = Runtime.getRuntime().exec(isRooted ? "su" : "sh");
+            process = Runtime.getRuntime().exec(isRooted ? "su" : "sh", envp, null);
             os = new DataOutputStream(process.getOutputStream());
             for (String command : commands) {
                 if (command == null) continue;
