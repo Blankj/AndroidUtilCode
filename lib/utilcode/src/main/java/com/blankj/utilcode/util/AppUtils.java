@@ -203,8 +203,6 @@ public final class AppUtils {
      */
     public static boolean isAppRunning(final String pkgName) {
         if (UtilsBridge.isSpace(pkgName)) return false;
-        ApplicationInfo ai = Utils.getApp().getApplicationInfo();
-        int uid = ai.uid;
         ActivityManager am = (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
         if (am != null) {
             List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(Integer.MAX_VALUE);
@@ -220,8 +218,10 @@ public final class AppUtils {
             List<ActivityManager.RunningServiceInfo> serviceInfo = am.getRunningServices(Integer.MAX_VALUE);
             if (serviceInfo != null && serviceInfo.size() > 0) {
                 for (ActivityManager.RunningServiceInfo aInfo : serviceInfo) {
-                    if (uid == aInfo.uid) {
-                        return true;
+                    if (aInfo.service != null) {
+                        if (pkgName.equals(aInfo.service.getPackageName())) {
+                            return true;
+                        }
                     }
                 }
             }
