@@ -57,7 +57,7 @@ public final class AndroidComponentUtils {
     public static Boolean isComponentDisabled(Context ctx, Class component){
         final ComponentName componentName = new ComponentName(ctx, component);
         final int state = ctx.getPackageManager().getComponentEnabledSetting(componentName);
-        return state != PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
+        return state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
     }
 
     /**
