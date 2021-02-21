@@ -121,6 +121,34 @@ public final class CoordinateUtils {
         return gcj02ToBd09(gcj[0], gcj[1]);
     }
 
+    /**
+     * Mercator 坐标转 WGS84 坐标
+     *
+     * @param lng Mercator 坐标经度
+     * @param lat Mercator 坐标纬度
+     * @return WGS84 坐标：[经度，纬度]
+     */
+    public static double[] mercatorToWGS84(double lng, double lat) {
+        double x = lng / 20037508.34d * 180.;
+        double y = lat / 20037508.34d * 180.;
+        y = 180 / PI * (2 * Math.atan(Math.exp(y * PI / 180.0)) - PI / 2);
+        return new double[]{x, y};
+    }
+
+    /**
+     * WGS84 坐标转 Mercator 坐标
+     *
+     * @param lng WGS84 坐标经度
+     * @param lat WGS84 坐标纬度
+     * @return Mercator 坐标：[经度，纬度]
+     */
+    public static double[] wgs84ToMercator(double lng, double lat) {
+        double x = lng * 20037508.34D / 180.0;
+        double y = Math.log(Math.tan((90.0 + lat) * PI / 360.0)) / (PI / 180.);
+        y = y * 20037508.34D / 180.0;
+        return new double[]{x, y};
+    }
+
     private static double transformLat(double lng, double lat) {
         double ret = -100.0 + 2.0 * lng + 3.0 * lat + 0.2 * lat * lat + 0.1 * lng * lat + 0.2 * Math.sqrt(Math.abs(lng));
         ret += (20.0 * Math.sin(6.0 * lng * PI) + 20.0 * Math.sin(2.0 * lng * PI)) * 2.0 / 3.0;

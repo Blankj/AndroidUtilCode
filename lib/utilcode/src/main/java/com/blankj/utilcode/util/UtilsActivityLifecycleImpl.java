@@ -202,6 +202,9 @@ final class UtilsActivityLifecycleImpl implements Application.ActivityLifecycleC
 
     @Override
     public void onActivityCreated(@NonNull Activity activity, Bundle savedInstanceState) {
+        if (mActivityList.size() == 0) {
+            postStatus(activity, true);
+        }
         LanguageUtils.applyLanguage(activity);
         setAnimatorsEnabled();
         setTopActivity(activity);

@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresPermission;
 
 import static android.Manifest.permission.CALL_PHONE;
@@ -289,7 +290,7 @@ public final class PhoneUtils {
      *
      * @param phoneNumber The phone number.
      */
-    public static void dial(final String phoneNumber) {
+    public static void dial(@NonNull final String phoneNumber) {
         Utils.getApp().startActivity(UtilsBridge.getDialIntent(phoneNumber));
     }
 
@@ -300,7 +301,7 @@ public final class PhoneUtils {
      * @param phoneNumber The phone number.
      */
     @RequiresPermission(CALL_PHONE)
-    public static void call(final String phoneNumber) {
+    public static void call(@NonNull final String phoneNumber) {
         Utils.getApp().startActivity(UtilsBridge.getCallIntent(phoneNumber));
     }
 
@@ -310,7 +311,7 @@ public final class PhoneUtils {
      * @param phoneNumber The phone number.
      * @param content     The content.
      */
-    public static void sendSms(final String phoneNumber, final String content) {
+    public static void sendSms(@NonNull final String phoneNumber, final String content) {
         Utils.getApp().startActivity(UtilsBridge.getSendSmsIntent(phoneNumber, content));
     }
 

@@ -45,7 +45,7 @@ public final class ActivityUtils {
      *
      * @param callbacks The callbacks.
      */
-    public static void addActivityLifecycleCallbacks(final Utils.ActivityLifecycleCallbacks callbacks) {
+    public static void addActivityLifecycleCallbacks(@Nullable final Utils.ActivityLifecycleCallbacks callbacks) {
         UtilsBridge.addActivityLifecycleCallbacks(callbacks);
     }
 
@@ -55,8 +55,8 @@ public final class ActivityUtils {
      * @param activity  The activity.
      * @param callbacks The callbacks.
      */
-    public static void addActivityLifecycleCallbacks(final Activity activity,
-                                                     final Utils.ActivityLifecycleCallbacks callbacks) {
+    public static void addActivityLifecycleCallbacks(@Nullable final Activity activity,
+                                                     @Nullable final Utils.ActivityLifecycleCallbacks callbacks) {
         UtilsBridge.addActivityLifecycleCallbacks(activity, callbacks);
     }
 
@@ -65,7 +65,7 @@ public final class ActivityUtils {
      *
      * @param callbacks The callbacks.
      */
-    public static void removeActivityLifecycleCallbacks(final Utils.ActivityLifecycleCallbacks callbacks) {
+    public static void removeActivityLifecycleCallbacks(@Nullable final Utils.ActivityLifecycleCallbacks callbacks) {
         UtilsBridge.removeActivityLifecycleCallbacks(callbacks);
     }
 
@@ -74,7 +74,7 @@ public final class ActivityUtils {
      *
      * @param activity The activity.
      */
-    public static void removeActivityLifecycleCallbacks(final Activity activity) {
+    public static void removeActivityLifecycleCallbacks(@Nullable final Activity activity) {
         UtilsBridge.removeActivityLifecycleCallbacks(activity);
     }
 
@@ -84,8 +84,8 @@ public final class ActivityUtils {
      * @param activity  The activity.
      * @param callbacks The callbacks.
      */
-    public static void removeActivityLifecycleCallbacks(final Activity activity,
-                                                        final Utils.ActivityLifecycleCallbacks callbacks) {
+    public static void removeActivityLifecycleCallbacks(@Nullable final Activity activity,
+                                                        @Nullable final Utils.ActivityLifecycleCallbacks callbacks) {
         UtilsBridge.removeActivityLifecycleCallbacks(activity, callbacks);
     }
 
@@ -95,13 +95,15 @@ public final class ActivityUtils {
      * @param context The context.
      * @return the activity by context.
      */
-    public static Activity getActivityByContext(Context context) {
+    @Nullable
+    public static Activity getActivityByContext(@NonNull Context context) {
         Activity activity = getActivityByContextInner(context);
         if (!isActivityAlive(activity)) return null;
         return activity;
     }
 
-    private static Activity getActivityByContextInner(Context context) {
+    @Nullable
+    private static Activity getActivityByContextInner(@Nullable Context context) {
         if (context == null) return null;
         List<Context> list = new ArrayList<>();
         while (context instanceof ContextWrapper) {
@@ -123,7 +125,8 @@ public final class ActivityUtils {
         return null;
     }
 
-    private static Activity getActivityFromDecorContext(Context context) {
+    @Nullable
+    private static Activity getActivityFromDecorContext(@Nullable Context context) {
         if (context == null) return null;
         if (context.getClass().getName().equals("com.android.internal.policy.DecorContext")) {
             try {
@@ -1907,6 +1910,7 @@ public final class ActivityUtils {
      * @param activity The activity.
      * @return the icon of activity
      */
+    @Nullable
     public static Drawable getActivityIcon(@NonNull final Activity activity) {
         return getActivityIcon(activity.getComponentName());
     }
@@ -1917,6 +1921,7 @@ public final class ActivityUtils {
      * @param clz The activity class.
      * @return the icon of activity
      */
+    @Nullable
     public static Drawable getActivityIcon(@NonNull final Class<? extends Activity> clz) {
         return getActivityIcon(new ComponentName(Utils.getApp(), clz));
     }
@@ -1927,6 +1932,7 @@ public final class ActivityUtils {
      * @param activityName The name of activity.
      * @return the icon of activity
      */
+    @Nullable
     public static Drawable getActivityIcon(@NonNull final ComponentName activityName) {
         PackageManager pm = Utils.getApp().getPackageManager();
         try {
@@ -1943,6 +1949,7 @@ public final class ActivityUtils {
      * @param activity The activity.
      * @return the logo of activity
      */
+    @Nullable
     public static Drawable getActivityLogo(@NonNull final Activity activity) {
         return getActivityLogo(activity.getComponentName());
     }
@@ -1953,6 +1960,7 @@ public final class ActivityUtils {
      * @param clz The activity class.
      * @return the logo of activity
      */
+    @Nullable
     public static Drawable getActivityLogo(@NonNull final Class<? extends Activity> clz) {
         return getActivityLogo(new ComponentName(Utils.getApp(), clz));
     }
@@ -1963,6 +1971,7 @@ public final class ActivityUtils {
      * @param activityName The name of activity.
      * @return the logo of activity
      */
+    @Nullable
     public static Drawable getActivityLogo(@NonNull final ComponentName activityName) {
         PackageManager pm = Utils.getApp().getPackageManager();
         try {

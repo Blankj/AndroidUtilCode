@@ -1217,6 +1217,7 @@ public final class ThreadUtils {
                             if (!isDone() && mTimeoutListener != null) {
                                 timeout();
                                 mTimeoutListener.onTimeout();
+                                onDone();
                             }
                         }
                     }, mTimeoutMillis);
@@ -1288,7 +1289,6 @@ public final class ThreadUtils {
             if (runner != null) {
                 runner.interrupt();
             }
-            onDone();
         }
 
 
@@ -1359,6 +1359,18 @@ public final class ThreadUtils {
                     mLatch.await();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                }
+            }
+            return mValue;
+        }
+
+        public T getValue(long timeout, TimeUnit unit, T defaultValue) {
+            if (!mFlag.get()) {
+                try {
+                    mLatch.await(timeout, unit);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    return defaultValue;
                 }
             }
             return mValue;

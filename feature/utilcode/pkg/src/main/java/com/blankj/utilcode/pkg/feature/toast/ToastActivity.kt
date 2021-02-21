@@ -80,6 +80,9 @@ class ToastActivity : CommonActivity() {
                 CommonItemClick(R.string.toast_show_middle) {
                     ToastUtils.make().setGravity(Gravity.CENTER, 0, 0).show(R.string.toast_middle)
                 },
+                CommonItemClick(R.string.toast_show_top) {
+                    ToastUtils.make().setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 0).show(R.string.toast_top)
+                },
                 CommonItemClick(R.string.toast_show_custom_view) {
                     Thread(Runnable { CustomToast.showLong(R.string.toast_custom_view) }).start()
                 },

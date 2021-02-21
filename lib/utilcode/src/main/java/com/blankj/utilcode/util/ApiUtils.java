@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * <pre>
@@ -48,14 +49,17 @@ public final class ApiUtils {
      * @param <T>      The type.
      * @return the api
      */
+    @Nullable
     public static <T extends BaseApi> T getApi(@NonNull final Class<T> apiClass) {
         return getInstance().getApiInner(apiClass);
     }
 
-    public static void register(Class<? extends BaseApi> implClass) {
+    public static void register(@Nullable Class<? extends BaseApi> implClass) {
+        if (implClass == null) return;
         getInstance().registerImpl(implClass);
     }
 
+    @NonNull
     public static String toString_() {
         return getInstance().toString();
     }

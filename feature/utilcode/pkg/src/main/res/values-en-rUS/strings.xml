@@ -6,6 +6,7 @@
     <string name="language_apply_simple_chinese">Apply Simple Chinese</string>
     <string name="language_apply_american">Apply American</string>
     <string name="language_apply_english">Apply English</string>
+    <string name="language_apply_arabic">Apply Arabic</string>
     <string name="language_apply_system">Apply System</string>
 
 </resources>

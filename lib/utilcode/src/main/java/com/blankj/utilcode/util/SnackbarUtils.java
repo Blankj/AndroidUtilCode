@@ -49,7 +49,7 @@ public final class SnackbarUtils {
     private static final int COLOR_ERROR   = 0xFFFF0000;
     private static final int COLOR_MESSAGE = 0xFFFFFFFF;
 
-    private static WeakReference<Snackbar> sReference;
+    private static WeakReference<Snackbar> sWeakSnackbar;
 
     private View                 view;
     private CharSequence         message;
@@ -225,11 +225,11 @@ public final class SnackbarUtils {
             spannableString.setSpan(
                     colorSpan, 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             );
-            sReference = new WeakReference<>(Snackbar.make(view, spannableString, duration));
+            sWeakSnackbar = new WeakReference<>(Snackbar.make(view, spannableString, duration));
         } else {
-            sReference = new WeakReference<>(Snackbar.make(view, message, duration));
+            sWeakSnackbar = new WeakReference<>(Snackbar.make(view, message, duration));
         }
-        final Snackbar snackbar = sReference.get();
+        final Snackbar snackbar = sWeakSnackbar.get();
         final Snackbar.SnackbarLayout snackbarView = (Snackbar.SnackbarLayout) snackbar.getView();
         if (isShowTop) {
             for (int i = 0; i < snackbarView.getChildCount(); i++) {
@@ -318,9 +318,9 @@ public final class SnackbarUtils {
      * Dismiss the snackbar.
      */
     public static void dismiss() {
-        if (sReference != null && sReference.get() != null) {
-            sReference.get().dismiss();
-            sReference = null;
+        if (sWeakSnackbar != null && sWeakSnackbar.get() != null) {
+            sWeakSnackbar.get().dismiss();
+            sWeakSnackbar = null;
         }
     }
 
@@ -330,7 +330,7 @@ public final class SnackbarUtils {
      * @return the view of snackbar
      */
     public static View getView() {
-        Snackbar snackbar = sReference.get();
+        Snackbar snackbar = sWeakSnackbar.get();
         if (snackbar == null) return null;
         return snackbar.getView();
     }

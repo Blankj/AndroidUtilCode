@@ -35,10 +35,10 @@ class ApiActivity : CommonActivity() {
     override fun bindItems(): MutableList<CommonItem<*>> {
         return CollectionUtils.newArrayList(
                 CommonItemClick(R.string.api_invoke_with_params) {
-                    ApiUtils.getApi(OtherModuleApi::class.java).invokeWithParams(OtherModuleApi.ApiBean("params"))
+                    ApiUtils.getApi(OtherModuleApi::class.java)?.invokeWithParams(OtherModuleApi.ApiBean("params"))
                 },
                 CommonItemClick(R.string.api_invoke_with_return_value) {
-                    ToastUtils.showShort(ApiUtils.getApi(OtherModuleApi::class.java).invokeWithReturnValue().name)
+                    ToastUtils.showShort(ApiUtils.getApi(OtherModuleApi::class.java)?.invokeWithReturnValue()?.name)
                 }
         );
     }

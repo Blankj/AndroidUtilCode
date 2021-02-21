@@ -1526,6 +1526,7 @@ public final class FragmentUtils {
                 break;
         }
         ft.commitAllowingStateLoss();
+        fm.executePendingTransactions();
     }
 
     private static void addAnim(final FragmentTransaction ft,
