@@ -112,6 +112,74 @@ public final class ScreenUtils {
     public static int getScreenDensityDpi() {
         return Resources.getSystem().getDisplayMetrics().densityDpi;
     }
+    
+    
+    
+    
+    /**
+     * Return X (width) of the screen expressed as dots-per-inch.
+     *
+     * @return the width of screen density expressed as dots-per-inch
+     */
+    public static int getScreenXDpi() {
+        return Resources.getSystem().getDisplayMetrics().xdpi;
+    }
+    
+    /**
+     * Return Y (height) of the screen expressed as dots-per-inch.
+     *
+     * @return the height of screen density expressed as dots-per-inch
+     */
+    public static int getScreenYDpi() {
+        return Resources.getSystem().getDisplayMetrics().ydpi;
+    }
+    
+   
+    
+    /**
+     * Return the distance between the given View's X (start point of View's width) and the screen width.
+     *
+     * @return the distance between the given View's X (start point of View's width) and the screen width.
+     */
+    public float calculateDistanceByX(View view) {
+        int[] point = new int[0];
+        view.getLocationOnScreen(point);
+        return (getScreenWidth() - point[0]).toFloat();
+    }
+
+    /**
+     * Return the distance between the given View's Y (start point of View's height) and the screen height.
+     *
+     * @return the distance between the given View's Y (start point of View's height) and the screen height.
+     */
+    public float calculateDistanceByY(View view) {
+        int[] point = new int[0];
+        view.getLocationOnScreen(point);
+        return (getScreenHeight() - point[1]).toFloat();
+    }
+
+    /**
+     * Return the X coordinate of the given View on the screen.
+     *
+     * @return X coordinate of the given View on the screen.
+     */
+    public int getViewX(View view){
+        int[] point = new int[0];
+        view.getLocationOnScreen(point);
+        return point[0];
+    }
+    
+    /**
+     * Return the Y coordinate of the given View on the screen.
+     *
+     * @return Y coordinate of the given View on the screen.
+     */
+    public int getViewY(View view){
+        int[] point = new int[0];
+        view.getLocationOnScreen(point);
+        return point[1];
+    }
+    
 
     /**
      * Set full screen.
