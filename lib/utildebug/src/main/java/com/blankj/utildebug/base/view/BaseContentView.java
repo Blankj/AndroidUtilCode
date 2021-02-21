@@ -10,6 +10,8 @@ import com.blankj.utildebug.R;
 import com.blankj.utildebug.base.view.listener.OnBackListener;
 import com.blankj.utildebug.base.view.listener.OnRefreshListener;
 
+import java.util.Collections;
+
 /**
  * <pre>
  *     author: blankj

@@ -1,3 +1,5 @@
+* `21/02/22` [add] Fix ToastUtils rtl bug. Publish v1.30.6.
+* `20/11/16` [add] Add ImageUtils#save2Album support param of dirName.
 * `20/11/13` [add] Fix MessengerUtils ANR. Add NetworkUtils#getWifiScanResult, [add|remove]OnWifiChangedConsumer. Publish v1.30.5.
 * `20/10/29` [add] Fix MessengerUtils startService IllegalStateException. Publish v1.30.4.
 * `20/10/28` [add] Fix BusUtils ConcurrentModificationException. Publish v1.30.3.

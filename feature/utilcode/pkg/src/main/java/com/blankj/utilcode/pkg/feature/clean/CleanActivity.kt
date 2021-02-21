@@ -3,8 +3,6 @@ package com.blankj.utilcode.pkg.feature.clean
 import android.content.Context
 import android.content.Intent
 import com.blankj.common.activity.CommonActivity
-import com.blankj.common.activity.CommonActivityItemsView
-import com.blankj.common.activity.CommonActivityTitleView
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick
 import com.blankj.utilcode.pkg.R
@@ -52,6 +50,11 @@ class CleanActivity : CommonActivity() {
             if (SDCardUtils.isSDCardEnableByEnvironment()) {
                 add(CommonItemClick(R.string.clean_external_cache) {
                     showSnackbar(CleanUtils.cleanExternalCache(), externalCacheDir?.absolutePath)
+                })
+            }
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                add(CommonItemClick(R.string.clean_app_user_data) {
+                    CleanUtils.cleanAppUserData()
                 })
             }
         }

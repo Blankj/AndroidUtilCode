@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,7 +28,7 @@ public final class CacheDiskStaticUtils {
      *
      * @param cacheDiskUtils The default instance of {@link CacheDiskUtils}.
      */
-    public static void setDefaultCacheDiskUtils(final CacheDiskUtils cacheDiskUtils) {
+    public static void setDefaultCacheDiskUtils(@Nullable final CacheDiskUtils cacheDiskUtils) {
         sDefaultCacheDiskUtils = cacheDiskUtils;
     }
 
@@ -37,7 +38,7 @@ public final class CacheDiskStaticUtils {
      * @param key   The key of cache.
      * @param value The value of cache.
      */
-    public static void put(@NonNull final String key, final byte[] value) {
+    public static void put(@NonNull final String key, @Nullable final byte[] value) {
         put(key, value, getDefaultCacheDiskUtils());
     }
 
@@ -48,7 +49,7 @@ public final class CacheDiskStaticUtils {
      * @param value    The value of cache.
      * @param saveTime The save time of cache, in seconds.
      */
-    public static void put(@NonNull final String key, final byte[] value, final int saveTime) {
+    public static void put(@NonNull final String key, @Nullable final byte[] value, final int saveTime) {
         put(key, value, saveTime, getDefaultCacheDiskUtils());
     }
 
@@ -69,7 +70,7 @@ public final class CacheDiskStaticUtils {
      * @param defaultValue The default value if the cache doesn't exist.
      * @return the bytes if cache exists or defaultValue otherwise
      */
-    public static byte[] getBytes(@NonNull final String key, final byte[] defaultValue) {
+    public static byte[] getBytes(@NonNull final String key, @Nullable final byte[] defaultValue) {
         return getBytes(key, defaultValue, getDefaultCacheDiskUtils());
     }
 
@@ -83,7 +84,7 @@ public final class CacheDiskStaticUtils {
      * @param key   The key of cache.
      * @param value The value of cache.
      */
-    public static void put(@NonNull final String key, final String value) {
+    public static void put(@NonNull final String key, @Nullable final String value) {
         put(key, value, getDefaultCacheDiskUtils());
     }
 
@@ -94,7 +95,7 @@ public final class CacheDiskStaticUtils {
      * @param value    The value of cache.
      * @param saveTime The save time of cache, in seconds.
      */
-    public static void put(@NonNull final String key, final String value, final int saveTime) {
+    public static void put(@NonNull final String key, @Nullable final String value, final int saveTime) {
         put(key, value, saveTime, getDefaultCacheDiskUtils());
     }
 
@@ -115,7 +116,7 @@ public final class CacheDiskStaticUtils {
      * @param defaultValue The default value if the cache doesn't exist.
      * @return the string value if cache exists or defaultValue otherwise
      */
-    public static String getString(@NonNull final String key, final String defaultValue) {
+    public static String getString(@NonNull final String key, @Nullable final String defaultValue) {
         return getString(key, defaultValue, getDefaultCacheDiskUtils());
     }
 
@@ -129,7 +130,7 @@ public final class CacheDiskStaticUtils {
      * @param key   The key of cache.
      * @param value The value of cache.
      */
-    public static void put(@NonNull final String key, final JSONObject value) {
+    public static void put(@NonNull final String key, @Nullable final JSONObject value) {
         put(key, value, getDefaultCacheDiskUtils());
     }
 
@@ -141,7 +142,7 @@ public final class CacheDiskStaticUtils {
      * @param saveTime The save time of cache, in seconds.
      */
     public static void put(@NonNull final String key,
-                           final JSONObject value,
+                           @Nullable final JSONObject value,
                            final int saveTime) {
         put(key, value, saveTime, getDefaultCacheDiskUtils());
     }
@@ -163,7 +164,7 @@ public final class CacheDiskStaticUtils {
      * @param defaultValue The default value if the cache doesn't exist.
      * @return the JSONObject if cache exists or defaultValue otherwise
      */
-    public static JSONObject getJSONObject(@NonNull final String key, final JSONObject defaultValue) {
+    public static JSONObject getJSONObject(@NonNull final String key, @Nullable final JSONObject defaultValue) {
         return getJSONObject(key, defaultValue, getDefaultCacheDiskUtils());
     }
 
@@ -178,7 +179,7 @@ public final class CacheDiskStaticUtils {
      * @param key   The key of cache.
      * @param value The value of cache.
      */
-    public static void put(@NonNull final String key, final JSONArray value) {
+    public static void put(@NonNull final String key, @Nullable final JSONArray value) {
         put(key, value, getDefaultCacheDiskUtils());
     }
 
@@ -189,7 +190,7 @@ public final class CacheDiskStaticUtils {
      * @param value    The value of cache.
      * @param saveTime The save time of cache, in seconds.
      */
-    public static void put(@NonNull final String key, final JSONArray value, final int saveTime) {
+    public static void put(@NonNull final String key, @Nullable final JSONArray value, final int saveTime) {
         put(key, value, saveTime, getDefaultCacheDiskUtils());
     }
 
@@ -210,7 +211,7 @@ public final class CacheDiskStaticUtils {
      * @param defaultValue The default value if the cache doesn't exist.
      * @return the JSONArray if cache exists or defaultValue otherwise
      */
-    public static JSONArray getJSONArray(@NonNull final String key, final JSONArray defaultValue) {
+    public static JSONArray getJSONArray(@NonNull final String key, @Nullable final JSONArray defaultValue) {
         return getJSONArray(key, defaultValue, getDefaultCacheDiskUtils());
     }
 
@@ -225,7 +226,7 @@ public final class CacheDiskStaticUtils {
      * @param key   The key of cache.
      * @param value The value of cache.
      */
-    public static void put(@NonNull final String key, final Bitmap value) {
+    public static void put(@NonNull final String key, @Nullable final Bitmap value) {
         put(key, value, getDefaultCacheDiskUtils());
     }
 
@@ -236,7 +237,7 @@ public final class CacheDiskStaticUtils {
      * @param value    The value of cache.
      * @param saveTime The save time of cache, in seconds.
      */
-    public static void put(@NonNull final String key, final Bitmap value, final int saveTime) {
+    public static void put(@NonNull final String key, @Nullable final Bitmap value, final int saveTime) {
         put(key, value, saveTime, getDefaultCacheDiskUtils());
     }
 
@@ -257,7 +258,7 @@ public final class CacheDiskStaticUtils {
      * @param defaultValue The default value if the cache doesn't exist.
      * @return the bitmap if cache exists or defaultValue otherwise
      */
-    public static Bitmap getBitmap(@NonNull final String key, final Bitmap defaultValue) {
+    public static Bitmap getBitmap(@NonNull final String key, @Nullable final Bitmap defaultValue) {
         return getBitmap(key, defaultValue, getDefaultCacheDiskUtils());
     }
 
@@ -271,7 +272,7 @@ public final class CacheDiskStaticUtils {
      * @param key   The key of cache.
      * @param value The value of cache.
      */
-    public static void put(@NonNull final String key, final Drawable value) {
+    public static void put(@NonNull final String key, @Nullable final Drawable value) {
         put(key, value, getDefaultCacheDiskUtils());
     }
 
@@ -282,7 +283,7 @@ public final class CacheDiskStaticUtils {
      * @param value    The value of cache.
      * @param saveTime The save time of cache, in seconds.
      */
-    public static void put(@NonNull final String key, final Drawable value, final int saveTime) {
+    public static void put(@NonNull final String key, @Nullable final Drawable value, final int saveTime) {
         put(key, value, saveTime, getDefaultCacheDiskUtils());
     }
 
@@ -303,7 +304,7 @@ public final class CacheDiskStaticUtils {
      * @param defaultValue The default value if the cache doesn't exist.
      * @return the drawable if cache exists or defaultValue otherwise
      */
-    public static Drawable getDrawable(@NonNull final String key, final Drawable defaultValue) {
+    public static Drawable getDrawable(@NonNull final String key, final @Nullable Drawable defaultValue) {
         return getDrawable(key, defaultValue, getDefaultCacheDiskUtils());
     }
 
@@ -317,7 +318,7 @@ public final class CacheDiskStaticUtils {
      * @param key   The key of cache.
      * @param value The value of cache.
      */
-    public static void put(@NonNull final String key, final Parcelable value) {
+    public static void put(@NonNull final String key, @Nullable final Parcelable value) {
         put(key, value, getDefaultCacheDiskUtils());
     }
 
@@ -328,7 +329,7 @@ public final class CacheDiskStaticUtils {
      * @param value    The value of cache.
      * @param saveTime The save time of cache, in seconds.
      */
-    public static void put(@NonNull final String key, final Parcelable value, final int saveTime) {
+    public static void put(@NonNull final String key, @Nullable final Parcelable value, final int saveTime) {
         put(key, value, saveTime, getDefaultCacheDiskUtils());
     }
 
@@ -356,7 +357,7 @@ public final class CacheDiskStaticUtils {
      */
     public static <T> T getParcelable(@NonNull final String key,
                                       @NonNull final Parcelable.Creator<T> creator,
-                                      final T defaultValue) {
+                                      @Nullable final T defaultValue) {
         return getParcelable(key, creator, defaultValue, getDefaultCacheDiskUtils());
     }
 
@@ -370,7 +371,7 @@ public final class CacheDiskStaticUtils {
      * @param key   The key of cache.
      * @param value The value of cache.
      */
-    public static void put(@NonNull final String key, final Serializable value) {
+    public static void put(@NonNull final String key, @Nullable final Serializable value) {
         put(key, value, getDefaultCacheDiskUtils());
     }
 
@@ -381,7 +382,7 @@ public final class CacheDiskStaticUtils {
      * @param value    The value of cache.
      * @param saveTime The save time of cache, in seconds.
      */
-    public static void put(@NonNull final String key, final Serializable value, final int saveTime) {
+    public static void put(@NonNull final String key, @Nullable final Serializable value, final int saveTime) {
         put(key, value, saveTime, getDefaultCacheDiskUtils());
     }
 
@@ -402,7 +403,7 @@ public final class CacheDiskStaticUtils {
      * @param defaultValue The default value if the cache doesn't exist.
      * @return the bitmap if cache exists or defaultValue otherwise
      */
-    public static Object getSerializable(@NonNull final String key, final Object defaultValue) {
+    public static Object getSerializable(@NonNull final String key, @Nullable final Object defaultValue) {
         return getSerializable(key, defaultValue, getDefaultCacheDiskUtils());
     }
 
@@ -455,7 +456,7 @@ public final class CacheDiskStaticUtils {
      * @param cacheDiskUtils The instance of {@link CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
-                           final byte[] value,
+                           @Nullable final byte[] value,
                            @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value);
     }
@@ -469,7 +470,7 @@ public final class CacheDiskStaticUtils {
      * @param cacheDiskUtils The instance of {@link CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
-                           final byte[] value,
+                           @Nullable final byte[] value,
                            final int saveTime,
                            @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value, saveTime);
@@ -495,7 +496,7 @@ public final class CacheDiskStaticUtils {
      * @return the bytes if cache exists or defaultValue otherwise
      */
     public static byte[] getBytes(@NonNull final String key,
-                                  final byte[] defaultValue,
+                                  @Nullable final byte[] defaultValue,
                                   @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getBytes(key, defaultValue);
     }
@@ -512,7 +513,7 @@ public final class CacheDiskStaticUtils {
      * @param cacheDiskUtils The instance of {@link CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
-                           final String value,
+                           @Nullable final String value,
                            @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value);
     }
@@ -526,7 +527,7 @@ public final class CacheDiskStaticUtils {
      * @param cacheDiskUtils The instance of {@link CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
-                           final String value,
+                           @Nullable final String value,
                            final int saveTime,
                            @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value, saveTime);
@@ -552,7 +553,7 @@ public final class CacheDiskStaticUtils {
      * @return the string value if cache exists or defaultValue otherwise
      */
     public static String getString(@NonNull final String key,
-                                   final String defaultValue,
+                                   @Nullable final String defaultValue,
                                    @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getString(key, defaultValue);
     }
@@ -569,7 +570,7 @@ public final class CacheDiskStaticUtils {
      * @param cacheDiskUtils The instance of {@link CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
-                           final JSONObject value,
+                           @Nullable final JSONObject value,
                            @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value);
     }
@@ -583,7 +584,7 @@ public final class CacheDiskStaticUtils {
      * @param cacheDiskUtils The instance of {@link CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
-                           final JSONObject value,
+                           @Nullable final JSONObject value,
                            final int saveTime,
                            @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value, saveTime);
@@ -609,7 +610,7 @@ public final class CacheDiskStaticUtils {
      * @return the JSONObject if cache exists or defaultValue otherwise
      */
     public static JSONObject getJSONObject(@NonNull final String key,
-                                           final JSONObject defaultValue,
+                                           @Nullable final JSONObject defaultValue,
                                            @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getJSONObject(key, defaultValue);
     }
@@ -627,7 +628,7 @@ public final class CacheDiskStaticUtils {
      * @param cacheDiskUtils The instance of {@link CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
-                           final JSONArray value,
+                           @Nullable final JSONArray value,
                            @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value);
     }
@@ -641,7 +642,7 @@ public final class CacheDiskStaticUtils {
      * @param cacheDiskUtils The instance of {@link CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
-                           final JSONArray value,
+                           @Nullable final JSONArray value,
                            final int saveTime,
                            @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value, saveTime);
@@ -667,7 +668,7 @@ public final class CacheDiskStaticUtils {
      * @return the JSONArray if cache exists or defaultValue otherwise
      */
     public static JSONArray getJSONArray(@NonNull final String key,
-                                         final JSONArray defaultValue,
+                                         @Nullable final JSONArray defaultValue,
                                          @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getJSONArray(key, defaultValue);
     }
@@ -685,7 +686,7 @@ public final class CacheDiskStaticUtils {
      * @param cacheDiskUtils The instance of {@link CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
-                           final Bitmap value,
+                           @Nullable final Bitmap value,
                            @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value);
     }
@@ -699,7 +700,7 @@ public final class CacheDiskStaticUtils {
      * @param cacheDiskUtils The instance of {@link CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
-                           final Bitmap value,
+                           @Nullable final Bitmap value,
                            final int saveTime,
                            @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value, saveTime);
@@ -725,7 +726,7 @@ public final class CacheDiskStaticUtils {
      * @return the bitmap if cache exists or defaultValue otherwise
      */
     public static Bitmap getBitmap(@NonNull final String key,
-                                   final Bitmap defaultValue,
+                                   @Nullable final Bitmap defaultValue,
                                    @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getBitmap(key, defaultValue);
     }
@@ -742,7 +743,7 @@ public final class CacheDiskStaticUtils {
      * @param cacheDiskUtils The instance of {@link CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
-                           final Drawable value,
+                           @Nullable final Drawable value,
                            @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value);
     }
@@ -756,7 +757,7 @@ public final class CacheDiskStaticUtils {
      * @param cacheDiskUtils The instance of {@link CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
-                           final Drawable value,
+                           @Nullable final Drawable value,
                            final int saveTime,
                            @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value, saveTime);
@@ -782,7 +783,7 @@ public final class CacheDiskStaticUtils {
      * @return the drawable if cache exists or defaultValue otherwise
      */
     public static Drawable getDrawable(@NonNull final String key,
-                                       final Drawable defaultValue,
+                                       @Nullable final Drawable defaultValue,
                                        @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getDrawable(key, defaultValue);
     }
@@ -799,7 +800,7 @@ public final class CacheDiskStaticUtils {
      * @param cacheDiskUtils The instance of {@link CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
-                           final Parcelable value,
+                           @Nullable final Parcelable value,
                            @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value);
     }
@@ -813,7 +814,7 @@ public final class CacheDiskStaticUtils {
      * @param cacheDiskUtils The instance of {@link CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
-                           final Parcelable value,
+                           @Nullable final Parcelable value,
                            final int saveTime,
                            @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value, saveTime);
@@ -846,7 +847,7 @@ public final class CacheDiskStaticUtils {
      */
     public static <T> T getParcelable(@NonNull final String key,
                                       @NonNull final Parcelable.Creator<T> creator,
-                                      final T defaultValue,
+                                      @Nullable final T defaultValue,
                                       @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getParcelable(key, creator, defaultValue);
     }
@@ -863,7 +864,7 @@ public final class CacheDiskStaticUtils {
      * @param cacheDiskUtils The instance of {@link CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
-                           final Serializable value,
+                           @Nullable final Serializable value,
                            @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value);
     }
@@ -877,7 +878,7 @@ public final class CacheDiskStaticUtils {
      * @param cacheDiskUtils The instance of {@link CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
-                           final Serializable value,
+                           @Nullable final Serializable value,
                            final int saveTime,
                            @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value, saveTime);
@@ -903,7 +904,7 @@ public final class CacheDiskStaticUtils {
      * @return the bitmap if cache exists or defaultValue otherwise
      */
     public static Object getSerializable(@NonNull final String key,
-                                         final Object defaultValue,
+                                         @Nullable final Object defaultValue,
                                          @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getSerializable(key, defaultValue);
     }
@@ -949,6 +950,7 @@ public final class CacheDiskStaticUtils {
         return cacheDiskUtils.clear();
     }
 
+    @NonNull
     private static CacheDiskUtils getDefaultCacheDiskUtils() {
         return sDefaultCacheDiskUtils != null ? sDefaultCacheDiskUtils : CacheDiskUtils.getInstance();
     }

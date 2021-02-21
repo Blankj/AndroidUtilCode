@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Parcelable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.RequiresPermission;
 import android.support.annotation.StringRes;
@@ -535,7 +536,7 @@ class UtilsBridge {
         return StringUtils.getString(id, formatArgs);
     }
 
-    static String format(String str, Object... args) {
+    static String format(@Nullable String str, Object... args) {
         return StringUtils.format(str, args);
     }
 
@@ -604,6 +605,10 @@ class UtilsBridge {
     ///////////////////////////////////////////////////////////////////////////
     static View layoutId2View(@LayoutRes final int layoutId) {
         return ViewUtils.layoutId2View(layoutId);
+    }
+
+    static boolean isLayoutRtl() {
+        return ViewUtils.isLayoutRtl();
     }
 
 

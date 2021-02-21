@@ -60,6 +60,9 @@ class LanguageActivity : CommonActivity() {
                 CommonItemClick(R.string.language_apply_english) {
                     LanguageUtils.applyLanguage(Locale.ENGLISH, isRelaunchApp())
                 },
+                CommonItemClick(R.string.language_apply_arabic) {
+                    LanguageUtils.applyLanguage(Locale("ar"), isRelaunchApp())
+                },
                 CommonItemClick(R.string.language_apply_system) {
                     LanguageUtils.applySystemLanguage(isRelaunchApp())
                 }

@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
 import android.support.v4.content.FileProvider;
@@ -402,8 +403,8 @@ public final class IntentUtils {
      * @param phoneNumber The phone number.
      * @return the intent of dial
      */
-    public static Intent getDialIntent(final String phoneNumber) {
-        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+    public static Intent getDialIntent(@NonNull final String phoneNumber) {
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(phoneNumber)));
         return getIntent(intent, true);
     }
 
@@ -415,8 +416,8 @@ public final class IntentUtils {
      * @return the intent of call
      */
     @RequiresPermission(CALL_PHONE)
-    public static Intent getCallIntent(final String phoneNumber) {
-        Intent intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + phoneNumber));
+    public static Intent getCallIntent(@NonNull final String phoneNumber) {
+        Intent intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + Uri.encode(phoneNumber)));
         return getIntent(intent, true);
     }
 
@@ -427,8 +428,8 @@ public final class IntentUtils {
      * @param content     The content of SMS.
      * @return the intent of send SMS
      */
-    public static Intent getSendSmsIntent(final String phoneNumber, final String content) {
-        Uri uri = Uri.parse("smsto:" + phoneNumber);
+    public static Intent getSendSmsIntent(@NonNull final String phoneNumber, final String content) {
+        Uri uri = Uri.parse("smsto:" + Uri.encode(phoneNumber));
         Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
         intent.putExtra("sms_body", content);
         return getIntent(intent, true);

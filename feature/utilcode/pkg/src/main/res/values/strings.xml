@@ -141,6 +141,7 @@
     <string name="clean_internal_databases">Clean Internal Databases</string>
     <string name="clean_internal_sp">Clean Internal SP</string>
     <string name="clean_external_cache">Clean External Cache</string>
+    <string name="clean_app_user_data">cleanAppUserData</string>
 
     <!--Click 相关-->
     <string name="click_view_scale_default">Click View Scale Default</string>
@@ -233,6 +234,7 @@
     <string name="language_apply_simple_chinese">Apply Simple Chinese</string>
     <string name="language_apply_american">Apply American</string>
     <string name="language_apply_english">Apply English</string>
+    <string name="language_apply_arabic">Apply Arabic</string>
     <string name="language_apply_system">Apply System</string>
 
     <!--Log 相关-->
@@ -341,6 +343,7 @@
     <string name="toast_show_custom_view">Show Custom View</string>
     <string name="toast_custom_view">Custom View</string>
     <string name="toast_show_middle">Show Middle</string>
+    <string name="toast_show_top">Show Top</string>
     <string name="toast_cancel">Cancel</string>
     <string name="toast_show_toast_dialog">Show Toast Dialog</string>
     <string name="toast_show_toast_when_start_activity">Show Toast When Start Activity</string>
@@ -351,6 +354,7 @@
     <string name="toast_custom_bg">Custom Bg</string>
     <string name="toast_span">Spannable String</string>
     <string name="toast_middle">Middle</string>
+    <string name="toast_top">Top</string>
 
     <!--UiMessage 相关-->
     <string name="uiMessage_add_listener_id">Add Listener Id</string>

@@ -1,12 +1,14 @@
 package com.blankj.subutil.util;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
+import android.os.Build;
+import android.os.PowerManager;
 import android.support.annotation.IntDef;
+import android.support.annotation.RequiresApi;
 
 import com.blankj.utilcode.util.ThreadUtils;
 import com.blankj.utilcode.util.Utils;
@@ -35,6 +37,32 @@ public final class BatteryUtils {
         int CHARGING     = BatteryManager.BATTERY_STATUS_CHARGING;
         int NOT_CHARGING = BatteryManager.BATTERY_STATUS_NOT_CHARGING;
         int FULL         = BatteryManager.BATTERY_STATUS_FULL;
+    }
+
+    /**
+     * Return whether the app is on the device's power whitelist.
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public static boolean isIgnoringBatteryOptimizations() {
+        return isIgnoringBatteryOptimizations(Utils.getApp().getPackageName());
+    }
+
+    /**
+     * Return whether the app is on the device's power whitelist.
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public static boolean isIgnoringBatteryOptimizations(String pkgName) {
+        try {
+            PowerManager pm = (PowerManager) Utils.getApp().getSystemService(Context.POWER_SERVICE);
+            //noinspection ConstantConditions
+            return pm.isIgnoringBatteryOptimizations(pkgName);
+        } catch (Exception e) {
+            return true;
+        }
     }
 
     /**

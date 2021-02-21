@@ -514,9 +514,7 @@ public final class SpanUtils {
      * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setClickSpan(@NonNull final ClickableSpan clickSpan) {
-        if (mTextView != null && mTextView.getMovementMethod() == null) {
-            mTextView.setMovementMethod(LinkMovementMethod.getInstance());
-        }
+        setMovementMethodIfNeed();
         this.clickSpan = clickSpan;
         return this;
     }
@@ -533,9 +531,7 @@ public final class SpanUtils {
     public SpanUtils setClickSpan(@ColorInt final int color,
                                   final boolean underlineText,
                                   final View.OnClickListener listener) {
-        if (mTextView != null && mTextView.getMovementMethod() == null) {
-            mTextView.setMovementMethod(LinkMovementMethod.getInstance());
-        }
+        setMovementMethodIfNeed();
         this.clickSpan = new ClickableSpan() {
 
             @Override
@@ -562,11 +558,15 @@ public final class SpanUtils {
      * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setUrl(@NonNull final String url) {
+        setMovementMethodIfNeed();
+        this.url = url;
+        return this;
+    }
+
+    private void setMovementMethodIfNeed() {
         if (mTextView != null && mTextView.getMovementMethod() == null) {
             mTextView.setMovementMethod(LinkMovementMethod.getInstance());
         }
-        this.url = url;
-        return this;
     }
 
     /**

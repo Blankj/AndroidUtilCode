@@ -6,6 +6,7 @@
     <string name="language_apply_simple_chinese">设置简体中文</string>
     <string name="language_apply_american">设置美语</string>
     <string name="language_apply_english">设置英语</string>
+    <string name="language_apply_arabic">设置阿拉伯语</string>
     <string name="language_apply_system">设置系统语言</string>
 
 </resources>
