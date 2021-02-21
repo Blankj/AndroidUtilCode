@@ -389,9 +389,9 @@ public final class IntentUtils {
     public static Intent getShutdownIntent() {
         Intent intent;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            intent = new Intent(Intent.ACTION_SHUTDOWN);
-        } else {
             intent = new Intent("com.android.internal.intent.action.REQUEST_SHUTDOWN");
+        } else {
+            intent = new Intent("android.intent.action.ACTION_REQUEST_SHUTDOWN");
         }
         intent.putExtra("android.intent.extra.KEY_CONFIRM", false);
         return intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

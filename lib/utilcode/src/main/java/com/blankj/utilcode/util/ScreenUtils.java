@@ -112,39 +112,34 @@ public final class ScreenUtils {
     public static int getScreenDensityDpi() {
         return Resources.getSystem().getDisplayMetrics().densityDpi;
     }
-    
-    
-    
-    
+
     /**
-     * Return X (width) of the screen expressed as dots-per-inch.
+     * Return the exact physical pixels per inch of the screen in the Y dimension.
      *
-     * @return the width of screen density expressed as dots-per-inch
+     * @return the exact physical pixels per inch of the screen in the Y dimension
      */
-    public static int getScreenXDpi() {
+    public static float getScreenXDpi() {
         return Resources.getSystem().getDisplayMetrics().xdpi;
     }
-    
+
     /**
-     * Return Y (height) of the screen expressed as dots-per-inch.
+     * Return the exact physical pixels per inch of the screen in the Y dimension.
      *
-     * @return the height of screen density expressed as dots-per-inch
+     * @return the exact physical pixels per inch of the screen in the Y dimension
      */
-    public static int getScreenYDpi() {
+    public static float getScreenYDpi() {
         return Resources.getSystem().getDisplayMetrics().ydpi;
     }
-    
-   
-    
+
     /**
      * Return the distance between the given View's X (start point of View's width) and the screen width.
      *
      * @return the distance between the given View's X (start point of View's width) and the screen width.
      */
-    public float calculateDistanceByX(View view) {
-        int[] point = new int[0];
+    public int calculateDistanceByX(View view) {
+        int[] point = new int[2];
         view.getLocationOnScreen(point);
-        return (getScreenWidth() - point[0]).toFloat();
+        return getScreenWidth() - point[0];
     }
 
     /**
@@ -152,10 +147,10 @@ public final class ScreenUtils {
      *
      * @return the distance between the given View's Y (start point of View's height) and the screen height.
      */
-    public float calculateDistanceByY(View view) {
-        int[] point = new int[0];
+    public int calculateDistanceByY(View view) {
+        int[] point = new int[2];
         view.getLocationOnScreen(point);
-        return (getScreenHeight() - point[1]).toFloat();
+        return getScreenHeight() - point[1];
     }
 
     /**
@@ -163,23 +158,22 @@ public final class ScreenUtils {
      *
      * @return X coordinate of the given View on the screen.
      */
-    public int getViewX(View view){
-        int[] point = new int[0];
+    public int getViewX(View view) {
+        int[] point = new int[2];
         view.getLocationOnScreen(point);
         return point[0];
     }
-    
+
     /**
      * Return the Y coordinate of the given View on the screen.
      *
      * @return Y coordinate of the given View on the screen.
      */
-    public int getViewY(View view){
-        int[] point = new int[0];
+    public int getViewY(View view) {
+        int[] point = new int[2];
         view.getLocationOnScreen(point);
         return point[1];
     }
-    
 
     /**
      * Set full screen.
