@@ -320,7 +320,7 @@ public class MessengerUtils {
             for (Messenger client : mClientMap.values()) {
                 try {
                     if (client != null) {
-                        client.send(msg);
+                        client.send(Message.obtain(msg));
                     }
                 } catch (RemoteException e) {
                     e.printStackTrace();
