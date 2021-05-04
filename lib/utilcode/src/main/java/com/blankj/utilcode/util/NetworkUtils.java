@@ -261,6 +261,34 @@ public final class NetworkUtils {
         }
         return false;
     }
+    
+     /**
+     * Returns true if device is connecting to the internet via a proxy, works for both Wi-Fi and Mobile Data.
+     *
+     * @return true if using proxy to connect to the internet.
+     */
+    public static boolean isBehindProxy(){
+        return !(System.getProperty("http.proxyHost") == null || System.getProperty("http.proxyPort") == null);
+    }
+
+    /**
+     * Returns true if device is connecting to the internet via a VPN.
+     *
+     * @return true if using VPN to conncet to the internet.
+     */
+    public static boolean isUsingVPN(){
+        ConnectivityManager cm = (ConnectivityManager) com.blankj.utilcode.util.Utils.getApp().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            return cm.getNetworkInfo(ConnectivityManager.TYPE_VPN).isConnectedOrConnecting()
+        } else {
+            return cm.getNetworkInfo(NetworkCapabilities.TRANSPORT_VPN).isConnectedOrConnecting()
+        }
+    }
+
+    
+    
+    
+    
 
     /**
      * Return whether using mobile data.
