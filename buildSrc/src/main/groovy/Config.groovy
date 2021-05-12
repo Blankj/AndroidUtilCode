@@ -15,10 +15,10 @@ class Config {
     static minSdkVersion = 14
     static targetSdkVersion = 29
     static versionCode = 1_030_006
-    static versionName = '1.30.6'// E.g. 1.9.72 => 1,009,072
+    static versionName = '1.30.7-alpha1'// E.g. 1.9.72 => 1,009,072
 
     // lib version
-    static gradlePluginVersion = '3.5.2'
+    static gradlePluginVersion = '4.1.0'
     static kotlinVersion = '1.3.72'
     static androidxVersion = '1.0.0'
 
@@ -47,8 +47,6 @@ class Config {
             /*Never delete this line*/
             plugin_gradle              : new DepConfig(pluginPath: "com.android.tools.build:gradle:$gradlePluginVersion"),
             plugin_kotlin              : new DepConfig(pluginPath: "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"),
-            plugin_maven               : new DepConfig(pluginPath: "com.github.dcendents:android-maven-gradle-plugin:2.1", pluginId: "com.github.dcendents.android-maven"),// 上传到 maven
-            plugin_bintray             : new DepConfig(pluginPath: "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4", pluginId: "com.jfrog.bintray"),// 上传到 bintray
             plugin_traute              : new DepConfig(pluginPath: "tech.harmonysoft:traute-gradle:1.1.10", pluginId: "tech.harmonysoft.oss.traute"),// 注解转非空判断
 
             // 上传新版本插件更新 pluginPath 中的版本号，并设置 isApply = false

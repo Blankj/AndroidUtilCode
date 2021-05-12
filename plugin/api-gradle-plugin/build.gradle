@@ -31,14 +31,12 @@ sourceSets {
     }
 }
 
-apply from: "${rootDir.path}/gradle/publish.gradle"
-publish {
-    name = "ApiPlugin"
+ext {
     groupId = Config.depConfig.plugin_api.groupId
     artifactId = Config.depConfig.plugin_api.artifactId
     version = Config.depConfig.plugin_api.version
     website = "https://github.com/Blankj/AndroidUtilCode"
 }
-
+apply from: "${rootDir.path}/config/publish.gradle"
 //./gradlew clean :plugin_api-gradle-plugin:mavenLocal     // 上传到本地 mavenLocal
 //./gradlew clean :plugin_api-gradle-plugin:bintrayUpload  // 上传到 jcenter

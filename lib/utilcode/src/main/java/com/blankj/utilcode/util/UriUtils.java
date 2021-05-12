@@ -57,7 +57,7 @@ public final class UriUtils {
     public static Uri file2Uri(final File file) {
         if (!UtilsBridge.isFileExists(file)) return null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            String authority = Utils.getApp().getPackageName() + ".utilcode.provider";
+            String authority = Utils.getApp().getPackageName() + ".utilcode.fileprovider";
             return FileProvider.getUriForFile(Utils.getApp(), authority, file);
         } else {
             return Uri.fromFile(file);

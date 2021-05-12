@@ -74,7 +74,7 @@ public final class IntentUtils {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             uri = Uri.fromFile(file);
         } else {
-            String authority = Utils.getApp().getPackageName() + ".utilcode.provider";
+            String authority = Utils.getApp().getPackageName() + ".utilcode.fileprovider";
             uri = FileProvider.getUriForFile(Utils.getApp(), authority, file);
         }
         return getInstallAppIntent(uri);

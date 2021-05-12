@@ -1,3 +1,4 @@
+* `21/05/13` [add] Support publish mavenCentral.
 * `21/02/22` [add] Fix ToastUtils rtl bug. Publish v1.30.6.
 * `20/11/16` [add] Add ImageUtils#save2Album support param of dirName.
 * `20/11/13` [add] Fix MessengerUtils ANR. Add NetworkUtils#getWifiScanResult, [add|remove]OnWifiChangedConsumer. Publish v1.30.5.

@@ -1,6 +1,7 @@
 apply {
     plugin "com.android.application"
-    from  "${rootDir.path}/buildCommon.gradle"
+    from "${rootDir.path}/buildCommon.gradle"
+    from "${rootDir.path}/config/flavor.gradle"
     if (Config.depConfig.plugin_api.isApply) {
         plugin Config.depConfig.plugin_api.pluginId
     }
@@ -32,19 +33,11 @@ android {
     }
 
     buildTypes {
-        debug {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            applicationIdSuffix ".debug"
-            resValue "string", "app_name", Config.appName + suffix + ".debug"
-        }
+        debug {}
 
         release {
-            aaptOptions.cruncherEnabled = false
-            aaptOptions.useNewCruncher = false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            resValue "string", "app_name", Config.appName + suffix
         }
     }
 
@@ -58,8 +51,19 @@ android {
         maxProcessCount 8
         dexInProcess = true
     }
-}
 
+    productFlavors {
+        dev {
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+            resValue "string", "app_name", Config.appName + suffix + "-dev"
+        }
+
+        production {
+            resValue "string", "app_name", Config.appName + suffix
+        }
+    }
+}
 
 dependencies {
     // LeakCanary
@@ -80,7 +84,9 @@ dependencies {
 
 def getSuffix() {
     if (project.name == "feature_launcher_app") return ""
-    return "." + project.name.substring("feature_".length(), project.name.length() - "_app".length())
+    return "." + project.
+        name.
+        substring("feature_".length(), project.name.length() - "_app".length())
 }
 
 def configSigning() {
@@ -110,12 +116,14 @@ def configApkName() {
         if (variant.buildType.name != "debug") {
             def artifact = variant.getPackageApplicationProvider().get()
             artifact.outputDirectory = new File("${rootDir.path}/apk")
-            artifact.outputScope.apkDatas.forEach { apkData ->
-                apkData.outputFileName = "util" + suffix +
-                        (variant.flavorName == "" ? "" : ("_" + variant.flavorName)) +
-                        "_" + variant.versionName.replace(".", "_") +
-                        "_" + variant.buildType.name +
-                        ".apk"
+            variant.outputs.each {
+                it.outputFileName = "util" + suffix +
+                    (variant.flavorName == "" ? "" : ("_" + variant.flavorName)) +
+                    "_" +
+                    variant.versionName.replace(".", "_") +
+                    "_" +
+                    variant.buildType.name +
+                    ".apk"
             }
         }
     }

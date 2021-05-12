@@ -1,5 +1,5 @@
 apply {
-    plugin Config.depConfig.plugin_traute.pluginId
+    //    plugin Config.depConfig.plugin_traute.pluginId
     plugin "readme-core"
 }
 
@@ -29,7 +29,7 @@ android {
 dependencies {
     implementation Config.depConfig.gson.dep
 
-    compileOnly Config.depConfig.androidx_appcompat.dep
+    implementation Config.depConfig.androidx_appcompat.dep
     compileOnly Config.depConfig.androidx_material.dep
 
     testImplementation Config.depConfig.test_junit.dep
@@ -39,15 +39,10 @@ dependencies {
     testImplementation Config.depConfig.eventbus_lib.dep
 }
 
-afterEvaluate {
-    verifyReleaseResources.enabled(false)
-}
-
-apply from: "${rootDir.path}/gradle/publish.gradle"
-publish {
-    name = "UtilCodeX"
+ext {
     groupId = Config.depConfig.lib_utilcode.groupId
     artifactId = Config.depConfig.lib_utilcode.artifactId
     version = Config.depConfig.lib_utilcode.version
     website = "https://github.com/Blankj/AndroidUtilCode"
 }
+apply from: "${rootDir.path}/config/publish.gradle"

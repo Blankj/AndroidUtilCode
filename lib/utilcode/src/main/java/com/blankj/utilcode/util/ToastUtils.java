@@ -437,7 +437,7 @@ public final class ToastUtils {
      * @param args  The args.
      */
     public static void showLong(@StringRes final int resId, final Object... args) {
-        show(UtilsBridge.getString(resId), Toast.LENGTH_LONG, DEFAULT_MAKER);
+        show(UtilsBridge.getString(resId, args), Toast.LENGTH_LONG, DEFAULT_MAKER);
     }
 
     /**

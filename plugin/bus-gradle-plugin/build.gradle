@@ -31,14 +31,12 @@ sourceSets {
     }
 }
 
-apply from: "${rootDir.path}/gradle/publish.gradle"
-publish {
-    name = "BusPlugin"
+ext {
     groupId = Config.depConfig.plugin_bus.groupId
     artifactId = Config.depConfig.plugin_bus.artifactId
     version = Config.depConfig.plugin_bus.version
     website = "https://github.com/Blankj/AndroidUtilCode"
 }
-
+apply from: "${rootDir.path}/config/publish.gradle"
 //./gradlew clean :plugin_bus-gradle-plugin:mavenLocal    // 上传到本地 mavenLocal
 //./gradlew clean :plugin_bus-gradle-plugin:bintrayUpload // 上传到 jcenter
