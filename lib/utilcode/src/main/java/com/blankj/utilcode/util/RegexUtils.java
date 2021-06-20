@@ -40,6 +40,54 @@ public final class RegexUtils {
         return isMatch(RegexConstants.REGEX_MOBILE_SIMPLE, input);
     }
 
+    
+    /**
+     * Returns the domain part of a given Email address
+     *
+     * @param email The Email address. E.g Returns "protonmail.com" from the given Email "johnsmith@protonmail.com".
+     * @return the domain part of a given Email address.
+     */
+    public static String extractEmailProvider(String email) {
+        return email.substring(email.lastIndexOf("@") + 1);
+    }
+
+    /**
+     * Returns the username part of a given Email address. E.g. Returns "johnsmith" from the given Email "johnsmith@protonmail.com".
+     *
+     * @param email The Email address.
+     * @return the username part of a given Email address.
+     */
+    public static String extractEmailUsername(String email) {
+        return email.substring(0, email.lastIndexOf("@"));
+    }
+
+
+    /**
+     * Return whether a given Email address is on a specified Email provider. E.g. "johnsmith@protonmail.com" and "gmail.com" will return false.
+     *
+     * @param email The Email address.
+     * @param emailProvider The Email provider to testify against.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isFromEmailProvider(String email, String emailProvider) {
+        return extractEmailProvider(email).equalsIgnoreCase(emailProvider);
+    }
+
+    /**
+     * Return whether a given Email address is on any of the specified Email providers list (array). E.g. Useful if you pass it a list of real Email provider services and check if the Email is a disposable Email or a real one.
+     *
+     * @param email The Email address.
+     * @param emailProviders The list of Email providers to testify against.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isFromAnyOfEmailProviders(String email, String[] emailProviders) {
+        return com.blankj.utilcode.util.ArrayUtils.contains(emailProviders, extractEmailProvider(email));
+    }
+    
+    
+    
+    
+    
     /**
      * Return whether input matches regex of exact mobile.
      *
