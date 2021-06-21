@@ -19,7 +19,7 @@ class Config {
 
     // lib version
     static gradlePluginVersion = '3.5.0'
-    static kotlinVersion = '1.3.72'
+    static kotlinVersion = '1.4.21'
     static supportVersion = '28.0.0'
 
     static depConfig = [

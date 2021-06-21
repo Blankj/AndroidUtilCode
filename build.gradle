@@ -7,7 +7,7 @@ buildscript {
             maven() { url uri("${project.rootDir.path}/mavenLocal") }
         }
         google()
-        jcenter()
+        maven { url "https://maven.aliyun.com/repository/public" }
     }
 
     dependencies {
@@ -22,7 +22,7 @@ allprojects {
         maven() { url uri("${project.rootDir.path}/mavenLocal") }
         maven { url "https://jitpack.io" }
         google()
-        jcenter()
+        maven { url "https://maven.aliyun.com/repository/public" }
     }
 
     configurations.all {
