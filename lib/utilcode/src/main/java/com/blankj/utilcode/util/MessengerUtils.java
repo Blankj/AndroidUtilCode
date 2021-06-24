@@ -317,15 +317,17 @@ public class MessengerUtils {
         }
 
         private void sendMsg2Client(final Message msg) {
+           final Message obtain = Message.obtain(msg); //Copy the original
             for (Messenger client : mClientMap.values()) {
                 try {
                     if (client != null) {
-                        client.send(msg);
+                        client.send(Message.obtain(obtain));
                     }
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
             }
+            obtain.recycle(); //Recycled copy
         }
 
         private void consumeServerProcessCallback(final Message msg) {
