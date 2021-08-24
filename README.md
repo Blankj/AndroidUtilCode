@@ -3,6 +3,7 @@
 [![frame][frame]](https://github.com/Blankj/AucFrameTemplate)
 
 [![auc][aucSvg]][auc] [![result][apiSvg]][result] [![build][buildSvg]][build] [![License][licenseSvg]][license]
+ [![Maintainability](https://cloud.quality-gate.com/dashboard/api/badge?projectName=Blankj_AndroidUtilCode&branchName=master)](https://cloud.quality-gate.com/dashboard/branches/135623#overview)
 
 ## [README of Chinese][readme-cn]
 
