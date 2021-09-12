@@ -91,21 +91,26 @@ public class NotificationUtils {
      * @param consumer      The consumer of create the builder of notification.
      */
     public static void notify(String tag, int id, ChannelConfig channelConfig, Utils.Consumer<NotificationCompat.Builder> consumer) {
+        NotificationManagerCompat.from(Utils.getApp()).notify(tag, id, getNotification(channelConfig, consumer));
+    }
+
+
+    public static Notification getNotification(ChannelConfig channelConfig, Utils.Consumer<NotificationCompat.Builder> consumer) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager nm = (NotificationManager) Utils.getApp().getSystemService(Context.NOTIFICATION_SERVICE);
             //noinspection ConstantConditions
             nm.createNotificationChannel(channelConfig.getNotificationChannel());
         }
 
-        NotificationManagerCompat nmc = NotificationManagerCompat.from(Utils.getApp());
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(Utils.getApp());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             builder.setChannelId(channelConfig.mNotificationChannel.getId());
         }
-        consumer.accept(builder);
+        if (consumer != null) {
+            consumer.accept(builder);
+        }
 
-        nmc.notify(tag, id, builder.build());
+        return builder.build();
     }
 
     /**

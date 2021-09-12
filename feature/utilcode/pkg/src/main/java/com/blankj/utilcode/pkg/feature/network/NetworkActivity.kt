@@ -2,13 +2,17 @@ package com.blankj.utilcode.pkg.feature.network
 
 import android.content.Context
 import android.content.Intent
+import android.net.wifi.ScanResult
+import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.view.View
 import com.blankj.common.activity.CommonActivity
+import com.blankj.common.helper.PermissionHelper
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick
 import com.blankj.common.item.CommonItemSwitch
 import com.blankj.common.item.CommonItemTitle
+import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.*
 
@@ -24,12 +28,24 @@ class NetworkActivity : CommonActivity(), NetworkUtils.OnNetworkStatusChangedLis
 
     companion object {
         fun start(context: Context) {
-            val starter = Intent(context, NetworkActivity::class.java)
-            context.startActivity(starter)
+            PermissionHelper.request(context, object : PermissionUtils.SimpleCallback {
+                override fun onGranted() {
+                    val starter = Intent(context, NetworkActivity::class.java)
+                    context.startActivity(starter)
+                }
+
+                override fun onDenied() {
+                }
+            }, PermissionConstants.LOCATION)
         }
     }
 
     private lateinit var itemsTask: ThreadUtils.SimpleTask<List<CommonItem<*>>>
+    private lateinit var wifiScanResultItem: CommonItemTitle
+    private val consumer = Utils.Consumer<NetworkUtils.WifiScanResults> { t ->
+        wifiScanResultItem.setContent(scanResults2String(t.filterResults))
+        wifiScanResultItem.update()
+    }
 
     override fun bindTitleRes(): Int {
         return R.string.demo_network
@@ -51,6 +67,7 @@ class NetworkActivity : CommonActivity(), NetworkUtils.OnNetworkStatusChangedLis
 
     override fun bindItems(): List<CommonItem<*>> {
         if (ThreadUtils.isMainThread()) return arrayListOf()
+        wifiScanResultItem = CommonItemTitle("getWifiScanResult", scanResults2String(NetworkUtils.getWifiScanResult().filterResults))
         return CollectionUtils.newArrayList(
                 CommonItemTitle("isConnected", NetworkUtils.isConnected().toString()),
                 CommonItemTitle("getMobileDataEnabled", NetworkUtils.getMobileDataEnabled().toString()),
@@ -72,10 +89,19 @@ class NetworkActivity : CommonActivity(), NetworkUtils.OnNetworkStatusChangedLis
                 CommonItemTitle("isWifiAvailable", NetworkUtils.isWifiAvailable().toString()),
                 CommonItemTitle("isAvailable", NetworkUtils.isAvailable().toString()),
                 CommonItemTitle("getBaiduDomainAddress", NetworkUtils.getDomainAddress("baidu.com")),
+                wifiScanResultItem,
 
                 CommonItemSwitch(
                         R.string.network_wifi_enabled,
-                        { NetworkUtils.getWifiEnabled() },
+                        {
+                            val wifiEnabled = NetworkUtils.getWifiEnabled()
+                            if (wifiEnabled) {
+                                NetworkUtils.addOnWifiChangedConsumer(consumer)
+                            } else {
+                                NetworkUtils.removeOnWifiChangedConsumer(consumer)
+                            }
+                            wifiEnabled
+                        },
                         {
                             NetworkUtils.setWifiEnabled(it)
                             ThreadUtils.executeByIo(getItemsTask())
@@ -112,5 +138,14 @@ class NetworkActivity : CommonActivity(), NetworkUtils.OnNetworkStatusChangedLis
         super.onDestroy()
         ThreadUtils.cancel(itemsTask)
         NetworkUtils.unregisterNetworkStatusChangedListener(this)
+        NetworkUtils.removeOnWifiChangedConsumer(consumer)
+    }
+
+    private fun scanResults2String(results: List<ScanResult>): String {
+        val sb: StringBuilder = StringBuilder()
+        for (result in results) {
+            sb.append(String.format("${result.SSID}, Level: ${WifiManager.calculateSignalLevel(result.level, 4)}\n"))
+        }
+        return sb.toString()
     }
 }

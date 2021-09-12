@@ -10,8 +10,7 @@ import com.blankj.common.item.CommonItemClick
 import com.blankj.common.item.CommonItemTitle
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.DialogHelper
-import com.blankj.utilcode.util.CollectionUtils
-import com.blankj.utilcode.util.KeyboardUtils
+import com.blankj.utilcode.util.*
 import kotlinx.android.synthetic.main.keyboard_activity.*
 
 /**

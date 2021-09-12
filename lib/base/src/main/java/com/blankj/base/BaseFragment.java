@@ -89,7 +89,7 @@ public abstract class BaseFragment extends Fragment
             } else {
                 ft.show(this);
             }
-            ft.commitAllowingStateLoss();
+            ft.commitNowAllowingStateLoss();
         }
         Bundle bundle = getArguments();
         initData(bundle);

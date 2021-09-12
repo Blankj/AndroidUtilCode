@@ -2,6 +2,7 @@ package com.blankj.utilcode.util;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,9 +12,11 @@ import android.os.Build;
 import android.os.Parcelable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.RequiresPermission;
 import android.support.annotation.StringRes;
+import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -419,6 +422,14 @@ class UtilsBridge {
     }
 
     ///////////////////////////////////////////////////////////////////////////
+    // NotificationUtils
+    ///////////////////////////////////////////////////////////////////////////
+    static Notification getNotification(NotificationUtils.ChannelConfig channelConfig,
+                                        Utils.Consumer<NotificationCompat.Builder> consumer) {
+        return NotificationUtils.getNotification(channelConfig, consumer);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
     // PermissionUtils
     ///////////////////////////////////////////////////////////////////////////
     static boolean isGranted(final String... permissions) {
@@ -525,7 +536,7 @@ class UtilsBridge {
         return StringUtils.getString(id, formatArgs);
     }
 
-    static String format(String str, Object... args) {
+    static String format(@Nullable String str, Object... args) {
         return StringUtils.format(str, args);
     }
 
@@ -594,6 +605,10 @@ class UtilsBridge {
     ///////////////////////////////////////////////////////////////////////////
     static View layoutId2View(@LayoutRes final int layoutId) {
         return ViewUtils.layoutId2View(layoutId);
+    }
+
+    static boolean isLayoutRtl() {
+        return ViewUtils.isLayoutRtl();
     }
 
 

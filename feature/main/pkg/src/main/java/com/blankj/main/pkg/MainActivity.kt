@@ -47,10 +47,10 @@ class MainActivity : CommonActivity() {
         super.initView(savedInstanceState, contentView)
         setCommonItems(mainRv, CollectionUtils.newArrayList<CommonItem<*>>(
                 CommonItemClick(R.string.core_util, true) {
-                    ApiUtils.getApi(UtilCodeApi::class.java).startUtilCodeActivity(this)
+                    ApiUtils.getApi(UtilCodeApi::class.java)?.startUtilCodeActivity(this)
                 },
                 CommonItemClick(R.string.sub_util, true) {
-                    ApiUtils.getApi(SubUtilApi::class.java).startSubUtilActivity(this)
+                    ApiUtils.getApi(SubUtilApi::class.java)?.startSubUtilActivity(this)
                 }
         ))
 

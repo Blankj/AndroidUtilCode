@@ -13,7 +13,7 @@ import com.blankj.utilcode.util.Utils;
  * </pre>
  */
 public class MvpPresenter extends BasePresenter<MvpView>
-        implements IMvp.Presenter {
+        implements MvpMvp.Presenter {
 
     @Override
     public void onBindView() {

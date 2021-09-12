@@ -113,7 +113,12 @@ public final class CacheDoubleUtils implements CacheConstants {
     public byte[] getBytes(@NonNull final String key, final byte[] defaultValue) {
         byte[] obj = mCacheMemoryUtils.get(key);
         if (obj != null) return obj;
-        return mCacheDiskUtils.getBytes(key, defaultValue);
+        byte[] bytes = mCacheDiskUtils.getBytes(key);
+        if (bytes != null) {
+            mCacheMemoryUtils.put(key, bytes);
+            return bytes;
+        }
+        return defaultValue;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -162,7 +167,12 @@ public final class CacheDoubleUtils implements CacheConstants {
     public String getString(@NonNull final String key, final String defaultValue) {
         String obj = mCacheMemoryUtils.get(key);
         if (obj != null) return obj;
-        return mCacheDiskUtils.getString(key, defaultValue);
+        String string = mCacheDiskUtils.getString(key);
+        if (string != null) {
+            mCacheMemoryUtils.put(key, string);
+            return string;
+        }
+        return defaultValue;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -213,7 +223,12 @@ public final class CacheDoubleUtils implements CacheConstants {
     public JSONObject getJSONObject(@NonNull final String key, final JSONObject defaultValue) {
         JSONObject obj = mCacheMemoryUtils.get(key);
         if (obj != null) return obj;
-        return mCacheDiskUtils.getJSONObject(key, defaultValue);
+        JSONObject jsonObject = mCacheDiskUtils.getJSONObject(key);
+        if (jsonObject != null) {
+            mCacheMemoryUtils.put(key, jsonObject);
+            return jsonObject;
+        }
+        return defaultValue;
     }
 
 
@@ -263,7 +278,12 @@ public final class CacheDoubleUtils implements CacheConstants {
     public JSONArray getJSONArray(@NonNull final String key, final JSONArray defaultValue) {
         JSONArray obj = mCacheMemoryUtils.get(key);
         if (obj != null) return obj;
-        return mCacheDiskUtils.getJSONArray(key, defaultValue);
+        JSONArray jsonArray = mCacheDiskUtils.getJSONArray(key);
+        if (jsonArray != null) {
+            mCacheMemoryUtils.put(key, jsonArray);
+            return jsonArray;
+        }
+        return defaultValue;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -312,7 +332,12 @@ public final class CacheDoubleUtils implements CacheConstants {
     public Bitmap getBitmap(@NonNull final String key, final Bitmap defaultValue) {
         Bitmap obj = mCacheMemoryUtils.get(key);
         if (obj != null) return obj;
-        return mCacheDiskUtils.getBitmap(key, defaultValue);
+        Bitmap bitmap = mCacheDiskUtils.getBitmap(key);
+        if (bitmap != null) {
+            mCacheMemoryUtils.put(key, bitmap);
+            return bitmap;
+        }
+        return defaultValue;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -361,7 +386,12 @@ public final class CacheDoubleUtils implements CacheConstants {
     public Drawable getDrawable(@NonNull final String key, final Drawable defaultValue) {
         Drawable obj = mCacheMemoryUtils.get(key);
         if (obj != null) return obj;
-        return mCacheDiskUtils.getDrawable(key, defaultValue);
+        Drawable drawable = mCacheDiskUtils.getDrawable(key);
+        if (drawable != null) {
+            mCacheMemoryUtils.put(key, drawable);
+            return drawable;
+        }
+        return defaultValue;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -417,7 +447,12 @@ public final class CacheDoubleUtils implements CacheConstants {
                                final T defaultValue) {
         T value = mCacheMemoryUtils.get(key);
         if (value != null) return value;
-        return mCacheDiskUtils.getParcelable(key, creator, defaultValue);
+        T val = mCacheDiskUtils.getParcelable(key, creator);
+        if (val != null) {
+            mCacheMemoryUtils.put(key, val);
+            return val;
+        }
+        return defaultValue;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -466,7 +501,12 @@ public final class CacheDoubleUtils implements CacheConstants {
     public Object getSerializable(@NonNull final String key, final Object defaultValue) {
         Object obj = mCacheMemoryUtils.get(key);
         if (obj != null) return obj;
-        return mCacheDiskUtils.getSerializable(key, defaultValue);
+        Object serializable = mCacheDiskUtils.getSerializable(key);
+        if (serializable != null) {
+            mCacheMemoryUtils.put(key, serializable);
+            return serializable;
+        }
+        return defaultValue;
     }
 
     /**

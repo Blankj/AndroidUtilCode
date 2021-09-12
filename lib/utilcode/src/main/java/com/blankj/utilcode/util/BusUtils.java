@@ -1,5 +1,7 @@
 package com.blankj.utilcode.util;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.lang.annotation.ElementType;
@@ -61,27 +63,27 @@ public final class BusUtils {
         busInfoList.add(new BusInfo(tag, className, funName, paramType, paramName, sticky, threadMode, priority));
     }
 
-    public static void register(final Object bus) {
+    public static void register(@Nullable final Object bus) {
         getInstance().registerInner(bus);
     }
 
-    public static void unregister(final Object bus) {
+    public static void unregister(@Nullable final Object bus) {
         getInstance().unregisterInner(bus);
     }
 
-    public static void post(final String tag) {
+    public static void post(@NonNull final String tag) {
         post(tag, NULL);
     }
 
-    public static void post(final String tag, final Object arg) {
+    public static void post(@NonNull final String tag, @NonNull final Object arg) {
         getInstance().postInner(tag, arg);
     }
 
-    public static void postSticky(final String tag) {
+    public static void postSticky(@NonNull final String tag) {
         postSticky(tag, NULL);
     }
 
-    public static void postSticky(final String tag, final Object arg) {
+    public static void postSticky(@NonNull final String tag, final Object arg) {
         getInstance().postStickyInner(tag, arg);
     }
 
@@ -102,7 +104,7 @@ public final class BusUtils {
         return LazyHolder.INSTANCE;
     }
 
-    private void registerInner(final Object bus) {
+    private void registerInner(@Nullable final Object bus) {
         if (bus == null) return;
         Class<?> aClass = bus.getClass();
         String className = aClass.getName();

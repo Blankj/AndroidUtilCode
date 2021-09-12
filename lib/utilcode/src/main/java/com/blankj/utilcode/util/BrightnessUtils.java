@@ -105,7 +105,7 @@ public final class BrightnessUtils {
      * @param window 窗口
      * @return 屏幕亮度 0-255
      */
-    public static int getWindowBrightness(final Window window) {
+    public static int getWindowBrightness(@NonNull final Window window) {
         WindowManager.LayoutParams lp = window.getAttributes();
         float brightness = lp.screenBrightness;
         if (brightness < 0) return getBrightness();

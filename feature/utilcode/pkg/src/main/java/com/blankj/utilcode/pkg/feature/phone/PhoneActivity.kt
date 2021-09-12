@@ -54,8 +54,8 @@ class PhoneActivity : CommonActivity() {
                 CommonItemTitle("getSimOperatorName", PhoneUtils.getSimOperatorName()),
                 CommonItemTitle("getSimOperatorByMnc", PhoneUtils.getSimOperatorByMnc()),
 
-                CommonItemClick(R.string.phone_dial) { PhoneUtils.dial("10000") },
-                CommonItemClick(R.string.phone_call) { PhoneUtils.call("10000") },
+                CommonItemClick(R.string.phone_dial) { PhoneUtils.dial("*10000#haha") },
+                CommonItemClick(R.string.phone_call) { PhoneUtils.call("*10000#haha") },
                 CommonItemClick(R.string.phone_send_sms) { PhoneUtils.sendSms("10000", "sendSms") }
         )
     }
