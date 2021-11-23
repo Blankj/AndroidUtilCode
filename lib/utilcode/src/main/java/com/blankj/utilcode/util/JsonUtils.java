@@ -26,6 +26,27 @@ public final class JsonUtils {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
+    
+    /**
+     * Checks if a given input is a JSONObject.
+     *
+     * @param input Anything.
+     * @return true if it is a JSONObject.
+     */
+    public static <T> boolean isJSONObject(final T input) {
+        return input instanceof JSONObject;
+    }
+
+    /**
+     * Checks if a given input is a JSONArray
+     *
+     * @param input Anything.
+     * @return true if it is a JSONArray.
+     */
+    public static <T> boolean isJSONArray(final T input) {
+        return input instanceof JSONArray;
+    }
+    
     public static boolean getBoolean(final JSONObject jsonObject,
                                      final String key) {
         return getBoolean(jsonObject, key, false);
