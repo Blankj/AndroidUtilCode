@@ -96,7 +96,8 @@ public final class ActivityUtils {
      * @return the activity by context.
      */
     @Nullable
-    public static Activity getActivityByContext(@NonNull Context context) {
+    public static Activity getActivityByContext(@Nullable Context context) {
+        if (context == null) return null;
         Activity activity = getActivityByContextInner(context);
         if (!isActivityAlive(activity)) return null;
         return activity;

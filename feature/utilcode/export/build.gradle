@@ -1,8 +1,8 @@
 ext {
-    groupId = Config.depConfig.feature_utilcode_export.groupId
-    artifactId = Config.depConfig.feature_utilcode_export.artifactId
-    version = Config.depConfig.feature_utilcode_export.version
+    groupId = Config.modules.feature_utilcode_export.groupId
+    artifactId = Config.modules.feature_utilcode_export.artifactId
+    version = Config.modules.feature_utilcode_export.version
     website = "https://github.com/Blankj/AndroidUtilCode"
 }
-apply from: "${rootDir.path}/config/publish.gradle"
+//apply from: "${rootDir.path}/config/publish.gradle"
 //./gradlew :feature_utilcode_export:mavenLocal   // 上传到本地 mavenLocal

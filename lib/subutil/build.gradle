@@ -1,5 +1,4 @@
 apply {
-//    plugin Config.depConfig.plugin_traute.pluginId
     plugin "readme-sub"
 }
 
@@ -9,16 +8,16 @@ readme {
 }
 
 dependencies {
-    compileOnly Config.depConfig.androidx_appcompat.dep
-    compileOnly Config.depConfig.androidx_material.dep
-    compileOnly Config.depConfig.lib_utilcode.dep
-    api(Config.depConfig.glide.dep) {
+    compileOnly Config.libs.androidx_appcompat.path
+    compileOnly Config.libs.androidx_material.path
+    compileOnly Config.modules.lib_utilcode.dep
+    api(Config.libs.glide.path) {
         exclude group: "com.android.support"
     }
-    api Config.depConfig.retrofit.dep
-    api Config.depConfig.gson.dep
+    api Config.libs.retrofit.path
+    api Config.libs.gson.path
 
-    testImplementation Config.depConfig.lib_utilcode.dep
-    testImplementation Config.depConfig.test_junit.dep
-    testImplementation Config.depConfig.test_robolectric.dep
+    testImplementation Config.modules.lib_utilcode.dep
+    testImplementation Config.libs.test_junit.path
+    testImplementation Config.libs.test_robolectric.path
 }

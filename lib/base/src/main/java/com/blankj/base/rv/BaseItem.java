@@ -24,6 +24,7 @@ public abstract class BaseItem<T extends BaseItem> {
 
     private static final SparseIntArray    LAYOUT_SPARSE_ARRAY = new SparseIntArray();
     private static final SparseArray<View> VIEW_SPARSE_ARRAY   = new SparseArray<>();
+    public boolean isBindViewHolder = false;
 
     static ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         int layoutByType = LAYOUT_SPARSE_ARRAY.get(viewType, -1);
@@ -43,6 +44,7 @@ public abstract class BaseItem<T extends BaseItem> {
     }
 
     void bindViewHolder(@NonNull final ItemViewHolder holder, final int position) {
+        isBindViewHolder = true;
         if (mOnItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -73,7 +75,9 @@ public abstract class BaseItem<T extends BaseItem> {
         bind(holder, position);
     }
 
-    public void onViewRecycled(@NonNull final ItemViewHolder holder, final int position) {/**/}
+    public void onViewRecycled(@NonNull final ItemViewHolder holder, final int position) {
+        isBindViewHolder = false;
+    }
 
     public long getItemId() {
         return RecyclerView.NO_ID;

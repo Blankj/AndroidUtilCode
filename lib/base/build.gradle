@@ -1,15 +1,14 @@
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    api Config.depConfig.lib_subutil.dep
-    api Config.depConfig.lib_utilcode.dep
+    api Config.modules.lib_subutil.dep
+    api Config.modules.lib_utilcode.dep
 
-    api Config.depConfig.androidx_appcompat.dep
-    api Config.depConfig.androidx_material.dep
-    api Config.depConfig.androidx_multidex.dep
-    api Config.depConfig.androidx_constraint.dep
-    api Config.depConfig.kotlin.dep
-    api Config.depConfig.free_proguard.dep
-    api Config.depConfig.swipe_panel.dep
-    api Config.depConfig.eventbus_lib.dep
-    compileOnly Config.depConfig.lib_utildebug_no_op.dep
+    api Config.libs.androidx_appcompat.path
+    api Config.libs.androidx_material.path
+    api Config.libs.androidx_multidex.path
+    api Config.libs.androidx_constraint.path
+    api Config.libs.kotlin.path
+    api Config.libs.free_proguard.path
+    api Config.libs.swipe_panel.path
+    api Config.libs.eventbus_lib.path
+    compileOnly Config.modules.lib_utildebug_no_op.dep
 }

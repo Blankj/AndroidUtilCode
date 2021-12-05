@@ -8,6 +8,6 @@ dependencies {
             api entrySet.value.dep
         }
     } else if (project.name.endsWith("_export")) {
-        api Config.depConfig.lib_common.dep
+        api Config.modules.lib_common.dep
     }
 }

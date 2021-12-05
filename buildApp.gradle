@@ -1,29 +1,30 @@
+apply plugin: "com.android.application"
+
 apply {
-    plugin "com.android.application"
     from "${rootDir.path}/buildCommon.gradle"
     from "${rootDir.path}/config/flavor.gradle"
-    if (Config.depConfig.plugin_api.isApply) {
-        plugin Config.depConfig.plugin_api.pluginId
+    if (Config.plugins.plugin_api.isApply) {
+        plugin Config.plugins.plugin_api.id
     }
-    if (Config.depConfig.plugin_bus.isApply) {
-        plugin Config.depConfig.plugin_bus.pluginId
+    if (Config.plugins.plugin_bus.isApply) {
+        plugin Config.plugins.plugin_bus.id
     }
 }
 
 configSigning()
 configApkName()
 
-if (Config.depConfig.plugin_bus.isApply) {
-    bus {
-        onlyScanLibRegex = '^([:]|(com\\.blankj)).+$'
-    }
-}
-
-if (Config.depConfig.plugin_api.isApply) {
-    api {
-        onlyScanLibRegex = '^([:]|(com\\.blankj)).+$'
-    }
-}
+//if (PluginConfig.plugin_bus.isApply) {
+//    bus {
+//        onlyScanLibRegex = '^([:]|(com\\.blankj)).+$'
+//    }
+//}
+//
+//if (PluginConfig.plugin_api.isApply) {
+//    api {
+//        onlyScanLibRegex = '^([:]|(com\\.blankj)).+$'
+//    }
+//}
 
 android {
     defaultConfig {
@@ -67,18 +68,18 @@ android {
 
 dependencies {
     // LeakCanary
-    debugImplementation Config.depConfig.leakcanary.dep
+    debugImplementation Config.libs.leakcanary.path
 
-    debugImplementation Config.depConfig.lib_utildebug.dep
-    releaseImplementation Config.depConfig.lib_utildebug_no_op.dep
+    debugImplementation Config.modules.lib_utildebug.dep
+    releaseImplementation Config.modules.lib_utildebug_no_op.dep
 
     // 根据 Config.pkgConfig 来依赖所有 pkg
     for (def entrySet : ConfigUtils.getApplyPkgs().entrySet()) {
         api entrySet.value.dep
     }
 
-    if (Config.depConfig.feature_mock.isApply) {
-        api Config.depConfig.feature_mock.dep
+    if (Config.modules.feature_mock.isApply) {
+        api ModuleConfig.modules.feature_mock.dep
     }
 }
 

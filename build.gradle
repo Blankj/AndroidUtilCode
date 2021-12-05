@@ -10,7 +10,7 @@ buildscript {
 
     dependencies {
         for (def entrySet : ConfigUtils.getApplyPlugins().entrySet()) {
-            classpath entrySet.value.dep
+            classpath entrySet.value.path
         }
     }
 }
@@ -29,7 +29,7 @@ allprojects {
 
         resolutionStrategy.eachDependency {
             if (it.requested.group == 'com.android.support' && !it.requested.name.contains(
-                'multidex')) {
+                    'multidex')) {
                 it.useVersion Config.supportVersion
             }
         }

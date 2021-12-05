@@ -118,7 +118,7 @@ public final class MetaDataUtils {
      */
     public static String getMetaDataInReceiver(@NonNull final BroadcastReceiver receiver,
                                                @NonNull final String key) {
-        return getMetaDataInReceiver(receiver, key);
+        return getMetaDataInReceiver(receiver.getClass(), key);
     }
 
     /**

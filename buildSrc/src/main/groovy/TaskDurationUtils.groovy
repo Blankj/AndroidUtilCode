@@ -39,6 +39,11 @@ class TaskDurationUtils {
         })
         grd.addBuildListener(new BuildListener() {
             @Override
+            void beforeSettings(Settings settings) {
+                super.beforeSettings(settings)
+            }
+
+            @Override
             void buildStarted(Gradle gradle) {}
 
             @Override

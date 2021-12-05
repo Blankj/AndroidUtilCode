@@ -1,14 +1,11 @@
 package com.blankj.utilcode.util;
 
-import android.annotation.SuppressLint;
-
+import androidx.annotation.NonNull;
 import java.io.File;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
-
-import androidx.annotation.NonNull;
 
 /**
  * <pre>
@@ -22,7 +19,8 @@ public final class CrashUtils {
 
     private static final String FILE_SEP = System.getProperty("file.separator");
 
-    private static final UncaughtExceptionHandler DEFAULT_UNCAUGHT_EXCEPTION_HANDLER = Thread.getDefaultUncaughtExceptionHandler();
+    private static final UncaughtExceptionHandler DEFAULT_UNCAUGHT_EXCEPTION_HANDLER =
+        Thread.getDefaultUncaughtExceptionHandler();
 
     private CrashUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -65,7 +63,7 @@ public final class CrashUtils {
     /**
      * Initialization
      *
-     * @param crashDir        The directory of saving crash information.
+     * @param crashDir The directory of saving crash information.
      * @param onCrashListener The crash listener.
      */
     public static void init(@NonNull final File crashDir, final OnCrashListener onCrashListener) {
@@ -75,22 +73,23 @@ public final class CrashUtils {
     /**
      * Initialization
      *
-     * @param crashDirPath    The directory's path of saving crash information.
+     * @param crashDirPath The directory's path of saving crash information.
      * @param onCrashListener The crash listener.
      */
     public static void init(final String crashDirPath, final OnCrashListener onCrashListener) {
         String dirPath;
         if (UtilsBridge.isSpace(crashDirPath)) {
             if (UtilsBridge.isSDCardEnableByEnvironment()
-                    && Utils.getApp().getExternalFilesDir(null) != null)
+                && Utils.getApp().getExternalFilesDir(null) != null) {
                 dirPath = Utils.getApp().getExternalFilesDir(null) + FILE_SEP + "crash" + FILE_SEP;
-            else {
+            } else {
                 dirPath = Utils.getApp().getFilesDir() + FILE_SEP + "crash" + FILE_SEP;
             }
         } else {
             dirPath = crashDirPath.endsWith(FILE_SEP) ? crashDirPath : crashDirPath + FILE_SEP;
         }
-        Thread.setDefaultUncaughtExceptionHandler(getUncaughtExceptionHandler(dirPath, onCrashListener));
+        Thread.setDefaultUncaughtExceptionHandler(
+            getUncaughtExceptionHandler(dirPath, onCrashListener));
     }
 
     private static UncaughtExceptionHandler getUncaughtExceptionHandler(final String dirPath,
@@ -100,14 +99,14 @@ public final class CrashUtils {
             public void uncaughtException(@NonNull final Thread t, @NonNull final Throwable e) {
                 final String time = new SimpleDateFormat("yyyy_MM_dd-HH_mm_ss").format(new Date());
                 CrashInfo info = new CrashInfo(time, e);
-                if (onCrashListener != null) {
-                    onCrashListener.onCrash(info);
-                }
                 final String crashFile = dirPath + time + ".txt";
                 UtilsBridge.writeFileFromString(crashFile, info.toString(), true);
 
                 if (DEFAULT_UNCAUGHT_EXCEPTION_HANDLER != null) {
                     DEFAULT_UNCAUGHT_EXCEPTION_HANDLER.uncaughtException(t, e);
+                }
+                if (onCrashListener != null) {
+                    onCrashListener.onCrash(info);
                 }
             }
         };
@@ -123,7 +122,7 @@ public final class CrashUtils {
 
     public static final class CrashInfo {
         private UtilsBridge.FileHead mFileHeadProvider;
-        private Throwable            mThrowable;
+        private Throwable mThrowable;
 
         private CrashInfo(String time, Throwable throwable) {
             mThrowable = throwable;
@@ -145,8 +144,7 @@ public final class CrashUtils {
 
         @Override
         public String toString() {
-            return mFileHeadProvider.toString() +
-                    UtilsBridge.getFullStackTrace(mThrowable);
+            return mFileHeadProvider.toString() + UtilsBridge.getFullStackTrace(mThrowable);
         }
     }
 }

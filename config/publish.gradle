@@ -9,16 +9,16 @@
 
  2. copy the file to the directory of gradle, and apply the file in the module
  ext {
-    groupId = Config.depConfig.lib_utilcode.groupId
-    artifactId = Config.depConfig.lib_utilcode.artifactId
-    version = Config.depConfig.lib_utilcode.version
+    groupId = Config.modules.lib_utilcode.groupId
+    artifactId = Config.modules.lib_utilcode.artifactId
+    version = Config.modules.lib_utilcode.version
     website = "https://github.com/Blankj/AndroidUtilCode"
 }
  apply from: "${rootDir.path}/config/publish.gradle"
 
  3. execute following command to publish
- ./gradlew :xxmodule:publish2Local  -> upload to mavenCentral
- ./gradlew :xxmodule:publish2Remote -> upload to mavenLocal
+ ./gradlew :xxmodule:publish2Local  -> upload to mavenLocal
+ ./gradlew :xxmodule:publish2Remote -> upload to mavenCentral
 */
 
 apply plugin: 'maven-publish'
@@ -32,10 +32,8 @@ if (localPropertiesFile.exists()) {
     properties.load(new FileInputStream(localPropertiesFile))
     properties.each { name, value -> ext[name] = value }
 } else {
-    if (!ext["signing.keyId"] && !ext["signing.password"] &&
-        !ext["signing.secretKeyRingFile"] &&
-        !ext["ossrhUsername"] &&
-        !ext["ossrhPassword"]) {
+    if (!ext["signing.keyId"] && !ext["signing.password"] && !ext["signing.secretKeyRingFile"]
+            && !ext["ossrhUsername"] && !ext["ossrhPassword"]) {
         throw new NullPointerException("U should set MavenCentral params in local.properties")
     }
 }
@@ -86,16 +84,14 @@ afterEvaluate {
                     if (project.ext.multiPublishMode) {
                         withXml {
                             def dependenciesNode = asNode().getAt('dependencies')[0] ?:
-                                asNode().appendNode('dependencies')
+                                    asNode().appendNode('dependencies')
 
-                            configurations.
-                                api.
-                                getDependencies().
-                                each { dep -> addDependency(project, dependenciesNode, dep, "compile") }
-                            configurations.
-                                implementation.
-                                getDependencies().
-                                each { dep -> addDependency(project, dependenciesNode, dep, "runtime") }
+                            configurations.api.getDependencies().each {
+                                dep -> addDependency(project, dependenciesNode, dep, "compile")
+                            }
+                            configurations.implementation.getDependencies().each {
+                                dep -> addDependency(project, dependenciesNode, dep, "runtime")
+                            }
                         }
                     }
                 }
@@ -136,12 +132,10 @@ private void addDependency(Project project, def dependenciesNode, Dependency dep
         // 那么发布到仓库，其他地方依赖该库时会找不到源码的那个库
         println "publish -> module(unspecified) <${dep.group}:${dep.name}:${dep.version}>"
         if (project.ext.groupId || project.ext.version) {
-            throw new GradleException(
-                "The module of <" + dep.name + "> should set groupId & version.")
+            throw new GradleException("The module of <" + dep.name + "> should set groupId & version.")
         }
         // 源码依赖，但配置了 remotePath，让 pom 中写入 remotePath
-        println(
-            "publish -> module(wrapped) <${project.ext.groupId}:${name}:${project.ext.version}>")
+        println("publish -> module(wrapped) <${project.ext.groupId}:${name}:${project.ext.version}>")
 
         dependencyNode.appendNode('groupId', project.ext.pomGroupID)
         dependencyNode.appendNode('artifactId', dep.name)
@@ -223,15 +217,9 @@ artifacts {
 }
 
 static def isAndroidEnv(Project project) {
-    return project.getPlugins().hasPlugin('com.android.application') || project.
-        getPlugins().
-        hasPlugin('com.android.library')
+    return project.getPlugins().hasPlugin('com.android.application') || project.getPlugins().hasPlugin('com.android.library')
 }
 
-task publish2Local(type: GradleBuild) {
-    tasks = ['clean', 'assemble', 'publishReleasePublicationToMavenLocal']
-}
+task publish2Local(type: GradleBuild, dependsOn: ['clean', 'assemble', 'publishReleasePublicationToMavenLocal']) {}
 
-task publish2Remote(type: GradleBuild) {
-    tasks = ['clean', 'assemble', 'publishReleasePublicationToMavenRepository']
-}
+task publish2Remote(type: GradleBuild, dependsOn: ['clean', 'assemble', 'publishReleasePublicationToMavenRepository']) {}

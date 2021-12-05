@@ -56,6 +56,7 @@ public class DebugMenu extends BaseContentFloatView<DebugMenu> {
 
     @Override
     protected void onDetachedFromWindow() {
+        int a = 0xe1;
         DebugIcon.setVisibility(true);
         super.onDetachedFromWindow();
     }

@@ -1,6 +1,7 @@
 package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BlurMaskFilter;
@@ -44,6 +45,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.io.InputStream;
+import java.io.Serializable;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.ref.WeakReference;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.FloatRange;
@@ -52,12 +59,6 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-
-import java.io.InputStream;
-import java.io.Serializable;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.ref.WeakReference;
 
 import static android.graphics.BlurMaskFilter.Blur;
 
@@ -105,7 +106,6 @@ public final class SpanUtils {
     private int           bulletRadius;
     private int           bulletGapWidth;
     private int           fontSize;
-    private boolean       fontSizeIsDp;
     private float         proportion;
     private float         xProportion;
     private boolean       isStrikethrough;
@@ -140,7 +140,7 @@ public final class SpanUtils {
     private int spaceColor;
 
     private SerializableSpannableStringBuilder mBuilder;
-    private boolean isCreated;
+    private boolean                            isCreated;
 
     private       int mType;
     private final int mTypeCharSequence = 0;
@@ -350,8 +350,12 @@ public final class SpanUtils {
      * @return the single {@link SpanUtils} instance
      */
     public SpanUtils setFontSize(@IntRange(from = 0) final int size, final boolean isSp) {
-        this.fontSize = size;
-        this.fontSizeIsDp = isSp;
+        if (isSp) {
+            final float fontScale = Resources.getSystem().getDisplayMetrics().scaledDensity;
+            this.fontSize = (int) (size * fontScale + 0.5f);
+        } else {
+            this.fontSize = size;
+        }
         return this;
     }
 
@@ -890,7 +894,7 @@ public final class SpanUtils {
             );
         }
         if (fontSize != -1) {
-            mBuilder.setSpan(new AbsoluteSizeSpan(fontSize, fontSizeIsDp), start, end, flag);
+            mBuilder.setSpan(new AbsoluteSizeSpan(fontSize, false), start, end, flag);
         }
         if (proportion != -1) {
             mBuilder.setSpan(new RelativeSizeSpan(proportion), start, end, flag);

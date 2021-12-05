@@ -6,8 +6,8 @@ apply {
 gradlePlugin {
     plugins {
         apiPlugin {
-            id = Config.plugins.plugin_api.id
-            implementationClass = 'com.blankj.api.ApiPlugin'
+            id = 'com.blankj.buildSrc'
+            implementationClass = 'com.blankj.buildSrc.BuildSrcPlugin'
         }
     }
 }
@@ -15,12 +15,8 @@ gradlePlugin {
 dependencies {
     compileOnly Config.plugins.plugin_gradle.path
     implementation Config.libs.commons_io.path
-    implementation Config.modules.plugin_lib_base_transform.remotePath
     implementation gradleApi()
     implementation localGroovy()
-
-    testImplementation Config.libs.test_junit.path
-    testImplementation Config.plugins.plugin_gradle.path
 }
 
 sourceSets {
@@ -32,9 +28,10 @@ sourceSets {
 }
 
 ext {
-    groupId = Config.plugins.plugin_api.groupId
-    artifactId = Config.plugins.plugin_api.artifactId
-    version = Config.plugins.plugin_api.version
+    groupId = Config.plugins.plugin_buildSrc.groupId
+    artifactId = Config.plugins.plugin_buildSrc.artifactId
+    version = Config.plugins.plugin_buildSrc.version
     website = "https://github.com/Blankj/AndroidUtilCode"
 }
 apply from: "${rootDir.path}/config/publish.gradle"
+//./gradlew clean plugin:plugin_buildSrc-plugin:publish2Local     // 上传到本地 mavenLocal

@@ -774,6 +774,22 @@ public final class AppUtils {
         return getBean(pm, pi);
     }
 
+
+    /**
+     * Return whether the application was first installed.
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isFirstTimeInstalled() {
+        try {
+            PackageInfo pi = Utils.getApp().getPackageManager().getPackageInfo(Utils.getApp().getPackageName(), 0);
+            return pi.firstInstallTime == pi.lastUpdateTime;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return true;
+        }
+    }
+
     private static AppInfo getBean(final PackageManager pm, final PackageInfo pi) {
         if (pi == null) return null;
         String versionName = pi.versionName;

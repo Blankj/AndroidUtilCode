@@ -4,8 +4,8 @@ apply {
 }
 
 dependencies {
-    compileOnly Config.depConfig.plugin_gradle.dep
-    implementation Config.depConfig.commons_io.dep
+    compileOnly Config.plugins.plugin_gradle.path
+    implementation Config.libs.commons_io.path
     implementation gradleApi()
     implementation localGroovy()
 }
@@ -19,11 +19,11 @@ sourceSets {
 }
 
 ext {
-    groupId = Config.depConfig.plugin_lib_base_transform.groupId
-    artifactId = Config.depConfig.plugin_lib_base_transform.artifactId
-    version = Config.depConfig.plugin_lib_base_transform.version
+    groupId = Config.modules.plugin_lib_base_transform.groupId
+    artifactId = Config.modules.plugin_lib_base_transform.artifactId
+    version = Config.modules.plugin_lib_base_transform.version
     website = "https://github.com/Blankj/AndroidUtilCode"
 }
 apply from: "${rootDir.path}/config/publish.gradle"
-//./gradlew clean plugin:lib:plugin_lib_base-transform:mavenLocal     // 上传到本地 mavenLocal
-//./gradlew clean plugin:lib:plugin_lib_base-transform:bintrayUpload  // 上传到 gradle 插件库中
+//./gradlew clean :plugin_lib_base-transform:mavenLocal     // 上传到本地 mavenLocal
+//./gradlew clean :plugin_lib_base-transform:bintrayUpload  // 上传到 gradle 插件库中
