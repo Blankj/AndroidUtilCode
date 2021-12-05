@@ -27,16 +27,13 @@ apply plugin: 'signing'
 ext.multiPublishMode = true
 
 File localPropertiesFile = project.rootProject.file("local.properties");
-if (localPropertiesFile.exists()) {
-    Properties properties = new Properties()
-    properties.load(new FileInputStream(localPropertiesFile))
-    properties.each { name, value -> ext[name] = value }
-} else {
-    if (!ext["signing.keyId"] && !ext["signing.password"] && !ext["signing.secretKeyRingFile"]
-            && !ext["ossrhUsername"] && !ext["ossrhPassword"]) {
-        throw new NullPointerException("U should set MavenCentral params in local.properties")
-    }
+if (!localPropertiesFile.exists()) {
+    return
 }
+
+Properties properties = new Properties()
+properties.load(new FileInputStream(localPropertiesFile))
+properties.each { name, value -> ext[name] = value }
 
 afterEvaluate {
     def ext = project.ext

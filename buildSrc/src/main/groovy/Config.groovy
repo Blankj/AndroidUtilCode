@@ -34,7 +34,7 @@ class Config {
             lib_base                   : new ModuleConfig(isApply: true , useLocal: true , localPath: "./lib/base"),
             lib_common                 : new ModuleConfig(isApply: true , useLocal: true , localPath: "./lib/common"),
             lib_subutil                : new ModuleConfig(isApply: true , useLocal: true , localPath: "./lib/subutil"),
-            lib_utilcode               : new ModuleConfig(isApply: true , useLocal: true , localPath: "./lib/utilcode", remotePath: "com.blankj:utilcodex:$Config.versionName"),
+            lib_utilcode               : new ModuleConfig(isApply: true , useLocal: false, localPath: "./lib/utilcode", remotePath: "com.blankj:utilcodex:$Config.versionName"),
             lib_utildebug              : new ModuleConfig(isApply: true , useLocal: true , localPath: "./lib/utildebug"),
             lib_utildebug_no_op        : new ModuleConfig(isApply: true , useLocal: true , localPath: "./lib/utildebug-no-op"),
             /*Don't delete this line*/
@@ -54,7 +54,7 @@ class Config {
             plugin_bus     : new PluginConfig(isApply: true, useLocal: false, path: "com.blankj:bus-gradle-plugin:2.6", id: "com.blankj.bus"),
             //./gradlew clean :plugin_bus-gradle-plugin:mavenLocal     // 上传到本地 mavenLocal
             //./gradlew clean :plugin_bus-gradle-plugin:bintrayUpload  // 上传到 jcenter
-            plugin_buildSrc: new PluginConfig(isApply: true, useLocal: false, path: "com.blankj:buildSrc-plugin:1.0", id: "com.blankj.buildSrc"),
+            plugin_buildSrc: new PluginConfig(isApply: false, useLocal: false, path: "com.blankj:buildSrc-plugin:1.0", id: "com.blankj.buildSrc"),
             //./gradlew clean :plugin_bus-gradle-plugin:mavenLocal     // 上传到本地 mavenLocal
             //./gradlew clean :plugin_bus-gradle-plugin:bintrayUpload  // 上传到 jcenter
     ]

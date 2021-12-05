@@ -23,7 +23,7 @@
     {"name": "lib_base",                  "isApply": true, "useLocal": true, "localPath": "./lib/base"},
     {"name": "lib_common",                "isApply": true, "useLocal": true, "localPath": "./lib/common"},
     {"name": "lib_subutil",               "isApply": true, "useLocal": true, "localPath": "./lib/subutil"},
-    {"name": "lib_utilcode",              "isApply": true, "useLocal": true, "localPath": "./lib/utilcode", "remotePath": "com.blankj:utilcodex:$Config.versionName"},
+    {"name": "lib_utilcode",              "isApply": true, "useLocal": false, "localPath": "./lib/utilcode", "remotePath": "com.blankj:utilcodex:$Config.versionName"},
     {"name": "lib_utildebug",             "isApply": true, "useLocal": true, "localPath": "./lib/utildebug"},
     {"name": "lib_utildebug_no_op",       "isApply": true, "useLocal": true, "localPath": "./lib/utildebug-no-op"}
   ]
