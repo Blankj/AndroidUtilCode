@@ -260,8 +260,9 @@ public final class KeyboardUtils {
         Object tag = contentView.getTag(TAG_ON_GLOBAL_LAYOUT_LISTENER);
         if (tag instanceof OnGlobalLayoutListener) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                contentView.getViewTreeObserver()
-                    .removeOnGlobalLayoutListener((OnGlobalLayoutListener) tag);
+                contentView.getViewTreeObserver().removeOnGlobalLayoutListener((OnGlobalLayoutListener) tag);
+                //这里会发生内存泄漏 如果不设置为null
+                contentView.setTag(TAG_ON_GLOBAL_LAYOUT_LISTENER, null);
             }
         }
     }
