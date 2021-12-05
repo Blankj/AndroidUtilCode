@@ -3,7 +3,7 @@ package com.blankj.utilcode.pkg.feature.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
+import androidx.core.app.ActivityCompat
 import android.view.View
 import com.blankj.common.activity.CommonActivity
 import com.blankj.utilcode.pkg.R

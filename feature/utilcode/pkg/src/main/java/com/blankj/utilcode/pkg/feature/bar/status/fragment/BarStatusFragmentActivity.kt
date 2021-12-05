@@ -3,13 +3,13 @@ package com.blankj.utilcode.pkg.feature.bar.status.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.ViewPager
 import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.blankj.common.activity.CommonActivity
 import com.blankj.utilcode.pkg.R
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.bar_status_fragment_activity.*
 import java.util.*
 
@@ -37,7 +37,7 @@ class BarStatusFragmentActivity : CommonActivity() {
             R.id.barStatusFragmentNavigationCustom
     )
 
-    private val mFragmentList = ArrayList<Fragment>()
+    private val mFragmentList = ArrayList<androidx.fragment.app.Fragment>()
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener l@{ item ->
         when (item.itemId) {

@@ -8,17 +8,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.constant.PermissionConstants;
-import com.blankj.utilcode.util.PermissionUtils.OnRationaleListener.ShouldRequest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,6 +21,11 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 
 import static com.blankj.utilcode.constant.PermissionConstants.PermissionGroup;
 
@@ -338,7 +338,8 @@ public final class PermissionUtils {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private boolean shouldRationale(final UtilsTransActivity activity, final Runnable againRunnable) {
+    private boolean shouldRationale(final UtilsTransActivity activity,
+                                    final Runnable againRunnable) {
         boolean isRationale = false;
         if (mOnRationaleListener != null) {
             for (String permission : mPermissionsRequest) {
@@ -355,7 +356,7 @@ public final class PermissionUtils {
 
     private void rationalInner(final UtilsTransActivity activity, final Runnable againRunnable) {
         getPermissionsStatus(activity);
-        mOnRationaleListener.rationale(activity, new ShouldRequest() {
+        mOnRationaleListener.rationale(activity, new OnRationaleListener.ShouldRequest() {
             @Override
             public void again(boolean again) {
                 if (again) {

@@ -1,12 +1,13 @@
 package com.blankj.utilcode.util;
 
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * <pre>

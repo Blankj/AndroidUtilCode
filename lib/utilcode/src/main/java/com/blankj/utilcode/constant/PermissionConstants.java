@@ -3,7 +3,7 @@ package com.blankj.utilcode.constant;
 import android.Manifest.permission;
 import android.annotation.SuppressLint;
 import android.os.Build;
-import android.support.annotation.StringDef;
+import androidx.annotation.StringDef;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

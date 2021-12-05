@@ -1,13 +1,13 @@
 package com.blankj.utildebug.debug.tool.deviceInfo;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-
 import com.blankj.utildebug.R;
 import com.blankj.utildebug.base.rv.BaseItemAdapter;
 import com.blankj.utildebug.base.rv.RecycleViewDivider;
 import com.blankj.utildebug.base.view.BaseContentFloatView;
 import com.blankj.utildebug.base.view.listener.OnRefreshListener;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * <pre>

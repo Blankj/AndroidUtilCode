@@ -1,8 +1,6 @@
 package com.blankj.common.item;
 
 import android.annotation.SuppressLint;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Switch;
@@ -13,6 +11,9 @@ import com.blankj.common.R;
 import com.blankj.utilcode.util.ClickUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.Utils;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
 /**
  * <pre>

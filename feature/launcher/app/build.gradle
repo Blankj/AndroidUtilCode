@@ -1,5 +1,5 @@
 apply plugin: 'kotlin-kapt'
 
 dependencies {
-    kapt Config.depConfig.eventbus_processor.dep
+    kapt Config.libs.eventbus_processor.path
 }

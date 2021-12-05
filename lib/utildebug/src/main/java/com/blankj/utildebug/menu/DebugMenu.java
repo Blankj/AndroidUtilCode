@@ -1,7 +1,5 @@
 package com.blankj.utildebug.menu;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.blankj.utildebug.R;
 import com.blankj.utildebug.base.rv.BaseItemAdapter;
@@ -11,6 +9,9 @@ import com.blankj.utildebug.debug.IDebug;
 import com.blankj.utildebug.icon.DebugIcon;
 
 import java.util.List;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * <pre>
@@ -55,6 +56,7 @@ public class DebugMenu extends BaseContentFloatView<DebugMenu> {
 
     @Override
     protected void onDetachedFromWindow() {
+        int a = 0xe1;
         DebugIcon.setVisibility(true);
         super.onDetachedFromWindow();
     }

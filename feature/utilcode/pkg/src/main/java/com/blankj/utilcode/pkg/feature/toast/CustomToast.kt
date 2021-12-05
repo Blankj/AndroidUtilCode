@@ -1,7 +1,7 @@
 package com.blankj.utilcode.pkg.feature.toast
 
-import android.support.annotation.StringRes
 import android.widget.TextView
+import androidx.annotation.StringRes
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.StringUtils
 import com.blankj.utilcode.util.ToastUtils

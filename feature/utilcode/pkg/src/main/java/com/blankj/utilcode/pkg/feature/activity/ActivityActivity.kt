@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import android.support.v4.app.ActivityOptionsCompat
 import android.widget.ImageView
+import androidx.core.app.ActivityOptionsCompat
 import com.blankj.base.rv.ItemViewHolder
 import com.blankj.common.activity.CommonActivity
 import com.blankj.common.item.CommonItem

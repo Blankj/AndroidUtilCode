@@ -1,7 +1,6 @@
 package com.blankj.utildebug.base.view;
 
 import android.annotation.SuppressLint;
-import android.support.annotation.IntDef;
 import android.view.Gravity;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -12,6 +11,8 @@ import com.blankj.utildebug.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
 
 /**
  * <pre>

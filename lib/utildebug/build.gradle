@@ -1,15 +1,12 @@
-afterEvaluate {
-    verifyReleaseResources.enabled(false)
-}
-
 dependencies {
-    implementation Config.depConfig.lib_utilcode.dep
-    implementation Config.depConfig.swipe_panel.dep
-    implementation Config.depConfig.photo_view.dep
-    implementation Config.depConfig.support_appcompat_v7.dep
-    compileOnly Config.depConfig.support_design.dep
+    compileOnly Config.libs.androidx_appcompat.path
+    compileOnly Config.libs.androidx_material.path
 
-    testImplementation Config.depConfig.test_junit.dep
-    testImplementation Config.depConfig.test_robolectric.dep
-    testImplementation Config.depConfig.support_appcompat_v7.dep
+    implementation Config.modules.lib_utilcode.dep
+    implementation Config.libs.swipe_panel.path
+    implementation Config.libs.photo_view.path
+
+    testImplementation Config.libs.test_junit.path
+    testImplementation Config.libs.test_robolectric.path
+    testImplementation Config.libs.androidx_appcompat.path
 }

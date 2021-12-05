@@ -2,26 +2,25 @@
 buildscript {
     ConfigUtils.init(gradle)
     repositories {
-        // use for debug plugin local
-        if (Config.depConfig.plugin_bus.useLocal || Config.depConfig.plugin_api.useLocal) {
-            maven() { url uri("${project.rootDir.path}/mavenLocal") }
-        }
+        mavenLocal()
         google()
+        mavenCentral()
         jcenter()
     }
 
     dependencies {
         for (def entrySet : ConfigUtils.getApplyPlugins().entrySet()) {
-            classpath entrySet.value.dep
+            classpath entrySet.value.path
         }
     }
 }
 
 allprojects {
     repositories {
-        maven() { url uri("${project.rootDir.path}/mavenLocal") }
+        mavenLocal()
         maven { url "https://jitpack.io" }
         google()
+        mavenCentral()
         jcenter()
     }
 
@@ -29,8 +28,8 @@ allprojects {
         resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 
         resolutionStrategy.eachDependency {
-            if (it.requested.group == 'com.android.support'
-                    && !it.requested.name.contains('multidex')) {
+            if (it.requested.group == 'com.android.support' && !it.requested.name.contains(
+                    'multidex')) {
                 it.useVersion Config.supportVersion
             }
         }

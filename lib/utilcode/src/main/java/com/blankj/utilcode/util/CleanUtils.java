@@ -4,9 +4,10 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Environment;
-import android.support.annotation.RequiresApi;
 
 import java.io.File;
+
+import androidx.annotation.RequiresApi;
 
 /**
  * <pre>

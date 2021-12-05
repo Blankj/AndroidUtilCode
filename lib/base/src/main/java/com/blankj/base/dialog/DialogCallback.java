@@ -2,8 +2,9 @@ package com.blankj.base.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.support.annotation.NonNull;
 import android.view.Window;
+
+import androidx.annotation.NonNull;
 
 /**
  * <pre>

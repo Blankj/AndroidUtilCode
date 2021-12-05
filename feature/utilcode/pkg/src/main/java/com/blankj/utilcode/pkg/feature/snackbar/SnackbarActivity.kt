@@ -3,10 +3,10 @@ package com.blankj.utilcode.pkg.feature.snackbar
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.support.annotation.StringRes
 import android.text.SpannableStringBuilder
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.StringRes
 import com.blankj.common.activity.CommonActivity
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick

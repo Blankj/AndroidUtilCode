@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.*
 import android.os.Bundle
-import android.support.annotation.ColorInt
 import android.text.Layout
 import android.text.SpannableStringBuilder
 import android.text.TextPaint
@@ -14,6 +13,7 @@ import android.text.style.ClickableSpan
 import android.text.style.UpdateAppearance
 import android.view.View
 import android.view.animation.LinearInterpolator
+import androidx.annotation.ColorInt
 import com.blankj.common.activity.CommonActivity
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.SpanUtils

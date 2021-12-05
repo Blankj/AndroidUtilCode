@@ -19,23 +19,12 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     lintOptions {
         abortOnError false
     }
-
-//    viewBinding {
-//        enabled = true
-//    }
-
-//    flavorDimensions "region"
-//
-//    productFlavors {
-//        china {
-//            dimension "region"
-//        }
-//
-//        oversea {
-//            dimension "region"
-//        }
-//    }
 }

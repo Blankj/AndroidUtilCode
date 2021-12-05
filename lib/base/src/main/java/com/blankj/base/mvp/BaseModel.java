@@ -1,7 +1,8 @@
 package com.blankj.base.mvp;
 
-import android.support.annotation.CallSuper;
 import android.util.Log;
+
+import androidx.annotation.CallSuper;
 
 /**
  * <pre>

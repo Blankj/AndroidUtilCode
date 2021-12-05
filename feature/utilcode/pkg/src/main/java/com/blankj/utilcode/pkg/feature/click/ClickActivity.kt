@@ -2,9 +2,9 @@ package com.blankj.utilcode.pkg.feature.click
 
 import android.content.Context
 import android.content.Intent
-import android.support.annotation.StringRes
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.StringRes
 import com.blankj.base.rv.ItemViewHolder
 import com.blankj.common.activity.CommonActivity
 import com.blankj.common.item.CommonItem

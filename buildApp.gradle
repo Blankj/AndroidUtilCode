@@ -1,28 +1,30 @@
+apply plugin: "com.android.application"
+
 apply {
-    plugin "com.android.application"
-    from  "${rootDir.path}/buildCommon.gradle"
-    if (Config.depConfig.plugin_api.isApply) {
-        plugin Config.depConfig.plugin_api.pluginId
+    from "${rootDir.path}/buildCommon.gradle"
+    from "${rootDir.path}/config/flavor.gradle"
+    if (Config.plugins.plugin_api.isApply) {
+        plugin Config.plugins.plugin_api.id
     }
-    if (Config.depConfig.plugin_bus.isApply) {
-        plugin Config.depConfig.plugin_bus.pluginId
+    if (Config.plugins.plugin_bus.isApply) {
+        plugin Config.plugins.plugin_bus.id
     }
 }
 
 configSigning()
 configApkName()
 
-if (Config.depConfig.plugin_bus.isApply) {
-    bus {
-        onlyScanLibRegex = '^([:]|(com\\.blankj)).+$'
-    }
-}
-
-if (Config.depConfig.plugin_api.isApply) {
-    api {
-        onlyScanLibRegex = '^([:]|(com\\.blankj)).+$'
-    }
-}
+//if (PluginConfig.plugin_bus.isApply) {
+//    bus {
+//        onlyScanLibRegex = '^([:]|(com\\.blankj)).+$'
+//    }
+//}
+//
+//if (PluginConfig.plugin_api.isApply) {
+//    api {
+//        onlyScanLibRegex = '^([:]|(com\\.blankj)).+$'
+//    }
+//}
 
 android {
     defaultConfig {
@@ -32,17 +34,11 @@ android {
     }
 
     buildTypes {
-        debug {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            applicationIdSuffix ".debug"
-            resValue "string", "app_name", Config.appName + suffix + ".debug"
-        }
+        debug {}
 
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            resValue "string", "app_name", Config.appName + suffix
         }
     }
 
@@ -56,29 +52,42 @@ android {
         maxProcessCount 8
         dexInProcess = true
     }
-}
 
+    productFlavors {
+        dev {
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+            resValue "string", "app_name", Config.appName + suffix + "-dev"
+        }
+
+        production {
+            resValue "string", "app_name", Config.appName + suffix
+        }
+    }
+}
 
 dependencies {
     // LeakCanary
-    debugImplementation Config.depConfig.leakcanary.dep
+    debugImplementation Config.libs.leakcanary.path
 
-    debugImplementation Config.depConfig.lib_utildebug.dep
-    releaseImplementation Config.depConfig.lib_utildebug_no_op.dep
+    debugImplementation Config.modules.lib_utildebug.dep
+    releaseImplementation Config.modules.lib_utildebug_no_op.dep
 
     // 根据 Config.pkgConfig 来依赖所有 pkg
     for (def entrySet : ConfigUtils.getApplyPkgs().entrySet()) {
         api entrySet.value.dep
     }
 
-    if (Config.depConfig.feature_mock.isApply) {
-        api Config.depConfig.feature_mock.dep
+    if (Config.modules.feature_mock.isApply) {
+        api ModuleConfig.modules.feature_mock.dep
     }
 }
 
 def getSuffix() {
     if (project.name == "feature_launcher_app") return ""
-    return "." + project.name.substring("feature_".length(), project.name.length() - "_app".length())
+    return "." + project.
+        name.
+        substring("feature_".length(), project.name.length() - "_app".length())
 }
 
 def configSigning() {
@@ -108,12 +117,14 @@ def configApkName() {
         if (variant.buildType.name != "debug") {
             def artifact = variant.getPackageApplicationProvider().get()
             artifact.outputDirectory = new File("${rootDir.path}/apk")
-            artifact.outputScope.apkDatas.forEach { apkData ->
-                apkData.outputFileName = "util" + suffix +
-                        (variant.flavorName == "" ? "" : ("_" + variant.flavorName)) +
-                        "_" + variant.versionName.replace(".", "_") +
-                        "_" + variant.buildType.name +
-                        ".apk"
+            variant.outputs.each {
+                it.outputFileName = "util" + suffix +
+                    (variant.flavorName == "" ? "" : ("_" + variant.flavorName)) +
+                    "_" +
+                    variant.versionName.replace(".", "_") +
+                    "_" +
+                    variant.buildType.name +
+                    ".apk"
             }
         }
     }

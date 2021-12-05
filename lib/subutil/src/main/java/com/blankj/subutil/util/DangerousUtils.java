@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.PowerManager;
-import android.support.annotation.RequiresPermission;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -18,6 +17,8 @@ import com.blankj.utilcode.util.Utils;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.List;
+
+import androidx.annotation.RequiresPermission;
 
 import static android.Manifest.permission.MODIFY_PHONE_STATE;
 import static android.Manifest.permission.SEND_SMS;

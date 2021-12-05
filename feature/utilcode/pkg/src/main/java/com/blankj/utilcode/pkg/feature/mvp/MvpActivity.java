@@ -3,11 +3,12 @@ package com.blankj.utilcode.pkg.feature.mvp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.blankj.common.activity.CommonActivity;
 import com.blankj.utilcode.pkg.R;
+
+import androidx.annotation.Nullable;
 
 /**
  * <pre>

@@ -6,21 +6,21 @@ apply {
 gradlePlugin {
     plugins {
         apiPlugin {
-            id = 'com.blankj.api'
+            id = Config.plugins.plugin_api.id
             implementationClass = 'com.blankj.api.ApiPlugin'
         }
     }
 }
 
 dependencies {
-    compileOnly Config.depConfig.plugin_gradle.dep
-    implementation Config.depConfig.commons_io.dep
-    implementation Config.depConfig.plugin_lib_base_transform.dep
+    compileOnly Config.plugins.plugin_gradle.path
+    implementation Config.libs.commons_io.path
+    implementation Config.modules.plugin_lib_base_transform.remotePath
     implementation gradleApi()
     implementation localGroovy()
 
-    testImplementation Config.depConfig.test_junit.dep
-    testImplementation Config.depConfig.plugin_gradle.dep
+    testImplementation Config.libs.test_junit.path
+    testImplementation Config.plugins.plugin_gradle.path
 }
 
 sourceSets {
@@ -31,14 +31,10 @@ sourceSets {
     }
 }
 
-apply from: "${rootDir.path}/gradle/publish.gradle"
-publish {
-    name = "ApiPlugin"
-    groupId = Config.depConfig.plugin_api.groupId
-    artifactId = Config.depConfig.plugin_api.artifactId
-    version = Config.depConfig.plugin_api.version
+ext {
+    groupId = Config.plugins.plugin_api.groupId
+    artifactId = Config.plugins.plugin_api.artifactId
+    version = Config.plugins.plugin_api.version
     website = "https://github.com/Blankj/AndroidUtilCode"
 }
-
-//./gradlew clean :plugin_api-gradle-plugin:mavenLocal     // 上传到本地 mavenLocal
-//./gradlew clean :plugin_api-gradle-plugin:bintrayUpload  // 上传到 jcenter
+apply from: "${rootDir.path}/config/publish.gradle"

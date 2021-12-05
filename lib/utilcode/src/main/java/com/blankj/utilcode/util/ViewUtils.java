@@ -2,13 +2,14 @@ package com.blankj.utilcode.util;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.LayoutRes;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.Locale;
+
+import androidx.annotation.LayoutRes;
 
 /**
  * <pre>

@@ -2,11 +2,12 @@ package com.blankj.base.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.StringUtils;
+
+import androidx.annotation.Nullable;
 
 /**
  * <pre>

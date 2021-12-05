@@ -1,10 +1,13 @@
 package com.blankj.base.mvp;
 
-import android.support.annotation.CallSuper;
 import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import androidx.annotation.CallSuper;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 /**
  * <pre>

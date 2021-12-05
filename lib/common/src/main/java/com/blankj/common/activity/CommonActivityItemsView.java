@@ -1,9 +1,5 @@
 package com.blankj.common.activity;
 
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.blankj.base.rv.BaseItemAdapter;
 import com.blankj.base.rv.RecycleViewDivider;
@@ -11,6 +7,11 @@ import com.blankj.common.R;
 import com.blankj.common.item.CommonItem;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * <pre>

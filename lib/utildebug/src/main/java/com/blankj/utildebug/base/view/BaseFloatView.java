@@ -3,8 +3,6 @@ package com.blankj.utildebug.base.view;
 import android.app.Activity;
 import android.graphics.PixelFormat;
 import android.os.Build;
-import android.support.annotation.CallSuper;
-import android.support.annotation.LayoutRes;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
@@ -14,6 +12,9 @@ import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.Utils;
 import com.blankj.utildebug.DebugUtils;
 import com.blankj.utildebug.R;
+
+import androidx.annotation.CallSuper;
+import androidx.annotation.LayoutRes;
 
 /**
  * <pre>

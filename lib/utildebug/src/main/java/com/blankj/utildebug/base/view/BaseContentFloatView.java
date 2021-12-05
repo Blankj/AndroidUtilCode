@@ -2,8 +2,6 @@ package com.blankj.utildebug.base.view;
 
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.StringRes;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,6 +24,9 @@ import com.blankj.utildebug.helper.ShadowHelper;
 import com.blankj.utildebug.helper.WindowHelper;
 
 import java.util.Stack;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.StringRes;
 
 /**
  * <pre>

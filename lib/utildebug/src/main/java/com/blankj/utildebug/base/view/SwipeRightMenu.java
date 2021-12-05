@@ -3,7 +3,6 @@ package com.blankj.utildebug.base.view;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.SystemClock;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,6 +15,8 @@ import com.blankj.utilcode.util.SizeUtils;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 /**
  * <pre>

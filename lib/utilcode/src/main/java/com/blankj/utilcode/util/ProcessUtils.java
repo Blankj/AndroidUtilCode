@@ -11,8 +11,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresPermission;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -26,6 +24,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresPermission;
 
 import static android.Manifest.permission.KILL_BACKGROUND_PROCESSES;
 

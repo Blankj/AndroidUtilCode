@@ -12,13 +12,14 @@ import android.content.pm.SigningInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * <pre>
@@ -771,6 +772,22 @@ public final class AppUtils {
         appInfo.sourceDir = apkFilePath;
         appInfo.publicSourceDir = apkFilePath;
         return getBean(pm, pi);
+    }
+
+
+    /**
+     * Return whether the application was first installed.
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isFirstTimeInstalled() {
+        try {
+            PackageInfo pi = Utils.getApp().getPackageManager().getPackageInfo(Utils.getApp().getPackageName(), 0);
+            return pi.firstInstallTime == pi.lastUpdateTime;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return true;
+        }
     }
 
     private static AppInfo getBean(final PackageManager pm, final PackageInfo pi) {

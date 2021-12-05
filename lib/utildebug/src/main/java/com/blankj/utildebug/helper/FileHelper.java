@@ -1,7 +1,5 @@
 package com.blankj.utildebug.helper;
 
-import android.support.annotation.IntDef;
-
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.StringUtils;
@@ -9,6 +7,8 @@ import com.blankj.utilcode.util.StringUtils;
 import java.io.File;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
 
 /**
  * <pre>

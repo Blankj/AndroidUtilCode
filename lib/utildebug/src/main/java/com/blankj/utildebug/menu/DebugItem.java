@@ -1,6 +1,5 @@
 package com.blankj.utildebug.menu;
 
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,6 +16,8 @@ import com.blankj.utildebug.debug.IDebug;
 
 import java.util.List;
 import java.util.Random;
+
+import androidx.annotation.NonNull;
 
 /**
  * <pre>

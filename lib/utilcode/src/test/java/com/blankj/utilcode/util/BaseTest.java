@@ -1,7 +1,5 @@
 package com.blankj.utilcode.util;
 
-import android.support.annotation.NonNull;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -10,6 +8,8 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
 import java.util.concurrent.Executor;
+
+import androidx.annotation.NonNull;
 
 /**
  * <pre>

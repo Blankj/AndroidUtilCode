@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.graphics.drawable.ColorDrawable
-import android.support.v4.app.FragmentActivity
 import android.text.method.ScrollingMovementMethod
 import android.view.Gravity
 import android.view.View
@@ -13,6 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentActivity
 import com.blankj.base.dialog.BaseDialogFragment
 import com.blankj.base.dialog.DialogLayoutCallback
 import com.blankj.utilcode.pkg.R

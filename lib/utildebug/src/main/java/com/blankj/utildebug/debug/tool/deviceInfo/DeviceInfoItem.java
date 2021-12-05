@@ -3,8 +3,6 @@ package com.blankj.utildebug.debug.tool.deviceInfo;
 import android.content.Intent;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -21,6 +19,9 @@ import com.blankj.utildebug.base.rv.ItemViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
 /**
  * <pre>

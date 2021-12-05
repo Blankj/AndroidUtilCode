@@ -1,7 +1,6 @@
 package com.blankj.utildebug.debug.tool.fileExplorer;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -29,9 +28,10 @@ import com.blankj.utildebug.helper.ImageLoader;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * <pre>

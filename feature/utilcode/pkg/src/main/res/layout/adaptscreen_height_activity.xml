@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".feature.adaptScreen.AdaptHeightActivity">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
@@ -93,6 +93,6 @@
                 android:textSize="30pt" />
         </LinearLayout>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </HorizontalScrollView>

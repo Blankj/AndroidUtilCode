@@ -2,9 +2,6 @@ package com.blankj.utilcode.util;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.CallSuper;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.util.HashMap;
@@ -24,6 +21,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+
+import androidx.annotation.CallSuper;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
 
 /**
  * <pre>

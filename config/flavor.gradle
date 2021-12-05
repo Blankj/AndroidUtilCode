@@ -1,0 +1,22 @@
+android {
+    flavorDimensions "env"
+    productFlavors {
+        dev {
+            dimension "env"
+        }
+
+        production {
+            dimension "env"
+        }
+    }
+
+    variantFilter { variant ->
+        def flavorNames = variant.flavors*.name
+        def buildTypeName = variant.buildType.name
+
+        // production 包不允许 debug 构建
+        if (flavorNames.contains("production") && buildTypeName.contains("debug")) {
+            variant.setIgnore(true)
+        }
+    }
+}

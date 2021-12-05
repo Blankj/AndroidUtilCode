@@ -1,4 +1,4 @@
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api Config.depConfig.lib_base.dep
+    api Config.modules.lib_base.dep
 }

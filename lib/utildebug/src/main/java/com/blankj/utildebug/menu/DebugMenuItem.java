@@ -1,11 +1,7 @@
 package com.blankj.utildebug.menu;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ShadowUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utildebug.R;
 import com.blankj.utildebug.base.rv.BaseItem;
@@ -18,6 +14,10 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * <pre>

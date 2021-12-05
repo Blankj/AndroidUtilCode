@@ -14,14 +14,15 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.os.SystemClock;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
 import android.util.Log;
 import android.util.StateSet;
 import android.view.MotionEvent;
 import android.view.TouchDelegate;
 import android.view.View;
+
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
 
 /**
  * <pre>

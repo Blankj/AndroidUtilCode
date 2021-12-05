@@ -1,8 +1,8 @@
 package com.blankj.utilcode.pkg.feature.fragment
 
 import android.os.Bundle
-import android.support.v4.app.FragmentManager
 import android.view.View
+import androidx.fragment.app.FragmentManager
 import com.blankj.common.fragment.CommonFragment
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemClick

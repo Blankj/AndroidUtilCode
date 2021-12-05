@@ -1,5 +1,4 @@
 apply {
-    plugin Config.depConfig.plugin_traute.pluginId
     plugin "readme-core"
 }
 
@@ -27,28 +26,22 @@ android {
 }
 
 dependencies {
-    implementation Config.depConfig.gson.dep
+    implementation Config.libs.gson.path
 
-    compileOnly Config.depConfig.support_appcompat_v7.dep
-    compileOnly Config.depConfig.support_design.dep
+    implementation Config.libs.androidx_appcompat.path
+    compileOnly Config.libs.androidx_material.path
 
-    testImplementation Config.depConfig.test_junit.dep
-    testImplementation Config.depConfig.test_robolectric.dep
-    testImplementation Config.depConfig.gson.dep
-    testImplementation Config.depConfig.support_appcompat_v7.dep
-    testImplementation Config.depConfig.support_design.dep
-    testImplementation Config.depConfig.eventbus_lib.dep
+    testImplementation Config.libs.test_junit.path
+    testImplementation Config.libs.test_robolectric.path
+    testImplementation Config.libs.androidx_appcompat.path
+    testImplementation Config.libs.androidx_material.path
+    testImplementation Config.libs.eventbus_lib.path
 }
 
-afterEvaluate {
-    verifyReleaseResources.enabled(false)
-}
-
-apply from: "${rootDir.path}/gradle/publish.gradle"
-publish {
-    name = "UtilCode"
-    groupId = Config.depConfig.lib_utilcode.groupId
-    artifactId = Config.depConfig.lib_utilcode.artifactId
-    version = Config.depConfig.lib_utilcode.version
+ext {
+    groupId = Config.modules.lib_utilcode.groupId
+    artifactId = Config.modules.lib_utilcode.artifactId
+    version = Config.modules.lib_utilcode.version
     website = "https://github.com/Blankj/AndroidUtilCode"
 }
+apply from: "${rootDir.path}/config/publish.gradle"

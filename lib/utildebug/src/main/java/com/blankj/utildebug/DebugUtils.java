@@ -3,7 +3,6 @@ package com.blankj.utildebug;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
@@ -15,6 +14,8 @@ import com.blankj.utildebug.menu.DebugMenu;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.DrawableRes;
 
 /**
  * <pre>

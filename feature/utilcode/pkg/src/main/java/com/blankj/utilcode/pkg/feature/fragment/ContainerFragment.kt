@@ -2,12 +2,11 @@ package com.blankj.utilcode.pkg.feature.fragment
 
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.RequiresApi
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
 import android.transition.*
 import android.view.View
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.FragmentManager
 import com.blankj.base.rv.ItemViewHolder
 import com.blankj.common.fragment.CommonFragment
 import com.blankj.common.item.CommonItem
@@ -15,7 +14,6 @@ import com.blankj.common.item.CommonItemClick
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.pkg.helper.DialogHelper
 import com.blankj.utilcode.util.*
-import kotlinx.android.synthetic.main.fragment_container.*
 import java.util.*
 
 /**
@@ -145,7 +143,7 @@ class ContainerFragment : CommonFragment(), FragmentUtils.OnBackClickListener {
         }
     }
 
-    private fun addSharedElement(fragment: Fragment): Fragment {
+    private fun addSharedElement(fragment: androidx.fragment.app.Fragment): androidx.fragment.app.Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             fragment.sharedElementEnterTransition = DetailTransition()
             fragment.enterTransition = Fade()

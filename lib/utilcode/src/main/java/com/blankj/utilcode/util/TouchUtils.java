@@ -1,6 +1,5 @@
 package com.blankj.utilcode.util;
 
-import android.support.annotation.IntDef;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -8,6 +7,8 @@ import android.view.ViewConfiguration;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
 
 /**
  * <pre>

@@ -2,7 +2,8 @@ package com.blankj.subutil.util.http;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import java.io.IOException;
 import java.net.InetAddress;

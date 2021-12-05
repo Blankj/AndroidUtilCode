@@ -1,12 +1,12 @@
 package com.blankj.common.item;
 
-import android.support.annotation.CallSuper;
-import android.support.annotation.NonNull;
-
 import com.blankj.base.rv.BaseItem;
 import com.blankj.base.rv.ItemViewHolder;
 import com.blankj.common.R;
 import com.blankj.utilcode.util.ColorUtils;
+
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
 
 /**
  * <pre>
