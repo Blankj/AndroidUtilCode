@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
@@ -280,9 +281,9 @@ public final class NetworkUtils {
     public static boolean isUsingVPN(){
         ConnectivityManager cm = (ConnectivityManager) com.blankj.utilcode.util.Utils.getApp().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            return cm.getNetworkInfo(ConnectivityManager.TYPE_VPN).isConnectedOrConnecting()
+            return cm.getNetworkInfo(ConnectivityManager.TYPE_VPN).isConnectedOrConnecting();
         } else {
-            return cm.getNetworkInfo(NetworkCapabilities.TRANSPORT_VPN).isConnectedOrConnecting()
+            return cm.getNetworkInfo(NetworkCapabilities.TRANSPORT_VPN).isConnectedOrConnecting();
         }
     }
 

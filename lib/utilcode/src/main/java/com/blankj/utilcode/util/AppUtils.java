@@ -385,16 +385,16 @@ public final class AppUtils {
         }
     }
 
-    
+
     /**
      * Return true if this is the first ever time that the application is installed on the device.
      *
      * @return true if this is the first ever time that the application is installed on the device.
      */
-    public static boolean isFirstTimeInstall(){
+    public static boolean isFirstTimeInstall() {
         try {
-            Long firstInstallTime = Utils.getApp().getPackageManager().getPackageInfo(this.getAppPackageName(), 0).firstInstallTime;
-            Long lastUpdateTime = Utils.getApp().getPackageManager().getPackageInfo(this.getAppPackageName(), 0).lastUpdateTime;
+            long firstInstallTime = Utils.getApp().getPackageManager().getPackageInfo(getAppPackageName(), 0).firstInstallTime;
+            long lastUpdateTime = Utils.getApp().getPackageManager().getPackageInfo(getAppPackageName(), 0).lastUpdateTime;
             return firstInstallTime == lastUpdateTime;
         } catch (Exception e) {
             return false;
@@ -406,17 +406,17 @@ public final class AppUtils {
      *
      * @return true if app was previously installed and this one is an update/upgrade to that one, returns false if this is a fresh installation and not an update/upgrade.
      */
-    public static boolean isAppUpgraded(){
+    public static boolean isAppUpgraded() {
         try {
-            Long firstInstallTime = Utils.getApp().getPackageManager().getPackageInfo(this.getAppPackageName(), 0).firstInstallTime;
-            Long lastUpdateTime = Utils.getApp().getPackageManager().getPackageInfo(this.getAppPackageName(), 0).lastUpdateTime;
+            long firstInstallTime = Utils.getApp().getPackageManager().getPackageInfo(getAppPackageName(), 0).firstInstallTime;
+            long lastUpdateTime = Utils.getApp().getPackageManager().getPackageInfo(getAppPackageName(), 0).lastUpdateTime;
             return firstInstallTime != lastUpdateTime;
         } catch (Exception e) {
             return false;
         }
     }
-    
-   
+
+
     /**
      * Return the application's package name.
      *

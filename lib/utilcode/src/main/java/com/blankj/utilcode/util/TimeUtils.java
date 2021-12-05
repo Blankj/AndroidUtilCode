@@ -1,6 +1,8 @@
 package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
+import android.provider.Settings;
 
 import com.blankj.utilcode.constant.TimeConstants;
 

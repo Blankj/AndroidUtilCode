@@ -220,6 +220,10 @@ static def isAndroidEnv(Project project) {
     return project.getPlugins().hasPlugin('com.android.application') || project.getPlugins().hasPlugin('com.android.library')
 }
 
-task publish2Local(type: GradleBuild, dependsOn: ['clean', 'assemble', 'publishReleasePublicationToMavenLocal']) {}
+task publish2Local(type: GradleBuild) {
+    tasks = ['assemble', 'publishReleasePublicationToMavenLocal']
+}
 
-task publish2Remote(type: GradleBuild, dependsOn: ['clean', 'assemble', 'publishReleasePublicationToMavenRepository']) {}
+task publish2Remote(type: GradleBuild) {
+    tasks = ['assemble', 'publishReleasePublicationToMavenRepository']
+}
