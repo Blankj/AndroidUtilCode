@@ -5,12 +5,14 @@
 
         <activity
             android:name="com.blankj.utilcode.util.UtilsTransActivity4MainProcess"
+            android:exported="false"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/ActivityTranslucent"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
 
         <activity
             android:name="com.blankj.utilcode.util.UtilsTransActivity"
+            android:exported="false"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:multiprocess="true"
             android:theme="@style/ActivityTranslucent"
