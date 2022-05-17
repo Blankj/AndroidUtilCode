@@ -79,6 +79,7 @@ getAppSignaturesMD5
 getAppInfo
 getAppsInfo
 getApkInfo
+isFirstTimeInstalled
 ```
 
 * ### About Array -> [ArrayUtils.java][array.java] -> [Test][array.test]
