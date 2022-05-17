@@ -222,6 +222,7 @@ public final class LogUtils {
             } catch (ArrayIndexOutOfBoundsException e) {
                 tagHead = new TagHead(tag, null, ": ");
             }
+            final TagHead finalTagHead = tagHead;
             final String body = processBody(type_high, contents);
             if (CONFIG.isLog2ConsoleSwitch() && type_high != FILE && type_low >= CONFIG.mConsoleFilter) {
                 print2Console(type_low, tagHead.tag, tagHead.consoleHead, body);
@@ -230,7 +231,7 @@ public final class LogUtils {
                 EXECUTOR.execute(new Runnable() {
                     @Override
                     public void run() {
-                        print2File(type_low, tagHead.tag, tagHead.fileHead + body);
+                        print2File(type_low, finalTagHead.tag, finalTagHead.fileHead + body);
                     }
                 });
             }
