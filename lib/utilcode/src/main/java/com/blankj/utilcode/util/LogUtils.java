@@ -214,7 +214,14 @@ public final class LogUtils {
         final int type_low = type & 0x0f, type_high = type & 0xf0;
         if (CONFIG.isLog2ConsoleSwitch() || CONFIG.isLog2FileSwitch() || type_high == FILE) {
             if (type_low < CONFIG.mConsoleFilter && type_low < CONFIG.mFileFilter) return;
-            final TagHead tagHead = processTagAndHead(tag);
+            TagHead tagHead;
+            try {
+                // when set 'minifyEnable=true', the code 'StackTraceElement targetElement = stackTrace[3];'
+                // may produce 'ArrayIndexOutOfBoundsException: length=3, index=3' exception.
+                tagHead = processTagAndHead(tag);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                tagHead = new TagHead(tag, null, ": ");
+            }
             final String body = processBody(type_high, contents);
             if (CONFIG.isLog2ConsoleSwitch() && type_high != FILE && type_low >= CONFIG.mConsoleFilter) {
                 print2Console(type_low, tagHead.tag, tagHead.consoleHead, body);
