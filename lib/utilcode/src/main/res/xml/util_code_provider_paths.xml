@@ -23,4 +23,9 @@
     <external-media-path
         name="external_media_path"
         path="." />
+      <!--配置root-path。这样子可以读取到sd卡和一些应用分身的目录，否则微信分身保存的图片，就会导致 java.lang.IllegalArgumentException: Failed to find configured root that contains /storage/emulated/999/tencent/MicroMsg/WeiXin/export1544062754693.jpg，在小米6的手机上微信分身有这个crash，华为没有
+-->
+    <root-path
+        name="root-path"
+        path="" />
 </paths>
