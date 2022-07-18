@@ -12,7 +12,6 @@ import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.CollectionUtils
 import com.blankj.utilcode.util.ColorUtils
-import com.blankj.utilcode.util.Utils
 
 /**
  * ```
@@ -41,24 +40,43 @@ class BarNavActivity : CommonActivity() {
             add(CommonItemTitle("isSupportNavBar", BarUtils.isSupportNavBar().toString()))
             if (BarUtils.isSupportNavBar()) {
                 add(CommonItemSwitch(
-                        R.string.bar_nav_visibility,
-                        { BarUtils.isNavBarVisible(this@BarNavActivity) },
-                        { BarUtils.setNavBarVisibility(this@BarNavActivity, it) }
+                    R.string.bar_nav_visibility,
+                    { BarUtils.isNavBarVisible(this@BarNavActivity) },
+                    { BarUtils.setNavBarVisibility(this@BarNavActivity, it) }
                 ))
 
                 add(CommonItemSwitch(
-                        R.string.bar_nav_light_mode,
-                        { BarUtils.isNavBarLightMode(this@BarNavActivity) },
-                        { BarUtils.setNavBarLightMode(this@BarNavActivity, it) }
+                    R.string.bar_nav_light_mode,
+                    { BarUtils.isNavBarLightMode(this@BarNavActivity) },
+                    { BarUtils.setNavBarLightMode(this@BarNavActivity, it) }
                 ))
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    add(CommonItemClick("getNavBarColor: ${ColorUtils.int2ArgbString(BarUtils.getNavBarColor(this@BarNavActivity))}").setOnItemClickListener() { _, item, _ ->
-                        BarUtils.setNavBarColor(this@BarNavActivity, ColorUtils.getRandomColor())
-                        itemsView.updateItems(bindItems())
-                        item.title = "getNavBarColor: ${ColorUtils.int2ArgbString(BarUtils.getNavBarColor(this@BarNavActivity))}"
-                    })
+                    add(
+                        CommonItemClick(
+                            "getNavBarColor: ${
+                                ColorUtils.int2ArgbString(
+                                    BarUtils.getNavBarColor(
+                                        this@BarNavActivity
+                                    )
+                                )
+                            }"
+                        ).setOnItemClickListener() { _, item, _ ->
+                            BarUtils.setNavBarColor(
+                                this@BarNavActivity,
+                                ColorUtils.getRandomColor()
+                            )
+                            itemsView.updateItems(bindItems())
+                            item.title = "getNavBarColor: ${
+                                ColorUtils.int2ArgbString(
+                                    BarUtils.getNavBarColor(this@BarNavActivity)
+                                )
+                            }"
+                        })
                 }
+                add(CommonItemClick("transparentNavBar").setOnItemClickListener() { _, item, _ ->
+                    BarUtils.transparentNavBar(this@BarNavActivity)
+                })
             }
         }
     }
