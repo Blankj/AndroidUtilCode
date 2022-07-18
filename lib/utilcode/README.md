@@ -140,6 +140,7 @@ getNavBarColor
 isSupportNavBar
 setNavBarLightMode
 isNavBarLightMode
+transparentNavBar
 ```
 
 * ### About Brightness -> [BrightnessUtils.java][brightness.java] -> [Demo][brightness.demo]

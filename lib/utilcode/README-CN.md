@@ -141,6 +141,7 @@ getNavBarColor                       : 获取导航栏颜色
 isSupportNavBar                      : 判断是否支持导航栏
 setNavBarLightMode                   : 设置导航栏是否为浅色模式
 isNavBarLightMode                    : 判断导航栏是否为浅色模式
+transparentNavBar                    : 透明导航栏
 ```
 
 * ### 亮度相关 -> [BrightnessUtils.java][brightness.java] -> [Demo][brightness.demo]
