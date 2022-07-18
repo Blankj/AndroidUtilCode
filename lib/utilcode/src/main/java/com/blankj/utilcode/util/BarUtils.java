@@ -1,5 +1,7 @@
 package com.blankj.utilcode.util;
 
+import static android.Manifest.permission.EXPAND_STATUS_BAR;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -19,15 +21,13 @@ import android.view.ViewGroup.MarginLayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
 
-import java.lang.reflect.Method;
-
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RequiresPermission;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import static android.Manifest.permission.EXPAND_STATUS_BAR;
+import java.lang.reflect.Method;
 
 /**
  * <pre>
@@ -44,8 +44,8 @@ public final class BarUtils {
     ///////////////////////////////////////////////////////////////////////////
 
     private static final String TAG_STATUS_BAR = "TAG_STATUS_BAR";
-    private static final String TAG_OFFSET     = "TAG_OFFSET";
-    private static final int    KEY_OFFSET     = -123;
+    private static final String TAG_OFFSET = "TAG_OFFSET";
+    private static final int KEY_OFFSET = -123;
 
     private BarUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -714,5 +714,27 @@ public final class BarUtils {
             return (vis & View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR) != 0;
         }
         return false;
+    }
+
+    public static void transparentNavBar(@NonNull final Activity activity) {
+        transparentNavBar(activity.getWindow());
+    }
+
+    public static void transparentNavBar(@NonNull final Window window) {
+        if (Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) return;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            window.setNavigationBarContrastEnforced(false);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setNavigationBarColor(Color.TRANSPARENT);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if ((window.getAttributes().flags & WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION) == 0) {
+                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            }
+        }
+        View decorView = window.getDecorView();
+        int vis = decorView.getSystemUiVisibility();
+        int option = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+        decorView.setSystemUiVisibility(vis | option);
     }
 }
