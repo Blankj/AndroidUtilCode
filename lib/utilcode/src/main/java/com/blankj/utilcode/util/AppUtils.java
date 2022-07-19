@@ -14,12 +14,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 /**
  * <pre>
@@ -542,6 +542,65 @@ public final class AppUtils {
     }
 
     /**
+     * Return the application's minimum sdk version code.
+     *
+     * @return the application's minimum sdk version code
+     */
+    public static int getAppMinSdkVersion() {
+        return getAppMinSdkVersion(Utils.getApp().getPackageName());
+    }
+
+    /**
+     * Return the application's minimum sdk version code.
+     *
+     * @param packageName The name of the package.
+     * @return the application's minimum sdk version code
+     */
+    public static int getAppMinSdkVersion(final String packageName) {
+        if (UtilsBridge.isSpace(packageName)) return -1;
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) return -1;
+        try {
+            PackageManager pm = Utils.getApp().getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(packageName, 0);
+            if (null == pi) return -1;
+            ApplicationInfo ai = pi.applicationInfo;
+            return null == ai ? -1 : ai.minSdkVersion;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    /**
+     * Return the application's target sdk version code.
+     *
+     * @return the application's target sdk version code
+     */
+    public static int getAppTargetSdkVersion() {
+        return getAppTargetSdkVersion(Utils.getApp().getPackageName());
+    }
+
+    /**
+     * Return the application's target sdk version code.
+     *
+     * @param packageName The name of the package.
+     * @return the application's target sdk version code
+     */
+    public static int getAppTargetSdkVersion(final String packageName) {
+        if (UtilsBridge.isSpace(packageName)) return -1;
+        try {
+            PackageManager pm = Utils.getApp().getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(packageName, 0);
+            if (null == pi) return -1;
+            ApplicationInfo ai = pi.applicationInfo;
+            return null == ai ? -1 : ai.targetSdkVersion;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    /**
      * Return the application's signature.
      *
      * @return the application's signature
@@ -721,6 +780,8 @@ public final class AppUtils {
      * <li>path of package</li>
      * <li>version name</li>
      * <li>version code</li>
+     * <li>minimum sdk version code</li>
+     * <li>target sdk version code</li>
      * <li>is system</li>
      * </ul>
      *
@@ -740,6 +801,8 @@ public final class AppUtils {
      * <li>path of package</li>
      * <li>version name</li>
      * <li>version code</li>
+     * <li>minimum sdk version code</li>
+     * <li>target sdk version code</li>
      * <li>is system</li>
      * </ul>
      *
@@ -829,13 +892,18 @@ public final class AppUtils {
         String packageName = pi.packageName;
         ApplicationInfo ai = pi.applicationInfo;
         if (ai == null) {
-            return new AppInfo(packageName, "", null, "", versionName, versionCode, false);
+            return new AppInfo(packageName, "", null, "", versionName, versionCode, -1, -1, false);
         }
         String name = ai.loadLabel(pm).toString();
         Drawable icon = ai.loadIcon(pm);
         String packagePath = ai.sourceDir;
+        int minSdkVersion = -1;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            minSdkVersion = ai.minSdkVersion;
+        }
+        int targetSdkVersion = ai.targetSdkVersion;
         boolean isSystem = (ApplicationInfo.FLAG_SYSTEM & ai.flags) != 0;
-        return new AppInfo(packageName, name, icon, packagePath, versionName, versionCode, isSystem);
+        return new AppInfo(packageName, name, icon, packagePath, versionName, versionCode, minSdkVersion, targetSdkVersion, isSystem);
     }
 
     /**
@@ -843,13 +911,15 @@ public final class AppUtils {
      */
     public static class AppInfo {
 
-        private String   packageName;
-        private String   name;
+        private String packageName;
+        private String name;
         private Drawable icon;
-        private String   packagePath;
-        private String   versionName;
-        private int      versionCode;
-        private boolean  isSystem;
+        private String packagePath;
+        private String versionName;
+        private int versionCode;
+        private int minSdkVersion;
+        private int targetSdkVersion;
+        private boolean isSystem;
 
         public Drawable getIcon() {
             return icon;
@@ -907,14 +977,31 @@ public final class AppUtils {
             this.versionName = versionName;
         }
 
-        public AppInfo(String packageName, String name, Drawable icon, String packagePath,
-                       String versionName, int versionCode, boolean isSystem) {
+        public int getMinSdkVersion() {
+            return minSdkVersion;
+        }
+
+        public void setMinSdkVersion(int minSdkVersion) {
+            this.minSdkVersion = minSdkVersion;
+        }
+
+        public int getTargetSdkVersion() {
+            return targetSdkVersion;
+        }
+
+        public void setTargetSdkVersion(int targetSdkVersion) {
+            this.targetSdkVersion = targetSdkVersion;
+        }
+
+        public AppInfo(String packageName, String name, Drawable icon, String packagePath, String versionName, int versionCode, int minSdkVersion, int targetSdkVersion, boolean isSystem) {
             this.setName(name);
             this.setIcon(icon);
             this.setPackageName(packageName);
             this.setPackagePath(packagePath);
             this.setVersionName(versionName);
             this.setVersionCode(versionCode);
+            this.setMinSdkVersion(minSdkVersion);
+            this.setTargetSdkVersion(targetSdkVersion);
             this.setSystem(isSystem);
         }
 
@@ -928,6 +1015,8 @@ public final class AppUtils {
                     "\n    app path: " + getPackagePath() +
                     "\n    app v name: " + getVersionName() +
                     "\n    app v code: " + getVersionCode() +
+                    "\n    app v min: " + getMinSdkVersion() +
+                    "\n    app v target: " + getTargetSdkVersion() +
                     "\n    is system: " + isSystem() +
                     "\n}";
         }

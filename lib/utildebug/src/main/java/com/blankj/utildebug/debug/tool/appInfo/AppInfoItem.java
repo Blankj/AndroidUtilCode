@@ -5,19 +5,18 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.ClickUtils;
 import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utildebug.DebugUtils;
 import com.blankj.utildebug.R;
 import com.blankj.utildebug.base.rv.BaseItem;
 import com.blankj.utildebug.base.rv.ItemViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
 
 /**
  * <pre>
@@ -29,8 +28,8 @@ import androidx.annotation.StringRes;
  */
 public class AppInfoItem extends BaseItem<AppInfoItem> {
 
-    private String          mTitle;
-    private String          mContent;
+    private String mTitle;
+    private String mContent;
     private OnClickListener mListener;
 
     private TextView titleTv;
@@ -71,9 +70,9 @@ public class AppInfoItem extends BaseItem<AppInfoItem> {
         appInfoItems.add(new AppInfoItem(R.string.du_app_info_version_name, AppUtils.getAppVersionName()));
         appInfoItems.add(new AppInfoItem(R.string.du_app_info_version_code, String.valueOf(AppUtils.getAppVersionCode())));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            appInfoItems.add(new AppInfoItem(R.string.du_app_info_min_sdk_version, String.valueOf(DebugUtils.getApp().getApplicationInfo().minSdkVersion)));
+            appInfoItems.add(new AppInfoItem(R.string.du_app_info_min_sdk_version, String.valueOf(AppUtils.getAppMinSdkVersion())));
         }
-        appInfoItems.add(new AppInfoItem(R.string.du_app_info_target_sdk_version, String.valueOf(DebugUtils.getApp().getApplicationInfo().targetSdkVersion)));
+        appInfoItems.add(new AppInfoItem(R.string.du_app_info_target_sdk_version, String.valueOf(AppUtils.getAppTargetSdkVersion())));
         appInfoItems.add(new AppInfoItem(R.string.du_app_info_open_app_info_page, "", new OnClickListener() {
             @Override
             public void onClick(View v) {

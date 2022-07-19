@@ -54,7 +54,10 @@ class AppActivity : CommonActivity(), Utils.OnAppStatusChangedListener {
 
     override fun bindItems(): MutableList<CommonItem<*>> {
         return CollectionUtils.newArrayList(
-                CommonItemSwitch("registerAppStatusChangedListener", { isRegisterAppStatusChangedListener }, {
+            CommonItemSwitch(
+                "registerAppStatusChangedListener",
+                { isRegisterAppStatusChangedListener },
+                {
                     isRegisterAppStatusChangedListener = it
                     if (it) {
                         AppUtils.registerAppStatusChangedListener(this)
@@ -62,55 +65,63 @@ class AppActivity : CommonActivity(), Utils.OnAppStatusChangedListener {
                         AppUtils.unregisterAppStatusChangedListener(this)
                     }
                 }),
-                CommonItemTitle("isAppRoot", AppUtils.isAppRoot().toString()),
-                CommonItemTitle("isAppDebug", AppUtils.isAppDebug().toString()),
-                CommonItemTitle("isAppSystem", AppUtils.isAppSystem().toString()),
-                CommonItemTitle("isAppForeground", AppUtils.isAppForeground(AppUtils.getAppPackageName()).toString()),
-                CommonItemTitle("isAppRunning", AppUtils.isAppRunning(AppUtils.getAppPackageName()).toString()),
-                CommonItemImage("getAppIcon") {
-                    it.setImageDrawable(AppUtils.getAppIcon())
-                },
-                CommonItemTitle("getAppPackageName", AppUtils.getAppPackageName()),
-                CommonItemTitle("getAppName", AppUtils.getAppName()),
-                CommonItemTitle("getAppPath", AppUtils.getAppPath()),
-                CommonItemTitle("getAppVersionName", AppUtils.getAppVersionName()),
-                CommonItemTitle("getAppVersionCode", AppUtils.getAppVersionCode().toString()),
-                CommonItemTitle("getAppSignaturesSHA1", AppUtils.getAppSignaturesSHA1().toString()),
-                CommonItemTitle("getAppSignaturesSHA256", AppUtils.getAppSignaturesSHA256().toString()),
-                CommonItemTitle("getAppSignaturesMD5", AppUtils.getAppSignaturesMD5().toString()),
-                CommonItemTitle("getAppUid", AppUtils.getAppUid().toString()),
-                CommonItemTitle("getApkInfo", AppUtils.getApkInfo(AppUtils.getAppPath()).toString()),
+            CommonItemTitle("isAppRoot", AppUtils.isAppRoot().toString()),
+            CommonItemTitle("isAppDebug", AppUtils.isAppDebug().toString()),
+            CommonItemTitle("isAppSystem", AppUtils.isAppSystem().toString()),
+            CommonItemTitle(
+                "isAppForeground",
+                AppUtils.isAppForeground(AppUtils.getAppPackageName()).toString()
+            ),
+            CommonItemTitle(
+                "isAppRunning",
+                AppUtils.isAppRunning(AppUtils.getAppPackageName()).toString()
+            ),
+            CommonItemImage("getAppIcon") {
+                it.setImageDrawable(AppUtils.getAppIcon())
+            },
+            CommonItemTitle("getAppPackageName", AppUtils.getAppPackageName()),
+            CommonItemTitle("getAppName", AppUtils.getAppName()),
+            CommonItemTitle("getAppPath", AppUtils.getAppPath()),
+            CommonItemTitle("getAppVersionName", AppUtils.getAppVersionName()),
+            CommonItemTitle("getAppVersionCode", AppUtils.getAppVersionCode().toString()),
+            CommonItemTitle("getAppMinSdkVersion", AppUtils.getAppMinSdkVersion().toString()),
+            CommonItemTitle("getAppTargetSdkVersion", AppUtils.getAppTargetSdkVersion().toString()),
+            CommonItemTitle("getAppSignaturesSHA1", AppUtils.getAppSignaturesSHA1().toString()),
+            CommonItemTitle("getAppSignaturesSHA256", AppUtils.getAppSignaturesSHA256().toString()),
+            CommonItemTitle("getAppSignaturesMD5", AppUtils.getAppSignaturesMD5().toString()),
+            CommonItemTitle("getAppUid", AppUtils.getAppUid().toString()),
+            CommonItemTitle("getApkInfo", AppUtils.getApkInfo(AppUtils.getAppPath()).toString()),
 
-                CommonItemClick(R.string.app_install) {
-                    if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
-                        ToastUtils.showShort(R.string.app_install_tips)
+            CommonItemClick(R.string.app_install) {
+                if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
+                    ToastUtils.showShort(R.string.app_install_tips)
+                } else {
+                    if (!FileUtils.isFileExists(Config.TEST_APK_PATH)) {
+                        ReleaseInstallApkTask(listener).execute()
                     } else {
-                        if (!FileUtils.isFileExists(Config.TEST_APK_PATH)) {
-                            ReleaseInstallApkTask(listener).execute()
-                        } else {
-                            listener.onReleased()
-                        }
+                        listener.onReleased()
                     }
-                },
-                CommonItemClick(R.string.app_uninstall) {
-                    if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
-                        AppUtils.uninstallApp(Config.TEST_PKG)
-                    } else {
-                        ToastUtils.showShort(R.string.app_uninstall_tips)
-                    }
-                },
-                CommonItemClick(R.string.app_launch) {
-                    AppUtils.launchApp(this.packageName)
-                },
-                CommonItemClick(R.string.app_relaunch) {
-                    AppUtils.relaunchApp()
-                },
-                CommonItemClick(R.string.app_launch_details_settings, true) {
-                    AppUtils.launchAppDetailsSettings()
-                },
-                CommonItemClick(R.string.app_exit) {
-                    AppUtils.exitApp()
                 }
+            },
+            CommonItemClick(R.string.app_uninstall) {
+                if (AppUtils.isAppInstalled(Config.TEST_PKG)) {
+                    AppUtils.uninstallApp(Config.TEST_PKG)
+                } else {
+                    ToastUtils.showShort(R.string.app_uninstall_tips)
+                }
+            },
+            CommonItemClick(R.string.app_launch) {
+                AppUtils.launchApp(this.packageName)
+            },
+            CommonItemClick(R.string.app_relaunch) {
+                AppUtils.relaunchApp()
+            },
+            CommonItemClick(R.string.app_launch_details_settings, true) {
+                AppUtils.launchAppDetailsSettings()
+            },
+            CommonItemClick(R.string.app_exit) {
+                AppUtils.exitApp()
+            }
         )
     }
 
@@ -130,7 +141,8 @@ class AppActivity : CommonActivity(), Utils.OnAppStatusChangedListener {
     }
 }
 
-class ReleaseInstallApkTask(private val mListener: OnReleasedListener) : ThreadUtils.SimpleTask<Unit>() {
+class ReleaseInstallApkTask(private val mListener: OnReleasedListener) :
+    ThreadUtils.SimpleTask<Unit>() {
 
     override fun doInBackground() {
         ResourceUtils.copyFileFromAssets("test_install", Config.TEST_APK_PATH)
