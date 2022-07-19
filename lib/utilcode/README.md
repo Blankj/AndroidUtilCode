@@ -72,6 +72,8 @@ getAppName
 getAppPath
 getAppVersionName
 getAppVersionCode
+getAppMinSdkVersion
+getAppTargetSdkVersion
 getAppSignatures
 getAppSignaturesSHA1
 getAppSignaturesSHA256
