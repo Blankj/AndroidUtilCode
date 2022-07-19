@@ -72,6 +72,8 @@ getAppName                        : 获取 App 名称
 getAppPath                        : 获取 App 路径
 getAppVersionName                 : 获取 App 版本号
 getAppVersionCode                 : 获取 App 版本码
+getAppMinSdkVersion               : 获取 App 支持最低系统版本号
+getAppTargetSdkVersion            : 获取 App 目标系统版本号
 getAppSignatures                  : 获取 App 签名
 getAppSignaturesSHA1              : 获取应用签名的的 SHA1 值
 getAppSignaturesSHA256            : 获取应用签名的的 SHA256 值
