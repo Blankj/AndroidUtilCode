@@ -1,5 +1,10 @@
 package com.blankj.utilcode.util;
 
+import static android.Manifest.permission.ACCESS_WIFI_STATE;
+import static android.Manifest.permission.CHANGE_WIFI_STATE;
+import static android.Manifest.permission.INTERNET;
+import static android.content.Context.WIFI_SERVICE;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -16,17 +21,15 @@ import android.text.TextUtils;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RequiresPermission;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 import java.util.UUID;
-
-import static android.Manifest.permission.ACCESS_WIFI_STATE;
-import static android.Manifest.permission.CHANGE_WIFI_STATE;
-import static android.Manifest.permission.INTERNET;
-import static android.content.Context.WIFI_SERVICE;
 
 /**
  * <pre>
@@ -382,12 +385,53 @@ public final class DeviceUtils {
         intent.setAction(Intent.ACTION_DIAL);
         boolean checkDial = intent.resolveActivity(Utils.getApp().getPackageManager()) == null;
         if (checkDial) return true;
+        if (isNotRealPhone()) return true;
 
 //        boolean checkDebuggerConnected = Debug.isDebuggerConnected();
 //        if (checkDebuggerConnected) return true;
 
         return false;
     }
+
+    /**
+     * Returns whether is a real phone.
+     * by function of {@link #readCpuInfo}, obtain the device cpu information.
+     * then compare whether it is intel or amd (because intel and amd are generally not mobile phone cpu), to determine whether it is a real mobile phone
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    private static boolean isNotRealPhone() {
+        String cpuInfo = readCpuInfo();
+        if ((cpuInfo.contains("intel") || cpuInfo.contains("amd"))) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Return Cpu information
+     *
+     * @return Cpu info
+     */
+    private static String readCpuInfo() {
+        String result = "";
+        try {
+            String[] args = {"/system/bin/cat", "/proc/cpuinfo"};
+            ProcessBuilder cmd = new ProcessBuilder(args);
+            Process process = cmd.start();
+            StringBuilder sb = new StringBuilder();
+            String readLine;
+            BufferedReader responseReader = new BufferedReader(new InputStreamReader(process.getInputStream(), "utf-8"));
+            while ((readLine = responseReader.readLine()) != null) {
+                sb.append(readLine);
+            }
+            responseReader.close();
+            result = sb.toString().toLowerCase();
+        } catch (IOException ignored) {
+        }
+        return result;
+    }
+
 
     /**
      * Whether user has enabled development settings.
@@ -403,7 +447,7 @@ public final class DeviceUtils {
     }
 
 
-    private static final    String KEY_UDID = "KEY_UDID";
+    private static final String KEY_UDID = "KEY_UDID";
     private volatile static String udid;
 
     /**
