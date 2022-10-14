@@ -78,6 +78,17 @@ public final class UriUtils {
     }
 
     /**
+     * Uri to file, without creating the cache copy if the path cannot be resolved.
+     *
+     * @param uri The uri.
+     * @return file
+     */
+    public static File uri2FileNoCacheCopy(final Uri uri) {
+        if (uri == null) return null;
+        return uri2FileReal(uri);
+    }
+    
+    /**
      * Uri to file.
      *
      * @param uri The uri.

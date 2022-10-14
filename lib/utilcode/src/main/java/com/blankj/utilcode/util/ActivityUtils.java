@@ -2013,10 +2013,11 @@ public final class ActivityUtils {
     }
 
     private static boolean isIntentAvailable(final Intent intent) {
-        return Utils.getApp()
-                .getPackageManager()
-                .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-                .size() > 0;
+//        return Utils.getApp()
+//                .getPackageManager()
+//                .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+//                .size() > 0;
+        return true;
     }
 
     private static boolean startActivityForResult(final Activity activity,

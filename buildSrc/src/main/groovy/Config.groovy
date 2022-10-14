@@ -6,8 +6,8 @@ class Config {
     static compileSdkVersion = 29
     static minSdkVersion = 14
     static targetSdkVersion = 29
-    static versionCode = 1_030_007
-    static versionName = '1.31.0'// E.g. 1.9.72 => 1,009,072
+    static versionCode = 1_031_001
+    static versionName = '1.31.1'// E.g. 1.9.72 => 1,009,072
 
     // lib version
     static gradlePluginVersion = '4.1.0'
@@ -34,7 +34,7 @@ class Config {
             lib_base                   : new ModuleConfig(isApply: true , useLocal: true , localPath: "./lib/base"),
             lib_common                 : new ModuleConfig(isApply: true , useLocal: true , localPath: "./lib/common"),
             lib_subutil                : new ModuleConfig(isApply: true , useLocal: true , localPath: "./lib/subutil"),
-            lib_utilcode               : new ModuleConfig(isApply: true , useLocal: false, localPath: "./lib/utilcode", remotePath: "com.blankj:utilcodex:$Config.versionName"),
+            lib_utilcode               : new ModuleConfig(isApply: true , useLocal: true , localPath: "./lib/utilcode", remotePath: "com.blankj:utilcodex:$Config.versionName"),
             lib_utildebug              : new ModuleConfig(isApply: true , useLocal: true , localPath: "./lib/utildebug"),
             lib_utildebug_no_op        : new ModuleConfig(isApply: true , useLocal: true , localPath: "./lib/utildebug-no-op"),
             /*Don't delete this line*/
