@@ -3,10 +3,10 @@
 Gradle:
 ```groovy
 // if u use AndroidX, use the following
-implementation 'com.blankj:utilcodex:1.31.0'
+implementation 'com.blankj:utilcodex:1.31.1'
 
 // Not in maintenance
-implementation 'com.blankj:utilcode:1.30.6'
+implementation 'com.blankj:utilcode:1.30.7'
 ```
 
 
@@ -1212,6 +1212,7 @@ removeListener
 res2Uri
 file2Uri
 uri2File
+uri2FileNoCacheCopy
 uri2Bytes
 ```
 

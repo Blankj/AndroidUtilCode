@@ -1,3 +1,4 @@
+* `22/10/15` [add] Fix some issue. Publish v1.31.1
 * `21/12/06` [add] Publish v1.31.0
 * `21/05/13` [add] Support publish mavenCentral.
 * `21/02/22` [add] Fix ToastUtils rtl bug. Publish v1.30.6.
