@@ -57,7 +57,7 @@ public final class BarUtils {
      * @return the status bar's height
      */
     public static int getStatusBarHeight() {
-        Resources resources = Utils.getApp().getResources();
+        Resources resources = Resources.getSystem();
         int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
         return resources.getDimensionPixelSize(resourceId);
     }
@@ -68,8 +68,7 @@ public final class BarUtils {
      * @param activity  The activity.
      * @param isVisible True to set status bar visible, false otherwise.
      */
-    public static void setStatusBarVisibility(@NonNull final Activity activity,
-                                              final boolean isVisible) {
+    public static void setStatusBarVisibility(@NonNull final Activity activity, final boolean isVisible) {
         setStatusBarVisibility(activity.getWindow(), isVisible);
     }
 
@@ -79,8 +78,7 @@ public final class BarUtils {
      * @param window    The window.
      * @param isVisible True to set status bar visible, false otherwise.
      */
-    public static void setStatusBarVisibility(@NonNull final Window window,
-                                              final boolean isVisible) {
+    public static void setStatusBarVisibility(@NonNull final Window window, final boolean isVisible) {
         if (isVisible) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
             showStatusBarView(window);
@@ -109,8 +107,7 @@ public final class BarUtils {
      * @param activity    The activity.
      * @param isLightMode True to set status bar light mode, false otherwise.
      */
-    public static void setStatusBarLightMode(@NonNull final Activity activity,
-                                             final boolean isLightMode) {
+    public static void setStatusBarLightMode(@NonNull final Activity activity, final boolean isLightMode) {
         setStatusBarLightMode(activity.getWindow(), isLightMode);
     }
 
@@ -120,8 +117,7 @@ public final class BarUtils {
      * @param window      The window.
      * @param isLightMode True to set status bar light mode, false otherwise.
      */
-    public static void setStatusBarLightMode(@NonNull final Window window,
-                                             final boolean isLightMode) {
+    public static void setStatusBarLightMode(@NonNull final Window window, final boolean isLightMode) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             View decorView = window.getDecorView();
             int vis = decorView.getSystemUiVisibility();
@@ -170,10 +166,7 @@ public final class BarUtils {
         Object haveSetOffset = view.getTag(KEY_OFFSET);
         if (haveSetOffset != null && (Boolean) haveSetOffset) return;
         MarginLayoutParams layoutParams = (MarginLayoutParams) view.getLayoutParams();
-        layoutParams.setMargins(layoutParams.leftMargin,
-                layoutParams.topMargin + getStatusBarHeight(),
-                layoutParams.rightMargin,
-                layoutParams.bottomMargin);
+        layoutParams.setMargins(layoutParams.leftMargin, layoutParams.topMargin + getStatusBarHeight(), layoutParams.rightMargin, layoutParams.bottomMargin);
         view.setTag(KEY_OFFSET, true);
     }
 
@@ -187,10 +180,7 @@ public final class BarUtils {
         Object haveSetOffset = view.getTag(KEY_OFFSET);
         if (haveSetOffset == null || !(Boolean) haveSetOffset) return;
         MarginLayoutParams layoutParams = (MarginLayoutParams) view.getLayoutParams();
-        layoutParams.setMargins(layoutParams.leftMargin,
-                layoutParams.topMargin - getStatusBarHeight(),
-                layoutParams.rightMargin,
-                layoutParams.bottomMargin);
+        layoutParams.setMargins(layoutParams.leftMargin, layoutParams.topMargin - getStatusBarHeight(), layoutParams.rightMargin, layoutParams.bottomMargin);
         view.setTag(KEY_OFFSET, false);
     }
 
@@ -214,8 +204,7 @@ public final class BarUtils {
      * @param activity The activity.
      * @param color    The status bar's color.
      */
-    public static View setStatusBarColor(@NonNull final Activity activity,
-                                         @ColorInt final int color) {
+    public static View setStatusBarColor(@NonNull final Activity activity, @ColorInt final int color) {
         return setStatusBarColor(activity, color, false);
     }
 
@@ -227,9 +216,7 @@ public final class BarUtils {
      * @param isDecor  True to add fake status bar in DecorView,
      *                 false to add fake status bar in ContentView.
      */
-    public static View setStatusBarColor(@NonNull final Activity activity,
-                                         @ColorInt final int color,
-                                         final boolean isDecor) {
+    public static View setStatusBarColor(@NonNull final Activity activity, @ColorInt final int color, final boolean isDecor) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return null;
         transparentStatusBar(activity);
         return applyStatusBarColor(activity, color, isDecor);
@@ -242,8 +229,7 @@ public final class BarUtils {
      * @param window The window.
      * @param color  The status bar's color.
      */
-    public static View setStatusBarColor(@NonNull final Window window,
-                                         @ColorInt final int color) {
+    public static View setStatusBarColor(@NonNull final Window window, @ColorInt final int color) {
         return setStatusBarColor(window, color, false);
     }
 
@@ -255,9 +241,7 @@ public final class BarUtils {
      * @param isDecor True to add fake status bar in DecorView,
      *                false to add fake status bar in ContentView.
      */
-    public static View setStatusBarColor(@NonNull final Window window,
-                                         @ColorInt final int color,
-                                         final boolean isDecor) {
+    public static View setStatusBarColor(@NonNull final Window window, @ColorInt final int color, final boolean isDecor) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return null;
         transparentStatusBar(window);
         return applyStatusBarColor(window, color, isDecor);
@@ -269,8 +253,7 @@ public final class BarUtils {
      * @param fakeStatusBar The fake status bar view.
      * @param color         The status bar's color.
      */
-    public static void setStatusBarColor(@NonNull final View fakeStatusBar,
-                                         @ColorInt final int color) {
+    public static void setStatusBarColor(@NonNull final View fakeStatusBar, @ColorInt final int color) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
         Activity activity = UtilsBridge.getActivityByContext(fakeStatusBar.getContext());
         if (activity == null) return;
@@ -295,10 +278,7 @@ public final class BarUtils {
         fakeStatusBar.setVisibility(View.VISIBLE);
         ViewGroup.LayoutParams layoutParams = fakeStatusBar.getLayoutParams();
         if (layoutParams == null) {
-            layoutParams = new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    getStatusBarHeight()
-            );
+            layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight());
             fakeStatusBar.setLayoutParams(layoutParams);
         } else {
             layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -314,9 +294,7 @@ public final class BarUtils {
      * @param fakeStatusBar The fake status bar view.
      * @param color         The status bar's color.
      */
-    public static void setStatusBarColor4Drawer(@NonNull final DrawerLayout drawer,
-                                                @NonNull final View fakeStatusBar,
-                                                @ColorInt final int color) {
+    public static void setStatusBarColor4Drawer(@NonNull final DrawerLayout drawer, @NonNull final View fakeStatusBar, @ColorInt final int color) {
         setStatusBarColor4Drawer(drawer, fakeStatusBar, color, false);
     }
 
@@ -329,10 +307,7 @@ public final class BarUtils {
      * @param color         The status bar's color.
      * @param isTop         True to set DrawerLayout at the top layer, false otherwise.
      */
-    public static void setStatusBarColor4Drawer(@NonNull final DrawerLayout drawer,
-                                                @NonNull final View fakeStatusBar,
-                                                @ColorInt final int color,
-                                                final boolean isTop) {
+    public static void setStatusBarColor4Drawer(@NonNull final DrawerLayout drawer, @NonNull final View fakeStatusBar, @ColorInt final int color, final boolean isTop) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
         Activity activity = UtilsBridge.getActivityByContext(fakeStatusBar.getContext());
         if (activity == null) return;
@@ -349,18 +324,12 @@ public final class BarUtils {
         }
     }
 
-    private static View applyStatusBarColor(@NonNull final Activity activity,
-                                            final int color,
-                                            boolean isDecor) {
+    private static View applyStatusBarColor(@NonNull final Activity activity, final int color, boolean isDecor) {
         return applyStatusBarColor(activity.getWindow(), color, isDecor);
     }
 
-    private static View applyStatusBarColor(@NonNull final Window window,
-                                            final int color,
-                                            boolean isDecor) {
-        ViewGroup parent = isDecor ?
-                (ViewGroup) window.getDecorView() :
-                (ViewGroup) window.findViewById(android.R.id.content);
+    private static View applyStatusBarColor(@NonNull final Window window, final int color, boolean isDecor) {
+        ViewGroup parent = isDecor ? (ViewGroup) window.getDecorView() : (ViewGroup) window.findViewById(android.R.id.content);
         View fakeStatusBarView = parent.findViewWithTag(TAG_STATUS_BAR);
         if (fakeStatusBarView != null) {
             if (fakeStatusBarView.getVisibility() == View.GONE) {
@@ -392,11 +361,9 @@ public final class BarUtils {
         fakeStatusBarView.setVisibility(View.VISIBLE);
     }
 
-    private static View createStatusBarView(@NonNull final Context context,
-                                            final int color) {
+    private static View createStatusBarView(@NonNull final Context context, final int color) {
         View statusBarView = new View(context);
-        statusBarView.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight()));
+        statusBarView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight()));
         statusBarView.setBackgroundColor(color);
         statusBarView.setTag(TAG_STATUS_BAR);
         return statusBarView;
@@ -432,9 +399,7 @@ public final class BarUtils {
     public static int getActionBarHeight() {
         TypedValue tv = new TypedValue();
         if (Utils.getApp().getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-            return TypedValue.complexToDimensionPixelSize(
-                    tv.data, Utils.getApp().getResources().getDisplayMetrics()
-            );
+            return TypedValue.complexToDimensionPixelSize(tv.data, Utils.getApp().getResources().getDisplayMetrics());
         }
         return 0;
     }
@@ -462,10 +427,8 @@ public final class BarUtils {
 
     private static void invokePanels(final String methodName) {
         try {
-            @SuppressLint("WrongConstant")
-            Object service = Utils.getApp().getSystemService("statusbar");
-            @SuppressLint("PrivateApi")
-            Class<?> statusBarManager = Class.forName("android.app.StatusBarManager");
+            @SuppressLint("WrongConstant") Object service = Utils.getApp().getSystemService("statusbar");
+            @SuppressLint("PrivateApi") Class<?> statusBarManager = Class.forName("android.app.StatusBarManager");
             Method expand = statusBarManager.getMethod(methodName);
             expand.invoke(service);
         } catch (Exception e) {
@@ -523,9 +486,7 @@ public final class BarUtils {
                 }
             }
         }
-        final int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        final int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         if (isVisible) {
             decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() & ~uiOptions);
         } else {
@@ -559,8 +520,7 @@ public final class BarUtils {
             final int id = child.getId();
             if (id != View.NO_ID) {
                 String resourceEntryName = getResNameById(id);
-                if ("navigationBarBackground".equals(resourceEntryName)
-                        && child.getVisibility() == View.VISIBLE) {
+                if ("navigationBarBackground".equals(resourceEntryName) && child.getVisibility() == View.VISIBLE) {
                     isVisible = true;
                     break;
                 }
@@ -570,9 +530,7 @@ public final class BarUtils {
             // 对于三星手机，android10以下非OneUI2的版本，比如 s8，note8 等设备上，
             // 导航栏显示存在bug："当用户隐藏导航栏时显示输入法的时候导航栏会跟随显示"，会导致隐藏输入法之后判断错误
             // 这个问题在 OneUI 2 & android 10 版本已修复
-            if (UtilsBridge.isSamsung()
-                    && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
-                    && Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            if (UtilsBridge.isSamsung() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
                 try {
                     return Settings.Global.getInt(Utils.getApp().getContentResolver(), "navigationbar_hide_bar_enabled") == 0;
                 } catch (Exception ignore) {
@@ -666,8 +624,7 @@ public final class BarUtils {
      * @param activity    The activity.
      * @param isLightMode True to set nav bar light mode, false otherwise.
      */
-    public static void setNavBarLightMode(@NonNull final Activity activity,
-                                          final boolean isLightMode) {
+    public static void setNavBarLightMode(@NonNull final Activity activity, final boolean isLightMode) {
         setNavBarLightMode(activity.getWindow(), isLightMode);
     }
 
@@ -677,8 +634,7 @@ public final class BarUtils {
      * @param window      The window.
      * @param isLightMode True to set nav bar light mode, false otherwise.
      */
-    public static void setNavBarLightMode(@NonNull final Window window,
-                                          final boolean isLightMode) {
+    public static void setNavBarLightMode(@NonNull final Window window, final boolean isLightMode) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             View decorView = window.getDecorView();
             int vis = decorView.getSystemUiVisibility();
