@@ -32,7 +32,12 @@ public final class SDCardUtils {
      * @return {@code true}: enabled<br>{@code false}: disabled
      */
     public static boolean isSDCardEnableByEnvironment() {
-        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
+        try {
+            return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**
