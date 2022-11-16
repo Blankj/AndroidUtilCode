@@ -198,7 +198,7 @@ public final class ResourceUtils {
                     return "";
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return "";
         }
