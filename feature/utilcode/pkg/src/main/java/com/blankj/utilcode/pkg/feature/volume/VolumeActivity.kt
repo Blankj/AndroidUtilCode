@@ -6,9 +6,12 @@ import android.media.AudioManager
 import android.widget.SeekBar
 import com.blankj.common.activity.CommonActivity
 import com.blankj.common.item.CommonItem
+import com.blankj.common.item.CommonItemClick
 import com.blankj.common.item.CommonItemSeekBar
 import com.blankj.utilcode.pkg.R
 import com.blankj.utilcode.util.CollectionUtils
+import com.blankj.utilcode.util.SoundUtils
+import com.blankj.utilcode.util.SoundUtils.stop
 import com.blankj.utilcode.util.VolumeUtils
 
 /**
@@ -34,26 +37,48 @@ class VolumeActivity : CommonActivity() {
 
     override fun bindItems(): MutableList<CommonItem<*>> {
         return CollectionUtils.newArrayList(
-                getItemSeekBar("Voice Call", AudioManager.STREAM_VOICE_CALL),
-                getItemSeekBar("System", AudioManager.STREAM_SYSTEM),
-                getItemSeekBar("Music", AudioManager.STREAM_MUSIC),
-                getItemSeekBar("Ring", AudioManager.STREAM_RING),
-                getItemSeekBar("Alarm", AudioManager.STREAM_ALARM),
-                getItemSeekBar("Notification", AudioManager.STREAM_NOTIFICATION),
-                getItemSeekBar("Dtmf", AudioManager.STREAM_DTMF)
+            getItemSeekBar("Voice Call", AudioManager.STREAM_VOICE_CALL),
+            getItemSeekBar("System", AudioManager.STREAM_SYSTEM),
+            getItemSeekBar("Music", AudioManager.STREAM_MUSIC),
+            getItemSeekBar("Ring", AudioManager.STREAM_RING),
+            getItemSeekBar("Alarm", AudioManager.STREAM_ALARM),
+            getItemSeekBar("Notification", AudioManager.STREAM_NOTIFICATION),
+            getItemSeekBar("Dtmf", AudioManager.STREAM_DTMF),
+            startRingItemCLick("Start Ring"),
+            stopRingItemCLick("Stop Ring")
         )
     }
 
     private fun getItemSeekBar(title: CharSequence, streamType: Int): CommonItemSeekBar {
-        return CommonItemSeekBar(title, VolumeUtils.getMaxVolume(streamType), object : CommonItemSeekBar.ProgressListener() {
-            override fun getCurValue(): Int {
-                return VolumeUtils.getVolume(streamType)
-            }
+        return CommonItemSeekBar(
+            title,
+            VolumeUtils.getMaxVolume(streamType),
+            object : CommonItemSeekBar.ProgressListener() {
+                override fun getCurValue(): Int {
+                    return VolumeUtils.getVolume(streamType)
+                }
 
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                VolumeUtils.setVolume(streamType, progress,  AudioManager.FLAG_SHOW_UI)
-            }
-        })
+                override fun onProgressChanged(
+                    seekBar: SeekBar?,
+                    progress: Int,
+                    fromUser: Boolean
+                ) {
+                    VolumeUtils.setVolume(streamType, progress, AudioManager.FLAG_SHOW_UI)
+                }
+            })
+    }
+
+
+    private fun startRingItemCLick(title: CharSequence): CommonItemClick {
+        return CommonItemClick(title) {
+            SoundUtils.play(R.raw.ring)
+        }
+    }
+
+    private fun stopRingItemCLick(title: CharSequence): CommonItemClick {
+        return CommonItemClick(title) {
+            SoundUtils.stop()
+        }
     }
 
     override fun onResume() {
