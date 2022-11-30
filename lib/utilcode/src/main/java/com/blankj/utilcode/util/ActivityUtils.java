@@ -1809,6 +1809,33 @@ public final class ActivityUtils {
         }
     }
 
+
+    /**
+     * Finish the activities whose type  equals the activity class.
+     *
+     * @param clz The activity class.
+     */
+    public static void finishExceptActivities(@NonNull final Class<? extends Activity> clz) {
+        finishExceptActivities(clz, false);
+    }
+
+
+    /**
+     * Finish the activities whose type  equals the activity class.
+     *
+     * @param clz        The activity class.
+     * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
+     */
+    public static void finishExceptActivities(@NonNull final Class<? extends Activity> clz,
+                                             final boolean isLoadAnim) {
+        List<Activity> activities = UtilsBridge.getActivityList();
+        for (Activity act : activities) {
+            if (act.getClass().equals(clz)) {
+                finishActivity(act, isLoadAnim);
+            }
+        }
+    }
+
     /**
      * Finish the activities whose type not equals the activity class.
      *
@@ -1997,26 +2024,19 @@ public final class ActivityUtils {
     private static boolean startActivity(final Intent intent,
                                          final Context context,
                                          final Bundle options) {
-        if (!isIntentAvailable(intent)) {
-            Log.e("ActivityUtils", "intent is unavailable");
-            return false;
-        }
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
-        if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            context.startActivity(intent, options);
-        } else {
-            context.startActivity(intent);
+        try {
+            if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                context.startActivity(intent, options);
+            } else {
+                context.startActivity(intent);
+            }
+        } catch (Exception e) {
+            Log.e("ActivityUtils", "An exception occurred in startActivity, error message: " + e.getLocalizedMessage());
+            return false;
         }
-        return true;
-    }
-
-    private static boolean isIntentAvailable(final Intent intent) {
-//        return Utils.getApp()
-//                .getPackageManager()
-//                .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-//                .size() > 0;
         return true;
     }
 
@@ -2036,14 +2056,15 @@ public final class ActivityUtils {
                                                   final Activity activity,
                                                   final int requestCode,
                                                   @Nullable final Bundle options) {
-        if (!isIntentAvailable(intent)) {
-            Log.e("ActivityUtils", "intent is unavailable");
+        try {
+            if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                activity.startActivityForResult(intent, requestCode, options);
+            } else {
+                activity.startActivityForResult(intent, requestCode);
+            }
+        } catch (Exception e) {
+            Log.e("ActivityUtils", "An exception occurred in startActivityForResult, error message: " + e.getLocalizedMessage());
             return false;
-        }
-        if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            activity.startActivityForResult(intent, requestCode, options);
-        } else {
-            activity.startActivityForResult(intent, requestCode);
         }
         return true;
     }
@@ -2079,18 +2100,19 @@ public final class ActivityUtils {
                                                   final Fragment fragment,
                                                   final int requestCode,
                                                   @Nullable final Bundle options) {
-        if (!isIntentAvailable(intent)) {
-            Log.e("ActivityUtils", "intent is unavailable");
-            return false;
-        }
         if (fragment.getActivity() == null) {
             Log.e("ActivityUtils", "Fragment " + fragment + " not attached to Activity");
             return false;
         }
-        if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            fragment.startActivityForResult(intent, requestCode, options);
-        } else {
-            fragment.startActivityForResult(intent, requestCode);
+        try {
+            if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                fragment.startActivityForResult(intent, requestCode, options);
+            } else {
+                fragment.startActivityForResult(intent, requestCode);
+            }
+        } catch (Exception e) {
+            Log.e("ActivityUtils", "An exception occurred in fragment.startActivityForResult, error message: " + e.getLocalizedMessage());
+            return false;
         }
         return true;
     }
