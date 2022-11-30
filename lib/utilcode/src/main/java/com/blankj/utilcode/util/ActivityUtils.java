@@ -1809,6 +1809,33 @@ public final class ActivityUtils {
         }
     }
 
+
+    /**
+     * Finish the activities whose type  equals the activity class.
+     *
+     * @param clz The activity class.
+     */
+    public static void finishExceptActivities(@NonNull final Class<? extends Activity> clz) {
+        finishExceptActivities(clz, false);
+    }
+
+
+    /**
+     * Finish the activities whose type  equals the activity class.
+     *
+     * @param clz        The activity class.
+     * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
+     */
+    public static void finishExceptActivities(@NonNull final Class<? extends Activity> clz,
+                                             final boolean isLoadAnim) {
+        List<Activity> activities = UtilsBridge.getActivityList();
+        for (Activity act : activities) {
+            if (act.getClass().equals(clz)) {
+                finishActivity(act, isLoadAnim);
+            }
+        }
+    }
+
     /**
      * Finish the activities whose type not equals the activity class.
      *
