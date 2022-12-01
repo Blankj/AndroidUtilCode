@@ -43,6 +43,7 @@
     <string name="demo_trans_activity">TransActivity Demo</string>
     <string name="demo_vibrate">VibrateUtils Demo</string>
     <string name="demo_volume">VolumeUtils Demo</string>
+    <string name="demo_sound">SoundUtils Demo</string>
 
     <!--Activity 相关-->
     <string name="activity_shared_element">Shared Element</string>

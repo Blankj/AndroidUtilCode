@@ -1,5 +1,6 @@
 package com.blankj.common.item;
 
+import android.os.Build;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.SeekBar;
@@ -22,10 +23,11 @@ import androidx.annotation.StringRes;
  */
 public class CommonItemSeekBar extends CommonItem {
 
-    private CharSequence     mTitle;
-    private CharSequence     mContent;
-    private int              mMaxProgress;
-    private int              mCurProgress;
+    private CharSequence mTitle;
+    private CharSequence mContent;
+    private int mMinProgress;
+    private int mMaxProgress;
+    private int mCurProgress;
     private ProgressListener mProgressListener;
 
     public CommonItemSeekBar(@StringRes int title, int maxProgress, @NonNull ProgressListener listener) {
@@ -36,6 +38,16 @@ public class CommonItemSeekBar extends CommonItem {
         super(R.layout.common_item_title_seekbar);
         mTitle = title;
         mMaxProgress = maxProgress;
+        mCurProgress = listener.getCurValue();
+        mProgressListener = listener;
+        mContent = String.valueOf(mCurProgress);
+    }
+
+    public CommonItemSeekBar(@NonNull CharSequence title, int minProgress, int maxProgress, @NonNull ProgressListener listener) {
+        super(R.layout.common_item_title_seekbar);
+        mTitle = title;
+        mMaxProgress = maxProgress;
+        mMinProgress = minProgress;
         mCurProgress = listener.getCurValue();
         mProgressListener = listener;
         mContent = String.valueOf(mCurProgress);
@@ -53,6 +65,9 @@ public class CommonItemSeekBar extends CommonItem {
 
         final SeekBar seekBar = holder.findViewById(R.id.commonItemSb);
         seekBar.setMax(mMaxProgress);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            seekBar.setMin(mMinProgress);
+        }
         seekBar.setProgress(mCurProgress);
         holder.itemView.setOnTouchListener(new View.OnTouchListener() {
             @Override

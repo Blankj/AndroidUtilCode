@@ -43,6 +43,7 @@ import com.blankj.utilcode.pkg.feature.screen.ScreenActivity
 import com.blankj.utilcode.pkg.feature.sdcard.SDCardActivity
 import com.blankj.utilcode.pkg.feature.shadow.ShadowActivity
 import com.blankj.utilcode.pkg.feature.snackbar.SnackbarActivity
+import com.blankj.utilcode.pkg.feature.sound.SoundActivity
 import com.blankj.utilcode.pkg.feature.spStatic.SPStaticActivity
 import com.blankj.utilcode.pkg.feature.span.SpanActivity
 import com.blankj.utilcode.pkg.feature.toast.ToastActivity
@@ -215,7 +216,10 @@ class CoreUtilActivity : CommonActivity() {
                 },
                 CommonItemClick(R.string.demo_volume, true) {
                     VolumeActivity.start(this)
-                }
+                },
+            CommonItemClick(R.string.demo_sound, true) {
+                SoundActivity.start(this)
+            }
         )
     }
 
