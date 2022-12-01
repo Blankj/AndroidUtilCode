@@ -15,6 +15,7 @@ import androidx.annotation.RequiresApi;
 
 import com.blankj.utilcode.R;
 
+import java.io.FileDescriptor;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -198,6 +199,57 @@ public class SoundUtils {
         soundIdMap.put(key, soundID);
     }
 
+    public void preload(String key, String path) {
+        preload(key, path, null);
+    }
+
+    public void preload(String key, String path, SoundPool.OnLoadCompleteListener listener) {
+
+        if (soundIdMap.size() > maxStreams) {
+            throw new IllegalArgumentException("u cannot preload raw count > maxStreams...");
+        }
+
+        int soundID = soundPool.load(path, 1);
+        if (listener != null) {
+            soundPool.setOnLoadCompleteListener(listener);
+        }
+        soundIdMap.put(key, soundID);
+    }
+
+    public void preload(String key, AssetFileDescriptor afd) {
+        preload(key, afd, null);
+    }
+
+    public void preload(String key, AssetFileDescriptor afd, SoundPool.OnLoadCompleteListener listener) {
+
+        if (soundIdMap.size() > maxStreams) {
+            throw new IllegalArgumentException("u cannot preload raw count > maxStreams...");
+        }
+
+        int soundID = soundPool.load(afd, 1);
+        if (listener != null) {
+            soundPool.setOnLoadCompleteListener(listener);
+        }
+        soundIdMap.put(key, soundID);
+    }
+
+    public void preload(String key, FileDescriptor fd, long offset, long length) {
+        preload(key, fd, offset, length, null);
+    }
+
+    public void preload(String key, FileDescriptor fd, long offset, long length, SoundPool.OnLoadCompleteListener listener) {
+
+        if (soundIdMap.size() > maxStreams) {
+            throw new IllegalArgumentException("u cannot preload raw count > maxStreams...");
+        }
+
+        int soundID = soundPool.load(fd, offset, length, 1);
+        if (listener != null) {
+            soundPool.setOnLoadCompleteListener(listener);
+        }
+        soundIdMap.put(key, soundID);
+    }
+
 
     public void unload(String key) {
         Integer soundId = soundIdMap.get(key);
@@ -208,6 +260,18 @@ public class SoundUtils {
     }
 
 
+    /**
+     * @param: key
+     * @param: leftVolume  left volume value (range = 0.0 to 1.0)
+     * @param: rightVolume right volume value (range = 0.0 to 1.0)
+     * @param: priority    tream priority (0 = lowest priority)
+     * @param: loop        loop mode (0 = no loop, -1 = loop forever)
+     * @param: rate        playback rate (1.0 = normal playback, range 0.5 to 2.0)
+     * @description: TODO
+     * @return: void
+     * @author: leo
+     * @date: 2022/12/1 9:52
+     */
     public void play(String key, float leftVolume, float rightVolume, int priority, int loop, float rate) {
         if (soundPool != null) {
             Integer resId = soundIdMap.get(key);
@@ -220,14 +284,24 @@ public class SoundUtils {
         }
     }
 
-
     public void play(String key, int priority, int loop, float rate) {
         play(key, 1, 1, priority, loop, rate);
     }
 
+    public void play(String key, int loop, float rate) {
+        play(key, 1, 1, 1, loop, rate);
+    }
 
     public void play(String key) {
-        play(key, 1, 1, 0, 0, 1);
+        play(key, 1, 1, 1, 0, 1);
+    }
+
+    public void play(String key, boolean loop) {
+        play(key, loop ? -1 : 0, 1);
+    }
+
+    public void play(String key, float rate) {
+        play(key, 0, rate);
     }
 
 
@@ -252,23 +326,43 @@ public class SoundUtils {
         }
     }
 
+    /**
+     * @param: key
+     * @param: loop   loop mode (0 = no loop, -1 = loop forever)
+     * @description: TODO
+     * @return: void
+     * @author: leo
+     * @date: 2022/12/1 10:24
+     */
     public void setLoop(String key, int loop) {
         if (soundPool != null) {
-            Integer streamID = streamIdMap.get(key);
-            if (streamID != null) {
-                soundPool.setLoop(streamID, loop);
+            soundIdMap.get(key);
+            Integer streamId = streamIdMap.get(key);
+            if (streamId != null) {
+                soundPool.pause(streamId);
+                soundPool.setLoop(streamId, loop);
+                soundPool.resume(streamId);
             }
         }
     }
 
     public void setLoop(String key, boolean loop) {
-        if (loop){
-            setLoop(key,-1);
-        }else{
-            setLoop(key,0);
+        if (loop) {
+            setLoop(key, -1);
+        } else {
+            setLoop(key, 0);
         }
     }
 
+    /**
+     * @param: key
+     * @param: leftVolume left volume value (range = 0.0 to 1.0)
+     * @param: rightVolume right volume value (range = 0.0 to 1.0)
+     * @description: TODO
+     * @return: void
+     * @author: leo
+     * @date: 2022/12/1 10:19
+     */
     public void setVolume(String key, float leftVolume, float rightVolume) {
         if (soundPool != null) {
             Integer streamID = streamIdMap.get(key);
@@ -278,6 +372,14 @@ public class SoundUtils {
         }
     }
 
+    /**
+     * @param: key
+     * @param: rate     rate – playback rate (1.0 = normal playback, range 0.5 to 2.0)
+     * @description: TODO
+     * @return: void
+     * @author: leo
+     * @date: 2022/12/1 10:26
+     */
     public void setRate(String key, float rate) {
         if (soundPool != null) {
             Integer streamID = streamIdMap.get(key);
@@ -286,120 +388,6 @@ public class SoundUtils {
             }
         }
     }
-
-
-    public void unload(@RawRes int resId) {
-        String key = String.valueOf(resId);
-        unload(key);
-    }
-
-    public void play(@RawRes int resId, float leftVolume, float rightVolume, int priority, int loop, float rate) {
-        if (soundPool != null) {
-            String key = String.valueOf(resId);
-            preload(key, resId, (soundPool, sampleId, status) -> {
-                Integer index = soundIdMap.get(key);
-                int streamID;
-                if (index != null) {
-                    streamID = soundPool.play(index, leftVolume, rightVolume, priority, loop, rate);
-                } else {
-                    streamID = soundPool.play(resId, leftVolume, rightVolume, priority, loop, rate);
-                }
-                streamIdMap.put(key, streamID);
-            });
-        }
-    }
-
-    public void play(@RawRes int resId, int priority, int loop, float rate) {
-        play(resId, 1, 1, priority, loop, rate);
-    }
-
-    public void play(@RawRes int resId) {
-        play(resId, 1, 1, 0, 0, 1);
-    }
-
-    public void stop(@RawRes int resId) {
-        String key = String.valueOf(resId);
-        stop(key);
-    }
-
-    public void resume(@RawRes int resId) {
-        String key = String.valueOf(resId);
-        resume(key);
-    }
-
-    public void pause(@RawRes int resId) {
-        String key = String.valueOf(resId);
-        pause(key);
-    }
-
-    /**
-     * @param: resId
-     * @param: loop loop – loop mode (0 = no loop, -1 = loop forever)
-     * @description: TODO
-     * @return: void
-     * @author: leo
-     * @date: 2022/11/30 17:37
-     */
-    public void setLoop(@RawRes int resId, int loop) {
-        String key = String.valueOf(resId);
-
-        if (soundPool != null) {
-            Integer streamID = streamIdMap.get(key);
-            if (streamID != null) {
-                soundPool.setLoop(streamID, loop);
-            }
-        }
-    }
-
-    public void setLoop(@RawRes int resId, boolean loop) {
-        if (loop){
-            setLoop(resId,-1);
-        }else{
-            setLoop(resId,0);
-        }
-    }
-
-    /**
-     * @param: resId
-     * @param: leftVolume leftVolume – left volume value (range = 0.0 to 1.0)
-     * @param: rightVolume rightVolume – right volume value (range = 0.0 to 1.0)
-     * @description: TODO
-     * @return: void
-     * @author: leo
-     * @date: 2022/11/30 17:45
-     */
-    public void setVolume(@RawRes int resId, float leftVolume, float rightVolume) {
-        String key = String.valueOf(resId);
-        if (soundPool != null) {
-            Integer streamID = streamIdMap.get(key);
-            if (streamID != null) {
-                soundPool.setVolume(streamID, leftVolume, rightVolume);
-            }
-        }
-    }
-
-    /**
-     * @param: resId
-     * @param: rate rate – playback rate (1.0 = normal playback, range 0.5 to 2.0)
-     * @description: TODO
-     * @return: void
-     * @author: leo
-     * @date: 2022/11/30 17:27
-     */
-    public void setRate(@RawRes int resId, float rate) {
-        String key = String.valueOf(resId);
-        if (soundPool != null) {
-            Integer streamID = streamIdMap.get(key);
-            if (streamID != null) {
-                soundPool.setRate(streamID, rate);
-            }
-        }
-    }
-
-
-
-
-
 
 
     public void release() {
