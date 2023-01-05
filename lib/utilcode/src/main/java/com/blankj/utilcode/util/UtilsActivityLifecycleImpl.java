@@ -41,7 +41,7 @@ final class UtilsActivityLifecycleImpl implements Application.ActivityLifecycleC
 
     private int     mForegroundCount = 0;
     private int     mConfigCount     = 0;
-    private boolean mIsBackground    = false;
+    private boolean mIsBackground    = true;
 
     void init(Application app) {
         app.registerActivityLifecycleCallbacks(this);
