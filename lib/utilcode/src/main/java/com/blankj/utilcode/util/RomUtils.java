@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * <pre>
@@ -24,6 +26,7 @@ import java.util.Properties;
 public final class RomUtils {
 
     private static final String[] ROM_HUAWEI    = {"huawei"};
+    private static final String[] ROM_HARMONY   = {"harmony"};
     private static final String[] ROM_VIVO      = {"vivo"};
     private static final String[] ROM_XIAOMI    = {"xiaomi"};
     private static final String[] ROM_OPPO      = {"oppo"};
@@ -68,6 +71,15 @@ public final class RomUtils {
      */
     public static boolean isHuawei() {
         return ROM_HUAWEI[0].equals(getRomInfo().name);
+    }
+
+    /**
+     * Return whether the rom is made by harmony.
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isHarmony() {
+        return ROM_HARMONY[0].equals(getRomInfo().name);
     }
 
     /**
@@ -251,6 +263,11 @@ public final class RomUtils {
         bean = new RomInfo();
         final String brand = getBrand();
         final String manufacturer = getManufacturer();
+        if (isHarmonyOS()) {
+            sInfo.name = ROM_HARMONY[0];
+            sInfo.version = getHarmonyOSVersion();
+            return sInfo;
+        }
         if (isRightRom(brand, manufacturer, ROM_HUAWEI)) {
             bean.name = ROM_HUAWEI[0];
             String version = getRomVersion(VERSION_PROPERTY_HUAWEI);
@@ -433,6 +450,26 @@ public final class RomUtils {
             return (String) getMethod.invoke(clz, key, "");
         } catch (Exception e) {/**/}
         return "";
+    }
+
+    private static boolean isHarmonyOS() {
+        try {
+            Class<?> clz = Class.forName("com.huawei.system.BuildEx");
+            Method method = clz.getMethod("getOsBrand");
+            return "harmony".equals(method.invoke(clz));
+        } catch (Throwable unused) {
+            return false;
+        }
+    }
+
+    private static String getHarmonyOSVersion() {
+        String version = getRomVersion("");
+        Matcher matcher = Pattern.compile("\\d+\\.\\d+\\.\\d+[\\d.]*").matcher(version);
+        if (matcher.find()) {
+            return matcher.group();
+        } else {
+            return version;
+        }
     }
 
     public static class RomInfo {
