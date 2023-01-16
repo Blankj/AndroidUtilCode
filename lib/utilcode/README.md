@@ -6,7 +6,7 @@ Gradle:
 implementation 'com.blankj:utilcodex:1.31.1'
 
 // Not in maintenance
-implementation 'com.blankj:utilcode:1.30.6'
+implementation 'com.blankj:utilcode:1.30.7'
 ```
 
 

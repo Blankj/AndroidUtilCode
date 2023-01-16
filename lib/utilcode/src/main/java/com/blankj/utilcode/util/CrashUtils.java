@@ -102,12 +102,12 @@ public final class CrashUtils {
                 final String crashFile = dirPath + time + ".txt";
                 UtilsBridge.writeFileFromString(crashFile, info.toString(), true);
 
-                if (DEFAULT_UNCAUGHT_EXCEPTION_HANDLER != null) {
-                    DEFAULT_UNCAUGHT_EXCEPTION_HANDLER.uncaughtException(t, e);
-                }
                 if (onCrashListener != null) {
                     onCrashListener.onCrash(info);
+                } else if (DEFAULT_UNCAUGHT_EXCEPTION_HANDLER != null) {
+                    DEFAULT_UNCAUGHT_EXCEPTION_HANDLER.uncaughtException(t, e);
                 }
+                
             }
         };
     }
