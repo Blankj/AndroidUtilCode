@@ -1412,7 +1412,13 @@ public final class FileUtils {
      */
     public static long getFsTotalSize(String anyPathInFs) {
         if (TextUtils.isEmpty(anyPathInFs)) return 0;
-        StatFs statFs = new StatFs(anyPathInFs);
+        StatFs statFs;
+        try {
+            statFs = new StatFs(anyPathInFs);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return 0;
+        }
         long blockSize;
         long totalSize;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
@@ -1433,7 +1439,13 @@ public final class FileUtils {
      */
     public static long getFsAvailableSize(final String anyPathInFs) {
         if (TextUtils.isEmpty(anyPathInFs)) return 0;
-        StatFs statFs = new StatFs(anyPathInFs);
+        StatFs statFs;
+        try {
+            statFs = new StatFs(anyPathInFs);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return 0;
+        }
         long blockSize;
         long availableSize;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {

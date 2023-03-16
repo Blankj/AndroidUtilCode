@@ -73,6 +73,8 @@ public final class SDCardUtils {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
                 e.printStackTrace();
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
             }
         } else {
             try {
@@ -100,6 +102,8 @@ public final class SDCardUtils {
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
         }
