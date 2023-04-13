@@ -547,18 +547,18 @@ public final class FileIOUtils {
             Log.e("FileIOUtils", "create file <" + file + "> failed.");
             return false;
         }
-        BufferedWriter bw = null;
+        FileWriter writer = null;
         try {
-            bw = new BufferedWriter(new FileWriter(file, append));
-            bw.write(content);
+            writer = new FileWriter(file, append);
+            writer.write(content);
             return true;
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         } finally {
             try {
-                if (bw != null) {
-                    bw.close();
+                if (writer != null) {
+                    writer.close();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
