@@ -1475,7 +1475,13 @@ public final class ActivityUtils {
         PackageManager pm = Utils.getApp().getPackageManager();
         List<ResolveInfo> info = pm.queryIntentActivities(intent, 0);
         if (info == null || info.size() == 0) {
-            return "";
+            intent.removeCategory(Intent.CATEGORY_LAUNCHER);
+            intent.addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER);
+            List<ResolveInfo> leaninfo = pm.queryIntentActivities(intent, 0);
+            if(leaninfo == null || leaninfo.size() == 0){
+                return "";
+            }
+            return leaninfo.get(0).activityInfo.name;
         }
         return info.get(0).activityInfo.name;
     }
