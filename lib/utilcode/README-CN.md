@@ -915,6 +915,8 @@ readRaw2List       : 从 raw 中按行读取字符串
 * ### Rom 相关 -> [RomUtils.java][rom.java] -> [Demo][rom.demo]
 ```
 isHuawei   : 是否华为
+isHarmonyOS: 是否鸿蒙系统
+isHonor    : 是否荣耀
 isVivo     : 是否 VIVO
 isXiaomi   : 是否小米
 isOppo     : 是否 OPPO

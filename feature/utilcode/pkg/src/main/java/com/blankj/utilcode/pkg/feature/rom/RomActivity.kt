@@ -6,7 +6,6 @@ import com.blankj.common.activity.CommonActivity
 import com.blankj.common.item.CommonItem
 import com.blankj.common.item.CommonItemTitle
 import com.blankj.utilcode.pkg.R
-import com.blankj.utilcode.util.CollectionUtils
 import com.blankj.utilcode.util.RomUtils
 
 /**
@@ -32,9 +31,12 @@ class RomActivity : CommonActivity() {
 
     override fun bindItems(): MutableList<CommonItem<*>> {
         val romInfo = RomUtils.getRomInfo()
-        return CollectionUtils.newArrayList(
-                CommonItemTitle("Rom Name", romInfo.name),
-                CommonItemTitle("Rom Version", romInfo.version)
-        )
+        return mutableListOf<CommonItem<*>>().apply {
+            if (RomUtils.isHarmonyOS()) {
+                add(CommonItemTitle("Harmony OS", "YES"))
+            }
+            add(CommonItemTitle("Rom Name", romInfo.name))
+            add(CommonItemTitle("Rom Version", romInfo.version))
+        }
     }
 }

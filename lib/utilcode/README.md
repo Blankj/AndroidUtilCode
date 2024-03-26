@@ -914,6 +914,8 @@ readRaw2List
 * ### About Rom -> [RomUtils.java][rom.java] -> [Demo][rom.demo]
 ```
 isHuawei
+isHarmonyOS
+isHonor
 isVivo
 isXiaomi
 isOppo
