@@ -24,6 +24,8 @@ import java.util.Properties;
 public final class RomUtils {
 
     private static final String[] ROM_HUAWEI    = {"huawei"};
+    private static final String[] ROM_HARMONY   = {"harmony"};
+    private static final String[] ROM_HONOR     = {"honor"};
     private static final String[] ROM_VIVO      = {"vivo"};
     private static final String[] ROM_XIAOMI    = {"xiaomi"};
     private static final String[] ROM_OPPO      = {"oppo"};
@@ -45,6 +47,8 @@ public final class RomUtils {
     private static final String[] ROM_MOTOROLA  = {"motorola"};
 
     private static final String VERSION_PROPERTY_HUAWEI  = "ro.build.version.emui";
+    private static final String VERSION_PROPERTY_HONOR   = "ro.honor.build.display.id";
+    private static final String VERSION_PROPERTY_HARMONY = "hw_sc.build.platform.version";
     private static final String VERSION_PROPERTY_VIVO    = "ro.vivo.os.build.display.id";
     private static final String VERSION_PROPERTY_XIAOMI  = "ro.build.version.incremental";
     private static final String VERSION_PROPERTY_OPPO    = "ro.build.version.opporom";
@@ -68,6 +72,23 @@ public final class RomUtils {
      */
     public static boolean isHuawei() {
         return ROM_HUAWEI[0].equals(getRomInfo().name);
+    }
+
+    /**
+     * Return whether the rom is harmony OS.
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isHarmonyOS() {
+        return ROM_HARMONY[0].equals(getRomInfo().name);
+    }
+
+    /**
+     * Return whether the rom is made by honor.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isHonor() {
+        return ROM_HONOR[0].equals(getRomInfo().name);
     }
 
     /**
@@ -251,6 +272,11 @@ public final class RomUtils {
         bean = new RomInfo();
         final String brand = getBrand();
         final String manufacturer = getManufacturer();
+        if (checkIsHarmonyOs()) {
+            bean.name = ROM_HARMONY[0];
+            bean.version = getRomVersion(VERSION_PROPERTY_HARMONY);
+            return bean;
+        }
         if (isRightRom(brand, manufacturer, ROM_HUAWEI)) {
             bean.name = ROM_HUAWEI[0];
             String version = getRomVersion(VERSION_PROPERTY_HUAWEI);
@@ -265,6 +291,11 @@ public final class RomUtils {
         if (isRightRom(brand, manufacturer, ROM_VIVO)) {
             bean.name = ROM_VIVO[0];
             bean.version = getRomVersion(VERSION_PROPERTY_VIVO);
+            return bean;
+        }
+        if (isRightRom(brand, manufacturer, ROM_HONOR)) {
+            bean.name = ROM_HONOR[0];
+            bean.version = getRomVersion(VERSION_PROPERTY_HONOR);
             return bean;
         }
         if (isRightRom(brand, manufacturer, ROM_XIAOMI)) {
@@ -339,6 +370,20 @@ public final class RomUtils {
                 return true;
             }
         }
+        return false;
+    }
+
+    /**
+     * Return whether the rom is harmony OS.
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    private static boolean checkIsHarmonyOs() {
+        try {
+            Class<?> buildExClass = Class.forName("com.huawei.system.BuildEx");
+            Object osBrand = buildExClass.getMethod("getOsBrand").invoke(buildExClass);
+            return osBrand != null && ROM_HARMONY[0].equalsIgnoreCase(osBrand.toString());
+        } catch (Throwable ignore) {/**/}
         return false;
     }
 
