@@ -34,7 +34,7 @@ class Config {
             lib_base                   : new ModuleConfig(isApply: true , useLocal: true , localPath: "./lib/base"),
             lib_common                 : new ModuleConfig(isApply: true , useLocal: true , localPath: "./lib/common"),
             lib_subutil                : new ModuleConfig(isApply: true , useLocal: true , localPath: "./lib/subutil"),
-            lib_utilcode               : new ModuleConfig(isApply: true , useLocal: false, localPath: "./lib/utilcode", remotePath: "com.blankj:utilcodex:$Config.versionName"),
+            lib_utilcode               : new ModuleConfig(isApply: true , useLocal: true , localPath: "./lib/utilcode", remotePath: "com.blankj:utilcodex:$Config.versionName"),
             lib_utildebug              : new ModuleConfig(isApply: true , useLocal: true , localPath: "./lib/utildebug"),
             lib_utildebug_no_op        : new ModuleConfig(isApply: true , useLocal: true , localPath: "./lib/utildebug-no-op"),
             /*Don't delete this line*/
