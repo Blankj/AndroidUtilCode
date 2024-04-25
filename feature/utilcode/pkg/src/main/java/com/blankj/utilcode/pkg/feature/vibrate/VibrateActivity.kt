@@ -41,6 +41,7 @@ class VibrateActivity : CommonActivity() {
                 CommonItemClick(R.string.vibrate_background) {
                     backHome()
                     mContentView.postDelayed({
+//                        VibrateUtils.vibrate(1000) -- can not vibrate in background
                         VibrateUtils.vibrateCompat(longArrayOf(0, 1000, 1000, 2000, 2000, 1000), 1)
 //                        VibrateUtils.vibrateCompat(1000)
                     }, 1000)

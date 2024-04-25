@@ -58,7 +58,7 @@ public final class VibrateUtils {
     }
 
     /**
-     * VibrateCompat
+     * VibrateCompat - Can vibrate in background
      * <p>Must hold {@code <uses-permission android:name="android.permission.VIBRATE" />}</p>
      *
      * @param milliseconds he number of milliseconds to vibrate.
@@ -106,7 +106,7 @@ public final class VibrateUtils {
     }
 
     /**
-     * VibrateCompat
+     * VibrateCompat - Can vibrate in background
      * <p>Must hold {@code <uses-permission android:name="android.permission.VIBRATE" />}</p>
      *
      * @param pattern An array of longs of times for which to turn the vibrator on or off.
