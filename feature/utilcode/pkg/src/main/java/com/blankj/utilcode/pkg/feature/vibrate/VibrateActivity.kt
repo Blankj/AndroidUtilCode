@@ -32,16 +32,35 @@ class VibrateActivity : CommonActivity() {
 
     override fun bindItems(): MutableList<CommonItem<*>> {
         return CollectionUtils.newArrayList(
-                CommonItemClick(R.string.vibrate_1000ms) { VibrateUtils.vibrate(1000) },
+                CommonItemClick(R.string.vibrate_1000ms) {
+                    VibrateUtils.vibrate(1000)
+                },
                 CommonItemClick(R.string.vibrate_custom) {
                     VibrateUtils.vibrate(longArrayOf(0, 1000, 1000, 2000, 2000, 1000), 1)
                 },
-                CommonItemClick(R.string.vibrate_cancel) { VibrateUtils.cancel() }
+                CommonItemClick(R.string.vibrate_background) {
+                    backHome()
+                    mContentView.postDelayed({
+//                        VibrateUtils.vibrate(1000) -- can not vibrate in background
+                        VibrateUtils.vibrateCompat(longArrayOf(0, 1000, 1000, 2000, 2000, 1000), 1)
+//                        VibrateUtils.vibrateCompat(1000)
+                    }, 1000)
+                },
+                CommonItemClick(R.string.vibrate_cancel) {
+                    VibrateUtils.cancel()
+                }
         )
     }
 
     override fun onDestroy() {
         super.onDestroy()
         VibrateUtils.cancel()
+    }
+
+    private fun backHome() {
+        val intent = Intent(Intent.ACTION_MAIN).apply {
+            addCategory(Intent.CATEGORY_HOME)
+        }
+        startActivity(intent)
     }
 }
