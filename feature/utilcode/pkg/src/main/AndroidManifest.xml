@@ -275,6 +275,9 @@
             android:name=".feature.volume.VolumeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
+        <activity android:name=".feature.sound.SoundActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop"/>
 
         <meta-data
             android:name="app_meta_data"
