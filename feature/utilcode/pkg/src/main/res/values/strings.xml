@@ -366,5 +366,6 @@
     <!--Vibrate 相关-->
     <string name="vibrate_1000ms">Vibrate 1000ms</string>
     <string name="vibrate_custom">Vibrate Custom</string>
+    <string name="vibrate_background">Vibrate Background</string>
     <string name="vibrate_cancel">Cancel</string>
 </resources>
