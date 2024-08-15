@@ -24,11 +24,14 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresPermission;
 
 import static android.Manifest.permission.KILL_BACKGROUND_PROCESSES;
+
 
 /**
  * <pre>
@@ -221,6 +224,7 @@ public final class ProcessUtils {
     private static String getCurrentProcessNameByFile() {
         try {
             File file = new File("/proc/" + android.os.Process.myPid() + "/" + "cmdline");
+            //  Use Files.lines(Paths.get(file)), because Files.lines is recommended for large files.
             BufferedReader mBufferedReader = new BufferedReader(new FileReader(file));
             String processName = mBufferedReader.readLine().trim();
             mBufferedReader.close();
