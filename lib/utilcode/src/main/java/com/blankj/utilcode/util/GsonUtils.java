@@ -2,8 +2,11 @@ package com.blankj.utilcode.util;
 
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.Reader;
@@ -12,8 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-
-import androidx.annotation.NonNull;
 
 
 /**
@@ -26,8 +27,8 @@ import androidx.annotation.NonNull;
  */
 public final class GsonUtils {
 
-    private static final String KEY_DEFAULT   = "defaultGson";
-    private static final String KEY_DELEGATE  = "delegateGson";
+    private static final String KEY_DEFAULT = "defaultGson";
+    private static final String KEY_DELEGATE = "delegateGson";
     private static final String KEY_LOG_UTILS = "logUtilsGson";
 
     private static final Map<String, Gson> GSONS = new ConcurrentHashMap<>();
@@ -169,6 +170,28 @@ public final class GsonUtils {
     }
 
     /**
+     * Converts {@link JsonElement} to given type.
+     *
+     * @param json     the JsonElement to convert.
+     * @param classOfT The class of T
+     * @return instance of type
+     */
+    public static <T> T fromJson(JsonElement json, Class<T> classOfT) {
+        return fromJson(getGson(), json, classOfT);
+    }
+
+    /**
+     * Converts {@link JsonElement} to given type.
+     *
+     * @param json    the JsonElement to convert.
+     * @param typeOfT The specific genericized type of src.
+     * @return instance of type
+     */
+    public static <T> T fromJson(JsonElement json, Type typeOfT) {
+        return fromJson(getGson(), json, typeOfT);
+    }
+
+    /**
      * Converts {@link String} to given type.
      *
      * @param gson The gson.
@@ -214,6 +237,30 @@ public final class GsonUtils {
      */
     public static <T> T fromJson(@NonNull final Gson gson, final Reader reader, @NonNull final Type type) {
         return gson.fromJson(reader, type);
+    }
+
+    /**
+     * Converts {@link JsonElement} to given type.
+     *
+     * @param gson     The gson.
+     * @param json     the JsonElement to convert.
+     * @param classOfT The class of T
+     * @return instance of type
+     */
+    public static <T> T fromJson(@NonNull final Gson gson, JsonElement json, Class<T> classOfT) {
+        return gson.fromJson(json, classOfT);
+    }
+
+    /**
+     * Converts {@link JsonElement} to given type.
+     *
+     * @param gson    The gson.
+     * @param json    the JsonElement to convert.
+     * @param typeOfT The specific genericized type of src.
+     * @return instance of type
+     */
+    public static <T> T fromJson(@NonNull final Gson gson, JsonElement json, Type typeOfT) {
+        return gson.fromJson(json, typeOfT);
     }
 
     /**
