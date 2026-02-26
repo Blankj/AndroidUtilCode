@@ -1,4 +1,4 @@
-[![logo][logo]](https://github.com/Blankj/AndroidUtilCode)
+[![logo][logo]](https://github.com/Blankj/AndroidUtilCode)- AN AMAZING PROJECT 
 
 [![frame][frame]](https://github.com/Blankj/AucFrameTemplate)
 
